@@ -6,82 +6,149 @@ import { useState } from "react";
 export function Chat() {
   const { messages, sendMessage, status, error } = useChat();
   const [input, setInput] = useState("");
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const isLoading = status === "streaming" || status === "submitted";
+  const hasMessages = messages.length > 0;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
     sendMessage({ text: input });
     setInput("");
+    setIsExpanded(true);
   };
 
   return (
-    <div className="flex flex-col w-full max-w-2xl mx-auto h-full">
-      <div className="flex-1 space-y-4 p-4 overflow-y-auto">
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`flex ${
-              message.role === "user" ? "justify-end" : "justify-start"
+    <section className="border-t border-[var(--divider)] bg-[var(--background)]">
+      {/* Expandable Messages Area */}
+      {(hasMessages || isLoading) && (
+        <div
+          className={`overflow-hidden transition-all duration-[var(--motion-base)] ease-out ${
+            isExpanded ? "max-h-[50vh]" : "max-h-0"
+          }`}
+        >
+          <div className="max-w-2xl mx-auto px-4 py-4 space-y-3 overflow-y-auto max-h-[50vh]">
+            {messages.map((message) => (
+              <div
+                key={message.id}
+                className={`flex ${
+                  message.role === "user" ? "justify-end" : "justify-start"
+                }`}
+              >
+                <div
+                  className={`max-w-[85%] rounded-[var(--radius-lg)] px-4 py-3 ${
+                    message.role === "user"
+                      ? "bg-[var(--accent)] text-[var(--accent-text)]"
+                      : "bg-[var(--surface)] text-[var(--foreground)]"
+                  }`}
+                >
+                  {message.parts.map((part, i) =>
+                    part.type === "text" ? (
+                      <p key={i} className="whitespace-pre-wrap text-[15px] leading-relaxed">
+                        {part.text}
+                      </p>
+                    ) : null
+                  )}
+                </div>
+              </div>
+            ))}
+
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="bg-[var(--surface)] rounded-[var(--radius-lg)] px-4 py-3">
+                  <div className="flex space-x-1.5">
+                    <div className="w-2 h-2 bg-[var(--muted)] rounded-full animate-bounce" />
+                    <div className="w-2 h-2 bg-[var(--muted)] rounded-full animate-bounce [animation-delay:0.15s]" />
+                    <div className="w-2 h-2 bg-[var(--muted)] rounded-full animate-bounce [animation-delay:0.3s]" />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {error && (
+              <div className="text-[var(--error)] text-sm p-3 bg-red-50 dark:bg-red-900/20 rounded-[var(--radius-md)]">
+                {error.message}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Toggle Button (when messages exist) */}
+      {hasMessages && (
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="w-full flex items-center justify-center gap-2 py-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] border-b border-[var(--divider)]"
+          aria-label={isExpanded ? "Collapse chat" : "Expand chat"}
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`transition-transform duration-[var(--motion-fast)] ${
+              isExpanded ? "rotate-180" : ""
             }`}
           >
-            <div
-              className={`max-w-[80%] rounded-2xl px-4 py-2 ${
-                message.role === "user"
-                  ? "bg-blue-600 text-white"
-                  : "bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
-              }`}
-            >
-              {message.parts.map((part, i) =>
-                part.type === "text" ? (
-                  <p key={i} className="whitespace-pre-wrap">
-                    {part.text}
-                  </p>
-                ) : null
-              )}
-            </div>
-          </div>
-        ))}
+            <path d="M18 15l-6-6-6 6" />
+          </svg>
+          <span className="text-xs uppercase tracking-wider">
+            {isExpanded ? "Hide" : "Show"} conversation
+          </span>
+        </button>
+      )}
 
-        {isLoading && (
-          <div className="flex justify-start">
-            <div className="bg-zinc-200 dark:bg-zinc-800 rounded-2xl px-4 py-2">
-              <div className="flex space-x-1">
-                <div className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce" />
-                <div className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce [animation-delay:0.1s]" />
-                <div className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce [animation-delay:0.2s]" />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {error && (
-          <div className="text-red-500 text-sm p-2 bg-red-50 dark:bg-red-900/20 rounded">
-            Error: {error.message}
-          </div>
-        )}
-      </div>
-
+      {/* Input Area */}
       <form
         onSubmit={handleSubmit}
-        className="flex gap-2 p-4 border-t border-zinc-200 dark:border-zinc-800"
+        className="max-w-2xl mx-auto flex gap-3 p-4"
       >
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Type a message..."
-          aria-label="Message input"
-          className="flex-1 px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-full bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Ask about this passage..."
+          aria-label="Ask about this scripture"
+          className="flex-1 min-h-[44px] px-4 py-2 bg-[var(--surface)] border border-[var(--divider)] rounded-[var(--radius-full)] text-[var(--foreground)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-shadow duration-[var(--motion-fast)]"
         />
         <button
           type="submit"
           disabled={isLoading || !input.trim()}
-          className="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="min-h-[44px] min-w-[44px] px-5 bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] hover:bg-[var(--accent-hover)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-[var(--motion-fast)] active:scale-[0.98]"
         >
-          Send
+          {isLoading ? (
+            <svg
+              className="w-5 h-5 animate-spin mx-auto"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <circle cx="12" cy="12" r="10" strokeOpacity="0.25" />
+              <path d="M12 2a10 10 0 0 1 10 10" strokeLinecap="round" />
+            </svg>
+          ) : (
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="mx-auto"
+            >
+              <path d="M22 2L11 13" />
+              <path d="M22 2L15 22L11 13L2 9L22 2Z" />
+            </svg>
+          )}
         </button>
       </form>
-    </div>
+    </section>
   );
 }
