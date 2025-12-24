@@ -32,6 +32,9 @@ export async function GET(request: Request) {
   const themeParam = searchParams.get("theme");
 
   // Build prompt with optional theme context
+  // Request widescreen 16:9 aspect ratio to match the hero image viewport
+  const aspectRatioInstruction = "Generate the image in WIDESCREEN LANDSCAPE format with a 16:9 aspect ratio (wide, not square).";
+
   let prompt: string;
   if (themeParam) {
     try {
@@ -43,12 +46,12 @@ Visual elements: ${theme.elements}
 Color palette: ${theme.palette}
 Style: ${theme.style}
 
-Generate a beautiful, reverent image that captures the essence of this scripture. Do not include any text, letters, or words in the image.`;
+${aspectRatioInstruction} Generate a beautiful, reverent image that captures the essence of this scripture. Do not include any text, letters, or words in the image.`;
     } catch {
-      prompt = `Create a biblical illustration for this verse: "${verseText}". Style: classical religious art, ethereal lighting, majestic. Generate a beautiful, reverent image. Do not include any text, letters, or words in the image.`;
+      prompt = `Create a biblical illustration for this verse: "${verseText}". Style: classical religious art, ethereal lighting, majestic. ${aspectRatioInstruction} Generate a beautiful, reverent image. Do not include any text, letters, or words in the image.`;
     }
   } else {
-    prompt = `Create a biblical illustration for this verse: "${verseText}". Style: classical religious art, ethereal lighting, majestic. Generate a beautiful, reverent image. Do not include any text, letters, or words in the image.`;
+    prompt = `Create a biblical illustration for this verse: "${verseText}". Style: classical religious art, ethereal lighting, majestic. ${aspectRatioInstruction} Generate a beautiful, reverent image. Do not include any text, letters, or words in the image.`;
   }
 
   try {
