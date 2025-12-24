@@ -10,10 +10,10 @@ const openai = new OpenAI({
 
 const isImageGenerationEnabled = process.env.ENABLE_IMAGE_GENERATION === "true";
 
-// Hardcoded Bible text for image generation prompt
-const BIBLE_TEXT = "In the beginning God created the heaven and the earth. And the earth was without form, and void; and darkness was upon the face of the deep.";
+// Fallback text if no verse provided
+const DEFAULT_TEXT = "In the beginning God created the heaven and the earth.";
 
-export async function GET() {
+export async function GET(request: Request) {
   if (!isImageGenerationEnabled) {
     return NextResponse.json(
       { error: "Image generation disabled" },
@@ -21,12 +21,16 @@ export async function GET() {
     );
   }
 
+  // Get verse text from query param
+  const { searchParams } = new URL(request.url);
+  const verseText = searchParams.get("text") || DEFAULT_TEXT;
+
   try {
     const response = await openai.images.generate({
       model: "dall-e-2",
-      prompt: `Biblical illustration: ${BIBLE_TEXT}. Style: classical religious art, ethereal lighting, majestic`,
+      prompt: `Biblical illustration: ${verseText}. Style: classical religious art, ethereal lighting, majestic`,
       n: 1,
-      size: "512x512",
+      size: "1024x1024",
     });
 
     const imageUrl = response.data?.[0]?.url;
