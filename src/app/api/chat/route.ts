@@ -15,8 +15,12 @@ const openRouter = createOpenAI({
   },
 });
 
-const baseSystemPrompt =
-  "You are Visibible, a prototype to vibe with the Bible. Keep replies short and grounded in the passage.";
+// Verse context for prev/next verses
+const verseContextSchema = z.object({
+  number: z.number(),
+  text: z.string(),
+  reference: z.string().optional(),
+});
 
 const pageContextSchema = z
   .object({
@@ -33,6 +37,8 @@ const pageContextSchema = z
         })
       )
       .optional(),
+    prevVerse: verseContextSchema.optional(),
+    nextVerse: verseContextSchema.optional(),
   })
   .passthrough();
 
@@ -57,32 +63,61 @@ const formatVerses = (verses?: PageContext["verses"]) => {
   return compact.length > maxLength ? `${compact.slice(0, maxLength).trim()}...` : compact;
 };
 
-const formatContext = (context?: PageContext | string) => {
-  if (!context) return null;
+/**
+ * Build a rich, contextual system prompt for the AI.
+ * This gives the AI full awareness of where we are in Scripture.
+ */
+const buildSystemPrompt = (context?: PageContext | string): string => {
+  const basePrompt = `You are Visibible, a reverent guide helping users connect deeply with Scripture.`;
+
+  if (!context) {
+    return `${basePrompt}\n\nHelp users understand and connect with God's Word. Be spiritually encouraging and keep responses grounded in Scripture.`;
+  }
+
   if (typeof context === "string") {
     const trimmed = context.trim();
-    return trimmed.length > 0 ? trimmed : null;
+    return trimmed.length > 0
+      ? `${basePrompt}\n\nContext: ${trimmed}`
+      : basePrompt;
   }
 
-  const parts: string[] = [];
-  const { book, chapter, verseRange, heroCaption, imageTitle } = context;
-  const verseText = formatVerses(context.verses);
-  let passage = "";
+  const { book, chapter, verseRange, prevVerse, nextVerse } = context;
+  const currentVerseText = formatVerses(context.verses);
 
-  if (book) passage = book;
+  // Build location string (e.g., "Genesis 1:3")
+  let location = "";
+  if (book) location = book;
   if (typeof chapter === "number") {
-    passage = passage ? `${passage} ${chapter}` : `${chapter}`;
+    location = location ? `${location} ${chapter}` : `Chapter ${chapter}`;
   }
   if (verseRange) {
-    passage = passage ? `${passage}:${verseRange}` : verseRange;
+    location = location ? `${location}:${verseRange}` : `Verse ${verseRange}`;
   }
 
-  if (passage) parts.push(`Passage: ${passage}`);
-  if (heroCaption) parts.push(`Hero: ${heroCaption}`);
-  if (imageTitle) parts.push(`Image: ${imageTitle}`);
-  if (verseText) parts.push(`Verses: ${verseText}`);
+  // Build the full system prompt
+  let prompt = basePrompt;
 
-  return parts.length > 0 ? parts.join("; ") : null;
+  // Add current position
+  if (location) {
+    prompt += `\n\nCurrent Position: ${location}`;
+  }
+
+  // Add scripture context with prev/current/next
+  prompt += "\n\nScripture Context:";
+  if (prevVerse) {
+    prompt += `\n- Previous (v${prevVerse.number}): "${prevVerse.text}"`;
+  }
+  if (currentVerseText) {
+    prompt += `\n- CURRENT${verseRange ? ` (v${verseRange})` : ""}: "${currentVerseText}"`;
+  }
+  if (nextVerse) {
+    prompt += `\n- Next (v${nextVerse.number}): "${nextVerse.text}"`;
+  }
+
+  // Add guidance
+  prompt += `\n\nHelp users understand this verse in its biblical context. Share its meaning within the chapter and book, its theological significance, and how it connects to the broader story of Scripture. Be spiritually encouraging and help users connect personally with God's Word. Keep responses grounded but offer deeper insight when helpful.`;
+
+  return prompt;
 };
 
 /**
@@ -151,10 +186,7 @@ export async function POST(req: Request) {
       : process.env.OPENROUTER_API_KEY
         ? openRouter("anthropic/claude-3-haiku")
         : openai("gpt-4o-mini");
-    const contextLine = formatContext(context);
-    const system = contextLine
-      ? `${baseSystemPrompt}\nContext: ${contextLine}`
-      : baseSystemPrompt;
+    const system = buildSystemPrompt(context);
 
     const result = streamText({
       model,

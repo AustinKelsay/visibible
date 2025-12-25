@@ -11,6 +11,12 @@ interface ChapterTheme {
   style: string;
 }
 
+interface VerseContext {
+  number: number;
+  text: string;
+  reference?: string;
+}
+
 interface HeroImageProps {
   alt?: string;
   caption?: string;
@@ -20,6 +26,9 @@ interface HeroImageProps {
   totalVerses?: number;
   prevUrl?: string | null;
   nextUrl?: string | null;
+  prevVerse?: VerseContext;
+  nextVerse?: VerseContext;
+  currentReference?: string;
 }
 
 export function HeroImage({
@@ -29,6 +38,9 @@ export function HeroImage({
   chapterTheme,
   prevUrl,
   nextUrl,
+  prevVerse,
+  nextVerse,
+  currentReference,
 }: HeroImageProps) {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -80,6 +92,9 @@ export function HeroImage({
         const params = new URLSearchParams();
         if (verseText) params.set("text", verseText);
         if (chapterTheme) params.set("theme", JSON.stringify(chapterTheme));
+        if (prevVerse) params.set("prevVerse", JSON.stringify(prevVerse));
+        if (nextVerse) params.set("nextVerse", JSON.stringify(nextVerse));
+        if (currentReference) params.set("reference", currentReference);
         const url = `/api/generate-image${params.toString() ? `?${params.toString()}` : ""}`;
         const response = await fetch(url, {
           signal: abortController.signal,
@@ -123,18 +138,18 @@ export function HeroImage({
     return () => {
       abortController.abort();
     };
-  }, [verseText, chapterTheme]);
+  }, [verseText, chapterTheme, prevVerse, nextVerse, currentReference]);
 
   return (
     <figure className="relative w-full">
       {/* Image Container */}
-      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-[var(--surface)]">
+      <div className="relative w-full aspect-[16/9] overflow-hidden bg-[var(--surface)]">
         {imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={imageUrl}
             alt={alt}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
         ) : (
           /* Placeholder with skeleton loader */

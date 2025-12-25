@@ -7,16 +7,18 @@ High-level overview of how Visibible generates scripture illustrations. Details 
 - Each verse has its own AI-generated image.
 - Images are generated server-side via OpenRouter using Google's Gemini model.
 - Chapter-level themes provide visual consistency across verses within a chapter.
+- **Storyboard context**: Images include prev/next verse context for visual narrative continuity.
 - Browser-level caching ensures each verse's image persists across soft refreshes.
 
 ## Current Flow
 
-1. Verse page renders `HeroImage` with verse text and chapter theme
-2. Client fetches `/api/generate-image?text={verse}&theme={theme JSON}`
-3. Server builds enhanced prompt using verse + theme context
-4. Server generates image using OpenRouter (`google/gemini-2.5-flash-image-preview`)
-5. Response includes `Cache-Control` header for browser caching
-6. Generated image URL (or base64 data URL) is displayed in the hero area
+1. Verse page fetches current verse AND prev/next verses from Bible API
+2. Page renders `HeroImage` with verse text, chapter theme, and prev/next verse context
+3. Client fetches `/api/generate-image` with text, theme, prevVerse, nextVerse params
+4. Server builds **storyboard-aware prompt** using verse + surrounding context
+5. Server generates image using OpenRouter (`google/gemini-2.5-flash-image-preview`)
+6. Response includes `Cache-Control` header for browser caching
+7. Generated image URL (or base64 data URL) is displayed in the hero area
 
 ## Chapter Themes
 
@@ -38,26 +40,49 @@ This ensures all verses in Genesis 1 share:
 
 ## Prompt Construction
 
-Prompts combine verse text with chapter theme:
+Prompts combine verse text with chapter theme AND storyboard context:
 
 ```
-Biblical illustration: {verse text}
+Create a biblical illustration for {reference}: "{verse text}"
+
+NARRATIVE CONTEXT (for visual continuity - this is a storyboard):
+- Previous scene (v{N-1}): "{prev verse text}"
+- CURRENT SCENE (the verse to illustrate): "{verse text}"
+- Next scene (v{N+1}): "{next verse text}"
+
+This is part of a visual storyboard through Scripture. Maintain visual consistency
+with the flow of the narrative while focusing on THIS verse's moment.
 
 Setting: {theme.setting}
 Visual elements: {theme.elements}
 Color palette: {theme.palette}
 Style: {theme.style}
+
+Generate the image in WIDESCREEN LANDSCAPE format with a 16:9 aspect ratio.
 ```
 
 Example for Genesis 1:3:
 ```
-Biblical illustration: And God said, Let there be light: and there was light.
+Create a biblical illustration for Genesis 1:3: "And God said, Let there be light: and there was light."
+
+NARRATIVE CONTEXT (for visual continuity - this is a storyboard):
+- Previous scene (v2): "And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters."
+- CURRENT SCENE (the verse to illustrate): "And God said, Let there be light: and there was light."
+- Next scene (v4): "And God saw the light, that it was good: and God divided the light from the darkness."
+
+This is part of a visual storyboard through Scripture. Maintain visual consistency
+with the flow of the narrative while focusing on THIS verse's moment.
 
 Setting: Creation of the cosmos
 Visual elements: primordial void, divine light rays, swirling waters, emerging forms
 Color palette: deep cosmic blues, radiant golds, ethereal whites
 Style: classical religious art, Baroque lighting, majestic and reverent
 ```
+
+The storyboard context helps the AI:
+- Understand where we are in the narrative flow
+- Create visual continuity from verse to verse
+- Focus on THIS verse's unique moment while maintaining consistency
 
 ## Caching Strategy
 

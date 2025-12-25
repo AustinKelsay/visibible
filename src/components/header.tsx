@@ -7,7 +7,7 @@ export function Header() {
   const { toggleMenu } = useNavigation();
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md bg-[var(--background)]/80 border-b border-[var(--divider)]">
+    <header className="z-50 bg-[var(--background)] border-b border-[var(--divider)]">
       <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
         <h1 className="text-lg font-semibold tracking-tight">Visibible</h1>
         <nav className="flex items-center gap-1">

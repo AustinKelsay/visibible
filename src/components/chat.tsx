@@ -4,6 +4,12 @@ import { useChat } from "@ai-sdk/react";
 import { useState } from "react";
 import { ChevronUp, Loader2, Send } from "lucide-react";
 
+type VerseContext = {
+  number: number;
+  text: string;
+  reference?: string;
+};
+
 type PageContext = {
   book?: string;
   chapter?: number;
@@ -11,6 +17,8 @@ type PageContext = {
   heroCaption?: string;
   imageTitle?: string;
   verses?: Array<{ number?: number; text?: string }>;
+  prevVerse?: VerseContext;
+  nextVerse?: VerseContext;
 };
 
 type ChatProps = {

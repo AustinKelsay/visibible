@@ -8,9 +8,10 @@ This document describes the current image generation implementation. It is inten
 
 Visibible generates AI illustrations for each scripture verse using OpenRouter with Google's Gemini model.
 
-- Each verse page passes its text and chapter theme to the `HeroImage` component.
-- Client fetches `/api/generate-image?text={verse}&theme={theme JSON}`.
-- Server builds an enhanced prompt combining verse text with theme context.
+- Each verse page fetches current, previous, and next verses from the Bible API.
+- Page passes verse text, chapter theme, and **prev/next verse context** to `HeroImage`.
+- Client fetches `/api/generate-image` with text, theme, prevVerse, nextVerse params.
+- Server builds a **storyboard-aware prompt** for visual narrative continuity.
 - Server generates an image via OpenRouter (Gemini) and returns the URL or base64 data.
 - Browser caching controls regeneration behavior per-verse.
 
@@ -62,6 +63,12 @@ Themes ensure visual consistency across all verses in a chapter:
 ### Component Props
 
 ```tsx
+interface VerseContext {
+  number: number;
+  text: string;
+  reference?: string;  // e.g., "Genesis 1:2"
+}
+
 interface HeroImageProps {
   alt?: string;
   caption?: string;
@@ -69,6 +76,9 @@ interface HeroImageProps {
   chapterTheme?: ChapterTheme;  // Theme for visual consistency
   verseNumber?: number;         // Current verse (for navigation arrows)
   totalVerses?: number;         // Total verses (for navigation arrows)
+  prevVerse?: VerseContext;     // Previous verse for storyboard context
+  nextVerse?: VerseContext;     // Next verse for storyboard context
+  currentReference?: string;    // e.g., "Genesis 1:3"
 }
 ```
 
@@ -85,8 +95,9 @@ const [error, setError] = useState<string | null>(null);
 
 ### Fetch Trigger
 
-- `useEffect` with `[verseText, chapterTheme]` dependencies triggers fetch when either changes.
-- Builds URL with query params for both text and theme.
+- `useEffect` triggers fetch when verse or context changes.
+- Dependencies: `[verseText, chapterTheme, prevVerse, nextVerse, currentReference]`
+- Builds URL with query params for text, theme, and storyboard context.
 - Uses `AbortController` for cleanup on unmount or prop change.
 
 ```tsx
@@ -97,6 +108,9 @@ useEffect(() => {
     const params = new URLSearchParams();
     if (verseText) params.set("text", verseText);
     if (chapterTheme) params.set("theme", JSON.stringify(chapterTheme));
+    if (prevVerse) params.set("prevVerse", JSON.stringify(prevVerse));
+    if (nextVerse) params.set("nextVerse", JSON.stringify(nextVerse));
+    if (currentReference) params.set("reference", currentReference);
     const url = `/api/generate-image${params.toString() ? `?${params.toString()}` : ""}`;
 
     const response = await fetch(url, { signal: abortController.signal });
@@ -212,37 +226,64 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const verseText = searchParams.get("text") || DEFAULT_TEXT;
   const themeParam = searchParams.get("theme");
+  const prevVerseParam = searchParams.get("prevVerse");
+  const nextVerseParam = searchParams.get("nextVerse");
+  const reference = searchParams.get("reference") || "Scripture";
   // ...
 }
 ```
 
-- Reads `text` param for verse content
-- Reads `theme` param as JSON string
-- Falls back gracefully if either is missing
+- Reads `text` param for current verse content
+- Reads `theme` param as JSON string for chapter styling
+- Reads `prevVerse` and `nextVerse` as JSON for storyboard context
+- Reads `reference` for verse location (e.g., "Genesis 1:3")
+- Falls back gracefully if any are missing
 
 ### Prompt Building
 
-The API builds different prompts based on whether a theme is provided:
+The API builds **storyboard-aware prompts** that include narrative context:
 
-**With theme (enhanced prompt):**
 ```ts
-if (themeParam) {
-  const theme = JSON.parse(themeParam);
-  prompt = `Create a biblical illustration for this verse: "${verseText}"
-
-Setting: ${theme.setting}
-Visual elements: ${theme.elements}
-Color palette: ${theme.palette}
-Style: ${theme.style}
-
-Generate a beautiful, reverent image that captures the essence of this scripture. Do not include any text, letters, or words in the image.`;
+// Build narrative context section
+let narrativeContext = "";
+if (prevVerse || nextVerse) {
+  narrativeContext = "\n\nNARRATIVE CONTEXT (for visual continuity - this is a storyboard):";
+  if (prevVerse) {
+    narrativeContext += `\n- Previous scene (v${prevVerse.number}): "${prevVerse.text}"`;
+  }
+  narrativeContext += `\n- CURRENT SCENE (the verse to illustrate): "${verseText}"`;
+  if (nextVerse) {
+    narrativeContext += `\n- Next scene (v${nextVerse.number}): "${nextVerse.text}"`;
+  }
+  narrativeContext += "\n\nThis is part of a visual storyboard through Scripture...";
 }
 ```
 
-**Without theme (fallback):**
-```ts
-prompt = `Create a biblical illustration for this verse: "${verseText}". Style: classical religious art, ethereal lighting, majestic. Generate a beautiful, reverent image. Do not include any text, letters, or words in the image.`;
+**Full prompt structure:**
 ```
+Create a biblical illustration for Genesis 1:3: "And God said, Let there be light..."
+
+NARRATIVE CONTEXT (for visual continuity - this is a storyboard):
+- Previous scene (v2): "And the earth was without form, and void..."
+- CURRENT SCENE (the verse to illustrate): "And God said, Let there be light..."
+- Next scene (v4): "And God saw the light, that it was good..."
+
+This is part of a visual storyboard through Scripture. Maintain visual consistency
+with the flow of the narrative while focusing on THIS verse's moment.
+
+Setting: Creation of the cosmos
+Visual elements: primordial void, divine light rays, swirling waters
+Color palette: deep cosmic blues, radiant golds, ethereal whites
+Style: classical religious art, Baroque lighting, majestic and reverent
+
+Generate the image in WIDESCREEN LANDSCAPE format with a 16:9 aspect ratio.
+Generate a beautiful, reverent image. Do not include any text in the image.
+```
+
+The storyboard context helps the AI:
+- Understand where we are in the narrative
+- Create visual continuity from verse to verse
+- Focus on THIS verse while maintaining consistency
 
 ### Image Generation Call
 
@@ -266,7 +307,7 @@ const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
 - **Provider**: OpenRouter (chat completions endpoint with image modality)
 - **Model**: `google/gemini-2.5-flash-image-preview`
 - **Pricing**: ~$0.30/M input tokens, ~$2.50/M output tokens
-- **Prompt**: Verse text + theme context
+- **Prompt**: Verse text + storyboard context + theme styling
 
 ### Response Handling
 

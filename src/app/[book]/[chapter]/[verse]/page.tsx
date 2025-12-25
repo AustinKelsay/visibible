@@ -7,7 +7,13 @@ import { Header } from "@/components/header";
 import { BookMenu } from "@/components/book-menu";
 import { BOOK_BY_SLUG } from "@/data/bible-structure";
 import { getVerse } from "@/lib/bible-api";
-import { parseVerseUrl, getNavigationUrls } from "@/lib/navigation";
+import {
+  parseVerseUrl,
+  getNavigationUrls,
+  getPreviousVerse,
+  getNextVerse,
+  formatReference,
+} from "@/lib/navigation";
 
 interface VersePageProps {
   params: Promise<{
@@ -41,6 +47,28 @@ export default async function VersePage({ params }: VersePageProps) {
   const { prevUrl, nextUrl } = getNavigationUrls(location);
   const totalVerses = bookData.chapters[location.chapter - 1];
 
+  // Fetch prev/next verse data for contextual prompts
+  const prevLocation = getPreviousVerse(location);
+  const nextLocation = getNextVerse(location);
+
+  // Fetch in parallel for efficiency (Bible API caches by chapter)
+  const [prevVerseData, nextVerseData] = await Promise.all([
+    prevLocation
+      ? getVerse(prevLocation.book.slug, prevLocation.chapter, prevLocation.verse)
+      : Promise.resolve(null),
+    nextLocation
+      ? getVerse(nextLocation.book.slug, nextLocation.chapter, nextLocation.verse)
+      : Promise.resolve(null),
+  ]);
+
+  // Build context objects for prev/next verses
+  const prevVerse = prevVerseData && prevLocation
+    ? { number: prevLocation.verse, text: prevVerseData.text, reference: formatReference(prevLocation) }
+    : undefined;
+  const nextVerse = nextVerseData && nextLocation
+    ? { number: nextLocation.verse, text: nextVerseData.text, reference: formatReference(nextLocation) }
+    : undefined;
+
   return (
     <div className="flex min-h-screen flex-col bg-[var(--background)]">
       {/* Header */}
@@ -56,6 +84,9 @@ export default async function VersePage({ params }: VersePageProps) {
           totalVerses={totalVerses}
           prevUrl={prevUrl}
           nextUrl={nextUrl}
+          prevVerse={prevVerse}
+          nextVerse={nextVerse}
+          currentReference={`${bookData.name} ${location.chapter}:${location.verse}`}
         />
 
         {/* Scripture Reader */}
@@ -95,6 +126,8 @@ export default async function VersePage({ params }: VersePageProps) {
             verseRange: String(location.verse),
             heroCaption: verseData.text,
             verses: [{ number: location.verse, text: verseData.text }],
+            prevVerse,
+            nextVerse,
           }}
         />
       </div>

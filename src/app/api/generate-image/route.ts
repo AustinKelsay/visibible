@@ -26,20 +26,47 @@ export async function GET(request: Request) {
     );
   }
 
-  // Get verse text and theme from query params
+  // Get verse text, theme, and context from query params
   const { searchParams } = new URL(request.url);
   const verseText = searchParams.get("text") || DEFAULT_TEXT;
   const themeParam = searchParams.get("theme");
+  const prevVerseParam = searchParams.get("prevVerse");
+  const nextVerseParam = searchParams.get("nextVerse");
+  const reference = searchParams.get("reference") || "Scripture";
 
-  // Build prompt with optional theme context
-  // Request widescreen 16:9 aspect ratio to match the hero image viewport
+  // Parse prev/next verse context for storyboard continuity
+  let prevVerse: { number: number; text: string; reference?: string } | null = null;
+  let nextVerse: { number: number; text: string; reference?: string } | null = null;
+
+  try {
+    if (prevVerseParam) prevVerse = JSON.parse(prevVerseParam);
+    if (nextVerseParam) nextVerse = JSON.parse(nextVerseParam);
+  } catch {
+    // Ignore parsing errors, continue without context
+  }
+
+  // Build prompt with storyboard context for visual continuity
   const aspectRatioInstruction = "Generate the image in WIDESCREEN LANDSCAPE format with a 16:9 aspect ratio (wide, not square).";
+
+  // Build narrative context section
+  let narrativeContext = "";
+  if (prevVerse || nextVerse) {
+    narrativeContext = "\n\nNARRATIVE CONTEXT (for visual continuity - this is a storyboard):";
+    if (prevVerse) {
+      narrativeContext += `\n- Previous scene (v${prevVerse.number}): "${prevVerse.text}"`;
+    }
+    narrativeContext += `\n- CURRENT SCENE (the verse to illustrate): "${verseText}"`;
+    if (nextVerse) {
+      narrativeContext += `\n- Next scene (v${nextVerse.number}): "${nextVerse.text}"`;
+    }
+    narrativeContext += "\n\nThis is part of a visual storyboard through Scripture. Maintain visual consistency with the flow of the narrative while focusing on THIS verse's moment.";
+  }
 
   let prompt: string;
   if (themeParam) {
     try {
       const theme = JSON.parse(themeParam);
-      prompt = `Create a biblical illustration for this verse: "${verseText}"
+      prompt = `Create a biblical illustration for ${reference}: "${verseText}"${narrativeContext}
 
 Setting: ${theme.setting}
 Visual elements: ${theme.elements}
@@ -48,10 +75,18 @@ Style: ${theme.style}
 
 ${aspectRatioInstruction} Generate a beautiful, reverent image that captures the essence of this scripture. Do not include any text, letters, or words in the image.`;
     } catch {
-      prompt = `Create a biblical illustration for this verse: "${verseText}". Style: classical religious art, ethereal lighting, majestic. ${aspectRatioInstruction} Generate a beautiful, reverent image. Do not include any text, letters, or words in the image.`;
+      prompt = `Create a biblical illustration for ${reference}: "${verseText}"${narrativeContext}
+
+Style: classical religious art, ethereal lighting, majestic.
+
+${aspectRatioInstruction} Generate a beautiful, reverent image. Do not include any text, letters, or words in the image.`;
     }
   } else {
-    prompt = `Create a biblical illustration for this verse: "${verseText}". Style: classical religious art, ethereal lighting, majestic. ${aspectRatioInstruction} Generate a beautiful, reverent image. Do not include any text, letters, or words in the image.`;
+    prompt = `Create a biblical illustration for ${reference}: "${verseText}"${narrativeContext}
+
+Style: classical religious art, ethereal lighting, majestic.
+
+${aspectRatioInstruction} Generate a beautiful, reverent image. Do not include any text, letters, or words in the image.`;
   }
 
   try {
@@ -74,6 +109,10 @@ ${aspectRatioInstruction} Generate a beautiful, reverent image that captures the
         ],
         // Request image output
         modalities: ["image", "text"],
+        // Specify 16:9 widescreen aspect ratio
+        image_config: {
+          aspect_ratio: "16:9",
+        },
       }),
     });
 
