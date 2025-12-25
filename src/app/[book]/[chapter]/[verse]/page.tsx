@@ -7,6 +7,7 @@ import { Header } from "@/components/header";
 import { BookMenu } from "@/components/book-menu";
 import { BOOK_BY_SLUG } from "@/data/bible-structure";
 import { getVerse } from "@/lib/bible-api";
+import { getTranslationFromCookies } from "@/lib/get-translation";
 import {
   parseVerseUrl,
   getNavigationUrls,
@@ -37,8 +38,11 @@ export default async function VersePage({ params }: VersePageProps) {
     redirect("/genesis/1/1");
   }
 
-  // Fetch verse data from API
-  const verseData = await getVerse(book, location.chapter, location.verse);
+  // Get user's translation preference from cookie
+  const translation = await getTranslationFromCookies();
+
+  // Fetch verse data from API with user's translation preference
+  const verseData = await getVerse(book, location.chapter, location.verse, translation);
   if (!verseData) {
     redirect("/genesis/1/1");
   }
@@ -54,18 +58,18 @@ export default async function VersePage({ params }: VersePageProps) {
   // Fetch in parallel for efficiency (Bible API caches by chapter)
   const [prevVerseData, nextVerseData] = await Promise.all([
     prevLocation
-      ? getVerse(prevLocation.book.slug, prevLocation.chapter, prevLocation.verse)
+      ? getVerse(prevLocation.book.slug, prevLocation.chapter, prevLocation.verse, translation)
       : Promise.resolve(null),
     nextLocation
-      ? getVerse(nextLocation.book.slug, nextLocation.chapter, nextLocation.verse)
+      ? getVerse(nextLocation.book.slug, nextLocation.chapter, nextLocation.verse, translation)
       : Promise.resolve(null),
   ]);
 
-  // Build context objects for prev/next verses
-  const prevVerse = prevVerseData && prevLocation
+  // Build context objects for prev/next verses (only if same chapter for relevant narrative context)
+  const prevVerse = prevVerseData && prevLocation && prevLocation.chapter === location.chapter
     ? { number: prevLocation.verse, text: prevVerseData.text, reference: formatReference(prevLocation) }
     : undefined;
-  const nextVerse = nextVerseData && nextLocation
+  const nextVerse = nextVerseData && nextLocation && nextLocation.chapter === location.chapter
     ? { number: nextLocation.verse, text: nextVerseData.text, reference: formatReference(nextLocation) }
     : undefined;
 

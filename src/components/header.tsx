@@ -2,6 +2,7 @@
 
 import { Search, Menu } from "lucide-react";
 import { useNavigation } from "@/context/navigation-context";
+import { TranslationSelector } from "./translation-selector";
 
 export function Header() {
   const { toggleMenu } = useNavigation();
@@ -11,6 +12,7 @@ export function Header() {
       <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
         <h1 className="text-lg font-semibold tracking-tight">Visibible</h1>
         <nav className="flex items-center gap-1">
+          <TranslationSelector variant="compact" />
           <button
             className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             aria-label="Search"

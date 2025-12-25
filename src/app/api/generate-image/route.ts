@@ -66,27 +66,39 @@ export async function GET(request: Request) {
   if (themeParam) {
     try {
       const theme = JSON.parse(themeParam);
-      prompt = `Create a biblical illustration for ${reference}: "${verseText}"${narrativeContext}
+      prompt = `CRITICAL REQUIREMENT: Generate a purely visual image with absolutely NO TEXT, NO LETTERS, NO WORDS, NO WRITING of any kind. No signs, labels, captions, titles, inscriptions, scrolls with writing, or any readable characters.
+
+Render a vivid biblical scene for ${reference}: "${verseText}"${narrativeContext}
 
 Setting: ${theme.setting}
 Visual elements: ${theme.elements}
 Color palette: ${theme.palette}
 Style: ${theme.style}
 
-${aspectRatioInstruction} Generate a beautiful, reverent image that captures the essence of this scripture. Do not include any text, letters, or words in the image.`;
+FRAMING: Cinematic screenshot from a film - direct camera view that fills the entire frame edge to edge. No borders, frames, gallery walls, or museum settings. The viewer is IN the scene.
+
+${aspectRatioInstruction}`;
     } catch {
-      prompt = `Create a biblical illustration for ${reference}: "${verseText}"${narrativeContext}
+      prompt = `CRITICAL REQUIREMENT: Generate a purely visual image with absolutely NO TEXT, NO LETTERS, NO WORDS, NO WRITING of any kind. No signs, labels, captions, titles, inscriptions, scrolls with writing, or any readable characters.
 
-Style: classical religious art, ethereal lighting, majestic.
+Render a vivid biblical scene for ${reference}: "${verseText}"${narrativeContext}
 
-${aspectRatioInstruction} Generate a beautiful, reverent image. Do not include any text, letters, or words in the image.`;
+Style: ethereal, majestic, dramatic lighting. Cinematic movie still that fills the entire frame.
+
+FRAMING: Cinematic screenshot from a film - direct camera view that fills the entire frame edge to edge. No borders, frames, gallery walls, or museum settings. The viewer is IN the scene.
+
+${aspectRatioInstruction}`;
     }
   } else {
-    prompt = `Create a biblical illustration for ${reference}: "${verseText}"${narrativeContext}
+    prompt = `Render a vivid biblical scene for ${reference}: "${verseText}"${narrativeContext}
 
-Style: classical religious art, ethereal lighting, majestic.
+Style: ethereal, majestic, dramatic lighting. Cinematic movie still that fills the entire frame.
 
-${aspectRatioInstruction} Generate a beautiful, reverent image. Do not include any text, letters, or words in the image.`;
+CRITICAL: NO TEXT IN IMAGE. Do not render any text, letters, words, labels, signs, captions, titles, or writing of any kind.
+
+FRAMING: This is a cinematic screenshot from a film - a direct camera view of the scene that fills the entire frame edge to edge. No borders, no frames, no gallery walls, no museum setting, no picture hanging on a wall. The viewer is IN the scene, not looking at artwork.
+
+${aspectRatioInstruction}`;
   }
 
   try {

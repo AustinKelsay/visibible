@@ -1,5 +1,15 @@
 import { BOOK_BY_SLUG, BibleBook } from "@/data/bible-structure";
 
+// Supported translations
+export type Translation = 'web' | 'kjv';
+
+export const TRANSLATIONS = {
+  web: { code: 'WEB', name: 'World English Bible', year: 2000 },
+  kjv: { code: 'KJV', name: 'King James Version', year: 1611 },
+} as const;
+
+export const DEFAULT_TRANSLATION: Translation = 'web';
+
 export interface VerseData {
   bookId: string;
   bookName: string;
@@ -44,18 +54,19 @@ const chapterCache = new Map<string, ChapterData>();
 export async function getVerse(
   bookSlug: string,
   chapter: number,
-  verse: number
+  verse: number,
+  translation: Translation = DEFAULT_TRANSLATION
 ): Promise<VerseData | null> {
   const book = BOOK_BY_SLUG[bookSlug.toLowerCase()];
   if (!book) return null;
 
-  // Try to get from chapter cache first
-  const cacheKey = `${book.id}-${chapter}`;
+  // Try to get from chapter cache first (cache key includes translation)
+  const cacheKey = `${book.id}-${chapter}-${translation}`;
   let chapterData: ChapterData | null = chapterCache.get(cacheKey) || null;
 
   if (!chapterData) {
     // Fetch entire chapter and cache it
-    chapterData = await fetchChapter(book, chapter);
+    chapterData = await fetchChapter(book, chapter, translation);
     if (chapterData) {
       chapterCache.set(cacheKey, chapterData);
     }
@@ -72,16 +83,17 @@ export async function getVerse(
  */
 export async function getChapter(
   bookSlug: string,
-  chapter: number
+  chapter: number,
+  translation: Translation = DEFAULT_TRANSLATION
 ): Promise<ChapterData | null> {
   const book = BOOK_BY_SLUG[bookSlug.toLowerCase()];
   if (!book) return null;
 
-  const cacheKey = `${book.id}-${chapter}`;
+  const cacheKey = `${book.id}-${chapter}-${translation}`;
   const cached = chapterCache.get(cacheKey);
   if (cached) return cached;
 
-  const chapterData = await fetchChapter(book, chapter);
+  const chapterData = await fetchChapter(book, chapter, translation);
   if (chapterData) {
     chapterCache.set(cacheKey, chapterData);
   }
@@ -94,16 +106,17 @@ export async function getChapter(
  */
 async function fetchChapter(
   book: BibleBook,
-  chapter: number
+  chapter: number,
+  translation: Translation = DEFAULT_TRANSLATION
 ): Promise<ChapterData | null> {
   try {
     // Use the data endpoint for full chapter
-    const url = `https://bible-api.com/data/kjv/${book.id}/${chapter}`;
+    const url = `https://bible-api.com/data/${translation}/${book.id}/${chapter}`;
 
     const response = await fetch(url, {
       next: {
         revalidate: 86400 * 30, // 30 days - Bible text is immutable
-        tags: [`bible-${book.id}-${chapter}`],
+        tags: [`bible-${book.id}-${chapter}-${translation}`],
       },
     });
 
@@ -143,10 +156,11 @@ async function fetchChapter(
  * Useful for direct verse lookups like "John 3:16"
  */
 export async function getVerseByReference(
-  reference: string
+  reference: string,
+  translation: Translation = DEFAULT_TRANSLATION
 ): Promise<VerseData[] | null> {
   try {
-    const url = `https://bible-api.com/${encodeURIComponent(reference)}?translation=kjv`;
+    const url = `https://bible-api.com/${encodeURIComponent(reference)}?translation=${translation}`;
 
     const response = await fetch(url, {
       next: {

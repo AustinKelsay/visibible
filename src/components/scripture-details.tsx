@@ -2,17 +2,13 @@
 
 import { useState } from "react";
 import { ChevronDown, Info } from "lucide-react";
+import { usePreferences } from "@/context/preferences-context";
+import { TranslationSelector } from "./translation-selector";
 
 interface ScriptureDetailsProps {
   book: string;
   chapter: number;
   verseRange?: string;
-  version: {
-    code: string;
-    name: string;
-    language: string;
-    year: number;
-  };
   wordCount?: number;
   readingTime?: number;
   imageAttribution?: {
@@ -22,23 +18,16 @@ interface ScriptureDetailsProps {
   };
 }
 
-const defaultVersion = {
-  code: "KJV",
-  name: "King James Version",
-  language: "English",
-  year: 1611,
-};
-
 export function ScriptureDetails({
   book = "Genesis",
   chapter = 1,
   verseRange = "1-10",
-  version = defaultVersion,
   wordCount = 284,
   readingTime = 1,
   imageAttribution,
 }: Partial<ScriptureDetailsProps>) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { translationInfo } = usePreferences();
 
   return (
     <section className="border-t border-[var(--divider)]">
@@ -56,7 +45,7 @@ export function ScriptureDetails({
           <div>
             <p className="text-sm font-medium">Passage Details</p>
             <p className="text-xs text-[var(--muted)]">
-              {version?.code} · {book} {chapter}:{verseRange}
+              {translationInfo.code} · {book} {chapter}:{verseRange}
             </p>
           </div>
         </div>
@@ -79,16 +68,17 @@ export function ScriptureDetails({
         <div className="px-4 pb-4 space-y-4">
           {/* Version Section */}
           <div className="bg-[var(--surface)] rounded-[var(--radius-md)] overflow-hidden">
-            <div className="px-4 py-2 border-b border-[var(--divider)]">
+            <div className="px-4 py-2 border-b border-[var(--divider)] flex items-center justify-between">
               <p className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">
                 Translation
               </p>
+              <TranslationSelector variant="full" />
             </div>
             <div className="divide-y divide-[var(--divider)]">
-              <DetailRow label="Version" value={version?.code || "KJV"} />
-              <DetailRow label="Full Name" value={version?.name || "King James Version"} />
-              <DetailRow label="Language" value={version?.language || "English"} />
-              <DetailRow label="Edition" value={String(version?.year || 1611)} />
+              <DetailRow label="Version" value={translationInfo.code} />
+              <DetailRow label="Full Name" value={translationInfo.name} />
+              <DetailRow label="Language" value="English" />
+              <DetailRow label="Edition" value={String(translationInfo.year)} />
             </div>
           </div>
 
@@ -130,7 +120,7 @@ export function ScriptureDetails({
 
           {/* Copyright Notice */}
           <p className="text-xs text-[var(--muted)] text-center leading-relaxed px-4">
-            Scripture quotations are from the King James Version (KJV),
+            Scripture quotations are from the {translationInfo.name} ({translationInfo.code}),
             which is in the public domain.
           </p>
         </div>
