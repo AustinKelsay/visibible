@@ -20,10 +20,6 @@ interface OpenRouterModel {
   };
 }
 
-const MODEL_CACHE_TTL_MS = 1000 * 60 * 60;
-let cachedImageModels: ImageModel[] | null = null;
-let cacheUpdatedAt = 0;
-
 export interface ImageModelsResult {
   models: ImageModel[];
   error?: string;
@@ -40,11 +36,6 @@ function getDefaultImageModels(): ImageModel[] {
 }
 
 export async function fetchImageModels(openRouterApiKey: string): Promise<ImageModelsResult> {
-  const now = Date.now();
-  if (cachedImageModels && now - cacheUpdatedAt < MODEL_CACHE_TTL_MS) {
-    return { models: cachedImageModels };
-  }
-
   try {
     const response = await fetch("https://openrouter.ai/api/v1/models", {
       headers: {
@@ -88,8 +79,6 @@ export async function fetchImageModels(openRouterApiKey: string): Promise<ImageM
       imageModels.unshift(...getDefaultImageModels());
     }
 
-    cachedImageModels = imageModels;
-    cacheUpdatedAt = now;
     return { models: imageModels };
   } catch (error) {
     console.error("Error fetching image models:", error);
