@@ -5,9 +5,19 @@ High-level overview of how Visibible fetches Bible text. Details may change.
 ## Overview
 
 - Visibible uses [bible-api.com](https://bible-api.com) to fetch scripture text.
-- The KJV (King James Version) translation is used.
+- The default translation is WEB (World English Bible), with user-selectable alternatives.
 - All 66 books of the Bible are available.
 - Data is cached aggressively since scripture text is immutable.
+
+## Translation Handling
+
+- Supported translations are defined in `src/lib/bible-api.ts` as `TRANSLATIONS`.
+- The default translation is `DEFAULT_TRANSLATION` (`web`).
+- The current translation is stored in both:
+  - Cookie: `vibible-translation` (server reads on request).
+  - Local storage: `vibible-preferences` (client hydration).
+- Validation only accepts own keys from `TRANSLATIONS` (no prototype keys).
+- If validation fails or no preference is set, the app falls back to `DEFAULT_TRANSLATION`.
 
 ## Data Flow
 

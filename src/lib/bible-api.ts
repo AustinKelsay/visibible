@@ -1,12 +1,41 @@
 import { BOOK_BY_SLUG, BibleBook } from "@/data/bible-structure";
 
-// Supported translations
-export type Translation = 'web' | 'kjv';
+// Supported translations from bible-api.com
+export type Translation =
+  | 'web' | 'webbe' | 'kjv' | 'asv' | 'bbe' | 'darby' | 'dra' | 'ylt'
+  | 'oeb-cw' | 'oeb-us' | 'clementine' | 'almeida' | 'cherokee' | 'cuv' | 'bkr' | 'rccv';
 
-export const TRANSLATIONS = {
-  web: { code: 'WEB', name: 'World English Bible', year: 2000 },
-  kjv: { code: 'KJV', name: 'King James Version', year: 1611 },
-} as const;
+export const TRANSLATIONS: Record<Translation, { code: string; name: string; language: string; year?: number }> = {
+  // English translations
+  web: { code: 'WEB', name: 'World English Bible', language: 'English', year: 2000 },
+  webbe: { code: 'WEBBE', name: 'World English Bible (British)', language: 'English', year: 2000 },
+  kjv: { code: 'KJV', name: 'King James Version', language: 'English', year: 1611 },
+  asv: { code: 'ASV', name: 'American Standard Version', language: 'English', year: 1901 },
+  bbe: { code: 'BBE', name: 'Bible in Basic English', language: 'English', year: 1965 },
+  darby: { code: 'DARBY', name: 'Darby Bible', language: 'English', year: 1890 },
+  dra: { code: 'DRA', name: 'Douay-Rheims American', language: 'English', year: 1899 },
+  ylt: { code: 'YLT', name: "Young's Literal Translation", language: 'English', year: 1898 },
+  'oeb-cw': { code: 'OEB-CW', name: 'Open English Bible (Commonwealth)', language: 'English' },
+  'oeb-us': { code: 'OEB-US', name: 'Open English Bible (US)', language: 'English' },
+  // Latin
+  clementine: { code: 'CLEM', name: 'Clementine Latin Vulgate', language: 'Latin', year: 1592 },
+  // Portuguese
+  almeida: { code: 'ALM', name: 'João Ferreira de Almeida', language: 'Portuguese', year: 1819 },
+  // Cherokee
+  cherokee: { code: 'CHR', name: 'Cherokee New Testament', language: 'Cherokee' },
+  // Chinese
+  cuv: { code: 'CUV', name: 'Chinese Union Version', language: 'Chinese', year: 1919 },
+  // Czech
+  bkr: { code: 'BKR', name: 'Bible Kralická', language: 'Czech', year: 1613 },
+  // Romanian
+  rccv: { code: 'RCCV', name: 'Romanian Corrected Cornilescu', language: 'Romanian' },
+};
+
+// Group translations by language for UI
+export const TRANSLATION_GROUPS = {
+  English: ['web', 'webbe', 'kjv', 'asv', 'bbe', 'darby', 'dra', 'ylt', 'oeb-cw', 'oeb-us'] as Translation[],
+  Other: ['clementine', 'almeida', 'cherokee', 'cuv', 'bkr', 'rccv'] as Translation[],
+};
 
 export const DEFAULT_TRANSLATION: Translation = 'web';
 

@@ -26,8 +26,9 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const prefs = JSON.parse(stored);
-        if (prefs.translation && (prefs.translation === 'web' || prefs.translation === 'kjv')) {
-          setTranslationState(prefs.translation);
+        // Validate that the stored translation is a valid key in TRANSLATIONS
+        if (prefs.translation && Object.prototype.hasOwnProperty.call(TRANSLATIONS, prefs.translation)) {
+          setTranslationState(prefs.translation as Translation);
         }
       }
     } catch {

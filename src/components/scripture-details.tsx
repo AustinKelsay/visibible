@@ -77,8 +77,10 @@ export function ScriptureDetails({
             <div className="divide-y divide-[var(--divider)]">
               <DetailRow label="Version" value={translationInfo.code} />
               <DetailRow label="Full Name" value={translationInfo.name} />
-              <DetailRow label="Language" value="English" />
-              <DetailRow label="Edition" value={String(translationInfo.year)} />
+              <DetailRow label="Language" value={translationInfo.language} />
+              {translationInfo.year && (
+                <DetailRow label="Edition" value={String(translationInfo.year)} />
+              )}
             </div>
           </div>
 

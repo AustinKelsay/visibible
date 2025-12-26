@@ -68,6 +68,17 @@ Numbered books use hyphenated format:
 
 Handles all communication with bible-api.com.
 
+### Translation Support
+
+- Supported translations are declared in `TRANSLATIONS` with metadata (code, name, language, year).
+- The default translation is `DEFAULT_TRANSLATION` (`web`).
+- API URLs include the translation ID:
+  - Chapter: `https://bible-api.com/data/{translation}/{bookId}/{chapter}`
+  - Reference: `https://bible-api.com/{reference}?translation={translation}`
+- Translation is validated against own keys of `TRANSLATIONS` before use.
+  - Server cookie: `vibible-translation` via `getTranslationFromCookies`.
+  - Client hydration: `vibible-preferences` via `PreferencesProvider`.
+
 ### Data Types
 
 ```typescript
