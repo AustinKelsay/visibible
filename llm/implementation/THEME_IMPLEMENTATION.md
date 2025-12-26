@@ -329,36 +329,14 @@ Icon-only buttons always have `aria-label`:
 </div>
 ```
 
-**Shimmer skeleton** for async content (images, data):
+**Pulse overlay** for async content (images, data):
 ```tsx
-<div className="absolute inset-0 overflow-hidden">
-  <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite]
-    bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-</div>
+{isLoading && (
+  <div className="absolute inset-0 bg-white/10 dark:bg-white/5 animate-pulse" />
+)}
 ```
 
-### Delayed Loading Pattern
-
-To prevent flash of loading state for fast/cached responses, delay showing the loading indicator:
-
-```tsx
-const [isLoading, setIsLoading] = useState(true);
-const [showSkeleton, setShowSkeleton] = useState(false);
-
-useEffect(() => {
-  if (!isLoading) {
-    setShowSkeleton(false);
-    return;
-  }
-  const timer = setTimeout(() => setShowSkeleton(true), 300);
-  return () => clearTimeout(timer);
-}, [isLoading]);
-
-// Only render skeleton when showSkeleton is true
-{showSkeleton && <SkeletonLoader />}
-```
-
-**Why 300ms?** Fast enough to feel responsive, slow enough to skip for cached responses.
+Uses Tailwind's built-in `animate-pulse` for a reliable fade effect.
 
 ### Disabled States
 
@@ -404,11 +382,11 @@ className="skeleton"
 ```
 Provides pulsing animation with surface background.
 
-**Shimmer skeleton** (for large areas like images):
+**Pulse overlay** (for large areas like images):
 ```tsx
-className="animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent"
+className="animate-pulse bg-white/10 dark:bg-white/5"
 ```
-Provides sliding shimmer animation. See `@keyframes shimmer` in globals.css.
+Uses Tailwind's built-in `animate-pulse` for reliable fade animation.
 
 ---
 

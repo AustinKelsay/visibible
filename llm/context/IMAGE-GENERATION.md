@@ -5,7 +5,8 @@ High-level overview of how Visibible generates scripture illustrations. Details 
 ## Overview
 
 - Each verse has its own AI-generated image.
-- Images are generated server-side via OpenRouter using Google's Gemini model.
+- Images are generated server-side via OpenRouter.
+- **Model selection**: Users can choose any image-capable model from OpenRouter via a header dropdown.
 - Chapter-level themes provide visual consistency across verses within a chapter.
 - **Storyboard context**: Images include prev/next verse context for visual narrative continuity.
 - Browser-level caching ensures each verse's image persists across soft refreshes.
@@ -14,11 +15,12 @@ High-level overview of how Visibible generates scripture illustrations. Details 
 
 1. Verse page fetches current verse AND prev/next verses from Bible API
 2. Page renders `HeroImage` with verse text, chapter theme, and prev/next verse context
-3. Client fetches `/api/generate-image` with text, theme, prevVerse, nextVerse params
-4. Server builds **storyboard-aware prompt** using verse + surrounding context
-5. Server generates image using OpenRouter (`google/gemini-2.5-flash-image-preview`)
-6. Response includes `Cache-Control` header for browser caching
-7. Generated image URL (or base64 data URL) is displayed in the hero area
+3. `HeroImage` reads the selected model from `PreferencesContext`
+4. Client fetches `/api/generate-image` with text, theme, prevVerse, nextVerse, and **model** params
+5. Server builds **storyboard-aware prompt** using verse + surrounding context
+6. Server generates image using OpenRouter with the **user-selected model**
+7. Response includes `Cache-Control` header for browser caching
+8. Generated image URL (or base64 data URL) is displayed in the hero area
 
 ## Chapter Themes
 
@@ -97,18 +99,38 @@ Server-side Next.js caching is disabled (`dynamic = 'force-dynamic'`) so the bro
 
 Cache duration is 1 hour (`max-age=3600`).
 
-## Provider & Model
+## Model Selection
+
+Users can choose from **any image generation model** available on OpenRouter via a dropdown in the header.
+
+### How It Works
+
+1. Click the image icon (🖼️) in the header to open the model selector
+2. Models are fetched from OpenRouter's `/api/v1/models` endpoint
+3. Only models with image output capability are shown
+4. Models are grouped by provider (Google, OpenAI, Stability, etc.)
+5. Selection is persisted in localStorage and triggers image regeneration
+
+### Default Model
+
+- **Default**: `google/gemini-2.5-flash-image`
+- **Pricing**: ~$0.30/M input tokens, ~$2.50/M output tokens
+
+### Provider
 
 - **Provider**: OpenRouter (OpenAI-compatible API)
-- **Model**: `google/gemini-2.5-flash-image-preview`
-- **Pricing**: ~$0.30/M input tokens, ~$2.50/M output tokens
 - **Response format**: URL or base64 (handled automatically)
 - Per-verse caching reduces redundant generation costs
+- Model list is cached for 1 hour to minimize API calls
 
 ## Entry Points
 
-- API: `src/app/api/generate-image/route.ts`
-- UI: `src/components/hero-image.tsx`
-- Verse page: `src/app/[book]/[chapter]/[verse]/page.tsx`
+- **Image generation API**: `src/app/api/generate-image/route.ts`
+- **Image models API**: `src/app/api/image-models/route.ts`
+- **Hero image UI**: `src/components/hero-image.tsx`
+- **Model selector UI**: `src/components/image-model-selector.tsx`
+- **Preferences context**: `src/context/preferences-context.tsx`
+- **Type definitions**: `src/lib/image-models.ts`
+- **Verse page**: `src/app/[book]/[chapter]/[verse]/page.tsx`
 
 Note: Chapter themes are no longer hardcoded. The image generation uses verse text directly to create contextually appropriate illustrations.

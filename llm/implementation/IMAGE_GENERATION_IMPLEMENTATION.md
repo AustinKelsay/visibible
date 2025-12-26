@@ -6,13 +6,13 @@ This document describes the current image generation implementation. It is inten
 
 ## Architecture Overview
 
-Visibible generates AI illustrations for each scripture verse using OpenRouter with Google's Gemini model.
+Visibible generates AI illustrations for each scripture verse using OpenRouter. Users can select any image-capable model from a dropdown in the header.
 
 - Each verse page fetches current, previous, and next verses from the Bible API.
 - Page passes verse text, chapter theme, and **prev/next verse context** to `HeroImage`.
-- Client fetches `/api/generate-image` with text, theme, prevVerse, nextVerse params.
+- Client fetches `/api/generate-image` with text, theme, prevVerse, nextVerse, and **model** params.
 - Server builds a **storyboard-aware prompt** for visual narrative continuity.
-- Server generates an image via OpenRouter (Gemini) and returns the URL or base64 data.
+- Server generates an image via OpenRouter using the **user-selected model**.
 - Browser caching controls regeneration behavior per-verse.
 
 ---
@@ -51,6 +51,133 @@ Themes ensure visual consistency across all verses in a chapter:
 - Recurring visual motifs
 - Unified artistic style
 - Coherent narrative progression
+
+---
+
+## Model Selection System
+
+Users can choose from any image generation model available on OpenRouter.
+
+### Type Definitions
+
+```ts
+// src/lib/image-models.ts
+export interface ImageModel {
+  id: string;        // e.g., "google/gemini-2.5-flash-image"
+  name: string;      // Human-readable name
+  provider: string;  // e.g., "Google", "OpenAI"
+  pricing?: {
+    imageOutput?: string;
+  };
+}
+
+export const DEFAULT_IMAGE_MODEL = "google/gemini-2.5-flash-image";
+```
+
+### Models API Endpoint
+
+`src/app/api/image-models/route.ts` fetches and filters models from OpenRouter:
+
+```ts
+// GET /api/image-models
+export async function GET() {
+  const response = await fetch("https://openrouter.ai/api/v1/models", {
+    headers: {
+      Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+    },
+    next: { revalidate: 3600 }, // Cache for 1 hour
+  });
+
+  const data = await response.json();
+
+  // Filter for models that can output images
+  const imageModels = data.data
+    .filter((model) => model.architecture?.output_modalities?.includes("image"))
+    .map((model) => ({
+      id: model.id,
+      name: model.name,
+      provider: getProviderName(model.id),
+      pricing: { imageOutput: model.pricing?.image },
+    }));
+
+  return NextResponse.json({ models: imageModels });
+}
+```
+
+**Key features:**
+- Filters by `architecture.output_modalities` containing `"image"`
+- Groups models by provider (extracted from model ID)
+- 1-hour server-side caching via Next.js `revalidate`
+- Fallback to default model if API fails
+
+### Preferences Integration
+
+The image model preference is stored in `PreferencesContext`:
+
+```ts
+// src/context/preferences-context.tsx
+interface PreferencesContextType {
+  translation: Translation;
+  setTranslation: (translation: Translation) => void;
+  translationInfo: typeof TRANSLATIONS[Translation];
+  imageModel: string;                        // NEW
+  setImageModel: (model: string) => void;    // NEW
+}
+```
+
+**Persistence:**
+- Stored in `localStorage` under `vibible-preferences`
+- Also set as cookie `vibible-image-model` for potential server-side use
+- Triggers `router.refresh()` on change to regenerate image
+
+**Visual Feedback:**
+- When model changes, old image is cleared immediately
+- Placeholder gradient shows with pulse animation
+- New image replaces placeholder when generation completes
+
+### ImageModelSelector Component
+
+`src/components/image-model-selector.tsx` provides the UI:
+
+```tsx
+export function ImageModelSelector({ variant = "compact" }: Props) {
+  const { imageModel, setImageModel } = usePreferences();
+  const [models, setModels] = useState<ImageModel[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Lazy load models when dropdown opens
+  useEffect(() => {
+    if (isOpen && models.length === 0) {
+      fetch("/api/image-models")
+        .then((res) => res.json())
+        .then((data) => setModels(data.models));
+    }
+  }, [isOpen]);
+
+  // ... dropdown UI similar to TranslationSelector
+}
+```
+
+**Features:**
+- Compact variant for header (shows abbreviated name + image icon)
+- Models grouped by provider
+- Lazy loading (fetches only when opened)
+- Click-outside to close
+- Loading state while fetching
+- Error fallback to default model
+
+### Header Integration
+
+The selector is placed in the header next to the translation selector:
+
+```tsx
+// src/components/header.tsx
+<nav className="flex items-center gap-1">
+  <TranslationSelector variant="compact" />
+  <ImageModelSelector variant="compact" />
+  {/* ... other buttons */}
+</nav>
+```
 
 ---
 
@@ -95,12 +222,14 @@ const [error, setError] = useState<string | null>(null);
 
 ### Fetch Trigger
 
-- `useEffect` triggers fetch when verse or context changes.
-- Dependencies: `[verseText, chapterTheme, prevVerse, nextVerse, currentReference]`
-- Builds URL with query params for text, theme, and storyboard context.
+- `useEffect` triggers fetch when verse, context, or **model** changes.
+- Dependencies: `[verseText, chapterTheme, prevVerse, nextVerse, currentReference, imageModel]`
+- Builds URL with query params for text, theme, storyboard context, and **model**.
 - Uses `AbortController` for cleanup on unmount or prop change.
 
 ```tsx
+const { imageModel } = usePreferences();
+
 useEffect(() => {
   const abortController = new AbortController();
 
@@ -111,6 +240,7 @@ useEffect(() => {
     if (prevVerse) params.set("prevVerse", JSON.stringify(prevVerse));
     if (nextVerse) params.set("nextVerse", JSON.stringify(nextVerse));
     if (currentReference) params.set("reference", currentReference);
+    if (imageModel) params.set("model", imageModel);  // NEW
     const url = `/api/generate-image${params.toString() ? `?${params.toString()}` : ""}`;
 
     const response = await fetch(url, { signal: abortController.signal });
@@ -119,34 +249,21 @@ useEffect(() => {
 
   generateImage();
   return () => abortController.abort();
-}, [verseText, chapterTheme]);
+}, [verseText, chapterTheme, prevVerse, nextVerse, currentReference, imageModel]);
 ```
 
-### Delayed Loading Pattern
+### Loading State
 
-To prevent a flash of loading state for cached responses, we delay showing the skeleton:
+When loading, a placeholder with pulse animation is shown:
 
 ```tsx
-// Only show skeleton after a delay to prevent flash for cached responses
-useEffect(() => {
-  if (!isLoading) {
-    setShowSkeleton(false);
-    return;
-  }
-
-  const timer = setTimeout(() => {
-    if (isLoading) {
-      setShowSkeleton(true);
-    }
-  }, 300);  // 300ms delay
-
-  return () => clearTimeout(timer);
-}, [isLoading]);
+{/* Inside the !imageUrl placeholder block */}
+{!error && (
+  <div className="absolute inset-0 bg-white/10 dark:bg-white/5 animate-pulse" />
+)}
 ```
 
-**Behavior:**
-- **Fast/cached response (<300ms):** Placeholder → Image (no skeleton shown)
-- **Slow response (>300ms):** Placeholder → Skeleton shimmer → Image
+**Key implementation detail:** The pulse shows based on content state (`!error` inside the `!imageUrl` block) rather than an `isLoading` flag. This avoids React 18's automatic batching from skipping the loading render when cached responses return quickly.
 
 ### Placeholder UI
 
@@ -154,7 +271,7 @@ While loading or on error, a gradient placeholder is shown:
 
 - Warm gradient background (amber/orange/rose)
 - Decorative blur element simulating light
-- Skeleton shimmer animation (only after 300ms delay)
+- Pulse animation overlay while loading
 - Error text in red if generation fails
 
 ### Floating Navigation Arrows
@@ -229,6 +346,7 @@ export async function GET(request: Request) {
   const prevVerseParam = searchParams.get("prevVerse");
   const nextVerseParam = searchParams.get("nextVerse");
   const reference = searchParams.get("reference") || "Scripture";
+  const modelId = searchParams.get("model") || DEFAULT_IMAGE_MODEL;  // NEW
   // ...
 }
 ```
@@ -237,7 +355,8 @@ export async function GET(request: Request) {
 - Reads `theme` param as JSON string for chapter styling
 - Reads `prevVerse` and `nextVerse` as JSON for storyboard context
 - Reads `reference` for verse location (e.g., "Genesis 1:3")
-- Falls back gracefully if any are missing
+- Reads `model` param for the user-selected image model
+- Falls back gracefully if any are missing (uses defaults)
 
 ### Prompt Building
 
@@ -297,7 +416,7 @@ const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     "X-Title": process.env.OPENROUTER_TITLE || "vibible",
   },
   body: JSON.stringify({
-    model: "google/gemini-2.5-flash-image-preview",
+    model: modelId,  // Dynamic - user-selected model
     messages: [{ role: "user", content: prompt }],
     modalities: ["image", "text"],
   }),
@@ -305,8 +424,7 @@ const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
 ```
 
 - **Provider**: OpenRouter (chat completions endpoint with image modality)
-- **Model**: `google/gemini-2.5-flash-image-preview`
-- **Pricing**: ~$0.30/M input tokens, ~$2.50/M output tokens
+- **Model**: User-selected (default: `google/gemini-2.5-flash-image`)
 - **Prompt**: Verse text + storyboard context + theme styling
 
 ### Response Handling
@@ -455,12 +573,19 @@ Image URL or base64 returned and displayed
 - Missing image data returns `{ error: "No image generated - model may not support image output" }` with 500 status
 - Invalid theme JSON falls back to simple prompt
 
+### Model Selection Errors
+
+- `/api/image-models` returns fallback list with default model if OpenRouter API fails
+- Invalid or unsupported model gracefully falls back to default
+- If selected model is removed from OpenRouter, error shows and user can select a different model
+
 ### Client Errors
 
 - Non-OK responses throw and set error state
 - AbortError ignored (normal cleanup)
 - Error message displayed in placeholder area
 - Console logs full error for debugging
+- Model selector shows loading state while fetching, fallback on error
 
 ---
 
@@ -479,9 +604,13 @@ ENABLE_IMAGE_GENERATION=true        # Set to enable
 
 | File | Purpose |
 |------|---------|
-| `src/data/genesis-1.ts` | Verse data + `genesis1Theme` export |
+| `src/lib/image-models.ts` | Type definitions and default model constant |
+| `src/app/api/image-models/route.ts` | API endpoint to fetch available image models |
 | `src/app/api/generate-image/route.ts` | API endpoint, OpenRouter client, prompt building |
+| `src/components/image-model-selector.tsx` | Model selection dropdown component |
 | `src/components/hero-image.tsx` | Client component, `chapterTheme` prop, fetch logic |
+| `src/context/preferences-context.tsx` | User preferences (translation + image model) |
+| `src/data/genesis-1.ts` | Verse data + `genesis1Theme` export |
 | `src/app/verse/[number]/page.tsx` | Verse page, imports and passes theme |
 | `.env.local` | OpenRouter API key configuration |
 

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { DEFAULT_IMAGE_MODEL, fetchImageModels } from "@/lib/image-models";
 
 // Disable Next.js server-side caching - let browser cache handle it
 export const dynamic = 'force-dynamic';
@@ -26,13 +27,23 @@ export async function GET(request: Request) {
     );
   }
 
-  // Get verse text, theme, and context from query params
+  // Get verse text, theme, model, and context from query params
   const { searchParams } = new URL(request.url);
   const verseText = searchParams.get("text") || DEFAULT_TEXT;
   const themeParam = searchParams.get("theme");
   const prevVerseParam = searchParams.get("prevVerse");
   const nextVerseParam = searchParams.get("nextVerse");
   const reference = searchParams.get("reference") || "Scripture";
+  const requestedModelId = searchParams.get("model");
+  let modelId = DEFAULT_IMAGE_MODEL;
+  if (requestedModelId && requestedModelId !== DEFAULT_IMAGE_MODEL) {
+    const result = await fetchImageModels(openRouterApiKey);
+    if (result.models.some((model) => model.id === requestedModelId)) {
+      modelId = requestedModelId;
+    }
+  } else if (requestedModelId) {
+    modelId = requestedModelId;
+  }
 
   // Parse prev/next verse context for storyboard continuity
   let prevVerse: { number: number; text: string; reference?: string } | null = null;
@@ -112,7 +123,7 @@ ${aspectRatioInstruction}`;
         "X-Title": process.env.OPENROUTER_TITLE || "visibible",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash-image-preview",
+        model: modelId,
         messages: [
           {
             role: "user",
