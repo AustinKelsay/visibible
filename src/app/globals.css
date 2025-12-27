@@ -108,3 +108,120 @@ html {
   background: var(--surface);
   border-radius: var(--radius-sm);
 }
+
+/* Markdown content styling */
+.markdown-content {
+  word-wrap: break-word;
+}
+
+.markdown-content > *:first-child {
+  margin-top: 0;
+}
+
+.markdown-content > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Syntax highlighting for code blocks */
+.markdown-content pre code {
+  display: block;
+  padding: 0;
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono), "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--foreground);
+}
+
+.markdown-content pre code.hljs {
+  padding: 0;
+}
+
+/* Highlight.js theme - custom colors that work with light/dark mode */
+.markdown-content .hljs {
+  display: block;
+  overflow-x: auto;
+  color: var(--foreground);
+  background: var(--surface);
+}
+
+.markdown-content .hljs-comment,
+.markdown-content .hljs-quote {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.markdown-content .hljs-keyword,
+.markdown-content .hljs-selector-tag,
+.markdown-content .hljs-subst {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.markdown-content .hljs-number,
+.markdown-content .hljs-literal,
+.markdown-content .hljs-variable,
+.markdown-content .hljs-template-variable,
+.markdown-content .hljs-tag .hljs-attr {
+  color: #e83e8c;
+}
+
+.markdown-content .hljs-string,
+.markdown-content .hljs-doctag {
+  color: #16a34a;
+}
+
+.markdown-content .hljs-title,
+.markdown-content .hljs-section,
+.markdown-content .hljs-selector-id {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.markdown-content .hljs-type,
+.markdown-content .hljs-class .hljs-title {
+  color: #f59e0b;
+}
+
+.markdown-content .hljs-tag,
+.markdown-content .hljs-name,
+.markdown-content .hljs-attribute {
+  color: var(--accent);
+  font-weight: normal;
+}
+
+.markdown-content .hljs-regexp,
+.markdown-content .hljs-link {
+  color: #16a34a;
+}
+
+.markdown-content .hljs-symbol,
+.markdown-content .hljs-bullet {
+  color: #e83e8c;
+}
+
+.markdown-content .hljs-built_in,
+.markdown-content .hljs-builtin-name {
+  color: #f59e0b;
+}
+
+.markdown-content .hljs-meta {
+  color: var(--muted);
+}
+
+.markdown-content .hljs-deletion {
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.markdown-content .hljs-addition {
+  background: rgba(22, 163, 74, 0.1);
+}
+
+.markdown-content .hljs-emphasis {
+  font-style: italic;
+}
+
+.markdown-content .hljs-strong {
+  font-weight: 600;
+}

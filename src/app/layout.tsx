@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { NavigationProvider } from "@/context/navigation-context";
 import { PreferencesProvider } from "@/context/preferences-context";
+import { ChatSidebar } from "@/components/chat-sidebar";
+import { ChatFAB } from "@/components/chat-fab";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +32,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <PreferencesProvider>
-          <NavigationProvider>{children}</NavigationProvider>
+          <NavigationProvider>
+            {children}
+            <ChatSidebar />
+            <ChatFAB />
+          </NavigationProvider>
         </PreferencesProvider>
       </body>
     </html>

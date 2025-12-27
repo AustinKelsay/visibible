@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 import { useRouter } from "next/navigation";
 import { Translation, DEFAULT_TRANSLATION, TRANSLATIONS } from "@/lib/bible-api";
 import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
+import { DEFAULT_CHAT_MODEL } from "@/lib/chat-models";
 
 interface PreferencesContextType {
   translation: Translation;
@@ -11,6 +12,8 @@ interface PreferencesContextType {
   translationInfo: typeof TRANSLATIONS[Translation];
   imageModel: string;
   setImageModel: (model: string) => void;
+  chatModel: string;
+  setChatModel: (model: string) => void;
 }
 
 const PreferencesContext = createContext<PreferencesContextType | null>(null);
@@ -18,10 +21,12 @@ const PreferencesContext = createContext<PreferencesContextType | null>(null);
 const STORAGE_KEY = "vibible-preferences";
 const COOKIE_NAME = "vibible-translation";
 const IMAGE_MODEL_COOKIE = "vibible-image-model";
+const CHAT_MODEL_COOKIE = "vibible-chat-model";
 
 export function PreferencesProvider({ children }: { children: ReactNode }) {
   const [translation, setTranslationState] = useState<Translation>(DEFAULT_TRANSLATION);
   const [imageModel, setImageModelState] = useState<string>(DEFAULT_IMAGE_MODEL);
+  const [chatModel, setChatModelState] = useState<string>(DEFAULT_CHAT_MODEL);
   const [isHydrated, setIsHydrated] = useState(false);
   const router = useRouter();
 
@@ -39,6 +44,10 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
         if (prefs.imageModel) {
           setImageModelState(prefs.imageModel);
         }
+        // Load chat model preference
+        if (prefs.chatModel) {
+          setChatModelState(prefs.chatModel);
+        }
       }
     } catch {
       // Ignore localStorage errors
@@ -47,7 +56,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   }, []);
 
   // Helper to save all preferences
-  const savePreferences = (prefs: { translation: Translation; imageModel: string }) => {
+  const savePreferences = (prefs: { translation: Translation; imageModel: string; chatModel: string }) => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
     } catch {
@@ -58,7 +67,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   // Save to localStorage and cookie when translation changes, then refresh page
   const setTranslation = (newTranslation: Translation) => {
     setTranslationState(newTranslation);
-    savePreferences({ translation: newTranslation, imageModel });
+    savePreferences({ translation: newTranslation, imageModel, chatModel });
     // Set cookie for server-side reading (expires in 1 year)
     document.cookie = `${COOKIE_NAME}=${newTranslation}; path=/; max-age=31536000; SameSite=Lax`;
     // Refresh the page to get new translation from server
@@ -68,11 +77,19 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   // Save image model preference
   const setImageModel = (newModel: string) => {
     setImageModelState(newModel);
-    savePreferences({ translation, imageModel: newModel });
+    savePreferences({ translation, imageModel: newModel, chatModel });
     // Set cookie for server-side reading (expires in 1 year)
     document.cookie = `${IMAGE_MODEL_COOKIE}=${encodeURIComponent(newModel)}; path=/; max-age=31536000; SameSite=Lax`;
     // Refresh to regenerate image with new model
     router.refresh();
+  };
+
+  // Save chat model preference (no refresh needed - takes effect on next message)
+  const setChatModel = (newModel: string) => {
+    setChatModelState(newModel);
+    savePreferences({ translation, imageModel, chatModel: newModel });
+    // Set cookie for server-side reading (expires in 1 year)
+    document.cookie = `${CHAT_MODEL_COOKIE}=${encodeURIComponent(newModel)}; path=/; max-age=31536000; SameSite=Lax`;
   };
 
   return (
@@ -83,6 +100,8 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
         translationInfo: TRANSLATIONS[isHydrated ? translation : DEFAULT_TRANSLATION],
         imageModel: isHydrated ? imageModel : DEFAULT_IMAGE_MODEL,
         setImageModel,
+        chatModel: isHydrated ? chatModel : DEFAULT_CHAT_MODEL,
+        setChatModel,
       }}
     >
       {children}

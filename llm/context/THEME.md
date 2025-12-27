@@ -240,7 +240,7 @@ import { ChevronLeft, Search, Send } from "lucide-react";
 | Navigation forward | `ChevronRight` |
 | Expand/collapse | `ChevronUp`, `ChevronDown` |
 | Search | `Search` |
-| Menu | `Menu` |
+| Book navigation | `BookOpen` |
 | Send message | `Send` |
 | Info | `Info` |
 | Loading | `Loader2` (with `animate-spin`) |

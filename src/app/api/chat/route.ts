@@ -1,11 +1,12 @@
-import { anthropic } from "@ai-sdk/anthropic";
-import { createOpenAI, openai } from "@ai-sdk/openai";
+import { createOpenAI } from "@ai-sdk/openai";
 import { convertToModelMessages, streamText, UIMessage } from "ai";
 import { z } from "zod";
+import { DEFAULT_CHAT_MODEL } from "@/lib/chat-models";
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
+// OpenRouter client - the single provider for all chat
 const openRouter = createOpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
   baseURL: "https://openrouter.ai/api/v1",
@@ -143,17 +144,28 @@ const messageSchema = z.object({
 
 /**
  * Schema for the request body. Must contain a non-empty messages array.
+ * Now includes optional model parameter for model selection.
  */
 const requestBodySchema = z.object({
   messages: z.array(messageSchema).min(1, "Request must include at least one message"),
   context: z.union([z.string().min(1), pageContextSchema]).optional(),
+  model: z.string().optional(),
 });
 
 /**
  * POST handler for chat API endpoint.
- * Validates request body using Zod schema and streams AI responses.
+ * Uses OpenRouter exclusively for all chat models.
+ * Validates request body using Zod schema and streams AI responses with metadata.
  */
 export async function POST(req: Request) {
+  // Validate OpenRouter API key
+  if (!process.env.OPENROUTER_API_KEY) {
+    return Response.json(
+      { error: "OpenRouter API key not configured" },
+      { status: 500 }
+    );
+  }
+
   let body: unknown;
   try {
     body = await req.json();
@@ -169,7 +181,7 @@ export async function POST(req: Request) {
       return path ? `${path}: ${err.message}` : err.message;
     });
     return Response.json(
-      { 
+      {
         error: "Validation failed",
         details: errors,
       },
@@ -177,24 +189,41 @@ export async function POST(req: Request) {
     );
   }
 
-  const { messages, context } = validationResult.data;
+  const { messages, context, model: requestedModel } = validationResult.data;
+
+  // Use requested model or fall back to default
+  const modelId = requestedModel || DEFAULT_CHAT_MODEL;
+  const startTime = Date.now();
 
   try {
-    // Prefer Anthropic Haiku when configured.
-    const model = process.env.ANTHROPIC_API_KEY
-      ? anthropic("claude-3-haiku-20240307")
-      : process.env.OPENROUTER_API_KEY
-        ? openRouter("anthropic/claude-3-haiku")
-        : openai("gpt-4o-mini");
     const system = buildSystemPrompt(context);
 
     const result = streamText({
-      model,
+      model: openRouter(modelId),
       system,
       messages: await convertToModelMessages(messages as UIMessage[]),
     });
 
-    return result.toUIMessageStreamResponse();
+    // Stream response with metadata injection
+    return result.toUIMessageStreamResponse({
+      messageMetadata: ({ part }) => {
+        // Inject metadata on finish to capture usage stats
+        if (part.type === "finish") {
+          const endTime = Date.now();
+          const inputTokens = part.totalUsage?.inputTokens ?? 0;
+          const outputTokens = part.totalUsage?.outputTokens ?? 0;
+          return {
+            model: modelId,
+            promptTokens: inputTokens,
+            completionTokens: outputTokens,
+            totalTokens: inputTokens + outputTokens,
+            finishReason: part.finishReason,
+            latencyMs: endTime - startTime,
+          };
+        }
+        return undefined;
+      },
+    });
   } catch (error) {
     console.error("Chat API error:", error);
     return Response.json(

@@ -8,7 +8,7 @@ Visibible provides three ways to navigate the Bible:
 
 1. **URL-based** — Direct links like `/genesis/1/1` or `/john/3/16`.
 2. **Arrow navigation** — Prev/next buttons that cross chapter and book boundaries.
-3. **Book menu** — Hamburger menu with collapsible book/chapter picker.
+3. **Book menu** — Book icon menu with collapsible book/chapter picker.
 
 ## URL Structure
 
@@ -37,7 +37,7 @@ At the extremes:
 
 ## Book Menu
 
-Hamburger icon in the header opens a slide-out panel:
+Book icon in the header opens a slide-out panel:
 
 1. **Testament sections** — Collapsible Old Testament (39 books) and New Testament (27 books).
 2. **Book list** — Click a book to see its chapters.

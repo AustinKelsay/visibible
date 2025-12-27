@@ -261,7 +261,7 @@ const [view, setView] = useState<"books" | "chapters">("books");
 
 ### User Flow
 
-1. User clicks hamburger icon → `toggleMenu()` → menu slides in.
+1. User clicks book icon → `toggleMenu()` → menu slides in.
 2. User sees Old/New Testament sections (one expanded).
 3. User clicks a book → view changes to chapter grid.
 4. User clicks a chapter number → navigates to `/{book}/{chapter}/1`.

@@ -1,10 +1,11 @@
 import { redirect } from "next/navigation";
-import { Chat } from "@/components/chat";
 import { HeroImage } from "@/components/hero-image";
 import { ScriptureDetails } from "@/components/scripture-details";
 import { ScriptureReader } from "@/components/scripture-reader";
 import { Header } from "@/components/header";
 import { BookMenu } from "@/components/book-menu";
+import { LayoutWrapper } from "@/components/layout-wrapper";
+import { ChatContextSetter } from "@/components/chat-context-setter";
 import { BOOK_BY_SLUG } from "@/data/bible-structure";
 import { getVerse } from "@/lib/bible-api";
 import { getTranslationFromCookies } from "@/lib/get-translation";
@@ -73,8 +74,22 @@ export default async function VersePage({ params }: VersePageProps) {
     ? { number: nextLocation.verse, text: nextVerseData.text, reference: formatReference(nextLocation) }
     : undefined;
 
+  // Build chat context for sidebar
+  const chatContext = {
+    book: bookData.name,
+    chapter: location.chapter,
+    verseRange: String(location.verse),
+    heroCaption: verseData.text,
+    verses: [{ number: location.verse, text: verseData.text }],
+    prevVerse,
+    nextVerse,
+  };
+
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--background)]">
+    <LayoutWrapper>
+      {/* Set chat context for sidebar */}
+      <ChatContextSetter context={chatContext} />
+
       {/* Header */}
       <Header />
 
@@ -121,23 +136,8 @@ export default async function VersePage({ params }: VersePageProps) {
         </div>
       </main>
 
-      {/* Chat - Fixed at Bottom */}
-      <div className="sticky bottom-0 z-40 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] dark:shadow-[0_-4px_20px_rgba(0,0,0,0.3)]">
-        <Chat
-          context={{
-            book: bookData.name,
-            chapter: location.chapter,
-            verseRange: String(location.verse),
-            heroCaption: verseData.text,
-            verses: [{ number: location.verse, text: verseData.text }],
-            prevVerse,
-            nextVerse,
-          }}
-        />
-      </div>
-
       {/* Book Menu */}
       <BookMenu />
-    </div>
+    </LayoutWrapper>
   );
 }

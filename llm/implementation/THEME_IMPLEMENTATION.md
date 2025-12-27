@@ -258,7 +258,7 @@ Icons inherit color from parent via `currentColor`. Set parent's text color:
 import { ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from "lucide-react";
 
 // Actions
-import { Search, Menu, Send, X } from "lucide-react";
+import { Search, BookOpen, Send, X } from "lucide-react";
 
 // Status
 import { Info, Loader2, Check, AlertCircle } from "lucide-react";
