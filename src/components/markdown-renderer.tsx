@@ -7,6 +7,7 @@
  * - Tables (GitHub Flavored Markdown)
  * - Links, emphasis, inline code
  * - Blockquotes
+ * - HTML sanitization to prevent XSS attacks
  */
 
 "use client";
@@ -14,6 +15,7 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
+import rehypeSanitize from "rehype-sanitize";
 import { ReactNode } from "react";
 import type { Components } from "react-markdown";
 
@@ -152,7 +154,7 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
     <div className={`markdown-content ${className}`}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeHighlight]}
+        rehypePlugins={[rehypeSanitize, rehypeHighlight]}
         components={markdownComponents}
       >
         {content}
