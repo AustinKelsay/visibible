@@ -54,6 +54,7 @@ export const getImageHistory = query({
   args: {
     verseId: v.string(),
     limit: v.optional(v.number()),
+    // Cache-busting token: changing this value forces Convex to re-run the query
     refreshToken: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
@@ -233,7 +234,16 @@ export const saveImage = action({
     }
 
     try {
-      const response = await fetch(imageUrl);
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+      let response: Response;
+      try {
+        response = await fetch(imageUrl, { signal: controller.signal });
+      } finally {
+        clearTimeout(timeoutId);
+      }
+
       if (!response.ok) {
         throw new Error(`Failed to fetch image: ${response.status}`);
       }
