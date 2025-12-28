@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { NavigationProvider } from "@/context/navigation-context";
 import { PreferencesProvider } from "@/context/preferences-context";
 import { ChatSidebar } from "@/components/chat-sidebar";
 import { ChatFAB } from "@/components/chat-fab";
+import { ChatPrompt } from "@/components/chat-prompt";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,13 +33,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <PreferencesProvider>
-          <NavigationProvider>
-            {children}
-            <ChatSidebar />
-            <ChatFAB />
-          </NavigationProvider>
-        </PreferencesProvider>
+        <ConvexClientProvider>
+          <PreferencesProvider>
+            <NavigationProvider>
+              {children}
+              <ChatSidebar />
+              <ChatFAB />
+              <ChatPrompt />
+            </NavigationProvider>
+          </PreferencesProvider>
+        </ConvexClientProvider>
       </body>
     </html>
   );

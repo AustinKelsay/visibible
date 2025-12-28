@@ -400,3 +400,10 @@ export default async function OldVersePage({ params }) {
 - Arrow buttons have `aria-label="Previous verse"` / `"Next verse"`
 - Menu panel animates but respects `prefers-reduced-motion` via CSS
 - All interactive elements meet 44x44px touch target minimum
+
+---
+
+## Related Docs
+
+- Image persistence & history browsing: `llm/implementation/IMAGE_PERSISTENCE_IMPLEMENTATION.md`
+- Image generation flow: `llm/implementation/IMAGE_GENERATION_IMPLEMENTATION.md`

@@ -50,3 +50,8 @@ Book icon in the header opens a slide-out panel:
 - Menu state: `src/context/navigation-context.tsx`
 - Header with menu trigger: `src/components/header.tsx`
 - Arrow navigation: `src/components/hero-image.tsx`, `src/components/scripture-reader.tsx`
+
+## Related Docs
+
+- Image persistence & history browsing: `llm/context/IMAGE-PERSISTENCE.md`
+- Image generation flow: `llm/context/IMAGE-GENERATION.md`

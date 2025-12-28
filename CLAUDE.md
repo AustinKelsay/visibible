@@ -54,7 +54,7 @@ React hooks are in `@ai-sdk/react`, not `ai/react`:
 ### State Management
 
 - **PreferencesContext** (`src/context/preferences-context.tsx`) - Manages translation, image model, and chat model preferences via localStorage + cookies
-- **NavigationContext** (`src/context/navigation-context.tsx`) - Mobile book/chapter/verse navigation state
+- **NavigationContext** (`src/context/navigation-context.tsx`) - Manages book menu state (isMenuOpen, openMenu, closeMenu, toggleMenu), chat sidebar state (isChatOpen, openChat, closeChat, toggleChat), and chat context (chatContext, setChatContext for verse data passed to AI)
 
 ### Key Libraries
 

@@ -25,6 +25,7 @@ export function ChatFAB() {
         hover:bg-[var(--accent-hover)]
         transition-all duration-[var(--motion-fast)]
         active:scale-[0.98]
+        cursor-pointer
       "
       aria-label="Open chat"
     >

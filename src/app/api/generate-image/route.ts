@@ -35,6 +35,7 @@ export async function GET(request: Request) {
   const nextVerseParam = searchParams.get("nextVerse");
   const reference = searchParams.get("reference") || "Scripture";
   const requestedModelId = searchParams.get("model");
+  const generationParam = searchParams.get("generation");
   let modelId = DEFAULT_IMAGE_MODEL;
   if (requestedModelId && requestedModelId !== DEFAULT_IMAGE_MODEL) {
     const result = await fetchImageModels(openRouterApiKey);
@@ -59,6 +60,27 @@ export async function GET(request: Request) {
   // Build prompt with storyboard context for visual continuity
   const aspectRatioInstruction = "Generate the image in WIDESCREEN LANDSCAPE format with a 16:9 aspect ratio (wide, not square).";
 
+  /**
+   * Get ordinal suffix for a number (1st, 2nd, 3rd, 4th, etc.)
+   */
+  function getOrdinalSuffix(n: number): string {
+    const j = n % 10;
+    const k = n % 100;
+    if (j === 1 && k !== 11) return "st";
+    if (j === 2 && k !== 12) return "nd";
+    if (j === 3 && k !== 13) return "rd";
+    return "th";
+  }
+
+  // Add generation diversity for non-first images
+  let generationNote = "";
+  if (generationParam) {
+    const generationNum = parseInt(generationParam, 10);
+    if (!isNaN(generationNum) && generationNum > 1) {
+      generationNote = `\n\nNOTE: This is the ${generationNum}${getOrdinalSuffix(generationNum)} generation of this image. Create a fresh, diverse interpretation while maintaining the core biblical scene.`;
+    }
+  }
+
   // Build narrative context section
   let narrativeContext = "";
   if (prevVerse || nextVerse) {
@@ -73,41 +95,45 @@ export async function GET(request: Request) {
     narrativeContext += "\n\nThis is part of a visual storyboard through Scripture. Maintain visual consistency with the flow of the narrative while focusing on THIS verse's moment.";
   }
 
+  const noTextInstruction = "CRITICAL: No text, letters, words, writing, signs, inscriptions, scrolls, captions, or readable characters.";
+  const styleDirection = "Stylized, painterly, biblical-era, mysterious, expansive; gritty, raw texture; mature, grounded color; avoid photorealism, childish cartoon look, and modern artifacts.";
+  const framingInstruction = "FRAMING: cinematic composition (not a photo) filling the frame edge to edge; the scene is reality, not artwork. No borders, frames, canvas, wall-hung paintings, posters, gallery/museum settings, or mockups. The viewer is IN the scene.";
+
   let prompt: string;
   if (themeParam) {
     try {
       const theme = JSON.parse(themeParam);
-      prompt = `CRITICAL REQUIREMENT: Generate a purely visual image with absolutely NO TEXT, NO LETTERS, NO WORDS, NO WRITING of any kind. No signs, labels, captions, titles, inscriptions, scrolls with writing, or any readable characters.
+      prompt = `${noTextInstruction}
 
-Render a vivid biblical scene for ${reference}: "${verseText}"${narrativeContext}
+Render a stylized biblical-era scene for ${reference}: "${verseText}"${narrativeContext}${generationNote}
 
 Setting: ${theme.setting}
 Visual elements: ${theme.elements}
 Color palette: ${theme.palette}
-Style: ${theme.style}
+Style: ${theme.style}; ${styleDirection}
 
-FRAMING: Cinematic screenshot from a film - direct camera view that fills the entire frame edge to edge. No borders, frames, gallery walls, or museum settings. The viewer is IN the scene.
+${framingInstruction}
 
 ${aspectRatioInstruction}`;
     } catch {
-      prompt = `CRITICAL REQUIREMENT: Generate a purely visual image with absolutely NO TEXT, NO LETTERS, NO WORDS, NO WRITING of any kind. No signs, labels, captions, titles, inscriptions, scrolls with writing, or any readable characters.
+      prompt = `${noTextInstruction}
 
-Render a vivid biblical scene for ${reference}: "${verseText}"${narrativeContext}
+Render a stylized biblical-era scene for ${reference}: "${verseText}"${narrativeContext}${generationNote}
 
-Style: ethereal, majestic, dramatic lighting. Cinematic movie still that fills the entire frame.
+Style: ${styleDirection} Luminous, dramatic lighting.
 
-FRAMING: Cinematic screenshot from a film - direct camera view that fills the entire frame edge to edge. No borders, frames, gallery walls, or museum settings. The viewer is IN the scene.
+${framingInstruction}
 
 ${aspectRatioInstruction}`;
     }
   } else {
-    prompt = `Render a vivid biblical scene for ${reference}: "${verseText}"${narrativeContext}
+    prompt = `${noTextInstruction}
 
-Style: ethereal, majestic, dramatic lighting. Cinematic movie still that fills the entire frame.
+Render a stylized biblical-era scene for ${reference}: "${verseText}"${narrativeContext}${generationNote}
 
-CRITICAL: NO TEXT IN IMAGE. Do not render any text, letters, words, labels, signs, captions, titles, or writing of any kind.
+Style: ${styleDirection} Luminous, dramatic lighting.
 
-FRAMING: This is a cinematic screenshot from a film - a direct camera view of the scene that fills the entire frame edge to edge. No borders, no frames, no gallery walls, no museum setting, no picture hanging on a wall. The viewer is IN the scene, not looking at artwork.
+${framingInstruction}
 
 ${aspectRatioInstruction}`;
   }
@@ -152,7 +178,7 @@ ${aspectRatioInstruction}`;
     if (message?.images && Array.isArray(message.images)) {
       for (const image of message.images) {
         if (image.image_url?.url) {
-          return NextResponse.json({ imageUrl: image.image_url.url }, {
+          return NextResponse.json({ imageUrl: image.image_url.url, model: modelId }, {
             headers: { 'Cache-Control': 'private, max-age=3600' },
           });
         }
@@ -164,14 +190,15 @@ ${aspectRatioInstruction}`;
     if (Array.isArray(content)) {
       for (const part of content) {
         if (part.type === "image_url" && part.image_url?.url) {
-          return NextResponse.json({ imageUrl: part.image_url.url }, {
+          return NextResponse.json({ imageUrl: part.image_url.url, model: modelId }, {
             headers: { 'Cache-Control': 'private, max-age=3600' },
           });
         }
         if (part.inline_data?.data) {
           const mimeType = part.inline_data.mime_type || "image/png";
           return NextResponse.json({
-            imageUrl: `data:${mimeType};base64,${part.inline_data.data}`
+            imageUrl: `data:${mimeType};base64,${part.inline_data.data}`,
+            model: modelId
           }, {
             headers: { 'Cache-Control': 'private, max-age=3600' },
           });

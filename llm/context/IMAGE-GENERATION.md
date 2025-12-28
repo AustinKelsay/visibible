@@ -7,24 +7,26 @@ High-level overview of how Visibible generates scripture illustrations. Details 
 - Each verse has its own AI-generated image.
 - Images are generated server-side via OpenRouter.
 - **Model selection**: Users can choose any image-capable model from OpenRouter via a header dropdown.
-- Chapter-level themes provide visual consistency across verses within a chapter.
 - **Storyboard context**: Images include prev/next verse context for visual narrative continuity.
-- Browser-level caching ensures each verse's image persists across soft refreshes.
+- **Persistence (Convex)**: When enabled, every image is saved per verse and can be browsed later.
+- **Fallback**: When Convex is disabled, images rely on browser HTTP caching only.
 
 ## Current Flow
 
-1. Verse page fetches current verse AND prev/next verses from Bible API
-2. Page renders `HeroImage` with verse text, chapter theme, and prev/next verse context
-3. `HeroImage` reads the selected model from `PreferencesContext`
-4. Client fetches `/api/generate-image` with text, theme, prevVerse, nextVerse, and **model** params
-5. Server builds **storyboard-aware prompt** using verse + surrounding context
-6. Server generates image using OpenRouter with the **user-selected model**
-7. Response includes `Cache-Control` header for browser caching
-8. Generated image URL (or base64 data URL) is displayed in the hero area
+1. Verse page fetches current verse AND prev/next verses from the Bible API using the selected translation.
+2. `HeroImage` loads existing image history from Convex (if configured).
+3. If no images exist for the verse, `HeroImage` auto-generates the first image.
+4. Client requests `/api/generate-image` with text, optional theme, prevVerse, nextVerse, reference, **model**, and generation count.
+5. Server builds a **storyboard-aware prompt** using the verse + surrounding context.
+6. Server generates the image via OpenRouter using the **user-selected model**.
+7. Response returns an image URL (or base64 data URL) and the model used.
+8. If Convex is enabled, the image is saved and appended to history; otherwise it is displayed directly.
 
-## Chapter Themes
+## Chapter Themes (Optional)
 
-Each chapter defines a visual theme for consistency across its verses:
+Themes are supported but are not currently passed from the verse page. If a theme is provided, it augments prompts for consistent style.
+
+Example theme structure:
 
 ```ts
 {
@@ -35,17 +37,12 @@ Each chapter defines a visual theme for consistency across its verses:
 }
 ```
 
-This ensures all verses in Genesis 1 share:
-- Consistent color palette
-- Recurring visual elements
-- Unified artistic style
-
 ## Prompt Construction
 
-Prompts combine verse text with chapter theme AND storyboard context:
+Prompts combine verse text with storyboard context (and theme when provided):
 
 ```
-Create a biblical illustration for {reference}: "{verse text}"
+Render a stylized biblical-era scene for {reference}: "{verse text}"
 
 NARRATIVE CONTEXT (for visual continuity - this is a storyboard):
 - Previous scene (v{N-1}): "{prev verse text}"
@@ -63,41 +60,13 @@ Style: {theme.style}
 Generate the image in WIDESCREEN LANDSCAPE format with a 16:9 aspect ratio.
 ```
 
-Example for Genesis 1:3:
-```
-Create a biblical illustration for Genesis 1:3: "And God said, Let there be light: and there was light."
+When multiple images already exist for the verse, a "generation" note is added to encourage variety.
 
-NARRATIVE CONTEXT (for visual continuity - this is a storyboard):
-- Previous scene (v2): "And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters."
-- CURRENT SCENE (the verse to illustrate): "And God said, Let there be light: and there was light."
-- Next scene (v4): "And God saw the light, that it was good: and God divided the light from the darkness."
+## Persistence & Caching
 
-This is part of a visual storyboard through Scripture. Maintain visual consistency
-with the flow of the narrative while focusing on THIS verse's moment.
-
-Setting: Creation of the cosmos
-Visual elements: primordial void, divine light rays, swirling waters, emerging forms
-Color palette: deep cosmic blues, radiant golds, ethereal whites
-Style: classical religious art, Baroque lighting, majestic and reverent
-```
-
-The storyboard context helps the AI:
-- Understand where we are in the narrative flow
-- Create visual continuity from verse to verse
-- Focus on THIS verse's unique moment while maintaining consistency
-
-## Caching Strategy
-
-Browser cache handles persistence per-verse:
-
-- Each verse URL (including theme) caches separately
-- **Soft refresh (Cmd+R)**: Browser serves cached response; no API call
-- **Hard refresh (Cmd+Shift+R)**: Browser bypasses cache; new image generated
-- **Navigate to different verse**: New image generated (different URL)
-
-Server-side Next.js caching is disabled (`dynamic = 'force-dynamic'`) so the browser has full control.
-
-Cache duration is 1 hour (`max-age=3600`).
+- **Convex persistence** stores images per verse and makes history available across sessions.
+- `/api/generate-image` responses include `Cache-Control: private, max-age=3600` for HTTP caching.
+- Next.js caching is disabled (`dynamic = "force-dynamic"`), so persistence is handled by Convex or the browser cache.
 
 ## Model Selection
 
@@ -105,23 +74,14 @@ Users can choose from **any image generation model** available on OpenRouter via
 
 ### How It Works
 
-1. Click the image icon (🖼️) in the header to open the model selector
-2. Models are fetched from OpenRouter's `/api/v1/models` endpoint
-3. Only models with image output capability are shown
-4. Models are grouped by provider (Google, OpenAI, Stability, etc.)
-5. Selection is persisted in localStorage and triggers image regeneration
+1. Click the image icon (🖼️) in the header to open the model selector.
+2. Models are fetched from OpenRouter's `/api/v1/models` endpoint.
+3. Only models with image output capability are shown.
+4. Selection is persisted in localStorage and triggers image regeneration.
 
 ### Default Model
 
 - **Default**: `google/gemini-2.5-flash-image`
-- **Pricing**: ~$0.30/M input tokens, ~$2.50/M output tokens
-
-### Provider
-
-- **Provider**: OpenRouter (OpenAI-compatible API)
-- **Response format**: URL or base64 (handled automatically)
-- Per-verse caching reduces redundant generation costs
-- Model list is cached for 1 hour to minimize API calls
 
 ## Entry Points
 
@@ -130,7 +90,6 @@ Users can choose from **any image generation model** available on OpenRouter via
 - **Hero image UI**: `src/components/hero-image.tsx`
 - **Model selector UI**: `src/components/image-model-selector.tsx`
 - **Preferences context**: `src/context/preferences-context.tsx`
-- **Type definitions**: `src/lib/image-models.ts`
+- **Convex persistence**: `convex/verseImages.ts`, `convex/schema.ts`
+- **Convex client gate**: `src/components/convex-client-provider.tsx`
 - **Verse page**: `src/app/[book]/[chapter]/[verse]/page.tsx`
-
-Note: Chapter themes are no longer hardcoded. The image generation uses verse text directly to create contextually appropriate illustrations.
