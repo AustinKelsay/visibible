@@ -1,8 +1,7 @@
-import { query, mutation, action } from "./_generated/server";
-import { anyApi } from "convex/server";
+import { action, internalMutation, query } from "./_generated/server";
+import { internal } from "./_generated/api";
 import { v } from "convex/values";
-
-const api = anyApi;
+import { Id } from "./_generated/dataModel";
 
 /**
  * Get the most recent image for a verse.
@@ -91,7 +90,7 @@ export const getImageHistory = query({
 /**
  * Internal mutation to save image with storage ID.
  */
-export const saveImageWithStorage = mutation({
+export const saveImageWithStorage = internalMutation({
   args: {
     verseId: v.string(),
     storageId: v.id("_storage"),
@@ -111,7 +110,7 @@ export const saveImageWithStorage = mutation({
 /**
  * Internal mutation to save image with direct URL.
  */
-export const saveImageWithUrl = mutation({
+export const saveImageWithUrl = internalMutation({
   args: {
     verseId: v.string(),
     imageUrl: v.string(),
@@ -202,7 +201,7 @@ export const saveImage = action({
     imageUrl: v.string(),
     model: v.string(),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx, args): Promise<{ success: true; type: string; id: Id<"verseImages"> }> => {
     const { verseId, imageUrl, model } = args;
 
     // Check if this is a base64 data URL
@@ -224,7 +223,7 @@ export const saveImage = action({
       const storageId = await ctx.storage.store(blob);
 
       // Save to database with storage ID
-      const id = await ctx.runMutation(api.verseImages.saveImageWithStorage, {
+      const id: Id<"verseImages"> = await ctx.runMutation(internal.verseImages.saveImageWithStorage, {
         verseId,
         storageId,
         model,
@@ -241,7 +240,7 @@ export const saveImage = action({
       const blob = await response.blob();
       const storageId = await ctx.storage.store(blob);
 
-      const id = await ctx.runMutation(api.verseImages.saveImageWithStorage, {
+      const id: Id<"verseImages"> = await ctx.runMutation(internal.verseImages.saveImageWithStorage, {
         verseId,
         storageId,
         model,
@@ -250,7 +249,7 @@ export const saveImage = action({
       return { success: true, type: "storage", id };
     } catch (error) {
       console.error("Failed to fetch and store image:", error);
-      const id = await ctx.runMutation(api.verseImages.saveImageWithUrl, {
+      const id: Id<"verseImages"> = await ctx.runMutation(internal.verseImages.saveImageWithUrl, {
         verseId,
         imageUrl,
         model,
