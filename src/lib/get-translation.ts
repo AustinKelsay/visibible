@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { Translation, DEFAULT_TRANSLATION, TRANSLATIONS } from "./bible-api";
 
-const COOKIE_NAME = "vibible-translation";
+const COOKIE_NAME = "visibible-translation";
 
 /**
  * Get the user's translation preference from cookies (server-side)

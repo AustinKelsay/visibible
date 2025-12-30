@@ -41,7 +41,19 @@ Book icon in the header opens a slide-out panel:
 
 1. **Testament sections** — Collapsible Old Testament (39 books) and New Testament (27 books).
 2. **Book list** — Click a book to see its chapters.
-3. **Chapter grid** — Click a chapter number to navigate to verse 1.
+3. **Chapter grid** — Click a chapter number to see its verses.
+4. **Verse grid** — Click a verse number to navigate to that verse.
+
+## Chat Sidebar
+
+The NavigationContext also manages the chat sidebar state:
+
+- `isChatOpen`, `openChat`, `closeChat`, `toggleChat` — Controls chat panel visibility
+- `chatContext`, `setChatContext` — Stores verse data (book, chapter, verses, prev/next) passed to the chat AI
+
+**Context Source:** Verse pages use `ChatContextSetter` component (`src/components/chat-context-setter.tsx`) to set the chat context when mounted. This client component calls `setChatContext` on mount and clears it on unmount.
+
+**Keyboard Shortcut:** Pressing Escape closes the chat sidebar when it's open.
 
 ## Entry Points
 
@@ -50,6 +62,8 @@ Book icon in the header opens a slide-out panel:
 - Menu state: `src/context/navigation-context.tsx`
 - Header with menu trigger: `src/components/header.tsx`
 - Arrow navigation: `src/components/hero-image.tsx`, `src/components/scripture-reader.tsx`
+- Verse image indicators: `src/components/verse-strip.tsx` (shows per-verse image dots when browsing chapters)
+- Chat context setter: `src/components/chat-context-setter.tsx`
 
 ## Related Docs
 

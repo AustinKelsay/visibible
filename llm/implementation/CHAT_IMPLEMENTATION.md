@@ -21,11 +21,42 @@ Visibible chat is a client-to-server streaming flow built on the Vercel AI SDK.
 - `src/components/chat.tsx` (chat window, input, and send behavior)
 - `src/app/[book]/[chapter]/[verse]/page.tsx` (page context wiring)
 
+### Per-Verse Chat IDs
+
+Each verse maintains a **separate chat history** via unique chat IDs. This ensures conversation context is preserved per verse.
+
+```typescript
+const chatId = useMemo(() => {
+  if (!context) return `${variant}-global`;
+  const book = (context.book ?? "book").replace(/\s+/g, "-");
+  const chapter = typeof context.chapter === "number" ? context.chapter : "chapter";
+  const verseRange = (context.verseRange ?? "verse").replace(/\s+/g, "-");
+  return `${variant}-${book}-${chapter}-${verseRange}`.toLowerCase();
+}, [context, variant]);
+```
+
+- **With context**: ID is `{variant}-{book}-{chapter}-{verseRange}` (e.g., `sidebar-genesis-1-3`)
+- **Without context**: ID is `{variant}-global` (e.g., `sidebar-global`)
+- The `useChat` hook maintains separate message histories per ID
+- Switching verses clears the message input and resets the expanded state
+
+### Input State Management
+
+The chat component **manually manages input state** because AI SDK v6's `useChat` hook does not return `input` or `handleInputChange`:
+
+```typescript
+const { messages, sendMessage, status, error } = useChat({ id: chatId });
+const [input, setInput] = useState("");  // Manual state
+```
+
+The input is cleared after send and when switching verses (via `chatId` change).
+
 ### Message Send
 
 - `sendMessage` is called with the user text.
-- An extra JSON body is attached to each request: `{ context }`.
+- An extra JSON body is attached to each request: `{ context, model }`.
 - This context is the only way the server knows which verse is on screen.
+- The model parameter passes the user-selected chat model ID.
 
 ### Context Source
 
@@ -62,10 +93,12 @@ const prevLocation = getPreviousVerse(location);
 const nextLocation = getNextVerse(location);
 
 const [prevVerseData, nextVerseData] = await Promise.all([
-  prevLocation ? getVerse(prevLocation.book.slug, prevLocation.chapter, prevLocation.verse) : null,
-  nextLocation ? getVerse(nextLocation.book.slug, nextLocation.chapter, nextLocation.verse) : null,
+  prevLocation ? getVerse(prevLocation.book.slug, prevLocation.chapter, prevLocation.verse, translation) : null,
+  nextLocation ? getVerse(nextLocation.book.slug, nextLocation.chapter, nextLocation.verse, translation) : null,
 ]);
 ```
+
+Note: Context only includes prev/next verses when they are in the **same chapter** as the current verse.
 
 This is efficient because the Bible API caches by chapter—fetching 3 verses from the same chapter typically uses 1 API call.
 
@@ -79,6 +112,7 @@ This is efficient because the Bible API caches by chapter—fetching 3 verses fr
 - Request body:
   - `messages` (array of UI messages)
   - optional `context` (string or structured object)
+  - optional `model` (string, defaults to `DEFAULT_CHAT_MODEL`)
 
 ### Validation
 
@@ -100,6 +134,8 @@ The function constructs a prompt that:
 2. **Shows position**: Includes the current location (e.g., "Genesis 1:3").
 3. **Provides scripture context**: Shows prev/current/next verses for narrative awareness.
 4. **Guides tone**: Encourages devotional, grounded responses.
+
+**Note:** `formatVerses()` truncates verse text at **1200 characters** (with `...`) to prevent excessively long system prompts when verses contain extended passages.
 
 Example system prompt for Genesis 1:3:
 
@@ -130,20 +166,65 @@ This enables the AI to:
 
 ## Model Selection
 
-The API picks a model in this order:
+Chat uses **OpenRouter exclusively** for all models. The default model is `openai/gpt-oss-120b`.
 
-1. **Anthropic** (preferred): `claude-3-haiku-20240307` if `ANTHROPIC_API_KEY` is set.
-2. **OpenRouter**: `anthropic/claude-3-haiku` if `OPENROUTER_API_KEY` is set.
-3. **OpenAI fallback**: `gpt-4o-mini`.
+- Users can select any chat-capable model via the header dropdown.
+- The selected model ID is passed in the request body.
+- If no model is specified, the default is used.
 
-OpenRouter is configured with a custom base URL and optional headers.
+OpenRouter is configured with a custom base URL and headers (`HTTP-Referer`, `X-Title`).
+
+### ChatModelSelector Variants
+
+`src/components/chat-model-selector.tsx` supports two display variants:
+
+| Variant | Location | Description |
+|---------|----------|-------------|
+| `compact` | Header | Full dropdown with model name and provider |
+| `indicator` | Chat input area | Minimal badge showing current model |
+
+```tsx
+// Header usage (default variant)
+<ChatModelSelector />
+<ChatModelSelector variant="compact" />
+
+// Chat input usage
+<ChatModelSelector variant="indicator" />
+```
+
+### Preferences Integration
+
+`src/context/preferences-context.tsx` stores the selected chat model:
+
+- Persisted in `localStorage` (`visibible-preferences`)
+- Stored as cookie `visibible-chat-model` for server-side reading
+- No page refresh on change—takes effect on next message send
+
+### Model Fetch Fallback
+
+When the `/api/chat-models` fetch fails, `ChatModelSelector` sets a fallback model automatically:
+
+```typescript
+.catch((err) => {
+  setError("Failed to load models");
+  setModels([{
+    id: DEFAULT_CHAT_MODEL,
+    name: "GPT-OSS 120B (Default)",
+    provider: "Openai",
+    contextLength: 131072,
+  }]);
+})
+```
+
+This ensures users can always send messages even if the models API is unavailable.
 
 ---
 
 ## Streaming Response
 
 - `streamText` is used to stream tokens from the provider.
-- `toUIMessageStreamResponse()` returns a stream the client can render live.
+- `toUIMessageStreamResponse({ messageMetadata })` returns a stream the client can render live.
+- The `messageMetadata` callback injects per-message metadata (token counts, latency, model, finish reason).
 
 ---
 

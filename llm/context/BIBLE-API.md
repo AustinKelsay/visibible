@@ -14,8 +14,8 @@ High-level overview of how Visibible fetches Bible text. Details may change.
 - Supported translations are defined in `src/lib/bible-api.ts` as `TRANSLATIONS`.
 - The default translation is `DEFAULT_TRANSLATION` (`web`).
 - The current translation is stored in both:
-  - Cookie: `vibible-translation` (server reads on request).
-  - Local storage: `vibible-preferences` (client hydration).
+  - Cookie: `visibible-translation` (server reads on request).
+  - Local storage: `visibible-preferences` (client hydration).
 - Validation only accepts own keys from `TRANSLATIONS` (no prototype keys).
 - If validation fails or no preference is set, the app falls back to `DEFAULT_TRANSLATION`.
 
@@ -40,8 +40,10 @@ This enables instant prev/next navigation without querying the API.
 
 | Endpoint | Purpose |
 |----------|---------|
-| `/data/kjv/{BOOK_ID}/{chapter}` | Fetch all verses in a chapter |
-| `/{reference}?translation=kjv` | Fetch specific verse(s) by reference |
+| `/data/{translation}/{bookId}/{chapter}` | Fetch all verses in a chapter |
+| `/{reference}?translation={translation}` | Fetch specific verse(s) by reference |
+
+Note: `bookId` uses uppercase API identifiers (e.g., "GEN", "MAT"), not URL slugs.
 
 ## Caching Strategy
 

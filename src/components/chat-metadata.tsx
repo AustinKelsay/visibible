@@ -181,11 +181,14 @@ export function MessageMetadataDisplay({ metadata, modelPricing }: MessageMetada
       <button
         onClick={() => setIsExpanded(true)}
         className="mt-1.5 text-[10px] text-[var(--muted)] hover:text-[var(--foreground)] transition-colors flex items-center gap-1"
+        aria-expanded={false}
+        aria-label="Show message details"
       >
         <Zap size={10} />
         <span>{(metadata.totalTokens || 0).toLocaleString()} tokens</span>
         <span>•</span>
         <span>{metadata.latencyMs?.toLocaleString() || 0}ms</span>
+        <ChevronDown size={12} className="ml-0.5 opacity-70" />
       </button>
     );
   }

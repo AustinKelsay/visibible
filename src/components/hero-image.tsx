@@ -4,9 +4,10 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { useQuery, useAction } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Clock } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
+import { useSession } from "@/context/session-context";
 
 interface ChapterTheme {
   setting: string;
@@ -21,13 +22,19 @@ interface VerseContext {
   reference?: string;
 }
 
+interface PromptInputs {
+  reference?: string;
+  aspectRatio?: string;
+  generationNumber?: number;
+  prevVerse?: VerseContext;
+  nextVerse?: VerseContext;
+}
+
 interface HeroImageProps {
   alt?: string;
   caption?: string;
   verseText?: string;
   chapterTheme?: ChapterTheme;
-  verseNumber?: number;
-  totalVerses?: number;
   prevUrl?: string | null;
   nextUrl?: string | null;
   prevVerse?: VerseContext;
@@ -113,6 +120,25 @@ interface ConvexImageData {
   id: string;
   imageUrl: string | undefined;
   model: string;
+  prompt?: string;
+  reference?: string;
+  verseText?: string;
+  chapterTheme?: ChapterTheme;
+  generationNumber?: number;
+  promptVersion?: string;
+  promptInputs?: PromptInputs;
+  translationId?: string;
+  provider?: string;
+  providerRequestId?: string;
+  creditsCost?: number;
+  costUsd?: number;
+  durationMs?: number;
+  aspectRatio?: string;
+  sourceImageUrl?: string;
+  imageMimeType?: string;
+  imageSizeBytes?: number;
+  imageWidth?: number;
+  imageHeight?: number;
   createdAt: number;
 }
 
@@ -124,6 +150,21 @@ interface HeroImageBaseProps extends HeroImageProps {
     verseId: string;
     imageUrl: string;
     model: string;
+    prompt?: string;
+    reference?: string;
+    verseText?: string;
+    chapterTheme?: ChapterTheme;
+    generationNumber?: number;
+    promptVersion?: string;
+    promptInputs?: PromptInputs;
+    translationId?: string;
+    provider?: string;
+    providerRequestId?: string;
+    creditsCost?: number;
+    costUsd?: number;
+    durationMs?: number;
+    aspectRatio?: string;
+    generationId?: string;
   }) => Promise<string | null>;
   onRefreshImages?: () => void;
 }
@@ -154,7 +195,26 @@ function HeroImageWithConvex({
 
   // Wrap action to match expected signature (Promise<void>)
   const saveImage = useCallback(
-    async (args: { verseId: string; imageUrl: string; model: string }) => {
+    async (args: {
+      verseId: string;
+      imageUrl: string;
+      model: string;
+      prompt?: string;
+      reference?: string;
+      verseText?: string;
+      chapterTheme?: ChapterTheme;
+      generationNumber?: number;
+      promptVersion?: string;
+      promptInputs?: PromptInputs;
+      translationId?: string;
+      provider?: string;
+      providerRequestId?: string;
+      creditsCost?: number;
+      costUsd?: number;
+      durationMs?: number;
+      aspectRatio?: string;
+      generationId?: string;
+    }) => {
       const result = await saveImageAction(args);
       return result?.id ?? null;
     },
@@ -187,6 +247,11 @@ function HeroImageWithConvex({
   );
 }
 
+interface ModelPricing {
+  creditsCost: number | null;
+  etaSeconds: number;
+}
+
 function HeroImageBase({
   alt = "Scripture illustration",
   caption = "In the beginning",
@@ -203,7 +268,56 @@ function HeroImageBase({
   onSaveImage,
   onRefreshImages,
 }: HeroImageBaseProps) {
-  const { imageModel } = usePreferences();
+  const { imageModel, translation } = usePreferences();
+  const isConvexEnabled = useConvexEnabled();
+  const { tier, credits, buyCredits, updateCredits, isLoading: sessionLoading } = useSession();
+
+  // Fetch model pricing info
+  const [modelPricing, setModelPricing] = useState<ModelPricing>({ creditsCost: null, etaSeconds: 12 });
+  const modelPricingCache = useRef<Map<string, ModelPricing>>(new Map());
+
+  useEffect(() => {
+    // Check cache first
+    const cached = modelPricingCache.current.get(imageModel);
+    if (cached) {
+      setModelPricing(cached);
+      return;
+    }
+
+    // Fetch models to get pricing for current model
+    fetch("/api/image-models")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.models) {
+          // Cache all models
+          for (const model of data.models) {
+            modelPricingCache.current.set(model.id, {
+              creditsCost: model.creditsCost,
+              etaSeconds: model.etaSeconds ?? 12,
+            });
+          }
+          // Set current model pricing
+          const current = data.models.find((m: { id: string }) => m.id === imageModel);
+          if (current) {
+            setModelPricing({
+              creditsCost: current.creditsCost,
+              etaSeconds: current.etaSeconds ?? 12,
+            });
+          }
+        }
+      })
+      .catch(() => {
+        // Keep defaults on error
+      });
+  }, [imageModel]);
+
+  // Determine if user can generate (has sufficient credits or is admin)
+  const effectiveCost = modelPricing.creditsCost ?? 20; // Default 20 for unpriced models
+  const effectiveEta = modelPricing.etaSeconds;
+  const isAdmin = tier === "admin";
+  const canGenerate = !isConvexEnabled || isAdmin || (tier === "paid" && credits >= effectiveCost);
+  const showCreditsCost = isConvexEnabled && !isAdmin;
+  const hasExistingImages = (imageHistory?.length || 0) > 0;
 
   // Create verse ID for Convex query
   const verseId = currentReference ? createVerseId(currentReference) : null;
@@ -285,6 +399,10 @@ function HeroImageBase({
     // Check if this generation is still current (defined outside try for use in catch)
     const isStale = () => controller.signal.aborted || !isMounted.current || thisGenerationId !== generationIdRef.current;
 
+    const clientGenerationId = typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
     try {
       const params = new URLSearchParams();
       if (verseText) params.set("text", verseText);
@@ -293,7 +411,7 @@ function HeroImageBase({
       if (nextVerse) params.set("nextVerse", JSON.stringify(nextVerse));
       if (currentReference) params.set("reference", currentReference);
       if (imageModel) params.set("model", imageModel);
-      
+
       // Pass existing image count to add generation diversity
       const existingImageCount = imageHistory?.length || 0;
       if (existingImageCount > 0) {
@@ -314,6 +432,21 @@ function HeroImageBase({
         return;
       }
 
+      if (response.status === 401) {
+        if (isMounted.current) {
+          setError("Session required - please refresh the page");
+        }
+        return;
+      }
+
+      if (response.status === 402) {
+        // Insufficient credits
+        if (isMounted.current) {
+          setError("Insufficient credits");
+        }
+        return;
+      }
+
       const data = await response.json();
 
       if (isStale()) {
@@ -324,8 +457,14 @@ function HeroImageBase({
         throw new Error(data?.error || "Failed to generate image");
       }
 
-      if (data?.imageUrl) {
-        const modelUsed = data.model || imageModel || "unknown";
+        if (data?.imageUrl) {
+          const modelUsed = data.model || imageModel || "unknown";
+          const saveGenerationId = data.generationId || clientGenerationId;
+
+        // Update credits in session context if returned
+        if (typeof data.credits === "number") {
+          updateCredits(data.credits);
+        }
 
         if (isStale()) {
           return;
@@ -337,6 +476,21 @@ function HeroImageBase({
             verseId,
             imageUrl: data.imageUrl,
             model: modelUsed,
+            prompt: data.prompt,
+            promptVersion: data.promptVersion,
+            promptInputs: data.promptInputs,
+            reference: data.reference,
+            verseText: data.verseText,
+            chapterTheme: data.chapterTheme,
+            generationNumber: data.generationNumber,
+            translationId: translation,
+            provider: data.provider,
+            providerRequestId: data.providerRequestId,
+            creditsCost: data.creditsCost,
+            costUsd: data.costUsd,
+            durationMs: data.durationMs,
+            aspectRatio: data.aspectRatio,
+            generationId: saveGenerationId,
           });
 
           if (isStale()) {
@@ -388,9 +542,11 @@ function HeroImageBase({
     nextVerse,
     currentReference,
     imageModel,
+    translation,
     onSaveImage,
     selectedImageId,
     imageHistory,
+    updateCredits,
   ]);
 
   // Manual regenerate function - resets load attempts and queues a new image
@@ -440,25 +596,29 @@ function HeroImageBase({
     }
   }, [selectedImageId, imageHistory]);
 
-  // Auto-generate on first visit if no existing images
+  // Auto-generate on first visit if no existing images AND user has credits
   useEffect(() => {
     // Only auto-generate if:
     // 1. Convex query has loaded (imageHistory is not undefined)
     // 2. No existing images found (empty array)
     // 3. Not already generating
     // 4. Haven't already attempted generation for this verse
+    // 5. User has sufficient credits (paid tier)
+    // 6. Session has loaded
     if (
       imageHistory !== undefined &&
       imageHistory.length === 0 &&
       !isGenerating &&
       !hasAttemptedGeneration &&
-      verseId
+      verseId &&
+      canGenerate &&
+      !sessionLoading
     ) {
       setHasAttemptedGeneration(true);
       pendingFollowLatest.current = true;
       generateImage();
     }
-  }, [imageHistory, isGenerating, hasAttemptedGeneration, verseId, generateImage]);
+  }, [imageHistory, isGenerating, hasAttemptedGeneration, verseId, generateImage, canGenerate, sessionLoading]);
 
   // When a new image is saved, navigate only after it exists in history
   useEffect(() => {
@@ -626,6 +786,45 @@ function HeroImageBase({
                 </button>
               </div>
             )}
+
+            {/* Empty state - no image yet */}
+            {!isQueryLoading && !isGenerating && !error && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center">
+                {/* Icon */}
+                <div className="w-16 h-16 rounded-full bg-[var(--surface)] border border-[var(--divider)] flex items-center justify-center">
+                  <ImageOff size={28} strokeWidth={1.5} className="text-[var(--muted)]" />
+                </div>
+
+                {/* Text */}
+                <div className="space-y-1">
+                  <p className="text-sm font-medium text-[var(--foreground)]">
+                    No image yet
+                  </p>
+                  <p className="text-xs text-[var(--muted)] max-w-[240px]">
+                    Generate an AI illustration to bring this verse to life
+                  </p>
+                </div>
+
+                {/* CTA Button - contextual based on canGenerate */}
+                {canGenerate ? (
+                  <button
+                    onClick={handleManualRegenerate}
+                    className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
+                  >
+                    <Sparkles size={18} strokeWidth={1.5} />
+                    <span className="text-sm font-medium">Generate Image</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={buyCredits}
+                    className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
+                  >
+                    <Zap size={18} strokeWidth={2} />
+                    <span className="text-sm font-medium">Get Credits to Generate</span>
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         )}
 
@@ -693,19 +892,46 @@ function HeroImageBase({
                   </button>
                 </div>
 
-                <button
-                  onClick={handleManualRegenerate}
-                  disabled={isGenerating}
-                  className="min-h-[44px] px-4 inline-flex items-center gap-2 rounded-[var(--radius-full)] border border-[var(--divider)] bg-[var(--background)] text-[var(--foreground)]/80 hover:text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors duration-[var(--motion-fast)] disabled:opacity-50 disabled:cursor-not-allowed focus-ring"
-                  aria-label="Generate new image"
-                >
-                  {isGenerating ? (
-                    <Loader2 size={18} strokeWidth={2} className="animate-spin" />
-                  ) : (
-                    <RefreshCw size={18} strokeWidth={1.5} />
-                  )}
-                  <span className="text-sm">New image</span>
-                </button>
+                {canGenerate ? (
+                  <button
+                    onClick={handleManualRegenerate}
+                    disabled={isGenerating}
+                    className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] border border-[var(--divider)] bg-[var(--background)] text-[var(--foreground)]/80 hover:text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors duration-[var(--motion-fast)] disabled:opacity-50 disabled:cursor-not-allowed focus-ring"
+                    aria-label="Generate new image"
+                  >
+                    {isGenerating ? (
+                      <Loader2 size={18} strokeWidth={2} className="animate-spin" />
+                    ) : (
+                      <RefreshCw size={18} strokeWidth={1.5} />
+                    )}
+                    {isGenerating ? (
+                      <span className="text-sm">Generating...</span>
+                    ) : (
+                      <span className="text-sm inline-flex items-center gap-2">
+                        Generate
+                        {showCreditsCost && (
+                          <span className="inline-flex items-center gap-1 text-[var(--muted)]">
+                            <Zap size={12} strokeWidth={2} />
+                            <span>{effectiveCost}</span>
+                          </span>
+                        )}
+                        <span className="inline-flex items-center gap-1 text-[var(--muted)]">
+                          <Clock size={12} strokeWidth={2} />
+                          <span>~{effectiveEta}s</span>
+                        </span>
+                      </span>
+                    )}
+                  </button>
+                ) : (
+                  <button
+                    onClick={buyCredits}
+                    className="min-h-[44px] px-4 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
+                    aria-label="Buy credits to generate"
+                  >
+                    <Zap size={18} strokeWidth={2} />
+                    <span className="text-sm">Unlock Generation</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>

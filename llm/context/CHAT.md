@@ -5,8 +5,8 @@ High-level overview of how Visibible chat works. Details may change.
 ## Overview
 
 - Client uses the AI SDK chat hook to send messages to the API route.
-- Server streams responses from the model.
-- Default model is Anthropic Haiku when the key is configured.
+- Server streams responses from the model via OpenRouter.
+- Default model is `openai/gpt-oss-120b` (configurable via header dropdown).
 - **Contextual awareness**: Chat receives prev/next verse context for fuller understanding.
 - **Reverent tone**: System prompt guides AI to be spiritually encouraging.
 
@@ -17,13 +17,13 @@ High-level overview of how Visibible chat works. Details may change.
 - Context includes:
   - Passage metadata (book, chapter, verse number)
   - Current verse text
-  - **Previous verse** (text and reference)
-  - **Next verse** (text and reference)
+  - **Previous verse** (text and reference) - only included if in the same chapter
+  - **Next verse** (text and reference) - only included if in the same chapter
 - The server builds a contextual system prompt that positions the AI as a reverent guide.
 
 ## Verse Context Structure
 
-The app displays one verse at a time. Chat context reflects this with surrounding verses:
+The app displays one verse at a time. Chat context reflects this with surrounding verses (when they are in the same chapter):
 
 ```json
 {
@@ -72,8 +72,19 @@ This enables the AI to:
 - Answer questions about the verse in context of the chapter and book
 - Provide spiritually encouraging, devotional responses
 
+## Message Metadata
+
+Each streamed message includes metadata for transparency:
+- Token counts (prompt and completion)
+- Response latency
+- Model used
+- Finish reason
+
+This metadata is displayed in the chat UI via the `ChatMetadata` component.
+
 ## Entry Points
 
 - API: `src/app/api/chat/route.ts`
 - UI: `src/components/chat.tsx`
+- Model selector: `src/components/chat-model-selector.tsx`
 - Context source: `src/app/[book]/[chapter]/[verse]/page.tsx`

@@ -6,6 +6,7 @@ import { Header } from "@/components/header";
 import { BookMenu } from "@/components/book-menu";
 import { LayoutWrapper } from "@/components/layout-wrapper";
 import { ChatContextSetter } from "@/components/chat-context-setter";
+import { VerseStrip } from "@/components/verse-strip";
 import { BOOK_BY_SLUG } from "@/data/bible-structure";
 import { getVerse } from "@/lib/bible-api";
 import { getTranslationFromCookies } from "@/lib/get-translation";
@@ -100,14 +101,22 @@ export default async function VersePage({ params }: VersePageProps) {
         <HeroImage
           verseText={verseData.text}
           caption={verseData.text}
-          verseNumber={location.verse}
-          totalVerses={totalVerses}
           prevUrl={prevUrl}
           nextUrl={nextUrl}
           prevVerse={prevVerse}
           nextVerse={nextVerse}
           currentReference={currentReference}
         />
+
+        {/* Verse Strip Navigator */}
+        <div className="border-b border-[var(--divider)]">
+          <VerseStrip
+            book={book}
+            chapter={location.chapter}
+            currentVerse={location.verse}
+            totalVerses={totalVerses}
+          />
+        </div>
 
         {/* Scripture Reader */}
         <div className="flex-1 py-8">

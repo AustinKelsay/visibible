@@ -8,6 +8,9 @@
  * @module
  */
 
+import type * as invoices from "../invoices.js";
+import type * as modelStats from "../modelStats.js";
+import type * as sessions from "../sessions.js";
 import type * as verseImages from "../verseImages.js";
 
 import type {
@@ -17,6 +20,9 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  invoices: typeof invoices;
+  modelStats: typeof modelStats;
+  sessions: typeof sessions;
   verseImages: typeof verseImages;
 }>;
 

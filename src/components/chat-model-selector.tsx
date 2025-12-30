@@ -95,6 +95,7 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
     return (
       <div ref={dropdownRef} className="relative">
         <button
+          type="button"
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center gap-1.5 px-2 py-1 text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] rounded-md hover:bg-[var(--surface)]"
           aria-label={`Current chat model: ${displayName}. Click to change.`}
@@ -126,6 +127,7 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
   return (
     <div ref={dropdownRef} className="relative">
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-1 text-sm font-medium transition-colors duration-[var(--motion-fast)] min-h-[44px] px-2 text-[var(--muted)] hover:text-[var(--foreground)]"
         aria-label={`Current chat model: ${displayName}. Click to change.`}

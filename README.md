@@ -35,3 +35,10 @@ Chat API lives in `src/app/api/chat/route.ts`.
 - OpenAI: set `OPENAI_API_KEY`
 - Anthropic: set `ANTHROPIC_API_KEY` and switch to `anthropic(...)`
 - OpenRouter: set `OPENROUTER_API_KEY` to switch automatically (optional `OPENROUTER_REFERRER`, `OPENROUTER_TITLE`)
+
+## Admin Access
+
+Admin login functionality requires:
+
+- `ADMIN_PASSWORD`: The admin password (required for admin login to work)
+- `ADMIN_PASSWORD_SECRET`: Secret key used for HMAC password verification (required - app will fail to start if not set)

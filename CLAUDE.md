@@ -64,9 +64,11 @@ React hooks are in `@ai-sdk/react`, not `ai/react`:
 
 ## Environment
 
-Copy `.env.example` to `.env.local`:
+Copy `.env.example` to `.env.local`. Key variables:
 
 ```env
 OPENROUTER_API_KEY=     # Required for all AI features (chat + images)
 ENABLE_IMAGE_GENERATION=true  # Set to enable image generation
 ```
+
+For full functionality (sessions, Lightning payments, admin access, image persistence), see `.env.example` for additional required variables including `SESSION_SECRET`, `LND_*`, `ADMIN_*`, and `CONVEX_*`.

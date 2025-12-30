@@ -5,6 +5,28 @@ export interface ImageModel {
   pricing?: {
     imageOutput?: string;
   };
+  creditsCost?: number | null; // null = unpriced, number = credits required
+  etaSeconds?: number; // estimated generation time
+}
+
+// Credit pricing constants
+export const CREDIT_USD = 0.01; // 1 credit = $0.01
+export const PREMIUM_MULTIPLIER = 1.25; // 25% premium over OpenRouter price
+export const DEFAULT_ETA_SECONDS = 12; // default for unknown models
+export const DEFAULT_CREDITS_COST = 20; // default credit cost for unpriced models (~$0.20)
+
+/**
+ * Compute the credit cost for a model based on OpenRouter pricing.
+ * Returns null if pricing is missing or invalid (unpriced model).
+ */
+export function computeCreditsCost(pricingImage: string | undefined): number | null {
+  if (!pricingImage) return null;
+
+  const baseUsd = parseFloat(pricingImage);
+  if (isNaN(baseUsd) || baseUsd <= 0) return null;
+
+  const effectiveUsd = baseUsd * PREMIUM_MULTIPLIER;
+  return Math.max(1, Math.ceil(effectiveUsd / CREDIT_USD));
 }
 
 export const DEFAULT_IMAGE_MODEL = "google/gemini-2.5-flash-image";
@@ -56,11 +78,29 @@ export async function fetchImageModels(openRouterApiKey: string): Promise<ImageM
 
     const data = await response.json();
 
-    const imageModels: ImageModel[] = (data.data || [])
-      .filter(
-        (model: OpenRouterModel) =>
-          model.architecture?.output_modalities?.includes("image")
-      )
+    // First, get all image-capable models
+    const allImageModels: OpenRouterModel[] = (data.data || []).filter(
+      (model: OpenRouterModel) =>
+        model.architecture?.output_modalities?.includes("image")
+    );
+
+    // Build set of stable model IDs (non-preview)
+    const stableModelIds = new Set(
+      allImageModels
+        .filter((m) => !m.id.toLowerCase().includes("-preview"))
+        .map((m) => m.id)
+    );
+
+    // Filter out preview models only if a stable version exists
+    const imageModels: ImageModel[] = allImageModels
+      .filter((model: OpenRouterModel) => {
+        const isPreview = model.id.toLowerCase().includes("-preview");
+        if (!isPreview) return true;
+
+        // Keep preview if no stable version exists
+        const stableId = model.id.replace(/-preview$/i, "");
+        return !stableModelIds.has(stableId);
+      })
       .map((model: OpenRouterModel) => ({
         id: model.id,
         name: model.name || model.id,
@@ -68,6 +108,8 @@ export async function fetchImageModels(openRouterApiKey: string): Promise<ImageM
         pricing: {
           imageOutput: model.pricing?.image,
         },
+        creditsCost: computeCreditsCost(model.pricing?.image),
+        etaSeconds: DEFAULT_ETA_SECONDS, // Will be overridden by modelStats
       }))
       .sort((a: ImageModel, b: ImageModel) => {
         const providerCompare = a.provider.localeCompare(b.provider);

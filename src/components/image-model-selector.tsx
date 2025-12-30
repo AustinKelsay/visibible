@@ -26,34 +26,40 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
   useEffect(() => {
     if (isOpen && !hasFetched.current && models.length === 0) {
       hasFetched.current = true;
-      setIsLoading(true);
-      setError(null);
+      
+      // Defer state updates to avoid synchronous setState in effect
+      queueMicrotask(() => {
+        setIsLoading(true);
+        setError(null);
 
-      fetch("/api/image-models")
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.models) {
-            setModels(data.models);
-          }
-          if (data.error) {
-            setError(data.error);
-          }
-        })
-        .catch((err) => {
-          console.error("Failed to fetch image models:", err);
-          setError("Failed to load models");
-          // Set fallback model
-          setModels([
-            {
-              id: DEFAULT_IMAGE_MODEL,
-              name: "Gemini 2.5 Flash (Default)",
-              provider: "Google",
-            },
-          ]);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+        fetch("/api/image-models")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.models) {
+              setModels(data.models);
+            }
+            if (data.error) {
+              setError(data.error);
+            }
+          })
+          .catch((err) => {
+            console.error("Failed to fetch image models:", err);
+            setError("Failed to load models");
+            // Set fallback model
+            setModels([
+              {
+                id: DEFAULT_IMAGE_MODEL,
+                name: "Gemini 2.5 Flash (Default)",
+                provider: "Google",
+                creditsCost: 5,
+                etaSeconds: 12,
+              },
+            ]);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      });
     }
   }, [isOpen, models.length]);
 
@@ -134,16 +140,26 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
                   return (
                     <button
                       key={model.id}
-                      onClick={() => handleSelect(model.id)}
-                      className={`w-full flex items-center justify-between px-3 py-2.5 text-left hover:bg-[var(--surface)] transition-colors duration-[var(--motion-fast)] ${
-                        isSelected ? "bg-[var(--surface)]" : ""
-                      }`}
+                      onClick={() => model.creditsCost != null && handleSelect(model.id)}
+                      disabled={model.creditsCost == null}
+                      className={`w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors duration-[var(--motion-fast)] ${
+                        model.creditsCost == null
+                          ? "opacity-50 cursor-not-allowed"
+                          : "hover:bg-[var(--surface)]"
+                      } ${isSelected ? "bg-[var(--surface)]" : ""}`}
                       role="option"
                       aria-selected={isSelected}
+                      aria-disabled={model.creditsCost == null}
                     >
                       <div className="flex-1 min-w-0">
                         <div className="text-sm font-medium truncate">{model.name}</div>
-                        <p className="text-xs text-[var(--muted)] truncate">{model.id}</p>
+                        <p className="text-xs text-[var(--muted)] truncate">
+                          {model.creditsCost == null ? (
+                            "Pricing unavailable"
+                          ) : (
+                            <>~{model.etaSeconds ?? 12}s · {model.creditsCost} credits</>
+                          )}
+                        </p>
                       </div>
                       {isSelected && (
                         <Check size={16} className="text-[var(--accent)] flex-shrink-0 ml-2" />

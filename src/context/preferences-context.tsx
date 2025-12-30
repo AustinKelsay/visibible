@@ -18,10 +18,10 @@ interface PreferencesContextType {
 
 const PreferencesContext = createContext<PreferencesContextType | null>(null);
 
-const STORAGE_KEY = "vibible-preferences";
-const COOKIE_NAME = "vibible-translation";
-const IMAGE_MODEL_COOKIE = "vibible-image-model";
-const CHAT_MODEL_COOKIE = "vibible-chat-model";
+const STORAGE_KEY = "visibible-preferences";
+const COOKIE_NAME = "visibible-translation";
+const IMAGE_MODEL_COOKIE = "visibible-image-model";
+const CHAT_MODEL_COOKIE = "visibible-chat-model";
 
 export function PreferencesProvider({ children }: { children: ReactNode }) {
   const [translation, setTranslationState] = useState<Translation>(DEFAULT_TRANSLATION);

@@ -76,8 +76,8 @@ Handles all communication with bible-api.com.
   - Chapter: `https://bible-api.com/data/{translation}/{bookId}/{chapter}`
   - Reference: `https://bible-api.com/{reference}?translation={translation}`
 - Translation is validated against own keys of `TRANSLATIONS` before use.
-  - Server cookie: `vibible-translation` via `getTranslationFromCookies`.
-  - Client hydration: `vibible-preferences` via `PreferencesProvider`.
+  - Server cookie: `visibible-translation` via `getTranslationFromCookies`.
+  - Client hydration: `visibible-preferences` via `PreferencesProvider`.
 
 ### Data Types
 
@@ -102,21 +102,32 @@ interface ChapterData {
 
 ### Primary Functions
 
-#### `getVerse(bookSlug, chapter, verse)`
+#### `getVerse(bookSlug, chapter, verse, translation?)`
 
 Fetches a single verse. Uses chapter caching internally.
 
 ```typescript
+// Using default translation (web)
 const verse = await getVerse("genesis", 1, 1);
 // Returns: { bookId: "GEN", bookName: "Genesis", chapter: 1, verse: 1, text: "In the beginning..." }
+
+// Using specific translation
+const verseKJV = await getVerse("genesis", 1, 1, "kjv");
 ```
 
-#### `getChapter(bookSlug, chapter)`
+The `translation` parameter defaults to `DEFAULT_TRANSLATION` (`web`) if not provided.
+
+#### `getChapter(bookSlug, chapter, translation?)`
 
 Fetches all verses in a chapter.
 
 ```typescript
+// Using default translation (web)
 const chapter = await getChapter("john", 3);
+// Returns: { verses: [...], translationId: "web", ... }
+
+// Using specific translation
+const chapterKJV = await getChapter("john", 3, "kjv");
 // Returns: { verses: [...], translationId: "kjv", ... }
 ```
 
@@ -130,7 +141,7 @@ const verses = await getVerseByReference("John 3:16");
 
 ### Caching Strategy
 
-1. **In-memory chapter cache**: `Map<string, ChapterData>` keyed by `{BOOK_ID}-{chapter}`.
+1. **In-memory chapter cache**: `Map<string, ChapterData>` keyed by `{book}-{chapter}-{translation}`.
 2. **Next.js fetch cache**: 30-day revalidation via `{ next: { revalidate: 86400 * 30 } }`.
 3. **Chapter-level fetching**: Always fetch full chapters, not individual verses. Reduces API calls.
 
@@ -139,11 +150,11 @@ const verses = await getVerseByReference("John 3:16");
 The client uses two bible-api.com endpoints:
 
 ```typescript
-// Full chapter (preferred)
-`https://bible-api.com/data/kjv/${bookId}/${chapter}`
+// Full chapter (preferred) - translation is dynamic (default: web)
+`https://bible-api.com/data/${translation}/${bookId}/${chapter}`
 
 // Reference lookup (for search)
-`https://bible-api.com/${encodeURIComponent(reference)}?translation=kjv`
+`https://bible-api.com/${encodeURIComponent(reference)}?translation=${translation}`
 ```
 
 ### Response Format (from API)
@@ -212,7 +223,7 @@ export default async function VersePage({ params }) {
 |-----------|-------|
 | `HeroImage` | `verseText`, `caption`, `prevUrl`, `nextUrl` |
 | `ScriptureReader` | `book`, `chapter`, `verse`, `verseNumber`, `totalVerses`, `prevUrl`, `nextUrl` |
-| `ScriptureDetails` | `book`, `chapter`, `verseRange`, `imageAttribution` |
+| `ScriptureDetails` | `book`, `chapter`, `verseRange`, `verseText`, `chapterVerseCount`, `testament`, `reference`, `imageAttribution` |
 | `Chat` | `context` (book, chapter, verseRange, heroCaption, verses) |
 
 ---
@@ -242,16 +253,19 @@ bible-api.com enforces **15 requests per 30 seconds** per IP.
 
 ## Adding a New Translation
 
-To support additional translations:
+Translation support is fully implemented with 16 translations. To add a new translation:
 
-1. Update `bible-api.ts` to accept a `translation` parameter.
-2. Modify API URLs to include `?translation={id}` or use `/data/{translation}/...`.
-3. Update `ScriptureDetails` to show the correct translation info.
-4. Consider cache key changes to include translation ID.
+1. Add the translation ID to the `Translation` type union in `bible-api.ts`.
+2. Add an entry to the `TRANSLATIONS` record with `{ code, name, language, year? }`.
+3. Add the translation ID to the appropriate group in `TRANSLATION_GROUPS` (English or Other).
+4. Test by selecting the translation in the UI or passing it as a cookie.
 
-Available translations from bible-api.com:
-- `kjv` (King James Version) — current default
-- `web` (World English Bible)
-- `asv` (American Standard Version)
-- `bbe` (Bible in Basic English)
-- And others (see API documentation)
+Cache keys automatically include the translation ID, so no additional cache changes are needed.
+
+### Currently Supported Translations
+
+See `TRANSLATIONS` in `src/lib/bible-api.ts` for the complete list. Currently includes:
+
+**English (10):** web (default), webbe, kjv, asv, bbe, darby, dra, ylt, oeb-cw, oeb-us
+
+**Other Languages (6):** clementine (Latin), almeida (Portuguese), cherokee, cuv (Chinese), bkr (Czech), rccv (Romanian)

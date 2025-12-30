@@ -259,27 +259,8 @@ import { ChevronLeft, Search, Send } from "lucide-react";
 
 ---
 
-## Tailwind Mapping
+## Tailwind Integration
 
-```js
-// tailwind.config.js extension
-{
-  spacing: {
-    'xs': '4px',
-    'sm': '8px',
-    'md': '16px',
-    'lg': '24px',
-    'xl': '32px',
-    '2xl': '48px',
-  },
-  borderRadius: {
-    'sm': '6px',
-    'md': '12px',
-    'lg': '16px',
-  },
-  transitionDuration: {
-    'fast': '150ms',
-    'base': '200ms',
-  }
-}
-```
+Tokens are defined as CSS custom properties in `src/app/globals.css` and bridged to Tailwind via `@theme inline` (Tailwind v4). There is no `tailwind.config.js` file.
+
+See `llm/implementation/THEME_IMPLEMENTATION.md` for component patterns and usage examples.

@@ -6,12 +6,13 @@ This document describes how Visibible handles navigation across the entire Bible
 
 ## Architecture Overview
 
-Navigation consists of four parts:
+Navigation consists of five parts:
 
 1. **Navigation Helpers** (`navigation.ts`) — Pure functions for prev/next logic.
-2. **Navigation Context** (`navigation-context.tsx`) — React context for menu state.
+2. **Navigation Context** (`navigation-context.tsx`) — React context for menu and chat sidebar state.
 3. **Book Menu** (`book-menu.tsx`) — Slide-out panel for book/chapter selection.
 4. **Arrow Navigation** — Embedded in `hero-image.tsx` and `scripture-reader.tsx`.
+5. **Chat Sidebar State** — Manages chat panel visibility and verse context for AI.
 
 ---
 
@@ -25,7 +26,7 @@ Pure functions that calculate navigation without side effects.
 
 ```typescript
 interface VerseLocation {
-  book: BibleBookChapters;   // From bible-structure.ts, includes versesPerChapter array
+  book: BibleBook;   // From bible-structure.ts, includes chapters array (verse counts)
   chapter: number;
   verse: number;
 }
@@ -112,11 +113,11 @@ getNavigationUrls({ book: genesis, chapter: 1, verse: 5 })
 The navigation logic uses static data from `bible-structure.ts`:
 
 ```typescript
-import { BibleBookChapters, BIBLE_BOOKS, BOOK_BY_SLUG } from "@/data/bible-structure";
+import { BibleBook, BIBLE_BOOKS, BOOK_BY_SLUG } from "@/data/bible-structure";
 
 function getNextVerse(current: VerseLocation): VerseLocation | null {
   const { book, chapter, verse } = current;
-  const versesInChapter = book.versesPerChapter[chapter - 1];
+  const versesInChapter = book.chapters[chapter - 1];
 
   // Same chapter, next verse
   if (verse < versesInChapter) {
@@ -124,7 +125,7 @@ function getNextVerse(current: VerseLocation): VerseLocation | null {
   }
 
   // Next chapter in same book
-  if (chapter < book.versesPerChapter.length) {
+  if (chapter < book.chapters.length) {
     return { book, chapter: chapter + 1, verse: 1 };
   }
 
@@ -149,7 +150,7 @@ function getPreviousVerse(current: VerseLocation): VerseLocation | null {
 
   // Previous chapter in same book
   if (chapter > 1) {
-    const prevChapterVerses = book.versesPerChapter[chapter - 2];
+    const prevChapterVerses = book.chapters[chapter - 2];
     return { book, chapter: chapter - 1, verse: prevChapterVerses };
   }
 
@@ -157,8 +158,8 @@ function getPreviousVerse(current: VerseLocation): VerseLocation | null {
   const bookIndex = BIBLE_BOOKS.findIndex((b) => b.id === book.id);
   if (bookIndex > 0) {
     const prevBook = BIBLE_BOOKS[bookIndex - 1];
-    const lastChapter = prevBook.versesPerChapter.length;
-    const lastVerse = prevBook.versesPerChapter[lastChapter - 1];
+    const lastChapter = prevBook.chapters.length;
+    const lastVerse = prevBook.chapters[lastChapter - 1];
     return { book: prevBook, chapter: lastChapter, verse: lastVerse };
   }
 
@@ -178,8 +179,8 @@ function parseVerseUrl(
   const verseNum = parseInt(verse, 10);
 
   if (isNaN(chapterNum) || isNaN(verseNum)) return null;
-  if (chapterNum < 1 || chapterNum > book.versesPerChapter.length) return null;
-  if (verseNum < 1 || verseNum > book.versesPerChapter[chapterNum - 1]) return null;
+  if (chapterNum < 1 || chapterNum > book.chapters.length) return null;
+  if (verseNum < 1 || verseNum > book.chapters[chapterNum - 1]) return null;
 
   return { book, chapter: chapterNum, verse: verseNum };
 }
@@ -216,8 +217,16 @@ Wrap the app in `layout.tsx`:
 ### Hook
 
 ```typescript
-const { isMenuOpen, openMenu, closeMenu, toggleMenu } = useNavigation();
+const {
+  // Book menu
+  isMenuOpen, openMenu, closeMenu, toggleMenu,
+  // Chat sidebar
+  isChatOpen, openChat, closeChat, toggleChat,
+  chatContext, setChatContext
+} = useNavigation();
 ```
+
+#### Book Menu State
 
 | Property | Type | Description |
 |----------|------|-------------|
@@ -225,6 +234,38 @@ const { isMenuOpen, openMenu, closeMenu, toggleMenu } = useNavigation();
 | `openMenu` | `() => void` | Open the menu |
 | `closeMenu` | `() => void` | Close the menu |
 | `toggleMenu` | `() => void` | Toggle menu state |
+
+#### Chat Sidebar State
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `isChatOpen` | `boolean` | Current chat panel state |
+| `openChat` | `() => void` | Open chat panel |
+| `closeChat` | `() => void` | Close chat panel |
+| `toggleChat` | `() => void` | Toggle chat panel |
+| `chatContext` | `PageContext \| null` | Verse data for AI context |
+| `setChatContext` | `(ctx: PageContext \| null) => void` | Update chat context |
+
+Escape key closes the chat sidebar automatically.
+
+#### PageContext Type
+
+The `chatContext` uses the `PageContext` type which includes:
+
+```typescript
+interface PageContext {
+  book?: string;           // Book name (e.g., "Genesis")
+  chapter?: number;        // Chapter number
+  verseRange?: string;     // Verse number as string (e.g., "3")
+  heroCaption?: string;    // The verse text displayed as caption
+  imageTitle?: string;     // Title for the hero image
+  verses?: Array<{ number?: number; text?: string }>;
+  prevVerse?: { number: number; text: string; reference?: string };
+  nextVerse?: { number: number; text: string; reference?: string };
+}
+```
+
+Note: `verseRange`, `heroCaption`, and `imageTitle` are used for display purposes and chat context but may not appear in all navigation-related documentation.
 
 ---
 
@@ -247,8 +288,10 @@ BookMenu
         │   │   └── Book buttons (39)
         │   └── New Testament (collapsible)
         │       └── Book buttons (27)
-        └── Chapters View
-            └── Chapter grid (numbered buttons)
+        ├── Chapters View
+        │   └── Chapter grid (numbered buttons)
+        └── Verses View
+            └── Verse grid (numbered buttons)
 ```
 
 ### State
@@ -256,7 +299,8 @@ BookMenu
 ```typescript
 const [expandedTestament, setExpandedTestament] = useState<"old" | "new">("old");
 const [selectedBook, setSelectedBook] = useState<BibleBook | null>(null);
-const [view, setView] = useState<"books" | "chapters">("books");
+const [selectedChapter, setSelectedChapter] = useState<number | null>(null);
+const [view, setView] = useState<"books" | "chapters" | "verses">("books");
 ```
 
 ### User Flow
@@ -264,8 +308,11 @@ const [view, setView] = useState<"books" | "chapters">("books");
 1. User clicks book icon → `toggleMenu()` → menu slides in.
 2. User sees Old/New Testament sections (one expanded).
 3. User clicks a book → view changes to chapter grid.
-4. User clicks a chapter number → navigates to `/{book}/{chapter}/1`.
-5. Menu closes automatically on navigation.
+4. User clicks a chapter number → view changes to verse grid.
+5. User clicks a verse number → navigates to `/{book}/{chapter}/{verse}`.
+6. Menu closes automatically on navigation.
+
+Note: The menu does **not** auto-navigate to verse 1 when selecting a chapter. Users must explicitly select a verse.
 
 ### Styling
 
@@ -327,22 +374,50 @@ interface ScriptureReaderProps {
 
 ### File: `src/components/header.tsx`
 
-Contains the menu trigger button.
+Contains navigation triggers and user controls.
+
+### Component Structure
+
+```
+Header
+├── Left: Brand ("Visibible")
+├── Center: Controls (responsive)
+│   ├── CreditsBadge (session credits / Get Credits / Admin)
+│   ├── TranslationSelector (Bible translation dropdown)
+│   ├── ImageModelSelector (AI image model dropdown)
+│   └── ChatModelSelector (AI chat model dropdown, variant="compact")
+└── Right: Buttons
+    ├── Chat toggle (MessageCircle icon)
+    └── Menu toggle (Menu icon)
+```
+
+### Example Implementation
 
 ```typescript
 export function Header() {
-  const { toggleMenu } = useNavigation();
+  const { toggleMenu, toggleChat } = useNavigation();
 
   return (
-    <header>
-      <h1>Visibible</h1>
-      <button onClick={toggleMenu} aria-label="Open navigation menu">
-        <Menu />
-      </button>
+    <header className="flex items-center justify-between ...">
+      <h1 className="text-lg font-semibold">Visibible</h1>
+      <div className="flex items-center gap-2">
+        <CreditsBadge />
+        <TranslationSelector />
+        <ImageModelSelector />
+        <ChatModelSelector variant="compact" />
+        <button onClick={toggleChat} aria-label="Toggle chat">
+          <MessageCircle />
+        </button>
+        <button onClick={toggleMenu} aria-label="Open navigation menu">
+          <Menu />
+        </button>
+      </div>
     </header>
   );
 }
 ```
+
+Note: The header adapts responsively; some controls may be hidden or collapsed on smaller screens.
 
 ---
 
@@ -358,23 +433,26 @@ export default function Home() {
 }
 ```
 
-### Legacy Route Redirect
+### Development Convenience Redirect
 
 File: `src/app/verse/[number]/page.tsx`
 
-Redirects old `/verse/N` URLs to new format.
+A simple redirect for `/verse/N` URLs to Genesis 1 (development convenience, not a production legacy route handler).
 
 ```typescript
 export default async function OldVersePage({ params }) {
-  const verseNumber = parseInt(params.number, 10);
+  const { number } = await params;
+  const verseNumber = parseInt(number, 10);
 
-  if (verseNumber >= 1 && verseNumber <= 31) {
+  if (!isNaN(verseNumber) && verseNumber >= 1 && verseNumber <= 31) {
     redirect(`/genesis/1/${verseNumber}`);
   }
 
   redirect("/genesis/1/1");
 }
 ```
+
+Note: This only handles Genesis 1 verses (1-31). It's a development shortcut, not a comprehensive legacy route system.
 
 ---
 
@@ -383,13 +461,15 @@ export default async function OldVersePage({ params }) {
 | File | Purpose |
 |------|---------|
 | `src/lib/navigation.ts` | Pure navigation helper functions |
-| `src/context/navigation-context.tsx` | Menu state context |
+| `src/context/navigation-context.tsx` | Menu and chat sidebar state context |
 | `src/components/header.tsx` | Header with menu trigger |
 | `src/components/book-menu.tsx` | Slide-out book/chapter picker |
 | `src/components/hero-image.tsx` | Floating arrow navigation |
 | `src/components/scripture-reader.tsx` | Text-based arrow navigation |
+| `src/components/chat.tsx` | Chat component (uses chat context) |
+| `src/components/chat-sidebar.tsx` | Chat sidebar panel |
 | `src/app/page.tsx` | Root redirect |
-| `src/app/verse/[number]/page.tsx` | Legacy route redirect |
+| `src/app/verse/[number]/page.tsx` | Development convenience redirect |
 | `src/app/[book]/[chapter]/[verse]/page.tsx` | Main verse page |
 
 ---

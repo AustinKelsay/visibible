@@ -23,10 +23,48 @@ interface ScriptureDetailsProps {
   };
 }
 
+interface VerseContext {
+  number: number;
+  text: string;
+  reference?: string;
+}
+
+interface PromptInputs {
+  reference?: string;
+  aspectRatio?: string;
+  generationNumber?: number;
+  prevVerse?: VerseContext;
+  nextVerse?: VerseContext;
+}
+
 interface ConvexImageData {
   id: string;
   imageUrl: string | undefined;
   model: string;
+  prompt?: string;
+  reference?: string;
+  verseText?: string;
+  chapterTheme?: {
+    setting: string;
+    palette: string;
+    elements: string;
+    style: string;
+  };
+  generationNumber?: number;
+  promptVersion?: string;
+  promptInputs?: PromptInputs;
+  translationId?: string;
+  provider?: string;
+  providerRequestId?: string;
+  creditsCost?: number;
+  costUsd?: number;
+  durationMs?: number;
+  aspectRatio?: string;
+  sourceImageUrl?: string;
+  imageMimeType?: string;
+  imageSizeBytes?: number;
+  imageWidth?: number;
+  imageHeight?: number;
   createdAt: number;
 }
 

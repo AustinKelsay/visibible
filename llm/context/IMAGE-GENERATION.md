@@ -6,25 +6,30 @@ High-level overview of how Visibible generates scripture illustrations. Details 
 
 - Each verse has its own AI-generated image.
 - Images are generated server-side via OpenRouter.
+- When sessions/credits are enabled, generation is credit-gated and requires a session cookie.
 - **Model selection**: Users can choose any image-capable model from OpenRouter via a header dropdown.
-- **Storyboard context**: Images include prev/next verse context for visual narrative continuity.
+- **Storyboard context**: Images include prev/next verse context for visual narrative continuity (only when verses are in the same chapter).
 - **Persistence (Convex)**: When enabled, every image is saved per verse and can be browsed later.
+- **Cost visibility**: Credit cost varies by model; the UI surfaces model-specific costs and ETA estimates.
+- **Transparency**: Saved images include prompt + prompt version/inputs, translation, provider metadata, and image file metadata (mime/size/dimensions) in addition to costs and timing.
 - **Fallback**: When Convex is disabled, images rely on browser HTTP caching only.
 
 ## Current Flow
 
 1. Verse page fetches current verse AND prev/next verses from the Bible API using the selected translation.
 2. `HeroImage` loads existing image history from Convex (if configured).
-3. If no images exist for the verse, `HeroImage` auto-generates the first image.
+3. If no images exist for the verse, `HeroImage` auto-generates the first image **only when generation is allowed** (admin/paid with enough credits, or Convex disabled).
 4. Client requests `/api/generate-image` with text, optional theme, prevVerse, nextVerse, reference, **model**, and generation count.
-5. Server builds a **storyboard-aware prompt** using the verse + surrounding context.
-6. Server generates the image via OpenRouter using the **user-selected model**.
-7. Response returns an image URL (or base64 data URL) and the model used.
-8. If Convex is enabled, the image is saved and appended to history; otherwise it is displayed directly.
+5. If Convex is enabled, the server verifies the session and pre-checks credits (admin bypass). Credit cost is derived from model pricing (defaulting to 20 credits if unknown).
+6. Server builds a **storyboard-aware prompt** with strict "no text" + framing guardrails and stamps `promptVersion` + `promptInputs`.
+7. Server generates the image via OpenRouter using the **user-selected model**.
+8. On success, credits are charged (post-charge) and the response includes image URL + prompt + metadata (including `generationId`, provider info, and prompt version/inputs).
+9. If Convex is enabled, the image and metadata are saved and appended to history (including translation + file metadata); otherwise it is displayed directly.
+10. On failure, no credits are charged.
 
 ## Chapter Themes (Optional)
 
-Themes are supported but are not currently passed from the verse page. If a theme is provided, it augments prompts for consistent style.
+The `HeroImage` component accepts an optional `chapterTheme` prop that augments prompts for consistent style. Theme data files can be created per chapter and passed through the verse page to enable themed image generation.
 
 Example theme structure:
 
@@ -39,7 +44,7 @@ Example theme structure:
 
 ## Prompt Construction
 
-Prompts combine verse text with storyboard context (and theme when provided):
+Prompts combine verse text with storyboard context (and theme when provided). The API also prepends guardrails (no-text, framing) and records a `promptVersion` for reproducibility.
 
 ```
 Render a stylized biblical-era scene for {reference}: "{verse text}"
@@ -61,12 +66,21 @@ Generate the image in WIDESCREEN LANDSCAPE format with a 16:9 aspect ratio.
 ```
 
 When multiple images already exist for the verse, a "generation" note is added to encourage variety.
+Prompt inputs (reference, aspect ratio, generation number, prev/next context) are stored alongside the prompt for reproducibility.
 
 ## Persistence & Caching
 
 - **Convex persistence** stores images per verse and makes history available across sessions.
+- **Metadata** includes prompt + prompt inputs/version, translation, provider identifiers, costs, duration, aspect ratio, and image file details (source URL, mime type, size, dimensions).
 - `/api/generate-image` responses include `Cache-Control: private, max-age=3600` for HTTP caching.
 - Next.js caching is disabled (`dynamic = "force-dynamic"`), so persistence is handled by Convex or the browser cache.
+
+## Credits & Sessions
+
+- Credits are only enforced when Convex is configured and a valid session cookie exists.
+- Admin sessions bypass credit checks.
+- Credit cost is derived from OpenRouter pricing with a fallback default (20 credits) for unpriced models.
+- See `llm/context/SESSIONS_AND_CREDITS.md` for user-facing behavior and `llm/implementation/SESSIONS_AND_CREDITS.md` for implementation details.
 
 ## Model Selection
 
@@ -74,14 +88,28 @@ Users can choose from **any image generation model** available on OpenRouter via
 
 ### How It Works
 
-1. Click the image icon (🖼️) in the header to open the model selector.
+1. Click the image icon in the header to open the model selector.
 2. Models are fetched from OpenRouter's `/api/v1/models` endpoint.
-3. Only models with image output capability are shown.
+3. Only models with image output capability are shown; each model includes a credit cost and ETA estimate.
 4. Selection is persisted in localStorage and triggers image regeneration.
 
 ### Default Model
 
 - **Default**: `google/gemini-2.5-flash-image`
+
+## Session Integration
+
+The `HeroImage` component uses the `useSession` hook from `src/context/session-context.tsx` to:
+- Check if the user can generate (tier + credits)
+- Display generation UI only when allowed
+- Update credits after successful generation
+
+## Model Stats & ETA Estimation
+
+Every generation records timing data via `convex/modelStats.ts`:
+- After generation succeeds, the API calls `api.modelStats.recordGeneration({ modelId, durationMs })`
+- Stats are used to compute ETA estimates shown in the model selector
+- Uses exponential moving average (EMA) for `avgMs`
 
 ## Entry Points
 
@@ -90,6 +118,8 @@ Users can choose from **any image generation model** available on OpenRouter via
 - **Hero image UI**: `src/components/hero-image.tsx`
 - **Model selector UI**: `src/components/image-model-selector.tsx`
 - **Preferences context**: `src/context/preferences-context.tsx`
+- **Session context**: `src/context/session-context.tsx`
 - **Convex persistence**: `convex/verseImages.ts`, `convex/schema.ts`
+- **Model stats**: `convex/modelStats.ts`
 - **Convex client gate**: `src/components/convex-client-provider.tsx`
 - **Verse page**: `src/app/[book]/[chapter]/[verse]/page.tsx`

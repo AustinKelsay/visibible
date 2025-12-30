@@ -1,7 +1,7 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { ChevronUp, Loader2, Send } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { ChatModelSelector } from "./chat-model-selector";
@@ -40,7 +40,15 @@ interface ChatMessage {
 
 export function Chat({ context, variant = "inline" }: ChatProps) {
   const { chatModel } = usePreferences();
-  const { messages, sendMessage, status, error } = useChat();
+  const chatId = useMemo(() => {
+    if (!context) return `${variant}-global`;
+    const book = (context.book ?? "book").replace(/\s+/g, "-");
+    const chapter = typeof context.chapter === "number" ? context.chapter : "chapter";
+    const verseRange = (context.verseRange ?? "verse").replace(/\s+/g, "-");
+    return `${variant}-${book}-${chapter}-${verseRange}`.toLowerCase();
+  }, [context, variant]);
+
+  const { messages, sendMessage, status, error } = useChat({ id: chatId });
   const [input, setInput] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -54,6 +62,11 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
 
   const isLoading = status === "streaming" || status === "submitted";
   const hasMessages = messages.length > 0;
+
+  useEffect(() => {
+    setIsExpanded(false);
+    setInput("");
+  }, [chatId]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

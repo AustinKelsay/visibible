@@ -15,7 +15,7 @@ High-level overview of how verse images are persisted and browsed. Details may c
 - Verse ID is derived from the human reference string:
   - "Genesis 1:1" -> `genesis-1-1`
   - "1 John 3:16" -> `1-john-3-16`
-- The verse ID does not include translation, so history can include images generated from different translations of the same verse.
+- The verse ID (used for grouping) does not include translation, so history can include images generated from different translations of the same verse. Each image record stores its `translationId` for traceability.
 
 ## Persistence Behavior
 
