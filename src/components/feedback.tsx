@@ -17,7 +17,13 @@ export function Feedback({ context }: FeedbackProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!message.trim() || isSubmitting) return;
+    const trimmedMessage = message.trim();
+
+    if (trimmedMessage.length === 0 || isSubmitting) return;
+    if (trimmedMessage.length > 5000) {
+      setError("Feedback must be 5000 characters or fewer.");
+      return;
+    }
 
     setIsSubmitting(true);
     setError(null);
@@ -29,7 +35,7 @@ export function Feedback({ context }: FeedbackProps) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          message: message.trim(),
+          message: trimmedMessage,
           verseContext: context
             ? {
                 book: context.book,
@@ -119,6 +125,7 @@ export function Feedback({ context }: FeedbackProps) {
             placeholder="Your feedback..."
             aria-label="Feedback message"
             rows={3}
+            maxLength={5000}
             className="flex-1 min-h-[88px] px-4 py-3 bg-[var(--surface)] border border-[var(--divider)] rounded-[var(--radius-md)] text-[var(--foreground)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-shadow duration-[var(--motion-fast)] resize-none disabled:opacity-50 disabled:cursor-not-allowed"
           />
           <button
