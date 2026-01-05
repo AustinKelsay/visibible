@@ -76,8 +76,8 @@ export async function GET(): Promise<NextResponse<RateLimitStatusResponse>> {
     const tomorrowMidnight = new Date(todayMidnight);
     tomorrowMidnight.setUTCDate(tomorrowMidnight.getUTCDate() + 1);
 
-    const spent = session.dailySpendUsd;
-    const limit = session.dailySpendLimitUsd;
+    const spent = session.dailySpendUsd ?? 0;
+    const limit = session.dailySpendLimitUsd ?? DEFAULT_DAILY_SPEND_LIMIT_USD;
 
     dailySpend = {
       spent,

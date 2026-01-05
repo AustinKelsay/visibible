@@ -197,7 +197,7 @@ Changes take effect immediately after Convex syncs the updated function.
 
 ### API Route Rate Limiting
 
-**Example: Chat API Route**
+#### Example: Chat API Route
 
 ```typescript
 // src/app/api/chat/route.ts
@@ -238,7 +238,7 @@ export async function POST(request: Request) {
 }
 ```
 
-**Example: Session Creation (IP-based)**
+#### Example: Session Creation (IP-based)
 
 ```typescript
 // src/app/api/session/route.ts
@@ -268,7 +268,7 @@ if (!rateLimitResult.allowed) {
 }
 ```
 
-**Example: Image Generation**
+#### Example: Image Generation
 
 ```typescript
 // src/app/api/generate-image/route.ts
@@ -297,7 +297,7 @@ if (!rateLimitResult.allowed) {
 
 ### Checking Rate Limit Status (Without Incrementing)
 
-**Actual Implementation: Rate Limit Status API**
+#### Actual Implementation: Rate Limit Status API
 
 The actual `src/app/api/rate-limit-status/route.ts` returns status for the main rate-limited endpoints plus daily spending information:
 
@@ -350,7 +350,7 @@ export async function GET(): Promise<NextResponse<RateLimitStatusResponse>> {
 
 ### Admin Login Brute Force Protection
 
-**Example: Admin Login Route**
+#### Example: Admin Login Route
 
 ```typescript
 // src/app/api/admin-login/route.ts
