@@ -250,16 +250,41 @@ The endpoint enforces credits using a two-stage reservation pattern to prevent r
 
 1. Verify session and resolve model pricing.
 2. **Reject unpriced models** - returns 400 if `creditsCost === null`.
-3. **Reserve credits atomically** via `reserveCredits()` - deducts from balance immediately and creates a `reservation` ledger entry.
-4. If reservation fails (insufficient credits), return 402 with `required`/`available` amounts.
-5. Generate image via OpenRouter.
-6. **Convert reservation to charge** via `deductCredits()` - uses double-entry bookkeeping (creates `generation` + compensating `refund` to convert the reservation).
-7. If generation fails, **release reservation** via `releaseReservation()` to restore credits.
-8. If post-charge fails, return 402 and discard the generated image.
+3. **Calculate scene planner cost** - if scene planner is enabled and uses a paid model, compute additional credits via `computeChatCreditsCost()`.
+4. **Reserve total credits atomically** via `reserveCredits()` - reserves `imageCreditsCost + scenePlannerCreditsCost`, deducting from balance immediately.
+5. If reservation fails (insufficient credits), return 402 with `required`/`available` amounts.
+6. **Run scene planner** (if enabled) - makes LLM call to generate scene plan.
+7. **Partial refund if scene planner fails** - if scene planner returns null but was charged for, refund `scenePlannerCreditsCost` with 3 retries and exponential backoff.
+8. Generate image via OpenRouter.
+9. **Convert reservation to charge** via `deductCredits()` - uses double-entry bookkeeping (creates `generation` + compensating `refund` to convert the reservation).
+10. If generation fails, **release reservation** via `releaseReservation()` to restore credits.
+11. If post-charge fails, return 402 and discard the generated image.
 
 **Why reservation?** Prevents over-spending when concurrent requests race. Credits are atomically reserved before the slow OpenRouter call, ensuring the balance check is authoritative.
 
 **Server-side only:** The reservation system is entirely server-side. The client's `useSession()` context only sees the final balance update via `updateCredits()` after generation completes.
+
+### Scene Planner Credit Metering
+
+When the scene planner is enabled (`ENABLE_SCENE_PLANNER !== "false"`, default: enabled), it makes an additional OpenRouter chat completion call. This call is metered:
+
+```typescript
+// Cost calculation (src/app/api/generate-image/route.ts)
+const SCENE_PLANNER_ESTIMATED_TOKENS = 450; // ~200 prompt + 220 max completion + overhead
+
+let scenePlannerCreditsCost = 0;
+if (enableScenePlanner) {
+  const scenePlannerPricing = await getChatModelPricing(scenePlannerModel, openRouterApiKey);
+  if (scenePlannerPricing && !isModelFree({ id: scenePlannerModel, pricing: scenePlannerPricing })) {
+    scenePlannerCreditsCost = computeChatCreditsCost(scenePlannerPricing, SCENE_PLANNER_ESTIMATED_TOKENS) ?? 0;
+  }
+}
+const totalCreditsCost = imageCreditsCost + scenePlannerCreditsCost;
+```
+
+**Default behavior:** The default scene planner model is `openai/gpt-oss-120b` (a paid model), so most requests include `scenePlannerCreditsCost`. If a different model is configured via `OPENROUTER_SCENE_PLANNER_MODEL`, the additional cost is included in the reservation based on that model's pricing.
+
+**Partial refund on failure:** If the scene planner fails or times out, the `scenePlannerCreditsCost` is refunded with 3 retry attempts (exponential backoff: 100ms → 200ms → 400ms). If all retries fail, the error is logged but the request continues (graceful degradation).
 
 ### Prompt Building
 
@@ -311,7 +336,36 @@ const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
 - Checks `message.images` first.
 - Falls back to `message.content` for `image_url` or inline base64 data.
 - `provider` is derived from the model ID; `providerRequestId` uses OpenRouter's response `id`.
-- Returns `{ imageUrl, model, provider, providerRequestId, prompt, promptVersion, promptInputs, generationId, creditsCost, costUsd, durationMs, aspectRatio, credits? }` with `Cache-Control: private, max-age=3600`.
+- Returns response with `Cache-Control: private, max-age=3600`.
+
+**Response fields:**
+```typescript
+{
+  imageUrl,
+  model,
+  provider,
+  providerRequestId,
+  generationId,
+  prompt,
+  promptVersion,
+  promptInputs,
+  reference,
+  verseText,
+  chapterTheme?,
+  generationNumber?,
+  // Cost breakdown
+  creditsCost,           // Total credits charged (image + scene planner if used)
+  imageCreditsCost,      // Image model cost
+  scenePlannerCredits,   // Scene planner cost (0 if free model or not used)
+  costUsd,               // Total USD
+  imageCostUsd,          // Image USD
+  scenePlannerCostUsd,   // Scene planner USD
+  scenePlannerUsed,      // Boolean: whether scene planner succeeded
+  durationMs,
+  aspectRatio,
+  credits?,              // Updated balance (if charged)
+}
+```
 
 ### Model Stats (ETA)
 

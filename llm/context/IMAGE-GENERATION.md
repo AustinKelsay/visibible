@@ -42,6 +42,15 @@ Example theme structure:
 }
 ```
 
+## Scene Planner
+
+An optional scene planner (enabled by default) runs before prompt construction to produce a structured scene plan that anchors the image composition.
+
+- **Default model**: `openai/gpt-oss-120b` (paid, additional cost)
+- **Configurable**: Set `OPENROUTER_SCENE_PLANNER_MODEL` for a different model
+- **Credit metering**: Scene planner credits are reserved upfront and refunded if it fails
+- **Non-fatal**: Planner failures don't block image generation
+
 ## Prompt Construction
 
 Prompts combine verse text with storyboard context (and theme when provided). The API also prepends guardrails (no-text, framing) and records a `promptVersion` for reproducibility.
@@ -80,7 +89,9 @@ Prompt inputs (reference, aspect ratio, generation number, prev/next context) ar
 - Image generation is only available when Convex is configured; credits are enforced for non-admin sessions.
 - Admin sessions bypass credit checks but **all usage is logged** for security monitoring.
 - Credit cost is derived from OpenRouter pricing; unpriced models are rejected.
+- **Scene planner costs** are included by default (scene planner model is paid).
 - Daily spending limit of $5/session protects against runaway costs.
+- Response includes cost breakdown: `imageCreditsCost`, `scenePlannerCredits`, `scenePlannerUsed`.
 - See `llm/context/SESSIONS_AND_CREDITS.md` for user-facing behavior and `llm/implementation/SESSIONS_AND_CREDITS.md` for implementation details.
 
 ## Model Selection

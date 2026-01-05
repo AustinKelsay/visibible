@@ -44,7 +44,7 @@ export function isModelFree(model: {
   return false;
 }
 
-export const DEFAULT_CHAT_MODEL = "openai/gpt-oss-120b:free";
+export const DEFAULT_CHAT_MODEL = "openai/gpt-oss-120b";
 
 interface OpenRouterModel {
   id: string;
@@ -72,7 +72,7 @@ function getDefaultChatModels(): ChatModel[] {
       name: "GPT-OSS 120B (Default)",
       provider: "Openai",
       contextLength: 131072,
-      isFree: true, // gpt-oss-120b is a free model on OpenRouter
+      isFree: false, // gpt-oss-120b is a paid model on OpenRouter
     },
   ];
 }

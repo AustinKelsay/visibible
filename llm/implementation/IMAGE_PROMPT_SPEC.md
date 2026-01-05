@@ -3,7 +3,7 @@
 Complete specification of how image generation prompts are constructed in Visibible.
 
 **Source:** `src/app/api/generate-image/route.ts`
-**Prompt Version:** `2026-01-05`
+**Prompt Version:** `2026-01-05-2`
 
 ---
 
@@ -96,11 +96,18 @@ A lightweight scene planner can run before prompt construction to produce a conc
 
 **Controls:**
 - `ENABLE_SCENE_PLANNER` (default: enabled unless set to `"false"`)
-- `OPENROUTER_SCENE_PLANNER_MODEL` (default: `DEFAULT_CHAT_MODEL`)
+- `OPENROUTER_SCENE_PLANNER_MODEL` (default: `DEFAULT_CHAT_MODEL` = `openai/gpt-oss-120b`)
 
 **Behavior:**
 - Planner failures are non-fatal; prompt construction proceeds without a scene plan.
 - Output is normalized and clipped to avoid overly long fields.
+
+**Credit Metering:**
+- The scene planner makes a separate OpenRouter chat completion call.
+- The scene planner model is **paid** by default, so additional credits are charged.
+- If a **paid** model is configured, credits are calculated using `computeChatCreditsCost()` with `SCENE_PLANNER_ESTIMATED_TOKENS = 450`.
+- Credits are reserved upfront (alongside image credits) and refunded if the scene planner fails.
+- Partial refunds use 3 retries with exponential backoff (100ms → 200ms → 400ms).
 
 ---
 
@@ -117,7 +124,7 @@ Prompts are assembled from discrete components in a specific order. Each compone
 ```
 PRIORITY RULES (must follow):
 1) ABSOLUTE: ZERO text of any kind. No letters, words, numbers, punctuation, symbols, runes, glyphs, sigils, logos, watermarks, captions, subtitles, labels, signage, banners, or inscriptions. Do not render the verse text or any readable/unreadable text-like marks. If a surface would normally contain writing (scrolls, tablets, signs), leave it blank or use abstract texture.
-2) FULL-BLEED IMMERSIVE SCENE: edge-to-edge cinematic composition. No borders, frames, canvas, wall-hung paintings, posters, gallery/museum settings, mockups, or letterboxing. Do not leave blank margins. Avoid solid white or empty backgrounds; fill negative space with atmospheric darkness, clouds, or textured sky/land. The viewer is IN the scene.
+2) FULL-BLEED IMMERSIVE SCENE: edge-to-edge cinematic composition. No borders, frames, mattes, canvas edges, stretcher bars, wall-hung paintings, posters, prints, photographs, gallery/museum settings, mockups, or letterboxing. Do not depict the scene as artwork on a wall or in a frame; the image itself is the scene. No white wall or studio backdrop. Do not leave blank margins. Avoid solid white or empty backgrounds; fill negative space with atmospheric darkness, clouds, or textured sky/land. The viewer is IN the scene.
 3) SINGLE SCENE ONLY: no split panels, diptychs, triptychs, insets, collages, or multiple scenes in one frame.
 ```
 
@@ -321,7 +328,7 @@ Generate the image in WIDESCREEN LANDSCAPE format with a 16:9 aspect ratio (wide
 ```
 PRIORITY RULES (must follow):
 1) ABSOLUTE: ZERO text of any kind. No letters, words, numbers, punctuation, symbols, runes, glyphs, sigils, logos, watermarks, captions, subtitles, labels, signage, banners, or inscriptions. Do not render the verse text or any readable/unreadable text-like marks. If a surface would normally contain writing (scrolls, tablets, signs), leave it blank or use abstract texture.
-2) FULL-BLEED IMMERSIVE SCENE: edge-to-edge cinematic composition. No borders, frames, canvas, wall-hung paintings, posters, gallery/museum settings, mockups, or letterboxing. Do not leave blank margins. Avoid solid white or empty backgrounds; fill negative space with atmospheric darkness, clouds, or textured sky/land. The viewer is IN the scene.
+2) FULL-BLEED IMMERSIVE SCENE: edge-to-edge cinematic composition. No borders, frames, mattes, canvas edges, stretcher bars, wall-hung paintings, posters, prints, photographs, gallery/museum settings, mockups, or letterboxing. Do not depict the scene as artwork on a wall or in a frame; the image itself is the scene. No white wall or studio backdrop. Do not leave blank margins. Avoid solid white or empty backgrounds; fill negative space with atmospheric darkness, clouds, or textured sky/land. The viewer is IN the scene.
 3) SINGLE SCENE ONLY: no split panels, diptychs, triptychs, insets, collages, or multiple scenes in one frame.
 
 SCENE:
@@ -373,7 +380,7 @@ Generate the image in WIDESCREEN LANDSCAPE format with a 16:9 aspect ratio (wide
 ```
 PRIORITY RULES (must follow):
 1) ABSOLUTE: ZERO text of any kind. No letters, words, numbers, punctuation, symbols, runes, glyphs, sigils, logos, watermarks, captions, subtitles, labels, signage, banners, or inscriptions. Do not render the verse text or any readable/unreadable text-like marks. If a surface would normally contain writing (scrolls, tablets, signs), leave it blank or use abstract texture.
-2) FULL-BLEED IMMERSIVE SCENE: edge-to-edge cinematic composition. No borders, frames, canvas, wall-hung paintings, posters, gallery/museum settings, mockups, or letterboxing. Do not leave blank margins. Avoid solid white or empty backgrounds; fill negative space with atmospheric darkness, clouds, or textured sky/land. The viewer is IN the scene.
+2) FULL-BLEED IMMERSIVE SCENE: edge-to-edge cinematic composition. No borders, frames, mattes, canvas edges, stretcher bars, wall-hung paintings, posters, prints, photographs, gallery/museum settings, mockups, or letterboxing. Do not depict the scene as artwork on a wall or in a frame; the image itself is the scene. No white wall or studio backdrop. Do not leave blank margins. Avoid solid white or empty backgrounds; fill negative space with atmospheric darkness, clouds, or textured sky/land. The viewer is IN the scene.
 3) SINGLE SCENE ONLY: no split panels, diptychs, triptychs, insets, collages, or multiple scenes in one frame.
 
 SCENE:
@@ -438,7 +445,7 @@ Generate the image in WIDESCREEN LANDSCAPE format with a 16:9 aspect ratio (wide
 ```
 PRIORITY RULES (must follow):
 1) ABSOLUTE: ZERO text of any kind. No letters, words, numbers, punctuation, symbols, runes, glyphs, sigils, logos, watermarks, captions, subtitles, labels, signage, banners, or inscriptions. Do not render the verse text or any readable/unreadable text-like marks. If a surface would normally contain writing (scrolls, tablets, signs), leave it blank or use abstract texture.
-2) FULL-BLEED IMMERSIVE SCENE: edge-to-edge cinematic composition. No borders, frames, canvas, wall-hung paintings, posters, gallery/museum settings, mockups, or letterboxing. Do not leave blank margins. Avoid solid white or empty backgrounds; fill negative space with atmospheric darkness, clouds, or textured sky/land. The viewer is IN the scene.
+2) FULL-BLEED IMMERSIVE SCENE: edge-to-edge cinematic composition. No borders, frames, mattes, canvas edges, stretcher bars, wall-hung paintings, posters, prints, photographs, gallery/museum settings, mockups, or letterboxing. Do not depict the scene as artwork on a wall or in a frame; the image itself is the scene. No white wall or studio backdrop. Do not leave blank margins. Avoid solid white or empty backgrounds; fill negative space with atmospheric darkness, clouds, or textured sky/land. The viewer is IN the scene.
 3) SINGLE SCENE ONLY: no split panels, diptychs, triptychs, insets, collages, or multiple scenes in one frame.
 
 SCENE:
@@ -494,10 +501,10 @@ Every generated image records metadata for reproducibility and debugging.
 
 ### promptVersion
 
-A date string stamped on every generation:
+A date-based string stamped on every generation:
 
 ```typescript
-const PROMPT_VERSION = "2026-01-05";
+const PROMPT_VERSION = "2026-01-05-2";
 ```
 
 This version is updated whenever the prompt template changes materially, allowing:

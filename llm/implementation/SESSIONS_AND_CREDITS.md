@@ -76,7 +76,12 @@ If Convex is not configured, session and payment routes return free defaults or 
 ### `creditLedger`
 - `sid`, `delta`, `reason`, `modelId`, `costUsd`, `generationId`, `createdAt`.
 - Indexes: `by_sid` (sid + createdAt), `by_generationId` (generationId + sid).
-- Reasons: `purchase`, `generation`, `refund`, `reservation`. Reservations are created when credits are pre-reserved before generation; refunds restore credits if generation fails or convert reservations to final charges.
+- Reasons:
+  - `purchase` - Credits added via Lightning payment
+  - `generation` - Credits charged for successful generation
+  - `refund` - Credits restored (failed generation or reservation conversion)
+  - `reservation` - Credits pre-reserved before generation
+  - `scene_planner_refund` - Partial refund when scene planner fails but image generation succeeds
 - Note: `costUsd` is stored in the database but **not returned** by `getCreditHistory` for privacy/simplicity.
 
 ### `modelStats`
@@ -129,6 +134,41 @@ This prevents double-charging from retries and allows atomic credit reservation.
 **Tier Transitions:** `resolveTier()` centralizes tier updates for all credit mutations. `admin` is sticky and never downgraded; non-admins are always `paid` tier.
 
 **Daily Spending Limit:** `reserveCreditsInternal` checks `checkDailySpendLimit()` before allowing credit reservation. If daily spend exceeds $5 (default), the request is rejected with `"Daily spending limit exceeded"`. The limit resets at UTC midnight.
+
+### Partial Refunds with Retry
+
+For image generation with scene planner, credits are reserved for both the image model and scene planner upfront. If the scene planner fails but image generation succeeds, a partial refund is issued for the scene planner portion.
+
+**Retry logic** (implemented in `/api/generate-image`):
+```typescript
+const maxRetries = 3;
+let refundSuccess = false;
+for (let attempt = 1; attempt <= maxRetries && !refundSuccess; attempt++) {
+  try {
+    await convex.action(api.sessions.addCredits, {
+      sid,
+      amount: scenePlannerCreditsCost,
+      reason: "scene_planner_refund",
+      serverSecret: getConvexServerSecret(),
+    });
+    refundSuccess = true;
+  } catch (refundError) {
+    if (attempt < maxRetries) {
+      // Exponential backoff: 100ms, 200ms, 400ms
+      await new Promise(resolve => setTimeout(resolve, 100 * Math.pow(2, attempt - 1)));
+    } else {
+      console.error(`Failed to refund after ${maxRetries} attempts:`, refundError);
+      // Continue with request - user over-charged but generation proceeds
+    }
+  }
+}
+```
+
+**Design rationale:**
+- Transient Convex/network issues are handled automatically
+- Max added latency: ~700ms (only if all retries fail)
+- Graceful degradation: request succeeds even if refund fails
+- Ledger entry with reason `"scene_planner_refund"` for audit trail
 
 ### `convex/invoices.ts`
 

@@ -26,7 +26,7 @@ const isImageGenerationEnabled =
 
 // Fallback text if no verse provided
 const DEFAULT_TEXT = "In the beginning God created the heaven and the earth.";
-const PROMPT_VERSION = "2026-01-05";
+const PROMPT_VERSION = "2026-01-05-2";
 const DEFAULT_STYLE_PROFILE = "classical";
 const DEFAULT_SCENE_PLANNER_MODEL = DEFAULT_CHAT_MODEL;
 const SCENE_PLAN_MAX_FIELD_LENGTH = 180;
@@ -631,7 +631,7 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
 
   const priorityRules = `PRIORITY RULES (must follow):
 1) ABSOLUTE: ZERO text of any kind. No letters, words, numbers, punctuation, symbols, runes, glyphs, sigils, logos, watermarks, captions, subtitles, labels, signage, banners, or inscriptions. Do not render the verse text or any readable/unreadable text-like marks. If a surface would normally contain writing (scrolls, tablets, signs), leave it blank or use abstract texture.
-2) FULL-BLEED IMMERSIVE SCENE: edge-to-edge cinematic composition. No borders, frames, canvas, wall-hung paintings, posters, gallery/museum settings, mockups, or letterboxing. Do not leave blank margins. Avoid solid white or empty backgrounds; fill negative space with atmospheric darkness, clouds, or textured sky/land. The viewer is IN the scene.
+2) FULL-BLEED IMMERSIVE SCENE: edge-to-edge cinematic composition. No borders, frames, mattes, canvas edges, stretcher bars, wall-hung paintings, posters, prints, photographs, gallery/museum settings, mockups, or letterboxing. Do not depict the scene as artwork on a wall or in a frame; the image itself is the scene. No white wall or studio backdrop. Do not leave blank margins. Avoid solid white or empty backgrounds; fill negative space with atmospheric darkness, clouds, or textured sky/land. The viewer is IN the scene.
 3) SINGLE SCENE ONLY: no split panels, diptychs, triptychs, insets, collages, or multiple scenes in one frame.`;
 
   const globalNegatives = `GLOBAL NEGATIVES:

@@ -6,7 +6,7 @@ High-level overview of how Visibible chat works. Details may change.
 
 - Client uses the AI SDK chat hook (`useChat` from `@ai-sdk/react`) to send messages to the API route.
 - Server streams responses from the model via OpenRouter using `@openrouter/ai-sdk-provider`.
-- Default model is `openai/gpt-oss-120b:free` (configurable via model selector dropdown).
+- Default model is `openai/gpt-oss-120b` (configurable via model selector dropdown).
 - **Contextual awareness**: Chat receives prev/next verse context for fuller understanding.
 - **Reverent tone**: System prompt guides AI to be spiritually encouraging.
 

@@ -212,7 +212,7 @@ When exceeded, returns 429 with:
 
 ## Model Selection
 
-Chat uses **OpenRouter exclusively** for all models. The default model is `openai/gpt-oss-120b:free`.
+Chat uses **OpenRouter exclusively** for all models. The default model is `openai/gpt-oss-120b`.
 
 - Users can select any chat-capable model via the header dropdown.
 - The selected model ID is passed in the request body.

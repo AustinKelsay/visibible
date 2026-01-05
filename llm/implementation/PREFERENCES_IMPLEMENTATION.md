@@ -85,7 +85,7 @@ const STORAGE_KEY = "visibible-preferences";
 |------------|---------|--------|
 | translation | `web` | `src/lib/bible-api.ts` |
 | imageModel | `google/gemini-2.5-flash-image` | `src/lib/image-models.ts` |
-| chatModel | `openai/gpt-oss-120b:free` | `src/lib/chat-models.ts` |
+| chatModel | `openai/gpt-oss-120b` | `src/lib/chat-models.ts` |
 
 ---
 
