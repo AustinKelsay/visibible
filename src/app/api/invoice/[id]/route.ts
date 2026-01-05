@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getConvexClient } from "@/lib/convex-client";
+import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { getSessionFromCookies } from "@/lib/session";
 import { lookupLndInvoice, isLndConfigured } from "@/lib/lnd";
 import { api } from "../../../../../convex/_generated/api";
@@ -55,9 +55,10 @@ export async function GET(
 
           if (lndStatus.state === "SETTLED") {
             // Payment received - confirm and grant credits
-            await convex.mutation(api.invoices.confirmPayment, {
+            await convex.action(api.invoices.confirmPayment, {
               invoiceId,
               paymentHash: invoice.paymentHash,
+              serverSecret: getConvexServerSecret(),
             });
             // Update local status for response
             invoice = { ...invoice, status: "paid" };
@@ -152,9 +153,10 @@ export async function POST(
     const lndStatus = await lookupLndInvoice(invoice.paymentHash);
 
     if (lndStatus.state === "SETTLED") {
-      const result = await convex.mutation(api.invoices.confirmPayment, {
+      const result = await convex.action(api.invoices.confirmPayment, {
         invoiceId,
         paymentHash: invoice.paymentHash,
+        serverSecret: getConvexServerSecret(),
       });
 
       return NextResponse.json({

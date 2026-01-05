@@ -166,13 +166,61 @@ This enables the AI to:
 
 ## Model Selection
 
-Chat uses **OpenRouter exclusively** for all models. The default model is `openai/gpt-oss-120b`.
+Chat uses **OpenRouter exclusively** for all models. The default model is `openai/gpt-oss-120b:free`.
 
 - Users can select any chat-capable model via the header dropdown.
 - The selected model ID is passed in the request body.
 - If no model is specified, the default is used.
+- **Models must have valid pricing** - unpriced models are rejected with 400 error.
 
 OpenRouter is configured with a custom base URL and headers (`HTTP-Referer`, `X-Title`).
+
+---
+
+## Credit System
+
+Chat messages now cost credits based on the selected model's pricing.
+
+### Pricing Calculation
+
+Credits are calculated dynamically using `computeChatCreditsCost()`:
+
+- Estimates ~2000 tokens per message (1000 prompt + 1000 completion)
+- Uses OpenRouter's per-token pricing with 25% markup
+- Minimum cost: 1 credit (for free models with `:free` suffix or $0 pricing)
+- Formula: `Math.ceil((tokens × price × 1.25) / $0.01)`
+
+### Credit Flow
+
+1. **Validate model** - `getChatModelPricing()` fetches pricing; returns 400 if null
+2. **Calculate cost** - `computeChatCreditsCost()` returns estimated credits
+3. **Check balance** - Return 402 if `session.credits < creditAmount`
+4. **Reserve credits** - `reserveCredits()` atomically deducts from balance
+5. **Stream response** - OpenRouter streaming via AI SDK
+6. **Log actual usage** - `computeActualChatCreditsCost()` logs variance for monitoring
+7. **Finalize** - `deductCredits()` on success, `releaseReservation()` on failure
+
+### Daily Spending Limit
+
+Sessions have a **$5/day spending limit** enforced during credit reservation:
+- Tracked in `dailySpendUsd` field
+- Resets at UTC midnight
+- Admin users bypass this limit
+- Returns error with remaining budget when exceeded
+
+### Model Validation
+
+Models must have valid OpenRouter pricing to be used:
+
+```typescript
+const modelPricing = await getChatModelPricing(modelId, apiKey);
+if (!modelPricing) {
+  return Response.json({
+    error: "Model not available",
+    message: `The model "${modelId}" is not available or cannot be priced.`,
+  }, { status: 400 });
+}
+```
 
 ### ChatModelSelector Variants
 
@@ -232,7 +280,9 @@ This ensures users can always send messages even if the models API is unavailabl
 
 | File | Purpose |
 |------|---------|
-| `src/app/api/chat/route.ts` | Validation, prompt, model selection, streaming |
+| `src/app/api/chat/route.ts` | Validation, prompt, model selection, credit flow, streaming |
+| `src/lib/chat-models.ts` | Model pricing functions (`computeChatCreditsCost`, `getChatModelPricing`) |
 | `src/components/chat.tsx` | Request body wiring |
 | `src/app/[book]/[chapter]/[verse]/page.tsx` | Context assembly for single verse |
 | `src/lib/bible-api.ts` | Bible API client for fetching verse data |
+| `convex/sessions.ts` | Credit reservation and daily spending limit |

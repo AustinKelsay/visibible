@@ -6,6 +6,7 @@ import {
   useState,
   useEffect,
   useCallback,
+  useRef,
   ReactNode,
 } from "react";
 import { DEFAULT_CREDITS_COST } from "@/lib/image-models";
@@ -38,6 +39,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
+  const hasShownOnboardingRef = useRef(false);
 
   const fetchSession = useCallback(async () => {
     try {
@@ -61,6 +63,17 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         setSid(newData.sid);
         setTier(newData.tier);
         setCredits(newData.credits);
+        
+        // Check if we should show onboarding for new session
+        const hasSeenOnboarding = localStorage.getItem("visibible_onboarding_seen") === "true";
+        if (!hasSeenOnboarding && newData.tier !== "admin" && !hasShownOnboardingRef.current) {
+          // Small delay to ensure modal renders properly
+          setTimeout(() => {
+            setIsBuyModalOpen(true);
+            localStorage.setItem("visibible_onboarding_seen", "true");
+            hasShownOnboardingRef.current = true;
+          }, 500);
+        }
       } else {
         setSid(data.sid);
         setTier(data.tier);

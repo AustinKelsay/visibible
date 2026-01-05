@@ -73,7 +73,15 @@ export default defineSchema({
     lastSeenAt: v.number(),
     lastIpHash: v.optional(v.string()),
     flags: v.optional(v.array(v.string())),
-  }).index("by_sid", ["sid"]),
+    // Daily spending cap (security feature to prevent API cost abuse)
+    dailySpendUsd: v.optional(v.number()), // USD spent in current day
+    dailySpendLimitUsd: v.optional(v.number()), // Max USD per day (default $5)
+    lastDayReset: v.optional(v.number()), // Timestamp of last daily reset (UTC midnight)
+    // Session expiration (90 days from last activity)
+    expiresAt: v.optional(v.number()),
+  })
+    .index("by_sid", ["sid"])
+    .index("by_expiresAt", ["expiresAt"]),
 
   // Lightning invoices for credit purchases
   invoices: defineTable({
@@ -113,4 +121,20 @@ export default defineSchema({
     p50Ms: v.optional(v.number()),
     updatedAt: v.number(),
   }).index("by_modelId", ["modelId"]),
+
+  // Rate limiting for API endpoints
+  rateLimits: defineTable({
+    identifier: v.string(), // Session ID or IP hash
+    endpoint: v.string(), // API endpoint name (e.g., "chat", "generate-image")
+    count: v.number(), // Number of requests in current window
+    windowStart: v.number(), // Start of current time window (ms timestamp)
+  }).index("by_identifier_endpoint", ["identifier", "endpoint"]),
+
+  // Admin login attempt tracking for brute force protection
+  adminLoginAttempts: defineTable({
+    ipHash: v.string(),
+    attemptCount: v.number(),
+    lastAttempt: v.number(),
+    lockedUntil: v.optional(v.number()), // If set, account is locked until this timestamp
+  }).index("by_ipHash", ["ipHash"]),
 });

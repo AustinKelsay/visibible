@@ -10,6 +10,12 @@ export interface ChatModel {
   isFree: boolean;
 }
 
+// Credit pricing constants (shared with image-models.ts)
+export const CREDIT_USD = 0.01; // 1 credit = $0.01
+export const PREMIUM_MULTIPLIER = 1.25; // 25% premium over OpenRouter price
+export const DEFAULT_ESTIMATED_TOKENS = 2000; // Conservative estimate for chat (1000 prompt + 1000 completion)
+export const MIN_CHAT_CREDITS = 1; // Minimum credits to charge per chat
+
 /**
  * Determine if a model is free based on:
  * 1. Model ID ends with ":free" suffix
@@ -176,4 +182,103 @@ export function formatCost(cost: number | null): string {
     return `$${cost.toFixed(6)}`;
   }
   return `$${cost.toFixed(4)}`;
+}
+
+/**
+ * Compute the credit cost for a chat message based on OpenRouter pricing.
+ * Uses estimated token count since we don't know actual usage until after streaming.
+ *
+ * @param pricing - Model pricing from OpenRouter (prompt and completion per million tokens)
+ * @param estimatedTokens - Estimated total tokens (prompt + completion), defaults to 2000
+ * @returns Credits required, or null if model has no valid pricing
+ */
+export function computeChatCreditsCost(
+  pricing: { prompt?: string; completion?: string } | undefined,
+  estimatedTokens: number = DEFAULT_ESTIMATED_TOKENS
+): number | null {
+  if (!pricing?.prompt || !pricing?.completion) return null;
+
+  const promptRate = parseFloat(pricing.prompt);
+  const completionRate = parseFloat(pricing.completion);
+
+  if (isNaN(promptRate) || isNaN(completionRate)) return null;
+
+  // Free models (both rates are 0) cost minimum credits
+  if (promptRate === 0 && completionRate === 0) {
+    return MIN_CHAT_CREDITS;
+  }
+
+  // Estimate cost: assume half prompt, half completion tokens
+  const promptTokens = Math.floor(estimatedTokens / 2);
+  const completionTokens = estimatedTokens - promptTokens;
+
+  const perMillion = 1_000_000;
+  const promptCost = (promptRate * promptTokens) / perMillion;
+  const completionCost = (completionRate * completionTokens) / perMillion;
+  const totalUsd = promptCost + completionCost;
+
+  // Apply premium multiplier and convert to credits
+  const effectiveUsd = totalUsd * PREMIUM_MULTIPLIER;
+  return Math.max(MIN_CHAT_CREDITS, Math.ceil(effectiveUsd / CREDIT_USD));
+}
+
+/**
+ * Calculate the actual credit cost after streaming completes based on real token usage.
+ * Used for logging/comparison with estimated cost.
+ *
+ * @param pricing - Model pricing from OpenRouter
+ * @param promptTokens - Actual prompt tokens used
+ * @param completionTokens - Actual completion tokens used
+ * @returns Actual credits that would be charged
+ */
+export function computeActualChatCreditsCost(
+  pricing: { prompt?: string; completion?: string } | undefined,
+  promptTokens: number,
+  completionTokens: number
+): number | null {
+  if (!pricing?.prompt || !pricing?.completion) return null;
+
+  const promptRate = parseFloat(pricing.prompt);
+  const completionRate = parseFloat(pricing.completion);
+
+  if (isNaN(promptRate) || isNaN(completionRate)) return null;
+
+  // Free models cost minimum
+  if (promptRate === 0 && completionRate === 0) {
+    return MIN_CHAT_CREDITS;
+  }
+
+  const perMillion = 1_000_000;
+  const promptCost = (promptRate * promptTokens) / perMillion;
+  const completionCost = (completionRate * completionTokens) / perMillion;
+  const totalUsd = promptCost + completionCost;
+
+  const effectiveUsd = totalUsd * PREMIUM_MULTIPLIER;
+  return Math.max(MIN_CHAT_CREDITS, Math.ceil(effectiveUsd / CREDIT_USD));
+}
+
+/**
+ * Look up pricing for a specific chat model.
+ * First checks cached models, then fetches if needed.
+ *
+ * @param modelId - The model ID to look up (e.g., "anthropic/claude-3-haiku")
+ * @param apiKey - OpenRouter API key
+ * @returns Model pricing or null if model not found or has no pricing
+ */
+export async function getChatModelPricing(
+  modelId: string,
+  apiKey: string
+): Promise<{ prompt: string; completion: string } | null> {
+  const result = await fetchChatModels(apiKey);
+
+  const model = result.models.find((m) => m.id === modelId);
+  if (!model) return null;
+
+  // Model must have valid pricing
+  if (!model.pricing?.prompt || !model.pricing?.completion) return null;
+
+  return {
+    prompt: model.pricing.prompt,
+    completion: model.pricing.completion,
+  };
 }

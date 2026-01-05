@@ -1,5 +1,16 @@
-import { mutation, query } from "./_generated/server";
+import { action, internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { internal } from "./_generated/api";
+
+/**
+ * Validates the server secret for secure Convex action calls.
+ */
+const validateServerSecret = (serverSecret: string) => {
+  const expectedSecret = process.env.CONVEX_SERVER_SECRET;
+  if (!expectedSecret || serverSecret !== expectedSecret) {
+    throw new Error("Unauthorized: Invalid server secret");
+  }
+};
 
 // Fixed bundle price
 const BUNDLE_USD = 3;
@@ -111,10 +122,10 @@ export const getSessionInvoices = query({
 });
 
 /**
- * Confirm invoice payment and grant credits.
- * This will be called by the Lightning webhook or polling confirmation.
+ * Internal mutation to confirm payment and grant credits.
+ * Only callable from Convex actions after server secret validation.
  */
-export const confirmPayment = mutation({
+export const confirmPaymentInternal = internalMutation({
   args: {
     invoiceId: v.string(),
     paymentHash: v.optional(v.string()),
@@ -183,6 +194,30 @@ export const confirmPayment = mutation({
       newBalance: newCredits,
       creditsAdded: BUNDLE_CREDITS,
     };
+  },
+});
+
+/**
+ * Public action to confirm payment and grant credits.
+ * Validates server secret before calling internal mutation.
+ */
+export const confirmPayment = action({
+  args: {
+    invoiceId: v.string(),
+    paymentHash: v.optional(v.string()),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args): Promise<{
+    success: boolean;
+    alreadyPaid?: boolean;
+    newBalance?: number;
+    creditsAdded?: number;
+  }> => {
+    validateServerSecret(args.serverSecret);
+    return ctx.runMutation(internal.invoices.confirmPaymentInternal, {
+      invoiceId: args.invoiceId,
+      paymentHash: args.paymentHash,
+    });
   },
 });
 

@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
-import { getSessionFromCookies } from "@/lib/session";
+import { getSessionFromCookies, getClientIp, hashIp } from "@/lib/session";
 import { getConvexClient } from "@/lib/convex-client";
 import { getBtcPrice, usdToSats } from "@/lib/btc-price";
 import { createLndInvoice, base64ToHex, isLndConfigured } from "@/lib/lnd";
+import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { api } from "../../../../convex/_generated/api";
 
 // Fixed bundle price
@@ -13,7 +14,12 @@ const BUNDLE_CREDITS = 300;
  * POST /api/invoice
  * Creates a new Lightning invoice for credit purchase.
  */
-export async function POST(): Promise<NextResponse> {
+export async function POST(request: Request): Promise<NextResponse> {
+  // SECURITY: Validate request origin
+  if (!validateOrigin(request)) {
+    return invalidOriginResponse() as NextResponse;
+  }
+
   const convex = getConvexClient();
   if (!convex) {
     return NextResponse.json(
@@ -34,6 +40,33 @@ export async function POST(): Promise<NextResponse> {
     return NextResponse.json(
       { error: "Session required" },
       { status: 401 }
+    );
+  }
+
+  // SECURITY: Rate limit invoice creation to prevent LND flooding
+  // Use IP hash as primary identifier to prevent multi-session bypass
+  const clientIp = getClientIp(request);
+  const ipHash = await hashIp(clientIp);
+  const rateLimitIdentifier = `${ipHash}:${sid}`;
+
+  const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
+    identifier: rateLimitIdentifier,
+    endpoint: "invoice",
+  });
+
+  if (!rateLimitResult.allowed) {
+    return NextResponse.json(
+      {
+        error: "Too many invoice creation requests",
+        message: "Please wait before creating more invoices.",
+        retryAfter: rateLimitResult.retryAfter,
+      },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(rateLimitResult.retryAfter || 60),
+        },
+      }
     );
   }
 

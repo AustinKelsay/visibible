@@ -23,6 +23,7 @@
 # misc
 .DS_Store
 *.pem
+SECURITY-REVIEW.md
 
 # debug
 npm-debug.log*

@@ -13,6 +13,13 @@ npm run dev
 
 Copy `.env.example` to `.env.local`.
 
+### Proxy Trust (Vercel)
+
+For accurate client IPs (rate limiting), configure trusted proxies in production:
+
+- `TRUST_PROXY_PLATFORM=vercel` (recommended on Vercel; only active when `VERCEL=1` is set)
+- Or set `TRUSTED_PROXY_IPS` to a comma/space-separated list of IPs/CIDRs
+
 ### Convex Setup
 
 To enable Convex features (image storage), create a deployment in the [Convex Dashboard](https://dashboard.convex.dev/):
@@ -35,6 +42,30 @@ Chat API lives in `src/app/api/chat/route.ts`.
 - OpenAI: set `OPENAI_API_KEY`
 - Anthropic: set `ANTHROPIC_API_KEY` and switch to `anthropic(...)`
 - OpenRouter: set `OPENROUTER_API_KEY` to switch automatically (optional `OPENROUTER_REFERRER`, `OPENROUTER_TITLE`)
+
+## Credit System
+
+Users purchase credits via Lightning payments to access AI features.
+
+### Pricing
+
+- **Chat**: Dynamic pricing based on model cost (~1-20 credits per message depending on model)
+- **Image generation**: Dynamic pricing based on model cost (~10-50 credits per image)
+- Credits are calculated with a 25% markup over OpenRouter's base pricing
+- 1 credit = $0.01 USD
+
+### Spending Limits
+
+To prevent API cost abuse, each session has a **$5/day spending limit**:
+- Resets daily at midnight UTC
+- Admin users bypass this limit
+- If exceeded, requests are rejected until the next day
+
+### Model Validation
+
+Only models with valid OpenRouter pricing can be used. This prevents:
+- Arbitrary expensive model selection
+- Cost attacks using unpriced models
 
 ## Admin Access
 

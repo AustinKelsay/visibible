@@ -8,6 +8,7 @@ import {
 } from "@/lib/image-models";
 import { getConvexClient } from "@/lib/convex-client";
 import { api } from "../../../../convex/_generated/api";
+import { getSessionFromCookies } from "@/lib/session";
 
 interface ModelStats {
   modelId: string;
@@ -15,6 +16,12 @@ interface ModelStats {
 }
 
 export async function GET() {
+  // Require valid session for model listing
+  const sid = await getSessionFromCookies();
+  if (!sid) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const openRouterApiKey = process.env.OPENROUTER_API_KEY;
 
   if (!openRouterApiKey) {
@@ -77,5 +84,7 @@ export async function GET() {
     models: modelsWithStats,
     creditRange,
     ...(result.error ? { error: result.error } : {}),
+  }, {
+    headers: { "Cache-Control": "private, max-age=3600" },
   });
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield } from "lucide-react";
+import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
@@ -71,17 +71,18 @@ interface Invoice {
   credits: number;
 }
 
-type ModalState = "selection" | "loading" | "invoice" | "success" | "error";
+type ModalState = "welcome" | "selection" | "loading" | "invoice" | "success" | "error";
 
 export function BuyCreditsModal() {
-  const { isBuyModalOpen, closeBuyModal, refetch, credits } = useSession();
-  const [state, setState] = useState<ModalState>("selection");
+  const { isBuyModalOpen, closeBuyModal, refetch, credits, tier } = useSession();
+  const [state, setState] = useState<ModalState>("welcome");
   const [invoice, setInvoice] = useState<Invoice | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [qrDataUrl, setQrDataUrl] = useState<string>("");
   const [timeLeftMs, setTimeLeftMs] = useState(0);
   const prevModalOpenRef = useRef(false);
+  const hasSeenWelcomeRef = useRef(false);
 
   // Admin login state
   const [showAdminInput, setShowAdminInput] = useState(false);
@@ -117,6 +118,7 @@ export function BuyCreditsModal() {
   useEffect(() => {
     if (!isBuyModalOpen) {
       prevModalOpenRef.current = false;
+      hasSeenWelcomeRef.current = false;
       return;
     }
 
@@ -129,18 +131,16 @@ export function BuyCreditsModal() {
     // Check invoice expiry once when modal opens
     if (invoice && invoice.expiresAt > Date.now()) {
       // Resume existing valid invoice
-      setState((currentState) =>
-        currentState !== "invoice" ? "invoice" : currentState
-      );
+      setState("invoice");
     } else {
-      // Show selection view and clear invoice data
-      setState((currentState) => {
-        // Don't override loading or success states
-        if (currentState === "loading" || currentState === "success") {
-          return currentState;
-        }
-        return "selection";
-      });
+      // Check if user has seen welcome before
+      const hasSeenWelcome = localStorage.getItem("visibible_welcome_seen") === "true";
+      if (!hasSeenWelcome && !hasSeenWelcomeRef.current) {
+        setState("welcome");
+        hasSeenWelcomeRef.current = true;
+      } else {
+        setState("selection");
+      }
       setInvoice(null);
       setQrDataUrl("");
     }
@@ -165,10 +165,19 @@ export function BuyCreditsModal() {
     setAdminSubmitting(true);
     setAdminError(null);
 
+    // Read CSRF token from cookie
+    const csrfToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("visibible_csrf="))
+      ?.split("=")[1];
+
     try {
       const response = await fetch("/api/admin-login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-csrf-token": csrfToken || "",
+        },
         body: JSON.stringify({ password: adminPassword }),
       });
 
@@ -271,7 +280,7 @@ export function BuyCreditsModal() {
   const handleClose = () => {
     if (state === "success") {
       // Reset state fully on success close
-      setState("selection");
+      setState("welcome");
       setInvoice(null);
       setQrDataUrl("");
       closeBuyModal();
@@ -282,6 +291,16 @@ export function BuyCreditsModal() {
       // Allow closing but preserve invoice state for later
       closeBuyModal();
     }
+  };
+
+  const handleWelcomeNext = () => {
+    localStorage.setItem("visibible_welcome_seen", "true");
+    setState("selection");
+  };
+
+  const handleBrowseFree = () => {
+    localStorage.setItem("visibible_welcome_seen", "true");
+    closeBuyModal();
   };
 
   const handleCancelInvoice = () => {
@@ -311,116 +330,199 @@ export function BuyCreditsModal() {
           <X size={20} strokeWidth={2} />
         </button>
 
-        {/* Header */}
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-12 h-12 bg-[var(--accent)]/10 rounded-full mb-3">
-            <Zap size={24} className="text-[var(--accent)]" />
+        {/* Stepper indicator */}
+        {(state === "welcome" || state === "selection") && (
+          <div className="flex items-center justify-center gap-2 mb-6">
+            <div className={`h-1.5 rounded-full transition-all ${state === "welcome" ? "w-8 bg-[var(--accent)]" : "w-1.5 bg-[var(--divider)]"}`} />
+            <div className={`h-1.5 rounded-full transition-all ${state === "selection" ? "w-8 bg-[var(--accent)]" : "w-1.5 bg-[var(--divider)]"}`} />
           </div>
-          <h2 className="text-xl font-semibold text-[var(--foreground)]">
-            Buy Credits
-          </h2>
-        </div>
+        )}
 
-        <div className="mb-4 rounded-[var(--radius-md)] bg-[var(--surface)] px-4 py-3 text-xs">
-          <p className="text-[var(--foreground)] font-medium mb-2">Early Access</p>
-          <ul className="space-y-1 text-[var(--muted)]">
-            <li>Credits are used for AI image generation</li>
-            <li>Lightning payments only (no on-chain)</li>
-            <li>No refunds during alpha</li>
-          </ul>
-        </div>
-
-        {/* Content */}
-        {state === "selection" && (
-          <div className="space-y-4">
-            {/* Current credits display */}
-            {credits > 0 && (
-              <div className="flex items-center justify-between py-3 px-4 bg-[var(--surface)] rounded-[var(--radius-md)]">
-                <span className="text-sm text-[var(--muted)]">Current balance</span>
-                <span className="text-sm font-medium text-[var(--foreground)]">
-                  {credits} credits
-                </span>
+        {/* Welcome Page */}
+        {state === "welcome" && (
+          <div className="space-y-6">
+            {/* Header */}
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[var(--accent)]/20 to-[var(--accent)]/10 rounded-full mb-4">
+                <Sparkles size={32} className="text-[var(--accent)]" />
               </div>
-            )}
-
-            {/* Package info */}
-            <div className="text-center py-6 bg-[var(--surface)] rounded-[var(--radius-md)]">
-              <p className="text-3xl font-bold text-[var(--foreground)]">
-                300 credits
+              <h2 className="text-2xl font-bold text-[var(--foreground)] mb-2">
+                Welcome to Visibible Alpha
+              </h2>
+              <p className="text-[var(--muted)] text-sm">
+                Bringing the Bible to life in real time
               </p>
-              <p className="text-[var(--muted)] mt-1">$3 USD</p>
             </div>
 
-            {/* Payment methods info */}
-            <div className="flex flex-col items-center gap-3 py-3">
-              <p className="text-sm text-[var(--muted)]">Pay with</p>
-              <div className="flex items-center justify-center gap-4">
-                <div className="flex items-center gap-2">
-                  <CashAppLogo className="w-6 h-6" />
-                  <span className="text-sm font-medium text-[var(--foreground)]">CashApp</span>
+            {/* Product description */}
+            <div className="space-y-4">
+              <div className="flex items-start gap-3 p-4 bg-[var(--surface)] rounded-[var(--radius-md)]">
+                <BookOpen size={20} className="text-[var(--accent)] flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-[var(--foreground)] mb-1">
+                    Generate visuals verse by verse
+                  </p>
+                  <p className="text-xs text-[var(--muted)]">
+                    Watch as AI transforms scripture into stunning, real-time imagery. Each verse comes alive with unique visual interpretations.
+                  </p>
                 </div>
-                <span className="text-[var(--muted)]">or</span>
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center">
-                    <BitcoinLogo className="w-6 h-6" />
-                    <LightningLogo className="w-6 h-6 -ml-2" />
-                  </div>
-                  <span className="text-sm font-medium text-[var(--foreground)]">Lightning</span>
+              </div>
+
+              <div className="flex items-start gap-3 p-4 bg-[var(--surface)] rounded-[var(--radius-md)]">
+                <Zap size={20} className="text-[var(--accent)] flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-[var(--foreground)] mb-1">
+                    Participate in the experience
+                  </p>
+                  <p className="text-xs text-[var(--muted)]">
+                    Browse existing images for free, or purchase credits to generate your own custom visuals from any verse.
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Buy button */}
-            <button
-              onClick={createInvoice}
-              className="w-full py-3 bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] font-medium hover:bg-[var(--accent-hover)] transition-colors"
-            >
-              Buy 300 Credits
-            </button>
-
-            {/* Admin Access */}
-            <div className="pt-4 border-t border-[var(--divider)]">
+            {/* CTA Buttons */}
+            <div className="space-y-3 pt-2">
               <button
-                onClick={() => setShowAdminInput(!showAdminInput)}
-                className="flex items-center justify-center gap-2 w-full py-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
+                onClick={handleWelcomeNext}
+                className="w-full py-3 bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] font-medium hover:bg-[var(--accent-hover)] transition-colors flex items-center justify-center gap-2"
               >
-                <Shield size={14} />
-                <span>Admin Access</span>
-                <ChevronDown
-                  size={14}
-                  className={`transition-transform ${showAdminInput ? "rotate-180" : ""}`}
-                />
+                <span>Buy Credits to Generate</span>
+                <ArrowRight size={18} />
               </button>
+              <button
+                onClick={handleBrowseFree}
+                className="w-full py-3 bg-[var(--surface)] text-[var(--foreground)] rounded-[var(--radius-full)] font-medium hover:bg-[var(--divider)] transition-colors"
+              >
+                Browse for Free
+              </button>
+            </div>
+          </div>
+        )}
 
-              {showAdminInput && (
-                <div className="mt-3 space-y-3">
-                  <input
-                    type="password"
-                    value={adminPassword}
-                    onChange={(e) => setAdminPassword(e.target.value)}
-                    onKeyDown={handleAdminKeyDown}
-                    placeholder="Enter admin password"
-                    className="w-full px-4 py-3 bg-[var(--surface)] border border-[var(--divider)] rounded-[var(--radius-md)] text-[var(--foreground)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
-                    disabled={adminSubmitting}
-                  />
-                  {adminError && (
-                    <p className="text-sm text-[var(--error)]">{adminError}</p>
-                  )}
-                  <button
-                    onClick={handleAdminLogin}
-                    disabled={adminSubmitting}
-                    className="w-full py-2 bg-[var(--surface)] text-[var(--foreground)] rounded-[var(--radius-md)] font-medium hover:bg-[var(--divider)] transition-colors disabled:opacity-50"
-                  >
-                    {adminSubmitting ? (
-                      <Loader2 size={18} className="animate-spin mx-auto" />
-                    ) : (
-                      "Login as Admin"
-                    )}
-                  </button>
+        {/* Buy Credits Page */}
+        {state === "selection" && (
+          <>
+            {/* Header */}
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-[var(--accent)]/10 rounded-full mb-3">
+                <Zap size={24} className="text-[var(--accent)]" />
+              </div>
+              <h2 className="text-xl font-semibold text-[var(--foreground)]">
+                Buy Credits
+              </h2>
+            </div>
+
+            <div className="mb-4 rounded-[var(--radius-md)] bg-[var(--surface)] px-4 py-3 text-xs">
+              <p className="text-[var(--foreground)] font-medium mb-2">Early Access</p>
+              <ul className="space-y-1 text-[var(--muted)]">
+                <li>Credits are used for AI image generation</li>
+                <li>Lightning payments only (no on-chain)</li>
+                <li>No refunds during alpha</li>
+              </ul>
+            </div>
+
+            {/* Content */}
+            <div className="space-y-4">
+              {/* Current credits display */}
+              {credits > 0 && (
+                <div className="flex items-center justify-between py-3 px-4 bg-[var(--surface)] rounded-[var(--radius-md)]">
+                  <span className="text-sm text-[var(--muted)]">Current balance</span>
+                  <span className="text-sm font-medium text-[var(--foreground)]">
+                    {credits} credits
+                  </span>
                 </div>
               )}
+
+              {/* Package info */}
+              <div className="text-center py-6 bg-[var(--surface)] rounded-[var(--radius-md)]">
+                <p className="text-3xl font-bold text-[var(--foreground)]">
+                  300 credits
+                </p>
+                <p className="text-[var(--muted)] mt-1">$3 USD</p>
+              </div>
+
+              {/* Payment methods info */}
+              <div className="flex flex-col items-center gap-3 py-3">
+                <p className="text-sm text-[var(--muted)]">Pay with</p>
+                <div className="flex items-center justify-center gap-4">
+                  <div className="flex items-center gap-2">
+                    <CashAppLogo className="w-6 h-6" />
+                    <span className="text-sm font-medium text-[var(--foreground)]">CashApp</span>
+                  </div>
+                  <span className="text-[var(--muted)]">or</span>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center">
+                      <BitcoinLogo className="w-6 h-6" />
+                      <LightningLogo className="w-6 h-6 -ml-2" />
+                    </div>
+                    <span className="text-sm font-medium text-[var(--foreground)]">Lightning</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Session-only warning */}
+              <div className="rounded-[var(--radius-md)] bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 px-4 py-3 text-xs">
+                <p className="text-amber-800 dark:text-amber-200 font-medium mb-1">
+                  ⚠️ Session-only credits
+                </p>
+                <p className="text-amber-700 dark:text-amber-300">
+                  You have no account. Credits are stored in this browser session only. Clearing your cache or using a different browser will result in lost credits.
+                </p>
+              </div>
+
+              {/* Buy button */}
+              <button
+                onClick={createInvoice}
+                className="w-full py-3 bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] font-medium hover:bg-[var(--accent-hover)] transition-colors"
+              >
+                Buy 300 Credits
+              </button>
+
+              {/* Admin Access */}
+              <div className="pt-4 border-t border-[var(--divider)]">
+                <button
+                  onClick={() => setShowAdminInput(!showAdminInput)}
+                  className="flex items-center justify-center gap-2 w-full py-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
+                >
+                  <Shield size={14} />
+                  <span>Admin Access</span>
+                  <ChevronDown
+                    size={14}
+                    className={`transition-transform ${showAdminInput ? "rotate-180" : ""}`}
+                  />
+                </button>
+
+                {showAdminInput && (
+                  <div className="mt-3 space-y-3">
+                    <input
+                      type="password"
+                      value={adminPassword}
+                      onChange={(e) => setAdminPassword(e.target.value)}
+                      onKeyDown={handleAdminKeyDown}
+                      placeholder="Enter admin password"
+                      className="w-full px-4 py-3 bg-[var(--surface)] border border-[var(--divider)] rounded-[var(--radius-md)] text-[var(--foreground)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                      disabled={adminSubmitting}
+                    />
+                    {adminError && (
+                      <p className="text-sm text-[var(--error)]">{adminError}</p>
+                    )}
+                    <button
+                      onClick={handleAdminLogin}
+                      disabled={adminSubmitting}
+                      className="w-full py-2 bg-[var(--surface)] text-[var(--foreground)] rounded-[var(--radius-md)] font-medium hover:bg-[var(--divider)] transition-colors disabled:opacity-50"
+                    >
+                      {adminSubmitting ? (
+                        <Loader2 size={18} className="animate-spin mx-auto" />
+                      ) : (
+                        "Login as Admin"
+                      )}
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          </>
         )}
 
         {state === "loading" && (

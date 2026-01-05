@@ -1,9 +1,16 @@
 import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import { streamText } from "ai";
 import { z } from "zod";
-import { DEFAULT_CHAT_MODEL } from "@/lib/chat-models";
-import { getConvexClient } from "@/lib/convex-client";
-import { getSessionFromCookies } from "@/lib/session";
+import {
+  DEFAULT_CHAT_MODEL,
+  getChatModelPricing,
+  computeChatCreditsCost,
+  computeActualChatCreditsCost,
+  CREDIT_USD,
+} from "@/lib/chat-models";
+import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
+import { getSessionFromCookies, getClientIp, hashIp } from "@/lib/session";
+import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { api } from "../../../../convex/_generated/api";
 
 // Allow streaming responses up to 30 seconds
@@ -157,11 +164,61 @@ const requestBodySchema = z.object({
  * Validates request body using Zod schema and streams AI responses with metadata.
  */
 export async function POST(req: Request) {
+  // SECURITY: Validate request origin
+  if (!validateOrigin(req)) {
+    return invalidOriginResponse();
+  }
+
   // Validate OpenRouter API key
   if (!process.env.OPENROUTER_API_KEY) {
     return Response.json(
       { error: "OpenRouter API key not configured" },
       { status: 500 }
+    );
+  }
+
+  // SECURITY: Convex is required for credit management and rate limiting
+  const convex = getConvexClient();
+  if (!convex) {
+    return Response.json(
+      { error: "Service temporarily unavailable" },
+      { status: 503 }
+    );
+  }
+
+  // Get session first for rate limiting identifier
+  const sid = await getSessionFromCookies();
+  if (!sid) {
+    return Response.json(
+      { error: "Session required for chat" },
+      { status: 401 }
+    );
+  }
+
+  // SECURITY: Rate limiting - use IP hash as primary identifier to prevent multi-session bypass
+  // Combined with sid for granular tracking per IP+session pair
+  const clientIp = getClientIp(req);
+  const ipHash = await hashIp(clientIp);
+  const rateLimitIdentifier = `${ipHash}:${sid}`;
+
+  const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
+    identifier: rateLimitIdentifier,
+    endpoint: "chat",
+  });
+
+  if (!rateLimitResult.allowed) {
+    return Response.json(
+      {
+        error: "Rate limit exceeded",
+        message: "Too many requests. Please wait before sending more messages.",
+        retryAfter: rateLimitResult.retryAfter,
+      },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(rateLimitResult.retryAfter || 60),
+        },
+      }
     );
   }
 
@@ -194,20 +251,52 @@ export async function POST(req: Request) {
   const modelId = requestedModel || DEFAULT_CHAT_MODEL;
   const startTime = Date.now();
 
-  // Session validation and credit reservation (only when Convex is enabled)
-  const convex = getConvexClient();
-  let sessionId: string | null = null;
+  // SECURITY: Get model pricing to calculate credit cost
+  // Models without valid pricing cannot be used (prevents cost abuse)
+  const modelPricing = await getChatModelPricing(
+    modelId,
+    process.env.OPENROUTER_API_KEY!
+  );
+
+  if (!modelPricing) {
+    return Response.json(
+      {
+        error: "Model not available",
+        message: `The model "${modelId}" is not available or cannot be priced. Please select a different model.`,
+      },
+      { status: 400 }
+    );
+  }
+
+  // Calculate credit cost based on model pricing (estimated ~2000 tokens)
+  const estimatedCredits = computeChatCreditsCost(modelPricing);
+  if (estimatedCredits === null) {
+    return Response.json(
+      {
+        error: "Model pricing unavailable",
+        message: "Unable to determine cost for this model. Please try a different model.",
+      },
+      { status: 400 }
+    );
+  }
+
+  const estimatedCostUsd = estimatedCredits * CREDIT_USD;
+
+  // Session validation and credit reservation
+  const sessionId: string = sid;
   let generationId: string | null = null;
   let creditReserved = false;
+  const creditAmount = estimatedCredits; // Dynamic cost based on model
 
   // Best-effort cleanup for reserved credits to avoid permanently locking balances.
   // Safe to call multiple times because releaseReservation is idempotent.
   const releaseReservedCredits = async (reason: string) => {
-    if (!convex || !sessionId || !generationId || !creditReserved) return;
+    if (!generationId || !creditReserved) return;
     try {
-      await convex.mutation(api.sessions.releaseReservation, {
+      await convex.action(api.sessions.releaseReservation, {
         sid: sessionId,
         generationId,
+        serverSecret: getConvexServerSecret(),
       });
       console.log(`[Chat API] Released credit reservation (${reason})`);
     } catch (refundErr) {
@@ -220,7 +309,7 @@ export async function POST(req: Request) {
 
   let creditSettlement: Promise<void> | null = null;
   const settleCredits = (mode: "deduct" | "release", reason: string) => {
-    if (!convex || !sessionId || !generationId || !creditReserved) {
+    if (!generationId || !creditReserved) {
       return Promise.resolve();
     }
     if (creditSettlement) return creditSettlement;
@@ -231,11 +320,13 @@ export async function POST(req: Request) {
       }
 
       try {
-        const deductResult = await convex.mutation(api.sessions.deductCredits, {
+        const deductResult = await convex.action(api.sessions.deductCredits, {
           sid: sessionId,
-          amount: 1,
+          amount: creditAmount,
           modelId,
           generationId,
+          costUsd: estimatedCostUsd,
+          serverSecret: getConvexServerSecret(),
         });
 
         if (!deductResult.success) {
@@ -253,61 +344,52 @@ export async function POST(req: Request) {
     return creditSettlement;
   };
 
-  if (convex) {
-    const sid = await getSessionFromCookies();
-    sessionId = sid;
+  // Get session to check tier and credits
+  const session = await convex.query(api.sessions.getSession, { sid: sessionId });
 
-    if (!sid) {
+  if (!session) {
+    return Response.json(
+      { error: "Session not found" },
+      { status: 401 }
+    );
+  }
+
+  // Admin bypasses credit check
+  if (session.tier !== "admin") {
+    // Check if user has enough credits for this model
+    if (session.credits < creditAmount) {
       return Response.json(
-        { error: "Session required for chat" },
-        { status: 401 }
+        {
+          error: "Insufficient credits",
+          required: creditAmount,
+          available: session.credits,
+          message: `This model requires ${creditAmount} credits per message.`,
+        },
+        { status: 402 } // Payment Required
       );
     }
 
-    // Get session to check tier and credits
-    const session = await convex.query(api.sessions.getSession, { sid });
+    // Generate unique ID for this chat request
+    generationId = `chat-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
-    if (!session) {
+    // Reserve credits based on model cost (will be converted to deduction on success, refunded on failure)
+    const reserveResult = await convex.action(api.sessions.reserveCredits, {
+      sid: sessionId,
+      amount: creditAmount,
+      modelId,
+      generationId,
+      costUsd: estimatedCostUsd,
+      serverSecret: getConvexServerSecret(),
+    });
+
+    if (!reserveResult.success) {
       return Response.json(
-        { error: "Session not found" },
-        { status: 401 }
+        { error: reserveResult.error || "Failed to reserve credits" },
+        { status: 402 }
       );
     }
 
-    // Admin bypasses credit check
-    if (session.tier !== "admin") {
-      // All chat requires credits (1 credit per message)
-      if (session.credits < 1) {
-        return Response.json(
-          {
-            error: "Insufficient credits",
-            required: 1,
-            available: session.credits,
-          },
-          { status: 402 } // Payment Required
-        );
-      }
-
-      // Generate unique ID for this chat request
-      generationId = `chat-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-
-      // Reserve 1 credit for chat (will be converted to deduction on success, refunded on failure)
-      const reserveResult = await convex.mutation(api.sessions.reserveCredits, {
-        sid,
-        amount: 1,
-        modelId,
-        generationId,
-      });
-
-      if (!reserveResult.success) {
-        return Response.json(
-          { error: reserveResult.error || "Failed to reserve credits" },
-          { status: 402 }
-        );
-      }
-
-      creditReserved = true;
-    }
+    creditReserved = true;
   }
 
   try {
@@ -388,6 +470,22 @@ export async function POST(req: Request) {
           const endTime = Date.now();
           const inputTokens = part.totalUsage?.inputTokens ?? 0;
           const outputTokens = part.totalUsage?.outputTokens ?? 0;
+
+          // Calculate actual cost for logging/comparison
+          const actualCredits = computeActualChatCreditsCost(
+            modelPricing,
+            inputTokens,
+            outputTokens
+          );
+
+          // Log cost comparison for monitoring
+          if (actualCredits !== null && creditAmount !== actualCredits) {
+            const diff = creditAmount - actualCredits;
+            console.log(
+              `[Chat API] Cost variance: estimated=${creditAmount} actual=${actualCredits} diff=${diff > 0 ? "+" : ""}${diff} model=${modelId}`
+            );
+          }
+
           return {
             model: modelId,
             promptTokens: inputTokens,
@@ -395,14 +493,16 @@ export async function POST(req: Request) {
             totalTokens: inputTokens + outputTokens,
             finishReason: part.finishReason,
             latencyMs: endTime - startTime,
+            creditsCharged: creditAmount,
+            actualCredits: actualCredits ?? creditAmount,
           };
         }
         return undefined;
       },
     });
 
-    // If no credits reserved, return response as-is
-    if (!convex || !sessionId || !generationId || !creditReserved) {
+    // If no credits reserved (admin user), return response as-is
+    if (!generationId || !creditReserved) {
       return baseResponse;
     }
 

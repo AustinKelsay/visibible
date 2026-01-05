@@ -7,6 +7,7 @@ import { BookMenu } from "@/components/book-menu";
 import { LayoutWrapper } from "@/components/layout-wrapper";
 import { ChatContextSetter } from "@/components/chat-context-setter";
 import { VerseStrip } from "@/components/verse-strip";
+import { Footer } from "@/components/footer";
 import { BOOK_BY_SLUG } from "@/data/bible-structure";
 import { getVerse } from "@/lib/bible-api";
 import { getTranslationFromCookies } from "@/lib/get-translation";
@@ -144,6 +145,9 @@ export default async function VersePage({ params }: VersePageProps) {
           />
         </div>
       </main>
+
+      {/* Footer */}
+      <Footer />
 
       {/* Book Menu */}
       <BookMenu />

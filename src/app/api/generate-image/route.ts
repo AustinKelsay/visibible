@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import {
   DEFAULT_IMAGE_MODEL,
-  DEFAULT_CREDITS_COST,
   fetchImageModels,
   computeCreditsCost,
   getProviderName,
 } from "@/lib/image-models";
-import { getSessionFromCookies } from "@/lib/session";
-import { getConvexClient } from "@/lib/convex-client";
+import { getSessionFromCookies, getClientIp, hashIp } from "@/lib/session";
+import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
+import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { api } from "../../../../convex/_generated/api";
 
 // Disable Next.js server-side caching - let browser cache handle it
@@ -20,7 +20,32 @@ const isImageGenerationEnabled =
 const DEFAULT_TEXT = "In the beginning God created the heaven and the earth.";
 const PROMPT_VERSION = "2025-12-30";
 
+// Security: Validate and sanitize Bible reference format
+function sanitizeReference(ref: string): string {
+  // Only allow alphanumeric, spaces, colons, hyphens, and basic punctuation
+  const sanitized = ref.replace(/[^\w\s:,\-.'()]/g, "").slice(0, 50);
+  return sanitized || "Scripture";
+}
+
+// Security: Sanitize verse text to prevent prompt injection
+function sanitizeVerseText(text: string): string {
+  // Remove control characters and limit length
+  // Strip common prompt injection patterns
+  return text
+    .replace(/[\x00-\x1F\x7F]/g, "") // Remove control chars
+    .replace(
+      /\b(ignore|disregard|forget|override|system|prompt|instruction)/gi,
+      ""
+    )
+    .slice(0, 1200); // Limit to reasonable verse length
+}
+
 export async function GET(request: Request) {
+  // SECURITY: Validate request origin
+  if (!validateOrigin(request)) {
+    return invalidOriginResponse();
+  }
+
   if (!isImageGenerationEnabled) {
     return NextResponse.json(
       { error: "Image generation disabled" },
@@ -38,13 +63,65 @@ export async function GET(request: Request) {
     );
   }
 
+  // SECURITY: Convex is required for credit management and rate limiting
+  const convex = getConvexClient();
+  if (!convex) {
+    return NextResponse.json(
+      { error: "Service temporarily unavailable" },
+      { status: 503 }
+    );
+  }
+
+  // Get session first for rate limiting identifier
+  const sid = await getSessionFromCookies();
+  if (!sid) {
+    return NextResponse.json(
+      { error: "Session required for image generation" },
+      { status: 401 }
+    );
+  }
+
+  // SECURITY: Rate limiting - use IP hash as primary identifier to prevent multi-session bypass
+  // Combined with sid for granular tracking per IP+session pair
+  const clientIp = getClientIp(request);
+  const ipHash = await hashIp(clientIp);
+  const rateLimitIdentifier = `${ipHash}:${sid}`;
+
+  const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
+    identifier: rateLimitIdentifier,
+    endpoint: "generate-image",
+  });
+
+  if (!rateLimitResult.allowed) {
+    return NextResponse.json(
+      {
+        error: "Rate limit exceeded",
+        message: "Too many image generation requests. Please wait before generating more.",
+        retryAfter: rateLimitResult.retryAfter,
+      },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(rateLimitResult.retryAfter || 60),
+        },
+      }
+    );
+  }
+
   // Get verse text, theme, model, and context from query params
+  // SECURITY: All user-provided text is sanitized to prevent prompt injection
   const { searchParams } = new URL(request.url);
-  const verseText = searchParams.get("text") || DEFAULT_TEXT;
+  const verseText = sanitizeVerseText(searchParams.get("text") || DEFAULT_TEXT);
   const themeParam = searchParams.get("theme");
-  const prevVerseParam = searchParams.get("prevVerse");
-  const nextVerseParam = searchParams.get("nextVerse");
-  const reference = searchParams.get("reference") || "Scripture";
+  const prevVerseParam = searchParams.get("prevVerse")
+    ? sanitizeVerseText(searchParams.get("prevVerse")!)
+    : null;
+  const nextVerseParam = searchParams.get("nextVerse")
+    ? sanitizeVerseText(searchParams.get("nextVerse")!)
+    : null;
+  const reference = sanitizeReference(
+    searchParams.get("reference") || "Scripture"
+  );
   const requestedModelId = searchParams.get("model");
   const generationParam = searchParams.get("generation");
   const aspectRatio = "16:9";
@@ -75,8 +152,11 @@ export async function GET(request: Request) {
           style: parsed.style,
         };
       }
-    } catch {
-      // Ignore parsing errors
+    } catch (e) {
+      console.warn("[generate-image] Failed to parse chapterTheme:", {
+        value: value?.substring(0, 100),
+        error: e instanceof Error ? e.message : "Unknown error",
+      });
     }
     return null;
   };
@@ -90,83 +170,89 @@ export async function GET(request: Request) {
   const chapterTheme = parseChapterTheme(themeParam);
   const generationNumber = parseGenerationNumber(generationParam);
 
+  // SECURITY: Validate model exists and has pricing to prevent cost abuse
+  const result = await fetchImageModels(openRouterApiKey);
+
   if (requestedModelId && requestedModelId !== DEFAULT_IMAGE_MODEL) {
-    const result = await fetchImageModels(openRouterApiKey);
     const foundModel = result.models.find(
       (model) => model.id === requestedModelId
     );
-    if (foundModel) {
-      modelId = requestedModelId;
-      modelPricing = foundModel.pricing?.imageOutput;
+    if (!foundModel) {
+      return NextResponse.json(
+        {
+          error: "Model not available",
+          message: `The model "${requestedModelId}" is not available. Please select a different model.`,
+        },
+        { status: 400 }
+      );
     }
-  } else if (requestedModelId) {
     modelId = requestedModelId;
-    // Fetch pricing for default model
-    const result = await fetchImageModels(openRouterApiKey);
+    modelPricing = foundModel.pricing?.imageOutput;
+  } else {
+    // Use default model, but still validate it exists and has pricing
     const foundModel = result.models.find((model) => model.id === modelId);
     modelPricing = foundModel?.pricing?.imageOutput;
   }
 
-  // Atomic credit reservation before generation (prevents race conditions)
-  const convex = getConvexClient();
+  // SECURITY: Reject models without valid pricing (prevents cost abuse)
   const creditsCost = computeCreditsCost(modelPricing);
-  const cost = creditsCost ?? DEFAULT_CREDITS_COST;
+  if (creditsCost === null) {
+    return NextResponse.json(
+      {
+        error: "Model pricing unavailable",
+        message: `The model "${modelId}" cannot be priced. Please select a different model.`,
+      },
+      { status: 400 }
+    );
+  }
+
+  // Atomic credit reservation before generation (prevents race conditions)
+  const cost = creditsCost;
   const costUsd = cost * 0.01;
   let updatedCredits: number | undefined;
   let shouldCharge = false;
   let reservationMade = false;
   const chargeGenerationId = crypto.randomUUID();
-  let sid: string | null = null;
 
-  // If Convex is enabled and we have a session, enforce credit system
-  if (convex) {
-    sid = await getSessionFromCookies();
-    if (!sid) {
+  // Check if user is admin (unlimited access)
+  const session = await convex.query(api.sessions.getSession, { sid });
+  if (!session) {
+    return NextResponse.json(
+      { error: "Session not found" },
+      { status: 401 }
+    );
+  }
+  const isAdmin = session?.tier === "admin";
+
+  // Skip credit checks for admin users
+  if (!isAdmin) {
+    // Atomically reserve credits before generation to prevent race conditions
+    const reserveResult = await convex.action(api.sessions.reserveCredits, {
+      sid,
+      amount: cost,
+      modelId,
+      generationId: chargeGenerationId,
+      costUsd,
+      serverSecret: getConvexServerSecret(),
+    });
+
+    if (!reserveResult.success) {
       return NextResponse.json(
-        { error: "Session required for image generation" },
-        { status: 401 }
+        {
+          error: "Insufficient credits",
+          required: cost,
+          available:
+            "available" in reserveResult ? reserveResult.available : 0,
+        },
+        { status: 402 }
       );
     }
 
-    // Check if user is admin (unlimited access)
-    const session = await convex.query(api.sessions.getSession, { sid });
-    if (!session) {
-      return NextResponse.json(
-        { error: "Session required for image generation" },
-        { status: 401 }
-      );
-    }
-    const isAdmin = session?.tier === "admin";
+    reservationMade = true;
+    shouldCharge = true;
 
-    // Skip credit checks for admin users
-    if (!isAdmin) {
-      // Atomically reserve credits before generation to prevent race conditions
-      const reserveResult = await convex.mutation(api.sessions.reserveCredits, {
-        sid,
-        amount: cost,
-        modelId,
-        generationId: chargeGenerationId,
-        costUsd,
-      });
-
-      if (!reserveResult.success) {
-        return NextResponse.json(
-          {
-            error: "Insufficient credits",
-            required: cost,
-            available:
-              "available" in reserveResult ? reserveResult.available : 0,
-          },
-          { status: 402 }
-        );
-      }
-
-      reservationMade = true;
-      shouldCharge = true;
-
-      if ("newBalance" in reserveResult) {
-        updatedCredits = reserveResult.newBalance;
-      }
+    if ("newBalance" in reserveResult) {
+      updatedCredits = reserveResult.newBalance;
     }
   }
 
@@ -180,8 +266,13 @@ export async function GET(request: Request) {
   try {
     if (prevVerseParam) prevVerse = JSON.parse(prevVerseParam);
     if (nextVerseParam) nextVerse = JSON.parse(nextVerseParam);
-  } catch {
-    // Ignore parsing errors, continue without context
+  } catch (e) {
+    console.warn("[generate-image] Failed to parse verse context:", {
+      prevVerseParam: prevVerseParam?.substring(0, 100),
+      nextVerseParam: nextVerseParam?.substring(0, 100),
+      error: e instanceof Error ? e.message : "Unknown error",
+    });
+    // Continue without context - graceful degradation
   }
 
   // Build prompt with storyboard context for visual continuity
@@ -302,15 +393,16 @@ ${aspectRatioInstruction}`;
 
     // Helper to record stats and return success
     const recordStatsAndReturn = async (imageUrl: string) => {
-      if (shouldCharge && convex && sid) {
+      if (shouldCharge) {
         // Convert reservation to debit after successful generation
         // This is idempotent - if reservation was already converted, it returns success
-        const deductResult = await convex.mutation(api.sessions.deductCredits, {
+        const deductResult = await convex.action(api.sessions.deductCredits, {
           sid,
           amount: cost,
           modelId,
           generationId: chargeGenerationId,
           costUsd,
+          serverSecret: getConvexServerSecret(),
         });
 
         if (!deductResult.success) {
@@ -318,9 +410,10 @@ ${aspectRatioInstruction}`;
           // Release the reservation if conversion fails
           if (reservationMade) {
             await convex
-              .mutation(api.sessions.releaseReservation, {
+              .action(api.sessions.releaseReservation, {
                 sid,
                 generationId: chargeGenerationId,
+                serverSecret: getConvexServerSecret(),
               })
               .catch(() => {}); // Ignore release errors
           }
@@ -340,15 +433,13 @@ ${aspectRatioInstruction}`;
         }
       }
 
-      if (convex) {
-        // Record generation stats for ETA estimation (don't await - fire and forget)
-        convex
-          .mutation(api.modelStats.recordGeneration, {
-            modelId,
-            durationMs: generationDurationMs,
-          })
-          .catch(() => {});
-      }
+      // Record generation stats for ETA estimation (don't await - fire and forget)
+      convex
+        .mutation(api.modelStats.recordGeneration, {
+          modelId,
+          durationMs: generationDurationMs,
+        })
+        .catch(() => {});
       return NextResponse.json(
         {
           imageUrl,
@@ -402,11 +493,12 @@ ${aspectRatioInstruction}`;
 
     // If no image found, return error and release reservation
     console.error("No image in response:", JSON.stringify(data, null, 2));
-    if (reservationMade && convex && sid) {
+    if (reservationMade) {
       await convex
-        .mutation(api.sessions.releaseReservation, {
+        .action(api.sessions.releaseReservation, {
           sid,
           generationId: chargeGenerationId,
+          serverSecret: getConvexServerSecret(),
         })
         .catch((releaseError) => {
           console.error("Failed to release reservation:", releaseError);
@@ -419,11 +511,12 @@ ${aspectRatioInstruction}`;
   } catch (error) {
     console.error("Image generation error:", error);
     // Release reservation on failure so user doesn't lose credits
-    if (reservationMade && convex && sid) {
+    if (reservationMade) {
       await convex
-        .mutation(api.sessions.releaseReservation, {
+        .action(api.sessions.releaseReservation, {
           sid,
           generationId: chargeGenerationId,
+          serverSecret: getConvexServerSecret(),
         })
         .catch((releaseError) => {
           console.error("Failed to release reservation:", releaseError);

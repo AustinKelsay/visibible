@@ -202,10 +202,16 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
         {/* Credits Info */}
         {tier !== "admin" && (
           <div className="px-3 py-2 border-b border-[var(--divider)] text-xs text-[var(--muted)] space-y-1">
-            <div className="font-medium">Early Access</div>
+            <div className="font-medium text-[var(--foreground)]">Early Access</div>
             <div>Credits are used for AI chats and image generation</div>
             <div>Lightning payments only (no on-chain)</div>
             <div>No refunds during alpha</div>
+            <div className="font-medium text-[var(--foreground)] mt-2 pt-2 border-t border-[var(--divider)]">
+              ⚠️ No account: Credits are session-only
+            </div>
+            <div>
+              Credits are stored in your browser session. If you clear your cache or use a different browser, your credits will be lost.
+            </div>
           </div>
         )}
 
