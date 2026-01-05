@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Send, Loader2, CheckCircle } from "lucide-react";
 import type { PageContext } from "@/context/navigation-context";
 
@@ -13,6 +13,16 @@ export function Feedback({ context }: FeedbackProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const successTimeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (successTimeoutRef.current !== null) {
+        window.clearTimeout(successTimeoutRef.current);
+        successTimeoutRef.current = null;
+      }
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,7 +66,13 @@ export function Feedback({ context }: FeedbackProps) {
       setIsSuccess(true);
 
       // Reset success state after 3 seconds
-      setTimeout(() => setIsSuccess(false), 3000);
+      if (successTimeoutRef.current !== null) {
+        window.clearTimeout(successTimeoutRef.current);
+      }
+      successTimeoutRef.current = window.setTimeout(() => {
+        setIsSuccess(false);
+        successTimeoutRef.current = null;
+      }, 3000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
