@@ -236,6 +236,9 @@ const {
   isMenuOpen, openMenu, closeMenu, toggleMenu,
   // Chat sidebar
   isChatOpen, openChat, closeChat, toggleChat,
+  // Sidebar tab control
+  sidebarTab, setSidebarTab, openFeedback,
+  // Chat context
   chatContext, setChatContext
 } = useNavigation();
 ```
@@ -249,18 +252,27 @@ const {
 | `closeMenu` | `() => void` | Close the menu |
 | `toggleMenu` | `() => void` | Toggle menu state |
 
-#### Chat Sidebar State
+#### Sidebar State
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `isChatOpen` | `boolean` | Current chat panel state |
-| `openChat` | `() => void` | Open chat panel |
-| `closeChat` | `() => void` | Close chat panel |
-| `toggleChat` | `() => void` | Toggle chat panel |
+| `isChatOpen` | `boolean` | Current sidebar visibility state |
+| `openChat` | `() => void` | Open sidebar to Chat tab |
+| `closeChat` | `() => void` | Close sidebar |
+| `toggleChat` | `() => void` | Toggle sidebar visibility |
+| `sidebarTab` | `SidebarTab` | Active tab: `"chat"` or `"feedback"` |
+| `setSidebarTab` | `(tab: SidebarTab) => void` | Switch active tab |
+| `openFeedback` | `() => void` | Open sidebar to Feedback tab |
 | `chatContext` | `PageContext \| null` | Verse data for AI context |
 | `setChatContext` | `(ctx: PageContext \| null) => void` | Update chat context |
 
-Escape key closes the chat sidebar automatically.
+#### SidebarTab Type
+
+```typescript
+export type SidebarTab = "chat" | "feedback";
+```
+
+Escape key closes the sidebar automatically.
 
 #### PageContext Type
 
@@ -488,7 +500,7 @@ export function Header() {
 
 ### File: `src/components/chat-sidebar.tsx`
 
-Slide-out panel for chat functionality.
+Slide-out panel with tabbed interface for Chat and Feedback.
 
 ### Responsive Behavior
 
@@ -501,9 +513,23 @@ Slide-out panel for chat functionality.
 ChatSidebar
 ├── Backdrop (mobile only, click to close)
 └── Aside panel
-    ├── Header ("Chat" title + X close button)
-    └── Chat component (variant="sidebar")
+    ├── Header
+    │   ├── Title (dynamic: "Chat" or "Feedback")
+    │   ├── Close button
+    │   └── Tab bar
+    │       ├── Chat tab (MessageSquare icon)
+    │       └── Feedback tab (MessageCircleHeart icon)
+    └── Content (switches based on active tab)
+        ├── Chat component (variant="sidebar")
+        └── Feedback component
 ```
+
+### Tab State
+
+The sidebar uses `sidebarTab` from NavigationContext (not local state) so that:
+- `openChat()` opens to the Chat tab
+- `openFeedback()` opens to the Feedback tab
+- Tab state is shared across components
 
 ---
 
@@ -547,19 +573,22 @@ Note: This only handles Genesis 1 verses (1-31). It's a development shortcut, no
 | File | Purpose |
 |------|---------|
 | `src/lib/navigation.ts` | Pure navigation helper functions |
-| `src/context/navigation-context.tsx` | Menu and chat sidebar state context |
+| `src/context/navigation-context.tsx` | Menu, sidebar, and tab state context |
 | `src/components/header.tsx` | Header with menu trigger |
 | `src/components/book-menu.tsx` | Slide-out book/chapter picker with image indicators |
 | `src/components/verse-strip.tsx` | Horizontal verse navigator with image indicators |
 | `src/components/hero-image.tsx` | Control Dock with verse/image navigation |
 | `src/components/scripture-reader.tsx` | Text-based arrow navigation |
 | `src/components/chat.tsx` | Chat component (uses chat context) |
-| `src/components/chat-sidebar.tsx` | Chat sidebar panel |
+| `src/components/chat-sidebar.tsx` | Sidebar panel with tabs (Chat/Feedback) |
 | `src/components/chat-context-setter.tsx` | Sets chat context on verse pages |
+| `src/components/feedback.tsx` | Feedback form component |
+| `src/components/feedback-prompt.tsx` | Feedback popout CTA |
 | `src/app/page.tsx` | Root redirect |
 | `src/app/verse/[number]/page.tsx` | Development convenience redirect |
 | `src/app/[book]/[chapter]/[verse]/page.tsx` | Main verse page |
 | `convex/verseImages.ts` | Queries for image indicators |
+| `convex/feedback.ts` | Feedback submission mutation |
 
 ---
 
@@ -576,5 +605,6 @@ Note: This only handles Genesis 1 verses (1-31). It's a development shortcut, no
 
 ## Related Docs
 
+- Feedback feature: `llm/implementation/FEEDBACK_IMPLEMENTATION.md`
 - Image persistence & history browsing: `llm/implementation/IMAGE_PERSISTENCE_IMPLEMENTATION.md`
 - Image generation flow: `llm/implementation/IMAGE_GENERATION_IMPLEMENTATION.md`

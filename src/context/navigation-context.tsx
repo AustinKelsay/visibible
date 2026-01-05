@@ -20,6 +20,8 @@ export type PageContext = {
   nextVerse?: VerseContext;
 };
 
+export type SidebarTab = "chat" | "feedback";
+
 interface NavigationContextType {
   // Book menu
   isMenuOpen: boolean;
@@ -33,6 +35,11 @@ interface NavigationContextType {
   closeChat: () => void;
   toggleChat: () => void;
 
+  // Sidebar tab control
+  sidebarTab: SidebarTab;
+  setSidebarTab: (tab: SidebarTab) => void;
+  openFeedback: () => void;
+
   // Chat context (verse data)
   chatContext: PageContext | null;
   setChatContext: (context: PageContext | null) => void;
@@ -43,6 +50,7 @@ const NavigationContext = createContext<NavigationContextType | null>(null);
 export function NavigationProvider({ children }: { children: ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [sidebarTab, setSidebarTab] = useState<SidebarTab>("chat");
   const [chatContext, setChatContext] = useState<PageContext | null>(null);
 
   // Close chat on Escape key
@@ -56,9 +64,18 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isChatOpen]);
 
-  const openChat = useCallback(() => setIsChatOpen(true), []);
+  const openChat = useCallback(() => {
+    setSidebarTab("chat");
+    setIsChatOpen(true);
+  }, []);
+
   const closeChat = useCallback(() => setIsChatOpen(false), []);
   const toggleChat = useCallback(() => setIsChatOpen((prev) => !prev), []);
+
+  const openFeedback = useCallback(() => {
+    setSidebarTab("feedback");
+    setIsChatOpen(true);
+  }, []);
 
   const updateChatContext = useCallback((context: PageContext | null) => {
     setChatContext(context);
@@ -78,6 +95,11 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
         openChat,
         closeChat,
         toggleChat,
+
+        // Sidebar tab control
+        sidebarTab,
+        setSidebarTab,
+        openFeedback,
 
         // Chat context
         chatContext,

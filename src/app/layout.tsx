@@ -9,6 +9,7 @@ import { ChatSidebar } from "@/components/chat-sidebar";
 import { BuyCreditsModal } from "@/components/buy-credits-modal";
 import { ChatFAB } from "@/components/chat-fab";
 import { ChatPrompt } from "@/components/chat-prompt";
+import { FeedbackPrompt } from "@/components/feedback-prompt";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,7 @@ export default function RootLayout({
                 <ChatSidebar />
                 <ChatFAB />
                 <ChatPrompt />
+                <FeedbackPrompt />
                 <BuyCreditsModal />
               </NavigationProvider>
             </PreferencesProvider>

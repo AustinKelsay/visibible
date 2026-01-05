@@ -10,6 +10,7 @@
 
 import type * as cleanup from "../cleanup.js";
 import type * as crons from "../crons.js";
+import type * as feedback from "../feedback.js";
 import type * as invoices from "../invoices.js";
 import type * as modelStats from "../modelStats.js";
 import type * as rateLimit from "../rateLimit.js";
@@ -25,6 +26,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   cleanup: typeof cleanup;
   crons: typeof crons;
+  feedback: typeof feedback;
   invoices: typeof invoices;
   modelStats: typeof modelStats;
   rateLimit: typeof rateLimit;

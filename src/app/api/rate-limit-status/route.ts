@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { api } from "../../../../convex/_generated/api";
 import { getConvexClient } from "@/lib/convex-client";
-import { getSessionFromCookies } from "@/lib/session";
+import { getSessionFromCookies, getClientIp, hashIp } from "@/lib/session";
 import { RATE_LIMITS } from "../../../../convex/rateLimit";
 import { DEFAULT_DAILY_SPEND_LIMIT_USD } from "../../../../convex/sessions";
 
@@ -30,7 +30,7 @@ interface RateLimitStatusResponse {
  * Returns current rate limit status for all rate-limited endpoints.
  * Helps clients avoid wasted requests by checking limits before expensive operations.
  */
-export async function GET(): Promise<NextResponse<RateLimitStatusResponse>> {
+export async function GET(request: Request): Promise<NextResponse<RateLimitStatusResponse>> {
   const convex = getConvexClient();
   const sid = await getSessionFromCookies();
 
@@ -54,14 +54,20 @@ export async function GET(): Promise<NextResponse<RateLimitStatusResponse>> {
     });
   }
 
+  // SECURITY: Use same identifier format as cost-incurring endpoints
+  // Rate limits use ${ipHash}:${sid} format to match /api/chat and /api/generate-image
+  const clientIp = getClientIp(request);
+  const ipHash = await hashIp(clientIp);
+  const rateLimitIdentifier = `${ipHash}:${sid}`;
+
   // Fetch rate limit status for each endpoint in parallel
   const [chatStatus, imageStatus, session] = await Promise.all([
     convex.query(api.rateLimit.getRateLimitStatus, {
-      identifier: sid,
+      identifier: rateLimitIdentifier,
       endpoint: "chat",
     }),
     convex.query(api.rateLimit.getRateLimitStatus, {
-      identifier: sid,
+      identifier: rateLimitIdentifier,
       endpoint: "generate-image",
     }),
     convex.query(api.sessions.getSession, { sid }),

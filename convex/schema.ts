@@ -138,4 +138,32 @@ export default defineSchema({
     lockedUntil: v.optional(v.number()), // If set, account is locked until this timestamp
     lockoutCount: v.optional(v.number()), // Number of times locked out (for exponential backoff)
   }).index("by_ipHash", ["ipHash"]),
+
+  // User feedback submissions
+  feedback: defineTable({
+    sid: v.optional(v.string()), // Session ID (for rate limiting context)
+    message: v.string(), // Feedback text content
+    verseContext: v.optional(
+      v.object({
+        book: v.optional(v.string()),
+        chapter: v.optional(v.number()),
+        verseRange: v.optional(v.string()),
+      })
+    ),
+    userAgent: v.optional(v.string()),
+    createdAt: v.number(),
+  }).index("by_createdAt", ["createdAt"]),
+
+  // SECURITY: Admin usage audit log for tracking admin API usage
+  // Admin bypasses credit checks, so we log separately for visibility
+  adminAuditLog: defineTable({
+    sid: v.string(), // Admin session ID
+    endpoint: v.string(), // "chat" | "generate-image"
+    modelId: v.string(), // Model used
+    estimatedCredits: v.number(), // What it would have cost
+    estimatedCostUsd: v.number(), // USD equivalent
+    createdAt: v.number(),
+  })
+    .index("by_sid", ["sid", "createdAt"])
+    .index("by_createdAt", ["createdAt"]),
 });

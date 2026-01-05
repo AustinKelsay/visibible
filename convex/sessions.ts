@@ -765,3 +765,86 @@ export const upgradeToAdmin = action({
     return { success: true };
   },
 });
+
+// ============================================
+// Admin Usage Audit Logging
+// ============================================
+
+/**
+ * Internal mutation to log admin API usage.
+ * SECURITY: Admin bypasses credit checks, so we log usage separately for audit trail.
+ * This enables monitoring of admin activity and detection of credential compromise.
+ */
+export const logAdminUsageInternal = internalMutation({
+  args: {
+    sid: v.string(),
+    endpoint: v.string(),
+    modelId: v.string(),
+    estimatedCredits: v.number(),
+    estimatedCostUsd: v.number(),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.insert("adminAuditLog", {
+      sid: args.sid,
+      endpoint: args.endpoint,
+      modelId: args.modelId,
+      estimatedCredits: args.estimatedCredits,
+      estimatedCostUsd: args.estimatedCostUsd,
+      createdAt: Date.now(),
+    });
+  },
+});
+
+/**
+ * Public action to log admin usage.
+ * Validates server secret before calling internal mutation.
+ */
+export const logAdminUsage = action({
+  args: {
+    sid: v.string(),
+    endpoint: v.string(),
+    modelId: v.string(),
+    estimatedCredits: v.number(),
+    estimatedCostUsd: v.number(),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    await ctx.runMutation(internal.sessions.logAdminUsageInternal, {
+      sid: args.sid,
+      endpoint: args.endpoint,
+      modelId: args.modelId,
+      estimatedCredits: args.estimatedCredits,
+      estimatedCostUsd: args.estimatedCostUsd,
+    });
+  },
+});
+
+/**
+ * Query to get admin daily spend for monitoring.
+ * SECURITY: Useful for detecting potential admin credential compromise.
+ */
+export const getAdminDailySpend = query({
+  args: {
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const todayStart = getUtcDayStart();
+    const entries = await ctx.db
+      .query("adminAuditLog")
+      .withIndex("by_createdAt")
+      .filter((q) => q.gte(q.field("createdAt"), todayStart))
+      .collect();
+
+    const totalUsd = entries.reduce((sum, e) => sum + e.estimatedCostUsd, 0);
+    const totalCredits = entries.reduce((sum, e) => sum + e.estimatedCredits, 0);
+
+    return {
+      todayStart,
+      totalUsd,
+      totalCredits,
+      requestCount: entries.length,
+    };
+  },
+});

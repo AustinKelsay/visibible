@@ -9,8 +9,14 @@ import {
   CREDIT_USD,
 } from "@/lib/chat-models";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
-import { getSessionFromCookies, getClientIp, hashIp } from "@/lib/session";
+import { validateSessionWithIp, getClientIp, hashIp } from "@/lib/session";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
+import {
+  readJsonBodyWithLimit,
+  PayloadTooLargeError,
+  InvalidJsonError,
+  DEFAULT_MAX_BODY_SIZE,
+} from "@/lib/request-body";
 import { api } from "../../../../convex/_generated/api";
 
 // Allow streaming responses up to 30 seconds
@@ -22,32 +28,33 @@ const openRouter = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 
-// Verse context for prev/next verses
+// SECURITY: Verse context with length limits to prevent token inflation
 const verseContextSchema = z.object({
   number: z.number(),
-  text: z.string(),
-  reference: z.string().optional(),
+  text: z.string().max(1200),
+  reference: z.string().max(100).optional(),
 });
 
-const pageContextSchema = z
-  .object({
-    book: z.string().optional(),
-    chapter: z.number().optional(),
-    verseRange: z.string().optional(),
-    heroCaption: z.string().optional(),
-    imageTitle: z.string().optional(),
-    verses: z
-      .array(
-        z.object({
-          number: z.number().optional(),
-          text: z.string().optional(),
-        })
-      )
-      .optional(),
-    prevVerse: verseContextSchema.optional(),
-    nextVerse: verseContextSchema.optional(),
-  })
-  .passthrough();
+// SECURITY: Page context with length limits to prevent token inflation attacks
+const pageContextSchema = z.object({
+  book: z.string().max(100).optional(),
+  chapter: z.number().optional(),
+  verseRange: z.string().max(50).optional(),
+  heroCaption: z.string().max(500).optional(),
+  imageTitle: z.string().max(200).optional(),
+  verses: z
+    .array(
+      z.object({
+        number: z.number().optional(),
+        text: z.string().max(1200).optional(),
+      })
+    )
+    .max(20) // Limit array length to prevent abuse
+    .optional(),
+  prevVerse: verseContextSchema.optional(),
+  nextVerse: verseContextSchema.optional(),
+});
+// Note: Removed .passthrough() to reject unknown fields for security
 
 type PageContext = z.infer<typeof pageContextSchema>;
 
@@ -153,8 +160,16 @@ const messageSchema = z.object({
  * Now includes optional model parameter for model selection.
  */
 const requestBodySchema = z.object({
-  messages: z.array(messageSchema).min(1, "Request must include at least one message"),
-  context: z.union([z.string().min(1), pageContextSchema]).optional(),
+  // SECURITY: Limit message count to prevent token inflation attacks
+  // 50 messages allows extended conversations while preventing abuse
+  messages: z
+    .array(messageSchema)
+    .min(1, "Request must include at least one message")
+    .max(50, "Too many messages. Maximum 50 messages per request."),
+  // SECURITY: Limit string context length to prevent token inflation
+  context: z
+    .union([z.string().min(1).max(2000), pageContextSchema])
+    .optional(),
   model: z.string().optional(),
 });
 
@@ -186,19 +201,31 @@ export async function POST(req: Request) {
     );
   }
 
-  // Get session first for rate limiting identifier
-  const sid = await getSessionFromCookies();
-  if (!sid) {
+  // SECURITY: Validate session with IP binding to prevent token theft
+  // This ensures the session token's embedded IP hash matches the current request IP
+  const sessionValidation = await validateSessionWithIp(req);
+  if (!sessionValidation.sid) {
     return Response.json(
       { error: "Session required for chat" },
       { status: 401 }
     );
   }
+  if (!sessionValidation.valid) {
+    // IP mismatch detected - possible token theft
+    console.warn(
+      `[Chat API] Session IP mismatch - rejecting request for sid=${sessionValidation.sid.slice(0, 8)}...`
+    );
+    return Response.json(
+      { error: "Session invalid" },
+      { status: 401 }
+    );
+  }
+  const sid = sessionValidation.sid;
 
   // SECURITY: Rate limiting - use IP hash as primary identifier to prevent multi-session bypass
   // Combined with sid for granular tracking per IP+session pair
-  const clientIp = getClientIp(req);
-  const ipHash = await hashIp(clientIp);
+  // Use currentIpHash from validation when available, otherwise compute it
+  const ipHash = sessionValidation.currentIpHash ?? await hashIp(getClientIp(req));
   const rateLimitIdentifier = `${ipHash}:${sid}`;
 
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
@@ -222,11 +249,26 @@ export async function POST(req: Request) {
     );
   }
 
+  // SECURITY: Read body with enforced size limit
+  // This handles both Content-Length and chunked transfer encoding safely
   let body: unknown;
   try {
-    body = await req.json();
-  } catch {
-    return Response.json({ error: "Invalid JSON body" }, { status: 400 });
+    body = await readJsonBodyWithLimit(req, DEFAULT_MAX_BODY_SIZE);
+  } catch (error) {
+    if (error instanceof PayloadTooLargeError) {
+      return Response.json(
+        {
+          error: "Payload too large",
+          message: `Request body exceeds maximum size of ${error.maxSize} bytes.`,
+          maxSize: error.maxSize,
+        },
+        { status: 413 }
+      );
+    }
+    if (error instanceof InvalidJsonError) {
+      return Response.json({ error: "Invalid JSON body" }, { status: 400 });
+    }
+    return Response.json({ error: "Failed to read request body" }, { status: 400 });
   }
 
   // Validate request body structure and message format
@@ -275,6 +317,21 @@ export async function POST(req: Request) {
       {
         error: "Model pricing unavailable",
         message: "Unable to determine cost for this model. Please try a different model.",
+      },
+      { status: 400 }
+    );
+  }
+
+  // SECURITY: Reject requests that would cost more than reasonable per-request limit
+  // This prevents cost amplification attacks with expensive models
+  const MAX_CREDITS_PER_REQUEST = 100; // $1.00 maximum per single request
+  if (estimatedCredits > MAX_CREDITS_PER_REQUEST) {
+    return Response.json(
+      {
+        error: "Request too expensive",
+        message: `This model costs approximately ${estimatedCredits} credits per message. Maximum is ${MAX_CREDITS_PER_REQUEST} credits ($1.00). Please select a more affordable model.`,
+        estimated: estimatedCredits,
+        maximum: MAX_CREDITS_PER_REQUEST,
       },
       { status: 400 }
     );
@@ -354,7 +411,7 @@ export async function POST(req: Request) {
     );
   }
 
-  // Admin bypasses credit check
+  // Admin bypasses credit check but we log for audit trail
   if (session.tier !== "admin") {
     // Check if user has enough credits for this model
     if (session.credits < creditAmount) {
@@ -390,6 +447,24 @@ export async function POST(req: Request) {
     }
 
     creditReserved = true;
+  } else {
+    // SECURITY: Log admin usage for audit trail even though credits aren't charged
+    // This enables detection of admin credential compromise
+    // IMPORTANT: Await the call to ensure audit trail is reliably written
+    try {
+      await convex.action(api.sessions.logAdminUsage, {
+        sid: sessionId,
+        endpoint: "chat",
+        modelId,
+        estimatedCredits: creditAmount,
+        estimatedCostUsd,
+        serverSecret: getConvexServerSecret(),
+      });
+    } catch (err) {
+      console.error("[Chat API] Failed to log admin usage:", err);
+      // Continue with the request even if audit logging fails
+      // The request should proceed but we've logged the audit failure
+    }
   }
 
   try {

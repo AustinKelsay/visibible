@@ -5,7 +5,7 @@ import {
   computeCreditsCost,
   getProviderName,
 } from "@/lib/image-models";
-import { getSessionFromCookies, getClientIp, hashIp } from "@/lib/session";
+import { validateSessionWithIp, getClientIp, hashIp } from "@/lib/session";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { api } from "../../../../convex/_generated/api";
@@ -72,19 +72,31 @@ export async function GET(request: Request) {
     );
   }
 
-  // Get session first for rate limiting identifier
-  const sid = await getSessionFromCookies();
-  if (!sid) {
+  // SECURITY: Validate session with IP binding to prevent token theft
+  // This ensures the session token's embedded IP hash matches the current request IP
+  const sessionValidation = await validateSessionWithIp(request);
+  if (!sessionValidation.sid) {
     return NextResponse.json(
       { error: "Session required for image generation" },
       { status: 401 }
     );
   }
+  if (!sessionValidation.valid) {
+    // IP mismatch detected - possible token theft
+    console.warn(
+      `[Image API] Session IP mismatch - rejecting request for sid=${sessionValidation.sid.slice(0, 8)}...`
+    );
+    return NextResponse.json(
+      { error: "Session invalid" },
+      { status: 401 }
+    );
+  }
+  const sid = sessionValidation.sid;
 
   // SECURITY: Rate limiting - use IP hash as primary identifier to prevent multi-session bypass
   // Combined with sid for granular tracking per IP+session pair
-  const clientIp = getClientIp(request);
-  const ipHash = await hashIp(clientIp);
+  // Use currentIpHash from validation when available, otherwise compute it
+  const ipHash = sessionValidation.currentIpHash ?? await hashIp(getClientIp(request));
   const rateLimitIdentifier = `${ipHash}:${sid}`;
 
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
@@ -224,7 +236,7 @@ export async function GET(request: Request) {
   }
   const isAdmin = session?.tier === "admin";
 
-  // Skip credit checks for admin users
+  // Skip credit checks for admin users but log for audit trail
   if (!isAdmin) {
     // Atomically reserve credits before generation to prevent race conditions
     const reserveResult = await convex.action(api.sessions.reserveCredits, {
@@ -253,6 +265,24 @@ export async function GET(request: Request) {
 
     if ("newBalance" in reserveResult) {
       updatedCredits = reserveResult.newBalance;
+    }
+  } else {
+    // SECURITY: Log admin usage for audit trail even though credits aren't charged
+    // This enables detection of admin credential compromise
+    // IMPORTANT: Await the call to ensure audit trail is reliably written
+    try {
+      await convex.action(api.sessions.logAdminUsage, {
+        sid,
+        endpoint: "generate-image",
+        modelId,
+        estimatedCredits: cost,
+        estimatedCostUsd: costUsd,
+        serverSecret: getConvexServerSecret(),
+      });
+    } catch (err) {
+      console.error("[Image API] Failed to log admin usage:", err);
+      // Continue with the request even if audit logging fails
+      // The request should proceed but we've logged the audit failure
     }
   }
 
@@ -380,7 +410,8 @@ ${aspectRatioInstruction}`;
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("OpenRouter error:", response.status, errorText);
+      // SECURITY: Log minimal error info to avoid exposing API internals
+      console.error(`[Image API] OpenRouter error: status=${response.status}`);
       throw new Error(`OpenRouter API error: ${response.status}`);
     }
 
@@ -492,7 +523,8 @@ ${aspectRatioInstruction}`;
     }
 
     // If no image found, return error and release reservation
-    console.error("No image in response:", JSON.stringify(data, null, 2));
+    // SECURITY: Log minimal info to avoid exposing API response structure
+    console.error(`[Image API] No image in response for model=${modelId}`);
     if (reservationMade) {
       await convex
         .action(api.sessions.releaseReservation, {

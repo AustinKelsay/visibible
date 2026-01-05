@@ -13,15 +13,29 @@ High-level view of the session and credit system for AI features (chat and image
 ## User Tiers
 
 - Paid: browse content, use AI features while credits >= model cost. Default tier.
-- Admin: unlimited access (no credit or spending checks).
+- Admin: unlimited access (no credit or spending checks), but all usage is logged for audit.
 - Admin tier is sticky and is never downgraded by credit balance changes.
 
 ## Spending Limits
 
-To prevent API cost abuse, each session has a **$5/day spending limit**:
-- Tracked per session, resets at UTC midnight
+To prevent API cost abuse, multiple layers of cost protection are enforced:
+
+### Daily Spending Limit
+- **$5/day per session** (resets at UTC midnight)
 - Admin users bypass this limit
 - Returns clear error with remaining budget when exceeded
+
+### Per-Request Cost Cap
+- **Maximum 100 credits ($1.00) per single request**
+- Prevents expensive models from draining daily budget in one request
+- Returns 400 error if model cost exceeds cap
+
+### Input Validation Limits
+- **Messages:** Maximum 50 per chat request
+- **Context string:** Maximum 2000 characters
+- **Request body:** Maximum 100KB (enforced via streaming reader, handles chunked transfer encoding)
+
+These limits prevent token inflation attacks where attackers send huge payloads to maximize API costs.
 
 ## Alpha Constraints
 
@@ -49,6 +63,22 @@ These limitations are explicitly shown in the buy-credits modal (which includes 
 ### Image Credits
 - Dynamic pricing based on model's per-image cost
 - Charged after successful image generation
+
+## Admin Audit Logging
+
+Admin users bypass credit checks, but **all admin API usage is logged** for security monitoring:
+
+- Every chat and image generation request is logged with:
+  - Session ID
+  - Endpoint (chat or generate-image)
+  - Model used
+  - Estimated credits and USD cost
+  - Timestamp
+- `getAdminDailySpend` query returns total admin usage for the current day (server secret required)
+- Enables detection of admin credential compromise
+- Provides forensic data for investigation
+
+This ensures unlimited admin access doesn't mean unmonitored access.
 
 ## Transparency Data
 
@@ -78,6 +108,7 @@ Client IP hashing uses trusted proxy headers only when configured; otherwise it 
 - `src/lib/convex-client.ts` - Server-side Convex client
 - `src/lib/btc-price.ts` - BTC/USD price fetching with cache
 - `src/lib/lnd.ts` - Lightning invoice creation and lookup
+- `src/lib/request-body.ts` - Secure body reading with size limits
 
 ### Convex Functions
 - `convex/sessions.ts` - Session and credit ledger mutations

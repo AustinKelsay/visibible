@@ -12,6 +12,7 @@ export const RATE_LIMITS = {
   "admin-login": { windowMs: 900_000, maxRequests: 5 }, // 5 attempts per 15 minutes
   session: { windowMs: 60_000, maxRequests: 10 }, // 10 session creates per minute
   invoice: { windowMs: 60_000, maxRequests: 10 }, // 10 invoice creates per minute
+  feedback: { windowMs: 60_000, maxRequests: 5 }, // 5 feedback submissions per minute
 } as const;
 
 export type RateLimitEndpoint = keyof typeof RATE_LIMITS;

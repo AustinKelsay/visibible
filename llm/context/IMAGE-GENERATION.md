@@ -78,8 +78,9 @@ Prompt inputs (reference, aspect ratio, generation number, prev/next context) ar
 ## Credits & Sessions
 
 - Image generation is only available when Convex is configured; credits are enforced for non-admin sessions.
-- Admin sessions bypass credit checks.
+- Admin sessions bypass credit checks but **all usage is logged** for security monitoring.
 - Credit cost is derived from OpenRouter pricing; unpriced models are rejected.
+- Daily spending limit of $5/session protects against runaway costs.
 - See `llm/context/SESSIONS_AND_CREDITS.md` for user-facing behavior and `llm/implementation/SESSIONS_AND_CREDITS.md` for implementation details.
 
 ## Model Selection

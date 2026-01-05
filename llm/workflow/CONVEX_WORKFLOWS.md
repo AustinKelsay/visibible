@@ -46,7 +46,10 @@ npx convex env unset VARIABLE_NAME
 
 | Variable | Purpose |
 |----------|---------|
-| `ADMIN_PASSWORD_SECRET` | Server-side validation for admin session upgrade |
+| `ADMIN_PASSWORD_SECRET` | HMAC secret for admin session upgrade verification |
+| `CONVEX_SERVER_SECRET` | Server secret for authenticating internal mutations from Next.js API routes |
+
+**Note:** These must be set in both Convex (`npx convex env set`) AND Next.js (`.env.local`). The values must match.
 
 ---
 
@@ -147,6 +150,7 @@ convex/
   modelStats.ts   # Generation timing stats
   verseImages.ts  # Image storage
   rateLimit.ts    # Rate limiting functions
+  feedback.ts     # Feedback submission mutation
   cleanup.ts      # Cleanup mutations (internal)
   crons.ts        # Scheduled jobs
   sessions.test.ts # Unit tests

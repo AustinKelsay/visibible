@@ -35,6 +35,14 @@ The API enforces rate limits via Convex:
 
 - **Origin Validation**: Requests must pass `validateOrigin()` check
 - **Server Secret**: Convex mutations require server secret for credit operations
+- **Input Limits**:
+  - Maximum 50 messages per request (prevents token inflation)
+  - Maximum 2000 character context string
+  - Maximum 100KB request body (enforced via streaming reader, handles chunked encoding)
+- **Cost Protection**:
+  - Per-request cap of 100 credits ($1.00 maximum)
+  - Daily spending limit of $5 per session
+- **Admin Audit**: Admin usage is logged even though credits aren't charged
 
 ## Context Handling
 
@@ -115,9 +123,11 @@ This metadata is displayed in the chat UI via the `MessageMetadataDisplay` compo
 ## Error Handling
 
 The API returns user-friendly errors for common failure modes:
-- **429**: Rate limit exceeded (with retry guidance)
+- **400**: Invalid JSON body or validation failed (with details)
 - **401**: Session required
 - **402**: Insufficient credits (with required/available amounts)
+- **413**: Payload too large (request body exceeds 100KB)
+- **429**: Rate limit exceeded (with retry guidance)
 - **503**: Model temporarily unavailable or max retries exceeded
 - **500**: Generic failure with retry suggestion
 

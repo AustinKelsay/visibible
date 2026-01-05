@@ -165,7 +165,7 @@ export function validateProxyConfig(): void {
     );
   }
 
-  // Warn about overly permissive CIDR ranges
+  // SECURITY: Check for overly permissive CIDR ranges that allow IP spoofing
   const dangerousPatterns = [
     { pattern: /^0\.0\.0\.0\/0$/, desc: "0.0.0.0/0 (all IPv4)" },
     { pattern: /^::\/0$/, desc: "::/0 (all IPv6)" },
@@ -179,11 +179,21 @@ export function validateProxyConfig(): void {
     for (const entry of entries) {
       for (const { pattern, desc } of dangerousPatterns) {
         if (pattern.test(entry)) {
-          console.warn(
-            `[Security Warning] TRUSTED_PROXY_IPS contains ${desc}: "${entry}". ` +
-              "This allows IP spoofing from a wide range of addresses. " +
-              "Use specific proxy IPs or narrow CIDR ranges in production."
-          );
+          // SECURITY: In production, dangerous proxy configs are FATAL
+          // This prevents IP spoofing attacks that bypass rate limits and session binding
+          if (isProduction) {
+            throw new Error(
+              `CRITICAL SECURITY MISCONFIGURATION: TRUSTED_PROXY_IPS contains ${desc}: "${entry}". ` +
+                "This allows IP spoofing attacks that bypass rate limiting and session IP binding. " +
+                "Remove this entry and use specific proxy IPs or narrow CIDR ranges."
+            );
+          } else {
+            console.warn(
+              `[Security Warning] TRUSTED_PROXY_IPS contains ${desc}: "${entry}". ` +
+                "This allows IP spoofing from a wide range of addresses. " +
+                "Use specific proxy IPs or narrow CIDR ranges in production."
+            );
+          }
         }
       }
     }
