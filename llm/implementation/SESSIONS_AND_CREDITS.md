@@ -230,6 +230,8 @@ Rate limiting is handled by `convex/rateLimit.ts`:
 
 Clients can check rate limit status before making expensive requests to avoid wasted API calls.
 
+**Note:** Only cost-incurring endpoints (`chat`, `generate-image`) are exposed. Other rate-limited endpoints (`session`, `invoice`, `admin-login`, `feedback`) are intentionally excluded for security/simplicity.
+
 **Response:**
 ```typescript
 interface RateLimitStatusResponse {

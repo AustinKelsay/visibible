@@ -27,8 +27,9 @@ interface RateLimitStatusResponse {
 
 /**
  * GET /api/rate-limit-status
- * Returns current rate limit status for all rate-limited endpoints.
- * Helps clients avoid wasted requests by checking limits before expensive operations.
+ * Returns current rate limit status for cost-incurring endpoints (chat, generate-image).
+ * Other rate-limited endpoints (session, invoice, admin-login, feedback) are intentionally
+ * not exposed for security/simplicity.
  */
 export async function GET(request: Request): Promise<NextResponse<RateLimitStatusResponse>> {
   const convex = getConvexClient();
