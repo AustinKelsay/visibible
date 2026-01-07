@@ -13,6 +13,7 @@ import type * as crons from "../crons.js";
 import type * as feedback from "../feedback.js";
 import type * as invoices from "../invoices.js";
 import type * as modelStats from "../modelStats.js";
+import type * as nostr from "../nostr.js";
 import type * as rateLimit from "../rateLimit.js";
 import type * as sessions from "../sessions.js";
 import type * as verseImages from "../verseImages.js";
@@ -29,6 +30,7 @@ declare const fullApi: ApiFromModules<{
   feedback: typeof feedback;
   invoices: typeof invoices;
   modelStats: typeof modelStats;
+  nostr: typeof nostr;
   rateLimit: typeof rateLimit;
   sessions: typeof sessions;
   verseImages: typeof verseImages;

@@ -71,6 +71,10 @@ export default defineSchema({
     createdAt: v.number(),
     // Generation ID for idempotency
     generationId: v.optional(v.string()),
+    // Nostr publishing metadata
+    nostrEventId: v.optional(v.string()),
+    nostrPublishedAt: v.optional(v.number()),
+    nostrRelays: v.optional(v.array(v.string())),
   })
     // Index for querying all images for a verse sorted by creation time
     .index("by_verse", ["verseId", "createdAt"])
