@@ -37,7 +37,7 @@ Next.js 16 App Router application for exploring Scripture with AI-powered chat a
 ### Model Selection
 
 Both chat and image generation have user-selectable models:
-- **Chat Model Selector** (`src/components/chat-model-selector.tsx`) - In header + chat input area
+- **Chat Model Selector** (`src/components/chat-model-selector.tsx`) - In chat input area
 - **Image Model Selector** (`src/components/image-model-selector.tsx`) - In header
 - Models fetched from OpenRouter `/api/v1/models` endpoint, filtered by capability
 
@@ -54,7 +54,7 @@ React hooks are in `@ai-sdk/react`, not `ai/react`:
 ### State Management
 
 - **PreferencesContext** (`src/context/preferences-context.tsx`) - Manages translation, image model, and chat model preferences via localStorage + cookies
-- **NavigationContext** (`src/context/navigation-context.tsx`) - Manages book menu state (isMenuOpen, openMenu, closeMenu, toggleMenu), chat sidebar state (isChatOpen, openChat, closeChat, toggleChat), and chat context (chatContext, setChatContext for verse data passed to AI)
+- **NavigationContext** (`src/context/navigation-context.tsx`) - Manages book menu state (isMenuOpen, openMenu, closeMenu, toggleMenu), chat sidebar state (isChatOpen, openChat, closeChat, toggleChat), chat context (chatContext, setChatContext for verse data passed to AI), and current image ID (currentImageId, setCurrentImageId for syncing displayed image between HeroImage and ScriptureDetails)
 
 ### Key Libraries
 

@@ -3,7 +3,7 @@
 Complete specification of how image generation prompts are constructed in Visibible.
 
 **Source:** `src/app/api/generate-image/route.ts`
-**Prompt Version:** `2026-01-05-2`
+**Prompt Version:** `2026-01-07`
 
 ---
 
@@ -306,18 +306,31 @@ GLOBAL NEGATIVES:
 
 ### 10. Aspect Ratio Instruction
 
-**Purpose:** Ensure consistent 16:9 widescreen output.
+**Purpose:** Ensure consistent output matching user-selected aspect ratio.
 
-**Location:** Line 418
+**Location:** Line 484-486
 
-**Content:**
+**Content (dynamic based on user selection):**
 ```
-Generate the image in WIDESCREEN LANDSCAPE format with a 16:9 aspect ratio (wide, not square).
+Generate the image in {LABEL} LANDSCAPE format with a {ratio} aspect ratio (wide, not square).
 ```
+
+**Aspect Ratio Labels:**
+| User Selection | Label in Prompt |
+|----------------|-----------------|
+| `16:9` | WIDESCREEN |
+| `21:9` | ULTRA-WIDE CINEMATIC |
+| `3:2` | CLASSIC WIDE |
+
+**Example outputs:**
+- `16:9`: "Generate the image in WIDESCREEN LANDSCAPE format with a 16:9 aspect ratio (wide, not square)."
+- `21:9`: "Generate the image in ULTRA-WIDE CINEMATIC LANDSCAPE format with a 21:9 aspect ratio (wide, not square)."
+- `3:2`: "Generate the image in CLASSIC WIDE LANDSCAPE format with a 3:2 aspect ratio (wide, not square)."
 
 **Notes:**
 - Explicitly states "wide, not square" to prevent misinterpretation
-- This is also enforced via `image_config` in the API call
+- Also enforced via `image_config.aspect_ratio` in the API call
+- User selects aspect ratio via the AspectRatioSelector in the HeroImage control dock
 
 ---
 
@@ -372,8 +385,10 @@ GLOBAL NEGATIVES:
 - No anachronistic materials (plastic, neon, LEDs).
 - No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).
 
-Generate the image in WIDESCREEN LANDSCAPE format with a 16:9 aspect ratio (wide, not square).
+Generate the image in {ASPECT_LABEL} LANDSCAPE format with a {aspectRatio} aspect ratio (wide, not square).
 ```
+
+**Note:** `{ASPECT_LABEL}` is dynamically set based on user's aspect ratio selection (WIDESCREEN, ULTRA-WIDE CINEMATIC, or CLASSIC WIDE).
 
 ### Template WITHOUT Chapter Theme
 
@@ -418,8 +433,10 @@ GLOBAL NEGATIVES:
 - No anachronistic materials (plastic, neon, LEDs).
 - No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).
 
-Generate the image in WIDESCREEN LANDSCAPE format with a 16:9 aspect ratio (wide, not square).
+Generate the image in {ASPECT_LABEL} LANDSCAPE format with a {aspectRatio} aspect ratio (wide, not square).
 ```
+
+**Note:** `{ASPECT_LABEL}` is dynamically set based on user's aspect ratio selection (WIDESCREEN, ULTRA-WIDE CINEMATIC, or CLASSIC WIDE).
 
 ---
 
@@ -483,7 +500,7 @@ Materials/Texture: Gritty, raw texture; avoid polished digital smoothness.
 Composition: Cinematic, immersive viewpoint; heroic but grounded.
 
 STYLE NEGATIVES:
-Avoid photorealism or a photographic look. Avoid childish/cartoonish styling.
+Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never render as a painting on a wall, gallery piece, or framed artwork—fill the entire canvas edge-to-edge.
 
 GLOBAL NEGATIVES:
 - No modern artifacts or technology (vehicles, screens, guns, electrical lighting, contemporary architecture, modern clothing).
@@ -504,7 +521,7 @@ Every generated image records metadata for reproducibility and debugging.
 A date-based string stamped on every generation:
 
 ```typescript
-const PROMPT_VERSION = "2026-01-05-2";
+const PROMPT_VERSION = "2026-01-07";
 ```
 
 This version is updated whenever the prompt template changes materially, allowing:
@@ -519,7 +536,8 @@ Structured metadata recorded with each generation:
 ```typescript
 const promptInputs = {
   reference,           // e.g., "Genesis 1:3"
-  aspectRatio,         // e.g., "16:9"
+  aspectRatio,         // e.g., "16:9", "21:9", "3:2" (user-selected)
+  resolution,          // e.g., "1K", "2K", "4K" (user-selected)
   styleProfileId,      // e.g., "classical"
   scenePlan,           // Optional scene plan object
   ...(generationNumber ? { generationNumber } : {}),  // e.g., 2
@@ -579,10 +597,18 @@ POST https://openrouter.ai/api/v1/chat/completions
   ],
   modalities: ["image", "text"],  // Request image output
   image_config: {
-    aspect_ratio: "16:9",  // Enforce widescreen
+    aspect_ratio: aspectRatio,  // User-selected (e.g., "16:9", "21:9", "3:2")
+    // Only include image_size if model supports resolution settings (currently Gemini only)
+    ...(modelSupportsResolution && { image_size: resolution }),
   },
 }
 ```
+
+**Resolution Support:**
+- The `image_size` parameter is conditionally included based on `supportsResolution(modelId)`
+- Currently only Gemini models support configurable resolution via `image_size`
+- Non-supporting models receive only the `aspect_ratio` parameter
+- Users are not charged resolution multipliers for non-supporting models
 
 ### Scene Planner Request (Optional)
 

@@ -15,6 +15,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
               aria-label="View source on GitHub"
+              title="GitHub"
             >
               <Github size={20} strokeWidth={1.5} />
             </a>
@@ -24,6 +25,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
               aria-label="Follow on X"
+              title="X (Twitter)"
             >
               <Twitter size={20} strokeWidth={1.5} />
             </a>
@@ -33,6 +35,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
               aria-label="Follow on Nostr"
+              title="Nostr"
             >
               <svg
                 aria-hidden="true"
@@ -47,6 +50,7 @@ export function Footer() {
               href="mailto:bitcoinplebdev@protonmail.com"
               className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
               aria-label="Email"
+              title="Email"
             >
               <Mail size={20} strokeWidth={1.5} />
             </a>

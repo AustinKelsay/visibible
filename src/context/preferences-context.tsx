@@ -3,7 +3,15 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { Translation, DEFAULT_TRANSLATION, TRANSLATIONS } from "@/lib/bible-api";
-import { DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
+import {
+  DEFAULT_IMAGE_MODEL,
+  DEFAULT_ASPECT_RATIO,
+  DEFAULT_RESOLUTION,
+  ImageAspectRatio,
+  ImageResolution,
+  isValidAspectRatio,
+  isValidResolution,
+} from "@/lib/image-models";
 import { DEFAULT_CHAT_MODEL } from "@/lib/chat-models";
 
 interface PreferencesContextType {
@@ -12,6 +20,10 @@ interface PreferencesContextType {
   translationInfo: typeof TRANSLATIONS[Translation];
   imageModel: string;
   setImageModel: (model: string) => void;
+  imageAspectRatio: ImageAspectRatio;
+  setImageAspectRatio: (ratio: ImageAspectRatio) => void;
+  imageResolution: ImageResolution;
+  setImageResolution: (resolution: ImageResolution) => void;
   chatModel: string;
   setChatModel: (model: string) => void;
 }
@@ -26,6 +38,8 @@ const CHAT_MODEL_COOKIE = "visibible-chat-model";
 export function PreferencesProvider({ children }: { children: ReactNode }) {
   const [translation, setTranslationState] = useState<Translation>(DEFAULT_TRANSLATION);
   const [imageModel, setImageModelState] = useState<string>(DEFAULT_IMAGE_MODEL);
+  const [imageAspectRatio, setImageAspectRatioState] = useState<ImageAspectRatio>(DEFAULT_ASPECT_RATIO);
+  const [imageResolution, setImageResolutionState] = useState<ImageResolution>(DEFAULT_RESOLUTION);
   const [chatModel, setChatModelState] = useState<string>(DEFAULT_CHAT_MODEL);
   const [isHydrated, setIsHydrated] = useState(false);
   const router = useRouter();
@@ -45,6 +59,14 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
           // Load image model preference
           if (prefs.imageModel) {
             setImageModelState(prefs.imageModel);
+          }
+          // Load image aspect ratio preference
+          if (prefs.imageAspectRatio && isValidAspectRatio(prefs.imageAspectRatio)) {
+            setImageAspectRatioState(prefs.imageAspectRatio);
+          }
+          // Load image resolution preference
+          if (prefs.imageResolution && isValidResolution(prefs.imageResolution)) {
+            setImageResolutionState(prefs.imageResolution);
           }
           // Load chat model preference
           if (prefs.chatModel) {
@@ -66,7 +88,13 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   }, []);
 
   // Helper to save all preferences
-  const savePreferences = (prefs: { translation: Translation; imageModel: string; chatModel: string }) => {
+  const savePreferences = (prefs: {
+    translation: Translation;
+    imageModel: string;
+    imageAspectRatio: ImageAspectRatio;
+    imageResolution: ImageResolution;
+    chatModel: string;
+  }) => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
     } catch {
@@ -77,7 +105,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   // Save to localStorage and cookie when translation changes, then refresh page
   const setTranslation = (newTranslation: Translation) => {
     setTranslationState(newTranslation);
-    savePreferences({ translation: newTranslation, imageModel, chatModel });
+    savePreferences({ translation: newTranslation, imageModel, imageAspectRatio, imageResolution, chatModel });
     // Set cookie for server-side reading (expires in 1 year)
     document.cookie = `${COOKIE_NAME}=${newTranslation}; path=/; max-age=31536000; SameSite=Lax`;
     // Refresh the page to get new translation from server
@@ -87,17 +115,29 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   // Save image model preference
   const setImageModel = (newModel: string) => {
     setImageModelState(newModel);
-    savePreferences({ translation, imageModel: newModel, chatModel });
+    savePreferences({ translation, imageModel: newModel, imageAspectRatio, imageResolution, chatModel });
     // Set cookie for server-side reading (expires in 1 year)
     document.cookie = `${IMAGE_MODEL_COOKIE}=${encodeURIComponent(newModel)}; path=/; max-age=31536000; SameSite=Lax`;
     // Refresh to regenerate image with new model
     router.refresh();
   };
 
+  // Save image aspect ratio preference (no refresh needed - takes effect on next generation)
+  const setImageAspectRatio = (newRatio: ImageAspectRatio) => {
+    setImageAspectRatioState(newRatio);
+    savePreferences({ translation, imageModel, imageAspectRatio: newRatio, imageResolution, chatModel });
+  };
+
+  // Save image resolution preference (no refresh needed - takes effect on next generation)
+  const setImageResolution = (newResolution: ImageResolution) => {
+    setImageResolutionState(newResolution);
+    savePreferences({ translation, imageModel, imageAspectRatio, imageResolution: newResolution, chatModel });
+  };
+
   // Save chat model preference (no refresh needed - takes effect on next message)
   const setChatModel = (newModel: string) => {
     setChatModelState(newModel);
-    savePreferences({ translation, imageModel, chatModel: newModel });
+    savePreferences({ translation, imageModel, imageAspectRatio, imageResolution, chatModel: newModel });
     // Set cookie for server-side reading (expires in 1 year)
     document.cookie = `${CHAT_MODEL_COOKIE}=${encodeURIComponent(newModel)}; path=/; max-age=31536000; SameSite=Lax`;
   };
@@ -110,6 +150,10 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
         translationInfo: TRANSLATIONS[isHydrated ? translation : DEFAULT_TRANSLATION],
         imageModel: isHydrated ? imageModel : DEFAULT_IMAGE_MODEL,
         setImageModel,
+        imageAspectRatio: isHydrated ? imageAspectRatio : DEFAULT_ASPECT_RATIO,
+        setImageAspectRatio,
+        imageResolution: isHydrated ? imageResolution : DEFAULT_RESOLUTION,
+        setImageResolution,
         chatModel: isHydrated ? chatModel : DEFAULT_CHAT_MODEL,
         setChatModel,
       }}

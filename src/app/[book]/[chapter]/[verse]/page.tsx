@@ -133,7 +133,7 @@ export default async function VersePage({ params }: VersePageProps) {
         </div>
 
         {/* Scripture Details */}
-        <div className="max-w-2xl mx-auto w-full">
+        <div className="max-w-2xl mx-auto w-full mb-8">
           <ScriptureDetails
             book={bookData.name}
             chapter={location.chapter}

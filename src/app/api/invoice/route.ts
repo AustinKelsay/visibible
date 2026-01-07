@@ -8,7 +8,6 @@ import { api } from "../../../../convex/_generated/api";
 
 // Fixed bundle price
 const BUNDLE_USD = 3;
-const BUNDLE_CREDITS = 300;
 
 /**
  * POST /api/invoice
@@ -44,10 +43,9 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   // SECURITY: Rate limit invoice creation to prevent LND flooding
-  // Use IP hash as primary identifier to prevent multi-session bypass
+  // Use IP hash only (not session) to prevent multi-session bypass from same IP
   const clientIp = getClientIp(request);
-  const ipHash = await hashIp(clientIp);
-  const rateLimitIdentifier = `${ipHash}:${sid}`;
+  const rateLimitIdentifier = await hashIp(clientIp);
 
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: rateLimitIdentifier,
@@ -74,7 +72,10 @@ export async function POST(request: Request): Promise<NextResponse> {
     // Get current BTC price and calculate sats
     const btcPrice = await getBtcPrice();
     const amountSats = usdToSats(BUNDLE_USD, btcPrice);
-    const memo = `Visibible: ${BUNDLE_CREDITS} credits`;
+
+    // Generate invoiceId before LND call so we can include it in memo for linking
+    const invoiceId = crypto.randomUUID();
+    const memo = `Visibible: ${invoiceId}`;
 
     // Create real Lightning invoice via LND
     const lndInvoice = await createLndInvoice(amountSats, memo);
@@ -84,6 +85,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     // Store in Convex with real LND data
     const invoice = await convex.mutation(api.invoices.createInvoice, {
+      invoiceId,
       sid,
       amountSats,
       bolt11: lndInvoice.payment_request,

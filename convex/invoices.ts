@@ -22,6 +22,7 @@ const BUNDLE_CREDITS = 300;
  */
 export const createInvoice = mutation({
   args: {
+    invoiceId: v.string(),
     sid: v.string(),
     amountSats: v.number(),
     bolt11: v.string(),
@@ -40,7 +41,7 @@ export const createInvoice = mutation({
 
     const now = Date.now();
     const expiresAt = now + 15 * 60 * 1000; // 15 minutes
-    const invoiceId = crypto.randomUUID();
+    const invoiceId = args.invoiceId;
 
     // Create invoice record with real LND data
     await ctx.db.insert("invoices", {

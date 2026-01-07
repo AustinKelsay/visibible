@@ -71,6 +71,10 @@ export default defineSchema({
     createdAt: v.number(),
     // Generation ID for idempotency
     generationId: v.optional(v.string()),
+    // Nostr publishing metadata
+    nostrEventId: v.optional(v.string()),
+    nostrPublishedAt: v.optional(v.number()),
+    nostrRelays: v.optional(v.array(v.string())),
   })
     // Index for querying all images for a verse sorted by creation time
     .index("by_verse", ["verseId", "createdAt"])
@@ -160,6 +164,19 @@ export default defineSchema({
         book: v.optional(v.string()),
         chapter: v.optional(v.number()),
         verseRange: v.optional(v.string()),
+      })
+    ),
+    imageContext: v.optional(
+      v.object({
+        imageId: v.optional(v.string()), // Convex image ID
+        model: v.optional(v.string()), // AI model used (e.g., "google/gemini-2.5-flash-image")
+        provider: v.optional(v.string()), // Provider name (e.g., "Google")
+        aspectRatio: v.optional(v.string()), // e.g., "16:9"
+        dimensions: v.optional(v.string()), // e.g., "1248 × 832"
+        creditsCost: v.optional(v.number()), // Credits charged for generation
+        costUsd: v.optional(v.number()), // USD cost
+        durationMs: v.optional(v.number()), // Generation time in ms
+        createdAt: v.optional(v.number()), // Image creation timestamp
       })
     ),
     userAgent: v.optional(v.string()),

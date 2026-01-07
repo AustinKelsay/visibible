@@ -23,6 +23,19 @@ const feedbackSchema = z.object({
       verseRange: z.string().max(50).optional(),
     })
     .optional(),
+  imageContext: z
+    .object({
+      imageId: z.string().max(100).optional(),
+      model: z.string().max(200).optional(),
+      provider: z.string().max(100).optional(),
+      aspectRatio: z.string().max(20).optional(),
+      dimensions: z.string().max(50).optional(),
+      creditsCost: z.number().nonnegative().optional(),
+      costUsd: z.number().nonnegative().optional(),
+      durationMs: z.number().nonnegative().optional(),
+      createdAt: z.number().nonnegative().optional(),
+    })
+    .optional(),
 });
 
 // SECURITY: Limit feedback body size (much smaller than chat since feedback is simple text)
@@ -121,6 +134,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       message: body.message,
       sid: sid ?? undefined,
       verseContext: body.verseContext,
+      imageContext: body.imageContext,
       userAgent,
     });
 

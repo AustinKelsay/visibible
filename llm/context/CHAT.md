@@ -127,7 +127,7 @@ The API returns user-friendly errors for common failure modes:
 - **401**: Session required
 - **402**: Insufficient credits (with required/available amounts)
 - **413**: Payload too large (request body exceeds 100KB)
-- **429**: Rate limit exceeded (with retry guidance)
+- **429**: Rate limit exceeded (with retry guidance) or daily spending limit exceeded (with limit details)
 - **503**: Model temporarily unavailable or max retries exceeded
 - **500**: Generic failure with retry suggestion
 

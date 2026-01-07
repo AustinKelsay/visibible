@@ -61,8 +61,14 @@ These limitations are explicitly shown in the buy-credits modal (which includes 
 - Actual usage logged for monitoring
 
 ### Image Credits
-- Dynamic pricing based on model's per-image cost
-- Charged after successful image generation
+- **Conservative reservation**: Credits are reserved using a 35x multiplier over API-listed pricing because OpenRouter's models API often underreports actual image generation costs for multimodal models.
+- **Actual-usage charging**: After successful generation, the actual cost is extracted from OpenRouter's response (checking `usage.cost`, `usage.total_cost`, `data.cost`, `data.total_cost` in priority order).
+- **Automatic refund**: Excess reserved credits are refunded automatically (typically reserve ~35 credits, charge ~5 actual).
+- **Fallback behavior**: If OpenRouter doesn't return usage data, the API-based estimate is used instead of the conservative 35x estimate. This prevents overcharging when usage extraction fails.
+- The API response includes:
+  - `estimatedCreditsCost` - Pre-generation estimate (API pricing)
+  - `creditsCost` - Actual charge (from usage or fallback)
+  - `usedFallbackEstimate` - Boolean flag indicating usage extraction failed (for monitoring)
 
 ## Admin Audit Logging
 

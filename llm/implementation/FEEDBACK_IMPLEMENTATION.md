@@ -31,6 +31,19 @@ feedback: defineTable({
       verseRange: v.optional(v.string()),
     })
   ),
+  imageContext: v.optional(              // Image being viewed when feedback submitted
+    v.object({
+      imageId: v.optional(v.string()),   // Convex image ID
+      model: v.optional(v.string()),     // AI model used
+      provider: v.optional(v.string()),  // Provider name
+      aspectRatio: v.optional(v.string()), // e.g., "16:9"
+      dimensions: v.optional(v.string()), // e.g., "1248 × 832"
+      creditsCost: v.optional(v.number()), // Credits charged
+      costUsd: v.optional(v.number()),   // USD cost
+      durationMs: v.optional(v.number()), // Generation time
+      createdAt: v.optional(v.number()), // Image creation timestamp
+    })
+  ),
   userAgent: v.optional(v.string()),
   createdAt: v.number(),
 }).index("by_createdAt", ["createdAt"]),
@@ -54,6 +67,19 @@ export const submitFeedback = mutation({
         verseRange: v.optional(v.string()),
       })
     ),
+    imageContext: v.optional(
+      v.object({
+        imageId: v.optional(v.string()),
+        model: v.optional(v.string()),
+        provider: v.optional(v.string()),
+        aspectRatio: v.optional(v.string()),
+        dimensions: v.optional(v.string()),
+        creditsCost: v.optional(v.number()),
+        costUsd: v.optional(v.number()),
+        durationMs: v.optional(v.number()),
+        createdAt: v.optional(v.number()),
+      })
+    ),
     userAgent: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
@@ -71,6 +97,7 @@ export const submitFeedback = mutation({
       message: trimmedMessage,
       sid: args.sid,
       verseContext: args.verseContext,
+      imageContext: args.imageContext,
       userAgent: args.userAgent,
       createdAt: Date.now(),
     });
@@ -104,6 +131,19 @@ const feedbackSchema = z.object({
       book: z.string().max(100).optional(),
       chapter: z.number().int().positive().optional(),
       verseRange: z.string().max(50).optional(),
+    })
+    .optional(),
+  imageContext: z
+    .object({
+      imageId: z.string().max(100).optional(),
+      model: z.string().max(200).optional(),
+      provider: z.string().max(100).optional(),
+      aspectRatio: z.string().max(20).optional(),
+      dimensions: z.string().max(50).optional(),
+      creditsCost: z.number().nonnegative().optional(),
+      costUsd: z.number().nonnegative().optional(),
+      durationMs: z.number().nonnegative().optional(),
+      createdAt: z.number().nonnegative().optional(),
     })
     .optional(),
 });
@@ -185,6 +225,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     message: body.message,
     sid: sid ?? undefined,
     verseContext: body.verseContext,
+    imageContext: body.imageContext,
     userAgent,
   });
 
@@ -218,10 +259,26 @@ Form component displayed in the sidebar Feedback tab.
 ### Props
 
 ```typescript
+// Image context type (exported from feedback.tsx)
+export type ImageContext = {
+  imageId?: string;
+  model?: string;
+  provider?: string;
+  aspectRatio?: string;
+  dimensions?: string;
+  creditsCost?: number;
+  costUsd?: number;
+  durationMs?: number;
+  createdAt?: number;
+};
+
 type FeedbackProps = {
-  context?: PageContext;  // Verse context from NavigationContext
+  context?: PageContext;      // Verse context from NavigationContext
+  imageContext?: ImageContext; // Image context from ChatSidebar
 };
 ```
+
+The `imageContext` is passed from `ChatSidebar` which queries the current image based on `currentImageId` from NavigationContext.
 
 ### State
 
@@ -236,7 +293,8 @@ const [error, setError] = useState<string | null>(null);
 
 - Textarea with 5000 character limit and counter
 - Auto-captures verse context if available
-- Shows context indicator (e.g., "Context: Genesis 1:1")
+- Shows verse context indicator (e.g., "Context: Genesis 1:1")
+- Shows image context indicator when viewing an image (model name, dimensions, aspect ratio)
 - Success message with auto-dismiss after 3 seconds
 - Error message with amber styling
 - Loading spinner on submit button
@@ -261,6 +319,7 @@ const handleSubmit = async (e: React.FormEvent) => {
         chapter: context.chapter,
         verseRange: context.verseRange,
       } : undefined,
+      imageContext: imageContext || undefined,
     }),
   });
 

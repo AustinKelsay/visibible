@@ -1,14 +1,28 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Send, Loader2, CheckCircle } from "lucide-react";
+import { Send, Loader2, CheckCircle, ImageIcon } from "lucide-react";
 import type { PageContext } from "@/context/navigation-context";
+
+// Image context for feedback - which image the user was viewing
+export type ImageContext = {
+  imageId?: string;
+  model?: string;
+  provider?: string;
+  aspectRatio?: string;
+  dimensions?: string;
+  creditsCost?: number;
+  costUsd?: number;
+  durationMs?: number;
+  createdAt?: number;
+};
 
 type FeedbackProps = {
   context?: PageContext;
+  imageContext?: ImageContext;
 };
 
-export function Feedback({ context }: FeedbackProps) {
+export function Feedback({ context, imageContext }: FeedbackProps) {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -53,6 +67,7 @@ export function Feedback({ context }: FeedbackProps) {
                 verseRange: context.verseRange,
               }
             : undefined,
+          imageContext: imageContext?.imageId ? imageContext : undefined,
         }),
       });
 
@@ -102,6 +117,23 @@ export function Feedback({ context }: FeedbackProps) {
               {context.book} {context.chapter}
               {context.verseRange && `:${context.verseRange}`}
             </span>
+          </div>
+        )}
+
+        {/* Image context indicator */}
+        {imageContext?.imageId && (
+          <div className="mb-4 p-3 bg-[var(--surface)] rounded-[var(--radius-md)] text-sm flex items-start gap-2">
+            <ImageIcon size={16} className="text-[var(--muted)] mt-0.5 shrink-0" />
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[var(--foreground)]">
+                {imageContext.model?.split("/").pop()?.replace(/-image$/i, "") || "Image"}
+              </span>
+              {imageContext.dimensions && (
+                <span className="text-xs text-[var(--muted)]">
+                  {imageContext.dimensions} • {imageContext.aspectRatio || "unknown ratio"}
+                </span>
+              )}
+            </div>
           </div>
         )}
 

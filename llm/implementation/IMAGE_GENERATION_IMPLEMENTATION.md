@@ -40,6 +40,25 @@ export const PREMIUM_MULTIPLIER = 1.25;
 export const DEFAULT_ETA_SECONDS = 12;
 export const DEFAULT_CREDITS_COST = 20; // UI fallback for display before pricing loads
 export const DEFAULT_IMAGE_MODEL = "google/gemini-2.5-flash-image";
+
+// Aspect ratio and resolution settings
+export type ImageAspectRatio = "16:9" | "21:9" | "3:2";
+export type ImageResolution = "1K" | "2K" | "4K";
+export const DEFAULT_ASPECT_RATIO: ImageAspectRatio = "16:9";
+export const DEFAULT_RESOLUTION: ImageResolution = "1K";
+export const RESOLUTIONS: Record<ImageResolution, { label: string; multiplier: number }> = {
+  "1K": { label: "Standard", multiplier: 1.0 },
+  "2K": { label: "High", multiplier: 3.5 },
+  "4K": { label: "Ultra", multiplier: 6.5 },
+};
+
+export function isValidAspectRatio(value: unknown): value is ImageAspectRatio {
+  return typeof value === "string" && (value === "16:9" || value === "21:9" || value === "3:2");
+}
+
+export function isValidResolution(value: unknown): value is ImageResolution {
+  return typeof value === "string" && (value === "1K" || value === "2K" || value === "4K");
+}
 ```
 
 ### Models API Endpoint
@@ -61,6 +80,98 @@ export const DEFAULT_IMAGE_MODEL = "google/gemini-2.5-flash-image";
 - Persisted in `localStorage` (`visibible-preferences`)
 - Stored as cookie `visibible-image-model`
 - Triggers `router.refresh()` to regenerate the image with the new model
+
+---
+
+## Image Settings System
+
+Users can configure aspect ratio and resolution for generated images.
+
+### Aspect Ratio Options
+
+| Ratio | Label | CSS Ratio | Description |
+|-------|-------|-----------|-------------|
+| `16:9` | Widescreen | `16/9` | Standard widescreen format (default) |
+| `21:9` | Ultra-wide | `21/9` | Cinematic ultra-wide format |
+| `3:2` | Classic | `3/2` | Classic photography format |
+
+### Resolution Options
+
+| Resolution | Label | Multiplier | Example (20 base credits) |
+|------------|-------|------------|---------------------------|
+| `1K` | Standard | 1.0x | 20 credits |
+| `2K` | High | 3.5x | 70 credits |
+| `4K` | Ultra | 6.5x | 130 credits |
+
+### Model-Specific Resolution Support
+
+Only certain models support configurable resolution via the `image_size` parameter. Currently, only Gemini models support this feature.
+
+```typescript
+// src/lib/image-models.ts
+export function supportsResolution(modelId: string): boolean {
+  // Currently only Gemini models support resolution settings via image_size
+  return modelId.toLowerCase().includes('gemini');
+}
+```
+
+**Behavior for non-supporting models:**
+- Resolution selector UI is dimmed (visually indicates not supported)
+- No credit multiplier is applied (users pay base cost only)
+- Resolution parameter is not sent to the API
+- Prevents charging users for settings that are ignored
+
+### Credit Cost Calculation
+
+**Important:** OpenRouter's models API `pricing.image` field often significantly underreports actual costs for multimodal models like Gemini. The actual billing is based on image completion tokens at a much higher rate (observed ~31x difference).
+
+**Conservative reservation:** Credits are reserved using `computeConservativeEstimate()` which applies a 35x multiplier to account for this discrepancy.
+
+**Actual-usage charging:** After generation, the actual cost is extracted from OpenRouter's response and used for the final charge. The extraction checks multiple possible field locations in priority order: `usage.cost`, `usage.total_cost`, `data.cost`, `data.total_cost`. Excess reserved credits are automatically refunded.
+
+**Fallback when usage unavailable:** If OpenRouter doesn't return cost data in any known location, the API-based estimate (`imageCreditsCost`) is used instead of the conservative 35x estimate. This prevents overcharging when cost extraction fails. The response includes `usedFallbackEstimate: true` to flag these cases. When fallback is used, the actual `usage` object structure is logged for debugging to help identify new cost field locations.
+
+```typescript
+export function computeAdjustedCreditsCost(
+  baseCost: number,
+  resolution: ImageResolution,
+  modelId: string
+): number {
+  // Only apply multiplier if model supports resolution settings
+  if (!supportsResolution(modelId)) {
+    return baseCost;
+  }
+  const multiplier = RESOLUTIONS[resolution].multiplier;
+  return Math.ceil(baseCost * multiplier);
+}
+```
+
+### UI Components
+
+Both selectors are defined in `src/components/hero-image.tsx`:
+
+**AspectRatioSelector:**
+- Dropdown in control dock below the image
+- Shows current ratio (e.g., "16:9")
+- Lists all available ratios with labels
+
+**ResolutionSelector:**
+- Dropdown in control dock below the image
+- Shows current resolution with multiplier badge (e.g., "2K" with "2x")
+- Dimmed when model doesn't support resolution
+- Shows credit cost for each option when showCost is true
+
+### Preferences Integration
+
+Image settings are stored in PreferencesContext:
+
+```typescript
+const { imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution } = usePreferences();
+```
+
+- Persisted in localStorage only (no cookies needed)
+- No page refresh on change - settings take effect on next generation
+- Validated with `isValidAspectRatio()` and `isValidResolution()` before loading from storage
 
 ---
 
@@ -169,6 +280,8 @@ if (prevVerse) params.set("prevVerse", JSON.stringify(prevVerse));
 if (nextVerse) params.set("nextVerse", JSON.stringify(nextVerse));
 if (currentReference) params.set("reference", currentReference);
 if (imageModel) params.set("model", imageModel);
+params.set("aspectRatio", imageAspectRatio);  // User-selected aspect ratio
+params.set("resolution", imageResolution);    // User-selected resolution
 
 const existingImageCount = imageHistory?.length || 0;
 if (existingImageCount > 0) {
@@ -326,10 +439,16 @@ const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     model: modelId,
     messages: [{ role: "user", content: prompt }],
     modalities: ["image", "text"],
-    image_config: { aspect_ratio: "16:9" },
+    image_config: {
+      aspect_ratio: aspectRatio,  // User-selected (e.g., "16:9", "21:9", "3:2")
+      // Only include image_size if model supports it (currently Gemini only)
+      ...(modelSupportsResolution && { image_size: resolution }),
+    },
   }),
 });
 ```
+
+**Note:** The `image_size` parameter is conditionally included based on `supportsResolution(modelId)`. Non-supporting models receive only the `aspect_ratio` parameter.
 
 ### Response Handling
 
@@ -353,16 +472,26 @@ const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
   verseText,
   chapterTheme?,
   generationNumber?,
-  // Cost breakdown
-  creditsCost,           // Total credits charged (image + scene planner if used)
-  imageCreditsCost,      // Image model cost
+  // Cost breakdown - actual charged amounts
+  creditsCost,           // Total credits charged (actual, based on usage)
+  imageCreditsCost,      // Image model cost (actual)
   scenePlannerCredits,   // Scene planner cost (0 if free model or not used)
-  costUsd,               // Total USD
-  imageCostUsd,          // Image USD
+  costUsd,               // Total USD (actual)
+  imageCostUsd,          // Image USD (actual)
   scenePlannerCostUsd,   // Scene planner USD
   scenePlannerUsed,      // Boolean: whether scene planner succeeded
+  // Estimate vs actual tracking
+  estimatedCreditsCost,  // Pre-generation estimate (what API pricing suggested)
+  estimatedCostUsd,      // Pre-generation estimate in USD
+  openRouterUsageUsd,    // Actual OpenRouter cost (null if not captured)
+  usedActualCost,        // Boolean: whether actual usage was captured
+  usedFallbackEstimate,  // Boolean: true when OpenRouter didn't return usage (used API estimate)
   durationMs,
-  aspectRatio,
+  // Image settings
+  aspectRatio,           // User-selected aspect ratio (e.g., "16:9")
+  resolution,            // User-selected resolution (e.g., "2K")
+  resolutionMultiplier,  // Applied multiplier (1.0 if model doesn't support resolution)
+  resolutionSupported,   // Boolean: whether model supports resolution settings
   credits?,              // Updated balance (if charged)
 }
 ```
@@ -400,7 +529,7 @@ Convex persistence is documented in detail in:
 - **401** - Missing or invalid session.
 - **402** - Insufficient credits (returns `required`/`available` amounts).
 - **403** - Image generation disabled (`ENABLE_IMAGE_GENERATION=false`) or origin validation failed.
-- **429** - Rate limit exceeded (returns `retryAfter` seconds).
+- **429** - Rate limit exceeded (returns `retryAfter` seconds) or daily spending limit exceeded (returns `dailyLimit`/`dailySpent`/`remaining`).
 - **500** - Missing `OPENROUTER_API_KEY`, OpenRouter API errors, or model doesn't support image output.
 - **503** - Convex unavailable (service temporarily unavailable).
 
@@ -431,16 +560,16 @@ SESSION_SECRET=your-session-secret-here  # Required for credit-gated generation
 
 | File | Purpose |
 |------|---------|
-| `src/lib/image-models.ts` | Type definitions + default model |
+| `src/lib/image-models.ts` | Type definitions, defaults, aspect ratio/resolution config, validators |
 | `src/app/api/image-models/route.ts` | Fetch/filter OpenRouter models |
 | `src/app/api/generate-image/route.ts` | OpenRouter client + prompt building |
 | `src/components/image-model-selector.tsx` | Model selection dropdown |
-| `src/components/hero-image.tsx` | Hero image UI + generation flow |
+| `src/components/hero-image.tsx` | Hero image UI, generation flow, AspectRatioSelector, ResolutionSelector |
 | `src/components/convex-client-provider.tsx` | Convex client gating |
 | `convex/verseImages.ts` | Queries/actions for image persistence |
 | `convex/schema.ts` | `verseImages` table definition |
 | `convex/modelStats.ts` | ETA tracking for image models |
-| `src/context/preferences-context.tsx` | User preferences (translation + image model) |
+| `src/context/preferences-context.tsx` | User preferences (translation, models, aspect ratio, resolution) |
 | `src/app/[book]/[chapter]/[verse]/page.tsx` | Verse page wiring |
 
 ---

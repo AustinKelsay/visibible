@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ChevronDown, Info } from "lucide-react";
 import { useQuery } from "convex/react";
 import { usePreferences } from "@/context/preferences-context";
+import { useNavigation } from "@/context/navigation-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { api } from "../../convex/_generated/api";
 import { TranslationSelector } from "./translation-selector";
@@ -134,14 +135,18 @@ function ScriptureDetailsBase({
 }: ScriptureDetailsBaseProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const { translationInfo, imageModel } = usePreferences();
+  const { currentImageId } = useNavigation();
 
   const wordCount = countWords(verseText);
+  const charCount = verseText.trim().length;
   const verseCount = getVerseCount(verseRange);
+  const currentVerseNumber = parseInt(verseRange.split("-")[0], 10) || 1;
   const readingTimeSeconds = wordCount ? Math.round((wordCount / WORDS_PER_MINUTE) * 60) : 0;
   const readingTimeLabel = readingTimeSeconds
     ? formatDuration(readingTimeSeconds)
     : "-";
   const wordCountLabel = wordCount ? `${wordCount} word${wordCount === 1 ? "" : "s"}` : "-";
+  const charCountLabel = charCount ? `${charCount} char${charCount === 1 ? "" : "s"}` : "-";
   const verseCountLabel = verseCount
     ? `${verseCount} verse${verseCount === 1 ? "" : "s"}`
     : "-";
@@ -149,8 +154,17 @@ function ScriptureDetailsBase({
   const chapterVerseLabel = chapterVerseCount
     ? `${chapterVerseCount} verse${chapterVerseCount === 1 ? "" : "s"}`
     : "-";
-  const latestImage = imageHistory && imageHistory.length > 0 ? imageHistory[0] : null;
-  const imageModelId = latestImage?.model || imageModel;
+  const versePositionLabel = chapterVerseCount
+    ? `${currentVerseNumber} of ${chapterVerseCount}`
+    : "-";
+
+  // Image data - use currently displayed image (synced from HeroImage via context)
+  const displayedImage = currentImageId && imageHistory
+    ? imageHistory.find((img) => img.id === currentImageId) || (imageHistory.length > 0 ? imageHistory[0] : null)
+    : imageHistory && imageHistory.length > 0
+      ? imageHistory[0]
+      : null;
+  const imageModelId = displayedImage?.model || imageModel;
   const imageModelLabel = imageModelId ? formatModelName(imageModelId) : "-";
   const imageProviderLabel = imageModelId ? formatProviderName(imageModelId) : "-";
   const imageCountLabel = isConvexEnabled
@@ -162,14 +176,68 @@ function ScriptureDetailsBase({
           : `${imageHistory.length} saved`
         : "None yet"
     : "Not saved";
-  const latestImageLabel = latestImage
-    ? formatTimestamp(latestImage.createdAt)
+  const displayedImageLabel = displayedImage
+    ? formatTimestamp(displayedImage.createdAt)
     : isConvexEnabled
       ? isQueryLoading
         ? "Loading..."
         : "None yet"
       : "-";
   const persistenceLabel = isConvexEnabled ? "Convex (synced)" : "Browser cache only";
+
+  // Current displayed image metadata
+  const dimensionsLabel = displayedImage?.imageWidth && displayedImage?.imageHeight
+    ? `${displayedImage.imageWidth} × ${displayedImage.imageHeight}`
+    : "-";
+  const aspectRatioLabel = displayedImage?.aspectRatio || "-";
+  const fileSizeLabel = displayedImage?.imageSizeBytes
+    ? formatFileSize(displayedImage.imageSizeBytes)
+    : "-";
+  const genTimeLabel = displayedImage?.durationMs
+    ? formatGenTime(displayedImage.durationMs)
+    : "-";
+  const costLabel = displayedImage?.creditsCost
+    ? `${displayedImage.creditsCost} credits`
+    : "-";
+
+  // Aggregate stats from image history
+  const totalCreditsSpent = imageHistory?.reduce((sum, img) => sum + (img.creditsCost || 0), 0) || 0;
+  const totalCostUsd = imageHistory?.reduce((sum, img) => sum + (img.costUsd || 0), 0) || 0;
+  const imagesWithDuration = imageHistory?.filter(img => typeof img.durationMs === 'number') || [];
+  const avgGenTimeMs = imagesWithDuration.length > 0
+    ? imagesWithDuration.reduce((sum, img) => sum + img.durationMs!, 0) / imagesWithDuration.length
+    : 0;
+  const uniqueModels = imageHistory
+    ? new Set(imageHistory.map(img => img.model)).size
+    : 0;
+  const totalCreditsLabel = isConvexEnabled
+    ? isQueryLoading
+      ? "Loading..."
+      : totalCreditsSpent > 0
+        ? `${totalCreditsSpent} credits`
+        : "-"
+    : "-";
+  const totalCostLabel = isConvexEnabled
+    ? isQueryLoading
+      ? "Loading..."
+      : totalCostUsd > 0
+        ? `$${totalCostUsd.toFixed(4)}`
+        : "-"
+    : "-";
+  const avgGenTimeLabel = isConvexEnabled
+    ? isQueryLoading
+      ? "Loading..."
+      : avgGenTimeMs > 0
+        ? formatGenTime(avgGenTimeMs)
+        : "-"
+    : "-";
+  const uniqueModelsLabel = isConvexEnabled
+    ? isQueryLoading
+      ? "Loading..."
+      : uniqueModels > 0
+        ? `${uniqueModels} model${uniqueModels === 1 ? "" : "s"}`
+        : "-"
+    : "-";
 
   return (
     <section className="border-t border-[var(--divider)]">
@@ -185,7 +253,7 @@ function ScriptureDetailsBase({
             <Info size={16} strokeWidth={1.5} className="text-[var(--muted)]" />
           </div>
           <div>
-            <p className="text-sm font-medium">Passage Details</p>
+            <p className="text-sm font-medium">Details</p>
             <p className="text-xs text-[var(--muted)]">
               {translationInfo.code} · {book} {chapter}:{verseRange}
             </p>
@@ -204,7 +272,7 @@ function ScriptureDetailsBase({
       <div
         id="scripture-details-content"
         className={`overflow-hidden transition-all duration-[var(--motion-base)] ease-out ${
-          isExpanded ? "max-h-[900px]" : "max-h-0"
+          isExpanded ? "max-h-[2000px]" : "max-h-0"
         }`}
       >
         <div className="px-4 pb-4 space-y-4">
@@ -226,50 +294,87 @@ function ScriptureDetailsBase({
             </div>
           </div>
 
-          {/* Reading Info Section */}
+          {/* Location Section */}
           <div className="bg-[var(--surface)] rounded-[var(--radius-md)] overflow-hidden">
             <div className="px-4 py-2 border-b border-[var(--divider)]">
               <p className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">
-                Reading Info
+                Location
               </p>
             </div>
             <div className="divide-y divide-[var(--divider)]">
-              <DetailRow label="Location" value={`${book} ${chapter}:${verseRange}`} />
+              <DetailRow label="Reference" value={`${book} ${chapter}:${verseRange}`} />
+              <DetailRow label="Book" value={book} />
+              <DetailRow label="Chapter" value={`${chapter}`} />
+              <DetailRow label="Verse" value={versePositionLabel} />
               <DetailRow label="Testament" value={testamentLabel} />
+            </div>
+          </div>
+
+          {/* Passage Section */}
+          <div className="bg-[var(--surface)] rounded-[var(--radius-md)] overflow-hidden">
+            <div className="px-4 py-2 border-b border-[var(--divider)]">
+              <p className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">
+                Passage
+              </p>
+            </div>
+            <div className="divide-y divide-[var(--divider)]">
               <DetailRow label="Passage Size" value={verseCountLabel} />
               <DetailRow label="Chapter Size" value={chapterVerseLabel} />
               <DetailRow label="Word Count" value={wordCountLabel} />
+              <DetailRow label="Characters" value={charCountLabel} />
               <DetailRow label="Reading Time" value={readingTimeLabel} />
             </div>
           </div>
 
-          {/* Image Info */}
+          {/* Image Generation Stats */}
           <div className="bg-[var(--surface)] rounded-[var(--radius-md)] overflow-hidden">
             <div className="px-4 py-2 border-b border-[var(--divider)]">
               <p className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">
-                Image
+                Image Stats
               </p>
             </div>
             <div className="divide-y divide-[var(--divider)]">
-              <DetailRow label="Model" value={imageModelLabel} />
-              <DetailRow label="Provider" value={imageProviderLabel} />
               <DetailRow label="Images Saved" value={imageCountLabel} />
-              <DetailRow label="Latest Generated" value={latestImageLabel} />
+              <DetailRow label="Models Used" value={uniqueModelsLabel} />
+              <DetailRow label="Total Credits" value={totalCreditsLabel} />
+              <DetailRow label="Total Cost" value={totalCostLabel} />
+              <DetailRow label="Avg Gen Time" value={avgGenTimeLabel} />
               <DetailRow label="Persistence" value={persistenceLabel} />
-              {imageAttribution?.title && (
-                <DetailRow label="Title" value={imageAttribution.title} />
-              )}
-              {imageAttribution?.artist && (
-                <DetailRow label="Artist" value={imageAttribution.artist} />
-              )}
-              {imageAttribution?.source && (
-                <DetailRow label="Source" value={imageAttribution.source} />
-              )}
             </div>
           </div>
 
+          {/* Current Image Details */}
+          {displayedImage && (
+            <div className="bg-[var(--surface)] rounded-[var(--radius-md)] overflow-hidden">
+              <div className="px-4 py-2 border-b border-[var(--divider)]">
+                <p className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">
+                  Current Image
+                </p>
+              </div>
+              <div className="divide-y divide-[var(--divider)]">
+                <DetailRow label="Model" value={imageModelLabel} />
+                <DetailRow label="Provider" value={imageProviderLabel} />
+                <DetailRow label="Dimensions" value={dimensionsLabel} />
+                <DetailRow label="Aspect Ratio" value={aspectRatioLabel} />
+                <DetailRow label="File Size" value={fileSizeLabel} />
+                <DetailRow label="Gen Time" value={genTimeLabel} />
+                <DetailRow label="Cost" value={costLabel} />
+                <DetailRow label="Created" value={displayedImageLabel} />
+                {imageAttribution?.title && (
+                  <DetailRow label="Title" value={imageAttribution.title} />
+                )}
+                {imageAttribution?.artist && (
+                  <DetailRow label="Artist" value={imageAttribution.artist} />
+                )}
+                {imageAttribution?.source && (
+                  <DetailRow label="Source" value={imageAttribution.source} />
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Copyright Notice */}
-          <p className="text-xs text-[var(--muted)] text-center leading-relaxed px-4">
+          <p className="text-xs text-[var(--muted)] text-center leading-relaxed px-4 pb-4">
             Scripture quotations are from the {translationInfo.name} ({translationInfo.code}).
           </p>
         </div>
@@ -351,4 +456,17 @@ function formatTimestamp(timestamp: number): string {
   } catch {
     return "-";
   }
+}
+
+function formatFileSize(bytes: number): string {
+  if (!bytes || bytes <= 0) return "-";
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+}
+
+function formatGenTime(ms: number): string {
+  if (!ms || ms <= 0) return "-";
+  if (ms < 1000) return `${Math.round(ms)}ms`;
+  return `${(ms / 1000).toFixed(1)}s`;
 }

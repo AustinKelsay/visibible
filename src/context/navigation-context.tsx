@@ -43,6 +43,10 @@ interface NavigationContextType {
   // Chat context (verse data)
   chatContext: PageContext | null;
   setChatContext: (context: PageContext | null) => void;
+
+  // Current displayed image (for syncing hero image with details)
+  currentImageId: string | null;
+  setCurrentImageId: (id: string | null) => void;
 }
 
 const NavigationContext = createContext<NavigationContextType | null>(null);
@@ -52,6 +56,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [sidebarTab, setSidebarTab] = useState<SidebarTab>("chat");
   const [chatContext, setChatContext] = useState<PageContext | null>(null);
+  const [currentImageId, setCurrentImageId] = useState<string | null>(null);
 
   // Close chat on Escape key
   useEffect(() => {
@@ -104,6 +109,10 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
         // Chat context
         chatContext,
         setChatContext: updateChatContext,
+
+        // Current image
+        currentImageId,
+        setCurrentImageId,
       }}
     >
       {children}

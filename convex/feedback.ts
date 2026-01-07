@@ -3,7 +3,7 @@ import { v } from "convex/values";
 
 /**
  * Submit user feedback.
- * Accepts feedback text and optional verse context.
+ * Accepts feedback text and optional verse/image context.
  */
 export const submitFeedback = mutation({
   args: {
@@ -14,6 +14,19 @@ export const submitFeedback = mutation({
         book: v.optional(v.string()),
         chapter: v.optional(v.number()),
         verseRange: v.optional(v.string()),
+      })
+    ),
+    imageContext: v.optional(
+      v.object({
+        imageId: v.optional(v.string()),
+        model: v.optional(v.string()),
+        provider: v.optional(v.string()),
+        aspectRatio: v.optional(v.string()),
+        dimensions: v.optional(v.string()),
+        creditsCost: v.optional(v.number()),
+        costUsd: v.optional(v.number()),
+        durationMs: v.optional(v.number()),
+        createdAt: v.optional(v.number()),
       })
     ),
     userAgent: v.optional(v.string()),
@@ -36,6 +49,7 @@ export const submitFeedback = mutation({
       message: trimmedMessage,
       sid: args.sid,
       verseContext: args.verseContext,
+      imageContext: args.imageContext,
       userAgent: args.userAgent,
       createdAt: now,
     });

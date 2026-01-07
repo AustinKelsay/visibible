@@ -320,6 +320,8 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
             type="submit"
             disabled={isLoading || !input.trim() || !canSend}
             className="min-h-[44px] min-w-[44px] px-5 bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] hover:bg-[var(--accent-hover)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-[var(--motion-fast)] active:scale-[0.98]"
+            aria-label="Send message"
+            title="Send"
           >
             {isLoading ? (
               <Loader2 size={20} strokeWidth={2} className="animate-spin mx-auto" />

@@ -109,6 +109,20 @@ html {
   border-radius: var(--radius-sm);
 }
 
+/* Mini verse strip dot animation */
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+.animate-dot-pulse {
+  animation: dot-pulse 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-dot-pulse { animation: none; }
+}
+
 /* Markdown content styling */
 .markdown-content {
   word-wrap: break-word;

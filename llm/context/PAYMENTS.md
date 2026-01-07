@@ -72,7 +72,7 @@ The buy credits modal includes a hidden "Admin Access" section:
 - Invoice status can only be accessed by the session that created it.
 - Credits are granted only after the Lightning invoice is **settled** (confirmed by LND).
 - Origin validation prevents CSRF attacks on invoice creation.
-- Invoice creation is **rate limited** (10 requests per minute per IP+session).
+- Invoice creation is **rate limited** (10 requests per minute per IP). Uses IP-only to prevent multi-session bypass.
 
 ## Entry Points
 

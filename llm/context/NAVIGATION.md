@@ -84,8 +84,11 @@ See `llm/context/FEEDBACK.md` for more details.
 
 A horizontal scrollable strip below the hero image showing all verses in the current chapter:
 - Current verse is highlighted with accent color
-- Verses with images show an accent dot
+- Verses with images show accent dot(s) indicating image count:
+  - 1 image: single accent dot
+  - 2+ images: stacked/overlapping dots (capped at 3 dots for cleanliness, 6px spacing)
 - Verses without images show a muted dot
+- Dot styling: `w-2 h-2` (8px) size with subtle `border border-[var(--background)]/30` outline for better visibility
 - Click any verse to navigate directly
 
 ## Entry Points

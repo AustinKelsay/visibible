@@ -62,6 +62,81 @@ function LightningLogo({ className }: { className?: string }) {
   );
 }
 
+function MiniVerseStrip() {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  // Cycle through verses every 2.5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSelectedIndex((prev) => (prev + 1) % 5);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Sample verse data: verse number and dot count (0-3)
+  const verses = [
+    { verse: 1, dots: 2 },
+    { verse: 2, dots: 0 },
+    { verse: 3, dots: 1 },
+    { verse: 4, dots: 3 },
+    { verse: 5, dots: 0 },
+  ];
+
+  return (
+    <div className="flex justify-center items-center gap-1.5 py-4 mt-4 mb-2">
+      {verses.map((v, index) => {
+        const isSelected = index === selectedIndex;
+        return (
+          <div
+            key={v.verse}
+            className={`min-h-[36px] min-w-[36px] flex flex-col items-center justify-center rounded-[var(--radius-sm)] transition-all duration-500 ease-in-out ${
+              isSelected
+                ? "bg-[var(--accent)] scale-110 shadow-lg shadow-[var(--accent)]/25"
+                : "bg-[var(--divider)] opacity-70"
+            }`}
+          >
+            <span
+              className={`text-xs font-medium transition-all duration-500 ease-in-out ${
+                isSelected ? "text-[var(--accent-text)]" : "text-[var(--muted)]"
+              }`}
+            >
+              {v.verse}
+            </span>
+            {/* Dots container */}
+            <div
+              className="relative h-2 mt-0.5"
+              style={{ width: v.dots > 0 ? `${8 + (Math.min(v.dots, 3) - 1) * 6}px` : "8px" }}
+            >
+              {v.dots > 0 ? (
+                Array.from({ length: Math.min(v.dots, 3) }).map((_, i) => (
+                  <span
+                    key={i}
+                    className={`absolute w-2 h-2 rounded-full border border-[var(--background)]/30 transition-all duration-500 ease-in-out ${
+                      isSelected
+                        ? "bg-[var(--accent-text)] animate-dot-pulse"
+                        : "bg-[var(--accent)]"
+                    }`}
+                    style={{
+                      left: `${i * 6}px`,
+                      animationDelay: isSelected ? `${i * 0.1}s` : undefined,
+                    }}
+                  />
+                ))
+              ) : (
+                <span
+                  className={`absolute w-2 h-2 rounded-full border border-[var(--background)]/30 transition-all duration-500 ease-in-out ${
+                    isSelected ? "bg-[var(--accent-text)]/50" : "bg-[var(--muted)]/40"
+                  }`}
+                />
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 interface Invoice {
   invoiceId: string;
   bolt11: string;
@@ -74,7 +149,7 @@ interface Invoice {
 type ModalState = "welcome" | "selection" | "loading" | "invoice" | "success" | "error";
 
 export function BuyCreditsModal() {
-  const { isBuyModalOpen, closeBuyModal, refetch, credits, tier } = useSession();
+  const { isBuyModalOpen, closeBuyModal, refetch, credits } = useSession();
   const [state, setState] = useState<ModalState>("welcome");
   const [invoice, setInvoice] = useState<Invoice | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -326,6 +401,7 @@ export function BuyCreditsModal() {
           onClick={handleClose}
           className="absolute top-4 right-4 p-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
           aria-label="Close"
+          title="Close"
         >
           <X size={20} strokeWidth={2} />
         </button>
@@ -370,13 +446,19 @@ export function BuyCreditsModal() {
 
               <div className="flex items-start gap-3 p-4 bg-[var(--surface)] rounded-[var(--radius-md)]">
                 <Zap size={20} className="text-[var(--accent)] flex-shrink-0 mt-0.5" />
-                <div>
+                <div className="flex-1">
                   <p className="text-sm font-medium text-[var(--foreground)] mb-1">
                     Participate in the experience
                   </p>
                   <p className="text-xs text-[var(--muted)]">
-                    Browse existing images for free, or purchase credits to generate your own custom visuals from any verse.
+                    Browse existing images for free, or purchase credits to generate your own.
                   </p>
+                  <div className="flex flex-col items-center -ml-8">
+                    <MiniVerseStrip />
+                    <p className="text-[10px] text-[var(--muted)]/70 tracking-wide">
+                      Dots show verses with images
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -589,6 +671,7 @@ export function BuyCreditsModal() {
                   onClick={copyBolt11}
                   className="p-2 bg-[var(--surface)] rounded-[var(--radius-sm)] hover:bg-[var(--divider)] transition-colors"
                   aria-label="Copy invoice"
+                  title={copied ? "Copied!" : "Copy"}
                 >
                   {copied ? (
                     <Check size={18} className="text-[var(--success)]" />

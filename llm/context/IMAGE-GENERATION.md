@@ -8,6 +8,7 @@ High-level overview of how Visibible generates scripture illustrations. Details 
 - Images are generated server-side via OpenRouter.
 - When sessions/credits are enabled, generation is credit-gated and requires a session cookie.
 - **Model selection**: Users can choose any image-capable model from OpenRouter via a header dropdown.
+- **Image settings**: Users can configure aspect ratio (16:9, 21:9, 3:2) and resolution (1K, 2K, 4K) via controls in the image area.
 - **Storyboard context**: Images include prev/next verse context for visual narrative continuity (only when verses are in the same chapter).
 - **Persistence (Convex)**: When enabled, every image is saved per verse and can be browsed later.
 - **Cost visibility**: Credit cost varies by model; the UI surfaces model-specific costs and ETA estimates.
@@ -19,7 +20,7 @@ High-level overview of how Visibible generates scripture illustrations. Details 
 1. Verse page fetches current verse AND prev/next verses from the Bible API using the selected translation.
 2. `HeroImage` loads existing image history from Convex (if configured).
 3. If no images exist for the verse, `HeroImage` auto-generates the first image **only when generation is allowed** (admin/paid with enough credits and Convex enabled).
-4. Client requests `/api/generate-image` with text, optional theme, prevVerse, nextVerse, reference, **model**, and generation count.
+4. Client requests `/api/generate-image` with text, optional theme, prevVerse, nextVerse, reference, **model**, **aspectRatio**, **resolution**, and generation count.
 5. The server requires Convex and a valid session cookie, then pre-checks credits (admin bypass). Credit cost is derived from model pricing; unpriced models are rejected.
 6. Server builds a **storyboard-aware prompt** with strict "no text" + framing guardrails and stamps `promptVersion` + `promptInputs`.
 7. Server generates the image via OpenRouter using the **user-selected model**.
@@ -71,11 +72,16 @@ Visual elements: {theme.elements}
 Color palette: {theme.palette}
 Style: {theme.style}
 
-Generate the image in WIDESCREEN LANDSCAPE format with a 16:9 aspect ratio.
+Generate the image in {ASPECT_LABEL} LANDSCAPE format with a {aspectRatio} aspect ratio (wide, not square).
 ```
 
+Where `{ASPECT_LABEL}` is dynamically set based on user selection:
+- `16:9` → WIDESCREEN
+- `21:9` → ULTRA-WIDE CINEMATIC
+- `3:2` → CLASSIC WIDE
+
 When multiple images already exist for the verse, a "generation" note is added to encourage variety.
-Prompt inputs (reference, aspect ratio, generation number, prev/next context) are stored alongside the prompt for reproducibility.
+Prompt inputs (reference, aspect ratio, resolution, generation number, prev/next context) are stored alongside the prompt for reproducibility.
 
 ## Persistence & Caching
 
@@ -109,6 +115,37 @@ Users can choose from **any image generation model** available on OpenRouter via
 
 - **Default**: `google/gemini-2.5-flash-image`
 
+## Image Settings
+
+Users can configure aspect ratio and resolution for generated images via dropdown selectors in the HeroImage control dock.
+
+### Aspect Ratio
+
+| Option | Label | Description |
+|--------|-------|-------------|
+| `16:9` | Widescreen | Standard widescreen format (default) |
+| `21:9` | Ultra-wide | Cinematic ultra-wide format |
+| `3:2` | Classic | Classic photography format |
+
+### Resolution
+
+| Option | Label | Cost Multiplier | Description |
+|--------|-------|-----------------|-------------|
+| `1K` | Standard | 1.0x | Base resolution (default) |
+| `2K` | High | 3.5x | Higher resolution |
+| `4K` | Ultra | 6.5x | Maximum resolution |
+
+**Important:** Resolution settings are only supported by certain models (currently Gemini). For non-supporting models:
+- The resolution selector appears dimmed
+- No cost multiplier is applied
+- The setting is recorded but not sent to the API
+
+### Settings Persistence
+
+- Stored in localStorage (no cookies needed)
+- No page refresh required - settings take effect on next generation
+- Persisted across browser sessions
+
 ## Session Integration
 
 The `HeroImage` component uses the `useSession` hook from `src/context/session-context.tsx` to:
@@ -127,9 +164,10 @@ Every generation records timing data via `convex/modelStats.ts`:
 
 - **Image generation API**: `src/app/api/generate-image/route.ts`
 - **Image models API**: `src/app/api/image-models/route.ts`
-- **Hero image UI**: `src/components/hero-image.tsx`
+- **Image models/settings types**: `src/lib/image-models.ts` (includes aspect ratio, resolution types and validators)
+- **Hero image UI**: `src/components/hero-image.tsx` (includes AspectRatioSelector, ResolutionSelector)
 - **Model selector UI**: `src/components/image-model-selector.tsx`
-- **Preferences context**: `src/context/preferences-context.tsx`
+- **Preferences context**: `src/context/preferences-context.tsx` (includes imageAspectRatio, imageResolution)
 - **Session context**: `src/context/session-context.tsx`
 - **Convex persistence**: `convex/verseImages.ts`, `convex/schema.ts`
 - **Model stats**: `convex/modelStats.ts`

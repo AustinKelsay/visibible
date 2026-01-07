@@ -239,7 +239,9 @@ const {
   // Sidebar tab control
   sidebarTab, setSidebarTab, openFeedback,
   // Chat context
-  chatContext, setChatContext
+  chatContext, setChatContext,
+  // Current image (for syncing HeroImage with ScriptureDetails)
+  currentImageId, setCurrentImageId
 } = useNavigation();
 ```
 
@@ -265,6 +267,8 @@ const {
 | `openFeedback` | `() => void` | Open sidebar to Feedback tab |
 | `chatContext` | `PageContext \| null` | Verse data for AI context |
 | `setChatContext` | `(ctx: PageContext \| null) => void` | Update chat context |
+| `currentImageId` | `string \| null` | ID of currently displayed image |
+| `setCurrentImageId` | `(id: string \| null) => void` | Sync displayed image between HeroImage and ScriptureDetails |
 
 #### SidebarTab Type
 
@@ -339,6 +343,11 @@ When Convex is enabled, the menu shows accent-colored dots for:
 - **Chapters**: Chapters that have at least one image (`getChaptersWithImages`)
 - **Verses**: Verses that have images (`getChapterImageStatus`)
 
+**Dot Styling:**
+- Size: `w-2 h-2` (8px) for better visibility
+- Outline: Subtle `border border-[var(--background)]/30` for definition
+- Single dots shown next to book names, chapter numbers, and verse numbers
+
 ### State
 
 ```typescript
@@ -390,6 +399,9 @@ VerseStrip (entry point)
 - Image indicator dots:
   - Accent dot: verse has an image
   - Muted dot: verse has no image
+  - Stacked dots: Multiple images shown as overlapping dots (capped at 3, with 6px spacing)
+  - Size: `w-2 h-2` (8px) for better visibility
+  - Outline: Subtle `border border-[var(--background)]/30` for definition
 - Horizontal scroll with hidden scrollbar
 - 44x44px minimum touch targets
 
@@ -454,8 +466,7 @@ Header
 │   │   [divider]
 │   ├── Settings Group
 │   │   ├── TranslationSelector (variant="compact")
-│   │   ├── ImageModelSelector (variant="compact")
-│   │   └── ChatModelSelector (variant="compact")
+│   │   └── ImageModelSelector (variant="compact")
 │   │   [divider]
 │   └── Navigation Group
 │       ├── Chat toggle (MessageCircle icon)
@@ -477,7 +488,6 @@ export function Header() {
         <div className="flex items-center">
           <TranslationSelector variant="compact" />
           <ImageModelSelector variant="compact" />
-          <ChatModelSelector variant="compact" />
         </div>
         <Divider />
         <div className="flex items-center">

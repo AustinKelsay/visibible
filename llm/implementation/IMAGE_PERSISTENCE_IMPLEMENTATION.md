@@ -93,7 +93,12 @@ Notes:
 Returns the newest image for a verse, resolving a storage URL if needed. Includes prompt + metadata.
 
 ### `getChapterImageStatus` (query)
-Returns a list of verse numbers in a chapter that have at least one image. Used by `src/components/verse-strip.tsx` to display per-verse image dots.
+Returns a list of verse numbers in a chapter with their image counts. Used by `src/components/verse-strip.tsx` to display per-verse stacked dots (1 dot for single image, up to 3 overlapping dots for multiple images).
+
+```ts
+getChapterImageStatus({ book, chapter })
+// Returns: [{ verse: 1, imageCount: 3 }, { verse: 5, imageCount: 1 }, ...]
+```
 
 ### `getBooksWithImages` (query)
 Returns all book slugs that have at least one image. Used for showing image indicators in the book menu.

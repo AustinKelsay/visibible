@@ -518,7 +518,7 @@ adminLoginAttempts: defineTable({
 | `src/app/api/chat/route.ts` | `chat` | `${ipHash}:${sid}` | 20/min per IP+session |
 | `src/app/api/session/route.ts` | `session` | `ipHash` | 10/min per IP (prevents session spam) |
 | `src/app/api/generate-image/route.ts` | `generate-image` | `${ipHash}:${sid}` | 5/min per IP+session |
-| `src/app/api/invoice/route.ts` | `invoice` | `${ipHash}:${sid}` | 10/min per IP+session |
+| `src/app/api/invoice/route.ts` | `invoice` | `ipHash` | 10/min per IP (prevents multi-session bypass) |
 | `src/app/api/admin-login/route.ts` | N/A | `ipHash` | Brute force protection (separate system) |
 | `src/app/api/rate-limit-status/route.ts` | N/A | `sid` | Status query only (uses `getRateLimitStatus`) |
 
@@ -534,8 +534,8 @@ adminLoginAttempts: defineTable({
 ## Best Practices
 
 1. **Identifier Selection:**
-   - Use IP hash alone for session creation (prevents session spam)
-   - Use `${ipHash}:${sessionId}` for authenticated endpoints (prevents per-session abuse)
+   - Use IP hash alone for session creation and invoice creation (prevents session spam and multi-session bypass)
+   - Use `${ipHash}:${sessionId}` for AI endpoints like chat/image generation (allows per-session usage)
 
 2. **Error Responses:**
    - Always return `429` status code when rate limit exceeded

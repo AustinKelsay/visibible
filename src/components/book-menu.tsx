@@ -164,6 +164,7 @@ function BookMenuBase({
                 onClick={handleBack}
                 className="min-h-[44px] min-w-[44px] -ml-2 flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
                 aria-label="Back"
+                title="Back"
               >
                 <ArrowLeft size={20} strokeWidth={1.5} />
               </button>
@@ -178,6 +179,7 @@ function BookMenuBase({
                 onClick={closeMenu}
                 className="min-h-[44px] min-w-[44px] -mr-2 flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
                 aria-label="Close menu"
+                title="Close"
               >
                 <X size={20} strokeWidth={1.5} />
               </button>
@@ -223,7 +225,7 @@ function BookMenuBase({
                       <span className="flex items-center gap-2">
                         <span>{book.name}</span>
                         {booksWithImagesSet.has(book.slug) && (
-                          <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
+                          <span className="w-2 h-2 rounded-full border border-[var(--background)]/30 bg-[var(--accent)]" />
                         )}
                       </span>
                       <span className="text-sm text-[var(--muted)]">
@@ -268,7 +270,7 @@ function BookMenuBase({
                       <span className="flex items-center gap-2">
                         <span>{book.name}</span>
                         {booksWithImagesSet.has(book.slug) && (
-                          <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
+                          <span className="w-2 h-2 rounded-full border border-[var(--background)]/30 bg-[var(--accent)]" />
                         )}
                       </span>
                       <span className="text-sm text-[var(--muted)]">
@@ -298,7 +300,7 @@ function BookMenuBase({
                   >
                     <span className="text-sm font-medium">{chapter}</span>
                     <span
-                      className={`w-1.5 h-1.5 rounded-full mt-0.5 ${
+                      className={`w-2 h-2 rounded-full border border-[var(--background)]/30 mt-0.5 ${
                         chaptersWithImagesSet.has(chapter)
                           ? "bg-[var(--accent)]"
                           : "bg-[var(--muted)]/30"
@@ -328,7 +330,7 @@ function BookMenuBase({
                   >
                     <span className="text-sm font-medium">{verse}</span>
                     <span
-                      className={`w-1.5 h-1.5 rounded-full mt-0.5 ${
+                      className={`w-2 h-2 rounded-full border border-[var(--background)]/30 mt-0.5 ${
                         versesWithImages.has(verse)
                           ? "bg-[var(--accent)]"
                           : "bg-[var(--muted)]/30"

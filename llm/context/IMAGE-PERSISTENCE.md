@@ -30,6 +30,19 @@ High-level overview of how verse images are persisted and browsed. Details may c
 - The image count indicator shows the current position and total (e.g., `3 / 7 · Latest`).
 - Selecting older images does not change the verse content; it only swaps the displayed art.
 
+## Visual Indicators
+
+- Blue circle dots indicate verses with images across the UI:
+  - **Verse Strip** (`src/components/verse-strip.tsx`): Shows stacked dots below each verse number
+  - **Book Menu** (`src/components/book-menu.tsx`): Shows single dots next to books, chapters, and verses with images
+  - **Onboarding Modal** (`src/components/buy-credits-modal.tsx`): Shows stacked dots in the MiniVerseStrip demo component
+- Dot styling:
+  - Size: `w-2 h-2` (8px) for better visibility
+  - Outline: Subtle `border border-[var(--background)]/30` for definition
+  - Stacked dots: Overlapping with 6px spacing between dots (capped at 3 dots for cleanliness)
+  - Colors: Accent color for verses with images, muted for verses without images
+- This lets users quickly see which verses have multiple images to explore.
+
 ## Dependencies
 
 - `NEXT_PUBLIC_CONVEX_URL` enables Convex image persistence on the client.

@@ -15,6 +15,11 @@ export const PREMIUM_MULTIPLIER = 1.25; // 25% premium over OpenRouter price
 export const DEFAULT_ETA_SECONDS = 12; // default for unknown models
 export const DEFAULT_CREDITS_COST = 20; // default credit cost for unpriced models (~$0.20)
 
+// Conservative estimate multiplier to account for OpenRouter API vs actual billing discrepancy.
+// The models API `pricing.image` field significantly underreports costs for multimodal models
+// like Gemini (~31x actual cost observed). We use 35x to ensure reservations cover actual cost.
+export const CONSERVATIVE_ESTIMATE_MULTIPLIER = 35;
+
 /**
  * Compute the credit cost for a model based on OpenRouter pricing.
  * Returns null if pricing is missing or invalid (unpriced model).
@@ -29,7 +34,137 @@ export function computeCreditsCost(pricingImage: string | undefined): number | n
   return Math.max(1, Math.ceil(effectiveUsd / CREDIT_USD));
 }
 
+/**
+ * Compute a conservative credit estimate for reservation purposes.
+ * This accounts for the known discrepancy between OpenRouter's API pricing
+ * and actual billing for multimodal image models.
+ *
+ * @param pricingImage - The pricing.image value from OpenRouter models API
+ * @returns Conservative credit estimate for upfront reservation, or null if unpriced
+ */
+export function computeConservativeEstimate(pricingImage: string | undefined): number | null {
+  const baseCost = computeCreditsCost(pricingImage);
+  if (baseCost === null) return null;
+  return Math.ceil(baseCost * CONSERVATIVE_ESTIMATE_MULTIPLIER);
+}
+
+/**
+ * Compute credits from actual OpenRouter usage cost.
+ * Used post-generation to calculate the real charge based on actual API cost.
+ *
+ * @param actualUsageUsd - The actual USD cost from OpenRouter response
+ * @param fallbackCredits - Credits to use if actual usage is unavailable
+ * @returns Object with credits to charge and whether actual usage was used
+ */
+export function computeCreditsFromActualUsage(
+  actualUsageUsd: number | null,
+  fallbackCredits: number
+): { credits: number; usedActual: boolean } {
+  if (actualUsageUsd !== null && actualUsageUsd > 0) {
+    const withPremium = actualUsageUsd * PREMIUM_MULTIPLIER;
+    return {
+      credits: Math.max(1, Math.ceil(withPremium / CREDIT_USD)),
+      usedActual: true,
+    };
+  }
+  // Fallback: use provided estimate (ensures we don't undercharge)
+  return { credits: fallbackCredits, usedActual: false };
+}
+
 export const DEFAULT_IMAGE_MODEL = "google/gemini-2.5-flash-image";
+
+// Image aspect ratio types and configuration
+export type ImageAspectRatio = "16:9" | "21:9" | "3:2";
+
+export const ASPECT_RATIOS: Record<ImageAspectRatio, { label: string; cssRatio: string }> = {
+  "16:9": { label: "Widescreen (16:9)", cssRatio: "16/9" },
+  "21:9": { label: "Ultra-wide (21:9)", cssRatio: "21/9" },
+  "3:2": { label: "Classic (3:2)", cssRatio: "3/2" },
+};
+
+export const DEFAULT_ASPECT_RATIO: ImageAspectRatio = "16:9";
+
+// Image resolution types and configuration
+export type ImageResolution = "1K" | "2K" | "4K";
+
+export const RESOLUTIONS: Record<ImageResolution, { label: string; multiplier: number }> = {
+  "1K": { label: "1K Standard", multiplier: 1.0 },
+  "2K": { label: "2K High", multiplier: 3.5 },
+  "4K": { label: "4K Ultra", multiplier: 6.5 },
+};
+
+export const DEFAULT_RESOLUTION: ImageResolution = "1K";
+
+/**
+ * Model prefixes that support user-configurable resolution settings.
+ *
+ * Currently only Gemini models support the `image_size` parameter (1K, 2K, 4K).
+ * This list should be expanded as more providers add resolution support.
+ *
+ * IMPORTANT: Only add model prefixes here when the provider's API actually
+ * respects the resolution setting. Users are charged based on this - if a
+ * model is listed here but ignores resolution, users pay extra for nothing.
+ */
+const RESOLUTION_SUPPORTED_MODEL_PREFIXES = [
+  "google/gemini",  // Gemini models support image_size parameter
+];
+
+/**
+ * Check if a model supports user-configurable resolution settings.
+ *
+ * This determines:
+ * 1. Whether the resolution multiplier is applied to credit costs
+ * 2. Whether the image_size parameter is sent to the API
+ *
+ * @param modelId - The full model ID (e.g., "google/gemini-2.5-flash-image")
+ * @returns true if the model supports resolution configuration
+ */
+export function supportsResolution(modelId: string): boolean {
+  return RESOLUTION_SUPPORTED_MODEL_PREFIXES.some(prefix =>
+    modelId.toLowerCase().startsWith(prefix.toLowerCase())
+  );
+}
+
+/**
+ * Check if a value is a valid ImageAspectRatio
+ */
+export function isValidAspectRatio(value: string): value is ImageAspectRatio {
+  return value in ASPECT_RATIOS;
+}
+
+/**
+ * Check if a value is a valid ImageResolution
+ */
+export function isValidResolution(value: string): value is ImageResolution {
+  return value in RESOLUTIONS;
+}
+
+/**
+ * Compute credit cost with resolution multiplier applied.
+ *
+ * The resolution multiplier is only applied if the model supports resolution
+ * settings. This prevents users from being charged extra for resolution
+ * options that the model ignores.
+ *
+ * @param baseCost - Base credit cost from model pricing
+ * @param resolution - User-selected resolution
+ * @param modelId - Model ID to check resolution support (optional for backward compat)
+ * @returns Adjusted credit cost (with multiplier if supported, base cost otherwise)
+ */
+export function computeAdjustedCreditsCost(
+  baseCost: number | null | undefined,
+  resolution: ImageResolution,
+  modelId?: string
+): number {
+  const base = baseCost ?? DEFAULT_CREDITS_COST;
+
+  // Only apply resolution multiplier if model supports it
+  // If no modelId provided, assume no support (conservative/safe for users)
+  const modelSupportsResolution = modelId ? supportsResolution(modelId) : false;
+  const multiplier = modelSupportsResolution ? RESOLUTIONS[resolution].multiplier : 1.0;
+
+  return Math.ceil(base * multiplier);
+}
 
 interface OpenRouterModel {
   id: string;
@@ -108,7 +243,9 @@ export async function fetchImageModels(openRouterApiKey: string): Promise<ImageM
         pricing: {
           imageOutput: model.pricing?.image,
         },
-        creditsCost: computeCreditsCost(model.pricing?.image),
+        // Use conservative estimate for UI display (accounts for API pricing discrepancy)
+        // Actual charge will be based on real OpenRouter usage after generation
+        creditsCost: computeConservativeEstimate(model.pricing?.image),
         etaSeconds: DEFAULT_ETA_SECONDS, // Will be overridden by modelStats
       }))
       .sort((a: ImageModel, b: ImageModel) => {

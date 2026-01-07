@@ -125,6 +125,7 @@ export function ChatPrompt() {
             transition-colors duration-[var(--motion-fast)]
           "
           aria-label="Dismiss prompt"
+          title="Dismiss"
         >
           <X size={14} strokeWidth={2} />
         </button>

@@ -140,25 +140,24 @@ export const getChapterImageStatus = query({
       )
       .collect();
 
-    // Extract unique verses that have images for this chapter
-    const versesWithImages = new Set<number>();
+    // Count images per verse for this chapter
+    const imageCounts = new Map<number, number>();
 
     for (const image of images) {
       // Extract verse number from verseId (e.g., "genesis-1-15" -> 15)
       const verseStr = image.verseId.slice(prefix.length);
       const verseNum = parseInt(verseStr, 10);
       if (!isNaN(verseNum)) {
-        versesWithImages.add(verseNum);
+        imageCounts.set(verseNum, (imageCounts.get(verseNum) ?? 0) + 1);
       }
     }
 
-    // Return sorted list of verses with their status
-    // Note: We don't know total verses, so only return verses with images
-    return Array.from(versesWithImages)
-      .sort((a, b) => a - b)
-      .map(verse => ({
+    // Return sorted list of verses with their image counts
+    return Array.from(imageCounts.entries())
+      .sort((a, b) => a[0] - b[0])
+      .map(([verse, imageCount]) => ({
         verse,
-        hasImage: true,
+        imageCount,
       }));
   },
 });
@@ -381,6 +380,38 @@ export const saveImageWithStorage = internalMutation({
       createdAt: Date.now(),
     });
     return id;
+  },
+});
+
+/**
+ * Internal query to get an image by ID.
+ * Used for idempotency checks (e.g., Nostr publication).
+ */
+export const getImageById = internalQuery({
+  args: {
+    imageId: v.id("verseImages"),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.imageId);
+  },
+});
+
+/**
+ * Internal mutation to record a published Nostr event.
+ */
+export const recordNostrPublication = internalMutation({
+  args: {
+    imageId: v.id("verseImages"),
+    eventId: v.string(),
+    relays: v.array(v.string()),
+    publishedAt: v.number(),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.imageId, {
+      nostrEventId: args.eventId,
+      nostrPublishedAt: args.publishedAt,
+      nostrRelays: args.relays,
+    });
   },
 });
 
@@ -789,6 +820,20 @@ export const saveImage = action({
         generationId,
       });
 
+      // Fire-and-forget Nostr publication (5-min delay to disperse posts)
+      if (reference && verseText) {
+        await ctx.scheduler.runAfter(5 * 60 * 1000, internal.nostr.publishToNostr, {
+          imageId: id,
+          verseId,
+          reference,
+          verseText,
+          storageId,
+          imageMimeType: imageMetadata.imageMimeType,
+          imageWidth: imageMetadata.imageWidth,
+          imageHeight: imageMetadata.imageHeight,
+        });
+      }
+
       return { success: true, type: "storage", id };
     }
 
@@ -831,6 +876,20 @@ export const saveImage = action({
         generationId,
       });
 
+      // Fire-and-forget Nostr publication (5-min delay to disperse posts)
+      if (reference && verseText) {
+        await ctx.scheduler.runAfter(5 * 60 * 1000, internal.nostr.publishToNostr, {
+          imageId: id,
+          verseId,
+          reference,
+          verseText,
+          storageId,
+          imageMimeType: imageMetadata.imageMimeType,
+          imageWidth: imageMetadata.imageWidth,
+          imageHeight: imageMetadata.imageHeight,
+        });
+      }
+
       return { success: true, type: "storage", id };
     } catch (error) {
       console.error("Failed to fetch and store image:", error);
@@ -845,6 +904,10 @@ export const saveImage = action({
         ...imageMetadata,
         generationId,
       });
+
+      // Skip Nostr publication when storage fails - the original imageUrl may be
+      // temporary and Nostr publications are immutable
+
       return { success: true, type: "url", id };
     }
   },

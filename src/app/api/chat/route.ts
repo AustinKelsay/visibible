@@ -201,6 +201,18 @@ export async function POST(req: Request) {
     );
   }
 
+  // Verify server secret is configured (fail fast with clear error vs cryptic 500 later)
+  let serverSecret: string;
+  try {
+    serverSecret = getConvexServerSecret();
+  } catch {
+    console.error("[Chat API] CONVEX_SERVER_SECRET not configured");
+    return Response.json(
+      { error: "Service temporarily unavailable" },
+      { status: 503 }
+    );
+  }
+
   // SECURITY: Validate session with IP binding to prevent token theft
   // This ensures the session token's embedded IP hash matches the current request IP
   const sessionValidation = await validateSessionWithIp(req);
@@ -353,7 +365,7 @@ export async function POST(req: Request) {
       await convex.action(api.sessions.releaseReservation, {
         sid: sessionId,
         generationId,
-        serverSecret: getConvexServerSecret(),
+        serverSecret,
       });
       console.log(`[Chat API] Released credit reservation (${reason})`);
     } catch (refundErr) {
@@ -383,7 +395,7 @@ export async function POST(req: Request) {
           modelId,
           generationId,
           costUsd: estimatedCostUsd,
-          serverSecret: getConvexServerSecret(),
+          serverSecret,
         });
 
         if (!deductResult.success) {
@@ -436,10 +448,22 @@ export async function POST(req: Request) {
       modelId,
       generationId,
       costUsd: estimatedCostUsd,
-      serverSecret: getConvexServerSecret(),
+      serverSecret,
     });
 
     if (!reserveResult.success) {
+      // Check if failure is due to daily spending limit vs insufficient credits
+      if ("dailyLimit" in reserveResult) {
+        return Response.json(
+          {
+            error: "Daily spending limit exceeded",
+            dailyLimit: reserveResult.dailyLimit,
+            dailySpent: reserveResult.dailySpent,
+            remaining: reserveResult.remaining,
+          },
+          { status: 429 } // Too Many Requests - appropriate for rate/limit exceeded
+        );
+      }
       return Response.json(
         { error: reserveResult.error || "Failed to reserve credits" },
         { status: 402 }
@@ -458,7 +482,7 @@ export async function POST(req: Request) {
         modelId,
         estimatedCredits: creditAmount,
         estimatedCostUsd,
-        serverSecret: getConvexServerSecret(),
+        serverSecret,
       });
     } catch (err) {
       console.error("[Chat API] Failed to log admin usage:", err);

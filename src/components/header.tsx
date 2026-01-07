@@ -4,7 +4,6 @@ import { BookOpen, MessageCircle } from "lucide-react";
 import { useNavigation } from "@/context/navigation-context";
 import { TranslationSelector } from "./translation-selector";
 import { ImageModelSelector } from "./image-model-selector";
-import { ChatModelSelector } from "./chat-model-selector";
 import { CreditsBadge } from "./credits-badge";
 
 function Divider() {
@@ -31,7 +30,6 @@ export function Header() {
           <div className="flex items-center">
             <TranslationSelector variant="compact" />
             <ImageModelSelector variant="compact" />
-            <ChatModelSelector variant="compact" />
           </div>
 
           <Divider />
@@ -41,6 +39,7 @@ export function Header() {
             <button
               className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
               aria-label="Toggle chat"
+              title="Chat"
               onClick={toggleChat}
             >
               <MessageCircle size={20} strokeWidth={1.5} />
@@ -48,6 +47,7 @@ export function Header() {
             <button
               className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
               aria-label="Open book navigation"
+              title="Navigate"
               onClick={toggleMenu}
             >
               <BookOpen size={20} strokeWidth={1.5} />

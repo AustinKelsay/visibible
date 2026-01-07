@@ -4,10 +4,20 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { useQuery, useAction } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Clock } from "lucide-react";
+import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Clock, ChevronDown } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useSession } from "@/context/session-context";
+import { useNavigation } from "@/context/navigation-context";
+import {
+  ASPECT_RATIOS,
+  RESOLUTIONS,
+  ImageAspectRatio,
+  ImageResolution,
+  computeAdjustedCreditsCost,
+  supportsResolution,
+  isValidAspectRatio,
+} from "@/lib/image-models";
 
 interface ChapterTheme {
   setting: string;
@@ -78,6 +88,309 @@ function getShortModelName(modelId: string): string {
     .replace(/-/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase())
     .trim();
+}
+
+/**
+ * Format duration in milliseconds to human-readable string.
+ */
+function formatDuration(ms?: number): string {
+  if (!ms) return "N/A";
+  return ms >= 1000 ? `${(ms / 1000).toFixed(1)}s` : `${ms}ms`;
+}
+
+/**
+ * Format timestamp to relative time string.
+ */
+function formatRelativeTime(timestamp?: number): string {
+  if (!timestamp) return "Unknown";
+  const diff = Date.now() - timestamp;
+  const minutes = Math.floor(diff / 60000);
+  if (minutes < 1) return "Just now";
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  return `${days}d ago`;
+}
+
+/**
+ * Format image dimensions to display string.
+ */
+function getDimensionLabel(width?: number, height?: number): string {
+  if (!width || !height) return "Unknown";
+  return `${width} x ${height}`;
+}
+
+/**
+ * Compact dropdown selector for aspect ratio
+ */
+function AspectRatioSelector({
+  value,
+  onChange,
+}: {
+  value: ImageAspectRatio;
+  onChange: (value: ImageAspectRatio) => void;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div ref={dropdownRef} className="relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="min-h-[36px] px-2 flex items-center gap-1 text-xs font-medium text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)]"
+        aria-label={`Aspect ratio: ${value}`}
+        aria-expanded={isOpen}
+      >
+        <span>{value}</span>
+        <ChevronDown
+          size={12}
+          className={`transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
+        />
+      </button>
+      {isOpen && (
+        <div className="absolute bottom-full mb-1 left-0 w-40 rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50 overflow-hidden">
+          {(Object.keys(ASPECT_RATIOS) as ImageAspectRatio[]).map((ratio) => (
+            <button
+              key={ratio}
+              onClick={() => {
+                onChange(ratio);
+                setIsOpen(false);
+              }}
+              className={`w-full px-3 py-2 text-left text-sm transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
+                value === ratio ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
+              }`}
+            >
+              {ASPECT_RATIOS[ratio].label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Compact dropdown selector for resolution with cost display.
+ * Only shows cost multipliers when the selected model supports resolution settings.
+ */
+function ResolutionSelector({
+  value,
+  onChange,
+  baseCost,
+  showCost,
+  modelId,
+}: {
+  value: ImageResolution;
+  onChange: (value: ImageResolution) => void;
+  baseCost: number;
+  showCost: boolean;
+  modelId: string;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Check if the current model supports resolution settings
+  const modelSupportsRes = supportsResolution(modelId);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Only show multiplier badge if model supports resolution
+  const currentMultiplier = modelSupportsRes ? RESOLUTIONS[value].multiplier : 1.0;
+
+  return (
+    <div ref={dropdownRef} className="relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="min-h-[36px] px-2 flex items-center gap-1 text-xs font-medium text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)]"
+        aria-label={`Resolution: ${value}${!modelSupportsRes ? " (not supported by this model)" : ""}`}
+        aria-expanded={isOpen}
+      >
+        <span className={!modelSupportsRes ? "opacity-50" : ""}>{value}</span>
+        {showCost && modelSupportsRes && currentMultiplier > 1 && (
+          <span className="text-[10px] text-[var(--accent)]">×{currentMultiplier}</span>
+        )}
+        <ChevronDown
+          size={12}
+          className={`transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
+        />
+      </button>
+      {isOpen && (
+        <div className="absolute bottom-full mb-1 left-0 w-48 rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50 overflow-hidden">
+          {/* Show info message when model doesn't support resolution */}
+          {!modelSupportsRes && (
+            <div className="px-3 py-2 text-xs text-[var(--muted)] bg-[var(--surface)]/50 border-b border-[var(--divider)]">
+              Resolution not supported by this model
+            </div>
+          )}
+          {(Object.keys(RESOLUTIONS) as ImageResolution[]).map((res) => {
+            // Pass modelId to get accurate cost (no multiplier if unsupported)
+            const cost = computeAdjustedCreditsCost(baseCost, res, modelId);
+            return (
+              <button
+                key={res}
+                onClick={() => {
+                  onChange(res);
+                  setIsOpen(false);
+                }}
+                className={`w-full px-3 py-2 flex items-center justify-between text-sm transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
+                  value === res ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
+                } ${!modelSupportsRes ? "opacity-60" : ""}`}
+              >
+                <span>{RESOLUTIONS[res].label}</span>
+                {showCost && (
+                  <span className="text-xs text-[var(--muted)]">
+                    Up to {cost} credits
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Expandable metadata badge for generated images.
+ * Shows model name collapsed, expands to reveal full details.
+ */
+interface ImageMetadataBadgeProps {
+  model: string;
+  provider?: string;
+  durationMs?: number;
+  aspectRatio?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  createdAt?: number;
+}
+
+function ImageMetadataBadge({
+  model,
+  provider,
+  durationMs,
+  aspectRatio,
+  imageWidth,
+  imageHeight,
+  createdAt,
+}: ImageMetadataBadgeProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsExpanded(false);
+      }
+    }
+    if (isExpanded) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [isExpanded]);
+
+  const shortModelName = getShortModelName(model);
+  const displayProvider = provider ||
+    (model.split("/")[0]?.charAt(0).toUpperCase() + model.split("/")[0]?.slice(1)) ||
+    "Unknown";
+
+  return (
+    <div ref={dropdownRef} className="absolute top-3 left-3 z-20">
+      {/* Badge button */}
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-[var(--muted)]
+                   bg-[var(--background)]/70 border border-[var(--divider)]/60
+                   backdrop-blur-sm rounded-[var(--radius-full)]
+                   hover:bg-[var(--background)]/90 hover:text-[var(--foreground)]
+                   transition-colors duration-[var(--motion-fast)] focus-ring"
+        aria-expanded={isExpanded}
+        aria-label={`Image details: ${shortModelName}`}
+      >
+        <Sparkles className="w-3 h-3" />
+        <span>{shortModelName}</span>
+        <ChevronDown
+          className={`w-3 h-3 transition-transform duration-[var(--motion-fast)] ${
+            isExpanded ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+
+      {/* Dropdown panel */}
+      <div
+        className={`absolute top-full mt-1.5 left-0
+                    min-w-[200px] max-w-[260px]
+                    bg-[var(--background)]/95 backdrop-blur-md
+                    border border-[var(--divider)]/70
+                    rounded-[var(--radius-md)] shadow-lg
+                    overflow-hidden
+                    transition-all duration-[var(--motion-base)] ease-out
+                    ${isExpanded
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 -translate-y-1 pointer-events-none"}`}
+      >
+        {/* Header */}
+        <div className="px-3 py-2 border-b border-[var(--divider)]/50 bg-[var(--surface)]/30">
+          <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider">
+            Image Details
+          </p>
+        </div>
+
+        {/* Content */}
+        <div className="divide-y divide-[var(--divider)]/30">
+          <div className="flex items-center justify-between px-3 py-2">
+            <span className="text-[10px] text-[var(--muted)]">Model</span>
+            <span className="text-xs text-[var(--foreground)] font-medium">{shortModelName}</span>
+          </div>
+          <div className="flex items-center justify-between px-3 py-2">
+            <span className="text-[10px] text-[var(--muted)]">Provider</span>
+            <span className="text-xs text-[var(--foreground)]">{displayProvider}</span>
+          </div>
+          {aspectRatio && (
+            <div className="flex items-center justify-between px-3 py-2">
+              <span className="text-[10px] text-[var(--muted)]">Aspect Ratio</span>
+              <span className="text-xs text-[var(--foreground)]">{aspectRatio}</span>
+            </div>
+          )}
+          {(imageWidth && imageHeight) && (
+            <div className="flex items-center justify-between px-3 py-2">
+              <span className="text-[10px] text-[var(--muted)]">Dimensions</span>
+              <span className="text-xs text-[var(--foreground)]">{getDimensionLabel(imageWidth, imageHeight)}</span>
+            </div>
+          )}
+          <div className="flex items-center justify-between px-3 py-2">
+            <span className="text-[10px] text-[var(--muted)]">Gen Time</span>
+            <span className="text-xs text-[var(--foreground)]">{formatDuration(durationMs)}</span>
+          </div>
+          {createdAt && (
+            <div className="flex items-center justify-between px-3 py-2">
+              <span className="text-[10px] text-[var(--muted)]">Created</span>
+              <span className="text-xs text-[var(--foreground)]">{formatRelativeTime(createdAt)}</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export function HeroImage({
@@ -280,9 +593,10 @@ function HeroImageBase({
   onSaveImage,
   onRefreshImages,
 }: HeroImageBaseProps) {
-  const { imageModel, translation } = usePreferences();
+  const { imageModel, imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution, translation } = usePreferences();
   const isConvexEnabled = useConvexEnabled();
   const { tier, credits, buyCredits, updateCredits, isLoading: sessionLoading } = useSession();
+  const { setCurrentImageId } = useNavigation();
 
   // Fetch model pricing info
   const [modelPricing, setModelPricing] = useState<ModelPricing>({ creditsCost: null, etaSeconds: 12 });
@@ -337,7 +651,8 @@ function HeroImageBase({
   }, [imageModel]);
 
   // Determine if user can generate (has sufficient credits or is admin)
-  const effectiveCost = modelPricing.creditsCost ?? 20; // Default 20 for unpriced models
+  const baseCost = modelPricing.creditsCost ?? 20; // Default 20 for unpriced models
+  const effectiveCost = computeAdjustedCreditsCost(baseCost, imageResolution, imageModel);
   const effectiveEta = modelPricing.etaSeconds;
   const isAdmin = tier === "admin";
   const pricingPending = isConvexEnabled && !isAdmin && !pricingLoaded;
@@ -401,6 +716,11 @@ function HeroImageBase({
           : "No images yet";
   const showControls = Boolean(prevUrl || nextUrl || hasImages || isGenerating || isQueryLoading);
 
+  // Sync current image ID to navigation context for ScriptureDetails
+  useEffect(() => {
+    setCurrentImageId(currentImage?.id || null);
+  }, [currentImage?.id, setCurrentImageId]);
+
   // Generate new image function
   const generateImage = useCallback(async () => {
     if (!verseId || !currentReference) return;
@@ -436,6 +756,8 @@ function HeroImageBase({
       if (nextVerse) params.set("nextVerse", JSON.stringify(nextVerse));
       if (currentReference) params.set("reference", currentReference);
       if (imageModel) params.set("model", imageModel);
+      params.set("aspectRatio", imageAspectRatio);
+      params.set("resolution", imageResolution);
 
       // Pass existing image count to add generation diversity
       const existingImageCount = imageHistory?.length || 0;
@@ -567,6 +889,8 @@ function HeroImageBase({
     nextVerse,
     currentReference,
     imageModel,
+    imageAspectRatio,
+    imageResolution,
     translation,
     onSaveImage,
     selectedImageId,
@@ -712,10 +1036,19 @@ function HeroImageBase({
     };
   }, []);
 
+  // Use the displayed image's aspect ratio when available, fall back to user preference
+  const containerAspectRatio: ImageAspectRatio =
+    currentImage?.aspectRatio && isValidAspectRatio(currentImage.aspectRatio)
+      ? currentImage.aspectRatio
+      : imageAspectRatio;
+
   return (
     <figure className="relative w-full">
-      {/* Image Container */}
-      <div className="relative w-full aspect-[16/9] overflow-hidden bg-[var(--surface)]">
+      {/* Image Container - uses actual image aspect ratio when viewing history */}
+      <div
+        className="relative w-full overflow-hidden bg-[var(--surface)]"
+        style={{ aspectRatio: ASPECT_RATIOS[containerAspectRatio].cssRatio }}
+      >
         {displayImage?.url ? (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -770,11 +1103,16 @@ function HeroImageBase({
               </div>
             )}
 
-            {/* Model badge - subtle top-left indicator */}
-            <div className="absolute top-3 left-3 z-20 flex items-center gap-1 px-2 py-1 text-xs text-[var(--muted)] bg-[var(--background)]/70 border border-[var(--divider)]/60 backdrop-blur-sm rounded-[var(--radius-full)]">
-              <Sparkles className="w-3 h-3" />
-              {getShortModelName(displayImage.model)}
-            </div>
+            {/* Model badge - expandable metadata indicator */}
+            <ImageMetadataBadge
+              model={displayImage.model}
+              provider={currentImage?.provider}
+              durationMs={currentImage?.durationMs}
+              aspectRatio={currentImage?.aspectRatio}
+              imageWidth={currentImage?.imageWidth}
+              imageHeight={currentImage?.imageHeight}
+              createdAt={currentImage?.createdAt}
+            />
           </>
         ) : (
           /* Placeholder with skeleton loader */
@@ -869,7 +1207,7 @@ function HeroImageBase({
         {/* Control Dock */}
         {showControls && (
           <div className="absolute inset-x-4 md:inset-x-6 bottom-4 z-20">
-            <div className="mx-auto max-w-2xl">
+            <div className="mx-auto w-fit max-w-[calc(100vw-2rem)] md:max-w-[calc(100vw-3rem)]">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-2 rounded-[var(--radius-lg)] border border-[var(--divider)]/70 bg-[var(--background)]/80 backdrop-blur-md shadow-[var(--shadow-sm)] px-2 py-2">
                 <div className="flex items-center gap-1">
                   {prevUrl ? (
@@ -910,6 +1248,7 @@ function HeroImageBase({
                     disabled={!canGoNewer}
                     className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-full)] text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 transition-colors duration-[var(--motion-fast)] disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
                     aria-label="Newer image"
+                    title="Newer image"
                   >
                     <ChevronLeft size={18} strokeWidth={1.5} />
                   </button>
@@ -922,9 +1261,25 @@ function HeroImageBase({
                     disabled={!canGoOlder}
                     className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-full)] text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 transition-colors duration-[var(--motion-fast)] disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
                     aria-label="Older image"
+                    title="Older image"
                   >
                     <ChevronRight size={18} strokeWidth={1.5} />
                   </button>
+                </div>
+
+                {/* Aspect Ratio & Resolution Selectors */}
+                <div className="hidden sm:flex items-center gap-1">
+                  <AspectRatioSelector
+                    value={imageAspectRatio}
+                    onChange={setImageAspectRatio}
+                  />
+                  <ResolutionSelector
+                    value={imageResolution}
+                    onChange={setImageResolution}
+                    baseCost={baseCost}
+                    showCost={showCreditsCost}
+                    modelId={imageModel}
+                  />
                 </div>
 
                 {pricingPending ? (
@@ -956,9 +1311,9 @@ function HeroImageBase({
                       <span className="text-sm inline-flex items-center gap-2">
                         Generate
                         {showCreditsCost && (
-                          <span className="inline-flex items-center gap-1 text-[var(--muted)]">
+                          <span className="inline-flex items-center gap-1 text-[var(--muted)]" title="Unused credits refunded after generation">
                             <Zap size={12} strokeWidth={2} />
-                            <span>{effectiveCost}</span>
+                            <span>≤{effectiveCost}</span>
                           </span>
                         )}
                         <span className="inline-flex items-center gap-1 text-[var(--muted)]">

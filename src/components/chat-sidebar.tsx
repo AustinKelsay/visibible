@@ -1,18 +1,62 @@
 "use client";
 
 import { X, MessageSquare, MessageCircleHeart } from "lucide-react";
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
 import { useNavigation } from "@/context/navigation-context";
+import { useConvexEnabled } from "@/components/convex-client-provider";
 import { Chat } from "./chat";
-import { Feedback } from "./feedback";
+import { Feedback, type ImageContext } from "./feedback";
 
 /**
  * Chat sidebar component with slide animation and tabs.
  * - Desktop (md+): Fixed 384px width on right side
  * - Mobile: Full width overlay with backdrop
  */
+// Helper to create verse ID from reference
+function createVerseId(book: string, chapter: number, verseRange: string): string {
+  return `${book} ${chapter}:${verseRange}`
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/:/g, "-");
+}
+
 export function ChatSidebar() {
-  const { isChatOpen, closeChat, chatContext, sidebarTab, setSidebarTab } =
+  const { isChatOpen, closeChat, chatContext, sidebarTab, setSidebarTab, currentImageId } =
     useNavigation();
+  const isConvexEnabled = useConvexEnabled();
+
+  // Build verse ID from chat context for image query
+  const verseId = chatContext?.book && chatContext?.chapter && chatContext?.verseRange
+    ? createVerseId(chatContext.book, chatContext.chapter, chatContext.verseRange)
+    : null;
+
+  // Query image history for current verse (only when Convex is enabled)
+  const imageHistory = useQuery(
+    api.verseImages.getImageHistory,
+    isConvexEnabled && verseId ? { verseId } : "skip"
+  );
+
+  // Find the currently displayed image and build imageContext for feedback
+  const currentImage = currentImageId && imageHistory
+    ? imageHistory.find((img) => img.id === currentImageId)
+    : imageHistory?.[0] ?? null;
+
+  const imageContext: ImageContext | undefined = currentImage
+    ? {
+        imageId: currentImage.id,
+        model: currentImage.model,
+        provider: currentImage.provider,
+        aspectRatio: currentImage.aspectRatio,
+        dimensions: currentImage.imageWidth && currentImage.imageHeight
+          ? `${currentImage.imageWidth} × ${currentImage.imageHeight}`
+          : undefined,
+        creditsCost: currentImage.creditsCost,
+        costUsd: currentImage.costUsd,
+        durationMs: currentImage.durationMs,
+        createdAt: currentImage.createdAt,
+      }
+    : undefined;
 
   return (
     <>
@@ -51,6 +95,7 @@ export function ChatSidebar() {
               onClick={closeChat}
               className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
               aria-label="Close sidebar"
+              title="Close"
             >
               <X size={20} strokeWidth={1.5} />
             </button>
@@ -100,7 +145,7 @@ export function ChatSidebar() {
           {sidebarTab === "chat" ? (
             <Chat context={chatContext ?? undefined} variant="sidebar" />
           ) : (
-            <Feedback context={chatContext ?? undefined} />
+            <Feedback context={chatContext ?? undefined} imageContext={imageContext} />
           )}
         </div>
       </aside>

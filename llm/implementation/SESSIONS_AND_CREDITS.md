@@ -59,6 +59,11 @@ This document describes the anonymous session, credit ledger, and Lightning paym
 
 If Convex is not configured, session and payment routes return free defaults or 503s, and generation runs without credit enforcement.
 
+**Convex Configuration Validation:** Both `NEXT_PUBLIC_CONVEX_URL` and `CONVEX_SERVER_SECRET` must be set together. API routes validate both early in the request:
+- `getConvexClient()` returns `null` if URL missing → 503 response
+- `getConvexServerSecret()` throws if secret missing → caught and returns 503 response
+- This ensures consistent 503 behavior for any Convex misconfiguration rather than cryptic 500 errors.
+
 ---
 
 ## Convex Data Model
@@ -105,7 +110,7 @@ If Convex is not configured, session and payment routes return free defaults or 
 | `addCredits` | Mutation | `sid, amount, reason, invoiceId?` | `{ newBalance }` |
 | `reserveCredits` | Mutation | `sid, amount, modelId, generationId, costUsd?` | `{ success, newBalance, alreadyReserved? }` or `{ success: false, error, required, available }` |
 | `releaseReservation` | Mutation | `sid, generationId` | `{ success, newBalance, alreadyReleased? }` |
-| `deductCredits` | Mutation | `sid, amount, modelId, generationId, costUsd?` | `{ success, newBalance, converted?, alreadyCharged? }` or `{ success: false, error, required, available }` |
+| `deductCredits` | Mutation | `sid, amount, modelId, generationId, costUsd?, actualAmount?, actualCostUsd?` | `{ success, newBalance, converted?, alreadyCharged?, refunded?, additionalCharged? }` or `{ success: false, error, required, available }` |
 | `getCreditHistory` | Query | `sid, limit?` | `Array<{ delta, reason, modelId, generationId, createdAt }>` |
 | `upgradeToAdmin` | Action | `sid` | `{ success: true }` |
 
@@ -123,6 +128,14 @@ The credit system uses a two-stage reservation pattern to prevent race condition
    - If reservation exists but no generation entry: creates `generation` entry + compensating `refund` entry (net effect: reservation → generation)
    - If no reservation: performs direct debit (backward compatibility)
    - Returns `{ converted: true }` when converting from reservation
+   - **Actual-usage charging**: Accepts optional `actualAmount` and `actualCostUsd` params to charge the real cost (from OpenRouter `usage` response) instead of the reserved amount:
+     - If `actualAmount < reserved`: refunds the excess, returns `{ refunded: N }`
+     - If `actualAmount > reserved`: charges additional, returns `{ additionalCharged: N }`
+     - This enables the "reserve conservatively → charge actual → refund excess" pattern
+   - **Daily spend adjustment**: When actual cost differs from reserved cost, `dailySpendUsd` is adjusted accordingly:
+     - If `actualCostUsd < reservationCostUsd`: reduces `dailySpendUsd` by the difference
+     - If `actualCostUsd > reservationCostUsd`: increases `dailySpendUsd` by the difference
+     - This prevents the inflated 35x reservation estimate from prematurely blocking users at the daily spend limit
 
 **Idempotency:** All three mutations use net-delta checking:
 1. Query ALL ledger entries for `generationId` + `sid`
@@ -141,6 +154,7 @@ For image generation with scene planner, credits are reserved for both the image
 
 **Retry logic** (implemented in `/api/generate-image`):
 ```typescript
+// serverSecret is validated early in request handler
 const maxRetries = 3;
 let refundSuccess = false;
 for (let attempt = 1; attempt <= maxRetries && !refundSuccess; attempt++) {
@@ -149,7 +163,7 @@ for (let attempt = 1; attempt <= maxRetries && !refundSuccess; attempt++) {
       sid,
       amount: scenePlannerCreditsCost,
       reason: "scene_planner_refund",
-      serverSecret: getConvexServerSecret(),
+      serverSecret,
     });
     refundSuccess = true;
   } catch (refundError) {
@@ -204,18 +218,25 @@ All protected API routes implement rate limiting to prevent abuse:
 
 ### Rate Limit Identifier
 
-Protected endpoints use a combined IP+session identifier:
+Endpoints use one of two identifier strategies:
 
+**IP+Session (for AI features):**
 ```typescript
 const rateLimitIdentifier = `${ipHash}:${sid}`;
 ```
+Used by: `/api/chat`, `/api/generate-image`
 
-**Why combined identifier?**
-- **IP-based primary**: Prevents multi-session rate limit bypass (attacker creating many sessions)
-- **Session suffix**: Provides tracking granularity for debugging/auditing
+**IP-Only (for infrastructure):**
+```typescript
+const rateLimitIdentifier = await hashIp(clientIp);
+```
+Used by: `/api/session`, `/api/invoice`
+
+**Why the difference?**
+- **AI endpoints** use IP+session to allow fair per-session usage while preventing abuse
+- **Invoice endpoint** uses IP-only to prevent multi-session bypass (attacker creating many sessions to flood LND with invoices)
+- **Session endpoint** uses IP-only to prevent session creation spam
 - **Privacy**: IP addresses are hashed with SESSION_SECRET before storage
-
-**Security Note:** Session-only rate limiting (`sid || ipHash`) would allow attackers to multiply their effective rate limit by creating multiple sessions (10 sessions × 20 requests = 200 requests/min instead of 20).
 
 ### Implementation
 
@@ -302,6 +323,11 @@ On success, the response includes:
 - `reference`, `verseText`, `chapterTheme`, `generationNumber`
 - `creditsCost`, `costUsd`, `durationMs`, `aspectRatio`
 - `credits` (optional, updated balance after charge)
+- Cost tracking fields:
+  - `estimatedCreditsCost` - Pre-generation estimate (API pricing)
+  - `usedActualCost` - Boolean: OpenRouter returned valid usage data
+  - `usedFallbackEstimate` - Boolean: Fallback to API estimate was used
+  - `openRouterUsageUsd` - Raw USD cost from OpenRouter (null if unavailable)
 
 ### `GET /api/image-models`
 Returns OpenRouter image models with `creditsCost` and `etaSeconds`, plus a `creditRange` for UI.
@@ -313,10 +339,14 @@ Returns OpenRouter image models with `creditsCost` and `etaSeconds`, plus a `cre
 ```ts
 const CREDIT_USD = 0.01; // 1 credit = $0.01
 const PREMIUM_MULTIPLIER = 1.25; // 25% markup
+const CONSERVATIVE_ESTIMATE_MULTIPLIER = 35; // Accounts for API pricing discrepancy
 ```
 
 ### Image Generation
 
+OpenRouter's models API `pricing.image` field is often inaccurate for multimodal models (e.g., Gemini). Actual billing is based on image completion tokens at a much higher rate than listed.
+
+**Base cost calculation (for reference only):**
 ```ts
 function computeCreditsCost(pricingImage?: string): number | null {
   if (!pricingImage) return null;
@@ -325,6 +355,57 @@ function computeCreditsCost(pricingImage?: string): number | null {
   return Math.max(1, Math.ceil((baseUsd * PREMIUM_MULTIPLIER) / CREDIT_USD));
 }
 ```
+
+**Conservative estimate (for reservations):**
+```ts
+function computeConservativeEstimate(pricingImage?: string): number | null {
+  const baseCost = computeCreditsCost(pricingImage);
+  if (baseCost === null) return null; // Unpriced models rejected
+  return Math.ceil(baseCost * CONSERVATIVE_ESTIMATE_MULTIPLIER);
+}
+```
+
+**Actual usage calculation (post-generation):**
+```ts
+function computeCreditsFromActualUsage(
+  actualUsageUsd: number | null,
+  fallbackCredits: number
+): { credits: number; usedActual: boolean } {
+  if (actualUsageUsd !== null && actualUsageUsd > 0) {
+    const withPremium = actualUsageUsd * PREMIUM_MULTIPLIER;
+    return { credits: Math.max(1, Math.ceil(withPremium / CREDIT_USD)), usedActual: true };
+  }
+  return { credits: fallbackCredits, usedActual: false };
+}
+```
+
+**Flow:**
+1. Reserve using `computeConservativeEstimate()` (~35x API price) — adds inflated `costUsd` to `dailySpendUsd`
+2. Generate image
+3. Extract actual cost from OpenRouter response (checks `usage.cost`, `usage.total_cost`, `data.cost`, `data.total_cost`)
+4. Charge actual via `deductCredits(actualAmount=..., actualCostUsd=...)`
+5. Excess credits refunded + `dailySpendUsd` adjusted to reflect actual cost (not inflated estimate)
+
+**Fallback behavior:** If OpenRouter doesn't return cost in any known location:
+- The **API-based estimate** (`imageCreditsCost`) is used, NOT the conservative 35x reservation
+- This ensures users aren't overcharged when usage extraction fails
+- Server logs: `[Image API] Using fallback estimate for model=X, gen=Y, fallbackCredits=Z, reservationCredits=W`
+- Response includes `usedFallbackEstimate: true` for monitoring
+
+**Response tracking fields:**
+| Field | Type | Description |
+|-------|------|-------------|
+| `usedActualCost` | boolean | `true` if OpenRouter returned valid usage data |
+| `usedFallbackEstimate` | boolean | `true` if fallback to API estimate was used |
+| `openRouterUsageUsd` | number \| null | Raw USD cost from OpenRouter (null if not available) |
+| `chargeShortfall` | object \| undefined | Present if actual exceeded reservation and user couldn't cover overage |
+
+**Shortfall handling:** In the rare case where actual OpenRouter cost exceeds the 35x conservative estimate AND the user lacks credits to cover the overage:
+- Only the reserved amount is charged (not the full actual)
+- Ledger records `costUsd: reservationCostUsd` (matching the credits charged, not the higher actual cost)
+- Response includes `chargeShortfall: { wantedCredits, chargedCredits, shortfall }`
+- `creditsCost` and `costUsd` reflect what was actually charged (not what was wanted)
+- Server logs: `[Image API] Shortfall: wanted=X credits, charged=Y credits, shortfall=Z`
 
 **Models without pricing are rejected** - no fallback to default cost.
 

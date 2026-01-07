@@ -45,13 +45,13 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
           .catch((err) => {
             console.error("Failed to fetch image models:", err);
             setError("Failed to load models");
-            // Set fallback model
+            // Set fallback model with conservative estimate
             setModels([
               {
                 id: DEFAULT_IMAGE_MODEL,
                 name: "Gemini 2.5 Flash (Default)",
                 provider: "Google",
-                creditsCost: 5,
+                creditsCost: 35, // Conservative estimate
                 etaSeconds: 12,
               },
             ]);
@@ -107,6 +107,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
         aria-label={`Current image model: ${displayName}. Click to change.`}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
+        title={`Image model: ${displayName}`}
       >
         <ImageIcon size={16} className="opacity-60" />
         <span className="hidden sm:inline">{compactName}</span>
@@ -130,45 +131,51 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
           ) : error && models.length === 0 ? (
             <div className="px-3 py-4 text-sm text-red-500 text-center">{error}</div>
           ) : (
-            Object.entries(groupedModels).map(([provider, providerModels]) => (
-              <div key={provider}>
-                <div className="px-3 py-2 text-xs font-medium text-[var(--muted)] uppercase tracking-wider bg-[var(--surface)] sticky top-0">
-                  {provider}
+            <>
+              {Object.entries(groupedModels).map(([provider, providerModels]) => (
+                <div key={provider}>
+                  <div className="px-3 py-2 text-xs font-medium text-[var(--muted)] uppercase tracking-wider bg-[var(--surface)] sticky top-0">
+                    {provider}
+                  </div>
+                  {providerModels.map((model) => {
+                    const isSelected = imageModel === model.id;
+                    return (
+                      <button
+                        key={model.id}
+                        onClick={() => model.creditsCost != null && handleSelect(model.id)}
+                        disabled={model.creditsCost == null}
+                        className={`w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors duration-[var(--motion-fast)] ${
+                          model.creditsCost == null
+                            ? "opacity-50 cursor-not-allowed"
+                            : "hover:bg-[var(--surface)]"
+                        } ${isSelected ? "bg-[var(--surface)]" : ""}`}
+                        role="option"
+                        aria-selected={isSelected}
+                        aria-disabled={model.creditsCost == null}
+                      >
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium truncate">{model.name}</div>
+                          <p className="text-xs text-[var(--muted)] truncate">
+                            {model.creditsCost == null ? (
+                              "Pricing unavailable"
+                            ) : (
+                              <>~{model.etaSeconds ?? 12}s · Up to {model.creditsCost} credits</>
+                            )}
+                          </p>
+                        </div>
+                        {isSelected && (
+                          <Check size={16} className="text-[var(--accent)] flex-shrink-0 ml-2" />
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
-                {providerModels.map((model) => {
-                  const isSelected = imageModel === model.id;
-                  return (
-                    <button
-                      key={model.id}
-                      onClick={() => model.creditsCost != null && handleSelect(model.id)}
-                      disabled={model.creditsCost == null}
-                      className={`w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors duration-[var(--motion-fast)] ${
-                        model.creditsCost == null
-                          ? "opacity-50 cursor-not-allowed"
-                          : "hover:bg-[var(--surface)]"
-                      } ${isSelected ? "bg-[var(--surface)]" : ""}`}
-                      role="option"
-                      aria-selected={isSelected}
-                      aria-disabled={model.creditsCost == null}
-                    >
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium truncate">{model.name}</div>
-                        <p className="text-xs text-[var(--muted)] truncate">
-                          {model.creditsCost == null ? (
-                            "Pricing unavailable"
-                          ) : (
-                            <>~{model.etaSeconds ?? 12}s · {model.creditsCost} credits</>
-                          )}
-                        </p>
-                      </div>
-                      {isSelected && (
-                        <Check size={16} className="text-[var(--accent)] flex-shrink-0 ml-2" />
-                      )}
-                    </button>
-                  );
-                })}
+              ))}
+              {/* Refund note */}
+              <div className="px-3 py-2 text-[10px] text-[var(--muted)] border-t border-[var(--divider)] bg-[var(--surface)]">
+                Unused credits refunded after generation
               </div>
-            ))
+            </>
           )}
         </div>
       )}
