@@ -57,6 +57,8 @@ The HTTP endpoint (`convex/http.ts`) fetches from Convex storage and returns the
 
 **Why not `ctx.storage.getUrl()`?** That returns temporary signed URLs that expire. Using those would result in broken images in Nostr posts.
 
+**StorageId Validation:** The endpoint validates that the storageId matches the expected Convex ID format (`/^[A-Za-z0-9_]+$/`) and applies `decodeURIComponent` for URL-encoded segments. Invalid IDs return 400; valid but non-existent IDs return 404.
+
 ### Relays
 
 Published to 4 relays (defined in `convex/nostr.ts`):

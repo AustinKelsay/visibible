@@ -4,6 +4,9 @@ import { Id } from "./_generated/dataModel";
 
 const http = httpRouter();
 
+// Convex storage IDs are alphanumeric with underscores (e.g., "kg2c7qn8vn8j9...")
+const STORAGE_ID_PATTERN = /^[A-Za-z0-9_]+$/;
+
 /**
  * Public endpoint to serve images from Convex storage.
  * URL format: /image/{storageId}
@@ -16,10 +19,13 @@ http.route({
   method: "GET",
   handler: httpAction(async (ctx, request) => {
     const url = new URL(request.url);
-    const storageId = url.pathname.split("/image/")[1];
+    // Extract exactly the second path segment: ["", "image", storageId]
+    const segments = url.pathname.split("/");
+    const rawStorageId = segments[2] ?? "";
+    const storageId = decodeURIComponent(rawStorageId);
 
-    if (!storageId) {
-      return new Response("Missing storageId", { status: 400 });
+    if (!storageId || !STORAGE_ID_PATTERN.test(storageId)) {
+      return new Response("Invalid or missing storageId", { status: 400 });
     }
 
     const blob = await ctx.storage.get(storageId as Id<"_storage">);
