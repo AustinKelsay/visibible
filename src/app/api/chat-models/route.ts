@@ -13,7 +13,7 @@ export async function GET() {
           name: "GPT-OSS 120B (Default)",
           provider: "Openai",
           contextLength: 131072,
-          isFree: true,
+          isFree: false,
         },
       ],
       error: "OpenRouter API key not configured",

@@ -52,7 +52,7 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
               name: "GPT-OSS 120B (Default)",
               provider: "Openai",
               contextLength: 131072,
-              isFree: true,
+              isFree: false,
             },
           ]);
         })

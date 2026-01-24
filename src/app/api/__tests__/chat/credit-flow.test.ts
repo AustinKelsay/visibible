@@ -108,7 +108,6 @@ vi.mock("@/lib/convex-client", () => ({
       }
 
       if ("modelId" in args && "generationId" in args && "amount" in args) {
-        const generationId = args.generationId as string;
         const existingReservation = mockState.ledger.find(
           (e) => e.sid === sid && e.reason === "reservation"
         );
