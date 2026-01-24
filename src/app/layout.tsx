@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Visibible",
-  description: "AI-powered chat application",
+  description: "Explore Scripture with AI-powered insights and imagery. Read and visualize every verse of the Bible.",
 };
 
 export default function RootLayout({

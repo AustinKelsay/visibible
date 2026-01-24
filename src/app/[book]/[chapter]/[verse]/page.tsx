@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { HeroImage } from "@/components/hero-image";
 import { ScriptureDetails } from "@/components/scripture-details";
@@ -25,6 +26,47 @@ interface VersePageProps {
     chapter: string;
     verse: string;
   }>;
+}
+
+export async function generateMetadata({
+  params,
+}: VersePageProps): Promise<Metadata> {
+  const { book, chapter, verse } = await params;
+
+  const location = parseVerseUrl(book, chapter, verse);
+  const bookData = BOOK_BY_SLUG[book.toLowerCase()];
+
+  if (!location || !bookData) {
+    return {
+      title: "Visibible",
+      description: "Explore Scripture with AI-powered insights and imagery",
+    };
+  }
+
+  const reference = `${bookData.name} ${location.chapter}:${location.verse}`;
+
+  // Fetch verse text for description
+  const translation = await getTranslationFromCookies();
+  const verseData = await getVerse(book, location.chapter, location.verse, translation);
+  const description = verseData
+    ? verseData.text.slice(0, 155) + (verseData.text.length > 155 ? "..." : "")
+    : `Read ${reference} with AI-powered insights and imagery`;
+
+  return {
+    title: `${reference} - Visibible`,
+    description,
+    openGraph: {
+      title: `${reference} - Visibible`,
+      description,
+      type: "article",
+      siteName: "Visibible",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${reference} - Visibible`,
+      description,
+    },
+  };
 }
 
 export default async function VersePage({ params }: VersePageProps) {
