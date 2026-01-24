@@ -97,6 +97,7 @@ export function ChatPrompt() {
           handleClick();
         }
       }}
+      style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
       className={`
         fixed z-30
         bottom-[100px] right-6

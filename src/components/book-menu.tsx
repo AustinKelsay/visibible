@@ -152,12 +152,13 @@ function BookMenuBase({
 
       {/* Slide-out Panel */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-[var(--background)] z-50 transform transition-transform duration-300 ease-out ${
+        className={`fixed top-0 right-0 h-full w-full sm:w-80 sm:max-w-[85vw] bg-[var(--background)] z-50 flex flex-col transform transition-transform duration-300 ease-out ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
+        style={{ paddingTop: 'env(safe-area-inset-top)' }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-[var(--divider)]">
+        <div className="flex-shrink-0 flex items-center justify-between p-4 border-b border-[var(--divider)]">
           {showBackButton ? (
             <>
               <button
@@ -188,7 +189,10 @@ function BookMenuBase({
         </div>
 
         {/* Content */}
-        <div className="overflow-y-auto h-[calc(100%-60px)]">
+        <div
+          className="flex-1 overflow-y-auto"
+          style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+        >
           {view === "books" && (
             <>
               {/* Old Testament Section */}
@@ -288,7 +292,7 @@ function BookMenuBase({
               <p className="text-sm text-[var(--muted)] mb-4">
                 Select a chapter
               </p>
-              <div className="grid grid-cols-5 gap-2">
+              <div className="grid grid-cols-6 sm:grid-cols-5 gap-1.5 sm:gap-2">
                 {Array.from(
                   { length: selectedBook.chapters.length },
                   (_, i) => i + 1
@@ -296,7 +300,7 @@ function BookMenuBase({
                   <button
                     key={chapter}
                     onClick={() => handleChapterSelect(chapter)}
-                    className="flex flex-col items-center justify-center h-11 rounded-lg bg-[var(--surface)] hover:bg-[var(--divider)] transition-colors"
+                    className="flex flex-col items-center justify-center h-12 sm:h-11 rounded-lg bg-[var(--surface)] hover:bg-[var(--divider)] transition-colors"
                   >
                     <span className="text-sm font-medium">{chapter}</span>
                     <span
@@ -317,7 +321,7 @@ function BookMenuBase({
               <p className="text-sm text-[var(--muted)] mb-4">
                 Select a verse
               </p>
-              <div className="grid grid-cols-5 gap-2">
+              <div className="grid grid-cols-6 sm:grid-cols-5 gap-1.5 sm:gap-2">
                 {Array.from(
                   { length: selectedBook.chapters[selectedChapter - 1] },
                   (_, i) => i + 1
@@ -326,7 +330,7 @@ function BookMenuBase({
                     key={verse}
                     href={`/${selectedBook.slug}/${selectedChapter}/${verse}`}
                     onClick={handleVerseSelect}
-                    className="flex flex-col items-center justify-center h-11 rounded-lg bg-[var(--surface)] hover:bg-[var(--divider)] transition-colors"
+                    className="flex flex-col items-center justify-center h-12 sm:h-11 rounded-lg bg-[var(--surface)] hover:bg-[var(--divider)] transition-colors"
                   >
                     <span className="text-sm font-medium">{verse}</span>
                     <span

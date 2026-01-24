@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode, useCallback, useEffect } from "react";
+import { createContext, useContext, useState, ReactNode, useCallback, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
 // Chat context type for verse data
 type VerseContext = {
@@ -47,16 +48,44 @@ interface NavigationContextType {
   // Current displayed image (for syncing hero image with details)
   currentImageId: string | null;
   setCurrentImageId: (id: string | null) => void;
+
+  // Mobile image controls sheet
+  isImageControlsOpen: boolean;
+  openImageControls: () => void;
+  closeImageControls: () => void;
+
+  // Mobile header settings menu
+  isHeaderMenuOpen: boolean;
+  openHeaderMenu: () => void;
+  closeHeaderMenu: () => void;
 }
 
 const NavigationContext = createContext<NavigationContextType | null>(null);
 
 export function NavigationProvider({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const previousPathnameRef = useRef(pathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [sidebarTab, setSidebarTab] = useState<SidebarTab>("chat");
   const [chatContext, setChatContext] = useState<PageContext | null>(null);
   const [currentImageId, setCurrentImageId] = useState<string | null>(null);
+  const [isImageControlsOpen, setIsImageControlsOpen] = useState(false);
+  const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
+
+  // Close overlays on route change (except chat - users may want to continue conversations)
+  // This is a legitimate use of useEffect for UI synchronization with router state
+  useEffect(() => {
+    // Skip initial mount by checking if pathname actually changed
+    if (previousPathnameRef.current !== pathname) {
+      previousPathnameRef.current = pathname;
+      /* eslint-disable react-hooks/set-state-in-effect -- closing UI on route change is valid */
+      setIsMenuOpen(false);
+      setIsImageControlsOpen(false);
+      setIsHeaderMenuOpen(false);
+      /* eslint-enable react-hooks/set-state-in-effect */
+    }
+  }, [pathname]);
 
   // Close chat on Escape key
   useEffect(() => {
@@ -72,28 +101,74 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
   const openChat = useCallback(() => {
     setSidebarTab("chat");
     setIsChatOpen(true);
+    setIsMenuOpen(false);
+    setIsImageControlsOpen(false);
+    setIsHeaderMenuOpen(false);
   }, []);
 
   const closeChat = useCallback(() => setIsChatOpen(false), []);
-  const toggleChat = useCallback(() => setIsChatOpen((prev) => !prev), []);
+
+  const toggleChat = useCallback(() => {
+    setIsChatOpen((prev) => {
+      if (!prev) {
+        // Opening chat - close other overlays
+        setIsMenuOpen(false);
+        setIsImageControlsOpen(false);
+        setIsHeaderMenuOpen(false);
+      }
+      return !prev;
+    });
+  }, []);
 
   const openFeedback = useCallback(() => {
     setSidebarTab("feedback");
     setIsChatOpen(true);
+    setIsMenuOpen(false);
+    setIsImageControlsOpen(false);
+    setIsHeaderMenuOpen(false);
   }, []);
 
   const updateChatContext = useCallback((context: PageContext | null) => {
     setChatContext(context);
   }, []);
 
+  const openImageControls = useCallback(() => {
+    setIsImageControlsOpen(true);
+    setIsHeaderMenuOpen(false);
+    // Note: Don't close chat/menu - image controls is a quick action
+  }, []);
+  const closeImageControls = useCallback(() => setIsImageControlsOpen(false), []);
+
+  const openHeaderMenu = useCallback(() => {
+    setIsHeaderMenuOpen(true);
+    setIsImageControlsOpen(false);
+    // Note: Don't close chat/menu - header menu is for settings
+  }, []);
+  const closeHeaderMenu = useCallback(() => setIsHeaderMenuOpen(false), []);
+
   return (
     <NavigationContext.Provider
       value={{
         // Book menu
         isMenuOpen,
-        openMenu: () => setIsMenuOpen(true),
+        openMenu: () => {
+          setIsMenuOpen(true);
+          setIsChatOpen(false);
+          setIsImageControlsOpen(false);
+          setIsHeaderMenuOpen(false);
+        },
         closeMenu: () => setIsMenuOpen(false),
-        toggleMenu: () => setIsMenuOpen((prev) => !prev),
+        toggleMenu: () => {
+          setIsMenuOpen((prev) => {
+            if (!prev) {
+              // Opening menu - close other overlays
+              setIsChatOpen(false);
+              setIsImageControlsOpen(false);
+              setIsHeaderMenuOpen(false);
+            }
+            return !prev;
+          });
+        },
 
         // Chat sidebar
         isChatOpen,
@@ -113,6 +188,16 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
         // Current image
         currentImageId,
         setCurrentImageId,
+
+        // Mobile image controls sheet
+        isImageControlsOpen,
+        openImageControls,
+        closeImageControls,
+
+        // Mobile header settings menu
+        isHeaderMenuOpen,
+        openHeaderMenu,
+        closeHeaderMenu,
       }}
     >
       {children}

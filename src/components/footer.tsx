@@ -2,10 +2,13 @@ import { Github, Mail, Twitter } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="border-t border-[var(--divider)] mt-auto">
-      <div className="max-w-4xl mx-auto px-4 py-6">
+    <footer
+      className="border-t border-[var(--divider)] mt-auto"
+      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+    >
+      <div className="max-w-4xl mx-auto px-4 py-4 sm:py-6">
         <div className="flex flex-col items-center justify-center gap-3 text-center">
-          <p className="text-[var(--muted)] text-sm">
+          <p className="text-[var(--muted)] text-xs sm:text-sm">
             Free &amp; open source software.
           </p>
           <div className="flex items-center justify-center gap-2">

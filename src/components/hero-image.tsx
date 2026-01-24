@@ -4,7 +4,8 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { useQuery, useAction } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Clock, ChevronDown } from "lucide-react";
+import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Clock, ChevronDown, Settings } from "lucide-react";
+import { ImageControlsSheet } from "./image-controls-sheet";
 import { usePreferences } from "@/context/preferences-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useSession } from "@/context/session-context";
@@ -596,7 +597,7 @@ function HeroImageBase({
   const { imageModel, imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution, translation } = usePreferences();
   const isConvexEnabled = useConvexEnabled();
   const { tier, credits, buyCredits, updateCredits, isLoading: sessionLoading } = useSession();
-  const { setCurrentImageId } = useNavigation();
+  const { setCurrentImageId, openImageControls } = useNavigation();
 
   // Fetch model pricing info
   const [modelPricing, setModelPricing] = useState<ModelPricing>({ creditsCost: null, etaSeconds: 12 });
@@ -1044,10 +1045,10 @@ function HeroImageBase({
 
   return (
     <figure className="relative w-full">
-      {/* Image Container - uses actual image aspect ratio when viewing history */}
+      {/* Image Container - taller 4:5 on mobile, user-selected ratio on desktop */}
       <div
-        className="relative w-full overflow-hidden bg-[var(--surface)]"
-        style={{ aspectRatio: ASPECT_RATIOS[containerAspectRatio].cssRatio }}
+        className="relative w-full overflow-hidden bg-[var(--surface)] aspect-[4/5] sm:[aspect-ratio:var(--ar)]"
+        style={{ '--ar': ASPECT_RATIOS[containerAspectRatio].cssRatio } as React.CSSProperties}
       >
         {displayImage?.url ? (
           <>
@@ -1204,11 +1205,11 @@ function HeroImageBase({
         {/* Bottom gradient for text readability */}
         <div className="absolute inset-x-0 bottom-0 h-36 md:h-44 bg-gradient-to-t from-[var(--background)]/90 via-[var(--background)]/40 to-transparent pointer-events-none" />
 
-        {/* Control Dock */}
+        {/* Control Dock - Hidden on mobile, visible on sm+ */}
         {showControls && (
-          <div className="absolute inset-x-4 md:inset-x-6 bottom-4 z-20">
+          <div className="hidden sm:block absolute inset-x-4 md:inset-x-6 bottom-4 z-20">
             <div className="mx-auto w-fit max-w-[calc(100vw-2rem)] md:max-w-[calc(100vw-3rem)]">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-2 rounded-[var(--radius-lg)] border border-[var(--divider)]/70 bg-[var(--background)]/80 backdrop-blur-md shadow-[var(--shadow-sm)] px-2 py-2">
+              <div className="flex flex-row items-center justify-between gap-2 rounded-[var(--radius-lg)] border border-[var(--divider)]/70 bg-[var(--background)]/80 backdrop-blur-md shadow-[var(--shadow-sm)] px-2 py-2">
                 <div className="flex items-center gap-1">
                   {prevUrl ? (
                     <Link
@@ -1337,16 +1338,56 @@ function HeroImageBase({
             </div>
           </div>
         )}
+
+        {/* Mobile FAB - Opens bottom sheet on mobile only */}
+        {showControls && (
+          <button
+            onClick={openImageControls}
+            className="sm:hidden absolute bottom-4 right-4 z-20 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 backdrop-blur-sm border border-[var(--divider)] shadow-lg text-[var(--foreground)] active:scale-95 transition-transform"
+            aria-label="Open image controls"
+          >
+            <Settings size={20} strokeWidth={1.5} />
+          </button>
+        )}
       </div>
 
-      {/* Caption */}
+      {/* Mobile Verse Text Overlay - positioned at bottom of image */}
+      {verseText && (
+        <div className="sm:hidden absolute inset-x-0 bottom-0 z-10 px-4 pb-4">
+          <div className="bg-[var(--background)]/50 backdrop-blur-sm rounded-2xl p-4 mx-auto max-w-lg border border-[rgba(255,255,255,0.04)]">
+            <p className="text-pretty text-center text-base leading-relaxed text-[var(--foreground)]">
+              {verseText}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Caption - hidden on mobile (redundant with ScriptureReader below) */}
       {caption && (
-        <figcaption className="pointer-events-none absolute inset-x-0 bottom-20 md:bottom-24 z-10 px-4 md:px-6">
+        <figcaption className="hidden sm:block pointer-events-none absolute inset-x-0 sm:bottom-20 md:bottom-24 z-10 px-4 md:px-6">
           <p className="text-center text-2xl md:text-3xl lg:text-4xl font-light italic text-[var(--foreground)]/90">
             &ldquo;{caption}&rdquo;
           </p>
         </figcaption>
       )}
+
+      {/* Mobile Image Controls Sheet */}
+      <ImageControlsSheet
+        prevUrl={prevUrl}
+        nextUrl={nextUrl}
+        currentImageIndex={displayIndex}
+        totalImages={totalImages}
+        onOlderImage={goToPrevImage}
+        onNewerImage={goToNextImage}
+        hasOlderImage={canGoOlder}
+        hasNewerImage={canGoNewer}
+        onGenerate={handleManualRegenerate}
+        isGenerating={isGenerating}
+        creditsCost={effectiveCost}
+        canGenerate={canGenerate}
+        isPricingLoading={pricingPending}
+        onBuyCredits={buyCredits}
+      />
     </figure>
   );
 }

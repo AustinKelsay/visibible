@@ -385,9 +385,9 @@ function ScriptureDetailsBase({
 
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between px-4 py-3 min-h-[44px]">
-      <span className="text-sm text-[var(--muted)]">{label}</span>
-      <span className="text-sm font-medium">{value}</span>
+    <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 min-h-[44px] gap-2">
+      <span className="text-xs sm:text-sm text-[var(--muted)]">{label}</span>
+      <span className="text-xs sm:text-sm font-medium">{value}</span>
     </div>
   );
 }

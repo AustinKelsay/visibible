@@ -54,7 +54,7 @@ export function TranslationSelector({ variant = "compact" }: TranslationSelector
 
       {isOpen && (
         <div
-          className="absolute right-0 top-full mt-1 w-72 max-h-80 overflow-y-auto rounded-lg bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50"
+          className="absolute right-0 top-full mt-1 w-[calc(100vw-2rem)] sm:w-72 max-h-[60vh] sm:max-h-80 overflow-y-auto rounded-lg bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50"
           role="listbox"
           aria-label="Select translation"
         >

@@ -81,6 +81,10 @@ export function ChatSidebar() {
           transition-transform duration-[var(--motion-base)] ease-out
           ${isChatOpen ? "translate-x-0" : "translate-x-full"}
         `}
+        style={{
+          paddingTop: 'env(safe-area-inset-top)',
+          paddingBottom: 'env(safe-area-inset-bottom)'
+        }}
         aria-label="Sidebar"
         aria-hidden={!isChatOpen}
       >

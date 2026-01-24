@@ -136,7 +136,7 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
 
         {isOpen && (
           <div
-            className="absolute left-0 bottom-full mb-1 w-80 max-h-80 overflow-y-auto rounded-lg bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50"
+            className="absolute left-0 bottom-full mb-1 w-[calc(100vw-2rem)] sm:w-80 max-h-[60vh] sm:max-h-80 overflow-y-auto rounded-lg bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50"
             role="listbox"
             aria-label="Select chat model"
           >
@@ -168,7 +168,7 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
 
       {isOpen && (
         <div
-          className="absolute right-0 top-full mt-1 w-80 max-h-96 overflow-y-auto rounded-lg bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50"
+          className="absolute right-0 top-full mt-1 w-[calc(100vw-2rem)] sm:w-80 max-h-[60vh] sm:max-h-96 overflow-y-auto rounded-lg bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50"
           role="listbox"
           aria-label="Select chat model"
         >
@@ -193,7 +193,7 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search models..."
-              className="w-full min-h-[44px] pl-9 pr-4 py-2 bg-[var(--surface)] border border-[var(--divider)] rounded-[var(--radius-md)] text-[var(--foreground)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-shadow duration-[var(--motion-fast)]"
+              className="w-full min-h-[44px] pl-9 pr-4 py-2 bg-[var(--surface)] border border-[var(--divider)] rounded-[var(--radius-md)] text-base sm:text-sm text-[var(--foreground)] placeholder:text-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-shadow duration-[var(--motion-fast)]"
               aria-label="Search chat models"
             />
           </div>

@@ -109,8 +109,8 @@ export default async function VersePage({ params }: VersePageProps) {
           currentReference={currentReference}
         />
 
-        {/* Verse Strip Navigator */}
-        <div className="border-b border-[var(--divider)]">
+        {/* Verse Strip Navigator - hidden on mobile (navigation in bottom sheet) */}
+        <div className="hidden sm:block border-b border-[var(--divider)]">
           <VerseStrip
             book={book}
             chapter={location.chapter}
