@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { validatePositiveAmount } from "./sessions";
+import { validatePositiveAmount } from "../../convex/sessions";
 
 describe("validatePositiveAmount", () => {
   it("should throw an error for zero amount", () => {
@@ -37,5 +37,6 @@ describe("validatePositiveAmount", () => {
     expect(() => validatePositiveAmount(999.99)).not.toThrow();
   });
 });
+
 
 
