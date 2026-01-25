@@ -5,6 +5,11 @@ import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, 
 import Image from "next/image";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
+import {
+  trackInvoiceCreated,
+  trackPaymentCompleted,
+  trackPaymentExpired,
+} from "@/lib/analytics";
 
 function CashAppLogo({ className }: { className?: string }) {
   return (
@@ -149,15 +154,17 @@ interface Invoice {
 type ModalState = "welcome" | "selection" | "loading" | "invoice" | "success" | "error";
 
 export function BuyCreditsModal() {
-  const { isBuyModalOpen, closeBuyModal, refetch, credits } = useSession();
+  const { isBuyModalOpen, closeBuyModal, refetch, credits, tier } = useSession();
   const [state, setState] = useState<ModalState>("welcome");
   const [invoice, setInvoice] = useState<Invoice | null>(null);
+  const [invoiceCreatedAt, setInvoiceCreatedAt] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [qrDataUrl, setQrDataUrl] = useState<string>("");
   const [timeLeftMs, setTimeLeftMs] = useState(0);
   const prevModalOpenRef = useRef(false);
   const hasSeenWelcomeRef = useRef(false);
+  const hasTrackedExpiredRef = useRef(false);
 
   // Admin login state
   const [showAdminInput, setShowAdminInput] = useState(false);
@@ -172,6 +179,7 @@ export function BuyCreditsModal() {
   const createInvoice = useCallback(async () => {
     setState("loading");
     setError(null);
+    hasTrackedExpiredRef.current = false; // Reset expiry tracking for new invoice
 
     try {
       const response = await fetch("/api/invoice", { method: "POST" });
@@ -182,12 +190,19 @@ export function BuyCreditsModal() {
 
       const data: Invoice = await response.json();
       setInvoice(data);
+      setInvoiceCreatedAt(Date.now());
       setState("invoice");
+      // Track invoice created
+      trackInvoiceCreated({
+        amountUsd: data.amountUsd,
+        tier,
+        hasCredits: credits > 0,
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create invoice");
       setState("error");
     }
-  }, []);
+  }, [tier, credits]);
 
   // When modal opens, check if we have a valid unexpired invoice
   useEffect(() => {
@@ -307,12 +322,30 @@ export function BuyCreditsModal() {
         const data = await response.json();
         if (data.status === "paid") {
           setState("success");
+          // Track payment completed
+          if (invoice) {
+            trackPaymentCompleted({
+              amountUsd: invoice.amountUsd,
+              credits: invoice.credits,
+              tier,
+              hasCredits: true, // They just paid, so they have credits now
+            });
+          }
           // Refetch session to update credits
           await refetch();
           clearInterval(pollInterval);
         } else if (data.status === "expired" || data.status === "failed") {
           setError("Invoice expired. Please try again.");
           setState("error");
+          // Track payment expired (only once per invoice)
+          if (invoice && !hasTrackedExpiredRef.current) {
+            hasTrackedExpiredRef.current = true;
+            trackPaymentExpired({
+              invoiceAgeSeconds: Math.floor((Date.now() - invoiceCreatedAt) / 1000),
+              tier,
+              hasCredits: credits > 0,
+            });
+          }
           clearInterval(pollInterval);
         }
       } catch {
@@ -330,6 +363,15 @@ export function BuyCreditsModal() {
       if (remaining <= 0) {
         setError("Invoice expired. Please try again.");
         setState("error");
+        // Track payment expired (only once per invoice)
+        if (!hasTrackedExpiredRef.current) {
+          hasTrackedExpiredRef.current = true;
+          trackPaymentExpired({
+            invoiceAgeSeconds: Math.floor((Date.now() - invoiceCreatedAt) / 1000),
+            tier,
+            hasCredits: credits > 0,
+          });
+        }
         clearInterval(pollInterval);
         clearInterval(expirationCheck);
       }
@@ -339,7 +381,7 @@ export function BuyCreditsModal() {
       clearInterval(pollInterval);
       clearInterval(expirationCheck);
     };
-  }, [state, invoice, refetch]);
+  }, [state, invoice, invoiceCreatedAt, refetch, tier, credits]);
 
   const copyBolt11 = useCallback(async () => {
     if (!invoice) return;

@@ -9,6 +9,7 @@ import { LayoutWrapper } from "@/components/layout-wrapper";
 import { ChatContextSetter } from "@/components/chat-context-setter";
 import { VerseStrip } from "@/components/verse-strip";
 import { Footer } from "@/components/footer";
+import { VerseAnalytics } from "@/components/verse-analytics";
 import { BOOK_BY_SLUG } from "@/data/bible-structure";
 import { getVerse } from "@/lib/bible-api";
 import { getTranslationFromCookies } from "@/lib/get-translation";
@@ -132,6 +133,15 @@ export default async function VersePage({ params }: VersePageProps) {
 
   return (
     <LayoutWrapper>
+      {/* Analytics tracking */}
+      <VerseAnalytics
+        book={bookData.name}
+        chapter={location.chapter}
+        verse={location.verse}
+        testament={bookData.testament}
+        translation={translation}
+      />
+
       {/* Set chat context for sidebar */}
       <ChatContextSetter context={chatContext} />
 
@@ -149,6 +159,10 @@ export default async function VersePage({ params }: VersePageProps) {
           prevVerse={prevVerse}
           nextVerse={nextVerse}
           currentReference={currentReference}
+          book={bookData.name}
+          chapter={location.chapter}
+          verse={location.verse}
+          testament={bookData.testament}
         />
 
         {/* Verse Strip Navigator - hidden on mobile (navigation in bottom sheet) */}

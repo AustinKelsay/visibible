@@ -19,6 +19,12 @@ import {
   supportsResolution,
   isValidAspectRatio,
 } from "@/lib/image-models";
+import {
+  trackImageGenerated,
+  trackGenerationError,
+  trackCreditsInsufficient,
+  trackVerseImagesState,
+} from "@/lib/analytics";
 
 interface ChapterTheme {
   setting: string;
@@ -63,6 +69,10 @@ interface HeroImageProps {
   prevVerse?: VerseContext;
   nextVerse?: VerseContext;
   currentReference?: string;
+  book: string;
+  chapter: number;
+  verse: number;
+  testament: "old" | "new";
 }
 
 /**
@@ -404,6 +414,10 @@ export function HeroImage({
   prevVerse,
   nextVerse,
   currentReference,
+  book,
+  chapter,
+  verse,
+  testament,
 }: HeroImageProps) {
   const isConvexEnabled = useConvexEnabled();
 
@@ -419,6 +433,10 @@ export function HeroImage({
         prevVerse={prevVerse}
         nextVerse={nextVerse}
         currentReference={currentReference}
+        book={book}
+        chapter={chapter}
+        verse={verse}
+        testament={testament}
         imageHistory={[]}
         isQueryLoading={false}
         imageRefreshKey={0}
@@ -438,6 +456,10 @@ export function HeroImage({
       prevVerse={prevVerse}
       nextVerse={nextVerse}
       currentReference={currentReference}
+      book={book}
+      chapter={chapter}
+      verse={verse}
+      testament={testament}
     />
   );
 }
@@ -505,6 +527,10 @@ function HeroImageWithConvex({
   prevVerse,
   nextVerse,
   currentReference,
+  book,
+  chapter,
+  verse,
+  testament,
 }: HeroImageProps) {
   // Create verse ID for Convex query
   const verseId = currentReference ? createVerseId(currentReference) : null;
@@ -564,6 +590,10 @@ function HeroImageWithConvex({
       prevVerse={prevVerse}
       nextVerse={nextVerse}
       currentReference={currentReference}
+      book={book}
+      chapter={chapter}
+      verse={verse}
+      testament={testament}
       imageHistory={imageHistory}
       isQueryLoading={isQueryLoading}
       imageRefreshKey={refreshToken}
@@ -588,6 +618,10 @@ function HeroImageBase({
   prevVerse,
   nextVerse,
   currentReference,
+  book,
+  chapter,
+  verse,
+  testament,
   imageHistory,
   isQueryLoading,
   imageRefreshKey = 0,
@@ -662,6 +696,55 @@ function HeroImageBase({
 
   // Create verse ID for Convex query
   const verseId = currentReference ? createVerseId(currentReference) : null;
+
+  const hasTrackedImagesStateRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (sessionLoading) return;
+
+    const trackKey = `${book}-${chapter}-${verse}-${isConvexEnabled ? "convex" : "no-convex"}`;
+    if (hasTrackedImagesStateRef.current === trackKey) return;
+
+    if (!isConvexEnabled) {
+      hasTrackedImagesStateRef.current = trackKey;
+      trackVerseImagesState({
+        book,
+        chapter,
+        verse,
+        testament,
+        imageState: "unknown",
+        tier,
+        hasCredits: credits > 0,
+      });
+      return;
+    }
+
+    if (imageHistory === undefined) return;
+
+    hasTrackedImagesStateRef.current = trackKey;
+    const imageCount = imageHistory.length;
+    trackVerseImagesState({
+      book,
+      chapter,
+      verse,
+      testament,
+      imageState: "known",
+      imageCount,
+      hasImages: imageCount > 0,
+      tier,
+      hasCredits: credits > 0,
+    });
+  }, [
+    book,
+    chapter,
+    verse,
+    testament,
+    isConvexEnabled,
+    imageHistory,
+    tier,
+    credits,
+    sessionLoading,
+  ]);
 
   // Image navigation state: null = show newest, string = show specific image by ID
   const [selectedImageId, setSelectedImageId] = useState<string | null>(null);
@@ -776,6 +859,12 @@ function HeroImageBase({
       if (response.status === 403) {
         if (isMounted.current) {
           setError("Image generation is disabled");
+          trackGenerationError({
+            imageModel,
+            errorType: "disabled",
+            tier,
+            hasCredits: credits > 0,
+          });
         }
         return;
       }
@@ -783,6 +872,12 @@ function HeroImageBase({
       if (response.status === 401) {
         if (isMounted.current) {
           setError("Session required - please refresh the page");
+          trackGenerationError({
+            imageModel,
+            errorType: "unauthorized",
+            tier,
+            hasCredits: credits > 0,
+          });
         }
         return;
       }
@@ -791,6 +886,12 @@ function HeroImageBase({
         // Insufficient credits
         if (isMounted.current) {
           setError("Insufficient credits");
+          trackCreditsInsufficient({
+            feature: "image",
+            requiredCredits: effectiveCost,
+            tier,
+            hasCredits: credits > 0,
+          });
         }
         return;
       }
@@ -854,6 +955,17 @@ function HeroImageBase({
           return;
         }
 
+        // Track successful image generation (fires regardless of Convex persistence)
+        trackImageGenerated({
+          imageModel: modelUsed,
+          aspectRatio: data.aspectRatio || imageAspectRatio,
+          resolution: imageResolution,
+          generationNumber: data.generationNumber || (existingImageCount + 1),
+          durationMs: data.durationMs,
+          tier,
+          hasCredits: credits > 0,
+        });
+
         if (!onSaveImage) {
           // No Convex persistence; show the generated URL immediately.
           setGeneratedImage({
@@ -871,8 +983,16 @@ function HeroImageBase({
       if (isStale()) {
         return;
       }
-      setError(err instanceof Error ? err.message : "Failed to generate image");
+      const errorMessage = err instanceof Error ? err.message : "Failed to generate image";
+      setError(errorMessage);
       console.error("Image generation error:", err);
+      // Track generation error
+      trackGenerationError({
+        imageModel,
+        errorType: errorMessage,
+        tier,
+        hasCredits: credits > 0,
+      });
     } finally {
       // Always clean up if this is still the current generation
       if (thisGenerationId === generationIdRef.current) {
@@ -897,6 +1017,9 @@ function HeroImageBase({
     selectedImageId,
     imageHistory,
     updateCredits,
+    tier,
+    credits,
+    effectiveCost,
   ]);
 
   // Manual regenerate function - resets load attempts and queues a new image
