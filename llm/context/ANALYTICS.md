@@ -38,7 +38,7 @@ High-level view of analytics goals and events tracked. This describes product in
 
 ### Primary Conversion Funnel
 
-```
+```text
 verse_view → credits_insufficient → credits_modal_opened → invoice_created → payment_completed
 ```
 
@@ -53,7 +53,7 @@ Key metrics:
 
 ### Feature Engagement Funnel
 
-```
+```text
 verse_view → image_generated
 verse_view → chat_opened → chat_message_sent
 ```
