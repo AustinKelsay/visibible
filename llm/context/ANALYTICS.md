@@ -69,12 +69,12 @@ All events include `tier` and `hasCredits` enabling segmentation:
 
 | Segment | Tier | Has Credits | Characteristics |
 |---------|------|-------------|-----------------|
-| Free browsers | `paid` | `false` | Paid tier users exploring without credits (no "free" tier exists) |
+| Users without credits | `paid` | `false` | Paid tier users exploring without credits (no "free" tier exists) |
 | Paying users | `paid` | `true` | Have purchased credits |
 | Admin | `admin` | `true` or `false` | Internal testing, unlimited access |
 
 Useful analyses:
-- Compare feature adoption between paying vs. free users
+- Compare feature adoption between users with credits vs. without
 - Track how credit depletion affects engagement
 - Identify which features drive credit purchases
 
