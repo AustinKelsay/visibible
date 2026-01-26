@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { SessionProvider } from "@/context/session-context";
 import { NavigationProvider } from "@/context/navigation-context";
@@ -23,7 +24,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Visibible",
-  description: "AI-powered chat application",
+  description: "Explore Scripture with AI-powered insights and imagery. Read and visualize every verse of the Bible.",
 };
 
 export default function RootLayout({
@@ -50,6 +51,7 @@ export default function RootLayout({
             </PreferencesProvider>
           </SessionProvider>
         </ConvexClientProvider>
+        <Analytics />
       </body>
     </html>
   );

@@ -8,6 +8,7 @@ import { useSession } from "@/context/session-context";
 import { ChatModelSelector } from "./chat-model-selector";
 import { ConversationSummary, MessageMetadataDisplay, MessageMetadata } from "./chat-metadata";
 import { MarkdownRenderer } from "./markdown-renderer";
+import { trackChatMessageSent, trackCreditsInsufficient } from "@/lib/analytics";
 
 type VerseContext = {
   number: number;
@@ -109,8 +110,27 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || isLoading || !canSend) return;
+    if (!input.trim() || isLoading) return;
+    if (!canSend) {
+      // Track insufficient credits
+      trackCreditsInsufficient({
+        feature: "chat",
+        requiredCredits: 1,
+        tier,
+        hasCredits: credits > 0,
+      });
+      return;
+    }
     sendMessage({ text: input }, { body: requestBody });
+    // Track message sent
+    trackChatMessageSent({
+      variant,
+      chatModel,
+      messageCount: messages.length + 1,
+      hasContext: Boolean(context),
+      tier,
+      hasCredits: credits > 0,
+    });
     setInput("");
     setIsExpanded(true);
   };

@@ -13,7 +13,7 @@ High-level overview of how Visibible generates scripture illustrations. Details 
 - **Persistence (Convex)**: When enabled, every image is saved per verse and can be browsed later.
 - **Cost visibility**: Credit cost varies by model; the UI surfaces model-specific costs and ETA estimates.
 - **Transparency**: Saved images include prompt + prompt version/inputs, translation, provider metadata, and image file metadata (mime/size/dimensions) in addition to costs and timing.
-- **Availability**: Image generation requires Convex configuration (sessions, credits, rate limiting). If Convex is disabled, the API returns 503 and generation is unavailable.
+- **Availability**: Image generation **requires** Convex (sessions, credits, rate limiting). Without Convex configured, the API returns 503 — there is no fallback mode.
 
 ## Current Flow
 
@@ -25,7 +25,7 @@ High-level overview of how Visibible generates scripture illustrations. Details 
 6. Server builds a **storyboard-aware prompt** with strict "no text" + framing guardrails and stamps `promptVersion` + `promptInputs`.
 7. Server generates the image via OpenRouter using the **user-selected model**.
 8. On success, credits are charged (post-charge) and the response includes image URL + prompt + metadata (including `generationId`, provider info, and prompt version/inputs).
-9. If Convex is enabled, the image and metadata are saved and appended to history (including translation + file metadata); otherwise it is displayed directly.
+9. The image and metadata are saved to Convex and appended to history (including translation + file metadata).
 10. On failure, no credits are charged.
 
 ## Chapter Themes (Optional)

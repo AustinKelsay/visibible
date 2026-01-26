@@ -2,6 +2,8 @@
 
 import { createContext, useContext, useState, ReactNode, useCallback, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import { trackMenuOpened, trackChatOpened } from "@/lib/analytics";
+import { useSession } from "@/context/session-context";
 
 // Chat context type for verse data
 type VerseContext = {
@@ -64,6 +66,7 @@ const NavigationContext = createContext<NavigationContextType | null>(null);
 
 export function NavigationProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const { tier, credits, isLoading } = useSession();
   const previousPathnameRef = useRef(pathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -72,6 +75,33 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
   const [currentImageId, setCurrentImageId] = useState<string | null>(null);
   const [isImageControlsOpen, setIsImageControlsOpen] = useState(false);
   const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
+
+  // Track previous states for analytics
+  const prevMenuOpenRef = useRef(false);
+  const prevChatOpenRef = useRef(false);
+
+  // Track menu_opened event
+  useEffect(() => {
+    if (isLoading) return;
+    if (isMenuOpen && !prevMenuOpenRef.current) {
+      trackMenuOpened({ tier, hasCredits: credits > 0 });
+    }
+    prevMenuOpenRef.current = isMenuOpen;
+  }, [isMenuOpen, tier, credits, isLoading]);
+
+  // Track chat_opened event
+  useEffect(() => {
+    if (isLoading) return;
+    if (isChatOpen && !prevChatOpenRef.current) {
+      trackChatOpened({
+        variant: "sidebar",
+        hasContext: chatContext !== null,
+        tier,
+        hasCredits: credits > 0,
+      });
+    }
+    prevChatOpenRef.current = isChatOpen;
+  }, [isChatOpen, chatContext, tier, credits, isLoading]);
 
   // Close overlays on route change (except chat - users may want to continue conversations)
   // This is a legitimate use of useEffect for UI synchronization with router state

@@ -31,7 +31,6 @@ import {
   _stripIpv6Zone,
   _parseIp,
   hashIp,
-  type _ParsedIp,
 } from "../session";
 
 afterAll(() => {

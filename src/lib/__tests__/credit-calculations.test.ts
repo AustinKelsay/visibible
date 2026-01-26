@@ -9,7 +9,6 @@ import {
   computeChatCreditsCost,
   computeActualChatCreditsCost,
   MIN_CHAT_CREDITS,
-  PREMIUM_MULTIPLIER,
   DEFAULT_ESTIMATED_TOKENS,
   SCENE_PLANNER_ESTIMATED_TOKENS,
 } from "../chat-models";

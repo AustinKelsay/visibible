@@ -13,6 +13,8 @@ import {
   isValidResolution,
 } from "@/lib/image-models";
 import { DEFAULT_CHAT_MODEL } from "@/lib/chat-models";
+import { trackPreferenceChanged } from "@/lib/analytics";
+import { useSession } from "@/context/session-context";
 
 interface PreferencesContextType {
   translation: Translation;
@@ -43,6 +45,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   const [chatModel, setChatModelState] = useState<string>(DEFAULT_CHAT_MODEL);
   const [isHydrated, setIsHydrated] = useState(false);
   const router = useRouter();
+  const { tier, credits } = useSession();
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -108,6 +111,13 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     savePreferences({ translation: newTranslation, imageModel, imageAspectRatio, imageResolution, chatModel });
     // Set cookie for server-side reading (expires in 1 year)
     document.cookie = `${COOKIE_NAME}=${newTranslation}; path=/; max-age=31536000; SameSite=Lax`;
+    // Track preference change
+    trackPreferenceChanged({
+      preference: "translation",
+      value: newTranslation,
+      tier,
+      hasCredits: credits > 0,
+    });
     // Refresh the page to get new translation from server
     router.refresh();
   };
@@ -118,6 +128,13 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     savePreferences({ translation, imageModel: newModel, imageAspectRatio, imageResolution, chatModel });
     // Set cookie for server-side reading (expires in 1 year)
     document.cookie = `${IMAGE_MODEL_COOKIE}=${encodeURIComponent(newModel)}; path=/; max-age=31536000; SameSite=Lax`;
+    // Track preference change
+    trackPreferenceChanged({
+      preference: "imageModel",
+      value: newModel,
+      tier,
+      hasCredits: credits > 0,
+    });
     // Refresh to regenerate image with new model
     router.refresh();
   };
@@ -140,6 +157,13 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     savePreferences({ translation, imageModel, imageAspectRatio, imageResolution, chatModel: newModel });
     // Set cookie for server-side reading (expires in 1 year)
     document.cookie = `${CHAT_MODEL_COOKIE}=${encodeURIComponent(newModel)}; path=/; max-age=31536000; SameSite=Lax`;
+    // Track preference change
+    trackPreferenceChanged({
+      preference: "chatModel",
+      value: newModel,
+      tier,
+      hasCredits: credits > 0,
+    });
   };
 
   return (
