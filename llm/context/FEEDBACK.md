@@ -31,7 +31,7 @@ Each feedback submission includes:
 The FeedbackPrompt popout uses smart timing to avoid being intrusive:
 
 - **Trigger**: Shows after 5-15 random verse visits (threshold varies per user)
-- **Cooldown**: After dismissing or submitting, won't show again for 24 hours
+- **Cooldown**: After dismissing or submitting, the prompt won't show again for 24 hours
 - **Position**: Above the ChatPrompt on mobile, same position on desktop
 - **Auto-dismiss**: Disappears after 8 seconds if not interacted with
 - **Persistence**: Visit count and cooldown state stored in localStorage

@@ -13,7 +13,7 @@ High-level overview of how Visibible generates scripture illustrations. Details 
 - **Persistence (Convex)**: When enabled, every image is saved per verse and can be browsed later.
 - **Cost visibility**: Credit cost varies by model; the UI surfaces model-specific costs and ETA estimates.
 - **Transparency**: Saved images include prompt + prompt version/inputs, translation, provider metadata, and image file metadata (mime/size/dimensions) in addition to costs and timing.
-- **Availability**: Image generation requires Convex configuration (sessions, credits, rate limiting). If Convex is disabled, the API returns 503 and generation is unavailable.
+- **Availability**: Image generation **requires** Convex (sessions, credits, rate limiting). Without Convex configured, the API returns 503 — there is no fallback mode.
 
 ## Current Flow
 

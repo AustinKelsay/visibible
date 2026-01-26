@@ -69,7 +69,7 @@ All events include `tier` and `hasCredits` enabling segmentation:
 
 | Segment | Tier | Has Credits | Characteristics |
 |---------|------|-------------|-----------------|
-| Free browsers | `paid` | `false` | Exploring without credits |
+| Free browsers | `paid` | `false` | Paid tier users exploring without credits (no "free" tier exists) |
 | Paying users | `paid` | `true` | Have purchased credits |
 | Admin | `admin` | `true` or `false` | Internal testing, unlimited access |
 

@@ -61,7 +61,7 @@ React hooks are in `@ai-sdk/react`, not `ai/react`:
 
 ### Key Libraries
 
-- `@ai-sdk/react`, `@ai-sdk/openai`, `ai` - Vercel AI SDK v6 (OpenRouter via `createOpenAI()`)
+- `@ai-sdk/react`, `@openrouter/ai-sdk-provider`, `ai` - Vercel AI SDK v6 (OpenRouter via `createOpenRouter()`)
 - `zod` - Request validation in API routes
 - `lucide-react` - Icons
 
