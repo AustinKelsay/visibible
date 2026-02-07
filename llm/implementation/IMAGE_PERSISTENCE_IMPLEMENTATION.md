@@ -90,7 +90,7 @@ Notes:
 `convex/verseImages.ts` exposes six main operations:
 
 ### `getLatestImage` (query)
-Returns the newest image for a verse, resolving a storage URL if needed. Includes prompt + metadata.
+Returns the newest image for a verse, preferring a permanent URL for storage-backed images (`/image/{storageId}` on Convex HTTP actions domain). Includes prompt + metadata.
 
 ### `getChapterImageStatus` (query)
 Returns a list of verse numbers in a chapter with their image counts. Used by `src/components/verse-strip.tsx` to display per-verse stacked dots (1 dot for single image, up to 3 overlapping dots for multiple images).
@@ -198,16 +198,43 @@ A `generation` query param is also sent to the API when there are existing image
 If an image fails to load:
 
 - The UI attempts to refresh the Convex query via `refreshToken` (up to 3 tries).
-- This forces `getImageHistory` to re-run and resolve fresh storage URLs.
-- If it still fails, the user can manually regenerate a new image.
+- This forces `getImageHistory` to re-run and recover from transient fetch failures.
+- If `getImageHistory` still fails after retries, treat the failure as either transient or persistent:
+  - **Transient**: network interruptions, timeouts, 429s, and 5xx responses. Keep the image active and continue bounded retry/backoff.
+  - **Persistent**: 401/403 permission failures, 404 missing files, checksum/content mismatch, or invalid/corrupted image bytes. Stop automatic retries and move to remediation.
+
+For persistent failures:
+
+- Mark affected records as invalid in image metadata (or soft-delete from history), including reason and timestamp.
+- Surface this state in the UI as unavailable/corrupted image history items instead of silently failing.
+- Include identifiers in remediation UX and logs (at minimum: `imageId`, user/session ID, and error code).
+
+Recovery playbook (preferred order):
+
+1. Attempt automated re-upload from `sourceImageUrl` (or other original source) when available.
+2. Trigger an admin cleanup job to re-validate history, remove/soft-delete broken pointers, and repair ordering/latest selection.
+3. Restore storage objects from backup when the original source cannot be recovered.
+4. Offer manual regeneration as the final fallback.
+
+Observability requirements:
+
+- Emit structured logs + metrics for persistent failures and each recovery attempt.
+- Track identifiers needed for triage/alerting: `imageId`, `verseId`, user/session ID, `generationId`, `providerRequestId`, `storageId`, error class/code, and HTTP status when present.
+- Alert operators on persistent-failure rate spikes and repeated failed recoveries.
 
 ---
 
 ## Environment Requirements
 
 ```bash
-CONVEX_DEPLOYMENT=prod:your-deployment-name
 NEXT_PUBLIC_CONVEX_URL=https://your-deployment-name.convex.cloud
 ```
 
-These are required to enable persistence in the UI and should match the Convex deployment used for the `verseImages` table.
+`NEXT_PUBLIC_CONVEX_URL` is required to enable persistence in the UI and must match the deployment used for the `verseImages` table.
+
+For deployment targeting with Convex CLI, use:
+
+- `.env.convex.dev` with `CONVEX_DEPLOYMENT=dev:...`
+- `.env.convex.prod` with `CONVEX_DEPLOYMENT=prod:...`
+
+See `llm/workflow/CONVEX_WORKFLOWS.md`.

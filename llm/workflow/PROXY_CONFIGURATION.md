@@ -11,6 +11,15 @@ Without proxy trust:
 - IP-bound sessions can invalidate unexpectedly
 - Audit logs and geo logic are incorrect
 
+## Current Project Convention
+
+For this repository's Vercel setup:
+
+- Vercel Preview: `TRUST_PROXY_PLATFORM=vercel`
+- Vercel Production: `TRUST_PROXY_PLATFORM=vercel`
+
+Do not set `TRUSTED_PROXY_IPS` when using the Vercel platform trust mode.
+
 ## Configuration options
 
 Set exactly one of the following in your deployment environment:

@@ -82,7 +82,7 @@ export async function fetchChatModels(openRouterApiKey: string): Promise<ChatMod
     const response = await fetch("https://openrouter.ai/api/v1/models", {
       headers: {
         Authorization: `Bearer ${openRouterApiKey}`,
-        "HTTP-Referer": process.env.OPENROUTER_REFERRER || "http://localhost:3000",
+        "HTTP-Referer": process.env.OPENROUTER_REFERRER || process.env.NEXT_PUBLIC_APP_URL || "https://visibible.com",
         "X-Title": process.env.OPENROUTER_TITLE || "visibible",
       },
       next: { revalidate: 3600 },

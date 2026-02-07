@@ -329,7 +329,7 @@ When the `/api/chat-models` fetch fails, `ChatModelSelector` sets a fallback mod
     name: "GPT-OSS 120B (Default)",
     provider: "Openai",
     contextLength: 131072,
-    isFree: true,
+    isFree: false,
   }]);
 })
 ```

@@ -73,10 +73,26 @@ vi.mock("@/lib/convex-client", () => ({
       return { allowed: true, retryAfter: 0 };
     }),
     action: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if ("usd" in args && !("generationId" in args)) {
+        mockState.callHistory.push({ action: "quoteUsdCost", args });
+        const usd = args.usd as number;
+        const billedUsd = usd * 1.25;
+        return {
+          providerUsd: usd,
+          billedUsd,
+          credits: Math.max(1, Math.ceil(billedUsd / 0.01)),
+        };
+      }
+
       const sid = args.sid as string;
       const session = mockState.sessions.get(sid);
 
       // Dispatch based on args structure
+      if ("requestId" in args && "actualCreditsCost" in args) {
+        mockState.callHistory.push({ action: "recordImageCostEvent", args });
+        return { trackedCredits: args.actualCreditsCost };
+      }
+
       if ("endpoint" in args && "estimatedCredits" in args) {
         // logAdminUsage
         mockState.callHistory.push({ action: "logAdminUsage", args });
@@ -162,6 +178,7 @@ vi.mock("@/lib/image-models", () => ({
     }
     return { credits: Math.ceil(actualUsd * 1.25 / 0.01), usedActual: true };
   }),
+  CONSERVATIVE_ESTIMATE_MULTIPLIER: 35,
   getProviderName: vi.fn(() => "openrouter"),
   CREDIT_USD: 0.01,
   PREMIUM_MULTIPLIER: 1.25,

@@ -130,7 +130,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should throw in production for 0.0.0.0/0 CIDR", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "0.0.0.0/0";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -140,7 +140,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should throw in production for ::/0 CIDR", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "::/0";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -150,7 +150,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should throw in production for /7 or broader CIDR", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "0.0.0.0/7";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -160,7 +160,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should only warn in development for dangerous CIDRs", async () => {
-    process.env.NODE_ENV = "development";
+    vi.stubEnv("NODE_ENV", "development");
     process.env.TRUSTED_PROXY_IPS = "0.0.0.0/0";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -169,7 +169,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should pass for safe /24 CIDR", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "10.0.0.0/24";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -177,7 +177,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should pass for safe /32 CIDR (single IP)", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "10.0.0.1/32";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -185,7 +185,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should pass for safe /128 CIDR (single IPv6)", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "2001:db8::1/128";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -193,7 +193,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should pass for specific IP without CIDR", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "192.168.1.1";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -202,7 +202,7 @@ describe("validateProxyConfig", () => {
 
   it("should skip validation during build phase", async () => {
     process.env.NEXT_PHASE = "phase-production-build";
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "0.0.0.0/0";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -210,7 +210,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should log info in production when no proxy trust configured", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     delete process.env.TRUST_PROXY_PLATFORM;
     delete process.env.TRUSTED_PROXY_IPS;
     const { validateProxyConfig } = await importValidateEnv();
@@ -222,7 +222,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should warn when TRUST_PROXY_PLATFORM=vercel but not on Vercel", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUST_PROXY_PLATFORM = "vercel";
     delete process.env.VERCEL;
     const { validateProxyConfig } = await importValidateEnv();

@@ -162,6 +162,6 @@ export const fixtures = {
   },
 };
 
-export type Session = typeof fixtures.sessions.paidWithCredits;
+export type Session = typeof fixtures.sessions.paidWithCredits | typeof fixtures.sessions.admin;
 export type ChatModel = typeof fixtures.models.chat.cheap;
 export type ImageModel = typeof fixtures.models.image.standard;

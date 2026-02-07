@@ -32,7 +32,7 @@ High-level overview of how verse images are persisted and browsed. Details may c
 
 ## Visual Indicators
 
-- Blue circle dots indicate verses with images across the UI:
+- Accent dots indicate verses with images across the UI:
   - **Verse Strip** (`src/components/verse-strip.tsx`): Shows stacked dots below each verse number
   - **Book Menu** (`src/components/book-menu.tsx`): Shows single dots next to books, chapters, and verses with images
   - **Onboarding Modal** (`src/components/buy-credits-modal.tsx`): Shows stacked dots in the MiniVerseStrip demo component
@@ -46,4 +46,4 @@ High-level overview of how verse images are persisted and browsed. Details may c
 ## Dependencies
 
 - `NEXT_PUBLIC_CONVEX_URL` enables Convex image persistence on the client.
-- `CONVEX_DEPLOYMENT` configures the Convex backend (see `.env.example`).
+- `CONVEX_DEPLOYMENT` is used by Convex CLI targeting (`.env.convex.dev` / `.env.convex.prod`), not by Next.js runtime on Vercel.

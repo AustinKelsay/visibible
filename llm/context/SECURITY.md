@@ -85,7 +85,7 @@ All API routes validate the `Origin` header against an allowlist. Requests from 
 - `convex/rateLimit.ts` - Rate limiting and brute force protection
 - `convex/sessions.ts` - Credit management, daily limits, admin audit
 
-## Known Issues
+## Issue History
 
 ### Fixed (January 2025)
 - **CRITICAL (FIXED):** IP binding validation now enforced on `/api/chat` and `/api/generate-image` - stolen tokens are rejected if used from different IP
