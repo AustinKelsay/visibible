@@ -199,7 +199,28 @@ If an image fails to load:
 
 - The UI attempts to refresh the Convex query via `refreshToken` (up to 3 tries).
 - This forces `getImageHistory` to re-run and recover from transient fetch failures.
-- If it still fails, the user can manually regenerate a new image.
+- If `getImageHistory` still fails after retries, treat the failure as either transient or persistent:
+  - **Transient**: network interruptions, timeouts, 429s, and 5xx responses. Keep the image active and continue bounded retry/backoff.
+  - **Persistent**: 401/403 permission failures, 404 missing files, checksum/content mismatch, or invalid/corrupted image bytes. Stop automatic retries and move to remediation.
+
+For persistent failures:
+
+- Mark affected records as invalid in image metadata (or soft-delete from history), including reason and timestamp.
+- Surface this state in the UI as unavailable/corrupted image history items instead of silently failing.
+- Include identifiers in remediation UX and logs (at minimum: `imageId`, user/session ID, and error code).
+
+Recovery playbook (preferred order):
+
+1. Attempt automated re-upload from `sourceImageUrl` (or other original source) when available.
+2. Trigger an admin cleanup job to re-validate history, remove/soft-delete broken pointers, and repair ordering/latest selection.
+3. Restore storage objects from backup when the original source cannot be recovered.
+4. Offer manual regeneration as the final fallback.
+
+Observability requirements:
+
+- Emit structured logs + metrics for persistent failures and each recovery attempt.
+- Track identifiers needed for triage/alerting: `imageId`, `verseId`, user/session ID, `generationId`, `providerRequestId`, `storageId`, error class/code, and HTTP status when present.
+- Alert operators on persistent-failure rate spikes and repeated failed recoveries.
 
 ---
 

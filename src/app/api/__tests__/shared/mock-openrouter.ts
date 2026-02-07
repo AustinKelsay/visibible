@@ -104,11 +104,11 @@ export function createMockStreamTextResult(config: MockStreamConfig = { chunks: 
 }
 
 /**
- * Creates mock for @openrouter/ai-sdk-provider.
+ * Creates mock for @ai-sdk/openai configured for OpenRouter.
  */
 export function createMockOpenRouterProvider() {
   return {
-    createOpenRouter: vi.fn(() => ({
+    createOpenAI: vi.fn(() => ({
       chat: vi.fn((modelId: string) => ({
         modelId,
         provider: "openrouter",

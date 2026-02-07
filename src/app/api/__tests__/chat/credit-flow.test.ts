@@ -164,8 +164,8 @@ vi.mock("ai", () => ({
   streamText: (...args: unknown[]) => mockStreamTextImpl(...args),
 }));
 
-vi.mock("@openrouter/ai-sdk-provider", () => ({
-  createOpenRouter: vi.fn(() => ({
+vi.mock("@ai-sdk/openai", () => ({
+  createOpenAI: vi.fn(() => ({
     chat: vi.fn((modelId: string) => ({ modelId, provider: "openrouter" })),
   })),
 }));

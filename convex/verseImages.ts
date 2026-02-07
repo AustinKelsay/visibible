@@ -459,8 +459,9 @@ export const markScenePlanCacheHit = mutation({
 
     if (!cached) return { success: false };
 
+    const newHitCount = (cached.hitCount ?? 0) + 1;
     await ctx.db.patch(cached._id, {
-      hitCount: cached.hitCount + 1,
+      hitCount: newHitCount,
       lastUsedAt: Date.now(),
       updatedAt: Date.now(),
     });
@@ -511,11 +512,12 @@ export const upsertScenePlanCache = mutation({
       return { success: true };
     }
 
+    const newHitCount = (cached.hitCount ?? 0) + 1;
     await ctx.db.patch(cached._id, {
       scenePlan: args.scenePlan,
       plannerModel: args.plannerModel,
       promptVersion: args.promptVersion,
-      hitCount: cached.hitCount + 1,
+      hitCount: newHitCount,
       lastUsedAt: now,
       updatedAt: now,
     });

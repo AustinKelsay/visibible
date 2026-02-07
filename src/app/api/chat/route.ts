@@ -1,4 +1,4 @@
-import { createOpenRouter } from "@openrouter/ai-sdk-provider";
+import { createOpenAI } from "@ai-sdk/openai";
 import { streamText } from "ai";
 import { z } from "zod";
 import {
@@ -22,9 +22,10 @@ import { api } from "../../../../convex/_generated/api";
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
-// OpenRouter client - the single provider for all chat
-// Uses the official OpenRouter provider which handles message format conversion
-const openRouter = createOpenRouter({
+// OpenRouter client via OpenAI-compatible provider.
+const openRouter = createOpenAI({
+  name: "openrouter",
+  baseURL: "https://openrouter.ai/api/v1",
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 
