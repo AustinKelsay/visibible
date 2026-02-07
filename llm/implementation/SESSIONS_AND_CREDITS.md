@@ -450,9 +450,10 @@ SESSION_SECRET=your-session-secret-here
 ADMIN_PASSWORD=your-secret-admin-password
 ADMIN_PASSWORD_SECRET=your-hmac-secret
 
-# Convex
-CONVEX_DEPLOYMENT=prod:your-deployment
+# Convex runtime target (Next.js environment)
+# Use dev URL in local/preview, prod URL in production
 NEXT_PUBLIC_CONVEX_URL=https://your-deployment.convex.cloud
+CONVEX_SERVER_SECRET=your-convex-server-secret
 
 # Image generation
 ENABLE_IMAGE_GENERATION=true
@@ -464,6 +465,13 @@ OPENROUTER_TITLE=visibible
 LND_HOST=your-node.m.voltageapp.io
 LND_INVOICE_MACAROON=your-invoice-macaroon-hex
 ```
+
+Convex CLI deployment targeting (`CONVEX_DEPLOYMENT`) is managed with:
+
+- `.env.convex.dev` for dev commands
+- `.env.convex.prod` for production deploy commands
+
+See `llm/workflow/CONVEX_WORKFLOWS.md` for the full workflow.
 
 Generate secrets:
 
@@ -479,6 +487,7 @@ Some environment variables must be set in **both** Next.js (`.env.local`) and Co
 
 | Variable | Next.js | Convex | Notes |
 |----------|---------|--------|-------|
+| `CONVEX_SERVER_SECRET` | ✅ | ✅ | Must match exactly for authenticated server actions |
 | `ADMIN_PASSWORD_SECRET` | ✅ | ✅ | Must match exactly in both environments |
 
 **Why?** The admin login flow works in two stages:

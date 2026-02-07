@@ -90,7 +90,7 @@ Notes:
 `convex/verseImages.ts` exposes six main operations:
 
 ### `getLatestImage` (query)
-Returns the newest image for a verse, resolving a storage URL if needed. Includes prompt + metadata.
+Returns the newest image for a verse, preferring a permanent URL for storage-backed images (`/image/{storageId}` on Convex HTTP actions domain). Includes prompt + metadata.
 
 ### `getChapterImageStatus` (query)
 Returns a list of verse numbers in a chapter with their image counts. Used by `src/components/verse-strip.tsx` to display per-verse stacked dots (1 dot for single image, up to 3 overlapping dots for multiple images).
@@ -198,7 +198,7 @@ A `generation` query param is also sent to the API when there are existing image
 If an image fails to load:
 
 - The UI attempts to refresh the Convex query via `refreshToken` (up to 3 tries).
-- This forces `getImageHistory` to re-run and resolve fresh storage URLs.
+- This forces `getImageHistory` to re-run and recover from transient fetch failures.
 - If it still fails, the user can manually regenerate a new image.
 
 ---
@@ -206,8 +206,14 @@ If an image fails to load:
 ## Environment Requirements
 
 ```bash
-CONVEX_DEPLOYMENT=prod:your-deployment-name
 NEXT_PUBLIC_CONVEX_URL=https://your-deployment-name.convex.cloud
 ```
 
-These are required to enable persistence in the UI and should match the Convex deployment used for the `verseImages` table.
+`NEXT_PUBLIC_CONVEX_URL` is required to enable persistence in the UI and must match the deployment used for the `verseImages` table.
+
+For deployment targeting with Convex CLI, use:
+
+- `.env.convex.dev` with `CONVEX_DEPLOYMENT=dev:...`
+- `.env.convex.prod` with `CONVEX_DEPLOYMENT=prod:...`
+
+See `llm/workflow/CONVEX_WORKFLOWS.md`.

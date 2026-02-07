@@ -20,7 +20,7 @@ The delay disperses posts over time rather than publishing immediately. Publishi
 Requires one environment variable set in the **Convex Dashboard** (not `.env.local`):
 - `NOSTR_PRIVATE_KEY` - hex or nsec format private key
 
-`CONVEX_CLOUD_URL` is a built-in Convex system variable (no manual config needed).
+`CONVEX_SITE_URL` and `CONVEX_CLOUD_URL` are built-in Convex system variables. Publishing prefers `CONVEX_SITE_URL` and falls back to `CONVEX_CLOUD_URL`.
 
 If the private key is unset, publishing is silently skipped.
 
@@ -39,7 +39,7 @@ Genesis 1:1
 
 "In the beginning, God created the heavens and the earth."
 
-https://<deployment>.convex.cloud/image/<storageId>#.png
+https://<http-actions-domain>/image/<storageId>#.png
 
 View more at https://visibible.com/genesis/1/1
 ```

@@ -18,7 +18,7 @@ When configured, newly generated verse images are automatically published to Nos
 |----------|-------|---------|
 | `NOSTR_PRIVATE_KEY` | Hex (64 chars) or nsec format | `nsec1abc...` |
 
-`CONVEX_CLOUD_URL` is a built-in Convex system variable that's automatically available - no manual configuration needed.
+`CONVEX_SITE_URL` and `CONVEX_CLOUD_URL` are built-in Convex system variables. The implementation prefers `CONVEX_SITE_URL` (HTTP actions domain) and falls back to `CONVEX_CLOUD_URL`.
 
 If the private key is unset, Nostr publishing is silently skipped.
 
@@ -39,7 +39,7 @@ If the private key is unset, Nostr publishing is silently skipped.
 
 1. `saveImage` action saves image to Convex storage, receives `storageId`
 2. Schedules `publishToNostr` via `ctx.scheduler.runAfter(5 * 60 * 1000, ...)` passing `storageId`
-3. `publishToNostr` constructs permanent URL from `CONVEX_CLOUD_URL` + `storageId`
+3. `publishToNostr` constructs permanent URL from `CONVEX_SITE_URL` (fallback `CONVEX_CLOUD_URL`) + `storageId`
 4. Connects to relays, creates/signs event with permanent URL, publishes
 5. On success, calls `recordNostrPublication` to store event ID and relays
 
@@ -48,10 +48,10 @@ If the private key is unset, Nostr publishing is silently skipped.
 Nostr events are immutable - once published, they cannot be edited. To ensure images remain accessible forever, we serve images via a custom HTTP action endpoint:
 
 ```
-${CONVEX_CLOUD_URL}/image/${storageId}
+${CONVEX_SITE_URL || CONVEX_CLOUD_URL}/image/${storageId}
 ```
 
-Example: `https://your-deployment.convex.cloud/image/kg2abc123...`
+Example: `https://actions.dev.visibible.com/image/kg2abc123...`
 
 The HTTP endpoint (`convex/http.ts`) fetches from Convex storage and returns the blob with appropriate cache headers.
 
@@ -78,7 +78,7 @@ Genesis 1:1
 
 "In the beginning, God created the heavens and the earth."
 
-https://<deployment>.convex.cloud/image/<storageId>#.png
+https://<http-actions-domain>/image/<storageId>#.png
 
 View more at https://visibible.com/genesis/1/1
 ```
@@ -169,7 +169,7 @@ The `publishToNostr` action includes an idempotency check to prevent duplicate p
 ## Error Handling
 
 - Missing `NOSTR_PRIVATE_KEY`: Silently skipped with log message
-- Missing `CONVEX_CLOUD_URL`: Silently skipped with log message (rare - built-in variable)
+- Missing `CONVEX_SITE_URL` and `CONVEX_CLOUD_URL`: Silently skipped with log message
 - Image not found: Skipped (may have been deleted)
 - Already published: Skipped (idempotency check)
 - Relay connection failures: Caught and logged, doesn't affect image save

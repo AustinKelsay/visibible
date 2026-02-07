@@ -22,18 +22,80 @@ For accurate client IPs (rate limiting), configure trusted proxies in production
 
 ### Convex Setup
 
-To enable Convex features (image storage), create a deployment in the [Convex Dashboard](https://dashboard.convex.dev/):
+Set up two Convex deployments before release:
 
-1. Create a new deployment or use an existing one
-2. Copy the **deployment name** (format: `prod:your-deployment-name`) to `CONVEX_DEPLOYMENT`
-3. Copy the **public URL** (format: `https://your-deployment-name.convex.cloud`) to `NEXT_PUBLIC_CONVEX_URL`
+1. A **dev deployment** for local development and testing
+2. A **prod deployment** for Vercel production
 
-Both values are available in your Convex dashboard under Deployment Settings.
+Use separate local files to target deployments from the Convex CLI:
 
-4. **Sync schema and functions**: During local development, run `npx convex dev` to sync your schema and functions to the deployment. This watches for changes and automatically pushes updates.
-5. **Deploy to production**: When ready for production, run `npx convex deploy` to push your schema and functions to the deployment.
+```bash
+cp .env.convex.dev.example .env.convex.dev
+cp .env.convex.prod.example .env.convex.prod
+```
+
+Then fill in `CONVEX_DEPLOYMENT` in each file:
+
+- `.env.convex.dev` -> `dev:...`
+- `.env.convex.prod` -> `prod:...`
+
+For local app development, set `.env.local` to the **dev** deployment values:
+
+- `CONVEX_DEPLOYMENT=dev:...`
+- `NEXT_PUBLIC_CONVEX_URL=https://api.dev.visibible.com`
+- `CONVEX_SERVER_SECRET=<dev secret>`
+- `NEXT_PUBLIC_APP_URL=https://dev.visibible.com`
+- `OPENROUTER_REFERRER=https://dev.visibible.com`
+
+Use these commands:
+
+```bash
+# One-time Convex project/dev setup
+npm run convex:dev:setup
+
+# Daily Convex development watcher (functions + schema sync)
+npm run convex:dev
+
+# Deploy Convex backend to production
+npm run convex:deploy:prod
+```
 
 For more details on Convex functions and CLI commands, see [`convex/README.md`](convex/README.md).
+
+### Vercel Setup
+
+Use Vercel environments with this mapping:
+
+- `Development` -> local workflow, Convex dev
+- `Preview` -> PR/branch deployments, Convex dev
+- `Production` -> live deployment, Convex prod
+
+Use these templates when creating Vercel env vars:
+
+- `.env.vercel.preview.example`
+- `.env.vercel.prod.example`
+
+Domain mapping:
+
+- Preview frontend: `dev.visibible.com`
+- Preview Convex API: `api.dev.visibible.com`
+- Preview Convex HTTP Actions (optional): `actions.dev.visibible.com`
+- Production frontend: `visibible.com`
+- Production Convex API: `api.visibible.com`
+- Production Convex HTTP Actions (optional): `actions.visibible.com`
+
+Helpful commands:
+
+```bash
+# Link this repo to a Vercel project
+npm run vercel:link
+
+# Pull current Vercel env vars by environment
+npm run vercel:env:pull:preview
+npm run vercel:env:pull:production
+```
+
+Full runbook: [`llm/workflow/VERCEL_WORKFLOWS.md`](llm/workflow/VERCEL_WORKFLOWS.md)
 
 ## Vercel AI SDK
 
