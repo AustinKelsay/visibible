@@ -1,6 +1,6 @@
 # visibible
 
-Prototype. Vibe with the bible.
+Explore Scripture with AI-powered insights and imagery.
 
 ## Run
 
