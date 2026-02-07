@@ -11,6 +11,7 @@ import { VerseStrip } from "@/components/verse-strip";
 import { Footer } from "@/components/footer";
 import { VerseAnalytics } from "@/components/verse-analytics";
 import { BOOK_BY_SLUG } from "@/data/bible-structure";
+import { genesis1Theme } from "@/data/genesis-1";
 import { getVerse } from "@/lib/bible-api";
 import { getTranslationFromCookies } from "@/lib/get-translation";
 import {
@@ -130,6 +131,10 @@ export default async function VersePage({ params }: VersePageProps) {
     nextVerse,
   };
   const currentReference = `${bookData.name} ${location.chapter}:${location.verse}`;
+  const chapterTheme =
+    location.book.slug === "genesis" && location.chapter === 1
+      ? genesis1Theme
+      : undefined;
 
   return (
     <LayoutWrapper>
@@ -154,6 +159,7 @@ export default async function VersePage({ params }: VersePageProps) {
         <HeroImage
           verseText={verseData.text}
           caption={verseData.text}
+          chapterTheme={chapterTheme}
           prevUrl={prevUrl}
           nextUrl={nextUrl}
           prevVerse={prevVerse}
