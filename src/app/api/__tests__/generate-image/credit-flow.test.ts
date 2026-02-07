@@ -28,6 +28,8 @@ process.env.ENABLE_SCENE_PLANNER = "false";
 
 // Store original env AFTER setting test vars
 const originalEnv = { ...process.env };
+let forceQuoteFailure = false;
+let forceRecordImageCostEventFailure = false;
 
 // Mock modules
 vi.mock("@/lib/validate-env", () => ({
@@ -68,10 +70,37 @@ vi.mock("@/lib/convex-client", () => ({
       return { allowed: true, retryAfter: 0 };
     }),
     action: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if ("usd" in args && !("generationId" in args)) {
+        if (forceQuoteFailure) {
+          throw new Error("quote failure");
+        }
+        mockState.callHistory.push({ action: "quoteUsdCost", args });
+        const usd = args.usd as number;
+        const billedUsd = usd * 1.25;
+        return {
+          providerUsd: usd,
+          billedUsd,
+          credits: Math.max(1, Math.ceil(billedUsd / 0.01)),
+        };
+      }
+
       const sid = args.sid as string;
       const session = mockState.sessions.get(sid);
 
       // Dispatch based on args structure
+      if ("enqueueReason" in args) {
+        mockState.callHistory.push({ action: "enqueueImageCostEventOutbox", args });
+        return { enqueued: true };
+      }
+
+      if ("requestId" in args && "actualCreditsCost" in args) {
+        if (forceRecordImageCostEventFailure) {
+          throw new Error("record cost event failure");
+        }
+        mockState.callHistory.push({ action: "recordImageCostEvent", args });
+        return { trackedCredits: args.actualCreditsCost };
+      }
+
       if ("endpoint" in args && "estimatedCredits" in args) {
         // logAdminUsage
         mockState.callHistory.push({ action: "logAdminUsage", args });
@@ -182,6 +211,7 @@ vi.mock("@/lib/image-models", () => ({
     }
     return { credits: Math.ceil(actualUsd * 1.25 / 0.01), usedActual: true };
   }),
+  CONSERVATIVE_ESTIMATE_MULTIPLIER: 35,
   getProviderName: vi.fn(() => "openrouter"),
   CREDIT_USD: 0.01,
   PREMIUM_MULTIPLIER: 1.25,
@@ -247,6 +277,8 @@ describe("Image Generation API Credit Flow", () => {
     vi.clearAllMocks();
     resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 }]);
     mockFetchResponse = null;
+    forceQuoteFailure = false;
+    forceRecordImageCostEventFailure = false;
     global.fetch = mockFetch as unknown as typeof fetch;
   });
 
@@ -314,6 +346,36 @@ describe("Image Generation API Credit Flow", () => {
       const body = await response.json();
       expect(body.usedFallbackEstimate).toBe(true);
       expect(body.usedActualCost).toBe(false);
+    });
+
+    it("actual-usage-local-fallback: quote failure still charges from usage.cost", async () => {
+      forceQuoteFailure = true;
+      mockFetchResponse = {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          id: "gen-123",
+          choices: [
+            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+          ],
+          usage: { cost: 0.05 },
+        }),
+      };
+
+      const { GET } = await import("../../generate-image/route");
+
+      const url = new URL("http://localhost:3000/api/generate-image");
+      url.searchParams.set("text", "Fallback usage test");
+
+      const request = new Request(url.toString(), { method: "GET" });
+      const response = await GET(request);
+
+      expect(response.status).toBe(200);
+      const body = await response.json();
+      expect(body.imageCreditsCost).toBe(7);
+      expect(body.creditsCost).toBe(7);
+      expect(body.usedActualCost).toBe(true);
+      expect(body.neutralCostUsedForActual).toBe(false);
     });
 
     it("resolution-multiplier-gemini: applies 3.5x for 2K", async () => {
@@ -455,6 +517,32 @@ describe("Image Generation API Credit Flow", () => {
       expect(response.status).toBe(429);
       const body = await response.json();
       expect(body.error).toBe("Daily spending limit exceeded");
+    });
+
+    it("cost-event-failure-enqueues-outbox: generation still succeeds", async () => {
+      forceRecordImageCostEventFailure = true;
+      mockFetchResponse = {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          id: "gen-123",
+          choices: [
+            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+          ],
+          usage: { cost: 0.05 },
+        }),
+      };
+
+      const { GET } = await import("../../generate-image/route");
+
+      const url = new URL("http://localhost:3000/api/generate-image");
+      url.searchParams.set("text", "Outbox fallback test");
+
+      const request = new Request(url.toString(), { method: "GET" });
+      const response = await GET(request);
+
+      expect(response.status).toBe(200);
+      expect(getCallCount("enqueueImageCostEventOutbox")).toBe(1);
     });
   });
 

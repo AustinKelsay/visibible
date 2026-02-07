@@ -24,4 +24,12 @@ crons.daily(
   internal.cleanup.cleanupAdminLoginAttempts
 );
 
+// Retry image cost events that could not be persisted during request handling.
+crons.interval(
+  "process image cost event outbox",
+  { minutes: 5 },
+  internal.costs.processCostEventOutboxBatch,
+  { limit: 20 }
+);
+
 export default crons;

@@ -4,11 +4,9 @@ import {
   fetchImageModels,
   computeCreditsCost,
   computeAdjustedCreditsCost,
-  computeConservativeEstimate,
-  computeCreditsFromActualUsage,
+  CONSERVATIVE_ESTIMATE_MULTIPLIER,
   getProviderName,
   CREDIT_USD,
-  PREMIUM_MULTIPLIER,
   DEFAULT_ASPECT_RATIO,
   DEFAULT_RESOLUTION,
   RESOLUTIONS,
@@ -41,7 +39,16 @@ const DEFAULT_TEXT = "In the beginning God created the heaven and the earth.";
 const PROMPT_VERSION = "2026-01-07";
 const DEFAULT_STYLE_PROFILE = "classical";
 const DEFAULT_SCENE_PLANNER_MODEL = DEFAULT_CHAT_MODEL;
+const DEFAULT_TRANSLATION_ID = "default";
 const SCENE_PLAN_MAX_FIELD_LENGTH = 180;
+const PROMPT_MAX_CHARS = 2800;
+const CONTINUITY_HINT_MAX_CHARS = 160;
+const SCENE_PLANNER_VERSE_MAX_CHARS = 280;
+const DEFAULT_COST_MARKUP_MULTIPLIER = 1.25;
+const COST_EVENT_PERSIST_TIMEOUT_MS = Number.parseInt(
+  process.env.COST_EVENT_PERSIST_TIMEOUT_MS || "1500",
+  10
+);
 // Scene planner timeout in milliseconds (default 10 seconds, configurable via env var)
 const SCENE_PLANNER_TIMEOUT_MS = Number.parseInt(
   process.env.SCENE_PLANNER_TIMEOUT_MS || "10000",
@@ -56,6 +63,37 @@ type ScenePlan = {
   mood?: string;
   timeOfDay?: string;
   composition?: string;
+};
+
+type PromptPacket = {
+  verseId: string;
+  translationId: string;
+  reference: string;
+  currentVerse: string;
+  styleProfileId: string;
+  aspectRatio: ImageAspectRatio;
+  resolution: ImageResolution;
+  chapterTheme?: {
+    setting: string;
+    palette: string;
+    elements: string;
+    style: string;
+  };
+  continuity?: {
+    previous?: string;
+    next?: string;
+  };
+  scenePlan?: ScenePlan;
+  flags: {
+    scenePlannerUsed: boolean;
+    scenePlanFromCache: boolean;
+    narrativeContextIncluded: boolean;
+    generationNoteIncluded: boolean;
+  };
+  budget: {
+    maxChars: number;
+    finalChars: number;
+  };
 };
 
 function normalizeSceneField(value: unknown): string | undefined {
@@ -112,6 +150,66 @@ function formatScenePlan(scenePlan: ScenePlan): string {
   if (scenePlan.timeOfDay) lines.push(`Time of day: ${scenePlan.timeOfDay}`);
   if (scenePlan.composition) lines.push(`Composition: ${scenePlan.composition}`);
   return `\n\n${lines.join("\n")}`;
+}
+
+function clipText(value: string, maxChars: number): string {
+  if (!value) return "";
+  const normalized = value.replace(/\s+/g, " ").trim();
+  if (normalized.length <= maxChars) return normalized;
+  return `${normalized.slice(0, Math.max(0, maxChars - 1)).trimEnd()}…`;
+}
+
+function toVerseId(reference: string): string {
+  return reference
+    .toLowerCase()
+    .replace(/:/g, "-")
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function sanitizeRequestId(value: string | null): string | null {
+  if (!value) return null;
+  const cleaned = value.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 80);
+  return cleaned.length >= 8 ? cleaned : null;
+}
+
+function sanitizeTranslationId(value: string | null): string {
+  if (!value) return DEFAULT_TRANSLATION_ID;
+  const cleaned = value.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40);
+  return cleaned || DEFAULT_TRANSLATION_ID;
+}
+
+function toContinuityHint(verse: { number: number; text: string } | null): string | undefined {
+  if (!verse) return undefined;
+  const text = clipText(verse.text, CONTINUITY_HINT_MAX_CHARS);
+  return text ? `v${verse.number}: ${text}` : undefined;
+}
+
+function quoteUsdCostLocally(usd: number): { credits: number; billedUsd: number } {
+  const billedUsd = usd * DEFAULT_COST_MARKUP_MULTIPLIER;
+  return {
+    credits: Math.max(1, Math.ceil(billedUsd / CREDIT_USD)),
+    billedUsd,
+  };
+}
+
+async function withTimeout<T>(
+  promise: Promise<T>,
+  timeoutMs: number,
+  timeoutMessage: string
+): Promise<T> {
+  const effectiveTimeout = Number.isFinite(timeoutMs) && timeoutMs > 0 ? timeoutMs : 1500;
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => reject(new Error(timeoutMessage)), effectiveTimeout);
+  });
+  try {
+    return await Promise.race([promise, timeoutPromise]);
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId);
+  }
 }
 
 // Security: Validate and sanitize Bible reference format
@@ -245,6 +343,9 @@ export async function GET(request: Request) {
   const requestedStyleId = searchParams.get("style");
   const requestedAspectRatio = searchParams.get("aspectRatio");
   const requestedResolution = searchParams.get("resolution");
+  const translationId = sanitizeTranslationId(searchParams.get("translation"));
+  const clientRequestId = sanitizeRequestId(searchParams.get("requestId")) || crypto.randomUUID();
+  const verseId = toVerseId(reference);
 
   // Validate and set aspect ratio (default: 16:9)
   const aspectRatio: ImageAspectRatio = requestedAspectRatio && isValidAspectRatio(requestedAspectRatio)
@@ -364,8 +465,13 @@ export async function GET(request: Request) {
   }
 
   // SECURITY: Reject models without valid pricing (prevents cost abuse)
-  const baseImageCreditsCost = computeCreditsCost(modelPricing);
-  if (baseImageCreditsCost === null) {
+  const parsedModelPricingUsd = modelPricing ? Number.parseFloat(modelPricing) : Number.NaN;
+  const legacyBaseImageCreditsCost = computeCreditsCost(modelPricing);
+  if (
+    legacyBaseImageCreditsCost === null ||
+    !Number.isFinite(parsedModelPricingUsd) ||
+    parsedModelPricingUsd <= 0
+  ) {
     return NextResponse.json(
       {
         error: "Model pricing unavailable",
@@ -374,6 +480,33 @@ export async function GET(request: Request) {
       { status: 400 }
     );
   }
+
+  const quoteUsdCost = async (
+    usd: number
+  ): Promise<{ credits: number; billedUsd: number; viaNeutralCost: boolean }> => {
+    try {
+      const quote = await convex.action(api.costs.quoteUsdCost, {
+        usd,
+        serverSecret,
+      });
+      return {
+        credits: quote.credits,
+        billedUsd: quote.billedUsd,
+        viaNeutralCost: true,
+      };
+    } catch (error) {
+      console.warn("[Image API] Neutral cost quote failed, using local fallback:", error);
+      const localQuote = quoteUsdCostLocally(usd);
+      return {
+        credits: localQuote.credits,
+        billedUsd: localQuote.billedUsd,
+        viaNeutralCost: false,
+      };
+    }
+  };
+
+  const baseImageQuote = await quoteUsdCost(parsedModelPricingUsd);
+  const baseImageCreditsCost = baseImageQuote.credits;
 
   // Check if this model supports resolution settings
   // Only certain models (currently Gemini) support configurable resolution
@@ -385,18 +518,47 @@ export async function GET(request: Request) {
 
   // Compute conservative estimate for reservation (accounts for OpenRouter API pricing discrepancy)
   // The OpenRouter models API often underreports actual costs for multimodal image models
-  const baseReservationCredits = computeConservativeEstimate(modelPricing);
-  const reservationImageCredits = computeAdjustedCreditsCost(baseReservationCredits, resolution, modelId);
+  const baseReservationCredits = Math.ceil(
+    baseImageCreditsCost * CONSERVATIVE_ESTIMATE_MULTIPLIER
+  );
+  const reservationImageCredits = computeAdjustedCreditsCost(
+    baseReservationCredits,
+    resolution,
+    modelId
+  );
 
   // Determine scene planner settings early for cost calculation
   const enableScenePlanner = process.env.ENABLE_SCENE_PLANNER !== "false";
   const scenePlannerModel =
     process.env.OPENROUTER_SCENE_PLANNER_MODEL || DEFAULT_SCENE_PLANNER_MODEL;
 
-  // Calculate scene planner cost if enabled and not using a free model
+  // Phase 2: check scene plan cache before deciding planner cost.
+  let cachedScenePlan: ScenePlan | null = null;
+  let scenePlanFromCache = false;
+  if (enableScenePlanner) {
+    try {
+      const cacheEntry = await convex.query(api.verseImages.getScenePlanCache, {
+        verseId,
+        translationId,
+        styleProfileId: styleProfile.id,
+        serverSecret,
+      });
+      const normalizedCached = cacheEntry?.scenePlan
+        ? normalizeScenePlan(cacheEntry.scenePlan)
+        : null;
+      if (normalizedCached) {
+        cachedScenePlan = normalizedCached;
+        scenePlanFromCache = true;
+      }
+    } catch (error) {
+      console.warn("[Image API] Scene plan cache lookup failed:", error);
+    }
+  }
+
+  // Calculate scene planner cost only when planner call is still needed.
   let scenePlannerCreditsCost = 0;
   let scenePlannerCostUsd = 0;
-  if (enableScenePlanner) {
+  if (enableScenePlanner && !scenePlanFromCache) {
     const scenePlannerPricing = await getChatModelPricing(
       scenePlannerModel,
       openRouterApiKey
@@ -437,6 +599,85 @@ export async function GET(request: Request) {
     );
   }
   const isAdmin = session?.tier === "admin";
+  let generationRequestCreated = false;
+  const generationRequestId = clientRequestId;
+
+  const createGenerationRequest = async () => {
+    if (generationRequestCreated) return;
+    try {
+      await convex.mutation(api.verseImages.createGenerationRequest, {
+        requestId: generationRequestId,
+        sid,
+        verseId,
+        translationId,
+        reference,
+        modelId,
+        aspectRatio,
+        resolution,
+        promptVersion: PROMPT_VERSION,
+        scenePlannerModel: scenePlannerModel,
+        estimatedCreditsCost,
+        estimatedCostUsd: estimatedTotalCostUsd,
+        serverSecret,
+      });
+      generationRequestCreated = true;
+    } catch (error) {
+      console.warn("[Image API] Failed to create generation request:", error);
+    }
+  };
+
+  const updateGenerationRequest = async (
+    status: "planning" | "generating" | "succeeded" | "failed",
+    updates?: {
+      error?: string;
+      generationId?: string;
+      providerRequestId?: string;
+      scenePlannerUsed?: boolean;
+      scenePlanFromCache?: boolean;
+      usedFallbackEstimate?: boolean;
+      promptPacket?: PromptPacket;
+      actualCreditsCost?: number;
+      actualCostUsd?: number;
+      durationMs?: number;
+    }
+  ) => {
+    if (!generationRequestCreated) return;
+    try {
+      await convex.mutation(api.verseImages.updateGenerationRequest, {
+        requestId: generationRequestId,
+        status,
+        ...(updates?.error ? { error: updates.error } : {}),
+        ...(updates?.generationId ? { generationId: updates.generationId } : {}),
+        ...(updates?.providerRequestId
+          ? { providerRequestId: updates.providerRequestId }
+          : {}),
+        ...(updates?.scenePlannerUsed !== undefined
+          ? { scenePlannerUsed: updates.scenePlannerUsed }
+          : {}),
+        ...(updates?.scenePlanFromCache !== undefined
+          ? { scenePlanFromCache: updates.scenePlanFromCache }
+          : {}),
+        ...(updates?.usedFallbackEstimate !== undefined
+          ? { usedFallbackEstimate: updates.usedFallbackEstimate }
+          : {}),
+        ...(updates?.promptPacket ? { promptPacket: updates.promptPacket } : {}),
+        ...(updates?.actualCreditsCost !== undefined
+          ? { actualCreditsCost: updates.actualCreditsCost }
+          : {}),
+        ...(updates?.actualCostUsd !== undefined
+          ? { actualCostUsd: updates.actualCostUsd }
+          : {}),
+        ...(updates?.durationMs !== undefined
+          ? { durationMs: updates.durationMs }
+          : {}),
+        serverSecret,
+      });
+    } catch (error) {
+      console.warn("[Image API] Failed to update generation request:", error);
+    }
+  };
+
+  await createGenerationRequest();
 
   // Skip credit checks for admin users but log for audit trail
   if (!isAdmin) {
@@ -453,19 +694,27 @@ export async function GET(request: Request) {
     if (!reserveResult.success) {
       // Check if failure is due to daily spending limit vs insufficient credits
       if ("dailyLimit" in reserveResult) {
+        await updateGenerationRequest("failed", {
+          error: "Daily spending limit exceeded",
+        });
         return NextResponse.json(
           {
             error: "Daily spending limit exceeded",
             dailyLimit: reserveResult.dailyLimit,
             dailySpent: reserveResult.dailySpent,
+            requestId: generationRequestId,
             remaining: reserveResult.remaining,
           },
           { status: 429 } // Too Many Requests - appropriate for rate/limit exceeded
         );
       }
+      await updateGenerationRequest("failed", {
+        error: "Insufficient credits",
+      });
       return NextResponse.json(
         {
           error: "Insufficient credits",
+          requestId: generationRequestId,
           required: cost,
           available:
             "available" in reserveResult ? reserveResult.available : 0,
@@ -519,10 +768,12 @@ export async function GET(request: Request) {
     // Continue without context - graceful degradation
   }
 
-  // Build prompt with storyboard context for visual continuity
-  const aspectRatioLabel = aspectRatio === "21:9" ? "ULTRA-WIDE CINEMATIC" :
-    aspectRatio === "3:2" ? "CLASSIC WIDE" : "WIDESCREEN";
-  const aspectRatioInstruction = `Generate the image in ${aspectRatioLabel} LANDSCAPE format with a ${aspectRatio} aspect ratio (wide, not square).`;
+  const aspectRatioLabel = aspectRatio === "21:9"
+    ? "ULTRA-WIDE CINEMATIC"
+    : aspectRatio === "3:2"
+      ? "CLASSIC WIDE"
+      : "WIDESCREEN";
+  const aspectRatioInstruction = `Aspect ratio: ${aspectRatio} (${aspectRatioLabel} landscape).`;
 
   /**
    * Get ordinal suffix for a number (1st, 2nd, 3rd, 4th, etc.)
@@ -539,27 +790,33 @@ export async function GET(request: Request) {
   // Add generation diversity for non-first images
   let generationNote = "";
   if (generationNumber && generationNumber > 1) {
-    generationNote = `\n\nNOTE: This is the ${generationNumber}${getOrdinalSuffix(generationNumber)} generation of this image. Create a fresh, diverse interpretation while maintaining the core biblical scene.`;
+    generationNote = `\n\nVariation note: ${generationNumber}${getOrdinalSuffix(generationNumber)} generation for this verse. Keep the same canonical scene, but vary composition and camera feel.`;
   }
 
-  // Build narrative context section
-  let narrativeContext = "";
-  if (prevVerse || nextVerse) {
-    narrativeContext = "\n\nNARRATIVE CONTEXT (for visual continuity - this is a storyboard):";
-    if (prevVerse) {
-      narrativeContext += `\n- Previous scene (v${prevVerse.number}): "${prevVerse.text}"`;
-    }
-    narrativeContext += `\n- CURRENT SCENE (the verse to illustrate): "${verseText}"`;
-    if (nextVerse) {
-      narrativeContext += `\n- Next scene (v${nextVerse.number}): "${nextVerse.text}"`;
-    }
-    narrativeContext += "\n\nThis is part of a visual storyboard through Scripture. Maintain visual consistency with the flow of the narrative while focusing on THIS verse's moment.";
-  }
+  const prevHint = toContinuityHint(prevVerse);
+  const nextHint = toContinuityHint(nextVerse);
 
   // Scene planner settings already defined above for cost calculation
+  await updateGenerationRequest("planning");
 
-  const buildScenePlan = async (): Promise<ScenePlan | null> => {
-    if (!enableScenePlanner) return null;
+  const buildScenePlan = async (): Promise<{
+    scenePlan: ScenePlan | null;
+    fromCache: boolean;
+  }> => {
+    if (cachedScenePlan) {
+      void convex
+        .mutation(api.verseImages.markScenePlanCacheHit, {
+          verseId,
+          translationId,
+          styleProfileId: styleProfile.id,
+          serverSecret,
+        })
+        .catch((error) => {
+          console.warn("[Image API] Scene plan cache hit update failed:", error);
+        });
+      return { scenePlan: cachedScenePlan, fromCache: true };
+    }
+    if (!enableScenePlanner) return { scenePlan: null, fromCache: false };
     const scenePlannerPrompt = `You are a scene planner for biblical illustrations. Return ONLY valid JSON.
 
 Rules:
@@ -574,9 +831,9 @@ primarySubject, action, setting, secondaryElements, mood, timeOfDay, composition
 
 Inputs:
 Reference: ${reference}
-Verse: "${verseText}"
-${prevVerse ? `Previous: "${prevVerse.text}"` : ""}
-${nextVerse ? `Next: "${nextVerse.text}"` : ""}
+Verse: "${clipText(verseText, SCENE_PLANNER_VERSE_MAX_CHARS)}"
+${prevVerse ? `Previous: "${clipText(prevVerse.text, SCENE_PLANNER_VERSE_MAX_CHARS)}"` : ""}
+${nextVerse ? `Next: "${clipText(nextVerse.text, SCENE_PLANNER_VERSE_MAX_CHARS)}"` : ""}
 ${chapterTheme ? `Theme setting: ${chapterTheme.setting}` : "Theme setting: none"}
 ${chapterTheme ? `Theme elements: ${chapterTheme.elements}` : "Theme elements: none"}
 Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
@@ -614,7 +871,7 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
 
       if (!response.ok) {
         console.warn(`[Image API] Scene planner failed: status=${response.status}`);
-        return null;
+        return { scenePlan: null, fromCache: false };
       }
 
       const data = await response.json();
@@ -628,10 +885,26 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
           .join("");
       }
 
-      if (!content) return null;
+      if (!content) return { scenePlan: null, fromCache: false };
       const jsonString = extractJsonObject(content) || content.trim();
       const parsed = JSON.parse(jsonString);
-      return normalizeScenePlan(parsed);
+      const normalized = normalizeScenePlan(parsed);
+      if (normalized) {
+        void convex
+          .mutation(api.verseImages.upsertScenePlanCache, {
+            verseId,
+            translationId,
+            styleProfileId: styleProfile.id,
+            scenePlan: normalized,
+            plannerModel: scenePlannerModel,
+            promptVersion: PROMPT_VERSION,
+            serverSecret,
+          })
+          .catch((error) => {
+            console.warn("[Image API] Scene plan cache upsert failed:", error);
+          });
+      }
+      return { scenePlan: normalized, fromCache: false };
     } catch (error) {
       if (error instanceof Error && error.name === "AbortError") {
         console.warn(
@@ -640,14 +913,15 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
       } else {
         console.warn("[Image API] Scene planner error:", error);
       }
-      return null;
+      return { scenePlan: null, fromCache: false };
     }
   };
 
-  const scenePlan = await buildScenePlan();
+  const { scenePlan, fromCache: runtimeScenePlanFromCache } = await buildScenePlan();
+  scenePlanFromCache = runtimeScenePlanFromCache;
 
   // Track whether scene planner was actually used (for partial refund on failure)
-  const scenePlannerUsed = scenePlan !== null;
+  const scenePlannerUsed = scenePlan !== null && !scenePlanFromCache;
 
   // If scene planner failed/returned null but we reserved credits for it, issue partial refund
   if (
@@ -685,74 +959,159 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
     }
   }
 
+  const includeNarrativeContext = !scenePlannerUsed && Boolean(prevHint || nextHint);
+  const narrativeContext = includeNarrativeContext
+    ? [
+      "",
+      "",
+      "NARRATIVE CONTINUITY:",
+      ...(prevHint ? [`- Previous: ${prevHint}`] : []),
+      ...(nextHint ? [`- Next: ${nextHint}`] : []),
+      "Keep continuity cues only; focus composition on the current verse moment.",
+    ].join("\n")
+    : "";
+
   const promptInputs = {
     reference,
     aspectRatio,
     styleProfileId: styleProfile.id,
     ...(scenePlan ? { scenePlan } : {}),
     ...(generationNumber ? { generationNumber } : {}),
-    ...(prevVerse ? { prevVerse } : {}),
-    ...(nextVerse ? { nextVerse } : {}),
+    ...(prevVerse ? { prevVerse: { ...prevVerse, text: clipText(prevVerse.text, CONTINUITY_HINT_MAX_CHARS) } } : {}),
+    ...(nextVerse ? { nextVerse: { ...nextVerse, text: clipText(nextVerse.text, CONTINUITY_HINT_MAX_CHARS) } } : {}),
   };
 
-  const priorityRules = `PRIORITY RULES (must follow):
-1) ABSOLUTE: ZERO text of any kind. No letters, words, numbers, punctuation, symbols, runes, glyphs, sigils, logos, watermarks, captions, subtitles, labels, signage, banners, or inscriptions. Do not render the verse text or any readable/unreadable text-like marks. If a surface would normally contain writing (scrolls, tablets, signs), leave it blank or use abstract texture.
-2) FULL-BLEED IMMERSIVE SCENE: edge-to-edge cinematic composition. No borders, frames, mattes, canvas edges, stretcher bars, wall-hung paintings, posters, prints, photographs, gallery/museum settings, mockups, or letterboxing. Do not depict the scene as artwork on a wall or in a frame; the image itself is the scene. No white wall or studio backdrop. Do not leave blank margins. Avoid solid white or empty backgrounds; fill negative space with atmospheric darkness, clouds, or textured sky/land. The viewer is IN the scene.
-3) SINGLE SCENE ONLY: no split panels, diptychs, triptychs, insets, collages, or multiple scenes in one frame.`;
+  const priorityRules = `PRIORITY RULES:
+1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).
+2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, or blank backdrop).
+3) Single unified scene only (no split panels, collage, or multi-scene layout).`;
 
   const globalNegatives = `GLOBAL NEGATIVES:
-- No modern artifacts or technology (vehicles, screens, guns, electrical lighting, contemporary architecture, modern clothing).
+- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).
 - No anachronistic materials (plastic, neon, LEDs).
 - No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).`;
 
   const scenePlanBlock = scenePlan ? formatScenePlan(scenePlan) : "";
+  const styleSummary = [
+    `STYLE PROFILE: ${styleProfile.label}`,
+    `Rendering: ${styleProfile.rendering}`,
+    styleProfile.palette ? `Palette: ${styleProfile.palette}` : "",
+    styleProfile.lighting ? `Lighting: ${styleProfile.lighting}` : "",
+    styleProfile.materials ? `Materials/Texture: ${styleProfile.materials}` : "",
+    styleProfile.composition ? `Composition: ${styleProfile.composition}` : "",
+    "",
+    "STYLE NEGATIVES:",
+    styleProfile.negative,
+  ]
+    .filter(Boolean)
+    .join("\n");
 
-  let prompt: string;
-  if (chapterTheme) {
-    prompt = `${priorityRules}
+  const buildPrompt = (options: {
+    includeNarrative: boolean;
+    includeGenerationNote: boolean;
+    includeFullStyleDetails: boolean;
+  }): string => {
+    const styleBlock = options.includeFullStyleDetails
+      ? styleSummary
+      : `STYLE PROFILE: ${styleProfile.label}
+Rendering: ${styleProfile.rendering}
 
-SCENE:
-Render a single, cohesive biblical-era scene for ${reference}: "${verseText}"${scenePlanBlock}${narrativeContext}${generationNote}
+STYLE NEGATIVES:
+${styleProfile.negative}`;
 
-CHAPTER THEME:
+    const chapterThemeBlock = chapterTheme
+      ? `CHAPTER THEME:
 Setting: ${chapterTheme.setting}
 Visual elements: ${chapterTheme.elements}
 Color palette: ${chapterTheme.palette}
 Style: ${chapterTheme.style}
 
-STYLE PROFILE: ${styleProfile.label}
-Rendering: ${styleProfile.rendering}
-${styleProfile.palette ? `Palette: ${styleProfile.palette}` : ""}
-${styleProfile.lighting ? `Lighting: ${styleProfile.lighting}` : ""}
-${styleProfile.materials ? `Materials/Texture: ${styleProfile.materials}` : ""}
-${styleProfile.composition ? `Composition: ${styleProfile.composition}` : ""}
+`
+      : "";
 
-STYLE NEGATIVES:
-${styleProfile.negative}
+    const generationBlock = options.includeGenerationNote ? generationNote : "";
+    const continuityBlock = options.includeNarrative ? narrativeContext : "";
 
-${globalNegatives}
-
-${aspectRatioInstruction}`;
-  } else {
-    prompt = `${priorityRules}
+    return `${priorityRules}
 
 SCENE:
-Render a single, cohesive biblical-era scene for ${reference}: "${verseText}"${scenePlanBlock}${narrativeContext}${generationNote}
+Render a single, cohesive biblical-era scene for ${reference}: "${clipText(verseText, 900)}"${scenePlanBlock}${continuityBlock}${generationBlock}
 
-STYLE PROFILE: ${styleProfile.label}
-Rendering: ${styleProfile.rendering}
-${styleProfile.palette ? `Palette: ${styleProfile.palette}` : ""}
-${styleProfile.lighting ? `Lighting: ${styleProfile.lighting}` : ""}
-${styleProfile.materials ? `Materials/Texture: ${styleProfile.materials}` : ""}
-${styleProfile.composition ? `Composition: ${styleProfile.composition}` : ""}
-
-STYLE NEGATIVES:
-${styleProfile.negative}
+${chapterThemeBlock}${styleBlock}
 
 ${globalNegatives}
 
 ${aspectRatioInstruction}`;
+  };
+
+  let includeNarrative = includeNarrativeContext;
+  let includeGeneration = Boolean(generationNote);
+  let includeFullStyle = true;
+  let prompt = buildPrompt({
+    includeNarrative,
+    includeGenerationNote: includeGeneration,
+    includeFullStyleDetails: includeFullStyle,
+  });
+
+  if (prompt.length > PROMPT_MAX_CHARS && includeNarrative) {
+    includeNarrative = false;
+    prompt = buildPrompt({
+      includeNarrative,
+      includeGenerationNote: includeGeneration,
+      includeFullStyleDetails: includeFullStyle,
+    });
   }
+
+  if (prompt.length > PROMPT_MAX_CHARS && includeGeneration) {
+    includeGeneration = false;
+    prompt = buildPrompt({
+      includeNarrative,
+      includeGenerationNote: includeGeneration,
+      includeFullStyleDetails: includeFullStyle,
+    });
+  }
+
+  if (prompt.length > PROMPT_MAX_CHARS && includeFullStyle) {
+    includeFullStyle = false;
+    prompt = buildPrompt({
+      includeNarrative,
+      includeGenerationNote: includeGeneration,
+      includeFullStyleDetails: includeFullStyle,
+    });
+  }
+
+  if (prompt.length > PROMPT_MAX_CHARS) {
+    prompt = prompt.slice(0, PROMPT_MAX_CHARS).trimEnd();
+  }
+
+  const promptPacket: PromptPacket = {
+    verseId,
+    translationId,
+    reference,
+    currentVerse: clipText(verseText, 350),
+    styleProfileId: styleProfile.id,
+    aspectRatio,
+    resolution,
+    ...(chapterTheme ? { chapterTheme } : {}),
+    ...((prevHint || nextHint) ? { continuity: { ...(prevHint ? { previous: prevHint } : {}), ...(nextHint ? { next: nextHint } : {}) } } : {}),
+    ...(scenePlan ? { scenePlan } : {}),
+    flags: {
+      scenePlannerUsed,
+      scenePlanFromCache,
+      narrativeContextIncluded: includeNarrative,
+      generationNoteIncluded: includeGeneration,
+    },
+    budget: {
+      maxChars: PROMPT_MAX_CHARS,
+      finalChars: prompt.length,
+    },
+  };
+
+  await updateGenerationRequest("generating", {
+    scenePlannerUsed,
+    scenePlanFromCache,
+    promptPacket,
+  });
 
   try {
     // Use OpenRouter chat completions with Gemini for image generation
@@ -830,12 +1189,20 @@ ${aspectRatioInstruction}`;
     const effectiveScenePlannerCredits = scenePlannerUsed ? scenePlannerCreditsCost : 0;
     const effectiveScenePlannerCostUsd = scenePlannerUsed ? scenePlannerCostUsd : 0;
 
-    // Compute actual image credits from OpenRouter usage
-    // Use API-based estimate as fallback (imageCreditsCost) rather than conservative 35x (reservationImageCredits)
-    const { credits: actualImageCredits, usedActual } = computeCreditsFromActualUsage(
-      openRouterUsageUsd,
-      imageCreditsCost // Fall back to API-based estimate, not conservative 35x
-    );
+    // Compute actual image credits from OpenRouter usage via Neutral Cost quote.
+    // If usage is missing, fall back to API-based estimate (imageCreditsCost), not conservative reservation.
+    let actualImageCredits = imageCreditsCost;
+    let actualImageCostUsd = imageCreditsCost * CREDIT_USD;
+    const usedActual = openRouterUsageUsd !== null && openRouterUsageUsd > 0;
+    let neutralCostUsedForActual = false;
+
+    if (usedActual) {
+      const actualQuote = await quoteUsdCost(openRouterUsageUsd);
+      actualImageCredits = actualQuote.credits;
+      actualImageCostUsd = actualQuote.billedUsd;
+      neutralCostUsedForActual = actualQuote.viaNeutralCost;
+    }
+
     const usedFallbackEstimate = !usedActual;
 
     // Log when fallback is used for retroactive analysis
@@ -845,9 +1212,6 @@ ${aspectRatioInstruction}`;
 
     // Total actual credits and cost
     const actualTotalCredits = actualImageCredits + effectiveScenePlannerCredits;
-    const actualImageCostUsd = usedActual && openRouterUsageUsd !== null
-      ? openRouterUsageUsd * PREMIUM_MULTIPLIER
-      : actualImageCredits * CREDIT_USD;
     const actualTotalCostUsd = actualImageCostUsd + effectiveScenePlannerCostUsd;
 
     // Record generation duration for ETA estimation
@@ -884,9 +1248,16 @@ ${aspectRatioInstruction}`;
               })
               .catch(() => {}); // Ignore release errors
           }
+          await updateGenerationRequest("failed", {
+            error: "Insufficient credits",
+            scenePlannerUsed,
+            scenePlanFromCache,
+            durationMs: Date.now() - generationStartTime,
+          });
           return NextResponse.json(
             {
               error: "Insufficient credits",
+              requestId: generationRequestId,
               required: actualTotalCredits,
               available:
                 "available" in deductResult ? deductResult.available : 0,
@@ -937,8 +1308,71 @@ ${aspectRatioInstruction}`;
         ? Math.max(0, costUsd - effectiveScenePlannerCostUsd)
         : actualImageCostUsd;
 
+      await updateGenerationRequest("succeeded", {
+        generationId: chargeGenerationId,
+        providerRequestId,
+        scenePlannerUsed,
+        scenePlanFromCache,
+        usedFallbackEstimate,
+        actualCreditsCost: finalChargedCredits,
+        actualCostUsd: finalChargedCostUsd,
+        durationMs: generationDurationMs,
+      });
+
+      const costEventPayload = {
+        sid,
+        requestId: generationRequestId,
+        generationId: chargeGenerationId,
+        modelId,
+        verseId,
+        translationId,
+        styleProfileId: styleProfile.id,
+        reference,
+        aspectRatio,
+        resolution,
+        scenePlannerUsed,
+        scenePlanFromCache,
+        usedFallbackEstimate,
+        estimatedCreditsCost,
+        estimatedCostUsd: estimatedTotalCostUsd,
+        reservationCreditsCost,
+        reservationCostUsd,
+        imageCreditsCost: finalChargedImageCredits,
+        imageCostUsd: finalChargedImageCostUsd,
+        scenePlannerCredits: effectiveScenePlannerCredits,
+        scenePlannerCostUsd: effectiveScenePlannerCostUsd,
+        actualCreditsCost: finalChargedCredits,
+        actualCostUsd: finalChargedCostUsd,
+        ...(openRouterUsageUsd !== null ? { openRouterUsageUsd } : {}),
+        durationMs: generationDurationMs,
+      };
+
+      try {
+        await withTimeout(
+          convex.action(api.costs.recordImageCostEvent, {
+            ...costEventPayload,
+            serverSecret,
+          }),
+          COST_EVENT_PERSIST_TIMEOUT_MS,
+          "Cost event persistence timeout"
+        );
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        console.warn("[Image API] Cost event persistence failed, enqueueing outbox:", message);
+        try {
+          await convex.action(api.costs.enqueueImageCostEventOutbox, {
+            ...costEventPayload,
+            enqueueReason: message,
+            serverSecret,
+          });
+        } catch (enqueueError) {
+          console.error("[Image API] Failed to enqueue cost event outbox:", enqueueError);
+        }
+      }
+
       return NextResponse.json(
         {
+          requestId: generationRequestId,
           imageUrl,
           model: modelId,
           provider: getProviderName(modelId),
@@ -959,12 +1393,14 @@ ${aspectRatioInstruction}`;
           imageCostUsd: finalChargedImageCostUsd,
           scenePlannerCostUsd: effectiveScenePlannerCostUsd,
           scenePlannerUsed,
+          scenePlanFromCache,
           // Estimation vs actual tracking
           estimatedCreditsCost,
           estimatedCostUsd: estimatedTotalCostUsd,
           openRouterUsageUsd,
           usedActualCost: usedActual,
           usedFallbackEstimate, // true when OpenRouter didn't return usage data
+          neutralCostUsedForActual,
           // Shortfall tracking (rare: actual exceeded 35x conservative estimate)
           ...(chargeShortfall && { chargeShortfall }),
           durationMs: generationDurationMs,
@@ -1020,8 +1456,17 @@ ${aspectRatioInstruction}`;
           console.error("Failed to release reservation:", releaseError);
         });
     }
+    await updateGenerationRequest("failed", {
+      error: "No image generated - model may not support image output",
+      durationMs: Date.now() - generationStartTime,
+      scenePlannerUsed,
+      scenePlanFromCache,
+    });
     return NextResponse.json(
-      { error: "No image generated - model may not support image output" },
+      {
+        error: "No image generated - model may not support image output",
+        requestId: generationRequestId,
+      },
       { status: 500 }
     );
   } catch (error) {
@@ -1038,8 +1483,16 @@ ${aspectRatioInstruction}`;
           console.error("Failed to release reservation:", releaseError);
         });
     }
+    await updateGenerationRequest("failed", {
+      error: error instanceof Error ? error.message : "Failed to generate image",
+      durationMs: Date.now() - generationStartTime,
+      scenePlanFromCache,
+    });
     return NextResponse.json(
-      { error: "Failed to generate image" },
+      {
+        error: "Failed to generate image",
+        requestId: generationRequestId,
+      },
       { status: 500 }
     );
   }

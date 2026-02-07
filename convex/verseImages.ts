@@ -1,4 +1,4 @@
-import { action, internalMutation, internalQuery, query } from "./_generated/server";
+import { action, internalMutation, internalQuery, mutation, query } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
 import { Id } from "./_generated/dataModel";
@@ -35,6 +35,49 @@ const promptInputsValidator = v.object({
   prevVerse: v.optional(verseContextValidator),
   nextVerse: v.optional(verseContextValidator),
 });
+
+const continuityHintsValidator = v.object({
+  previous: v.optional(v.string()),
+  next: v.optional(v.string()),
+});
+
+const promptPacketValidator = v.object({
+  verseId: v.string(),
+  translationId: v.string(),
+  reference: v.string(),
+  currentVerse: v.string(),
+  styleProfileId: v.string(),
+  aspectRatio: v.string(),
+  resolution: v.string(),
+  chapterTheme: v.optional(chapterThemeValidator),
+  continuity: v.optional(continuityHintsValidator),
+  scenePlan: v.optional(scenePlanValidator),
+  flags: v.object({
+    scenePlannerUsed: v.boolean(),
+    scenePlanFromCache: v.boolean(),
+    narrativeContextIncluded: v.boolean(),
+    generationNoteIncluded: v.boolean(),
+  }),
+  budget: v.object({
+    maxChars: v.number(),
+    finalChars: v.number(),
+  }),
+});
+
+const generationStatusValidator = v.union(
+  v.literal("queued"),
+  v.literal("planning"),
+  v.literal("generating"),
+  v.literal("succeeded"),
+  v.literal("failed")
+);
+
+const validateServerSecret = (serverSecret: string) => {
+  const expectedSecret = process.env.CONVEX_SERVER_SECRET;
+  if (!expectedSecret || serverSecret !== expectedSecret) {
+    throw new Error("Unauthorized: Invalid server secret");
+  }
+};
 
 /**
  * Get the most recent image for a verse.
@@ -303,6 +346,282 @@ export const getImageHistory = query({
     );
 
     return results.filter((r) => r.imageUrl);
+  },
+});
+
+/**
+ * Get status for a single image generation request.
+ * This is intentionally minimal for safe client-side polling/subscription.
+ */
+export const getGenerationRequestStatus = query({
+  args: {
+    requestId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const request = await ctx.db
+      .query("imageGenerationRequests")
+      .withIndex("by_requestId", (q) => q.eq("requestId", args.requestId))
+      .first();
+
+    if (!request) return null;
+
+    return {
+      requestId: request.requestId,
+      status: request.status,
+      error: request.error,
+      createdAt: request.createdAt,
+      updatedAt: request.updatedAt,
+      startedAt: request.startedAt,
+      completedAt: request.completedAt,
+      durationMs: request.durationMs,
+    };
+  },
+});
+
+/**
+ * Secure query for scene plan cache lookup.
+ */
+export const getScenePlanCache = query({
+  args: {
+    verseId: v.string(),
+    translationId: v.string(),
+    styleProfileId: v.string(),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const cached = await ctx.db
+      .query("scenePlanCache")
+      .withIndex("by_key", (q) =>
+        q
+          .eq("verseId", args.verseId)
+          .eq("translationId", args.translationId)
+          .eq("styleProfileId", args.styleProfileId)
+      )
+      .first();
+
+    if (!cached) return null;
+
+    return {
+      scenePlan: cached.scenePlan,
+      plannerModel: cached.plannerModel,
+      promptVersion: cached.promptVersion,
+      hitCount: cached.hitCount,
+      updatedAt: cached.updatedAt,
+      lastUsedAt: cached.lastUsedAt,
+    };
+  },
+});
+
+/**
+ * Secure mutation to mark a cache hit and update freshness metadata.
+ */
+export const markScenePlanCacheHit = mutation({
+  args: {
+    verseId: v.string(),
+    translationId: v.string(),
+    styleProfileId: v.string(),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args): Promise<{ success: boolean }> => {
+    validateServerSecret(args.serverSecret);
+    const cached = await ctx.db
+      .query("scenePlanCache")
+      .withIndex("by_key", (q) =>
+        q
+          .eq("verseId", args.verseId)
+          .eq("translationId", args.translationId)
+          .eq("styleProfileId", args.styleProfileId)
+      )
+      .first();
+
+    if (!cached) return { success: false };
+
+    await ctx.db.patch(cached._id, {
+      hitCount: cached.hitCount + 1,
+      lastUsedAt: Date.now(),
+      updatedAt: Date.now(),
+    });
+
+    return { success: true };
+  },
+});
+
+/**
+ * Secure mutation to upsert scene plan cache entries.
+ */
+export const upsertScenePlanCache = mutation({
+  args: {
+    verseId: v.string(),
+    translationId: v.string(),
+    styleProfileId: v.string(),
+    scenePlan: scenePlanValidator,
+    plannerModel: v.optional(v.string()),
+    promptVersion: v.optional(v.string()),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args): Promise<{ success: boolean }> => {
+    validateServerSecret(args.serverSecret);
+    const now = Date.now();
+    const cached = await ctx.db
+      .query("scenePlanCache")
+      .withIndex("by_key", (q) =>
+        q
+          .eq("verseId", args.verseId)
+          .eq("translationId", args.translationId)
+          .eq("styleProfileId", args.styleProfileId)
+      )
+      .first();
+
+    if (!cached) {
+      await ctx.db.insert("scenePlanCache", {
+        verseId: args.verseId,
+        translationId: args.translationId,
+        styleProfileId: args.styleProfileId,
+        scenePlan: args.scenePlan,
+        plannerModel: args.plannerModel,
+        promptVersion: args.promptVersion,
+        hitCount: 1,
+        lastUsedAt: now,
+        createdAt: now,
+        updatedAt: now,
+      });
+      return { success: true };
+    }
+
+    await ctx.db.patch(cached._id, {
+      scenePlan: args.scenePlan,
+      plannerModel: args.plannerModel,
+      promptVersion: args.promptVersion,
+      hitCount: cached.hitCount + 1,
+      lastUsedAt: now,
+      updatedAt: now,
+    });
+
+    return { success: true };
+  },
+});
+
+/**
+ * Secure action to create a generation request record.
+ */
+export const createGenerationRequest = mutation({
+  args: {
+    requestId: v.string(),
+    sid: v.string(),
+    verseId: v.string(),
+    translationId: v.optional(v.string()),
+    reference: v.optional(v.string()),
+    modelId: v.optional(v.string()),
+    aspectRatio: v.optional(v.string()),
+    resolution: v.optional(v.string()),
+    promptVersion: v.optional(v.string()),
+    scenePlannerModel: v.optional(v.string()),
+    estimatedCreditsCost: v.optional(v.number()),
+    estimatedCostUsd: v.optional(v.number()),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args): Promise<{
+    requestId: string;
+    status: "queued" | "planning" | "generating" | "succeeded" | "failed";
+    alreadyExists: boolean;
+  }> => {
+    validateServerSecret(args.serverSecret);
+    const existing = await ctx.db
+      .query("imageGenerationRequests")
+      .withIndex("by_requestId", (q) => q.eq("requestId", args.requestId))
+      .first();
+
+    if (existing) {
+      return {
+        requestId: existing.requestId,
+        status: existing.status,
+        alreadyExists: true,
+      };
+    }
+
+    const now = Date.now();
+    await ctx.db.insert("imageGenerationRequests", {
+      requestId: args.requestId,
+      sid: args.sid,
+      verseId: args.verseId,
+      translationId: args.translationId,
+      reference: args.reference,
+      modelId: args.modelId,
+      aspectRatio: args.aspectRatio,
+      resolution: args.resolution,
+      status: "queued",
+      promptVersion: args.promptVersion,
+      scenePlannerModel: args.scenePlannerModel,
+      estimatedCreditsCost: args.estimatedCreditsCost,
+      estimatedCostUsd: args.estimatedCostUsd,
+      createdAt: now,
+      updatedAt: now,
+    });
+
+    return { requestId: args.requestId, status: "queued", alreadyExists: false };
+  },
+});
+
+/**
+ * Secure action to update generation request lifecycle state.
+ */
+export const updateGenerationRequest = mutation({
+  args: {
+    requestId: v.string(),
+    status: generationStatusValidator,
+    error: v.optional(v.string()),
+    generationId: v.optional(v.string()),
+    providerRequestId: v.optional(v.string()),
+    scenePlannerUsed: v.optional(v.boolean()),
+    scenePlanFromCache: v.optional(v.boolean()),
+    usedFallbackEstimate: v.optional(v.boolean()),
+    promptPacket: v.optional(promptPacketValidator),
+    actualCreditsCost: v.optional(v.number()),
+    actualCostUsd: v.optional(v.number()),
+    durationMs: v.optional(v.number()),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args): Promise<{ success: boolean; error?: string }> => {
+    validateServerSecret(args.serverSecret);
+    const request = await ctx.db
+      .query("imageGenerationRequests")
+      .withIndex("by_requestId", (q) => q.eq("requestId", args.requestId))
+      .first();
+
+    if (!request) {
+      return { success: false, error: "Request not found" };
+    }
+
+    const now = Date.now();
+    const patch: Record<string, unknown> = {
+      status: args.status,
+      updatedAt: now,
+    };
+
+    if (args.error !== undefined) patch.error = args.error;
+    if (args.generationId !== undefined) patch.generationId = args.generationId;
+    if (args.providerRequestId !== undefined) patch.providerRequestId = args.providerRequestId;
+    if (args.scenePlannerUsed !== undefined) patch.scenePlannerUsed = args.scenePlannerUsed;
+    if (args.scenePlanFromCache !== undefined) patch.scenePlanFromCache = args.scenePlanFromCache;
+    if (args.usedFallbackEstimate !== undefined) patch.usedFallbackEstimate = args.usedFallbackEstimate;
+    if (args.promptPacket !== undefined) patch.promptPacket = args.promptPacket;
+    if (args.actualCreditsCost !== undefined) patch.actualCreditsCost = args.actualCreditsCost;
+    if (args.actualCostUsd !== undefined) patch.actualCostUsd = args.actualCostUsd;
+    if (args.durationMs !== undefined) patch.durationMs = args.durationMs;
+
+    if (args.status === "planning" || args.status === "generating") {
+      patch.startedAt = request.startedAt ?? now;
+    }
+    if (args.status === "succeeded" || args.status === "failed") {
+      patch.completedAt = now;
+      if (patch.durationMs === undefined && request.startedAt) {
+        patch.durationMs = now - request.startedAt;
+      }
+    }
+
+    await ctx.db.patch(request._id, patch);
+    return { success: true };
   },
 });
 

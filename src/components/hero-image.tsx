@@ -762,10 +762,22 @@ function HeroImageBase({
   const [error, setError] = useState<string | null>(null);
   const [hasAttemptedGeneration, setHasAttemptedGeneration] = useState(false);
   const [imageLoadAttempts, setImageLoadAttempts] = useState(0);
+  const [activeRequestId, setActiveRequestId] = useState<string | null>(null);
   const activeRequest = useRef<AbortController | null>(null);
   const isMounted = useRef(true);
   const generationIdRef = useRef(0);
   const imageElementRef = useRef<HTMLImageElement | null>(null);
+
+  const generationRequestStatus = useQuery(
+    api.verseImages.getGenerationRequestStatus,
+    activeRequestId ? { requestId: activeRequestId } : "skip"
+  );
+
+  const generationPhaseLabel = generationRequestStatus?.status === "planning"
+    ? "Planning scene..."
+    : generationRequestStatus?.status === "generating"
+      ? "Generating image..."
+      : "Generating...";
 
   // Maximum number of retries before giving up
   const maxLoadAttempts = 3;
@@ -791,12 +803,12 @@ function HeroImageBase({
   const displayIndex = totalImages - currentIndex;
   const imageCountLabel = totalImages > 0
     ? `${displayIndex} / ${totalImages}${currentIndex === 0 ? " · Latest" : ""}`
-    : displayImage
+      : displayImage
       ? "1 / 1"
       : isQueryLoading
         ? "Loading..."
         : isGenerating
-          ? "Generating..."
+          ? generationPhaseLabel
           : "No images yet";
   const showControls = Boolean(prevUrl || nextUrl || hasImages || isGenerating || isQueryLoading);
 
@@ -828,9 +840,10 @@ function HeroImageBase({
     // Check if this generation is still current (defined outside try for use in catch)
     const isStale = () => controller.signal.aborted || !isMounted.current || thisGenerationId !== generationIdRef.current;
 
-    const clientGenerationId = typeof crypto !== "undefined" && "randomUUID" in crypto
+    const clientRequestId = typeof crypto !== "undefined" && "randomUUID" in crypto
       ? crypto.randomUUID()
       : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    setActiveRequestId(clientRequestId);
 
     try {
       const params = new URLSearchParams();
@@ -840,8 +853,10 @@ function HeroImageBase({
       if (nextVerse) params.set("nextVerse", JSON.stringify(nextVerse));
       if (currentReference) params.set("reference", currentReference);
       if (imageModel) params.set("model", imageModel);
+      if (translation) params.set("translation", translation);
       params.set("aspectRatio", imageAspectRatio);
       params.set("resolution", imageResolution);
+      params.set("requestId", clientRequestId);
 
       // Pass existing image count to add generation diversity
       const existingImageCount = imageHistory?.length || 0;
@@ -858,6 +873,7 @@ function HeroImageBase({
 
       if (response.status === 403) {
         if (isMounted.current) {
+          setActiveRequestId(null);
           setError("Image generation is disabled");
           trackGenerationError({
             imageModel,
@@ -871,6 +887,7 @@ function HeroImageBase({
 
       if (response.status === 401) {
         if (isMounted.current) {
+          setActiveRequestId(null);
           setError("Session required - please refresh the page");
           trackGenerationError({
             imageModel,
@@ -885,6 +902,7 @@ function HeroImageBase({
       if (response.status === 402) {
         // Insufficient credits
         if (isMounted.current) {
+          setActiveRequestId(null);
           setError("Insufficient credits");
           trackCreditsInsufficient({
             feature: "image",
@@ -897,6 +915,9 @@ function HeroImageBase({
       }
 
       const data = await response.json();
+      if (typeof data?.requestId === "string") {
+        setActiveRequestId(data.requestId);
+      }
 
       if (isStale()) {
         return;
@@ -908,7 +929,7 @@ function HeroImageBase({
 
         if (data?.imageUrl) {
           const modelUsed = data.model || imageModel || "unknown";
-          const saveGenerationId = data.generationId || clientGenerationId;
+          const saveGenerationId = data.generationId || clientRequestId;
 
         // Update credits in session context if returned
         if (typeof data.credits === "number") {
@@ -978,6 +999,9 @@ function HeroImageBase({
       }
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") {
+        if (isMounted.current) {
+          setActiveRequestId(null);
+        }
         return;
       }
       if (isStale()) {
@@ -1003,6 +1027,7 @@ function HeroImageBase({
       if (thisGenerationId === generationIdRef.current) {
         activeRequest.current = null;
         if (isMounted.current) {
+          setActiveRequestId(null);
           setIsGenerating(false);
         }
       }
@@ -1111,6 +1136,16 @@ function HeroImageBase({
     setPendingImageId(null);
   }, [pendingImageId, imageHistory]);
 
+  useEffect(() => {
+    if (!activeRequestId) return;
+    if (
+      generationRequestStatus?.status === "succeeded" ||
+      generationRequestStatus?.status === "failed"
+    ) {
+      setActiveRequestId(null);
+    }
+  }, [activeRequestId, generationRequestStatus?.status]);
+
   // Reset state when verse changes
   useEffect(() => {
     setSelectedImageId(null);
@@ -1119,6 +1154,7 @@ function HeroImageBase({
     setHasAttemptedGeneration(false);
     setImageLoadAttempts(0);
     setPendingImageId(null);
+    setActiveRequestId(null);
     setIsImageLoading(false);
     pendingFollowLatest.current = true;
     if (activeRequest.current) {
@@ -1213,7 +1249,7 @@ function HeroImageBase({
                 <div className="flex items-center gap-2 px-4 py-2 bg-[var(--background)]/70 border border-[var(--divider)]/60 backdrop-blur-sm rounded-[var(--radius-md)]">
                   <RefreshCw className="w-4 h-4 animate-spin" />
                   <span className="text-sm text-[var(--foreground)]/70">
-                    {isGenerating ? "Generating..." : "Loading image..."}
+                    {isGenerating ? generationPhaseLabel : "Loading image..."}
                   </span>
                 </div>
               </div>
@@ -1259,7 +1295,7 @@ function HeroImageBase({
                 <div className="flex items-center gap-2 px-4 py-2 bg-[var(--background)]/70 border border-[var(--divider)]/60 backdrop-blur-sm rounded-[var(--radius-md)]">
                   <RefreshCw className="w-4 h-4 animate-spin" />
                   <span className="text-sm text-[var(--foreground)]/70">
-                    {isQueryLoading ? "Loading..." : "Generating..."}
+                    {isQueryLoading ? "Loading..." : generationPhaseLabel}
                   </span>
                 </div>
               </div>
@@ -1435,7 +1471,7 @@ function HeroImageBase({
                       <RefreshCw size={18} strokeWidth={1.5} />
                     )}
                     {isGenerating ? (
-                      <span className="text-sm">Generating...</span>
+                      <span className="text-sm">{generationPhaseLabel}</span>
                     ) : (
                       <span className="text-sm inline-flex items-center gap-2">
                         Generate
