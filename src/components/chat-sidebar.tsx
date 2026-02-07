@@ -21,6 +21,29 @@ function createVerseId(book: string, chapter: number, verseRange: string): strin
     .replace(/:/g, "-");
 }
 
+interface ImageHistoryItem {
+  id: string;
+  model: string;
+  provider?: string;
+  aspectRatio?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  creditsCost?: number;
+  costUsd?: number;
+  durationMs?: number;
+  createdAt: number;
+}
+
+interface ChatSidebarBaseProps {
+  isChatOpen: boolean;
+  closeChat: () => void;
+  sidebarTab: "chat" | "feedback";
+  setSidebarTab: (tab: "chat" | "feedback") => void;
+  chatContext: ReturnType<typeof useNavigation>["chatContext"];
+  currentImageId: string | null;
+  imageHistory: ImageHistoryItem[] | null | undefined;
+}
+
 export function ChatSidebar() {
   const { isChatOpen, closeChat, chatContext, sidebarTab, setSidebarTab, currentImageId } =
     useNavigation();
@@ -31,12 +54,59 @@ export function ChatSidebar() {
     ? createVerseId(chatContext.book, chatContext.chapter, chatContext.verseRange)
     : null;
 
-  // Query image history for current verse (only when Convex is enabled)
+  if (!isConvexEnabled) {
+    return (
+      <ChatSidebarBase
+        isChatOpen={isChatOpen}
+        closeChat={closeChat}
+        sidebarTab={sidebarTab}
+        setSidebarTab={setSidebarTab}
+        chatContext={chatContext}
+        currentImageId={currentImageId}
+        imageHistory={null}
+      />
+    );
+  }
+
+  return (
+    <ChatSidebarWithConvex
+      isChatOpen={isChatOpen}
+      closeChat={closeChat}
+      sidebarTab={sidebarTab}
+      setSidebarTab={setSidebarTab}
+      chatContext={chatContext}
+      currentImageId={currentImageId}
+      verseId={verseId}
+    />
+  );
+}
+
+function ChatSidebarWithConvex({
+  verseId,
+  ...props
+}: Omit<ChatSidebarBaseProps, "imageHistory"> & { verseId: string | null }) {
   const imageHistory = useQuery(
     api.verseImages.getImageHistory,
-    isConvexEnabled && verseId ? { verseId } : "skip"
+    verseId ? { verseId } : "skip"
   );
 
+  return (
+    <ChatSidebarBase
+      {...props}
+      imageHistory={imageHistory}
+    />
+  );
+}
+
+function ChatSidebarBase({
+  isChatOpen,
+  closeChat,
+  sidebarTab,
+  setSidebarTab,
+  chatContext,
+  currentImageId,
+  imageHistory,
+}: ChatSidebarBaseProps) {
   // Find the currently displayed image and build imageContext for feedback
   const currentImage = currentImageId && imageHistory
     ? imageHistory.find((img) => img.id === currentImageId)

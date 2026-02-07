@@ -20,6 +20,21 @@ interface SessionResponse {
 }
 
 /**
+ * Ensure CSRF cookie exists (and refreshes) for routes that require it.
+ */
+function setCsrfCookie(response: NextResponse): void {
+  const csrfToken = generateCsrfToken();
+  const csrfCookieOptions = getCsrfCookieOptions(csrfToken);
+  response.cookies.set(csrfCookieOptions.name, csrfCookieOptions.value, {
+    httpOnly: csrfCookieOptions.httpOnly,
+    secure: csrfCookieOptions.secure,
+    sameSite: csrfCookieOptions.sameSite,
+    path: csrfCookieOptions.path,
+    maxAge: csrfCookieOptions.maxAge,
+  });
+}
+
+/**
  * GET /api/session
  * Returns the current session state.
  * If a valid session exists, updates lastSeenAt and returns session info.
@@ -72,6 +87,9 @@ export async function GET(request: Request): Promise<NextResponse<SessionRespons
     tier: session.tier as "paid" | "admin",
     credits: session.credits,
   });
+
+  // Keep CSRF token fresh for admin-login and other state-changing endpoints.
+  setCsrfCookie(response);
 
   // SECURITY: Refresh token to add IP binding for legacy tokens
   if (validation.needsRefresh && validation.currentIpHash) {
@@ -148,6 +166,9 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
         credits: existingSession.credits,
       });
 
+      // Existing sessions also need a CSRF cookie for admin-login.
+      setCsrfCookie(response);
+
       // Refresh token with IP binding if legacy token
       if (!existingData.ipHash) {
         const newToken = await createSessionToken(existingData.sid, ipHash);
@@ -194,16 +215,8 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
     maxAge: cookieOptions.maxAge,
   });
 
-  // SECURITY: Issue CSRF token for admin login protection
-  const csrfToken = generateCsrfToken();
-  const csrfCookieOptions = getCsrfCookieOptions(csrfToken);
-  response.cookies.set(csrfCookieOptions.name, csrfCookieOptions.value, {
-    httpOnly: csrfCookieOptions.httpOnly,
-    secure: csrfCookieOptions.secure,
-    sameSite: csrfCookieOptions.sameSite,
-    path: csrfCookieOptions.path,
-    maxAge: csrfCookieOptions.maxAge,
-  });
+  // SECURITY: Issue CSRF token for admin login protection.
+  setCsrfCookie(response);
 
   return response;
 }
