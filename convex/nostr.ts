@@ -12,6 +12,16 @@ const NOSTR_RELAYS = [
 ];
 
 /**
+ * Build a permanent public URL for stored images.
+ * Prefer HTTP Actions custom domain (CONVEX_SITE_URL) when configured.
+ */
+function getStorageImageBaseUrl(): string | null {
+  const baseUrl = process.env.CONVEX_SITE_URL || process.env.CONVEX_CLOUD_URL;
+  if (!baseUrl) return null;
+  return baseUrl.replace(/\/+$/, "");
+}
+
+/**
  * Convert verseId to URL path
  * "genesis-1-1" -> "/genesis/1/1"
  * "1-john-3-16" -> "/1-john/3/16"
@@ -93,13 +103,12 @@ export const publishToNostr = internalAction({
     }
 
     // Build permanent public URL via HTTP action (see convex/http.ts)
-    // CONVEX_CLOUD_URL is auto-provided in Convex Cloud; may be missing in local dev.
-    const convexUrl = process.env.CONVEX_CLOUD_URL;
+    const convexUrl = getStorageImageBaseUrl();
     if (!convexUrl) {
-      console.error("[Nostr] CONVEX_CLOUD_URL not available, skipping publication");
+      console.error("[Nostr] CONVEX_SITE_URL/CONVEX_CLOUD_URL not available, skipping publication");
       return;
     }
-    const imageUrl = `${convexUrl}/image/${args.storageId}`;
+    const imageUrl = `${convexUrl}/image/${encodeURIComponent(args.storageId)}`;
 
     // Dynamic import of snstr (required for "use node" action)
     const { Nostr, createEvent, signEvent, getPublicKey, getEventHash, decodePrivateKey } = await import("snstr");

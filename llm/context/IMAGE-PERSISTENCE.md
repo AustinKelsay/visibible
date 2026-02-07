@@ -46,4 +46,4 @@ High-level overview of how verse images are persisted and browsed. Details may c
 ## Dependencies
 
 - `NEXT_PUBLIC_CONVEX_URL` enables Convex image persistence on the client.
-- `CONVEX_DEPLOYMENT` configures the Convex backend (see `.env.example`).
+- `CONVEX_DEPLOYMENT` is used by Convex CLI targeting (`.env.convex.dev` / `.env.convex.prod`), not by Next.js runtime on Vercel.

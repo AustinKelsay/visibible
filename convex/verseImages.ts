@@ -80,6 +80,22 @@ const validateServerSecret = (serverSecret: string) => {
 };
 
 /**
+ * Build a permanent public URL for a stored image.
+ * Prefer the HTTP Actions domain when available.
+ */
+const getStorageImageBaseUrl = (): string | null => {
+  const baseUrl = process.env.CONVEX_SITE_URL || process.env.CONVEX_CLOUD_URL;
+  if (!baseUrl) return null;
+  return baseUrl.replace(/\/+$/, "");
+};
+
+const buildStorageImageUrl = (storageId: Id<"_storage">): string | null => {
+  const baseUrl = getStorageImageBaseUrl();
+  if (!baseUrl) return null;
+  return `${baseUrl}/image/${encodeURIComponent(storageId)}`;
+};
+
+/**
  * Get the most recent image for a verse.
  * Returns the image URL (either direct URL or from storage).
  */
@@ -96,9 +112,12 @@ export const getLatestImage = query({
 
     if (!image) return null;
 
-    // If we have a storage ID, get the URL from storage
+    // Prefer stable HTTP action URLs for storage-backed images.
     if (image.storageId) {
-      const url = await ctx.storage.getUrl(image.storageId);
+      const url =
+        buildStorageImageUrl(image.storageId) ??
+        // Fallback for environments missing Convex URL system vars.
+        (await ctx.storage.getUrl(image.storageId));
       if (url) {
         return {
           id: image._id,
@@ -314,8 +333,11 @@ export const getImageHistory = query({
       images.map(async (image) => {
         let imageUrl = image.imageUrl;
         if (image.storageId) {
-          const url = await ctx.storage.getUrl(image.storageId);
-          if (url) imageUrl = url;
+          imageUrl =
+            buildStorageImageUrl(image.storageId) ??
+            // Fallback for environments missing Convex URL system vars.
+            (await ctx.storage.getUrl(image.storageId)) ??
+            imageUrl;
         }
         return {
           id: image._id,
