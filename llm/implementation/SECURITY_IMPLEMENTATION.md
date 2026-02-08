@@ -9,7 +9,7 @@ This document describes the security mechanisms protecting API routes from abuse
 The security architecture provides multiple layers of protection:
 
 1. **Origin Validation** - Prevents cross-origin API abuse
-2. **CSRF Protection** - Double-submit cookie pattern (infrastructure ready)
+2. **CSRF Protection** - Double-submit cookie pattern (actively enforced on admin login)
 3. **Session Security** - JWT tokens with IP binding
 4. **Rate Limiting** - Per-endpoint request throttling
 5. **Cost Protection** - Input validation, spending limits, and per-request caps
@@ -27,6 +27,10 @@ The security architecture provides multiple layers of protection:
 | `src/lib/session.ts` | JWT session management with IP binding |
 | `src/lib/validate-env.ts` | Security environment validation |
 | `src/lib/request-body.ts` | Secure body reading with streaming size limits |
+| `src/app/api/admin-login/route.ts` | Admin auth with origin + CSRF + lockout protections |
+| `src/app/api/chat/route.ts` | Chat endpoint security checks |
+| `src/app/api/generate-image/route.ts` | Image endpoint security checks |
+| `src/app/api/session/route.ts` | Session issuance and CSRF token issuance |
 | `convex/rateLimit.ts` | Rate limiting and brute force protection |
 | `convex/sessions.ts` | Credit management, daily limits, admin audit logging |
 
@@ -119,6 +123,12 @@ CSRF protection uses the double-submit cookie pattern. This is a stateless appro
 1. Both cookie and header must be present
 2. Token lengths must match (prevents timing oracle)
 3. Uses `crypto.timingSafeEqual()` for comparison
+
+### Current Scope in This Codebase
+
+- CSRF token is issued/refreshed by `src/app/api/session/route.ts` on both `GET /api/session` and `POST /api/session`.
+- CSRF validation is enforced on `POST /api/admin-login`.
+- Other endpoints rely on origin validation and SameSite cookie policy, but do not currently require CSRF header validation.
 
 ---
 
@@ -569,7 +579,8 @@ Tokens created before IP binding was implemented (missing `iph` field) return `v
 ### Session Farming Attack
 **Attack:** Create many sessions from different IPs to multiply rate limits.
 **Mitigation:**
-- Rate limiting uses `${ipHash}:${sid}` format
+- Cost-incurring endpoints (`/api/chat`, `/api/generate-image`) rate limit on `${ipHash}:${sid}`
+- Session/invoice/feedback endpoints rate limit on `ipHash` to reduce multi-session bypass risk
 - Daily spending limit applies per session
 - Each session still limited to $5/day regardless of IP
 
@@ -606,6 +617,7 @@ Tokens created before IP binding was implemented (missing `iph` field) return `v
 | `src/lib/session.ts` | JWT session management with IP binding |
 | `src/lib/validate-env.ts` | Security environment validation |
 | `src/lib/request-body.ts` | Secure body reading with size limits |
+| `src/app/api/admin-login/route.ts` | Admin authentication with CSRF + brute-force lockout checks |
 | `src/app/api/chat/route.ts` | Chat endpoint with all security checks |
 | `src/app/api/generate-image/route.ts` | Image endpoint with security checks |
 | `convex/rateLimit.ts` | Rate limiting and brute force protection |

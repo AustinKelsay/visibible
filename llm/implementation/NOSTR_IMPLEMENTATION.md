@@ -1,195 +1,148 @@
 # Nostr Auto-Publishing Implementation
 
-This document describes the optional Nostr auto-publishing feature for generated verse images.
+This document describes the current Nostr auto-publishing implementation for generated verse images.
 
 ---
 
 ## Overview
 
-When configured, newly generated verse images are automatically published to Nostr relays as kind-1 text notes with embedded image metadata. Publication is fire-and-forget with a 5-minute delay to disperse posts.
+When enabled, images stored in Convex are published to Nostr as kind-1 notes with image metadata.
+Publishing is asynchronous and scheduled 5 minutes after image persistence.
 
 ---
 
 ## Configuration
 
-**Important:** `NOSTR_PRIVATE_KEY` must be set in the **Convex Dashboard** (Settings → Environment Variables), not in `.env.local`. Convex actions cannot read `.env.local` - they only have access to environment variables configured in the dashboard.
+Set these in Convex environment variables (not `.env.local`):
 
-| Variable | Value | Example |
-|----------|-------|---------|
-| `NOSTR_PRIVATE_KEY` | Hex (64 chars) or nsec format | `nsec1abc...` |
+| Variable | Required | Purpose |
+|----------|----------|---------|
+| `NOSTR_PRIVATE_KEY` | Yes (for publishing) | Nostr private key (`hex` 64 chars or `nsec1...`) |
+| `NOSTR_RELAYS` | No | Comma/newline-separated relay list; only `wss://` URLs are accepted |
+| `NOSTR_IMAGE_BASE_URL` | No | Explicit public base URL for image links in Nostr posts |
 
-`CONVEX_SITE_URL` and `CONVEX_CLOUD_URL` are built-in Convex system variables. The implementation prefers `CONVEX_SITE_URL` (HTTP actions domain) and falls back to `CONVEX_CLOUD_URL`.
+Built-in Convex fallbacks for image base URL:
+1. `NOSTR_IMAGE_BASE_URL`
+2. `CONVEX_SITE_URL`
+3. `CONVEX_CLOUD_URL`
 
-If the private key is unset, Nostr publishing is silently skipped.
+If `NOSTR_PRIVATE_KEY` is missing, publication is skipped.
+If no image base URL can be resolved, publication is skipped.
 
 ---
 
-## Architecture
-
-### Files
+## Files
 
 | File | Purpose |
 |------|---------|
-| `convex/nostr.ts` | Nostr publishing action (snstr library) |
-| `convex/http.ts` | HTTP endpoint for permanent image URLs |
-| `convex/verseImages.ts` | Schedules publication, records results |
-| `convex/schema.ts` | Nostr metadata fields on `verseImages` |
+| `convex/nostr.ts` | Publish action, relay parsing, event creation/signing |
+| `convex/http.ts` | Permanent `/image/:storageId` HTTP endpoint |
+| `convex/verseImages.ts` | Schedules publish and records publication metadata |
+| `convex/schema.ts` | `nostrEventId`, `nostrPublishedAt`, `nostrRelays` fields |
 
-### Flow
+---
 
-1. `saveImage` action saves image to Convex storage, receives `storageId`
-2. Schedules `publishToNostr` via `ctx.scheduler.runAfter(5 * 60 * 1000, ...)` passing `storageId`
-3. `publishToNostr` constructs permanent URL from `CONVEX_SITE_URL` (fallback `CONVEX_CLOUD_URL`) + `storageId`
-4. Connects to relays, creates/signs event with permanent URL, publishes
-5. On success, calls `recordNostrPublication` to store event ID and relays
+## End-to-End Flow
 
-### Permanent Image URLs
+1. `saveImage` stores image bytes in Convex storage.
+2. `saveImage` schedules `internal.nostr.publishToNostr` with 5-minute delay.
+3. `publishToNostr` checks:
+   - private key exists
+   - image record exists
+   - image is not already published (`nostrEventId` absent)
+4. Action builds permanent URL: `<base>/image/<encoded storageId>`.
+5. Action connects to relays, signs event, publishes.
+6. Action records publication via `recordNostrPublication`.
 
-Nostr events are immutable - once published, they cannot be edited. To ensure images remain accessible forever, we serve images via a custom HTTP action endpoint:
+### Important branch
 
-```
-${CONVEX_SITE_URL || CONVEX_CLOUD_URL}/image/${storageId}
-```
+If image storage fails and the system falls back to `saveImageWithUrl`, Nostr publishing is intentionally skipped because source URLs may be temporary and Nostr events are immutable.
 
-Example: `https://actions.dev.visibible.com/image/kg2abc123...`
+---
 
-The HTTP endpoint (`convex/http.ts`) fetches from Convex storage and returns the blob with appropriate cache headers.
+## Permanent Image URLs
 
-**Why not `ctx.storage.getUrl()`?** That returns temporary signed URLs that expire. Using those would result in broken images in Nostr posts.
+`convex/http.ts` exposes `GET /image/:storageId` and serves blobs from Convex storage.
 
-**StorageId Validation:** The endpoint validates that the storageId matches the expected Convex ID format (`/^[A-Za-z0-9_]+$/`) and applies `decodeURIComponent` for URL-encoded segments. Invalid IDs return 400; valid but non-existent IDs return 404.
+Validation behavior:
+- decodes URL segment with `decodeURIComponent`
+- enforces `^[A-Za-z0-9_]+$` storage ID format
+- returns `400` for invalid IDs
+- returns `404` for missing blobs
 
-### Relays
+Response headers:
+- `Content-Type`: inferred blob type (fallback `image/png`)
+- `Cache-Control: public, max-age=31536000, immutable`
 
-Published to 4 relays (defined in `convex/nostr.ts`):
+---
+
+## Relay Behavior
+
+Default relays (when `NOSTR_RELAYS` is unset or invalid):
 - `wss://relay.nostr.band`
 - `wss://nos.lol`
 - `wss://relay.damus.io`
 - `wss://relay.primal.net`
 
+`NOSTR_RELAYS` parsing details:
+- split on commas/newlines
+- trim and de-duplicate
+- keep only entries starting with `wss://`
+- log warning for dropped invalid entries
+
 ---
 
 ## Event Format
 
-Kind-1 text note with:
+The published kind-1 note content is:
 
-```
-Genesis 1:1
+```text
+<reference>
 
-"In the beginning, God created the heavens and the earth."
+"<verseText>"
 
-https://<http-actions-domain>/image/<storageId>#.png
+<imageUrlWithExtensionHint>
 
-View more at https://visibible.com/genesis/1/1
-```
-
-### NIP-92 imeta Tag
-
-When image metadata is available, includes imeta tag for enhanced rendering:
-
-```json
-["imeta", "url https://...", "m image/png", "dim 1920x1080"]
+View more at https://visibible.com/<book>/<chapter>/<verse>
 ```
 
-**Note:** Image metadata (mime type, dimensions) is only available when the image was successfully fetched and stored in Convex. If storage failed and only the direct URL was saved, the imeta tag will be minimal (URL only).
-
-### URL Extension Hint
-
-For legacy clients that don't support NIP-92, the image URL includes a fragment extension hint:
-```
-https://storage-url.com/abc123#.png
-```
+Additional metadata:
+- NIP-92 `imeta` tag: includes `url`, and when available `m` (mime) and `dim` (`width x height`)
+- URL extension hint fragment (`#.jpg`, `#.png`, etc.) for legacy client compatibility
 
 ---
 
-## Schema Fields
+## snstr API Pattern
 
-Added to `verseImages` table:
+`convex/nostr.ts` uses:
+- `Nostr` client for relay transport
+- standalone helpers for key/event operations (`decodePrivateKey`, `getPublicKey`, `createEvent`, `getEventHash`, `signEvent`)
 
-```typescript
-nostrEventId: v.optional(v.string()),     // Nostr event ID
-nostrPublishedAt: v.optional(v.number()), // Unix timestamp
-nostrRelays: v.optional(v.array(v.string())), // Relay URLs
-```
-
----
-
-## Library
-
-Uses [snstr](https://github.com/AustinKelsay/snstr) - a TypeScript Nostr library.
-
-```typescript
-// convex/nostr.ts (requires "use node" directive)
-const { Nostr, createEvent, signEvent, getPublicKey, getEventHash, decodePrivateKey } = await import("snstr");
-```
-
-### API Pattern
-
-The `Nostr` client handles relay connections; standalone functions handle event creation/signing:
-
-| Function | Signature | Purpose |
-|----------|-----------|---------|
-| `decodePrivateKey` | `(nsec: string) => string` | Convert nsec bech32 to hex |
-| `getPublicKey` | `(hexKey: string) => string` | Derive pubkey from hex private key |
-| `createEvent` | `(template, pubkey) => UnsignedEvent` | Create unsigned event with pubkey |
-| `getEventHash` | `(event) => Promise<string>` | Compute deterministic event ID |
-| `signEvent` | `(eventId, hexKey) => Promise<string>` | Sign event ID with hex private key |
-| `client.publishEvent` | `(signedEvent) => Promise<Result>` | Broadcast to connected relays |
-
-### Key Format Handling
-
-Both hex (64-char) and nsec (bech32) private key formats are supported:
-
-```typescript
-const hexKey = privateKey.startsWith("nsec1")
-  ? decodePrivateKey(privateKey as `nsec1${string}`)
-  : privateKey;
-```
-
-**Note:** The `Nostr` client is only used for relay connection management (`connectToRelays`, `publishEvent`, `disconnectFromRelays`). Event signing uses standalone functions with the hex key passed directly—do NOT call `client.setPrivateKey()` as it has no effect on manually signed events.
-
-**API Quirk:** `connectToRelays()` returns `Promise<void>` (async), but `disconnectFromRelays()` returns `void` (sync). Do not `await` the disconnect call.
-
-**Important:** The event ID is computed *before* publishing via `getEventHash()`. Always use this pre-computed ID for recording publications rather than parsing the result of `publishEvent()`, as the return type may vary across snstr versions.
+Implementation details:
+- pre-computes `eventId` using `getEventHash()` before publish
+- persists that precomputed ID after successful publish
+- always disconnects relay client in `finally`
 
 ---
 
-## Idempotency
+## Idempotency and Failure Handling
 
-The `publishToNostr` action includes an idempotency check to prevent duplicate posts:
+Idempotency checks:
+- skip if image record does not exist
+- skip if `nostrEventId` already exists
 
-1. Queries the image document via `getImageById`
-2. If image doesn't exist (deleted), skips publication
-3. If `nostrEventId` already set, skips publication
+Failure behavior:
+- any relay/publish/signing error is logged
+- publication failure does not block image generation/persistence
 
-**Note:** Convex scheduled actions execute at-most-once and are NOT automatically retried ([docs](https://docs.convex.dev/scheduling/scheduled-functions)). This check is defensive programming for edge cases like manual re-triggering or future code changes—not for scheduler retries.
-
----
-
-## Error Handling
-
-- Missing `NOSTR_PRIVATE_KEY`: Silently skipped with log message
-- Missing `CONVEX_SITE_URL` and `CONVEX_CLOUD_URL`: Silently skipped with log message
-- Image not found: Skipped (may have been deleted)
-- Already published: Skipped (idempotency check)
-- Relay connection failures: Caught and logged, doesn't affect image save
-- Publication failures: Logged but don't block the main flow
-
-Fire-and-forget design ensures Nostr issues never impact image generation.
+Convex scheduled actions are at-most-once; idempotency checks are defensive for manual re-runs and future code changes.
 
 ---
 
-## Testing
+## Stored Metadata
 
-Verify publication by searching for your public key on:
-- https://nostr.band
-- https://primal.net
+On successful publish, `verseImages` is patched with:
 
----
-
-## Future Considerations
-
-- Retry logic for failed publications
-- User opt-in/opt-out preference
-- Multiple account support
-- Zap integration for image tips
+- `nostrEventId`
+- `nostrPublishedAt`
+- `nostrRelays`

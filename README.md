@@ -101,9 +101,13 @@ Full runbook: [`llm/workflow/VERCEL_WORKFLOWS.md`](llm/workflow/VERCEL_WORKFLOWS
 
 Chat API lives in `src/app/api/chat/route.ts`.
 
-- OpenAI: set `OPENAI_API_KEY`
-- Anthropic: set `ANTHROPIC_API_KEY` and switch to `anthropic(...)`
-- OpenRouter: set `OPENROUTER_API_KEY` to switch automatically (optional `OPENROUTER_REFERRER`, `OPENROUTER_TITLE`)
+This codebase uses OpenRouter for AI requests:
+
+- Required: `OPENROUTER_API_KEY`
+- Optional metadata headers: `OPENROUTER_REFERRER`, `OPENROUTER_TITLE`
+
+For chat LLM quality/safety release gates (prompt/model changes), see:
+- `llm/workflow/CHAT_EVAL_AND_RELEASE.md`
 
 ## Credit System
 

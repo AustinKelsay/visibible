@@ -1,62 +1,71 @@
 # Nostr Auto-Publishing
 
-High-level overview of how Visibible publishes generated images to Nostr.
+High-level behavior for Visibible's optional Nostr publishing flow.
 
 ## Overview
 
-When configured with a Nostr private key, newly generated verse images are automatically published to Nostr relays as kind-1 text notes. This is an optional feature that runs fire-and-forget in the background.
-
-## How It Works
-
-1. User generates a verse image
-2. Image is saved to Convex storage
-3. After 5-minute delay, image is published to Nostr
-4. Event ID and relay list are recorded on the image record
-
-The delay disperses posts over time rather than publishing immediately. Publishing includes a defensive idempotency check (verifies image exists and hasn't been published) for edge cases like manual re-triggering. Note: Convex scheduled actions execute at-most-once and don't automatically retry.
+When configured, newly generated verse images are published to Nostr as background work.
+The app delays publish by 5 minutes and does not block user flows on Nostr outcomes.
 
 ## Configuration
 
-Requires one environment variable set in the **Convex Dashboard** (not `.env.local`):
-- `NOSTR_PRIVATE_KEY` - hex or nsec format private key
+Configured via Convex env vars:
 
-`CONVEX_SITE_URL` and `CONVEX_CLOUD_URL` are built-in Convex system variables. Publishing prefers `CONVEX_SITE_URL` and falls back to `CONVEX_CLOUD_URL`.
+- `NOSTR_PRIVATE_KEY` (required to publish)
+- `NOSTR_RELAYS` (optional override list)
+- `NOSTR_IMAGE_BASE_URL` (optional URL base override)
 
-If the private key is unset, publishing is silently skipped.
+Image base URL resolution order:
+1. `NOSTR_IMAGE_BASE_URL`
+2. `CONVEX_SITE_URL`
+3. `CONVEX_CLOUD_URL`
+
+If key or URL base is missing, publication is skipped.
 
 ## Relays
 
-Images are published to:
-- relay.nostr.band
-- nos.lol
-- relay.damus.io
-- relay.primal.net
+Default relay set:
+- `wss://relay.nostr.band`
+- `wss://nos.lol`
+- `wss://relay.damus.io`
+- `wss://relay.primal.net`
 
-## Post Format
+If `NOSTR_RELAYS` is provided, only valid `wss://` values are used.
 
-```text
-Genesis 1:1
+## Post Shape
 
-"In the beginning, God created the heavens and the earth."
+Each post includes:
+- scripture reference
+- verse text
+- permanent image URL (`/image/:storageId`) with extension hint fragment
+- canonical Visibible verse URL
 
-https://<http-actions-domain>/image/<storageId>#.png
+When available, post tags include NIP-92 `imeta` metadata (`url`, mime type, dimensions).
 
-View more at https://visibible.com/genesis/1/1
-```
+## Data Recording
 
-Uses permanent URLs via HTTP action endpoint (`/image/:storageId`) rather than expiring signed URLs. Includes NIP-92 imeta tag with image URL, mime type, and dimensions when available.
+Successful publishes write:
+- `nostrEventId`
+- `nostrPublishedAt`
+- `nostrRelays`
+
+on the corresponding `verseImages` row.
+
+## Safety/Resilience
+
+- Idempotency guard prevents duplicate publishing.
+- Nostr errors are logged but never block generation.
+- If image storage falls back to non-permanent source URL mode, Nostr publishing is skipped.
 
 ## Key Files
 
-| File | Purpose |
-|------|---------|
-| `convex/nostr.ts` | Publishing action using snstr library |
-| `convex/http.ts` | HTTP endpoint for permanent image URLs |
-| `convex/verseImages.ts` | Schedules publication on image save |
-| `convex/schema.ts` | Nostr metadata fields |
+- `convex/nostr.ts`
+- `convex/http.ts`
+- `convex/verseImages.ts`
+- `convex/schema.ts`
 
 ## Related Docs
 
-- Implementation details: `llm/implementation/NOSTR_IMPLEMENTATION.md`
-- snstr library reference: `llm/context/snstr/snstr-readme.md`
-- Image generation: `llm/context/IMAGE-GENERATION.md`
+- `llm/implementation/NOSTR_IMPLEMENTATION.md`
+- `llm/context/IMAGE-GENERATION.md`
+- `llm/context/snstr/snstr-readme.md`

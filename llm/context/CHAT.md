@@ -106,6 +106,22 @@ This enables the AI to:
 - Answer questions about the verse in context of the chapter and book
 - Provide spiritually encouraging, devotional responses
 
+## Behavior Assurance (Quality + Safety)
+
+Chat reliability is not only infra reliability. Prompt/model changes can regress
+theological grounding, tone, and safety even when the endpoint is technically healthy.
+
+- The chat prompt currently lives inline in `src/app/api/chat/route.ts` (`buildSystemPrompt()`).
+- Existing automated chat tests focus on credit/stream correctness, not output quality scoring.
+- All chat LLM changes (prompt/model/context behavior) must follow:
+  - `llm/workflow/CHAT_EVAL_AND_RELEASE.md`
+
+That workflow defines:
+- required PR artifacts
+- quality and safety rubrics
+- eval-set minimums and release gates
+- production monitoring and rollback expectations
+
 ## Message Metadata
 
 Each streamed message includes metadata for transparency:
@@ -138,3 +154,4 @@ The API returns user-friendly errors for common failure modes:
 - Model selector: `src/components/chat-model-selector.tsx`
 - Context source: `src/app/[book]/[chapter]/[verse]/page.tsx`
 - Chat models lib: `src/lib/chat-models.ts`
+- LLM assurance runbook: `llm/workflow/CHAT_EVAL_AND_RELEASE.md`

@@ -22,16 +22,17 @@ The primary concern is protecting OpenRouter API credentials from abuse that cou
 ## Protection Layers
 
 ### 1. Origin Validation
-All API routes validate the `Origin` header against an allowlist. Requests from unauthorized origins are rejected with 403.
+State-changing/privileged endpoints validate the `Origin` header against an allowlist (for example: session creation, chat, image generation, invoice creation, feedback, admin login). Unauthorized origins are rejected with 403.
 
 ### 2. Session Security
 - JWT-signed session tokens with IP binding
 - Sessions tied to client IP (hashed) to prevent theft
-- 90-day session TTL with activity-based renewal
+- 1-year JWT/session-cookie TTL (`1y` token expiration, cookie `maxAge` = 1 year)
 
 ### 3. Rate Limiting
 - Per-endpoint request throttling (e.g., 20 chat/min, 5 images/min)
-- Rate limits use `${ipHash}:${sessionId}` format
+- Cost-incurring endpoints (`chat`, `generate-image`) use `${ipHash}:${sessionId}`
+- Abuse-focused endpoints (`session`, `invoice`, `feedback`) use `ipHash`
 - Admin login has exponential backoff lockout (1h → 24h)
 
 ### 4. Cost Protection
@@ -45,6 +46,7 @@ All API routes validate the `Origin` header against an allowlist. Requests from 
 ### 5. Admin Security
 - Password verification with timing-safe comparison
 - HMAC-based password hashing with dedicated secret
+- CSRF double-submit validation on `POST /api/admin-login`
 - **All admin usage logged** to `adminAuditLog` table
 - `getAdminDailySpend` query for monitoring (requires server secret)
 
@@ -95,7 +97,7 @@ All API routes validate the `Origin` header against an allowlist. Requests from 
 
 ### Remaining (Low/Optional)
 - **LOW:** Verbose error logging in generate-image (consider reducing)
-- **LOW:** Session TTL is 90 days (consider reducing to 30 days)
+- **LOW:** Session TTL is 1 year (consider reducing if stricter session churn is desired)
 - **LOW:** LND error logging may expose node details
 
 ## Related Documentation
