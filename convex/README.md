@@ -80,6 +80,7 @@ Set them for both dev and prod deployments (with environment-specific values):
 convex env set CONVEX_SERVER_SECRET "..."
 convex env set ADMIN_PASSWORD_SECRET "..."
 convex env set NOSTR_PRIVATE_KEY "..." # optional
+convex env set NOSTR_RELAYS "wss://relay.nostr.band,wss://nos.lol,wss://relay.damus.io,wss://relay.primal.net" # optional
 ```
 
 Use the deployment target files to select where values are set:
