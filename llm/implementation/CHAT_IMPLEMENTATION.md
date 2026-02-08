@@ -11,7 +11,7 @@ Visibible chat is a client-to-server streaming flow built on the Vercel AI SDK.
 - Client UI uses `useChat` from `@ai-sdk/react` to send messages to `src/app/api/chat/route.ts`.
 - The API validates input, builds a compact system prompt, and streams tokens back.
 - Page context is sent with every chat request to keep the model grounded.
-- OpenRouter is accessed via `@openrouter/ai-sdk-provider` (not `@ai-sdk/openai`).
+- OpenRouter is accessed via `@ai-sdk/openai` using the OpenAI-compatible endpoint (`https://openrouter.ai/api/v1`).
 
 ---
 
@@ -219,12 +219,14 @@ Chat uses **OpenRouter exclusively** for all models. The default model is `opena
 - If no model is specified, the default is used.
 - **Models must have valid pricing** - unpriced models are rejected with 400 error.
 
-OpenRouter is configured via `@openrouter/ai-sdk-provider`:
+OpenRouter is configured via `@ai-sdk/openai` against the OpenAI-compatible endpoint:
 
 ```typescript
-import { createOpenRouter } from "@openrouter/ai-sdk-provider";
+import { createOpenAI } from "@ai-sdk/openai";
 
-const openRouter = createOpenRouter({
+const openRouter = createOpenAI({
+  name: "openrouter",
+  baseURL: "https://openrouter.ai/api/v1",
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 ```

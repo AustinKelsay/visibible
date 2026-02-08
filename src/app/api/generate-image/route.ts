@@ -959,7 +959,7 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
     }
   }
 
-  const includeNarrativeContext = !scenePlannerUsed && Boolean(prevHint || nextHint);
+  const includeNarrativeContext = !scenePlan && Boolean(prevHint || nextHint);
   const narrativeContext = includeNarrativeContext
     ? [
       "",
