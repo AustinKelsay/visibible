@@ -1,6 +1,6 @@
 # visibible
 
-Explore Scripture with AI-powered insights and imagery.
+Explore Scripture with AI-powered insights and imagery
 
 ## Run
 
