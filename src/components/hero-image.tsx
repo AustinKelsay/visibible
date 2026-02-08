@@ -765,6 +765,7 @@ function HeroImageBase({
   const [activeRequestId, setActiveRequestId] = useState<string | null>(null);
   const activeRequest = useRef<AbortController | null>(null);
   const isMounted = useRef(true);
+  const lastDisplayImageKeyRef = useRef<string | null>(null);
   const generationIdRef = useRef(0);
   const imageElementRef = useRef<HTMLImageElement | null>(null);
 
@@ -1186,9 +1187,14 @@ function HeroImageBase({
 
   useEffect(() => {
     if (!displayImage?.url) return;
+    const displayImageKey = `${verseId ?? "unknown"}:${displayImage.id ?? displayImage.url}`;
+    if (lastDisplayImageKeyRef.current === displayImageKey) {
+      return;
+    }
+    lastDisplayImageKeyRef.current = displayImageKey;
     setImageLoadAttempts(0);
     setError(null);
-  }, [displayImage?.id, displayImage?.url]);
+  }, [displayImage?.id, displayImage?.url, verseId]);
 
   useEffect(() => {
     // Ensure isMounted is reset correctly in React Strict Mode (dev double-invokes effects)

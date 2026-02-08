@@ -80,24 +80,8 @@ const validateServerSecret = (serverSecret: string) => {
 };
 
 /**
- * Build a permanent public URL for a stored image.
- * Prefer the HTTP Actions domain when available.
- */
-const getStorageImageBaseUrl = (): string | null => {
-  const baseUrl = process.env.CONVEX_SITE_URL || process.env.CONVEX_CLOUD_URL;
-  if (!baseUrl) return null;
-  return baseUrl.replace(/\/+$/, "");
-};
-
-const buildStorageImageUrl = (storageId: Id<"_storage">): string | null => {
-  const baseUrl = getStorageImageBaseUrl();
-  if (!baseUrl) return null;
-  return `${baseUrl}/image/${encodeURIComponent(storageId)}`;
-};
-
-/**
  * Get the most recent image for a verse.
- * Returns the image URL (either direct URL or from storage).
+ * Returns the image URL (storage signed URL or direct URL fallback).
  */
 export const getLatestImage = query({
   args: {
@@ -112,46 +96,15 @@ export const getLatestImage = query({
 
     if (!image) return null;
 
-    // Prefer stable HTTP action URLs for storage-backed images.
+    let imageUrl = image.imageUrl;
     if (image.storageId) {
-      const url =
-        buildStorageImageUrl(image.storageId) ??
-        // Fallback for environments missing Convex URL system vars.
-        (await ctx.storage.getUrl(image.storageId));
-      if (url) {
-        return {
-          id: image._id,
-          imageUrl: url,
-          model: image.model,
-          prompt: image.prompt,
-          reference: image.reference,
-          verseText: image.verseText,
-          chapterTheme: image.chapterTheme,
-          generationNumber: image.generationNumber,
-          promptVersion: image.promptVersion,
-          promptInputs: image.promptInputs,
-          translationId: image.translationId,
-          provider: image.provider,
-          providerRequestId: image.providerRequestId,
-          creditsCost: image.creditsCost,
-          costUsd: image.costUsd,
-          durationMs: image.durationMs,
-          aspectRatio: image.aspectRatio,
-          sourceImageUrl: image.sourceImageUrl,
-          imageMimeType: image.imageMimeType,
-          imageSizeBytes: image.imageSizeBytes,
-          imageWidth: image.imageWidth,
-          imageHeight: image.imageHeight,
-          createdAt: image.createdAt,
-        };
-      }
+      imageUrl = (await ctx.storage.getUrl(image.storageId)) ?? imageUrl;
     }
 
-    // Fall back to direct URL if available
-    if (image.imageUrl) {
+    if (imageUrl) {
       return {
         id: image._id,
-        imageUrl: image.imageUrl,
+        imageUrl,
         model: image.model,
         prompt: image.prompt,
         reference: image.reference,
@@ -328,14 +281,12 @@ export const getImageHistory = query({
       ? await query.take(args.limit)
       : await query.collect();
 
-    // Resolve storage URLs
+    // Resolve storage URLs (fallback to stored imageUrl if storage object is unavailable)
     const results = await Promise.all(
       images.map(async (image) => {
         let imageUrl = image.imageUrl;
         if (image.storageId) {
           imageUrl =
-            buildStorageImageUrl(image.storageId) ??
-            // Fallback for environments missing Convex URL system vars.
             (await ctx.storage.getUrl(image.storageId)) ??
             imageUrl;
         }

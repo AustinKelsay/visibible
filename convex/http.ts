@@ -15,20 +15,30 @@ const STORAGE_ID_PATTERN = /^[A-Za-z0-9_]+$/;
  * since ctx.storage.getUrl() returns short-lived signed URLs.
  */
 http.route({
-  path: "/image/{storageId}",
+  pathPrefix: "/image/",
   method: "GET",
   handler: httpAction(async (ctx, request) => {
     const url = new URL(request.url);
     // Extract exactly the second path segment: ["", "image", storageId]
     const segments = url.pathname.split("/");
     const rawStorageId = segments[2] ?? "";
-    const storageId = decodeURIComponent(rawStorageId);
+    let storageId = "";
+    try {
+      storageId = decodeURIComponent(rawStorageId);
+    } catch {
+      return new Response("Invalid or missing storageId", { status: 400 });
+    }
 
     if (!storageId || !STORAGE_ID_PATTERN.test(storageId)) {
       return new Response("Invalid or missing storageId", { status: 400 });
     }
 
-    const blob = await ctx.storage.get(storageId as Id<"_storage">);
+    let blob: Awaited<ReturnType<typeof ctx.storage.get>>;
+    try {
+      blob = await ctx.storage.get(storageId as Id<"_storage">);
+    } catch {
+      return new Response("Invalid or missing storageId", { status: 400 });
+    }
     if (!blob) {
       return new Response("Image not found", { status: 404 });
     }
