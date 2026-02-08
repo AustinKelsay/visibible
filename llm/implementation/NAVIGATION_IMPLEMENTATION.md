@@ -6,14 +6,16 @@ This document describes how Visibible handles navigation across the entire Bible
 
 ## Architecture Overview
 
-Navigation consists of six parts:
+Navigation consists of eight coordinated parts:
 
 1. **Navigation Helpers** (`navigation.ts`) — Pure functions for prev/next logic.
-2. **Navigation Context** (`navigation-context.tsx`) — React context for menu and chat sidebar state.
+2. **Navigation Context** (`navigation-context.tsx`) — Shared state for menu, chat, mobile overlays, and context.
 3. **Book Menu** (`book-menu.tsx`) — Slide-out panel for book/chapter selection with image indicators.
 4. **Arrow Navigation** — Embedded in `hero-image.tsx` (Control Dock) and `scripture-reader.tsx`.
 5. **Verse Strip** (`verse-strip.tsx`) — Horizontal verse navigator with image indicators.
-6. **Chat Sidebar State** — Manages chat panel visibility and verse context for AI.
+6. **Chat Sidebar** (`chat-sidebar.tsx`) — Tabbed sidebar for Chat and Feedback.
+7. **Mobile Header Settings Menu** (`header.tsx`) — Mobile-only translation/model controls.
+8. **Mobile Image Controls Sheet** (`image-controls-sheet.tsx`) — Mobile-only bottom sheet for verse/image controls.
 
 ---
 
@@ -210,7 +212,7 @@ function formatReference(location: VerseLocation): string {
 
 ### File: `src/context/navigation-context.tsx`
 
-React context for managing menu open/close state.
+React context for coordinating menu, sidebar, and mobile overlay state.
 
 ### Provider
 
@@ -241,7 +243,11 @@ const {
   // Chat context
   chatContext, setChatContext,
   // Current image (for syncing HeroImage with ScriptureDetails)
-  currentImageId, setCurrentImageId
+  currentImageId, setCurrentImageId,
+  // Mobile image controls sheet
+  isImageControlsOpen, openImageControls, closeImageControls,
+  // Mobile header settings menu
+  isHeaderMenuOpen, openHeaderMenu, closeHeaderMenu
 } = useNavigation();
 ```
 
@@ -269,6 +275,12 @@ const {
 | `setChatContext` | `(ctx: PageContext \| null) => void` | Update chat context |
 | `currentImageId` | `string \| null` | ID of currently displayed image |
 | `setCurrentImageId` | `(id: string \| null) => void` | Sync displayed image between HeroImage and ScriptureDetails |
+| `isImageControlsOpen` | `boolean` | Mobile image controls sheet visibility |
+| `openImageControls` | `() => void` | Open mobile controls sheet and close header menu |
+| `closeImageControls` | `() => void` | Close mobile controls sheet |
+| `isHeaderMenuOpen` | `boolean` | Mobile header settings menu visibility |
+| `openHeaderMenu` | `() => void` | Open mobile settings menu and close controls sheet |
+| `closeHeaderMenu` | `() => void` | Close mobile settings menu |
 
 #### SidebarTab Type
 
@@ -277,6 +289,10 @@ export type SidebarTab = "chat" | "feedback";
 ```
 
 Escape key closes the sidebar automatically.
+
+Route-change behavior:
+- On pathname change, `NavigationContext` closes book menu, image controls sheet, and header settings menu.
+- Chat sidebar intentionally remains open across route changes to preserve conversation continuity.
 
 #### PageContext Type
 
@@ -454,55 +470,27 @@ interface ScriptureReaderProps {
 
 ### File: `src/components/header.tsx`
 
-Contains navigation triggers and user controls.
+Contains navigation triggers and settings controls for desktop and mobile.
 
 ### Component Structure
 
-```text
-Header
-├── Left: Brand ("Visibible")
-├── Center: Controls (grouped with dividers)
-│   ├── CreditsBadge (session credits / Get Credits / Admin)
-│   │   [divider]
-│   ├── Settings Group
-│   │   ├── TranslationSelector (variant="compact")
-│   │   └── ImageModelSelector (variant="compact")
-│   │   [divider]
-│   └── Navigation Group
-│       ├── Chat toggle (MessageCircle icon)
-│       └── Menu toggle (BookOpen icon)
-```
+Desktop (`sm+`):
+- Credits badge
+- Translation selector
+- Image model selector
+- Chat toggle button
+- Book navigation toggle button
 
-### Example Implementation
+Mobile (`<sm`):
+- Credits badge
+- Chat toggle button
+- Book navigation toggle button
+- Hamburger button that toggles mobile settings menu
 
-```typescript
-export function Header() {
-  const { toggleMenu, toggleChat } = useNavigation();
-
-  return (
-    <header className="...">
-      <h1 className="text-lg font-semibold tracking-tight">Visibible</h1>
-      <nav className="flex items-center">
-        <CreditsBadge />
-        <Divider />
-        <div className="flex items-center">
-          <TranslationSelector variant="compact" />
-          <ImageModelSelector variant="compact" />
-        </div>
-        <Divider />
-        <div className="flex items-center">
-          <button onClick={toggleChat} aria-label="Toggle chat">
-            <MessageCircle />
-          </button>
-          <button onClick={toggleMenu} aria-label="Open book navigation">
-            <BookOpen />
-          </button>
-        </div>
-      </nav>
-    </header>
-  );
-}
-```
+Mobile settings dropdown:
+- Translation selector (compact)
+- Image model selector (compact)
+- closes on outside click
 
 ---
 
@@ -540,6 +528,24 @@ The sidebar uses `sidebarTab` from NavigationContext (not local state) so that:
 - `openChat()` opens to the Chat tab
 - `openFeedback()` opens to the Feedback tab
 - Tab state is shared across components
+
+---
+
+## Mobile Image Controls Sheet
+
+### File: `src/components/image-controls-sheet.tsx`
+
+Bottom sheet rendered on mobile only (`sm:hidden`), controlled by `NavigationContext`.
+
+Contains:
+- Verse prev/next controls
+- Image history prev/newer controls
+- Generate button states (loading / can generate / needs credits)
+
+Open/close behavior:
+- Uses `isImageControlsOpen`
+- Backdrop click closes sheet
+- `openImageControls()` closes mobile header settings menu
 
 ---
 
@@ -584,13 +590,14 @@ Note: This only handles Genesis 1 verses (1-31). It's a development shortcut, no
 |------|---------|
 | `src/lib/navigation.ts` | Pure navigation helper functions |
 | `src/context/navigation-context.tsx` | Menu, sidebar, and tab state context |
-| `src/components/header.tsx` | Header with menu trigger |
+| `src/components/header.tsx` | Header actions + mobile settings dropdown |
 | `src/components/book-menu.tsx` | Slide-out book/chapter picker with image indicators |
 | `src/components/verse-strip.tsx` | Horizontal verse navigator with image indicators |
 | `src/components/hero-image.tsx` | Control Dock with verse/image navigation |
 | `src/components/scripture-reader.tsx` | Text-based arrow navigation |
 | `src/components/chat.tsx` | Chat component (uses chat context) |
 | `src/components/chat-sidebar.tsx` | Sidebar panel with tabs (Chat/Feedback) |
+| `src/components/image-controls-sheet.tsx` | Mobile bottom sheet for verse/image controls |
 | `src/components/chat-context-setter.tsx` | Sets chat context on verse pages |
 | `src/components/feedback.tsx` | Feedback form component |
 | `src/components/feedback-prompt.tsx` | Feedback popout CTA |

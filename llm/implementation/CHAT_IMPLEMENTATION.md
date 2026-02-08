@@ -173,6 +173,20 @@ This enables the AI to:
 - Answer questions about the verse in context
 - Provide spiritually encouraging responses
 
+### LLM Behavior Assurance Workflow
+
+Chat behavior can regress independently from infra health (credits, auth, streaming).
+To reduce that risk:
+
+- Prompt/model/context changes must follow `llm/workflow/CHAT_EVAL_AND_RELEASE.md`.
+- The workflow adds explicit quality and safety gates before production.
+- Rollback planning is required for every chat LLM change.
+
+Current gaps this workflow addresses:
+
+- `buildSystemPrompt()` is inline in `src/app/api/chat/route.ts` and not explicitly versioned.
+- Chat tests in `src/app/api/__tests__/chat/` focus on credit/stream lifecycle, not theological quality, hallucination scoring, or jailbreak resistance.
+
 ---
 
 ## Rate Limiting

@@ -35,5 +35,5 @@
 - PRs should include a concise summary, testing notes (`npm run lint`, `npm run typecheck`, `npm test` or manual steps), and screenshots/GIFs for UI changes.
 
 ## Configuration & Secrets
-- Copy `.env.example` to `.env.local` and set `OPENAI_API_KEY` and/or `ANTHROPIC_API_KEY` for the chat API.
+- Copy `.env.example` to `.env.local` and set `OPENROUTER_API_KEY` for chat and image generation.
 - Never commit real API keys.

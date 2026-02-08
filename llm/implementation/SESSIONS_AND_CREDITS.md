@@ -17,8 +17,8 @@ This document describes the anonymous session, credit ledger, and Lightning paym
 │                                   Next.js API Routes                                        │
 │                                              │                                              │
 │   ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐ │
-│   │  /api/session   │    │  /api/invoice   │    │/api/invoice/:id │    │/api/generate-   │ │
-│   │                 │    │                 │    │                 │    │    image        │ │
+│   │  /api/session   │    │  /api/invoice   │    │/api/invoice/:id │    │/api/generate-image│ │
+│   │                 │    │                 │    │                 │    │                  │ │
 │   │ GET: get state  │    │ POST: create    │    │ GET: status     │    │ pre-check       │ │
 │   │ POST: create    │    │      invoice    │    │ POST: confirm   │    │ post-charge     │ │
 │   └────────┬────────┘    └────────┬────────┘    └────────┬────────┘    └────────┬────────┘ │

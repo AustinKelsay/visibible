@@ -35,6 +35,7 @@ Central configuration object defining rate limits for each endpoint. Each entry 
   "admin-login": { windowMs: 900_000, maxRequests: 5 },  // 5 attempts per 15 minutes
   session: { windowMs: 60_000, maxRequests: 10 },       // 10 session creates per minute
   invoice: { windowMs: 60_000, maxRequests: 10 },       // 10 invoice creates per minute
+  feedback: { windowMs: 60_000, maxRequests: 5 },       // 5 feedback submissions per minute
 }
 ```
 
@@ -52,7 +53,7 @@ These constants configure admin login brute force protection but are not exporte
 #### `RateLimitEndpoint`
 Type: `keyof typeof RATE_LIMITS`
 
-Union type of all valid endpoint names: `"chat" | "generate-image" | "admin-login" | "session" | "invoice"`
+Union type of all valid endpoint names: `"chat" | "generate-image" | "admin-login" | "session" | "invoice" | "feedback"`
 
 ### Functions
 
@@ -201,14 +202,24 @@ Changes take effect immediately after Convex syncs the updated function.
 
 ```typescript
 // src/app/api/chat/route.ts
-import { api } from "@/lib/convex-client";
-import { getClientIp } from "@/lib/origin";
+import { api } from "../../../../convex/_generated/api";
+import { getConvexClient } from "@/lib/convex-client";
 import { hashIp } from "@/lib/session";
+import { getClientIp } from "@/lib/session";
+import { getSessionFromCookies } from "@/lib/session";
 
 export async function POST(request: Request) {
+  const convex = getConvexClient();
+  if (!convex) {
+    return Response.json({ error: "Service unavailable" }, { status: 503 });
+  }
+
   const clientIp = getClientIp(request);
   const ipHash = await hashIp(clientIp);
-  const sid = getSessionIdFromCookies(request);
+  const sid = await getSessionFromCookies();
+  if (!sid) {
+    return Response.json({ error: "Session required" }, { status: 401 });
+  }
   const rateLimitIdentifier = `${ipHash}:${sid}`;
 
   // Check rate limit before processing
@@ -299,14 +310,14 @@ if (!rateLimitResult.allowed) {
 
 #### Actual Implementation: Rate Limit Status API
 
-The actual `src/app/api/rate-limit-status/route.ts` returns status for the main rate-limited endpoints plus daily spending information:
+The actual `src/app/api/rate-limit-status/route.ts` returns status for the two cost-incurring endpoints (`chat`, `generate-image`) plus daily spending information:
 
 ```typescript
 // src/app/api/rate-limit-status/route.ts
 import { RATE_LIMITS } from "../../../../convex/rateLimit";
 import { DEFAULT_DAILY_SPEND_LIMIT_USD } from "../../../../convex/sessions";
 
-export async function GET(): Promise<NextResponse<RateLimitStatusResponse>> {
+export async function GET(request: Request): Promise<NextResponse<RateLimitStatusResponse>> {
   const convex = getConvexClient();
   const sid = await getSessionFromCookies();
 
@@ -315,14 +326,18 @@ export async function GET(): Promise<NextResponse<RateLimitStatusResponse>> {
     return NextResponse.json({ endpoints: { ... }, dailySpend: null });
   }
 
+  const clientIp = getClientIp(request);
+  const ipHash = await hashIp(clientIp);
+  const identifier = `${ipHash}:${sid}`;
+
   // Query status for chat and image generation endpoints
   const [chatStatus, imageStatus, session] = await Promise.all([
     convex.query(api.rateLimit.getRateLimitStatus, {
-      identifier: sid,
+      identifier,
       endpoint: "chat",
     }),
     convex.query(api.rateLimit.getRateLimitStatus, {
-      identifier: sid,
+      identifier,
       endpoint: "generate-image",
     }),
     convex.query(api.sessions.getSession, { sid }),
@@ -346,7 +361,7 @@ export async function GET(): Promise<NextResponse<RateLimitStatusResponse>> {
 }
 ```
 
-**Note:** The rate-limit-status endpoint uses `sid` alone as the identifier. This means the status may not reflect the exact remaining count if the user accesses from multiple IPs, since actual rate limiting in chat/generate-image routes uses `${ipHash}:${sid}` format.
+**Note:** The rate-limit-status endpoint intentionally does **not** expose status for `session`, `invoice`, `feedback`, or `admin-login`.
 
 ### Admin Login Brute Force Protection
 
@@ -519,8 +534,9 @@ adminLoginAttempts: defineTable({
 | `src/app/api/session/route.ts` | `session` | `ipHash` | 10/min per IP (prevents session spam) |
 | `src/app/api/generate-image/route.ts` | `generate-image` | `${ipHash}:${sid}` | 5/min per IP+session |
 | `src/app/api/invoice/route.ts` | `invoice` | `ipHash` | 10/min per IP (prevents multi-session bypass) |
+| `src/app/api/feedback/route.ts` | `feedback` | `ipHash` | 5/min per IP (spam protection) |
 | `src/app/api/admin-login/route.ts` | N/A | `ipHash` | Brute force protection (separate system) |
-| `src/app/api/rate-limit-status/route.ts` | N/A | `sid` | Status query only (uses `getRateLimitStatus`) |
+| `src/app/api/rate-limit-status/route.ts` | N/A | `${ipHash}:${sid}` | Status query only for `chat` + `generate-image` |
 
 ### Related Files
 
@@ -555,4 +571,3 @@ adminLoginAttempts: defineTable({
    - Adjust limits based on endpoint cost and abuse potential
    - Monitor rate limit hits in production logs
    - Consider user experience when setting limits
-

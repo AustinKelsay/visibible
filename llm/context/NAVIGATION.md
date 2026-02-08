@@ -4,11 +4,13 @@ High-level overview of how Visibible navigation works. Details may change.
 
 ## Overview
 
-Visibible provides three ways to navigate the Bible:
+Visibible provides three primary ways to navigate the Bible:
 
 1. **URL-based** — Direct links like `/genesis/1/1` or `/john/3/16`.
 2. **Arrow navigation** — Prev/next buttons that cross chapter and book boundaries.
 3. **Book menu** — BookOpen icon menu with collapsible book/chapter picker.
+
+On mobile, navigation controls are also exposed through a bottom sheet (`ImageControlsSheet`) and a header settings dropdown.
 
 ## URL Structure
 
@@ -53,6 +55,7 @@ The NavigationContext manages the chat sidebar state:
 - `isChatOpen`, `openChat`, `closeChat`, `toggleChat` — Controls sidebar visibility
 - `sidebarTab`, `setSidebarTab`, `openFeedback` — Controls which tab is active (Chat or Feedback)
 - `chatContext`, `setChatContext` — Stores verse data (book, chapter, verses, prev/next) passed to the chat AI
+- `currentImageId`, `setCurrentImageId` — Syncs selected image context across sidebar/hero details
 
 **Sidebar Tabs:**
 The sidebar has two tabs:
@@ -68,6 +71,18 @@ Calling `openChat()` opens to the Chat tab. Calling `openFeedback()` opens to th
 **Responsive Behavior:**
 - Desktop (md+): Fixed 384px width on right side
 - Mobile: Full width overlay with backdrop (click backdrop to close)
+
+## Mobile Overlay State
+
+`NavigationContext` also tracks mobile-only overlays:
+
+- `isImageControlsOpen`, `openImageControls`, `closeImageControls` — Bottom sheet for verse/image controls
+- `isHeaderMenuOpen`, `openHeaderMenu`, `closeHeaderMenu` — Header settings dropdown (translation/model)
+
+Coordination rules:
+- Opening image controls closes header settings menu
+- Opening header settings menu closes image controls
+- Route changes close menu + mobile overlays, while chat can remain open for continuity
 
 ## Feedback Prompt
 
@@ -96,8 +111,9 @@ A horizontal scrollable strip below the hero image showing all verses in the cur
 - Navigation helpers: `src/lib/navigation.ts`
 - Book menu UI: `src/components/book-menu.tsx`
 - Menu state: `src/context/navigation-context.tsx`
-- Header with menu trigger: `src/components/header.tsx`
+- Header actions + mobile settings dropdown: `src/components/header.tsx`
 - Arrow navigation: `src/components/hero-image.tsx`, `src/components/scripture-reader.tsx`
+- Mobile controls sheet: `src/components/image-controls-sheet.tsx`
 - Verse strip navigator: `src/components/verse-strip.tsx`
 - Chat sidebar (with tabs): `src/components/chat-sidebar.tsx`
 - Chat context setter: `src/components/chat-context-setter.tsx`
