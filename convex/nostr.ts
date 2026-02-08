@@ -41,10 +41,16 @@ function getNostrRelays(): string[] {
 
 /**
  * Build a permanent public URL for stored images.
- * Prefer HTTP Actions custom domain (CONVEX_SITE_URL) when configured.
+ * Priority:
+ * 1) NOSTR_IMAGE_BASE_URL (explicit override)
+ * 2) CONVEX_SITE_URL (Convex HTTP actions domain)
+ * 3) CONVEX_CLOUD_URL (Convex cloud fallback)
  */
 function getStorageImageBaseUrl(): string | null {
-  const baseUrl = process.env.CONVEX_SITE_URL || process.env.CONVEX_CLOUD_URL;
+  const baseUrl =
+    process.env.NOSTR_IMAGE_BASE_URL ||
+    process.env.CONVEX_SITE_URL ||
+    process.env.CONVEX_CLOUD_URL;
   if (!baseUrl) return null;
   return baseUrl.replace(/\/+$/, "");
 }
@@ -133,7 +139,7 @@ export const publishToNostr = internalAction({
     // Build permanent public URL via HTTP action (see convex/http.ts)
     const convexUrl = getStorageImageBaseUrl();
     if (!convexUrl) {
-      console.error("[Nostr] CONVEX_SITE_URL/CONVEX_CLOUD_URL not available, skipping publication");
+      console.error("[Nostr] Missing image base URL (NOSTR_IMAGE_BASE_URL/CONVEX_SITE_URL/CONVEX_CLOUD_URL), skipping publication");
       return;
     }
     const imageUrl = `${convexUrl}/image/${encodeURIComponent(args.storageId)}`;
