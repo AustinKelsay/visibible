@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSessionFromCookies, getClientIp, hashIp } from "@/lib/session";
+import { getSessionDataFromCookies, getClientIp, hashIp } from "@/lib/session";
 import { getConvexClient } from "@/lib/convex-client";
 import { getBtcPrice, usdToSats } from "@/lib/btc-price";
 import { createLndInvoice, base64ToHex, isLndConfigured } from "@/lib/lnd";
@@ -34,7 +34,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
-  const sid = await getSessionFromCookies();
+  const sid = (await getSessionDataFromCookies())?.sid ?? null;
   if (!sid) {
     return NextResponse.json(
       { error: "Session required" },

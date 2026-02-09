@@ -140,11 +140,10 @@ export async function createSessionToken(
  */
 export interface SessionTokenData {
   sid: string;
-  ipHash?: string; // Present in new tokens, absent in legacy tokens
+  ipHash?: string;
   sessionStartedAt: number;
   lastActivityAt: number;
   expiresAt?: number;
-  hasExplicitLifecycleClaims: boolean;
 }
 
 /**
@@ -178,8 +177,6 @@ export async function verifySessionToken(
       sessionStartedAt,
       lastActivityAt,
       expiresAt: typeof payload.exp === "number" ? payload.exp : undefined,
-      hasExplicitLifecycleClaims:
-        typeof payload.sat === "number" && typeof payload.lat === "number",
     };
   } catch {
     return null;
@@ -189,9 +186,6 @@ export async function verifySessionToken(
 /**
  * Get session data from the request cookies.
  * Returns null if no valid session cookie exists.
- *
- * For backward compatibility, also exports getSessionFromCookies
- * which returns just the sid.
  */
 export async function getSessionDataFromCookies(): Promise<SessionTokenData | null> {
   const cookieStore = await cookies();
@@ -202,17 +196,6 @@ export async function getSessionDataFromCookies(): Promise<SessionTokenData | nu
   }
 
   return verifySessionToken(token);
-}
-
-/**
- * Get the session ID from the request cookies.
- * Returns null if no valid session cookie exists.
- *
- * @deprecated Use getSessionDataFromCookies for IP validation support
- */
-export async function getSessionFromCookies(): Promise<string | null> {
-  const data = await getSessionDataFromCookies();
-  return data?.sid ?? null;
 }
 
 /**
@@ -305,17 +288,13 @@ export async function refreshSessionOnActivity(args: {
 export interface SessionValidationResult {
   valid: boolean;
   sid?: string;
-  needsRefresh?: boolean;
   currentIpHash?: string;
   refreshedToken?: string;
 }
 
 /**
  * Validate session from cookies against current request IP.
- * Returns validation result including whether token should be refreshed.
- *
- * For legacy tokens (no IP hash), returns needsRefresh=true to trigger
- * graceful upgrade to IP-bound tokens.
+ * Returns validation result including a refreshed token when applicable.
  *
  * For tokens with mismatched IP, returns valid=false.
  */
@@ -340,31 +319,18 @@ export async function validateSessionWithIp(
     return { valid: false };
   }
 
-  const missingIpBinding = !sessionData.ipHash;
-  const missingLifecycleClaims = !sessionData.hasExplicitLifecycleClaims;
   const refreshedToken = await refreshSessionOnActivity({
     sid: sessionData.sid,
     ipHash: currentIpHash,
     sessionStartedAt: sessionData.sessionStartedAt,
     lastActivityAt: sessionData.lastActivityAt,
   });
-  const needsRefresh =
-    missingIpBinding || missingLifecycleClaims || refreshedToken !== null;
 
-  let tokenToSet = refreshedToken ?? undefined;
-  if (needsRefresh && !tokenToSet) {
-    tokenToSet = await createSessionToken(sessionData.sid, currentIpHash, {
-      sessionStartedAt: sessionData.sessionStartedAt,
-    });
-  }
-
-  // Valid token
   return {
     valid: true,
     sid: sessionData.sid,
-    needsRefresh,
     currentIpHash,
-    refreshedToken: tokenToSet,
+    refreshedToken: refreshedToken ?? undefined,
   };
 }
 

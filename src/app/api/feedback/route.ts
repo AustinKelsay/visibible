@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getSessionFromCookies, getClientIp, hashIp } from "@/lib/session";
+import { getSessionDataFromCookies, getClientIp, hashIp } from "@/lib/session";
 import { getConvexClient } from "@/lib/convex-client";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import {
@@ -124,7 +124,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   const body = parseResult.data;
 
   // Get session ID (optional, for context)
-  const sid = await getSessionFromCookies();
+  const sid = (await getSessionDataFromCookies())?.sid ?? null;
 
   // Get user agent
   const userAgent = request.headers.get("user-agent") ?? undefined;
