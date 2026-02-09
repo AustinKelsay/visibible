@@ -93,7 +93,7 @@ export async function GET(request: Request): Promise<NextResponse<SessionRespons
   setCsrfCookie(response);
 
   // SECURITY: Refresh session token on activity (idle timeout renewal capped by absolute timeout)
-  if (validation.needsRefresh && validation.refreshedToken) {
+  if (validation.refreshedToken) {
     const cookieOptions = getSessionCookieOptions(validation.refreshedToken);
     response.cookies.set(cookieOptions.name, cookieOptions.value, {
       httpOnly: cookieOptions.httpOnly,
@@ -168,21 +168,6 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
 
       // Existing sessions also need a CSRF cookie for admin-login.
       setCsrfCookie(response);
-
-      // Refresh legacy token to ensure IP binding + explicit timeout lifecycle claims
-      if (!existingData.ipHash || !existingData.hasExplicitLifecycleClaims) {
-        const newToken = await createSessionToken(existingData.sid, ipHash, {
-          sessionStartedAt: existingData.sessionStartedAt,
-        });
-        const cookieOptions = getSessionCookieOptions(newToken);
-        response.cookies.set(cookieOptions.name, cookieOptions.value, {
-          httpOnly: cookieOptions.httpOnly,
-          secure: cookieOptions.secure,
-          sameSite: cookieOptions.sameSite,
-          path: cookieOptions.path,
-          maxAge: cookieOptions.maxAge,
-        });
-      }
 
       return response;
     }

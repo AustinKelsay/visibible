@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { api } from "../../../../convex/_generated/api";
 import { getConvexClient } from "@/lib/convex-client";
-import { getSessionFromCookies, getClientIp, hashIp } from "@/lib/session";
+import { getSessionDataFromCookies, getClientIp, hashIp } from "@/lib/session";
 import { RATE_LIMITS } from "../../../../convex/rateLimit";
 import { DEFAULT_DAILY_SPEND_LIMIT_USD } from "../../../../convex/sessions";
 
@@ -33,7 +33,7 @@ interface RateLimitStatusResponse {
  */
 export async function GET(request: Request): Promise<NextResponse<RateLimitStatusResponse>> {
   const convex = getConvexClient();
-  const sid = await getSessionFromCookies();
+  const sid = (await getSessionDataFromCookies())?.sid ?? null;
 
   const now = Date.now();
 

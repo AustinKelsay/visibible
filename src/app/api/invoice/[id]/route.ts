@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
-import { getSessionFromCookies } from "@/lib/session";
+import { getSessionDataFromCookies } from "@/lib/session";
 import { lookupLndInvoice, isLndConfigured } from "@/lib/lnd";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { api } from "../../../../../convex/_generated/api";
@@ -31,7 +31,7 @@ export async function GET(
     );
   }
 
-  const sid = await getSessionFromCookies();
+  const sid = (await getSessionDataFromCookies())?.sid ?? null;
   if (!sid) {
     return NextResponse.json({ error: "Session required" }, { status: 401 });
   }
@@ -120,7 +120,7 @@ export async function POST(
     );
   }
 
-  const sid = await getSessionFromCookies();
+  const sid = (await getSessionDataFromCookies())?.sid ?? null;
   if (!sid) {
     return NextResponse.json({ error: "Session required" }, { status: 401 });
   }

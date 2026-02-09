@@ -148,7 +148,7 @@ export function isValidResolution(value: string): value is ImageResolution {
  *
  * @param baseCost - Base credit cost from model pricing
  * @param resolution - User-selected resolution
- * @param modelId - Model ID to check resolution support (optional for backward compat)
+ * @param modelId - Model ID to check resolution support (optional)
  * @returns Adjusted credit cost (with multiplier if supported, base cost otherwise)
  */
 export function computeAdjustedCreditsCost(
