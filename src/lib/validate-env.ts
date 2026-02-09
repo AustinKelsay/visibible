@@ -13,6 +13,14 @@ function isBuildPhase(): boolean {
 
 let sessionSecretValidated = false;
 let ipHashSecretValidated = false;
+let sessionTimeoutConfigValidated = false;
+
+const DEFAULT_SESSION_IDLE_TIMEOUT_MINUTES = 10;
+const MIN_SESSION_IDLE_TIMEOUT_MINUTES = 5;
+const MAX_SESSION_IDLE_TIMEOUT_MINUTES = 15;
+const DEFAULT_SESSION_ABSOLUTE_TIMEOUT_HOURS = 8;
+const MIN_SESSION_ABSOLUTE_TIMEOUT_HOURS = 4;
+const MAX_SESSION_ABSOLUTE_TIMEOUT_HOURS = 48;
 
 /**
  * Validate that SESSION_SECRET meets minimum security requirements.
@@ -68,6 +76,68 @@ export function validateIpHashSecret(): void {
   }
 
   ipHashSecretValidated = true;
+}
+
+function parseBoundedInt(
+  envName: string,
+  rawValue: string | undefined,
+  defaultValue: number,
+  min: number,
+  max: number
+): number {
+  if (!rawValue || rawValue.trim() === "") {
+    return defaultValue;
+  }
+
+  const parsed = Number.parseInt(rawValue, 10);
+  if (!Number.isFinite(parsed)) {
+    throw new Error(
+      `${envName} must be an integer between ${min} and ${max}. Received: "${rawValue}".`
+    );
+  }
+
+  if (parsed < min || parsed > max) {
+    throw new Error(
+      `${envName} must be between ${min} and ${max}. Received: ${parsed}.`
+    );
+  }
+
+  return parsed;
+}
+
+/**
+ * Validate session timeout configuration.
+ * Defaults are secure but configurable within bounded ranges.
+ *
+ * @throws Error if timeout values are out of allowed bounds
+ */
+export function validateSessionTimeoutConfig(): void {
+  if (sessionTimeoutConfigValidated || isBuildPhase()) return;
+
+  const idleMinutes = parseBoundedInt(
+    "SESSION_IDLE_TIMEOUT_MINUTES",
+    process.env.SESSION_IDLE_TIMEOUT_MINUTES,
+    DEFAULT_SESSION_IDLE_TIMEOUT_MINUTES,
+    MIN_SESSION_IDLE_TIMEOUT_MINUTES,
+    MAX_SESSION_IDLE_TIMEOUT_MINUTES
+  );
+
+  const absoluteHours = parseBoundedInt(
+    "SESSION_ABSOLUTE_TIMEOUT_HOURS",
+    process.env.SESSION_ABSOLUTE_TIMEOUT_HOURS,
+    DEFAULT_SESSION_ABSOLUTE_TIMEOUT_HOURS,
+    MIN_SESSION_ABSOLUTE_TIMEOUT_HOURS,
+    MAX_SESSION_ABSOLUTE_TIMEOUT_HOURS
+  );
+
+  if (absoluteHours * 60 <= idleMinutes) {
+    throw new Error(
+      "SESSION_ABSOLUTE_TIMEOUT_HOURS must be greater than SESSION_IDLE_TIMEOUT_MINUTES " +
+        `(received absolute=${absoluteHours}h, idle=${idleMinutes}m).`
+    );
+  }
+
+  sessionTimeoutConfigValidated = true;
 }
 
 let convexSecretValidated = false;
@@ -216,6 +286,7 @@ export function validateProxyConfig(): void {
 export function validateSecurityEnv(): void {
   validateSessionSecret();
   validateIpHashSecret();
+  validateSessionTimeoutConfig();
   validateConvexSecret();
   validateAdminSecret();
   validateProxyConfig();

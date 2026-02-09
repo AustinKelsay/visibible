@@ -501,11 +501,17 @@ if (isProduction && trustedIps) {
 
 ---
 
-## Session IP Binding (Enforced)
+## Session Validation (Timeouts + IP Binding)
 
 **Files:** `src/lib/session.ts`, `src/app/api/chat/route.ts`, `src/app/api/generate-image/route.ts`
 
-Session tokens include an IP hash (`iph` field) that binds the session to the client's IP address. This is **enforced** on cost-incurring endpoints to prevent stolen tokens from being used.
+Session validation uses layered checks:
+- **Idle timeout** (configurable 5-15 minutes, default 10)
+- **Absolute timeout** (configurable 4-48 hours, default 8)
+- **IP binding** (`iph`) as a secondary theft-detection control
+
+Renewal is activity-based via `refreshSessionOnActivity` and can extend idle lifetime,
+but never past the absolute timeout cap.
 
 ### Validation Flow
 
@@ -518,13 +524,13 @@ if (!sessionValidation.sid) {
   return Response.json({ error: "Session required" }, { status: 401 });
 }
 
-// 2. Session exists but IP mismatch (possible token theft)
+// 2. Session exists but failed validation (timeout or IP mismatch)
 if (!sessionValidation.valid) {
-  console.warn(`Session IP mismatch - rejecting request`);
+  console.warn(`Session invalid - rejecting request`);
   return Response.json({ error: "Session invalid" }, { status: 401 });
 }
 
-// 3. Valid session with matching IP
+// 3. Valid session
 const sid = sessionValidation.sid;
 ```
 
@@ -533,13 +539,15 @@ const sid = sessionValidation.sid;
 | Field | Source | Check |
 |-------|--------|-------|
 | `sid` | JWT token | Session ID exists and is valid |
-| `iph` | JWT token | IP hash from token creation |
+| `lat` | JWT token | Last activity timestamp (idle timeout check) |
+| `sat` | JWT token | Session start timestamp (absolute timeout cap) |
+| `iph` | JWT token | IP hash from token creation (secondary control) |
 | Current IP | Request headers | Current client IP, hashed |
 | Match | Comparison | `token.iph === hash(currentIp)` |
 
 ### Legacy Token Handling
 
-Tokens created before IP binding was implemented (missing `iph` field) return `valid: true` with `needsRefresh: true`. The session endpoint will issue a new IP-bound token on next request.
+Legacy tokens missing newer claims (`iph`, `sat`, `lat`) are accepted only if they still pass timeout checks, then are refreshed on activity with full claims.
 
 ---
 
