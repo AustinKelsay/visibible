@@ -55,6 +55,7 @@ vi.mock("@/lib/session", () => ({
   })),
   getClientIp: vi.fn(() => "127.0.0.1"),
   hashIp: vi.fn(async () => "mock-ip-hash"),
+  withSessionRefreshCookie: vi.fn((response: Response) => response),
 }));
 
 vi.mock("@/lib/request-body", () => ({

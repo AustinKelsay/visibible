@@ -114,6 +114,61 @@ describe("validateIpHashSecret", () => {
   });
 });
 
+describe("validateSessionTimeoutConfig", () => {
+  beforeEach(() => {
+    vi.resetModules();
+    process.env = { ...originalEnv };
+    delete process.env.NEXT_PHASE;
+  });
+
+  afterEach(() => {
+    process.env = originalEnv;
+  });
+
+  it("should pass with defaults when timeout env vars are unset", async () => {
+    delete process.env.SESSION_IDLE_TIMEOUT_MINUTES;
+    delete process.env.SESSION_ABSOLUTE_TIMEOUT_HOURS;
+    const { validateSessionTimeoutConfig } = await importValidateEnv();
+
+    expect(() => validateSessionTimeoutConfig()).not.toThrow();
+  });
+
+  it("should throw when idle timeout is below minimum", async () => {
+    process.env.SESSION_IDLE_TIMEOUT_MINUTES = "4";
+    const { validateSessionTimeoutConfig } = await importValidateEnv();
+
+    expect(() => validateSessionTimeoutConfig()).toThrow(
+      "SESSION_IDLE_TIMEOUT_MINUTES must be between 5 and 15"
+    );
+  });
+
+  it("should throw when absolute timeout is above maximum", async () => {
+    process.env.SESSION_ABSOLUTE_TIMEOUT_HOURS = "72";
+    const { validateSessionTimeoutConfig } = await importValidateEnv();
+
+    expect(() => validateSessionTimeoutConfig()).toThrow(
+      "SESSION_ABSOLUTE_TIMEOUT_HOURS must be between 4 and 48"
+    );
+  });
+
+  it("should throw when timeout value is not an integer", async () => {
+    process.env.SESSION_IDLE_TIMEOUT_MINUTES = "ten";
+    const { validateSessionTimeoutConfig } = await importValidateEnv();
+
+    expect(() => validateSessionTimeoutConfig()).toThrow(
+      "SESSION_IDLE_TIMEOUT_MINUTES must be an integer between 5 and 15"
+    );
+  });
+
+  it("should skip validation during build phase", async () => {
+    process.env.NEXT_PHASE = "phase-production-build";
+    process.env.SESSION_IDLE_TIMEOUT_MINUTES = "1";
+    const { validateSessionTimeoutConfig } = await importValidateEnv();
+
+    expect(() => validateSessionTimeoutConfig()).not.toThrow();
+  });
+});
+
 describe("validateProxyConfig", () => {
   beforeEach(() => {
     vi.resetModules();

@@ -7,11 +7,72 @@ import { validateSecurityEnv } from "./validate-env";
 validateSecurityEnv();
 
 const COOKIE_NAME = "visibible_session";
-const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
+const DEFAULT_SESSION_IDLE_TIMEOUT_MINUTES = 10;
+const MIN_SESSION_IDLE_TIMEOUT_MINUTES = 5;
+const MAX_SESSION_IDLE_TIMEOUT_MINUTES = 15;
+const DEFAULT_SESSION_ABSOLUTE_TIMEOUT_HOURS = 8;
+const MIN_SESSION_ABSOLUTE_TIMEOUT_HOURS = 4;
+const MAX_SESSION_ABSOLUTE_TIMEOUT_HOURS = 48;
+const SESSION_REFRESH_MIN_INTERVAL_SECONDS = 60;
+
+function parseBoundedTimeout(
+  rawValue: string | undefined,
+  envName: string,
+  defaultValue: number,
+  min: number,
+  max: number
+): number {
+  if (!rawValue || rawValue.trim() === "") {
+    return defaultValue;
+  }
+
+  const parsed = Number.parseInt(rawValue, 10);
+  if (!Number.isFinite(parsed)) {
+    throw new Error(
+      `${envName} must be an integer between ${min} and ${max}. Received: "${rawValue}".`
+    );
+  }
+
+  if (parsed < min || parsed > max) {
+    throw new Error(
+      `${envName} must be between ${min} and ${max}. Received: ${parsed}.`
+    );
+  }
+
+  return parsed;
+}
+
+const SESSION_IDLE_TIMEOUT_MINUTES = parseBoundedTimeout(
+  process.env.SESSION_IDLE_TIMEOUT_MINUTES,
+  "SESSION_IDLE_TIMEOUT_MINUTES",
+  DEFAULT_SESSION_IDLE_TIMEOUT_MINUTES,
+  MIN_SESSION_IDLE_TIMEOUT_MINUTES,
+  MAX_SESSION_IDLE_TIMEOUT_MINUTES
+);
+
+const SESSION_ABSOLUTE_TIMEOUT_HOURS = parseBoundedTimeout(
+  process.env.SESSION_ABSOLUTE_TIMEOUT_HOURS,
+  "SESSION_ABSOLUTE_TIMEOUT_HOURS",
+  DEFAULT_SESSION_ABSOLUTE_TIMEOUT_HOURS,
+  MIN_SESSION_ABSOLUTE_TIMEOUT_HOURS,
+  MAX_SESSION_ABSOLUTE_TIMEOUT_HOURS
+);
+
+if (SESSION_ABSOLUTE_TIMEOUT_HOURS * 60 <= SESSION_IDLE_TIMEOUT_MINUTES) {
+  throw new Error(
+    "SESSION_ABSOLUTE_TIMEOUT_HOURS must be greater than SESSION_IDLE_TIMEOUT_MINUTES " +
+      `(received absolute=${SESSION_ABSOLUTE_TIMEOUT_HOURS}h, idle=${SESSION_IDLE_TIMEOUT_MINUTES}m).`
+  );
+}
+
+export const SESSION_IDLE_TIMEOUT_SECONDS = SESSION_IDLE_TIMEOUT_MINUTES * 60;
+export const SESSION_ABSOLUTE_TIMEOUT_SECONDS = SESSION_ABSOLUTE_TIMEOUT_HOURS * 60 * 60;
 
 interface SessionPayload extends JWTPayload {
   sid: string;
   iph?: string;
+  sat?: number; // Session start timestamp (epoch seconds)
+  lat?: number; // Last activity timestamp (epoch seconds)
 }
 
 function getSecretKey(): Uint8Array {
@@ -46,17 +107,29 @@ function getIpHashSecretKey(): Uint8Array {
  */
 export async function createSessionToken(
   sid: string,
-  ipHash?: string
+  ipHash?: string,
+  options?: { sessionStartedAt?: number; activityAt?: number }
 ): Promise<string> {
-  const payload: SessionPayload = { sid };
+  const nowSec = Math.floor(Date.now() / 1000);
+  const sessionStartedAt = options?.sessionStartedAt ?? nowSec;
+  const activityAt = options?.activityAt ?? nowSec;
+  const idleExpiresAt = activityAt + SESSION_IDLE_TIMEOUT_SECONDS;
+  const absoluteExpiresAt = sessionStartedAt + SESSION_ABSOLUTE_TIMEOUT_SECONDS;
+  const expiresAt = Math.min(idleExpiresAt, absoluteExpiresAt);
+
+  const payload: SessionPayload = {
+    sid,
+    sat: sessionStartedAt,
+    lat: activityAt,
+  };
   if (ipHash) {
     payload.iph = ipHash;
   }
 
   const token = await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
-    .setIssuedAt()
-    .setExpirationTime("1y")
+    .setIssuedAt(activityAt)
+    .setExpirationTime(expiresAt)
     .sign(getSecretKey());
 
   return token;
@@ -68,6 +141,10 @@ export async function createSessionToken(
 export interface SessionTokenData {
   sid: string;
   ipHash?: string; // Present in new tokens, absent in legacy tokens
+  sessionStartedAt: number;
+  lastActivityAt: number;
+  expiresAt?: number;
+  hasExplicitLifecycleClaims: boolean;
 }
 
 /**
@@ -80,9 +157,29 @@ export async function verifySessionToken(
   try {
     const { payload } = await jwtVerify<SessionPayload>(token, getSecretKey());
     if (!payload.sid) return null;
+
+    const issuedAt = typeof payload.iat === "number" ? payload.iat : undefined;
+    const sessionStartedAt = typeof payload.sat === "number" ? payload.sat : issuedAt;
+    const lastActivityAt = typeof payload.lat === "number" ? payload.lat : issuedAt;
+
+    if (!sessionStartedAt || !lastActivityAt) return null;
+
+    const nowSec = Math.floor(Date.now() / 1000);
+    if (nowSec - lastActivityAt > SESSION_IDLE_TIMEOUT_SECONDS) {
+      return null;
+    }
+    if (nowSec - sessionStartedAt > SESSION_ABSOLUTE_TIMEOUT_SECONDS) {
+      return null;
+    }
+
     return {
       sid: payload.sid,
       ipHash: payload.iph,
+      sessionStartedAt,
+      lastActivityAt,
+      expiresAt: typeof payload.exp === "number" ? payload.exp : undefined,
+      hasExplicitLifecycleClaims:
+        typeof payload.sat === "number" && typeof payload.lat === "number",
     };
   } catch {
     return null;
@@ -136,8 +233,70 @@ export function getSessionCookieOptions(token: string) {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax" as const,
     path: "/",
-    maxAge: COOKIE_MAX_AGE,
+    maxAge: SESSION_IDLE_TIMEOUT_SECONDS,
   };
+}
+
+export function getSessionCookieHeader(token: string): string {
+  const cookieOptions = getSessionCookieOptions(token);
+  const parts = [
+    `${cookieOptions.name}=${cookieOptions.value}`,
+    `Max-Age=${cookieOptions.maxAge}`,
+    `Path=${cookieOptions.path}`,
+    `SameSite=${cookieOptions.sameSite}`,
+  ];
+
+  if (cookieOptions.httpOnly) {
+    parts.push("HttpOnly");
+  }
+  if (cookieOptions.secure) {
+    parts.push("Secure");
+  }
+
+  return parts.join("; ");
+}
+
+export function withSessionRefreshCookie(
+  response: Response,
+  refreshedToken?: string
+): Response {
+  if (!refreshedToken) {
+    return response;
+  }
+
+  const headers = new Headers(response.headers);
+  headers.append("Set-Cookie", getSessionCookieHeader(refreshedToken));
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
+export async function refreshSessionOnActivity(args: {
+  sid: string;
+  ipHash?: string;
+  sessionStartedAt: number;
+  lastActivityAt: number;
+}): Promise<string | null> {
+  const nowSec = Math.floor(Date.now() / 1000);
+  const absoluteExpiresAt =
+    args.sessionStartedAt + SESSION_ABSOLUTE_TIMEOUT_SECONDS;
+
+  // Never renew beyond the absolute timeout cap.
+  if (nowSec >= absoluteExpiresAt) {
+    return null;
+  }
+
+  // Avoid issuing a brand-new token for every single request in rapid bursts.
+  if (nowSec - args.lastActivityAt < SESSION_REFRESH_MIN_INTERVAL_SECONDS) {
+    return null;
+  }
+
+  return createSessionToken(args.sid, args.ipHash, {
+    sessionStartedAt: args.sessionStartedAt,
+  });
 }
 
 /**
@@ -146,8 +305,9 @@ export function getSessionCookieOptions(token: string) {
 export interface SessionValidationResult {
   valid: boolean;
   sid?: string;
-  needsRefresh?: boolean; // True if token lacks IP hash (legacy) or IP changed
+  needsRefresh?: boolean;
   currentIpHash?: string;
+  refreshedToken?: string;
 }
 
 /**
@@ -171,30 +331,40 @@ export async function validateSessionWithIp(
   const clientIp = getClientIp(request);
   const currentIpHash = await hashIp(clientIp);
 
-  // Legacy token without IP hash - valid but needs refresh
-  if (!sessionData.ipHash) {
-    return {
-      valid: true,
-      sid: sessionData.sid,
-      needsRefresh: true,
-      currentIpHash,
-    };
-  }
-
   // IP hash mismatch - invalid session (possible token theft)
-  if (sessionData.ipHash !== currentIpHash) {
+  // IP binding remains a secondary control after idle/absolute timeout checks.
+  if (sessionData.ipHash && sessionData.ipHash !== currentIpHash) {
     console.warn(
       `[Session] IP mismatch detected for sid=${sessionData.sid.slice(0, 8)}...`
     );
     return { valid: false };
   }
 
-  // Valid token with matching IP
+  const missingIpBinding = !sessionData.ipHash;
+  const missingLifecycleClaims = !sessionData.hasExplicitLifecycleClaims;
+  const refreshedToken = await refreshSessionOnActivity({
+    sid: sessionData.sid,
+    ipHash: currentIpHash,
+    sessionStartedAt: sessionData.sessionStartedAt,
+    lastActivityAt: sessionData.lastActivityAt,
+  });
+  const needsRefresh =
+    missingIpBinding || missingLifecycleClaims || refreshedToken !== null;
+
+  let tokenToSet = refreshedToken ?? undefined;
+  if (needsRefresh && !tokenToSet) {
+    tokenToSet = await createSessionToken(sessionData.sid, currentIpHash, {
+      sessionStartedAt: sessionData.sessionStartedAt,
+    });
+  }
+
+  // Valid token
   return {
     valid: true,
     sid: sessionData.sid,
-    needsRefresh: false,
+    needsRefresh,
     currentIpHash,
+    refreshedToken: tokenToSet,
   };
 }
 

@@ -452,6 +452,8 @@ ADMIN_PASSWORD_SECRET=your-hmac-secret
 
 # Convex runtime target (Next.js environment)
 # Use dev URL in local/preview, prod URL in production
+# Replace placeholder with your actual deployment URL or custom domain
+# (e.g., https://api.dev.visibible.com for preview/dev, https://api.visibible.com for production)
 NEXT_PUBLIC_CONVEX_URL=https://your-deployment.convex.cloud
 CONVEX_SERVER_SECRET=your-convex-server-secret
 
@@ -470,6 +472,9 @@ Convex CLI deployment targeting (`CONVEX_DEPLOYMENT`) is managed with:
 
 - `.env.convex.dev` for dev commands
 - `.env.convex.prod` for production deploy commands
+
+For canonical project-specific URL/domain mapping and env templates, see `README.md`
+(`Convex Setup` and `Vercel Setup` sections).
 
 See `llm/workflow/CONVEX_WORKFLOWS.md` for the full workflow.
 

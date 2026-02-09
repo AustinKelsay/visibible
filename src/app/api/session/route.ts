@@ -40,7 +40,8 @@ function setCsrfCookie(response: NextResponse): void {
  * If a valid session exists, updates lastSeenAt and returns session info.
  * If no session, returns null sid with paid tier and 0 credits.
  *
- * SECURITY: Validates IP binding and refreshes token if legacy or IP changed.
+ * SECURITY: Validates idle/absolute session timeouts and IP binding.
+ * Refreshes token on activity without exceeding the absolute timeout cap.
  */
 export async function GET(request: Request): Promise<NextResponse<SessionResponse>> {
   const convex = getConvexClient();
@@ -91,10 +92,9 @@ export async function GET(request: Request): Promise<NextResponse<SessionRespons
   // Keep CSRF token fresh for admin-login and other state-changing endpoints.
   setCsrfCookie(response);
 
-  // SECURITY: Refresh token to add IP binding for legacy tokens
-  if (validation.needsRefresh && validation.currentIpHash) {
-    const newToken = await createSessionToken(sid, validation.currentIpHash);
-    const cookieOptions = getSessionCookieOptions(newToken);
+  // SECURITY: Refresh session token on activity (idle timeout renewal capped by absolute timeout)
+  if (validation.needsRefresh && validation.refreshedToken) {
+    const cookieOptions = getSessionCookieOptions(validation.refreshedToken);
     response.cookies.set(cookieOptions.name, cookieOptions.value, {
       httpOnly: cookieOptions.httpOnly,
       secure: cookieOptions.secure,
@@ -169,9 +169,11 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
       // Existing sessions also need a CSRF cookie for admin-login.
       setCsrfCookie(response);
 
-      // Refresh token with IP binding if legacy token
-      if (!existingData.ipHash) {
-        const newToken = await createSessionToken(existingData.sid, ipHash);
+      // Refresh legacy token to ensure IP binding + explicit timeout lifecycle claims
+      if (!existingData.ipHash || !existingData.hasExplicitLifecycleClaims) {
+        const newToken = await createSessionToken(existingData.sid, ipHash, {
+          sessionStartedAt: existingData.sessionStartedAt,
+        });
         const cookieOptions = getSessionCookieOptions(newToken);
         response.cookies.set(cookieOptions.name, cookieOptions.value, {
           httpOnly: cookieOptions.httpOnly,

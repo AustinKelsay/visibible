@@ -27,9 +27,10 @@ Set deployment names from the Convex dashboard:
 
 In `.env.local`, keep Convex values pointed at your dev deployment:
 
-- `CONVEX_DEPLOYMENT=dev:...`
 - `NEXT_PUBLIC_CONVEX_URL=https://api.dev.visibible.com` (dev API URL)
 - `CONVEX_SERVER_SECRET=<dev secret>`
+
+Keep `CONVEX_DEPLOYMENT=dev:...` in `.env.convex.dev` for CLI targeting.
 
 Custom domain pattern in this project:
 

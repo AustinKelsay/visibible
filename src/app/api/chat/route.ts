@@ -9,7 +9,12 @@ import {
   CREDIT_USD,
 } from "@/lib/chat-models";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
-import { validateSessionWithIp, getClientIp, hashIp } from "@/lib/session";
+import {
+  validateSessionWithIp,
+  getClientIp,
+  hashIp,
+  withSessionRefreshCookie,
+} from "@/lib/session";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import {
   readJsonBodyWithLimit,
@@ -234,6 +239,8 @@ export async function POST(req: Request) {
     );
   }
   const sid = sessionValidation.sid;
+  const withSessionRefresh = (response: Response) =>
+    withSessionRefreshCookie(response, sessionValidation.refreshedToken);
 
   // SECURITY: Rate limiting - use IP hash as primary identifier to prevent multi-session bypass
   // Combined with sid for granular tracking per IP+session pair
@@ -247,7 +254,7 @@ export async function POST(req: Request) {
   });
 
   if (!rateLimitResult.allowed) {
-    return Response.json(
+    return withSessionRefresh(Response.json(
       {
         error: "Rate limit exceeded",
         message: "Too many requests. Please wait before sending more messages.",
@@ -259,7 +266,7 @@ export async function POST(req: Request) {
           "Retry-After": String(rateLimitResult.retryAfter || 60),
         },
       }
-    );
+    ));
   }
 
   // SECURITY: Read body with enforced size limit
@@ -269,19 +276,23 @@ export async function POST(req: Request) {
     body = await readJsonBodyWithLimit(req, DEFAULT_MAX_BODY_SIZE);
   } catch (error) {
     if (error instanceof PayloadTooLargeError) {
-      return Response.json(
+      return withSessionRefresh(Response.json(
         {
           error: "Payload too large",
           message: `Request body exceeds maximum size of ${error.maxSize} bytes.`,
           maxSize: error.maxSize,
         },
         { status: 413 }
-      );
+      ));
     }
     if (error instanceof InvalidJsonError) {
-      return Response.json({ error: "Invalid JSON body" }, { status: 400 });
+      return withSessionRefresh(
+        Response.json({ error: "Invalid JSON body" }, { status: 400 })
+      );
     }
-    return Response.json({ error: "Failed to read request body" }, { status: 400 });
+    return withSessionRefresh(
+      Response.json({ error: "Failed to read request body" }, { status: 400 })
+    );
   }
 
   // Validate request body structure and message format
@@ -291,13 +302,13 @@ export async function POST(req: Request) {
       const path = err.path.join(".");
       return path ? `${path}: ${err.message}` : err.message;
     });
-    return Response.json(
+    return withSessionRefresh(Response.json(
       {
         error: "Validation failed",
         details: errors,
       },
       { status: 400 }
-    );
+    ));
   }
 
   const { messages, context, model: requestedModel } = validationResult.data;
@@ -314,32 +325,32 @@ export async function POST(req: Request) {
   );
 
   if (!modelPricing) {
-    return Response.json(
+    return withSessionRefresh(Response.json(
       {
         error: "Model not available",
         message: `The model "${modelId}" is not available or cannot be priced. Please select a different model.`,
       },
       { status: 400 }
-    );
+    ));
   }
 
   // Calculate credit cost based on model pricing (estimated ~2000 tokens)
   const estimatedCredits = computeChatCreditsCost(modelPricing);
   if (estimatedCredits === null) {
-    return Response.json(
+    return withSessionRefresh(Response.json(
       {
         error: "Model pricing unavailable",
         message: "Unable to determine cost for this model. Please try a different model.",
       },
       { status: 400 }
-    );
+    ));
   }
 
   // SECURITY: Reject requests that would cost more than reasonable per-request limit
   // This prevents cost amplification attacks with expensive models
   const MAX_CREDITS_PER_REQUEST = 100; // $1.00 maximum per single request
   if (estimatedCredits > MAX_CREDITS_PER_REQUEST) {
-    return Response.json(
+    return withSessionRefresh(Response.json(
       {
         error: "Request too expensive",
         message: `This model costs approximately ${estimatedCredits} credits per message. Maximum is ${MAX_CREDITS_PER_REQUEST} credits ($1.00). Please select a more affordable model.`,
@@ -347,7 +358,7 @@ export async function POST(req: Request) {
         maximum: MAX_CREDITS_PER_REQUEST,
       },
       { status: 400 }
-    );
+    ));
   }
 
   const estimatedCostUsd = estimatedCredits * CREDIT_USD;
@@ -418,17 +429,17 @@ export async function POST(req: Request) {
   const session = await convex.query(api.sessions.getSession, { sid: sessionId });
 
   if (!session) {
-    return Response.json(
+    return withSessionRefresh(Response.json(
       { error: "Session not found" },
       { status: 401 }
-    );
+    ));
   }
 
   // Admin bypasses credit check but we log for audit trail
   if (session.tier !== "admin") {
     // Check if user has enough credits for this model
     if (session.credits < creditAmount) {
-      return Response.json(
+      return withSessionRefresh(Response.json(
         {
           error: "Insufficient credits",
           required: creditAmount,
@@ -436,7 +447,7 @@ export async function POST(req: Request) {
           message: `This model requires ${creditAmount} credits per message.`,
         },
         { status: 402 } // Payment Required
-      );
+      ));
     }
 
     // Generate unique ID for this chat request
@@ -455,7 +466,7 @@ export async function POST(req: Request) {
     if (!reserveResult.success) {
       // Check if failure is due to daily spending limit vs insufficient credits
       if ("dailyLimit" in reserveResult) {
-        return Response.json(
+        return withSessionRefresh(Response.json(
           {
             error: "Daily spending limit exceeded",
             dailyLimit: reserveResult.dailyLimit,
@@ -463,12 +474,12 @@ export async function POST(req: Request) {
             remaining: reserveResult.remaining,
           },
           { status: 429 } // Too Many Requests - appropriate for rate/limit exceeded
-        );
+        ));
       }
-      return Response.json(
+      return withSessionRefresh(Response.json(
         { error: reserveResult.error || "Failed to reserve credits" },
         { status: 402 }
-      );
+      ));
     }
 
     creditReserved = true;
@@ -541,13 +552,13 @@ export async function POST(req: Request) {
     // Ensure at least one non-empty message remains
     if (filteredMessages.length === 0) {
       await releaseReservedCredits("empty-messages");
-      return Response.json(
+      return withSessionRefresh(Response.json(
         {
           error: "Invalid request",
           message: "All messages have empty content. At least one message with non-empty content is required.",
         },
         { status: 400 }
-      );
+      ));
     }
 
     // Extract clean messages for OpenRouter (remove metadata)
@@ -603,7 +614,7 @@ export async function POST(req: Request) {
 
     // If no credits reserved (admin user), return response as-is
     if (!generationId || !creditReserved) {
-      return baseResponse;
+      return withSessionRefresh(baseResponse);
     }
 
     // Wrap stream with TransformStream to ensure credit deduction is awaited
@@ -611,7 +622,7 @@ export async function POST(req: Request) {
     // until our async work finishes.
     const body = baseResponse.body;
     if (!body) {
-      return baseResponse;
+      return withSessionRefresh(baseResponse);
     }
 
     const creditDeductionStream = new TransformStream({
@@ -662,11 +673,11 @@ export async function POST(req: Request) {
       },
     });
 
-    return new Response(cancelAwareBody, {
+    return withSessionRefresh(new Response(cancelAwareBody, {
       status: baseResponse.status,
       statusText: baseResponse.statusText,
       headers: baseResponse.headers,
-    });
+    }));
   } catch (error) {
     console.error("Chat API error:", error);
 
@@ -696,7 +707,7 @@ export async function POST(req: Request) {
 
     // Handle rate limit errors (429)
     if (statusCode === 429 || errorMessage.includes("rate-limited")) {
-      return Response.json(
+      return withSessionRefresh(Response.json(
         {
           error: "Rate limit reached",
           message:
@@ -704,7 +715,7 @@ export async function POST(req: Request) {
           retryable: true,
         },
         { status: 429 }
-      );
+      ));
     }
 
     // Handle data policy / no endpoints errors (404)
@@ -713,7 +724,7 @@ export async function POST(req: Request) {
       errorMessage.includes("No endpoints found") ||
       errorMessage.includes("data policy")
     ) {
-      return Response.json(
+      return withSessionRefresh(Response.json(
         {
           error: "Model temporarily unavailable",
           message:
@@ -721,12 +732,12 @@ export async function POST(req: Request) {
           retryable: true,
         },
         { status: 503 }
-      );
+      ));
     }
 
     // Handle max retries exceeded
     if (errorObj.reason === "maxRetriesExceeded") {
-      return Response.json(
+      return withSessionRefresh(Response.json(
         {
           error: "Service temporarily busy",
           message:
@@ -734,17 +745,17 @@ export async function POST(req: Request) {
           retryable: true,
         },
         { status: 503 }
-      );
+      ));
     }
 
     // Generic fallback
-    return Response.json(
+    return withSessionRefresh(Response.json(
       {
         error: "Failed to process chat request",
         message: "Something went wrong. Please try again.",
         retryable: true,
       },
       { status: 500 }
-    );
+    ));
   }
 }

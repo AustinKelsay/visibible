@@ -27,7 +27,10 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 ### 2. Session Security
 - JWT-signed session tokens with IP binding
 - Sessions tied to client IP (hashed) to prevent theft
-- 1-year JWT/session-cookie TTL (`1y` token expiration, cookie `maxAge` = 1 year)
+- Short idle timeout + bounded absolute timeout
+  - Idle timeout: configurable 5-15 minutes (default: 10)
+  - Absolute timeout: configurable 4-48 hours (default: 8)
+  - Activity-based renewal refreshes session up to (but never beyond) the absolute cap
 
 ### 3. Rate Limiting
 - Per-endpoint request throttling (e.g., 20 chat/min, 5 images/min)
@@ -97,7 +100,6 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 
 ### Remaining (Low/Optional)
 - **LOW:** Verbose error logging in generate-image (consider reducing)
-- **LOW:** Session TTL is 1 year (consider reducing if stricter session churn is desired)
 - **LOW:** LND error logging may expose node details
 
 ## Related Documentation

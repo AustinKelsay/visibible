@@ -39,13 +39,19 @@ Then fill in `CONVEX_DEPLOYMENT` in each file:
 - `.env.convex.dev` -> `dev:...`
 - `.env.convex.prod` -> `prod:...`
 
+Create/select a **dev deployment** in the Convex dashboard, then copy its runtime values for local app use.
+
 For local app development, set `.env.local` to the **dev** deployment values:
 
-- `CONVEX_DEPLOYMENT=dev:...`
 - `NEXT_PUBLIC_CONVEX_URL=https://api.dev.visibible.com`
 - `CONVEX_SERVER_SECRET=<dev secret>`
 - `NEXT_PUBLIC_APP_URL=https://dev.visibible.com`
 - `OPENROUTER_REFERRER=https://dev.visibible.com`
+
+Notes:
+- `CONVEX_DEPLOYMENT` is CLI-targeting config and should stay in `.env.convex.dev` / `.env.convex.prod`, not `.env.local`.
+- `api.dev.visibible.com` is this project's custom Convex API domain. If you use your own deployment/domain, use your dashboard values.
+- For custom domain setup details, see [`llm/workflow/CONVEX_WORKFLOWS.md`](llm/workflow/CONVEX_WORKFLOWS.md) (and the Convex dashboard domain settings).
 
 Use these commands:
 
