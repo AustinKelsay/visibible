@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { useQuery, useAction } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Clock, ChevronDown, Settings } from "lucide-react";
+import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Clock, ChevronDown, Settings, Maximize2, X } from "lucide-react";
 import { ImageControlsSheet } from "./image-controls-sheet";
 import { usePreferences } from "@/context/preferences-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
@@ -760,6 +760,7 @@ function HeroImageBase({
   const [isGenerating, setIsGenerating] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [hasAttemptedGeneration, setHasAttemptedGeneration] = useState(false);
   const [imageLoadAttempts, setImageLoadAttempts] = useState(0);
   const [activeRequestId, setActiveRequestId] = useState<string | null>(null);
@@ -1157,6 +1158,7 @@ function HeroImageBase({
     setPendingImageId(null);
     setActiveRequestId(null);
     setIsImageLoading(false);
+    setIsFullscreen(false);
     pendingFollowLatest.current = true;
     if (activeRequest.current) {
       activeRequest.current.abort();
@@ -1206,6 +1208,23 @@ function HeroImageBase({
       }
     };
   }, []);
+
+  // Close fullscreen on Escape key
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsFullscreen(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isFullscreen]);
+
+  // Lock body scroll when fullscreen is open
+  useEffect(() => {
+    if (!isFullscreen) return;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
+  }, [isFullscreen]);
 
   // Use the displayed image's aspect ratio when available, fall back to user preference
   const containerAspectRatio: ImageAspectRatio =
@@ -1284,6 +1303,15 @@ function HeroImageBase({
               imageHeight={currentImage?.imageHeight}
               createdAt={currentImage?.createdAt}
             />
+
+            {/* Fullscreen toggle button */}
+            <button
+              onClick={() => setIsFullscreen(true)}
+              className="absolute top-3 z-20 right-[60px] sm:right-3 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--background)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--background)]/90 transition-colors duration-[var(--motion-fast)] focus-ring"
+              aria-label="View fullscreen"
+            >
+              <Maximize2 size={18} strokeWidth={1.5} />
+            </button>
           </>
         ) : (
           /* Placeholder with skeleton loader */
@@ -1513,7 +1541,7 @@ function HeroImageBase({
         {showControls && (
           <button
             onClick={openImageControls}
-            className="sm:hidden absolute bottom-4 right-4 z-20 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 backdrop-blur-sm border border-[var(--divider)] shadow-lg text-[var(--foreground)] active:scale-95 transition-transform"
+            className="sm:hidden absolute top-3 right-3 z-20 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 backdrop-blur-sm border border-[var(--divider)] shadow-lg text-[var(--foreground)] active:scale-95 transition-transform"
             aria-label="Open image controls"
           >
             <Settings size={20} strokeWidth={1.5} />
@@ -1558,6 +1586,73 @@ function HeroImageBase({
         isPricingLoading={pricingPending}
         onBuyCredits={buyCredits}
       />
+
+      {/* Fullscreen Image Overlay */}
+      {isFullscreen && displayImage?.url && (
+        <div
+          className="fixed inset-0 z-[60] bg-black flex flex-col"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Fullscreen image view"
+        >
+          {/* Top bar */}
+          <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-b from-black/80 to-transparent">
+            <span className="text-sm text-white/80 font-medium">
+              {currentReference || ""}
+            </span>
+            <button
+              onClick={() => setIsFullscreen(false)}
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)]"
+              aria-label="Close fullscreen"
+            >
+              <X size={24} strokeWidth={1.5} />
+            </button>
+          </div>
+
+          {/* Image area with verse navigation */}
+          <div className="flex-1 relative flex items-center justify-center min-h-0 px-2">
+            {/* Previous verse */}
+            {prevUrl && (
+              <Link
+                href={prevUrl}
+                onClick={() => setIsFullscreen(false)}
+                className="absolute left-2 sm:left-4 z-10 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors duration-[var(--motion-fast)]"
+                aria-label="Previous verse"
+              >
+                <ChevronLeft size={28} strokeWidth={1.5} />
+              </Link>
+            )}
+
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={displayImage.url}
+              alt={alt}
+              className="max-w-full max-h-full object-contain rounded-[var(--radius-md)]"
+            />
+
+            {/* Next verse */}
+            {nextUrl && (
+              <Link
+                href={nextUrl}
+                onClick={() => setIsFullscreen(false)}
+                className="absolute right-2 sm:right-4 z-10 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors duration-[var(--motion-fast)]"
+                aria-label="Next verse"
+              >
+                <ChevronRight size={28} strokeWidth={1.5} />
+              </Link>
+            )}
+          </div>
+
+          {/* Bottom bar with verse text */}
+          {verseText && (
+            <div className="px-6 py-4 bg-gradient-to-t from-black/80 to-transparent">
+              <p className="text-center text-sm sm:text-base text-white/80 leading-relaxed max-w-2xl mx-auto">
+                {verseText}
+              </p>
+            </div>
+          )}
+        </div>
+      )}
     </figure>
   );
 }
