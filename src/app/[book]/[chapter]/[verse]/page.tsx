@@ -155,30 +155,32 @@ export default async function VersePage({ params }: VersePageProps) {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col">
-        {/* Hero Image */}
-        <HeroImage
-          verseText={verseData.text}
-          caption={verseData.text}
-          chapterTheme={chapterTheme}
-          prevUrl={prevUrl}
-          nextUrl={nextUrl}
-          prevVerse={prevVerse}
-          nextVerse={nextVerse}
-          currentReference={currentReference}
-          book={bookData.name}
-          chapter={location.chapter}
-          verse={location.verse}
-          testament={bookData.testament}
-        />
-
-        {/* Verse Strip Navigator - hidden on mobile (navigation in bottom sheet) */}
-        <div className="hidden sm:block border-b border-[var(--divider)]">
-          <VerseStrip
-            book={book}
+        {/* Hero Image with floating verse strip */}
+        <div className="relative">
+          <HeroImage
+            verseText={verseData.text}
+            caption={verseData.text}
+            chapterTheme={chapterTheme}
+            prevUrl={prevUrl}
+            nextUrl={nextUrl}
+            prevVerse={prevVerse}
+            nextVerse={nextVerse}
+            currentReference={currentReference}
+            book={bookData.name}
             chapter={location.chapter}
-            currentVerse={location.verse}
-            totalVerses={totalVerses}
+            verse={location.verse}
+            testament={bookData.testament}
           />
+
+          {/* Verse Strip Navigator - floats over top of image, hidden on mobile */}
+          <div className="hidden sm:block absolute inset-x-4 md:inset-x-6 top-4 z-20 rounded-[var(--radius-lg)] bg-[var(--background)]/80 backdrop-blur-md border border-[var(--divider)]/70 shadow-[var(--shadow-sm)]">
+            <VerseStrip
+              book={book}
+              chapter={location.chapter}
+              currentVerse={location.verse}
+              totalVerses={totalVerses}
+            />
+          </div>
         </div>
 
         {/* Scripture Reader */}

@@ -2,6 +2,14 @@
 
 import { X, ChevronLeft, ChevronRight, Sparkles, Loader2, Zap } from "lucide-react";
 import { useNavigation } from "@/context/navigation-context";
+import {
+  ASPECT_RATIOS,
+  RESOLUTIONS,
+  type ImageAspectRatio,
+  type ImageResolution,
+  computeAdjustedCreditsCost,
+  supportsResolution,
+} from "@/lib/image-models";
 
 interface ImageControlsSheetProps {
   // Image navigation
@@ -18,6 +26,14 @@ interface ImageControlsSheetProps {
   canGenerate: boolean;
   isPricingLoading?: boolean;
   onBuyCredits?: () => void;
+  // Settings
+  aspectRatio: ImageAspectRatio;
+  onAspectRatioChange: (value: ImageAspectRatio) => void;
+  resolution: ImageResolution;
+  onResolutionChange: (value: ImageResolution) => void;
+  baseCost: number;
+  showCost: boolean;
+  modelId: string;
 }
 
 export function ImageControlsSheet({
@@ -33,6 +49,13 @@ export function ImageControlsSheet({
   canGenerate,
   isPricingLoading,
   onBuyCredits,
+  aspectRatio,
+  onAspectRatioChange,
+  resolution,
+  onResolutionChange,
+  baseCost,
+  showCost,
+  modelId,
 }: ImageControlsSheetProps) {
   const { isImageControlsOpen, closeImageControls } = useNavigation();
 
@@ -93,6 +116,60 @@ export function ImageControlsSheet({
             </div>
           )}
 
+          {/* Aspect Ratio */}
+          <div>
+            <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider mb-2">Aspect Ratio</p>
+            <div className="flex gap-2">
+              {(Object.keys(ASPECT_RATIOS) as ImageAspectRatio[]).map((ratio) => (
+                <button
+                  key={ratio}
+                  onClick={() => onAspectRatioChange(ratio)}
+                  className={`flex-1 min-h-[40px] rounded-lg text-sm font-medium transition-colors ${
+                    aspectRatio === ratio
+                      ? "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/50"
+                      : "bg-[var(--surface)] text-[var(--muted)] border border-transparent hover:bg-[var(--divider)]"
+                  }`}
+                >
+                  {ratio}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Resolution */}
+          <div>
+            <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider mb-2">Resolution</p>
+            {!supportsResolution(modelId) && (
+              <p className="text-[10px] text-[var(--muted)] mb-2 opacity-70">
+                Not supported by this model
+              </p>
+            )}
+            <div className="flex gap-2">
+              {(Object.keys(RESOLUTIONS) as ImageResolution[]).map((res) => {
+                const cost = computeAdjustedCreditsCost(baseCost, res, modelId);
+                return (
+                  <button
+                    key={res}
+                    onClick={() => onResolutionChange(res)}
+                    className={`flex-1 min-h-[40px] rounded-lg text-sm font-medium transition-colors flex flex-col items-center justify-center ${
+                      resolution === res
+                        ? "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/50"
+                        : "bg-[var(--surface)] text-[var(--muted)] border border-transparent hover:bg-[var(--divider)]"
+                    } ${!supportsResolution(modelId) ? "opacity-60" : ""}`}
+                  >
+                    <span>{res}</span>
+                    {showCost && (
+                      <span className="inline-flex items-center gap-0.5 text-[10px] opacity-70">
+                        <Zap size={10} strokeWidth={2} />
+                        {cost}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Generate Button - Full Width */}
           {isPricingLoading ? (
             <button
@@ -116,7 +193,13 @@ export function ImageControlsSheet({
               ) : (
                 <>
                   <Sparkles size={18} />
-                  Generate {creditsCost ? `(${creditsCost} credits)` : ""}
+                  Generate
+                  {creditsCost ? (
+                    <span className="inline-flex items-center gap-1">
+                      <Zap size={14} strokeWidth={2} />
+                      {creditsCost}
+                    </span>
+                  ) : null}
                 </>
               )}
             </button>

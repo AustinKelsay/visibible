@@ -16,12 +16,6 @@ interface VerseStripBaseProps extends VerseStripProps {
   imageStatus: Array<{ verse: number; imageCount: number }> | null | undefined;
 }
 
-// Calculate width for stacked dots container
-function getDotsWidth(count: number): string {
-  const dots = Math.max(1, Math.min(count, 3));
-  return `${8 + (dots - 1) * 6}px`; // base 8px + 6px per additional dot
-}
-
 export function VerseStrip(props: VerseStripProps) {
   const isConvexEnabled = useConvexEnabled();
 
@@ -71,7 +65,7 @@ function VerseStripBase({
             <Link
               key={v.verse}
               href={`/${book}/${chapter}/${v.verse}`}
-              className={`min-h-[44px] min-w-[44px] flex flex-col items-center justify-center rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)] ${
+              className={`relative min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)] ${
                 isCurrent
                   ? "bg-[var(--accent)] text-[var(--accent-text)]"
                   : "bg-[var(--surface)] hover:bg-[var(--divider)]"
@@ -79,26 +73,18 @@ function VerseStripBase({
               aria-current={isCurrent ? "page" : undefined}
             >
               <span className="text-sm font-medium">{v.verse}</span>
-              {/* Stacked dots indicator for image count */}
-              <div
-                className="relative h-2 mt-0.5"
-                style={{ width: getDotsWidth(v.imageCount) }}
-              >
-                {v.imageCount > 0 ? (
-                  Array.from({ length: Math.min(v.imageCount, 3) }).map((_, i) => (
-                    <span
-                      key={i}
-                      className={`absolute w-2 h-2 rounded-full border border-[var(--background)]/30 ${
-                        isCurrent
-                          ? "bg-[var(--accent-text)]"
-                          : "bg-[var(--accent)]"
-                      }`}
-                      style={{ left: `${i * 6}px` }}
-                    />
-                  ))
-                ) : (
-                  <span className="absolute w-2 h-2 rounded-full border border-[var(--background)]/30 bg-[var(--muted)]" />
-                )}</div>
+              {v.imageCount > 0 && (
+                <span
+                  aria-label={`${v.imageCount} image${v.imageCount !== 1 ? "s" : ""}`}
+                  className={`absolute -top-1 -right-1 flex items-center justify-center min-w-4 h-4 rounded-full text-[10px] font-bold leading-none px-0.5 ${
+                    isCurrent
+                      ? "bg-[var(--accent-text)] text-[var(--accent)]"
+                      : "bg-[var(--accent)] text-[var(--accent-text)]"
+                  }`}
+                >
+                  {v.imageCount}
+                </span>
+              )}
             </Link>
           );
         })}

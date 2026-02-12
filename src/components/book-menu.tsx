@@ -14,7 +14,7 @@ type MenuView = "books" | "chapters" | "verses";
 interface BookMenuBaseProps {
   booksWithImages: string[];
   chaptersWithImages: number[];
-  versesWithImages: Set<number>;
+  versesWithImages: Map<number, number>;
 }
 
 export function BookMenu() {
@@ -25,7 +25,7 @@ export function BookMenu() {
       <BookMenuBase
         booksWithImages={[]}
         chaptersWithImages={[]}
-        versesWithImages={new Set()}
+        versesWithImages={new Map()}
       />
     );
   }
@@ -52,7 +52,7 @@ function BookMenuWithConvex() {
       : "skip"
   );
 
-  const versesWithImages = new Set(versesImageStatus?.map((v) => v.verse) ?? []);
+  const versesWithImages = new Map(versesImageStatus?.map((v) => [v.verse, v.imageCount] as const) ?? []);
 
   return (
     <BookMenuBase
@@ -330,16 +330,17 @@ function BookMenuBase({
                     key={verse}
                     href={`/${selectedBook.slug}/${selectedChapter}/${verse}`}
                     onClick={handleVerseSelect}
-                    className="flex flex-col items-center justify-center h-12 sm:h-11 rounded-lg bg-[var(--surface)] hover:bg-[var(--divider)] transition-colors"
+                    className="relative flex items-center justify-center h-12 sm:h-11 rounded-lg bg-[var(--surface)] hover:bg-[var(--divider)] transition-colors"
                   >
                     <span className="text-sm font-medium">{verse}</span>
-                    <span
-                      className={`w-2 h-2 rounded-full border border-[var(--background)]/30 mt-0.5 ${
-                        versesWithImages.has(verse)
-                          ? "bg-[var(--accent)]"
-                          : "bg-[var(--muted)]/30"
-                      }`}
-                    />
+                    {versesWithImages.has(verse) && (
+                      <span
+                        aria-label={`${versesWithImages.get(verse)} image${versesWithImages.get(verse) !== 1 ? "s" : ""}`}
+                        className="absolute -top-1 -right-1 flex items-center justify-center min-w-3.5 h-3.5 rounded-full bg-[var(--accent)] text-[var(--accent-text)] text-[9px] font-bold leading-none px-0.5"
+                      >
+                        {versesWithImages.get(verse)}
+                      </span>
+                    )}
                   </Link>
                 ))}
               </div>

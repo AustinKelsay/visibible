@@ -88,51 +88,6 @@ function createVerseId(reference: string): string {
 }
 
 /**
- * Extract a short display name from a model ID.
- * "google/gemini-2.5-flash-image" -> "Gemini 2.5 Flash"
- */
-function getShortModelName(modelId: string): string {
-  const parts = modelId.split("/");
-  const name = parts[parts.length - 1] || modelId;
-  return name
-    .replace(/-image$/i, "")
-    .replace(/-/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase())
-    .trim();
-}
-
-/**
- * Format duration in milliseconds to human-readable string.
- */
-function formatDuration(ms?: number): string {
-  if (!ms) return "N/A";
-  return ms >= 1000 ? `${(ms / 1000).toFixed(1)}s` : `${ms}ms`;
-}
-
-/**
- * Format timestamp to relative time string.
- */
-function formatRelativeTime(timestamp?: number): string {
-  if (!timestamp) return "Unknown";
-  const diff = Date.now() - timestamp;
-  const minutes = Math.floor(diff / 60000);
-  if (minutes < 1) return "Just now";
-  if (minutes < 60) return `${minutes}m ago`;
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
-  const days = Math.floor(hours / 24);
-  return `${days}d ago`;
-}
-
-/**
- * Format image dimensions to display string.
- */
-function getDimensionLabel(width?: number, height?: number): string {
-  if (!width || !height) return "Unknown";
-  return `${width} x ${height}`;
-}
-
-/**
  * Combined settings popover for aspect ratio and resolution.
  * Consolidates two dropdown controls into a single popover to reduce dock clutter.
  */
@@ -225,8 +180,9 @@ function SettingsPopover({
                 >
                   <span>{RESOLUTIONS[res].label}</span>
                   {showCost && (
-                    <span className="text-xs text-[var(--muted)]">
-                      Up to {cost} credits
+                    <span className="inline-flex items-center gap-1 text-xs text-[var(--muted)]">
+                      <Zap size={12} strokeWidth={2} />
+                      ≤{cost}
                     </span>
                   )}
                 </button>
@@ -235,129 +191,6 @@ function SettingsPopover({
           </div>
         </div>
       )}
-    </div>
-  );
-}
-
-/**
- * Expandable metadata badge for generated images.
- * Shows model name collapsed, expands to reveal full details.
- */
-interface ImageMetadataBadgeProps {
-  model: string;
-  provider?: string;
-  durationMs?: number;
-  aspectRatio?: string;
-  imageWidth?: number;
-  imageHeight?: number;
-  createdAt?: number;
-}
-
-function ImageMetadataBadge({
-  model,
-  provider,
-  durationMs,
-  aspectRatio,
-  imageWidth,
-  imageHeight,
-  createdAt,
-}: ImageMetadataBadgeProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsExpanded(false);
-      }
-    }
-    if (isExpanded) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-    }
-  }, [isExpanded]);
-
-  const shortModelName = getShortModelName(model);
-  const displayProvider = provider ||
-    (model.split("/")[0]?.charAt(0).toUpperCase() + model.split("/")[0]?.slice(1)) ||
-    "Unknown";
-
-  return (
-    <div ref={dropdownRef} className="absolute top-3 left-3 z-20">
-      {/* Badge button */}
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-[var(--muted)]
-                   bg-[var(--background)]/70 border border-[var(--divider)]/60
-                   backdrop-blur-sm rounded-[var(--radius-full)]
-                   hover:bg-[var(--background)]/90 hover:text-[var(--foreground)]
-                   transition-colors duration-[var(--motion-fast)] focus-ring"
-        aria-expanded={isExpanded}
-        aria-label={`Image details: ${shortModelName}`}
-      >
-        <Sparkles className="w-3 h-3" />
-        <span>{shortModelName}</span>
-        <ChevronDown
-          className={`w-3 h-3 transition-transform duration-[var(--motion-fast)] ${
-            isExpanded ? "rotate-180" : ""
-          }`}
-        />
-      </button>
-
-      {/* Dropdown panel */}
-      <div
-        className={`absolute top-full mt-1.5 left-0
-                    min-w-[200px] max-w-[260px]
-                    bg-[var(--background)]/95 backdrop-blur-md
-                    border border-[var(--divider)]/70
-                    rounded-[var(--radius-md)] shadow-lg
-                    overflow-hidden
-                    transition-all duration-[var(--motion-base)] ease-out
-                    ${isExpanded
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 -translate-y-1 pointer-events-none"}`}
-      >
-        {/* Header */}
-        <div className="px-3 py-2 border-b border-[var(--divider)]/50 bg-[var(--surface)]/30">
-          <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider">
-            Image Details
-          </p>
-        </div>
-
-        {/* Content */}
-        <div className="divide-y divide-[var(--divider)]/30">
-          <div className="flex items-center justify-between px-3 py-2">
-            <span className="text-[10px] text-[var(--muted)]">Model</span>
-            <span className="text-xs text-[var(--foreground)] font-medium">{shortModelName}</span>
-          </div>
-          <div className="flex items-center justify-between px-3 py-2">
-            <span className="text-[10px] text-[var(--muted)]">Provider</span>
-            <span className="text-xs text-[var(--foreground)]">{displayProvider}</span>
-          </div>
-          {aspectRatio && (
-            <div className="flex items-center justify-between px-3 py-2">
-              <span className="text-[10px] text-[var(--muted)]">Aspect Ratio</span>
-              <span className="text-xs text-[var(--foreground)]">{aspectRatio}</span>
-            </div>
-          )}
-          {(imageWidth && imageHeight) && (
-            <div className="flex items-center justify-between px-3 py-2">
-              <span className="text-[10px] text-[var(--muted)]">Dimensions</span>
-              <span className="text-xs text-[var(--foreground)]">{getDimensionLabel(imageWidth, imageHeight)}</span>
-            </div>
-          )}
-          <div className="flex items-center justify-between px-3 py-2">
-            <span className="text-[10px] text-[var(--muted)]">Gen Time</span>
-            <span className="text-xs text-[var(--foreground)]">{formatDuration(durationMs)}</span>
-          </div>
-          {createdAt && (
-            <div className="flex items-center justify-between px-3 py-2">
-              <span className="text-[10px] text-[var(--muted)]">Created</span>
-              <span className="text-xs text-[var(--foreground)]">{formatRelativeTime(createdAt)}</span>
-            </div>
-          )}
-        </div>
-      </div>
     </div>
   );
 }
@@ -1251,19 +1084,6 @@ function HeroImageBase({
               </div>
             )}
 
-            {/* Model badge - expandable metadata indicator (hidden on mobile to keep overlay clean) */}
-            <div className="hidden sm:block">
-              <ImageMetadataBadge
-                model={displayImage.model}
-                provider={currentImage?.provider}
-                durationMs={currentImage?.durationMs}
-                aspectRatio={currentImage?.aspectRatio}
-                imageWidth={currentImage?.imageWidth}
-                imageHeight={currentImage?.imageHeight}
-                createdAt={currentImage?.createdAt}
-              />
-            </div>
-
             {/* Fullscreen toggle button */}
             <button
               onClick={() => setIsFullscreen(true)}
@@ -1503,7 +1323,7 @@ function HeroImageBase({
             </button>
 
             {/* Counter pill */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-xs text-[var(--foreground)]">
+            <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-xs text-[var(--foreground)]">
               {displayIndex} / {totalImages}
             </div>
           </div>
@@ -1544,6 +1364,13 @@ function HeroImageBase({
         canGenerate={canGenerate}
         isPricingLoading={pricingPending}
         onBuyCredits={buyCredits}
+        aspectRatio={imageAspectRatio}
+        onAspectRatioChange={setImageAspectRatio}
+        resolution={imageResolution}
+        onResolutionChange={setImageResolution}
+        baseCost={baseCost}
+        showCost={showCreditsCost}
+        modelId={imageModel}
       />
 
       {/* Fullscreen Image Overlay */}

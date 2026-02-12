@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown, Check, BookOpen } from "lucide-react";
+import { ChevronDown, Check, Languages } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { TRANSLATIONS, TRANSLATION_GROUPS, Translation } from "@/lib/bible-api";
 
@@ -34,20 +34,20 @@ export function TranslationSelector({ variant = "compact" }: TranslationSelector
     <div ref={dropdownRef} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-1 text-sm font-medium transition-colors duration-[var(--motion-fast)] ${
+        className={`flex items-center text-sm font-medium transition-colors duration-[var(--motion-fast)] ${
           variant === "compact"
-            ? "min-h-[44px] px-2 text-[var(--muted)] hover:text-[var(--foreground)]"
-            : "px-3 py-2 rounded-lg bg-[var(--surface)] hover:bg-[var(--surface-hover)]"
+            ? "min-h-[44px] min-w-[44px] justify-center gap-0.5 text-[var(--muted)] hover:text-[var(--foreground)]"
+            : "gap-1 px-3 py-2 rounded-lg bg-[var(--surface)] hover:bg-[var(--surface-hover)]"
         }`}
         aria-label={`Current translation: ${translationInfo.name}. Click to change.`}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         title={`Bible version: ${translationInfo.name}`}
       >
-        <BookOpen size={16} className="opacity-60" />
-        <span>{translationInfo.code}</span>
+        <Languages size={variant === "compact" ? 20 : 16} strokeWidth={1.5} className={variant === "compact" ? "" : "opacity-60"} />
+        {variant === "full" && <span>{translationInfo.code}</span>}
         <ChevronDown
-          size={14}
+          size={variant === "compact" ? 14 : 14}
           className={`transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
         />
       </button>

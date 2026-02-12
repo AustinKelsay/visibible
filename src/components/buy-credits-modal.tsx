@@ -78,13 +78,13 @@ function MiniVerseStrip() {
     return () => clearInterval(interval);
   }, []);
 
-  // Sample verse data: verse number and dot count (0-3)
+  // Sample verse data: verse number and image count
   const verses = [
-    { verse: 1, dots: 2 },
-    { verse: 2, dots: 0 },
-    { verse: 3, dots: 1 },
-    { verse: 4, dots: 3 },
-    { verse: 5, dots: 0 },
+    { verse: 1, imageCount: 2 },
+    { verse: 2, imageCount: 0 },
+    { verse: 3, imageCount: 1 },
+    { verse: 4, imageCount: 3 },
+    { verse: 5, imageCount: 0 },
   ];
 
   return (
@@ -94,7 +94,7 @@ function MiniVerseStrip() {
         return (
           <div
             key={v.verse}
-            className={`min-h-[36px] min-w-[36px] flex flex-col items-center justify-center rounded-[var(--radius-sm)] transition-all duration-500 ease-in-out ${
+            className={`relative min-h-[36px] min-w-[36px] flex items-center justify-center rounded-[var(--radius-sm)] transition-all duration-500 ease-in-out ${
               isSelected
                 ? "bg-[var(--accent)] scale-110 shadow-lg shadow-[var(--accent)]/25"
                 : "bg-[var(--divider)] opacity-70"
@@ -107,34 +107,17 @@ function MiniVerseStrip() {
             >
               {v.verse}
             </span>
-            {/* Dots container */}
-            <div
-              className="relative h-2 mt-0.5"
-              style={{ width: v.dots > 0 ? `${8 + (Math.min(v.dots, 3) - 1) * 6}px` : "8px" }}
-            >
-              {v.dots > 0 ? (
-                Array.from({ length: Math.min(v.dots, 3) }).map((_, i) => (
-                  <span
-                    key={i}
-                    className={`absolute w-2 h-2 rounded-full border border-[var(--background)]/30 transition-all duration-500 ease-in-out ${
-                      isSelected
-                        ? "bg-[var(--accent-text)] animate-dot-pulse"
-                        : "bg-[var(--accent)]"
-                    }`}
-                    style={{
-                      left: `${i * 6}px`,
-                      animationDelay: isSelected ? `${i * 0.1}s` : undefined,
-                    }}
-                  />
-                ))
-              ) : (
-                <span
-                  className={`absolute w-2 h-2 rounded-full border border-[var(--background)]/30 transition-all duration-500 ease-in-out ${
-                    isSelected ? "bg-[var(--accent-text)]/50" : "bg-[var(--muted)]/40"
-                  }`}
-                />
-              )}
-            </div>
+            {v.imageCount > 0 && (
+              <span
+                className={`absolute -top-1 -right-1 flex items-center justify-center min-w-3.5 h-3.5 rounded-full text-[9px] font-bold leading-none px-0.5 transition-all duration-500 ease-in-out ${
+                  isSelected
+                    ? "bg-[var(--accent-text)] text-[var(--accent)]"
+                    : "bg-[var(--accent)] text-[var(--accent-text)]"
+                }`}
+              >
+                {v.imageCount}
+              </span>
+            )}
           </div>
         );
       })}
@@ -499,7 +482,7 @@ export function BuyCreditsModal() {
                   <div className="flex flex-col items-center -ml-8">
                     <MiniVerseStrip />
                     <p className="text-[10px] text-[var(--muted)]/70 tracking-wide">
-                      Dots show verses with images
+                      Numbers show images per verse
                     </p>
                   </div>
                 </div>
