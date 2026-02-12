@@ -45,6 +45,7 @@ For local app development, set `.env.local` to the **dev** deployment values:
 
 - `NEXT_PUBLIC_CONVEX_URL=https://api.dev.visibible.com`
 - `CONVEX_SERVER_SECRET=<dev secret>`
+- `OPENROUTER_API_KEY=<your openrouter api key>` (required for chat and image generation)
 - `NEXT_PUBLIC_APP_URL=https://dev.visibible.com`
 - `OPENROUTER_REFERRER=https://dev.visibible.com`
 

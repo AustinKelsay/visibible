@@ -127,7 +127,7 @@ function SettingsPopover({
     <div ref={popoverRef} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="min-h-[36px] px-2.5 flex items-center gap-1.5 text-xs font-medium text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)]"
+        className="min-h-[36px] px-2.5 flex items-center gap-1.5 text-xs font-medium text-white/60 hover:text-white hover:bg-white/15 rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)]"
         aria-label="Image settings"
         aria-expanded={isOpen}
       >
@@ -1027,7 +1027,7 @@ function HeroImageBase({
     <figure className="relative w-full">
       {/* Image Container - taller 4:5 on mobile, user-selected ratio on desktop */}
       <div
-        className="relative w-full overflow-hidden bg-[var(--surface)] aspect-[4/5] sm:[aspect-ratio:var(--ar)]"
+        className="relative w-full overflow-hidden bg-[var(--background)] aspect-[4/5] sm:[aspect-ratio:var(--ar)]"
         style={{ '--ar': ASPECT_RATIOS[containerAspectRatio].cssRatio } as React.CSSProperties}
       >
         {displayImage?.url ? (
@@ -1087,7 +1087,7 @@ function HeroImageBase({
             {/* Fullscreen toggle button */}
             <button
               onClick={() => setIsFullscreen(true)}
-              className="absolute top-3 z-20 left-4 sm:left-auto sm:right-3 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 sm:bg-[var(--background)]/70 backdrop-blur-sm border border-[var(--divider)] sm:border-[var(--divider)]/60 text-[var(--foreground)] sm:text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--background)]/90 active:scale-95 sm:active:scale-100 transition-colors duration-[var(--motion-fast)] focus-ring"
+              className="absolute top-3 z-20 right-4 sm:left-auto sm:right-3 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 sm:bg-transparent border border-[var(--divider)] sm:border-transparent liquid-glass-sm text-[var(--foreground)] sm:text-white/70 hover:bg-[var(--divider)]/50 sm:hover:bg-white/15 hover:text-[var(--foreground)] sm:hover:text-white active:scale-95 sm:active:scale-100 transition-all duration-[var(--motion-fast)] cursor-pointer focus-ring"
               aria-label="View fullscreen"
             >
               <Maximize2 size={20} strokeWidth={1.5} />
@@ -1187,26 +1187,26 @@ function HeroImageBase({
         {showControls && (
           <div className="hidden sm:block absolute inset-x-4 md:inset-x-6 bottom-4 z-20">
             <div className="mx-auto w-fit max-w-[calc(100vw-2rem)] md:max-w-[calc(100vw-3rem)]">
-              <div className="flex flex-row items-center gap-2 rounded-[var(--radius-lg)] border border-[var(--divider)]/70 bg-[var(--background)]/80 backdrop-blur-md shadow-[var(--shadow-sm)] px-2 py-2">
+              <div className="flex flex-row items-center gap-2 rounded-[var(--radius-lg)] liquid-glass px-2 py-2">
                 {/* Image Browsing */}
                 <div className="flex items-center gap-2">
                   <button
                     onClick={goToNextImage}
                     disabled={!canGoNewer}
-                    className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-full)] text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 transition-colors duration-[var(--motion-fast)] disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
+                    className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-full)] text-white/60 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
                     aria-label="Newer image"
                     title="Newer image"
                   >
                     <ChevronLeft size={18} strokeWidth={1.5} />
                   </button>
                   <div className="flex flex-col items-center leading-tight px-2">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--muted)]">Images</span>
-                    <span className="text-xs text-[var(--foreground)]">{imageCountLabel}</span>
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/50">Images</span>
+                    <span className="text-xs text-white/90">{imageCountLabel}</span>
                   </div>
                   <button
                     onClick={goToPrevImage}
                     disabled={!canGoOlder}
-                    className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-full)] text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 transition-colors duration-[var(--motion-fast)] disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
+                    className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-full)] text-white/60 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
                     aria-label="Older image"
                     title="Older image"
                   >
@@ -1215,7 +1215,7 @@ function HeroImageBase({
                 </div>
 
                 {/* Divider */}
-                <div className="w-px h-6 bg-[var(--divider)]" />
+                <div className="w-px h-6 bg-white/15" />
 
                 {/* Generation Settings Popover */}
                 <SettingsPopover
@@ -1229,7 +1229,7 @@ function HeroImageBase({
                 />
 
                 {/* Divider */}
-                <div className="w-px h-6 bg-[var(--divider)]" />
+                <div className="w-px h-6 bg-white/15" />
 
                 {/* Generate / Buy Credits CTA */}
                 {pricingPending ? (
@@ -1237,17 +1237,17 @@ function HeroImageBase({
                     type="button"
                     disabled
                     title="Fetching live model pricing..."
-                    className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] border border-[var(--divider)] bg-[var(--background)] text-[var(--muted)] opacity-70 cursor-not-allowed"
+                    className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] border border-white/10 bg-white/5 text-white/40 opacity-70 cursor-not-allowed"
                     aria-label="Loading pricing"
                   >
                     <Loader2 size={18} strokeWidth={2} className="animate-spin" />
-                    <span className="text-sm">Loading pricing...</span>
+                    <span className="text-sm text-white/40">Loading pricing...</span>
                   </button>
                 ) : canGenerate ? (
                   <button
                     onClick={handleManualRegenerate}
                     disabled={isGenerating}
-                    className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] border border-[var(--accent)]/40 bg-[var(--background)] text-[var(--foreground)] hover:border-[var(--accent)]/70 hover:bg-[var(--accent)]/5 transition-colors duration-[var(--motion-fast)] disabled:opacity-50 disabled:cursor-not-allowed focus-ring"
+                    className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] border border-[var(--accent)]/40 bg-white/5 text-white/90 hover:border-[var(--accent)]/70 hover:bg-[var(--accent)]/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-50 disabled:cursor-not-allowed focus-ring"
                     aria-label="Generate new image"
                   >
                     {isGenerating ? (
@@ -1261,12 +1261,12 @@ function HeroImageBase({
                       <span className="text-sm inline-flex items-center gap-2">
                         Generate
                         {showCreditsCost && (
-                          <span className="inline-flex items-center gap-1 text-[var(--muted)]" title="Unused credits refunded after generation">
+                          <span className="inline-flex items-center gap-1 text-white/50" title="Unused credits refunded after generation">
                             <Zap size={12} strokeWidth={2} />
                             <span>≤{effectiveCost}</span>
                           </span>
                         )}
-                        <span className="inline-flex items-center gap-1 text-[var(--muted)]">
+                        <span className="inline-flex items-center gap-1 text-white/50">
                           <Clock size={12} strokeWidth={2} />
                           <span>~{effectiveEta}s</span>
                         </span>
@@ -1292,7 +1292,7 @@ function HeroImageBase({
         {showControls && (
           <button
             onClick={openImageControls}
-            className="sm:hidden absolute top-3 right-4 z-20 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 backdrop-blur-sm border border-[var(--divider)] shadow-lg text-[var(--foreground)] active:scale-95 transition-transform"
+            className="sm:hidden absolute top-3 left-4 z-20 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 backdrop-blur-sm border border-[var(--divider)] shadow-lg text-[var(--foreground)] active:scale-95 transition-transform"
             aria-label="Open image controls"
           >
             <Settings size={20} strokeWidth={1.5} />

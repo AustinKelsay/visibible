@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown, Check, Languages } from "lucide-react";
+import { ChevronDown, Check, ScrollText } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { TRANSLATIONS, TRANSLATION_GROUPS, Translation } from "@/lib/bible-api";
 
@@ -44,7 +44,7 @@ export function TranslationSelector({ variant = "compact" }: TranslationSelector
         aria-haspopup="listbox"
         title={`Bible version: ${translationInfo.name}`}
       >
-        <Languages size={variant === "compact" ? 20 : 16} strokeWidth={1.5} className={variant === "compact" ? "" : "opacity-60"} />
+        <ScrollText size={variant === "compact" ? 20 : 16} strokeWidth={1.5} className={variant === "compact" ? "" : "opacity-60"} />
         {variant === "full" && <span>{translationInfo.code}</span>}
         <ChevronDown
           size={variant === "compact" ? 14 : 14}

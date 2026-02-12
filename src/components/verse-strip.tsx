@@ -68,7 +68,7 @@ function VerseStripBase({
               className={`relative min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)] ${
                 isCurrent
                   ? "bg-[var(--accent)] text-[var(--accent-text)]"
-                  : "bg-[var(--surface)] hover:bg-[var(--divider)]"
+                  : "bg-white/10 text-white/80 hover:bg-white/20 hover:text-white"
               }`}
               aria-current={isCurrent ? "page" : undefined}
             >
