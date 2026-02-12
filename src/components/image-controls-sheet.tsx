@@ -1,13 +1,9 @@
 "use client";
 
 import { X, ChevronLeft, ChevronRight, Sparkles, Loader2, Zap } from "lucide-react";
-import Link from "next/link";
 import { useNavigation } from "@/context/navigation-context";
 
 interface ImageControlsSheetProps {
-  // Verse Navigation
-  prevUrl?: string | null;
-  nextUrl?: string | null;
   // Image navigation
   currentImageIndex: number;
   totalImages: number;
@@ -25,8 +21,6 @@ interface ImageControlsSheetProps {
 }
 
 export function ImageControlsSheet({
-  prevUrl,
-  nextUrl,
   currentImageIndex,
   totalImages,
   onOlderImage,
@@ -73,40 +67,6 @@ export function ImageControlsSheet({
 
         {/* Controls */}
         <div className="px-4 pb-6 pt-4 space-y-4">
-          {/* Verse Navigation Row */}
-          <div className="flex gap-3">
-            {prevUrl ? (
-              <Link
-                href={prevUrl}
-                onClick={closeImageControls}
-                className="flex-1 min-h-[44px] flex items-center justify-center gap-2 rounded-lg bg-[var(--surface)] text-sm font-medium hover:bg-[var(--divider)] transition-colors"
-              >
-                <ChevronLeft size={18} />
-                Prev verse
-              </Link>
-            ) : (
-              <div className="flex-1 min-h-[44px] flex items-center justify-center gap-2 rounded-lg bg-[var(--surface)] text-sm font-medium text-[var(--muted)]/50">
-                <ChevronLeft size={18} />
-                Prev verse
-              </div>
-            )}
-            {nextUrl ? (
-              <Link
-                href={nextUrl}
-                onClick={closeImageControls}
-                className="flex-1 min-h-[44px] flex items-center justify-center gap-2 rounded-lg bg-[var(--surface)] text-sm font-medium hover:bg-[var(--divider)] transition-colors"
-              >
-                Next verse
-                <ChevronRight size={18} />
-              </Link>
-            ) : (
-              <div className="flex-1 min-h-[44px] flex items-center justify-center gap-2 rounded-lg bg-[var(--surface)] text-sm font-medium text-[var(--muted)]/50">
-                Next verse
-                <ChevronRight size={18} />
-              </div>
-            )}
-          </div>
-
           {/* Image Navigation Row */}
           {totalImages > 0 && (
             <div className="flex items-center justify-center gap-4">

@@ -133,90 +133,34 @@ function getDimensionLabel(width?: number, height?: number): string {
 }
 
 /**
- * Compact dropdown selector for aspect ratio
+ * Combined settings popover for aspect ratio and resolution.
+ * Consolidates two dropdown controls into a single popover to reduce dock clutter.
  */
-function AspectRatioSelector({
-  value,
-  onChange,
-}: {
-  value: ImageAspectRatio;
-  onChange: (value: ImageAspectRatio) => void;
-}) {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  return (
-    <div ref={dropdownRef} className="relative">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="min-h-[36px] px-2 flex items-center gap-1 text-xs font-medium text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)]"
-        aria-label={`Aspect ratio: ${value}`}
-        aria-expanded={isOpen}
-      >
-        <span>{value}</span>
-        <ChevronDown
-          size={12}
-          className={`transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
-        />
-      </button>
-      {isOpen && (
-        <div className="absolute bottom-full mb-1 left-0 w-40 rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50 overflow-hidden">
-          {(Object.keys(ASPECT_RATIOS) as ImageAspectRatio[]).map((ratio) => (
-            <button
-              key={ratio}
-              onClick={() => {
-                onChange(ratio);
-                setIsOpen(false);
-              }}
-              className={`w-full px-3 py-2 text-left text-sm transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
-                value === ratio ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
-              }`}
-            >
-              {ASPECT_RATIOS[ratio].label}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-/**
- * Compact dropdown selector for resolution with cost display.
- * Only shows cost multipliers when the selected model supports resolution settings.
- */
-function ResolutionSelector({
-  value,
-  onChange,
+function SettingsPopover({
+  aspectRatio,
+  onAspectRatioChange,
+  resolution,
+  onResolutionChange,
   baseCost,
   showCost,
   modelId,
 }: {
-  value: ImageResolution;
-  onChange: (value: ImageResolution) => void;
+  aspectRatio: ImageAspectRatio;
+  onAspectRatioChange: (value: ImageAspectRatio) => void;
+  resolution: ImageResolution;
+  onResolutionChange: (value: ImageResolution) => void;
   baseCost: number;
   showCost: boolean;
   modelId: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
 
-  // Check if the current model supports resolution settings
   const modelSupportsRes = supportsResolution(modelId);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     }
@@ -224,57 +168,71 @@ function ResolutionSelector({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Only show multiplier badge if model supports resolution
-  const currentMultiplier = modelSupportsRes ? RESOLUTIONS[value].multiplier : 1.0;
-
   return (
-    <div ref={dropdownRef} className="relative">
+    <div ref={popoverRef} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="min-h-[36px] px-2 flex items-center gap-1 text-xs font-medium text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)]"
-        aria-label={`Resolution: ${value}${!modelSupportsRes ? " (not supported by this model)" : ""}`}
+        className="min-h-[36px] px-2.5 flex items-center gap-1.5 text-xs font-medium text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)]"
+        aria-label="Image settings"
         aria-expanded={isOpen}
       >
-        <span className={!modelSupportsRes ? "opacity-50" : ""}>{value}</span>
-        {showCost && modelSupportsRes && currentMultiplier > 1 && (
-          <span className="text-[10px] text-[var(--accent)]">×{currentMultiplier}</span>
-        )}
+        <Settings size={14} strokeWidth={1.5} />
+        <span>{aspectRatio} · {resolution}</span>
         <ChevronDown
           size={12}
           className={`transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
       {isOpen && (
-        <div className="absolute bottom-full mb-1 left-0 w-48 rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50 overflow-hidden">
-          {/* Show info message when model doesn't support resolution */}
-          {!modelSupportsRes && (
-            <div className="px-3 py-2 text-xs text-[var(--muted)] bg-[var(--surface)]/50 border-b border-[var(--divider)]">
-              Resolution not supported by this model
-            </div>
-          )}
-          {(Object.keys(RESOLUTIONS) as ImageResolution[]).map((res) => {
-            // Pass modelId to get accurate cost (no multiplier if unsupported)
-            const cost = computeAdjustedCreditsCost(baseCost, res, modelId);
-            return (
+        <div className="absolute bottom-full mb-1 right-0 w-56 rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50 overflow-hidden">
+          {/* Aspect Ratio Section */}
+          <div className="px-3 py-2 border-b border-[var(--divider)]/50">
+            <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider mb-1">Aspect Ratio</p>
+            {(Object.keys(ASPECT_RATIOS) as ImageAspectRatio[]).map((ratio) => (
               <button
-                key={res}
+                key={ratio}
                 onClick={() => {
-                  onChange(res);
-                  setIsOpen(false);
+                  onAspectRatioChange(ratio);
                 }}
-                className={`w-full px-3 py-2 flex items-center justify-between text-sm transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
-                  value === res ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
-                } ${!modelSupportsRes ? "opacity-60" : ""}`}
+                className={`w-full px-2 py-1.5 text-left text-sm rounded-[var(--radius-sm)] transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
+                  aspectRatio === ratio ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
+                }`}
               >
-                <span>{RESOLUTIONS[res].label}</span>
-                {showCost && (
-                  <span className="text-xs text-[var(--muted)]">
-                    Up to {cost} credits
-                  </span>
-                )}
+                {ASPECT_RATIOS[ratio].label}
               </button>
-            );
-          })}
+            ))}
+          </div>
+
+          {/* Resolution Section */}
+          <div className="px-3 py-2">
+            <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider mb-1">Resolution</p>
+            {!modelSupportsRes && (
+              <p className="text-[10px] text-[var(--muted)] mb-1.5 opacity-70">
+                Not supported by this model
+              </p>
+            )}
+            {(Object.keys(RESOLUTIONS) as ImageResolution[]).map((res) => {
+              const cost = computeAdjustedCreditsCost(baseCost, res, modelId);
+              return (
+                <button
+                  key={res}
+                  onClick={() => {
+                    onResolutionChange(res);
+                  }}
+                  className={`w-full px-2 py-1.5 flex items-center justify-between text-sm rounded-[var(--radius-sm)] transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
+                    resolution === res ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
+                  } ${!modelSupportsRes ? "opacity-60" : ""}`}
+                >
+                  <span>{RESOLUTIONS[res].label}</span>
+                  {showCost && (
+                    <span className="text-xs text-[var(--muted)]">
+                      Up to {cost} credits
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
         </div>
       )}
     </div>
@@ -812,7 +770,7 @@ function HeroImageBase({
         : isGenerating
           ? generationPhaseLabel
           : "No images yet";
-  const showControls = Boolean(prevUrl || nextUrl || hasImages || isGenerating || isQueryLoading);
+  const showControls = Boolean(hasImages || isGenerating || isQueryLoading || canGenerate || !pricingPending);
 
   // Sync current image ID to navigation context for ScriptureDetails
   useEffect(() => {
@@ -1293,24 +1251,26 @@ function HeroImageBase({
               </div>
             )}
 
-            {/* Model badge - expandable metadata indicator */}
-            <ImageMetadataBadge
-              model={displayImage.model}
-              provider={currentImage?.provider}
-              durationMs={currentImage?.durationMs}
-              aspectRatio={currentImage?.aspectRatio}
-              imageWidth={currentImage?.imageWidth}
-              imageHeight={currentImage?.imageHeight}
-              createdAt={currentImage?.createdAt}
-            />
+            {/* Model badge - expandable metadata indicator (hidden on mobile to keep overlay clean) */}
+            <div className="hidden sm:block">
+              <ImageMetadataBadge
+                model={displayImage.model}
+                provider={currentImage?.provider}
+                durationMs={currentImage?.durationMs}
+                aspectRatio={currentImage?.aspectRatio}
+                imageWidth={currentImage?.imageWidth}
+                imageHeight={currentImage?.imageHeight}
+                createdAt={currentImage?.createdAt}
+              />
+            </div>
 
             {/* Fullscreen toggle button */}
             <button
               onClick={() => setIsFullscreen(true)}
-              className="absolute top-3 z-20 right-[60px] sm:right-3 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--background)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--background)]/90 transition-colors duration-[var(--motion-fast)] focus-ring"
+              className="absolute top-3 z-20 left-3 sm:left-auto sm:right-3 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 sm:bg-[var(--background)]/70 backdrop-blur-sm border border-[var(--divider)] sm:border-[var(--divider)]/60 text-[var(--foreground)] sm:text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--background)]/90 active:scale-95 sm:active:scale-100 transition-colors duration-[var(--motion-fast)] focus-ring"
               aria-label="View fullscreen"
             >
-              <Maximize2 size={18} strokeWidth={1.5} />
+              <Maximize2 size={20} strokeWidth={1.5} />
             </button>
           </>
         ) : (
@@ -1407,40 +1367,8 @@ function HeroImageBase({
         {showControls && (
           <div className="hidden sm:block absolute inset-x-4 md:inset-x-6 bottom-4 z-20">
             <div className="mx-auto w-fit max-w-[calc(100vw-2rem)] md:max-w-[calc(100vw-3rem)]">
-              <div className="flex flex-row items-center justify-between gap-2 rounded-[var(--radius-lg)] border border-[var(--divider)]/70 bg-[var(--background)]/80 backdrop-blur-md shadow-[var(--shadow-sm)] px-2 py-2">
-                <div className="flex items-center gap-1">
-                  {prevUrl ? (
-                    <Link
-                      href={prevUrl}
-                      className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 transition-colors duration-[var(--motion-fast)] focus-ring"
-                      aria-label="Previous verse"
-                    >
-                      <ChevronLeft size={18} strokeWidth={1.5} />
-                      <span className="text-sm">Prev verse</span>
-                    </Link>
-                  ) : (
-                    <span className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] text-[var(--muted)]/50">
-                      <ChevronLeft size={18} strokeWidth={1.5} />
-                      <span className="text-sm">Prev verse</span>
-                    </span>
-                  )}
-                  {nextUrl ? (
-                    <Link
-                      href={nextUrl}
-                      className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 transition-colors duration-[var(--motion-fast)] focus-ring"
-                      aria-label="Next verse"
-                    >
-                      <span className="text-sm">Next verse</span>
-                      <ChevronRight size={18} strokeWidth={1.5} />
-                    </Link>
-                  ) : (
-                    <span className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] text-[var(--muted)]/50">
-                      <span className="text-sm">Next verse</span>
-                      <ChevronRight size={18} strokeWidth={1.5} />
-                    </span>
-                  )}
-                </div>
-
+              <div className="flex flex-row items-center gap-2 rounded-[var(--radius-lg)] border border-[var(--divider)]/70 bg-[var(--background)]/80 backdrop-blur-md shadow-[var(--shadow-sm)] px-2 py-2">
+                {/* Image Browsing */}
                 <div className="flex items-center gap-2">
                   <button
                     onClick={goToNextImage}
@@ -1466,21 +1394,24 @@ function HeroImageBase({
                   </button>
                 </div>
 
-                {/* Aspect Ratio & Resolution Selectors */}
-                <div className="hidden sm:flex items-center gap-1">
-                  <AspectRatioSelector
-                    value={imageAspectRatio}
-                    onChange={setImageAspectRatio}
-                  />
-                  <ResolutionSelector
-                    value={imageResolution}
-                    onChange={setImageResolution}
-                    baseCost={baseCost}
-                    showCost={showCreditsCost}
-                    modelId={imageModel}
-                  />
-                </div>
+                {/* Divider */}
+                <div className="w-px h-6 bg-[var(--divider)]" />
 
+                {/* Generation Settings Popover */}
+                <SettingsPopover
+                  aspectRatio={imageAspectRatio}
+                  onAspectRatioChange={setImageAspectRatio}
+                  resolution={imageResolution}
+                  onResolutionChange={setImageResolution}
+                  baseCost={baseCost}
+                  showCost={showCreditsCost}
+                  modelId={imageModel}
+                />
+
+                {/* Divider */}
+                <div className="w-px h-6 bg-[var(--divider)]" />
+
+                {/* Generate / Buy Credits CTA */}
                 {pricingPending ? (
                   <button
                     type="button"
@@ -1496,13 +1427,13 @@ function HeroImageBase({
                   <button
                     onClick={handleManualRegenerate}
                     disabled={isGenerating}
-                    className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] border border-[var(--divider)] bg-[var(--background)] text-[var(--foreground)]/80 hover:text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors duration-[var(--motion-fast)] disabled:opacity-50 disabled:cursor-not-allowed focus-ring"
+                    className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] border border-[var(--accent)]/40 bg-[var(--background)] text-[var(--foreground)] hover:border-[var(--accent)]/70 hover:bg-[var(--accent)]/5 transition-colors duration-[var(--motion-fast)] disabled:opacity-50 disabled:cursor-not-allowed focus-ring"
                     aria-label="Generate new image"
                   >
                     {isGenerating ? (
                       <Loader2 size={18} strokeWidth={2} className="animate-spin" />
                     ) : (
-                      <RefreshCw size={18} strokeWidth={1.5} />
+                      <Sparkles size={18} strokeWidth={1.5} />
                     )}
                     {isGenerating ? (
                       <span className="text-sm">{generationPhaseLabel}</span>
@@ -1547,6 +1478,36 @@ function HeroImageBase({
             <Settings size={20} strokeWidth={1.5} />
           </button>
         )}
+
+        {/* Mobile inline image navigation - visible directly on image */}
+        {showControls && totalImages > 1 && (
+          <div className="sm:hidden">
+            {/* Left arrow - newer image */}
+            <button
+              onClick={goToNextImage}
+              disabled={!canGoNewer}
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
+              aria-label="Newer image"
+            >
+              <ChevronLeft size={22} strokeWidth={1.5} />
+            </button>
+
+            {/* Right arrow - older image */}
+            <button
+              onClick={goToPrevImage}
+              disabled={!canGoOlder}
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
+              aria-label="Older image"
+            >
+              <ChevronRight size={22} strokeWidth={1.5} />
+            </button>
+
+            {/* Counter pill */}
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-xs text-[var(--foreground)]">
+              {displayIndex} / {totalImages}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Mobile Verse Text Overlay - positioned at bottom of image */}
@@ -1571,8 +1532,6 @@ function HeroImageBase({
 
       {/* Mobile Image Controls Sheet */}
       <ImageControlsSheet
-        prevUrl={prevUrl}
-        nextUrl={nextUrl}
         currentImageIndex={displayIndex}
         totalImages={totalImages}
         onOlderImage={goToPrevImage}
