@@ -35,7 +35,7 @@ export function Header() {
       style={{ paddingTop: 'env(safe-area-inset-top)' }}
       ref={menuRef}
     >
-      <div className="max-w-4xl mx-auto px-2 sm:px-4 h-14 flex items-center justify-between">
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 h-14 flex items-center justify-between">
         {/* Brand */}
         <h1 className="text-base sm:text-lg font-semibold tracking-tight">Visibible</h1>
 
