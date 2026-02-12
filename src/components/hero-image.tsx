@@ -1267,7 +1267,7 @@ function HeroImageBase({
             {/* Fullscreen toggle button */}
             <button
               onClick={() => setIsFullscreen(true)}
-              className="absolute top-3 z-20 left-3 sm:left-auto sm:right-3 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 sm:bg-[var(--background)]/70 backdrop-blur-sm border border-[var(--divider)] sm:border-[var(--divider)]/60 text-[var(--foreground)] sm:text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--background)]/90 active:scale-95 sm:active:scale-100 transition-colors duration-[var(--motion-fast)] focus-ring"
+              className="absolute top-3 z-20 left-4 sm:left-auto sm:right-3 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 sm:bg-[var(--background)]/70 backdrop-blur-sm border border-[var(--divider)] sm:border-[var(--divider)]/60 text-[var(--foreground)] sm:text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--background)]/90 active:scale-95 sm:active:scale-100 transition-colors duration-[var(--motion-fast)] focus-ring"
               aria-label="View fullscreen"
             >
               <Maximize2 size={20} strokeWidth={1.5} />
@@ -1472,7 +1472,7 @@ function HeroImageBase({
         {showControls && (
           <button
             onClick={openImageControls}
-            className="sm:hidden absolute top-3 right-3 z-20 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 backdrop-blur-sm border border-[var(--divider)] shadow-lg text-[var(--foreground)] active:scale-95 transition-transform"
+            className="sm:hidden absolute top-3 right-4 z-20 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 backdrop-blur-sm border border-[var(--divider)] shadow-lg text-[var(--foreground)] active:scale-95 transition-transform"
             aria-label="Open image controls"
           >
             <Settings size={20} strokeWidth={1.5} />
@@ -1486,7 +1486,7 @@ function HeroImageBase({
             <button
               onClick={goToNextImage}
               disabled={!canGoNewer}
-              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
               aria-label="Newer image"
             >
               <ChevronLeft size={22} strokeWidth={1.5} />
@@ -1496,7 +1496,7 @@ function HeroImageBase({
             <button
               onClick={goToPrevImage}
               disabled={!canGoOlder}
-              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
               aria-label="Older image"
             >
               <ChevronRight size={22} strokeWidth={1.5} />

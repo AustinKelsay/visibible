@@ -18,7 +18,7 @@ export function ChatFAB() {
       onClick={openChat}
       style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
       className="
-        fixed bottom-6 right-6 z-30
+        fixed bottom-6 right-4 sm:right-6 z-30
         min-h-[48px] min-w-[48px]
         flex items-center justify-center
         rounded-full shadow-md
