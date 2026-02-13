@@ -8,6 +8,8 @@ import { api } from "../../convex/_generated/api";
 import { BIBLE_BOOKS, BibleBook } from "@/data/bible-structure";
 import { useNavigation } from "@/context/navigation-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
+import { usePreferences } from "@/context/preferences-context";
+import { TranslationSelector } from "./translation-selector";
 
 type MenuView = "books" | "chapters" | "verses";
 
@@ -78,6 +80,7 @@ function BookMenuBase({
   selectedChapterState,
 }: BookMenuBasePropsWithState) {
   const { isMenuOpen, closeMenu } = useNavigation();
+  const { translationInfo } = usePreferences();
   const [expandedTestament, setExpandedTestament] = useState<"old" | "new">(
     "old"
   );
@@ -195,6 +198,12 @@ function BookMenuBase({
         >
           {view === "books" && (
             <>
+              {/* Translation Selector */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--divider)]">
+                <span className="text-sm font-medium text-[var(--muted)]">Translation — {translationInfo.code}</span>
+                <TranslationSelector variant="compact" />
+              </div>
+
               {/* Old Testament Section */}
               <button
                 onClick={() => toggleTestament("old")}
