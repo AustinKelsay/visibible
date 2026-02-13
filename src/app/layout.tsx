@@ -6,6 +6,7 @@ import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { SessionProvider } from "@/context/session-context";
 import { NavigationProvider } from "@/context/navigation-context";
 import { PreferencesProvider } from "@/context/preferences-context";
+import { GenerationProvider } from "@/context/generation-context";
 import { ChatSidebar } from "@/components/chat-sidebar";
 import { BuyCreditsModal } from "@/components/buy-credits-modal";
 import { ChatFAB } from "@/components/chat-fab";
@@ -41,12 +42,14 @@ export default function RootLayout({
           <SessionProvider>
             <PreferencesProvider>
               <NavigationProvider>
-                {children}
-                <ChatSidebar />
-                <ChatFAB />
-                <ChatPrompt />
-                <FeedbackPrompt />
-                <BuyCreditsModal />
+                <GenerationProvider>
+                  {children}
+                  <ChatSidebar />
+                  <ChatFAB />
+                  <ChatPrompt />
+                  <FeedbackPrompt />
+                  <BuyCreditsModal />
+                </GenerationProvider>
               </NavigationProvider>
             </PreferencesProvider>
           </SessionProvider>

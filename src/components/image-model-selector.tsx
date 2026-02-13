@@ -99,20 +99,20 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
     <div ref={dropdownRef} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-1 text-sm font-medium transition-colors duration-[var(--motion-fast)] ${
+        className={`flex items-center text-sm font-medium transition-colors duration-[var(--motion-fast)] ${
           variant === "compact"
-            ? "min-h-[44px] px-2 text-[var(--muted)] hover:text-[var(--foreground)]"
-            : "px-3 py-2 rounded-lg bg-[var(--surface)] hover:bg-[var(--surface-hover)]"
+            ? "min-h-[44px] min-w-[44px] justify-center gap-0.5 text-[var(--muted)] hover:text-[var(--foreground)]"
+            : "gap-1 px-3 py-2 rounded-lg bg-[var(--surface)] hover:bg-[var(--surface-hover)]"
         }`}
         aria-label={`Current image model: ${displayName}. Click to change.`}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         title={`Image model: ${displayName}`}
       >
-        <ImageIcon size={16} className="opacity-60" />
-        <span className="hidden sm:inline">{compactName}</span>
+        <ImageIcon size={variant === "compact" ? 20 : 16} strokeWidth={1.5} className={variant === "compact" ? "" : "opacity-60"} />
+        {variant === "full" && <span>{compactName}</span>}
         <ChevronDown
-          size={14}
+          size={variant === "compact" ? 14 : 14}
           className={`transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
         />
       </button>

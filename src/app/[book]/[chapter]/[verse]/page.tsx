@@ -7,7 +7,7 @@ import { Header } from "@/components/header";
 import { BookMenu } from "@/components/book-menu";
 import { LayoutWrapper } from "@/components/layout-wrapper";
 import { ChatContextSetter } from "@/components/chat-context-setter";
-import { VerseStrip } from "@/components/verse-strip";
+import { VerseStripBar } from "@/components/verse-strip-bar";
 import { Footer } from "@/components/footer";
 import { VerseAnalytics } from "@/components/verse-analytics";
 import { BOOK_BY_SLUG } from "@/data/bible-structure";
@@ -155,30 +155,32 @@ export default async function VersePage({ params }: VersePageProps) {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col">
-        {/* Hero Image */}
-        <HeroImage
-          verseText={verseData.text}
-          caption={verseData.text}
-          chapterTheme={chapterTheme}
-          prevUrl={prevUrl}
-          nextUrl={nextUrl}
-          prevVerse={prevVerse}
-          nextVerse={nextVerse}
-          currentReference={currentReference}
-          book={bookData.name}
-          chapter={location.chapter}
-          verse={location.verse}
-          testament={bookData.testament}
-        />
-
-        {/* Verse Strip Navigator - hidden on mobile (navigation in bottom sheet) */}
-        <div className="hidden sm:block border-b border-[var(--divider)]">
-          <VerseStrip
-            book={book}
+        {/* Hero Image with floating verse strip */}
+        <div className="relative">
+          <HeroImage
+            verseText={verseData.text}
+            caption={verseData.text}
+            chapterTheme={chapterTheme}
+            prevUrl={prevUrl}
+            nextUrl={nextUrl}
+            prevVerse={prevVerse}
+            nextVerse={nextVerse}
+            currentReference={currentReference}
+            book={bookData.name}
             chapter={location.chapter}
-            currentVerse={location.verse}
-            totalVerses={totalVerses}
+            verse={location.verse}
+            testament={bookData.testament}
           />
+
+          {/* Verse Strip Navigator - floats over top of image, hidden on mobile */}
+          <div className="hidden sm:block absolute left-4 md:left-6 right-4 md:right-6 top-4 z-20 rounded-[var(--radius-lg)] liquid-glass">
+            <VerseStripBar
+              book={book}
+              chapter={location.chapter}
+              currentVerse={location.verse}
+              totalVerses={totalVerses}
+            />
+          </div>
         </div>
 
         {/* Scripture Reader */}
