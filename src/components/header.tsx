@@ -88,21 +88,21 @@ export function Header() {
           <CreditsBadge />
           <HeaderGenerateButton />
           <button
-            className="min-h-[40px] min-w-[40px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             aria-label="Toggle chat"
             onClick={toggleChat}
           >
             <MessageCircle size={20} strokeWidth={1.5} />
           </button>
           <button
-            className="min-h-[40px] min-w-[40px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             aria-label="Open book navigation"
             onClick={toggleMenu}
           >
             <BookOpen size={20} strokeWidth={1.5} />
           </button>
           <button
-            className="min-h-[40px] min-w-[40px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             aria-label="Settings menu"
             onClick={() => isHeaderMenuOpen ? closeHeaderMenu() : openHeaderMenu()}
           >

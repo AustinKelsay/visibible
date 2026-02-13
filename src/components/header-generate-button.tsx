@@ -48,7 +48,10 @@ export function HeaderGenerateButton() {
         setModelsError(null);
 
         fetch("/api/image-models")
-          .then((res) => res.json())
+          .then((res) => {
+            if (!res.ok) throw new Error(`Failed to fetch models (${res.status})`);
+            return res.json();
+          })
           .then((data) => {
             if (data.models) setModels(data.models);
             if (data.error) setModelsError(data.error);

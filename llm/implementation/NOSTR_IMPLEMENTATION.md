@@ -119,7 +119,7 @@ Additional metadata:
 - standalone helpers for key/event operations (`decodePrivateKey`, `getPublicKey`, `createEvent`, `getEventHash`, `signEvent`)
 
 Implementation details:
-- pre-computes `eventId` using `getEventHash()` before publish
+- precomputes `eventId` using `getEventHash()` before publish
 - persists that precomputed ID after successful publish
 - always disconnects relay client in `finally`
 

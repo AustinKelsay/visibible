@@ -70,7 +70,7 @@ Calling `openChat()` opens to the Chat tab. Calling `openFeedback()` opens to th
 
 **Responsive Behavior:**
 - Desktop (md+): Fixed 384px width on right side
-- Mobile: Full width overlay with backdrop (click backdrop to close)
+- Mobile: Full-width overlay with backdrop (click backdrop to close)
 
 ## Mobile Overlay State
 

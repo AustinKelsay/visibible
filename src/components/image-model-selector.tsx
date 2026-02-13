@@ -112,7 +112,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
         <ImageIcon size={variant === "compact" ? 20 : 16} strokeWidth={1.5} className={variant === "compact" ? "" : "opacity-60"} />
         {variant === "full" && <span>{compactName}</span>}
         <ChevronDown
-          size={variant === "compact" ? 14 : 14}
+          size={14}
           className={`transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
         />
       </button>

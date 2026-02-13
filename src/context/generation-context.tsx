@@ -79,6 +79,8 @@ export function GenerationProvider({ children }: { children: ReactNode }) {
 
   const unregisterGenerate = useCallback(() => {
     generateRef.current = null;
+    buyCreditsRef.current = null;
+    settingsRef.current = null;
     setIsRegistered(false);
     setState(DEFAULT_STATE);
   }, []);
