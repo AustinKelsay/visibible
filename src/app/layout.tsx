@@ -28,7 +28,9 @@ export const metadata: Metadata = {
   description: "Explore Scripture with AI-powered insights and imagery. Read and visualize every verse of the Bible.",
 };
 
-const enableVercelAnalytics = process.env.VERCEL_ENV === "preview";
+const enableVercelAnalytics =
+  process.env.VERCEL_ENV === "preview" ||
+  process.env.VERCEL_TARGET_ENV === "dev";
 
 export default function RootLayout({
   children,
