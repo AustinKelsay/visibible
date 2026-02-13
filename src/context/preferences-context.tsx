@@ -143,12 +143,24 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   const setImageAspectRatio = (newRatio: ImageAspectRatio) => {
     setImageAspectRatioState(newRatio);
     savePreferences({ translation, imageModel, imageAspectRatio: newRatio, imageResolution, chatModel });
+    trackPreferenceChanged({
+      preference: "imageAspectRatio",
+      value: newRatio,
+      tier,
+      hasCredits: credits > 0,
+    });
   };
 
   // Save image resolution preference (no refresh needed - takes effect on next generation)
   const setImageResolution = (newResolution: ImageResolution) => {
     setImageResolutionState(newResolution);
     savePreferences({ translation, imageModel, imageAspectRatio, imageResolution: newResolution, chatModel });
+    trackPreferenceChanged({
+      preference: "imageResolution",
+      value: newResolution,
+      tier,
+      hasCredits: credits > 0,
+    });
   };
 
   // Save chat model preference (no refresh needed - takes effect on next message)

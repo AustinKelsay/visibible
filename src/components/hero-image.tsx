@@ -18,10 +18,12 @@ import {
 } from "@/lib/image-models";
 import {
   trackImageGenerated,
+  trackImageGenerationStarted,
   trackGenerationError,
   trackCreditsInsufficient,
   trackVerseImagesState,
 } from "@/lib/analytics";
+import { resolveHasCreditsAfterGeneration } from "@/lib/analytics-event-utils";
 
 interface ChapterTheme {
   setting: string;
@@ -550,9 +552,19 @@ function HeroImageBase({
 
       // Pass existing image count to add generation diversity
       const existingImageCount = imageHistory?.length || 0;
+      const generationNumber = existingImageCount + 1;
       if (existingImageCount > 0) {
-        params.set("generation", String(existingImageCount + 1));
+        params.set("generation", String(generationNumber));
       }
+
+      trackImageGenerationStarted({
+        imageModel: imageModel || "unknown",
+        aspectRatio: imageAspectRatio,
+        resolution: imageResolution,
+        generationNumber,
+        tier,
+        hasCredits: credits > 0,
+      });
 
       const url = `/api/generate-image?${params.toString()}`;
       const response = await fetch(url, { signal: controller.signal });
@@ -667,14 +679,18 @@ function HeroImageBase({
         }
 
         // Track successful image generation (fires regardless of Convex persistence)
+        const hasCreditsAfterGeneration = resolveHasCreditsAfterGeneration({
+          returnedCredits: data.credits,
+          currentCredits: credits,
+        });
         trackImageGenerated({
           imageModel: modelUsed,
           aspectRatio: data.aspectRatio || imageAspectRatio,
           resolution: imageResolution,
-          generationNumber: data.generationNumber || (existingImageCount + 1),
+          generationNumber: data.generationNumber || generationNumber,
           durationMs: data.durationMs,
           tier,
-          hasCredits: credits > 0,
+          hasCredits: hasCreditsAfterGeneration,
         });
 
         if (!onSaveImage) {

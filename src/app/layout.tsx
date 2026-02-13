@@ -28,6 +28,8 @@ export const metadata: Metadata = {
   description: "Explore Scripture with AI-powered insights and imagery. Read and visualize every verse of the Bible.",
 };
 
+const enableVercelAnalytics = process.env.VERCEL_ENV === "preview";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -54,7 +56,7 @@ export default function RootLayout({
             </PreferencesProvider>
           </SessionProvider>
         </ConvexClientProvider>
-        <Analytics />
+        {enableVercelAnalytics ? <Analytics /> : null}
       </body>
     </html>
   );

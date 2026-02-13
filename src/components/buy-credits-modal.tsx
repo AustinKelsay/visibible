@@ -6,10 +6,18 @@ import Image from "next/image";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
 import {
+  trackCreditsModalOpened,
+  trackCreditsModalClosed,
   trackInvoiceCreated,
+  trackInvoiceCopied,
+  trackInvoiceCancelled,
   trackPaymentCompleted,
   trackPaymentExpired,
 } from "@/lib/analytics";
+import {
+  resolveCreditsModalClosedStep,
+  resolveCreditsModalOpenedStep,
+} from "@/lib/analytics-event-utils";
 
 function CashAppLogo({ className }: { className?: string }) {
   return (
@@ -148,6 +156,7 @@ export function BuyCreditsModal() {
   const prevModalOpenRef = useRef(false);
   const hasSeenWelcomeRef = useRef(false);
   const hasTrackedExpiredRef = useRef(false);
+  const modalOpenedAtRef = useRef<number | null>(null);
 
   // Admin login state
   const [showAdminInput, setShowAdminInput] = useState(false);
@@ -187,11 +196,30 @@ export function BuyCreditsModal() {
     }
   }, [tier, credits]);
 
+  const trackModalClosed = useCallback((modalState: ModalState) => {
+    const openedAt = modalOpenedAtRef.current ?? Date.now();
+    const now = Date.now();
+    trackCreditsModalClosed({
+      step: resolveCreditsModalClosedStep({
+        state: modalState,
+        hasActiveInvoice: Boolean(invoice),
+        hasShownWelcomeInSession: hasSeenWelcomeRef.current,
+      }),
+      state: modalState,
+      hadInvoice: Boolean(invoice),
+      timeOpenSeconds: Math.max(0, Math.floor((now - openedAt) / 1000)),
+      tier,
+      hasCredits: credits > 0,
+    });
+    modalOpenedAtRef.current = null;
+  }, [invoice, tier, credits]);
+
   // When modal opens, check if we have a valid unexpired invoice
   useEffect(() => {
     if (!isBuyModalOpen) {
       prevModalOpenRef.current = false;
       hasSeenWelcomeRef.current = false;
+      modalOpenedAtRef.current = null;
       return;
     }
 
@@ -200,24 +228,45 @@ export function BuyCreditsModal() {
     prevModalOpenRef.current = true;
 
     if (!modalJustOpened) return;
+    modalOpenedAtRef.current = Date.now();
 
     // Check invoice expiry once when modal opens
     if (invoice && invoice.expiresAt > Date.now()) {
       // Resume existing valid invoice
       setState("invoice");
+      trackCreditsModalOpened({
+        step: resolveCreditsModalOpenedStep({
+          hasActiveInvoice: true,
+          hasSeenWelcome: true,
+          hasShownWelcomeInSession: hasSeenWelcomeRef.current,
+        }),
+        tier,
+        hasCredits: credits > 0,
+      });
     } else {
       // Check if user has seen welcome before
       const hasSeenWelcome = localStorage.getItem("visibible_welcome_seen") === "true";
-      if (!hasSeenWelcome && !hasSeenWelcomeRef.current) {
+      const step = resolveCreditsModalOpenedStep({
+        hasActiveInvoice: false,
+        hasSeenWelcome,
+        hasShownWelcomeInSession: hasSeenWelcomeRef.current,
+      });
+
+      if (step === "welcome") {
         setState("welcome");
         hasSeenWelcomeRef.current = true;
       } else {
         setState("selection");
       }
+      trackCreditsModalOpened({
+        step,
+        tier,
+        hasCredits: credits > 0,
+      });
       setInvoice(null);
       setQrDataUrl("");
     }
-  }, [isBuyModalOpen, invoice]);
+  }, [isBuyModalOpen, invoice, tier, credits]);
 
   // Reset state when modal closes (preserve invoice for persistence)
   useEffect(() => {
@@ -262,6 +311,7 @@ export function BuyCreditsModal() {
 
       // Success - refetch session and close
       await refetch();
+      trackModalClosed(state);
       closeBuyModal();
     } catch {
       setAdminError("Failed to authenticate");
@@ -372,22 +422,33 @@ export function BuyCreditsModal() {
     try {
       await navigator.clipboard.writeText(invoice.bolt11);
       setCopied(true);
+      trackInvoiceCopied({
+        amountUsd: invoice.amountUsd,
+        credits: invoice.credits,
+        tier,
+        hasCredits: credits > 0,
+      });
       setTimeout(() => setCopied(false), 2000);
     } catch {
       // Ignore clipboard errors
     }
-  }, [invoice]);
+  }, [invoice, tier, credits]);
 
   const handleClose = () => {
-    if (state === "success") {
+    const currentState = state;
+    if (currentState === "loading") {
+      // Don't allow closing while loading
+      return;
+    }
+
+    trackModalClosed(currentState);
+
+    if (currentState === "success") {
       // Reset state fully on success close
       setState("welcome");
       setInvoice(null);
       setQrDataUrl("");
       closeBuyModal();
-    } else if (state === "loading") {
-      // Don't allow closing while loading
-      return;
     } else {
       // Allow closing but preserve invoice state for later
       closeBuyModal();
@@ -401,10 +462,16 @@ export function BuyCreditsModal() {
 
   const handleBrowseFree = () => {
     localStorage.setItem("visibible_welcome_seen", "true");
+    trackModalClosed("welcome");
     closeBuyModal();
   };
 
   const handleCancelInvoice = () => {
+    trackInvoiceCancelled({
+      invoiceAgeSeconds: Math.floor((Date.now() - invoiceCreatedAt) / 1000),
+      tier,
+      hasCredits: credits > 0,
+    });
     setState("selection");
     setInvoice(null);
     setQrDataUrl("");

@@ -8,7 +8,12 @@ import { useSession } from "@/context/session-context";
 import { ChatModelSelector } from "./chat-model-selector";
 import { ConversationSummary, MessageMetadataDisplay, MessageMetadata } from "./chat-metadata";
 import { MarkdownRenderer } from "./markdown-renderer";
-import { trackChatMessageSent, trackCreditsInsufficient } from "@/lib/analytics";
+import {
+  trackChatMessageSent,
+  trackCreditsInsufficient,
+  trackChatErrorShown,
+} from "@/lib/analytics";
+import { resolveChatErrorType } from "@/lib/analytics-event-utils";
 
 type VerseContext = {
   number: number;
@@ -81,6 +86,7 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
   const [input, setInput] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
   const prevChatIdRef = useRef<string>(chatId);
+  const lastTrackedErrorKeyRef = useRef<string | null>(null);
 
   const isSidebar = variant === "sidebar";
 
@@ -96,6 +102,29 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
 
   const isLoading = status === "streaming" || status === "submitted";
   const hasMessages = messages.length > 0;
+
+  useEffect(() => {
+    if (!error) {
+      lastTrackedErrorKeyRef.current = null;
+      return;
+    }
+
+    const errorType = resolveChatErrorType(error);
+    if (!errorType) return;
+
+    const errorKey = `${chatId}:${variant}:${chatModel}:${errorType}:${error.message}`;
+    if (lastTrackedErrorKeyRef.current === errorKey) return;
+    lastTrackedErrorKeyRef.current = errorKey;
+
+    trackChatErrorShown({
+      variant,
+      chatModel,
+      errorType,
+      hasContext: Boolean(context),
+      tier,
+      hasCredits: credits > 0,
+    });
+  }, [error, chatId, variant, chatModel, context, tier, credits]);
 
   // Reset state when chatId changes (using startTransition to avoid cascading renders)
   useEffect(() => {

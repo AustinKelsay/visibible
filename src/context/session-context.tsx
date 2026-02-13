@@ -10,7 +10,6 @@ import {
   ReactNode,
 } from "react";
 import { DEFAULT_CREDITS_COST } from "@/lib/image-models";
-import { trackCreditsModalOpened } from "@/lib/analytics";
 
 interface SessionContextType {
   sid: string | null;
@@ -41,7 +40,6 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
   const hasShownOnboardingRef = useRef(false);
-  const prevModalOpenRef = useRef(false);
 
   const fetchSession = useCallback(async () => {
     try {
@@ -93,22 +91,6 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     fetchSession();
   }, [fetchSession]);
-
-  // Track credits_modal_opened event
-  useEffect(() => {
-    if (isLoading) return;
-    if (isBuyModalOpen && !prevModalOpenRef.current) {
-      // Determine which step - check if user has seen welcome
-      const hasSeenWelcome = typeof window !== "undefined"
-        && localStorage.getItem("visibible_welcome_seen") === "true";
-      trackCreditsModalOpened({
-        step: hasSeenWelcome ? "selection" : "welcome",
-        tier,
-        hasCredits: credits > 0,
-      });
-    }
-    prevModalOpenRef.current = isBuyModalOpen;
-  }, [isBuyModalOpen, tier, credits, isLoading]);
 
   const refetch = useCallback(async () => {
     setIsLoading(true);
