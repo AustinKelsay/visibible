@@ -13,6 +13,8 @@ export function TranslationSelector({ variant = "compact" }: TranslationSelector
   const { translation, setTranslation, translationInfo } = usePreferences();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [dropdownTop, setDropdownTop] = useState(0);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -33,7 +35,14 @@ export function TranslationSelector({ variant = "compact" }: TranslationSelector
   return (
     <div ref={dropdownRef} className="relative">
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        ref={buttonRef}
+        onClick={() => {
+          if (!isOpen && buttonRef.current) {
+            const rect = buttonRef.current.getBoundingClientRect();
+            setDropdownTop(rect.bottom + 4);
+          }
+          setIsOpen(!isOpen);
+        }}
         className={`flex items-center text-sm font-medium transition-colors duration-[var(--motion-fast)] ${
           variant === "compact"
             ? "min-h-[44px] min-w-[44px] justify-center gap-0.5 text-[var(--muted)] hover:text-[var(--foreground)]"
@@ -54,7 +63,8 @@ export function TranslationSelector({ variant = "compact" }: TranslationSelector
 
       {isOpen && (
         <div
-          className="absolute right-0 top-full mt-1 w-[calc(100vw-2rem)] sm:w-72 max-h-[60vh] sm:max-h-80 overflow-y-auto rounded-lg bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50"
+          className="fixed left-4 right-4 top-[var(--dropdown-top)] max-h-[60vh] sm:absolute sm:right-0 sm:left-auto sm:top-full sm:mt-1 sm:w-72 sm:max-h-80 overflow-y-auto rounded-lg bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50"
+          style={{ "--dropdown-top": `${dropdownTop}px` } as React.CSSProperties}
           role="listbox"
           aria-label="Select translation"
         >
