@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Send, Loader2, CheckCircle, ImageIcon } from "lucide-react";
 import type { PageContext } from "@/context/navigation-context";
+import { useSession } from "@/context/session-context";
+import { trackFeedbackSubmitted } from "@/lib/analytics";
 
 // Image context for feedback - which image the user was viewing
 export type ImageContext = {
@@ -23,6 +25,7 @@ type FeedbackProps = {
 };
 
 export function Feedback({ context, imageContext }: FeedbackProps) {
+  const { tier, credits } = useSession();
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -77,6 +80,13 @@ export function Feedback({ context, imageContext }: FeedbackProps) {
       }
 
       // Success!
+      trackFeedbackSubmitted({
+        hasContext: Boolean(context),
+        hasImageContext: Boolean(imageContext?.imageId),
+        sidebarTab: "feedback",
+        tier,
+        hasCredits: credits > 0,
+      });
       setMessage("");
       setIsSuccess(true);
 

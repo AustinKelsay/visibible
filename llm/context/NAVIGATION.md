@@ -64,7 +64,7 @@ The sidebar has two tabs:
 
 Calling `openChat()` opens to the Chat tab. Calling `openFeedback()` opens to the Feedback tab.
 
-**Context Source:** Verse pages use `ChatContextSetter` component (`src/components/chat-context-setter.tsx`) to set the chat context when mounted. This client component calls `setChatContext` on mount and clears it on unmount.
+**Context Source:** Verse pages use `ChatContextSetter` component (`src/components/chat-context-setter.tsx`) to set the chat context when mounted. It uses a layout effect so context is available before paint (reducing `chat_opened.hasContext` race conditions), and clears context on unmount.
 
 **Keyboard Shortcut:** Pressing Escape closes the sidebar when it's open.
 
@@ -90,7 +90,8 @@ A popout CTA that occasionally appears to ask users for feedback:
 
 - **Trigger**: Shows after 5-15 random verse visits
 - **Cooldown**: 24 hours after dismissal before showing again
-- **Position**: Above the ChatPrompt on mobile, same position on desktop
+- **Visibility**: Desktop only (`md+`)
+- **Position**: Near the chat FAB on desktop
 - **Action**: Clicking opens the sidebar to the Feedback tab
 
 See `llm/context/FEEDBACK.md` for more details.
