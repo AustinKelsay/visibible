@@ -1,0 +1,207 @@
+# Production Readiness Remediation Plan
+
+Date: 2026-02-14
+Status: Approved for implementation
+Primary risk themes: security boundaries, credit-accounting integrity
+
+## Goals
+
+1. Eliminate externally reachable trust-boundary breaks.
+2. Guarantee credit settlement correctness under retries/failures.
+3. Harden state-changing routes against CSRF and unsafe semantics.
+4. Raise production confidence via tests, CI gates, and observability.
+
+## Delivery Strategy
+
+- Ship in small PRs with explicit acceptance criteria.
+- Prioritize exploitability + financial integrity first.
+- Keep behavior changes isolated and test-backed.
+
+## PR Sequence
+
+## Phase 1: Critical Security and Ledger Integrity
+
+### PR-1: Lock Down Image Persistence Boundary (Blocker #1)
+
+Scope:
+- Remove browser-direct invocation of `api.verseImages.saveImage`.
+- Move image persistence to server-controlled path only.
+- Require server authorization for persistence action calls.
+- Add outbound URL allowlist and private-network/localhost denylist checks.
+- Enforce hard max byte size limits before storage.
+- Restrict accepted MIME types to supported image formats.
+
+Acceptance criteria:
+- Browser can no longer trigger arbitrary server-side URL fetches for image persistence.
+- Non-allowlisted URLs are rejected.
+- Oversized payloads are rejected.
+- Local/private target URLs are rejected.
+- Valid provider URLs continue to persist successfully.
+
+Test coverage:
+- Unit tests for URL validation and size limits.
+- API integration tests for accepted/rejected persistence paths.
+
+---
+
+### PR-2: Enforce Idempotent Reservation Release + One-Way Settlement (Blocker #3)
+
+Scope:
+- Make `releaseReservation` single-settlement per `generationId`.
+- Prevent duplicate refunds after prior release/charge.
+- Enforce legal state transitions for reservation lifecycle.
+- Ensure retry-safe behavior for chat/image failure cleanup paths.
+
+Acceptance criteria:
+- Repeated release calls do not increase credits after first release.
+- Post-deduct release is no-op or hard reject (without balance impact).
+- Ledger state for a generation is consistent and auditable.
+
+Test coverage:
+- Duplicate release sequence tests.
+- Deduct-then-release and release-then-deduct tests.
+- Retry/replay integration tests.
+
+---
+
+### PR-3: Convert Image Generation to POST + CSRF + Strict Origin (Blocker #5)
+
+Scope:
+- Convert `/api/generate-image` from `GET` to `POST`.
+- Require CSRF token validation on state-changing request.
+- Require strict origin validation for state-changing request.
+- Return `405` on `GET`.
+- Update client call sites to use JSON body.
+
+Acceptance criteria:
+- No cost-incurring operation is reachable via `GET`.
+- Missing/invalid CSRF token returns `403`.
+- Invalid/missing origin for mutating request returns `403`.
+- Existing valid requests still succeed via `POST`.
+
+Test coverage:
+- Method, CSRF, and origin enforcement tests.
+
+## Phase 2: Critical Follow-Ons
+
+### PR-4: Stale Reservation Reconciliation Cron (Blocker #4)
+
+Scope:
+- Add janitor job to find stale reservation-only generations.
+- Auto-release stale reservations safely and idempotently.
+- Log reconciliation outcomes for audit.
+
+Acceptance criteria:
+- Crashed/aborted requests no longer strand reserved credits indefinitely.
+- Reconciler is safe under reruns.
+
+---
+
+### PR-5: Convex Trust Boundary Hardening (Blocker #2)
+
+Scope:
+- Move sensitive public mutations/actions behind server-authenticated boundaries.
+- Keep only low-risk public write paths publicly callable.
+- Add explicit classification of trusted vs untrusted callers.
+
+Acceptance criteria:
+- Sensitive state transitions are not callable from arbitrary browser clients.
+
+---
+
+### PR-6: Session IP-Binding Consistency (High #6)
+
+Scope:
+- Standardize privileged/session-sensitive API routes on `validateSessionWithIp`.
+- Remove direct cookie-only session reads for privileged operations.
+
+Acceptance criteria:
+- Privileged routes consistently enforce token + IP binding policy.
+
+---
+
+### PR-7: Invoice Polling Throttling (High #9)
+
+Scope:
+- Add per-session/IP rate limiting for invoice status checks.
+- Apply to both GET and POST invoice status/confirm flows as needed.
+
+Acceptance criteria:
+- Repeated polling cannot hammer LND beyond defined thresholds.
+
+---
+
+### PR-8: Main OpenRouter Timeout and Explicit Cleanup (High #8)
+
+Scope:
+- Add abort timeout for primary image generation OpenRouter request.
+- Ensure explicit reservation cleanup path on timeout.
+
+Acceptance criteria:
+- Hung upstream requests time out deterministically.
+- Reservation is consistently settled on timeout/failure.
+
+## Phase 3: Scalability, Hardening, and Operational Readiness
+
+### PR-9: Cleanup Throughput and Frequency Scaling (High #7)
+
+Scope:
+- Replace fixed 100-row deletes with paginated loops.
+- Increase cron frequency for high-churn tables.
+- Prefer indexed cleanup patterns.
+
+Acceptance criteria:
+- Cleanup keeps pace with expected production data growth.
+
+---
+
+### PR-10: Security Header Hardening (Medium #10)
+
+Scope:
+- Add HSTS header.
+- Tighten CSP progressively to reduce/remove unsafe directives where possible.
+
+Acceptance criteria:
+- Hardened baseline headers in production without breaking runtime assets.
+
+---
+
+### PR-11: CI Production Gates + Coverage Thresholds (Medium #11)
+
+Scope:
+- Add `next build` to CI.
+- Enforce minimum coverage thresholds.
+- Add targeted integration tests for credit/payment/Convex flows.
+
+Acceptance criteria:
+- Regressions that break production build or critical-path coverage fail CI.
+
+---
+
+### PR-12: Structured Observability and Health Signals (Medium #12)
+
+Scope:
+- Introduce structured logging on critical API and settlement paths.
+- Add alertable metrics for failures/timeouts/settlement anomalies.
+- Add health/readiness endpoints and minimal SLO-oriented checks.
+
+Acceptance criteria:
+- Failures are machine-parseable and alertable.
+- Operators can quickly detect and triage outages/regressions.
+
+## Implementation Notes
+
+- PR-1, PR-2, PR-3 are mandatory pre-production gates.
+- PR-4 through PR-8 should follow immediately after Phase 1.
+- Roll out with canary monitoring of:
+  - Reservation release rates
+  - Deduct/release mismatch
+  - Image persistence failure rates
+  - Invoice polling rate-limit hit rates
+
+## Done Definition
+
+- All acceptance criteria met.
+- New/updated tests pass.
+- `npm run lint`, `npm run typecheck`, and `npm test` pass.
+- Security-sensitive behavior documented in code comments and route docs.

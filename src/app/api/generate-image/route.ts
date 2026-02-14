@@ -1370,10 +1370,41 @@ ${aspectRatioInstruction}`;
         }
       }
 
+      let savedImageId: string | undefined;
+      try {
+        const saveResult = await convex.action(api.verseImages.saveImage, {
+          verseId,
+          imageUrl,
+          model: modelId,
+          prompt,
+          reference,
+          verseText,
+          chapterTheme: chapterTheme ?? undefined,
+          generationNumber: generationNumber ?? undefined,
+          promptVersion: PROMPT_VERSION,
+          promptInputs,
+          translationId,
+          provider: getProviderName(modelId),
+          providerRequestId,
+          creditsCost: finalChargedCredits,
+          costUsd: finalChargedCostUsd,
+          durationMs: generationDurationMs,
+          aspectRatio,
+          generationId: chargeGenerationId,
+          serverSecret,
+        });
+        if (saveResult && typeof saveResult.id === "string") {
+          savedImageId = saveResult.id;
+        }
+      } catch (saveError) {
+        console.error("[Image API] Failed to persist generated image:", saveError);
+      }
+
       return NextResponse.json(
         {
           requestId: generationRequestId,
           imageUrl,
+          ...(savedImageId ? { savedImageId } : {}),
           model: modelId,
           provider: getProviderName(modelId),
           providerRequestId,

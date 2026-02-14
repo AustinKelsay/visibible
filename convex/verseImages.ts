@@ -79,6 +79,139 @@ const validateServerSecret = (serverSecret: string) => {
   }
 };
 
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024; // 10 MiB hard cap per image
+const ALLOWED_IMAGE_MIME_TYPES = new Set([
+  "image/png",
+  "image/jpeg",
+  "image/webp",
+  "image/gif",
+]);
+
+const DEFAULT_IMAGE_FETCH_ALLOWLIST = [
+  "openrouter.ai",
+  "*.openrouter.ai",
+  "openrouterusercontent.com",
+  "*.openrouterusercontent.com",
+  "*.googleusercontent.com",
+  "*.gstatic.com",
+  "*.oaistatic.com",
+  "*.blob.core.windows.net",
+];
+
+class ImageValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ImageValidationError";
+  }
+}
+
+const normalizeHost = (value: string) => value.trim().toLowerCase().replace(/\.$/, "");
+
+const getRemoteImageAllowlist = () => {
+  const configured = (process.env.IMAGE_FETCH_ALLOWLIST ?? "")
+    .split(",")
+    .map((entry) => normalizeHost(entry))
+    .filter((entry) => entry.length > 0);
+
+  const deduped = new Set([
+    ...DEFAULT_IMAGE_FETCH_ALLOWLIST.map((entry) => normalizeHost(entry)),
+    ...configured,
+  ]);
+  return Array.from(deduped);
+};
+
+const isIpv4Address = (host: string) => /^(\d{1,3}\.){3}\d{1,3}$/.test(host);
+
+const isPrivateIpv4 = (host: string) => {
+  if (!isIpv4Address(host)) return false;
+  const parts = host.split(".").map((segment) => Number.parseInt(segment, 10));
+  if (parts.length !== 4 || parts.some((part) => !Number.isFinite(part) || part < 0 || part > 255)) {
+    return false;
+  }
+  const [a, b] = parts;
+  if (a === 10) return true;
+  if (a === 127) return true;
+  if (a === 169 && b === 254) return true;
+  if (a === 172 && b >= 16 && b <= 31) return true;
+  if (a === 192 && b === 168) return true;
+  if (a === 0) return true;
+  return false;
+};
+
+const isPrivateIpv6 = (host: string) => {
+  if (!host.includes(":")) return false;
+  const normalized = host.toLowerCase();
+  if (normalized === "::1" || normalized === "0:0:0:0:0:0:0:1") return true;
+  if (normalized.startsWith("fe80:")) return true;
+  if (normalized.startsWith("fc") || normalized.startsWith("fd")) return true;
+  return false;
+};
+
+const isDisallowedLocalHost = (host: string) => {
+  if (host === "localhost" || host.endsWith(".localhost")) return true;
+  if (host.endsWith(".local")) return true;
+  if (isPrivateIpv4(host) || isPrivateIpv6(host)) return true;
+  return false;
+};
+
+const hostMatchesAllowlist = (host: string, allowedHost: string) => {
+  if (allowedHost.startsWith("*.")) {
+    const suffix = allowedHost.slice(2);
+    return host === suffix || host.endsWith(`.${suffix}`);
+  }
+  return host === allowedHost;
+};
+
+const assertAllowedRemoteImageUrl = (imageUrl: string) => {
+  let parsed: URL;
+  try {
+    parsed = new URL(imageUrl);
+  } catch {
+    throw new ImageValidationError("Invalid image URL");
+  }
+
+  if (parsed.protocol !== "https:") {
+    throw new ImageValidationError("Only HTTPS image URLs are allowed");
+  }
+  if (parsed.username || parsed.password) {
+    throw new ImageValidationError("Image URL auth components are not allowed");
+  }
+
+  const host = normalizeHost(parsed.hostname);
+  if (!host) {
+    throw new ImageValidationError("Image URL host is required");
+  }
+  if (isDisallowedLocalHost(host)) {
+    throw new ImageValidationError("Image URL host is not allowed");
+  }
+
+  const allowlist = getRemoteImageAllowlist();
+  const allowed = allowlist.some((allowedHost) => hostMatchesAllowlist(host, allowedHost));
+  if (!allowed) {
+    throw new ImageValidationError(`Image host "${host}" is not in allowlist`);
+  }
+};
+
+const assertAllowedMimeType = (mimeType?: string) => {
+  if (!mimeType) {
+    throw new ImageValidationError("Image MIME type is missing");
+  }
+  if (!ALLOWED_IMAGE_MIME_TYPES.has(mimeType)) {
+    throw new ImageValidationError(`Unsupported image MIME type: ${mimeType}`);
+  }
+};
+
+const assertByteSizeWithinLimit = (bytes: number, source: string) => {
+  if (!Number.isFinite(bytes) || bytes <= 0) {
+    throw new ImageValidationError(`Invalid image size from ${source}`);
+  }
+  if (bytes > MAX_IMAGE_BYTES) {
+    throw new ImageValidationError(
+      `Image from ${source} exceeds ${MAX_IMAGE_BYTES} byte limit`
+    );
+  }
+};
+
 /**
  * Get the most recent image for a verse.
  * Returns the image URL (storage signed URL or direct URL fallback).
@@ -1026,6 +1159,7 @@ export const saveImage = action({
     durationMs: v.optional(v.number()),
     aspectRatio: v.optional(v.string()),
     generationId: v.optional(v.string()),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args): Promise<{ success: true; type: string; id: Id<"verseImages"> }> => {
     const {
@@ -1047,7 +1181,10 @@ export const saveImage = action({
       durationMs,
       aspectRatio,
       generationId,
+      serverSecret,
     } = args;
+    validateServerSecret(serverSecret);
+
     const resolvedProvider = provider ?? deriveProvider(model);
     const baseMetadata = {
       prompt,
@@ -1087,10 +1224,18 @@ export const saveImage = action({
 
       const mimeType = matches[1];
       const base64Data = matches[2];
+      const maxBase64Length = Math.ceil((MAX_IMAGE_BYTES * 4) / 3) + 4;
+      if (base64Data.length > maxBase64Length) {
+        throw new ImageValidationError(
+          `Image data URL exceeds ${MAX_IMAGE_BYTES} byte limit`
+        );
+      }
 
       // Decode base64 without relying on atob/Buffer (not available in Convex).
       const bytes = decodeBase64ToBytes(base64Data);
       const normalizedMimeType = normalizeMimeType(mimeType);
+      assertAllowedMimeType(normalizedMimeType);
+      assertByteSizeWithinLimit(bytes.length, "data URL");
       const dimensions = getImageDimensions(bytes, normalizedMimeType);
       const imageMetadata = {
         ...baseMetadata,
@@ -1131,6 +1276,8 @@ export const saveImage = action({
       return { success: true, type: "storage", id };
     }
 
+    assertAllowedRemoteImageUrl(imageUrl);
+
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000);
@@ -1145,12 +1292,23 @@ export const saveImage = action({
       if (!response.ok) {
         throw new Error(`Failed to fetch image: ${response.status}`);
       }
+
+      const contentLengthHeader = response.headers.get("content-length");
+      if (contentLengthHeader) {
+        const contentLength = Number.parseInt(contentLengthHeader, 10);
+        if (Number.isFinite(contentLength)) {
+          assertByteSizeWithinLimit(contentLength, "remote image response");
+        }
+      }
+
       const blob = await response.blob();
       const arrayBuffer = await blob.arrayBuffer();
       const bytes = new Uint8Array(arrayBuffer);
       const normalizedMimeType = normalizeMimeType(
         response.headers.get("content-type") || blob.type
       );
+      assertAllowedMimeType(normalizedMimeType);
+      assertByteSizeWithinLimit(bytes.length, "remote image body");
       const dimensions = getImageDimensions(bytes, normalizedMimeType);
       const imageMetadata = {
         ...baseMetadata,
@@ -1186,6 +1344,9 @@ export const saveImage = action({
 
       return { success: true, type: "storage", id };
     } catch (error) {
+      if (error instanceof ImageValidationError) {
+        throw error;
+      }
       console.error("Failed to fetch and store image:", error);
       const imageMetadata = {
         ...baseMetadata,
