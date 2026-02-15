@@ -34,7 +34,7 @@ Image generation is Convex-orchestrated, includes scene-plan caching, and now us
 7. API builds compact prompt packet, updates status to `generating`, calls OpenRouter.
 8. API settles credits and writes terminal lifecycle state.
 9. API persists a Neutral Cost event for the generation (metadata + final charge details).
-10. API returns image payload.
+10. API persists the generated image server-side via `saveImage` (server-secret authenticated) and returns image payload (including `savedImageId` when persistence succeeds).
 11. UI follows status via Convex query and updates generation phase messaging.
 
 ## Convex Data Model
@@ -92,6 +92,9 @@ Scene plan cache:
 Neutral cost:
 - `quoteUsdCost`
 - `recordImageCostEvent`
+
+Image persistence (see `llm/implementation/IMAGE_PERSISTENCE_IMPLEMENTATION.md` for full data model):
+- `saveImage` (server-authenticated action)
 
 All write operations and cache lookup in server flows are gated by `CONVEX_SERVER_SECRET`.
 

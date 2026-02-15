@@ -58,6 +58,11 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 - Dangerous proxy configurations are **fatal in production**
 - Broad CIDR ranges (0.0.0.0/0) cause startup failure
 
+### 7. Convex Trust Boundary (Server-Only Writes)
+- Sensitive Convex actions require `CONVEX_SERVER_SECRET` and are intended for server callers only.
+- Image persistence (`saveImage`) is server-side only; browser-direct persistence writes are blocked.
+- Reservation settlement is one-way per `generationId` (`reserved -> released` or `reserved -> charged`) and duplicate release calls are idempotent.
+
 ## What This Means for Users
 
 ### Regular Users
@@ -97,6 +102,10 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 - **HIGH (FIXED):** Rate-limit-status now uses correct identifier format (`${ipHash}:${sid}`)
 - **HIGH (FIXED):** Feedback endpoint now has Zod validation with max 5000 char message and 10KB body limit
 - **MEDIUM (FIXED):** Admin audit logging now properly awaited in chat and image endpoints
+
+### Fixed (February 2026)
+- **CRITICAL (FIXED):** Public image persistence boundary closed. `saveImage` now requires server secret; remote fetches are host/mime/size constrained and private hosts are blocked.
+- **CRITICAL (FIXED):** Credit settlement hardened to one-way lifecycle. Duplicate reservation release calls are no-ops after settlement, preventing credit inflation.
 
 ### Remaining (Low/Optional)
 - **LOW:** Verbose error logging in generate-image (consider reducing)

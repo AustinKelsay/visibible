@@ -1,8 +1,26 @@
 # Production Readiness Remediation Plan
 
 Date: 2026-02-14
-Status: Approved for implementation
+Status: In progress
 Primary risk themes: security boundaries, credit-accounting integrity
+
+## Progress Updates
+
+### 2026-02-15
+
+- PR-1 completed: image persistence boundary hardened.
+  - Browser-direct `saveImage` invocation removed.
+  - Persistence moved to server path (`/api/generate-image`).
+  - `saveImage` now requires `serverSecret`.
+  - Added remote host allowlist, local/private host blocking, MIME allowlist, and 10 MiB size cap.
+  - Added optional env knob: `IMAGE_FETCH_ALLOWLIST`.
+
+- PR-2 completed: reservation release idempotency and one-way settlement.
+  - Added settlement state classifier (`none|reserved|released|charged`) by `generationId`.
+  - Duplicate releases are no-ops after first settlement.
+  - Released generations cannot be charged later.
+  - Released/charged generations cannot be re-reserved.
+  - Added unit coverage for settlement-state classification.
 
 ## Goals
 

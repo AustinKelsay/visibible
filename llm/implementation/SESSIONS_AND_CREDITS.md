@@ -107,25 +107,31 @@ If Convex is not configured, session and payment routes return free defaults or 
 | `getSession` | Query | `sid` | `{ sid, tier, credits, createdAt, lastSeenAt }` or `null` |
 | `createSession` | Mutation | `sid, ipHash?` | `{ sid, tier: "paid", credits: 0 }` |
 | `updateLastSeen` | Mutation | `sid` | `void` |
-| `addCredits` | Mutation | `sid, amount, reason, invoiceId?` | `{ newBalance }` |
-| `reserveCredits` | Mutation | `sid, amount, modelId, generationId, costUsd?` | `{ success, newBalance, alreadyReserved? }` or `{ success: false, error, required, available }` |
-| `releaseReservation` | Mutation | `sid, generationId` | `{ success, newBalance, alreadyReleased? }` |
-| `deductCredits` | Mutation | `sid, amount, modelId, generationId, costUsd?, actualAmount?, actualCostUsd?` | `{ success, newBalance, converted?, alreadyCharged?, refunded?, additionalCharged? }` or `{ success: false, error, required, available }` |
+| `addCredits` | Action | `sid, amount, reason, invoiceId?, serverSecret` | `{ newBalance }` |
+| `reserveCredits` | Action | `sid, amount, modelId, generationId, costUsd?, serverSecret` | `{ success, newBalance, alreadyReserved? }` or `{ success: false, error, required?, available? }` |
+| `releaseReservation` | Action | `sid, generationId, serverSecret` | `{ success, newBalance, alreadyReleased? }` |
+| `deductCredits` | Action | `sid, amount, modelId, generationId, costUsd?, actualAmount?, actualCostUsd?, serverSecret` | `{ success, newBalance, converted?, alreadyCharged?, refunded?, additionalCharged?, shortfall? }` or `{ success: false, error, required?, available? }` |
 | `getCreditHistory` | Query | `sid, limit?` | `Array<{ delta, reason, modelId, generationId, createdAt }>` |
-| `upgradeToAdmin` | Action | `sid` | `{ success: true }` |
+| `upgradeToAdmin` | Action | `sid, serverSecret` | `{ success: true }` |
 
 **Note:** `addCredits` accepts `invoiceId` but it is not currently stored in the ledger (reserved for future use).
 
 ### Reservation System
 
-The credit system uses a two-stage reservation pattern to prevent race conditions:
+The credit system uses a reservation settlement state machine per `generationId` to prevent race conditions and replay abuse:
 
-1. **`reserveCredits`**: Atomically reserves credits BEFORE image generation. Deducts from balance and creates a `reservation` ledger entry. If credits already reserved/charged for the `generationId`, returns `{ alreadyReserved: true }`.
+1. **`reserveCredits`**: Atomically reserves credits BEFORE image generation. Deducts from balance and creates a `reservation` ledger entry.
+   - If state is `reserved`, returns `{ alreadyReserved: true }`.
+   - If state is `released` or `charged`, returns `{ success: false, error: "Generation already settled" }`.
 
-2. **`releaseReservation`**: Restores credits if generation fails. Creates a `refund` entry to cancel the reservation. Called when OpenRouter returns an error.
+2. **`releaseReservation`**: Restores credits if generation fails.
+   - Only refunds from state `reserved`.
+   - For `none`, `released`, or `charged`, returns `{ alreadyReleased: true }` with no balance change.
 
 3. **`deductCredits`**: Converts a reservation to a final charge. Uses double-entry bookkeeping:
-   - If reservation exists but no generation entry: creates `generation` entry + compensating `refund` entry (net effect: reservation → generation)
+   - If state is `reserved`: creates `generation` entry + compensating `refund` entry (net effect: reservation → generation)
+   - If state is `charged`: idempotent no-op (`alreadyCharged: true`)
+   - If state is `released`: no-op (`alreadyCharged: true`) so released generations cannot be re-charged
    - If no reservation: performs direct debit (backward compatibility)
    - Returns `{ converted: true }` when converting from reservation
    - **Actual-usage charging**: Accepts optional `actualAmount` and `actualCostUsd` params to charge the real cost (from OpenRouter `usage` response) instead of the reserved amount:
@@ -137,12 +143,16 @@ The credit system uses a two-stage reservation pattern to prevent race condition
      - If `actualCostUsd > reservationCostUsd`: increases `dailySpendUsd` by the difference
      - This prevents the inflated 35x reservation estimate from prematurely blocking users at the daily spend limit
 
-**Idempotency:** All three mutations use net-delta checking:
-1. Query ALL ledger entries for `generationId` + `sid`
-2. Calculate `netDelta` summing `generation`, `refund`, AND `reservation` entries
-3. If `netDelta < 0` (already reserved/charged), return success without duplicate action
+**Idempotency and one-way settlement:** All three actions summarize ledger state for `generationId` + `sid`:
+1. Query all ledger entries for that key.
+2. Classify state as:
+   - `none`: no reservation/generation/refund
+   - `reserved`: reservation exists, no generation
+   - `released`: refund exists, no generation
+   - `charged`: generation exists (refund may also exist as conversion entry)
+3. Gate reserve/release/deduct behavior based on state to prevent duplicate refunds and post-release charging.
 
-This prevents double-charging from retries and allows atomic credit reservation.
+This prevents credit inflation from duplicate release calls and prevents replay charging after a released generation.
 
 **Tier Transitions:** `resolveTier()` centralizes tier updates for all credit mutations. `admin` is sticky and never downgraded; non-admins are always `paid` tier.
 
@@ -307,7 +317,7 @@ Requires session ownership. Verifies LND settlement before confirming payment an
 
 ### `GET /api/generate-image`
 Credit flow (reservation pattern):
-1. Verify session cookie via `getSessionFromCookies()`.
+1. Verify session and IP binding via `validateSessionWithIp()`.
 2. Fetch model from `fetchImageModels()` and compute `creditsCost` via `computeCreditsCost()`.
 3. **Reject unpriced models** - if `creditsCost` is null, return 400 "Model pricing unavailable".
 4. **Reserve credits atomically** via `reserveCredits()` - deducts from balance immediately.
@@ -316,6 +326,7 @@ Credit flow (reservation pattern):
 7. **Convert reservation to charge** via `deductCredits()` - uses double-entry bookkeeping.
 8. If generation fails, **release reservation** via `releaseReservation()` to restore credits.
 9. If post-charge fails, return 402 and discard the generated image.
+10. Persist generated image server-side via `api.verseImages.saveImage` using `CONVEX_SERVER_SECRET`; response includes `savedImageId` when persistence succeeds.
 
 On success, the response includes:
 - `imageUrl`, `model`, `provider`, `providerRequestId`
@@ -436,7 +447,7 @@ function computeChatCreditsCost(
 - `SessionProvider` (`src/context/session-context.tsx`): boots the session, exposes `buyCredits`, and updates credits.
 - `CreditsBadge`: shows credit balance (clickable to buy) or Admin badge.
 - `BuyCreditsModal`: includes integrated onboarding (welcome flow), creates invoice, displays QR + BOLT11, polls status until paid or expired. Also includes admin login option.
-- `HeroImage`: gates generation based on credits, sends generation requests, and saves metadata to Convex via `saveImage` action.
+- `HeroImage`: gates generation based on credits and sends generation requests. Image persistence is handled server-side in `/api/generate-image`.
 
 ---
 
@@ -462,6 +473,8 @@ ENABLE_IMAGE_GENERATION=true
 OPENROUTER_API_KEY=sk-or-...
 OPENROUTER_REFERRER=http://localhost:3000
 OPENROUTER_TITLE=visibible
+# Optional strict host allowlist for server-side image fetch persistence
+# IMAGE_FETCH_ALLOWLIST=openrouter.ai,*.openrouter.ai
 
 # Lightning
 LND_HOST=your-node.m.voltageapp.io

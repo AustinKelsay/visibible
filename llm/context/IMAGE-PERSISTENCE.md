@@ -21,8 +21,10 @@ High-level overview of how verse images are persisted and browsed. Details may c
 
 - On page load, the app queries Convex for the verse's image history (newest first).
 - If history is empty, the hero image auto-generates the first image.
-- New images are appended to the history and become immediately browseable.
+- New images are persisted by the server (`/api/generate-image` -> `api.verseImages.saveImage`) and appended to history.
 - History is shared across devices for the same Convex deployment.
+- Browser code does not call `saveImage` directly; persistence writes are server-authenticated with `CONVEX_SERVER_SECRET`.
+- Remote URL persistence fetches are restricted by host allowlist + local/private host blocking and image MIME/size validation.
 
 ## Browsing History
 
@@ -45,5 +47,7 @@ High-level overview of how verse images are persisted and browsed. Details may c
 
 ## Dependencies
 
-- `NEXT_PUBLIC_CONVEX_URL` enables Convex image persistence on the client.
+- `NEXT_PUBLIC_CONVEX_URL` enables Convex-backed history queries and generation flows.
+- `CONVEX_SERVER_SECRET` is required for server-authenticated image persistence writes.
+- `IMAGE_FETCH_ALLOWLIST` (optional) extends allowed hosts for server-side image fetch persistence.
 - `CONVEX_DEPLOYMENT` is used by Convex CLI targeting (`.env.convex.dev` / `.env.convex.prod`), not by Next.js runtime on Vercel.
