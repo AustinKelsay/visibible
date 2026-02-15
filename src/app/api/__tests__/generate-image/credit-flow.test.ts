@@ -108,6 +108,11 @@ vi.mock("@/lib/convex-client", () => ({
         return;
       }
 
+      if ("verseId" in args && "imageUrl" in args && "model" in args) {
+        mockState.callHistory.push({ action: "saveImage", args });
+        return { success: true, type: "storage", id: "saved-image-1" };
+      }
+
       if ("generationId" in args && !("amount" in args)) {
         // releaseReservation
         mockState.callHistory.push({ action: "releaseReservation", args });
@@ -314,8 +319,10 @@ describe("Image Generation API Credit Flow", () => {
 
       const body = await response.json();
       expect(body.imageUrl).toBeDefined();
+      expect(body.savedImageId).toBe("saved-image-1");
       expect(getCallCount("sessions:reserveCredits")).toBe(1);
       expect(getCallCount("sessions:deductCredits")).toBe(1);
+      expect(getCallCount("saveImage")).toBe(1);
       expect(body.openRouterUsageUsd).toBe(0.05);
       expect(body.usedActualCost).toBe(true);
     });

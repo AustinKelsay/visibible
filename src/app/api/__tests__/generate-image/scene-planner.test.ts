@@ -99,6 +99,11 @@ vi.mock("@/lib/convex-client", () => ({
         return;
       }
 
+      if ("verseId" in args && "imageUrl" in args && "model" in args) {
+        mockState.callHistory.push({ action: "saveImage", args });
+        return { success: true, type: "storage", id: "saved-image-scene-planner" };
+      }
+
       if ("generationId" in args && !("amount" in args)) {
         // releaseReservation
         mockState.callHistory.push({ action: "releaseReservation", args });

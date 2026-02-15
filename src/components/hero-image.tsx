@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import { useQuery, useAction } from "convex/react";
+import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Maximize2, X } from "lucide-react";
@@ -122,7 +122,6 @@ export function HeroImage({
         imageHistory={[]}
         isQueryLoading={false}
         imageRefreshKey={0}
-        onSaveImage={undefined}
       />
     );
   }
@@ -176,26 +175,6 @@ interface HeroImageBaseProps extends HeroImageProps {
   imageHistory: ConvexImageData[] | undefined;
   isQueryLoading: boolean;
   imageRefreshKey?: number;
-  onSaveImage?: (args: {
-    verseId: string;
-    imageUrl: string;
-    model: string;
-    prompt?: string;
-    reference?: string;
-    verseText?: string;
-    chapterTheme?: ChapterTheme;
-    generationNumber?: number;
-    promptVersion?: string;
-    promptInputs?: PromptInputs;
-    translationId?: string;
-    provider?: string;
-    providerRequestId?: string;
-    creditsCost?: number;
-    costUsd?: number;
-    durationMs?: number;
-    aspectRatio?: string;
-    generationId?: string;
-  }) => Promise<string | null>;
   onRefreshImages?: () => void;
 }
 
@@ -224,37 +203,6 @@ function HeroImageWithConvex({
     verseId ? { verseId, refreshToken } : "skip"
   );
 
-  // Action to save new images (handles both URLs and base64 data)
-  const saveImageAction = useAction(api.verseImages.saveImage);
-
-  // Wrap action to match expected signature (Promise<void>)
-  const saveImage = useCallback(
-    async (args: {
-      verseId: string;
-      imageUrl: string;
-      model: string;
-      prompt?: string;
-      reference?: string;
-      verseText?: string;
-      chapterTheme?: ChapterTheme;
-      generationNumber?: number;
-      promptVersion?: string;
-      promptInputs?: PromptInputs;
-      translationId?: string;
-      provider?: string;
-      providerRequestId?: string;
-      creditsCost?: number;
-      costUsd?: number;
-      durationMs?: number;
-      aspectRatio?: string;
-      generationId?: string;
-    }) => {
-      const result = await saveImageAction(args);
-      return result?.id ?? null;
-    },
-    [saveImageAction]
-  );
-
   const refreshImages = useCallback(() => {
     setRefreshToken((value) => value + 1);
   }, []);
@@ -279,7 +227,6 @@ function HeroImageWithConvex({
       imageHistory={imageHistory}
       isQueryLoading={isQueryLoading}
       imageRefreshKey={refreshToken}
-      onSaveImage={saveImage}
       onRefreshImages={refreshImages}
     />
   );
@@ -307,7 +254,6 @@ function HeroImageBase({
   imageHistory,
   isQueryLoading,
   imageRefreshKey = 0,
-  onSaveImage,
   onRefreshImages,
 }: HeroImageBaseProps) {
   const { imageModel, imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution, translation } = usePreferences();
@@ -629,9 +575,8 @@ function HeroImageBase({
         throw new Error(data?.error || "Failed to generate image");
       }
 
-        if (data?.imageUrl) {
-          const modelUsed = data.model || imageModel || "unknown";
-          const saveGenerationId = data.generationId || clientRequestId;
+      if (data?.imageUrl) {
+        const modelUsed = data.model || imageModel || "unknown";
 
         // Update credits in session context if returned
         if (typeof data.credits === "number") {
@@ -642,36 +587,10 @@ function HeroImageBase({
           return;
         }
 
-        // Save to Convex (action handles both URLs and base64 data)
-        if (onSaveImage) {
-          const savedId = await onSaveImage({
-            verseId,
-            imageUrl: data.imageUrl,
-            model: modelUsed,
-            prompt: data.prompt,
-            promptVersion: data.promptVersion,
-            promptInputs: data.promptInputs,
-            reference: data.reference,
-            verseText: data.verseText,
-            chapterTheme: data.chapterTheme,
-            generationNumber: data.generationNumber,
-            translationId: translation,
-            provider: data.provider,
-            providerRequestId: data.providerRequestId,
-            creditsCost: data.creditsCost,
-            costUsd: data.costUsd,
-            durationMs: data.durationMs,
-            aspectRatio: data.aspectRatio,
-            generationId: saveGenerationId,
-          });
-
-          if (isStale()) {
-            return;
-          }
-
-          if (savedId) {
-            setPendingImageId(savedId);
-          }
+        const savedImageId =
+          typeof data.savedImageId === "string" ? data.savedImageId : null;
+        if (savedImageId) {
+          setPendingImageId(savedImageId);
         }
 
         if (isStale()) {
@@ -693,7 +612,7 @@ function HeroImageBase({
           hasCredits: hasCreditsAfterGeneration,
         });
 
-        if (!onSaveImage) {
+        if (!savedImageId) {
           // No Convex persistence; show the generated URL immediately.
           setGeneratedImage({
             url: data.imageUrl,
@@ -749,7 +668,6 @@ function HeroImageBase({
     imageAspectRatio,
     imageResolution,
     translation,
-    onSaveImage,
     selectedImageId,
     imageHistory,
     updateCredits,
