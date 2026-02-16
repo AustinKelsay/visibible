@@ -3,7 +3,10 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { validatePositiveAmount } from "../../convex/sessions";
+import {
+  summarizeGenerationSettlement,
+  validatePositiveAmount,
+} from "../../convex/sessions";
 
 describe("validatePositiveAmount", () => {
   it("should throw an error for zero amount", () => {
@@ -38,5 +41,41 @@ describe("validatePositiveAmount", () => {
   });
 });
 
+describe("summarizeGenerationSettlement", () => {
+  it("classifies empty entries as none", () => {
+    const result = summarizeGenerationSettlement([]);
+    expect(result.state).toBe("none");
+    expect(result.reservedAmount).toBe(0);
+  });
+
+  it("classifies reservation-only entries as reserved", () => {
+    const result = summarizeGenerationSettlement([
+      { reason: "reservation", delta: -12, costUsd: 0.12 },
+    ]);
+    expect(result.state).toBe("reserved");
+    expect(result.hasReservation).toBe(true);
+    expect(result.reservedAmount).toBe(12);
+    expect(result.reservationCostUsd).toBe(0.12);
+  });
+
+  it("classifies refund-without-generation as released", () => {
+    const result = summarizeGenerationSettlement([
+      { reason: "reservation", delta: -8, costUsd: 0.08 },
+      { reason: "refund", delta: 8 },
+    ]);
+    expect(result.state).toBe("released");
+  });
+
+  it("classifies generation as charged even when refund also exists", () => {
+    const result = summarizeGenerationSettlement([
+      { reason: "reservation", delta: -10, costUsd: 0.1 },
+      { reason: "generation", delta: -10, costUsd: 0.1 },
+      { reason: "refund", delta: 10 },
+    ]);
+    expect(result.state).toBe("charged");
+    expect(result.hasGeneration).toBe(true);
+    expect(result.hasRefund).toBe(true);
+  });
+});
 
 

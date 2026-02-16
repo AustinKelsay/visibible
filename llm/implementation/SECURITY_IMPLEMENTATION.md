@@ -11,10 +11,11 @@ The security architecture provides multiple layers of protection:
 1. **Origin Validation** - Prevents cross-origin API abuse
 2. **CSRF Protection** - Double-submit cookie pattern (actively enforced on admin login)
 3. **Session Security** - JWT tokens with IP binding
-4. **Rate Limiting** - Per-endpoint request throttling
-5. **Cost Protection** - Input validation, spending limits, and per-request caps
-6. **Admin Audit Logging** - Tracks admin usage for security monitoring
-7. **Environment Validation** - Startup checks for security configuration
+4. **Server-Authenticated Convex Writes** - Sensitive Convex actions require `CONVEX_SERVER_SECRET`
+5. **Rate Limiting** - Per-endpoint request throttling
+6. **Cost Protection** - Input validation, spending limits, and per-request caps
+7. **Admin Audit Logging** - Tracks admin usage for security monitoring
+8. **Environment Validation** - Startup checks for security configuration
 
 ---
 
@@ -33,6 +34,7 @@ The security architecture provides multiple layers of protection:
 | `src/app/api/session/route.ts` | Session issuance and CSRF token issuance |
 | `convex/rateLimit.ts` | Rate limiting and brute force protection |
 | `convex/sessions.ts` | Credit management, daily limits, admin audit logging |
+| `convex/verseImages.ts` | Server-authenticated image persistence boundary |
 
 ---
 
@@ -129,6 +131,37 @@ CSRF protection uses the double-submit cookie pattern. This is a stateless appro
 - CSRF token is issued/refreshed by `src/app/api/session/route.ts` on both `GET /api/session` and `POST /api/session`.
 - CSRF validation is enforced on `POST /api/admin-login`.
 - Other endpoints rely on origin validation and SameSite cookie policy, but do not currently require CSRF header validation.
+
+---
+
+## Server-Authenticated Convex Writes
+
+Sensitive Convex write paths are protected by a shared-secret trust boundary.
+
+### `saveImage` boundary hardening (PR-1)
+
+- `api.verseImages.saveImage` requires `serverSecret` and validates it against `CONVEX_SERVER_SECRET`.
+- Browser-direct `useAction(api.verseImages.saveImage)` is removed; writes now happen from trusted server routes (notably `/api/generate-image`).
+- Remote URL persistence is restricted with:
+  - HTTPS + host allowlist (default trusted provider hosts + optional `IMAGE_FETCH_ALLOWLIST`)
+  - localhost/private-network blocking
+  - image MIME allowlist
+  - max blob size limit (10 MiB)
+- Validation failures reject persistence without falling back to raw URL storage.
+
+### Credit settlement one-way lifecycle (PR-2)
+
+- `reserveCredits`, `releaseReservation`, and `deductCredits` are server-authenticated actions (require `serverSecret`).
+- Ledger state is summarized per `sid + generationId` as `none | reserved | released | charged`.
+- All three operations are idempotent per `sid + generationId`:
+  - `reserveCredits`: returns `{ alreadyReserved: true }` if already reserved; rejects with `"Generation already settled"` if released or charged (no double-reserve).
+  - `releaseReservation`: returns `{ alreadyReleased: true }` for `none`, `released`, or `charged` states (no duplicate refund).
+  - `deductCredits`: returns `{ alreadyCharged: true }` if already charged or released (no re-charge after settlement).
+- Settled generations cannot transition backward:
+  - released/charged generations cannot be reserved again
+  - released generations cannot be charged later
+
+This closes replay paths that could previously inflate credits via duplicate release calls.
 
 ---
 

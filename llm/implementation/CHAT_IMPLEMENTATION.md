@@ -286,6 +286,7 @@ This ensures:
 - Credits are immediately unavailable during streaming
 - Failed/cancelled requests get credits back
 - No double-charging on retries (idempotency via `generationId`)
+- One-way settlement per generation (`reserved -> released` or `reserved -> charged`) prevents duplicate release refunds and post-release charging
 
 ### Daily Spending Limit
 

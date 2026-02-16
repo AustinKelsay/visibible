@@ -105,6 +105,60 @@ export function validatePositiveAmount(amount: number): void {
   }
 }
 
+export type GenerationSettlementState = "none" | "reserved" | "released" | "charged";
+
+type GenerationLedgerEntry = {
+  reason: string;
+  delta: number;
+  costUsd?: number;
+};
+
+export interface GenerationSettlementSummary {
+  state: GenerationSettlementState;
+  hasReservation: boolean;
+  hasGeneration: boolean;
+  hasRefund: boolean;
+  reservationEntries: GenerationLedgerEntry[];
+  reservedAmount: number;
+  reservationCostUsd: number;
+}
+
+export function summarizeGenerationSettlement(
+  entries: GenerationLedgerEntry[]
+): GenerationSettlementSummary {
+  const reservationEntries = entries.filter((entry) => entry.reason === "reservation");
+  const hasReservation = reservationEntries.length > 0;
+  const hasGeneration = entries.some((entry) => entry.reason === "generation");
+  const hasRefund = entries.some((entry) => entry.reason === "refund");
+
+  const reservedAmount = reservationEntries.reduce(
+    (sum, entry) => sum + Math.abs(entry.delta),
+    0
+  );
+  const reservationCostUsd = reservationEntries.reduce(
+    (sum, entry) => sum + (entry.costUsd ?? 0),
+    0
+  );
+
+  const state: GenerationSettlementState = hasGeneration
+    ? "charged"
+    : hasRefund
+      ? "released"
+      : hasReservation
+        ? "reserved"
+        : "none";
+
+  return {
+    state,
+    hasReservation,
+    hasGeneration,
+    hasRefund,
+    reservationEntries,
+    reservedAmount,
+    reservationCostUsd,
+  };
+}
+
 /**
  * Get a session by its session ID.
  */
@@ -297,18 +351,18 @@ export const reserveCreditsInternal = internalMutation({
       )
       .collect();
 
-    const netDelta = ledgerEntries.reduce((sum, entry) => {
-      if (entry.reason === "generation" || entry.reason === "refund") {
-        return sum + entry.delta;
-      }
-      if (entry.reason === "reservation") {
-        return sum + entry.delta; // Reservations also reduce available credits
-      }
-      return sum;
-    }, 0);
+    const settlement = summarizeGenerationSettlement(ledgerEntries);
 
-    // If already reserved or charged, return success
-    if (netDelta < 0) {
+    // Generation IDs are one-way settled keys. Once released or charged,
+    // they cannot be reserved again.
+    if (settlement.state === "released" || settlement.state === "charged") {
+      return {
+        success: false,
+        error: "Generation already settled",
+      };
+    }
+
+    if (settlement.state === "reserved") {
       return {
         success: true,
         newBalance: session.credits,
@@ -317,9 +371,7 @@ export const reserveCreditsInternal = internalMutation({
     }
 
     // Calculate available credits (current balance minus any pending reservations)
-    const pendingReservations = ledgerEntries
-      .filter((e) => e.reason === "reservation")
-      .reduce((sum, e) => sum + Math.abs(e.delta), 0);
+    const pendingReservations = settlement.reservedAmount;
     const availableCredits = session.credits - pendingReservations;
 
     if (availableCredits < args.amount) {
@@ -392,11 +444,14 @@ export const releaseReservationInternal = internalMutation({
       )
       .collect();
 
-    const reservationEntries = ledgerEntries.filter(
-      (e) => e.reason === "reservation"
-    );
+    const settlement = summarizeGenerationSettlement(ledgerEntries);
 
-    if (reservationEntries.length === 0) {
+    // Release is idempotent and one-way: once released or charged, never refund again.
+    if (
+      settlement.state === "none" ||
+      settlement.state === "released" ||
+      settlement.state === "charged"
+    ) {
       return {
         success: true,
         newBalance: session.credits,
@@ -404,17 +459,8 @@ export const releaseReservationInternal = internalMutation({
       };
     }
 
-    // Calculate total reserved amount
-    const reservedAmount = reservationEntries.reduce(
-      (sum, e) => sum + Math.abs(e.delta),
-      0
-    );
-
-    // Calculate total costUsd from reservations to reverse daily spend
-    const reservationCostUsd = reservationEntries.reduce(
-      (sum, e) => sum + (e.costUsd ?? 0),
-      0
-    );
+    const reservedAmount = settlement.reservedAmount;
+    const reservationCostUsd = settlement.reservationCostUsd;
 
     // Restore credits
     const newCredits = session.credits + reservedAmount;
@@ -482,217 +528,193 @@ export const deductCreditsInternal = internalMutation({
       )
       .collect();
 
-    const netDelta = ledgerEntries.reduce((sum, entry) => {
-      if (entry.reason === "generation" || entry.reason === "refund") {
-        return sum + entry.delta;
-      }
-      if (entry.reason === "reservation") {
-        return sum + entry.delta; // Reservations count as already deducted
-      }
-      return sum;
-    }, 0);
-
     // Use actualAmount if provided, otherwise fall back to reserved amount
     const chargeAmount = args.actualAmount ?? args.amount;
     const chargeCostUsd = args.actualCostUsd ?? args.costUsd;
 
-    // If already charged (netDelta < 0), return success
-    if (netDelta < 0) {
-      // Check if there's a reservation that needs to be converted
-      const hasReservation = ledgerEntries.some(
-        (e) => e.reason === "reservation"
-      );
-      const hasGeneration = ledgerEntries.some(
-        (e) => e.reason === "generation"
-      );
+    const settlement = summarizeGenerationSettlement(ledgerEntries);
 
-      // If reservation exists but not yet converted to generation, convert it
-      if (hasReservation && !hasGeneration) {
-        // Get reservation entries for amounts and costUsd
-        const reservationEntries = ledgerEntries.filter(
-          (e) => e.reason === "reservation"
-        );
-
-        // Calculate reserved amount from ledger
-        const reservedAmount = reservationEntries.reduce(
-          (sum, e) => sum + Math.abs(e.delta),
-          0
-        );
-
-        // Calculate reserved costUsd for daily spend adjustment
-        const reservationCostUsd = reservationEntries.reduce(
-          (sum, e) => sum + (e.costUsd ?? 0),
-          0
-        );
-
-        // Calculate difference: positive means refund, negative means additional charge
-        const difference = reservedAmount - chargeAmount;
-
-        if (difference > 0) {
-          // Actual was less than reserved - refund the excess
-          // Record generation entry with actual amount
-          await ctx.db.insert("creditLedger", {
-            sid: args.sid,
-            delta: -chargeAmount,
-            reason: "generation",
-            modelId: args.modelId,
-            costUsd: chargeCostUsd,
-            generationId: args.generationId,
-            createdAt: Date.now(),
-          });
-
-          // Cancel the reservation
-          await ctx.db.insert("creditLedger", {
-            sid: args.sid,
-            delta: reservedAmount,
-            reason: "refund",
-            generationId: args.generationId,
-            createdAt: Date.now(),
-          });
-
-          // Credit back the excess to user's balance
-          const newCredits = session.credits + difference;
-
-          // Adjust daily spend: reduce by the difference between reserved and actual costUsd
-          const actualCostUsd = chargeCostUsd ?? 0;
-          const costUsdDifference = reservationCostUsd - actualCostUsd;
-          const currentDailySpend = session.dailySpendUsd ?? 0;
-          const newDailySpend = Math.max(0, currentDailySpend - costUsdDifference);
-
-          await ctx.db.patch(session._id, {
-            credits: newCredits,
-            dailySpendUsd: newDailySpend,
-          });
-
-          return {
-            success: true,
-            newBalance: newCredits,
-            converted: true,
-            refunded: difference,
-          };
-        } else if (difference < 0) {
-          // Actual was more than reserved - need to charge additional
-          const additionalNeeded = Math.abs(difference);
-
-          // Check if user has enough for the additional amount
-          if (session.credits < additionalNeeded) {
-            // Not enough credits - charge only what was reserved
-            // Record generation entry for reserved amount (what we actually charge)
-            // Use reservationCostUsd to match the credits being charged (not the higher actual cost)
-            await ctx.db.insert("creditLedger", {
-              sid: args.sid,
-              delta: -reservedAmount,
-              reason: "generation",
-              modelId: args.modelId,
-              costUsd: reservationCostUsd,
-              generationId: args.generationId,
-              createdAt: Date.now(),
-            });
-
-            // Cancel the reservation (net effect: reservation converted to generation)
-            await ctx.db.insert("creditLedger", {
-              sid: args.sid,
-              delta: reservedAmount,
-              reason: "refund",
-              generationId: args.generationId,
-              createdAt: Date.now(),
-            });
-
-            // Balance unchanged - reserved amount was already deducted
-            return {
-              success: true,
-              newBalance: session.credits,
-              converted: true,
-              shortfall: additionalNeeded,
-            };
-          }
-
-          // User has enough - charge the full actual amount
-          // Record generation entry with actual amount
-          await ctx.db.insert("creditLedger", {
-            sid: args.sid,
-            delta: -chargeAmount,
-            reason: "generation",
-            modelId: args.modelId,
-            costUsd: chargeCostUsd,
-            generationId: args.generationId,
-            createdAt: Date.now(),
-          });
-
-          // Deduct additional credits from balance
-          const newCredits = session.credits - additionalNeeded;
-
-          // Adjust daily spend: increase by the difference between actual and reserved costUsd
-          const actualCostUsd = chargeCostUsd ?? 0;
-          const additionalCostUsd = actualCostUsd - reservationCostUsd;
-          const currentDailySpend = session.dailySpendUsd ?? 0;
-          const newDailySpend = currentDailySpend + Math.max(0, additionalCostUsd);
-
-          await ctx.db.patch(session._id, {
-            credits: newCredits,
-            dailySpendUsd: newDailySpend,
-          });
-
-          // Refund reservation (convert to generation)
-          await ctx.db.insert("creditLedger", {
-            sid: args.sid,
-            delta: reservedAmount,
-            reason: "refund",
-            generationId: args.generationId,
-            createdAt: Date.now(),
-          });
-
-          return {
-            success: true,
-            newBalance: newCredits,
-            converted: true,
-            additionalCharged: additionalNeeded,
-          };
-        } else {
-          // Exact match - convert reservation to generation
-          await ctx.db.insert("creditLedger", {
-            sid: args.sid,
-            delta: -chargeAmount,
-            reason: "generation",
-            modelId: args.modelId,
-            costUsd: chargeCostUsd,
-            generationId: args.generationId,
-            createdAt: Date.now(),
-          });
-
-          // Cancel reservation
-          await ctx.db.insert("creditLedger", {
-            sid: args.sid,
-            delta: reservedAmount,
-            reason: "refund",
-            generationId: args.generationId,
-            createdAt: Date.now(),
-          });
-
-          // Adjust daily spend if costUsd differs (credits matched but cost didn't)
-          const actualCostUsd = chargeCostUsd ?? 0;
-          const costUsdDifference = reservationCostUsd - actualCostUsd;
-          if (costUsdDifference !== 0) {
-            const currentDailySpend = session.dailySpendUsd ?? 0;
-            const newDailySpend = Math.max(0, currentDailySpend - costUsdDifference);
-            await ctx.db.patch(session._id, {
-              dailySpendUsd: newDailySpend,
-            });
-          }
-
-          return {
-            success: true,
-            newBalance: session.credits,
-            converted: true,
-          };
-        }
-      }
-
+    if (settlement.state === "charged") {
       return {
         success: true,
         newBalance: session.credits,
         alreadyCharged: true,
       };
+    }
+
+    if (settlement.state === "released") {
+      return {
+        success: true,
+        newBalance: session.credits,
+        alreadyCharged: true,
+      };
+    }
+
+    if (settlement.state === "reserved") {
+      const reservedAmount = settlement.reservedAmount;
+      const reservationCostUsd = settlement.reservationCostUsd;
+
+      // Calculate difference: positive means refund, negative means additional charge
+      const difference = reservedAmount - chargeAmount;
+
+      if (difference > 0) {
+        // Actual was less than reserved - refund the excess
+        // Record generation entry with actual amount
+        await ctx.db.insert("creditLedger", {
+          sid: args.sid,
+          delta: -chargeAmount,
+          reason: "generation",
+          modelId: args.modelId,
+          costUsd: chargeCostUsd,
+          generationId: args.generationId,
+          createdAt: Date.now(),
+        });
+
+        // Cancel the reservation
+        await ctx.db.insert("creditLedger", {
+          sid: args.sid,
+          delta: reservedAmount,
+          reason: "refund",
+          generationId: args.generationId,
+          createdAt: Date.now(),
+        });
+
+        // Credit back the excess to user's balance
+        const newCredits = session.credits + difference;
+
+        // Adjust daily spend: reduce by the difference between reserved and actual costUsd
+        const actualCostUsd = chargeCostUsd ?? 0;
+        const costUsdDifference = reservationCostUsd - actualCostUsd;
+        const currentDailySpend = session.dailySpendUsd ?? 0;
+        const newDailySpend = Math.max(0, currentDailySpend - costUsdDifference);
+
+        await ctx.db.patch(session._id, {
+          credits: newCredits,
+          dailySpendUsd: newDailySpend,
+        });
+
+        return {
+          success: true,
+          newBalance: newCredits,
+          converted: true,
+          refunded: difference,
+        };
+      } else if (difference < 0) {
+        // Actual was more than reserved - need to charge additional
+        const additionalNeeded = Math.abs(difference);
+
+        // Check if user has enough for the additional amount
+        if (session.credits < additionalNeeded) {
+          // Not enough credits - charge only what was reserved
+          // Record generation entry for reserved amount (what we actually charge)
+          // Use reservationCostUsd to match the credits being charged (not the higher actual cost)
+          await ctx.db.insert("creditLedger", {
+            sid: args.sid,
+            delta: -reservedAmount,
+            reason: "generation",
+            modelId: args.modelId,
+            costUsd: reservationCostUsd,
+            generationId: args.generationId,
+            createdAt: Date.now(),
+          });
+
+          // Cancel the reservation (net effect: reservation converted to generation)
+          await ctx.db.insert("creditLedger", {
+            sid: args.sid,
+            delta: reservedAmount,
+            reason: "refund",
+            generationId: args.generationId,
+            createdAt: Date.now(),
+          });
+
+          // Balance unchanged - reserved amount was already deducted
+          return {
+            success: true,
+            newBalance: session.credits,
+            converted: true,
+            shortfall: additionalNeeded,
+          };
+        }
+
+        // User has enough - charge the full actual amount
+        // Record generation entry with actual amount
+        await ctx.db.insert("creditLedger", {
+          sid: args.sid,
+          delta: -chargeAmount,
+          reason: "generation",
+          modelId: args.modelId,
+          costUsd: chargeCostUsd,
+          generationId: args.generationId,
+          createdAt: Date.now(),
+        });
+
+        // Deduct additional credits from balance
+        const newCredits = session.credits - additionalNeeded;
+
+        // Adjust daily spend: increase by the difference between actual and reserved costUsd
+        const actualCostUsd = chargeCostUsd ?? 0;
+        const additionalCostUsd = actualCostUsd - reservationCostUsd;
+        const currentDailySpend = session.dailySpendUsd ?? 0;
+        const newDailySpend = currentDailySpend + Math.max(0, additionalCostUsd);
+
+        await ctx.db.patch(session._id, {
+          credits: newCredits,
+          dailySpendUsd: newDailySpend,
+        });
+
+        // Refund reservation (convert to generation)
+        await ctx.db.insert("creditLedger", {
+          sid: args.sid,
+          delta: reservedAmount,
+          reason: "refund",
+          generationId: args.generationId,
+          createdAt: Date.now(),
+        });
+
+        return {
+          success: true,
+          newBalance: newCredits,
+          converted: true,
+          additionalCharged: additionalNeeded,
+        };
+      } else {
+        // Exact match - convert reservation to generation
+        await ctx.db.insert("creditLedger", {
+          sid: args.sid,
+          delta: -chargeAmount,
+          reason: "generation",
+          modelId: args.modelId,
+          costUsd: chargeCostUsd,
+          generationId: args.generationId,
+          createdAt: Date.now(),
+        });
+
+        // Cancel reservation
+        await ctx.db.insert("creditLedger", {
+          sid: args.sid,
+          delta: reservedAmount,
+          reason: "refund",
+          generationId: args.generationId,
+          createdAt: Date.now(),
+        });
+
+        // Adjust daily spend if costUsd differs (credits matched but cost didn't)
+        const actualCostUsd = chargeCostUsd ?? 0;
+        const costUsdDifference = reservationCostUsd - actualCostUsd;
+        if (costUsdDifference !== 0) {
+          const currentDailySpend = session.dailySpendUsd ?? 0;
+          const newDailySpend = Math.max(0, currentDailySpend - costUsdDifference);
+          await ctx.db.patch(session._id, {
+            dailySpendUsd: newDailySpend,
+          });
+        }
+
+        return {
+          success: true,
+          newBalance: session.credits,
+          converted: true,
+        };
+      }
     }
 
     // No reservation exists - perform direct debit (backward compatibility)

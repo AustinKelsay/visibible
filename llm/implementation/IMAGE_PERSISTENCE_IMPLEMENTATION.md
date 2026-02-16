@@ -6,11 +6,12 @@ This document describes how verse image persistence and history browsing are imp
 
 ## Architecture Overview
 
-Image persistence is optional and is enabled only when `NEXT_PUBLIC_CONVEX_URL` is set. The flow is:
+Image persistence is Convex-backed and uses a server-controlled write boundary. The flow is:
 
 1. `HeroImage` checks whether Convex is available.
-2. If enabled, it queries Convex for the verse's image history and saves new images via a Convex action.
-3. If disabled, the UI still generates images but does not persist them (browser cache only).
+2. If enabled, it queries Convex for the verse's image history.
+3. New image generation goes through `/api/generate-image`, and that API route persists the image by calling `api.verseImages.saveImage` with `CONVEX_SERVER_SECRET`.
+4. The API response includes `savedImageId`; the UI follows that ID once it appears in history.
 
 Key entry points:
 - `src/components/convex-client-provider.tsx`
@@ -119,18 +120,65 @@ getImageHistory({ verseId, limit?, refreshToken? })
 - `refreshToken` is a cache-busting value used by the UI to force a re-run of the query.
 - Results include prompt version/inputs, translation, provider identifiers, and image file metadata when present.
 
-### `saveImage` (action)
-Handles both base64 data URLs and standard URLs:
+### `saveImage` (action, server-authenticated)
+Handles both base64 data URLs and standard URLs.
+
+Security boundary:
+
+- Requires `serverSecret` and validates it against `CONVEX_SERVER_SECRET`.
+- Intended for trusted server callers (Next.js API routes), not browser-direct usage.
+
+Input and fetch validation:
 
 - **Base64 data URL**: decode to bytes, store in Convex storage, then save `storageId`.
-- **Regular URL**: attempt to fetch + store in Convex storage (10s timeout).
-- **Fallback**: if fetch fails, store the original URL in `imageUrl`.
+- **Regular URL**: enforce HTTPS + host allowlist, reject local/private hosts, then fetch + store in Convex storage (10s timeout).
+- **Validation failures** (host/mime/size) are rejected and do **not** fall back to URL persistence.
+- **Network/storage failures** still fall back to `saveImageWithUrl`.
 - **Idempotency**: if `generationId` already exists, the existing record is returned.
 - **Metadata**: prompt details, provider info, translation, and image file metadata (mime, size, dimensions) are persisted alongside the image.
 
 Additional behavior:
 - `provider` defaults to the model prefix if not supplied.
 - MIME type is normalized and dimensions are parsed for PNG/JPEG/GIF/WebP when possible.
+- Blob size is capped (`MAX_IMAGE_BYTES`, currently 10 MiB).
+
+#### MIME allowlist
+
+Only these content types are accepted: `image/png`, `image/jpeg`, `image/webp`, `image/gif`.
+
+#### Remote host allowlist
+
+Default allowed hosts (defined in `convex/verseImages.ts`):
+
+| Host pattern | Rationale |
+|---|---|
+| `openrouter.ai` / `*.openrouter.ai` | OpenRouter API and CDN |
+| `openrouterusercontent.com` / `*.openrouterusercontent.com` | OpenRouter user content CDN |
+| `*.googleusercontent.com` | Google-hosted model outputs (Gemini) |
+| `*.gstatic.com` | Google static content CDN |
+| `*.oaistatic.com` | OpenAI static content CDN |
+| `*.blob.core.windows.net` | Azure blob storage (provider outputs) |
+
+The `IMAGE_FETCH_ALLOWLIST` env var accepts a comma-separated list of additional hosts (e.g., `extra.example.com,*.cdn.example.net`). Wildcard patterns use `*.domain.tld` syntax to match the domain itself and all subdomains.
+
+#### Blocked IP ranges (SSRF protection)
+
+The following are blocked when the URL hostname resolves to an IP:
+
+- `10.0.0.0/8` (RFC 1918 private)
+- `172.16.0.0/12` (RFC 1918 private)
+- `192.168.0.0/16` (RFC 1918 private)
+- `127.0.0.0/8` (loopback)
+- `169.254.0.0/16` (link-local)
+- `0.0.0.0/8` (unspecified)
+- `::1` (IPv6 loopback)
+- `fe80::/10` (IPv6 link-local)
+- `fc00::/7` (IPv6 unique-local / private)
+- `localhost` and `*.localhost`, `*.local`
+
+#### Redirect handling limitation
+
+The initial URL is validated against the allowlist before `fetch()`. However, `fetch()` follows redirects by default — if an allowed host issues a redirect to a non-allowlisted destination, the redirect is followed without re-validation. This is acceptable because the allowlisted hosts are well-known CDN providers where open redirects are unlikely, but it should be noted for future hardening.
 
 Internal mutations:
 - `saveImageWithStorage`
@@ -151,14 +199,13 @@ The action returns `{ success: true, type: "storage" | "url" | "existing", id }`
 `src/components/hero-image.tsx` splits behavior:
 
 - `HeroImage`: runtime switch based on `useConvexEnabled()`.
-- `HeroImageWithConvex`: hooks for `useQuery(getImageHistory)` and `useAction(saveImage)`.
+- `HeroImageWithConvex`: hooks for `useQuery(getImageHistory)`.
 - `HeroImageBase`: UI + generation logic used by both modes.
 
 Key details in `HeroImageWithConvex`:
 
 ```tsx
 const imageHistory = useQuery(api.verseImages.getImageHistory, { verseId, refreshToken });
-const saveImageAction = useAction(api.verseImages.saveImage);
 ```
 
 `refreshToken` is incremented when a reload is needed (e.g., failed image load).
@@ -186,8 +233,9 @@ Navigation behavior:
 When a new image is generated:
 
 1. `/api/generate-image` returns a URL or base64 image data plus `model`, `prompt`, and metadata.
-2. `saveImage` action stores the image plus prompt version/inputs, provider IDs, translation, and file metadata in Convex and returns the new record ID.
-3. The UI waits until `getImageHistory` includes that ID before switching the display.
+2. The same API route calls `saveImage` server-side (with `serverSecret`) and returns `savedImageId` when persistence succeeds.
+3. The UI waits until `getImageHistory` includes `savedImageId` before switching the display.
+4. If persistence fails, the API still returns `imageUrl`; the UI displays it as an ephemeral fallback.
 
 A `generation` query param is also sent to the API when there are existing images to encourage variety.
 
@@ -228,9 +276,14 @@ Observability requirements:
 
 ```bash
 NEXT_PUBLIC_CONVEX_URL=https://your-deployment-name.convex.cloud
+CONVEX_SERVER_SECRET=your-server-secret
+# Optional extra host allowlist for remote image fetch persistence
+# IMAGE_FETCH_ALLOWLIST=openrouter.ai,*.openrouter.ai
 ```
 
-`NEXT_PUBLIC_CONVEX_URL` is required to enable persistence in the UI and must match the deployment used for the `verseImages` table.
+`NEXT_PUBLIC_CONVEX_URL` is required for Convex-backed history and generation flows.  
+`CONVEX_SERVER_SECRET` is required for server-authenticated persistence writes.  
+`IMAGE_FETCH_ALLOWLIST` is optional; defaults include trusted OpenRouter/provider image hosts (see "Remote host allowlist" above for the full list).
 
 For deployment targeting with Convex CLI, use:
 

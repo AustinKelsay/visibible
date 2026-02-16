@@ -53,6 +53,10 @@ These limitations are explicitly shown in the buy-credits modal (which includes 
 - Credits are reserved atomically before generation (prevents race conditions).
 - Credits are converted to a charge after successful generation.
 - If generation fails, reserved credits are released back to the user.
+- Settlement is one-way per `generationId`:
+  - `reserved -> released` or `reserved -> charged`
+  - Released generations cannot be re-charged
+  - Charged/released generations cannot be reserved again
 - Models without valid pricing are rejected (cannot use unpriced models).
 
 ### Chat Credits
