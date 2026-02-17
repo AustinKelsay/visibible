@@ -509,6 +509,20 @@ function HeroImageBase({
         payload.generation = generationNumber;
       }
 
+      if (!csrfToken) {
+        if (isMounted.current) {
+          setActiveRequestId(null);
+          setError("Security check failed. Please refresh the page and try again.");
+          trackGenerationError({
+            imageModel,
+            errorType: "csrf_missing",
+            tier,
+            hasCredits: credits > 0,
+          });
+        }
+        return;
+      }
+
       trackImageGenerationStarted({
         imageModel: imageModel || "unknown",
         aspectRatio: imageAspectRatio,
@@ -522,7 +536,7 @@ function HeroImageBase({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-csrf-token": csrfToken || "",
+          "x-csrf-token": csrfToken,
         },
         body: JSON.stringify(payload),
         signal: controller.signal,
@@ -533,12 +547,32 @@ function HeroImageBase({
       }
 
       if (response.status === 403) {
+        let errorMessage = "Request blocked. Please refresh the page and try again.";
+        let errorType = "forbidden";
+        try {
+          const responseData = await response.json() as {
+            error?: string;
+            message?: string;
+          };
+          const combinedMessage =
+            `${responseData.error || ""} ${responseData.message || ""}`.toLowerCase();
+          if (combinedMessage.includes("csrf")) {
+            errorMessage = "Security check failed. Please refresh the page and try again.";
+            errorType = "csrf_failed";
+          } else if (combinedMessage.includes("disabled")) {
+            errorMessage = "Image generation is disabled";
+            errorType = "disabled";
+          }
+        } catch {
+          // Keep the generic forbidden message when error JSON is unavailable.
+        }
+
         if (isMounted.current) {
           setActiveRequestId(null);
-          setError("Image generation is disabled");
+          setError(errorMessage);
           trackGenerationError({
             imageModel,
-            errorType: "disabled",
+            errorType,
             tier,
             hasCredits: credits > 0,
           });

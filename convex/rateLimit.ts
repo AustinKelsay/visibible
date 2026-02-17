@@ -1,5 +1,6 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { validateServerSecret } from "./_helpers/auth";
 
 /**
  * Rate limit configuration for different endpoints.
@@ -16,13 +17,6 @@ export const RATE_LIMITS = {
 } as const;
 
 export type RateLimitEndpoint = keyof typeof RATE_LIMITS;
-
-const validateServerSecret = (serverSecret: string) => {
-  const expectedSecret = process.env.CONVEX_SERVER_SECRET;
-  if (!expectedSecret || serverSecret !== expectedSecret) {
-    throw new Error("Unauthorized: Invalid server secret");
-  }
-};
 
 /**
  * Check and increment rate limit for an identifier/endpoint pair.

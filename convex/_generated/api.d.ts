@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as _helpers_auth from "../_helpers/auth.js";
 import type * as cleanup from "../cleanup.js";
 import type * as costs from "../costs.js";
 import type * as crons from "../crons.js";
@@ -27,6 +28,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  "_helpers/auth": typeof _helpers_auth;
   cleanup: typeof cleanup;
   costs: typeof costs;
   crons: typeof crons;

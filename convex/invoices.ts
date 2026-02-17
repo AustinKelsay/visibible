@@ -1,16 +1,7 @@
 import { action, internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
-
-/**
- * Validates the server secret for secure Convex action calls.
- */
-const validateServerSecret = (serverSecret: string) => {
-  const expectedSecret = process.env.CONVEX_SERVER_SECRET;
-  if (!expectedSecret || serverSecret !== expectedSecret) {
-    throw new Error("Unauthorized: Invalid server secret");
-  }
-};
+import { validateServerSecret } from "./_helpers/auth";
 
 // Fixed bundle price
 const BUNDLE_USD = 3;

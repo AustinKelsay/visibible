@@ -1,12 +1,6 @@
 import { mutation } from "./_generated/server";
 import { v } from "convex/values";
-
-const validateServerSecret = (serverSecret: string) => {
-  const expectedSecret = process.env.CONVEX_SERVER_SECRET;
-  if (!expectedSecret || serverSecret !== expectedSecret) {
-    throw new Error("Unauthorized: Invalid server secret");
-  }
-};
+import { validateServerSecret } from "./_helpers/auth";
 
 /**
  * Submit user feedback.

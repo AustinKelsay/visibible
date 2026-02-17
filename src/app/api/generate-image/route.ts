@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import {
   DEFAULT_IMAGE_MODEL,
   fetchImageModels,
@@ -240,20 +241,44 @@ function sanitizeVerseText(text: string): string {
     .slice(0, 1200); // Limit to reasonable verse length
 }
 
-type GenerateImageRequestBody = {
-  text?: unknown;
-  theme?: unknown;
-  prevVerse?: unknown;
-  nextVerse?: unknown;
-  reference?: unknown;
-  model?: unknown;
-  generation?: unknown;
-  style?: unknown;
-  aspectRatio?: unknown;
-  resolution?: unknown;
-  translation?: unknown;
-  requestId?: unknown;
+type ChapterTheme = {
+  setting: string;
+  palette: string;
+  elements: string;
+  style: string;
 };
+
+const chapterThemeSchema = z.object({
+  setting: z.string(),
+  palette: z.string(),
+  elements: z.string(),
+  style: z.string(),
+});
+
+const verseContextSchema = z.object({
+  number: z.number().finite().optional(),
+  text: z.string(),
+  reference: z.string().optional(),
+});
+
+const generateImageSchema = z
+  .object({
+    text: z.string().optional(),
+    theme: z.union([chapterThemeSchema, z.string()]).optional(),
+    prevVerse: z.union([verseContextSchema, z.string()]).optional(),
+    nextVerse: z.union([verseContextSchema, z.string()]).optional(),
+    reference: z.string().optional(),
+    model: z.string().optional(),
+    generation: z.union([z.number().finite(), z.string()]).optional(),
+    style: z.string().optional(),
+    aspectRatio: z.string().optional(),
+    resolution: z.string().optional(),
+    translation: z.string().optional(),
+    requestId: z.string().optional(),
+  })
+  .passthrough();
+
+type GenerateImageRequestBody = z.infer<typeof generateImageSchema>;
 
 function getCookieValue(request: Request, name: string): string | undefined {
   const cookieHeader = request.headers.get("cookie");
@@ -270,27 +295,6 @@ function getCookieValue(request: Request, name: string): string | undefined {
   }
 
   return undefined;
-}
-
-function toStringParam(value: unknown): string | null {
-  return typeof value === "string" ? value : null;
-}
-
-function toGenerationParam(value: unknown): string | null {
-  if (typeof value === "number" && Number.isFinite(value)) {
-    return String(value);
-  }
-  return toStringParam(value);
-}
-
-function toJsonParam(value: unknown): string | null {
-  if (typeof value === "string") return value;
-  if (!value || typeof value !== "object") return null;
-  try {
-    return JSON.stringify(value);
-  } catch {
-    return null;
-  }
 }
 
 export async function GET() {
@@ -417,13 +421,18 @@ export async function POST(request: Request) {
       request,
       MAX_IMAGE_REQUEST_BODY_SIZE
     );
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    const parseResult = generateImageSchema.safeParse(parsed);
+    if (!parseResult.success) {
+      const firstIssue = parseResult.error.issues[0];
       return NextResponse.json(
-        { error: "Invalid request", message: "Request body must be a JSON object." },
+        {
+          error: "Invalid request",
+          message: firstIssue?.message || "Invalid request body.",
+        },
         { status: 400 }
       );
     }
-    requestBody = parsed as GenerateImageRequestBody;
+    requestBody = parseResult.data;
   } catch (error) {
     if (error instanceof PayloadTooLargeError) {
       return NextResponse.json(
@@ -448,18 +457,15 @@ export async function POST(request: Request) {
 
   // Get verse text, theme, model, and context from JSON body.
   // SECURITY: All user-provided text is sanitized to prevent prompt injection.
-  const verseText = sanitizeVerseText(toStringParam(requestBody.text) || DEFAULT_TEXT);
-  const themeParam = toJsonParam(requestBody.theme);
-  const prevVerseParam = toJsonParam(requestBody.prevVerse);
-  const nextVerseParam = toJsonParam(requestBody.nextVerse);
-  const reference = sanitizeReference(toStringParam(requestBody.reference) || "Scripture");
-  const requestedModelId = toStringParam(requestBody.model);
-  const generationParam = toGenerationParam(requestBody.generation);
-  const requestedStyleId = toStringParam(requestBody.style);
-  const requestedAspectRatio = toStringParam(requestBody.aspectRatio);
-  const requestedResolution = toStringParam(requestBody.resolution);
-  const translationId = sanitizeTranslationId(toStringParam(requestBody.translation));
-  const clientRequestId = sanitizeRequestId(toStringParam(requestBody.requestId)) || crypto.randomUUID();
+  const verseText = sanitizeVerseText(requestBody.text || DEFAULT_TEXT);
+  const reference = sanitizeReference(requestBody.reference || "Scripture");
+  const requestedModelId = requestBody.model;
+  const requestedStyleId = requestBody.style;
+  const requestedAspectRatio = requestBody.aspectRatio;
+  const requestedResolution = requestBody.resolution;
+  const translationId = sanitizeTranslationId(requestBody.translation ?? null);
+  const clientRequestId =
+    sanitizeRequestId(requestBody.requestId ?? null) || crypto.randomUUID();
   const verseId = toVerseId(reference);
 
   // Validate and set aspect ratio (default: 16:9)
@@ -484,12 +490,6 @@ export async function POST(request: Request) {
     composition?: string;
     negative: string;
   };
-  type ChapterTheme = {
-    setting: string;
-    palette: string;
-    elements: string;
-    style: string;
-  };
 
   const STYLE_PROFILES: Record<string, StyleProfile> = {
     classical: {
@@ -506,22 +506,53 @@ export async function POST(request: Request) {
     },
   };
 
-  const parseChapterTheme = (value: string | null): ChapterTheme | null => {
+  /**
+   * Parses and sanitizes a verse context object from the request body.
+   * Accepts either a verse-shaped object or a JSON string (backward compatibility).
+   * Returns null if the value is not valid.
+   */
+  function parseVerseContext(
+    value: unknown
+  ): { number: number; text: string; reference?: string } | null {
+    let obj: Record<string, unknown> | null = null;
+    if (value && typeof value === "object") {
+      obj = value as Record<string, unknown>;
+    } else if (typeof value === "string") {
+      try {
+        const parsed = JSON.parse(value) as unknown;
+        if (parsed && typeof parsed === "object") obj = parsed as Record<string, unknown>;
+      } catch {
+        return null;
+      }
+    }
+    if (!obj) return null;
+    const text = obj?.text;
+    if (typeof text !== "string") return null;
+    const number =
+      typeof obj.number === "number" && Number.isFinite(obj.number)
+        ? obj.number
+        : 0;
+    const reference =
+      typeof obj.reference === "string" ? obj.reference : undefined;
+    return {
+      number,
+      text: sanitizeVerseText(text),
+      ...(reference !== undefined ? { reference } : {}),
+    };
+  }
+
+  const parseChapterTheme = (
+    value: GenerateImageRequestBody["theme"]
+  ): ChapterTheme | null => {
     if (!value) return null;
+    if (typeof value === "object") {
+      return value;
+    }
     try {
-      const parsed = JSON.parse(value) as Partial<ChapterTheme>;
-      if (
-        typeof parsed.setting === "string" &&
-        typeof parsed.palette === "string" &&
-        typeof parsed.elements === "string" &&
-        typeof parsed.style === "string"
-      ) {
-        return {
-          setting: parsed.setting,
-          palette: parsed.palette,
-          elements: parsed.elements,
-          style: parsed.style,
-        };
+      const parsed = JSON.parse(value) as unknown;
+      const themeParse = chapterThemeSchema.safeParse(parsed);
+      if (themeParse.success) {
+        return themeParse.data;
       }
     } catch (e) {
       console.warn("[generate-image] Failed to parse chapterTheme:", {
@@ -532,14 +563,19 @@ export async function POST(request: Request) {
     return null;
   };
 
-  const parseGenerationNumber = (value: string | null): number | null => {
-    if (!value) return null;
+  const parseGenerationNumber = (
+    value: GenerateImageRequestBody["generation"]
+  ): number | null => {
+    if (value === undefined || value === null || value === "") return null;
+    if (typeof value === "number") {
+      return Number.isFinite(value) ? Math.trunc(value) : null;
+    }
     const parsed = Number.parseInt(value, 10);
     return Number.isNaN(parsed) ? null : parsed;
   };
 
-  const chapterTheme = parseChapterTheme(themeParam);
-  const generationNumber = parseGenerationNumber(generationParam);
+  const chapterTheme = parseChapterTheme(requestBody.theme);
+  const generationNumber = parseGenerationNumber(requestBody.generation);
   const requestedStyleProfile = requestedStyleId
     ? STYLE_PROFILES[requestedStyleId]
     : undefined;
@@ -867,29 +903,9 @@ export async function POST(request: Request) {
   // Track generation start time for stats
   const generationStartTime = Date.now();
 
-  // Parse prev/next verse context for storyboard continuity
-  let prevVerse: { number: number; text: string; reference?: string } | null = null;
-  let nextVerse: { number: number; text: string; reference?: string } | null = null;
-
-  try {
-    if (prevVerseParam) {
-      const parsed = JSON.parse(prevVerseParam);
-      if (parsed?.text) parsed.text = sanitizeVerseText(parsed.text);
-      prevVerse = parsed;
-    }
-    if (nextVerseParam) {
-      const parsed = JSON.parse(nextVerseParam);
-      if (parsed?.text) parsed.text = sanitizeVerseText(parsed.text);
-      nextVerse = parsed;
-    }
-  } catch (e) {
-    console.warn("[generate-image] Failed to parse verse context:", {
-      prevVerseParam: prevVerseParam?.substring(0, 100),
-      nextVerseParam: nextVerseParam?.substring(0, 100),
-      error: e instanceof Error ? e.message : "Unknown error",
-    });
-    // Continue without context - graceful degradation
-  }
+  // Parse prev/next verse context for storyboard continuity (from request body, no JSON round-trip)
+  const prevVerse = parseVerseContext(requestBody.prevVerse);
+  const nextVerse = parseVerseContext(requestBody.nextVerse);
 
   const aspectRatioLabel = aspectRatio === "21:9"
     ? "ULTRA-WIDE CINEMATIC"

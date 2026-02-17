@@ -1,6 +1,7 @@
 import { action, internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
+import { validateServerSecret } from "./_helpers/auth";
 
 // Default daily spending limit per session (in USD)
 // This prevents API cost abuse by capping how much a single session can spend per day
@@ -12,17 +13,6 @@ const DEFAULT_STALE_RESERVATION_AGE_MS = 30 * 60 * 1000;
 const DEFAULT_STALE_RESERVATION_BATCH_LIMIT = 50;
 const MAX_STALE_RESERVATION_BATCH_LIMIT = 200;
 const DEFAULT_STALE_RESERVATION_SCAN_PAGE_SIZE = 50;
-
-/**
- * Validates the server secret for secure Convex action calls.
- * This ensures only our API routes can call sensitive mutations.
- */
-const validateServerSecret = (serverSecret: string) => {
-  const expectedSecret = process.env.CONVEX_SERVER_SECRET;
-  if (!expectedSecret || serverSecret !== expectedSecret) {
-    throw new Error("Unauthorized: Invalid server secret");
-  }
-};
 
 function resolveTier(currentTier: string): "paid" | "admin" {
   if (currentTier === "admin") return "admin";
