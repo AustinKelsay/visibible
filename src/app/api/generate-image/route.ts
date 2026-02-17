@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import {
   DEFAULT_IMAGE_MODEL,
   fetchImageModels,
@@ -26,6 +27,13 @@ import {
 import { validateSessionWithIp, getClientIp, hashIp } from "@/lib/session";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
+import { validateCsrfToken, CSRF_COOKIE_NAME } from "@/lib/csrf";
+import {
+  readJsonBodyWithLimit,
+  PayloadTooLargeError,
+  InvalidJsonError,
+  DEFAULT_MAX_BODY_SIZE,
+} from "@/lib/request-body";
 import { api } from "../../../../convex/_generated/api";
 
 // Disable Next.js server-side caching - let browser cache handle it
@@ -45,6 +53,7 @@ const PROMPT_MAX_CHARS = 2800;
 const CONTINUITY_HINT_MAX_CHARS = 160;
 const SCENE_PLANNER_VERSE_MAX_CHARS = 280;
 const DEFAULT_COST_MARKUP_MULTIPLIER = 1.25;
+const MAX_IMAGE_REQUEST_BODY_SIZE = DEFAULT_MAX_BODY_SIZE;
 const COST_EVENT_PERSIST_TIMEOUT_MS = Number.parseInt(
   process.env.COST_EVENT_PERSIST_TIMEOUT_MS || "1500",
   10
@@ -232,10 +241,91 @@ function sanitizeVerseText(text: string): string {
     .slice(0, 1200); // Limit to reasonable verse length
 }
 
-export async function GET(request: Request) {
-  // SECURITY: Validate request origin
-  if (!validateOrigin(request)) {
+type ChapterTheme = {
+  setting: string;
+  palette: string;
+  elements: string;
+  style: string;
+};
+
+const chapterThemeSchema = z.object({
+  setting: z.string(),
+  palette: z.string(),
+  elements: z.string(),
+  style: z.string(),
+});
+
+const verseContextSchema = z.object({
+  number: z.number().finite().optional(),
+  text: z.string(),
+  reference: z.string().optional(),
+});
+
+const generateImageSchema = z
+  .object({
+    text: z.string().optional(),
+    theme: z.union([chapterThemeSchema, z.string()]).optional(),
+    prevVerse: z.union([verseContextSchema, z.string()]).optional(),
+    nextVerse: z.union([verseContextSchema, z.string()]).optional(),
+    reference: z.string().optional(),
+    model: z.string().optional(),
+    generation: z.union([z.number().finite(), z.string()]).optional(),
+    style: z.string().optional(),
+    aspectRatio: z.string().optional(),
+    resolution: z.string().optional(),
+    translation: z.string().optional(),
+    requestId: z.string().optional(),
+  })
+  .passthrough();
+
+type GenerateImageRequestBody = z.infer<typeof generateImageSchema>;
+
+function getCookieValue(request: Request, name: string): string | undefined {
+  const cookieHeader = request.headers.get("cookie");
+  if (!cookieHeader) return undefined;
+
+  for (const part of cookieHeader.split(";")) {
+    const [rawKey, ...rawValueParts] = part.trim().split("=");
+    if (rawKey !== name) continue;
+    try {
+      return decodeURIComponent(rawValueParts.join("="));
+    } catch {
+      return undefined;
+    }
+  }
+
+  return undefined;
+}
+
+export async function GET() {
+  return NextResponse.json(
+    {
+      error: "Method not allowed",
+      message: "Use POST /api/generate-image for generation requests.",
+    },
+    {
+      status: 405,
+      headers: {
+        Allow: "POST",
+      },
+    }
+  );
+}
+
+export async function POST(request: Request) {
+  // SECURITY: Strict origin validation for state-changing route.
+  const origin = request.headers.get("origin");
+  if (!origin || !validateOrigin(request)) {
     return invalidOriginResponse();
+  }
+
+  // SECURITY: Enforce CSRF protection on state-changing route.
+  const csrfCookie = getCookieValue(request, CSRF_COOKIE_NAME);
+  if (!validateCsrfToken(request, csrfCookie)) {
+    return NextResponse.json(
+      { error: "Invalid request", message: "CSRF validation failed" },
+      { status: 403 }
+    );
   }
 
   if (!isImageGenerationEnabled) {
@@ -306,6 +396,7 @@ export async function GET(request: Request) {
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: rateLimitIdentifier,
     endpoint: "generate-image",
+    serverSecret,
   });
 
   if (!rateLimitResult.allowed) {
@@ -324,27 +415,57 @@ export async function GET(request: Request) {
     );
   }
 
-  // Get verse text, theme, model, and context from query params
-  // SECURITY: All user-provided text is sanitized to prevent prompt injection
-  const { searchParams } = new URL(request.url);
-  const verseText = sanitizeVerseText(searchParams.get("text") || DEFAULT_TEXT);
-  const themeParam = searchParams.get("theme");
-  const prevVerseParam = searchParams.get("prevVerse")
-    ? sanitizeVerseText(searchParams.get("prevVerse")!)
-    : null;
-  const nextVerseParam = searchParams.get("nextVerse")
-    ? sanitizeVerseText(searchParams.get("nextVerse")!)
-    : null;
-  const reference = sanitizeReference(
-    searchParams.get("reference") || "Scripture"
-  );
-  const requestedModelId = searchParams.get("model");
-  const generationParam = searchParams.get("generation");
-  const requestedStyleId = searchParams.get("style");
-  const requestedAspectRatio = searchParams.get("aspectRatio");
-  const requestedResolution = searchParams.get("resolution");
-  const translationId = sanitizeTranslationId(searchParams.get("translation"));
-  const clientRequestId = sanitizeRequestId(searchParams.get("requestId")) || crypto.randomUUID();
+  let requestBody: GenerateImageRequestBody;
+  try {
+    const parsed = await readJsonBodyWithLimit<unknown>(
+      request,
+      MAX_IMAGE_REQUEST_BODY_SIZE
+    );
+    const parseResult = generateImageSchema.safeParse(parsed);
+    if (!parseResult.success) {
+      const firstIssue = parseResult.error.issues[0];
+      return NextResponse.json(
+        {
+          error: "Invalid request",
+          message: firstIssue?.message || "Invalid request body.",
+        },
+        { status: 400 }
+      );
+    }
+    requestBody = parseResult.data;
+  } catch (error) {
+    if (error instanceof PayloadTooLargeError) {
+      return NextResponse.json(
+        {
+          error: "Payload too large",
+          message: `Request body exceeds maximum size of ${MAX_IMAGE_REQUEST_BODY_SIZE} bytes.`,
+        },
+        { status: 413 }
+      );
+    }
+    if (error instanceof InvalidJsonError) {
+      return NextResponse.json(
+        { error: "Invalid request", message: "Request body must be valid JSON." },
+        { status: 400 }
+      );
+    }
+    return NextResponse.json(
+      { error: "Invalid request", message: "Failed to read request body." },
+      { status: 400 }
+    );
+  }
+
+  // Get verse text, theme, model, and context from JSON body.
+  // SECURITY: All user-provided text is sanitized to prevent prompt injection.
+  const verseText = sanitizeVerseText(requestBody.text || DEFAULT_TEXT);
+  const reference = sanitizeReference(requestBody.reference || "Scripture");
+  const requestedModelId = requestBody.model;
+  const requestedStyleId = requestBody.style;
+  const requestedAspectRatio = requestBody.aspectRatio;
+  const requestedResolution = requestBody.resolution;
+  const translationId = sanitizeTranslationId(requestBody.translation ?? null);
+  const clientRequestId =
+    sanitizeRequestId(requestBody.requestId ?? null) || crypto.randomUUID();
   const verseId = toVerseId(reference);
 
   // Validate and set aspect ratio (default: 16:9)
@@ -369,12 +490,6 @@ export async function GET(request: Request) {
     composition?: string;
     negative: string;
   };
-  type ChapterTheme = {
-    setting: string;
-    palette: string;
-    elements: string;
-    style: string;
-  };
 
   const STYLE_PROFILES: Record<string, StyleProfile> = {
     classical: {
@@ -391,22 +506,53 @@ export async function GET(request: Request) {
     },
   };
 
-  const parseChapterTheme = (value: string | null): ChapterTheme | null => {
+  /**
+   * Parses and sanitizes a verse context object from the request body.
+   * Accepts either a verse-shaped object or a JSON string (backward compatibility).
+   * Returns null if the value is not valid.
+   */
+  function parseVerseContext(
+    value: unknown
+  ): { number: number; text: string; reference?: string } | null {
+    let obj: Record<string, unknown> | null = null;
+    if (value && typeof value === "object") {
+      obj = value as Record<string, unknown>;
+    } else if (typeof value === "string") {
+      try {
+        const parsed = JSON.parse(value) as unknown;
+        if (parsed && typeof parsed === "object") obj = parsed as Record<string, unknown>;
+      } catch {
+        return null;
+      }
+    }
+    if (!obj) return null;
+    const text = obj?.text;
+    if (typeof text !== "string") return null;
+    const number =
+      typeof obj.number === "number" && Number.isFinite(obj.number)
+        ? obj.number
+        : 0;
+    const reference =
+      typeof obj.reference === "string" ? obj.reference : undefined;
+    return {
+      number,
+      text: sanitizeVerseText(text),
+      ...(reference !== undefined ? { reference } : {}),
+    };
+  }
+
+  const parseChapterTheme = (
+    value: GenerateImageRequestBody["theme"]
+  ): ChapterTheme | null => {
     if (!value) return null;
+    if (typeof value === "object") {
+      return value;
+    }
     try {
-      const parsed = JSON.parse(value) as Partial<ChapterTheme>;
-      if (
-        typeof parsed.setting === "string" &&
-        typeof parsed.palette === "string" &&
-        typeof parsed.elements === "string" &&
-        typeof parsed.style === "string"
-      ) {
-        return {
-          setting: parsed.setting,
-          palette: parsed.palette,
-          elements: parsed.elements,
-          style: parsed.style,
-        };
+      const parsed = JSON.parse(value) as unknown;
+      const themeParse = chapterThemeSchema.safeParse(parsed);
+      if (themeParse.success) {
+        return themeParse.data;
       }
     } catch (e) {
       console.warn("[generate-image] Failed to parse chapterTheme:", {
@@ -417,14 +563,19 @@ export async function GET(request: Request) {
     return null;
   };
 
-  const parseGenerationNumber = (value: string | null): number | null => {
-    if (!value) return null;
+  const parseGenerationNumber = (
+    value: GenerateImageRequestBody["generation"]
+  ): number | null => {
+    if (value === undefined || value === null || value === "") return null;
+    if (typeof value === "number") {
+      return Number.isFinite(value) ? Math.trunc(value) : null;
+    }
     const parsed = Number.parseInt(value, 10);
     return Number.isNaN(parsed) ? null : parsed;
   };
 
-  const chapterTheme = parseChapterTheme(themeParam);
-  const generationNumber = parseGenerationNumber(generationParam);
+  const chapterTheme = parseChapterTheme(requestBody.theme);
+  const generationNumber = parseGenerationNumber(requestBody.generation);
   const requestedStyleProfile = requestedStyleId
     ? STYLE_PROFILES[requestedStyleId]
     : undefined;
@@ -752,21 +903,9 @@ export async function GET(request: Request) {
   // Track generation start time for stats
   const generationStartTime = Date.now();
 
-  // Parse prev/next verse context for storyboard continuity
-  let prevVerse: { number: number; text: string; reference?: string } | null = null;
-  let nextVerse: { number: number; text: string; reference?: string } | null = null;
-
-  try {
-    if (prevVerseParam) prevVerse = JSON.parse(prevVerseParam);
-    if (nextVerseParam) nextVerse = JSON.parse(nextVerseParam);
-  } catch (e) {
-    console.warn("[generate-image] Failed to parse verse context:", {
-      prevVerseParam: prevVerseParam?.substring(0, 100),
-      nextVerseParam: nextVerseParam?.substring(0, 100),
-      error: e instanceof Error ? e.message : "Unknown error",
-    });
-    // Continue without context - graceful degradation
-  }
+  // Parse prev/next verse context for storyboard continuity (from request body, no JSON round-trip)
+  const prevVerse = parseVerseContext(requestBody.prevVerse);
+  const nextVerse = parseVerseContext(requestBody.nextVerse);
 
   const aspectRatioLabel = aspectRatio === "21:9"
     ? "ULTRA-WIDE CINEMATIC"
@@ -1295,6 +1434,7 @@ ${aspectRatioInstruction}`;
         .mutation(api.modelStats.recordGeneration, {
           modelId,
           durationMs: generationDurationMs,
+          serverSecret,
         })
         .catch(() => {});
 

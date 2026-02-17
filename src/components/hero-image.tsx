@@ -24,6 +24,7 @@ import {
   trackVerseImagesState,
 } from "@/lib/analytics";
 import { resolveHasCreditsAfterGeneration } from "@/lib/analytics-event-utils";
+import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 
 interface ChapterTheme {
   setting: string;
@@ -484,23 +485,44 @@ function HeroImageBase({
     setActiveRequestId(clientRequestId);
 
     try {
-      const params = new URLSearchParams();
-      if (verseText) params.set("text", verseText);
-      if (chapterTheme) params.set("theme", JSON.stringify(chapterTheme));
-      if (prevVerse) params.set("prevVerse", JSON.stringify(prevVerse));
-      if (nextVerse) params.set("nextVerse", JSON.stringify(nextVerse));
-      if (currentReference) params.set("reference", currentReference);
-      if (imageModel) params.set("model", imageModel);
-      if (translation) params.set("translation", translation);
-      params.set("aspectRatio", imageAspectRatio);
-      params.set("resolution", imageResolution);
-      params.set("requestId", clientRequestId);
+      const csrfCookiePrefix = `${CSRF_COOKIE_NAME}=`;
+      const csrfToken = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith(csrfCookiePrefix))
+        ?.slice(csrfCookiePrefix.length);
+
+      const payload: Record<string, unknown> = {
+        text: verseText,
+        theme: chapterTheme,
+        prevVerse,
+        nextVerse,
+        reference: currentReference,
+        model: imageModel,
+        translation,
+        aspectRatio: imageAspectRatio,
+        resolution: imageResolution,
+        requestId: clientRequestId,
+      };
 
       // Pass existing image count to add generation diversity
       const existingImageCount = imageHistory?.length || 0;
       const generationNumber = existingImageCount + 1;
       if (existingImageCount > 0) {
-        params.set("generation", String(generationNumber));
+        payload.generation = generationNumber;
+      }
+
+      if (!csrfToken) {
+        if (isMounted.current) {
+          setActiveRequestId(null);
+          setError("Security check failed. Please refresh the page and try again.");
+          trackGenerationError({
+            imageModel,
+            errorType: "csrf_missing",
+            tier,
+            hasCredits: credits > 0,
+          });
+        }
+        return;
       }
 
       trackImageGenerationStarted({
@@ -512,20 +534,47 @@ function HeroImageBase({
         hasCredits: credits > 0,
       });
 
-      const url = `/api/generate-image?${params.toString()}`;
-      const response = await fetch(url, { signal: controller.signal });
+      const response = await fetch("/api/generate-image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          [CSRF_HEADER_NAME]: csrfToken,
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
 
       if (isStale()) {
         return;
       }
 
       if (response.status === 403) {
+        let errorMessage = "Request blocked. Please refresh the page and try again.";
+        let errorType = "forbidden";
+        try {
+          const responseData = await response.json() as {
+            error?: string;
+            message?: string;
+          };
+          const combinedMessage =
+            `${responseData.error || ""} ${responseData.message || ""}`.toLowerCase();
+          if (combinedMessage.includes("csrf")) {
+            errorMessage = "Security check failed. Please refresh the page and try again.";
+            errorType = "csrf_failed";
+          } else if (combinedMessage.includes("disabled")) {
+            errorMessage = "Image generation is disabled";
+            errorType = "disabled";
+          }
+        } catch {
+          // Keep the generic forbidden message when error JSON is unavailable.
+        }
+
         if (isMounted.current) {
           setActiveRequestId(null);
-          setError("Image generation is disabled");
+          setError(errorMessage);
           trackGenerationError({
             imageModel,
-            errorType: "disabled",
+            errorType,
             tier,
             hasCredits: credits > 0,
           });

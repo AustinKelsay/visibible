@@ -23,6 +23,7 @@ The primary concern is protecting OpenRouter API credentials from abuse that cou
 
 ### 1. Origin Validation
 State-changing/privileged endpoints validate the `Origin` header against an allowlist (for example: session creation, chat, image generation, invoice creation, feedback, admin login). Unauthorized origins are rejected with 403.
+- `/api/generate-image` is strict: missing `Origin` is rejected.
 
 ### 2. Session Security
 - JWT-signed session tokens with IP binding
@@ -46,22 +47,27 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 - **Daily limit:** $5/day per session (resets UTC midnight)
 - **Model validation:** Only models with valid pricing allowed
 
-### 5. Admin Security
+### 5. CSRF Protection
+- Double-submit cookie pattern (`visibible_csrf` cookie + `x-csrf-token` header)
+- CSRF validation enforced on `POST /api/admin-login`
+- CSRF validation enforced on `POST /api/generate-image`
+
+### 6. Admin Security
 - Password verification with timing-safe comparison
 - HMAC-based password hashing with dedicated secret
-- CSRF double-submit validation on `POST /api/admin-login`
 - **All admin usage logged** to `adminAuditLog` table
 - `getAdminDailySpend` query for monitoring (requires server secret)
 
-### 6. Environment Validation
+### 7. Environment Validation
 - All secrets must be ≥32 characters
 - Dangerous proxy configurations are **fatal in production**
 - Broad CIDR ranges (0.0.0.0/0) cause startup failure
 
-### 7. Convex Trust Boundary (Server-Only Writes)
-- Sensitive Convex actions require `CONVEX_SERVER_SECRET` and are intended for server callers only.
+### 8. Convex Trust Boundary (Server-Only Writes)
+- Sensitive Convex mutations/actions require `CONVEX_SERVER_SECRET` and are intended for server callers only.
 - Image persistence (`saveImage`) is server-side only; browser-direct persistence writes are blocked.
 - Reservation settlement is one-way per `generationId` (`reserved -> released` or `reserved -> charged`) and duplicate release calls are idempotent.
+- Additional sensitive write paths (session creation/lastSeen, invoice create/expire, feedback submit, modelStats writes, and rate-limit mutations) are server-authenticated.
 
 ## What This Means for Users
 

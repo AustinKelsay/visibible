@@ -1,6 +1,7 @@
 import { action, internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
+import { validateServerSecret } from "./_helpers/auth";
 
 // Default daily spending limit per session (in USD)
 // This prevents API cost abuse by capping how much a single session can spend per day
@@ -8,17 +9,10 @@ export const DEFAULT_DAILY_SPEND_LIMIT_USD = 5.0;
 
 // Session TTL: 90 days from last activity
 export const SESSION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
-
-/**
- * Validates the server secret for secure Convex action calls.
- * This ensures only our API routes can call sensitive mutations.
- */
-const validateServerSecret = (serverSecret: string) => {
-  const expectedSecret = process.env.CONVEX_SERVER_SECRET;
-  if (!expectedSecret || serverSecret !== expectedSecret) {
-    throw new Error("Unauthorized: Invalid server secret");
-  }
-};
+const DEFAULT_STALE_RESERVATION_AGE_MS = 30 * 60 * 1000;
+const DEFAULT_STALE_RESERVATION_BATCH_LIMIT = 50;
+const MAX_STALE_RESERVATION_BATCH_LIMIT = 200;
+const DEFAULT_STALE_RESERVATION_SCAN_PAGE_SIZE = 50;
 
 function resolveTier(currentTier: string): "paid" | "admin" {
   if (currentTier === "admin") return "admin";
@@ -200,8 +194,10 @@ export const createSession = mutation({
   args: {
     sid: v.string(),
     ipHash: v.optional(v.string()),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
     const now = Date.now();
 
     // Check if session already exists
@@ -242,8 +238,10 @@ export const createSession = mutation({
 export const updateLastSeen = mutation({
   args: {
     sid: v.string(),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
     const session = await ctx.db
       .query("sessions")
       .withIndex("by_sid", (q) => q.eq("sid", args.sid))
@@ -256,6 +254,154 @@ export const updateLastSeen = mutation({
         expiresAt: now + SESSION_TTL_MS,
       });
     }
+  },
+});
+
+/**
+ * Internal mutation to reconcile stale reservation-only generations.
+ * Releases stranded credits when requests crash before final settlement.
+ */
+export const reconcileStaleReservations = internalMutation({
+  args: {
+    maxAgeMs: v.optional(v.number()),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const now = Date.now();
+    const maxAgeMs =
+      Number.isFinite(args.maxAgeMs) && (args.maxAgeMs ?? 0) > 0
+        ? (args.maxAgeMs as number)
+        : DEFAULT_STALE_RESERVATION_AGE_MS;
+    const requestedLimit =
+      Number.isFinite(args.limit) && (args.limit ?? 0) > 0
+        ? Math.floor(args.limit as number)
+        : DEFAULT_STALE_RESERVATION_BATCH_LIMIT;
+    const limit = Math.min(
+      Math.max(1, requestedLimit),
+      MAX_STALE_RESERVATION_BATCH_LIMIT
+    );
+    const cutoff = now - maxAgeMs;
+    const pageSize = Math.min(
+      MAX_STALE_RESERVATION_BATCH_LIMIT,
+      Math.max(limit, DEFAULT_STALE_RESERVATION_SCAN_PAGE_SIZE)
+    );
+
+    const seen = new Set<string>();
+    let scanned = 0;
+    let released = 0;
+    let skippedSettled = 0;
+    let skippedMissingSession = 0;
+    let skippedNoGenerationId = 0;
+    let duplicateCandidates = 0;
+    let totalRefundedCredits = 0;
+
+    let cursor: string | null = null;
+    let isDone = false;
+
+    while (!isDone && released < limit) {
+      const pageResult = await ctx.db
+        .query("creditLedger")
+        .withIndex("by_reason_createdAt", (q) =>
+          q.eq("reason", "reservation").lt("createdAt", cutoff)
+        )
+        .paginate({
+          cursor,
+          numItems: pageSize,
+        });
+
+      scanned += pageResult.page.length;
+      cursor = pageResult.continueCursor;
+      isDone = pageResult.isDone;
+
+      for (const candidate of pageResult.page) {
+        if (released >= limit) {
+          break;
+        }
+
+        const generationId = candidate.generationId;
+        if (!generationId) {
+          skippedNoGenerationId += 1;
+          continue;
+        }
+
+        const dedupeKey = `${candidate.sid}:${generationId}`;
+        if (seen.has(dedupeKey)) {
+          duplicateCandidates += 1;
+          continue;
+        }
+        seen.add(dedupeKey);
+
+        const ledgerEntries = await ctx.db
+          .query("creditLedger")
+          .withIndex("by_generationId", (q) =>
+            q.eq("generationId", generationId).eq("sid", candidate.sid)
+          )
+          .collect();
+
+        const settlement = summarizeGenerationSettlement(ledgerEntries);
+        if (settlement.state !== "reserved") {
+          skippedSettled += 1;
+          continue;
+        }
+
+        const session = await ctx.db
+          .query("sessions")
+          .withIndex("by_sid", (q) => q.eq("sid", candidate.sid))
+          .first();
+
+        if (!session) {
+          skippedMissingSession += 1;
+          continue;
+        }
+
+        const reservedAmount = settlement.reservedAmount;
+        const reservationCostUsd = settlement.reservationCostUsd;
+        if (reservedAmount <= 0) {
+          skippedSettled += 1;
+          continue;
+        }
+
+        const newCredits = session.credits + reservedAmount;
+        const newDailySpend = Math.max(
+          0,
+          (session.dailySpendUsd ?? 0) - reservationCostUsd
+        );
+
+        await ctx.db.patch(session._id, {
+          credits: newCredits,
+          tier: resolveTier(session.tier),
+          dailySpendUsd: newDailySpend,
+        });
+
+        await ctx.db.insert("creditLedger", {
+          sid: candidate.sid,
+          delta: reservedAmount,
+          reason: "refund",
+          generationId,
+          createdAt: now,
+        });
+
+        released += 1;
+        totalRefundedCredits += reservedAmount;
+      }
+
+      if (pageResult.page.length === 0) {
+        break;
+      }
+    }
+
+    return {
+      scanned,
+      released,
+      skippedSettled,
+      skippedMissingSession,
+      skippedNoGenerationId,
+      duplicateCandidates,
+      totalRefundedCredits,
+      cutoff,
+      maxAgeMs,
+      limit,
+    };
   },
 });
 

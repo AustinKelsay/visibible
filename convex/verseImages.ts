@@ -2,6 +2,7 @@ import { action, internalMutation, internalQuery, mutation, query } from "./_gen
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
 import { Id } from "./_generated/dataModel";
+import { validateServerSecret } from "./_helpers/auth";
 
 const chapterThemeValidator = v.object({
   setting: v.string(),
@@ -71,13 +72,6 @@ const generationStatusValidator = v.union(
   v.literal("succeeded"),
   v.literal("failed")
 );
-
-const validateServerSecret = (serverSecret: string) => {
-  const expectedSecret = process.env.CONVEX_SERVER_SECRET;
-  if (!expectedSecret || serverSecret !== expectedSecret) {
-    throw new Error("Unauthorized: Invalid server secret");
-  }
-};
 
 const MAX_IMAGE_BYTES = 10 * 1024 * 1024; // 10 MiB hard cap per image
 const ALLOWED_IMAGE_MIME_TYPES = new Set([

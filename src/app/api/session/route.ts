@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { api } from "../../../../convex/_generated/api";
-import { getConvexClient } from "@/lib/convex-client";
+import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import {
   generateSessionId,
   createSessionToken,
@@ -65,6 +65,12 @@ export async function GET(request: Request): Promise<NextResponse<SessionRespons
   }
 
   const sid = validation.sid;
+  let serverSecret: string | null = null;
+  try {
+    serverSecret = getConvexServerSecret();
+  } catch {
+    console.error("[Session API] CONVEX_SERVER_SECRET not configured");
+  }
 
   // Fetch session from Convex
   const session = await convex.query(api.sessions.getSession, { sid });
@@ -78,9 +84,13 @@ export async function GET(request: Request): Promise<NextResponse<SessionRespons
   }
 
   // Update lastSeenAt in background (don't await)
-  convex.mutation(api.sessions.updateLastSeen, { sid }).catch(() => {
-    // Ignore errors from background update
-  });
+  if (serverSecret) {
+    convex
+      .mutation(api.sessions.updateLastSeen, { sid, serverSecret })
+      .catch(() => {
+        // Ignore errors from background update
+      });
+  }
 
   // Build response
   const response = NextResponse.json({
@@ -126,6 +136,17 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
     );
   }
 
+  let serverSecret: string;
+  try {
+    serverSecret = getConvexServerSecret();
+  } catch {
+    console.error("[Session API] CONVEX_SERVER_SECRET not configured");
+    return NextResponse.json(
+      { sid: null, tier: "paid" as const, credits: 0 },
+      { status: 503 }
+    );
+  }
+
   // SECURITY: Rate limit session creation by IP to prevent abuse
   const clientIp = getClientIp(request);
   const ipHash = await hashIp(clientIp);
@@ -133,6 +154,7 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: ipHash,
     endpoint: "session",
+    serverSecret,
   });
 
   if (!rateLimitResult.allowed) {
@@ -180,6 +202,7 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
   const session = await convex.mutation(api.sessions.createSession, {
     sid,
     ipHash,
+    serverSecret,
   });
 
   // SECURITY: Create signed token with IP binding

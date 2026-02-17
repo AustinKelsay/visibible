@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSessionDataFromCookies, getClientIp, hashIp } from "@/lib/session";
-import { getConvexClient } from "@/lib/convex-client";
+import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { validateCsrfToken, CSRF_COOKIE_NAME } from "@/lib/csrf";
 import { api } from "../../../../convex/_generated/api";
@@ -38,6 +38,17 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   const convex = getConvexClient();
   if (!convex) {
+    return NextResponse.json(
+      { error: "Service unavailable" },
+      { status: 503 }
+    );
+  }
+
+  let rateLimitServerSecret: string;
+  try {
+    rateLimitServerSecret = getConvexServerSecret();
+  } catch {
+    console.error("[Admin Login API] CONVEX_SERVER_SECRET not configured");
     return NextResponse.json(
       { error: "Service unavailable" },
       { status: 503 }
@@ -96,7 +107,10 @@ export async function POST(request: Request): Promise<NextResponse> {
     // Use generic error message to avoid revealing configuration state
     if (!adminPassword) {
       // Record failed attempt even for misconfiguration to avoid timing oracle
-      await convex.mutation(api.rateLimit.recordFailedAdminLogin, { ipHash });
+      await convex.mutation(api.rateLimit.recordFailedAdminLogin, {
+        ipHash,
+        serverSecret: rateLimitServerSecret,
+      });
       return NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
@@ -106,7 +120,10 @@ export async function POST(request: Request): Promise<NextResponse> {
     const adminPasswordSecret = getAdminPasswordSecret();
     if (!adminPasswordSecret) {
       // Record failed attempt
-      await convex.mutation(api.rateLimit.recordFailedAdminLogin, { ipHash });
+      await convex.mutation(api.rateLimit.recordFailedAdminLogin, {
+        ipHash,
+        serverSecret: rateLimitServerSecret,
+      });
       return NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
@@ -124,7 +141,10 @@ export async function POST(request: Request): Promise<NextResponse> {
     // Ensure both digests are the same length before comparison
     if (providedPasswordDigest.length !== storedPasswordDigest.length) {
       // Record failed attempt
-      const failResult = await convex.mutation(api.rateLimit.recordFailedAdminLogin, { ipHash });
+      const failResult = await convex.mutation(api.rateLimit.recordFailedAdminLogin, {
+        ipHash,
+        serverSecret: rateLimitServerSecret,
+      });
       if (failResult.locked) {
         return NextResponse.json(
           {
@@ -142,7 +162,10 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     if (!timingSafeEqual(providedPasswordDigest, storedPasswordDigest)) {
       // SECURITY: Record failed attempt
-      const failResult = await convex.mutation(api.rateLimit.recordFailedAdminLogin, { ipHash });
+      const failResult = await convex.mutation(api.rateLimit.recordFailedAdminLogin, {
+        ipHash,
+        serverSecret: rateLimitServerSecret,
+      });
       if (failResult.locked) {
         return NextResponse.json(
           {
@@ -159,7 +182,10 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
 
     // SECURITY: Clear failed attempts on successful login
-    await convex.mutation(api.rateLimit.clearAdminLoginAttempts, { ipHash });
+    await convex.mutation(api.rateLimit.clearAdminLoginAttempts, {
+      ipHash,
+      serverSecret: rateLimitServerSecret,
+    });
 
     // Upgrade session to admin
     await convex.action(api.sessions.upgradeToAdmin, {

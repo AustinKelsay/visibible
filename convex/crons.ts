@@ -32,4 +32,15 @@ crons.interval(
   { limit: 20 }
 );
 
+// Release stale reservation-only generations from crashed/aborted requests.
+crons.interval(
+  "reconcile stale credit reservations",
+  { minutes: 5 },
+  internal.sessions.reconcileStaleReservations,
+  {
+    maxAgeMs: 30 * 60 * 1000, // 30 minutes
+    limit: 50,
+  }
+);
+
 export default crons;

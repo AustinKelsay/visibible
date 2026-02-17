@@ -5,6 +5,7 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { fixtures, type Session } from "../shared/test-fixtures";
+import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 
 // Create mock state
 const mockState = {
@@ -262,6 +263,21 @@ function getRefundEntries() {
   return mockState.ledger.filter((e) => e.reason === "scene_planner_refund");
 }
 
+const TEST_CSRF_TOKEN = "a".repeat(64);
+
+function createGenerateImageRequest(body: Record<string, unknown>) {
+  return new Request("http://localhost:3000/api/generate-image", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      origin: "http://localhost:3000",
+      [CSRF_HEADER_NAME]: TEST_CSRF_TOKEN,
+      cookie: `${CSRF_COOKIE_NAME}=${TEST_CSRF_TOKEN}`,
+    },
+    body: JSON.stringify(body),
+  });
+}
+
 describe("Scene Planner Refund Logic", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -312,14 +328,14 @@ describe("Scene Planner Refund Logic", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "In the beginning God created the heaven and the earth.");
       url.searchParams.set("reference", "Genesis 1:1");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 
@@ -350,13 +366,13 @@ describe("Scene Planner Refund Logic", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 
@@ -387,13 +403,13 @@ describe("Scene Planner Refund Logic", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 
@@ -432,13 +448,13 @@ describe("Scene Planner Refund Logic", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 
@@ -479,13 +495,13 @@ describe("Scene Planner Refund Logic", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 
@@ -525,13 +541,13 @@ describe("Scene Planner Refund Logic", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 

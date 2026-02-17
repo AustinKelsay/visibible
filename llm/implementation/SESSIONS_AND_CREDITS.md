@@ -105,8 +105,8 @@ If Convex is not configured, session and payment routes return free defaults or 
 | Function | Type | Arguments | Returns |
 |----------|------|-----------|---------|
 | `getSession` | Query | `sid` | `{ sid, tier, credits, createdAt, lastSeenAt }` or `null` |
-| `createSession` | Mutation | `sid, ipHash?` | `{ sid, tier: "paid", credits: 0 }` |
-| `updateLastSeen` | Mutation | `sid` | `void` |
+| `createSession` | Mutation | `sid, ipHash?, serverSecret` | `{ sid, tier: "paid", credits: 0 }` |
+| `updateLastSeen` | Mutation | `sid, serverSecret` | `void` |
 | `addCredits` | Action | `sid, amount, reason, invoiceId?, serverSecret` | `{ newBalance }` |
 | `reserveCredits` | Action | `sid, amount, modelId, generationId, costUsd?, serverSecret` | `{ success, newBalance, alreadyReserved? }` or `{ success: false, error, required?, available? }` |
 | `releaseReservation` | Action | `sid, generationId, serverSecret` | `{ success, newBalance, alreadyReleased? }` |
@@ -154,6 +154,16 @@ The credit system uses a reservation settlement state machine per `generationId`
 
 This prevents credit inflation from duplicate release calls and prevents replay charging after a released generation.
 
+### Stale Reservation Reconciliation (PR-4)
+
+To handle crashed/aborted requests that never settle:
+
+- `internal.sessions.reconcileStaleReservations` scans stale `reservation` entries using `creditLedger.by_reason_createdAt`.
+- Cron runs every 5 minutes via `convex/crons.ts`.
+- Default reconciliation target is reservations older than 30 minutes (`maxAgeMs`), up to 50 candidates per run (`limit`).
+- Only generations currently in settlement state `reserved` are released; already `released`/`charged` generations are skipped.
+- This makes reruns safe and idempotent while preventing stranded reserved credits.
+
 **Tier Transitions:** `resolveTier()` centralizes tier updates for all credit mutations. `admin` is sticky and never downgraded; non-admins are always `paid` tier.
 
 **Daily Spending Limit:** `reserveCreditsInternal` checks `checkDailySpendLimit()` before allowing credit reservation. The default limit is defined by the constant `DEFAULT_DAILY_SPEND_LIMIT_USD = 5.0` in `convex/sessions.ts` (line 7). This can be overridden per-session via the `dailySpendLimitUsd` field in the sessions table. The limit is checked at line 72 of `checkDailySpendLimit()` using `session.dailySpendLimitUsd ?? DEFAULT_DAILY_SPEND_LIMIT_USD`. To change the default limit, modify the `DEFAULT_DAILY_SPEND_LIMIT_USD` constant in `convex/sessions.ts`. To override for a specific session, update the session's `dailySpendLimitUsd` field in the Convex database. If daily spend exceeds the limit, the request is rejected with `"Daily spending limit exceeded"`. The limit resets at UTC midnight. Admin sessions bypass the daily spending limit entirely.
@@ -198,11 +208,11 @@ for (let attempt = 1; attempt <= maxRetries && !refundSuccess; attempt++) {
 
 | Function | Type | Arguments | Returns |
 |----------|------|-----------|---------|
-| `createInvoice` | Mutation | `sid, amountSats, bolt11, paymentHash` | `{ invoiceId, bolt11, amountUsd, amountSats, expiresAt, credits }` |
+| `createInvoice` | Mutation | `sid, amountSats, bolt11, paymentHash, serverSecret` | `{ invoiceId, bolt11, amountUsd, amountSats, expiresAt, credits }` |
 | `getInvoice` | Query | `invoiceId` | Invoice details (includes `sid`) or `null` |
 | `getSessionInvoices` | Query | `sid` | `Array<{ invoiceId, status, amountUsd, createdAt, paidAt? }>` |
-| `confirmPayment` | Mutation | `invoiceId, paymentHash?` | `{ success, alreadyPaid?, newBalance, creditsAdded }` (preserves `admin` tier; `paymentHash` only updated if provided) |
-| `expireInvoice` | Mutation | `invoiceId` | `{ success: true }` |
+| `confirmPayment` | Action | `invoiceId, paymentHash?, serverSecret` | `{ success, alreadyPaid?, newBalance, creditsAdded }` (preserves `admin` tier; `paymentHash` only updated if provided) |
+| `expireInvoice` | Mutation | `invoiceId, serverSecret` | `{ success: true }` |
 
 ### `convex/modelStats.ts`
 
@@ -210,7 +220,7 @@ for (let attempt = 1; attempt <= maxRetries && !refundSuccess; attempt++) {
 |----------|------|-----------|---------|
 | `getModelStats` | Query | `modelId` | `{ modelId, count, avgMs, etaSeconds }` |
 | `getAllModelStats` | Query | none | `Array<{ modelId, count, avgMs, etaSeconds }>` |
-| `recordGeneration` | Mutation | `modelId, durationMs` | `{ modelId, count, avgMs, etaSeconds }` |
+| `recordGeneration` | Mutation | `modelId, durationMs, serverSecret` | `{ modelId, count, avgMs, etaSeconds }` |
 
 ---
 
@@ -254,6 +264,10 @@ Rate limiting is handled by `convex/rateLimit.ts`:
 - Sliding window algorithm
 - Admin login includes additional brute-force protection with IP-based lockout
 - Returns `Retry-After` header for 429 responses
+- Sensitive rate-limit mutations are server-authenticated (`serverSecret` required):
+  - `checkRateLimit`
+  - `recordFailedAdminLogin`
+  - `clearAdminLoginAttempts`
 
 ### Rate Limit Status API
 
@@ -315,18 +329,21 @@ Requires session ownership. If pending, checks LND settlement and may confirm/ex
 ### `POST /api/invoice/:id`
 Requires session ownership. Verifies LND settlement before confirming payment and granting credits. Returns 402 if not settled.
 
-### `GET /api/generate-image`
+### `POST /api/generate-image`
 Credit flow (reservation pattern):
-1. Verify session and IP binding via `validateSessionWithIp()`.
-2. Fetch model from `fetchImageModels()` and compute `creditsCost` via `computeCreditsCost()`.
-3. **Reject unpriced models** - if `creditsCost` is null, return 400 "Model pricing unavailable".
-4. **Reserve credits atomically** via `reserveCredits()` - deducts from balance immediately.
-5. If reservation fails (insufficient credits or daily limit exceeded), return 402.
-6. Generate image via OpenRouter.
-7. **Convert reservation to charge** via `deductCredits()` - uses double-entry bookkeeping.
-8. If generation fails, **release reservation** via `releaseReservation()` to restore credits.
-9. If post-charge fails, return 402 and discard the generated image.
-10. Persist generated image server-side via `api.verseImages.saveImage` using `CONVEX_SERVER_SECRET`; response includes `savedImageId` when persistence succeeds.
+1. Enforce strict origin + CSRF validation for this state-changing route.
+2. Verify session and IP binding via `validateSessionWithIp()`.
+3. Parse JSON request body (model/context/options).
+4. `GET /api/generate-image` returns `405 Method Not Allowed` with `Allow: POST`.
+5. Fetch model from `fetchImageModels()` and compute `creditsCost` via `computeCreditsCost()`.
+6. **Reject unpriced models** - if `creditsCost` is null, return 400 "Model pricing unavailable".
+7. **Reserve credits atomically** via `reserveCredits()` - deducts from balance immediately.
+8. If reservation fails (insufficient credits or daily limit exceeded), return 402.
+9. Generate image via OpenRouter.
+10. **Convert reservation to charge** via `deductCredits()` - uses double-entry bookkeeping.
+11. If generation fails, **release reservation** via `releaseReservation()` to restore credits.
+12. If post-charge fails, return 402 and discard the generated image.
+13. Persist generated image server-side via `api.verseImages.saveImage` using `CONVEX_SERVER_SECRET`; response includes `savedImageId` when persistence succeeds.
 
 On success, the response includes:
 - `imageUrl`, `model`, `provider`, `providerRequestId`

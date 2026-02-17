@@ -9,7 +9,7 @@ This document describes the security mechanisms protecting API routes from abuse
 The security architecture provides multiple layers of protection:
 
 1. **Origin Validation** - Prevents cross-origin API abuse
-2. **CSRF Protection** - Double-submit cookie pattern (actively enforced on admin login)
+2. **CSRF Protection** - Double-submit cookie pattern (enforced on admin-login and image generation)
 3. **Session Security** - JWT tokens with IP binding
 4. **Server-Authenticated Convex Writes** - Sensitive Convex actions require `CONVEX_SERVER_SECRET`
 5. **Rate Limiting** - Per-endpoint request throttling
@@ -87,7 +87,7 @@ function getAllowedOrigins(): string[] {
 | `/api/invoice/[id]` | GET, POST | Required |
 | `/api/session` | POST | Required |
 | `/api/admin-login` | POST | Required |
-| `/api/generate-image` | GET | Required |
+| `/api/generate-image` | POST | Required (strict origin; route handler rejects missing Origin before calling `validateOrigin()`) |
 | `/api/chat` | POST | Required |
 | `/api/feedback` | POST | Required |
 
@@ -130,6 +130,7 @@ CSRF protection uses the double-submit cookie pattern. This is a stateless appro
 
 - CSRF token is issued/refreshed by `src/app/api/session/route.ts` on both `GET /api/session` and `POST /api/session`.
 - CSRF validation is enforced on `POST /api/admin-login`.
+- CSRF validation is enforced on `POST /api/generate-image`.
 - Other endpoints rely on origin validation and SameSite cookie policy, but do not currently require CSRF header validation.
 
 ---
@@ -162,6 +163,22 @@ Sensitive Convex write paths are protected by a shared-secret trust boundary.
   - released generations cannot be charged later
 
 This closes replay paths that could previously inflate credits via duplicate release calls.
+
+### Broader Convex write hardening (PR-5)
+
+Additional sensitive public mutations are now server-authenticated (require `serverSecret`) so they cannot be called directly from untrusted browser clients:
+
+- `api.sessions.createSession`
+- `api.sessions.updateLastSeen`
+- `api.invoices.createInvoice`
+- `api.invoices.expireInvoice`
+- `api.feedback.submitFeedback`
+- `api.modelStats.recordGeneration`
+- `api.rateLimit.checkRateLimit`
+- `api.rateLimit.recordFailedAdminLogin`
+- `api.rateLimit.clearAdminLoginAttempts`
+
+All Next.js API routes that call these functions now pass `CONVEX_SERVER_SECRET`.
 
 ---
 

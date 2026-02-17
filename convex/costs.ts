@@ -8,6 +8,7 @@ import {
 } from "./_generated/server";
 import { internal, components } from "./_generated/api";
 import { CostComponent, calculateToolCost } from "neutral-cost";
+import { validateServerSecret } from "./_helpers/auth";
 
 const DEFAULT_MARKUP_MULTIPLIER = 1.25;
 const CREDIT_USD = 0.01;
@@ -78,13 +79,6 @@ type ImageCostEventPayload = {
   openRouterUsageUsd?: number;
   durationMs?: number;
 };
-
-function validateServerSecret(serverSecret: string) {
-  const expectedSecret = process.env.CONVEX_SERVER_SECRET;
-  if (!expectedSecret || expectedSecret !== serverSecret) {
-    throw new Error("Unauthorized: Invalid server secret");
-  }
-}
 
 function toFinitePositive(value: number): number {
   if (!Number.isFinite(value) || value <= 0) {

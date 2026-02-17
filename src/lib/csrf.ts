@@ -4,9 +4,9 @@
  */
 
 import { randomBytes, timingSafeEqual } from "crypto";
+import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "./csrf-constants";
 
-export const CSRF_COOKIE_NAME = "visibible_csrf";
-export const CSRF_HEADER_NAME = "x-csrf-token";
+export { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "./csrf-constants";
 
 /**
  * Generate a cryptographically secure CSRF token.
