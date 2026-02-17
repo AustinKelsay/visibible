@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
-import { getSessionDataFromCookies } from "@/lib/session";
+import { validateSessionWithIp } from "@/lib/session";
 import { lookupLndInvoice, isLndConfigured } from "@/lib/lnd";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { api } from "../../../../../convex/_generated/api";
@@ -42,10 +42,14 @@ export async function GET(
     );
   }
 
-  const sid = (await getSessionDataFromCookies())?.sid ?? null;
-  if (!sid) {
+  const sessionValidation = await validateSessionWithIp(request);
+  if (!sessionValidation.sid) {
     return NextResponse.json({ error: "Session required" }, { status: 401 });
   }
+  if (!sessionValidation.valid) {
+    return NextResponse.json({ error: "Session invalid" }, { status: 401 });
+  }
+  const sid = sessionValidation.sid;
 
   const { id: invoiceId } = await params;
 
@@ -145,10 +149,14 @@ export async function POST(
     );
   }
 
-  const sid = (await getSessionDataFromCookies())?.sid ?? null;
-  if (!sid) {
+  const sessionValidation = await validateSessionWithIp(request);
+  if (!sessionValidation.sid) {
     return NextResponse.json({ error: "Session required" }, { status: 401 });
   }
+  if (!sessionValidation.valid) {
+    return NextResponse.json({ error: "Session invalid" }, { status: 401 });
+  }
+  const sid = sessionValidation.sid;
 
   const { id: invoiceId } = await params;
 

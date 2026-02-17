@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSessionDataFromCookies, getClientIp, hashIp } from "@/lib/session";
+import { validateSessionWithIp } from "@/lib/session";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { getBtcPrice, usdToSats } from "@/lib/btc-price";
 import { createLndInvoice, base64ToHex, isLndConfigured } from "@/lib/lnd";
@@ -45,18 +45,24 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
-  const sid = (await getSessionDataFromCookies())?.sid ?? null;
-  if (!sid) {
+  const sessionValidation = await validateSessionWithIp(request);
+  if (!sessionValidation.sid) {
     return NextResponse.json(
       { error: "Session required" },
       { status: 401 }
     );
   }
+  if (!sessionValidation.valid || !sessionValidation.currentIpHash) {
+    return NextResponse.json(
+      { error: "Session invalid" },
+      { status: 401 }
+    );
+  }
+  const sid = sessionValidation.sid;
 
   // SECURITY: Rate limit invoice creation to prevent LND flooding
   // Use IP hash only (not session) to prevent multi-session bypass from same IP
-  const clientIp = getClientIp(request);
-  const rateLimitIdentifier = await hashIp(clientIp);
+  const rateLimitIdentifier = sessionValidation.currentIpHash;
 
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: rateLimitIdentifier,

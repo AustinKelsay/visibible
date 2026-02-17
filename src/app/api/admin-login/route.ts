@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSessionDataFromCookies, getClientIp, hashIp } from "@/lib/session";
+import { validateSessionWithIp } from "@/lib/session";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { validateCsrfToken, CSRF_COOKIE_NAME } from "@/lib/csrf";
@@ -55,17 +55,29 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
-  const sid = (await getSessionDataFromCookies())?.sid ?? null;
-  if (!sid) {
+  const sessionValidation = await validateSessionWithIp(request);
+  if (!sessionValidation.sid) {
     return NextResponse.json(
       { error: "Session required" },
       { status: 401 }
     );
   }
+  if (!sessionValidation.valid) {
+    return NextResponse.json(
+      { error: "Session invalid" },
+      { status: 401 }
+    );
+  }
+  const sid = sessionValidation.sid;
 
   // SECURITY: Get IP hash for brute force protection
-  const clientIp = getClientIp(request);
-  const ipHash = await hashIp(clientIp);
+  const ipHash = sessionValidation.currentIpHash;
+  if (!ipHash) {
+    return NextResponse.json(
+      { error: "Session invalid" },
+      { status: 401 }
+    );
+  }
 
   // SECURITY: Check if IP is locked out due to too many failed attempts
   const loginAllowedResult = await convex.query(api.rateLimit.checkAdminLoginAllowed, {

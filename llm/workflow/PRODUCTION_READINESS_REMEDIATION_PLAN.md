@@ -46,6 +46,32 @@ Primary risk themes: security boundaries, credit-accounting integrity
   - Updated all server route call sites to pass `CONVEX_SERVER_SECRET`.
   - Removed direct unauthenticated browser write capability for the above paths.
 
+### 2026-02-17
+
+- PR-4 follow-up completed: stale reservation reconciler pagination/starvation fix.
+  - Replaced fixed head-batch scan with cursor pagination for stale reservations.
+  - Reconciler now advances through old settled/missing-session rows instead of reprocessing the same first batch indefinitely.
+  - Prevents stranded credits from being skipped permanently when stale reservation volume exceeds per-run release limits.
+
+- PR-3 follow-up completed: bounded POST body parsing for `/api/generate-image`.
+  - Replaced direct `request.json()` parsing with `readJsonBodyWithLimit(...)`.
+  - Added explicit `413 Payload too large` handling for oversized request bodies.
+  - Added regression coverage to ensure oversized image-generation payloads are rejected before credit reservation logic.
+
+- PR-6 completed: session IP-binding consistency for privileged/session-sensitive APIs.
+  - Standardized session-derived identity lookups on `validateSessionWithIp` for:
+    - `/api/admin-login`
+    - `/api/invoice` and `/api/invoice/:id` (GET/POST)
+    - `/api/rate-limit-status`
+    - `/api/feedback` (optional session attribution path)
+    - Existing-session reuse path in `/api/session` POST
+  - Removed cookie-only session reads from privileged invoice/admin flows.
+  - Added route integration coverage for IP-bound session enforcement:
+    - `src/app/api/__tests__/admin-login/ip-binding.test.ts`
+    - `src/app/api/__tests__/invoice/ip-binding.test.ts`
+
+- Remaining active scope: PR-7 through PR-12 remain the current production-readiness backlog (some partially complete).
+
 ## Goals
 
 1. Eliminate externally reachable trust-boundary breaks.
@@ -151,7 +177,7 @@ Acceptance criteria:
 
 ---
 
-### PR-6: Session IP-Binding Consistency (High #6)
+### PR-6: Session IP-Binding Consistency (High #6) [Completed 2026-02-17]
 
 Scope:
 - Standardize privileged/session-sensitive API routes on `validateSessionWithIp`.

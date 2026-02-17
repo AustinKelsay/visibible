@@ -8,7 +8,6 @@ import {
   hashIp,
   getClientIp,
   validateSessionWithIp,
-  getSessionDataFromCookies,
 } from "@/lib/session";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { generateCsrfToken, getCsrfCookieOptions } from "@/lib/csrf";
@@ -175,10 +174,10 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
   }
 
   // Check if session already exists and is valid
-  const existingData = await getSessionDataFromCookies();
-  if (existingData) {
+  const existingValidation = await validateSessionWithIp(request);
+  if (existingValidation.valid && existingValidation.sid) {
     const existingSession = await convex.query(api.sessions.getSession, {
-      sid: existingData.sid,
+      sid: existingValidation.sid,
     });
     if (existingSession) {
       // Return existing session but refresh token with IP if needed

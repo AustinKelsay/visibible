@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { api } from "../../../../convex/_generated/api";
 import { getConvexClient } from "@/lib/convex-client";
-import { getSessionDataFromCookies, getClientIp, hashIp } from "@/lib/session";
+import { validateSessionWithIp } from "@/lib/session";
 import { RATE_LIMITS } from "../../../../convex/rateLimit";
 import { DEFAULT_DAILY_SPEND_LIMIT_USD } from "../../../../convex/sessions";
 
@@ -33,7 +33,15 @@ interface RateLimitStatusResponse {
  */
 export async function GET(request: Request): Promise<NextResponse<RateLimitStatusResponse>> {
   const convex = getConvexClient();
-  const sid = (await getSessionDataFromCookies())?.sid ?? null;
+  const sessionValidation = await validateSessionWithIp(request);
+  const sid =
+    sessionValidation.valid && sessionValidation.sid
+      ? sessionValidation.sid
+      : null;
+  const currentIpHash =
+    sessionValidation.valid && sessionValidation.currentIpHash
+      ? sessionValidation.currentIpHash
+      : null;
 
   const now = Date.now();
 
@@ -45,7 +53,7 @@ export async function GET(request: Request): Promise<NextResponse<RateLimitStatu
     windowMs: RATE_LIMITS[endpoint].windowMs,
   });
 
-  if (!convex || !sid) {
+  if (!convex || !sid || !currentIpHash) {
     return NextResponse.json({
       endpoints: {
         chat: defaultEndpoint("chat"),
@@ -57,9 +65,7 @@ export async function GET(request: Request): Promise<NextResponse<RateLimitStatu
 
   // SECURITY: Use same identifier format as cost-incurring endpoints
   // Rate limits use ${ipHash}:${sid} format to match /api/chat and /api/generate-image
-  const clientIp = getClientIp(request);
-  const ipHash = await hashIp(clientIp);
-  const rateLimitIdentifier = `${ipHash}:${sid}`;
+  const rateLimitIdentifier = `${currentIpHash}:${sid}`;
 
   // Fetch rate limit status for each endpoint in parallel
   const [chatStatus, imageStatus, session] = await Promise.all([
