@@ -24,6 +24,7 @@ import {
   trackVerseImagesState,
 } from "@/lib/analytics";
 import { resolveHasCreditsAfterGeneration } from "@/lib/analytics-event-utils";
+import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 
 interface ChapterTheme {
   setting: string;
@@ -484,10 +485,11 @@ function HeroImageBase({
     setActiveRequestId(clientRequestId);
 
     try {
+      const csrfCookiePrefix = `${CSRF_COOKIE_NAME}=`;
       const csrfToken = document.cookie
         .split("; ")
-        .find((row) => row.startsWith("visibible_csrf="))
-        ?.slice("visibible_csrf=".length);
+        .find((row) => row.startsWith(csrfCookiePrefix))
+        ?.slice(csrfCookiePrefix.length);
 
       const payload: Record<string, unknown> = {
         text: verseText,
@@ -536,7 +538,7 @@ function HeroImageBase({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-csrf-token": csrfToken,
+          [CSRF_HEADER_NAME]: csrfToken,
         },
         body: JSON.stringify(payload),
         signal: controller.signal,

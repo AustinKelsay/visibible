@@ -5,6 +5,7 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { fixtures, type Session } from "../shared/test-fixtures";
+import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 
 // Create mock state
 const mockState = {
@@ -270,8 +271,8 @@ function createGenerateImageRequest(body: Record<string, unknown>) {
     headers: {
       "content-type": "application/json",
       origin: "http://localhost:3000",
-      "x-csrf-token": TEST_CSRF_TOKEN,
-      cookie: `visibible_csrf=${TEST_CSRF_TOKEN}`,
+      [CSRF_HEADER_NAME]: TEST_CSRF_TOKEN,
+      cookie: `${CSRF_COOKIE_NAME}=${TEST_CSRF_TOKEN}`,
     },
     body: JSON.stringify(body),
   });
