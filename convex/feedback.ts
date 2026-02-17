@@ -1,6 +1,13 @@
 import { mutation } from "./_generated/server";
 import { v } from "convex/values";
 
+const validateServerSecret = (serverSecret: string) => {
+  const expectedSecret = process.env.CONVEX_SERVER_SECRET;
+  if (!expectedSecret || serverSecret !== expectedSecret) {
+    throw new Error("Unauthorized: Invalid server secret");
+  }
+};
+
 /**
  * Submit user feedback.
  * Accepts feedback text and optional verse/image context.
@@ -30,8 +37,10 @@ export const submitFeedback = mutation({
       })
     ),
     userAgent: v.optional(v.string()),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
     // Basic validation - message must not be empty
     const trimmedMessage = args.message.trim();
     if (!trimmedMessage) {

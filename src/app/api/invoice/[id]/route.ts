@@ -31,6 +31,17 @@ export async function GET(
     );
   }
 
+  let serverSecret: string;
+  try {
+    serverSecret = getConvexServerSecret();
+  } catch {
+    console.error("[Invoice Status API] CONVEX_SERVER_SECRET not configured");
+    return NextResponse.json(
+      { error: "Payment system not available" },
+      { status: 503 }
+    );
+  }
+
   const sid = (await getSessionDataFromCookies())?.sid ?? null;
   if (!sid) {
     return NextResponse.json({ error: "Session required" }, { status: 401 });
@@ -53,7 +64,7 @@ export async function GET(
       const now = Date.now();
 
       if (now > invoice.expiresAt) {
-        await convex.mutation(api.invoices.expireInvoice, { invoiceId });
+        await convex.mutation(api.invoices.expireInvoice, { invoiceId, serverSecret });
         invoice = { ...invoice, status: "expired" };
       } else if (invoice.paymentHash && isLndConfigured()) {
         try {
@@ -64,13 +75,16 @@ export async function GET(
             await convex.action(api.invoices.confirmPayment, {
               invoiceId,
               paymentHash: invoice.paymentHash,
-              serverSecret: getConvexServerSecret(),
+              serverSecret,
             });
             // Update local status for response
             invoice = { ...invoice, status: "paid" };
           } else if (lndStatus.state === "CANCELED") {
             // Invoice was canceled
-            await convex.mutation(api.invoices.expireInvoice, { invoiceId });
+            await convex.mutation(api.invoices.expireInvoice, {
+              invoiceId,
+              serverSecret,
+            });
             invoice = { ...invoice, status: "expired" };
           }
           // "OPEN" and "ACCEPTED" states mean still waiting for payment
@@ -120,6 +134,17 @@ export async function POST(
     );
   }
 
+  let serverSecret: string;
+  try {
+    serverSecret = getConvexServerSecret();
+  } catch {
+    console.error("[Invoice Confirm API] CONVEX_SERVER_SECRET not configured");
+    return NextResponse.json(
+      { error: "Payment system not available" },
+      { status: 503 }
+    );
+  }
+
   const sid = (await getSessionDataFromCookies())?.sid ?? null;
   if (!sid) {
     return NextResponse.json({ error: "Session required" }, { status: 401 });
@@ -154,7 +179,7 @@ export async function POST(
 
     const now = Date.now();
     if (now > invoice.expiresAt) {
-      await convex.mutation(api.invoices.expireInvoice, { invoiceId });
+      await convex.mutation(api.invoices.expireInvoice, { invoiceId, serverSecret });
       return NextResponse.json(
         { error: "Invoice has expired" },
         { status: 410 }
@@ -167,7 +192,7 @@ export async function POST(
       const result = await convex.action(api.invoices.confirmPayment, {
         invoiceId,
         paymentHash: invoice.paymentHash,
-        serverSecret: getConvexServerSecret(),
+        serverSecret,
       });
 
       return NextResponse.json({
@@ -179,7 +204,7 @@ export async function POST(
     }
 
     if (lndStatus.state === "CANCELED") {
-      await convex.mutation(api.invoices.expireInvoice, { invoiceId });
+      await convex.mutation(api.invoices.expireInvoice, { invoiceId, serverSecret });
       return NextResponse.json(
         { error: "Invoice was canceled" },
         { status: 410 }

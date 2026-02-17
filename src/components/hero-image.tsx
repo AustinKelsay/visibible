@@ -484,23 +484,29 @@ function HeroImageBase({
     setActiveRequestId(clientRequestId);
 
     try {
-      const params = new URLSearchParams();
-      if (verseText) params.set("text", verseText);
-      if (chapterTheme) params.set("theme", JSON.stringify(chapterTheme));
-      if (prevVerse) params.set("prevVerse", JSON.stringify(prevVerse));
-      if (nextVerse) params.set("nextVerse", JSON.stringify(nextVerse));
-      if (currentReference) params.set("reference", currentReference);
-      if (imageModel) params.set("model", imageModel);
-      if (translation) params.set("translation", translation);
-      params.set("aspectRatio", imageAspectRatio);
-      params.set("resolution", imageResolution);
-      params.set("requestId", clientRequestId);
+      const csrfToken = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("visibible_csrf="))
+        ?.slice("visibible_csrf=".length);
+
+      const payload: Record<string, unknown> = {
+        text: verseText,
+        theme: chapterTheme,
+        prevVerse,
+        nextVerse,
+        reference: currentReference,
+        model: imageModel,
+        translation,
+        aspectRatio: imageAspectRatio,
+        resolution: imageResolution,
+        requestId: clientRequestId,
+      };
 
       // Pass existing image count to add generation diversity
       const existingImageCount = imageHistory?.length || 0;
       const generationNumber = existingImageCount + 1;
       if (existingImageCount > 0) {
-        params.set("generation", String(generationNumber));
+        payload.generation = generationNumber;
       }
 
       trackImageGenerationStarted({
@@ -512,8 +518,15 @@ function HeroImageBase({
         hasCredits: credits > 0,
       });
 
-      const url = `/api/generate-image?${params.toString()}`;
-      const response = await fetch(url, { signal: controller.signal });
+      const response = await fetch("/api/generate-image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-csrf-token": csrfToken || "",
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
 
       if (isStale()) {
         return;

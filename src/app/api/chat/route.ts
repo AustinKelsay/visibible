@@ -251,6 +251,7 @@ export async function POST(req: Request) {
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: rateLimitIdentifier,
     endpoint: "chat",
+    serverSecret,
   });
 
   if (!rateLimitResult.allowed) {

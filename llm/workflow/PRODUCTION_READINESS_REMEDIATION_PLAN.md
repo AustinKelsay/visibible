@@ -22,6 +22,30 @@ Primary risk themes: security boundaries, credit-accounting integrity
   - Released/charged generations cannot be re-reserved.
   - Added unit coverage for settlement-state classification.
 
+- PR-3 completed: `/api/generate-image` converted to secure POST semantics.
+  - Endpoint now accepts `POST` JSON body for generation requests.
+  - `GET /api/generate-image` now returns `405` with `Allow: POST`.
+  - Added strict origin requirement (missing origin rejected).
+  - Added CSRF validation (`x-csrf-token` must match `visibible_csrf` cookie).
+  - Updated client call site (`HeroImage`) to send JSON body + CSRF header.
+  - Added integration coverage for method/origin/CSRF enforcement.
+
+- PR-4 completed: stale reservation reconciliation cron added.
+  - Added `creditLedger` index `by_reason_createdAt` for efficient stale-reservation scans.
+  - Added `internal.sessions.reconcileStaleReservations` batch reconciler.
+  - Added 5-minute cron to auto-release `reservation`-only generations older than 30 minutes.
+  - Reconciler enforces settlement-state checks (`reserved` only) so reruns are safe/idempotent.
+
+- PR-5 completed: Convex trust boundary hardened for sensitive writes.
+  - Added `serverSecret` validation on sensitive public mutations:
+    - `sessions.createSession`, `sessions.updateLastSeen`
+    - `invoices.createInvoice`, `invoices.expireInvoice`
+    - `feedback.submitFeedback`
+    - `modelStats.recordGeneration`
+    - `rateLimit.checkRateLimit`, `rateLimit.recordFailedAdminLogin`, `rateLimit.clearAdminLoginAttempts`
+  - Updated all server route call sites to pass `CONVEX_SERVER_SECRET`.
+  - Removed direct unauthenticated browser write capability for the above paths.
+
 ## Goals
 
 1. Eliminate externally reachable trust-boundary breaks.

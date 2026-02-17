@@ -26,6 +26,13 @@ import {
 import { validateSessionWithIp, getClientIp, hashIp } from "@/lib/session";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
+import { validateCsrfToken, CSRF_COOKIE_NAME } from "@/lib/csrf";
+import {
+  readJsonBodyWithLimit,
+  PayloadTooLargeError,
+  InvalidJsonError,
+  DEFAULT_MAX_BODY_SIZE,
+} from "@/lib/request-body";
 import { api } from "../../../../convex/_generated/api";
 
 // Disable Next.js server-side caching - let browser cache handle it
@@ -45,6 +52,7 @@ const PROMPT_MAX_CHARS = 2800;
 const CONTINUITY_HINT_MAX_CHARS = 160;
 const SCENE_PLANNER_VERSE_MAX_CHARS = 280;
 const DEFAULT_COST_MARKUP_MULTIPLIER = 1.25;
+const MAX_IMAGE_REQUEST_BODY_SIZE = DEFAULT_MAX_BODY_SIZE;
 const COST_EVENT_PERSIST_TIMEOUT_MS = Number.parseInt(
   process.env.COST_EVENT_PERSIST_TIMEOUT_MS || "1500",
   10
@@ -232,10 +240,88 @@ function sanitizeVerseText(text: string): string {
     .slice(0, 1200); // Limit to reasonable verse length
 }
 
-export async function GET(request: Request) {
-  // SECURITY: Validate request origin
-  if (!validateOrigin(request)) {
+type GenerateImageRequestBody = {
+  text?: unknown;
+  theme?: unknown;
+  prevVerse?: unknown;
+  nextVerse?: unknown;
+  reference?: unknown;
+  model?: unknown;
+  generation?: unknown;
+  style?: unknown;
+  aspectRatio?: unknown;
+  resolution?: unknown;
+  translation?: unknown;
+  requestId?: unknown;
+};
+
+function getCookieValue(request: Request, name: string): string | undefined {
+  const cookieHeader = request.headers.get("cookie");
+  if (!cookieHeader) return undefined;
+
+  for (const part of cookieHeader.split(";")) {
+    const [rawKey, ...rawValueParts] = part.trim().split("=");
+    if (rawKey !== name) continue;
+    try {
+      return decodeURIComponent(rawValueParts.join("="));
+    } catch {
+      return undefined;
+    }
+  }
+
+  return undefined;
+}
+
+function toStringParam(value: unknown): string | null {
+  return typeof value === "string" ? value : null;
+}
+
+function toGenerationParam(value: unknown): string | null {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return String(value);
+  }
+  return toStringParam(value);
+}
+
+function toJsonParam(value: unknown): string | null {
+  if (typeof value === "string") return value;
+  if (!value || typeof value !== "object") return null;
+  try {
+    return JSON.stringify(value);
+  } catch {
+    return null;
+  }
+}
+
+export async function GET() {
+  return NextResponse.json(
+    {
+      error: "Method not allowed",
+      message: "Use POST /api/generate-image for generation requests.",
+    },
+    {
+      status: 405,
+      headers: {
+        Allow: "POST",
+      },
+    }
+  );
+}
+
+export async function POST(request: Request) {
+  // SECURITY: Strict origin validation for state-changing route.
+  const origin = request.headers.get("origin");
+  if (!origin || !validateOrigin(request)) {
     return invalidOriginResponse();
+  }
+
+  // SECURITY: Enforce CSRF protection on state-changing route.
+  const csrfCookie = getCookieValue(request, CSRF_COOKIE_NAME);
+  if (!validateCsrfToken(request, csrfCookie)) {
+    return NextResponse.json(
+      { error: "Invalid request", message: "CSRF validation failed" },
+      { status: 403 }
+    );
   }
 
   if (!isImageGenerationEnabled) {
@@ -306,6 +392,7 @@ export async function GET(request: Request) {
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: rateLimitIdentifier,
     endpoint: "generate-image",
+    serverSecret,
   });
 
   if (!rateLimitResult.allowed) {
@@ -324,27 +411,55 @@ export async function GET(request: Request) {
     );
   }
 
-  // Get verse text, theme, model, and context from query params
-  // SECURITY: All user-provided text is sanitized to prevent prompt injection
-  const { searchParams } = new URL(request.url);
-  const verseText = sanitizeVerseText(searchParams.get("text") || DEFAULT_TEXT);
-  const themeParam = searchParams.get("theme");
-  const prevVerseParam = searchParams.get("prevVerse")
-    ? sanitizeVerseText(searchParams.get("prevVerse")!)
-    : null;
-  const nextVerseParam = searchParams.get("nextVerse")
-    ? sanitizeVerseText(searchParams.get("nextVerse")!)
-    : null;
-  const reference = sanitizeReference(
-    searchParams.get("reference") || "Scripture"
-  );
-  const requestedModelId = searchParams.get("model");
-  const generationParam = searchParams.get("generation");
-  const requestedStyleId = searchParams.get("style");
-  const requestedAspectRatio = searchParams.get("aspectRatio");
-  const requestedResolution = searchParams.get("resolution");
-  const translationId = sanitizeTranslationId(searchParams.get("translation"));
-  const clientRequestId = sanitizeRequestId(searchParams.get("requestId")) || crypto.randomUUID();
+  let requestBody: GenerateImageRequestBody;
+  try {
+    const parsed = await readJsonBodyWithLimit<unknown>(
+      request,
+      MAX_IMAGE_REQUEST_BODY_SIZE
+    );
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return NextResponse.json(
+        { error: "Invalid request", message: "Request body must be a JSON object." },
+        { status: 400 }
+      );
+    }
+    requestBody = parsed as GenerateImageRequestBody;
+  } catch (error) {
+    if (error instanceof PayloadTooLargeError) {
+      return NextResponse.json(
+        {
+          error: "Payload too large",
+          message: `Request body exceeds maximum size of ${MAX_IMAGE_REQUEST_BODY_SIZE} bytes.`,
+        },
+        { status: 413 }
+      );
+    }
+    if (error instanceof InvalidJsonError) {
+      return NextResponse.json(
+        { error: "Invalid request", message: "Request body must be valid JSON." },
+        { status: 400 }
+      );
+    }
+    return NextResponse.json(
+      { error: "Invalid request", message: "Failed to read request body." },
+      { status: 400 }
+    );
+  }
+
+  // Get verse text, theme, model, and context from JSON body.
+  // SECURITY: All user-provided text is sanitized to prevent prompt injection.
+  const verseText = sanitizeVerseText(toStringParam(requestBody.text) || DEFAULT_TEXT);
+  const themeParam = toJsonParam(requestBody.theme);
+  const prevVerseParam = toJsonParam(requestBody.prevVerse);
+  const nextVerseParam = toJsonParam(requestBody.nextVerse);
+  const reference = sanitizeReference(toStringParam(requestBody.reference) || "Scripture");
+  const requestedModelId = toStringParam(requestBody.model);
+  const generationParam = toGenerationParam(requestBody.generation);
+  const requestedStyleId = toStringParam(requestBody.style);
+  const requestedAspectRatio = toStringParam(requestBody.aspectRatio);
+  const requestedResolution = toStringParam(requestBody.resolution);
+  const translationId = sanitizeTranslationId(toStringParam(requestBody.translation));
+  const clientRequestId = sanitizeRequestId(toStringParam(requestBody.requestId)) || crypto.randomUUID();
   const verseId = toVerseId(reference);
 
   // Validate and set aspect ratio (default: 16:9)
@@ -757,8 +872,16 @@ export async function GET(request: Request) {
   let nextVerse: { number: number; text: string; reference?: string } | null = null;
 
   try {
-    if (prevVerseParam) prevVerse = JSON.parse(prevVerseParam);
-    if (nextVerseParam) nextVerse = JSON.parse(nextVerseParam);
+    if (prevVerseParam) {
+      const parsed = JSON.parse(prevVerseParam);
+      if (parsed?.text) parsed.text = sanitizeVerseText(parsed.text);
+      prevVerse = parsed;
+    }
+    if (nextVerseParam) {
+      const parsed = JSON.parse(nextVerseParam);
+      if (parsed?.text) parsed.text = sanitizeVerseText(parsed.text);
+      nextVerse = parsed;
+    }
   } catch (e) {
     console.warn("[generate-image] Failed to parse verse context:", {
       prevVerseParam: prevVerseParam?.substring(0, 100),
@@ -1295,6 +1418,7 @@ ${aspectRatioInstruction}`;
         .mutation(api.modelStats.recordGeneration, {
           modelId,
           durationMs: generationDurationMs,
+          serverSecret,
         })
         .catch(() => {});
 

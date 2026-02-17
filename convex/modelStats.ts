@@ -6,6 +6,13 @@ const DEFAULT_ETA_MS = 12000;
 // EMA smoothing factor (0.2 = 20% new value, 80% old)
 const EMA_ALPHA = 0.2;
 
+const validateServerSecret = (serverSecret: string) => {
+  const expectedSecret = process.env.CONVEX_SERVER_SECRET;
+  if (!expectedSecret || serverSecret !== expectedSecret) {
+    throw new Error("Unauthorized: Invalid server secret");
+  }
+};
+
 /**
  * Get stats for a specific model.
  */
@@ -62,8 +69,10 @@ export const recordGeneration = mutation({
   args: {
     modelId: v.string(),
     durationMs: v.number(),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
     const existing = await ctx.db
       .query("modelStats")
       .withIndex("by_modelId", (q) => q.eq("modelId", args.modelId))

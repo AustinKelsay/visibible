@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getSessionDataFromCookies, getClientIp, hashIp } from "@/lib/session";
-import { getConvexClient } from "@/lib/convex-client";
+import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import {
   readJsonBodyWithLimit,
@@ -59,6 +59,17 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
+  let serverSecret: string;
+  try {
+    serverSecret = getConvexServerSecret();
+  } catch {
+    console.error("[Feedback API] CONVEX_SERVER_SECRET not configured");
+    return NextResponse.json(
+      { error: "Service unavailable" },
+      { status: 503 }
+    );
+  }
+
   // Rate limit by IP hash to prevent spam
   const clientIp = getClientIp(request);
   const ipHash = await hashIp(clientIp);
@@ -66,6 +77,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: ipHash,
     endpoint: "feedback",
+    serverSecret,
   });
 
   if (!rateLimitResult.allowed) {
@@ -136,6 +148,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       verseContext: body.verseContext,
       imageContext: body.imageContext,
       userAgent,
+      serverSecret,
     });
 
     return NextResponse.json({ success: true });

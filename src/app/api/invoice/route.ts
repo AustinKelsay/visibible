@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSessionDataFromCookies, getClientIp, hashIp } from "@/lib/session";
-import { getConvexClient } from "@/lib/convex-client";
+import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { getBtcPrice, usdToSats } from "@/lib/btc-price";
 import { createLndInvoice, base64ToHex, isLndConfigured } from "@/lib/lnd";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
@@ -21,6 +21,17 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   const convex = getConvexClient();
   if (!convex) {
+    return NextResponse.json(
+      { error: "Payment system not available" },
+      { status: 503 }
+    );
+  }
+
+  let serverSecret: string;
+  try {
+    serverSecret = getConvexServerSecret();
+  } catch {
+    console.error("[Invoice API] CONVEX_SERVER_SECRET not configured");
     return NextResponse.json(
       { error: "Payment system not available" },
       { status: 503 }
@@ -50,6 +61,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: rateLimitIdentifier,
     endpoint: "invoice",
+    serverSecret,
   });
 
   if (!rateLimitResult.allowed) {
@@ -90,6 +102,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       amountSats,
       bolt11: lndInvoice.payment_request,
       paymentHash,
+      serverSecret,
     });
 
     return NextResponse.json({

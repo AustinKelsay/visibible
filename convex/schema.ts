@@ -236,7 +236,8 @@ export default defineSchema({
     createdAt: v.number(),
   })
     .index("by_sid", ["sid", "createdAt"])
-    .index("by_generationId", ["generationId", "sid"]),
+    .index("by_generationId", ["generationId", "sid"])
+    .index("by_reason_createdAt", ["reason", "createdAt"]),
 
   // Model generation statistics for ETA estimation
   modelStats: defineTable({

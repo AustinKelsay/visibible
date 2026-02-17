@@ -27,8 +27,10 @@ export const createInvoice = mutation({
     amountSats: v.number(),
     bolt11: v.string(),
     paymentHash: v.string(),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
     // Verify session exists
     const session = await ctx.db
       .query("sessions")
@@ -229,8 +231,10 @@ export const confirmPayment = action({
 export const expireInvoice = mutation({
   args: {
     invoiceId: v.string(),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
     const invoice = await ctx.db
       .query("invoices")
       .withIndex("by_invoiceId", (q) => q.eq("invoiceId", args.invoiceId))

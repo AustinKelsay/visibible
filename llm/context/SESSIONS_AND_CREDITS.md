@@ -57,6 +57,7 @@ These limitations are explicitly shown in the buy-credits modal (which includes 
   - `reserved -> released` or `reserved -> charged`
   - Released generations cannot be re-charged
   - Charged/released generations cannot be reserved again
+- Stale reservation-only generations are reconciled by cron every 5 minutes to auto-release stranded credits (30-minute age threshold).
 - Models without valid pricing are rejected (cannot use unpriced models).
 
 ### Chat Credits

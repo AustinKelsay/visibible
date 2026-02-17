@@ -17,6 +17,13 @@ export const RATE_LIMITS = {
 
 export type RateLimitEndpoint = keyof typeof RATE_LIMITS;
 
+const validateServerSecret = (serverSecret: string) => {
+  const expectedSecret = process.env.CONVEX_SERVER_SECRET;
+  if (!expectedSecret || serverSecret !== expectedSecret) {
+    throw new Error("Unauthorized: Invalid server secret");
+  }
+};
+
 /**
  * Check and increment rate limit for an identifier/endpoint pair.
  * Returns whether the request is allowed and retry-after info if blocked.
@@ -28,12 +35,14 @@ export const checkRateLimit = mutation({
   args: {
     identifier: v.string(),
     endpoint: v.string(),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args): Promise<{
     allowed: boolean;
     retryAfter?: number;
     remaining?: number;
   }> => {
+    validateServerSecret(args.serverSecret);
     const config = RATE_LIMITS[args.endpoint as RateLimitEndpoint];
     if (!config) {
       // Unknown endpoint - allow but don't track
@@ -216,6 +225,7 @@ export const checkAdminLoginAllowed = query({
 export const recordFailedAdminLogin = mutation({
   args: {
     ipHash: v.string(),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args): Promise<{
     locked: boolean;
@@ -223,6 +233,7 @@ export const recordFailedAdminLogin = mutation({
     attemptsRemaining: number;
     lockoutCount?: number;
   }> => {
+    validateServerSecret(args.serverSecret);
     const now = Date.now();
 
     const record = await ctx.db
@@ -295,8 +306,10 @@ export const recordFailedAdminLogin = mutation({
 export const clearAdminLoginAttempts = mutation({
   args: {
     ipHash: v.string(),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args): Promise<void> => {
+    validateServerSecret(args.serverSecret);
     const record = await ctx.db
       .query("adminLoginAttempts")
       .withIndex("by_ipHash", (q) => q.eq("ipHash", args.ipHash))
