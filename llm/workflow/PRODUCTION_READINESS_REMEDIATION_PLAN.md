@@ -91,7 +91,25 @@ Primary risk themes: security boundaries, credit-accounting integrity
   - Added integration regression coverage for timeout-triggered reservation cleanup:
     - `src/app/api/__tests__/generate-image/credit-flow.test.ts`
 
-- Remaining active scope: PR-9 through PR-12 remain the current production-readiness backlog (some partially complete).
+- PR-9 completed: cleanup throughput/frequency scaling for high-churn tables.
+  - Replaced fixed `take(100)` cleanup batches with cursor-paginated loops (`250/page`, up to 20 pages/run).
+  - Added indexed cleanup paths:
+    - `rateLimits.by_windowStart`
+    - `adminLoginAttempts.by_lastAttempt`
+  - Increased cleanup cron frequency:
+    - `cleanup expired sessions`: every 15 minutes
+    - `cleanup stale rate limits`: every 10 minutes
+    - `cleanup admin login attempts`: hourly
+
+- PR-10 completed: security header hardening baseline in Next.js headers config.
+  - Added HSTS in production (`Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`).
+  - Tightened CSP baseline:
+    - `unsafe-eval` is now development-only
+    - added `object-src 'none'`
+    - added `frame-src 'none'`
+    - added `upgrade-insecure-requests` in production
+
+- Remaining active scope: PR-11 through PR-12 remain the current production-readiness backlog (some partially complete).
 
 ## Goals
 
@@ -232,7 +250,7 @@ Acceptance criteria:
 
 ## Phase 3: Scalability, Hardening, and Operational Readiness
 
-### PR-9: Cleanup Throughput and Frequency Scaling (High #7)
+### PR-9: Cleanup Throughput and Frequency Scaling (High #7) [Completed 2026-02-18]
 
 Scope:
 - Replace fixed 100-row deletes with paginated loops.
@@ -244,7 +262,7 @@ Acceptance criteria:
 
 ---
 
-### PR-10: Security Header Hardening (Medium #10)
+### PR-10: Security Header Hardening (Medium #10) [Completed 2026-02-18]
 
 Scope:
 - Add HSTS header.

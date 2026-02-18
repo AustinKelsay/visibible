@@ -254,7 +254,9 @@ export default defineSchema({
     endpoint: v.string(), // API endpoint name (e.g., "chat", "generate-image")
     count: v.number(), // Number of requests in current window
     windowStart: v.number(), // Start of current time window (ms timestamp)
-  }).index("by_identifier_endpoint", ["identifier", "endpoint"]),
+  })
+    .index("by_identifier_endpoint", ["identifier", "endpoint"])
+    .index("by_windowStart", ["windowStart"]),
 
   // Admin login attempt tracking for brute force protection
   adminLoginAttempts: defineTable({
@@ -263,7 +265,9 @@ export default defineSchema({
     lastAttempt: v.number(),
     lockedUntil: v.optional(v.number()), // If set, account is locked until this timestamp
     lockoutCount: v.optional(v.number()), // Number of times locked out (for exponential backoff)
-  }).index("by_ipHash", ["ipHash"]),
+  })
+    .index("by_ipHash", ["ipHash"])
+    .index("by_lastAttempt", ["lastAttempt"]),
 
   // User feedback submissions
   feedback: defineTable({

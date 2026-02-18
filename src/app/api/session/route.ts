@@ -187,6 +187,18 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
         credits: existingSession.credits,
       });
 
+      // SECURITY: Refresh session token if needed (idle timeout renewal)
+      if (existingValidation.refreshedToken) {
+        const cookieOptions = getSessionCookieOptions(existingValidation.refreshedToken);
+        response.cookies.set(cookieOptions.name, cookieOptions.value, {
+          httpOnly: cookieOptions.httpOnly,
+          secure: cookieOptions.secure,
+          sameSite: cookieOptions.sameSite,
+          path: cookieOptions.path,
+          maxAge: cookieOptions.maxAge,
+        });
+      }
+
       // Existing sessions also need a CSRF cookie for admin-login.
       setCsrfCookie(response);
 

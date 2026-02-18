@@ -1,5 +1,8 @@
 import { internalMutation } from "./_generated/server";
 
+const CLEANUP_PAGE_SIZE = 250;
+const CLEANUP_MAX_PAGES_PER_RUN = 20;
+
 /**
  * Delete sessions past their expiresAt timestamp.
  * Called by cron job to clean up abandoned sessions.
@@ -8,19 +11,33 @@ export const cleanupExpiredSessions = internalMutation({
   args: {},
   handler: async (ctx) => {
     const now = Date.now();
+    let deleted = 0;
+    let pagesScanned = 0;
+    let cursor: string | null = null;
+    let hasMore = false;
 
-    // Query sessions with expired timestamps (batch limit to avoid timeout)
-    const expired = await ctx.db
-      .query("sessions")
-      .withIndex("by_expiresAt")
-      .filter((q) => q.lt(q.field("expiresAt"), now))
-      .take(100);
+    while (pagesScanned < CLEANUP_MAX_PAGES_PER_RUN) {
+      const page = await ctx.db
+        .query("sessions")
+        .withIndex("by_expiresAt", (q) => q.lt("expiresAt", now))
+        .paginate({ cursor, numItems: CLEANUP_PAGE_SIZE });
 
-    for (const session of expired) {
-      await ctx.db.delete(session._id);
+      for (const session of page.page) {
+        await ctx.db.delete(session._id);
+        deleted += 1;
+      }
+
+      pagesScanned += 1;
+      hasMore = !page.isDone;
+
+      if (page.isDone) {
+        break;
+      }
+
+      cursor = page.continueCursor;
     }
 
-    return { deleted: expired.length };
+    return { deleted, pagesScanned, hasMore };
   },
 });
 
@@ -32,18 +49,33 @@ export const cleanupStaleRateLimits = internalMutation({
   args: {},
   handler: async (ctx) => {
     const cutoff = Date.now() - 60 * 60 * 1000; // 1 hour ago
+    let deleted = 0;
+    let pagesScanned = 0;
+    let cursor: string | null = null;
+    let hasMore = false;
 
-    // No index on windowStart, so we need to scan and filter
-    const stale = await ctx.db
-      .query("rateLimits")
-      .filter((q) => q.lt(q.field("windowStart"), cutoff))
-      .take(100);
+    while (pagesScanned < CLEANUP_MAX_PAGES_PER_RUN) {
+      const page = await ctx.db
+        .query("rateLimits")
+        .withIndex("by_windowStart", (q) => q.lt("windowStart", cutoff))
+        .paginate({ cursor, numItems: CLEANUP_PAGE_SIZE });
 
-    for (const record of stale) {
-      await ctx.db.delete(record._id);
+      for (const record of page.page) {
+        await ctx.db.delete(record._id);
+        deleted += 1;
+      }
+
+      pagesScanned += 1;
+      hasMore = !page.isDone;
+
+      if (page.isDone || page.page.length === 0) {
+        break;
+      }
+
+      cursor = page.continueCursor;
     }
 
-    return { deleted: stale.length };
+    return { deleted, pagesScanned, hasMore };
   },
 });
 
@@ -56,17 +88,32 @@ export const cleanupAdminLoginAttempts = internalMutation({
   args: {},
   handler: async (ctx) => {
     const cutoff = Date.now() - 24 * 60 * 60 * 1000; // 24 hours ago
+    let deleted = 0;
+    let pagesScanned = 0;
+    let cursor: string | null = null;
+    let hasMore = false;
 
-    // Delete attempts where lastAttempt is older than cutoff
-    const stale = await ctx.db
-      .query("adminLoginAttempts")
-      .filter((q) => q.lt(q.field("lastAttempt"), cutoff))
-      .take(100);
+    while (pagesScanned < CLEANUP_MAX_PAGES_PER_RUN) {
+      const page = await ctx.db
+        .query("adminLoginAttempts")
+        .withIndex("by_lastAttempt", (q) => q.lt("lastAttempt", cutoff))
+        .paginate({ cursor, numItems: CLEANUP_PAGE_SIZE });
 
-    for (const record of stale) {
-      await ctx.db.delete(record._id);
+      for (const record of page.page) {
+        await ctx.db.delete(record._id);
+        deleted += 1;
+      }
+
+      pagesScanned += 1;
+      hasMore = !page.isDone;
+
+      if (page.isDone || page.page.length === 0) {
+        break;
+      }
+
+      cursor = page.continueCursor;
     }
 
-    return { deleted: stale.length };
+    return { deleted, pagesScanned, hasMore };
   },
 });

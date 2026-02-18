@@ -16,6 +16,7 @@ The security architecture provides multiple layers of protection:
 6. **Cost Protection** - Input validation, spending limits, and per-request caps
 7. **Admin Audit Logging** - Tracks admin usage for security monitoring
 8. **Environment Validation** - Startup checks for security configuration
+9. **Security Headers** - CSP/HSTS and browser hardening headers
 
 ---
 
@@ -28,6 +29,7 @@ The security architecture provides multiple layers of protection:
 | `src/lib/session.ts` | JWT session management with IP binding |
 | `src/lib/validate-env.ts` | Security environment validation |
 | `src/lib/request-body.ts` | Secure body reading with streaming size limits |
+| `next.config.ts` | Security headers (CSP, HSTS, anti-clickjacking, etc.) |
 | `src/app/api/admin-login/route.ts` | Admin auth with origin + CSRF + lockout protections |
 | `src/app/api/chat/route.ts` | Chat endpoint security checks |
 | `src/app/api/generate-image/route.ts` | Image endpoint security checks |
@@ -35,6 +37,25 @@ The security architecture provides multiple layers of protection:
 | `convex/rateLimit.ts` | Rate limiting and brute force protection |
 | `convex/sessions.ts` | Credit management, daily limits, admin audit logging |
 | `convex/verseImages.ts` | Server-authenticated image persistence boundary |
+
+---
+
+## Security Headers
+
+**File:** `next.config.ts`
+
+The app applies a hardened header baseline on all routes:
+
+- `X-Frame-Options: DENY`
+- `X-Content-Type-Options: nosniff`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `Permissions-Policy: camera=(), microphone=(), geolocation=()`
+- `Content-Security-Policy` with:
+  - `unsafe-eval` allowed only in development
+  - `object-src 'none'` and `frame-src 'none'`
+  - `upgrade-insecure-requests` in production
+- `Strict-Transport-Security` in production:
+  - `max-age=31536000; includeSubDomains; preload`
 
 ---
 

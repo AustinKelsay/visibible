@@ -555,6 +555,7 @@ describe("Image Generation API Credit Flow", () => {
         await new Promise((_, reject) => {
           const signal = init?.signal;
           if (!signal) {
+            reject(new DOMException("No signal provided", "AbortError"));
             return;
           }
           if (signal.aborted) {

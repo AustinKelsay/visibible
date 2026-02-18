@@ -422,7 +422,8 @@ The following cleanup function maintains the `rateLimits` table:
 #### `cleanupStaleRateLimits`
 - **Purpose:** Delete rate limit records with expired windows (older than 1 hour)
 - **Retention:** 1 hour after window expiration
-- **Batch Limit:** 100 records per run
+- **Throughput:** Cursor-paginated cleanup (`250/page`, up to `20` pages per run)
+- **Index:** Uses `rateLimits.by_windowStart` for efficient stale scans
 - **Called By:** Cron job (see below)
 
 **Implementation:**
@@ -430,21 +431,21 @@ The following cleanup function maintains the `rateLimits` table:
 export const cleanupStaleRateLimits = internalMutation({
   handler: async (ctx) => {
     const cutoff = Date.now() - 60 * 60 * 1000; // 1 hour ago
-    const stale = await ctx.db
+    const page = await ctx.db
       .query("rateLimits")
-      .filter((q) => q.lt(q.field("windowStart"), cutoff))
-      .take(100);
+      .withIndex("by_windowStart", (q) => q.lt("windowStart", cutoff))
+      .paginate({ cursor, numItems: 250 });
     
-    for (const record of stale) {
+    for (const record of page.page) {
       await ctx.db.delete(record._id);
     }
     
-    return { deleted: stale.length };
+    return { deleted };
   },
 });
 ```
 
-**Note:** Also cleans up `adminLoginAttempts` records older than 24 hours via `cleanupAdminLoginAttempts`.
+**Note:** `cleanupAdminLoginAttempts` similarly uses `adminLoginAttempts.by_lastAttempt` with paginated cleanup loops.
 
 ### Cron Schedule
 
@@ -454,22 +455,22 @@ Rate limit cleanup runs automatically via scheduled cron jobs:
 
 | Job | Schedule | Function | Purpose |
 |-----|----------|----------|---------|
-| cleanup stale rate limits | 3:15 AM UTC daily | `cleanupStaleRateLimits` | Remove expired rate limit records |
-| cleanup admin login attempts | 3:30 AM UTC daily | `cleanupAdminLoginAttempts` | Remove old admin login attempt records |
+| cleanup stale rate limits | every 10 minutes | `cleanupStaleRateLimits` | Remove expired rate limit records |
+| cleanup admin login attempts | hourly | `cleanupAdminLoginAttempts` | Remove old admin login attempt records |
 
 **Cron Configuration:**
 ```typescript
-// Clean up stale rate limit records daily at 3:15 AM UTC
-crons.daily(
+// Clean up stale rate-limit records frequently for high-churn protection.
+crons.interval(
   "cleanup stale rate limits",
-  { hourUTC: 3, minuteUTC: 15 },
+  { minutes: 10 },
   internal.cleanup.cleanupStaleRateLimits
 );
 
-// Clean up admin login attempts daily at 3:30 AM UTC
-crons.daily(
+// Clean up old admin login attempts hourly.
+crons.interval(
   "cleanup admin login attempts",
-  { hourUTC: 3, minuteUTC: 30 },
+  { hours: 1 },
   internal.cleanup.cleanupAdminLoginAttempts
 );
 ```
@@ -480,7 +481,7 @@ The rate limiting system fits into the broader Convex workflow:
 
 1. **API Routes** → Call `checkRateLimit` before processing requests
 2. **Rate Limit Records** → Stored in `rateLimits` table with sliding window tracking
-3. **Cron Jobs** → Clean up stale records daily to prevent table growth
+3. **Cron Jobs** → Clean up stale records frequently to prevent table growth
 4. **Cleanup Functions** → Internal mutations that delete expired records
 
 **Data Flow:**
