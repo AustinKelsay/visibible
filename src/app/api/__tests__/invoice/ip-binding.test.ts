@@ -204,6 +204,99 @@ describe("Invoice IP Binding", () => {
     );
   });
 
+  it("confirms invoice payment when settled for an IP-bound session", async () => {
+    mockSessionValidation.value = {
+      valid: true,
+      sid: "invoice-session",
+      currentIpHash: "bound-ip-hash",
+    };
+    const now = Date.now();
+    const { lookupLndInvoice } = await import("@/lib/lnd");
+    vi.mocked(lookupLndInvoice).mockResolvedValueOnce({
+      memo: "Visibible: settled-invoice",
+      r_preimage: "",
+      r_hash: "hash-base64",
+      value: "3000",
+      value_msat: "3000000",
+      settled: true,
+      creation_date: String(Math.floor(now / 1000) - 60),
+      settle_date: String(Math.floor(now / 1000)),
+      payment_request: "lnbc1test",
+      expiry: "900",
+      state: "SETTLED",
+      amt_paid_sat: "3000",
+      amt_paid_msat: "3000000",
+    });
+
+    mockConvex.query.mockImplementation(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if (args.invoiceId === "settled-invoice") {
+        return {
+          invoiceId: "settled-invoice",
+          sid: "invoice-session",
+          status: "pending",
+          amountUsd: 3,
+          amountSats: 3000,
+          bolt11: "lnbc1test",
+          expiresAt: now + 60_000,
+          paidAt: undefined,
+          paymentHash: "hex-payment-hash",
+        };
+      }
+      return null;
+    });
+
+    mockConvex.action.mockImplementation(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if ("invoiceId" in args && "paymentHash" in args) {
+        return {
+          success: true,
+          alreadyPaid: false,
+          newBalance: 500,
+          creditsAdded: 300,
+        };
+      }
+      return { success: true };
+    });
+
+    const { POST } = await import("../../invoice/[id]/route");
+
+    const response = await POST(
+      new Request("http://localhost:3000/api/invoice/settled-invoice", {
+        method: "POST",
+        headers: {
+          origin: "http://localhost:3000",
+        },
+      }),
+      {
+        params: Promise.resolve({ id: "settled-invoice" }),
+      }
+    );
+
+    expect(response.status).toBe(200);
+    const body = await response.json();
+    expect(body).toEqual(
+      expect.objectContaining({
+        success: true,
+        alreadyPaid: false,
+        newBalance: 500,
+        creditsAdded: 300,
+      })
+    );
+    expect(mockConvex.mutation).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        identifier: "bound-ip-hash:invoice-session",
+        endpoint: "invoice-status",
+      })
+    );
+    expect(mockConvex.action).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        invoiceId: "settled-invoice",
+        paymentHash: "hex-payment-hash",
+      })
+    );
+  });
+
   it("uses validateSessionWithIp sid + ip hash for invoice status polling rate limiting", async () => {
     mockSessionValidation.value = {
       valid: true,

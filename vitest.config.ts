@@ -11,6 +11,16 @@ export default defineConfig({
     environment: "node",
     include: ["**/*.test.ts", "**/*.test.tsx"],
     exclude: ["node_modules", ".next", "dist"],
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "json-summary", "lcov"],
+      thresholds: {
+        statements: 55,
+        branches: 45,
+        functions: 50,
+        lines: 55,
+      },
+    },
   },
   resolve: {
     alias: {
@@ -18,4 +28,3 @@ export default defineConfig({
     },
   },
 });
-

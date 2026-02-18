@@ -109,7 +109,14 @@ Primary risk themes: security boundaries, credit-accounting integrity
     - added `frame-src 'none'`
     - added `upgrade-insecure-requests` in production
 
-- Remaining active scope: PR-11 through PR-12 remain the current production-readiness backlog (some partially complete).
+- PR-11 completed: CI production gates + coverage threshold enforcement.
+  - CI now runs `npm run test:coverage` with enforced global thresholds from `vitest.config.ts`:
+    - statements `>=55`, branches `>=45`, functions `>=50`, lines `>=55`
+  - CI now runs `npm run build` as a production gate.
+  - Added targeted invoice payment integration coverage for settled-confirm path:
+    - `src/app/api/__tests__/invoice/ip-binding.test.ts`
+
+- Remaining active scope: PR-12 remains the current production-readiness backlog.
 
 ## Goals
 
@@ -273,7 +280,7 @@ Acceptance criteria:
 
 ---
 
-### PR-11: CI Production Gates + Coverage Thresholds (Medium #11)
+### PR-11: CI Production Gates + Coverage Thresholds (Medium #11) [Completed 2026-02-18]
 
 Scope:
 - Add `next build` to CI.
