@@ -10,7 +10,7 @@ Visibible provides three primary ways to navigate the Bible:
 2. **Arrow navigation** — Prev/next buttons that cross chapter and book boundaries.
 3. **Book menu** — BookOpen icon menu with collapsible book/chapter picker.
 
-On mobile, navigation controls are also exposed through a bottom sheet (`ImageControlsSheet`) and a header settings dropdown.
+On mobile, navigation controls are also exposed through the fullscreen mode provided by `NavigationContext` (`isFullscreen`) and a header settings dropdown.
 
 ## URL Structure
 

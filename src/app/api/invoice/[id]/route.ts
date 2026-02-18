@@ -47,7 +47,6 @@ async function enforceInvoiceStatusRateLimit(args: {
   logWarn("api.rate_limited", {
     route: args.route,
     requestId: args.requestId,
-    sid: args.sid,
     retryAfter: rateLimitResult.retryAfter,
   });
 
