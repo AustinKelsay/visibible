@@ -49,6 +49,7 @@ describe("Invoice IP Binding", () => {
   const originalEnv = { ...process.env };
 
   beforeEach(() => {
+    vi.resetModules();
     vi.clearAllMocks();
     process.env = { ...originalEnv };
     mockSessionValidation.value = { valid: false };
@@ -144,5 +145,58 @@ describe("Invoice IP Binding", () => {
     expect(body.error).toBe("Session required");
     expect(mockConvex.query).not.toHaveBeenCalled();
   });
-});
 
+  it("returns invoice status when session is valid and invoice belongs to session", async () => {
+    mockSessionValidation.value = { valid: true, sid: "invoice-session" };
+    const paidAt = Date.now();
+    const expiresAt = paidAt + 3600_000;
+
+    mockConvex.query.mockImplementation(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if (args.invoiceId === "test-invoice") {
+        return {
+          invoiceId: "test-invoice",
+          sid: "invoice-session",
+          status: "paid",
+          amountUsd: 3,
+          amountSats: 3000,
+          bolt11: "lnbc1test",
+          expiresAt,
+          paidAt,
+        };
+      }
+      return null;
+    });
+
+    const { GET } = await import("../../invoice/[id]/route");
+
+    const response = await GET(
+      new Request("http://localhost:3000/api/invoice/test-invoice", {
+        method: "GET",
+        headers: {
+          origin: "http://localhost:3000",
+        },
+      }),
+      {
+        params: Promise.resolve({ id: "test-invoice" }),
+      }
+    );
+
+    expect(response.status).toBe(200);
+    const body = await response.json();
+    expect(body).toEqual(
+      expect.objectContaining({
+        invoiceId: "test-invoice",
+        status: "paid",
+        amountUsd: 3,
+        amountSats: 3000,
+        bolt11: "lnbc1test",
+        expiresAt,
+        paidAt,
+      })
+    );
+    expect(mockConvex.query).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ invoiceId: "test-invoice" })
+    );
+  });
+});

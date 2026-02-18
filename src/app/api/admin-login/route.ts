@@ -56,15 +56,9 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   const sessionValidation = await validateSessionWithIp(request);
-  if (!sessionValidation.sid) {
+  if (!sessionValidation.sid || !sessionValidation.currentIpHash) {
     return NextResponse.json(
       { error: "Session required" },
-      { status: 401 }
-    );
-  }
-  if (!sessionValidation.valid) {
-    return NextResponse.json(
-      { error: "Session invalid" },
       { status: 401 }
     );
   }
@@ -72,12 +66,6 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   // SECURITY: Get IP hash for brute force protection
   const ipHash = sessionValidation.currentIpHash;
-  if (!ipHash) {
-    return NextResponse.json(
-      { error: "Session invalid" },
-      { status: 401 }
-    );
-  }
 
   // SECURITY: Check if IP is locked out due to too many failed attempts
   const loginAllowedResult = await convex.query(api.rateLimit.checkAdminLoginAllowed, {

@@ -43,11 +43,8 @@ export async function GET(
   }
 
   const sessionValidation = await validateSessionWithIp(request);
-  if (!sessionValidation.sid) {
-    return NextResponse.json({ error: "Session required" }, { status: 401 });
-  }
   if (!sessionValidation.valid) {
-    return NextResponse.json({ error: "Session invalid" }, { status: 401 });
+    return NextResponse.json({ error: "Session required" }, { status: 401 });
   }
   const sid = sessionValidation.sid;
 
@@ -150,11 +147,8 @@ export async function POST(
   }
 
   const sessionValidation = await validateSessionWithIp(request);
-  if (!sessionValidation.sid) {
-    return NextResponse.json({ error: "Session required" }, { status: 401 });
-  }
   if (!sessionValidation.valid) {
-    return NextResponse.json({ error: "Session invalid" }, { status: 401 });
+    return NextResponse.json({ error: "Session required" }, { status: 401 });
   }
   const sid = sessionValidation.sid;
 

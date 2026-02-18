@@ -46,15 +46,9 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   const sessionValidation = await validateSessionWithIp(request);
-  if (!sessionValidation.sid) {
+  if (!sessionValidation.valid || !sessionValidation.sid || !sessionValidation.currentIpHash) {
     return NextResponse.json(
       { error: "Session required" },
-      { status: 401 }
-    );
-  }
-  if (!sessionValidation.valid || !sessionValidation.currentIpHash) {
-    return NextResponse.json(
-      { error: "Session invalid" },
       { status: 401 }
     );
   }
