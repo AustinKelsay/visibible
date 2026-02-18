@@ -30,6 +30,9 @@ Notes:
 
 - Logs are emitted as single-line JSON for machine parsing in log pipelines.
 - Metrics are in-process counters exposed through `/api/metrics`.
+- `/api/metrics` is access-controlled:
+  - Bearer token via `METRICS_TOKEN`
+  - optional IP allowlist via `METRICS_IP_ALLOWLIST` (`x-forwarded-for`/`x-real-ip`)
 - Request IDs are sanitized from `x-request-id` when available, otherwise generated server-side.
 
 ## Structured Events
@@ -87,6 +90,9 @@ Critical routes instrumented with structured events:
   - returns `200` when critical checks pass, otherwise `503`
 - `GET /api/metrics`
   - machine-parseable counter snapshot
+  - requires token/IP authorization
+  - returns `403` for unauthorized requests
+  - returns `503` when no metrics auth policy is configured
   - payload includes:
     - `generatedAt`
     - `uptimeMs`

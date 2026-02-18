@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { validateSessionWithIp, getClientIp, hashIp } from "@/lib/session";
+import {
+  validateSessionWithIp,
+  withSessionRefreshCookie,
+  getClientIp,
+  hashIp,
+} from "@/lib/session";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import {
@@ -141,6 +146,8 @@ export async function POST(request: Request): Promise<NextResponse> {
     sessionValidation.valid && sessionValidation.sid
       ? sessionValidation.sid
       : null;
+  const withSessionRefresh = (response: Response) =>
+    withSessionRefreshCookie(response, sessionValidation.refreshedToken) as NextResponse;
 
   // Get user agent
   const userAgent = request.headers.get("user-agent") ?? undefined;
@@ -155,15 +162,15 @@ export async function POST(request: Request): Promise<NextResponse> {
       serverSecret,
     });
 
-    return NextResponse.json({ success: true });
+    return withSessionRefresh(NextResponse.json({ success: true }));
   } catch (error) {
     console.error("Feedback submission error:", error);
-    return NextResponse.json(
+    return withSessionRefresh(NextResponse.json(
       {
         error:
           error instanceof Error ? error.message : "Failed to submit feedback",
       },
       { status: 400 }
-    );
+    ));
   }
 }

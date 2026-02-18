@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { validateSessionWithIp } from "@/lib/session";
+import { validateSessionWithIp, withSessionRefreshCookie } from "@/lib/session";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { validateCsrfToken, CSRF_COOKIE_NAME } from "@/lib/csrf";
@@ -63,6 +63,8 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
   const sid = sessionValidation.sid;
+  const withSessionRefresh = (response: Response) =>
+    withSessionRefreshCookie(response, sessionValidation.refreshedToken) as NextResponse;
 
   // SECURITY: Get IP hash for brute force protection
   const ipHash = sessionValidation.currentIpHash;
@@ -76,7 +78,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     const retryAfter = loginAllowedResult.lockedUntil
       ? Math.ceil((loginAllowedResult.lockedUntil - Date.now()) / 1000)
       : 3600;
-    return NextResponse.json(
+    return withSessionRefresh(NextResponse.json(
       {
         error: "Too many failed attempts",
         message: "Account temporarily locked. Please try again later.",
@@ -88,7 +90,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           "Retry-After": String(retryAfter),
         },
       }
-    );
+    ));
   }
 
   try {
@@ -96,10 +98,10 @@ export async function POST(request: Request): Promise<NextResponse> {
     const { password } = body;
 
     if (!password || typeof password !== "string") {
-      return NextResponse.json(
+      return withSessionRefresh(NextResponse.json(
         { error: "Password required" },
         { status: 400 }
-      );
+      ));
     }
 
     const adminPassword = process.env.ADMIN_PASSWORD;
@@ -111,10 +113,10 @@ export async function POST(request: Request): Promise<NextResponse> {
         ipHash,
         serverSecret: rateLimitServerSecret,
       });
-      return NextResponse.json(
+      return withSessionRefresh(NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
-      );
+      ));
     }
 
     const adminPasswordSecret = getAdminPasswordSecret();
@@ -124,10 +126,10 @@ export async function POST(request: Request): Promise<NextResponse> {
         ipHash,
         serverSecret: rateLimitServerSecret,
       });
-      return NextResponse.json(
+      return withSessionRefresh(NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
-      );
+      ));
     }
 
     // Use timing-safe comparison to prevent timing attacks
@@ -146,18 +148,18 @@ export async function POST(request: Request): Promise<NextResponse> {
         serverSecret: rateLimitServerSecret,
       });
       if (failResult.locked) {
-        return NextResponse.json(
+        return withSessionRefresh(NextResponse.json(
           {
             error: "Too many failed attempts",
             message: "Account temporarily locked. Please try again later.",
           },
           { status: 429 }
-        );
+        ));
       }
-      return NextResponse.json(
+      return withSessionRefresh(NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
-      );
+      ));
     }
 
     if (!timingSafeEqual(providedPasswordDigest, storedPasswordDigest)) {
@@ -167,18 +169,18 @@ export async function POST(request: Request): Promise<NextResponse> {
         serverSecret: rateLimitServerSecret,
       });
       if (failResult.locked) {
-        return NextResponse.json(
+        return withSessionRefresh(NextResponse.json(
           {
             error: "Too many failed attempts",
             message: "Account temporarily locked. Please try again later.",
           },
           { status: 429 }
-        );
+        ));
       }
-      return NextResponse.json(
+      return withSessionRefresh(NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
-      );
+      ));
     }
 
     // SECURITY: Clear failed attempts on successful login
@@ -193,12 +195,12 @@ export async function POST(request: Request): Promise<NextResponse> {
       serverSecret: adminPasswordSecret,
     });
 
-    return NextResponse.json({ success: true });
+    return withSessionRefresh(NextResponse.json({ success: true }));
   } catch (error) {
     console.error("Admin login error:", error);
-    return NextResponse.json(
+    return withSessionRefresh(NextResponse.json(
       { error: "Failed to authenticate" },
       { status: 500 }
-    );
+    ));
   }
 }

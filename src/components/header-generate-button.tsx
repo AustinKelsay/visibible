@@ -51,7 +51,7 @@ export function HeaderGenerateButton() {
 
   // Lazy-fetch models when modal opens
   useEffect(() => {
-    if (isModalOpen && !hasFetchedModels.current && models.length === 0) {
+    if (isModalOpen && !hasFetchedModels.current && !modelsError) {
       hasFetchedModels.current = true;
 
       queueMicrotask(() => {
@@ -77,7 +77,7 @@ export function HeaderGenerateButton() {
           .finally(() => setModelsLoading(false));
       });
     }
-  }, [isModalOpen, models.length]);
+  }, [isModalOpen, modelsError]);
 
   // Group models by provider
   const groupedModels: Record<string, ImageModel[]> = models.reduce((acc, model) => {

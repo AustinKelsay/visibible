@@ -24,7 +24,12 @@ import {
   getChatModelPricing,
   isModelFree,
 } from "@/lib/chat-models";
-import { validateSessionWithIp, getClientIp, hashIp } from "@/lib/session";
+import {
+  validateSessionWithIp,
+  withSessionRefreshCookie,
+  getClientIp,
+  hashIp,
+} from "@/lib/session";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { validateCsrfToken, CSRF_COOKIE_NAME } from "@/lib/csrf";
@@ -413,6 +418,10 @@ export async function POST(request: Request) {
     );
   }
   const sid = sessionValidation.sid;
+  const withSessionRefresh = (response: Response) =>
+    withSessionRefreshCookie(response, sessionValidation.refreshedToken) as NextResponse;
+  const jsonWithSessionRefresh = (...args: Parameters<typeof NextResponse.json>) =>
+    withSessionRefresh(NextResponse.json(...args));
 
   // SECURITY: Rate limiting - use IP hash as primary identifier to prevent multi-session bypass
   // Combined with sid for granular tracking per IP+session pair
@@ -437,7 +446,7 @@ export async function POST(request: Request) {
       sid,
       retryAfter: rateLimitResult.retryAfter,
     });
-    return NextResponse.json(
+    return jsonWithSessionRefresh(
       {
         error: "Rate limit exceeded",
         message: "Too many image generation requests. Please wait before generating more.",
@@ -461,7 +470,7 @@ export async function POST(request: Request) {
     const parseResult = generateImageSchema.safeParse(parsed);
     if (!parseResult.success) {
       const firstIssue = parseResult.error.issues[0];
-      return NextResponse.json(
+      return jsonWithSessionRefresh(
         {
           error: "Invalid request",
           message: firstIssue?.message || "Invalid request body.",
@@ -472,7 +481,7 @@ export async function POST(request: Request) {
     requestBody = parseResult.data;
   } catch (error) {
     if (error instanceof PayloadTooLargeError) {
-      return NextResponse.json(
+      return jsonWithSessionRefresh(
         {
           error: "Payload too large",
           message: `Request body exceeds maximum size of ${MAX_IMAGE_REQUEST_BODY_SIZE} bytes.`,
@@ -481,12 +490,12 @@ export async function POST(request: Request) {
       );
     }
     if (error instanceof InvalidJsonError) {
-      return NextResponse.json(
+      return jsonWithSessionRefresh(
         { error: "Invalid request", message: "Request body must be valid JSON." },
         { status: 400 }
       );
     }
-    return NextResponse.json(
+    return jsonWithSessionRefresh(
       { error: "Invalid request", message: "Failed to read request body." },
       { status: 400 }
     );
@@ -619,7 +628,7 @@ export async function POST(request: Request) {
   const styleProfile = requestedStyleProfile || STYLE_PROFILES[DEFAULT_STYLE_PROFILE];
 
   if (requestedStyleId && !requestedStyleProfile) {
-    return NextResponse.json(
+    return jsonWithSessionRefresh(
       {
         error: "Style profile not available",
         message: `The style "${requestedStyleId}" is not available. Please select a different style.`,
@@ -636,7 +645,7 @@ export async function POST(request: Request) {
       (model) => model.id === requestedModelId
     );
     if (!foundModel) {
-      return NextResponse.json(
+      return jsonWithSessionRefresh(
         {
           error: "Model not available",
           message: `The model "${requestedModelId}" is not available. Please select a different model.`,
@@ -660,7 +669,7 @@ export async function POST(request: Request) {
     !Number.isFinite(parsedModelPricingUsd) ||
     parsedModelPricingUsd <= 0
   ) {
-    return NextResponse.json(
+    return jsonWithSessionRefresh(
       {
         error: "Model pricing unavailable",
         message: `The model "${modelId}" cannot be priced. Please select a different model.`,
@@ -781,7 +790,7 @@ export async function POST(request: Request) {
   // Check if user is admin (unlimited access)
   const session = await convex.query(api.sessions.getSession, { sid });
   if (!session) {
-    return NextResponse.json(
+    return jsonWithSessionRefresh(
       { error: "Session not found" },
       { status: 401 }
     );
@@ -885,7 +894,7 @@ export async function POST(request: Request) {
         await updateGenerationRequest("failed", {
           error: "Daily spending limit exceeded",
         });
-        return NextResponse.json(
+        return jsonWithSessionRefresh(
           {
             error: "Daily spending limit exceeded",
             dailyLimit: reserveResult.dailyLimit,
@@ -899,7 +908,7 @@ export async function POST(request: Request) {
       await updateGenerationRequest("failed", {
         error: "Insufficient credits",
       });
-      return NextResponse.json(
+      return jsonWithSessionRefresh(
         {
           error: "Insufficient credits",
           requestId: generationRequestId,
@@ -1507,7 +1516,7 @@ ${aspectRatioInstruction}`;
             scenePlanFromCache,
             durationMs: Date.now() - generationStartTime,
           });
-          return NextResponse.json(
+          return jsonWithSessionRefresh(
             {
               error: "Insufficient credits",
               requestId: generationRequestId,
@@ -1687,7 +1696,7 @@ ${aspectRatioInstruction}`;
         console.error("[Image API] Failed to persist generated image:", saveError);
       }
 
-      return NextResponse.json(
+      return jsonWithSessionRefresh(
         {
           requestId: generationRequestId,
           imageUrl,
@@ -1770,7 +1779,7 @@ ${aspectRatioInstruction}`;
       scenePlannerUsed,
       scenePlanFromCache,
     });
-    return NextResponse.json(
+    return jsonWithSessionRefresh(
       {
         error: "No image generated - model may not support image output",
         requestId: generationRequestId,
@@ -1836,7 +1845,7 @@ ${aspectRatioInstruction}`;
     });
 
     if (timeoutError) {
-      return NextResponse.json(
+      return jsonWithSessionRefresh(
         {
           error: "Image generation timed out",
           requestId: generationRequestId,
@@ -1845,7 +1854,7 @@ ${aspectRatioInstruction}`;
       );
     }
 
-    return NextResponse.json(
+    return jsonWithSessionRefresh(
       {
         error: "Failed to generate image",
         requestId: generationRequestId,

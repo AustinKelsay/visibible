@@ -89,7 +89,7 @@ Operational endpoints:
 
 - `GET /api/health`: process liveness snapshot
 - `GET /api/readiness`: critical dependency readiness (required env + Convex probe)
-- `GET /api/metrics`: in-process counters snapshot
+- `GET /api/metrics`: in-process counters snapshot (access-controlled via `METRICS_TOKEN` and/or `METRICS_IP_ALLOWLIST`)
 
 These signals are designed for external log pipelines and alerting, and complement existing route-level security controls.
 

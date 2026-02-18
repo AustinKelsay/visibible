@@ -70,8 +70,6 @@ Primary risk themes: security boundaries, credit-accounting integrity
     - `src/app/api/__tests__/admin-login/ip-binding.test.ts`
     - `src/app/api/__tests__/invoice/ip-binding.test.ts`
 
-- Remaining active scope: PR-7 and PR-9 through PR-12 remain the current production-readiness backlog (some partially complete).
-
 ### 2026-02-18
 
 - PR-7 completed: invoice polling throttling for invoice status/confirm flows.

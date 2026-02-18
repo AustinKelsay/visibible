@@ -47,6 +47,7 @@ function setRequiredEnv() {
   process.env.CONVEX_SERVER_SECRET = "test-convex-secret";
   process.env.SESSION_SECRET = "a".repeat(32);
   process.env.IP_HASH_SECRET = "b".repeat(32);
+  process.env.METRICS_TOKEN = "test-metrics-token";
 }
 
 describe("ops endpoints", () => {
@@ -84,7 +85,10 @@ describe("ops endpoints", () => {
     });
 
     const response = await metricsGET(
-      new Request("http://localhost:3000/api/metrics", { method: "GET" })
+      new Request("http://localhost:3000/api/metrics", {
+        method: "GET",
+        headers: { authorization: "Bearer test-metrics-token" },
+      })
     );
     expect(response.status).toBe(200);
     const body = await response.json();
@@ -96,6 +100,30 @@ describe("ops endpoints", () => {
           counter.labels.route === "/api/chat"
       )
     ).toBe(true);
+  });
+
+  it("metrics endpoint rejects unauthenticated requests", async () => {
+    const response = await metricsGET(
+      new Request("http://localhost:3000/api/metrics", { method: "GET" })
+    );
+    expect(response.status).toBe(403);
+    const body = await response.json();
+    expect(body.error).toBe("Forbidden");
+  });
+
+  it("metrics endpoint allows requests from allowlisted IP", async () => {
+    delete process.env.METRICS_TOKEN;
+    process.env.METRICS_IP_ALLOWLIST = "10.0.0.5";
+
+    const response = await metricsGET(
+      new Request("http://localhost:3000/api/metrics", {
+        method: "GET",
+        headers: { "x-forwarded-for": "10.0.0.5, 198.51.100.7" },
+      })
+    );
+    expect(response.status).toBe(200);
+    const body = await response.json();
+    expect(Array.isArray(body.counters)).toBe(true);
   });
 
   it("readiness endpoint returns ready when critical checks pass", async () => {

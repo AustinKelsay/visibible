@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
-import { validateSessionWithIp } from "@/lib/session";
+import { validateSessionWithIp, withSessionRefreshCookie } from "@/lib/session";
 import { lookupLndInvoice, isLndConfigured } from "@/lib/lnd";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import {
@@ -110,6 +110,8 @@ export async function GET(
   }
   const sid = sessionValidation.sid;
   const currentIpHash = sessionValidation.currentIpHash;
+  const withSessionRefresh = (response: Response) =>
+    withSessionRefreshCookie(response, sessionValidation.refreshedToken) as NextResponse;
 
   const rateLimitResponse = await enforceInvoiceStatusRateLimit({
     convex,
@@ -120,7 +122,7 @@ export async function GET(
     requestId: requestContext.requestId,
   });
   if (rateLimitResponse) {
-    return rateLimitResponse;
+    return withSessionRefresh(rateLimitResponse);
   }
 
   const { id: invoiceId } = await params;
@@ -129,11 +131,15 @@ export async function GET(
     let invoice = await convex.query(api.invoices.getInvoice, { invoiceId });
 
     if (!invoice) {
-      return NextResponse.json({ error: "Invoice not found" }, { status: 404 });
+      return withSessionRefresh(
+        NextResponse.json({ error: "Invoice not found" }, { status: 404 })
+      );
     }
 
     if (invoice.sid !== sid) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+      return withSessionRefresh(
+        NextResponse.json({ error: "Forbidden" }, { status: 403 })
+      );
     }
 
     if (invoice.status === "pending") {
@@ -184,7 +190,7 @@ export async function GET(
       }
     }
 
-    return NextResponse.json({
+    return withSessionRefresh(NextResponse.json({
       invoiceId: invoice.invoiceId,
       status: invoice.status,
       amountUsd: invoice.amountUsd,
@@ -192,7 +198,7 @@ export async function GET(
       bolt11: invoice.bolt11,
       expiresAt: invoice.expiresAt,
       paidAt: invoice.paidAt,
-    });
+    }));
   } catch (error) {
     logApiFailure({
       context: requestContext,
@@ -202,10 +208,10 @@ export async function GET(
       sid,
     });
     console.error("Failed to get invoice:", error);
-    return NextResponse.json(
+    return withSessionRefresh(NextResponse.json(
       { error: "Failed to get invoice" },
       { status: 500 }
-    );
+    ));
   }
 }
 
@@ -252,6 +258,8 @@ export async function POST(
   }
   const sid = sessionValidation.sid;
   const currentIpHash = sessionValidation.currentIpHash;
+  const withSessionRefresh = (response: Response) =>
+    withSessionRefreshCookie(response, sessionValidation.refreshedToken) as NextResponse;
 
   const rateLimitResponse = await enforceInvoiceStatusRateLimit({
     convex,
@@ -262,7 +270,7 @@ export async function POST(
     requestId: requestContext.requestId,
   });
   if (rateLimitResponse) {
-    return rateLimitResponse;
+    return withSessionRefresh(rateLimitResponse);
   }
 
   const { id: invoiceId } = await params;
@@ -271,34 +279,38 @@ export async function POST(
     const invoice = await convex.query(api.invoices.getInvoice, { invoiceId });
 
     if (!invoice) {
-      return NextResponse.json({ error: "Invoice not found" }, { status: 404 });
+      return withSessionRefresh(
+        NextResponse.json({ error: "Invoice not found" }, { status: 404 })
+      );
     }
 
     if (invoice.sid !== sid) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+      return withSessionRefresh(
+        NextResponse.json({ error: "Forbidden" }, { status: 403 })
+      );
     }
 
     if (!invoice.paymentHash) {
-      return NextResponse.json(
+      return withSessionRefresh(NextResponse.json(
         { error: "Invoice is missing payment hash" },
         { status: 400 }
-      );
+      ));
     }
 
     if (!isLndConfigured()) {
-      return NextResponse.json(
+      return withSessionRefresh(NextResponse.json(
         { error: "Lightning payments not configured" },
         { status: 503 }
-      );
+      ));
     }
 
     const now = Date.now();
     if (now > invoice.expiresAt) {
       await convex.mutation(api.invoices.expireInvoice, { invoiceId, serverSecret });
-      return NextResponse.json(
+      return withSessionRefresh(NextResponse.json(
         { error: "Invoice has expired" },
         { status: 410 }
-      );
+      ));
     }
 
     const lndStatus = await lookupLndInvoice(invoice.paymentHash);
@@ -320,26 +332,26 @@ export async function POST(
         },
       });
 
-      return NextResponse.json({
+      return withSessionRefresh(NextResponse.json({
         success: result.success,
         alreadyPaid: result.alreadyPaid,
         newBalance: result.newBalance,
         creditsAdded: result.creditsAdded,
-      });
+      }));
     }
 
     if (lndStatus.state === "CANCELED") {
       await convex.mutation(api.invoices.expireInvoice, { invoiceId, serverSecret });
-      return NextResponse.json(
+      return withSessionRefresh(NextResponse.json(
         { error: "Invoice was canceled" },
         { status: 410 }
-      );
+      ));
     }
 
-    return NextResponse.json(
+    return withSessionRefresh(NextResponse.json(
       { error: "Invoice not settled" },
       { status: 402 }
-    );
+    ));
   } catch (error) {
     logApiFailure({
       context: requestContext,
@@ -350,12 +362,12 @@ export async function POST(
       invoiceId,
     });
     console.error("Failed to confirm payment:", error);
-    return NextResponse.json(
+    return withSessionRefresh(NextResponse.json(
       {
         error:
           error instanceof Error ? error.message : "Failed to confirm payment",
       },
       { status: 500 }
-    );
+    ));
   }
 }

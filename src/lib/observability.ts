@@ -35,6 +35,12 @@ function sanitizeRequestId(value: string | null | undefined): string | null {
   return cleaned.length >= 8 ? cleaned : null;
 }
 
+function redactSid(sid: string | undefined): string | undefined {
+  if (!sid) return undefined;
+  if (sid.length <= 8) return "[redacted]";
+  return `${sid.slice(0, 4)}...${sid.slice(-4)}`;
+}
+
 function toErrorObject(error: unknown): Record<string, unknown> {
   if (error instanceof Error) {
     return {
@@ -178,6 +184,8 @@ export function logApiFailure(args: {
   generationId?: string;
   invoiceId?: string;
 }): void {
+  const redactedSid = redactSid(args.sid);
+
   incrementMetricCounter("api_failures_total", {
     route: args.context.route,
     stage: args.stage,
@@ -190,7 +198,7 @@ export function logApiFailure(args: {
     requestId: args.context.requestId,
     stage: args.stage,
     statusCode: args.statusCode,
-    sid: args.sid,
+    sid: redactedSid,
     generationId: args.generationId,
     invoiceId: args.invoiceId,
     durationMs: elapsedMs(args.context),
@@ -204,6 +212,8 @@ export function logApiTimeout(args: {
   sid?: string;
   generationId?: string;
 }): void {
+  const redactedSid = redactSid(args.sid);
+
   emitMetric("api_timeouts_total", {
     route: args.context.route,
     stage: args.stage,
@@ -214,7 +224,7 @@ export function logApiTimeout(args: {
     requestId: args.context.requestId,
     stage: args.stage,
     timeoutMs: args.timeoutMs,
-    sid: args.sid,
+    sid: redactedSid,
     generationId: args.generationId,
     durationMs: elapsedMs(args.context),
   });
@@ -234,6 +244,8 @@ export function logSettlementEvent(args: {
   invoiceId?: string;
   details?: Record<string, unknown>;
 }): void {
+  const redactedSid = redactSid(args.sid);
+
   emitMetric("settlement_events_total", {
     route: args.context.route,
     outcome: args.outcome,
@@ -242,10 +254,10 @@ export function logSettlementEvent(args: {
     route: args.context.route,
     requestId: args.context.requestId,
     outcome: args.outcome,
-    sid: args.sid,
+    ...args.details,
+    sid: redactedSid,
     generationId: args.generationId,
     invoiceId: args.invoiceId,
-    ...args.details,
   });
 }
 

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { api } from "../../../../convex/_generated/api";
 import { getConvexClient } from "@/lib/convex-client";
-import { validateSessionWithIp } from "@/lib/session";
+import { validateSessionWithIp, withSessionRefreshCookie } from "@/lib/session";
 import { RATE_LIMITS } from "../../../../convex/rateLimit";
 import { DEFAULT_DAILY_SPEND_LIMIT_USD } from "../../../../convex/sessions";
 
@@ -34,6 +34,8 @@ interface RateLimitStatusResponse {
 export async function GET(request: Request): Promise<NextResponse<RateLimitStatusResponse>> {
   const convex = getConvexClient();
   const sessionValidation = await validateSessionWithIp(request);
+  const withSessionRefresh = (response: Response) =>
+    withSessionRefreshCookie(response, sessionValidation.refreshedToken) as NextResponse<RateLimitStatusResponse>;
   const sid =
     sessionValidation.valid && sessionValidation.sid
       ? sessionValidation.sid
@@ -54,13 +56,13 @@ export async function GET(request: Request): Promise<NextResponse<RateLimitStatu
   });
 
   if (!convex || !sid || !currentIpHash) {
-    return NextResponse.json({
+    return withSessionRefresh(NextResponse.json({
       endpoints: {
         chat: defaultEndpoint("chat"),
         "generate-image": defaultEndpoint("generate-image"),
       },
       dailySpend: null,
-    });
+    }));
   }
 
   // SECURITY: Use same identifier format as cost-incurring endpoints
@@ -100,7 +102,7 @@ export async function GET(request: Request): Promise<NextResponse<RateLimitStatu
     };
   }
 
-  return NextResponse.json({
+  return withSessionRefresh(NextResponse.json({
     endpoints: {
       chat: {
         remaining: chatStatus.remaining,
@@ -116,5 +118,5 @@ export async function GET(request: Request): Promise<NextResponse<RateLimitStatu
       },
     },
     dailySpend,
-  });
+  }));
 }

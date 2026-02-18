@@ -18,6 +18,7 @@ const mockConvex = {
 
 vi.mock("@/lib/session", () => ({
   validateSessionWithIp: vi.fn(async () => mockSessionValidation.value),
+  withSessionRefreshCookie: vi.fn((response: Response) => response),
 }));
 
 vi.mock("@/lib/origin", () => ({
@@ -122,4 +123,3 @@ describe("Admin Login IP Binding", () => {
     );
   });
 });
-

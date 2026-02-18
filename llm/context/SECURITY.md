@@ -76,7 +76,7 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 - Health/readiness/metrics endpoints provide operational visibility:
   - `/api/health` (liveness)
   - `/api/readiness` (critical dependency checks)
-  - `/api/metrics` (in-process counters snapshot)
+  - `/api/metrics` (in-process counters snapshot, protected by metrics auth policy)
 
 ## What This Means for Users
 

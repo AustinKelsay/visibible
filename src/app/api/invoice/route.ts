@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { validateSessionWithIp } from "@/lib/session";
+import { validateSessionWithIp, withSessionRefreshCookie } from "@/lib/session";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { getBtcPrice, usdToSats } from "@/lib/btc-price";
 import { createLndInvoice, base64ToHex, isLndConfigured } from "@/lib/lnd";
@@ -61,6 +61,8 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
   const sid = sessionValidation.sid;
+  const withSessionRefresh = (response: Response) =>
+    withSessionRefreshCookie(response, sessionValidation.refreshedToken) as NextResponse;
 
   // SECURITY: Rate limit invoice creation to prevent LND flooding
   // Use IP hash only (not session) to prevent multi-session bypass from same IP
@@ -83,7 +85,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       sid,
       retryAfter: rateLimitResult.retryAfter,
     });
-    return NextResponse.json(
+    return withSessionRefresh(NextResponse.json(
       {
         error: "Too many invoice creation requests",
         message: "Please wait before creating more invoices.",
@@ -95,7 +97,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           "Retry-After": String(rateLimitResult.retryAfter || 60),
         },
       }
-    );
+    ));
   }
 
   try {
@@ -127,14 +129,14 @@ export async function POST(request: Request): Promise<NextResponse> {
       route: requestContext.route,
     });
 
-    return NextResponse.json({
+    return withSessionRefresh(NextResponse.json({
       invoiceId: invoice.invoiceId,
       bolt11: invoice.bolt11,
       amountUsd: invoice.amountUsd,
       amountSats: invoice.amountSats,
       expiresAt: invoice.expiresAt,
       credits: invoice.credits,
-    });
+    }));
   } catch (error) {
     logApiFailure({
       context: requestContext,
@@ -144,9 +146,9 @@ export async function POST(request: Request): Promise<NextResponse> {
       sid,
     });
     console.error("Failed to create invoice:", error);
-    return NextResponse.json(
+    return withSessionRefresh(NextResponse.json(
       { error: error instanceof Error ? error.message : "Failed to create invoice" },
       { status: 500 }
-    );
+    ));
   }
 }
