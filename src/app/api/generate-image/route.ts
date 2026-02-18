@@ -46,6 +46,7 @@ import {
   logApiTimeout,
   logSettlementEvent,
   logWarn,
+  redactSid,
 } from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
 
@@ -443,7 +444,7 @@ export async function POST(request: Request) {
     logWarn("api.rate_limited", {
       route: requestContext.route,
       requestId: requestContext.requestId,
-      sid,
+      sid: redactSid(sid),
       retryAfter: rateLimitResult.retryAfter,
     });
     return jsonWithSessionRefresh(

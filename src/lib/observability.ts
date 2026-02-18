@@ -35,7 +35,7 @@ function sanitizeRequestId(value: string | null | undefined): string | null {
   return cleaned.length >= 8 ? cleaned : null;
 }
 
-function redactSid(sid: string | undefined): string | undefined {
+export function redactSid(sid: string | undefined): string | undefined {
   if (!sid) return undefined;
   if (sid.length <= 8) return "[redacted]";
   return `${sid.slice(0, 4)}...${sid.slice(-4)}`;
