@@ -1,7 +1,7 @@
 # Production Readiness Remediation Plan
 
-Date: 2026-02-14
-Status: In progress
+Date: 2026-02-18
+Status: Completed (PR-1 through PR-12)
 Primary risk themes: security boundaries, credit-accounting integrity
 
 ## Progress Updates
@@ -70,7 +70,7 @@ Primary risk themes: security boundaries, credit-accounting integrity
     - `src/app/api/__tests__/admin-login/ip-binding.test.ts`
     - `src/app/api/__tests__/invoice/ip-binding.test.ts`
 
-- Remaining active scope: PR-7 through PR-12 remain the current production-readiness backlog (some partially complete).
+- Remaining active scope: PR-7 and PR-9 through PR-12 remain the current production-readiness backlog (some partially complete).
 
 ### 2026-02-18
 
@@ -81,8 +81,6 @@ Primary risk themes: security boundaries, credit-accounting integrity
   - Returns `429` with `Retry-After` when status polling exceeds threshold.
   - Added route integration coverage for allowed and throttled status/confirm paths:
     - `src/app/api/__tests__/invoice/ip-binding.test.ts`
-
-- Remaining active scope: PR-8 through PR-12 remain the current production-readiness backlog (some partially complete).
 
 - PR-8 completed: main OpenRouter timeout and explicit timeout cleanup on image generation.
   - Added configurable abort timeout for main image-generation OpenRouter request (`OPENROUTER_IMAGE_TIMEOUT_MS`, default 45s).
@@ -116,7 +114,24 @@ Primary risk themes: security boundaries, credit-accounting integrity
   - Added targeted invoice payment integration coverage for settled-confirm path:
     - `src/app/api/__tests__/invoice/ip-binding.test.ts`
 
-- Remaining active scope: PR-12 remains the current production-readiness backlog.
+- PR-12 completed: structured observability and health signals baseline.
+  - Added shared observability utilities for structured JSON logging + alertable counters:
+    - `src/lib/observability.ts`
+    - `llm/implementation/OBSERVABILITY_IMPLEMENTATION.md`
+  - Added operational endpoints:
+    - `GET /api/health`
+    - `GET /api/readiness`
+    - `GET /api/metrics`
+  - Instrumented critical API/settlement paths for machine-parseable failure and timeout signals:
+    - `src/app/api/chat/route.ts`
+    - `src/app/api/generate-image/route.ts`
+    - `src/app/api/invoice/route.ts`
+    - `src/app/api/invoice/[id]/route.ts`
+  - Added regression coverage for observability utilities and ops endpoints:
+    - `src/lib/__tests__/observability.test.ts`
+    - `src/app/api/__tests__/ops/health-readiness-metrics.test.ts`
+
+- Remaining active scope: production-readiness PR backlog complete (PR-1 through PR-12).
 
 ## Goals
 
@@ -292,7 +307,7 @@ Acceptance criteria:
 
 ---
 
-### PR-12: Structured Observability and Health Signals (Medium #12)
+### PR-12: Structured Observability and Health Signals (Medium #12) [Completed 2026-02-18]
 
 Scope:
 - Introduce structured logging on critical API and settlement paths.

@@ -4,6 +4,12 @@ import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { getBtcPrice, usdToSats } from "@/lib/btc-price";
 import { createLndInvoice, base64ToHex, isLndConfigured } from "@/lib/lnd";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
+import {
+  createRequestObservabilityContext,
+  emitMetric,
+  logApiFailure,
+  logWarn,
+} from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
 
 // Fixed bundle price
@@ -14,6 +20,8 @@ const BUNDLE_USD = 3;
  * Creates a new Lightning invoice for credit purchase.
  */
 export async function POST(request: Request): Promise<NextResponse> {
+  const requestContext = createRequestObservabilityContext(request, "/api/invoice");
+
   // SECURITY: Validate request origin
   if (!validateOrigin(request)) {
     return invalidOriginResponse() as NextResponse;
@@ -65,6 +73,16 @@ export async function POST(request: Request): Promise<NextResponse> {
   });
 
   if (!rateLimitResult.allowed) {
+    emitMetric("api_rate_limit_blocks_total", {
+      route: requestContext.route,
+      endpoint: "invoice",
+    });
+    logWarn("api.rate_limited", {
+      route: requestContext.route,
+      requestId: requestContext.requestId,
+      sid,
+      retryAfter: rateLimitResult.retryAfter,
+    });
     return NextResponse.json(
       {
         error: "Too many invoice creation requests",
@@ -105,6 +123,10 @@ export async function POST(request: Request): Promise<NextResponse> {
       serverSecret,
     });
 
+    emitMetric("invoice_created_total", {
+      route: requestContext.route,
+    });
+
     return NextResponse.json({
       invoiceId: invoice.invoiceId,
       bolt11: invoice.bolt11,
@@ -114,6 +136,13 @@ export async function POST(request: Request): Promise<NextResponse> {
       credits: invoice.credits,
     });
   } catch (error) {
+    logApiFailure({
+      context: requestContext,
+      stage: "invoice_create",
+      error,
+      statusCode: 500,
+      sid,
+    });
     console.error("Failed to create invoice:", error);
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Failed to create invoice" },

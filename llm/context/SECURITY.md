@@ -70,6 +70,14 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 - Reservation settlement is one-way per `generationId` (`reserved -> released` or `reserved -> charged`) and duplicate release calls are idempotent.
 - Additional sensitive write paths (session creation/lastSeen, invoice create/expire, feedback submit, modelStats writes, and rate-limit mutations) are server-authenticated.
 
+### 9. Operational Observability
+- Structured JSON logging is emitted for critical failures/timeouts/settlement transitions.
+- Critical API rate-limit blocks emit counter metrics and warning logs.
+- Health/readiness/metrics endpoints provide operational visibility:
+  - `/api/health` (liveness)
+  - `/api/readiness` (critical dependency checks)
+  - `/api/metrics` (in-process counters snapshot)
+
 ## What This Means for Users
 
 ### Regular Users
@@ -94,12 +102,16 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 - `src/app/api/invoice/[id]/route.ts` - Invoice status/confirm with origin + IP-bound session + polling throttling
 - `src/app/api/rate-limit-status/route.ts` - Session-derived rate-limit/daily-spend status
 - `src/app/api/session/route.ts` - Session management
+- `src/app/api/health/route.ts` - Liveness status
+- `src/app/api/readiness/route.ts` - Critical dependency readiness
+- `src/app/api/metrics/route.ts` - Machine-parseable counters
 
 ### Security Libraries
 - `src/lib/origin.ts` - Origin validation
 - `src/lib/session.ts` - JWT session management
 - `src/lib/validate-env.ts` - Environment validation
 - `src/lib/request-body.ts` - Secure body reading with size limits
+- `src/lib/observability.ts` - Structured logs and counters
 
 ### Convex Functions
 - `convex/rateLimit.ts` - Rate limiting and brute force protection
@@ -126,4 +138,5 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 
 - `llm/implementation/SECURITY_IMPLEMENTATION.md` - Detailed implementation guide
 - `llm/implementation/RATE_LIMIT_IMPLEMENTATION.md` - Rate limiting details
+- `llm/implementation/OBSERVABILITY_IMPLEMENTATION.md` - Structured logs, metrics, and ops endpoints
 - `llm/context/SESSIONS_AND_CREDITS.md` - Credit system context

@@ -59,13 +59,14 @@ Union type of all valid endpoint names: `"chat" | "generate-image" | "admin-logi
 ### Functions
 
 #### `checkRateLimit`
-Type: `mutation<{ identifier: string; endpoint: string }, { allowed: boolean; retryAfter?: number; remaining?: number }>`
+Type: `mutation<{ identifier: string; endpoint: string; serverSecret: string }, { allowed: boolean; retryAfter?: number; remaining?: number }>`
 
 **Purpose:** Check and increment rate limit for an identifier/endpoint pair. Uses a sliding window approach: if the window has expired, start fresh. Otherwise, check if under limit and increment.
 
 **Parameters:**
 - `identifier`: Unique identifier (typically IP hash or `${ipHash}:${sessionId}`)
 - `endpoint`: Endpoint name (must be a key from `RATE_LIMITS`)
+- `serverSecret`: Shared server secret for trusted-server write authorization
 
 **Returns:**
 - `allowed`: `boolean` - Whether the request is allowed
@@ -116,12 +117,13 @@ Type: `query<{ ipHash: string }, { allowed: boolean; lockedUntil?: number; attem
 - Lockout count persists across windows for exponential backoff
 
 #### `recordFailedAdminLogin`
-Type: `mutation<{ ipHash: string }, { locked: boolean; lockedUntil?: number; attemptsRemaining: number; lockoutCount?: number }>`
+Type: `mutation<{ ipHash: string; serverSecret: string }, { locked: boolean; lockedUntil?: number; attemptsRemaining: number; lockoutCount?: number }>`
 
 **Purpose:** Record a failed admin login attempt and apply lockout if threshold is reached. Implements exponential backoff.
 
 **Parameters:**
 - `ipHash`: Hashed IP address identifier
+- `serverSecret`: Shared server secret for trusted-server write authorization
 
 **Returns:**
 - `locked`: Whether the IP was locked out as a result of this attempt
@@ -136,12 +138,13 @@ Type: `mutation<{ ipHash: string }, { locked: boolean; lockedUntil?: number; att
 - Resets attempt counter when window expires or lockout elapses (preserves lockout count)
 
 #### `clearAdminLoginAttempts`
-Type: `mutation<{ ipHash: string }, void>`
+Type: `mutation<{ ipHash: string; serverSecret: string }, void>`
 
 **Purpose:** Clear failed login attempts after successful admin login. Removes the entire record for the IP hash.
 
 **Parameters:**
 - `ipHash`: Hashed IP address identifier
+- `serverSecret`: Shared server secret for trusted-server write authorization
 
 **Returns:** `void`
 
@@ -170,6 +173,7 @@ export const RATE_LIMITS = {
 const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
   identifier: `${ipHash}:${sessionId}`, // or just ipHash
   endpoint: "new-endpoint",
+  serverSecret,
 });
 
 if (!rateLimitResult.allowed) {
@@ -197,6 +201,20 @@ Changes take effect immediately after Convex syncs the updated function.
 
 ## Usage Examples
 
+### Rate-Limit Block Observability
+
+Current route implementations emit structured observability signals when a rate limit is exceeded:
+
+- Counter metric: `api_rate_limit_blocks_total` (labels include `route` and `endpoint`)
+- Structured warning log event: `api.rate_limited`
+
+Instrumented routes include:
+
+- `src/app/api/chat/route.ts`
+- `src/app/api/generate-image/route.ts`
+- `src/app/api/invoice/route.ts`
+- `src/app/api/invoice/[id]/route.ts`
+
 ### API Route Rate Limiting
 
 #### Example: Chat API Route
@@ -204,10 +222,8 @@ Changes take effect immediately after Convex syncs the updated function.
 ```typescript
 // src/app/api/chat/route.ts
 import { api } from "../../../../convex/_generated/api";
-import { getConvexClient } from "@/lib/convex-client";
-import { hashIp } from "@/lib/session";
-import { getClientIp } from "@/lib/session";
-import { getSessionFromCookies } from "@/lib/session";
+import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
+import { validateSessionWithIp, hashIp, getClientIp } from "@/lib/session";
 
 export async function POST(request: Request) {
   const convex = getConvexClient();
@@ -215,18 +231,20 @@ export async function POST(request: Request) {
     return Response.json({ error: "Service unavailable" }, { status: 503 });
   }
 
-  const clientIp = getClientIp(request);
-  const ipHash = await hashIp(clientIp);
-  const sid = await getSessionFromCookies();
-  if (!sid) {
+  const sessionValidation = await validateSessionWithIp(request);
+  if (!sessionValidation.sid || !sessionValidation.valid) {
     return Response.json({ error: "Session required" }, { status: 401 });
   }
+  const ipHash = sessionValidation.currentIpHash ?? await hashIp(getClientIp(request));
+  const sid = sessionValidation.sid;
   const rateLimitIdentifier = `${ipHash}:${sid}`;
+  const serverSecret = getConvexServerSecret();
 
   // Check rate limit before processing
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: rateLimitIdentifier,
     endpoint: "chat",
+    serverSecret,
   });
 
   if (!rateLimitResult.allowed) {
@@ -256,10 +274,12 @@ export async function POST(request: Request) {
 // src/app/api/session/route.ts
 const clientIp = getClientIp(request);
 const ipHash = await hashIp(clientIp);
+const serverSecret = getConvexServerSecret();
 
 const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
   identifier: ipHash, // IP-only identifier for session creation
   endpoint: "session",
+  serverSecret,
 });
 
 if (!rateLimitResult.allowed) {
@@ -285,10 +305,12 @@ if (!rateLimitResult.allowed) {
 ```typescript
 // src/app/api/generate-image/route.ts
 const rateLimitIdentifier = `${ipHash}:${sid}`;
+const serverSecret = getConvexServerSecret();
 
 const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
   identifier: rateLimitIdentifier,
   endpoint: "generate-image",
+  serverSecret,
 });
 
 if (!rateLimitResult.allowed) {
@@ -320,16 +342,22 @@ import { DEFAULT_DAILY_SPEND_LIMIT_USD } from "../../../../convex/sessions";
 
 export async function GET(request: Request): Promise<NextResponse<RateLimitStatusResponse>> {
   const convex = getConvexClient();
-  const sid = await getSessionFromCookies();
+  const sessionValidation = await validateSessionWithIp(request);
+  const sid =
+    sessionValidation.valid && sessionValidation.sid
+      ? sessionValidation.sid
+      : null;
+  const currentIpHash =
+    sessionValidation.valid && sessionValidation.currentIpHash
+      ? sessionValidation.currentIpHash
+      : null;
 
-  if (!convex || !sid) {
+  if (!convex || !sid || !currentIpHash) {
     // Return default limits when no session
     return NextResponse.json({ endpoints: { ... }, dailySpend: null });
   }
 
-  const clientIp = getClientIp(request);
-  const ipHash = await hashIp(clientIp);
-  const identifier = `${ipHash}:${sid}`;
+  const identifier = `${currentIpHash}:${sid}`;
 
   // Query status for chat and image generation endpoints
   const [chatStatus, imageStatus, session] = await Promise.all([
@@ -371,6 +399,7 @@ export async function GET(request: Request): Promise<NextResponse<RateLimitStatu
 ```typescript
 // src/app/api/admin-login/route.ts
 const ipHash = await hashIp(getClientIp(request));
+const serverSecret = getConvexServerSecret();
 
 // Check if login attempts are allowed
 const loginAllowedResult = await convex.query(api.rateLimit.checkAdminLoginAllowed, {
@@ -393,16 +422,25 @@ try {
   
   if (isValid) {
     // Clear failed attempts on success
-    await convex.mutation(api.rateLimit.clearAdminLoginAttempts, { ipHash });
+    await convex.mutation(api.rateLimit.clearAdminLoginAttempts, {
+      ipHash,
+      serverSecret,
+    });
     // ... create admin session
   } else {
     // Record failed attempt
-    await convex.mutation(api.rateLimit.recordFailedAdminLogin, { ipHash });
+    await convex.mutation(api.rateLimit.recordFailedAdminLogin, {
+      ipHash,
+      serverSecret,
+    });
     return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
   }
 } catch (error) {
   // Record failed attempt on error
-  await convex.mutation(api.rateLimit.recordFailedAdminLogin, { ipHash });
+  await convex.mutation(api.rateLimit.recordFailedAdminLogin, {
+    ipHash,
+    serverSecret,
+  });
   throw error;
 }
 ```

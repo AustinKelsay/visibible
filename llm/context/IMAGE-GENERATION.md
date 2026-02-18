@@ -13,6 +13,7 @@ Image generation is Convex-orchestrated, includes scene-plan caching, and now us
 - Cache hits skip planner API calls and skip planner credit reservations.
 - Neutral Cost is used to quote USD->credit charges and persist per-generation cost records.
 - If real-time cost persistence times out/fails, events are queued in Convex outbox and retried by cron.
+- Structured observability events/metrics are emitted for rate-limit blocks, timeout paths, and settlement outcomes.
 
 ## End-to-End Flow
 

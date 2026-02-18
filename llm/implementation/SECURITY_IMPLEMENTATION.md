@@ -17,6 +17,7 @@ The security architecture provides multiple layers of protection:
 7. **Admin Audit Logging** - Tracks admin usage for security monitoring
 8. **Environment Validation** - Startup checks for security configuration
 9. **Security Headers** - CSP/HSTS and browser hardening headers
+10. **Operational Observability** - Structured logs + counters for failures/timeouts/settlement anomalies
 
 ---
 
@@ -29,11 +30,17 @@ The security architecture provides multiple layers of protection:
 | `src/lib/session.ts` | JWT session management with IP binding |
 | `src/lib/validate-env.ts` | Security environment validation |
 | `src/lib/request-body.ts` | Secure body reading with streaming size limits |
+| `src/lib/observability.ts` | Structured security/ops event logging and in-process counters |
 | `next.config.ts` | Security headers (CSP, HSTS, anti-clickjacking, etc.) |
 | `src/app/api/admin-login/route.ts` | Admin auth with origin + CSRF + lockout protections |
 | `src/app/api/chat/route.ts` | Chat endpoint security checks |
 | `src/app/api/generate-image/route.ts` | Image endpoint security checks |
+| `src/app/api/invoice/route.ts` | Invoice creation with rate-limit and observability instrumentation |
+| `src/app/api/invoice/[id]/route.ts` | Invoice status/confirm with polling throttle and settlement instrumentation |
 | `src/app/api/session/route.ts` | Session issuance and CSRF token issuance |
+| `src/app/api/health/route.ts` | Liveness endpoint |
+| `src/app/api/readiness/route.ts` | Critical dependency readiness endpoint |
+| `src/app/api/metrics/route.ts` | Machine-parseable counters endpoint |
 | `convex/rateLimit.ts` | Rate limiting and brute force protection |
 | `convex/sessions.ts` | Credit management, daily limits, admin audit logging |
 | `convex/verseImages.ts` | Server-authenticated image persistence boundary |
@@ -56,6 +63,35 @@ The app applies a hardened header baseline on all routes:
   - `upgrade-insecure-requests` in production
 - `Strict-Transport-Security` in production:
   - `max-age=31536000; includeSubDomains; preload`
+
+---
+
+## Operational Observability
+
+**Files:** `src/lib/observability.ts`, `src/app/api/health/route.ts`, `src/app/api/readiness/route.ts`, `src/app/api/metrics/route.ts`
+
+Security-sensitive and cost-sensitive API flows now emit structured JSON logs and counters for monitoring:
+
+- Failure events: `api.failure`
+- Timeout events: `api.timeout`
+- Settlement lifecycle events: `settlement.event`
+- Rate-limit block warnings: `api.rate_limited`
+
+Key counters include:
+
+- `api_failures_total`
+- `api_timeouts_total`
+- `api_rate_limit_blocks_total`
+- `settlement_events_total`
+- `readiness_checks_total`
+
+Operational endpoints:
+
+- `GET /api/health`: process liveness snapshot
+- `GET /api/readiness`: critical dependency readiness (required env + Convex probe)
+- `GET /api/metrics`: in-process counters snapshot
+
+These signals are designed for external log pipelines and alerting, and complement existing route-level security controls.
 
 ---
 

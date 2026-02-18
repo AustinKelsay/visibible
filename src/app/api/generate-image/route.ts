@@ -34,6 +34,14 @@ import {
   InvalidJsonError,
   DEFAULT_MAX_BODY_SIZE,
 } from "@/lib/request-body";
+import {
+  createRequestObservabilityContext,
+  emitMetric,
+  logApiFailure,
+  logApiTimeout,
+  logSettlementEvent,
+  logWarn,
+} from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
 
 // Disable Next.js server-side caching - let browser cache handle it
@@ -327,6 +335,11 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const requestContext = createRequestObservabilityContext(
+    request,
+    "/api/generate-image"
+  );
+
   // SECURITY: Strict origin validation for state-changing route.
   const origin = request.headers.get("origin");
   if (!origin || !validateOrigin(request)) {
@@ -414,6 +427,16 @@ export async function POST(request: Request) {
   });
 
   if (!rateLimitResult.allowed) {
+    emitMetric("api_rate_limit_blocks_total", {
+      route: requestContext.route,
+      endpoint: "generate-image",
+    });
+    logWarn("api.rate_limited", {
+      route: requestContext.route,
+      requestId: requestContext.requestId,
+      sid,
+      retryAfter: rateLimitResult.retryAfter,
+    });
     return NextResponse.json(
       {
         error: "Rate limit exceeded",
@@ -1060,10 +1083,25 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
       return { scenePlan: normalized, fromCache: false };
     } catch (error) {
       if (error instanceof Error && error.name === "AbortError") {
+        logApiTimeout({
+          context: requestContext,
+          stage: "scene_planner",
+          timeoutMs: SCENE_PLANNER_TIMEOUT_MS,
+          sid,
+          generationId: chargeGenerationId,
+        });
         console.warn(
           `[Image API] Scene planner timeout after ${SCENE_PLANNER_TIMEOUT_MS}ms`
         );
       } else {
+        logApiFailure({
+          context: requestContext,
+          stage: "scene_planner",
+          error,
+          statusCode: 500,
+          sid,
+          generationId: chargeGenerationId,
+        });
         console.warn("[Image API] Scene planner error:", error);
       }
       return { scenePlan: null, fromCache: false };
@@ -1112,7 +1150,7 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
     }
   }
 
-  const includeNarrativeContext = !scenePlan && Boolean(prevHint || nextHint);
+  const includeNarrativeContext = Boolean(prevHint || nextHint);
   const narrativeContext = includeNarrativeContext
     ? [
       "",
@@ -1278,6 +1316,21 @@ ${aspectRatioInstruction}`;
           serverSecret,
         })
         .catch((releaseError) => {
+          logSettlementEvent({
+            context: requestContext,
+            outcome: "release_failed",
+            sid,
+            generationId: chargeGenerationId,
+            details: { stage: "releaseReservationIfNeeded" },
+          });
+          logApiFailure({
+            context: requestContext,
+            stage: "release_reservation_if_needed",
+            error: releaseError,
+            statusCode: 500,
+            sid,
+            generationId: chargeGenerationId,
+          });
           console.error("Failed to release reservation:", releaseError);
         });
     };
@@ -1316,6 +1369,13 @@ ${aspectRatioInstruction}`;
       });
     } catch (error) {
       if (isAbortError(error)) {
+        logApiTimeout({
+          context: requestContext,
+          stage: "openrouter_generation",
+          timeoutMs: EFFECTIVE_IMAGE_TIMEOUT_MS,
+          sid,
+          generationId: chargeGenerationId,
+        });
         console.error(
           `[Image API] Main generation timeout after ${EFFECTIVE_IMAGE_TIMEOUT_MS}ms`
         );
@@ -1423,6 +1483,13 @@ ${aspectRatioInstruction}`;
         });
 
         if (!deductResult.success) {
+          logSettlementEvent({
+            context: requestContext,
+            outcome: "deduct_failed",
+            sid,
+            generationId: chargeGenerationId,
+            details: { actualCredits: actualTotalCredits },
+          });
           // This should rarely happen since we reserved credits, but handle gracefully
           // Release the reservation if conversion fails
           if (reservationMade) {
@@ -1455,10 +1522,28 @@ ${aspectRatioInstruction}`;
         if ("newBalance" in deductResult) {
           updatedCredits = deductResult.newBalance;
         }
+        logSettlementEvent({
+          context: requestContext,
+          outcome: "confirmed",
+          sid,
+          generationId: chargeGenerationId,
+          details: { actualCredits: actualTotalCredits },
+        });
 
         // Handle shortfall case: actual cost exceeded reservation and user couldn't cover the difference
         // In this case, we only charged the reserved amount, not the full actual amount
         if ("shortfall" in deductResult && deductResult.shortfall) {
+          logSettlementEvent({
+            context: requestContext,
+            outcome: "shortfall",
+            sid,
+            generationId: chargeGenerationId,
+            details: {
+              reservedCredits: cost,
+              wantedCredits: actualTotalCredits,
+              shortfall: deductResult.shortfall as number,
+            },
+          });
           console.warn(
             `[Image API] Shortfall: wanted=${actualTotalCredits} credits, charged=${cost} credits, shortfall=${deductResult.shortfall}, gen=${chargeGenerationId}`
           );
@@ -1545,6 +1630,13 @@ ${aspectRatioInstruction}`;
         );
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
+        logSettlementEvent({
+          context: requestContext,
+          outcome: "outbox_enqueued",
+          sid,
+          generationId: chargeGenerationId,
+          details: { reason: message },
+        });
         console.warn("[Image API] Cost event persistence failed, enqueueing outbox:", message);
         try {
           await convex.action(api.costs.enqueueImageCostEventOutbox, {
@@ -1553,6 +1645,14 @@ ${aspectRatioInstruction}`;
             serverSecret,
           });
         } catch (enqueueError) {
+          logApiFailure({
+            context: requestContext,
+            stage: "cost_event_outbox_enqueue",
+            error: enqueueError,
+            statusCode: 500,
+            sid,
+            generationId: chargeGenerationId,
+          });
           console.error("[Image API] Failed to enqueue cost event outbox:", enqueueError);
         }
       }
@@ -1682,6 +1782,24 @@ ${aspectRatioInstruction}`;
       error instanceof Error &&
       error.message.startsWith(IMAGE_GENERATION_TIMEOUT_MESSAGE_PREFIX);
 
+    if (timeoutError) {
+      logApiTimeout({
+        context: requestContext,
+        stage: "generate_image_handler",
+        timeoutMs: EFFECTIVE_IMAGE_TIMEOUT_MS,
+        sid,
+        generationId: chargeGenerationId,
+      });
+    } else {
+      logApiFailure({
+        context: requestContext,
+        stage: "generate_image_handler",
+        error,
+        statusCode: 500,
+        sid,
+        generationId: chargeGenerationId,
+      });
+    }
     console.error("Image generation error:", error);
     // Release reservation on failure so user doesn't lose credits
     if (reservationMade) {
@@ -1692,6 +1810,21 @@ ${aspectRatioInstruction}`;
           serverSecret,
         })
         .catch((releaseError) => {
+          logSettlementEvent({
+            context: requestContext,
+            outcome: "release_failed",
+            sid,
+            generationId: chargeGenerationId,
+            details: { stage: "generate_image_error_handler" },
+          });
+          logApiFailure({
+            context: requestContext,
+            stage: "release_reservation_on_error",
+            error: releaseError,
+            statusCode: 500,
+            sid,
+            generationId: chargeGenerationId,
+          });
           console.error("Failed to release reservation:", releaseError);
         });
     }

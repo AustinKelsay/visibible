@@ -3,6 +3,13 @@ import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateSessionWithIp } from "@/lib/session";
 import { lookupLndInvoice, isLndConfigured } from "@/lib/lnd";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
+import {
+  createRequestObservabilityContext,
+  emitMetric,
+  logApiFailure,
+  logSettlementEvent,
+  logWarn,
+} from "@/lib/observability";
 import { api } from "../../../../../convex/_generated/api";
 
 interface RouteParams {
@@ -20,6 +27,8 @@ async function enforceInvoiceStatusRateLimit(args: {
   ipHash: string;
   sid: string;
   serverSecret: string;
+  route: string;
+  requestId: string;
 }): Promise<NextResponse | null> {
   const rateLimitResult = await args.convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: buildInvoiceStatusRateLimitIdentifier(args.ipHash, args.sid),
@@ -30,6 +39,17 @@ async function enforceInvoiceStatusRateLimit(args: {
   if (rateLimitResult.allowed) {
     return null;
   }
+
+  emitMetric("api_rate_limit_blocks_total", {
+    route: args.route,
+    endpoint: INVOICE_STATUS_RATE_LIMIT_ENDPOINT,
+  });
+  logWarn("api.rate_limited", {
+    route: args.route,
+    requestId: args.requestId,
+    sid: args.sid,
+    retryAfter: rateLimitResult.retryAfter,
+  });
 
   return NextResponse.json(
     {
@@ -55,6 +75,11 @@ export async function GET(
   request: Request,
   { params }: RouteParams
 ): Promise<NextResponse> {
+  const requestContext = createRequestObservabilityContext(
+    request,
+    "/api/invoice/:id"
+  );
+
   // SECURITY: Validate request origin
   if (!validateOrigin(request)) {
     return invalidOriginResponse() as NextResponse;
@@ -91,6 +116,8 @@ export async function GET(
     ipHash: currentIpHash,
     sid,
     serverSecret,
+    route: requestContext.route,
+    requestId: requestContext.requestId,
   });
   if (rateLimitResponse) {
     return rateLimitResponse;
@@ -126,6 +153,12 @@ export async function GET(
               paymentHash: invoice.paymentHash,
               serverSecret,
             });
+            logSettlementEvent({
+              context: requestContext,
+              outcome: "confirmed",
+              sid,
+              invoiceId,
+            });
             // Update local status for response
             invoice = { ...invoice, status: "paid" };
           } else if (lndStatus.state === "CANCELED") {
@@ -138,6 +171,13 @@ export async function GET(
           }
           // "OPEN" and "ACCEPTED" states mean still waiting for payment
         } catch (lndError) {
+          logApiFailure({
+            context: requestContext,
+            stage: "invoice_status_lnd_lookup",
+            error: lndError,
+            statusCode: 502,
+            sid,
+          });
           // Log but don't fail - we can still return the cached status
           console.warn("Failed to check LND status:", lndError);
         }
@@ -154,6 +194,13 @@ export async function GET(
       paidAt: invoice.paidAt,
     });
   } catch (error) {
+    logApiFailure({
+      context: requestContext,
+      stage: "invoice_status_get",
+      error,
+      statusCode: 500,
+      sid,
+    });
     console.error("Failed to get invoice:", error);
     return NextResponse.json(
       { error: "Failed to get invoice" },
@@ -170,6 +217,11 @@ export async function POST(
   request: Request,
   { params }: RouteParams
 ): Promise<NextResponse> {
+  const requestContext = createRequestObservabilityContext(
+    request,
+    "/api/invoice/:id"
+  );
+
   // SECURITY: Validate request origin
   if (!validateOrigin(request)) {
     return invalidOriginResponse() as NextResponse;
@@ -206,6 +258,8 @@ export async function POST(
     ipHash: currentIpHash,
     sid,
     serverSecret,
+    route: requestContext.route,
+    requestId: requestContext.requestId,
   });
   if (rateLimitResponse) {
     return rateLimitResponse;
@@ -255,6 +309,16 @@ export async function POST(
         paymentHash: invoice.paymentHash,
         serverSecret,
       });
+      logSettlementEvent({
+        context: requestContext,
+        outcome: "confirmed",
+        sid,
+        invoiceId,
+        details: {
+          alreadyPaid: result.alreadyPaid,
+          creditsAdded: result.creditsAdded,
+        },
+      });
 
       return NextResponse.json({
         success: result.success,
@@ -277,6 +341,14 @@ export async function POST(
       { status: 402 }
     );
   } catch (error) {
+    logApiFailure({
+      context: requestContext,
+      stage: "invoice_confirm",
+      error,
+      statusCode: 500,
+      sid,
+      invoiceId,
+    });
     console.error("Failed to confirm payment:", error);
     return NextResponse.json(
       {

@@ -22,6 +22,13 @@ import {
   InvalidJsonError,
   DEFAULT_MAX_BODY_SIZE,
 } from "@/lib/request-body";
+import {
+  createRequestObservabilityContext,
+  emitMetric,
+  logApiFailure,
+  logSettlementEvent,
+  logWarn,
+} from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
 
 // Allow streaming responses up to 30 seconds
@@ -185,6 +192,8 @@ const requestBodySchema = z.object({
  * Validates request body using Zod schema and streams AI responses with metadata.
  */
 export async function POST(req: Request) {
+  const requestContext = createRequestObservabilityContext(req, "/api/chat");
+
   // SECURITY: Validate request origin
   if (!validateOrigin(req)) {
     return invalidOriginResponse();
@@ -255,6 +264,16 @@ export async function POST(req: Request) {
   });
 
   if (!rateLimitResult.allowed) {
+    emitMetric("api_rate_limit_blocks_total", {
+      route: requestContext.route,
+      endpoint: "chat",
+    });
+    logWarn("api.rate_limited", {
+      route: requestContext.route,
+      requestId: requestContext.requestId,
+      sid,
+      retryAfter: rateLimitResult.retryAfter,
+    });
     return withSessionRefresh(Response.json(
       {
         error: "Rate limit exceeded",
@@ -381,7 +400,29 @@ export async function POST(req: Request) {
         serverSecret,
       });
       console.log(`[Chat API] Released credit reservation (${reason})`);
+      logSettlementEvent({
+        context: requestContext,
+        outcome: "released",
+        sid: sessionId,
+        generationId,
+        details: { reason },
+      });
     } catch (refundErr) {
+      logSettlementEvent({
+        context: requestContext,
+        outcome: "release_failed",
+        sid: sessionId,
+        generationId,
+        details: { reason },
+      });
+      logApiFailure({
+        context: requestContext,
+        stage: "chat_release_reservation",
+        error: refundErr,
+        statusCode: 500,
+        sid: sessionId,
+        generationId,
+      });
       console.error(
         `[Chat API] Failed to release credit reservation (${reason}):`,
         refundErr
@@ -412,13 +453,34 @@ export async function POST(req: Request) {
         });
 
         if (!deductResult.success) {
+          logSettlementEvent({
+            context: requestContext,
+            outcome: "deduct_failed",
+            sid: sessionId,
+            generationId,
+          });
           console.warn(
             "[Chat API] Reservation conversion failed, releasing credit:",
             deductResult
           );
           await releaseReservedCredits("deduct-failed");
+        } else {
+          logSettlementEvent({
+            context: requestContext,
+            outcome: "confirmed",
+            sid: sessionId,
+            generationId,
+          });
         }
       } catch (err) {
+        logApiFailure({
+          context: requestContext,
+          stage: "chat_deduct_credits",
+          error: err,
+          statusCode: 500,
+          sid: sessionId,
+          generationId,
+        });
         console.error("[Chat API] Failed to convert reservation:", err);
         await releaseReservedCredits("deduct-error");
       }
@@ -655,6 +717,14 @@ export async function POST(req: Request) {
             }
           } catch (err) {
             // Mid-stream error: release the reserved credit
+            logApiFailure({
+              context: requestContext,
+              stage: "chat_stream_pump",
+              error: err,
+              statusCode: 500,
+              sid: sessionId,
+              generationId: generationId ?? undefined,
+            });
             console.error("[Chat API] Stream error during pump:", err);
             await settleCredits("release", "stream-error");
             controller.error(err);
@@ -680,6 +750,14 @@ export async function POST(req: Request) {
       headers: baseResponse.headers,
     }));
   } catch (error) {
+    logApiFailure({
+      context: requestContext,
+      stage: "chat_handler",
+      error,
+      statusCode: 500,
+      sid: sessionId,
+      generationId: generationId ?? undefined,
+    });
     console.error("Chat API error:", error);
 
     // Release reserved credit on failure (refund)

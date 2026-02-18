@@ -1962,6 +1962,12 @@
             },
             "optional": true
           },
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
           "sid": {
             "fieldType": {
               "type": "string"
@@ -1983,6 +1989,12 @@
       "args": {
         "type": "object",
         "value": {
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
           "sid": {
             "fieldType": {
               "type": "string"

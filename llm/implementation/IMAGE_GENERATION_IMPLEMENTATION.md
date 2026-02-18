@@ -111,6 +111,15 @@ File: `src/app/api/generate-image/route.ts`
 - Cron runs `processCostEventOutboxBatch` every 5 minutes for retries.
 - Replay path checks existing cost records for the same generation id to avoid duplicate entries.
 
+### Observability instrumentation
+
+`/api/generate-image` emits structured observability signals through `src/lib/observability.ts`:
+
+- `api_rate_limit_blocks_total` + `api.rate_limited` for throttled requests
+- `api_timeouts_total` + `api.timeout` for scene planner, upstream generation, and handler timeout paths
+- `api.failure` for non-timeout failures (planner, outbox enqueue, handler, reservation release failures)
+- `settlement_events_total` + `settlement.event` for reservation/settlement transitions (confirmed, released, shortfall, outbox enqueued, failures)
+
 ### Scene-plan cache integration
 
 - parses/sanitizes `translation` query parameter

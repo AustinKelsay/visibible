@@ -158,6 +158,23 @@ On success, returns `{ success, alreadyPaid?, newBalance?, creditsAdded? }`.
 
 ---
 
+## Observability Signals
+
+Invoice routes emit structured operational signals via `src/lib/observability.ts`:
+
+- `POST /api/invoice`
+  - `api_rate_limit_blocks_total` + `api.rate_limited` for invoice create throttling
+  - `invoice_created_total` on successful invoice creation
+  - `api.failure` for invoice create failures
+- `GET/POST /api/invoice/:id`
+  - `api_rate_limit_blocks_total` + `api.rate_limited` for invoice-status polling throttling
+  - `settlement_events_total` + `settlement.event` on successful payment confirmation
+  - `api.failure` for LND lookup/confirm failure paths
+
+These signals are intended for log pipelines and alerting dashboards, and complement existing invoice security checks.
+
+---
+
 ## Convex Mutations
 
 **`confirmPayment`** (action in `convex/invoices.ts`)

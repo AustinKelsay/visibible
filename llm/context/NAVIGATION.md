@@ -76,13 +76,13 @@ Calling `openChat()` opens to the Chat tab. Calling `openFeedback()` opens to th
 
 `NavigationContext` also tracks mobile-only overlays:
 
-- `isImageControlsOpen`, `openImageControls`, `closeImageControls` — Bottom sheet for verse/image controls
+- `isFullscreen`, `openFullscreen`, `closeFullscreen` — Fullscreen image view (locks body scroll; Escape closes it first before chat)
 - `isHeaderMenuOpen`, `openHeaderMenu`, `closeHeaderMenu` — Header settings dropdown (translation/model)
 
 Coordination rules:
-- Opening image controls closes header settings menu
-- Opening header settings menu closes image controls
-- Route changes close menu + mobile overlays, while chat can remain open for continuity
+- Opening fullscreen (`openFullscreen`) closes the book menu and header settings menu
+- Opening header settings menu does not forcibly close fullscreen, but Escape prioritizes closing fullscreen first
+- Route changes close the book menu and header settings menu; fullscreen and chat are unaffected by route changes (chat intentionally persists for conversation continuity)
 
 ## Feedback Prompt
 
@@ -114,7 +114,6 @@ A horizontal scrollable strip below the hero image showing all verses in the cur
 - Menu state: `src/context/navigation-context.tsx`
 - Header actions + mobile settings dropdown: `src/components/header.tsx`
 - Arrow navigation: `src/components/hero-image.tsx`, `src/components/scripture-reader.tsx`
-- Mobile controls sheet: `src/components/image-controls-sheet.tsx`
 - Verse strip navigator: `src/components/verse-strip.tsx`
 - Chat sidebar (with tabs): `src/components/chat-sidebar.tsx`
 - Chat context setter: `src/components/chat-context-setter.tsx`
