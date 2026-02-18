@@ -35,6 +35,7 @@ Central configuration object defining rate limits for each endpoint. Each entry 
   "admin-login": { windowMs: 900_000, maxRequests: 5 },  // 5 attempts per 15 minutes
   session: { windowMs: 60_000, maxRequests: 10 },       // 10 session creates per minute
   invoice: { windowMs: 60_000, maxRequests: 10 },       // 10 invoice creates per minute
+  "invoice-status": { windowMs: 60_000, maxRequests: 30 }, // 30 status checks/confirms per minute
   feedback: { windowMs: 60_000, maxRequests: 5 },       // 5 feedback submissions per minute
 }
 ```
@@ -53,7 +54,7 @@ These constants configure admin login brute force protection but are not exporte
 #### `RateLimitEndpoint`
 Type: `keyof typeof RATE_LIMITS`
 
-Union type of all valid endpoint names: `"chat" | "generate-image" | "admin-login" | "session" | "invoice" | "feedback"`
+Union type of all valid endpoint names: `"chat" | "generate-image" | "admin-login" | "session" | "invoice" | "invoice-status" | "feedback"`
 
 ### Functions
 
@@ -534,6 +535,7 @@ adminLoginAttempts: defineTable({
 | `src/app/api/session/route.ts` | `session` | `ipHash` | 10/min per IP (prevents session spam) |
 | `src/app/api/generate-image/route.ts` | `generate-image` | `${ipHash}:${sid}` | 5/min per IP+session |
 | `src/app/api/invoice/route.ts` | `invoice` | `ipHash` | 10/min per IP (prevents multi-session bypass) |
+| `src/app/api/invoice/[id]/route.ts` | `invoice-status` | `${ipHash}:${sid}` | 30/min per IP+session for status/confirm polling |
 | `src/app/api/feedback/route.ts` | `feedback` | `ipHash` | 5/min per IP (spam protection) |
 | `src/app/api/admin-login/route.ts` | N/A | `ipHash` | Brute force protection (separate system) |
 | `src/app/api/rate-limit-status/route.ts` | N/A | `${ipHash}:${sid}` | Status query only for `chat` + `generate-image` |
@@ -551,7 +553,7 @@ adminLoginAttempts: defineTable({
 
 1. **Identifier Selection:**
    - Use IP hash alone for session creation and invoice creation (prevents session spam and multi-session bypass)
-   - Use `${ipHash}:${sessionId}` for AI endpoints like chat/image generation (allows per-session usage)
+   - Use `${ipHash}:${sessionId}` for cost/settlement-sensitive per-session flows (chat/image generation and invoice status polling)
 
 2. **Error Responses:**
    - Always return `429` status code when rate limit exceeded

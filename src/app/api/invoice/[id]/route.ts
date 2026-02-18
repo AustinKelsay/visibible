@@ -9,6 +9,43 @@ interface RouteParams {
   params: Promise<{ id: string }>;
 }
 
+const INVOICE_STATUS_RATE_LIMIT_ENDPOINT = "invoice-status";
+
+function buildInvoiceStatusRateLimitIdentifier(ipHash: string, sid: string): string {
+  return `${ipHash}:${sid}`;
+}
+
+async function enforceInvoiceStatusRateLimit(args: {
+  convex: NonNullable<ReturnType<typeof getConvexClient>>;
+  ipHash: string;
+  sid: string;
+  serverSecret: string;
+}): Promise<NextResponse | null> {
+  const rateLimitResult = await args.convex.mutation(api.rateLimit.checkRateLimit, {
+    identifier: buildInvoiceStatusRateLimitIdentifier(args.ipHash, args.sid),
+    endpoint: INVOICE_STATUS_RATE_LIMIT_ENDPOINT,
+    serverSecret: args.serverSecret,
+  });
+
+  if (rateLimitResult.allowed) {
+    return null;
+  }
+
+  return NextResponse.json(
+    {
+      error: "Too many invoice status requests",
+      message: "Please wait before checking invoice status again.",
+      retryAfter: rateLimitResult.retryAfter,
+    },
+    {
+      status: 429,
+      headers: {
+        "Retry-After": String(rateLimitResult.retryAfter || 60),
+      },
+    }
+  );
+}
+
 /**
  * GET /api/invoice/:id
  * Returns the status of an invoice.
@@ -43,10 +80,21 @@ export async function GET(
   }
 
   const sessionValidation = await validateSessionWithIp(request);
-  if (!sessionValidation.valid) {
+  if (!sessionValidation.valid || !sessionValidation.sid || !sessionValidation.currentIpHash) {
     return NextResponse.json({ error: "Session required" }, { status: 401 });
   }
   const sid = sessionValidation.sid;
+  const currentIpHash = sessionValidation.currentIpHash;
+
+  const rateLimitResponse = await enforceInvoiceStatusRateLimit({
+    convex,
+    ipHash: currentIpHash,
+    sid,
+    serverSecret,
+  });
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
 
   const { id: invoiceId } = await params;
 
@@ -147,10 +195,21 @@ export async function POST(
   }
 
   const sessionValidation = await validateSessionWithIp(request);
-  if (!sessionValidation.valid) {
+  if (!sessionValidation.valid || !sessionValidation.sid || !sessionValidation.currentIpHash) {
     return NextResponse.json({ error: "Session required" }, { status: 401 });
   }
   const sid = sessionValidation.sid;
+  const currentIpHash = sessionValidation.currentIpHash;
+
+  const rateLimitResponse = await enforceInvoiceStatusRateLimit({
+    convex,
+    ipHash: currentIpHash,
+    sid,
+    serverSecret,
+  });
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
 
   const { id: invoiceId } = await params;
 

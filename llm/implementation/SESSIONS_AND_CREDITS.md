@@ -233,6 +233,7 @@ All protected API routes implement rate limiting to prevent abuse:
 | `/api/chat` | 20 requests | 1 minute |
 | `/api/generate-image` | 5 requests | 1 minute |
 | `/api/invoice` | 10 requests | 1 minute |
+| `/api/invoice/:id` (GET/POST) | 30 requests | 1 minute |
 | `/api/session` | 10 requests | 1 minute |
 | `/api/admin-login` | 5 attempts | 15 minutes + 1 hour lockout |
 
@@ -240,11 +241,11 @@ All protected API routes implement rate limiting to prevent abuse:
 
 Endpoints use one of two identifier strategies:
 
-**IP+Session (for AI features):**
+**IP+Session (for session-bound expensive/sensitive flows):**
 ```typescript
 const rateLimitIdentifier = `${ipHash}:${sid}`;
 ```
-Used by: `/api/chat`, `/api/generate-image`
+Used by: `/api/chat`, `/api/generate-image`, `/api/invoice/:id` (status/confirm polling)
 
 **IP-Only (for infrastructure):**
 ```typescript
@@ -253,8 +254,8 @@ const rateLimitIdentifier = await hashIp(clientIp);
 Used by: `/api/session`, `/api/invoice`
 
 **Why the difference?**
-- **AI endpoints** use IP+session to allow fair per-session usage while preventing abuse
-- **Invoice endpoint** uses IP-only to prevent multi-session bypass (attacker creating many sessions to flood LND with invoices)
+- **Session-bound expensive/sensitive endpoints** use IP+session to allow fair per-session usage while preventing abuse
+- **Invoice creation** uses IP-only to prevent multi-session bypass (attacker creating many sessions to flood LND with invoices)
 - **Session endpoint** uses IP-only to prevent session creation spam
 - **Privacy**: IP addresses are hashed with SESSION_SECRET before storage
 

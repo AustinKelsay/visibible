@@ -72,6 +72,18 @@ Primary risk themes: security boundaries, credit-accounting integrity
 
 - Remaining active scope: PR-7 through PR-12 remain the current production-readiness backlog (some partially complete).
 
+### 2026-02-18
+
+- PR-7 completed: invoice polling throttling for invoice status/confirm flows.
+  - Added dedicated rate-limit endpoint `invoice-status` (`30/min`) in `convex/rateLimit.ts`.
+  - Enforced throttling on both `GET /api/invoice/:id` and `POST /api/invoice/:id`.
+  - Uses per-session/IP identifier (`${ipHash}:${sid}`) derived from `validateSessionWithIp`.
+  - Returns `429` with `Retry-After` when status polling exceeds threshold.
+  - Added route integration coverage for allowed and throttled status/confirm paths:
+    - `src/app/api/__tests__/invoice/ip-binding.test.ts`
+
+- Remaining active scope: PR-8 through PR-12 remain the current production-readiness backlog (some partially complete).
+
 ## Goals
 
 1. Eliminate externally reachable trust-boundary breaks.
@@ -188,7 +200,7 @@ Acceptance criteria:
 
 ---
 
-### PR-7: Invoice Polling Throttling (High #9)
+### PR-7: Invoice Polling Throttling (High #9) [Completed 2026-02-18]
 
 Scope:
 - Add per-session/IP rate limiting for invoice status checks.

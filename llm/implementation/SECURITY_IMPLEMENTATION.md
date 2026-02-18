@@ -553,7 +553,7 @@ if (isProduction && trustedIps) {
 
 ## Session Validation (Timeouts + IP Binding)
 
-**Files:** `src/lib/session.ts`, `src/app/api/chat/route.ts`, `src/app/api/generate-image/route.ts`
+**Files:** `src/lib/session.ts`, `src/app/api/chat/route.ts`, `src/app/api/generate-image/route.ts`, `src/app/api/admin-login/route.ts`, `src/app/api/invoice/route.ts`, `src/app/api/invoice/[id]/route.ts`, `src/app/api/rate-limit-status/route.ts`, `src/app/api/feedback/route.ts`, `src/app/api/session/route.ts`
 
 Session validation uses layered checks:
 - **Idle timeout** (configurable 5-15 minutes, default 10)
@@ -566,7 +566,7 @@ but never past the absolute timeout cap.
 ### Validation Flow
 
 ```typescript
-// Both /api/chat and /api/generate-image use this pattern:
+// Privileged/session-sensitive routes use this pattern:
 const sessionValidation = await validateSessionWithIp(request);
 
 // 1. No session at all
@@ -607,7 +607,7 @@ Legacy tokens missing newer claims (`iph`, `sat`, `lat`) are accepted only if th
 |-------|------------|
 | **SameSite Cookies** | Session/CSRF cookies use `Strict`/`Lax` |
 | **Origin Validation** | Rejects unauthorized cross-origin requests |
-| **Session IP Binding** | JWT includes hashed IP, **enforced on /api/chat and /api/generate-image** |
+| **Session IP Binding** | JWT includes hashed IP; enforced on cost-incurring routes and standardized across privileged/session-sensitive routes (`/api/chat`, `/api/generate-image`, `/api/admin-login`, `/api/invoice`, `/api/invoice/[id]`, `/api/rate-limit-status`, `/api/feedback` attribution, existing-session reuse in `/api/session`) |
 | **Rate Limiting** | Per-endpoint request throttling (see RATE_LIMIT_IMPLEMENTATION.md) |
 | **Input Validation** | Zod schemas with length limits on all fields |
 | **Per-Request Cost Cap** | Maximum $1.00 per single request |
@@ -638,7 +638,8 @@ Legacy tokens missing newer claims (`iph`, `sat`, `lat`) are accepted only if th
 **Attack:** Create many sessions from different IPs to multiply rate limits.
 **Mitigation:**
 - Cost-incurring endpoints (`/api/chat`, `/api/generate-image`) rate limit on `${ipHash}:${sid}`
-- Session/invoice/feedback endpoints rate limit on `ipHash` to reduce multi-session bypass risk
+- Session, invoice-creation, and feedback endpoints rate limit on `ipHash` to reduce multi-session bypass risk
+- Invoice status/confirm polling (`/api/invoice/[id]`) rate limits on `${ipHash}:${sid}` to cap repeated LND checks per session
 - Daily spending limit applies per session
 - Each session still limited to $5/day regardless of IP
 
@@ -660,7 +661,7 @@ Legacy tokens missing newer claims (`iph`, `sat`, `lat`) are accepted only if th
 **Attack:** Steal session cookie and use from attacker's machine.
 **Mitigation:**
 - Session tokens include IP hash binding (`iph` field)
-- `/api/chat` and `/api/generate-image` validate IP on every request
+- IP-bound session validation is enforced on privileged/session-sensitive routes (`/api/chat`, `/api/generate-image`, `/api/admin-login`, `/api/invoice`, `/api/invoice/[id]`, `/api/rate-limit-status`; feedback/session flows use `validateSessionWithIp` for identity derivation where applicable)
 - Requests from mismatched IPs are rejected with 401
 - Attacker cannot use stolen token from different IP
 

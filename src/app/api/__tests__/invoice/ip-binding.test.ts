@@ -147,7 +147,11 @@ describe("Invoice IP Binding", () => {
   });
 
   it("returns invoice status when session is valid and invoice belongs to session", async () => {
-    mockSessionValidation.value = { valid: true, sid: "invoice-session" };
+    mockSessionValidation.value = {
+      valid: true,
+      sid: "invoice-session",
+      currentIpHash: "bound-ip-hash",
+    };
     const paidAt = Date.now();
     const expiresAt = paidAt + 3600_000;
 
@@ -198,5 +202,125 @@ describe("Invoice IP Binding", () => {
       expect.anything(),
       expect.objectContaining({ invoiceId: "test-invoice" })
     );
+  });
+
+  it("uses validateSessionWithIp sid + ip hash for invoice status polling rate limiting", async () => {
+    mockSessionValidation.value = {
+      valid: true,
+      sid: "invoice-session",
+      currentIpHash: "bound-ip-hash",
+    };
+    const paidAt = Date.now();
+    const expiresAt = paidAt + 3600_000;
+
+    mockConvex.query.mockImplementation(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if (args.invoiceId === "test-invoice") {
+        return {
+          invoiceId: "test-invoice",
+          sid: "invoice-session",
+          status: "paid",
+          amountUsd: 3,
+          amountSats: 3000,
+          bolt11: "lnbc1test",
+          expiresAt,
+          paidAt,
+        };
+      }
+      return null;
+    });
+
+    const { GET } = await import("../../invoice/[id]/route");
+
+    const response = await GET(
+      new Request("http://localhost:3000/api/invoice/test-invoice", {
+        method: "GET",
+        headers: {
+          origin: "http://localhost:3000",
+        },
+      }),
+      {
+        params: Promise.resolve({ id: "test-invoice" }),
+      }
+    );
+
+    expect(response.status).toBe(200);
+    expect(mockConvex.mutation).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        identifier: "bound-ip-hash:invoice-session",
+        endpoint: "invoice-status",
+      })
+    );
+  });
+
+  it("returns 429 when invoice status polling rate limit is exceeded", async () => {
+    mockSessionValidation.value = {
+      valid: true,
+      sid: "invoice-session",
+      currentIpHash: "bound-ip-hash",
+    };
+    mockConvex.mutation.mockImplementation(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if (args.endpoint === "invoice-status") {
+        return { allowed: false, retryAfter: 42 };
+      }
+      return { success: true };
+    });
+
+    const { GET } = await import("../../invoice/[id]/route");
+
+    const response = await GET(
+      new Request("http://localhost:3000/api/invoice/test-invoice", {
+        method: "GET",
+        headers: {
+          origin: "http://localhost:3000",
+        },
+      }),
+      {
+        params: Promise.resolve({ id: "test-invoice" }),
+      }
+    );
+
+    expect(response.status).toBe(429);
+    const body = await response.json();
+    expect(body.error).toBe("Too many invoice status requests");
+    expect(body.retryAfter).toBe(42);
+    expect(response.headers.get("Retry-After")).toBe("42");
+    expect(mockConvex.query).not.toHaveBeenCalled();
+  });
+
+  it("returns 429 when invoice confirm polling rate limit is exceeded", async () => {
+    mockSessionValidation.value = {
+      valid: true,
+      sid: "invoice-session",
+      currentIpHash: "bound-ip-hash",
+    };
+    mockConvex.mutation.mockImplementation(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if (args.endpoint === "invoice-status") {
+        return { allowed: false, retryAfter: 30 };
+      }
+      return { success: true };
+    });
+
+    const { POST } = await import("../../invoice/[id]/route");
+
+    const response = await POST(
+      new Request("http://localhost:3000/api/invoice/test-invoice", {
+        method: "POST",
+        headers: {
+          origin: "http://localhost:3000",
+        },
+      }),
+      {
+        params: Promise.resolve({ id: "test-invoice" }),
+      }
+    );
+
+    expect(response.status).toBe(429);
+    const body = await response.json();
+    expect(body.error).toBe("Too many invoice status requests");
+    expect(body.retryAfter).toBe(30);
+    expect(response.headers.get("Retry-After")).toBe("30");
+    expect(mockConvex.query).not.toHaveBeenCalled();
+    expect(mockConvex.action).not.toHaveBeenCalled();
   });
 });
