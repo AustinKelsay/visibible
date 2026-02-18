@@ -58,11 +58,21 @@ const COST_EVENT_PERSIST_TIMEOUT_MS = Number.parseInt(
   process.env.COST_EVENT_PERSIST_TIMEOUT_MS || "1500",
   10
 );
+const parsedOpenRouterImageTimeoutMs = Number.parseInt(
+  process.env.OPENROUTER_IMAGE_TIMEOUT_MS || "45000",
+  10
+);
+const EFFECTIVE_IMAGE_TIMEOUT_MS =
+  Number.isFinite(parsedOpenRouterImageTimeoutMs) &&
+  parsedOpenRouterImageTimeoutMs > 0
+    ? parsedOpenRouterImageTimeoutMs
+    : 45000;
 // Scene planner timeout in milliseconds (default 10 seconds, configurable via env var)
 const SCENE_PLANNER_TIMEOUT_MS = Number.parseInt(
   process.env.SCENE_PLANNER_TIMEOUT_MS || "10000",
   10
 );
+const IMAGE_GENERATION_TIMEOUT_MESSAGE_PREFIX = "Image generation timed out after";
 
 type ScenePlan = {
   primarySubject: string;
@@ -202,6 +212,10 @@ function quoteUsdCostLocally(usd: number): { credits: number; billedUsd: number 
     credits: Math.max(1, Math.ceil(billedUsd / CREDIT_USD)),
     billedUsd,
   };
+}
+
+function isAbortError(error: unknown): boolean {
+  return error instanceof Error && error.name === "AbortError";
 }
 
 async function withTimeout<T>(
@@ -1253,33 +1267,66 @@ ${aspectRatioInstruction}`;
   });
 
   try {
+    const releaseReservationIfNeeded = async () => {
+      if (!reservationMade) {
+        return;
+      }
+      await convex
+        .action(api.sessions.releaseReservation, {
+          sid,
+          generationId: chargeGenerationId,
+          serverSecret,
+        })
+        .catch((releaseError) => {
+          console.error("Failed to release reservation:", releaseError);
+        });
+    };
+
     // Use OpenRouter chat completions with Gemini for image generation
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${openRouterApiKey}`,
-        "Content-Type": "application/json",
-        "HTTP-Referer": process.env.OPENROUTER_REFERRER || "http://localhost:3000",
-        "X-Title": process.env.OPENROUTER_TITLE || "visibible",
-      },
-      body: JSON.stringify({
-        model: modelId,
-        messages: [
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
-        // Request image output
-        modalities: ["image", "text"],
-        // Specify aspect ratio and conditionally include resolution
-        // image_size is only supported by certain models (currently Gemini)
-        image_config: {
-          aspect_ratio: aspectRatio,
-          ...(modelSupportsResolution && { image_size: resolution }),
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), EFFECTIVE_IMAGE_TIMEOUT_MS);
+    let response: Response;
+    try {
+      response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${openRouterApiKey}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": process.env.OPENROUTER_REFERRER || "http://localhost:3000",
+          "X-Title": process.env.OPENROUTER_TITLE || "visibible",
         },
-      }),
-    });
+        body: JSON.stringify({
+          model: modelId,
+          messages: [
+            {
+              role: "user",
+              content: prompt,
+            },
+          ],
+          // Request image output
+          modalities: ["image", "text"],
+          // Specify aspect ratio and conditionally include resolution
+          // image_size is only supported by certain models (currently Gemini)
+          image_config: {
+            aspect_ratio: aspectRatio,
+            ...(modelSupportsResolution && { image_size: resolution }),
+          },
+        }),
+        signal: controller.signal,
+      });
+    } catch (error) {
+      if (isAbortError(error)) {
+        console.error(
+          `[Image API] Main generation timeout after ${EFFECTIVE_IMAGE_TIMEOUT_MS}ms`
+        );
+        throw new Error(
+          `${IMAGE_GENERATION_TIMEOUT_MESSAGE_PREFIX} ${EFFECTIVE_IMAGE_TIMEOUT_MS}ms`
+        );
+      }
+      throw error;
+    } finally {
+      clearTimeout(timeoutId);
+    }
 
     if (!response.ok) {
       // SECURITY: Log minimal error info to avoid exposing API internals
@@ -1616,17 +1663,7 @@ ${aspectRatioInstruction}`;
     // If no image found, return error and release reservation
     // SECURITY: Log minimal info to avoid exposing API response structure
     console.error(`[Image API] No image in response for model=${modelId}`);
-    if (reservationMade) {
-      await convex
-        .action(api.sessions.releaseReservation, {
-          sid,
-          generationId: chargeGenerationId,
-          serverSecret,
-        })
-        .catch((releaseError) => {
-          console.error("Failed to release reservation:", releaseError);
-        });
-    }
+    await releaseReservationIfNeeded();
     await updateGenerationRequest("failed", {
       error: "No image generated - model may not support image output",
       durationMs: Date.now() - generationStartTime,
@@ -1641,6 +1678,10 @@ ${aspectRatioInstruction}`;
       { status: 500 }
     );
   } catch (error) {
+    const timeoutError =
+      error instanceof Error &&
+      error.message.startsWith(IMAGE_GENERATION_TIMEOUT_MESSAGE_PREFIX);
+
     console.error("Image generation error:", error);
     // Release reservation on failure so user doesn't lose credits
     if (reservationMade) {
@@ -1657,8 +1698,20 @@ ${aspectRatioInstruction}`;
     await updateGenerationRequest("failed", {
       error: error instanceof Error ? error.message : "Failed to generate image",
       durationMs: Date.now() - generationStartTime,
+      scenePlannerUsed,
       scenePlanFromCache,
     });
+
+    if (timeoutError) {
+      return NextResponse.json(
+        {
+          error: "Image generation timed out",
+          requestId: generationRequestId,
+        },
+        { status: 504 }
+      );
+    }
+
     return NextResponse.json(
       {
         error: "Failed to generate image",

@@ -91,6 +91,13 @@ File: `src/app/api/generate-image/route.ts`
   - `generating` once prompt packet is finalized
   - `succeeded`/`failed` with terminal metadata
 
+### Main OpenRouter timeout + cleanup
+
+- Main image-generation OpenRouter call is wrapped in an abort timeout (`OPENROUTER_IMAGE_TIMEOUT_MS`, default 45000ms).
+- Timeout-triggered aborts are converted into deterministic timeout failures (HTTP `504` with `Image generation timed out`).
+- Reserved credits are explicitly released on timeout via `releaseReservation` before returning.
+- Timeout failures are written to `imageGenerationRequests` with timeout-specific error context.
+
 ### Neutral Cost integration
 
 - API uses `quoteUsdCost` to convert provider USD to billable credits (with secure fallback to local math).

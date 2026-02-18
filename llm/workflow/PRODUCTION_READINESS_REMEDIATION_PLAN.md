@@ -84,6 +84,15 @@ Primary risk themes: security boundaries, credit-accounting integrity
 
 - Remaining active scope: PR-8 through PR-12 remain the current production-readiness backlog (some partially complete).
 
+- PR-8 completed: main OpenRouter timeout and explicit timeout cleanup on image generation.
+  - Added configurable abort timeout for main image-generation OpenRouter request (`OPENROUTER_IMAGE_TIMEOUT_MS`, default 45s).
+  - Timeout path now fails deterministically with `504` (`Image generation timed out`).
+  - Reservation release is explicitly executed on timeout/failure before response.
+  - Added integration regression coverage for timeout-triggered reservation cleanup:
+    - `src/app/api/__tests__/generate-image/credit-flow.test.ts`
+
+- Remaining active scope: PR-9 through PR-12 remain the current production-readiness backlog (some partially complete).
+
 ## Goals
 
 1. Eliminate externally reachable trust-boundary breaks.
@@ -211,7 +220,7 @@ Acceptance criteria:
 
 ---
 
-### PR-8: Main OpenRouter Timeout and Explicit Cleanup (High #8)
+### PR-8: Main OpenRouter Timeout and Explicit Cleanup (High #8) [Completed 2026-02-18]
 
 Scope:
 - Add abort timeout for primary image generation OpenRouter request.
