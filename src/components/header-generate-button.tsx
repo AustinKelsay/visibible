@@ -38,9 +38,20 @@ export function HeaderGenerateButton() {
     return () => { document.body.style.overflow = ""; };
   }, [isModalOpen]);
 
+  // Reset fetch guard on close so a failed fetch can be retried on next open
+  useEffect(() => {
+    if (!isModalOpen && modelsError) {
+      hasFetchedModels.current = false;
+      queueMicrotask(() => {
+        setModelsError(null);
+        setModels([]);
+      });
+    }
+  }, [isModalOpen, modelsError]);
+
   // Lazy-fetch models when modal opens
   useEffect(() => {
-    if (isModalOpen && !hasFetchedModels.current && models.length === 0) {
+    if (isModalOpen && !hasFetchedModels.current && !modelsError) {
       hasFetchedModels.current = true;
 
       queueMicrotask(() => {
@@ -66,7 +77,7 @@ export function HeaderGenerateButton() {
           .finally(() => setModelsLoading(false));
       });
     }
-  }, [isModalOpen, models.length]);
+  }, [isModalOpen, modelsError]);
 
   // Group models by provider
   const groupedModels: Record<string, ImageModel[]> = models.reduce((acc, model) => {

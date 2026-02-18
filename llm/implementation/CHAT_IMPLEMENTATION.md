@@ -122,7 +122,7 @@ Before processing, the API performs several security validations:
 1. **Origin Validation**: `validateOrigin(req)` checks request origin
 2. **API Key Check**: Ensures `OPENROUTER_API_KEY` is configured
 3. **Convex Availability**: Returns 503 if Convex client unavailable
-4. **Session Required**: `getSessionFromCookies()` must return valid session (401 if missing)
+4. **Session Required**: `validateSessionWithIp(req)` must return a valid, IP-bound session (`sid`) (401 if missing/invalid)
 5. **Rate Limiting**: Checked before request processing (see Rate Limiting section)
 
 ### Validation
@@ -386,6 +386,23 @@ messageMetadata: ({ part }) => {
 
 ---
 
+## Observability Signals
+
+`src/app/api/chat/route.ts` emits structured operational signals for alerting/debugging:
+
+- Rate-limit blocks:
+  - metric: `api_rate_limit_blocks_total` (`route=/api/chat`, `endpoint=chat`)
+  - warning event: `api.rate_limited`
+- Failure paths:
+  - event: `api.failure` (for handler failures and stream pump failures)
+- Settlement lifecycle:
+  - metric: `settlement_events_total`
+  - event: `settlement.event` with outcomes such as `confirmed`, `released`, `release_failed`, `deduct_failed`
+
+Shared helper module: `src/lib/observability.ts`
+
+---
+
 ## Error Handling
 
 The API returns user-friendly errors for common failure modes:
@@ -412,7 +429,7 @@ The API returns user-friendly errors for common failure modes:
 |------|---------|
 | `src/app/api/chat/route.ts` | Validation, prompt, model selection, credit flow, streaming |
 | `src/lib/chat-models.ts` | Model pricing functions (`computeChatCreditsCost`, `getChatModelPricing`) |
-| `src/lib/session.ts` | Session management, IP hashing (`getSessionFromCookies`, `getClientIp`, `hashIp`) |
+| `src/lib/session.ts` | Session management, IP binding, hashing (`validateSessionWithIp`, `getClientIp`, `hashIp`) |
 | `src/lib/origin.ts` | Origin validation (`validateOrigin`, `invalidOriginResponse`) |
 | `src/components/chat.tsx` | Request body wiring, UI state |
 | `src/components/chat-metadata.tsx` | `MessageMetadataDisplay`, `ConversationSummary` components |
@@ -420,3 +437,4 @@ The API returns user-friendly errors for common failure modes:
 | `src/lib/bible-api.ts` | Bible API client for fetching verse data |
 | `convex/sessions.ts` | Credit reservation, deduction, daily spending limit |
 | `convex/rateLimit.ts` | Per-endpoint rate limiting configuration |
+| `src/lib/observability.ts` | Structured logs and operational counters |

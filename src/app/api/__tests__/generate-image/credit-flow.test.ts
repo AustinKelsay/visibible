@@ -25,6 +25,7 @@ process.env.SESSION_SECRET = "a".repeat(32);
 process.env.IP_HASH_SECRET = "b".repeat(32);
 process.env.ENABLE_IMAGE_GENERATION = "true";
 process.env.ENABLE_SCENE_PLANNER = "false";
+process.env.OPENROUTER_IMAGE_TIMEOUT_MS = "50";
 
 // Store original env AFTER setting test vars
 const originalEnv = { ...process.env };
@@ -54,6 +55,7 @@ vi.mock("@/lib/session", () => ({
   })),
   getClientIp: vi.fn(() => "127.0.0.1"),
   hashIp: vi.fn(async () => "mock-ip-hash"),
+  withSessionRefreshCookie: vi.fn((response: Response) => response),
 }));
 
 // Mock Convex client - uses args-based dispatch to avoid String(apiPath) error
@@ -244,8 +246,14 @@ type MockFetchResponse = {
 };
 
 let mockFetchResponse: MockFetchResponse | null = null;
+let mockFetchImpl:
+  | ((input: RequestInfo | URL, init?: RequestInit) => Promise<unknown>)
+  | null = null;
 
-const mockFetch = vi.fn(async () => {
+const mockFetch = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+  if (mockFetchImpl) {
+    return await mockFetchImpl(input, init);
+  }
   if (mockFetchResponse) {
     return mockFetchResponse;
   }
@@ -297,6 +305,7 @@ describe("Image Generation API Credit Flow", () => {
     vi.clearAllMocks();
     resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 }]);
     mockFetchResponse = null;
+    mockFetchImpl = null;
     forceQuoteFailure = false;
     forceRecordImageCostEventFailure = false;
     global.fetch = mockFetch as unknown as typeof fetch;
@@ -538,6 +547,42 @@ describe("Image Generation API Credit Flow", () => {
       const response = await POST(request);
 
       expect(response.status).toBe(500);
+      expect(getCallCount("sessions:releaseReservation")).toBe(1);
+      expect(getCallCount("sessions:deductCredits")).toBe(0);
+    });
+
+    it("openrouter-timeout: returns 504 and releases reservation", async () => {
+      mockFetchImpl = async (_input: RequestInfo | URL, init?: RequestInit) =>
+        await new Promise((_, reject) => {
+          const signal = init?.signal;
+          if (!signal) {
+            reject(new DOMException("No signal provided", "AbortError"));
+            return;
+          }
+          if (signal.aborted) {
+            reject(new Error("aborted", { cause: { name: "AbortError" } }));
+            return;
+          }
+          signal.addEventListener(
+            "abort",
+            () => {
+              reject(new DOMException("Request aborted", "AbortError"));
+            },
+            { once: true }
+          );
+        });
+
+      const { POST } = await import("../../generate-image/route");
+
+      const url = new URL("http://localhost:3000/api/generate-image");
+      url.searchParams.set("text", "Timeout test");
+
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
+
+      expect(response.status).toBe(504);
+      const body = await response.json();
+      expect(body.error).toBe("Image generation timed out");
       expect(getCallCount("sessions:releaseReservation")).toBe(1);
       expect(getCallCount("sessions:deductCredits")).toBe(0);
     });

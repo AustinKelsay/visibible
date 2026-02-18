@@ -36,6 +36,7 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 ### 3. Rate Limiting
 - Per-endpoint request throttling (e.g., 20 chat/min, 5 images/min)
 - Cost-incurring endpoints (`chat`, `generate-image`) use `${ipHash}:${sessionId}`
+- Invoice status/confirm polling (`GET/POST /api/invoice/:id`) uses `${ipHash}:${sessionId}`
 - Abuse-focused endpoints (`session`, `invoice`, `feedback`) use `ipHash`
 - Admin login has exponential backoff lockout (1h → 24h)
 
@@ -69,6 +70,14 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 - Reservation settlement is one-way per `generationId` (`reserved -> released` or `reserved -> charged`) and duplicate release calls are idempotent.
 - Additional sensitive write paths (session creation/lastSeen, invoice create/expire, feedback submit, modelStats writes, and rate-limit mutations) are server-authenticated.
 
+### 9. Operational Observability
+- Structured JSON logging is emitted for critical failures/timeouts/settlement transitions.
+- Critical API rate-limit blocks emit counter metrics and warning logs.
+- Health/readiness/metrics endpoints provide operational visibility:
+  - `/api/health` (liveness)
+  - `/api/readiness` (critical dependency checks)
+  - `/api/metrics` (in-process counters snapshot, protected by metrics auth policy)
+
 ## What This Means for Users
 
 ### Regular Users
@@ -89,13 +98,20 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 - `src/app/api/chat/route.ts` - Chat with all security checks
 - `src/app/api/generate-image/route.ts` - Image generation with security
 - `src/app/api/admin-login/route.ts` - Admin authentication
+- `src/app/api/invoice/route.ts` - Invoice creation with origin + session + rate limiting
+- `src/app/api/invoice/[id]/route.ts` - Invoice status/confirm with origin + IP-bound session + polling throttling
+- `src/app/api/rate-limit-status/route.ts` - Session-derived rate-limit/daily-spend status
 - `src/app/api/session/route.ts` - Session management
+- `src/app/api/health/route.ts` - Liveness status
+- `src/app/api/readiness/route.ts` - Critical dependency readiness
+- `src/app/api/metrics/route.ts` - Machine-parseable counters
 
 ### Security Libraries
 - `src/lib/origin.ts` - Origin validation
 - `src/lib/session.ts` - JWT session management
 - `src/lib/validate-env.ts` - Environment validation
 - `src/lib/request-body.ts` - Secure body reading with size limits
+- `src/lib/observability.ts` - Structured logs and counters
 
 ### Convex Functions
 - `convex/rateLimit.ts` - Rate limiting and brute force protection
@@ -104,7 +120,7 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 ## Issue History
 
 ### Fixed (January 2025)
-- **CRITICAL (FIXED):** IP binding validation now enforced on `/api/chat` and `/api/generate-image` - stolen tokens are rejected if used from different IP
+- **CRITICAL (FIXED):** Initial IP binding enforcement shipped on `/api/chat` and `/api/generate-image` - stolen tokens are rejected if used from different IP
 - **HIGH (FIXED):** Rate-limit-status now uses correct identifier format (`${ipHash}:${sid}`)
 - **HIGH (FIXED):** Feedback endpoint now has Zod validation with max 5000 char message and 10KB body limit
 - **MEDIUM (FIXED):** Admin audit logging now properly awaited in chat and image endpoints
@@ -112,6 +128,7 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 ### Fixed (February 2026)
 - **CRITICAL (FIXED):** Public image persistence boundary closed. `saveImage` now requires server secret; remote fetches are host/mime/size constrained and private hosts are blocked.
 - **CRITICAL (FIXED):** Credit settlement hardened to one-way lifecycle. Duplicate reservation release calls are no-ops after settlement, preventing credit inflation.
+- **HIGH (FIXED):** Session-derived identity lookups standardized on `validateSessionWithIp` for `/api/admin-login`, `/api/invoice`, `/api/invoice/:id`, `/api/rate-limit-status`, feedback session attribution, and existing-session reuse in `/api/session`.
 
 ### Remaining (Low/Optional)
 - **LOW:** Verbose error logging in generate-image (consider reducing)
@@ -121,4 +138,5 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 
 - `llm/implementation/SECURITY_IMPLEMENTATION.md` - Detailed implementation guide
 - `llm/implementation/RATE_LIMIT_IMPLEMENTATION.md` - Rate limiting details
+- `llm/implementation/OBSERVABILITY_IMPLEMENTATION.md` - Structured logs, metrics, and ops endpoints
 - `llm/context/SESSIONS_AND_CREDITS.md` - Credit system context

@@ -9,6 +9,14 @@ npm install
 npm run dev
 ```
 
+## Verify
+
+```bash
+npm run lint
+npm run typecheck
+npm test
+```
+
 ## Env
 
 Copy `.env.example` to `.env.local`.
@@ -98,6 +106,7 @@ Helpful commands:
 npm run vercel:link
 
 # Pull current Vercel env vars by environment
+npm run vercel:env:pull:development
 npm run vercel:env:pull:preview
 npm run vercel:env:pull:production
 ```
@@ -112,9 +121,32 @@ This codebase uses OpenRouter for AI requests:
 
 - Required: `OPENROUTER_API_KEY`
 - Optional metadata headers: `OPENROUTER_REFERRER`, `OPENROUTER_TITLE`
+- Optional image pipeline controls:
+  - `ENABLE_IMAGE_GENERATION`
+  - `ENABLE_SCENE_PLANNER` (defaults to enabled unless explicitly `false`)
+  - `OPENROUTER_SCENE_PLANNER_MODEL`
+  - `SCENE_PLANNER_TIMEOUT_MS`
+  - `OPENROUTER_IMAGE_TIMEOUT_MS`
+  - `COST_EVENT_PERSIST_TIMEOUT_MS`
 
 For chat LLM quality/safety release gates (prompt/model changes), see:
 - `llm/workflow/CHAT_EVAL_AND_RELEASE.md`
+
+Image generation endpoint behavior:
+- `POST /api/generate-image` is the only supported generation method.
+- `GET /api/generate-image` returns `405` with `Allow: POST`.
+- Origin and CSRF validation are enforced for image-generation requests.
+
+## Ops Endpoints
+
+- `GET /api/health`: liveness and uptime snapshot (`200` when process is up)
+- `GET /api/readiness`: dependency readiness (`200` when critical checks pass, `503` otherwise)
+  - Critical checks: required env vars + Convex probe
+  - Non-critical check: LND configured state
+- `GET /api/metrics`: in-process structured counters for alerting and dashboards
+
+Operational logging and metrics details:
+- `llm/implementation/OBSERVABILITY_IMPLEMENTATION.md`
 
 ## Credit System
 

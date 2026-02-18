@@ -1,7 +1,7 @@
 # Production Readiness Remediation Plan
 
-Date: 2026-02-14
-Status: In progress
+Date: 2026-02-18
+Status: Completed (PR-1 through PR-12)
 Primary risk themes: security boundaries, credit-accounting integrity
 
 ## Progress Updates
@@ -45,6 +45,91 @@ Primary risk themes: security boundaries, credit-accounting integrity
     - `rateLimit.checkRateLimit`, `rateLimit.recordFailedAdminLogin`, `rateLimit.clearAdminLoginAttempts`
   - Updated all server route call sites to pass `CONVEX_SERVER_SECRET`.
   - Removed direct unauthenticated browser write capability for the above paths.
+
+### 2026-02-17
+
+- PR-4 follow-up completed: stale reservation reconciler pagination/starvation fix.
+  - Replaced fixed head-batch scan with cursor pagination for stale reservations.
+  - Reconciler now advances through old settled/missing-session rows instead of reprocessing the same first batch indefinitely.
+  - Prevents stranded credits from being skipped permanently when stale reservation volume exceeds per-run release limits.
+
+- PR-3 follow-up completed: bounded POST body parsing for `/api/generate-image`.
+  - Replaced direct `request.json()` parsing with `readJsonBodyWithLimit(...)`.
+  - Added explicit `413 Payload too large` handling for oversized request bodies.
+  - Added regression coverage to ensure oversized image-generation payloads are rejected before credit reservation logic.
+
+- PR-6 completed: session IP-binding consistency for privileged/session-sensitive APIs.
+  - Standardized session-derived identity lookups on `validateSessionWithIp` for:
+    - `/api/admin-login`
+    - `/api/invoice` and `/api/invoice/:id` (GET/POST)
+    - `/api/rate-limit-status`
+    - `/api/feedback` (optional session attribution path)
+    - Existing-session reuse path in `/api/session` POST
+  - Removed cookie-only session reads from privileged invoice/admin flows.
+  - Added route integration coverage for IP-bound session enforcement:
+    - `src/app/api/__tests__/admin-login/ip-binding.test.ts`
+    - `src/app/api/__tests__/invoice/ip-binding.test.ts`
+
+### 2026-02-18
+
+- PR-7 completed: invoice polling throttling for invoice status/confirm flows.
+  - Added dedicated rate-limit endpoint `invoice-status` (`30/min`) in `convex/rateLimit.ts`.
+  - Enforced throttling on both `GET /api/invoice/:id` and `POST /api/invoice/:id`.
+  - Uses per-session/IP identifier (`${ipHash}:${sid}`) derived from `validateSessionWithIp`.
+  - Returns `429` with `Retry-After` when status polling exceeds threshold.
+  - Added route integration coverage for allowed and throttled status/confirm paths:
+    - `src/app/api/__tests__/invoice/ip-binding.test.ts`
+
+- PR-8 completed: main OpenRouter timeout and explicit timeout cleanup on image generation.
+  - Added configurable abort timeout for main image-generation OpenRouter request (`OPENROUTER_IMAGE_TIMEOUT_MS`, default 45s).
+  - Timeout path now fails deterministically with `504` (`Image generation timed out`).
+  - Reservation release is explicitly executed on timeout/failure before response.
+  - Added integration regression coverage for timeout-triggered reservation cleanup:
+    - `src/app/api/__tests__/generate-image/credit-flow.test.ts`
+
+- PR-9 completed: cleanup throughput/frequency scaling for high-churn tables.
+  - Replaced fixed `take(100)` cleanup batches with cursor-paginated loops (`250/page`, up to 20 pages/run).
+  - Added indexed cleanup paths:
+    - `rateLimits.by_windowStart`
+    - `adminLoginAttempts.by_lastAttempt`
+  - Increased cleanup cron frequency:
+    - `cleanup expired sessions`: every 15 minutes
+    - `cleanup stale rate limits`: every 10 minutes
+    - `cleanup admin login attempts`: hourly
+
+- PR-10 completed: security header hardening baseline in Next.js headers config.
+  - Added HSTS in production (`Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`).
+  - Tightened CSP baseline:
+    - `unsafe-eval` is now development-only
+    - added `object-src 'none'`
+    - added `frame-src 'none'`
+    - added `upgrade-insecure-requests` in production
+
+- PR-11 completed: CI production gates + coverage threshold enforcement.
+  - CI now runs `npm run test:coverage` with enforced global thresholds from `vitest.config.ts`:
+    - statements `>=55`, branches `>=45`, functions `>=50`, lines `>=55`
+  - CI now runs `npm run build` as a production gate.
+  - Added targeted invoice payment integration coverage for settled-confirm path:
+    - `src/app/api/__tests__/invoice/ip-binding.test.ts`
+
+- PR-12 completed: structured observability and health signals baseline.
+  - Added shared observability utilities for structured JSON logging + alertable counters:
+    - `src/lib/observability.ts`
+    - `llm/implementation/OBSERVABILITY_IMPLEMENTATION.md`
+  - Added operational endpoints:
+    - `GET /api/health`
+    - `GET /api/readiness`
+    - `GET /api/metrics`
+  - Instrumented critical API/settlement paths for machine-parseable failure and timeout signals:
+    - `src/app/api/chat/route.ts`
+    - `src/app/api/generate-image/route.ts`
+    - `src/app/api/invoice/route.ts`
+    - `src/app/api/invoice/[id]/route.ts`
+  - Added regression coverage for observability utilities and ops endpoints:
+    - `src/lib/__tests__/observability.test.ts`
+    - `src/app/api/__tests__/ops/health-readiness-metrics.test.ts`
+
+- Remaining active scope: production-readiness PR backlog complete (PR-1 through PR-12).
 
 ## Goals
 
@@ -151,7 +236,7 @@ Acceptance criteria:
 
 ---
 
-### PR-6: Session IP-Binding Consistency (High #6)
+### PR-6: Session IP-Binding Consistency (High #6) [Completed 2026-02-17]
 
 Scope:
 - Standardize privileged/session-sensitive API routes on `validateSessionWithIp`.
@@ -162,7 +247,7 @@ Acceptance criteria:
 
 ---
 
-### PR-7: Invoice Polling Throttling (High #9)
+### PR-7: Invoice Polling Throttling (High #9) [Completed 2026-02-18]
 
 Scope:
 - Add per-session/IP rate limiting for invoice status checks.
@@ -173,7 +258,7 @@ Acceptance criteria:
 
 ---
 
-### PR-8: Main OpenRouter Timeout and Explicit Cleanup (High #8)
+### PR-8: Main OpenRouter Timeout and Explicit Cleanup (High #8) [Completed 2026-02-18]
 
 Scope:
 - Add abort timeout for primary image generation OpenRouter request.
@@ -185,7 +270,7 @@ Acceptance criteria:
 
 ## Phase 3: Scalability, Hardening, and Operational Readiness
 
-### PR-9: Cleanup Throughput and Frequency Scaling (High #7)
+### PR-9: Cleanup Throughput and Frequency Scaling (High #7) [Completed 2026-02-18]
 
 Scope:
 - Replace fixed 100-row deletes with paginated loops.
@@ -197,7 +282,7 @@ Acceptance criteria:
 
 ---
 
-### PR-10: Security Header Hardening (Medium #10)
+### PR-10: Security Header Hardening (Medium #10) [Completed 2026-02-18]
 
 Scope:
 - Add HSTS header.
@@ -208,7 +293,7 @@ Acceptance criteria:
 
 ---
 
-### PR-11: CI Production Gates + Coverage Thresholds (Medium #11)
+### PR-11: CI Production Gates + Coverage Thresholds (Medium #11) [Completed 2026-02-18]
 
 Scope:
 - Add `next build` to CI.
@@ -220,7 +305,7 @@ Acceptance criteria:
 
 ---
 
-### PR-12: Structured Observability and Health Signals (Medium #12)
+### PR-12: Structured Observability and Health Signals (Medium #12) [Completed 2026-02-18]
 
 Scope:
 - Introduce structured logging on critical API and settlement paths.

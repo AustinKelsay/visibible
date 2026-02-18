@@ -91,6 +91,13 @@ File: `src/app/api/generate-image/route.ts`
   - `generating` once prompt packet is finalized
   - `succeeded`/`failed` with terminal metadata
 
+### Main OpenRouter timeout + cleanup
+
+- Main image-generation OpenRouter call is wrapped in an abort timeout (`OPENROUTER_IMAGE_TIMEOUT_MS`, default 45000ms).
+- Timeout-triggered aborts are converted into deterministic timeout failures (HTTP `504` with `Image generation timed out`).
+- Reserved credits are explicitly released on timeout via `releaseReservation` before returning.
+- Timeout failures are written to `imageGenerationRequests` with timeout-specific error context.
+
 ### Neutral Cost integration
 
 - API uses `quoteUsdCost` to convert provider USD to billable credits (with secure fallback to local math).
@@ -103,6 +110,15 @@ File: `src/app/api/generate-image/route.ts`
 - On timeout/failure, API enqueues event to `costEventOutbox` via `enqueueImageCostEventOutbox`.
 - Cron runs `processCostEventOutboxBatch` every 5 minutes for retries.
 - Replay path checks existing cost records for the same generation id to avoid duplicate entries.
+
+### Observability instrumentation
+
+`/api/generate-image` emits structured observability signals through `src/lib/observability.ts`:
+
+- `api_rate_limit_blocks_total` + `api.rate_limited` for throttled requests
+- `api_timeouts_total` + `api.timeout` for scene planner, upstream generation, and handler timeout paths
+- `api.failure` for non-timeout failures (planner, outbox enqueue, handler, reservation release failures)
+- `settlement_events_total` + `settlement.event` for reservation/settlement transitions (confirmed, released, shortfall, outbox enqueued, failures)
 
 ### Scene-plan cache integration
 

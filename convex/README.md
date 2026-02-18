@@ -82,7 +82,15 @@ convex env set CONVEX_SERVER_SECRET "..."
 convex env set ADMIN_PASSWORD_SECRET "..."
 convex env set NOSTR_PRIVATE_KEY "..." # optional
 convex env set NOSTR_RELAYS "wss://relay.nostr.band,wss://nos.lol,wss://relay.damus.io,wss://relay.primal.net" # optional
+convex env set CONVEX_SITE_URL "https://actions.dev.visibible.com" # optional, recommended when using custom HTTP actions domain
+convex env set NOSTR_IMAGE_BASE_URL "https://actions.dev.visibible.com" # optional explicit override for Nostr image links
 ```
+
+Nostr image URL base precedence inside Convex actions:
+
+1. `NOSTR_IMAGE_BASE_URL` (explicit override)
+2. `CONVEX_SITE_URL` (custom Convex HTTP actions domain)
+3. `CONVEX_CLOUD_URL` (Convex-provided fallback, built-in)
 
 Use the deployment target files to select where values are set:
 
@@ -106,6 +114,16 @@ From repository root:
 
 Configure Vercel Preview and Production environment variables to match this Convex split.
 Runbook: `llm/workflow/VERCEL_WORKFLOWS.md`
+
+## 9) Scheduled Jobs (Crons)
+
+Crons are defined in `convex/crons.ts` and run automatically in each deployment:
+
+- Expired session cleanup (every 15 minutes)
+- Stale rate-limit record cleanup (every 10 minutes)
+- Admin login attempt cleanup (hourly)
+- Image cost-event outbox processing (every 5 minutes)
+- Stale credit reservation reconciliation (every 5 minutes)
 
 ## Troubleshooting
 

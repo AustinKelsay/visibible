@@ -24,7 +24,12 @@ import {
   getChatModelPricing,
   isModelFree,
 } from "@/lib/chat-models";
-import { validateSessionWithIp, getClientIp, hashIp } from "@/lib/session";
+import {
+  validateSessionWithIp,
+  withSessionRefreshCookie,
+  getClientIp,
+  hashIp,
+} from "@/lib/session";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { validateCsrfToken, CSRF_COOKIE_NAME } from "@/lib/csrf";
@@ -34,6 +39,15 @@ import {
   InvalidJsonError,
   DEFAULT_MAX_BODY_SIZE,
 } from "@/lib/request-body";
+import {
+  createRequestObservabilityContext,
+  emitMetric,
+  logApiFailure,
+  logApiTimeout,
+  logSettlementEvent,
+  logWarn,
+  redactSid,
+} from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
 
 // Disable Next.js server-side caching - let browser cache handle it
@@ -58,11 +72,21 @@ const COST_EVENT_PERSIST_TIMEOUT_MS = Number.parseInt(
   process.env.COST_EVENT_PERSIST_TIMEOUT_MS || "1500",
   10
 );
+const parsedOpenRouterImageTimeoutMs = Number.parseInt(
+  process.env.OPENROUTER_IMAGE_TIMEOUT_MS || "45000",
+  10
+);
+const EFFECTIVE_IMAGE_TIMEOUT_MS =
+  Number.isFinite(parsedOpenRouterImageTimeoutMs) &&
+  parsedOpenRouterImageTimeoutMs > 0
+    ? parsedOpenRouterImageTimeoutMs
+    : 45000;
 // Scene planner timeout in milliseconds (default 10 seconds, configurable via env var)
 const SCENE_PLANNER_TIMEOUT_MS = Number.parseInt(
   process.env.SCENE_PLANNER_TIMEOUT_MS || "10000",
   10
 );
+const IMAGE_GENERATION_TIMEOUT_MESSAGE_PREFIX = "Image generation timed out after";
 
 type ScenePlan = {
   primarySubject: string;
@@ -204,6 +228,10 @@ function quoteUsdCostLocally(usd: number): { credits: number; billedUsd: number 
   };
 }
 
+function isAbortError(error: unknown): boolean {
+  return error instanceof Error && error.name === "AbortError";
+}
+
 async function withTimeout<T>(
   promise: Promise<T>,
   timeoutMs: number,
@@ -313,6 +341,11 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const requestContext = createRequestObservabilityContext(
+    request,
+    "/api/generate-image"
+  );
+
   // SECURITY: Strict origin validation for state-changing route.
   const origin = request.headers.get("origin");
   if (!origin || !validateOrigin(request)) {
@@ -386,6 +419,10 @@ export async function POST(request: Request) {
     );
   }
   const sid = sessionValidation.sid;
+  const withSessionRefresh = (response: Response) =>
+    withSessionRefreshCookie(response, sessionValidation.refreshedToken) as NextResponse;
+  const jsonWithSessionRefresh = (...args: Parameters<typeof NextResponse.json>) =>
+    withSessionRefresh(NextResponse.json(...args));
 
   // SECURITY: Rate limiting - use IP hash as primary identifier to prevent multi-session bypass
   // Combined with sid for granular tracking per IP+session pair
@@ -400,7 +437,17 @@ export async function POST(request: Request) {
   });
 
   if (!rateLimitResult.allowed) {
-    return NextResponse.json(
+    emitMetric("api_rate_limit_blocks_total", {
+      route: requestContext.route,
+      endpoint: "generate-image",
+    });
+    logWarn("api.rate_limited", {
+      route: requestContext.route,
+      requestId: requestContext.requestId,
+      sid: redactSid(sid),
+      retryAfter: rateLimitResult.retryAfter,
+    });
+    return jsonWithSessionRefresh(
       {
         error: "Rate limit exceeded",
         message: "Too many image generation requests. Please wait before generating more.",
@@ -424,7 +471,7 @@ export async function POST(request: Request) {
     const parseResult = generateImageSchema.safeParse(parsed);
     if (!parseResult.success) {
       const firstIssue = parseResult.error.issues[0];
-      return NextResponse.json(
+      return jsonWithSessionRefresh(
         {
           error: "Invalid request",
           message: firstIssue?.message || "Invalid request body.",
@@ -435,7 +482,7 @@ export async function POST(request: Request) {
     requestBody = parseResult.data;
   } catch (error) {
     if (error instanceof PayloadTooLargeError) {
-      return NextResponse.json(
+      return jsonWithSessionRefresh(
         {
           error: "Payload too large",
           message: `Request body exceeds maximum size of ${MAX_IMAGE_REQUEST_BODY_SIZE} bytes.`,
@@ -444,12 +491,12 @@ export async function POST(request: Request) {
       );
     }
     if (error instanceof InvalidJsonError) {
-      return NextResponse.json(
+      return jsonWithSessionRefresh(
         { error: "Invalid request", message: "Request body must be valid JSON." },
         { status: 400 }
       );
     }
-    return NextResponse.json(
+    return jsonWithSessionRefresh(
       { error: "Invalid request", message: "Failed to read request body." },
       { status: 400 }
     );
@@ -582,7 +629,7 @@ export async function POST(request: Request) {
   const styleProfile = requestedStyleProfile || STYLE_PROFILES[DEFAULT_STYLE_PROFILE];
 
   if (requestedStyleId && !requestedStyleProfile) {
-    return NextResponse.json(
+    return jsonWithSessionRefresh(
       {
         error: "Style profile not available",
         message: `The style "${requestedStyleId}" is not available. Please select a different style.`,
@@ -599,7 +646,7 @@ export async function POST(request: Request) {
       (model) => model.id === requestedModelId
     );
     if (!foundModel) {
-      return NextResponse.json(
+      return jsonWithSessionRefresh(
         {
           error: "Model not available",
           message: `The model "${requestedModelId}" is not available. Please select a different model.`,
@@ -623,7 +670,7 @@ export async function POST(request: Request) {
     !Number.isFinite(parsedModelPricingUsd) ||
     parsedModelPricingUsd <= 0
   ) {
-    return NextResponse.json(
+    return jsonWithSessionRefresh(
       {
         error: "Model pricing unavailable",
         message: `The model "${modelId}" cannot be priced. Please select a different model.`,
@@ -744,7 +791,7 @@ export async function POST(request: Request) {
   // Check if user is admin (unlimited access)
   const session = await convex.query(api.sessions.getSession, { sid });
   if (!session) {
-    return NextResponse.json(
+    return jsonWithSessionRefresh(
       { error: "Session not found" },
       { status: 401 }
     );
@@ -848,7 +895,7 @@ export async function POST(request: Request) {
         await updateGenerationRequest("failed", {
           error: "Daily spending limit exceeded",
         });
-        return NextResponse.json(
+        return jsonWithSessionRefresh(
           {
             error: "Daily spending limit exceeded",
             dailyLimit: reserveResult.dailyLimit,
@@ -862,7 +909,7 @@ export async function POST(request: Request) {
       await updateGenerationRequest("failed", {
         error: "Insufficient credits",
       });
-      return NextResponse.json(
+      return jsonWithSessionRefresh(
         {
           error: "Insufficient credits",
           requestId: generationRequestId,
@@ -1046,10 +1093,25 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
       return { scenePlan: normalized, fromCache: false };
     } catch (error) {
       if (error instanceof Error && error.name === "AbortError") {
+        logApiTimeout({
+          context: requestContext,
+          stage: "scene_planner",
+          timeoutMs: SCENE_PLANNER_TIMEOUT_MS,
+          sid,
+          generationId: chargeGenerationId,
+        });
         console.warn(
           `[Image API] Scene planner timeout after ${SCENE_PLANNER_TIMEOUT_MS}ms`
         );
       } else {
+        logApiFailure({
+          context: requestContext,
+          stage: "scene_planner",
+          error,
+          statusCode: 500,
+          sid,
+          generationId: chargeGenerationId,
+        });
         console.warn("[Image API] Scene planner error:", error);
       }
       return { scenePlan: null, fromCache: false };
@@ -1098,7 +1160,7 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
     }
   }
 
-  const includeNarrativeContext = !scenePlan && Boolean(prevHint || nextHint);
+  const includeNarrativeContext = Boolean(prevHint || nextHint);
   const narrativeContext = includeNarrativeContext
     ? [
       "",
@@ -1253,33 +1315,88 @@ ${aspectRatioInstruction}`;
   });
 
   try {
+    const releaseReservationIfNeeded = async () => {
+      if (!reservationMade) {
+        return;
+      }
+      await convex
+        .action(api.sessions.releaseReservation, {
+          sid,
+          generationId: chargeGenerationId,
+          serverSecret,
+        })
+        .catch((releaseError) => {
+          logSettlementEvent({
+            context: requestContext,
+            outcome: "release_failed",
+            sid,
+            generationId: chargeGenerationId,
+            details: { stage: "releaseReservationIfNeeded" },
+          });
+          logApiFailure({
+            context: requestContext,
+            stage: "release_reservation_if_needed",
+            error: releaseError,
+            statusCode: 500,
+            sid,
+            generationId: chargeGenerationId,
+          });
+          console.error("Failed to release reservation:", releaseError);
+        });
+    };
+
     // Use OpenRouter chat completions with Gemini for image generation
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${openRouterApiKey}`,
-        "Content-Type": "application/json",
-        "HTTP-Referer": process.env.OPENROUTER_REFERRER || "http://localhost:3000",
-        "X-Title": process.env.OPENROUTER_TITLE || "visibible",
-      },
-      body: JSON.stringify({
-        model: modelId,
-        messages: [
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
-        // Request image output
-        modalities: ["image", "text"],
-        // Specify aspect ratio and conditionally include resolution
-        // image_size is only supported by certain models (currently Gemini)
-        image_config: {
-          aspect_ratio: aspectRatio,
-          ...(modelSupportsResolution && { image_size: resolution }),
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), EFFECTIVE_IMAGE_TIMEOUT_MS);
+    let response: Response;
+    try {
+      response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${openRouterApiKey}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": process.env.OPENROUTER_REFERRER || "http://localhost:3000",
+          "X-Title": process.env.OPENROUTER_TITLE || "visibible",
         },
-      }),
-    });
+        body: JSON.stringify({
+          model: modelId,
+          messages: [
+            {
+              role: "user",
+              content: prompt,
+            },
+          ],
+          // Request image output
+          modalities: ["image", "text"],
+          // Specify aspect ratio and conditionally include resolution
+          // image_size is only supported by certain models (currently Gemini)
+          image_config: {
+            aspect_ratio: aspectRatio,
+            ...(modelSupportsResolution && { image_size: resolution }),
+          },
+        }),
+        signal: controller.signal,
+      });
+    } catch (error) {
+      if (isAbortError(error)) {
+        logApiTimeout({
+          context: requestContext,
+          stage: "openrouter_generation",
+          timeoutMs: EFFECTIVE_IMAGE_TIMEOUT_MS,
+          sid,
+          generationId: chargeGenerationId,
+        });
+        console.error(
+          `[Image API] Main generation timeout after ${EFFECTIVE_IMAGE_TIMEOUT_MS}ms`
+        );
+        throw new Error(
+          `${IMAGE_GENERATION_TIMEOUT_MESSAGE_PREFIX} ${EFFECTIVE_IMAGE_TIMEOUT_MS}ms`
+        );
+      }
+      throw error;
+    } finally {
+      clearTimeout(timeoutId);
+    }
 
     if (!response.ok) {
       // SECURITY: Log minimal error info to avoid exposing API internals
@@ -1376,6 +1493,13 @@ ${aspectRatioInstruction}`;
         });
 
         if (!deductResult.success) {
+          logSettlementEvent({
+            context: requestContext,
+            outcome: "deduct_failed",
+            sid,
+            generationId: chargeGenerationId,
+            details: { actualCredits: actualTotalCredits },
+          });
           // This should rarely happen since we reserved credits, but handle gracefully
           // Release the reservation if conversion fails
           if (reservationMade) {
@@ -1393,7 +1517,7 @@ ${aspectRatioInstruction}`;
             scenePlanFromCache,
             durationMs: Date.now() - generationStartTime,
           });
-          return NextResponse.json(
+          return jsonWithSessionRefresh(
             {
               error: "Insufficient credits",
               requestId: generationRequestId,
@@ -1408,10 +1532,28 @@ ${aspectRatioInstruction}`;
         if ("newBalance" in deductResult) {
           updatedCredits = deductResult.newBalance;
         }
+        logSettlementEvent({
+          context: requestContext,
+          outcome: "confirmed",
+          sid,
+          generationId: chargeGenerationId,
+          details: { actualCredits: actualTotalCredits },
+        });
 
         // Handle shortfall case: actual cost exceeded reservation and user couldn't cover the difference
         // In this case, we only charged the reserved amount, not the full actual amount
         if ("shortfall" in deductResult && deductResult.shortfall) {
+          logSettlementEvent({
+            context: requestContext,
+            outcome: "shortfall",
+            sid,
+            generationId: chargeGenerationId,
+            details: {
+              reservedCredits: cost,
+              wantedCredits: actualTotalCredits,
+              shortfall: deductResult.shortfall as number,
+            },
+          });
           console.warn(
             `[Image API] Shortfall: wanted=${actualTotalCredits} credits, charged=${cost} credits, shortfall=${deductResult.shortfall}, gen=${chargeGenerationId}`
           );
@@ -1498,6 +1640,13 @@ ${aspectRatioInstruction}`;
         );
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
+        logSettlementEvent({
+          context: requestContext,
+          outcome: "outbox_enqueued",
+          sid,
+          generationId: chargeGenerationId,
+          details: { reason: message },
+        });
         console.warn("[Image API] Cost event persistence failed, enqueueing outbox:", message);
         try {
           await convex.action(api.costs.enqueueImageCostEventOutbox, {
@@ -1506,6 +1655,14 @@ ${aspectRatioInstruction}`;
             serverSecret,
           });
         } catch (enqueueError) {
+          logApiFailure({
+            context: requestContext,
+            stage: "cost_event_outbox_enqueue",
+            error: enqueueError,
+            statusCode: 500,
+            sid,
+            generationId: chargeGenerationId,
+          });
           console.error("[Image API] Failed to enqueue cost event outbox:", enqueueError);
         }
       }
@@ -1540,7 +1697,7 @@ ${aspectRatioInstruction}`;
         console.error("[Image API] Failed to persist generated image:", saveError);
       }
 
-      return NextResponse.json(
+      return jsonWithSessionRefresh(
         {
           requestId: generationRequestId,
           imageUrl,
@@ -1616,24 +1773,14 @@ ${aspectRatioInstruction}`;
     // If no image found, return error and release reservation
     // SECURITY: Log minimal info to avoid exposing API response structure
     console.error(`[Image API] No image in response for model=${modelId}`);
-    if (reservationMade) {
-      await convex
-        .action(api.sessions.releaseReservation, {
-          sid,
-          generationId: chargeGenerationId,
-          serverSecret,
-        })
-        .catch((releaseError) => {
-          console.error("Failed to release reservation:", releaseError);
-        });
-    }
+    await releaseReservationIfNeeded();
     await updateGenerationRequest("failed", {
       error: "No image generated - model may not support image output",
       durationMs: Date.now() - generationStartTime,
       scenePlannerUsed,
       scenePlanFromCache,
     });
-    return NextResponse.json(
+    return jsonWithSessionRefresh(
       {
         error: "No image generated - model may not support image output",
         requestId: generationRequestId,
@@ -1641,6 +1788,28 @@ ${aspectRatioInstruction}`;
       { status: 500 }
     );
   } catch (error) {
+    const timeoutError =
+      error instanceof Error &&
+      error.message.startsWith(IMAGE_GENERATION_TIMEOUT_MESSAGE_PREFIX);
+
+    if (timeoutError) {
+      logApiTimeout({
+        context: requestContext,
+        stage: "generate_image_handler",
+        timeoutMs: EFFECTIVE_IMAGE_TIMEOUT_MS,
+        sid,
+        generationId: chargeGenerationId,
+      });
+    } else {
+      logApiFailure({
+        context: requestContext,
+        stage: "generate_image_handler",
+        error,
+        statusCode: 500,
+        sid,
+        generationId: chargeGenerationId,
+      });
+    }
     console.error("Image generation error:", error);
     // Release reservation on failure so user doesn't lose credits
     if (reservationMade) {
@@ -1651,15 +1820,42 @@ ${aspectRatioInstruction}`;
           serverSecret,
         })
         .catch((releaseError) => {
+          logSettlementEvent({
+            context: requestContext,
+            outcome: "release_failed",
+            sid,
+            generationId: chargeGenerationId,
+            details: { stage: "generate_image_error_handler" },
+          });
+          logApiFailure({
+            context: requestContext,
+            stage: "release_reservation_on_error",
+            error: releaseError,
+            statusCode: 500,
+            sid,
+            generationId: chargeGenerationId,
+          });
           console.error("Failed to release reservation:", releaseError);
         });
     }
     await updateGenerationRequest("failed", {
       error: error instanceof Error ? error.message : "Failed to generate image",
       durationMs: Date.now() - generationStartTime,
+      scenePlannerUsed,
       scenePlanFromCache,
     });
-    return NextResponse.json(
+
+    if (timeoutError) {
+      return jsonWithSessionRefresh(
+        {
+          error: "Image generation timed out",
+          requestId: generationRequestId,
+        },
+        { status: 504 }
+      );
+    }
+
+    return jsonWithSessionRefresh(
       {
         error: "Failed to generate image",
         requestId: generationRequestId,

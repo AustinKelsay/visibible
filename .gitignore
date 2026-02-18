@@ -46,3 +46,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .env*.local
+
+# Convex function metadata / specs (generated)
+function_spec.json
+*function_spec*.json

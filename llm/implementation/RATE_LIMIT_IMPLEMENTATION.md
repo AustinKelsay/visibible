@@ -35,6 +35,7 @@ Central configuration object defining rate limits for each endpoint. Each entry 
   "admin-login": { windowMs: 900_000, maxRequests: 5 },  // 5 attempts per 15 minutes
   session: { windowMs: 60_000, maxRequests: 10 },       // 10 session creates per minute
   invoice: { windowMs: 60_000, maxRequests: 10 },       // 10 invoice creates per minute
+  "invoice-status": { windowMs: 60_000, maxRequests: 30 }, // 30 status checks/confirms per minute
   feedback: { windowMs: 60_000, maxRequests: 5 },       // 5 feedback submissions per minute
 }
 ```
@@ -53,18 +54,19 @@ These constants configure admin login brute force protection but are not exporte
 #### `RateLimitEndpoint`
 Type: `keyof typeof RATE_LIMITS`
 
-Union type of all valid endpoint names: `"chat" | "generate-image" | "admin-login" | "session" | "invoice" | "feedback"`
+Union type of all valid endpoint names: `"chat" | "generate-image" | "admin-login" | "session" | "invoice" | "invoice-status" | "feedback"`
 
 ### Functions
 
 #### `checkRateLimit`
-Type: `mutation<{ identifier: string; endpoint: string }, { allowed: boolean; retryAfter?: number; remaining?: number }>`
+Type: `mutation<{ identifier: string; endpoint: string; serverSecret: string }, { allowed: boolean; retryAfter?: number; remaining?: number }>`
 
 **Purpose:** Check and increment rate limit for an identifier/endpoint pair. Uses a sliding window approach: if the window has expired, start fresh. Otherwise, check if under limit and increment.
 
 **Parameters:**
 - `identifier`: Unique identifier (typically IP hash or `${ipHash}:${sessionId}`)
 - `endpoint`: Endpoint name (must be a key from `RATE_LIMITS`)
+- `serverSecret`: Shared server secret for trusted-server write authorization
 
 **Returns:**
 - `allowed`: `boolean` - Whether the request is allowed
@@ -115,12 +117,13 @@ Type: `query<{ ipHash: string }, { allowed: boolean; lockedUntil?: number; attem
 - Lockout count persists across windows for exponential backoff
 
 #### `recordFailedAdminLogin`
-Type: `mutation<{ ipHash: string }, { locked: boolean; lockedUntil?: number; attemptsRemaining: number; lockoutCount?: number }>`
+Type: `mutation<{ ipHash: string; serverSecret: string }, { locked: boolean; lockedUntil?: number; attemptsRemaining: number; lockoutCount?: number }>`
 
 **Purpose:** Record a failed admin login attempt and apply lockout if threshold is reached. Implements exponential backoff.
 
 **Parameters:**
 - `ipHash`: Hashed IP address identifier
+- `serverSecret`: Shared server secret for trusted-server write authorization
 
 **Returns:**
 - `locked`: Whether the IP was locked out as a result of this attempt
@@ -135,12 +138,13 @@ Type: `mutation<{ ipHash: string }, { locked: boolean; lockedUntil?: number; att
 - Resets attempt counter when window expires or lockout elapses (preserves lockout count)
 
 #### `clearAdminLoginAttempts`
-Type: `mutation<{ ipHash: string }, void>`
+Type: `mutation<{ ipHash: string; serverSecret: string }, void>`
 
 **Purpose:** Clear failed login attempts after successful admin login. Removes the entire record for the IP hash.
 
 **Parameters:**
 - `ipHash`: Hashed IP address identifier
+- `serverSecret`: Shared server secret for trusted-server write authorization
 
 **Returns:** `void`
 
@@ -169,6 +173,7 @@ export const RATE_LIMITS = {
 const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
   identifier: `${ipHash}:${sessionId}`, // or just ipHash
   endpoint: "new-endpoint",
+  serverSecret,
 });
 
 if (!rateLimitResult.allowed) {
@@ -196,6 +201,20 @@ Changes take effect immediately after Convex syncs the updated function.
 
 ## Usage Examples
 
+### Rate-Limit Block Observability
+
+Current route implementations emit structured observability signals when a rate limit is exceeded:
+
+- Counter metric: `api_rate_limit_blocks_total` (labels include `route` and `endpoint`)
+- Structured warning log event: `api.rate_limited`
+
+Instrumented routes include:
+
+- `src/app/api/chat/route.ts`
+- `src/app/api/generate-image/route.ts`
+- `src/app/api/invoice/route.ts`
+- `src/app/api/invoice/[id]/route.ts`
+
 ### API Route Rate Limiting
 
 #### Example: Chat API Route
@@ -203,10 +222,8 @@ Changes take effect immediately after Convex syncs the updated function.
 ```typescript
 // src/app/api/chat/route.ts
 import { api } from "../../../../convex/_generated/api";
-import { getConvexClient } from "@/lib/convex-client";
-import { hashIp } from "@/lib/session";
-import { getClientIp } from "@/lib/session";
-import { getSessionFromCookies } from "@/lib/session";
+import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
+import { validateSessionWithIp, hashIp, getClientIp } from "@/lib/session";
 
 export async function POST(request: Request) {
   const convex = getConvexClient();
@@ -214,18 +231,20 @@ export async function POST(request: Request) {
     return Response.json({ error: "Service unavailable" }, { status: 503 });
   }
 
-  const clientIp = getClientIp(request);
-  const ipHash = await hashIp(clientIp);
-  const sid = await getSessionFromCookies();
-  if (!sid) {
+  const sessionValidation = await validateSessionWithIp(request);
+  if (!sessionValidation.sid || !sessionValidation.valid) {
     return Response.json({ error: "Session required" }, { status: 401 });
   }
+  const ipHash = sessionValidation.currentIpHash ?? await hashIp(getClientIp(request));
+  const sid = sessionValidation.sid;
   const rateLimitIdentifier = `${ipHash}:${sid}`;
+  const serverSecret = getConvexServerSecret();
 
   // Check rate limit before processing
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: rateLimitIdentifier,
     endpoint: "chat",
+    serverSecret,
   });
 
   if (!rateLimitResult.allowed) {
@@ -255,10 +274,12 @@ export async function POST(request: Request) {
 // src/app/api/session/route.ts
 const clientIp = getClientIp(request);
 const ipHash = await hashIp(clientIp);
+const serverSecret = getConvexServerSecret();
 
 const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
   identifier: ipHash, // IP-only identifier for session creation
   endpoint: "session",
+  serverSecret,
 });
 
 if (!rateLimitResult.allowed) {
@@ -284,10 +305,12 @@ if (!rateLimitResult.allowed) {
 ```typescript
 // src/app/api/generate-image/route.ts
 const rateLimitIdentifier = `${ipHash}:${sid}`;
+const serverSecret = getConvexServerSecret();
 
 const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
   identifier: rateLimitIdentifier,
   endpoint: "generate-image",
+  serverSecret,
 });
 
 if (!rateLimitResult.allowed) {
@@ -319,16 +342,22 @@ import { DEFAULT_DAILY_SPEND_LIMIT_USD } from "../../../../convex/sessions";
 
 export async function GET(request: Request): Promise<NextResponse<RateLimitStatusResponse>> {
   const convex = getConvexClient();
-  const sid = await getSessionFromCookies();
+  const sessionValidation = await validateSessionWithIp(request);
+  const sid =
+    sessionValidation.valid && sessionValidation.sid
+      ? sessionValidation.sid
+      : null;
+  const currentIpHash =
+    sessionValidation.valid && sessionValidation.currentIpHash
+      ? sessionValidation.currentIpHash
+      : null;
 
-  if (!convex || !sid) {
+  if (!convex || !sid || !currentIpHash) {
     // Return default limits when no session
     return NextResponse.json({ endpoints: { ... }, dailySpend: null });
   }
 
-  const clientIp = getClientIp(request);
-  const ipHash = await hashIp(clientIp);
-  const identifier = `${ipHash}:${sid}`;
+  const identifier = `${currentIpHash}:${sid}`;
 
   // Query status for chat and image generation endpoints
   const [chatStatus, imageStatus, session] = await Promise.all([
@@ -370,6 +399,7 @@ export async function GET(request: Request): Promise<NextResponse<RateLimitStatu
 ```typescript
 // src/app/api/admin-login/route.ts
 const ipHash = await hashIp(getClientIp(request));
+const serverSecret = getConvexServerSecret();
 
 // Check if login attempts are allowed
 const loginAllowedResult = await convex.query(api.rateLimit.checkAdminLoginAllowed, {
@@ -392,16 +422,25 @@ try {
   
   if (isValid) {
     // Clear failed attempts on success
-    await convex.mutation(api.rateLimit.clearAdminLoginAttempts, { ipHash });
+    await convex.mutation(api.rateLimit.clearAdminLoginAttempts, {
+      ipHash,
+      serverSecret,
+    });
     // ... create admin session
   } else {
     // Record failed attempt
-    await convex.mutation(api.rateLimit.recordFailedAdminLogin, { ipHash });
+    await convex.mutation(api.rateLimit.recordFailedAdminLogin, {
+      ipHash,
+      serverSecret,
+    });
     return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
   }
 } catch (error) {
   // Record failed attempt on error
-  await convex.mutation(api.rateLimit.recordFailedAdminLogin, { ipHash });
+  await convex.mutation(api.rateLimit.recordFailedAdminLogin, {
+    ipHash,
+    serverSecret,
+  });
   throw error;
 }
 ```
@@ -421,7 +460,8 @@ The following cleanup function maintains the `rateLimits` table:
 #### `cleanupStaleRateLimits`
 - **Purpose:** Delete rate limit records with expired windows (older than 1 hour)
 - **Retention:** 1 hour after window expiration
-- **Batch Limit:** 100 records per run
+- **Throughput:** Cursor-paginated cleanup (`250/page`, up to `20` pages per run)
+- **Index:** Uses `rateLimits.by_windowStart` for efficient stale scans
 - **Called By:** Cron job (see below)
 
 **Implementation:**
@@ -429,21 +469,21 @@ The following cleanup function maintains the `rateLimits` table:
 export const cleanupStaleRateLimits = internalMutation({
   handler: async (ctx) => {
     const cutoff = Date.now() - 60 * 60 * 1000; // 1 hour ago
-    const stale = await ctx.db
+    const page = await ctx.db
       .query("rateLimits")
-      .filter((q) => q.lt(q.field("windowStart"), cutoff))
-      .take(100);
+      .withIndex("by_windowStart", (q) => q.lt("windowStart", cutoff))
+      .paginate({ cursor, numItems: 250 });
     
-    for (const record of stale) {
+    for (const record of page.page) {
       await ctx.db.delete(record._id);
     }
     
-    return { deleted: stale.length };
+    return { deleted };
   },
 });
 ```
 
-**Note:** Also cleans up `adminLoginAttempts` records older than 24 hours via `cleanupAdminLoginAttempts`.
+**Note:** `cleanupAdminLoginAttempts` similarly uses `adminLoginAttempts.by_lastAttempt` with paginated cleanup loops.
 
 ### Cron Schedule
 
@@ -453,22 +493,22 @@ Rate limit cleanup runs automatically via scheduled cron jobs:
 
 | Job | Schedule | Function | Purpose |
 |-----|----------|----------|---------|
-| cleanup stale rate limits | 3:15 AM UTC daily | `cleanupStaleRateLimits` | Remove expired rate limit records |
-| cleanup admin login attempts | 3:30 AM UTC daily | `cleanupAdminLoginAttempts` | Remove old admin login attempt records |
+| cleanup stale rate limits | every 10 minutes | `cleanupStaleRateLimits` | Remove expired rate limit records |
+| cleanup admin login attempts | hourly | `cleanupAdminLoginAttempts` | Remove old admin login attempt records |
 
 **Cron Configuration:**
 ```typescript
-// Clean up stale rate limit records daily at 3:15 AM UTC
-crons.daily(
+// Clean up stale rate-limit records frequently for high-churn protection.
+crons.interval(
   "cleanup stale rate limits",
-  { hourUTC: 3, minuteUTC: 15 },
+  { minutes: 10 },
   internal.cleanup.cleanupStaleRateLimits
 );
 
-// Clean up admin login attempts daily at 3:30 AM UTC
-crons.daily(
+// Clean up old admin login attempts hourly.
+crons.interval(
   "cleanup admin login attempts",
-  { hourUTC: 3, minuteUTC: 30 },
+  { hours: 1 },
   internal.cleanup.cleanupAdminLoginAttempts
 );
 ```
@@ -479,7 +519,7 @@ The rate limiting system fits into the broader Convex workflow:
 
 1. **API Routes** → Call `checkRateLimit` before processing requests
 2. **Rate Limit Records** → Stored in `rateLimits` table with sliding window tracking
-3. **Cron Jobs** → Clean up stale records daily to prevent table growth
+3. **Cron Jobs** → Clean up stale records frequently to prevent table growth
 4. **Cleanup Functions** → Internal mutations that delete expired records
 
 **Data Flow:**
@@ -534,6 +574,7 @@ adminLoginAttempts: defineTable({
 | `src/app/api/session/route.ts` | `session` | `ipHash` | 10/min per IP (prevents session spam) |
 | `src/app/api/generate-image/route.ts` | `generate-image` | `${ipHash}:${sid}` | 5/min per IP+session |
 | `src/app/api/invoice/route.ts` | `invoice` | `ipHash` | 10/min per IP (prevents multi-session bypass) |
+| `src/app/api/invoice/[id]/route.ts` | `invoice-status` | `${ipHash}:${sid}` | 30/min per IP+session for status/confirm polling |
 | `src/app/api/feedback/route.ts` | `feedback` | `ipHash` | 5/min per IP (spam protection) |
 | `src/app/api/admin-login/route.ts` | N/A | `ipHash` | Brute force protection (separate system) |
 | `src/app/api/rate-limit-status/route.ts` | N/A | `${ipHash}:${sid}` | Status query only for `chat` + `generate-image` |
@@ -551,7 +592,7 @@ adminLoginAttempts: defineTable({
 
 1. **Identifier Selection:**
    - Use IP hash alone for session creation and invoice creation (prevents session spam and multi-session bypass)
-   - Use `${ipHash}:${sessionId}` for AI endpoints like chat/image generation (allows per-session usage)
+   - Use `${ipHash}:${sessionId}` for cost/settlement-sensitive per-session flows (chat/image generation and invoice status polling)
 
 2. **Error Responses:**
    - Always return `429` status code when rate limit exceeded

@@ -8,7 +8,6 @@ import {
   hashIp,
   getClientIp,
   validateSessionWithIp,
-  getSessionDataFromCookies,
 } from "@/lib/session";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { generateCsrfToken, getCsrfCookieOptions } from "@/lib/csrf";
@@ -175,10 +174,10 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
   }
 
   // Check if session already exists and is valid
-  const existingData = await getSessionDataFromCookies();
-  if (existingData) {
+  const existingValidation = await validateSessionWithIp(request);
+  if (existingValidation.valid && existingValidation.sid) {
     const existingSession = await convex.query(api.sessions.getSession, {
-      sid: existingData.sid,
+      sid: existingValidation.sid,
     });
     if (existingSession) {
       // Return existing session but refresh token with IP if needed
@@ -187,6 +186,18 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
         tier: existingSession.tier as "paid" | "admin",
         credits: existingSession.credits,
       });
+
+      // SECURITY: Refresh session token if needed (idle timeout renewal)
+      if (existingValidation.refreshedToken) {
+        const cookieOptions = getSessionCookieOptions(existingValidation.refreshedToken);
+        response.cookies.set(cookieOptions.name, cookieOptions.value, {
+          httpOnly: cookieOptions.httpOnly,
+          secure: cookieOptions.secure,
+          sameSite: cookieOptions.sameSite,
+          path: cookieOptions.path,
+          maxAge: cookieOptions.maxAge,
+        });
+      }
 
       // Existing sessions also need a CSRF cookie for admin-login.
       setCsrfCookie(response);
