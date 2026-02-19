@@ -37,8 +37,8 @@ jobs:
         env:
           SECURITY_AUDIT_WAIVER: ${{ vars.SECURITY_AUDIT_WAIVER }}
         run: |
-          if [ -n "${SECURITY_AUDIT_WAIVER}" ]; then
-            echo "::warning::Skipping npm audit due to SECURITY_AUDIT_WAIVER: ${SECURITY_AUDIT_WAIVER}"
+          if [ "${SECURITY_AUDIT_WAIVER}" = "true" ]; then
+            echo "::warning::Skipping npm audit due to SECURITY_AUDIT_WAIVER=${SECURITY_AUDIT_WAIVER}"
             exit 0
           fi
           npm audit --omit=dev --audit-level=high

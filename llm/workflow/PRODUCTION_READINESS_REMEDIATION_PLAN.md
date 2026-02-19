@@ -1,8 +1,8 @@
 # Production Readiness Remediation Plan
 
 Date: 2026-02-19
-Status: In progress (P0 remediations complete; release hygiene gating remains)
-Decision: Hold release sign-off until PR-18 and release gate checklist are closed
+Status: In progress (engineering remediations complete; release-gate verification in active dev/preview target uncovered config blockers)
+Decision: Hold release sign-off until readiness is green on the active deployment target, then re-run gates after production cutover
 
 ## Executive Summary
 
@@ -13,8 +13,8 @@ Current state is strong in many areas (tests, session security model, credit res
 ### Final Readiness Call
 
 - P0 blockers identified in this audit have been remediated in code.
-- Remaining work is release hygiene and final gate closure.
-- Keep launch hold until dependency-audit gating is active and verified.
+- Remaining work is final environment/manual gate closure.
+- Keep launch hold until the release checklist items below are all complete.
 
 ## Progress Update (2026-02-19, latest)
 
@@ -23,7 +23,14 @@ Current state is strong in many areas (tests, session security model, credit res
 - PR-15: Complete (bounded admin-login body parsing shipped)
 - PR-16: Complete (strict production proxy-trust fail-fast policy shipped)
 - PR-17: Complete (mutation-level settlement invariants added for reserve/release/deduct/replay/shortfall/reconcile paths)
-- PR-18: In progress (CI dependency-audit gate implemented, pending CI verification)
+- PR-18: Complete (CI dependency-audit gate implemented and CI run passed)
+- Current integration state: remediation work is on `feature/secure-and-polish`; not all changes are merged into `dev` yet.
+- Release-gate manual checks attempted:
+  - Active deployment context confirmed as dev/preview at this stage (no healthy production cutover yet).
+  - Proxy-trust env policy verified in Vercel envs (`TRUST_PROXY_PLATFORM=vercel`, `TRUSTED_PROXY_IPS` unset).
+  - Latest ready preview deployment probe shows `/api/readiness` returns `503 not_ready` with `NEXT_PUBLIC_CONVEX_URL` missing.
+  - `/api/metrics` returns `503 Metrics endpoint disabled` for both baseline and spoofed-header requests (expected when no metrics auth policy is configured).
+  - Production deployment probe currently blocked by failed deployment state (only production deployment is in `Error` state).
 
 ## Scope and Method
 
@@ -73,7 +80,23 @@ This review included:
 
 ### Not completed in this environment
 
-- `npm audit --omit=dev` failed due DNS/network unavailability to npm registry.
+- Local `npm audit --omit=dev` remains blocked in this environment due to DNS/network limits.
+- CI now performs the production dependency audit gate.
+
+### Environment/manual gate verification (2026-02-19)
+
+- Vercel environment vars (via `npx vercel env pull` for `preview`, `development`, and `production`):
+  - `TRUST_PROXY_PLATFORM="vercel"` in all three envs (verified)
+  - `TRUSTED_PROXY_IPS` unset in all three envs (expected for Vercel trust mode)
+  - `NEXT_PUBLIC_CONVEX_URL` unset in all three envs (blocking readiness)
+  - `NEXT_PUBLIC_APP_URL="https://dev.visibible.com"` in all three envs (current dev-stage value)
+- Latest ready preview deployment probe (`https://visibible-r7zl6scwl-austin-kelsays-projects.vercel.app`):
+  - `/api/readiness` -> `503` with `status: "not_ready"` and missing `NEXT_PUBLIC_CONVEX_URL`
+  - `/api/metrics` -> `503 {"error":"Metrics endpoint disabled"}`
+  - `/api/metrics` with spoofed `x-forwarded-for` + invalid bearer token -> same `503 {"error":"Metrics endpoint disabled"}` (no spoof bypass observed)
+- Vercel production deployment state:
+  - `npx vercel ls --prod` shows only `https://visibible-r2dx74qdr-austin-kelsays-projects.vercel.app` in `Error` state.
+  - Probing `/api/readiness` and `/api/metrics` there returns Vercel "Deployment has failed" content, so production runtime gates must be re-run after a healthy production deployment exists.
 
 ## Findings (Complete)
 
@@ -313,7 +336,7 @@ Files:
 
 ### PR-18: Dependency audit gating
 
-Status: In progress
+Status: Complete
 
 Scope:
 - Add CI step for `npm audit` (or approved scanner) in networked environment.
@@ -325,12 +348,13 @@ Current implementation:
 
 ## Release Gate Checklist (must pass)
 
-- [x] P0 remediations complete and merged.
+- [x] P0 remediations implemented on `feature/secure-and-polish`.
+- [ ] Required remediation commits merged from `feature/secure-and-polish` into `dev`.
 - [x] Run and pass: `npm run lint`, `npm run typecheck`, `npm test`, `npm run test:coverage` (no critical-path regressions in coverage).
-- [ ] Dependency audit run in CI with no unwaived high/critical findings.
-- [ ] Readiness endpoint green in target environment.
-- [ ] Proxy trust settings verified in production environment variables.
-- [ ] Metrics endpoint auth behavior manually verified against spoof attempts.
+- [x] Dependency audit run in CI with no unwaived high/critical findings.
+- [ ] Readiness endpoint green in current target environment (dev/preview before production cutover).
+- [x] Proxy trust settings verified in active Vercel environment variables.
+- [x] Metrics endpoint auth behavior manually verified against spoof attempts in current target environment.
 
 ## Test Additions Required
 
