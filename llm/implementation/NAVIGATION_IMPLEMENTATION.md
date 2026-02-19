@@ -15,7 +15,7 @@ Navigation consists of eight coordinated parts:
 5. **Verse Strip** (`verse-strip.tsx`) — Horizontal verse navigator with image indicators.
 6. **Chat Sidebar** (`chat-sidebar.tsx`) — Tabbed sidebar for Chat and Feedback.
 7. **Mobile Header Settings Menu** (`header.tsx`) — Mobile-only translation/model controls.
-8. **Mobile Image Controls Sheet** (`image-controls-sheet.tsx`) — Mobile-only bottom sheet for verse/image controls.
+8. **Fullscreen Image Mode** — Full-screen overlay for verse/image controls, managed via `isFullscreen` / `openFullscreen` / `closeFullscreen` in NavigationContext.
 
 ---
 
@@ -244,8 +244,8 @@ const {
   chatContext, setChatContext,
   // Current image (for syncing HeroImage with ScriptureDetails)
   currentImageId, setCurrentImageId,
-  // Mobile image controls sheet
-  isImageControlsOpen, openImageControls, closeImageControls,
+  // Fullscreen image mode
+  isFullscreen, openFullscreen, closeFullscreen,
   // Mobile header settings menu
   isHeaderMenuOpen, openHeaderMenu, closeHeaderMenu
 } = useNavigation();
@@ -275,9 +275,9 @@ const {
 | `setChatContext` | `(ctx: PageContext \| null) => void` | Update chat context |
 | `currentImageId` | `string \| null` | ID of currently displayed image |
 | `setCurrentImageId` | `(id: string \| null) => void` | Sync displayed image between HeroImage and ScriptureDetails |
-| `isImageControlsOpen` | `boolean` | Mobile image controls sheet visibility |
-| `openImageControls` | `() => void` | Open mobile controls sheet and close header menu |
-| `closeImageControls` | `() => void` | Close mobile controls sheet |
+| `isFullscreen` | `boolean` | Fullscreen image mode visibility |
+| `openFullscreen` | `() => void` | Enter fullscreen image mode |
+| `closeFullscreen` | `() => void` | Exit fullscreen image mode |
 | `isHeaderMenuOpen` | `boolean` | Mobile header settings menu visibility |
 | `openHeaderMenu` | `() => void` | Open mobile settings menu and close controls sheet |
 | `closeHeaderMenu` | `() => void` | Close mobile settings menu |

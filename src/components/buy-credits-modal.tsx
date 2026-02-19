@@ -156,6 +156,7 @@ export function BuyCreditsModal() {
   const prevModalOpenRef = useRef(false);
   const hasSeenWelcomeRef = useRef(false);
   const hasTrackedExpiredRef = useRef(false);
+  const expirationCheckRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const modalOpenedAtRef = useRef<number | null>(null);
 
   // Admin login state
@@ -354,8 +355,9 @@ export function BuyCreditsModal() {
 
         const data = await response.json();
         if (data.status === "paid") {
-          // Clear interval immediately to prevent double-tracking during async operations
+          // Clear both timers immediately to prevent expiration from overwriting success
           clearInterval(pollInterval);
+          if (expirationCheckRef.current) clearInterval(expirationCheckRef.current);
           setState("success");
           // Track payment completed
           if (invoice) {
@@ -390,7 +392,7 @@ export function BuyCreditsModal() {
     setTimeLeftMs(Math.max(0, invoice.expiresAt - Date.now()));
 
     // Check expiration + update countdown
-    const expirationCheck = setInterval(() => {
+    expirationCheckRef.current = setInterval(() => {
       if (!invoice) return;
       const remaining = invoice.expiresAt - Date.now();
       setTimeLeftMs(Math.max(0, remaining));
@@ -407,13 +409,13 @@ export function BuyCreditsModal() {
           });
         }
         clearInterval(pollInterval);
-        clearInterval(expirationCheck);
+        clearInterval(expirationCheckRef.current!);
       }
     }, 1000);
 
     return () => {
       clearInterval(pollInterval);
-      clearInterval(expirationCheck);
+      clearInterval(expirationCheckRef.current!);
     };
   }, [state, invoice, invoiceCreatedAt, refetch, tier, credits]);
 

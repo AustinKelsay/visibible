@@ -37,7 +37,7 @@ http.route({
     try {
       blob = await ctx.storage.get(storageId as Id<"_storage">);
     } catch {
-      return new Response("Invalid or missing storageId", { status: 400 });
+      return new Response("Storage fetch failed", { status: 500 });
     }
     if (!blob) {
       return new Response("Image not found", { status: 404 });

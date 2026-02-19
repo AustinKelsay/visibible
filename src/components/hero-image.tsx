@@ -959,7 +959,7 @@ function HeroImageBase({
       {/* Image Container - taller 4:5 on mobile, user-selected ratio on desktop */}
       <div
         className="relative w-full overflow-hidden bg-[var(--background)] aspect-[4/5] sm:[aspect-ratio:var(--ar)]"
-        style={{ '--ar': ASPECT_RATIOS[containerAspectRatio].cssRatio } as React.CSSProperties}
+        style={{ "--ar": ASPECT_RATIOS[containerAspectRatio].cssRatio } as React.CSSProperties}
       >
         {displayImage?.url ? (
           <>
