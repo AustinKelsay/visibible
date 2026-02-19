@@ -301,10 +301,7 @@ Scope:
 ## Release Gate Checklist (must pass)
 
 - P0 remediations complete and merged.
-- `npm run lint` passes.
-- `npm run typecheck` passes.
-- `npm test` passes.
-- `npm run test:coverage` passes and no critical-path regressions in coverage.
+- Run and pass: `npm run lint`, `npm run typecheck`, `npm test`, `npm run test:coverage` (no critical-path regressions in coverage).
 - Dependency audit run in CI with no unwaived high/critical findings.
 - Readiness endpoint green in target environment.
 - Proxy trust settings verified in production environment variables.
