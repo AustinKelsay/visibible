@@ -37,7 +37,6 @@ vi.mock("@/lib/lnd", () => ({
 
 import { GET as healthGET } from "../../health/route";
 import { GET as readinessGET } from "../../readiness/route";
-import { GET as metricsGET } from "../../metrics/route";
 
 const originalEnv = { ...process.env };
 
@@ -48,6 +47,25 @@ function setRequiredEnv() {
   process.env.SESSION_SECRET = "a".repeat(32);
   process.env.IP_HASH_SECRET = "b".repeat(32);
   process.env.METRICS_TOKEN = "test-metrics-token";
+  process.env.TRUSTED_PROXY_IPS = "203.0.113.10";
+}
+
+async function importMetricsGET() {
+  const routeModule = await import("../../metrics/route");
+  return routeModule.GET;
+}
+
+function createRequestWithPeerIp(
+  url: string,
+  init: RequestInit,
+  peerIp: string
+): Request {
+  const request = new Request(url, init);
+  Object.defineProperty(request, "ip", {
+    value: peerIp,
+    configurable: true,
+  });
+  return request;
 }
 
 describe("ops endpoints", () => {
@@ -78,6 +96,7 @@ describe("ops endpoints", () => {
   });
 
   it("metrics endpoint exposes machine-parseable counters", async () => {
+    const metricsGET = await importMetricsGET();
     incrementMetricCounter("api_failures_total", {
       route: "/api/chat",
       stage: "stream",
@@ -103,6 +122,7 @@ describe("ops endpoints", () => {
   });
 
   it("metrics endpoint rejects unauthenticated requests", async () => {
+    const metricsGET = await importMetricsGET();
     const response = await metricsGET(
       new Request("http://localhost:3000/api/metrics", { method: "GET" })
     );
@@ -112,18 +132,44 @@ describe("ops endpoints", () => {
   });
 
   it("metrics endpoint allows requests from allowlisted IP", async () => {
+    const metricsGET = await importMetricsGET();
     delete process.env.METRICS_TOKEN;
     process.env.METRICS_IP_ALLOWLIST = "10.0.0.5";
 
     const response = await metricsGET(
-      new Request("http://localhost:3000/api/metrics", {
-        method: "GET",
-        headers: { "x-forwarded-for": "10.0.0.5, 198.51.100.7" },
-      })
+      createRequestWithPeerIp(
+        "http://localhost:3000/api/metrics",
+        {
+          method: "GET",
+          headers: { "x-forwarded-for": "10.0.0.5, 198.51.100.7" },
+        },
+        "203.0.113.10"
+      )
     );
     expect(response.status).toBe(200);
     const body = await response.json();
     expect(Array.isArray(body.counters)).toBe(true);
+  });
+
+  it("metrics endpoint rejects spoofed forwarded IP from untrusted peer", async () => {
+    const metricsGET = await importMetricsGET();
+    delete process.env.METRICS_TOKEN;
+    process.env.METRICS_IP_ALLOWLIST = "10.0.0.5";
+
+    const response = await metricsGET(
+      createRequestWithPeerIp(
+        "http://localhost:3000/api/metrics",
+        {
+          method: "GET",
+          headers: { "x-forwarded-for": "10.0.0.5, 198.51.100.7" },
+        },
+        "198.51.100.7"
+      )
+    );
+
+    expect(response.status).toBe(403);
+    const body = await response.json();
+    expect(body.error).toBe("Forbidden");
   });
 
   it("readiness endpoint returns ready when critical checks pass", async () => {

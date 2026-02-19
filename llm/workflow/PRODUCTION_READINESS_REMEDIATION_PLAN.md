@@ -1,334 +1,339 @@
 # Production Readiness Remediation Plan
 
-Date: 2026-02-18
-Status: Completed (PR-1 through PR-12)
-Primary risk themes: security boundaries, credit-accounting integrity
+Date: 2026-02-19
+Status: In progress (new blockers identified)
+Decision: No-go for external beta until P0 blockers are remediated
 
-## Progress Updates
+## Executive Summary
 
-### 2026-02-15
+A full production-readiness audit was run across Next.js API routes, security/session controls, Convex trust boundaries, payments, credit-accounting paths, and observability.
 
-- PR-1 completed: image persistence boundary hardened.
-  - Browser-direct `saveImage` invocation removed.
-  - Persistence moved to server path (`/api/generate-image`).
-  - `saveImage` now requires `serverSecret`.
-  - Added remote host allowlist, local/private host blocking, MIME allowlist, and 10 MiB size cap.
-  - Added optional env knob: `IMAGE_FETCH_ALLOWLIST`.
+Current state is strong in many areas (tests, session security model, credit reservation/release patterns), but there are still critical gaps that can cause security exposure or avoidable outages in production.
 
-- PR-2 completed: reservation release idempotency and one-way settlement.
-  - Added settlement state classifier (`none|reserved|released|charged`) by `generationId`.
-  - Duplicate releases are no-ops after first settlement.
-  - Released generations cannot be charged later.
-  - Released/charged generations cannot be re-reserved.
-  - Added unit coverage for settlement-state classification.
+### Final Readiness Call
 
-- PR-3 completed: `/api/generate-image` converted to secure POST semantics.
-  - Endpoint now accepts `POST` JSON body for generation requests.
-  - `GET /api/generate-image` now returns `405` with `Allow: POST`.
-  - Enforced strict origin requirement (missing origin rejected).
-  - Implemented CSRF validation (`x-csrf-token` must match `visibible_csrf` cookie).
-  - Updated client call site (`HeroImage`) to send JSON body + CSRF header.
-  - Extended integration coverage for method/origin/CSRF enforcement.
+- No-go for external beta right now.
+- P0 blockers must be fixed before beta launch.
+- P1 items should be completed before accepting meaningful user traffic.
 
-- PR-4 completed: stale reservation reconciliation cron introduced.
-  - Introduced `creditLedger` index `by_reason_createdAt` for efficient stale-reservation scans.
-  - Implemented `internal.sessions.reconcileStaleReservations` batch reconciler.
-  - Scheduled 5-minute cron to auto-release `reservation`-only generations older than 30 minutes.
-  - Reconciler enforces settlement-state checks (`reserved` only) so reruns are safe/idempotent.
+## Scope and Method
 
-- PR-5 completed: Convex trust boundary hardened for sensitive writes.
-  - Enforced `serverSecret` validation on sensitive public mutations:
-    - `sessions.createSession`, `sessions.updateLastSeen`
-    - `invoices.createInvoice`, `invoices.expireInvoice`
-    - `feedback.submitFeedback`
-    - `modelStats.recordGeneration`
-    - `rateLimit.checkRateLimit`, `rateLimit.recordFailedAdminLogin`, `rateLimit.clearAdminLoginAttempts`
-  - Updated all server route call sites to pass `CONVEX_SERVER_SECRET`.
-  - Removed direct unauthenticated browser write capability for the above paths.
+This review included:
 
-### 2026-02-17
+- Static inspection of high-risk files:
+  - `src/app/api/chat/route.ts`
+  - `src/app/api/generate-image/route.ts`
+  - `src/app/api/admin-login/route.ts`
+  - `src/app/api/session/route.ts`
+  - `src/app/api/invoice/route.ts`
+  - `src/app/api/invoice/[id]/route.ts`
+  - `src/app/api/metrics/route.ts`
+  - `src/lib/session.ts`
+  - `src/lib/validate-env.ts`
+  - `convex/sessions.ts`
+  - `convex/rateLimit.ts`
+  - `convex/invoices.ts`
+  - `convex/verseImages.ts`
+- Verification commands:
+  - `npm run lint`
+  - `npm run typecheck`
+  - `npm test`
+  - `npm run test:coverage`
+- Dependency audit attempt:
+  - `npm audit --omit=dev` (blocked by network/DNS in current environment)
 
-- PR-4 follow-up completed: stale reservation reconciler pagination/starvation fix.
-  - Replaced fixed head-batch scan with cursor pagination for stale reservations.
-  - Reconciler now advances through old settled/missing-session rows instead of reprocessing the same first batch indefinitely.
-  - Prevents stranded credits from being skipped permanently when stale reservation volume exceeds per-run release limits.
+## Verification Results
 
-- PR-3 follow-up completed: bounded POST body parsing for `/api/generate-image`.
-  - Replaced direct `request.json()` parsing with `readJsonBodyWithLimit(...)`.
-  - Added explicit `413 Payload too large` handling for oversized request bodies.
-  - Added regression coverage to ensure oversized image-generation payloads are rejected before credit reservation logic.
+### Passed
 
-- PR-6 completed: session IP-binding consistency for privileged/session-sensitive APIs.
-  - Standardized session-derived identity lookups on `validateSessionWithIp` for:
-    - `/api/admin-login`
-    - `/api/invoice` and `/api/invoice/:id` (GET/POST)
-    - `/api/rate-limit-status`
-    - `/api/feedback` (optional session attribution path)
-    - Existing-session reuse path in `/api/session` POST
-  - Removed cookie-only session reads from privileged invoice/admin flows.
-  - Added route integration coverage for IP-bound session enforcement:
-    - `src/app/api/__tests__/admin-login/ip-binding.test.ts`
-    - `src/app/api/__tests__/invoice/ip-binding.test.ts`
+- `npm run lint` passed
+- `npm run typecheck` passed
+- `npm test` passed
+  - 18 test files
+  - 209 tests
 
-### 2026-02-18
+### Coverage Snapshot (from `npm run test:coverage`)
 
-- PR-7 completed: invoice polling throttling for invoice status/confirm flows.
-  - Added dedicated rate-limit endpoint `invoice-status` (`30/min`) in `convex/rateLimit.ts`.
-  - Enforced throttling on both `GET /api/invoice/:id` and `POST /api/invoice/:id`.
-  - Uses per-session/IP identifier (`${ipHash}:${sid}`) derived from `validateSessionWithIp`.
-  - Returns `429` with `Retry-After` when status polling exceeds threshold.
-  - Added route integration coverage for allowed and throttled status/confirm paths:
-    - `src/app/api/__tests__/invoice/ip-binding.test.ts`
+- Global:
+  - Statements: 62.82%
+  - Branches: 54.72%
+  - Functions: 62.82%
+  - Lines: 63.48%
+- Notable hotspot:
+  - `convex/sessions.ts` lines ~12.94% (critical credit/ledger logic under-covered directly)
 
-- PR-8 completed: main OpenRouter timeout and explicit timeout cleanup on image generation.
-  - Added configurable abort timeout for main image-generation OpenRouter request (`OPENROUTER_IMAGE_TIMEOUT_MS`, default 45s).
-  - Timeout path now fails deterministically with `504` (`Image generation timed out`).
-  - Reservation release is explicitly executed on timeout/failure before response.
-  - Added integration regression coverage for timeout-triggered reservation cleanup:
-    - `src/app/api/__tests__/generate-image/credit-flow.test.ts`
+### Not completed in this environment
 
-- PR-9 completed: cleanup throughput/frequency scaling for high-churn tables.
-  - Replaced fixed `take(100)` cleanup batches with cursor-paginated loops (`250/page`, up to 20 pages/run).
-  - Added indexed cleanup paths:
-    - `rateLimits.by_windowStart`
-    - `adminLoginAttempts.by_lastAttempt`
-  - Increased cleanup cron frequency:
-    - `cleanup expired sessions`: every 15 minutes
-    - `cleanup stale rate limits`: every 10 minutes
-    - `cleanup admin login attempts`: hourly
+- `npm audit --omit=dev` failed due DNS/network unavailability to npm registry.
 
-- PR-10 completed: security header hardening baseline in Next.js headers config.
-  - Added HSTS in production (`Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`).
-  - Tightened CSP baseline:
-    - `unsafe-eval` is now development-only
-    - added `object-src 'none'`
-    - added `frame-src 'none'`
-    - added `upgrade-insecure-requests` in production
+## Findings (Complete)
 
-- PR-11 completed: CI production gates + coverage threshold enforcement.
-  - CI now runs `npm run test:coverage` with enforced global thresholds from `vitest.config.ts`:
-    - statements `>=55`, branches `>=45`, functions `>=50`, lines `>=55`
-  - CI now runs `npm run build` as a production gate.
-  - Added targeted invoice payment integration coverage for settled-confirm path:
-    - `src/app/api/__tests__/invoice/ip-binding.test.ts`
+## P0-1: Metrics endpoint IP allowlist is spoofable via forwarded headers
 
-- PR-12 completed: structured observability and health signals baseline.
-  - Added shared observability utilities for structured JSON logging + alertable counters:
-    - `src/lib/observability.ts`
-    - `llm/implementation/OBSERVABILITY_IMPLEMENTATION.md`
-  - Added operational endpoints:
-    - `GET /api/health`
-    - `GET /api/readiness`
-    - `GET /api/metrics`
-  - Instrumented critical API/settlement paths for machine-parseable failure and timeout signals:
-    - `src/app/api/chat/route.ts`
-    - `src/app/api/generate-image/route.ts`
-    - `src/app/api/invoice/route.ts`
-    - `src/app/api/invoice/[id]/route.ts`
-  - Added regression coverage for observability utilities and ops endpoints:
-    - `src/lib/__tests__/observability.test.ts`
-    - `src/app/api/__tests__/ops/health-readiness-metrics.test.ts`
+Severity: P0
 
-- Remaining active scope: production-readiness PR backlog complete (PR-1 through PR-12).
+Impact:
+- If operators rely on `METRICS_IP_ALLOWLIST`, an attacker may spoof `x-forwarded-for`/`x-real-ip` and gain access to internal metrics.
+- This can expose operational internals and traffic/error patterns.
 
-## Goals
+Evidence:
+- `src/app/api/metrics/route.ts:17`
+- `src/app/api/metrics/route.ts:51`
+- `src/app/api/metrics/route.ts:56`
+- Route trusts forwarded headers directly instead of trusted-proxy-aware client IP derivation.
 
-1. Eliminate externally reachable trust-boundary breaks.
-2. Guarantee credit settlement correctness under retries/failures.
-3. Harden state-changing routes against CSRF and unsafe semantics.
-4. Raise production confidence via tests, CI gates, and observability.
-
-## Delivery Strategy
-
-- Ship in small PRs with explicit acceptance criteria.
-- Prioritize exploitability + financial integrity first.
-- Keep behavior changes isolated and test-backed.
-
-## PR Sequence
-
-## Phase 1: Critical Security and Ledger Integrity
-
-### PR-1: Lock Down Image Persistence Boundary (Blocker #1)
-
-Scope:
-- Remove browser-direct invocation of `api.verseImages.saveImage`.
-- Move image persistence to server-controlled path only.
-- Require server authorization for persistence action calls.
-- Add outbound URL allowlist and private-network/localhost denylist checks.
-- Enforce hard max byte size limits before storage.
-- Restrict accepted MIME types to supported image formats.
+Required remediation:
+- Replace direct forwarded-header parsing with trusted proxy-aware resolver from `src/lib/session.ts` (`getClientIp`) or equivalent extracted shared utility.
+- In production, prefer token-only auth for `/api/metrics`, or require BOTH valid token and allowlisted trusted IP.
 
 Acceptance criteria:
-- Browser can no longer trigger arbitrary server-side URL fetches for image persistence.
-- Non-allowlisted URLs are rejected.
-- Oversized payloads are rejected.
-- Local/private target URLs are rejected.
-- Valid provider URLs continue to persist successfully.
+- Spoofed `x-forwarded-for` requests are rejected when peer is untrusted.
+- Metrics endpoint access behavior is explicitly tested for trusted/untrusted proxy scenarios.
 
-Test coverage:
-- Unit tests for URL validation and size limits.
-- API integration tests for accepted/rejected persistence paths.
+## P0-2: Chat/image core flows are tightly coupled to OpenRouter models API availability
 
----
+Severity: P0
 
-### PR-2: Enforce Idempotent Reservation Release + One-Way Settlement (Blocker #3)
+Impact:
+- Temporary `/models` API outage can cascade into user-visible failures for core product operations.
+- Current behavior can reject otherwise usable models due to missing pricing fetch during request handling.
 
-Scope:
-- Make `releaseReservation` single-settlement per `generationId`.
-- Prevent duplicate refunds after prior release/charge.
-- Enforce legal state transitions for reservation lifecycle.
-- Ensure retry-safe behavior for chat/image failure cleanup paths.
+Evidence:
+- Chat path:
+  - `src/app/api/chat/route.ts:343`
+  - `src/lib/chat-models.ts:80`
+  - `src/lib/chat-models.ts:91`
+  - `src/lib/chat-models.ts:275`
+  - `src/lib/chat-models.ts:281`
+- Image path:
+  - `src/app/api/generate-image/route.ts:641`
+  - `src/lib/image-models.ts:195`
+  - `src/lib/image-models.ts:206`
 
-Acceptance criteria:
-- Repeated release calls do not increase credits after first release.
-- Post-deduct release is no-op or hard reject (without balance impact).
-- Ledger state for a generation is consistent and auditable.
-
-Test coverage:
-- Duplicate release sequence tests.
-- Deduct-then-release and release-then-deduct tests.
-- Retry/replay integration tests.
-
----
-
-### PR-3: Convert Image Generation to POST + CSRF + Strict Origin (Blocker #5)
-
-Scope:
-- Convert `/api/generate-image` from `GET` to `POST`.
-- Require CSRF token validation on state-changing request.
-- Require strict origin validation for state-changing request.
-- Return `405` on `GET`.
-- Update client call sites to use JSON body.
+Required remediation:
+- Introduce resilient pricing/model fallback strategy:
+  - Persist last-known-good model/pricing snapshot (Convex or in-memory + periodic refresh).
+  - Use bounded stale cache when live models fetch fails.
+  - Hardcode fallback pricing for default critical models as emergency baseline.
+- Decouple request-time critical path from hard dependency on live `/models` fetch.
 
 Acceptance criteria:
-- No cost-incurring operation is reachable via `GET`.
-- Missing/invalid CSRF token returns `403`.
-- Invalid/missing origin for mutating request returns `403`.
-- Existing valid requests still succeed via `POST`.
+- Simulated `/models` outage still allows chat/image generation for default models with known safe pricing.
+- Availability test confirms no full outage when model catalog API is transiently down.
 
-Test coverage:
-- Method, CSRF, and origin enforcement tests.
+## P1-1: Admin login route uses unbounded JSON parse
 
-## Phase 2: Critical Follow-Ons
+Severity: P1
 
-### PR-4: Stale Reservation Reconciliation Cron (Blocker #4)
+Impact:
+- Memory/DoS hardening inconsistency on privileged endpoint.
 
-Scope:
-- Add janitor job to find stale reservation-only generations.
-- Auto-release stale reservations safely and idempotently.
-- Log reconciliation outcomes for audit.
+Evidence:
+- `src/app/api/admin-login/route.ts:97` uses `request.json()` directly.
+- Other high-risk endpoints use `readJsonBodyWithLimit` (`src/lib/request-body.ts`).
 
-Acceptance criteria:
-- Crashed/aborted requests no longer strand reserved credits indefinitely.
-- Reconciler is safe under reruns.
-
----
-
-### PR-5: Convex Trust Boundary Hardening (Blocker #2)
-
-Scope:
-- Move sensitive public mutations/actions behind server-authenticated boundaries.
-- Keep only low-risk public write paths publicly callable.
-- Add explicit classification of trusted vs untrusted callers.
+Required remediation:
+- Replace `request.json()` with bounded parser (`readJsonBodyWithLimit`) and explicit 400/413 handling.
+- Add body-size limit constant for admin login endpoint.
 
 Acceptance criteria:
-- Sensitive state transitions are not callable from arbitrary browser clients.
+- Oversized admin login payload returns 413.
+- Invalid JSON returns controlled 400.
 
----
+## P1-2: IP-based controls can silently degrade if proxy trust is unset/mis-set
 
-### PR-6: Session IP-Binding Consistency (High #6) [Completed 2026-02-17]
+Severity: P1
 
-Scope:
-- Standardize privileged/session-sensitive API routes on `validateSessionWithIp`.
-- Remove direct cookie-only session reads for privileged operations.
+Impact:
+- Rate limiting and session IP-binding fidelity may degrade in production if proxy trust isn’t configured correctly.
+- In worst case, requests may collapse into non-ideal identity behavior (peer IP only/unknown behavior depending runtime).
 
-Acceptance criteria:
-- Privileged routes consistently enforce token + IP binding policy.
+Evidence:
+- `src/lib/session.ts:357`
+- `src/lib/session.ts:362`
+- `src/lib/session.ts:431`
+- `src/lib/validate-env.ts:272`
 
----
-
-### PR-7: Invoice Polling Throttling (High #9) [Completed 2026-02-18]
-
-Scope:
-- Add per-session/IP rate limiting for invoice status checks.
-- Apply to both GET and POST invoice status/confirm flows as needed.
-
-Acceptance criteria:
-- Repeated polling cannot hammer LND beyond defined thresholds.
-
----
-
-### PR-8: Main OpenRouter Timeout and Explicit Cleanup (High #8) [Completed 2026-02-18]
-
-Scope:
-- Add abort timeout for primary image generation OpenRouter request.
-- Ensure explicit reservation cleanup path on timeout.
+Required remediation:
+- Add strict production startup policy:
+  - Fail readiness/startup when `NODE_ENV=production` and neither `TRUST_PROXY_PLATFORM` nor vetted `TRUSTED_PROXY_IPS` is configured (unless explicitly waived via a documented override).
+- Add runtime metric/log signal for number of requests resolved as `unknown` or untrusted peer-only.
 
 Acceptance criteria:
-- Hung upstream requests time out deterministically.
-- Reservation is consistently settled on timeout/failure.
+- Production misconfiguration is fail-fast, not best-effort.
+- Proxy-trust integration tests cover both Vercel and custom proxy modes.
 
-## Phase 3: Scalability, Hardening, and Operational Readiness
+## P1-3: Critical Convex credit/accounting logic has low direct test coverage
 
-### PR-9: Cleanup Throughput and Frequency Scaling (High #7) [Completed 2026-02-18]
+Severity: P1
 
-Scope:
-- Replace fixed 100-row deletes with paginated loops.
-- Increase cron frequency for high-churn tables.
-- Prefer indexed cleanup patterns.
+Impact:
+- High business-risk logic (credit reservation/deduction/refunds/shortfall) may regress despite route-level tests.
 
-Acceptance criteria:
-- Cleanup keeps pace with expected production data growth.
+Evidence:
+- Coverage output: `convex/sessions.ts` lines ~12.94%.
+- File complexity and state machine are significant:
+  - `convex/sessions.ts:460`
+  - `convex/sessions.ts:570`
+  - `convex/sessions.ts:649`
 
----
-
-### PR-10: Security Header Hardening (Medium #10) [Completed 2026-02-18]
-
-Scope:
-- Add HSTS header.
-- Tighten CSP progressively to reduce/remove unsafe directives where possible.
-
-Acceptance criteria:
-- Hardened baseline headers in production without breaking runtime assets.
-
----
-
-### PR-11: CI Production Gates + Coverage Thresholds (Medium #11) [Completed 2026-02-18]
-
-Scope:
-- Add `next build` to CI.
-- Enforce minimum coverage thresholds.
-- Add targeted integration tests for credit/payment/Convex flows.
+Required remediation:
+- Add direct Convex unit/integration tests for ledger state transitions and edge cases:
+  - reserve -> release idempotency
+  - reserve -> charge with exact match
+  - reserve -> charge with refund
+  - reserve -> charge with shortfall
+  - duplicate/replay safety
+  - stale-reconciliation interactions
 
 Acceptance criteria:
-- Regressions that break production build or critical-path coverage fail CI.
+- `convex/sessions.ts` line and branch coverage meaningfully increased.
+- New tests pin expected ledger invariants per generationId.
 
----
+## P2-1: Dependency vulnerability status is unknown from this run
 
-### PR-12: Structured Observability and Health Signals (Medium #12) [Completed 2026-02-18]
+Severity: P2
 
-Scope:
-- Introduce structured logging on critical API and settlement paths.
-- Add alertable metrics for failures/timeouts/settlement anomalies.
-- Add health/readiness endpoints and minimal SLO-oriented checks.
+Impact:
+- Vulnerability posture not confirmed in this environment.
+
+Evidence:
+- `npm audit --omit=dev` failed due `ENOTFOUND registry.npmjs.org`.
+
+Required remediation:
+- Run dependency audit in CI/networked environment.
+- Fail release on high/critical vulnerabilities unless explicitly waived with documented rationale.
 
 Acceptance criteria:
-- Failures are machine-parseable and alertable.
-- Operators can quickly detect and triage outages/regressions.
+- Audit report attached to release checklist.
 
-## Implementation Notes
+## Positive Findings (Keep)
 
-- PR-1, PR-2, PR-3 are mandatory pre-production gates.
-- PR-4 through PR-8 should follow immediately after Phase 1.
-- Roll out with canary monitoring of:
-  - Reservation release rates
-  - Deduct/release mismatch
-  - Image persistence failure rates
-  - Invoice polling rate-limit hit rates
+The following foundations are solid and should be preserved:
 
-## Done Definition
+- Security headers baseline in Next config:
+  - `next.config.ts`
+- Session/CSRF/origin controls are broadly implemented:
+  - `src/lib/session.ts`
+  - `src/lib/csrf.ts`
+  - `src/lib/origin.ts`
+- Credit reservation/release/deduction patterns are thoughtful and include idempotency controls:
+  - `convex/sessions.ts`
+- Invoice ownership/IP-bound session checks exist:
+  - `src/app/api/invoice/route.ts`
+  - `src/app/api/invoice/[id]/route.ts`
+- Health/readiness/metrics endpoints and structured observability are present:
+  - `src/app/api/health/route.ts`
+  - `src/app/api/readiness/route.ts`
+  - `src/app/api/metrics/route.ts`
+  - `src/lib/observability.ts`
+- SSRF hardening and image allowlist controls are in place for image persistence:
+  - `convex/verseImages.ts:159`
+  - `convex/verseImages.ts:182`
 
-- All acceptance criteria met.
-- New/updated tests pass.
-- `npm run lint`, `npm run typecheck`, and `npm test` pass.
-- Security-sensitive behavior documented in code comments and route docs.
+## Remediation Plan (Actionable)
+
+## Phase A: Blockers (P0) - required before beta launch
+
+### PR-13: Secure metrics auth path and trusted client IP derivation
+
+Scope:
+- Refactor metrics route to trusted-proxy-aware IP resolution (shared utility).
+- Enforce production auth policy:
+  - preferred: bearer token required
+  - optional: trusted IP allowlist as secondary control only
+
+Files:
+- `src/app/api/metrics/route.ts`
+- `src/lib/session.ts` (or extracted shared ip util)
+- `src/app/api/__tests__/ops/health-readiness-metrics.test.ts`
+
+### PR-14: Decouple generation availability from live `/models` fetch
+
+Scope:
+- Add resilient model/pricing cache with stale fallback.
+- Add emergency fallback pricing map for default chat/image models.
+- Guard against full user-facing outage when `/models` is unavailable.
+
+Files:
+- `src/lib/chat-models.ts`
+- `src/lib/image-models.ts`
+- `src/app/api/chat/route.ts`
+- `src/app/api/generate-image/route.ts`
+- tests in `src/app/api/__tests__/chat/*` and `src/app/api/__tests__/generate-image/*`
+
+## Phase B: Pre-scale hardening (P1)
+
+### PR-15: Bounded body parsing for admin login
+
+Scope:
+- Use `readJsonBodyWithLimit` in `src/app/api/admin-login/route.ts`.
+- Add 413/400 tests.
+
+### PR-16: Enforce strict production proxy-trust policy
+
+Scope:
+- Update env validation policy to fail-fast in production if trust settings are absent/misconfigured.
+- Add tests for fail-fast behavior.
+
+Files:
+- `src/lib/validate-env.ts`
+- `src/lib/__tests__/validate-env.test.ts`
+
+### PR-17: Expand direct Convex settlement coverage
+
+Scope:
+- Add dedicated tests for `convex/sessions.ts` state transitions and invariants.
+- Increase branch coverage around shortfall/refund/replay paths.
+
+Files:
+- `tests/convex/sessions.test.ts` (expand)
+- additional targeted Convex tests as needed
+
+## Phase C: Release hygiene (P2)
+
+### PR-18: Dependency audit gating
+
+Scope:
+- Add CI step for `npm audit` (or approved scanner) in networked environment.
+- Add release policy for vulnerability severity thresholds.
+
+## Release Gate Checklist (must pass)
+
+- P0 remediations complete and merged.
+- `npm run lint` passes.
+- `npm run typecheck` passes.
+- `npm test` passes.
+- `npm run test:coverage` passes and no critical-path regressions in coverage.
+- Dependency audit run in CI with no unwaived high/critical findings.
+- Readiness endpoint green in target environment.
+- Proxy trust settings verified in production environment variables.
+- Metrics endpoint auth behavior manually verified against spoof attempts.
+
+## Test Additions Required
+
+- Metrics spoofing tests:
+  - untrusted peer + spoofed `x-forwarded-for` must fail
+  - trusted peer + allowlisted client may pass if policy allows
+- Catalog outage resilience tests:
+  - `/models` fetch failure still allows default chat/image operations
+- Admin login body-size tests:
+  - oversize payload -> 413
+  - invalid JSON -> 400
+- Convex settlement invariants:
+  - one-way settlement and idempotency under replay
+  - shortfall behavior and ledger consistency
+
+## Operational Follow-ups
+
+- Add alert on spikes in:
+  - `api_failures_total` for `chat_handler`, `generate_image_handler`
+  - `api_rate_limit_blocks_total` anomaly by endpoint
+  - `readiness.not_ready`
+- Add metric for unresolved/unknown client IP resolution outcomes in production.
+- Document explicit proxy-trust runbook and verification steps in deployment docs.
+
+## Notes on Prior Completed Work
+
+The prior remediation sequence (PR-1 through PR-12) provided a strong baseline and remains valuable. This document supersedes previous "completed" status by adding newly identified production blockers from the latest full-codebase audit on 2026-02-19.
+

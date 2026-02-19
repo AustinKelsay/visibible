@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { DEFAULT_CHAT_MODEL, fetchChatModels } from "@/lib/chat-models";
+import {
+  DEFAULT_CHAT_MODEL,
+  EMERGENCY_CHAT_MODEL_PRICING,
+  fetchChatModels,
+} from "@/lib/chat-models";
 
 export async function GET() {
   const openRouterApiKey = process.env.OPENROUTER_API_KEY;
@@ -13,6 +17,7 @@ export async function GET() {
           name: "GPT-OSS 120B (Default)",
           provider: "Openai",
           contextLength: 131072,
+          pricing: EMERGENCY_CHAT_MODEL_PRICING[DEFAULT_CHAT_MODEL],
           isFree: false,
         },
       ],

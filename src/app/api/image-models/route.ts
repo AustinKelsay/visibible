@@ -3,6 +3,8 @@ import {
   DEFAULT_IMAGE_MODEL,
   DEFAULT_ETA_SECONDS,
   DEFAULT_CREDITS_COST,
+  EMERGENCY_IMAGE_MODEL_PRICING_USD,
+  computeCreditsCost,
   fetchImageModels,
   type ImageModel,
 } from "@/lib/image-models";
@@ -15,6 +17,7 @@ interface ModelStats {
 
 export async function GET() {
   const openRouterApiKey = process.env.OPENROUTER_API_KEY;
+  const emergencyDefaultPricing = EMERGENCY_IMAGE_MODEL_PRICING_USD[DEFAULT_IMAGE_MODEL];
 
   if (!openRouterApiKey) {
     // Return fallback with just the default model
@@ -24,7 +27,11 @@ export async function GET() {
           id: DEFAULT_IMAGE_MODEL,
           name: "Gemini 2.5 Flash (Default)",
           provider: "Google",
-          creditsCost: null,
+          pricing: { imageOutput: emergencyDefaultPricing },
+          creditsCost:
+            computeCreditsCost(emergencyDefaultPricing) ??
+            DEFAULT_CREDITS_COST,
+          usesEmergencyPricing: true,
           etaSeconds: DEFAULT_ETA_SECONDS,
         },
       ],
