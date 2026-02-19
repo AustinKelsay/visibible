@@ -27,6 +27,7 @@ For accurate client IPs (rate limiting), configure trusted proxies in production
 
 - `TRUST_PROXY_PLATFORM=vercel` (recommended on Vercel; only active when `VERCEL=1` is set)
 - Or set `TRUSTED_PROXY_IPS` to a comma/space-separated list of IPs/CIDRs
+- Production startup fails fast if neither is configured (unless `ALLOW_UNTRUSTED_PROXY_IN_PRODUCTION=true` is explicitly set as a temporary override)
 
 ### Convex Setup
 

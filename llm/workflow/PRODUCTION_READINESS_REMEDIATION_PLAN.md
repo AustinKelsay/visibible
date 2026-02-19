@@ -1,8 +1,8 @@
 # Production Readiness Remediation Plan
 
 Date: 2026-02-19
-Status: In progress (new blockers identified)
-Decision: No-go for external beta until P0 blockers are remediated
+Status: In progress (P0 remediations complete; release hygiene gating remains)
+Decision: Hold release sign-off until PR-18 and release gate checklist are closed
 
 ## Executive Summary
 
@@ -12,9 +12,18 @@ Current state is strong in many areas (tests, session security model, credit res
 
 ### Final Readiness Call
 
-- No-go for external beta right now.
-- P0 blockers must be fixed before beta launch.
-- P1 items should be completed before accepting meaningful user traffic.
+- P0 blockers identified in this audit have been remediated in code.
+- Remaining work is release hygiene and final gate closure.
+- Keep launch hold until dependency-audit gating is active and verified.
+
+## Progress Update (2026-02-19, latest)
+
+- PR-13: Complete (metrics auth path and trusted client IP derivation shipped)
+- PR-14: Complete (chat/image model catalog resilience and emergency fallback shipped)
+- PR-15: Complete (bounded admin-login body parsing shipped)
+- PR-16: Complete (strict production proxy-trust fail-fast policy shipped)
+- PR-17: Complete (mutation-level settlement invariants added for reserve/release/deduct/replay/shortfall/reconcile paths)
+- PR-18: In progress (CI dependency-audit gate implemented, pending CI verification)
 
 ## Scope and Method
 
@@ -49,18 +58,18 @@ This review included:
 - `npm run lint` passed
 - `npm run typecheck` passed
 - `npm test` passed
-  - 18 test files
-  - 209 tests
+  - 19 test files
+  - 232 tests
 
-### Coverage Snapshot (from `npm run test:coverage`)
+### Coverage Snapshot (from latest `npm run test:coverage`)
 
 - Global:
-  - Statements: 62.82%
-  - Branches: 54.72%
-  - Functions: 62.82%
-  - Lines: 63.48%
+  - Statements: 71.33%
+  - Branches: 60.30%
+  - Functions: 76.66%
+  - Lines: 72.05%
 - Notable hotspot:
-  - `convex/sessions.ts` lines ~12.94% (critical credit/ledger logic under-covered directly)
+  - `convex/sessions.ts` lines ~67.26% (major improvement from prior ~18.34%)
 
 ### Not completed in this environment
 
@@ -237,6 +246,8 @@ The following foundations are solid and should be preserved:
 
 ### PR-13: Secure metrics auth path and trusted client IP derivation
 
+Status: Complete
+
 Scope:
 - Refactor metrics route to trusted-proxy-aware IP resolution (shared utility).
 - Enforce production auth policy:
@@ -249,6 +260,8 @@ Files:
 - `src/app/api/__tests__/ops/health-readiness-metrics.test.ts`
 
 ### PR-14: Decouple generation availability from live `/models` fetch
+
+Status: Complete
 
 Scope:
 - Add resilient model/pricing cache with stale fallback.
@@ -266,11 +279,15 @@ Files:
 
 ### PR-15: Bounded body parsing for admin login
 
+Status: Complete
+
 Scope:
 - Use `readJsonBodyWithLimit` in `src/app/api/admin-login/route.ts`.
 - Add 413/400 tests.
 
 ### PR-16: Enforce strict production proxy-trust policy
+
+Status: Complete
 
 Scope:
 - Update env validation policy to fail-fast in production if trust settings are absent/misconfigured.
@@ -281,6 +298,8 @@ Files:
 - `src/lib/__tests__/validate-env.test.ts`
 
 ### PR-17: Expand direct Convex settlement coverage
+
+Status: Complete
 
 Scope:
 - Add dedicated tests for `convex/sessions.ts` state transitions and invariants.
@@ -294,18 +313,24 @@ Files:
 
 ### PR-18: Dependency audit gating
 
+Status: In progress
+
 Scope:
 - Add CI step for `npm audit` (or approved scanner) in networked environment.
 - Add release policy for vulnerability severity thresholds.
 
+Current implementation:
+- `.github/workflows/ci.yml` includes `npm audit --omit=dev --audit-level=high`.
+- Explicit waiver path is supported via `SECURITY_AUDIT_WAIVER` (must include rationale).
+
 ## Release Gate Checklist (must pass)
 
-- P0 remediations complete and merged.
-- Run and pass: `npm run lint`, `npm run typecheck`, `npm test`, `npm run test:coverage` (no critical-path regressions in coverage).
-- Dependency audit run in CI with no unwaived high/critical findings.
-- Readiness endpoint green in target environment.
-- Proxy trust settings verified in production environment variables.
-- Metrics endpoint auth behavior manually verified against spoof attempts.
+- [x] P0 remediations complete and merged.
+- [x] Run and pass: `npm run lint`, `npm run typecheck`, `npm test`, `npm run test:coverage` (no critical-path regressions in coverage).
+- [ ] Dependency audit run in CI with no unwaived high/critical findings.
+- [ ] Readiness endpoint green in target environment.
+- [ ] Proxy trust settings verified in production environment variables.
+- [ ] Metrics endpoint auth behavior manually verified against spoof attempts.
 
 ## Test Additions Required
 
@@ -333,4 +358,3 @@ Scope:
 ## Notes on Prior Completed Work
 
 The prior remediation sequence (PR-1 through PR-12) provided a strong baseline and remains valuable. This document supersedes previous "completed" status by adding newly identified production blockers from the latest full-codebase audit on 2026-02-19.
-

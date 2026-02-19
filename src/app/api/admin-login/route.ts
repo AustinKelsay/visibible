@@ -3,6 +3,11 @@ import { validateSessionWithIp, withSessionRefreshCookie } from "@/lib/session";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { validateCsrfToken, CSRF_COOKIE_NAME } from "@/lib/csrf";
+import {
+  readJsonBodyWithLimit,
+  PayloadTooLargeError,
+  InvalidJsonError,
+} from "@/lib/request-body";
 import { api } from "../../../../convex/_generated/api";
 import { createHmac, timingSafeEqual } from "crypto";
 import { cookies } from "next/headers";
@@ -14,6 +19,8 @@ import { cookies } from "next/headers";
 function getAdminPasswordSecret(): string | undefined {
   return process.env.ADMIN_PASSWORD_SECRET;
 }
+
+const ADMIN_LOGIN_MAX_BODY_SIZE = 10_000;
 
 /**
  * POST /api/admin-login
@@ -93,17 +100,48 @@ export async function POST(request: Request): Promise<NextResponse> {
     ));
   }
 
+  let password: string;
   try {
-    const body = await request.json();
-    const { password } = body;
+    const body = await readJsonBodyWithLimit<unknown>(
+      request,
+      ADMIN_LOGIN_MAX_BODY_SIZE
+    );
+    const maybePassword =
+      typeof body === "object" && body !== null
+        ? (body as { password?: unknown }).password
+        : undefined;
 
-    if (!password || typeof password !== "string") {
+    if (!maybePassword || typeof maybePassword !== "string") {
       return withSessionRefresh(NextResponse.json(
         { error: "Password required" },
         { status: 400 }
       ));
     }
+    password = maybePassword;
+  } catch (error) {
+    if (error instanceof PayloadTooLargeError) {
+      return withSessionRefresh(NextResponse.json(
+        {
+          error: "Payload too large",
+          message: `Request body exceeds maximum size of ${error.maxSize} bytes.`,
+          maxSize: error.maxSize,
+        },
+        { status: 413 }
+      ));
+    }
+    if (error instanceof InvalidJsonError) {
+      return withSessionRefresh(NextResponse.json(
+        { error: "Invalid JSON body" },
+        { status: 400 }
+      ));
+    }
+    return withSessionRefresh(NextResponse.json(
+      { error: "Failed to read request body" },
+      { status: 400 }
+    ));
+  }
 
+  try {
     const adminPassword = process.env.ADMIN_PASSWORD;
 
     // Use generic error message to avoid revealing configuration state
