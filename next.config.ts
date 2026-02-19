@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https:",
       "font-src 'self'",
-      "connect-src 'self' https: wss:",
+      `connect-src 'self' https: wss:${isProduction ? "" : " ws:"}`,
       "frame-ancestors 'none'",
       "frame-src 'none'",
       "object-src 'none'",

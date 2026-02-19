@@ -203,7 +203,7 @@ Impact:
 - High business-risk logic (credit reservation/deduction/refunds/shortfall) may regress despite route-level tests.
 
 Evidence:
-- Coverage output: `convex/sessions.ts` lines ~12.94%.
+- Coverage output: `convex/sessions.ts` lines ~67.26%.
 - File complexity and state machine are significant:
   - `convex/sessions.ts:460`
   - `convex/sessions.ts:570`

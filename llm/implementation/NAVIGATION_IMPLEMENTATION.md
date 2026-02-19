@@ -531,11 +531,14 @@ The sidebar uses `sidebarTab` from NavigationContext (not local state) so that:
 
 ---
 
-## Mobile Image Controls Sheet
+## Fullscreen Image Mode
 
-### File: `src/components/image-controls-sheet.tsx`
+Controlled by `NavigationContext`.
 
-Bottom sheet rendered on mobile only (`sm:hidden`), controlled by `NavigationContext`.
+Exported state and helpers:
+- `isFullscreen` — boolean, true when fullscreen image mode is active
+- `openFullscreen()` — enters fullscreen mode
+- `closeFullscreen()` — exits fullscreen mode
 
 Contains:
 - Verse prev/next controls
@@ -543,9 +546,8 @@ Contains:
 - Generate button states (loading / can generate / needs credits)
 
 Open/close behavior:
-- Uses `isImageControlsOpen`
-- Backdrop click closes sheet
-- `openImageControls()` closes mobile header settings menu
+- Uses `isFullscreen` from NavigationContext
+- Backdrop click or close action calls `closeFullscreen()`
 
 ---
 

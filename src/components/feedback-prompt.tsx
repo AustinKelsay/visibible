@@ -229,7 +229,7 @@ export function FeedbackPrompt() {
           handleClick();
         }
       }}
-      style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
+      style={{ marginBottom: "env(safe-area-inset-bottom)" }}
       className={`
         hidden md:fixed z-30
         bottom-[160px] right-6

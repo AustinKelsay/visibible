@@ -152,4 +152,3 @@ These gaps are acceptable only if this workflow is followed for each chat LLM ch
 - `src/app/api/chat/route.ts`
 - `src/app/api/__tests__/chat/credit-flow.test.ts`
 - `src/app/api/__tests__/chat/stream-handling.test.ts`
-- `llm/implementation/IMAGE_PROMPT_SPEC.md`

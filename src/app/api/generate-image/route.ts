@@ -743,7 +743,7 @@ export async function POST(request: Request) {
   let scenePlanFromCache = false;
   if (enableScenePlanner) {
     try {
-      const cacheEntry = await convex.query(api.verseImages.getScenePlanCache, {
+      const cacheEntry = await convex.mutation(api.verseImages.getScenePlanCache, {
         verseId,
         translationId,
         styleProfileId: styleProfile.id,

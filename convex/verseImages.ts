@@ -481,7 +481,7 @@ export const getGenerationRequestStatus = query({
 /**
  * Secure query for scene plan cache lookup.
  */
-export const getScenePlanCache = query({
+export const getScenePlanCache = mutation({
   args: {
     verseId: v.string(),
     translationId: v.string(),
