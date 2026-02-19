@@ -212,6 +212,8 @@ export function validateAdminSecret(): void {
 }
 
 let proxyConfigValidated = false;
+const ALLOW_UNTRUSTED_PROXY_OVERRIDE_ENV =
+  "ALLOW_UNTRUSTED_PROXY_IN_PRODUCTION";
 
 /**
  * Validate proxy trust configuration and warn about potential misconfigurations.
@@ -225,14 +227,31 @@ export function validateProxyConfig(): void {
   const trustedIps = process.env.TRUSTED_PROXY_IPS || "";
   const isVercel = process.env.VERCEL === "1";
   const isProduction = process.env.NODE_ENV === "production";
+  const allowUntrustedProxyOverride =
+    process.env[ALLOW_UNTRUSTED_PROXY_OVERRIDE_ENV] === "true";
+
+  // Validate supported platform values
+  if (trustPlatform && trustPlatform !== "vercel") {
+    const message =
+      `[Security Warning] Unsupported TRUST_PROXY_PLATFORM="${trustPlatform}". ` +
+      'Supported values: "vercel".';
+    if (isProduction) {
+      throw new Error(
+        `${message} Remove TRUST_PROXY_PLATFORM or configure TRUSTED_PROXY_IPS explicitly.`
+      );
+    }
+    console.warn(message);
+  }
 
   // Warn if TRUST_PROXY_PLATFORM=vercel but not actually on Vercel
   if (trustPlatform === "vercel" && !isVercel) {
-    console.warn(
+    const message =
       "[Security Warning] TRUST_PROXY_PLATFORM=vercel is set but VERCEL=1 is not detected. " +
-        "Proxy headers will NOT be trusted. If running locally, this is expected. " +
-        "If deployed elsewhere, remove TRUST_PROXY_PLATFORM or set TRUSTED_PROXY_IPS."
-    );
+      "Proxy headers will NOT be trusted. If deployed elsewhere, remove TRUST_PROXY_PLATFORM or set TRUSTED_PROXY_IPS.";
+    if (isProduction) {
+      throw new Error(`${message} This is a production startup blocker.`);
+    }
+    console.warn(message);
   }
 
   // SECURITY: Check for overly permissive CIDR ranges that allow IP spoofing
@@ -269,13 +288,20 @@ export function validateProxyConfig(): void {
     }
   }
 
-  // In production, warn if no proxy trust is configured (might be behind a load balancer)
+  // In production, fail fast if no proxy trust is configured unless explicit override is set.
   if (isProduction && !trustPlatform && !trustedIps) {
-    console.info(
-      "[Security Info] No proxy trust configured (TRUST_PROXY_PLATFORM and TRUSTED_PROXY_IPS are empty). " +
-        "If behind a reverse proxy/load balancer, client IPs may be incorrect. " +
-        "See documentation: llm/workflow/PROXY_CONFIGURATION.md"
-    );
+    if (allowUntrustedProxyOverride) {
+      console.warn(
+        `[Security Warning] No proxy trust configured in production, but ${ALLOW_UNTRUSTED_PROXY_OVERRIDE_ENV}=true is set. ` +
+          "IP-based controls may degrade. See llm/workflow/PROXY_CONFIGURATION.md"
+      );
+    } else {
+      throw new Error(
+        "CRITICAL SECURITY MISCONFIGURATION: No proxy trust configured in production. " +
+          "Set TRUST_PROXY_PLATFORM=vercel or configure TRUSTED_PROXY_IPS. " +
+          `If you must temporarily bypass this check, set ${ALLOW_UNTRUSTED_PROXY_OVERRIDE_ENV}=true (not recommended).`
+      );
+    }
   }
 }
 

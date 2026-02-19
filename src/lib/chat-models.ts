@@ -18,6 +18,7 @@ export const MIN_CHAT_CREDITS = 1; // Minimum credits to charge per chat
 
 // Scene planner uses smaller context: ~200 prompt tokens + 220 max completion + overhead
 export const SCENE_PLANNER_ESTIMATED_TOKENS = 450;
+const MODEL_CACHE_MAX_STALE_MS = 6 * 60 * 60 * 1000; // 6 hours
 
 /**
  * Determine if a model is free based on:
@@ -46,6 +47,19 @@ export function isModelFree(model: {
 
 export const DEFAULT_CHAT_MODEL = "openai/gpt-oss-120b";
 
+type ChatModelPricing = {
+  prompt: string;
+  completion: string;
+};
+
+export const EMERGENCY_CHAT_MODEL_PRICING: Record<string, ChatModelPricing> = {
+  [DEFAULT_CHAT_MODEL]: {
+    // Conservative baseline used only when OpenRouter model catalog is unavailable.
+    prompt: "2.5",
+    completion: "10",
+  },
+};
+
 interface OpenRouterModel {
   id: string;
   name: string;
@@ -65,16 +79,60 @@ export interface ChatModelsResult {
   error?: string;
 }
 
+let lastKnownGoodChatModels: ChatModel[] | null = null;
+let lastKnownGoodChatModelsAt = 0;
+
+function cloneChatModels(models: ChatModel[]): ChatModel[] {
+  return models.map((model) => ({
+    ...model,
+    pricing: model.pricing
+      ? {
+          prompt: model.pricing.prompt,
+          completion: model.pricing.completion,
+        }
+      : undefined,
+  }));
+}
+
 function getDefaultChatModels(): ChatModel[] {
+  const fallbackPricing = EMERGENCY_CHAT_MODEL_PRICING[DEFAULT_CHAT_MODEL];
   return [
     {
       id: DEFAULT_CHAT_MODEL,
       name: "GPT-OSS 120B (Default)",
       provider: "Openai",
       contextLength: 131072,
+      pricing: fallbackPricing,
       isFree: false, // gpt-oss-120b is a paid model on OpenRouter
     },
   ];
+}
+
+function applyEmergencyPricing(models: ChatModel[]): ChatModel[] {
+  return models.map((model) => {
+    const emergencyPricing = EMERGENCY_CHAT_MODEL_PRICING[model.id];
+    if (!emergencyPricing) {
+      return model;
+    }
+    return {
+      ...model,
+      pricing: {
+        prompt: model.pricing?.prompt ?? emergencyPricing.prompt,
+        completion: model.pricing?.completion ?? emergencyPricing.completion,
+      },
+    };
+  });
+}
+
+function getStaleCachedModels(nowMs = Date.now()): ChatModel[] | null {
+  if (!lastKnownGoodChatModels) {
+    return null;
+  }
+  const ageMs = nowMs - lastKnownGoodChatModelsAt;
+  if (ageMs > MODEL_CACHE_MAX_STALE_MS) {
+    return null;
+  }
+  return cloneChatModels(lastKnownGoodChatModels);
 }
 
 export async function fetchChatModels(openRouterApiKey: string): Promise<ChatModelsResult> {
@@ -90,6 +148,13 @@ export async function fetchChatModels(openRouterApiKey: string): Promise<ChatMod
 
     if (!response.ok) {
       console.error("OpenRouter models API error:", response.status);
+      const staleModels = getStaleCachedModels();
+      if (staleModels) {
+        return {
+          models: staleModels,
+          error: "Using cached chat models after OpenRouter models API failure",
+        };
+      }
       return {
         models: getDefaultChatModels(),
         error: "Failed to fetch models from OpenRouter",
@@ -126,14 +191,26 @@ export async function fetchChatModels(openRouterApiKey: string): Promise<ChatMod
         return a.name.localeCompare(b.name);
       });
 
+    let normalizedModels = applyEmergencyPricing(chatModels);
+
     // Ensure default model is present
-    if (!chatModels.find((model) => model.id === DEFAULT_CHAT_MODEL)) {
-      chatModels.unshift(...getDefaultChatModels());
+    if (!normalizedModels.find((model) => model.id === DEFAULT_CHAT_MODEL)) {
+      normalizedModels = [...getDefaultChatModels(), ...normalizedModels];
     }
 
-    return { models: chatModels };
+    lastKnownGoodChatModels = cloneChatModels(normalizedModels);
+    lastKnownGoodChatModelsAt = Date.now();
+
+    return { models: normalizedModels };
   } catch (error) {
     console.error("Error fetching chat models:", error);
+    const staleModels = getStaleCachedModels();
+    if (staleModels) {
+      return {
+        models: staleModels,
+        error: "Using cached chat models after OpenRouter models API network error",
+      };
+    }
     return {
       models: getDefaultChatModels(),
       error: "Network error fetching models",
@@ -275,10 +352,16 @@ export async function getChatModelPricing(
   const result = await fetchChatModels(apiKey);
 
   const model = result.models.find((m) => m.id === modelId);
-  if (!model) return null;
+  if (!model) {
+    const emergencyPricing = EMERGENCY_CHAT_MODEL_PRICING[modelId];
+    return emergencyPricing ?? null;
+  }
 
   // Model must have valid pricing
-  if (!model.pricing?.prompt || !model.pricing?.completion) return null;
+  if (!model.pricing?.prompt || !model.pricing?.completion) {
+    const emergencyPricing = EMERGENCY_CHAT_MODEL_PRICING[modelId];
+    return emergencyPricing ?? null;
+  }
 
   return {
     prompt: model.pricing.prompt,

@@ -527,6 +527,7 @@ export async function POST(request: Request) {
 
   let modelId = DEFAULT_IMAGE_MODEL;
   let modelPricing: string | undefined;
+  let modelUsesEmergencyPricing = false;
   type StyleProfile = {
     id: string;
     label: string;
@@ -656,10 +657,12 @@ export async function POST(request: Request) {
     }
     modelId = requestedModelId;
     modelPricing = foundModel.pricing?.imageOutput;
+    modelUsesEmergencyPricing = foundModel.usesEmergencyPricing === true;
   } else {
     // Use default model, but still validate it exists and has pricing
     const foundModel = result.models.find((model) => model.id === modelId);
     modelPricing = foundModel?.pricing?.imageOutput;
+    modelUsesEmergencyPricing = foundModel?.usesEmergencyPricing === true;
   }
 
   // SECURITY: Reject models without valid pricing (prevents cost abuse)
@@ -716,8 +719,13 @@ export async function POST(request: Request) {
 
   // Compute conservative estimate for reservation (accounts for OpenRouter API pricing discrepancy)
   // The OpenRouter models API often underreports actual costs for multimodal image models
+  // Emergency fallback prices are already conservative final-price baselines.
+  // Avoid applying the catalog underreporting multiplier twice in outage mode.
+  const reservationMultiplier = modelUsesEmergencyPricing
+    ? 1
+    : CONSERVATIVE_ESTIMATE_MULTIPLIER;
   const baseReservationCredits = Math.ceil(
-    baseImageCreditsCost * CONSERVATIVE_ESTIMATE_MULTIPLIER
+    baseImageCreditsCost * reservationMultiplier
   );
   const reservationImageCredits = computeAdjustedCreditsCost(
     baseReservationCredits,

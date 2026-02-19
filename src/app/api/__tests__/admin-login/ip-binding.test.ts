@@ -122,4 +122,55 @@ describe("Admin Login IP Binding", () => {
       expect.objectContaining({ sid: "test-session" })
     );
   });
+
+  it("returns 413 for oversized admin login payloads", async () => {
+    mockSessionValidation.value = {
+      valid: true,
+      sid: "test-session",
+      currentIpHash: "bound-ip-hash",
+    };
+    const { POST } = await import("../../admin-login/route");
+
+    const response = await POST(
+      new Request("http://localhost:3000/api/admin-login", {
+        method: "POST",
+        headers: {
+          origin: "http://localhost:3000",
+          "content-type": "application/json",
+          "x-csrf-token": "test-csrf-token",
+        },
+        body: JSON.stringify({ password: "x".repeat(20_000) }),
+      })
+    );
+
+    expect(response.status).toBe(413);
+    const body = await response.json();
+    expect(body.error).toBe("Payload too large");
+    expect(body.maxSize).toBe(10_000);
+  });
+
+  it("returns 400 for invalid JSON payloads", async () => {
+    mockSessionValidation.value = {
+      valid: true,
+      sid: "test-session",
+      currentIpHash: "bound-ip-hash",
+    };
+    const { POST } = await import("../../admin-login/route");
+
+    const response = await POST(
+      new Request("http://localhost:3000/api/admin-login", {
+        method: "POST",
+        headers: {
+          origin: "http://localhost:3000",
+          "content-type": "application/json",
+          "x-csrf-token": "test-csrf-token",
+        },
+        body: "{\"password\":",
+      })
+    );
+
+    expect(response.status).toBe(400);
+    const body = await response.json();
+    expect(body.error).toBe("Invalid JSON body");
+  });
 });

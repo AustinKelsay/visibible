@@ -264,27 +264,60 @@ describe("validateProxyConfig", () => {
     expect(() => validateProxyConfig()).not.toThrow();
   });
 
-  it("should log info in production when no proxy trust configured", async () => {
+  it("should fail in production when no proxy trust is configured", async () => {
     vi.stubEnv("NODE_ENV", "production");
     delete process.env.TRUST_PROXY_PLATFORM;
     delete process.env.TRUSTED_PROXY_IPS;
     const { validateProxyConfig } = await importValidateEnv();
 
-    validateProxyConfig();
-    expect(console.info).toHaveBeenCalledWith(
-      expect.stringContaining("No proxy trust configured")
+    expect(() => validateProxyConfig()).toThrow(
+      "CRITICAL SECURITY MISCONFIGURATION: No proxy trust configured in production"
     );
   });
 
-  it("should warn when TRUST_PROXY_PLATFORM=vercel but not on Vercel", async () => {
+  it("should allow missing proxy trust only with explicit production override", async () => {
+    vi.stubEnv("NODE_ENV", "production");
+    delete process.env.TRUST_PROXY_PLATFORM;
+    delete process.env.TRUSTED_PROXY_IPS;
+    process.env.ALLOW_UNTRUSTED_PROXY_IN_PRODUCTION = "true";
+    const { validateProxyConfig } = await importValidateEnv();
+
+    expect(() => validateProxyConfig()).not.toThrow();
+    expect(console.warn).toHaveBeenCalledWith(
+      expect.stringContaining("ALLOW_UNTRUSTED_PROXY_IN_PRODUCTION=true")
+    );
+  });
+
+  it("should fail in production when TRUST_PROXY_PLATFORM=vercel but VERCEL=1 is missing", async () => {
     vi.stubEnv("NODE_ENV", "production");
     process.env.TRUST_PROXY_PLATFORM = "vercel";
     delete process.env.VERCEL;
     const { validateProxyConfig } = await importValidateEnv();
 
-    validateProxyConfig();
+    expect(() => validateProxyConfig()).toThrow(
+      "TRUST_PROXY_PLATFORM=vercel is set but VERCEL=1 is not detected"
+    );
+  });
+
+  it("should warn in development when TRUST_PROXY_PLATFORM=vercel but VERCEL=1 is missing", async () => {
+    vi.stubEnv("NODE_ENV", "development");
+    process.env.TRUST_PROXY_PLATFORM = "vercel";
+    delete process.env.VERCEL;
+    const { validateProxyConfig } = await importValidateEnv();
+
+    expect(() => validateProxyConfig()).not.toThrow();
     expect(console.warn).toHaveBeenCalledWith(
       expect.stringContaining("TRUST_PROXY_PLATFORM=vercel is set but VERCEL=1 is not detected")
+    );
+  });
+
+  it("should fail in production for unsupported TRUST_PROXY_PLATFORM values", async () => {
+    vi.stubEnv("NODE_ENV", "production");
+    process.env.TRUST_PROXY_PLATFORM = "cloudflare";
+    const { validateProxyConfig } = await importValidateEnv();
+
+    expect(() => validateProxyConfig()).toThrow(
+      "Unsupported TRUST_PROXY_PLATFORM"
     );
   });
 });

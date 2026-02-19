@@ -26,7 +26,7 @@ export default function ErrorPage({
         <div className="flex gap-4 justify-center">
           <button
             onClick={reset}
-            className="px-6 py-3 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-lg hover:opacity-90 transition-opacity"
+            className="px-6 py-3 bg-[var(--accent)] text-[var(--accent-text)] rounded-lg hover:opacity-90 transition-opacity"
           >
             Try again
           </button>

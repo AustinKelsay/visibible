@@ -9,6 +9,7 @@ import {
   emitMetric,
   logApiFailure,
   logWarn,
+  redactSid,
 } from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
 
@@ -82,7 +83,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     logWarn("api.rate_limited", {
       route: requestContext.route,
       requestId: requestContext.requestId,
-      sid,
+      sid: redactSid(sid),
       retryAfter: rateLimitResult.retryAfter,
     });
     return withSessionRefresh(NextResponse.json(

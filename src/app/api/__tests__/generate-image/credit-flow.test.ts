@@ -31,6 +31,18 @@ process.env.OPENROUTER_IMAGE_TIMEOUT_MS = "50";
 const originalEnv = { ...process.env };
 let forceQuoteFailure = false;
 let forceRecordImageCostEventFailure = false;
+const defaultImageCatalogModels: Array<{
+  id: string;
+  pricing: { imageOutput: string };
+  usesEmergencyPricing?: boolean;
+}> = [
+  { id: "google/gemini-2.0-flash-exp:free", pricing: { imageOutput: "0.01" } },
+  { id: "google/gemini-2.5-flash-image", pricing: { imageOutput: "0.02" } },
+  { id: "openai/dall-e-3", pricing: { imageOutput: "0.04" } },
+];
+const fetchImageModelsMock = vi.fn(async () => ({
+  models: defaultImageCatalogModels,
+}));
 
 // Mock modules
 vi.mock("@/lib/validate-env", () => ({
@@ -189,13 +201,7 @@ vi.mock("@/lib/convex-client", () => ({
 
 vi.mock("@/lib/image-models", () => ({
   DEFAULT_IMAGE_MODEL: "google/gemini-2.0-flash-exp:free",
-  fetchImageModels: vi.fn(async () => ({
-    models: [
-      { id: "google/gemini-2.0-flash-exp:free", pricing: { imageOutput: "0.01" } },
-      { id: "google/gemini-2.5-flash-image", pricing: { imageOutput: "0.02" } },
-      { id: "openai/dall-e-3", pricing: { imageOutput: "0.04" } },
-    ],
-  })),
+  fetchImageModels: fetchImageModelsMock,
   computeCreditsCost: vi.fn((pricing: string | undefined) => {
     if (!pricing) return null;
     const usd = parseFloat(pricing);
@@ -303,6 +309,10 @@ function createGenerateImageRequest(body: Record<string, unknown>) {
 describe("Image Generation API Credit Flow", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    fetchImageModelsMock.mockReset();
+    fetchImageModelsMock.mockResolvedValue({
+      models: defaultImageCatalogModels,
+    });
     resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 }]);
     mockFetchResponse = null;
     mockFetchImpl = null;
@@ -377,6 +387,41 @@ describe("Image Generation API Credit Flow", () => {
       const body = await response.json();
       expect(body.usedFallbackEstimate).toBe(true);
       expect(body.usedActualCost).toBe(false);
+    });
+
+    it("emergency-pricing: does not double-apply conservative reservation multiplier", async () => {
+      fetchImageModelsMock.mockResolvedValueOnce({
+        models: [
+          {
+            id: "google/gemini-2.0-flash-exp:free",
+            pricing: { imageOutput: "0.10" },
+            usesEmergencyPricing: true,
+          },
+        ],
+      });
+      mockFetchResponse = {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          id: "gen-123",
+          choices: [
+            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+          ],
+        }),
+      };
+
+      const { POST } = await import("../../generate-image/route");
+
+      const url = new URL("http://localhost:3000/api/generate-image");
+      url.searchParams.set("text", "Emergency fallback pricing test");
+
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
+
+      expect(response.status).toBe(200);
+      const reserveCall = mockState.callHistory.find((c) => c.action === "reserveCredits");
+      expect(reserveCall).toBeDefined();
+      expect((reserveCall?.args as { amount: number }).amount).toBe(13);
     });
 
     it("actual-usage-local-fallback: quote failure still charges from usage.cost", async () => {
