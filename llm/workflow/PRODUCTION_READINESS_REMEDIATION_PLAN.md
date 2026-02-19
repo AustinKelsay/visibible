@@ -230,7 +230,7 @@ Impact:
 - Vulnerability posture not confirmed in this environment.
 
 Evidence:
-- `npm audit --omit=dev` failed due `ENOTFOUND registry.npmjs.org`.
+- `npm audit --omit=dev` failed due to `ENOTFOUND registry.npmjs.org`.
 
 Required remediation:
 - Run dependency audit in CI/networked environment.

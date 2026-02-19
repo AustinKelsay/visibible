@@ -246,6 +246,9 @@ type ReconcileArgs = {
   limit?: number;
 };
 
+// Intentional fragile coupling: Convex wraps mutation handlers in an object
+// with a `_handler` property. These casts extract the raw handler for unit
+// testing. If Convex changes its internal export shape, update these casts.
 const reserveHandler = (
   reserveCreditsInternal as unknown as {
     _handler: (ctx: { db: MockDb }, args: ReserveArgs) => Promise<Record<string, unknown>>;

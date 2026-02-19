@@ -146,6 +146,7 @@ describe("Admin Login IP Binding", () => {
     expect(response.status).toBe(413);
     const body = await response.json();
     expect(body.error).toBe("Payload too large");
+    expect(body.maxSize).toBe(10_000);
   });
 
   it("returns 400 for invalid JSON payloads", async () => {
