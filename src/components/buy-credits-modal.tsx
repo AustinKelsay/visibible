@@ -540,6 +540,18 @@ export function BuyCreditsModal() {
               </div>
 
               <div className="flex items-start gap-3 p-4 bg-[var(--surface)] rounded-[var(--radius-md)]">
+                <Users size={20} className="text-[var(--accent)] flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-[var(--foreground)] mb-1">
+                    Help build the visual Bible
+                  </p>
+                  <p className="text-xs text-[var(--muted)]">
+                    Credits fund new images and visualizations. Everything created here becomes part of a growing library anyone can explore for free.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 p-4 bg-[var(--surface)] rounded-[var(--radius-md)]">
                 <Zap size={20} className="text-[var(--accent)] flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
                   <p className="text-sm font-medium text-[var(--foreground)] mb-1">
@@ -554,18 +566,6 @@ export function BuyCreditsModal() {
                       Numbers show images per verse
                     </p>
                   </div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 p-4 bg-[var(--surface)] rounded-[var(--radius-md)]">
-                <Users size={20} className="text-[var(--accent)] flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-medium text-[var(--foreground)] mb-1">
-                    Help build the visual Bible
-                  </p>
-                  <p className="text-xs text-[var(--muted)]">
-                    Credits fund new images and visualizations. Everything created here becomes part of a growing library anyone can explore for free.
-                  </p>
                 </div>
               </div>
             </div>
