@@ -3,9 +3,13 @@ import { v } from "convex/values";
 import { internal } from "./_generated/api";
 import { validateServerSecret } from "./_helpers/auth";
 
-// Fixed bundle price
-const BUNDLE_USD = 3;
-const BUNDLE_CREDITS = 300;
+function getBundleCredits(amountUsd: number): number {
+  if (amountUsd === 1 || amountUsd === 3) {
+    return amountUsd * 100;
+  }
+
+  throw new Error("Unsupported credit bundle");
+}
 
 /**
  * Create a new invoice for credit purchase.
@@ -15,6 +19,7 @@ export const createInvoice = mutation({
   args: {
     invoiceId: v.string(),
     sid: v.string(),
+    amountUsd: v.union(v.literal(1), v.literal(3)),
     amountSats: v.number(),
     bolt11: v.string(),
     paymentHash: v.string(),
@@ -35,12 +40,13 @@ export const createInvoice = mutation({
     const now = Date.now();
     const expiresAt = now + 15 * 60 * 1000; // 15 minutes
     const invoiceId = args.invoiceId;
+    const credits = getBundleCredits(args.amountUsd);
 
     // Create invoice record with real LND data
     await ctx.db.insert("invoices", {
       invoiceId,
       sid: args.sid,
-      amountUsd: BUNDLE_USD,
+      amountUsd: args.amountUsd,
       amountSats: args.amountSats,
       bolt11: args.bolt11,
       paymentHash: args.paymentHash,
@@ -52,10 +58,10 @@ export const createInvoice = mutation({
     return {
       invoiceId,
       bolt11: args.bolt11,
-      amountUsd: BUNDLE_USD,
+      amountUsd: args.amountUsd,
       amountSats: args.amountSats,
       expiresAt,
-      credits: BUNDLE_CREDITS,
+      credits,
     };
   },
 });
@@ -168,7 +174,8 @@ export const confirmPaymentInternal = internalMutation({
     }
 
     // Add credits to session
-    const newCredits = session.credits + BUNDLE_CREDITS;
+    const creditsToAdd = getBundleCredits(invoice.amountUsd);
+    const newCredits = session.credits + creditsToAdd;
     const nextTier = session.tier === "admin" ? "admin" : "paid";
     await ctx.db.patch(session._id, {
       credits: newCredits,
@@ -178,7 +185,7 @@ export const confirmPaymentInternal = internalMutation({
     // Record in credit ledger
     await ctx.db.insert("creditLedger", {
       sid: invoice.sid,
-      delta: BUNDLE_CREDITS,
+      delta: creditsToAdd,
       reason: "purchase",
       createdAt: now,
     });
@@ -186,7 +193,7 @@ export const confirmPaymentInternal = internalMutation({
     return {
       success: true,
       newBalance: newCredits,
-      creditsAdded: BUNDLE_CREDITS,
+      creditsAdded: creditsToAdd,
     };
   },
 });

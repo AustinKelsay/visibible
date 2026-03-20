@@ -8,7 +8,7 @@ High-level view of the session and credit system for AI features (chat and image
 - All users start as "paid" tier (no free tier) but with 0 credits.
 - Users buy credits via Lightning to unlock AI features (chat and image generation).
 - Admin sessions bypass all credit and spending checks.
-- Payments use Lightning invoices, payable via Lightning wallets or CashApp (fixed $3 bundle = 300 credits).
+- Payments use Lightning invoices, payable via Lightning wallets or CashApp ($1 = 100 credits or $3 = 300 credits).
 
 ## User Tiers
 

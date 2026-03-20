@@ -5,7 +5,7 @@ High-level view of payments and credit purchases. This describes product intent 
 ## Summary
 
 - Payments use Lightning invoices, payable via any Lightning wallet or CashApp.
-- Fixed bundle: $3 for 300 credits.
+- Credit bundles: $1 for 100 credits or $3 for 300 credits.
 - Credits unlock both **image generation** and **AI chat** (cost varies by model).
 - Invoices are tied to the current anonymous session.
 
@@ -42,7 +42,7 @@ Sessions have a **$5/day spending limit** to prevent runaway costs:
 The buy credits modal has several states:
 
 1. **Welcome** (first-time) — Introduction to Visibible with "Buy Credits" or "Browse for Free" options
-2. **Selection** — Package info ($3 = 300 credits), payment methods, admin login option
+2. **Selection** — Simple bundle picker ($1 = 100 credits or $3 = 300 credits), payment methods, admin login option
 3. **Loading** — Creating the Lightning invoice
 4. **Invoice** — QR code, BOLT11, countdown timer, "Waiting for payment..."
 5. **Success** — "Payment Received!" confirmation

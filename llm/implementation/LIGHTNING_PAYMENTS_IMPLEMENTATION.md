@@ -185,7 +185,7 @@ These signals are intended for log pipelines and alerting dashboards, and comple
   - Returns early if already paid (idempotent—prevents double-crediting).
   - Sets status to `paid`, `paidAt` timestamp.
   - Updates `paymentHash` only if provided (preserves existing value if omitted).
-  - Adds 300 credits to the session.
+  - Adds credits to the session based on the purchased bundle amount (`$1 -> 100`, `$3 -> 300`).
   - Upgrades session `tier` to `"paid"` (unless already `"admin"`).
   - Inserts a `creditLedger` entry with reason `purchase`.
 

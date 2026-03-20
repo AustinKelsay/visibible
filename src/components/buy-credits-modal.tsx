@@ -144,6 +144,13 @@ interface Invoice {
 
 type ModalState = "welcome" | "selection" | "loading" | "invoice" | "success" | "error";
 
+const CREDIT_BUNDLES = [
+  { amountUsd: 1, credits: 100 },
+  { amountUsd: 3, credits: 300 },
+] as const;
+
+type CreditBundle = (typeof CREDIT_BUNDLES)[number];
+
 export function BuyCreditsModal() {
   const { isBuyModalOpen, closeBuyModal, refetch, credits, tier } = useSession();
   const [state, setState] = useState<ModalState>("welcome");
@@ -164,18 +171,25 @@ export function BuyCreditsModal() {
   const [adminPassword, setAdminPassword] = useState("");
   const [adminError, setAdminError] = useState<string | null>(null);
   const [adminSubmitting, setAdminSubmitting] = useState(false);
+  const [selectedBundle, setSelectedBundle] = useState<CreditBundle>(CREDIT_BUNDLES[1]);
 
   /**
    * Creates a new Lightning invoice for purchasing credits.
    * Memoized with useCallback to ensure stable reference for useEffect dependencies.
    */
-  const createInvoice = useCallback(async () => {
+  const createInvoice = useCallback(async (bundle: CreditBundle = selectedBundle) => {
     setState("loading");
     setError(null);
     hasTrackedExpiredRef.current = false; // Reset expiry tracking for new invoice
 
     try {
-      const response = await fetch("/api/invoice", { method: "POST" });
+      const response = await fetch("/api/invoice", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amountUsd: bundle.amountUsd }),
+      });
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.error || "Failed to create invoice");
@@ -195,7 +209,7 @@ export function BuyCreditsModal() {
       setError(err instanceof Error ? err.message : "Failed to create invoice");
       setState("error");
     }
-  }, [tier, credits]);
+  }, [selectedBundle, tier, credits]);
 
   const trackModalClosed = useCallback((modalState: ModalState) => {
     const openedAt = modalOpenedAtRef.current ?? Date.now();
@@ -624,11 +638,40 @@ export function BuyCreditsModal() {
               )}
 
               {/* Package info */}
-              <div className="text-center py-6 bg-[var(--surface)] rounded-[var(--radius-md)]">
-                <p className="text-3xl font-bold text-[var(--foreground)]">
-                  300 credits
-                </p>
-                <p className="text-[var(--muted)] mt-1">$3 USD</p>
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-2">
+                  {CREDIT_BUNDLES.map((bundle) => {
+                    const isSelected = bundle.amountUsd === selectedBundle.amountUsd;
+
+                    return (
+                      <button
+                        key={bundle.amountUsd}
+                        type="button"
+                        onClick={() => setSelectedBundle(bundle)}
+                        className={`rounded-[var(--radius-md)] border px-3 py-3 text-center transition-colors ${
+                          isSelected
+                            ? "border-[var(--accent)] bg-[var(--accent)]/10"
+                            : "border-[var(--divider)] bg-[var(--surface)] hover:bg-[var(--divider)]"
+                        }`}
+                        aria-pressed={isSelected}
+                      >
+                        <p className="text-lg font-semibold text-[var(--foreground)]">
+                          ${bundle.amountUsd}
+                        </p>
+                        <p className="text-xs text-[var(--muted)]">
+                          {bundle.credits} credits
+                        </p>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="text-center py-6 bg-[var(--surface)] rounded-[var(--radius-md)]">
+                  <p className="text-3xl font-bold text-[var(--foreground)]">
+                    {selectedBundle.credits} credits
+                  </p>
+                  <p className="text-[var(--muted)] mt-1">${selectedBundle.amountUsd} USD</p>
+                </div>
               </div>
 
               {/* Payment methods info */}
@@ -662,10 +705,10 @@ export function BuyCreditsModal() {
 
               {/* Buy button */}
               <button
-                onClick={createInvoice}
+                onClick={() => createInvoice(selectedBundle)}
                 className="w-full py-3 bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] font-medium hover:bg-[var(--accent-hover)] transition-colors"
               >
-                Buy 300 Credits
+                Buy {selectedBundle.credits} Credits
               </button>
 
               {/* Admin Access */}
@@ -819,7 +862,7 @@ export function BuyCreditsModal() {
               Payment Received!
             </h3>
             <p className="text-[var(--muted)] mt-1">
-              {invoice?.credits ?? 300} credits added to your account
+              {invoice?.credits ?? selectedBundle.credits} credits added to your account
             </p>
             <button
               onClick={handleClose}
@@ -842,7 +885,7 @@ export function BuyCreditsModal() {
               {error || "Please try again"}
             </p>
             <button
-              onClick={createInvoice}
+              onClick={() => createInvoice(selectedBundle)}
               className="mt-6 w-full py-3 bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] font-medium hover:bg-[var(--accent-hover)] transition-colors"
             >
               Try Again

@@ -61,7 +61,7 @@ This teaches users what to expect when browsing — they'll see these same dot i
 
 ### Buy Credits (Primary CTA)
 - Transitions to credit selection screen
-- $3 = 300 credits via Lightning payment
+- Offers a simple $1 or $3 credit bundle via Lightning payment
 - Sets `visibible_welcome_seen` flag
 
 ### Browse for Free (Secondary CTA)

@@ -13,8 +13,11 @@ import {
 } from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
 
-// Fixed bundle price
-const BUNDLE_USD = 3;
+const DEFAULT_BUNDLE_USD = 3;
+
+function isSupportedBundleAmountUsd(value: unknown): value is 1 | 3 {
+  return value === 1 || value === 3;
+}
 
 /**
  * POST /api/invoice
@@ -22,6 +25,32 @@ const BUNDLE_USD = 3;
  */
 export async function POST(request: Request): Promise<NextResponse> {
   const requestContext = createRequestObservabilityContext(request, "/api/invoice");
+
+  const rawBody = await request.text();
+  let amountUsd: 1 | 3 = DEFAULT_BUNDLE_USD;
+
+  if (rawBody) {
+    let body: { amountUsd?: unknown };
+
+    try {
+      body = JSON.parse(rawBody) as { amountUsd?: unknown };
+    } catch {
+      return NextResponse.json(
+        { error: "Invalid request body" },
+        { status: 400 }
+      );
+    }
+
+    const requestedAmountUsd = body.amountUsd ?? DEFAULT_BUNDLE_USD;
+    if (!isSupportedBundleAmountUsd(requestedAmountUsd)) {
+      return NextResponse.json(
+        { error: "Unsupported credit bundle" },
+        { status: 400 }
+      );
+    }
+
+    amountUsd = requestedAmountUsd;
+  }
 
   // SECURITY: Validate request origin
   if (!validateOrigin(request)) {
@@ -104,7 +133,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   try {
     // Get current BTC price and calculate sats
     const btcPrice = await getBtcPrice();
-    const amountSats = usdToSats(BUNDLE_USD, btcPrice);
+    const amountSats = usdToSats(amountUsd, btcPrice);
 
     // Generate invoiceId before LND call so we can include it in memo for linking
     const invoiceId = crypto.randomUUID();
@@ -120,6 +149,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     const invoice = await convex.mutation(api.invoices.createInvoice, {
       invoiceId,
       sid,
+      amountUsd,
       amountSats,
       bolt11: lndInvoice.payment_request,
       paymentHash,

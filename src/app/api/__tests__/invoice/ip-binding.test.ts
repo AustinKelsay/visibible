@@ -33,7 +33,7 @@ vi.mock("@/lib/convex-client", () => ({
 
 vi.mock("@/lib/btc-price", () => ({
   getBtcPrice: vi.fn(async () => 100_000),
-  usdToSats: vi.fn(() => 3_000),
+  usdToSats: vi.fn((usd: number) => usd * 1_000),
 }));
 
 vi.mock("@/lib/lnd", () => ({
@@ -60,13 +60,15 @@ describe("Invoice IP Binding", () => {
         return { allowed: true, retryAfter: 0 };
       }
       if ("invoiceId" in args && "bolt11" in args) {
+        const amountUsd = typeof args.amountUsd === "number" ? args.amountUsd : 3;
+        const amountSats = typeof args.amountSats === "number" ? args.amountSats : amountUsd * 1000;
         return {
           invoiceId: args.invoiceId,
           bolt11: args.bolt11,
-          amountUsd: 3,
-          amountSats: 3000,
+          amountUsd,
+          amountSats,
           expiresAt: Date.now() + 3600_000,
-          credits: 300,
+          credits: amountUsd * 100,
         };
       }
       return { success: true };
@@ -123,6 +125,68 @@ describe("Invoice IP Binding", () => {
         endpoint: "invoice",
       })
     );
+  });
+
+  it("supports creating the $1 credit bundle", async () => {
+    mockSessionValidation.value = {
+      valid: true,
+      sid: "invoice-session",
+      currentIpHash: "bound-ip-hash",
+    };
+    const { usdToSats } = await import("@/lib/btc-price");
+    const { POST } = await import("../../invoice/route");
+
+    const response = await POST(
+      new Request("http://localhost:3000/api/invoice", {
+        method: "POST",
+        headers: {
+          origin: "http://localhost:3000",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ amountUsd: 1 }),
+      })
+    );
+
+    expect(response.status).toBe(200);
+    const body = await response.json();
+    expect(body).toEqual(
+      expect.objectContaining({
+        amountUsd: 1,
+        amountSats: 1000,
+        credits: 100,
+      })
+    );
+    expect(usdToSats).toHaveBeenCalledWith(1, 100_000);
+    expect(mockConvex.mutation).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        amountUsd: 1,
+      })
+    );
+  });
+
+  it("rejects unsupported credit bundle amounts", async () => {
+    mockSessionValidation.value = {
+      valid: true,
+      sid: "invoice-session",
+      currentIpHash: "bound-ip-hash",
+    };
+    const { POST } = await import("../../invoice/route");
+
+    const response = await POST(
+      new Request("http://localhost:3000/api/invoice", {
+        method: "POST",
+        headers: {
+          origin: "http://localhost:3000",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ amountUsd: 2 }),
+      })
+    );
+
+    expect(response.status).toBe(400);
+    const body = await response.json();
+    expect(body.error).toBe("Unsupported credit bundle");
   });
 
   it("rejects invoice status polling when session token is missing/invalid", async () => {

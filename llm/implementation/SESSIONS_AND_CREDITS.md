@@ -41,7 +41,7 @@ This document describes the anonymous session, credit ledger, and Lightning paym
 
 1. **Session creation**: `/api/session` issues an anonymous JWT cookie with "paid" tier and 0 credits.
 2. **Browse without credits**: Users can view content but cannot generate images when credits are zero.
-3. **Credit purchase**: `/api/invoice` creates a Lightning invoice (300 credits for $3).
+3. **Credit purchase**: `/api/invoice` creates a Lightning invoice for a supported bundle (`$1 = 100 credits`, `$3 = 300 credits`).
 4. **Payment confirmation**: `/api/invoice/:id` checks LND and grants credits when settled.
 5. **Generation**: `/api/generate-image` pre-checks credits, generates, then charges on success.
 
