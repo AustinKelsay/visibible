@@ -612,12 +612,13 @@ function HeroImageBase({
       }
 
       const data = await response.json();
-      if (typeof data?.requestId === "string") {
-        setActiveRequestId(data.requestId);
-      }
 
       if (isStale()) {
         return;
+      }
+
+      if (typeof data?.requestId === "string") {
+        setActiveRequestId(data.requestId);
       }
 
       if (!response.ok) {

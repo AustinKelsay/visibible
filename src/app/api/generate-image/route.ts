@@ -1132,42 +1132,6 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
   // Track whether scene planner was actually used (for partial refund on failure)
   const scenePlannerUsed = scenePlan !== null && !scenePlanFromCache;
 
-  // If scene planner failed/returned null but we reserved credits for it, issue partial refund
-  if (
-    scenePlannerCreditsCost > 0 &&
-    !scenePlannerUsed &&
-    reservationMade &&
-    !isAdmin
-  ) {
-    // Partial refund for unused scene planner credits with retry
-    const maxRetries = 3;
-    let refundSuccess = false;
-    for (let attempt = 1; attempt <= maxRetries && !refundSuccess; attempt++) {
-      try {
-        await convex.action(api.sessions.addCredits, {
-          sid,
-          amount: scenePlannerCreditsCost,
-          reason: "scene_planner_refund",
-          serverSecret,
-        });
-        refundSuccess = true;
-      } catch (refundError) {
-        if (attempt < maxRetries) {
-          // Exponential backoff: 100ms, 200ms, 400ms
-          await new Promise((resolve) =>
-            setTimeout(resolve, 100 * Math.pow(2, attempt - 1))
-          );
-        } else {
-          console.error(
-            `[Image API] Failed to refund scene planner credits after ${maxRetries} attempts:`,
-            refundError
-          );
-          // Continue with request - user will be over-charged but generation proceeds
-        }
-      }
-    }
-  }
-
   const includeNarrativeContext = Boolean(prevHint || nextHint);
   const narrativeContext = includeNarrativeContext
     ? [
@@ -1262,15 +1226,6 @@ ${aspectRatioInstruction}`;
     includeFullStyleDetails: includeFullStyle,
   });
 
-  if (prompt.length > PROMPT_MAX_CHARS && includeNarrative) {
-    includeNarrative = false;
-    prompt = buildPrompt({
-      includeNarrative,
-      includeGenerationNote: includeGeneration,
-      includeFullStyleDetails: includeFullStyle,
-    });
-  }
-
   if (prompt.length > PROMPT_MAX_CHARS && includeGeneration) {
     includeGeneration = false;
     prompt = buildPrompt({
@@ -1282,6 +1237,15 @@ ${aspectRatioInstruction}`;
 
   if (prompt.length > PROMPT_MAX_CHARS && includeFullStyle) {
     includeFullStyle = false;
+    prompt = buildPrompt({
+      includeNarrative,
+      includeGenerationNote: includeGeneration,
+      includeFullStyleDetails: includeFullStyle,
+    });
+  }
+
+  if (prompt.length > PROMPT_MAX_CHARS && includeNarrative) {
+    includeNarrative = false;
     prompt = buildPrompt({
       includeNarrative,
       includeGenerationNote: includeGeneration,

@@ -184,15 +184,6 @@ vi.mock("@/lib/convex-client", () => ({
         return { success: true, newBalance: session.credits };
       }
 
-      if ("reason" in args && args.reason === "scene_planner_refund") {
-        // addCredits for scene planner refund
-        mockState.callHistory.push({ action: "addCredits", args });
-        if (!session) throw new Error("Session not found");
-        session.credits += args.amount as number;
-        mockState.ledger.push({ sid, delta: args.amount as number, reason: args.reason as string });
-        return { newBalance: session.credits };
-      }
-
       return;
     }),
   })),

@@ -51,6 +51,15 @@ function isCooldownActive(lastDismissed: number | null): boolean {
   return Date.now() - lastDismissed < cooldownMs;
 }
 
+function buildDismissedState(previous: FeedbackPromptState): FeedbackPromptState {
+  return {
+    ...previous,
+    lastDismissed: Date.now(),
+    visitCount: 0,
+    showAtVisit: getRandomVisitThreshold(),
+  };
+}
+
 /**
  * Feedback prompt CTA that appears occasionally to ask for user feedback.
  * Shows after a random number of verse visits (5-15) and respects a 24-hour cooldown.
@@ -147,6 +156,11 @@ export function FeedbackPrompt() {
             hasCredits: credits > 0,
           });
         }
+        setPromptState((prev) => {
+          const nextState = buildDismissedState(prev);
+          saveState(nextState);
+          return nextState;
+        });
       }, 8000); // 8 seconds visible
     }, 2000); // 2 second delay (ChatPrompt shows at 500ms)
 
@@ -178,12 +192,7 @@ export function FeedbackPrompt() {
 
     // Update stored state with dismissal time and reset visit count
     setPromptState((prev) => {
-      const nextState = {
-        ...prev,
-        lastDismissed: Date.now(),
-        visitCount: 0,
-        showAtVisit: getRandomVisitThreshold(),
-      };
+      const nextState = buildDismissedState(prev);
       saveState(nextState);
       return nextState;
     });
@@ -204,12 +213,7 @@ export function FeedbackPrompt() {
 
     // Update stored state
     setPromptState((prev) => {
-      const nextState = {
-        ...prev,
-        lastDismissed: Date.now(),
-        visitCount: 0,
-        showAtVisit: getRandomVisitThreshold(),
-      };
+      const nextState = buildDismissedState(prev);
       saveState(nextState);
       return nextState;
     });

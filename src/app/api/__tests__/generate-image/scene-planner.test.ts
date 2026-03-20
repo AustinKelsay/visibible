@@ -1,6 +1,6 @@
 /**
- * Integration tests for scene planner refund logic.
- * Tests partial refund on timeout/failure and retry behavior.
+ * Integration tests for scene planner settlement logic.
+ * Tests planner cost inclusion/exclusion in final charged amounts.
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
@@ -260,10 +260,6 @@ function getCallCount(action: string) {
   return mockState.callHistory.filter((c) => c.action === actionName).length;
 }
 
-function getRefundEntries() {
-  return mockState.ledger.filter((e) => e.reason === "scene_planner_refund");
-}
-
 const TEST_CSRF_TOKEN = "a".repeat(64);
 
 function createGenerateImageRequest(body: Record<string, unknown>) {
@@ -344,11 +340,12 @@ describe("Scene Planner Refund Logic", () => {
       expect(body.scenePlannerUsed).toBe(true);
       expect(body.scenePlannerCredits).toBe(SCENE_PLANNER_CREDITS);
       expect(getCallCount("sessions:addCredits")).toBe(0); // No refund
+      expect(body.creditsCost).toBe(4);
     });
   });
 
   describe("Scene Planner Failure", () => {
-    it("issues refund when scene planner fails with error", async () => {
+    it("omits planner cost from final charge when scene planner fails with error", async () => {
       scenePlannerResponse = {
         ok: false,
         status: 500,
@@ -379,12 +376,9 @@ describe("Scene Planner Refund Logic", () => {
 
       const body = await response.json();
       expect(body.scenePlannerUsed).toBe(false);
-
-      // Refund should be issued
-      expect(getCallCount("sessions:addCredits")).toBe(1);
-      const refunds = getRefundEntries();
-      expect(refunds.length).toBe(1);
-      expect(refunds[0].delta).toBe(SCENE_PLANNER_CREDITS);
+      expect(body.scenePlannerCredits).toBe(0);
+      expect(body.creditsCost).toBe(2);
+      expect(getCallCount("sessions:addCredits")).toBe(0);
     });
   });
 
@@ -421,7 +415,7 @@ describe("Scene Planner Refund Logic", () => {
       // Only image generation fetch (no scene planner)
       expect(fetchCallIndex).toBe(1);
 
-      // No refund needed
+      // No separate refund needed
       expect(getCallCount("sessions:addCredits")).toBe(0);
     });
   });
@@ -463,7 +457,7 @@ describe("Scene Planner Refund Logic", () => {
       // Scene planner cost should be 0 for free model
       expect(body.scenePlannerCredits).toBe(0);
 
-      // No refund needed since scene planner was free
+      // No separate refund needed since scene planner was free
       expect(getCallCount("sessions:addCredits")).toBe(0);
     });
   });
@@ -508,9 +502,9 @@ describe("Scene Planner Refund Logic", () => {
 
       const body = await response.json();
       expect(body.scenePlannerUsed).toBe(false);
-
-      // Refund should be issued
-      expect(getCallCount("sessions:addCredits")).toBe(1);
+      expect(body.scenePlannerCredits).toBe(0);
+      expect(body.creditsCost).toBe(2);
+      expect(getCallCount("sessions:addCredits")).toBe(0);
     });
 
     it("handles missing required fields gracefully", async () => {
@@ -554,9 +548,9 @@ describe("Scene Planner Refund Logic", () => {
 
       const body = await response.json();
       expect(body.scenePlannerUsed).toBe(false);
-
-      // Refund should be issued
-      expect(getCallCount("sessions:addCredits")).toBe(1);
+      expect(body.scenePlannerCredits).toBe(0);
+      expect(body.creditsCost).toBe(2);
+      expect(getCallCount("sessions:addCredits")).toBe(0);
     });
   });
 });
