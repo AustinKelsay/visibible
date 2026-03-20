@@ -142,9 +142,13 @@ Image generation endpoint behavior:
 
 - `GET /api/health`: liveness and uptime snapshot (`200` when process is up)
 - `GET /api/readiness`: dependency readiness (`200` when critical checks pass, `503` otherwise)
+  - Public requests receive a minimal summary only
+  - Detailed dependency checks require `READINESS_TOKEN` or `READINESS_IP_ALLOWLIST`
   - Critical checks: required env vars + Convex probe
   - Non-critical check: LND configured state
-- `GET /api/metrics`: in-process structured counters for alerting and dashboards
+- `GET /api/metrics`: process-local structured counters for debugging and short-lived ops checks
+  - Disabled unless `METRICS_TOKEN` or `METRICS_IP_ALLOWLIST` is configured
+  - Response scope is intentionally per-process, not a global production dashboard
 
 Operational logging and metrics details:
 - `llm/implementation/OBSERVABILITY_IMPLEMENTATION.md`

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 const enableVercelAnalytics =
   process.env.VERCEL_ENV === "preview" ||
-  process.env.VERCEL_TARGET_ENV === "dev";
+  process.env.VERCEL_ENV === "production";
 
 export default function RootLayout({
   children,

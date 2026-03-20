@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { api } from "../../../../convex/_generated/api";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { isLndConfigured } from "@/lib/lnd";
+import { authorizeOpsRequest } from "@/lib/ops-auth";
 import {
   createRequestObservabilityContext,
   elapsedMs,
@@ -19,17 +20,23 @@ type CheckResult = {
   error?: string;
 };
 
-type ReadinessResponse = {
+type ReadinessSummaryResponse = {
   status: "ready" | "not_ready";
   timestamp: string;
   uptimeMs: number;
   durationMs: number;
+  visibility: "summary" | "detailed";
+};
+
+type ReadinessDetailedResponse = ReadinessSummaryResponse & {
   checks: {
     env: CheckResult;
     convex: CheckResult;
     lnd: CheckResult & { configured: boolean };
   };
 };
+
+type ReadinessResponse = ReadinessSummaryResponse | ReadinessDetailedResponse;
 
 const REQUIRED_ENV_VARS = [
   "OPENROUTER_API_KEY",
@@ -60,6 +67,10 @@ export async function GET(
 ): Promise<NextResponse<ReadinessResponse>> {
   const context = createRequestObservabilityContext(request, "/api/readiness");
   const startedAt = Date.now();
+  const opsAuth = authorizeOpsRequest(request, {
+    tokenEnvVar: "READINESS_TOKEN",
+    ipAllowlistEnvVar: "READINESS_IP_ALLOWLIST",
+  });
 
   const missingEnv = missingRequiredEnvVars();
   const envCheck: CheckResult = {
@@ -106,20 +117,33 @@ export async function GET(
   };
 
   const ready = envCheck.ok && convexCheck.ok;
-  const response: ReadinessResponse = {
+  const summary: ReadinessSummaryResponse = {
     status: ready ? "ready" : "not_ready",
     timestamp: new Date().toISOString(),
     uptimeMs: process.uptime() * 1000,
     durationMs: Date.now() - startedAt,
-    checks: {
-      env: envCheck,
-      convex: convexCheck,
-      lnd: lndCheck,
-    },
+    visibility: opsAuth.authorized ? "detailed" : "summary",
+  };
+  const response: ReadinessResponse = opsAuth.authorized
+    ? {
+      ...summary,
+      checks: {
+        env: envCheck,
+        convex: convexCheck,
+        lnd: lndCheck,
+      },
+    }
+    : summary;
+
+  const detailedChecks = {
+    env: envCheck,
+    convex: convexCheck,
+    lnd: lndCheck,
   };
 
   incrementMetricCounter("readiness_checks_total", {
-    status: response.status,
+    status: summary.status,
+    visibility: summary.visibility,
   });
   incrementMetricCounter("api_requests_total", {
     route: context.route,
@@ -133,13 +157,15 @@ export async function GET(
       requestId: context.requestId,
       durationMs: elapsedMs(context),
       convexLatencyMs: convexCheck.latencyMs,
+      visibility: summary.visibility,
     });
   } else {
     logWarn("readiness.not_ready", {
       route: context.route,
       requestId: context.requestId,
       durationMs: elapsedMs(context),
-      checks: response.checks,
+      visibility: summary.visibility,
+      checks: opsAuth.authorized ? detailedChecks : undefined,
     });
   }
 

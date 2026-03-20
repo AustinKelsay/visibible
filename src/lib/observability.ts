@@ -262,7 +262,9 @@ export function logSettlementEvent(args: {
 }
 
 export function getMetricsSnapshot(): {
+  scope: "process-local";
   generatedAt: string;
+  processStartedAt: string;
   uptimeMs: number;
   counters: Array<{
     name: string;
@@ -271,7 +273,9 @@ export function getMetricsSnapshot(): {
   }>;
 } {
   return {
+    scope: "process-local",
     generatedAt: new Date().toISOString(),
+    processStartedAt: new Date(PROCESS_STARTED_AT_MS).toISOString(),
     uptimeMs: Date.now() - PROCESS_STARTED_AT_MS,
     counters: [...metricCounters.values()]
       .map((entry) => ({

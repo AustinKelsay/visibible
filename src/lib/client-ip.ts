@@ -9,10 +9,6 @@ type TrustedProxyEntry =
   | { kind: "ip"; ip: ParsedIp }
   | { kind: "cidr"; ip: ParsedIp; prefix: number };
 
-const TRUSTED_PROXY_IPS = process.env.TRUSTED_PROXY_IPS || "";
-const TRUST_PROXY_PLATFORM = process.env.TRUST_PROXY_PLATFORM || "";
-const TRUSTED_PROXY_ENTRIES = parseTrustedProxyEntries(TRUSTED_PROXY_IPS);
-
 /**
  * Extract client IP address from request headers.
  * Checks common proxy headers in order of priority.
@@ -83,7 +79,9 @@ function isTrustedProxy(request: Request, peerIp: string | null): boolean {
     return true;
   }
 
-  if (!peerIp || TRUSTED_PROXY_ENTRIES.length === 0) {
+  const trustedProxyEntries = getTrustedProxyEntries();
+
+  if (!peerIp || trustedProxyEntries.length === 0) {
     return false;
   }
 
@@ -92,7 +90,7 @@ function isTrustedProxy(request: Request, peerIp: string | null): boolean {
     return false;
   }
 
-  return TRUSTED_PROXY_ENTRIES.some((entry) => {
+  return trustedProxyEntries.some((entry) => {
     if (entry.kind === "ip") {
       return ipEquals(parsed, entry.ip);
     }
@@ -101,10 +99,15 @@ function isTrustedProxy(request: Request, peerIp: string | null): boolean {
 }
 
 function isTrustedPlatformProxy(): boolean {
-  if (TRUST_PROXY_PLATFORM === "vercel") {
+  const trustProxyPlatform = process.env.TRUST_PROXY_PLATFORM || "";
+  if (trustProxyPlatform === "vercel") {
     return process.env.VERCEL === "1";
   }
   return false;
+}
+
+function getTrustedProxyEntries(): TrustedProxyEntry[] {
+  return parseTrustedProxyEntries(process.env.TRUSTED_PROXY_IPS || "");
 }
 
 function getFirstValidIp(forwarded: string): string | null {

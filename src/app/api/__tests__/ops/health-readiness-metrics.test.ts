@@ -47,6 +47,7 @@ function setRequiredEnv() {
   process.env.SESSION_SECRET = "a".repeat(32);
   process.env.IP_HASH_SECRET = "b".repeat(32);
   process.env.METRICS_TOKEN = "test-metrics-token";
+  process.env.READINESS_TOKEN = "test-readiness-token";
   process.env.TRUSTED_PROXY_IPS = "203.0.113.10";
 }
 
@@ -111,6 +112,7 @@ describe("ops endpoints", () => {
     );
     expect(response.status).toBe(200);
     const body = await response.json();
+    expect(body.scope).toBe("process-local");
     expect(Array.isArray(body.counters)).toBe(true);
     expect(
       body.counters.some(
@@ -174,17 +176,33 @@ describe("ops endpoints", () => {
 
   it("readiness endpoint returns ready when critical checks pass", async () => {
     const response = await readinessGET(
+      new Request("http://localhost:3000/api/readiness", {
+        method: "GET",
+        headers: { authorization: "Bearer test-readiness-token" },
+      })
+    );
+    expect(response.status).toBe(200);
+
+    const body = await response.json();
+    expect(body.status).toBe("ready");
+    expect(body.visibility).toBe("detailed");
+    expect(body.checks.env.ok).toBe(true);
+    expect(body.checks.convex.ok).toBe(true);
+  });
+
+  it("readiness endpoint returns summary for unauthenticated requests", async () => {
+    const response = await readinessGET(
       new Request("http://localhost:3000/api/readiness", { method: "GET" })
     );
     expect(response.status).toBe(200);
 
     const body = await response.json();
     expect(body.status).toBe("ready");
-    expect(body.checks.env.ok).toBe(true);
-    expect(body.checks.convex.ok).toBe(true);
+    expect(body.visibility).toBe("summary");
+    expect(body.checks).toBeUndefined();
   });
 
-  it("readiness endpoint returns not_ready when required env is missing", async () => {
+  it("readiness endpoint returns not_ready summary when required env is missing", async () => {
     delete process.env.OPENROUTER_API_KEY;
 
     const response = await readinessGET(
@@ -194,34 +212,42 @@ describe("ops endpoints", () => {
 
     const body = await response.json();
     expect(body.status).toBe("not_ready");
-    expect(body.checks.env.ok).toBe(false);
-    expect(body.checks.env.missing).toContain("OPENROUTER_API_KEY");
+    expect(body.visibility).toBe("summary");
+    expect(body.checks).toBeUndefined();
   });
 
-  it("readiness endpoint returns not_ready when convex probe fails", async () => {
+  it("readiness endpoint returns detailed failure when authorized and convex probe fails", async () => {
     readinessState.convexProbeError = new Error("convex unavailable");
 
     const response = await readinessGET(
-      new Request("http://localhost:3000/api/readiness", { method: "GET" })
+      new Request("http://localhost:3000/api/readiness", {
+        method: "GET",
+        headers: { authorization: "Bearer test-readiness-token" },
+      })
     );
     expect(response.status).toBe(503);
 
     const body = await response.json();
     expect(body.status).toBe("not_ready");
+    expect(body.visibility).toBe("detailed");
     expect(body.checks.convex.ok).toBe(false);
     expect(body.checks.convex.error).toContain("convex unavailable");
   });
 
-  it("readiness endpoint reports lnd as non-critical", async () => {
+  it("readiness endpoint reports lnd as non-critical for authorized requests", async () => {
     readinessState.lndConfigured = false;
 
     const response = await readinessGET(
-      new Request("http://localhost:3000/api/readiness", { method: "GET" })
+      new Request("http://localhost:3000/api/readiness", {
+        method: "GET",
+        headers: { authorization: "Bearer test-readiness-token" },
+      })
     );
     expect(response.status).toBe(200);
 
     const body = await response.json();
     expect(body.status).toBe("ready");
+    expect(body.visibility).toBe("detailed");
     expect(body.checks.lnd.ok).toBe(false);
     expect(body.checks.lnd.critical).toBe(false);
   });
