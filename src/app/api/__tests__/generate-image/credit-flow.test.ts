@@ -505,6 +505,45 @@ describe("Image Generation API Credit Flow", () => {
       expect(body.resolutionMultiplier).toBe(1.0);
       expect(body.resolutionSupported).toBe(false);
     });
+
+    it("prompt-guardrails: explicitly blocks mockup and blank-white-backdrop presentation", async () => {
+      let capturedPrompt = "";
+      mockFetchImpl = async (_input: RequestInfo | URL, init?: RequestInit) => {
+        const requestBody = JSON.parse(String(init?.body ?? "{}")) as {
+          messages?: Array<{ content?: string }>;
+        };
+        capturedPrompt = requestBody.messages?.[0]?.content ?? "";
+
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            id: "gen-123",
+            choices: [
+              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+            ],
+            usage: { cost: 0.01 },
+          }),
+        };
+      };
+
+      const { POST } = await import("../../generate-image/route");
+
+      const request = createGenerateImageRequest({
+        text: "And God said, Let there be light.",
+        reference: "Genesis 1:3",
+      });
+      const response = await POST(request);
+
+      expect(response.status).toBe(200);
+      expect(capturedPrompt).toContain(
+        "not a photo of a painting, fresco, mural, manuscript, print, or gallery installation"
+      );
+      expect(capturedPrompt).toContain(
+        "never a blank white/cream/beige backdrop or studio sweep"
+      );
+      expect(capturedPrompt).toContain("visible paper, matting");
+    });
   });
 
   describe("Error Paths", () => {

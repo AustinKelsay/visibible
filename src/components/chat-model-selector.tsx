@@ -4,7 +4,12 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { ChevronDown, Check, MessageSquare, Loader2, Search } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { useSession } from "@/context/session-context";
-import { ChatModel, DEFAULT_CHAT_MODEL, formatContextLength } from "@/lib/chat-models";
+import {
+  ChatModel,
+  DEFAULT_CHAT_MODEL,
+  formatContextLength,
+  getSuggestedChatModels,
+} from "@/lib/chat-models";
 
 interface ChatModelSelectorProps {
   variant?: "compact" | "indicator";
@@ -98,21 +103,32 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
     });
   }, [models, searchQuery]);
 
-  // Group filtered models by provider
-  const groupedModels: GroupedModels = filteredModels.reduce((acc, model) => {
-    const provider = model.provider || "Other";
-    if (!acc[provider]) {
-      acc[provider] = [];
-    }
-    acc[provider].push(model);
-    return acc;
-  }, {} as GroupedModels);
+  const suggestedModels = useMemo(() => getSuggestedChatModels(filteredModels), [filteredModels]);
+
+  // Group filtered models by provider, excluding the curated suggestions shown at the top
+  const groupedModels = useMemo(() => {
+    const suggestedModelIds = new Set(suggestedModels.map((model) => model.id));
+
+    return filteredModels.reduce((acc, model) => {
+      if (suggestedModelIds.has(model.id)) {
+        return acc;
+      }
+
+      const provider = model.provider || "Other";
+      if (!acc[provider]) {
+        acc[provider] = [];
+      }
+      acc[provider].push(model);
+      return acc;
+    }, {} as GroupedModels);
+  }, [filteredModels, suggestedModels]);
 
   // Get current model info
   const currentModel = models.find((m) => m.id === chatModel);
   const displayName = currentModel?.name || chatModel.split("/").pop() || "Model";
   // Compact display: just show a short version
   const compactName = displayName.length > 15 ? displayName.substring(0, 13) + "…" : displayName;
+  const hasVisibleModels = suggestedModels.length > 0 || Object.keys(groupedModels).length > 0;
 
   // Indicator variant - minimal display for chat input area
   if (variant === "indicator") {
@@ -229,48 +245,60 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
         )}
 
         {/* Empty State */}
-        {Object.keys(groupedModels).length === 0 && !isLoading && models.length > 0 && (
+        {!hasVisibleModels && !isLoading && models.length > 0 && (
           <div className="px-3 py-8 text-sm text-[var(--muted)] text-center">
             No models found
           </div>
         )}
 
         {/* Model List */}
+        {suggestedModels.length > 0 && (
+          <div>
+            <div className="px-3 py-2 text-xs font-medium text-[var(--muted)] uppercase tracking-wider bg-[var(--surface)] sticky top-[68px]">
+              Suggested
+            </div>
+            {suggestedModels.map((model) => renderModelOption(model))}
+          </div>
+        )}
+
         {Object.entries(groupedModels).map(([provider, providerModels]) => (
           <div key={provider}>
             <div className="px-3 py-2 text-xs font-medium text-[var(--muted)] uppercase tracking-wider bg-[var(--surface)] sticky top-[68px]">
               {provider}
             </div>
-            {providerModels.map((model) => {
-              const isSelected = chatModel === model.id;
-              return (
-                <button
-                  key={model.id}
-                  onClick={() => handleSelect(model.id)}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 text-left hover:bg-[var(--surface)] transition-colors duration-[var(--motion-fast)] ${
-                    isSelected ? "bg-[var(--surface)]" : ""
-                  }`}
-                  role="option"
-                  aria-selected={isSelected}
-                >
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium truncate">{model.name}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-xs text-[var(--muted)]">
-                      <span className="truncate">{model.id}</span>
-                      <span className="flex-shrink-0">• {formatContextLength(model.contextLength)} ctx</span>
-                    </div>
-                  </div>
-                  {isSelected && (
-                    <Check size={16} className="text-[var(--accent)] flex-shrink-0 ml-2" />
-                  )}
-                </button>
-              );
-            })}
+            {providerModels.map((model) => renderModelOption(model))}
           </div>
         ))}
       </>
+    );
+  }
+
+  function renderModelOption(model: ChatModel) {
+    const isSelected = chatModel === model.id;
+
+    return (
+      <button
+        key={model.id}
+        onClick={() => handleSelect(model.id)}
+        className={`w-full flex items-center justify-between px-3 py-2.5 text-left hover:bg-[var(--surface)] transition-colors duration-[var(--motion-fast)] ${
+          isSelected ? "bg-[var(--surface)]" : ""
+        }`}
+        role="option"
+        aria-selected={isSelected}
+      >
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium truncate">{model.name}</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs text-[var(--muted)]">
+            <span className="truncate">{model.id}</span>
+            <span className="flex-shrink-0">• {formatContextLength(model.contextLength)} ctx</span>
+          </div>
+        </div>
+        {isSelected && (
+          <Check size={16} className="text-[var(--accent)] flex-shrink-0 ml-2" />
+        )}
+      </button>
     );
   }
 }

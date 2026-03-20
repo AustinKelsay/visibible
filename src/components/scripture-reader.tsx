@@ -1,7 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { getVerseNavigationDirection } from "@/lib/verse-keyboard-navigation";
 
 interface Verse {
   number: number;
@@ -27,6 +30,26 @@ export function ScriptureReader({
   prevUrl,
   nextUrl,
 }: ScriptureReaderProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const direction = getVerseNavigationDirection(event);
+
+      if (direction === "prev" && prevUrl) {
+        event.preventDefault();
+        router.push(prevUrl);
+      }
+
+      if (direction === "next" && nextUrl) {
+        event.preventDefault();
+        router.push(nextUrl);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [nextUrl, prevUrl, router]);
 
   return (
     <article className="px-4 md:px-6 py-6 max-w-2xl mx-auto">
