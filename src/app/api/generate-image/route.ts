@@ -58,7 +58,7 @@ const isImageGenerationEnabled =
 
 // Fallback text if no verse provided
 const DEFAULT_TEXT = "In the beginning God created the heaven and the earth.";
-const PROMPT_VERSION = "2026-01-07";
+const PROMPT_VERSION = "2026-03-19";
 const DEFAULT_STYLE_PROFILE = "classical";
 const DEFAULT_SCENE_PLANNER_MODEL = DEFAULT_CHAT_MODEL;
 const DEFAULT_TRANSLATION_ID = "default";
@@ -544,13 +544,13 @@ export async function POST(request: Request) {
       id: "classical",
       label: "Classical Painterly",
       rendering:
-        "Stylized, painterly, biblical-era, mysterious, expansive; epic scale and reverent tone.",
+        "Stylized, painterly, biblical-era, mysterious, expansive; epic scale and reverent tone. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.",
       palette: "Mature, grounded color; rich but restrained contrast.",
       lighting: "Luminous, dramatic lighting.",
       materials: "Gritty, raw texture; avoid polished digital smoothness.",
       composition: "Cinematic, immersive viewpoint; heroic but grounded.",
       negative:
-        "Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never render as a painting on a wall, gallery piece, or framed artwork—fill the entire canvas edge-to-edge.",
+        "Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.",
     },
   };
 
@@ -1019,6 +1019,8 @@ Rules:
 - Do not include any text or written elements.
 - Keep it visually depictable, concise, and grounded in the verse.
 - Use short phrases (no full sentences).
+- Describe an immersive in-world scene, not an artwork object, poster, mural, or gallery presentation.
+- Favor environmental backgrounds over blank white, cream, or beige backdrops.
 
 Return JSON with keys:
 primarySubject, action, setting, secondaryElements, mood, timeOfDay, composition
@@ -1156,13 +1158,20 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
 
   const priorityRules = `PRIORITY RULES:
 1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).
-2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, or blank backdrop).
+2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).
 3) Single unified scene only (no split panels, collage, or multi-scene layout).`;
 
   const globalNegatives = `GLOBAL NEGATIVES:
 - No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).
 - No anachronistic materials (plastic, neon, LEDs).
+- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.
 - No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).`;
+
+  const scenePresentation = `SCENE PRESENTATION:
+- Depict the moment directly, as if the viewer is present inside the biblical scene.
+- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.
+- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.
+- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.`;
 
   const scenePlanBlock = scenePlan ? formatScenePlan(scenePlan) : "";
   const styleSummary = [
@@ -1209,6 +1218,8 @@ Style: ${chapterTheme.style}
 
 SCENE:
 Render a single, cohesive biblical-era scene for ${reference}: "${clipText(verseText, 900)}"${scenePlanBlock}${continuityBlock}${generationBlock}
+
+${scenePresentation}
 
 ${chapterThemeBlock}${styleBlock}
 

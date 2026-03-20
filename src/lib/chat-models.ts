@@ -47,6 +47,18 @@ export function isModelFree(model: {
 
 export const DEFAULT_CHAT_MODEL = "openai/gpt-oss-120b";
 
+// Curated value picks for the selector: strong enough for everyday chat,
+// broadly useful, and relatively cost-efficient in the live OpenRouter catalog.
+export const SUGGESTED_CHAT_MODEL_IDS = [
+  "openai/gpt-oss-120b",
+  "openai/gpt-5.4-mini",
+  "anthropic/claude-haiku-4.5",
+  "deepseek/deepseek-v3.2",
+  "mistralai/mistral-small-2603",
+  "qwen/qwen3.5-plus-02-15",
+  "google/gemini-2.5-flash",
+] as const;
+
 type ChatModelPricing = {
   prompt: string;
   completion: string;
@@ -233,6 +245,14 @@ export function formatContextLength(length: number): string {
     return `${Math.round(length / 1000)}K`;
   }
   return String(length);
+}
+
+export function getSuggestedChatModels(models: ChatModel[]): ChatModel[] {
+  const modelsById = new Map(models.map((model) => [model.id, model]));
+
+  return SUGGESTED_CHAT_MODEL_IDS.map((modelId) => modelsById.get(modelId)).filter(
+    (model): model is ChatModel => Boolean(model)
+  );
 }
 
 // Calculate estimated cost for a message

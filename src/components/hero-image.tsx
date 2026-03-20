@@ -25,6 +25,7 @@ import {
 } from "@/lib/analytics";
 import { resolveHasCreditsAfterGeneration } from "@/lib/analytics-event-utils";
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
+import { computeImageGenerationProgress } from "@/lib/image-generation-progress";
 
 interface ChapterTheme {
   setting: string;
@@ -177,6 +178,46 @@ interface HeroImageBaseProps extends HeroImageProps {
   isQueryLoading: boolean;
   imageRefreshKey?: number;
   onRefreshImages?: () => void;
+}
+
+function HeroImageLoadingState({
+  label,
+  fullscreen = false,
+  progress,
+}: {
+  label: string;
+  fullscreen?: boolean;
+  progress?: number;
+}) {
+  const hasProgress = typeof progress === "number";
+
+  return (
+    <div className={`absolute inset-0 ${fullscreen ? "" : "z-10"} overflow-hidden bg-[#050505] text-white`}>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.10),transparent_42%)]" />
+      <div className="absolute inset-x-0 top-0 h-px bg-white/10" />
+      <div className="relative flex h-full flex-col items-center justify-center px-6">
+        <div className="w-full max-w-[260px] space-y-5">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
+            <RefreshCw className="h-4 w-4 animate-spin text-white/70" />
+          </div>
+          <div className="space-y-3">
+            <div className="h-px overflow-hidden rounded-full bg-white/10">
+              <div
+                aria-hidden="true"
+                className={`h-full rounded-full bg-white/40 ${
+                  hasProgress ? "transition-[width] duration-300 ease-out" : "w-1/3 animate-pulse"
+                }`}
+                style={hasProgress ? { width: `${Math.round(progress * 100)}%` } : undefined}
+              />
+            </div>
+            <p className="text-center text-[11px] font-medium uppercase tracking-[0.24em] text-white/45">
+              {label}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function HeroImageWithConvex({
@@ -396,14 +437,18 @@ function HeroImageBase({
   } | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
+  const [isDisplayImageReady, setIsDisplayImageReady] = useState(false);
+  const [isFullscreenImageReady, setIsFullscreenImageReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hasAttemptedGeneration, setHasAttemptedGeneration] = useState(false);
   const [imageLoadAttempts, setImageLoadAttempts] = useState(0);
   const [activeRequestId, setActiveRequestId] = useState<string | null>(null);
+  const [generationProgress, setGenerationProgress] = useState(0);
   const activeRequest = useRef<AbortController | null>(null);
   const isMounted = useRef(true);
   const lastDisplayImageKeyRef = useRef<string | null>(null);
   const generationIdRef = useRef(0);
+  const generationStartedAtRef = useRef<number | null>(null);
   const imageElementRef = useRef<HTMLImageElement | null>(null);
   const handleManualRegenerateRef = useRef<(() => void) | null>(null);
 
@@ -450,6 +495,32 @@ function HeroImageBase({
           ? generationPhaseLabel
           : "No images yet";
   const showControls = Boolean(hasImages || isGenerating || isQueryLoading || canGenerate || !pricingPending);
+
+  useEffect(() => {
+    if (!isGenerating) {
+      generationStartedAtRef.current = null;
+      setGenerationProgress(0);
+      return;
+    }
+
+    if (generationStartedAtRef.current === null) {
+      generationStartedAtRef.current = Date.now();
+    }
+
+    const updateProgress = () => {
+      const startedAt = generationStartedAtRef.current;
+      if (startedAt === null) return;
+
+      setGenerationProgress(
+        computeImageGenerationProgress(Date.now() - startedAt, effectiveEta)
+      );
+    };
+
+    updateProgress();
+    const intervalId = window.setInterval(updateProgress, 200);
+
+    return () => window.clearInterval(intervalId);
+  }, [isGenerating, effectiveEta]);
 
   // Sync current image ID to navigation context for ScriptureDetails
   useEffect(() => {
@@ -903,15 +974,18 @@ function HeroImageBase({
   useEffect(() => {
     if (!displayImage?.url) {
       setIsImageLoading(false);
+      setIsDisplayImageReady(false);
       return;
     }
     const img = imageElementRef.current;
-    if (img?.complete) {
+    if (img?.complete && img.naturalWidth > 0) {
       setIsImageLoading(false);
+      setIsDisplayImageReady(true);
     } else {
       setIsImageLoading(true);
+      setIsDisplayImageReady(false);
     }
-  }, [displayImage?.url]);
+  }, [displayImage?.id, displayImage?.url, imageRefreshKey]);
 
   useEffect(() => {
     if (!displayImage?.url) return;
@@ -925,6 +999,14 @@ function HeroImageBase({
   }, [displayImage?.id, displayImage?.url, verseId]);
 
   useEffect(() => {
+    if (!isFullscreen || !displayImage?.url) {
+      setIsFullscreenImageReady(false);
+      return;
+    }
+    setIsFullscreenImageReady(false);
+  }, [displayImage?.id, displayImage?.url, isFullscreen]);
+
+  useEffect(() => {
     // Ensure isMounted is reset correctly in React Strict Mode (dev double-invokes effects)
     isMounted.current = true;
     return () => {
@@ -935,32 +1017,22 @@ function HeroImageBase({
     };
   }, []);
 
-  // Keyboard navigation in fullscreen (left/right arrows for verse nav)
-  useEffect(() => {
-    if (!isFullscreen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft" && prevUrl) {
-        router.push(prevUrl);
-      } else if (e.key === "ArrowRight" && nextUrl) {
-        router.push(nextUrl);
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isFullscreen, prevUrl, nextUrl, router]);
-
   // Use the displayed image's aspect ratio when available, fall back to user preference
   const containerAspectRatio: ImageAspectRatio =
     currentImage?.aspectRatio && isValidAspectRatio(currentImage.aspectRatio)
       ? currentImage.aspectRatio
       : imageAspectRatio;
+  const containerAspectRatioCss =
+    currentImage?.imageWidth && currentImage?.imageHeight
+      ? `${currentImage.imageWidth} / ${currentImage.imageHeight}`
+      : ASPECT_RATIOS[containerAspectRatio].cssRatio;
 
   return (
     <figure className="relative w-full">
       {/* Image Container - taller 4:5 on mobile, user-selected ratio on desktop */}
       <div
-        className="relative w-full overflow-hidden bg-[var(--background)] aspect-[4/5] sm:[aspect-ratio:var(--ar)]"
-        style={{ "--ar": ASPECT_RATIOS[containerAspectRatio].cssRatio } as React.CSSProperties}
+        className="relative w-full overflow-hidden bg-[var(--image-stage)] aspect-[4/5] sm:[aspect-ratio:var(--ar)]"
+        style={{ "--ar": containerAspectRatioCss } as React.CSSProperties}
       >
         {displayImage?.url ? (
           <>
@@ -970,15 +1042,19 @@ function HeroImageBase({
               src={displayImage.url}
               alt={alt}
               ref={imageElementRef}
-              className="w-full h-full object-contain"
+              className={`w-full h-full bg-[var(--image-stage)] object-contain transition-opacity duration-300 ${
+                isDisplayImageReady ? "opacity-100 visible" : "opacity-0 invisible"
+              }`}
               onLoad={() => {
                 setIsImageLoading(false);
+                setIsDisplayImageReady(true);
                 setImageLoadAttempts(0);
                 setError(null);
               }}
               onError={() => {
                 const nextAttempt = imageLoadAttempts + 1;
                 setIsImageLoading(false);
+                setIsDisplayImageReady(false);
                 setImageLoadAttempts(nextAttempt);
 
                 if (onRefreshImages && nextAttempt <= maxLoadAttempts) {
@@ -993,18 +1069,14 @@ function HeroImageBase({
             />
 
             {(isGenerating || isImageLoading) && !error && (
-              <div className="absolute inset-0 z-10 flex items-center justify-center bg-[var(--background)]/20 backdrop-blur-[1px] pointer-events-none">
-                <div className="flex items-center gap-2 px-4 py-2 bg-[var(--background)]/70 border border-[var(--divider)]/60 backdrop-blur-sm rounded-[var(--radius-md)]">
-                  <RefreshCw className="w-4 h-4 animate-spin" />
-                  <span className="text-sm text-[var(--foreground)]/70">
-                    {isGenerating ? generationPhaseLabel : "Loading image..."}
-                  </span>
-                </div>
-              </div>
+              <HeroImageLoadingState
+                label={isGenerating ? generationPhaseLabel : "Loading image"}
+                progress={isGenerating ? generationProgress : undefined}
+              />
             )}
 
             {error && !isGenerating && (
-              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[var(--background)]/60 backdrop-blur-sm">
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[var(--image-stage)]/70 backdrop-blur-sm">
                 <div className="text-red-500 text-sm px-4 text-center">{error}</div>
                 <button
                   onClick={handleImageReload}
@@ -1030,21 +1102,11 @@ function HeroImageBase({
           <div className="absolute inset-0 bg-[var(--surface)]">
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--background)]/80 via-[var(--surface)] to-[var(--surface)]" />
 
-            {/* Loading pulse overlay - shows while loading */}
             {(isQueryLoading || isGenerating) && !error && (
-              <div className="absolute inset-0 bg-white/10 dark:bg-white/5 animate-pulse" />
-            )}
-
-            {/* Loading text */}
-            {(isQueryLoading || isGenerating) && !error && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="flex items-center gap-2 px-4 py-2 bg-[var(--background)]/70 border border-[var(--divider)]/60 backdrop-blur-sm rounded-[var(--radius-md)]">
-                  <RefreshCw className="w-4 h-4 animate-spin" />
-                  <span className="text-sm text-[var(--foreground)]/70">
-                    {isQueryLoading ? "Loading..." : generationPhaseLabel}
-                  </span>
-                </div>
-              </div>
+              <HeroImageLoadingState
+                label={isQueryLoading ? "Loading image" : generationPhaseLabel}
+                progress={isGenerating ? generationProgress : undefined}
+              />
             )}
 
             {/* Error state */}
@@ -1238,14 +1300,25 @@ function HeroImageBase({
             {/* Centered column: image + iterator + verse text */}
             <div className="flex flex-col items-center max-w-full max-h-full min-h-0">
               {displayImage?.url ? (
-                <>
+                <div className="relative max-w-full max-h-[70vh] w-full flex items-center justify-center rounded-[var(--radius-md)] bg-[var(--image-stage)]">
+                  {!isFullscreenImageReady && (
+                    <HeroImageLoadingState
+                      label={isGenerating ? generationPhaseLabel : "Loading image"}
+                      fullscreen
+                      progress={isGenerating ? generationProgress : undefined}
+                    />
+                  )}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={displayImage.url}
                     alt={alt}
-                    className="max-w-full max-h-[70vh] object-contain rounded-[var(--radius-md)] transition-opacity duration-[var(--motion-base)]"
+                    className={`relative z-10 max-w-full max-h-[70vh] bg-[var(--image-stage)] object-contain rounded-[var(--radius-md)] transition-opacity duration-[var(--motion-base)] ${
+                      isFullscreenImageReady ? "opacity-100 visible" : "opacity-0 invisible"
+                    }`}
+                    onLoad={() => setIsFullscreenImageReady(true)}
+                    onError={() => setIsFullscreenImageReady(false)}
                   />
-                </>
+                </div>
               ) : isQueryLoading || isGenerating ? (
                 <div className="flex items-center justify-center h-[70vh]">
                   <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-[var(--radius-md)]">

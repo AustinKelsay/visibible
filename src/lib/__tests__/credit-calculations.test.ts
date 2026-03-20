@@ -11,6 +11,7 @@ import {
   MIN_CHAT_CREDITS,
   DEFAULT_ESTIMATED_TOKENS,
   SCENE_PLANNER_ESTIMATED_TOKENS,
+  getSuggestedChatModels,
 } from "../chat-models";
 import {
   computeCreditsCost,
@@ -119,6 +120,95 @@ describe("computeActualChatCreditsCost", () => {
     // With premium: 0.01 * 1.25 = 0.0125 USD
     // Credits: ceil(0.0125 / 0.01) = 2
     expect(result).toBe(2);
+  });
+});
+
+describe("getSuggestedChatModels", () => {
+  it("returns the curated suggestions in the intended order", () => {
+    const models = [
+      {
+        id: "qwen/qwen3.5-plus-02-15",
+        name: "Qwen: Qwen3.5 Plus 2026-02-15",
+        provider: "Qwen",
+        contextLength: 1000000,
+        isFree: false,
+      },
+      {
+        id: "google/gemini-2.5-flash",
+        name: "Google: Gemini 2.5 Flash",
+        provider: "Google",
+        contextLength: 1048576,
+        isFree: false,
+      },
+      {
+        id: "openai/gpt-5.4-mini",
+        name: "OpenAI: GPT-5.4 Mini",
+        provider: "Openai",
+        contextLength: 400000,
+        isFree: false,
+      },
+      {
+        id: "openai/gpt-oss-120b",
+        name: "OpenAI: gpt-oss-120b",
+        provider: "Openai",
+        contextLength: 131072,
+        isFree: false,
+      },
+      {
+        id: "anthropic/claude-haiku-4.5",
+        name: "Anthropic: Claude Haiku 4.5",
+        provider: "Anthropic",
+        contextLength: 200000,
+        isFree: false,
+      },
+      {
+        id: "deepseek/deepseek-v3.2",
+        name: "DeepSeek: DeepSeek V3.2",
+        provider: "Deepseek",
+        contextLength: 163840,
+        isFree: false,
+      },
+      {
+        id: "mistralai/mistral-small-2603",
+        name: "Mistral: Mistral Small 4",
+        provider: "Mistralai",
+        contextLength: 262144,
+        isFree: false,
+      },
+    ];
+
+    expect(getSuggestedChatModels(models).map((model) => model.id)).toEqual([
+      "openai/gpt-oss-120b",
+      "openai/gpt-5.4-mini",
+      "anthropic/claude-haiku-4.5",
+      "deepseek/deepseek-v3.2",
+      "mistralai/mistral-small-2603",
+      "qwen/qwen3.5-plus-02-15",
+      "google/gemini-2.5-flash",
+    ]);
+  });
+
+  it("skips curated models that are not present in the fetched catalog", () => {
+    const models = [
+      {
+        id: "openai/gpt-oss-120b",
+        name: "OpenAI: gpt-oss-120b",
+        provider: "Openai",
+        contextLength: 131072,
+        isFree: false,
+      },
+      {
+        id: "some-provider/other-model",
+        name: "Other Model",
+        provider: "Other",
+        contextLength: 4096,
+        isFree: false,
+      },
+    ];
+
+    expect(getSuggestedChatModels(models).map((model) => model.id)).toEqual([
+      "openai/gpt-oss-120b",
+    ]);
   });
 });
 
