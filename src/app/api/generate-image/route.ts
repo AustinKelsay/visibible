@@ -399,8 +399,8 @@ export async function POST(request: Request) {
     );
   }
 
-  // SECURITY: Validate session with IP binding to prevent token theft
-  // This ensures the session token's embedded IP hash matches the current request IP
+  // SECURITY: Validate the browser session and capture the current IP hash for
+  // rate limiting and telemetry. IP changes alone do not invalidate a session.
   const sessionValidation = await validateSessionWithIp(request);
   if (!sessionValidation.sid) {
     return NextResponse.json(
@@ -409,10 +409,6 @@ export async function POST(request: Request) {
     );
   }
   if (!sessionValidation.valid) {
-    // IP mismatch detected - possible token theft
-    console.warn(
-      `[Image API] Session IP mismatch - rejecting request for sid=${sessionValidation.sid.slice(0, 8)}...`
-    );
     return NextResponse.json(
       { error: "Session invalid" },
       { status: 401 }

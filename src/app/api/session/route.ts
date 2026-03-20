@@ -4,10 +4,12 @@ import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import {
   generateSessionId,
   createSessionToken,
+  getClearedSessionCookieOptions,
   getSessionCookieOptions,
   hashIp,
   getClientIp,
   validateSessionWithIp,
+  type SessionInvalidReason,
 } from "@/lib/session";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { generateCsrfToken, getCsrfCookieOptions } from "@/lib/csrf";
@@ -16,6 +18,8 @@ interface SessionResponse {
   sid: string | null;
   tier: "paid" | "admin";
   credits: number;
+  status?: "missing" | "invalid";
+  invalidReason?: Exclude<SessionInvalidReason, "missing"> | "not_found";
 }
 
 /**
@@ -33,11 +37,23 @@ function setCsrfCookie(response: NextResponse): void {
   });
 }
 
+function clearSessionCookie(response: NextResponse): void {
+  const cookieOptions = getClearedSessionCookieOptions();
+  response.cookies.set(cookieOptions.name, cookieOptions.value, {
+    httpOnly: cookieOptions.httpOnly,
+    secure: cookieOptions.secure,
+    sameSite: cookieOptions.sameSite,
+    path: cookieOptions.path,
+    maxAge: cookieOptions.maxAge,
+  });
+}
+
 /**
  * GET /api/session
  * Returns the current session state.
  * If a valid session exists, updates lastSeenAt and returns session info.
- * If no session, returns null sid with paid tier and 0 credits.
+ * If no session exists, returns null sid with paid tier and 0 credits.
+ * If a prior cookie exists but is invalid, returns status=invalid and clears it.
  *
  * SECURITY: Validates idle/absolute session timeouts and IP binding.
  * Refreshes token on activity without exceeding the absolute timeout cap.
@@ -56,11 +72,22 @@ export async function GET(request: Request): Promise<NextResponse<SessionRespons
   const validation = await validateSessionWithIp(request);
 
   if (!validation.valid || !validation.sid) {
-    return NextResponse.json({
+    const status: SessionResponse["status"] =
+      validation.invalidReason === "missing" ? "missing" : "invalid";
+    const response = NextResponse.json({
       sid: null,
-      tier: "paid",
+      tier: "paid" as const,
       credits: 0,
+      status,
+      ...(validation.invalidReason && validation.invalidReason !== "missing"
+        ? { invalidReason: validation.invalidReason }
+        : {}),
     });
+    setCsrfCookie(response);
+    if (validation.invalidReason && validation.invalidReason !== "missing") {
+      clearSessionCookie(response);
+    }
+    return response;
   }
 
   const sid = validation.sid;
@@ -75,11 +102,16 @@ export async function GET(request: Request): Promise<NextResponse<SessionRespons
   const session = await convex.query(api.sessions.getSession, { sid });
 
   if (!session) {
-    return NextResponse.json({
+    const response = NextResponse.json({
       sid: null,
-      tier: "paid",
+      tier: "paid" as const,
       credits: 0,
+      status: "invalid" as const,
+      invalidReason: "not_found" as const,
     });
+    setCsrfCookie(response);
+    clearSessionCookie(response);
+    return response;
   }
 
   // Update lastSeenAt in background (don't await)

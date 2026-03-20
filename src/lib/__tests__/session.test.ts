@@ -3,7 +3,7 @@
  * Tests IP parsing, CIDR matching, zone stripping, and hashing.
  */
 
-import { describe, it, expect, vi, afterAll } from "vitest";
+import { describe, it, expect, vi, afterAll, beforeEach } from "vitest";
 
 // Mock the validation module to prevent env validation on module load
 vi.mock("../validate-env", () => ({
@@ -13,6 +13,17 @@ vi.mock("../validate-env", () => ({
   validateConvexSecret: vi.fn(),
   validateAdminSecret: vi.fn(),
   validateProxyConfig: vi.fn(),
+}));
+
+let mockSessionCookieToken: string | undefined;
+
+vi.mock("next/headers", () => ({
+  cookies: vi.fn(async () => ({
+    get: (name: string) =>
+      name === "visibible_session" && mockSessionCookieToken
+        ? { value: mockSessionCookieToken }
+        : undefined,
+  })),
 }));
 
 // Set required env vars for hashIp tests
@@ -31,10 +42,17 @@ import {
   _stripIpv6Zone,
   _parseIp,
   hashIp,
+  createSessionToken,
+  verifySessionToken,
+  validateSessionWithIp,
 } from "../session";
 
 afterAll(() => {
   process.env = originalEnv;
+});
+
+beforeEach(() => {
+  mockSessionCookieToken = undefined;
 });
 
 describe("parseIpv4", () => {
@@ -229,5 +247,34 @@ describe("hashIp", () => {
     // SHA-256 produces 32 bytes = 64 hex characters
     expect(hash).toHaveLength(64);
     expect(hash).toMatch(/^[0-9a-f]+$/);
+  });
+});
+
+describe("validateSessionWithIp", () => {
+  it("returns missing when no session cookie exists", async () => {
+    const request = { headers: new Headers(), ip: "198.51.100.10" } as unknown as Request;
+
+    const result = await validateSessionWithIp(request);
+
+    expect(result.valid).toBe(false);
+    expect(result.invalidReason).toBe("missing");
+  });
+
+  it("allows session when the client IP changes and rotates the cookie", async () => {
+    process.env.IP_HASH_SECRET = "a".repeat(32);
+    const originalIpHash = await hashIp("192.168.1.1");
+    mockSessionCookieToken = await createSessionToken("sid-ip-change", originalIpHash);
+
+    const request = { headers: new Headers(), ip: "198.51.100.10" } as unknown as Request;
+    const result = await validateSessionWithIp(request);
+
+    expect(result.valid).toBe(true);
+    expect(result.sid).toBe("sid-ip-change");
+    expect(result.currentIpHash).toBe(await hashIp("198.51.100.10"));
+    expect(result.ipChanged).toBe(true);
+    expect(result.refreshedToken).toBeDefined();
+
+    const refreshed = await verifySessionToken(result.refreshedToken!);
+    expect(refreshed?.ipHash).toBe(await hashIp("198.51.100.10"));
   });
 });

@@ -77,6 +77,12 @@ interface SessionPayload extends JWTPayload {
   lat?: number; // Last activity timestamp (epoch seconds)
 }
 
+export type SessionInvalidReason = "missing" | "expired" | "invalid";
+
+type SessionTokenVerificationResult =
+  | { valid: true; data: SessionTokenData }
+  | { valid: false; reason: Exclude<SessionInvalidReason, "missing"> };
+
 function getSecretKey(): Uint8Array {
   const secret = process.env.SESSION_SECRET;
   if (!secret) {
@@ -148,6 +154,46 @@ export interface SessionTokenData {
   expiresAt?: number;
 }
 
+async function verifySessionTokenDetailed(
+  token: string
+): Promise<SessionTokenVerificationResult> {
+  try {
+    const { payload } = await jwtVerify<SessionPayload>(token, getSecretKey());
+    if (!payload.sid) {
+      return { valid: false, reason: "invalid" };
+    }
+
+    const issuedAt = typeof payload.iat === "number" ? payload.iat : undefined;
+    const sessionStartedAt = typeof payload.sat === "number" ? payload.sat : issuedAt;
+    const lastActivityAt = typeof payload.lat === "number" ? payload.lat : issuedAt;
+
+    if (!sessionStartedAt || !lastActivityAt) {
+      return { valid: false, reason: "invalid" };
+    }
+
+    const nowSec = Math.floor(Date.now() / 1000);
+    if (nowSec - lastActivityAt > SESSION_IDLE_TIMEOUT_SECONDS) {
+      return { valid: false, reason: "expired" };
+    }
+    if (nowSec - sessionStartedAt > SESSION_ABSOLUTE_TIMEOUT_SECONDS) {
+      return { valid: false, reason: "expired" };
+    }
+
+    return {
+      valid: true,
+      data: {
+        sid: payload.sid,
+        ipHash: payload.iph,
+        sessionStartedAt,
+        lastActivityAt,
+        expiresAt: typeof payload.exp === "number" ? payload.exp : undefined,
+      },
+    };
+  } catch {
+    return { valid: false, reason: "invalid" };
+  }
+}
+
 /**
  * Verify and decode a session token.
  * Returns session data if valid, null otherwise.
@@ -155,34 +201,8 @@ export interface SessionTokenData {
 export async function verifySessionToken(
   token: string
 ): Promise<SessionTokenData | null> {
-  try {
-    const { payload } = await jwtVerify<SessionPayload>(token, getSecretKey());
-    if (!payload.sid) return null;
-
-    const issuedAt = typeof payload.iat === "number" ? payload.iat : undefined;
-    const sessionStartedAt = typeof payload.sat === "number" ? payload.sat : issuedAt;
-    const lastActivityAt = typeof payload.lat === "number" ? payload.lat : issuedAt;
-
-    if (!sessionStartedAt || !lastActivityAt) return null;
-
-    const nowSec = Math.floor(Date.now() / 1000);
-    if (nowSec - lastActivityAt > SESSION_IDLE_TIMEOUT_SECONDS) {
-      return null;
-    }
-    if (nowSec - sessionStartedAt > SESSION_ABSOLUTE_TIMEOUT_SECONDS) {
-      return null;
-    }
-
-    return {
-      sid: payload.sid,
-      ipHash: payload.iph,
-      sessionStartedAt,
-      lastActivityAt,
-      expiresAt: typeof payload.exp === "number" ? payload.exp : undefined,
-    };
-  } catch {
-    return null;
-  }
+  const verification = await verifySessionTokenDetailed(token);
+  return verification.valid ? verification.data : null;
 }
 
 /**
@@ -219,6 +239,18 @@ export function getSessionCookieOptions(token: string) {
     sameSite: "lax" as const,
     path: "/",
     maxAge: SESSION_IDLE_TIMEOUT_SECONDS,
+  };
+}
+
+export function getClearedSessionCookieOptions() {
+  return {
+    name: COOKIE_NAME,
+    value: "",
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax" as const,
+    path: "/",
+    maxAge: 0,
   };
 }
 
@@ -292,47 +324,61 @@ export interface SessionValidationResult {
   sid?: string;
   currentIpHash?: string;
   refreshedToken?: string;
+  invalidReason?: SessionInvalidReason;
+  ipChanged?: boolean;
 }
 
 /**
  * Validate session from cookies against current request IP.
  * Returns validation result including a refreshed token when applicable.
  *
- * For tokens with mismatched IP, returns valid=false.
+ * IP changes are logged and trigger an immediate token refresh, but they do not
+ * invalidate the session by themselves.
  */
 export async function validateSessionWithIp(
   request: Request
 ): Promise<SessionValidationResult> {
-  const sessionData = await getSessionDataFromCookies();
+  const cookieStore = await cookies();
+  const token = cookieStore.get(COOKIE_NAME)?.value;
 
-  if (!sessionData) {
-    return { valid: false };
+  if (!token) {
+    return { valid: false, invalidReason: "missing" };
   }
+
+  const verification = await verifySessionTokenDetailed(token);
+  if (!verification.valid) {
+    return { valid: false, invalidReason: verification.reason };
+  }
+  const sessionData = verification.data;
 
   const clientIp = getClientIp(request);
   const currentIpHash = await hashIp(clientIp);
+  const ipChanged =
+    typeof sessionData.ipHash === "string" && sessionData.ipHash !== currentIpHash;
 
-  // IP hash mismatch - invalid session (possible token theft)
-  // IP binding remains a secondary control after idle/absolute timeout checks.
-  if (sessionData.ipHash && sessionData.ipHash !== currentIpHash) {
+  if (ipChanged) {
     console.warn(
-      `[Session] IP mismatch detected for sid=${sessionData.sid.slice(0, 8)}...`
+      `[Session] IP changed for sid=${sessionData.sid.slice(0, 8)}..., allowing session and rotating cookie`
     );
-    return { valid: false };
   }
 
-  const refreshedToken = await refreshSessionOnActivity({
-    sid: sessionData.sid,
-    ipHash: currentIpHash,
-    sessionStartedAt: sessionData.sessionStartedAt,
-    lastActivityAt: sessionData.lastActivityAt,
-  });
+  const refreshedToken = ipChanged
+    ? await createSessionToken(sessionData.sid, currentIpHash, {
+        sessionStartedAt: sessionData.sessionStartedAt,
+      })
+    : await refreshSessionOnActivity({
+        sid: sessionData.sid,
+        ipHash: currentIpHash,
+        sessionStartedAt: sessionData.sessionStartedAt,
+        lastActivityAt: sessionData.lastActivityAt,
+      });
 
   return {
     valid: true,
     sid: sessionData.sid,
     currentIpHash,
     refreshedToken: refreshedToken ?? undefined,
+    ipChanged,
   };
 }
 

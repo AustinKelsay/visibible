@@ -229,8 +229,8 @@ export async function POST(req: Request) {
     );
   }
 
-  // SECURITY: Validate session with IP binding to prevent token theft
-  // This ensures the session token's embedded IP hash matches the current request IP
+  // SECURITY: Validate the browser session and capture the current IP hash for
+  // rate limiting and telemetry. IP changes alone do not invalidate a session.
   const sessionValidation = await validateSessionWithIp(req);
   if (!sessionValidation.sid) {
     return Response.json(
@@ -239,10 +239,6 @@ export async function POST(req: Request) {
     );
   }
   if (!sessionValidation.valid) {
-    // IP mismatch detected - possible token theft
-    console.warn(
-      `[Chat API] Session IP mismatch - rejecting request for sid=${sessionValidation.sid.slice(0, 8)}...`
-    );
     return Response.json(
       { error: "Session invalid" },
       { status: 401 }

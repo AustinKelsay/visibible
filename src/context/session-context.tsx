@@ -30,6 +30,8 @@ interface SessionResponse {
   sid: string | null;
   tier: "paid" | "admin";
   credits: number;
+  status?: "missing" | "invalid";
+  invalidReason?: "expired" | "invalid" | "not_found";
 }
 
 export function SessionProvider({ children }: { children: ReactNode }) {
@@ -55,6 +57,18 @@ export function SessionProvider({ children }: { children: ReactNode }) {
 
       // If no session exists, create one
       if (!data.sid) {
+        if (data.status === "invalid") {
+          const invalidReasonMessage =
+            data.invalidReason === "expired"
+              ? "Your previous session expired. Reload to start a new session."
+              : "Your previous session could not be restored. Reload to start a new session.";
+          setSid(null);
+          setTier("paid");
+          setCredits(0);
+          setError(invalidReasonMessage);
+          return;
+        }
+
         const postResponse = await fetch("/api/session", { method: "POST" });
         if (!postResponse.ok) {
           throw new Error("Failed to create session");
