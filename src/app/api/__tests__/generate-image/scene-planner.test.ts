@@ -1,10 +1,11 @@
 /**
- * Integration tests for scene planner refund logic.
- * Tests partial refund on timeout/failure and retry behavior.
+ * Integration tests for scene planner settlement logic.
+ * Tests planner cost inclusion/exclusion in final charged amounts.
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { fixtures, type Session } from "../shared/test-fixtures";
+import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 
 // Create mock state
 const mockState = {
@@ -57,6 +58,7 @@ vi.mock("@/lib/session", () => ({
   })),
   getClientIp: vi.fn(() => "127.0.0.1"),
   hashIp: vi.fn(async () => "mock-ip-hash"),
+  withSessionRefreshCookie: vi.fn((response: Response) => response),
 }));
 
 // Mock Convex client - uses args-based dispatch to avoid String(apiPath) error
@@ -73,14 +75,35 @@ vi.mock("@/lib/convex-client", () => ({
       return { allowed: true, retryAfter: 0 };
     }),
     action: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if ("usd" in args && !("generationId" in args)) {
+        mockState.callHistory.push({ action: "quoteUsdCost", args });
+        const usd = args.usd as number;
+        const billedUsd = usd * 1.25;
+        return {
+          providerUsd: usd,
+          billedUsd,
+          credits: Math.max(1, Math.ceil(billedUsd / 0.01)),
+        };
+      }
+
       const sid = args.sid as string;
       const session = mockState.sessions.get(sid);
 
       // Dispatch based on args structure
+      if ("requestId" in args && "actualCreditsCost" in args) {
+        mockState.callHistory.push({ action: "recordImageCostEvent", args });
+        return { trackedCredits: args.actualCreditsCost };
+      }
+
       if ("endpoint" in args && "estimatedCredits" in args) {
         // logAdminUsage
         mockState.callHistory.push({ action: "logAdminUsage", args });
         return;
+      }
+
+      if ("verseId" in args && "imageUrl" in args && "model" in args) {
+        mockState.callHistory.push({ action: "saveImage", args });
+        return { success: true, type: "storage", id: "saved-image-scene-planner" };
       }
 
       if ("generationId" in args && !("amount" in args)) {
@@ -162,6 +185,7 @@ vi.mock("@/lib/image-models", () => ({
     }
     return { credits: Math.ceil(actualUsd * 1.25 / 0.01), usedActual: true };
   }),
+  CONSERVATIVE_ESTIMATE_MULTIPLIER: 35,
   getProviderName: vi.fn(() => "openrouter"),
   CREDIT_USD: 0.01,
   PREMIUM_MULTIPLIER: 1.25,
@@ -236,8 +260,19 @@ function getCallCount(action: string) {
   return mockState.callHistory.filter((c) => c.action === actionName).length;
 }
 
-function getRefundEntries() {
-  return mockState.ledger.filter((e) => e.reason === "scene_planner_refund");
+const TEST_CSRF_TOKEN = "a".repeat(64);
+
+function createGenerateImageRequest(body: Record<string, unknown>) {
+  return new Request("http://localhost:3000/api/generate-image", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      origin: "http://localhost:3000",
+      [CSRF_HEADER_NAME]: TEST_CSRF_TOKEN,
+      cookie: `${CSRF_COOKIE_NAME}=${TEST_CSRF_TOKEN}`,
+    },
+    body: JSON.stringify(body),
+  });
 }
 
 describe("Scene Planner Refund Logic", () => {
@@ -290,14 +325,14 @@ describe("Scene Planner Refund Logic", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "In the beginning God created the heaven and the earth.");
       url.searchParams.set("reference", "Genesis 1:1");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 
@@ -305,11 +340,12 @@ describe("Scene Planner Refund Logic", () => {
       expect(body.scenePlannerUsed).toBe(true);
       expect(body.scenePlannerCredits).toBe(SCENE_PLANNER_CREDITS);
       expect(getCallCount("sessions:addCredits")).toBe(0); // No refund
+      expect(body.creditsCost).toBe(4);
     });
   });
 
   describe("Scene Planner Failure", () => {
-    it("issues refund when scene planner fails with error", async () => {
+    it("omits planner cost from final charge when scene planner fails with error", async () => {
       scenePlannerResponse = {
         ok: false,
         status: 500,
@@ -328,24 +364,21 @@ describe("Scene Planner Refund Logic", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 
       const body = await response.json();
       expect(body.scenePlannerUsed).toBe(false);
-
-      // Refund should be issued
-      expect(getCallCount("sessions:addCredits")).toBe(1);
-      const refunds = getRefundEntries();
-      expect(refunds.length).toBe(1);
-      expect(refunds[0].delta).toBe(SCENE_PLANNER_CREDITS);
+      expect(body.scenePlannerCredits).toBe(0);
+      expect(body.creditsCost).toBe(2);
+      expect(getCallCount("sessions:addCredits")).toBe(0);
     });
   });
 
@@ -365,13 +398,13 @@ describe("Scene Planner Refund Logic", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 
@@ -382,7 +415,7 @@ describe("Scene Planner Refund Logic", () => {
       // Only image generation fetch (no scene planner)
       expect(fetchCallIndex).toBe(1);
 
-      // No refund needed
+      // No separate refund needed
       expect(getCallCount("sessions:addCredits")).toBe(0);
     });
   });
@@ -410,13 +443,13 @@ describe("Scene Planner Refund Logic", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 
@@ -424,7 +457,7 @@ describe("Scene Planner Refund Logic", () => {
       // Scene planner cost should be 0 for free model
       expect(body.scenePlannerCredits).toBe(0);
 
-      // No refund needed since scene planner was free
+      // No separate refund needed since scene planner was free
       expect(getCallCount("sessions:addCredits")).toBe(0);
     });
   });
@@ -457,21 +490,21 @@ describe("Scene Planner Refund Logic", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 
       const body = await response.json();
       expect(body.scenePlannerUsed).toBe(false);
-
-      // Refund should be issued
-      expect(getCallCount("sessions:addCredits")).toBe(1);
+      expect(body.scenePlannerCredits).toBe(0);
+      expect(body.creditsCost).toBe(2);
+      expect(getCallCount("sessions:addCredits")).toBe(0);
     });
 
     it("handles missing required fields gracefully", async () => {
@@ -503,21 +536,21 @@ describe("Scene Planner Refund Logic", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 
       const body = await response.json();
       expect(body.scenePlannerUsed).toBe(false);
-
-      // Refund should be issued
-      expect(getCallCount("sessions:addCredits")).toBe(1);
+      expect(body.scenePlannerCredits).toBe(0);
+      expect(body.creditsCost).toBe(2);
+      expect(getCallCount("sessions:addCredits")).toBe(0);
     });
   });
 });

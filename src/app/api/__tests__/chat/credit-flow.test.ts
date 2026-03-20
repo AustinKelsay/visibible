@@ -55,6 +55,7 @@ vi.mock("@/lib/session", () => ({
   })),
   getClientIp: vi.fn(() => "127.0.0.1"),
   hashIp: vi.fn(async () => "mock-ip-hash"),
+  withSessionRefreshCookie: vi.fn((response: Response) => response),
 }));
 
 vi.mock("@/lib/request-body", () => ({
@@ -108,7 +109,6 @@ vi.mock("@/lib/convex-client", () => ({
       }
 
       if ("modelId" in args && "generationId" in args && "amount" in args) {
-        const generationId = args.generationId as string;
         const existingReservation = mockState.ledger.find(
           (e) => e.sid === sid && e.reason === "reservation"
         );
@@ -165,8 +165,8 @@ vi.mock("ai", () => ({
   streamText: (...args: unknown[]) => mockStreamTextImpl(...args),
 }));
 
-vi.mock("@openrouter/ai-sdk-provider", () => ({
-  createOpenRouter: vi.fn(() => ({
+vi.mock("@ai-sdk/openai", () => ({
+  createOpenAI: vi.fn(() => ({
     chat: vi.fn((modelId: string) => ({ modelId, provider: "openrouter" })),
   })),
 }));

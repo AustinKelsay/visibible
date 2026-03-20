@@ -6,6 +6,7 @@ export interface ImageModel {
     imageOutput?: string;
   };
   creditsCost?: number | null; // null = unpriced, number = credits required
+  usesEmergencyPricing?: boolean; // true when model pricing came from local outage fallback
   etaSeconds?: number; // estimated generation time
 }
 
@@ -14,6 +15,7 @@ export const CREDIT_USD = 0.01; // 1 credit = $0.01
 export const PREMIUM_MULTIPLIER = 1.25; // 25% premium over OpenRouter price
 export const DEFAULT_ETA_SECONDS = 12; // default for unknown models
 export const DEFAULT_CREDITS_COST = 20; // default credit cost for unpriced models (~$0.20)
+const MODEL_CACHE_MAX_STALE_MS = 6 * 60 * 60 * 1000; // 6 hours
 
 // Conservative estimate multiplier to account for OpenRouter API vs actual billing discrepancy.
 // The models API `pricing.image` field significantly underreports costs for multimodal models
@@ -72,6 +74,10 @@ export function computeCreditsFromActualUsage(
 }
 
 export const DEFAULT_IMAGE_MODEL = "google/gemini-2.5-flash-image";
+export const EMERGENCY_IMAGE_MODEL_PRICING_USD: Record<string, string> = {
+  // Conservative per-image USD baseline used only if the OpenRouter catalog is unavailable.
+  [DEFAULT_IMAGE_MODEL]: "0.10",
+};
 
 // Image aspect ratio types and configuration
 export type ImageAspectRatio = "16:9" | "21:9" | "3:2";
@@ -148,7 +154,7 @@ export function isValidResolution(value: string): value is ImageResolution {
  *
  * @param baseCost - Base credit cost from model pricing
  * @param resolution - User-selected resolution
- * @param modelId - Model ID to check resolution support (optional for backward compat)
+ * @param modelId - Model ID to check resolution support (optional)
  * @returns Adjusted credit cost (with multiplier if supported, base cost otherwise)
  */
 export function computeAdjustedCreditsCost(
@@ -182,14 +188,68 @@ export interface ImageModelsResult {
   error?: string;
 }
 
+let lastKnownGoodImageModels: ImageModel[] | null = null;
+let lastKnownGoodImageModelsAt = 0;
+
+function cloneImageModels(models: ImageModel[]): ImageModel[] {
+  return models.map((model) => ({
+    ...model,
+    pricing: model.pricing
+      ? {
+          imageOutput: model.pricing.imageOutput,
+        }
+      : undefined,
+    usesEmergencyPricing: model.usesEmergencyPricing,
+  }));
+}
+
 function getDefaultImageModels(): ImageModel[] {
+  const emergencyPricing = EMERGENCY_IMAGE_MODEL_PRICING_USD[DEFAULT_IMAGE_MODEL];
   return [
     {
       id: DEFAULT_IMAGE_MODEL,
       name: "Gemini 2.5 Flash (Default)",
       provider: "Google",
+      pricing: {
+        imageOutput: emergencyPricing,
+      },
+      creditsCost:
+        computeCreditsCost(emergencyPricing) ?? DEFAULT_CREDITS_COST,
+      usesEmergencyPricing: true,
+      etaSeconds: DEFAULT_ETA_SECONDS,
     },
   ];
+}
+
+function applyEmergencyPricing(models: ImageModel[]): ImageModel[] {
+  return models.map((model) => {
+    const emergencyPricing = EMERGENCY_IMAGE_MODEL_PRICING_USD[model.id];
+    const hasCatalogPricing = !!model.pricing?.imageOutput;
+    const imageOutput = model.pricing?.imageOutput ?? emergencyPricing;
+    const usesEmergencyPricing = !hasCatalogPricing && !!emergencyPricing;
+    return {
+      ...model,
+      pricing: imageOutput ? { imageOutput } : model.pricing,
+      creditsCost:
+        model.creditsCost ??
+        (usesEmergencyPricing
+          ? computeCreditsCost(imageOutput)
+          : computeConservativeEstimate(imageOutput)),
+      usesEmergencyPricing,
+      etaSeconds: model.etaSeconds ?? DEFAULT_ETA_SECONDS,
+    };
+  });
+}
+
+function getStaleCachedModels(nowMs = Date.now()): ImageModel[] | null {
+  if (!lastKnownGoodImageModels) {
+    return null;
+  }
+  const ageMs = nowMs - lastKnownGoodImageModelsAt;
+  if (ageMs > MODEL_CACHE_MAX_STALE_MS) {
+    return null;
+  }
+  return cloneImageModels(lastKnownGoodImageModels);
 }
 
 export async function fetchImageModels(openRouterApiKey: string): Promise<ImageModelsResult> {
@@ -197,7 +257,7 @@ export async function fetchImageModels(openRouterApiKey: string): Promise<ImageM
     const response = await fetch("https://openrouter.ai/api/v1/models", {
       headers: {
         Authorization: `Bearer ${openRouterApiKey}`,
-        "HTTP-Referer": process.env.OPENROUTER_REFERRER || "http://localhost:3000",
+        "HTTP-Referer": process.env.OPENROUTER_REFERRER || process.env.NEXT_PUBLIC_APP_URL || "https://visibible.com",
         "X-Title": process.env.OPENROUTER_TITLE || "visibible",
       },
       next: { revalidate: 3600 },
@@ -205,6 +265,13 @@ export async function fetchImageModels(openRouterApiKey: string): Promise<ImageM
 
     if (!response.ok) {
       console.error("OpenRouter models API error:", response.status);
+      const staleModels = getStaleCachedModels();
+      if (staleModels) {
+        return {
+          models: staleModels,
+          error: "Using cached image models after OpenRouter models API failure",
+        };
+      }
       return {
         models: getDefaultImageModels(),
         error: "Failed to fetch models from OpenRouter",
@@ -254,13 +321,25 @@ export async function fetchImageModels(openRouterApiKey: string): Promise<ImageM
         return a.name.localeCompare(b.name);
       });
 
-    if (!imageModels.find((model) => model.id === DEFAULT_IMAGE_MODEL)) {
-      imageModels.unshift(...getDefaultImageModels());
+    let normalizedModels = applyEmergencyPricing(imageModels);
+
+    if (!normalizedModels.find((model) => model.id === DEFAULT_IMAGE_MODEL)) {
+      normalizedModels = [...getDefaultImageModels(), ...normalizedModels];
     }
 
-    return { models: imageModels };
+    lastKnownGoodImageModels = cloneImageModels(normalizedModels);
+    lastKnownGoodImageModelsAt = Date.now();
+
+    return { models: normalizedModels };
   } catch (error) {
     console.error("Error fetching image models:", error);
+    const staleModels = getStaleCachedModels();
+    if (staleModels) {
+      return {
+        models: staleModels,
+        error: "Using cached image models after OpenRouter models API network error",
+      };
+    }
     return {
       models: getDefaultImageModels(),
       error: "Network error fetching models",

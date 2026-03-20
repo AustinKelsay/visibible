@@ -11,6 +11,15 @@ Without proxy trust:
 - IP-bound sessions can invalidate unexpectedly
 - Audit logs and geo logic are incorrect
 
+## Current Project Convention
+
+For this repository's Vercel setup:
+
+- Vercel Preview: `TRUST_PROXY_PLATFORM=vercel`
+- Vercel Production: `TRUST_PROXY_PLATFORM=vercel`
+
+Do not set `TRUSTED_PROXY_IPS` when using the Vercel platform trust mode.
+
 ## Configuration options
 
 Set exactly one of the following in your deployment environment:
@@ -75,10 +84,11 @@ By default, proxy headers are ignored in local dev (to prevent spoofing), and th
 
 ## Safety warnings
 
-At startup, the app emits warnings for risky settings, including:
+At startup, the app emits warnings or fails fast for risky settings, including:
 - Overly broad CIDRs (e.g., `0.0.0.0/0`, `::/0`)
-- `TRUST_PROXY_PLATFORM=vercel` set without `VERCEL=1`
-- No proxy trust configured in production
+- `TRUST_PROXY_PLATFORM=vercel` set without `VERCEL=1` (production blocker)
+- Unsupported `TRUST_PROXY_PLATFORM` values (production blocker)
+- No proxy trust configured in production (production blocker unless `ALLOW_UNTRUSTED_PROXY_IN_PRODUCTION=true`)
 
 Avoid trusting wide CIDRs. They allow clients to spoof IPs via headers.
 

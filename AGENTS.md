@@ -9,6 +9,9 @@
 
 ## Build, Test, and Development Commands
 - `npm run dev` starts the local dev server at `http://localhost:3000`.
+- `npm run convex:dev` watches Convex functions/schemas against the dev deployment.
+- `npm run convex:dev:setup` one-time Convex dev deployment wiring.
+- `npm run convex:deploy:prod` deploys Convex to production.
 - `npm run build` generates a production build.
 - `npm start` serves the production build locally.
 - `npm run lint` runs ESLint with Next.js and TypeScript rules.
@@ -30,10 +33,10 @@
 - When verifying changes, run `npm run lint`, `npm run typecheck`, and `npm test` to ensure code quality.
 
 ## Commit & Pull Request Guidelines
-- The Git history currently only includes `Initial commit`, so there is no established commit format.
+- There is no strict commit format enforced in this repository.
 - Use short, imperative commit messages (e.g., `Add streaming chat UI`) and keep unrelated changes separate.
 - PRs should include a concise summary, testing notes (`npm run lint`, `npm run typecheck`, `npm test` or manual steps), and screenshots/GIFs for UI changes.
 
 ## Configuration & Secrets
-- Copy `.env.example` to `.env.local` and set `OPENAI_API_KEY` and/or `ANTHROPIC_API_KEY` for the chat API.
+- Copy `.env.example` to `.env.local` and set `OPENROUTER_API_KEY` for chat and image generation.
 - Never commit real API keys.

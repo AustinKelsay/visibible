@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import {
   DEFAULT_IMAGE_MODEL,
   fetchImageModels,
   computeCreditsCost,
   computeAdjustedCreditsCost,
-  computeConservativeEstimate,
-  computeCreditsFromActualUsage,
+  CONSERVATIVE_ESTIMATE_MULTIPLIER,
   getProviderName,
   CREDIT_USD,
-  PREMIUM_MULTIPLIER,
   DEFAULT_ASPECT_RATIO,
   DEFAULT_RESOLUTION,
   RESOLUTIONS,
@@ -25,9 +24,30 @@ import {
   getChatModelPricing,
   isModelFree,
 } from "@/lib/chat-models";
-import { validateSessionWithIp, getClientIp, hashIp } from "@/lib/session";
+import {
+  validateSessionWithIp,
+  withSessionRefreshCookie,
+  getClientIp,
+  hashIp,
+} from "@/lib/session";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
+import { validateCsrfToken, CSRF_COOKIE_NAME } from "@/lib/csrf";
+import {
+  readJsonBodyWithLimit,
+  PayloadTooLargeError,
+  InvalidJsonError,
+  DEFAULT_MAX_BODY_SIZE,
+} from "@/lib/request-body";
+import {
+  createRequestObservabilityContext,
+  emitMetric,
+  logApiFailure,
+  logApiTimeout,
+  logSettlementEvent,
+  logWarn,
+  redactSid,
+} from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
 
 // Disable Next.js server-side caching - let browser cache handle it
@@ -41,12 +61,32 @@ const DEFAULT_TEXT = "In the beginning God created the heaven and the earth.";
 const PROMPT_VERSION = "2026-01-07";
 const DEFAULT_STYLE_PROFILE = "classical";
 const DEFAULT_SCENE_PLANNER_MODEL = DEFAULT_CHAT_MODEL;
+const DEFAULT_TRANSLATION_ID = "default";
 const SCENE_PLAN_MAX_FIELD_LENGTH = 180;
+const PROMPT_MAX_CHARS = 2800;
+const CONTINUITY_HINT_MAX_CHARS = 160;
+const SCENE_PLANNER_VERSE_MAX_CHARS = 280;
+const DEFAULT_COST_MARKUP_MULTIPLIER = 1.25;
+const MAX_IMAGE_REQUEST_BODY_SIZE = DEFAULT_MAX_BODY_SIZE;
+const COST_EVENT_PERSIST_TIMEOUT_MS = Number.parseInt(
+  process.env.COST_EVENT_PERSIST_TIMEOUT_MS || "1500",
+  10
+);
+const parsedOpenRouterImageTimeoutMs = Number.parseInt(
+  process.env.OPENROUTER_IMAGE_TIMEOUT_MS || "45000",
+  10
+);
+const EFFECTIVE_IMAGE_TIMEOUT_MS =
+  Number.isFinite(parsedOpenRouterImageTimeoutMs) &&
+  parsedOpenRouterImageTimeoutMs > 0
+    ? parsedOpenRouterImageTimeoutMs
+    : 45000;
 // Scene planner timeout in milliseconds (default 10 seconds, configurable via env var)
 const SCENE_PLANNER_TIMEOUT_MS = Number.parseInt(
   process.env.SCENE_PLANNER_TIMEOUT_MS || "10000",
   10
 );
+const IMAGE_GENERATION_TIMEOUT_MESSAGE_PREFIX = "Image generation timed out after";
 
 type ScenePlan = {
   primarySubject: string;
@@ -56,6 +96,37 @@ type ScenePlan = {
   mood?: string;
   timeOfDay?: string;
   composition?: string;
+};
+
+type PromptPacket = {
+  verseId: string;
+  translationId: string;
+  reference: string;
+  currentVerse: string;
+  styleProfileId: string;
+  aspectRatio: ImageAspectRatio;
+  resolution: ImageResolution;
+  chapterTheme?: {
+    setting: string;
+    palette: string;
+    elements: string;
+    style: string;
+  };
+  continuity?: {
+    previous?: string;
+    next?: string;
+  };
+  scenePlan?: ScenePlan;
+  flags: {
+    scenePlannerUsed: boolean;
+    scenePlanFromCache: boolean;
+    narrativeContextIncluded: boolean;
+    generationNoteIncluded: boolean;
+  };
+  budget: {
+    maxChars: number;
+    finalChars: number;
+  };
 };
 
 function normalizeSceneField(value: unknown): string | undefined {
@@ -114,6 +185,70 @@ function formatScenePlan(scenePlan: ScenePlan): string {
   return `\n\n${lines.join("\n")}`;
 }
 
+function clipText(value: string, maxChars: number): string {
+  if (!value) return "";
+  const normalized = value.replace(/\s+/g, " ").trim();
+  if (normalized.length <= maxChars) return normalized;
+  return `${normalized.slice(0, Math.max(0, maxChars - 1)).trimEnd()}…`;
+}
+
+function toVerseId(reference: string): string {
+  return reference
+    .toLowerCase()
+    .replace(/:/g, "-")
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function sanitizeRequestId(value: string | null): string | null {
+  if (!value) return null;
+  const cleaned = value.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 80);
+  return cleaned.length >= 8 ? cleaned : null;
+}
+
+function sanitizeTranslationId(value: string | null): string {
+  if (!value) return DEFAULT_TRANSLATION_ID;
+  const cleaned = value.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40);
+  return cleaned || DEFAULT_TRANSLATION_ID;
+}
+
+function toContinuityHint(verse: { number: number; text: string } | null): string | undefined {
+  if (!verse) return undefined;
+  const text = clipText(verse.text, CONTINUITY_HINT_MAX_CHARS);
+  return text ? `v${verse.number}: ${text}` : undefined;
+}
+
+function quoteUsdCostLocally(usd: number): { credits: number; billedUsd: number } {
+  const billedUsd = usd * DEFAULT_COST_MARKUP_MULTIPLIER;
+  return {
+    credits: Math.max(1, Math.ceil(billedUsd / CREDIT_USD)),
+    billedUsd,
+  };
+}
+
+function isAbortError(error: unknown): boolean {
+  return error instanceof Error && error.name === "AbortError";
+}
+
+async function withTimeout<T>(
+  promise: Promise<T>,
+  timeoutMs: number,
+  timeoutMessage: string
+): Promise<T> {
+  const effectiveTimeout = Number.isFinite(timeoutMs) && timeoutMs > 0 ? timeoutMs : 1500;
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => reject(new Error(timeoutMessage)), effectiveTimeout);
+  });
+  try {
+    return await Promise.race([promise, timeoutPromise]);
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId);
+  }
+}
+
 // Security: Validate and sanitize Bible reference format
 function sanitizeReference(ref: string): string {
   // Only allow alphanumeric, spaces, colons, hyphens, and basic punctuation
@@ -134,10 +269,96 @@ function sanitizeVerseText(text: string): string {
     .slice(0, 1200); // Limit to reasonable verse length
 }
 
-export async function GET(request: Request) {
-  // SECURITY: Validate request origin
-  if (!validateOrigin(request)) {
+type ChapterTheme = {
+  setting: string;
+  palette: string;
+  elements: string;
+  style: string;
+};
+
+const chapterThemeSchema = z.object({
+  setting: z.string(),
+  palette: z.string(),
+  elements: z.string(),
+  style: z.string(),
+});
+
+const verseContextSchema = z.object({
+  number: z.number().finite().optional(),
+  text: z.string(),
+  reference: z.string().optional(),
+});
+
+const generateImageSchema = z
+  .object({
+    text: z.string().optional(),
+    theme: z.union([chapterThemeSchema, z.string()]).optional(),
+    prevVerse: z.union([verseContextSchema, z.string()]).optional(),
+    nextVerse: z.union([verseContextSchema, z.string()]).optional(),
+    reference: z.string().optional(),
+    model: z.string().optional(),
+    generation: z.union([z.number().finite(), z.string()]).optional(),
+    style: z.string().optional(),
+    aspectRatio: z.string().optional(),
+    resolution: z.string().optional(),
+    translation: z.string().optional(),
+    requestId: z.string().optional(),
+  })
+  .passthrough();
+
+type GenerateImageRequestBody = z.infer<typeof generateImageSchema>;
+
+function getCookieValue(request: Request, name: string): string | undefined {
+  const cookieHeader = request.headers.get("cookie");
+  if (!cookieHeader) return undefined;
+
+  for (const part of cookieHeader.split(";")) {
+    const [rawKey, ...rawValueParts] = part.trim().split("=");
+    if (rawKey !== name) continue;
+    try {
+      return decodeURIComponent(rawValueParts.join("="));
+    } catch {
+      return undefined;
+    }
+  }
+
+  return undefined;
+}
+
+export async function GET() {
+  return NextResponse.json(
+    {
+      error: "Method not allowed",
+      message: "Use POST /api/generate-image for generation requests.",
+    },
+    {
+      status: 405,
+      headers: {
+        Allow: "POST",
+      },
+    }
+  );
+}
+
+export async function POST(request: Request) {
+  const requestContext = createRequestObservabilityContext(
+    request,
+    "/api/generate-image"
+  );
+
+  // SECURITY: Strict origin validation for state-changing route.
+  const origin = request.headers.get("origin");
+  if (!origin || !validateOrigin(request)) {
     return invalidOriginResponse();
+  }
+
+  // SECURITY: Enforce CSRF protection on state-changing route.
+  const csrfCookie = getCookieValue(request, CSRF_COOKIE_NAME);
+  if (!validateCsrfToken(request, csrfCookie)) {
+    return NextResponse.json(
+      { error: "Invalid request", message: "CSRF validation failed" },
+      { status: 403 }
+    );
   }
 
   if (!isImageGenerationEnabled) {
@@ -198,6 +419,10 @@ export async function GET(request: Request) {
     );
   }
   const sid = sessionValidation.sid;
+  const withSessionRefresh = (response: Response) =>
+    withSessionRefreshCookie(response, sessionValidation.refreshedToken) as NextResponse;
+  const jsonWithSessionRefresh = (...args: Parameters<typeof NextResponse.json>) =>
+    withSessionRefresh(NextResponse.json(...args));
 
   // SECURITY: Rate limiting - use IP hash as primary identifier to prevent multi-session bypass
   // Combined with sid for granular tracking per IP+session pair
@@ -208,10 +433,21 @@ export async function GET(request: Request) {
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: rateLimitIdentifier,
     endpoint: "generate-image",
+    serverSecret,
   });
 
   if (!rateLimitResult.allowed) {
-    return NextResponse.json(
+    emitMetric("api_rate_limit_blocks_total", {
+      route: requestContext.route,
+      endpoint: "generate-image",
+    });
+    logWarn("api.rate_limited", {
+      route: requestContext.route,
+      requestId: requestContext.requestId,
+      sid: redactSid(sid),
+      retryAfter: rateLimitResult.retryAfter,
+    });
+    return jsonWithSessionRefresh(
       {
         error: "Rate limit exceeded",
         message: "Too many image generation requests. Please wait before generating more.",
@@ -226,25 +462,58 @@ export async function GET(request: Request) {
     );
   }
 
-  // Get verse text, theme, model, and context from query params
-  // SECURITY: All user-provided text is sanitized to prevent prompt injection
-  const { searchParams } = new URL(request.url);
-  const verseText = sanitizeVerseText(searchParams.get("text") || DEFAULT_TEXT);
-  const themeParam = searchParams.get("theme");
-  const prevVerseParam = searchParams.get("prevVerse")
-    ? sanitizeVerseText(searchParams.get("prevVerse")!)
-    : null;
-  const nextVerseParam = searchParams.get("nextVerse")
-    ? sanitizeVerseText(searchParams.get("nextVerse")!)
-    : null;
-  const reference = sanitizeReference(
-    searchParams.get("reference") || "Scripture"
-  );
-  const requestedModelId = searchParams.get("model");
-  const generationParam = searchParams.get("generation");
-  const requestedStyleId = searchParams.get("style");
-  const requestedAspectRatio = searchParams.get("aspectRatio");
-  const requestedResolution = searchParams.get("resolution");
+  let requestBody: GenerateImageRequestBody;
+  try {
+    const parsed = await readJsonBodyWithLimit<unknown>(
+      request,
+      MAX_IMAGE_REQUEST_BODY_SIZE
+    );
+    const parseResult = generateImageSchema.safeParse(parsed);
+    if (!parseResult.success) {
+      const firstIssue = parseResult.error.issues[0];
+      return jsonWithSessionRefresh(
+        {
+          error: "Invalid request",
+          message: firstIssue?.message || "Invalid request body.",
+        },
+        { status: 400 }
+      );
+    }
+    requestBody = parseResult.data;
+  } catch (error) {
+    if (error instanceof PayloadTooLargeError) {
+      return jsonWithSessionRefresh(
+        {
+          error: "Payload too large",
+          message: `Request body exceeds maximum size of ${MAX_IMAGE_REQUEST_BODY_SIZE} bytes.`,
+        },
+        { status: 413 }
+      );
+    }
+    if (error instanceof InvalidJsonError) {
+      return jsonWithSessionRefresh(
+        { error: "Invalid request", message: "Request body must be valid JSON." },
+        { status: 400 }
+      );
+    }
+    return jsonWithSessionRefresh(
+      { error: "Invalid request", message: "Failed to read request body." },
+      { status: 400 }
+    );
+  }
+
+  // Get verse text, theme, model, and context from JSON body.
+  // SECURITY: All user-provided text is sanitized to prevent prompt injection.
+  const verseText = sanitizeVerseText(requestBody.text || DEFAULT_TEXT);
+  const reference = sanitizeReference(requestBody.reference || "Scripture");
+  const requestedModelId = requestBody.model;
+  const requestedStyleId = requestBody.style;
+  const requestedAspectRatio = requestBody.aspectRatio;
+  const requestedResolution = requestBody.resolution;
+  const translationId = sanitizeTranslationId(requestBody.translation ?? null);
+  const clientRequestId =
+    sanitizeRequestId(requestBody.requestId ?? null) || crypto.randomUUID();
+  const verseId = toVerseId(reference);
 
   // Validate and set aspect ratio (default: 16:9)
   const aspectRatio: ImageAspectRatio = requestedAspectRatio && isValidAspectRatio(requestedAspectRatio)
@@ -258,6 +527,7 @@ export async function GET(request: Request) {
 
   let modelId = DEFAULT_IMAGE_MODEL;
   let modelPricing: string | undefined;
+  let modelUsesEmergencyPricing = false;
   type StyleProfile = {
     id: string;
     label: string;
@@ -267,12 +537,6 @@ export async function GET(request: Request) {
     materials?: string;
     composition?: string;
     negative: string;
-  };
-  type ChapterTheme = {
-    setting: string;
-    palette: string;
-    elements: string;
-    style: string;
   };
 
   const STYLE_PROFILES: Record<string, StyleProfile> = {
@@ -290,22 +554,53 @@ export async function GET(request: Request) {
     },
   };
 
-  const parseChapterTheme = (value: string | null): ChapterTheme | null => {
+  /**
+   * Parses and sanitizes a verse context object from the request body.
+   * Accepts either a verse-shaped object or a JSON string (backward compatibility).
+   * Returns null if the value is not valid.
+   */
+  function parseVerseContext(
+    value: unknown
+  ): { number: number; text: string; reference?: string } | null {
+    let obj: Record<string, unknown> | null = null;
+    if (value && typeof value === "object") {
+      obj = value as Record<string, unknown>;
+    } else if (typeof value === "string") {
+      try {
+        const parsed = JSON.parse(value) as unknown;
+        if (parsed && typeof parsed === "object") obj = parsed as Record<string, unknown>;
+      } catch {
+        return null;
+      }
+    }
+    if (!obj) return null;
+    const text = obj?.text;
+    if (typeof text !== "string") return null;
+    const number =
+      typeof obj.number === "number" && Number.isFinite(obj.number)
+        ? obj.number
+        : 0;
+    const reference =
+      typeof obj.reference === "string" ? obj.reference : undefined;
+    return {
+      number,
+      text: sanitizeVerseText(text),
+      ...(reference !== undefined ? { reference } : {}),
+    };
+  }
+
+  const parseChapterTheme = (
+    value: GenerateImageRequestBody["theme"]
+  ): ChapterTheme | null => {
     if (!value) return null;
+    if (typeof value === "object") {
+      return value;
+    }
     try {
-      const parsed = JSON.parse(value) as Partial<ChapterTheme>;
-      if (
-        typeof parsed.setting === "string" &&
-        typeof parsed.palette === "string" &&
-        typeof parsed.elements === "string" &&
-        typeof parsed.style === "string"
-      ) {
-        return {
-          setting: parsed.setting,
-          palette: parsed.palette,
-          elements: parsed.elements,
-          style: parsed.style,
-        };
+      const parsed = JSON.parse(value) as unknown;
+      const themeParse = chapterThemeSchema.safeParse(parsed);
+      if (themeParse.success) {
+        return themeParse.data;
       }
     } catch (e) {
       console.warn("[generate-image] Failed to parse chapterTheme:", {
@@ -316,21 +611,26 @@ export async function GET(request: Request) {
     return null;
   };
 
-  const parseGenerationNumber = (value: string | null): number | null => {
-    if (!value) return null;
+  const parseGenerationNumber = (
+    value: GenerateImageRequestBody["generation"]
+  ): number | null => {
+    if (value === undefined || value === null || value === "") return null;
+    if (typeof value === "number") {
+      return Number.isFinite(value) ? Math.trunc(value) : null;
+    }
     const parsed = Number.parseInt(value, 10);
     return Number.isNaN(parsed) ? null : parsed;
   };
 
-  const chapterTheme = parseChapterTheme(themeParam);
-  const generationNumber = parseGenerationNumber(generationParam);
+  const chapterTheme = parseChapterTheme(requestBody.theme);
+  const generationNumber = parseGenerationNumber(requestBody.generation);
   const requestedStyleProfile = requestedStyleId
     ? STYLE_PROFILES[requestedStyleId]
     : undefined;
   const styleProfile = requestedStyleProfile || STYLE_PROFILES[DEFAULT_STYLE_PROFILE];
 
   if (requestedStyleId && !requestedStyleProfile) {
-    return NextResponse.json(
+    return jsonWithSessionRefresh(
       {
         error: "Style profile not available",
         message: `The style "${requestedStyleId}" is not available. Please select a different style.`,
@@ -347,7 +647,7 @@ export async function GET(request: Request) {
       (model) => model.id === requestedModelId
     );
     if (!foundModel) {
-      return NextResponse.json(
+      return jsonWithSessionRefresh(
         {
           error: "Model not available",
           message: `The model "${requestedModelId}" is not available. Please select a different model.`,
@@ -357,16 +657,23 @@ export async function GET(request: Request) {
     }
     modelId = requestedModelId;
     modelPricing = foundModel.pricing?.imageOutput;
+    modelUsesEmergencyPricing = foundModel.usesEmergencyPricing === true;
   } else {
     // Use default model, but still validate it exists and has pricing
     const foundModel = result.models.find((model) => model.id === modelId);
     modelPricing = foundModel?.pricing?.imageOutput;
+    modelUsesEmergencyPricing = foundModel?.usesEmergencyPricing === true;
   }
 
   // SECURITY: Reject models without valid pricing (prevents cost abuse)
-  const baseImageCreditsCost = computeCreditsCost(modelPricing);
-  if (baseImageCreditsCost === null) {
-    return NextResponse.json(
+  const parsedModelPricingUsd = modelPricing ? Number.parseFloat(modelPricing) : Number.NaN;
+  const legacyBaseImageCreditsCost = computeCreditsCost(modelPricing);
+  if (
+    legacyBaseImageCreditsCost === null ||
+    !Number.isFinite(parsedModelPricingUsd) ||
+    parsedModelPricingUsd <= 0
+  ) {
+    return jsonWithSessionRefresh(
       {
         error: "Model pricing unavailable",
         message: `The model "${modelId}" cannot be priced. Please select a different model.`,
@@ -374,6 +681,33 @@ export async function GET(request: Request) {
       { status: 400 }
     );
   }
+
+  const quoteUsdCost = async (
+    usd: number
+  ): Promise<{ credits: number; billedUsd: number; viaNeutralCost: boolean }> => {
+    try {
+      const quote = await convex.action(api.costs.quoteUsdCost, {
+        usd,
+        serverSecret,
+      });
+      return {
+        credits: quote.credits,
+        billedUsd: quote.billedUsd,
+        viaNeutralCost: true,
+      };
+    } catch (error) {
+      console.warn("[Image API] Neutral cost quote failed, using local fallback:", error);
+      const localQuote = quoteUsdCostLocally(usd);
+      return {
+        credits: localQuote.credits,
+        billedUsd: localQuote.billedUsd,
+        viaNeutralCost: false,
+      };
+    }
+  };
+
+  const baseImageQuote = await quoteUsdCost(parsedModelPricingUsd);
+  const baseImageCreditsCost = baseImageQuote.credits;
 
   // Check if this model supports resolution settings
   // Only certain models (currently Gemini) support configurable resolution
@@ -385,18 +719,52 @@ export async function GET(request: Request) {
 
   // Compute conservative estimate for reservation (accounts for OpenRouter API pricing discrepancy)
   // The OpenRouter models API often underreports actual costs for multimodal image models
-  const baseReservationCredits = computeConservativeEstimate(modelPricing);
-  const reservationImageCredits = computeAdjustedCreditsCost(baseReservationCredits, resolution, modelId);
+  // Emergency fallback prices are already conservative final-price baselines.
+  // Avoid applying the catalog underreporting multiplier twice in outage mode.
+  const reservationMultiplier = modelUsesEmergencyPricing
+    ? 1
+    : CONSERVATIVE_ESTIMATE_MULTIPLIER;
+  const baseReservationCredits = Math.ceil(
+    baseImageCreditsCost * reservationMultiplier
+  );
+  const reservationImageCredits = computeAdjustedCreditsCost(
+    baseReservationCredits,
+    resolution,
+    modelId
+  );
 
   // Determine scene planner settings early for cost calculation
   const enableScenePlanner = process.env.ENABLE_SCENE_PLANNER !== "false";
   const scenePlannerModel =
     process.env.OPENROUTER_SCENE_PLANNER_MODEL || DEFAULT_SCENE_PLANNER_MODEL;
 
-  // Calculate scene planner cost if enabled and not using a free model
+  // Phase 2: check scene plan cache before deciding planner cost.
+  let cachedScenePlan: ScenePlan | null = null;
+  let scenePlanFromCache = false;
+  if (enableScenePlanner) {
+    try {
+      const cacheEntry = await convex.mutation(api.verseImages.getScenePlanCache, {
+        verseId,
+        translationId,
+        styleProfileId: styleProfile.id,
+        serverSecret,
+      });
+      const normalizedCached = cacheEntry?.scenePlan
+        ? normalizeScenePlan(cacheEntry.scenePlan)
+        : null;
+      if (normalizedCached) {
+        cachedScenePlan = normalizedCached;
+        scenePlanFromCache = true;
+      }
+    } catch (error) {
+      console.warn("[Image API] Scene plan cache lookup failed:", error);
+    }
+  }
+
+  // Calculate scene planner cost only when planner call is still needed.
   let scenePlannerCreditsCost = 0;
   let scenePlannerCostUsd = 0;
-  if (enableScenePlanner) {
+  if (enableScenePlanner && !scenePlanFromCache) {
     const scenePlannerPricing = await getChatModelPricing(
       scenePlannerModel,
       openRouterApiKey
@@ -431,12 +799,91 @@ export async function GET(request: Request) {
   // Check if user is admin (unlimited access)
   const session = await convex.query(api.sessions.getSession, { sid });
   if (!session) {
-    return NextResponse.json(
+    return jsonWithSessionRefresh(
       { error: "Session not found" },
       { status: 401 }
     );
   }
   const isAdmin = session?.tier === "admin";
+  let generationRequestCreated = false;
+  const generationRequestId = clientRequestId;
+
+  const createGenerationRequest = async () => {
+    if (generationRequestCreated) return;
+    try {
+      await convex.mutation(api.verseImages.createGenerationRequest, {
+        requestId: generationRequestId,
+        sid,
+        verseId,
+        translationId,
+        reference,
+        modelId,
+        aspectRatio,
+        resolution,
+        promptVersion: PROMPT_VERSION,
+        scenePlannerModel: scenePlannerModel,
+        estimatedCreditsCost,
+        estimatedCostUsd: estimatedTotalCostUsd,
+        serverSecret,
+      });
+      generationRequestCreated = true;
+    } catch (error) {
+      console.warn("[Image API] Failed to create generation request:", error);
+    }
+  };
+
+  const updateGenerationRequest = async (
+    status: "planning" | "generating" | "succeeded" | "failed",
+    updates?: {
+      error?: string;
+      generationId?: string;
+      providerRequestId?: string;
+      scenePlannerUsed?: boolean;
+      scenePlanFromCache?: boolean;
+      usedFallbackEstimate?: boolean;
+      promptPacket?: PromptPacket;
+      actualCreditsCost?: number;
+      actualCostUsd?: number;
+      durationMs?: number;
+    }
+  ) => {
+    if (!generationRequestCreated) return;
+    try {
+      await convex.mutation(api.verseImages.updateGenerationRequest, {
+        requestId: generationRequestId,
+        status,
+        ...(updates?.error ? { error: updates.error } : {}),
+        ...(updates?.generationId ? { generationId: updates.generationId } : {}),
+        ...(updates?.providerRequestId
+          ? { providerRequestId: updates.providerRequestId }
+          : {}),
+        ...(updates?.scenePlannerUsed !== undefined
+          ? { scenePlannerUsed: updates.scenePlannerUsed }
+          : {}),
+        ...(updates?.scenePlanFromCache !== undefined
+          ? { scenePlanFromCache: updates.scenePlanFromCache }
+          : {}),
+        ...(updates?.usedFallbackEstimate !== undefined
+          ? { usedFallbackEstimate: updates.usedFallbackEstimate }
+          : {}),
+        ...(updates?.promptPacket ? { promptPacket: updates.promptPacket } : {}),
+        ...(updates?.actualCreditsCost !== undefined
+          ? { actualCreditsCost: updates.actualCreditsCost }
+          : {}),
+        ...(updates?.actualCostUsd !== undefined
+          ? { actualCostUsd: updates.actualCostUsd }
+          : {}),
+        ...(updates?.durationMs !== undefined
+          ? { durationMs: updates.durationMs }
+          : {}),
+        serverSecret,
+      });
+    } catch (error) {
+      console.warn("[Image API] Failed to update generation request:", error);
+    }
+  };
+
+  await createGenerationRequest();
 
   // Skip credit checks for admin users but log for audit trail
   if (!isAdmin) {
@@ -453,19 +900,27 @@ export async function GET(request: Request) {
     if (!reserveResult.success) {
       // Check if failure is due to daily spending limit vs insufficient credits
       if ("dailyLimit" in reserveResult) {
-        return NextResponse.json(
+        await updateGenerationRequest("failed", {
+          error: "Daily spending limit exceeded",
+        });
+        return jsonWithSessionRefresh(
           {
             error: "Daily spending limit exceeded",
             dailyLimit: reserveResult.dailyLimit,
             dailySpent: reserveResult.dailySpent,
+            requestId: generationRequestId,
             remaining: reserveResult.remaining,
           },
           { status: 429 } // Too Many Requests - appropriate for rate/limit exceeded
         );
       }
-      return NextResponse.json(
+      await updateGenerationRequest("failed", {
+        error: "Insufficient credits",
+      });
+      return jsonWithSessionRefresh(
         {
           error: "Insufficient credits",
+          requestId: generationRequestId,
           required: cost,
           available:
             "available" in reserveResult ? reserveResult.available : 0,
@@ -503,26 +958,16 @@ export async function GET(request: Request) {
   // Track generation start time for stats
   const generationStartTime = Date.now();
 
-  // Parse prev/next verse context for storyboard continuity
-  let prevVerse: { number: number; text: string; reference?: string } | null = null;
-  let nextVerse: { number: number; text: string; reference?: string } | null = null;
+  // Parse prev/next verse context for storyboard continuity (from request body, no JSON round-trip)
+  const prevVerse = parseVerseContext(requestBody.prevVerse);
+  const nextVerse = parseVerseContext(requestBody.nextVerse);
 
-  try {
-    if (prevVerseParam) prevVerse = JSON.parse(prevVerseParam);
-    if (nextVerseParam) nextVerse = JSON.parse(nextVerseParam);
-  } catch (e) {
-    console.warn("[generate-image] Failed to parse verse context:", {
-      prevVerseParam: prevVerseParam?.substring(0, 100),
-      nextVerseParam: nextVerseParam?.substring(0, 100),
-      error: e instanceof Error ? e.message : "Unknown error",
-    });
-    // Continue without context - graceful degradation
-  }
-
-  // Build prompt with storyboard context for visual continuity
-  const aspectRatioLabel = aspectRatio === "21:9" ? "ULTRA-WIDE CINEMATIC" :
-    aspectRatio === "3:2" ? "CLASSIC WIDE" : "WIDESCREEN";
-  const aspectRatioInstruction = `Generate the image in ${aspectRatioLabel} LANDSCAPE format with a ${aspectRatio} aspect ratio (wide, not square).`;
+  const aspectRatioLabel = aspectRatio === "21:9"
+    ? "ULTRA-WIDE CINEMATIC"
+    : aspectRatio === "3:2"
+      ? "CLASSIC WIDE"
+      : "WIDESCREEN";
+  const aspectRatioInstruction = `Aspect ratio: ${aspectRatio} (${aspectRatioLabel} landscape).`;
 
   /**
    * Get ordinal suffix for a number (1st, 2nd, 3rd, 4th, etc.)
@@ -539,27 +984,33 @@ export async function GET(request: Request) {
   // Add generation diversity for non-first images
   let generationNote = "";
   if (generationNumber && generationNumber > 1) {
-    generationNote = `\n\nNOTE: This is the ${generationNumber}${getOrdinalSuffix(generationNumber)} generation of this image. Create a fresh, diverse interpretation while maintaining the core biblical scene.`;
+    generationNote = `\n\nVariation note: ${generationNumber}${getOrdinalSuffix(generationNumber)} generation for this verse. Keep the same canonical scene, but vary composition and camera feel.`;
   }
 
-  // Build narrative context section
-  let narrativeContext = "";
-  if (prevVerse || nextVerse) {
-    narrativeContext = "\n\nNARRATIVE CONTEXT (for visual continuity - this is a storyboard):";
-    if (prevVerse) {
-      narrativeContext += `\n- Previous scene (v${prevVerse.number}): "${prevVerse.text}"`;
-    }
-    narrativeContext += `\n- CURRENT SCENE (the verse to illustrate): "${verseText}"`;
-    if (nextVerse) {
-      narrativeContext += `\n- Next scene (v${nextVerse.number}): "${nextVerse.text}"`;
-    }
-    narrativeContext += "\n\nThis is part of a visual storyboard through Scripture. Maintain visual consistency with the flow of the narrative while focusing on THIS verse's moment.";
-  }
+  const prevHint = toContinuityHint(prevVerse);
+  const nextHint = toContinuityHint(nextVerse);
 
   // Scene planner settings already defined above for cost calculation
+  await updateGenerationRequest("planning");
 
-  const buildScenePlan = async (): Promise<ScenePlan | null> => {
-    if (!enableScenePlanner) return null;
+  const buildScenePlan = async (): Promise<{
+    scenePlan: ScenePlan | null;
+    fromCache: boolean;
+  }> => {
+    if (cachedScenePlan) {
+      void convex
+        .mutation(api.verseImages.markScenePlanCacheHit, {
+          verseId,
+          translationId,
+          styleProfileId: styleProfile.id,
+          serverSecret,
+        })
+        .catch((error) => {
+          console.warn("[Image API] Scene plan cache hit update failed:", error);
+        });
+      return { scenePlan: cachedScenePlan, fromCache: true };
+    }
+    if (!enableScenePlanner) return { scenePlan: null, fromCache: false };
     const scenePlannerPrompt = `You are a scene planner for biblical illustrations. Return ONLY valid JSON.
 
 Rules:
@@ -574,9 +1025,9 @@ primarySubject, action, setting, secondaryElements, mood, timeOfDay, composition
 
 Inputs:
 Reference: ${reference}
-Verse: "${verseText}"
-${prevVerse ? `Previous: "${prevVerse.text}"` : ""}
-${nextVerse ? `Next: "${nextVerse.text}"` : ""}
+Verse: "${clipText(verseText, SCENE_PLANNER_VERSE_MAX_CHARS)}"
+${prevVerse ? `Previous: "${clipText(prevVerse.text, SCENE_PLANNER_VERSE_MAX_CHARS)}"` : ""}
+${nextVerse ? `Next: "${clipText(nextVerse.text, SCENE_PLANNER_VERSE_MAX_CHARS)}"` : ""}
 ${chapterTheme ? `Theme setting: ${chapterTheme.setting}` : "Theme setting: none"}
 ${chapterTheme ? `Theme elements: ${chapterTheme.elements}` : "Theme elements: none"}
 Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
@@ -614,7 +1065,7 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
 
       if (!response.ok) {
         console.warn(`[Image API] Scene planner failed: status=${response.status}`);
-        return null;
+        return { scenePlan: null, fromCache: false };
       }
 
       const data = await response.json();
@@ -628,62 +1079,70 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
           .join("");
       }
 
-      if (!content) return null;
+      if (!content) return { scenePlan: null, fromCache: false };
       const jsonString = extractJsonObject(content) || content.trim();
       const parsed = JSON.parse(jsonString);
-      return normalizeScenePlan(parsed);
+      const normalized = normalizeScenePlan(parsed);
+      if (normalized) {
+        void convex
+          .mutation(api.verseImages.upsertScenePlanCache, {
+            verseId,
+            translationId,
+            styleProfileId: styleProfile.id,
+            scenePlan: normalized,
+            plannerModel: scenePlannerModel,
+            promptVersion: PROMPT_VERSION,
+            serverSecret,
+          })
+          .catch((error) => {
+            console.warn("[Image API] Scene plan cache upsert failed:", error);
+          });
+      }
+      return { scenePlan: normalized, fromCache: false };
     } catch (error) {
       if (error instanceof Error && error.name === "AbortError") {
+        logApiTimeout({
+          context: requestContext,
+          stage: "scene_planner",
+          timeoutMs: SCENE_PLANNER_TIMEOUT_MS,
+          sid,
+          generationId: chargeGenerationId,
+        });
         console.warn(
           `[Image API] Scene planner timeout after ${SCENE_PLANNER_TIMEOUT_MS}ms`
         );
       } else {
+        logApiFailure({
+          context: requestContext,
+          stage: "scene_planner",
+          error,
+          statusCode: 500,
+          sid,
+          generationId: chargeGenerationId,
+        });
         console.warn("[Image API] Scene planner error:", error);
       }
-      return null;
+      return { scenePlan: null, fromCache: false };
     }
   };
 
-  const scenePlan = await buildScenePlan();
+  const { scenePlan, fromCache: runtimeScenePlanFromCache } = await buildScenePlan();
+  scenePlanFromCache = runtimeScenePlanFromCache;
 
   // Track whether scene planner was actually used (for partial refund on failure)
-  const scenePlannerUsed = scenePlan !== null;
+  const scenePlannerUsed = scenePlan !== null && !scenePlanFromCache;
 
-  // If scene planner failed/returned null but we reserved credits for it, issue partial refund
-  if (
-    scenePlannerCreditsCost > 0 &&
-    !scenePlannerUsed &&
-    reservationMade &&
-    !isAdmin
-  ) {
-    // Partial refund for unused scene planner credits with retry
-    const maxRetries = 3;
-    let refundSuccess = false;
-    for (let attempt = 1; attempt <= maxRetries && !refundSuccess; attempt++) {
-      try {
-        await convex.action(api.sessions.addCredits, {
-          sid,
-          amount: scenePlannerCreditsCost,
-          reason: "scene_planner_refund",
-          serverSecret,
-        });
-        refundSuccess = true;
-      } catch (refundError) {
-        if (attempt < maxRetries) {
-          // Exponential backoff: 100ms, 200ms, 400ms
-          await new Promise((resolve) =>
-            setTimeout(resolve, 100 * Math.pow(2, attempt - 1))
-          );
-        } else {
-          console.error(
-            `[Image API] Failed to refund scene planner credits after ${maxRetries} attempts:`,
-            refundError
-          );
-          // Continue with request - user will be over-charged but generation proceeds
-        }
-      }
-    }
-  }
+  const includeNarrativeContext = Boolean(prevHint || nextHint);
+  const narrativeContext = includeNarrativeContext
+    ? [
+      "",
+      "",
+      "NARRATIVE CONTINUITY:",
+      ...(prevHint ? [`- Previous: ${prevHint}`] : []),
+      ...(nextHint ? [`- Next: ${nextHint}`] : []),
+      "Keep continuity cues only; focus composition on the current verse moment.",
+    ].join("\n")
+    : "";
 
   const promptInputs = {
     reference,
@@ -691,97 +1150,225 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
     styleProfileId: styleProfile.id,
     ...(scenePlan ? { scenePlan } : {}),
     ...(generationNumber ? { generationNumber } : {}),
-    ...(prevVerse ? { prevVerse } : {}),
-    ...(nextVerse ? { nextVerse } : {}),
+    ...(prevVerse ? { prevVerse: { ...prevVerse, text: clipText(prevVerse.text, CONTINUITY_HINT_MAX_CHARS) } } : {}),
+    ...(nextVerse ? { nextVerse: { ...nextVerse, text: clipText(nextVerse.text, CONTINUITY_HINT_MAX_CHARS) } } : {}),
   };
 
-  const priorityRules = `PRIORITY RULES (must follow):
-1) ABSOLUTE: ZERO text of any kind. No letters, words, numbers, punctuation, symbols, runes, glyphs, sigils, logos, watermarks, captions, subtitles, labels, signage, banners, or inscriptions. Do not render the verse text or any readable/unreadable text-like marks. If a surface would normally contain writing (scrolls, tablets, signs), leave it blank or use abstract texture.
-2) FULL-BLEED IMMERSIVE SCENE: edge-to-edge cinematic composition. No borders, frames, mattes, canvas edges, stretcher bars, wall-hung paintings, posters, prints, photographs, gallery/museum settings, mockups, or letterboxing. Do not depict the scene as artwork on a wall or in a frame; the image itself is the scene. No white wall or studio backdrop. Do not leave blank margins. Avoid solid white or empty backgrounds; fill negative space with atmospheric darkness, clouds, or textured sky/land. The viewer is IN the scene.
-3) SINGLE SCENE ONLY: no split panels, diptychs, triptychs, insets, collages, or multiple scenes in one frame.`;
+  const priorityRules = `PRIORITY RULES:
+1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).
+2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, or blank backdrop).
+3) Single unified scene only (no split panels, collage, or multi-scene layout).`;
 
   const globalNegatives = `GLOBAL NEGATIVES:
-- No modern artifacts or technology (vehicles, screens, guns, electrical lighting, contemporary architecture, modern clothing).
+- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).
 - No anachronistic materials (plastic, neon, LEDs).
 - No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).`;
 
   const scenePlanBlock = scenePlan ? formatScenePlan(scenePlan) : "";
+  const styleSummary = [
+    `STYLE PROFILE: ${styleProfile.label}`,
+    `Rendering: ${styleProfile.rendering}`,
+    styleProfile.palette ? `Palette: ${styleProfile.palette}` : "",
+    styleProfile.lighting ? `Lighting: ${styleProfile.lighting}` : "",
+    styleProfile.materials ? `Materials/Texture: ${styleProfile.materials}` : "",
+    styleProfile.composition ? `Composition: ${styleProfile.composition}` : "",
+    "",
+    "STYLE NEGATIVES:",
+    styleProfile.negative,
+  ]
+    .filter(Boolean)
+    .join("\n");
 
-  let prompt: string;
-  if (chapterTheme) {
-    prompt = `${priorityRules}
+  const buildPrompt = (options: {
+    includeNarrative: boolean;
+    includeGenerationNote: boolean;
+    includeFullStyleDetails: boolean;
+  }): string => {
+    const styleBlock = options.includeFullStyleDetails
+      ? styleSummary
+      : `STYLE PROFILE: ${styleProfile.label}
+Rendering: ${styleProfile.rendering}
 
-SCENE:
-Render a single, cohesive biblical-era scene for ${reference}: "${verseText}"${scenePlanBlock}${narrativeContext}${generationNote}
+STYLE NEGATIVES:
+${styleProfile.negative}`;
 
-CHAPTER THEME:
+    const chapterThemeBlock = chapterTheme
+      ? `CHAPTER THEME:
 Setting: ${chapterTheme.setting}
 Visual elements: ${chapterTheme.elements}
 Color palette: ${chapterTheme.palette}
 Style: ${chapterTheme.style}
 
-STYLE PROFILE: ${styleProfile.label}
-Rendering: ${styleProfile.rendering}
-${styleProfile.palette ? `Palette: ${styleProfile.palette}` : ""}
-${styleProfile.lighting ? `Lighting: ${styleProfile.lighting}` : ""}
-${styleProfile.materials ? `Materials/Texture: ${styleProfile.materials}` : ""}
-${styleProfile.composition ? `Composition: ${styleProfile.composition}` : ""}
+`
+      : "";
 
-STYLE NEGATIVES:
-${styleProfile.negative}
+    const generationBlock = options.includeGenerationNote ? generationNote : "";
+    const continuityBlock = options.includeNarrative ? narrativeContext : "";
 
-${globalNegatives}
-
-${aspectRatioInstruction}`;
-  } else {
-    prompt = `${priorityRules}
+    return `${priorityRules}
 
 SCENE:
-Render a single, cohesive biblical-era scene for ${reference}: "${verseText}"${scenePlanBlock}${narrativeContext}${generationNote}
+Render a single, cohesive biblical-era scene for ${reference}: "${clipText(verseText, 900)}"${scenePlanBlock}${continuityBlock}${generationBlock}
 
-STYLE PROFILE: ${styleProfile.label}
-Rendering: ${styleProfile.rendering}
-${styleProfile.palette ? `Palette: ${styleProfile.palette}` : ""}
-${styleProfile.lighting ? `Lighting: ${styleProfile.lighting}` : ""}
-${styleProfile.materials ? `Materials/Texture: ${styleProfile.materials}` : ""}
-${styleProfile.composition ? `Composition: ${styleProfile.composition}` : ""}
-
-STYLE NEGATIVES:
-${styleProfile.negative}
+${chapterThemeBlock}${styleBlock}
 
 ${globalNegatives}
 
 ${aspectRatioInstruction}`;
+  };
+
+  let includeNarrative = includeNarrativeContext;
+  let includeGeneration = Boolean(generationNote);
+  let includeFullStyle = true;
+  let prompt = buildPrompt({
+    includeNarrative,
+    includeGenerationNote: includeGeneration,
+    includeFullStyleDetails: includeFullStyle,
+  });
+
+  if (prompt.length > PROMPT_MAX_CHARS && includeGeneration) {
+    includeGeneration = false;
+    prompt = buildPrompt({
+      includeNarrative,
+      includeGenerationNote: includeGeneration,
+      includeFullStyleDetails: includeFullStyle,
+    });
   }
 
-  try {
-    // Use OpenRouter chat completions with Gemini for image generation
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${openRouterApiKey}`,
-        "Content-Type": "application/json",
-        "HTTP-Referer": process.env.OPENROUTER_REFERRER || "http://localhost:3000",
-        "X-Title": process.env.OPENROUTER_TITLE || "visibible",
-      },
-      body: JSON.stringify({
-        model: modelId,
-        messages: [
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
-        // Request image output
-        modalities: ["image", "text"],
-        // Specify aspect ratio and conditionally include resolution
-        // image_size is only supported by certain models (currently Gemini)
-        image_config: {
-          aspect_ratio: aspectRatio,
-          ...(modelSupportsResolution && { image_size: resolution }),
-        },
-      }),
+  if (prompt.length > PROMPT_MAX_CHARS && includeFullStyle) {
+    includeFullStyle = false;
+    prompt = buildPrompt({
+      includeNarrative,
+      includeGenerationNote: includeGeneration,
+      includeFullStyleDetails: includeFullStyle,
     });
+  }
+
+  if (prompt.length > PROMPT_MAX_CHARS && includeNarrative) {
+    includeNarrative = false;
+    prompt = buildPrompt({
+      includeNarrative,
+      includeGenerationNote: includeGeneration,
+      includeFullStyleDetails: includeFullStyle,
+    });
+  }
+
+  if (prompt.length > PROMPT_MAX_CHARS) {
+    prompt = prompt.slice(0, PROMPT_MAX_CHARS).trimEnd();
+  }
+
+  const promptPacket: PromptPacket = {
+    verseId,
+    translationId,
+    reference,
+    currentVerse: clipText(verseText, 350),
+    styleProfileId: styleProfile.id,
+    aspectRatio,
+    resolution,
+    ...(chapterTheme ? { chapterTheme } : {}),
+    ...((prevHint || nextHint) ? { continuity: { ...(prevHint ? { previous: prevHint } : {}), ...(nextHint ? { next: nextHint } : {}) } } : {}),
+    ...(scenePlan ? { scenePlan } : {}),
+    flags: {
+      scenePlannerUsed,
+      scenePlanFromCache,
+      narrativeContextIncluded: includeNarrative,
+      generationNoteIncluded: includeGeneration,
+    },
+    budget: {
+      maxChars: PROMPT_MAX_CHARS,
+      finalChars: prompt.length,
+    },
+  };
+
+  await updateGenerationRequest("generating", {
+    scenePlannerUsed,
+    scenePlanFromCache,
+    promptPacket,
+  });
+
+  try {
+    const releaseReservationIfNeeded = async () => {
+      if (!reservationMade) {
+        return;
+      }
+      await convex
+        .action(api.sessions.releaseReservation, {
+          sid,
+          generationId: chargeGenerationId,
+          serverSecret,
+        })
+        .catch((releaseError) => {
+          logSettlementEvent({
+            context: requestContext,
+            outcome: "release_failed",
+            sid,
+            generationId: chargeGenerationId,
+            details: { stage: "releaseReservationIfNeeded" },
+          });
+          logApiFailure({
+            context: requestContext,
+            stage: "release_reservation_if_needed",
+            error: releaseError,
+            statusCode: 500,
+            sid,
+            generationId: chargeGenerationId,
+          });
+          console.error("Failed to release reservation:", releaseError);
+        });
+    };
+
+    // Use OpenRouter chat completions with Gemini for image generation
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), EFFECTIVE_IMAGE_TIMEOUT_MS);
+    let response: Response;
+    try {
+      response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${openRouterApiKey}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": process.env.OPENROUTER_REFERRER || "http://localhost:3000",
+          "X-Title": process.env.OPENROUTER_TITLE || "visibible",
+        },
+        body: JSON.stringify({
+          model: modelId,
+          messages: [
+            {
+              role: "user",
+              content: prompt,
+            },
+          ],
+          // Request image output
+          modalities: ["image", "text"],
+          // Specify aspect ratio and conditionally include resolution
+          // image_size is only supported by certain models (currently Gemini)
+          image_config: {
+            aspect_ratio: aspectRatio,
+            ...(modelSupportsResolution && { image_size: resolution }),
+          },
+        }),
+        signal: controller.signal,
+      });
+    } catch (error) {
+      if (isAbortError(error)) {
+        logApiTimeout({
+          context: requestContext,
+          stage: "openrouter_generation",
+          timeoutMs: EFFECTIVE_IMAGE_TIMEOUT_MS,
+          sid,
+          generationId: chargeGenerationId,
+        });
+        console.error(
+          `[Image API] Main generation timeout after ${EFFECTIVE_IMAGE_TIMEOUT_MS}ms`
+        );
+        throw new Error(
+          `${IMAGE_GENERATION_TIMEOUT_MESSAGE_PREFIX} ${EFFECTIVE_IMAGE_TIMEOUT_MS}ms`
+        );
+      }
+      throw error;
+    } finally {
+      clearTimeout(timeoutId);
+    }
 
     if (!response.ok) {
       // SECURITY: Log minimal error info to avoid exposing API internals
@@ -830,12 +1417,20 @@ ${aspectRatioInstruction}`;
     const effectiveScenePlannerCredits = scenePlannerUsed ? scenePlannerCreditsCost : 0;
     const effectiveScenePlannerCostUsd = scenePlannerUsed ? scenePlannerCostUsd : 0;
 
-    // Compute actual image credits from OpenRouter usage
-    // Use API-based estimate as fallback (imageCreditsCost) rather than conservative 35x (reservationImageCredits)
-    const { credits: actualImageCredits, usedActual } = computeCreditsFromActualUsage(
-      openRouterUsageUsd,
-      imageCreditsCost // Fall back to API-based estimate, not conservative 35x
-    );
+    // Compute actual image credits from OpenRouter usage via Neutral Cost quote.
+    // If usage is missing, fall back to API-based estimate (imageCreditsCost), not conservative reservation.
+    let actualImageCredits = imageCreditsCost;
+    let actualImageCostUsd = imageCreditsCost * CREDIT_USD;
+    const usedActual = openRouterUsageUsd !== null && openRouterUsageUsd > 0;
+    let neutralCostUsedForActual = false;
+
+    if (usedActual) {
+      const actualQuote = await quoteUsdCost(openRouterUsageUsd);
+      actualImageCredits = actualQuote.credits;
+      actualImageCostUsd = actualQuote.billedUsd;
+      neutralCostUsedForActual = actualQuote.viaNeutralCost;
+    }
+
     const usedFallbackEstimate = !usedActual;
 
     // Log when fallback is used for retroactive analysis
@@ -845,9 +1440,6 @@ ${aspectRatioInstruction}`;
 
     // Total actual credits and cost
     const actualTotalCredits = actualImageCredits + effectiveScenePlannerCredits;
-    const actualImageCostUsd = usedActual && openRouterUsageUsd !== null
-      ? openRouterUsageUsd * PREMIUM_MULTIPLIER
-      : actualImageCredits * CREDIT_USD;
     const actualTotalCostUsd = actualImageCostUsd + effectiveScenePlannerCostUsd;
 
     // Record generation duration for ETA estimation
@@ -873,6 +1465,13 @@ ${aspectRatioInstruction}`;
         });
 
         if (!deductResult.success) {
+          logSettlementEvent({
+            context: requestContext,
+            outcome: "deduct_failed",
+            sid,
+            generationId: chargeGenerationId,
+            details: { actualCredits: actualTotalCredits },
+          });
           // This should rarely happen since we reserved credits, but handle gracefully
           // Release the reservation if conversion fails
           if (reservationMade) {
@@ -884,9 +1483,16 @@ ${aspectRatioInstruction}`;
               })
               .catch(() => {}); // Ignore release errors
           }
-          return NextResponse.json(
+          await updateGenerationRequest("failed", {
+            error: "Insufficient credits",
+            scenePlannerUsed,
+            scenePlanFromCache,
+            durationMs: Date.now() - generationStartTime,
+          });
+          return jsonWithSessionRefresh(
             {
               error: "Insufficient credits",
+              requestId: generationRequestId,
               required: actualTotalCredits,
               available:
                 "available" in deductResult ? deductResult.available : 0,
@@ -898,10 +1504,28 @@ ${aspectRatioInstruction}`;
         if ("newBalance" in deductResult) {
           updatedCredits = deductResult.newBalance;
         }
+        logSettlementEvent({
+          context: requestContext,
+          outcome: "confirmed",
+          sid,
+          generationId: chargeGenerationId,
+          details: { actualCredits: actualTotalCredits },
+        });
 
         // Handle shortfall case: actual cost exceeded reservation and user couldn't cover the difference
         // In this case, we only charged the reserved amount, not the full actual amount
         if ("shortfall" in deductResult && deductResult.shortfall) {
+          logSettlementEvent({
+            context: requestContext,
+            outcome: "shortfall",
+            sid,
+            generationId: chargeGenerationId,
+            details: {
+              reservedCredits: cost,
+              wantedCredits: actualTotalCredits,
+              shortfall: deductResult.shortfall as number,
+            },
+          });
           console.warn(
             `[Image API] Shortfall: wanted=${actualTotalCredits} credits, charged=${cost} credits, shortfall=${deductResult.shortfall}, gen=${chargeGenerationId}`
           );
@@ -924,6 +1548,7 @@ ${aspectRatioInstruction}`;
         .mutation(api.modelStats.recordGeneration, {
           modelId,
           durationMs: generationDurationMs,
+          serverSecret,
         })
         .catch(() => {});
 
@@ -937,9 +1562,118 @@ ${aspectRatioInstruction}`;
         ? Math.max(0, costUsd - effectiveScenePlannerCostUsd)
         : actualImageCostUsd;
 
-      return NextResponse.json(
-        {
+      await updateGenerationRequest("succeeded", {
+        generationId: chargeGenerationId,
+        providerRequestId,
+        scenePlannerUsed,
+        scenePlanFromCache,
+        usedFallbackEstimate,
+        actualCreditsCost: finalChargedCredits,
+        actualCostUsd: finalChargedCostUsd,
+        durationMs: generationDurationMs,
+      });
+
+      const costEventPayload = {
+        sid,
+        requestId: generationRequestId,
+        generationId: chargeGenerationId,
+        modelId,
+        verseId,
+        translationId,
+        styleProfileId: styleProfile.id,
+        reference,
+        aspectRatio,
+        resolution,
+        scenePlannerUsed,
+        scenePlanFromCache,
+        usedFallbackEstimate,
+        estimatedCreditsCost,
+        estimatedCostUsd: estimatedTotalCostUsd,
+        reservationCreditsCost,
+        reservationCostUsd,
+        imageCreditsCost: finalChargedImageCredits,
+        imageCostUsd: finalChargedImageCostUsd,
+        scenePlannerCredits: effectiveScenePlannerCredits,
+        scenePlannerCostUsd: effectiveScenePlannerCostUsd,
+        actualCreditsCost: finalChargedCredits,
+        actualCostUsd: finalChargedCostUsd,
+        ...(openRouterUsageUsd !== null ? { openRouterUsageUsd } : {}),
+        durationMs: generationDurationMs,
+      };
+
+      try {
+        await withTimeout(
+          convex.action(api.costs.recordImageCostEvent, {
+            ...costEventPayload,
+            serverSecret,
+          }),
+          COST_EVENT_PERSIST_TIMEOUT_MS,
+          "Cost event persistence timeout"
+        );
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        logSettlementEvent({
+          context: requestContext,
+          outcome: "outbox_enqueued",
+          sid,
+          generationId: chargeGenerationId,
+          details: { reason: message },
+        });
+        console.warn("[Image API] Cost event persistence failed, enqueueing outbox:", message);
+        try {
+          await convex.action(api.costs.enqueueImageCostEventOutbox, {
+            ...costEventPayload,
+            enqueueReason: message,
+            serverSecret,
+          });
+        } catch (enqueueError) {
+          logApiFailure({
+            context: requestContext,
+            stage: "cost_event_outbox_enqueue",
+            error: enqueueError,
+            statusCode: 500,
+            sid,
+            generationId: chargeGenerationId,
+          });
+          console.error("[Image API] Failed to enqueue cost event outbox:", enqueueError);
+        }
+      }
+
+      let savedImageId: string | undefined;
+      try {
+        const saveResult = await convex.action(api.verseImages.saveImage, {
+          verseId,
           imageUrl,
+          model: modelId,
+          prompt,
+          reference,
+          verseText,
+          chapterTheme: chapterTheme ?? undefined,
+          generationNumber: generationNumber ?? undefined,
+          promptVersion: PROMPT_VERSION,
+          promptInputs,
+          translationId,
+          provider: getProviderName(modelId),
+          providerRequestId,
+          creditsCost: finalChargedCredits,
+          costUsd: finalChargedCostUsd,
+          durationMs: generationDurationMs,
+          aspectRatio,
+          generationId: chargeGenerationId,
+          serverSecret,
+        });
+        if (saveResult && typeof saveResult.id === "string") {
+          savedImageId = saveResult.id;
+        }
+      } catch (saveError) {
+        console.error("[Image API] Failed to persist generated image:", saveError);
+      }
+
+      return jsonWithSessionRefresh(
+        {
+          requestId: generationRequestId,
+          imageUrl,
+          ...(savedImageId ? { savedImageId } : {}),
           model: modelId,
           provider: getProviderName(modelId),
           providerRequestId,
@@ -959,12 +1693,14 @@ ${aspectRatioInstruction}`;
           imageCostUsd: finalChargedImageCostUsd,
           scenePlannerCostUsd: effectiveScenePlannerCostUsd,
           scenePlannerUsed,
+          scenePlanFromCache,
           // Estimation vs actual tracking
           estimatedCreditsCost,
           estimatedCostUsd: estimatedTotalCostUsd,
           openRouterUsageUsd,
           usedActualCost: usedActual,
           usedFallbackEstimate, // true when OpenRouter didn't return usage data
+          neutralCostUsedForActual,
           // Shortfall tracking (rare: actual exceeded 35x conservative estimate)
           ...(chargeShortfall && { chargeShortfall }),
           durationMs: generationDurationMs,
@@ -1009,22 +1745,43 @@ ${aspectRatioInstruction}`;
     // If no image found, return error and release reservation
     // SECURITY: Log minimal info to avoid exposing API response structure
     console.error(`[Image API] No image in response for model=${modelId}`);
-    if (reservationMade) {
-      await convex
-        .action(api.sessions.releaseReservation, {
-          sid,
-          generationId: chargeGenerationId,
-          serverSecret,
-        })
-        .catch((releaseError) => {
-          console.error("Failed to release reservation:", releaseError);
-        });
-    }
-    return NextResponse.json(
-      { error: "No image generated - model may not support image output" },
+    await releaseReservationIfNeeded();
+    await updateGenerationRequest("failed", {
+      error: "No image generated - model may not support image output",
+      durationMs: Date.now() - generationStartTime,
+      scenePlannerUsed,
+      scenePlanFromCache,
+    });
+    return jsonWithSessionRefresh(
+      {
+        error: "No image generated - model may not support image output",
+        requestId: generationRequestId,
+      },
       { status: 500 }
     );
   } catch (error) {
+    const timeoutError =
+      error instanceof Error &&
+      error.message.startsWith(IMAGE_GENERATION_TIMEOUT_MESSAGE_PREFIX);
+
+    if (timeoutError) {
+      logApiTimeout({
+        context: requestContext,
+        stage: "generate_image_handler",
+        timeoutMs: EFFECTIVE_IMAGE_TIMEOUT_MS,
+        sid,
+        generationId: chargeGenerationId,
+      });
+    } else {
+      logApiFailure({
+        context: requestContext,
+        stage: "generate_image_handler",
+        error,
+        statusCode: 500,
+        sid,
+        generationId: chargeGenerationId,
+      });
+    }
     console.error("Image generation error:", error);
     // Release reservation on failure so user doesn't lose credits
     if (reservationMade) {
@@ -1035,11 +1792,46 @@ ${aspectRatioInstruction}`;
           serverSecret,
         })
         .catch((releaseError) => {
+          logSettlementEvent({
+            context: requestContext,
+            outcome: "release_failed",
+            sid,
+            generationId: chargeGenerationId,
+            details: { stage: "generate_image_error_handler" },
+          });
+          logApiFailure({
+            context: requestContext,
+            stage: "release_reservation_on_error",
+            error: releaseError,
+            statusCode: 500,
+            sid,
+            generationId: chargeGenerationId,
+          });
           console.error("Failed to release reservation:", releaseError);
         });
     }
-    return NextResponse.json(
-      { error: "Failed to generate image" },
+    await updateGenerationRequest("failed", {
+      error: error instanceof Error ? error.message : "Failed to generate image",
+      durationMs: Date.now() - generationStartTime,
+      scenePlannerUsed,
+      scenePlanFromCache,
+    });
+
+    if (timeoutError) {
+      return jsonWithSessionRefresh(
+        {
+          error: "Image generation timed out",
+          requestId: generationRequestId,
+        },
+        { status: 504 }
+      );
+    }
+
+    return jsonWithSessionRefresh(
+      {
+        error: "Failed to generate image",
+        requestId: generationRequestId,
+      },
       { status: 500 }
     );
   }

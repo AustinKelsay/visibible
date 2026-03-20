@@ -16,21 +16,22 @@ export function ChatFAB() {
   return (
     <button
       onClick={openChat}
-      style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
+      style={{ marginBottom: "env(safe-area-inset-bottom)" }}
       className="
-        fixed bottom-6 right-6 z-30
-        min-h-[56px] min-w-[56px]
+        fixed bottom-6 right-4 z-30
+        sm:hidden
+        min-h-[48px] min-w-[48px]
         flex items-center justify-center
         rounded-full shadow-md
         bg-[var(--accent)] text-[var(--accent-text)]
         hover:bg-[var(--accent-hover)]
         transition-all duration-[var(--motion-fast)]
-        active:scale-[0.98]
+        active:scale-95
         cursor-pointer
       "
       aria-label="Open chat"
     >
-      <MessageCircle size={24} strokeWidth={1.5} />
+      <MessageCircle size={20} strokeWidth={1.5} />
     </button>
   );
 }

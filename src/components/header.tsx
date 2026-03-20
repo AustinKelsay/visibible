@@ -6,6 +6,8 @@ import { useNavigation } from "@/context/navigation-context";
 import { TranslationSelector } from "./translation-selector";
 import { ImageModelSelector } from "./image-model-selector";
 import { CreditsBadge } from "./credits-badge";
+import { HeaderSettingsPopover, MobileSettingsRows } from "./header-settings-popover";
+import { HeaderGenerateButton } from "./header-generate-button";
 
 function Divider() {
   return <div className="w-px h-6 bg-[var(--divider)] mx-1 sm:mx-2" />;
@@ -35,7 +37,7 @@ export function Header() {
       style={{ paddingTop: 'env(safe-area-inset-top)' }}
       ref={menuRef}
     >
-      <div className="max-w-4xl mx-auto px-2 sm:px-4 h-14 flex items-center justify-between">
+      <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
         {/* Brand */}
         <h1 className="text-base sm:text-lg font-semibold tracking-tight">Visibible</h1>
 
@@ -50,7 +52,13 @@ export function Header() {
           <div className="flex items-center">
             <TranslationSelector variant="compact" />
             <ImageModelSelector variant="compact" />
+            <HeaderSettingsPopover />
           </div>
+
+          <Divider />
+
+          {/* Generate Button */}
+          <HeaderGenerateButton />
 
           <Divider />
 
@@ -75,9 +83,10 @@ export function Header() {
           </div>
         </nav>
 
-        {/* Mobile Actions - Credits + Chat + Books + Hamburger */}
-        <nav className="flex sm:hidden items-center">
+        {/* Mobile Actions - Credits + Generate + Chat + Books + Hamburger */}
+        <nav className="flex sm:hidden items-center gap-0.5">
           <CreditsBadge />
+          <HeaderGenerateButton />
           <button
             className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             aria-label="Toggle chat"
@@ -104,7 +113,7 @@ export function Header() {
 
       {/* Mobile Settings Dropdown */}
       {isHeaderMenuOpen && (
-        <div className="sm:hidden absolute top-full left-0 right-0 bg-[var(--background)] border-b border-[var(--divider)] shadow-lg">
+        <div className="sm:hidden absolute top-full left-0 right-0 bg-[var(--background)] border-b border-[var(--divider)] shadow-lg z-50">
           <div className="px-4 py-3 space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-[var(--foreground)]">Translation</span>
@@ -114,6 +123,7 @@ export function Header() {
               <span className="text-sm font-medium text-[var(--foreground)]">Image Model</span>
               <ImageModelSelector variant="compact" />
             </div>
+            <MobileSettingsRows />
           </div>
         </div>
       )}

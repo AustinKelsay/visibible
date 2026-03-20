@@ -1,10 +1,23 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, ArrowRight } from "lucide-react";
+import { X, Loader2, Check, Copy, Zap, ChevronDown, Shield, Sparkles, BookOpen, ArrowRight, Users } from "lucide-react";
 import Image from "next/image";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
+import {
+  trackCreditsModalOpened,
+  trackCreditsModalClosed,
+  trackInvoiceCreated,
+  trackInvoiceCopied,
+  trackInvoiceCancelled,
+  trackPaymentCompleted,
+  trackPaymentExpired,
+} from "@/lib/analytics";
+import {
+  resolveCreditsModalClosedStep,
+  resolveCreditsModalOpenedStep,
+} from "@/lib/analytics-event-utils";
 
 function CashAppLogo({ className }: { className?: string }) {
   return (
@@ -73,13 +86,13 @@ function MiniVerseStrip() {
     return () => clearInterval(interval);
   }, []);
 
-  // Sample verse data: verse number and dot count (0-3)
+  // Sample verse data: verse number and image count
   const verses = [
-    { verse: 1, dots: 2 },
-    { verse: 2, dots: 0 },
-    { verse: 3, dots: 1 },
-    { verse: 4, dots: 3 },
-    { verse: 5, dots: 0 },
+    { verse: 1, imageCount: 2 },
+    { verse: 2, imageCount: 0 },
+    { verse: 3, imageCount: 1 },
+    { verse: 4, imageCount: 3 },
+    { verse: 5, imageCount: 0 },
   ];
 
   return (
@@ -89,7 +102,7 @@ function MiniVerseStrip() {
         return (
           <div
             key={v.verse}
-            className={`min-h-[36px] min-w-[36px] flex flex-col items-center justify-center rounded-[var(--radius-sm)] transition-all duration-500 ease-in-out ${
+            className={`relative min-h-[36px] min-w-[36px] flex items-center justify-center rounded-[var(--radius-sm)] transition-all duration-500 ease-in-out ${
               isSelected
                 ? "bg-[var(--accent)] scale-110 shadow-lg shadow-[var(--accent)]/25"
                 : "bg-[var(--divider)] opacity-70"
@@ -102,34 +115,17 @@ function MiniVerseStrip() {
             >
               {v.verse}
             </span>
-            {/* Dots container */}
-            <div
-              className="relative h-2 mt-0.5"
-              style={{ width: v.dots > 0 ? `${8 + (Math.min(v.dots, 3) - 1) * 6}px` : "8px" }}
-            >
-              {v.dots > 0 ? (
-                Array.from({ length: Math.min(v.dots, 3) }).map((_, i) => (
-                  <span
-                    key={i}
-                    className={`absolute w-2 h-2 rounded-full border border-[var(--background)]/30 transition-all duration-500 ease-in-out ${
-                      isSelected
-                        ? "bg-[var(--accent-text)] animate-dot-pulse"
-                        : "bg-[var(--accent)]"
-                    }`}
-                    style={{
-                      left: `${i * 6}px`,
-                      animationDelay: isSelected ? `${i * 0.1}s` : undefined,
-                    }}
-                  />
-                ))
-              ) : (
-                <span
-                  className={`absolute w-2 h-2 rounded-full border border-[var(--background)]/30 transition-all duration-500 ease-in-out ${
-                    isSelected ? "bg-[var(--accent-text)]/50" : "bg-[var(--muted)]/40"
-                  }`}
-                />
-              )}
-            </div>
+            {v.imageCount > 0 && (
+              <span
+                className={`absolute -top-1 -right-1 flex items-center justify-center min-w-3.5 h-3.5 rounded-full text-[9px] font-bold leading-none px-0.5 transition-all duration-500 ease-in-out ${
+                  isSelected
+                    ? "bg-[var(--accent-text)] text-[var(--accent)]"
+                    : "bg-[var(--accent)] text-[var(--accent-text)]"
+                }`}
+              >
+                {v.imageCount}
+              </span>
+            )}
           </div>
         );
       })}
@@ -149,15 +145,19 @@ interface Invoice {
 type ModalState = "welcome" | "selection" | "loading" | "invoice" | "success" | "error";
 
 export function BuyCreditsModal() {
-  const { isBuyModalOpen, closeBuyModal, refetch, credits } = useSession();
+  const { isBuyModalOpen, closeBuyModal, refetch, credits, tier } = useSession();
   const [state, setState] = useState<ModalState>("welcome");
   const [invoice, setInvoice] = useState<Invoice | null>(null);
+  const [invoiceCreatedAt, setInvoiceCreatedAt] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [qrDataUrl, setQrDataUrl] = useState<string>("");
   const [timeLeftMs, setTimeLeftMs] = useState(0);
   const prevModalOpenRef = useRef(false);
   const hasSeenWelcomeRef = useRef(false);
+  const hasTrackedExpiredRef = useRef(false);
+  const expirationCheckRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const modalOpenedAtRef = useRef<number | null>(null);
 
   // Admin login state
   const [showAdminInput, setShowAdminInput] = useState(false);
@@ -172,6 +172,7 @@ export function BuyCreditsModal() {
   const createInvoice = useCallback(async () => {
     setState("loading");
     setError(null);
+    hasTrackedExpiredRef.current = false; // Reset expiry tracking for new invoice
 
     try {
       const response = await fetch("/api/invoice", { method: "POST" });
@@ -182,18 +183,44 @@ export function BuyCreditsModal() {
 
       const data: Invoice = await response.json();
       setInvoice(data);
+      setInvoiceCreatedAt(Date.now());
       setState("invoice");
+      // Track invoice created
+      trackInvoiceCreated({
+        amountUsd: data.amountUsd,
+        tier,
+        hasCredits: credits > 0,
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create invoice");
       setState("error");
     }
-  }, []);
+  }, [tier, credits]);
+
+  const trackModalClosed = useCallback((modalState: ModalState) => {
+    const openedAt = modalOpenedAtRef.current ?? Date.now();
+    const now = Date.now();
+    trackCreditsModalClosed({
+      step: resolveCreditsModalClosedStep({
+        state: modalState,
+        hasActiveInvoice: Boolean(invoice),
+        hasShownWelcomeInSession: hasSeenWelcomeRef.current,
+      }),
+      state: modalState,
+      hadInvoice: Boolean(invoice),
+      timeOpenSeconds: Math.max(0, Math.floor((now - openedAt) / 1000)),
+      tier,
+      hasCredits: credits > 0,
+    });
+    modalOpenedAtRef.current = null;
+  }, [invoice, tier, credits]);
 
   // When modal opens, check if we have a valid unexpired invoice
   useEffect(() => {
     if (!isBuyModalOpen) {
       prevModalOpenRef.current = false;
       hasSeenWelcomeRef.current = false;
+      modalOpenedAtRef.current = null;
       return;
     }
 
@@ -202,24 +229,45 @@ export function BuyCreditsModal() {
     prevModalOpenRef.current = true;
 
     if (!modalJustOpened) return;
+    modalOpenedAtRef.current = Date.now();
 
     // Check invoice expiry once when modal opens
     if (invoice && invoice.expiresAt > Date.now()) {
       // Resume existing valid invoice
       setState("invoice");
+      trackCreditsModalOpened({
+        step: resolveCreditsModalOpenedStep({
+          hasActiveInvoice: true,
+          hasSeenWelcome: true,
+          hasShownWelcomeInSession: hasSeenWelcomeRef.current,
+        }),
+        tier,
+        hasCredits: credits > 0,
+      });
     } else {
       // Check if user has seen welcome before
       const hasSeenWelcome = localStorage.getItem("visibible_welcome_seen") === "true";
-      if (!hasSeenWelcome && !hasSeenWelcomeRef.current) {
+      const step = resolveCreditsModalOpenedStep({
+        hasActiveInvoice: false,
+        hasSeenWelcome,
+        hasShownWelcomeInSession: hasSeenWelcomeRef.current,
+      });
+
+      if (step === "welcome") {
         setState("welcome");
         hasSeenWelcomeRef.current = true;
       } else {
         setState("selection");
       }
+      trackCreditsModalOpened({
+        step,
+        tier,
+        hasCredits: credits > 0,
+      });
       setInvoice(null);
       setQrDataUrl("");
     }
-  }, [isBuyModalOpen, invoice]);
+  }, [isBuyModalOpen, invoice, tier, credits]);
 
   // Reset state when modal closes (preserve invoice for persistence)
   useEffect(() => {
@@ -264,6 +312,7 @@ export function BuyCreditsModal() {
 
       // Success - refetch session and close
       await refetch();
+      trackModalClosed(state);
       closeBuyModal();
     } catch {
       setAdminError("Failed to authenticate");
@@ -306,13 +355,33 @@ export function BuyCreditsModal() {
 
         const data = await response.json();
         if (data.status === "paid") {
+          // Clear both timers immediately to prevent expiration from overwriting success
+          clearInterval(pollInterval);
+          if (expirationCheckRef.current) clearInterval(expirationCheckRef.current);
           setState("success");
+          // Track payment completed
+          if (invoice) {
+            trackPaymentCompleted({
+              amountUsd: invoice.amountUsd,
+              credits: invoice.credits,
+              tier,
+              hasCredits: true, // They just paid, so they have credits now
+            });
+          }
           // Refetch session to update credits
           await refetch();
-          clearInterval(pollInterval);
         } else if (data.status === "expired" || data.status === "failed") {
           setError("Invoice expired. Please try again.");
           setState("error");
+          // Track payment expired (only once per invoice)
+          if (invoice && !hasTrackedExpiredRef.current) {
+            hasTrackedExpiredRef.current = true;
+            trackPaymentExpired({
+              invoiceAgeSeconds: Math.floor((Date.now() - invoiceCreatedAt) / 1000),
+              tier,
+              hasCredits: credits > 0,
+            });
+          }
           clearInterval(pollInterval);
         }
       } catch {
@@ -323,45 +392,65 @@ export function BuyCreditsModal() {
     setTimeLeftMs(Math.max(0, invoice.expiresAt - Date.now()));
 
     // Check expiration + update countdown
-    const expirationCheck = setInterval(() => {
+    expirationCheckRef.current = setInterval(() => {
       if (!invoice) return;
       const remaining = invoice.expiresAt - Date.now();
       setTimeLeftMs(Math.max(0, remaining));
       if (remaining <= 0) {
         setError("Invoice expired. Please try again.");
         setState("error");
+        // Track payment expired (only once per invoice)
+        if (!hasTrackedExpiredRef.current) {
+          hasTrackedExpiredRef.current = true;
+          trackPaymentExpired({
+            invoiceAgeSeconds: Math.floor((Date.now() - invoiceCreatedAt) / 1000),
+            tier,
+            hasCredits: credits > 0,
+          });
+        }
         clearInterval(pollInterval);
-        clearInterval(expirationCheck);
+        clearInterval(expirationCheckRef.current!);
       }
     }, 1000);
 
     return () => {
       clearInterval(pollInterval);
-      clearInterval(expirationCheck);
+      clearInterval(expirationCheckRef.current!);
     };
-  }, [state, invoice, refetch]);
+  }, [state, invoice, invoiceCreatedAt, refetch, tier, credits]);
 
   const copyBolt11 = useCallback(async () => {
     if (!invoice) return;
     try {
       await navigator.clipboard.writeText(invoice.bolt11);
       setCopied(true);
+      trackInvoiceCopied({
+        amountUsd: invoice.amountUsd,
+        credits: invoice.credits,
+        tier,
+        hasCredits: credits > 0,
+      });
       setTimeout(() => setCopied(false), 2000);
     } catch {
       // Ignore clipboard errors
     }
-  }, [invoice]);
+  }, [invoice, tier, credits]);
 
   const handleClose = () => {
-    if (state === "success") {
+    const currentState = state;
+    if (currentState === "loading") {
+      // Don't allow closing while loading
+      return;
+    }
+
+    trackModalClosed(currentState);
+
+    if (currentState === "success") {
       // Reset state fully on success close
       setState("welcome");
       setInvoice(null);
       setQrDataUrl("");
       closeBuyModal();
-    } else if (state === "loading") {
-      // Don't allow closing while loading
-      return;
     } else {
       // Allow closing but preserve invoice state for later
       closeBuyModal();
@@ -375,10 +464,16 @@ export function BuyCreditsModal() {
 
   const handleBrowseFree = () => {
     localStorage.setItem("visibible_welcome_seen", "true");
+    trackModalClosed("welcome");
     closeBuyModal();
   };
 
   const handleCancelInvoice = () => {
+    trackInvoiceCancelled({
+      invoiceAgeSeconds: Math.floor((Date.now() - invoiceCreatedAt) / 1000),
+      tier,
+      hasCredits: credits > 0,
+    });
     setState("selection");
     setInvoice(null);
     setQrDataUrl("");
@@ -445,6 +540,18 @@ export function BuyCreditsModal() {
               </div>
 
               <div className="flex items-start gap-3 p-4 bg-[var(--surface)] rounded-[var(--radius-md)]">
+                <Users size={20} className="text-[var(--accent)] flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-[var(--foreground)] mb-1">
+                    Help build the visual Bible
+                  </p>
+                  <p className="text-xs text-[var(--muted)]">
+                    Credits fund new images and visualizations. Everything created here becomes part of a growing library anyone can explore for free.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 p-4 bg-[var(--surface)] rounded-[var(--radius-md)]">
                 <Zap size={20} className="text-[var(--accent)] flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
                   <p className="text-sm font-medium text-[var(--foreground)] mb-1">
@@ -456,7 +563,7 @@ export function BuyCreditsModal() {
                   <div className="flex flex-col items-center -ml-8">
                     <MiniVerseStrip />
                     <p className="text-[10px] text-[var(--muted)]/70 tracking-wide">
-                      Dots show verses with images
+                      Numbers show images per verse
                     </p>
                   </div>
                 </div>

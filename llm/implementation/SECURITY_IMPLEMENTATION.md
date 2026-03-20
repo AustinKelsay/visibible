@@ -9,12 +9,15 @@ This document describes the security mechanisms protecting API routes from abuse
 The security architecture provides multiple layers of protection:
 
 1. **Origin Validation** - Prevents cross-origin API abuse
-2. **CSRF Protection** - Double-submit cookie pattern (infrastructure ready)
+2. **CSRF Protection** - Double-submit cookie pattern (enforced on admin-login and image generation)
 3. **Session Security** - JWT tokens with IP binding
-4. **Rate Limiting** - Per-endpoint request throttling
-5. **Cost Protection** - Input validation, spending limits, and per-request caps
-6. **Admin Audit Logging** - Tracks admin usage for security monitoring
-7. **Environment Validation** - Startup checks for security configuration
+4. **Server-Authenticated Convex Writes** - Sensitive Convex actions require `CONVEX_SERVER_SECRET`
+5. **Rate Limiting** - Per-endpoint request throttling
+6. **Cost Protection** - Input validation, spending limits, and per-request caps
+7. **Admin Audit Logging** - Tracks admin usage for security monitoring
+8. **Environment Validation** - Startup checks for security configuration
+9. **Security Headers** - CSP/HSTS and browser hardening headers
+10. **Operational Observability** - Structured logs + counters for failures/timeouts/settlement anomalies
 
 ---
 
@@ -27,8 +30,68 @@ The security architecture provides multiple layers of protection:
 | `src/lib/session.ts` | JWT session management with IP binding |
 | `src/lib/validate-env.ts` | Security environment validation |
 | `src/lib/request-body.ts` | Secure body reading with streaming size limits |
+| `src/lib/observability.ts` | Structured security/ops event logging and in-process counters |
+| `next.config.ts` | Security headers (CSP, HSTS, anti-clickjacking, etc.) |
+| `src/app/api/admin-login/route.ts` | Admin auth with origin + CSRF + lockout protections |
+| `src/app/api/chat/route.ts` | Chat endpoint security checks |
+| `src/app/api/generate-image/route.ts` | Image endpoint security checks |
+| `src/app/api/invoice/route.ts` | Invoice creation with rate-limit and observability instrumentation |
+| `src/app/api/invoice/[id]/route.ts` | Invoice status/confirm with polling throttle and settlement instrumentation |
+| `src/app/api/session/route.ts` | Session issuance and CSRF token issuance |
+| `src/app/api/health/route.ts` | Liveness endpoint |
+| `src/app/api/readiness/route.ts` | Critical dependency readiness endpoint |
+| `src/app/api/metrics/route.ts` | Machine-parseable counters endpoint |
 | `convex/rateLimit.ts` | Rate limiting and brute force protection |
 | `convex/sessions.ts` | Credit management, daily limits, admin audit logging |
+| `convex/verseImages.ts` | Server-authenticated image persistence boundary |
+
+---
+
+## Security Headers
+
+**File:** `next.config.ts`
+
+The app applies a hardened header baseline on all routes:
+
+- `X-Frame-Options: DENY`
+- `X-Content-Type-Options: nosniff`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `Permissions-Policy: camera=(), microphone=(), geolocation=()`
+- `Content-Security-Policy` with:
+  - `unsafe-eval` allowed only in development
+  - `object-src 'none'` and `frame-src 'none'`
+  - `upgrade-insecure-requests` in production
+- `Strict-Transport-Security` in production:
+  - `max-age=31536000; includeSubDomains; preload`
+
+---
+
+## Operational Observability
+
+**Files:** `src/lib/observability.ts`, `src/app/api/health/route.ts`, `src/app/api/readiness/route.ts`, `src/app/api/metrics/route.ts`
+
+Security-sensitive and cost-sensitive API flows now emit structured JSON logs and counters for monitoring:
+
+- Failure events: `api.failure`
+- Timeout events: `api.timeout`
+- Settlement lifecycle events: `settlement.event`
+- Rate-limit block warnings: `api.rate_limited`
+
+Key counters include:
+
+- `api_failures_total`
+- `api_timeouts_total`
+- `api_rate_limit_blocks_total`
+- `settlement_events_total`
+- `readiness_checks_total`
+
+Operational endpoints:
+
+- `GET /api/health`: process liveness snapshot
+- `GET /api/readiness`: critical dependency readiness (required env + Convex probe)
+- `GET /api/metrics`: in-process counters snapshot (access-controlled via `METRICS_TOKEN` and/or `METRICS_IP_ALLOWLIST`)
+
+These signals are designed for external log pipelines and alerting, and complement existing route-level security controls.
 
 ---
 
@@ -81,7 +144,7 @@ function getAllowedOrigins(): string[] {
 | `/api/invoice/[id]` | GET, POST | Required |
 | `/api/session` | POST | Required |
 | `/api/admin-login` | POST | Required |
-| `/api/generate-image` | GET | Required |
+| `/api/generate-image` | POST | Required (strict origin; route handler rejects missing Origin before calling `validateOrigin()`) |
 | `/api/chat` | POST | Required |
 | `/api/feedback` | POST | Required |
 
@@ -119,6 +182,60 @@ CSRF protection uses the double-submit cookie pattern. This is a stateless appro
 1. Both cookie and header must be present
 2. Token lengths must match (prevents timing oracle)
 3. Uses `crypto.timingSafeEqual()` for comparison
+
+### Current Scope in This Codebase
+
+- CSRF token is issued/refreshed by `src/app/api/session/route.ts` on both `GET /api/session` and `POST /api/session`.
+- CSRF validation is enforced on `POST /api/admin-login`.
+- CSRF validation is enforced on `POST /api/generate-image`.
+- Other endpoints rely on origin validation and SameSite cookie policy, but do not currently require CSRF header validation.
+
+---
+
+## Server-Authenticated Convex Writes
+
+Sensitive Convex write paths are protected by a shared-secret trust boundary.
+
+### `saveImage` boundary hardening (PR-1)
+
+- `api.verseImages.saveImage` requires `serverSecret` and validates it against `CONVEX_SERVER_SECRET`.
+- Browser-direct `useAction(api.verseImages.saveImage)` is removed; writes now happen from trusted server routes (notably `/api/generate-image`).
+- Remote URL persistence is restricted with:
+  - HTTPS + host allowlist (default trusted provider hosts + optional `IMAGE_FETCH_ALLOWLIST`)
+  - localhost/private-network blocking
+  - image MIME allowlist
+  - max blob size limit (10 MiB)
+- Validation failures reject persistence without falling back to raw URL storage.
+
+### Credit settlement one-way lifecycle (PR-2)
+
+- `reserveCredits`, `releaseReservation`, and `deductCredits` are server-authenticated actions (require `serverSecret`).
+- Ledger state is summarized per `sid + generationId` as `none | reserved | released | charged`.
+- All three operations are idempotent per `sid + generationId`:
+  - `reserveCredits`: returns `{ alreadyReserved: true }` if already reserved; rejects with `"Generation already settled"` if released or charged (no double-reserve).
+  - `releaseReservation`: returns `{ alreadyReleased: true }` for `none`, `released`, or `charged` states (no duplicate refund).
+  - `deductCredits`: returns `{ alreadyCharged: true }` if already charged or released (no re-charge after settlement).
+- Settled generations cannot transition backward:
+  - released/charged generations cannot be reserved again
+  - released generations cannot be charged later
+
+This closes replay paths that could previously inflate credits via duplicate release calls.
+
+### Broader Convex write hardening (PR-5)
+
+Additional sensitive public mutations are now server-authenticated (require `serverSecret`) so they cannot be called directly from untrusted browser clients:
+
+- `api.sessions.createSession`
+- `api.sessions.updateLastSeen`
+- `api.invoices.createInvoice`
+- `api.invoices.expireInvoice`
+- `api.feedback.submitFeedback`
+- `api.modelStats.recordGeneration`
+- `api.rateLimit.checkRateLimit`
+- `api.rateLimit.recordFailedAdminLogin`
+- `api.rateLimit.clearAdminLoginAttempts`
+
+All Next.js API routes that call these functions now pass `CONVEX_SERVER_SECRET`.
 
 ---
 
@@ -491,16 +608,22 @@ if (isProduction && trustedIps) {
 
 ---
 
-## Session IP Binding (Enforced)
+## Session Validation (Timeouts + IP Binding)
 
-**Files:** `src/lib/session.ts`, `src/app/api/chat/route.ts`, `src/app/api/generate-image/route.ts`
+**Files:** `src/lib/session.ts`, `src/app/api/chat/route.ts`, `src/app/api/generate-image/route.ts`, `src/app/api/admin-login/route.ts`, `src/app/api/invoice/route.ts`, `src/app/api/invoice/[id]/route.ts`, `src/app/api/rate-limit-status/route.ts`, `src/app/api/feedback/route.ts`, `src/app/api/session/route.ts`
 
-Session tokens include an IP hash (`iph` field) that binds the session to the client's IP address. This is **enforced** on cost-incurring endpoints to prevent stolen tokens from being used.
+Session validation uses layered checks:
+- **Idle timeout** (configurable 5-15 minutes, default 10)
+- **Absolute timeout** (configurable 4-48 hours, default 8)
+- **IP binding** (`iph`) as a secondary theft-detection control
+
+Renewal is activity-based via `refreshSessionOnActivity` and can extend idle lifetime,
+but never past the absolute timeout cap.
 
 ### Validation Flow
 
 ```typescript
-// Both /api/chat and /api/generate-image use this pattern:
+// Privileged/session-sensitive routes use this pattern:
 const sessionValidation = await validateSessionWithIp(request);
 
 // 1. No session at all
@@ -508,13 +631,13 @@ if (!sessionValidation.sid) {
   return Response.json({ error: "Session required" }, { status: 401 });
 }
 
-// 2. Session exists but IP mismatch (possible token theft)
+// 2. Session exists but failed validation (timeout or IP mismatch)
 if (!sessionValidation.valid) {
-  console.warn(`Session IP mismatch - rejecting request`);
+  console.warn(`Session invalid - rejecting request`);
   return Response.json({ error: "Session invalid" }, { status: 401 });
 }
 
-// 3. Valid session with matching IP
+// 3. Valid session
 const sid = sessionValidation.sid;
 ```
 
@@ -523,13 +646,15 @@ const sid = sessionValidation.sid;
 | Field | Source | Check |
 |-------|--------|-------|
 | `sid` | JWT token | Session ID exists and is valid |
-| `iph` | JWT token | IP hash from token creation |
+| `lat` | JWT token | Last activity timestamp (idle timeout check) |
+| `sat` | JWT token | Session start timestamp (absolute timeout cap) |
+| `iph` | JWT token | IP hash from token creation (secondary control) |
 | Current IP | Request headers | Current client IP, hashed |
 | Match | Comparison | `token.iph === hash(currentIp)` |
 
 ### Legacy Token Handling
 
-Tokens created before IP binding was implemented (missing `iph` field) return `valid: true` with `needsRefresh: true`. The session endpoint will issue a new IP-bound token on next request.
+Legacy tokens missing newer claims (`iph`, `sat`, `lat`) are accepted only if they still pass timeout checks, then are refreshed on activity with full claims.
 
 ---
 
@@ -539,7 +664,7 @@ Tokens created before IP binding was implemented (missing `iph` field) return `v
 |-------|------------|
 | **SameSite Cookies** | Session/CSRF cookies use `Strict`/`Lax` |
 | **Origin Validation** | Rejects unauthorized cross-origin requests |
-| **Session IP Binding** | JWT includes hashed IP, **enforced on /api/chat and /api/generate-image** |
+| **Session IP Binding** | JWT includes hashed IP; enforced on cost-incurring routes and standardized across privileged/session-sensitive routes (`/api/chat`, `/api/generate-image`, `/api/admin-login`, `/api/invoice`, `/api/invoice/[id]`, `/api/rate-limit-status`, `/api/feedback` attribution, existing-session reuse in `/api/session`) |
 | **Rate Limiting** | Per-endpoint request throttling (see RATE_LIMIT_IMPLEMENTATION.md) |
 | **Input Validation** | Zod schemas with length limits on all fields |
 | **Per-Request Cost Cap** | Maximum $1.00 per single request |
@@ -569,7 +694,9 @@ Tokens created before IP binding was implemented (missing `iph` field) return `v
 ### Session Farming Attack
 **Attack:** Create many sessions from different IPs to multiply rate limits.
 **Mitigation:**
-- Rate limiting uses `${ipHash}:${sid}` format
+- Cost-incurring endpoints (`/api/chat`, `/api/generate-image`) rate limit on `${ipHash}:${sid}`
+- Session, invoice-creation, and feedback endpoints rate limit on `ipHash` to reduce multi-session bypass risk
+- Invoice status/confirm polling (`/api/invoice/[id]`) rate limits on `${ipHash}:${sid}` to cap repeated LND checks per session
 - Daily spending limit applies per session
 - Each session still limited to $5/day regardless of IP
 
@@ -591,7 +718,7 @@ Tokens created before IP binding was implemented (missing `iph` field) return `v
 **Attack:** Steal session cookie and use from attacker's machine.
 **Mitigation:**
 - Session tokens include IP hash binding (`iph` field)
-- `/api/chat` and `/api/generate-image` validate IP on every request
+- IP-bound session validation is enforced on privileged/session-sensitive routes (`/api/chat`, `/api/generate-image`, `/api/admin-login`, `/api/invoice`, `/api/invoice/[id]`, `/api/rate-limit-status`; feedback/session flows use `validateSessionWithIp` for identity derivation where applicable)
 - Requests from mismatched IPs are rejected with 401
 - Attacker cannot use stolen token from different IP
 
@@ -606,6 +733,7 @@ Tokens created before IP binding was implemented (missing `iph` field) return `v
 | `src/lib/session.ts` | JWT session management with IP binding |
 | `src/lib/validate-env.ts` | Security environment validation |
 | `src/lib/request-body.ts` | Secure body reading with size limits |
+| `src/app/api/admin-login/route.ts` | Admin authentication with CSRF + brute-force lockout checks |
 | `src/app/api/chat/route.ts` | Chat endpoint with all security checks |
 | `src/app/api/generate-image/route.ts` | Image endpoint with security checks |
 | `convex/rateLimit.ts` | Rate limiting and brute force protection |

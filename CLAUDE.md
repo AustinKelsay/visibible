@@ -6,6 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 npm run dev          # Start development server at localhost:3000
+npm run convex:dev   # Watch/sync Convex dev deployment
+npm run convex:dev:setup # One-time Convex dev setup
+npm run convex:deploy:prod # Deploy Convex to production
 npm run build        # Production build
 npm run lint         # Run ESLint
 npm run typecheck    # Run TypeScript type checking (no emit)
@@ -37,6 +40,12 @@ Next.js 16 App Router application for exploring Scripture with AI-powered chat a
 
 4. **Image Generation** (`src/app/api/generate-image/route.ts`) - OpenRouter API with multimodal models (Gemini default). Builds prompts with prev/next verse context for storyboard continuity.
 
+5. **Ops + Observability**
+   - Shared structured logging/counter helpers: `src/lib/observability.ts`
+   - Liveness endpoint: `src/app/api/health/route.ts`
+   - Readiness endpoint: `src/app/api/readiness/route.ts`
+   - Metrics endpoint: `src/app/api/metrics/route.ts`
+
 ### Model Selection
 
 Both chat and image generation have user-selectable models:
@@ -61,7 +70,7 @@ React hooks are in `@ai-sdk/react`, not `ai/react`:
 
 ### Key Libraries
 
-- `@ai-sdk/react`, `@ai-sdk/openai`, `ai` - Vercel AI SDK v6 (OpenRouter via `createOpenAI()`)
+- `@ai-sdk/react`, `@ai-sdk/openai`, `ai` - Vercel AI SDK v6. OpenRouter is used via `createOpenAI()` from `@ai-sdk/openai` configured with OpenRouter's base URL (`https://openrouter.ai/api/v1`) in `src/app/api/chat/route.ts`
 - `zod` - Request validation in API routes
 - `lucide-react` - Icons
 

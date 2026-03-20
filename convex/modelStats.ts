@@ -1,5 +1,6 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { validateServerSecret } from "./_helpers/auth";
 
 // Default ETA for unknown models (seconds)
 const DEFAULT_ETA_MS = 12000;
@@ -62,8 +63,10 @@ export const recordGeneration = mutation({
   args: {
     modelId: v.string(),
     durationMs: v.number(),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
     const existing = await ctx.db
       .query("modelStats")
       .withIndex("by_modelId", (q) => q.eq("modelId", args.modelId))

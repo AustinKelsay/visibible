@@ -1,5 +1,6 @@
 import { mutation } from "./_generated/server";
 import { v } from "convex/values";
+import { validateServerSecret } from "./_helpers/auth";
 
 /**
  * Submit user feedback.
@@ -30,8 +31,10 @@ export const submitFeedback = mutation({
       })
     ),
     userAgent: v.optional(v.string()),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
     // Basic validation - message must not be empty
     const trimmedMessage = args.message.trim();
     if (!trimmedMessage) {

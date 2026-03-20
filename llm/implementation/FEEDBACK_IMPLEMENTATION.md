@@ -218,7 +218,11 @@ export async function POST(request: Request): Promise<NextResponse> {
   const body = parseResult.data;
 
   // 5. Submit to Convex
-  const sid = await getSessionFromCookies();
+  const sessionValidation = await validateSessionWithIp(request);
+  const sid =
+    sessionValidation.valid && sessionValidation.sid
+      ? sessionValidation.sid
+      : null;
   const userAgent = request.headers.get("user-agent") ?? undefined;
 
   await convex.mutation(api.feedback.submitFeedback, {

@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getSessionFromCookies, getClientIp, hashIp } from "@/lib/session";
-import { getConvexClient } from "@/lib/convex-client";
+import {
+  validateSessionWithIp,
+  withSessionRefreshCookie,
+  getClientIp,
+  hashIp,
+} from "@/lib/session";
+import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import {
   readJsonBodyWithLimit,
@@ -59,6 +64,17 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
+  let serverSecret: string;
+  try {
+    serverSecret = getConvexServerSecret();
+  } catch {
+    console.error("[Feedback API] CONVEX_SERVER_SECRET not configured");
+    return NextResponse.json(
+      { error: "Service unavailable" },
+      { status: 503 }
+    );
+  }
+
   // Rate limit by IP hash to prevent spam
   const clientIp = getClientIp(request);
   const ipHash = await hashIp(clientIp);
@@ -66,6 +82,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: ipHash,
     endpoint: "feedback",
+    serverSecret,
   });
 
   if (!rateLimitResult.allowed) {
@@ -124,7 +141,13 @@ export async function POST(request: Request): Promise<NextResponse> {
   const body = parseResult.data;
 
   // Get session ID (optional, for context)
-  const sid = await getSessionFromCookies();
+  const sessionValidation = await validateSessionWithIp(request);
+  const sid =
+    sessionValidation.valid && sessionValidation.sid
+      ? sessionValidation.sid
+      : null;
+  const withSessionRefresh = (response: Response) =>
+    withSessionRefreshCookie(response, sessionValidation.refreshedToken) as NextResponse;
 
   // Get user agent
   const userAgent = request.headers.get("user-agent") ?? undefined;
@@ -136,17 +159,18 @@ export async function POST(request: Request): Promise<NextResponse> {
       verseContext: body.verseContext,
       imageContext: body.imageContext,
       userAgent,
+      serverSecret,
     });
 
-    return NextResponse.json({ success: true });
+    return withSessionRefresh(NextResponse.json({ success: true }));
   } catch (error) {
     console.error("Feedback submission error:", error);
-    return NextResponse.json(
+    return withSessionRefresh(NextResponse.json(
       {
         error:
           error instanceof Error ? error.message : "Failed to submit feedback",
       },
       { status: 400 }
-    );
+    ));
   }
 }

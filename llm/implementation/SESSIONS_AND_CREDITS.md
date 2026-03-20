@@ -17,8 +17,8 @@ This document describes the anonymous session, credit ledger, and Lightning paym
 │                                   Next.js API Routes                                        │
 │                                              │                                              │
 │   ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐ │
-│   │  /api/session   │    │  /api/invoice   │    │/api/invoice/:id │    │/api/generate-   │ │
-│   │                 │    │                 │    │                 │    │    image        │ │
+│   │  /api/session   │    │  /api/invoice   │    │/api/invoice/:id │    │/api/generate-image│ │
+│   │                 │    │                 │    │                 │    │                  │ │
 │   │ GET: get state  │    │ POST: create    │    │ GET: status     │    │ pre-check       │ │
 │   │ POST: create    │    │      invoice    │    │ POST: confirm   │    │ post-charge     │ │
 │   └────────┬────────┘    └────────┬────────┘    └────────┬────────┘    └────────┬────────┘ │
@@ -105,27 +105,33 @@ If Convex is not configured, session and payment routes return free defaults or 
 | Function | Type | Arguments | Returns |
 |----------|------|-----------|---------|
 | `getSession` | Query | `sid` | `{ sid, tier, credits, createdAt, lastSeenAt }` or `null` |
-| `createSession` | Mutation | `sid, ipHash?` | `{ sid, tier: "paid", credits: 0 }` |
-| `updateLastSeen` | Mutation | `sid` | `void` |
-| `addCredits` | Mutation | `sid, amount, reason, invoiceId?` | `{ newBalance }` |
-| `reserveCredits` | Mutation | `sid, amount, modelId, generationId, costUsd?` | `{ success, newBalance, alreadyReserved? }` or `{ success: false, error, required, available }` |
-| `releaseReservation` | Mutation | `sid, generationId` | `{ success, newBalance, alreadyReleased? }` |
-| `deductCredits` | Mutation | `sid, amount, modelId, generationId, costUsd?, actualAmount?, actualCostUsd?` | `{ success, newBalance, converted?, alreadyCharged?, refunded?, additionalCharged? }` or `{ success: false, error, required, available }` |
+| `createSession` | Mutation | `sid, ipHash?, serverSecret` | `{ sid, tier: "paid", credits: 0 }` |
+| `updateLastSeen` | Mutation | `sid, serverSecret` | `void` |
+| `addCredits` | Action | `sid, amount, reason, invoiceId?, serverSecret` | `{ newBalance }` |
+| `reserveCredits` | Action | `sid, amount, modelId, generationId, costUsd?, serverSecret` | `{ success, newBalance, alreadyReserved? }` or `{ success: false, error, required?, available? }` |
+| `releaseReservation` | Action | `sid, generationId, serverSecret` | `{ success, newBalance, alreadyReleased? }` |
+| `deductCredits` | Action | `sid, amount, modelId, generationId, costUsd?, actualAmount?, actualCostUsd?, serverSecret` | `{ success, newBalance, converted?, alreadyCharged?, refunded?, additionalCharged?, shortfall? }` or `{ success: false, error, required?, available? }` |
 | `getCreditHistory` | Query | `sid, limit?` | `Array<{ delta, reason, modelId, generationId, createdAt }>` |
-| `upgradeToAdmin` | Action | `sid` | `{ success: true }` |
+| `upgradeToAdmin` | Action | `sid, serverSecret` | `{ success: true }` |
 
 **Note:** `addCredits` accepts `invoiceId` but it is not currently stored in the ledger (reserved for future use).
 
 ### Reservation System
 
-The credit system uses a two-stage reservation pattern to prevent race conditions:
+The credit system uses a reservation settlement state machine per `generationId` to prevent race conditions and replay abuse:
 
-1. **`reserveCredits`**: Atomically reserves credits BEFORE image generation. Deducts from balance and creates a `reservation` ledger entry. If credits already reserved/charged for the `generationId`, returns `{ alreadyReserved: true }`.
+1. **`reserveCredits`**: Atomically reserves credits BEFORE image generation. Deducts from balance and creates a `reservation` ledger entry.
+   - If state is `reserved`, returns `{ alreadyReserved: true }`.
+   - If state is `released` or `charged`, returns `{ success: false, error: "Generation already settled" }`.
 
-2. **`releaseReservation`**: Restores credits if generation fails. Creates a `refund` entry to cancel the reservation. Called when OpenRouter returns an error.
+2. **`releaseReservation`**: Restores credits if generation fails.
+   - Only refunds from state `reserved`.
+   - For `none`, `released`, or `charged`, returns `{ alreadyReleased: true }` with no balance change.
 
 3. **`deductCredits`**: Converts a reservation to a final charge. Uses double-entry bookkeeping:
-   - If reservation exists but no generation entry: creates `generation` entry + compensating `refund` entry (net effect: reservation → generation)
+   - If state is `reserved`: creates `generation` entry + compensating `refund` entry (net effect: reservation → generation)
+   - If state is `charged`: idempotent no-op (`alreadyCharged: true`)
+   - If state is `released`: no-op (`alreadyCharged: true`) so released generations cannot be re-charged
    - If no reservation: performs direct debit (backward compatibility)
    - Returns `{ converted: true }` when converting from reservation
    - **Actual-usage charging**: Accepts optional `actualAmount` and `actualCostUsd` params to charge the real cost (from OpenRouter `usage` response) instead of the reserved amount:
@@ -137,12 +143,26 @@ The credit system uses a two-stage reservation pattern to prevent race condition
      - If `actualCostUsd > reservationCostUsd`: increases `dailySpendUsd` by the difference
      - This prevents the inflated 35x reservation estimate from prematurely blocking users at the daily spend limit
 
-**Idempotency:** All three mutations use net-delta checking:
-1. Query ALL ledger entries for `generationId` + `sid`
-2. Calculate `netDelta` summing `generation`, `refund`, AND `reservation` entries
-3. If `netDelta < 0` (already reserved/charged), return success without duplicate action
+**Idempotency and one-way settlement:** All three actions summarize ledger state for `generationId` + `sid`:
+1. Query all ledger entries for that key.
+2. Classify state as:
+   - `none`: no reservation/generation/refund
+   - `reserved`: reservation exists, no generation
+   - `released`: refund exists, no generation
+   - `charged`: generation exists (refund may also exist as conversion entry)
+3. Gate reserve/release/deduct behavior based on state to prevent duplicate refunds and post-release charging.
 
-This prevents double-charging from retries and allows atomic credit reservation.
+This prevents credit inflation from duplicate release calls and prevents replay charging after a released generation.
+
+### Stale Reservation Reconciliation (PR-4)
+
+To handle crashed/aborted requests that never settle:
+
+- `internal.sessions.reconcileStaleReservations` scans stale `reservation` entries using `creditLedger.by_reason_createdAt`.
+- Cron runs every 5 minutes via `convex/crons.ts`.
+- Default reconciliation target is reservations older than 30 minutes (`maxAgeMs`), up to 50 candidates per run (`limit`).
+- Only generations currently in settlement state `reserved` are released; already `released`/`charged` generations are skipped.
+- This makes reruns safe and idempotent while preventing stranded reserved credits.
 
 **Tier Transitions:** `resolveTier()` centralizes tier updates for all credit mutations. `admin` is sticky and never downgraded; non-admins are always `paid` tier.
 
@@ -188,11 +208,11 @@ for (let attempt = 1; attempt <= maxRetries && !refundSuccess; attempt++) {
 
 | Function | Type | Arguments | Returns |
 |----------|------|-----------|---------|
-| `createInvoice` | Mutation | `sid, amountSats, bolt11, paymentHash` | `{ invoiceId, bolt11, amountUsd, amountSats, expiresAt, credits }` |
+| `createInvoice` | Mutation | `sid, amountSats, bolt11, paymentHash, serverSecret` | `{ invoiceId, bolt11, amountUsd, amountSats, expiresAt, credits }` |
 | `getInvoice` | Query | `invoiceId` | Invoice details (includes `sid`) or `null` |
 | `getSessionInvoices` | Query | `sid` | `Array<{ invoiceId, status, amountUsd, createdAt, paidAt? }>` |
-| `confirmPayment` | Mutation | `invoiceId, paymentHash?` | `{ success, alreadyPaid?, newBalance, creditsAdded }` (preserves `admin` tier; `paymentHash` only updated if provided) |
-| `expireInvoice` | Mutation | `invoiceId` | `{ success: true }` |
+| `confirmPayment` | Action | `invoiceId, paymentHash?, serverSecret` | `{ success, alreadyPaid?, newBalance, creditsAdded }` (preserves `admin` tier; `paymentHash` only updated if provided) |
+| `expireInvoice` | Mutation | `invoiceId, serverSecret` | `{ success: true }` |
 
 ### `convex/modelStats.ts`
 
@@ -200,7 +220,7 @@ for (let attempt = 1; attempt <= maxRetries && !refundSuccess; attempt++) {
 |----------|------|-----------|---------|
 | `getModelStats` | Query | `modelId` | `{ modelId, count, avgMs, etaSeconds }` |
 | `getAllModelStats` | Query | none | `Array<{ modelId, count, avgMs, etaSeconds }>` |
-| `recordGeneration` | Mutation | `modelId, durationMs` | `{ modelId, count, avgMs, etaSeconds }` |
+| `recordGeneration` | Mutation | `modelId, durationMs, serverSecret` | `{ modelId, count, avgMs, etaSeconds }` |
 
 ---
 
@@ -213,6 +233,7 @@ All protected API routes implement rate limiting to prevent abuse:
 | `/api/chat` | 20 requests | 1 minute |
 | `/api/generate-image` | 5 requests | 1 minute |
 | `/api/invoice` | 10 requests | 1 minute |
+| `/api/invoice/:id` (GET/POST) | 30 requests | 1 minute |
 | `/api/session` | 10 requests | 1 minute |
 | `/api/admin-login` | 5 attempts | 15 minutes + 1 hour lockout |
 
@@ -220,11 +241,11 @@ All protected API routes implement rate limiting to prevent abuse:
 
 Endpoints use one of two identifier strategies:
 
-**IP+Session (for AI features):**
+**IP+Session (for session-bound expensive/sensitive flows):**
 ```typescript
 const rateLimitIdentifier = `${ipHash}:${sid}`;
 ```
-Used by: `/api/chat`, `/api/generate-image`
+Used by: `/api/chat`, `/api/generate-image`, `/api/invoice/:id` (status/confirm polling)
 
 **IP-Only (for infrastructure):**
 ```typescript
@@ -233,8 +254,8 @@ const rateLimitIdentifier = await hashIp(clientIp);
 Used by: `/api/session`, `/api/invoice`
 
 **Why the difference?**
-- **AI endpoints** use IP+session to allow fair per-session usage while preventing abuse
-- **Invoice endpoint** uses IP-only to prevent multi-session bypass (attacker creating many sessions to flood LND with invoices)
+- **Session-bound expensive/sensitive endpoints** use IP+session to allow fair per-session usage while preventing abuse
+- **Invoice creation** uses IP-only to prevent multi-session bypass (attacker creating many sessions to flood LND with invoices)
 - **Session endpoint** uses IP-only to prevent session creation spam
 - **Privacy**: IP addresses are hashed with SESSION_SECRET before storage
 
@@ -244,6 +265,10 @@ Rate limiting is handled by `convex/rateLimit.ts`:
 - Sliding window algorithm
 - Admin login includes additional brute-force protection with IP-based lockout
 - Returns `Retry-After` header for 429 responses
+- Sensitive rate-limit mutations are server-authenticated (`serverSecret` required):
+  - `checkRateLimit`
+  - `recordFailedAdminLogin`
+  - `clearAdminLoginAttempts`
 
 ### Rate Limit Status API
 
@@ -305,17 +330,21 @@ Requires session ownership. If pending, checks LND settlement and may confirm/ex
 ### `POST /api/invoice/:id`
 Requires session ownership. Verifies LND settlement before confirming payment and granting credits. Returns 402 if not settled.
 
-### `GET /api/generate-image`
+### `POST /api/generate-image`
 Credit flow (reservation pattern):
-1. Verify session cookie via `getSessionFromCookies()`.
-2. Fetch model from `fetchImageModels()` and compute `creditsCost` via `computeCreditsCost()`.
-3. **Reject unpriced models** - if `creditsCost` is null, return 400 "Model pricing unavailable".
-4. **Reserve credits atomically** via `reserveCredits()` - deducts from balance immediately.
-5. If reservation fails (insufficient credits or daily limit exceeded), return 402.
-6. Generate image via OpenRouter.
-7. **Convert reservation to charge** via `deductCredits()` - uses double-entry bookkeeping.
-8. If generation fails, **release reservation** via `releaseReservation()` to restore credits.
-9. If post-charge fails, return 402 and discard the generated image.
+1. Enforce strict origin + CSRF validation for this state-changing route.
+2. Verify session and IP binding via `validateSessionWithIp()`.
+3. Parse JSON request body (model/context/options).
+4. `GET /api/generate-image` returns `405 Method Not Allowed` with `Allow: POST`.
+5. Fetch model from `fetchImageModels()` and compute `creditsCost` via `computeCreditsCost()`.
+6. **Reject unpriced models** - if `creditsCost` is null, return 400 "Model pricing unavailable".
+7. **Reserve credits atomically** via `reserveCredits()` - deducts from balance immediately.
+8. If reservation fails (insufficient credits or daily limit exceeded), return 402.
+9. Generate image via OpenRouter.
+10. **Convert reservation to charge** via `deductCredits()` - uses double-entry bookkeeping.
+11. If generation fails, **release reservation** via `releaseReservation()` to restore credits.
+12. If post-charge fails, return 402 and discard the generated image.
+13. Persist generated image server-side via `api.verseImages.saveImage` using `CONVEX_SERVER_SECRET`; response includes `savedImageId` when persistence succeeds.
 
 On success, the response includes:
 - `imageUrl`, `model`, `provider`, `providerRequestId`
@@ -436,7 +465,7 @@ function computeChatCreditsCost(
 - `SessionProvider` (`src/context/session-context.tsx`): boots the session, exposes `buyCredits`, and updates credits.
 - `CreditsBadge`: shows credit balance (clickable to buy) or Admin badge.
 - `BuyCreditsModal`: includes integrated onboarding (welcome flow), creates invoice, displays QR + BOLT11, polls status until paid or expired. Also includes admin login option.
-- `HeroImage`: gates generation based on credits, sends generation requests, and saves metadata to Convex via `saveImage` action.
+- `HeroImage`: gates generation based on credits and sends generation requests. Image persistence is handled server-side in `/api/generate-image`.
 
 ---
 
@@ -450,20 +479,35 @@ SESSION_SECRET=your-session-secret-here
 ADMIN_PASSWORD=your-secret-admin-password
 ADMIN_PASSWORD_SECRET=your-hmac-secret
 
-# Convex
-CONVEX_DEPLOYMENT=prod:your-deployment
+# Convex runtime target (Next.js environment)
+# Use dev URL in local/preview, prod URL in production
+# Replace placeholder with your actual deployment URL or custom domain
+# (e.g., https://api.dev.visibible.com for preview/dev, https://api.visibible.com for production)
 NEXT_PUBLIC_CONVEX_URL=https://your-deployment.convex.cloud
+CONVEX_SERVER_SECRET=your-convex-server-secret
 
 # Image generation
 ENABLE_IMAGE_GENERATION=true
 OPENROUTER_API_KEY=sk-or-...
 OPENROUTER_REFERRER=http://localhost:3000
 OPENROUTER_TITLE=visibible
+# Optional strict host allowlist for server-side image fetch persistence
+# IMAGE_FETCH_ALLOWLIST=openrouter.ai,*.openrouter.ai
 
 # Lightning
 LND_HOST=your-node.m.voltageapp.io
 LND_INVOICE_MACAROON=your-invoice-macaroon-hex
 ```
+
+Convex CLI deployment targeting (`CONVEX_DEPLOYMENT`) is managed with:
+
+- `.env.convex.dev` for dev commands
+- `.env.convex.prod` for production deploy commands
+
+For canonical project-specific URL/domain mapping and env templates, see `README.md`
+(`Convex Setup` and `Vercel Setup` sections).
+
+See `llm/workflow/CONVEX_WORKFLOWS.md` for the full workflow.
 
 Generate secrets:
 
@@ -479,6 +523,7 @@ Some environment variables must be set in **both** Next.js (`.env.local`) and Co
 
 | Variable | Next.js | Convex | Notes |
 |----------|---------|--------|-------|
+| `CONVEX_SERVER_SECRET` | ✅ | ✅ | Must match exactly for authenticated server actions |
 | `ADMIN_PASSWORD_SECRET` | ✅ | ✅ | Must match exactly in both environments |
 
 **Why?** The admin login flow works in two stages:

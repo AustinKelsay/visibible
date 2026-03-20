@@ -34,6 +34,10 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 !.env.example
+!.env.convex.dev.example
+!.env.convex.prod.example
+!.env.vercel.preview.example
+!.env.vercel.prod.example
 
 # vercel
 .vercel
@@ -41,3 +45,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.env*.local
+
+# Convex function metadata / specs (generated)
+function_spec.json
+*function_spec*.json

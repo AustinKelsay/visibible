@@ -1,0 +1,3582 @@
+{
+  "url": "https://coordinated-shepherd-515.convex.cloud",
+  "functions": [
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "verseId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "verseImages.js:getLatestImage",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "book": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "chapter": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "verseImages.js:getChapterImageStatus",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {}
+      },
+      "functionType": "Query",
+      "identifier": "verseImages.js:getBooksWithImages",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "book": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "verseImages.js:getChaptersWithImages",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "limit": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "refreshToken": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "verseId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "verseImages.js:getImageHistory",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "requestId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "verseImages.js:getGenerationRequestStatus",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "styleProfileId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "translationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "verseId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "verseImages.js:getScenePlanCache",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "styleProfileId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "translationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "verseId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "verseImages.js:markScenePlanCacheHit",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "plannerModel": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "promptVersion": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "scenePlan": {
+            "fieldType": {
+              "type": "object",
+              "value": {
+                "action": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "composition": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                },
+                "mood": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                },
+                "primarySubject": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "secondaryElements": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                },
+                "setting": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "timeOfDay": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": false
+          },
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "styleProfileId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "translationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "verseId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "verseImages.js:upsertScenePlanCache",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "aspectRatio": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "estimatedCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "estimatedCreditsCost": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "modelId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "promptVersion": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "reference": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "requestId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "resolution": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "scenePlannerModel": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "translationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "verseId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "verseImages.js:createGenerationRequest",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "actualCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "actualCreditsCost": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "durationMs": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "error": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "generationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "promptPacket": {
+            "fieldType": {
+              "type": "object",
+              "value": {
+                "aspectRatio": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "budget": {
+                  "fieldType": {
+                    "type": "object",
+                    "value": {
+                      "finalChars": {
+                        "fieldType": {
+                          "type": "number"
+                        },
+                        "optional": false
+                      },
+                      "maxChars": {
+                        "fieldType": {
+                          "type": "number"
+                        },
+                        "optional": false
+                      }
+                    }
+                  },
+                  "optional": false
+                },
+                "chapterTheme": {
+                  "fieldType": {
+                    "type": "object",
+                    "value": {
+                      "elements": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      },
+                      "palette": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      },
+                      "setting": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      },
+                      "style": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "continuity": {
+                  "fieldType": {
+                    "type": "object",
+                    "value": {
+                      "next": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "previous": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "currentVerse": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "flags": {
+                  "fieldType": {
+                    "type": "object",
+                    "value": {
+                      "generationNoteIncluded": {
+                        "fieldType": {
+                          "type": "boolean"
+                        },
+                        "optional": false
+                      },
+                      "narrativeContextIncluded": {
+                        "fieldType": {
+                          "type": "boolean"
+                        },
+                        "optional": false
+                      },
+                      "scenePlanFromCache": {
+                        "fieldType": {
+                          "type": "boolean"
+                        },
+                        "optional": false
+                      },
+                      "scenePlannerUsed": {
+                        "fieldType": {
+                          "type": "boolean"
+                        },
+                        "optional": false
+                      }
+                    }
+                  },
+                  "optional": false
+                },
+                "reference": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "resolution": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "scenePlan": {
+                  "fieldType": {
+                    "type": "object",
+                    "value": {
+                      "action": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      },
+                      "composition": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "mood": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "primarySubject": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      },
+                      "secondaryElements": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "setting": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      },
+                      "timeOfDay": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "styleProfileId": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "translationId": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "verseId": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                }
+              }
+            },
+            "optional": true
+          },
+          "providerRequestId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "requestId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "scenePlanFromCache": {
+            "fieldType": {
+              "type": "boolean"
+            },
+            "optional": true
+          },
+          "scenePlannerUsed": {
+            "fieldType": {
+              "type": "boolean"
+            },
+            "optional": true
+          },
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "status": {
+            "fieldType": {
+              "type": "union",
+              "value": [
+                {
+                  "type": "literal",
+                  "value": "queued"
+                },
+                {
+                  "type": "literal",
+                  "value": "planning"
+                },
+                {
+                  "type": "literal",
+                  "value": "generating"
+                },
+                {
+                  "type": "literal",
+                  "value": "succeeded"
+                },
+                {
+                  "type": "literal",
+                  "value": "failed"
+                }
+              ]
+            },
+            "optional": false
+          },
+          "usedFallbackEstimate": {
+            "fieldType": {
+              "type": "boolean"
+            },
+            "optional": true
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "verseImages.js:updateGenerationRequest",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "generationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "verseImages.js:getImageByGenerationId",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "aspectRatio": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "chapterTheme": {
+            "fieldType": {
+              "type": "object",
+              "value": {
+                "elements": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "palette": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "setting": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "style": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                }
+              }
+            },
+            "optional": true
+          },
+          "costUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "creditsCost": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "durationMs": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "generationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "generationNumber": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "imageHeight": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "imageMimeType": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "imageSizeBytes": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "imageWidth": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "model": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "prompt": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "promptInputs": {
+            "fieldType": {
+              "type": "object",
+              "value": {
+                "aspectRatio": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                },
+                "generationNumber": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": true
+                },
+                "nextVerse": {
+                  "fieldType": {
+                    "type": "object",
+                    "value": {
+                      "number": {
+                        "fieldType": {
+                          "type": "number"
+                        },
+                        "optional": false
+                      },
+                      "reference": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "text": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "prevVerse": {
+                  "fieldType": {
+                    "type": "object",
+                    "value": {
+                      "number": {
+                        "fieldType": {
+                          "type": "number"
+                        },
+                        "optional": false
+                      },
+                      "reference": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "text": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "reference": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                },
+                "scenePlan": {
+                  "fieldType": {
+                    "type": "object",
+                    "value": {
+                      "action": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      },
+                      "composition": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "mood": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "primarySubject": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      },
+                      "secondaryElements": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "setting": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      },
+                      "timeOfDay": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "styleProfileId": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "promptVersion": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "provider": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "providerRequestId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "reference": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "sourceImageUrl": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "storageId": {
+            "fieldType": {
+              "tableName": "_storage",
+              "type": "id"
+            },
+            "optional": false
+          },
+          "translationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "verseId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "verseText": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "verseImages.js:saveImageWithStorage",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "imageId": {
+            "fieldType": {
+              "tableName": "verseImages",
+              "type": "id"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "verseImages.js:getImageById",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "eventId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "imageId": {
+            "fieldType": {
+              "tableName": "verseImages",
+              "type": "id"
+            },
+            "optional": false
+          },
+          "publishedAt": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "relays": {
+            "fieldType": {
+              "type": "array",
+              "value": {
+                "type": "string"
+              }
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "verseImages.js:recordNostrPublication",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "aspectRatio": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "chapterTheme": {
+            "fieldType": {
+              "type": "object",
+              "value": {
+                "elements": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "palette": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "setting": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "style": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                }
+              }
+            },
+            "optional": true
+          },
+          "costUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "creditsCost": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "durationMs": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "generationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "generationNumber": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "imageHeight": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "imageMimeType": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "imageSizeBytes": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "imageUrl": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "imageWidth": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "model": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "prompt": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "promptInputs": {
+            "fieldType": {
+              "type": "object",
+              "value": {
+                "aspectRatio": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                },
+                "generationNumber": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": true
+                },
+                "nextVerse": {
+                  "fieldType": {
+                    "type": "object",
+                    "value": {
+                      "number": {
+                        "fieldType": {
+                          "type": "number"
+                        },
+                        "optional": false
+                      },
+                      "reference": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "text": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "prevVerse": {
+                  "fieldType": {
+                    "type": "object",
+                    "value": {
+                      "number": {
+                        "fieldType": {
+                          "type": "number"
+                        },
+                        "optional": false
+                      },
+                      "reference": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "text": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "reference": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                },
+                "scenePlan": {
+                  "fieldType": {
+                    "type": "object",
+                    "value": {
+                      "action": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      },
+                      "composition": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "mood": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "primarySubject": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      },
+                      "secondaryElements": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "setting": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      },
+                      "timeOfDay": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "styleProfileId": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "promptVersion": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "provider": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "providerRequestId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "reference": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "sourceImageUrl": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "translationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "verseId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "verseText": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "verseImages.js:saveImageWithUrl",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "aspectRatio": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "chapterTheme": {
+            "fieldType": {
+              "type": "object",
+              "value": {
+                "elements": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "palette": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "setting": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "style": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                }
+              }
+            },
+            "optional": true
+          },
+          "costUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "creditsCost": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "durationMs": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "generationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "generationNumber": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "imageUrl": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "model": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "prompt": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "promptInputs": {
+            "fieldType": {
+              "type": "object",
+              "value": {
+                "aspectRatio": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                },
+                "generationNumber": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": true
+                },
+                "nextVerse": {
+                  "fieldType": {
+                    "type": "object",
+                    "value": {
+                      "number": {
+                        "fieldType": {
+                          "type": "number"
+                        },
+                        "optional": false
+                      },
+                      "reference": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "text": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "prevVerse": {
+                  "fieldType": {
+                    "type": "object",
+                    "value": {
+                      "number": {
+                        "fieldType": {
+                          "type": "number"
+                        },
+                        "optional": false
+                      },
+                      "reference": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "text": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "reference": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                },
+                "scenePlan": {
+                  "fieldType": {
+                    "type": "object",
+                    "value": {
+                      "action": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      },
+                      "composition": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "mood": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "primarySubject": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      },
+                      "secondaryElements": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "setting": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": false
+                      },
+                      "timeOfDay": {
+                        "fieldType": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      }
+                    }
+                  },
+                  "optional": true
+                },
+                "styleProfileId": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "promptVersion": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "provider": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "providerRequestId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "reference": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "translationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "verseId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "verseText": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          }
+        }
+      },
+      "functionType": "Action",
+      "identifier": "verseImages.js:saveImage",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "amountSats": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "bolt11": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "invoiceId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "paymentHash": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "invoices.js:createInvoice",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "invoiceId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "invoices.js:getInvoice",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "invoices.js:getSessionInvoices",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "invoiceId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "paymentHash": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "invoices.js:confirmPaymentInternal",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "invoiceId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "paymentHash": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Action",
+      "identifier": "invoices.js:confirmPayment",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "invoiceId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "invoices.js:expireInvoice",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "modelId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "modelStats.js:getModelStats",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {}
+      },
+      "functionType": "Query",
+      "identifier": "modelStats.js:getAllModelStats",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "durationMs": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "modelId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "modelStats.js:recordGeneration",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "sessions.js:getSession",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "ipHash": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "sessions.js:createSession",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "sessions.js:updateLastSeen",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "amount": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "invoiceId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "reason": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "sessions.js:addCreditsInternal",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "amount": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "costUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "generationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "modelId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "sessions.js:reserveCreditsInternal",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "generationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "sessions.js:releaseReservationInternal",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "actualAmount": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "actualCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "amount": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "costUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "generationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "modelId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "sessions.js:deductCreditsInternal",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "amount": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "invoiceId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "reason": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Action",
+      "identifier": "sessions.js:addCredits",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "amount": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "costUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "generationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "modelId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Action",
+      "identifier": "sessions.js:reserveCredits",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "generationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Action",
+      "identifier": "sessions.js:releaseReservation",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "actualAmount": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "actualCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "amount": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "costUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "generationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "modelId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Action",
+      "identifier": "sessions.js:deductCredits",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "limit": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "sessions.js:getCreditHistory",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "sessions.js:upgradeToAdminInternal",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Action",
+      "identifier": "sessions.js:upgradeToAdmin",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "endpoint": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "estimatedCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "estimatedCredits": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "modelId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "sessions.js:logAdminUsageInternal",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "endpoint": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "estimatedCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "estimatedCredits": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "modelId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Action",
+      "identifier": "sessions.js:logAdminUsage",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "sessions.js:getAdminDailySpend",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "endpoint": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "identifier": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "rateLimit.js:checkRateLimit",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "endpoint": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "identifier": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "rateLimit.js:getRateLimitStatus",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "ipHash": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "rateLimit.js:checkAdminLoginAllowed",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "ipHash": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "rateLimit.js:recordFailedAdminLogin",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "ipHash": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "rateLimit.js:clearAdminLoginAttempts",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {}
+      },
+      "functionType": "Mutation",
+      "identifier": "cleanup.js:cleanupExpiredSessions",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {}
+      },
+      "functionType": "Mutation",
+      "identifier": "cleanup.js:cleanupStaleRateLimits",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {}
+      },
+      "functionType": "Mutation",
+      "identifier": "cleanup.js:cleanupAdminLoginAttempts",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "imageContext": {
+            "fieldType": {
+              "type": "object",
+              "value": {
+                "aspectRatio": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                },
+                "costUsd": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": true
+                },
+                "createdAt": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": true
+                },
+                "creditsCost": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": true
+                },
+                "dimensions": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                },
+                "durationMs": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": true
+                },
+                "imageId": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                },
+                "model": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                },
+                "provider": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          },
+          "message": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "userAgent": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "verseContext": {
+            "fieldType": {
+              "type": "object",
+              "value": {
+                "book": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                },
+                "chapter": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": true
+                },
+                "verseRange": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": true
+                }
+              }
+            },
+            "optional": true
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "feedback.js:submitFeedback",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "imageHeight": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "imageId": {
+            "fieldType": {
+              "tableName": "verseImages",
+              "type": "id"
+            },
+            "optional": false
+          },
+          "imageMimeType": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "imageWidth": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "reference": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "storageId": {
+            "fieldType": {
+              "tableName": "_storage",
+              "type": "id"
+            },
+            "optional": false
+          },
+          "verseId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "verseText": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Action",
+      "identifier": "nostr.js:publishToNostr",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "functionType": "HttpAction",
+      "method": "GET",
+      "path": "/image/{storageId}"
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "markupMultiplier": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "minCredits": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "usd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Action",
+      "identifier": "costs.js:quoteUsdCost",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "actualCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "actualCreditsCost": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "aspectRatio": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "durationMs": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "estimatedCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "estimatedCreditsCost": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "generationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "imageCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "imageCreditsCost": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "modelId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "openRouterUsageUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "reference": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "requestId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "reservationCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "reservationCreditsCost": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "resolution": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "scenePlanFromCache": {
+            "fieldType": {
+              "type": "boolean"
+            },
+            "optional": false
+          },
+          "scenePlannerCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "scenePlannerCredits": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "scenePlannerUsed": {
+            "fieldType": {
+              "type": "boolean"
+            },
+            "optional": false
+          },
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "styleProfileId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "translationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "usedFallbackEstimate": {
+            "fieldType": {
+              "type": "boolean"
+            },
+            "optional": false
+          },
+          "verseId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Action",
+      "identifier": "costs.js:recordImageCostEvent",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "actualCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "actualCreditsCost": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "aspectRatio": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "durationMs": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "enqueueReason": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "estimatedCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "estimatedCreditsCost": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "generationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "imageCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "imageCreditsCost": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "modelId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "openRouterUsageUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          },
+          "reference": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "requestId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "reservationCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "reservationCreditsCost": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "resolution": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "scenePlanFromCache": {
+            "fieldType": {
+              "type": "boolean"
+            },
+            "optional": false
+          },
+          "scenePlannerCostUsd": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "scenePlannerCredits": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "scenePlannerUsed": {
+            "fieldType": {
+              "type": "boolean"
+            },
+            "optional": false
+          },
+          "serverSecret": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "sid": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "styleProfileId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "translationId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "usedFallbackEstimate": {
+            "fieldType": {
+              "type": "boolean"
+            },
+            "optional": false
+          },
+          "verseId": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Action",
+      "identifier": "costs.js:enqueueImageCostEventOutbox",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "public"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "lastError": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": true
+          },
+          "payload": {
+            "fieldType": {
+              "type": "object",
+              "value": {
+                "actualCostUsd": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                },
+                "actualCreditsCost": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                },
+                "aspectRatio": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "durationMs": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": true
+                },
+                "estimatedCostUsd": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                },
+                "estimatedCreditsCost": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                },
+                "generationId": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "imageCostUsd": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                },
+                "imageCreditsCost": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                },
+                "modelId": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "openRouterUsageUsd": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": true
+                },
+                "reference": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "requestId": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "reservationCostUsd": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                },
+                "reservationCreditsCost": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                },
+                "resolution": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "scenePlanFromCache": {
+                  "fieldType": {
+                    "type": "boolean"
+                  },
+                  "optional": false
+                },
+                "scenePlannerCostUsd": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                },
+                "scenePlannerCredits": {
+                  "fieldType": {
+                    "type": "number"
+                  },
+                  "optional": false
+                },
+                "scenePlannerUsed": {
+                  "fieldType": {
+                    "type": "boolean"
+                  },
+                  "optional": false
+                },
+                "sid": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "styleProfileId": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "translationId": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                },
+                "usedFallbackEstimate": {
+                  "fieldType": {
+                    "type": "boolean"
+                  },
+                  "optional": false
+                },
+                "verseId": {
+                  "fieldType": {
+                    "type": "string"
+                  },
+                  "optional": false
+                }
+              }
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "costs.js:enqueueImageCostEventOutboxInternal",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "limit": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          },
+          "now": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Query",
+      "identifier": "costs.js:getPendingImageCostEventsInternal",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "outboxId": {
+            "fieldType": {
+              "tableName": "costEventOutbox",
+              "type": "id"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "costs.js:markImageCostEventSuccessInternal",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "error": {
+            "fieldType": {
+              "type": "string"
+            },
+            "optional": false
+          },
+          "outboxId": {
+            "fieldType": {
+              "tableName": "costEventOutbox",
+              "type": "id"
+            },
+            "optional": false
+          }
+        }
+      },
+      "functionType": "Mutation",
+      "identifier": "costs.js:markImageCostEventFailureInternal",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    },
+    {
+      "args": {
+        "type": "object",
+        "value": {
+          "limit": {
+            "fieldType": {
+              "type": "number"
+            },
+            "optional": true
+          }
+        }
+      },
+      "functionType": "Action",
+      "identifier": "costs.js:processCostEventOutboxBatch",
+      "returns": {
+        "type": "any"
+      },
+      "visibility": {
+        "kind": "internal"
+      }
+    }
+  ]
+}

@@ -21,8 +21,10 @@ High-level overview of how verse images are persisted and browsed. Details may c
 
 - On page load, the app queries Convex for the verse's image history (newest first).
 - If history is empty, the hero image auto-generates the first image.
-- New images are appended to the history and become immediately browseable.
+- New images are persisted by the server (`/api/generate-image` -> `api.verseImages.saveImage`) and appended to history.
 - History is shared across devices for the same Convex deployment.
+- Browser code does not call `saveImage` directly; persistence writes are server-authenticated with `CONVEX_SERVER_SECRET`.
+- Remote URL persistence fetches are restricted by host allowlist + local/private host blocking and image MIME/size validation.
 
 ## Browsing History
 
@@ -32,7 +34,7 @@ High-level overview of how verse images are persisted and browsed. Details may c
 
 ## Visual Indicators
 
-- Blue circle dots indicate verses with images across the UI:
+- Accent dots indicate verses with images across the UI:
   - **Verse Strip** (`src/components/verse-strip.tsx`): Shows stacked dots below each verse number
   - **Book Menu** (`src/components/book-menu.tsx`): Shows single dots next to books, chapters, and verses with images
   - **Onboarding Modal** (`src/components/buy-credits-modal.tsx`): Shows stacked dots in the MiniVerseStrip demo component
@@ -45,5 +47,7 @@ High-level overview of how verse images are persisted and browsed. Details may c
 
 ## Dependencies
 
-- `NEXT_PUBLIC_CONVEX_URL` enables Convex image persistence on the client.
-- `CONVEX_DEPLOYMENT` configures the Convex backend (see `.env.example`).
+- `NEXT_PUBLIC_CONVEX_URL` enables Convex-backed history queries and generation flows.
+- `CONVEX_SERVER_SECRET` is required for server-authenticated image persistence writes.
+- `IMAGE_FETCH_ALLOWLIST` (optional) extends allowed hosts for server-side image fetch persistence.
+- `CONVEX_DEPLOYMENT` is used by Convex CLI targeting (`.env.convex.dev` / `.env.convex.prod`), not by Next.js runtime on Vercel.

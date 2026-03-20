@@ -27,6 +27,49 @@ const promptInputsValidator = v.object({
   nextVerse: v.optional(verseContextValidator),
 });
 
+const continuityHintsValidator = v.object({
+  previous: v.optional(v.string()),
+  next: v.optional(v.string()),
+});
+
+const promptPacketValidator = v.object({
+  verseId: v.string(),
+  translationId: v.string(),
+  reference: v.string(),
+  currentVerse: v.string(),
+  styleProfileId: v.string(),
+  aspectRatio: v.string(),
+  resolution: v.string(),
+  chapterTheme: v.optional(
+    v.object({
+      setting: v.string(),
+      palette: v.string(),
+      elements: v.string(),
+      style: v.string(),
+    })
+  ),
+  continuity: v.optional(continuityHintsValidator),
+  scenePlan: v.optional(scenePlanValidator),
+  flags: v.object({
+    scenePlannerUsed: v.boolean(),
+    scenePlanFromCache: v.boolean(),
+    narrativeContextIncluded: v.boolean(),
+    generationNoteIncluded: v.boolean(),
+  }),
+  budget: v.object({
+    maxChars: v.number(),
+    finalChars: v.number(),
+  }),
+});
+
+const generationStatusValidator = v.union(
+  v.literal("queued"),
+  v.literal("planning"),
+  v.literal("generating"),
+  v.literal("succeeded"),
+  v.literal("failed")
+);
+
 export default defineSchema({
   verseImages: defineTable({
     // Verse identifier (lowercase, e.g., "genesis-1-1")
@@ -80,6 +123,72 @@ export default defineSchema({
     .index("by_verse", ["verseId", "createdAt"])
     .index("by_generationId", ["generationId"]),
 
+  // Request lifecycle for image generation to support progress sync and observability
+  imageGenerationRequests: defineTable({
+    requestId: v.string(),
+    sid: v.string(),
+    verseId: v.string(),
+    translationId: v.optional(v.string()),
+    reference: v.optional(v.string()),
+    modelId: v.optional(v.string()),
+    aspectRatio: v.optional(v.string()),
+    resolution: v.optional(v.string()),
+    status: generationStatusValidator,
+    error: v.optional(v.string()),
+    promptVersion: v.optional(v.string()),
+    promptPacket: v.optional(promptPacketValidator),
+    scenePlannerModel: v.optional(v.string()),
+    scenePlannerUsed: v.optional(v.boolean()),
+    scenePlanFromCache: v.optional(v.boolean()),
+    usedFallbackEstimate: v.optional(v.boolean()),
+    generationId: v.optional(v.string()),
+    providerRequestId: v.optional(v.string()),
+    estimatedCreditsCost: v.optional(v.number()),
+    actualCreditsCost: v.optional(v.number()),
+    estimatedCostUsd: v.optional(v.number()),
+    actualCostUsd: v.optional(v.number()),
+    durationMs: v.optional(v.number()),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+    startedAt: v.optional(v.number()),
+    completedAt: v.optional(v.number()),
+  })
+    .index("by_requestId", ["requestId"])
+    .index("by_verse_createdAt", ["verseId", "createdAt"])
+    .index("by_sid_createdAt", ["sid", "createdAt"])
+    .index("by_status_updatedAt", ["status", "updatedAt"]),
+
+  // Cached scene planner outputs keyed by verse/translation/style profile.
+  scenePlanCache: defineTable({
+    verseId: v.string(),
+    translationId: v.string(),
+    styleProfileId: v.string(),
+    scenePlan: scenePlanValidator,
+    plannerModel: v.optional(v.string()),
+    promptVersion: v.optional(v.string()),
+    hitCount: v.number(),
+    lastUsedAt: v.number(),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_key", ["verseId", "translationId", "styleProfileId"])
+    .index("by_lastUsedAt", ["lastUsedAt"]),
+
+  // Durable outbox for image cost events that failed to persist in real-time.
+  costEventOutbox: defineTable({
+    eventType: v.string(), // "image_generation_cost"
+    payload: v.any(),
+    status: v.string(), // "pending" | "processing" | "processed" | "failed"
+    attemptCount: v.number(),
+    nextRetryAt: v.number(),
+    lastError: v.optional(v.string()),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+    processedAt: v.optional(v.number()),
+  })
+    .index("by_status_nextRetryAt", ["status", "nextRetryAt"])
+    .index("by_createdAt", ["createdAt"]),
+
   // Anonymous sessions with credit balances
   sessions: defineTable({
     sid: v.string(),
@@ -127,7 +236,8 @@ export default defineSchema({
     createdAt: v.number(),
   })
     .index("by_sid", ["sid", "createdAt"])
-    .index("by_generationId", ["generationId", "sid"]),
+    .index("by_generationId", ["generationId", "sid"])
+    .index("by_reason_createdAt", ["reason", "createdAt"]),
 
   // Model generation statistics for ETA estimation
   modelStats: defineTable({
@@ -144,7 +254,9 @@ export default defineSchema({
     endpoint: v.string(), // API endpoint name (e.g., "chat", "generate-image")
     count: v.number(), // Number of requests in current window
     windowStart: v.number(), // Start of current time window (ms timestamp)
-  }).index("by_identifier_endpoint", ["identifier", "endpoint"]),
+  })
+    .index("by_identifier_endpoint", ["identifier", "endpoint"])
+    .index("by_windowStart", ["windowStart"]),
 
   // Admin login attempt tracking for brute force protection
   adminLoginAttempts: defineTable({
@@ -153,7 +265,9 @@ export default defineSchema({
     lastAttempt: v.number(),
     lockedUntil: v.optional(v.number()), // If set, account is locked until this timestamp
     lockoutCount: v.optional(v.number()), // Number of times locked out (for exponential backoff)
-  }).index("by_ipHash", ["ipHash"]),
+  })
+    .index("by_ipHash", ["ipHash"])
+    .index("by_lastAttempt", ["lastAttempt"]),
 
   // User feedback submissions
   feedback: defineTable({

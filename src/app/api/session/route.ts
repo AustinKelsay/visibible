@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { api } from "../../../../convex/_generated/api";
-import { getConvexClient } from "@/lib/convex-client";
+import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import {
   generateSessionId,
   createSessionToken,
@@ -8,7 +8,6 @@ import {
   hashIp,
   getClientIp,
   validateSessionWithIp,
-  getSessionDataFromCookies,
 } from "@/lib/session";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { generateCsrfToken, getCsrfCookieOptions } from "@/lib/csrf";
@@ -20,12 +19,28 @@ interface SessionResponse {
 }
 
 /**
+ * Ensure CSRF cookie exists (and refreshes) for routes that require it.
+ */
+function setCsrfCookie(response: NextResponse): void {
+  const csrfToken = generateCsrfToken();
+  const csrfCookieOptions = getCsrfCookieOptions(csrfToken);
+  response.cookies.set(csrfCookieOptions.name, csrfCookieOptions.value, {
+    httpOnly: csrfCookieOptions.httpOnly,
+    secure: csrfCookieOptions.secure,
+    sameSite: csrfCookieOptions.sameSite,
+    path: csrfCookieOptions.path,
+    maxAge: csrfCookieOptions.maxAge,
+  });
+}
+
+/**
  * GET /api/session
  * Returns the current session state.
  * If a valid session exists, updates lastSeenAt and returns session info.
  * If no session, returns null sid with paid tier and 0 credits.
  *
- * SECURITY: Validates IP binding and refreshes token if legacy or IP changed.
+ * SECURITY: Validates idle/absolute session timeouts and IP binding.
+ * Refreshes token on activity without exceeding the absolute timeout cap.
  */
 export async function GET(request: Request): Promise<NextResponse<SessionResponse>> {
   const convex = getConvexClient();
@@ -49,6 +64,12 @@ export async function GET(request: Request): Promise<NextResponse<SessionRespons
   }
 
   const sid = validation.sid;
+  let serverSecret: string | null = null;
+  try {
+    serverSecret = getConvexServerSecret();
+  } catch {
+    console.error("[Session API] CONVEX_SERVER_SECRET not configured");
+  }
 
   // Fetch session from Convex
   const session = await convex.query(api.sessions.getSession, { sid });
@@ -62,9 +83,13 @@ export async function GET(request: Request): Promise<NextResponse<SessionRespons
   }
 
   // Update lastSeenAt in background (don't await)
-  convex.mutation(api.sessions.updateLastSeen, { sid }).catch(() => {
-    // Ignore errors from background update
-  });
+  if (serverSecret) {
+    convex
+      .mutation(api.sessions.updateLastSeen, { sid, serverSecret })
+      .catch(() => {
+        // Ignore errors from background update
+      });
+  }
 
   // Build response
   const response = NextResponse.json({
@@ -73,10 +98,12 @@ export async function GET(request: Request): Promise<NextResponse<SessionRespons
     credits: session.credits,
   });
 
-  // SECURITY: Refresh token to add IP binding for legacy tokens
-  if (validation.needsRefresh && validation.currentIpHash) {
-    const newToken = await createSessionToken(sid, validation.currentIpHash);
-    const cookieOptions = getSessionCookieOptions(newToken);
+  // Keep CSRF token fresh for admin-login and other state-changing endpoints.
+  setCsrfCookie(response);
+
+  // SECURITY: Refresh session token on activity (idle timeout renewal capped by absolute timeout)
+  if (validation.refreshedToken) {
+    const cookieOptions = getSessionCookieOptions(validation.refreshedToken);
     response.cookies.set(cookieOptions.name, cookieOptions.value, {
       httpOnly: cookieOptions.httpOnly,
       secure: cookieOptions.secure,
@@ -108,6 +135,17 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
     );
   }
 
+  let serverSecret: string;
+  try {
+    serverSecret = getConvexServerSecret();
+  } catch {
+    console.error("[Session API] CONVEX_SERVER_SECRET not configured");
+    return NextResponse.json(
+      { sid: null, tier: "paid" as const, credits: 0 },
+      { status: 503 }
+    );
+  }
+
   // SECURITY: Rate limit session creation by IP to prevent abuse
   const clientIp = getClientIp(request);
   const ipHash = await hashIp(clientIp);
@@ -115,6 +153,7 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: ipHash,
     endpoint: "session",
+    serverSecret,
   });
 
   if (!rateLimitResult.allowed) {
@@ -135,10 +174,10 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
   }
 
   // Check if session already exists and is valid
-  const existingData = await getSessionDataFromCookies();
-  if (existingData) {
+  const existingValidation = await validateSessionWithIp(request);
+  if (existingValidation.valid && existingValidation.sid) {
     const existingSession = await convex.query(api.sessions.getSession, {
-      sid: existingData.sid,
+      sid: existingValidation.sid,
     });
     if (existingSession) {
       // Return existing session but refresh token with IP if needed
@@ -148,10 +187,9 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
         credits: existingSession.credits,
       });
 
-      // Refresh token with IP binding if legacy token
-      if (!existingData.ipHash) {
-        const newToken = await createSessionToken(existingData.sid, ipHash);
-        const cookieOptions = getSessionCookieOptions(newToken);
+      // SECURITY: Refresh session token if needed (idle timeout renewal)
+      if (existingValidation.refreshedToken) {
+        const cookieOptions = getSessionCookieOptions(existingValidation.refreshedToken);
         response.cookies.set(cookieOptions.name, cookieOptions.value, {
           httpOnly: cookieOptions.httpOnly,
           secure: cookieOptions.secure,
@@ -160,6 +198,9 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
           maxAge: cookieOptions.maxAge,
         });
       }
+
+      // Existing sessions also need a CSRF cookie for admin-login.
+      setCsrfCookie(response);
 
       return response;
     }
@@ -172,6 +213,7 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
   const session = await convex.mutation(api.sessions.createSession, {
     sid,
     ipHash,
+    serverSecret,
   });
 
   // SECURITY: Create signed token with IP binding
@@ -194,16 +236,8 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
     maxAge: cookieOptions.maxAge,
   });
 
-  // SECURITY: Issue CSRF token for admin login protection
-  const csrfToken = generateCsrfToken();
-  const csrfCookieOptions = getCsrfCookieOptions(csrfToken);
-  response.cookies.set(csrfCookieOptions.name, csrfCookieOptions.value, {
-    httpOnly: csrfCookieOptions.httpOnly,
-    secure: csrfCookieOptions.secure,
-    sameSite: csrfCookieOptions.sameSite,
-    path: csrfCookieOptions.path,
-    maxAge: csrfCookieOptions.maxAge,
-  });
+  // SECURITY: Issue CSRF token for admin login protection.
+  setCsrfCookie(response);
 
   return response;
 }

@@ -1,7 +1,8 @@
-import { action, internalMutation, internalQuery, query } from "./_generated/server";
+import { action, internalMutation, internalQuery, mutation, query } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
 import { Id } from "./_generated/dataModel";
+import { validateServerSecret } from "./_helpers/auth";
 
 const chapterThemeValidator = v.object({
   setting: v.string(),
@@ -36,9 +37,178 @@ const promptInputsValidator = v.object({
   nextVerse: v.optional(verseContextValidator),
 });
 
+const continuityHintsValidator = v.object({
+  previous: v.optional(v.string()),
+  next: v.optional(v.string()),
+});
+
+const promptPacketValidator = v.object({
+  verseId: v.string(),
+  translationId: v.string(),
+  reference: v.string(),
+  currentVerse: v.string(),
+  styleProfileId: v.string(),
+  aspectRatio: v.string(),
+  resolution: v.string(),
+  chapterTheme: v.optional(chapterThemeValidator),
+  continuity: v.optional(continuityHintsValidator),
+  scenePlan: v.optional(scenePlanValidator),
+  flags: v.object({
+    scenePlannerUsed: v.boolean(),
+    scenePlanFromCache: v.boolean(),
+    narrativeContextIncluded: v.boolean(),
+    generationNoteIncluded: v.boolean(),
+  }),
+  budget: v.object({
+    maxChars: v.number(),
+    finalChars: v.number(),
+  }),
+});
+
+const generationStatusValidator = v.union(
+  v.literal("queued"),
+  v.literal("planning"),
+  v.literal("generating"),
+  v.literal("succeeded"),
+  v.literal("failed")
+);
+
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024; // 10 MiB hard cap per image
+const ALLOWED_IMAGE_MIME_TYPES = new Set([
+  "image/png",
+  "image/jpeg",
+  "image/webp",
+  "image/gif",
+]);
+
+const DEFAULT_IMAGE_FETCH_ALLOWLIST = [
+  "openrouter.ai",
+  "*.openrouter.ai",
+  "openrouterusercontent.com",
+  "*.openrouterusercontent.com",
+  "*.googleusercontent.com",
+  "*.gstatic.com",
+  "*.oaistatic.com",
+  "*.blob.core.windows.net",
+];
+
+class ImageValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ImageValidationError";
+  }
+}
+
+const normalizeHost = (value: string) => value.trim().toLowerCase().replace(/\.$/, "");
+
+const getRemoteImageAllowlist = () => {
+  const configured = (process.env.IMAGE_FETCH_ALLOWLIST ?? "")
+    .split(",")
+    .map((entry) => normalizeHost(entry))
+    .filter((entry) => entry.length > 0);
+
+  const deduped = new Set([
+    ...DEFAULT_IMAGE_FETCH_ALLOWLIST.map((entry) => normalizeHost(entry)),
+    ...configured,
+  ]);
+  return Array.from(deduped);
+};
+
+const isIpv4Address = (host: string) => /^(\d{1,3}\.){3}\d{1,3}$/.test(host);
+
+const isPrivateIpv4 = (host: string) => {
+  if (!isIpv4Address(host)) return false;
+  const parts = host.split(".").map((segment) => Number.parseInt(segment, 10));
+  if (parts.length !== 4 || parts.some((part) => !Number.isFinite(part) || part < 0 || part > 255)) {
+    return false;
+  }
+  const [a, b] = parts;
+  if (a === 10) return true;
+  if (a === 127) return true;
+  if (a === 169 && b === 254) return true;
+  if (a === 172 && b >= 16 && b <= 31) return true;
+  if (a === 192 && b === 168) return true;
+  if (a === 0) return true;
+  return false;
+};
+
+const isPrivateIpv6 = (host: string) => {
+  if (!host.includes(":")) return false;
+  const normalized = host.toLowerCase();
+  if (normalized === "::1" || normalized === "0:0:0:0:0:0:0:1") return true;
+  if (normalized.startsWith("fe80:")) return true;
+  if (normalized.startsWith("fc") || normalized.startsWith("fd")) return true;
+  return false;
+};
+
+const isDisallowedLocalHost = (host: string) => {
+  if (host === "localhost" || host.endsWith(".localhost")) return true;
+  if (host.endsWith(".local")) return true;
+  if (isPrivateIpv4(host) || isPrivateIpv6(host)) return true;
+  return false;
+};
+
+const hostMatchesAllowlist = (host: string, allowedHost: string) => {
+  if (allowedHost.startsWith("*.")) {
+    const suffix = allowedHost.slice(2);
+    return host === suffix || host.endsWith(`.${suffix}`);
+  }
+  return host === allowedHost;
+};
+
+const assertAllowedRemoteImageUrl = (imageUrl: string) => {
+  let parsed: URL;
+  try {
+    parsed = new URL(imageUrl);
+  } catch {
+    throw new ImageValidationError("Invalid image URL");
+  }
+
+  if (parsed.protocol !== "https:") {
+    throw new ImageValidationError("Only HTTPS image URLs are allowed");
+  }
+  if (parsed.username || parsed.password) {
+    throw new ImageValidationError("Image URL auth components are not allowed");
+  }
+
+  const host = normalizeHost(parsed.hostname);
+  if (!host) {
+    throw new ImageValidationError("Image URL host is required");
+  }
+  if (isDisallowedLocalHost(host)) {
+    throw new ImageValidationError("Image URL host is not allowed");
+  }
+
+  const allowlist = getRemoteImageAllowlist();
+  const allowed = allowlist.some((allowedHost) => hostMatchesAllowlist(host, allowedHost));
+  if (!allowed) {
+    throw new ImageValidationError(`Image host "${host}" is not in allowlist`);
+  }
+};
+
+const assertAllowedMimeType = (mimeType?: string) => {
+  if (!mimeType) {
+    throw new ImageValidationError("Image MIME type is missing");
+  }
+  if (!ALLOWED_IMAGE_MIME_TYPES.has(mimeType)) {
+    throw new ImageValidationError(`Unsupported image MIME type: ${mimeType}`);
+  }
+};
+
+const assertByteSizeWithinLimit = (bytes: number, source: string) => {
+  if (!Number.isFinite(bytes) || bytes <= 0) {
+    throw new ImageValidationError(`Invalid image size from ${source}`);
+  }
+  if (bytes > MAX_IMAGE_BYTES) {
+    throw new ImageValidationError(
+      `Image from ${source} exceeds ${MAX_IMAGE_BYTES} byte limit`
+    );
+  }
+};
+
 /**
  * Get the most recent image for a verse.
- * Returns the image URL (either direct URL or from storage).
+ * Returns the image URL (storage signed URL or direct URL fallback).
  */
 export const getLatestImage = query({
   args: {
@@ -53,43 +223,15 @@ export const getLatestImage = query({
 
     if (!image) return null;
 
-    // If we have a storage ID, get the URL from storage
+    let imageUrl = image.imageUrl;
     if (image.storageId) {
-      const url = await ctx.storage.getUrl(image.storageId);
-      if (url) {
-        return {
-          id: image._id,
-          imageUrl: url,
-          model: image.model,
-          prompt: image.prompt,
-          reference: image.reference,
-          verseText: image.verseText,
-          chapterTheme: image.chapterTheme,
-          generationNumber: image.generationNumber,
-          promptVersion: image.promptVersion,
-          promptInputs: image.promptInputs,
-          translationId: image.translationId,
-          provider: image.provider,
-          providerRequestId: image.providerRequestId,
-          creditsCost: image.creditsCost,
-          costUsd: image.costUsd,
-          durationMs: image.durationMs,
-          aspectRatio: image.aspectRatio,
-          sourceImageUrl: image.sourceImageUrl,
-          imageMimeType: image.imageMimeType,
-          imageSizeBytes: image.imageSizeBytes,
-          imageWidth: image.imageWidth,
-          imageHeight: image.imageHeight,
-          createdAt: image.createdAt,
-        };
-      }
+      imageUrl = (await ctx.storage.getUrl(image.storageId)) ?? imageUrl;
     }
 
-    // Fall back to direct URL if available
-    if (image.imageUrl) {
+    if (imageUrl) {
       return {
         id: image._id,
-        imageUrl: image.imageUrl,
+        imageUrl,
         model: image.model,
         prompt: image.prompt,
         reference: image.reference,
@@ -266,13 +408,14 @@ export const getImageHistory = query({
       ? await query.take(args.limit)
       : await query.collect();
 
-    // Resolve storage URLs
+    // Resolve storage URLs (fallback to stored imageUrl if storage object is unavailable)
     const results = await Promise.all(
       images.map(async (image) => {
         let imageUrl = image.imageUrl;
         if (image.storageId) {
-          const url = await ctx.storage.getUrl(image.storageId);
-          if (url) imageUrl = url;
+          imageUrl =
+            (await ctx.storage.getUrl(image.storageId)) ??
+            imageUrl;
         }
         return {
           id: image._id,
@@ -303,6 +446,284 @@ export const getImageHistory = query({
     );
 
     return results.filter((r) => r.imageUrl);
+  },
+});
+
+/**
+ * Get status for a single image generation request.
+ * This is intentionally minimal for safe client-side polling/subscription.
+ */
+export const getGenerationRequestStatus = query({
+  args: {
+    requestId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const request = await ctx.db
+      .query("imageGenerationRequests")
+      .withIndex("by_requestId", (q) => q.eq("requestId", args.requestId))
+      .first();
+
+    if (!request) return null;
+
+    return {
+      requestId: request.requestId,
+      status: request.status,
+      error: request.error,
+      createdAt: request.createdAt,
+      updatedAt: request.updatedAt,
+      startedAt: request.startedAt,
+      completedAt: request.completedAt,
+      durationMs: request.durationMs,
+    };
+  },
+});
+
+/**
+ * Secure query for scene plan cache lookup.
+ */
+export const getScenePlanCache = mutation({
+  args: {
+    verseId: v.string(),
+    translationId: v.string(),
+    styleProfileId: v.string(),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const cached = await ctx.db
+      .query("scenePlanCache")
+      .withIndex("by_key", (q) =>
+        q
+          .eq("verseId", args.verseId)
+          .eq("translationId", args.translationId)
+          .eq("styleProfileId", args.styleProfileId)
+      )
+      .first();
+
+    if (!cached) return null;
+
+    return {
+      scenePlan: cached.scenePlan,
+      plannerModel: cached.plannerModel,
+      promptVersion: cached.promptVersion,
+      hitCount: cached.hitCount,
+      updatedAt: cached.updatedAt,
+      lastUsedAt: cached.lastUsedAt,
+    };
+  },
+});
+
+/**
+ * Secure mutation to mark a cache hit and update freshness metadata.
+ */
+export const markScenePlanCacheHit = mutation({
+  args: {
+    verseId: v.string(),
+    translationId: v.string(),
+    styleProfileId: v.string(),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args): Promise<{ success: boolean }> => {
+    validateServerSecret(args.serverSecret);
+    const cached = await ctx.db
+      .query("scenePlanCache")
+      .withIndex("by_key", (q) =>
+        q
+          .eq("verseId", args.verseId)
+          .eq("translationId", args.translationId)
+          .eq("styleProfileId", args.styleProfileId)
+      )
+      .first();
+
+    if (!cached) return { success: false };
+
+    const newHitCount = (cached.hitCount ?? 0) + 1;
+    await ctx.db.patch(cached._id, {
+      hitCount: newHitCount,
+      lastUsedAt: Date.now(),
+      updatedAt: Date.now(),
+    });
+
+    return { success: true };
+  },
+});
+
+/**
+ * Secure mutation to upsert scene plan cache entries.
+ */
+export const upsertScenePlanCache = mutation({
+  args: {
+    verseId: v.string(),
+    translationId: v.string(),
+    styleProfileId: v.string(),
+    scenePlan: scenePlanValidator,
+    plannerModel: v.optional(v.string()),
+    promptVersion: v.optional(v.string()),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args): Promise<{ success: boolean }> => {
+    validateServerSecret(args.serverSecret);
+    const now = Date.now();
+    const cached = await ctx.db
+      .query("scenePlanCache")
+      .withIndex("by_key", (q) =>
+        q
+          .eq("verseId", args.verseId)
+          .eq("translationId", args.translationId)
+          .eq("styleProfileId", args.styleProfileId)
+      )
+      .first();
+
+    if (!cached) {
+      await ctx.db.insert("scenePlanCache", {
+        verseId: args.verseId,
+        translationId: args.translationId,
+        styleProfileId: args.styleProfileId,
+        scenePlan: args.scenePlan,
+        plannerModel: args.plannerModel,
+        promptVersion: args.promptVersion,
+        hitCount: 1,
+        lastUsedAt: now,
+        createdAt: now,
+        updatedAt: now,
+      });
+      return { success: true };
+    }
+
+    const newHitCount = (cached.hitCount ?? 0) + 1;
+    await ctx.db.patch(cached._id, {
+      scenePlan: args.scenePlan,
+      plannerModel: args.plannerModel,
+      promptVersion: args.promptVersion,
+      hitCount: newHitCount,
+      lastUsedAt: now,
+      updatedAt: now,
+    });
+
+    return { success: true };
+  },
+});
+
+/**
+ * Secure action to create a generation request record.
+ */
+export const createGenerationRequest = mutation({
+  args: {
+    requestId: v.string(),
+    sid: v.string(),
+    verseId: v.string(),
+    translationId: v.optional(v.string()),
+    reference: v.optional(v.string()),
+    modelId: v.optional(v.string()),
+    aspectRatio: v.optional(v.string()),
+    resolution: v.optional(v.string()),
+    promptVersion: v.optional(v.string()),
+    scenePlannerModel: v.optional(v.string()),
+    estimatedCreditsCost: v.optional(v.number()),
+    estimatedCostUsd: v.optional(v.number()),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args): Promise<{
+    requestId: string;
+    status: "queued" | "planning" | "generating" | "succeeded" | "failed";
+    alreadyExists: boolean;
+  }> => {
+    validateServerSecret(args.serverSecret);
+    const existing = await ctx.db
+      .query("imageGenerationRequests")
+      .withIndex("by_requestId", (q) => q.eq("requestId", args.requestId))
+      .first();
+
+    if (existing) {
+      return {
+        requestId: existing.requestId,
+        status: existing.status,
+        alreadyExists: true,
+      };
+    }
+
+    const now = Date.now();
+    await ctx.db.insert("imageGenerationRequests", {
+      requestId: args.requestId,
+      sid: args.sid,
+      verseId: args.verseId,
+      translationId: args.translationId,
+      reference: args.reference,
+      modelId: args.modelId,
+      aspectRatio: args.aspectRatio,
+      resolution: args.resolution,
+      status: "queued",
+      promptVersion: args.promptVersion,
+      scenePlannerModel: args.scenePlannerModel,
+      estimatedCreditsCost: args.estimatedCreditsCost,
+      estimatedCostUsd: args.estimatedCostUsd,
+      createdAt: now,
+      updatedAt: now,
+    });
+
+    return { requestId: args.requestId, status: "queued", alreadyExists: false };
+  },
+});
+
+/**
+ * Secure action to update generation request lifecycle state.
+ */
+export const updateGenerationRequest = mutation({
+  args: {
+    requestId: v.string(),
+    status: generationStatusValidator,
+    error: v.optional(v.string()),
+    generationId: v.optional(v.string()),
+    providerRequestId: v.optional(v.string()),
+    scenePlannerUsed: v.optional(v.boolean()),
+    scenePlanFromCache: v.optional(v.boolean()),
+    usedFallbackEstimate: v.optional(v.boolean()),
+    promptPacket: v.optional(promptPacketValidator),
+    actualCreditsCost: v.optional(v.number()),
+    actualCostUsd: v.optional(v.number()),
+    durationMs: v.optional(v.number()),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args): Promise<{ success: boolean; error?: string }> => {
+    validateServerSecret(args.serverSecret);
+    const request = await ctx.db
+      .query("imageGenerationRequests")
+      .withIndex("by_requestId", (q) => q.eq("requestId", args.requestId))
+      .first();
+
+    if (!request) {
+      return { success: false, error: "Request not found" };
+    }
+
+    const now = Date.now();
+    const patch: Record<string, unknown> = {
+      status: args.status,
+      updatedAt: now,
+    };
+
+    if (args.error !== undefined) patch.error = args.error;
+    if (args.generationId !== undefined) patch.generationId = args.generationId;
+    if (args.providerRequestId !== undefined) patch.providerRequestId = args.providerRequestId;
+    if (args.scenePlannerUsed !== undefined) patch.scenePlannerUsed = args.scenePlannerUsed;
+    if (args.scenePlanFromCache !== undefined) patch.scenePlanFromCache = args.scenePlanFromCache;
+    if (args.usedFallbackEstimate !== undefined) patch.usedFallbackEstimate = args.usedFallbackEstimate;
+    if (args.promptPacket !== undefined) patch.promptPacket = args.promptPacket;
+    if (args.actualCreditsCost !== undefined) patch.actualCreditsCost = args.actualCreditsCost;
+    if (args.actualCostUsd !== undefined) patch.actualCostUsd = args.actualCostUsd;
+    if (args.durationMs !== undefined) patch.durationMs = args.durationMs;
+
+    if (args.status === "planning" || args.status === "generating") {
+      patch.startedAt = request.startedAt ?? now;
+    }
+    if (args.status === "succeeded" || args.status === "failed") {
+      patch.completedAt = now;
+      if (patch.durationMs === undefined && request.startedAt) {
+        patch.durationMs = now - request.startedAt;
+      }
+    }
+
+    await ctx.db.patch(request._id, patch);
+    return { success: true };
   },
 });
 
@@ -732,6 +1153,7 @@ export const saveImage = action({
     durationMs: v.optional(v.number()),
     aspectRatio: v.optional(v.string()),
     generationId: v.optional(v.string()),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args): Promise<{ success: true; type: string; id: Id<"verseImages"> }> => {
     const {
@@ -753,7 +1175,10 @@ export const saveImage = action({
       durationMs,
       aspectRatio,
       generationId,
+      serverSecret,
     } = args;
+    validateServerSecret(serverSecret);
+
     const resolvedProvider = provider ?? deriveProvider(model);
     const baseMetadata = {
       prompt,
@@ -793,10 +1218,18 @@ export const saveImage = action({
 
       const mimeType = matches[1];
       const base64Data = matches[2];
+      const maxBase64Length = Math.ceil((MAX_IMAGE_BYTES * 4) / 3) + 4;
+      if (base64Data.length > maxBase64Length) {
+        throw new ImageValidationError(
+          `Image data URL exceeds ${MAX_IMAGE_BYTES} byte limit`
+        );
+      }
 
       // Decode base64 without relying on atob/Buffer (not available in Convex).
       const bytes = decodeBase64ToBytes(base64Data);
       const normalizedMimeType = normalizeMimeType(mimeType);
+      assertAllowedMimeType(normalizedMimeType);
+      assertByteSizeWithinLimit(bytes.length, "data URL");
       const dimensions = getImageDimensions(bytes, normalizedMimeType);
       const imageMetadata = {
         ...baseMetadata,
@@ -837,6 +1270,8 @@ export const saveImage = action({
       return { success: true, type: "storage", id };
     }
 
+    assertAllowedRemoteImageUrl(imageUrl);
+
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000);
@@ -851,12 +1286,23 @@ export const saveImage = action({
       if (!response.ok) {
         throw new Error(`Failed to fetch image: ${response.status}`);
       }
+
+      const contentLengthHeader = response.headers.get("content-length");
+      if (contentLengthHeader) {
+        const contentLength = Number.parseInt(contentLengthHeader, 10);
+        if (Number.isFinite(contentLength)) {
+          assertByteSizeWithinLimit(contentLength, "remote image response");
+        }
+      }
+
       const blob = await response.blob();
       const arrayBuffer = await blob.arrayBuffer();
       const bytes = new Uint8Array(arrayBuffer);
       const normalizedMimeType = normalizeMimeType(
         response.headers.get("content-type") || blob.type
       );
+      assertAllowedMimeType(normalizedMimeType);
+      assertByteSizeWithinLimit(bytes.length, "remote image body");
       const dimensions = getImageDimensions(bytes, normalizedMimeType);
       const imageMetadata = {
         ...baseMetadata,
@@ -892,6 +1338,9 @@ export const saveImage = action({
 
       return { success: true, type: "storage", id };
     } catch (error) {
+      if (error instanceof ImageValidationError) {
+        throw error;
+      }
       console.error("Failed to fetch and store image:", error);
       const imageMetadata = {
         ...baseMetadata,

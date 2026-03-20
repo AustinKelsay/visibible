@@ -13,6 +13,14 @@ function isBuildPhase(): boolean {
 
 let sessionSecretValidated = false;
 let ipHashSecretValidated = false;
+let sessionTimeoutConfigValidated = false;
+
+const DEFAULT_SESSION_IDLE_TIMEOUT_MINUTES = 10;
+const MIN_SESSION_IDLE_TIMEOUT_MINUTES = 5;
+const MAX_SESSION_IDLE_TIMEOUT_MINUTES = 15;
+const DEFAULT_SESSION_ABSOLUTE_TIMEOUT_HOURS = 8;
+const MIN_SESSION_ABSOLUTE_TIMEOUT_HOURS = 4;
+const MAX_SESSION_ABSOLUTE_TIMEOUT_HOURS = 48;
 
 /**
  * Validate that SESSION_SECRET meets minimum security requirements.
@@ -68,6 +76,68 @@ export function validateIpHashSecret(): void {
   }
 
   ipHashSecretValidated = true;
+}
+
+function parseBoundedInt(
+  envName: string,
+  rawValue: string | undefined,
+  defaultValue: number,
+  min: number,
+  max: number
+): number {
+  if (!rawValue || rawValue.trim() === "") {
+    return defaultValue;
+  }
+
+  const parsed = Number.parseInt(rawValue, 10);
+  if (!Number.isFinite(parsed)) {
+    throw new Error(
+      `${envName} must be an integer between ${min} and ${max}. Received: "${rawValue}".`
+    );
+  }
+
+  if (parsed < min || parsed > max) {
+    throw new Error(
+      `${envName} must be between ${min} and ${max}. Received: ${parsed}.`
+    );
+  }
+
+  return parsed;
+}
+
+/**
+ * Validate session timeout configuration.
+ * Defaults are secure but configurable within bounded ranges.
+ *
+ * @throws Error if timeout values are out of allowed bounds
+ */
+export function validateSessionTimeoutConfig(): void {
+  if (sessionTimeoutConfigValidated || isBuildPhase()) return;
+
+  const idleMinutes = parseBoundedInt(
+    "SESSION_IDLE_TIMEOUT_MINUTES",
+    process.env.SESSION_IDLE_TIMEOUT_MINUTES,
+    DEFAULT_SESSION_IDLE_TIMEOUT_MINUTES,
+    MIN_SESSION_IDLE_TIMEOUT_MINUTES,
+    MAX_SESSION_IDLE_TIMEOUT_MINUTES
+  );
+
+  const absoluteHours = parseBoundedInt(
+    "SESSION_ABSOLUTE_TIMEOUT_HOURS",
+    process.env.SESSION_ABSOLUTE_TIMEOUT_HOURS,
+    DEFAULT_SESSION_ABSOLUTE_TIMEOUT_HOURS,
+    MIN_SESSION_ABSOLUTE_TIMEOUT_HOURS,
+    MAX_SESSION_ABSOLUTE_TIMEOUT_HOURS
+  );
+
+  if (absoluteHours * 60 <= idleMinutes) {
+    throw new Error(
+      "SESSION_ABSOLUTE_TIMEOUT_HOURS must be greater than SESSION_IDLE_TIMEOUT_MINUTES " +
+        `(received absolute=${absoluteHours}h, idle=${idleMinutes}m).`
+    );
+  }
+
+  sessionTimeoutConfigValidated = true;
 }
 
 let convexSecretValidated = false;
@@ -142,6 +212,8 @@ export function validateAdminSecret(): void {
 }
 
 let proxyConfigValidated = false;
+const ALLOW_UNTRUSTED_PROXY_OVERRIDE_ENV =
+  "ALLOW_UNTRUSTED_PROXY_IN_PRODUCTION";
 
 /**
  * Validate proxy trust configuration and warn about potential misconfigurations.
@@ -155,14 +227,31 @@ export function validateProxyConfig(): void {
   const trustedIps = process.env.TRUSTED_PROXY_IPS || "";
   const isVercel = process.env.VERCEL === "1";
   const isProduction = process.env.NODE_ENV === "production";
+  const allowUntrustedProxyOverride =
+    process.env[ALLOW_UNTRUSTED_PROXY_OVERRIDE_ENV] === "true";
+
+  // Validate supported platform values
+  if (trustPlatform && trustPlatform !== "vercel") {
+    const message =
+      `[Security Warning] Unsupported TRUST_PROXY_PLATFORM="${trustPlatform}". ` +
+      'Supported values: "vercel".';
+    if (isProduction) {
+      throw new Error(
+        `${message} Remove TRUST_PROXY_PLATFORM or configure TRUSTED_PROXY_IPS explicitly.`
+      );
+    }
+    console.warn(message);
+  }
 
   // Warn if TRUST_PROXY_PLATFORM=vercel but not actually on Vercel
   if (trustPlatform === "vercel" && !isVercel) {
-    console.warn(
+    const message =
       "[Security Warning] TRUST_PROXY_PLATFORM=vercel is set but VERCEL=1 is not detected. " +
-        "Proxy headers will NOT be trusted. If running locally, this is expected. " +
-        "If deployed elsewhere, remove TRUST_PROXY_PLATFORM or set TRUSTED_PROXY_IPS."
-    );
+      "Proxy headers will NOT be trusted. If deployed elsewhere, remove TRUST_PROXY_PLATFORM or set TRUSTED_PROXY_IPS.";
+    if (isProduction) {
+      throw new Error(`${message} This is a production startup blocker.`);
+    }
+    console.warn(message);
   }
 
   // SECURITY: Check for overly permissive CIDR ranges that allow IP spoofing
@@ -199,13 +288,20 @@ export function validateProxyConfig(): void {
     }
   }
 
-  // In production, warn if no proxy trust is configured (might be behind a load balancer)
+  // In production, fail fast if no proxy trust is configured unless explicit override is set.
   if (isProduction && !trustPlatform && !trustedIps) {
-    console.info(
-      "[Security Info] No proxy trust configured (TRUST_PROXY_PLATFORM and TRUSTED_PROXY_IPS are empty). " +
-        "If behind a reverse proxy/load balancer, client IPs may be incorrect. " +
-        "See documentation: llm/workflow/PROXY_CONFIGURATION.md"
-    );
+    if (allowUntrustedProxyOverride) {
+      console.warn(
+        `[Security Warning] No proxy trust configured in production, but ${ALLOW_UNTRUSTED_PROXY_OVERRIDE_ENV}=true is set. ` +
+          "IP-based controls may degrade. See llm/workflow/PROXY_CONFIGURATION.md"
+      );
+    } else {
+      throw new Error(
+        "CRITICAL SECURITY MISCONFIGURATION: No proxy trust configured in production. " +
+          "Set TRUST_PROXY_PLATFORM=vercel or configure TRUSTED_PROXY_IPS. " +
+          `If you must temporarily bypass this check, set ${ALLOW_UNTRUSTED_PROXY_OVERRIDE_ENV}=true (not recommended).`
+      );
+    }
   }
 }
 
@@ -216,6 +312,7 @@ export function validateProxyConfig(): void {
 export function validateSecurityEnv(): void {
   validateSessionSecret();
   validateIpHashSecret();
+  validateSessionTimeoutConfig();
   validateConvexSecret();
   validateAdminSecret();
   validateProxyConfig();

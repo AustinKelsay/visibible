@@ -1,24 +1,30 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import { useQuery, useAction } from "convex/react";
+import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
-import Link from "next/link";
-import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Clock, ChevronDown, Settings } from "lucide-react";
-import { ImageControlsSheet } from "./image-controls-sheet";
+import { useRouter } from "next/navigation";
+import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Maximize2, X } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useSession } from "@/context/session-context";
 import { useNavigation } from "@/context/navigation-context";
+import { useGeneration } from "@/context/generation-context";
 import {
   ASPECT_RATIOS,
-  RESOLUTIONS,
   ImageAspectRatio,
-  ImageResolution,
   computeAdjustedCreditsCost,
-  supportsResolution,
   isValidAspectRatio,
 } from "@/lib/image-models";
+import {
+  trackImageGenerated,
+  trackImageGenerationStarted,
+  trackGenerationError,
+  trackCreditsInsufficient,
+  trackVerseImagesState,
+} from "@/lib/analytics";
+import { resolveHasCreditsAfterGeneration } from "@/lib/analytics-event-utils";
+import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 
 interface ChapterTheme {
   setting: string;
@@ -63,6 +69,10 @@ interface HeroImageProps {
   prevVerse?: VerseContext;
   nextVerse?: VerseContext;
   currentReference?: string;
+  book: string;
+  chapter: number;
+  verse: number;
+  testament: "old" | "new";
 }
 
 /**
@@ -77,323 +87,6 @@ function createVerseId(reference: string): string {
     .replace(/:/g, "-");
 }
 
-/**
- * Extract a short display name from a model ID.
- * "google/gemini-2.5-flash-image" -> "Gemini 2.5 Flash"
- */
-function getShortModelName(modelId: string): string {
-  const parts = modelId.split("/");
-  const name = parts[parts.length - 1] || modelId;
-  return name
-    .replace(/-image$/i, "")
-    .replace(/-/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase())
-    .trim();
-}
-
-/**
- * Format duration in milliseconds to human-readable string.
- */
-function formatDuration(ms?: number): string {
-  if (!ms) return "N/A";
-  return ms >= 1000 ? `${(ms / 1000).toFixed(1)}s` : `${ms}ms`;
-}
-
-/**
- * Format timestamp to relative time string.
- */
-function formatRelativeTime(timestamp?: number): string {
-  if (!timestamp) return "Unknown";
-  const diff = Date.now() - timestamp;
-  const minutes = Math.floor(diff / 60000);
-  if (minutes < 1) return "Just now";
-  if (minutes < 60) return `${minutes}m ago`;
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
-  const days = Math.floor(hours / 24);
-  return `${days}d ago`;
-}
-
-/**
- * Format image dimensions to display string.
- */
-function getDimensionLabel(width?: number, height?: number): string {
-  if (!width || !height) return "Unknown";
-  return `${width} x ${height}`;
-}
-
-/**
- * Compact dropdown selector for aspect ratio
- */
-function AspectRatioSelector({
-  value,
-  onChange,
-}: {
-  value: ImageAspectRatio;
-  onChange: (value: ImageAspectRatio) => void;
-}) {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  return (
-    <div ref={dropdownRef} className="relative">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="min-h-[36px] px-2 flex items-center gap-1 text-xs font-medium text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)]"
-        aria-label={`Aspect ratio: ${value}`}
-        aria-expanded={isOpen}
-      >
-        <span>{value}</span>
-        <ChevronDown
-          size={12}
-          className={`transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
-        />
-      </button>
-      {isOpen && (
-        <div className="absolute bottom-full mb-1 left-0 w-40 rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50 overflow-hidden">
-          {(Object.keys(ASPECT_RATIOS) as ImageAspectRatio[]).map((ratio) => (
-            <button
-              key={ratio}
-              onClick={() => {
-                onChange(ratio);
-                setIsOpen(false);
-              }}
-              className={`w-full px-3 py-2 text-left text-sm transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
-                value === ratio ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
-              }`}
-            >
-              {ASPECT_RATIOS[ratio].label}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-/**
- * Compact dropdown selector for resolution with cost display.
- * Only shows cost multipliers when the selected model supports resolution settings.
- */
-function ResolutionSelector({
-  value,
-  onChange,
-  baseCost,
-  showCost,
-  modelId,
-}: {
-  value: ImageResolution;
-  onChange: (value: ImageResolution) => void;
-  baseCost: number;
-  showCost: boolean;
-  modelId: string;
-}) {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // Check if the current model supports resolution settings
-  const modelSupportsRes = supportsResolution(modelId);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  // Only show multiplier badge if model supports resolution
-  const currentMultiplier = modelSupportsRes ? RESOLUTIONS[value].multiplier : 1.0;
-
-  return (
-    <div ref={dropdownRef} className="relative">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="min-h-[36px] px-2 flex items-center gap-1 text-xs font-medium text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)]"
-        aria-label={`Resolution: ${value}${!modelSupportsRes ? " (not supported by this model)" : ""}`}
-        aria-expanded={isOpen}
-      >
-        <span className={!modelSupportsRes ? "opacity-50" : ""}>{value}</span>
-        {showCost && modelSupportsRes && currentMultiplier > 1 && (
-          <span className="text-[10px] text-[var(--accent)]">×{currentMultiplier}</span>
-        )}
-        <ChevronDown
-          size={12}
-          className={`transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
-        />
-      </button>
-      {isOpen && (
-        <div className="absolute bottom-full mb-1 left-0 w-48 rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50 overflow-hidden">
-          {/* Show info message when model doesn't support resolution */}
-          {!modelSupportsRes && (
-            <div className="px-3 py-2 text-xs text-[var(--muted)] bg-[var(--surface)]/50 border-b border-[var(--divider)]">
-              Resolution not supported by this model
-            </div>
-          )}
-          {(Object.keys(RESOLUTIONS) as ImageResolution[]).map((res) => {
-            // Pass modelId to get accurate cost (no multiplier if unsupported)
-            const cost = computeAdjustedCreditsCost(baseCost, res, modelId);
-            return (
-              <button
-                key={res}
-                onClick={() => {
-                  onChange(res);
-                  setIsOpen(false);
-                }}
-                className={`w-full px-3 py-2 flex items-center justify-between text-sm transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
-                  value === res ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
-                } ${!modelSupportsRes ? "opacity-60" : ""}`}
-              >
-                <span>{RESOLUTIONS[res].label}</span>
-                {showCost && (
-                  <span className="text-xs text-[var(--muted)]">
-                    Up to {cost} credits
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
-}
-
-/**
- * Expandable metadata badge for generated images.
- * Shows model name collapsed, expands to reveal full details.
- */
-interface ImageMetadataBadgeProps {
-  model: string;
-  provider?: string;
-  durationMs?: number;
-  aspectRatio?: string;
-  imageWidth?: number;
-  imageHeight?: number;
-  createdAt?: number;
-}
-
-function ImageMetadataBadge({
-  model,
-  provider,
-  durationMs,
-  aspectRatio,
-  imageWidth,
-  imageHeight,
-  createdAt,
-}: ImageMetadataBadgeProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsExpanded(false);
-      }
-    }
-    if (isExpanded) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-    }
-  }, [isExpanded]);
-
-  const shortModelName = getShortModelName(model);
-  const displayProvider = provider ||
-    (model.split("/")[0]?.charAt(0).toUpperCase() + model.split("/")[0]?.slice(1)) ||
-    "Unknown";
-
-  return (
-    <div ref={dropdownRef} className="absolute top-3 left-3 z-20">
-      {/* Badge button */}
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-[var(--muted)]
-                   bg-[var(--background)]/70 border border-[var(--divider)]/60
-                   backdrop-blur-sm rounded-[var(--radius-full)]
-                   hover:bg-[var(--background)]/90 hover:text-[var(--foreground)]
-                   transition-colors duration-[var(--motion-fast)] focus-ring"
-        aria-expanded={isExpanded}
-        aria-label={`Image details: ${shortModelName}`}
-      >
-        <Sparkles className="w-3 h-3" />
-        <span>{shortModelName}</span>
-        <ChevronDown
-          className={`w-3 h-3 transition-transform duration-[var(--motion-fast)] ${
-            isExpanded ? "rotate-180" : ""
-          }`}
-        />
-      </button>
-
-      {/* Dropdown panel */}
-      <div
-        className={`absolute top-full mt-1.5 left-0
-                    min-w-[200px] max-w-[260px]
-                    bg-[var(--background)]/95 backdrop-blur-md
-                    border border-[var(--divider)]/70
-                    rounded-[var(--radius-md)] shadow-lg
-                    overflow-hidden
-                    transition-all duration-[var(--motion-base)] ease-out
-                    ${isExpanded
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 -translate-y-1 pointer-events-none"}`}
-      >
-        {/* Header */}
-        <div className="px-3 py-2 border-b border-[var(--divider)]/50 bg-[var(--surface)]/30">
-          <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider">
-            Image Details
-          </p>
-        </div>
-
-        {/* Content */}
-        <div className="divide-y divide-[var(--divider)]/30">
-          <div className="flex items-center justify-between px-3 py-2">
-            <span className="text-[10px] text-[var(--muted)]">Model</span>
-            <span className="text-xs text-[var(--foreground)] font-medium">{shortModelName}</span>
-          </div>
-          <div className="flex items-center justify-between px-3 py-2">
-            <span className="text-[10px] text-[var(--muted)]">Provider</span>
-            <span className="text-xs text-[var(--foreground)]">{displayProvider}</span>
-          </div>
-          {aspectRatio && (
-            <div className="flex items-center justify-between px-3 py-2">
-              <span className="text-[10px] text-[var(--muted)]">Aspect Ratio</span>
-              <span className="text-xs text-[var(--foreground)]">{aspectRatio}</span>
-            </div>
-          )}
-          {(imageWidth && imageHeight) && (
-            <div className="flex items-center justify-between px-3 py-2">
-              <span className="text-[10px] text-[var(--muted)]">Dimensions</span>
-              <span className="text-xs text-[var(--foreground)]">{getDimensionLabel(imageWidth, imageHeight)}</span>
-            </div>
-          )}
-          <div className="flex items-center justify-between px-3 py-2">
-            <span className="text-[10px] text-[var(--muted)]">Gen Time</span>
-            <span className="text-xs text-[var(--foreground)]">{formatDuration(durationMs)}</span>
-          </div>
-          {createdAt && (
-            <div className="flex items-center justify-between px-3 py-2">
-              <span className="text-[10px] text-[var(--muted)]">Created</span>
-              <span className="text-xs text-[var(--foreground)]">{formatRelativeTime(createdAt)}</span>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function HeroImage({
   alt = "Scripture illustration",
   caption = "In the beginning",
@@ -404,6 +97,10 @@ export function HeroImage({
   prevVerse,
   nextVerse,
   currentReference,
+  book,
+  chapter,
+  verse,
+  testament,
 }: HeroImageProps) {
   const isConvexEnabled = useConvexEnabled();
 
@@ -419,10 +116,13 @@ export function HeroImage({
         prevVerse={prevVerse}
         nextVerse={nextVerse}
         currentReference={currentReference}
+        book={book}
+        chapter={chapter}
+        verse={verse}
+        testament={testament}
         imageHistory={[]}
         isQueryLoading={false}
         imageRefreshKey={0}
-        onSaveImage={undefined}
       />
     );
   }
@@ -438,6 +138,10 @@ export function HeroImage({
       prevVerse={prevVerse}
       nextVerse={nextVerse}
       currentReference={currentReference}
+      book={book}
+      chapter={chapter}
+      verse={verse}
+      testament={testament}
     />
   );
 }
@@ -472,26 +176,6 @@ interface HeroImageBaseProps extends HeroImageProps {
   imageHistory: ConvexImageData[] | undefined;
   isQueryLoading: boolean;
   imageRefreshKey?: number;
-  onSaveImage?: (args: {
-    verseId: string;
-    imageUrl: string;
-    model: string;
-    prompt?: string;
-    reference?: string;
-    verseText?: string;
-    chapterTheme?: ChapterTheme;
-    generationNumber?: number;
-    promptVersion?: string;
-    promptInputs?: PromptInputs;
-    translationId?: string;
-    provider?: string;
-    providerRequestId?: string;
-    creditsCost?: number;
-    costUsd?: number;
-    durationMs?: number;
-    aspectRatio?: string;
-    generationId?: string;
-  }) => Promise<string | null>;
   onRefreshImages?: () => void;
 }
 
@@ -505,6 +189,10 @@ function HeroImageWithConvex({
   prevVerse,
   nextVerse,
   currentReference,
+  book,
+  chapter,
+  verse,
+  testament,
 }: HeroImageProps) {
   // Create verse ID for Convex query
   const verseId = currentReference ? createVerseId(currentReference) : null;
@@ -514,37 +202,6 @@ function HeroImageWithConvex({
   const imageHistory = useQuery(
     api.verseImages.getImageHistory,
     verseId ? { verseId, refreshToken } : "skip"
-  );
-
-  // Action to save new images (handles both URLs and base64 data)
-  const saveImageAction = useAction(api.verseImages.saveImage);
-
-  // Wrap action to match expected signature (Promise<void>)
-  const saveImage = useCallback(
-    async (args: {
-      verseId: string;
-      imageUrl: string;
-      model: string;
-      prompt?: string;
-      reference?: string;
-      verseText?: string;
-      chapterTheme?: ChapterTheme;
-      generationNumber?: number;
-      promptVersion?: string;
-      promptInputs?: PromptInputs;
-      translationId?: string;
-      provider?: string;
-      providerRequestId?: string;
-      creditsCost?: number;
-      costUsd?: number;
-      durationMs?: number;
-      aspectRatio?: string;
-      generationId?: string;
-    }) => {
-      const result = await saveImageAction(args);
-      return result?.id ?? null;
-    },
-    [saveImageAction]
   );
 
   const refreshImages = useCallback(() => {
@@ -564,10 +221,13 @@ function HeroImageWithConvex({
       prevVerse={prevVerse}
       nextVerse={nextVerse}
       currentReference={currentReference}
+      book={book}
+      chapter={chapter}
+      verse={verse}
+      testament={testament}
       imageHistory={imageHistory}
       isQueryLoading={isQueryLoading}
       imageRefreshKey={refreshToken}
-      onSaveImage={saveImage}
       onRefreshImages={refreshImages}
     />
   );
@@ -588,16 +248,27 @@ function HeroImageBase({
   prevVerse,
   nextVerse,
   currentReference,
+  book,
+  chapter,
+  verse,
+  testament,
   imageHistory,
   isQueryLoading,
   imageRefreshKey = 0,
-  onSaveImage,
   onRefreshImages,
 }: HeroImageBaseProps) {
   const { imageModel, imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution, translation } = usePreferences();
   const isConvexEnabled = useConvexEnabled();
   const { tier, credits, buyCredits, updateCredits, isLoading: sessionLoading } = useSession();
-  const { setCurrentImageId, openImageControls } = useNavigation();
+  const { setCurrentImageId, isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
+  const router = useRouter();
+  const {
+    registerGenerate,
+    unregisterGenerate,
+    updateState: updateGenerationState,
+    registerBuyCredits,
+    registerSettings,
+  } = useGeneration();
 
   // Fetch model pricing info
   const [modelPricing, setModelPricing] = useState<ModelPricing>({ creditsCost: null, etaSeconds: 12 });
@@ -663,6 +334,55 @@ function HeroImageBase({
   // Create verse ID for Convex query
   const verseId = currentReference ? createVerseId(currentReference) : null;
 
+  const hasTrackedImagesStateRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (sessionLoading) return;
+
+    const trackKey = `${book}-${chapter}-${verse}-${isConvexEnabled ? "convex" : "no-convex"}`;
+    if (hasTrackedImagesStateRef.current === trackKey) return;
+
+    if (!isConvexEnabled) {
+      hasTrackedImagesStateRef.current = trackKey;
+      trackVerseImagesState({
+        book,
+        chapter,
+        verse,
+        testament,
+        imageState: "unknown",
+        tier,
+        hasCredits: credits > 0,
+      });
+      return;
+    }
+
+    if (imageHistory === undefined) return;
+
+    hasTrackedImagesStateRef.current = trackKey;
+    const imageCount = imageHistory.length;
+    trackVerseImagesState({
+      book,
+      chapter,
+      verse,
+      testament,
+      imageState: "known",
+      imageCount,
+      hasImages: imageCount > 0,
+      tier,
+      hasCredits: credits > 0,
+    });
+  }, [
+    book,
+    chapter,
+    verse,
+    testament,
+    isConvexEnabled,
+    imageHistory,
+    tier,
+    credits,
+    sessionLoading,
+  ]);
+
   // Image navigation state: null = show newest, string = show specific image by ID
   const [selectedImageId, setSelectedImageId] = useState<string | null>(null);
   const [pendingImageId, setPendingImageId] = useState<string | null>(null);
@@ -679,10 +399,24 @@ function HeroImageBase({
   const [error, setError] = useState<string | null>(null);
   const [hasAttemptedGeneration, setHasAttemptedGeneration] = useState(false);
   const [imageLoadAttempts, setImageLoadAttempts] = useState(0);
+  const [activeRequestId, setActiveRequestId] = useState<string | null>(null);
   const activeRequest = useRef<AbortController | null>(null);
   const isMounted = useRef(true);
+  const lastDisplayImageKeyRef = useRef<string | null>(null);
   const generationIdRef = useRef(0);
   const imageElementRef = useRef<HTMLImageElement | null>(null);
+  const handleManualRegenerateRef = useRef<(() => void) | null>(null);
+
+  const generationRequestStatus = useQuery(
+    api.verseImages.getGenerationRequestStatus,
+    activeRequestId ? { requestId: activeRequestId } : "skip"
+  );
+
+  const generationPhaseLabel = generationRequestStatus?.status === "planning"
+    ? "Planning scene..."
+    : generationRequestStatus?.status === "generating"
+      ? "Generating image..."
+      : "Generating...";
 
   // Maximum number of retries before giving up
   const maxLoadAttempts = 3;
@@ -708,14 +442,14 @@ function HeroImageBase({
   const displayIndex = totalImages - currentIndex;
   const imageCountLabel = totalImages > 0
     ? `${displayIndex} / ${totalImages}${currentIndex === 0 ? " · Latest" : ""}`
-    : displayImage
+      : displayImage
       ? "1 / 1"
       : isQueryLoading
         ? "Loading..."
         : isGenerating
-          ? "Generating..."
+          ? generationPhaseLabel
           : "No images yet";
-  const showControls = Boolean(prevUrl || nextUrl || hasImages || isGenerating || isQueryLoading);
+  const showControls = Boolean(hasImages || isGenerating || isQueryLoading || canGenerate || !pricingPending);
 
   // Sync current image ID to navigation context for ScriptureDetails
   useEffect(() => {
@@ -745,44 +479,119 @@ function HeroImageBase({
     // Check if this generation is still current (defined outside try for use in catch)
     const isStale = () => controller.signal.aborted || !isMounted.current || thisGenerationId !== generationIdRef.current;
 
-    const clientGenerationId = typeof crypto !== "undefined" && "randomUUID" in crypto
+    const clientRequestId = typeof crypto !== "undefined" && "randomUUID" in crypto
       ? crypto.randomUUID()
       : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    setActiveRequestId(clientRequestId);
 
     try {
-      const params = new URLSearchParams();
-      if (verseText) params.set("text", verseText);
-      if (chapterTheme) params.set("theme", JSON.stringify(chapterTheme));
-      if (prevVerse) params.set("prevVerse", JSON.stringify(prevVerse));
-      if (nextVerse) params.set("nextVerse", JSON.stringify(nextVerse));
-      if (currentReference) params.set("reference", currentReference);
-      if (imageModel) params.set("model", imageModel);
-      params.set("aspectRatio", imageAspectRatio);
-      params.set("resolution", imageResolution);
+      const csrfCookiePrefix = `${CSRF_COOKIE_NAME}=`;
+      const csrfToken = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith(csrfCookiePrefix))
+        ?.slice(csrfCookiePrefix.length);
+
+      const payload: Record<string, unknown> = {
+        text: verseText,
+        theme: chapterTheme,
+        prevVerse,
+        nextVerse,
+        reference: currentReference,
+        model: imageModel,
+        translation,
+        aspectRatio: imageAspectRatio,
+        resolution: imageResolution,
+        requestId: clientRequestId,
+      };
 
       // Pass existing image count to add generation diversity
       const existingImageCount = imageHistory?.length || 0;
+      const generationNumber = existingImageCount + 1;
       if (existingImageCount > 0) {
-        params.set("generation", String(existingImageCount + 1));
+        payload.generation = generationNumber;
       }
 
-      const url = `/api/generate-image?${params.toString()}`;
-      const response = await fetch(url, { signal: controller.signal });
+      if (!csrfToken) {
+        if (isMounted.current) {
+          setActiveRequestId(null);
+          setError("Security check failed. Please refresh the page and try again.");
+          trackGenerationError({
+            imageModel,
+            errorType: "csrf_missing",
+            tier,
+            hasCredits: credits > 0,
+          });
+        }
+        return;
+      }
+
+      trackImageGenerationStarted({
+        imageModel: imageModel || "unknown",
+        aspectRatio: imageAspectRatio,
+        resolution: imageResolution,
+        generationNumber,
+        tier,
+        hasCredits: credits > 0,
+      });
+
+      const response = await fetch("/api/generate-image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          [CSRF_HEADER_NAME]: csrfToken,
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
 
       if (isStale()) {
         return;
       }
 
       if (response.status === 403) {
+        let errorMessage = "Request blocked. Please refresh the page and try again.";
+        let errorType = "forbidden";
+        try {
+          const responseData = await response.json() as {
+            error?: string;
+            message?: string;
+          };
+          const combinedMessage =
+            `${responseData.error || ""} ${responseData.message || ""}`.toLowerCase();
+          if (combinedMessage.includes("csrf")) {
+            errorMessage = "Security check failed. Please refresh the page and try again.";
+            errorType = "csrf_failed";
+          } else if (combinedMessage.includes("disabled")) {
+            errorMessage = "Image generation is disabled";
+            errorType = "disabled";
+          }
+        } catch {
+          // Keep the generic forbidden message when error JSON is unavailable.
+        }
+
         if (isMounted.current) {
-          setError("Image generation is disabled");
+          setActiveRequestId(null);
+          setError(errorMessage);
+          trackGenerationError({
+            imageModel,
+            errorType,
+            tier,
+            hasCredits: credits > 0,
+          });
         }
         return;
       }
 
       if (response.status === 401) {
         if (isMounted.current) {
+          setActiveRequestId(null);
           setError("Session required - please refresh the page");
+          trackGenerationError({
+            imageModel,
+            errorType: "unauthorized",
+            tier,
+            hasCredits: credits > 0,
+          });
         }
         return;
       }
@@ -790,7 +599,14 @@ function HeroImageBase({
       if (response.status === 402) {
         // Insufficient credits
         if (isMounted.current) {
+          setActiveRequestId(null);
           setError("Insufficient credits");
+          trackCreditsInsufficient({
+            feature: "image",
+            requiredCredits: effectiveCost,
+            tier,
+            hasCredits: credits > 0,
+          });
         }
         return;
       }
@@ -801,13 +617,16 @@ function HeroImageBase({
         return;
       }
 
+      if (typeof data?.requestId === "string") {
+        setActiveRequestId(data.requestId);
+      }
+
       if (!response.ok) {
         throw new Error(data?.error || "Failed to generate image");
       }
 
-        if (data?.imageUrl) {
-          const modelUsed = data.model || imageModel || "unknown";
-          const saveGenerationId = data.generationId || clientGenerationId;
+      if (data?.imageUrl) {
+        const modelUsed = data.model || imageModel || "unknown";
 
         // Update credits in session context if returned
         if (typeof data.credits === "number") {
@@ -818,43 +637,32 @@ function HeroImageBase({
           return;
         }
 
-        // Save to Convex (action handles both URLs and base64 data)
-        if (onSaveImage) {
-          const savedId = await onSaveImage({
-            verseId,
-            imageUrl: data.imageUrl,
-            model: modelUsed,
-            prompt: data.prompt,
-            promptVersion: data.promptVersion,
-            promptInputs: data.promptInputs,
-            reference: data.reference,
-            verseText: data.verseText,
-            chapterTheme: data.chapterTheme,
-            generationNumber: data.generationNumber,
-            translationId: translation,
-            provider: data.provider,
-            providerRequestId: data.providerRequestId,
-            creditsCost: data.creditsCost,
-            costUsd: data.costUsd,
-            durationMs: data.durationMs,
-            aspectRatio: data.aspectRatio,
-            generationId: saveGenerationId,
-          });
-
-          if (isStale()) {
-            return;
-          }
-
-          if (savedId) {
-            setPendingImageId(savedId);
-          }
+        const savedImageId =
+          typeof data.savedImageId === "string" ? data.savedImageId : null;
+        if (savedImageId) {
+          setPendingImageId(savedImageId);
         }
 
         if (isStale()) {
           return;
         }
 
-        if (!onSaveImage) {
+        // Track successful image generation (fires regardless of Convex persistence)
+        const hasCreditsAfterGeneration = resolveHasCreditsAfterGeneration({
+          returnedCredits: data.credits,
+          currentCredits: credits,
+        });
+        trackImageGenerated({
+          imageModel: modelUsed,
+          aspectRatio: data.aspectRatio || imageAspectRatio,
+          resolution: imageResolution,
+          generationNumber: data.generationNumber || generationNumber,
+          durationMs: data.durationMs,
+          tier,
+          hasCredits: hasCreditsAfterGeneration,
+        });
+
+        if (!savedImageId) {
           // No Convex persistence; show the generated URL immediately.
           setGeneratedImage({
             url: data.imageUrl,
@@ -866,18 +674,35 @@ function HeroImageBase({
       }
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") {
+        if (isMounted.current) {
+          setActiveRequestId(null);
+        }
         return;
       }
       if (isStale()) {
         return;
       }
-      setError(err instanceof Error ? err.message : "Failed to generate image");
+      const errorMessage = err instanceof Error ? err.message : "Failed to generate image";
+      setError(errorMessage);
       console.error("Image generation error:", err);
+      // Sanitize error type for analytics (avoid leaking sensitive details)
+      const errorType =
+        err instanceof TypeError ? "network_error" :
+        errorMessage.includes("Missing image URL") ? "missing_url" :
+        errorMessage.includes("timed out") ? "timeout" :
+        "generation_failed";
+      trackGenerationError({
+        imageModel,
+        errorType,
+        tier,
+        hasCredits: credits > 0,
+      });
     } finally {
       // Always clean up if this is still the current generation
       if (thisGenerationId === generationIdRef.current) {
         activeRequest.current = null;
         if (isMounted.current) {
+          setActiveRequestId(null);
           setIsGenerating(false);
         }
       }
@@ -893,10 +718,12 @@ function HeroImageBase({
     imageAspectRatio,
     imageResolution,
     translation,
-    onSaveImage,
     selectedImageId,
     imageHistory,
     updateCredits,
+    tier,
+    credits,
+    effectiveCost,
   ]);
 
   // Manual regenerate function - resets load attempts and queues a new image
@@ -908,6 +735,10 @@ function HeroImageBase({
     generateImage();
   }, [generateImage]);
 
+  useEffect(() => {
+    handleManualRegenerateRef.current = handleManualRegenerate;
+  }, [handleManualRegenerate]);
+
   const handleImageReload = useCallback(() => {
     if (onRefreshImages) {
       setError(null);
@@ -918,6 +749,57 @@ function HeroImageBase({
     }
     handleManualRegenerate();
   }, [onRefreshImages, handleManualRegenerate]);
+
+  // Register generation callback with context so header can trigger it
+  useEffect(() => {
+    registerGenerate(() => {
+      handleManualRegenerateRef.current?.();
+    });
+    return () => unregisterGenerate();
+  }, [registerGenerate, unregisterGenerate]);
+
+  // Register buyCredits with context
+  useEffect(() => {
+    registerBuyCredits(buyCredits);
+  }, [buyCredits, registerBuyCredits]);
+
+  // Register settings callbacks with context
+  useEffect(() => {
+    registerSettings({
+      setAspectRatio: setImageAspectRatio,
+      setResolution: setImageResolution,
+    });
+  }, [setImageAspectRatio, setImageResolution, registerSettings]);
+
+  // Push derived generation state to context for header consumption
+  useEffect(() => {
+    updateGenerationState({
+      canGenerate,
+      isGenerating,
+      pricingPending,
+      effectiveCost,
+      effectiveEta,
+      showCreditsCost,
+      generationPhaseLabel,
+      aspectRatio: imageAspectRatio,
+      resolution: imageResolution,
+      baseCost,
+      modelId: imageModel,
+    });
+  }, [
+    canGenerate,
+    isGenerating,
+    pricingPending,
+    effectiveCost,
+    effectiveEta,
+    showCreditsCost,
+    generationPhaseLabel,
+    imageAspectRatio,
+    imageResolution,
+    baseCost,
+    imageModel,
+    updateGenerationState,
+  ]);
 
   // Image navigation functions
   const goToPrevImage = useCallback(() => {
@@ -983,6 +865,16 @@ function HeroImageBase({
     setPendingImageId(null);
   }, [pendingImageId, imageHistory]);
 
+  useEffect(() => {
+    if (!activeRequestId) return;
+    if (
+      generationRequestStatus?.status === "succeeded" ||
+      generationRequestStatus?.status === "failed"
+    ) {
+      setActiveRequestId(null);
+    }
+  }, [activeRequestId, generationRequestStatus?.status]);
+
   // Reset state when verse changes
   useEffect(() => {
     setSelectedImageId(null);
@@ -991,6 +883,7 @@ function HeroImageBase({
     setHasAttemptedGeneration(false);
     setImageLoadAttempts(0);
     setPendingImageId(null);
+    setActiveRequestId(null);
     setIsImageLoading(false);
     pendingFollowLatest.current = true;
     if (activeRequest.current) {
@@ -1022,9 +915,14 @@ function HeroImageBase({
 
   useEffect(() => {
     if (!displayImage?.url) return;
+    const displayImageKey = `${verseId ?? "unknown"}:${displayImage.id ?? displayImage.url}`;
+    if (lastDisplayImageKeyRef.current === displayImageKey) {
+      return;
+    }
+    lastDisplayImageKeyRef.current = displayImageKey;
     setImageLoadAttempts(0);
     setError(null);
-  }, [displayImage?.id, displayImage?.url]);
+  }, [displayImage?.id, displayImage?.url, verseId]);
 
   useEffect(() => {
     // Ensure isMounted is reset correctly in React Strict Mode (dev double-invokes effects)
@@ -1037,6 +935,20 @@ function HeroImageBase({
     };
   }, []);
 
+  // Keyboard navigation in fullscreen (left/right arrows for verse nav)
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft" && prevUrl) {
+        router.push(prevUrl);
+      } else if (e.key === "ArrowRight" && nextUrl) {
+        router.push(nextUrl);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isFullscreen, prevUrl, nextUrl, router]);
+
   // Use the displayed image's aspect ratio when available, fall back to user preference
   const containerAspectRatio: ImageAspectRatio =
     currentImage?.aspectRatio && isValidAspectRatio(currentImage.aspectRatio)
@@ -1047,8 +959,8 @@ function HeroImageBase({
     <figure className="relative w-full">
       {/* Image Container - taller 4:5 on mobile, user-selected ratio on desktop */}
       <div
-        className="relative w-full overflow-hidden bg-[var(--surface)] aspect-[4/5] sm:[aspect-ratio:var(--ar)]"
-        style={{ '--ar': ASPECT_RATIOS[containerAspectRatio].cssRatio } as React.CSSProperties}
+        className="relative w-full overflow-hidden bg-[var(--background)] aspect-[4/5] sm:[aspect-ratio:var(--ar)]"
+        style={{ "--ar": ASPECT_RATIOS[containerAspectRatio].cssRatio } as React.CSSProperties}
       >
         {displayImage?.url ? (
           <>
@@ -1085,7 +997,7 @@ function HeroImageBase({
                 <div className="flex items-center gap-2 px-4 py-2 bg-[var(--background)]/70 border border-[var(--divider)]/60 backdrop-blur-sm rounded-[var(--radius-md)]">
                   <RefreshCw className="w-4 h-4 animate-spin" />
                   <span className="text-sm text-[var(--foreground)]/70">
-                    {isGenerating ? "Generating..." : "Loading image..."}
+                    {isGenerating ? generationPhaseLabel : "Loading image..."}
                   </span>
                 </div>
               </div>
@@ -1104,16 +1016,14 @@ function HeroImageBase({
               </div>
             )}
 
-            {/* Model badge - expandable metadata indicator */}
-            <ImageMetadataBadge
-              model={displayImage.model}
-              provider={currentImage?.provider}
-              durationMs={currentImage?.durationMs}
-              aspectRatio={currentImage?.aspectRatio}
-              imageWidth={currentImage?.imageWidth}
-              imageHeight={currentImage?.imageHeight}
-              createdAt={currentImage?.createdAt}
-            />
+            {/* Fullscreen toggle button - mobile only (desktop uses VerseStripBar) */}
+            <button
+              onClick={openFullscreen}
+              className="sm:hidden absolute top-3 z-20 right-4 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 border border-[var(--divider)] text-[var(--foreground)] hover:bg-[var(--divider)]/50 hover:text-[var(--foreground)] active:scale-95 transition-all duration-[var(--motion-fast)] cursor-pointer focus-ring"
+              aria-label="View fullscreen"
+            >
+              <Maximize2 size={20} strokeWidth={1.5} />
+            </button>
           </>
         ) : (
           /* Placeholder with skeleton loader */
@@ -1131,7 +1041,7 @@ function HeroImageBase({
                 <div className="flex items-center gap-2 px-4 py-2 bg-[var(--background)]/70 border border-[var(--divider)]/60 backdrop-blur-sm rounded-[var(--radius-md)]">
                   <RefreshCw className="w-4 h-4 animate-spin" />
                   <span className="text-sm text-[var(--foreground)]/70">
-                    {isQueryLoading ? "Loading..." : "Generating..."}
+                    {isQueryLoading ? "Loading..." : generationPhaseLabel}
                   </span>
                 </div>
               </div>
@@ -1205,149 +1115,68 @@ function HeroImageBase({
         {/* Bottom gradient for text readability */}
         <div className="absolute inset-x-0 bottom-0 h-36 md:h-44 bg-gradient-to-t from-[var(--background)]/90 via-[var(--background)]/40 to-transparent pointer-events-none" />
 
-        {/* Control Dock - Hidden on mobile, visible on sm+ */}
-        {showControls && (
+        {/* Image Browsing Dock - Desktop only, shown when images exist */}
+        {totalImages > 0 && (
           <div className="hidden sm:block absolute inset-x-4 md:inset-x-6 bottom-4 z-20">
             <div className="mx-auto w-fit max-w-[calc(100vw-2rem)] md:max-w-[calc(100vw-3rem)]">
-              <div className="flex flex-row items-center justify-between gap-2 rounded-[var(--radius-lg)] border border-[var(--divider)]/70 bg-[var(--background)]/80 backdrop-blur-md shadow-[var(--shadow-sm)] px-2 py-2">
-                <div className="flex items-center gap-1">
-                  {prevUrl ? (
-                    <Link
-                      href={prevUrl}
-                      className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 transition-colors duration-[var(--motion-fast)] focus-ring"
-                      aria-label="Previous verse"
-                    >
-                      <ChevronLeft size={18} strokeWidth={1.5} />
-                      <span className="text-sm">Prev verse</span>
-                    </Link>
-                  ) : (
-                    <span className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] text-[var(--muted)]/50">
-                      <ChevronLeft size={18} strokeWidth={1.5} />
-                      <span className="text-sm">Prev verse</span>
-                    </span>
-                  )}
-                  {nextUrl ? (
-                    <Link
-                      href={nextUrl}
-                      className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 transition-colors duration-[var(--motion-fast)] focus-ring"
-                      aria-label="Next verse"
-                    >
-                      <span className="text-sm">Next verse</span>
-                      <ChevronRight size={18} strokeWidth={1.5} />
-                    </Link>
-                  ) : (
-                    <span className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] text-[var(--muted)]/50">
-                      <span className="text-sm">Next verse</span>
-                      <ChevronRight size={18} strokeWidth={1.5} />
-                    </span>
-                  )}
-                </div>
-
+              <div className="flex flex-row items-center gap-2 rounded-[var(--radius-lg)] liquid-glass px-2 py-2">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={goToNextImage}
                     disabled={!canGoNewer}
-                    className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-full)] text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 transition-colors duration-[var(--motion-fast)] disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
+                    className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-full)] text-white/60 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
                     aria-label="Newer image"
                     title="Newer image"
                   >
                     <ChevronLeft size={18} strokeWidth={1.5} />
                   </button>
                   <div className="flex flex-col items-center leading-tight px-2">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--muted)]">Images</span>
-                    <span className="text-xs text-[var(--foreground)]">{imageCountLabel}</span>
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/50">Images</span>
+                    <span className="text-xs text-white/90">{imageCountLabel}</span>
                   </div>
                   <button
                     onClick={goToPrevImage}
                     disabled={!canGoOlder}
-                    className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-full)] text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]/70 transition-colors duration-[var(--motion-fast)] disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
+                    className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-full)] text-white/60 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
                     aria-label="Older image"
                     title="Older image"
                   >
                     <ChevronRight size={18} strokeWidth={1.5} />
                   </button>
                 </div>
-
-                {/* Aspect Ratio & Resolution Selectors */}
-                <div className="hidden sm:flex items-center gap-1">
-                  <AspectRatioSelector
-                    value={imageAspectRatio}
-                    onChange={setImageAspectRatio}
-                  />
-                  <ResolutionSelector
-                    value={imageResolution}
-                    onChange={setImageResolution}
-                    baseCost={baseCost}
-                    showCost={showCreditsCost}
-                    modelId={imageModel}
-                  />
-                </div>
-
-                {pricingPending ? (
-                  <button
-                    type="button"
-                    disabled
-                    title="Fetching live model pricing..."
-                    className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] border border-[var(--divider)] bg-[var(--background)] text-[var(--muted)] opacity-70 cursor-not-allowed"
-                    aria-label="Loading pricing"
-                  >
-                    <Loader2 size={18} strokeWidth={2} className="animate-spin" />
-                    <span className="text-sm">Loading pricing...</span>
-                  </button>
-                ) : canGenerate ? (
-                  <button
-                    onClick={handleManualRegenerate}
-                    disabled={isGenerating}
-                    className="min-h-[44px] px-3 inline-flex items-center gap-2 rounded-[var(--radius-full)] border border-[var(--divider)] bg-[var(--background)] text-[var(--foreground)]/80 hover:text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors duration-[var(--motion-fast)] disabled:opacity-50 disabled:cursor-not-allowed focus-ring"
-                    aria-label="Generate new image"
-                  >
-                    {isGenerating ? (
-                      <Loader2 size={18} strokeWidth={2} className="animate-spin" />
-                    ) : (
-                      <RefreshCw size={18} strokeWidth={1.5} />
-                    )}
-                    {isGenerating ? (
-                      <span className="text-sm">Generating...</span>
-                    ) : (
-                      <span className="text-sm inline-flex items-center gap-2">
-                        Generate
-                        {showCreditsCost && (
-                          <span className="inline-flex items-center gap-1 text-[var(--muted)]" title="Unused credits refunded after generation">
-                            <Zap size={12} strokeWidth={2} />
-                            <span>≤{effectiveCost}</span>
-                          </span>
-                        )}
-                        <span className="inline-flex items-center gap-1 text-[var(--muted)]">
-                          <Clock size={12} strokeWidth={2} />
-                          <span>~{effectiveEta}s</span>
-                        </span>
-                      </span>
-                    )}
-                  </button>
-                ) : (
-                  <button
-                    onClick={buyCredits}
-                    className="min-h-[44px] px-4 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
-                    aria-label="Buy credits to generate"
-                  >
-                    <Zap size={18} strokeWidth={2} />
-                    <span className="text-sm">Unlock Generation</span>
-                  </button>
-                )}
               </div>
             </div>
           </div>
         )}
 
-        {/* Mobile FAB - Opens bottom sheet on mobile only */}
-        {showControls && (
-          <button
-            onClick={openImageControls}
-            className="sm:hidden absolute bottom-4 right-4 z-20 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 backdrop-blur-sm border border-[var(--divider)] shadow-lg text-[var(--foreground)] active:scale-95 transition-transform"
-            aria-label="Open image controls"
-          >
-            <Settings size={20} strokeWidth={1.5} />
-          </button>
+        {/* Mobile inline image navigation - visible directly on image */}
+        {showControls && totalImages > 1 && (
+          <div className="sm:hidden">
+            {/* Left arrow - newer image */}
+            <button
+              onClick={goToNextImage}
+              disabled={!canGoNewer}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
+              aria-label="Newer image"
+            >
+              <ChevronLeft size={22} strokeWidth={1.5} />
+            </button>
+
+            {/* Right arrow - older image */}
+            <button
+              onClick={goToPrevImage}
+              disabled={!canGoOlder}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
+              aria-label="Older image"
+            >
+              <ChevronRight size={22} strokeWidth={1.5} />
+            </button>
+
+            {/* Counter pill */}
+            <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-xs text-[var(--foreground)]">
+              {displayIndex} / {totalImages}
+            </div>
+          </div>
         )}
       </div>
 
@@ -1371,23 +1200,160 @@ function HeroImageBase({
         </figcaption>
       )}
 
-      {/* Mobile Image Controls Sheet */}
-      <ImageControlsSheet
-        prevUrl={prevUrl}
-        nextUrl={nextUrl}
-        currentImageIndex={displayIndex}
-        totalImages={totalImages}
-        onOlderImage={goToPrevImage}
-        onNewerImage={goToNextImage}
-        hasOlderImage={canGoOlder}
-        hasNewerImage={canGoNewer}
-        onGenerate={handleManualRegenerate}
-        isGenerating={isGenerating}
-        creditsCost={effectiveCost}
-        canGenerate={canGenerate}
-        isPricingLoading={pricingPending}
-        onBuyCredits={buyCredits}
-      />
+      {/* Fullscreen Image Overlay */}
+      {isFullscreen && (
+        <div
+          className="fixed inset-0 z-[60] bg-black flex flex-col"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Fullscreen image view"
+        >
+          {/* Top bar */}
+          <div className="shrink-0 flex items-center justify-between px-4 py-3">
+            <span className="text-sm text-white/80 font-medium">
+              {currentReference || ""}
+            </span>
+            <button
+              onClick={closeFullscreen}
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors duration-[var(--motion-fast)]"
+              aria-label="Close fullscreen"
+            >
+              <X size={24} strokeWidth={1.5} />
+            </button>
+          </div>
+
+          {/* Centered content area */}
+          <div className="flex-1 relative flex items-center justify-center min-h-0 px-2">
+            {/* Previous verse */}
+            {prevUrl && (
+              <button
+                onClick={() => router.push(prevUrl)}
+                className="absolute left-2 sm:left-4 z-10 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors duration-[var(--motion-fast)]"
+                aria-label="Previous verse"
+              >
+                <ChevronLeft size={28} strokeWidth={1.5} />
+              </button>
+            )}
+
+            {/* Centered column: image + iterator + verse text */}
+            <div className="flex flex-col items-center max-w-full max-h-full min-h-0">
+              {displayImage?.url ? (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={displayImage.url}
+                    alt={alt}
+                    className="max-w-full max-h-[70vh] object-contain rounded-[var(--radius-md)] transition-opacity duration-[var(--motion-base)]"
+                  />
+                </>
+              ) : isQueryLoading || isGenerating ? (
+                <div className="flex items-center justify-center h-[70vh]">
+                  <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-[var(--radius-md)]">
+                    <RefreshCw className="w-4 h-4 animate-spin text-white/70" />
+                    <span className="text-sm text-white/70">
+                      {isQueryLoading ? "Loading..." : generationPhaseLabel}
+                    </span>
+                  </div>
+                </div>
+              ) : error ? (
+                <div className="h-[70vh] flex flex-col items-center justify-center gap-3 px-6 text-center">
+                  <div className="w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
+                    <ImageOff size={24} strokeWidth={1.5} className="text-white/70" />
+                  </div>
+                  <p className="text-sm text-red-300 max-w-md">{error}</p>
+                  <button
+                    onClick={handleManualRegenerate}
+                    className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white text-black hover:bg-white/90 transition-colors duration-[var(--motion-fast)]"
+                  >
+                    <RefreshCw className="w-4 h-4" />
+                    <span className="text-sm font-medium">Try Again</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="h-[70vh] flex flex-col items-center justify-center gap-4 px-6 text-center">
+                  <div className="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
+                    <ImageOff size={28} strokeWidth={1.5} className="text-white/70" />
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-white">No image yet</p>
+                    <p className="text-xs text-white/70 max-w-xs">
+                      Generate an AI illustration to bring this verse to life
+                    </p>
+                  </div>
+                  {pricingPending ? (
+                    <button
+                      type="button"
+                      disabled
+                      title="Fetching live model pricing..."
+                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white/10 text-white/70 border border-white/20 opacity-80 cursor-not-allowed"
+                    >
+                      <Loader2 size={18} strokeWidth={2} className="animate-spin" />
+                      <span className="text-sm font-medium">Loading pricing...</span>
+                    </button>
+                  ) : canGenerate ? (
+                    <button
+                      onClick={handleManualRegenerate}
+                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white text-black hover:bg-white/90 transition-colors duration-[var(--motion-fast)]"
+                    >
+                      <Sparkles size={18} strokeWidth={1.5} />
+                      <span className="text-sm font-medium">Generate Image</span>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={buyCredits}
+                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)]"
+                    >
+                      <Zap size={18} strokeWidth={2} />
+                      <span className="text-sm font-medium">Get Credits to Generate</span>
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {/* Image iterator */}
+              {totalImages > 1 && (
+                <div className="flex items-center gap-2 mt-3">
+                  <button
+                    onClick={goToNextImage}
+                    disabled={!canGoNewer}
+                    className="min-h-[36px] min-w-[36px] flex items-center justify-center rounded-full text-white/60 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-30 disabled:cursor-not-allowed"
+                    aria-label="Newer image"
+                  >
+                    <ChevronLeft size={18} strokeWidth={1.5} />
+                  </button>
+                  <span className="text-xs text-white/70 px-2 select-none">{imageCountLabel}</span>
+                  <button
+                    onClick={goToPrevImage}
+                    disabled={!canGoOlder}
+                    className="min-h-[36px] min-w-[36px] flex items-center justify-center rounded-full text-white/60 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-30 disabled:cursor-not-allowed"
+                    aria-label="Older image"
+                  >
+                    <ChevronRight size={18} strokeWidth={1.5} />
+                  </button>
+                </div>
+              )}
+
+              {/* Verse text */}
+              {verseText && (
+                <p className="mt-3 text-center text-sm sm:text-base text-white/80 leading-relaxed max-w-2xl px-4">
+                  {verseText}
+                </p>
+              )}
+            </div>
+
+            {/* Next verse */}
+            {nextUrl && (
+              <button
+                onClick={() => router.push(nextUrl)}
+                className="absolute right-2 sm:right-4 z-10 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors duration-[var(--motion-fast)]"
+                aria-label="Next verse"
+              >
+                <ChevronRight size={28} strokeWidth={1.5} />
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </figure>
   );
 }

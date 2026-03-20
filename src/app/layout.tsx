@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { SessionProvider } from "@/context/session-context";
 import { NavigationProvider } from "@/context/navigation-context";
 import { PreferencesProvider } from "@/context/preferences-context";
+import { GenerationProvider } from "@/context/generation-context";
 import { ChatSidebar } from "@/components/chat-sidebar";
 import { BuyCreditsModal } from "@/components/buy-credits-modal";
 import { ChatFAB } from "@/components/chat-fab";
@@ -23,8 +25,12 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Visibible",
-  description: "AI-powered chat application",
+  description: "Explore Scripture with AI-powered insights and imagery. Read and visualize every verse of the Bible.",
 };
+
+const enableVercelAnalytics =
+  process.env.VERCEL_ENV === "preview" ||
+  process.env.VERCEL_ENV === "production";
 
 export default function RootLayout({
   children,
@@ -40,16 +46,19 @@ export default function RootLayout({
           <SessionProvider>
             <PreferencesProvider>
               <NavigationProvider>
-                {children}
-                <ChatSidebar />
-                <ChatFAB />
-                <ChatPrompt />
-                <FeedbackPrompt />
-                <BuyCreditsModal />
+                <GenerationProvider>
+                  {children}
+                  <ChatSidebar />
+                  <ChatFAB />
+                  <ChatPrompt />
+                  <FeedbackPrompt />
+                  <BuyCreditsModal />
+                </GenerationProvider>
               </NavigationProvider>
             </PreferencesProvider>
           </SessionProvider>
         </ConvexClientProvider>
+        {enableVercelAnalytics ? <Analytics /> : null}
       </body>
     </html>
   );

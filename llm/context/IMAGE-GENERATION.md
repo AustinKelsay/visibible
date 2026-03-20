@@ -1,175 +1,130 @@
 # Image Generation Context
 
-High-level overview of how Visibible generates scripture illustrations. Details may change.
+Current high-level overview of Visibible image generation.
 
-## Overview
+## Current State (Phase 1 + Phase 2)
 
-- Each verse has its own AI-generated image.
-- Images are generated server-side via OpenRouter.
-- When sessions/credits are enabled, generation is credit-gated and requires a session cookie.
-- **Model selection**: Users can choose any image-capable model from OpenRouter via a header dropdown.
-- **Image settings**: Users can configure aspect ratio (16:9, 21:9, 3:2) and resolution (1K, 2K, 4K) via controls in the image area.
-- **Storyboard context**: Images include prev/next verse context for visual narrative continuity (only when verses are in the same chapter).
-- **Persistence (Convex)**: When enabled, every image is saved per verse and can be browsed later.
-- **Cost visibility**: Credit cost varies by model; the UI surfaces model-specific costs and ETA estimates.
-- **Transparency**: Saved images include prompt + prompt version/inputs, translation, provider metadata, and image file metadata (mime/size/dimensions) in addition to costs and timing.
-- **Availability**: Image generation requires Convex configuration (sessions, credits, rate limiting). If Convex is disabled, the API returns 503 and generation is unavailable.
+Image generation is Convex-orchestrated, includes scene-plan caching, and now uses Neutral Cost for cost quoting/tracking.
 
-## Current Flow
+- Request lifecycle is tracked in Convex (`queued`, `planning`, `generating`, `succeeded`, `failed`).
+- The UI subscribes to live request status and shows phase labels.
+- Prompt assembly uses strict char budgets and section-priority compaction.
+- Scene plans are cached in Convex by `(verseId, translationId, styleProfileId)`.
+- Cache hits skip planner API calls and skip planner credit reservations.
+- Neutral Cost is used to quote USD->credit charges and persist per-generation cost records.
+- If real-time cost persistence times out/fails, events are queued in Convex outbox and retried by cron.
+- Structured observability events/metrics are emitted for rate-limit blocks, timeout paths, and settlement outcomes.
 
-1. Verse page fetches current verse AND prev/next verses from the Bible API using the selected translation.
-2. `HeroImage` loads existing image history from Convex (if configured).
-3. If no images exist for the verse, `HeroImage` auto-generates the first image **only when generation is allowed** (admin/paid with enough credits and Convex enabled).
-4. Client requests `/api/generate-image` with text, optional theme, prevVerse, nextVerse, reference, **model**, **aspectRatio**, **resolution**, and generation count.
-5. The server requires Convex and a valid session cookie, then pre-checks credits (admin bypass). Credit cost is derived from model pricing; unpriced models are rejected.
-6. Server builds a **storyboard-aware prompt** with strict "no text" + framing guardrails and stamps `promptVersion` + `promptInputs`.
-7. Server generates the image via OpenRouter using the **user-selected model**.
-8. On success, credits are charged (post-charge) and the response includes image URL + prompt + metadata (including `generationId`, provider info, and prompt version/inputs).
-9. If Convex is enabled, the image and metadata are saved and appended to history (including translation + file metadata); otherwise it is displayed directly.
-10. On failure, no credits are charged.
+## End-to-End Flow
 
-## Chapter Themes (Optional)
+1. Verse page fetches verse context and passes theme/context into `HeroImage`.
+2. `HeroImage` sends `/api/generate-image` request with:
+   - `requestId`
+   - verse/context payload
+   - model + ratio + resolution
+   - `translation` id
+3. API validates security/session/rate limit/credits and creates lifecycle record in Convex.
+4. API checks scene plan cache using `(verseId, translationId, styleProfileId)`.
+5. If cache hit:
+   - planner call is skipped
+   - planner cost is not reserved
+   - cache hit metadata is updated
+6. If cache miss:
+   - optional planner call runs
+   - successful plan is upserted into cache
+7. API builds compact prompt packet, updates status to `generating`, calls OpenRouter.
+8. API settles credits and writes terminal lifecycle state.
+9. API persists a Neutral Cost event for the generation (metadata + final charge details).
+10. API persists the generated image server-side via `saveImage` (server-secret authenticated) and returns image payload (including `savedImageId` when persistence succeeds).
+11. UI follows status via Convex query and updates generation phase messaging.
 
-The `HeroImage` component accepts an optional `chapterTheme` prop that augments prompts for consistent style. Theme data files can be created per chapter and passed through the verse page to enable themed image generation.
+## Convex Data Model
 
-Example theme structure:
+### `imageGenerationRequests`
 
-```ts
-{
-  setting: "Creation of the cosmos",
-  palette: "deep cosmic blues, radiant golds, ethereal whites",
-  elements: "primordial void, divine light rays, swirling waters, emerging forms",
-  style: "classical religious art, Baroque lighting, majestic and reverent"
-}
-```
+Lifecycle + observability table.
 
-## Scene Planner
+Key fields:
+- identity: `requestId`, `sid`, `verseId`, `translationId`
+- settings: `modelId`, `aspectRatio`, `resolution`, `scenePlannerModel`
+- status/timing: status + timestamps + `durationMs`
+- diagnostics: `error`, `scenePlannerUsed`, `scenePlanFromCache`, `usedFallbackEstimate`
+- costs: estimated and actual credits/USD
+- prompt metadata: `promptVersion`, `promptPacket`
 
-An optional scene planner (enabled by default) runs before prompt construction to produce a structured scene plan that anchors the image composition.
+### `scenePlanCache`
 
-- **Default model**: `openai/gpt-oss-120b` (paid, additional cost)
-- **Configurable**: Set `OPENROUTER_SCENE_PLANNER_MODEL` for a different model
-- **Credit metering**: Scene planner credits are reserved upfront and refunded if it fails
-- **Non-fatal**: Planner failures don't block image generation
+Reusable planner outputs.
 
-## Prompt Construction
+Key fields:
+- key: `verseId`, `translationId`, `styleProfileId`
+- payload: `scenePlan`, `plannerModel`, `promptVersion`
+- usage/freshness: `hitCount`, `lastUsedAt`, `updatedAt`
 
-Prompts combine verse text with storyboard context (and theme when provided). The API also prepends guardrails (no-text, framing) and records a `promptVersion` for reproducibility.
+### Neutral Cost Component Tables
 
-```
-Render a stylized biblical-era scene for {reference}: "{verse text}"
+Managed by Convex component `neutralCost`:
+- `toolsPricing`
+- `costPerTools`
+- `markupMultiplier`
 
-NARRATIVE CONTEXT (for visual continuity - this is a storyboard):
-- Previous scene (v{N-1}): "{prev verse text}"
-- CURRENT SCENE (the verse to illustrate): "{verse text}"
-- Next scene (v{N+1}): "{next verse text}"
+### Cost Event Outbox
 
-This is part of a visual storyboard through Scripture. Maintain visual consistency
-with the flow of the narrative while focusing on THIS verse's moment.
+Table: `costEventOutbox`
 
-Setting: {theme.setting}
-Visual elements: {theme.elements}
-Color palette: {theme.palette}
-Style: {theme.style}
+- Stores failed/timeout cost events for later replay.
+- Cron retries pending events every 5 minutes.
+- Replay is idempotent by generation id check before recording cost event.
 
-Generate the image in {ASPECT_LABEL} LANDSCAPE format with a {aspectRatio} aspect ratio (wide, not square).
-```
+## Convex Functions
 
-Where `{ASPECT_LABEL}` is dynamically set based on user selection:
-- `16:9` → WIDESCREEN
-- `21:9` → ULTRA-WIDE CINEMATIC
-- `3:2` → CLASSIC WIDE
+In `convex/verseImages.ts`:
 
-When multiple images already exist for the verse, a "generation" note is added to encourage variety.
-Prompt inputs (reference, aspect ratio, resolution, generation number, prev/next context) are stored alongside the prompt for reproducibility.
+Lifecycle:
+- `createGenerationRequest`
+- `updateGenerationRequest`
+- `getGenerationRequestStatus`
 
-## Persistence & Caching
+Scene plan cache:
+- `getScenePlanCache`
+- `markScenePlanCacheHit`
+- `upsertScenePlanCache`
 
-- **Convex persistence** stores images per verse and makes history available across sessions.
-- **Metadata** includes prompt + prompt inputs/version, translation, provider identifiers, costs, duration, aspect ratio, and image file details (source URL, mime type, size, dimensions).
-- `/api/generate-image` responses include `Cache-Control: private, max-age=3600` for HTTP caching.
-- Next.js caching is disabled (`dynamic = "force-dynamic"`), so persistence is handled by Convex or the browser cache.
+Neutral cost:
+- `quoteUsdCost`
+- `recordImageCostEvent`
 
-## Credits & Sessions
+Image persistence (see `llm/implementation/IMAGE_PERSISTENCE_IMPLEMENTATION.md` for full data model):
+- `saveImage` (server-authenticated action)
 
-- Image generation is only available when Convex is configured; credits are enforced for non-admin sessions.
-- Admin sessions bypass credit checks but **all usage is logged** for security monitoring.
-- Credit cost is derived from OpenRouter pricing; unpriced models are rejected.
-- **Scene planner costs** are included by default (scene planner model is paid).
-- Daily spending limit of $5/session protects against runaway costs.
-- Response includes cost breakdown: `imageCreditsCost`, `scenePlannerCredits`, `scenePlannerUsed`.
-- See `llm/context/SESSIONS_AND_CREDITS.md` for user-facing behavior and `llm/implementation/SESSIONS_AND_CREDITS.md` for implementation details.
+All write operations and cache lookup in server flows are gated by `CONVEX_SERVER_SECRET`.
 
-## Model Selection
+## Prompt Strategy
 
-Users can choose from **any image generation model** available on OpenRouter via a dropdown in the header.
+Prompting now favors bounded, reusable context over raw expansion:
 
-### How It Works
+- continuity hints are short (`vN: ...`) and clipped
+- narrative continuity section is omitted when scene plan exists
+- section-level compaction enforces prompt budget (`PROMPT_MAX_CHARS`)
+- `promptPacket` records exactly what survived compaction
 
-1. Click the image icon in the header to open the model selector.
-2. Models are fetched from OpenRouter's `/api/v1/models` endpoint.
-3. Only models with image output capability are shown; each model includes a credit cost and ETA estimate.
-4. Selection is persisted in localStorage and triggers image regeneration.
+## Current UI Behavior
 
-### Default Model
+`HeroImage`:
+- creates/sends `requestId`
+- subscribes to request status
+- displays phase labels:
+  - `Planning scene...`
+  - `Generating image...`
 
-- **Default**: `google/gemini-2.5-flash-image`
+## Theme Wiring
 
-## Image Settings
-
-Users can configure aspect ratio and resolution for generated images via dropdown selectors in the HeroImage control dock.
-
-### Aspect Ratio
-
-| Option | Label | Description |
-|--------|-------|-------------|
-| `16:9` | Widescreen | Standard widescreen format (default) |
-| `21:9` | Ultra-wide | Cinematic ultra-wide format |
-| `3:2` | Classic | Classic photography format |
-
-### Resolution
-
-| Option | Label | Cost Multiplier | Description |
-|--------|-------|-----------------|-------------|
-| `1K` | Standard | 1.0x | Base resolution (default) |
-| `2K` | High | 3.5x | Higher resolution |
-| `4K` | Ultra | 6.5x | Maximum resolution |
-
-**Important:** Resolution settings are only supported by certain models (currently Gemini). For non-supporting models:
-- The resolution selector appears dimmed
-- No cost multiplier is applied
-- The setting is recorded but not sent to the API
-
-### Settings Persistence
-
-- Stored in localStorage (no cookies needed)
-- No page refresh required - settings take effect on next generation
-- Persisted across browser sessions
-
-## Session Integration
-
-The `HeroImage` component uses the `useSession` hook from `src/context/session-context.tsx` to:
-- Check if the user can generate (tier + credits)
-- Display generation UI only when allowed
-- Update credits after successful generation
-
-## Model Stats & ETA Estimation
-
-Every generation records timing data via `convex/modelStats.ts`:
-- After generation succeeds, the API calls `api.modelStats.recordGeneration({ modelId, durationMs })`
-- Stats are used to compute ETA estimates shown in the model selector
-- Uses exponential moving average (EMA) for `avgMs`
+Genesis 1 chapter theme is now actively passed from the verse page into image generation.
 
 ## Entry Points
 
-- **Image generation API**: `src/app/api/generate-image/route.ts`
-- **Image models API**: `src/app/api/image-models/route.ts`
-- **Image models/settings types**: `src/lib/image-models.ts` (includes aspect ratio, resolution types and validators)
-- **Hero image UI**: `src/components/hero-image.tsx` (includes AspectRatioSelector, ResolutionSelector)
-- **Model selector UI**: `src/components/image-model-selector.tsx`
-- **Preferences context**: `src/context/preferences-context.tsx` (includes imageAspectRatio, imageResolution)
-- **Session context**: `src/context/session-context.tsx`
-- **Convex persistence**: `convex/verseImages.ts`, `convex/schema.ts`
-- **Model stats**: `convex/modelStats.ts`
-- **Convex client gate**: `src/components/convex-client-provider.tsx`
-- **Verse page**: `src/app/[book]/[chapter]/[verse]/page.tsx`
+- API route: `src/app/api/generate-image/route.ts`
+- UI: `src/components/hero-image.tsx`
+- Verse page: `src/app/[book]/[chapter]/[verse]/page.tsx`
+- Convex schema: `convex/schema.ts`
+- Convex functions: `convex/verseImages.ts`

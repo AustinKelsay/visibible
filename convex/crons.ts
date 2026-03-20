@@ -3,25 +3,44 @@ import { internal } from "./_generated/api";
 
 const crons = cronJobs();
 
-// Clean up expired sessions daily at 3:00 AM UTC
-crons.daily(
+// Clean up expired sessions frequently to prevent stale-session buildup.
+crons.interval(
   "cleanup expired sessions",
-  { hourUTC: 3, minuteUTC: 0 },
+  { minutes: 15 },
   internal.cleanup.cleanupExpiredSessions
 );
 
-// Clean up stale rate limit records daily at 3:15 AM UTC
-crons.daily(
+// Clean up stale rate-limit records frequently for high-churn protection.
+crons.interval(
   "cleanup stale rate limits",
-  { hourUTC: 3, minuteUTC: 15 },
+  { minutes: 10 },
   internal.cleanup.cleanupStaleRateLimits
 );
 
-// Clean up admin login attempts daily at 3:30 AM UTC
-crons.daily(
+// Clean up old admin login attempts hourly.
+crons.interval(
   "cleanup admin login attempts",
-  { hourUTC: 3, minuteUTC: 30 },
+  { hours: 1 },
   internal.cleanup.cleanupAdminLoginAttempts
+);
+
+// Retry image cost events that could not be persisted during request handling.
+crons.interval(
+  "process image cost event outbox",
+  { minutes: 5 },
+  internal.costs.processCostEventOutboxBatch,
+  { limit: 20 }
+);
+
+// Release stale reservation-only generations from crashed/aborted requests.
+crons.interval(
+  "reconcile stale credit reservations",
+  { minutes: 5 },
+  internal.sessions.reconcileStaleReservations,
+  {
+    maxAgeMs: 30 * 60 * 1000, // 30 minutes
+    limit: 50,
+  }
 );
 
 export default crons;

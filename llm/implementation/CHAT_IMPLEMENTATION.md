@@ -11,7 +11,7 @@ Visibible chat is a client-to-server streaming flow built on the Vercel AI SDK.
 - Client UI uses `useChat` from `@ai-sdk/react` to send messages to `src/app/api/chat/route.ts`.
 - The API validates input, builds a compact system prompt, and streams tokens back.
 - Page context is sent with every chat request to keep the model grounded.
-- OpenRouter is accessed via `@openrouter/ai-sdk-provider` (not `@ai-sdk/openai`).
+- OpenRouter is accessed via `@ai-sdk/openai` using the OpenAI-compatible endpoint (`https://openrouter.ai/api/v1`).
 
 ---
 
@@ -122,7 +122,7 @@ Before processing, the API performs several security validations:
 1. **Origin Validation**: `validateOrigin(req)` checks request origin
 2. **API Key Check**: Ensures `OPENROUTER_API_KEY` is configured
 3. **Convex Availability**: Returns 503 if Convex client unavailable
-4. **Session Required**: `getSessionFromCookies()` must return valid session (401 if missing)
+4. **Session Required**: `validateSessionWithIp(req)` must return a valid, IP-bound session (`sid`) (401 if missing/invalid)
 5. **Rate Limiting**: Checked before request processing (see Rate Limiting section)
 
 ### Validation
@@ -173,6 +173,20 @@ This enables the AI to:
 - Answer questions about the verse in context
 - Provide spiritually encouraging responses
 
+### LLM Behavior Assurance Workflow
+
+Chat behavior can regress independently from infra health (credits, auth, streaming).
+To reduce that risk:
+
+- Prompt/model/context changes must follow `llm/workflow/CHAT_EVAL_AND_RELEASE.md`.
+- The workflow adds explicit quality and safety gates before production.
+- Rollback planning is required for every chat LLM change.
+
+Current gaps this workflow addresses:
+
+- `buildSystemPrompt()` is inline in `src/app/api/chat/route.ts` and not explicitly versioned.
+- Chat tests in `src/app/api/__tests__/chat/` focus on credit/stream lifecycle, not theological quality, hallucination scoring, or jailbreak resistance.
+
 ---
 
 ## Rate Limiting
@@ -219,12 +233,14 @@ Chat uses **OpenRouter exclusively** for all models. The default model is `opena
 - If no model is specified, the default is used.
 - **Models must have valid pricing** - unpriced models are rejected with 400 error.
 
-OpenRouter is configured via `@openrouter/ai-sdk-provider`:
+OpenRouter is configured via `@ai-sdk/openai` against the OpenAI-compatible endpoint:
 
 ```typescript
-import { createOpenRouter } from "@openrouter/ai-sdk-provider";
+import { createOpenAI } from "@ai-sdk/openai";
 
-const openRouter = createOpenRouter({
+const openRouter = createOpenAI({
+  name: "openrouter",
+  baseURL: "https://openrouter.ai/api/v1",
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 ```
@@ -270,6 +286,7 @@ This ensures:
 - Credits are immediately unavailable during streaming
 - Failed/cancelled requests get credits back
 - No double-charging on retries (idempotency via `generationId`)
+- One-way settlement per generation (`reserved -> released` or `reserved -> charged`) prevents duplicate release refunds and post-release charging
 
 ### Daily Spending Limit
 
@@ -329,7 +346,7 @@ When the `/api/chat-models` fetch fails, `ChatModelSelector` sets a fallback mod
     name: "GPT-OSS 120B (Default)",
     provider: "Openai",
     contextLength: 131072,
-    isFree: true,
+    isFree: false,
   }]);
 })
 ```
@@ -369,6 +386,23 @@ messageMetadata: ({ part }) => {
 
 ---
 
+## Observability Signals
+
+`src/app/api/chat/route.ts` emits structured operational signals for alerting/debugging:
+
+- Rate-limit blocks:
+  - metric: `api_rate_limit_blocks_total` (`route=/api/chat`, `endpoint=chat`)
+  - warning event: `api.rate_limited`
+- Failure paths:
+  - event: `api.failure` (for handler failures and stream pump failures)
+- Settlement lifecycle:
+  - metric: `settlement_events_total`
+  - event: `settlement.event` with outcomes such as `confirmed`, `released`, `release_failed`, `deduct_failed`
+
+Shared helper module: `src/lib/observability.ts`
+
+---
+
 ## Error Handling
 
 The API returns user-friendly errors for common failure modes:
@@ -395,7 +429,7 @@ The API returns user-friendly errors for common failure modes:
 |------|---------|
 | `src/app/api/chat/route.ts` | Validation, prompt, model selection, credit flow, streaming |
 | `src/lib/chat-models.ts` | Model pricing functions (`computeChatCreditsCost`, `getChatModelPricing`) |
-| `src/lib/session.ts` | Session management, IP hashing (`getSessionFromCookies`, `getClientIp`, `hashIp`) |
+| `src/lib/session.ts` | Session management, IP binding, hashing (`validateSessionWithIp`, `getClientIp`, `hashIp`) |
 | `src/lib/origin.ts` | Origin validation (`validateOrigin`, `invalidOriginResponse`) |
 | `src/components/chat.tsx` | Request body wiring, UI state |
 | `src/components/chat-metadata.tsx` | `MessageMetadataDisplay`, `ConversationSummary` components |
@@ -403,3 +437,4 @@ The API returns user-friendly errors for common failure modes:
 | `src/lib/bible-api.ts` | Bible API client for fetching verse data |
 | `convex/sessions.ts` | Credit reservation, deduction, daily spending limit |
 | `convex/rateLimit.ts` | Per-endpoint rate limiting configuration |
+| `src/lib/observability.ts` | Structured logs and operational counters |

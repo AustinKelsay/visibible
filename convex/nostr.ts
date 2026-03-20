@@ -4,12 +4,56 @@ import { internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
 
-const NOSTR_RELAYS = [
+const DEFAULT_NOSTR_RELAYS = [
   "wss://relay.nostr.band",
   "wss://nos.lol",
   "wss://relay.damus.io",
   "wss://relay.primal.net"
 ];
+
+function getNostrRelays(): string[] {
+  const configured = process.env.NOSTR_RELAYS;
+  if (!configured) {
+    return DEFAULT_NOSTR_RELAYS;
+  }
+
+  const parsed = configured
+    .split(/[,\n]/)
+    .map((relay) => relay.trim())
+    .filter(Boolean);
+
+  const validRelays = Array.from(
+    new Set(parsed.filter((relay) => relay.startsWith("wss://")))
+  );
+
+  if (validRelays.length === 0) {
+    console.warn("[Nostr] NOSTR_RELAYS is set but contains no valid wss:// relay URLs, falling back to defaults");
+    return DEFAULT_NOSTR_RELAYS;
+  }
+
+  const invalidCount = parsed.length - validRelays.length;
+  if (invalidCount > 0) {
+    console.warn(`[Nostr] Ignoring ${invalidCount} invalid relay URL(s) from NOSTR_RELAYS`);
+  }
+
+  return validRelays;
+}
+
+/**
+ * Build a permanent public URL for stored images.
+ * Priority:
+ * 1) NOSTR_IMAGE_BASE_URL (explicit override)
+ * 2) CONVEX_SITE_URL (Convex HTTP actions domain)
+ * 3) CONVEX_CLOUD_URL (Convex cloud fallback)
+ */
+function getStorageImageBaseUrl(): string | null {
+  const baseUrl =
+    process.env.NOSTR_IMAGE_BASE_URL ||
+    process.env.CONVEX_SITE_URL ||
+    process.env.CONVEX_CLOUD_URL;
+  if (!baseUrl) return null;
+  return baseUrl.replace(/\/+$/, "");
+}
 
 /**
  * Convert verseId to URL path
@@ -93,19 +137,20 @@ export const publishToNostr = internalAction({
     }
 
     // Build permanent public URL via HTTP action (see convex/http.ts)
-    // CONVEX_CLOUD_URL is auto-provided in Convex Cloud; may be missing in local dev.
-    const convexUrl = process.env.CONVEX_CLOUD_URL;
+    const convexUrl = getStorageImageBaseUrl();
     if (!convexUrl) {
-      console.error("[Nostr] CONVEX_CLOUD_URL not available, skipping publication");
+      console.error("[Nostr] Missing image base URL (NOSTR_IMAGE_BASE_URL/CONVEX_SITE_URL/CONVEX_CLOUD_URL), skipping publication");
       return;
     }
-    const imageUrl = `${convexUrl}/image/${args.storageId}`;
+    const imageUrl = `${convexUrl}/image/${encodeURIComponent(args.storageId)}`;
+
+    const nostrRelays = getNostrRelays();
 
     // Dynamic import of snstr (required for "use node" action)
     const { Nostr, createEvent, signEvent, getPublicKey, getEventHash, decodePrivateKey } = await import("snstr");
 
     // Create client with relays (initialized outside try for cleanup in finally)
-    const client = new Nostr(NOSTR_RELAYS);
+    const client = new Nostr(nostrRelays);
 
     try {
       // Handle both hex and nsec private key formats
@@ -162,7 +207,7 @@ export const publishToNostr = internalAction({
       await ctx.runMutation(internal.verseImages.recordNostrPublication, {
         imageId: args.imageId,
         eventId,
-        relays: NOSTR_RELAYS,
+        relays: nostrRelays,
         publishedAt: Date.now(),
       });
 

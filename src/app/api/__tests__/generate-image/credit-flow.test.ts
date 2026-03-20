@@ -25,9 +25,24 @@ process.env.SESSION_SECRET = "a".repeat(32);
 process.env.IP_HASH_SECRET = "b".repeat(32);
 process.env.ENABLE_IMAGE_GENERATION = "true";
 process.env.ENABLE_SCENE_PLANNER = "false";
+process.env.OPENROUTER_IMAGE_TIMEOUT_MS = "50";
 
 // Store original env AFTER setting test vars
 const originalEnv = { ...process.env };
+let forceQuoteFailure = false;
+let forceRecordImageCostEventFailure = false;
+const defaultImageCatalogModels: Array<{
+  id: string;
+  pricing: { imageOutput: string };
+  usesEmergencyPricing?: boolean;
+}> = [
+  { id: "google/gemini-2.0-flash-exp:free", pricing: { imageOutput: "0.01" } },
+  { id: "google/gemini-2.5-flash-image", pricing: { imageOutput: "0.02" } },
+  { id: "openai/dall-e-3", pricing: { imageOutput: "0.04" } },
+];
+const fetchImageModelsMock = vi.fn(async () => ({
+  models: defaultImageCatalogModels,
+}));
 
 // Mock modules
 vi.mock("@/lib/validate-env", () => ({
@@ -52,6 +67,7 @@ vi.mock("@/lib/session", () => ({
   })),
   getClientIp: vi.fn(() => "127.0.0.1"),
   hashIp: vi.fn(async () => "mock-ip-hash"),
+  withSessionRefreshCookie: vi.fn((response: Response) => response),
 }));
 
 // Mock Convex client - uses args-based dispatch to avoid String(apiPath) error
@@ -68,15 +84,47 @@ vi.mock("@/lib/convex-client", () => ({
       return { allowed: true, retryAfter: 0 };
     }),
     action: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if ("usd" in args && !("generationId" in args)) {
+        if (forceQuoteFailure) {
+          throw new Error("quote failure");
+        }
+        mockState.callHistory.push({ action: "quoteUsdCost", args });
+        const usd = args.usd as number;
+        const billedUsd = usd * 1.25;
+        return {
+          providerUsd: usd,
+          billedUsd,
+          credits: Math.max(1, Math.ceil(billedUsd / 0.01)),
+        };
+      }
+
       const sid = args.sid as string;
       const session = mockState.sessions.get(sid);
 
       // Dispatch based on args structure
+      if ("enqueueReason" in args) {
+        mockState.callHistory.push({ action: "enqueueImageCostEventOutbox", args });
+        return { enqueued: true };
+      }
+
+      if ("requestId" in args && "actualCreditsCost" in args) {
+        if (forceRecordImageCostEventFailure) {
+          throw new Error("record cost event failure");
+        }
+        mockState.callHistory.push({ action: "recordImageCostEvent", args });
+        return { trackedCredits: args.actualCreditsCost };
+      }
+
       if ("endpoint" in args && "estimatedCredits" in args) {
         // logAdminUsage
         mockState.callHistory.push({ action: "logAdminUsage", args });
         mockState.adminAuditLog.push({ sid, endpoint: args.endpoint as string });
         return;
+      }
+
+      if ("verseId" in args && "imageUrl" in args && "model" in args) {
+        mockState.callHistory.push({ action: "saveImage", args });
+        return { success: true, type: "storage", id: "saved-image-1" };
       }
 
       if ("generationId" in args && !("amount" in args)) {
@@ -136,15 +184,6 @@ vi.mock("@/lib/convex-client", () => ({
         return { success: true, newBalance: session.credits };
       }
 
-      if ("reason" in args && args.reason === "scene_planner_refund") {
-        // addCredits for scene planner refund
-        mockState.callHistory.push({ action: "addCredits", args });
-        if (!session) throw new Error("Session not found");
-        session.credits += args.amount as number;
-        mockState.ledger.push({ sid, delta: args.amount as number, reason: args.reason as string });
-        return { newBalance: session.credits };
-      }
-
       return;
     }),
   })),
@@ -153,13 +192,7 @@ vi.mock("@/lib/convex-client", () => ({
 
 vi.mock("@/lib/image-models", () => ({
   DEFAULT_IMAGE_MODEL: "google/gemini-2.0-flash-exp:free",
-  fetchImageModels: vi.fn(async () => ({
-    models: [
-      { id: "google/gemini-2.0-flash-exp:free", pricing: { imageOutput: "0.01" } },
-      { id: "google/gemini-2.5-flash-image", pricing: { imageOutput: "0.02" } },
-      { id: "openai/dall-e-3", pricing: { imageOutput: "0.04" } },
-    ],
-  })),
+  fetchImageModels: fetchImageModelsMock,
   computeCreditsCost: vi.fn((pricing: string | undefined) => {
     if (!pricing) return null;
     const usd = parseFloat(pricing);
@@ -182,6 +215,7 @@ vi.mock("@/lib/image-models", () => ({
     }
     return { credits: Math.ceil(actualUsd * 1.25 / 0.01), usedActual: true };
   }),
+  CONSERVATIVE_ESTIMATE_MULTIPLIER: 35,
   getProviderName: vi.fn(() => "openrouter"),
   CREDIT_USD: 0.01,
   PREMIUM_MULTIPLIER: 1.25,
@@ -209,8 +243,14 @@ type MockFetchResponse = {
 };
 
 let mockFetchResponse: MockFetchResponse | null = null;
+let mockFetchImpl:
+  | ((input: RequestInfo | URL, init?: RequestInit) => Promise<unknown>)
+  | null = null;
 
-const mockFetch = vi.fn(async () => {
+const mockFetch = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+  if (mockFetchImpl) {
+    return await mockFetchImpl(input, init);
+  }
   if (mockFetchResponse) {
     return mockFetchResponse;
   }
@@ -242,11 +282,33 @@ function getCallCount(action: string) {
   return mockState.callHistory.filter((c) => c.action === actionName).length;
 }
 
+const TEST_CSRF_TOKEN = "a".repeat(64);
+
+function createGenerateImageRequest(body: Record<string, unknown>) {
+  return new Request("http://localhost:3000/api/generate-image", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      origin: "http://localhost:3000",
+      "x-csrf-token": TEST_CSRF_TOKEN,
+      cookie: `visibible_csrf=${TEST_CSRF_TOKEN}`,
+    },
+    body: JSON.stringify(body),
+  });
+}
+
 describe("Image Generation API Credit Flow", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    fetchImageModelsMock.mockReset();
+    fetchImageModelsMock.mockResolvedValue({
+      models: defaultImageCatalogModels,
+    });
     resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 }]);
     mockFetchResponse = null;
+    mockFetchImpl = null;
+    forceQuoteFailure = false;
+    forceRecordImageCostEventFailure = false;
     global.fetch = mockFetch as unknown as typeof fetch;
   });
 
@@ -269,21 +331,23 @@ describe("Image Generation API Credit Flow", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "In the beginning God created the heaven and the earth.");
       url.searchParams.set("reference", "Genesis 1:1");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 
       const body = await response.json();
       expect(body.imageUrl).toBeDefined();
+      expect(body.savedImageId).toBe("saved-image-1");
       expect(getCallCount("sessions:reserveCredits")).toBe(1);
       expect(getCallCount("sessions:deductCredits")).toBe(1);
+      expect(getCallCount("saveImage")).toBe(1);
       expect(body.openRouterUsageUsd).toBe(0.05);
       expect(body.usedActualCost).toBe(true);
     });
@@ -301,19 +365,84 @@ describe("Image Generation API Credit Flow", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 
       const body = await response.json();
       expect(body.usedFallbackEstimate).toBe(true);
       expect(body.usedActualCost).toBe(false);
+    });
+
+    it("emergency-pricing: does not double-apply conservative reservation multiplier", async () => {
+      fetchImageModelsMock.mockResolvedValueOnce({
+        models: [
+          {
+            id: "google/gemini-2.0-flash-exp:free",
+            pricing: { imageOutput: "0.10" },
+            usesEmergencyPricing: true,
+          },
+        ],
+      });
+      mockFetchResponse = {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          id: "gen-123",
+          choices: [
+            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+          ],
+        }),
+      };
+
+      const { POST } = await import("../../generate-image/route");
+
+      const url = new URL("http://localhost:3000/api/generate-image");
+      url.searchParams.set("text", "Emergency fallback pricing test");
+
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
+
+      expect(response.status).toBe(200);
+      const reserveCall = mockState.callHistory.find((c) => c.action === "reserveCredits");
+      expect(reserveCall).toBeDefined();
+      expect((reserveCall?.args as { amount: number }).amount).toBe(13);
+    });
+
+    it("actual-usage-local-fallback: quote failure still charges from usage.cost", async () => {
+      forceQuoteFailure = true;
+      mockFetchResponse = {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          id: "gen-123",
+          choices: [
+            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+          ],
+          usage: { cost: 0.05 },
+        }),
+      };
+
+      const { POST } = await import("../../generate-image/route");
+
+      const url = new URL("http://localhost:3000/api/generate-image");
+      url.searchParams.set("text", "Fallback usage test");
+
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
+
+      expect(response.status).toBe(200);
+      const body = await response.json();
+      expect(body.imageCreditsCost).toBe(7);
+      expect(body.creditsCost).toBe(7);
+      expect(body.usedActualCost).toBe(true);
+      expect(body.neutralCostUsedForActual).toBe(false);
     });
 
     it("resolution-multiplier-gemini: applies 3.5x for 2K", async () => {
@@ -329,15 +458,15 @@ describe("Image Generation API Credit Flow", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
       url.searchParams.set("model", "google/gemini-2.5-flash-image");
       url.searchParams.set("resolution", "2K");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 
@@ -360,15 +489,15 @@ describe("Image Generation API Credit Flow", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
       url.searchParams.set("model", "openai/dall-e-3");
       url.searchParams.set("resolution", "4K");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
 
@@ -379,6 +508,65 @@ describe("Image Generation API Credit Flow", () => {
   });
 
   describe("Error Paths", () => {
+    it("method-not-allowed: GET returns 405 with Allow header", async () => {
+      const { GET } = await import("../../generate-image/route");
+
+      const response = await GET();
+
+      expect(response.status).toBe(405);
+      expect(response.headers.get("Allow")).toBe("POST");
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+    });
+
+    it("csrf-required: missing csrf header returns 403", async () => {
+      const { POST } = await import("../../generate-image/route");
+      const request = new Request("http://localhost:3000/api/generate-image", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          origin: "http://localhost:3000",
+          cookie: `visibible_csrf=${TEST_CSRF_TOKEN}`,
+        },
+        body: JSON.stringify({ text: "Test verse" }),
+      });
+
+      const response = await POST(request);
+
+      expect(response.status).toBe(403);
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+    });
+
+    it("strict-origin-required: missing origin returns 403", async () => {
+      const { POST } = await import("../../generate-image/route");
+      const request = new Request("http://localhost:3000/api/generate-image", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "x-csrf-token": TEST_CSRF_TOKEN,
+          cookie: `visibible_csrf=${TEST_CSRF_TOKEN}`,
+        },
+        body: JSON.stringify({ text: "Test verse" }),
+      });
+
+      const response = await POST(request);
+
+      expect(response.status).toBe(403);
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+    });
+
+    it("payload-too-large: oversized JSON body returns 413", async () => {
+      const { POST } = await import("../../generate-image/route");
+      const oversizedText = "x".repeat(120_000);
+      const request = createGenerateImageRequest({ text: oversizedText });
+
+      const response = await POST(request);
+
+      expect(response.status).toBe(413);
+      const body = await response.json();
+      expect(body.error).toBe("Payload too large");
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+    });
+
     it("openrouter-api-error: returns 500 and releases reservation", async () => {
       mockFetchResponse = {
         ok: false,
@@ -386,15 +574,51 @@ describe("Image Generation API Credit Flow", () => {
         json: async () => ({ error: { message: "API error" } }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(500);
+      expect(getCallCount("sessions:releaseReservation")).toBe(1);
+      expect(getCallCount("sessions:deductCredits")).toBe(0);
+    });
+
+    it("openrouter-timeout: returns 504 and releases reservation", async () => {
+      mockFetchImpl = async (_input: RequestInfo | URL, init?: RequestInit) =>
+        await new Promise((_, reject) => {
+          const signal = init?.signal;
+          if (!signal) {
+            reject(new DOMException("No signal provided", "AbortError"));
+            return;
+          }
+          if (signal.aborted) {
+            reject(new Error("aborted", { cause: { name: "AbortError" } }));
+            return;
+          }
+          signal.addEventListener(
+            "abort",
+            () => {
+              reject(new DOMException("Request aborted", "AbortError"));
+            },
+            { once: true }
+          );
+        });
+
+      const { POST } = await import("../../generate-image/route");
+
+      const url = new URL("http://localhost:3000/api/generate-image");
+      url.searchParams.set("text", "Timeout test");
+
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
+
+      expect(response.status).toBe(504);
+      const body = await response.json();
+      expect(body.error).toBe("Image generation timed out");
       expect(getCallCount("sessions:releaseReservation")).toBe(1);
       expect(getCallCount("sessions:deductCredits")).toBe(0);
     });
@@ -411,13 +635,13 @@ describe("Image Generation API Credit Flow", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(500);
       const body = await response.json();
@@ -428,13 +652,13 @@ describe("Image Generation API Credit Flow", () => {
     it("insufficient-credits: returns 402 with credit info", async () => {
       resetMockState([{ ...fixtures.sessions.insufficientCredits, sid: "test-session" }]);
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(402);
       const body = await response.json();
@@ -444,17 +668,43 @@ describe("Image Generation API Credit Flow", () => {
     it("daily-limit-exceeded: returns 429 with limit details", async () => {
       resetMockState([{ ...fixtures.sessions.paidAtDailyLimit, sid: "test-session" }]);
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(429);
       const body = await response.json();
       expect(body.error).toBe("Daily spending limit exceeded");
+    });
+
+    it("cost-event-failure-enqueues-outbox: generation still succeeds", async () => {
+      forceRecordImageCostEventFailure = true;
+      mockFetchResponse = {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          id: "gen-123",
+          choices: [
+            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+          ],
+          usage: { cost: 0.05 },
+        }),
+      };
+
+      const { POST } = await import("../../generate-image/route");
+
+      const url = new URL("http://localhost:3000/api/generate-image");
+      url.searchParams.set("text", "Outbox fallback test");
+
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
+
+      expect(response.status).toBe(200);
+      expect(getCallCount("enqueueImageCostEventOutbox")).toBe(1);
     });
   });
 
@@ -474,13 +724,13 @@ describe("Image Generation API Credit Flow", () => {
         }),
       };
 
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(200);
       expect(getCallCount("sessions:reserveCredits")).toBe(0);
@@ -491,14 +741,14 @@ describe("Image Generation API Credit Flow", () => {
 
   describe("Model Validation", () => {
     it("returns 400 for unknown model", async () => {
-      const { GET } = await import("../../generate-image/route");
+      const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
       url.searchParams.set("model", "unknown/model");
 
-      const request = new Request(url.toString(), { method: "GET" });
-      const response = await GET(request);
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
 
       expect(response.status).toBe(400);
       const body = await response.json();

@@ -1,8 +1,13 @@
 import { NextResponse } from "next/server";
-import { getSessionFromCookies, getClientIp, hashIp } from "@/lib/session";
-import { getConvexClient } from "@/lib/convex-client";
+import { validateSessionWithIp, withSessionRefreshCookie } from "@/lib/session";
+import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import { validateCsrfToken, CSRF_COOKIE_NAME } from "@/lib/csrf";
+import {
+  readJsonBodyWithLimit,
+  PayloadTooLargeError,
+  InvalidJsonError,
+} from "@/lib/request-body";
 import { api } from "../../../../convex/_generated/api";
 import { createHmac, timingSafeEqual } from "crypto";
 import { cookies } from "next/headers";
@@ -14,6 +19,8 @@ import { cookies } from "next/headers";
 function getAdminPasswordSecret(): string | undefined {
   return process.env.ADMIN_PASSWORD_SECRET;
 }
+
+const ADMIN_LOGIN_MAX_BODY_SIZE = 10_000;
 
 /**
  * POST /api/admin-login
@@ -44,17 +51,30 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
-  const sid = await getSessionFromCookies();
-  if (!sid) {
+  let rateLimitServerSecret: string;
+  try {
+    rateLimitServerSecret = getConvexServerSecret();
+  } catch {
+    console.error("[Admin Login API] CONVEX_SERVER_SECRET not configured");
+    return NextResponse.json(
+      { error: "Service unavailable" },
+      { status: 503 }
+    );
+  }
+
+  const sessionValidation = await validateSessionWithIp(request);
+  if (!sessionValidation.valid || !sessionValidation.sid || !sessionValidation.currentIpHash) {
     return NextResponse.json(
       { error: "Session required" },
       { status: 401 }
     );
   }
+  const sid = sessionValidation.sid;
+  const withSessionRefresh = (response: Response) =>
+    withSessionRefreshCookie(response, sessionValidation.refreshedToken) as NextResponse;
 
   // SECURITY: Get IP hash for brute force protection
-  const clientIp = getClientIp(request);
-  const ipHash = await hashIp(clientIp);
+  const ipHash = sessionValidation.currentIpHash;
 
   // SECURITY: Check if IP is locked out due to too many failed attempts
   const loginAllowedResult = await convex.query(api.rateLimit.checkAdminLoginAllowed, {
@@ -65,7 +85,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     const retryAfter = loginAllowedResult.lockedUntil
       ? Math.ceil((loginAllowedResult.lockedUntil - Date.now()) / 1000)
       : 3600;
-    return NextResponse.json(
+    return withSessionRefresh(NextResponse.json(
       {
         error: "Too many failed attempts",
         message: "Account temporarily locked. Please try again later.",
@@ -77,40 +97,77 @@ export async function POST(request: Request): Promise<NextResponse> {
           "Retry-After": String(retryAfter),
         },
       }
+    ));
+  }
+
+  let password: string;
+  try {
+    const body = await readJsonBodyWithLimit<unknown>(
+      request,
+      ADMIN_LOGIN_MAX_BODY_SIZE
     );
+    const maybePassword =
+      typeof body === "object" && body !== null
+        ? (body as { password?: unknown }).password
+        : undefined;
+
+    if (!maybePassword || typeof maybePassword !== "string") {
+      return withSessionRefresh(NextResponse.json(
+        { error: "Password required" },
+        { status: 400 }
+      ));
+    }
+    password = maybePassword;
+  } catch (error) {
+    if (error instanceof PayloadTooLargeError) {
+      return withSessionRefresh(NextResponse.json(
+        {
+          error: "Payload too large",
+          message: `Request body exceeds maximum size of ${error.maxSize} bytes.`,
+          maxSize: error.maxSize,
+        },
+        { status: 413 }
+      ));
+    }
+    if (error instanceof InvalidJsonError) {
+      return withSessionRefresh(NextResponse.json(
+        { error: "Invalid JSON body" },
+        { status: 400 }
+      ));
+    }
+    return withSessionRefresh(NextResponse.json(
+      { error: "Failed to read request body" },
+      { status: 400 }
+    ));
   }
 
   try {
-    const body = await request.json();
-    const { password } = body;
-
-    if (!password || typeof password !== "string") {
-      return NextResponse.json(
-        { error: "Password required" },
-        { status: 400 }
-      );
-    }
-
     const adminPassword = process.env.ADMIN_PASSWORD;
 
     // Use generic error message to avoid revealing configuration state
     if (!adminPassword) {
       // Record failed attempt even for misconfiguration to avoid timing oracle
-      await convex.mutation(api.rateLimit.recordFailedAdminLogin, { ipHash });
-      return NextResponse.json(
+      await convex.mutation(api.rateLimit.recordFailedAdminLogin, {
+        ipHash,
+        serverSecret: rateLimitServerSecret,
+      });
+      return withSessionRefresh(NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
-      );
+      ));
     }
 
     const adminPasswordSecret = getAdminPasswordSecret();
     if (!adminPasswordSecret) {
       // Record failed attempt
-      await convex.mutation(api.rateLimit.recordFailedAdminLogin, { ipHash });
-      return NextResponse.json(
+      await convex.mutation(api.rateLimit.recordFailedAdminLogin, {
+        ipHash,
+        serverSecret: rateLimitServerSecret,
+      });
+      return withSessionRefresh(NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
-      );
+      ));
     }
 
     // Use timing-safe comparison to prevent timing attacks
@@ -124,42 +181,51 @@ export async function POST(request: Request): Promise<NextResponse> {
     // Ensure both digests are the same length before comparison
     if (providedPasswordDigest.length !== storedPasswordDigest.length) {
       // Record failed attempt
-      const failResult = await convex.mutation(api.rateLimit.recordFailedAdminLogin, { ipHash });
+      const failResult = await convex.mutation(api.rateLimit.recordFailedAdminLogin, {
+        ipHash,
+        serverSecret: rateLimitServerSecret,
+      });
       if (failResult.locked) {
-        return NextResponse.json(
+        return withSessionRefresh(NextResponse.json(
           {
             error: "Too many failed attempts",
             message: "Account temporarily locked. Please try again later.",
           },
           { status: 429 }
-        );
+        ));
       }
-      return NextResponse.json(
+      return withSessionRefresh(NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
-      );
+      ));
     }
 
     if (!timingSafeEqual(providedPasswordDigest, storedPasswordDigest)) {
       // SECURITY: Record failed attempt
-      const failResult = await convex.mutation(api.rateLimit.recordFailedAdminLogin, { ipHash });
+      const failResult = await convex.mutation(api.rateLimit.recordFailedAdminLogin, {
+        ipHash,
+        serverSecret: rateLimitServerSecret,
+      });
       if (failResult.locked) {
-        return NextResponse.json(
+        return withSessionRefresh(NextResponse.json(
           {
             error: "Too many failed attempts",
             message: "Account temporarily locked. Please try again later.",
           },
           { status: 429 }
-        );
+        ));
       }
-      return NextResponse.json(
+      return withSessionRefresh(NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
-      );
+      ));
     }
 
     // SECURITY: Clear failed attempts on successful login
-    await convex.mutation(api.rateLimit.clearAdminLoginAttempts, { ipHash });
+    await convex.mutation(api.rateLimit.clearAdminLoginAttempts, {
+      ipHash,
+      serverSecret: rateLimitServerSecret,
+    });
 
     // Upgrade session to admin
     await convex.action(api.sessions.upgradeToAdmin, {
@@ -167,12 +233,12 @@ export async function POST(request: Request): Promise<NextResponse> {
       serverSecret: adminPasswordSecret,
     });
 
-    return NextResponse.json({ success: true });
+    return withSessionRefresh(NextResponse.json({ success: true }));
   } catch (error) {
     console.error("Admin login error:", error);
-    return NextResponse.json(
+    return withSessionRefresh(NextResponse.json(
       { error: "Failed to authenticate" },
       { status: 500 }
-    );
+    ));
   }
 }

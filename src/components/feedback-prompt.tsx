@@ -3,6 +3,8 @@
 import { X, MessageCircleHeart } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@/context/navigation-context";
+import { useSession } from "@/context/session-context";
+import { trackFeedbackPromptInteraction } from "@/lib/analytics";
 
 const STORAGE_KEY = "visibible_feedback_prompt";
 const MIN_VISITS_BEFORE_SHOW = 5; // Minimum verse visits before showing
@@ -49,6 +51,15 @@ function isCooldownActive(lastDismissed: number | null): boolean {
   return Date.now() - lastDismissed < cooldownMs;
 }
 
+function buildDismissedState(previous: FeedbackPromptState): FeedbackPromptState {
+  return {
+    ...previous,
+    lastDismissed: Date.now(),
+    visitCount: 0,
+    showAtVisit: getRandomVisitThreshold(),
+  };
+}
+
 /**
  * Feedback prompt CTA that appears occasionally to ask for user feedback.
  * Shows after a random number of verse visits (5-15) and respects a 24-hour cooldown.
@@ -56,6 +67,7 @@ function isCooldownActive(lastDismissed: number | null): boolean {
  */
 export function FeedbackPrompt() {
   const { isChatOpen, chatContext, openFeedback } = useNavigation();
+  const { tier, credits, isLoading } = useSession();
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
   const [promptState, setPromptState] = useState<FeedbackPromptState>(() => getStoredState());
@@ -124,10 +136,31 @@ export function FeedbackPrompt() {
     // Show prompt after a delay (longer than ChatPrompt to avoid overlap)
     showTimerRef.current = setTimeout(() => {
       setIsVisible(true);
+      if (!isLoading) {
+        trackFeedbackPromptInteraction({
+          action: "shown",
+          visitCount: promptState.visitCount,
+          tier,
+          hasCredits: credits > 0,
+        });
+      }
       // Start auto-dismiss timer only after we've actually shown the prompt
       dismissTimerRef.current = setTimeout(() => {
         setIsVisible(false);
         setIsDismissed(true);
+        if (!isLoading) {
+          trackFeedbackPromptInteraction({
+            action: "dismissed",
+            visitCount: promptState.visitCount,
+            tier,
+            hasCredits: credits > 0,
+          });
+        }
+        setPromptState((prev) => {
+          const nextState = buildDismissedState(prev);
+          saveState(nextState);
+          return nextState;
+        });
       }, 8000); // 8 seconds visible
     }, 2000); // 2 second delay (ChatPrompt shows at 500ms)
 
@@ -142,39 +175,45 @@ export function FeedbackPrompt() {
         dismissTimerRef.current = null;
       }
     };
-  }, [isChatOpen, isDismissed, hasReachedThreshold]);
+  }, [isChatOpen, isDismissed, hasReachedThreshold, promptState.visitCount, tier, credits, isLoading]);
 
   const handleDismiss = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsVisible(false);
     setIsDismissed(true);
+    if (!isLoading) {
+      trackFeedbackPromptInteraction({
+        action: "dismissed",
+        visitCount: promptState.visitCount,
+        tier,
+        hasCredits: credits > 0,
+      });
+    }
 
     // Update stored state with dismissal time and reset visit count
     setPromptState((prev) => {
-      const nextState = {
-        ...prev,
-        lastDismissed: Date.now(),
-        visitCount: 0,
-        showAtVisit: getRandomVisitThreshold(),
-      };
+      const nextState = buildDismissedState(prev);
       saveState(nextState);
       return nextState;
     });
   };
 
   const handleClick = () => {
+    if (!isLoading) {
+      trackFeedbackPromptInteraction({
+        action: "clicked",
+        visitCount: promptState.visitCount,
+        tier,
+        hasCredits: credits > 0,
+      });
+    }
     openFeedback();
     setIsVisible(false);
     setIsDismissed(true);
 
     // Update stored state
     setPromptState((prev) => {
-      const nextState = {
-        ...prev,
-        lastDismissed: Date.now(),
-        visitCount: 0,
-        showAtVisit: getRandomVisitThreshold(),
-      };
+      const nextState = buildDismissedState(prev);
       saveState(nextState);
       return nextState;
     });
@@ -194,9 +233,9 @@ export function FeedbackPrompt() {
           handleClick();
         }
       }}
-      style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
+      style={{ marginBottom: "env(safe-area-inset-bottom)" }}
       className={`
-        fixed z-30
+        hidden md:fixed z-30
         bottom-[160px] right-6
         md:bottom-6 md:right-[88px]
         max-w-[calc(100vw-3rem)] sm:max-w-[240px] md:max-w-[280px]

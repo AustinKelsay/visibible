@@ -114,6 +114,61 @@ describe("validateIpHashSecret", () => {
   });
 });
 
+describe("validateSessionTimeoutConfig", () => {
+  beforeEach(() => {
+    vi.resetModules();
+    process.env = { ...originalEnv };
+    delete process.env.NEXT_PHASE;
+  });
+
+  afterEach(() => {
+    process.env = originalEnv;
+  });
+
+  it("should pass with defaults when timeout env vars are unset", async () => {
+    delete process.env.SESSION_IDLE_TIMEOUT_MINUTES;
+    delete process.env.SESSION_ABSOLUTE_TIMEOUT_HOURS;
+    const { validateSessionTimeoutConfig } = await importValidateEnv();
+
+    expect(() => validateSessionTimeoutConfig()).not.toThrow();
+  });
+
+  it("should throw when idle timeout is below minimum", async () => {
+    process.env.SESSION_IDLE_TIMEOUT_MINUTES = "4";
+    const { validateSessionTimeoutConfig } = await importValidateEnv();
+
+    expect(() => validateSessionTimeoutConfig()).toThrow(
+      "SESSION_IDLE_TIMEOUT_MINUTES must be between 5 and 15"
+    );
+  });
+
+  it("should throw when absolute timeout is above maximum", async () => {
+    process.env.SESSION_ABSOLUTE_TIMEOUT_HOURS = "72";
+    const { validateSessionTimeoutConfig } = await importValidateEnv();
+
+    expect(() => validateSessionTimeoutConfig()).toThrow(
+      "SESSION_ABSOLUTE_TIMEOUT_HOURS must be between 4 and 48"
+    );
+  });
+
+  it("should throw when timeout value is not an integer", async () => {
+    process.env.SESSION_IDLE_TIMEOUT_MINUTES = "ten";
+    const { validateSessionTimeoutConfig } = await importValidateEnv();
+
+    expect(() => validateSessionTimeoutConfig()).toThrow(
+      "SESSION_IDLE_TIMEOUT_MINUTES must be an integer between 5 and 15"
+    );
+  });
+
+  it("should skip validation during build phase", async () => {
+    process.env.NEXT_PHASE = "phase-production-build";
+    process.env.SESSION_IDLE_TIMEOUT_MINUTES = "1";
+    const { validateSessionTimeoutConfig } = await importValidateEnv();
+
+    expect(() => validateSessionTimeoutConfig()).not.toThrow();
+  });
+});
+
 describe("validateProxyConfig", () => {
   beforeEach(() => {
     vi.resetModules();
@@ -130,7 +185,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should throw in production for 0.0.0.0/0 CIDR", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "0.0.0.0/0";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -140,7 +195,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should throw in production for ::/0 CIDR", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "::/0";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -150,7 +205,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should throw in production for /7 or broader CIDR", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "0.0.0.0/7";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -160,7 +215,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should only warn in development for dangerous CIDRs", async () => {
-    process.env.NODE_ENV = "development";
+    vi.stubEnv("NODE_ENV", "development");
     process.env.TRUSTED_PROXY_IPS = "0.0.0.0/0";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -169,7 +224,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should pass for safe /24 CIDR", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "10.0.0.0/24";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -177,7 +232,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should pass for safe /32 CIDR (single IP)", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "10.0.0.1/32";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -185,7 +240,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should pass for safe /128 CIDR (single IPv6)", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "2001:db8::1/128";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -193,7 +248,7 @@ describe("validateProxyConfig", () => {
   });
 
   it("should pass for specific IP without CIDR", async () => {
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "192.168.1.1";
     const { validateProxyConfig } = await importValidateEnv();
 
@@ -202,34 +257,67 @@ describe("validateProxyConfig", () => {
 
   it("should skip validation during build phase", async () => {
     process.env.NEXT_PHASE = "phase-production-build";
-    process.env.NODE_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUSTED_PROXY_IPS = "0.0.0.0/0";
     const { validateProxyConfig } = await importValidateEnv();
 
     expect(() => validateProxyConfig()).not.toThrow();
   });
 
-  it("should log info in production when no proxy trust configured", async () => {
-    process.env.NODE_ENV = "production";
+  it("should fail in production when no proxy trust is configured", async () => {
+    vi.stubEnv("NODE_ENV", "production");
     delete process.env.TRUST_PROXY_PLATFORM;
     delete process.env.TRUSTED_PROXY_IPS;
     const { validateProxyConfig } = await importValidateEnv();
 
-    validateProxyConfig();
-    expect(console.info).toHaveBeenCalledWith(
-      expect.stringContaining("No proxy trust configured")
+    expect(() => validateProxyConfig()).toThrow(
+      "CRITICAL SECURITY MISCONFIGURATION: No proxy trust configured in production"
     );
   });
 
-  it("should warn when TRUST_PROXY_PLATFORM=vercel but not on Vercel", async () => {
-    process.env.NODE_ENV = "production";
+  it("should allow missing proxy trust only with explicit production override", async () => {
+    vi.stubEnv("NODE_ENV", "production");
+    delete process.env.TRUST_PROXY_PLATFORM;
+    delete process.env.TRUSTED_PROXY_IPS;
+    process.env.ALLOW_UNTRUSTED_PROXY_IN_PRODUCTION = "true";
+    const { validateProxyConfig } = await importValidateEnv();
+
+    expect(() => validateProxyConfig()).not.toThrow();
+    expect(console.warn).toHaveBeenCalledWith(
+      expect.stringContaining("ALLOW_UNTRUSTED_PROXY_IN_PRODUCTION=true")
+    );
+  });
+
+  it("should fail in production when TRUST_PROXY_PLATFORM=vercel but VERCEL=1 is missing", async () => {
+    vi.stubEnv("NODE_ENV", "production");
     process.env.TRUST_PROXY_PLATFORM = "vercel";
     delete process.env.VERCEL;
     const { validateProxyConfig } = await importValidateEnv();
 
-    validateProxyConfig();
+    expect(() => validateProxyConfig()).toThrow(
+      "TRUST_PROXY_PLATFORM=vercel is set but VERCEL=1 is not detected"
+    );
+  });
+
+  it("should warn in development when TRUST_PROXY_PLATFORM=vercel but VERCEL=1 is missing", async () => {
+    vi.stubEnv("NODE_ENV", "development");
+    process.env.TRUST_PROXY_PLATFORM = "vercel";
+    delete process.env.VERCEL;
+    const { validateProxyConfig } = await importValidateEnv();
+
+    expect(() => validateProxyConfig()).not.toThrow();
     expect(console.warn).toHaveBeenCalledWith(
       expect.stringContaining("TRUST_PROXY_PLATFORM=vercel is set but VERCEL=1 is not detected")
+    );
+  });
+
+  it("should fail in production for unsupported TRUST_PROXY_PLATFORM values", async () => {
+    vi.stubEnv("NODE_ENV", "production");
+    process.env.TRUST_PROXY_PLATFORM = "cloudflare";
+    const { validateProxyConfig } = await importValidateEnv();
+
+    expect(() => validateProxyConfig()).toThrow(
+      "Unsupported TRUST_PROXY_PLATFORM"
     );
   });
 });

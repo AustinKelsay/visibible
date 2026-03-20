@@ -1,12 +1,20 @@
 # visibible
 
-Prototype. Vibe with the bible.
+Explore Scripture with AI-powered insights and imagery
 
 ## Run
 
 ```bash
 npm install
 npm run dev
+```
+
+## Verify
+
+```bash
+npm run lint
+npm run typecheck
+npm test
 ```
 
 ## Env
@@ -19,29 +27,131 @@ For accurate client IPs (rate limiting), configure trusted proxies in production
 
 - `TRUST_PROXY_PLATFORM=vercel` (recommended on Vercel; only active when `VERCEL=1` is set)
 - Or set `TRUSTED_PROXY_IPS` to a comma/space-separated list of IPs/CIDRs
+- Production startup fails fast if neither is configured (unless `ALLOW_UNTRUSTED_PROXY_IN_PRODUCTION=true` is explicitly set as a temporary override)
 
 ### Convex Setup
 
-To enable Convex features (image storage), create a deployment in the [Convex Dashboard](https://dashboard.convex.dev/):
+Set up two Convex deployments before release:
 
-1. Create a new deployment or use an existing one
-2. Copy the **deployment name** (format: `prod:your-deployment-name`) to `CONVEX_DEPLOYMENT`
-3. Copy the **public URL** (format: `https://your-deployment-name.convex.cloud`) to `NEXT_PUBLIC_CONVEX_URL`
+1. A **dev deployment** for local development and testing
+2. A **prod deployment** for Vercel production
 
-Both values are available in your Convex dashboard under Deployment Settings.
+Use separate local files to target deployments from the Convex CLI:
 
-4. **Sync schema and functions**: During local development, run `npx convex dev` to sync your schema and functions to the deployment. This watches for changes and automatically pushes updates.
-5. **Deploy to production**: When ready for production, run `npx convex deploy` to push your schema and functions to the deployment.
+```bash
+cp .env.convex.dev.example .env.convex.dev
+cp .env.convex.prod.example .env.convex.prod
+```
+
+Then fill in `CONVEX_DEPLOYMENT` in each file:
+
+- `.env.convex.dev` -> `dev:...`
+- `.env.convex.prod` -> `prod:...`
+
+Create/select a **dev deployment** in the Convex dashboard, then copy its runtime values for local app use.
+
+For local app development, set `.env.local` to the **dev** deployment values:
+
+- `NEXT_PUBLIC_CONVEX_URL=https://api.dev.visibible.com`
+- `CONVEX_SERVER_SECRET=<dev secret>`
+- `OPENROUTER_API_KEY=<your openrouter api key>` (required for chat and image generation)
+- `NEXT_PUBLIC_APP_URL=https://dev.visibible.com`
+- `OPENROUTER_REFERRER=https://dev.visibible.com`
+
+Notes:
+- `CONVEX_DEPLOYMENT` is CLI-targeting config and should stay in `.env.convex.dev` / `.env.convex.prod`, not `.env.local`.
+- `api.dev.visibible.com` is this project's custom Convex API domain. If you use your own deployment/domain, use your dashboard values.
+- For custom domain setup details, see [`llm/workflow/CONVEX_WORKFLOWS.md`](llm/workflow/CONVEX_WORKFLOWS.md) (and the Convex dashboard domain settings).
+
+Use these commands:
+
+```bash
+# One-time Convex project/dev setup
+npm run convex:dev:setup
+
+# Daily Convex development watcher (functions + schema sync)
+npm run convex:dev
+
+# Deploy Convex backend to production
+npm run convex:deploy:prod
+```
 
 For more details on Convex functions and CLI commands, see [`convex/README.md`](convex/README.md).
+
+### Vercel Setup
+
+Use Vercel environments with this mapping:
+
+- `Development` -> local workflow, Convex dev
+- `Preview` -> PR/branch deployments, Convex dev
+- `Production` -> live deployment, Convex prod
+
+Use these templates when creating Vercel env vars:
+
+- `.env.vercel.preview.example`
+- `.env.vercel.prod.example`
+
+Domain mapping:
+
+- Preview frontend: `dev.visibible.com`
+- Preview Convex API: `api.dev.visibible.com`
+- Preview Convex HTTP Actions (optional): `actions.dev.visibible.com`
+- Production frontend: `visibible.com`
+- Production Convex API: `api.visibible.com`
+- Production Convex HTTP Actions (optional): `actions.visibible.com`
+
+Helpful commands:
+
+```bash
+# Link this repo to a Vercel project
+npm run vercel:link
+
+# Pull current Vercel env vars by environment
+npm run vercel:env:pull:development
+npm run vercel:env:pull:preview
+npm run vercel:env:pull:production
+```
+
+Full runbook: [`llm/workflow/VERCEL_WORKFLOWS.md`](llm/workflow/VERCEL_WORKFLOWS.md)
 
 ## Vercel AI SDK
 
 Chat API lives in `src/app/api/chat/route.ts`.
 
-- OpenAI: set `OPENAI_API_KEY`
-- Anthropic: set `ANTHROPIC_API_KEY` and switch to `anthropic(...)`
-- OpenRouter: set `OPENROUTER_API_KEY` to switch automatically (optional `OPENROUTER_REFERRER`, `OPENROUTER_TITLE`)
+This codebase uses OpenRouter for AI requests:
+
+- Required: `OPENROUTER_API_KEY`
+- Optional metadata headers: `OPENROUTER_REFERRER`, `OPENROUTER_TITLE`
+- Optional image pipeline controls:
+  - `ENABLE_IMAGE_GENERATION`
+  - `ENABLE_SCENE_PLANNER` (defaults to enabled unless explicitly `false`)
+  - `OPENROUTER_SCENE_PLANNER_MODEL`
+  - `SCENE_PLANNER_TIMEOUT_MS`
+  - `OPENROUTER_IMAGE_TIMEOUT_MS`
+  - `COST_EVENT_PERSIST_TIMEOUT_MS`
+
+For chat LLM quality/safety release gates (prompt/model changes), see:
+- `llm/workflow/CHAT_EVAL_AND_RELEASE.md`
+
+Image generation endpoint behavior:
+- `POST /api/generate-image` is the only supported generation method.
+- `GET /api/generate-image` returns `405` with `Allow: POST`.
+- Origin and CSRF validation are enforced for image-generation requests.
+
+## Ops Endpoints
+
+- `GET /api/health`: liveness and uptime snapshot (`200` when process is up)
+- `GET /api/readiness`: dependency readiness (`200` when critical checks pass, `503` otherwise)
+  - Public requests receive a minimal summary only
+  - Detailed dependency checks require `READINESS_TOKEN` or `READINESS_IP_ALLOWLIST`
+  - Critical checks: required env vars + Convex probe
+  - Non-critical check: LND configured state
+- `GET /api/metrics`: process-local structured counters for debugging and short-lived ops checks
+  - Disabled unless `METRICS_TOKEN` or `METRICS_IP_ALLOWLIST` is configured
+  - Response scope is intentionally per-process, not a global production dashboard
+
+Operational logging and metrics details:
+- `llm/implementation/OBSERVABILITY_IMPLEMENTATION.md`
 
 ## Credit System
 

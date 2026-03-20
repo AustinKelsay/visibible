@@ -99,7 +99,7 @@ export function ChatPrompt() {
       }}
       style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
       className={`
-        fixed z-30
+        hidden md:block md:fixed z-30
         bottom-[100px] right-6
         md:bottom-6 md:right-[88px]
         max-w-[calc(100vw-3rem)] sm:max-w-[240px] md:max-w-[280px]

@@ -1,9 +1,16 @@
 import { NextResponse } from "next/server";
-import { getSessionFromCookies, getClientIp, hashIp } from "@/lib/session";
-import { getConvexClient } from "@/lib/convex-client";
+import { validateSessionWithIp, withSessionRefreshCookie } from "@/lib/session";
+import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { getBtcPrice, usdToSats } from "@/lib/btc-price";
 import { createLndInvoice, base64ToHex, isLndConfigured } from "@/lib/lnd";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
+import {
+  createRequestObservabilityContext,
+  emitMetric,
+  logApiFailure,
+  logWarn,
+  redactSid,
+} from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
 
 // Fixed bundle price
@@ -14,6 +21,8 @@ const BUNDLE_USD = 3;
  * Creates a new Lightning invoice for credit purchase.
  */
 export async function POST(request: Request): Promise<NextResponse> {
+  const requestContext = createRequestObservabilityContext(request, "/api/invoice");
+
   // SECURITY: Validate request origin
   if (!validateOrigin(request)) {
     return invalidOriginResponse() as NextResponse;
@@ -27,6 +36,17 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
+  let serverSecret: string;
+  try {
+    serverSecret = getConvexServerSecret();
+  } catch {
+    console.error("[Invoice API] CONVEX_SERVER_SECRET not configured");
+    return NextResponse.json(
+      { error: "Payment system not available" },
+      { status: 503 }
+    );
+  }
+
   if (!isLndConfigured()) {
     return NextResponse.json(
       { error: "Lightning payments not configured" },
@@ -34,26 +54,39 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
-  const sid = await getSessionFromCookies();
-  if (!sid) {
+  const sessionValidation = await validateSessionWithIp(request);
+  if (!sessionValidation.valid || !sessionValidation.sid || !sessionValidation.currentIpHash) {
     return NextResponse.json(
       { error: "Session required" },
       { status: 401 }
     );
   }
+  const sid = sessionValidation.sid;
+  const withSessionRefresh = (response: Response) =>
+    withSessionRefreshCookie(response, sessionValidation.refreshedToken) as NextResponse;
 
   // SECURITY: Rate limit invoice creation to prevent LND flooding
   // Use IP hash only (not session) to prevent multi-session bypass from same IP
-  const clientIp = getClientIp(request);
-  const rateLimitIdentifier = await hashIp(clientIp);
+  const rateLimitIdentifier = sessionValidation.currentIpHash;
 
   const rateLimitResult = await convex.mutation(api.rateLimit.checkRateLimit, {
     identifier: rateLimitIdentifier,
     endpoint: "invoice",
+    serverSecret,
   });
 
   if (!rateLimitResult.allowed) {
-    return NextResponse.json(
+    emitMetric("api_rate_limit_blocks_total", {
+      route: requestContext.route,
+      endpoint: "invoice",
+    });
+    logWarn("api.rate_limited", {
+      route: requestContext.route,
+      requestId: requestContext.requestId,
+      sid: redactSid(sid),
+      retryAfter: rateLimitResult.retryAfter,
+    });
+    return withSessionRefresh(NextResponse.json(
       {
         error: "Too many invoice creation requests",
         message: "Please wait before creating more invoices.",
@@ -65,7 +98,7 @@ export async function POST(request: Request): Promise<NextResponse> {
           "Retry-After": String(rateLimitResult.retryAfter || 60),
         },
       }
-    );
+    ));
   }
 
   try {
@@ -90,21 +123,33 @@ export async function POST(request: Request): Promise<NextResponse> {
       amountSats,
       bolt11: lndInvoice.payment_request,
       paymentHash,
+      serverSecret,
     });
 
-    return NextResponse.json({
+    emitMetric("invoice_created_total", {
+      route: requestContext.route,
+    });
+
+    return withSessionRefresh(NextResponse.json({
       invoiceId: invoice.invoiceId,
       bolt11: invoice.bolt11,
       amountUsd: invoice.amountUsd,
       amountSats: invoice.amountSats,
       expiresAt: invoice.expiresAt,
       credits: invoice.credits,
-    });
+    }));
   } catch (error) {
+    logApiFailure({
+      context: requestContext,
+      stage: "invoice_create",
+      error,
+      statusCode: 500,
+      sid,
+    });
     console.error("Failed to create invoice:", error);
-    return NextResponse.json(
+    return withSessionRefresh(NextResponse.json(
       { error: error instanceof Error ? error.message : "Failed to create invoice" },
       { status: 500 }
-    );
+    ));
   }
 }

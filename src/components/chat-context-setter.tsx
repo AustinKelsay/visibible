@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useNavigation, PageContext } from "@/context/navigation-context";
 
 interface ChatContextSetterProps {
@@ -15,7 +15,7 @@ interface ChatContextSetterProps {
 export function ChatContextSetter({ context }: ChatContextSetterProps) {
   const { setChatContext } = useNavigation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setChatContext(context);
     return () => setChatContext(null);
   }, [context, setChatContext]);

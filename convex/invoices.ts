@@ -1,16 +1,7 @@
 import { action, internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
-
-/**
- * Validates the server secret for secure Convex action calls.
- */
-const validateServerSecret = (serverSecret: string) => {
-  const expectedSecret = process.env.CONVEX_SERVER_SECRET;
-  if (!expectedSecret || serverSecret !== expectedSecret) {
-    throw new Error("Unauthorized: Invalid server secret");
-  }
-};
+import { validateServerSecret } from "./_helpers/auth";
 
 // Fixed bundle price
 const BUNDLE_USD = 3;
@@ -27,8 +18,10 @@ export const createInvoice = mutation({
     amountSats: v.number(),
     bolt11: v.string(),
     paymentHash: v.string(),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
     // Verify session exists
     const session = await ctx.db
       .query("sessions")
@@ -229,8 +222,10 @@ export const confirmPayment = action({
 export const expireInvoice = mutation({
   args: {
     invoiceId: v.string(),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
     const invoice = await ctx.db
       .query("invoices")
       .withIndex("by_invoiceId", (q) => q.eq("invoiceId", args.invoiceId))

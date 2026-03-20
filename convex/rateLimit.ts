@@ -1,5 +1,6 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { validateServerSecret } from "./_helpers/auth";
 
 /**
  * Rate limit configuration for different endpoints.
@@ -12,6 +13,7 @@ export const RATE_LIMITS = {
   "admin-login": { windowMs: 900_000, maxRequests: 5 }, // 5 attempts per 15 minutes
   session: { windowMs: 60_000, maxRequests: 10 }, // 10 session creates per minute
   invoice: { windowMs: 60_000, maxRequests: 10 }, // 10 invoice creates per minute
+  "invoice-status": { windowMs: 60_000, maxRequests: 30 }, // 30 invoice status checks/confirms per minute
   feedback: { windowMs: 60_000, maxRequests: 5 }, // 5 feedback submissions per minute
 } as const;
 
@@ -28,12 +30,14 @@ export const checkRateLimit = mutation({
   args: {
     identifier: v.string(),
     endpoint: v.string(),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args): Promise<{
     allowed: boolean;
     retryAfter?: number;
     remaining?: number;
   }> => {
+    validateServerSecret(args.serverSecret);
     const config = RATE_LIMITS[args.endpoint as RateLimitEndpoint];
     if (!config) {
       // Unknown endpoint - allow but don't track
@@ -216,6 +220,7 @@ export const checkAdminLoginAllowed = query({
 export const recordFailedAdminLogin = mutation({
   args: {
     ipHash: v.string(),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args): Promise<{
     locked: boolean;
@@ -223,6 +228,7 @@ export const recordFailedAdminLogin = mutation({
     attemptsRemaining: number;
     lockoutCount?: number;
   }> => {
+    validateServerSecret(args.serverSecret);
     const now = Date.now();
 
     const record = await ctx.db
@@ -295,8 +301,10 @@ export const recordFailedAdminLogin = mutation({
 export const clearAdminLoginAttempts = mutation({
   args: {
     ipHash: v.string(),
+    serverSecret: v.string(),
   },
   handler: async (ctx, args): Promise<void> => {
+    validateServerSecret(args.serverSecret);
     const record = await ctx.db
       .query("adminLoginAttempts")
       .withIndex("by_ipHash", (q) => q.eq("ipHash", args.ipHash))
