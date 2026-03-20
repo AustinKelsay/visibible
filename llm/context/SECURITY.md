@@ -28,9 +28,9 @@ State-changing/privileged endpoints validate the `Origin` header against an allo
 ### 2. Session Security
 - JWT-signed session tokens with IP binding
 - Sessions tied to client IP (hashed) to prevent theft
-- Short idle timeout + bounded absolute timeout
-  - Idle timeout: configurable 5-15 minutes (default: 10)
-  - Absolute timeout: configurable 4-48 hours (default: 8)
+- Persistent idle timeout + bounded absolute timeout
+  - Idle timeout: configurable 5-129600 minutes (default: 10080 / 7 days)
+  - Absolute timeout: configurable 4-8760 hours (default: 720 / 30 days)
   - Activity-based renewal refreshes session up to (but never beyond) the absolute cap
 
 ### 3. Rate Limiting

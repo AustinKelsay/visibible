@@ -226,7 +226,7 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
               ⚠️ No account: Credits are session-only
             </div>
             <div>
-              Credits are stored in your browser session. If you clear your cache or use a different browser, your credits will be lost.
+              Credits are stored in this browser. If you clear cookies or site data, or use a different browser, your credits will be lost.
             </div>
           </div>
         )}

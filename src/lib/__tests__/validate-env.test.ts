@@ -138,16 +138,16 @@ describe("validateSessionTimeoutConfig", () => {
     const { validateSessionTimeoutConfig } = await importValidateEnv();
 
     expect(() => validateSessionTimeoutConfig()).toThrow(
-      "SESSION_IDLE_TIMEOUT_MINUTES must be between 5 and 15"
+      "SESSION_IDLE_TIMEOUT_MINUTES must be between 5 and 129600"
     );
   });
 
   it("should throw when absolute timeout is above maximum", async () => {
-    process.env.SESSION_ABSOLUTE_TIMEOUT_HOURS = "72";
+    process.env.SESSION_ABSOLUTE_TIMEOUT_HOURS = "9000";
     const { validateSessionTimeoutConfig } = await importValidateEnv();
 
     expect(() => validateSessionTimeoutConfig()).toThrow(
-      "SESSION_ABSOLUTE_TIMEOUT_HOURS must be between 4 and 48"
+      "SESSION_ABSOLUTE_TIMEOUT_HOURS must be between 4 and 8760"
     );
   });
 
@@ -156,7 +156,7 @@ describe("validateSessionTimeoutConfig", () => {
     const { validateSessionTimeoutConfig } = await importValidateEnv();
 
     expect(() => validateSessionTimeoutConfig()).toThrow(
-      "SESSION_IDLE_TIMEOUT_MINUTES must be an integer between 5 and 15"
+      "SESSION_IDLE_TIMEOUT_MINUTES must be an integer between 5 and 129600"
     );
   });
 

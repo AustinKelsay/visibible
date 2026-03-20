@@ -613,8 +613,8 @@ if (isProduction && trustedIps) {
 **Files:** `src/lib/session.ts`, `src/app/api/chat/route.ts`, `src/app/api/generate-image/route.ts`, `src/app/api/admin-login/route.ts`, `src/app/api/invoice/route.ts`, `src/app/api/invoice/[id]/route.ts`, `src/app/api/rate-limit-status/route.ts`, `src/app/api/feedback/route.ts`, `src/app/api/session/route.ts`
 
 Session validation uses layered checks:
-- **Idle timeout** (configurable 5-15 minutes, default 10)
-- **Absolute timeout** (configurable 4-48 hours, default 8)
+- **Idle timeout** (configurable 5-129600 minutes, default 10080 / 7 days)
+- **Absolute timeout** (configurable 4-8760 hours, default 720 / 30 days)
 - **IP binding** (`iph`) as a secondary theft-detection control
 
 Renewal is activity-based via `refreshSessionOnActivity` and can extend idle lifetime,

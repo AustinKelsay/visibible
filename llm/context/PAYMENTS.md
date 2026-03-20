@@ -58,7 +58,7 @@ The buy credits modal has several states:
 ## Session-Only Warning
 
 The UI prominently warns users:
-> "You have no account. Credits are stored in this browser session only. Clearing your cache or using a different browser will result in lost credits."
+> "You have no account. Credits are stored in this browser only. Clearing cookies or site data, or using a different browser, will result in lost credits."
 
 ## Admin Access
 

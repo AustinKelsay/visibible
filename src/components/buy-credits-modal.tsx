@@ -656,7 +656,7 @@ export function BuyCreditsModal() {
                   ⚠️ Session-only credits
                 </p>
                 <p className="text-amber-700 dark:text-amber-300">
-                  You have no account. Credits are stored in this browser session only. Clearing your cache or using a different browser will result in lost credits.
+                  You have no account. Credits are stored in this browser only. Clearing cookies or site data, or using a different browser, will result in lost credits.
                 </p>
               </div>
 
