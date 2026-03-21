@@ -3,6 +3,7 @@
 import { internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
+import type { Doc } from "./_generated/dataModel";
 
 const DEFAULT_NOSTR_RELAYS = [
   "wss://relay.nostr.band",
@@ -105,8 +106,30 @@ View more at ${pageUrl}`;
 
 /**
  * Internal action to publish an image to Nostr relays
- * This is called fire-and-forget style from saveImage via scheduler
+ * Used by the recurring Nostr scheduler after a candidate image is selected.
  */
+export type NostrPublishResult =
+  | {
+      outcome: "published";
+      eventId: string;
+    }
+  | {
+      outcome: "already_published";
+      eventId: string;
+    }
+  | {
+      outcome: "image_missing";
+      reason: string;
+    }
+  | {
+      outcome: "config_missing";
+      reason: string;
+    }
+  | {
+      outcome: "publish_failed";
+      reason: string;
+    };
+
 export const publishToNostr = internalAction({
   args: {
     imageId: v.id("verseImages"),
@@ -118,29 +141,44 @@ export const publishToNostr = internalAction({
     imageWidth: v.optional(v.number()),
     imageHeight: v.optional(v.number()),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx, args): Promise<NostrPublishResult> => {
     const privateKey = process.env.NOSTR_PRIVATE_KEY;
     if (!privateKey) {
       console.log("[Nostr] NOSTR_PRIVATE_KEY not configured, skipping publication");
-      return;
+      return {
+        outcome: "config_missing" as const,
+        reason: "missing_private_key",
+      };
     }
 
     // Idempotency check: skip if already published (prevents duplicates on retry)
-    const image = await ctx.runQuery(internal.verseImages.getImageById, { imageId: args.imageId });
+    const image: Doc<"verseImages"> | null = await ctx.runQuery(
+      internal.verseImages.getImageById,
+      { imageId: args.imageId }
+    );
     if (!image) {
       console.log(`[Nostr] Image ${args.imageId} not found, skipping publication`);
-      return;
+      return {
+        outcome: "image_missing" as const,
+        reason: "image_not_found",
+      };
     }
     if (image.nostrEventId) {
       console.log(`[Nostr] Image ${args.imageId} already published as ${image.nostrEventId}, skipping`);
-      return;
+      return {
+        outcome: "already_published" as const,
+        eventId: image.nostrEventId,
+      };
     }
 
     // Build permanent public URL via HTTP action (see convex/http.ts)
     const convexUrl = getStorageImageBaseUrl();
     if (!convexUrl) {
       console.error("[Nostr] Missing image base URL (NOSTR_IMAGE_BASE_URL/CONVEX_SITE_URL/CONVEX_CLOUD_URL), skipping publication");
-      return;
+      return {
+        outcome: "config_missing" as const,
+        reason: "missing_image_base_url",
+      };
     }
     const imageUrl = `${convexUrl}/image/${encodeURIComponent(args.storageId)}`;
 
@@ -212,8 +250,16 @@ export const publishToNostr = internalAction({
       });
 
       console.log(`[Nostr] Published event ${eventId} for image ${args.imageId}`);
+      return {
+        outcome: "published" as const,
+        eventId,
+      };
     } catch (error) {
       console.error("[Nostr] Publication failed:", error);
+      return {
+        outcome: "publish_failed" as const,
+        reason: error instanceof Error ? error.message : "unknown_error",
+      };
     } finally {
       // Always close WebSocket connections
       client.disconnectFromRelays();

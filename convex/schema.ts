@@ -118,10 +118,27 @@ export default defineSchema({
     nostrEventId: v.optional(v.string()),
     nostrPublishedAt: v.optional(v.number()),
     nostrRelays: v.optional(v.array(v.string())),
+    // Local impression data used for scheduled Nostr ranking
+    impressionCount: v.optional(v.number()),
+    lastImpressionAt: v.optional(v.number()),
   })
     // Index for querying all images for a verse sorted by creation time
     .index("by_verse", ["verseId", "createdAt"])
-    .index("by_generationId", ["generationId"]),
+    .index("by_generationId", ["generationId"])
+    .index("by_createdAt", ["createdAt"]),
+
+  // Singleton scheduler state for recurring Nostr publishing windows.
+  nostrPublishingState: defineTable({
+    key: v.string(),
+    lastProcessedWindowStart: v.optional(v.number()),
+    processingWindowStart: v.optional(v.number()),
+    processingStartedAt: v.optional(v.number()),
+    processingImageId: v.optional(v.id("verseImages")),
+    lastOutcome: v.optional(v.string()),
+    lastPublishedImageId: v.optional(v.id("verseImages")),
+    lastPublishedAt: v.optional(v.number()),
+    updatedAt: v.number(),
+  }).index("by_key", ["key"]),
 
   // Request lifecycle for image generation to support progress sync and observability
   imageGenerationRequests: defineTable({

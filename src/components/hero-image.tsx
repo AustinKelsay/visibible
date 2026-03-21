@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import type { Id } from "../../convex/_generated/dataModel";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Maximize2, X } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
@@ -148,7 +149,7 @@ export function HeroImage({
 }
 
 interface ConvexImageData {
-  id: string;
+  id: Id<"verseImages">;
   imageUrl: string | undefined;
   model: string;
   prompt?: string;
@@ -451,10 +452,14 @@ function HeroImageBase({
   const generationStartedAtRef = useRef<number | null>(null);
   const imageElementRef = useRef<HTMLImageElement | null>(null);
   const handleManualRegenerateRef = useRef<(() => void) | null>(null);
+  const trackedImageIdsRef = useRef<Set<Id<"verseImages">>>(new Set());
 
   const generationRequestStatus = useQuery(
     api.verseImages.getGenerationRequestStatus,
     activeRequestId ? { requestId: activeRequestId } : "skip"
+  );
+  const recordImageImpression = useMutation(
+    api.verseImages.recordImageImpression
   );
 
   const generationPhaseLabel = generationRequestStatus?.status === "planning"
@@ -526,6 +531,18 @@ function HeroImageBase({
   useEffect(() => {
     setCurrentImageId(currentImage?.id || null);
   }, [currentImage?.id, setCurrentImageId]);
+
+  useEffect(() => {
+    if (!currentImage?.id) return;
+    if (trackedImageIdsRef.current.has(currentImage.id)) return;
+
+    trackedImageIdsRef.current.add(currentImage.id);
+
+    void recordImageImpression({ imageId: currentImage.id }).catch((error) => {
+      trackedImageIdsRef.current.delete(currentImage.id);
+      console.error("Failed to record image impression:", error);
+    });
+  }, [currentImage?.id, recordImageImpression]);
 
   // Generate new image function
   const generateImage = useCallback(async () => {
