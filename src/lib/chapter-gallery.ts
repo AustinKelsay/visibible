@@ -31,6 +31,15 @@ export interface ChapterGallerySection {
   cards: ChapterGalleryCard[];
 }
 
+export interface ChapterGalleryFlatItem extends ChapterGalleryCard {
+  verse: number;
+  text: string;
+  href: string;
+  imageCount: number;
+  cardIndex: number;
+  hasImages: boolean;
+}
+
 interface BuildChapterGalleryItemsOptions {
   book: string;
   chapter: number;
@@ -78,4 +87,20 @@ export function buildChapterGalleryItems({
           ],
     };
   });
+}
+
+export function buildFlatChapterGalleryItems(
+  options: BuildChapterGalleryItemsOptions
+): ChapterGalleryFlatItem[] {
+  return buildChapterGalleryItems(options).flatMap((section) =>
+    section.cards.map((card, cardIndex) => ({
+      verse: section.verse,
+      text: section.text,
+      href: section.href,
+      imageCount: section.imageCount,
+      cardIndex,
+      hasImages: section.hasImages,
+      ...card,
+    }))
+  );
 }

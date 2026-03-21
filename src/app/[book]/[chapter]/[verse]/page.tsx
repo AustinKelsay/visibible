@@ -7,7 +7,6 @@ import { ChatContextSetter } from "@/components/chat-context-setter";
 import { Footer } from "@/components/footer";
 import { VerseAnalytics } from "@/components/verse-analytics";
 import { VersePageContent } from "@/components/verse-page-content";
-import { BOOK_BY_SLUG } from "@/data/bible-structure";
 import { genesis1Theme } from "@/data/genesis-1";
 import { getChapter, getVerse } from "@/lib/bible-api";
 import { getTranslationFromCookies } from "@/lib/get-translation";
@@ -33,7 +32,7 @@ export async function generateMetadata({
   const { book, chapter, verse } = await params;
 
   const location = parseVerseUrl(book, chapter, verse);
-  const bookData = BOOK_BY_SLUG[book.toLowerCase()];
+  const bookData = location?.book;
 
   if (!location || !bookData) {
     return {
@@ -77,15 +76,12 @@ export default async function VersePage({ params }: VersePageProps) {
     redirect("/genesis/1/1");
   }
 
-  const bookData = BOOK_BY_SLUG[book.toLowerCase()];
-  if (!bookData) {
-    redirect("/genesis/1/1");
-  }
+  const bookData = location.book;
 
   // Get user's translation preference from cookie
   const translation = await getTranslationFromCookies();
 
-  const chapterData = await getChapter(book, location.chapter, translation);
+  const chapterData = await getChapter(location.book.slug, location.chapter, translation);
   if (!chapterData) {
     redirect("/genesis/1/1");
   }
@@ -154,7 +150,7 @@ export default async function VersePage({ params }: VersePageProps) {
       <Header />
 
       <VersePageContent
-        bookSlug={book}
+        bookSlug={location.book.slug}
         bookName={bookData.name}
         chapter={location.chapter}
         verseNumber={location.verse}

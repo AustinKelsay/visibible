@@ -21,7 +21,8 @@ npm test
 
 - Verse pages support a dedicated `Chapter Gallery` toggle in the header navigation.
 - The gallery is off by default, remembers your preference in local storage, and stays active as you move between verses.
-- When enabled, it becomes the primary verse-page view and groups all saved images by verse in mini-galleries, newest-first within each verse, with a placeholder when a verse has not been illustrated yet.
+- When enabled, it becomes the primary full-screen gallery view.
+- The gallery starts with a filters section at the top. `All images` is the default layout and shows every saved image plus placeholders in a flat gallery, while `By verse` groups the same chapter art into verse sections.
 - With Convex disabled, the gallery still renders chapter placeholders but cannot show synced saved images.
 
 ## Env

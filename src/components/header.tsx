@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { BookOpen, LayoutGrid, Menu, MessageCircle, X } from "lucide-react";
+import { BookOpen, FileText, Grid2x2, Menu, MessageCircle, X } from "lucide-react";
 import { useNavigation } from "@/context/navigation-context";
 import { usePreferences } from "@/context/preferences-context";
 import { TranslationSelector } from "./translation-selector";
@@ -13,6 +13,30 @@ import { HeaderGenerateButton } from "./header-generate-button";
 
 function Divider() {
   return <div className="w-px h-6 bg-[var(--divider)] mx-1 sm:mx-2" />;
+}
+
+function GalleryToggleButton({
+  chapterGalleryEnabled,
+  onToggle,
+}: {
+  chapterGalleryEnabled: boolean;
+  onToggle: () => void;
+}) {
+  const label = chapterGalleryEnabled ? "Switch to reading view" : "Switch to gallery view";
+  const title = chapterGalleryEnabled ? "Reading view" : "Gallery view";
+  const Icon = chapterGalleryEnabled ? FileText : Grid2x2;
+
+  return (
+    <button
+      className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
+      aria-label={label}
+      title={title}
+      aria-pressed={chapterGalleryEnabled}
+      onClick={onToggle}
+    >
+      <Icon size={20} strokeWidth={1.5} />
+    </button>
+  );
 }
 
 export function Header() {
@@ -84,28 +108,16 @@ export function Header() {
 
           <Divider />
 
-          {/* Generate Button */}
-          <HeaderGenerateButton />
-
-          <Divider />
+          {/* Generate Button - hidden in gallery view */}
+          {!isVersePage || !chapterGalleryEnabled ? (
+            <>
+              <HeaderGenerateButton />
+              <Divider />
+            </>
+          ) : null}
 
           {/* Navigation Group */}
           <div className="flex items-center">
-            {isVersePage ? (
-              <button
-                className={`min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-md)] border transition-colors duration-[var(--motion-fast)] ${
-                  chapterGalleryEnabled
-                    ? "border-[var(--divider)] bg-[var(--surface)] text-[var(--foreground)]"
-                    : "border-transparent text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]"
-                }`}
-                aria-label={chapterGalleryEnabled ? "Switch to reading view" : "Switch to gallery view"}
-                title={chapterGalleryEnabled ? "Reading view" : "Gallery view"}
-                aria-pressed={chapterGalleryEnabled}
-                onClick={() => setChapterGalleryEnabled(!chapterGalleryEnabled)}
-              >
-                <LayoutGrid size={20} strokeWidth={1.5} />
-              </button>
-            ) : null}
             <button
               className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
               aria-label="Toggle chat"
@@ -123,26 +135,26 @@ export function Header() {
               <BookOpen size={20} strokeWidth={1.5} />
             </button>
           </div>
+
+          {isVersePage ? (
+            <>
+              <Divider />
+
+              {/* Gallery Mode */}
+              <div className="flex items-center">
+                <GalleryToggleButton
+                  chapterGalleryEnabled={chapterGalleryEnabled}
+                  onToggle={() => setChapterGalleryEnabled(!chapterGalleryEnabled)}
+                />
+              </div>
+            </>
+          ) : null}
         </nav>
 
         {/* Mobile Actions - Credits + Generate + Chat + Books + Hamburger */}
         <nav className="flex sm:hidden items-center gap-0.5">
           <CreditsBadge />
-          <HeaderGenerateButton />
-          {isVersePage ? (
-            <button
-              className={`min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-md)] border transition-colors duration-[var(--motion-fast)] ${
-                chapterGalleryEnabled
-                  ? "border-[var(--divider)] bg-[var(--surface)] text-[var(--foreground)]"
-                  : "border-transparent text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]"
-              }`}
-              aria-label={chapterGalleryEnabled ? "Switch to reading view" : "Switch to gallery view"}
-              aria-pressed={chapterGalleryEnabled}
-              onClick={() => setChapterGalleryEnabled(!chapterGalleryEnabled)}
-            >
-              <LayoutGrid size={20} strokeWidth={1.5} />
-            </button>
-          ) : null}
+          {!isVersePage || !chapterGalleryEnabled ? <HeaderGenerateButton /> : null}
           <button
             className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             aria-label="Toggle chat"
@@ -157,6 +169,12 @@ export function Header() {
           >
             <BookOpen size={20} strokeWidth={1.5} />
           </button>
+          {isVersePage ? (
+            <GalleryToggleButton
+              chapterGalleryEnabled={chapterGalleryEnabled}
+              onToggle={() => setChapterGalleryEnabled(!chapterGalleryEnabled)}
+            />
+          ) : null}
           <button
             className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             aria-label="Settings menu"

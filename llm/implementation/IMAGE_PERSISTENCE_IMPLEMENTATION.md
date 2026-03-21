@@ -103,7 +103,7 @@ getChapterImageStatus({ book, chapter })
 ```
 
 ### `getChapterGallery` (query)
-Returns all saved images for a chapter, grouped by verse and ordered newest-first within each verse. Used by `src/components/chapter-gallery.tsx` for the optional chapter gallery view.
+Returns all saved images for a chapter, ordered by verse and newest-first within each verse. Used by `src/components/chapter-gallery.tsx` for the optional chapter gallery view.
 
 ```ts
 getChapterGallery({ book, chapter })
@@ -112,8 +112,8 @@ getChapterGallery({ book, chapter })
 
 - The query scans the chapter prefix once via the `by_verse` index.
 - It returns every saved image record for the chapter, sorted by verse ascending and newest-first within each verse.
-- Storage URLs are resolved for each returned image so the gallery can render mini-stacks per verse without additional round trips.
-- The UI uses the grouped response to render a full-screen gallery with one section per verse and placeholders where no art exists yet.
+- Storage URLs are resolved for each returned image so the gallery can render either a flat `All images` gallery or a grouped `By verse` view without additional round trips.
+- The UI uses the same response to render a full-screen gallery with a filters section at the top and placeholders where no art exists yet.
 
 ### `getBooksWithImages` (query)
 Returns all book slugs that have at least one image. Used for showing image indicators in the book menu.

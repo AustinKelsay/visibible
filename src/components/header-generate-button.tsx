@@ -332,17 +332,9 @@ export function HeaderGenerateButton() {
     );
   }
 
-  // No credits - buy CTA
+  // No credits - buy CTA (mobile icon hidden — CreditsBadge already handles buy)
   return (
     <>
-      {/* Mobile: plain icon button */}
-      <button
-        onClick={buyCredits}
-        className={`${mobileIconBtn} text-[var(--accent)] hover:text-[var(--accent-hover)]`}
-        aria-label="Get credits to generate"
-      >
-        <Zap size={20} strokeWidth={1.5} />
-      </button>
       {/* Desktop: styled pill */}
       <button
         onClick={buyCredits}

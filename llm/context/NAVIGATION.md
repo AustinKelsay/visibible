@@ -114,8 +114,9 @@ A horizontal scrollable strip below the hero image showing all verses in the cur
 When enabled from the header navigation button, the verse page swaps into a full-screen chapter gallery view:
 
 - The gallery becomes the primary reading surface until toggled off
-- Each verse gets its own section so chapter boundaries remain obvious at a glance
-- Saved images within a verse are shown newest-first in a mini-gallery
+- A filters section at the top lets users switch between `All images` and `By verse`
+- `All images` is the default layout and shows every saved image plus placeholders in a flat gallery
+- `By verse` groups the same chapter art into verse sections for faster verse-to-verse scanning
 - Each card links to `/{book}/{chapter}/{verse}`
 - Verses fall back to a placeholder card when they have not been illustrated yet
 - The currently open verse is highlighted in the gallery

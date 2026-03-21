@@ -234,6 +234,15 @@ describe("analytics event wrappers", () => {
       },
       {
         call: () =>
+          trackPreferenceChanged({
+            ...baseProps,
+            preference: "chapterGallery",
+            value: "disabled",
+          }),
+        eventName: "preference_changed",
+      },
+      {
+        call: () =>
           trackFeedbackSubmitted({
             ...baseProps,
             hasContext: true,
