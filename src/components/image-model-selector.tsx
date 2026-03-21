@@ -3,7 +3,12 @@
 import { useState, useRef, useEffect } from "react";
 import { ChevronDown, Check, ImageIcon, Loader2 } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
-import { ImageModel, DEFAULT_IMAGE_MODEL } from "@/lib/image-models";
+import {
+  ImageModel,
+  DEFAULT_IMAGE_MODEL,
+  EMERGENCY_IMAGE_MODEL_PRICING_USD,
+  computeCreditsCost,
+} from "@/lib/image-models";
 
 interface ImageModelSelectorProps {
   variant?: "compact" | "full";
@@ -45,13 +50,16 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
           .catch((err) => {
             console.error("Failed to fetch image models:", err);
             setError("Failed to load models");
-            // Set fallback model with conservative estimate
+            // Set fallback model with the normal estimated charge
             setModels([
               {
                 id: DEFAULT_IMAGE_MODEL,
                 name: "Gemini 2.5 Flash (Default)",
                 provider: "Google",
-                creditsCost: 35, // Conservative estimate
+                creditsCost:
+                  computeCreditsCost(
+                    EMERGENCY_IMAGE_MODEL_PRICING_USD[DEFAULT_IMAGE_MODEL]
+                  ) ?? 13,
                 etaSeconds: 12,
               },
             ]);
@@ -159,7 +167,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
                             {model.creditsCost == null ? (
                               "Pricing unavailable"
                             ) : (
-                              <>~{model.etaSeconds ?? 12}s · Up to {model.creditsCost} credits</>
+                              <>~{model.etaSeconds ?? 12}s · About {model.creditsCost} credits</>
                             )}
                           </p>
                         </div>

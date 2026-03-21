@@ -12,6 +12,8 @@ import {
   type ImageResolution,
   type ImageModel,
   DEFAULT_IMAGE_MODEL,
+  EMERGENCY_IMAGE_MODEL_PRICING_USD,
+  computeCreditsCost,
   computeAdjustedCreditsCost,
   supportsResolution,
 } from "@/lib/image-models";
@@ -71,7 +73,16 @@ export function HeaderGenerateButton() {
             console.error("Failed to fetch image models:", err);
             setModelsError("Failed to load models");
             setModels([
-              { id: DEFAULT_IMAGE_MODEL, name: "Gemini 2.5 Flash (Default)", provider: "Google", creditsCost: 35, etaSeconds: 12 },
+              {
+                id: DEFAULT_IMAGE_MODEL,
+                name: "Gemini 2.5 Flash (Default)",
+                provider: "Google",
+                creditsCost:
+                  computeCreditsCost(
+                    EMERGENCY_IMAGE_MODEL_PRICING_USD[DEFAULT_IMAGE_MODEL]
+                  ) ?? 13,
+                etaSeconds: 12,
+              },
             ]);
           })
           .finally(() => setModelsLoading(false));
@@ -204,7 +215,7 @@ export function HeaderGenerateButton() {
                                         {model.creditsCost == null ? (
                                           "Pricing unavailable"
                                         ) : (
-                                          <>~{model.etaSeconds ?? 12}s · Up to {model.creditsCost} credits</>
+                                          <>~{model.etaSeconds ?? 12}s · About {model.creditsCost} credits</>
                                         )}
                                       </p>
                                     </div>

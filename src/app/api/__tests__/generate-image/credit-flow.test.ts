@@ -219,9 +219,13 @@ vi.mock("@/lib/image-models", () => ({
   getProviderName: vi.fn(() => "openrouter"),
   CREDIT_USD: 0.01,
   PREMIUM_MULTIPLIER: 1.25,
+  IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS: 5,
   DEFAULT_ASPECT_RATIO: "16:9",
   DEFAULT_RESOLUTION: "1K",
   RESOLUTIONS: { "1K": { multiplier: 1.0 }, "2K": { multiplier: 3.5 }, "4K": { multiplier: 6.5 } },
+  canAffordImageGeneration: vi.fn((credits: number, estimatedCreditsCost: number) =>
+    credits >= estimatedCreditsCost || (credits > 0 && credits + 5 >= estimatedCreditsCost)
+  ),
   isValidAspectRatio: vi.fn(() => true),
   isValidResolution: vi.fn(() => true),
   supportsResolution: vi.fn((modelId: string) => modelId.toLowerCase().includes("gemini")),
@@ -504,6 +508,38 @@ describe("Image Generation API Credit Flow", () => {
       const body = await response.json();
       expect(body.resolutionMultiplier).toBe(1.0);
       expect(body.resolutionSupported).toBe(false);
+    });
+
+    it("low-balance-spend-down: reserves remaining credits and still succeeds within grace", async () => {
+      resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1 }]);
+      mockFetchResponse = {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          id: "gen-123",
+          choices: [
+            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+          ],
+          usage: { cost: 0.04 },
+        }),
+      };
+
+      const { POST } = await import("../../generate-image/route");
+
+      const url = new URL("http://localhost:3000/api/generate-image");
+      url.searchParams.set("text", "Spend down test");
+      url.searchParams.set("model", "google/gemini-2.5-flash-image");
+
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
+
+      expect(response.status).toBe(200);
+      const body = await response.json();
+      const reserveCall = mockState.callHistory.find((c) => c.action === "reserveCredits");
+      expect(reserveCall).toBeDefined();
+      expect((reserveCall?.args as { amount: number }).amount).toBe(1);
+      expect(body.credits).toBe(0);
+      expect(body.usedActualCost).toBe(true);
     });
 
     it("prompt-guardrails: explicitly blocks mockup and blank-white-backdrop presentation", async () => {

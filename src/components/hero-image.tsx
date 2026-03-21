@@ -15,6 +15,7 @@ import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 import {
   ASPECT_RATIOS,
   ImageAspectRatio,
+  canAffordImageGeneration,
   computeAdjustedCreditsCost,
   isValidAspectRatio,
 } from "@/lib/image-models";
@@ -371,7 +372,12 @@ function HeroImageBase({
   const effectiveEta = modelPricing.etaSeconds;
   const isAdmin = tier === "admin";
   const pricingPending = isConvexEnabled && !isAdmin && !pricingLoaded;
-  const canGenerate = !isConvexEnabled || isAdmin || (pricingLoaded && tier === "paid" && credits >= effectiveCost);
+  const canGenerate =
+    !isConvexEnabled ||
+    isAdmin ||
+    (pricingLoaded &&
+      tier === "paid" &&
+      canAffordImageGeneration(credits, effectiveCost));
   const showCreditsCost = isConvexEnabled && !isAdmin && pricingLoaded;
 
   // Create verse ID for Convex query

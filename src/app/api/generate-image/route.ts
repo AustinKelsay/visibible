@@ -8,6 +8,7 @@ import {
   CONSERVATIVE_ESTIMATE_MULTIPLIER,
   getProviderName,
   CREDIT_USD,
+  canAffordImageGeneration,
   DEFAULT_ASPECT_RATIO,
   DEFAULT_RESOLUTION,
   RESOLUTIONS,
@@ -784,9 +785,10 @@ export async function POST(request: Request) {
   const reservationCreditsCost = reservationImageCredits + scenePlannerCreditsCost;
   const reservationCostUsd = reservationCreditsCost * CREDIT_USD;
 
-  // Use reservation amount for atomic credit reservation (higher than expected to cover actual cost)
-  const cost = reservationCreditsCost;
-  const costUsd = reservationCostUsd;
+  // Use a conservative reservation for well-funded sessions, but cap the hold at the
+  // user's remaining balance for low-credit sessions so they can spend down to zero.
+  let cost = reservationCreditsCost;
+  let costUsd = reservationCostUsd;
   let updatedCredits: number | undefined;
   let shouldCharge = false;
   let reservationMade = false;
@@ -881,6 +883,29 @@ export async function POST(request: Request) {
 
   await createGenerationRequest();
 
+  const canStartGeneration = isAdmin
+    ? true
+    : canAffordImageGeneration(session.credits, estimatedCreditsCost);
+  if (!canStartGeneration) {
+    await updateGenerationRequest("failed", {
+      error: "Insufficient credits",
+    });
+    return jsonWithSessionRefresh(
+      {
+        error: "Insufficient credits",
+        requestId: generationRequestId,
+        required: estimatedCreditsCost,
+        available: session.credits,
+      },
+      { status: 402 }
+    );
+  }
+
+  if (!isAdmin) {
+    cost = Math.min(reservationCreditsCost, session.credits);
+    costUsd = cost * CREDIT_USD;
+  }
+
   // Skip credit checks for admin users but log for audit trail
   if (!isAdmin) {
     // Atomically reserve credits before generation to prevent race conditions
@@ -917,7 +942,7 @@ export async function POST(request: Request) {
         {
           error: "Insufficient credits",
           requestId: generationRequestId,
-          required: cost,
+          required: estimatedCreditsCost,
           available:
             "available" in reserveResult ? reserveResult.available : 0,
         },

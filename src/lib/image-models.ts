@@ -5,7 +5,8 @@ export interface ImageModel {
   pricing?: {
     imageOutput?: string;
   };
-  creditsCost?: number | null; // null = unpriced, number = credits required
+  creditsCost?: number | null; // null = unpriced, number = estimated credits charged
+  reservationCreditsCost?: number | null; // conservative reservation hold for low-variance billing
   usesEmergencyPricing?: boolean; // true when model pricing came from local outage fallback
   etaSeconds?: number; // estimated generation time
 }
@@ -15,6 +16,7 @@ export const CREDIT_USD = 0.01; // 1 credit = $0.01
 export const PREMIUM_MULTIPLIER = 1.25; // 25% premium over OpenRouter price
 export const DEFAULT_ETA_SECONDS = 12; // default for unknown models
 export const DEFAULT_CREDITS_COST = 20; // default credit cost for unpriced models (~$0.20)
+export const IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS = 5;
 const MODEL_CACHE_MAX_STALE_MS = 6 * 60 * 60 * 1000; // 6 hours
 
 // Conservative estimate multiplier to account for OpenRouter API vs actual billing discrepancy.
@@ -172,6 +174,15 @@ export function computeAdjustedCreditsCost(
   return Math.ceil(base * multiplier);
 }
 
+export function canAffordImageGeneration(
+  credits: number,
+  estimatedCreditsCost: number
+): boolean {
+  if (credits >= estimatedCreditsCost) return true;
+  if (credits <= 0) return false;
+  return credits + IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS >= estimatedCreditsCost;
+}
+
 interface OpenRouterModel {
   id: string;
   name: string;
@@ -199,6 +210,7 @@ function cloneImageModels(models: ImageModel[]): ImageModel[] {
           imageOutput: model.pricing.imageOutput,
         }
       : undefined,
+    reservationCreditsCost: model.reservationCreditsCost,
     usesEmergencyPricing: model.usesEmergencyPricing,
   }));
 }
@@ -215,6 +227,8 @@ function getDefaultImageModels(): ImageModel[] {
       },
       creditsCost:
         computeCreditsCost(emergencyPricing) ?? DEFAULT_CREDITS_COST,
+      reservationCreditsCost:
+        computeCreditsCost(emergencyPricing) ?? DEFAULT_CREDITS_COST,
       usesEmergencyPricing: true,
       etaSeconds: DEFAULT_ETA_SECONDS,
     },
@@ -230,8 +244,9 @@ function applyEmergencyPricing(models: ImageModel[]): ImageModel[] {
     return {
       ...model,
       pricing: imageOutput ? { imageOutput } : model.pricing,
-      creditsCost:
-        model.creditsCost ??
+      creditsCost: model.creditsCost ?? computeCreditsCost(imageOutput),
+      reservationCreditsCost:
+        model.reservationCreditsCost ??
         (usesEmergencyPricing
           ? computeCreditsCost(imageOutput)
           : computeConservativeEstimate(imageOutput)),
@@ -310,9 +325,8 @@ export async function fetchImageModels(openRouterApiKey: string): Promise<ImageM
         pricing: {
           imageOutput: model.pricing?.image,
         },
-        // Use conservative estimate for UI display (accounts for API pricing discrepancy)
-        // Actual charge will be based on real OpenRouter usage after generation
-        creditsCost: computeConservativeEstimate(model.pricing?.image),
+        creditsCost: computeCreditsCost(model.pricing?.image),
+        reservationCreditsCost: computeConservativeEstimate(model.pricing?.image),
         etaSeconds: DEFAULT_ETA_SECONDS, // Will be overridden by modelStats
       }))
       .sort((a: ImageModel, b: ImageModel) => {
