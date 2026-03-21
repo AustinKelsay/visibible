@@ -1112,6 +1112,12 @@ export const getImageById = internalQuery({
 /**
  * Public mutation to record that an image was displayed to a visitor.
  * Used for ranking scheduled Nostr posts.
+ *
+ * This intentionally keeps the server-side signal lightweight: the UI only
+ * records one impression per displayed persisted image during a page lifetime,
+ * and the mutation trusts that client-side dedupe rather than maintaining
+ * per-visitor server state. The count is used as a soft ranking hint for
+ * scheduled Nostr publishing, not as a security-sensitive metric.
  */
 export const recordImageImpression = mutation({
   args: {

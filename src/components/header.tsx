@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { BookOpen, FileText, Grid2x2, Menu, MessageCircle, X } from "lucide-react";
 import { useNavigation } from "@/context/navigation-context";
 import { usePreferences } from "@/context/preferences-context";
@@ -40,12 +41,11 @@ function GalleryToggleButton({
 }
 
 export function Header() {
-  const router = useRouter();
   const pathname = usePathname();
   const { chapterGalleryEnabled, setChapterGalleryEnabled } = usePreferences();
   const { toggleMenu, toggleChat, isHeaderMenuOpen, openHeaderMenu, closeHeaderMenu } = useNavigation();
   const menuRef = useRef<HTMLDivElement>(null);
-  const isAboutPage = pathname === "/about";
+  const isBrandLinkPage = pathname === "/about" || pathname === "/api-docs";
   const isVersePage = /^\/[^/]+\/\d+\/\d+$/.test(pathname);
 
   // Close menu when clicking outside
@@ -71,22 +71,15 @@ export function Header() {
       <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
         {/* Brand */}
         <h1 className="text-base sm:text-lg font-semibold tracking-tight">
-          {isAboutPage ? (
-            <button
-              type="button"
-              onClick={() => {
-                if (window.history.length > 1) {
-                  router.back();
-                  return;
-                }
-                router.push("/");
-              }}
+          {isBrandLinkPage ? (
+            <Link
+              href="/"
               className="hover:text-[var(--accent)] transition-colors duration-[var(--motion-fast)]"
-              aria-label="Go back"
-              title="Go back"
+              aria-label="Go to home page"
+              title="Go to home page"
             >
               Visibible
-            </button>
+            </Link>
           ) : (
             "Visibible"
           )}

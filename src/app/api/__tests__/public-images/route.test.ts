@@ -55,52 +55,57 @@ function createMockLatestImage(): MockPublicImage {
   };
 }
 
-const mockState: MockState = {
-  apiIndex: { booksWithImagesCount: 2, books: ["genesis", "john"] },
-  books: ["genesis", "john"],
-  chapters: [1, 3],
-  latestImage: createMockLatestImage(),
-  paginatedImages: {
-    page: [createMockLatestImage()],
-    continueCursor: "next-cursor",
-    isDone: false,
-  },
-  chapterImages: [
-    {
-      verseId: "genesis-1-1",
-      image: {
-        id: "image-1",
-        imageUrl: "https://actions.example.com/image/storage-1",
-        reference: "Genesis 1:1",
-        model: "google/gemini-2.5-flash-image",
-        translationId: "web",
-        aspectRatio: "16:9",
-        imageMimeType: "image/png",
-        imageWidth: 1024,
-        imageHeight: 768,
-        createdAt: 123456789,
-      },
+function createMockState(): MockState {
+  return {
+    apiIndex: { booksWithImagesCount: 2, books: ["genesis", "john"] },
+    books: ["genesis", "john"],
+    chapters: [1, 3],
+    latestImage: createMockLatestImage(),
+    paginatedImages: {
+      page: [createMockLatestImage()],
+      continueCursor: "next-cursor",
+      isDone: false,
     },
-    {
-      verseId: "genesis-1-3",
-      image: {
-        id: "image-3",
-        imageUrl: "https://actions.example.com/image/storage-3",
-        reference: "Genesis 1:3",
-        model: "google/gemini-2.5-flash-image",
-        translationId: "web",
-        aspectRatio: "4:3",
-        imageMimeType: "image/webp",
-        imageWidth: 800,
-        imageHeight: 600,
-        createdAt: 123456999,
+    chapterImages: [
+      {
+        verseId: "genesis-1-1",
+        image: {
+          id: "image-1",
+          imageUrl: "https://actions.example.com/image/storage-1",
+          reference: "Genesis 1:1",
+          model: "google/gemini-2.5-flash-image",
+          translationId: "web",
+          aspectRatio: "16:9",
+          imageMimeType: "image/png",
+          imageWidth: 1024,
+          imageHeight: 768,
+          createdAt: 123456789,
+        },
       },
-    },
-  ],
-  discoveryResponses: [] as unknown[],
-  rateLimitByEndpoint: {} as Record<string, { allowed: boolean; retryAfter?: number }>,
-  callHistory: [] as Array<{ method: string; action: string; args: unknown }>,
-};
+      {
+        verseId: "genesis-1-3",
+        image: {
+          id: "image-3",
+          imageUrl: "https://actions.example.com/image/storage-3",
+          reference: "Genesis 1:3",
+          model: "google/gemini-2.5-flash-image",
+          translationId: "web",
+          aspectRatio: "4:3",
+          imageMimeType: "image/webp",
+          imageWidth: 800,
+          imageHeight: 600,
+          createdAt: 123456999,
+        },
+      },
+    ],
+    discoveryResponses: [],
+    rateLimitByEndpoint: {},
+    callHistory: [],
+  };
+}
+
+let mockState: MockState = createMockState();
+let originalNextPublicAppUrl: string | undefined;
 
 const mockConvex = {
   query: vi.fn(async (apiPath: { _path: string }, args: Record<string, unknown>) => {
@@ -148,54 +153,17 @@ vi.mock("@/lib/session", () => ({
 describe("public image API routes", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockState.apiIndex = { booksWithImagesCount: 2, books: ["genesis", "john"] };
-    mockState.books = ["genesis", "john"];
-    mockState.chapters = [1, 3];
-    mockState.latestImage = createMockLatestImage();
-    mockState.paginatedImages = {
-      page: [createMockLatestImage()],
-      continueCursor: "next-cursor",
-      isDone: false,
-    };
-    mockState.chapterImages = [
-      {
-        verseId: "genesis-1-1",
-        image: {
-          id: "image-1",
-          imageUrl: "https://actions.example.com/image/storage-1",
-          reference: "Genesis 1:1",
-          model: "google/gemini-2.5-flash-image",
-          translationId: "web",
-          aspectRatio: "16:9",
-          imageMimeType: "image/png",
-          imageWidth: 1024,
-          imageHeight: 768,
-          createdAt: 123456789,
-        },
-      },
-      {
-        verseId: "genesis-1-3",
-        image: {
-          id: "image-3",
-          imageUrl: "https://actions.example.com/image/storage-3",
-          reference: "Genesis 1:3",
-          model: "google/gemini-2.5-flash-image",
-          translationId: "web",
-          aspectRatio: "4:3",
-          imageMimeType: "image/webp",
-          imageWidth: 800,
-          imageHeight: 600,
-          createdAt: 123456999,
-        },
-      },
-    ];
-    mockState.discoveryResponses = [];
-    mockState.rateLimitByEndpoint = {};
-    mockState.callHistory = [];
+    mockState = createMockState();
+    originalNextPublicAppUrl = process.env.NEXT_PUBLIC_APP_URL;
     process.env.NEXT_PUBLIC_APP_URL = "https://visibible.com";
   });
 
   afterEach(() => {
+    if (originalNextPublicAppUrl === undefined) {
+      delete process.env.NEXT_PUBLIC_APP_URL;
+    } else {
+      process.env.NEXT_PUBLIC_APP_URL = originalNextPublicAppUrl;
+    }
     vi.resetModules();
   });
 
