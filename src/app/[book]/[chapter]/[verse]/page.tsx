@@ -10,9 +10,10 @@ import { ChatContextSetter } from "@/components/chat-context-setter";
 import { VerseStripBar } from "@/components/verse-strip-bar";
 import { Footer } from "@/components/footer";
 import { VerseAnalytics } from "@/components/verse-analytics";
+import { ChapterGallery } from "@/components/chapter-gallery";
 import { BOOK_BY_SLUG } from "@/data/bible-structure";
 import { genesis1Theme } from "@/data/genesis-1";
-import { getVerse } from "@/lib/bible-api";
+import { getChapter, getVerse } from "@/lib/bible-api";
 import { getTranslationFromCookies } from "@/lib/get-translation";
 import {
   parseVerseUrl,
@@ -88,15 +89,18 @@ export default async function VersePage({ params }: VersePageProps) {
   // Get user's translation preference from cookie
   const translation = await getTranslationFromCookies();
 
-  // Fetch verse data from API with user's translation preference
-  const verseData = await getVerse(book, location.chapter, location.verse, translation);
+  const chapterData = await getChapter(book, location.chapter, translation);
+  if (!chapterData) {
+    redirect("/genesis/1/1");
+  }
+  const verseData = chapterData.verses.find((item) => item.verse === location.verse);
   if (!verseData) {
     redirect("/genesis/1/1");
   }
 
   // Calculate navigation URLs
   const { prevUrl, nextUrl } = getNavigationUrls(location);
-  const totalVerses = bookData.chapters[location.chapter - 1];
+  const totalVerses = chapterData.verses.length;
 
   // Fetch prev/next verse data for contextual prompts
   const prevLocation = getPreviousVerse(location);
@@ -182,6 +186,17 @@ export default async function VersePage({ params }: VersePageProps) {
             />
           </div>
         </div>
+
+        <ChapterGallery
+          book={book}
+          bookName={bookData.name}
+          chapter={location.chapter}
+          currentVerse={location.verse}
+          verses={chapterData.verses.map((item) => ({
+            verse: item.verse,
+            text: item.text,
+          }))}
+        />
 
         {/* Scripture Reader */}
         <div className="flex-1 py-8">

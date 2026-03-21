@@ -6,6 +6,7 @@ High-level overview of how verse images are persisted and browsed. Details may c
 
 - When Convex is configured, every generated image is saved per verse and reused across sessions.
 - A verse can have multiple images; users can browse older/newer images in the hero image dock.
+- Users can optionally enable a chapter gallery view that shows the latest saved image for every verse in the current chapter.
 - The newest image is shown by default, and the "New image" action always generates another one.
 - Each saved image stores the generating model and displays a small model badge in the UI.
 - If Convex is not enabled, images are ephemeral and only benefit from browser HTTP caching.
@@ -31,6 +32,8 @@ High-level overview of how verse images are persisted and browsed. Details may c
 - Controls in the hero image dock let users move to newer/older images.
 - The image count indicator shows the current position and total (e.g., `3 / 7 · Latest`).
 - Selecting older images does not change the verse content; it only swaps the displayed art.
+- The optional chapter gallery uses a chapter-scoped query to fetch the latest saved image per verse and falls back to placeholders for verses without art.
+- The chapter gallery toggle is stored as a user preference and is off by default.
 
 ## Visual Indicators
 

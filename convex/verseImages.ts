@@ -304,6 +304,67 @@ export const getChapterImageStatus = query({
   },
 });
 
+/**
+ * Get the latest saved image for each verse in a chapter, plus image counts.
+ * Used by the optional chapter gallery view.
+ */
+export const getChapterGallery = query({
+  args: {
+    book: v.string(),
+    chapter: v.number(),
+  },
+  handler: async (ctx, args) => {
+    const prefix = `${args.book.toLowerCase()}-${args.chapter}-`;
+
+    const images = await ctx.db
+      .query("verseImages")
+      .withIndex("by_verse", (q) =>
+        q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
+      )
+      .collect();
+
+    const imageCounts = new Map<number, number>();
+    const latestByVerse = new Map<number, (typeof images)[number]>();
+
+    for (const image of images) {
+      const verseStr = image.verseId.slice(prefix.length);
+      const verseNum = parseInt(verseStr, 10);
+      if (Number.isNaN(verseNum)) {
+        continue;
+      }
+
+      imageCounts.set(verseNum, (imageCounts.get(verseNum) ?? 0) + 1);
+
+      const existing = latestByVerse.get(verseNum);
+      if (!existing || image.createdAt > existing.createdAt) {
+        latestByVerse.set(verseNum, image);
+      }
+    }
+
+    const entries = await Promise.all(
+      Array.from(latestByVerse.entries())
+        .sort((a, b) => a[0] - b[0])
+        .map(async ([verse, image]) => {
+          let imageUrl = image.imageUrl;
+          if (image.storageId) {
+            imageUrl = (await ctx.storage.getUrl(image.storageId)) ?? imageUrl;
+          }
+
+          return {
+            verse,
+            imageCount: imageCounts.get(verse) ?? 0,
+            imageId: image._id,
+            imageUrl,
+            model: image.model,
+            createdAt: image.createdAt,
+          };
+        })
+    );
+
+    return entries;
+  },
+});
+
 // All 66 Bible book slugs for efficient existence checks
 const ALL_BOOK_SLUGS = [
   // Old Testament (39)

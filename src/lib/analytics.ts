@@ -126,7 +126,8 @@ type PreferenceChangedProps = BaseProps & {
     | "imageModel"
     | "chatModel"
     | "imageAspectRatio"
-    | "imageResolution";
+    | "imageResolution"
+    | "chapterGallery";
   value: string;
 };
 

@@ -11,9 +11,11 @@ import {
   supportsResolution,
 } from "@/lib/image-models";
 import { useGeneration } from "@/context/generation-context";
+import { usePreferences } from "@/context/preferences-context";
 
 export function HeaderSettingsPopover() {
   const { state, isRegistered, setAspectRatio, setResolution } = useGeneration();
+  const { chapterGalleryEnabled, setChapterGalleryEnabled } = usePreferences();
   const [isOpen, setIsOpen] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -37,18 +39,43 @@ export function HeaderSettingsPopover() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="min-h-[36px] px-2.5 flex items-center gap-1.5 text-xs font-medium text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)] rounded-[var(--radius-md)] transition-colors duration-[var(--motion-fast)]"
-        aria-label="Image settings"
+        aria-label="Display and image settings"
         aria-expanded={isOpen}
       >
         <Settings size={14} strokeWidth={1.5} />
-        <span>{aspectRatio} · {resolution}</span>
+        <span>{aspectRatio} · {resolution}{chapterGalleryEnabled ? " · Gallery" : ""}</span>
         <ChevronDown
           size={12}
           className={`transition-transform duration-[var(--motion-fast)] ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
       {isOpen && (
-        <div className="absolute top-full mt-1 right-0 w-56 rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50 overflow-hidden">
+        <div className="absolute top-full mt-1 right-0 w-64 rounded-[var(--radius-md)] bg-[var(--background)] border border-[var(--divider)] shadow-lg z-50 overflow-hidden">
+          <div className="px-3 py-2 border-b border-[var(--divider)]/50">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider mb-1">Display</p>
+                <p className="text-sm text-[var(--foreground)]">Chapter Gallery</p>
+                <p className="text-[11px] text-[var(--muted)]">
+                  Show the latest image or a placeholder for every verse in this chapter.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setChapterGalleryEnabled(!chapterGalleryEnabled)}
+                aria-pressed={chapterGalleryEnabled}
+                aria-label="Toggle chapter gallery"
+                className={`mt-1 inline-flex min-h-[28px] min-w-[56px] items-center rounded-full border px-1 transition-colors duration-[var(--motion-fast)] ${
+                  chapterGalleryEnabled
+                    ? "border-[var(--accent)] bg-[var(--accent)] justify-end"
+                    : "border-[var(--divider)] bg-[var(--surface)] justify-start"
+                }`}
+              >
+                <span className="h-5 w-5 rounded-full bg-white shadow-sm" />
+              </button>
+            </div>
+          </div>
+
           {/* Aspect Ratio Section */}
           <div className="px-3 py-2 border-b border-[var(--divider)]/50">
             <p className="text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider mb-1">Aspect Ratio</p>
@@ -106,6 +133,7 @@ export function HeaderSettingsPopover() {
  */
 export function MobileSettingsRows() {
   const { state, isRegistered, setAspectRatio, setResolution } = useGeneration();
+  const { chapterGalleryEnabled, setChapterGalleryEnabled } = usePreferences();
 
   if (!isRegistered) return null;
 
@@ -114,6 +142,39 @@ export function MobileSettingsRows() {
 
   return (
     <>
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm font-medium text-[var(--foreground)]">Chapter Gallery</span>
+          <span className="text-[10px] text-[var(--muted)] uppercase tracking-[0.18em]">
+            Optional
+          </span>
+        </div>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => setChapterGalleryEnabled(true)}
+            className={`flex-1 min-h-[36px] rounded-[var(--radius-md)] text-xs font-medium transition-colors ${
+              chapterGalleryEnabled
+                ? "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/50"
+                : "bg-[var(--surface)] text-[var(--muted)] border border-transparent hover:bg-[var(--divider)]"
+            }`}
+          >
+            On
+          </button>
+          <button
+            type="button"
+            onClick={() => setChapterGalleryEnabled(false)}
+            className={`flex-1 min-h-[36px] rounded-[var(--radius-md)] text-xs font-medium transition-colors ${
+              !chapterGalleryEnabled
+                ? "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/50"
+                : "bg-[var(--surface)] text-[var(--muted)] border border-transparent hover:bg-[var(--divider)]"
+            }`}
+          >
+            Off
+          </button>
+        </div>
+      </div>
+
       {/* Aspect Ratio Row */}
       <div>
         <div className="flex items-center justify-between mb-2">

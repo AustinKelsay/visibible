@@ -16,6 +16,7 @@ Image persistence is Convex-backed and uses a server-controlled write boundary. 
 Key entry points:
 - `src/components/convex-client-provider.tsx`
 - `src/components/hero-image.tsx`
+- `src/components/chapter-gallery.tsx`
 - `src/components/verse-strip.tsx`
 - `convex/schema.ts`
 - `convex/verseImages.ts`
@@ -88,7 +89,7 @@ Notes:
 
 ## Convex Queries & Mutations
 
-`convex/verseImages.ts` exposes six main operations:
+`convex/verseImages.ts` exposes the main verse-image browsing and persistence operations:
 
 ### `getLatestImage` (query)
 Returns the newest image for a verse, preferring a permanent URL for storage-backed images (`/image/{storageId}` on Convex HTTP actions domain). Includes prompt + metadata.
@@ -100,6 +101,18 @@ Returns a list of verse numbers in a chapter with their image counts. Used by `s
 getChapterImageStatus({ book, chapter })
 // Returns: [{ verse: 1, imageCount: 3 }, { verse: 5, imageCount: 1 }, ...]
 ```
+
+### `getChapterGallery` (query)
+Returns the latest saved image for each verse in a chapter, plus the total number of saved images for that verse. Used by `src/components/chapter-gallery.tsx` for the optional chapter gallery view.
+
+```ts
+getChapterGallery({ book, chapter })
+// Returns: [{ verse: 1, imageCount: 3, imageId, imageUrl, model, createdAt }, ...]
+```
+
+- The query scans the chapter prefix once via the `by_verse` index.
+- It keeps the newest record per verse in memory and resolves storage URLs only for those latest records.
+- This avoids an N+1 pattern of calling `getLatestImage` for every verse in the chapter.
 
 ### `getBooksWithImages` (query)
 Returns all book slugs that have at least one image. Used for showing image indicators in the book menu.
