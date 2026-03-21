@@ -14,6 +14,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 1,
   });
 
+  routes.push({
+    url: `${BASE_URL}/about`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  });
+
   // Add all books with their first chapter, first verse
   for (const book of BIBLE_BOOKS) {
     // Book entry page (chapter 1, verse 1)

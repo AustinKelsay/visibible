@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { X, ChevronDown, ChevronRight, ArrowLeft } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
@@ -9,6 +10,7 @@ import { BIBLE_BOOKS, BibleBook } from "@/data/bible-structure";
 import { useNavigation } from "@/context/navigation-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { usePreferences } from "@/context/preferences-context";
+import { getExpandedTestamentForPathname } from "@/lib/book-menu";
 import { TranslationSelector } from "./translation-selector";
 
 type MenuView = "books" | "chapters" | "verses";
@@ -21,10 +23,12 @@ interface BookMenuBaseProps {
 
 export function BookMenu() {
   const isConvexEnabled = useConvexEnabled();
+  const pathname = usePathname();
 
   if (!isConvexEnabled) {
     return (
       <BookMenuBase
+        key={pathname}
         booksWithImages={[]}
         chaptersWithImages={[]}
         versesWithImages={new Map()}
@@ -36,6 +40,7 @@ export function BookMenu() {
 }
 
 function BookMenuWithConvex() {
+  const pathname = usePathname();
   const [selectedBook, setSelectedBook] = useState<BibleBook | null>(null);
   const [selectedChapter, setSelectedChapter] = useState<number | null>(null);
 
@@ -58,6 +63,7 @@ function BookMenuWithConvex() {
 
   return (
     <BookMenuBase
+      key={pathname}
       booksWithImages={booksWithImages}
       chaptersWithImages={chaptersWithImages}
       versesWithImages={versesWithImages}
@@ -80,9 +86,10 @@ function BookMenuBase({
   selectedChapterState,
 }: BookMenuBasePropsWithState) {
   const { isMenuOpen, closeMenu } = useNavigation();
+  const pathname = usePathname();
   const { translationInfo } = usePreferences();
   const [expandedTestament, setExpandedTestament] = useState<"old" | "new">(
-    "old"
+    () => getExpandedTestamentForPathname(pathname)
   );
 
   // Use provided state or create local state

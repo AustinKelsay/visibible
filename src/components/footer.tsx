@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Github, Mail, Twitter } from "lucide-react";
 
 export function Footer() {
@@ -11,6 +12,14 @@ export function Footer() {
           <p className="text-[var(--muted)] text-xs sm:text-sm">
             Free &amp; open source software.
           </p>
+          <div className="flex items-center justify-center gap-4 text-xs sm:text-sm text-[var(--muted)]">
+            <Link
+              href="/about"
+              className="hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
+            >
+              About
+            </Link>
+          </div>
           <div className="flex items-center justify-center gap-2">
             <a
               href="https://github.com/AustinKelsay/visibible"

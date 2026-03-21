@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { BookOpen, MessageCircle, Menu, X } from "lucide-react";
 import { useNavigation } from "@/context/navigation-context";
 import { TranslationSelector } from "./translation-selector";
@@ -14,8 +15,11 @@ function Divider() {
 }
 
 export function Header() {
+  const router = useRouter();
+  const pathname = usePathname();
   const { toggleMenu, toggleChat, isHeaderMenuOpen, openHeaderMenu, closeHeaderMenu } = useNavigation();
   const menuRef = useRef<HTMLDivElement>(null);
+  const isAboutPage = pathname === "/about";
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -39,7 +43,27 @@ export function Header() {
     >
       <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
         {/* Brand */}
-        <h1 className="text-base sm:text-lg font-semibold tracking-tight">Visibible</h1>
+        <h1 className="text-base sm:text-lg font-semibold tracking-tight">
+          {isAboutPage ? (
+            <button
+              type="button"
+              onClick={() => {
+                if (window.history.length > 1) {
+                  router.back();
+                  return;
+                }
+                router.push("/");
+              }}
+              className="hover:text-[var(--accent)] transition-colors duration-[var(--motion-fast)]"
+              aria-label="Go back"
+              title="Go back"
+            >
+              Visibible
+            </button>
+          ) : (
+            "Visibible"
+          )}
+        </h1>
 
         {/* Desktop Actions - hidden on mobile */}
         <nav className="hidden sm:flex items-center">
