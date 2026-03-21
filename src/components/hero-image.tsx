@@ -15,7 +15,9 @@ import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 import {
   ASPECT_RATIOS,
   ImageAspectRatio,
+  canAffordImageGeneration,
   computeAdjustedCreditsCost,
+  DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
   isValidAspectRatio,
 } from "@/lib/image-models";
 import {
@@ -366,12 +368,21 @@ function HeroImageBase({
   }, [imageModel]);
 
   // Determine if user can generate (has sufficient credits or is admin)
-  const baseCost = modelPricing.creditsCost ?? 20; // Default 20 for unpriced models
+  const baseCost = modelPricing.creditsCost ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
   const effectiveCost = computeAdjustedCreditsCost(baseCost, imageResolution, imageModel);
   const effectiveEta = modelPricing.etaSeconds;
   const isAdmin = tier === "admin";
   const pricingPending = isConvexEnabled && !isAdmin && !pricingLoaded;
-  const canGenerate = !isConvexEnabled || isAdmin || (pricingLoaded && tier === "paid" && credits >= effectiveCost);
+  const canGenerate =
+    !isConvexEnabled ||
+    isAdmin ||
+    (pricingLoaded &&
+      tier === "paid" &&
+      canAffordImageGeneration(credits, effectiveCost));
+  const canAutoGenerate =
+    !isConvexEnabled ||
+    isAdmin ||
+    (pricingLoaded && tier === "paid" && credits >= effectiveCost);
   const showCreditsCost = isConvexEnabled && !isAdmin && pricingLoaded;
 
   // Create verse ID for Convex query
@@ -917,7 +928,8 @@ function HeroImageBase({
     }
   }, [selectedImageId, imageHistory]);
 
-  // Auto-generate on first visit if no existing images AND user has credits
+  // Auto-generate on first visit only when the user can strictly cover the estimate.
+  // The spend-down grace is reserved for explicit generate actions.
   useEffect(() => {
     // Only auto-generate if:
     // 1. Convex query has loaded (imageHistory is not undefined)
@@ -932,14 +944,14 @@ function HeroImageBase({
       !isGenerating &&
       !hasAttemptedGeneration &&
       verseId &&
-      canGenerate &&
+      canAutoGenerate &&
       !sessionLoading
     ) {
       setHasAttemptedGeneration(true);
       pendingFollowLatest.current = true;
       generateImage();
     }
-  }, [imageHistory, isGenerating, hasAttemptedGeneration, verseId, generateImage, canGenerate, sessionLoading]);
+  }, [imageHistory, isGenerating, hasAttemptedGeneration, verseId, generateImage, canAutoGenerate, sessionLoading]);
 
   // When a new image is saved, navigate only after it exists in history
   useEffect(() => {

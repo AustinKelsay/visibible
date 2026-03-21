@@ -12,7 +12,7 @@ High-level view of the session and credit system for AI features (chat and image
 
 ## User Tiers
 
-- Paid: browse content, use AI features while credits >= model cost. Default tier.
+- Paid: browse content, use AI features while credits cover the request threshold. Image generation allows requests within a 5-credit grace window when the session has a positive balance at request start, even if the final charge brings the balance down to zero. Default tier.
 - Admin: unlimited access (no credit or spending checks), but all usage is logged for audit.
 - Admin tier is sticky and is never downgraded by credit balance changes.
 
@@ -67,6 +67,8 @@ These limitations are explicitly shown in the buy-credits modal (which includes 
 
 ### Image Credits
 - **Conservative reservation**: Credits are reserved using a 35x multiplier over API-listed pricing because OpenRouter's models API often underreports actual image generation costs for multimodal models.
+- **Estimated-price gating**: The UI shows the normal estimated charge, not the conservative reservation hold. Low-balance sessions may still start image generation within a 5-credit grace window so they can spend down to zero.
+- **Capped low-balance reservation**: When a session is low on credits, the backend caps the reservation at the remaining balance instead of requiring the full conservative hold upfront.
 - **Actual-usage charging**: After successful generation, the actual cost is extracted from OpenRouter's response (checking `usage.cost`, `usage.total_cost`, `data.cost`, `data.total_cost` in priority order).
 - **Automatic refund**: Excess reserved credits are refunded automatically (typically reserve ~35 credits, charge ~5 actual).
 - **Fallback behavior**: If OpenRouter doesn't return usage data, the API-based estimate is used instead of the conservative 35x estimate. This prevents overcharging when usage extraction fails.

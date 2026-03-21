@@ -9,7 +9,10 @@ import {
   useRef,
   ReactNode,
 } from "react";
-import { DEFAULT_CREDITS_COST } from "@/lib/image-models";
+import {
+  canAffordImageGeneration,
+  DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
+} from "@/lib/image-models";
 
 interface SessionContextType {
   sid: string | null;
@@ -155,8 +158,8 @@ export function useSession() {
  * Hook to check if user can generate images.
  * Returns true if user has sufficient credits for the given cost.
  * - Admin tier always returns true (unlimited access).
- * - For unpriced models (null cost), requires credits >= DEFAULT_CREDITS_COST.
- * - For priced models, requires credits >= creditsCost (no tier check).
+ * - For unpriced models (null cost), uses DEFAULT_IMAGE_ESTIMATED_CREDITS_COST with the image grace window.
+ * - For priced models, allows the normal estimated cost plus a small spend-down grace.
  * Note: HeroImage uses its own inline logic that also checks tier === "paid".
  */
 export function useCanGenerate(creditsCost: number | null): boolean {
@@ -167,9 +170,12 @@ export function useCanGenerate(creditsCost: number | null): boolean {
 
   if (creditsCost === null) {
     // Unpriced model - use default cost to match generation endpoint behavior
-    return credits >= DEFAULT_CREDITS_COST;
+    return canAffordImageGeneration(
+      credits,
+      DEFAULT_IMAGE_ESTIMATED_CREDITS_COST
+    );
   }
 
   // For priced models, check credits regardless of tier
-  return credits >= creditsCost;
+  return canAffordImageGeneration(credits, creditsCost);
 }
