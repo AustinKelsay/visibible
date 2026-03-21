@@ -31,6 +31,7 @@ process.env.OPENROUTER_IMAGE_TIMEOUT_MS = "50";
 const originalEnv = { ...process.env };
 let forceQuoteFailure = false;
 let forceRecordImageCostEventFailure = false;
+const mockImageSpendDownGraceCredits = 5;
 const defaultImageCatalogModels: Array<{
   id: string;
   pricing: { imageOutput: string };
@@ -146,7 +147,52 @@ vi.mock("@/lib/convex-client", () => ({
         mockState.callHistory.push({ action: "deductCredits", args });
         if (!session) return { success: false, error: "Session not found" };
         const actualAmount = (args.actualAmount as number) ?? (args.amount as number);
-        mockState.ledger.push({ sid, delta: -actualAmount, reason: "generation", generationId: args.generationId as string });
+        const generationId = args.generationId as string;
+        const reservation = [...mockState.ledger].reverse().find(
+          (entry) =>
+            entry.sid === sid &&
+            entry.generationId === generationId &&
+            entry.reason === "reservation"
+        );
+        const reservedAmount = reservation
+          ? Math.abs(reservation.delta)
+          : (args.amount as number);
+
+        if (actualAmount < reservedAmount) {
+          const refundAmount = reservedAmount - actualAmount;
+          session.credits += refundAmount;
+          mockState.ledger.push({
+            sid,
+            delta: refundAmount,
+            reason: "refund",
+            generationId,
+          });
+        }
+
+        const chargedAmount = Math.min(actualAmount, reservedAmount);
+        mockState.ledger.push({
+          sid,
+          delta: -chargedAmount,
+          reason: "generation",
+          generationId,
+        });
+
+        if (actualAmount > reservedAmount) {
+          const shortfall = actualAmount - reservedAmount;
+          mockState.ledger.push({
+            sid,
+            delta: 0,
+            reason: "shortfall",
+            generationId,
+          });
+          return {
+            success: true,
+            newBalance: session.credits,
+            converted: true,
+            shortfall,
+          };
+        }
+
         return { success: true, newBalance: session.credits };
       }
 
@@ -219,12 +265,14 @@ vi.mock("@/lib/image-models", () => ({
   getProviderName: vi.fn(() => "openrouter"),
   CREDIT_USD: 0.01,
   PREMIUM_MULTIPLIER: 1.25,
-  IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS: 5,
+  IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS: mockImageSpendDownGraceCredits,
   DEFAULT_ASPECT_RATIO: "16:9",
   DEFAULT_RESOLUTION: "1K",
   RESOLUTIONS: { "1K": { multiplier: 1.0 }, "2K": { multiplier: 3.5 }, "4K": { multiplier: 6.5 } },
   canAffordImageGeneration: vi.fn((credits: number, estimatedCreditsCost: number) =>
-    credits >= estimatedCreditsCost || (credits > 0 && credits + 5 >= estimatedCreditsCost)
+    credits >= estimatedCreditsCost ||
+    (credits > 0 &&
+      credits + mockImageSpendDownGraceCredits >= estimatedCreditsCost)
   ),
   isValidAspectRatio: vi.fn(() => true),
   isValidResolution: vi.fn(() => true),
@@ -538,8 +586,19 @@ describe("Image Generation API Credit Flow", () => {
       const reserveCall = mockState.callHistory.find((c) => c.action === "reserveCredits");
       expect(reserveCall).toBeDefined();
       expect((reserveCall?.args as { amount: number }).amount).toBe(1);
+      expect(body.chargeShortfall).toEqual({
+        wantedCredits: 5,
+        chargedCredits: 1,
+        shortfall: 4,
+      });
+      expect(body.creditsCost).toBe(1);
+      expect(body.costUsd).toBe(0.01);
       expect(body.credits).toBe(0);
       expect(body.usedActualCost).toBe(true);
+      const shortfallEntry = mockState.ledger.find(
+        (entry) => entry.reason === "shortfall"
+      );
+      expect(shortfallEntry).toBeDefined();
     });
 
     it("prompt-guardrails: explicitly blocks mockup and blank-white-backdrop presentation", async () => {

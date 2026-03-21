@@ -789,6 +789,7 @@ export async function POST(request: Request) {
   // user's remaining balance for low-credit sessions so they can spend down to zero.
   let cost = reservationCreditsCost;
   let costUsd = reservationCostUsd;
+  let settledReservationCostUsd = reservationCostUsd;
   let updatedCredits: number | undefined;
   let shouldCharge = false;
   let reservationMade = false;
@@ -904,6 +905,7 @@ export async function POST(request: Request) {
   if (!isAdmin) {
     cost = Math.min(reservationCreditsCost, session.credits);
     costUsd = reservationCostUsd;
+    settledReservationCostUsd = cost * CREDIT_USD;
   }
 
   // Skip credit checks for admin users but log for audit trail
@@ -1589,9 +1591,11 @@ ${aspectRatioInstruction}`;
       const finalChargedImageCredits = chargeShortfall
         ? Math.max(0, chargeShortfall.chargedCredits - effectiveScenePlannerCredits)
         : actualImageCredits;
-      const finalChargedCostUsd = chargeShortfall ? costUsd : actualTotalCostUsd;
+      const finalChargedCostUsd = chargeShortfall
+        ? settledReservationCostUsd
+        : actualTotalCostUsd;
       const finalChargedImageCostUsd = chargeShortfall
-        ? Math.max(0, costUsd - effectiveScenePlannerCostUsd)
+        ? Math.max(0, settledReservationCostUsd - effectiveScenePlannerCostUsd)
         : actualImageCostUsd;
 
       await updateGenerationRequest("succeeded", {

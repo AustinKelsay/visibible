@@ -67,6 +67,16 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
     }
   }, [isOpen, models.length]);
 
+  useEffect(() => {
+    if (!isOpen && error) {
+      hasFetched.current = false;
+      queueMicrotask(() => {
+        setError(null);
+        setModels([]);
+      });
+    }
+  }, [error, isOpen]);
+
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {

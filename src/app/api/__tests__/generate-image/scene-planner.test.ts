@@ -34,6 +34,7 @@ const testEnv = {
 Object.assign(process.env, testEnv);
 
 const SCENE_PLANNER_CREDITS = 1;
+const mockImageSpendDownGraceCredits = 5;
 
 // Mock modules
 vi.mock("@/lib/validate-env", () => ({
@@ -189,12 +190,14 @@ vi.mock("@/lib/image-models", () => ({
   getProviderName: vi.fn(() => "openrouter"),
   CREDIT_USD: 0.01,
   PREMIUM_MULTIPLIER: 1.25,
-  IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS: 5,
+  IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS: mockImageSpendDownGraceCredits,
   DEFAULT_ASPECT_RATIO: "16:9",
   DEFAULT_RESOLUTION: "1K",
   RESOLUTIONS: { "1K": { multiplier: 1.0 } },
   canAffordImageGeneration: vi.fn((credits: number, estimatedCreditsCost: number) =>
-    credits >= estimatedCreditsCost || (credits > 0 && credits + 5 >= estimatedCreditsCost)
+    credits >= estimatedCreditsCost ||
+    (credits > 0 &&
+      credits + mockImageSpendDownGraceCredits >= estimatedCreditsCost)
   ),
   isValidAspectRatio: vi.fn(() => true),
   isValidResolution: vi.fn(() => true),

@@ -340,7 +340,7 @@ Credit flow (reservation pattern):
 6. **Reject unpriced models** - if `creditsCost` is null, return 400 "Model pricing unavailable".
 7. **Check image affordability** using the estimated charge plus the small spend-down grace window for low-balance sessions.
 8. **Reserve credits atomically** via `reserveCredits()` - deducts from balance immediately. For low-balance sessions, the reservation is capped at the remaining balance instead of demanding the full conservative hold.
-9. If reservation fails (insufficient credits or daily limit exceeded), return 402.
+9. If reservation fails, return 429 for daily spending limit blocks and 402 for insufficient credits.
 10. Generate image via OpenRouter.
 11. **Convert reservation to charge** via `deductCredits()` - uses double-entry bookkeeping.
 12. If generation fails, **release reservation** via `releaseReservation()` to restore credits.
