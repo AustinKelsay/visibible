@@ -304,6 +304,72 @@ export const getChapterImageStatus = query({
   },
 });
 
+/**
+ * Get all saved images for a chapter, sorted by verse and newest-first within each verse.
+ * Used by the optional chapter gallery view to render mini-galleries per verse.
+ */
+export const getChapterGallery = query({
+  args: {
+    book: v.string(),
+    chapter: v.number(),
+  },
+  handler: async (ctx, args) => {
+    const prefix = `${args.book.toLowerCase()}-${args.chapter}-`;
+
+    const images = await ctx.db
+      .query("verseImages")
+      .withIndex("by_verse", (q) =>
+        q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
+      )
+      .collect();
+
+    const imageCounts = new Map<number, number>();
+    const parsedImages: Array<{ verse: number; image: (typeof images)[number] }> = [];
+
+    for (const image of images) {
+      const verseStr = image.verseId.slice(prefix.length);
+      const verseNum = parseInt(verseStr, 10);
+      if (Number.isNaN(verseNum)) {
+        continue;
+      }
+
+      imageCounts.set(verseNum, (imageCounts.get(verseNum) ?? 0) + 1);
+      parsedImages.push({ verse: verseNum, image });
+    }
+
+    const entries = await Promise.all(
+      parsedImages
+        .sort((a, b) => {
+          if (a.verse !== b.verse) {
+            return a.verse - b.verse;
+          }
+          return b.image.createdAt - a.image.createdAt;
+        })
+        .map(async ({ verse, image }, index, allImages) => {
+          let imageUrl = image.imageUrl;
+          if (image.storageId) {
+            imageUrl = (await ctx.storage.getUrl(image.storageId)) ?? imageUrl;
+          }
+
+          const previous = allImages[index - 1];
+          const isLatest = !previous || previous.verse !== verse;
+
+          return {
+            verse,
+            imageCount: imageCounts.get(verse) ?? 0,
+            imageId: image._id,
+            imageUrl,
+            model: image.model,
+            createdAt: image.createdAt,
+            isLatest,
+          };
+        })
+    );
+
+    return entries;
+  },
+});
+
 // All 66 Bible book slugs for efficient existence checks
 const ALL_BOOK_SLUGS = [
   // Old Testament (39)

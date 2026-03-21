@@ -11,6 +11,7 @@ import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useSession } from "@/context/session-context";
 import { useNavigation } from "@/context/navigation-context";
 import { useGeneration } from "@/context/generation-context";
+import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 import {
   ASPECT_RATIOS,
   ImageAspectRatio,
@@ -66,8 +67,8 @@ interface HeroImageProps {
   caption?: string;
   verseText?: string;
   chapterTheme?: ChapterTheme;
-  prevUrl?: string | null;
-  nextUrl?: string | null;
+  prevUrl?: string;
+  nextUrl?: string;
   prevVerse?: VerseContext;
   nextVerse?: VerseContext;
   currentReference?: string;
@@ -1142,51 +1143,38 @@ function HeroImageBase({
 
             {/* Empty state - no image yet */}
             {!isQueryLoading && !isGenerating && !error && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center">
-                {/* Icon */}
-                <div className="w-16 h-16 rounded-full bg-[var(--surface)] border border-[var(--divider)] flex items-center justify-center">
-                  <ImageOff size={28} strokeWidth={1.5} className="text-[var(--muted)]" />
-                </div>
-
-                {/* Text */}
-                <div className="space-y-1">
-                  <p className="text-sm font-medium text-[var(--foreground)]">
-                    No image yet
-                  </p>
-                  <p className="text-xs text-[var(--muted)] max-w-[240px]">
-                    Generate an AI illustration to bring this verse to life
-                  </p>
-                </div>
-
-                {/* CTA Button - contextual based on canGenerate */}
-                {pricingPending ? (
-                  <button
-                    type="button"
-                    disabled
-                    title="Fetching live model pricing..."
-                    className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--surface)] text-[var(--muted)] border border-[var(--divider)]/70 opacity-80 cursor-not-allowed"
-                  >
-                    <Loader2 size={18} strokeWidth={2} className="animate-spin" />
-                    <span className="text-sm font-medium">Loading pricing...</span>
-                  </button>
-                ) : canGenerate ? (
-                  <button
-                    onClick={handleManualRegenerate}
-                    className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
-                  >
-                    <Sparkles size={18} strokeWidth={1.5} />
-                    <span className="text-sm font-medium">Generate Image</span>
-                  </button>
-                ) : (
-                  <button
-                    onClick={buyCredits}
-                    className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
-                  >
-                    <Zap size={18} strokeWidth={2} />
-                    <span className="text-sm font-medium">Get Credits to Generate</span>
-                  </button>
-                )}
-              </div>
+              <VerseImagePlaceholder
+                className="absolute inset-0"
+                action={
+                  pricingPending ? (
+                    <button
+                      type="button"
+                      disabled
+                      title="Fetching live model pricing..."
+                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--surface)] text-[var(--muted)] border border-[var(--divider)]/70 opacity-80 cursor-not-allowed"
+                    >
+                      <Loader2 size={18} strokeWidth={2} className="animate-spin" />
+                      <span className="text-sm font-medium">Loading pricing...</span>
+                    </button>
+                  ) : canGenerate ? (
+                    <button
+                      onClick={handleManualRegenerate}
+                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
+                    >
+                      <Sparkles size={18} strokeWidth={1.5} />
+                      <span className="text-sm font-medium">Generate Image</span>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={buyCredits}
+                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
+                    >
+                      <Zap size={18} strokeWidth={2} />
+                      <span className="text-sm font-medium">Get Credits to Generate</span>
+                    </button>
+                  )
+                }
+              />
             )}
           </div>
         )}
@@ -1360,44 +1348,39 @@ function HeroImageBase({
                   </button>
                 </div>
               ) : (
-                <div className="h-[70vh] flex flex-col items-center justify-center gap-4 px-6 text-center">
-                  <div className="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
-                    <ImageOff size={28} strokeWidth={1.5} className="text-white/70" />
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium text-white">No image yet</p>
-                    <p className="text-xs text-white/70 max-w-xs">
-                      Generate an AI illustration to bring this verse to life
-                    </p>
-                  </div>
-                  {pricingPending ? (
-                    <button
-                      type="button"
-                      disabled
-                      title="Fetching live model pricing..."
-                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white/10 text-white/70 border border-white/20 opacity-80 cursor-not-allowed"
-                    >
-                      <Loader2 size={18} strokeWidth={2} className="animate-spin" />
-                      <span className="text-sm font-medium">Loading pricing...</span>
-                    </button>
-                  ) : canGenerate ? (
-                    <button
-                      onClick={handleManualRegenerate}
-                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white text-black hover:bg-white/90 transition-colors duration-[var(--motion-fast)]"
-                    >
-                      <Sparkles size={18} strokeWidth={1.5} />
-                      <span className="text-sm font-medium">Generate Image</span>
-                    </button>
-                  ) : (
-                    <button
-                      onClick={buyCredits}
-                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)]"
-                    >
-                      <Zap size={18} strokeWidth={2} />
-                      <span className="text-sm font-medium">Get Credits to Generate</span>
-                    </button>
-                  )}
-                </div>
+                <VerseImagePlaceholder
+                  className="h-[70vh] px-6"
+                  theme="dark"
+                  action={
+                    pricingPending ? (
+                      <button
+                        type="button"
+                        disabled
+                        title="Fetching live model pricing..."
+                        className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white/10 text-white/70 border border-white/20 opacity-80 cursor-not-allowed"
+                      >
+                        <Loader2 size={18} strokeWidth={2} className="animate-spin" />
+                        <span className="text-sm font-medium">Loading pricing...</span>
+                      </button>
+                    ) : canGenerate ? (
+                      <button
+                        onClick={handleManualRegenerate}
+                        className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white text-black hover:bg-white/90 transition-colors duration-[var(--motion-fast)]"
+                      >
+                        <Sparkles size={18} strokeWidth={1.5} />
+                        <span className="text-sm font-medium">Generate Image</span>
+                      </button>
+                    ) : (
+                      <button
+                        onClick={buyCredits}
+                        className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)]"
+                      >
+                        <Zap size={18} strokeWidth={2} />
+                        <span className="text-sm font-medium">Get Credits to Generate</span>
+                      </button>
+                    )
+                  }
+                />
               )}
 
               {/* Image iterator */}

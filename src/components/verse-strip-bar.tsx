@@ -40,10 +40,10 @@ export function VerseStripBar({ book, chapter, currentVerse, totalVerses }: Vers
         }}
       />
 
-      {/* Fullscreen button */}
+      {/* Fullscreen button — flush with right edge of liquid-glass container */}
       <button
         onClick={openFullscreen}
-        className="shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-md)] text-white/70 hover:bg-white/15 hover:text-white transition-all duration-[var(--motion-fast)] cursor-pointer focus-ring"
+        className="shrink-0 self-stretch px-3 flex items-center justify-center rounded-r-[var(--radius-lg)] text-white/70 hover:bg-white/15 hover:text-white transition-all duration-[var(--motion-fast)] focus-ring"
         aria-label="View fullscreen"
       >
         <Maximize2 size={20} strokeWidth={1.5} />
