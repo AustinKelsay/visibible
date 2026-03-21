@@ -11,6 +11,7 @@ import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useSession } from "@/context/session-context";
 import { useNavigation } from "@/context/navigation-context";
 import { useGeneration } from "@/context/generation-context";
+import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
 import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 import {
   ASPECT_RATIOS,
@@ -452,6 +453,7 @@ function HeroImageBase({
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [isDisplayImageReady, setIsDisplayImageReady] = useState(false);
   const [isFullscreenImageReady, setIsFullscreenImageReady] = useState(false);
+  const [isFullscreenImageError, setIsFullscreenImageError] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hasAttemptedGeneration, setHasAttemptedGeneration] = useState(false);
   const [imageLoadAttempts, setImageLoadAttempts] = useState(0);
@@ -850,6 +852,12 @@ function HeroImageBase({
     handleManualRegenerate();
   }, [onRefreshImages, handleManualRegenerate]);
 
+  const handleFullscreenImageReload = useCallback(() => {
+    setIsFullscreenImageError(false);
+    setIsFullscreenImageReady(false);
+    handleImageReload();
+  }, [handleImageReload]);
+
   // Register generation callback with context so header can trigger it
   useEffect(() => {
     registerGenerate(() => {
@@ -1031,9 +1039,11 @@ function HeroImageBase({
   useEffect(() => {
     if (!isFullscreen || !displayImage?.url) {
       setIsFullscreenImageReady(false);
+      setIsFullscreenImageError(false);
       return;
     }
     setIsFullscreenImageReady(false);
+    setIsFullscreenImageError(false);
   }, [displayImage?.id, displayImage?.url, isFullscreen]);
 
   useEffect(() => {
@@ -1098,10 +1108,18 @@ function HeroImageBase({
               }}
             />
 
-            {(isGenerating || isImageLoading) && !error && (
+            {isGenerating && !error && (
               <HeroImageLoadingState
-                label={isGenerating ? generationPhaseLabel : "Loading image"}
-                progress={isGenerating ? generationProgress : undefined}
+                label={generationPhaseLabel}
+                progress={generationProgress}
+              />
+            )}
+
+            {!isGenerating && isImageLoading && !error && (
+              <ImageLoadingSkeleton
+                className="absolute inset-0 z-10"
+                isLiveRegion
+                label="Loading saved image"
               />
             )}
 
@@ -1132,10 +1150,18 @@ function HeroImageBase({
           <div className="absolute inset-0 bg-[var(--surface)]">
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--background)]/80 via-[var(--surface)] to-[var(--surface)]" />
 
-            {(isQueryLoading || isGenerating) && !error && (
+            {isGenerating && !error && (
               <HeroImageLoadingState
-                label={isQueryLoading ? "Loading image" : generationPhaseLabel}
-                progress={isGenerating ? generationProgress : undefined}
+                label={generationPhaseLabel}
+                progress={generationProgress}
+              />
+            )}
+
+            {isQueryLoading && !isGenerating && !error && (
+              <ImageLoadingSkeleton
+                className="absolute inset-0"
+                isLiveRegion
+                label="Loading saved image"
               />
             )}
 
@@ -1318,32 +1344,70 @@ function HeroImageBase({
             <div className="flex flex-col items-center max-w-full max-h-full min-h-0">
               {displayImage?.url ? (
                 <div className="relative max-w-full max-h-[70vh] w-full flex items-center justify-center rounded-[var(--radius-md)] bg-[var(--image-stage)]">
-                  {!isFullscreenImageReady && (
+                  {!isFullscreenImageReady && isGenerating && (
                     <HeroImageLoadingState
-                      label={isGenerating ? generationPhaseLabel : "Loading image"}
+                      label={generationPhaseLabel}
                       fullscreen
-                      progress={isGenerating ? generationProgress : undefined}
+                      progress={generationProgress}
                     />
+                  )}
+                  {!isFullscreenImageReady && !isGenerating && !isFullscreenImageError && (
+                    <ImageLoadingSkeleton
+                      className="absolute inset-0"
+                      label="Loading saved image"
+                      theme="dark"
+                    />
+                  )}
+                  {isFullscreenImageError && !isGenerating && (
+                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 px-6 text-center">
+                      <div className="w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
+                        <ImageOff size={24} strokeWidth={1.5} className="text-white/70" />
+                      </div>
+                      <p className="text-sm text-red-300 max-w-md">
+                        This saved image could not be loaded.
+                      </p>
+                      <button
+                        onClick={handleFullscreenImageReload}
+                        className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white text-black hover:bg-white/90 transition-colors duration-[var(--motion-fast)]"
+                      >
+                        <RefreshCw className="w-4 h-4" />
+                        <span className="text-sm font-medium">Try Again</span>
+                      </button>
+                    </div>
                   )}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
+                    key={`${displayImage.id || displayImage.url}-${imageRefreshKey}`}
                     src={displayImage.url}
                     alt={alt}
                     className={`relative z-10 max-w-full max-h-[70vh] bg-[var(--image-stage)] object-contain rounded-[var(--radius-md)] transition-opacity duration-[var(--motion-base)] ${
-                      isFullscreenImageReady ? "opacity-100 visible" : "opacity-0 invisible"
+                      isFullscreenImageReady && !isFullscreenImageError ? "opacity-100 visible" : "opacity-0 invisible"
                     }`}
-                    onLoad={() => setIsFullscreenImageReady(true)}
-                    onError={() => setIsFullscreenImageReady(false)}
+                    onLoad={() => {
+                      setIsFullscreenImageReady(true);
+                      setIsFullscreenImageError(false);
+                    }}
+                    onError={() => {
+                      setIsFullscreenImageReady(false);
+                      setIsFullscreenImageError(true);
+                    }}
                   />
                 </div>
               ) : isQueryLoading || isGenerating ? (
-                <div className="flex items-center justify-center h-[70vh]">
-                  <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-[var(--radius-md)]">
-                    <RefreshCw className="w-4 h-4 animate-spin text-white/70" />
-                    <span className="text-sm text-white/70">
-                      {isQueryLoading ? "Loading..." : generationPhaseLabel}
-                    </span>
-                  </div>
+                <div className="relative h-[70vh] w-full max-w-full">
+                  {isGenerating ? (
+                    <HeroImageLoadingState
+                      label={generationPhaseLabel}
+                      fullscreen
+                      progress={generationProgress}
+                    />
+                  ) : (
+                    <ImageLoadingSkeleton
+                      className="h-full w-full"
+                      label="Loading saved image"
+                      theme="dark"
+                    />
+                  )}
                 </div>
               ) : error ? (
                 <div className="h-[70vh] flex flex-col items-center justify-center gap-3 px-6 text-center">

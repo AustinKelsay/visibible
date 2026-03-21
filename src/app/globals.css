@@ -125,10 +125,52 @@ html {
   50% { opacity: 1; }
 }
 
+@keyframes imageSkeletonShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 .skeleton {
   animation: pulse 1.5s ease-in-out infinite;
   background: var(--surface);
   border-radius: var(--radius-sm);
+}
+
+.image-skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 40%,
+    rgba(255, 255, 255, 0.07) 50%,
+    rgba(255, 255, 255, 0.04) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: imageSkeletonShimmer 1.8s ease-in-out infinite;
+}
+
+.image-skeleton-shimmer-light {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.03) 40%,
+    rgba(0, 0, 0, 0.05) 50%,
+    rgba(0, 0, 0, 0.03) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: imageSkeletonShimmer 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-skeleton-shimmer,
+  .image-skeleton-shimmer-light {
+    animation: none;
+  }
 }
 
 /* Markdown content styling */
