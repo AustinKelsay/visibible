@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, type Dispatch, type SetStateAction } from "react";
 import Link from "next/link";
 import { Maximize2, X } from "lucide-react";
 import { useQuery } from "convex/react";
@@ -38,6 +38,18 @@ interface GalleryCardProps {
   onExpand?: () => void;
 }
 
+function useImageReadyRef(
+  setReady: Dispatch<SetStateAction<boolean>>,
+  setError: Dispatch<SetStateAction<boolean>>
+) {
+  return useCallback((node: HTMLImageElement | null) => {
+    if (node?.complete && node.naturalWidth > 0) {
+      setReady(true);
+      setError(false);
+    }
+  }, [setError, setReady]);
+}
+
 function GalleryCard({
   item,
   bookName,
@@ -49,12 +61,7 @@ function GalleryCard({
   const isCurrent = item.verse === currentVerse;
   const [isImageReady, setIsImageReady] = useState(false);
   const [isImageError, setIsImageError] = useState(false);
-  const handleImageRef = useCallback((node: HTMLImageElement | null) => {
-    if (node?.complete && node.naturalWidth > 0) {
-      setIsImageReady(true);
-      setIsImageError(false);
-    }
-  }, []);
+  const handleImageRef = useImageReadyRef(setIsImageReady, setIsImageError);
 
   return (
     <Link
@@ -165,12 +172,7 @@ function LightboxImageStage({
 }: LightboxImageStageProps) {
   const [isImageReady, setIsImageReady] = useState(false);
   const [isImageError, setIsImageError] = useState(false);
-  const handleImageRef = useCallback((node: HTMLImageElement | null) => {
-    if (node?.complete && node.naturalWidth > 0) {
-      setIsImageReady(true);
-      setIsImageError(false);
-    }
-  }, []);
+  const handleImageRef = useImageReadyRef(setIsImageReady, setIsImageError);
 
   return (
     <div className="relative flex items-center justify-center max-w-full max-h-[70vh] rounded-[var(--radius-md)] bg-[var(--image-stage)]">

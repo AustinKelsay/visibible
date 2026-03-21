@@ -125,49 +125,12 @@ html {
   50% { opacity: 1; }
 }
 
-@keyframes imageSkeletonSweep {
+@keyframes imageSkeletonShimmer {
   0% {
-    transform: translateX(-140%) skewX(-18deg);
-    opacity: 0;
-  }
-  18% {
-    opacity: 0.08;
-  }
-  50% {
-    opacity: 0.2;
+    background-position: -200% 0;
   }
   100% {
-    transform: translateX(140%) skewX(-18deg);
-    opacity: 0;
-  }
-}
-
-@keyframes imageSkeletonDrift {
-  0%, 100% {
-    transform: translate3d(-2%, -2%, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(2%, 2%, 0) scale(1.05);
-  }
-}
-
-@keyframes imageSkeletonBreathe {
-  0%, 100% {
-    opacity: 0.55;
-    transform: scaleX(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scaleX(1.03);
-  }
-}
-
-@keyframes imageSkeletonGridDrift {
-  0%, 100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(-1.5%, 1%, 0);
+    background-position: 200% 0;
   }
 }
 
@@ -177,49 +140,35 @@ html {
   border-radius: var(--radius-sm);
 }
 
-.image-skeleton-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 132px 132px;
-  mask-image: radial-gradient(circle at center, black, transparent 82%);
-  animation: imageSkeletonGridDrift 12s ease-in-out infinite;
-}
-
-.image-skeleton-aura {
-  background:
-    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.12), transparent 34%),
-    radial-gradient(circle at 76% 28%, rgba(255, 255, 255, 0.08), transparent 30%),
-    radial-gradient(circle at 50% 78%, rgba(255, 255, 255, 0.06), transparent 34%);
-  filter: blur(20px);
-  animation: imageSkeletonDrift 8.5s ease-in-out infinite;
-}
-
-.image-skeleton-sheen::after {
-  content: "";
-  position: absolute;
-  inset: -30%;
+.image-skeleton-shimmer {
   background: linear-gradient(
-    110deg,
-    transparent 34%,
-    rgba(255, 255, 255, 0.02) 44%,
-    rgba(255, 255, 255, 0.16) 50%,
-    rgba(255, 255, 255, 0.02) 56%,
-    transparent 66%
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 40%,
+    rgba(255, 255, 255, 0.07) 50%,
+    rgba(255, 255, 255, 0.04) 60%,
+    transparent 100%
   );
-  animation: imageSkeletonSweep 2.9s ease-in-out infinite;
+  background-size: 200% 100%;
+  animation: imageSkeletonShimmer 1.8s ease-in-out infinite;
 }
 
-.image-skeleton-breathe {
-  animation: imageSkeletonBreathe 2.8s ease-in-out infinite;
-  transform-origin: left center;
+.image-skeleton-shimmer-light {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.03) 40%,
+    rgba(0, 0, 0, 0.05) 50%,
+    rgba(0, 0, 0, 0.03) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: imageSkeletonShimmer 1.8s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .image-skeleton-grid,
-  .image-skeleton-aura,
-  .image-skeleton-sheen::after,
-  .image-skeleton-breathe {
+  .image-skeleton-shimmer,
+  .image-skeleton-shimmer-light {
     animation: none;
   }
 }
