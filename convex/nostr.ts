@@ -128,6 +128,11 @@ export type NostrPublishResult =
   | {
       outcome: "publish_failed";
       reason: string;
+    }
+  | {
+      outcome: "record_failed";
+      eventId: string;
+      reason: string;
     };
 
 export const publishToNostr = internalAction({
@@ -238,16 +243,31 @@ export const publishToNostr = internalAction({
         sig,
       };
 
-      // Publish the event (throws on failure)
-      await client.publishEvent(signedEvent);
+      try {
+        await client.publishEvent(signedEvent);
+      } catch (error) {
+        console.error("[Nostr] Publication failed:", error);
+        return {
+          outcome: "publish_failed" as const,
+          reason: error instanceof Error ? error.message : "unknown_error",
+        };
+      }
 
-      // Record successful publication using pre-computed eventId
-      await ctx.runMutation(internal.verseImages.recordNostrPublication, {
-        imageId: args.imageId,
-        eventId,
-        relays: nostrRelays,
-        publishedAt: Date.now(),
-      });
+      try {
+        await ctx.runMutation(internal.verseImages.recordNostrPublication, {
+          imageId: args.imageId,
+          eventId,
+          relays: nostrRelays,
+          publishedAt: Date.now(),
+        });
+      } catch (error) {
+        console.error("[Nostr] Published event but failed to record publication:", error);
+        return {
+          outcome: "record_failed" as const,
+          eventId,
+          reason: error instanceof Error ? error.message : "unknown_error",
+        };
+      }
 
       console.log(`[Nostr] Published event ${eventId} for image ${args.imageId}`);
       return {

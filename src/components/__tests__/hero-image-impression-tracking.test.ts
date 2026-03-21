@@ -10,17 +10,17 @@ describe("HeroImage impression tracking", () => {
     const filePath = path.resolve(process.cwd(), "src/components/hero-image.tsx");
     const source = readFileSync(filePath, "utf8");
 
-    expect(source).toContain(
-      "useMutation(\n    api.verseImages.recordImageImpression"
+    expect(source).toMatch(
+      /useMutation\s*\(\s*api\.verseImages\.recordImageImpression/
     );
     expect(source).toContain(
       "const trackedImageIdsRef = useRef<Set<Id<\"verseImages\">>>(new Set());"
     );
-    expect(source).toContain(
-      "trackedImageIdsRef.current.add(currentImage.id);"
+    expect(source).toMatch(
+      /onLoad=\{\(\)\s*=>\s*\{[\s\S]*?currentImage\?\.id[\s\S]*?trackedImageIdsRef\.current\.add\(currentImage\.id\);/
     );
-    expect(source).toContain(
-      "void recordImageImpression({ imageId: currentImage.id }).catch((error) => {"
+    expect(source).toMatch(
+      /void\s+recordImageImpression\(\{\s*imageId:\s*currentImage\.id\s*\}\)\.catch\(\(error\)\s*=>\s*\{/
     );
   });
 });

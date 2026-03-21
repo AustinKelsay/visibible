@@ -546,18 +546,6 @@ function HeroImageBase({
     setCurrentImageId(currentImage?.id || null);
   }, [currentImage?.id, setCurrentImageId]);
 
-  useEffect(() => {
-    if (!currentImage?.id) return;
-    if (trackedImageIdsRef.current.has(currentImage.id)) return;
-
-    trackedImageIdsRef.current.add(currentImage.id);
-
-    void recordImageImpression({ imageId: currentImage.id }).catch((error) => {
-      trackedImageIdsRef.current.delete(currentImage.id);
-      console.error("Failed to record image impression:", error);
-    });
-  }, [currentImage?.id, recordImageImpression]);
-
   // Generate new image function
   const generateImage = useCallback(async () => {
     if (!verseId || !currentReference) return;
@@ -1090,6 +1078,15 @@ function HeroImageBase({
                 setIsDisplayImageReady(true);
                 setImageLoadAttempts(0);
                 setError(null);
+
+                if (currentImage?.id && !trackedImageIdsRef.current.has(currentImage.id)) {
+                  trackedImageIdsRef.current.add(currentImage.id);
+
+                  void recordImageImpression({ imageId: currentImage.id }).catch((error) => {
+                    trackedImageIdsRef.current.delete(currentImage.id);
+                    console.error("Failed to record image impression:", error);
+                  });
+                }
               }}
               onError={() => {
                 const nextAttempt = imageLoadAttempts + 1;

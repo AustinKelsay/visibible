@@ -125,7 +125,7 @@ html {
   50% { opacity: 1; }
 }
 
-@keyframes imageSkeletonShimmer {
+@keyframes image-skeleton-shimmer {
   0% {
     background-position: -200% 0;
   }
@@ -150,7 +150,7 @@ html {
     transparent 100%
   );
   background-size: 200% 100%;
-  animation: imageSkeletonShimmer 1.8s ease-in-out infinite;
+  animation: image-skeleton-shimmer 1.8s ease-in-out infinite;
 }
 
 .image-skeleton-shimmer-light {
@@ -163,7 +163,7 @@ html {
     transparent 100%
   );
   background-size: 200% 100%;
-  animation: imageSkeletonShimmer 1.8s ease-in-out infinite;
+  animation: image-skeleton-shimmer 1.8s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

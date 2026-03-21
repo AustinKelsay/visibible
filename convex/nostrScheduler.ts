@@ -28,7 +28,8 @@ type EligibleScheduledImage = {
 type TerminalPublishOutcome =
   | "published"
   | "already_published"
-  | "image_missing";
+  | "image_missing"
+  | "record_failed";
 
 type ClaimScheduledImageResult =
   | {
@@ -44,6 +45,7 @@ type ClaimScheduledImageResult =
   | {
       status: "claimed";
       candidate: EligibleScheduledImage;
+      claimStartedAt: number;
     };
 
 type ScheduledWindowRunResult =
@@ -200,6 +202,7 @@ export const claimScheduledImageForWindow = internalMutation({
     return {
       status: "claimed" as const,
       candidate,
+      claimStartedAt: args.now,
     };
   },
 });
@@ -208,10 +211,12 @@ export const completeScheduledWindow = internalMutation({
   args: {
     windowStart: v.number(),
     imageId: v.id("verseImages"),
+    claimStartedAt: v.number(),
     outcome: v.union(
       v.literal("published"),
       v.literal("already_published"),
-      v.literal("image_missing")
+      v.literal("image_missing"),
+      v.literal("record_failed")
     ),
     completedAt: v.number(),
   },
@@ -221,7 +226,12 @@ export const completeScheduledWindow = internalMutation({
       .withIndex("by_key", (q) => q.eq("key", NOSTR_PUBLISHING_STATE_KEY))
       .unique();
 
-    if (!state) {
+    if (
+      !state ||
+      state.processingWindowStart !== args.windowStart ||
+      state.processingImageId !== args.imageId ||
+      state.processingStartedAt !== args.claimStartedAt
+    ) {
       return { success: false };
     }
 
@@ -233,11 +243,15 @@ export const completeScheduledWindow = internalMutation({
       processingImageId: undefined,
       lastOutcome: args.outcome,
       lastPublishedImageId:
-        args.outcome === "published" || args.outcome === "already_published"
+        args.outcome === "published" ||
+        args.outcome === "already_published" ||
+        args.outcome === "record_failed"
           ? args.imageId
           : undefined,
       lastPublishedAt:
-        args.outcome === "published" ? args.completedAt : state.lastPublishedAt,
+        args.outcome === "published" || args.outcome === "record_failed"
+          ? args.completedAt
+          : state.lastPublishedAt,
       updatedAt: args.completedAt,
     });
 
@@ -249,6 +263,7 @@ export const recordScheduledWindowFailure = internalMutation({
   args: {
     windowStart: v.number(),
     imageId: v.id("verseImages"),
+    claimStartedAt: v.number(),
     failedAt: v.number(),
     outcome: v.union(
       v.literal("config_missing"),
@@ -264,7 +279,8 @@ export const recordScheduledWindowFailure = internalMutation({
     if (
       !state ||
       state.processingWindowStart !== args.windowStart ||
-      state.processingImageId !== args.imageId
+      state.processingImageId !== args.imageId ||
+      state.processingStartedAt !== args.claimStartedAt
     ) {
       return { success: false };
     }
@@ -329,6 +345,7 @@ export const publishTopImageForLatestWindow = internalAction({
         {
           windowStart,
           imageId: claimResult.candidate.imageId,
+          claimStartedAt: claimResult.claimStartedAt,
           outcome: publishResult.outcome,
           completedAt: now,
         }
@@ -339,6 +356,7 @@ export const publishTopImageForLatestWindow = internalAction({
         {
           windowStart,
           imageId: claimResult.candidate.imageId,
+          claimStartedAt: claimResult.claimStartedAt,
           failedAt: now,
           outcome: publishResult.outcome,
         }

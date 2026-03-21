@@ -69,9 +69,15 @@ verseImages: defineTable({
   model: v.string(),
   createdAt: v.number(),
   generationId: v.optional(v.string()),
+  nostrEventId: v.optional(v.string()),
+  nostrPublishedAt: v.optional(v.number()),
+  nostrRelays: v.optional(v.array(v.string())),
+  impressionCount: v.optional(v.number()),
+  lastImpressionAt: v.optional(v.number()),
 })
   .index("by_verse", ["verseId", "createdAt"])
-  .index("by_generationId", ["generationId"]);
+  .index("by_generationId", ["generationId"])
+  .index("by_createdAt", ["createdAt"]);
 ```
 
 Notes:
@@ -84,6 +90,8 @@ Notes:
 - `provider` and `providerRequestId` store OpenRouter identifiers for traceability.
 - `sourceImageUrl` and image metadata store origin + file details (mime, size, dimensions).
 - `generationId` is used for idempotency to avoid duplicate saves.
+- `nostrEventId` / `nostrPublishedAt` / `nostrRelays` store Nostr publication metadata on persisted images.
+- `impressionCount` / `lastImpressionAt` store lightweight local display activity used to rank scheduled Nostr candidates.
 
 ---
 
@@ -133,6 +141,19 @@ getImageHistory({ verseId, limit?, refreshToken? })
 - `limit` can restrict the history length.
 - `refreshToken` is a cache-busting value used by the UI to force a re-run of the query.
 - Results include prompt version/inputs, translation, provider identifiers, and image file metadata when present.
+
+### `recordImageImpression` (mutation)
+Records that a persisted image was actually displayed in the UI.
+
+```ts
+recordImageImpression({ imageId })
+// Returns: { success: true } or { success: false }
+```
+
+- Public client mutation used by `src/components/hero-image.tsx`.
+- Increments `impressionCount` and updates `lastImpressionAt` with the current timestamp.
+- The current hero-image flow records at most one impression per loaded image ID per page lifetime.
+- This data is not part of the Vercel Analytics stream; it exists so scheduled Nostr publishing can rank saved images directly inside Convex.
 
 ### `saveImage` (action, server-authenticated)
 Handles both base64 data URLs and standard URLs.
@@ -223,6 +244,7 @@ const imageHistory = useQuery(api.verseImages.getImageHistory, { verseId, refres
 ```
 
 `refreshToken` is incremented when a reload is needed (e.g., failed image load).
+Persisted images also trigger `recordImageImpression({ imageId })` the first time each displayed image ID is shown on the page.
 
 ---
 
