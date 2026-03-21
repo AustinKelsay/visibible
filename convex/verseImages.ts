@@ -818,6 +818,29 @@ export const getImageById = internalQuery({
 });
 
 /**
+ * Public mutation to record that an image was displayed to a visitor.
+ * Used for ranking scheduled Nostr posts.
+ */
+export const recordImageImpression = mutation({
+  args: {
+    imageId: v.id("verseImages"),
+  },
+  handler: async (ctx, args) => {
+    const image = await ctx.db.get(args.imageId);
+    if (!image) {
+      return { success: false };
+    }
+
+    await ctx.db.patch(args.imageId, {
+      impressionCount: (image.impressionCount ?? 0) + 1,
+      lastImpressionAt: Date.now(),
+    });
+
+    return { success: true };
+  },
+});
+
+/**
  * Internal mutation to record a published Nostr event.
  */
 export const recordNostrPublication = internalMutation({
@@ -1253,20 +1276,6 @@ export const saveImage = action({
         generationId,
       });
 
-      // Fire-and-forget Nostr publication (5-min delay to disperse posts)
-      if (reference && verseText) {
-        await ctx.scheduler.runAfter(5 * 60 * 1000, internal.nostr.publishToNostr, {
-          imageId: id,
-          verseId,
-          reference,
-          verseText,
-          storageId,
-          imageMimeType: imageMetadata.imageMimeType,
-          imageWidth: imageMetadata.imageWidth,
-          imageHeight: imageMetadata.imageHeight,
-        });
-      }
-
       return { success: true, type: "storage", id };
     }
 
@@ -1321,20 +1330,6 @@ export const saveImage = action({
         ...imageMetadata,
         generationId,
       });
-
-      // Fire-and-forget Nostr publication (5-min delay to disperse posts)
-      if (reference && verseText) {
-        await ctx.scheduler.runAfter(5 * 60 * 1000, internal.nostr.publishToNostr, {
-          imageId: id,
-          verseId,
-          reference,
-          verseText,
-          storageId,
-          imageMimeType: imageMetadata.imageMimeType,
-          imageWidth: imageMetadata.imageWidth,
-          imageHeight: imageMetadata.imageHeight,
-        });
-      }
 
       return { success: true, type: "storage", id };
     } catch (error) {

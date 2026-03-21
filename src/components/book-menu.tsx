@@ -59,7 +59,12 @@ function BookMenuWithConvex() {
       : "skip"
   );
 
-  const versesWithImages = new Map(versesImageStatus?.map((v) => [v.verse, v.imageCount] as const) ?? []);
+  const versesWithImages = new Map<number, number>(
+    (versesImageStatus ?? []).map(
+      (status: { verse: number; imageCount: number }) =>
+        [status.verse, status.imageCount] as const
+    )
+  );
 
   return (
     <BookMenuBase

@@ -43,4 +43,13 @@ crons.interval(
   }
 );
 
+// Evaluate the latest completed 4-hour image window and publish at most one
+// top-ranked image to Nostr.
+crons.hourly(
+  "publish scheduled Nostr image",
+  { minuteUTC: 0 },
+  internal.nostrScheduler.publishTopImageForLatestWindow,
+  {}
+);
+
 export default crons;

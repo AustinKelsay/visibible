@@ -92,6 +92,12 @@ Nostr image URL base precedence inside Convex actions:
 2. `CONVEX_SITE_URL` (custom Convex HTTP actions domain)
 3. `CONVEX_CLOUD_URL` (Convex-provided fallback, built-in)
 
+When Nostr publishing is enabled, Convex now evaluates image candidates on a
+recurring schedule instead of posting every saved image immediately. The
+scheduler picks one unposted stored image from the latest completed 4-hour UTC
+window, preferring the image with the highest Convex-tracked impression count
+and falling back to a random eligible image when the window has no impressions.
+
 Use the deployment target files to select where values are set:
 
 ```bash
@@ -124,6 +130,8 @@ Crons are defined in `convex/crons.ts` and run automatically in each deployment:
 - Admin login attempt cleanup (hourly)
 - Image cost-event outbox processing (every 5 minutes)
 - Stale credit reservation reconciliation (every 5 minutes)
+- Scheduled Nostr publication evaluation (hourly; publishes at most one image
+  from each completed 4-hour UTC window)
 
 ## Troubleshooting
 

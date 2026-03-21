@@ -16,6 +16,14 @@ Analytics is implemented through four layers:
 - `@vercel/analytics` for `track(eventName, payload)`
 - `@vercel/analytics/next` for `<Analytics />`
 
+## Scope Note
+
+This document covers Vercel Analytics only.
+Nostr ranking does not read from the Vercel Web Analytics dashboard/API. Instead,
+the app records lightweight image impressions directly into Convex when a
+persisted image is displayed, so recurring Nostr scheduling can rank images
+server-side with deterministic windowing.
+
 ## Event Surface
 
 ### Base Props
