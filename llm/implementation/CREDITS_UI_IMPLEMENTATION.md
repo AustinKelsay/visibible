@@ -46,7 +46,7 @@ function useCanGenerate(creditsCost: number | null): boolean
 
 Returns `true` if generation is allowed:
 - `tier === "admin"` → always allowed
-- `creditsCost === null` (unpriced model) → uses `DEFAULT_CREDITS_COST` with the 5-credit image spend-down grace window
+- `creditsCost === null` (unpriced model) → uses `DEFAULT_IMAGE_ESTIMATED_CREDITS_COST` with the 5-credit image spend-down grace window
 - Otherwise → allows the estimated image cost with the same 5-credit image spend-down grace window
 
 Formula used by the helper:
@@ -54,11 +54,11 @@ Formula used by the helper:
 - Also allow generation when `credits > 0` and `credits + 5 >= estimatedCost`
 - Do not allow generation when `credits <= 0`
 
-Note: The null case uses `DEFAULT_CREDITS_COST` (20) as the base estimate for unpriced models.
+Note: The null case uses `DEFAULT_IMAGE_ESTIMATED_CREDITS_COST` as the shared base estimate for unpriced models.
 
 ### `canAffordImageGeneration()` Helper
 
-`canAffordImageGeneration(credits, effectiveCost)` lives in `src/lib/image-models.ts` and powers both `useCanGenerate()` and the stricter `HeroImage` gate.
+`canAffordImageGeneration(credits, effectiveCost)` lives in `src/lib/image-models.ts` and powers both `useCanGenerate()` and manual image generation actions.
 
 - `credits`: the current session credit balance
 - `effectiveCost`: the estimated image charge after model and resolution adjustments
@@ -74,6 +74,7 @@ Examples:
 - `credits=2`, `effectiveCost=6` → allowed by the 5-credit image spend-down grace window
 - `credits=0`, `effectiveCost=5` → blocked
 - The helper is credit-only; `HeroImage` still layers on `tier === "paid"` when Convex-backed billing is enabled
+- `HeroImage` uses a stricter `credits >= effectiveCost` check for auto-generation on first visit, so the grace window only applies to explicit generate actions
 
 **Important:** `HeroImage` does not use this hook directly. Instead, it implements its own inline logic that also checks `useConvexEnabled()`:
 
@@ -82,6 +83,11 @@ const canGenerate =
   !isConvexEnabled ||
   isAdmin ||
   (tier === "paid" && canAffordImageGeneration(credits, effectiveCost));
+
+const canAutoGenerate =
+  !isConvexEnabled ||
+  isAdmin ||
+  (tier === "paid" && credits >= effectiveCost);
 ```
 
 This inline logic always requires `tier === "paid"` for non-admins when Convex is enabled. `useCanGenerate` is only a credit-threshold helper; it does not enforce the paid-tier requirement by itself.
@@ -135,13 +141,18 @@ Onboarding is integrated into `BuyCreditsModal` as a "welcome" state, not a sepa
 **File:** `src/components/hero-image.tsx`
 
 - Fetches model pricing via `/api/image-models` to calculate credit cost and ETA.
-- Defaults to 20 credits and ~12s ETA for unpriced models.
+- Defaults to `DEFAULT_IMAGE_ESTIMATED_CREDITS_COST` and ~12s ETA for unpriced models.
 - `canGenerate` uses **inline logic** (not the `useCanGenerate` hook):
   ```ts
   const canGenerate =
     !isConvexEnabled ||
     isAdmin ||
     (tier === "paid" && canAffordImageGeneration(credits, effectiveCost));
+
+  const canAutoGenerate =
+    !isConvexEnabled ||
+    isAdmin ||
+    (tier === "paid" && credits >= effectiveCost);
   ```
   - If Convex is disabled, generation is allowed (no credit gating)
   - Admin tier always allowed

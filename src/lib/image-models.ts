@@ -240,12 +240,18 @@ function getDefaultImageModels(): ImageModel[] {
 function applyEmergencyPricing(models: ImageModel[]): ImageModel[] {
   return models.map((model) => {
     const emergencyPricing = EMERGENCY_IMAGE_MODEL_PRICING_USD[model.id];
-    const hasCatalogPricing = !!model.pricing?.imageOutput;
-    const imageOutput = model.pricing?.imageOutput ?? emergencyPricing;
+    const rawCatalogImageOutput = model.pricing?.imageOutput;
+    const parsedCatalogImageOutput =
+      rawCatalogImageOutput === undefined ? NaN : Number(rawCatalogImageOutput);
+    const hasCatalogPricing =
+      Number.isFinite(parsedCatalogImageOutput) && parsedCatalogImageOutput > 0;
+    const imageOutput = hasCatalogPricing
+      ? String(parsedCatalogImageOutput)
+      : emergencyPricing;
     const usesEmergencyPricing = !hasCatalogPricing && !!emergencyPricing;
     return {
       ...model,
-      pricing: imageOutput ? { imageOutput } : model.pricing,
+      pricing: imageOutput ? { imageOutput } : undefined,
       creditsCost: model.creditsCost ?? computeCreditsCost(imageOutput),
       reservationCreditsCost:
         model.reservationCreditsCost ??

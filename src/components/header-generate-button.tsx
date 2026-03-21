@@ -300,7 +300,7 @@ export function HeaderGenerateButton() {
                   {showCreditsCost && (
                     <span className="inline-flex items-center gap-0.5 opacity-80">
                       <Zap size={12} strokeWidth={2} />
-                      <span>≤{effectiveCost}</span>
+                      <span>About {effectiveCost}</span>
                     </span>
                   )}
                 </button>
@@ -329,7 +329,7 @@ export function HeaderGenerateButton() {
               {showCreditsCost && (
                 <span className="inline-flex items-center gap-0.5 text-[var(--muted)]" title="Unused credits refunded after generation">
                   <Zap size={10} strokeWidth={2} />
-                  <span>≤{effectiveCost}</span>
+                  <span>About {effectiveCost}</span>
                 </span>
               )}
             </>

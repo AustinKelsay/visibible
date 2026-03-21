@@ -132,12 +132,22 @@ vi.mock("@/lib/convex-client", () => ({
         // releaseReservation
         mockState.callHistory.push({ action: "releaseReservation", args });
         if (!session) return { success: false, error: "Session not found" };
+        const generationId = args.generationId as string;
+        const alreadySettled = mockState.ledger.some(
+          (entry) =>
+            entry.sid === sid &&
+            entry.generationId === generationId &&
+            (entry.reason === "generation" || entry.reason === "refund")
+        );
+        if (alreadySettled) {
+          return { success: true, newBalance: session?.credits ?? 0 };
+        }
         const reservation = mockState.ledger.find(
-          (e) => e.sid === sid && e.generationId === args.generationId && e.reason === "reservation"
+          (e) => e.sid === sid && e.generationId === generationId && e.reason === "reservation"
         );
         if (reservation) {
           session.credits += Math.abs(reservation.delta);
-          mockState.ledger.push({ sid, delta: Math.abs(reservation.delta), reason: "refund", generationId: args.generationId as string });
+          mockState.ledger.push({ sid, delta: Math.abs(reservation.delta), reason: "refund", generationId });
         }
         return { success: true, newBalance: session?.credits ?? 0 };
       }

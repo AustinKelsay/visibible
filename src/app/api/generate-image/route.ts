@@ -1588,14 +1588,20 @@ ${aspectRatioInstruction}`;
 
       // Calculate final charged amounts (may differ from actual in rare shortfall case)
       const finalChargedCredits = chargeShortfall?.chargedCredits ?? actualTotalCredits;
+      const settledScenePlannerCredits = chargeShortfall
+        ? Math.min(effectiveScenePlannerCredits, finalChargedCredits)
+        : effectiveScenePlannerCredits;
       const finalChargedImageCredits = chargeShortfall
-        ? Math.max(0, chargeShortfall.chargedCredits - effectiveScenePlannerCredits)
+        ? Math.max(0, finalChargedCredits - settledScenePlannerCredits)
         : actualImageCredits;
       const finalChargedCostUsd = chargeShortfall
         ? settledReservationCostUsd
         : actualTotalCostUsd;
+      const settledScenePlannerCostUsd = chargeShortfall
+        ? Math.min(effectiveScenePlannerCostUsd, finalChargedCostUsd)
+        : effectiveScenePlannerCostUsd;
       const finalChargedImageCostUsd = chargeShortfall
-        ? Math.max(0, settledReservationCostUsd - effectiveScenePlannerCostUsd)
+        ? Math.max(0, finalChargedCostUsd - settledScenePlannerCostUsd)
         : actualImageCostUsd;
 
       await updateGenerationRequest("succeeded", {
@@ -1629,8 +1635,8 @@ ${aspectRatioInstruction}`;
         reservationCostUsd,
         imageCreditsCost: finalChargedImageCredits,
         imageCostUsd: finalChargedImageCostUsd,
-        scenePlannerCredits: effectiveScenePlannerCredits,
-        scenePlannerCostUsd: effectiveScenePlannerCostUsd,
+        scenePlannerCredits: settledScenePlannerCredits,
+        scenePlannerCostUsd: settledScenePlannerCostUsd,
         actualCreditsCost: finalChargedCredits,
         actualCostUsd: finalChargedCostUsd,
         ...(openRouterUsageUsd !== null ? { openRouterUsageUsd } : {}),
@@ -1724,10 +1730,10 @@ ${aspectRatioInstruction}`;
           // Cost breakdown - actual charged amounts (adjusted for shortfall if applicable)
           creditsCost: finalChargedCredits, // Total credits charged
           imageCreditsCost: finalChargedImageCredits,
-          scenePlannerCredits: effectiveScenePlannerCredits,
+          scenePlannerCredits: settledScenePlannerCredits,
           costUsd: finalChargedCostUsd, // Total USD cost
           imageCostUsd: finalChargedImageCostUsd,
-          scenePlannerCostUsd: effectiveScenePlannerCostUsd,
+          scenePlannerCostUsd: settledScenePlannerCostUsd,
           scenePlannerUsed,
           scenePlanFromCache,
           // Estimation vs actual tracking
