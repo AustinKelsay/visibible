@@ -4,6 +4,9 @@ import { describe, expect, it } from "vitest";
 
 describe("HeroImage impression tracking", () => {
   it("records one Convex impression per displayed persisted image", () => {
+    // This intentionally mirrors the repo's existing source-level contract
+    // tests for hook wiring. We want to lock in the specific useMutation +
+    // ref-dedupe integration without introducing a new RTL/jsdom harness.
     const filePath = path.resolve(process.cwd(), "src/components/hero-image.tsx");
     const source = readFileSync(filePath, "utf8");
 
