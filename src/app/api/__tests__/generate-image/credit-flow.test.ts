@@ -756,6 +756,30 @@ describe("Image Generation API Credit Flow", () => {
       expect(body.error).toBe("Daily spending limit exceeded");
     });
 
+    it("daily-limit-exceeded-low-balance: still uses uncapped reservation usd for guardrail", async () => {
+      resetMockState([
+        {
+          ...fixtures.sessions.paidWithCredits,
+          sid: "test-session",
+          credits: 1,
+          dailySpendUsd: 4.5,
+          dailySpendLimitUsd: 5.0,
+        },
+      ]);
+
+      const { POST } = await import("../../generate-image/route");
+
+      const url = new URL("http://localhost:3000/api/generate-image");
+      url.searchParams.set("text", "Low balance daily limit test");
+
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
+
+      expect(response.status).toBe(429);
+      const body = await response.json();
+      expect(body.error).toBe("Daily spending limit exceeded");
+    });
+
     it("cost-event-failure-enqueues-outbox: generation still succeeds", async () => {
       forceRecordImageCostEventFailure = true;
       mockFetchResponse = {

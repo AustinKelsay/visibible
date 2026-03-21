@@ -17,6 +17,7 @@ import {
   ImageAspectRatio,
   canAffordImageGeneration,
   computeAdjustedCreditsCost,
+  DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
   isValidAspectRatio,
 } from "@/lib/image-models";
 import {
@@ -367,7 +368,7 @@ function HeroImageBase({
   }, [imageModel]);
 
   // Determine if user can generate (has sufficient credits or is admin)
-  const baseCost = modelPricing.creditsCost ?? 20; // Default 20 for unpriced models
+  const baseCost = modelPricing.creditsCost ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
   const effectiveCost = computeAdjustedCreditsCost(baseCost, imageResolution, imageModel);
   const effectiveEta = modelPricing.etaSeconds;
   const isAdmin = tier === "admin";

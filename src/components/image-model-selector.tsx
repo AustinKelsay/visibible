@@ -6,8 +6,7 @@ import { usePreferences } from "@/context/preferences-context";
 import {
   ImageModel,
   DEFAULT_IMAGE_MODEL,
-  EMERGENCY_IMAGE_MODEL_PRICING_USD,
-  computeCreditsCost,
+  DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
 } from "@/lib/image-models";
 
 interface ImageModelSelectorProps {
@@ -56,10 +55,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
                 id: DEFAULT_IMAGE_MODEL,
                 name: "Gemini 2.5 Flash (Default)",
                 provider: "Google",
-                creditsCost:
-                  computeCreditsCost(
-                    EMERGENCY_IMAGE_MODEL_PRICING_USD[DEFAULT_IMAGE_MODEL]
-                  ) ?? 13,
+                creditsCost: DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
                 etaSeconds: 12,
               },
             ]);

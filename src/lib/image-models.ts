@@ -80,6 +80,8 @@ export const EMERGENCY_IMAGE_MODEL_PRICING_USD: Record<string, string> = {
   // Conservative per-image USD baseline used only if the OpenRouter catalog is unavailable.
   [DEFAULT_IMAGE_MODEL]: "0.10",
 };
+export const DEFAULT_IMAGE_ESTIMATED_CREDITS_COST =
+  computeCreditsCost(EMERGENCY_IMAGE_MODEL_PRICING_USD[DEFAULT_IMAGE_MODEL]) ?? 13;
 
 // Image aspect ratio types and configuration
 export type ImageAspectRatio = "16:9" | "21:9" | "3:2";

@@ -903,7 +903,7 @@ export async function POST(request: Request) {
 
   if (!isAdmin) {
     cost = Math.min(reservationCreditsCost, session.credits);
-    costUsd = cost * CREDIT_USD;
+    costUsd = reservationCostUsd;
   }
 
   // Skip credit checks for admin users but log for audit trail
