@@ -19,6 +19,12 @@ export function Footer() {
             >
               About
             </Link>
+            <Link
+              href="/api-docs"
+              className="hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
+            >
+              API Docs
+            </Link>
           </div>
           <div className="flex items-center justify-center gap-2">
             <a

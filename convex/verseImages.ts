@@ -1,4 +1,12 @@
-import { action, internalMutation, internalQuery, mutation, query } from "./_generated/server";
+import {
+  action,
+  internalMutation,
+  internalQuery,
+  mutation,
+  query,
+  type QueryCtx,
+} from "./_generated/server";
+import { paginationOptsValidator } from "convex/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
 import { Id } from "./_generated/dataModel";
@@ -206,6 +214,61 @@ const assertByteSizeWithinLimit = (bytes: number, source: string) => {
   }
 };
 
+const getPublicStorageImageBaseUrl = () => {
+  const baseUrl =
+    process.env.NOSTR_IMAGE_BASE_URL ||
+    process.env.CONVEX_SITE_URL ||
+    process.env.CONVEX_CLOUD_URL;
+  if (!baseUrl) return null;
+  return baseUrl.replace(/\/+$/, "");
+};
+
+const getPublicImageUrl = (image: {
+  storageId?: Id<"_storage">;
+  imageUrl?: string;
+}) => {
+  if (image.storageId) {
+    const baseUrl = getPublicStorageImageBaseUrl();
+    if (baseUrl) {
+      return `${baseUrl}/image/${encodeURIComponent(image.storageId)}`;
+    }
+  }
+  if (image.imageUrl) {
+    return image.imageUrl;
+  }
+
+  throw new Error("Verse image is missing a public image URL.");
+};
+
+const toPublicImageRecord = (image: {
+  _id: Id<"verseImages">;
+  storageId?: Id<"_storage">;
+  imageUrl?: string;
+  reference?: string;
+  model: string;
+  translationId?: string;
+  aspectRatio?: string;
+  imageMimeType?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  createdAt: number;
+}) => {
+  const imageUrl = getPublicImageUrl(image);
+
+  return {
+    id: image._id,
+    imageUrl,
+    reference: image.reference,
+    model: image.model,
+    translationId: image.translationId,
+    aspectRatio: image.aspectRatio,
+    imageMimeType: image.imageMimeType,
+    imageWidth: image.imageWidth,
+    imageHeight: image.imageHeight,
+    createdAt: image.createdAt,
+  };
+};
+
 /**
  * Get the most recent image for a verse.
  * Returns the image URL (storage signed URL or direct URL fallback).
@@ -390,6 +453,25 @@ const ALL_BOOK_SLUGS = [
   "jude", "revelation",
 ] as const;
 
+type BookSlug = (typeof ALL_BOOK_SLUGS)[number];
+
+async function findBooksWithImages(ctx: QueryCtx): Promise<BookSlug[]> {
+  const checks = await Promise.all(
+    ALL_BOOK_SLUGS.map(async (slug) => {
+      const prefix = `${slug}-`;
+      const exists = await ctx.db
+        .query("verseImages")
+        .withIndex("by_verse", (q) =>
+          q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
+        )
+        .first();
+      return exists ? slug : null;
+    })
+  );
+
+  return checks.filter((slug): slug is BookSlug => slug !== null);
+}
+
 /**
  * Get all book slugs that have at least one image.
  * Used for showing image indicators in the book menu.
@@ -400,22 +482,7 @@ const ALL_BOOK_SLUGS = [
 export const getBooksWithImages = query({
   args: {},
   handler: async (ctx) => {
-    // Check each book in parallel using index prefix scans
-    const checks = await Promise.all(
-      ALL_BOOK_SLUGS.map(async (slug) => {
-        const prefix = `${slug}-`;
-        const exists = await ctx.db
-          .query("verseImages")
-          .withIndex("by_verse", (q) =>
-            q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
-          )
-          .first();
-        return exists ? slug : null;
-      })
-    );
-
-    // Filter out nulls and return books with images
-    return checks.filter((slug): slug is typeof ALL_BOOK_SLUGS[number] => slug !== null);
+    return findBooksWithImages(ctx);
   },
 });
 
@@ -451,6 +518,165 @@ export const getChaptersWithImages = query({
     }
 
     return Array.from(chaptersWithImages).sort((a, b) => a - b);
+  },
+});
+
+/**
+ * Public API index data.
+ * Exposes only bounded summary information for the public image API.
+ */
+export const getPublicApiIndex = query({
+  args: {
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+
+    const books = await findBooksWithImages(ctx);
+    return {
+      books,
+      booksWithImagesCount: books.length,
+    };
+  },
+});
+
+/**
+ * Public API discovery query for books with images.
+ */
+export const getPublicBooksWithImages = query({
+  args: {
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    return findBooksWithImages(ctx);
+  },
+});
+
+/**
+ * Public API discovery query for chapters within a book that have images.
+ */
+export const getPublicChaptersWithImages = query({
+  args: {
+    book: v.string(),
+    chapterCount: v.number(),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const MAX_CHAPTERS = 150;
+    if (
+      !Number.isInteger(args.chapterCount) ||
+      args.chapterCount < 1 ||
+      args.chapterCount > MAX_CHAPTERS
+    ) {
+      throw new Error(`chapterCount must be an integer between 1 and ${MAX_CHAPTERS}`);
+    }
+
+    const checks = await Promise.all(
+      Array.from({ length: args.chapterCount }, async (_, index) => {
+        const chapter = index + 1;
+        const prefix = `${args.book.toLowerCase()}-${chapter}-`;
+        const exists = await ctx.db
+          .query("verseImages")
+          .withIndex("by_verse", (q) =>
+            q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
+          )
+          .first();
+        return exists ? chapter : null;
+      })
+    );
+
+    return checks.filter((chapter): chapter is number => chapter !== null);
+  },
+});
+
+/**
+ * Public API latest image lookup for a single verse.
+ */
+export const getPublicVerseLatestImage = query({
+  args: {
+    verseId: v.string(),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+
+    const image = await ctx.db
+      .query("verseImages")
+      .withIndex("by_verse", (q) => q.eq("verseId", args.verseId))
+      .order("desc")
+      .first();
+
+    if (!image) return null;
+
+    return toPublicImageRecord(image);
+  },
+});
+
+/**
+ * Public API paginated image history for a verse.
+ */
+export const listPublicVerseImagesPaginated = query({
+  args: {
+    verseId: v.string(),
+    paginationOpts: paginationOptsValidator,
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+
+    const page = await ctx.db
+      .query("verseImages")
+      .withIndex("by_verse", (q) => q.eq("verseId", args.verseId))
+      .order("desc")
+      .paginate(args.paginationOpts);
+
+    const images = page.page.map((image) => toPublicImageRecord(image));
+
+    return {
+      page: images,
+      continueCursor: page.continueCursor,
+      isDone: page.isDone,
+    };
+  },
+});
+
+/**
+ * Public API chapter lookup using one indexed latest-image fetch per verse.
+ */
+export const getPublicChapterLatestImages = query({
+  args: {
+    verseIds: v.array(v.string()),
+    serverSecret: v.string(),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const MAX_VERSES = 200;
+    if (args.verseIds.length > MAX_VERSES) {
+      throw new Error(`verseIds array cannot exceed ${MAX_VERSES} items`);
+    }
+
+    const results = await Promise.all(
+      args.verseIds.map(async (verseId) => {
+        const image = await ctx.db
+          .query("verseImages")
+          .withIndex("by_verse", (q) => q.eq("verseId", verseId))
+          .order("desc")
+          .first();
+
+        if (!image) {
+          return null;
+        }
+
+        return {
+          verseId,
+          image: toPublicImageRecord(image),
+        };
+      })
+    );
+
+    return results.filter((result): result is NonNullable<typeof result> => result !== null);
   },
 });
 
