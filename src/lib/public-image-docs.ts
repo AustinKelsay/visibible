@@ -113,9 +113,23 @@ export function getPublicApiDocsBaseUrl(headersList: Headers): string {
   return "http://localhost:3000";
 }
 
-function buildExampleVerseResponse(baseUrl: string) {
-  const pageUrl = `${baseUrl}/genesis/1/1`;
-  const historyUrl = `${baseUrl}${PUBLIC_IMAGE_API_BASE_PATH}/verses/genesis/1/1/images`;
+function normalizeBaseUrl(baseUrl: string): string {
+  return baseUrl.replace(/\/+$/, "");
+}
+
+export function getPublicApiDocsPageBaseUrl(headersList: Headers): string {
+  const envBaseUrl = process.env.NEXT_PUBLIC_APP_URL;
+  if (envBaseUrl) {
+    const normalized = envBaseUrl.startsWith("http") ? envBaseUrl : `https://${envBaseUrl}`;
+    return normalizeBaseUrl(normalized);
+  }
+
+  return getPublicApiDocsBaseUrl(headersList);
+}
+
+function buildExampleVerseResponse(apiBaseUrl: string, pageBaseUrl: string) {
+  const pageUrl = `${pageBaseUrl}/genesis/1/1`;
+  const historyUrl = `${apiBaseUrl}${PUBLIC_IMAGE_API_BASE_PATH}/verses/genesis/1/1/images`;
 
   return {
     data: {
@@ -145,8 +159,8 @@ function buildExampleVerseResponse(baseUrl: string) {
   };
 }
 
-export function buildPublicApiDocsMarkdown(baseUrl: string): string {
-  const exampleVerseResponse = buildExampleVerseResponse(baseUrl);
+export function buildPublicApiDocsMarkdown(apiBaseUrl: string, pageBaseUrl: string = apiBaseUrl): string {
+  const exampleVerseResponse = buildExampleVerseResponse(apiBaseUrl, pageBaseUrl);
   const exampleHistoryResponse = {
     data: {
       ...exampleVerseResponse.data,
@@ -169,12 +183,12 @@ ${endpoint.description}`
   ).join("\n\n");
 
   const exampleRequests = [
-    formatCurl(baseUrl, PUBLIC_IMAGE_API_BASE_PATH),
-    formatCurl(baseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/books`),
-    formatCurl(baseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/books/genesis/chapters`),
-    formatCurl(baseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/chapters/genesis/1`),
-    formatCurl(baseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/verses/john/3/16`),
-    formatCurl(baseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/verses/genesis/1/1/images?limit=10`),
+    formatCurl(apiBaseUrl, PUBLIC_IMAGE_API_BASE_PATH),
+    formatCurl(apiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/books`),
+    formatCurl(apiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/books/genesis/chapters`),
+    formatCurl(apiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/chapters/genesis/1`),
+    formatCurl(apiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/verses/john/3/16`),
+    formatCurl(apiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/verses/genesis/1/1/images?limit=10`),
   ].join("\n");
 
   return `
@@ -182,7 +196,7 @@ ${endpoint.description}`
 
 The public image API gives read-only access to images that have already been generated and saved in Visibible.
 
-- Base URL: \`${baseUrl}${PUBLIC_IMAGE_API_BASE_PATH}\`
+- Base URL: \`${apiBaseUrl}${PUBLIC_IMAGE_API_BASE_PATH}\`
 - Auth: none
 - Access: public, read-only
 - CORS: enabled for \`GET\` and \`OPTIONS\`
