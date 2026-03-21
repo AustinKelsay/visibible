@@ -78,7 +78,7 @@ export async function GET(request: Request, { params }: ChapterRouteProps) {
           image: buildPublicImageRecord(image, pageUrl),
         };
       })
-      .filter((entry): entry is NonNullable<typeof entry> => entry !== null && entry.image !== null);
+      .filter((entry): entry is NonNullable<typeof entry> => entry !== null);
 
     return jsonPublic(
       {

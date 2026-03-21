@@ -4,6 +4,7 @@ import {
   internalQuery,
   mutation,
   query,
+  type QueryCtx,
 } from "./_generated/server";
 import { paginationOptsValidator } from "convex/server";
 import { internal } from "./_generated/api";
@@ -232,7 +233,11 @@ const getPublicImageUrl = (image: {
       return `${baseUrl}/image/${encodeURIComponent(image.storageId)}`;
     }
   }
-  return image.imageUrl;
+  if (image.imageUrl) {
+    return image.imageUrl;
+  }
+
+  throw new Error("Verse image is missing a public image URL.");
 };
 
 const toPublicImageRecord = (image: {
@@ -249,9 +254,6 @@ const toPublicImageRecord = (image: {
   createdAt: number;
 }) => {
   const imageUrl = getPublicImageUrl(image);
-  if (!imageUrl) {
-    return null;
-  }
 
   return {
     id: image._id,
@@ -451,6 +453,25 @@ const ALL_BOOK_SLUGS = [
   "jude", "revelation",
 ] as const;
 
+type BookSlug = (typeof ALL_BOOK_SLUGS)[number];
+
+async function findBooksWithImages(ctx: QueryCtx): Promise<BookSlug[]> {
+  const checks = await Promise.all(
+    ALL_BOOK_SLUGS.map(async (slug) => {
+      const prefix = `${slug}-`;
+      const exists = await ctx.db
+        .query("verseImages")
+        .withIndex("by_verse", (q) =>
+          q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
+        )
+        .first();
+      return exists ? slug : null;
+    })
+  );
+
+  return checks.filter((slug): slug is BookSlug => slug !== null);
+}
+
 /**
  * Get all book slugs that have at least one image.
  * Used for showing image indicators in the book menu.
@@ -461,22 +482,7 @@ const ALL_BOOK_SLUGS = [
 export const getBooksWithImages = query({
   args: {},
   handler: async (ctx) => {
-    // Check each book in parallel using index prefix scans
-    const checks = await Promise.all(
-      ALL_BOOK_SLUGS.map(async (slug) => {
-        const prefix = `${slug}-`;
-        const exists = await ctx.db
-          .query("verseImages")
-          .withIndex("by_verse", (q) =>
-            q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
-          )
-          .first();
-        return exists ? slug : null;
-      })
-    );
-
-    // Filter out nulls and return books with images
-    return checks.filter((slug): slug is typeof ALL_BOOK_SLUGS[number] => slug !== null);
+    return findBooksWithImages(ctx);
   },
 });
 
@@ -526,20 +532,7 @@ export const getPublicApiIndex = query({
   handler: async (ctx, args) => {
     validateServerSecret(args.serverSecret);
 
-    const checks = await Promise.all(
-      ALL_BOOK_SLUGS.map(async (slug) => {
-        const prefix = `${slug}-`;
-        const exists = await ctx.db
-          .query("verseImages")
-          .withIndex("by_verse", (q) =>
-            q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
-          )
-          .first();
-        return exists ? slug : null;
-      })
-    );
-
-    const books = checks.filter((slug): slug is typeof ALL_BOOK_SLUGS[number] => slug !== null);
+    const books = await findBooksWithImages(ctx);
     return {
       books,
       booksWithImagesCount: books.length,
@@ -556,21 +549,7 @@ export const getPublicBooksWithImages = query({
   },
   handler: async (ctx, args) => {
     validateServerSecret(args.serverSecret);
-
-    const checks = await Promise.all(
-      ALL_BOOK_SLUGS.map(async (slug) => {
-        const prefix = `${slug}-`;
-        const exists = await ctx.db
-          .query("verseImages")
-          .withIndex("by_verse", (q) =>
-            q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
-          )
-          .first();
-        return exists ? slug : null;
-      })
-    );
-
-    return checks.filter((slug): slug is typeof ALL_BOOK_SLUGS[number] => slug !== null);
+    return findBooksWithImages(ctx);
   },
 });
 
@@ -653,9 +632,7 @@ export const listPublicVerseImagesPaginated = query({
       .order("desc")
       .paginate(args.paginationOpts);
 
-    const images = page.page
-      .map((image) => toPublicImageRecord(image))
-      .filter((image): image is NonNullable<typeof image> => image !== null);
+    const images = page.page.map((image) => toPublicImageRecord(image));
 
     return {
       page: images,
@@ -692,14 +669,9 @@ export const getPublicChapterLatestImages = query({
           return null;
         }
 
-        const publicImage = toPublicImageRecord(image);
-        if (!publicImage) {
-          return null;
-        }
-
         return {
           verseId,
-          image: publicImage,
+          image: toPublicImageRecord(image),
         };
       })
     );

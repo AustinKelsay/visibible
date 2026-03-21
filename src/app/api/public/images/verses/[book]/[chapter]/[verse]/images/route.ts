@@ -77,9 +77,7 @@ export async function GET(request: Request, { params }: VerseImagesRouteProps) {
     return jsonPublic(
       {
         verse: versePayload,
-        images: result.page
-          .map((image) => buildPublicImageRecord(image, versePayload.pageUrl))
-          .filter((image): image is NonNullable<typeof image> => image !== null),
+        images: result.page.map((image) => buildPublicImageRecord(image, versePayload.pageUrl)),
         pageInfo: {
           nextCursor: result.isDone ? null : result.continueCursor,
           hasMore: !result.isDone,

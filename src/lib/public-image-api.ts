@@ -26,6 +26,20 @@ export interface PublicVerseLocation {
   verse: number;
 }
 
+export interface PublicImageRecord {
+  id: string;
+  imageUrl: string;
+  reference?: string;
+  pageUrl: string;
+  model?: string;
+  translationId?: string;
+  aspectRatio?: string;
+  imageMimeType?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  createdAt?: number;
+}
+
 type PublicImageRecordInput = {
   id: string;
   imageUrl?: string | null;
@@ -182,6 +196,10 @@ export function buildPublicChapterUrl(
   return `${new URL(request.url).origin}/api/public/images/chapters/${bookSlug}/${chapter}`;
 }
 
+export function buildPublicChapterUrlTemplate(request: Request, bookSlug: string): string {
+  return `${new URL(request.url).origin}/api/public/images/chapters/${bookSlug}/{chapter}`;
+}
+
 export function buildPublicBookChaptersUrl(request: Request, bookSlug: string): string {
   return `${new URL(request.url).origin}/api/public/images/books/${bookSlug}/chapters`;
 }
@@ -189,36 +207,12 @@ export function buildPublicBookChaptersUrl(request: Request, bookSlug: string): 
 export function buildPublicImageRecord(
   record: PublicImageRecordInput,
   pageUrl: string
-): {
-  id: string;
-  imageUrl: string;
-  reference?: string;
-  pageUrl: string;
-  model?: string;
-  translationId?: string;
-  aspectRatio?: string;
-  imageMimeType?: string;
-  imageWidth?: number;
-  imageHeight?: number;
-  createdAt?: number;
-} | null {
+) : PublicImageRecord {
   if (!record.imageUrl) {
-    return null;
+    throw new Error("Public image record is missing imageUrl.");
   }
 
-  const publicImage: {
-    id: string;
-    imageUrl: string;
-    reference?: string;
-    pageUrl: string;
-    model?: string;
-    translationId?: string;
-    aspectRatio?: string;
-    imageMimeType?: string;
-    imageWidth?: number;
-    imageHeight?: number;
-    createdAt?: number;
-  } = {
+  const publicImage: PublicImageRecord = {
     id: record.id,
     imageUrl: record.imageUrl,
     pageUrl,

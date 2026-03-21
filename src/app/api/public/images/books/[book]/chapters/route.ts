@@ -1,5 +1,5 @@
 import {
-  buildPublicChapterUrl,
+  buildPublicChapterUrlTemplate,
   createPublicApiContext,
   enforcePublicRateLimit,
   getPublicApiServices,
@@ -61,7 +61,7 @@ export async function GET(request: Request, { params }: ChaptersRouteProps) {
         book: book.slug,
         name: book.name,
         chapters,
-        hrefTemplate: buildPublicChapterUrl(request, book.slug, 0).replace(/\/0$/, "/{chapter}"),
+        hrefTemplate: buildPublicChapterUrlTemplate(request, book.slug),
       },
       { cacheControl: PUBLIC_DISCOVERY_CACHE_CONTROL }
     );

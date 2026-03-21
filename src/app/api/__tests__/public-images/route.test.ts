@@ -1,10 +1,45 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const mockState = {
-  apiIndex: { booksWithImagesCount: 2, books: ["genesis", "john"] },
-  books: ["genesis", "john"],
-  chapters: [1, 3],
-  latestImage: {
+type MockPublicImage = {
+  id: string;
+  imageUrl?: string | null;
+  reference?: string;
+  model?: string;
+  translationId?: string;
+  aspectRatio?: string;
+  imageMimeType?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  createdAt?: number;
+  prompt?: string;
+  costUsd?: number;
+};
+
+type MockPaginatedImages = {
+  page: MockPublicImage[];
+  continueCursor: string;
+  isDone: boolean;
+};
+
+type MockChapterImage = {
+  verseId: string;
+  image: MockPublicImage;
+};
+
+type MockState = {
+  apiIndex: { booksWithImagesCount: number; books: string[] };
+  books: string[];
+  chapters: number[];
+  latestImage: MockPublicImage | null;
+  paginatedImages: MockPaginatedImages;
+  chapterImages: MockChapterImage[];
+  discoveryResponses: unknown[];
+  rateLimitByEndpoint: Record<string, { allowed: boolean; retryAfter?: number }>;
+  callHistory: Array<{ method: string; action: string; args: unknown }>;
+};
+
+function createMockLatestImage(): MockPublicImage {
+  return {
     id: "image-1",
     imageUrl: "https://actions.example.com/image/storage-1",
     reference: "Genesis 1:1",
@@ -17,23 +52,16 @@ const mockState = {
     createdAt: 123456789,
     prompt: "should not leak",
     costUsd: 0.42,
-  },
+  };
+}
+
+const mockState: MockState = {
+  apiIndex: { booksWithImagesCount: 2, books: ["genesis", "john"] },
+  books: ["genesis", "john"],
+  chapters: [1, 3],
+  latestImage: createMockLatestImage(),
   paginatedImages: {
-    page: [
-      {
-        id: "image-1",
-        imageUrl: "https://actions.example.com/image/storage-1",
-        reference: "Genesis 1:1",
-        model: "google/gemini-2.5-flash-image",
-        translationId: "web",
-        aspectRatio: "16:9",
-        imageMimeType: "image/png",
-        imageWidth: 1024,
-        imageHeight: 768,
-        createdAt: 123456789,
-        prompt: "should not leak",
-      },
-    ],
+    page: [createMockLatestImage()],
     continueCursor: "next-cursor",
     isDone: false,
   },
@@ -123,22 +151,9 @@ describe("public image API routes", () => {
     mockState.apiIndex = { booksWithImagesCount: 2, books: ["genesis", "john"] };
     mockState.books = ["genesis", "john"];
     mockState.chapters = [1, 3];
-    mockState.latestImage = {
-      id: "image-1",
-      imageUrl: "https://actions.example.com/image/storage-1",
-      reference: "Genesis 1:1",
-      model: "google/gemini-2.5-flash-image",
-      translationId: "web",
-      aspectRatio: "16:9",
-      imageMimeType: "image/png",
-      imageWidth: 1024,
-      imageHeight: 768,
-      createdAt: 123456789,
-      prompt: "should not leak",
-      costUsd: 0.42,
-    };
+    mockState.latestImage = createMockLatestImage();
     mockState.paginatedImages = {
-      page: [mockState.latestImage],
+      page: [createMockLatestImage()],
       continueCursor: "next-cursor",
       isDone: false,
     };
@@ -297,7 +312,7 @@ describe("public image API routes", () => {
   });
 
   it("returns 404 when a verse has no saved image", async () => {
-    mockState.latestImage = null as never;
+    mockState.latestImage = null;
     const { GET } = await import("../../public/images/verses/[book]/[chapter]/[verse]/route");
     const response = await GET(
       new Request("http://localhost:3000/api/public/images/verses/genesis/1/1", {
@@ -310,6 +325,27 @@ describe("public image API routes", () => {
     const body = await response.json();
     expect(body.error).toBe("Not found");
     expect(body.message).toContain("No saved image");
+  });
+
+  it("returns 500 when latest-image projection fails", async () => {
+    mockState.latestImage = {
+      id: "image-broken",
+      reference: "Genesis 1:1",
+      model: "google/gemini-2.5-flash-image",
+    };
+    const { GET } = await import("../../public/images/verses/[book]/[chapter]/[verse]/route");
+    const response = await GET(
+      new Request("http://localhost:3000/api/public/images/verses/genesis/1/1", {
+        method: "GET",
+      }),
+      { params: Promise.resolve({ book: "genesis", chapter: "1", verse: "1" }) }
+    );
+
+    expect(response.status).toBe(500);
+    await expect(response.json()).resolves.toEqual({
+      error: "Internal server error",
+      message: "Failed to serve the public image API request.",
+    });
   });
 
   it("forwards pagination limit and cursor to Convex", async () => {
@@ -345,6 +381,30 @@ describe("public image API routes", () => {
     expect(body.data.pageInfo).toEqual({
       nextCursor: "next-cursor",
       hasMore: true,
+    });
+  });
+
+  it("returns 500 when paginated history contains an unprojectable image", async () => {
+    mockState.paginatedImages = {
+      page: [{ id: "image-broken", reference: "Genesis 1:1" }],
+      continueCursor: "next-cursor",
+      isDone: false,
+    };
+    const { GET } = await import(
+      "../../public/images/verses/[book]/[chapter]/[verse]/images/route"
+    );
+    const response = await GET(
+      new Request(
+        "http://localhost:3000/api/public/images/verses/genesis/1/1/images?limit=5",
+        { method: "GET" }
+      ),
+      { params: Promise.resolve({ book: "genesis", chapter: "1", verse: "1" }) }
+    );
+
+    expect(response.status).toBe(500);
+    await expect(response.json()).resolves.toEqual({
+      error: "Internal server error",
+      message: "Failed to serve the public image API request.",
     });
   });
 

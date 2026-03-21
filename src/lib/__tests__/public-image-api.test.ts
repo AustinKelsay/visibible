@@ -11,11 +11,13 @@ vi.mock("@/lib/convex-client", () => ({
 }));
 
 let buildPublicImageRecord: typeof import("@/lib/public-image-api").buildPublicImageRecord;
+let buildPublicChapterUrlTemplate: typeof import("@/lib/public-image-api").buildPublicChapterUrlTemplate;
 let getPublicVerseLocation: typeof import("@/lib/public-image-api").getPublicVerseLocation;
 
 beforeAll(async () => {
   const publicImageApi = await import("@/lib/public-image-api");
   buildPublicImageRecord = publicImageApi.buildPublicImageRecord;
+  buildPublicChapterUrlTemplate = publicImageApi.buildPublicChapterUrlTemplate;
   getPublicVerseLocation = publicImageApi.getPublicVerseLocation;
 });
 
@@ -65,5 +67,26 @@ describe("public image API helpers", () => {
     });
     expect(getPublicVerseLocation("genesis", "1", "999")).toBeNull();
     expect(getPublicVerseLocation("unknown", "1", "1")).toBeNull();
+  });
+
+  it("throws when a public image record is missing imageUrl", () => {
+    expect(() =>
+      buildPublicImageRecord(
+        {
+          id: "image-1",
+          reference: "Genesis 1:1",
+        },
+        "https://visibible.com/genesis/1/1"
+      )
+    ).toThrow("Public image record is missing imageUrl.");
+  });
+
+  it("builds explicit chapter URL templates without regex replacement", () => {
+    expect(
+      buildPublicChapterUrlTemplate(
+        new Request("http://localhost:3000/api/public/images/books/genesis/chapters"),
+        "genesis"
+      )
+    ).toBe("http://localhost:3000/api/public/images/chapters/genesis/{chapter}");
   });
 });
