@@ -305,8 +305,8 @@ export const getChapterImageStatus = query({
 });
 
 /**
- * Get the latest saved image for each verse in a chapter, plus image counts.
- * Used by the optional chapter gallery view.
+ * Get all saved images for a chapter, sorted by verse and newest-first within each verse.
+ * Used by the optional chapter gallery view to render mini-galleries per verse.
  */
 export const getChapterGallery = query({
   args: {
@@ -324,7 +324,7 @@ export const getChapterGallery = query({
       .collect();
 
     const imageCounts = new Map<number, number>();
-    const latestByVerse = new Map<number, (typeof images)[number]>();
+    const parsedImages: Array<{ verse: number; image: (typeof images)[number] }> = [];
 
     for (const image of images) {
       const verseStr = image.verseId.slice(prefix.length);
@@ -334,21 +334,25 @@ export const getChapterGallery = query({
       }
 
       imageCounts.set(verseNum, (imageCounts.get(verseNum) ?? 0) + 1);
-
-      const existing = latestByVerse.get(verseNum);
-      if (!existing || image.createdAt > existing.createdAt) {
-        latestByVerse.set(verseNum, image);
-      }
+      parsedImages.push({ verse: verseNum, image });
     }
 
     const entries = await Promise.all(
-      Array.from(latestByVerse.entries())
-        .sort((a, b) => a[0] - b[0])
-        .map(async ([verse, image]) => {
+      parsedImages
+        .sort((a, b) => {
+          if (a.verse !== b.verse) {
+            return a.verse - b.verse;
+          }
+          return b.image.createdAt - a.image.createdAt;
+        })
+        .map(async ({ verse, image }, index, allImages) => {
           let imageUrl = image.imageUrl;
           if (image.storageId) {
             imageUrl = (await ctx.storage.getUrl(image.storageId)) ?? imageUrl;
           }
+
+          const previous = allImages[index - 1];
+          const isLatest = !previous || previous.verse !== verse;
 
           return {
             verse,
@@ -357,6 +361,7 @@ export const getChapterGallery = query({
             imageUrl,
             model: image.model,
             createdAt: image.createdAt,
+            isLatest,
           };
         })
     );

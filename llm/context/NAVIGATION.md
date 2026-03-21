@@ -12,7 +12,7 @@ Visibible provides three primary ways to navigate the Bible:
 
 On mobile, navigation controls are also exposed through the fullscreen mode provided by `NavigationContext` (`isFullscreen`) and a header settings dropdown.
 
-Verse pages also support an optional chapter gallery mode from the header settings menu. It is off by default and remembered as a preference.
+Verse pages also support an optional chapter gallery mode from a dedicated header navigation button next to chat/book controls. It is off by default and remembered as a preference.
 
 ## URL Structure
 
@@ -111,13 +111,15 @@ A horizontal scrollable strip below the hero image showing all verses in the cur
 
 ## Chapter Gallery
 
-When enabled from the header settings menu, the verse page also renders a chapter gallery:
+When enabled from the header navigation button, the verse page swaps into a full-screen chapter gallery view:
 
-- One card per verse in the current chapter
+- The gallery becomes the primary reading surface until toggled off
+- Each verse gets its own section so chapter boundaries remain obvious at a glance
+- Saved images within a verse are shown newest-first in a mini-gallery
 - Each card links to `/{book}/{chapter}/{verse}`
-- Cards show the latest saved image for that verse when available
-- Cards fall back to a placeholder when the verse has not been illustrated yet
+- Verses fall back to a placeholder card when they have not been illustrated yet
 - The currently open verse is highlighted in the gallery
+- The layout keeps a gallery feel while still making it easy to scan verse-to-verse progression
 
 ## Entry Points
 

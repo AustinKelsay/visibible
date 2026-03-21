@@ -5,6 +5,7 @@ export interface ChapterGalleryImageRecord {
   imageId?: string;
   model?: string;
   createdAt?: number;
+  isLatest?: boolean;
 }
 
 export interface ChapterGalleryVerseRecord {
@@ -12,16 +13,22 @@ export interface ChapterGalleryVerseRecord {
   text: string;
 }
 
-export interface ChapterGalleryItem {
-  verse: number;
-  text: string;
-  href: string;
-  imageCount: number;
+export interface ChapterGalleryCard {
   imageUrl?: string;
   imageId?: string;
   model?: string;
   createdAt?: number;
-  hasImage: boolean;
+  isLatest: boolean;
+  isPlaceholder: boolean;
+}
+
+export interface ChapterGallerySection {
+  verse: number;
+  text: string;
+  href: string;
+  imageCount: number;
+  hasImages: boolean;
+  cards: ChapterGalleryCard[];
 }
 
 interface BuildChapterGalleryItemsOptions {
@@ -36,24 +43,39 @@ export function buildChapterGalleryItems({
   chapter,
   verses,
   galleryImages,
-}: BuildChapterGalleryItemsOptions): ChapterGalleryItem[] {
-  const imagesByVerse = new Map(
-    (galleryImages ?? []).map((image) => [image.verse, image])
-  );
+}: BuildChapterGalleryItemsOptions): ChapterGallerySection[] {
+  const imagesByVerse = new Map<number, ChapterGalleryImageRecord[]>();
+
+  for (const image of galleryImages ?? []) {
+    const group = imagesByVerse.get(image.verse) ?? [];
+    group.push(image);
+    imagesByVerse.set(image.verse, group);
+  }
 
   return verses.map((verse) => {
-    const image = imagesByVerse.get(verse.verse);
+    const images = imagesByVerse.get(verse.verse) ?? [];
 
     return {
       verse: verse.verse,
       text: verse.text,
       href: `/${book}/${chapter}/${verse.verse}`,
-      imageCount: image?.imageCount ?? 0,
-      imageUrl: image?.imageUrl,
-      imageId: image?.imageId,
-      model: image?.model,
-      createdAt: image?.createdAt,
-      hasImage: Boolean(image?.imageUrl),
+      imageCount: images[0]?.imageCount ?? 0,
+      hasImages: images.length > 0,
+      cards: images.length > 0
+        ? images.map((image, index) => ({
+            imageUrl: image.imageUrl,
+            imageId: image.imageId,
+            model: image.model,
+            createdAt: image.createdAt,
+            isLatest: image.isLatest ?? index === 0,
+            isPlaceholder: false,
+          }))
+        : [
+            {
+              isLatest: false,
+              isPlaceholder: true,
+            },
+          ],
     };
   });
 }

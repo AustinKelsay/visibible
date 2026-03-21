@@ -2,8 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { BookOpen, MessageCircle, Menu, X } from "lucide-react";
+import { BookOpen, LayoutGrid, Menu, MessageCircle, X } from "lucide-react";
 import { useNavigation } from "@/context/navigation-context";
+import { usePreferences } from "@/context/preferences-context";
 import { TranslationSelector } from "./translation-selector";
 import { ImageModelSelector } from "./image-model-selector";
 import { CreditsBadge } from "./credits-badge";
@@ -17,9 +18,11 @@ function Divider() {
 export function Header() {
   const router = useRouter();
   const pathname = usePathname();
+  const { chapterGalleryEnabled, setChapterGalleryEnabled } = usePreferences();
   const { toggleMenu, toggleChat, isHeaderMenuOpen, openHeaderMenu, closeHeaderMenu } = useNavigation();
   const menuRef = useRef<HTMLDivElement>(null);
   const isAboutPage = pathname === "/about";
+  const isVersePage = /^\/[^/]+\/\d+\/\d+$/.test(pathname);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -88,6 +91,21 @@ export function Header() {
 
           {/* Navigation Group */}
           <div className="flex items-center">
+            {isVersePage ? (
+              <button
+                className={`min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-md)] border transition-colors duration-[var(--motion-fast)] ${
+                  chapterGalleryEnabled
+                    ? "border-[var(--divider)] bg-[var(--surface)] text-[var(--foreground)]"
+                    : "border-transparent text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]"
+                }`}
+                aria-label={chapterGalleryEnabled ? "Switch to reading view" : "Switch to gallery view"}
+                title={chapterGalleryEnabled ? "Reading view" : "Gallery view"}
+                aria-pressed={chapterGalleryEnabled}
+                onClick={() => setChapterGalleryEnabled(!chapterGalleryEnabled)}
+              >
+                <LayoutGrid size={20} strokeWidth={1.5} />
+              </button>
+            ) : null}
             <button
               className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
               aria-label="Toggle chat"
@@ -111,6 +129,20 @@ export function Header() {
         <nav className="flex sm:hidden items-center gap-0.5">
           <CreditsBadge />
           <HeaderGenerateButton />
+          {isVersePage ? (
+            <button
+              className={`min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-md)] border transition-colors duration-[var(--motion-fast)] ${
+                chapterGalleryEnabled
+                  ? "border-[var(--divider)] bg-[var(--surface)] text-[var(--foreground)]"
+                  : "border-transparent text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]"
+              }`}
+              aria-label={chapterGalleryEnabled ? "Switch to reading view" : "Switch to gallery view"}
+              aria-pressed={chapterGalleryEnabled}
+              onClick={() => setChapterGalleryEnabled(!chapterGalleryEnabled)}
+            >
+              <LayoutGrid size={20} strokeWidth={1.5} />
+            </button>
+          ) : null}
           <button
             className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             aria-label="Toggle chat"

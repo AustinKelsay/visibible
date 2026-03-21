@@ -15,10 +15,20 @@ describe("buildChapterGalleryItems", () => {
         {
           verse: 10,
           imageCount: 2,
-          imageUrl: "https://example.com/10.png",
-          imageId: "image-10",
+          imageUrl: "https://example.com/10-latest.png",
+          imageId: "image-10-latest",
+          model: "openai/image",
+          createdAt: 250,
+          isLatest: true,
+        },
+        {
+          verse: 10,
+          imageCount: 2,
+          imageUrl: "https://example.com/10-older.png",
+          imageId: "image-10-older",
           model: "openai/image",
           createdAt: 200,
+          isLatest: false,
         },
         {
           verse: 1,
@@ -40,21 +50,40 @@ describe("buildChapterGalleryItems", () => {
 
     expect(items[0]).toMatchObject({
       verse: 1,
-      hasImage: true,
+      hasImages: true,
       imageCount: 1,
-      imageUrl: "https://example.com/1.png",
+      cards: [
+        {
+          imageUrl: "https://example.com/1.png",
+          isPlaceholder: false,
+          isLatest: true,
+        },
+      ],
     });
     expect(items[1]).toMatchObject({
       verse: 2,
-      hasImage: false,
+      hasImages: false,
       imageCount: 0,
-      imageUrl: undefined,
+      cards: [
+        {
+          isPlaceholder: true,
+        },
+      ],
     });
     expect(items[2]).toMatchObject({
       verse: 10,
-      hasImage: true,
+      hasImages: true,
       imageCount: 2,
-      imageId: "image-10",
+      cards: [
+        {
+          imageId: "image-10-latest",
+          isLatest: true,
+        },
+        {
+          imageId: "image-10-older",
+          isLatest: false,
+        },
+      ],
     });
   });
 
@@ -74,11 +103,13 @@ describe("buildChapterGalleryItems", () => {
         text: "For God so loved the world",
         href: "/john/3/16",
         imageCount: 0,
-        imageUrl: undefined,
-        imageId: undefined,
-        model: undefined,
-        createdAt: undefined,
-        hasImage: false,
+        hasImages: false,
+        cards: [
+          {
+            isLatest: false,
+            isPlaceholder: true,
+          },
+        ],
       },
     ]);
   });

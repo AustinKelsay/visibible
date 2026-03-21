@@ -10,23 +10,35 @@ describe("chapter gallery source wiring", () => {
     expect(source).toContain("const { chapterGalleryEnabled } = usePreferences();");
     expect(source).toContain("api.verseImages.getChapterGallery");
     expect(source).toContain("if (!chapterGalleryEnabled) {");
-    expect(source).toContain("Latest saved image or placeholder for every verse in the chapter.");
+    expect(source).toContain("Chapter Gallery");
+    expect(source).toContain("aspect-video");
+    expect(source).toContain("mini-gallery");
+    expect(source).toContain("Latest");
+    expect(source).toContain("of {item.imageCount}");
     expect(source).toContain("href={item.href}");
   });
 
-  it("exposes chapter gallery controls in persisted preferences and header settings", () => {
+  it("exposes chapter gallery controls in persisted preferences, header navigation, and primary view switching", () => {
     const preferencesSource = readFileSync(
       path.resolve(process.cwd(), "src/context/preferences-context.tsx"),
       "utf8"
     );
     const headerSource = readFileSync(
-      path.resolve(process.cwd(), "src/components/header-settings-popover.tsx"),
+      path.resolve(process.cwd(), "src/components/header.tsx"),
+      "utf8"
+    );
+    const pageContentSource = readFileSync(
+      path.resolve(process.cwd(), "src/components/verse-page-content.tsx"),
       "utf8"
     );
 
     expect(preferencesSource).toContain("chapterGalleryEnabled");
     expect(preferencesSource).toContain("preference: \"chapterGallery\"");
-    expect(headerSource).toContain("Chapter Gallery");
+    expect(headerSource).toContain("LayoutGrid");
     expect(headerSource).toContain("setChapterGalleryEnabled");
+    expect(headerSource).toContain("Switch to gallery view");
+    expect(pageContentSource).toContain("if (chapterGalleryEnabled) {");
+    expect(pageContentSource).toContain("<ChapterGallery");
+    expect(pageContentSource).toContain("<HeroImage");
   });
 });

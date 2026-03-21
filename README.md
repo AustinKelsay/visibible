@@ -19,9 +19,9 @@ npm test
 
 ## Scripture Browsing
 
-- Verse pages support an optional `Chapter Gallery` view in the header settings menu.
-- The gallery is off by default and remembers your preference in local storage.
-- When enabled, it shows the latest saved image for every verse in the current chapter, or a placeholder when that verse has not been illustrated yet.
+- Verse pages support a dedicated `Chapter Gallery` toggle in the header navigation.
+- The gallery is off by default, remembers your preference in local storage, and stays active as you move between verses.
+- When enabled, it becomes the primary verse-page view and groups all saved images by verse in mini-galleries, newest-first within each verse, with a placeholder when a verse has not been illustrated yet.
 - With Convex disabled, the gallery still renders chapter placeholders but cannot show synced saved images.
 
 ## Env
