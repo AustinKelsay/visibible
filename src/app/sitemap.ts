@@ -21,6 +21,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   });
 
+  routes.push({
+    url: `${BASE_URL}/api-docs`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.5,
+  });
+
   // Add all books with their first chapter, first verse
   for (const book of BIBLE_BOOKS) {
     // Book entry page (chapter 1, verse 1)

@@ -146,6 +146,125 @@ Image generation endpoint behavior:
 - `GET /api/generate-image` returns `405` with `Allow: POST`.
 - Origin and CSRF validation are enforced for image-generation requests.
 
+## Public Image API
+
+Visibible exposes a read-only public image library API for already-generated verse art.
+
+- Base path: `/api/public/images`
+- Access: anonymous, read-only
+- CORS: `GET, OPTIONS` allowed from any origin
+- Auth: none
+- Rate limits:
+  - discovery endpoints: 120 requests/minute per IP
+  - verse latest: 60 requests/minute per IP
+  - verse history: 30 requests/minute per IP
+  - chapter latest-per-verse: 20 requests/minute per IP
+
+Available endpoints:
+
+- `GET /api/public/images`
+- `GET /api/public/images/books`
+- `GET /api/public/images/books/{book}/chapters`
+- `GET /api/public/images/chapters/{book}/{chapter}`
+- `GET /api/public/images/verses/{book}/{chapter}/{verse}`
+- `GET /api/public/images/verses/{book}/{chapter}/{verse}/images?limit=20&cursor=...`
+
+Notes:
+
+- The chapter lookup endpoint intentionally uses `/api/public/images/chapters/{book}/{chapter}` as a short direct lookup path, even though chapter discovery lives under `/books/{book}/chapters`.
+- The `cursor` query parameter is an opaque token returned by the API. Clients should not try to parse it.
+
+Example requests:
+
+```bash
+curl https://visibible.com/api/public/images
+curl https://visibible.com/api/public/images/books
+curl https://visibible.com/api/public/images/chapters/genesis/1
+curl https://visibible.com/api/public/images/verses/john/3/16
+curl "https://visibible.com/api/public/images/verses/genesis/1/1/images?limit=10"
+curl "https://visibible.com/api/public/images/verses/genesis/1/1/images?limit=10&cursor=opaque_cursor_from_previous_response"
+```
+
+Example response:
+
+```json
+{
+  "data": {
+    "verse": {
+      "book": "genesis",
+      "bookName": "Genesis",
+      "chapter": 1,
+      "verse": 1,
+      "reference": "Genesis 1:1",
+      "pageUrl": "https://visibible.com/genesis/1/1",
+      "historyUrl": "https://visibible.com/api/public/images/verses/genesis/1/1/images"
+    },
+    "image": {
+      "id": "abc123",
+      "imageUrl": "https://actions.visibible.com/image/storage_id",
+      "reference": "Genesis 1:1",
+      "pageUrl": "https://visibible.com/genesis/1/1",
+      "model": "google/gemini-2.5-flash-image",
+      "translationId": "web",
+      "aspectRatio": "16:9",
+      "imageMimeType": "image/png",
+      "imageWidth": 1024,
+      "imageHeight": 768,
+      "createdAt": 1742580000000
+    }
+  }
+}
+```
+
+Example paginated history response:
+
+```json
+{
+  "data": {
+    "verse": {
+      "book": "genesis",
+      "bookName": "Genesis",
+      "chapter": 1,
+      "verse": 1,
+      "reference": "Genesis 1:1",
+      "pageUrl": "https://visibible.com/genesis/1/1",
+      "historyUrl": "https://visibible.com/api/public/images/verses/genesis/1/1/images"
+    },
+    "images": [
+      {
+        "id": "abc123",
+        "imageUrl": "https://actions.visibible.com/image/storage_id",
+        "reference": "Genesis 1:1",
+        "pageUrl": "https://visibible.com/genesis/1/1",
+        "model": "google/gemini-2.5-flash-image",
+        "translationId": "web",
+        "aspectRatio": "16:9",
+        "imageMimeType": "image/png",
+        "imageWidth": 1024,
+        "imageHeight": 768,
+        "createdAt": 1742580000000
+      }
+    ],
+    "pageInfo": {
+      "nextCursor": "opaque_cursor_token",
+      "hasMore": true
+    }
+  }
+}
+```
+
+Pagination behavior:
+
+- `cursor` is omitted on the first request.
+- Use `data.pageInfo.nextCursor` from the previous response as the next request's `cursor`.
+- When `nextCursor` is `null` and `hasMore` is `false`, pagination is complete.
+
+Notes:
+
+- This API serves only images that have already been generated and saved.
+- The library is public and read-only.
+- Public responses intentionally omit prompts, costs, provider request IDs, and other internal metadata.
+
 ## Ops Endpoints
 
 - `GET /api/health`: liveness and uptime snapshot (`200` when process is up)

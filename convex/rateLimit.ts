@@ -15,6 +15,10 @@ export const RATE_LIMITS = {
   invoice: { windowMs: 60_000, maxRequests: 10 }, // 10 invoice creates per minute
   "invoice-status": { windowMs: 60_000, maxRequests: 30 }, // 30 invoice status checks/confirms per minute
   feedback: { windowMs: 60_000, maxRequests: 5 }, // 5 feedback submissions per minute
+  "public-images-discovery": { windowMs: 60_000, maxRequests: 120 }, // 120 discovery requests per minute
+  "public-images-verse": { windowMs: 60_000, maxRequests: 60 }, // 60 verse lookups per minute
+  "public-images-history": { windowMs: 60_000, maxRequests: 30 }, // 30 history requests per minute
+  "public-images-chapter": { windowMs: 60_000, maxRequests: 20 }, // 20 chapter requests per minute
 } as const;
 
 export type RateLimitEndpoint = keyof typeof RATE_LIMITS;
