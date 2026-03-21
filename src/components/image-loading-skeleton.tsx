@@ -1,6 +1,7 @@
 interface ImageLoadingSkeletonProps {
   className?: string;
   compact?: boolean;
+  isLiveRegion?: boolean;
   label?: string;
   theme?: "light" | "dark";
 }
@@ -8,6 +9,7 @@ interface ImageLoadingSkeletonProps {
 export function ImageLoadingSkeleton({
   className = "",
   compact = false,
+  isLiveRegion = false,
   label = "Loading image",
   theme = "dark",
 }: ImageLoadingSkeletonProps) {
@@ -16,8 +18,10 @@ export function ImageLoadingSkeleton({
   return (
     <div
       className={`relative isolate block h-full w-full overflow-hidden pointer-events-none ${className}`}
-      role="status"
-      aria-live="polite"
+      {...(isLiveRegion ? {
+        role: "status",
+        "aria-live": "polite" as const,
+      } : {})}
     >
       <span className="sr-only">{label}</span>
 

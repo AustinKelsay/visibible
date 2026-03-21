@@ -48,9 +48,11 @@ function GalleryCard({
 }: GalleryCardProps) {
   const isCurrent = item.verse === currentVerse;
   const [isImageReady, setIsImageReady] = useState(false);
+  const [isImageError, setIsImageError] = useState(false);
   const handleImageRef = useCallback((node: HTMLImageElement | null) => {
     if (node?.complete && node.naturalWidth > 0) {
       setIsImageReady(true);
+      setIsImageError(false);
     }
   }, []);
 
@@ -66,7 +68,7 @@ function GalleryCard({
       }`}
     >
       <div className="relative aspect-video overflow-hidden bg-[var(--surface)]">
-        {!item.isPlaceholder && item.imageUrl ? (
+        {!item.isPlaceholder && item.imageUrl && !isImageError ? (
           <>
             {!isImageReady && (
               <ImageLoadingSkeleton
@@ -84,8 +86,14 @@ function GalleryCard({
                 isImageReady ? "opacity-100" : "opacity-0"
               } group-hover:scale-[1.015]`}
               loading="lazy"
-              onLoad={() => setIsImageReady(true)}
-              onError={() => setIsImageReady(true)}
+              onLoad={() => {
+                setIsImageReady(true);
+                setIsImageError(false);
+              }}
+              onError={() => {
+                setIsImageReady(false);
+                setIsImageError(true);
+              }}
             />
             <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/40 to-transparent" />
           </>
@@ -156,32 +164,49 @@ function LightboxImageStage({
   label,
 }: LightboxImageStageProps) {
   const [isImageReady, setIsImageReady] = useState(false);
+  const [isImageError, setIsImageError] = useState(false);
   const handleImageRef = useCallback((node: HTMLImageElement | null) => {
     if (node?.complete && node.naturalWidth > 0) {
       setIsImageReady(true);
+      setIsImageError(false);
     }
   }, []);
 
   return (
     <div className="relative flex items-center justify-center max-w-full max-h-[70vh] rounded-[var(--radius-md)] bg-[var(--image-stage)]">
-      {!isImageReady && (
+      {!isImageReady && !isImageError && (
         <ImageLoadingSkeleton
           className="absolute inset-0"
           label={label}
           theme="dark"
         />
       )}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        ref={handleImageRef}
-        src={imageUrl}
-        alt={alt}
-        className={`max-w-full max-h-[70vh] bg-[var(--image-stage)] object-contain rounded-[var(--radius-md)] transition-opacity duration-500 ${
-          isImageReady ? "opacity-100" : "opacity-0"
-        }`}
-        onLoad={() => setIsImageReady(true)}
-        onError={() => setIsImageReady(true)}
-      />
+      {isImageError ? (
+        <VerseImagePlaceholder
+          className="h-[70vh] px-6"
+          theme="dark"
+          title="Image unavailable"
+          description="This saved image could not be loaded."
+        />
+      ) : (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          ref={handleImageRef}
+          src={imageUrl}
+          alt={alt}
+          className={`max-w-full max-h-[70vh] bg-[var(--image-stage)] object-contain rounded-[var(--radius-md)] transition-opacity duration-500 ${
+            isImageReady ? "opacity-100" : "opacity-0"
+          }`}
+          onLoad={() => {
+            setIsImageReady(true);
+            setIsImageError(false);
+          }}
+          onError={() => {
+            setIsImageReady(false);
+            setIsImageError(true);
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -453,6 +453,7 @@ function HeroImageBase({
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [isDisplayImageReady, setIsDisplayImageReady] = useState(false);
   const [isFullscreenImageReady, setIsFullscreenImageReady] = useState(false);
+  const [isFullscreenImageError, setIsFullscreenImageError] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hasAttemptedGeneration, setHasAttemptedGeneration] = useState(false);
   const [imageLoadAttempts, setImageLoadAttempts] = useState(0);
@@ -851,6 +852,12 @@ function HeroImageBase({
     handleManualRegenerate();
   }, [onRefreshImages, handleManualRegenerate]);
 
+  const handleFullscreenImageReload = useCallback(() => {
+    setIsFullscreenImageError(false);
+    setIsFullscreenImageReady(false);
+    handleImageReload();
+  }, [handleImageReload]);
+
   // Register generation callback with context so header can trigger it
   useEffect(() => {
     registerGenerate(() => {
@@ -1032,9 +1039,11 @@ function HeroImageBase({
   useEffect(() => {
     if (!isFullscreen || !displayImage?.url) {
       setIsFullscreenImageReady(false);
+      setIsFullscreenImageError(false);
       return;
     }
     setIsFullscreenImageReady(false);
+    setIsFullscreenImageError(false);
   }, [displayImage?.id, displayImage?.url, isFullscreen]);
 
   useEffect(() => {
@@ -1109,6 +1118,7 @@ function HeroImageBase({
             {!isGenerating && isImageLoading && !error && (
               <ImageLoadingSkeleton
                 className="absolute inset-0 z-10"
+                isLiveRegion
                 label="Loading saved image"
               />
             )}
@@ -1150,6 +1160,7 @@ function HeroImageBase({
             {isQueryLoading && !isGenerating && !error && (
               <ImageLoadingSkeleton
                 className="absolute inset-0"
+                isLiveRegion
                 label="Loading saved image"
               />
             )}
@@ -1340,22 +1351,46 @@ function HeroImageBase({
                       progress={generationProgress}
                     />
                   )}
-                  {!isFullscreenImageReady && !isGenerating && (
+                  {!isFullscreenImageReady && !isGenerating && !isFullscreenImageError && (
                     <ImageLoadingSkeleton
                       className="absolute inset-0"
                       label="Loading saved image"
                       theme="dark"
                     />
                   )}
+                  {isFullscreenImageError && !isGenerating && (
+                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 px-6 text-center">
+                      <div className="w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
+                        <ImageOff size={24} strokeWidth={1.5} className="text-white/70" />
+                      </div>
+                      <p className="text-sm text-red-300 max-w-md">
+                        This saved image could not be loaded.
+                      </p>
+                      <button
+                        onClick={handleFullscreenImageReload}
+                        className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white text-black hover:bg-white/90 transition-colors duration-[var(--motion-fast)]"
+                      >
+                        <RefreshCw className="w-4 h-4" />
+                        <span className="text-sm font-medium">Try Again</span>
+                      </button>
+                    </div>
+                  )}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
+                    key={`${displayImage.id || displayImage.url}-${imageRefreshKey}`}
                     src={displayImage.url}
                     alt={alt}
                     className={`relative z-10 max-w-full max-h-[70vh] bg-[var(--image-stage)] object-contain rounded-[var(--radius-md)] transition-opacity duration-[var(--motion-base)] ${
-                      isFullscreenImageReady ? "opacity-100 visible" : "opacity-0 invisible"
+                      isFullscreenImageReady && !isFullscreenImageError ? "opacity-100 visible" : "opacity-0 invisible"
                     }`}
-                    onLoad={() => setIsFullscreenImageReady(true)}
-                    onError={() => setIsFullscreenImageReady(false)}
+                    onLoad={() => {
+                      setIsFullscreenImageReady(true);
+                      setIsFullscreenImageError(false);
+                    }}
+                    onError={() => {
+                      setIsFullscreenImageReady(false);
+                      setIsFullscreenImageError(true);
+                    }}
                   />
                 </div>
               ) : isQueryLoading || isGenerating ? (
