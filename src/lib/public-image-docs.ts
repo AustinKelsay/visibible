@@ -16,6 +16,34 @@ export const PUBLIC_IMAGE_API_FIELDS = [
   "analytics fields",
 ] as const;
 
+export const PUBLIC_IMAGE_API_ERRORS = [
+  {
+    status: "400",
+    title: "Bad request",
+    description: "Returned when a query parameter is invalid, such as a non-numeric or out-of-range `limit`.",
+  },
+  {
+    status: "404",
+    title: "Not found",
+    description: "Returned when the requested book/chapter/verse is unknown, or when a verse has no saved image yet.",
+  },
+  {
+    status: "429",
+    title: "Rate limit exceeded",
+    description: "Returned when an IP exceeds the endpoint's anonymous request budget. Responses include `Retry-After`.",
+  },
+  {
+    status: "503",
+    title: "Service unavailable",
+    description: "Returned when the public API backend is not currently wired to Convex or is temporarily unavailable.",
+  },
+  {
+    status: "500",
+    title: "Internal server error",
+    description: "Returned for unexpected server-side failures while serving the request.",
+  },
+] as const;
+
 export const PUBLIC_IMAGE_API_ENDPOINTS = [
   {
     title: "API index",
@@ -182,6 +210,8 @@ Verse history uses cursor pagination.
 
 - Default \`limit\`: \`20\`
 - Max \`limit\`: \`50\`
+- Invalid \`limit\` values return \`400\`
+- \`cursor\` must be the opaque token from a previous response
 - Response includes:
   - \`pageInfo.nextCursor\`
   - \`pageInfo.hasMore\`
@@ -199,6 +229,21 @@ Public requests are rate limited by IP address.
 ${PUBLIC_IMAGE_API_RATE_LIMITS.map((entry) => `- ${entry.label}: \`${entry.limit}\``).join("\n")}
 
 Rate-limited requests return \`429\` and include a \`Retry-After\` header.
+
+## Errors
+
+Errors use this envelope:
+
+\`\`\`json
+{
+  "error": "Bad request",
+  "message": "Invalid query parameters."
+}
+\`\`\`
+
+Common status codes:
+
+${PUBLIC_IMAGE_API_ERRORS.map((entry) => `- \`${entry.status}\` ${entry.title}: ${entry.description}`).join("\n")}
 
 ## Public fields only
 

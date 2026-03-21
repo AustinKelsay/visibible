@@ -256,6 +256,7 @@ Example paginated history response:
 Pagination behavior:
 
 - `cursor` is omitted on the first request.
+- `limit` defaults to `20` and may not exceed `50`.
 - Use `data.pageInfo.nextCursor` from the previous response as the next request's `cursor`.
 - When `nextCursor` is `null` and `hasMore` is `false`, pagination is complete.
 
@@ -264,6 +265,14 @@ Notes:
 - This API serves only images that have already been generated and saved.
 - The library is public and read-only.
 - Public responses intentionally omit prompts, costs, provider request IDs, and other internal metadata.
+
+Error behavior:
+
+- `400` for invalid query parameters such as an out-of-range `limit`
+- `404` for unknown book/chapter/verse lookups and for verse endpoints with no saved image yet
+- `429` when rate-limited, with a `Retry-After` header
+- `503` when the public API backend is temporarily unavailable
+- `500` for unexpected server errors
 
 ## Ops Endpoints
 

@@ -16,6 +16,7 @@ const sections = [
     title: "What This Is",
     body: [
       "Visibible brings Scripture to life visually. Navigate the Bible verse by verse, generate images from what you're reading, and ask questions along the way.",
+      "Verse pages can also switch into a chapter gallery, so you can scan saved artwork and unillustrated verses side by side.",
       "The text comes first. The imagery is there to help you see it fresh.",
     ],
   },
@@ -25,6 +26,7 @@ const sections = [
       "Pick a translation, navigate to any verse, and generate an image from it. You can also chat about the passage if you want to dig into the meaning.",
       "You choose which models power the chat and image generation. Different models have different strengths and costs.",
       "There are no accounts. Everything runs through an anonymous browser session.",
+      "Saved verse images also become part of a public read-only library, with simple API docs for browsing and reusing what has already been generated.",
     ],
   },
   {
