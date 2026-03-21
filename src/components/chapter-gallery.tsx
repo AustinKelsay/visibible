@@ -15,6 +15,7 @@ import {
   type ChapterGalleryVerseRecord,
   normalizeChapterGalleryImages,
 } from "@/lib/chapter-gallery";
+import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
 import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 
 interface ChapterGalleryProps {
@@ -46,6 +47,12 @@ function GalleryCard({
   onExpand,
 }: GalleryCardProps) {
   const isCurrent = item.verse === currentVerse;
+  const [isImageReady, setIsImageReady] = useState(false);
+  const handleImageRef = useCallback((node: HTMLImageElement | null) => {
+    if (node?.complete && node.naturalWidth > 0) {
+      setIsImageReady(true);
+    }
+  }, []);
 
   return (
     <Link
@@ -61,12 +68,24 @@ function GalleryCard({
       <div className="relative aspect-video overflow-hidden bg-[var(--surface)]">
         {!item.isPlaceholder && item.imageUrl ? (
           <>
+            {!isImageReady && (
+              <ImageLoadingSkeleton
+                className="absolute inset-0 z-10"
+                compact
+                label={`Loading saved image for ${bookName} ${chapter}:${item.verse}`}
+              />
+            )}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
+              ref={handleImageRef}
               src={item.imageUrl}
               alt={`${bookName} ${chapter}:${item.verse}`}
-              className="h-full w-full bg-[var(--image-stage)] object-contain transition-transform duration-300 group-hover:scale-[1.015]"
+              className={`h-full w-full bg-[var(--image-stage)] object-contain transition-[opacity,transform] duration-500 ${
+                isImageReady ? "opacity-100" : "opacity-0"
+              } group-hover:scale-[1.015]`}
               loading="lazy"
+              onLoad={() => setIsImageReady(true)}
+              onError={() => setIsImageReady(true)}
             />
             <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/40 to-transparent" />
           </>
@@ -122,6 +141,48 @@ function GalleryCard({
         </p>
       </div>
     </Link>
+  );
+}
+
+interface LightboxImageStageProps {
+  alt: string;
+  imageUrl: string;
+  label: string;
+}
+
+function LightboxImageStage({
+  alt,
+  imageUrl,
+  label,
+}: LightboxImageStageProps) {
+  const [isImageReady, setIsImageReady] = useState(false);
+  const handleImageRef = useCallback((node: HTMLImageElement | null) => {
+    if (node?.complete && node.naturalWidth > 0) {
+      setIsImageReady(true);
+    }
+  }, []);
+
+  return (
+    <div className="relative flex items-center justify-center max-w-full max-h-[70vh] rounded-[var(--radius-md)] bg-[var(--image-stage)]">
+      {!isImageReady && (
+        <ImageLoadingSkeleton
+          className="absolute inset-0"
+          label={label}
+          theme="dark"
+        />
+      )}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        ref={handleImageRef}
+        src={imageUrl}
+        alt={alt}
+        className={`max-w-full max-h-[70vh] bg-[var(--image-stage)] object-contain rounded-[var(--radius-md)] transition-opacity duration-500 ${
+          isImageReady ? "opacity-100" : "opacity-0"
+        }`}
+        onLoad={() => setIsImageReady(true)}
+        onError={() => setIsImageReady(true)}
+      />
+    </div>
   );
 }
 
@@ -440,11 +501,11 @@ export function ChapterGallery({
           <div className="flex-1 flex items-center justify-center min-h-0 px-4">
             <div className="flex flex-col items-center max-w-full max-h-full min-h-0">
               {lightboxItem.imageUrl ? (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img
-                  src={lightboxItem.imageUrl}
+                <LightboxImageStage
+                  key={lightboxItem.imageId ?? lightboxItem.imageUrl}
+                  imageUrl={lightboxItem.imageUrl}
                   alt={`${bookName} ${chapter}:${lightboxItem.verse}`}
-                  className="max-w-full max-h-[70vh] bg-[var(--image-stage)] object-contain rounded-[var(--radius-md)]"
+                  label={`Loading saved image for ${bookName} ${chapter}:${lightboxItem.verse}`}
                 />
               ) : null}
 

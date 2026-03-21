@@ -11,6 +11,7 @@ import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useSession } from "@/context/session-context";
 import { useNavigation } from "@/context/navigation-context";
 import { useGeneration } from "@/context/generation-context";
+import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
 import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 import {
   ASPECT_RATIOS,
@@ -1098,10 +1099,17 @@ function HeroImageBase({
               }}
             />
 
-            {(isGenerating || isImageLoading) && !error && (
+            {isGenerating && !error && (
               <HeroImageLoadingState
-                label={isGenerating ? generationPhaseLabel : "Loading image"}
-                progress={isGenerating ? generationProgress : undefined}
+                label={generationPhaseLabel}
+                progress={generationProgress}
+              />
+            )}
+
+            {!isGenerating && isImageLoading && !error && (
+              <ImageLoadingSkeleton
+                className="absolute inset-0 z-10"
+                label="Loading saved image"
               />
             )}
 
@@ -1132,10 +1140,17 @@ function HeroImageBase({
           <div className="absolute inset-0 bg-[var(--surface)]">
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--background)]/80 via-[var(--surface)] to-[var(--surface)]" />
 
-            {(isQueryLoading || isGenerating) && !error && (
+            {isGenerating && !error && (
               <HeroImageLoadingState
-                label={isQueryLoading ? "Loading image" : generationPhaseLabel}
-                progress={isGenerating ? generationProgress : undefined}
+                label={generationPhaseLabel}
+                progress={generationProgress}
+              />
+            )}
+
+            {isQueryLoading && !isGenerating && !error && (
+              <ImageLoadingSkeleton
+                className="absolute inset-0"
+                label="Loading saved image"
               />
             )}
 
@@ -1318,11 +1333,18 @@ function HeroImageBase({
             <div className="flex flex-col items-center max-w-full max-h-full min-h-0">
               {displayImage?.url ? (
                 <div className="relative max-w-full max-h-[70vh] w-full flex items-center justify-center rounded-[var(--radius-md)] bg-[var(--image-stage)]">
-                  {!isFullscreenImageReady && (
+                  {!isFullscreenImageReady && isGenerating && (
                     <HeroImageLoadingState
-                      label={isGenerating ? generationPhaseLabel : "Loading image"}
+                      label={generationPhaseLabel}
                       fullscreen
-                      progress={isGenerating ? generationProgress : undefined}
+                      progress={generationProgress}
+                    />
+                  )}
+                  {!isFullscreenImageReady && !isGenerating && (
+                    <ImageLoadingSkeleton
+                      className="absolute inset-0"
+                      label="Loading saved image"
+                      theme="dark"
                     />
                   )}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -1337,13 +1359,20 @@ function HeroImageBase({
                   />
                 </div>
               ) : isQueryLoading || isGenerating ? (
-                <div className="flex items-center justify-center h-[70vh]">
-                  <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-[var(--radius-md)]">
-                    <RefreshCw className="w-4 h-4 animate-spin text-white/70" />
-                    <span className="text-sm text-white/70">
-                      {isQueryLoading ? "Loading..." : generationPhaseLabel}
-                    </span>
-                  </div>
+                <div className="relative h-[70vh] w-full max-w-full">
+                  {isGenerating ? (
+                    <HeroImageLoadingState
+                      label={generationPhaseLabel}
+                      fullscreen
+                      progress={generationProgress}
+                    />
+                  ) : (
+                    <ImageLoadingSkeleton
+                      className="h-full w-full"
+                      label="Loading saved image"
+                      theme="dark"
+                    />
+                  )}
                 </div>
               ) : error ? (
                 <div className="h-[70vh] flex flex-col items-center justify-center gap-3 px-6 text-center">
