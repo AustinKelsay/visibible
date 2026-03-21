@@ -1,14 +1,1 @@
-<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">Visibible Nostr Profile</title>
-  <desc id="desc">Blue square profile image with a centered white open-book icon.</desc>
-  <rect width="512" height="512" rx="112" fill="#2563EB"/>
-  <rect x="32" y="32" width="448" height="448" rx="96" fill="url(#glow)" fill-opacity="0.22"/>
-  <path d="M104 136H200C240.869 136 274 169.131 274 210V382C262.416 370.416 246.709 364 230.326 364H104V136Z" stroke="white" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M408 136H312C271.131 136 238 169.131 238 210V382C249.584 370.416 265.291 364 281.674 364H408V136Z" stroke="white" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
-  <defs>
-    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(256 156) rotate(90) scale(260)">
-      <stop stop-color="white"/>
-      <stop offset="1" stop-color="white" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" fill="none" aria-labelledby="title desc" role="img" viewBox="0 0 512 512"><title id="title">Visibible Nostr Profile</title><desc id="desc">Blue square profile image with a centered white open-book icon.</desc><rect width="512" height="512" fill="#2563EB" rx="112"/><rect width="448" height="448" x="32" y="32" fill="url(#glow)" fill-opacity=".22" rx="96"/><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="28" d="M104 136H200C240.869 136 274 169.131 274 210V382C262.416 370.416 246.709 364 230.326 364H104V136Z"/><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="28" d="M408 136H312C271.131 136 238 169.131 238 210V382C249.584 370.416 265.291 364 281.674 364H408V136Z"/><defs><radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(256 156) rotate(90) scale(260)" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs></svg>
