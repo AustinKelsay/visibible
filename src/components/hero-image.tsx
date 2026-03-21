@@ -1351,6 +1351,7 @@ function HeroImageBase({
                   {!isFullscreenImageReady && !isGenerating && !isFullscreenImageError && (
                     <ImageLoadingSkeleton
                       className="absolute inset-0"
+                      isLiveRegion
                       label="Loading saved image"
                       theme="dark"
                     />
@@ -1401,6 +1402,7 @@ function HeroImageBase({
                   ) : (
                     <ImageLoadingSkeleton
                       className="h-full w-full"
+                      isLiveRegion
                       label="Loading saved image"
                       theme="dark"
                     />

@@ -65,7 +65,8 @@ function isTerminalPublishOutcome(
   return (
     outcome === "published" ||
     outcome === "already_published" ||
-    outcome === "image_missing"
+    outcome === "image_missing" ||
+    outcome === "record_failed"
   );
 }
 
@@ -340,6 +341,7 @@ export const publishTopImageForLatestWindow = internalAction({
     );
 
     if (isTerminalPublishOutcome(publishResult.outcome)) {
+      const completedAt = Date.now();
       await ctx.runMutation(
         internal.nostrScheduler.completeScheduledWindow,
         {
@@ -347,17 +349,18 @@ export const publishTopImageForLatestWindow = internalAction({
           imageId: claimResult.candidate.imageId,
           claimStartedAt: claimResult.claimStartedAt,
           outcome: publishResult.outcome,
-          completedAt: now,
+          completedAt,
         }
       );
     } else {
+      const failedAt = Date.now();
       await ctx.runMutation(
         internal.nostrScheduler.recordScheduledWindowFailure,
         {
           windowStart,
           imageId: claimResult.candidate.imageId,
           claimStartedAt: claimResult.claimStartedAt,
-          failedAt: now,
+          failedAt,
           outcome: publishResult.outcome,
         }
       );

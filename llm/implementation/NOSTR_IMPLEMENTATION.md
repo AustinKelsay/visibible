@@ -68,7 +68,8 @@ If no image base URL can be resolved, publication is skipped.
 7. Action builds permanent URL: `<base>/image/<encoded storageId>`.
 8. Action connects to relays, signs event, publishes.
 9. Action records publication via `recordNostrPublication`.
-10. Scheduler marks the window complete for terminal outcomes (`published`, `already_published`, `image_missing`) and leaves the window claimed for later retry on transient failures (`config_missing`, `publish_failed`).
+10. Scheduler marks the window complete for terminal outcomes (`published`, `already_published`, `image_missing`, `record_failed`) and leaves the window claimed for later retry on transient failures (`config_missing`, `publish_failed`).
+11. Completion and failure timestamps are captured at the moment the scheduler finalizes the window so state like `lastPublishedAt` and retry timing reflect the actual end of the publish attempt.
 
 ### Important branch
 
