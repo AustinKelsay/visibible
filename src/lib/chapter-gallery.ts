@@ -47,6 +47,36 @@ interface BuildChapterGalleryItemsOptions {
   galleryImages?: ChapterGalleryImageRecord[] | null;
 }
 
+function isChapterGalleryImageRecord(value: unknown): value is ChapterGalleryImageRecord {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const candidate = value as Record<string, unknown>;
+
+  return (
+    typeof candidate.verse === "number" &&
+    Number.isFinite(candidate.verse) &&
+    typeof candidate.imageCount === "number" &&
+    Number.isFinite(candidate.imageCount) &&
+    (candidate.imageUrl === undefined || typeof candidate.imageUrl === "string") &&
+    (candidate.imageId === undefined || typeof candidate.imageId === "string") &&
+    (candidate.model === undefined || typeof candidate.model === "string") &&
+    (candidate.createdAt === undefined || typeof candidate.createdAt === "number") &&
+    (candidate.isLatest === undefined || typeof candidate.isLatest === "boolean")
+  );
+}
+
+export function normalizeChapterGalleryImages(
+  galleryImages: unknown
+): ChapterGalleryImageRecord[] | null {
+  if (!Array.isArray(galleryImages)) {
+    return null;
+  }
+
+  return galleryImages.filter(isChapterGalleryImageRecord);
+}
+
 export function buildChapterGalleryItems({
   book,
   chapter,
@@ -68,7 +98,7 @@ export function buildChapterGalleryItems({
       verse: verse.verse,
       text: verse.text,
       href: `/${book}/${chapter}/${verse.verse}`,
-      imageCount: images[0]?.imageCount ?? 0,
+      imageCount: images.length,
       hasImages: images.length > 0,
       cards: images.length > 0
         ? images.map((image, index) => ({

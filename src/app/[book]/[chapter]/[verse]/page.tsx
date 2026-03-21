@@ -156,8 +156,8 @@ export default async function VersePage({ params }: VersePageProps) {
         verseNumber={location.verse}
         verseText={verseData.text}
         totalVerses={totalVerses}
-        prevUrl={prevUrl}
-        nextUrl={nextUrl}
+        prevUrl={prevUrl ?? undefined}
+        nextUrl={nextUrl ?? undefined}
         prevVerse={prevVerse}
         nextVerse={nextVerse}
         currentReference={currentReference}

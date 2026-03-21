@@ -17,8 +17,8 @@ interface ScriptureReaderProps {
   verse: Verse;
   verseNumber: number;
   totalVerses: number;
-  prevUrl?: string | null;
-  nextUrl?: string | null;
+  prevUrl?: string;
+  nextUrl?: string;
 }
 
 export function ScriptureReader({

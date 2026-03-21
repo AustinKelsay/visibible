@@ -67,8 +67,8 @@ interface HeroImageProps {
   caption?: string;
   verseText?: string;
   chapterTheme?: ChapterTheme;
-  prevUrl?: string | null;
-  nextUrl?: string | null;
+  prevUrl?: string;
+  nextUrl?: string;
   prevVerse?: VerseContext;
   nextVerse?: VerseContext;
   currentReference?: string;

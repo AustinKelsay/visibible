@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { buildChapterGalleryItems, buildFlatChapterGalleryItems } from "@/lib/chapter-gallery";
+import {
+  buildChapterGalleryItems,
+  buildFlatChapterGalleryItems,
+  normalizeChapterGalleryImages,
+} from "@/lib/chapter-gallery";
 
 describe("buildChapterGalleryItems", () => {
   it("returns every verse in chapter order and fills placeholders when images are missing", () => {
@@ -167,6 +171,36 @@ describe("buildChapterGalleryItems", () => {
         cardIndex: 0,
         hasImages: false,
         isPlaceholder: true,
+      },
+    ]);
+  });
+
+  it("filters invalid chapter gallery query records before the gallery uses them", () => {
+    const items = normalizeChapterGalleryImages([
+      {
+        verse: 1,
+        imageCount: 1,
+        imageUrl: "https://example.com/1.png",
+        imageId: "image-1",
+        model: "openai/image",
+        createdAt: 100,
+        isLatest: true,
+      },
+      {
+        verse: "2",
+        imageCount: 1,
+      },
+    ]);
+
+    expect(items).toEqual([
+      {
+        verse: 1,
+        imageCount: 1,
+        imageUrl: "https://example.com/1.png",
+        imageId: "image-1",
+        model: "openai/image",
+        createdAt: 100,
+        isLatest: true,
       },
     ]);
   });

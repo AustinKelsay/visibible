@@ -70,6 +70,21 @@ describe("chapter gallery behavior", () => {
     expect(markup).toBe("");
   });
 
+  it("skips Convex chapter gallery queries but still renders placeholders when Convex is unavailable", () => {
+    usePreferencesMock.mockReturnValue({
+      chapterGalleryEnabled: true,
+    } as never);
+    useConvexEnabledMock.mockReturnValue(false);
+
+    const markup = renderToStaticMarkup(createElement(ChapterGallery, baseProps));
+
+    expect(useQueryMock).toHaveBeenCalledWith(api.verseImages.getChapterGallery, "skip");
+    expect(markup).toContain("All images gallery");
+    expect(markup).toContain("No image yet");
+    expect(markup).toContain("/genesis/1/1");
+    expect(markup).toContain("/genesis/1/2");
+  });
+
   it("renders verse mini-galleries, placeholders, and chapter links when enabled", () => {
     usePreferencesMock.mockReturnValue({
       chapterGalleryEnabled: true,

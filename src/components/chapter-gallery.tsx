@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Maximize2, X } from "lucide-react";
 import { useQuery } from "convex/react";
@@ -12,8 +12,8 @@ import {
   buildFlatChapterGalleryItems,
   buildChapterGalleryItems,
   type ChapterGalleryFlatItem,
-  type ChapterGalleryImageRecord,
   type ChapterGalleryVerseRecord,
+  normalizeChapterGalleryImages,
 } from "@/lib/chapter-gallery";
 import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 
@@ -138,6 +138,7 @@ export function ChapterGallery({
   const { isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
   const [layoutMode, setLayoutMode] = useState<GalleryLayoutMode>("all");
   const [lightboxItem, setLightboxItem] = useState<ChapterGalleryFlatItem | null>(null);
+  const fullscreenDialogRef = useRef<HTMLDivElement>(null);
 
   const handleExpand = useCallback((item: ChapterGalleryFlatItem) => {
     setLightboxItem(item);
@@ -154,12 +155,80 @@ export function ChapterGallery({
     chapterGalleryEnabled && isConvexEnabled ? { book, chapter } : "skip"
   );
 
+  const normalizedGalleryImages = normalizeChapterGalleryImages(galleryImages);
+
+  useEffect(() => {
+    if (!isFullscreen || !lightboxItem) {
+      return;
+    }
+
+    const dialog = fullscreenDialogRef.current;
+    if (!dialog) {
+      return;
+    }
+
+    const previousFocusedElement =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+
+    const getFocusableElements = () =>
+      Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((element) => !element.hasAttribute("disabled") && element.tabIndex !== -1);
+
+    const firstFocusableElement = getFocusableElements()[0];
+    (firstFocusableElement ?? dialog).focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        handleCloseLightbox();
+        return;
+      }
+
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      const focusableElements = getFocusableElements();
+      if (focusableElements.length === 0) {
+        event.preventDefault();
+        dialog.focus();
+        return;
+      }
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+      const activeElement = document.activeElement;
+
+      if (event.shiftKey) {
+        if (activeElement === firstElement || activeElement === dialog) {
+          event.preventDefault();
+          lastElement.focus();
+        }
+        return;
+      }
+
+      if (activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      if (previousFocusedElement?.isConnected) {
+        previousFocusedElement.focus();
+      }
+    };
+  }, [handleCloseLightbox, isFullscreen, lightboxItem]);
+
   if (!chapterGalleryEnabled) {
     return null;
   }
-
-  const normalizedGalleryImages =
-    (galleryImages as ChapterGalleryImageRecord[] | null | undefined) ?? null;
 
   const groupedItems = buildChapterGalleryItems({
     book,
@@ -346,10 +415,12 @@ export function ChapterGallery({
       {/* Fullscreen lightbox */}
       {isFullscreen && lightboxItem && (
         <div
+          ref={fullscreenDialogRef}
           className="fixed inset-0 z-[60] bg-black flex flex-col"
           role="dialog"
           aria-modal="true"
           aria-label={`${bookName} ${chapter}:${lightboxItem.verse} fullscreen`}
+          tabIndex={-1}
         >
           {/* Top bar */}
           <div className="shrink-0 flex items-center justify-between px-4 py-3">

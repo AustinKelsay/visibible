@@ -37,7 +37,7 @@ const baseProps = {
   verseNumber: 1,
   verseText: "In the beginning",
   totalVerses: 31,
-  prevUrl: null,
+  prevUrl: undefined,
   nextUrl: "/genesis/1/2",
   prevVerse: undefined,
   nextVerse: { number: 2, text: "The earth was formless", reference: "Genesis 1:2" },
@@ -65,6 +65,8 @@ describe("VersePageContent", () => {
     expect(markup).toContain("ChapterGallery");
     expect(markup).not.toContain("HeroImage");
     expect(markup).not.toContain("ScriptureReader");
+    expect(markup).not.toContain("VerseStripBar");
+    expect(markup).not.toContain("ScriptureDetails");
   });
 
   it("renders the reading view when the chapter gallery preference is disabled", () => {
