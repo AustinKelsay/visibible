@@ -8,6 +8,7 @@ import {
   CONSERVATIVE_ESTIMATE_MULTIPLIER,
   getProviderName,
   CREDIT_USD,
+  canAffordImageGeneration,
   DEFAULT_ASPECT_RATIO,
   DEFAULT_RESOLUTION,
   RESOLUTIONS,
@@ -784,9 +785,11 @@ export async function POST(request: Request) {
   const reservationCreditsCost = reservationImageCredits + scenePlannerCreditsCost;
   const reservationCostUsd = reservationCreditsCost * CREDIT_USD;
 
-  // Use reservation amount for atomic credit reservation (higher than expected to cover actual cost)
-  const cost = reservationCreditsCost;
-  const costUsd = reservationCostUsd;
+  // Use a conservative reservation for well-funded sessions, but cap the hold at the
+  // user's remaining balance for low-credit sessions so they can spend down to zero.
+  let cost = reservationCreditsCost;
+  let costUsd = reservationCostUsd;
+  let settledReservationCostUsd = reservationCostUsd;
   let updatedCredits: number | undefined;
   let shouldCharge = false;
   let reservationMade = false;
@@ -881,6 +884,30 @@ export async function POST(request: Request) {
 
   await createGenerationRequest();
 
+  const canStartGeneration = isAdmin
+    ? true
+    : canAffordImageGeneration(session.credits, estimatedCreditsCost);
+  if (!canStartGeneration) {
+    await updateGenerationRequest("failed", {
+      error: "Insufficient credits",
+    });
+    return jsonWithSessionRefresh(
+      {
+        error: "Insufficient credits",
+        requestId: generationRequestId,
+        required: estimatedCreditsCost,
+        available: session.credits,
+      },
+      { status: 402 }
+    );
+  }
+
+  if (!isAdmin) {
+    cost = Math.min(reservationCreditsCost, session.credits);
+    costUsd = reservationCostUsd;
+    settledReservationCostUsd = cost * CREDIT_USD;
+  }
+
   // Skip credit checks for admin users but log for audit trail
   if (!isAdmin) {
     // Atomically reserve credits before generation to prevent race conditions
@@ -917,7 +944,7 @@ export async function POST(request: Request) {
         {
           error: "Insufficient credits",
           requestId: generationRequestId,
-          required: cost,
+          required: estimatedCreditsCost,
           available:
             "available" in reserveResult ? reserveResult.available : 0,
         },
@@ -1561,12 +1588,20 @@ ${aspectRatioInstruction}`;
 
       // Calculate final charged amounts (may differ from actual in rare shortfall case)
       const finalChargedCredits = chargeShortfall?.chargedCredits ?? actualTotalCredits;
+      const settledScenePlannerCredits = chargeShortfall
+        ? Math.min(effectiveScenePlannerCredits, finalChargedCredits)
+        : effectiveScenePlannerCredits;
       const finalChargedImageCredits = chargeShortfall
-        ? Math.max(0, chargeShortfall.chargedCredits - effectiveScenePlannerCredits)
+        ? Math.max(0, finalChargedCredits - settledScenePlannerCredits)
         : actualImageCredits;
-      const finalChargedCostUsd = chargeShortfall ? costUsd : actualTotalCostUsd;
+      const finalChargedCostUsd = chargeShortfall
+        ? settledReservationCostUsd
+        : actualTotalCostUsd;
+      const settledScenePlannerCostUsd = chargeShortfall
+        ? Math.min(effectiveScenePlannerCostUsd, finalChargedCostUsd)
+        : effectiveScenePlannerCostUsd;
       const finalChargedImageCostUsd = chargeShortfall
-        ? Math.max(0, costUsd - effectiveScenePlannerCostUsd)
+        ? Math.max(0, finalChargedCostUsd - settledScenePlannerCostUsd)
         : actualImageCostUsd;
 
       await updateGenerationRequest("succeeded", {
@@ -1600,8 +1635,8 @@ ${aspectRatioInstruction}`;
         reservationCostUsd,
         imageCreditsCost: finalChargedImageCredits,
         imageCostUsd: finalChargedImageCostUsd,
-        scenePlannerCredits: effectiveScenePlannerCredits,
-        scenePlannerCostUsd: effectiveScenePlannerCostUsd,
+        scenePlannerCredits: settledScenePlannerCredits,
+        scenePlannerCostUsd: settledScenePlannerCostUsd,
         actualCreditsCost: finalChargedCredits,
         actualCostUsd: finalChargedCostUsd,
         ...(openRouterUsageUsd !== null ? { openRouterUsageUsd } : {}),
@@ -1695,10 +1730,10 @@ ${aspectRatioInstruction}`;
           // Cost breakdown - actual charged amounts (adjusted for shortfall if applicable)
           creditsCost: finalChargedCredits, // Total credits charged
           imageCreditsCost: finalChargedImageCredits,
-          scenePlannerCredits: effectiveScenePlannerCredits,
+          scenePlannerCredits: settledScenePlannerCredits,
           costUsd: finalChargedCostUsd, // Total USD cost
           imageCostUsd: finalChargedImageCostUsd,
-          scenePlannerCostUsd: effectiveScenePlannerCostUsd,
+          scenePlannerCostUsd: settledScenePlannerCostUsd,
           scenePlannerUsed,
           scenePlanFromCache,
           // Estimation vs actual tracking

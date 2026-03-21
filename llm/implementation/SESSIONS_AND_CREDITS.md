@@ -338,13 +338,14 @@ Credit flow (reservation pattern):
 4. `GET /api/generate-image` returns `405 Method Not Allowed` with `Allow: POST`.
 5. Fetch model from `fetchImageModels()` and compute `creditsCost` via `computeCreditsCost()`.
 6. **Reject unpriced models** - if `creditsCost` is null, return 400 "Model pricing unavailable".
-7. **Reserve credits atomically** via `reserveCredits()` - deducts from balance immediately.
-8. If reservation fails (insufficient credits or daily limit exceeded), return 402.
-9. Generate image via OpenRouter.
-10. **Convert reservation to charge** via `deductCredits()` - uses double-entry bookkeeping.
-11. If generation fails, **release reservation** via `releaseReservation()` to restore credits.
-12. If post-charge fails, return 402 and discard the generated image.
-13. Persist generated image server-side via `api.verseImages.saveImage` using `CONVEX_SERVER_SECRET`; response includes `savedImageId` when persistence succeeds.
+7. **Check image affordability** using the estimated charge plus the small spend-down grace window for low-balance sessions.
+8. **Reserve credits atomically** via `reserveCredits()` - deducts from balance immediately. For low-balance sessions, the reservation is capped at the remaining balance instead of demanding the full conservative hold.
+9. If reservation fails, return 429 for daily spending limit blocks and 402 for insufficient credits.
+10. Generate image via OpenRouter.
+11. **Convert reservation to charge** via `deductCredits()` - uses double-entry bookkeeping.
+12. If generation fails, **release reservation** via `releaseReservation()` to restore credits.
+13. If post-charge fails, return 402 and discard the generated image.
+14. Persist generated image server-side via `api.verseImages.saveImage` using `CONVEX_SERVER_SECRET`; response includes `savedImageId` when persistence succeeds.
 
 On success, the response includes:
 - `imageUrl`, `model`, `provider`, `providerRequestId`
@@ -359,7 +360,7 @@ On success, the response includes:
   - `openRouterUsageUsd` - Raw USD cost from OpenRouter (null if unavailable)
 
 ### `GET /api/image-models`
-Returns OpenRouter image models with `creditsCost` and `etaSeconds`, plus a `creditRange` for UI.
+Returns OpenRouter image models with the normal estimated `creditsCost` and `etaSeconds`, plus a `creditRange` for UI. The conservative reservation estimate stays internal.
 
 ---
 
@@ -409,11 +410,13 @@ function computeCreditsFromActualUsage(
 ```
 
 **Flow:**
-1. Reserve using `computeConservativeEstimate()` (~35x API price) — adds inflated `costUsd` to `dailySpendUsd`
-2. Generate image
-3. Extract actual cost from OpenRouter response (checks `usage.cost`, `usage.total_cost`, `data.cost`, `data.total_cost`)
-4. Charge actual via `deductCredits(actualAmount=..., actualCostUsd=...)`
-5. Excess credits refunded + `dailySpendUsd` adjusted to reflect actual cost (not inflated estimate)
+1. Compute the user-facing estimate with `computeCreditsCost()`
+2. Allow image generation when the session can cover the estimate, or is within the 5-credit spend-down grace window while still above zero
+3. Reserve conservatively using `computeConservativeEstimate()` (~35x API price), but cap the hold at the remaining balance for low-credit sessions
+4. Generate image
+5. Extract actual cost from OpenRouter response (checks `usage.cost`, `usage.total_cost`, `data.cost`, `data.total_cost`)
+6. Charge actual via `deductCredits(actualAmount=..., actualCostUsd=...)`
+7. Excess credits refunded + `dailySpendUsd` adjusted to reflect actual cost (not inflated estimate)
 
 **Fallback behavior:** If OpenRouter doesn't return cost in any known location:
 - The **API-based estimate** (`imageCreditsCost`) is used, NOT the conservative 35x reservation

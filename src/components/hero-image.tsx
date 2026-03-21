@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import type { Id } from "../../convex/_generated/dataModel";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Maximize2, X } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
@@ -10,10 +11,14 @@ import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useSession } from "@/context/session-context";
 import { useNavigation } from "@/context/navigation-context";
 import { useGeneration } from "@/context/generation-context";
+import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
+import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 import {
   ASPECT_RATIOS,
   ImageAspectRatio,
+  canAffordImageGeneration,
   computeAdjustedCreditsCost,
+  DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
   isValidAspectRatio,
 } from "@/lib/image-models";
 import {
@@ -65,8 +70,8 @@ interface HeroImageProps {
   caption?: string;
   verseText?: string;
   chapterTheme?: ChapterTheme;
-  prevUrl?: string | null;
-  nextUrl?: string | null;
+  prevUrl?: string;
+  nextUrl?: string;
   prevVerse?: VerseContext;
   nextVerse?: VerseContext;
   currentReference?: string;
@@ -148,7 +153,7 @@ export function HeroImage({
 }
 
 interface ConvexImageData {
-  id: string;
+  id: Id<"verseImages">;
   imageUrl: string | undefined;
   model: string;
   prompt?: string;
@@ -364,12 +369,21 @@ function HeroImageBase({
   }, [imageModel]);
 
   // Determine if user can generate (has sufficient credits or is admin)
-  const baseCost = modelPricing.creditsCost ?? 20; // Default 20 for unpriced models
+  const baseCost = modelPricing.creditsCost ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
   const effectiveCost = computeAdjustedCreditsCost(baseCost, imageResolution, imageModel);
   const effectiveEta = modelPricing.etaSeconds;
   const isAdmin = tier === "admin";
   const pricingPending = isConvexEnabled && !isAdmin && !pricingLoaded;
-  const canGenerate = !isConvexEnabled || isAdmin || (pricingLoaded && tier === "paid" && credits >= effectiveCost);
+  const canGenerate =
+    !isConvexEnabled ||
+    isAdmin ||
+    (pricingLoaded &&
+      tier === "paid" &&
+      canAffordImageGeneration(credits, effectiveCost));
+  const canAutoGenerate =
+    !isConvexEnabled ||
+    isAdmin ||
+    (pricingLoaded && tier === "paid" && credits >= effectiveCost);
   const showCreditsCost = isConvexEnabled && !isAdmin && pricingLoaded;
 
   // Create verse ID for Convex query
@@ -439,6 +453,7 @@ function HeroImageBase({
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [isDisplayImageReady, setIsDisplayImageReady] = useState(false);
   const [isFullscreenImageReady, setIsFullscreenImageReady] = useState(false);
+  const [isFullscreenImageError, setIsFullscreenImageError] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hasAttemptedGeneration, setHasAttemptedGeneration] = useState(false);
   const [imageLoadAttempts, setImageLoadAttempts] = useState(0);
@@ -451,10 +466,14 @@ function HeroImageBase({
   const generationStartedAtRef = useRef<number | null>(null);
   const imageElementRef = useRef<HTMLImageElement | null>(null);
   const handleManualRegenerateRef = useRef<(() => void) | null>(null);
+  const trackedImageIdsRef = useRef<Set<Id<"verseImages">>>(new Set());
 
   const generationRequestStatus = useQuery(
     api.verseImages.getGenerationRequestStatus,
     activeRequestId ? { requestId: activeRequestId } : "skip"
+  );
+  const recordImageImpression = useMutation(
+    api.verseImages.recordImageImpression
   );
 
   const generationPhaseLabel = generationRequestStatus?.status === "planning"
@@ -821,6 +840,12 @@ function HeroImageBase({
     handleManualRegenerate();
   }, [onRefreshImages, handleManualRegenerate]);
 
+  const handleFullscreenImageReload = useCallback(() => {
+    setIsFullscreenImageError(false);
+    setIsFullscreenImageReady(false);
+    handleImageReload();
+  }, [handleImageReload]);
+
   // Register generation callback with context so header can trigger it
   useEffect(() => {
     registerGenerate(() => {
@@ -899,7 +924,8 @@ function HeroImageBase({
     }
   }, [selectedImageId, imageHistory]);
 
-  // Auto-generate on first visit if no existing images AND user has credits
+  // Auto-generate on first visit only when the user can strictly cover the estimate.
+  // The spend-down grace is reserved for explicit generate actions.
   useEffect(() => {
     // Only auto-generate if:
     // 1. Convex query has loaded (imageHistory is not undefined)
@@ -914,14 +940,14 @@ function HeroImageBase({
       !isGenerating &&
       !hasAttemptedGeneration &&
       verseId &&
-      canGenerate &&
+      canAutoGenerate &&
       !sessionLoading
     ) {
       setHasAttemptedGeneration(true);
       pendingFollowLatest.current = true;
       generateImage();
     }
-  }, [imageHistory, isGenerating, hasAttemptedGeneration, verseId, generateImage, canGenerate, sessionLoading]);
+  }, [imageHistory, isGenerating, hasAttemptedGeneration, verseId, generateImage, canAutoGenerate, sessionLoading]);
 
   // When a new image is saved, navigate only after it exists in history
   useEffect(() => {
@@ -1001,9 +1027,11 @@ function HeroImageBase({
   useEffect(() => {
     if (!isFullscreen || !displayImage?.url) {
       setIsFullscreenImageReady(false);
+      setIsFullscreenImageError(false);
       return;
     }
     setIsFullscreenImageReady(false);
+    setIsFullscreenImageError(false);
   }, [displayImage?.id, displayImage?.url, isFullscreen]);
 
   useEffect(() => {
@@ -1050,6 +1078,15 @@ function HeroImageBase({
                 setIsDisplayImageReady(true);
                 setImageLoadAttempts(0);
                 setError(null);
+
+                if (currentImage?.id && !trackedImageIdsRef.current.has(currentImage.id)) {
+                  trackedImageIdsRef.current.add(currentImage.id);
+
+                  void recordImageImpression({ imageId: currentImage.id }).catch((error) => {
+                    trackedImageIdsRef.current.delete(currentImage.id);
+                    console.error("Failed to record image impression:", error);
+                  });
+                }
               }}
               onError={() => {
                 const nextAttempt = imageLoadAttempts + 1;
@@ -1068,10 +1105,18 @@ function HeroImageBase({
               }}
             />
 
-            {(isGenerating || isImageLoading) && !error && (
+            {isGenerating && !error && (
               <HeroImageLoadingState
-                label={isGenerating ? generationPhaseLabel : "Loading image"}
-                progress={isGenerating ? generationProgress : undefined}
+                label={generationPhaseLabel}
+                progress={generationProgress}
+              />
+            )}
+
+            {!isGenerating && isImageLoading && !error && (
+              <ImageLoadingSkeleton
+                className="absolute inset-0 z-10"
+                isLiveRegion
+                label="Loading saved image"
               />
             )}
 
@@ -1102,10 +1147,18 @@ function HeroImageBase({
           <div className="absolute inset-0 bg-[var(--surface)]">
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--background)]/80 via-[var(--surface)] to-[var(--surface)]" />
 
-            {(isQueryLoading || isGenerating) && !error && (
+            {isGenerating && !error && (
               <HeroImageLoadingState
-                label={isQueryLoading ? "Loading image" : generationPhaseLabel}
-                progress={isGenerating ? generationProgress : undefined}
+                label={generationPhaseLabel}
+                progress={generationProgress}
+              />
+            )}
+
+            {isQueryLoading && !isGenerating && !error && (
+              <ImageLoadingSkeleton
+                className="absolute inset-0"
+                isLiveRegion
+                label="Loading saved image"
               />
             )}
 
@@ -1125,51 +1178,38 @@ function HeroImageBase({
 
             {/* Empty state - no image yet */}
             {!isQueryLoading && !isGenerating && !error && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center">
-                {/* Icon */}
-                <div className="w-16 h-16 rounded-full bg-[var(--surface)] border border-[var(--divider)] flex items-center justify-center">
-                  <ImageOff size={28} strokeWidth={1.5} className="text-[var(--muted)]" />
-                </div>
-
-                {/* Text */}
-                <div className="space-y-1">
-                  <p className="text-sm font-medium text-[var(--foreground)]">
-                    No image yet
-                  </p>
-                  <p className="text-xs text-[var(--muted)] max-w-[240px]">
-                    Generate an AI illustration to bring this verse to life
-                  </p>
-                </div>
-
-                {/* CTA Button - contextual based on canGenerate */}
-                {pricingPending ? (
-                  <button
-                    type="button"
-                    disabled
-                    title="Fetching live model pricing..."
-                    className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--surface)] text-[var(--muted)] border border-[var(--divider)]/70 opacity-80 cursor-not-allowed"
-                  >
-                    <Loader2 size={18} strokeWidth={2} className="animate-spin" />
-                    <span className="text-sm font-medium">Loading pricing...</span>
-                  </button>
-                ) : canGenerate ? (
-                  <button
-                    onClick={handleManualRegenerate}
-                    className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
-                  >
-                    <Sparkles size={18} strokeWidth={1.5} />
-                    <span className="text-sm font-medium">Generate Image</span>
-                  </button>
-                ) : (
-                  <button
-                    onClick={buyCredits}
-                    className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
-                  >
-                    <Zap size={18} strokeWidth={2} />
-                    <span className="text-sm font-medium">Get Credits to Generate</span>
-                  </button>
-                )}
-              </div>
+              <VerseImagePlaceholder
+                className="absolute inset-0"
+                action={
+                  pricingPending ? (
+                    <button
+                      type="button"
+                      disabled
+                      title="Fetching live model pricing..."
+                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--surface)] text-[var(--muted)] border border-[var(--divider)]/70 opacity-80 cursor-not-allowed"
+                    >
+                      <Loader2 size={18} strokeWidth={2} className="animate-spin" />
+                      <span className="text-sm font-medium">Loading pricing...</span>
+                    </button>
+                  ) : canGenerate ? (
+                    <button
+                      onClick={handleManualRegenerate}
+                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
+                    >
+                      <Sparkles size={18} strokeWidth={1.5} />
+                      <span className="text-sm font-medium">Generate Image</span>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={buyCredits}
+                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
+                    >
+                      <Zap size={18} strokeWidth={2} />
+                      <span className="text-sm font-medium">Get Credits to Generate</span>
+                    </button>
+                  )
+                }
+              />
             )}
           </div>
         )}
@@ -1301,32 +1341,72 @@ function HeroImageBase({
             <div className="flex flex-col items-center max-w-full max-h-full min-h-0">
               {displayImage?.url ? (
                 <div className="relative max-w-full max-h-[70vh] w-full flex items-center justify-center rounded-[var(--radius-md)] bg-[var(--image-stage)]">
-                  {!isFullscreenImageReady && (
+                  {!isFullscreenImageReady && isGenerating && (
                     <HeroImageLoadingState
-                      label={isGenerating ? generationPhaseLabel : "Loading image"}
+                      label={generationPhaseLabel}
                       fullscreen
-                      progress={isGenerating ? generationProgress : undefined}
+                      progress={generationProgress}
                     />
+                  )}
+                  {!isFullscreenImageReady && !isGenerating && !isFullscreenImageError && (
+                    <ImageLoadingSkeleton
+                      className="absolute inset-0"
+                      isLiveRegion
+                      label="Loading saved image"
+                      theme="dark"
+                    />
+                  )}
+                  {isFullscreenImageError && !isGenerating && (
+                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 px-6 text-center">
+                      <div className="w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
+                        <ImageOff size={24} strokeWidth={1.5} className="text-white/70" />
+                      </div>
+                      <p className="text-sm text-red-300 max-w-md">
+                        This saved image could not be loaded.
+                      </p>
+                      <button
+                        onClick={handleFullscreenImageReload}
+                        className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white text-black hover:bg-white/90 transition-colors duration-[var(--motion-fast)]"
+                      >
+                        <RefreshCw className="w-4 h-4" />
+                        <span className="text-sm font-medium">Try Again</span>
+                      </button>
+                    </div>
                   )}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
+                    key={`${displayImage.id || displayImage.url}-${imageRefreshKey}`}
                     src={displayImage.url}
                     alt={alt}
                     className={`relative z-10 max-w-full max-h-[70vh] bg-[var(--image-stage)] object-contain rounded-[var(--radius-md)] transition-opacity duration-[var(--motion-base)] ${
-                      isFullscreenImageReady ? "opacity-100 visible" : "opacity-0 invisible"
+                      isFullscreenImageReady && !isFullscreenImageError ? "opacity-100 visible" : "opacity-0 invisible"
                     }`}
-                    onLoad={() => setIsFullscreenImageReady(true)}
-                    onError={() => setIsFullscreenImageReady(false)}
+                    onLoad={() => {
+                      setIsFullscreenImageReady(true);
+                      setIsFullscreenImageError(false);
+                    }}
+                    onError={() => {
+                      setIsFullscreenImageReady(false);
+                      setIsFullscreenImageError(true);
+                    }}
                   />
                 </div>
               ) : isQueryLoading || isGenerating ? (
-                <div className="flex items-center justify-center h-[70vh]">
-                  <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-[var(--radius-md)]">
-                    <RefreshCw className="w-4 h-4 animate-spin text-white/70" />
-                    <span className="text-sm text-white/70">
-                      {isQueryLoading ? "Loading..." : generationPhaseLabel}
-                    </span>
-                  </div>
+                <div className="relative h-[70vh] w-full max-w-full">
+                  {isGenerating ? (
+                    <HeroImageLoadingState
+                      label={generationPhaseLabel}
+                      fullscreen
+                      progress={generationProgress}
+                    />
+                  ) : (
+                    <ImageLoadingSkeleton
+                      className="h-full w-full"
+                      isLiveRegion
+                      label="Loading saved image"
+                      theme="dark"
+                    />
+                  )}
                 </div>
               ) : error ? (
                 <div className="h-[70vh] flex flex-col items-center justify-center gap-3 px-6 text-center">
@@ -1343,44 +1423,39 @@ function HeroImageBase({
                   </button>
                 </div>
               ) : (
-                <div className="h-[70vh] flex flex-col items-center justify-center gap-4 px-6 text-center">
-                  <div className="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
-                    <ImageOff size={28} strokeWidth={1.5} className="text-white/70" />
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium text-white">No image yet</p>
-                    <p className="text-xs text-white/70 max-w-xs">
-                      Generate an AI illustration to bring this verse to life
-                    </p>
-                  </div>
-                  {pricingPending ? (
-                    <button
-                      type="button"
-                      disabled
-                      title="Fetching live model pricing..."
-                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white/10 text-white/70 border border-white/20 opacity-80 cursor-not-allowed"
-                    >
-                      <Loader2 size={18} strokeWidth={2} className="animate-spin" />
-                      <span className="text-sm font-medium">Loading pricing...</span>
-                    </button>
-                  ) : canGenerate ? (
-                    <button
-                      onClick={handleManualRegenerate}
-                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white text-black hover:bg-white/90 transition-colors duration-[var(--motion-fast)]"
-                    >
-                      <Sparkles size={18} strokeWidth={1.5} />
-                      <span className="text-sm font-medium">Generate Image</span>
-                    </button>
-                  ) : (
-                    <button
-                      onClick={buyCredits}
-                      className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)]"
-                    >
-                      <Zap size={18} strokeWidth={2} />
-                      <span className="text-sm font-medium">Get Credits to Generate</span>
-                    </button>
-                  )}
-                </div>
+                <VerseImagePlaceholder
+                  className="h-[70vh] px-6"
+                  theme="dark"
+                  action={
+                    pricingPending ? (
+                      <button
+                        type="button"
+                        disabled
+                        title="Fetching live model pricing..."
+                        className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white/10 text-white/70 border border-white/20 opacity-80 cursor-not-allowed"
+                      >
+                        <Loader2 size={18} strokeWidth={2} className="animate-spin" />
+                        <span className="text-sm font-medium">Loading pricing...</span>
+                      </button>
+                    ) : canGenerate ? (
+                      <button
+                        onClick={handleManualRegenerate}
+                        className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white text-black hover:bg-white/90 transition-colors duration-[var(--motion-fast)]"
+                      >
+                        <Sparkles size={18} strokeWidth={1.5} />
+                        <span className="text-sm font-medium">Generate Image</span>
+                      </button>
+                    ) : (
+                      <button
+                        onClick={buyCredits}
+                        className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)]"
+                      >
+                        <Zap size={18} strokeWidth={2} />
+                        <span className="text-sm font-medium">Get Credits to Generate</span>
+                      </button>
+                    )
+                  }
+                />
               )}
 
               {/* Image iterator */}

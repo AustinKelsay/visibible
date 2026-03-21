@@ -46,18 +46,51 @@ function useCanGenerate(creditsCost: number | null): boolean
 
 Returns `true` if generation is allowed:
 - `tier === "admin"` → always allowed
-- `creditsCost === null` (unpriced model) → returns `credits >= 20`
-- Otherwise → returns `credits >= creditsCost` (no tier check)
+- `creditsCost === null` (unpriced model) → uses `DEFAULT_IMAGE_ESTIMATED_CREDITS_COST` with the 5-credit image spend-down grace window
+- Otherwise → allows the estimated image cost with the same 5-credit image spend-down grace window
 
-Note: The null case uses `DEFAULT_CREDITS_COST` (20) as the threshold for unpriced models.
+Formula used by the helper:
+- Allow generation when `credits >= estimatedCost`
+- Also allow generation when `credits > 0` and `credits + 5 >= estimatedCost`
+- Do not allow generation when `credits <= 0`
+
+Note: The null case uses `DEFAULT_IMAGE_ESTIMATED_CREDITS_COST` as the shared base estimate for unpriced models.
+
+### `canAffordImageGeneration()` Helper
+
+`canAffordImageGeneration(credits, effectiveCost)` lives in `src/lib/image-models.ts` and powers both `useCanGenerate()` and manual image generation actions.
+
+- `credits`: the current session credit balance
+- `effectiveCost`: the estimated image charge after model and resolution adjustments
+- Returns: `true` when generation should be allowed, otherwise `false`
+
+Behavior:
+- If `credits >= effectiveCost`, return `true`
+- If `credits > 0` and `credits + 5 >= effectiveCost`, return `true`
+- If `credits <= 0`, return `false`
+
+Examples:
+- `credits=7`, `effectiveCost=5` → allowed
+- `credits=2`, `effectiveCost=6` → allowed by the 5-credit image spend-down grace window
+- `credits=0`, `effectiveCost=5` → blocked
+- The helper is credit-only; `HeroImage` still layers on `tier === "paid"` when Convex-backed billing is enabled
+- `HeroImage` uses a stricter `credits >= effectiveCost` check for auto-generation on first visit, so the grace window only applies to explicit generate actions
 
 **Important:** `HeroImage` does not use this hook directly. Instead, it implements its own inline logic that also checks `useConvexEnabled()`:
 
 ```ts
-const canGenerate = !isConvexEnabled || isAdmin || (tier === "paid" && credits >= effectiveCost);
+const canGenerate =
+  !isConvexEnabled ||
+  isAdmin ||
+  (tier === "paid" && canAffordImageGeneration(credits, effectiveCost));
+
+const canAutoGenerate =
+  !isConvexEnabled ||
+  isAdmin ||
+  (tier === "paid" && credits >= effectiveCost);
 ```
 
-This inline logic always requires `tier === "paid"` for non-admins when Convex is enabled, whereas `useCanGenerate` allows any tier with sufficient credits for unpriced models.
+This inline logic always requires `tier === "paid"` for non-admins when Convex is enabled. `useCanGenerate` is only a credit-threshold helper; it does not enforce the paid-tier requirement by itself.
 
 ---
 
@@ -108,31 +141,40 @@ Onboarding is integrated into `BuyCreditsModal` as a "welcome" state, not a sepa
 **File:** `src/components/hero-image.tsx`
 
 - Fetches model pricing via `/api/image-models` to calculate credit cost and ETA.
-- Defaults to 20 credits and ~12s ETA for unpriced models.
+- Defaults to `DEFAULT_IMAGE_ESTIMATED_CREDITS_COST` and ~12s ETA for unpriced models.
 - `canGenerate` uses **inline logic** (not the `useCanGenerate` hook):
   ```ts
-  const canGenerate = !isConvexEnabled || isAdmin || (tier === "paid" && credits >= effectiveCost);
+  const canGenerate =
+    !isConvexEnabled ||
+    isAdmin ||
+    (tier === "paid" && canAffordImageGeneration(credits, effectiveCost));
+
+  const canAutoGenerate =
+    !isConvexEnabled ||
+    isAdmin ||
+    (tier === "paid" && credits >= effectiveCost);
   ```
   - If Convex is disabled, generation is allowed (no credit gating)
   - Admin tier always allowed
-  - Paid tier with sufficient credits allowed
+  - Paid tier with sufficient credits, or within the 5-credit grace window, allowed
 - Auto-generation only runs when `canGenerate` is true and the session has loaded.
 - On generation success, the server returns `credits` and the UI updates local state.
 
 ### Estimate vs Actual Cost Display
 
-The UI shows a **conservative estimate** ("Up to X credits") before generation because:
+The UI shows the **normal estimated charge** ("About X credits") before generation while keeping the conservative hold internal because:
 
 1. **OpenRouter API pricing is inaccurate** - The models API `pricing.image` field often underreports actual costs by ~31x for multimodal models.
-2. **Reservation system** - Credits are reserved using a 35x multiplier to ensure sufficient funds.
-3. **Automatic refund** - After generation, the actual cost (from OpenRouter's `usage` response) is charged, and excess reserved credits are refunded.
+2. **Reservation system** - Credits are still reserved conservatively in the backend to protect against underreported provider costs.
+3. **Spend-down UX** - Low-balance users can continue generating down to zero without needing enough credits to cover the full conservative hold.
+4. **Automatic refund** - After generation, the actual cost (from OpenRouter's `usage` response) is charged, and excess reserved credits are refunded.
 
 **UI copy pattern:**
-- Model selector: `~12s · Up to {credits} credits`
-- Resolution selector: `Up to {cost} credits`
+- Model selector: `~12s · About {credits} credits`
+- Resolution selector / generate CTA: shows the estimated charge with an "unused refunded" note
 - Generate button area: Shows cost with "unused refunded" note
 
-This prevents confusing "insufficient credits" errors when users have enough for the actual charge but not the reservation buffer.
+This prevents confusing "insufficient credits" errors when users have enough for the expected charge but not the hidden reservation buffer.
 
 ### Fallback Behavior
 

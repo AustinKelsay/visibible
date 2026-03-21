@@ -4,8 +4,10 @@ High-level behavior for Visibible's optional Nostr publishing flow.
 
 ## Overview
 
-When configured, newly generated verse images are published to Nostr as background work.
-The app delays publish by 5 minutes and does not block user flows on Nostr outcomes.
+When configured, stored verse images are evaluated for Nostr on a recurring
+schedule instead of publishing immediately after generation.
+The scheduler considers the latest completed 4-hour UTC window and publishes at
+most one image from that cohort.
 
 ## Configuration
 
@@ -51,15 +53,22 @@ Successful publishes write:
 
 on the corresponding `verseImages` row.
 
+Displayed persisted images also record lightweight local impression data on
+`verseImages` (`impressionCount`, `lastImpressionAt`) so the scheduler can rank
+window candidates without depending on Vercel dashboard data.
+
 ## Safety/Resilience
 
 - Idempotency guard prevents duplicate publishing.
+- A singleton Convex scheduler state row prevents overlapping cron runs from
+  double-publishing the same window.
 - Nostr errors are logged but never block generation.
 - If image storage falls back to non-permanent source URL mode, Nostr publishing is skipped.
 
 ## Key Files
 
 - `convex/nostr.ts`
+- `convex/nostrScheduler.ts`
 - `convex/http.ts`
 - `convex/verseImages.ts`
 - `convex/schema.ts`

@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { HeroImage } from "@/components/hero-image";
-import { ScriptureDetails } from "@/components/scripture-details";
-import { ScriptureReader } from "@/components/scripture-reader";
 import { Header } from "@/components/header";
 import { BookMenu } from "@/components/book-menu";
 import { LayoutWrapper } from "@/components/layout-wrapper";
 import { ChatContextSetter } from "@/components/chat-context-setter";
-import { VerseStripBar } from "@/components/verse-strip-bar";
 import { Footer } from "@/components/footer";
 import { VerseAnalytics } from "@/components/verse-analytics";
-import { BOOK_BY_SLUG } from "@/data/bible-structure";
+import { VersePageContent } from "@/components/verse-page-content";
 import { genesis1Theme } from "@/data/genesis-1";
-import { getVerse } from "@/lib/bible-api";
+import { getChapter, getVerse } from "@/lib/bible-api";
 import { getTranslationFromCookies } from "@/lib/get-translation";
 import {
   parseVerseUrl,
@@ -36,7 +32,7 @@ export async function generateMetadata({
   const { book, chapter, verse } = await params;
 
   const location = parseVerseUrl(book, chapter, verse);
-  const bookData = BOOK_BY_SLUG[book.toLowerCase()];
+  const bookData = location?.book;
 
   if (!location || !bookData) {
     return {
@@ -80,23 +76,23 @@ export default async function VersePage({ params }: VersePageProps) {
     redirect("/genesis/1/1");
   }
 
-  const bookData = BOOK_BY_SLUG[book.toLowerCase()];
-  if (!bookData) {
-    redirect("/genesis/1/1");
-  }
+  const bookData = location.book;
 
   // Get user's translation preference from cookie
   const translation = await getTranslationFromCookies();
 
-  // Fetch verse data from API with user's translation preference
-  const verseData = await getVerse(book, location.chapter, location.verse, translation);
+  const chapterData = await getChapter(location.book.slug, location.chapter, translation);
+  if (!chapterData) {
+    redirect("/genesis/1/1");
+  }
+  const verseData = chapterData.verses.find((item) => item.verse === location.verse);
   if (!verseData) {
     redirect("/genesis/1/1");
   }
 
   // Calculate navigation URLs
   const { prevUrl, nextUrl } = getNavigationUrls(location);
-  const totalVerses = bookData.chapters[location.chapter - 1];
+  const totalVerses = chapterData.verses.length;
 
   // Fetch prev/next verse data for contextual prompts
   const prevLocation = getPreviousVerse(location);
@@ -153,62 +149,25 @@ export default async function VersePage({ params }: VersePageProps) {
       {/* Header */}
       <Header />
 
-      {/* Main Content */}
-      <main className="flex-1 flex flex-col">
-        {/* Hero Image with floating verse strip */}
-        <div className="relative">
-          <HeroImage
-            verseText={verseData.text}
-            caption={verseData.text}
-            chapterTheme={chapterTheme}
-            prevUrl={prevUrl}
-            nextUrl={nextUrl}
-            prevVerse={prevVerse}
-            nextVerse={nextVerse}
-            currentReference={currentReference}
-            book={bookData.name}
-            chapter={location.chapter}
-            verse={location.verse}
-            testament={bookData.testament}
-          />
-
-          {/* Verse Strip Navigator - floats over top of image, hidden on mobile */}
-          <div className="hidden sm:block absolute left-4 md:left-6 right-4 md:right-6 top-4 z-20 rounded-[var(--radius-lg)] liquid-glass">
-            <VerseStripBar
-              book={book}
-              chapter={location.chapter}
-              currentVerse={location.verse}
-              totalVerses={totalVerses}
-            />
-          </div>
-        </div>
-
-        {/* Scripture Reader */}
-        <div className="flex-1 py-8">
-          <ScriptureReader
-            book={bookData.name}
-            chapter={location.chapter}
-            verse={{ number: location.verse, text: verseData.text }}
-            verseNumber={location.verse}
-            totalVerses={totalVerses}
-            prevUrl={prevUrl}
-            nextUrl={nextUrl}
-          />
-        </div>
-
-        {/* Scripture Details */}
-        <div className="max-w-2xl mx-auto w-full mb-8">
-          <ScriptureDetails
-            book={bookData.name}
-            chapter={location.chapter}
-            verseRange={String(location.verse)}
-            verseText={verseData.text}
-            chapterVerseCount={totalVerses}
-            testament={bookData.testament}
-            reference={currentReference}
-          />
-        </div>
-      </main>
+      <VersePageContent
+        bookSlug={location.book.slug}
+        bookName={bookData.name}
+        chapter={location.chapter}
+        verseNumber={location.verse}
+        verseText={verseData.text}
+        totalVerses={totalVerses}
+        prevUrl={prevUrl ?? undefined}
+        nextUrl={nextUrl ?? undefined}
+        prevVerse={prevVerse}
+        nextVerse={nextVerse}
+        currentReference={currentReference}
+        chapterTheme={chapterTheme}
+        testament={bookData.testament}
+        verses={chapterData.verses.map((item) => ({
+          verse: item.verse,
+          text: item.text,
+        }))}
+      />
 
       {/* Footer */}
       <Footer />

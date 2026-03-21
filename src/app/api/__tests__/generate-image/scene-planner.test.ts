@@ -169,33 +169,33 @@ vi.mock("@/lib/convex-client", () => ({
 // Track if scene planner is free
 const mockIsModelFree = { value: false };
 
-vi.mock("@/lib/image-models", () => ({
-  DEFAULT_IMAGE_MODEL: "google/gemini-2.0-flash-exp:free",
-  fetchImageModels: vi.fn(async () => ({
-    models: [
-      { id: "google/gemini-2.0-flash-exp:free", pricing: { imageOutput: "0.01" } },
-    ],
-  })),
-  computeCreditsCost: vi.fn(() => 2),
-  computeConservativeEstimate: vi.fn(() => 70),
-  computeAdjustedCreditsCost: vi.fn((baseCost: number | null) => baseCost ?? 13),
-  computeCreditsFromActualUsage: vi.fn((actualUsd: number | null, fallback: number) => {
-    if (actualUsd === null || actualUsd <= 0) {
-      return { credits: fallback, usedActual: false };
-    }
-    return { credits: Math.ceil(actualUsd * 1.25 / 0.01), usedActual: true };
-  }),
-  CONSERVATIVE_ESTIMATE_MULTIPLIER: 35,
-  getProviderName: vi.fn(() => "openrouter"),
-  CREDIT_USD: 0.01,
-  PREMIUM_MULTIPLIER: 1.25,
-  DEFAULT_ASPECT_RATIO: "16:9",
-  DEFAULT_RESOLUTION: "1K",
-  RESOLUTIONS: { "1K": { multiplier: 1.0 } },
-  isValidAspectRatio: vi.fn(() => true),
-  isValidResolution: vi.fn(() => true),
-  supportsResolution: vi.fn(() => true),
-}));
+vi.mock("@/lib/image-models", async () => {
+  const actual = await vi.importActual<typeof import("@/lib/image-models")>(
+    "@/lib/image-models"
+  );
+  return {
+    ...actual,
+    DEFAULT_IMAGE_MODEL: "google/gemini-2.0-flash-exp:free",
+    fetchImageModels: vi.fn(async () => ({
+      models: [
+        { id: "google/gemini-2.0-flash-exp:free", pricing: { imageOutput: "0.01" } },
+      ],
+    })),
+    computeCreditsCost: vi.fn(() => 2),
+    computeConservativeEstimate: vi.fn(() => 70),
+    computeAdjustedCreditsCost: vi.fn((baseCost: number | null) => baseCost ?? 13),
+    computeCreditsFromActualUsage: vi.fn((actualUsd: number | null, fallback: number) => {
+      if (actualUsd === null || actualUsd <= 0) {
+        return { credits: fallback, usedActual: false };
+      }
+      return { credits: Math.ceil(actualUsd * 1.25 / 0.01), usedActual: true };
+    }),
+    CONSERVATIVE_ESTIMATE_MULTIPLIER: 35,
+    getProviderName: vi.fn(() => "openrouter"),
+    CREDIT_USD: 0.01,
+    PREMIUM_MULTIPLIER: 1.25,
+  };
+});
 
 vi.mock("@/lib/chat-models", () => ({
   DEFAULT_CHAT_MODEL: "test/scene-planner-model",

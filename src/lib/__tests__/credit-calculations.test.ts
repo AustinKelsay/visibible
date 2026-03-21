@@ -14,6 +14,7 @@ import {
   getSuggestedChatModels,
 } from "../chat-models";
 import {
+  canAffordImageGeneration,
   computeCreditsCost,
   computeConservativeEstimate,
   computeCreditsFromActualUsage,
@@ -21,6 +22,7 @@ import {
   supportsResolution,
   CONSERVATIVE_ESTIMATE_MULTIPLIER,
   DEFAULT_CREDITS_COST,
+  IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS,
 } from "../image-models";
 
 describe("isModelFree", () => {
@@ -231,6 +233,35 @@ describe("computeCreditsCost", () => {
     const result = computeCreditsCost("0.1");
     // Expected: 0.1 * 1.25 = 0.125 USD = ceil(0.125 / 0.01) = 13 credits
     expect(result).toBe(13);
+  });
+});
+
+describe("canAffordImageGeneration", () => {
+  it("allows users with enough credits outright", () => {
+    expect(canAffordImageGeneration(5, 5)).toBe(true);
+    expect(canAffordImageGeneration(12, 5)).toBe(true);
+  });
+
+  it("allows a small spend-down grace window above zero", () => {
+    expect(
+      canAffordImageGeneration(
+        2,
+        2 + IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS
+      )
+    ).toBe(true);
+  });
+
+  it("does not allow zero-credit sessions to start another generation", () => {
+    expect(canAffordImageGeneration(0, 5)).toBe(false);
+  });
+
+  it("rejects requests outside the grace window", () => {
+    expect(
+      canAffordImageGeneration(
+        2,
+        3 + IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS
+      )
+    ).toBe(false);
   });
 });
 

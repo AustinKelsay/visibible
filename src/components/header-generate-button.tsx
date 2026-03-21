@@ -12,6 +12,7 @@ import {
   type ImageResolution,
   type ImageModel,
   DEFAULT_IMAGE_MODEL,
+  DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
   computeAdjustedCreditsCost,
   supportsResolution,
 } from "@/lib/image-models";
@@ -71,7 +72,13 @@ export function HeaderGenerateButton() {
             console.error("Failed to fetch image models:", err);
             setModelsError("Failed to load models");
             setModels([
-              { id: DEFAULT_IMAGE_MODEL, name: "Gemini 2.5 Flash (Default)", provider: "Google", creditsCost: 35, etaSeconds: 12 },
+              {
+                id: DEFAULT_IMAGE_MODEL,
+                name: "Gemini 2.5 Flash (Default)",
+                provider: "Google",
+                creditsCost: DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
+                etaSeconds: 12,
+              },
             ]);
           })
           .finally(() => setModelsLoading(false));
@@ -204,7 +211,7 @@ export function HeaderGenerateButton() {
                                         {model.creditsCost == null ? (
                                           "Pricing unavailable"
                                         ) : (
-                                          <>~{model.etaSeconds ?? 12}s · Up to {model.creditsCost} credits</>
+                                          <>~{model.etaSeconds ?? 12}s · About {model.creditsCost} credits</>
                                         )}
                                       </p>
                                     </div>
@@ -293,7 +300,7 @@ export function HeaderGenerateButton() {
                   {showCreditsCost && (
                     <span className="inline-flex items-center gap-0.5 opacity-80">
                       <Zap size={12} strokeWidth={2} />
-                      <span>≤{effectiveCost}</span>
+                      <span>About {effectiveCost}</span>
                     </span>
                   )}
                 </button>
@@ -322,7 +329,7 @@ export function HeaderGenerateButton() {
               {showCreditsCost && (
                 <span className="inline-flex items-center gap-0.5 text-[var(--muted)]" title="Unused credits refunded after generation">
                   <Zap size={10} strokeWidth={2} />
-                  <span>≤{effectiveCost}</span>
+                  <span>About {effectiveCost}</span>
                 </span>
               )}
             </>
@@ -332,17 +339,9 @@ export function HeaderGenerateButton() {
     );
   }
 
-  // No credits - buy CTA
+  // No credits - buy CTA (mobile icon hidden — CreditsBadge already handles buy)
   return (
     <>
-      {/* Mobile: plain icon button */}
-      <button
-        onClick={buyCredits}
-        className={`${mobileIconBtn} text-[var(--accent)] hover:text-[var(--accent-hover)]`}
-        aria-label="Get credits to generate"
-      >
-        <Zap size={20} strokeWidth={1.5} />
-      </button>
       {/* Desktop: styled pill */}
       <button
         onClick={buyCredits}
