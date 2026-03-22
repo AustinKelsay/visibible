@@ -72,7 +72,7 @@ export default async function ApiDocsPage() {
         </section>
 
         <section className="max-w-5xl mx-auto px-4 py-10 sm:py-14">
-          <div className="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
+          <div className="grid items-start gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
             <aside className="lg:sticky lg:top-24 h-fit rounded-[var(--radius-lg)] border border-[var(--divider)] bg-[var(--surface)] p-5">
               <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
                 Quick Links
@@ -93,7 +93,7 @@ export default async function ApiDocsPage() {
               </div>
             </aside>
 
-            <article className="rounded-[var(--radius-lg)] border border-[var(--divider)] bg-[var(--surface)] p-5 sm:p-7">
+            <article className="min-w-0 overflow-hidden rounded-[var(--radius-lg)] border border-[var(--divider)] bg-[var(--surface)] p-4 sm:p-7">
               <MarkdownRenderer content={docsContent} />
             </article>
           </div>
