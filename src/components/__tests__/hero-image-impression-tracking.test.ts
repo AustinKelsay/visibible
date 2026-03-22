@@ -16,11 +16,14 @@ describe("HeroImage impression tracking", () => {
     expect(source).toContain(
       "const trackedImageIdsRef = useRef<Set<Id<\"verseImages\">>>(new Set());"
     );
-    expect(source).toMatch(
-      /onLoad=\{\(\)\s*=>\s*\{[\s\S]*?currentImage\?\.id[\s\S]*?trackedImageIdsRef\.current\.add\(currentImage\.id\);/
+    expect(source).toContain(
+      "const savedDisplayImage = !generatedImage && currentImage?.imageUrl ? currentImage : null;"
     );
     expect(source).toMatch(
-      /void\s+recordImageImpression\(\{\s*imageId:\s*currentImage\.id\s*\}\)\.catch\(\(error\)\s*=>\s*\{/
+      /onLoad=\{\(\)\s*=>\s*\{[\s\S]*?savedDisplayImage\?\.id[\s\S]*?trackedImageIdsRef\.current\.add\(savedDisplayImage\.id\);/
+    );
+    expect(source).toMatch(
+      /void\s+recordImageImpression\(\{\s*imageId:\s*savedDisplayImage\.id\s*\}\)\.catch\(\(error\)\s*=>\s*\{/
     );
   });
 });

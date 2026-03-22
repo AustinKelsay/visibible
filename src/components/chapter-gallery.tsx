@@ -1,6 +1,14 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef, type Dispatch, type SetStateAction } from "react";
+import {
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+  type Dispatch,
+  type MouseEvent as ReactMouseEvent,
+  type SetStateAction,
+} from "react";
 import Link from "next/link";
 import { Maximize2, X } from "lucide-react";
 import { useQuery } from "convex/react";
@@ -44,7 +52,10 @@ interface GalleryCardProps {
   currentVerse: number;
   isLoading: boolean;
   onExpand?: (item: ChapterGalleryFlatItem) => void;
-  onNavigateToReader?: (item: ChapterGalleryFlatItem) => void;
+  onNavigateToReader?: (
+    event: ReactMouseEvent<HTMLElement>,
+    item: ChapterGalleryFlatItem
+  ) => void;
   onImageLoadFailed?: (item: ChapterGalleryFlatItem) => void;
 }
 
@@ -69,6 +80,16 @@ function useImageReadyRef(
   }, [setError, setReady]);
 }
 
+function isUnmodifiedPrimaryClick(event: ReactMouseEvent<HTMLElement>) {
+  return (
+    event.button === 0 &&
+    !event.metaKey &&
+    !event.ctrlKey &&
+    !event.shiftKey &&
+    !event.altKey
+  );
+}
+
 function GalleryCard({
   item,
   bookName,
@@ -91,7 +112,7 @@ function GalleryCard({
       href={readerHref}
       aria-current={isCurrent ? "page" : undefined}
       aria-label={`${bookName} ${chapter}:${item.verse}${item.isPlaceholder ? " placeholder" : ` image ${item.cardIndex + 1}`}`}
-      onClick={() => onNavigateToReader?.(item)}
+      onClick={(event) => onNavigateToReader?.(event, item)}
       className={`group overflow-hidden rounded-[var(--radius-xl)] border bg-[var(--background)] transition-all duration-[var(--motion-base)] hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] ${
         isCurrent
           ? "border-[var(--accent)]/40 shadow-[var(--shadow-sm)]"
@@ -275,7 +296,7 @@ export function ChapterGallery({
 
   const handleExpand = useCallback((item: ChapterGalleryFlatItem) => {
     trackImageFullscreenOpened({
-      book: bookName,
+      book,
       chapter,
       verse: item.verse,
       source: "chapter_gallery_card",
@@ -285,14 +306,21 @@ export function ChapterGallery({
     });
     setLightboxItem(item);
     openFullscreen();
-  }, [bookName, chapter, credits, openFullscreen, tier]);
+  }, [book, chapter, credits, openFullscreen, tier]);
 
   const handleCloseLightbox = useCallback(() => {
     closeFullscreen();
     setLightboxItem(null);
   }, [closeFullscreen]);
 
-  const handleNavigateToReader = useCallback((item: ChapterGalleryFlatItem) => {
+  const handleNavigateToReader = useCallback((
+    event: ReactMouseEvent<HTMLElement>,
+    item: ChapterGalleryFlatItem
+  ) => {
+    if (!isUnmodifiedPrimaryClick(event)) {
+      return;
+    }
+
     trackChapterGalleryItemOpened({
       book,
       chapter,
@@ -610,7 +638,7 @@ export function ChapterGallery({
                           <Link
                             href={buildReaderHref(item.href, item.cards[0]?.imageId)}
                             aria-current={isCurrent ? "page" : undefined}
-                            onClick={() => handleNavigateToReader({
+                            onClick={(event) => handleNavigateToReader(event, {
                               verse: item.verse,
                               text: item.text,
                               href: item.href,

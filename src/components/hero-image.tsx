@@ -547,6 +547,7 @@ function HeroImageBase({
     model: currentImage.model,
     id: currentImage.id,
   } : null);
+  const savedDisplayImage = !generatedImage && currentImage?.imageUrl ? currentImage : null;
 
   const hasImages = Boolean(displayImage) || totalImages > 0;
   const canGoOlder = totalImages > 0 && currentIndex < totalImages - 1;
@@ -1177,11 +1178,11 @@ function HeroImageBase({
                 setImageLoadAttempts(0);
                 setError(null);
 
-                if (currentImage?.id && !trackedImageIdsRef.current.has(currentImage.id)) {
-                  trackedImageIdsRef.current.add(currentImage.id);
+                if (savedDisplayImage?.id && !trackedImageIdsRef.current.has(savedDisplayImage.id)) {
+                  trackedImageIdsRef.current.add(savedDisplayImage.id);
 
-                  void recordImageImpression({ imageId: currentImage.id }).catch((error) => {
-                    trackedImageIdsRef.current.delete(currentImage.id);
+                  void recordImageImpression({ imageId: savedDisplayImage.id }).catch((error) => {
+                    trackedImageIdsRef.current.delete(savedDisplayImage.id);
                     console.error("Failed to record image impression:", error);
                   });
                 }
@@ -1200,17 +1201,19 @@ function HeroImageBase({
                 }
 
                 setError("Failed to load image. Please try generating a new image.");
-                trackSavedImageLoadFailed({
-                  book,
-                  chapter,
-                  verse,
-                  surface: "hero",
-                  imageId: currentImage?.id,
-                  imageUrl: displayImage.url,
-                  attempt: nextAttempt,
-                  tier,
-                  hasCredits: credits > 0,
-                });
+                if (savedDisplayImage?.imageUrl) {
+                  trackSavedImageLoadFailed({
+                    book,
+                    chapter,
+                    verse,
+                    surface: "hero",
+                    imageId: savedDisplayImage.id,
+                    imageUrl: savedDisplayImage.imageUrl,
+                    attempt: nextAttempt,
+                    tier,
+                    hasCredits: credits > 0,
+                  });
+                }
               }}
             />
 
@@ -1509,16 +1512,18 @@ function HeroImageBase({
                     onError={() => {
                       setIsFullscreenImageReady(false);
                       setIsFullscreenImageError(true);
-                      trackSavedImageLoadFailed({
-                        book,
-                        chapter,
-                        verse,
-                        surface: "fullscreen",
-                        imageId: currentImage?.id,
-                        imageUrl: displayImage.url,
-                        tier,
-                        hasCredits: credits > 0,
-                      });
+                      if (savedDisplayImage?.imageUrl) {
+                        trackSavedImageLoadFailed({
+                          book,
+                          chapter,
+                          verse,
+                          surface: "fullscreen",
+                          imageId: savedDisplayImage.id,
+                          imageUrl: savedDisplayImage.imageUrl,
+                          tier,
+                          hasCredits: credits > 0,
+                        });
+                      }
                     }}
                   />
                 </div>
