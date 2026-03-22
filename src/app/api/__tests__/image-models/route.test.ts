@@ -22,6 +22,7 @@ vi.mock("@/lib/scene-planner", () => ({
 
 vi.mock("@/lib/convex-client", () => ({
   getConvexClient: vi.fn(() => mockConvex),
+  getConvexServerSecret: vi.fn(() => "test-server-secret"),
 }));
 
 const originalEnv = { ...process.env };
@@ -52,9 +53,37 @@ describe("Image Models API", () => {
       ],
     });
     mockGetScenePlannerEstimatedCreditsCost.mockResolvedValue(1);
-    mockConvex.query.mockResolvedValue([
-      { modelId: "google/gemini-2.5-flash-image", etaSeconds: 8 },
-    ]);
+    mockConvex.query.mockImplementation(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if (!("serverSecret" in args)) {
+        return [{ modelId: "google/gemini-2.5-flash-image", etaSeconds: 8 }];
+      }
+      if ("serverSecret" in args) {
+        return [
+          {
+            scopeType: "model",
+            scopeValue: "google/gemini-2.5-flash-image",
+            resolution: "1K",
+            estimateCredits: 7,
+            sampleCount: 6,
+          },
+          {
+            scopeType: "global",
+            scopeValue: "global",
+            resolution: "2K",
+            estimateCredits: 18,
+            sampleCount: 12,
+          },
+          {
+            scopeType: "provider",
+            scopeValue: "openai",
+            resolution: "1K",
+            estimateCredits: 9,
+            sampleCount: 4,
+          },
+        ];
+      }
+      return [];
+    });
   });
 
   afterEach(() => {
@@ -62,7 +91,7 @@ describe("Image Models API", () => {
     vi.resetModules();
   });
 
-  it("returns planner surcharge alongside the total credit range", async () => {
+  it("returns learned per-resolution estimates with the planner surcharge added", async () => {
     const { GET } = await import("../../image-models/route");
 
     const response = await GET();
@@ -70,8 +99,18 @@ describe("Image Models API", () => {
 
     const body = await response.json();
     expect(body.scenePlannerCreditsCost).toBe(1);
-    expect(body.creditRange).toEqual({ min: 3, max: 6 });
+    expect(body.creditRange).toEqual({ min: 8, max: 19 });
     expect(body.models[0].etaSeconds).toBe(8);
+    expect(body.models[0].estimatedCreditsByResolution).toEqual({
+      "1K": 8,
+      "2K": 19,
+      "4K": 14,
+    });
+    expect(body.models[1].estimatedCreditsByResolution).toEqual({
+      "1K": 10,
+      "2K": 10,
+      "4K": 10,
+    });
   });
 
   it("falls back cleanly when the OpenRouter API key is missing", async () => {

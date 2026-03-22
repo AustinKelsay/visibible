@@ -34,6 +34,7 @@ This document describes the anonymous session, credit ledger, and Lightning paym
                                     │  invoices           │
                                     │  creditLedger       │
                                     │  modelStats         │
+                                    │  modelCostStats     │
                                     └─────────────────────┘
 ```
 
@@ -92,6 +93,16 @@ If Convex is not configured, session and payment routes return free defaults or 
 ### `modelStats`
 - `modelId`, `count`, `avgMs`, `p50Ms`, `updatedAt`.
 - Note: `p50Ms` is in the schema but not currently populated; only `avgMs` (EMA) is used.
+
+### `modelCostStats`
+- `scopeType`, `scopeValue`, `resolution`, `sampleCredits`, `sampleCount`, `estimateCredits`, `lastActualCredits`, `updatedAt`.
+- Stores learned image-credit estimates from recent successful generations.
+- Resolution buckets are normalized to `1K` for models that do not actually support configurable resolution.
+- Estimate lookup order is:
+  1. exact model + resolution
+  2. provider + resolution
+  3. global + resolution
+  4. catalog fallback
 
 ### `verseImages` (generation transparency)
 - Stores `prompt`, `reference`, `verseText`, `chapterTheme`, `generationNumber`, `creditsCost`, `costUsd`, `durationMs`, `aspectRatio`, plus model and storage details.
@@ -221,6 +232,14 @@ for (let attempt = 1; attempt <= maxRetries && !refundSuccess; attempt++) {
 | `getModelStats` | Query | `modelId` | `{ modelId, count, avgMs, etaSeconds }` |
 | `getAllModelStats` | Query | none | `Array<{ modelId, count, avgMs, etaSeconds }>` |
 | `recordGeneration` | Mutation | `modelId, durationMs, serverSecret` | `{ modelId, count, avgMs, etaSeconds }` |
+
+### `convex/modelCostStats.ts`
+
+| Function | Type | Arguments | Returns |
+|----------|------|-----------|---------|
+| `getEstimate` | Query | `modelId, resolution, fallbackCredits, serverSecret` | `{ credits, source, sampleCount }` |
+| `getAllEstimates` | Query | `serverSecret` | learned estimate rows for server-side aggregation |
+| `recordActualCost` | Mutation | `modelId, resolution, actualCredits, serverSecret` | `void` |
 
 ---
 

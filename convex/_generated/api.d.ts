@@ -16,6 +16,7 @@ import type * as feedback from "../feedback.js";
 import type * as http from "../http.js";
 import type * as invoices from "../invoices.js";
 import type * as lib_nostrScheduling from "../lib/nostrScheduling.js";
+import type * as modelCostStats from "../modelCostStats.js";
 import type * as modelStats from "../modelStats.js";
 import type * as nostr from "../nostr.js";
 import type * as nostrScheduler from "../nostrScheduler.js";
@@ -38,6 +39,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   invoices: typeof invoices;
   "lib/nostrScheduling": typeof lib_nostrScheduling;
+  modelCostStats: typeof modelCostStats;
   modelStats: typeof modelStats;
   nostr: typeof nostr;
   nostrScheduler: typeof nostrScheduler;

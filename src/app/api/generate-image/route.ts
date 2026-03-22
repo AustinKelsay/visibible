@@ -14,6 +14,7 @@ import {
   RESOLUTIONS,
   isValidAspectRatio,
   isValidResolution,
+  normalizeResolutionForModel,
   supportsResolution,
   ImageAspectRatio,
   ImageResolution,
@@ -704,10 +705,31 @@ export async function POST(request: Request) {
   // Check if this model supports resolution settings
   // Only certain models (currently Gemini) support configurable resolution
   const modelSupportsResolution = supportsResolution(modelId);
+  const learnedEstimateResolution = normalizeResolutionForModel(
+    modelId,
+    resolution
+  );
 
   // Apply resolution multiplier only if model supports it
   // This prevents charging users extra for resolution settings that are ignored
-  const imageCreditsCost = computeAdjustedCreditsCost(baseImageCreditsCost, resolution, modelId);
+  const fallbackImageCreditsCost = computeAdjustedCreditsCost(
+    baseImageCreditsCost,
+    resolution,
+    modelId
+  );
+  let imageCreditsCost = fallbackImageCreditsCost;
+
+  try {
+    const learnedEstimate = await convex.query(api.modelCostStats.getEstimate, {
+      modelId,
+      resolution: learnedEstimateResolution,
+      fallbackCredits: fallbackImageCreditsCost,
+      serverSecret,
+    });
+    imageCreditsCost = learnedEstimate.credits;
+  } catch (error) {
+    console.warn("[Image API] Failed to fetch learned image cost estimate:", error);
+  }
 
   // Compute conservative estimate for reservation (accounts for OpenRouter API pricing discrepancy)
   // The OpenRouter models API often underreports actual costs for multimodal image models
@@ -1571,6 +1593,17 @@ ${aspectRatioInstruction}`;
           serverSecret,
         })
         .catch(() => {});
+
+      if (usedActual) {
+        convex
+          .mutation(api.modelCostStats.recordActualCost, {
+            modelId,
+            resolution: learnedEstimateResolution,
+            actualCredits: actualImageCredits,
+            serverSecret,
+          })
+          .catch(() => {});
+      }
 
       // Calculate final charged amounts (may differ from actual in rare shortfall case)
       const finalChargedCredits = chargeShortfall?.chargedCredits ?? actualTotalCredits;

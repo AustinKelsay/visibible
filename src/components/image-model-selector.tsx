@@ -7,8 +7,7 @@ import {
   ImageModel,
   DEFAULT_IMAGE_MODEL,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
-  computeEstimatedImageGenerationCreditsCost,
-  getDisplayedCreditsCost,
+  getEstimatedCreditsCostForResolution,
 } from "@/lib/image-models";
 
 interface ImageModelSelectorProps {
@@ -103,12 +102,11 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
   };
 
   const getModelDisplayCost = (model: ImageModel) =>
-    computeEstimatedImageGenerationCreditsCost(
-      getDisplayedCreditsCost(model) ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
+    getEstimatedCreditsCostForResolution(
+      model,
       imageResolution,
-      model.id,
       scenePlannerCreditsCost
-    );
+    ) ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
 
   // Group models by provider
   const groupedModels: GroupedModels = models.reduce((acc, model) => {
@@ -171,6 +169,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
                   {providerModels.map((model) => {
                     const isSelected = imageModel === model.id;
                     const isPricingAvailable =
+                      model.estimatedCreditsByResolution != null ||
                       model.creditsCost != null ||
                       model.reservationCreditsCost != null;
                     return (

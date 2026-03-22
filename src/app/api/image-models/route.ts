@@ -4,16 +4,64 @@ import {
   DEFAULT_ETA_SECONDS,
   DEFAULT_CREDITS_COST,
   EMERGENCY_IMAGE_MODEL_PRICING_USD,
+  RESOLUTIONS,
+  computeAdjustedCreditsCost,
   computeCreditsCost,
   fetchImageModels,
+  normalizeResolutionForModel,
+  resolveLearnedImageCreditsEstimate,
   type ImageModel,
+  type ImageResolution,
+  type LearnedImageCostEstimate,
 } from "@/lib/image-models";
 import { getScenePlannerEstimatedCreditsCost } from "@/lib/scene-planner";
-import { getConvexClient } from "@/lib/convex-client";
+import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { api } from "../../../../convex/_generated/api";
-interface ModelStats {
-  modelId: string;
-  etaSeconds: number;
+
+function normalizeLearnedEstimates(
+  estimates: Array<{
+    scopeType: string;
+    scopeValue: string;
+    resolution: string;
+    estimateCredits: number;
+    sampleCount: number;
+  }>
+): LearnedImageCostEstimate[] {
+  return estimates.filter(
+    (estimate): estimate is LearnedImageCostEstimate =>
+      (estimate.scopeType === "model" ||
+        estimate.scopeType === "provider" ||
+        estimate.scopeType === "global") &&
+      typeof estimate.scopeValue === "string" &&
+      typeof estimate.resolution === "string" &&
+      typeof estimate.estimateCredits === "number" &&
+      typeof estimate.sampleCount === "number"
+  );
+}
+
+function buildEstimatedCreditsByResolution(
+  model: ImageModel,
+  scenePlannerCreditsCost: number,
+  learnedEstimates: LearnedImageCostEstimate[]
+): Partial<Record<ImageResolution, number>> {
+  return Object.fromEntries(
+    (Object.keys(RESOLUTIONS) as ImageResolution[]).map((resolution) => {
+      const learnedResolution = normalizeResolutionForModel(model.id, resolution);
+      const fallbackCredits = computeAdjustedCreditsCost(
+        model.creditsCost ?? DEFAULT_CREDITS_COST,
+        resolution,
+        model.id
+      );
+      const learnedEstimate = resolveLearnedImageCreditsEstimate({
+        modelId: model.id,
+        resolution: learnedResolution,
+        fallbackCredits,
+        estimates: learnedEstimates,
+      });
+
+      return [resolution, learnedEstimate.credits + scenePlannerCreditsCost];
+    })
+  ) as Partial<Record<ImageResolution, number>>;
 }
 
 export async function GET() {
@@ -37,6 +85,18 @@ export async function GET() {
             DEFAULT_CREDITS_COST,
           usesEmergencyPricing: true,
           etaSeconds: DEFAULT_ETA_SECONDS,
+          estimatedCreditsByResolution: buildEstimatedCreditsByResolution(
+            {
+              id: DEFAULT_IMAGE_MODEL,
+              name: "Gemini 2.5 Flash (Default)",
+              provider: "Google",
+              creditsCost:
+                computeCreditsCost(emergencyDefaultPricing) ??
+                DEFAULT_CREDITS_COST,
+            },
+            scenePlannerCreditsCost,
+            []
+          ),
         },
       ],
       scenePlannerCreditsCost,
@@ -52,19 +112,25 @@ export async function GET() {
 
   // Try to fetch model stats from Convex to get real ETAs
   const modelStatsMap: Map<string, number> = new Map();
+  let learnedEstimates: LearnedImageCostEstimate[] = [];
   const convex = getConvexClient();
 
   if (convex) {
     try {
-      const allStats: ModelStats[] = await convex.query(
-        api.modelStats.getAllModelStats,
-        {}
-      );
+      const serverSecret = getConvexServerSecret();
+      const [allStats, allCostEstimates] = await Promise.all([
+        convex.query(api.modelStats.getAllModelStats, {}),
+        convex.query(api.modelCostStats.getAllEstimates, {
+          serverSecret,
+        }),
+      ]);
+
       for (const stats of allStats) {
         modelStatsMap.set(stats.modelId, stats.etaSeconds);
       }
+      learnedEstimates = normalizeLearnedEstimates(allCostEstimates);
     } catch (e) {
-      console.error("Failed to fetch model stats:", e);
+      console.error("Failed to fetch image model metadata:", e);
     }
   }
 
@@ -72,13 +138,28 @@ export async function GET() {
   const modelsWithStats: ImageModel[] = result.models.map((model) => ({
     ...model,
     etaSeconds: modelStatsMap.get(model.id) ?? model.etaSeconds ?? DEFAULT_ETA_SECONDS,
+    estimatedCreditsByResolution: buildEstimatedCreditsByResolution(
+      model,
+      scenePlannerCreditsCost,
+      learnedEstimates
+    ),
   }));
 
-  // Compute credit cost range from models that have pricing
+  // Compute credit cost range from learned display estimates when available.
   const creditCosts = modelsWithStats
-    .map((m) =>
-      m.creditsCost != null ? m.creditsCost + scenePlannerCreditsCost : null
-    )
+    .flatMap((model) => {
+      const estimates = model.estimatedCreditsByResolution
+        ? Object.values(model.estimatedCreditsByResolution)
+        : [];
+
+      if (estimates.length > 0) {
+        return estimates;
+      }
+
+      return model.creditsCost != null
+        ? [model.creditsCost + scenePlannerCreditsCost]
+        : [];
+    })
     .filter((cost): cost is number => cost !== null && cost !== undefined);
 
   // Fallback to default cost if no pricing is available to match the generation endpoint behavior

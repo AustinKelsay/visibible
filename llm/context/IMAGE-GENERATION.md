@@ -4,7 +4,7 @@ Current high-level overview of Visibible image generation.
 
 ## Current State (Phase 1 + Phase 2)
 
-Image generation is Convex-orchestrated, includes scene-plan caching, and now uses Neutral Cost for cost quoting/tracking.
+Image generation is Convex-orchestrated, includes scene-plan caching, uses Neutral Cost for cost quoting/tracking, and learns better image-credit estimates from recent actual generations.
 
 - Request lifecycle is tracked in Convex (`queued`, `planning`, `generating`, `succeeded`, `failed`).
 - The UI subscribes to live request status and shows phase labels.
@@ -12,6 +12,7 @@ Image generation is Convex-orchestrated, includes scene-plan caching, and now us
 - Scene plans are cached in Convex by `(verseId, translationId, styleProfileId)`.
 - Cache hits skip planner API calls and skip planner credit reservations.
 - Neutral Cost is used to quote USD->credit charges and persist per-generation cost records.
+- Displayed image estimates prefer learned history from recent actual charges (model -> provider -> global -> catalog fallback).
 - If real-time cost persistence times out/fails, events are queued in Convex outbox and retried by cron.
 - Structured observability events/metrics are emitted for rate-limit blocks, timeout paths, and settlement outcomes.
 
@@ -60,6 +61,16 @@ Key fields:
 - key: `verseId`, `translationId`, `styleProfileId`
 - payload: `scenePlan`, `plannerModel`, `promptVersion`
 - usage/freshness: `hitCount`, `lastUsedAt`, `updatedAt`
+
+### `modelCostStats`
+
+Learned image-credit estimates.
+
+Key fields:
+- scope: `scopeType` (`model`, `provider`, `global`) + `scopeValue`
+- bucket: `resolution`
+- samples: `sampleCredits`, `sampleCount`, `lastActualCredits`
+- output: `estimateCredits`, `updatedAt`
 
 ### Neutral Cost Component Tables
 
@@ -114,7 +125,9 @@ Prompting now favors bounded, reusable context over raw expansion:
 - creates/sends `requestId`
 - subscribes to request status
 - uses `/api/image-models` pricing metadata to show the estimated request charge in selectors/CTAs
-- displayed estimate includes model price, supported resolution multiplier, and the planner surcharge when the planner is enabled
+- displayed estimate prefers learned per-resolution totals from recent actual charges, then falls back to provider/global/catalog pricing
+- displayed estimate includes the planner surcharge when the planner is enabled
+- models that do not support resolution learn against a shared 1K bucket, so their `1K`/`2K`/`4K` UI estimates stay aligned instead of diverging artificially
 - scene-plan cache hits can make the final backend estimate lower because the planner call is skipped
 - displays phase labels:
   - `Planning scene...`

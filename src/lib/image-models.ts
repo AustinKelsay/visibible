@@ -7,8 +7,19 @@ export interface ImageModel {
   };
   creditsCost?: number | null; // null = unpriced, number = estimated credits charged
   reservationCreditsCost?: number | null; // conservative reservation hold for low-variance billing
+  estimatedCreditsByResolution?: Partial<Record<ImageResolution, number>>;
   usesEmergencyPricing?: boolean; // true when model pricing came from local outage fallback
   etaSeconds?: number; // estimated generation time
+}
+
+export type ImageCostEstimateScope = "model" | "provider" | "global" | "fallback";
+
+export interface LearnedImageCostEstimate {
+  scopeType: "model" | "provider" | "global";
+  scopeValue: string;
+  resolution: string;
+  estimateCredits: number;
+  sampleCount: number;
 }
 
 // Credit pricing constants
@@ -135,6 +146,13 @@ export function supportsResolution(modelId: string): boolean {
   );
 }
 
+export function normalizeResolutionForModel(
+  modelId: string,
+  resolution: ImageResolution
+): ImageResolution {
+  return supportsResolution(modelId) ? resolution : DEFAULT_RESOLUTION;
+}
+
 /**
  * Check if a value is a valid ImageAspectRatio
  */
@@ -188,6 +206,80 @@ export function computeEstimatedImageGenerationCreditsCost(
   );
 }
 
+export function getEstimatedCreditsCostForResolution(
+  model: Pick<
+    ImageModel,
+    "id" | "creditsCost" | "reservationCreditsCost" | "estimatedCreditsByResolution"
+  >,
+  resolution: ImageResolution,
+  scenePlannerCreditsCost: number = 0
+): number | null {
+  const learnedEstimate = model.estimatedCreditsByResolution?.[resolution];
+  if (typeof learnedEstimate === "number" && learnedEstimate > 0) {
+    return Math.max(1, Math.round(learnedEstimate));
+  }
+
+  const displayBaseCost = getDisplayedCreditsCost(model);
+  if (displayBaseCost === null) {
+    return null;
+  }
+
+  return computeEstimatedImageGenerationCreditsCost(
+    displayBaseCost,
+    resolution,
+    model.id,
+    scenePlannerCreditsCost
+  );
+}
+
+export function resolveLearnedImageCreditsEstimate({
+  modelId,
+  resolution,
+  fallbackCredits,
+  estimates,
+}: {
+  modelId: string;
+  resolution: ImageResolution;
+  fallbackCredits: number;
+  estimates: LearnedImageCostEstimate[];
+}): { credits: number; source: ImageCostEstimateScope; sampleCount: number } {
+  const provider = modelId.split("/")[0]?.toLowerCase() || "unknown";
+  const exact =
+    estimates.find(
+      (estimate) =>
+        estimate.scopeType === "model" &&
+        estimate.scopeValue === modelId &&
+        estimate.resolution === resolution
+    ) ??
+    estimates.find(
+      (estimate) =>
+        estimate.scopeType === "provider" &&
+        estimate.scopeValue === provider &&
+        estimate.resolution === resolution
+    ) ??
+    estimates.find(
+      (estimate) =>
+        estimate.scopeType === "global" &&
+        estimate.scopeValue === "global" &&
+        estimate.resolution === resolution
+    ) ??
+    null;
+
+  if (!exact) {
+    return {
+      credits: Math.max(1, Math.round(fallbackCredits)),
+      source: "fallback",
+      sampleCount: 0,
+    };
+  }
+
+  return {
+    credits: Math.max(1, Math.round(exact.estimateCredits)),
+    source: exact.scopeType,
+    sampleCount: exact.sampleCount,
+  };
+}
+
 /**
  * Cost shown to users in selectors and generate CTAs.
  *
@@ -236,6 +328,9 @@ function cloneImageModels(models: ImageModel[]): ImageModel[] {
       ? {
           imageOutput: model.pricing.imageOutput,
         }
+      : undefined,
+    estimatedCreditsByResolution: model.estimatedCreditsByResolution
+      ? { ...model.estimatedCreditsByResolution }
       : undefined,
     reservationCreditsCost: model.reservationCreditsCost,
     usesEmergencyPricing: model.usesEmergencyPricing,

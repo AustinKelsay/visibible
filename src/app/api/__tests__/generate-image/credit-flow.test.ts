@@ -31,6 +31,9 @@ process.env.OPENROUTER_IMAGE_TIMEOUT_MS = "50";
 const originalEnv = { ...process.env };
 let forceQuoteFailure = false;
 let forceRecordImageCostEventFailure = false;
+let mockLearnedEstimate:
+  | { credits: number; source: "model" | "provider" | "global" | "fallback"; sampleCount: number }
+  | null = null;
 const mockImageSpendDownGraceCredits = 5;
 const defaultImageCatalogModels: Array<{
   id: string;
@@ -75,12 +78,27 @@ vi.mock("@/lib/session", () => ({
 vi.mock("@/lib/convex-client", () => ({
   getConvexClient: vi.fn(() => ({
     query: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if ("fallbackCredits" in args && "modelId" in args && "resolution" in args) {
+        mockState.callHistory.push({ action: "getEstimate", args });
+        return (
+          mockLearnedEstimate ?? {
+            credits: args.fallbackCredits as number,
+            source: "fallback",
+            sampleCount: 0,
+          }
+        );
+      }
+
       // Query for session data
       const sid = args.sid as string;
       const session = mockState.sessions.get(sid);
       return session || null;
     }),
-    mutation: vi.fn(async () => {
+    mutation: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if ("actualCredits" in args && "modelId" in args && "resolution" in args) {
+        mockState.callHistory.push({ action: "recordActualCost", args });
+        return null;
+      }
       // Rate limit always passes
       return { allowed: true, retryAfter: 0 };
     }),
@@ -286,6 +304,9 @@ vi.mock("@/lib/image-models", () => ({
   ),
   isValidAspectRatio: vi.fn(() => true),
   isValidResolution: vi.fn(() => true),
+  normalizeResolutionForModel: vi.fn((modelId: string, resolution: string) =>
+    modelId.toLowerCase().includes("gemini") ? resolution : "1K"
+  ),
   supportsResolution: vi.fn((modelId: string) => modelId.toLowerCase().includes("gemini")),
 }));
 
@@ -371,6 +392,7 @@ describe("Image Generation API Credit Flow", () => {
     mockFetchImpl = null;
     forceQuoteFailure = false;
     forceRecordImageCostEventFailure = false;
+    mockLearnedEstimate = null;
     global.fetch = mockFetch as unknown as typeof fetch;
   });
 
@@ -415,6 +437,11 @@ describe("Image Generation API Credit Flow", () => {
     });
 
     it("reserve-generate-deduct-fallback: falls back to API estimate when no cost returned", async () => {
+      mockLearnedEstimate = {
+        credits: 7,
+        source: "model",
+        sampleCount: 5,
+      };
       mockFetchResponse = {
         ok: true,
         status: 200,
@@ -440,6 +467,9 @@ describe("Image Generation API Credit Flow", () => {
       const body = await response.json();
       expect(body.usedFallbackEstimate).toBe(true);
       expect(body.usedActualCost).toBe(false);
+      expect(body.imageCreditsCost).toBe(7);
+      expect(body.creditsCost).toBe(7);
+      expect(body.estimatedCreditsCost).toBe(7);
     });
 
     it("emergency-pricing: does not double-apply conservative reservation multiplier", async () => {
@@ -566,6 +596,14 @@ describe("Image Generation API Credit Flow", () => {
       const body = await response.json();
       expect(body.resolutionMultiplier).toBe(1.0);
       expect(body.resolutionSupported).toBe(false);
+      const estimateCall = mockState.callHistory.find((entry) => entry.action === "getEstimate");
+      expect(estimateCall).toBeDefined();
+      expect((estimateCall?.args as { resolution: string }).resolution).toBe("1K");
+      const recordActualCostCall = mockState.callHistory.find(
+        (entry) => entry.action === "recordActualCost"
+      );
+      expect(recordActualCostCall).toBeDefined();
+      expect((recordActualCostCall?.args as { resolution: string }).resolution).toBe("1K");
     });
 
     it("low-balance-spend-down: reserves remaining credits and still succeeds within grace", async () => {

@@ -20,6 +20,9 @@ import {
   computeCreditsFromActualUsage,
   computeAdjustedCreditsCost,
   computeEstimatedImageGenerationCreditsCost,
+  getEstimatedCreditsCostForResolution,
+  normalizeResolutionForModel,
+  resolveLearnedImageCreditsEstimate,
   supportsResolution,
   CONSERVATIVE_ESTIMATE_MULTIPLIER,
   DEFAULT_CREDITS_COST,
@@ -329,6 +332,18 @@ describe("supportsResolution", () => {
   });
 });
 
+describe("normalizeResolutionForModel", () => {
+  it("keeps the selected resolution for models that support it", () => {
+    expect(
+      normalizeResolutionForModel("google/gemini-2.5-flash-image", "4K")
+    ).toBe("4K");
+  });
+
+  it("normalizes unsupported models to 1K for learned pricing buckets", () => {
+    expect(normalizeResolutionForModel("openai/dall-e-3", "4K")).toBe("1K");
+  });
+});
+
 describe("computeAdjustedCreditsCost", () => {
   it("should use DEFAULT_CREDITS_COST when baseCost is null/undefined", () => {
     expect(computeAdjustedCreditsCost(null, "1K")).toBe(DEFAULT_CREDITS_COST);
@@ -437,5 +452,123 @@ describe("getDisplayedCreditsCost", () => {
         reservationCreditsCost: null,
       })
     ).toBeNull();
+  });
+});
+
+describe("resolveLearnedImageCreditsEstimate", () => {
+  const estimates = [
+    {
+      scopeType: "model" as const,
+      scopeValue: "google/gemini-2.5-flash-image",
+      resolution: "1K",
+      estimateCredits: 8,
+      sampleCount: 6,
+    },
+    {
+      scopeType: "provider" as const,
+      scopeValue: "openai",
+      resolution: "1K",
+      estimateCredits: 9,
+      sampleCount: 4,
+    },
+    {
+      scopeType: "global" as const,
+      scopeValue: "global",
+      resolution: "2K",
+      estimateCredits: 15,
+      sampleCount: 12,
+    },
+  ];
+
+  it("prefers exact model matches over provider and global estimates", () => {
+    expect(
+      resolveLearnedImageCreditsEstimate({
+        modelId: "google/gemini-2.5-flash-image",
+        resolution: "1K",
+        fallbackCredits: 2,
+        estimates,
+      })
+    ).toEqual({
+      credits: 8,
+      source: "model",
+      sampleCount: 6,
+    });
+  });
+
+  it("falls back to provider then global when no exact model history exists", () => {
+    expect(
+      resolveLearnedImageCreditsEstimate({
+        modelId: "openai/gpt-5-image",
+        resolution: "1K",
+        fallbackCredits: 2,
+        estimates,
+      })
+    ).toEqual({
+      credits: 9,
+      source: "provider",
+      sampleCount: 4,
+    });
+
+    expect(
+      resolveLearnedImageCreditsEstimate({
+        modelId: "anthropic/some-image-model",
+        resolution: "2K",
+        fallbackCredits: 2,
+        estimates,
+      })
+    ).toEqual({
+      credits: 15,
+      source: "global",
+      sampleCount: 12,
+    });
+  });
+
+  it("uses the fallback estimate when there is no learned history", () => {
+    expect(
+      resolveLearnedImageCreditsEstimate({
+        modelId: "anthropic/some-image-model",
+        resolution: "4K",
+        fallbackCredits: 11,
+        estimates,
+      })
+    ).toEqual({
+      credits: 11,
+      source: "fallback",
+      sampleCount: 0,
+    });
+  });
+});
+
+describe("getEstimatedCreditsCostForResolution", () => {
+  it("uses learned per-resolution totals when available", () => {
+    expect(
+      getEstimatedCreditsCostForResolution(
+        {
+          id: "google/gemini-2.5-flash-image",
+          creditsCost: 2,
+          reservationCreditsCost: 70,
+          estimatedCreditsByResolution: {
+            "1K": 8,
+            "2K": 20,
+          },
+        },
+        "2K",
+        1
+      )
+    ).toBe(20);
+  });
+
+  it("falls back to computed image plus planner cost when learned totals are unavailable", () => {
+    expect(
+      getEstimatedCreditsCostForResolution(
+        {
+          id: "google/gemini-2.5-flash-image",
+          creditsCost: 2,
+          reservationCreditsCost: 70,
+        },
+        "2K",
+        1
+      )
+    ).toBe(8);
   });
 });

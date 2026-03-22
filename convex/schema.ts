@@ -265,6 +265,18 @@ export default defineSchema({
     updatedAt: v.number(),
   }).index("by_modelId", ["modelId"]),
 
+  // Learned image-credit estimates based on recent actual generation costs.
+  modelCostStats: defineTable({
+    scopeType: v.string(), // "model" | "provider" | "global"
+    scopeValue: v.string(), // modelId, provider ID, or "global"
+    resolution: v.string(),
+    sampleCredits: v.array(v.number()),
+    sampleCount: v.number(),
+    estimateCredits: v.number(),
+    lastActualCredits: v.number(),
+    updatedAt: v.number(),
+  }).index("by_scope_resolution", ["scopeType", "scopeValue", "resolution"]),
+
   // Rate limiting for API endpoints
   rateLimits: defineTable({
     identifier: v.string(), // Session ID or IP hash

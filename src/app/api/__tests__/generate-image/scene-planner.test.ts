@@ -34,6 +34,9 @@ const testEnv = {
 Object.assign(process.env, testEnv);
 
 const SCENE_PLANNER_CREDITS = 1;
+let mockLearnedEstimate:
+  | { credits: number; source: "model" | "provider" | "global" | "fallback"; sampleCount: number }
+  | null = null;
 
 // Mock modules
 vi.mock("@/lib/validate-env", () => ({
@@ -65,12 +68,27 @@ vi.mock("@/lib/session", () => ({
 vi.mock("@/lib/convex-client", () => ({
   getConvexClient: vi.fn(() => ({
     query: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if ("fallbackCredits" in args && "modelId" in args && "resolution" in args) {
+        mockState.callHistory.push({ action: "getEstimate", args });
+        return (
+          mockLearnedEstimate ?? {
+            credits: args.fallbackCredits as number,
+            source: "fallback",
+            sampleCount: 0,
+          }
+        );
+      }
+
       // Query for session data
       const sid = args.sid as string;
       const session = mockState.sessions.get(sid);
       return session || null;
     }),
-    mutation: vi.fn(async () => {
+    mutation: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if ("actualCredits" in args && "modelId" in args && "resolution" in args) {
+        mockState.callHistory.push({ action: "recordActualCost", args });
+        return null;
+      }
       // Rate limit always passes
       return { allowed: true, retryAfter: 0 };
     }),
@@ -194,6 +212,9 @@ vi.mock("@/lib/image-models", async () => {
     getProviderName: vi.fn(() => "openrouter"),
     CREDIT_USD: 0.01,
     PREMIUM_MULTIPLIER: 1.25,
+    normalizeResolutionForModel: vi.fn((modelId: string, resolution: string) =>
+      modelId.toLowerCase().includes("gemini") ? resolution : "1K"
+    ),
   };
 });
 
@@ -285,6 +306,7 @@ describe("Scene Planner Refund Logic", () => {
     scenePlannerResponse = null;
     imageGenerationResponse = null;
     mockIsModelFree.value = false;
+    mockLearnedEstimate = null;
     global.fetch = mockFetch as unknown as typeof fetch;
   });
 
@@ -295,6 +317,11 @@ describe("Scene Planner Refund Logic", () => {
 
   describe("Scene Planner Success", () => {
     it("uses scene plan and includes cost in response", async () => {
+      mockLearnedEstimate = {
+        credits: 6,
+        source: "model",
+        sampleCount: 5,
+      };
       scenePlannerResponse = {
         ok: true,
         status: 200,
@@ -340,6 +367,7 @@ describe("Scene Planner Refund Logic", () => {
       expect(body.scenePlannerUsed).toBe(true);
       expect(body.scenePlannerCredits).toBe(SCENE_PLANNER_CREDITS);
       expect(getCallCount("sessions:addCredits")).toBe(0); // No refund
+      expect(body.estimatedCreditsCost).toBe(7);
       expect(body.creditsCost).toBe(4);
     });
   });

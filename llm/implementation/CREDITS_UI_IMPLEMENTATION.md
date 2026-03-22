@@ -169,6 +169,21 @@ The UI shows the **normal estimated charge** ("About X credits") before generati
 3. **Spend-down UX** - Low-balance users can continue generating down to zero without needing enough credits to cover the full conservative hold.
 4. **Automatic refund** - After generation, the actual cost (from OpenRouter's `usage` response) is charged, and excess reserved credits are refunded.
 
+### Learned Estimate Source
+
+The display estimate is no longer taken directly from raw OpenRouter catalog pricing because that data frequently understates modern multimodal image costs.
+
+Current source order:
+1. learned exact-model estimate for the selected resolution
+2. learned provider estimate for that resolution
+3. learned global estimate for that resolution
+4. catalog fallback from `/api/image-models`
+
+Additional rules:
+- The planner surcharge is added on top of the image estimate when the planner is expected to run.
+- Scene-plan cache hits can still make the final backend estimate lower because planner cost drops out at request time.
+- Models that ignore resolution settings reuse a normalized `1K` learning bucket for all UI resolution buttons, so unsupported models do not show fake `2K`/`4K` premiums.
+
 **UI copy pattern:**
 - Model selector: `~12s · About {credits} credits`
 - Resolution selector / generate CTA: shows the estimated charge with an "unused refunded" note
@@ -179,7 +194,8 @@ This prevents confusing "insufficient credits" errors when users have enough for
 ### Fallback Behavior
 
 If OpenRouter doesn't return usage data in its response (monitored via `usedFallbackEstimate: true`):
-- The **API-based estimate** (`imageCreditsCost`) is charged, not the conservative 35x reservation
+- The **learned estimate** (`imageCreditsCost`) is charged, not the conservative 35x reservation
+- If there is not enough learned history yet, the backend falls back to catalog pricing
 - This ensures users aren't overcharged when usage extraction fails
 - Server logs warn: `[Image API] Using fallback estimate for model=X, gen=Y...`
 - The response includes `usedFallbackEstimate: true` for monitoring and retroactive analysis

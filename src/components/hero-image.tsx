@@ -17,10 +17,10 @@ import {
   ASPECT_RATIOS,
   ImageAspectRatio,
   canAffordImageGeneration,
-  computeEstimatedImageGenerationCreditsCost,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
-  getDisplayedCreditsCost,
+  getEstimatedCreditsCostForResolution,
   isValidAspectRatio,
+  type ImageResolution,
 } from "@/lib/image-models";
 import {
   trackImageGenerated,
@@ -283,6 +283,7 @@ function HeroImageWithConvex({
 interface ModelPricing {
   creditsCost: number | null;
   reservationCreditsCost: number | null;
+  estimatedCreditsByResolution?: Partial<Record<ImageResolution, number>>;
   etaSeconds: number;
 }
 
@@ -323,6 +324,7 @@ function HeroImageBase({
   const [modelPricing, setModelPricing] = useState<ModelPricing>({
     creditsCost: null,
     reservationCreditsCost: null,
+    estimatedCreditsByResolution: undefined,
     etaSeconds: 12,
   });
   const [scenePlannerCreditsCost, setScenePlannerCreditsCost] = useState(0);
@@ -356,6 +358,7 @@ function HeroImageBase({
             modelPricingCache.current.set(model.id, {
               creditsCost: model.creditsCost,
               reservationCreditsCost: model.reservationCreditsCost ?? null,
+              estimatedCreditsByResolution: model.estimatedCreditsByResolution,
               etaSeconds: model.etaSeconds ?? 12,
             });
           }
@@ -365,6 +368,7 @@ function HeroImageBase({
             setModelPricing({
               creditsCost: current.creditsCost,
               reservationCreditsCost: current.reservationCreditsCost ?? null,
+              estimatedCreditsByResolution: current.estimatedCreditsByResolution,
               etaSeconds: current.etaSeconds ?? 12,
             });
           }
@@ -385,14 +389,31 @@ function HeroImageBase({
 
   // Determine if user can generate (has sufficient credits or is admin)
   const baseCost = modelPricing.creditsCost ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
+  const effectiveCost =
+    getEstimatedCreditsCostForResolution(
+      {
+        id: imageModel,
+        creditsCost: modelPricing.creditsCost,
+        reservationCreditsCost: modelPricing.reservationCreditsCost,
+        estimatedCreditsByResolution: modelPricing.estimatedCreditsByResolution,
+      },
+      imageResolution,
+      scenePlannerCreditsCost
+    ) ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
   const displayBaseCost =
-    getDisplayedCreditsCost(modelPricing) ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
-  const effectiveCost = computeEstimatedImageGenerationCreditsCost(
-    baseCost,
-    imageResolution,
-    imageModel,
-    scenePlannerCreditsCost
-  );
+    modelPricing.estimatedCreditsByResolution?.["1K"] ??
+    getEstimatedCreditsCostForResolution(
+      {
+        id: imageModel,
+        creditsCost: modelPricing.creditsCost,
+        reservationCreditsCost: modelPricing.reservationCreditsCost,
+        estimatedCreditsByResolution: modelPricing.estimatedCreditsByResolution,
+      },
+      "1K",
+      scenePlannerCreditsCost
+    ) ??
+    DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
+  const displayCostByResolution = modelPricing.estimatedCreditsByResolution;
   const effectiveEta = modelPricing.etaSeconds;
   const isAdmin = tier === "admin";
   const pricingPending = isConvexEnabled && !isAdmin && !pricingLoaded;
@@ -915,6 +936,7 @@ function HeroImageBase({
       resolution: imageResolution,
       baseCost,
       displayBaseCost,
+      displayCostByResolution,
       scenePlannerCreditsCost,
       modelId: imageModel,
     });
@@ -930,6 +952,7 @@ function HeroImageBase({
     imageResolution,
     baseCost,
     displayBaseCost,
+    displayCostByResolution,
     scenePlannerCreditsCost,
     imageModel,
     updateGenerationState,
