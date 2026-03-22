@@ -3,6 +3,7 @@ import { v } from "convex/values";
 import { validateServerSecret } from "./_helpers/auth";
 
 const MAX_SAMPLES = 30;
+const DEFAULT_BACKFILL_LIMIT = 500;
 
 export type CostEstimateScope = "model" | "provider" | "global";
 
@@ -71,6 +72,43 @@ async function upsertScopeSample(
   });
 }
 
+async function recordActualCostAcrossScopes(
+  ctx: MutationCtx,
+  {
+    modelId,
+    resolution,
+    actualCredits,
+  }: {
+    modelId: string;
+    resolution: string;
+    actualCredits: number;
+  }
+) {
+  const normalizedActualCredits = Math.max(1, Math.round(actualCredits));
+  const provider = modelId.split("/")[0]?.toLowerCase() || "unknown";
+
+  await upsertScopeSample(ctx, {
+    scopeType: "model",
+    scopeValue: modelId,
+    resolution,
+    actualCredits: normalizedActualCredits,
+  });
+
+  await upsertScopeSample(ctx, {
+    scopeType: "provider",
+    scopeValue: provider,
+    resolution,
+    actualCredits: normalizedActualCredits,
+  });
+
+  await upsertScopeSample(ctx, {
+    scopeType: "global",
+    scopeValue: "global",
+    resolution,
+    actualCredits: normalizedActualCredits,
+  });
+}
+
 export const recordActualCost = mutation({
   args: {
     modelId: v.string(),
@@ -80,30 +118,59 @@ export const recordActualCost = mutation({
   },
   handler: async (ctx, args) => {
     validateServerSecret(args.serverSecret);
+    await recordActualCostAcrossScopes(ctx, args);
+  },
+});
 
-    const actualCredits = Math.max(1, Math.round(args.actualCredits));
-    const provider = args.modelId.split("/")[0]?.toLowerCase() || "unknown";
+export const backfillFromGenerationRequests = mutation({
+  args: {
+    serverSecret: v.string(),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
 
-    await upsertScopeSample(ctx, {
-      scopeType: "model",
-      scopeValue: args.modelId,
-      resolution: args.resolution,
-      actualCredits,
-    });
+    const existingEstimate = await ctx.db.query("modelCostStats").first();
+    if (existingEstimate) {
+      return { processed: 0, skipped: 0, alreadySeeded: true };
+    }
 
-    await upsertScopeSample(ctx, {
-      scopeType: "provider",
-      scopeValue: provider,
-      resolution: args.resolution,
-      actualCredits,
-    });
+    const limit = Math.max(1, Math.min(args.limit ?? DEFAULT_BACKFILL_LIMIT, 5000));
+    const requests = await ctx.db
+      .query("imageGenerationRequests")
+      .order("desc")
+      .take(limit);
 
-    await upsertScopeSample(ctx, {
-      scopeType: "global",
-      scopeValue: "global",
-      resolution: args.resolution,
-      actualCredits,
-    });
+    let processed = 0;
+    let skipped = 0;
+
+    for (const request of requests) {
+      if (request.status !== "succeeded") {
+        skipped += 1;
+        continue;
+      }
+      if (!request.modelId || !request.resolution || request.actualCreditsCost == null) {
+        skipped += 1;
+        continue;
+      }
+      if (request.usedFallbackEstimate === true) {
+        skipped += 1;
+        continue;
+      }
+      if (request.scenePlannerUsed === true) {
+        skipped += 1;
+        continue;
+      }
+
+      await recordActualCostAcrossScopes(ctx, {
+        modelId: request.modelId,
+        resolution: request.resolution,
+        actualCredits: request.actualCreditsCost,
+      });
+      processed += 1;
+    }
+
+    return { processed, skipped, alreadySeeded: false };
   },
 });
 

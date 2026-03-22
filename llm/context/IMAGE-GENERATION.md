@@ -13,6 +13,7 @@ Image generation is Convex-orchestrated, includes scene-plan caching, uses Neutr
 - Cache hits skip planner API calls and skip planner credit reservations.
 - Neutral Cost is used to quote USD->credit charges and persist per-generation cost records.
 - Displayed image estimates prefer learned history from recent actual charges (model -> provider -> global -> catalog fallback).
+- If the learned-cost table is empty but historical generation records already exist, `/api/image-models` backfills the learned table from recent successful non-planner generations before serving estimates.
 - If real-time cost persistence times out/fails, events are queued in Convex outbox and retried by cron.
 - Structured observability events/metrics are emitted for rate-limit blocks, timeout paths, and settlement outcomes.
 

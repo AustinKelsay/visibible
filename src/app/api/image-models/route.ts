@@ -118,7 +118,7 @@ export async function GET() {
   if (convex) {
     try {
       const serverSecret = getConvexServerSecret();
-      const [allStats, allCostEstimates] = await Promise.all([
+      const [allStats, initialCostEstimates] = await Promise.all([
         convex.query(api.modelStats.getAllModelStats, {}),
         convex.query(api.modelCostStats.getAllEstimates, {
           serverSecret,
@@ -128,7 +128,18 @@ export async function GET() {
       for (const stats of allStats) {
         modelStatsMap.set(stats.modelId, stats.etaSeconds);
       }
-      learnedEstimates = normalizeLearnedEstimates(allCostEstimates);
+      learnedEstimates = normalizeLearnedEstimates(initialCostEstimates);
+
+      if (learnedEstimates.length === 0) {
+        await convex.mutation(api.modelCostStats.backfillFromGenerationRequests, {
+          serverSecret,
+        });
+        const backfilledEstimates = await convex.query(
+          api.modelCostStats.getAllEstimates,
+          { serverSecret }
+        );
+        learnedEstimates = normalizeLearnedEstimates(backfilledEstimates);
+      }
     } catch (e) {
       console.error("Failed to fetch image model metadata:", e);
     }

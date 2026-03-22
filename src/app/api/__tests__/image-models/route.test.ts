@@ -4,6 +4,7 @@ const mockFetchImageModels = vi.fn();
 const mockGetScenePlannerEstimatedCreditsCost = vi.fn();
 const mockConvex = {
   query: vi.fn(),
+  mutation: vi.fn(),
 };
 
 vi.mock("@/lib/image-models", async () => {
@@ -53,6 +54,7 @@ describe("Image Models API", () => {
       ],
     });
     mockGetScenePlannerEstimatedCreditsCost.mockResolvedValue(1);
+    mockConvex.mutation.mockResolvedValue({ processed: 0, skipped: 0, alreadySeeded: true });
     mockConvex.query.mockImplementation(async (_apiPath: unknown, args: Record<string, unknown>) => {
       if (!("serverSecret" in args)) {
         return [{ modelId: "google/gemini-2.5-flash-image", etaSeconds: 8 }];
@@ -110,6 +112,43 @@ describe("Image Models API", () => {
       "1K": 10,
       "2K": 10,
       "4K": 10,
+    });
+  });
+
+  it("backfills learned estimates from generation history when the stats table is empty", async () => {
+    let estimatesQueryCount = 0;
+    mockConvex.query.mockImplementation(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if (!("serverSecret" in args)) {
+        return [{ modelId: "google/gemini-2.5-flash-image", etaSeconds: 8 }];
+      }
+
+      estimatesQueryCount += 1;
+      if (estimatesQueryCount === 1) {
+        return [];
+      }
+
+      return [
+        {
+          scopeType: "model",
+          scopeValue: "google/gemini-2.5-flash-image",
+          resolution: "1K",
+          estimateCredits: 5,
+          sampleCount: 10,
+        },
+      ];
+    });
+
+    const { GET } = await import("../../image-models/route");
+
+    const response = await GET();
+    expect(response.status).toBe(200);
+
+    const body = await response.json();
+    expect(mockConvex.mutation).toHaveBeenCalledTimes(1);
+    expect(body.models[0].estimatedCreditsByResolution).toEqual({
+      "1K": 6,
+      "2K": 8,
+      "4K": 14,
     });
   });
 

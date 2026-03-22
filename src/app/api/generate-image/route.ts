@@ -1595,14 +1595,16 @@ ${aspectRatioInstruction}`;
         .catch(() => {});
 
       if (usedActual) {
-        convex
-          .mutation(api.modelCostStats.recordActualCost, {
+        try {
+          await convex.mutation(api.modelCostStats.recordActualCost, {
             modelId,
             resolution: learnedEstimateResolution,
             actualCredits: actualImageCredits,
             serverSecret,
-          })
-          .catch(() => {});
+          });
+        } catch (error) {
+          console.warn("[Image API] Failed to record learned image cost:", error);
+        }
       }
 
       // Calculate final charged amounts (may differ from actual in rare shortfall case)

@@ -122,6 +122,10 @@ export function createMockConvexClient(initialSessions: Session[] = []) {
           return;
         }
 
+        if (apiPath._path === "modelCostStats:backfillFromGenerationRequests") {
+          return { processed: 0, skipped: 0, alreadySeeded: true };
+        }
+
         return null;
       }
     ),
