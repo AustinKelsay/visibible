@@ -399,115 +399,178 @@ export const reconcileStaleReservations = internalMutation({
     let totalRefundedCredits = 0;
 
     let nextCreatedAtBefore: number | null = null;
+    let lastCandidateContext:
+      | {
+          sid: string;
+          generationId?: string;
+          candidateCreatedAt: number;
+          phase:
+            | "candidate"
+            | "load_ledger"
+            | "load_session"
+            | "patch_session"
+            | "insert_refund";
+          reservedAmount?: number;
+          sessionId?: string;
+        }
+      | null = null;
 
-    while (released < limit) {
-      const reservationsQuery = ctx.db
-        .query("creditLedger")
-        .withIndex("by_reason_createdAt", (q) =>
-          q
-            .eq("reason", "reservation")
-            .lt("createdAt", nextCreatedAtBefore ?? cutoff)
-        )
-        .order("desc");
+    try {
+      while (released < limit) {
+        const reservationsQuery = ctx.db
+          .query("creditLedger")
+          .withIndex("by_reason_createdAt", (q) =>
+            q
+              .eq("reason", "reservation")
+              .lt("createdAt", nextCreatedAtBefore ?? cutoff)
+          )
+          .order("desc");
 
-      const candidates = await reservationsQuery.take(pageSize);
-      scanned += candidates.length;
+        const candidates = await reservationsQuery.take(pageSize);
+        scanned += candidates.length;
 
-      for (const candidate of candidates) {
-        if (released >= limit) {
+        for (const candidate of candidates) {
+          if (released >= limit) {
+            break;
+          }
+
+          lastCandidateContext = {
+            sid: candidate.sid,
+            generationId: candidate.generationId,
+            candidateCreatedAt: candidate.createdAt,
+            phase: "candidate",
+          };
+
+          const generationId = candidate.generationId;
+          if (!generationId) {
+            skippedNoGenerationId += 1;
+            continue;
+          }
+
+          const dedupeKey = `${candidate.sid}:${generationId}`;
+          if (seen.has(dedupeKey)) {
+            duplicateCandidates += 1;
+            continue;
+          }
+          seen.add(dedupeKey);
+
+          lastCandidateContext = {
+            ...lastCandidateContext,
+            phase: "load_ledger",
+          };
+
+          const ledgerEntries = await ctx.db
+            .query("creditLedger")
+            .withIndex("by_generationId", (q) =>
+              q.eq("generationId", generationId).eq("sid", candidate.sid)
+            )
+            .collect();
+
+          const settlement = summarizeGenerationSettlement(ledgerEntries);
+          if (settlement.state !== "reserved") {
+            skippedSettled += 1;
+            continue;
+          }
+
+          lastCandidateContext = {
+            ...lastCandidateContext,
+            phase: "load_session",
+            reservedAmount: settlement.reservedAmount,
+          };
+
+          const session = await ctx.db
+            .query("sessions")
+            .withIndex("by_sid", (q) => q.eq("sid", candidate.sid))
+            .first();
+
+          if (!session) {
+            skippedMissingSession += 1;
+            continue;
+          }
+
+          const reservedAmount = settlement.reservedAmount;
+          const reservationCostUsd = settlement.reservationCostUsd;
+          if (reservedAmount <= 0) {
+            skippedSettled += 1;
+            continue;
+          }
+
+          const newCredits = session.credits + reservedAmount;
+          const newDailySpend = Math.max(
+            0,
+            (session.dailySpendUsd ?? 0) - reservationCostUsd
+          );
+
+          lastCandidateContext = {
+            ...lastCandidateContext,
+            phase: "patch_session",
+            reservedAmount,
+            sessionId: session._id,
+          };
+
+          await ctx.db.patch(session._id, {
+            credits: newCredits,
+            tier: resolveTier(session.tier),
+            dailySpendUsd: newDailySpend,
+          });
+
+          lastCandidateContext = {
+            ...lastCandidateContext,
+            phase: "insert_refund",
+          };
+
+          await ctx.db.insert("creditLedger", {
+            sid: candidate.sid,
+            delta: reservedAmount,
+            reason: "refund",
+            generationId,
+            createdAt: now,
+          });
+
+          released += 1;
+          totalRefundedCredits += reservedAmount;
+        }
+
+        if (candidates.length === 0) {
           break;
         }
 
-        const generationId = candidate.generationId;
-        if (!generationId) {
-          skippedNoGenerationId += 1;
-          continue;
+        const oldestCreatedAtInBatch = candidates[candidates.length - 1]?.createdAt;
+        if (!oldestCreatedAtInBatch || candidates.length < pageSize) {
+          break;
         }
-
-        const dedupeKey = `${candidate.sid}:${generationId}`;
-        if (seen.has(dedupeKey)) {
-          duplicateCandidates += 1;
-          continue;
-        }
-        seen.add(dedupeKey);
-
-        const ledgerEntries = await ctx.db
-          .query("creditLedger")
-          .withIndex("by_generationId", (q) =>
-            q.eq("generationId", generationId).eq("sid", candidate.sid)
-          )
-          .collect();
-
-        const settlement = summarizeGenerationSettlement(ledgerEntries);
-        if (settlement.state !== "reserved") {
-          skippedSettled += 1;
-          continue;
-        }
-
-        const session = await ctx.db
-          .query("sessions")
-          .withIndex("by_sid", (q) => q.eq("sid", candidate.sid))
-          .first();
-
-        if (!session) {
-          skippedMissingSession += 1;
-          continue;
-        }
-
-        const reservedAmount = settlement.reservedAmount;
-        const reservationCostUsd = settlement.reservationCostUsd;
-        if (reservedAmount <= 0) {
-          skippedSettled += 1;
-          continue;
-        }
-
-        const newCredits = session.credits + reservedAmount;
-        const newDailySpend = Math.max(
-          0,
-          (session.dailySpendUsd ?? 0) - reservationCostUsd
-        );
-
-        await ctx.db.patch(session._id, {
-          credits: newCredits,
-          tier: resolveTier(session.tier),
-          dailySpendUsd: newDailySpend,
-        });
-
-        await ctx.db.insert("creditLedger", {
-          sid: candidate.sid,
-          delta: reservedAmount,
-          reason: "refund",
-          generationId,
-          createdAt: now,
-        });
-
-        released += 1;
-        totalRefundedCredits += reservedAmount;
+        nextCreatedAtBefore = oldestCreatedAtInBatch;
       }
 
-      if (candidates.length === 0) {
-        break;
-      }
-
-      const oldestCreatedAtInBatch = candidates[candidates.length - 1]?.createdAt;
-      if (!oldestCreatedAtInBatch || candidates.length < pageSize) {
-        break;
-      }
-      nextCreatedAtBefore = oldestCreatedAtInBatch;
+      return {
+        scanned,
+        released,
+        skippedSettled,
+        skippedMissingSession,
+        skippedNoGenerationId,
+        duplicateCandidates,
+        totalRefundedCredits,
+        cutoff,
+        maxAgeMs,
+        limit,
+      };
+    } catch (error) {
+      console.error("[Sessions] reconcileStaleReservations failed:", {
+        cutoff,
+        maxAgeMs,
+        limit,
+        scanned,
+        released,
+        skippedSettled,
+        skippedMissingSession,
+        skippedNoGenerationId,
+        duplicateCandidates,
+        totalRefundedCredits,
+        lastCandidateContext,
+        error,
+      });
+      throw error;
     }
-
-    return {
-      scanned,
-      released,
-      skippedSettled,
-      skippedMissingSession,
-      skippedNoGenerationId,
-      duplicateCandidates,
-      totalRefundedCredits,
-      cutoff,
-      maxAgeMs,
-      limit,
-    };
   },
 });
 
