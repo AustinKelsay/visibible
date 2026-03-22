@@ -398,25 +398,22 @@ export const reconcileStaleReservations = internalMutation({
     let duplicateCandidates = 0;
     let totalRefundedCredits = 0;
 
-    let cursor: string | null = null;
-    let isDone = false;
+    let nextCreatedAtBefore: number | null = null;
 
-    while (!isDone && released < limit) {
-      const pageResult = await ctx.db
+    while (released < limit) {
+      const reservationsQuery = ctx.db
         .query("creditLedger")
         .withIndex("by_reason_createdAt", (q) =>
-          q.eq("reason", "reservation").lt("createdAt", cutoff)
+          q
+            .eq("reason", "reservation")
+            .lt("createdAt", nextCreatedAtBefore ?? cutoff)
         )
-        .paginate({
-          cursor,
-          numItems: pageSize,
-        });
+        .order("desc");
 
-      scanned += pageResult.page.length;
-      cursor = pageResult.continueCursor;
-      isDone = pageResult.isDone;
+      const candidates = await reservationsQuery.take(pageSize);
+      scanned += candidates.length;
 
-      for (const candidate of pageResult.page) {
+      for (const candidate of candidates) {
         if (released >= limit) {
           break;
         }
@@ -488,9 +485,15 @@ export const reconcileStaleReservations = internalMutation({
         totalRefundedCredits += reservedAmount;
       }
 
-      if (pageResult.page.length === 0) {
+      if (candidates.length === 0) {
         break;
       }
+
+      const oldestCreatedAtInBatch = candidates[candidates.length - 1]?.createdAt;
+      if (!oldestCreatedAtInBatch || candidates.length < pageSize) {
+        break;
+      }
+      nextCreatedAtBefore = oldestCreatedAtInBatch;
     }
 
     return {
