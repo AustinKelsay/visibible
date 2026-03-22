@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import {
   DEFAULT_IMAGE_MODEL,
+  DEFAULT_CREDITS_COST,
   fetchImageModels,
-  computeCreditsCost,
   computeAdjustedCreditsCost,
   CONSERVATIVE_ESTIMATE_MULTIPLIER,
   getProviderName,
@@ -521,6 +521,9 @@ export async function POST(request: Request) {
   let modelId = DEFAULT_IMAGE_MODEL;
   let modelPricing: string | undefined;
   let modelUsesEmergencyPricing = false;
+  let selectedModel:
+    | Awaited<ReturnType<typeof fetchImageModels>>["models"][number]
+    | undefined;
   type StyleProfile = {
     id: string;
     label: string;
@@ -648,32 +651,21 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+    selectedModel = foundModel;
     modelId = requestedModelId;
     modelPricing = foundModel.pricing?.imageOutput;
     modelUsesEmergencyPricing = foundModel.usesEmergencyPricing === true;
   } else {
     // Use default model, but still validate it exists and has pricing
     const foundModel = result.models.find((model) => model.id === modelId);
+    selectedModel = foundModel;
     modelPricing = foundModel?.pricing?.imageOutput;
     modelUsesEmergencyPricing = foundModel?.usesEmergencyPricing === true;
   }
 
-  // SECURITY: Reject models without valid pricing (prevents cost abuse)
   const parsedModelPricingUsd = modelPricing ? Number.parseFloat(modelPricing) : Number.NaN;
-  const legacyBaseImageCreditsCost = computeCreditsCost(modelPricing);
-  if (
-    legacyBaseImageCreditsCost === null ||
-    !Number.isFinite(parsedModelPricingUsd) ||
-    parsedModelPricingUsd <= 0
-  ) {
-    return jsonWithSessionRefresh(
-      {
-        error: "Model pricing unavailable",
-        message: `The model "${modelId}" cannot be priced. Please select a different model.`,
-      },
-      { status: 400 }
-    );
-  }
+  const hasCatalogImagePricing =
+    Number.isFinite(parsedModelPricingUsd) && parsedModelPricingUsd > 0;
 
   const quoteUsdCost = async (
     usd: number
@@ -699,8 +691,22 @@ export async function POST(request: Request) {
     }
   };
 
-  const baseImageQuote = await quoteUsdCost(parsedModelPricingUsd);
+  const fallbackBaseImageCreditsCost =
+    selectedModel?.creditsCost ?? DEFAULT_CREDITS_COST;
+  const baseImageQuote = hasCatalogImagePricing
+    ? await quoteUsdCost(parsedModelPricingUsd)
+    : {
+        credits: fallbackBaseImageCreditsCost,
+        billedUsd: fallbackBaseImageCreditsCost * CREDIT_USD,
+        viaNeutralCost: false,
+      };
   const baseImageCreditsCost = baseImageQuote.credits;
+
+  if (!hasCatalogImagePricing) {
+    console.warn(
+      `[Image API] Missing catalog image pricing for model=${modelId}; using fallback estimate=${fallbackBaseImageCreditsCost} credits`
+    );
+  }
 
   // Check if this model supports resolution settings
   // Only certain models (currently Gemini) support configurable resolution
@@ -735,12 +741,14 @@ export async function POST(request: Request) {
   // The OpenRouter models API often underreports actual costs for multimodal image models
   // Emergency fallback prices are already conservative final-price baselines.
   // Avoid applying the catalog underreporting multiplier twice in outage mode.
-  const reservationMultiplier = modelUsesEmergencyPricing
-    ? 1
-    : CONSERVATIVE_ESTIMATE_MULTIPLIER;
-  const baseReservationCredits = Math.ceil(
-    baseImageCreditsCost * reservationMultiplier
-  );
+  const baseReservationCredits =
+    selectedModel?.reservationCreditsCost ??
+    (hasCatalogImagePricing
+      ? Math.ceil(
+          baseImageCreditsCost *
+            (modelUsesEmergencyPricing ? 1 : CONSERVATIVE_ESTIMATE_MULTIPLIER)
+        )
+      : baseImageCreditsCost);
   const reservationImageCredits = computeAdjustedCreditsCost(
     baseReservationCredits,
     resolution,

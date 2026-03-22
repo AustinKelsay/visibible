@@ -37,7 +37,9 @@ let mockLearnedEstimate:
 const mockImageSpendDownGraceCredits = 5;
 const defaultImageCatalogModels: Array<{
   id: string;
-  pricing: { imageOutput: string };
+  pricing?: { imageOutput: string };
+  creditsCost?: number | null;
+  reservationCreditsCost?: number | null;
   usesEmergencyPricing?: boolean;
 }> = [
   { id: "google/gemini-2.0-flash-exp:free", pricing: { imageOutput: "0.01" } },
@@ -266,6 +268,7 @@ vi.mock("@/lib/convex-client", () => ({
 
 vi.mock("@/lib/image-models", () => ({
   DEFAULT_IMAGE_MODEL: "google/gemini-2.0-flash-exp:free",
+  DEFAULT_CREDITS_COST: 20,
   fetchImageModels: fetchImageModelsMock,
   computeCreditsCost: vi.fn((pricing: string | undefined) => {
     if (!pricing) return null;
@@ -505,6 +508,46 @@ describe("Image Generation API Credit Flow", () => {
       const reserveCall = mockState.callHistory.find((c) => c.action === "reserveCredits");
       expect(reserveCall).toBeDefined();
       expect((reserveCall?.args as { amount: number }).amount).toBe(13);
+    });
+
+    it("token-priced image models fall back to the default estimate instead of failing", async () => {
+      fetchImageModelsMock.mockResolvedValueOnce({
+        models: [
+          { id: "google/gemini-2.0-flash-exp:free", pricing: { imageOutput: "0.01" } },
+          { id: "openai/gpt-5-image", creditsCost: null, reservationCreditsCost: null },
+        ],
+      });
+      mockFetchResponse = {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          id: "gen-123",
+          choices: [
+            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+          ],
+          usage: { cost: 0.05 },
+        }),
+      };
+
+      const { POST } = await import("../../generate-image/route");
+
+      const request = createGenerateImageRequest({
+        text: "Token priced image model",
+        reference: "Genesis 1:1",
+        model: "openai/gpt-5-image",
+      });
+      const response = await POST(request);
+
+      expect(response.status).toBe(200);
+      expect(getCallCount("quoteUsdCost")).toBe(1);
+
+      const estimateCall = mockState.callHistory.find((c) => c.action === "getEstimate");
+      expect(estimateCall).toBeDefined();
+      expect((estimateCall?.args as { fallbackCredits: number }).fallbackCredits).toBe(20);
+
+      const reserveCall = mockState.callHistory.find((c) => c.action === "reserveCredits");
+      expect(reserveCall).toBeDefined();
+      expect((reserveCall?.args as { amount: number }).amount).toBe(20);
     });
 
     it("actual-usage-local-fallback: quote failure still charges from usage.cost", async () => {
