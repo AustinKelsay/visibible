@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef, type Dispatch, type SetStateAction } from "react";
 import Link from "next/link";
-import { Maximize2, X } from "lucide-react";
+import { ImageIcon, X } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
@@ -36,6 +36,16 @@ interface GalleryCardProps {
   currentVerse: number;
   isLoading: boolean;
   onExpand?: () => void;
+  onNavigateToReader?: (href: string, imageId?: string) => void;
+}
+
+function buildReaderHref(href: string, imageId?: string) {
+  if (!imageId) {
+    return href;
+  }
+
+  const params = new URLSearchParams({ image: imageId });
+  return `${href}?${params.toString()}`;
 }
 
 function useImageReadyRef(
@@ -57,17 +67,20 @@ function GalleryCard({
   currentVerse,
   isLoading,
   onExpand,
+  onNavigateToReader,
 }: GalleryCardProps) {
   const isCurrent = item.verse === currentVerse;
   const [isImageReady, setIsImageReady] = useState(false);
   const [isImageError, setIsImageError] = useState(false);
   const handleImageRef = useImageReadyRef(setIsImageReady, setIsImageError);
+  const readerHref = buildReaderHref(item.href, item.imageId);
 
   return (
     <Link
-      href={item.href}
+      href={readerHref}
       aria-current={isCurrent ? "page" : undefined}
       aria-label={`${bookName} ${chapter}:${item.verse}${item.isPlaceholder ? " placeholder" : ` image ${item.cardIndex + 1}`}`}
+      onClick={() => onNavigateToReader?.(item.href, item.imageId)}
       className={`group overflow-hidden rounded-[var(--radius-xl)] border bg-[var(--background)] transition-all duration-[var(--motion-base)] hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] ${
         isCurrent
           ? "border-[var(--accent)]/40 shadow-[var(--shadow-sm)]"
@@ -140,9 +153,9 @@ function GalleryCard({
               onExpand();
             }}
             className="absolute right-3 bottom-3 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-full bg-black/50 text-white/70 opacity-0 group-hover:opacity-100 hover:bg-black/70 hover:text-white backdrop-blur-sm transition-all duration-[var(--motion-base)]"
-            aria-label={`View ${bookName} ${chapter}:${item.verse} fullscreen`}
+            aria-label={`Open full image view for ${bookName} ${chapter}:${item.verse}`}
           >
-            <Maximize2 size={16} strokeWidth={1.5} />
+            <ImageIcon size={16} strokeWidth={1.5} />
           </button>
         ) : null}
       </div>
@@ -221,7 +234,7 @@ export function ChapterGallery({
   verses,
   fullScreen = false,
 }: ChapterGalleryProps) {
-  const { chapterGalleryEnabled } = usePreferences();
+  const { chapterGalleryEnabled, setChapterGalleryEnabled } = usePreferences();
   const isConvexEnabled = useConvexEnabled();
   const { isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
   const [layoutMode, setLayoutMode] = useState<GalleryLayoutMode>("all");
@@ -237,6 +250,17 @@ export function ChapterGallery({
     closeFullscreen();
     setLightboxItem(null);
   }, [closeFullscreen]);
+
+  const handleNavigateToReader = useCallback((href: string, imageId?: string) => {
+    setChapterGalleryEnabled(false);
+    if (isFullscreen) {
+      handleCloseLightbox();
+    }
+
+    // Link handles the actual navigation; this keeps gallery mode from persisting on the destination page.
+    void href;
+    void imageId;
+  }, [handleCloseLightbox, isFullscreen, setChapterGalleryEnabled]);
 
   const galleryImages = useQuery(
     api.verseImages.getChapterGallery,
@@ -408,6 +432,7 @@ export function ChapterGallery({
                 chapter={chapter}
                 currentVerse={currentVerse}
                 isLoading={isLoading}
+                onNavigateToReader={handleNavigateToReader}
                 onExpand={!item.isPlaceholder && item.imageUrl ? () => handleExpand(item) : undefined}
               />
             ))}
@@ -446,8 +471,9 @@ export function ChapterGallery({
 
                         <div className="space-y-2">
                           <Link
-                            href={item.href}
+                            href={buildReaderHref(item.href, item.cards[0]?.imageId)}
                             aria-current={isCurrent ? "page" : undefined}
+                            onClick={() => handleNavigateToReader(item.href, item.cards[0]?.imageId)}
                             className="block text-lg font-semibold tracking-tight text-[var(--foreground)] hover:text-[var(--accent)] transition-colors duration-[var(--motion-fast)]"
                           >
                             {bookName} {chapter}:{item.verse}
@@ -486,6 +512,7 @@ export function ChapterGallery({
                               chapter={chapter}
                               currentVerse={currentVerse}
                               isLoading={isLoading}
+                              onNavigateToReader={handleNavigateToReader}
                               onExpand={!card.isPlaceholder && card.imageUrl ? () => handleExpand(flatItem) : undefined}
                             />
                           );

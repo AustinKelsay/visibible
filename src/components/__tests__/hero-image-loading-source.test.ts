@@ -10,6 +10,10 @@ describe("HeroImage passive loading treatment", () => {
     expect(source).toContain(
       "import { ImageLoadingSkeleton } from \"@/components/image-loading-skeleton\";"
     );
+    // Intentional source-level contract: this test locks in the URL-driven image selection
+    // implementation detail so useSearchParams and requestedImageId wiring do not regress silently.
+    expect(source).toContain("useSearchParams");
+    expect(source).toContain("const requestedImageId = searchParams.get(\"image\");");
     expect(source).toContain("!isGenerating && isImageLoading && !error");
     expect(source).toContain("isQueryLoading && !isGenerating && !error");
     expect(source).toContain("label={generationPhaseLabel}");

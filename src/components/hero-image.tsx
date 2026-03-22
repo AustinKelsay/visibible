@@ -4,8 +4,8 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
-import { useRouter } from "next/navigation";
-import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Maximize2, X } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageIcon, ImageOff, X } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useSession } from "@/context/session-context";
@@ -19,6 +19,7 @@ import {
   canAffordImageGeneration,
   computeAdjustedCreditsCost,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
+  getDisplayedCreditsCost,
   isValidAspectRatio,
 } from "@/lib/image-models";
 import {
@@ -281,6 +282,7 @@ function HeroImageWithConvex({
 
 interface ModelPricing {
   creditsCost: number | null;
+  reservationCreditsCost: number | null;
   etaSeconds: number;
 }
 
@@ -308,6 +310,7 @@ function HeroImageBase({
   const { tier, credits, buyCredits, updateCredits, isLoading: sessionLoading } = useSession();
   const { setCurrentImageId, isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const {
     registerGenerate,
     unregisterGenerate,
@@ -317,7 +320,11 @@ function HeroImageBase({
   } = useGeneration();
 
   // Fetch model pricing info
-  const [modelPricing, setModelPricing] = useState<ModelPricing>({ creditsCost: null, etaSeconds: 12 });
+  const [modelPricing, setModelPricing] = useState<ModelPricing>({
+    creditsCost: null,
+    reservationCreditsCost: null,
+    etaSeconds: 12,
+  });
   const [pricingLoaded, setPricingLoaded] = useState(false);
   const modelPricingCache = useRef<Map<string, ModelPricing>>(new Map());
 
@@ -342,6 +349,7 @@ function HeroImageBase({
           for (const model of data.models) {
             modelPricingCache.current.set(model.id, {
               creditsCost: model.creditsCost,
+              reservationCreditsCost: model.reservationCreditsCost ?? null,
               etaSeconds: model.etaSeconds ?? 12,
             });
           }
@@ -350,6 +358,7 @@ function HeroImageBase({
           if (current) {
             setModelPricing({
               creditsCost: current.creditsCost,
+              reservationCreditsCost: current.reservationCreditsCost ?? null,
               etaSeconds: current.etaSeconds ?? 12,
             });
           }
@@ -370,6 +379,8 @@ function HeroImageBase({
 
   // Determine if user can generate (has sufficient credits or is admin)
   const baseCost = modelPricing.creditsCost ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
+  const displayBaseCost =
+    getDisplayedCreditsCost(modelPricing) ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
   const effectiveCost = computeAdjustedCreditsCost(baseCost, imageResolution, imageModel);
   const effectiveEta = modelPricing.etaSeconds;
   const isAdmin = tier === "admin";
@@ -442,6 +453,7 @@ function HeroImageBase({
   const [selectedImageId, setSelectedImageId] = useState<string | null>(null);
   const [pendingImageId, setPendingImageId] = useState<string | null>(null);
   const pendingFollowLatest = useRef(true);
+  const requestedImageId = searchParams.get("image");
 
   // Local state for newly generated image (before it's saved and reflected in query)
   const [generatedImage, setGeneratedImage] = useState<{
@@ -514,6 +526,17 @@ function HeroImageBase({
           ? generationPhaseLabel
           : "No images yet";
   const showControls = Boolean(hasImages || isGenerating || isQueryLoading || canGenerate || !pricingPending);
+
+  useEffect(() => {
+    const nextSelectedImageId = requestedImageId && requestedImageId.length > 0
+      ? requestedImageId
+      : null;
+
+    setSelectedImageId(nextSelectedImageId);
+    setError(null);
+    setImageLoadAttempts(0);
+    pendingFollowLatest.current = nextSelectedImageId === null;
+  }, [requestedImageId, verseId]);
 
   useEffect(() => {
     if (!isGenerating) {
@@ -880,6 +903,7 @@ function HeroImageBase({
       aspectRatio: imageAspectRatio,
       resolution: imageResolution,
       baseCost,
+      displayBaseCost,
       modelId: imageModel,
     });
   }, [
@@ -893,6 +917,7 @@ function HeroImageBase({
     imageAspectRatio,
     imageResolution,
     baseCost,
+    displayBaseCost,
     imageModel,
     updateGenerationState,
   ]);
@@ -1137,9 +1162,9 @@ function HeroImageBase({
             <button
               onClick={openFullscreen}
               className="sm:hidden absolute top-3 z-20 right-4 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 border border-[var(--divider)] text-[var(--foreground)] hover:bg-[var(--divider)]/50 hover:text-[var(--foreground)] active:scale-95 transition-all duration-[var(--motion-fast)] cursor-pointer focus-ring"
-              aria-label="View fullscreen"
+              aria-label="Open full image view"
             >
-              <Maximize2 size={20} strokeWidth={1.5} />
+              <ImageIcon size={20} strokeWidth={1.5} />
             </button>
           </>
         ) : (

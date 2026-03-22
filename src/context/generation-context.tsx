@@ -15,6 +15,7 @@ export interface GenerationState {
   aspectRatio: ImageAspectRatio;
   resolution: ImageResolution;
   baseCost: number;
+  displayBaseCost: number;
   modelId: string;
 }
 
@@ -29,6 +30,7 @@ const DEFAULT_STATE: GenerationState = {
   aspectRatio: "16:9",
   resolution: "1K",
   baseCost: 20,
+  displayBaseCost: 20,
   modelId: "",
 };
 

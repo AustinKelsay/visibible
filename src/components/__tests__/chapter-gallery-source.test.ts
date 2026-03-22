@@ -58,6 +58,7 @@ describe("chapter gallery behavior", () => {
     vi.clearAllMocks();
     usePreferencesMock.mockReturnValue({
       chapterGalleryEnabled: false,
+      setChapterGalleryEnabled: vi.fn(),
     } as never);
     useConvexEnabledMock.mockReturnValue(false);
     useQueryMock.mockReturnValue(null as never);
@@ -73,6 +74,7 @@ describe("chapter gallery behavior", () => {
   it("skips Convex chapter gallery queries but still renders placeholders when Convex is unavailable", () => {
     usePreferencesMock.mockReturnValue({
       chapterGalleryEnabled: true,
+      setChapterGalleryEnabled: vi.fn(),
     } as never);
     useConvexEnabledMock.mockReturnValue(false);
 
@@ -88,6 +90,7 @@ describe("chapter gallery behavior", () => {
   it("renders verse mini-galleries, placeholders, and chapter links when enabled", () => {
     usePreferencesMock.mockReturnValue({
       chapterGalleryEnabled: true,
+      setChapterGalleryEnabled: vi.fn(),
     } as never);
     useConvexEnabledMock.mockReturnValue(true);
     useQueryMock.mockReturnValue([
@@ -123,7 +126,7 @@ describe("chapter gallery behavior", () => {
     expect(markup).toContain("By verse");
     expect(markup).toContain("All images gallery");
     expect(markup).toContain("1/2");
-    expect(markup).toContain("/genesis/1/1");
+    expect(markup).toContain("/genesis/1/1?image=image-1-latest");
     expect(markup).toContain("/genesis/1/2");
     expect(markup).toContain("Loading saved image for Genesis 1:1");
     expect(markup).toContain("No image yet");
@@ -133,6 +136,7 @@ describe("chapter gallery behavior", () => {
   it("shows the grouped-by-verse filter option alongside the default gallery stream", () => {
     usePreferencesMock.mockReturnValue({
       chapterGalleryEnabled: true,
+      setChapterGalleryEnabled: vi.fn(),
     } as never);
     useConvexEnabledMock.mockReturnValue(true);
     useQueryMock.mockReturnValue([

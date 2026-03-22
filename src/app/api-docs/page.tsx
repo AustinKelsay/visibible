@@ -9,6 +9,7 @@ import { MarkdownRenderer } from "@/components/markdown-renderer";
 import {
   buildPublicApiDocsMarkdown,
   getPublicApiDocsBaseUrl,
+  getPublicApiDocsPageBaseUrl,
   PUBLIC_IMAGE_API_BASE_PATH,
   PUBLIC_IMAGE_API_QUICK_LINKS,
 } from "@/lib/public-image-docs";
@@ -21,8 +22,9 @@ export const metadata: Metadata = {
 
 export default async function ApiDocsPage() {
   const headerList = await headers();
-  const baseUrl = getPublicApiDocsBaseUrl(headerList);
-  const docsContent = buildPublicApiDocsMarkdown(baseUrl);
+  const apiBaseUrl = getPublicApiDocsBaseUrl(headerList);
+  const pageBaseUrl = getPublicApiDocsPageBaseUrl(headerList);
+  const docsContent = buildPublicApiDocsMarkdown(apiBaseUrl, pageBaseUrl);
 
   return (
     <LayoutWrapper>

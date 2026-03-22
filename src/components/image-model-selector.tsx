@@ -7,6 +7,7 @@ import {
   ImageModel,
   DEFAULT_IMAGE_MODEL,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
+  getDisplayedCreditsCost,
 } from "@/lib/image-models";
 
 interface ImageModelSelectorProps {
@@ -153,27 +154,30 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
                   </div>
                   {providerModels.map((model) => {
                     const isSelected = imageModel === model.id;
+                    const isPricingAvailable =
+                      model.creditsCost != null ||
+                      model.reservationCreditsCost != null;
                     return (
                       <button
                         key={model.id}
-                        onClick={() => model.creditsCost != null && handleSelect(model.id)}
-                        disabled={model.creditsCost == null}
+                        onClick={() => isPricingAvailable && handleSelect(model.id)}
+                        disabled={!isPricingAvailable}
                         className={`w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors duration-[var(--motion-fast)] ${
-                          model.creditsCost == null
+                          !isPricingAvailable
                             ? "opacity-50 cursor-not-allowed"
                             : "hover:bg-[var(--surface)]"
                         } ${isSelected ? "bg-[var(--surface)]" : ""}`}
                         role="option"
                         aria-selected={isSelected}
-                        aria-disabled={model.creditsCost == null}
+                        aria-disabled={!isPricingAvailable}
                       >
                         <div className="flex-1 min-w-0">
                           <div className="text-sm font-medium truncate">{model.name}</div>
                           <p className="text-xs text-[var(--muted)] truncate">
-                            {model.creditsCost == null ? (
+                            {model.creditsCost == null && model.reservationCreditsCost == null ? (
                               "Pricing unavailable"
                             ) : (
-                              <>~{model.etaSeconds ?? 12}s · About {model.creditsCost} credits</>
+                              <>~{model.etaSeconds ?? 12}s · About {getDisplayedCreditsCost(model)} credits</>
                             )}
                           </p>
                         </div>
