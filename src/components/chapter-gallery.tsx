@@ -74,6 +74,7 @@ function GalleryCard({
   const [isImageError, setIsImageError] = useState(false);
   const handleImageRef = useImageReadyRef(setIsImageReady, setIsImageError);
   const readerHref = buildReaderHref(item.href, item.imageId);
+  const hasExpandableImage = Boolean(!item.isPlaceholder && item.imageUrl && onExpand);
 
   return (
     <Link
@@ -115,7 +116,7 @@ function GalleryCard({
                 setIsImageError(true);
               }}
             />
-            <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/40 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
           </>
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--background)]/75 via-[var(--surface)] to-[var(--surface)]">
@@ -126,6 +127,20 @@ function GalleryCard({
             />
           </div>
         )}
+
+        {item.text ? (
+          <div
+            className={`pointer-events-none absolute inset-x-0 bottom-0 z-10 px-3 pb-3 ${
+              hasExpandableImage ? "pr-14" : ""
+            }`}
+          >
+            <div className="rounded-[18px] border border-white/10 bg-black/30 px-3 py-2 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.22)]">
+              <p className="line-clamp-3 text-[13px] leading-5 text-white/92 sm:text-sm">
+                {item.text}
+              </p>
+            </div>
+          </div>
+        ) : null}
 
         <div className="absolute left-3 top-3 flex items-center gap-1.5">
           <span
