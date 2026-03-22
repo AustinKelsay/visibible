@@ -5,7 +5,7 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageIcon, ImageOff, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, RefreshCw, Sparkles, Loader2, Zap, ImageOff, Maximize2, X } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useSession } from "@/context/session-context";
@@ -1162,9 +1162,9 @@ function HeroImageBase({
             <button
               onClick={openFullscreen}
               className="sm:hidden absolute top-3 z-20 right-4 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 border border-[var(--divider)] text-[var(--foreground)] hover:bg-[var(--divider)]/50 hover:text-[var(--foreground)] active:scale-95 transition-all duration-[var(--motion-fast)] cursor-pointer focus-ring"
-              aria-label="Open full image view"
+              aria-label="Open fullscreen view"
             >
-              <ImageIcon size={20} strokeWidth={1.5} />
+              <Maximize2 size={20} strokeWidth={1.5} />
             </button>
           </>
         ) : (

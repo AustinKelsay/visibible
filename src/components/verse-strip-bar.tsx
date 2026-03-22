@@ -1,6 +1,6 @@
 "use client";
 
-import { ImageIcon } from "lucide-react";
+import { Maximize2 } from "lucide-react";
 import { VerseStrip } from "@/components/verse-strip";
 import { useNavigation } from "@/context/navigation-context";
 
@@ -44,9 +44,9 @@ export function VerseStripBar({ book, chapter, currentVerse, totalVerses }: Vers
       <button
         onClick={openFullscreen}
         className="shrink-0 self-stretch px-3 flex items-center justify-center rounded-r-[var(--radius-lg)] text-white/70 hover:bg-white/15 hover:text-white transition-all duration-[var(--motion-fast)] focus-ring"
-        aria-label="Open full image view"
+        aria-label="Open fullscreen view"
       >
-        <ImageIcon size={20} strokeWidth={1.5} />
+        <Maximize2 size={20} strokeWidth={1.5} />
       </button>
     </div>
   );

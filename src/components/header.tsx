@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, FileText, Grid3x2, Menu, MessageCircle, X } from "lucide-react";
+import { BookOpen, Grid3x2, ImageIcon, Menu, MessageCircle, X } from "lucide-react";
 import { useNavigation } from "@/context/navigation-context";
 import { usePreferences } from "@/context/preferences-context";
 import { TranslationSelector } from "./translation-selector";
@@ -25,7 +25,7 @@ function GalleryToggleButton({
 }) {
   const label = chapterGalleryEnabled ? "Switch to reading view" : "Switch to gallery view";
   const title = chapterGalleryEnabled ? "Reading view" : "Gallery view";
-  const Icon = chapterGalleryEnabled ? FileText : Grid3x2;
+  const Icon = chapterGalleryEnabled ? ImageIcon : Grid3x2;
 
   return (
     <button
