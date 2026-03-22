@@ -344,7 +344,7 @@ function HeroImageBase({
     }
 
     // Fetch models to get pricing for current model
-    fetch("/api/image-models")
+    fetch("/api/image-models", { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         setScenePlannerCreditsCost(

@@ -188,6 +188,6 @@ export async function GET() {
     scenePlannerCreditsCost,
     ...(result.error ? { error: result.error } : {}),
   }, {
-    headers: { "Cache-Control": "private, max-age=3600" },
+    headers: { "Cache-Control": "private, no-store" },
   });
 }

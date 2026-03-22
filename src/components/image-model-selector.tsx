@@ -38,7 +38,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
         setIsLoading(true);
         setError(null);
 
-        fetch("/api/image-models")
+        fetch("/api/image-models", { cache: "no-store" })
           .then((res) => res.json())
           .then((data) => {
             setScenePlannerCreditsCost(

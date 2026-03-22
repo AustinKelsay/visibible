@@ -84,7 +84,7 @@ export function HeaderGenerateButton() {
         setModelsLoading(true);
         setModelsError(null);
 
-        fetch("/api/image-models")
+        fetch("/api/image-models", { cache: "no-store" })
           .then((res) => {
             if (!res.ok) throw new Error(`Failed to fetch models (${res.status})`);
             return res.json();
