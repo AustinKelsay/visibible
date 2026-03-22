@@ -17,7 +17,7 @@ import {
   ASPECT_RATIOS,
   ImageAspectRatio,
   canAffordImageGeneration,
-  computeAdjustedCreditsCost,
+  computeEstimatedImageGenerationCreditsCost,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
   getDisplayedCreditsCost,
   isValidAspectRatio,
@@ -325,6 +325,7 @@ function HeroImageBase({
     reservationCreditsCost: null,
     etaSeconds: 12,
   });
+  const [scenePlannerCreditsCost, setScenePlannerCreditsCost] = useState(0);
   const [pricingLoaded, setPricingLoaded] = useState(false);
   const modelPricingCache = useRef<Map<string, ModelPricing>>(new Map());
 
@@ -344,6 +345,11 @@ function HeroImageBase({
     fetch("/api/image-models")
       .then((res) => res.json())
       .then((data) => {
+        setScenePlannerCreditsCost(
+          typeof data.scenePlannerCreditsCost === "number"
+            ? data.scenePlannerCreditsCost
+            : 0
+        );
         if (data.models) {
           // Cache all models
           for (const model of data.models) {
@@ -381,7 +387,12 @@ function HeroImageBase({
   const baseCost = modelPricing.creditsCost ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
   const displayBaseCost =
     getDisplayedCreditsCost(modelPricing) ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
-  const effectiveCost = computeAdjustedCreditsCost(baseCost, imageResolution, imageModel);
+  const effectiveCost = computeEstimatedImageGenerationCreditsCost(
+    baseCost,
+    imageResolution,
+    imageModel,
+    scenePlannerCreditsCost
+  );
   const effectiveEta = modelPricing.etaSeconds;
   const isAdmin = tier === "admin";
   const pricingPending = isConvexEnabled && !isAdmin && !pricingLoaded;
@@ -904,6 +915,7 @@ function HeroImageBase({
       resolution: imageResolution,
       baseCost,
       displayBaseCost,
+      scenePlannerCreditsCost,
       modelId: imageModel,
     });
   }, [
@@ -918,6 +930,7 @@ function HeroImageBase({
     imageResolution,
     baseCost,
     displayBaseCost,
+    scenePlannerCreditsCost,
     imageModel,
     updateGenerationState,
   ]);

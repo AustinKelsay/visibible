@@ -8,6 +8,7 @@ import {
   fetchImageModels,
   type ImageModel,
 } from "@/lib/image-models";
+import { getScenePlannerEstimatedCreditsCost } from "@/lib/scene-planner";
 import { getConvexClient } from "@/lib/convex-client";
 import { api } from "../../../../convex/_generated/api";
 interface ModelStats {
@@ -18,6 +19,9 @@ interface ModelStats {
 export async function GET() {
   const openRouterApiKey = process.env.OPENROUTER_API_KEY;
   const emergencyDefaultPricing = EMERGENCY_IMAGE_MODEL_PRICING_USD[DEFAULT_IMAGE_MODEL];
+  const scenePlannerCreditsCost = await getScenePlannerEstimatedCreditsCost(
+    openRouterApiKey
+  );
 
   if (!openRouterApiKey) {
     // Return fallback with just the default model
@@ -35,6 +39,11 @@ export async function GET() {
           etaSeconds: DEFAULT_ETA_SECONDS,
         },
       ],
+      scenePlannerCreditsCost,
+      creditRange: {
+        min: DEFAULT_CREDITS_COST + scenePlannerCreditsCost,
+        max: DEFAULT_CREDITS_COST + scenePlannerCreditsCost,
+      },
       error: "OpenRouter API key not configured",
     });
   }
@@ -67,7 +76,9 @@ export async function GET() {
 
   // Compute credit cost range from models that have pricing
   const creditCosts = modelsWithStats
-    .map((m) => m.creditsCost)
+    .map((m) =>
+      m.creditsCost != null ? m.creditsCost + scenePlannerCreditsCost : null
+    )
     .filter((cost): cost is number => cost !== null && cost !== undefined);
 
   // Fallback to default cost if no pricing is available to match the generation endpoint behavior
@@ -82,6 +93,7 @@ export async function GET() {
   return NextResponse.json({
     models: modelsWithStats,
     creditRange,
+    scenePlannerCreditsCost,
     ...(result.error ? { error: result.error } : {}),
   }, {
     headers: { "Cache-Control": "private, max-age=3600" },

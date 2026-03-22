@@ -19,12 +19,8 @@ import {
   ImageResolution,
 } from "@/lib/image-models";
 import {
-  DEFAULT_CHAT_MODEL,
-  SCENE_PLANNER_ESTIMATED_TOKENS,
-  computeChatCreditsCost,
-  getChatModelPricing,
-  isModelFree,
 } from "@/lib/chat-models";
+import { getScenePlannerEstimatedCreditsCost, getScenePlannerModelId, isScenePlannerEnabled } from "@/lib/scene-planner";
 import {
   validateSessionWithIp,
   withSessionRefreshCookie,
@@ -61,7 +57,6 @@ const isImageGenerationEnabled =
 const DEFAULT_TEXT = "In the beginning God created the heaven and the earth.";
 const PROMPT_VERSION = "2026-03-19";
 const DEFAULT_STYLE_PROFILE = "classical";
-const DEFAULT_SCENE_PLANNER_MODEL = DEFAULT_CHAT_MODEL;
 const DEFAULT_TRANSLATION_ID = "default";
 const SCENE_PLAN_MAX_FIELD_LENGTH = 180;
 const PROMPT_MAX_CHARS = 2800;
@@ -731,9 +726,8 @@ export async function POST(request: Request) {
   );
 
   // Determine scene planner settings early for cost calculation
-  const enableScenePlanner = process.env.ENABLE_SCENE_PLANNER !== "false";
-  const scenePlannerModel =
-    process.env.OPENROUTER_SCENE_PLANNER_MODEL || DEFAULT_SCENE_PLANNER_MODEL;
+  const enableScenePlanner = isScenePlannerEnabled();
+  const scenePlannerModel = getScenePlannerModelId();
 
   // Phase 2: check scene plan cache before deciding planner cost.
   let cachedScenePlan: ScenePlan | null = null;
@@ -762,18 +756,10 @@ export async function POST(request: Request) {
   let scenePlannerCreditsCost = 0;
   let scenePlannerCostUsd = 0;
   if (enableScenePlanner && !scenePlanFromCache) {
-    const scenePlannerPricing = await getChatModelPricing(
-      scenePlannerModel,
+    scenePlannerCreditsCost = await getScenePlannerEstimatedCreditsCost(
       openRouterApiKey
     );
-    if (
-      scenePlannerPricing &&
-      !isModelFree({ id: scenePlannerModel, pricing: scenePlannerPricing })
-    ) {
-      scenePlannerCreditsCost =
-        computeChatCreditsCost(scenePlannerPricing, SCENE_PLANNER_ESTIMATED_TOKENS) ?? 0;
-      scenePlannerCostUsd = scenePlannerCreditsCost * CREDIT_USD;
-    }
+    scenePlannerCostUsd = scenePlannerCreditsCost * CREDIT_USD;
   }
 
   // Estimated cost (what we expect to charge based on API pricing)

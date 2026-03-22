@@ -19,6 +19,7 @@ import {
   computeConservativeEstimate,
   computeCreditsFromActualUsage,
   computeAdjustedCreditsCost,
+  computeEstimatedImageGenerationCreditsCost,
   supportsResolution,
   CONSERVATIVE_ESTIMATE_MULTIPLIER,
   DEFAULT_CREDITS_COST,
@@ -366,17 +367,61 @@ describe("computeAdjustedCreditsCost", () => {
   });
 });
 
+describe("computeEstimatedImageGenerationCreditsCost", () => {
+  it("adds the scene planner surcharge on top of the adjusted image estimate", () => {
+    expect(
+      computeEstimatedImageGenerationCreditsCost(
+        10,
+        "1K",
+        "google/gemini-2.5-flash-image",
+        1
+      )
+    ).toBe(11);
+  });
+
+  it("applies resolution multipliers before adding the planner surcharge", () => {
+    expect(
+      computeEstimatedImageGenerationCreditsCost(
+        10,
+        "2K",
+        "google/gemini-2.5-flash-image",
+        2
+      )
+    ).toBe(37);
+  });
+
+  it("ignores negative planner surcharges", () => {
+    expect(
+      computeEstimatedImageGenerationCreditsCost(
+        10,
+        "1K",
+        "google/gemini-2.5-flash-image",
+        -5
+      )
+    ).toBe(10);
+  });
+});
+
 describe("getDisplayedCreditsCost", () => {
-  it("prefers reservation pricing when available", () => {
+  it("prefers estimated pricing when reservation pricing is also available", () => {
     expect(
       getDisplayedCreditsCost({
         creditsCost: 1,
         reservationCreditsCost: 35,
       })
+    ).toBe(1);
+  });
+
+  it("falls back to reservation pricing when estimated pricing is unavailable", () => {
+    expect(
+      getDisplayedCreditsCost({
+        creditsCost: null,
+        reservationCreditsCost: 35,
+      })
     ).toBe(35);
   });
 
-  it("falls back to estimated pricing when reservation pricing is unavailable", () => {
+  it("uses estimated pricing when only estimated pricing is available", () => {
     expect(
       getDisplayedCreditsCost({
         creditsCost: 7,

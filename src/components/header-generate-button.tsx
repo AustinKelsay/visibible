@@ -13,7 +13,7 @@ import {
   type ImageModel,
   DEFAULT_IMAGE_MODEL,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
-  computeAdjustedCreditsCost,
+  computeEstimatedImageGenerationCreditsCost,
   getDisplayedCreditsCost,
   supportsResolution,
 } from "@/lib/image-models";
@@ -28,6 +28,7 @@ export function HeaderGenerateButton() {
   const [models, setModels] = useState<ImageModel[]>([]);
   const [modelsLoading, setModelsLoading] = useState(false);
   const [modelsError, setModelsError] = useState<string | null>(null);
+  const [scenePlannerCreditsCost, setScenePlannerCreditsCost] = useState(0);
   const hasFetchedModels = useRef(false);
 
   const {
@@ -39,10 +40,16 @@ export function HeaderGenerateButton() {
     aspectRatio,
     resolution,
     displayBaseCost,
+    scenePlannerCreditsCost: generationScenePlannerCreditsCost,
     modelId,
   } = state;
   const modelSupportsRes = supportsResolution(modelId);
-  const displayEffectiveCost = computeAdjustedCreditsCost(displayBaseCost, resolution, modelId);
+  const displayEffectiveCost = computeEstimatedImageGenerationCreditsCost(
+    displayBaseCost,
+    resolution,
+    modelId,
+    generationScenePlannerCreditsCost
+  );
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -77,6 +84,11 @@ export function HeaderGenerateButton() {
             return res.json();
           })
           .then((data) => {
+            setScenePlannerCreditsCost(
+              typeof data.scenePlannerCreditsCost === "number"
+                ? data.scenePlannerCreditsCost
+                : 0
+            );
             if (data.models) setModels(data.models);
             if (data.error) setModelsError(data.error);
           })
@@ -92,11 +104,20 @@ export function HeaderGenerateButton() {
                 etaSeconds: 12,
               },
             ]);
+            setScenePlannerCreditsCost(0);
           })
           .finally(() => setModelsLoading(false));
       });
     }
   }, [isModalOpen, modelsError]);
+
+  const getModelDisplayCost = (model: ImageModel, selectedResolution: ImageResolution) =>
+    computeEstimatedImageGenerationCreditsCost(
+      getDisplayedCreditsCost(model) ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
+      selectedResolution,
+      model.id,
+      scenePlannerCreditsCost
+    );
 
   // Group models by provider
   const groupedModels: Record<string, ImageModel[]> = models.reduce((acc, model) => {
@@ -226,7 +247,7 @@ export function HeaderGenerateButton() {
                                         {model.creditsCost == null && model.reservationCreditsCost == null ? (
                                           "Pricing unavailable"
                                         ) : (
-                                          <>~{model.etaSeconds ?? 12}s · About {getDisplayedCreditsCost(model)} credits</>
+                                          <>~{model.etaSeconds ?? 12}s · About {getModelDisplayCost(model, resolution)} credits</>
                                         )}
                                       </p>
                                     </div>
@@ -275,7 +296,12 @@ export function HeaderGenerateButton() {
                     </div>
                     <div className="flex gap-2">
                       {(Object.keys(RESOLUTIONS) as ImageResolution[]).map((res) => {
-                        const cost = computeAdjustedCreditsCost(displayBaseCost, res, modelId);
+                        const cost = computeEstimatedImageGenerationCreditsCost(
+                          displayBaseCost,
+                          res,
+                          modelId,
+                          generationScenePlannerCreditsCost
+                        );
                         return (
                           <button
                             key={res}

@@ -7,6 +7,7 @@ import {
   ImageModel,
   DEFAULT_IMAGE_MODEL,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
+  computeEstimatedImageGenerationCreditsCost,
   getDisplayedCreditsCost,
 } from "@/lib/image-models";
 
@@ -19,11 +20,12 @@ interface GroupedModels {
 }
 
 export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorProps) {
-  const { imageModel, setImageModel } = usePreferences();
+  const { imageModel, setImageModel, imageResolution } = usePreferences();
   const [isOpen, setIsOpen] = useState(false);
   const [models, setModels] = useState<ImageModel[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [scenePlannerCreditsCost, setScenePlannerCreditsCost] = useState(0);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const hasFetched = useRef(false);
 
@@ -40,6 +42,11 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
         fetch("/api/image-models")
           .then((res) => res.json())
           .then((data) => {
+            setScenePlannerCreditsCost(
+              typeof data.scenePlannerCreditsCost === "number"
+                ? data.scenePlannerCreditsCost
+                : 0
+            );
             if (data.models) {
               setModels(data.models);
             }
@@ -60,6 +67,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
                 etaSeconds: 12,
               },
             ]);
+            setScenePlannerCreditsCost(0);
           })
           .finally(() => {
             setIsLoading(false);
@@ -93,6 +101,14 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
     setImageModel(modelId);
     setIsOpen(false);
   };
+
+  const getModelDisplayCost = (model: ImageModel) =>
+    computeEstimatedImageGenerationCreditsCost(
+      getDisplayedCreditsCost(model) ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
+      imageResolution,
+      model.id,
+      scenePlannerCreditsCost
+    );
 
   // Group models by provider
   const groupedModels: GroupedModels = models.reduce((acc, model) => {
@@ -177,7 +193,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
                             {model.creditsCost == null && model.reservationCreditsCost == null ? (
                               "Pricing unavailable"
                             ) : (
-                              <>~{model.etaSeconds ?? 12}s · About {getDisplayedCreditsCost(model)} credits</>
+                              <>~{model.etaSeconds ?? 12}s · About {getModelDisplayCost(model)} credits</>
                             )}
                           </p>
                         </div>

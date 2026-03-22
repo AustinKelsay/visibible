@@ -176,8 +176,29 @@ export function computeAdjustedCreditsCost(
   return Math.ceil(base * multiplier);
 }
 
-export function getDisplayedCreditsCost(model: Pick<ImageModel, "creditsCost" | "reservationCreditsCost">): number | null {
-  return model.reservationCreditsCost ?? model.creditsCost ?? null;
+export function computeEstimatedImageGenerationCreditsCost(
+  baseCost: number | null | undefined,
+  resolution: ImageResolution,
+  modelId?: string,
+  scenePlannerCreditsCost: number = 0
+): number {
+  return (
+    computeAdjustedCreditsCost(baseCost, resolution, modelId) +
+    Math.max(0, scenePlannerCreditsCost)
+  );
+}
+
+/**
+ * Cost shown to users in selectors and generate CTAs.
+ *
+ * This should reflect the estimated charge, not the conservative reservation hold.
+ * The higher reservation amount is only for backend settlement safety and is
+ * refunded down to the actual charge after generation completes.
+ */
+export function getDisplayedCreditsCost(
+  model: Pick<ImageModel, "creditsCost" | "reservationCreditsCost">
+): number | null {
+  return model.creditsCost ?? model.reservationCreditsCost ?? null;
 }
 
 export function canAffordImageGeneration(

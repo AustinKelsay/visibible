@@ -67,11 +67,12 @@ These limitations are explicitly shown in the buy-credits modal (which includes 
 
 ### Image Credits
 - **Conservative reservation**: Credits are reserved using a 35x multiplier over API-listed pricing because OpenRouter's models API often underreports actual image generation costs for multimodal models.
-- **Estimated-price gating**: The UI shows the normal estimated charge, not the conservative reservation hold. Low-balance sessions may still start image generation within a 5-credit grace window so they can spend down to zero.
+- **Estimated-price gating**: The UI shows the normal estimated charge, not the conservative reservation hold. That estimate includes the selected model, any supported resolution multiplier, and the scene-planner surcharge when the planner is enabled. Low-balance sessions may still start image generation within a 5-credit grace window so they can spend down to zero.
 - **Capped low-balance reservation**: When a session is low on credits, the backend caps the reservation at the remaining balance instead of requiring the full conservative hold upfront.
 - **Actual-usage charging**: After successful generation, the actual cost is extracted from OpenRouter's response (checking `usage.cost`, `usage.total_cost`, `data.cost`, `data.total_cost` in priority order).
 - **Automatic refund**: Excess reserved credits are refunded automatically (typically reserve ~35 credits, charge ~5 actual).
 - **Fallback behavior**: If OpenRouter doesn't return usage data, the API-based estimate is used instead of the conservative 35x estimate. This prevents overcharging when usage extraction fails.
+- **Cache nuance**: Scene-plan cache hits skip the planner call and skip planner charges entirely, so the displayed estimate can still be slightly higher than the final backend estimate on cached verses.
 - The API response includes:
   - `estimatedCreditsCost` - Pre-generation estimate (API pricing)
   - `creditsCost` - Actual charge (from usage or fallback)

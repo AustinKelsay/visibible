@@ -16,6 +16,7 @@ export interface GenerationState {
   resolution: ImageResolution;
   baseCost: number;
   displayBaseCost: number;
+  scenePlannerCreditsCost: number;
   modelId: string;
 }
 
@@ -31,6 +32,7 @@ const DEFAULT_STATE: GenerationState = {
   resolution: "1K",
   baseCost: 20,
   displayBaseCost: 20,
+  scenePlannerCreditsCost: 0,
   modelId: "",
 };
 

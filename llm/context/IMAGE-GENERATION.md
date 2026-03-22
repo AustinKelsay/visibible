@@ -113,6 +113,9 @@ Prompting now favors bounded, reusable context over raw expansion:
 `HeroImage`:
 - creates/sends `requestId`
 - subscribes to request status
+- uses `/api/image-models` pricing metadata to show the estimated request charge in selectors/CTAs
+- displayed estimate includes model price, supported resolution multiplier, and the planner surcharge when the planner is enabled
+- scene-plan cache hits can make the final backend estimate lower because the planner call is skipped
 - displays phase labels:
   - `Planning scene...`
   - `Generating image...`
