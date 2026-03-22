@@ -93,6 +93,20 @@ function formatCurl(baseUrl: string, path: string) {
   return `curl ${JSON.stringify(`${baseUrl}${path}`)}`;
 }
 
+function normalizeConfiguredBaseUrl(envBaseUrl: string): string {
+  const trimmed = envBaseUrl.trim();
+
+  try {
+    const parsed = new URL(trimmed);
+    if (parsed.protocol === "http:" || parsed.protocol === "https:") {
+      return normalizeBaseUrl(parsed.toString());
+    }
+    return normalizeBaseUrl(trimmed);
+  } catch {
+    return normalizeBaseUrl(`https://${trimmed}`);
+  }
+}
+
 export function getPublicApiDocsBaseUrl(headersList: Headers): string {
   const forwardedProto = headersList.get("x-forwarded-proto");
   const forwardedHost = headersList.get("x-forwarded-host");
@@ -106,22 +120,20 @@ export function getPublicApiDocsBaseUrl(headersList: Headers): string {
 
   const envBaseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.VERCEL_PROJECT_PRODUCTION_URL;
   if (envBaseUrl) {
-    const normalized = envBaseUrl.startsWith("http") ? envBaseUrl : `https://${envBaseUrl}`;
-    return normalized.replace(/\/+$/, "");
+    return normalizeConfiguredBaseUrl(envBaseUrl);
   }
 
   return "http://localhost:3000";
 }
 
 function normalizeBaseUrl(baseUrl: string): string {
-  return baseUrl.replace(/\/+$/, "");
+  return baseUrl.trim().replace(/\/+$/, "");
 }
 
 export function getPublicApiDocsPageBaseUrl(headersList: Headers): string {
   const envBaseUrl = process.env.NEXT_PUBLIC_APP_URL;
   if (envBaseUrl) {
-    const normalized = envBaseUrl.startsWith("http") ? envBaseUrl : `https://${envBaseUrl}`;
-    return normalizeBaseUrl(normalized);
+    return normalizeConfiguredBaseUrl(envBaseUrl);
   }
 
   return getPublicApiDocsBaseUrl(headersList);
@@ -160,7 +172,12 @@ function buildExampleVerseResponse(apiBaseUrl: string, pageBaseUrl: string) {
 }
 
 export function buildPublicApiDocsMarkdown(apiBaseUrl: string, pageBaseUrl: string = apiBaseUrl): string {
-  const exampleVerseResponse = buildExampleVerseResponse(apiBaseUrl, pageBaseUrl);
+  const normalizedApiBaseUrl = normalizeBaseUrl(apiBaseUrl);
+  const normalizedPageBaseUrl = normalizeBaseUrl(pageBaseUrl || normalizedApiBaseUrl);
+  const exampleVerseResponse = buildExampleVerseResponse(
+    normalizedApiBaseUrl,
+    normalizedPageBaseUrl
+  );
   const exampleHistoryResponse = {
     data: {
       ...exampleVerseResponse.data,
@@ -183,12 +200,12 @@ ${endpoint.description}`
   ).join("\n\n");
 
   const exampleRequests = [
-    formatCurl(apiBaseUrl, PUBLIC_IMAGE_API_BASE_PATH),
-    formatCurl(apiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/books`),
-    formatCurl(apiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/books/genesis/chapters`),
-    formatCurl(apiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/chapters/genesis/1`),
-    formatCurl(apiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/verses/john/3/16`),
-    formatCurl(apiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/verses/genesis/1/1/images?limit=10`),
+    formatCurl(normalizedApiBaseUrl, PUBLIC_IMAGE_API_BASE_PATH),
+    formatCurl(normalizedApiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/books`),
+    formatCurl(normalizedApiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/books/genesis/chapters`),
+    formatCurl(normalizedApiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/chapters/genesis/1`),
+    formatCurl(normalizedApiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/verses/john/3/16`),
+    formatCurl(normalizedApiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/verses/genesis/1/1/images?limit=10`),
   ].join("\n");
 
   return `
@@ -196,7 +213,7 @@ ${endpoint.description}`
 
 The public image API gives read-only access to images that have already been generated and saved in Visibible.
 
-- Base URL: \`${apiBaseUrl}${PUBLIC_IMAGE_API_BASE_PATH}\`
+- Base URL: \`${normalizedApiBaseUrl}${PUBLIC_IMAGE_API_BASE_PATH}\`
 - Auth: none
 - Access: public, read-only
 - CORS: enabled for \`GET\` and \`OPTIONS\`

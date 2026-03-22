@@ -36,6 +36,17 @@ describe("public image docs helpers", () => {
     expect(getPublicApiDocsPageBaseUrl(headersList)).toBe("https://visibible.com");
   });
 
+  it("adds https and trims trailing slashes when NEXT_PUBLIC_APP_URL omits a scheme", () => {
+    process.env.NEXT_PUBLIC_APP_URL = "visibible.com/";
+
+    const headersList = new Headers({
+      host: "www.visibible.com",
+      "x-forwarded-proto": "https",
+    });
+
+    expect(getPublicApiDocsPageBaseUrl(headersList)).toBe("https://visibible.com");
+  });
+
   it("renders API and page links with their respective canonical base URLs", () => {
     const markdown = buildPublicApiDocsMarkdown(
       "https://www.visibible.com",
@@ -45,5 +56,18 @@ describe("public image docs helpers", () => {
     expect(markdown).toContain("Base URL: `https://www.visibible.com/api/public/images`");
     expect(markdown).toContain("\"historyUrl\": \"https://www.visibible.com/api/public/images/verses/genesis/1/1/images\"");
     expect(markdown).toContain("\"pageUrl\": \"https://visibible.com/genesis/1/1\"");
+  });
+
+  it("normalizes trailing slashes in markdown base URLs", () => {
+    const markdown = buildPublicApiDocsMarkdown(
+      " https://www.visibible.com/ ",
+      " https://visibible.com/ "
+    );
+
+    expect(markdown).toContain("Base URL: `https://www.visibible.com/api/public/images`");
+    expect(markdown).toContain("curl \"https://www.visibible.com/api/public/images/books\"");
+    expect(markdown).toContain("\"pageUrl\": \"https://visibible.com/genesis/1/1\"");
+    expect(markdown).not.toContain("https://www.visibible.com//api/public/images");
+    expect(markdown).not.toContain("https://visibible.com//genesis/1/1");
   });
 });

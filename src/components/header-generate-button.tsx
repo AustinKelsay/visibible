@@ -208,13 +208,16 @@ export function HeaderGenerateButton() {
                               </div>
                               {providerModels.map((model) => {
                                 const isSelected = imageModel === model.id;
+                                const isPricingAvailable =
+                                  model.creditsCost != null ||
+                                  model.reservationCreditsCost != null;
                                 return (
                                   <button
                                     key={model.id}
-                                    onClick={() => { if (model.creditsCost != null) setImageModel(model.id); }}
-                                    disabled={model.creditsCost == null}
+                                    onClick={() => { if (isPricingAvailable) setImageModel(model.id); }}
+                                    disabled={!isPricingAvailable}
                                     className={`w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors duration-[var(--motion-fast)] ${
-                                      model.creditsCost == null ? "opacity-50 cursor-not-allowed" : "hover:bg-[var(--surface)]"
+                                      !isPricingAvailable ? "opacity-50 cursor-not-allowed" : "hover:bg-[var(--surface)]"
                                     } ${isSelected ? "bg-[var(--accent)]/10" : ""}`}
                                   >
                                     <div className="flex-1 min-w-0">

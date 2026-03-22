@@ -2,8 +2,6 @@
 
 Visualize the Bible, verse by verse.
 
-Scripture is worth spending time with. Visibible is a simple tool to help people do that — navigate verse by verse, generate images from what you're reading, and ask questions along the way. The text comes first. The imagery is there to help you see it fresh.
-
 No accounts, no subscriptions. Everything runs through an anonymous browser session.
 
 [Live app](https://www.visibible.com) · [About](https://www.visibible.com/about) · [API docs](https://www.visibible.com/api-docs)
@@ -43,7 +41,3 @@ Base path: `/api/public/images` · [Live docs](https://www.visibible.com/api-doc
 ## Deployment
 
 Runs on Vercel with Convex. Setup details in [convex/README.md](convex/README.md).
-
-## Open Source
-
-Visibible is open source. The code is on [GitHub](https://github.com/AustinKelsay/visibible).
