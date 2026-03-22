@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef, type Dispatch, type SetStateAction } from "react";
 import Link from "next/link";
-import { ImageIcon, X } from "lucide-react";
+import { Maximize2, X } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
@@ -153,9 +153,9 @@ function GalleryCard({
               onExpand();
             }}
             className="absolute right-3 bottom-3 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-full bg-black/50 text-white/70 opacity-0 group-hover:opacity-100 hover:bg-black/70 hover:text-white backdrop-blur-sm transition-all duration-[var(--motion-base)]"
-            aria-label={`Open full image view for ${bookName} ${chapter}:${item.verse}`}
+            aria-label={`Open fullscreen view for ${bookName} ${chapter}:${item.verse}`}
           >
-            <ImageIcon size={16} strokeWidth={1.5} />
+            <Maximize2 size={16} strokeWidth={1.5} />
           </button>
         ) : null}
       </div>
