@@ -12,6 +12,7 @@ import {
   PUBLIC_CONTENT_CACHE_CONTROL,
   queryPublicVerseLatestImage,
   serviceUnavailableResponse,
+  trackPublicApiRequest,
 } from "@/lib/public-image-api";
 
 interface VerseRouteProps {
@@ -25,13 +26,22 @@ export async function GET(request: Request, { params }: VerseRouteProps) {
 
   const { convex, serverSecret } = await getPublicApiServices();
   if (!convex || !serverSecret) {
-    return serviceUnavailableResponse();
+    return serviceUnavailableResponse({
+      context,
+      endpoint: "public-images-verse",
+    });
   }
 
   try {
     const location = getPublicVerseLocation(book, chapter, verse);
 
     if (!location) {
+      trackPublicApiRequest({
+        context,
+        endpoint: "public-images-verse",
+        statusCode: 404,
+        outcome: "not_found",
+      });
       return jsonPublicError("Not found", {
         status: 404,
         message: "Unknown verse.",
@@ -55,6 +65,12 @@ export async function GET(request: Request, { params }: VerseRouteProps) {
     const latestImage = await queryPublicVerseLatestImage(convex, serverSecret, verseId);
 
     if (!latestImage) {
+      trackPublicApiRequest({
+        context,
+        endpoint: "public-images-verse",
+        statusCode: 404,
+        outcome: "not_found",
+      });
       return jsonPublicError("Not found", {
         status: 404,
         message: "No saved image exists for that verse yet.",
@@ -63,17 +79,23 @@ export async function GET(request: Request, { params }: VerseRouteProps) {
     }
 
     const versePayload = buildPublicVersePayload(request, location);
+    const payload = {
+      verse: versePayload,
+      image: buildPublicImageRecord(latestImage, versePayload.pageUrl),
+    };
 
-    return jsonPublic(
-      {
-        verse: versePayload,
-        image: buildPublicImageRecord(latestImage, versePayload.pageUrl),
-      },
-      { cacheControl: PUBLIC_CONTENT_CACHE_CONTROL }
-    );
+    trackPublicApiRequest({
+      context,
+      endpoint: "public-images-verse",
+      statusCode: 200,
+      outcome: "success",
+    });
+
+    return jsonPublic(payload, { cacheControl: PUBLIC_CONTENT_CACHE_CONTROL });
   } catch (error) {
     return handlePublicApiFailure({
       context,
+      endpoint: "public-images-verse",
       stage: "public_verse_latest_image",
       error,
     });

@@ -43,7 +43,7 @@ function findRegisterGenerateEffect(sourceFile: ts.SourceFile): RegistrationEffe
           const [registerArg] = expr.arguments;
           if (registerArg) {
             const registerArgText = registerArg.getText(sourceFile);
-            registerCallbackUsesRef = registerArgText.includes("handleManualRegenerateRef.current?.()");
+            registerCallbackUsesRef = registerArgText.includes("handleManualRegenerateRef.current?.(");
           }
         }
       }

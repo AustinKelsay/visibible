@@ -5,6 +5,8 @@ import { Sparkles, Loader2, Zap, Check, X } from "lucide-react";
 import { createPortal } from "react-dom";
 import { useGeneration } from "@/context/generation-context";
 import { usePreferences } from "@/context/preferences-context";
+import { useSession } from "@/context/session-context";
+import { trackCreditsInsufficient } from "@/lib/analytics";
 import {
   ASPECT_RATIOS,
   RESOLUTIONS,
@@ -21,6 +23,7 @@ import {
 export function HeaderGenerateButton() {
   const { state, isRegistered, generate, buyCredits, setAspectRatio, setResolution } = useGeneration();
   const { imageModel, setImageModel } = usePreferences();
+  const { tier, credits } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Inline model list state (lazy-loaded when modal opens)
@@ -241,7 +244,11 @@ export function HeaderGenerateButton() {
                                 return (
                                   <button
                                     key={model.id}
-                                    onClick={() => { if (isPricingAvailable) setImageModel(model.id); }}
+                                    onClick={() => {
+                                      if (isPricingAvailable) {
+                                        setImageModel(model.id, "header_generate_modal");
+                                      }
+                                    }}
                                     disabled={!isPricingAvailable}
                                     className={`w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors duration-[var(--motion-fast)] ${
                                       !isPricingAvailable ? "opacity-50 cursor-not-allowed" : "hover:bg-[var(--surface)]"
@@ -277,9 +284,9 @@ export function HeaderGenerateButton() {
                     </div>
                     <div className="flex gap-2">
                       {(Object.keys(ASPECT_RATIOS) as ImageAspectRatio[]).map((ratio) => (
-                        <button
-                          key={ratio}
-                          onClick={() => setAspectRatio(ratio)}
+                            <button
+                              key={ratio}
+                              onClick={() => setAspectRatio(ratio, "header_generate_modal")}
                           className={`flex-1 min-h-[36px] rounded-[var(--radius-md)] text-xs font-medium transition-colors ${
                             aspectRatio === ratio
                               ? "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/50"
@@ -317,7 +324,7 @@ export function HeaderGenerateButton() {
                         return (
                           <button
                             key={res}
-                            onClick={() => setResolution(res)}
+                            onClick={() => setResolution(res, "header_generate_modal")}
                             className={`flex-1 min-h-[36px] rounded-[var(--radius-md)] text-xs font-medium transition-colors flex flex-col items-center justify-center ${
                               resolution === res
                                 ? "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/50"
@@ -344,7 +351,7 @@ export function HeaderGenerateButton() {
                 <button
                   onClick={() => {
                     setIsModalOpen(false);
-                    generate();
+                    generate("header_generate");
                   }}
                   className="w-full min-h-[44px] flex items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] text-sm font-medium"
                 >
@@ -365,7 +372,7 @@ export function HeaderGenerateButton() {
 
         {/* Desktop: styled pill */}
         <button
-          onClick={generate}
+          onClick={() => generate("header_generate")}
           disabled={isGenerating}
           className="hidden sm:inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] border border-[var(--accent)]/40 bg-[var(--accent)]/5 text-[var(--foreground)] hover:border-[var(--accent)]/70 hover:bg-[var(--accent)]/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-50 disabled:cursor-not-allowed text-xs font-medium"
           aria-label="Generate new image"
@@ -397,7 +404,15 @@ export function HeaderGenerateButton() {
     <>
       {/* Desktop: styled pill */}
       <button
-        onClick={buyCredits}
+        onClick={() => {
+          trackCreditsInsufficient({
+            feature: "image",
+            source: "header_get_credits",
+            tier,
+            hasCredits: credits > 0,
+          });
+          buyCredits();
+        }}
         className="hidden sm:inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] text-xs font-medium"
         aria-label="Get credits to generate"
       >

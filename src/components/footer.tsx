@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Github, Mail, Twitter } from "lucide-react";
+import { TrackedApiDocsLink } from "@/components/api-docs-analytics";
 
 export function Footer() {
   return (
@@ -19,12 +20,13 @@ export function Footer() {
             >
               About
             </Link>
-            <Link
+            <TrackedApiDocsLink
               href="/api-docs"
+              source="footer"
               className="hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             >
               API Docs
-            </Link>
+            </TrackedApiDocsLink>
           </div>
           <div className="flex items-center justify-center gap-2">
             <a

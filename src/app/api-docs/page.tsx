@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import Link from "next/link";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { LayoutWrapper } from "@/components/layout-wrapper";
 import { BookMenu } from "@/components/book-menu";
+import {
+  ApiDocsViewAnalytics,
+  TrackedApiDocsLink,
+} from "@/components/api-docs-analytics";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import {
   buildPublicApiDocsMarkdown,
@@ -28,6 +31,7 @@ export default async function ApiDocsPage() {
 
   return (
     <LayoutWrapper>
+      <ApiDocsViewAnalytics />
       <Header />
 
       <main className="flex-1">
@@ -44,49 +48,52 @@ export default async function ApiDocsPage() {
                 A simple read-only API for fetching already-generated Scripture images.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <Link
+                <TrackedApiDocsLink
                   href={PUBLIC_IMAGE_API_BASE_PATH}
+                  source="hero_cta"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full border border-[var(--divider)] bg-[var(--surface)] px-4 py-2 text-sm text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors"
                 >
                   Open API root
-                </Link>
-                <Link
+                </TrackedApiDocsLink>
+                <TrackedApiDocsLink
                   href="https://github.com/AustinKelsay/visibible"
+                  source="hero_cta"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full border border-[var(--divider)] px-4 py-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors"
                 >
                   View source
-                </Link>
+                </TrackedApiDocsLink>
               </div>
             </div>
           </div>
         </section>
 
         <section className="max-w-5xl mx-auto px-4 py-10 sm:py-14">
-          <div className="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
+          <div className="grid items-start gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
             <aside className="lg:sticky lg:top-24 h-fit rounded-[var(--radius-lg)] border border-[var(--divider)] bg-[var(--surface)] p-5">
               <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
                 Quick Links
               </h2>
               <div className="mt-4 grid gap-2">
                 {PUBLIC_IMAGE_API_QUICK_LINKS.map((link) => (
-                  <Link
+                  <TrackedApiDocsLink
                     key={link.href}
                     href={link.href}
+                    source="quick_link"
                     target={link.href.startsWith("/api/") ? "_blank" : undefined}
                     rel={link.href.startsWith("/api/") ? "noopener noreferrer" : undefined}
                     className="rounded-[var(--radius-md)] border border-[var(--divider)] px-3 py-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors"
                   >
                     {link.label}
-                  </Link>
+                  </TrackedApiDocsLink>
                 ))}
               </div>
             </aside>
 
-            <article className="rounded-[var(--radius-lg)] border border-[var(--divider)] bg-[var(--surface)] p-5 sm:p-7">
+            <article className="min-w-0 overflow-hidden rounded-[var(--radius-lg)] border border-[var(--divider)] bg-[var(--surface)] p-4 sm:p-7">
               <MarkdownRenderer content={docsContent} />
             </article>
           </div>

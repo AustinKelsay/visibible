@@ -58,7 +58,17 @@ type BaseProps = {
 - `payment_completed`
 - `payment_expired`
 - `menu_opened`
+- `settings_menu_opened`
 - `preference_changed`
+- `verse_navigation`
+- `chapter_gallery_viewed`
+- `chapter_gallery_layout_changed`
+- `chapter_gallery_item_opened`
+- `image_fullscreen_opened`
+- `image_browsed`
+- `saved_image_load_failed`
+- `api_docs_viewed`
+- `api_docs_link_clicked`
 - `feedback_prompt_interaction`
 - `feedback_submitted`
 
@@ -68,9 +78,13 @@ type BaseProps = {
 |------|-----------------|
 | `src/components/verse-analytics.tsx` | `verse_view` |
 | `src/components/hero-image.tsx` | `verse_images_state`, `image_generation_started`, `image_generated`, `credits_insufficient`, `generation_error` |
-| `src/context/navigation-context.tsx` | `menu_opened`, `chat_opened` |
+| `src/context/navigation-context.tsx` | `menu_opened`, `chat_opened`, `settings_menu_opened` |
 | `src/components/chat.tsx` | `chat_message_sent`, `chat_error_shown`, `credits_insufficient` |
 | `src/context/preferences-context.tsx` | `preference_changed` |
+| `src/components/scripture-reader.tsx` | `verse_navigation` |
+| `src/components/chapter-gallery.tsx` | `chapter_gallery_viewed`, `chapter_gallery_layout_changed`, `chapter_gallery_item_opened`, `image_fullscreen_opened`, `saved_image_load_failed` |
+| `src/components/verse-strip-bar.tsx` | `image_fullscreen_opened` |
+| `src/components/api-docs-analytics.tsx` | `api_docs_viewed`, `api_docs_link_clicked` |
 | `src/components/buy-credits-modal.tsx` | `credits_modal_opened`, `credits_modal_closed`, `invoice_created`, `invoice_copied`, `invoice_cancelled`, `payment_completed`, `payment_expired` |
 | `src/components/feedback-prompt.tsx` | `feedback_prompt_interaction` |
 | `src/components/feedback.tsx` | `feedback_submitted` |
@@ -140,18 +154,47 @@ Maps free-form chat errors to stable categories:
 `image_generation_started` in `src/components/hero-image.tsx`:
 - Fires immediately before `/api/generate-image` request.
 - Includes model, aspect ratio, resolution, and intended generation number.
+- Includes `source` so header CTA, hero CTA, auto-generate, and retry flows segment cleanly.
 
 `image_generated` in `src/components/hero-image.tsx`:
 - Fires after successful generation response.
 - Fires regardless of Convex persistence (`onSaveImage` optional).
 - Uses `resolveHasCreditsAfterGeneration` for post-action `hasCredits`.
+- Includes `source` for attribution back to the initiating UI path.
 
 `credits_insufficient` in `src/components/hero-image.tsx` and `src/components/chat.tsx`:
 - Fires when an action is blocked for insufficient credits.
 - `feature` is `"image"` or `"chat"`.
+- Includes `source` for chat submit, image CTA/retry, and header buy-credits CTA.
 
 `generation_error` in `src/components/hero-image.tsx`:
 - Fires on generation failure paths (`disabled`, `unauthorized`, timeout/network/general failures).
+- Includes `source` for retry/header/auto-generate attribution.
+
+`image_browsed` in `src/components/hero-image.tsx`:
+- Fires when users browse older/newer persisted image history.
+- Includes `direction`, `surface`, `currentIndex`, and `totalImages`.
+
+`image_fullscreen_opened` in `src/components/hero-image.tsx`, `src/components/verse-strip-bar.tsx`, and `src/components/chapter-gallery.tsx`:
+- Fires when a fullscreen image viewer or lightbox is opened.
+- Includes `source` to distinguish hero mobile, verse strip, and chapter gallery lightbox opens.
+
+`saved_image_load_failed` in `src/components/hero-image.tsx` and `src/components/chapter-gallery.tsx`:
+- Fires when a persisted image fails to load on hero, fullscreen, gallery cards, or gallery lightbox.
+- Includes `surface`, image identifiers, and retry attempt when available.
+
+### Chapter Gallery
+
+`chapter_gallery_viewed` in `src/components/chapter-gallery.tsx`:
+- Fires once per book/chapter/current-verse context when gallery mode is enabled and data is ready.
+- Includes `layoutMode`, `savedImageCount`, and `placeholderCount`.
+
+`chapter_gallery_layout_changed` in `src/components/chapter-gallery.tsx`:
+- Fires when users switch between `"all"` and `"byVerse"` layouts.
+
+`chapter_gallery_item_opened` in `src/components/chapter-gallery.tsx`:
+- Fires when users click a gallery card or grouped verse link to enter the focused reader.
+- Includes image presence and selected card metadata.
 
 ### Payments / Credits Modal
 
@@ -188,6 +231,9 @@ Maps free-form chat errors to stable categories:
 `menu_opened` in `src/context/navigation-context.tsx`:
 - Fires on menu open transition.
 
+`settings_menu_opened` in `src/context/navigation-context.tsx`:
+- Fires on mobile header settings menu open transition.
+
 `preference_changed` in `src/context/preferences-context.tsx`:
 - Fires when the user sets one of:
   - `translation`
@@ -195,6 +241,21 @@ Maps free-form chat errors to stable categories:
   - `imageAspectRatio`
   - `imageResolution`
   - `chatModel`
+- `chapterGallery`
+- Includes `source` to distinguish which UI control changed the preference.
+
+`verse_navigation` in `src/components/scripture-reader.tsx`:
+- Fires for keyboard, mobile nav, and desktop nav verse transitions.
+- Includes `direction`, `source`, and `targetUrl`.
+
+### API Docs
+
+`api_docs_viewed` in `src/components/api-docs-analytics.tsx`:
+- Fires once when the API docs page is opened.
+
+`api_docs_link_clicked` in `src/components/api-docs-analytics.tsx`:
+- Fires for hero CTA, quick link, and footer clicks into API docs and API endpoints.
+- Includes `source`, `href`, and target classification.
 
 ### Feedback
 
@@ -237,6 +298,12 @@ Manual verification in browser:
 2. Filter for `/_vercel/insights/event`.
 3. Trigger actions and inspect event names/payload properties.
 
+Server-side verification for the public image API:
+
+1. Hit `/api/public/images*` endpoints locally.
+2. Inspect structured logs for `public_api.request`.
+3. Confirm `public_api_requests_total` labels include `endpoint`, `status`, and `outcome`.
+
 ## Files Reference
 
 | File | Purpose |
@@ -244,8 +311,10 @@ Manual verification in browser:
 | `src/app/layout.tsx` | Mounts Vercel `<Analytics />` |
 | `src/lib/analytics.ts` | Typed event wrappers |
 | `src/lib/analytics-event-utils.ts` | Helper derivation/normalization logic |
+| `src/components/api-docs-analytics.tsx` | API docs page + link tracking |
 | `src/lib/__tests__/analytics.test.ts` | Wrapper regression tests |
 | `src/lib/__tests__/analytics-event-utils.test.ts` | Helper regression tests |
+| `src/lib/public-image-api.ts` | Shared public API server-side request observability |
 
 ## Related Docs
 

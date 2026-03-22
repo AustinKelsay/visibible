@@ -137,7 +137,7 @@ export function Header() {
               <div className="flex items-center">
                 <GalleryToggleButton
                   chapterGalleryEnabled={chapterGalleryEnabled}
-                  onToggle={() => setChapterGalleryEnabled(!chapterGalleryEnabled)}
+                  onToggle={() => setChapterGalleryEnabled(!chapterGalleryEnabled, "header_gallery_toggle")}
                 />
               </div>
             </>
@@ -165,7 +165,7 @@ export function Header() {
           {isVersePage ? (
             <GalleryToggleButton
               chapterGalleryEnabled={chapterGalleryEnabled}
-              onToggle={() => setChapterGalleryEnabled(!chapterGalleryEnabled)}
+              onToggle={() => setChapterGalleryEnabled(!chapterGalleryEnabled, "header_gallery_toggle")}
             />
           ) : null}
           <button

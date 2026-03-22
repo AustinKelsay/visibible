@@ -97,7 +97,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
   }, []);
 
   const handleSelect = (modelId: string) => {
-    setImageModel(modelId);
+    setImageModel(modelId, "image_model_selector");
     setIsOpen(false);
   };
 

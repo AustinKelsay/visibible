@@ -68,7 +68,7 @@ const markdownComponents: Partial<Components> = {
   code: ({ className, children }: { className?: string; children?: ReactNode }) => {
     const isInline = !className;
     return isInline ? (
-      <code className="px-1.5 py-0.5 bg-[var(--surface)] border border-[var(--divider)] rounded text-sm font-mono text-[var(--foreground)]">
+      <code className="rounded border border-[var(--divider)] bg-[var(--surface)] px-1.5 py-0.5 font-mono text-sm break-all whitespace-pre-wrap text-[var(--foreground)]">
         {children}
       </code>
     ) : (
@@ -78,7 +78,7 @@ const markdownComponents: Partial<Components> = {
     );
   },
   pre: ({ children }: { children?: ReactNode }) => (
-    <pre className="mb-4 p-4 bg-[var(--surface)] border border-[var(--divider)] rounded-[var(--radius-md)] overflow-x-auto">
+    <pre className="mb-4 max-w-full overflow-x-auto rounded-[var(--radius-md)] border border-[var(--divider)] bg-[var(--surface)] p-4 text-sm">
       {children}
     </pre>
   ),
@@ -96,7 +96,7 @@ const markdownComponents: Partial<Components> = {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-[var(--accent)] hover:text-[var(--accent-hover)] underline transition-colors"
+      className="break-all text-[var(--accent)] underline transition-colors hover:text-[var(--accent-hover)]"
     >
       {children}
     </a>
@@ -151,7 +151,7 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
   }
 
   return (
-    <div className={`markdown-content ${className}`}>
+    <div className={`markdown-content min-w-0 max-w-full overflow-hidden ${className}`}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight, rehypeSanitize]}
@@ -162,4 +162,3 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
     </div>
   );
 }
-

@@ -10,6 +10,7 @@ import {
   PUBLIC_DISCOVERY_CACHE_CONTROL,
   queryPublicBooksWithImages,
   serviceUnavailableResponse,
+  trackPublicApiRequest,
 } from "@/lib/public-image-api";
 
 export async function GET(request: Request) {
@@ -18,7 +19,10 @@ export async function GET(request: Request) {
   const { convex, serverSecret } = await getPublicApiServices();
 
   if (!convex || !serverSecret) {
-    return serviceUnavailableResponse();
+    return serviceUnavailableResponse({
+      context,
+      endpoint: "public-images-discovery",
+    });
   }
 
   try {
@@ -44,10 +48,18 @@ export async function GET(request: Request) {
         href: buildPublicBookChaptersUrl(request, book.slug),
       }));
 
+    trackPublicApiRequest({
+      context,
+      endpoint: "public-images-discovery",
+      statusCode: 200,
+      outcome: "success",
+    });
+
     return jsonPublic({ books }, { cacheControl: PUBLIC_DISCOVERY_CACHE_CONTROL });
   } catch (error) {
     return handlePublicApiFailure({
       context,
+      endpoint: "public-images-discovery",
       stage: "public_books",
       error,
     });

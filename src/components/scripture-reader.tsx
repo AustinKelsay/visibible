@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useSession } from "@/context/session-context";
+import { trackVerseNavigation } from "@/lib/analytics";
 import { getVerseNavigationDirection } from "@/lib/verse-keyboard-navigation";
 
 interface Verse {
@@ -31,25 +33,47 @@ export function ScriptureReader({
   nextUrl,
 }: ScriptureReaderProps) {
   const router = useRouter();
+  const { tier, credits, isLoading } = useSession();
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (isLoading) return;
       const direction = getVerseNavigationDirection(event);
 
       if (direction === "prev" && prevUrl) {
         event.preventDefault();
+        trackVerseNavigation({
+          book,
+          chapter,
+          verse: verseNumber,
+          direction: "prev",
+          source: "keyboard",
+          targetUrl: prevUrl,
+          tier,
+          hasCredits: credits > 0,
+        });
         router.push(prevUrl);
       }
 
       if (direction === "next" && nextUrl) {
         event.preventDefault();
+        trackVerseNavigation({
+          book,
+          chapter,
+          verse: verseNumber,
+          direction: "next",
+          source: "keyboard",
+          targetUrl: nextUrl,
+          tier,
+          hasCredits: credits > 0,
+        });
         router.push(nextUrl);
       }
     };
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [nextUrl, prevUrl, router]);
+  }, [book, chapter, nextUrl, prevUrl, router, verseNumber, tier, credits, isLoading]);
 
   return (
     <article className="px-4 md:px-6 py-6 max-w-2xl mx-auto">
@@ -59,6 +83,18 @@ export function ScriptureReader({
           {prevUrl ? (
             <Link
               href={prevUrl}
+              onClick={() => {
+                trackVerseNavigation({
+                  book,
+                  chapter,
+                  verse: verseNumber,
+                  direction: "prev",
+                  source: "mobile_nav",
+                  targetUrl: prevUrl,
+                  tier,
+                  hasCredits: credits > 0,
+                });
+              }}
               className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] min-h-[44px] px-3 -ml-3"
               aria-label="Previous verse"
             >
@@ -76,6 +112,18 @@ export function ScriptureReader({
           {nextUrl ? (
             <Link
               href={nextUrl}
+              onClick={() => {
+                trackVerseNavigation({
+                  book,
+                  chapter,
+                  verse: verseNumber,
+                  direction: "next",
+                  source: "mobile_nav",
+                  targetUrl: nextUrl,
+                  tier,
+                  hasCredits: credits > 0,
+                });
+              }}
               className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] min-h-[44px] px-3 -mr-3"
               aria-label="Next verse"
             >
@@ -109,6 +157,18 @@ export function ScriptureReader({
           {prevUrl ? (
             <Link
               href={prevUrl}
+              onClick={() => {
+                trackVerseNavigation({
+                  book,
+                  chapter,
+                  verse: verseNumber,
+                  direction: "prev",
+                  source: "desktop_nav",
+                  targetUrl: prevUrl,
+                  tier,
+                  hasCredits: credits > 0,
+                });
+              }}
               className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] min-h-[44px] px-3 -ml-3"
               aria-label="Previous verse"
             >
@@ -126,6 +186,18 @@ export function ScriptureReader({
           {nextUrl ? (
             <Link
               href={nextUrl}
+              onClick={() => {
+                trackVerseNavigation({
+                  book,
+                  chapter,
+                  verse: verseNumber,
+                  direction: "next",
+                  source: "desktop_nav",
+                  targetUrl: nextUrl,
+                  tier,
+                  hasCredits: credits > 0,
+                });
+              }}
               className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] min-h-[44px] px-3 -mr-3"
               aria-label="Next verse"
             >
