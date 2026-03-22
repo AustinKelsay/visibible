@@ -23,6 +23,7 @@ import {
   CONSERVATIVE_ESTIMATE_MULTIPLIER,
   DEFAULT_CREDITS_COST,
   IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS,
+  getDisplayedCreditsCost,
 } from "../image-models";
 
 describe("isModelFree", () => {
@@ -362,5 +363,34 @@ describe("computeAdjustedCreditsCost", () => {
   it("should ceil fractional credits", () => {
     const result = computeAdjustedCreditsCost(3, "2K", "google/gemini-pro");
     expect(result).toBe(11); // ceil(3 * 3.5) = 11
+  });
+});
+
+describe("getDisplayedCreditsCost", () => {
+  it("prefers reservation pricing when available", () => {
+    expect(
+      getDisplayedCreditsCost({
+        creditsCost: 1,
+        reservationCreditsCost: 35,
+      })
+    ).toBe(35);
+  });
+
+  it("falls back to estimated pricing when reservation pricing is unavailable", () => {
+    expect(
+      getDisplayedCreditsCost({
+        creditsCost: 7,
+        reservationCreditsCost: null,
+      })
+    ).toBe(7);
+  });
+
+  it("returns null when no pricing is available", () => {
+    expect(
+      getDisplayedCreditsCost({
+        creditsCost: null,
+        reservationCreditsCost: null,
+      })
+    ).toBeNull();
   });
 });

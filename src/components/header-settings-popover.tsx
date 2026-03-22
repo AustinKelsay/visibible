@@ -17,7 +17,7 @@ export function HeaderSettingsPopover() {
   const [isOpen, setIsOpen] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  const { aspectRatio, resolution, baseCost, showCreditsCost, modelId } = state;
+  const { aspectRatio, resolution, displayBaseCost, showCreditsCost, modelId } = state;
   const modelSupportsRes = supportsResolution(modelId);
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export function HeaderSettingsPopover() {
               </p>
             )}
             {(Object.keys(RESOLUTIONS) as ImageResolution[]).map((res) => {
-              const cost = computeAdjustedCreditsCost(baseCost, res, modelId);
+              const cost = computeAdjustedCreditsCost(displayBaseCost, res, modelId);
               return (
                 <button
                   key={res}
@@ -109,7 +109,7 @@ export function MobileSettingsRows() {
 
   if (!isRegistered) return null;
 
-  const { aspectRatio, resolution, baseCost, showCreditsCost, modelId } = state;
+  const { aspectRatio, resolution, displayBaseCost, showCreditsCost, modelId } = state;
   const modelSupportsRes = supportsResolution(modelId);
 
   return (
@@ -146,7 +146,7 @@ export function MobileSettingsRows() {
         </div>
         <div className="flex gap-2">
           {(Object.keys(RESOLUTIONS) as ImageResolution[]).map((res) => {
-            const cost = computeAdjustedCreditsCost(baseCost, res, modelId);
+            const cost = computeAdjustedCreditsCost(displayBaseCost, res, modelId);
             return (
               <button
                 key={res}

@@ -176,6 +176,10 @@ export function computeAdjustedCreditsCost(
   return Math.ceil(base * multiplier);
 }
 
+export function getDisplayedCreditsCost(model: Pick<ImageModel, "creditsCost" | "reservationCreditsCost">): number | null {
+  return model.reservationCreditsCost ?? model.creditsCost ?? null;
+}
+
 export function canAffordImageGeneration(
   credits: number,
   estimatedCreditsCost: number

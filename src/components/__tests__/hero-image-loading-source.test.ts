@@ -10,6 +10,8 @@ describe("HeroImage passive loading treatment", () => {
     expect(source).toContain(
       "import { ImageLoadingSkeleton } from \"@/components/image-loading-skeleton\";"
     );
+    expect(source).toContain("useSearchParams");
+    expect(source).toContain("const requestedImageId = searchParams.get(\"image\");");
     expect(source).toContain("!isGenerating && isImageLoading && !error");
     expect(source).toContain("isQueryLoading && !isGenerating && !error");
     expect(source).toContain("label={generationPhaseLabel}");

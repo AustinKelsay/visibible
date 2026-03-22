@@ -7,6 +7,7 @@ import {
   ImageModel,
   DEFAULT_IMAGE_MODEL,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
+  getDisplayedCreditsCost,
 } from "@/lib/image-models";
 
 interface ImageModelSelectorProps {
@@ -170,10 +171,10 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
                         <div className="flex-1 min-w-0">
                           <div className="text-sm font-medium truncate">{model.name}</div>
                           <p className="text-xs text-[var(--muted)] truncate">
-                            {model.creditsCost == null ? (
+                            {model.creditsCost == null && model.reservationCreditsCost == null ? (
                               "Pricing unavailable"
                             ) : (
-                              <>~{model.etaSeconds ?? 12}s · About {model.creditsCost} credits</>
+                              <>~{model.etaSeconds ?? 12}s · About {getDisplayedCreditsCost(model)} credits</>
                             )}
                           </p>
                         </div>
