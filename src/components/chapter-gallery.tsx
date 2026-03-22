@@ -8,6 +8,7 @@ import { api } from "../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { usePreferences } from "@/context/preferences-context";
 import { useNavigation } from "@/context/navigation-context";
+import { useSession } from "@/context/session-context";
 import {
   buildFlatChapterGalleryItems,
   buildChapterGalleryItems,
@@ -15,6 +16,13 @@ import {
   type ChapterGalleryVerseRecord,
   normalizeChapterGalleryImages,
 } from "@/lib/chapter-gallery";
+import {
+  trackChapterGalleryItemOpened,
+  trackChapterGalleryLayoutChanged,
+  trackChapterGalleryViewed,
+  trackImageFullscreenOpened,
+  trackSavedImageLoadFailed,
+} from "@/lib/analytics";
 import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
 import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 
@@ -35,8 +43,9 @@ interface GalleryCardProps {
   chapter: number;
   currentVerse: number;
   isLoading: boolean;
-  onExpand?: () => void;
-  onNavigateToReader?: (href: string, imageId?: string) => void;
+  onExpand?: (item: ChapterGalleryFlatItem) => void;
+  onNavigateToReader?: (item: ChapterGalleryFlatItem) => void;
+  onImageLoadFailed?: (item: ChapterGalleryFlatItem) => void;
 }
 
 function buildReaderHref(href: string, imageId?: string) {
@@ -68,6 +77,7 @@ function GalleryCard({
   isLoading,
   onExpand,
   onNavigateToReader,
+  onImageLoadFailed,
 }: GalleryCardProps) {
   const isCurrent = item.verse === currentVerse;
   const [isImageReady, setIsImageReady] = useState(false);
@@ -81,7 +91,7 @@ function GalleryCard({
       href={readerHref}
       aria-current={isCurrent ? "page" : undefined}
       aria-label={`${bookName} ${chapter}:${item.verse}${item.isPlaceholder ? " placeholder" : ` image ${item.cardIndex + 1}`}`}
-      onClick={() => onNavigateToReader?.(item.href, item.imageId)}
+      onClick={() => onNavigateToReader?.(item)}
       className={`group overflow-hidden rounded-[var(--radius-xl)] border bg-[var(--background)] transition-all duration-[var(--motion-base)] hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] ${
         isCurrent
           ? "border-[var(--accent)]/40 shadow-[var(--shadow-sm)]"
@@ -114,6 +124,7 @@ function GalleryCard({
               onError={() => {
                 setIsImageReady(false);
                 setIsImageError(true);
+                onImageLoadFailed?.(item);
               }}
             />
             <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
@@ -165,7 +176,7 @@ function GalleryCard({
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              onExpand();
+              onExpand(item);
             }}
             className="absolute right-3 bottom-3 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-full bg-black/50 text-white/70 opacity-0 group-hover:opacity-100 hover:bg-black/70 hover:text-white backdrop-blur-sm transition-all duration-[var(--motion-base)]"
             aria-label={`Open fullscreen view for ${bookName} ${chapter}:${item.verse}`}
@@ -191,12 +202,14 @@ interface LightboxImageStageProps {
   alt: string;
   imageUrl: string;
   label: string;
+  onLoadError?: () => void;
 }
 
 function LightboxImageStage({
   alt,
   imageUrl,
   label,
+  onLoadError,
 }: LightboxImageStageProps) {
   const [isImageReady, setIsImageReady] = useState(false);
   const [isImageError, setIsImageError] = useState(false);
@@ -234,6 +247,7 @@ function LightboxImageStage({
           onError={() => {
             setIsImageReady(false);
             setIsImageError(true);
+            onLoadError?.();
           }}
         />
       )}
@@ -252,30 +266,63 @@ export function ChapterGallery({
   const { chapterGalleryEnabled, setChapterGalleryEnabled } = usePreferences();
   const isConvexEnabled = useConvexEnabled();
   const { isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
+  const { tier, credits, isLoading: sessionLoading } = useSession();
   const [layoutMode, setLayoutMode] = useState<GalleryLayoutMode>("all");
   const [lightboxItem, setLightboxItem] = useState<ChapterGalleryFlatItem | null>(null);
   const fullscreenDialogRef = useRef<HTMLDivElement>(null);
+  const lastViewedKeyRef = useRef<string | null>(null);
+  const previousLayoutModeRef = useRef<GalleryLayoutMode | null>(null);
 
   const handleExpand = useCallback((item: ChapterGalleryFlatItem) => {
+    trackImageFullscreenOpened({
+      book: bookName,
+      chapter,
+      verse: item.verse,
+      source: "chapter_gallery_card",
+      imageId: item.imageId,
+      tier,
+      hasCredits: credits > 0,
+    });
     setLightboxItem(item);
     openFullscreen();
-  }, [openFullscreen]);
+  }, [bookName, chapter, credits, openFullscreen, tier]);
 
   const handleCloseLightbox = useCallback(() => {
     closeFullscreen();
     setLightboxItem(null);
   }, [closeFullscreen]);
 
-  const handleNavigateToReader = useCallback((href: string, imageId?: string) => {
-    setChapterGalleryEnabled(false);
+  const handleNavigateToReader = useCallback((item: ChapterGalleryFlatItem) => {
+    trackChapterGalleryItemOpened({
+      book,
+      chapter,
+      currentVerse,
+      verse: item.verse,
+      layoutMode,
+      hasImage: !item.isPlaceholder,
+      imageCount: item.imageCount,
+      imageId: item.imageId,
+      tier,
+      hasCredits: credits > 0,
+    });
+    setChapterGalleryEnabled(false, "chapter_gallery_card");
     if (isFullscreen) {
       handleCloseLightbox();
     }
 
     // Link handles the actual navigation; this keeps gallery mode from persisting on the destination page.
-    void href;
-    void imageId;
-  }, [handleCloseLightbox, isFullscreen, setChapterGalleryEnabled]);
+    void item;
+  }, [
+    book,
+    chapter,
+    credits,
+    currentVerse,
+    handleCloseLightbox,
+    isFullscreen,
+    layoutMode,
+    setChapterGalleryEnabled,
+    tier,
+  ]);
 
   const galleryImages = useQuery(
     api.verseImages.getChapterGallery,
@@ -353,10 +400,6 @@ export function ChapterGallery({
     };
   }, [handleCloseLightbox, isFullscreen, lightboxItem]);
 
-  if (!chapterGalleryEnabled) {
-    return null;
-  }
-
   const groupedItems = buildChapterGalleryItems({
     book,
     chapter,
@@ -375,6 +418,84 @@ export function ChapterGallery({
   const filterSummary = isLoading
     ? "Checking saved art..."
     : `${savedImageCount} saved image${savedImageCount === 1 ? "" : "s"} · ${placeholderCount} placeholder${placeholderCount === 1 ? "" : "s"}`;
+
+  useEffect(() => {
+    if (!chapterGalleryEnabled || isLoading || sessionLoading) return;
+    const viewKey = `${book}-${chapter}-${currentVerse}`;
+    if (lastViewedKeyRef.current === viewKey) return;
+    lastViewedKeyRef.current = viewKey;
+    trackChapterGalleryViewed({
+      book,
+      chapter,
+      currentVerse,
+      layoutMode,
+      savedImageCount,
+      placeholderCount,
+      tier,
+      hasCredits: credits > 0,
+    });
+  }, [
+    book,
+    chapter,
+    chapterGalleryEnabled,
+    credits,
+    currentVerse,
+    isLoading,
+    layoutMode,
+    placeholderCount,
+    savedImageCount,
+    sessionLoading,
+    tier,
+  ]);
+
+  useEffect(() => {
+    if (!chapterGalleryEnabled || sessionLoading) return;
+    if (previousLayoutModeRef.current === null) {
+      previousLayoutModeRef.current = layoutMode;
+      return;
+    }
+    if (previousLayoutModeRef.current === layoutMode) return;
+    previousLayoutModeRef.current = layoutMode;
+    trackChapterGalleryLayoutChanged({
+      book,
+      chapter,
+      currentVerse,
+      layoutMode,
+      tier,
+      hasCredits: credits > 0,
+    });
+  }, [book, chapter, chapterGalleryEnabled, credits, currentVerse, layoutMode, sessionLoading, tier]);
+
+  const handleGalleryImageLoadFailed = useCallback((item: ChapterGalleryFlatItem) => {
+    trackSavedImageLoadFailed({
+      book,
+      chapter,
+      verse: item.verse,
+      surface: "chapter_gallery_card",
+      imageId: item.imageId,
+      imageUrl: item.imageUrl,
+      tier,
+      hasCredits: credits > 0,
+    });
+  }, [book, chapter, credits, tier]);
+
+  const handleLightboxImageLoadFailed = useCallback(() => {
+    if (!lightboxItem) return;
+    trackSavedImageLoadFailed({
+      book,
+      chapter,
+      verse: lightboxItem.verse,
+      surface: "chapter_gallery_lightbox",
+      imageId: lightboxItem.imageId,
+      imageUrl: lightboxItem.imageUrl,
+      tier,
+      hasCredits: credits > 0,
+    });
+  }, [book, chapter, credits, lightboxItem, tier]);
+
+  if (!chapterGalleryEnabled) {
+    return null;
+  }
 
   return (
     <section
@@ -448,7 +569,8 @@ export function ChapterGallery({
                 currentVerse={currentVerse}
                 isLoading={isLoading}
                 onNavigateToReader={handleNavigateToReader}
-                onExpand={!item.isPlaceholder && item.imageUrl ? () => handleExpand(item) : undefined}
+                onExpand={!item.isPlaceholder && item.imageUrl ? handleExpand : undefined}
+                onImageLoadFailed={handleGalleryImageLoadFailed}
               />
             ))}
           </div>
@@ -488,7 +610,22 @@ export function ChapterGallery({
                           <Link
                             href={buildReaderHref(item.href, item.cards[0]?.imageId)}
                             aria-current={isCurrent ? "page" : undefined}
-                            onClick={() => handleNavigateToReader(item.href, item.cards[0]?.imageId)}
+                            onClick={() => handleNavigateToReader({
+                              verse: item.verse,
+                              text: item.text,
+                              href: item.href,
+                              imageCount: item.imageCount,
+                              cardIndex: 0,
+                              hasImages: item.hasImages,
+                              ...(item.cards[0] ?? {
+                                imageId: undefined,
+                                imageUrl: undefined,
+                                model: undefined,
+                                createdAt: undefined,
+                                isLatest: false,
+                                isPlaceholder: !item.hasImages,
+                              }),
+                            })}
                             className="block text-lg font-semibold tracking-tight text-[var(--foreground)] hover:text-[var(--accent)] transition-colors duration-[var(--motion-fast)]"
                           >
                             {bookName} {chapter}:{item.verse}
@@ -528,7 +665,8 @@ export function ChapterGallery({
                               currentVerse={currentVerse}
                               isLoading={isLoading}
                               onNavigateToReader={handleNavigateToReader}
-                              onExpand={!card.isPlaceholder && card.imageUrl ? () => handleExpand(flatItem) : undefined}
+                              onExpand={!card.isPlaceholder && card.imageUrl ? handleExpand : undefined}
+                              onImageLoadFailed={handleGalleryImageLoadFailed}
                             />
                           );
                         })}
@@ -575,6 +713,7 @@ export function ChapterGallery({
                   imageUrl={lightboxItem.imageUrl}
                   alt={`${bookName} ${chapter}:${lightboxItem.verse}`}
                   label={`Loading saved image for ${bookName} ${chapter}:${lightboxItem.verse}`}
+                  onLoadError={handleLightboxImageLoadFailed}
                 />
               ) : null}
 

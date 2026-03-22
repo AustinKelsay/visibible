@@ -14,6 +14,7 @@ import {
   PUBLIC_CONTENT_CACHE_CONTROL,
   queryPublicChapterLatestImages,
   serviceUnavailableResponse,
+  trackPublicApiRequest,
 } from "@/lib/public-image-api";
 
 interface ChapterRouteProps {
@@ -27,6 +28,12 @@ export async function GET(request: Request, { params }: ChapterRouteProps) {
   const location = getPublicChapterLocation(bookSlug, chapterValue);
 
   if (!location) {
+    trackPublicApiRequest({
+      context,
+      endpoint: "public-images-chapter",
+      statusCode: 404,
+      outcome: "not_found",
+    });
     return jsonPublicError("Not found", {
       status: 404,
       message: "Unknown chapter.",
@@ -36,7 +43,10 @@ export async function GET(request: Request, { params }: ChapterRouteProps) {
 
   const { convex, serverSecret } = await getPublicApiServices();
   if (!convex || !serverSecret) {
-    return serviceUnavailableResponse();
+    return serviceUnavailableResponse({
+      context,
+      endpoint: "public-images-chapter",
+    });
   }
 
   try {
@@ -80,6 +90,13 @@ export async function GET(request: Request, { params }: ChapterRouteProps) {
       })
       .filter((entry): entry is NonNullable<typeof entry> => entry !== null);
 
+    trackPublicApiRequest({
+      context,
+      endpoint: "public-images-chapter",
+      statusCode: 200,
+      outcome: "success",
+    });
+
     return jsonPublic(
       {
         book: location.book.slug,
@@ -93,6 +110,7 @@ export async function GET(request: Request, { params }: ChapterRouteProps) {
   } catch (error) {
     return handlePublicApiFailure({
       context,
+      endpoint: "public-images-chapter",
       stage: "public_chapter_latest_images",
       error,
     });

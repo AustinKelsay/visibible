@@ -86,7 +86,7 @@ export function ChatModelSelector({ variant = "compact" }: ChatModelSelectorProp
   }, [isOpen]);
 
   const handleSelect = (modelId: string) => {
-    setChatModel(modelId);
+    setChatModel(modelId, "chat_model_selector");
     setIsOpen(false);
   };
 

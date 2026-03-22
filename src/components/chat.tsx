@@ -144,6 +144,7 @@ export function Chat({ context, variant = "inline" }: ChatProps) {
       // Track insufficient credits
       trackCreditsInsufficient({
         feature: "chat",
+        source: "chat_submit",
         requiredCredits: 1,
         tier,
         hasCredits: credits > 0,

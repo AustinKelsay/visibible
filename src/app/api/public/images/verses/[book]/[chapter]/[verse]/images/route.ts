@@ -13,6 +13,7 @@ import {
   PUBLIC_CONTENT_CACHE_CONTROL,
   queryPublicVerseImagesPaginated,
   serviceUnavailableResponse,
+  trackPublicApiRequest,
 } from "@/lib/public-image-api";
 
 interface VerseImagesRouteProps {
@@ -26,6 +27,12 @@ export async function GET(request: Request, { params }: VerseImagesRouteProps) {
   const location = getPublicVerseLocation(book, chapter, verse);
 
   if (!location) {
+    trackPublicApiRequest({
+      context,
+      endpoint: "public-images-history",
+      statusCode: 404,
+      outcome: "not_found",
+    });
     return jsonPublicError("Not found", {
       status: 404,
       message: "Unknown verse.",
@@ -39,6 +46,12 @@ export async function GET(request: Request, { params }: VerseImagesRouteProps) {
   });
 
   if (!queryParse.success) {
+    trackPublicApiRequest({
+      context,
+      endpoint: "public-images-history",
+      statusCode: 400,
+      outcome: "error",
+    });
     return jsonPublicError("Bad request", {
       status: 400,
       message: queryParse.error.issues[0]?.message || "Invalid query parameters.",
@@ -48,7 +61,10 @@ export async function GET(request: Request, { params }: VerseImagesRouteProps) {
 
   const { convex, serverSecret } = await getPublicApiServices();
   if (!convex || !serverSecret) {
-    return serviceUnavailableResponse();
+    return serviceUnavailableResponse({
+      context,
+      endpoint: "public-images-history",
+    });
   }
 
   try {
@@ -73,21 +89,27 @@ export async function GET(request: Request, { params }: VerseImagesRouteProps) {
       queryParse.data.limit
     );
     const versePayload = buildPublicVersePayload(request, location);
-
-    return jsonPublic(
-      {
-        verse: versePayload,
-        images: result.page.map((image) => buildPublicImageRecord(image, versePayload.pageUrl)),
-        pageInfo: {
-          nextCursor: result.isDone ? null : result.continueCursor,
-          hasMore: !result.isDone,
-        },
+    const payload = {
+      verse: versePayload,
+      images: result.page.map((image) => buildPublicImageRecord(image, versePayload.pageUrl)),
+      pageInfo: {
+        nextCursor: result.isDone ? null : result.continueCursor,
+        hasMore: !result.isDone,
       },
-      { cacheControl: PUBLIC_CONTENT_CACHE_CONTROL }
-    );
+    };
+
+    trackPublicApiRequest({
+      context,
+      endpoint: "public-images-history",
+      statusCode: 200,
+      outcome: "success",
+    });
+
+    return jsonPublic(payload, { cacheControl: PUBLIC_CONTENT_CACHE_CONTROL });
   } catch (error) {
     return handlePublicApiFailure({
       context,
+      endpoint: "public-images-history",
       stage: "public_verse_history",
       error,
     });

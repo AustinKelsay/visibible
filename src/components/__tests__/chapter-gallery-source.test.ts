@@ -6,6 +6,7 @@ import { api } from "../../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { ChapterGallery } from "@/components/chapter-gallery";
 import { usePreferences } from "@/context/preferences-context";
+import { useSession } from "@/context/session-context";
 
 vi.mock("next/link", () => ({
   default: ({
@@ -38,9 +39,14 @@ vi.mock("@/context/navigation-context", () => ({
   })),
 }));
 
+vi.mock("@/context/session-context", () => ({
+  useSession: vi.fn(),
+}));
+
 const useQueryMock = vi.mocked(useQuery);
 const useConvexEnabledMock = vi.mocked(useConvexEnabled);
 const usePreferencesMock = vi.mocked(usePreferences);
+const useSessionMock = vi.mocked(useSession);
 
 const baseProps = {
   book: "genesis",
@@ -59,6 +65,11 @@ describe("chapter gallery behavior", () => {
     usePreferencesMock.mockReturnValue({
       chapterGalleryEnabled: false,
       setChapterGalleryEnabled: vi.fn(),
+    } as never);
+    useSessionMock.mockReturnValue({
+      tier: "paid",
+      credits: 10,
+      isLoading: false,
     } as never);
     useConvexEnabledMock.mockReturnValue(false);
     useQueryMock.mockReturnValue(null as never);

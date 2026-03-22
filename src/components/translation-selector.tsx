@@ -28,7 +28,7 @@ export function TranslationSelector({ variant = "compact" }: TranslationSelector
   }, []);
 
   const handleSelect = (key: Translation) => {
-    setTranslation(key);
+    setTranslation(key, "translation_selector");
     setIsOpen(false);
   };
 

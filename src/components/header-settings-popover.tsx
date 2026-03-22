@@ -55,7 +55,7 @@ export function HeaderSettingsPopover() {
             {(Object.keys(ASPECT_RATIOS) as ImageAspectRatio[]).map((ratio) => (
               <button
                 key={ratio}
-                onClick={() => setAspectRatio(ratio)}
+                onClick={() => setAspectRatio(ratio, "header_settings_popover")}
                 className={`w-full px-2 py-1.5 text-left text-sm rounded-[var(--radius-sm)] transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
                   aspectRatio === ratio ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
                 }`}
@@ -78,7 +78,7 @@ export function HeaderSettingsPopover() {
               return (
                 <button
                   key={res}
-                  onClick={() => setResolution(res)}
+                  onClick={() => setResolution(res, "header_settings_popover")}
                   className={`w-full px-2 py-1.5 flex items-center justify-between text-sm rounded-[var(--radius-sm)] transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
                     resolution === res ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
                   } ${!modelSupportsRes ? "opacity-60" : ""}`}
@@ -123,7 +123,7 @@ export function MobileSettingsRows() {
           {(Object.keys(ASPECT_RATIOS) as ImageAspectRatio[]).map((ratio) => (
             <button
               key={ratio}
-              onClick={() => setAspectRatio(ratio)}
+              onClick={() => setAspectRatio(ratio, "mobile_header_menu")}
               className={`flex-1 min-h-[36px] rounded-[var(--radius-md)] text-xs font-medium transition-colors ${
                 aspectRatio === ratio
                   ? "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/50"
@@ -150,7 +150,7 @@ export function MobileSettingsRows() {
             return (
               <button
                 key={res}
-                onClick={() => setResolution(res)}
+                onClick={() => setResolution(res, "mobile_header_menu")}
                 className={`flex-1 min-h-[36px] rounded-[var(--radius-md)] text-xs font-medium transition-colors flex flex-col items-center justify-center ${
                   resolution === res
                     ? "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/50"

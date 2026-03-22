@@ -36,7 +36,17 @@ High-level view of analytics goals and events tracked. This describes product in
 | `payment_completed` | Invoice paid and confirmed | Conversion (credits purchase) |
 | `payment_expired` | Invoice expires or fails | Payment friction/abandonment |
 | `menu_opened` | Book menu opens | Navigation usage |
+| `settings_menu_opened` | Mobile header settings menu opens | Settings discoverability on mobile |
 | `preference_changed` | User changes a preference | Customization behavior |
+| `verse_navigation` | User moves between verses | Reader navigation patterns by source |
+| `chapter_gallery_viewed` | Chapter gallery renders while enabled | Gallery adoption by chapter and load state |
+| `chapter_gallery_layout_changed` | Gallery layout switches between all/by-verse | Preferred gallery presentation |
+| `chapter_gallery_item_opened` | Gallery card navigates back into reader | Which gallery cards convert into focused reading |
+| `image_fullscreen_opened` | Fullscreen image/lightbox opens | Fullscreen usage by source surface |
+| `image_browsed` | User moves older/newer through image history | Multi-image browsing depth and surface usage |
+| `saved_image_load_failed` | Persisted image fails to load in UI | Reliability issues for saved-image delivery |
+| `api_docs_viewed` | `/api-docs` page is opened | API documentation discovery |
+| `api_docs_link_clicked` | Docs CTAs / quick links are clicked | API adoption intent and doc interaction |
 | `feedback_prompt_interaction` | Feedback CTA shown/clicked/dismissed | Feedback prompt exposure and response |
 | `feedback_submitted` | Feedback form submit succeeds | Feedback conversion and context coverage |
 
@@ -70,6 +80,8 @@ verse_view -> image_generation_started -> image_generated
 Diagnostic overlays:
 - `chat_error_shown` helps explain chat conversion loss.
 - `generation_error` helps explain image generation drop-off.
+- `image_browsed`, `image_fullscreen_opened`, and `saved_image_load_failed` explain how users interact with and recover from saved image history.
+- `chapter_gallery_viewed`, `chapter_gallery_layout_changed`, and `chapter_gallery_item_opened` explain adoption of the new gallery-first reading mode.
 
 ## Segmentation
 
@@ -96,8 +108,17 @@ Useful cuts:
 - `chat_message_sent`
 - `image_generation_started`
 - `image_generated`
+- `chapter_gallery_viewed`
+- `chapter_gallery_layout_changed`
+- `chapter_gallery_item_opened`
+- `image_fullscreen_opened`
+- `image_browsed`
 - `menu_opened`
+- `settings_menu_opened`
 - `preference_changed`
+- `verse_navigation`
+- `api_docs_viewed`
+- `api_docs_link_clicked`
 - `feedback_prompt_interaction`
 - `feedback_submitted`
 
@@ -106,6 +127,7 @@ Useful cuts:
 - `credits_insufficient`
 - `chat_error_shown`
 - `generation_error`
+- `saved_image_load_failed`
 - `credits_modal_closed`
 - `invoice_cancelled`
 - `payment_expired`
@@ -123,6 +145,7 @@ Useful cuts:
 2. No experiment ID in payloads for A/B attribution.
 3. No downstream quality rating tied directly to image/chat outcomes.
 4. No server-side guaranteed delivery for client analytics events.
+5. Public API usage is measured separately via server-side observability (`public_api_requests_total`), not Vercel client events.
 
 ## Interpretation Notes
 
@@ -130,6 +153,9 @@ Useful cuts:
 - `credits_modal_opened.step` and `credits_modal_closed.step` use `"welcome"`, `"selection"`, or `"invoice"`.
 - `credits_modal_closed.state` can be `"welcome"`, `"selection"`, `"loading"`, `"invoice"`, `"success"`, or `"error"`.
 - `chat_error_shown.errorType` is normalized to `"rate_limit"`, `"model_unavailable"`, `"service_busy"`, or `"unknown"`.
+- `image_generation_started`, `image_generated`, `generation_error`, and `credits_insufficient` now include a `source` field to distinguish auto-generate, hero CTA, header CTA, retries, chat submit, and header buy-credits entry points.
+- `preference_changed.source` distinguishes where a preference was changed, including selector surfaces, header settings, gallery toggle, and chapter gallery exit-to-reader behavior.
+- `image_fullscreen_opened.source` distinguishes hero mobile opens, verse-strip opens, and chapter gallery lightbox opens.
 - `image_generated.hasCredits` prefers server-returned post-generation credits when available.
 - Most other events derive `hasCredits` from `credits > 0`.
 

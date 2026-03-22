@@ -5,8 +5,10 @@ import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { getClientIp, hashIp } from "@/lib/session";
 import {
   createRequestObservabilityContext,
+  elapsedMs,
   emitMetric,
   logApiFailure,
+  logInfo,
   logWarn,
   type RequestObservabilityContext,
 } from "@/lib/observability";
@@ -69,6 +71,13 @@ type PublicRateLimitEndpoint =
   | "public-images-verse"
   | "public-images-history"
   | "public-images-chapter";
+
+type PublicApiRequestOutcome =
+  | "success"
+  | "not_found"
+  | "rate_limited"
+  | "service_unavailable"
+  | "error";
 
 type ConvexLikeClient = NonNullable<ReturnType<typeof getConvexClient>>;
 
@@ -257,6 +266,30 @@ export function createPublicApiContext(request: Request, route: string): Request
   return createRequestObservabilityContext(request, route);
 }
 
+export function trackPublicApiRequest(args: {
+  context: RequestObservabilityContext;
+  endpoint: PublicRateLimitEndpoint;
+  statusCode: number;
+  outcome: PublicApiRequestOutcome;
+}): void {
+  emitMetric("public_api_requests_total", {
+    route: args.context.route,
+    endpoint: args.endpoint,
+    status: args.statusCode,
+    outcome: args.outcome,
+  });
+
+  logInfo("public_api.request", {
+    route: args.context.route,
+    method: args.context.method,
+    requestId: args.context.requestId,
+    endpoint: args.endpoint,
+    statusCode: args.statusCode,
+    outcome: args.outcome,
+    durationMs: elapsedMs(args.context),
+  });
+}
+
 export async function getPublicApiServices(): Promise<{
   convex: ConvexLikeClient | null;
   serverSecret: string | null;
@@ -350,6 +383,12 @@ export async function enforcePublicRateLimit(args: {
     requestId: args.context.requestId,
     retryAfter: rateLimitResult.retryAfter,
   });
+  trackPublicApiRequest({
+    context: args.context,
+    endpoint: args.endpoint,
+    statusCode: 429,
+    outcome: "rate_limited",
+  });
 
   return {
     allowed: false,
@@ -362,7 +401,19 @@ export async function enforcePublicRateLimit(args: {
   };
 }
 
-export function serviceUnavailableResponse(): NextResponse<{ error: string; message?: string }> {
+export function serviceUnavailableResponse(args?: {
+  context?: RequestObservabilityContext;
+  endpoint?: PublicRateLimitEndpoint;
+}): NextResponse<{ error: string; message?: string }> {
+  if (args?.context && args.endpoint) {
+    trackPublicApiRequest({
+      context: args.context,
+      endpoint: args.endpoint,
+      statusCode: 503,
+      outcome: "service_unavailable",
+    });
+  }
+
   return jsonPublicError("Service unavailable", {
     status: 503,
     message: "Public image API is temporarily unavailable.",
@@ -372,9 +423,17 @@ export function serviceUnavailableResponse(): NextResponse<{ error: string; mess
 
 export function handlePublicApiFailure(args: {
   context: RequestObservabilityContext;
+  endpoint: PublicRateLimitEndpoint;
   stage: string;
   error: unknown;
 }): NextResponse<{ error: string; message?: string }> {
+  trackPublicApiRequest({
+    context: args.context,
+    endpoint: args.endpoint,
+    statusCode: 500,
+    outcome: "error",
+  });
+
   logApiFailure({
     context: args.context,
     stage: args.stage,

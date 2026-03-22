@@ -13,23 +13,26 @@ import {
   isValidResolution,
 } from "@/lib/image-models";
 import { DEFAULT_CHAT_MODEL } from "@/lib/chat-models";
-import { trackPreferenceChanged } from "@/lib/analytics";
+import {
+  trackPreferenceChanged,
+  type PreferenceChangeSource,
+} from "@/lib/analytics";
 import { useSession } from "@/context/session-context";
 
 interface PreferencesContextType {
   translation: Translation;
-  setTranslation: (translation: Translation) => void;
+  setTranslation: (translation: Translation, source?: PreferenceChangeSource) => void;
   translationInfo: typeof TRANSLATIONS[Translation];
   imageModel: string;
-  setImageModel: (model: string) => void;
+  setImageModel: (model: string, source?: PreferenceChangeSource) => void;
   imageAspectRatio: ImageAspectRatio;
-  setImageAspectRatio: (ratio: ImageAspectRatio) => void;
+  setImageAspectRatio: (ratio: ImageAspectRatio, source?: PreferenceChangeSource) => void;
   imageResolution: ImageResolution;
-  setImageResolution: (resolution: ImageResolution) => void;
+  setImageResolution: (resolution: ImageResolution, source?: PreferenceChangeSource) => void;
   chatModel: string;
-  setChatModel: (model: string) => void;
+  setChatModel: (model: string, source?: PreferenceChangeSource) => void;
   chapterGalleryEnabled: boolean;
-  setChapterGalleryEnabled: (enabled: boolean) => void;
+  setChapterGalleryEnabled: (enabled: boolean, source?: PreferenceChangeSource) => void;
 }
 
 const PreferencesContext = createContext<PreferencesContextType | null>(null);
@@ -113,7 +116,10 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   };
 
   // Save to localStorage and cookie when translation changes, then refresh page
-  const setTranslation = (newTranslation: Translation) => {
+  const setTranslation = (
+    newTranslation: Translation,
+    source: PreferenceChangeSource = "unknown"
+  ) => {
     setTranslationState(newTranslation);
     savePreferences({
       translation: newTranslation,
@@ -129,6 +135,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     trackPreferenceChanged({
       preference: "translation",
       value: newTranslation,
+      source,
       tier,
       hasCredits: credits > 0,
     });
@@ -137,7 +144,10 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   };
 
   // Save image model preference
-  const setImageModel = (newModel: string) => {
+  const setImageModel = (
+    newModel: string,
+    source: PreferenceChangeSource = "unknown"
+  ) => {
     setImageModelState(newModel);
     savePreferences({
       translation,
@@ -153,6 +163,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     trackPreferenceChanged({
       preference: "imageModel",
       value: newModel,
+      source,
       tier,
       hasCredits: credits > 0,
     });
@@ -161,7 +172,10 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   };
 
   // Save image aspect ratio preference (no refresh needed - takes effect on next generation)
-  const setImageAspectRatio = (newRatio: ImageAspectRatio) => {
+  const setImageAspectRatio = (
+    newRatio: ImageAspectRatio,
+    source: PreferenceChangeSource = "unknown"
+  ) => {
     setImageAspectRatioState(newRatio);
     savePreferences({
       translation,
@@ -174,13 +188,17 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     trackPreferenceChanged({
       preference: "imageAspectRatio",
       value: newRatio,
+      source,
       tier,
       hasCredits: credits > 0,
     });
   };
 
   // Save image resolution preference (no refresh needed - takes effect on next generation)
-  const setImageResolution = (newResolution: ImageResolution) => {
+  const setImageResolution = (
+    newResolution: ImageResolution,
+    source: PreferenceChangeSource = "unknown"
+  ) => {
     setImageResolutionState(newResolution);
     savePreferences({
       translation,
@@ -193,13 +211,17 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     trackPreferenceChanged({
       preference: "imageResolution",
       value: newResolution,
+      source,
       tier,
       hasCredits: credits > 0,
     });
   };
 
   // Save chat model preference (no refresh needed - takes effect on next message)
-  const setChatModel = (newModel: string) => {
+  const setChatModel = (
+    newModel: string,
+    source: PreferenceChangeSource = "unknown"
+  ) => {
     setChatModelState(newModel);
     savePreferences({
       translation,
@@ -215,12 +237,16 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     trackPreferenceChanged({
       preference: "chatModel",
       value: newModel,
+      source,
       tier,
       hasCredits: credits > 0,
     });
   };
 
-  const setChapterGalleryEnabled = (enabled: boolean) => {
+  const setChapterGalleryEnabled = (
+    enabled: boolean,
+    source: PreferenceChangeSource = "unknown"
+  ) => {
     setChapterGalleryEnabledState(enabled);
     savePreferences({
       translation,
@@ -233,6 +259,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     trackPreferenceChanged({
       preference: "chapterGallery",
       value: enabled ? "enabled" : "disabled",
+      source,
       tier,
       hasCredits: credits > 0,
     });

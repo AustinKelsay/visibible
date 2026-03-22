@@ -1,6 +1,10 @@
 "use client";
 
 import { createContext, useContext, useState, useCallback, useRef, ReactNode } from "react";
+import type {
+  GenerationTriggerSource,
+  PreferenceChangeSource,
+} from "@/lib/analytics";
 import type { ImageAspectRatio, ImageResolution } from "@/lib/image-models";
 
 export interface GenerationState {
@@ -44,14 +48,14 @@ interface GenerationContextType {
   /** Whether a generate callback is registered (i.e. on a verse page) */
   isRegistered: boolean;
   /** Trigger generation from the header */
-  generate: () => void;
+  generate: (source?: GenerationTriggerSource) => void;
   /** Buy credits callback */
   buyCredits: () => void;
   /** Settings change callbacks */
-  setAspectRatio: (value: ImageAspectRatio) => void;
-  setResolution: (value: ImageResolution) => void;
+  setAspectRatio: (value: ImageAspectRatio, source?: PreferenceChangeSource) => void;
+  setResolution: (value: ImageResolution, source?: PreferenceChangeSource) => void;
   /** Called by HeroImage to register its generate callback */
-  registerGenerate: (cb: () => void) => void;
+  registerGenerate: (cb: (source?: GenerationTriggerSource) => void) => void;
   /** Called by HeroImage to unregister on unmount */
   unregisterGenerate: () => void;
   /** Called by HeroImage to push state updates */
@@ -60,8 +64,8 @@ interface GenerationContextType {
   registerBuyCredits: (cb: () => void) => void;
   /** Called by HeroImage to register settings callbacks */
   registerSettings: (cbs: {
-    setAspectRatio: (value: ImageAspectRatio) => void;
-    setResolution: (value: ImageResolution) => void;
+    setAspectRatio: (value: ImageAspectRatio, source?: PreferenceChangeSource) => void;
+    setResolution: (value: ImageResolution, source?: PreferenceChangeSource) => void;
   }) => void;
 }
 
@@ -71,14 +75,14 @@ export function GenerationProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<GenerationState>(DEFAULT_STATE);
   const [isRegistered, setIsRegistered] = useState(false);
 
-  const generateRef = useRef<(() => void) | null>(null);
+  const generateRef = useRef<((source?: GenerationTriggerSource) => void) | null>(null);
   const buyCreditsRef = useRef<(() => void) | null>(null);
   const settingsRef = useRef<{
-    setAspectRatio: (value: ImageAspectRatio) => void;
-    setResolution: (value: ImageResolution) => void;
+    setAspectRatio: (value: ImageAspectRatio, source?: PreferenceChangeSource) => void;
+    setResolution: (value: ImageResolution, source?: PreferenceChangeSource) => void;
   } | null>(null);
 
-  const registerGenerate = useCallback((cb: () => void) => {
+  const registerGenerate = useCallback((cb: (source?: GenerationTriggerSource) => void) => {
     generateRef.current = cb;
     setIsRegistered(true);
   }, []);
@@ -95,8 +99,8 @@ export function GenerationProvider({ children }: { children: ReactNode }) {
     setState(newState);
   }, []);
 
-  const generate = useCallback(() => {
-    generateRef.current?.();
+  const generate = useCallback((source?: GenerationTriggerSource) => {
+    generateRef.current?.(source);
   }, []);
 
   const buyCredits = useCallback(() => {
@@ -108,18 +112,18 @@ export function GenerationProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const registerSettings = useCallback((cbs: {
-    setAspectRatio: (value: ImageAspectRatio) => void;
-    setResolution: (value: ImageResolution) => void;
+    setAspectRatio: (value: ImageAspectRatio, source?: PreferenceChangeSource) => void;
+    setResolution: (value: ImageResolution, source?: PreferenceChangeSource) => void;
   }) => {
     settingsRef.current = cbs;
   }, []);
 
-  const setAspectRatio = useCallback((value: ImageAspectRatio) => {
-    settingsRef.current?.setAspectRatio(value);
+  const setAspectRatio = useCallback((value: ImageAspectRatio, source?: PreferenceChangeSource) => {
+    settingsRef.current?.setAspectRatio(value, source);
   }, []);
 
-  const setResolution = useCallback((value: ImageResolution) => {
-    settingsRef.current?.setResolution(value);
+  const setResolution = useCallback((value: ImageResolution, source?: PreferenceChangeSource) => {
+    settingsRef.current?.setResolution(value, source);
   }, []);
 
   return (

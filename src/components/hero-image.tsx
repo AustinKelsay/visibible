@@ -23,10 +23,14 @@ import {
   type ImageResolution,
 } from "@/lib/image-models";
 import {
+  type GenerationTriggerSource,
   trackImageGenerated,
   trackImageGenerationStarted,
   trackGenerationError,
   trackCreditsInsufficient,
+  trackImageBrowsed,
+  trackImageFullscreenOpened,
+  trackSavedImageLoadFailed,
   trackVerseImagesState,
 } from "@/lib/analytics";
 import { resolveHasCreditsAfterGeneration } from "@/lib/analytics-event-utils";
@@ -509,7 +513,7 @@ function HeroImageBase({
   const generationIdRef = useRef(0);
   const generationStartedAtRef = useRef<number | null>(null);
   const imageElementRef = useRef<HTMLImageElement | null>(null);
-  const handleManualRegenerateRef = useRef<(() => void) | null>(null);
+  const handleManualRegenerateRef = useRef<((source?: GenerationTriggerSource) => void) | null>(null);
   const trackedImageIdsRef = useRef<Set<Id<"verseImages">>>(new Set());
 
   const generationRequestStatus = useQuery(
@@ -602,7 +606,7 @@ function HeroImageBase({
   }, [currentImage?.id, setCurrentImageId]);
 
   // Generate new image function
-  const generateImage = useCallback(async () => {
+  const generateImage = useCallback(async (source: GenerationTriggerSource = "hero_generate") => {
     if (!verseId || !currentReference) return;
 
     if (activeRequest.current) {
@@ -663,6 +667,7 @@ function HeroImageBase({
           trackGenerationError({
             imageModel,
             errorType: "csrf_missing",
+            source,
             tier,
             hasCredits: credits > 0,
           });
@@ -675,6 +680,7 @@ function HeroImageBase({
         aspectRatio: imageAspectRatio,
         resolution: imageResolution,
         generationNumber,
+        source,
         tier,
         hasCredits: credits > 0,
       });
@@ -720,6 +726,7 @@ function HeroImageBase({
           trackGenerationError({
             imageModel,
             errorType,
+            source,
             tier,
             hasCredits: credits > 0,
           });
@@ -734,6 +741,7 @@ function HeroImageBase({
           trackGenerationError({
             imageModel,
             errorType: "unauthorized",
+            source,
             tier,
             hasCredits: credits > 0,
           });
@@ -748,6 +756,7 @@ function HeroImageBase({
           setError("Insufficient credits");
           trackCreditsInsufficient({
             feature: "image",
+            source,
             requiredCredits: effectiveCost,
             tier,
             hasCredits: credits > 0,
@@ -802,6 +811,7 @@ function HeroImageBase({
           aspectRatio: data.aspectRatio || imageAspectRatio,
           resolution: imageResolution,
           generationNumber: data.generationNumber || generationNumber,
+          source,
           durationMs: data.durationMs,
           tier,
           hasCredits: hasCreditsAfterGeneration,
@@ -839,6 +849,7 @@ function HeroImageBase({
       trackGenerationError({
         imageModel,
         errorType,
+        source,
         tier,
         hasCredits: credits > 0,
       });
@@ -872,19 +883,19 @@ function HeroImageBase({
   ]);
 
   // Manual regenerate function - resets load attempts and queues a new image
-  const handleManualRegenerate = useCallback(() => {
+  const handleManualRegenerate = useCallback((source: GenerationTriggerSource = "hero_retry") => {
     setImageLoadAttempts(0);
     setError(null);
     setGeneratedImage(null);
     setPendingImageId(null);
-    generateImage();
+    generateImage(source);
   }, [generateImage]);
 
   useEffect(() => {
     handleManualRegenerateRef.current = handleManualRegenerate;
   }, [handleManualRegenerate]);
 
-  const handleImageReload = useCallback(() => {
+  const handleImageReload = useCallback((source: GenerationTriggerSource = "hero_retry") => {
     if (onRefreshImages) {
       setError(null);
       setIsImageLoading(true);
@@ -892,19 +903,19 @@ function HeroImageBase({
       onRefreshImages();
       return;
     }
-    handleManualRegenerate();
+    handleManualRegenerate(source);
   }, [onRefreshImages, handleManualRegenerate]);
 
   const handleFullscreenImageReload = useCallback(() => {
     setIsFullscreenImageError(false);
     setIsFullscreenImageReady(false);
-    handleImageReload();
+    handleImageReload("fullscreen_retry");
   }, [handleImageReload]);
 
   // Register generation callback with context so header can trigger it
   useEffect(() => {
-    registerGenerate(() => {
-      handleManualRegenerateRef.current?.();
+    registerGenerate((source) => {
+      handleManualRegenerateRef.current?.(source ?? "header_generate");
     });
     return () => unregisterGenerate();
   }, [registerGenerate, unregisterGenerate]);
@@ -959,31 +970,57 @@ function HeroImageBase({
   ]);
 
   // Image navigation functions
-  const goToPrevImage = useCallback(() => {
+  const goToPrevImage = useCallback((surface: "desktop_dock" | "mobile_overlay" | "fullscreen") => {
     if (!imageHistory || imageHistory.length === 0) return;
     const idx = selectedImageId
       ? imageHistory.findIndex((img) => img.id === selectedImageId)
       : 0;
     const currentIdx = idx >= 0 ? idx : 0;
     if (currentIdx < imageHistory.length - 1) {
-      setSelectedImageId(imageHistory[currentIdx + 1].id); // Older image
+      const targetImage = imageHistory[currentIdx + 1];
+      setSelectedImageId(targetImage.id); // Older image
       setError(null);
       setImageLoadAttempts(0);
+      trackImageBrowsed({
+        book,
+        chapter,
+        verse,
+        direction: "older",
+        surface,
+        currentIndex: currentIdx + 2,
+        totalImages: imageHistory.length,
+        imageId: targetImage.id,
+        tier,
+        hasCredits: credits > 0,
+      });
     }
-  }, [selectedImageId, imageHistory]);
+  }, [selectedImageId, imageHistory, book, chapter, verse, tier, credits]);
 
-  const goToNextImage = useCallback(() => {
+  const goToNextImage = useCallback((surface: "desktop_dock" | "mobile_overlay" | "fullscreen") => {
     if (!imageHistory || imageHistory.length === 0) return;
     const idx = selectedImageId
       ? imageHistory.findIndex((img) => img.id === selectedImageId)
       : 0;
     const currentIdx = idx >= 0 ? idx : 0;
     if (currentIdx > 0) {
-      setSelectedImageId(imageHistory[currentIdx - 1].id); // Newer image
+      const targetImage = imageHistory[currentIdx - 1];
+      setSelectedImageId(targetImage.id); // Newer image
       setError(null);
       setImageLoadAttempts(0);
+      trackImageBrowsed({
+        book,
+        chapter,
+        verse,
+        direction: "newer",
+        surface,
+        currentIndex: currentIdx,
+        totalImages: imageHistory.length,
+        imageId: targetImage.id,
+        tier,
+        hasCredits: credits > 0,
+      });
     }
-  }, [selectedImageId, imageHistory]);
+  }, [selectedImageId, imageHistory, book, chapter, verse, tier, credits]);
 
   // Auto-generate on first visit only when the user can strictly cover the estimate.
   // The spend-down grace is reserved for explicit generate actions.
@@ -1006,7 +1043,7 @@ function HeroImageBase({
     ) {
       setHasAttemptedGeneration(true);
       pendingFollowLatest.current = true;
-      generateImage();
+      generateImage("auto_generate");
     }
   }, [imageHistory, isGenerating, hasAttemptedGeneration, verseId, generateImage, canAutoGenerate, sessionLoading]);
 
@@ -1163,6 +1200,17 @@ function HeroImageBase({
                 }
 
                 setError("Failed to load image. Please try generating a new image.");
+                trackSavedImageLoadFailed({
+                  book,
+                  chapter,
+                  verse,
+                  surface: "hero",
+                  imageId: currentImage?.id,
+                  imageUrl: displayImage.url,
+                  attempt: nextAttempt,
+                  tier,
+                  hasCredits: credits > 0,
+                });
               }}
             />
 
@@ -1185,7 +1233,7 @@ function HeroImageBase({
               <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[var(--image-stage)]/70 backdrop-blur-sm">
                 <div className="text-red-500 text-sm px-4 text-center">{error}</div>
                 <button
-                  onClick={handleImageReload}
+                  onClick={() => handleImageReload("hero_retry")}
                   className="min-h-[44px] px-4 flex items-center gap-2 text-sm bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
                 >
                   <RefreshCw className="w-4 h-4" />
@@ -1196,7 +1244,19 @@ function HeroImageBase({
 
             {/* Fullscreen toggle button - mobile only (desktop uses VerseStripBar) */}
             <button
-              onClick={openFullscreen}
+              onClick={() => {
+                trackImageFullscreenOpened({
+                  book,
+                  chapter,
+                  verse,
+                  source: "hero_mobile",
+                  imageId: displayImage.id,
+                  totalImages,
+                  tier,
+                  hasCredits: credits > 0,
+                });
+                openFullscreen();
+              }}
               className="sm:hidden absolute top-3 z-20 right-4 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-full bg-[var(--surface)]/90 border border-[var(--divider)] text-[var(--foreground)] hover:bg-[var(--divider)]/50 hover:text-[var(--foreground)] active:scale-95 transition-all duration-[var(--motion-fast)] cursor-pointer focus-ring"
               aria-label="Open fullscreen view"
             >
@@ -1228,7 +1288,7 @@ function HeroImageBase({
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
                 <div className="text-red-500 text-sm px-4 text-center">{error}</div>
                 <button
-                  onClick={handleManualRegenerate}
+                  onClick={() => handleManualRegenerate("hero_retry")}
                   className="min-h-[44px] px-4 flex items-center gap-2 text-sm bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
                 >
                   <RefreshCw className="w-4 h-4" />
@@ -1254,7 +1314,7 @@ function HeroImageBase({
                     </button>
                   ) : canGenerate ? (
                     <button
-                      onClick={handleManualRegenerate}
+                      onClick={() => handleManualRegenerate("hero_generate")}
                       className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] focus-ring"
                     >
                       <Sparkles size={18} strokeWidth={1.5} />
@@ -1285,7 +1345,7 @@ function HeroImageBase({
               <div className="flex flex-row items-center gap-2 rounded-[var(--radius-lg)] liquid-glass px-2 py-2">
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={goToNextImage}
+                    onClick={() => goToNextImage("desktop_dock")}
                     disabled={!canGoNewer}
                     className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-full)] text-white/60 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
                     aria-label="Newer image"
@@ -1298,7 +1358,7 @@ function HeroImageBase({
                     <span className="text-xs text-white/90">{imageCountLabel}</span>
                   </div>
                   <button
-                    onClick={goToPrevImage}
+                    onClick={() => goToPrevImage("desktop_dock")}
                     disabled={!canGoOlder}
                     className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-[var(--radius-full)] text-white/60 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-40 disabled:cursor-not-allowed focus-ring"
                     aria-label="Older image"
@@ -1317,7 +1377,7 @@ function HeroImageBase({
           <div className="sm:hidden">
             {/* Left arrow - newer image */}
             <button
-              onClick={goToNextImage}
+              onClick={() => goToNextImage("mobile_overlay")}
               disabled={!canGoNewer}
               className="absolute left-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
               aria-label="Newer image"
@@ -1327,7 +1387,7 @@ function HeroImageBase({
 
             {/* Right arrow - older image */}
             <button
-              onClick={goToPrevImage}
+              onClick={() => goToPrevImage("mobile_overlay")}
               disabled={!canGoOlder}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
               aria-label="Older image"
@@ -1449,6 +1509,16 @@ function HeroImageBase({
                     onError={() => {
                       setIsFullscreenImageReady(false);
                       setIsFullscreenImageError(true);
+                      trackSavedImageLoadFailed({
+                        book,
+                        chapter,
+                        verse,
+                        surface: "fullscreen",
+                        imageId: currentImage?.id,
+                        imageUrl: displayImage.url,
+                        tier,
+                        hasCredits: credits > 0,
+                      });
                     }}
                   />
                 </div>
@@ -1476,7 +1546,7 @@ function HeroImageBase({
                   </div>
                   <p className="text-sm text-red-300 max-w-md">{error}</p>
                   <button
-                    onClick={handleManualRegenerate}
+                    onClick={() => handleManualRegenerate("fullscreen_retry")}
                     className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white text-black hover:bg-white/90 transition-colors duration-[var(--motion-fast)]"
                   >
                     <RefreshCw className="w-4 h-4" />
@@ -1500,7 +1570,7 @@ function HeroImageBase({
                       </button>
                     ) : canGenerate ? (
                       <button
-                        onClick={handleManualRegenerate}
+                        onClick={() => handleManualRegenerate("hero_generate")}
                         className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white text-black hover:bg-white/90 transition-colors duration-[var(--motion-fast)]"
                       >
                         <Sparkles size={18} strokeWidth={1.5} />
@@ -1523,7 +1593,7 @@ function HeroImageBase({
               {totalImages > 1 && (
                 <div className="flex items-center gap-2 mt-3">
                   <button
-                    onClick={goToNextImage}
+                    onClick={() => goToNextImage("fullscreen")}
                     disabled={!canGoNewer}
                     className="min-h-[36px] min-w-[36px] flex items-center justify-center rounded-full text-white/60 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-30 disabled:cursor-not-allowed"
                     aria-label="Newer image"
@@ -1532,7 +1602,7 @@ function HeroImageBase({
                   </button>
                   <span className="text-xs text-white/70 px-2 select-none">{imageCountLabel}</span>
                   <button
-                    onClick={goToPrevImage}
+                    onClick={() => goToPrevImage("fullscreen")}
                     disabled={!canGoOlder}
                     className="min-h-[36px] min-w-[36px] flex items-center justify-center rounded-full text-white/60 hover:text-white hover:bg-white/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-30 disabled:cursor-not-allowed"
                     aria-label="Older image"

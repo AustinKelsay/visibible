@@ -6,15 +6,22 @@ vi.mock("@vercel/analytics", () => ({
 
 import { track } from "@vercel/analytics";
 import {
+  trackApiDocsLinkClicked,
+  trackApiDocsViewed,
   trackChatErrorShown,
   trackChatMessageSent,
   trackChatOpened,
+  trackChapterGalleryItemOpened,
+  trackChapterGalleryLayoutChanged,
+  trackChapterGalleryViewed,
   trackCreditsInsufficient,
   trackCreditsModalClosed,
   trackCreditsModalOpened,
   trackFeedbackPromptInteraction,
   trackFeedbackSubmitted,
   trackGenerationError,
+  trackImageBrowsed,
+  trackImageFullscreenOpened,
   trackImageGenerated,
   trackImageGenerationStarted,
   trackInvoiceCancelled,
@@ -24,7 +31,10 @@ import {
   trackPaymentCompleted,
   trackPaymentExpired,
   trackPreferenceChanged,
+  trackSavedImageLoadFailed,
+  trackSettingsMenuOpened,
   trackVerseImagesState,
+  trackVerseNavigation,
   trackVerseView,
 } from "@/lib/analytics";
 
@@ -104,6 +114,7 @@ describe("analytics event wrappers", () => {
             aspectRatio: "16:9",
             resolution: "2K",
             generationNumber: 4,
+            source: "hero_generate",
             durationMs: 1234,
           }),
         eventName: "image_generated",
@@ -116,6 +127,7 @@ describe("analytics event wrappers", () => {
             aspectRatio: "16:9",
             resolution: "2K",
             generationNumber: 5,
+            source: "auto_generate",
           }),
         eventName: "image_generation_started",
       },
@@ -124,6 +136,7 @@ describe("analytics event wrappers", () => {
           trackCreditsInsufficient({
             ...baseProps,
             feature: "chat",
+            source: "chat_submit",
             requiredCredits: 1,
           }),
         eventName: "credits_insufficient",
@@ -134,6 +147,7 @@ describe("analytics event wrappers", () => {
             ...baseProps,
             imageModel: "google/gemini-2.5-flash-image",
             errorType: "generation_failed",
+            source: "hero_retry",
           }),
         eventName: "generation_error",
       },
@@ -211,6 +225,7 @@ describe("analytics event wrappers", () => {
             ...baseProps,
             preference: "chatModel",
             value: "openai/gpt-4o-mini",
+            source: "chat_model_selector",
           }),
         eventName: "preference_changed",
       },
@@ -220,6 +235,7 @@ describe("analytics event wrappers", () => {
             ...baseProps,
             preference: "imageAspectRatio",
             value: "16:9",
+            source: "header_settings_popover",
           }),
         eventName: "preference_changed",
       },
@@ -229,6 +245,7 @@ describe("analytics event wrappers", () => {
             ...baseProps,
             preference: "chapterGallery",
             value: "enabled",
+            source: "header_gallery_toggle",
           }),
         eventName: "preference_changed",
       },
@@ -238,6 +255,7 @@ describe("analytics event wrappers", () => {
             ...baseProps,
             preference: "chapterGallery",
             value: "disabled",
+            source: "chapter_gallery_card",
           }),
         eventName: "preference_changed",
       },
@@ -260,6 +278,128 @@ describe("analytics event wrappers", () => {
           }),
         eventName: "feedback_prompt_interaction",
       },
+      {
+        call: () =>
+          trackChapterGalleryViewed({
+            ...baseProps,
+            book: "Genesis",
+            chapter: 1,
+            currentVerse: 1,
+            layoutMode: "all",
+            savedImageCount: 3,
+            placeholderCount: 2,
+          }),
+        eventName: "chapter_gallery_viewed",
+      },
+      {
+        call: () =>
+          trackChapterGalleryLayoutChanged({
+            ...baseProps,
+            book: "Genesis",
+            chapter: 1,
+            currentVerse: 1,
+            layoutMode: "byVerse",
+          }),
+        eventName: "chapter_gallery_layout_changed",
+      },
+      {
+        call: () =>
+          trackChapterGalleryItemOpened({
+            ...baseProps,
+            book: "Genesis",
+            chapter: 1,
+            currentVerse: 1,
+            verse: 3,
+            layoutMode: "all",
+            hasImage: true,
+            imageCount: 2,
+            imageId: "image-3",
+          }),
+        eventName: "chapter_gallery_item_opened",
+      },
+      {
+        call: () =>
+          trackImageFullscreenOpened({
+            ...baseProps,
+            book: "Genesis",
+            chapter: 1,
+            verse: 1,
+            source: "hero_mobile",
+            imageId: "image-1",
+            totalImages: 4,
+          }),
+        eventName: "image_fullscreen_opened",
+      },
+      {
+        call: () =>
+          trackImageBrowsed({
+            ...baseProps,
+            book: "Genesis",
+            chapter: 1,
+            verse: 1,
+            direction: "older",
+            surface: "desktop_dock",
+            currentIndex: 2,
+            totalImages: 4,
+            imageId: "image-2",
+          }),
+        eventName: "image_browsed",
+      },
+      {
+        call: () =>
+          trackSavedImageLoadFailed({
+            ...baseProps,
+            book: "Genesis",
+            chapter: 1,
+            verse: 1,
+            surface: "hero",
+            imageId: "image-1",
+            imageUrl: "https://example.com/storage/image.png?token=secret#frag",
+            attempt: 3,
+          }),
+        eventName: "saved_image_load_failed",
+        expectedPayload: {
+          imageUrl: "/storage/image.png",
+        },
+      },
+      {
+        call: () =>
+          trackApiDocsViewed({
+            ...baseProps,
+            page: "api-docs",
+          }),
+        eventName: "api_docs_viewed",
+      },
+      {
+        call: () =>
+          trackApiDocsLinkClicked({
+            ...baseProps,
+            source: "quick_link",
+            href: "/api/public/images",
+            target: "api",
+          }),
+        eventName: "api_docs_link_clicked",
+      },
+      {
+        call: () =>
+          trackVerseNavigation({
+            ...baseProps,
+            book: "Genesis",
+            chapter: 1,
+            verse: 1,
+            direction: "next",
+            source: "keyboard",
+            targetUrl: "/genesis/1/2",
+          }),
+        eventName: "verse_navigation",
+      },
+      {
+        call: () =>
+          trackSettingsMenuOpened({
+            ...baseProps,
+          }),
+        eventName: "settings_menu_opened",
+      },
     ];
 
     for (const testCase of cases) {
@@ -270,6 +410,9 @@ describe("analytics event wrappers", () => {
       const [eventName, payload] = trackMock.mock.calls[0];
       expect(eventName).toBe(testCase.eventName);
       expect(payload).toEqual(expect.objectContaining(baseProps));
+      if ("expectedPayload" in testCase) {
+        expect(payload).toEqual(expect.objectContaining(testCase.expectedPayload));
+      }
     }
   });
 });

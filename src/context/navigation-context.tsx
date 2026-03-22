@@ -2,7 +2,11 @@
 
 import { createContext, useContext, useState, ReactNode, useCallback, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { trackMenuOpened, trackChatOpened } from "@/lib/analytics";
+import {
+  trackChatOpened,
+  trackMenuOpened,
+  trackSettingsMenuOpened,
+} from "@/lib/analytics";
 import { useSession } from "@/context/session-context";
 
 // Chat context type for verse data
@@ -79,6 +83,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
   // Track previous states for analytics
   const prevMenuOpenRef = useRef(false);
   const prevChatOpenRef = useRef(false);
+  const prevHeaderMenuOpenRef = useRef(false);
 
   // Track menu_opened event
   useEffect(() => {
@@ -102,6 +107,17 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     }
     prevChatOpenRef.current = isChatOpen;
   }, [isChatOpen, chatContext, tier, credits, isLoading]);
+
+  useEffect(() => {
+    if (isLoading) return;
+    if (isHeaderMenuOpen && !prevHeaderMenuOpenRef.current) {
+      trackSettingsMenuOpened({
+        tier,
+        hasCredits: credits > 0,
+      });
+    }
+    prevHeaderMenuOpenRef.current = isHeaderMenuOpen;
+  }, [isHeaderMenuOpen, tier, credits, isLoading]);
 
   // Close overlays on route change (except chat - users may want to continue conversations)
   // This is a legitimate use of useEffect for UI synchronization with router state

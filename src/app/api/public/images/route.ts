@@ -8,6 +8,7 @@ import {
   PUBLIC_DISCOVERY_CACHE_CONTROL,
   queryPublicApiIndex,
   serviceUnavailableResponse,
+  trackPublicApiRequest,
 } from "@/lib/public-image-api";
 
 export async function GET(request: Request) {
@@ -16,7 +17,10 @@ export async function GET(request: Request) {
   const { convex, serverSecret } = await getPublicApiServices();
 
   if (!convex || !serverSecret) {
-    return serviceUnavailableResponse();
+    return serviceUnavailableResponse({
+      context,
+      endpoint: "public-images-discovery",
+    });
   }
 
   try {
@@ -33,6 +37,13 @@ export async function GET(request: Request) {
     }
 
     const index = await queryPublicApiIndex(convex, serverSecret);
+
+    trackPublicApiRequest({
+      context,
+      endpoint: "public-images-discovery",
+      statusCode: 200,
+      outcome: "success",
+    });
 
     return jsonPublic(
       {
@@ -62,6 +73,7 @@ export async function GET(request: Request) {
   } catch (error) {
     return handlePublicApiFailure({
       context,
+      endpoint: "public-images-discovery",
       stage: "public_api_index",
       error,
     });
