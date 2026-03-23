@@ -31,6 +31,7 @@ import {
   trackImageFullscreenOpened,
   trackSavedImageLoadFailed,
 } from "@/lib/analytics";
+import { buildNextViewCookieString } from "@/lib/verse-view";
 import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
 import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 
@@ -319,9 +320,7 @@ export function ChapterGallery({
     event: ReactMouseEvent<HTMLElement>,
     item: ChapterGalleryFlatItem
   ) => {
-    if (!isUnmodifiedPrimaryClick(event)) {
-      return;
-    }
+    document.cookie = buildNextViewCookieString("reader");
 
     trackChapterGalleryItemOpened({
       book,
@@ -336,6 +335,11 @@ export function ChapterGallery({
       hasCredits: credits > 0,
     });
     markEngaged("chapter_gallery_item_opened");
+
+    if (!isUnmodifiedPrimaryClick(event)) {
+      return;
+    }
+
     setEffectiveView("reader", "chapter_gallery_card");
     if (isFullscreen) {
       handleCloseLightbox();

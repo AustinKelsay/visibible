@@ -151,6 +151,18 @@ describe("VerseViewProvider", () => {
     expect(document.cookie).toContain("visibible_view_override=gallery");
   });
 
+  it("suppresses exposure and migrates the legacy reader preference", async () => {
+    window.localStorage.setItem("visibible-preferences", JSON.stringify({
+      chapterGalleryEnabled: false,
+    }));
+
+    await renderProvider(<ExposureHarness />);
+
+    expect(trackDefaultViewExposed).not.toHaveBeenCalled();
+    expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("reader");
+    expect(document.cookie).toContain("visibible_view_override=reader");
+  });
+
   it("uses the initial override immediately and syncs the legacy mirror", async () => {
     await renderProvider(<ExposureHarness />, "gallery");
 

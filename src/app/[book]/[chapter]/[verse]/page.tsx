@@ -20,7 +20,10 @@ import {
   getNextVerse,
   formatReference,
 } from "@/lib/navigation";
-import { getVerseViewOverrideFromCookies } from "@/lib/verse-view-server";
+import {
+  getVerseViewNavigationFromCookies,
+  getVerseViewOverrideFromCookies,
+} from "@/lib/verse-view-server";
 
 interface VersePageProps {
   params: Promise<{
@@ -84,6 +87,7 @@ export default async function VersePage({ params }: VersePageProps) {
 
   // Get user's translation preference from cookie
   const translation = await getTranslationFromCookies();
+  const navigationView = await getVerseViewNavigationFromCookies();
   const overrideView = await getVerseViewOverrideFromCookies();
   const assignedView = overrideView ?? await defaultVerseViewFlag();
 
@@ -143,6 +147,7 @@ export default async function VersePage({ params }: VersePageProps) {
       <VerseViewProvider
         assignedView={assignedView}
         initialOverrideView={overrideView}
+        initialNavigationView={navigationView}
         book={bookData.name}
         chapter={location.chapter}
         verse={location.verse}

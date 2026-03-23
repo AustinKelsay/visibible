@@ -17,6 +17,7 @@ import {
   type PreferenceChangeSource,
 } from "@/lib/analytics";
 import {
+  buildClearNextViewCookieString,
   buildViewOverrideCookieString,
   readLegacyChapterGalleryPreference,
   syncLegacyChapterGalleryPreference,
@@ -37,6 +38,7 @@ interface VerseViewContextType {
 interface VerseViewProviderProps {
   assignedView: VerseViewValue;
   initialOverrideView: VerseViewValue | null;
+  initialNavigationView?: VerseViewValue | null;
   book: string;
   chapter: number;
   verse: number;
@@ -55,6 +57,10 @@ function persistOverrideCookie(view: VerseViewValue) {
   document.cookie = buildViewOverrideCookieString(view);
 }
 
+function clearNextViewCookie() {
+  document.cookie = buildClearNextViewCookieString();
+}
+
 function syncLegacyMirror(view: VerseViewValue) {
   try {
     syncLegacyChapterGalleryPreference(window.localStorage, view);
@@ -66,6 +72,7 @@ function syncLegacyMirror(view: VerseViewValue) {
 export function VerseViewProvider({
   assignedView,
   initialOverrideView,
+  initialNavigationView = null,
   book,
   chapter,
   verse,
@@ -74,12 +81,15 @@ export function VerseViewProvider({
 }: VerseViewProviderProps) {
   const { tier, credits, isLoading: sessionLoading } = useSession();
   const [overrideView, setOverrideView] = useState<VerseViewValue | null>(initialOverrideView);
-  const [isExperimentEligible, setIsExperimentEligible] = useState(initialOverrideView === null);
+  const [navigationView, setNavigationView] = useState<VerseViewValue | null>(initialNavigationView);
+  const [isExperimentEligible, setIsExperimentEligible] = useState(
+    initialOverrideView === null && initialNavigationView === null
+  );
   const [isSettled, setIsSettled] = useState(false);
   const exposureTrackedRef = useRef(false);
   const engagementTrackedRef = useRef(false);
   const pendingEngagementRef = useRef<PendingEngagement | null>(null);
-  const effectiveView = overrideView ?? assignedView;
+  const effectiveView = overrideView ?? navigationView ?? assignedView;
 
   const flushPendingEngagement = useCallback((pending: PendingEngagement) => {
     pendingEngagementRef.current = null;
@@ -98,16 +108,36 @@ export function VerseViewProvider({
   }, [book, chapter, credits, testament, tier, verse]);
 
   useEffect(() => {
+    setIsSettled(false);
+
+    if (initialNavigationView) {
+      setOverrideView(null);
+      setNavigationView(initialNavigationView);
+      setIsExperimentEligible(false);
+      clearNextViewCookie();
+      setIsSettled(true);
+      return;
+    }
+
     if (initialOverrideView) {
+      setOverrideView(initialOverrideView);
+      setNavigationView(null);
+      setIsExperimentEligible(false);
+      persistOverrideCookie(initialOverrideView);
       syncLegacyMirror(initialOverrideView);
       setIsSettled(true);
       return;
     }
 
+    setOverrideView(null);
+    setNavigationView(null);
+    setIsExperimentEligible(true);
+
     try {
       const migratedView = readLegacyChapterGalleryPreference(window.localStorage);
       if (migratedView) {
         setOverrideView(migratedView);
+        setNavigationView(null);
         setIsExperimentEligible(false);
         persistOverrideCookie(migratedView);
         syncLegacyMirror(migratedView);
@@ -117,7 +147,7 @@ export function VerseViewProvider({
     } finally {
       setIsSettled(true);
     }
-  }, [initialOverrideView]);
+  }, [initialNavigationView, initialOverrideView]);
 
   useEffect(() => {
     if (sessionLoading || !isSettled || !isExperimentEligible || exposureTrackedRef.current) {
@@ -185,6 +215,7 @@ export function VerseViewProvider({
       tier,
       hasCredits: credits > 0,
     });
+    setNavigationView(null);
     setOverrideView(view);
   }, [assignedView, credits, overrideView, tier]);
 
@@ -201,7 +232,7 @@ export function VerseViewProvider({
 
     const nextPending = pendingEngagementRef.current ?? {
       trigger,
-      activeView: overrideView ?? assignedView,
+      activeView: overrideView ?? navigationView ?? assignedView,
     };
     pendingEngagementRef.current = nextPending;
 
@@ -213,6 +244,7 @@ export function VerseViewProvider({
     flushPendingEngagement,
     isExperimentEligible,
     isSettled,
+    navigationView,
     overrideView,
     sessionLoading,
   ]);

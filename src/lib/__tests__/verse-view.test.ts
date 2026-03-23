@@ -30,6 +30,14 @@ describe("legacy chapter gallery preference helpers", () => {
     expect(readLegacyChapterGalleryPreference(storage)).toBe("gallery");
   });
 
+  it("reads a legacy reader preference", () => {
+    const storage: Pick<Storage, "getItem"> = {
+      getItem: () => JSON.stringify({ chapterGalleryEnabled: false }),
+    };
+
+    expect(readLegacyChapterGalleryPreference(storage)).toBe("reader");
+  });
+
   it("returns null when the legacy preference is absent", () => {
     const storage: Pick<Storage, "getItem"> = {
       getItem: () => JSON.stringify({ translation: "kjv" }),
@@ -52,6 +60,23 @@ describe("legacy chapter gallery preference helpers", () => {
     expect(JSON.parse(stored)).toEqual({
       translation: "niv",
       chapterGalleryEnabled: true,
+    });
+  });
+
+  it("syncs a reader preference without dropping other fields", () => {
+    let stored = JSON.stringify({ translation: "niv" });
+    const storage: Pick<Storage, "getItem" | "setItem"> = {
+      getItem: () => stored,
+      setItem: (_key: string, value: string) => {
+        stored = value;
+      },
+    };
+
+    syncLegacyChapterGalleryPreference(storage, "reader");
+
+    expect(JSON.parse(stored)).toEqual({
+      translation: "niv",
+      chapterGalleryEnabled: false,
     });
   });
 });

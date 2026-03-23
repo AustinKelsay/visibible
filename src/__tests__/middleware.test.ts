@@ -13,7 +13,7 @@ vi.mock("@/lib/verse-view", async () => {
   };
 });
 
-import { middleware } from "../../middleware";
+import { config, middleware } from "../../middleware";
 
 describe("middleware", () => {
   it("sets an anon id cookie for html navigations without one", () => {
@@ -45,5 +45,19 @@ describe("middleware", () => {
     const response = middleware(request);
 
     expect(response.headers.get("set-cookie")).toBeNull();
+  });
+
+  it("keeps the matcher scoped to the real api namespace so /api-docs still runs middleware", () => {
+    expect(config.matcher[0]).toContain("api(?:/|$)");
+
+    const request = new NextRequest("http://localhost:3000/api-docs", {
+      headers: {
+        accept: "text/html",
+      },
+    });
+
+    const response = middleware(request);
+
+    expect(response.headers.get("set-cookie")).toContain("visibible_anon_id=anon-id-123");
   });
 });

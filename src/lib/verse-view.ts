@@ -8,10 +8,16 @@ export type VerseViewEngagementTrigger =
 
 export const ANON_ID_COOKIE_NAME = "visibible_anon_id";
 export const VIEW_OVERRIDE_COOKIE_NAME = "visibible_view_override";
+export const NEXT_VIEW_COOKIE_NAME = "visibible_next_view";
 export const LEGACY_PREFERENCES_STORAGE_KEY = "visibible-preferences";
 export const VERSE_VIEW_FLAG_KEY = "default-verse-view-v1";
 export const VERSE_VIEW_COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
+export const NEXT_VIEW_COOKIE_MAX_AGE = 60;
 export const ANON_ID_HEADER_NAME = "x-visibible-anon-id";
+
+export type LegacyPreferences = {
+  chapterGalleryEnabled?: boolean;
+} & Record<string, unknown>;
 
 function isSecureCookie() {
   return process.env.NODE_ENV === "production";
@@ -50,13 +56,33 @@ export function buildViewOverrideCookieString(view: VerseViewValue): string {
   return `${VIEW_OVERRIDE_COOKIE_NAME}=${view}; ${getViewOverrideCookieAttributes()}`;
 }
 
-function parseLegacyPreferences(rawValue: string | null): Record<string, unknown> | null {
+export function buildNextViewCookieString(view: VerseViewValue): string {
+  return [
+    `${NEXT_VIEW_COOKIE_NAME}=${view}`,
+    "path=/",
+    `max-age=${NEXT_VIEW_COOKIE_MAX_AGE}`,
+    "SameSite=Lax",
+    ...(isSecureCookie() ? ["Secure"] : []),
+  ].join("; ");
+}
+
+export function buildClearNextViewCookieString(): string {
+  return [
+    `${NEXT_VIEW_COOKIE_NAME}=`,
+    "path=/",
+    "max-age=0",
+    "SameSite=Lax",
+    ...(isSecureCookie() ? ["Secure"] : []),
+  ].join("; ");
+}
+
+function parseLegacyPreferences(rawValue: string | null): LegacyPreferences | null {
   if (!rawValue) return null;
 
   try {
     const parsed = JSON.parse(rawValue);
     return parsed && typeof parsed === "object" && !Array.isArray(parsed)
-      ? parsed as Record<string, unknown>
+      ? parsed as LegacyPreferences
       : null;
   } catch {
     return null;

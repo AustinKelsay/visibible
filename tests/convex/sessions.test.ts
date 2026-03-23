@@ -820,6 +820,7 @@ describe("internal mutation settlement invariants", () => {
     const payload = errorSpy.mock.calls[0]?.[1] as Record<string, unknown>;
     const lastCandidateContext = payload.lastCandidateContext as Record<string, unknown>;
 
+    expect(lastCandidateContext.sessionId).toBeDefined();
     expect(lastCandidateContext.sid).not.toBe(sid);
     expect(lastCandidateContext.generationId).not.toBe("gen-log-redaction");
     expect(lastCandidateContext.sessionId).not.toBe("session-1");

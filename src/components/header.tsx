@@ -50,6 +50,10 @@ export function Header() {
   const chapterGalleryEnabled = verseView?.isSettled
     ? verseView.effectiveView === "gallery"
     : false;
+  const handleGalleryToggle = () => verseView?.setEffectiveView(
+    chapterGalleryEnabled ? "reader" : "gallery",
+    "header_gallery_toggle"
+  );
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -140,10 +144,7 @@ export function Header() {
               <div className="flex items-center">
                 <GalleryToggleButton
                   chapterGalleryEnabled={chapterGalleryEnabled}
-                  onToggle={() => verseView?.setEffectiveView(
-                    chapterGalleryEnabled ? "reader" : "gallery",
-                    "header_gallery_toggle"
-                  )}
+                  onToggle={handleGalleryToggle}
                 />
               </div>
             </>
@@ -171,10 +172,7 @@ export function Header() {
           {isVersePage ? (
             <GalleryToggleButton
               chapterGalleryEnabled={chapterGalleryEnabled}
-              onToggle={() => verseView?.setEffectiveView(
-                chapterGalleryEnabled ? "reader" : "gallery",
-                "header_gallery_toggle"
-              )}
+              onToggle={handleGalleryToggle}
             />
           ) : null}
           <button
