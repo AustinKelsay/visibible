@@ -1,3 +1,4 @@
+import type { Adapter } from "flags";
 import { flag, dedupe } from "flags/next";
 import { vercelAdapter } from "@flags-sdk/vercel";
 import {
@@ -12,6 +13,19 @@ type FlagEntities = {
     id: string;
   };
 };
+
+function getDefaultVerseViewAdapter(): Adapter<VerseViewValue, FlagEntities> {
+  if (process.env.FLAGS) {
+    return vercelAdapter<VerseViewValue, FlagEntities>();
+  }
+
+  return {
+    config: { reportValue: false },
+    decide(): VerseViewValue {
+      return "reader";
+    },
+  };
+}
 
 const identifyVisitor = dedupe(async ({ cookies, headers }): Promise<FlagEntities> => {
   const visitorId =
@@ -36,6 +50,6 @@ export const defaultVerseViewFlag = flag<VerseViewValue, FlagEntities>({
     { label: "Gallery", value: "gallery" },
   ],
   defaultValue: "reader",
-  adapter: vercelAdapter(),
+  adapter: getDefaultVerseViewAdapter(),
   identify: identifyVisitor,
 });

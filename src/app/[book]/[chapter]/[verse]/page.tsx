@@ -20,8 +20,8 @@ import {
   getNextVerse,
   formatReference,
 } from "@/lib/navigation";
+import { getVerseViewOverrideFromCookies } from "@/lib/verse-view-server";
 import {
-  getVerseViewOverrideFromCookies,
   VERSE_VIEW_FLAG_KEY,
 } from "@/lib/verse-view";
 

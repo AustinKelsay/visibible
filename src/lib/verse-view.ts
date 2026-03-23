@@ -1,5 +1,3 @@
-import { cookies } from "next/headers";
-
 export type VerseViewValue = "reader" | "gallery";
 
 export type VerseViewEngagementTrigger =
@@ -21,11 +19,6 @@ function isSecureCookie() {
 
 export function parseVerseViewValue(value: unknown): VerseViewValue | null {
   return value === "reader" || value === "gallery" ? value : null;
-}
-
-export async function getVerseViewOverrideFromCookies(): Promise<VerseViewValue | null> {
-  const cookieStore = await cookies();
-  return parseVerseViewValue(cookieStore.get(VIEW_OVERRIDE_COOKIE_NAME)?.value);
 }
 
 export function createAnonId(): string {
