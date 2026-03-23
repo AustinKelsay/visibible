@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BookOpen, Grid3x2, ImageIcon, Menu, MessageCircle, X } from "lucide-react";
 import { useNavigation } from "@/context/navigation-context";
-import { usePreferences } from "@/context/preferences-context";
+import { useOptionalVerseView } from "@/context/verse-view-context";
 import { TranslationSelector } from "./translation-selector";
 import { ImageModelSelector } from "./image-model-selector";
 import { CreditsBadge } from "./credits-badge";
@@ -42,11 +42,12 @@ function GalleryToggleButton({
 
 export function Header() {
   const pathname = usePathname();
-  const { chapterGalleryEnabled, setChapterGalleryEnabled } = usePreferences();
+  const verseView = useOptionalVerseView();
   const { toggleMenu, toggleChat, isHeaderMenuOpen, openHeaderMenu, closeHeaderMenu } = useNavigation();
   const menuRef = useRef<HTMLDivElement>(null);
   const isBrandLinkPage = pathname === "/about" || pathname === "/api-docs";
-  const isVersePage = /^\/[^/]+\/\d+\/\d+$/.test(pathname);
+  const isVersePage = /^\/[^/]+\/\d+\/\d+$/.test(pathname) && verseView !== null;
+  const chapterGalleryEnabled = verseView?.effectiveView === "gallery";
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -137,7 +138,10 @@ export function Header() {
               <div className="flex items-center">
                 <GalleryToggleButton
                   chapterGalleryEnabled={chapterGalleryEnabled}
-                  onToggle={() => setChapterGalleryEnabled(!chapterGalleryEnabled, "header_gallery_toggle")}
+                  onToggle={() => verseView?.setEffectiveView(
+                    chapterGalleryEnabled ? "reader" : "gallery",
+                    "header_gallery_toggle"
+                  )}
                 />
               </div>
             </>
@@ -165,7 +169,10 @@ export function Header() {
           {isVersePage ? (
             <GalleryToggleButton
               chapterGalleryEnabled={chapterGalleryEnabled}
-              onToggle={() => setChapterGalleryEnabled(!chapterGalleryEnabled, "header_gallery_toggle")}
+              onToggle={() => verseView?.setEffectiveView(
+                chapterGalleryEnabled ? "reader" : "gallery",
+                "header_gallery_toggle"
+              )}
             />
           ) : null}
           <button

@@ -31,8 +31,6 @@ interface PreferencesContextType {
   setImageResolution: (resolution: ImageResolution, source?: PreferenceChangeSource) => void;
   chatModel: string;
   setChatModel: (model: string, source?: PreferenceChangeSource) => void;
-  chapterGalleryEnabled: boolean;
-  setChapterGalleryEnabled: (enabled: boolean, source?: PreferenceChangeSource) => void;
 }
 
 const PreferencesContext = createContext<PreferencesContextType | null>(null);
@@ -48,7 +46,6 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   const [imageAspectRatio, setImageAspectRatioState] = useState<ImageAspectRatio>(DEFAULT_ASPECT_RATIO);
   const [imageResolution, setImageResolutionState] = useState<ImageResolution>(DEFAULT_RESOLUTION);
   const [chatModel, setChatModelState] = useState<string>(DEFAULT_CHAT_MODEL);
-  const [chapterGalleryEnabled, setChapterGalleryEnabledState] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   const router = useRouter();
   const { tier, credits } = useSession();
@@ -81,9 +78,6 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
           if (prefs.chatModel) {
             setChatModelState(prefs.chatModel);
           }
-          if (typeof prefs.chapterGalleryEnabled === "boolean") {
-            setChapterGalleryEnabledState(prefs.chapterGalleryEnabled);
-          }
           setIsHydrated(true);
         }, 0);
       } else {
@@ -106,10 +100,17 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     imageAspectRatio: ImageAspectRatio;
     imageResolution: ImageResolution;
     chatModel: string;
-    chapterGalleryEnabled: boolean;
   }) => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
+      const existingRaw = localStorage.getItem(STORAGE_KEY);
+      const existing =
+        existingRaw && typeof existingRaw === "string"
+          ? JSON.parse(existingRaw) as Record<string, unknown>
+          : {};
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        ...existing,
+        ...prefs,
+      }));
     } catch {
       // Ignore errors
     }
@@ -127,7 +128,6 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
       imageAspectRatio,
       imageResolution,
       chatModel,
-      chapterGalleryEnabled,
     });
     // Set cookie for server-side reading (expires in 1 year)
     document.cookie = `${COOKIE_NAME}=${newTranslation}; path=/; max-age=31536000; SameSite=Lax`;
@@ -155,7 +155,6 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
       imageAspectRatio,
       imageResolution,
       chatModel,
-      chapterGalleryEnabled,
     });
     // Set cookie for server-side reading (expires in 1 year)
     document.cookie = `${IMAGE_MODEL_COOKIE}=${encodeURIComponent(newModel)}; path=/; max-age=31536000; SameSite=Lax`;
@@ -183,7 +182,6 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
       imageAspectRatio: newRatio,
       imageResolution,
       chatModel,
-      chapterGalleryEnabled,
     });
     trackPreferenceChanged({
       preference: "imageAspectRatio",
@@ -206,7 +204,6 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
       imageAspectRatio,
       imageResolution: newResolution,
       chatModel,
-      chapterGalleryEnabled,
     });
     trackPreferenceChanged({
       preference: "imageResolution",
@@ -229,7 +226,6 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
       imageAspectRatio,
       imageResolution,
       chatModel: newModel,
-      chapterGalleryEnabled,
     });
     // Set cookie for server-side reading (expires in 1 year)
     document.cookie = `${CHAT_MODEL_COOKIE}=${encodeURIComponent(newModel)}; path=/; max-age=31536000; SameSite=Lax`;
@@ -237,28 +233,6 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     trackPreferenceChanged({
       preference: "chatModel",
       value: newModel,
-      source,
-      tier,
-      hasCredits: credits > 0,
-    });
-  };
-
-  const setChapterGalleryEnabled = (
-    enabled: boolean,
-    source: PreferenceChangeSource = "unknown"
-  ) => {
-    setChapterGalleryEnabledState(enabled);
-    savePreferences({
-      translation,
-      imageModel,
-      imageAspectRatio,
-      imageResolution,
-      chatModel,
-      chapterGalleryEnabled: enabled,
-    });
-    trackPreferenceChanged({
-      preference: "chapterGallery",
-      value: enabled ? "enabled" : "disabled",
       source,
       tier,
       hasCredits: credits > 0,
@@ -279,8 +253,6 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
         setImageResolution,
         chatModel: isHydrated ? chatModel : DEFAULT_CHAT_MODEL,
         setChatModel,
-        chapterGalleryEnabled: isHydrated ? chapterGalleryEnabled : false,
-        setChapterGalleryEnabled,
       }}
     >
       {children}

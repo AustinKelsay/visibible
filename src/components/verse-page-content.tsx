@@ -1,6 +1,6 @@
 "use client";
 
-import { usePreferences } from "@/context/preferences-context";
+import { useVerseView } from "@/context/verse-view-context";
 import { HeroImage } from "@/components/hero-image";
 import { ScriptureReader } from "@/components/scripture-reader";
 import { ScriptureDetails } from "@/components/scripture-details";
@@ -56,9 +56,9 @@ export function VersePageContent({
   testament,
   verses,
 }: VersePageContentProps) {
-  const { chapterGalleryEnabled } = usePreferences();
+  const { effectiveView } = useVerseView();
 
-  if (chapterGalleryEnabled) {
+  if (effectiveView === "gallery") {
     return (
       <main className="flex-1 flex flex-col">
         <ChapterGallery

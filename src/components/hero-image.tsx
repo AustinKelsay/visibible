@@ -10,6 +10,7 @@ import { usePreferences } from "@/context/preferences-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useSession } from "@/context/session-context";
 import { useNavigation } from "@/context/navigation-context";
+import { useVerseView } from "@/context/verse-view-context";
 import { useGeneration } from "@/context/generation-context";
 import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
 import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
@@ -314,6 +315,7 @@ function HeroImageBase({
   const isConvexEnabled = useConvexEnabled();
   const { tier, credits, buyCredits, updateCredits, isLoading: sessionLoading } = useSession();
   const { setCurrentImageId, isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
+  const { markEngaged } = useVerseView();
   const router = useRouter();
   const searchParams = useSearchParams();
   const {
@@ -685,6 +687,7 @@ function HeroImageBase({
         tier,
         hasCredits: credits > 0,
       });
+      markEngaged("image_generation_started");
 
       const response = await fetch("/api/generate-image", {
         method: "POST",
@@ -881,6 +884,7 @@ function HeroImageBase({
     tier,
     credits,
     effectiveCost,
+    markEngaged,
   ]);
 
   // Manual regenerate function - resets load attempts and queues a new image
@@ -1248,6 +1252,7 @@ function HeroImageBase({
             {/* Fullscreen toggle button - mobile only (desktop uses VerseStripBar) */}
             <button
               onClick={() => {
+                markEngaged("image_fullscreen_opened");
                 trackImageFullscreenOpened({
                   book,
                   chapter,

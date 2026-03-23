@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FlagValues } from "flags/react";
 import { redirect } from "next/navigation";
 import { Header } from "@/components/header";
 import { BookMenu } from "@/components/book-menu";
@@ -7,8 +8,10 @@ import { ChatContextSetter } from "@/components/chat-context-setter";
 import { Footer } from "@/components/footer";
 import { VerseAnalytics } from "@/components/verse-analytics";
 import { VersePageContent } from "@/components/verse-page-content";
+import { VerseViewProvider } from "@/context/verse-view-context";
 import { genesis1Theme } from "@/data/genesis-1";
 import { getChapter, getVerse } from "@/lib/bible-api";
+import { defaultVerseViewFlag } from "@/lib/flags";
 import { getTranslationFromCookies } from "@/lib/get-translation";
 import {
   parseVerseUrl,
@@ -17,6 +20,10 @@ import {
   getNextVerse,
   formatReference,
 } from "@/lib/navigation";
+import {
+  getVerseViewOverrideFromCookies,
+  VERSE_VIEW_FLAG_KEY,
+} from "@/lib/verse-view";
 
 interface VersePageProps {
   params: Promise<{
@@ -80,6 +87,8 @@ export default async function VersePage({ params }: VersePageProps) {
 
   // Get user's translation preference from cookie
   const translation = await getTranslationFromCookies();
+  const overrideView = await getVerseViewOverrideFromCookies();
+  const assignedView = overrideView ?? await defaultVerseViewFlag();
 
   const chapterData = await getChapter(location.book.slug, location.chapter, translation);
   if (!chapterData) {
@@ -134,46 +143,63 @@ export default async function VersePage({ params }: VersePageProps) {
 
   return (
     <LayoutWrapper>
-      {/* Analytics tracking */}
-      <VerseAnalytics
+      <VerseViewProvider
+        assignedView={assignedView}
+        initialOverrideView={overrideView}
         book={bookData.name}
         chapter={location.chapter}
         verse={location.verse}
         testament={bookData.testament}
-        translation={translation}
-      />
+      >
+        {overrideView === null ? (
+          <FlagValues
+            values={{
+              [VERSE_VIEW_FLAG_KEY]: assignedView,
+            }}
+          />
+        ) : null}
 
-      {/* Set chat context for sidebar */}
-      <ChatContextSetter context={chatContext} />
+        {/* Analytics tracking */}
+        <VerseAnalytics
+          book={bookData.name}
+          chapter={location.chapter}
+          verse={location.verse}
+          testament={bookData.testament}
+          translation={translation}
+        />
 
-      {/* Header */}
-      <Header />
+        {/* Set chat context for sidebar */}
+        <ChatContextSetter context={chatContext} />
 
-      <VersePageContent
-        bookSlug={location.book.slug}
-        bookName={bookData.name}
-        chapter={location.chapter}
-        verseNumber={location.verse}
-        verseText={verseData.text}
-        totalVerses={totalVerses}
-        prevUrl={prevUrl ?? undefined}
-        nextUrl={nextUrl ?? undefined}
-        prevVerse={prevVerse}
-        nextVerse={nextVerse}
-        currentReference={currentReference}
-        chapterTheme={chapterTheme}
-        testament={bookData.testament}
-        verses={chapterData.verses.map((item) => ({
-          verse: item.verse,
-          text: item.text,
-        }))}
-      />
+        {/* Header */}
+        <Header />
 
-      {/* Footer */}
-      <Footer />
+        <VersePageContent
+          bookSlug={location.book.slug}
+          bookName={bookData.name}
+          chapter={location.chapter}
+          verseNumber={location.verse}
+          verseText={verseData.text}
+          totalVerses={totalVerses}
+          prevUrl={prevUrl ?? undefined}
+          nextUrl={nextUrl ?? undefined}
+          prevVerse={prevVerse}
+          nextVerse={nextVerse}
+          currentReference={currentReference}
+          chapterTheme={chapterTheme}
+          testament={bookData.testament}
+          verses={chapterData.verses.map((item) => ({
+            verse: item.verse,
+            text: item.text,
+          }))}
+        />
 
-      {/* Book Menu */}
-      <BookMenu />
+        {/* Footer */}
+        <Footer />
+
+        {/* Book Menu */}
+        <BookMenu />
+      </VerseViewProvider>
     </LayoutWrapper>
   );
 }
