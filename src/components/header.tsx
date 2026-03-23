@@ -47,7 +47,9 @@ export function Header() {
   const menuRef = useRef<HTMLDivElement>(null);
   const isBrandLinkPage = pathname === "/about" || pathname === "/api-docs";
   const isVersePage = /^\/[^/]+\/\d+\/\d+$/.test(pathname) && verseView !== null;
-  const chapterGalleryEnabled = verseView?.effectiveView === "gallery";
+  const chapterGalleryEnabled = verseView?.isSettled
+    ? verseView.effectiveView === "gallery"
+    : false;
 
   // Close menu when clicking outside
   useEffect(() => {

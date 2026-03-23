@@ -57,6 +57,7 @@ describe("VersePageContent", () => {
 
   it("switches to the full gallery view when the chapter gallery preference is enabled", () => {
     useVerseViewMock.mockReturnValue({
+      isSettled: true,
       effectiveView: "gallery",
     } as never);
 
@@ -71,6 +72,7 @@ describe("VersePageContent", () => {
 
   it("renders the reading view when the chapter gallery preference is disabled", () => {
     useVerseViewMock.mockReturnValue({
+      isSettled: true,
       effectiveView: "reader",
     } as never);
 
@@ -81,5 +83,18 @@ describe("VersePageContent", () => {
     expect(markup).toContain("ScriptureReader");
     expect(markup).toContain("ScriptureDetails");
     expect(markup).not.toContain("ChapterGallery");
+  });
+
+  it("waits for the verse view to settle before rendering either view", () => {
+    useVerseViewMock.mockReturnValue({
+      isSettled: false,
+      effectiveView: "gallery",
+    } as never);
+
+    const markup = renderToStaticMarkup(createElement(VersePageContent, baseProps));
+
+    expect(markup).not.toContain("HeroImage");
+    expect(markup).not.toContain("ChapterGallery");
+    expect(markup).toContain("aria-busy=\"true\"");
   });
 });

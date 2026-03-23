@@ -108,12 +108,15 @@ describe("VerseViewProvider", () => {
     }
   });
 
-  async function renderProvider(child: ReactNode) {
+  async function renderProvider(
+    child: ReactNode,
+    initialOverrideView: "reader" | "gallery" | null = null
+  ) {
     await act(async () => {
       root?.render(
         <VerseViewProvider
           assignedView="reader"
-          initialOverrideView={null}
+          initialOverrideView={initialOverrideView}
           book="Genesis"
           chapter={1}
           verse={1}
@@ -146,6 +149,16 @@ describe("VerseViewProvider", () => {
     expect(trackDefaultViewExposed).not.toHaveBeenCalled();
     expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("gallery");
     expect(document.cookie).toContain("visibible_view_override=gallery");
+  });
+
+  it("uses the initial override immediately and syncs the legacy mirror", async () => {
+    await renderProvider(<ExposureHarness />, "gallery");
+
+    expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("gallery");
+    expect(trackDefaultViewExposed).not.toHaveBeenCalled();
+    expect(window.localStorage.getItem("visibible-preferences")).toContain(
+      "\"chapterGalleryEnabled\":true"
+    );
   });
 
   it("fires content_engaged only once even after multiple qualifying actions", async () => {

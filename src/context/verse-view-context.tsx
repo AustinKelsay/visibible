@@ -188,6 +188,12 @@ export function VerseViewProvider({
     setOverrideView(view);
   }, [assignedView, credits, overrideView, tier]);
 
+  // We intentionally keep the first qualifying trigger only. Once
+  // pendingEngagementRef.current is set, later markEngaged calls are ignored
+  // until flushPendingEngagement runs. If sessionLoading is false and the view
+  // isSettled/isExperimentEligible, we flush immediately; otherwise we hold the
+  // first trigger until those conditions are met. engagementTrackedRef then
+  // prevents any later re-reporting for the visit.
   const markEngaged = useCallback((trigger: VerseViewEngagementTrigger) => {
     if (engagementTrackedRef.current) {
       return;

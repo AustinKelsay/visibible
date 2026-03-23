@@ -2,7 +2,7 @@
  * Unit tests for Convex session credit settlement logic and invariants.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import {
   computeReservedChargeOutcome,
   deductCreditsInternal,
@@ -25,6 +25,7 @@ type SessionDoc = {
 
 type LedgerDoc = {
   _id: string;
+  _creationTime: number;
   sid: string;
   delta: number;
   reason: string;
@@ -134,15 +135,26 @@ class MockQuery {
     }
 
     if (this.table === "creditLedger" && this.indexName === "by_reason_createdAt") {
-      rows.sort((a, b) => ((a as LedgerDoc).createdAt - (b as LedgerDoc).createdAt));
+      rows.sort((a, b) => {
+        const ledgerA = a as LedgerDoc;
+        const ledgerB = b as LedgerDoc;
+        return (
+          ledgerA.createdAt - ledgerB.createdAt ||
+          ledgerA._creationTime - ledgerB._creationTime
+        );
+      });
     }
 
     if (this.orderDirection && this.table === "creditLedger") {
-      rows.sort((a, b) =>
-        this.orderDirection === "asc"
-          ? (a as LedgerDoc).createdAt - (b as LedgerDoc).createdAt
-          : (b as LedgerDoc).createdAt - (a as LedgerDoc).createdAt
-      );
+      rows.sort((a, b) => {
+        const ledgerA = a as LedgerDoc;
+        const ledgerB = b as LedgerDoc;
+        const comparison =
+          ledgerA.createdAt - ledgerB.createdAt ||
+          ledgerA._creationTime - ledgerB._creationTime;
+
+        return this.orderDirection === "asc" ? comparison : -comparison;
+      });
     }
 
     return rows;
@@ -185,6 +197,7 @@ class MockDb {
     const id = `ledger-${this.ledgerIdCounter++}`;
     this.creditLedger.push({
       _id: id,
+      _creationTime: this.ledgerIdCounter,
       sid: payload.sid as string,
       delta: payload.delta as number,
       reason: payload.reason as string,
@@ -708,5 +721,112 @@ describe("internal mutation settlement invariants", () => {
           entry.generationId === "gen-stale-settled" && entry.reason === "refund"
       )
     ).toHaveLength(1);
+  });
+
+  it("reconcileStaleReservations continues within a shared createdAt bucket", async () => {
+    const { sid, db, ctx, session } = createHarness({
+      credits: 200,
+      dailySpendUsd: 0,
+    });
+
+    for (let index = 0; index < 10; index += 1) {
+      await reserveHandler(ctx, {
+        sid,
+        amount: 1,
+        modelId: "test/model",
+        generationId: `gen-open-${index}`,
+        costUsd: 0.1,
+      });
+    }
+
+    for (let index = 0; index < 50; index += 1) {
+      const generationId = `gen-settled-${index}`;
+      await reserveHandler(ctx, {
+        sid,
+        amount: 1,
+        modelId: "test/model",
+        generationId,
+        costUsd: 0.1,
+      });
+      await deductHandler(ctx, {
+        sid,
+        amount: 1,
+        modelId: "test/model",
+        generationId,
+        costUsd: 0.1,
+        actualAmount: 1,
+        actualCostUsd: 0.1,
+      });
+    }
+
+    const staleTs = Date.now() - 60 * 60 * 1000;
+    db.creditLedger
+      .filter((entry) => entry.reason === "reservation")
+      .forEach((entry) => {
+        entry.createdAt = staleTs;
+      });
+
+    const reconcileResult = await reconcileHandler(ctx, {
+      maxAgeMs: 30_000,
+      limit: 10,
+    });
+
+    expect(reconcileResult).toMatchObject({
+      released: 10,
+      totalRefundedCredits: 10,
+    });
+    expect(session.credits).toBe(150);
+    expect(
+      db.creditLedger.filter(
+        (entry) =>
+          entry.reason === "refund" &&
+          entry.generationId?.startsWith("gen-open-")
+      )
+    ).toHaveLength(10);
+  });
+
+  it("redacts identifiers in reconcileStaleReservations error logs", async () => {
+    const { sid, db, ctx } = createHarness({
+      credits: 20,
+      dailySpendUsd: 0,
+    });
+
+    await reserveHandler(ctx, {
+      sid,
+      amount: 5,
+      modelId: "test/model",
+      generationId: "gen-log-redaction",
+      costUsd: 0.5,
+    });
+
+    const staleTs = Date.now() - 60 * 60 * 1000;
+    db.creditLedger
+      .filter((entry) => entry.reason === "reservation")
+      .forEach((entry) => {
+        entry.createdAt = staleTs;
+      });
+
+    const error = new Error("patch failed");
+    db.patch = vi.fn(async () => {
+      throw error;
+    });
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    await expect(reconcileHandler(ctx, {
+      maxAgeMs: 30_000,
+      limit: 1,
+    })).rejects.toThrow("patch failed");
+
+    const payload = errorSpy.mock.calls[0]?.[1] as Record<string, unknown>;
+    const lastCandidateContext = payload.lastCandidateContext as Record<string, unknown>;
+
+    expect(lastCandidateContext.sid).not.toBe(sid);
+    expect(lastCandidateContext.generationId).not.toBe("gen-log-redaction");
+    expect(lastCandidateContext.sessionId).not.toBe("session-1");
+    expect(String(lastCandidateContext.sid)).toContain("...");
+    expect(String(lastCandidateContext.generationId)).toContain("...");
+    expect(String(lastCandidateContext.sessionId)).toContain("...");
+
+    errorSpy.mockRestore();
   });
 });

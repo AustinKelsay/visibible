@@ -5,9 +5,9 @@ export function getFlagsSecret(): string {
     return process.env.FLAGS_SECRET;
   }
 
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV === "test") {
     return DEVELOPMENT_FLAGS_SECRET;
   }
 
-  throw new Error("FLAGS_SECRET environment variable is required in production.");
+  throw new Error("FLAGS_SECRET environment variable is required outside test environments.");
 }

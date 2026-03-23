@@ -55,7 +55,9 @@ function parseLegacyPreferences(rawValue: string | null): Record<string, unknown
 
   try {
     const parsed = JSON.parse(rawValue);
-    return parsed && typeof parsed === "object" ? parsed as Record<string, unknown> : null;
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed)
+      ? parsed as Record<string, unknown>
+      : null;
   } catch {
     return null;
   }

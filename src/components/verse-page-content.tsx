@@ -56,7 +56,11 @@ export function VersePageContent({
   testament,
   verses,
 }: VersePageContentProps) {
-  const { effectiveView } = useVerseView();
+  const { effectiveView, isSettled } = useVerseView();
+
+  if (!isSettled) {
+    return <main className="flex-1 flex flex-col" aria-busy="true" />;
+  }
 
   if (effectiveView === "gallery") {
     return (

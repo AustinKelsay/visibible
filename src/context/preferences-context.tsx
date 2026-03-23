@@ -103,10 +103,19 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   }) => {
     try {
       const existingRaw = localStorage.getItem(STORAGE_KEY);
-      const existing =
-        existingRaw && typeof existingRaw === "string"
-          ? JSON.parse(existingRaw) as Record<string, unknown>
-          : {};
+      let existing: Record<string, unknown> = {};
+
+      if (existingRaw && typeof existingRaw === "string") {
+        try {
+          const parsed = JSON.parse(existingRaw);
+          if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+            existing = parsed as Record<string, unknown>;
+          }
+        } catch {
+          existing = {};
+        }
+      }
+
       localStorage.setItem(STORAGE_KEY, JSON.stringify({
         ...existing,
         ...prefs,
