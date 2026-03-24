@@ -75,9 +75,9 @@ export function ScriptureReader({
   }, [book, chapter, nextUrl, prevUrl, router, verseNumber, tier, credits, isLoading]);
 
   return (
-    <article className="px-4 md:px-6 py-6 max-w-2xl mx-auto">
+    <article className="px-4 md:px-6 py-3 sm:py-6 max-w-2xl mx-auto">
       {/* Verse Header */}
-      <header className="mb-8 text-center">
+      <header className="mb-4 sm:mb-8 text-center">
         <p className="text-[var(--muted)] text-sm uppercase tracking-widest mb-2">
           {book} {chapter}
         </p>

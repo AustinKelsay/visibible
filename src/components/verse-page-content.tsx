@@ -101,7 +101,7 @@ export function VersePageContent({
         </div>
       </div>
 
-      <div className="flex-1 py-8">
+      <div className="flex-1 py-4 sm:py-8">
         <ScriptureReader
           book={bookName}
           chapter={chapter}
