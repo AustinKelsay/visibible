@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback, useRef, type TouchEvent } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
@@ -96,6 +96,13 @@ function createVerseId(reference: string): string {
     .toLowerCase()
     .replace(/\s+/g, "-")
     .replace(/:/g, "-");
+}
+
+const imageSwipeThresholdPx = 48;
+
+function isInteractiveTouchTarget(target: EventTarget | null): boolean {
+  return target instanceof Element &&
+    Boolean(target.closest("button, a, input, textarea, select, label"));
 }
 
 export function HeroImage({
@@ -513,6 +520,7 @@ function HeroImageBase({
   const generationIdRef = useRef(0);
   const generationStartedAtRef = useRef<number | null>(null);
   const imageElementRef = useRef<HTMLImageElement | null>(null);
+  const swipeStartRef = useRef<{ x: number; y: number; ignore: boolean } | null>(null);
   const handleManualRegenerateRef = useRef<((source?: GenerationTriggerSource) => void) | null>(null);
   const trackedImageIdsRef = useRef<Set<Id<"verseImages">>>(new Set());
 
@@ -1023,6 +1031,51 @@ function HeroImageBase({
     }
   }, [selectedImageId, imageHistory, book, chapter, verse, tier, credits]);
 
+  const handleSwipeStart = useCallback((event: TouchEvent<HTMLDivElement>) => {
+    if (event.touches.length !== 1) {
+      swipeStartRef.current = null;
+      return;
+    }
+
+    const touch = event.touches[0];
+    swipeStartRef.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+      ignore: isInteractiveTouchTarget(event.target),
+    };
+  }, []);
+
+  const handleSwipeEnd = useCallback((
+    event: TouchEvent<HTMLDivElement>,
+    surface: "mobile_overlay" | "fullscreen",
+  ) => {
+    const swipeStart = swipeStartRef.current;
+    swipeStartRef.current = null;
+
+    if (!swipeStart || swipeStart.ignore || totalImages <= 1 || event.changedTouches.length !== 1) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - swipeStart.x;
+    const deltaY = touch.clientY - swipeStart.y;
+
+    if (Math.abs(deltaX) < imageSwipeThresholdPx || Math.abs(deltaX) <= Math.abs(deltaY)) {
+      return;
+    }
+
+    if (deltaX > 0) {
+      goToNextImage(surface);
+      return;
+    }
+
+    goToPrevImage(surface);
+  }, [goToNextImage, goToPrevImage, totalImages]);
+
+  const resetSwipe = useCallback(() => {
+    swipeStartRef.current = null;
+  }, []);
+
   // Auto-generate on first visit only when the user can strictly cover the estimate.
   // The spend-down grace is reserved for explicit generate actions.
   useEffect(() => {
@@ -1159,7 +1212,10 @@ function HeroImageBase({
       {/* Image Container - taller 4:5 on mobile, user-selected ratio on desktop */}
       <div
         className="relative w-full overflow-hidden bg-[var(--image-stage)] aspect-[4/5] sm:[aspect-ratio:var(--ar)]"
-        style={{ "--ar": containerAspectRatioCss } as React.CSSProperties}
+        style={{ "--ar": containerAspectRatioCss, touchAction: "pan-y" } as React.CSSProperties}
+        onTouchStart={handleSwipeStart}
+        onTouchEnd={(event) => handleSwipeEnd(event, "mobile_overlay")}
+        onTouchCancel={resetSwipe}
       >
         {displayImage?.url ? (
           <>
@@ -1464,7 +1520,13 @@ function HeroImageBase({
             {/* Centered column: image + iterator + verse text */}
             <div className="flex flex-col items-center max-w-full max-h-full min-h-0">
               {displayImage?.url ? (
-                <div className="relative max-w-full max-h-[70vh] w-full flex items-center justify-center rounded-[var(--radius-md)] bg-[var(--image-stage)]">
+                <div
+                  className="relative max-w-full max-h-[70vh] w-full flex items-center justify-center rounded-[var(--radius-md)] bg-[var(--image-stage)]"
+                  style={{ touchAction: "pan-y" }}
+                  onTouchStart={handleSwipeStart}
+                  onTouchEnd={(event) => handleSwipeEnd(event, "fullscreen")}
+                  onTouchCancel={resetSwipe}
+                >
                   {!isFullscreenImageReady && isGenerating && (
                     <HeroImageLoadingState
                       label={generationPhaseLabel}
