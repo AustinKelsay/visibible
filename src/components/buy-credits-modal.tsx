@@ -6,6 +6,11 @@ import Image from "next/image";
 import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
 import {
+  getBitcoinUri,
+  getCashAppDeepLinks,
+  getLightningUri,
+} from "@/lib/lightning-deeplinks";
+import {
   trackCreditsModalOpened,
   trackCreditsModalClosed,
   trackInvoiceCreated,
@@ -158,12 +163,14 @@ export function BuyCreditsModal() {
   const [invoiceCreatedAt, setInvoiceCreatedAt] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [deepLinkNotice, setDeepLinkNotice] = useState<string | null>(null);
   const [qrDataUrl, setQrDataUrl] = useState<string>("");
   const [timeLeftMs, setTimeLeftMs] = useState(0);
   const prevModalOpenRef = useRef(false);
   const hasSeenWelcomeRef = useRef(false);
   const hasTrackedExpiredRef = useRef(false);
   const expirationCheckRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const deepLinkTimeoutsRef = useRef<number[]>([]);
   const modalOpenedAtRef = useRef<number | null>(null);
 
   // Admin login state
@@ -180,6 +187,7 @@ export function BuyCreditsModal() {
   const createInvoice = useCallback(async (bundle: CreditBundle = selectedBundle) => {
     setState("loading");
     setError(null);
+    setDeepLinkNotice(null);
     hasTrackedExpiredRef.current = false; // Reset expiry tracking for new invoice
 
     try {
@@ -210,6 +218,15 @@ export function BuyCreditsModal() {
       setState("error");
     }
   }, [selectedBundle, tier, credits]);
+
+  useEffect(() => {
+    return () => {
+      for (const timeout of deepLinkTimeoutsRef.current) {
+        window.clearTimeout(timeout);
+      }
+      deepLinkTimeoutsRef.current = [];
+    };
+  }, []);
 
   const trackModalClosed = useCallback((modalState: ModalState) => {
     const openedAt = modalOpenedAtRef.current ?? Date.now();
@@ -449,6 +466,60 @@ export function BuyCreditsModal() {
       // Ignore clipboard errors
     }
   }, [invoice, tier, credits]);
+
+  const tryOpenDeepLink = useCallback(async (
+    urls: string[],
+    notice: string
+  ) => {
+    if (!invoice || typeof window === "undefined") return;
+
+    for (const timeout of deepLinkTimeoutsRef.current) {
+      window.clearTimeout(timeout);
+    }
+    deepLinkTimeoutsRef.current = [];
+
+    try {
+      await navigator.clipboard.writeText(invoice.bolt11);
+      setDeepLinkNotice(`${notice} The invoice was copied too, just in case.`);
+    } catch {
+      setDeepLinkNotice(notice);
+    }
+
+    const attemptOpen = (index: number) => {
+      const url = urls[index];
+      if (!url) return;
+
+      window.location.assign(url);
+
+      if (index === urls.length - 1) return;
+
+      const timeout = window.setTimeout(() => {
+        if (document.visibilityState === "visible") {
+          attemptOpen(index + 1);
+        }
+      }, 1200);
+
+      deepLinkTimeoutsRef.current.push(timeout);
+    };
+
+    attemptOpen(0);
+  }, [invoice]);
+
+  const openLightningWallet = useCallback(() => {
+    if (!invoice) return;
+    void tryOpenDeepLink(
+      [getBitcoinUri(invoice.bolt11), getLightningUri(invoice.bolt11)],
+      "Trying to open your Lightning wallet."
+    );
+  }, [invoice, tryOpenDeepLink]);
+
+  const openCashApp = useCallback(() => {
+    if (!invoice) return;
+    void tryOpenDeepLink(
+      getCashAppDeepLinks(invoice.bolt11),
+      "Trying to open Cash App."
+    );
+  }, [invoice, tryOpenDeepLink]);
 
   const handleClose = () => {
     const currentState = state;
@@ -809,6 +880,32 @@ export function BuyCreditsModal() {
                 </div>
               )}
             </div>
+
+            <div className="grid gap-2 sm:grid-cols-2">
+              <button
+                onClick={openLightningWallet}
+                className="flex items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[var(--accent)] px-4 py-3 text-sm font-medium text-[var(--accent-text)] transition-colors hover:opacity-90"
+              >
+                <div className="flex items-center">
+                  <BitcoinLogo className="h-4 w-4" />
+                  <LightningLogo className="-ml-1 h-4 w-4" />
+                </div>
+                Open Lightning Wallet
+              </button>
+              <button
+                onClick={openCashApp}
+                className="flex items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[#00D54B] px-4 py-3 text-sm font-medium text-black transition-colors hover:opacity-90"
+              >
+                <CashAppLogo className="h-4 w-4" />
+                Open Cash App
+              </button>
+            </div>
+
+            {deepLinkNotice && (
+              <p className="text-center text-xs text-[var(--muted)]">
+                {deepLinkNotice}
+              </p>
+            )}
 
             {/* BOLT11 */}
             <div className="space-y-2">
