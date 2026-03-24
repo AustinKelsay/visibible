@@ -2,17 +2,17 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-describe("ScriptureReader mobile navigation prominence", () => {
-  it("renders the mobile verse navigation as a stronger card-style control", () => {
-    const filePath = path.resolve(process.cwd(), "src/components/scripture-reader.tsx");
+describe("MobileVerseNav sticky bottom bar", () => {
+  it("renders a fixed bottom bar with verse navigation and analytics", () => {
+    const filePath = path.resolve(process.cwd(), "src/components/mobile-verse-nav.tsx");
     const source = readFileSync(filePath, "utf8");
 
-    expect(source).toContain("const mobileNavButtonClassName =");
-    expect(source).toContain("min-h-[56px]");
-    expect(source).toContain("Verse Navigation");
-    expect(source).toContain("shadow-[0_20px_44px_rgba(15,23,42,0.10)]");
-    expect(source).toContain("source: \"mobile_nav\"");
-    expect(source).toContain("aria-label=\"Previous verse\"");
-    expect(source).toContain("aria-label=\"Next verse\"");
+    expect(source).toContain("fixed bottom-0");
+    expect(source).toContain("sm:hidden");
+    expect(source).toContain('source: "mobile_nav"');
+    expect(source).toContain('aria-label="Verse navigation"');
+    expect(source).toContain("env(safe-area-inset-bottom)");
+    expect(source).toContain("isFullscreen");
+    expect(source).toContain("translate-y-full");
   });
 });
