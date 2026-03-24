@@ -183,6 +183,9 @@ export default async function VersePage({ params }: VersePageProps) {
       {/* Footer */}
       <Footer />
 
+      {/* Spacer so sticky mobile verse nav bar doesn't cover footer */}
+      <div className="h-[72px] sm:hidden" aria-hidden="true" />
+
       {/* Book Menu */}
       <BookMenu />
     </LayoutWrapper>

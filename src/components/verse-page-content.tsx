@@ -74,7 +74,7 @@ export function VersePageContent({
   }
 
   return (
-    <main className="flex-1 flex flex-col pb-[72px] sm:pb-0">
+    <main className="flex-1 flex flex-col">
       <div className="relative">
         <HeroImage
           verseText={verseText}
