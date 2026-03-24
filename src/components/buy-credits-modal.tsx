@@ -7,7 +7,9 @@ import QRCode from "qrcode";
 import { useSession } from "@/context/session-context";
 import {
   getBitcoinUri,
-  getCashAppDeepLinks,
+  getCashAppPathDeepLinks,
+  getCashAppSingleParamDeepLinks,
+  getCashAppWrappedUriDeepLinks,
   getLightningUri,
 } from "@/lib/lightning-deeplinks";
 import {
@@ -513,11 +515,27 @@ export function BuyCreditsModal() {
     );
   }, [invoice, tryOpenDeepLink]);
 
-  const openCashApp = useCallback(() => {
+  const openCashAppSingleParam = useCallback(() => {
     if (!invoice) return;
     void tryOpenDeepLink(
-      getCashAppDeepLinks(invoice.bolt11),
-      "Trying to open Cash App."
+      getCashAppSingleParamDeepLinks(invoice.bolt11),
+      "Trying Cash App test 1 (single param)."
+    );
+  }, [invoice, tryOpenDeepLink]);
+
+  const openCashAppPath = useCallback(() => {
+    if (!invoice) return;
+    void tryOpenDeepLink(
+      getCashAppPathDeepLinks(invoice.bolt11),
+      "Trying Cash App test 2 (path payload)."
+    );
+  }, [invoice, tryOpenDeepLink]);
+
+  const openCashAppWrappedUri = useCallback(() => {
+    if (!invoice) return;
+    void tryOpenDeepLink(
+      getCashAppWrappedUriDeepLinks(invoice.bolt11),
+      "Trying Cash App test 3 (wrapped URI)."
     );
   }, [invoice, tryOpenDeepLink]);
 
@@ -881,7 +899,7 @@ export function BuyCreditsModal() {
               )}
             </div>
 
-            <div className="grid gap-2 sm:grid-cols-2">
+            <div className="space-y-2">
               <button
                 onClick={openLightningWallet}
                 className="flex items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[var(--accent)] px-4 py-3 text-sm font-medium text-[var(--accent-text)] transition-colors hover:opacity-90"
@@ -892,13 +910,35 @@ export function BuyCreditsModal() {
                 </div>
                 Open Lightning Wallet
               </button>
-              <button
-                onClick={openCashApp}
-                className="flex items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[#00D54B] px-4 py-3 text-sm font-medium text-black transition-colors hover:opacity-90"
-              >
-                <CashAppLogo className="h-4 w-4" />
-                Open Cash App
-              </button>
+
+              <div className="space-y-2">
+                <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-[var(--muted)]">
+                  Cash App Experiments
+                </p>
+                <div className="grid gap-2 sm:grid-cols-3">
+                  <button
+                    onClick={openCashAppSingleParam}
+                    className="flex items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[#00D54B] px-4 py-3 text-sm font-medium text-black transition-colors hover:opacity-90"
+                  >
+                    <CashAppLogo className="h-4 w-4" />
+                    Test 1
+                  </button>
+                  <button
+                    onClick={openCashAppPath}
+                    className="flex items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[#00D54B] px-4 py-3 text-sm font-medium text-black transition-colors hover:opacity-90"
+                  >
+                    <CashAppLogo className="h-4 w-4" />
+                    Test 2
+                  </button>
+                  <button
+                    onClick={openCashAppWrappedUri}
+                    className="flex items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[#00D54B] px-4 py-3 text-sm font-medium text-black transition-colors hover:opacity-90"
+                  >
+                    <CashAppLogo className="h-4 w-4" />
+                    Test 3
+                  </button>
+                </div>
+              </div>
             </div>
 
             {deepLinkNotice && (
