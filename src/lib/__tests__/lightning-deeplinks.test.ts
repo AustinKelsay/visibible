@@ -18,6 +18,11 @@ describe("lightning deeplinks", () => {
 
   it("builds Cash App deep link candidates with invoice query params", () => {
     expect(getCashAppDeepLinks(bolt11)).toEqual([
+      "cashme://pay?lightning=lnbc1testinvoice&invoice=lnbc1testinvoice&bolt11=lnbc1testinvoice",
+      "squarecash://pay?lightning=lnbc1testinvoice&invoice=lnbc1testinvoice&bolt11=lnbc1testinvoice",
+      "https://cash.app/pay/lightning?lightning=lnbc1testinvoice&invoice=lnbc1testinvoice&bolt11=lnbc1testinvoice",
+      "https://cash.app/pay/bitcoin?lightning=lnbc1testinvoice&invoice=lnbc1testinvoice&bolt11=lnbc1testinvoice",
+      "https://cash.app/launch/pay?lightning=lnbc1testinvoice&invoice=lnbc1testinvoice&bolt11=lnbc1testinvoice",
       "cashme://bitcoin?lightning=lnbc1testinvoice&invoice=lnbc1testinvoice&bolt11=lnbc1testinvoice",
       "squarecash://bitcoin?lightning=lnbc1testinvoice&invoice=lnbc1testinvoice&bolt11=lnbc1testinvoice",
       "https://cash.app/launch/bitcoin?lightning=lnbc1testinvoice&invoice=lnbc1testinvoice&bolt11=lnbc1testinvoice",

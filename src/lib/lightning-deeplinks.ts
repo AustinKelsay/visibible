@@ -19,6 +19,11 @@ export function getCashAppDeepLinks(bolt11: string): string[] {
   }).toString();
 
   return [
+    `cashme://pay?${query}`,
+    `squarecash://pay?${query}`,
+    `https://cash.app/pay/lightning?${query}`,
+    `https://cash.app/pay/bitcoin?${query}`,
+    `https://cash.app/launch/pay?${query}`,
     `cashme://bitcoin?${query}`,
     `squarecash://bitcoin?${query}`,
     `https://cash.app/launch/bitcoin?${query}`,
