@@ -34,6 +34,8 @@ export function ScriptureReader({
 }: ScriptureReaderProps) {
   const router = useRouter();
   const { tier, credits, isLoading } = useSession();
+  const mobileNavButtonClassName = "group flex min-h-[56px] items-center gap-3 rounded-[18px] border border-[var(--divider)] bg-[var(--background)] px-4 text-[var(--foreground)] shadow-[0_10px_24px_rgba(0,0,0,0.10)] transition-all duration-[var(--motion-fast)] hover:border-[var(--foreground)]/10 hover:bg-[var(--surface)] active:scale-[0.98] focus-ring";
+  const mobileNavIconClassName = "text-[var(--foreground)] transition-transform duration-[var(--motion-fast)] group-active:scale-95";
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -78,59 +80,86 @@ export function ScriptureReader({
   return (
     <article className="px-4 md:px-6 py-6 max-w-2xl mx-auto">
       {/* Mobile Navigation - Top (above verse content for easy access) */}
-      <nav className="flex sm:hidden items-center mb-6 pb-4 border-b border-[var(--divider)]">
-        <div className="flex-1 flex justify-start">
-          {prevUrl ? (
-            <Link
-              href={prevUrl}
-              onClick={() => {
-                trackVerseNavigation({
-                  book,
-                  chapter,
-                  verse: verseNumber,
-                  direction: "prev",
-                  source: "mobile_nav",
-                  targetUrl: prevUrl,
-                  tier,
-                  hasCredits: credits > 0,
-                });
-              }}
-              className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] min-h-[44px] px-3 -ml-3"
-              aria-label="Previous verse"
-            >
-              <ChevronLeft size={20} strokeWidth={1.5} />
-              <span className="text-sm">Previous</span>
-            </Link>
-          ) : null}
-        </div>
+      <nav className="sm:hidden mb-6 pb-4 border-b border-[var(--divider)]">
+        <div className="rounded-[24px] border border-[var(--divider)] bg-[var(--surface)]/92 p-2 shadow-[0_20px_44px_rgba(15,23,42,0.10)] backdrop-blur-sm">
+          <div className="flex items-center gap-2">
+            <div className="flex-1">
+              {prevUrl ? (
+                <Link
+                  href={prevUrl}
+                  onClick={() => {
+                    trackVerseNavigation({
+                      book,
+                      chapter,
+                      verse: verseNumber,
+                      direction: "prev",
+                      source: "mobile_nav",
+                      targetUrl: prevUrl,
+                      tier,
+                      hasCredits: credits > 0,
+                    });
+                  }}
+                  className={mobileNavButtonClassName}
+                  aria-label="Previous verse"
+                >
+                  <ChevronLeft size={20} strokeWidth={1.75} className={mobileNavIconClassName} />
+                  <span className="min-w-0">
+                    <span className="block text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
+                      Verse
+                    </span>
+                    <span className="block text-sm font-semibold">
+                      Previous
+                    </span>
+                  </span>
+                </Link>
+              ) : (
+                <div className="min-h-[56px]" aria-hidden="true" />
+              )}
+            </div>
 
-        <span className="text-[var(--muted)] text-sm">
-          {verseNumber} of {totalVerses}
-        </span>
+            <div className="shrink-0 px-2 text-center">
+              <span className="block text-[10px] uppercase tracking-[0.24em] text-[var(--muted)]">
+                Verse Navigation
+              </span>
+              <span className="block text-sm font-semibold text-[var(--foreground)]">
+                {verseNumber} / {totalVerses}
+              </span>
+            </div>
 
-        <div className="flex-1 flex justify-end">
-          {nextUrl ? (
-            <Link
-              href={nextUrl}
-              onClick={() => {
-                trackVerseNavigation({
-                  book,
-                  chapter,
-                  verse: verseNumber,
-                  direction: "next",
-                  source: "mobile_nav",
-                  targetUrl: nextUrl,
-                  tier,
-                  hasCredits: credits > 0,
-                });
-              }}
-              className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] min-h-[44px] px-3 -mr-3"
-              aria-label="Next verse"
-            >
-              <span className="text-sm">Next</span>
-              <ChevronRight size={20} strokeWidth={1.5} />
-            </Link>
-          ) : null}
+            <div className="flex-1">
+              {nextUrl ? (
+                <Link
+                  href={nextUrl}
+                  onClick={() => {
+                    trackVerseNavigation({
+                      book,
+                      chapter,
+                      verse: verseNumber,
+                      direction: "next",
+                      source: "mobile_nav",
+                      targetUrl: nextUrl,
+                      tier,
+                      hasCredits: credits > 0,
+                    });
+                  }}
+                  className={`${mobileNavButtonClassName} justify-end text-right`}
+                  aria-label="Next verse"
+                >
+                  <span className="min-w-0">
+                    <span className="block text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
+                      Verse
+                    </span>
+                    <span className="block text-sm font-semibold">
+                      Next
+                    </span>
+                  </span>
+                  <ChevronRight size={20} strokeWidth={1.75} className={mobileNavIconClassName} />
+                </Link>
+              ) : (
+                <div className="min-h-[56px]" aria-hidden="true" />
+              )}
+            </div>
+          </div>
         </div>
       </nav>
 
