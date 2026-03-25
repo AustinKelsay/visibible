@@ -320,8 +320,6 @@ export function ChapterGallery({
     event: ReactMouseEvent<HTMLElement>,
     item: ChapterGalleryFlatItem
   ) => {
-    document.cookie = buildNextViewCookieString("reader");
-
     trackChapterGalleryItemOpened({
       book,
       chapter,
@@ -340,6 +338,7 @@ export function ChapterGallery({
       return;
     }
 
+    document.cookie = buildNextViewCookieString("reader");
     setEffectiveView("reader", "chapter_gallery_card");
     if (isFullscreen) {
       handleCloseLightbox();

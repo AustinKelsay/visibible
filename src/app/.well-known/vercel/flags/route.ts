@@ -1,4 +1,3 @@
-import type { NextRequest } from "next/server";
 import {
   createFlagsDiscoveryEndpoint,
   getProviderData as getGenericProviderData,
@@ -15,13 +14,9 @@ async function getDiscoveryData() {
   return getGenericProviderData(flags);
 }
 
-export async function GET(request: NextRequest) {
-  const handler = createFlagsDiscoveryEndpoint(
-    async () => getDiscoveryData(),
-    {
-      secret: getFlagsSecret(),
-    }
-  );
-
-  return handler(request);
-}
+export const GET = createFlagsDiscoveryEndpoint(
+  async () => getDiscoveryData(),
+  {
+    secret: getFlagsSecret(),
+  }
+);

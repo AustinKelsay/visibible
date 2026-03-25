@@ -53,6 +53,18 @@ interface PendingEngagement {
 
 const VerseViewContext = createContext<VerseViewContextType | null>(null);
 
+function resolveEffectiveView({
+  assignedView,
+  navigationView,
+  overrideView,
+}: {
+  assignedView: VerseViewValue;
+  navigationView: VerseViewValue | null;
+  overrideView: VerseViewValue | null;
+}) {
+  return navigationView ?? overrideView ?? assignedView;
+}
+
 function persistOverrideCookie(view: VerseViewValue) {
   document.cookie = buildViewOverrideCookieString(view);
 }
@@ -89,7 +101,11 @@ export function VerseViewProvider({
   const exposureTrackedRef = useRef(false);
   const engagementTrackedRef = useRef(false);
   const pendingEngagementRef = useRef<PendingEngagement | null>(null);
-  const effectiveView = overrideView ?? navigationView ?? assignedView;
+  const effectiveView = resolveEffectiveView({
+    assignedView,
+    navigationView,
+    overrideView,
+  });
 
   const flushPendingEngagement = useCallback((pending: PendingEngagement) => {
     pendingEngagementRef.current = null;
@@ -201,7 +217,11 @@ export function VerseViewProvider({
     view: VerseViewValue,
     source: PreferenceChangeSource
   ) => {
-    const currentEffectiveView = overrideView ?? assignedView;
+    const currentEffectiveView = resolveEffectiveView({
+      assignedView,
+      navigationView,
+      overrideView,
+    });
     if (currentEffectiveView === view) {
       return;
     }
@@ -217,7 +237,7 @@ export function VerseViewProvider({
     });
     setNavigationView(null);
     setOverrideView(view);
-  }, [assignedView, credits, overrideView, tier]);
+  }, [assignedView, credits, navigationView, overrideView, tier]);
 
   // We intentionally keep the first qualifying trigger only. Once
   // pendingEngagementRef.current is set, later markEngaged calls are ignored
@@ -232,7 +252,11 @@ export function VerseViewProvider({
 
     const nextPending = pendingEngagementRef.current ?? {
       trigger,
-      activeView: overrideView ?? navigationView ?? assignedView,
+      activeView: resolveEffectiveView({
+        assignedView,
+        navigationView,
+        overrideView,
+      }),
     };
     pendingEngagementRef.current = nextPending;
 

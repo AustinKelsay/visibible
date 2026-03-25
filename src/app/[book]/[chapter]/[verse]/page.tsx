@@ -89,7 +89,7 @@ export default async function VersePage({ params }: VersePageProps) {
   const translation = await getTranslationFromCookies();
   const navigationView = await getVerseViewNavigationFromCookies();
   const overrideView = await getVerseViewOverrideFromCookies();
-  const assignedView = overrideView ?? await defaultVerseViewFlag();
+  const assignedView = navigationView ?? overrideView ?? await defaultVerseViewFlag();
 
   const chapterData = await getChapter(location.book.slug, location.chapter, translation);
   if (!chapterData) {

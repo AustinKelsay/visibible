@@ -14,7 +14,7 @@ type FlagEntities = {
   };
 };
 
-function getDefaultVerseViewAdapter(): Adapter<VerseViewValue, FlagEntities> {
+export function getDefaultVerseViewAdapter(): Adapter<VerseViewValue, FlagEntities> {
   if (process.env.FLAGS) {
     return vercelAdapter<VerseViewValue, FlagEntities>();
   }
@@ -27,7 +27,7 @@ function getDefaultVerseViewAdapter(): Adapter<VerseViewValue, FlagEntities> {
   };
 }
 
-const identifyVisitor = dedupe(async ({ cookies, headers }): Promise<FlagEntities> => {
+export const identifyVisitor = dedupe(async ({ cookies, headers }): Promise<FlagEntities> => {
   const visitorId =
     cookies.get(ANON_ID_COOKIE_NAME)?.value ??
     headers.get(ANON_ID_HEADER_NAME) ??

@@ -110,13 +110,15 @@ describe("VerseViewProvider", () => {
 
   async function renderProvider(
     child: ReactNode,
-    initialOverrideView: "reader" | "gallery" | null = null
+    initialOverrideView: "reader" | "gallery" | null = null,
+    initialNavigationView: "reader" | "gallery" | null = null
   ) {
     await act(async () => {
       root?.render(
         <VerseViewProvider
           assignedView="reader"
           initialOverrideView={initialOverrideView}
+          initialNavigationView={initialNavigationView}
           book="Genesis"
           chapter={1}
           verse={1}
@@ -185,6 +187,29 @@ describe("VerseViewProvider", () => {
       trigger: "verse_navigation",
       activeView: "reader",
     }));
+  });
+
+  it("treats the navigation view as the current effective view for no-op updates", async () => {
+    function ToggleHarness() {
+      const { setEffectiveView } = useVerseView();
+      return (
+        <button
+          type="button"
+          onClick={() => setEffectiveView("gallery", "header_gallery_toggle")}
+        >
+          Toggle
+        </button>
+      );
+    }
+
+    await renderProvider(<ToggleHarness />, null, "gallery");
+
+    await act(async () => {
+      container?.querySelector("button")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    });
+
+    expect(trackPreferenceChanged).not.toHaveBeenCalled();
+    expect(document.cookie).not.toContain("visibible_view_override=gallery");
   });
 
   it("writes an explicit override and tracks the preference change", async () => {
