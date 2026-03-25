@@ -36,7 +36,6 @@ export function ScriptureReader({
   const router = useRouter();
   const { tier, credits, isLoading } = useSession();
   const { markEngaged } = useVerseView();
-
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (isLoading) return;
@@ -80,7 +79,7 @@ export function ScriptureReader({
   }, [book, chapter, nextUrl, prevUrl, router, verseNumber, tier, credits, isLoading, markEngaged]);
 
   return (
-    <article className="px-4 md:px-6 py-6 max-w-2xl mx-auto">
+    <article className="px-4 md:px-6 py-3 sm:py-6 max-w-2xl mx-auto">
       {/* Mobile Navigation - Top (above verse content for easy access) */}
       <nav className="flex sm:hidden items-center mb-6 pb-4 border-b border-[var(--divider)]">
         <div className="flex-1 flex justify-start">
@@ -139,9 +138,8 @@ export function ScriptureReader({
           ) : null}
         </div>
       </nav>
-
       {/* Verse Header */}
-      <header className="mb-8 text-center">
+      <header className="mb-4 sm:mb-8 text-center">
         <p className="text-[var(--muted)] text-sm uppercase tracking-widest mb-2">
           {book} {chapter}
         </p>

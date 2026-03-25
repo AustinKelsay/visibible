@@ -7,9 +7,11 @@ import { SessionProvider } from "@/context/session-context";
 import { NavigationProvider } from "@/context/navigation-context";
 import { PreferencesProvider } from "@/context/preferences-context";
 import { GenerationProvider } from "@/context/generation-context";
+import { VerseNavProvider } from "@/context/verse-nav-context";
 import { ChatSidebar } from "@/components/chat-sidebar";
 import { BuyCreditsModal } from "@/components/buy-credits-modal";
-import { ChatFAB } from "@/components/chat-fab";
+
+import { MobileVerseNav } from "@/components/mobile-verse-nav";
 import { ChatPrompt } from "@/components/chat-prompt";
 import { FeedbackPrompt } from "@/components/feedback-prompt";
 
@@ -46,14 +48,16 @@ export default function RootLayout({
           <SessionProvider>
             <PreferencesProvider>
               <NavigationProvider>
-                <GenerationProvider>
-                  {children}
-                  <ChatSidebar />
-                  <ChatFAB />
-                  <ChatPrompt />
-                  <FeedbackPrompt />
-                  <BuyCreditsModal />
-                </GenerationProvider>
+                <VerseNavProvider>
+                  <GenerationProvider>
+                    {children}
+                    <ChatSidebar />
+                    <MobileVerseNav />
+                    <ChatPrompt />
+                    <FeedbackPrompt />
+                    <BuyCreditsModal />
+                  </GenerationProvider>
+                </VerseNavProvider>
               </NavigationProvider>
             </PreferencesProvider>
           </SessionProvider>
