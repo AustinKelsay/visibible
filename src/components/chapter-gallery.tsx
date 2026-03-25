@@ -14,9 +14,9 @@ import { Maximize2, X } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
-import { usePreferences } from "@/context/preferences-context";
 import { useNavigation } from "@/context/navigation-context";
 import { useSession } from "@/context/session-context";
+import { useVerseView } from "@/context/verse-view-context";
 import {
   buildFlatChapterGalleryItems,
   buildChapterGalleryItems,
@@ -31,6 +31,7 @@ import {
   trackImageFullscreenOpened,
   trackSavedImageLoadFailed,
 } from "@/lib/analytics";
+import { buildNextViewCookieString } from "@/lib/verse-view";
 import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
 import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 
@@ -284,7 +285,7 @@ export function ChapterGallery({
   verses,
   fullScreen = false,
 }: ChapterGalleryProps) {
-  const { chapterGalleryEnabled, setChapterGalleryEnabled } = usePreferences();
+  const { effectiveView, setEffectiveView, markEngaged } = useVerseView();
   const isConvexEnabled = useConvexEnabled();
   const { isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
   const { tier, credits, isLoading: sessionLoading } = useSession();
@@ -293,8 +294,10 @@ export function ChapterGallery({
   const fullscreenDialogRef = useRef<HTMLDivElement>(null);
   const lastViewedKeyRef = useRef<string | null>(null);
   const previousLayoutModeRef = useRef<GalleryLayoutMode | null>(null);
+  const chapterGalleryEnabled = effectiveView === "gallery";
 
   const handleExpand = useCallback((item: ChapterGalleryFlatItem) => {
+    markEngaged("image_fullscreen_opened");
     trackImageFullscreenOpened({
       book,
       chapter,
@@ -306,7 +309,7 @@ export function ChapterGallery({
     });
     setLightboxItem(item);
     openFullscreen();
-  }, [book, chapter, credits, openFullscreen, tier]);
+  }, [book, chapter, credits, markEngaged, openFullscreen, tier]);
 
   const handleCloseLightbox = useCallback(() => {
     closeFullscreen();
@@ -317,10 +320,6 @@ export function ChapterGallery({
     event: ReactMouseEvent<HTMLElement>,
     item: ChapterGalleryFlatItem
   ) => {
-    if (!isUnmodifiedPrimaryClick(event)) {
-      return;
-    }
-
     trackChapterGalleryItemOpened({
       book,
       chapter,
@@ -333,7 +332,14 @@ export function ChapterGallery({
       tier,
       hasCredits: credits > 0,
     });
-    setChapterGalleryEnabled(false, "chapter_gallery_card");
+    markEngaged("chapter_gallery_item_opened");
+
+    if (!isUnmodifiedPrimaryClick(event)) {
+      return;
+    }
+
+    document.cookie = buildNextViewCookieString("reader");
+    setEffectiveView("reader", "chapter_gallery_card");
     if (isFullscreen) {
       handleCloseLightbox();
     }
@@ -348,7 +354,8 @@ export function ChapterGallery({
     handleCloseLightbox,
     isFullscreen,
     layoutMode,
-    setChapterGalleryEnabled,
+    markEngaged,
+    setEffectiveView,
     tier,
   ]);
 

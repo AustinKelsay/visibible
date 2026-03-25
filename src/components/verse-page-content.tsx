@@ -1,6 +1,6 @@
 "use client";
 
-import { usePreferences } from "@/context/preferences-context";
+import { useVerseView } from "@/context/verse-view-context";
 import { HeroImage } from "@/components/hero-image";
 import { ScriptureReader } from "@/components/scripture-reader";
 import { ScriptureDetails } from "@/components/scripture-details";
@@ -56,9 +56,36 @@ export function VersePageContent({
   testament,
   verses,
 }: VersePageContentProps) {
-  const { chapterGalleryEnabled } = usePreferences();
+  const { effectiveView, isSettled } = useVerseView();
 
-  if (chapterGalleryEnabled) {
+  if (!isSettled) {
+    return (
+      <main className="flex-1 flex flex-col" aria-busy="true" aria-live="polite">
+        <div className="relative h-[40vh] min-h-[260px] overflow-hidden bg-[var(--surface-muted)]">
+          <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-[var(--surface-muted)] via-[var(--surface)] to-[var(--surface-muted)]" />
+          <div className="absolute left-4 md:left-6 right-4 md:right-6 top-4 h-12 rounded-[var(--radius-lg)] bg-[var(--background)]/60" />
+        </div>
+        <div className="flex-1 py-8">
+          <div className="max-w-2xl mx-auto w-full px-4 space-y-4 animate-pulse">
+            <div className="h-4 w-24 rounded-full bg-[var(--surface-muted)]" />
+            <div className="h-8 w-3/4 rounded-full bg-[var(--surface-muted)]" />
+            <div className="space-y-3 pt-4">
+              <div className="h-4 w-full rounded-full bg-[var(--surface-muted)]" />
+              <div className="h-4 w-[92%] rounded-full bg-[var(--surface-muted)]" />
+              <div className="h-4 w-[88%] rounded-full bg-[var(--surface-muted)]" />
+              <div className="h-4 w-[66%] rounded-full bg-[var(--surface-muted)]" />
+            </div>
+            <div className="flex gap-3 pt-4">
+              <div className="h-9 w-28 rounded-full bg-[var(--surface-muted)]" />
+              <div className="h-9 w-24 rounded-full bg-[var(--surface-muted)]" />
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (effectiveView === "gallery") {
     return (
       <main className="flex-1 flex flex-col">
         <ChapterGallery

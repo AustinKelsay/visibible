@@ -14,6 +14,62 @@ const DEFAULT_STALE_RESERVATION_BATCH_LIMIT = 50;
 const MAX_STALE_RESERVATION_BATCH_LIMIT = 200;
 const DEFAULT_STALE_RESERVATION_SCAN_PAGE_SIZE = 50;
 
+type ReconcileCursor =
+  | {
+      mode: "older_than_created_at";
+      createdAtExclusive: number;
+    }
+  | {
+      mode: "same_created_at";
+      createdAt: number;
+      creationTimeExclusive: number;
+    };
+
+type ReconcileCandidateContext = {
+  sid: string;
+  generationId?: string;
+  candidateCreatedAt: number;
+  phase:
+    | "candidate"
+    | "load_ledger"
+    | "load_session"
+    | "patch_session"
+    | "insert_refund";
+  reservedAmount?: number;
+  sessionId?: string;
+};
+
+function redactIdentifier(value: string | undefined): string | undefined {
+  if (!value) {
+    return value;
+  }
+
+  if (value.length <= 8) {
+    return `${value.slice(0, 2)}...${value.slice(-2)}`;
+  }
+
+  return `${value.slice(0, 4)}...${value.slice(-4)}`;
+}
+
+function sanitizeCandidateContext(
+  context: ReconcileCandidateContext | null
+): (Omit<ReconcileCandidateContext, "sid" | "generationId" | "sessionId"> & {
+  sid?: string;
+  generationId?: string;
+  sessionId?: string;
+}) | null {
+  if (!context) {
+    return null;
+  }
+
+  return {
+    ...context,
+    sid: redactIdentifier(context.sid),
+    generationId: redactIdentifier(context.generationId),
+    sessionId: redactIdentifier(context.sessionId),
+  };
+}
+
 function resolveTier(currentTier: string): "paid" | "admin" {
   if (currentTier === "admin") return "admin";
   return "paid"; // All non-admin users are "paid" tier
@@ -398,35 +454,45 @@ export const reconcileStaleReservations = internalMutation({
     let duplicateCandidates = 0;
     let totalRefundedCredits = 0;
 
-    let nextCreatedAtBefore: number | null = null;
-    let lastCandidateContext:
-      | {
-          sid: string;
-          generationId?: string;
-          candidateCreatedAt: number;
-          phase:
-            | "candidate"
-            | "load_ledger"
-            | "load_session"
-            | "patch_session"
-            | "insert_refund";
-          reservedAmount?: number;
-          sessionId?: string;
-        }
-      | null = null;
+    let nextCursor: ReconcileCursor | null = null;
+    let lastCandidateContext: ReconcileCandidateContext | null = null;
 
     try {
       while (released < limit) {
-        const reservationsQuery = ctx.db
-          .query("creditLedger")
-          .withIndex("by_reason_createdAt", (q) =>
-            q
-              .eq("reason", "reservation")
-              .lt("createdAt", nextCreatedAtBefore ?? cutoff)
-          )
-          .order("desc");
+        let candidates: Array<{
+          _creationTime: number;
+          createdAt: number;
+          sid: string;
+          generationId?: string;
+        }>;
 
-        const candidates = await reservationsQuery.take(pageSize);
+        if (nextCursor?.mode === "same_created_at") {
+          const { createdAt, creationTimeExclusive } = nextCursor;
+          candidates = await ctx.db
+            .query("creditLedger")
+            .withIndex("by_reason_createdAt", (q) =>
+              q
+                .eq("reason", "reservation")
+                .eq("createdAt", createdAt)
+                .lt("_creationTime", creationTimeExclusive)
+            )
+            .order("desc")
+            .take(pageSize);
+        } else {
+          const createdAtExclusive =
+            nextCursor?.mode === "older_than_created_at"
+              ? nextCursor.createdAtExclusive
+              : cutoff;
+          candidates = await ctx.db
+            .query("creditLedger")
+            .withIndex("by_reason_createdAt", (q) =>
+              q
+                .eq("reason", "reservation")
+                .lt("createdAt", createdAtExclusive)
+            )
+            .order("desc")
+            .take(pageSize);
+        }
         scanned += candidates.length;
 
         for (const candidate of candidates) {
@@ -532,14 +598,37 @@ export const reconcileStaleReservations = internalMutation({
         }
 
         if (candidates.length === 0) {
+          if (nextCursor?.mode === "same_created_at") {
+            nextCursor = {
+              mode: "older_than_created_at",
+              createdAtExclusive: nextCursor.createdAt,
+            };
+            continue;
+          }
           break;
         }
 
-        const oldestCreatedAtInBatch = candidates[candidates.length - 1]?.createdAt;
-        if (!oldestCreatedAtInBatch || candidates.length < pageSize) {
+        const oldestCandidateInBatch = candidates[candidates.length - 1];
+        if (!oldestCandidateInBatch) {
           break;
         }
-        nextCreatedAtBefore = oldestCreatedAtInBatch;
+
+        if (candidates.length < pageSize) {
+          if (nextCursor?.mode === "same_created_at") {
+            nextCursor = {
+              mode: "older_than_created_at",
+              createdAtExclusive: nextCursor.createdAt,
+            };
+            continue;
+          }
+          break;
+        }
+
+        nextCursor = {
+          mode: "same_created_at",
+          createdAt: oldestCandidateInBatch.createdAt,
+          creationTimeExclusive: oldestCandidateInBatch._creationTime,
+        };
       }
 
       return {
@@ -566,7 +655,7 @@ export const reconcileStaleReservations = internalMutation({
         skippedNoGenerationId,
         duplicateCandidates,
         totalRefundedCredits,
-        lastCandidateContext,
+        lastCandidateContext: sanitizeCandidateContext(lastCandidateContext),
         error,
       });
       throw error;

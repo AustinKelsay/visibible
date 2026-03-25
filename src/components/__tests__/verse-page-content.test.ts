@@ -1,11 +1,11 @@
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { usePreferences } from "@/context/preferences-context";
+import { useVerseView } from "@/context/verse-view-context";
 import { VersePageContent } from "@/components/verse-page-content";
 
-vi.mock("@/context/preferences-context", () => ({
-  usePreferences: vi.fn(),
+vi.mock("@/context/verse-view-context", () => ({
+  useVerseView: vi.fn(),
 }));
 
 vi.mock("@/components/hero-image", () => ({
@@ -28,7 +28,7 @@ vi.mock("@/components/chapter-gallery", () => ({
   ChapterGallery: () => createElement("div", null, "ChapterGallery"),
 }));
 
-const usePreferencesMock = vi.mocked(usePreferences);
+const useVerseViewMock = vi.mocked(useVerseView);
 
 const baseProps = {
   bookSlug: "genesis",
@@ -56,8 +56,9 @@ describe("VersePageContent", () => {
   });
 
   it("switches to the full gallery view when the chapter gallery preference is enabled", () => {
-    usePreferencesMock.mockReturnValue({
-      chapterGalleryEnabled: true,
+    useVerseViewMock.mockReturnValue({
+      isSettled: true,
+      effectiveView: "gallery",
     } as never);
 
     const markup = renderToStaticMarkup(createElement(VersePageContent, baseProps));
@@ -70,8 +71,9 @@ describe("VersePageContent", () => {
   });
 
   it("renders the reading view when the chapter gallery preference is disabled", () => {
-    usePreferencesMock.mockReturnValue({
-      chapterGalleryEnabled: false,
+    useVerseViewMock.mockReturnValue({
+      isSettled: true,
+      effectiveView: "reader",
     } as never);
 
     const markup = renderToStaticMarkup(createElement(VersePageContent, baseProps));
@@ -81,5 +83,18 @@ describe("VersePageContent", () => {
     expect(markup).toContain("ScriptureReader");
     expect(markup).toContain("ScriptureDetails");
     expect(markup).not.toContain("ChapterGallery");
+  });
+
+  it("waits for the verse view to settle before rendering either view", () => {
+    useVerseViewMock.mockReturnValue({
+      isSettled: false,
+      effectiveView: "gallery",
+    } as never);
+
+    const markup = renderToStaticMarkup(createElement(VersePageContent, baseProps));
+
+    expect(markup).not.toContain("HeroImage");
+    expect(markup).not.toContain("ChapterGallery");
+    expect(markup).toContain("aria-busy=\"true\"");
   });
 });

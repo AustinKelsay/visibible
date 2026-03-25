@@ -9,6 +9,10 @@ import type {
   CreditsModalOpenedStep,
   CreditsModalState,
 } from "@/lib/analytics-event-utils";
+import type {
+  VerseViewEngagementTrigger,
+  VerseViewValue,
+} from "@/lib/verse-view";
 
 // Base properties included with most events
 type BaseProps = {
@@ -46,6 +50,23 @@ type VerseViewProps = BaseProps & {
   verse: number;
   testament: "old" | "new";
   translation: string;
+};
+
+type DefaultViewExposedProps = BaseProps & {
+  book: string;
+  chapter: number;
+  verse: number;
+  testament: "old" | "new";
+  assignedView: VerseViewValue;
+};
+
+type ContentEngagedProps = BaseProps & {
+  book: string;
+  chapter: number;
+  verse: number;
+  testament: "old" | "new";
+  trigger: VerseViewEngagementTrigger;
+  activeView: VerseViewValue;
 };
 
 type VerseImagesStateProps = BaseProps & {
@@ -263,6 +284,16 @@ function sanitizeImageUrl(imageUrl?: string): string | undefined {
 // Track verse page view
 export function trackVerseView(props: VerseViewProps) {
   track("verse_view", props);
+}
+
+// Track eligible experiment exposures for the default verse view.
+export function trackDefaultViewExposed(props: DefaultViewExposedProps) {
+  track("default_view_exposed", props);
+}
+
+// Track the first meaningful action taken after the verse page is exposed.
+export function trackContentEngaged(props: ContentEngagedProps) {
+  track("content_engaged", props);
 }
 
 // Track verse image inventory state (known vs unknown)
