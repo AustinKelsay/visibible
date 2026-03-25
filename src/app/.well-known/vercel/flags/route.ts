@@ -3,20 +3,18 @@ import {
   getProviderData as getGenericProviderData,
 } from "flags/next";
 import { getProviderData as getVercelProviderData } from "@flags-sdk/vercel";
-import { getFlagsSecret } from "@/lib/flags-secret";
-import * as flags from "@/lib/flags";
+import { defaultVerseViewFlag } from "@/lib/flags";
+
+const flagDefinitions = {
+  defaultVerseViewFlag,
+};
 
 async function getDiscoveryData() {
   if (process.env.FLAGS) {
-    return getVercelProviderData(flags);
+    return getVercelProviderData(flagDefinitions);
   }
 
-  return getGenericProviderData(flags);
+  return getGenericProviderData(flagDefinitions);
 }
 
-export const GET = createFlagsDiscoveryEndpoint(
-  async () => getDiscoveryData(),
-  {
-    secret: getFlagsSecret(),
-  }
-);
+export const GET = createFlagsDiscoveryEndpoint(async () => getDiscoveryData());
