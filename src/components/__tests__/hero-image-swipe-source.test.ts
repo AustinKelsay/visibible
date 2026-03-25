@@ -4,6 +4,10 @@ import { describe, expect, it } from "vitest";
 
 describe("HeroImage mobile swipe navigation", () => {
   it("wires horizontal touch gestures into the existing image navigation callbacks", () => {
+    // This is intentionally source-based coverage for the swipe wiring tokens
+    // most likely to be dropped during refactors: imageSwipeThresholdPx,
+    // isInteractiveTouchTarget, handleSwipeStart, handleSwipeEnd,
+    // onTouchStart/onTouchEnd, goToNextImage, and goToPrevImage.
     const filePath = path.resolve(process.cwd(), "src/components/hero-image.tsx");
     const source = readFileSync(filePath, "utf8");
 

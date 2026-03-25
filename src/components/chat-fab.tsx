@@ -3,6 +3,7 @@
 import { MessageCircle } from "lucide-react";
 import { useNavigation } from "@/context/navigation-context";
 import { useVerseNav } from "@/context/verse-nav-context";
+import { MOBILE_VERSE_NAV_OFFSET } from "@/lib/mobile-verse-nav";
 
 /**
  * Floating action button for opening the chat sidebar.
@@ -17,16 +18,14 @@ export function ChatFAB() {
   if (isChatOpen) return null;
 
   // Shift FAB above the sticky verse nav bar when on a verse page
-  const bottomClass = verseNav
-    ? "bottom-[calc(68px+env(safe-area-inset-bottom,0px))]"
-    : "bottom-6";
-
   return (
     <button
       onClick={openChat}
-      style={verseNav ? undefined : { marginBottom: "env(safe-area-inset-bottom)" }}
+      style={verseNav
+        ? { bottom: MOBILE_VERSE_NAV_OFFSET }
+        : { marginBottom: "env(safe-area-inset-bottom)" }}
       className={`
-        fixed ${bottomClass} right-4 z-30
+        fixed right-4 bottom-6 z-30
         sm:hidden
         min-h-[48px] min-w-[48px]
         flex items-center justify-center

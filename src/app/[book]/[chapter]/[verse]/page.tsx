@@ -14,6 +14,7 @@ import { genesis1Theme } from "@/data/genesis-1";
 import { getChapter, getVerse } from "@/lib/bible-api";
 import { defaultVerseViewFlag } from "@/lib/flags";
 import { getTranslationFromCookies } from "@/lib/get-translation";
+import { MOBILE_VERSE_NAV_OFFSET } from "@/lib/mobile-verse-nav";
 import {
   parseVerseUrl,
   getNavigationUrls,
@@ -205,7 +206,7 @@ export default async function VersePage({ params }: VersePageProps) {
         <Footer />
 
         {/* Spacer so sticky mobile verse nav bar doesn't cover footer */}
-        <div className="h-[72px] sm:hidden" aria-hidden="true" />
+        <div className="sm:hidden" style={{ height: MOBILE_VERSE_NAV_OFFSET }} aria-hidden="true" />
 
         {/* Book Menu */}
         <BookMenu />

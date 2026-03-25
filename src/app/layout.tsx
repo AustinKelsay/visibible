@@ -12,7 +12,6 @@ import { ChatSidebar } from "@/components/chat-sidebar";
 import { BuyCreditsModal } from "@/components/buy-credits-modal";
 
 import { MobileVerseNav } from "@/components/mobile-verse-nav";
-import { ChatPrompt } from "@/components/chat-prompt";
 import { FeedbackPrompt } from "@/components/feedback-prompt";
 
 const geistSans = Geist({
@@ -53,7 +52,6 @@ export default function RootLayout({
                     {children}
                     <ChatSidebar />
                     <MobileVerseNav />
-                    <ChatPrompt />
                     <FeedbackPrompt />
                     <BuyCreditsModal />
                   </GenerationProvider>
