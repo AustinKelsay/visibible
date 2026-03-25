@@ -81,7 +81,7 @@ Diagnostic overlays:
 - `chat_error_shown` helps explain chat conversion loss.
 - `generation_error` helps explain image generation drop-off.
 - `image_browsed`, `image_fullscreen_opened`, and `saved_image_load_failed` explain how users interact with and recover from saved image history.
-- `chapter_gallery_viewed`, `chapter_gallery_layout_changed`, and `chapter_gallery_item_opened` explain adoption of the new gallery-first reading mode.
+- `chapter_gallery_viewed`, `chapter_gallery_layout_changed`, and `chapter_gallery_item_opened` explain how users interact with the chapter gallery surface.
 
 ## Segmentation
 
@@ -142,7 +142,7 @@ Useful cuts:
 ## Known Gaps
 
 1. No user-level identity or retention cohorts.
-2. No experiment ID in payloads for A/B attribution.
+2. No user-level cohorting or experiment metadata for comparing product variants.
 3. No downstream quality rating tied directly to image/chat outcomes.
 4. No server-side guaranteed delivery for client analytics events.
 5. Public API usage is measured separately via server-side observability (`public_api_requests_total`), not Vercel client events.

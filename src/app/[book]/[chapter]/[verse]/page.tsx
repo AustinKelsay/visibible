@@ -7,12 +7,10 @@ import { ChatContextSetter } from "@/components/chat-context-setter";
 import { VerseNavSetter } from "@/components/verse-nav-setter";
 import { Footer } from "@/components/footer";
 import { VerseAnalytics } from "@/components/verse-analytics";
-import { VerseViewFlagValues } from "@/components/verse-view-flag-values";
 import { VersePageContent } from "@/components/verse-page-content";
 import { VerseViewProvider } from "@/context/verse-view-context";
 import { genesis1Theme } from "@/data/genesis-1";
 import { getChapter, getVerse } from "@/lib/bible-api";
-import { defaultVerseViewFlag } from "@/lib/flags";
 import { getTranslationFromCookies } from "@/lib/get-translation";
 import { MOBILE_VERSE_NAV_OFFSET } from "@/lib/mobile-verse-nav";
 import {
@@ -22,10 +20,6 @@ import {
   getNextVerse,
   formatReference,
 } from "@/lib/navigation";
-import {
-  getVerseViewNavigationFromCookies,
-  getVerseViewOverrideFromCookies,
-} from "@/lib/verse-view-server";
 
 interface VersePageProps {
   params: Promise<{
@@ -89,10 +83,6 @@ export default async function VersePage({ params }: VersePageProps) {
 
   // Get user's translation preference from cookie
   const translation = await getTranslationFromCookies();
-  const navigationView = await getVerseViewNavigationFromCookies();
-  const overrideView = await getVerseViewOverrideFromCookies();
-  const assignedView = navigationView ?? overrideView ?? await defaultVerseViewFlag();
-
   const chapterData = await getChapter(location.book.slug, location.chapter, translation);
   if (!chapterData) {
     redirect("/genesis/1/1");
@@ -147,16 +137,7 @@ export default async function VersePage({ params }: VersePageProps) {
   return (
     <LayoutWrapper>
       <VerseViewProvider
-        assignedView={assignedView}
-        initialOverrideView={overrideView}
-        initialNavigationView={navigationView}
-        book={bookData.name}
-        chapter={location.chapter}
-        verse={location.verse}
-        testament={bookData.testament}
       >
-        <VerseViewFlagValues />
-
         {/* Analytics tracking */}
         <VerseAnalytics
           book={bookData.name}

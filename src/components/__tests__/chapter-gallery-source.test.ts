@@ -63,7 +63,6 @@ describe("chapter gallery behavior", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     useVerseViewMock.mockReturnValue({
-      effectiveView: "reader",
       setEffectiveView: vi.fn(),
       markEngaged: vi.fn(),
     } as never);
@@ -76,21 +75,7 @@ describe("chapter gallery behavior", () => {
     useQueryMock.mockReturnValue(null as never);
   });
 
-  it("skips rendering and chapter gallery queries when the preference is disabled", () => {
-    const markup = renderToStaticMarkup(createElement(ChapterGallery, baseProps));
-
-    expect(useQueryMock).toHaveBeenCalledWith(api.verseImages.getChapterGallery, "skip");
-    expect(markup).toBe("");
-  });
-
   it("skips Convex chapter gallery queries but still renders placeholders when Convex is unavailable", () => {
-    useVerseViewMock.mockReturnValue({
-      effectiveView: "gallery",
-      setEffectiveView: vi.fn(),
-      markEngaged: vi.fn(),
-    } as never);
-    useConvexEnabledMock.mockReturnValue(false);
-
     const markup = renderToStaticMarkup(createElement(ChapterGallery, baseProps));
 
     expect(useQueryMock).toHaveBeenCalledWith(api.verseImages.getChapterGallery, "skip");
@@ -101,11 +86,6 @@ describe("chapter gallery behavior", () => {
   });
 
   it("renders verse mini-galleries, placeholders, and chapter links when enabled", () => {
-    useVerseViewMock.mockReturnValue({
-      effectiveView: "gallery",
-      setEffectiveView: vi.fn(),
-      markEngaged: vi.fn(),
-    } as never);
     useConvexEnabledMock.mockReturnValue(true);
     useQueryMock.mockReturnValue([
       {
@@ -150,11 +130,6 @@ describe("chapter gallery behavior", () => {
   });
 
   it("shows the grouped-by-verse filter option alongside the default gallery stream", () => {
-    useVerseViewMock.mockReturnValue({
-      effectiveView: "gallery",
-      setEffectiveView: vi.fn(),
-      markEngaged: vi.fn(),
-    } as never);
     useConvexEnabledMock.mockReturnValue(true);
     useQueryMock.mockReturnValue([
       {

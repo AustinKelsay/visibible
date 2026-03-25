@@ -31,7 +31,6 @@ import {
   trackImageFullscreenOpened,
   trackSavedImageLoadFailed,
 } from "@/lib/analytics";
-import { buildNextViewCookieString } from "@/lib/verse-view";
 import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
 import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 
@@ -285,7 +284,7 @@ export function ChapterGallery({
   verses,
   fullScreen = false,
 }: ChapterGalleryProps) {
-  const { effectiveView, setEffectiveView, markEngaged } = useVerseView();
+  const { setEffectiveView, markEngaged } = useVerseView();
   const isConvexEnabled = useConvexEnabled();
   const { isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
   const { tier, credits, isLoading: sessionLoading } = useSession();
@@ -294,7 +293,6 @@ export function ChapterGallery({
   const fullscreenDialogRef = useRef<HTMLDivElement>(null);
   const lastViewedKeyRef = useRef<string | null>(null);
   const previousLayoutModeRef = useRef<GalleryLayoutMode | null>(null);
-  const chapterGalleryEnabled = effectiveView === "gallery";
 
   const handleExpand = useCallback((item: ChapterGalleryFlatItem) => {
     markEngaged("image_fullscreen_opened");
@@ -338,14 +336,10 @@ export function ChapterGallery({
       return;
     }
 
-    document.cookie = buildNextViewCookieString("reader");
     setEffectiveView("reader", "chapter_gallery_card");
     if (isFullscreen) {
       handleCloseLightbox();
     }
-
-    // Link handles the actual navigation; this keeps gallery mode from persisting on the destination page.
-    void item;
   }, [
     book,
     chapter,
@@ -361,7 +355,7 @@ export function ChapterGallery({
 
   const galleryImages = useQuery(
     api.verseImages.getChapterGallery,
-    chapterGalleryEnabled && isConvexEnabled ? { book, chapter } : "skip"
+    isConvexEnabled ? { book, chapter } : "skip"
   );
 
   const normalizedGalleryImages = normalizeChapterGalleryImages(galleryImages);
@@ -455,7 +449,7 @@ export function ChapterGallery({
     : `${savedImageCount} saved image${savedImageCount === 1 ? "" : "s"} · ${placeholderCount} placeholder${placeholderCount === 1 ? "" : "s"}`;
 
   useEffect(() => {
-    if (!chapterGalleryEnabled || isLoading || sessionLoading) return;
+    if (isLoading || sessionLoading) return;
     const viewKey = `${book}-${chapter}-${currentVerse}`;
     if (lastViewedKeyRef.current === viewKey) return;
     lastViewedKeyRef.current = viewKey;
@@ -472,7 +466,6 @@ export function ChapterGallery({
   }, [
     book,
     chapter,
-    chapterGalleryEnabled,
     credits,
     currentVerse,
     isLoading,
@@ -484,7 +477,7 @@ export function ChapterGallery({
   ]);
 
   useEffect(() => {
-    if (!chapterGalleryEnabled || sessionLoading) return;
+    if (sessionLoading) return;
     if (previousLayoutModeRef.current === null) {
       previousLayoutModeRef.current = layoutMode;
       return;
@@ -499,7 +492,7 @@ export function ChapterGallery({
       tier,
       hasCredits: credits > 0,
     });
-  }, [book, chapter, chapterGalleryEnabled, credits, currentVerse, layoutMode, sessionLoading, tier]);
+  }, [book, chapter, credits, currentVerse, layoutMode, sessionLoading, tier]);
 
   const handleGalleryImageLoadFailed = useCallback((item: ChapterGalleryFlatItem) => {
     trackSavedImageLoadFailed({
@@ -527,10 +520,6 @@ export function ChapterGallery({
       hasCredits: credits > 0,
     });
   }, [book, chapter, credits, lightboxItem, tier]);
-
-  if (!chapterGalleryEnabled) {
-    return null;
-  }
 
   return (
     <section

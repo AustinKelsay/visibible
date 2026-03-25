@@ -80,13 +80,11 @@ describe("ChapterGallery click behavior", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    document.cookie = "visibible_next_view=; Max-Age=0; path=/";
     container = document.createElement("div");
     document.body.appendChild(container);
     root = createRoot(container);
 
     useVerseViewMock.mockReturnValue({
-      effectiveView: "gallery",
       setEffectiveView: setEffectiveViewMock,
       markEngaged: markEngagedMock,
     } as never);
@@ -127,7 +125,7 @@ describe("ChapterGallery click behavior", () => {
     });
   }
 
-  it("does not persist the next-view cookie for modified clicks", async () => {
+  it("does not switch views for modified clicks", async () => {
     await renderGallery();
 
     const link = container?.querySelector('a[href="/genesis/1/1"]');
@@ -141,12 +139,11 @@ describe("ChapterGallery click behavior", () => {
       }));
     });
 
-    expect(document.cookie).not.toContain("visibible_next_view=reader");
     expect(setEffectiveViewMock).not.toHaveBeenCalled();
     expect(markEngagedMock).toHaveBeenCalledWith("chapter_gallery_item_opened");
   });
 
-  it("persists the next-view cookie for unmodified primary clicks", async () => {
+  it("switches back to the reader for unmodified primary clicks", async () => {
     await renderGallery();
 
     const link = container?.querySelector('a[href="/genesis/1/1"]');
@@ -160,7 +157,6 @@ describe("ChapterGallery click behavior", () => {
       }));
     });
 
-    expect(document.cookie).toContain("visibible_next_view=reader");
     expect(setEffectiveViewMock).toHaveBeenCalledWith("reader", "chapter_gallery_card");
   });
 });
