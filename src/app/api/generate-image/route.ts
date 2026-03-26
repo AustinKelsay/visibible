@@ -19,8 +19,15 @@ import {
   ImageAspectRatio,
   ImageResolution,
 } from "@/lib/image-models";
+import {} from "@/lib/chat-models";
 import {
-} from "@/lib/chat-models";
+  DEFAULT_TRANSLATION,
+  TRANSLATIONS,
+  getVerse,
+  getVerseByReference,
+  type Translation,
+} from "@/lib/bible-api";
+import { BIBLE_BOOKS } from "@/data/bible-structure";
 import { getScenePlannerEstimatedCreditsCost, getScenePlannerModelId, isScenePlannerEnabled } from "@/lib/scene-planner";
 import {
   validateSessionWithIp,
@@ -209,6 +216,10 @@ function sanitizeTranslationId(value: string | null): string {
   if (!value) return DEFAULT_TRANSLATION_ID;
   const cleaned = value.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40);
   return cleaned || DEFAULT_TRANSLATION_ID;
+}
+
+function isSupportedTranslation(value: string): value is Translation {
+  return value in TRANSLATIONS;
 }
 
 function toContinuityHint(verse: { number: number; text: string } | null): string | undefined {
@@ -497,16 +508,18 @@ export async function POST(request: Request) {
 
   // Get verse text, theme, model, and context from JSON body.
   // SECURITY: All user-provided text is sanitized to prevent prompt injection.
-  const verseText = sanitizeVerseText(requestBody.text || DEFAULT_TEXT);
-  const reference = sanitizeReference(requestBody.reference || "Scripture");
+  let verseText = requestBody.text ? sanitizeVerseText(requestBody.text) : "";
+  let reference = sanitizeReference(requestBody.reference || "Scripture");
   const requestedModelId = requestBody.model;
   const requestedStyleId = requestBody.style;
   const requestedAspectRatio = requestBody.aspectRatio;
   const requestedResolution = requestBody.resolution;
   const translationId = sanitizeTranslationId(requestBody.translation ?? null);
+  const bibleTranslation = isSupportedTranslation(translationId)
+    ? translationId
+    : DEFAULT_TRANSLATION;
   const clientRequestId =
     sanitizeRequestId(requestBody.requestId ?? null) || crypto.randomUUID();
-  const verseId = toVerseId(reference);
 
   // Validate and set aspect ratio (default: 16:9)
   const aspectRatio: ImageAspectRatio = requestedAspectRatio && isValidAspectRatio(requestedAspectRatio)
@@ -617,6 +630,77 @@ export async function POST(request: Request) {
     const parsed = Number.parseInt(value, 10);
     return Number.isNaN(parsed) ? null : parsed;
   };
+
+  let prevVerse = parseVerseContext(requestBody.prevVerse);
+  let nextVerse = parseVerseContext(requestBody.nextVerse);
+
+  if (reference !== "Scripture" && !verseText) {
+    try {
+      const resolvedVerses = await getVerseByReference(reference, bibleTranslation);
+      const currentVerse = resolvedVerses?.[0];
+
+      if (currentVerse) {
+        reference = sanitizeReference(
+          `${currentVerse.bookName} ${currentVerse.chapter}:${currentVerse.verse}`
+        );
+
+        if (!verseText) {
+          verseText = sanitizeVerseText(currentVerse.text);
+        }
+
+        const currentBook = BIBLE_BOOKS.find(
+          (book) => book.name.toLowerCase() === currentVerse.bookName.toLowerCase()
+        );
+
+        if (currentBook) {
+          if (!prevVerse && currentVerse.verse > 1) {
+            const prevVerseData = await getVerse(
+              currentBook.slug,
+              currentVerse.chapter,
+              currentVerse.verse - 1,
+              bibleTranslation
+            );
+            if (prevVerseData) {
+              prevVerse = {
+                number: prevVerseData.verse,
+                text: sanitizeVerseText(prevVerseData.text),
+                reference: `${currentVerse.bookName} ${currentVerse.chapter}:${prevVerseData.verse}`,
+              };
+            }
+          }
+
+          const versesInChapter = currentBook.chapters[currentVerse.chapter - 1];
+          if (!nextVerse && currentVerse.verse < versesInChapter) {
+            const nextVerseData = await getVerse(
+              currentBook.slug,
+              currentVerse.chapter,
+              currentVerse.verse + 1,
+              bibleTranslation
+            );
+            if (nextVerseData) {
+              nextVerse = {
+                number: nextVerseData.verse,
+                text: sanitizeVerseText(nextVerseData.text),
+                reference: `${currentVerse.bookName} ${currentVerse.chapter}:${nextVerseData.verse}`,
+              };
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.warn("[generate-image] Failed to resolve verse context from reference:", {
+        reference,
+        translation: bibleTranslation,
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  }
+
+  if (!verseText) {
+    verseText = DEFAULT_TEXT;
+  }
+
+  const verseId = toVerseId(reference);
 
   const chapterTheme = parseChapterTheme(requestBody.theme);
   const generationNumber = parseGenerationNumber(requestBody.generation);
@@ -996,10 +1080,6 @@ export async function POST(request: Request) {
 
   // Track generation start time for stats
   const generationStartTime = Date.now();
-
-  // Parse prev/next verse context for storyboard continuity (from request body, no JSON round-trip)
-  const prevVerse = parseVerseContext(requestBody.prevVerse);
-  const nextVerse = parseVerseContext(requestBody.nextVerse);
 
   const aspectRatioLabel = aspectRatio === "21:9"
     ? "ULTRA-WIDE CINEMATIC"

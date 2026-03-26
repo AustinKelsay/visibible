@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Sparkles, Loader2, Zap, Check, X } from "lucide-react";
+import { Sparkles, Loader2, Zap, Check, X, Layers } from "lucide-react";
 import { createPortal } from "react-dom";
 import { useGeneration } from "@/context/generation-context";
 import { usePreferences } from "@/context/preferences-context";
@@ -18,6 +18,7 @@ import {
   getEstimatedCreditsCostForResolution,
   supportsResolution,
 } from "@/lib/image-models";
+import { BulkGeneratePanel } from "@/components/bulk-generate-panel";
 
 /** Compact generate button for the header. Returns null on non-verse pages. */
 export function HeaderGenerateButton() {
@@ -25,6 +26,7 @@ export function HeaderGenerateButton() {
   const { imageModel, setImageModel } = usePreferences();
   const { tier, credits } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<"single" | "bulk">("single");
 
   // Inline model list state (lazy-loaded when modal opens)
   const [models, setModels] = useState<ImageModel[]>([]);
@@ -203,7 +205,7 @@ export function HeaderGenerateButton() {
               </div>
 
               {/* Header */}
-              <div className="flex items-center justify-between px-6 pt-4 pb-4">
+              <div className="flex items-center justify-between px-6 pt-4 pb-2">
                 <h2 className="text-lg font-semibold text-[var(--foreground)]">Generate Image</h2>
                 <button
                   onClick={() => setIsModalOpen(false)}
@@ -214,8 +216,45 @@ export function HeaderGenerateButton() {
                 </button>
               </div>
 
+              {/* Tab bar */}
+              <div className="flex gap-1 mx-6 mb-4 p-1 rounded-[var(--radius-md)] bg-[var(--surface)]">
+                <button
+                  onClick={() => setActiveTab("single")}
+                  className={`flex-1 min-h-[32px] flex items-center justify-center gap-1.5 rounded-[var(--radius-sm)] text-xs font-medium transition-colors ${
+                    activeTab === "single"
+                      ? "bg-[var(--background)] text-[var(--foreground)] shadow-sm"
+                      : "text-[var(--muted)] hover:text-[var(--foreground)]"
+                  }`}
+                >
+                  <Sparkles size={12} strokeWidth={1.5} />
+                  Single
+                </button>
+                <button
+                  onClick={() => setActiveTab("bulk")}
+                  className={`flex-1 min-h-[32px] flex items-center justify-center gap-1.5 rounded-[var(--radius-sm)] text-xs font-medium transition-colors ${
+                    activeTab === "bulk"
+                      ? "bg-[var(--background)] text-[var(--foreground)] shadow-sm"
+                      : "text-[var(--muted)] hover:text-[var(--foreground)]"
+                  }`}
+                >
+                  <Layers size={12} strokeWidth={1.5} />
+                  Bulk
+                </button>
+              </div>
+
               {/* Scrollable content */}
               <div className="flex-1 overflow-y-auto overscroll-contain px-6" style={{ WebkitOverflowScrolling: "touch" }}>
+                {activeTab === "bulk" ? (
+                  <div className="pb-4">
+                    <BulkGeneratePanel
+                      perVerseCost={displayEffectiveCost}
+                      modelId={modelId}
+                      aspectRatio={aspectRatio}
+                      resolution={resolution}
+                      onClose={() => setIsModalOpen(false)}
+                    />
+                  </div>
+                ) : (
                 <div className="space-y-5 pb-4">
                   {/* Model Section */}
                   <div>
@@ -344,9 +383,11 @@ export function HeaderGenerateButton() {
                     </div>
                   </div>
                 </div>
+                )}
               </div>
 
-              {/* Sticky generate button at bottom */}
+              {/* Sticky generate button at bottom (single tab only) */}
+              {activeTab === "single" && (
               <div className="px-6 pt-4 pb-6 border-t border-[var(--divider)]" style={{ paddingBottom: "max(1.5rem, env(safe-area-inset-bottom))" }}>
                 <button
                   onClick={() => {
@@ -365,6 +406,7 @@ export function HeaderGenerateButton() {
                   )}
                 </button>
               </div>
+              )}
             </div>
           </div>,
           document.body,

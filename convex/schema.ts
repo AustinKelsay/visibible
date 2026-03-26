@@ -326,6 +326,45 @@ export default defineSchema({
     createdAt: v.number(),
   }).index("by_createdAt", ["createdAt"]),
 
+  // Bulk image generation jobs
+  bulkGenerations: defineTable({
+    sid: v.string(),
+    status: v.string(), // "active" | "paused" | "completed" | "cancelled"
+    scopeType: v.string(), // "verses" | "chapters" | "book"
+    scopeLabel: v.string(), // human-readable, e.g. "Next 10 verses"
+    startVerseId: v.string(),
+    totalVerses: v.number(),
+    completedCount: v.number(),
+    failedCount: v.number(),
+    skippedCount: v.number(),
+    totalCreditsUsed: v.number(),
+    estimatedTotalCredits: v.number(),
+    modelId: v.string(),
+    aspectRatio: v.string(),
+    resolution: v.string(),
+    translation: v.string(),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+    completedAt: v.optional(v.number()),
+  })
+    .index("by_sid_status", ["sid", "status"])
+    .index("by_sid_createdAt", ["sid", "createdAt"]),
+
+  // Individual verse entries within a bulk generation job
+  bulkGenerationVerses: defineTable({
+    bulkGenerationId: v.id("bulkGenerations"),
+    verseId: v.string(),
+    reference: v.string(),
+    order: v.number(),
+    status: v.string(), // "queued" | "generating" | "completed" | "failed" | "skipped"
+    creditsCost: v.optional(v.number()),
+    error: v.optional(v.string()),
+    updatedAt: v.number(),
+  })
+    .index("by_bulk_order", ["bulkGenerationId", "order"])
+    .index("by_bulk_verse", ["bulkGenerationId", "verseId"])
+    .index("by_bulk_status", ["bulkGenerationId", "status"]),
+
   // SECURITY: Admin usage audit log for tracking admin API usage
   // Admin bypasses credit checks, so we log separately for visibility
   adminAuditLog: defineTable({
