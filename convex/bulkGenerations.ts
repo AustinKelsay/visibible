@@ -186,6 +186,7 @@ export const updateVerseStatus = mutation({
     bulkGenerationId: v.id("bulkGenerations"),
     verseId: v.string(),
     status: bulkGenerationVerseStatusValidator,
+    expectedCurrentStatus: v.optional(bulkGenerationVerseStatusValidator),
     creditsCost: v.optional(v.number()),
     error: v.optional(v.string()),
   },
@@ -197,6 +198,12 @@ export const updateVerseStatus = mutation({
       )
       .unique();
     if (!verse) return;
+    if (
+      args.expectedCurrentStatus !== undefined &&
+      verse.status !== args.expectedCurrentStatus
+    ) {
+      return;
+    }
 
     const isSameStatus = verse.status === args.status;
     const isForwardTransition =
@@ -252,7 +259,6 @@ export const updateProgress = mutation({
     const shouldComplete =
       isComplete &&
       bulk.status !== "cancelled" &&
-      bulk.status !== "paused" &&
       bulk.status !== "completed";
 
     await ctx.db.patch(args.id, {

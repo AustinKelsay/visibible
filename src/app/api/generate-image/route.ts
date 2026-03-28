@@ -23,10 +23,11 @@ import {
   DEFAULT_TRANSLATION,
   TRANSLATIONS,
   getVerse,
+  getChapter,
   getVerseByReference,
   type Translation,
 } from "@/lib/bible-api";
-import { BIBLE_BOOKS } from "@/data/bible-structure";
+import { BIBLE_BOOKS, type BibleBook } from "@/data/bible-structure";
 import { getScenePlannerEstimatedCreditsCost, getScenePlannerModelId, isScenePlannerEnabled } from "@/lib/scene-planner";
 import {
   validateSessionWithIp,
@@ -130,6 +131,12 @@ type PromptPacket = {
     maxChars: number;
     finalChars: number;
   };
+};
+
+type VerseTarget = {
+  book: BibleBook;
+  chapter: number;
+  verse: number;
 };
 
 function normalizeSceneField(value: unknown): string | undefined {
@@ -274,6 +281,81 @@ function sanitizeVerseText(text: string): string {
       ""
     )
     .slice(0, 1200); // Limit to reasonable verse length
+}
+
+function computePreviousTarget(params: {
+  currentVerse: { chapter: number; verse: number };
+  currentBook: BibleBook;
+  currentBookIndex: number;
+  prevVerse: { number: number; text: string; reference?: string } | null;
+}): VerseTarget | null {
+  const { currentVerse, currentBook, currentBookIndex, prevVerse } = params;
+  if (prevVerse) return null;
+
+  if (currentVerse.verse > 1) {
+    return {
+      book: currentBook,
+      chapter: currentVerse.chapter,
+      verse: currentVerse.verse - 1,
+    };
+  }
+
+  if (currentVerse.chapter > 1) {
+    return {
+      book: currentBook,
+      chapter: currentVerse.chapter - 1,
+      verse: currentBook.chapters[currentVerse.chapter - 2],
+    };
+  }
+
+  if (currentBookIndex <= 0) {
+    return null;
+  }
+
+  const previousBook = BIBLE_BOOKS[currentBookIndex - 1];
+  const previousChapter = previousBook.chapters.length;
+  return {
+    book: previousBook,
+    chapter: previousChapter,
+    verse: previousBook.chapters[previousChapter - 1],
+  };
+}
+
+function computeNextTarget(params: {
+  currentVerse: { chapter: number; verse: number };
+  currentBook: BibleBook;
+  currentBookIndex: number;
+  versesInChapter: number;
+  nextVerse: { number: number; text: string; reference?: string } | null;
+}): VerseTarget | null {
+  const { currentVerse, currentBook, currentBookIndex, versesInChapter, nextVerse } = params;
+  if (nextVerse) return null;
+
+  if (currentVerse.verse < versesInChapter) {
+    return {
+      book: currentBook,
+      chapter: currentVerse.chapter,
+      verse: currentVerse.verse + 1,
+    };
+  }
+
+  if (currentVerse.chapter < currentBook.chapters.length) {
+    return {
+      book: currentBook,
+      chapter: currentVerse.chapter + 1,
+      verse: 1,
+    };
+  }
+
+  if (currentBookIndex < 0 || currentBookIndex >= BIBLE_BOOKS.length - 1) {
+    return null;
+  }
+
+  return {
+    book: BIBLE_BOOKS[currentBookIndex + 1],
+    chapter: 1,
+    verse: 1,
+  };
 }
 
 type ChapterTheme = {
@@ -637,7 +719,7 @@ export async function POST(request: Request) {
   let prevVerse = parseVerseContext(requestBody.prevVerse);
   let nextVerse = parseVerseContext(requestBody.nextVerse);
 
-  if (reference !== "Scripture" && !verseText) {
+  if (reference !== "Scripture") {
     try {
       const resolvedVerses = await getVerseByReference(reference, bibleTranslation);
       if (!resolvedVerses || resolvedVerses.length !== 1) {
@@ -650,10 +732,11 @@ export async function POST(request: Request) {
         );
       }
       const currentVerse = resolvedVerses[0];
-
-      reference = sanitizeReference(
+      const currentVerseReference = sanitizeReference(
         `${currentVerse.bookName} ${currentVerse.chapter}:${currentVerse.verse}`
       );
+
+      reference = currentVerseReference;
 
       if (!verseText) {
         verseText = sanitizeVerseText(currentVerse.text);
@@ -668,73 +751,61 @@ export async function POST(request: Request) {
         const currentBookIndex = BIBLE_BOOKS.findIndex(
           (book) => book.slug === currentBook.slug
         );
-        const previousTarget =
-          !prevVerse
-            ? currentVerse.verse > 1
-              ? {
-                  book: currentBook,
-                  chapter: currentVerse.chapter,
-                  verse: currentVerse.verse - 1,
-                }
-              : currentVerse.chapter > 1
-                ? {
-                    book: currentBook,
-                    chapter: currentVerse.chapter - 1,
-                    verse: currentBook.chapters[currentVerse.chapter - 2],
-                  }
-                : currentBookIndex > 0
-                  ? (() => {
-                      const previousBook = BIBLE_BOOKS[currentBookIndex - 1];
-                      const previousChapter = previousBook.chapters.length;
-                      return {
-                        book: previousBook,
-                        chapter: previousChapter,
-                        verse: previousBook.chapters[previousChapter - 1],
-                      };
-                    })()
-                  : null
+        const previousTarget = computePreviousTarget({
+          currentVerse,
+          currentBook,
+          currentBookIndex,
+          prevVerse,
+        });
+        const nextTarget = computeNextTarget({
+          currentVerse,
+          currentBook,
+          currentBookIndex,
+          versesInChapter,
+          nextVerse,
+        });
+        const sharedChapterTarget =
+          previousTarget &&
+          nextTarget &&
+          previousTarget.book.slug === nextTarget.book.slug &&
+          previousTarget.chapter === nextTarget.chapter
+            ? previousTarget
             : null;
-        const nextTarget =
-          !nextVerse
-            ? currentVerse.verse < versesInChapter
-              ? {
-                  book: currentBook,
-                  chapter: currentVerse.chapter,
-                  verse: currentVerse.verse + 1,
-                }
-              : currentVerse.chapter < currentBook.chapters.length
-                ? {
-                    book: currentBook,
-                    chapter: currentVerse.chapter + 1,
-                    verse: 1,
-                  }
-                : currentBookIndex >= 0 &&
-                    currentBookIndex < BIBLE_BOOKS.length - 1
-                  ? {
-                      book: BIBLE_BOOKS[currentBookIndex + 1],
-                      chapter: 1,
-                      verse: 1,
-                    }
-                  : null
-            : null;
+
+        const sharedChapterPromise = sharedChapterTarget
+          ? getChapter(
+              sharedChapterTarget.book.slug,
+              sharedChapterTarget.chapter,
+              bibleTranslation
+            )
+          : null;
+
         const prevVersePromise =
           previousTarget
-            ? getVerse(
-                previousTarget.book.slug,
-                previousTarget.chapter,
-                previousTarget.verse,
-                bibleTranslation
-              )
+            ? sharedChapterTarget
+              ? sharedChapterPromise!.then((chapterData) =>
+                  chapterData?.verses.find((item) => item.verse === previousTarget.verse) ?? null
+                )
+              : getVerse(
+                  previousTarget.book.slug,
+                  previousTarget.chapter,
+                  previousTarget.verse,
+                  bibleTranslation
+                )
             : Promise.resolve(null);
-          const nextVersePromise =
-            nextTarget
-              ? getVerse(
+        const nextVersePromise =
+          nextTarget
+            ? sharedChapterTarget
+              ? sharedChapterPromise!.then((chapterData) =>
+                  chapterData?.verses.find((item) => item.verse === nextTarget.verse) ?? null
+                )
+              : getVerse(
                   nextTarget.book.slug,
                   nextTarget.chapter,
                   nextTarget.verse,
                   bibleTranslation
                 )
-              : Promise.resolve(null);
+            : Promise.resolve(null);
 
         const [prevVerseData, nextVerseData] = await Promise.all([
           prevVersePromise,

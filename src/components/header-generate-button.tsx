@@ -223,9 +223,16 @@ export function HeaderGenerateButton() {
               </div>
 
               {/* Tab bar */}
-              <div className="flex gap-1 mx-6 mb-4 p-1 rounded-[var(--radius-md)] bg-[var(--surface)]">
+              <div
+                role="tablist"
+                aria-label="Generation mode"
+                className="flex gap-1 mx-6 mb-4 p-1 rounded-[var(--radius-md)] bg-[var(--surface)]"
+              >
                 <button
                   onClick={() => setActiveTab("single")}
+                  role="tab"
+                  aria-selected={activeTab === "single"}
+                  aria-controls="single-panel"
                   className={`flex-1 min-h-[32px] flex items-center justify-center gap-1.5 rounded-[var(--radius-sm)] text-xs font-medium transition-colors ${
                     activeTab === "single"
                       ? "bg-[var(--background)] text-[var(--foreground)] shadow-sm"
@@ -237,6 +244,9 @@ export function HeaderGenerateButton() {
                 </button>
                 <button
                   onClick={() => setActiveTab("bulk")}
+                  role="tab"
+                  aria-selected={activeTab === "bulk"}
+                  aria-controls="bulk-panel"
                   className={`flex-1 min-h-[32px] flex items-center justify-center gap-1.5 rounded-[var(--radius-sm)] text-xs font-medium transition-colors ${
                     activeTab === "bulk"
                       ? "bg-[var(--background)] text-[var(--foreground)] shadow-sm"
@@ -251,7 +261,7 @@ export function HeaderGenerateButton() {
               {/* Scrollable content */}
               <div className="flex-1 overflow-y-auto overscroll-contain px-6" style={{ WebkitOverflowScrolling: "touch" }}>
                 {activeTab === "bulk" ? (
-                  <div className="pb-4">
+                  <div id="bulk-panel" role="tabpanel" className="pb-4">
                     <BulkGeneratePanel
                       perVerseCost={displayEffectiveCost}
                       modelId={modelId}
@@ -261,7 +271,7 @@ export function HeaderGenerateButton() {
                     />
                   </div>
                 ) : (
-                <div className="space-y-5 pb-4">
+                <div id="single-panel" role="tabpanel" className="space-y-5 pb-4">
                   {/* Model Section */}
                   <div>
                     <span className="text-sm font-medium text-[var(--foreground)]">Model</span>

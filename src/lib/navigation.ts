@@ -248,7 +248,10 @@ export function getVersesInChapterRange(
   const verses: VerseLocation[] = [];
   for (let ch = startChapter; ch <= Math.min(endChapter, book.chapters.length); ch++) {
     const versesInChapter = book.chapters[ch - 1];
-    const firstVerse = ch === startChapter && startVerse != null ? startVerse + 1 : 1;
+    const firstVerse =
+      ch === startChapter && startVerse != null
+        ? Math.max(1, startVerse + 1)
+        : 1;
     for (let v = firstVerse; v <= versesInChapter; v++) {
       verses.push({ book, chapter: ch, verse: v });
     }

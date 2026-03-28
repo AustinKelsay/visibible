@@ -24,6 +24,7 @@ import type { BulkScope, BulkQueueItem } from "@/lib/bulk-generation";
 export type BulkGenerationStatus =
   | "idle"
   | "active"
+  | "blocked"
   | "paused"
   | "completed"
   | "cancelled";
@@ -37,6 +38,7 @@ export interface BulkGenerationState {
   skippedCount: number;
   totalCreditsUsed: number;
   currentVerseReference: string | null;
+  errorMessage: string | null;
 }
 
 interface BulkGenerationCounters {
@@ -60,11 +62,11 @@ interface BulkGenerationContextType {
     translation: string;
   }) => Promise<void>;
   /** Pause the running bulk generation */
-  pauseBulkGeneration: () => void;
+  pauseBulkGeneration: () => Promise<void>;
   /** Resume a paused bulk generation */
-  resumeBulkGeneration: () => void;
+  resumeBulkGeneration: () => Promise<void>;
   /** Cancel the bulk generation */
-  cancelBulkGeneration: () => void;
+  cancelBulkGeneration: () => Promise<void>;
   /** Reset state after completion/cancellation (dismiss the results view) */
   dismissBulkGeneration: () => void;
 }
@@ -78,7 +80,15 @@ const DEFAULT_STATE: BulkGenerationState = {
   skippedCount: 0,
   totalCreditsUsed: 0,
   currentVerseReference: null,
+  errorMessage: null,
 };
+
+const RUN_LOCK_TTL_MS = 15000;
+const RUN_LOCK_HEARTBEAT_MS = 5000;
+const TAB_ID =
+  typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+    ? crypto.randomUUID()
+    : `tab-${Math.random().toString(36).slice(2)}`;
 
 // ---------------------------------------------------------------------------
 // Context
@@ -96,8 +106,12 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const isPausedRef = useRef(false);
   const isCancelledRef = useRef(false);
   const isRunningRef = useRef(false);
+  const lostLockRef = useRef(false);
   const pausedResolverRef = useRef<(() => void) | null>(null);
   const queueRef = useRef<BulkQueueItem[]>([]);
+  const runLockBulkIdRef = useRef<Id<"bulkGenerations"> | null>(null);
+  const runLockHeartbeatRef = useRef<number | null>(null);
+  const runLockChannelRef = useRef<BroadcastChannel | null>(null);
   const settingsRef = useRef<{
     modelId: string;
     aspectRatio: string;
@@ -112,6 +126,145 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const pauseBulk = useMutation(api.bulkGenerations.pause);
   const resumeBulk = useMutation(api.bulkGenerations.resume);
   const cancelBulk = useMutation(api.bulkGenerations.cancel);
+
+  const getRunLockStorageKey = useCallback(
+    (bulkId: Id<"bulkGenerations">) => `bulk-gen-lock-${bulkId}`,
+    []
+  );
+
+  const readCsrfToken = useCallback(() => {
+    const csrfCookiePrefix = `${CSRF_COOKIE_NAME}=`;
+    return document.cookie
+      .split("; ")
+      .find((row) => row.startsWith(csrfCookiePrefix))
+      ?.slice(csrfCookiePrefix.length);
+  }, []);
+
+  const stopRunLockHeartbeat = useCallback(() => {
+    if (runLockHeartbeatRef.current !== null) {
+      window.clearInterval(runLockHeartbeatRef.current);
+      runLockHeartbeatRef.current = null;
+    }
+  }, []);
+
+  const releaseRunLock = useCallback((bulkId?: Id<"bulkGenerations"> | null) => {
+    const targetBulkId = bulkId ?? runLockBulkIdRef.current;
+    if (!targetBulkId) return;
+
+    stopRunLockHeartbeat();
+
+    const storageKey = getRunLockStorageKey(targetBulkId);
+    const existing = window.localStorage.getItem(storageKey);
+    if (existing) {
+      try {
+        const parsed = JSON.parse(existing) as { owner: string };
+        if (parsed.owner === TAB_ID) {
+          window.localStorage.removeItem(storageKey);
+        }
+      } catch {
+        window.localStorage.removeItem(storageKey);
+      }
+    }
+
+    runLockChannelRef.current?.postMessage({
+      type: "release",
+      bulkId: targetBulkId,
+      owner: TAB_ID,
+    });
+    runLockChannelRef.current?.close();
+    runLockChannelRef.current = null;
+    runLockBulkIdRef.current = null;
+    lostLockRef.current = false;
+  }, [getRunLockStorageKey, stopRunLockHeartbeat]);
+
+  const ownsRunLock = useCallback((bulkId: Id<"bulkGenerations">) => {
+    const raw = window.localStorage.getItem(getRunLockStorageKey(bulkId));
+    if (!raw) return false;
+    try {
+      const parsed = JSON.parse(raw) as { owner: string; expiresAt: number };
+      return parsed.owner === TAB_ID && parsed.expiresAt > Date.now();
+    } catch {
+      return false;
+    }
+  }, [getRunLockStorageKey]);
+
+  const acquireRunLock = useCallback((bulkId: Id<"bulkGenerations">) => {
+    const storageKey = getRunLockStorageKey(bulkId);
+    const now = Date.now();
+    const existingRaw = window.localStorage.getItem(storageKey);
+
+    if (existingRaw) {
+      try {
+        const existing = JSON.parse(existingRaw) as { owner: string; expiresAt: number };
+        if (existing.owner !== TAB_ID && existing.expiresAt > now) {
+          return false;
+        }
+      } catch {
+        // Replace malformed lock state below.
+      }
+    }
+
+    window.localStorage.setItem(
+      storageKey,
+      JSON.stringify({
+        owner: TAB_ID,
+        expiresAt: now + RUN_LOCK_TTL_MS,
+      })
+    );
+
+    if (!ownsRunLock(bulkId)) {
+      return false;
+    }
+
+    stopRunLockHeartbeat();
+    runLockChannelRef.current?.close();
+    runLockChannelRef.current =
+      typeof BroadcastChannel !== "undefined"
+        ? new BroadcastChannel(`bulk-gen-${bulkId}`)
+        : null;
+    runLockBulkIdRef.current = bulkId;
+    lostLockRef.current = false;
+
+    if (runLockChannelRef.current) {
+      runLockChannelRef.current.onmessage = (event: MessageEvent) => {
+        const message = event.data as
+          | { type?: string; bulkId?: string; owner?: string }
+          | undefined;
+        if (!message || message.bulkId !== bulkId || message.owner === TAB_ID) {
+          return;
+        }
+        if (message.type === "takeover") {
+          lostLockRef.current = true;
+          isPausedRef.current = true;
+          pausedResolverRef.current?.();
+          pausedResolverRef.current = null;
+        }
+      };
+
+      runLockChannelRef.current.postMessage({
+        type: "takeover",
+        bulkId,
+        owner: TAB_ID,
+      });
+    }
+
+    runLockHeartbeatRef.current = window.setInterval(() => {
+      window.localStorage.setItem(
+        storageKey,
+        JSON.stringify({
+          owner: TAB_ID,
+          expiresAt: Date.now() + RUN_LOCK_TTL_MS,
+        })
+      );
+      runLockChannelRef.current?.postMessage({
+        type: "heartbeat",
+        bulkId,
+        owner: TAB_ID,
+      });
+    }, RUN_LOCK_HEARTBEAT_MS);
+
+    return true;
+  }, [getRunLockStorageKey, ownsRunLock, stopRunLockHeartbeat]);
 
   // Reactive query for active bulk job (enables resume on refresh)
   const activeBulk = useQuery(
@@ -151,6 +304,10 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       failedCount: activeBulk.failedCount,
       skippedCount: activeBulk.skippedCount,
       totalCreditsUsed: activeBulk.totalCreditsUsed,
+      errorMessage:
+        activeBulk.status === "paused" && prev.status === "blocked"
+          ? prev.errorMessage
+          : null,
     }));
   }, [activeBulk]);
 
@@ -165,6 +322,42 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       currentVerseReference: generatingVerse.reference,
     }));
   }, [activeVerses]);
+
+  useEffect(() => {
+    const handleStorage = (event: StorageEvent) => {
+      const bulkId = runLockBulkIdRef.current;
+      if (!bulkId || event.key !== getRunLockStorageKey(bulkId)) return;
+
+      if (!event.newValue) {
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(event.newValue) as { owner: string };
+        if (parsed.owner !== TAB_ID) {
+          lostLockRef.current = true;
+          isPausedRef.current = true;
+          pausedResolverRef.current?.();
+          pausedResolverRef.current = null;
+        }
+      } catch {
+        // Ignore malformed cross-tab lock updates.
+      }
+    };
+
+    const handleBeforeUnload = () => {
+      releaseRunLock();
+    };
+
+    window.addEventListener("storage", handleStorage);
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      releaseRunLock();
+    };
+  }, [getRunLockStorageKey, releaseRunLock]);
 
   // ---------------------------------------------------------------------------
   // Generation loop
@@ -188,22 +381,50 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
 
         const settings = settingsRef.current;
         if (!settings) {
+          const errorMessage = "Bulk generation settings were lost. Resume to try again.";
+          console.error("Bulk generation aborted: missing settingsRef.current", {
+            bulkId,
+          });
+          isPausedRef.current = true;
+          shouldMarkComplete = false;
+          await pauseBulk({ id: bulkId });
+          setState((prev) => ({
+            ...prev,
+            status: "blocked",
+            currentVerseReference: null,
+            errorMessage,
+          }));
           return;
         }
 
-        const csrfCookiePrefix = `${CSRF_COOKIE_NAME}=`;
-        const csrfToken = document.cookie
-          .split("; ")
-          .find((row) => row.startsWith(csrfCookiePrefix))
-          ?.slice(csrfCookiePrefix.length);
-
-        if (!csrfToken) {
+        const initialCsrfToken = readCsrfToken();
+        if (!initialCsrfToken) {
+          const errorMessage = "Security token missing. Resume to refresh the session and continue.";
+          console.error("Bulk generation aborted: missing csrfToken", {
+            bulkId,
+            csrfCookieName: CSRF_COOKIE_NAME,
+            hasCookieString: document.cookie.length > 0,
+            csrfToken: initialCsrfToken ?? null,
+          });
+          isPausedRef.current = true;
+          shouldMarkComplete = false;
+          await pauseBulk({ id: bulkId });
+          setState((prev) => ({
+            ...prev,
+            status: "blocked",
+            currentVerseReference: null,
+            errorMessage,
+          }));
           return;
         }
 
         for (let index = 0; index < queue.length; index++) {
           const item = queue[index];
 
+          if (lostLockRef.current || !ownsRunLock(bulkId)) {
+            lostLockRef.current = true;
+            break;
+          }
           if (isCancelledRef.current) break;
           if (isPausedRef.current) {
             await new Promise<void>((resolve) => {
@@ -212,6 +433,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
                 resolve();
               };
             });
+            if (lostLockRef.current || !ownsRunLock(bulkId)) break;
             if (isCancelledRef.current) break;
           }
 
@@ -224,6 +446,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             bulkGenerationId: bulkId,
             verseId: item.verseId,
             status: "generating",
+            expectedCurrentStatus: "queued",
           });
 
           try {
@@ -235,6 +458,27 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               resolution: settings.resolution,
               requestId: `bulk-${bulkId}-${item.order}`,
             };
+            const csrfToken = readCsrfToken();
+            if (!csrfToken) {
+              const errorMessage = "Security token missing. Resume to refresh the session and continue.";
+              console.error("Bulk generation paused: missing csrfToken before fetch", {
+                bulkId,
+                verseId: item.verseId,
+                csrfCookieName: CSRF_COOKIE_NAME,
+                hasCookieString: document.cookie.length > 0,
+                csrfToken: null,
+              });
+              isPausedRef.current = true;
+              shouldMarkComplete = false;
+              await pauseBulk({ id: bulkId });
+              setState((prev) => ({
+                ...prev,
+                status: "blocked",
+                currentVerseReference: null,
+                errorMessage,
+              }));
+              break;
+            }
 
             const response = await fetch("/api/generate-image", {
               method: "POST",
@@ -255,6 +499,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
                 bulkGenerationId: bulkId,
                 verseId: item.verseId,
                 status: "completed",
+                expectedCurrentStatus: "generating",
                 creditsCost: cost,
               });
             } else if (response.status === 402) {
@@ -266,7 +511,17 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
                 verseId: item.verseId,
                 status: "queued",
               });
-              setState((prev) => ({ ...prev, status: "paused" }));
+              setState((prev) => ({ ...prev, status: "paused", errorMessage: null }));
+              break;
+            } else if (response.status === 429) {
+              isPausedRef.current = true;
+              shouldMarkComplete = false;
+              await pauseBulk({ id: bulkId });
+              setState((prev) => ({
+                ...prev,
+                status: "blocked",
+                errorMessage: "Rate limited. Resume to continue when capacity is available.",
+              }));
               break;
             } else {
               let errorMsg = `HTTP ${response.status}`;
@@ -281,6 +536,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
                 bulkGenerationId: bulkId,
                 verseId: item.verseId,
                 status: "failed",
+                expectedCurrentStatus: "generating",
                 error: errorMsg,
               });
             }
@@ -290,6 +546,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               bulkGenerationId: bulkId,
               verseId: item.verseId,
               status: "failed",
+              expectedCurrentStatus: "generating",
               error: err instanceof Error ? err.message : "Unknown error",
             });
           }
@@ -308,16 +565,27 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             failedCount: failed,
             skippedCount: skipped,
             totalCreditsUsed: creditsUsed,
+            errorMessage: null,
           }));
 
-          void refetchSession();
+          try {
+            await refetchSession();
+          } catch (error) {
+            console.error("Failed to refetch session during bulk generation:", error);
+          }
         }
 
-        if (!isCancelledRef.current && !isPausedRef.current && shouldMarkComplete) {
+        if (
+          !lostLockRef.current &&
+          !isCancelledRef.current &&
+          !isPausedRef.current &&
+          shouldMarkComplete
+        ) {
           setState((prev) => ({
             ...prev,
             status: "completed",
             currentVerseReference: null,
+            errorMessage: null,
           }));
         }
       } catch (error) {
@@ -325,13 +593,17 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       } finally {
         pausedResolverRef.current = null;
         isRunningRef.current = false;
+        releaseRunLock(bulkId);
       }
     },
     [
+      ownsRunLock,
       updateVerseStatus,
       updateProgress,
       pauseBulk,
       refetchSession,
+      readCsrfToken,
+      releaseRunLock,
     ]
   );
 
@@ -357,15 +629,20 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       return;
     }
 
+    if (!acquireRunLock(activeBulk._id)) {
+      return;
+    }
+
     isPausedRef.current = false;
     isCancelledRef.current = false;
+    lostLockRef.current = false;
     void runGenerationLoop(activeBulk._id, pendingQueue, {
       completedCount: activeBulk.completedCount,
       failedCount: activeBulk.failedCount,
       skippedCount: activeBulk.skippedCount,
       totalCreditsUsed: activeBulk.totalCreditsUsed,
     });
-  }, [activeBulk, activeVerses, runGenerationLoop]);
+  }, [acquireRunLock, activeBulk, activeVerses, runGenerationLoop]);
 
   // ---------------------------------------------------------------------------
   // Public API
@@ -423,20 +700,24 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         skippedCount: bulk.skippedCount,
         totalCreditsUsed: bulk.totalCreditsUsed,
         currentVerseReference: params.queue[0]?.reference ?? null,
+        errorMessage: null,
       });
 
       if (!bulk.created) {
         return;
       }
 
-      void runGenerationLoop(bulk.bulkId, params.queue, {
-        completedCount: bulk.completedCount,
-        failedCount: bulk.failedCount,
-        skippedCount: bulk.skippedCount,
-        totalCreditsUsed: bulk.totalCreditsUsed,
-      });
+      if (acquireRunLock(bulk.bulkId)) {
+        lostLockRef.current = false;
+        void runGenerationLoop(bulk.bulkId, params.queue, {
+          completedCount: bulk.completedCount,
+          failedCount: bulk.failedCount,
+          skippedCount: bulk.skippedCount,
+          totalCreditsUsed: bulk.totalCreditsUsed,
+        });
+      }
     },
-    [sid, convexEnabled, createBulk, runGenerationLoop]
+    [sid, convexEnabled, acquireRunLock, createBulk, runGenerationLoop]
   );
 
   const pauseBulkGeneration = useCallback(async () => {
@@ -445,9 +726,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     isPausedRef.current = true;
     try {
       await pauseBulk({ id: state.bulkId });
-      setState((prev) => ({ ...prev, status: "paused" }));
+      setState((prev) => ({ ...prev, status: "paused", errorMessage: null }));
     } catch (error) {
-      isPausedRef.current = previousStatus === "paused";
+      isPausedRef.current = previousStatus === "paused" || previousStatus === "blocked";
       console.error("Failed to pause bulk generation:", error);
       setState((prev) => ({ ...prev, status: previousStatus }));
     }
@@ -456,14 +737,15 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const resumeBulkGeneration = useCallback(async () => {
     if (!state.bulkId) return;
     const previousStatus = state.status;
-    isPausedRef.current = false;
-    pausedResolverRef.current?.();
-    pausedResolverRef.current = null;
     try {
       await resumeBulk({ id: state.bulkId });
-      setState((prev) => ({ ...prev, status: "active" }));
+      setState((prev) => ({ ...prev, status: "active", errorMessage: null }));
+      isPausedRef.current = false;
+      lostLockRef.current = false;
+      pausedResolverRef.current?.();
+      pausedResolverRef.current = null;
     } catch (error) {
-      isPausedRef.current = previousStatus === "paused";
+      isPausedRef.current = previousStatus === "paused" || previousStatus === "blocked";
       console.error("Failed to resume bulk generation:", error);
       setState((prev) => ({ ...prev, status: previousStatus }));
     }
@@ -483,10 +765,12 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         ...prev,
         status: "cancelled",
         currentVerseReference: null,
+        errorMessage: null,
       }));
+      releaseRunLock(state.bulkId);
     } catch (error) {
       isCancelledRef.current = previousStatus === "cancelled";
-      isPausedRef.current = previousStatus === "paused";
+      isPausedRef.current = previousStatus === "paused" || previousStatus === "blocked";
       console.error("Failed to cancel bulk generation:", error);
       setState((prev) => ({
         ...prev,
@@ -494,7 +778,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         currentVerseReference: previousCurrentVerseReference,
       }));
     }
-  }, [state.bulkId, state.currentVerseReference, state.status, cancelBulk]);
+  }, [state.bulkId, state.currentVerseReference, state.status, cancelBulk, releaseRunLock]);
 
   const dismissBulkGeneration = useCallback(() => {
     isPausedRef.current = false;
@@ -503,8 +787,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     pausedResolverRef.current = null;
     queueRef.current = [];
     settingsRef.current = null;
+    releaseRunLock();
     setState(DEFAULT_STATE);
-  }, []);
+  }, [releaseRunLock]);
 
   return (
     <BulkGenerationContext.Provider

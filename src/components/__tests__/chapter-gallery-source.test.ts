@@ -63,6 +63,7 @@ describe("chapter gallery behavior", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     useVerseViewMock.mockReturnValue({
+      effectiveView: "reader",
       setEffectiveView: vi.fn(),
       markEngaged: vi.fn(),
     } as never);
@@ -87,6 +88,11 @@ describe("chapter gallery behavior", () => {
 
   it("renders verse mini-galleries, placeholders, and chapter links when enabled", () => {
     useConvexEnabledMock.mockReturnValue(true);
+    useVerseViewMock.mockReturnValue({
+      effectiveView: "gallery",
+      setEffectiveView: vi.fn(),
+      markEngaged: vi.fn(),
+    } as never);
     useQueryMock.mockReturnValue([
       {
         verse: 1,
@@ -131,6 +137,11 @@ describe("chapter gallery behavior", () => {
 
   it("shows the grouped-by-verse filter option alongside the default gallery stream", () => {
     useConvexEnabledMock.mockReturnValue(true);
+    useVerseViewMock.mockReturnValue({
+      effectiveView: "gallery",
+      setEffectiveView: vi.fn(),
+      markEngaged: vi.fn(),
+    } as never);
     useQueryMock.mockReturnValue([
       {
         verse: 1,

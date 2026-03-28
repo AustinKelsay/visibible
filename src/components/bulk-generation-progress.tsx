@@ -31,6 +31,7 @@ export function BulkGenerationProgress({ onClose }: BulkGenerationProgressProps)
     skippedCount,
     totalCreditsUsed,
     currentVerseReference,
+    errorMessage,
   } = state;
 
   const processedCount = completedCount + failedCount + skippedCount;
@@ -101,11 +102,18 @@ export function BulkGenerationProgress({ onClose }: BulkGenerationProgressProps)
       {/* Header */}
       <div>
         <h3 className="text-base font-semibold text-[var(--foreground)]">
-          {status === "paused" ? "Generation Paused" : "Generating Images"}
+          {status === "paused" || status === "blocked"
+            ? "Generation Paused"
+            : "Generating Images"}
         </h3>
         {status === "paused" && (
           <p className="text-xs text-[var(--muted)] mt-1">
             Paused. Resume to continue generating.
+          </p>
+        )}
+        {status === "blocked" && (
+          <p className="text-xs text-[var(--muted)] mt-1">
+            Rate limited. Resume to continue when capacity is available.
           </p>
         )}
       </div>
@@ -130,6 +138,11 @@ export function BulkGenerationProgress({ onClose }: BulkGenerationProgressProps)
 
       {/* Current verse + credits */}
       <div className="bg-[var(--surface)] rounded-[var(--radius-md)] px-4 py-3 space-y-1">
+        {errorMessage && (
+          <div className="text-xs text-[var(--error)]">
+            {errorMessage}
+          </div>
+        )}
         {currentVerseReference && (
           <div className="text-sm text-[var(--foreground)]">
             Current: <span className="font-medium">{currentVerseReference}</span>
@@ -173,7 +186,7 @@ export function BulkGenerationProgress({ onClose }: BulkGenerationProgressProps)
 
       {/* Controls */}
       <div className="flex gap-3">
-        {status === "paused" ? (
+        {status === "paused" || status === "blocked" ? (
           <button
             onClick={resumeBulkGeneration}
             className="flex-1 min-h-[44px] flex items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors text-sm font-medium"

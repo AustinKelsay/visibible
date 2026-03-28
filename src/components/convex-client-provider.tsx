@@ -4,7 +4,9 @@ import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { ReactNode, createContext, useContext } from "react";
 
 const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
-const convex = convexUrl ? new ConvexReactClient(convexUrl) : null;
+const convex = new ConvexReactClient(
+  convexUrl ?? "https://placeholder.convex.invalid"
+);
 const ConvexAvailabilityContext = createContext(false);
 
 export function useConvexEnabled() {
@@ -12,15 +14,7 @@ export function useConvexEnabled() {
 }
 
 export function ConvexClientProvider({ children }: { children: ReactNode }) {
-  const isConvexEnabled = Boolean(convex);
-
-  if (!convex) {
-    return (
-      <ConvexAvailabilityContext.Provider value={isConvexEnabled}>
-        {children}
-      </ConvexAvailabilityContext.Provider>
-    );
-  }
+  const isConvexEnabled = Boolean(convexUrl);
 
   return (
     <ConvexAvailabilityContext.Provider value={isConvexEnabled}>

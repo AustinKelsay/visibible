@@ -34,7 +34,6 @@ import {
 import {
   getNextChapter,
   getPreviousChapter,
-  type ChapterLocation,
 } from "@/lib/navigation";
 import { BOOK_BY_SLUG } from "@/data/bible-structure";
 import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
@@ -285,9 +284,10 @@ function LightboxImageStage({
 interface ChapterGalleryNavProps {
   book: string;
   chapter: number;
+  ariaLabel: string;
 }
 
-function ChapterGalleryNav({ book, chapter }: ChapterGalleryNavProps) {
+function ChapterGalleryNav({ book, chapter, ariaLabel }: ChapterGalleryNavProps) {
   const bibleBook = BOOK_BY_SLUG[book];
   if (!bibleBook) return null;
 
@@ -298,7 +298,7 @@ function ChapterGalleryNav({ book, chapter }: ChapterGalleryNavProps) {
 
   return (
     <nav
-      aria-label="Chapter navigation"
+      aria-label={ariaLabel}
       className="flex items-center justify-between gap-3"
     >
       {prev ? (
@@ -340,7 +340,7 @@ export function ChapterGallery({
   verses,
   fullScreen = false,
 }: ChapterGalleryProps) {
-  const { setEffectiveView, markEngaged } = useVerseView();
+  const { effectiveView, setEffectiveView, markEngaged } = useVerseView();
   const isConvexEnabled = useConvexEnabled();
   const { isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
   const { tier, credits, isLoading: sessionLoading } = useSession();
@@ -349,8 +349,10 @@ export function ChapterGallery({
   const fullscreenDialogRef = useRef<HTMLDivElement>(null);
   const lastViewedKeyRef = useRef<string | null>(null);
   const previousLayoutModeRef = useRef<GalleryLayoutMode | null>(null);
+  const isGalleryActive = effectiveView === "gallery" || isFullscreen;
 
   const handleExpand = useCallback((item: ChapterGalleryFlatItem) => {
+    setEffectiveView("gallery", "chapter_gallery_card");
     markEngaged("image_fullscreen_opened");
     trackImageFullscreenOpened({
       book,
@@ -363,7 +365,7 @@ export function ChapterGallery({
     });
     setLightboxItem(item);
     openFullscreen();
-  }, [book, chapter, credits, markEngaged, openFullscreen, tier]);
+  }, [book, chapter, credits, markEngaged, openFullscreen, setEffectiveView, tier]);
 
   const handleCloseLightbox = useCallback(() => {
     closeFullscreen();
@@ -411,7 +413,7 @@ export function ChapterGallery({
 
   const galleryImages = useQuery(
     api.verseImages.getChapterGallery,
-    isConvexEnabled ? { book, chapter } : "skip"
+    isConvexEnabled && isGalleryActive ? { book, chapter } : "skip"
   );
 
   const normalizedGalleryImages = normalizeChapterGalleryImages(galleryImages);
@@ -505,6 +507,7 @@ export function ChapterGallery({
     : `${savedImageCount} saved image${savedImageCount === 1 ? "" : "s"} · ${placeholderCount} placeholder${placeholderCount === 1 ? "" : "s"}`;
 
   useEffect(() => {
+    if (!isGalleryActive) return;
     if (isLoading || sessionLoading) return;
     const viewKey = `${book}-${chapter}-${currentVerse}`;
     if (lastViewedKeyRef.current === viewKey) return;
@@ -530,9 +533,11 @@ export function ChapterGallery({
     savedImageCount,
     sessionLoading,
     tier,
+    isGalleryActive,
   ]);
 
   useEffect(() => {
+    if (!isGalleryActive) return;
     if (sessionLoading) return;
     if (previousLayoutModeRef.current === null) {
       previousLayoutModeRef.current = layoutMode;
@@ -548,7 +553,7 @@ export function ChapterGallery({
       tier,
       hasCredits: credits > 0,
     });
-  }, [book, chapter, credits, currentVerse, layoutMode, sessionLoading, tier]);
+  }, [book, chapter, credits, currentVerse, isGalleryActive, layoutMode, sessionLoading, tier]);
 
   const handleGalleryImageLoadFailed = useCallback((item: ChapterGalleryFlatItem) => {
     trackSavedImageLoadFailed({
@@ -635,7 +640,7 @@ export function ChapterGallery({
           </p>
         </div>
 
-        <ChapterGalleryNav book={book} chapter={chapter} />
+        <ChapterGalleryNav book={book} chapter={chapter} ariaLabel="Chapter navigation, top" />
 
         {layoutMode === "all" ? (
           <div
@@ -761,7 +766,7 @@ export function ChapterGallery({
           </div>
         )}
 
-        <ChapterGalleryNav book={book} chapter={chapter} />
+        <ChapterGalleryNav book={book} chapter={chapter} ariaLabel="Chapter navigation, bottom" />
       </div>
 
       {/* Fullscreen lightbox */}

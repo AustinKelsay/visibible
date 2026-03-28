@@ -2,7 +2,7 @@
 
 ## About Visibible
 
-Visibible is a free, open-source app that brings the Bible to life for a modern audience. At its core, Visibible solves a simple but pervasive problem: millions of people are curious about the Bible, drawn to its stories, or actively trying to engage with their faith — but they feel blocked by the formats available to them. Reading an ancient text feels like homework. TV adaptations recycle the same cliche, sanitized retellings. Church feels disconnected from their daily reality. The Bible itself is rich, dramatic, beautiful, and wild, but the ways most people encounter it today flatten all of that into something unapproachable, boring, or irrelevant. Visibible exists to close that gap — to make the Bible as vivid and accessible as the content people already consume every day.
+Visibible is a free, open-source app that brings the Bible to life for a modern audience. At its core, Visibible solves a simple but pervasive problem: millions of people are curious about the Bible, drawn to its stories, or actively trying to engage with their faith — but they feel blocked by the formats available to them. Reading an ancient text feels like homework. TV adaptations recycle the same cliché, sanitized retellings. Church feels disconnected from their daily reality. The Bible itself is rich, dramatic, beautiful, and wild, but the ways most people encounter it today flatten all of that into something unapproachable, boring, or irrelevant. Visibible exists to close that gap — to make the Bible as vivid and accessible as the content people already consume every day.
 
 Today, Visibible lets you scroll through the Bible verse by verse and see AI-generated images that bring each passage to life. Users can generate new images by purchasing small credits, and every image generated becomes free for the entire community — building an ever-growing, crowd-sourced visual Bible. But that's just the beginning. Visibible is expanding into AI-powered summaries, conversational Bible chat, audio experiences, video content, and more — anything visual, audio, or interactive that helps people actually connect with Scripture rather than just stare at words on a page. Whether someone is a lifelong believer who's gone numb, a curious skeptic, a new Christian who doesn't know where to start, or someone who simply learns better through images and stories than through text — Visibible is built for them.
 
@@ -674,7 +674,7 @@ Organized across 72 categories mapping to different audience segments and intent
 583. Latino Christians
 584. Asian American Christian
 585. Bible in Spanish
-586. Biblia en espanol
+586. Biblia en español
 587. Christianity in Africa
 588. Korean church
 589. multicultural church
