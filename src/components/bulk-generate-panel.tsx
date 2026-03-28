@@ -50,6 +50,7 @@ export function BulkGeneratePanel({
 
   const [scopeType, setScopeTypeRaw] = useState<BulkScopeType>("verses");
   const [count, setCount] = useState(5);
+  const [startError, setStartError] = useState<string | null>(null);
 
   // Wrap setScopeType to also reset count
   const setScopeType = (type: BulkScopeType) => {
@@ -116,17 +117,22 @@ export function BulkGeneratePanel({
 
   const handleStart = async () => {
     if (!currentLocation || queue.length === 0) return;
-
-    await startBulkGeneration({
-      scope,
-      scopeLabel: scopeLabel(scope, currentLocation),
-      queue,
-      estimatedTotalCredits: costEstimate.totalCredits,
-      modelId,
-      aspectRatio,
-      resolution,
-      translation: translation || "web",
-    });
+    try {
+      setStartError(null);
+      await startBulkGeneration({
+        scope,
+        scopeLabel: scopeLabel(scope, currentLocation),
+        queue,
+        estimatedTotalCredits: costEstimate.totalCredits,
+        modelId,
+        aspectRatio,
+        resolution,
+        translation: translation || "web",
+      });
+    } catch (error) {
+      console.error("Failed to start bulk generation:", error);
+      setStartError("Failed to start bulk generation. Please try again.");
+    }
   };
 
   const scopeTypes: { type: BulkScopeType; label: string }[] = [
@@ -236,6 +242,10 @@ export function BulkGeneratePanel({
           </div>
         )}
       </div>
+
+      {startError && (
+        <div className="text-sm text-[var(--error)]">{startError}</div>
+      )}
 
       {/* Start button */}
       {canAfford ? (

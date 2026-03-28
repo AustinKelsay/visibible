@@ -79,7 +79,11 @@ export function parseVerseUrl(
   chapter: string,
   verse: string
 ): VerseLocation | null {
-  const book = BOOK_BY_SLUG[bookSlug.toLowerCase()];
+  const normalizedBookSlug = bookSlug.toLowerCase();
+  if (!Object.prototype.hasOwnProperty.call(BOOK_BY_SLUG, normalizedBookSlug)) {
+    return null;
+  }
+  const book = BOOK_BY_SLUG[normalizedBookSlug];
   if (!book) return null;
 
   const chapterNum = parseInt(chapter, 10);
@@ -100,7 +104,9 @@ export function resolveBookSlug(bookInput: string): string | null {
   const normalized = bookInput.trim().toLowerCase();
   if (!normalized) return null;
 
-  const bySlug = BOOK_BY_SLUG[normalized];
+  const bySlug = Object.prototype.hasOwnProperty.call(BOOK_BY_SLUG, normalized)
+    ? BOOK_BY_SLUG[normalized]
+    : undefined;
   if (bySlug) return bySlug.slug;
 
   const byName = BIBLE_BOOKS.find((book) => book.name.toLowerCase() === normalized);
@@ -187,7 +193,11 @@ export function getVersesInChapterRange(
   endChapter: number,
   startVerse?: number
 ): VerseLocation[] {
-  const book = BOOK_BY_SLUG[bookSlug.toLowerCase()];
+  const normalizedBookSlug = bookSlug.toLowerCase();
+  if (!Object.prototype.hasOwnProperty.call(BOOK_BY_SLUG, normalizedBookSlug)) {
+    return [];
+  }
+  const book = BOOK_BY_SLUG[normalizedBookSlug];
   if (!book) return [];
 
   const verses: VerseLocation[] = [];
@@ -205,7 +215,11 @@ export function getVersesInChapterRange(
  * Get every verse in a book.
  */
 export function getAllVersesInBook(bookSlug: string): VerseLocation[] {
-  const book = BOOK_BY_SLUG[bookSlug.toLowerCase()];
+  const normalizedBookSlug = bookSlug.toLowerCase();
+  if (!Object.prototype.hasOwnProperty.call(BOOK_BY_SLUG, normalizedBookSlug)) {
+    return [];
+  }
+  const book = BOOK_BY_SLUG[normalizedBookSlug];
   if (!book) return [];
 
   const verses: VerseLocation[] = [];

@@ -218,7 +218,7 @@ function sanitizeTranslationId(value: string | null): string {
 }
 
 function isSupportedTranslation(value: string): value is Translation {
-  return value in TRANSLATIONS;
+  return Object.prototype.hasOwnProperty.call(TRANSLATIONS, value);
 }
 
 function toContinuityHint(verse: { number: number; text: string } | null): string | undefined {
@@ -640,84 +640,92 @@ export async function POST(request: Request) {
   if (reference !== "Scripture" && !verseText) {
     try {
       const resolvedVerses = await getVerseByReference(reference, bibleTranslation);
-      const currentVerse = resolvedVerses?.[0];
-
-      if (currentVerse) {
-        reference = sanitizeReference(
-          `${currentVerse.bookName} ${currentVerse.chapter}:${currentVerse.verse}`
+      if (!resolvedVerses || resolvedVerses.length !== 1) {
+        return jsonWithSessionRefresh(
+          {
+            error: "Invalid reference",
+            message: "Please provide a single-verse reference like John 3:16.",
+          },
+          { status: 400 }
         );
+      }
+      const currentVerse = resolvedVerses[0];
 
-        if (!verseText) {
-          verseText = sanitizeVerseText(currentVerse.text);
-        }
+      reference = sanitizeReference(
+        `${currentVerse.bookName} ${currentVerse.chapter}:${currentVerse.verse}`
+      );
 
-        const currentBook = BIBLE_BOOKS.find(
-          (book) => book.name.toLowerCase() === currentVerse.bookName.toLowerCase()
+      if (!verseText) {
+        verseText = sanitizeVerseText(currentVerse.text);
+      }
+
+      const currentBook = BIBLE_BOOKS.find(
+        (book) => book.name.toLowerCase() === currentVerse.bookName.toLowerCase()
+      );
+
+      if (currentBook) {
+        const versesInChapter = currentBook.chapters[currentVerse.chapter - 1];
+        const currentBookIndex = BIBLE_BOOKS.findIndex(
+          (book) => book.slug === currentBook.slug
         );
-
-        if (currentBook) {
-          const versesInChapter = currentBook.chapters[currentVerse.chapter - 1];
-          const currentBookIndex = BIBLE_BOOKS.findIndex(
-            (book) => book.slug === currentBook.slug
-          );
-          const previousTarget =
-            !prevVerse
-              ? currentVerse.verse > 1
+        const previousTarget =
+          !prevVerse
+            ? currentVerse.verse > 1
+              ? {
+                  book: currentBook,
+                  chapter: currentVerse.chapter,
+                  verse: currentVerse.verse - 1,
+                }
+              : currentVerse.chapter > 1
                 ? {
                     book: currentBook,
-                    chapter: currentVerse.chapter,
-                    verse: currentVerse.verse - 1,
+                    chapter: currentVerse.chapter - 1,
+                    verse: currentBook.chapters[currentVerse.chapter - 2],
                   }
-                : currentVerse.chapter > 1
-                  ? {
-                      book: currentBook,
-                      chapter: currentVerse.chapter - 1,
-                      verse: currentBook.chapters[currentVerse.chapter - 2],
-                    }
-                  : currentBookIndex > 0
-                    ? (() => {
-                        const previousBook = BIBLE_BOOKS[currentBookIndex - 1];
-                        const previousChapter = previousBook.chapters.length;
-                        return {
-                          book: previousBook,
-                          chapter: previousChapter,
-                          verse: previousBook.chapters[previousChapter - 1],
-                        };
-                      })()
-                    : null
-              : null;
-          const nextTarget =
-            !nextVerse
-              ? currentVerse.verse < versesInChapter
+                : currentBookIndex > 0
+                  ? (() => {
+                      const previousBook = BIBLE_BOOKS[currentBookIndex - 1];
+                      const previousChapter = previousBook.chapters.length;
+                      return {
+                        book: previousBook,
+                        chapter: previousChapter,
+                        verse: previousBook.chapters[previousChapter - 1],
+                      };
+                    })()
+                  : null
+            : null;
+        const nextTarget =
+          !nextVerse
+            ? currentVerse.verse < versesInChapter
+              ? {
+                  book: currentBook,
+                  chapter: currentVerse.chapter,
+                  verse: currentVerse.verse + 1,
+                }
+              : currentVerse.chapter < currentBook.chapters.length
                 ? {
                     book: currentBook,
-                    chapter: currentVerse.chapter,
-                    verse: currentVerse.verse + 1,
+                    chapter: currentVerse.chapter + 1,
+                    verse: 1,
                   }
-                : currentVerse.chapter < currentBook.chapters.length
+                : currentBookIndex >= 0 &&
+                    currentBookIndex < BIBLE_BOOKS.length - 1
                   ? {
-                      book: currentBook,
-                      chapter: currentVerse.chapter + 1,
+                      book: BIBLE_BOOKS[currentBookIndex + 1],
+                      chapter: 1,
                       verse: 1,
                     }
-                  : currentBookIndex >= 0 &&
-                      currentBookIndex < BIBLE_BOOKS.length - 1
-                    ? {
-                        book: BIBLE_BOOKS[currentBookIndex + 1],
-                        chapter: 1,
-                        verse: 1,
-                      }
-                    : null
-              : null;
-          const prevVersePromise =
-            previousTarget
-              ? getVerse(
-                  previousTarget.book.slug,
-                  previousTarget.chapter,
-                  previousTarget.verse,
-                  bibleTranslation
-                )
-              : Promise.resolve(null);
+                  : null
+            : null;
+        const prevVersePromise =
+          previousTarget
+            ? getVerse(
+                previousTarget.book.slug,
+                previousTarget.chapter,
+                previousTarget.verse,
+                bibleTranslation
+              )
+            : Promise.resolve(null);
           const nextVersePromise =
             nextTarget
               ? getVerse(
@@ -728,26 +736,25 @@ export async function POST(request: Request) {
                 )
               : Promise.resolve(null);
 
-          const [prevVerseData, nextVerseData] = await Promise.all([
-            prevVersePromise,
-            nextVersePromise,
-          ]);
+        const [prevVerseData, nextVerseData] = await Promise.all([
+          prevVersePromise,
+          nextVersePromise,
+        ]);
 
-          if (prevVerseData) {
-            prevVerse = {
-              number: prevVerseData.verse,
-              text: sanitizeVerseText(prevVerseData.text),
-              reference: `${previousTarget?.book.name ?? currentVerse.bookName} ${prevVerseData.chapter}:${prevVerseData.verse}`,
-            };
-          }
+        if (prevVerseData) {
+          prevVerse = {
+            number: prevVerseData.verse,
+            text: sanitizeVerseText(prevVerseData.text),
+            reference: `${previousTarget?.book.name ?? currentVerse.bookName} ${prevVerseData.chapter}:${prevVerseData.verse}`,
+          };
+        }
 
-          if (nextVerseData) {
-            nextVerse = {
-              number: nextVerseData.verse,
-              text: sanitizeVerseText(nextVerseData.text),
-              reference: `${nextTarget?.book.name ?? currentVerse.bookName} ${nextVerseData.chapter}:${nextVerseData.verse}`,
-            };
-          }
+        if (nextVerseData) {
+          nextVerse = {
+            number: nextVerseData.verse,
+            text: sanitizeVerseText(nextVerseData.text),
+            reference: `${nextTarget?.book.name ?? currentVerse.bookName} ${nextVerseData.chapter}:${nextVerseData.verse}`,
+          };
         }
       }
     } catch (error) {

@@ -3,7 +3,7 @@
 import { Check, X, Loader2, Pause, Play, Zap, CircleDot, Minus } from "lucide-react";
 import { useBulkGeneration } from "@/context/bulk-generation-context";
 import { useQuery } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import { api } from "@convex/_generated/api";
 
 interface BulkGenerationProgressProps {
   onClose: () => void;

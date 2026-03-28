@@ -420,10 +420,10 @@ export function HeaderGenerateButton() {
 
         {/* Desktop: styled pill */}
         <button
-          onClick={() => openGenerateModal("bulk")}
+          onClick={() => openGenerateModal("single")}
           disabled={isGenerating}
           className="hidden sm:inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] border border-[var(--accent)]/40 bg-[var(--accent)]/5 text-[var(--foreground)] hover:border-[var(--accent)]/70 hover:bg-[var(--accent)]/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-50 disabled:cursor-not-allowed text-xs font-medium"
-          aria-label="Open generate options"
+          aria-label="Generate new image"
         >
           {isGenerating ? (
             <>

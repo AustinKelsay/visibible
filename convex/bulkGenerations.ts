@@ -9,6 +9,14 @@ const bulkGenerationVerseStatusValidator = v.union(
   v.literal("skipped")
 );
 
+const BULK_VERSE_STATUS_ORDER = {
+  queued: 0,
+  generating: 1,
+  completed: 2,
+  failed: 2,
+  skipped: 2,
+} as const;
+
 // ---------------------------------------------------------------------------
 // Mutations
 // ---------------------------------------------------------------------------
@@ -190,12 +198,35 @@ export const updateVerseStatus = mutation({
       .unique();
     if (!verse) return;
 
-    await ctx.db.patch(verse._id, {
-      status: args.status,
-      creditsCost: args.creditsCost,
-      error: args.error,
-      updatedAt: Date.now(),
-    });
+    const isSameStatus = verse.status === args.status;
+    const isForwardTransition =
+      BULK_VERSE_STATUS_ORDER[args.status] >= BULK_VERSE_STATUS_ORDER[verse.status];
+    const isTerminalStatus =
+      verse.status === "completed" ||
+      verse.status === "failed" ||
+      verse.status === "skipped";
+    const canTransition = isSameStatus || (!isTerminalStatus && isForwardTransition);
+
+    const patch: {
+      status?: typeof args.status;
+      creditsCost?: number;
+      error?: string;
+      updatedAt?: number;
+    } = {};
+
+    if (canTransition) {
+      patch.status = args.status;
+      patch.updatedAt = Date.now();
+    }
+    if (args.creditsCost !== undefined) {
+      patch.creditsCost = args.creditsCost;
+    }
+    if (args.error !== undefined) {
+      patch.error = args.error;
+    }
+
+    if (Object.keys(patch).length === 0) return;
+    await ctx.db.patch(verse._id, patch);
   },
 });
 
