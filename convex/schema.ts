@@ -70,6 +70,21 @@ const generationStatusValidator = v.union(
   v.literal("failed")
 );
 
+const bulkGenerationStatusValidator = v.union(
+  v.literal("active"),
+  v.literal("paused"),
+  v.literal("completed"),
+  v.literal("cancelled")
+);
+
+const bulkGenerationVerseStatusValidator = v.union(
+  v.literal("queued"),
+  v.literal("generating"),
+  v.literal("completed"),
+  v.literal("failed"),
+  v.literal("skipped")
+);
+
 export default defineSchema({
   verseImages: defineTable({
     // Verse identifier (lowercase, e.g., "genesis-1-1")
@@ -329,7 +344,7 @@ export default defineSchema({
   // Bulk image generation jobs
   bulkGenerations: defineTable({
     sid: v.string(),
-    status: v.string(), // "active" | "paused" | "completed" | "cancelled"
+    status: bulkGenerationStatusValidator,
     scopeType: v.string(), // "verses" | "chapters" | "book"
     scopeLabel: v.string(), // human-readable, e.g. "Next 10 verses"
     startVerseId: v.string(),
@@ -356,7 +371,7 @@ export default defineSchema({
     verseId: v.string(),
     reference: v.string(),
     order: v.number(),
-    status: v.string(), // "queued" | "generating" | "completed" | "failed" | "skipped"
+    status: bulkGenerationVerseStatusValidator,
     creditsCost: v.optional(v.number()),
     error: v.optional(v.string()),
     updatedAt: v.number(),

@@ -1,6 +1,14 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
+const bulkGenerationVerseStatusValidator = v.union(
+  v.literal("queued"),
+  v.literal("generating"),
+  v.literal("completed"),
+  v.literal("failed"),
+  v.literal("skipped")
+);
+
 // ---------------------------------------------------------------------------
 // Mutations
 // ---------------------------------------------------------------------------
@@ -50,17 +58,16 @@ export const create = mutation({
       updatedAt: now,
     });
 
-    // Insert all verse entries
-    for (const verse of args.verses) {
-      await ctx.db.insert("bulkGenerationVerses", {
+    await Promise.all(args.verses.map((verse) =>
+      ctx.db.insert("bulkGenerationVerses", {
         bulkGenerationId: bulkId,
         verseId: verse.verseId,
         reference: verse.reference,
         order: verse.order,
         status: "queued",
         updatedAt: now,
-      });
-    }
+      })
+    ));
 
     return bulkId;
   },
@@ -124,7 +131,7 @@ export const updateVerseStatus = mutation({
   args: {
     bulkGenerationId: v.id("bulkGenerations"),
     verseId: v.string(),
-    status: v.string(),
+    status: bulkGenerationVerseStatusValidator,
     creditsCost: v.optional(v.number()),
     error: v.optional(v.string()),
   },
@@ -165,13 +172,19 @@ export const updateProgress = mutation({
       args.completedCount + args.failedCount + args.skippedCount >=
       bulk.totalVerses;
 
+    const shouldComplete =
+      isComplete &&
+      bulk.status !== "cancelled" &&
+      bulk.status !== "paused" &&
+      bulk.status !== "completed";
+
     await ctx.db.patch(args.id, {
       completedCount: args.completedCount,
       failedCount: args.failedCount,
       skippedCount: args.skippedCount,
       totalCreditsUsed: args.totalCreditsUsed,
       updatedAt: Date.now(),
-      ...(isComplete
+      ...(shouldComplete
         ? { status: "completed", completedAt: Date.now() }
         : {}),
     });

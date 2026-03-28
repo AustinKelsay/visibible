@@ -89,6 +89,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const isPausedRef = useRef(false);
   const isCancelledRef = useRef(false);
   const isRunningRef = useRef(false);
+  const pausedResolverRef = useRef<(() => void) | null>(null);
   const queueRef = useRef<BulkQueueItem[]>([]);
   const settingsRef = useRef<{
     modelId: string;
@@ -123,6 +124,10 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
 
     isPausedRef.current = activeBulk.status === "paused";
     isCancelledRef.current = activeBulk.status === "cancelled";
+    if (activeBulk.status !== "paused") {
+      pausedResolverRef.current?.();
+      pausedResolverRef.current = null;
+    }
     settingsRef.current = {
       modelId: activeBulk.modelId,
       aspectRatio: activeBulk.aspectRatio,
@@ -161,15 +166,21 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const runGenerationLoop = useCallback(
     async (
       bulkId: Id<"bulkGenerations">,
-      queue: BulkQueueItem[]
+      queue: BulkQueueItem[],
+      initialCounters: {
+        completedCount: number;
+        failedCount: number;
+        skippedCount: number;
+        totalCreditsUsed: number;
+      }
     ) => {
       if (isRunningRef.current) return;
       isRunningRef.current = true;
 
-      let completed = state.completedCount;
-      let failed = state.failedCount;
-      const skipped = state.skippedCount;
-      let creditsUsed = state.totalCreditsUsed;
+      let completed = initialCounters.completedCount;
+      let failed = initialCounters.failedCount;
+      const skipped = initialCounters.skippedCount;
+      let creditsUsed = initialCounters.totalCreditsUsed;
       let shouldMarkComplete = true;
 
       const settings = settingsRef.current;
@@ -196,14 +207,11 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         // Check pause/cancel
         if (isCancelledRef.current) break;
         if (isPausedRef.current) {
-          // Wait for resume
           await new Promise<void>((resolve) => {
-            const interval = setInterval(() => {
-              if (!isPausedRef.current || isCancelledRef.current) {
-                clearInterval(interval);
-                resolve();
-              }
-            }, 500);
+            pausedResolverRef.current = () => {
+              pausedResolverRef.current = null;
+              resolve();
+            };
           });
           if (isCancelledRef.current) break;
         }
@@ -323,10 +331,6 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       isRunningRef.current = false;
     },
     [
-      state.completedCount,
-      state.failedCount,
-      state.skippedCount,
-      state.totalCreditsUsed,
       updateVerseStatus,
       updateProgress,
       pauseBulk,
@@ -358,7 +362,12 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
 
     isPausedRef.current = false;
     isCancelledRef.current = false;
-    void runGenerationLoop(activeBulk._id, pendingQueue);
+    void runGenerationLoop(activeBulk._id, pendingQueue, {
+      completedCount: activeBulk.completedCount,
+      failedCount: activeBulk.failedCount,
+      skippedCount: activeBulk.skippedCount,
+      totalCreditsUsed: activeBulk.totalCreditsUsed,
+    });
   }, [activeBulk, activeVerses, runGenerationLoop]);
 
   // ---------------------------------------------------------------------------
@@ -377,6 +386,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       translation: string;
     }) => {
       if (!sid || !convexEnabled) return;
+      if (params.queue.length === 0) {
+        throw new Error("Cannot start bulk generation with an empty queue");
+      }
 
       isPausedRef.current = false;
       isCancelledRef.current = false;
@@ -417,7 +429,12 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       });
 
       // Start the loop
-      runGenerationLoop(bulkId, params.queue);
+      void runGenerationLoop(bulkId, params.queue, {
+        completedCount: 0,
+        failedCount: 0,
+        skippedCount: 0,
+        totalCreditsUsed: 0,
+      });
     },
     [sid, convexEnabled, createBulk, runGenerationLoop]
   );
@@ -432,6 +449,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
 
   const resumeBulkGeneration = useCallback(() => {
     isPausedRef.current = false;
+    pausedResolverRef.current?.();
+    pausedResolverRef.current = null;
     if (state.bulkId) {
       resumeBulk({ id: state.bulkId });
     }
@@ -441,6 +460,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const cancelBulkGeneration = useCallback(() => {
     isCancelledRef.current = true;
     isPausedRef.current = false;
+    pausedResolverRef.current?.();
+    pausedResolverRef.current = null;
     if (state.bulkId) {
       cancelBulk({ id: state.bulkId });
     }
@@ -455,6 +476,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     isPausedRef.current = false;
     isCancelledRef.current = false;
     isRunningRef.current = false;
+    pausedResolverRef.current = null;
     queueRef.current = [];
     settingsRef.current = null;
     setState(DEFAULT_STATE);

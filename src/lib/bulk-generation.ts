@@ -69,6 +69,7 @@ export function buildVerseQueue(
     }
 
     case "book":
+      // Book scope intentionally includes the current verse and the full book.
       locations = getAllVersesInBook(current.book.slug);
       break;
 

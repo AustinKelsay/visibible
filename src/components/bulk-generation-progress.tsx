@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, X, Loader2, Pause, Play, Zap, CircleDot } from "lucide-react";
+import { Check, X, Loader2, Pause, Play, Zap, CircleDot, Minus } from "lucide-react";
 import { useBulkGeneration } from "@/context/bulk-generation-context";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
@@ -238,22 +238,4 @@ function VerseStatusIcon({ status }: { status: string }) {
         <CircleDot size={14} className="text-[var(--divider)] flex-shrink-0" />
       );
   }
-}
-
-function Minus({ size, className }: { size: number; className?: string }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <line x1="5" y1="12" x2="19" y2="12" />
-    </svg>
-  );
 }

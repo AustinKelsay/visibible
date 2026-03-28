@@ -19,7 +19,6 @@ import {
   ImageAspectRatio,
   ImageResolution,
 } from "@/lib/image-models";
-import {} from "@/lib/chat-models";
 import {
   DEFAULT_TRANSLATION,
   TRANSLATIONS,
@@ -653,37 +652,45 @@ export async function POST(request: Request) {
         );
 
         if (currentBook) {
-          if (!prevVerse && currentVerse.verse > 1) {
-            const prevVerseData = await getVerse(
-              currentBook.slug,
-              currentVerse.chapter,
-              currentVerse.verse - 1,
-              bibleTranslation
-            );
-            if (prevVerseData) {
-              prevVerse = {
-                number: prevVerseData.verse,
-                text: sanitizeVerseText(prevVerseData.text),
-                reference: `${currentVerse.bookName} ${currentVerse.chapter}:${prevVerseData.verse}`,
-              };
-            }
+          const versesInChapter = currentBook.chapters[currentVerse.chapter - 1];
+          const prevVersePromise =
+            !prevVerse && currentVerse.verse > 1
+              ? getVerse(
+                  currentBook.slug,
+                  currentVerse.chapter,
+                  currentVerse.verse - 1,
+                  bibleTranslation
+                )
+              : Promise.resolve(null);
+          const nextVersePromise =
+            !nextVerse && currentVerse.verse < versesInChapter
+              ? getVerse(
+                  currentBook.slug,
+                  currentVerse.chapter,
+                  currentVerse.verse + 1,
+                  bibleTranslation
+                )
+              : Promise.resolve(null);
+
+          const [prevVerseData, nextVerseData] = await Promise.all([
+            prevVersePromise,
+            nextVersePromise,
+          ]);
+
+          if (prevVerseData) {
+            prevVerse = {
+              number: prevVerseData.verse,
+              text: sanitizeVerseText(prevVerseData.text),
+              reference: `${currentVerse.bookName} ${currentVerse.chapter}:${prevVerseData.verse}`,
+            };
           }
 
-          const versesInChapter = currentBook.chapters[currentVerse.chapter - 1];
-          if (!nextVerse && currentVerse.verse < versesInChapter) {
-            const nextVerseData = await getVerse(
-              currentBook.slug,
-              currentVerse.chapter,
-              currentVerse.verse + 1,
-              bibleTranslation
-            );
-            if (nextVerseData) {
-              nextVerse = {
-                number: nextVerseData.verse,
-                text: sanitizeVerseText(nextVerseData.text),
-                reference: `${currentVerse.bookName} ${currentVerse.chapter}:${nextVerseData.verse}`,
-              };
-            }
+          if (nextVerseData) {
+            nextVerse = {
+              number: nextVerseData.verse,
+              text: sanitizeVerseText(nextVerseData.text),
+              reference: `${currentVerse.bookName} ${currentVerse.chapter}:${nextVerseData.verse}`,
+            };
           }
         }
       }

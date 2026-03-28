@@ -66,8 +66,8 @@ describe("estimateBulkCost", () => {
   });
 
   it("rounds credits up", () => {
-    const result = estimateBulkCost(3, 7);
-    expect(result.totalCredits).toBe(21);
+    const result = estimateBulkCost(3, 7.1);
+    expect(result.totalCredits).toBe(22);
   });
 });
 

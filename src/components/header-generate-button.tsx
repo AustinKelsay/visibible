@@ -129,6 +129,12 @@ export function HeaderGenerateButton() {
       scenePlannerCreditsCost
     ) ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
 
+  const openGenerateModal = (tab: "single" | "bulk" = "single") => {
+    if (isGenerating) return;
+    setActiveTab(tab);
+    setIsModalOpen(true);
+  };
+
   // Group models by provider
   const groupedModels: Record<string, ImageModel[]> = models.reduce((acc, model) => {
     const provider = model.provider || "Other";
@@ -176,7 +182,7 @@ export function HeaderGenerateButton() {
       <>
         {/* Mobile: icon button that opens modal */}
         <button
-          onClick={() => { if (!isGenerating) setIsModalOpen(true); }}
+          onClick={() => openGenerateModal("single")}
           disabled={isGenerating}
           className={`${mobileIconBtn} text-[var(--accent)] hover:text-[var(--accent-hover)] disabled:opacity-50 disabled:cursor-not-allowed`}
           aria-label="Generate new image"
@@ -188,19 +194,19 @@ export function HeaderGenerateButton() {
           )}
         </button>
 
-        {/* Mobile: bottom-sheet generation modal (portalled) */}
+        {/* Generation modal (bottom sheet on mobile, dialog on desktop) */}
         {isModalOpen && createPortal(
-          <div className="fixed inset-0 z-50 flex items-end justify-center sm:hidden">
+          <div className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-6">
             {/* Backdrop */}
             <div
               className="absolute inset-0 bg-black/50"
               onClick={() => setIsModalOpen(false)}
             />
 
-            {/* Modal panel — slides up from bottom */}
-            <div className="relative w-full max-h-[85vh] flex flex-col bg-[var(--background)] rounded-t-[var(--radius-lg)] animate-in slide-in-from-bottom duration-[var(--motion-base)]">
+            {/* Modal panel */}
+            <div className="relative w-full max-h-[85vh] flex flex-col bg-[var(--background)] rounded-t-[var(--radius-lg)] animate-in slide-in-from-bottom duration-[var(--motion-base)] sm:max-w-2xl sm:max-h-[90vh] sm:rounded-[var(--radius-lg)] sm:border sm:border-[var(--divider)]">
               {/* Drag handle */}
-              <div className="flex justify-center pt-3">
+              <div className="flex justify-center pt-3 sm:hidden">
                 <div className="w-10 h-1 rounded-full bg-[var(--divider)]" />
               </div>
 
@@ -414,10 +420,10 @@ export function HeaderGenerateButton() {
 
         {/* Desktop: styled pill */}
         <button
-          onClick={() => generate("header_generate")}
+          onClick={() => openGenerateModal("bulk")}
           disabled={isGenerating}
           className="hidden sm:inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] border border-[var(--accent)]/40 bg-[var(--accent)]/5 text-[var(--foreground)] hover:border-[var(--accent)]/70 hover:bg-[var(--accent)]/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-50 disabled:cursor-not-allowed text-xs font-medium"
-          aria-label="Generate new image"
+          aria-label="Open generate options"
         >
           {isGenerating ? (
             <>

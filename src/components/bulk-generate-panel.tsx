@@ -177,7 +177,7 @@ export function BulkGeneratePanel({
           <div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-[var(--foreground)]">
-                {scopeType === "verses" ? "Next" : "Next"}{" "}
+                Next{" "}
                 <span className="font-medium">{count}</span>{" "}
                 {scopeType === "verses"
                   ? count === 1
