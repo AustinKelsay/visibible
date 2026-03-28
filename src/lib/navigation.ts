@@ -6,6 +6,11 @@ export interface VerseLocation {
   verse: number;
 }
 
+export interface ChapterLocation {
+  book: BibleBook;
+  chapter: number;
+}
+
 /**
  * Get the next verse location, crossing chapter and book boundaries
  */
@@ -61,6 +66,46 @@ export function getPreviousVerse(current: VerseLocation): VerseLocation | null {
   }
 
   // Beginning of Bible (Genesis 1:1)
+  return null;
+}
+
+/**
+ * Get the next chapter location, crossing book boundaries
+ */
+export function getNextChapter(book: BibleBook, chapter: number): ChapterLocation | null {
+  // Next chapter in same book
+  if (chapter < book.chapters.length) {
+    return { book, chapter: chapter + 1 };
+  }
+
+  // First chapter of next book
+  const bookIndex = BIBLE_BOOKS.findIndex((b) => b.id === book.id);
+  if (bookIndex < BIBLE_BOOKS.length - 1) {
+    const nextBook = BIBLE_BOOKS[bookIndex + 1];
+    return { book: nextBook, chapter: 1 };
+  }
+
+  // End of Bible
+  return null;
+}
+
+/**
+ * Get the previous chapter location, crossing book boundaries
+ */
+export function getPreviousChapter(book: BibleBook, chapter: number): ChapterLocation | null {
+  // Previous chapter in same book
+  if (chapter > 1) {
+    return { book, chapter: chapter - 1 };
+  }
+
+  // Last chapter of previous book
+  const bookIndex = BIBLE_BOOKS.findIndex((b) => b.id === book.id);
+  if (bookIndex > 0) {
+    const prevBook = BIBLE_BOOKS[bookIndex - 1];
+    return { book: prevBook, chapter: prevBook.chapters.length };
+  }
+
+  // Beginning of Bible
   return null;
 }
 
