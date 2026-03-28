@@ -39,6 +39,13 @@ export interface BulkGenerationState {
   currentVerseReference: string | null;
 }
 
+interface BulkGenerationCounters {
+  completedCount: number;
+  failedCount: number;
+  skippedCount: number;
+  totalCreditsUsed: number;
+}
+
 interface BulkGenerationContextType {
   state: BulkGenerationState;
   /** Start a new bulk generation */
@@ -167,168 +174,158 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     async (
       bulkId: Id<"bulkGenerations">,
       queue: BulkQueueItem[],
-      initialCounters: {
-        completedCount: number;
-        failedCount: number;
-        skippedCount: number;
-        totalCreditsUsed: number;
-      }
+      initialCounters: BulkGenerationCounters
     ) => {
       if (isRunningRef.current) return;
       isRunningRef.current = true;
 
-      let completed = initialCounters.completedCount;
-      let failed = initialCounters.failedCount;
-      const skipped = initialCounters.skippedCount;
-      let creditsUsed = initialCounters.totalCreditsUsed;
-      let shouldMarkComplete = true;
+      try {
+        let completed = initialCounters.completedCount;
+        let failed = initialCounters.failedCount;
+        const skipped = initialCounters.skippedCount;
+        let creditsUsed = initialCounters.totalCreditsUsed;
+        let shouldMarkComplete = true;
 
-      const settings = settingsRef.current;
-      if (!settings) {
-        isRunningRef.current = false;
-        return;
-      }
-
-      // Get CSRF token
-      const csrfCookiePrefix = `${CSRF_COOKIE_NAME}=`;
-      const csrfToken = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith(csrfCookiePrefix))
-        ?.slice(csrfCookiePrefix.length);
-
-      if (!csrfToken) {
-        isRunningRef.current = false;
-        return;
-      }
-
-      for (let index = 0; index < queue.length; index++) {
-        const item = queue[index];
-
-        // Check pause/cancel
-        if (isCancelledRef.current) break;
-        if (isPausedRef.current) {
-          await new Promise<void>((resolve) => {
-            pausedResolverRef.current = () => {
-              pausedResolverRef.current = null;
-              resolve();
-            };
-          });
-          if (isCancelledRef.current) break;
+        const settings = settingsRef.current;
+        if (!settings) {
+          return;
         }
 
-        // Update UI with current verse
-        setState((prev) => ({
-          ...prev,
-          currentVerseReference: item.reference,
-        }));
+        const csrfCookiePrefix = `${CSRF_COOKIE_NAME}=`;
+        const csrfToken = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith(csrfCookiePrefix))
+          ?.slice(csrfCookiePrefix.length);
 
-        // Mark verse as generating
-        await updateVerseStatus({
-          bulkGenerationId: bulkId,
-          verseId: item.verseId,
-          status: "generating",
-        });
+        if (!csrfToken) {
+          return;
+        }
 
-        try {
-          const payload: Record<string, unknown> = {
-            reference: item.reference,
-            model: settings.modelId,
-            translation: settings.translation,
-            aspectRatio: settings.aspectRatio,
-            resolution: settings.resolution,
-            requestId: `bulk-${bulkId}-${item.order}-${Date.now()}`,
-          };
+        for (let index = 0; index < queue.length; index++) {
+          const item = queue[index];
 
-          const response = await fetch("/api/generate-image", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              [CSRF_HEADER_NAME]: csrfToken,
-            },
-            body: JSON.stringify(payload),
+          if (isCancelledRef.current) break;
+          if (isPausedRef.current) {
+            await new Promise<void>((resolve) => {
+              pausedResolverRef.current = () => {
+                pausedResolverRef.current = null;
+                resolve();
+              };
+            });
+            if (isCancelledRef.current) break;
+          }
+
+          setState((prev) => ({
+            ...prev,
+            currentVerseReference: item.reference,
+          }));
+
+          await updateVerseStatus({
+            bulkGenerationId: bulkId,
+            verseId: item.verseId,
+            status: "generating",
           });
 
-          if (response.ok) {
-            const data = await response.json();
-            const cost = data.creditsCost ?? 0;
-            completed++;
-            creditsUsed += cost;
+          try {
+            const payload: Record<string, unknown> = {
+              reference: item.reference,
+              model: settings.modelId,
+              translation: settings.translation,
+              aspectRatio: settings.aspectRatio,
+              resolution: settings.resolution,
+              requestId: `bulk-${bulkId}-${item.order}`,
+            };
 
-            await updateVerseStatus({
-              bulkGenerationId: bulkId,
-              verseId: item.verseId,
-              status: "completed",
-              creditsCost: cost,
+            const response = await fetch("/api/generate-image", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                [CSRF_HEADER_NAME]: csrfToken,
+              },
+              body: JSON.stringify(payload),
             });
-          } else if (response.status === 402) {
-            // Pause without failing the current verse so it can be retried later.
-            isPausedRef.current = true;
-            shouldMarkComplete = false;
-            await pauseBulk({ id: bulkId });
-            await updateVerseStatus({
-              bulkGenerationId: bulkId,
-              verseId: item.verseId,
-              status: "queued",
-            });
-            setState((prev) => ({ ...prev, status: "paused" }));
-            break;
-          } else {
-            let errorMsg = `HTTP ${response.status}`;
-            try {
-              const errData = await response.json();
-              errorMsg = errData.error || errData.message || errorMsg;
-            } catch {
-              // keep generic
+
+            if (response.ok) {
+              const data = await response.json();
+              const cost = data.creditsCost ?? 0;
+              completed++;
+              creditsUsed += cost;
+
+              await updateVerseStatus({
+                bulkGenerationId: bulkId,
+                verseId: item.verseId,
+                status: "completed",
+                creditsCost: cost,
+              });
+            } else if (response.status === 402) {
+              isPausedRef.current = true;
+              shouldMarkComplete = false;
+              await pauseBulk({ id: bulkId });
+              await updateVerseStatus({
+                bulkGenerationId: bulkId,
+                verseId: item.verseId,
+                status: "queued",
+              });
+              setState((prev) => ({ ...prev, status: "paused" }));
+              break;
+            } else {
+              let errorMsg = `HTTP ${response.status}`;
+              try {
+                const errData = await response.json();
+                errorMsg = errData.error || errData.message || errorMsg;
+              } catch {
+                // keep generic
+              }
+              failed++;
+              await updateVerseStatus({
+                bulkGenerationId: bulkId,
+                verseId: item.verseId,
+                status: "failed",
+                error: errorMsg,
+              });
             }
+          } catch (err) {
             failed++;
             await updateVerseStatus({
               bulkGenerationId: bulkId,
               verseId: item.verseId,
               status: "failed",
-              error: errorMsg,
+              error: err instanceof Error ? err.message : "Unknown error",
             });
           }
-        } catch (err) {
-          failed++;
-          await updateVerseStatus({
-            bulkGenerationId: bulkId,
-            verseId: item.verseId,
-            status: "failed",
-            error: err instanceof Error ? err.message : "Unknown error",
+
+          await updateProgress({
+            id: bulkId,
+            completedCount: completed,
+            failedCount: failed,
+            skippedCount: skipped,
+            totalCreditsUsed: creditsUsed,
           });
+
+          setState((prev) => ({
+            ...prev,
+            completedCount: completed,
+            failedCount: failed,
+            skippedCount: skipped,
+            totalCreditsUsed: creditsUsed,
+          }));
+
+          void refetchSession();
         }
 
-        // Update progress in Convex
-        await updateProgress({
-          id: bulkId,
-          completedCount: completed,
-          failedCount: failed,
-          skippedCount: skipped,
-          totalCreditsUsed: creditsUsed,
-        });
-
-        // Update local state immediately
-        setState((prev) => ({
-          ...prev,
-          completedCount: completed,
-          failedCount: failed,
-          skippedCount: skipped,
-          totalCreditsUsed: creditsUsed,
-        }));
-
-        // Refresh session to get updated credit balance
-        void refetchSession();
+        if (!isCancelledRef.current && !isPausedRef.current && shouldMarkComplete) {
+          setState((prev) => ({
+            ...prev,
+            status: "completed",
+            currentVerseReference: null,
+          }));
+        }
+      } catch (error) {
+        console.error("Bulk generation loop failed:", error);
+      } finally {
+        pausedResolverRef.current = null;
+        isRunningRef.current = false;
       }
-
-      if (!isCancelledRef.current && !isPausedRef.current && shouldMarkComplete) {
-        setState((prev) => ({
-          ...prev,
-          status: "completed",
-          currentVerseReference: null,
-        }));
-      }
-
-      isRunningRef.current = false;
     },
     [
       updateVerseStatus,
@@ -400,7 +397,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         translation: params.translation,
       };
 
-      const bulkId = await createBulk({
+      const bulk = await createBulk({
         sid,
         scopeType: params.scope.type,
         scopeLabel: params.scopeLabel,
@@ -418,59 +415,86 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       });
 
       setState({
-        status: "active",
-        bulkId,
-        totalVerses: params.queue.length,
-        completedCount: 0,
-        failedCount: 0,
-        skippedCount: 0,
-        totalCreditsUsed: 0,
+        status: bulk.status,
+        bulkId: bulk.bulkId,
+        totalVerses: bulk.totalVerses,
+        completedCount: bulk.completedCount,
+        failedCount: bulk.failedCount,
+        skippedCount: bulk.skippedCount,
+        totalCreditsUsed: bulk.totalCreditsUsed,
         currentVerseReference: params.queue[0]?.reference ?? null,
       });
 
-      // Start the loop
-      void runGenerationLoop(bulkId, params.queue, {
-        completedCount: 0,
-        failedCount: 0,
-        skippedCount: 0,
-        totalCreditsUsed: 0,
+      if (!bulk.created) {
+        return;
+      }
+
+      void runGenerationLoop(bulk.bulkId, params.queue, {
+        completedCount: bulk.completedCount,
+        failedCount: bulk.failedCount,
+        skippedCount: bulk.skippedCount,
+        totalCreditsUsed: bulk.totalCreditsUsed,
       });
     },
     [sid, convexEnabled, createBulk, runGenerationLoop]
   );
 
-  const pauseBulkGeneration = useCallback(() => {
+  const pauseBulkGeneration = useCallback(async () => {
+    if (!state.bulkId) return;
+    const previousStatus = state.status;
     isPausedRef.current = true;
-    if (state.bulkId) {
-      pauseBulk({ id: state.bulkId });
+    try {
+      await pauseBulk({ id: state.bulkId });
+      setState((prev) => ({ ...prev, status: "paused" }));
+    } catch (error) {
+      isPausedRef.current = previousStatus === "paused";
+      console.error("Failed to pause bulk generation:", error);
+      setState((prev) => ({ ...prev, status: previousStatus }));
     }
-    setState((prev) => ({ ...prev, status: "paused" }));
-  }, [state.bulkId, pauseBulk]);
+  }, [state.bulkId, state.status, pauseBulk]);
 
-  const resumeBulkGeneration = useCallback(() => {
+  const resumeBulkGeneration = useCallback(async () => {
+    if (!state.bulkId) return;
+    const previousStatus = state.status;
     isPausedRef.current = false;
     pausedResolverRef.current?.();
     pausedResolverRef.current = null;
-    if (state.bulkId) {
-      resumeBulk({ id: state.bulkId });
+    try {
+      await resumeBulk({ id: state.bulkId });
+      setState((prev) => ({ ...prev, status: "active" }));
+    } catch (error) {
+      isPausedRef.current = previousStatus === "paused";
+      console.error("Failed to resume bulk generation:", error);
+      setState((prev) => ({ ...prev, status: previousStatus }));
     }
-    setState((prev) => ({ ...prev, status: "active" }));
-  }, [state.bulkId, resumeBulk]);
+  }, [state.bulkId, state.status, resumeBulk]);
 
-  const cancelBulkGeneration = useCallback(() => {
+  const cancelBulkGeneration = useCallback(async () => {
+    if (!state.bulkId) return;
+    const previousStatus = state.status;
+    const previousCurrentVerseReference = state.currentVerseReference;
     isCancelledRef.current = true;
     isPausedRef.current = false;
     pausedResolverRef.current?.();
     pausedResolverRef.current = null;
-    if (state.bulkId) {
-      cancelBulk({ id: state.bulkId });
+    try {
+      await cancelBulk({ id: state.bulkId });
+      setState((prev) => ({
+        ...prev,
+        status: "cancelled",
+        currentVerseReference: null,
+      }));
+    } catch (error) {
+      isCancelledRef.current = previousStatus === "cancelled";
+      isPausedRef.current = previousStatus === "paused";
+      console.error("Failed to cancel bulk generation:", error);
+      setState((prev) => ({
+        ...prev,
+        status: previousStatus,
+        currentVerseReference: previousCurrentVerseReference,
+      }));
     }
-    setState((prev) => ({
-      ...prev,
-      status: "cancelled",
-      currentVerseReference: null,
-    }));
-  }, [state.bulkId, cancelBulk]);
+  }, [state.bulkId, state.currentVerseReference, state.status, cancelBulk]);
 
   const dismissBulkGeneration = useCallback(() => {
     isPausedRef.current = false;

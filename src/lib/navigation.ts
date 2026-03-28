@@ -154,6 +154,7 @@ export function getNextNVerses(
   const verses: VerseLocation[] = [];
   let cursor: VerseLocation | null = current;
   for (let i = 0; i < count; i++) {
+    if (!cursor) break;
     cursor = getNextVerse(cursor);
     if (!cursor) break;
     verses.push(cursor);

@@ -54,17 +54,23 @@ export function buildVerseQueue(
       break;
 
     case "chapters": {
-      // From current verse to the end of (current.chapter + count - 1)
+      const startChapter =
+        current.verse >= current.book.chapters[current.chapter - 1]
+          ? Math.min(current.chapter + 1, current.book.chapters.length + 1)
+          : current.chapter;
       const endChapter = Math.min(
-        current.chapter + scope.count - 1,
+        startChapter + scope.count - 1,
         current.book.chapters.length
       );
-      locations = getVersesInChapterRange(
-        current.book.slug,
-        current.chapter,
-        endChapter,
-        current.verse // start after current verse in the first chapter
-      );
+      locations =
+        startChapter > current.book.chapters.length
+          ? []
+          : getVersesInChapterRange(
+              current.book.slug,
+              startChapter,
+              endChapter,
+              startChapter === current.chapter ? current.verse : undefined
+            );
       break;
     }
 
@@ -136,8 +142,11 @@ export function getMaxScopeCount(
     case "verses":
       return 100; // cap at 100 verses per bulk run
     case "chapters": {
-      // Remaining chapters in current book (including current)
-      return current.book.chapters.length - current.chapter + 1;
+      const startChapter =
+        current.verse >= current.book.chapters[current.chapter - 1]
+          ? current.chapter + 1
+          : current.chapter;
+      return Math.max(0, current.book.chapters.length - startChapter + 1);
     }
     case "book":
       return 1; // always the full book

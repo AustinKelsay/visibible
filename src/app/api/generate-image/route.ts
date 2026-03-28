@@ -507,16 +507,20 @@ export async function POST(request: Request) {
 
   // Get verse text, theme, model, and context from JSON body.
   // SECURITY: All user-provided text is sanitized to prevent prompt injection.
+  const hasUserReference =
+    typeof requestBody.reference === "string" &&
+    requestBody.reference.trim().length > 0;
   let verseText = requestBody.text ? sanitizeVerseText(requestBody.text) : "";
   let reference = sanitizeReference(requestBody.reference || "Scripture");
   const requestedModelId = requestBody.model;
   const requestedStyleId = requestBody.style;
   const requestedAspectRatio = requestBody.aspectRatio;
   const requestedResolution = requestBody.resolution;
-  const translationId = sanitizeTranslationId(requestBody.translation ?? null);
+  let translationId = sanitizeTranslationId(requestBody.translation ?? null);
   const bibleTranslation = isSupportedTranslation(translationId)
     ? translationId
     : DEFAULT_TRANSLATION;
+  translationId = bibleTranslation;
   const clientRequestId =
     sanitizeRequestId(requestBody.requestId ?? null) || crypto.randomUUID();
 
@@ -653,21 +657,73 @@ export async function POST(request: Request) {
 
         if (currentBook) {
           const versesInChapter = currentBook.chapters[currentVerse.chapter - 1];
+          const currentBookIndex = BIBLE_BOOKS.findIndex(
+            (book) => book.slug === currentBook.slug
+          );
+          const previousTarget =
+            !prevVerse
+              ? currentVerse.verse > 1
+                ? {
+                    book: currentBook,
+                    chapter: currentVerse.chapter,
+                    verse: currentVerse.verse - 1,
+                  }
+                : currentVerse.chapter > 1
+                  ? {
+                      book: currentBook,
+                      chapter: currentVerse.chapter - 1,
+                      verse: currentBook.chapters[currentVerse.chapter - 2],
+                    }
+                  : currentBookIndex > 0
+                    ? (() => {
+                        const previousBook = BIBLE_BOOKS[currentBookIndex - 1];
+                        const previousChapter = previousBook.chapters.length;
+                        return {
+                          book: previousBook,
+                          chapter: previousChapter,
+                          verse: previousBook.chapters[previousChapter - 1],
+                        };
+                      })()
+                    : null
+              : null;
+          const nextTarget =
+            !nextVerse
+              ? currentVerse.verse < versesInChapter
+                ? {
+                    book: currentBook,
+                    chapter: currentVerse.chapter,
+                    verse: currentVerse.verse + 1,
+                  }
+                : currentVerse.chapter < currentBook.chapters.length
+                  ? {
+                      book: currentBook,
+                      chapter: currentVerse.chapter + 1,
+                      verse: 1,
+                    }
+                  : currentBookIndex >= 0 &&
+                      currentBookIndex < BIBLE_BOOKS.length - 1
+                    ? {
+                        book: BIBLE_BOOKS[currentBookIndex + 1],
+                        chapter: 1,
+                        verse: 1,
+                      }
+                    : null
+              : null;
           const prevVersePromise =
-            !prevVerse && currentVerse.verse > 1
+            previousTarget
               ? getVerse(
-                  currentBook.slug,
-                  currentVerse.chapter,
-                  currentVerse.verse - 1,
+                  previousTarget.book.slug,
+                  previousTarget.chapter,
+                  previousTarget.verse,
                   bibleTranslation
                 )
               : Promise.resolve(null);
           const nextVersePromise =
-            !nextVerse && currentVerse.verse < versesInChapter
+            nextTarget
               ? getVerse(
-                  currentBook.slug,
-                  currentVerse.chapter,
-                  currentVerse.verse + 1,
+                  nextTarget.book.slug,
+                  nextTarget.chapter,
+                  nextTarget.verse,
                   bibleTranslation
                 )
               : Promise.resolve(null);
@@ -681,7 +737,7 @@ export async function POST(request: Request) {
             prevVerse = {
               number: prevVerseData.verse,
               text: sanitizeVerseText(prevVerseData.text),
-              reference: `${currentVerse.bookName} ${currentVerse.chapter}:${prevVerseData.verse}`,
+              reference: `${previousTarget?.book.name ?? currentVerse.bookName} ${prevVerseData.chapter}:${prevVerseData.verse}`,
             };
           }
 
@@ -689,7 +745,7 @@ export async function POST(request: Request) {
             nextVerse = {
               number: nextVerseData.verse,
               text: sanitizeVerseText(nextVerseData.text),
-              reference: `${currentVerse.bookName} ${currentVerse.chapter}:${nextVerseData.verse}`,
+              reference: `${nextTarget?.book.name ?? currentVerse.bookName} ${nextVerseData.chapter}:${nextVerseData.verse}`,
             };
           }
         }
@@ -701,6 +757,16 @@ export async function POST(request: Request) {
         error: error instanceof Error ? error.message : "Unknown error",
       });
     }
+  }
+
+  if (!verseText && hasUserReference) {
+    return jsonWithSessionRefresh(
+      {
+        error: "Reference not found",
+        message: `Could not resolve "${reference}" in the ${translationId.toUpperCase()} translation.`,
+      },
+      { status: 400 }
+    );
   }
 
   if (!verseText) {

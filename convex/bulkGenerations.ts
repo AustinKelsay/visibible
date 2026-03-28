@@ -37,6 +37,43 @@ export const create = mutation({
   },
   handler: async (ctx, args) => {
     const now = Date.now();
+    const active = await ctx.db
+      .query("bulkGenerations")
+      .withIndex("by_sid_status", (q) =>
+        q.eq("sid", args.sid).eq("status", "active")
+      )
+      .first();
+    if (active) {
+      return {
+        bulkId: active._id,
+        created: false,
+        status: active.status,
+        totalVerses: active.totalVerses,
+        completedCount: active.completedCount,
+        failedCount: active.failedCount,
+        skippedCount: active.skippedCount,
+        totalCreditsUsed: active.totalCreditsUsed,
+      };
+    }
+
+    const paused = await ctx.db
+      .query("bulkGenerations")
+      .withIndex("by_sid_status", (q) =>
+        q.eq("sid", args.sid).eq("status", "paused")
+      )
+      .first();
+    if (paused) {
+      return {
+        bulkId: paused._id,
+        created: false,
+        status: paused.status,
+        totalVerses: paused.totalVerses,
+        completedCount: paused.completedCount,
+        failedCount: paused.failedCount,
+        skippedCount: paused.skippedCount,
+        totalCreditsUsed: paused.totalCreditsUsed,
+      };
+    }
 
     const bulkId = await ctx.db.insert("bulkGenerations", {
       sid: args.sid,
@@ -69,7 +106,16 @@ export const create = mutation({
       })
     ));
 
-    return bulkId;
+    return {
+      bulkId,
+      created: true,
+      status: "active" as const,
+      totalVerses: args.verses.length,
+      completedCount: 0,
+      failedCount: 0,
+      skippedCount: 0,
+      totalCreditsUsed: 0,
+    };
   },
 });
 

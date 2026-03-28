@@ -191,6 +191,7 @@ export function BulkGeneratePanel({
                 <button
                   onClick={() => setCount((c) => Math.max(1, c - (scopeType === "verses" ? 5 : 1)))}
                   disabled={count <= 1}
+                  aria-label={scopeType === "verses" ? "Decrease count by 5" : "Decrease count by 1"}
                   className="min-h-[32px] min-w-[32px] flex items-center justify-center rounded-[var(--radius-sm)] bg-[var(--background)] border border-[var(--divider)] text-[var(--foreground)] hover:bg-[var(--divider)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 >
                   <Minus size={14} />
@@ -201,6 +202,7 @@ export function BulkGeneratePanel({
                 <button
                   onClick={() => setCount((c) => Math.min(maxCount, c + (scopeType === "verses" ? 5 : 1)))}
                   disabled={count >= maxCount}
+                  aria-label={scopeType === "verses" ? "Increase count by 5" : "Increase count by 1"}
                   className="min-h-[32px] min-w-[32px] flex items-center justify-center rounded-[var(--radius-sm)] bg-[var(--background)] border border-[var(--divider)] text-[var(--foreground)] hover:bg-[var(--divider)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 >
                   <Plus size={14} />

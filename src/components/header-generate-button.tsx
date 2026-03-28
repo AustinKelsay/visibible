@@ -82,7 +82,7 @@ export function HeaderGenerateButton() {
 
   // Lazy-fetch models when modal opens
   useEffect(() => {
-    if (isModalOpen && !hasFetchedModels.current && !modelsError) {
+    if (isModalOpen && activeTab === "single" && !hasFetchedModels.current && !modelsError) {
       hasFetchedModels.current = true;
 
       queueMicrotask(() => {
@@ -120,7 +120,7 @@ export function HeaderGenerateButton() {
           .finally(() => setModelsLoading(false));
       });
     }
-  }, [isModalOpen, modelsError]);
+  }, [activeTab, isModalOpen, modelsError]);
 
   const getModelDisplayCost = (model: ImageModel, selectedResolution: ImageResolution) =>
     getEstimatedCreditsCostForResolution(

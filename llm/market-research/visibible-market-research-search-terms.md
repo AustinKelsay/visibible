@@ -89,7 +89,7 @@ Organized across 72 categories mapping to different audience segments and intent
 66. faith in your 20s
 67. faith in your 30s
 68. young Christians struggling
-69. being Christian in 2024
+69. being Christian today
 70. modern Christianity
 71. Christianity for young people
 72. young people leaving the church
