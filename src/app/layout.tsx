@@ -7,6 +7,7 @@ import { SessionProvider } from "@/context/session-context";
 import { NavigationProvider } from "@/context/navigation-context";
 import { PreferencesProvider } from "@/context/preferences-context";
 import { GenerationProvider } from "@/context/generation-context";
+import { BulkGenerationProvider } from "@/context/bulk-generation-context";
 import { VerseNavProvider } from "@/context/verse-nav-context";
 import { ChatSidebar } from "@/components/chat-sidebar";
 import { BuyCreditsModal } from "@/components/buy-credits-modal";
@@ -49,11 +50,13 @@ export default function RootLayout({
               <NavigationProvider>
                 <VerseNavProvider>
                   <GenerationProvider>
-                    {children}
-                    <ChatSidebar />
-                    <MobileVerseNav />
-                    <FeedbackPrompt />
-                    <BuyCreditsModal />
+                    <BulkGenerationProvider>
+                      {children}
+                      <ChatSidebar />
+                      <MobileVerseNav />
+                      <FeedbackPrompt />
+                      <BuyCreditsModal />
+                    </BulkGenerationProvider>
                   </GenerationProvider>
                 </VerseNavProvider>
               </NavigationProvider>

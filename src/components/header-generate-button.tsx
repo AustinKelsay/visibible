@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Sparkles, Loader2, Zap, Check, X } from "lucide-react";
+import { Sparkles, Loader2, Zap, Check, X, Layers } from "lucide-react";
 import { createPortal } from "react-dom";
 import { useGeneration } from "@/context/generation-context";
 import { usePreferences } from "@/context/preferences-context";
@@ -18,6 +18,7 @@ import {
   getEstimatedCreditsCostForResolution,
   supportsResolution,
 } from "@/lib/image-models";
+import { BulkGeneratePanel } from "@/components/bulk-generate-panel";
 
 /** Compact generate button for the header. Returns null on non-verse pages. */
 export function HeaderGenerateButton() {
@@ -25,6 +26,7 @@ export function HeaderGenerateButton() {
   const { imageModel, setImageModel } = usePreferences();
   const { tier, credits } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<"single" | "bulk">("single");
 
   // Inline model list state (lazy-loaded when modal opens)
   const [models, setModels] = useState<ImageModel[]>([]);
@@ -80,7 +82,7 @@ export function HeaderGenerateButton() {
 
   // Lazy-fetch models when modal opens
   useEffect(() => {
-    if (isModalOpen && !hasFetchedModels.current && !modelsError) {
+    if (isModalOpen && activeTab === "single" && !hasFetchedModels.current && !modelsError) {
       hasFetchedModels.current = true;
 
       queueMicrotask(() => {
@@ -118,7 +120,7 @@ export function HeaderGenerateButton() {
           .finally(() => setModelsLoading(false));
       });
     }
-  }, [isModalOpen, modelsError]);
+  }, [activeTab, isModalOpen, modelsError]);
 
   const getModelDisplayCost = (model: ImageModel, selectedResolution: ImageResolution) =>
     getEstimatedCreditsCostForResolution(
@@ -126,6 +128,12 @@ export function HeaderGenerateButton() {
       selectedResolution,
       scenePlannerCreditsCost
     ) ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
+
+  const openGenerateModal = (tab: "single" | "bulk" = "single") => {
+    if (isGenerating) return;
+    setActiveTab(tab);
+    setIsModalOpen(true);
+  };
 
   // Group models by provider
   const groupedModels: Record<string, ImageModel[]> = models.reduce((acc, model) => {
@@ -174,7 +182,7 @@ export function HeaderGenerateButton() {
       <>
         {/* Mobile: icon button that opens modal */}
         <button
-          onClick={() => { if (!isGenerating) setIsModalOpen(true); }}
+          onClick={() => openGenerateModal("single")}
           disabled={isGenerating}
           className={`${mobileIconBtn} text-[var(--accent)] hover:text-[var(--accent-hover)] disabled:opacity-50 disabled:cursor-not-allowed`}
           aria-label="Generate new image"
@@ -186,24 +194,24 @@ export function HeaderGenerateButton() {
           )}
         </button>
 
-        {/* Mobile: bottom-sheet generation modal (portalled) */}
+        {/* Generation modal (bottom sheet on mobile, dialog on desktop) */}
         {isModalOpen && createPortal(
-          <div className="fixed inset-0 z-50 flex items-end justify-center sm:hidden">
+          <div className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-6">
             {/* Backdrop */}
             <div
               className="absolute inset-0 bg-black/50"
               onClick={() => setIsModalOpen(false)}
             />
 
-            {/* Modal panel — slides up from bottom */}
-            <div className="relative w-full max-h-[85vh] flex flex-col bg-[var(--background)] rounded-t-[var(--radius-lg)] animate-in slide-in-from-bottom duration-[var(--motion-base)]">
+            {/* Modal panel */}
+            <div className="relative w-full max-h-[85vh] flex flex-col bg-[var(--background)] rounded-t-[var(--radius-lg)] animate-in slide-in-from-bottom duration-[var(--motion-base)] sm:max-w-2xl sm:max-h-[90vh] sm:rounded-[var(--radius-lg)] sm:border sm:border-[var(--divider)]">
               {/* Drag handle */}
-              <div className="flex justify-center pt-3">
+              <div className="flex justify-center pt-3 sm:hidden">
                 <div className="w-10 h-1 rounded-full bg-[var(--divider)]" />
               </div>
 
               {/* Header */}
-              <div className="flex items-center justify-between px-6 pt-4 pb-4">
+              <div className="flex items-center justify-between px-6 pt-4 pb-2">
                 <h2 className="text-lg font-semibold text-[var(--foreground)]">Generate Image</h2>
                 <button
                   onClick={() => setIsModalOpen(false)}
@@ -214,8 +222,45 @@ export function HeaderGenerateButton() {
                 </button>
               </div>
 
+              {/* Tab bar */}
+              <div className="flex gap-1 mx-6 mb-4 p-1 rounded-[var(--radius-md)] bg-[var(--surface)]">
+                <button
+                  onClick={() => setActiveTab("single")}
+                  className={`flex-1 min-h-[32px] flex items-center justify-center gap-1.5 rounded-[var(--radius-sm)] text-xs font-medium transition-colors ${
+                    activeTab === "single"
+                      ? "bg-[var(--background)] text-[var(--foreground)] shadow-sm"
+                      : "text-[var(--muted)] hover:text-[var(--foreground)]"
+                  }`}
+                >
+                  <Sparkles size={12} strokeWidth={1.5} />
+                  Single
+                </button>
+                <button
+                  onClick={() => setActiveTab("bulk")}
+                  className={`flex-1 min-h-[32px] flex items-center justify-center gap-1.5 rounded-[var(--radius-sm)] text-xs font-medium transition-colors ${
+                    activeTab === "bulk"
+                      ? "bg-[var(--background)] text-[var(--foreground)] shadow-sm"
+                      : "text-[var(--muted)] hover:text-[var(--foreground)]"
+                  }`}
+                >
+                  <Layers size={12} strokeWidth={1.5} />
+                  Bulk
+                </button>
+              </div>
+
               {/* Scrollable content */}
               <div className="flex-1 overflow-y-auto overscroll-contain px-6" style={{ WebkitOverflowScrolling: "touch" }}>
+                {activeTab === "bulk" ? (
+                  <div className="pb-4">
+                    <BulkGeneratePanel
+                      perVerseCost={displayEffectiveCost}
+                      modelId={modelId}
+                      aspectRatio={aspectRatio}
+                      resolution={resolution}
+                      onClose={() => setIsModalOpen(false)}
+                    />
+                  </div>
+                ) : (
                 <div className="space-y-5 pb-4">
                   {/* Model Section */}
                   <div>
@@ -344,9 +389,11 @@ export function HeaderGenerateButton() {
                     </div>
                   </div>
                 </div>
+                )}
               </div>
 
-              {/* Sticky generate button at bottom */}
+              {/* Sticky generate button at bottom (single tab only) */}
+              {activeTab === "single" && (
               <div className="px-6 pt-4 pb-6 border-t border-[var(--divider)]" style={{ paddingBottom: "max(1.5rem, env(safe-area-inset-bottom))" }}>
                 <button
                   onClick={() => {
@@ -365,6 +412,7 @@ export function HeaderGenerateButton() {
                   )}
                 </button>
               </div>
+              )}
             </div>
           </div>,
           document.body,
@@ -372,7 +420,7 @@ export function HeaderGenerateButton() {
 
         {/* Desktop: styled pill */}
         <button
-          onClick={() => generate("header_generate")}
+          onClick={() => openGenerateModal("single")}
           disabled={isGenerating}
           className="hidden sm:inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] border border-[var(--accent)]/40 bg-[var(--accent)]/5 text-[var(--foreground)] hover:border-[var(--accent)]/70 hover:bg-[var(--accent)]/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-50 disabled:cursor-not-allowed text-xs font-medium"
           aria-label="Generate new image"
