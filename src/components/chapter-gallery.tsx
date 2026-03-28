@@ -10,7 +10,7 @@ import {
   type SetStateAction,
 } from "react";
 import Link from "next/link";
-import { Maximize2, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
@@ -31,6 +31,12 @@ import {
   trackImageFullscreenOpened,
   trackSavedImageLoadFailed,
 } from "@/lib/analytics";
+import {
+  getNextChapter,
+  getPreviousChapter,
+  type ChapterLocation,
+} from "@/lib/navigation";
+import { BOOK_BY_SLUG } from "@/data/bible-structure";
 import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
 import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 
@@ -273,6 +279,56 @@ function LightboxImageStage({
         />
       )}
     </div>
+  );
+}
+
+interface ChapterGalleryNavProps {
+  book: string;
+  chapter: number;
+}
+
+function ChapterGalleryNav({ book, chapter }: ChapterGalleryNavProps) {
+  const bibleBook = BOOK_BY_SLUG[book];
+  if (!bibleBook) return null;
+
+  const prev = getPreviousChapter(bibleBook, chapter);
+  const next = getNextChapter(bibleBook, chapter);
+
+  if (!prev && !next) return null;
+
+  return (
+    <nav
+      aria-label="Chapter navigation"
+      className="flex items-center justify-between gap-3"
+    >
+      {prev ? (
+        <Link
+          href={`/${prev.book.slug}/${prev.chapter}/1`}
+          className="inline-flex items-center gap-2 min-h-[44px] px-3 rounded-[var(--radius-md)] text-sm font-semibold text-[var(--foreground)] hover:bg-[var(--surface)] active:bg-[var(--surface)] active:scale-[0.97] transition-all duration-[var(--motion-fast)] focus-ring"
+          aria-label={`Previous chapter: ${prev.book.name} ${prev.chapter}`}
+        >
+          <ChevronLeft size={20} strokeWidth={2} className="text-[var(--muted)]" />
+          <span className="hidden sm:inline">{prev.book.name} {prev.chapter}</span>
+          <span className="sm:hidden">{prev.book.name.length > 12 ? `${prev.book.name.slice(0, 10)}…` : prev.book.name} {prev.chapter}</span>
+        </Link>
+      ) : (
+        <div />
+      )}
+
+      {next ? (
+        <Link
+          href={`/${next.book.slug}/${next.chapter}/1`}
+          className="inline-flex items-center gap-2 min-h-[44px] px-3 rounded-[var(--radius-md)] text-sm font-semibold text-[var(--foreground)] hover:bg-[var(--surface)] active:bg-[var(--surface)] active:scale-[0.97] transition-all duration-[var(--motion-fast)] focus-ring"
+          aria-label={`Next chapter: ${next.book.name} ${next.chapter}`}
+        >
+          <span className="hidden sm:inline">{next.book.name} {next.chapter}</span>
+          <span className="sm:hidden">{next.book.name.length > 12 ? `${next.book.name.slice(0, 10)}…` : next.book.name} {next.chapter}</span>
+          <ChevronRight size={20} strokeWidth={2} className="text-[var(--muted)]" />
+        </Link>
+      ) : (
+        <div />
+      )}
+    </nav>
   );
 }
 
@@ -579,6 +635,8 @@ export function ChapterGallery({
           </p>
         </div>
 
+        <ChapterGalleryNav book={book} chapter={chapter} />
+
         {layoutMode === "all" ? (
           <div
             aria-label="All images gallery"
@@ -702,6 +760,8 @@ export function ChapterGallery({
             })}
           </div>
         )}
+
+        <ChapterGalleryNav book={book} chapter={chapter} />
       </div>
 
       {/* Fullscreen lightbox */}
