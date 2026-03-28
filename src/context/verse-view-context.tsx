@@ -4,7 +4,9 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -29,11 +31,33 @@ interface VerseViewProviderProps {
   children: ReactNode;
 }
 
+interface PendingPreferenceChange {
+  source: PreferenceChangeSource;
+  view: VerseViewValue;
+}
+
 const VerseViewContext = createContext<VerseViewContextType | null>(null);
 
 export function VerseViewProvider({ children }: VerseViewProviderProps) {
   const { tier, credits } = useSession();
   const [effectiveView, setEffectiveViewState] = useState<VerseViewValue>("reader");
+  const pendingPreferenceChangeRef = useRef<PendingPreferenceChange | null>(null);
+
+  useEffect(() => {
+    const pendingChange = pendingPreferenceChangeRef.current;
+    if (!pendingChange || pendingChange.view !== effectiveView) {
+      return;
+    }
+
+    pendingPreferenceChangeRef.current = null;
+    trackPreferenceChanged({
+      preference: "chapterGallery",
+      value: effectiveView === "gallery" ? "enabled" : "disabled",
+      source: pendingChange.source,
+      tier,
+      hasCredits: credits > 0,
+    });
+  }, [credits, effectiveView, tier]);
 
   const setEffectiveView = useCallback((
     view: VerseViewValue,
@@ -43,18 +67,11 @@ export function VerseViewProvider({ children }: VerseViewProviderProps) {
       if (currentView === view) {
         return currentView;
       }
-
-      trackPreferenceChanged({
-        preference: "chapterGallery",
-        value: view === "gallery" ? "enabled" : "disabled",
-        source,
-        tier,
-        hasCredits: credits > 0,
-      });
+      pendingPreferenceChangeRef.current = { source, view };
 
       return view;
     });
-  }, [credits, tier]);
+  }, []);
 
   const markEngaged = useCallback((trigger: VerseViewEngagementTrigger) => {
     void trigger;
