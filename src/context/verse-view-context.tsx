@@ -33,14 +33,24 @@ interface PendingPreferenceChange {
   view: VerseViewValue;
 }
 
+interface VerseViewOverride {
+  baseView: VerseViewValue;
+  view: VerseViewValue;
+}
+
 const VerseViewContext = createContext<VerseViewContextType | null>(null);
 
 export function VerseViewProvider({ children }: VerseViewProviderProps) {
   const { tier, credits } = useSession();
   const searchParams = useSearchParams();
-  const initialView = searchParams.get("view") === "gallery" ? "gallery" : "reader";
-  const [effectiveView, setEffectiveViewState] = useState<VerseViewValue>(initialView);
+  const routeView: VerseViewValue =
+    searchParams.get("view") === "gallery" ? "gallery" : "reader";
+  const [viewOverride, setViewOverride] = useState<VerseViewOverride | null>(null);
   const pendingPreferenceChangeRef = useRef<PendingPreferenceChange | null>(null);
+  const effectiveView =
+    viewOverride && viewOverride.baseView === routeView
+      ? viewOverride.view
+      : routeView;
 
   useEffect(() => {
     const pendingChange = pendingPreferenceChangeRef.current;
@@ -62,15 +72,13 @@ export function VerseViewProvider({ children }: VerseViewProviderProps) {
     view: VerseViewValue,
     source: PreferenceChangeSource
   ) => {
-    setEffectiveViewState((currentView) => {
-      if (currentView === view) {
-        return currentView;
-      }
-      pendingPreferenceChangeRef.current = { source, view };
+    if (effectiveView === view) {
+      return;
+    }
 
-      return view;
-    });
-  }, []);
+    pendingPreferenceChangeRef.current = { source, view };
+    setViewOverride(view === routeView ? null : { baseView: routeView, view });
+  }, [effectiveView, routeView]);
 
   const value = useMemo(() => ({
     effectiveView,

@@ -163,7 +163,10 @@ export function getMaxScopeCount(
  * Get the total verse count for a book by slug.
  */
 export function getBookVerseCount(bookSlug: string): number {
-  const book = BOOK_BY_SLUG[bookSlug.toLowerCase()];
-  if (!book) return 0;
+  const key = bookSlug.toLowerCase();
+  if (!Object.prototype.hasOwnProperty.call(BOOK_BY_SLUG, key)) {
+    return 0;
+  }
+  const book = BOOK_BY_SLUG[key];
   return book.chapters.reduce((sum, v) => sum + v, 0);
 }

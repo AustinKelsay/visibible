@@ -22,6 +22,10 @@ export function setMockFetchBibleApiBypass(
   mockFetchBibleApiBypass = bypass;
 }
 
+export function resetMockFetchBibleApiBypass() {
+  mockFetchBibleApiBypass = null;
+}
+
 function matchesExactBibleApiReference(
   url: URL,
   reference: string,

@@ -352,7 +352,8 @@ export function ChapterGallery({
   const fullscreenDialogRef = useRef<HTMLDivElement>(null);
   const lastViewedKeyRef = useRef<string | null>(null);
   const previousLayoutModeRef = useRef<GalleryLayoutMode | null>(null);
-  const isGalleryActive = effectiveView === "gallery" || isFullscreen;
+  const isLightboxOpen = lightboxItem !== null;
+  const isGalleryActive = effectiveView === "gallery" || isLightboxOpen;
 
   const handleExpand = useCallback((item: ChapterGalleryFlatItem) => {
     setEffectiveView("gallery", "chapter_gallery_card");
@@ -396,7 +397,7 @@ export function ChapterGallery({
     }
 
     setEffectiveView("reader", "chapter_gallery_card");
-    if (isFullscreen) {
+    if (isLightboxOpen) {
       handleCloseLightbox();
     }
   }, [
@@ -405,7 +406,7 @@ export function ChapterGallery({
     credits,
     currentVerse,
     handleCloseLightbox,
-    isFullscreen,
+    isLightboxOpen,
     layoutMode,
     setEffectiveView,
     tier,
@@ -419,7 +420,7 @@ export function ChapterGallery({
   const normalizedGalleryImages = normalizeChapterGalleryImages(galleryImages);
 
   useEffect(() => {
-    if (!isFullscreen || !lightboxItem) {
+    if (!isLightboxOpen || !lightboxItem) {
       return;
     }
 
@@ -485,7 +486,7 @@ export function ChapterGallery({
         previousFocusedElement.focus();
       }
     };
-  }, [handleCloseLightbox, isFullscreen, lightboxItem]);
+  }, [handleCloseLightbox, isLightboxOpen, lightboxItem]);
 
   const groupedItems = buildChapterGalleryItems({
     book,
@@ -770,7 +771,7 @@ export function ChapterGallery({
       </div>
 
       {/* Fullscreen lightbox */}
-      {isFullscreen && lightboxItem && (
+      {isLightboxOpen && isFullscreen && lightboxItem && (
         <div
           ref={fullscreenDialogRef}
           className="fixed inset-0 z-[60] bg-black flex flex-col"

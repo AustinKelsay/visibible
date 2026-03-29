@@ -231,7 +231,12 @@ export function HeaderGenerateButton() {
 
         {/* Generation modal (bottom sheet on mobile, dialog on desktop) */}
         {isModalOpen && createPortal(
-          <div className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-6">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="generate-image-title"
+            className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-6"
+          >
             {/* Backdrop */}
             <div
               className="absolute inset-0 bg-black/50"
@@ -247,7 +252,9 @@ export function HeaderGenerateButton() {
 
               {/* Header */}
               <div className="flex items-center justify-between px-6 pt-4 pb-2">
-                <h2 className="text-lg font-semibold text-[var(--foreground)]">Generate Image</h2>
+                <h2 id="generate-image-title" className="text-lg font-semibold text-[var(--foreground)]">
+                  Generate Image
+                </h2>
                 <button
                   onClick={() => setIsModalOpen(false)}
                   className="p-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"

@@ -7,6 +7,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { fixtures, type Session } from "../shared/test-fixtures";
 import {
   mockFetchBibleApi,
+  resetMockFetchBibleApiBypass,
   setMockFetchBibleApiBypass,
 } from "@/app/api/__tests__/shared/bible-api-mocks";
 
@@ -401,7 +402,7 @@ describe("Image Generation API Credit Flow", () => {
     resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 }]);
     mockFetchResponse = null;
     mockFetchImpl = null;
-    setMockFetchBibleApiBypass(null);
+    resetMockFetchBibleApiBypass();
     forceQuoteFailure = false;
     forceRecordImageCostEventFailure = false;
     mockLearnedEstimate = null;
@@ -411,7 +412,7 @@ describe("Image Generation API Credit Flow", () => {
   afterEach(() => {
     process.env = { ...originalEnv };
     global.fetch = originalFetch;
-    setMockFetchBibleApiBypass(null);
+    resetMockFetchBibleApiBypass();
   });
 
   describe("Happy Path", () => {

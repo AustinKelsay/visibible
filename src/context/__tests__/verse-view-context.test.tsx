@@ -5,6 +5,7 @@ import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useVerseView, VerseViewProvider } from "@/context/verse-view-context";
 import { trackPreferenceChanged } from "@/lib/analytics";
+import type { VerseViewValue } from "@/lib/verse-view";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -17,7 +18,7 @@ vi.mock("@/context/session-context", () => ({
   useSession: vi.fn(() => sessionState),
 }));
 
-const searchParamsGetMock = vi.fn(() => null);
+const searchParamsGetMock = vi.fn<(key: string) => string | null>(() => null);
 
 vi.mock("next/navigation", () => ({
   useSearchParams: vi.fn(() => ({
@@ -37,11 +38,15 @@ function ExposureHarness() {
 describe("VerseViewProvider", () => {
   let container: HTMLDivElement | null = null;
   let root: Root | null = null;
+  let searchParamView: VerseViewValue | null = null;
 
   beforeEach(() => {
     vi.clearAllMocks();
     sessionState.credits = 10;
-    searchParamsGetMock.mockReturnValue(null);
+    searchParamView = null;
+    searchParamsGetMock.mockImplementation((key: string) => (
+      key === "view" ? searchParamView : null
+    ));
     container = document.createElement("div");
     document.body.appendChild(container);
     root = createRoot(container);
@@ -73,6 +78,24 @@ describe("VerseViewProvider", () => {
 
     expect(container?.querySelector("[data-settled]")?.getAttribute("data-settled")).toBe("true");
     expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("reader");
+  });
+
+  it("initializes to the gallery view from the query string", async () => {
+    searchParamView = "gallery";
+
+    await renderProvider(<ExposureHarness />);
+
+    expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("gallery");
+  });
+
+  it("syncs back to the query-string view after the URL changes", async () => {
+    await renderProvider(<ExposureHarness />);
+    expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("reader");
+
+    searchParamView = "gallery";
+    await renderProvider(<ExposureHarness />);
+
+    expect(container?.querySelector("[data-view]")?.getAttribute("data-view")).toBe("gallery");
   });
 
   it("tracks preference changes when the gallery is toggled on", async () => {

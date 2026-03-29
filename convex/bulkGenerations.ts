@@ -1,8 +1,5 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
-import type { Doc } from "./_generated/dataModel";
-
-type BulkGenerationVerse = Doc<"bulkGenerationVerses">;
 
 const bulkGenerationVerseStatusValidator = v.union(
   v.literal("queued"),
@@ -27,6 +24,7 @@ const BULK_VERSE_STATUS_ORDER = {
 } as const;
 
 const BULK_VERSE_INSERT_CHUNK_SIZE = 300;
+const DEFAULT_BULK_VERSE_QUERY_LIMIT = 100;
 
 // ---------------------------------------------------------------------------
 // Mutations
@@ -196,14 +194,14 @@ export const getVerses = query({
       );
     const safeLimit =
       typeof args.limit === "number" && Number.isFinite(args.limit)
-        ? Math.max(1, Math.floor(args.limit))
-        : undefined;
+        ? Math.min(DEFAULT_BULK_VERSE_QUERY_LIMIT, Math.max(1, Math.floor(args.limit)))
+        : DEFAULT_BULK_VERSE_QUERY_LIMIT;
     const safeOffset =
       typeof args.offset === "number" && Number.isFinite(args.offset)
         ? Math.max(0, Math.floor(args.offset))
         : 0;
 
-    if (safeOffset === 0 && safeLimit !== undefined) {
+    if (safeOffset === 0) {
       return await verseQuery.take(safeLimit);
     }
     if (safeOffset > 0) {
@@ -218,7 +216,7 @@ export const getVerses = query({
           )
           .paginate({
             cursor,
-            numItems: Math.min(remainingOffset, safeLimit ?? 100),
+            numItems: Math.min(remainingOffset, DEFAULT_BULK_VERSE_QUERY_LIMIT),
           });
 
         remainingOffset -= page.page.length;
@@ -229,43 +227,19 @@ export const getVerses = query({
         }
       }
 
-      if (safeLimit !== undefined) {
-        return (
-          await ctx.db
-            .query("bulkGenerationVerses")
-            .withIndex("by_bulk_order", (q) =>
-              q.eq("bulkGenerationId", args.bulkGenerationId)
-            )
-            .paginate({
-              cursor,
-              numItems: safeLimit,
-            })
-        ).page;
-      }
-
-      const verses: BulkGenerationVerse[] = [];
-      let pageCursor = cursor;
-      let done = false;
-
-      while (!done) {
-        const page = await ctx.db
+      return (
+        await ctx.db
           .query("bulkGenerationVerses")
           .withIndex("by_bulk_order", (q) =>
             q.eq("bulkGenerationId", args.bulkGenerationId)
           )
           .paginate({
-            cursor: pageCursor,
-            numItems: 100,
-          });
-
-        verses.push(...page.page);
-        pageCursor = page.continueCursor;
-        done = page.isDone;
-      }
-
-      return verses;
+            cursor,
+            numItems: safeLimit,
+          })
+      ).page;
     }
-    return await verseQuery.collect();
+    return await verseQuery.take(safeLimit);
   },
 });
 

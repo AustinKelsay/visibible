@@ -21,11 +21,13 @@ export function ChatFAB() {
   return (
     <button
       onClick={openChat}
-      style={verseNav
-        ? { bottom: MOBILE_VERSE_NAV_OFFSET }
-        : { marginBottom: "env(safe-area-inset-bottom)" }}
+      style={{
+        bottom: verseNav
+          ? MOBILE_VERSE_NAV_OFFSET
+          : "calc(env(safe-area-inset-bottom) + 1.5rem)",
+      }}
       className={`
-        fixed right-4 bottom-6 z-30
+        fixed right-4 z-30
         sm:hidden
         min-h-[48px] min-w-[48px]
         flex items-center justify-center
