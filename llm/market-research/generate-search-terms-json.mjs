@@ -40,6 +40,24 @@ const validRecords = records.filter((record) => record.term.length > 0);
 if (validRecords.length === 0) {
   throw new Error("Parse produced zero records; refusing to write JSON output.");
 }
+const termFrequency = new Map();
+for (const record of validRecords) {
+  const normalizedTerm = record.term.trim().toLowerCase();
+  if (!normalizedTerm) continue;
+  termFrequency.set(normalizedTerm, (termFrequency.get(normalizedTerm) ?? 0) + 1);
+}
+const duplicateTerms = [...termFrequency.entries()]
+  .filter(([, count]) => count > 1)
+  .sort((a, b) => b[1] - a[1]);
+if (duplicateTerms.length > 0) {
+  const preview = duplicateTerms
+    .slice(0, 5)
+    .map(([term, count]) => `"${term}" (${count}x)`)
+    .join(", ");
+  throw new Error(
+    `Duplicate search terms detected (${duplicateTerms.length} unique duplicates). Examples: ${preview}`
+  );
+}
 if (!Number.isFinite(minRecordCount) || minRecordCount < 1) {
   throw new Error(`Invalid MIN_SEARCH_TERM_RECORDS: ${process.env.MIN_SEARCH_TERM_RECORDS ?? "<unset>"}`);
 }

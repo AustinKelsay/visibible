@@ -597,7 +597,7 @@ Organized across 72 categories mapping to different audience segments and intent
 516. second coming of Jesus
 517. Bible timeline of the end
 518. are we in the last days
-519. Bible prophecy
+519. prophecy in the Bible
 520. tribulation explained Bible
 
 ### Category 34: Worship / Music / Spiritual Practice Adjacent

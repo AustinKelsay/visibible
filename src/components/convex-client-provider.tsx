@@ -5,9 +5,11 @@ import { ReactNode, createContext, useContext } from "react";
 
 const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
 const normalizedConvexUrl = convexUrl?.trim();
-const convex = new ConvexReactClient(
-  normalizedConvexUrl || "https://placeholder.convex.invalid"
-);
+const placeholderConvexUrl = "https://placeholder.convex.invalid";
+const convexClientUrl = normalizedConvexUrl || placeholderConvexUrl;
+const convex = new ConvexReactClient(convexClientUrl, {
+  skipConvexDeploymentUrlCheck: convexClientUrl === placeholderConvexUrl,
+});
 const ConvexAvailabilityContext = createContext(false);
 
 export function useConvexEnabled() {

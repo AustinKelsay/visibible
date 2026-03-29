@@ -4,7 +4,7 @@ export type TestFetchResponse = {
   json: () => Promise<unknown>;
 };
 
-function normalizeFetchUrl(input: RequestInfo | URL): string {
+export function normalizeFetchUrl(input: RequestInfo | URL): string {
   return typeof input === "string"
     ? input
     : input instanceof URL
@@ -55,6 +55,13 @@ export function mockFetchBibleApi(input: RequestInfo | URL): TestFetchResponse |
             chapter: 1,
             verse: 2,
             text: "The earth was formless and empty.",
+          },
+          {
+            book_id: "GEN",
+            book_name: "Genesis",
+            chapter: 1,
+            verse: 3,
+            text: "God said, Let there be light; and there was light.",
           },
         ],
       }),

@@ -23,6 +23,8 @@ const BULK_VERSE_STATUS_ORDER = {
   skipped: 2,
 } as const;
 
+const BULK_VERSE_INSERT_CHUNK_SIZE = 300;
+
 // ---------------------------------------------------------------------------
 // Mutations
 // ---------------------------------------------------------------------------
@@ -109,16 +111,21 @@ export const create = mutation({
       updatedAt: now,
     });
 
-    await Promise.all(args.verses.map((verse) =>
-      ctx.db.insert("bulkGenerationVerses", {
-        bulkGenerationId: bulkId,
-        verseId: verse.verseId,
-        reference: verse.reference,
-        order: verse.order,
-        status: "queued",
-        updatedAt: now,
-      })
-    ));
+    for (let start = 0; start < args.verses.length; start += BULK_VERSE_INSERT_CHUNK_SIZE) {
+      const chunk = args.verses.slice(start, start + BULK_VERSE_INSERT_CHUNK_SIZE);
+      await Promise.all(
+        chunk.map((verse) =>
+          ctx.db.insert("bulkGenerationVerses", {
+            bulkGenerationId: bulkId,
+            verseId: verse.verseId,
+            reference: verse.reference,
+            order: verse.order,
+            status: "queued",
+            updatedAt: now,
+          })
+        )
+      );
+    }
 
     return {
       bulkId,
@@ -173,14 +180,35 @@ export const get = query({
  * Get all verse entries for a bulk generation, ordered by position.
  */
 export const getVerses = query({
-  args: { bulkGenerationId: v.id("bulkGenerations") },
+  args: {
+    bulkGenerationId: v.id("bulkGenerations"),
+    limit: v.optional(v.number()),
+    offset: v.optional(v.number()),
+  },
   handler: async (ctx, args) => {
-    return await ctx.db
+    const verseQuery = ctx.db
       .query("bulkGenerationVerses")
       .withIndex("by_bulk_order", (q) =>
         q.eq("bulkGenerationId", args.bulkGenerationId)
-      )
-      .collect();
+      );
+    const safeLimit =
+      typeof args.limit === "number" && Number.isFinite(args.limit)
+        ? Math.max(1, Math.floor(args.limit))
+        : undefined;
+    const safeOffset =
+      typeof args.offset === "number" && Number.isFinite(args.offset)
+        ? Math.max(0, Math.floor(args.offset))
+        : 0;
+
+    if (safeOffset === 0 && safeLimit !== undefined) {
+      return await verseQuery.take(safeLimit);
+    }
+
+    const allVerses = await verseQuery.collect();
+    if (safeLimit === undefined) {
+      return allVerses.slice(safeOffset);
+    }
+    return allVerses.slice(safeOffset, safeOffset + safeLimit);
   },
 });
 
@@ -292,12 +320,13 @@ export const pause = mutation({
   args: { id: v.id("bulkGenerations") },
   handler: async (ctx, args) => {
     const bulk = await ctx.db.get(args.id);
-    if (!bulk || bulk.status !== "active") return;
+    if (!bulk || bulk.status !== "active") return { updated: false };
 
     await ctx.db.patch(args.id, {
       status: "paused",
       updatedAt: Date.now(),
     });
+    return { updated: true };
   },
 });
 
@@ -308,12 +337,13 @@ export const resume = mutation({
   args: { id: v.id("bulkGenerations") },
   handler: async (ctx, args) => {
     const bulk = await ctx.db.get(args.id);
-    if (!bulk || bulk.status !== "paused") return;
+    if (!bulk || bulk.status !== "paused") return { updated: false };
 
     await ctx.db.patch(args.id, {
       status: "active",
       updatedAt: Date.now(),
     });
+    return { updated: true };
   },
 });
 
@@ -324,12 +354,15 @@ export const cancel = mutation({
   args: { id: v.id("bulkGenerations") },
   handler: async (ctx, args) => {
     const bulk = await ctx.db.get(args.id);
-    if (!bulk || (bulk.status !== "active" && bulk.status !== "paused")) return;
+    if (!bulk || (bulk.status !== "active" && bulk.status !== "paused")) {
+      return { updated: false };
+    }
 
     await ctx.db.patch(args.id, {
       status: "cancelled",
       updatedAt: Date.now(),
       completedAt: Date.now(),
     });
+    return { updated: true };
   },
 });

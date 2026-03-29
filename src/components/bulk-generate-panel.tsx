@@ -69,14 +69,19 @@ export function BulkGeneratePanel({
     );
   }, [verseNav]);
 
-  const scope: BulkScope = useMemo(
-    () => ({ type: scopeType, count }),
-    [scopeType, count]
-  );
-
   const maxCount = useMemo(
     () => (currentLocation ? getMaxScopeCount(scopeType, currentLocation) : 1),
     [scopeType, currentLocation]
+  );
+
+  const effectiveCount = useMemo(
+    () => Math.max(1, Math.min(count, maxCount)),
+    [count, maxCount]
+  );
+
+  const scope: BulkScope = useMemo(
+    () => ({ type: scopeType, count: effectiveCount }),
+    [scopeType, effectiveCount]
   );
 
   // Build the verse queue
@@ -190,12 +195,12 @@ export function BulkGeneratePanel({
             <div className="flex items-center justify-between">
               <span className="text-sm text-[var(--foreground)]">
                 Next{" "}
-                <span className="font-medium">{count}</span>{" "}
+                <span className="font-medium">{effectiveCount}</span>{" "}
                 {scopeType === "verses"
-                  ? count === 1
+                  ? effectiveCount === 1
                     ? "verse"
                     : "verses"
-                  : count === 1
+                  : effectiveCount === 1
                     ? "chapter"
                     : "chapters"}
               </span>
@@ -209,7 +214,7 @@ export function BulkGeneratePanel({
                   <Minus size={14} />
                 </button>
                 <span className="min-w-[32px] text-center text-sm font-medium tabular-nums">
-                  {count}
+                  {effectiveCount}
                 </span>
                 <button
                   onClick={() => setCount((c) => Math.min(maxCount, c + (scopeType === "verses" ? 5 : 1)))}

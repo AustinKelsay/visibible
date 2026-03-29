@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
 
 export interface VerseNavData {
   book: string;
@@ -20,9 +20,10 @@ const VerseNavContext = createContext<VerseNavContextValue | null>(null);
 
 export function VerseNavProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<VerseNavData | null>(null);
+  const contextValue = useMemo(() => ({ data, setData }), [data]);
 
   return (
-    <VerseNavContext.Provider value={{ data, setData }}>
+    <VerseNavContext.Provider value={contextValue}>
       {children}
     </VerseNavContext.Provider>
   );

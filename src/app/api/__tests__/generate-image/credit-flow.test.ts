@@ -5,6 +5,7 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { fixtures, type Session } from "../shared/test-fixtures";
+import { normalizeFetchUrl } from "../shared/bible-api-mocks";
 
 // Create mock state
 const mockState = {
@@ -333,14 +334,6 @@ let mockFetchImpl:
   | ((input: RequestInfo | URL, init?: RequestInit) => Promise<unknown>)
   | null = null;
 
-function getMockFetchUrl(input: RequestInfo | URL) {
-  return typeof input === "string"
-    ? input
-    : input instanceof URL
-      ? input.toString()
-      : input.url;
-}
-
 function buildBibleApiResponse(url: string): MockFetchResponse | null {
   if (url.includes("bible-api.com/Genesis%201%3A1?translation=web")) {
     return {
@@ -418,7 +411,7 @@ function buildBibleApiResponse(url: string): MockFetchResponse | null {
 }
 
 const mockFetch = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
-  const bibleApiResponse = buildBibleApiResponse(getMockFetchUrl(input));
+  const bibleApiResponse = buildBibleApiResponse(normalizeFetchUrl(input));
   if (bibleApiResponse) {
     return bibleApiResponse;
   }

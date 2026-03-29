@@ -65,7 +65,7 @@ export function VersePageContent({
           <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-[var(--surface-muted)] via-[var(--surface)] to-[var(--surface-muted)]" />
           <div className="absolute left-4 md:left-6 right-4 md:right-6 top-4 h-12 rounded-[var(--radius-lg)] bg-[var(--background)]/60" />
         </div>
-        <div className="flex-1 py-8">
+        <div className="flex-1 py-4 md:py-8">
           <div className="max-w-2xl mx-auto w-full px-4 space-y-4 animate-pulse">
             <div className="h-4 w-24 rounded-full bg-[var(--surface-muted)]" />
             <div className="h-8 w-3/4 rounded-full bg-[var(--surface-muted)]" />

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Check, X, Loader2, Pause, Play, Zap, CircleDot, Minus } from "lucide-react";
 import { useBulkGeneration } from "@/context/bulk-generation-context";
 import { useQuery } from "convex/react";
@@ -18,9 +19,18 @@ export function BulkGenerationProgress({ onClose }: BulkGenerationProgressProps)
     dismissBulkGeneration,
   } = useBulkGeneration();
 
+  const PAGE_SIZE = 50;
+  const [page, setPage] = useState(0);
+
   const verses = useQuery(
     api.bulkGenerations.getVerses,
-    state.bulkId ? { bulkGenerationId: state.bulkId } : "skip"
+    state.bulkId
+      ? {
+          bulkGenerationId: state.bulkId,
+          limit: PAGE_SIZE,
+          offset: page * PAGE_SIZE,
+        }
+      : "skip"
   );
 
   const {
@@ -37,6 +47,8 @@ export function BulkGenerationProgress({ onClose }: BulkGenerationProgressProps)
   const processedCount = completedCount + failedCount + skippedCount;
   const progressPercent = totalVerses > 0 ? (processedCount / totalVerses) * 100 : 0;
   const isFinished = status === "completed" || status === "cancelled";
+  const hasPreviousPage = page > 0;
+  const hasNextPage = (page + 1) * PAGE_SIZE < totalVerses;
 
   // ---------------------------------------------------------------------------
   // Completion / Cancelled view
@@ -161,25 +173,48 @@ export function BulkGenerationProgress({ onClose }: BulkGenerationProgressProps)
 
       {/* Verse list */}
       {verses && verses.length > 0 && (
-        <div className="max-h-36 overflow-y-auto overscroll-contain rounded-[var(--radius-md)] border border-[var(--divider)]">
-          <div className="divide-y divide-[var(--divider)]">
-            {verses.map((v) => (
-              <div
-                key={v._id}
-                className="flex items-center gap-2.5 px-3 py-2"
-              >
-                <VerseStatusIcon status={v.status} />
-                <span className="text-xs text-[var(--foreground)] flex-1 truncate">
-                  {v.reference}
-                </span>
-                {v.creditsCost != null && (
-                  <span className="text-[10px] text-[var(--muted)] tabular-nums flex items-center gap-0.5">
-                    <Zap size={9} strokeWidth={2} />
-                    {v.creditsCost}
+        <div className="space-y-2">
+          <div className="max-h-36 overflow-y-auto overscroll-contain rounded-[var(--radius-md)] border border-[var(--divider)]">
+            <div className="divide-y divide-[var(--divider)]">
+              {verses.map((v) => (
+                <div
+                  key={v._id}
+                  className="flex items-center gap-2.5 px-3 py-2"
+                >
+                  <VerseStatusIcon status={v.status} />
+                  <span className="text-xs text-[var(--foreground)] flex-1 truncate">
+                    {v.reference}
                   </span>
-                )}
-              </div>
-            ))}
+                  {v.creditsCost != null && (
+                    <span className="text-[10px] text-[var(--muted)] tabular-nums flex items-center gap-0.5">
+                      <Zap size={9} strokeWidth={2} />
+                      {v.creditsCost}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex items-center justify-between text-xs">
+            <button
+              type="button"
+              onClick={() => setPage((value) => Math.max(0, value - 1))}
+              disabled={!hasPreviousPage}
+              className="min-h-[28px] px-2 rounded-[var(--radius-sm)] border border-[var(--divider)] text-[var(--foreground)] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--surface)] transition-colors"
+            >
+              Previous
+            </button>
+            <span className="text-[var(--muted)]">
+              Page {page + 1}
+            </span>
+            <button
+              type="button"
+              onClick={() => setPage((value) => value + 1)}
+              disabled={!hasNextPage}
+              className="min-h-[28px] px-2 rounded-[var(--radius-sm)] border border-[var(--divider)] text-[var(--foreground)] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--surface)] transition-colors"
+            >
+              Next
+            </button>
           </div>
         </div>
       )}

@@ -28,7 +28,11 @@ function GalleryToggleButton({
 
   return (
     <button
-      className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
+      className={`min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors duration-[var(--motion-fast)] ${
+        galleryOpen
+          ? "text-[var(--accent)] bg-[var(--accent)]/12 ring-1 ring-[var(--accent)]/35 rounded-[var(--radius-sm)]"
+          : "text-[var(--muted)] hover:text-[var(--foreground)]"
+      }`}
       aria-label={label}
       title={title}
       aria-pressed={galleryOpen}
