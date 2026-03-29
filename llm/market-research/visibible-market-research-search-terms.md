@@ -533,7 +533,6 @@ Organized across 72 categories mapping to different audience segments and intent
 460. men leaving the church
 
 ### Category 30: Women's Faith / Bible + Women
-461. women in the Bible
 462. strong women in the Bible
 463. Bible and womanhood
 464. Christian women
@@ -1106,7 +1105,6 @@ Organized across 72 categories mapping to different audience segments and intent
 955. non-Christian parents Christian kid
 
 ### Category 69: Bible + AI-Generated Content / Future of Faith Media
-956. AI generated Bible images
 957. AI Bible illustrations
 958. Bible and artificial intelligence
 959. future of Bible study

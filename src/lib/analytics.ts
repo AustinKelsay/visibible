@@ -211,7 +211,7 @@ type ImageBrowsedProps = BaseProps & {
   chapter: number;
   verse: number;
   direction: "older" | "newer";
-  surface: "desktop_dock" | "mobile_overlay" | "fullscreen";
+  surface: "desktop_dock" | "overlay" | "fullscreen";
   currentIndex: number;
   totalImages: number;
   imageId?: string;

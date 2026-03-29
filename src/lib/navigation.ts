@@ -129,7 +129,6 @@ export function parseVerseUrl(
     return null;
   }
   const book = BOOK_BY_SLUG[normalizedBookSlug];
-  if (!book) return null;
 
   const chapterNum = parseInt(chapter, 10);
   const verseNum = parseInt(verse, 10);
@@ -243,7 +242,6 @@ export function getVersesInChapterRange(
     return [];
   }
   const book = BOOK_BY_SLUG[normalizedBookSlug];
-  if (!book) return [];
 
   const verses: VerseLocation[] = [];
   const clampedStartChapter = Math.max(1, startChapter);
@@ -269,7 +267,6 @@ export function getAllVersesInBook(bookSlug: string): VerseLocation[] {
     return [];
   }
   const book = BOOK_BY_SLUG[normalizedBookSlug];
-  if (!book) return [];
 
   const verses: VerseLocation[] = [];
   for (let ch = 1; ch <= book.chapters.length; ch++) {

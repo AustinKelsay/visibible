@@ -987,7 +987,7 @@ function HeroImageBase({
   ]);
 
   // Image navigation functions
-  const goToPrevImage = useCallback((surface: "desktop_dock" | "mobile_overlay" | "fullscreen") => {
+  const goToPrevImage = useCallback((surface: "desktop_dock" | "overlay" | "fullscreen") => {
     if (!imageHistory || imageHistory.length === 0) return;
     const idx = selectedImageId
       ? imageHistory.findIndex((img) => img.id === selectedImageId)
@@ -1013,7 +1013,7 @@ function HeroImageBase({
     }
   }, [selectedImageId, imageHistory, book, chapter, verse, tier, credits]);
 
-  const goToNextImage = useCallback((surface: "desktop_dock" | "mobile_overlay" | "fullscreen") => {
+  const goToNextImage = useCallback((surface: "desktop_dock" | "overlay" | "fullscreen") => {
     if (!imageHistory || imageHistory.length === 0) return;
     const idx = selectedImageId
       ? imageHistory.findIndex((img) => img.id === selectedImageId)
@@ -1055,7 +1055,7 @@ function HeroImageBase({
 
   const handleSwipeEnd = useCallback((
     event: TouchEvent<HTMLDivElement>,
-    surface: "mobile_overlay" | "fullscreen",
+    surface: "overlay" | "fullscreen",
   ) => {
     const swipeStart = swipeStartRef.current;
     swipeStartRef.current = null;
@@ -1222,7 +1222,7 @@ function HeroImageBase({
         className="relative w-full overflow-hidden bg-[var(--image-stage)] aspect-[4/5] sm:[aspect-ratio:var(--ar)]"
         style={{ "--ar": containerAspectRatioCss, touchAction: "pan-y" } as React.CSSProperties}
         onTouchStart={handleSwipeStart}
-        onTouchEnd={(event) => handleSwipeEnd(event, "mobile_overlay")}
+        onTouchEnd={(event) => handleSwipeEnd(event, "overlay")}
         onTouchCancel={resetSwipe}
       >
         {displayImage?.url ? (
@@ -1445,7 +1445,7 @@ function HeroImageBase({
           <div className="sm:hidden">
             {/* Left arrow - newer image */}
             <button
-              onClick={() => goToNextImage("mobile_overlay")}
+              onClick={() => goToNextImage("overlay")}
               disabled={!canGoNewer}
               className="absolute left-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
               aria-label="Newer image"
@@ -1455,7 +1455,7 @@ function HeroImageBase({
 
             {/* Right arrow - older image */}
             <button
-              onClick={() => goToPrevImage("mobile_overlay")}
+              onClick={() => goToPrevImage("overlay")}
               disabled={!canGoOlder}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
               aria-label="Older image"

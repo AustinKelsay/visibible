@@ -238,6 +238,15 @@ export const updateVerseStatus = mutation({
     ) {
       return { updated: false };
     }
+    const bulkGeneration = await ctx.db.get(args.bulkGenerationId);
+    if (!bulkGeneration) return { updated: false };
+    if (
+      verse.status === "queued" &&
+      args.status === "generating" &&
+      (bulkGeneration.status === "paused" || bulkGeneration.status === "cancelled")
+    ) {
+      return { updated: false };
+    }
 
     const isSameStatus = verse.status === args.status;
     const isForwardTransition =
@@ -247,6 +256,9 @@ export const updateVerseStatus = mutation({
       verse.status === "failed" ||
       verse.status === "skipped";
     const canTransition = isSameStatus || (!isTerminalStatus && isForwardTransition);
+    if (!canTransition) {
+      return { updated: false };
+    }
 
     const patch: {
       status?: typeof args.status;
@@ -255,10 +267,8 @@ export const updateVerseStatus = mutation({
       updatedAt?: number;
     } = {};
 
-    if (canTransition) {
-      patch.status = args.status;
-      patch.updatedAt = Date.now();
-    }
+    patch.status = args.status;
+    patch.updatedAt = Date.now();
     if (args.creditsCost !== undefined) {
       patch.creditsCost = args.creditsCost;
     }

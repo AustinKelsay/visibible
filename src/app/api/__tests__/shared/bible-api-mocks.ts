@@ -34,6 +34,25 @@ export function mockFetchBibleApi(input: RequestInfo | URL): TestFetchResponse |
     };
   }
 
+  if (url.includes("bible-api.com/Genesis%201%3A3?translation=web")) {
+    return {
+      ok: true,
+      status: 200,
+      json: async () => ({
+        reference: "Genesis 1:3",
+        verses: [
+          {
+            book_id: "GEN",
+            book_name: "Genesis",
+            chapter: 1,
+            verse: 3,
+            text: "God said, Let there be light; and there was light.",
+          },
+        ],
+      }),
+    };
+  }
+
   if (url.includes("bible-api.com/data/web/GEN/1")) {
     return {
       ok: true,

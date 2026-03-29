@@ -5,7 +5,7 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { fixtures, type Session } from "../shared/test-fixtures";
-import { normalizeFetchUrl } from "../shared/bible-api-mocks";
+import { mockFetchBibleApi } from "../shared/bible-api-mocks";
 
 // Create mock state
 const mockState = {
@@ -334,84 +334,8 @@ let mockFetchImpl:
   | ((input: RequestInfo | URL, init?: RequestInit) => Promise<unknown>)
   | null = null;
 
-function buildBibleApiResponse(url: string): MockFetchResponse | null {
-  if (url.includes("bible-api.com/Genesis%201%3A1?translation=web")) {
-    return {
-      ok: true,
-      status: 200,
-      json: async () => ({
-        reference: "Genesis 1:1",
-        verses: [
-          {
-            book_id: "GEN",
-            book_name: "Genesis",
-            chapter: 1,
-            verse: 1,
-            text: "In the beginning God created the heavens and the earth.",
-          },
-        ],
-      }),
-    };
-  }
-
-  if (url.includes("bible-api.com/Genesis%201%3A3?translation=web")) {
-    return {
-      ok: true,
-      status: 200,
-      json: async () => ({
-        reference: "Genesis 1:3",
-        verses: [
-          {
-            book_id: "GEN",
-            book_name: "Genesis",
-            chapter: 1,
-            verse: 3,
-            text: "God said, Let there be light; and there was light.",
-          },
-        ],
-      }),
-    };
-  }
-
-  if (url.includes("bible-api.com/data/web/GEN/1")) {
-    return {
-      ok: true,
-      status: 200,
-      json: async () => ({
-        translation_id: "web",
-        translation_name: "World English Bible",
-        verses: [
-          {
-            book_id: "GEN",
-            book_name: "Genesis",
-            chapter: 1,
-            verse: 1,
-            text: "In the beginning God created the heavens and the earth.",
-          },
-          {
-            book_id: "GEN",
-            book_name: "Genesis",
-            chapter: 1,
-            verse: 2,
-            text: "The earth was formless and empty.",
-          },
-          {
-            book_id: "GEN",
-            book_name: "Genesis",
-            chapter: 1,
-            verse: 3,
-            text: "God said, Let there be light; and there was light.",
-          },
-        ],
-      }),
-    };
-  }
-
-  return null;
-}
-
 const mockFetch = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
-  const bibleApiResponse = buildBibleApiResponse(normalizeFetchUrl(input));
+  const bibleApiResponse = mockFetchBibleApi(input);
   if (bibleApiResponse) {
     return bibleApiResponse;
   }

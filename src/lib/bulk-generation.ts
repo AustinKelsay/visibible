@@ -54,6 +54,8 @@ export function buildVerseQueue(
       break;
 
     case "chapters": {
+      // When the current verse already finishes its chapter, allow a +1 startChapter
+      // so the overflow guard below can return an empty queue at the end of the book.
       const startChapter =
         current.verse >= current.book.chapters[current.chapter - 1]
           ? Math.min(current.chapter + 1, current.book.chapters.length + 1)

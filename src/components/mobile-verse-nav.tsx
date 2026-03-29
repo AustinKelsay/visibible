@@ -43,18 +43,16 @@ export function MobileVerseNav() {
               href={verseNav.prevUrl}
               tabIndex={isHidden ? -1 : undefined}
               onClick={() => {
-                if (verseNav) {
-                  trackVerseNavigation({
-                    book: verseNav.book,
-                    chapter: verseNav.chapter,
-                    verse: verseNav.verseNumber,
-                    direction: "prev",
-                    source: "mobile_nav",
-                    targetUrl: verseNav.prevUrl!,
-                    tier,
-                    hasCredits: credits > 0,
-                  });
-                }
+                trackVerseNavigation({
+                  book: verseNav.book,
+                  chapter: verseNav.chapter,
+                  verse: verseNav.verseNumber,
+                  direction: "prev",
+                  source: "mobile_nav",
+                  targetUrl: verseNav.prevUrl!,
+                  tier,
+                  hasCredits: credits > 0,
+                });
               }}
               className="inline-flex items-center gap-2 min-h-[52px] px-3 -ml-3 rounded-[var(--radius-md)] text-[var(--foreground)] active:bg-[var(--surface)] active:scale-[0.97] transition-all duration-[var(--motion-fast)] focus-ring"
               aria-label="Previous verse"
@@ -85,18 +83,16 @@ export function MobileVerseNav() {
               href={verseNav.nextUrl}
               tabIndex={isHidden ? -1 : undefined}
               onClick={() => {
-                if (verseNav) {
-                  trackVerseNavigation({
-                    book: verseNav.book,
-                    chapter: verseNav.chapter,
-                    verse: verseNav.verseNumber,
-                    direction: "next",
-                    source: "mobile_nav",
-                    targetUrl: verseNav.nextUrl!,
-                    tier,
-                    hasCredits: credits > 0,
-                  });
-                }
+                trackVerseNavigation({
+                  book: verseNav.book,
+                  chapter: verseNav.chapter,
+                  verse: verseNav.verseNumber,
+                  direction: "next",
+                  source: "mobile_nav",
+                  targetUrl: verseNav.nextUrl!,
+                  tier,
+                  hasCredits: credits > 0,
+                });
               }}
               className="inline-flex items-center gap-2 min-h-[52px] px-3 -mr-3 rounded-[var(--radius-md)] text-[var(--foreground)] active:bg-[var(--surface)] active:scale-[0.97] transition-all duration-[var(--motion-fast)] focus-ring"
               aria-label="Next verse"
