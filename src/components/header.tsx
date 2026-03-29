@@ -108,7 +108,7 @@ export function Header() {
           <Divider />
 
           {/* Generate Button - hidden in gallery view */}
-          {!isVersePage || !galleryOpen ? (
+          {isVersePage ? (
             <>
               <HeaderGenerateButton />
               <Divider />
@@ -153,7 +153,7 @@ export function Header() {
         {/* Mobile Actions - Credits + Generate + Chat + Books + Hamburger */}
         <nav className="flex sm:hidden items-center gap-0.5">
           <CreditsBadge />
-          {!isVersePage || !galleryOpen ? <HeaderGenerateButton /> : null}
+          {isVersePage ? <HeaderGenerateButton /> : null}
           <button
             className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             aria-label="Toggle chat"

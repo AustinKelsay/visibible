@@ -9,6 +9,12 @@ const bulkGenerationVerseStatusValidator = v.union(
   v.literal("skipped")
 );
 
+const bulkGenerationScopeTypeValidator = v.union(
+  v.literal("verses"),
+  v.literal("chapters"),
+  v.literal("book")
+);
+
 const BULK_VERSE_STATUS_ORDER = {
   queued: 0,
   generating: 1,
@@ -27,7 +33,7 @@ const BULK_VERSE_STATUS_ORDER = {
 export const create = mutation({
   args: {
     sid: v.string(),
-    scopeType: v.string(),
+    scopeType: bulkGenerationScopeTypeValidator,
     scopeLabel: v.string(),
     startVerseId: v.string(),
     estimatedTotalCredits: v.number(),
@@ -197,12 +203,12 @@ export const updateVerseStatus = mutation({
         q.eq("bulkGenerationId", args.bulkGenerationId).eq("verseId", args.verseId)
       )
       .unique();
-    if (!verse) return;
+    if (!verse) return { updated: false };
     if (
       args.expectedCurrentStatus !== undefined &&
       verse.status !== args.expectedCurrentStatus
     ) {
-      return;
+      return { updated: false };
     }
 
     const isSameStatus = verse.status === args.status;
@@ -232,8 +238,9 @@ export const updateVerseStatus = mutation({
       patch.error = args.error;
     }
 
-    if (Object.keys(patch).length === 0) return;
+    if (Object.keys(patch).length === 0) return { updated: false };
     await ctx.db.patch(verse._id, patch);
+    return { updated: true };
   },
 });
 
@@ -252,9 +259,13 @@ export const updateProgress = mutation({
     const bulk = await ctx.db.get(args.id);
     if (!bulk) return;
 
+    const completedCount = Math.max(bulk.completedCount, args.completedCount);
+    const failedCount = Math.max(bulk.failedCount, args.failedCount);
+    const skippedCount = Math.max(bulk.skippedCount, args.skippedCount);
+    const totalCreditsUsed = Math.max(bulk.totalCreditsUsed, args.totalCreditsUsed);
+
     const isComplete =
-      args.completedCount + args.failedCount + args.skippedCount >=
-      bulk.totalVerses;
+      completedCount + failedCount + skippedCount >= bulk.totalVerses;
 
     const shouldComplete =
       isComplete &&
@@ -262,10 +273,10 @@ export const updateProgress = mutation({
       bulk.status !== "completed";
 
     await ctx.db.patch(args.id, {
-      completedCount: args.completedCount,
-      failedCount: args.failedCount,
-      skippedCount: args.skippedCount,
-      totalCreditsUsed: args.totalCreditsUsed,
+      completedCount,
+      failedCount,
+      skippedCount,
+      totalCreditsUsed,
       updatedAt: Date.now(),
       ...(shouldComplete
         ? { status: "completed", completedAt: Date.now() }

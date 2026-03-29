@@ -25,6 +25,7 @@ import {
   getVerse,
   getChapter,
   getVerseByReference,
+  type VerseData,
   type Translation,
 } from "@/lib/bible-api";
 import { BIBLE_BOOKS, type BibleBook } from "@/data/bible-structure";
@@ -598,11 +599,31 @@ export async function POST(request: Request) {
   const requestedStyleId = requestBody.style;
   const requestedAspectRatio = requestBody.aspectRatio;
   const requestedResolution = requestBody.resolution;
-  let translationId = sanitizeTranslationId(requestBody.translation ?? null);
-  const bibleTranslation = isSupportedTranslation(translationId)
-    ? translationId
-    : DEFAULT_TRANSLATION;
-  translationId = bibleTranslation;
+  const parsedTranslationInput = z.string().optional().safeParse(requestBody.translation);
+  if (!parsedTranslationInput.success) {
+    return jsonWithSessionRefresh(
+      {
+        error: "Invalid translation",
+        message: "Unsupported translation. Please select a supported translation.",
+      },
+      { status: 400 }
+    );
+  }
+  const normalizedTranslation =
+    parsedTranslationInput.data === undefined
+      ? DEFAULT_TRANSLATION
+      : sanitizeTranslationId(parsedTranslationInput.data);
+  if (!isSupportedTranslation(normalizedTranslation)) {
+    return jsonWithSessionRefresh(
+      {
+        error: "Invalid translation",
+        message: "Unsupported translation. Please select a supported translation.",
+      },
+      { status: 400 }
+    );
+  }
+  const bibleTranslation: Translation = normalizedTranslation;
+  const translationId = bibleTranslation;
   const clientRequestId =
     sanitizeRequestId(requestBody.requestId ?? null) || crypto.randomUUID();
 
@@ -719,6 +740,7 @@ export async function POST(request: Request) {
   let prevVerse = parseVerseContext(requestBody.prevVerse);
   let nextVerse = parseVerseContext(requestBody.nextVerse);
 
+  let currentVerse: VerseData | null = null;
   if (reference !== "Scripture") {
     try {
       const resolvedVerses = await getVerseByReference(reference, bibleTranslation);
@@ -731,7 +753,7 @@ export async function POST(request: Request) {
           { status: 400 }
         );
       }
-      const currentVerse = resolvedVerses[0];
+      currentVerse = resolvedVerses[0];
       const currentVerseReference = sanitizeReference(
         `${currentVerse.bookName} ${currentVerse.chapter}:${currentVerse.verse}`
       );
@@ -741,7 +763,26 @@ export async function POST(request: Request) {
       if (!verseText) {
         verseText = sanitizeVerseText(currentVerse.text);
       }
+    } catch (error) {
+      console.warn("[generate-image] Failed to resolve current verse from reference:", {
+        reference,
+        translation: bibleTranslation,
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+      if (hasUserReference) {
+        return jsonWithSessionRefresh(
+          {
+            error: "Reference not found",
+            message: `Could not resolve "${reference}" in the ${translationId.toUpperCase()} translation.`,
+          },
+          { status: 400 }
+        );
+      }
+    }
+  }
 
+  if (currentVerse) {
+    try {
       const currentBook = BIBLE_BOOKS.find(
         (book) => book.name.toLowerCase() === currentVerse.bookName.toLowerCase()
       );
@@ -829,7 +870,7 @@ export async function POST(request: Request) {
         }
       }
     } catch (error) {
-      console.warn("[generate-image] Failed to resolve verse context from reference:", {
+      console.warn("[generate-image] Failed to resolve neighboring verse context:", {
         reference,
         translation: bibleTranslation,
         error: error instanceof Error ? error.message : "Unknown error",

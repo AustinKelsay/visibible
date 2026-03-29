@@ -139,8 +139,10 @@ export function getMaxScopeCount(
   current: VerseLocation
 ): number {
   switch (scopeType) {
-    case "verses":
-      return 100; // cap at 100 verses per bulk run
+    case "verses": {
+      const remaining = getNextNVerses(current, 100).length;
+      return Math.max(0, Math.min(100, remaining));
+    }
     case "chapters": {
       const startChapter =
         current.verse >= current.book.chapters[current.chapter - 1]

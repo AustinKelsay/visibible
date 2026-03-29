@@ -103,7 +103,11 @@ const imageSwipeThresholdPx = 48;
 
 function isInteractiveTouchTarget(target: EventTarget | null): boolean {
   return target instanceof Element &&
-    Boolean(target.closest("button, a, input, textarea, select, label"));
+    Boolean(
+      target.closest(
+        "button, a, input, textarea, select, label, [role=\"button\"], [role=\"link\"], [contenteditable], [tabindex]"
+      )
+    );
 }
 
 export function HeroImage({

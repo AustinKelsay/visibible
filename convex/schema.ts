@@ -85,6 +85,18 @@ const bulkGenerationVerseStatusValidator = v.union(
   v.literal("skipped")
 );
 
+const bulkGenerationScopeTypeValidator = v.union(
+  v.literal("verses"),
+  v.literal("chapters"),
+  v.literal("book")
+);
+
+const modelCostScopeTypeValidator = v.union(
+  v.literal("model"),
+  v.literal("provider"),
+  v.literal("global")
+);
+
 export default defineSchema({
   verseImages: defineTable({
     // Verse identifier (lowercase, e.g., "genesis-1-1")
@@ -282,7 +294,7 @@ export default defineSchema({
 
   // Learned image-credit estimates based on recent actual generation costs.
   modelCostStats: defineTable({
-    scopeType: v.string(), // "model" | "provider" | "global"
+    scopeType: modelCostScopeTypeValidator,
     scopeValue: v.string(), // modelId, provider ID, or "global"
     resolution: v.string(),
     sampleCredits: v.array(v.number()),
@@ -345,7 +357,7 @@ export default defineSchema({
   bulkGenerations: defineTable({
     sid: v.string(),
     status: bulkGenerationStatusValidator,
-    scopeType: v.string(), // "verses" | "chapters" | "book"
+    scopeType: bulkGenerationScopeTypeValidator,
     scopeLabel: v.string(), // human-readable, e.g. "Next 10 verses"
     startVerseId: v.string(),
     totalVerses: v.number(),

@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useSetVerseNav } from "@/context/verse-nav-context";
 
 interface VerseNavSetterProps {
@@ -29,8 +29,13 @@ export function VerseNavSetter({
 
   useLayoutEffect(() => {
     setVerseNav({ book, chapter, verseNumber, totalVerses, prevUrl, nextUrl });
-    return () => setVerseNav(null);
   }, [book, chapter, verseNumber, totalVerses, prevUrl, nextUrl, setVerseNav]);
+
+  useEffect(() => {
+    return () => {
+      setVerseNav(null);
+    };
+  }, [setVerseNav]);
 
   return null;
 }

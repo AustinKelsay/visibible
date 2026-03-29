@@ -85,6 +85,7 @@ const DEFAULT_STATE: BulkGenerationState = {
 
 const RUN_LOCK_TTL_MS = 15000;
 const RUN_LOCK_HEARTBEAT_MS = 5000;
+const RUN_LOCK_RETRY_JITTER_MS = 250;
 const TAB_ID =
   typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
     ? crypto.randomUUID()
@@ -103,6 +104,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const convexEnabled = useConvexEnabled();
 
   const [state, setState] = useState<BulkGenerationState>(DEFAULT_STATE);
+  const [runLoopTrigger, setRunLoopTrigger] = useState(0);
   const isPausedRef = useRef(false);
   const isCancelledRef = useRef(false);
   const isRunningRef = useRef(false);
@@ -111,6 +113,10 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const queueRef = useRef<BulkQueueItem[]>([]);
   const runLockBulkIdRef = useRef<Id<"bulkGenerations"> | null>(null);
   const runLockHeartbeatRef = useRef<number | null>(null);
+  const runLockLeaseCheckRef = useRef<number | null>(null);
+  const runLockRetryTimeoutRef = useRef<number | null>(null);
+  const runLockLastHeartbeatAtRef = useRef<number>(0);
+  const acquireRunLockRef = useRef<(bulkId: Id<"bulkGenerations">) => boolean>(() => false);
   const runLockChannelRef = useRef<BroadcastChannel | null>(null);
   const settingsRef = useRef<{
     modelId: string;
@@ -145,6 +151,29 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       window.clearInterval(runLockHeartbeatRef.current);
       runLockHeartbeatRef.current = null;
     }
+    if (runLockLeaseCheckRef.current !== null) {
+      window.clearInterval(runLockLeaseCheckRef.current);
+      runLockLeaseCheckRef.current = null;
+    }
+    if (runLockRetryTimeoutRef.current !== null) {
+      window.clearTimeout(runLockRetryTimeoutRef.current);
+      runLockRetryTimeoutRef.current = null;
+    }
+  }, []);
+
+  const scheduleRunLockRetry = useCallback((bulkId: Id<"bulkGenerations">, delayMs: number) => {
+    if (runLockRetryTimeoutRef.current !== null) {
+      window.clearTimeout(runLockRetryTimeoutRef.current);
+    }
+    runLockRetryTimeoutRef.current = window.setTimeout(() => {
+      runLockRetryTimeoutRef.current = null;
+      if (!isRunningRef.current && !isCancelledRef.current) {
+        const acquired = acquireRunLockRef.current(bulkId);
+        if (acquired) {
+          setRunLoopTrigger((value) => value + 1);
+        }
+      }
+    }, Math.max(0, delayMs));
   }, []);
 
   const releaseRunLock = useCallback((bulkId?: Id<"bulkGenerations"> | null) => {
@@ -174,6 +203,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     runLockChannelRef.current?.close();
     runLockChannelRef.current = null;
     runLockBulkIdRef.current = null;
+    runLockLastHeartbeatAtRef.current = 0;
     lostLockRef.current = false;
   }, [getRunLockStorageKey, stopRunLockHeartbeat]);
 
@@ -197,6 +227,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       try {
         const existing = JSON.parse(existingRaw) as { owner: string; expiresAt: number };
         if (existing.owner !== TAB_ID && existing.expiresAt > now) {
+          const delay = existing.expiresAt - now + RUN_LOCK_RETRY_JITTER_MS;
+          scheduleRunLockRetry(bulkId, delay);
           return false;
         }
       } catch {
@@ -223,6 +255,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         ? new BroadcastChannel(`bulk-gen-${bulkId}`)
         : null;
     runLockBulkIdRef.current = bulkId;
+    runLockLastHeartbeatAtRef.current = Date.now();
     lostLockRef.current = false;
 
     if (runLockChannelRef.current) {
@@ -233,11 +266,20 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         if (!message || message.bulkId !== bulkId || message.owner === TAB_ID) {
           return;
         }
+        if (message.type === "heartbeat") {
+          runLockLastHeartbeatAtRef.current = Date.now();
+          return;
+        }
         if (message.type === "takeover") {
           lostLockRef.current = true;
           isPausedRef.current = true;
           pausedResolverRef.current?.();
           pausedResolverRef.current = null;
+          scheduleRunLockRetry(bulkId, RUN_LOCK_RETRY_JITTER_MS);
+          return;
+        }
+        if (message.type !== "heartbeat") {
+          scheduleRunLockRetry(bulkId, RUN_LOCK_RETRY_JITTER_MS);
         }
       };
 
@@ -263,8 +305,19 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       });
     }, RUN_LOCK_HEARTBEAT_MS);
 
+    runLockLeaseCheckRef.current = window.setInterval(() => {
+      const nowMs = Date.now();
+      if (nowMs - runLockLastHeartbeatAtRef.current > RUN_LOCK_TTL_MS) {
+        scheduleRunLockRetry(bulkId, RUN_LOCK_RETRY_JITTER_MS);
+      }
+    }, RUN_LOCK_HEARTBEAT_MS);
+
     return true;
-  }, [getRunLockStorageKey, ownsRunLock, stopRunLockHeartbeat]);
+  }, [getRunLockStorageKey, ownsRunLock, scheduleRunLockRetry, stopRunLockHeartbeat]);
+
+  useEffect(() => {
+    acquireRunLockRef.current = acquireRunLock;
+  }, [acquireRunLock]);
 
   // Reactive query for active bulk job (enables resume on refresh)
   const activeBulk = useQuery(
@@ -329,19 +382,27 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       if (!bulkId || event.key !== getRunLockStorageKey(bulkId)) return;
 
       if (!event.newValue) {
+        scheduleRunLockRetry(bulkId, RUN_LOCK_RETRY_JITTER_MS);
         return;
       }
 
       try {
-        const parsed = JSON.parse(event.newValue) as { owner: string };
+        const parsed = JSON.parse(event.newValue) as { owner: string; expiresAt?: number };
         if (parsed.owner !== TAB_ID) {
           lostLockRef.current = true;
           isPausedRef.current = true;
           pausedResolverRef.current?.();
           pausedResolverRef.current = null;
+          const now = Date.now();
+          const delay =
+            typeof parsed.expiresAt === "number" && parsed.expiresAt > now
+              ? parsed.expiresAt - now + RUN_LOCK_RETRY_JITTER_MS
+              : RUN_LOCK_RETRY_JITTER_MS;
+          scheduleRunLockRetry(bulkId, delay);
         }
       } catch {
         // Ignore malformed cross-tab lock updates.
+        scheduleRunLockRetry(bulkId, RUN_LOCK_RETRY_JITTER_MS);
       }
     };
 
@@ -357,7 +418,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       window.removeEventListener("beforeunload", handleBeforeUnload);
       releaseRunLock();
     };
-  }, [getRunLockStorageKey, releaseRunLock]);
+  }, [getRunLockStorageKey, releaseRunLock, scheduleRunLockRetry]);
 
   // ---------------------------------------------------------------------------
   // Generation loop
@@ -442,12 +503,15 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             currentVerseReference: item.reference,
           }));
 
-          await updateVerseStatus({
+          const claimResult = await updateVerseStatus({
             bulkGenerationId: bulkId,
             verseId: item.verseId,
             status: "generating",
             expectedCurrentStatus: "queued",
           });
+          if (!claimResult?.updated) {
+            continue;
+          }
 
           try {
             const payload: Record<string, unknown> = {
@@ -611,7 +675,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     if (!activeBulk || !activeVerses) return;
 
     const pendingQueue: BulkQueueItem[] = activeVerses
-      .filter((verse) => verse.status === "queued" || verse.status === "generating")
+      .filter((verse) => verse.status === "queued")
       .map((verse) => ({
         verseId: verse.verseId,
         reference: verse.reference,
@@ -642,7 +706,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       skippedCount: activeBulk.skippedCount,
       totalCreditsUsed: activeBulk.totalCreditsUsed,
     });
-  }, [acquireRunLock, activeBulk, activeVerses, runGenerationLoop]);
+  }, [acquireRunLock, activeBulk, activeVerses, runGenerationLoop, runLoopTrigger]);
 
   // ---------------------------------------------------------------------------
   // Public API

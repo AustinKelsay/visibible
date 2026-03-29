@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 
 export interface VerseNavData {
   book: string;
@@ -19,8 +19,7 @@ interface VerseNavContextValue {
 const VerseNavContext = createContext<VerseNavContextValue | null>(null);
 
 export function VerseNavProvider({ children }: { children: ReactNode }) {
-  const [data, setDataRaw] = useState<VerseNavData | null>(null);
-  const setData = useCallback((d: VerseNavData | null) => setDataRaw(d), []);
+  const [data, setData] = useState<VerseNavData | null>(null);
 
   return (
     <VerseNavContext.Provider value={{ data, setData }}>

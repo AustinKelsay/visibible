@@ -295,6 +295,8 @@ function ChapterGalleryNav({ book, chapter, ariaLabel }: ChapterGalleryNavProps)
   const next = getNextChapter(bibleBook, chapter);
 
   if (!prev && !next) return null;
+  const truncateBookName = (name: string): string =>
+    name.length > 12 ? `${name.slice(0, 10)}…` : name;
 
   return (
     <nav
@@ -309,7 +311,7 @@ function ChapterGalleryNav({ book, chapter, ariaLabel }: ChapterGalleryNavProps)
         >
           <ChevronLeft size={20} strokeWidth={2} className="text-[var(--muted)]" />
           <span className="hidden sm:inline">{prev.book.name} {prev.chapter}</span>
-          <span className="sm:hidden">{prev.book.name.length > 12 ? `${prev.book.name.slice(0, 10)}…` : prev.book.name} {prev.chapter}</span>
+          <span className="sm:hidden">{truncateBookName(prev.book.name)} {prev.chapter}</span>
         </Link>
       ) : (
         <div />
@@ -322,7 +324,7 @@ function ChapterGalleryNav({ book, chapter, ariaLabel }: ChapterGalleryNavProps)
           aria-label={`Next chapter: ${next.book.name} ${next.chapter}`}
         >
           <span className="hidden sm:inline">{next.book.name} {next.chapter}</span>
-          <span className="sm:hidden">{next.book.name.length > 12 ? `${next.book.name.slice(0, 10)}…` : next.book.name} {next.chapter}</span>
+          <span className="sm:hidden">{truncateBookName(next.book.name)} {next.chapter}</span>
           <ChevronRight size={20} strokeWidth={2} className="text-[var(--muted)]" />
         </Link>
       ) : (

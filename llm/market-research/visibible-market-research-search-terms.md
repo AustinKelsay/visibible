@@ -166,7 +166,7 @@ Organized across 72 categories mapping to different audience segments and intent
 ### Category 8: Bible + Technology / AI
 136. Bible AI
 137. AI Bible study
-138. best Bible app 2024
+138. best Bible app
 139. Bible app recommendation
 140. digital Bible study tools
 141. AI and religion
@@ -597,7 +597,7 @@ Organized across 72 categories mapping to different audience segments and intent
 516. second coming of Jesus
 517. Bible timeline of the end
 518. are we in the last days
-519. Bible prophecy 2024
+519. Bible prophecy
 520. tribulation explained Bible
 
 ### Category 34: Worship / Music / Spiritual Practice Adjacent

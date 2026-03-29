@@ -51,6 +51,7 @@ export function BulkGeneratePanel({
   const [scopeType, setScopeTypeRaw] = useState<BulkScopeType>("verses");
   const [count, setCount] = useState(5);
   const [startError, setStartError] = useState<string | null>(null);
+  const [isStarting, setIsStarting] = useState(false);
 
   // Wrap setScopeType to also reset count
   const setScopeType = (type: BulkScopeType) => {
@@ -116,9 +117,11 @@ export function BulkGeneratePanel({
   }
 
   const handleStart = async () => {
+    if (isStarting) return;
     if (!currentLocation || queue.length === 0) return;
+    setIsStarting(true);
+    setStartError(null);
     try {
-      setStartError(null);
       await startBulkGeneration({
         scope,
         scopeLabel: scopeLabel(scope, currentLocation),
@@ -132,6 +135,8 @@ export function BulkGeneratePanel({
     } catch (error) {
       console.error("Failed to start bulk generation:", error);
       setStartError("Failed to start bulk generation. Please try again.");
+    } finally {
+      setIsStarting(false);
     }
   };
 
@@ -151,6 +156,7 @@ export function BulkGeneratePanel({
             <button
               key={type}
               onClick={() => setScopeType(type)}
+              disabled={isStarting}
               className={`flex-1 min-h-[36px] rounded-[var(--radius-md)] text-xs font-medium transition-colors ${
                 scopeType === type
                   ? "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/50"
@@ -196,7 +202,7 @@ export function BulkGeneratePanel({
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => setCount((c) => Math.max(1, c - (scopeType === "verses" ? 5 : 1)))}
-                  disabled={count <= 1}
+                  disabled={count <= 1 || isStarting}
                   aria-label={scopeType === "verses" ? "Decrease count by 5" : "Decrease count by 1"}
                   className="min-h-[32px] min-w-[32px] flex items-center justify-center rounded-[var(--radius-sm)] bg-[var(--background)] border border-[var(--divider)] text-[var(--foreground)] hover:bg-[var(--divider)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 >
@@ -207,7 +213,7 @@ export function BulkGeneratePanel({
                 </span>
                 <button
                   onClick={() => setCount((c) => Math.min(maxCount, c + (scopeType === "verses" ? 5 : 1)))}
-                  disabled={count >= maxCount}
+                  disabled={count >= maxCount || isStarting}
                   aria-label={scopeType === "verses" ? "Increase count by 5" : "Increase count by 1"}
                   className="min-h-[32px] min-w-[32px] flex items-center justify-center rounded-[var(--radius-sm)] bg-[var(--background)] border border-[var(--divider)] text-[var(--foreground)] hover:bg-[var(--divider)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 >
@@ -251,10 +257,10 @@ export function BulkGeneratePanel({
       {canAfford ? (
         <button
           onClick={handleStart}
-          disabled={queue.length === 0}
+          disabled={queue.length === 0 || isStarting}
           className="w-full min-h-[44px] flex items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <span>Start Generating</span>
+          <span>{isStarting ? "Starting..." : "Start Generating"}</span>
           <span className="inline-flex items-center gap-0.5 opacity-80">
             <Zap size={12} strokeWidth={2} />
             <span>~{costEstimate.totalCredits}</span>

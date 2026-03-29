@@ -5,6 +5,7 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { fixtures, type Session } from "../shared/test-fixtures";
+import { mockFetchBibleApi } from "../shared/bible-api-mocks";
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 
 // Create mock state
@@ -238,56 +239,9 @@ let scenePlannerResponse: MockFetchResponse | (() => Promise<never>) | null = nu
 let imageGenerationResponse: MockFetchResponse | null = null;
 
 const mockFetch = vi.fn(async (input: RequestInfo | URL) => {
-  const url = typeof input === "string"
-    ? input
-    : input instanceof URL
-      ? input.toString()
-      : input.url;
-
-  if (url.includes("bible-api.com/Genesis%201%3A1?translation=web")) {
-    return {
-      ok: true,
-      status: 200,
-      json: async () => ({
-        reference: "Genesis 1:1",
-        verses: [
-          {
-            book_id: "GEN",
-            book_name: "Genesis",
-            chapter: 1,
-            verse: 1,
-            text: "In the beginning God created the heavens and the earth.",
-          },
-        ],
-      }),
-    };
-  }
-
-  if (url.includes("bible-api.com/data/web/GEN/1")) {
-    return {
-      ok: true,
-      status: 200,
-      json: async () => ({
-        translation_id: "web",
-        translation_name: "World English Bible",
-        verses: [
-          {
-            book_id: "GEN",
-            book_name: "Genesis",
-            chapter: 1,
-            verse: 1,
-            text: "In the beginning God created the heavens and the earth.",
-          },
-          {
-            book_id: "GEN",
-            book_name: "Genesis",
-            chapter: 1,
-            verse: 2,
-            text: "The earth was formless and empty.",
-          },
-        ],
-      }),
-    };
+  const bibleApiResponse = mockFetchBibleApi(input);
+  if (bibleApiResponse) {
+    return bibleApiResponse;
   }
 
   const currentIndex = fetchCallIndex;

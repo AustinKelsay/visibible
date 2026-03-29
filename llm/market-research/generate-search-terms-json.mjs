@@ -8,6 +8,8 @@ const outputPath = join(dir, "visibible-market-research-search-terms.json");
 
 const markdown = readFileSync(markdownPath, "utf8");
 const lines = markdown.split(/\r?\n/);
+const minRecordCount = Number.parseInt(process.env.MIN_SEARCH_TERM_RECORDS ?? "100", 10);
+const minDistinctCategoryCount = Number.parseInt(process.env.MIN_SEARCH_TERM_CATEGORIES ?? "10", 10);
 
 let currentCategory = "";
 let currentIntent = "";
@@ -34,14 +36,40 @@ for (const line of lines) {
   });
 }
 
+const validRecords = records.filter((record) => record.term.length > 0);
+if (validRecords.length === 0) {
+  throw new Error("Parse produced zero records; refusing to write JSON output.");
+}
+if (!Number.isFinite(minRecordCount) || minRecordCount < 1) {
+  throw new Error(`Invalid MIN_SEARCH_TERM_RECORDS: ${process.env.MIN_SEARCH_TERM_RECORDS ?? "<unset>"}`);
+}
+if (validRecords.length < minRecordCount) {
+  throw new Error(
+    `Parsed ${validRecords.length} records, below required minimum ${minRecordCount}.`
+  );
+}
+if (!Number.isFinite(minDistinctCategoryCount) || minDistinctCategoryCount < 1) {
+  throw new Error(
+    `Invalid MIN_SEARCH_TERM_CATEGORIES: ${process.env.MIN_SEARCH_TERM_CATEGORIES ?? "<unset>"}`
+  );
+}
+const distinctCategories = new Set(
+  validRecords.map((record) => `${record.category}::${record.intent}`)
+);
+if (distinctCategories.size < minDistinctCategoryCount) {
+  throw new Error(
+    `Parsed ${distinctCategories.size} distinct categories, below required minimum ${minDistinctCategoryCount}.`
+  );
+}
+
 const document = {
   metadata: {
     version: 1,
-    date: "2026-03-28",
+    date: new Date().toISOString().slice(0, 10),
     source: "visibible-market-research-search-terms.md",
-    recordCount: records.length,
+    recordCount: validRecords.length,
   },
-  records,
+  records: validRecords,
 };
 
 writeFileSync(outputPath, `${JSON.stringify(document, null, 2)}\n`);
