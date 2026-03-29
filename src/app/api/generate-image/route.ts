@@ -784,7 +784,7 @@ export async function POST(request: Request) {
   if (currentVerse) {
     try {
       const currentBook = BIBLE_BOOKS.find(
-        (book) => book.name.toLowerCase() === currentVerse.bookName.toLowerCase()
+        (book) => book.id === currentVerse.bookId
       );
 
       if (currentBook) {

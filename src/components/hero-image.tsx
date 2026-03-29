@@ -10,7 +10,6 @@ import { usePreferences } from "@/context/preferences-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useSession } from "@/context/session-context";
 import { useNavigation } from "@/context/navigation-context";
-import { useVerseView } from "@/context/verse-view-context";
 import { useGeneration } from "@/context/generation-context";
 import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
 import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
@@ -326,7 +325,6 @@ function HeroImageBase({
   const isConvexEnabled = useConvexEnabled();
   const { tier, credits, buyCredits, updateCredits, isLoading: sessionLoading } = useSession();
   const { setCurrentImageId, isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
-  const { markEngaged } = useVerseView();
   const router = useRouter();
   const searchParams = useSearchParams();
   const {
@@ -699,7 +697,6 @@ function HeroImageBase({
         tier,
         hasCredits: credits > 0,
       });
-      markEngaged("image_generation_started");
 
       const response = await fetch("/api/generate-image", {
         method: "POST",
@@ -896,7 +893,6 @@ function HeroImageBase({
     tier,
     credits,
     effectiveCost,
-    markEngaged,
   ]);
 
   // Manual regenerate function - resets load attempts and queues a new image
@@ -1221,6 +1217,7 @@ function HeroImageBase({
       <div
         className="relative w-full overflow-hidden bg-[var(--image-stage)] aspect-[4/5] sm:[aspect-ratio:var(--ar)]"
         style={{ "--ar": containerAspectRatioCss, touchAction: "pan-y" } as React.CSSProperties}
+        data-testid="hero-swipe-overlay"
         onTouchStart={handleSwipeStart}
         onTouchEnd={(event) => handleSwipeEnd(event, "overlay")}
         onTouchCancel={resetSwipe}
@@ -1312,7 +1309,6 @@ function HeroImageBase({
             {/* Fullscreen toggle button - mobile only (desktop uses VerseStripBar) */}
             <button
               onClick={() => {
-                markEngaged("image_fullscreen_opened");
                 trackImageFullscreenOpened({
                   book,
                   chapter,
@@ -1532,6 +1528,7 @@ function HeroImageBase({
                 <div
                   className="relative max-w-full max-h-[70vh] w-full flex items-center justify-center rounded-[var(--radius-md)] bg-[var(--image-stage)]"
                   style={{ touchAction: "pan-y" }}
+                  data-testid="hero-swipe-fullscreen"
                   onTouchStart={handleSwipeStart}
                   onTouchEnd={(event) => handleSwipeEnd(event, "fullscreen")}
                   onTouchCancel={resetSwipe}

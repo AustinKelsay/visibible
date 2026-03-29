@@ -12,10 +12,36 @@ export function normalizeFetchUrl(input: RequestInfo | URL): string {
       : input.url;
 }
 
-export function mockFetchBibleApi(input: RequestInfo | URL): TestFetchResponse | null {
-  const url = normalizeFetchUrl(input);
+let mockFetchBibleApiBypass:
+  | ((url: URL) => boolean)
+  | null = null;
 
-  if (url.includes("bible-api.com/Genesis%201%3A1?translation=web")) {
+export function setMockFetchBibleApiBypass(
+  bypass: ((url: URL) => boolean) | null
+) {
+  mockFetchBibleApiBypass = bypass;
+}
+
+function matchesExactBibleApiReference(
+  url: URL,
+  reference: string,
+  translation: string
+) {
+  return (
+    url.origin === "https://bible-api.com" &&
+    decodeURIComponent(url.pathname.slice(1)) === reference &&
+    url.searchParams.get("translation") === translation
+  );
+}
+
+export function mockFetchBibleApi(input: RequestInfo | URL): TestFetchResponse | null {
+  const url = new URL(normalizeFetchUrl(input));
+
+  if (mockFetchBibleApiBypass?.(url)) {
+    return null;
+  }
+
+  if (matchesExactBibleApiReference(url, "Genesis 1:1", "web")) {
     return {
       ok: true,
       status: 200,
@@ -34,7 +60,7 @@ export function mockFetchBibleApi(input: RequestInfo | URL): TestFetchResponse |
     };
   }
 
-  if (url.includes("bible-api.com/Genesis%201%3A3?translation=web")) {
+  if (matchesExactBibleApiReference(url, "Genesis 1:3", "web")) {
     return {
       ok: true,
       status: 200,
@@ -53,7 +79,7 @@ export function mockFetchBibleApi(input: RequestInfo | URL): TestFetchResponse |
     };
   }
 
-  if (url.includes("bible-api.com/data/web/GEN/1")) {
+  if (url.origin === "https://bible-api.com" && url.pathname === "/data/web/GEN/1") {
     return {
       ok: true,
       status: 200,

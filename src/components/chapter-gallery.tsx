@@ -297,6 +297,7 @@ function ChapterGalleryNav({ book, chapter, ariaLabel }: ChapterGalleryNavProps)
   if (!prev && !next) return null;
   const truncateBookName = (name: string): string =>
     name.length > 12 ? `${name.slice(0, 10)}…` : name;
+  const withGalleryView = (href: string) => `${href}?view=gallery`;
 
   return (
     <nav
@@ -305,7 +306,7 @@ function ChapterGalleryNav({ book, chapter, ariaLabel }: ChapterGalleryNavProps)
     >
       {prev ? (
         <Link
-          href={`/${prev.book.slug}/${prev.chapter}/1`}
+          href={withGalleryView(`/${prev.book.slug}/${prev.chapter}/1`)}
           className="inline-flex items-center gap-2 min-h-[44px] px-3 rounded-[var(--radius-md)] text-sm font-semibold text-[var(--foreground)] hover:bg-[var(--surface)] active:bg-[var(--surface)] active:scale-[0.97] transition-all duration-[var(--motion-fast)] focus-ring"
           aria-label={`Previous chapter: ${prev.book.name} ${prev.chapter}`}
         >
@@ -319,7 +320,7 @@ function ChapterGalleryNav({ book, chapter, ariaLabel }: ChapterGalleryNavProps)
 
       {next ? (
         <Link
-          href={`/${next.book.slug}/${next.chapter}/1`}
+          href={withGalleryView(`/${next.book.slug}/${next.chapter}/1`)}
           className="inline-flex items-center gap-2 min-h-[44px] px-3 rounded-[var(--radius-md)] text-sm font-semibold text-[var(--foreground)] hover:bg-[var(--surface)] active:bg-[var(--surface)] active:scale-[0.97] transition-all duration-[var(--motion-fast)] focus-ring"
           aria-label={`Next chapter: ${next.book.name} ${next.chapter}`}
         >
@@ -342,7 +343,7 @@ export function ChapterGallery({
   verses,
   fullScreen = false,
 }: ChapterGalleryProps) {
-  const { effectiveView, setEffectiveView, markEngaged } = useVerseView();
+  const { effectiveView, setEffectiveView } = useVerseView();
   const isConvexEnabled = useConvexEnabled();
   const { isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
   const { tier, credits, isLoading: sessionLoading } = useSession();
@@ -355,7 +356,6 @@ export function ChapterGallery({
 
   const handleExpand = useCallback((item: ChapterGalleryFlatItem) => {
     setEffectiveView("gallery", "chapter_gallery_card");
-    markEngaged("image_fullscreen_opened");
     trackImageFullscreenOpened({
       book,
       chapter,
@@ -367,7 +367,7 @@ export function ChapterGallery({
     });
     setLightboxItem(item);
     openFullscreen();
-  }, [book, chapter, credits, markEngaged, openFullscreen, setEffectiveView, tier]);
+  }, [book, chapter, credits, openFullscreen, setEffectiveView, tier]);
 
   const handleCloseLightbox = useCallback(() => {
     closeFullscreen();
@@ -390,7 +390,6 @@ export function ChapterGallery({
       tier,
       hasCredits: credits > 0,
     });
-    markEngaged("chapter_gallery_item_opened");
 
     if (!isUnmodifiedPrimaryClick(event)) {
       return;
@@ -408,7 +407,6 @@ export function ChapterGallery({
     handleCloseLightbox,
     isFullscreen,
     layoutMode,
-    markEngaged,
     setEffectiveView,
     tier,
   ]);

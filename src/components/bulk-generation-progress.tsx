@@ -5,10 +5,13 @@ import { Check, X, Loader2, Pause, Play, Zap, CircleDot, Minus } from "lucide-re
 import { useBulkGeneration } from "@/context/bulk-generation-context";
 import { useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
+import type { Doc } from "@convex/_generated/dataModel";
 
 interface BulkGenerationProgressProps {
   onClose: () => void;
 }
+
+type BulkGenerationVerse = Doc<"bulkGenerationVerses">;
 
 export function BulkGenerationProgress({ onClose }: BulkGenerationProgressProps) {
   const {
@@ -176,7 +179,7 @@ export function BulkGenerationProgress({ onClose }: BulkGenerationProgressProps)
         <div className="space-y-2">
           <div className="max-h-36 overflow-y-auto overscroll-contain rounded-[var(--radius-md)] border border-[var(--divider)]">
             <div className="divide-y divide-[var(--divider)]">
-              {verses.map((v) => (
+              {verses.map((v: BulkGenerationVerse) => (
                 <div
                   key={v._id}
                   className="flex items-center gap-2.5 px-3 py-2"

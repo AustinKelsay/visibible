@@ -10,21 +10,18 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { useSearchParams } from "next/navigation";
 import { useSession } from "@/context/session-context";
 import {
   trackPreferenceChanged,
   type PreferenceChangeSource,
 } from "@/lib/analytics";
-import type {
-  VerseViewEngagementTrigger,
-  VerseViewValue,
-} from "@/lib/verse-view";
+import type { VerseViewValue } from "@/lib/verse-view";
 
 interface VerseViewContextType {
   effectiveView: VerseViewValue;
   isSettled: boolean;
   setEffectiveView: (view: VerseViewValue, source: PreferenceChangeSource) => void;
-  markEngaged: (trigger: VerseViewEngagementTrigger) => void;
 }
 
 interface VerseViewProviderProps {
@@ -40,7 +37,9 @@ const VerseViewContext = createContext<VerseViewContextType | null>(null);
 
 export function VerseViewProvider({ children }: VerseViewProviderProps) {
   const { tier, credits } = useSession();
-  const [effectiveView, setEffectiveViewState] = useState<VerseViewValue>("reader");
+  const searchParams = useSearchParams();
+  const initialView = searchParams.get("view") === "gallery" ? "gallery" : "reader";
+  const [effectiveView, setEffectiveViewState] = useState<VerseViewValue>(initialView);
   const pendingPreferenceChangeRef = useRef<PendingPreferenceChange | null>(null);
 
   useEffect(() => {
@@ -73,18 +72,11 @@ export function VerseViewProvider({ children }: VerseViewProviderProps) {
     });
   }, []);
 
-  const markEngaged = useCallback((trigger: VerseViewEngagementTrigger) => {
-    void trigger;
-    // Keep the API in place so existing callers do not need to coordinate
-    // separate no-op guards now that view-comparison analytics are gone.
-  }, []);
-
   const value = useMemo(() => ({
     effectiveView,
     isSettled: true,
     setEffectiveView,
-    markEngaged,
-  }), [effectiveView, markEngaged, setEffectiveView]);
+  }), [effectiveView, setEffectiveView]);
 
   return (
     <VerseViewContext.Provider value={value}>

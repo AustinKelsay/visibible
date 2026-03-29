@@ -75,7 +75,7 @@ export function BulkGeneratePanel({
   );
 
   const effectiveCount = useMemo(
-    () => Math.max(1, Math.min(count, maxCount)),
+    () => Math.min(count, maxCount),
     [count, maxCount]
   );
 

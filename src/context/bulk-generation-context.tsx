@@ -11,7 +11,7 @@ import {
 } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
-import type { Id } from "@convex/_generated/dataModel";
+import type { Doc, Id } from "@convex/_generated/dataModel";
 import { useSession } from "@/context/session-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
@@ -47,6 +47,8 @@ interface BulkGenerationCounters {
   skippedCount: number;
   totalCreditsUsed: number;
 }
+
+type BulkGenerationVerse = Doc<"bulkGenerationVerses">;
 
 interface BulkGenerationContextType {
   state: BulkGenerationState;
@@ -379,7 +381,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!activeVerses) return;
 
-    const generatingVerse = activeVerses.find((verse) => verse.status === "generating");
+    const generatingVerse = activeVerses.find(
+      (verse: BulkGenerationVerse) => verse.status === "generating"
+    );
     if (!generatingVerse) return;
 
     setState((prev) => ({
@@ -713,8 +717,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     if (!bulkForState || !activeVerses) return;
 
     const pendingQueue: BulkQueueItem[] = activeVerses
-      .filter((verse) => verse.status === "queued")
-      .map((verse) => ({
+      .filter((verse: BulkGenerationVerse) => verse.status === "queued")
+      .map((verse: BulkGenerationVerse) => ({
         verseId: verse.verseId,
         reference: verse.reference,
         order: verse.order,
@@ -766,16 +770,6 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         throw new Error("Cannot start bulk generation with an empty queue");
       }
 
-      isPausedRef.current = false;
-      isCancelledRef.current = false;
-      queueRef.current = params.queue;
-      settingsRef.current = {
-        modelId: params.modelId,
-        aspectRatio: params.aspectRatio,
-        resolution: params.resolution,
-        translation: params.translation,
-      };
-
       const bulk = await createBulk({
         sid,
         scopeType: params.scope.type,
@@ -808,6 +802,16 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       if (!bulk.created) {
         return;
       }
+
+      isPausedRef.current = false;
+      isCancelledRef.current = false;
+      queueRef.current = params.queue;
+      settingsRef.current = {
+        modelId: params.modelId,
+        aspectRatio: params.aspectRatio,
+        resolution: params.resolution,
+        translation: params.translation,
+      };
 
       if (acquireRunLock(bulk.bulkId)) {
         lostLockRef.current = false;

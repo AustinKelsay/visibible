@@ -1,5 +1,8 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import type { Doc } from "./_generated/dataModel";
+
+type BulkGenerationVerse = Doc<"bulkGenerationVerses">;
 
 const bulkGenerationVerseStatusValidator = v.union(
   v.literal("queued"),
@@ -203,12 +206,66 @@ export const getVerses = query({
     if (safeOffset === 0 && safeLimit !== undefined) {
       return await verseQuery.take(safeLimit);
     }
+    if (safeOffset > 0) {
+      let cursor: string | null = null;
+      let remainingOffset = safeOffset;
 
-    const allVerses = await verseQuery.collect();
-    if (safeLimit === undefined) {
-      return allVerses.slice(safeOffset);
+      while (remainingOffset > 0) {
+        const page = await ctx.db
+          .query("bulkGenerationVerses")
+          .withIndex("by_bulk_order", (q) =>
+            q.eq("bulkGenerationId", args.bulkGenerationId)
+          )
+          .paginate({
+            cursor,
+            numItems: Math.min(remainingOffset, safeLimit ?? 100),
+          });
+
+        remainingOffset -= page.page.length;
+        cursor = page.continueCursor;
+
+        if (page.isDone) {
+          return [];
+        }
+      }
+
+      if (safeLimit !== undefined) {
+        return (
+          await ctx.db
+            .query("bulkGenerationVerses")
+            .withIndex("by_bulk_order", (q) =>
+              q.eq("bulkGenerationId", args.bulkGenerationId)
+            )
+            .paginate({
+              cursor,
+              numItems: safeLimit,
+            })
+        ).page;
+      }
+
+      const verses: BulkGenerationVerse[] = [];
+      let pageCursor = cursor;
+      let done = false;
+
+      while (!done) {
+        const page = await ctx.db
+          .query("bulkGenerationVerses")
+          .withIndex("by_bulk_order", (q) =>
+            q.eq("bulkGenerationId", args.bulkGenerationId)
+          )
+          .paginate({
+            cursor: pageCursor,
+            numItems: 100,
+          });
+
+        verses.push(...page.page);
+        pageCursor = page.continueCursor;
+        done = page.isDone;
+      }
+
+      return verses;
     }
-    return allVerses.slice(safeOffset, safeOffset + safeLimit);
+    return await verseQuery.collect();
   },
 });
 
@@ -249,13 +306,18 @@ export const updateVerseStatus = mutation({
     }
 
     const isSameStatus = verse.status === args.status;
+    const isRequeueTransition =
+      verse.status === "generating" && args.status === "queued";
     const isForwardTransition =
       BULK_VERSE_STATUS_ORDER[args.status] >= BULK_VERSE_STATUS_ORDER[verse.status];
     const isTerminalStatus =
       verse.status === "completed" ||
       verse.status === "failed" ||
       verse.status === "skipped";
-    const canTransition = isSameStatus || (!isTerminalStatus && isForwardTransition);
+    const canTransition =
+      isSameStatus ||
+      isRequeueTransition ||
+      (!isTerminalStatus && isForwardTransition);
     if (!canTransition) {
       return { updated: false };
     }

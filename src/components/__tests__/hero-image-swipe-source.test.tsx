@@ -168,9 +168,7 @@ describe("HeroImage swipe handling", () => {
       openFullscreen: vi.fn(),
       closeFullscreen: vi.fn(),
     } as never);
-    useVerseViewMock.mockReturnValue({
-      markEngaged: vi.fn(),
-    } as never);
+    useVerseViewMock.mockReturnValue({} as never);
     useGenerationMock.mockReturnValue({
       registerGenerate: vi.fn(),
       unregisterGenerate: vi.fn(),
@@ -209,12 +207,6 @@ describe("HeroImage swipe handling", () => {
     });
   }
 
-  function getTouchSurfaces() {
-    return Array.from(container?.querySelectorAll("div") ?? []).filter(
-      (element) => (element as HTMLDivElement).style.touchAction === "pan-y"
-    ) as HTMLDivElement[];
-  }
-
   async function swipe(
     surface: HTMLDivElement,
     start: { clientX: number; clientY: number },
@@ -229,8 +221,13 @@ describe("HeroImage swipe handling", () => {
   it("ignores swipes that do not clear the horizontal threshold", async () => {
     await renderHeroImage();
 
-    const [overlaySurface] = getTouchSurfaces();
-    expect(overlaySurface).toBeDefined();
+    const overlaySurface = container?.querySelector(
+      '[data-testid="hero-swipe-overlay"]'
+    ) as HTMLDivElement | null;
+    expect(overlaySurface).not.toBeNull();
+    if (!overlaySurface) {
+      throw new Error("Missing overlay swipe surface");
+    }
 
     await swipe(
       overlaySurface,
@@ -244,8 +241,13 @@ describe("HeroImage swipe handling", () => {
   it("tracks overlay swipes through the inline image surface", async () => {
     await renderHeroImage();
 
-    const [overlaySurface] = getTouchSurfaces();
-    expect(overlaySurface).toBeDefined();
+    const overlaySurface = container?.querySelector(
+      '[data-testid="hero-swipe-overlay"]'
+    ) as HTMLDivElement | null;
+    expect(overlaySurface).not.toBeNull();
+    if (!overlaySurface) {
+      throw new Error("Missing overlay swipe surface");
+    }
 
     await swipe(
       overlaySurface,
@@ -272,9 +274,13 @@ describe("HeroImage swipe handling", () => {
 
     await renderHeroImage();
 
-    const surfaces = getTouchSurfaces();
-    const fullscreenSurface = surfaces[1];
-    expect(fullscreenSurface).toBeDefined();
+    const fullscreenSurface = container?.querySelector(
+      '[data-testid="hero-swipe-fullscreen"]'
+    ) as HTMLDivElement | null;
+    expect(fullscreenSurface).not.toBeNull();
+    if (!fullscreenSurface) {
+      throw new Error("Missing fullscreen swipe surface");
+    }
 
     await swipe(
       fullscreenSurface,

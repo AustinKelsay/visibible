@@ -4,7 +4,6 @@ import { Maximize2 } from "lucide-react";
 import { VerseStrip } from "@/components/verse-strip";
 import { useNavigation } from "@/context/navigation-context";
 import { useSession } from "@/context/session-context";
-import { useVerseView } from "@/context/verse-view-context";
 import { trackImageFullscreenOpened } from "@/lib/analytics";
 
 interface VerseStripBarProps {
@@ -17,7 +16,6 @@ interface VerseStripBarProps {
 export function VerseStripBar({ book, chapter, currentVerse, totalVerses }: VerseStripBarProps) {
   const { currentImageId, openFullscreen } = useNavigation();
   const { tier, credits, isLoading: sessionLoading } = useSession();
-  const { markEngaged } = useVerseView();
 
   return (
     <div className="flex items-center">
@@ -48,7 +46,6 @@ export function VerseStripBar({ book, chapter, currentVerse, totalVerses }: Vers
       {/* Fullscreen button — flush with right edge of liquid-glass container */}
       <button
         onClick={() => {
-          markEngaged("image_fullscreen_opened");
           if (!sessionLoading) {
             trackImageFullscreenOpened({
               book,

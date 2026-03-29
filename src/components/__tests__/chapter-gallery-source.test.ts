@@ -65,7 +65,6 @@ describe("chapter gallery behavior", () => {
     useVerseViewMock.mockReturnValue({
       effectiveView: "reader",
       setEffectiveView: vi.fn(),
-      markEngaged: vi.fn(),
     } as never);
     useSessionMock.mockReturnValue({
       tier: "paid",
@@ -84,6 +83,7 @@ describe("chapter gallery behavior", () => {
     expect(markup).toContain("No image yet");
     expect(markup).toContain("/genesis/1/1");
     expect(markup).toContain("/genesis/1/2");
+    expect(markup).toContain("/genesis/2/1?view=gallery");
   });
 
   it("renders verse mini-galleries, placeholders, and chapter links when enabled", () => {
@@ -91,7 +91,6 @@ describe("chapter gallery behavior", () => {
     useVerseViewMock.mockReturnValue({
       effectiveView: "gallery",
       setEffectiveView: vi.fn(),
-      markEngaged: vi.fn(),
     } as never);
     useQueryMock.mockReturnValue([
       {
@@ -140,7 +139,6 @@ describe("chapter gallery behavior", () => {
     useVerseViewMock.mockReturnValue({
       effectiveView: "gallery",
       setEffectiveView: vi.fn(),
-      markEngaged: vi.fn(),
     } as never);
     useQueryMock.mockReturnValue([
       {

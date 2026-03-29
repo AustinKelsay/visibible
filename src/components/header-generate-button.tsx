@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type KeyboardEvent } from "react";
 import { Sparkles, Loader2, Zap, Check, X, Layers } from "lucide-react";
 import { createPortal } from "react-dom";
 import { useGeneration } from "@/context/generation-context";
@@ -34,6 +34,8 @@ export function HeaderGenerateButton() {
   const [modelsError, setModelsError] = useState<string | null>(null);
   const [scenePlannerCreditsCost, setScenePlannerCreditsCost] = useState(0);
   const hasFetchedModels = useRef(false);
+  const singleTabRef = useRef<HTMLButtonElement | null>(null);
+  const bulkTabRef = useRef<HTMLButtonElement | null>(null);
 
   const {
     canGenerate,
@@ -135,6 +137,39 @@ export function HeaderGenerateButton() {
     setIsModalOpen(true);
   };
 
+  const focusTab = (tab: "single" | "bulk") => {
+    (tab === "single" ? singleTabRef.current : bulkTabRef.current)?.focus();
+  };
+
+  const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    let nextTab: "single" | "bulk" | null = null;
+
+    switch (event.key) {
+      case "ArrowLeft":
+      case "ArrowUp":
+        nextTab = activeTab === "single" ? "bulk" : "single";
+        break;
+      case "ArrowRight":
+      case "ArrowDown":
+        nextTab = activeTab === "single" ? "bulk" : "single";
+        break;
+      case "Home":
+        nextTab = "single";
+        break;
+      case "End":
+        nextTab = "bulk";
+        break;
+      default:
+        break;
+    }
+
+    if (!nextTab) return;
+
+    event.preventDefault();
+    setActiveTab(nextTab);
+    queueMicrotask(() => focusTab(nextTab));
+  };
+
   // Group models by provider
   const groupedModels: Record<string, ImageModel[]> = models.reduce((acc, model) => {
     const provider = model.provider || "Other";
@@ -229,10 +264,15 @@ export function HeaderGenerateButton() {
                 className="flex gap-1 mx-6 mb-4 p-1 rounded-[var(--radius-md)] bg-[var(--surface)]"
               >
                 <button
+                  id="single-tab"
+                  type="button"
+                  ref={singleTabRef}
                   onClick={() => setActiveTab("single")}
+                  onKeyDown={handleTabKeyDown}
                   role="tab"
                   aria-selected={activeTab === "single"}
                   aria-controls="single-panel"
+                  tabIndex={activeTab === "single" ? 0 : -1}
                   className={`flex-1 min-h-[32px] flex items-center justify-center gap-1.5 rounded-[var(--radius-sm)] text-xs font-medium transition-colors ${
                     activeTab === "single"
                       ? "bg-[var(--background)] text-[var(--foreground)] shadow-sm"
@@ -243,10 +283,15 @@ export function HeaderGenerateButton() {
                   Single
                 </button>
                 <button
+                  id="bulk-tab"
+                  type="button"
+                  ref={bulkTabRef}
                   onClick={() => setActiveTab("bulk")}
+                  onKeyDown={handleTabKeyDown}
                   role="tab"
                   aria-selected={activeTab === "bulk"}
                   aria-controls="bulk-panel"
+                  tabIndex={activeTab === "bulk" ? 0 : -1}
                   className={`flex-1 min-h-[32px] flex items-center justify-center gap-1.5 rounded-[var(--radius-sm)] text-xs font-medium transition-colors ${
                     activeTab === "bulk"
                       ? "bg-[var(--background)] text-[var(--foreground)] shadow-sm"
@@ -261,7 +306,7 @@ export function HeaderGenerateButton() {
               {/* Scrollable content */}
               <div className="flex-1 overflow-y-auto overscroll-contain px-6" style={{ WebkitOverflowScrolling: "touch" }}>
                 {activeTab === "bulk" ? (
-                  <div id="bulk-panel" role="tabpanel" className="pb-4">
+                  <div id="bulk-panel" role="tabpanel" aria-labelledby="bulk-tab" className="pb-4">
                     <BulkGeneratePanel
                       perVerseCost={displayEffectiveCost}
                       modelId={modelId}
@@ -271,7 +316,7 @@ export function HeaderGenerateButton() {
                     />
                   </div>
                 ) : (
-                <div id="single-panel" role="tabpanel" className="space-y-5 pb-4">
+                <div id="single-panel" role="tabpanel" aria-labelledby="single-tab" className="space-y-5 pb-4">
                   {/* Model Section */}
                   <div>
                     <span className="text-sm font-medium text-[var(--foreground)]">Model</span>

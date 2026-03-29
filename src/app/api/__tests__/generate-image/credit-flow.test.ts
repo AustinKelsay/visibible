@@ -5,7 +5,10 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { fixtures, type Session } from "../shared/test-fixtures";
-import { mockFetchBibleApi } from "../shared/bible-api-mocks";
+import {
+  mockFetchBibleApi,
+  setMockFetchBibleApiBypass,
+} from "@/app/api/__tests__/shared/bible-api-mocks";
 
 // Create mock state
 const mockState = {
@@ -398,6 +401,7 @@ describe("Image Generation API Credit Flow", () => {
     resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 }]);
     mockFetchResponse = null;
     mockFetchImpl = null;
+    setMockFetchBibleApiBypass(null);
     forceQuoteFailure = false;
     forceRecordImageCostEventFailure = false;
     mockLearnedEstimate = null;
@@ -407,6 +411,7 @@ describe("Image Generation API Credit Flow", () => {
   afterEach(() => {
     process.env = { ...originalEnv };
     global.fetch = originalFetch;
+    setMockFetchBibleApiBypass(null);
   });
 
   describe("Happy Path", () => {
@@ -445,6 +450,7 @@ describe("Image Generation API Credit Flow", () => {
     });
 
     it("reference-only requests resolve verse text and same-chapter continuity context", async () => {
+      setMockFetchBibleApiBypass((url) => url.pathname === "/data/web/GEN/1");
       mockFetchImpl = async (input: RequestInfo | URL) => {
         const url = typeof input === "string"
           ? input
@@ -521,7 +527,7 @@ describe("Image Generation API Credit Flow", () => {
     });
 
     it("returns 400 and does not bill when reference lookup fails", async () => {
-      mockFetchImpl = async (input: RequestInfo | URL) => {
+      const mockFetchImplSpy = vi.fn(async (input: RequestInfo | URL) => {
         const url = typeof input === "string"
           ? input
           : input instanceof URL
@@ -554,7 +560,8 @@ describe("Image Generation API Credit Flow", () => {
             usage: { cost: 0.01 },
           }),
         };
-      };
+      });
+      mockFetchImpl = mockFetchImplSpy;
 
       const { POST } = await import("../../generate-image/route");
       const request = createGenerateImageRequest({
@@ -566,6 +573,16 @@ describe("Image Generation API Credit Flow", () => {
       expect(response.status).toBe(400);
       expect(getCallCount("sessions:reserveCredits")).toBe(0);
       expect(getCallCount("sessions:deductCredits")).toBe(0);
+      expect(
+        mockFetchImplSpy.mock.calls.some(([input]) => {
+          const url = typeof input === "string"
+            ? input
+            : input instanceof URL
+              ? input.toString()
+              : input.url;
+          return url.includes("openrouter.ai");
+        })
+      ).toBe(false);
     });
 
     it("reserve-generate-deduct-fallback: falls back to API estimate when no cost returned", async () => {

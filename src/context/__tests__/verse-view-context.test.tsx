@@ -17,6 +17,14 @@ vi.mock("@/context/session-context", () => ({
   useSession: vi.fn(() => sessionState),
 }));
 
+const searchParamsGetMock = vi.fn(() => null);
+
+vi.mock("next/navigation", () => ({
+  useSearchParams: vi.fn(() => ({
+    get: searchParamsGetMock,
+  })),
+}));
+
 vi.mock("@/lib/analytics", () => ({
   trackPreferenceChanged: vi.fn(),
 }));
@@ -33,6 +41,7 @@ describe("VerseViewProvider", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     sessionState.credits = 10;
+    searchParamsGetMock.mockReturnValue(null);
     container = document.createElement("div");
     document.body.appendChild(container);
     root = createRoot(container);
@@ -88,6 +97,52 @@ describe("VerseViewProvider", () => {
     expect(trackPreferenceChanged).toHaveBeenCalledWith(expect.objectContaining({
       preference: "chapterGallery",
       value: "enabled",
+      source: "header_gallery_toggle",
+      tier: "paid",
+      hasCredits: true,
+    }));
+  });
+
+  it("tracks preference changes when the gallery is toggled back off", async () => {
+    function ToggleHarness() {
+      const { setEffectiveView } = useVerseView();
+      return (
+        <>
+          <button
+            type="button"
+            onClick={() => setEffectiveView("gallery", "header_gallery_toggle")}
+          >
+            Enable
+          </button>
+          <button
+            type="button"
+            onClick={() => setEffectiveView("reader", "header_gallery_toggle")}
+          >
+            Disable
+          </button>
+        </>
+      );
+    }
+
+    await renderProvider(<ToggleHarness />);
+
+    const buttons = container?.querySelectorAll("button");
+    expect(buttons?.length).toBe(2);
+    if (!buttons || buttons.length < 2) {
+      throw new Error("Missing toggle buttons");
+    }
+
+    await act(async () => {
+      buttons[0].dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    });
+
+    await act(async () => {
+      buttons[1].dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    });
+
+    expect(trackPreferenceChanged).toHaveBeenCalledWith(expect.objectContaining({
+      preference: "chapterGallery",
+      value: "disabled",
       source: "header_gallery_toggle",
       tier: "paid",
       hasCredits: true,

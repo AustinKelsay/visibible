@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSession } from "@/context/session-context";
-import { useVerseView } from "@/context/verse-view-context";
 import { trackVerseNavigation } from "@/lib/analytics";
 import { getVerseNavigationDirection } from "@/lib/verse-keyboard-navigation";
 
@@ -35,7 +34,6 @@ export function ScriptureReader({
 }: ScriptureReaderProps) {
   const router = useRouter();
   const { tier, credits, isLoading } = useSession();
-  const { markEngaged } = useVerseView();
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (isLoading) return;
@@ -43,7 +41,6 @@ export function ScriptureReader({
 
       if (direction === "prev" && prevUrl) {
         event.preventDefault();
-        markEngaged("verse_navigation");
         trackVerseNavigation({
           book,
           chapter,
@@ -59,7 +56,6 @@ export function ScriptureReader({
 
       if (direction === "next" && nextUrl) {
         event.preventDefault();
-        markEngaged("verse_navigation");
         trackVerseNavigation({
           book,
           chapter,
@@ -76,7 +72,7 @@ export function ScriptureReader({
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [book, chapter, nextUrl, prevUrl, router, verseNumber, tier, credits, isLoading, markEngaged]);
+  }, [book, chapter, nextUrl, prevUrl, router, verseNumber, tier, credits, isLoading]);
 
   return (
     <article className="px-4 md:px-6 py-3 sm:py-6 max-w-2xl mx-auto">
@@ -87,7 +83,6 @@ export function ScriptureReader({
             <Link
               href={prevUrl}
               onClick={() => {
-                markEngaged("verse_navigation");
                 trackVerseNavigation({
                   book,
                   chapter,
@@ -117,7 +112,6 @@ export function ScriptureReader({
             <Link
               href={nextUrl}
               onClick={() => {
-                markEngaged("verse_navigation");
                 trackVerseNavigation({
                   book,
                   chapter,
@@ -162,7 +156,6 @@ export function ScriptureReader({
             <Link
               href={prevUrl}
               onClick={() => {
-                markEngaged("verse_navigation");
                 trackVerseNavigation({
                   book,
                   chapter,
@@ -192,7 +185,6 @@ export function ScriptureReader({
             <Link
               href={nextUrl}
               onClick={() => {
-                markEngaged("verse_navigation");
                 trackVerseNavigation({
                   book,
                   chapter,

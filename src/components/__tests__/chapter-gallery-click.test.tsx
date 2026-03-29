@@ -8,6 +8,7 @@ import { useConvexEnabled } from "@/components/convex-client-provider";
 import { ChapterGallery } from "@/components/chapter-gallery";
 import { useSession } from "@/context/session-context";
 import { useVerseView } from "@/context/verse-view-context";
+import { trackChapterGalleryItemOpened } from "@/lib/analytics";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -70,9 +71,9 @@ const useQueryMock = vi.mocked(useQuery);
 const useConvexEnabledMock = vi.mocked(useConvexEnabled);
 const useVerseViewMock = vi.mocked(useVerseView);
 const useSessionMock = vi.mocked(useSession);
+const trackChapterGalleryItemOpenedMock = vi.mocked(trackChapterGalleryItemOpened);
 
 const setEffectiveViewMock = vi.fn();
-const markEngagedMock = vi.fn();
 
 describe("ChapterGallery click behavior", () => {
   let container: HTMLDivElement | null = null;
@@ -86,7 +87,6 @@ describe("ChapterGallery click behavior", () => {
 
     useVerseViewMock.mockReturnValue({
       setEffectiveView: setEffectiveViewMock,
-      markEngaged: markEngagedMock,
     } as never);
     useSessionMock.mockReturnValue({
       tier: "paid",
@@ -140,7 +140,7 @@ describe("ChapterGallery click behavior", () => {
     });
 
     expect(setEffectiveViewMock).not.toHaveBeenCalled();
-    expect(markEngagedMock).toHaveBeenCalledWith("chapter_gallery_item_opened");
+    expect(trackChapterGalleryItemOpenedMock).toHaveBeenCalled();
   });
 
   it("switches back to the reader for unmodified primary clicks", async () => {

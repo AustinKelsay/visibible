@@ -531,6 +531,7 @@ Organized across 72 categories mapping to different audience segments and intent
 458. David Bible masculinity
 459. Bible verses for men
 460. men leaving the church
+461. Christian men and women different struggles
 
 ### Category 30: Women's Faith / Bible + Women
 462. strong women in the Bible
@@ -1103,6 +1104,7 @@ Organized across 72 categories mapping to different audience segments and intent
 953. forced to go to church as a kid
 954. Christian parents non-Christian kid
 955. non-Christian parents Christian kid
+956. talking to kids about faith differences
 
 ### Category 69: Bible + AI-Generated Content / Future of Faith Media
 957. AI Bible illustrations

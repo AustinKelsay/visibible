@@ -5,7 +5,7 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { fixtures, type Session } from "../shared/test-fixtures";
-import { mockFetchBibleApi } from "../shared/bible-api-mocks";
+import { mockFetchBibleApi } from "@/app/api/__tests__/shared/bible-api-mocks";
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 
 // Create mock state
