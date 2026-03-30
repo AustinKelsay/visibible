@@ -76,62 +76,6 @@ export function ScriptureReader({
 
   return (
     <article className="px-4 md:px-6 py-3 sm:py-6 max-w-2xl mx-auto">
-      {/* Mobile Navigation - Top (above verse content for easy access) */}
-      <nav className="flex sm:hidden items-center mb-6 pb-4 border-b border-[var(--divider)]">
-        <div className="flex-1 flex justify-start">
-          {prevUrl ? (
-            <Link
-              href={prevUrl}
-              onClick={() => {
-                trackVerseNavigation({
-                  book,
-                  chapter,
-                  verse: verseNumber,
-                  direction: "prev",
-                  source: "mobile_nav",
-                  targetUrl: prevUrl,
-                  tier,
-                  hasCredits: credits > 0,
-                });
-              }}
-              className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] min-h-[44px] px-3 -ml-3"
-              aria-label="Previous verse"
-            >
-              <ChevronLeft size={20} strokeWidth={1.5} />
-              <span className="text-sm">Previous</span>
-            </Link>
-          ) : null}
-        </div>
-
-        <span className="text-[var(--muted)] text-sm">
-          {verseNumber} of {totalVerses}
-        </span>
-
-        <div className="flex-1 flex justify-end">
-          {nextUrl ? (
-            <Link
-              href={nextUrl}
-              onClick={() => {
-                trackVerseNavigation({
-                  book,
-                  chapter,
-                  verse: verseNumber,
-                  direction: "next",
-                  source: "mobile_nav",
-                  targetUrl: nextUrl,
-                  tier,
-                  hasCredits: credits > 0,
-                });
-              }}
-              className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)] min-h-[44px] px-3 -mr-3"
-              aria-label="Next verse"
-            >
-              <span className="text-sm">Next</span>
-              <ChevronRight size={20} strokeWidth={1.5} />
-            </Link>
-          ) : null}
-        </div>
-      </nav>
       {/* Verse Header */}
       <header className="mb-4 sm:mb-8 text-center">
         <p className="text-[var(--muted)] text-sm uppercase tracking-widest mb-2">
