@@ -9,7 +9,7 @@ import {
   useEffect,
   type ReactNode,
 } from "react";
-import { useMutation, useQuery } from "convex/react";
+import { useConvex, useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Doc, Id } from "../../convex/_generated/dataModel";
 import { useSession } from "@/context/session-context";
@@ -88,6 +88,7 @@ const DEFAULT_STATE: BulkGenerationState = {
 const RUN_LOCK_TTL_MS = 15000;
 const RUN_LOCK_HEARTBEAT_MS = 5000;
 const RUN_LOCK_RETRY_JITTER_MS = 250;
+const RUNNER_VERSE_PAGE_SIZE = 100;
 const SESSION_REFETCH_INTERVAL_VERSES = 10;
 const TAB_ID =
   typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
@@ -105,6 +106,7 @@ const BulkGenerationContext = createContext<BulkGenerationContextType | null>(
 export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const { sid, credits, updateCredits, refetch: refetchSession } = useSession();
   const convexEnabled = useConvexEnabled();
+  const convex = useConvex();
 
   const [state, setState] = useState<BulkGenerationState>(DEFAULT_STATE);
   const [runLoopTrigger, setRunLoopTrigger] = useState(0);
@@ -337,12 +339,29 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     convexEnabled && state.bulkId ? { id: state.bulkId } : "skip"
   );
   const bulkForState = subscribedBulk ?? activeBulk;
-  const bulkIdForVerses = bulkForState?._id ?? state.bulkId ?? null;
-  const activeVerses = useQuery(
-    api.bulkGenerations.getVerses,
-    convexEnabled && bulkIdForVerses
-      ? { bulkGenerationId: bulkIdForVerses }
-      : "skip"
+
+  const loadAllVerses = useCallback(
+    async (bulkGenerationId: Id<"bulkGenerations">) => {
+      const verses: BulkGenerationVerse[] = [];
+      let offset = 0;
+
+      while (true) {
+        const page = await convex.query(api.bulkGenerations.getVerses, {
+          bulkGenerationId,
+          limit: RUNNER_VERSE_PAGE_SIZE,
+          offset,
+        });
+        if (page.length === 0) break;
+
+        verses.push(...page);
+        if (page.length < RUNNER_VERSE_PAGE_SIZE) break;
+
+        offset += page.length;
+      }
+
+      return verses;
+    },
+    [convex]
   );
 
   // Sync Convex state → local state (for reactive UI updates)
@@ -377,20 +396,6 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
           : null,
     }));
   }, [bulkForState]);
-
-  useEffect(() => {
-    if (!activeVerses) return;
-
-    const generatingVerse = activeVerses.find(
-      (verse: BulkGenerationVerse) => verse.status === "generating"
-    );
-    if (!generatingVerse) return;
-
-    setState((prev) => ({
-      ...prev,
-      currentVerseReference: generatingVerse.reference,
-    }));
-  }, [activeVerses]);
 
   useEffect(() => {
     const handleStorage = (event: StorageEvent) => {
@@ -714,41 +719,74 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   );
 
   useEffect(() => {
-    if (!bulkForState || !activeVerses) return;
+    if (!bulkForState) return;
 
-    const pendingQueue: BulkQueueItem[] = activeVerses
-      .filter((verse: BulkGenerationVerse) => verse.status === "queued")
-      .map((verse: BulkGenerationVerse) => ({
-        verseId: verse.verseId,
-        reference: verse.reference,
-        order: verse.order,
-      }));
+    let cancelled = false;
 
-    queueRef.current = pendingQueue;
+    const syncRunnerQueue = async () => {
+      try {
+        const verses = await loadAllVerses(bulkForState._id);
+        if (cancelled) return;
 
-    if (
-      bulkForState.status !== "active" ||
-      isPausedRef.current ||
-      isRunningRef.current ||
-      pendingQueue.length === 0
-    ) {
-      return;
-    }
+        const generatingVerse = verses.find(
+          (verse: BulkGenerationVerse) => verse.status === "generating"
+        );
+        if (generatingVerse) {
+          setState((prev) =>
+            prev.currentVerseReference === generatingVerse.reference
+              ? prev
+              : {
+                  ...prev,
+                  currentVerseReference: generatingVerse.reference,
+                }
+          );
+        }
 
-    if (!acquireRunLock(bulkForState._id)) {
-      return;
-    }
+        const pendingQueue: BulkQueueItem[] = verses
+          .filter((verse: BulkGenerationVerse) => verse.status === "queued")
+          .map((verse: BulkGenerationVerse) => ({
+            verseId: verse.verseId,
+            reference: verse.reference,
+            order: verse.order,
+          }));
 
-    isPausedRef.current = false;
-    isCancelledRef.current = false;
-    lostLockRef.current = false;
-    void runGenerationLoop(bulkForState._id, pendingQueue, {
-      completedCount: bulkForState.completedCount,
-      failedCount: bulkForState.failedCount,
-      skippedCount: bulkForState.skippedCount,
-      totalCreditsUsed: bulkForState.totalCreditsUsed,
-    });
-  }, [acquireRunLock, activeVerses, bulkForState, runGenerationLoop, runLoopTrigger]);
+        queueRef.current = pendingQueue;
+
+        if (
+          bulkForState.status !== "active" ||
+          isPausedRef.current ||
+          isRunningRef.current ||
+          pendingQueue.length === 0
+        ) {
+          return;
+        }
+
+        if (!acquireRunLock(bulkForState._id)) {
+          return;
+        }
+
+        isPausedRef.current = false;
+        isCancelledRef.current = false;
+        lostLockRef.current = false;
+        void runGenerationLoop(bulkForState._id, pendingQueue, {
+          completedCount: bulkForState.completedCount,
+          failedCount: bulkForState.failedCount,
+          skippedCount: bulkForState.skippedCount,
+          totalCreditsUsed: bulkForState.totalCreditsUsed,
+        });
+      } catch (error) {
+        if (!cancelled) {
+          console.error("Failed to load bulk generation queue:", error);
+        }
+      }
+    };
+
+    void syncRunnerQueue();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [acquireRunLock, bulkForState, loadAllVerses, runGenerationLoop, runLoopTrigger]);
 
   // ---------------------------------------------------------------------------
   // Public API
@@ -787,7 +825,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         })),
       });
 
-      setState({
+      setState((prev) => ({
         status: bulk.status,
         bulkId: bulk.bulkId,
         totalVerses: bulk.totalVerses,
@@ -795,9 +833,11 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         failedCount: bulk.failedCount,
         skippedCount: bulk.skippedCount,
         totalCreditsUsed: bulk.totalCreditsUsed,
-        currentVerseReference: params.queue[0]?.reference ?? null,
+        currentVerseReference: bulk.created
+          ? params.queue[0]?.reference ?? null
+          : prev.currentVerseReference,
         errorMessage: null,
-      });
+      }));
 
       if (!bulk.created) {
         return;

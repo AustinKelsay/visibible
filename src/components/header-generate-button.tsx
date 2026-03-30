@@ -113,7 +113,7 @@ export function HeaderGenerateButton() {
             setScenePlannerCreditsCost(0);
           })
           .finally(() => setModelsLoading(false));
-          });
+      });
     }
   }, [isModalOpen, modelsError]);
 

@@ -143,6 +143,24 @@ describe("ChapterGallery click behavior", () => {
     expect(trackChapterGalleryItemOpenedMock).toHaveBeenCalled();
   });
 
+  it("does not switch views for meta-modified clicks", async () => {
+    await renderGallery();
+
+    const link = container?.querySelector('a[href="/genesis/1/1"]');
+    expect(link).not.toBeNull();
+
+    await act(async () => {
+      link?.dispatchEvent(new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+        metaKey: true,
+      }));
+    });
+
+    expect(setEffectiveViewMock).not.toHaveBeenCalled();
+    expect(trackChapterGalleryItemOpenedMock).toHaveBeenCalled();
+  });
+
   it("switches back to the reader for unmodified primary clicks", async () => {
     await renderGallery();
 

@@ -20,7 +20,7 @@ const VerseNavContext = createContext<VerseNavContextValue | null>(null);
 
 export function VerseNavProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<VerseNavData | null>(null);
-  const contextValue = useMemo(() => ({ data, setData }), [data]);
+  const contextValue = useMemo(() => ({ data, setData }), [data, setData]);
 
   return (
     <VerseNavContext.Provider value={contextValue}>

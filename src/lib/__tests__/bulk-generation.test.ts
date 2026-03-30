@@ -26,20 +26,19 @@ describe("buildVerseQueue", () => {
   });
 
   it("builds a verse queue for 'chapters' scope", () => {
-    // From Genesis 1:28 with 1 chapter → rest of ch1 (29,30,31)
+    // From Genesis 1:28 with 1 chapter → all of ch2
     const queue = buildVerseQueue({ type: "chapters", count: 1 }, loc("genesis", 1, 28));
-    expect(queue).toHaveLength(3);
-    expect(queue[0].reference).toBe("Genesis 1:29");
-    expect(queue[2].reference).toBe("Genesis 1:31");
+    expect(queue).toHaveLength(25);
+    expect(queue[0].reference).toBe("Genesis 2:1");
+    expect(queue[24].reference).toBe("Genesis 2:25");
   });
 
   it("builds a verse queue for 'chapters' scope spanning multiple chapters", () => {
-    // From Genesis 1:30 with 2 chapters → rest of ch1 + all of ch2
+    // From Genesis 1:30 with 2 chapters → all of ch2 + all of ch3
     const queue = buildVerseQueue({ type: "chapters", count: 2 }, loc("genesis", 1, 30));
-    // ch1 has 31 verses, starting after v30 = 1 verse. ch2 has 25 = 26 total
-    expect(queue).toHaveLength(1 + 25);
-    expect(queue[0].reference).toBe("Genesis 1:31");
-    expect(queue[1].reference).toBe("Genesis 2:1");
+    expect(queue).toHaveLength(25 + 24);
+    expect(queue[0].reference).toBe("Genesis 2:1");
+    expect(queue[25].reference).toBe("Genesis 3:1");
   });
 
   it("skips the completed chapter when starting from its last verse", () => {
@@ -101,6 +100,11 @@ describe("getMaxScopeCount", () => {
   it("returns remaining chapters for chapters scope", () => {
     // Genesis has 50 chapters. From ch3: 50 - 3 + 1 = 48
     expect(getMaxScopeCount("chapters", loc("genesis", 3, 1))).toBe(48);
+  });
+
+  it("skips the current chapter count when starting mid-chapter", () => {
+    // Genesis has 50 chapters. From ch3:2, the next full chapter is ch4.
+    expect(getMaxScopeCount("chapters", loc("genesis", 3, 2))).toBe(47);
   });
 
   it("does not count the current chapter when already at its last verse", () => {

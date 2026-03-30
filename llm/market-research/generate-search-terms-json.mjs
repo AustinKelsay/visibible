@@ -91,3 +91,4 @@ const document = {
 };
 
 writeFileSync(outputPath, `${JSON.stringify(document, null, 2)}\n`);
+console.log(`Wrote ${outputPath} with ${document.metadata.recordCount} search term records.`);

@@ -190,12 +190,20 @@ export function ImageGenerationSettingsPanel({
             return (
               <button
                 key={resolution}
-                onClick={() => setResolution(resolution, "header_generate_modal")}
+                onClick={() => {
+                  if (modelSupportsResolution) {
+                    setResolution(resolution, "header_generate_modal");
+                  }
+                }}
+                disabled={!modelSupportsResolution}
+                aria-disabled={!modelSupportsResolution}
                 className={`flex-1 min-h-[36px] rounded-[var(--radius-md)] text-xs font-medium transition-colors flex flex-col items-center justify-center ${
                   imageResolution === resolution
                     ? "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/50"
-                    : "bg-[var(--surface)] text-[var(--muted)] border border-transparent hover:bg-[var(--divider)]"
-                } ${!modelSupportsResolution ? "opacity-60" : ""}`}
+                    : `bg-[var(--surface)] text-[var(--muted)] border border-transparent ${
+                        modelSupportsResolution ? "hover:bg-[var(--divider)]" : ""
+                      }`
+                } ${!modelSupportsResolution ? "opacity-60 cursor-not-allowed" : ""}`}
               >
                 <span>{resolution}</span>
                 {showCreditsCost ? (

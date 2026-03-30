@@ -54,10 +54,8 @@ export function buildVerseQueue(
       break;
 
     case "chapters": {
-      // When the current verse already finishes its chapter, allow a +1 startChapter
-      // so the overflow guard below can return an empty queue at the end of the book.
       const startChapter =
-        current.verse >= current.book.chapters[current.chapter - 1]
+        current.verse > 1
           ? Math.min(current.chapter + 1, current.book.chapters.length + 1)
           : current.chapter;
       const endChapter = Math.min(
@@ -67,12 +65,7 @@ export function buildVerseQueue(
       locations =
         startChapter > current.book.chapters.length
           ? []
-          : getVersesInChapterRange(
-              current.book.slug,
-              startChapter,
-              endChapter,
-              startChapter === current.chapter ? current.verse : undefined
-            );
+          : getVersesInChapterRange(current.book.slug, startChapter, endChapter);
       break;
     }
 
@@ -147,8 +140,8 @@ export function getMaxScopeCount(
     }
     case "chapters": {
       const startChapter =
-        current.verse >= current.book.chapters[current.chapter - 1]
-          ? current.chapter + 1
+        current.verse > 1
+          ? Math.min(current.chapter + 1, current.book.chapters.length + 1)
           : current.chapter;
       return Math.max(0, current.book.chapters.length - startChapter + 1);
     }
