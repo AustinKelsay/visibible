@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Check, X, Loader2, Pause, Play, Zap, CircleDot, Minus } from "lucide-react";
 import { useBulkGeneration } from "@/context/bulk-generation-context";
 import { useQuery } from "convex/react";
-import { api } from "@convex/_generated/api";
-import type { Doc } from "@convex/_generated/dataModel";
+import { api } from "../../convex/_generated/api";
+import type { Doc } from "../../convex/_generated/dataModel";
 
 interface BulkGenerationProgressProps {
   onClose: () => void;

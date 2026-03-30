@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
+import { usePathname } from "next/navigation";
 import { Zap, Minus, Plus, BookOpen } from "lucide-react";
 import { useSession } from "@/context/session-context";
 import { useVerseNav } from "@/context/verse-nav-context";
 import { usePreferences } from "@/context/preferences-context";
 import { useBulkGeneration } from "@/context/bulk-generation-context";
-import { parseVerseLocation } from "@/lib/navigation";
+import { parseVerseLocation, parseVerseUrl } from "@/lib/navigation";
 import type { VerseLocation } from "@/lib/navigation";
 import {
   buildVerseQueue,
@@ -36,6 +37,15 @@ interface BulkGeneratePanelProps {
   onClose: () => void;
 }
 
+function getDefaultCount(type: BulkScopeType) {
+  return type === "verses" ? 5 : 1;
+}
+
+function clampCount(value: number, max: number) {
+  if (max <= 0) return 0;
+  return Math.min(Math.max(1, value), max);
+}
+
 export function BulkGeneratePanel({
   perVerseCost,
   modelId,
@@ -46,28 +56,44 @@ export function BulkGeneratePanel({
   const { credits, tier, buyCredits } = useSession();
   const { translation } = usePreferences();
   const verseNav = useVerseNav();
+  const pathname = usePathname();
   const { state: bulkState, startBulkGeneration } = useBulkGeneration();
 
   const [scopeType, setScopeTypeRaw] = useState<BulkScopeType>("verses");
-  const [count, setCount] = useState(5);
+  const [count, setCount] = useState(getDefaultCount("verses"));
+  const [countInput, setCountInput] = useState(String(getDefaultCount("verses")));
   const [startError, setStartError] = useState<string | null>(null);
   const [isStarting, setIsStarting] = useState(false);
 
   // Wrap setScopeType to also reset count
   const setScopeType = (type: BulkScopeType) => {
     setScopeTypeRaw(type);
-    setCount(type === "verses" ? 5 : 1);
+    const defaultCount = getDefaultCount(type);
+    setCount(defaultCount);
+    setCountInput(String(defaultCount));
   };
 
-  // Build current verse location from nav context
   const currentLocation: VerseLocation | null = useMemo(() => {
+    const pathnameParts = pathname?.split("/").filter(Boolean) ?? [];
+    if (pathnameParts.length >= 3) {
+      const routeLocation = parseVerseUrl(
+        pathnameParts[0],
+        pathnameParts[1],
+        pathnameParts[2]
+      );
+      if (routeLocation) {
+        return routeLocation;
+      }
+    }
+
     if (!verseNav) return null;
+
     return parseVerseLocation(
       verseNav.book,
       verseNav.chapter,
       verseNav.verseNumber
     );
-  }, [verseNav]);
+  }, [pathname, verseNav]);
 
   const maxCount = useMemo(
     () => (currentLocation ? getMaxScopeCount(scopeType, currentLocation) : 1),
@@ -78,6 +104,18 @@ export function BulkGeneratePanel({
     () => Math.min(count, maxCount),
     [count, maxCount]
   );
+
+  useEffect(() => {
+    const normalizedCount = clampCount(count, maxCount);
+
+    if (normalizedCount !== count) {
+      setCount(normalizedCount);
+    }
+
+    if (countInput !== "" && countInput !== String(normalizedCount)) {
+      setCountInput(String(normalizedCount));
+    }
+  }, [count, countInput, maxCount]);
 
   const scope: BulkScope = useMemo(
     () => ({ type: scopeType, count: effectiveCount }),
@@ -151,6 +189,46 @@ export function BulkGeneratePanel({
     { type: "book", label: "Book" },
   ];
 
+  const adjustCount = (delta: number) => {
+    const nextCount = clampCount(count + delta, maxCount);
+    setCount(nextCount);
+    setCountInput(String(nextCount));
+  };
+
+  const handleCountChange = (value: string) => {
+    setCountInput(value);
+
+    if (value === "") return;
+
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed)) return;
+
+    setCount(clampCount(Math.trunc(parsed), maxCount));
+  };
+
+  const handleCountBlur = () => {
+    if (maxCount <= 0) {
+      setCountInput("0");
+      setCount(0);
+      return;
+    }
+
+    if (countInput.trim() === "") {
+      setCountInput(String(effectiveCount));
+      return;
+    }
+
+    const parsed = Number(countInput);
+    if (!Number.isFinite(parsed)) {
+      setCountInput(String(effectiveCount));
+      return;
+    }
+
+    const normalizedCount = clampCount(Math.trunc(parsed), maxCount);
+    setCount(normalizedCount);
+    setCountInput(String(normalizedCount));
+  };
+
   return (
     <div className="space-y-5">
       {/* Scope type pills */}
@@ -206,20 +284,31 @@ export function BulkGeneratePanel({
               </span>
               <div className="flex items-center gap-1">
                 <button
-                  onClick={() => setCount((c) => Math.max(1, c - (scopeType === "verses" ? 5 : 1)))}
-                  disabled={count <= 1 || isStarting}
-                  aria-label={scopeType === "verses" ? "Decrease count by 5" : "Decrease count by 1"}
+                  onClick={() => adjustCount(-1)}
+                  disabled={effectiveCount <= 1 || isStarting || maxCount <= 0}
+                  aria-label="Decrease count by 1"
                   className="min-h-[32px] min-w-[32px] flex items-center justify-center rounded-[var(--radius-sm)] bg-[var(--background)] border border-[var(--divider)] text-[var(--foreground)] hover:bg-[var(--divider)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 >
                   <Minus size={14} />
                 </button>
-                <span className="min-w-[32px] text-center text-sm font-medium tabular-nums">
-                  {effectiveCount}
-                </span>
+                <input
+                  type="number"
+                  min={maxCount > 0 ? 1 : 0}
+                  max={Math.max(0, maxCount)}
+                  step={1}
+                  inputMode="numeric"
+                  value={countInput}
+                  onChange={(event) => handleCountChange(event.target.value)}
+                  onBlur={handleCountBlur}
+                  onFocus={(event) => event.target.select()}
+                  disabled={isStarting || maxCount <= 0}
+                  aria-label={`Number of ${scopeType}`}
+                  className="h-8 w-14 rounded-[var(--radius-sm)] border border-[var(--divider)] bg-[var(--background)] px-2 text-center text-sm font-medium tabular-nums text-[var(--foreground)] outline-none transition-colors [appearance:textfield] disabled:opacity-40 disabled:cursor-not-allowed [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                />
                 <button
-                  onClick={() => setCount((c) => Math.min(maxCount, c + (scopeType === "verses" ? 5 : 1)))}
-                  disabled={count >= maxCount || isStarting}
-                  aria-label={scopeType === "verses" ? "Increase count by 5" : "Increase count by 1"}
+                  onClick={() => adjustCount(1)}
+                  disabled={effectiveCount >= maxCount || isStarting || maxCount <= 0}
+                  aria-label="Increase count by 1"
                   className="min-h-[32px] min-w-[32px] flex items-center justify-center rounded-[var(--radius-sm)] bg-[var(--background)] border border-[var(--divider)] text-[var(--foreground)] hover:bg-[var(--divider)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 >
                   <Plus size={14} />

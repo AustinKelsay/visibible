@@ -1,29 +1,23 @@
 "use client";
 
 import { useState, useRef, useEffect, type KeyboardEvent } from "react";
-import { Sparkles, Loader2, Zap, Check, X, Layers } from "lucide-react";
+import { Sparkles, Loader2, Zap, X, Layers } from "lucide-react";
 import { createPortal } from "react-dom";
 import { useGeneration } from "@/context/generation-context";
-import { usePreferences } from "@/context/preferences-context";
 import { useSession } from "@/context/session-context";
 import { trackCreditsInsufficient } from "@/lib/analytics";
 import {
-  ASPECT_RATIOS,
-  RESOLUTIONS,
-  type ImageAspectRatio,
-  type ImageResolution,
   type ImageModel,
   DEFAULT_IMAGE_MODEL,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
   getEstimatedCreditsCostForResolution,
-  supportsResolution,
 } from "@/lib/image-models";
 import { BulkGeneratePanel } from "@/components/bulk-generate-panel";
+import { ImageGenerationSettingsPanel } from "@/components/image-generation-settings-panel";
 
 /** Compact generate button for the header. Returns null on non-verse pages. */
 export function HeaderGenerateButton() {
-  const { state, isRegistered, generate, buyCredits, setAspectRatio, setResolution } = useGeneration();
-  const { imageModel, setImageModel } = usePreferences();
+  const { state, isRegistered, generate, buyCredits } = useGeneration();
   const { tier, credits } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"single" | "bulk">("single");
@@ -50,7 +44,6 @@ export function HeaderGenerateButton() {
     scenePlannerCreditsCost: generationScenePlannerCreditsCost,
     modelId,
   } = state;
-  const modelSupportsRes = supportsResolution(modelId);
   const displayEffectiveCost =
     displayCostByResolution?.[resolution] ??
     getEstimatedCreditsCostForResolution(
@@ -84,7 +77,7 @@ export function HeaderGenerateButton() {
 
   // Lazy-fetch models when modal opens
   useEffect(() => {
-    if (isModalOpen && activeTab === "single" && !hasFetchedModels.current && !modelsError) {
+    if (isModalOpen && !hasFetchedModels.current && !modelsError) {
       hasFetchedModels.current = true;
 
       queueMicrotask(() => {
@@ -120,16 +113,9 @@ export function HeaderGenerateButton() {
             setScenePlannerCreditsCost(0);
           })
           .finally(() => setModelsLoading(false));
-      });
+          });
     }
-  }, [activeTab, isModalOpen, modelsError]);
-
-  const getModelDisplayCost = (model: ImageModel, selectedResolution: ImageResolution) =>
-    getEstimatedCreditsCostForResolution(
-      model,
-      selectedResolution,
-      scenePlannerCreditsCost
-    ) ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
+  }, [isModalOpen, modelsError]);
 
   const openGenerateModal = (tab: "single" | "bulk" = "single") => {
     if (isGenerating) return;
@@ -169,14 +155,6 @@ export function HeaderGenerateButton() {
     setActiveTab(nextTab);
     queueMicrotask(() => focusTab(nextTab));
   };
-
-  // Group models by provider
-  const groupedModels: Record<string, ImageModel[]> = models.reduce((acc, model) => {
-    const provider = model.provider || "Other";
-    if (!acc[provider]) acc[provider] = [];
-    acc[provider].push(model);
-    return acc;
-  }, {} as Record<string, ImageModel[]>);
 
   if (!isRegistered) return null;
 
@@ -313,7 +291,13 @@ export function HeaderGenerateButton() {
               {/* Scrollable content */}
               <div className="flex-1 overflow-y-auto overscroll-contain px-6" style={{ WebkitOverflowScrolling: "touch" }}>
                 {activeTab === "bulk" ? (
-                  <div id="bulk-panel" role="tabpanel" aria-labelledby="bulk-tab" className="pb-4">
+                  <div id="bulk-panel" role="tabpanel" aria-labelledby="bulk-tab" className="space-y-5 pb-4">
+                    <ImageGenerationSettingsPanel
+                      models={models}
+                      modelsLoading={modelsLoading}
+                      modelsError={modelsError}
+                      scenePlannerCreditsCost={scenePlannerCreditsCost}
+                    />
                     <BulkGeneratePanel
                       perVerseCost={displayEffectiveCost}
                       modelId={modelId}
@@ -324,132 +308,12 @@ export function HeaderGenerateButton() {
                   </div>
                 ) : (
                 <div id="single-panel" role="tabpanel" aria-labelledby="single-tab" className="space-y-5 pb-4">
-                  {/* Model Section */}
-                  <div>
-                    <span className="text-sm font-medium text-[var(--foreground)]">Model</span>
-                    {modelsLoading ? (
-                      <div className="flex items-center justify-center py-6">
-                        <Loader2 size={18} className="animate-spin text-[var(--muted)]" />
-                        <span className="ml-2 text-sm text-[var(--muted)]">Loading models...</span>
-                      </div>
-                    ) : modelsError && models.length === 0 ? (
-                      <div className="py-4 text-sm text-red-500 text-center">{modelsError}</div>
-                    ) : (
-                      <div className="mt-2 rounded-[var(--radius-md)] border border-[var(--divider)] overflow-hidden">
-                        <div className="max-h-48 overflow-y-auto overscroll-contain">
-                          {Object.entries(groupedModels).map(([provider, providerModels]) => (
-                            <div key={provider}>
-                              <div className="px-3 py-1.5 text-[10px] font-medium text-[var(--muted)] uppercase tracking-wider bg-[var(--surface)] sticky top-0 border-b border-[var(--divider)]/50">
-                                {provider}
-                              </div>
-                              {providerModels.map((model) => {
-                                const isSelected = imageModel === model.id;
-                                const isPricingAvailable =
-                                  model.estimatedCreditsByResolution != null ||
-                                  model.creditsCost != null ||
-                                  model.reservationCreditsCost != null;
-                                return (
-                                  <button
-                                    key={model.id}
-                                    onClick={() => {
-                                      if (isPricingAvailable) {
-                                        setImageModel(model.id, "header_generate_modal");
-                                      }
-                                    }}
-                                    disabled={!isPricingAvailable}
-                                    className={`w-full flex items-center justify-between px-3 py-2.5 text-left transition-colors duration-[var(--motion-fast)] ${
-                                      !isPricingAvailable ? "opacity-50 cursor-not-allowed" : "hover:bg-[var(--surface)]"
-                                    } ${isSelected ? "bg-[var(--accent)]/10" : ""}`}
-                                  >
-                                    <div className="flex-1 min-w-0">
-                                      <div className="text-sm font-medium truncate">{model.name}</div>
-                                      <p className="text-xs text-[var(--muted)] truncate">
-                                        {model.creditsCost == null && model.reservationCreditsCost == null ? (
-                                          "Pricing unavailable"
-                                        ) : (
-                                          <>~{model.etaSeconds ?? 12}s · About {getModelDisplayCost(model, resolution)} credits</>
-                                        )}
-                                      </p>
-                                    </div>
-                                    {isSelected && (
-                                      <Check size={16} className="text-[var(--accent)] flex-shrink-0 ml-2" />
-                                    )}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Aspect Ratio Section */}
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-[var(--foreground)]">Aspect Ratio</span>
-                    </div>
-                    <div className="flex gap-2">
-                      {(Object.keys(ASPECT_RATIOS) as ImageAspectRatio[]).map((ratio) => (
-                            <button
-                              key={ratio}
-                              onClick={() => setAspectRatio(ratio, "header_generate_modal")}
-                          className={`flex-1 min-h-[36px] rounded-[var(--radius-md)] text-xs font-medium transition-colors ${
-                            aspectRatio === ratio
-                              ? "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/50"
-                              : "bg-[var(--surface)] text-[var(--muted)] border border-transparent hover:bg-[var(--divider)]"
-                          }`}
-                        >
-                          {ratio}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Resolution Section */}
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-[var(--foreground)]">Resolution</span>
-                      {!modelSupportsRes && (
-                        <span className="text-[10px] text-[var(--muted)] opacity-70">Not supported</span>
-                      )}
-                    </div>
-                    <div className="flex gap-2">
-                      {(Object.keys(RESOLUTIONS) as ImageResolution[]).map((res) => {
-                        const cost =
-                          displayCostByResolution?.[res] ??
-                          getEstimatedCreditsCostForResolution(
-                            {
-                              id: modelId,
-                              creditsCost: baseCost,
-                              reservationCreditsCost: null,
-                            },
-                            res,
-                            generationScenePlannerCreditsCost
-                          ) ??
-                          DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
-                        return (
-                          <button
-                            key={res}
-                            onClick={() => setResolution(res, "header_generate_modal")}
-                            className={`flex-1 min-h-[36px] rounded-[var(--radius-md)] text-xs font-medium transition-colors flex flex-col items-center justify-center ${
-                              resolution === res
-                                ? "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/50"
-                                : "bg-[var(--surface)] text-[var(--muted)] border border-transparent hover:bg-[var(--divider)]"
-                            } ${!modelSupportsRes ? "opacity-60" : ""}`}
-                          >
-                            <span>{res}</span>
-                            {showCreditsCost && (
-                              <span className="inline-flex items-center gap-0.5 text-[10px] opacity-70">
-                                <Zap size={10} strokeWidth={2} />
-                                {cost}
-                              </span>
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
+                  <ImageGenerationSettingsPanel
+                    models={models}
+                    modelsLoading={modelsLoading}
+                    modelsError={modelsError}
+                    scenePlannerCreditsCost={scenePlannerCreditsCost}
+                  />
                 </div>
                 )}
               </div>
