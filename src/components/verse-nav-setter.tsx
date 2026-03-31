@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useLayoutEffect } from "react";
-import { useSetVerseNav } from "@/context/verse-nav-context";
+import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import { type VerseNavData, useSetVerseNav } from "@/context/verse-nav-context";
 
 interface VerseNavSetterProps {
   book: string;
@@ -10,6 +10,22 @@ interface VerseNavSetterProps {
   totalVerses: number;
   prevUrl?: string;
   nextUrl?: string;
+}
+
+function isSameVerseNavData(
+  current: VerseNavData | null,
+  next: VerseNavData | null
+): boolean {
+  if (!current || !next) {
+    return false;
+  }
+
+  return current.book === next.book &&
+    current.chapter === next.chapter &&
+    current.verseNumber === next.verseNumber &&
+    current.totalVerses === next.totalVerses &&
+    current.prevUrl === next.prevUrl &&
+    current.nextUrl === next.nextUrl;
 }
 
 /**
@@ -26,14 +42,28 @@ export function VerseNavSetter({
   nextUrl,
 }: VerseNavSetterProps) {
   const setVerseNav = useSetVerseNav();
+  const navDataRef = useRef<VerseNavData | null>(null);
+  const navData = useMemo(
+    () => ({ book, chapter, verseNumber, totalVerses, prevUrl, nextUrl }),
+    [book, chapter, verseNumber, totalVerses, prevUrl, nextUrl]
+  );
 
   useLayoutEffect(() => {
-    setVerseNav({ book, chapter, verseNumber, totalVerses, prevUrl, nextUrl });
-  }, [book, chapter, verseNumber, totalVerses, prevUrl, nextUrl, setVerseNav]);
+    navDataRef.current = navData;
+    setVerseNav(navData);
+  }, [navData, setVerseNav]);
 
   useEffect(() => {
     return () => {
-      setVerseNav(null);
+      const navData = navDataRef.current;
+
+      setVerseNav((current) => {
+        if (isSameVerseNavData(current, navData)) {
+          return null;
+        }
+
+        return current;
+      });
     };
   }, [setVerseNav]);
 

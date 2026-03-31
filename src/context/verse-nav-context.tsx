@@ -1,6 +1,14 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
+} from "react";
 
 export interface VerseNavData {
   book: string;
@@ -13,7 +21,7 @@ export interface VerseNavData {
 
 interface VerseNavContextValue {
   data: VerseNavData | null;
-  setData: (data: VerseNavData | null) => void;
+  setData: Dispatch<SetStateAction<VerseNavData | null>>;
 }
 
 const VerseNavContext = createContext<VerseNavContextValue | null>(null);
