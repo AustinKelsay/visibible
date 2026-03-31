@@ -6,7 +6,6 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { MobileVerseNav } from "@/components/mobile-verse-nav";
 import { useNavigation } from "@/context/navigation-context";
 import { useSession } from "@/context/session-context";
-import { useVerseNav } from "@/context/verse-nav-context";
 import { trackVerseNavigation } from "@/lib/analytics";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
@@ -43,17 +42,12 @@ vi.mock("@/context/session-context", () => ({
   useSession: vi.fn(),
 }));
 
-vi.mock("@/context/verse-nav-context", () => ({
-  useVerseNav: vi.fn(),
-}));
-
 vi.mock("@/lib/analytics", () => ({
   trackVerseNavigation: vi.fn(),
 }));
 
 const useNavigationMock = vi.mocked(useNavigation);
 const useSessionMock = vi.mocked(useSession);
-const useVerseNavMock = vi.mocked(useVerseNav);
 const trackVerseNavigationMock = vi.mocked(trackVerseNavigation);
 
 describe("MobileVerseNav", () => {
@@ -75,15 +69,6 @@ describe("MobileVerseNav", () => {
       tier: "paid",
       credits: 3,
     } as never);
-
-    useVerseNavMock.mockReturnValue({
-      book: "Genesis",
-      chapter: 1,
-      verseNumber: 2,
-      totalVerses: 31,
-      prevUrl: "/genesis/1/1",
-      nextUrl: "/genesis/1/3",
-    } as never);
   });
 
   afterEach(async () => {
@@ -99,7 +84,16 @@ describe("MobileVerseNav", () => {
 
   async function renderNav() {
     await act(async () => {
-      root?.render(<MobileVerseNav />);
+      root?.render(
+        <MobileVerseNav
+          book="Genesis"
+          chapter={1}
+          verseNumber={2}
+          totalVerses={31}
+          prevUrl="/genesis/1/1"
+          nextUrl="/genesis/1/3"
+        />
+      );
     });
   }
 

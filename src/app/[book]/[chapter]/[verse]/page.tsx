@@ -4,8 +4,8 @@ import { Header } from "@/components/header";
 import { BookMenu } from "@/components/book-menu";
 import { LayoutWrapper } from "@/components/layout-wrapper";
 import { ChatContextSetter } from "@/components/chat-context-setter";
-import { VerseNavSetter } from "@/components/verse-nav-setter";
 import { Footer } from "@/components/footer";
+import { MobileVerseNav } from "@/components/mobile-verse-nav";
 import { VerseAnalytics } from "@/components/verse-analytics";
 import { VersePageContent } from "@/components/verse-page-content";
 import { VerseViewProvider } from "@/context/verse-view-context";
@@ -150,16 +150,6 @@ export default async function VersePage({ params }: VersePageProps) {
         {/* Set chat context for sidebar */}
         <ChatContextSetter context={chatContext} />
 
-        {/* Set verse navigation data for sticky bottom bar */}
-        <VerseNavSetter
-          book={bookData.name}
-          chapter={location.chapter}
-          verseNumber={location.verse}
-          totalVerses={totalVerses}
-          prevUrl={prevUrl ?? undefined}
-          nextUrl={nextUrl ?? undefined}
-        />
-
         {/* Header */}
         <Header />
 
@@ -188,6 +178,15 @@ export default async function VersePage({ params }: VersePageProps) {
 
         {/* Spacer so sticky mobile verse nav bar doesn't cover footer */}
         <div className="sm:hidden" style={{ height: MOBILE_VERSE_NAV_OFFSET }} aria-hidden="true" />
+
+        <MobileVerseNav
+          book={bookData.name}
+          chapter={location.chapter}
+          verseNumber={location.verse}
+          totalVerses={totalVerses}
+          prevUrl={prevUrl ?? undefined}
+          nextUrl={nextUrl ?? undefined}
+        />
 
         {/* Book Menu */}
         <BookMenu />

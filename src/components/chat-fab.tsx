@@ -1,9 +1,11 @@
 "use client";
 
+import { useMemo } from "react";
 import { MessageCircle } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useNavigation } from "@/context/navigation-context";
-import { useVerseNav } from "@/context/verse-nav-context";
 import { MOBILE_VERSE_NAV_OFFSET } from "@/lib/mobile-verse-nav";
+import { parseVerseUrl } from "@/lib/navigation";
 
 /**
  * Floating action button for opening the chat sidebar.
@@ -12,7 +14,17 @@ import { MOBILE_VERSE_NAV_OFFSET } from "@/lib/mobile-verse-nav";
  */
 export function ChatFAB() {
   const { isChatOpen, openChat } = useNavigation();
-  const verseNav = useVerseNav();
+  const pathname = usePathname();
+  const hasMobileVerseNav = useMemo(() => {
+    const pathnameParts = pathname?.split("/").filter(Boolean) ?? [];
+    if (pathnameParts.length < 3) return false;
+
+    return Boolean(parseVerseUrl(
+      pathnameParts[0],
+      pathnameParts[1],
+      pathnameParts[2]
+    ));
+  }, [pathname]);
 
   // Hide FAB when chat is open
   if (isChatOpen) return null;
@@ -22,7 +34,7 @@ export function ChatFAB() {
     <button
       onClick={openChat}
       style={{
-        bottom: verseNav
+        bottom: hasMobileVerseNav
           ? MOBILE_VERSE_NAV_OFFSET
           : "calc(env(safe-area-inset-bottom) + 1.5rem)",
       }}

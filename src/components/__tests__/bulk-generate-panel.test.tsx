@@ -12,7 +12,6 @@ const mocks = vi.hoisted(() => ({
   useBulkGeneration: vi.fn(),
   usePreferences: vi.fn(),
   useSession: vi.fn(),
-  useVerseNav: vi.fn(),
 }));
 
 vi.mock("next/navigation", () => ({
@@ -29,10 +28,6 @@ vi.mock("@/context/preferences-context", () => ({
 
 vi.mock("@/context/session-context", () => ({
   useSession: mocks.useSession,
-}));
-
-vi.mock("@/context/verse-nav-context", () => ({
-  useVerseNav: mocks.useVerseNav,
 }));
 
 describe("BulkGeneratePanel", () => {
@@ -56,14 +51,6 @@ describe("BulkGeneratePanel", () => {
     mocks.usePreferences.mockReturnValue({
       translation: "web",
     } as never);
-
-    mocks.useVerseNav.mockReturnValue({
-      book: "Genesis",
-      chapter: 1,
-      verseNumber: 2,
-      totalVerses: 31,
-    } as never);
-
     mocks.useBulkGeneration.mockReturnValue({
       state: { status: "idle" },
       startBulkGeneration: vi.fn(),
@@ -113,9 +100,7 @@ describe("BulkGeneratePanel", () => {
     expect(container?.textContent).toContain("~30 credits");
   });
 
-  it("falls back to the current verse route when verse nav context is missing", async () => {
-    mocks.useVerseNav.mockReturnValue(null as never);
-
+  it("uses the current verse route to build the queue", async () => {
     await renderPanel();
 
     expect(container?.textContent).not.toContain("Navigate to a verse to use bulk generation.");

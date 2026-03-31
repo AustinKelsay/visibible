@@ -3,21 +3,35 @@
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigation } from "@/context/navigation-context";
-import { useVerseNav } from "@/context/verse-nav-context";
 import { useSession } from "@/context/session-context";
 import { trackVerseNavigation } from "@/lib/analytics";
+
+interface MobileVerseNavProps {
+  book: string;
+  chapter: number;
+  verseNumber: number;
+  totalVerses: number;
+  prevUrl?: string;
+  nextUrl?: string;
+}
 
 /**
  * Sticky bottom bar for mobile verse navigation.
  * Always visible at the bottom of the viewport on verse pages,
  * hidden during fullscreen view and when chat is open.
  */
-export function MobileVerseNav() {
-  const verseNav = useVerseNav();
+export function MobileVerseNav({
+  book,
+  chapter,
+  verseNumber,
+  totalVerses,
+  prevUrl,
+  nextUrl,
+}: MobileVerseNavProps) {
   const { isFullscreen, isChatOpen } = useNavigation();
   const { tier, credits } = useSession();
 
-  const isHidden = !verseNav || isFullscreen || isChatOpen;
+  const isHidden = isFullscreen || isChatOpen;
 
   return (
     <nav
@@ -38,18 +52,18 @@ export function MobileVerseNav() {
       <div className="flex items-center px-4 py-2">
         {/* Previous button */}
         <div className="flex-1">
-          {verseNav?.prevUrl ? (
+          {prevUrl ? (
             <Link
-              href={verseNav.prevUrl}
+              href={prevUrl}
               tabIndex={isHidden ? -1 : undefined}
               onClick={() => {
                 trackVerseNavigation({
-                  book: verseNav.book,
-                  chapter: verseNav.chapter,
-                  verse: verseNav.verseNumber,
+                  book,
+                  chapter,
+                  verse: verseNumber,
                   direction: "prev",
                   source: "mobile_nav",
-                  targetUrl: verseNav.prevUrl!,
+                  targetUrl: prevUrl,
                   tier,
                   hasCredits: credits > 0,
                 });
@@ -68,28 +82,28 @@ export function MobileVerseNav() {
         {/* Verse counter */}
         <div className="shrink-0 text-center px-2">
           <span className="text-sm font-semibold text-[var(--foreground)]">
-            {verseNav?.verseNumber ?? 0}
+            {verseNumber}
           </span>
           <span className="text-sm text-[var(--muted)]">
             {" / "}
-            {verseNav?.totalVerses ?? 0}
+            {totalVerses}
           </span>
         </div>
 
         {/* Next button */}
         <div className="flex-1 flex justify-end">
-          {verseNav?.nextUrl ? (
+          {nextUrl ? (
             <Link
-              href={verseNav.nextUrl}
+              href={nextUrl}
               tabIndex={isHidden ? -1 : undefined}
               onClick={() => {
                 trackVerseNavigation({
-                  book: verseNav.book,
-                  chapter: verseNav.chapter,
-                  verse: verseNav.verseNumber,
+                  book,
+                  chapter,
+                  verse: verseNumber,
                   direction: "next",
                   source: "mobile_nav",
-                  targetUrl: verseNav.nextUrl!,
+                  targetUrl: nextUrl,
                   tier,
                   hasCredits: credits > 0,
                 });

@@ -4,10 +4,9 @@ import { useEffect, useState, useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { Zap, Minus, Plus, BookOpen } from "lucide-react";
 import { useSession } from "@/context/session-context";
-import { useVerseNav } from "@/context/verse-nav-context";
 import { usePreferences } from "@/context/preferences-context";
 import { useBulkGeneration } from "@/context/bulk-generation-context";
-import { parseVerseLocation, parseVerseUrl } from "@/lib/navigation";
+import { parseVerseUrl } from "@/lib/navigation";
 import type { VerseLocation } from "@/lib/navigation";
 import {
   buildVerseQueue,
@@ -55,7 +54,6 @@ export function BulkGeneratePanel({
 }: BulkGeneratePanelProps) {
   const { credits, tier, buyCredits } = useSession();
   const { translation } = usePreferences();
-  const verseNav = useVerseNav();
   const pathname = usePathname();
   const { state: bulkState, startBulkGeneration } = useBulkGeneration();
 
@@ -75,25 +73,14 @@ export function BulkGeneratePanel({
 
   const currentLocation: VerseLocation | null = useMemo(() => {
     const pathnameParts = pathname?.split("/").filter(Boolean) ?? [];
-    if (pathnameParts.length >= 3) {
-      const routeLocation = parseVerseUrl(
-        pathnameParts[0],
-        pathnameParts[1],
-        pathnameParts[2]
-      );
-      if (routeLocation) {
-        return routeLocation;
-      }
-    }
+    if (pathnameParts.length < 3) return null;
 
-    if (!verseNav) return null;
-
-    return parseVerseLocation(
-      verseNav.book,
-      verseNav.chapter,
-      verseNav.verseNumber
+    return parseVerseUrl(
+      pathnameParts[0],
+      pathnameParts[1],
+      pathnameParts[2]
     );
-  }, [pathname, verseNav]);
+  }, [pathname]);
 
   const maxCount = useMemo(
     () => (currentLocation ? getMaxScopeCount(scopeType, currentLocation) : 1),
