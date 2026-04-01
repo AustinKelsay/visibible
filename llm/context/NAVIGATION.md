@@ -12,7 +12,7 @@ Visibible provides three primary ways to navigate the Bible:
 
 On mobile, navigation controls are also exposed through the fullscreen mode provided by `NavigationContext` (`isFullscreen`) and a header settings dropdown.
 
-Verse pages also support an optional chapter gallery mode from a dedicated header navigation button next to chat/book controls. It is off by default and remembered as a preference.
+Verse pages also support an optional chapter gallery mode from a dedicated header navigation button next to chat/book controls. Verse pages open in the standard reader view by default, and the gallery is an in-session toggle.
 
 ## URL Structure
 

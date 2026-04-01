@@ -20,7 +20,15 @@ import {
   ImageResolution,
 } from "@/lib/image-models";
 import {
-} from "@/lib/chat-models";
+  DEFAULT_TRANSLATION,
+  TRANSLATIONS,
+  getVerse,
+  getChapter,
+  getVerseByReference,
+  type VerseData,
+  type Translation,
+} from "@/lib/bible-api";
+import { BIBLE_BOOKS, type BibleBook } from "@/data/bible-structure";
 import { getScenePlannerEstimatedCreditsCost, getScenePlannerModelId, isScenePlannerEnabled } from "@/lib/scene-planner";
 import {
   validateSessionWithIp,
@@ -126,6 +134,12 @@ type PromptPacket = {
   };
 };
 
+type VerseTarget = {
+  book: BibleBook;
+  chapter: number;
+  verse: number;
+};
+
 function normalizeSceneField(value: unknown): string | undefined {
   if (typeof value !== "string") return undefined;
   const cleaned = value
@@ -211,6 +225,10 @@ function sanitizeTranslationId(value: string | null): string {
   return cleaned || DEFAULT_TRANSLATION_ID;
 }
 
+function isSupportedTranslation(value: string): value is Translation {
+  return Object.prototype.hasOwnProperty.call(TRANSLATIONS, value);
+}
+
 function toContinuityHint(verse: { number: number; text: string } | null): string | undefined {
   if (!verse) return undefined;
   const text = clipText(verse.text, CONTINUITY_HINT_MAX_CHARS);
@@ -264,6 +282,81 @@ function sanitizeVerseText(text: string): string {
       ""
     )
     .slice(0, 1200); // Limit to reasonable verse length
+}
+
+function computePreviousTarget(params: {
+  currentVerse: { chapter: number; verse: number };
+  currentBook: BibleBook;
+  currentBookIndex: number;
+  prevVerse: { number: number; text: string; reference?: string } | null;
+}): VerseTarget | null {
+  const { currentVerse, currentBook, currentBookIndex, prevVerse } = params;
+  if (prevVerse) return null;
+
+  if (currentVerse.verse > 1) {
+    return {
+      book: currentBook,
+      chapter: currentVerse.chapter,
+      verse: currentVerse.verse - 1,
+    };
+  }
+
+  if (currentVerse.chapter > 1) {
+    return {
+      book: currentBook,
+      chapter: currentVerse.chapter - 1,
+      verse: currentBook.chapters[currentVerse.chapter - 2],
+    };
+  }
+
+  if (currentBookIndex <= 0) {
+    return null;
+  }
+
+  const previousBook = BIBLE_BOOKS[currentBookIndex - 1];
+  const previousChapter = previousBook.chapters.length;
+  return {
+    book: previousBook,
+    chapter: previousChapter,
+    verse: previousBook.chapters[previousChapter - 1],
+  };
+}
+
+function computeNextTarget(params: {
+  currentVerse: { chapter: number; verse: number };
+  currentBook: BibleBook;
+  currentBookIndex: number;
+  versesInChapter: number;
+  nextVerse: { number: number; text: string; reference?: string } | null;
+}): VerseTarget | null {
+  const { currentVerse, currentBook, currentBookIndex, versesInChapter, nextVerse } = params;
+  if (nextVerse) return null;
+
+  if (currentVerse.verse < versesInChapter) {
+    return {
+      book: currentBook,
+      chapter: currentVerse.chapter,
+      verse: currentVerse.verse + 1,
+    };
+  }
+
+  if (currentVerse.chapter < currentBook.chapters.length) {
+    return {
+      book: currentBook,
+      chapter: currentVerse.chapter + 1,
+      verse: 1,
+    };
+  }
+
+  if (currentBookIndex < 0 || currentBookIndex >= BIBLE_BOOKS.length - 1) {
+    return null;
+  }
+
+  return {
+    book: BIBLE_BOOKS[currentBookIndex + 1],
+    chapter: 1,
+    verse: 1,
+  };
 }
 
 type ChapterTheme = {
@@ -497,16 +590,42 @@ export async function POST(request: Request) {
 
   // Get verse text, theme, model, and context from JSON body.
   // SECURITY: All user-provided text is sanitized to prevent prompt injection.
-  const verseText = sanitizeVerseText(requestBody.text || DEFAULT_TEXT);
-  const reference = sanitizeReference(requestBody.reference || "Scripture");
+  const hasUserReference =
+    typeof requestBody.reference === "string" &&
+    requestBody.reference.trim().length > 0;
+  let verseText = requestBody.text ? sanitizeVerseText(requestBody.text) : "";
+  let reference = sanitizeReference(requestBody.reference || "Scripture");
   const requestedModelId = requestBody.model;
   const requestedStyleId = requestBody.style;
   const requestedAspectRatio = requestBody.aspectRatio;
   const requestedResolution = requestBody.resolution;
-  const translationId = sanitizeTranslationId(requestBody.translation ?? null);
+  const parsedTranslationInput = z.string().optional().safeParse(requestBody.translation);
+  if (!parsedTranslationInput.success) {
+    return jsonWithSessionRefresh(
+      {
+        error: "Invalid translation",
+        message: "Unsupported translation. Please select a supported translation.",
+      },
+      { status: 400 }
+    );
+  }
+  const normalizedTranslation =
+    parsedTranslationInput.data === undefined
+      ? DEFAULT_TRANSLATION
+      : sanitizeTranslationId(parsedTranslationInput.data);
+  if (!isSupportedTranslation(normalizedTranslation)) {
+    return jsonWithSessionRefresh(
+      {
+        error: "Invalid translation",
+        message: "Unsupported translation. Please select a supported translation.",
+      },
+      { status: 400 }
+    );
+  }
+  const bibleTranslation: Translation = normalizedTranslation;
+  const translationId = bibleTranslation;
   const clientRequestId =
     sanitizeRequestId(requestBody.requestId ?? null) || crypto.randomUUID();
-  const verseId = toVerseId(reference);
 
   // Validate and set aspect ratio (default: 16:9)
   const aspectRatio: ImageAspectRatio = requestedAspectRatio && isValidAspectRatio(requestedAspectRatio)
@@ -617,6 +736,163 @@ export async function POST(request: Request) {
     const parsed = Number.parseInt(value, 10);
     return Number.isNaN(parsed) ? null : parsed;
   };
+
+  let prevVerse = parseVerseContext(requestBody.prevVerse);
+  let nextVerse = parseVerseContext(requestBody.nextVerse);
+
+  let currentVerse: VerseData | null = null;
+  if (reference !== "Scripture") {
+    try {
+      const resolvedVerses = await getVerseByReference(reference, bibleTranslation);
+      if (!resolvedVerses || resolvedVerses.length !== 1) {
+        return jsonWithSessionRefresh(
+          {
+            error: "Invalid reference",
+            message: "Please provide a single-verse reference like John 3:16.",
+          },
+          { status: 400 }
+        );
+      }
+      currentVerse = resolvedVerses[0];
+      const currentVerseReference = sanitizeReference(
+        `${currentVerse.bookName} ${currentVerse.chapter}:${currentVerse.verse}`
+      );
+
+      reference = currentVerseReference;
+
+      if (!verseText) {
+        verseText = sanitizeVerseText(currentVerse.text);
+      }
+    } catch (error) {
+      console.warn("[generate-image] Failed to resolve current verse from reference:", {
+        reference,
+        translation: bibleTranslation,
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+      if (hasUserReference) {
+        return jsonWithSessionRefresh(
+          {
+            error: "Reference not found",
+            message: `Could not resolve "${reference}" in the ${translationId.toUpperCase()} translation.`,
+          },
+          { status: 400 }
+        );
+      }
+    }
+  }
+
+  if (currentVerse) {
+    try {
+      const currentBook = BIBLE_BOOKS.find(
+        (book) => book.id === currentVerse.bookId
+      );
+
+      if (currentBook) {
+        const versesInChapter = currentBook.chapters[currentVerse.chapter - 1];
+        const currentBookIndex = BIBLE_BOOKS.findIndex(
+          (book) => book.slug === currentBook.slug
+        );
+        const previousTarget = computePreviousTarget({
+          currentVerse,
+          currentBook,
+          currentBookIndex,
+          prevVerse,
+        });
+        const nextTarget = computeNextTarget({
+          currentVerse,
+          currentBook,
+          currentBookIndex,
+          versesInChapter,
+          nextVerse,
+        });
+        const sharedChapterTarget =
+          previousTarget &&
+          nextTarget &&
+          previousTarget.book.slug === nextTarget.book.slug &&
+          previousTarget.chapter === nextTarget.chapter
+            ? previousTarget
+            : null;
+
+        const sharedChapterPromise = sharedChapterTarget
+          ? getChapter(
+              sharedChapterTarget.book.slug,
+              sharedChapterTarget.chapter,
+              bibleTranslation
+            )
+          : null;
+
+        const prevVersePromise =
+          previousTarget
+            ? sharedChapterTarget
+              ? sharedChapterPromise!.then((chapterData) =>
+                  chapterData?.verses.find((item) => item.verse === previousTarget.verse) ?? null
+                )
+              : getVerse(
+                  previousTarget.book.slug,
+                  previousTarget.chapter,
+                  previousTarget.verse,
+                  bibleTranslation
+                )
+            : Promise.resolve(null);
+        const nextVersePromise =
+          nextTarget
+            ? sharedChapterTarget
+              ? sharedChapterPromise!.then((chapterData) =>
+                  chapterData?.verses.find((item) => item.verse === nextTarget.verse) ?? null
+                )
+              : getVerse(
+                  nextTarget.book.slug,
+                  nextTarget.chapter,
+                  nextTarget.verse,
+                  bibleTranslation
+                )
+            : Promise.resolve(null);
+
+        const [prevVerseData, nextVerseData] = await Promise.all([
+          prevVersePromise,
+          nextVersePromise,
+        ]);
+
+        if (prevVerseData) {
+          prevVerse = {
+            number: prevVerseData.verse,
+            text: sanitizeVerseText(prevVerseData.text),
+            reference: `${previousTarget?.book.name ?? currentVerse.bookName} ${prevVerseData.chapter}:${prevVerseData.verse}`,
+          };
+        }
+
+        if (nextVerseData) {
+          nextVerse = {
+            number: nextVerseData.verse,
+            text: sanitizeVerseText(nextVerseData.text),
+            reference: `${nextTarget?.book.name ?? currentVerse.bookName} ${nextVerseData.chapter}:${nextVerseData.verse}`,
+          };
+        }
+      }
+    } catch (error) {
+      console.warn("[generate-image] Failed to resolve neighboring verse context:", {
+        reference,
+        translation: bibleTranslation,
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  }
+
+  if (!verseText && hasUserReference) {
+    return jsonWithSessionRefresh(
+      {
+        error: "Reference not found",
+        message: `Could not resolve "${reference}" in the ${translationId.toUpperCase()} translation.`,
+      },
+      { status: 400 }
+    );
+  }
+
+  if (!verseText) {
+    verseText = DEFAULT_TEXT;
+  }
+
+  const verseId = toVerseId(reference);
 
   const chapterTheme = parseChapterTheme(requestBody.theme);
   const generationNumber = parseGenerationNumber(requestBody.generation);
@@ -996,10 +1272,6 @@ export async function POST(request: Request) {
 
   // Track generation start time for stats
   const generationStartTime = Date.now();
-
-  // Parse prev/next verse context for storyboard continuity (from request body, no JSON round-trip)
-  const prevVerse = parseVerseContext(requestBody.prevVerse);
-  const nextVerse = parseVerseContext(requestBody.nextVerse);
 
   const aspectRatioLabel = aspectRatio === "21:9"
     ? "ULTRA-WIDE CINEMATIC"

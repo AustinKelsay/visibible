@@ -5,6 +5,11 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { fixtures, type Session } from "../shared/test-fixtures";
+import {
+  mockFetchBibleApi,
+  resetMockFetchBibleApiBypass,
+  setMockFetchBibleApiBypass,
+} from "@/app/api/__tests__/shared/bible-api-mocks";
 
 // Create mock state
 const mockState = {
@@ -334,6 +339,10 @@ let mockFetchImpl:
   | null = null;
 
 const mockFetch = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+  const bibleApiResponse = mockFetchBibleApi(input);
+  if (bibleApiResponse) {
+    return bibleApiResponse;
+  }
   if (mockFetchImpl) {
     return await mockFetchImpl(input, init);
   }
@@ -393,6 +402,7 @@ describe("Image Generation API Credit Flow", () => {
     resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 }]);
     mockFetchResponse = null;
     mockFetchImpl = null;
+    resetMockFetchBibleApiBypass();
     forceQuoteFailure = false;
     forceRecordImageCostEventFailure = false;
     mockLearnedEstimate = null;
@@ -402,6 +412,7 @@ describe("Image Generation API Credit Flow", () => {
   afterEach(() => {
     process.env = { ...originalEnv };
     global.fetch = originalFetch;
+    resetMockFetchBibleApiBypass();
   });
 
   describe("Happy Path", () => {
@@ -437,6 +448,142 @@ describe("Image Generation API Credit Flow", () => {
       expect(getCallCount("saveImage")).toBe(1);
       expect(body.openRouterUsageUsd).toBe(0.05);
       expect(body.usedActualCost).toBe(true);
+    });
+
+    it("reference-only requests resolve verse text and same-chapter continuity context", async () => {
+      setMockFetchBibleApiBypass((url) => url.pathname === "/data/web/GEN/1");
+      mockFetchImpl = async (input: RequestInfo | URL) => {
+        const url = typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.toString()
+            : input.url;
+
+        if (url.includes("bible-api.com/Genesis%201%3A2?translation=web")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              reference: "Genesis 1:2",
+              verses: [
+                {
+                  book_id: "GEN",
+                  book_name: "Genesis",
+                  chapter: 1,
+                  verse: 2,
+                  text: "The earth was formless and empty.",
+                },
+              ],
+              text: "The earth was formless and empty.",
+              translation_id: "web",
+              translation_name: "World English Bible",
+              translation_note: "",
+            }),
+          };
+        }
+
+        if (url.includes("bible-api.com/data/web/GEN/1")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              verses: [
+                { book_id: "GEN", book_name: "Genesis", chapter: 1, verse: 1, text: "In the beginning God created." },
+                { book_id: "GEN", book_name: "Genesis", chapter: 1, verse: 2, text: "The earth was formless and empty." },
+                { book_id: "GEN", book_name: "Genesis", chapter: 1, verse: 3, text: "God said, Let there be light." },
+              ],
+              translation_id: "web",
+              translation_name: "World English Bible",
+            }),
+          };
+        }
+
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            id: "gen-123",
+            choices: [
+              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+            ],
+            usage: { cost: 0.01 },
+          }),
+        };
+      };
+
+      const { POST } = await import("../../generate-image/route");
+      const request = createGenerateImageRequest({
+        reference: "Genesis 1:2",
+        translation: "web",
+      });
+      const response = await POST(request);
+
+      expect(response.status).toBe(200);
+
+      const body = await response.json();
+      expect(body.reference).toBe("Genesis 1:2");
+      expect(body.verseText).toBe("The earth was formless and empty.");
+      expect(body.promptInputs.prevVerse.reference).toBe("Genesis 1:1");
+      expect(body.promptInputs.nextVerse.reference).toBe("Genesis 1:3");
+    });
+
+    it("returns 400 and does not bill when reference lookup fails", async () => {
+      const mockFetchImplSpy = vi.fn(async (input: RequestInfo | URL) => {
+        const url = typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.toString()
+            : input.url;
+
+        if (url.includes("bible-api.com/Genesis%201%3A2?translation=web")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              reference: "Genesis 1:2",
+              verses: [],
+              text: "",
+              translation_id: "web",
+              translation_name: "World English Bible",
+              translation_note: "",
+            }),
+          };
+        }
+
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            id: "gen-123",
+            choices: [
+              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+            ],
+            usage: { cost: 0.01 },
+          }),
+        };
+      });
+      mockFetchImpl = mockFetchImplSpy;
+
+      const { POST } = await import("../../generate-image/route");
+      const request = createGenerateImageRequest({
+        reference: "Genesis 1:2",
+        translation: "web",
+      });
+      const response = await POST(request);
+
+      expect(response.status).toBe(400);
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+      expect(getCallCount("sessions:deductCredits")).toBe(0);
+      expect(
+        mockFetchImplSpy.mock.calls.some(([input]) => {
+          const url = typeof input === "string"
+            ? input
+            : input instanceof URL
+              ? input.toString()
+              : input.url;
+          return url.includes("openrouter.ai");
+        })
+      ).toBe(false);
     });
 
     it("reserve-generate-deduct-fallback: falls back to API estimate when no cost returned", async () => {

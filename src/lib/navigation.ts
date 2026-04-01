@@ -6,6 +6,11 @@ export interface VerseLocation {
   verse: number;
 }
 
+export interface ChapterLocation {
+  book: BibleBook;
+  chapter: number;
+}
+
 /**
  * Get the next verse location, crossing chapter and book boundaries
  */
@@ -65,6 +70,46 @@ export function getPreviousVerse(current: VerseLocation): VerseLocation | null {
 }
 
 /**
+ * Get the next chapter location, crossing book boundaries
+ */
+export function getNextChapter(book: BibleBook, chapter: number): ChapterLocation | null {
+  // Next chapter in same book
+  if (chapter < book.chapters.length) {
+    return { book, chapter: chapter + 1 };
+  }
+
+  // First chapter of next book
+  const bookIndex = BIBLE_BOOKS.findIndex((b) => b.id === book.id);
+  if (bookIndex < BIBLE_BOOKS.length - 1) {
+    const nextBook = BIBLE_BOOKS[bookIndex + 1];
+    return { book: nextBook, chapter: 1 };
+  }
+
+  // End of Bible
+  return null;
+}
+
+/**
+ * Get the previous chapter location, crossing book boundaries
+ */
+export function getPreviousChapter(book: BibleBook, chapter: number): ChapterLocation | null {
+  // Previous chapter in same book
+  if (chapter > 1) {
+    return { book, chapter: chapter - 1 };
+  }
+
+  // Last chapter of previous book
+  const bookIndex = BIBLE_BOOKS.findIndex((b) => b.id === book.id);
+  if (bookIndex > 0) {
+    const prevBook = BIBLE_BOOKS[bookIndex - 1];
+    return { book: prevBook, chapter: prevBook.chapters.length };
+  }
+
+  // Beginning of Bible
+  return null;
+}
+
+/**
  * Convert a verse location to a URL path
  */
 export function verseToUrl(location: VerseLocation): string {
@@ -79,8 +124,11 @@ export function parseVerseUrl(
   chapter: string,
   verse: string
 ): VerseLocation | null {
-  const book = BOOK_BY_SLUG[bookSlug.toLowerCase()];
-  if (!book) return null;
+  const normalizedBookSlug = bookSlug.toLowerCase();
+  if (!Object.prototype.hasOwnProperty.call(BOOK_BY_SLUG, normalizedBookSlug)) {
+    return null;
+  }
+  const book = BOOK_BY_SLUG[normalizedBookSlug];
 
   const chapterNum = parseInt(chapter, 10);
   const verseNum = parseInt(verse, 10);
@@ -90,6 +138,36 @@ export function parseVerseUrl(
   if (verseNum < 1 || verseNum > book.chapters[chapterNum - 1]) return null;
 
   return { book, chapter: chapterNum, verse: verseNum };
+}
+
+/**
+ * Resolve a book input to a canonical slug.
+ * Accepts either the route slug ("1-samuel") or the display name ("1 Samuel").
+ */
+export function resolveBookSlug(bookInput: string): string | null {
+  const normalized = bookInput.trim().toLowerCase();
+  if (!normalized) return null;
+
+  const bySlug = Object.prototype.hasOwnProperty.call(BOOK_BY_SLUG, normalized)
+    ? BOOK_BY_SLUG[normalized]
+    : undefined;
+  if (bySlug) return bySlug.slug;
+
+  const byName = BIBLE_BOOKS.find((book) => book.name.toLowerCase() === normalized);
+  return byName?.slug ?? null;
+}
+
+/**
+ * Parse a verse location from either a slug-style or display-name book input.
+ */
+export function parseVerseLocation(
+  bookInput: string,
+  chapter: string | number,
+  verse: string | number
+): VerseLocation | null {
+  const bookSlug = resolveBookSlug(bookInput);
+  if (!bookSlug) return null;
+  return parseVerseUrl(bookSlug, String(chapter), String(verse));
 }
 
 /**
@@ -113,4 +191,96 @@ export function getNavigationUrls(location: VerseLocation): {
  */
 export function formatReference(location: VerseLocation): string {
   return `${location.book.name} ${location.chapter}:${location.verse}`;
+}
+
+/**
+ * Get the next N verse locations starting from (but not including) the current verse.
+ * Stops early if the end of the Bible is reached.
+ */
+export function getNextNVerses(
+  current: VerseLocation,
+  count: number
+): VerseLocation[] {
+  const verses: VerseLocation[] = [];
+  let cursor: VerseLocation | null = current;
+  for (let i = 0; i < count; i++) {
+    if (!cursor) break;
+    cursor = getNextVerse(cursor);
+    if (!cursor) break;
+    verses.push(cursor);
+  }
+  return verses;
+}
+
+/**
+ * Get all remaining verses in the current chapter (after the current verse).
+ */
+export function getRemainingChapterVerses(
+  current: VerseLocation
+): VerseLocation[] {
+  const { book, chapter, verse } = current;
+  const versesInChapter = book.chapters[chapter - 1];
+  const verses: VerseLocation[] = [];
+  for (let v = verse + 1; v <= versesInChapter; v++) {
+    verses.push({ book, chapter, verse: v });
+  }
+  return verses;
+}
+
+/**
+ * Get all verses across a range of chapters in a book.
+ * If startVerse is provided, starts from that verse in the startChapter (exclusive).
+ */
+export function getVersesInChapterRange(
+  bookSlug: string,
+  startChapter: number,
+  endChapter: number,
+  startVerse?: number
+): VerseLocation[] {
+  const normalizedBookSlug = bookSlug.toLowerCase();
+  if (!Object.prototype.hasOwnProperty.call(BOOK_BY_SLUG, normalizedBookSlug)) {
+    return [];
+  }
+  const book = BOOK_BY_SLUG[normalizedBookSlug];
+
+  const verses: VerseLocation[] = [];
+  const clampedStartChapter = Math.max(1, startChapter);
+  for (let ch = clampedStartChapter; ch <= Math.min(endChapter, book.chapters.length); ch++) {
+    const versesInChapter = book.chapters[ch - 1];
+    const firstVerse =
+      ch === clampedStartChapter && startVerse != null
+        ? Math.max(1, startVerse + 1)
+        : 1;
+    for (let v = firstVerse; v <= versesInChapter; v++) {
+      verses.push({ book, chapter: ch, verse: v });
+    }
+  }
+  return verses;
+}
+
+/**
+ * Get every verse in a book.
+ */
+export function getAllVersesInBook(bookSlug: string): VerseLocation[] {
+  const normalizedBookSlug = bookSlug.toLowerCase();
+  if (!Object.prototype.hasOwnProperty.call(BOOK_BY_SLUG, normalizedBookSlug)) {
+    return [];
+  }
+  const book = BOOK_BY_SLUG[normalizedBookSlug];
+
+  const verses: VerseLocation[] = [];
+  for (let ch = 1; ch <= book.chapters.length; ch++) {
+    const versesInChapter = book.chapters[ch - 1];
+    for (let v = 1; v <= versesInChapter; v++) {
+      verses.push({ book, chapter: ch, verse: v });
+    }
+  }
+  return verses;
+}
+
+/**
+ * Build a verse ID string from a location (e.g., "genesis-1-1").
+ */
+export function verseLocationToId(location: VerseLocation): string {
+  return `${location.book.slug}-${location.chapter}-${location.verse}`;
 }

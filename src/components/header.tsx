@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, Grid3x2, ImageIcon, Menu, MessageCircle, X } from "lucide-react";
+import { BookOpen, Grid3x2, Menu, MessageCircle, X } from "lucide-react";
 import { useNavigation } from "@/context/navigation-context";
 import { useOptionalVerseView } from "@/context/verse-view-context";
 import { TranslationSelector } from "./translation-selector";
@@ -17,25 +17,28 @@ function Divider() {
 }
 
 function GalleryToggleButton({
-  chapterGalleryEnabled,
+  galleryOpen,
   onToggle,
 }: {
-  chapterGalleryEnabled: boolean;
+  galleryOpen: boolean;
   onToggle: () => void;
 }) {
-  const label = chapterGalleryEnabled ? "Switch to reading view" : "Switch to gallery view";
-  const title = chapterGalleryEnabled ? "Reading view" : "Gallery view";
-  const Icon = chapterGalleryEnabled ? ImageIcon : Grid3x2;
+  const label = galleryOpen ? "Switch to reading view" : "Switch to gallery view";
+  const title = galleryOpen ? "Reading view" : "Gallery view";
 
   return (
     <button
-      className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
+      className={`min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors duration-[var(--motion-fast)] ${
+        galleryOpen
+          ? "text-[var(--accent)] bg-[var(--accent)]/12 ring-1 ring-[var(--accent)]/35 rounded-[var(--radius-sm)]"
+          : "text-[var(--muted)] hover:text-[var(--foreground)]"
+      }`}
       aria-label={label}
       title={title}
-      aria-pressed={chapterGalleryEnabled}
+      aria-pressed={galleryOpen}
       onClick={onToggle}
     >
-      <Icon size={20} strokeWidth={1.5} />
+      <Grid3x2 size={20} strokeWidth={1.5} />
     </button>
   );
 }
@@ -47,11 +50,11 @@ export function Header() {
   const menuRef = useRef<HTMLDivElement>(null);
   const isBrandLinkPage = pathname === "/about" || pathname === "/api-docs";
   const isVersePage = /^\/[^/]+\/\d+\/\d+$/.test(pathname) && verseView !== null;
-  const chapterGalleryEnabled = verseView?.isSettled
+  const galleryOpen = verseView?.isSettled
     ? verseView.effectiveView === "gallery"
     : false;
   const handleGalleryToggle = () => verseView?.setEffectiveView(
-    chapterGalleryEnabled ? "reader" : "gallery",
+    galleryOpen ? "reader" : "gallery",
     "header_gallery_toggle"
   );
 
@@ -109,7 +112,7 @@ export function Header() {
           <Divider />
 
           {/* Generate Button - hidden in gallery view */}
-          {!isVersePage || !chapterGalleryEnabled ? (
+          {isVersePage ? (
             <>
               <HeaderGenerateButton />
               <Divider />
@@ -143,7 +146,7 @@ export function Header() {
               {/* Gallery Mode */}
               <div className="flex items-center">
                 <GalleryToggleButton
-                  chapterGalleryEnabled={chapterGalleryEnabled}
+                  galleryOpen={galleryOpen}
                   onToggle={handleGalleryToggle}
                 />
               </div>
@@ -154,7 +157,7 @@ export function Header() {
         {/* Mobile Actions - Credits + Generate + Chat + Books + Hamburger */}
         <nav className="flex sm:hidden items-center gap-0.5">
           <CreditsBadge />
-          {!isVersePage || !chapterGalleryEnabled ? <HeaderGenerateButton /> : null}
+          {isVersePage ? <HeaderGenerateButton /> : null}
           <button
             className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-[var(--motion-fast)]"
             aria-label="Toggle chat"
@@ -171,7 +174,7 @@ export function Header() {
           </button>
           {isVersePage ? (
             <GalleryToggleButton
-              chapterGalleryEnabled={chapterGalleryEnabled}
+              galleryOpen={galleryOpen}
               onToggle={handleGalleryToggle}
             />
           ) : null}

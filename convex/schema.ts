@@ -70,6 +70,33 @@ const generationStatusValidator = v.union(
   v.literal("failed")
 );
 
+const bulkGenerationStatusValidator = v.union(
+  v.literal("active"),
+  v.literal("paused"),
+  v.literal("completed"),
+  v.literal("cancelled")
+);
+
+const bulkGenerationVerseStatusValidator = v.union(
+  v.literal("queued"),
+  v.literal("generating"),
+  v.literal("completed"),
+  v.literal("failed"),
+  v.literal("skipped")
+);
+
+const bulkGenerationScopeTypeValidator = v.union(
+  v.literal("verses"),
+  v.literal("chapters"),
+  v.literal("book")
+);
+
+const modelCostScopeTypeValidator = v.union(
+  v.literal("model"),
+  v.literal("provider"),
+  v.literal("global")
+);
+
 export default defineSchema({
   verseImages: defineTable({
     // Verse identifier (lowercase, e.g., "genesis-1-1")
@@ -267,7 +294,7 @@ export default defineSchema({
 
   // Learned image-credit estimates based on recent actual generation costs.
   modelCostStats: defineTable({
-    scopeType: v.string(), // "model" | "provider" | "global"
+    scopeType: modelCostScopeTypeValidator,
     scopeValue: v.string(), // modelId, provider ID, or "global"
     resolution: v.string(),
     sampleCredits: v.array(v.number()),
@@ -325,6 +352,45 @@ export default defineSchema({
     userAgent: v.optional(v.string()),
     createdAt: v.number(),
   }).index("by_createdAt", ["createdAt"]),
+
+  // Bulk image generation jobs
+  bulkGenerations: defineTable({
+    sid: v.string(),
+    status: bulkGenerationStatusValidator,
+    scopeType: bulkGenerationScopeTypeValidator,
+    scopeLabel: v.string(), // human-readable, e.g. "Next 10 verses"
+    startVerseId: v.string(),
+    totalVerses: v.number(),
+    completedCount: v.number(),
+    failedCount: v.number(),
+    skippedCount: v.number(),
+    totalCreditsUsed: v.number(),
+    estimatedTotalCredits: v.number(),
+    modelId: v.string(),
+    aspectRatio: v.string(),
+    resolution: v.string(),
+    translation: v.string(),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+    completedAt: v.optional(v.number()),
+  })
+    .index("by_sid_status", ["sid", "status"])
+    .index("by_sid_createdAt", ["sid", "createdAt"]),
+
+  // Individual verse entries within a bulk generation job
+  bulkGenerationVerses: defineTable({
+    bulkGenerationId: v.id("bulkGenerations"),
+    verseId: v.string(),
+    reference: v.string(),
+    order: v.number(),
+    status: bulkGenerationVerseStatusValidator,
+    creditsCost: v.optional(v.number()),
+    error: v.optional(v.string()),
+    updatedAt: v.number(),
+  })
+    .index("by_bulk_order", ["bulkGenerationId", "order"])
+    .index("by_bulk_verse", ["bulkGenerationId", "verseId"])
+    .index("by_bulk_status", ["bulkGenerationId", "status"]),
 
   // SECURITY: Admin usage audit log for tracking admin API usage
   // Admin bypasses credit checks, so we log separately for visibility

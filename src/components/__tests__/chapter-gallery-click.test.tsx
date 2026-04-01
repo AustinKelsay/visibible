@@ -8,6 +8,7 @@ import { useConvexEnabled } from "@/components/convex-client-provider";
 import { ChapterGallery } from "@/components/chapter-gallery";
 import { useSession } from "@/context/session-context";
 import { useVerseView } from "@/context/verse-view-context";
+import { trackChapterGalleryItemOpened } from "@/lib/analytics";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -70,9 +71,9 @@ const useQueryMock = vi.mocked(useQuery);
 const useConvexEnabledMock = vi.mocked(useConvexEnabled);
 const useVerseViewMock = vi.mocked(useVerseView);
 const useSessionMock = vi.mocked(useSession);
+const trackChapterGalleryItemOpenedMock = vi.mocked(trackChapterGalleryItemOpened);
 
 const setEffectiveViewMock = vi.fn();
-const markEngagedMock = vi.fn();
 
 describe("ChapterGallery click behavior", () => {
   let container: HTMLDivElement | null = null;
@@ -80,15 +81,12 @@ describe("ChapterGallery click behavior", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    document.cookie = "visibible_next_view=; Max-Age=0; path=/";
     container = document.createElement("div");
     document.body.appendChild(container);
     root = createRoot(container);
 
     useVerseViewMock.mockReturnValue({
-      effectiveView: "gallery",
       setEffectiveView: setEffectiveViewMock,
-      markEngaged: markEngagedMock,
     } as never);
     useSessionMock.mockReturnValue({
       tier: "paid",
@@ -127,7 +125,7 @@ describe("ChapterGallery click behavior", () => {
     });
   }
 
-  it("does not persist the next-view cookie for modified clicks", async () => {
+  it("does not switch views for modified clicks", async () => {
     await renderGallery();
 
     const link = container?.querySelector('a[href="/genesis/1/1"]');
@@ -141,12 +139,29 @@ describe("ChapterGallery click behavior", () => {
       }));
     });
 
-    expect(document.cookie).not.toContain("visibible_next_view=reader");
     expect(setEffectiveViewMock).not.toHaveBeenCalled();
-    expect(markEngagedMock).toHaveBeenCalledWith("chapter_gallery_item_opened");
+    expect(trackChapterGalleryItemOpenedMock).toHaveBeenCalled();
   });
 
-  it("persists the next-view cookie for unmodified primary clicks", async () => {
+  it("does not switch views for meta-modified clicks", async () => {
+    await renderGallery();
+
+    const link = container?.querySelector('a[href="/genesis/1/1"]');
+    expect(link).not.toBeNull();
+
+    await act(async () => {
+      link?.dispatchEvent(new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+        metaKey: true,
+      }));
+    });
+
+    expect(setEffectiveViewMock).not.toHaveBeenCalled();
+    expect(trackChapterGalleryItemOpenedMock).toHaveBeenCalled();
+  });
+
+  it("switches back to the reader for unmodified primary clicks", async () => {
     await renderGallery();
 
     const link = container?.querySelector('a[href="/genesis/1/1"]');
@@ -160,7 +175,6 @@ describe("ChapterGallery click behavior", () => {
       }));
     });
 
-    expect(document.cookie).toContain("visibible_next_view=reader");
     expect(setEffectiveViewMock).toHaveBeenCalledWith("reader", "chapter_gallery_card");
   });
 });
