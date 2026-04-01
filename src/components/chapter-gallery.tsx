@@ -116,7 +116,7 @@ function GalleryCard({
     <Link
       href={readerHref}
       aria-current={isCurrent ? "page" : undefined}
-      aria-label={`${bookName} ${chapter}:${item.verse}${item.isPlaceholder ? " placeholder" : ` image ${item.cardIndex + 1}`}`}
+      aria-label={`${bookName} ${chapter}:${item.verse}${item.isPlaceholder ? " no image yet" : ` image ${item.cardIndex + 1}`}`}
       onClick={(event) => onNavigateToReader?.(event, item)}
       className={`group overflow-hidden rounded-[var(--radius-xl)] border bg-[var(--background)] transition-all duration-[var(--motion-base)] hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] ${
         isCurrent
@@ -505,7 +505,7 @@ export function ChapterGallery({
   const placeholderCount = flatItems.filter((item) => item.isPlaceholder).length;
   const filterSummary = isLoading
     ? "Checking saved art..."
-    : `${savedImageCount} saved image${savedImageCount === 1 ? "" : "s"} · ${placeholderCount} placeholder${placeholderCount === 1 ? "" : "s"}`;
+    : `${savedImageCount} saved image${savedImageCount === 1 ? "" : "s"} · ${placeholderCount} empty`;
 
   useEffect(() => {
     if (!isGalleryActive) return;
@@ -670,7 +670,7 @@ export function ChapterGallery({
                 ? "Checking saved art..."
                 : item.hasImages
                   ? `${item.imageCount} saved image${item.imageCount === 1 ? "" : "s"}`
-                  : "Placeholder";
+                  : "No image yet";
 
               return (
                 <section
