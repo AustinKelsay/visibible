@@ -147,7 +147,7 @@ export function base64ToHex(base64: string): string {
 /**
  * Convert hex string to base64 string.
  */
-export function hexToBase64(hex: string): string {
+function hexToBase64(hex: string): string {
   return Buffer.from(hex, "hex").toString("base64");
 }
 

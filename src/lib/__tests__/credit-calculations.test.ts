@@ -319,13 +319,15 @@ describe("computeCreditsFromActualUsage", () => {
 });
 
 describe("supportsResolution", () => {
-  it("should detect google/gemini models as supporting resolution", () => {
-    expect(supportsResolution("google/gemini-2.5-flash-image")).toBe(true);
-    expect(supportsResolution("google/gemini-pro")).toBe(true);
-    expect(supportsResolution("GOOGLE/GEMINI-flash")).toBe(true); // Case insensitive
+  it("should detect documented Gemini image preview models as supporting resolution", () => {
+    expect(supportsResolution("google/gemini-3.1-flash-image-preview")).toBe(true);
+    expect(supportsResolution("google/gemini-3-pro-image-preview")).toBe(true);
+    expect(supportsResolution("GOOGLE/GEMINI-3.1-FLASH-IMAGE-PREVIEW")).toBe(true);
   });
 
-  it("should NOT detect non-Gemini models as supporting resolution", () => {
+  it("should NOT detect models without documented image_size support", () => {
+    expect(supportsResolution("google/gemini-2.5-flash-image")).toBe(false);
+    expect(supportsResolution("google/gemini-pro")).toBe(false);
     expect(supportsResolution("openai/dall-e-3")).toBe(false);
     expect(supportsResolution("stability/stable-diffusion")).toBe(false);
     expect(supportsResolution("anthropic/claude-3")).toBe(false);
@@ -335,11 +337,12 @@ describe("supportsResolution", () => {
 describe("normalizeResolutionForModel", () => {
   it("keeps the selected resolution for models that support it", () => {
     expect(
-      normalizeResolutionForModel("google/gemini-2.5-flash-image", "4K")
+      normalizeResolutionForModel("google/gemini-3.1-flash-image-preview", "4K")
     ).toBe("4K");
   });
 
   it("normalizes unsupported models to 1K for learned pricing buckets", () => {
+    expect(normalizeResolutionForModel("google/gemini-2.5-flash-image", "4K")).toBe("1K");
     expect(normalizeResolutionForModel("openai/dall-e-3", "4K")).toBe("1K");
   });
 });
@@ -356,28 +359,29 @@ describe("computeAdjustedCreditsCost", () => {
     expect(computeAdjustedCreditsCost(10, "4K")).toBe(10);
   });
 
-  it("should NOT apply multiplier for non-Gemini models", () => {
+  it("should NOT apply multiplier for models without image_size support", () => {
+    expect(computeAdjustedCreditsCost(10, "2K", "google/gemini-2.5-flash-image")).toBe(10);
     expect(computeAdjustedCreditsCost(10, "2K", "openai/dall-e-3")).toBe(10);
     expect(computeAdjustedCreditsCost(10, "4K", "stability/stable-diffusion")).toBe(10);
   });
 
-  it("should apply 3.5x multiplier for 2K Gemini", () => {
-    const result = computeAdjustedCreditsCost(10, "2K", "google/gemini-2.5-flash-image");
+  it("should apply 3.5x multiplier for 2K on supported Gemini image preview models", () => {
+    const result = computeAdjustedCreditsCost(10, "2K", "google/gemini-3.1-flash-image-preview");
     expect(result).toBe(35); // 10 * 3.5 = 35
   });
 
-  it("should apply 6.5x multiplier for 4K Gemini", () => {
-    const result = computeAdjustedCreditsCost(10, "4K", "google/gemini-2.5-flash-image");
+  it("should apply 6.5x multiplier for 4K on supported Gemini image preview models", () => {
+    const result = computeAdjustedCreditsCost(10, "4K", "google/gemini-3.1-flash-image-preview");
     expect(result).toBe(65); // 10 * 6.5 = 65
   });
 
-  it("should apply 1.0x multiplier for 1K Gemini", () => {
-    const result = computeAdjustedCreditsCost(10, "1K", "google/gemini-2.5-flash-image");
+  it("should apply 1.0x multiplier for 1K on supported Gemini image preview models", () => {
+    const result = computeAdjustedCreditsCost(10, "1K", "google/gemini-3.1-flash-image-preview");
     expect(result).toBe(10);
   });
 
   it("should ceil fractional credits", () => {
-    const result = computeAdjustedCreditsCost(3, "2K", "google/gemini-pro");
+    const result = computeAdjustedCreditsCost(3, "2K", "google/gemini-3-pro-image-preview");
     expect(result).toBe(11); // ceil(3 * 3.5) = 11
   });
 });
@@ -388,7 +392,7 @@ describe("computeEstimatedImageGenerationCreditsCost", () => {
       computeEstimatedImageGenerationCreditsCost(
         10,
         "1K",
-        "google/gemini-2.5-flash-image",
+        "google/gemini-3.1-flash-image-preview",
         1
       )
     ).toBe(11);
@@ -399,7 +403,7 @@ describe("computeEstimatedImageGenerationCreditsCost", () => {
       computeEstimatedImageGenerationCreditsCost(
         10,
         "2K",
-        "google/gemini-2.5-flash-image",
+        "google/gemini-3.1-flash-image-preview",
         2
       )
     ).toBe(37);
@@ -410,7 +414,7 @@ describe("computeEstimatedImageGenerationCreditsCost", () => {
       computeEstimatedImageGenerationCreditsCost(
         10,
         "1K",
-        "google/gemini-2.5-flash-image",
+        "google/gemini-3.1-flash-image-preview",
         -5
       )
     ).toBe(10);
@@ -562,7 +566,7 @@ describe("getEstimatedCreditsCostForResolution", () => {
     expect(
       getEstimatedCreditsCostForResolution(
         {
-          id: "google/gemini-2.5-flash-image",
+          id: "google/gemini-3.1-flash-image-preview",
           creditsCost: 2,
           reservationCreditsCost: 70,
         },
@@ -570,5 +574,19 @@ describe("getEstimatedCreditsCostForResolution", () => {
         1
       )
     ).toBe(8);
+  });
+
+  it("ignores higher resolutions for models that do not support image_size", () => {
+    expect(
+      getEstimatedCreditsCostForResolution(
+        {
+          id: "google/gemini-2.5-flash-image",
+          creditsCost: 2,
+          reservationCreditsCost: 70,
+        },
+        "4K",
+        1
+      )
+    ).toBe(3);
   });
 });

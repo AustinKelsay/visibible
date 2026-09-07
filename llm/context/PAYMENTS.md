@@ -1,84 +1,17 @@
-# Payments Context
+# Lightning credit purchases
 
-High-level view of payments and credit purchases. This describes product intent and user-facing behavior, not internal implementation.
+[BuyCreditsModal](../../src/components/buy-credits-modal.tsx) offers $1/100-credit and $3/300-credit bundles and renders an invoice QR code/BOLT11 string. The app integrates Lightning invoices through LND; it has no direct fiat or on-chain checkout. Wallet compatibility depends on the wallet. Welcome behavior is in [Onboarding](ONBOARDING.md).
 
-## Summary
+1. [POST /api/invoice](../../src/app/api/invoice/route.ts) validates origin, signed session with current-IP tracking and an IP-scoped rate limit, then creates an LND invoice and a Convex invoice record.
+2. The client polls [GET /api/invoice/[id]](../../src/app/api/invoice/[id]/route.ts) every three seconds. The GET handler looks up pending invoices and confirms settled payments; the route also exposes an explicit POST confirmation handler.
+3. [convex/invoices.ts](../../convex/invoices.ts) credits the owning session after settlement verification, with duplicate confirmation protection. Only the originating session can access the invoice through the Next.js route.
 
-- Payments use Lightning invoices, payable via any Lightning wallet or CashApp.
-- Credit bundles: $1 for 100 credits or $3 for 300 credits.
-- Credits unlock both **image generation** and **AI chat** (cost varies by model).
-- Invoices are tied to the current anonymous session.
+The purchase UI communicates session-only access and no refunds during alpha. Losing the session cookie loses access to its balance; [Sessions and credits](SESSIONS_AND_CREDITS.md) documents expiry as well.
 
-**CashApp Support:** CashApp users can scan the Lightning QR code to pay using their CashApp balance (USD or BTC). This allows anyone to pay even if they don't have a dedicated Lightning wallet.
+## Configuration
 
-## Credit Usage
+Next.js needs `LND_HOST` and `LND_INVOICE_MACAROON`. Use an invoice-only macaroon limited to invoice creation/lookup; [lnd.ts](../../src/lib/lnd.ts) defines the actual requests and timeout behavior. [btc-price.ts](../../src/lib/btc-price.ts) provides the cached USD/BTC conversion.
 
-Credits are consumed by AI features:
+For optional admin login, set `ADMIN_PASSWORD` and `ADMIN_PASSWORD_SECRET` in Next.js and the same `ADMIN_PASSWORD_SECRET` in Convex. The modal exposes an Admin Access section. [The login route](../../src/app/api/admin-login/route.ts) validates origin, CSRF, session validation/IP tracking and brute-force protection before upgrading the session. It does not fund an ordinary paid session.
 
-| Feature | Cost | Notes |
-|---------|------|-------|
-| Image generation | ~5-50 credits | Varies by model (shown before generating) |
-| AI chat | ~1-10 credits | Varies by model, estimated at ~2000 tokens/message |
-
-Admin users have unlimited access without credit deductions.
-
-## Daily Spending Limit
-
-Sessions have a **$5/day spending limit** to prevent runaway costs:
-- Resets at UTC midnight
-- Admin users are exempt
-- Returns error with remaining budget when exceeded
-
-## Flow
-
-1. User clicks "Get Credits" (credit badge in header) or is prompted when out of credits.
-2. **First-time users** see a welcome modal explaining Visibible before the purchase screen.
-3. The app creates a Lightning invoice and shows a QR code + BOLT11 string.
-4. The invoice expires after **15 minutes** if unpaid.
-5. The app polls for settlement every **3 seconds** and credits the session when paid.
-
-## Modal States
-
-The buy credits modal has several states:
-
-1. **Welcome** (first-time) — Introduction to Visibible with "Buy Credits" or "Browse for Free" options
-2. **Selection** — Simple bundle picker ($1 = 100 credits or $3 = 300 credits), payment methods, admin login option
-3. **Loading** — Creating the Lightning invoice
-4. **Invoice** — QR code, BOLT11, countdown timer, "Waiting for payment..."
-5. **Success** — "Payment Received!" confirmation
-6. **Error** — Retry option for failed/expired invoices
-
-## Alpha Constraints
-
-- No refunds.
-- No direct fiat or on-chain payments (though CashApp bridges both to Lightning).
-- No full accounts yet — credits are **session-only**.
-- This is called out explicitly in onboarding and buy-credits UI.
-
-## Session-Only Warning
-
-The UI prominently warns users:
-> "You have no account. Credits are stored in this browser only. Clearing cookies or site data, or using a different browser, will result in lost credits."
-
-## Admin Access
-
-The buy credits modal includes a hidden "Admin Access" section:
-- Reveals a password input when clicked
-- Successful admin login upgrades the session tier to "admin"
-- Admin users bypass all credit checks and daily limits
-
-## Transparency & Security
-
-- Invoice status can only be accessed by the session that created it.
-- Credits are granted only after the Lightning invoice is **settled** (confirmed by LND).
-- Origin validation prevents CSRF attacks on invoice creation.
-- Invoice creation is **rate limited** (10 requests per minute per IP). Uses IP-only to prevent multi-session bypass.
-
-## Entry Points
-
-- Credits badge: `src/components/credits-badge.tsx`
-- Buy modal: `src/components/buy-credits-modal.tsx`
-- Invoice creation: `src/app/api/invoice/route.ts`
-- Invoice status: `src/app/api/invoice/[id]/route.ts`
-- LND client: `src/lib/lnd.ts`
-- Convex invoices: `convex/invoices.ts`
+The Next.js and Convex `CONVEX_SERVER_SECRET` values must also match. See [Convex setup](../../convex/README.md).

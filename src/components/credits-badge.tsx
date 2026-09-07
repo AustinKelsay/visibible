@@ -16,9 +16,9 @@ export function CreditsBadge() {
   // Admin tier - show admin badge
   if (tier === "admin") {
     return (
-      <div className="flex items-center gap-1.5 h-8 px-3 bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] text-sm font-medium">
+      <div className="flex items-center gap-1.5 h-8 px-2 sm:px-3 bg-[var(--accent)] text-[var(--accent-text)] rounded-[var(--radius-full)] text-sm font-medium">
         <Shield size={16} strokeWidth={2} />
-        <span>Admin</span>
+        <span className="hidden sm:inline">Admin</span>
       </div>
     );
   }

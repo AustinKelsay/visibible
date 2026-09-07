@@ -1,142 +1,19 @@
-# Navigation Context
+# Reader and navigation
 
-High-level overview of how Visibible navigation works. Details may change.
+Verse URLs are `/{book}/{chapter}/{verse}`. [navigation.ts](../../src/lib/navigation.ts) validates locations and computes adjacent verses across chapter/book boundaries, stopping at the ends of the Bible. The root and `/verse/[number]` routes provide redirects.
 
-## Overview
+[NavigationContext](../../src/context/navigation-context.tsx) owns the book menu, chat/feedback sidebar, header settings menu, fullscreen state, current image ID, and chat context. Route changes close the book and settings menus; chat and fullscreen state persist. Escape closes fullscreen before chat. Fullscreen locks body scrolling.
 
-Visibible provides three primary ways to navigate the Bible:
+- [Book menu](../../src/components/book-menu.tsx): book → chapter → verse selection, with image availability indicators from Convex.
+- [Verse strip](../../src/components/verse-strip.tsx): chapter navigation and saved-image indicators.
+- [Hero image](../../src/components/hero-image.tsx) and [scripture reader](../../src/components/scripture-reader.tsx): verse controls and image-history browsing.
+- [Mobile navigation](../../src/components/mobile-verse-nav.tsx) and [keyboard helper](../../src/lib/verse-keyboard-navigation.ts): responsive and keyboard behavior.
+- [Chat sidebar](../../src/components/chat-sidebar.tsx): chat and feedback tabs.
 
-1. **URL-based** — Direct links like `/genesis/1/1` or `/john/3/16`.
-2. **Arrow navigation** — Prev/next buttons that cross chapter and book boundaries.
-3. **Book menu** — BookOpen icon menu with collapsible book/chapter picker.
+## Gallery and selected images
 
-On mobile, navigation controls are also exposed through the fullscreen mode provided by `NavigationContext` (`isFullscreen`) and a header settings dropdown.
+[VerseViewProvider](../../src/context/verse-view-context.tsx) reads `?view=gallery`; other values default to the reader. The header can override that view in memory. The override is tied to the route's base view, not stored as a localStorage preference.
 
-Verse pages also support an optional chapter gallery mode from a dedicated header navigation button next to chat/book controls. It is off by default and remembered as a preference.
+[ChapterGallery](../../src/components/chapter-gallery.tsx) shows all saved images or groups them by verse, with placeholders where art is missing. Chapter navigation preserves `?view=gallery`. Cards return to the reader; a saved-image card adds `?image=<id>` so the reader can select that image. A separate fullscreen action opens the gallery lightbox.
 
-## URL Structure
-
-```
-/{book}/{chapter}/{verse}
-```
-
-Examples:
-- `/genesis/1/1` — Genesis 1:1
-- `/john/3/16` — John 3:16
-- `/1-samuel/17/50` — 1 Samuel 17:50
-- `/revelation/22/21` — Last verse of the Bible
-
-## Arrow Navigation
-
-Arrows appear in the hero image Control Dock and below the scripture text.
-
-Navigation is seamless across boundaries:
-- Genesis 1:31 → Genesis 2:1 (next chapter)
-- Genesis 50:26 → Exodus 1:1 (next book)
-- Matthew 1:1 → Malachi 4:6 (previous book, OT→NT boundary)
-
-At the extremes:
-- Genesis 1:1 has no previous (start of Bible)
-- Revelation 22:21 has no next (end of Bible)
-
-## Book Menu
-
-BookOpen icon in the header opens a slide-out panel:
-
-1. **Testament sections** — Collapsible Old Testament (39 books) and New Testament (27 books).
-2. **Book list** — Click a book to see its chapters. Books with existing images show an accent dot.
-3. **Chapter grid** — Click a chapter number to see its verses. Chapters with images show an accent dot.
-4. **Verse grid** — Click a verse number to navigate to that verse. Verses with images show an accent dot.
-
-The accent dots indicate which books/chapters/verses have AI-generated images (requires Convex).
-
-## Chat Sidebar
-
-The NavigationContext manages the chat sidebar state:
-
-- `isChatOpen`, `openChat`, `closeChat`, `toggleChat` — Controls sidebar visibility
-- `sidebarTab`, `setSidebarTab`, `openFeedback` — Controls which tab is active (Chat or Feedback)
-- `chatContext`, `setChatContext` — Stores verse data (book, chapter, verses, prev/next) passed to the chat AI
-- `currentImageId`, `setCurrentImageId` — Syncs selected image context across sidebar/hero details
-
-**Sidebar Tabs:**
-The sidebar has two tabs:
-1. **Chat** — AI chat interface for asking about verses
-2. **Feedback** — Simple form for submitting user feedback
-
-Calling `openChat()` opens to the Chat tab. Calling `openFeedback()` opens to the Feedback tab.
-
-**Context Source:** Verse pages use `ChatContextSetter` component (`src/components/chat-context-setter.tsx`) to set the chat context when mounted. It uses a layout effect so context is available before paint (reducing `chat_opened.hasContext` race conditions), and clears context on unmount.
-
-**Keyboard Shortcut:** Pressing Escape closes the sidebar when it's open.
-
-**Responsive Behavior:**
-- Desktop (md+): Fixed 384px width on right side
-- Mobile: Full-width overlay with backdrop (click backdrop to close)
-
-## Mobile Overlay State
-
-`NavigationContext` also tracks mobile-only overlays:
-
-- `isFullscreen`, `openFullscreen`, `closeFullscreen` — Fullscreen image view (locks body scroll; Escape closes it first before chat)
-- `isHeaderMenuOpen`, `openHeaderMenu`, `closeHeaderMenu` — Header settings dropdown (translation/model)
-
-Coordination rules:
-- Opening fullscreen (`openFullscreen`) closes the book menu and header settings menu
-- Opening header settings menu does not forcibly close fullscreen, but Escape prioritizes closing fullscreen first
-- Route changes close the book menu and header settings menu; fullscreen and chat are unaffected by route changes (chat intentionally persists for conversation continuity)
-
-## Feedback Prompt
-
-A popout CTA that occasionally appears to ask users for feedback:
-
-- **Trigger**: Shows after 5-15 random verse visits
-- **Cooldown**: 24 hours after dismissal before showing again
-- **Visibility**: Desktop only (`md+`)
-- **Position**: Near the chat FAB on desktop
-- **Action**: Clicking opens the sidebar to the Feedback tab
-
-See `llm/context/FEEDBACK.md` for more details.
-
-## Verse Strip
-
-A horizontal scrollable strip below the hero image showing all verses in the current chapter:
-- Current verse is highlighted with accent color
-- Verses with images show accent dot(s) indicating image count:
-  - 1 image: single accent dot
-  - 2+ images: stacked/overlapping dots (capped at 3 dots for cleanliness, 6px spacing)
-- Verses without images show a muted dot
-- Dot styling: `w-2 h-2` (8px) size with subtle `border border-[var(--background)]/30` outline for better visibility
-- Click any verse to navigate directly
-
-## Chapter Gallery
-
-When enabled from the header navigation button, the verse page swaps into a full-screen chapter gallery view:
-
-- The gallery becomes the primary reading surface until toggled off
-- A filters section at the top lets users switch between `All images` and `By verse`
-- `All images` is the default layout and shows every saved image plus placeholders in a flat gallery
-- `By verse` groups the same chapter art into verse sections for faster verse-to-verse scanning
-- Each card links to `/{book}/{chapter}/{verse}`
-- Verses fall back to a placeholder card when they have not been illustrated yet
-- The currently open verse is highlighted in the gallery
-- The layout keeps a gallery feel while still making it easy to scan verse-to-verse progression
-
-## Entry Points
-
-- Navigation helpers: `src/lib/navigation.ts`
-- Book menu UI: `src/components/book-menu.tsx`
-- Menu state: `src/context/navigation-context.tsx`
-- Header actions + mobile settings dropdown: `src/components/header.tsx`
-- Arrow navigation: `src/components/hero-image.tsx`, `src/components/scripture-reader.tsx`
-- Verse strip navigator: `src/components/verse-strip.tsx`
-- Chat sidebar (with tabs): `src/components/chat-sidebar.tsx`
-- Chat context setter: `src/components/chat-context-setter.tsx`
-- Feedback form: `src/components/feedback.tsx`
-- Feedback prompt: `src/components/feedback-prompt.tsx`
-
-## Related Docs
-
-- Feedback feature: `llm/context/FEEDBACK.md`
-- Image persistence & history browsing: `llm/context/IMAGE-PERSISTENCE.md`
-- Image generation flow: `llm/context/IMAGE-GENERATION.md`
+[VersePageContent](../../src/components/verse-page-content.tsx) coordinates reader/gallery rendering. Keep the generation callback registration intact when changing which surface is visible: header generation uses [GenerationContext](../../src/context/generation-context.tsx), with state supplied by HeroImage.

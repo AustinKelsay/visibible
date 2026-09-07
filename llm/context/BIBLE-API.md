@@ -1,59 +1,11 @@
-# Bible API Context
+# Bible text and translations
 
-High-level overview of how Visibible fetches Bible text. Details may change.
+[The API client](../../src/lib/bible-api.ts) fetches chapter text from `https://bible-api.com/data/{translation}/{bookId}/{chapter}`. `getVerse()` selects a verse from that chapter. `getVerseByReference()` uses the reference endpoint and supports direct lookups used by image generation.
 
-## Overview
+- `TRANSLATIONS` defines selectable translations; `DEFAULT_TRANSLATION` is WEB. A selectable translation does not guarantee upstream coverage for every verse.
+- [Static structure](../../src/data/bible-structure.ts) supplies book slugs and chapter/verse counts for navigation. URL validation uses this structure, not an upstream text lookup.
+- Chapter results are cached in a process-local map keyed by book, chapter and translation. Fetches also request Next.js revalidation after 30 days. The map has no time-based expiry; `clearBibleApiCache()` clears it.
+- Chapter fetch errors return `null`. Reference lookup returns `null` for non-retryable HTTP errors; network errors and HTTP 408/429/5xx raise a retryable `BibleApiLookupError`. Callers must distinguish missing text from upstream failure.
+- [The translation helper](../../src/lib/get-translation.ts) reads the translation cookie and accepts only own keys of `TRANSLATIONS`, falling back to the default.
 
-- Visibible uses [bible-api.com](https://bible-api.com) to fetch scripture text.
-- The default translation is WEB (World English Bible), with user-selectable alternatives.
-- All 66 books of the Bible are available.
-- Data is cached aggressively since scripture text is immutable.
-
-## Translation Handling
-
-- Supported translations are defined in `src/lib/bible-api.ts` as `TRANSLATIONS`.
-- The default translation is `DEFAULT_TRANSLATION` (`web`).
-- The current translation is stored in both:
-  - Cookie: `visibible-translation` (server reads on request).
-  - Local storage: `visibible-preferences` (client hydration).
-- Validation only accepts own keys from `TRANSLATIONS` (no prototype keys).
-- If validation fails or no preference is set, the app falls back to `DEFAULT_TRANSLATION`.
-
-## Data Flow
-
-1. User navigates to a verse (e.g., `/genesis/1/1`).
-2. Server validates the URL against static book/chapter/verse data.
-3. Server fetches the verse text from bible-api.com (or cache).
-4. Verse is rendered with navigation to adjacent verses.
-
-## Static Structure Data
-
-To avoid API calls for navigation logic, the app stores static metadata:
-
-- All 66 books with IDs, names, and URL slugs
-- Chapter counts per book
-- Verse counts per chapter
-
-This enables instant prev/next navigation without querying the API.
-
-## API Endpoints Used
-
-| Endpoint | Purpose |
-|----------|---------|
-| `/data/{translation}/{bookId}/{chapter}` | Fetch all verses in a chapter |
-| `/{reference}?translation={translation}` | Fetch specific verse(s) by reference |
-
-Note: `bookId` uses uppercase API identifiers (e.g., "GEN", "MAT"), not URL slugs.
-
-## Caching Strategy
-
-- Next.js fetch cache with 30-day revalidation.
-- Chapters are fetched whole and cached; individual verse lookups use the cached chapter.
-- Rate limit is 15 requests per 30 seconds—caching prevents hitting this.
-
-## Entry Points
-
-- Static data: `src/data/bible-structure.ts`
-- API client: `src/lib/bible-api.ts`
-- Translation helper: `src/lib/get-translation.ts` (server-side cookie handling)
-- Page route: `src/app/[book]/[chapter]/[verse]/page.tsx`
+[The verse page](../../src/app/[book]/[chapter]/[verse]/page.tsx) assembles text and adjacent context. Preference persistence is documented in [Preferences](PREFERENCES.md).

@@ -14,11 +14,9 @@ import {
   trackChapterGalleryItemOpened,
   trackChapterGalleryLayoutChanged,
   trackChapterGalleryViewed,
-  trackContentEngaged,
   trackCreditsInsufficient,
   trackCreditsModalClosed,
   trackCreditsModalOpened,
-  trackDefaultViewExposed,
   trackFeedbackPromptInteraction,
   trackFeedbackSubmitted,
   trackGenerationError,
@@ -62,31 +60,6 @@ describe("analytics event wrappers", () => {
             translation: "kjv",
           }),
         eventName: "verse_view",
-      },
-      {
-        call: () =>
-          trackDefaultViewExposed({
-            ...baseProps,
-            book: "Genesis",
-            chapter: 1,
-            verse: 1,
-            testament: "old",
-            assignedView: "gallery",
-          }),
-        eventName: "default_view_exposed",
-      },
-      {
-        call: () =>
-          trackContentEngaged({
-            ...baseProps,
-            book: "Genesis",
-            chapter: 1,
-            verse: 1,
-            testament: "old",
-            trigger: "image_generation_started",
-            activeView: "reader",
-          }),
-        eventName: "content_engaged",
       },
       {
         call: () =>

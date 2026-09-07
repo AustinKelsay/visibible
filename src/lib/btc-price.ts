@@ -77,16 +77,3 @@ export function usdToSats(usd: number, btcPrice: number): number {
   const sats = Math.round(btcAmount * 100_000_000);
   return sats;
 }
-
-/**
- * Format satoshis as a human-readable string.
- */
-export function formatSats(sats: number): string {
-  if (sats >= 1_000_000) {
-    return `${(sats / 1_000_000).toFixed(2)}M sats`;
-  }
-  if (sats >= 1_000) {
-    return `${(sats / 1_000).toFixed(1)}k sats`;
-  }
-  return `${sats} sats`;
-}

@@ -38,6 +38,7 @@ type ReadinessDetailedResponse = ReadinessSummaryResponse & {
 
 type ReadinessResponse = ReadinessSummaryResponse | ReadinessDetailedResponse;
 
+// Keep the public readiness gate focused on core dependencies only.
 const REQUIRED_ENV_VARS = [
   "OPENROUTER_API_KEY",
   "NEXT_PUBLIC_CONVEX_URL",

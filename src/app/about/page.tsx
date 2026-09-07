@@ -16,7 +16,7 @@ const sections = [
     title: "What This Is",
     body: [
       "Visibible brings Scripture to life visually. Navigate the Bible verse by verse, generate images from what you're reading, and ask questions along the way.",
-      "Verse pages can also switch into a chapter gallery, so you can scan saved artwork and unillustrated verses side by side.",
+      "Verse pages open in the reader by default, and you can switch into a chapter gallery to scan saved artwork and unillustrated verses side by side.",
       "The text comes first. The imagery is there to help you see it fresh.",
     ],
   },

@@ -117,18 +117,20 @@ export const RESOLUTIONS: Record<ImageResolution, { label: string; multiplier: n
 export const DEFAULT_RESOLUTION: ImageResolution = "1K";
 
 /**
- * Model prefixes that support user-configurable resolution settings.
+ * Models that support user-configurable resolution settings via `image_size`.
  *
- * Currently only Gemini models support the `image_size` parameter (1K, 2K, 4K).
- * This list should be expanded as more providers add resolution support.
+ * Keep this list narrow and documentation-backed. Gemini 2.5 Flash Image
+ * supports aspect ratio controls, but Google currently documents `image_size`
+ * only for the 3.x image preview models.
  *
- * IMPORTANT: Only add model prefixes here when the provider's API actually
- * respects the resolution setting. Users are charged based on this - if a
- * model is listed here but ignores resolution, users pay extra for nothing.
+ * IMPORTANT: Only add models here when the provider actually respects
+ * `image_size`. Users are charged based on this flag, so false positives mean
+ * users can pay extra for a setting the model ignores or rejects.
  */
-const RESOLUTION_SUPPORTED_MODEL_PREFIXES = [
-  "google/gemini",  // Gemini models support image_size parameter
-];
+const RESOLUTION_SUPPORTED_MODEL_IDS = new Set([
+  "google/gemini-3.1-flash-image-preview",
+  "google/gemini-3-pro-image-preview",
+]);
 
 /**
  * Check if a model supports user-configurable resolution settings.
@@ -141,9 +143,7 @@ const RESOLUTION_SUPPORTED_MODEL_PREFIXES = [
  * @returns true if the model supports resolution configuration
  */
 export function supportsResolution(modelId: string): boolean {
-  return RESOLUTION_SUPPORTED_MODEL_PREFIXES.some(prefix =>
-    modelId.toLowerCase().startsWith(prefix.toLowerCase())
-  );
+  return RESOLUTION_SUPPORTED_MODEL_IDS.has(modelId.toLowerCase());
 }
 
 export function normalizeResolutionForModel(
@@ -496,10 +496,3 @@ export function getProviderName(modelId: string): string {
   return provider.charAt(0).toUpperCase() + provider.slice(1);
 }
 
-// Get a short display name from the full model name
-export function getShortModelName(model: ImageModel): string {
-  // Remove provider prefix and common suffixes for compact display
-  const name = model.name || model.id.split("/")[1] || model.id;
-  // Truncate if too long
-  return name.length > 20 ? name.substring(0, 18) + "…" : name;
-}

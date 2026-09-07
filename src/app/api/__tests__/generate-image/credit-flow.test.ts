@@ -5,6 +5,12 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { fixtures, type Session } from "../shared/test-fixtures";
+import { clearBibleApiCache } from "@/lib/bible-api";
+import {
+  mockFetchBibleApi,
+  resetMockFetchBibleApiBypass,
+  setMockFetchBibleApiBypass,
+} from "@/app/api/__tests__/shared/bible-api-mocks";
 
 // Create mock state
 const mockState = {
@@ -44,6 +50,7 @@ const defaultImageCatalogModels: Array<{
 }> = [
   { id: "google/gemini-2.0-flash-exp:free", pricing: { imageOutput: "0.01" } },
   { id: "google/gemini-2.5-flash-image", pricing: { imageOutput: "0.02" } },
+  { id: "google/gemini-3.1-flash-image-preview", pricing: { imageOutput: "0.02" } },
   { id: "openai/dall-e-3", pricing: { imageOutput: "0.04" } },
 ];
 const fetchImageModelsMock = vi.fn(async () => ({
@@ -266,52 +273,63 @@ vi.mock("@/lib/convex-client", () => ({
   getConvexServerSecret: vi.fn(() => "test-server-secret"),
 }));
 
-vi.mock("@/lib/image-models", () => ({
-  DEFAULT_IMAGE_MODEL: "google/gemini-2.0-flash-exp:free",
-  DEFAULT_CREDITS_COST: 20,
-  fetchImageModels: fetchImageModelsMock,
-  computeCreditsCost: vi.fn((pricing: string | undefined) => {
-    if (!pricing) return null;
-    const usd = parseFloat(pricing);
-    return Math.ceil(usd * 1.25 / 0.01);
-  }),
-  computeConservativeEstimate: vi.fn((pricing: string | undefined) => {
-    if (!pricing) return null;
-    const usd = parseFloat(pricing);
-    return Math.ceil(usd * 1.25 * 35 / 0.01);
-  }),
-  computeAdjustedCreditsCost: vi.fn((baseCost: number | null, resolution: string, modelId?: string) => {
-    if (baseCost === null) return 13;
-    if (!modelId || !modelId.toLowerCase().includes("gemini")) return baseCost;
-    const multipliers: Record<string, number> = { "1K": 1.0, "2K": 3.5, "4K": 6.5 };
-    return Math.ceil(baseCost * (multipliers[resolution] ?? 1.0));
-  }),
-  computeCreditsFromActualUsage: vi.fn((actualUsd: number | null, fallback: number) => {
-    if (actualUsd === null || actualUsd <= 0) {
-      return { credits: fallback, usedActual: false };
-    }
-    return { credits: Math.ceil(actualUsd * 1.25 / 0.01), usedActual: true };
-  }),
-  CONSERVATIVE_ESTIMATE_MULTIPLIER: 35,
-  getProviderName: vi.fn(() => "openrouter"),
-  CREDIT_USD: 0.01,
-  PREMIUM_MULTIPLIER: 1.25,
-  IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS: mockImageSpendDownGraceCredits,
-  DEFAULT_ASPECT_RATIO: "16:9",
-  DEFAULT_RESOLUTION: "1K",
-  RESOLUTIONS: { "1K": { multiplier: 1.0 }, "2K": { multiplier: 3.5 }, "4K": { multiplier: 6.5 } },
-  canAffordImageGeneration: vi.fn((credits: number, estimatedCreditsCost: number) =>
-    credits >= estimatedCreditsCost ||
-    (credits > 0 &&
-      credits + mockImageSpendDownGraceCredits >= estimatedCreditsCost)
-  ),
-  isValidAspectRatio: vi.fn(() => true),
-  isValidResolution: vi.fn(() => true),
-  normalizeResolutionForModel: vi.fn((modelId: string, resolution: string) =>
-    modelId.toLowerCase().includes("gemini") ? resolution : "1K"
-  ),
-  supportsResolution: vi.fn((modelId: string) => modelId.toLowerCase().includes("gemini")),
-}));
+vi.mock("@/lib/image-models", () => {
+  const resolutionSupportedModelIds = new Set([
+    "google/gemini-3.1-flash-image-preview",
+    "google/gemini-3-pro-image-preview",
+  ]);
+
+  const modelSupportsResolution = (modelId?: string) =>
+    typeof modelId === "string" &&
+    resolutionSupportedModelIds.has(modelId.toLowerCase());
+
+  return {
+    DEFAULT_IMAGE_MODEL: "google/gemini-2.0-flash-exp:free",
+    DEFAULT_CREDITS_COST: 20,
+    fetchImageModels: fetchImageModelsMock,
+    computeCreditsCost: vi.fn((pricing: string | undefined) => {
+      if (!pricing) return null;
+      const usd = parseFloat(pricing);
+      return Math.ceil(usd * 1.25 / 0.01);
+    }),
+    computeConservativeEstimate: vi.fn((pricing: string | undefined) => {
+      if (!pricing) return null;
+      const usd = parseFloat(pricing);
+      return Math.ceil(usd * 1.25 * 35 / 0.01);
+    }),
+    computeAdjustedCreditsCost: vi.fn((baseCost: number | null, resolution: string, modelId?: string) => {
+      if (baseCost === null) return 13;
+      if (!modelSupportsResolution(modelId)) return baseCost;
+      const multipliers: Record<string, number> = { "1K": 1.0, "2K": 3.5, "4K": 6.5 };
+      return Math.ceil(baseCost * (multipliers[resolution] ?? 1.0));
+    }),
+    computeCreditsFromActualUsage: vi.fn((actualUsd: number | null, fallback: number) => {
+      if (actualUsd === null || actualUsd <= 0) {
+        return { credits: fallback, usedActual: false };
+      }
+      return { credits: Math.ceil(actualUsd * 1.25 / 0.01), usedActual: true };
+    }),
+    CONSERVATIVE_ESTIMATE_MULTIPLIER: 35,
+    getProviderName: vi.fn(() => "openrouter"),
+    CREDIT_USD: 0.01,
+    PREMIUM_MULTIPLIER: 1.25,
+    IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS: mockImageSpendDownGraceCredits,
+    DEFAULT_ASPECT_RATIO: "16:9",
+    DEFAULT_RESOLUTION: "1K",
+    RESOLUTIONS: { "1K": { multiplier: 1.0 }, "2K": { multiplier: 3.5 }, "4K": { multiplier: 6.5 } },
+    canAffordImageGeneration: vi.fn((credits: number, estimatedCreditsCost: number) =>
+      credits >= estimatedCreditsCost ||
+      (credits > 0 &&
+        credits + mockImageSpendDownGraceCredits >= estimatedCreditsCost)
+    ),
+    isValidAspectRatio: vi.fn(() => true),
+    isValidResolution: vi.fn(() => true),
+    normalizeResolutionForModel: vi.fn((modelId: string, resolution: string) =>
+      modelSupportsResolution(modelId) ? resolution : "1K"
+    ),
+    supportsResolution: vi.fn((modelId: string) => modelSupportsResolution(modelId)),
+  };
+});
 
 vi.mock("@/lib/chat-models", () => ({
   DEFAULT_CHAT_MODEL: "test/scene-planner-model",
@@ -334,6 +352,10 @@ let mockFetchImpl:
   | null = null;
 
 const mockFetch = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+  const bibleApiResponse = mockFetchBibleApi(input);
+  if (bibleApiResponse) {
+    return bibleApiResponse;
+  }
   if (mockFetchImpl) {
     return await mockFetchImpl(input, init);
   }
@@ -386,6 +408,7 @@ function createGenerateImageRequest(body: Record<string, unknown>) {
 describe("Image Generation API Credit Flow", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    clearBibleApiCache();
     fetchImageModelsMock.mockReset();
     fetchImageModelsMock.mockResolvedValue({
       models: defaultImageCatalogModels,
@@ -393,6 +416,7 @@ describe("Image Generation API Credit Flow", () => {
     resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 }]);
     mockFetchResponse = null;
     mockFetchImpl = null;
+    resetMockFetchBibleApiBypass();
     forceQuoteFailure = false;
     forceRecordImageCostEventFailure = false;
     mockLearnedEstimate = null;
@@ -402,6 +426,7 @@ describe("Image Generation API Credit Flow", () => {
   afterEach(() => {
     process.env = { ...originalEnv };
     global.fetch = originalFetch;
+    resetMockFetchBibleApiBypass();
   });
 
   describe("Happy Path", () => {
@@ -437,6 +462,379 @@ describe("Image Generation API Credit Flow", () => {
       expect(getCallCount("saveImage")).toBe(1);
       expect(body.openRouterUsageUsd).toBe(0.05);
       expect(body.usedActualCost).toBe(true);
+    });
+
+    it("reference-only requests resolve verse text and same-chapter continuity context", async () => {
+      setMockFetchBibleApiBypass((url) => url.pathname === "/data/web/GEN/1");
+      mockFetchImpl = async (input: RequestInfo | URL) => {
+        const url = typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.toString()
+            : input.url;
+
+        if (url.includes("bible-api.com/Genesis%201%3A2?translation=web")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              reference: "Genesis 1:2",
+              verses: [
+                {
+                  book_id: "GEN",
+                  book_name: "Genesis",
+                  chapter: 1,
+                  verse: 2,
+                  text: "The earth was formless and empty.",
+                },
+              ],
+              text: "The earth was formless and empty.",
+              translation_id: "web",
+              translation_name: "World English Bible",
+              translation_note: "",
+            }),
+          };
+        }
+
+        if (url.includes("bible-api.com/data/web/GEN/1")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              verses: [
+                { book_id: "GEN", book_name: "Genesis", chapter: 1, verse: 1, text: "In the beginning God created." },
+                { book_id: "GEN", book_name: "Genesis", chapter: 1, verse: 2, text: "The earth was formless and empty." },
+                { book_id: "GEN", book_name: "Genesis", chapter: 1, verse: 3, text: "God said, Let there be light." },
+              ],
+              translation_id: "web",
+              translation_name: "World English Bible",
+            }),
+          };
+        }
+
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            id: "gen-123",
+            choices: [
+              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+            ],
+            usage: { cost: 0.01 },
+          }),
+        };
+      };
+
+      const { POST } = await import("../../generate-image/route");
+      const request = createGenerateImageRequest({
+        reference: "Genesis 1:2",
+        translation: "web",
+      });
+      const response = await POST(request);
+
+      expect(response.status).toBe(200);
+
+      const body = await response.json();
+      expect(body.reference).toBe("Genesis 1:2");
+      expect(body.verseText).toBe("The earth was formless and empty.");
+      expect(body.promptInputs.prevVerse.reference).toBe("Genesis 1:1");
+      expect(body.promptInputs.nextVerse.reference).toBe("Genesis 1:3");
+    });
+
+    it("reference-only requests resolve previous-book continuity at book boundaries", async () => {
+      mockFetchImpl = async (input: RequestInfo | URL) => {
+        const url = typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.toString()
+            : input.url;
+
+        if (url.includes("bible-api.com/Exodus%201%3A1?translation=web")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              reference: "Exodus 1:1",
+              verses: [
+                {
+                  book_id: "EXO",
+                  book_name: "Exodus",
+                  chapter: 1,
+                  verse: 1,
+                  text: "Now these are the names of the sons of Israel.",
+                },
+              ],
+              text: "Now these are the names of the sons of Israel.",
+              translation_id: "web",
+              translation_name: "World English Bible",
+              translation_note: "",
+            }),
+          };
+        }
+
+        if (url.includes("bible-api.com/data/web/EXO/1")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              verses: [
+                { book_id: "EXO", book_name: "Exodus", chapter: 1, verse: 1, text: "Now these are the names of the sons of Israel." },
+                { book_id: "EXO", book_name: "Exodus", chapter: 1, verse: 2, text: "Reuben, Simeon, Levi, and Judah," },
+              ],
+              translation_id: "web",
+              translation_name: "World English Bible",
+            }),
+          };
+        }
+
+        if (url.includes("bible-api.com/data/web/GEN/50")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              verses: [
+                { book_id: "GEN", book_name: "Genesis", chapter: 50, verse: 25, text: "Joseph took an oath of the children of Israel." },
+                { book_id: "GEN", book_name: "Genesis", chapter: 50, verse: 26, text: "So Joseph died, being one hundred ten years old." },
+              ],
+              translation_id: "web",
+              translation_name: "World English Bible",
+            }),
+          };
+        }
+
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            id: "gen-123",
+            choices: [
+              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+            ],
+            usage: { cost: 0.01 },
+          }),
+        };
+      };
+
+      const { POST } = await import("../../generate-image/route");
+      const request = createGenerateImageRequest({
+        reference: "Exodus 1:1",
+        translation: "web",
+      });
+      const response = await POST(request);
+
+      expect(response.status).toBe(200);
+
+      const body = await response.json();
+      expect(body.reference).toBe("Exodus 1:1");
+      expect(body.promptInputs.prevVerse.reference).toBe("Genesis 50:26");
+      expect(body.promptInputs.nextVerse.reference).toBe("Exodus 1:2");
+    });
+
+    it("reference-only requests resolve next-chapter continuity at chapter boundaries", async () => {
+      setMockFetchBibleApiBypass((url) => url.pathname === "/data/web/GEN/1");
+      mockFetchImpl = async (input: RequestInfo | URL) => {
+        const url = typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.toString()
+            : input.url;
+
+        if (url.includes("bible-api.com/Genesis%201%3A31?translation=web")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              reference: "Genesis 1:31",
+              verses: [
+                {
+                  book_id: "GEN",
+                  book_name: "Genesis",
+                  chapter: 1,
+                  verse: 31,
+                  text: "God saw everything that he had made, and, behold, it was very good.",
+                },
+              ],
+              text: "God saw everything that he had made, and, behold, it was very good.",
+              translation_id: "web",
+              translation_name: "World English Bible",
+              translation_note: "",
+            }),
+          };
+        }
+
+        if (url.includes("bible-api.com/data/web/GEN/1")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              verses: [
+                { book_id: "GEN", book_name: "Genesis", chapter: 1, verse: 30, text: "To every animal of the earth, and to every bird of the sky..." },
+                { book_id: "GEN", book_name: "Genesis", chapter: 1, verse: 31, text: "God saw everything that he had made, and, behold, it was very good." },
+              ],
+              translation_id: "web",
+              translation_name: "World English Bible",
+            }),
+          };
+        }
+
+        if (url.includes("bible-api.com/data/web/GEN/2")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              verses: [
+                { book_id: "GEN", book_name: "Genesis", chapter: 2, verse: 1, text: "The heavens, the earth, and all their vast array were finished." },
+                { book_id: "GEN", book_name: "Genesis", chapter: 2, verse: 2, text: "On the seventh day God finished his work which he had done." },
+              ],
+              translation_id: "web",
+              translation_name: "World English Bible",
+            }),
+          };
+        }
+
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            id: "gen-123",
+            choices: [
+              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+            ],
+            usage: { cost: 0.01 },
+          }),
+        };
+      };
+
+      const { POST } = await import("../../generate-image/route");
+      const request = createGenerateImageRequest({
+        reference: "Genesis 1:31",
+        translation: "web",
+      });
+      const response = await POST(request);
+
+      expect(response.status).toBe(200);
+
+      const body = await response.json();
+      expect(body.reference).toBe("Genesis 1:31");
+      expect(body.promptInputs.prevVerse.reference).toBe("Genesis 1:30");
+      expect(body.promptInputs.nextVerse.reference).toBe("Genesis 2:1");
+    });
+
+    it("returns 503 and does not bill when reference lookup is temporarily unavailable", async () => {
+      const mockFetchImplSpy = vi.fn(async (input: RequestInfo | URL) => {
+        const url = typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.toString()
+            : input.url;
+
+        if (url.includes("bible-api.com/Genesis%201%3A2?translation=web")) {
+          return {
+            ok: false,
+            status: 503,
+            json: async () => ({
+              error: "upstream unavailable",
+            }),
+          };
+        }
+
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            id: "gen-123",
+            choices: [
+              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+            ],
+            usage: { cost: 0.01 },
+          }),
+        };
+      });
+      mockFetchImpl = mockFetchImplSpy;
+
+      const { POST } = await import("../../generate-image/route");
+      const request = createGenerateImageRequest({
+        reference: "Genesis 1:2",
+        translation: "web",
+      });
+      const response = await POST(request);
+
+      expect(response.status).toBe(503);
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+      expect(getCallCount("sessions:deductCredits")).toBe(0);
+
+      const body = await response.json();
+      expect(body.error).toBe("Reference lookup unavailable");
+      expect(body.details.upstreamStatus).toBe(503);
+      expect(
+        mockFetchImplSpy.mock.calls.some(([input]) => {
+          const url = typeof input === "string"
+            ? input
+            : input instanceof URL
+              ? input.toString()
+              : input.url;
+          return url.includes("bible-api.com/Genesis%201%3A2?translation=web");
+        })
+      ).toBe(true);
+    });
+
+    it("returns 400 and does not bill when reference lookup fails", async () => {
+      const mockFetchImplSpy = vi.fn(async (input: RequestInfo | URL) => {
+        const url = typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.toString()
+            : input.url;
+
+        if (url.includes("bible-api.com/Genesis%201%3A2?translation=web")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              reference: "Genesis 1:2",
+              verses: [],
+              text: "",
+              translation_id: "web",
+              translation_name: "World English Bible",
+              translation_note: "",
+            }),
+          };
+        }
+
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            id: "gen-123",
+            choices: [
+              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+            ],
+            usage: { cost: 0.01 },
+          }),
+        };
+      });
+      mockFetchImpl = mockFetchImplSpy;
+
+      const { POST } = await import("../../generate-image/route");
+      const request = createGenerateImageRequest({
+        reference: "Genesis 1:2",
+        translation: "web",
+      });
+      const response = await POST(request);
+
+      expect(response.status).toBe(400);
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+      expect(getCallCount("sessions:deductCredits")).toBe(0);
+      expect(
+        mockFetchImplSpy.mock.calls.some(([input]) => {
+          const url = typeof input === "string"
+            ? input
+            : input instanceof URL
+              ? input.toString()
+              : input.url;
+          return url.includes("openrouter.ai");
+        })
+      ).toBe(false);
     });
 
     it("reserve-generate-deduct-fallback: falls back to API estimate when no cost returned", async () => {
@@ -580,7 +978,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(body.neutralCostUsedForActual).toBe(false);
     });
 
-    it("resolution-multiplier-gemini: applies 3.5x for 2K", async () => {
+    it("resolution-multiplier-supported-gemini: applies 3.5x for 2K on Gemini 3.1 image preview", async () => {
       mockFetchResponse = {
         ok: true,
         status: 200,
@@ -597,7 +995,7 @@ describe("Image Generation API Credit Flow", () => {
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
-      url.searchParams.set("model", "google/gemini-2.5-flash-image");
+      url.searchParams.set("model", "google/gemini-3.1-flash-image-preview");
       url.searchParams.set("resolution", "2K");
 
       const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
@@ -611,7 +1009,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(body.resolutionSupported).toBe(true);
     });
 
-    it("resolution-ignored-non-gemini: no multiplier for non-Gemini models", async () => {
+    it("resolution-ignored-unsupported-models: no multiplier for unsupported models", async () => {
       mockFetchResponse = {
         ok: true,
         status: 200,
@@ -647,6 +1045,49 @@ describe("Image Generation API Credit Flow", () => {
       );
       expect(recordActualCostCall).toBeDefined();
       expect((recordActualCostCall?.args as { resolution: string }).resolution).toBe("1K");
+    });
+
+    it("resolution-ignored-gemini-2-5: omits image_size for Gemini 2.5 Flash Image", async () => {
+      let capturedImageConfig: Record<string, unknown> | null = null;
+
+      mockFetchImpl = async (_input: RequestInfo | URL, init?: RequestInit) => {
+        const requestBody = JSON.parse(String(init?.body ?? "{}")) as {
+          image_config?: Record<string, unknown>;
+        };
+        capturedImageConfig = requestBody.image_config ?? null;
+
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            id: "gen-123",
+            choices: [
+              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+            ],
+            usage: { cost: 0.02 },
+          }),
+        };
+      };
+
+      const { POST } = await import("../../generate-image/route");
+
+      const url = new URL("http://localhost:3000/api/generate-image");
+      url.searchParams.set("text", "Test verse");
+      url.searchParams.set("model", "google/gemini-2.5-flash-image");
+      url.searchParams.set("resolution", "4K");
+
+      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
+      const response = await POST(request);
+
+      expect(response.status).toBe(200);
+
+      const body = await response.json();
+      expect(capturedImageConfig).toEqual({
+        aspect_ratio: "16:9",
+      });
+      expect(body.resolution).toBe("4K");
+      expect(body.resolutionMultiplier).toBe(1.0);
+      expect(body.resolutionSupported).toBe(false);
     });
 
     it("low-balance-spend-down: reserves remaining credits and still succeeds within grace", async () => {
@@ -870,7 +1311,8 @@ describe("Image Generation API Credit Flow", () => {
 
       expect(response.status).toBe(500);
       const body = await response.json();
-      expect(body.error).toContain("No image");
+      expect(body.error).toBe("Model returned no image output");
+      expect(body.message).toContain("No image");
       expect(getCallCount("sessions:releaseReservation")).toBe(1);
     });
 

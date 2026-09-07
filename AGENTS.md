@@ -1,42 +1,36 @@
 # Repository Guidelines
 
-## Project Structure & Module Organization
-- `src/app` holds Next.js App Router pages, layouts, and API routes (notably `src/app/api/chat/route.ts`).
-- `src/components` contains reusable React UI components (for example, `src/components/chat.tsx`).
-- `src/app/globals.css` defines global styles and the Tailwind v4 entry point.
-- `public` stores static assets served at `/` (SVGs, icons, etc.).
-- Top-level configs live in `next.config.ts`, `tsconfig.json`, and `eslint.config.mjs`.
+## Structure
+- `src/app` contains App Router pages, layouts, and API routes.
+- `src/components` holds reusable UI, `public` holds static assets, and root config lives in `next.config.ts`, `tsconfig.json`, and `eslint.config.mjs`.
+- `src/app/globals.css` is the global Tailwind entry.
 
-## Build, Test, and Development Commands
-- `npm run dev` starts the local dev server at `http://localhost:3000`.
-- `npm run convex:dev` watches Convex functions/schemas against the dev deployment.
-- `npm run convex:dev:setup` one-time Convex dev deployment wiring.
-- `npm run convex:deploy:prod` deploys Convex to production.
-- `npm run build` generates a production build.
-- `npm start` serves the production build locally.
-- `npm run lint` runs ESLint with Next.js and TypeScript rules.
-- `npm run typecheck` runs TypeScript type checking without emitting files.
-- `npm test` runs Vitest tests.
+## Commands
+- `npm run dev`
+- `npm run convex:dev`
+- `npm run build`
+- `npm run lint`
+- `npm run typecheck`
+- `npm test`
 
-**Note:** When verifying your work, run `npm run lint`, `npm run typecheck`, and `npm test` instead of building. This is faster and catches issues without generating a full production build.
+Prefer `npm run lint`, `npm run typecheck`, and `npm test` for routine verification instead of a full build.
 
-## Coding Style & Naming Conventions
-- TypeScript + React with `strict` mode enabled in `tsconfig.json`.
-- Match existing formatting: 2-space indentation and double quotes.
-- Follow App Router naming (`page.tsx`, `layout.tsx`, `route.ts`).
-- Components are `PascalCase`; hooks are `useX`.
-- Prefer the `@/*` path alias for imports from `src` (e.g., `@/components/chat`).
+## Conventions
+- TypeScript + React in strict mode.
+- Keep existing 2-space indentation and double quotes.
+- Follow App Router naming (`page.tsx`, `layout.tsx`, `route.ts`) and use the `@/*` alias for local imports.
 
-## Testing Guidelines
-- Tests are run with Vitest (`npm test`).
-- Test files use the `*.test.ts` or `*.test.tsx` naming convention and live alongside the code they test or in `__tests__` directories.
-- When verifying changes, run `npm run lint`, `npm run typecheck`, and `npm test` to ensure code quality.
+## PR Rules
+- Keep commits short and imperative.
+- Unless instructed otherwise, attempt to run the CodeRabbit CLI on unstaged changes before committing and pushing.
+- PRs should include test notes and screenshots or GIFs for visible UI changes.
 
-## Commit & Pull Request Guidelines
-- There is no strict commit format enforced in this repository.
-- Use short, imperative commit messages (e.g., `Add streaming chat UI`) and keep unrelated changes separate.
-- PRs should include a concise summary, testing notes (`npm run lint`, `npm run typecheck`, `npm test` or manual steps), and screenshots/GIFs for UI changes.
-
-## Configuration & Secrets
-- Copy `.env.example` to `.env.local` and set `OPENROUTER_API_KEY` for chat and image generation.
+## Secrets
+- Copy `.env.example` to `.env.local` and set `OPENROUTER_API_KEY`.
 - Never commit real API keys.
+
+## Engineering Principles
+**1. Think Before Coding**: State assumptions, surface uncertainty, and present tradeoffs.
+**2. Simplicity First**: Minimum code required. No speculative features or unnecessary abstractions.
+**3. Surgical Changes**: Touch only what is necessary. Match existing style.
+**4. Goal-Driven Execution**: Define success via verifiable tests/checks.

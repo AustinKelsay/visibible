@@ -1,131 +1,19 @@
-# Sessions & Credits Context
+# Sessions and credits
 
-High-level view of the session and credit system for AI features (chat and image generation). This is user-facing behavior and product intent, not implementation detail.
+[session.ts](../../src/lib/session.ts) signs the `visibible_session` JWT cookie and verifies session expiry. IP changes are logged and rotate the cookie; they do not invalidate the session by themselves. Session records and balances live in [convex/sessions.ts](../../convex/sessions.ts), not in browser storage. The browser cookie provides access to that anonymous session; clearing it or changing browsers does not transfer the balance.
 
-## Summary
+New sessions are `paid` tier with zero credits. Admin tier is sticky and bypasses credit/spending checks; admin usage is audited. Admins still pass the routes' rate limits. Default expiry is seven days idle with a thirty-day absolute cap; activity refreshes are bounded by that cap. Timeout overrides and valid ranges are in [.env.example](../../.env.example).
 
-- Sessions are anonymous and tracked via a signed cookie.
-- All users start as "paid" tier (no free tier) but with 0 credits.
-- Users buy credits via Lightning to unlock AI features (chat and image generation).
-- Admin sessions bypass all credit and spending checks.
-- Payments use Lightning invoices, payable via Lightning wallets or CashApp ($1 = 100 credits or $3 = 300 credits).
+## Reservation and settlement
 
-## User Tiers
+Credits are reserved atomically before paid generation. Each generation ID has a one-way settlement: reserved → charged or released. Duplicate terminal operations must not create another charge/refund, and released IDs cannot be reserved again. Crons reconcile stale reservation-only generations after thirty minutes; [crons.ts](../../convex/crons.ts) is the schedule source.
 
-- Paid: browse content, use AI features while credits cover the request threshold. Image generation allows requests within a 5-credit grace window when the session has a positive balance at request start, even if the final charge brings the balance down to zero. Default tier.
-- Admin: unlimited access (no credit or spending checks), but all usage is logged for audit.
-- Admin tier is sticky and is never downgraded by credit balance changes.
+- **Chat:** reserve the token-based estimate, then charge that estimate on successful stream completion. Actual token cost is metadata/monitoring. Errors and cancellation release the hold.
+- **Images:** eligibility uses the estimated price; a conservative reservation can be larger. Low-balance reservations are capped at available credits. Successful image requests reconcile against reported usage, returning unused reserved credits or charging the additional amount when the remaining balance covers it. Otherwise settlement retains the reserved charge and reports a shortfall. Missing usage falls back to the learned estimate, then catalog pricing, rather than charging the conservative hold.
+- **Planner:** reserve/charge only for a needed call. Cache hits skip it; an unusable plan releases the planner hold.
 
-## Spending Limits
+[image-models.ts](../../src/lib/image-models.ts) defines estimate/reservation math and the five-credit spend-down grace. The grace requires a positive balance and applies to explicit image generation; auto-generation requires full estimated affordability. Learned resolution estimates live in [modelCostStats.ts](../../convex/modelCostStats.ts). [chat-models.ts](../../src/lib/chat-models.ts) defines chat pricing.
 
-To prevent API cost abuse, multiple layers of cost protection are enforced:
+Chat enforces a 100-credit estimated per-request cap. The image route does not have that same cap. Convex applies non-admin daily spending checks (default $5/day, reset at UTC midnight). These admission checks are not a guarantee that an upstream provider's eventual cost cannot exceed its estimate. Read the route checks and Convex settlement together when changing pricing.
 
-### Daily Spending Limit
-- **$5/day per session** (resets at UTC midnight)
-- Admin users bypass this limit
-- Returns clear error with remaining budget when exceeded
-
-### Per-Request Cost Cap
-- **Maximum 100 credits ($1.00) per single request**
-- Prevents expensive models from draining daily budget in one request
-- Returns 400 error if model cost exceeds cap
-
-### Input Validation Limits
-- **Messages:** Maximum 50 per chat request
-- **Context string:** Maximum 2000 characters
-- **Request body:** Maximum 100KB (enforced via streaming reader, handles chunked transfer encoding)
-
-These limits prevent token inflation attacks where attackers send huge payloads to maximize API costs.
-
-## Alpha Constraints
-
-The current payment flow is intentionally streamlined:
-
-- Lightning invoices only (CashApp users can pay via Lightning using USD or BTC).
-- No refunds.
-- No direct fiat or on-chain payments (though CashApp bridges both to Lightning).
-- No full accounts yet.
-
-These limitations are explicitly shown in the buy-credits modal (which includes integrated onboarding).
-
-## Charging Behavior
-
-- Credits are reserved atomically before generation (prevents race conditions).
-- Credits are converted to a charge after successful generation.
-- If generation fails, reserved credits are released back to the user.
-- Settlement is one-way per `generationId`:
-  - `reserved -> released` or `reserved -> charged`
-  - Released generations cannot be re-charged
-  - Charged/released generations cannot be reserved again
-- Stale reservation-only generations are reconciled by cron every 5 minutes to auto-release stranded credits (30-minute age threshold).
-- Models without valid pricing are rejected (cannot use unpriced models).
-
-### Chat Credits
-- Dynamic pricing based on model's per-token cost
-- Estimated ~2000 tokens reserved upfront
-- Actual usage logged for monitoring
-
-### Image Credits
-- **Conservative reservation**: Credits are reserved using a 35x multiplier over API-listed pricing because OpenRouter's models API often underreports actual image generation costs for multimodal models.
-- **Estimated-price gating**: The UI shows the normal estimated charge, not the conservative reservation hold. That estimate now comes from recent real image charges when history exists, with fallbacks in this order: exact model -> provider -> global -> catalog pricing. The displayed total includes the selected model, any supported resolution multiplier, and the scene-planner surcharge when the planner is enabled. Low-balance sessions may still start image generation within a 5-credit grace window so they can spend down to zero.
-- **Capped low-balance reservation**: When a session is low on credits, the backend caps the reservation at the remaining balance instead of requiring the full conservative hold upfront.
-- **Actual-usage charging**: After successful generation, the actual cost is extracted from OpenRouter's response (checking `usage.cost`, `usage.total_cost`, `data.cost`, `data.total_cost` in priority order).
-- **Automatic refund**: Excess reserved credits are refunded automatically (typically reserve ~35 credits, charge ~5 actual).
-- **Fallback behavior**: If OpenRouter doesn't return usage data, the learned image estimate is charged instead of the conservative 35x estimate. If there is no learned history yet, the backend falls back to catalog pricing. This prevents overcharging when usage extraction fails.
-- **Resolution normalization**: Models that ignore the resolution setting are learned against a single 1K baseline bucket so they do not drift into fake 2K/4K estimates just because the user selected those buttons.
-- **Cache nuance**: Scene-plan cache hits skip the planner call and skip planner charges entirely, so the displayed estimate can still be slightly higher than the final backend estimate on cached verses.
-- The API response includes:
-  - `estimatedCreditsCost` - Pre-generation estimate (learned image cost + planner surcharge)
-  - `creditsCost` - Actual charge (from usage or fallback)
-  - `usedFallbackEstimate` - Boolean flag indicating usage extraction failed (for monitoring)
-
-## Admin Audit Logging
-
-Admin users bypass credit checks, but **all admin API usage is logged** for security monitoring:
-
-- Every chat and image generation request is logged with:
-  - Session ID
-  - Endpoint (chat or generate-image)
-  - Model used
-  - Estimated credits and USD cost
-  - Timestamp
-- `getAdminDailySpend` query returns total admin usage for the current day (server secret required)
-- Enables detection of admin credential compromise
-- Provides forensic data for investigation
-
-This ensures unlimited admin access doesn't mean unmonitored access.
-
-## Transparency Data
-
-Each generated image stores a prompt and structured metadata (reference, verse text, theme, cost, duration, etc.) to support auditing and future features.
-
-## Feature Gating
-
-The credit system depends on Convex and session secrets. If Convex is not configured, the UI falls back to free browsing with no persistence or billing.
-
-Client IP hashing uses trusted proxy headers only when configured; otherwise it may be `unknown` in dev.
-
-## Entry Points
-
-### API Routes
-- `src/app/api/session/route.ts` - Session creation and state
-- `src/app/api/invoice/route.ts` - Invoice creation
-- `src/app/api/invoice/[id]/route.ts` - Invoice status and confirmation
-- `src/app/api/admin-login/route.ts` - Admin authentication
-
-### Client
-- `src/context/session-context.tsx` - SessionProvider and useSession hook
-- `src/components/credits-badge.tsx` - Credit balance display
-- `src/components/buy-credits-modal.tsx` - Lightning payment flow + integrated onboarding
-
-### Utilities
-- `src/lib/session.ts` - JWT signing/verification helpers
-- `src/lib/convex-client.ts` - Server-side Convex client
-- `src/lib/btc-price.ts` - BTC/USD price fetching with cache
-- `src/lib/lnd.ts` - Lightning invoice creation and lookup
-- `src/lib/request-body.ts` - Secure body reading with size limits
-
-### Convex Functions
-- `convex/sessions.ts` - Session and credit ledger mutations
-- `convex/invoices.ts` - Invoice mutations and queries
-- `convex/modelStats.ts` - Generation timing statistics
+[SessionProvider](../../src/context/session-context.tsx) supplies balance, tier and purchase-modal state. Without Convex, free browsing remains available but session-backed AI generation/billing is unavailable. See [Payments](PAYMENTS.md), [Security](SECURITY.md), and [Image generation](IMAGE-GENERATION.md).

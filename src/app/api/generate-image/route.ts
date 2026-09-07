@@ -20,7 +20,16 @@ import {
   ImageResolution,
 } from "@/lib/image-models";
 import {
-} from "@/lib/chat-models";
+  DEFAULT_TRANSLATION,
+  TRANSLATIONS,
+  BibleApiLookupError,
+  getVerse,
+  getChapter,
+  getVerseByReference,
+  type VerseData,
+  type Translation,
+} from "@/lib/bible-api";
+import { BIBLE_BOOKS, type BibleBook } from "@/data/bible-structure";
 import { getScenePlannerEstimatedCreditsCost, getScenePlannerModelId, isScenePlannerEnabled } from "@/lib/scene-planner";
 import {
   validateSessionWithIp,
@@ -126,6 +135,12 @@ type PromptPacket = {
   };
 };
 
+type VerseTarget = {
+  book: BibleBook;
+  chapter: number;
+  verse: number;
+};
+
 function normalizeSceneField(value: unknown): string | undefined {
   if (typeof value !== "string") return undefined;
   const cleaned = value
@@ -189,6 +204,130 @@ function clipText(value: string, maxChars: number): string {
   return `${normalized.slice(0, Math.max(0, maxChars - 1)).trimEnd()}…`;
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function getNonEmptyString(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
+}
+
+function buildInlineImageDataUrl(part: unknown): string | null {
+  if (!isRecord(part)) return null;
+
+  const inlineData = isRecord(part.inline_data)
+    ? part.inline_data
+    : isRecord(part.inlineData)
+      ? part.inlineData
+      : null;
+
+  if (!inlineData) return null;
+
+  const data = getNonEmptyString(inlineData.data);
+  if (!data) return null;
+
+  const mimeType = getNonEmptyString(inlineData.mime_type)
+    ?? getNonEmptyString(inlineData.mimeType)
+    ?? "image/png";
+
+  return `data:${mimeType};base64,${data}`;
+}
+
+function extractImageUrlFromPart(part: unknown): string | null {
+  if (typeof part === "string") {
+    return part.startsWith("data:image/") ? part : null;
+  }
+
+  if (!isRecord(part)) return null;
+
+  const directUrl = getNonEmptyString(part.url);
+  if (directUrl) return directUrl;
+
+  const directImageUrl = getNonEmptyString(part.image_url)
+    ?? getNonEmptyString(part.imageUrl);
+  if (directImageUrl) return directImageUrl;
+
+  const nestedImageUrl = isRecord(part.image_url)
+    ? part.image_url
+    : isRecord(part.imageUrl)
+      ? part.imageUrl
+      : null;
+  if (nestedImageUrl) {
+    const nestedUrl = getNonEmptyString(nestedImageUrl.url);
+    if (nestedUrl) return nestedUrl;
+  }
+
+  const inlineDataUrl = buildInlineImageDataUrl(part);
+  if (inlineDataUrl) return inlineDataUrl;
+
+  const b64Json = getNonEmptyString(part.b64_json);
+  if (b64Json) {
+    return `data:image/png;base64,${b64Json}`;
+  }
+
+  return null;
+}
+
+function extractNoImageText(message: unknown): string | null {
+  if (!isRecord(message)) return null;
+
+  const messageContent = getNonEmptyString(message.content);
+  if (messageContent) return clipText(messageContent, 180);
+
+  const refusal = getNonEmptyString(message.refusal);
+  if (refusal) return clipText(refusal, 180);
+
+  if (!Array.isArray(message.content)) return null;
+
+  for (const part of message.content) {
+    if (!isRecord(part)) continue;
+
+    const text = getNonEmptyString(part.text)
+      ?? getNonEmptyString(part.refusal)
+      ?? getNonEmptyString(part.content);
+
+    if (text) return clipText(text, 180);
+  }
+
+  return null;
+}
+
+function summarizeNoImageResponse(data: unknown): Record<string, unknown> {
+  if (!isRecord(data)) {
+    return { responseType: typeof data };
+  }
+
+  const choices = Array.isArray(data.choices) ? data.choices : [];
+
+  return {
+    id: getNonEmptyString(data.id),
+    choiceCount: choices.length,
+    choices: choices.slice(0, 2).map((choice) => {
+      if (!isRecord(choice)) {
+        return { choiceType: typeof choice };
+      }
+
+      const message = isRecord(choice.message) ? choice.message : null;
+      const content = message?.content;
+
+      return {
+        finishReason: getNonEmptyString(choice.finish_reason),
+        messageKeys: message ? Object.keys(message).slice(0, 8) : [],
+        imagesCount: Array.isArray(message?.images) ? message.images.length : 0,
+        contentType: Array.isArray(content) ? "array" : typeof content,
+        contentPartTypes: Array.isArray(content)
+          ? content.slice(0, 8).map((part) =>
+              isRecord(part) ? getNonEmptyString(part.type) ?? "unknown" : typeof part
+            )
+          : [],
+        textPreview: extractNoImageText(message),
+      };
+    }),
+  };
+}
+
 function toVerseId(reference: string): string {
   return reference
     .toLowerCase()
@@ -209,6 +348,10 @@ function sanitizeTranslationId(value: string | null): string {
   if (!value) return DEFAULT_TRANSLATION_ID;
   const cleaned = value.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40);
   return cleaned || DEFAULT_TRANSLATION_ID;
+}
+
+function isSupportedTranslation(value: string): value is Translation {
+  return Object.prototype.hasOwnProperty.call(TRANSLATIONS, value);
 }
 
 function toContinuityHint(verse: { number: number; text: string } | null): string | undefined {
@@ -264,6 +407,81 @@ function sanitizeVerseText(text: string): string {
       ""
     )
     .slice(0, 1200); // Limit to reasonable verse length
+}
+
+function computePreviousTarget(params: {
+  currentVerse: { chapter: number; verse: number };
+  currentBook: BibleBook;
+  currentBookIndex: number;
+  prevVerse: { number: number; text: string; reference?: string } | null;
+}): VerseTarget | null {
+  const { currentVerse, currentBook, currentBookIndex, prevVerse } = params;
+  if (prevVerse) return null;
+
+  if (currentVerse.verse > 1) {
+    return {
+      book: currentBook,
+      chapter: currentVerse.chapter,
+      verse: currentVerse.verse - 1,
+    };
+  }
+
+  if (currentVerse.chapter > 1) {
+    return {
+      book: currentBook,
+      chapter: currentVerse.chapter - 1,
+      verse: currentBook.chapters[currentVerse.chapter - 2],
+    };
+  }
+
+  if (currentBookIndex <= 0) {
+    return null;
+  }
+
+  const previousBook = BIBLE_BOOKS[currentBookIndex - 1];
+  const previousChapter = previousBook.chapters.length;
+  return {
+    book: previousBook,
+    chapter: previousChapter,
+    verse: previousBook.chapters[previousChapter - 1],
+  };
+}
+
+function computeNextTarget(params: {
+  currentVerse: { chapter: number; verse: number };
+  currentBook: BibleBook;
+  currentBookIndex: number;
+  versesInChapter: number;
+  nextVerse: { number: number; text: string; reference?: string } | null;
+}): VerseTarget | null {
+  const { currentVerse, currentBook, currentBookIndex, versesInChapter, nextVerse } = params;
+  if (nextVerse) return null;
+
+  if (currentVerse.verse < versesInChapter) {
+    return {
+      book: currentBook,
+      chapter: currentVerse.chapter,
+      verse: currentVerse.verse + 1,
+    };
+  }
+
+  if (currentVerse.chapter < currentBook.chapters.length) {
+    return {
+      book: currentBook,
+      chapter: currentVerse.chapter + 1,
+      verse: 1,
+    };
+  }
+
+  if (currentBookIndex < 0 || currentBookIndex >= BIBLE_BOOKS.length - 1) {
+    return null;
+  }
+
+  return {
+    book: BIBLE_BOOKS[currentBookIndex + 1],
+    chapter: 1,
+    verse: 1,
+  };
 }
 
 type ChapterTheme = {
@@ -497,16 +715,42 @@ export async function POST(request: Request) {
 
   // Get verse text, theme, model, and context from JSON body.
   // SECURITY: All user-provided text is sanitized to prevent prompt injection.
-  const verseText = sanitizeVerseText(requestBody.text || DEFAULT_TEXT);
-  const reference = sanitizeReference(requestBody.reference || "Scripture");
+  const hasUserReference =
+    typeof requestBody.reference === "string" &&
+    requestBody.reference.trim().length > 0;
+  let verseText = requestBody.text ? sanitizeVerseText(requestBody.text) : "";
+  let reference = sanitizeReference(requestBody.reference || "Scripture");
   const requestedModelId = requestBody.model;
   const requestedStyleId = requestBody.style;
   const requestedAspectRatio = requestBody.aspectRatio;
   const requestedResolution = requestBody.resolution;
-  const translationId = sanitizeTranslationId(requestBody.translation ?? null);
+  const parsedTranslationInput = z.string().optional().safeParse(requestBody.translation);
+  if (!parsedTranslationInput.success) {
+    return jsonWithSessionRefresh(
+      {
+        error: "Invalid translation",
+        message: "Unsupported translation. Please select a supported translation.",
+      },
+      { status: 400 }
+    );
+  }
+  const normalizedTranslation =
+    parsedTranslationInput.data === undefined
+      ? DEFAULT_TRANSLATION
+      : sanitizeTranslationId(parsedTranslationInput.data);
+  if (!isSupportedTranslation(normalizedTranslation)) {
+    return jsonWithSessionRefresh(
+      {
+        error: "Invalid translation",
+        message: "Unsupported translation. Please select a supported translation.",
+      },
+      { status: 400 }
+    );
+  }
+  const bibleTranslation: Translation = normalizedTranslation;
+  const translationId = bibleTranslation;
   const clientRequestId =
     sanitizeRequestId(requestBody.requestId ?? null) || crypto.randomUUID();
-  const verseId = toVerseId(reference);
 
   // Validate and set aspect ratio (default: 16:9)
   const aspectRatio: ImageAspectRatio = requestedAspectRatio && isValidAspectRatio(requestedAspectRatio)
@@ -617,6 +861,194 @@ export async function POST(request: Request) {
     const parsed = Number.parseInt(value, 10);
     return Number.isNaN(parsed) ? null : parsed;
   };
+
+  let prevVerse = parseVerseContext(requestBody.prevVerse);
+  let nextVerse = parseVerseContext(requestBody.nextVerse);
+
+  let currentVerse: VerseData | null = null;
+  if (reference !== "Scripture") {
+    try {
+      const resolvedVerses = await getVerseByReference(reference, bibleTranslation);
+      if (!resolvedVerses || resolvedVerses.length !== 1) {
+        return jsonWithSessionRefresh(
+          {
+            error: "Invalid reference",
+            message: "Please provide a single-verse reference like John 3:16.",
+          },
+          { status: 400 }
+        );
+      }
+      currentVerse = resolvedVerses[0];
+      const currentVerseReference = sanitizeReference(
+        `${currentVerse.bookName} ${currentVerse.chapter}:${currentVerse.verse}`
+      );
+
+      reference = currentVerseReference;
+
+      if (!verseText) {
+        verseText = sanitizeVerseText(currentVerse.text);
+      }
+    } catch (error) {
+      const lookupStatus =
+        error instanceof BibleApiLookupError ? error.statusCode : undefined;
+      const retryableLookupError =
+        error instanceof BibleApiLookupError
+          ? error.retryable
+          : true;
+
+      console.warn("[generate-image] Failed to resolve current verse from reference:", {
+        reference,
+        translation: bibleTranslation,
+        error: error instanceof Error ? error.message : "Unknown error",
+        errorName: error instanceof Error ? error.name : undefined,
+        upstreamStatus: lookupStatus,
+        retryable: retryableLookupError,
+        rawError: error,
+      });
+      if (hasUserReference) {
+        if (error instanceof BibleApiLookupError && error.kind === "not_found") {
+          return jsonWithSessionRefresh(
+            {
+              error: "Reference not found",
+              message: `Could not resolve "${reference}" in the ${translationId.toUpperCase()} translation.`,
+            },
+            { status: 400 }
+          );
+        }
+
+        const referenceLookupStatus =
+          retryableLookupError &&
+          (lookupStatus === undefined || lookupStatus === 503)
+            ? 503
+            : 502;
+        return jsonWithSessionRefresh(
+          {
+            error: "Reference lookup unavailable",
+            message: `Could not verify "${reference}" in the ${translationId.toUpperCase()} translation right now. Please try again.`,
+            details: {
+              upstreamStatus: lookupStatus ?? null,
+              upstreamError:
+                error instanceof Error ? error.message : "Unknown error",
+            },
+          },
+          { status: referenceLookupStatus }
+        );
+      }
+    }
+  }
+
+  if (currentVerse) {
+    try {
+      const currentBook = BIBLE_BOOKS.find(
+        (book) => book.id === currentVerse.bookId
+      );
+
+      if (currentBook) {
+        const versesInChapter = currentBook.chapters[currentVerse.chapter - 1];
+        const currentBookIndex = BIBLE_BOOKS.findIndex(
+          (book) => book.slug === currentBook.slug
+        );
+        const previousTarget = computePreviousTarget({
+          currentVerse,
+          currentBook,
+          currentBookIndex,
+          prevVerse,
+        });
+        const nextTarget = computeNextTarget({
+          currentVerse,
+          currentBook,
+          currentBookIndex,
+          versesInChapter,
+          nextVerse,
+        });
+        const sharedChapterTarget =
+          previousTarget &&
+          nextTarget &&
+          previousTarget.book.slug === nextTarget.book.slug &&
+          previousTarget.chapter === nextTarget.chapter
+            ? previousTarget
+            : null;
+
+        const sharedChapterPromise = sharedChapterTarget
+          ? getChapter(
+              sharedChapterTarget.book.slug,
+              sharedChapterTarget.chapter,
+              bibleTranslation
+            )
+          : null;
+
+        const prevVersePromise =
+          previousTarget
+            ? sharedChapterTarget
+              ? sharedChapterPromise!.then((chapterData) =>
+                  chapterData?.verses.find((item) => item.verse === previousTarget.verse) ?? null
+                )
+              : getVerse(
+                  previousTarget.book.slug,
+                  previousTarget.chapter,
+                  previousTarget.verse,
+                  bibleTranslation
+                )
+            : Promise.resolve(null);
+        const nextVersePromise =
+          nextTarget
+            ? sharedChapterTarget
+              ? sharedChapterPromise!.then((chapterData) =>
+                  chapterData?.verses.find((item) => item.verse === nextTarget.verse) ?? null
+                )
+              : getVerse(
+                  nextTarget.book.slug,
+                  nextTarget.chapter,
+                  nextTarget.verse,
+                  bibleTranslation
+                )
+            : Promise.resolve(null);
+
+        const [prevVerseData, nextVerseData] = await Promise.all([
+          prevVersePromise,
+          nextVersePromise,
+        ]);
+
+        if (prevVerseData) {
+          prevVerse = {
+            number: prevVerseData.verse,
+            text: sanitizeVerseText(prevVerseData.text),
+            reference: `${previousTarget?.book.name ?? currentVerse.bookName} ${prevVerseData.chapter}:${prevVerseData.verse}`,
+          };
+        }
+
+        if (nextVerseData) {
+          nextVerse = {
+            number: nextVerseData.verse,
+            text: sanitizeVerseText(nextVerseData.text),
+            reference: `${nextTarget?.book.name ?? currentVerse.bookName} ${nextVerseData.chapter}:${nextVerseData.verse}`,
+          };
+        }
+      }
+    } catch (error) {
+      console.warn("[generate-image] Failed to resolve neighboring verse context:", {
+        reference,
+        translation: bibleTranslation,
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  }
+
+  if (!verseText && hasUserReference) {
+    return jsonWithSessionRefresh(
+      {
+        error: "Reference not found",
+        message: `Could not resolve "${reference}" in the ${translationId.toUpperCase()} translation.`,
+      },
+      { status: 400 }
+    );
+  }
+
+  if (!verseText) {
+    verseText = DEFAULT_TEXT;
+  }
+
+  const verseId = toVerseId(reference);
 
   const chapterTheme = parseChapterTheme(requestBody.theme);
   const generationNumber = parseGenerationNumber(requestBody.generation);
@@ -996,10 +1428,6 @@ export async function POST(request: Request) {
 
   // Track generation start time for stats
   const generationStartTime = Date.now();
-
-  // Parse prev/next verse context for storyboard continuity (from request body, no JSON round-trip)
-  const prevVerse = parseVerseContext(requestBody.prevVerse);
-  const nextVerse = parseVerseContext(requestBody.nextVerse);
 
   const aspectRatioLabel = aspectRatio === "21:9"
     ? "ULTRA-WIDE CINEMATIC"
@@ -1390,8 +1818,7 @@ ${aspectRatioInstruction}`;
           ],
           // Request image output
           modalities: ["image", "text"],
-          // Specify aspect ratio and conditionally include resolution
-          // image_size is only supported by certain models (currently Gemini)
+          // Specify aspect ratio and only send image_size to documented-capable models.
           image_config: {
             aspect_ratio: aspectRatio,
             ...(modelSupportsResolution && { image_size: resolution }),
@@ -1788,44 +2215,40 @@ ${aspectRatioInstruction}`;
       );
     };
 
-    // OpenRouter returns images in a separate "images" field
-    if (message?.images && Array.isArray(message.images)) {
+    if (Array.isArray(message?.images)) {
       for (const image of message.images) {
-        if (image.image_url?.url) {
-          return await recordStatsAndReturn(image.image_url.url);
+        const imageUrl = extractImageUrlFromPart(image);
+        if (imageUrl) {
+          return await recordStatsAndReturn(imageUrl);
         }
       }
     }
 
-    // Fallback: check content array (some models use this format)
     const content = message?.content;
     if (Array.isArray(content)) {
       for (const part of content) {
-        if (part.type === "image_url" && part.image_url?.url) {
-          return await recordStatsAndReturn(part.image_url.url);
-        }
-        if (part.inline_data?.data) {
-          const mimeType = part.inline_data.mime_type || "image/png";
-          return await recordStatsAndReturn(
-            `data:${mimeType};base64,${part.inline_data.data}`
-          );
+        const imageUrl = extractImageUrlFromPart(part);
+        if (imageUrl) {
+          return await recordStatsAndReturn(imageUrl);
         }
       }
     }
 
     // If no image found, return error and release reservation
-    // SECURITY: Log minimal info to avoid exposing API response structure
-    console.error(`[Image API] No image in response for model=${modelId}`);
+    const responseSummary = summarizeNoImageResponse(data);
+    const noImageMessage = extractNoImageText(message) ?? "Model returned no image output.";
+    console.error(`[Image API] No image in response for model=${modelId}`, responseSummary);
     await releaseReservationIfNeeded();
     await updateGenerationRequest("failed", {
-      error: "No image generated - model may not support image output",
+      error: noImageMessage,
       durationMs: Date.now() - generationStartTime,
       scenePlannerUsed,
       scenePlanFromCache,
     });
     return jsonWithSessionRefresh(
       {
-        error: "No image generated - model may not support image output",
+        error: "Model returned no image output",
+        message: noImageMessage,
         requestId: generationRequestId,
       },
       { status: 500 }

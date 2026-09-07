@@ -7,10 +7,9 @@ import { SessionProvider } from "@/context/session-context";
 import { NavigationProvider } from "@/context/navigation-context";
 import { PreferencesProvider } from "@/context/preferences-context";
 import { GenerationProvider } from "@/context/generation-context";
+import { BulkGenerationProvider } from "@/context/bulk-generation-context";
 import { ChatSidebar } from "@/components/chat-sidebar";
 import { BuyCreditsModal } from "@/components/buy-credits-modal";
-import { ChatFAB } from "@/components/chat-fab";
-import { ChatPrompt } from "@/components/chat-prompt";
 import { FeedbackPrompt } from "@/components/feedback-prompt";
 
 const geistSans = Geist({
@@ -47,12 +46,12 @@ export default function RootLayout({
             <PreferencesProvider>
               <NavigationProvider>
                 <GenerationProvider>
-                  {children}
-                  <ChatSidebar />
-                  <ChatFAB />
-                  <ChatPrompt />
-                  <FeedbackPrompt />
-                  <BuyCreditsModal />
+                  <BulkGenerationProvider>
+                    {children}
+                    <ChatSidebar />
+                    <FeedbackPrompt />
+                    <BuyCreditsModal />
+                  </BulkGenerationProvider>
                 </GenerationProvider>
               </NavigationProvider>
             </PreferencesProvider>

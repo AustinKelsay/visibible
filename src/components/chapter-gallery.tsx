@@ -10,7 +10,7 @@ import {
   type SetStateAction,
 } from "react";
 import Link from "next/link";
-import { Maximize2, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
@@ -31,7 +31,11 @@ import {
   trackImageFullscreenOpened,
   trackSavedImageLoadFailed,
 } from "@/lib/analytics";
-import { buildNextViewCookieString } from "@/lib/verse-view";
+import {
+  getNextChapter,
+  getPreviousChapter,
+} from "@/lib/navigation";
+import { BOOK_BY_SLUG } from "@/data/bible-structure";
 import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
 import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
 
@@ -112,7 +116,7 @@ function GalleryCard({
     <Link
       href={readerHref}
       aria-current={isCurrent ? "page" : undefined}
-      aria-label={`${bookName} ${chapter}:${item.verse}${item.isPlaceholder ? " placeholder" : ` image ${item.cardIndex + 1}`}`}
+      aria-label={`${bookName} ${chapter}:${item.verse}${item.isPlaceholder ? " no image yet" : ` image ${item.cardIndex + 1}`}`}
       onClick={(event) => onNavigateToReader?.(event, item)}
       className={`group overflow-hidden rounded-[var(--radius-xl)] border bg-[var(--background)] transition-all duration-[var(--motion-base)] hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] ${
         isCurrent
@@ -277,6 +281,60 @@ function LightboxImageStage({
   );
 }
 
+interface ChapterGalleryNavProps {
+  book: string;
+  chapter: number;
+  ariaLabel: string;
+}
+
+function ChapterGalleryNav({ book, chapter, ariaLabel }: ChapterGalleryNavProps) {
+  const bibleBook = BOOK_BY_SLUG[book];
+  if (!bibleBook) return null;
+
+  const prev = getPreviousChapter(bibleBook, chapter);
+  const next = getNextChapter(bibleBook, chapter);
+
+  if (!prev && !next) return null;
+  const truncateBookName = (name: string): string =>
+    name.length > 12 ? `${name.slice(0, 10)}…` : name;
+  const withGalleryView = (href: string) => `${href}?view=gallery`;
+
+  return (
+    <nav
+      aria-label={ariaLabel}
+      className="flex items-center justify-between gap-3"
+    >
+      {prev ? (
+        <Link
+          href={withGalleryView(`/${prev.book.slug}/${prev.chapter}/1`)}
+          className="inline-flex items-center gap-2 min-h-[44px] px-3 rounded-[var(--radius-md)] text-sm font-semibold text-[var(--foreground)] hover:bg-[var(--surface)] active:bg-[var(--surface)] active:scale-[0.97] transition-all duration-[var(--motion-fast)] focus-ring"
+          aria-label={`Previous chapter: ${prev.book.name} ${prev.chapter}`}
+        >
+          <ChevronLeft size={20} strokeWidth={2} className="text-[var(--muted)]" />
+          <span className="hidden sm:inline">{prev.book.name} {prev.chapter}</span>
+          <span className="sm:hidden">{truncateBookName(prev.book.name)} {prev.chapter}</span>
+        </Link>
+      ) : (
+        <div />
+      )}
+
+      {next ? (
+        <Link
+          href={withGalleryView(`/${next.book.slug}/${next.chapter}/1`)}
+          className="inline-flex items-center gap-2 min-h-[44px] px-3 rounded-[var(--radius-md)] text-sm font-semibold text-[var(--foreground)] hover:bg-[var(--surface)] active:bg-[var(--surface)] active:scale-[0.97] transition-all duration-[var(--motion-fast)] focus-ring"
+          aria-label={`Next chapter: ${next.book.name} ${next.chapter}`}
+        >
+          <span className="hidden sm:inline">{next.book.name} {next.chapter}</span>
+          <span className="sm:hidden">{truncateBookName(next.book.name)} {next.chapter}</span>
+          <ChevronRight size={20} strokeWidth={2} className="text-[var(--muted)]" />
+        </Link>
+      ) : (
+        <div />
+      )}
+    </nav>
+  );
+}
+
 export function ChapterGallery({
   book,
   bookName,
@@ -285,7 +343,7 @@ export function ChapterGallery({
   verses,
   fullScreen = false,
 }: ChapterGalleryProps) {
-  const { effectiveView, setEffectiveView, markEngaged } = useVerseView();
+  const { effectiveView, setEffectiveView } = useVerseView();
   const isConvexEnabled = useConvexEnabled();
   const { isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
   const { tier, credits, isLoading: sessionLoading } = useSession();
@@ -294,10 +352,11 @@ export function ChapterGallery({
   const fullscreenDialogRef = useRef<HTMLDivElement>(null);
   const lastViewedKeyRef = useRef<string | null>(null);
   const previousLayoutModeRef = useRef<GalleryLayoutMode | null>(null);
-  const chapterGalleryEnabled = effectiveView === "gallery";
+  const isLightboxOpen = lightboxItem !== null;
+  const isGalleryActive = effectiveView === "gallery" || isLightboxOpen;
 
   const handleExpand = useCallback((item: ChapterGalleryFlatItem) => {
-    markEngaged("image_fullscreen_opened");
+    setEffectiveView("gallery", "chapter_gallery_card");
     trackImageFullscreenOpened({
       book,
       chapter,
@@ -309,7 +368,7 @@ export function ChapterGallery({
     });
     setLightboxItem(item);
     openFullscreen();
-  }, [book, chapter, credits, markEngaged, openFullscreen, tier]);
+  }, [book, chapter, credits, openFullscreen, setEffectiveView, tier]);
 
   const handleCloseLightbox = useCallback(() => {
     closeFullscreen();
@@ -332,42 +391,36 @@ export function ChapterGallery({
       tier,
       hasCredits: credits > 0,
     });
-    markEngaged("chapter_gallery_item_opened");
 
     if (!isUnmodifiedPrimaryClick(event)) {
       return;
     }
 
-    document.cookie = buildNextViewCookieString("reader");
     setEffectiveView("reader", "chapter_gallery_card");
-    if (isFullscreen) {
+    if (isLightboxOpen) {
       handleCloseLightbox();
     }
-
-    // Link handles the actual navigation; this keeps gallery mode from persisting on the destination page.
-    void item;
   }, [
     book,
     chapter,
     credits,
     currentVerse,
     handleCloseLightbox,
-    isFullscreen,
+    isLightboxOpen,
     layoutMode,
-    markEngaged,
     setEffectiveView,
     tier,
   ]);
 
   const galleryImages = useQuery(
     api.verseImages.getChapterGallery,
-    chapterGalleryEnabled && isConvexEnabled ? { book, chapter } : "skip"
+    isConvexEnabled && isGalleryActive ? { book, chapter } : "skip"
   );
 
   const normalizedGalleryImages = normalizeChapterGalleryImages(galleryImages);
 
   useEffect(() => {
-    if (!isFullscreen || !lightboxItem) {
+    if (!isLightboxOpen || !lightboxItem) {
       return;
     }
 
@@ -433,7 +486,7 @@ export function ChapterGallery({
         previousFocusedElement.focus();
       }
     };
-  }, [handleCloseLightbox, isFullscreen, lightboxItem]);
+  }, [handleCloseLightbox, isLightboxOpen, lightboxItem]);
 
   const groupedItems = buildChapterGalleryItems({
     book,
@@ -452,10 +505,11 @@ export function ChapterGallery({
   const placeholderCount = flatItems.filter((item) => item.isPlaceholder).length;
   const filterSummary = isLoading
     ? "Checking saved art..."
-    : `${savedImageCount} saved image${savedImageCount === 1 ? "" : "s"} · ${placeholderCount} placeholder${placeholderCount === 1 ? "" : "s"}`;
+    : `${savedImageCount} saved image${savedImageCount === 1 ? "" : "s"} · ${placeholderCount} empty`;
 
   useEffect(() => {
-    if (!chapterGalleryEnabled || isLoading || sessionLoading) return;
+    if (!isGalleryActive) return;
+    if (isLoading || sessionLoading) return;
     const viewKey = `${book}-${chapter}-${currentVerse}`;
     if (lastViewedKeyRef.current === viewKey) return;
     lastViewedKeyRef.current = viewKey;
@@ -472,7 +526,6 @@ export function ChapterGallery({
   }, [
     book,
     chapter,
-    chapterGalleryEnabled,
     credits,
     currentVerse,
     isLoading,
@@ -481,10 +534,12 @@ export function ChapterGallery({
     savedImageCount,
     sessionLoading,
     tier,
+    isGalleryActive,
   ]);
 
   useEffect(() => {
-    if (!chapterGalleryEnabled || sessionLoading) return;
+    if (!isGalleryActive) return;
+    if (sessionLoading) return;
     if (previousLayoutModeRef.current === null) {
       previousLayoutModeRef.current = layoutMode;
       return;
@@ -499,7 +554,7 @@ export function ChapterGallery({
       tier,
       hasCredits: credits > 0,
     });
-  }, [book, chapter, chapterGalleryEnabled, credits, currentVerse, layoutMode, sessionLoading, tier]);
+  }, [book, chapter, credits, currentVerse, isGalleryActive, layoutMode, sessionLoading, tier]);
 
   const handleGalleryImageLoadFailed = useCallback((item: ChapterGalleryFlatItem) => {
     trackSavedImageLoadFailed({
@@ -527,10 +582,6 @@ export function ChapterGallery({
       hasCredits: credits > 0,
     });
   }, [book, chapter, credits, lightboxItem, tier]);
-
-  if (!chapterGalleryEnabled) {
-    return null;
-  }
 
   return (
     <section
@@ -590,6 +641,8 @@ export function ChapterGallery({
           </p>
         </div>
 
+        <ChapterGalleryNav book={book} chapter={chapter} ariaLabel="Chapter navigation, top" />
+
         {layoutMode === "all" ? (
           <div
             aria-label="All images gallery"
@@ -617,7 +670,7 @@ export function ChapterGallery({
                 ? "Checking saved art..."
                 : item.hasImages
                   ? `${item.imageCount} saved image${item.imageCount === 1 ? "" : "s"}`
-                  : "Placeholder";
+                  : "No image yet";
 
               return (
                 <section
@@ -713,10 +766,12 @@ export function ChapterGallery({
             })}
           </div>
         )}
+
+        <ChapterGalleryNav book={book} chapter={chapter} ariaLabel="Chapter navigation, bottom" />
       </div>
 
       {/* Fullscreen lightbox */}
-      {isFullscreen && lightboxItem && (
+      {isLightboxOpen && isFullscreen && lightboxItem && (
         <div
           ref={fullscreenDialogRef}
           className="fixed inset-0 z-[60] bg-black flex flex-col"
