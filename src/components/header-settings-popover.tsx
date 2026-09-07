@@ -78,7 +78,13 @@ export function HeaderSettingsPopover() {
               return (
                 <button
                   key={res}
-                  onClick={() => setResolution(res, "header_settings_popover")}
+                  onClick={() => {
+                    if (modelSupportsRes) {
+                      setResolution(res, "header_settings_popover");
+                    }
+                  }}
+                  disabled={!modelSupportsRes}
+                  aria-disabled={!modelSupportsRes}
                   className={`w-full px-2 py-1.5 flex items-center justify-between text-sm rounded-[var(--radius-sm)] transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface)] ${
                     resolution === res ? "bg-[var(--surface)] text-[var(--foreground)]" : "text-[var(--muted)]"
                   } ${!modelSupportsRes ? "opacity-60" : ""}`}
@@ -150,7 +156,13 @@ export function MobileSettingsRows() {
             return (
               <button
                 key={res}
-                onClick={() => setResolution(res, "mobile_header_menu")}
+                onClick={() => {
+                  if (modelSupportsRes) {
+                    setResolution(res, "mobile_header_menu");
+                  }
+                }}
+                disabled={!modelSupportsRes}
+                aria-disabled={!modelSupportsRes}
                 className={`flex-1 min-h-[36px] rounded-[var(--radius-md)] text-xs font-medium transition-colors flex flex-col items-center justify-center ${
                   resolution === res
                     ? "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/50"

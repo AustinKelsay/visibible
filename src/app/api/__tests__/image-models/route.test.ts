@@ -101,12 +101,12 @@ describe("Image Models API", () => {
 
     const body = await response.json();
     expect(body.scenePlannerCreditsCost).toBe(1);
-    expect(body.creditRange).toEqual({ min: 8, max: 19 });
+    expect(body.creditRange).toEqual({ min: 8, max: 10 });
     expect(body.models[0].etaSeconds).toBe(8);
     expect(body.models[0].estimatedCreditsByResolution).toEqual({
       "1K": 8,
-      "2K": 19,
-      "4K": 14,
+      "2K": 8,
+      "4K": 8,
     });
     expect(body.models[1].estimatedCreditsByResolution).toEqual({
       "1K": 10,
@@ -147,8 +147,8 @@ describe("Image Models API", () => {
     expect(mockConvex.mutation).toHaveBeenCalledTimes(1);
     expect(body.models[0].estimatedCreditsByResolution).toEqual({
       "1K": 6,
-      "2K": 8,
-      "4K": 14,
+      "2K": 6,
+      "4K": 6,
     });
   });
 

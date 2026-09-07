@@ -336,17 +336,22 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   );
   const subscribedBulk = useQuery(
     api.bulkGenerations.get,
-    convexEnabled && state.bulkId ? { id: state.bulkId } : "skip"
+    convexEnabled && sid && state.bulkId ? { id: state.bulkId, sid } : "skip"
   );
   const bulkForState = subscribedBulk ?? activeBulk;
 
   const loadAllVerses = useCallback(
     async (bulkGenerationId: Id<"bulkGenerations">) => {
+      if (!sid) {
+        return [];
+      }
+
       const verses: BulkGenerationVerse[] = [];
       let offset = 0;
 
       while (true) {
         const page = await convex.query(api.bulkGenerations.getVerses, {
+          sid,
           bulkGenerationId,
           limit: RUNNER_VERSE_PAGE_SIZE,
           offset,
@@ -361,7 +366,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
 
       return verses;
     },
-    [convex]
+    [convex, sid]
   );
 
   // Sync Convex state → local state (for reactive UI updates)
@@ -451,6 +456,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       queue: BulkQueueItem[],
       initialCounters: BulkGenerationCounters
     ) => {
+      if (!sid) return;
       if (isRunningRef.current) return;
       isRunningRef.current = true;
 
@@ -470,7 +476,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
           });
           isPausedRef.current = true;
           shouldMarkComplete = false;
-          await pauseBulk({ id: bulkId });
+          await pauseBulk({ id: bulkId, sid });
           setState((prev) => ({
             ...prev,
             status: "blocked",
@@ -491,7 +497,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
           });
           isPausedRef.current = true;
           shouldMarkComplete = false;
-          await pauseBulk({ id: bulkId });
+          await pauseBulk({ id: bulkId, sid });
           setState((prev) => ({
             ...prev,
             status: "blocked",
@@ -526,6 +532,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
           }));
 
           const claimResult = await updateVerseStatus({
+            sid,
             bulkGenerationId: bulkId,
             verseId: item.verseId,
             status: "generating",
@@ -557,12 +564,13 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               isPausedRef.current = true;
               shouldMarkComplete = false;
               await updateVerseStatus({
+                sid,
                 bulkGenerationId: bulkId,
                 verseId: item.verseId,
                 status: "queued",
                 expectedCurrentStatus: "generating",
               });
-              await pauseBulk({ id: bulkId });
+              await pauseBulk({ id: bulkId, sid });
               setState((prev) => ({
                 ...prev,
                 status: "blocked",
@@ -592,6 +600,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               updateCredits(nextCredits);
 
               await updateVerseStatus({
+                sid,
                 bulkGenerationId: bulkId,
                 verseId: item.verseId,
                 status: "completed",
@@ -601,8 +610,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
             } else if (response.status === 402) {
               isPausedRef.current = true;
               shouldMarkComplete = false;
-              await pauseBulk({ id: bulkId });
+              await pauseBulk({ id: bulkId, sid });
               await updateVerseStatus({
+                sid,
                 bulkGenerationId: bulkId,
                 verseId: item.verseId,
                 status: "queued",
@@ -613,12 +623,13 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               isPausedRef.current = true;
               shouldMarkComplete = false;
               await updateVerseStatus({
+                sid,
                 bulkGenerationId: bulkId,
                 verseId: item.verseId,
                 status: "queued",
                 expectedCurrentStatus: "generating",
               });
-              await pauseBulk({ id: bulkId });
+              await pauseBulk({ id: bulkId, sid });
               setState((prev) => ({
                 ...prev,
                 status: "blocked",
@@ -635,6 +646,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               }
               failed++;
               await updateVerseStatus({
+                sid,
                 bulkGenerationId: bulkId,
                 verseId: item.verseId,
                 status: "failed",
@@ -645,6 +657,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
           } catch (err) {
             failed++;
             await updateVerseStatus({
+              sid,
               bulkGenerationId: bulkId,
               verseId: item.verseId,
               status: "failed",
@@ -654,6 +667,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
           }
 
           await updateProgress({
+            sid,
             id: bulkId,
             completedCount: completed,
             failedCount: failed,
@@ -714,6 +728,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       refetchSession,
       readCsrfToken,
       releaseRunLock,
+      sid,
       updateCredits,
     ]
   );
@@ -867,11 +882,11 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   );
 
   const pauseBulkGeneration = useCallback(async () => {
-    if (!state.bulkId) return;
+    if (!state.bulkId || !sid) return;
     const previousStatus = state.status;
     isPausedRef.current = true;
     try {
-      const result = await pauseBulk({ id: state.bulkId });
+      const result = await pauseBulk({ id: state.bulkId, sid });
       if (!result?.updated) {
         isPausedRef.current = previousStatus === "paused" || previousStatus === "blocked";
         return;
@@ -883,13 +898,13 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       console.error("Failed to pause bulk generation:", error);
       setState((prev) => ({ ...prev, status: previousStatus }));
     }
-  }, [state.bulkId, state.status, pauseBulk, refetchSession]);
+  }, [sid, state.bulkId, state.status, pauseBulk, refetchSession]);
 
   const resumeBulkGeneration = useCallback(async () => {
-    if (!state.bulkId) return;
+    if (!state.bulkId || !sid) return;
     const previousStatus = state.status;
     try {
-      const result = await resumeBulk({ id: state.bulkId });
+      const result = await resumeBulk({ id: state.bulkId, sid });
       if (!result?.updated) {
         return;
       }
@@ -904,10 +919,10 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       console.error("Failed to resume bulk generation:", error);
       setState((prev) => ({ ...prev, status: previousStatus }));
     }
-  }, [state.bulkId, state.status, resumeBulk, refetchSession]);
+  }, [sid, state.bulkId, state.status, resumeBulk, refetchSession]);
 
   const cancelBulkGeneration = useCallback(async () => {
-    if (!state.bulkId) return;
+    if (!state.bulkId || !sid) return;
     const previousStatus = state.status;
     const previousCurrentVerseReference = state.currentVerseReference;
     isCancelledRef.current = true;
@@ -915,7 +930,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     pausedResolverRef.current?.();
     pausedResolverRef.current = null;
     try {
-      const result = await cancelBulk({ id: state.bulkId });
+      const result = await cancelBulk({ id: state.bulkId, sid });
       if (!result?.updated) {
         isCancelledRef.current = previousStatus === "cancelled";
         isPausedRef.current = previousStatus === "paused" || previousStatus === "blocked";
@@ -939,7 +954,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         currentVerseReference: previousCurrentVerseReference,
       }));
     }
-  }, [state.bulkId, state.currentVerseReference, state.status, cancelBulk, releaseRunLock, refetchSession]);
+  }, [sid, state.bulkId, state.currentVerseReference, state.status, cancelBulk, releaseRunLock, refetchSession]);
 
   const dismissBulkGeneration = useCallback(() => {
     isPausedRef.current = false;

@@ -1,142 +1,29 @@
-# Security Context
+# Security boundaries
 
-High-level view of the security model protecting API endpoints and OpenRouter credentials. This is user-facing behavior and product intent, not implementation detail.
+The main protected resources are provider spend, credit balances, session access and stored images. This is a map of implemented controls and their limits, not a claim that every public Convex function shares one authorization model.
 
-## Summary
+## HTTP requests
 
-The application uses multiple layers of defense to protect against:
-- **Unauthorized access** - Origin validation, session management
-- **API cost abuse** - Rate limiting, input validation, spending limits
-- **Credential compromise** - Admin audit logging, brute force protection
-- **Configuration errors** - Startup validation, fatal errors for dangerous configs
+- [origin.ts](../../src/lib/origin.ts) accepts a matching request origin or configured allowlisted origin; its general helper also accepts a missing Origin. Image generation adds a strict missing-Origin rejection.
+- [csrf.ts](../../src/lib/csrf.ts) implements cookie/header double-submit checks, enforced by image generation and admin login.
+- [session.ts](../../src/lib/session.ts) verifies the signed session and hashes the current client IP for quotas/telemetry. An IP change triggers cookie rotation rather than session rejection. [Proxy configuration](../workflow/PROXY_CONFIGURATION.md) determines whether the client IP is meaningful. An unknown IP does not establish a distinct client identity.
+- [request-body.ts](../../src/lib/request-body.ts) bounds streamed bodies. Route Zod schemas define field limits; chat and images use 100 KiB, feedback 10 KiB.
+- [validate-env.ts](../../src/lib/validate-env.ts) validates session/IP secrets, conditional Convex/admin secrets, session timeout bounds and production proxy settings. It does not apply a universal length rule to every environment secret.
 
-## Threat Model
+## Rate and spending controls
 
-The primary concern is protecting OpenRouter API credentials from abuse that could drain credits and incur unexpected costs. Attackers may:
-- Send inflated payloads to maximize token costs
-- Select expensive models to drain budgets quickly
-- Create multiple sessions to multiply rate limits
-- Compromise admin credentials for unlimited access
-- Spoof IPs to bypass rate limiting
+[convex/rateLimit.ts](../../convex/rateLimit.ts) owns quotas and admin-login lockouts. The counter resets when the current window expires; it is not a rolling request-by-request window.
 
-## Protection Layers
+Chat/image generation and invoice polling use the combined IP hash and session ID. Session creation, invoice creation and feedback use the IP hash. A combined IP/session quota is per pair, so it does not alone prevent creating multiple sessions. Shared-IP quotas also affect unrelated users behind the same network. Admin login adds escalating lockouts after repeated failures.
 
-### 1. Origin Validation
-State-changing/privileged endpoints validate the `Origin` header against an allowlist (for example: session creation, chat, image generation, invoice creation, feedback, admin login). Unauthorized origins are rejected with 403.
-- `/api/generate-image` is strict: missing `Origin` is rejected.
+Model validation, reservation, daily-spend checks and admin audit are described in [Sessions and credits](SESSIONS_AND_CREDITS.md). Admin credit exemptions do not exempt requests from rate limits.
 
-### 2. Session Security
-- JWT-signed session tokens with IP binding
-- Sessions tied to client IP (hashed) to prevent theft
-- Persistent idle timeout + bounded absolute timeout
-  - Idle timeout: configurable 5-129600 minutes (default: 10080 / 7 days)
-  - Absolute timeout: configurable 4-8760 hours (default: 720 / 30 days)
-  - Activity-based renewal refreshes session up to (but never beyond) the absolute cap
+## Convex authorization
 
-### 3. Rate Limiting
-- Per-endpoint request throttling (e.g., 20 chat/min, 5 images/min)
-- Cost-incurring endpoints (`chat`, `generate-image`) use `${ipHash}:${sessionId}`
-- Invoice status/confirm polling (`GET/POST /api/invoice/:id`) uses `${ipHash}:${sessionId}`
-- Abuse-focused endpoints (`session`, `invoice`, `feedback`) use `ipHash`
-- Admin login has exponential backoff lockout (1h → 24h)
+Credit/ledger writes, invoice writes, feedback submission, image persistence and other server-facing operations validate `CONVEX_SERVER_SECRET` via [auth.ts](../../convex/_helpers/auth.ts). Internal functions are invoked within Convex. Public browser queries and mutations must be reviewed individually.
 
-### 4. Cost Protection
-- **Message limit:** Maximum 50 messages per chat request
-- **Context limit:** Maximum 2000 characters for string context
-- **Body size limit:** Maximum 100KB per request (enforced via streaming, handles chunked encoding)
-- **Per-request cap:** Maximum $1.00 per single request
-- **Daily limit:** $5/day per session (resets UTC midnight)
-- **Model validation:** Only models with valid pricing allowed
+In particular, [bulkGenerations.ts](../../convex/bulkGenerations.ts) accepts a supplied session ID and checks its database existence/ownership; it does not validate the browser's signed HTTP cookie. Public image-impression and history APIs also differ from the server-secret write boundary. Paid work still goes through `/api/generate-image`.
 
-### 5. CSRF Protection
-- Double-submit cookie pattern (`visibible_csrf` cookie + `x-csrf-token` header)
-- CSRF validation enforced on `POST /api/admin-login`
-- CSRF validation enforced on `POST /api/generate-image`
+Remote image persistence has hostname/allowlist, MIME and size checks, with DNS/redirect limitations documented in [Image persistence](IMAGE-PERSISTENCE.md). Keep these limitations visible when extending fetch allowlists.
 
-### 6. Admin Security
-- Password verification with timing-safe comparison
-- HMAC-based password hashing with dedicated secret
-- **All admin usage logged** to `adminAuditLog` table
-- `getAdminDailySpend` query for monitoring (requires server secret)
-
-### 7. Environment Validation
-- All secrets must be ≥32 characters
-- Dangerous proxy configurations are **fatal in production**
-- Broad CIDR ranges (0.0.0.0/0) cause startup failure
-
-### 8. Convex Trust Boundary (Server-Only Writes)
-- Sensitive Convex mutations/actions require `CONVEX_SERVER_SECRET` and are intended for server callers only.
-- Image persistence (`saveImage`) is server-side only; browser-direct persistence writes are blocked.
-- Reservation settlement is one-way per `generationId` (`reserved -> released` or `reserved -> charged`) and duplicate release calls are idempotent.
-- Additional sensitive write paths (session creation/lastSeen, invoice create/expire, feedback submit, modelStats writes, and rate-limit mutations) are server-authenticated.
-
-### 9. Operational Observability
-- Structured JSON logging is emitted for critical failures/timeouts/settlement transitions.
-- Critical API rate-limit blocks emit counter metrics and warning logs.
-- Health/readiness/metrics endpoints provide operational visibility:
-  - `/api/health` (liveness)
-  - `/api/readiness` (critical dependency checks)
-  - `/api/metrics` (in-process counters snapshot, protected by metrics auth policy)
-
-## What This Means for Users
-
-### Regular Users
-- Can browse Scripture freely without credits
-- Need credits for chat and image generation
-- Limited to $5/day spending (protection against runaway costs)
-- Rate limited to prevent abuse (20 chat/min, 5 images/min)
-
-### Admin Users
-- Bypass credit checks and spending limits
-- All usage is logged for security monitoring
-- Subject to same rate limits as regular users
-- Protected by brute force lockout on login
-
-## Entry Points
-
-### API Routes
-- `src/app/api/chat/route.ts` - Chat with all security checks
-- `src/app/api/generate-image/route.ts` - Image generation with security
-- `src/app/api/admin-login/route.ts` - Admin authentication
-- `src/app/api/invoice/route.ts` - Invoice creation with origin + session + rate limiting
-- `src/app/api/invoice/[id]/route.ts` - Invoice status/confirm with origin + IP-bound session + polling throttling
-- `src/app/api/rate-limit-status/route.ts` - Session-derived rate-limit/daily-spend status
-- `src/app/api/session/route.ts` - Session management
-- `src/app/api/health/route.ts` - Liveness status
-- `src/app/api/readiness/route.ts` - Critical dependency readiness
-- `src/app/api/metrics/route.ts` - Machine-parseable counters
-
-### Security Libraries
-- `src/lib/origin.ts` - Origin validation
-- `src/lib/session.ts` - JWT session management
-- `src/lib/validate-env.ts` - Environment validation
-- `src/lib/request-body.ts` - Secure body reading with size limits
-- `src/lib/observability.ts` - Structured logs and counters
-
-### Convex Functions
-- `convex/rateLimit.ts` - Rate limiting and brute force protection
-- `convex/sessions.ts` - Credit management, daily limits, admin audit
-
-## Issue History
-
-### Fixed (January 2025)
-- **CRITICAL (FIXED):** Initial IP binding enforcement shipped on `/api/chat` and `/api/generate-image` - stolen tokens are rejected if used from different IP
-- **HIGH (FIXED):** Rate-limit-status now uses correct identifier format (`${ipHash}:${sid}`)
-- **HIGH (FIXED):** Feedback endpoint now has Zod validation with max 5000 char message and 10KB body limit
-- **MEDIUM (FIXED):** Admin audit logging now properly awaited in chat and image endpoints
-
-### Fixed (February 2026)
-- **CRITICAL (FIXED):** Public image persistence boundary closed. `saveImage` now requires server secret; remote fetches are host/mime/size constrained and private hosts are blocked.
-- **CRITICAL (FIXED):** Credit settlement hardened to one-way lifecycle. Duplicate reservation release calls are no-ops after settlement, preventing credit inflation.
-- **HIGH (FIXED):** Session-derived identity lookups standardized on `validateSessionWithIp` for `/api/admin-login`, `/api/invoice`, `/api/invoice/:id`, `/api/rate-limit-status`, feedback session attribution, and existing-session reuse in `/api/session`.
-
-### Remaining (Low/Optional)
-- **LOW:** Verbose error logging in generate-image (consider reducing)
-- **LOW:** LND error logging may expose node details
-
-## Related Documentation
-
-- `llm/implementation/SECURITY_IMPLEMENTATION.md` - Detailed implementation guide
-- `llm/implementation/RATE_LIMIT_IMPLEMENTATION.md` - Rate limiting details
-- `llm/implementation/OBSERVABILITY_IMPLEMENTATION.md` - Structured logs, metrics, and ops endpoints
-- `llm/context/SESSIONS_AND_CREDITS.md` - Credit system context
+Operational endpoint authorization is described in [Observability](OBSERVABILITY.md). Tests under `src/lib/__tests__` and `src/app/api/__tests__` cover the individual boundaries; passing them is not an exhaustive security audit.

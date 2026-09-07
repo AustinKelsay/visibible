@@ -93,16 +93,16 @@ export function BulkGeneratePanel({
   );
 
   useEffect(() => {
-    const normalizedCount = clampCount(count, maxCount);
+    setCount((prev) => {
+      const normalized = clampCount(prev, maxCount);
+      return prev === normalized ? prev : normalized;
+    });
 
-    if (normalizedCount !== count) {
-      setCount(normalizedCount);
-    }
-
-    if (countInput !== "" && countInput !== String(normalizedCount)) {
-      setCountInput(String(normalizedCount));
-    }
-  }, [count, countInput, maxCount]);
+    setCountInput((prevInput) => {
+      const normalized = String(clampCount(Number(prevInput) || 0, maxCount));
+      return prevInput === normalized ? prevInput : normalized;
+    });
+  }, [maxCount]);
 
   const scope: BulkScope = useMemo(
     () => ({ type: scopeType, count: effectiveCount }),

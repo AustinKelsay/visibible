@@ -1,18 +1,12 @@
-# Visibible: Market Research Search Terms
+# Market research query ideas
 
-## About Visibible
+This is a brainstorming dataset of search phrases, not measured search demand, validated audience research, or a product roadmap. Category labels such as “high-volume” and “high-intent” are hypotheses to test.
 
-Visibible is a free, open-source app that brings the Bible to life for a modern audience. At its core, Visibible solves a simple but pervasive problem: millions of people are curious about the Bible, drawn to its stories, or actively trying to engage with their faith — but they feel blocked by the formats available to them. Reading an ancient text feels like homework. TV adaptations recycle the same cliché, sanitized retellings. Church feels disconnected from their daily reality. The Bible itself is rich, dramatic, beautiful, and wild, but the ways most people encounter it today flatten all of that into something unapproachable, boring, or irrelevant. Visibible exists to close that gap — to make the Bible as vivid and accessible as the content people already consume every day.
+Current product behavior and setup are documented in [README](../../README.md) and the [feature index](../README.md). Browsing is free; AI generation/chat use session credits. Audio, video and summaries are not established features of the current implementation.
 
-Today, Visibible lets you scroll through the Bible verse by verse and see AI-generated images that bring each passage to life. Users can generate new images by purchasing small credits, and every image generated becomes free for the entire community — building an ever-growing, crowd-sourced visual Bible. But that's just the beginning. Visibible is expanding into AI-powered summaries, conversational Bible chat, audio experiences, video content, and more — anything visual, audio, or interactive that helps people actually connect with Scripture rather than just stare at words on a page. Whether someone is a lifelong believer who's gone numb, a curious skeptic, a new Christian who doesn't know where to start, or someone who simply learns better through images and stories than through text — Visibible is built for them.
+The numbered terms and category headings are input data for [generate-search-terms-json.mjs](generate-search-terms-json.mjs), which produces the adjacent JSON dataset. Preserve their format when editing and regenerate JSON after changing the records. The generator rejects duplicate terms and checks minimum record/category counts.
 
----
-
-## 1,000 Search Terms for Social Media Scraping
-
-Organized across 72 categories mapping to different audience segments and intent signals. Each term represents something a real person would type into TikTok, X/Twitter, Reddit, YouTube, Instagram, or Google when expressing the kinds of needs Visibible addresses.
-
----
+## Query dataset
 
 ### Category 1: Bible Feels Boring / Hard / Outdated (Frustration)
 1. Bible is boring

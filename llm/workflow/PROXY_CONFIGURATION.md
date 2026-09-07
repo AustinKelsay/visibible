@@ -1,103 +1,19 @@
-# Proxy Trust Configuration (Workflow)
+# Proxy trust
 
-Use this document when deploying the app so client IPs, rate limiting, and audit logs work correctly behind a proxy/CDN.
+Use this guide when configuring IP tracking, rate limits or ops IP allowlists behind a proxy. [client-ip.ts](../../src/lib/client-ip.ts) is the shared IP resolver. Session-backed routes import it through [session.ts](../../src/lib/session.ts); ops routes import it directly. [validate-env.ts](../../src/lib/validate-env.ts) enforces configuration checks.
 
-## When you need this
+## Choose trust for the runtime
 
-If the app is behind a reverse proxy, load balancer, or CDN (Vercel, Cloudflare, AWS ALB, nginx, etc.), the incoming connection is the proxy, not the end user. You must explicitly trust that proxy before the app will read proxy headers.
+On Vercel, set `TRUST_PROXY_PLATFORM=vercel`. It only activates with `VERCEL=1`; do not set platform trust locally to simulate a real client IP.
 
-Without proxy trust:
-- Rate limiting groups all users under the proxy IP
-- IP-bound sessions can invalidate unexpectedly
-- Audit logs and geo logic are incorrect
+For a custom proxy, set `TRUSTED_PROXY_IPS` to its specific IPs or narrow CIDRs, separated by commas or whitespace. The runtime must expose a peer IP that can be matched against those entries. Obtain proxy ranges from your actual deployment configuration instead of copying a static provider list from documentation.
 
-## Current Project Convention
+The proxy must sanitize client-supplied forwarding headers. The app takes the first valid IP in `x-forwarded-for` once trust is established; it does not independently verify each hop in a forwarding chain.
 
-For this repository's Vercel setup:
+## Resolution and failure modes
 
-- Vercel Preview: `TRUST_PROXY_PLATFORM=vercel`
-- Vercel Production: `TRUST_PROXY_PLATFORM=vercel`
+Without trust, resolution returns the peer IP or `unknown`. With trust, priority is `x-forwarded-for`, `x-real-ip`, `cf-connecting-ip`, then peer IP. Shared/unknown IPs can combine users' rate limits and reduce the usefulness of IP telemetry. Local development commonly has an unknown peer; setting trusted CIDRs cannot manufacture a missing peer address.
 
-Do not set `TRUSTED_PROXY_IPS` when using the Vercel platform trust mode.
+Production validation rejects unsupported platform values, Vercel trust without the Vercel runtime marker, specifically detected overly broad ranges, and missing trust configuration. `ALLOW_UNTRUSTED_PROXY_IN_PRODUCTION=true` is a temporary override for the missing-trust check, not the other failures. Development emits warnings for these proxy configuration problems.
 
-## Configuration options
-
-Set exactly one of the following in your deployment environment:
-
-### Option A: Platform trust (Vercel)
-
-```env
-TRUST_PROXY_PLATFORM=vercel
-```
-
-This only activates when `VERCEL=1` is present (set by Vercel at runtime).
-
-### Option B: Explicit trusted proxy IPs/CIDRs
-
-```env
-TRUSTED_PROXY_IPS="203.0.113.10,203.0.113.0/24,2001:db8::/32"
-```
-
-- Comma- or whitespace-separated list
-- IPv4 and IPv6 supported
-
-## Examples by deployment
-
-### Vercel (recommended)
-
-```env
-TRUST_PROXY_PLATFORM=vercel
-```
-
-### Cloudflare
-
-```env
-# See https://cloudflare.com/ips for the current list
-TRUSTED_PROXY_IPS=173.245.48.0/20,103.21.244.0/22,103.22.200.0/22,103.31.4.0/22,141.101.64.0/18,108.162.192.0/18,190.93.240.0/20,188.114.96.0/20,197.234.240.0/22,198.41.128.0/17,162.158.0.0/15,104.16.0.0/13,104.24.0.0/14,172.64.0.0/13,131.0.72.0/22
-```
-
-### AWS Application Load Balancer
-
-```env
-# Example: ALB in 10.0.0.0/24 subnet
-TRUSTED_PROXY_IPS=10.0.0.0/24
-```
-
-### nginx / custom reverse proxy
-
-```env
-TRUSTED_PROXY_IPS=192.168.1.100,192.168.1.101
-```
-
-## Local development
-
-By default, proxy headers are ignored in local dev (to prevent spoofing), and the runtime may not expose a peer IP. If you need to test rate limits locally, set one of the options above.
-
-## How client IP is resolved
-
-1. If the peer IP is *not* trusted, the app uses the peer IP (or `unknown`).
-2. If trusted, headers are checked in order:
-   - `x-forwarded-for` (first valid IP)
-   - `x-real-ip`
-   - `cf-connecting-ip`
-   - falls back to peer IP
-
-## Safety warnings
-
-At startup, the app emits warnings or fails fast for risky settings, including:
-- Overly broad CIDRs (e.g., `0.0.0.0/0`, `::/0`)
-- `TRUST_PROXY_PLATFORM=vercel` set without `VERCEL=1` (production blocker)
-- Unsupported `TRUST_PROXY_PLATFORM` values (production blocker)
-- No proxy trust configured in production (production blocker unless `ALLOW_UNTRUSTED_PROXY_IN_PRODUCTION=true`)
-
-Avoid trusting wide CIDRs. They allow clients to spoof IPs via headers.
-
-## Troubleshooting
-
-- "All users share the same rate limit": proxy trust is not configured.
-- "Sessions keep invalidating": multiple proxy layers not included in `TRUSTED_PROXY_IPS`.
-- "Logs show wrong IP": ensure your proxy forwards `X-Forwarded-For` and its IP is trusted.
-
-## Code reference
-
-Implementation details live in `llm/implementation/PROXY_CONFIGURATION.md`.
+`DEBUG_PROXY=true` enables trust audit logging outside development. Check the resolved source and header handling when quotas appear shared or IP-change cookie rotations are unexpected. Ops allowlists use exact IPs and have separate semantics; see [Observability](../context/OBSERVABILITY.md).

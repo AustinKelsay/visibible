@@ -56,6 +56,27 @@ export interface ChapterData {
   translationName: string;
 }
 
+export class BibleApiLookupError extends Error {
+  kind: "not_found" | "upstream";
+  retryable: boolean;
+  statusCode?: number;
+
+  constructor(
+    message: string,
+    options: {
+      kind: "not_found" | "upstream";
+      retryable: boolean;
+      statusCode?: number;
+    }
+  ) {
+    super(message);
+    this.name = "BibleApiLookupError";
+    this.kind = options.kind;
+    this.retryable = options.retryable;
+    this.statusCode = options.statusCode;
+  }
+}
+
 interface BibleApiVerse {
   book_id: string;
   book_name: string;
@@ -75,6 +96,10 @@ interface BibleApiResponse {
 
 // Cache for chapter data to reduce API calls
 const chapterCache = new Map<string, ChapterData>();
+
+export function clearBibleApiCache() {
+  chapterCache.clear();
+}
 
 /**
  * Fetch a single verse from the Bible API
@@ -198,8 +223,21 @@ export async function getVerseByReference(
     });
 
     if (!response.ok) {
-      console.error(`Bible API error: ${response.status}`);
-      return null;
+      const isRetryableStatus =
+        response.status >= 500 ||
+        response.status === 408 ||
+        response.status === 429;
+      if (!isRetryableStatus) {
+        return null;
+      }
+      throw new BibleApiLookupError(
+        `Bible API reference lookup failed with status ${response.status}`,
+        {
+          kind: "upstream",
+          retryable: true,
+          statusCode: response.status,
+        }
+      );
     }
 
     const data = (await response.json()) as BibleApiResponse;
@@ -212,7 +250,18 @@ export async function getVerseByReference(
       text: v.text.trim(),
     }));
   } catch (error) {
-    console.error("Failed to fetch verse:", error);
-    return null;
+    if (error instanceof BibleApiLookupError) {
+      throw error;
+    }
+
+    throw new BibleApiLookupError(
+      error instanceof Error
+        ? error.message
+        : "Failed to fetch verse by reference",
+      {
+        kind: "upstream",
+        retryable: true,
+      }
+    );
   }
 }

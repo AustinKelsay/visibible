@@ -161,152 +161,188 @@ export function HeaderGenerateButton() {
   // Shared mobile icon-button style (matches chat/book/menu buttons in header)
   const mobileIconBtn =
     "sm:hidden min-h-[40px] min-w-[40px] flex items-center justify-center transition-colors duration-[var(--motion-fast)]";
+  const isGenerateActionDisabled = pricingPending || !canGenerate || isGenerating;
+  const generateButtonLabel = pricingPending
+    ? "Loading pricing..."
+    : isGenerating
+      ? generationPhaseLabel
+      : canGenerate
+        ? "Generate"
+        : "Not ready";
 
-  // Pricing loading state
-  if (pricingPending) {
-    return (
-      <>
-        {/* Mobile: plain icon button */}
-        <button
-          type="button"
-          disabled
-          className={`${mobileIconBtn} text-[var(--muted)] opacity-70 cursor-not-allowed`}
-          aria-label="Loading pricing"
-        >
-          <Loader2 size={20} strokeWidth={1.5} className="animate-spin" />
-        </button>
-        {/* Desktop: styled pill */}
-        <button
-          type="button"
-          disabled
-          className="hidden sm:inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] border border-[var(--divider)] bg-[var(--surface)] text-[var(--muted)] text-xs opacity-70 cursor-not-allowed"
-          aria-label="Loading pricing"
-        >
-          <Loader2 size={14} strokeWidth={2} className="animate-spin" />
-          <span>Loading...</span>
-        </button>
-      </>
-    );
-  }
-
-  // Has credits - generate action
-  if (canGenerate) {
-    return (
-      <>
-        {/* Mobile: icon button that opens modal */}
-        <button
-          onClick={() => openGenerateModal("single")}
-          disabled={isGenerating}
-          className={`${mobileIconBtn} text-[var(--accent)] hover:text-[var(--accent-hover)] disabled:opacity-50 disabled:cursor-not-allowed`}
-          aria-label="Generate new image"
-        >
-          {isGenerating ? (
-            <Loader2 size={20} strokeWidth={1.5} className="animate-spin" />
-          ) : (
-            <Sparkles size={20} strokeWidth={1.5} />
-          )}
-        </button>
-
-        {/* Generation modal (bottom sheet on mobile, dialog on desktop) */}
-        {isModalOpen && createPortal(
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="generate-image-title"
-            className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-6"
+  return (
+    <>
+      {pricingPending ? (
+        <>
+          <button
+            type="button"
+            disabled
+            className={`${mobileIconBtn} text-[var(--muted)] opacity-70 cursor-not-allowed`}
+            aria-label="Loading pricing"
           >
-            {/* Backdrop */}
-            <div
-              className="absolute inset-0 bg-black/50"
-              onClick={() => setIsModalOpen(false)}
-            />
+            <Loader2 size={20} strokeWidth={1.5} className="animate-spin" />
+          </button>
+          <button
+            type="button"
+            disabled
+            className="hidden sm:inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] border border-[var(--divider)] bg-[var(--surface)] text-[var(--muted)] text-xs opacity-70 cursor-not-allowed"
+            aria-label="Loading pricing"
+          >
+            <Loader2 size={14} strokeWidth={2} className="animate-spin" />
+            <span>Loading...</span>
+          </button>
+        </>
+      ) : canGenerate ? (
+        <>
+          <button
+            onClick={() => openGenerateModal("single")}
+            disabled={isGenerating}
+            className={`${mobileIconBtn} text-[var(--accent)] hover:text-[var(--accent-hover)] disabled:opacity-50 disabled:cursor-not-allowed`}
+            aria-label="Generate new image"
+          >
+            {isGenerating ? (
+              <Loader2 size={20} strokeWidth={1.5} className="animate-spin" />
+            ) : (
+              <Sparkles size={20} strokeWidth={1.5} />
+            )}
+          </button>
+          <button
+            onClick={() => openGenerateModal("single")}
+            disabled={isGenerating}
+            className="hidden sm:inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] border border-[var(--accent)]/40 bg-[var(--accent)]/5 text-[var(--foreground)] hover:border-[var(--accent)]/70 hover:bg-[var(--accent)]/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-50 disabled:cursor-not-allowed text-xs font-medium"
+            aria-label="Generate new image"
+          >
+            {isGenerating ? (
+              <>
+                <Loader2 size={14} strokeWidth={2} className="animate-spin" />
+                <span>{generationPhaseLabel}</span>
+              </>
+            ) : (
+              <>
+                <Sparkles size={14} strokeWidth={1.5} />
+                <span>Generate</span>
+                {showCreditsCost && (
+                  <span className="inline-flex items-center gap-0.5 text-[var(--muted)]" title="Unused credits refunded after generation">
+                    <Zap size={10} strokeWidth={2} />
+                    <span>About {displayEffectiveCost}</span>
+                  </span>
+                )}
+              </>
+            )}
+          </button>
+        </>
+      ) : (
+        <button
+          onClick={() => {
+            trackCreditsInsufficient({
+              feature: "image",
+              source: "header_get_credits",
+              tier,
+              hasCredits: credits > 0,
+            });
+            buyCredits();
+          }}
+          className="hidden sm:inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] text-xs font-medium"
+          aria-label="Get credits to generate"
+        >
+          <Zap size={14} strokeWidth={2} />
+          <span>Get Credits</span>
+        </button>
+      )}
 
-            {/* Modal panel */}
-            <div className="relative w-full max-h-[85vh] flex flex-col bg-[var(--background)] rounded-t-[var(--radius-lg)] animate-in slide-in-from-bottom duration-[var(--motion-base)] sm:max-w-2xl sm:max-h-[90vh] sm:rounded-[var(--radius-lg)] sm:border sm:border-[var(--divider)]">
-              {/* Drag handle */}
-              <div className="flex justify-center pt-3 sm:hidden">
-                <div className="w-10 h-1 rounded-full bg-[var(--divider)]" />
-              </div>
+      {isModalOpen && createPortal(
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="generate-image-title"
+          className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-6"
+        >
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setIsModalOpen(false)}
+          />
 
-              {/* Header */}
-              <div className="flex items-center justify-between px-6 pt-4 pb-2">
-                <h2 id="generate-image-title" className="text-lg font-semibold text-[var(--foreground)]">
-                  Generate Image
-                </h2>
-                <button
-                  onClick={() => setIsModalOpen(false)}
-                  className="p-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
-                  aria-label="Close"
-                >
-                  <X size={20} strokeWidth={2} />
-                </button>
-              </div>
+          <div className="relative w-full max-h-[85vh] flex flex-col bg-[var(--background)] rounded-t-[var(--radius-lg)] animate-in slide-in-from-bottom duration-[var(--motion-base)] sm:max-w-2xl sm:max-h-[90vh] sm:rounded-[var(--radius-lg)] sm:border sm:border-[var(--divider)]">
+            <div className="flex justify-center pt-3 sm:hidden">
+              <div className="w-10 h-1 rounded-full bg-[var(--divider)]" />
+            </div>
 
-              {/* Tab bar */}
-              <div
-                role="tablist"
-                aria-label="Generation mode"
-                className="flex gap-1 mx-6 mb-4 p-1 rounded-[var(--radius-md)] bg-[var(--surface)]"
+            <div className="flex items-center justify-between px-6 pt-4 pb-2">
+              <h2 id="generate-image-title" className="text-lg font-semibold text-[var(--foreground)]">
+                Generate Image
+              </h2>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="p-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
+                aria-label="Close"
               >
-                <button
-                  id="single-tab"
-                  type="button"
-                  ref={singleTabRef}
-                  onClick={() => setActiveTab("single")}
-                  onKeyDown={handleTabKeyDown}
-                  role="tab"
-                  aria-selected={activeTab === "single"}
-                  aria-controls="single-panel"
-                  tabIndex={activeTab === "single" ? 0 : -1}
-                  className={`flex-1 min-h-[32px] flex items-center justify-center gap-1.5 rounded-[var(--radius-sm)] text-xs font-medium transition-colors ${
-                    activeTab === "single"
-                      ? "bg-[var(--background)] text-[var(--foreground)] shadow-sm"
-                      : "text-[var(--muted)] hover:text-[var(--foreground)]"
-                  }`}
-                >
-                  <Sparkles size={12} strokeWidth={1.5} />
-                  Single
-                </button>
-                <button
-                  id="bulk-tab"
-                  type="button"
-                  ref={bulkTabRef}
-                  onClick={() => setActiveTab("bulk")}
-                  onKeyDown={handleTabKeyDown}
-                  role="tab"
-                  aria-selected={activeTab === "bulk"}
-                  aria-controls="bulk-panel"
-                  tabIndex={activeTab === "bulk" ? 0 : -1}
-                  className={`flex-1 min-h-[32px] flex items-center justify-center gap-1.5 rounded-[var(--radius-sm)] text-xs font-medium transition-colors ${
-                    activeTab === "bulk"
-                      ? "bg-[var(--background)] text-[var(--foreground)] shadow-sm"
-                      : "text-[var(--muted)] hover:text-[var(--foreground)]"
-                  }`}
-                >
-                  <Layers size={12} strokeWidth={1.5} />
-                  Bulk
-                </button>
-              </div>
+                <X size={20} strokeWidth={2} />
+              </button>
+            </div>
 
-              {/* Scrollable content */}
-              <div className="flex-1 overflow-y-auto overscroll-contain px-6" style={{ WebkitOverflowScrolling: "touch" }}>
-                {activeTab === "bulk" ? (
-                  <div id="bulk-panel" role="tabpanel" aria-labelledby="bulk-tab" className="space-y-5 pb-4">
-                    <ImageGenerationSettingsPanel
-                      models={models}
-                      modelsLoading={modelsLoading}
-                      modelsError={modelsError}
-                      scenePlannerCreditsCost={scenePlannerCreditsCost}
-                    />
-                    <BulkGeneratePanel
-                      perVerseCost={displayEffectiveCost}
-                      modelId={modelId}
-                      aspectRatio={aspectRatio}
-                      resolution={resolution}
-                      onClose={() => setIsModalOpen(false)}
-                    />
-                  </div>
-                ) : (
+            <div
+              role="tablist"
+              aria-label="Generation mode"
+              className="flex gap-1 mx-6 mb-4 p-1 rounded-[var(--radius-md)] bg-[var(--surface)]"
+            >
+              <button
+                id="single-tab"
+                type="button"
+                ref={singleTabRef}
+                onClick={() => setActiveTab("single")}
+                onKeyDown={handleTabKeyDown}
+                role="tab"
+                aria-selected={activeTab === "single"}
+                aria-controls="single-panel"
+                tabIndex={activeTab === "single" ? 0 : -1}
+                className={`flex-1 min-h-[32px] flex items-center justify-center gap-1.5 rounded-[var(--radius-sm)] text-xs font-medium transition-colors ${
+                  activeTab === "single"
+                    ? "bg-[var(--background)] text-[var(--foreground)] shadow-sm"
+                    : "text-[var(--muted)] hover:text-[var(--foreground)]"
+                }`}
+              >
+                <Sparkles size={12} strokeWidth={1.5} />
+                Single
+              </button>
+              <button
+                id="bulk-tab"
+                type="button"
+                ref={bulkTabRef}
+                onClick={() => setActiveTab("bulk")}
+                onKeyDown={handleTabKeyDown}
+                role="tab"
+                aria-selected={activeTab === "bulk"}
+                aria-controls="bulk-panel"
+                tabIndex={activeTab === "bulk" ? 0 : -1}
+                className={`flex-1 min-h-[32px] flex items-center justify-center gap-1.5 rounded-[var(--radius-sm)] text-xs font-medium transition-colors ${
+                  activeTab === "bulk"
+                    ? "bg-[var(--background)] text-[var(--foreground)] shadow-sm"
+                    : "text-[var(--muted)] hover:text-[var(--foreground)]"
+                }`}
+              >
+                <Layers size={12} strokeWidth={1.5} />
+                Bulk
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto overscroll-contain px-6" style={{ WebkitOverflowScrolling: "touch" }}>
+              {activeTab === "bulk" ? (
+                <div id="bulk-panel" role="tabpanel" aria-labelledby="bulk-tab" className="space-y-5 pb-4">
+                  <ImageGenerationSettingsPanel
+                    models={models}
+                    modelsLoading={modelsLoading}
+                    modelsError={modelsError}
+                    scenePlannerCreditsCost={scenePlannerCreditsCost}
+                  />
+                  <BulkGeneratePanel
+                    perVerseCost={displayEffectiveCost}
+                    modelId={modelId}
+                    aspectRatio={aspectRatio}
+                    resolution={resolution}
+                    onClose={() => setIsModalOpen(false)}
+                  />
+                </div>
+              ) : (
                 <div id="single-panel" role="tabpanel" aria-labelledby="single-tab" className="space-y-5 pb-4">
                   <ImageGenerationSettingsPanel
                     models={models}
@@ -315,22 +351,27 @@ export function HeaderGenerateButton() {
                     scenePlannerCreditsCost={scenePlannerCreditsCost}
                   />
                 </div>
-                )}
-              </div>
+              )}
+            </div>
 
-              {/* Sticky generate button at bottom (single tab only) */}
-              {activeTab === "single" && (
+            {activeTab === "single" && (
               <div className="px-6 pt-4 pb-6 border-t border-[var(--divider)]" style={{ paddingBottom: "max(1.5rem, env(safe-area-inset-bottom))" }}>
                 <button
+                  type="button"
                   onClick={() => {
-                    setIsModalOpen(false);
+                    if (isGenerateActionDisabled) return;
                     generate("header_generate");
                   }}
-                  className="w-full min-h-[44px] flex items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] text-sm font-medium"
+                  disabled={isGenerateActionDisabled}
+                  className="w-full min-h-[44px] flex items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] text-sm font-medium disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  <Sparkles size={16} strokeWidth={1.5} />
-                  <span>Generate</span>
-                  {showCreditsCost && (
+                  {pricingPending || isGenerating ? (
+                    <Loader2 size={16} strokeWidth={1.5} className="animate-spin" />
+                  ) : (
+                    <Sparkles size={16} strokeWidth={1.5} />
+                  )}
+                  <span>{generateButtonLabel}</span>
+                  {!pricingPending && showCreditsCost && (
                     <span className="inline-flex items-center gap-0.5 opacity-80">
                       <Zap size={12} strokeWidth={2} />
                       <span>About {displayEffectiveCost}</span>
@@ -338,61 +379,11 @@ export function HeaderGenerateButton() {
                   )}
                 </button>
               </div>
-              )}
-            </div>
-          </div>,
-          document.body,
-        )}
-
-        {/* Desktop: styled pill */}
-        <button
-          onClick={() => openGenerateModal("single")}
-          disabled={isGenerating}
-          className="hidden sm:inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] border border-[var(--accent)]/40 bg-[var(--accent)]/5 text-[var(--foreground)] hover:border-[var(--accent)]/70 hover:bg-[var(--accent)]/15 transition-colors duration-[var(--motion-fast)] disabled:opacity-50 disabled:cursor-not-allowed text-xs font-medium"
-          aria-label="Generate new image"
-        >
-          {isGenerating ? (
-            <>
-              <Loader2 size={14} strokeWidth={2} className="animate-spin" />
-              <span>{generationPhaseLabel}</span>
-            </>
-          ) : (
-            <>
-              <Sparkles size={14} strokeWidth={1.5} />
-              <span>Generate</span>
-              {showCreditsCost && (
-                <span className="inline-flex items-center gap-0.5 text-[var(--muted)]" title="Unused credits refunded after generation">
-                  <Zap size={10} strokeWidth={2} />
-                  <span>About {displayEffectiveCost}</span>
-                </span>
-              )}
-            </>
-          )}
-        </button>
-      </>
-    );
-  }
-
-  // No credits - buy CTA (mobile icon hidden — CreditsBadge already handles buy)
-  return (
-    <>
-      {/* Desktop: styled pill */}
-      <button
-        onClick={() => {
-          trackCreditsInsufficient({
-            feature: "image",
-            source: "header_get_credits",
-            tier,
-            hasCredits: credits > 0,
-          });
-          buyCredits();
-        }}
-        className="hidden sm:inline-flex min-h-[36px] px-3 items-center gap-1.5 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--accent-text)] hover:bg-[var(--accent-hover)] transition-colors duration-[var(--motion-fast)] text-xs font-medium"
-        aria-label="Get credits to generate"
-      >
-        <Zap size={14} strokeWidth={2} />
-        <span>Get Credits</span>
-      </button>
+            )}
+          </div>
+        </div>,
+        document.body,
+      )}
     </>
   );
 }

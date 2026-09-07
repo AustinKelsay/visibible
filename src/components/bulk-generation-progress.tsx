@@ -6,6 +6,7 @@ import { useBulkGeneration } from "@/context/bulk-generation-context";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Doc } from "../../convex/_generated/dataModel";
+import { useSession } from "@/context/session-context";
 
 interface BulkGenerationProgressProps {
   onClose: () => void;
@@ -21,21 +22,7 @@ export function BulkGenerationProgress({ onClose }: BulkGenerationProgressProps)
     cancelBulkGeneration,
     dismissBulkGeneration,
   } = useBulkGeneration();
-
-  const PAGE_SIZE = 50;
-  const [page, setPage] = useState(0);
-
-  const verses = useQuery(
-    api.bulkGenerations.getVerses,
-    state.bulkId
-      ? {
-          bulkGenerationId: state.bulkId,
-          limit: PAGE_SIZE,
-          offset: page * PAGE_SIZE,
-        }
-      : "skip"
-  );
-
+  const { sid } = useSession();
   const {
     status,
     totalVerses,
@@ -47,11 +34,53 @@ export function BulkGenerationProgress({ onClose }: BulkGenerationProgressProps)
     errorMessage,
   } = state;
 
+  const PAGE_SIZE = 50;
+  const [paginationState, setPaginationState] = useState<{
+    bulkId: typeof state.bulkId;
+    page: number;
+  }>({
+    bulkId: null,
+    page: 0,
+  });
+  const page = paginationState.bulkId === state.bulkId ? paginationState.page : 0;
+  const maxPage =
+    totalVerses > 0 ? Math.max(0, Math.floor((totalVerses - 1) / PAGE_SIZE)) : 0;
+  const clampedPage = Math.min(Math.max(page, 0), maxPage);
+  const setPage = (updater: number | ((currentPage: number) => number)) => {
+    setPaginationState((prev) => {
+      const currentPage =
+        prev.bulkId === state.bulkId
+          ? Math.min(Math.max(prev.page, 0), maxPage)
+          : 0;
+      const nextPage =
+        typeof updater === "function"
+          ? updater(currentPage)
+          : updater;
+
+      return {
+        bulkId: state.bulkId,
+        page: Math.min(Math.max(nextPage, 0), maxPage),
+      };
+    });
+  };
+
+  const verses = useQuery(
+    api.bulkGenerations.getVerses,
+    state.bulkId && sid
+      ? {
+          sid,
+          bulkGenerationId: state.bulkId,
+          limit: PAGE_SIZE,
+          offset: clampedPage * PAGE_SIZE,
+        }
+      : "skip"
+  );
+
   const processedCount = completedCount + failedCount + skippedCount;
   const progressPercent = totalVerses > 0 ? (processedCount / totalVerses) * 100 : 0;
   const isFinished = status === "completed" || status === "cancelled";
-  const hasPreviousPage = page > 0;
-  const hasNextPage = (page + 1) * PAGE_SIZE < totalVerses;
+  const hasPreviousPage = clampedPage > 0;
+  const hasNextPage = (clampedPage + 1) * PAGE_SIZE < totalVerses;
 
   // ---------------------------------------------------------------------------
   // Completion / Cancelled view
@@ -208,11 +237,11 @@ export function BulkGenerationProgress({ onClose }: BulkGenerationProgressProps)
               Previous
             </button>
             <span className="text-[var(--muted)]">
-              Page {page + 1}
+              Page {clampedPage + 1}
             </span>
             <button
               type="button"
-              onClick={() => setPage((value) => value + 1)}
+              onClick={() => setPage((value) => Math.min(maxPage, value + 1))}
               disabled={!hasNextPage}
               className="min-h-[28px] px-2 rounded-[var(--radius-sm)] border border-[var(--divider)] text-[var(--foreground)] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--surface)] transition-colors"
             >

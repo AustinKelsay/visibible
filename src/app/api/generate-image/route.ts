@@ -22,6 +22,7 @@ import {
 import {
   DEFAULT_TRANSLATION,
   TRANSLATIONS,
+  BibleApiLookupError,
   getVerse,
   getChapter,
   getVerseByReference,
@@ -201,6 +202,130 @@ function clipText(value: string, maxChars: number): string {
   const normalized = value.replace(/\s+/g, " ").trim();
   if (normalized.length <= maxChars) return normalized;
   return `${normalized.slice(0, Math.max(0, maxChars - 1)).trimEnd()}…`;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function getNonEmptyString(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
+}
+
+function buildInlineImageDataUrl(part: unknown): string | null {
+  if (!isRecord(part)) return null;
+
+  const inlineData = isRecord(part.inline_data)
+    ? part.inline_data
+    : isRecord(part.inlineData)
+      ? part.inlineData
+      : null;
+
+  if (!inlineData) return null;
+
+  const data = getNonEmptyString(inlineData.data);
+  if (!data) return null;
+
+  const mimeType = getNonEmptyString(inlineData.mime_type)
+    ?? getNonEmptyString(inlineData.mimeType)
+    ?? "image/png";
+
+  return `data:${mimeType};base64,${data}`;
+}
+
+function extractImageUrlFromPart(part: unknown): string | null {
+  if (typeof part === "string") {
+    return part.startsWith("data:image/") ? part : null;
+  }
+
+  if (!isRecord(part)) return null;
+
+  const directUrl = getNonEmptyString(part.url);
+  if (directUrl) return directUrl;
+
+  const directImageUrl = getNonEmptyString(part.image_url)
+    ?? getNonEmptyString(part.imageUrl);
+  if (directImageUrl) return directImageUrl;
+
+  const nestedImageUrl = isRecord(part.image_url)
+    ? part.image_url
+    : isRecord(part.imageUrl)
+      ? part.imageUrl
+      : null;
+  if (nestedImageUrl) {
+    const nestedUrl = getNonEmptyString(nestedImageUrl.url);
+    if (nestedUrl) return nestedUrl;
+  }
+
+  const inlineDataUrl = buildInlineImageDataUrl(part);
+  if (inlineDataUrl) return inlineDataUrl;
+
+  const b64Json = getNonEmptyString(part.b64_json);
+  if (b64Json) {
+    return `data:image/png;base64,${b64Json}`;
+  }
+
+  return null;
+}
+
+function extractNoImageText(message: unknown): string | null {
+  if (!isRecord(message)) return null;
+
+  const messageContent = getNonEmptyString(message.content);
+  if (messageContent) return clipText(messageContent, 180);
+
+  const refusal = getNonEmptyString(message.refusal);
+  if (refusal) return clipText(refusal, 180);
+
+  if (!Array.isArray(message.content)) return null;
+
+  for (const part of message.content) {
+    if (!isRecord(part)) continue;
+
+    const text = getNonEmptyString(part.text)
+      ?? getNonEmptyString(part.refusal)
+      ?? getNonEmptyString(part.content);
+
+    if (text) return clipText(text, 180);
+  }
+
+  return null;
+}
+
+function summarizeNoImageResponse(data: unknown): Record<string, unknown> {
+  if (!isRecord(data)) {
+    return { responseType: typeof data };
+  }
+
+  const choices = Array.isArray(data.choices) ? data.choices : [];
+
+  return {
+    id: getNonEmptyString(data.id),
+    choiceCount: choices.length,
+    choices: choices.slice(0, 2).map((choice) => {
+      if (!isRecord(choice)) {
+        return { choiceType: typeof choice };
+      }
+
+      const message = isRecord(choice.message) ? choice.message : null;
+      const content = message?.content;
+
+      return {
+        finishReason: getNonEmptyString(choice.finish_reason),
+        messageKeys: message ? Object.keys(message).slice(0, 8) : [],
+        imagesCount: Array.isArray(message?.images) ? message.images.length : 0,
+        contentType: Array.isArray(content) ? "array" : typeof content,
+        contentPartTypes: Array.isArray(content)
+          ? content.slice(0, 8).map((part) =>
+              isRecord(part) ? getNonEmptyString(part.type) ?? "unknown" : typeof part
+            )
+          : [],
+        textPreview: extractNoImageText(message),
+      };
+    }),
+  };
 }
 
 function toVerseId(reference: string): string {
@@ -764,18 +889,49 @@ export async function POST(request: Request) {
         verseText = sanitizeVerseText(currentVerse.text);
       }
     } catch (error) {
+      const lookupStatus =
+        error instanceof BibleApiLookupError ? error.statusCode : undefined;
+      const retryableLookupError =
+        error instanceof BibleApiLookupError
+          ? error.retryable
+          : true;
+
       console.warn("[generate-image] Failed to resolve current verse from reference:", {
         reference,
         translation: bibleTranslation,
         error: error instanceof Error ? error.message : "Unknown error",
+        errorName: error instanceof Error ? error.name : undefined,
+        upstreamStatus: lookupStatus,
+        retryable: retryableLookupError,
+        rawError: error,
       });
       if (hasUserReference) {
+        if (error instanceof BibleApiLookupError && error.kind === "not_found") {
+          return jsonWithSessionRefresh(
+            {
+              error: "Reference not found",
+              message: `Could not resolve "${reference}" in the ${translationId.toUpperCase()} translation.`,
+            },
+            { status: 400 }
+          );
+        }
+
+        const referenceLookupStatus =
+          retryableLookupError &&
+          (lookupStatus === undefined || lookupStatus === 503)
+            ? 503
+            : 502;
         return jsonWithSessionRefresh(
           {
-            error: "Reference not found",
-            message: `Could not resolve "${reference}" in the ${translationId.toUpperCase()} translation.`,
+            error: "Reference lookup unavailable",
+            message: `Could not verify "${reference}" in the ${translationId.toUpperCase()} translation right now. Please try again.`,
+            details: {
+              upstreamStatus: lookupStatus ?? null,
+              upstreamError:
+                error instanceof Error ? error.message : "Unknown error",
+            },
           },
-          { status: 400 }
+          { status: referenceLookupStatus }
         );
       }
     }
@@ -1662,8 +1818,7 @@ ${aspectRatioInstruction}`;
           ],
           // Request image output
           modalities: ["image", "text"],
-          // Specify aspect ratio and conditionally include resolution
-          // image_size is only supported by certain models (currently Gemini)
+          // Specify aspect ratio and only send image_size to documented-capable models.
           image_config: {
             aspect_ratio: aspectRatio,
             ...(modelSupportsResolution && { image_size: resolution }),
@@ -2060,44 +2215,40 @@ ${aspectRatioInstruction}`;
       );
     };
 
-    // OpenRouter returns images in a separate "images" field
-    if (message?.images && Array.isArray(message.images)) {
+    if (Array.isArray(message?.images)) {
       for (const image of message.images) {
-        if (image.image_url?.url) {
-          return await recordStatsAndReturn(image.image_url.url);
+        const imageUrl = extractImageUrlFromPart(image);
+        if (imageUrl) {
+          return await recordStatsAndReturn(imageUrl);
         }
       }
     }
 
-    // Fallback: check content array (some models use this format)
     const content = message?.content;
     if (Array.isArray(content)) {
       for (const part of content) {
-        if (part.type === "image_url" && part.image_url?.url) {
-          return await recordStatsAndReturn(part.image_url.url);
-        }
-        if (part.inline_data?.data) {
-          const mimeType = part.inline_data.mime_type || "image/png";
-          return await recordStatsAndReturn(
-            `data:${mimeType};base64,${part.inline_data.data}`
-          );
+        const imageUrl = extractImageUrlFromPart(part);
+        if (imageUrl) {
+          return await recordStatsAndReturn(imageUrl);
         }
       }
     }
 
     // If no image found, return error and release reservation
-    // SECURITY: Log minimal info to avoid exposing API response structure
-    console.error(`[Image API] No image in response for model=${modelId}`);
+    const responseSummary = summarizeNoImageResponse(data);
+    const noImageMessage = extractNoImageText(message) ?? "Model returned no image output.";
+    console.error(`[Image API] No image in response for model=${modelId}`, responseSummary);
     await releaseReservationIfNeeded();
     await updateGenerationRequest("failed", {
-      error: "No image generated - model may not support image output",
+      error: noImageMessage,
       durationMs: Date.now() - generationStartTime,
       scenePlannerUsed,
       scenePlanFromCache,
     });
     return jsonWithSessionRefresh(
       {
-        error: "No image generated - model may not support image output",
+        error: "Model returned no image output",
+        message: noImageMessage,
         requestId: generationRequestId,
       },
       { status: 500 }

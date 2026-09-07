@@ -176,5 +176,17 @@ describe("ChapterGallery click behavior", () => {
     });
 
     expect(setEffectiveViewMock).toHaveBeenCalledWith("reader", "chapter_gallery_card");
+    expect(trackChapterGalleryItemOpenedMock).toHaveBeenCalledWith({
+      book: "genesis",
+      chapter: 1,
+      currentVerse: 1,
+      verse: 1,
+      layoutMode: "all",
+      hasImage: false,
+      imageCount: 0,
+      imageId: undefined,
+      tier: "paid",
+      hasCredits: true,
+    });
   });
 });

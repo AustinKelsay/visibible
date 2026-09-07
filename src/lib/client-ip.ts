@@ -1,3 +1,7 @@
+/**
+ * Shared client-IP resolution for session, rate-limit, and ops routes.
+ * Trusts forwarding headers only after platform or explicit proxy allowlisting.
+ */
 import { isIP } from "node:net";
 
 type ParsedIp = {
@@ -263,3 +267,15 @@ function ipMatchesCidr(ip: ParsedIp, cidrBase: ParsedIp, prefix: number): boolea
   }
   return true;
 }
+
+/**
+ * @internal - exported for testing only
+ */
+export {
+  parseIpv4 as _parseIpv4,
+  parseIpv6 as _parseIpv6,
+  ipMatchesCidr as _ipMatchesCidr,
+  stripIpv6Zone as _stripIpv6Zone,
+  parseIp as _parseIp,
+  type ParsedIp as _ParsedIp,
+};

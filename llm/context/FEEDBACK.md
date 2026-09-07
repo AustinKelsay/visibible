@@ -1,87 +1,9 @@
 # Feedback
 
-High-level overview of how Visibible collects user feedback.
+[The sidebar form](../../src/components/feedback.tsx) submits to [POST /api/feedback](../../src/app/api/feedback/route.ts). The server validates origin, a 10 KiB body limit, a nonempty message up to 5,000 characters, and the IP-based rate limit. It attributes a session only when session validation succeeds.
 
-## Overview
+[convex/feedback.ts](../../convex/feedback.ts) stores submissions through a server-authenticated mutation. Records can include verse/image context, session ID, user agent and timestamp; review them in the Convex dashboard. Feedback storage contains more identifying context than the client analytics event payload.
 
-Visibible provides two feedback entry points:
+[FeedbackPrompt](../../src/components/feedback-prompt.tsx) is a desktop CTA suppressed while the sidebar is open. Its localStorage state (`visibible_feedback_prompt`) controls a random 5–15 visit threshold, a 24-hour cooldown after interaction, and an eight-second auto-dismiss.
 
-1. Sidebar Feedback tab
-2. Feedback prompt CTA
-
-Submissions are stored in Convex for admin review.
-
-## Entry Points
-
-1. **Sidebar Tab**: Chat sidebar includes a `Feedback` tab users can open anytime.
-2. **Feedback Prompt**: A desktop CTA that appears occasionally and opens the sidebar directly to the `Feedback` tab.
-
-## Submission Payload
-
-Successful feedback submission includes:
-
-| Field | Description |
-|-------|-------------|
-| `message` | Feedback text (max 5000 chars) |
-| `verseContext` | Optional book/chapter/verseRange context |
-| `imageContext` | Optional image details when feedback is image-related |
-| `sid` | Session ID (server-side context) |
-| `userAgent` | Browser user-agent (debug context) |
-| `createdAt` | Submission timestamp |
-
-## Prompt Behavior
-
-Prompt state is stored in localStorage (`visibible_feedback_prompt`).
-
-- Trigger threshold: random visit count between 5 and 15 verse navigations
-- Cooldown: 24 hours after dismissal/click
-- Auto-dismiss: 8 seconds after showing
-- Visibility: desktop only (`md+`)
-- Suppression: hidden while sidebar is open
-
-## Feedback Analytics
-
-### `feedback_prompt_interaction`
-
-Tracked in `src/components/feedback-prompt.tsx` with:
-
-- `action`: `shown` | `clicked` | `dismissed`
-- `visitCount`
-- `tier`, `hasCredits`
-
-### `feedback_submitted`
-
-Tracked in `src/components/feedback.tsx` after successful POST with:
-
-- `hasContext`
-- `hasImageContext`
-- `sidebarTab: "feedback"`
-- `tier`, `hasCredits`
-
-## Storage
-
-Convex table: `feedback`.
-
-## Admin Access
-
-1. Open Convex dashboard.
-2. Query the `feedback` table.
-3. Sort by `createdAt` descending.
-
-## Rate Limiting
-
-Feedback API limits submissions to 5/minute per IP.
-
-## Entry Points (Files)
-
-- Feedback form: `src/components/feedback.tsx`
-- Feedback prompt: `src/components/feedback-prompt.tsx`
-- Sidebar tabs: `src/components/chat-sidebar.tsx`
-- API route: `src/app/api/feedback/route.ts`
-- Convex mutation: `convex/feedback.ts`
-
-## Related Docs
-
-- Analytics overview: `llm/context/ANALYTICS.md`
-- Navigation context: `llm/context/NAVIGATION.md`
-- Rate limiting details: `llm/implementation/RATE_LIMIT_IMPLEMENTATION.md`
+The form emits `feedback_submitted` after success; the prompt emits shown/clicked/dismissed interactions. [Analytics](ANALYTICS.md) covers event interpretation. [Navigation](NAVIGATION.md) owns opening the Feedback tab.

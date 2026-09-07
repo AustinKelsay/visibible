@@ -1,5 +1,6 @@
-import { mutation, query } from "./_generated/server";
+import { mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import { v } from "convex/values";
+import type { Id } from "./_generated/dataModel";
 
 const bulkGenerationVerseStatusValidator = v.union(
   v.literal("queued"),
@@ -25,6 +26,37 @@ const BULK_VERSE_STATUS_ORDER = {
 
 const BULK_VERSE_INSERT_CHUNK_SIZE = 300;
 const DEFAULT_BULK_VERSE_QUERY_LIMIT = 100;
+const BULK_GENERATION_AUTH_ERROR = "Unauthorized bulk generation access.";
+
+type BulkGenerationCtx = QueryCtx | MutationCtx;
+
+async function requireValidBulkSession(ctx: BulkGenerationCtx, sid: string) {
+  const session = await ctx.db
+    .query("sessions")
+    .withIndex("by_sid", (q) => q.eq("sid", sid))
+    .first();
+
+  if (!session) {
+    throw new Error(BULK_GENERATION_AUTH_ERROR);
+  }
+
+  return session;
+}
+
+async function requireOwnedBulkGeneration(
+  ctx: BulkGenerationCtx,
+  sid: string,
+  bulkGenerationId: Id<"bulkGenerations">
+) {
+  await requireValidBulkSession(ctx, sid);
+
+  const bulkGeneration = await ctx.db.get(bulkGenerationId);
+  if (!bulkGeneration || bulkGeneration.sid !== sid) {
+    throw new Error(BULK_GENERATION_AUTH_ERROR);
+  }
+
+  return bulkGeneration;
+}
 
 // ---------------------------------------------------------------------------
 // Mutations
@@ -53,6 +85,8 @@ export const create = mutation({
     ),
   },
   handler: async (ctx, args) => {
+    await requireValidBulkSession(ctx, args.sid);
+
     const now = Date.now();
     const active = await ctx.db
       .query("bulkGenerations")
@@ -147,6 +181,8 @@ export const create = mutation({
 export const getActive = query({
   args: { sid: v.string() },
   handler: async (ctx, args) => {
+    await requireValidBulkSession(ctx, args.sid);
+
     // Check for active first
     const active = await ctx.db
       .query("bulkGenerations")
@@ -171,9 +207,12 @@ export const getActive = query({
  * Get a bulk generation by ID.
  */
 export const get = query({
-  args: { id: v.id("bulkGenerations") },
+  args: {
+    id: v.id("bulkGenerations"),
+    sid: v.string(),
+  },
   handler: async (ctx, args) => {
-    return await ctx.db.get(args.id);
+    return await requireOwnedBulkGeneration(ctx, args.sid, args.id);
   },
 });
 
@@ -182,11 +221,14 @@ export const get = query({
  */
 export const getVerses = query({
   args: {
+    sid: v.string(),
     bulkGenerationId: v.id("bulkGenerations"),
     limit: v.optional(v.number()),
     offset: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
+    await requireOwnedBulkGeneration(ctx, args.sid, args.bulkGenerationId);
+
     const verseQuery = ctx.db
       .query("bulkGenerationVerses")
       .withIndex("by_bulk_order", (q) =>
@@ -248,6 +290,7 @@ export const getVerses = query({
  */
 export const updateVerseStatus = mutation({
   args: {
+    sid: v.string(),
     bulkGenerationId: v.id("bulkGenerations"),
     verseId: v.string(),
     status: bulkGenerationVerseStatusValidator,
@@ -256,6 +299,11 @@ export const updateVerseStatus = mutation({
     error: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    const bulkGeneration = await requireOwnedBulkGeneration(
+      ctx,
+      args.sid,
+      args.bulkGenerationId
+    );
     const verse = await ctx.db
       .query("bulkGenerationVerses")
       .withIndex("by_bulk_verse", (q) =>
@@ -269,8 +317,6 @@ export const updateVerseStatus = mutation({
     ) {
       return { updated: false };
     }
-    const bulkGeneration = await ctx.db.get(args.bulkGenerationId);
-    if (!bulkGeneration) return { updated: false };
     if (
       verse.status === "queued" &&
       args.status === "generating" &&
@@ -323,6 +369,7 @@ export const updateVerseStatus = mutation({
  */
 export const updateProgress = mutation({
   args: {
+    sid: v.string(),
     id: v.id("bulkGenerations"),
     completedCount: v.number(),
     failedCount: v.number(),
@@ -330,8 +377,7 @@ export const updateProgress = mutation({
     totalCreditsUsed: v.number(),
   },
   handler: async (ctx, args) => {
-    const bulk = await ctx.db.get(args.id);
-    if (!bulk) return;
+    const bulk = await requireOwnedBulkGeneration(ctx, args.sid, args.id);
 
     const completedCount = Math.max(bulk.completedCount, args.completedCount);
     const failedCount = Math.max(bulk.failedCount, args.failedCount);
@@ -363,10 +409,13 @@ export const updateProgress = mutation({
  * Pause a running bulk generation.
  */
 export const pause = mutation({
-  args: { id: v.id("bulkGenerations") },
+  args: {
+    id: v.id("bulkGenerations"),
+    sid: v.string(),
+  },
   handler: async (ctx, args) => {
-    const bulk = await ctx.db.get(args.id);
-    if (!bulk || bulk.status !== "active") return { updated: false };
+    const bulk = await requireOwnedBulkGeneration(ctx, args.sid, args.id);
+    if (bulk.status !== "active") return { updated: false };
 
     await ctx.db.patch(args.id, {
       status: "paused",
@@ -380,10 +429,13 @@ export const pause = mutation({
  * Resume a paused bulk generation.
  */
 export const resume = mutation({
-  args: { id: v.id("bulkGenerations") },
+  args: {
+    id: v.id("bulkGenerations"),
+    sid: v.string(),
+  },
   handler: async (ctx, args) => {
-    const bulk = await ctx.db.get(args.id);
-    if (!bulk || bulk.status !== "paused") return { updated: false };
+    const bulk = await requireOwnedBulkGeneration(ctx, args.sid, args.id);
+    if (bulk.status !== "paused") return { updated: false };
 
     await ctx.db.patch(args.id, {
       status: "active",
@@ -397,10 +449,13 @@ export const resume = mutation({
  * Cancel a bulk generation (active or paused).
  */
 export const cancel = mutation({
-  args: { id: v.id("bulkGenerations") },
+  args: {
+    id: v.id("bulkGenerations"),
+    sid: v.string(),
+  },
   handler: async (ctx, args) => {
-    const bulk = await ctx.db.get(args.id);
-    if (!bulk || (bulk.status !== "active" && bulk.status !== "paused")) {
+    const bulk = await requireOwnedBulkGeneration(ctx, args.sid, args.id);
+    if (bulk.status !== "active" && bulk.status !== "paused") {
       return { updated: false };
     }
 

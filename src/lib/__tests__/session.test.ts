@@ -1,6 +1,5 @@
 /**
- * Unit tests for session IP security functions.
- * Tests IP parsing, CIDR matching, zone stripping, and hashing.
+ * Unit tests for session IP hashing and cookie validation.
  */
 
 import { describe, it, expect, vi, afterAll, beforeEach } from "vitest";
@@ -36,16 +35,18 @@ process.env = {
 
 // Now import the module (validation is mocked)
 import {
-  _parseIpv4,
-  _parseIpv6,
-  _ipMatchesCidr,
-  _stripIpv6Zone,
-  _parseIp,
   hashIp,
   createSessionToken,
   verifySessionToken,
   validateSessionWithIp,
 } from "../session";
+import {
+  _parseIpv4,
+  _parseIpv6,
+  _ipMatchesCidr,
+  _stripIpv6Zone,
+  _parseIp,
+} from "../client-ip";
 
 afterAll(() => {
   process.env = originalEnv;
