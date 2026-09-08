@@ -9,7 +9,7 @@ import {
 import { paginationOptsValidator } from "convex/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
-import { Id } from "./_generated/dataModel";
+import { Id, type Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
 
 const chapterThemeValidator = v.object({
@@ -896,12 +896,48 @@ export const upsertScenePlanCache = mutation({
   },
 });
 
+async function existingIntentResult(
+  ctx: QueryCtx,
+  existing: Doc<"imageGenerationRequests">,
+  args: { requestId: string; sid: string; inputFingerprint: string }
+) {
+  if (existing.sid !== args.sid || existing.inputFingerprint !== args.inputFingerprint) {
+    return { requestId: args.requestId, status: "failed" as const, alreadyExists: true, conflict: true };
+  }
+  const generationId = existing.generationId;
+  const image = generationId ? await ctx.db.query("verseImages")
+    .withIndex("by_generationId", (q) => q.eq("generationId", generationId)).first() : null;
+  return {
+    requestId: existing.requestId, status: existing.status, alreadyExists: true,
+    generationId: existing.generationId, error: existing.error,
+    ...(image ? { savedImage: {
+      id: image._id, imageUrl: image.storageId ? await ctx.storage.getUrl(image.storageId) : image.imageUrl ?? null,
+      model: image.model, creditsCost: image.creditsCost, durationMs: image.durationMs,
+    } } : {}),
+  };
+}
+
+/** Authenticated HTTP retry lookup; performed before external catalog/Scripture reads. */
+export const getGenerationIntent = query({
+  args: { requestId: v.string(), sid: v.string(), inputFingerprint: v.string(), serverSecret: v.string() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const existing = await ctx.db.query("imageGenerationRequests")
+      .withIndex("by_requestId", (q) => q.eq("requestId", args.requestId)).first();
+    return existing ? existingIntentResult(ctx, existing, args) : null;
+  },
+});
+
 /**
  * Secure action to create a generation request record.
  */
 export const createGenerationRequest = mutation({
   args: {
     requestId: v.string(),
+    inputFingerprint: v.string(),
+    generationId: v.string(),
+    executorVersion: v.literal("next-image-v1"),
+    billingPolicyVersion: v.literal("legacy-image-v1"),
     sid: v.string(),
     verseId: v.string(),
     translationId: v.optional(v.string()),
@@ -919,6 +955,10 @@ export const createGenerationRequest = mutation({
     requestId: string;
     status: "queued" | "planning" | "generating" | "succeeded" | "failed";
     alreadyExists: boolean;
+    conflict?: boolean;
+    generationId?: string;
+    error?: string;
+    savedImage?: { id: Id<"verseImages">; imageUrl: string | null; model: string; creditsCost?: number; durationMs?: number };
   }> => {
     validateServerSecret(args.serverSecret);
     const existing = await ctx.db
@@ -926,17 +966,15 @@ export const createGenerationRequest = mutation({
       .withIndex("by_requestId", (q) => q.eq("requestId", args.requestId))
       .first();
 
-    if (existing) {
-      return {
-        requestId: existing.requestId,
-        status: existing.status,
-        alreadyExists: true,
-      };
-    }
+    if (existing) return existingIntentResult(ctx, existing, args);
 
     const now = Date.now();
     await ctx.db.insert("imageGenerationRequests", {
       requestId: args.requestId,
+      inputFingerprint: args.inputFingerprint,
+      generationId: args.generationId,
+      executorVersion: args.executorVersion,
+      billingPolicyVersion: args.billingPolicyVersion,
       sid: args.sid,
       verseId: args.verseId,
       translationId: args.translationId,
@@ -953,7 +991,7 @@ export const createGenerationRequest = mutation({
       updatedAt: now,
     });
 
-    return { requestId: args.requestId, status: "queued", alreadyExists: false };
+    return { requestId: args.requestId, generationId: args.generationId, status: "queued", alreadyExists: false };
   },
 });
 
@@ -987,6 +1025,20 @@ export const updateGenerationRequest = mutation({
       return { success: false, error: "Request not found" };
     }
 
+    if (request.status === "succeeded" || request.status === "failed") {
+      return { success: request.status === args.status, ...(request.status !== args.status ? { error: "Request is terminal" } : {}) };
+    }
+    if (args.generationId && request.generationId && args.generationId !== request.generationId) {
+      return { success: false, error: "Billing identity is immutable" };
+    }
+    const transitions = {
+      queued: ["queued", "planning", "generating", "failed"],
+      planning: ["planning", "generating", "failed"],
+      generating: ["generating", "succeeded", "failed"],
+    };
+    if (!transitions[request.status].includes(args.status)) {
+      return { success: false, error: "Invalid request transition" };
+    }
     const now = Date.now();
     const patch: Record<string, unknown> = {
       status: args.status,

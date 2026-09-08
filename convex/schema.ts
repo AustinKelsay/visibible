@@ -177,6 +177,9 @@ export default defineSchema({
   // Request lifecycle for image generation to support progress sync and observability
   imageGenerationRequests: defineTable({
     requestId: v.string(),
+    inputFingerprint: v.optional(v.string()),
+    executorVersion: v.optional(v.string()),
+    billingPolicyVersion: v.optional(v.string()),
     sid: v.string(),
     verseId: v.string(),
     translationId: v.optional(v.string()),

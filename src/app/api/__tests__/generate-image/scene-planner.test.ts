@@ -69,6 +69,7 @@ vi.mock("@/lib/session", () => ({
 vi.mock("@/lib/convex-client", () => ({
   getConvexClient: vi.fn(() => ({
     query: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if ("inputFingerprint" in args) return null;
       if ("fallbackCredits" in args && "modelId" in args && "resolution" in args) {
         mockState.callHistory.push({ action: "getEstimate", args });
         return (
@@ -86,6 +87,7 @@ vi.mock("@/lib/convex-client", () => ({
       return session || null;
     }),
     mutation: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if ("inputFingerprint" in args) return { requestId: args.requestId, generationId: args.generationId, alreadyExists: false, status: "queued" };
       if ("actualCredits" in args && "modelId" in args && "resolution" in args) {
         mockState.callHistory.push({ action: "recordActualCost", args });
         return null;

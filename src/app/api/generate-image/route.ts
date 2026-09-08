@@ -1,3 +1,5 @@
+import type { FunctionReturnType } from "convex/server";
+import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import {
@@ -338,12 +340,6 @@ function toVerseId(reference: string): string {
     .replace(/^-|-$/g, "");
 }
 
-function sanitizeRequestId(value: string | null): string | null {
-  if (!value) return null;
-  const cleaned = value.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 80);
-  return cleaned.length >= 8 ? cleaned : null;
-}
-
 function sanitizeTranslationId(value: string | null): string {
   if (!value) return DEFAULT_TRANSLATION_ID;
   const cleaned = value.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40);
@@ -517,7 +513,7 @@ const generateImageSchema = z
     aspectRatio: z.string().optional(),
     resolution: z.string().optional(),
     translation: z.string().optional(),
-    requestId: z.string().optional(),
+    requestId: z.string().regex(/^[a-zA-Z0-9_-]{8,80}$/).optional(),
   })
   .passthrough();
 
@@ -750,7 +746,7 @@ export async function POST(request: Request) {
   const bibleTranslation: Translation = normalizedTranslation;
   const translationId = bibleTranslation;
   const clientRequestId =
-    sanitizeRequestId(requestBody.requestId ?? null) || crypto.randomUUID();
+    requestBody.requestId ?? crypto.randomUUID();
 
   // Validate and set aspect ratio (default: 16:9)
   const aspectRatio: ImageAspectRatio = requestedAspectRatio && isValidAspectRatio(requestedAspectRatio)
@@ -761,6 +757,41 @@ export async function POST(request: Request) {
   const resolution: ImageResolution = requestedResolution && isValidResolution(requestedResolution)
     ? requestedResolution
     : DEFAULT_RESOLUTION;
+
+  // Stable ordering and explicit fields exclude transport identity and unknown extras.
+  const inputFingerprint = createHash("sha256").update(JSON.stringify({
+    text: requestBody.text ?? null, reference: requestBody.reference ?? null,
+    translation: translationId, model: requestedModelId ?? null, style: requestedStyleId ?? null,
+    aspectRatio, resolution, theme: requestBody.theme ?? null,
+    generation: requestBody.generation ?? null, prevVerse: requestBody.prevVerse ?? null,
+    nextVerse: requestBody.nextVerse ?? null,
+  })).digest("hex");
+  const existingIntentResponse = (admission: FunctionReturnType<typeof api.verseImages.createGenerationRequest>) => {
+    if (admission.conflict) {
+      return jsonWithSessionRefresh({ error: "Request ID already belongs to different inputs or owner" }, { status: 409 });
+    }
+    const saved = admission.savedImage;
+    if (saved?.imageUrl) return jsonWithSessionRefresh({
+      requestId: clientRequestId, generationId: admission.generationId,
+      status: admission.status, reused: true, savedImageId: saved.id,
+      imageUrl: saved.imageUrl, model: saved.model, creditsCost: saved.creditsCost, durationMs: saved.durationMs,
+    });
+    if (admission.status === "failed" || admission.status === "succeeded") {
+      return jsonWithSessionRefresh({ requestId: clientRequestId, status: admission.status,
+        error: admission.error || "The original operation ended without an available saved image", reused: true,
+      }, { status: 409 });
+    }
+    return jsonWithSessionRefresh({ requestId: clientRequestId, status: admission.status, reused: true }, { status: 202 });
+  };
+  try {
+    const existing = await convex.query(api.verseImages.getGenerationIntent, {
+      requestId: clientRequestId, sid, inputFingerprint, serverSecret,
+    });
+    if (existing) return existingIntentResponse(existing);
+  } catch (error) {
+    logApiFailure({ context: requestContext, stage: "image_intent_lookup", error, statusCode: 503, sid });
+    return jsonWithSessionRefresh({ error: "Unable to safely check image generation" }, { status: 503 });
+  }
 
   let modelId = DEFAULT_IMAGE_MODEL;
   let modelPricing: string | undefined;
@@ -1241,7 +1272,7 @@ export async function POST(request: Request) {
   let updatedCredits: number | undefined;
   let shouldCharge = false;
   let reservationMade = false;
-  const chargeGenerationId = crypto.randomUUID();
+  let chargeGenerationId = crypto.randomUUID();
 
   // Check if user is admin (unlimited access)
   const session = await convex.query(api.sessions.getSession, { sid });
@@ -1254,30 +1285,6 @@ export async function POST(request: Request) {
   const isAdmin = session?.tier === "admin";
   let generationRequestCreated = false;
   const generationRequestId = clientRequestId;
-
-  const createGenerationRequest = async () => {
-    if (generationRequestCreated) return;
-    try {
-      await convex.mutation(api.verseImages.createGenerationRequest, {
-        requestId: generationRequestId,
-        sid,
-        verseId,
-        translationId,
-        reference,
-        modelId,
-        aspectRatio,
-        resolution,
-        promptVersion: PROMPT_VERSION,
-        scenePlannerModel: scenePlannerModel,
-        estimatedCreditsCost,
-        estimatedCostUsd: estimatedTotalCostUsd,
-        serverSecret,
-      });
-      generationRequestCreated = true;
-    } catch (error) {
-      console.warn("[Image API] Failed to create generation request:", error);
-    }
-  };
 
   const updateGenerationRequest = async (
     status: "planning" | "generating" | "succeeded" | "failed",
@@ -1330,7 +1337,22 @@ export async function POST(request: Request) {
     }
   };
 
-  await createGenerationRequest();
+  try {
+    const admission = await convex.mutation(api.verseImages.createGenerationRequest, {
+      requestId: generationRequestId, sid, verseId, translationId, reference, modelId,
+      aspectRatio, resolution, promptVersion: PROMPT_VERSION, scenePlannerModel,
+      estimatedCreditsCost, estimatedCostUsd: estimatedTotalCostUsd, serverSecret,
+      inputFingerprint, generationId: chargeGenerationId,
+      executorVersion: "next-image-v1", billingPolicyVersion: "legacy-image-v1",
+    });
+    if (admission.alreadyExists) return existingIntentResponse(admission);
+    if (!admission.generationId) throw new Error("Missing admitted billing identity");
+    chargeGenerationId = admission.generationId;
+    generationRequestCreated = true;
+  } catch (error) {
+    logApiFailure({ context: requestContext, stage: "image_admission", error, statusCode: 503, sid });
+    return jsonWithSessionRefresh({ error: "Unable to safely start image generation" }, { status: 503 });
+  }
 
   const canStartGeneration = isAdmin
     ? true

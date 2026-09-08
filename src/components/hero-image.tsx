@@ -517,6 +517,7 @@ function HeroImageBase({
   const [hasAttemptedGeneration, setHasAttemptedGeneration] = useState(false);
   const [imageLoadAttempts, setImageLoadAttempts] = useState(0);
   const [activeRequestId, setActiveRequestId] = useState<string | null>(null);
+  const [followingRequest, setFollowingRequest] = useState(false);
   const [generationProgress, setGenerationProgress] = useState(0);
   const activeRequest = useRef<AbortController | null>(null);
   const isMounted = useRef(true);
@@ -634,6 +635,7 @@ function HeroImageBase({
 
     pendingFollowLatest.current = selectedImageId === null;
     setIsGenerating(true);
+    setFollowingRequest(false);
     setError(null);
     setPendingImageId(null);
     setImageLoadAttempts(0);
@@ -645,6 +647,7 @@ function HeroImageBase({
       ? crypto.randomUUID()
       : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
     setActiveRequestId(clientRequestId);
+    let followExistingRequest = false;
 
     try {
       const csrfCookiePrefix = `${CSRF_COOKIE_NAME}=`;
@@ -792,6 +795,12 @@ function HeroImageBase({
         throw new Error(data?.error || "Failed to generate image");
       }
 
+      if (response.status === 202 && data?.reused) {
+        followExistingRequest = true;
+        setFollowingRequest(true);
+        return;
+      }
+
       if (data?.imageUrl) {
         const modelUsed = data.model || imageModel || "unknown";
 
@@ -870,7 +879,7 @@ function HeroImageBase({
       // Always clean up if this is still the current generation
       if (thisGenerationId === generationIdRef.current) {
         activeRequest.current = null;
-        if (isMounted.current) {
+        if (isMounted.current && !followExistingRequest) {
           setActiveRequestId(null);
           setIsGenerating(false);
         }
@@ -1125,8 +1134,15 @@ function HeroImageBase({
       generationRequestStatus?.status === "failed"
     ) {
       setActiveRequestId(null);
+      if (followingRequest) {
+        setIsGenerating(false);
+        setFollowingRequest(false);
+        if (generationRequestStatus.status === "failed") {
+          setError(generationRequestStatus.error || "The original generation failed");
+        }
+      }
     }
-  }, [activeRequestId, generationRequestStatus?.status]);
+  }, [activeRequestId, generationRequestStatus?.status, generationRequestStatus?.error, followingRequest]);
 
   // Reset state when verse changes
   useEffect(() => {
@@ -1137,6 +1153,8 @@ function HeroImageBase({
     setImageLoadAttempts(0);
     setPendingImageId(null);
     setActiveRequestId(null);
+    setIsGenerating(false);
+    setFollowingRequest(false);
     setIsImageLoading(false);
     pendingFollowLatest.current = true;
     if (activeRequest.current) {

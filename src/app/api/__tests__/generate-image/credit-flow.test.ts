@@ -4,6 +4,13 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { convexTest } from "convex-test";
+import type { FunctionArgs } from "convex/server";
+import schema from "../../../../../convex/schema";
+import { api, internal } from "../../../../../convex/_generated/api";
+import { modules } from "../../../../../tests/convex/modules";
+let requestDb = convexTest(schema, modules);
+let failAdmission = false;
 import { fixtures, type Session } from "../shared/test-fixtures";
 import { clearBibleApiCache } from "@/lib/bible-api";
 import {
@@ -87,6 +94,7 @@ vi.mock("@/lib/session", () => ({
 vi.mock("@/lib/convex-client", () => ({
   getConvexClient: vi.fn(() => ({
     query: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if ("inputFingerprint" in args) return requestDb.query(api.verseImages.getGenerationIntent, args as FunctionArgs<typeof api.verseImages.getGenerationIntent>);
       if ("fallbackCredits" in args && "modelId" in args && "resolution" in args) {
         mockState.callHistory.push({ action: "getEstimate", args });
         return (
@@ -104,6 +112,13 @@ vi.mock("@/lib/convex-client", () => ({
       return session || null;
     }),
     mutation: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if ("inputFingerprint" in args) {
+        if (failAdmission) throw new Error("Admission unavailable");
+        return requestDb.mutation(api.verseImages.createGenerationRequest, args as FunctionArgs<typeof api.verseImages.createGenerationRequest>);
+      }
+      if ("requestId" in args && "status" in args) {
+        return requestDb.mutation(api.verseImages.updateGenerationRequest, args as FunctionArgs<typeof api.verseImages.updateGenerationRequest>);
+      }
       if ("actualCredits" in args && "modelId" in args && "resolution" in args) {
         mockState.callHistory.push({ action: "recordActualCost", args });
         return null;
@@ -152,7 +167,11 @@ vi.mock("@/lib/convex-client", () => ({
 
       if ("verseId" in args && "imageUrl" in args && "model" in args) {
         mockState.callHistory.push({ action: "saveImage", args });
-        return { success: true, type: "storage", id: "saved-image-1" };
+        const id = await requestDb.mutation(internal.verseImages.saveImageWithUrl, {
+          verseId: String(args.verseId), imageUrl: String(args.imageUrl), model: String(args.model),
+          generationId: String(args.generationId),
+        });
+        return { success: true, type: "url", id };
       }
 
       if ("generationId" in args && !("amount" in args)) {
@@ -408,6 +427,8 @@ function createGenerateImageRequest(body: Record<string, unknown>) {
 describe("Image Generation API Credit Flow", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    requestDb = convexTest(schema, modules);
+    failAdmission = false;
     clearBibleApiCache();
     fetchImageModelsMock.mockReset();
     fetchImageModelsMock.mockResolvedValue({
@@ -427,6 +448,40 @@ describe("Image Generation API Credit Flow", () => {
     process.env = { ...originalEnv };
     global.fetch = originalFetch;
     resetMockFetchBibleApiBypass();
+  });
+
+  describe("durable HTTP intent admission", () => {
+    const body = { requestId: "stable-request-id", reference: "Genesis 1:1", text: "In the beginning God created." };
+    it("concurrent identical POSTs and a lost-response retry reserve and call the provider once", async () => {
+      const { POST } = await import("../../generate-image/route");
+      const responses = await Promise.all([POST(createGenerateImageRequest(body)), POST(createGenerateImageRequest(body))]);
+      expect(responses.map((r) => r.status)).toContain(200);
+      expect(responses.every((r) => r.status === 200 || r.status === 202)).toBe(true);
+      const networkCallsBeforeRetry = mockFetch.mock.calls.length;
+      fetchImageModelsMock.mockRejectedValueOnce(new Error("Catalog offline"));
+      const retry = await POST(createGenerateImageRequest(body));
+      expect(mockFetch.mock.calls).toHaveLength(networkCallsBeforeRetry);
+      expect(retry.status).toBe(200);
+      expect(await retry.json()).toMatchObject({ reused: true, savedImageId: expect.any(String) });
+      expect(getCallCount("reserveCredits")).toBe(1);
+      expect(getCallCount("saveImage")).toBe(1);
+      expect(mockFetch.mock.calls.filter(([url]) => String(url).includes("openrouter.ai"))).toHaveLength(1);
+    });
+    it("rejects changed immutable input without starting a second paid call", async () => {
+      const { POST } = await import("../../generate-image/route");
+      await POST(createGenerateImageRequest(body));
+      const conflict = await POST(createGenerateImageRequest({ ...body, generation: 2 }));
+      expect(conflict.status).toBe(409);
+      expect(getCallCount("reserveCredits")).toBe(1);
+    });
+    it("does not reserve or call the provider when admission cannot be persisted", async () => {
+      const { POST } = await import("../../generate-image/route");
+      failAdmission = true;
+      expect((await POST(createGenerateImageRequest(body))).status).toBe(503);
+      expect(getCallCount("reserveCredits")).toBe(0);
+      expect(getCallCount("saveImage")).toBe(0);
+      expect(mockFetch.mock.calls.filter(([url]) => String(url).includes("openrouter.ai"))).toHaveLength(0);
+    });
   });
 
   describe("Happy Path", () => {
@@ -456,7 +511,7 @@ describe("Image Generation API Credit Flow", () => {
 
       const body = await response.json();
       expect(body.imageUrl).toBeDefined();
-      expect(body.savedImageId).toBe("saved-image-1");
+      expect(await requestDb.query(internal.verseImages.getImageById, { imageId: body.savedImageId })).toMatchObject({ generationId: body.generationId });
       expect(getCallCount("sessions:reserveCredits")).toBe(1);
       expect(getCallCount("sessions:deductCredits")).toBe(1);
       expect(getCallCount("saveImage")).toBe(1);
