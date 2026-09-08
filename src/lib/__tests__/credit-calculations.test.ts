@@ -365,14 +365,14 @@ describe("computeAdjustedCreditsCost", () => {
     expect(computeAdjustedCreditsCost(10, "4K", "stability/stable-diffusion")).toBe(10);
   });
 
-  it("should apply 3.5x multiplier for 2K on supported Gemini image preview models", () => {
+  it("uses the documented 1.5x token ratio for 2K on supported Gemini image preview models", () => {
     const result = computeAdjustedCreditsCost(10, "2K", "google/gemini-3.1-flash-image-preview");
-    expect(result).toBe(35); // 10 * 3.5 = 35
+    expect(result).toBe(15);
   });
 
-  it("should apply 6.5x multiplier for 4K on supported Gemini image preview models", () => {
+  it("uses the documented 2.25x token ratio for 4K on supported Gemini image preview models", () => {
     const result = computeAdjustedCreditsCost(10, "4K", "google/gemini-3.1-flash-image-preview");
-    expect(result).toBe(65); // 10 * 6.5 = 65
+    expect(result).toBe(23);
   });
 
   it("should apply 1.0x multiplier for 1K on supported Gemini image preview models", () => {
@@ -382,7 +382,7 @@ describe("computeAdjustedCreditsCost", () => {
 
   it("should ceil fractional credits", () => {
     const result = computeAdjustedCreditsCost(3, "2K", "google/gemini-3-pro-image-preview");
-    expect(result).toBe(11); // ceil(3 * 3.5) = 11
+    expect(result).toBe(3); // Pro uses the same image token count at 1K and 2K
   });
 });
 
@@ -406,7 +406,7 @@ describe("computeEstimatedImageGenerationCreditsCost", () => {
         "google/gemini-3.1-flash-image-preview",
         2
       )
-    ).toBe(37);
+    ).toBe(17);
   });
 
   it("ignores negative planner surcharges", () => {
@@ -559,7 +559,7 @@ describe("getEstimatedCreditsCostForResolution", () => {
         "2K",
         1
       )
-    ).toBe(20);
+    ).toBe(8);
   });
 
   it("falls back to computed image plus planner cost when learned totals are unavailable", () => {
@@ -573,7 +573,7 @@ describe("getEstimatedCreditsCostForResolution", () => {
         "2K",
         1
       )
-    ).toBe(8);
+    ).toBe(4);
   });
 
   it("ignores higher resolutions for models that do not support image_size", () => {

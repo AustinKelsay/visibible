@@ -27,17 +27,21 @@ export function quoteTokenUsage(
   inputTokens: number,
   outputTokens: number
 ): { providerUsd: number; credits: number } | null {
-  if (![inputTokens, outputTokens].every((n) => Number.isSafeInteger(n) && n >= 0)) {
-    return null;
-  }
-  const input = decimal(pricing?.prompt);
-  const output = decimal(pricing?.completion);
-  if (!input || !output) return null;
-  const scale = Math.max(input.scale, output.scale);
+  return quoteBillableUnits([
+    { price: pricing?.prompt, units: inputTokens },
+    { price: pricing?.completion, units: outputTokens },
+  ]);
+}
+
+/** Sum explicit billable units before the one final credit rounding. */
+export function quoteBillableUnits(items: { price: string | undefined; units: number }[]): { providerUsd: number; credits: number } | null {
+  if (items.length === 0 || !items.every(item => Number.isSafeInteger(item.units) && item.units >= 0)) return null;
+  const prices = items.map(item => decimal(item.price));
+  if (prices.some(price => !price)) return null;
+  const scale = Math.max(...prices.map(price => price!.scale));
   const denominator = TEN ** BigInt(scale);
-  const numerator =
-    input.units * TEN ** BigInt(scale - input.scale) * BigInt(inputTokens) +
-    output.units * TEN ** BigInt(scale - output.scale) * BigInt(outputTokens);
+  const numerator = prices.reduce((total, price, index) => total +
+    price!.units * TEN ** BigInt(scale - price!.scale) * BigInt(items[index].units), BigInt(0));
   const roundedCredits = (numerator * BigInt(125) + denominator - BigInt(1)) / denominator;
   if (roundedCredits > BigInt(Number.MAX_SAFE_INTEGER)) return null;
   const providerUsd = Number(numerator) / Number(denominator);

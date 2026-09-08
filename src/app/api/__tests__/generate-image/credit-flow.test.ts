@@ -1,3 +1,4 @@
+import { imageModelFixture } from "../shared/image-model-fixtures";
 /**
  * Integration tests for image generation API credit flow.
  * Tests reserve → generate → deduct lifecycle with actual vs estimated costs.
@@ -48,18 +49,9 @@ let forceRecordImageCostEventFailure = false;
 let mockLearnedEstimate:
   | { credits: number; source: "model" | "provider" | "global" | "fallback"; sampleCount: number }
   | null = null;
-const mockImageSpendDownGraceCredits = 5;
-const defaultImageCatalogModels: Array<{
-  id: string;
-  pricing?: { imageOutput: string };
-  creditsCost?: number | null;
-  reservationCreditsCost?: number | null;
-  usesEmergencyPricing?: boolean;
-}> = [
-  { id: "google/gemini-2.0-flash-exp:free", pricing: { imageOutput: "0.01" } },
-  { id: "google/gemini-2.5-flash-image", pricing: { imageOutput: "0.02" } },
-  { id: "google/gemini-3.1-flash-image-preview", pricing: { imageOutput: "0.02" } },
-  { id: "openai/dall-e-3", pricing: { imageOutput: "0.04" } },
+const defaultImageCatalogModels = [
+  imageModelFixture(),
+  imageModelFixture("google/gemini-3.1-flash-image-preview", "0.000015"),
 ];
 const fetchImageModelsMock = vi.fn(async () => ({
   models: defaultImageCatalogModels,
@@ -95,6 +87,7 @@ vi.mock("@/lib/session", () => ({
 vi.mock("@/lib/convex-client", () => ({
   getConvexClient: vi.fn(() => ({
     query: vi.fn(async (_apiPath: FunctionReference<"query">, args: Record<string, unknown>) => {
+      if (["modelStats:getAllModelStats", "modelCostStats:getAllEstimates"].includes(getFunctionName(_apiPath))) return [];
       if (getFunctionName(_apiPath) === "verseImages:getScenePlanCache") {
         return requestDb.query(api.verseImages.getScenePlanCache, args as FunctionArgs<typeof api.verseImages.getScenePlanCache>);
       }
@@ -306,63 +299,10 @@ vi.mock("@/lib/convex-client", () => ({
   getConvexServerSecret: vi.fn(() => "test-server-secret"),
 }));
 
-vi.mock("@/lib/image-models", () => {
-  const resolutionSupportedModelIds = new Set([
-    "google/gemini-3.1-flash-image-preview",
-    "google/gemini-3-pro-image-preview",
-  ]);
-
-  const modelSupportsResolution = (modelId?: string) =>
-    typeof modelId === "string" &&
-    resolutionSupportedModelIds.has(modelId.toLowerCase());
-
-  return {
-    DEFAULT_IMAGE_MODEL: "google/gemini-2.0-flash-exp:free",
-    DEFAULT_CREDITS_COST: 20,
-    fetchImageModels: fetchImageModelsMock,
-    computeCreditsCost: vi.fn((pricing: string | undefined) => {
-      if (!pricing) return null;
-      const usd = parseFloat(pricing);
-      return Math.ceil(usd * 1.25 / 0.01);
-    }),
-    computeConservativeEstimate: vi.fn((pricing: string | undefined) => {
-      if (!pricing) return null;
-      const usd = parseFloat(pricing);
-      return Math.ceil(usd * 1.25 * 35 / 0.01);
-    }),
-    computeAdjustedCreditsCost: vi.fn((baseCost: number | null, resolution: string, modelId?: string) => {
-      if (baseCost === null) return 13;
-      if (!modelSupportsResolution(modelId)) return baseCost;
-      const multipliers: Record<string, number> = { "1K": 1.0, "2K": 3.5, "4K": 6.5 };
-      return Math.ceil(baseCost * (multipliers[resolution] ?? 1.0));
-    }),
-    computeCreditsFromActualUsage: vi.fn((actualUsd: number | null, fallback: number) => {
-      if (actualUsd === null || actualUsd <= 0) {
-        return { credits: fallback, usedActual: false };
-      }
-      return { credits: Math.ceil(actualUsd * 1.25 / 0.01), usedActual: true };
-    }),
-    CONSERVATIVE_ESTIMATE_MULTIPLIER: 35,
-    getProviderName: vi.fn(() => "openrouter"),
-    CREDIT_USD: 0.01,
-    PREMIUM_MULTIPLIER: 1.25,
-    IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS: mockImageSpendDownGraceCredits,
-    DEFAULT_ASPECT_RATIO: "16:9",
-    DEFAULT_RESOLUTION: "1K",
-    RESOLUTIONS: { "1K": { multiplier: 1.0 }, "2K": { multiplier: 3.5 }, "4K": { multiplier: 6.5 } },
-    canAffordImageGeneration: vi.fn((credits: number, estimatedCreditsCost: number) =>
-      credits >= estimatedCreditsCost ||
-      (credits > 0 &&
-        credits + mockImageSpendDownGraceCredits >= estimatedCreditsCost)
-    ),
-    isValidAspectRatio: vi.fn(() => true),
-    isValidResolution: vi.fn(() => true),
-    normalizeResolutionForModel: vi.fn((modelId: string, resolution: string) =>
-      modelSupportsResolution(modelId) ? resolution : "1K"
-    ),
-    supportsResolution: vi.fn((modelId: string) => modelSupportsResolution(modelId)),
-  };
-});
+vi.mock("@/lib/image-models", async () => ({
+  ...await vi.importActual<typeof import("@/lib/image-models")>("@/lib/image-models"),
+  fetchImageModels: fetchImageModelsMock,
+}));
 
 vi.mock("@/lib/chat-models", () => ({
   DEFAULT_CHAT_MODEL: "test/scene-planner-model",
@@ -1040,84 +980,19 @@ describe("Image Generation API Credit Flow", () => {
       const body = await response.json();
       expect(body.usedFallbackEstimate).toBe(true);
       expect(body.usedActualCost).toBe(false);
-      expect(body.imageCreditsCost).toBe(7);
-      expect(body.creditsCost).toBe(7);
-      expect(body.estimatedCreditsCost).toBe(7);
+      expect(body.imageCreditsCost).toBe(2);
+      expect(body.creditsCost).toBe(2);
+      expect(body.estimatedCreditsCost).toBe(2);
     });
 
-    it("emergency-pricing: does not double-apply conservative reservation multiplier", async () => {
-      fetchImageModelsMock.mockResolvedValueOnce({
-        models: [
-          {
-            id: "google/gemini-2.0-flash-exp:free",
-            pricing: { imageOutput: "0.10" },
-            usesEmergencyPricing: true,
-          },
-        ],
-      });
-      mockFetchResponse = {
-        ok: true,
-        status: 200,
-        json: async () => ({
-          id: "gen-123",
-          choices: [
-            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-          ],
-        }),
-      };
-
+    it.each(["missing-default", "unpriced"])("rejects %s before reserving or calling a paid provider", async kind => {
+      fetchImageModelsMock.mockResolvedValueOnce({ models: kind === "missing-default" ? [] : [{ ...imageModelFixture(), billing: undefined, availability: "unavailable" }] });
       const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Emergency fallback pricing test");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-      const reserveCall = mockState.callHistory.find((c) => c.action === "reserveCredits");
-      expect(reserveCall).toBeDefined();
-      expect((reserveCall?.args as { amount: number }).amount).toBe(13);
-    });
-
-    it("token-priced image models fall back to the default estimate instead of failing", async () => {
-      fetchImageModelsMock.mockResolvedValueOnce({
-        models: [
-          { id: "google/gemini-2.0-flash-exp:free", pricing: { imageOutput: "0.01" } },
-          { id: "openai/gpt-5-image", creditsCost: null, reservationCreditsCost: null },
-        ],
-      });
-      mockFetchResponse = {
-        ok: true,
-        status: 200,
-        json: async () => ({
-          id: "gen-123",
-          choices: [
-            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-          ],
-          usage: { cost: 0.05 },
-        }),
-      };
-
-      const { POST } = await import("../../generate-image/route");
-
-      const request = createGenerateImageRequest({
-        text: "Token priced image model",
-        reference: "Genesis 1:1",
-        model: "openai/gpt-5-image",
-      });
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-      expect(getCallCount("quoteUsdCost")).toBe(1);
-
-      const estimateCall = mockState.callHistory.find((c) => c.action === "getEstimate");
-      expect(estimateCall).toBeDefined();
-      expect((estimateCall?.args as { fallbackCredits: number }).fallbackCredits).toBe(20);
-
-      const reserveCall = mockState.callHistory.find((c) => c.action === "reserveCredits");
-      expect(reserveCall).toBeDefined();
-      expect((reserveCall?.args as { amount: number }).amount).toBe(20);
+      const response = await POST(createGenerateImageRequest({ reference: "Genesis 1:1" }));
+      expect(response.status).toBe(400);
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+      expect(getCallCount("quoteUsdCost")).toBe(0);
+      expect(mockFetch.mock.calls.some(([input]) => String(input).includes("chat/completions"))).toBe(false);
     });
 
     it("actual-usage-local-fallback: quote failure still charges from usage.cost", async () => {
@@ -1150,7 +1025,17 @@ describe("Image Generation API Credit Flow", () => {
       expect(body.neutralCostUsedForActual).toBe(false);
     });
 
-    it("resolution-multiplier-supported-gemini: applies 3.5x for 2K on Gemini 3.1 image preview", async () => {
+    it.each(["1K", "2K", "4K"])("uses the same %s quote in discovery and admission", async resolution => {
+      const { GET } = await import("../../image-models/route");
+      const discovery = await (await GET()).json();
+      const model = discovery.models.find((m: { id: string }) => m.id === "google/gemini-3.1-flash-image-preview");
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest({ reference: "Genesis 1:1", model: model.id, resolution }));
+      expect(response.status).toBe(200);
+      expect((await response.json()).estimatedCreditsCost).toBe(model.estimatedCreditsByResolution[resolution]);
+    });
+
+    it("quotes documented output tokens for 2K on Gemini 3.1 image preview", async () => {
       mockFetchResponse = {
         ok: true,
         status: 200,
@@ -1177,46 +1062,16 @@ describe("Image Generation API Credit Flow", () => {
 
       const body = await response.json();
       expect(body.resolution).toBe("2K");
-      expect(body.resolutionMultiplier).toBe(3.5);
+      expect(body.catalogEstimatedProviderUsd).toBeCloseTo(0.0252);
+      expect(body.estimatedCreditsCost).toBe(4);
       expect(body.resolutionSupported).toBe(true);
     });
 
-    it("resolution-ignored-unsupported-models: no multiplier for unsupported models", async () => {
-      mockFetchResponse = {
-        ok: true,
-        status: 200,
-        json: async () => ({
-          id: "gen-123",
-          choices: [
-            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-          ],
-          usage: { cost: 0.04 },
-        }),
-      };
-
+    it.each(["4K", "8K"])("rejects unsupported default-model resolution %s before payment", async resolution => {
       const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Test verse");
-      url.searchParams.set("model", "openai/dall-e-3");
-      url.searchParams.set("resolution", "4K");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-
-      const body = await response.json();
-      expect(body.resolutionMultiplier).toBe(1.0);
-      expect(body.resolutionSupported).toBe(false);
-      const estimateCall = mockState.callHistory.find((entry) => entry.action === "getEstimate");
-      expect(estimateCall).toBeDefined();
-      expect((estimateCall?.args as { resolution: string }).resolution).toBe("1K");
-      const recordActualCostCall = mockState.callHistory.find(
-        (entry) => entry.action === "recordActualCost"
-      );
-      expect(recordActualCostCall).toBeDefined();
-      expect((recordActualCostCall?.args as { resolution: string }).resolution).toBe("1K");
+      const response = await POST(createGenerateImageRequest({ reference: "Genesis 1:1", resolution }));
+      expect(response.status).toBe(400);
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
     });
 
     it("resolution-ignored-gemini-2-5: omits image_size for Gemini 2.5 Flash Image", async () => {
@@ -1246,7 +1101,7 @@ describe("Image Generation API Credit Flow", () => {
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
       url.searchParams.set("model", "google/gemini-2.5-flash-image");
-      url.searchParams.set("resolution", "4K");
+      url.searchParams.set("resolution", "1K");
 
       const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
       const response = await POST(request);
@@ -1257,8 +1112,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(capturedImageConfig).toEqual({
         aspect_ratio: "16:9",
       });
-      expect(body.resolution).toBe("4K");
-      expect(body.resolutionMultiplier).toBe(1.0);
+      expect(body.resolution).toBe("1K");
       expect(body.resolutionSupported).toBe(false);
     });
 
@@ -1615,7 +1469,7 @@ describe("Image Generation API Credit Flow", () => {
 
       expect(response.status).toBe(400);
       const body = await response.json();
-      expect(body.error).toBe("Model not available");
+      expect(body.error).toBe("Model or settings unavailable");
     });
   });
 });

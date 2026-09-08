@@ -219,6 +219,18 @@ describe("HeroImage interactions", () => {
     });
   }
 
+  it("does not submit generation when the saved model is absent from the catalog", async () => {
+    const registerGenerate = vi.fn<(callback: () => void) => void>();
+    const updateState = vi.fn();
+    useGenerationMock.mockReturnValue({ registerGenerate, updateState, unregisterGenerate: vi.fn(),
+      registerBuyCredits: vi.fn(), registerSettings: vi.fn() } as never);
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({ models: [], scenePlannerCreditsCost: 0 }) });
+    await renderHeroImage();
+    expect(updateState.mock.lastCall?.[0]).toMatchObject({ canGenerate: false, pricingUnavailable: "Saved model unavailable. Choose another model." });
+    await act(async () => { registerGenerate.mock.lastCall![0](); });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
   it.each(["failure", "navigation"])("follows HTTP 202 and exits the busy state on %s", async (outcome) => {
     const registerGenerate = vi.fn<(callback: () => void) => void>();
     const updateState = vi.fn();

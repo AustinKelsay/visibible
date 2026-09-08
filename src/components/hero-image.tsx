@@ -296,6 +296,9 @@ function HeroImageWithConvex({
 }
 
 interface ModelPricing {
+  modelId?: string;
+  availability?: "available" | "stale" | "unavailable";
+  unavailableReason?: string;
   creditsCost: number | null;
   reservationCreditsCost: number | null;
   estimatedCreditsByResolution?: Partial<Record<ImageResolution, number>>;
@@ -344,53 +347,43 @@ function HeroImageBase({
   });
   const [scenePlannerCreditsCost, setScenePlannerCreditsCost] = useState(0);
   const [pricingLoaded, setPricingLoaded] = useState(false);
-  const modelPricingCache = useRef<Map<string, ModelPricing>>(new Map());
 
   useEffect(() => {
     let isCancelled = false;
     setPricingLoaded(false);
 
-    // Check cache first
-    const cached = modelPricingCache.current.get(imageModel);
-    if (cached) {
-      setModelPricing(cached);
-      setPricingLoaded(true);
-      return;
-    }
-
     // Fetch models to get pricing for current model
     fetch("/api/image-models", { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
+        if (isCancelled) return;
         setScenePlannerCreditsCost(
           typeof data.scenePlannerCreditsCost === "number"
             ? data.scenePlannerCreditsCost
             : 0
         );
-        if (data.models) {
-          // Cache all models
-          for (const model of data.models) {
-            modelPricingCache.current.set(model.id, {
-              creditsCost: model.creditsCost,
-              reservationCreditsCost: model.reservationCreditsCost ?? null,
-              estimatedCreditsByResolution: model.estimatedCreditsByResolution,
-              etaSeconds: model.etaSeconds ?? 12,
-            });
-          }
+        if (Array.isArray(data.models)) {
           // Set current model pricing
           const current = data.models.find((m: { id: string }) => m.id === imageModel);
           if (current) {
             setModelPricing({
+              modelId: imageModel,
+              availability: current.availability,
+              unavailableReason: current.unavailableReason,
               creditsCost: current.creditsCost,
               reservationCreditsCost: current.reservationCreditsCost ?? null,
               estimatedCreditsByResolution: current.estimatedCreditsByResolution,
               etaSeconds: current.etaSeconds ?? 12,
             });
+          } else {
+            setModelPricing({ modelId: imageModel, creditsCost: null, reservationCreditsCost: null, etaSeconds: 12, availability: "unavailable", unavailableReason: "Saved model unavailable. Choose another model." });
           }
+        } else {
+          throw new Error("Invalid image catalog");
         }
       })
       .catch(() => {
-        // Keep defaults on error
+        if (!isCancelled) setModelPricing({ modelId: imageModel, creditsCost: null, reservationCreditsCost: null, etaSeconds: 12, availability: "unavailable", unavailableReason: "Image pricing unavailable. Reopen the reader to retry." });
       })
       .finally(() => {
         if (!isCancelled) {
@@ -431,18 +424,15 @@ function HeroImageBase({
   const displayCostByResolution = modelPricing.estimatedCreditsByResolution;
   const effectiveEta = modelPricing.etaSeconds;
   const isAdmin = tier === "admin";
-  const pricingPending = isConvexEnabled && !isAdmin && !pricingLoaded;
-  const canGenerate =
-    !isConvexEnabled ||
-    isAdmin ||
-    (pricingLoaded &&
-      tier === "paid" &&
-      canAffordImageGeneration(credits, effectiveCost));
-  const canAutoGenerate =
-    !isConvexEnabled ||
-    isAdmin ||
-    (pricingLoaded && tier === "paid" && credits >= effectiveCost);
-  const showCreditsCost = isConvexEnabled && !isAdmin && pricingLoaded;
+  const pricingAvailable = pricingLoaded && modelPricing.modelId === imageModel && modelPricing.creditsCost !== null && modelPricing.availability !== "unavailable";
+  const pricingPending = isConvexEnabled && (!pricingLoaded || modelPricing.modelId !== imageModel);
+  const pricingUnavailable = pricingLoaded && !pricingPending && !pricingAvailable
+    ? modelPricing.unavailableReason ?? "Image pricing unavailable. Choose an available model."
+    : undefined;
+  const canGenerate = pricingAvailable && (isAdmin ||
+    (tier === "paid" && canAffordImageGeneration(credits, effectiveCost)));
+  const canAutoGenerate = pricingAvailable && (isAdmin || (tier === "paid" && credits >= effectiveCost));
+  const showCreditsCost = isConvexEnabled && !isAdmin && pricingAvailable;
 
   // Create verse ID for Convex query
   const verseId = currentReference ? createVerseId(currentReference) : null;
@@ -901,12 +891,13 @@ function HeroImageBase({
 
   // Manual regenerate function - resets load attempts and queues a new image
   const handleManualRegenerate = useCallback((source: GenerationTriggerSource = "hero_retry") => {
+    if (pricingPending || pricingUnavailable) return;
     setImageLoadAttempts(0);
     setError(null);
     setGeneratedImage(null);
     setPendingImageId(null);
     generateImage(source);
-  }, [generateImage]);
+  }, [generateImage, pricingPending, pricingUnavailable]);
 
   useEffect(() => {
     handleManualRegenerateRef.current = handleManualRegenerate;
@@ -956,6 +947,7 @@ function HeroImageBase({
       canGenerate,
       isGenerating,
       pricingPending,
+      pricingUnavailable,
       effectiveCost,
       effectiveEta,
       showCreditsCost,
@@ -972,6 +964,7 @@ function HeroImageBase({
     canGenerate,
     isGenerating,
     pricingPending,
+    pricingUnavailable,
     effectiveCost,
     effectiveEta,
     showCreditsCost,
@@ -1389,6 +1382,8 @@ function HeroImageBase({
                       <Loader2 size={18} strokeWidth={2} className="animate-spin" />
                       <span className="text-sm font-medium">Loading pricing...</span>
                     </button>
+                  ) : pricingUnavailable ? (
+                    <p className="text-sm text-[var(--muted)] px-4 text-center">{pricingUnavailable}</p>
                   ) : canGenerate ? (
                     <button
                       onClick={() => handleManualRegenerate("hero_generate")}
@@ -1654,7 +1649,9 @@ function HeroImageBase({
                         <Loader2 size={18} strokeWidth={2} className="animate-spin" />
                         <span className="text-sm font-medium">Loading pricing...</span>
                       </button>
-                    ) : canGenerate ? (
+                    ) : pricingUnavailable ? (
+                    <p className="text-sm text-[var(--muted)] px-4 text-center">{pricingUnavailable}</p>
+                  ) : canGenerate ? (
                       <button
                         onClick={() => handleManualRegenerate("hero_generate")}
                         className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white text-black hover:bg-white/90 transition-colors duration-[var(--motion-fast)]"

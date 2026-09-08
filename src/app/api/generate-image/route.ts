@@ -1,3 +1,4 @@
+import { catalogImageQuote, imageCapabilities } from "@/lib/image-catalog";
 import {
   PROMPT_VERSION, DEFAULT_STYLE_PROFILE, STYLE_PROFILES,
   normalizeScenePlan, extractJsonObject, clipText,
@@ -9,20 +10,15 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import {
   DEFAULT_IMAGE_MODEL,
-  DEFAULT_CREDITS_COST,
   fetchImageModels,
-  computeAdjustedCreditsCost,
   CONSERVATIVE_ESTIMATE_MULTIPLIER,
   getProviderName,
   CREDIT_USD,
   canAffordImageGeneration,
   DEFAULT_ASPECT_RATIO,
   DEFAULT_RESOLUTION,
-  RESOLUTIONS,
   isValidAspectRatio,
   isValidResolution,
-  normalizeResolutionForModel,
-  supportsResolution,
   ImageAspectRatio,
   ImageResolution,
 } from "@/lib/image-models";
@@ -525,6 +521,10 @@ export async function POST(request: Request) {
     : DEFAULT_ASPECT_RATIO;
 
   // Validate and set resolution (default: 1K)
+  if ((requestedResolution && !isValidResolution(requestedResolution)) ||
+      (requestedAspectRatio && !isValidAspectRatio(requestedAspectRatio))) {
+    return jsonWithSessionRefresh({ error: "Unsupported image settings" }, { status: 400 });
+  }
   const resolution: ImageResolution = requestedResolution && isValidResolution(requestedResolution)
     ? requestedResolution
     : DEFAULT_RESOLUTION;
@@ -567,11 +567,6 @@ export async function POST(request: Request) {
   }
 
   let modelId = DEFAULT_IMAGE_MODEL;
-  let modelPricing: string | undefined;
-  let modelUsesEmergencyPricing = false;
-  let selectedModel:
-    | Awaited<ReturnType<typeof fetchImageModels>>["models"][number]
-    | undefined;
   const parseGenerationNumber = (
     value: GenerateImageRequestBody["generation"]
   ): number | null => {
@@ -623,34 +618,17 @@ export async function POST(request: Request) {
   // SECURITY: Validate model exists and has pricing to prevent cost abuse
   const result = await fetchImageModels(openRouterApiKey);
 
-  if (requestedModelId && requestedModelId !== DEFAULT_IMAGE_MODEL) {
-    const foundModel = result.models.find(
-      (model) => model.id === requestedModelId
-    );
-    if (!foundModel) {
-      return jsonWithSessionRefresh(
-        {
-          error: "Model not available",
-          message: `The model "${requestedModelId}" is not available. Please select a different model.`,
-        },
-        { status: 400 }
-      );
-    }
-    selectedModel = foundModel;
-    modelId = requestedModelId;
-    modelPricing = foundModel.pricing?.imageOutput;
-    modelUsesEmergencyPricing = foundModel.usesEmergencyPricing === true;
-  } else {
-    // Use default model, but still validate it exists and has pricing
-    const foundModel = result.models.find((model) => model.id === modelId);
-    selectedModel = foundModel;
-    modelPricing = foundModel?.pricing?.imageOutput;
-    modelUsesEmergencyPricing = foundModel?.usesEmergencyPricing === true;
+  modelId = requestedModelId || DEFAULT_IMAGE_MODEL;
+  const selectedModel = result.models.find(model => model.id === modelId);
+  const capabilities = imageCapabilities(modelId);
+  const catalogQuote = catalogImageQuote(modelId, selectedModel?.billing, resolution);
+  if (!selectedModel || selectedModel.availability === "unavailable" || !catalogQuote ||
+      !capabilities?.aspectRatios.includes(aspectRatio)) {
+    return jsonWithSessionRefresh({
+      error: "Model or settings unavailable",
+      message: selectedModel?.unavailableReason ?? "Choose an available model and a supported resolution before generating.",
+    }, { status: 400 });
   }
-
-  const parsedModelPricingUsd = modelPricing ? Number.parseFloat(modelPricing) : Number.NaN;
-  const hasCatalogImagePricing =
-    Number.isFinite(parsedModelPricingUsd) && parsedModelPricingUsd > 0;
 
   const quoteUsdCost = async (
     usd: number
@@ -676,69 +654,14 @@ export async function POST(request: Request) {
     }
   };
 
-  const fallbackBaseImageCreditsCost =
-    selectedModel?.creditsCost ?? DEFAULT_CREDITS_COST;
-  const baseImageQuote = hasCatalogImagePricing
-    ? await quoteUsdCost(parsedModelPricingUsd)
-    : {
-        credits: fallbackBaseImageCreditsCost,
-        billedUsd: fallbackBaseImageCreditsCost * CREDIT_USD,
-        viaNeutralCost: false,
-      };
-  const baseImageCreditsCost = baseImageQuote.credits;
+  const modelSupportsResolution = capabilities.resolutions.length > 1;
+  const learnedEstimateResolution = resolution;
+  // Historical model/provider/global samples are unversioned. T05 restores
+  // learned quotes after validating freshness, sample count and pricing identity.
+  const imageCreditsCost = catalogQuote.credits;
 
-  if (!hasCatalogImagePricing) {
-    console.warn(
-      `[Image API] Missing catalog image pricing for model=${modelId}; using fallback estimate=${fallbackBaseImageCreditsCost} credits`
-    );
-  }
-
-  // Check if this model supports resolution settings
-  // Only certain models (currently Gemini) support configurable resolution
-  const modelSupportsResolution = supportsResolution(modelId);
-  const learnedEstimateResolution = normalizeResolutionForModel(
-    modelId,
-    resolution
-  );
-
-  // Apply resolution multiplier only if model supports it
-  // This prevents charging users extra for resolution settings that are ignored
-  const fallbackImageCreditsCost = computeAdjustedCreditsCost(
-    baseImageCreditsCost,
-    resolution,
-    modelId
-  );
-  let imageCreditsCost = fallbackImageCreditsCost;
-
-  try {
-    const learnedEstimate = await convex.query(api.modelCostStats.getEstimate, {
-      modelId,
-      resolution: learnedEstimateResolution,
-      fallbackCredits: fallbackImageCreditsCost,
-      serverSecret,
-    });
-    imageCreditsCost = learnedEstimate.credits;
-  } catch (error) {
-    console.warn("[Image API] Failed to fetch learned image cost estimate:", error);
-  }
-
-  // Compute conservative estimate for reservation (accounts for OpenRouter API pricing discrepancy)
-  // The OpenRouter models API often underreports actual costs for multimodal image models
-  // Emergency fallback prices are already conservative final-price baselines.
-  // Avoid applying the catalog underreporting multiplier twice in outage mode.
-  const baseReservationCredits =
-    selectedModel?.reservationCreditsCost ??
-    (hasCatalogImagePricing
-      ? Math.ceil(
-          baseImageCreditsCost *
-            (modelUsesEmergencyPricing ? 1 : CONSERVATIVE_ESTIMATE_MULTIPLIER)
-        )
-      : baseImageCreditsCost);
-  const reservationImageCredits = computeAdjustedCreditsCost(
-    baseReservationCredits,
-    resolution,
-    modelId
-  );
+  // Preserve the legacy hold policy until T04 replaces it with accepted maxima.
+  const reservationImageCredits = catalogQuote.credits * CONSERVATIVE_ESTIMATE_MULTIPLIER;
 
   // Determine scene planner settings early for cost calculation
   const enableScenePlanner = isScenePlannerEnabled();
@@ -1548,7 +1471,8 @@ export async function POST(request: Request) {
           aspectRatio,
           resolution,
           // Only show actual multiplier if model supports resolution
-          resolutionMultiplier: modelSupportsResolution ? RESOLUTIONS[resolution].multiplier : 1.0,
+          billingVersion: selectedModel.billing?.version,
+          catalogEstimatedProviderUsd: catalogQuote.providerUsd,
           resolutionSupported: modelSupportsResolution,
           ...(updatedCredits !== undefined && { credits: updatedCredits }),
         },

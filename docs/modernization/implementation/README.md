@@ -107,3 +107,19 @@ Local regressions exercise actual Convex settlement handlers, overlapping reserv
 The live unavailable-identity browser check rendered Genesis 1:1 and reconnect controls at the same URL. [Unavailable-access screenshot](screenshots/wallet-unavailable.png). The authenticated two-tab session reported no browser console errors. Final local checks pass **549 tests across 60 files**, lint and type checking.
 
 CodeRabbit reviewed all 19 wallet code files and raised one issue: focus renewal reset the shared loading state. Background identity renewal now preserves established authentication/loading state; a rendered provider regression checks initial loading, silent renewal and invalid-access clearing.
+
+## Verified image catalog checkpoint (T03 / #59)
+
+Image quotes now use explicit output-token pricing and documented model/resolution quantities, with provenance. A shared exact decimal calculation includes text allowances and rounds once; discovery and admission exercise that same calculation. Removed input-image-as-output pricing, unsupported resolution multipliers, synthetic live defaults, and model-list-triggered historical backfill. The existing generation API, default model and response parsing remain unchanged.
+
+Unversioned cost samples cannot override this baseline. T05 remains responsible for fresh, settings/version-aware learned estimates. Legacy hold policy remains until T04 introduces visible accepted maxima; this checkpoint does not claim bounded provider exposure or a guaranteed maximum charge.
+
+Real provider catalog fixtures cover missing input-image pricing, malformed output rates, zero cost, unknown billing/capabilities, resolution token counts, vanished defaults, stale snapshots and expiry. Route tests now use the production adapter instead of copied pricing functions. They compare discovery/admission at all three resolutions and reject invalid settings before paid work. Rendered selector/preference tests cover disabled models, stale labels, unavailable saved preferences and resolution normalization.
+
+The local app uses Convex dev for identity, wallet and ETA data. Its live catalog displays verified choices and disabled unverified choices; supported resolution quotes differ as expected. No new Convex function/schema deployment is needed for this Next.js/catalog slice, and no paid generation or LND call was used for verification.
+
+The saved-preference browser scenario kept the reader visible, disabled generation for a removed model, normalized its unsupported 4K preference to 1K, and recovered after explicitly selecting the default. No browser console errors were reported. Screenshots: [verified catalog](screenshots/image-catalog-verified.png), [unavailable saved model](screenshots/image-model-unavailable.png).
+
+CodeRabbit reviewed 21 code/fixture files and raised two minor issues: premature/duplicate availability messages and enabling resolutions without a quote. Both are corrected. Rendered tests cover warning timing, one error message, and desktop/mobile controls for a partially quoted model.
+
+Final T03 checks: **567 tests across 62 files**, lint and type checking pass. The 390-pixel browser view fits without horizontal overflow and retains Scripture without a framework overlay. No production deployment or live paid verification occurred.

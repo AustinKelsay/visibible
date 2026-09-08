@@ -1,3 +1,4 @@
+import { imageModelFixture } from "../shared/image-model-fixtures";
 /**
  * Integration tests for scene planner settlement logic.
  * Tests planner cost inclusion/exclusion in final charged amounts.
@@ -190,36 +191,10 @@ vi.mock("@/lib/convex-client", () => ({
 // Track if scene planner is free
 const mockIsModelFree = { value: false };
 
-vi.mock("@/lib/image-models", async () => {
-  const actual = await vi.importActual<typeof import("@/lib/image-models")>(
-    "@/lib/image-models"
-  );
-  return {
-    ...actual,
-    DEFAULT_IMAGE_MODEL: "google/gemini-2.0-flash-exp:free",
-    fetchImageModels: vi.fn(async () => ({
-      models: [
-        { id: "google/gemini-2.0-flash-exp:free", pricing: { imageOutput: "0.01" } },
-      ],
-    })),
-    computeCreditsCost: vi.fn(() => 2),
-    computeConservativeEstimate: vi.fn(() => 70),
-    computeAdjustedCreditsCost: vi.fn((baseCost: number | null) => baseCost ?? 13),
-    computeCreditsFromActualUsage: vi.fn((actualUsd: number | null, fallback: number) => {
-      if (actualUsd === null || actualUsd <= 0) {
-        return { credits: fallback, usedActual: false };
-      }
-      return { credits: Math.ceil(actualUsd * 1.25 / 0.01), usedActual: true };
-    }),
-    CONSERVATIVE_ESTIMATE_MULTIPLIER: 35,
-    getProviderName: vi.fn(() => "openrouter"),
-    CREDIT_USD: 0.01,
-    PREMIUM_MULTIPLIER: 1.25,
-    normalizeResolutionForModel: vi.fn((modelId: string, resolution: string) =>
-      modelId.toLowerCase().includes("gemini") ? resolution : "1K"
-    ),
-  };
-});
+vi.mock("@/lib/image-models", async () => ({
+  ...await vi.importActual<typeof import("@/lib/image-models")>("@/lib/image-models"),
+  fetchImageModels: vi.fn(async () => ({ models: [imageModelFixture()] })),
+}));
 
 vi.mock("@/lib/chat-models", () => ({
   DEFAULT_CHAT_MODEL: "test/scene-planner-model",
@@ -375,7 +350,7 @@ describe("Scene Planner Refund Logic", () => {
       expect(body.scenePlannerUsed).toBe(true);
       expect(body.scenePlannerCredits).toBe(SCENE_PLANNER_CREDITS);
       expect(getCallCount("sessions:addCredits")).toBe(0); // No refund
-      expect(body.estimatedCreditsCost).toBe(7);
+      expect(body.estimatedCreditsCost).toBe(3);
       expect(body.creditsCost).toBe(4);
     });
   });

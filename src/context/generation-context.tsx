@@ -11,6 +11,7 @@ export interface GenerationState {
   canGenerate: boolean;
   isGenerating: boolean;
   pricingPending: boolean;
+  pricingUnavailable?: string;
   effectiveCost: number;
   effectiveEta: number;
   showCreditsCost: boolean;

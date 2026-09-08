@@ -8,7 +8,6 @@ import { useSession } from "@/context/session-context";
 import { trackCreditsInsufficient } from "@/lib/analytics";
 import {
   type ImageModel,
-  DEFAULT_IMAGE_MODEL,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
   getEstimatedCreditsCostForResolution,
 } from "@/lib/image-models";
@@ -35,6 +34,7 @@ export function HeaderGenerateButton() {
     canGenerate,
     isGenerating,
     pricingPending,
+    pricingUnavailable,
     showCreditsCost,
     generationPhaseLabel,
     aspectRatio,
@@ -64,20 +64,13 @@ export function HeaderGenerateButton() {
     return () => { document.body.style.overflow = ""; };
   }, [isModalOpen]);
 
-  // Reset fetch guard on close so a failed fetch can be retried on next open
   useEffect(() => {
-    if (!isModalOpen && modelsError) {
-      hasFetchedModels.current = false;
-      queueMicrotask(() => {
-        setModelsError(null);
-        setModels([]);
-      });
-    }
-  }, [isModalOpen, modelsError]);
+    if (!isModalOpen) hasFetchedModels.current = false;
+  }, [isModalOpen]);
 
   // Lazy-fetch models when modal opens
   useEffect(() => {
-    if (isModalOpen && !hasFetchedModels.current && !modelsError) {
+    if (isModalOpen && !hasFetchedModels.current) {
       hasFetchedModels.current = true;
 
       queueMicrotask(() => {
@@ -101,15 +94,7 @@ export function HeaderGenerateButton() {
           .catch((err) => {
             console.error("Failed to fetch image models:", err);
             setModelsError("Failed to load models");
-            setModels([
-              {
-                id: DEFAULT_IMAGE_MODEL,
-                name: "Gemini 2.5 Flash (Default)",
-                provider: "Google",
-                creditsCost: DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
-                etaSeconds: 12,
-              },
-            ]);
+            setModels([]);
             setScenePlannerCreditsCost(0);
           })
           .finally(() => setModelsLoading(false));
@@ -192,6 +177,9 @@ export function HeaderGenerateButton() {
             <span>Loading...</span>
           </button>
         </>
+      ) : pricingUnavailable ? (
+        <button onClick={() => openGenerateModal("single")} title={pricingUnavailable}
+          className="text-xs px-3 py-2 text-[var(--muted)]">Choose model</button>
       ) : canGenerate ? (
         <>
           <button
