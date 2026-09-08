@@ -283,6 +283,7 @@ export default defineSchema({
 
   // Credit transaction ledger for auditing
   creditLedger: defineTable({
+    pendingReservation: v.optional(v.boolean()), // Indexed read projection; amounts remain immutable.
     sid: v.string(),
     delta: v.number(), // positive (purchase/refund) or negative (generation)
     reason: v.string(), // "purchase" | "generation" | "refund"
@@ -293,6 +294,7 @@ export default defineSchema({
     createdAt: v.number(),
   })
     .index("by_sid", ["sid", "createdAt"])
+    .index("by_sid_pending", ["sid", "pendingReservation"])
     .index("by_generationId", ["generationId", "sid"])
     .index("by_reason_createdAt", ["reason", "createdAt"])
     .index("by_invoiceId", ["invoiceId"]),

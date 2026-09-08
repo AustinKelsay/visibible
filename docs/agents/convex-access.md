@@ -1,6 +1,6 @@
 # Convex function access inventory
 
-This inventory covers every registered function in `convex/*.ts` at the T08 checkpoint. Internal helpers and generated component bindings are not client endpoints. Public image API projections remain unchanged. A supplied SID is a compatibility selector, never proof of ownership. Invalid/expired/revoked identities receive no private query data; private controls reject unauthorized calls. Current tier comes from the database.
+This inventory covers every registered function in `convex/*.ts` through the T10 checkpoint. Internal helpers and generated component bindings are not client endpoints. Public image API projections remain unchanged. A supplied SID is a compatibility selector, never proof of ownership. Invalid/expired/revoked identities receive no private query data; private controls reject unauthorized calls. Current tier comes from the database.
 
 Server-secret reads are reserved for Next.js after cookie validation and for trusted backend work. Invoice HTTP reads pass `ownerSid` to enforce current, non-revoked ownership before returning data. Settlement remains server/internal so accepted payments can still credit retained records. Bulk outcome writes remain available to the verified owning guest while the legacy browser worker exists; making them worker-only belongs to S06.
 
@@ -96,3 +96,4 @@ Server-secret reads are reserved for Next.js after cookie validation and for tru
 | `verseImages:recordNostrPublication` | internalMutation | Internal | Convex internal dispatch only |
 | `verseImages:saveImageWithUrl` | internalMutation | Internal | Convex internal dispatch only |
 | `verseImages:saveImage` | action | Server | CONVEX_SERVER_SECRET |
+| `walletMigration:backfillPendingHolds` | internalMutation | Internal | Explicit paginated reservation-projection backfill; no monetary field changes |

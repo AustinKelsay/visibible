@@ -93,3 +93,17 @@ T08 live dev verification passed for owner reads/control, known-ID isolation fro
 Final T07/T08 local checks: **539 tests across 57 files**, lint and type checking pass. Reconnect/focus behavior and almost-expired-cookie issuance have explicit regressions. The first uncommitted CodeRabbit review omitted new files; the follow-up is scoped from `5584b98` to include the complete auth/access changes.
 
 The broader CodeRabbit review covered 36 files and raised three issues. The cookie-expiry route references and environment documentation were already correct in the current tree. Moved the hook's subject-ref update to a committed layout effect and added a suspended-render regression for the remaining issue. A real browser stayed open beyond five minutes: token requests increased from two initial handshakes to three without a page reload, confirming scheduled refresh; no console errors were reported.
+
+## Reactive wallet checkpoint (T10 / #66)
+
+One authenticated Convex query supplies available credits, pending holds and tier. Cookie bootstrap now lives outside the authenticated provider; monetary state lives inside it. Removed local subtraction and periodic/event-driven balance refreshes from single-image, bulk and purchase flows. Unavailable access shows reconnect controls, separately from loading and a verified zero balance.
+
+An indexed reservation marker is maintained transactionally with reserve, charge, release and stale reconciliation. The explicit dev backfill classified 26 existing rows in one page, with zero unlinked reservations and no changes to balances or ledger amounts. [Rollout notes](../../agents/guest-auth.md#reactive-wallet-rollout) describe ordering and rollback constraints.
+
+Two live browser tabs using the same guest followed actual Convex ledger mutations without reloading: 100 available → 50 available / 50 held → 150 / 50 → 170 / 20 → 190 / 0. The scenario used a synthetic credit addition, not LND. Both tabs then observed zero after fixture cleanup. Temporary verification functions and synthetic ledger entries were removed. [Pending-hold screenshot](screenshots/wallet-pending-holds.png).
+
+Local regressions exercise actual Convex settlement handlers, overlapping reservations, repeated refund/charge, all charge outcomes, stale recovery, and paginated legacy backfill with settlement between pages. Rendered UI tests verify reactive results, cached-identity isolation, loading, reconnect and zero-balance states.
+
+The live unavailable-identity browser check rendered Genesis 1:1 and reconnect controls at the same URL. [Unavailable-access screenshot](screenshots/wallet-unavailable.png). The authenticated two-tab session reported no browser console errors. Final local checks pass **549 tests across 60 files**, lint and type checking.
+
+CodeRabbit reviewed all 19 wallet code files and raised one issue: focus renewal reset the shared loading state. Background identity renewal now preserves established authentication/loading state; a rendered provider regression checks initial loading, silent renewal and invalid-access clearing.

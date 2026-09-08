@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { ConvexClientProvider } from "@/components/convex-client-provider";
+import { GuestSessionProvider } from "@/context/guest-session-context";
 import { SessionProvider } from "@/context/session-context";
 import { NavigationProvider } from "@/context/navigation-context";
 import { PreferencesProvider } from "@/context/preferences-context";
@@ -41,22 +42,24 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SessionProvider>
+        <GuestSessionProvider>
           <ConvexClientProvider>
-            <PreferencesProvider>
-              <NavigationProvider>
-                <GenerationProvider>
-                  <BulkGenerationProvider>
-                    {children}
-                    <ChatSidebar />
-                    <FeedbackPrompt />
-                    <BuyCreditsModal />
-                  </BulkGenerationProvider>
-                </GenerationProvider>
-              </NavigationProvider>
-            </PreferencesProvider>
+            <SessionProvider>
+              <PreferencesProvider>
+                <NavigationProvider>
+                  <GenerationProvider>
+                    <BulkGenerationProvider>
+                      {children}
+                      <ChatSidebar />
+                      <FeedbackPrompt />
+                      <BuyCreditsModal />
+                    </BulkGenerationProvider>
+                  </GenerationProvider>
+                </NavigationProvider>
+              </PreferencesProvider>
+            </SessionProvider>
           </ConvexClientProvider>
-        </SessionProvider>
+        </GuestSessionProvider>
         {enableVercelAnalytics ? <Analytics /> : null}
       </body>
     </html>

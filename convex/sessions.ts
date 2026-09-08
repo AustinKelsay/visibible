@@ -1,3 +1,4 @@
+import { closePendingHolds } from "./_helpers/pendingHolds";
 import { authenticatedGuest } from "./guestAuth";
 import { action, internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
@@ -597,6 +598,7 @@ export const reconcileStaleReservations = internalMutation({
             createdAt: now,
           });
 
+          await closePendingHolds(ctx, ledgerEntries);
           released += 1;
           totalRefundedCredits += reservedAmount;
         }
@@ -815,6 +817,7 @@ export const reserveCreditsInternal = internalMutation({
       sid: args.sid,
       delta: -args.amount,
       reason: "reservation",
+      pendingReservation: true,
       modelId: args.modelId,
       costUsd: args.costUsd,
       generationId: args.generationId,
@@ -869,6 +872,8 @@ export const releaseReservationInternal = internalMutation({
 
     const reservedAmount = settlement.reservedAmount;
     const reservationCostUsd = settlement.reservationCostUsd;
+
+    await closePendingHolds(ctx, ledgerEntries);
 
     // Restore credits
     const newCredits = session.credits + reservedAmount;
@@ -969,6 +974,8 @@ export const deductCreditsInternal = internalMutation({
         chargeAmount,
         chargeCostUsd,
       });
+
+      await closePendingHolds(ctx, ledgerEntries);
 
       if (settlementOutcome.mode === "refund_excess") {
         // Actual was less than reserved - refund the excess

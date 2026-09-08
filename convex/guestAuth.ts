@@ -29,7 +29,13 @@ export const current = query({
   args: {},
   handler: async (ctx) => {
     const session = await authenticatedGuest(ctx);
-    return session ? { sid: session.sid, tier: session.tier, credits: session.credits } : null;
+    if (!session) return null;
+    const holds = await ctx.db.query("creditLedger")
+      .withIndex("by_sid_pending", (q) => q.eq("sid", session.sid).eq("pendingReservation", true)).collect();
+    return {
+      sid: session.sid, tier: session.tier, credits: session.credits,
+      pendingCredits: holds.reduce((total, hold) => total + Math.abs(hold.delta), 0),
+    };
   },
 });
 

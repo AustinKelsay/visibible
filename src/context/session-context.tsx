@@ -1,142 +1,39 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  ReactNode,
-} from "react";
+import { createContext, useContext, type ReactNode } from "react";
+import { useConvexAuth, useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import { useGuestSession } from "./guest-session-context";
 
-interface SessionContextType {
-  sid: string | null;
+type SessionContextType = ReturnType<typeof useGuestSession> & {
   tier: "paid" | "admin";
   credits: number;
-  isLoading: boolean;
-  error: string | null;
-  refetch: () => Promise<void>;
-  updateCredits: (newBalance: number) => void;
-  buyCredits: () => void;
-  isBuyModalOpen: boolean;
-  closeBuyModal: () => void;
-}
-
+  pendingCredits: number;
+  accessStatus: "loading" | "ready" | "unavailable";
+};
 const SessionContext = createContext<SessionContextType | null>(null);
 
-interface SessionResponse {
-  sid: string | null;
-  tier: "paid" | "admin";
-  credits: number;
-  status?: "missing" | "invalid";
-  invalidReason?: "expired" | "invalid" | "not_found";
-}
-
+/** UI balances and tier come exclusively from the authenticated subscription. */
 export function SessionProvider({ children }: { children: ReactNode }) {
-  const [sid, setSid] = useState<string | null>(null);
-  const [tier, setTier] = useState<"paid" | "admin">("paid");
-  const [credits, setCredits] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
-  const hasShownOnboardingRef = useRef(false);
-
-  const fetchSession = useCallback(async () => {
-    try {
-      setError(null);
-
-      // First, try to get existing session
-      const getResponse = await fetch("/api/session");
-      if (!getResponse.ok) {
-        throw new Error("Failed to fetch session");
-      }
-
-      const data: SessionResponse = await getResponse.json();
-
-      // If no session exists, create one
-      if (!data.sid) {
-        if (data.status === "invalid") {
-          const invalidReasonMessage =
-            data.invalidReason === "expired"
-              ? "Your previous session expired. Reload to start a new session."
-              : "Your previous session could not be restored. Reload to start a new session.";
-          setSid(null);
-          setTier("paid");
-          setCredits(0);
-          setError(invalidReasonMessage);
-          return;
-        }
-
-        const postResponse = await fetch("/api/session", { method: "POST" });
-        if (!postResponse.ok) {
-          throw new Error("Failed to create session");
-        }
-        const newData: SessionResponse = await postResponse.json();
-        setSid(newData.sid);
-        setTier(newData.tier);
-        setCredits(newData.credits);
-        
-        // Check if we should show onboarding for new session
-        const hasSeenOnboarding = localStorage.getItem("visibible_onboarding_seen") === "true";
-        if (!hasSeenOnboarding && newData.tier !== "admin" && !hasShownOnboardingRef.current) {
-          // Small delay to ensure modal renders properly
-          setTimeout(() => {
-            setIsBuyModalOpen(true);
-            localStorage.setItem("visibible_onboarding_seen", "true");
-            hasShownOnboardingRef.current = true;
-          }, 500);
-        }
-      } else {
-        setSid(data.sid);
-        setTier(data.tier);
-        setCredits(data.credits);
-      }
-    } catch (err) {
-      console.error("Session error:", err);
-      setError(err instanceof Error ? err.message : "Session error");
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  // Fetch session on mount
-  useEffect(() => {
-    fetchSession();
-  }, [fetchSession]);
-
-  const refetch = useCallback(async () => {
-    setIsLoading(true);
-    await fetchSession();
-  }, [fetchSession]);
-
-  const updateCredits = useCallback((newBalance: number) => {
-    setCredits(newBalance);
-  }, []);
-
-  const buyCredits = useCallback(() => {
-    setIsBuyModalOpen(true);
-  }, []);
-
-  const closeBuyModal = useCallback(() => {
-    setIsBuyModalOpen(false);
-  }, []);
-
+  const guest = useGuestSession();
+  const auth = useConvexAuth();
+  const wallet = useQuery(api.guestAuth.current, auth.isAuthenticated ? {} : "skip");
+  const isLoading = guest.isLoading || auth.isLoading || (auth.isAuthenticated && wallet === undefined);
+  const available = auth.isAuthenticated && wallet?.sid === guest.sid && Boolean(wallet);
+  const error = guest.error ?? (!isLoading && !available
+    ? "Session access is unavailable or expired. Reload to reconnect."
+    : null);
   return (
-    <SessionContext.Provider
-      value={{
-        sid,
-        tier,
-        credits,
-        isLoading,
-        error,
-        refetch,
-        updateCredits,
-        buyCredits,
-        isBuyModalOpen,
-        closeBuyModal,
-      }}
-    >
+    <SessionContext.Provider value={{
+      ...guest,
+      sid: available ? guest.sid : null,
+      credits: available ? wallet!.credits : 0,
+      pendingCredits: available ? wallet!.pendingCredits : 0,
+      tier: available && wallet!.tier === "admin" ? "admin" : "paid",
+      isLoading,
+      error,
+      accessStatus: isLoading ? "loading" : available ? "ready" : "unavailable",
+    }}>
       {children}
     </SessionContext.Provider>
   );
@@ -144,8 +41,6 @@ export function SessionProvider({ children }: { children: ReactNode }) {
 
 export function useSession() {
   const context = useContext(SessionContext);
-  if (!context) {
-    throw new Error("useSession must be used within SessionProvider");
-  }
+  if (!context) throw new Error("useSession must be used within SessionProvider");
   return context;
 }

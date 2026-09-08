@@ -10,6 +10,7 @@
 
 import type * as _helpers_auth from "../_helpers/auth.js";
 import type * as _helpers_guestKeys from "../_helpers/guestKeys.js";
+import type * as _helpers_pendingHolds from "../_helpers/pendingHolds.js";
 import type * as bulkGenerations from "../bulkGenerations.js";
 import type * as cleanup from "../cleanup.js";
 import type * as costs from "../costs.js";
@@ -26,6 +27,7 @@ import type * as nostrScheduler from "../nostrScheduler.js";
 import type * as rateLimit from "../rateLimit.js";
 import type * as sessions from "../sessions.js";
 import type * as verseImages from "../verseImages.js";
+import type * as walletMigration from "../walletMigration.js";
 
 import type {
   ApiFromModules,
@@ -36,6 +38,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   "_helpers/auth": typeof _helpers_auth;
   "_helpers/guestKeys": typeof _helpers_guestKeys;
+  "_helpers/pendingHolds": typeof _helpers_pendingHolds;
   bulkGenerations: typeof bulkGenerations;
   cleanup: typeof cleanup;
   costs: typeof costs;
@@ -52,6 +55,7 @@ declare const fullApi: ApiFromModules<{
   rateLimit: typeof rateLimit;
   sessions: typeof sessions;
   verseImages: typeof verseImages;
+  walletMigration: typeof walletMigration;
 }>;
 
 /**

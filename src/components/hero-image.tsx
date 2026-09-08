@@ -323,7 +323,7 @@ function HeroImageBase({
 }: HeroImageBaseProps) {
   const { imageModel, imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution, translation } = usePreferences();
   const isConvexEnabled = useConvexEnabled();
-  const { tier, credits, buyCredits, updateCredits, isLoading: sessionLoading } = useSession();
+  const { tier, credits, buyCredits, isLoading: sessionLoading } = useSession();
   const { setCurrentImageId, isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -805,11 +805,6 @@ function HeroImageBase({
       if (data?.imageUrl) {
         const modelUsed = data.model || imageModel || "unknown";
 
-        // Update credits in session context if returned
-        if (typeof data.credits === "number") {
-          updateCredits(data.credits);
-        }
-
         if (isStale()) {
           return;
         }
@@ -899,7 +894,6 @@ function HeroImageBase({
     translation,
     selectedImageId,
     imageHistory,
-    updateCredits,
     tier,
     credits,
     effectiveCost,

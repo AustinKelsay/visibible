@@ -20,7 +20,7 @@ async function setup() {
 describe("verified guest lookup", () => {
   it("returns the existing balance and always reads the current tier", async () => {
     const { t, id, guest } = await setup();
-    expect(await guest.query(api.guestAuth.current, {})).toEqual({ sid: "original-sid", tier: "admin", credits: 123 });
+    expect(await guest.query(api.guestAuth.current, {})).toEqual({ sid: "original-sid", tier: "admin", credits: 123, pendingCredits: 0 });
     await t.run((ctx) => ctx.db.patch(id, { tier: "paid" }));
     expect((await guest.query(api.guestAuth.current, {}))?.tier).toBe("paid");
   });

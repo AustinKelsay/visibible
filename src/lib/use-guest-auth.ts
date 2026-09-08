@@ -1,12 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useSession } from "@/context/session-context";
+import { useGuestSession } from "@/context/guest-session-context";
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "./csrf-constants";
 
 /** Convex owns token refresh scheduling. No bearer token is persisted. */
 export function useGuestAuth() {
-  const { sid, isLoading, refetch } = useSession();
+  const { sid, isLoading, refetch } = useGuestSession();
   const [connectionEpoch, setConnectionEpoch] = useState(0);
   useEffect(() => {
     // Focus is user activity: renew the HTTP session/CSRF cookie normally.

@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useGuestAuth } from "../use-guest-auth";
 let sid: string | null = "owner";
 const refetch = vi.fn(async () => {});
-vi.mock("@/context/session-context", () => ({ useSession: () => ({ sid, isLoading: false, refetch }) }));
+vi.mock("@/context/guest-session-context", () => ({ useGuestSession: () => ({ sid, isLoading: false, refetch }) }));
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 let root: Root;
 let suspend = false;
