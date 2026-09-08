@@ -1,3 +1,5 @@
+import { quoteTokenUsage } from "./token-pricing";
+
 export interface ChatModel {
   id: string;
   name: string;
@@ -67,8 +69,8 @@ type ChatModelPricing = {
 export const EMERGENCY_CHAT_MODEL_PRICING: Record<string, ChatModelPricing> = {
   [DEFAULT_CHAT_MODEL]: {
     // Conservative baseline used only when OpenRouter model catalog is unavailable.
-    prompt: "2.5",
-    completion: "10",
+    prompt: "0.0000025",
+    completion: "0.00001",
   },
 };
 
@@ -261,18 +263,7 @@ export function estimateCost(
   completionTokens: number,
   pricing?: { prompt?: string; completion?: string }
 ): number | null {
-  if (!pricing?.prompt || !pricing?.completion) return null;
-
-  const perMillion = 1_000_000;
-  const promptRate = parseFloat(pricing.prompt);
-  const completionRate = parseFloat(pricing.completion);
-
-  if (Number.isNaN(promptRate) || Number.isNaN(completionRate)) return null;
-
-  const promptCost = (promptRate * promptTokens) / perMillion;
-  const completionCost = (completionRate * completionTokens) / perMillion;
-
-  return promptCost + completionCost;
+  return quoteTokenUsage(pricing, promptTokens, completionTokens)?.providerUsd ?? null;
 }
 
 // Format cost for display (e.g., 0.00012 -> "$0.00012")
@@ -288,7 +279,7 @@ export function formatCost(cost: number | null): string {
  * Compute the credit cost for a chat message based on OpenRouter pricing.
  * Uses estimated token count since we don't know actual usage until after streaming.
  *
- * @param pricing - Model pricing from OpenRouter (prompt and completion per million tokens)
+ * @param pricing - Model pricing from OpenRouter (prompt and completion in USD per token)
  * @param estimatedTokens - Estimated total tokens (prompt + completion), defaults to 2000
  * @returns Credits required, or null if model has no valid pricing
  */
@@ -296,30 +287,9 @@ export function computeChatCreditsCost(
   pricing: { prompt?: string; completion?: string } | undefined,
   estimatedTokens: number = DEFAULT_ESTIMATED_TOKENS
 ): number | null {
-  if (!pricing?.prompt || !pricing?.completion) return null;
-
-  const promptRate = parseFloat(pricing.prompt);
-  const completionRate = parseFloat(pricing.completion);
-
-  if (isNaN(promptRate) || isNaN(completionRate)) return null;
-
-  // Free models (both rates are 0) cost minimum credits
-  if (promptRate === 0 && completionRate === 0) {
-    return MIN_CHAT_CREDITS;
-  }
-
-  // Estimate cost: assume half prompt, half completion tokens
+  if (!Number.isSafeInteger(estimatedTokens) || estimatedTokens < 0) return null;
   const promptTokens = Math.floor(estimatedTokens / 2);
-  const completionTokens = estimatedTokens - promptTokens;
-
-  const perMillion = 1_000_000;
-  const promptCost = (promptRate * promptTokens) / perMillion;
-  const completionCost = (completionRate * completionTokens) / perMillion;
-  const totalUsd = promptCost + completionCost;
-
-  // Apply premium multiplier and convert to credits
-  const effectiveUsd = totalUsd * PREMIUM_MULTIPLIER;
-  return Math.max(MIN_CHAT_CREDITS, Math.ceil(effectiveUsd / CREDIT_USD));
+  return quoteTokenUsage(pricing, promptTokens, estimatedTokens - promptTokens)?.credits ?? null;
 }
 
 /**
@@ -336,25 +306,7 @@ export function computeActualChatCreditsCost(
   promptTokens: number,
   completionTokens: number
 ): number | null {
-  if (!pricing?.prompt || !pricing?.completion) return null;
-
-  const promptRate = parseFloat(pricing.prompt);
-  const completionRate = parseFloat(pricing.completion);
-
-  if (isNaN(promptRate) || isNaN(completionRate)) return null;
-
-  // Free models cost minimum
-  if (promptRate === 0 && completionRate === 0) {
-    return MIN_CHAT_CREDITS;
-  }
-
-  const perMillion = 1_000_000;
-  const promptCost = (promptRate * promptTokens) / perMillion;
-  const completionCost = (completionRate * completionTokens) / perMillion;
-  const totalUsd = promptCost + completionCost;
-
-  const effectiveUsd = totalUsd * PREMIUM_MULTIPLIER;
-  return Math.max(MIN_CHAT_CREDITS, Math.ceil(effectiveUsd / CREDIT_USD));
+  return quoteTokenUsage(pricing, promptTokens, completionTokens)?.credits ?? null;
 }
 
 /**
@@ -383,6 +335,7 @@ export async function getChatModelPricing(
     return emergencyPricing ?? null;
   }
 
+  if (!quoteTokenUsage(model.pricing, 0, 0)) return null;
   return {
     prompt: model.pricing.prompt,
     completion: model.pricing.completion,

@@ -1,3 +1,4 @@
+import { authenticatedGuest } from "./guestAuth";
 import { action, internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
@@ -33,7 +34,7 @@ export const createInvoice = mutation({
       .withIndex("by_sid", (q) => q.eq("sid", args.sid))
       .first();
 
-    if (!session) {
+    if (!session || session.revokedAt !== undefined) {
       throw new Error("Session not found");
     }
 
@@ -71,15 +72,26 @@ export const createInvoice = mutation({
  */
 export const getInvoice = query({
   args: {
+    serverSecret: v.optional(v.string()),
     invoiceId: v.string(),
+    ownerSid: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    if (args.serverSecret !== undefined) validateServerSecret(args.serverSecret);
+    const guest = args.serverSecret === undefined ? await authenticatedGuest(ctx) : null;
+    if (args.serverSecret === undefined && !guest) return null;
+    if (args.ownerSid !== undefined) {
+      const owner = await ctx.db.query("sessions")
+        .withIndex("by_sid", (q) => q.eq("sid", args.ownerSid!)).unique();
+      if (!owner || owner.revokedAt !== undefined) return null;
+    }
     const invoice = await ctx.db
       .query("invoices")
       .withIndex("by_invoiceId", (q) => q.eq("invoiceId", args.invoiceId))
       .first();
 
-    if (!invoice) {
+    if (!invoice || (guest && invoice.sid !== guest.sid) ||
+        (args.ownerSid !== undefined && invoice.sid !== args.ownerSid)) {
       return null;
     }
 
@@ -102,9 +114,12 @@ export const getInvoice = query({
  */
 export const getSessionInvoices = query({
   args: {
+    serverSecret: v.optional(v.string()),
     sid: v.string(),
   },
   handler: async (ctx, args) => {
+    if (args.serverSecret !== undefined) validateServerSecret(args.serverSecret);
+    else if ((await authenticatedGuest(ctx))?.sid !== args.sid) return [];
     const invoices = await ctx.db
       .query("invoices")
       .withIndex("by_sid", (q) => q.eq("sid", args.sid))
@@ -128,13 +143,14 @@ export const getSessionInvoices = query({
 export const confirmPaymentInternal = internalMutation({
   args: {
     invoiceId: v.string(),
-    paymentHash: v.optional(v.string()),
+    paymentHash: v.string(),
+    amountPaidSats: v.number(),
   },
   handler: async (ctx, args) => {
     const invoice = await ctx.db
       .query("invoices")
       .withIndex("by_invoiceId", (q) => q.eq("invoiceId", args.invoiceId))
-      .first();
+      .unique();
 
     if (!invoice) {
       throw new Error("Invoice not found");
@@ -144,23 +160,25 @@ export const confirmPaymentInternal = internalMutation({
       return { success: true, alreadyPaid: true };
     }
 
-    if (invoice.status === "expired" || invoice.status === "failed") {
-      throw new Error(`Invoice is ${invoice.status}`);
+    // Trusted settlement evidence takes precedence over a local expiry estimate.
+    if (args.paymentHash !== invoice.paymentHash ||
+        !Number.isSafeInteger(args.amountPaidSats) || args.amountPaidSats < invoice.amountSats) {
+      throw new Error("Settlement does not match invoice");
     }
-
+    const paidInvoice = await ctx.db.query("invoices")
+      .withIndex("by_paymentHash", (q) => q.eq("paymentHash", args.paymentHash))
+      .filter((q) => q.eq(q.field("status"), "paid"))
+      .first();
+    if (paidInvoice) throw new Error("Payment already credited");
+    const purchase = await ctx.db.query("creditLedger")
+      .withIndex("by_invoiceId", (q) => q.eq("invoiceId", args.invoiceId)).first();
+    if (purchase) throw new Error("Invoice purchase already recorded");
     const now = Date.now();
-
-    // Check expiration
-    if (now > invoice.expiresAt) {
-      await ctx.db.patch(invoice._id, { status: "expired" });
-      throw new Error("Invoice has expired");
-    }
 
     // Mark invoice as paid
     await ctx.db.patch(invoice._id, {
       status: "paid",
       paidAt: now,
-      ...(args.paymentHash !== undefined && { paymentHash: args.paymentHash }),
     });
 
     // Get session
@@ -187,6 +205,7 @@ export const confirmPaymentInternal = internalMutation({
       sid: invoice.sid,
       delta: creditsToAdd,
       reason: "purchase",
+      invoiceId: invoice.invoiceId,
       createdAt: now,
     });
 
@@ -205,7 +224,8 @@ export const confirmPaymentInternal = internalMutation({
 export const confirmPayment = action({
   args: {
     invoiceId: v.string(),
-    paymentHash: v.optional(v.string()),
+    paymentHash: v.string(),
+    amountPaidSats: v.number(),
     serverSecret: v.string(),
   },
   handler: async (ctx, args): Promise<{
@@ -218,6 +238,7 @@ export const confirmPayment = action({
     return ctx.runMutation(internal.invoices.confirmPaymentInternal, {
       invoiceId: args.invoiceId,
       paymentHash: args.paymentHash,
+      amountPaidSats: args.amountPaidSats,
     });
   },
 });

@@ -1,7 +1,14 @@
+import { catalogImageQuote, imageCapabilities, normalizeImageBilling, type ImageBilling } from "./image-catalog";
+export { catalogImageQuote, imageCapabilities } from "./image-catalog";
+
 export interface ImageModel {
   id: string;
   name: string;
   provider: string;
+  billing?: ImageBilling;
+  capabilities?: ReturnType<typeof imageCapabilities>;
+  availability?: "available" | "stale" | "unavailable";
+  unavailableReason?: string;
   pricing?: {
     imageOutput?: string;
   };
@@ -30,13 +37,11 @@ export const DEFAULT_CREDITS_COST = 20; // default credit cost for unpriced mode
 export const IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS = 5;
 const MODEL_CACHE_MAX_STALE_MS = 6 * 60 * 60 * 1000; // 6 hours
 
-// Conservative estimate multiplier to account for OpenRouter API vs actual billing discrepancy.
-// The models API `pricing.image` field significantly underreports costs for multimodal models
-// like Gemini (~31x actual cost observed). We use 35x to ensure reservations cover actual cost.
+// Legacy hold policy retained until T04 introduces accepted maximum charges.
 export const CONSERVATIVE_ESTIMATE_MULTIPLIER = 35;
 
 /**
- * Compute the credit cost for a model based on OpenRouter pricing.
+ * Legacy flat-USD conversion. Never pass a raw catalog image/token rate here.
  * Returns null if pricing is missing or invalid (unpriced model).
  */
 export function computeCreditsCost(pricingImage: string | undefined): number | null {
@@ -49,14 +54,7 @@ export function computeCreditsCost(pricingImage: string | undefined): number | n
   return Math.max(1, Math.ceil(effectiveUsd / CREDIT_USD));
 }
 
-/**
- * Compute a conservative credit estimate for reservation purposes.
- * This accounts for the known discrepancy between OpenRouter's API pricing
- * and actual billing for multimodal image models.
- *
- * @param pricingImage - The pricing.image value from OpenRouter models API
- * @returns Conservative credit estimate for upfront reservation, or null if unpriced
- */
+/** Legacy flat-USD hold helper; current catalog quotes use explicit output units. */
 export function computeConservativeEstimate(pricingImage: string | undefined): number | null {
   const baseCost = computeCreditsCost(pricingImage);
   if (baseCost === null) return null;
@@ -88,7 +86,7 @@ export function computeCreditsFromActualUsage(
 
 export const DEFAULT_IMAGE_MODEL = "google/gemini-2.5-flash-image";
 export const EMERGENCY_IMAGE_MODEL_PRICING_USD: Record<string, string> = {
-  // Conservative per-image USD baseline used only if the OpenRouter catalog is unavailable.
+  // Legacy placeholder retained for incomplete display state, never catalog admission.
   [DEFAULT_IMAGE_MODEL]: "0.10",
 };
 export const DEFAULT_IMAGE_ESTIMATED_CREDITS_COST =
@@ -108,42 +106,17 @@ export const DEFAULT_ASPECT_RATIO: ImageAspectRatio = "16:9";
 // Image resolution types and configuration
 export type ImageResolution = "1K" | "2K" | "4K";
 
-export const RESOLUTIONS: Record<ImageResolution, { label: string; multiplier: number }> = {
-  "1K": { label: "1K Standard", multiplier: 1.0 },
-  "2K": { label: "2K High", multiplier: 3.5 },
-  "4K": { label: "4K Ultra", multiplier: 6.5 },
+export const RESOLUTIONS: Record<ImageResolution, { label: string }> = {
+  "1K": { label: "1K Standard" },
+  "2K": { label: "2K High" },
+  "4K": { label: "4K Ultra" },
 };
 
 export const DEFAULT_RESOLUTION: ImageResolution = "1K";
 
-/**
- * Models that support user-configurable resolution settings via `image_size`.
- *
- * Keep this list narrow and documentation-backed. Gemini 2.5 Flash Image
- * supports aspect ratio controls, but Google currently documents `image_size`
- * only for the 3.x image preview models.
- *
- * IMPORTANT: Only add models here when the provider actually respects
- * `image_size`. Users are charged based on this flag, so false positives mean
- * users can pay extra for a setting the model ignores or rejects.
- */
-const RESOLUTION_SUPPORTED_MODEL_IDS = new Set([
-  "google/gemini-3.1-flash-image-preview",
-  "google/gemini-3-pro-image-preview",
-]);
-
-/**
- * Check if a model supports user-configurable resolution settings.
- *
- * This determines:
- * 1. Whether the resolution multiplier is applied to credit costs
- * 2. Whether the image_size parameter is sent to the API
- *
- * @param modelId - The full model ID (e.g., "google/gemini-2.5-flash-image")
- * @returns true if the model supports resolution configuration
- */
+/** The registry is shared by request construction, validation and settings UI. */
 export function supportsResolution(modelId: string): boolean {
-  return RESOLUTION_SUPPORTED_MODEL_IDS.has(modelId.toLowerCase());
+  return (imageCapabilities(modelId)?.resolutions.length ?? 0) > 1;
 }
 
 export function normalizeResolutionForModel(
@@ -157,14 +130,14 @@ export function normalizeResolutionForModel(
  * Check if a value is a valid ImageAspectRatio
  */
 export function isValidAspectRatio(value: string): value is ImageAspectRatio {
-  return value in ASPECT_RATIOS;
+  return Object.hasOwn(ASPECT_RATIOS, value);
 }
 
 /**
  * Check if a value is a valid ImageResolution
  */
 export function isValidResolution(value: string): value is ImageResolution {
-  return value in RESOLUTIONS;
+  return Object.hasOwn(RESOLUTIONS, value);
 }
 
 /**
@@ -186,12 +159,10 @@ export function computeAdjustedCreditsCost(
 ): number {
   const base = baseCost ?? DEFAULT_CREDITS_COST;
 
-  // Only apply resolution multiplier if model supports it
-  // If no modelId provided, assume no support (conservative/safe for users)
-  const modelSupportsResolution = modelId ? supportsResolution(modelId) : false;
-  const multiplier = modelSupportsResolution ? RESOLUTIONS[resolution].multiplier : 1.0;
-
-  return Math.ceil(base * multiplier);
+  // Compatibility helper for callers with only a base estimate. Catalog-backed
+  // callers use the exact resolution quote instead of multiplying rounded credits.
+  const tokens = modelId ? imageCapabilities(modelId)?.outputTokens : undefined;
+  return Math.ceil(base * ((tokens?.[resolution] ?? tokens?.["1K"] ?? 1) / (tokens?.["1K"] ?? 1)));
 }
 
 export function computeEstimatedImageGenerationCreditsCost(
@@ -209,16 +180,22 @@ export function computeEstimatedImageGenerationCreditsCost(
 export function getEstimatedCreditsCostForResolution(
   model: Pick<
     ImageModel,
-    "id" | "creditsCost" | "reservationCreditsCost" | "estimatedCreditsByResolution"
+    "id" | "billing" | "availability" | "creditsCost" | "reservationCreditsCost" | "estimatedCreditsByResolution"
   >,
   resolution: ImageResolution,
   scenePlannerCreditsCost: number = 0
 ): number | null {
-  const learnedEstimate = model.estimatedCreditsByResolution?.[resolution];
+  if (model.availability === "unavailable") return null;
+  const normalized = normalizeResolutionForModel(model.id, resolution);
+  const learnedEstimate = model.estimatedCreditsByResolution?.[normalized];
   if (typeof learnedEstimate === "number" && learnedEstimate > 0) {
     return Math.max(1, Math.round(learnedEstimate));
   }
 
+  if (model.billing) {
+    const quote = catalogImageQuote(model.id, model.billing, normalized);
+    return quote ? quote.credits + scenePlannerCreditsCost : null;
+  }
   const displayBaseCost = getDisplayedCreditsCost(model);
   if (displayBaseCost === null) {
     return null;
@@ -309,6 +286,9 @@ interface OpenRouterModel {
     output_modalities?: string[];
   };
   pricing?: {
+    prompt?: string;
+    completion?: string;
+    image_output?: string;
     image?: string;
   };
 }
@@ -322,66 +302,12 @@ let lastKnownGoodImageModels: ImageModel[] | null = null;
 let lastKnownGoodImageModelsAt = 0;
 
 function cloneImageModels(models: ImageModel[]): ImageModel[] {
-  return models.map((model) => ({
-    ...model,
-    pricing: model.pricing
-      ? {
-          imageOutput: model.pricing.imageOutput,
-        }
-      : undefined,
-    estimatedCreditsByResolution: model.estimatedCreditsByResolution
-      ? { ...model.estimatedCreditsByResolution }
-      : undefined,
-    reservationCreditsCost: model.reservationCreditsCost,
-    usesEmergencyPricing: model.usesEmergencyPricing,
-  }));
+  return structuredClone(models);
 }
 
-function getDefaultImageModels(): ImageModel[] {
-  const emergencyPricing = EMERGENCY_IMAGE_MODEL_PRICING_USD[DEFAULT_IMAGE_MODEL];
-  return [
-    {
-      id: DEFAULT_IMAGE_MODEL,
-      name: "Gemini 2.5 Flash (Default)",
-      provider: "Google",
-      pricing: {
-        imageOutput: emergencyPricing,
-      },
-      creditsCost:
-        computeCreditsCost(emergencyPricing) ?? DEFAULT_CREDITS_COST,
-      reservationCreditsCost:
-        computeCreditsCost(emergencyPricing) ?? DEFAULT_CREDITS_COST,
-      usesEmergencyPricing: true,
-      etaSeconds: DEFAULT_ETA_SECONDS,
-    },
-  ];
-}
-
-function applyEmergencyPricing(models: ImageModel[]): ImageModel[] {
-  return models.map((model) => {
-    const emergencyPricing = EMERGENCY_IMAGE_MODEL_PRICING_USD[model.id];
-    const rawCatalogImageOutput = model.pricing?.imageOutput;
-    const parsedCatalogImageOutput =
-      rawCatalogImageOutput === undefined ? NaN : Number(rawCatalogImageOutput);
-    const hasCatalogPricing =
-      Number.isFinite(parsedCatalogImageOutput) && parsedCatalogImageOutput > 0;
-    const imageOutput = hasCatalogPricing
-      ? String(parsedCatalogImageOutput)
-      : emergencyPricing;
-    const usesEmergencyPricing = !hasCatalogPricing && !!emergencyPricing;
-    return {
-      ...model,
-      pricing: imageOutput ? { imageOutput } : undefined,
-      creditsCost: model.creditsCost ?? computeCreditsCost(imageOutput),
-      reservationCreditsCost:
-        model.reservationCreditsCost ??
-        (usesEmergencyPricing
-          ? computeCreditsCost(imageOutput)
-          : computeConservativeEstimate(imageOutput)),
-      usesEmergencyPricing,
-      etaSeconds: model.etaSeconds ?? DEFAULT_ETA_SECONDS,
-    };
-  });
+export function unavailableImageModels(reason: string): ImageModel[] {
+  return [{ id: DEFAULT_IMAGE_MODEL, name: "Gemini 2.5 Flash", provider: "Google",
+    availability: "unavailable", unavailableReason: reason, creditsCost: null, reservationCreditsCost: null }];
 }
 
 function getStaleCachedModels(nowMs = Date.now()): ImageModel[] | null {
@@ -392,7 +318,7 @@ function getStaleCachedModels(nowMs = Date.now()): ImageModel[] | null {
   if (ageMs > MODEL_CACHE_MAX_STALE_MS) {
     return null;
   }
-  return cloneImageModels(lastKnownGoodImageModels);
+  return cloneImageModels(lastKnownGoodImageModels).map(model => ({ ...model, availability: model.availability === "unavailable" ? "unavailable" : "stale" }));
 }
 
 export async function fetchImageModels(openRouterApiKey: string): Promise<ImageModelsResult> {
@@ -403,6 +329,7 @@ export async function fetchImageModels(openRouterApiKey: string): Promise<ImageM
         "HTTP-Referer": process.env.OPENROUTER_REFERRER || process.env.NEXT_PUBLIC_APP_URL || "https://visibible.com",
         "X-Title": process.env.OPENROUTER_TITLE || "visibible",
       },
+      signal: AbortSignal.timeout(10_000),
       next: { revalidate: 3600 },
     });
 
@@ -416,17 +343,18 @@ export async function fetchImageModels(openRouterApiKey: string): Promise<ImageM
         };
       }
       return {
-        models: getDefaultImageModels(),
+        models: unavailableImageModels("Catalog unavailable; pricing cannot be verified"),
         error: "Failed to fetch models from OpenRouter",
       };
     }
 
     const data = await response.json();
+    if (!Array.isArray(data.data)) throw new Error("Invalid image catalog");
 
     // First, get all image-capable models
     const allImageModels: OpenRouterModel[] = (data.data || []).filter(
       (model: OpenRouterModel) =>
-        model.architecture?.output_modalities?.includes("image")
+        model && typeof model.id === "string" && Array.isArray(model.architecture?.output_modalities) && model.architecture.output_modalities.includes("image")
     );
 
     // Build set of stable model IDs (non-preview)
@@ -446,33 +374,28 @@ export async function fetchImageModels(openRouterApiKey: string): Promise<ImageM
         const stableId = model.id.replace(/-preview$/i, "");
         return !stableModelIds.has(stableId);
       })
-      .map((model: OpenRouterModel) => ({
-        id: model.id,
-        name: model.name || model.id,
-        provider: getProviderName(model.id),
-        pricing: {
-          imageOutput: model.pricing?.image,
-        },
-        creditsCost: computeCreditsCost(model.pricing?.image),
-        reservationCreditsCost: computeConservativeEstimate(model.pricing?.image),
-        etaSeconds: DEFAULT_ETA_SECONDS, // Will be overridden by modelStats
-      }))
+      .map((model: OpenRouterModel): ImageModel => {
+        const billing = normalizeImageBilling(model.id, model.pricing, Date.now());
+        const quote = catalogImageQuote(model.id, billing, "1K");
+        return {
+          id: model.id, name: typeof model.name === "string" ? model.name : model.id, provider: getProviderName(model.id), billing, capabilities: imageCapabilities(model.id),
+          availability: quote ? "available" : "unavailable",
+          unavailableReason: quote ? undefined : imageCapabilities(model.id)
+            ? "Output pricing unavailable" : "Pricing and settings not verified",
+          creditsCost: quote?.credits ?? null,
+          reservationCreditsCost: quote ? quote.credits * CONSERVATIVE_ESTIMATE_MULTIPLIER : null,
+          etaSeconds: DEFAULT_ETA_SECONDS,
+        };
+      })
       .sort((a: ImageModel, b: ImageModel) => {
         const providerCompare = a.provider.localeCompare(b.provider);
         if (providerCompare !== 0) return providerCompare;
         return a.name.localeCompare(b.name);
       });
 
-    let normalizedModels = applyEmergencyPricing(imageModels);
-
-    if (!normalizedModels.find((model) => model.id === DEFAULT_IMAGE_MODEL)) {
-      normalizedModels = [...getDefaultImageModels(), ...normalizedModels];
-    }
-
-    lastKnownGoodImageModels = cloneImageModels(normalizedModels);
+    lastKnownGoodImageModels = cloneImageModels(imageModels);
     lastKnownGoodImageModelsAt = Date.now();
-
-    return { models: normalizedModels };
+    return { models: imageModels };
   } catch (error) {
     console.error("Error fetching image models:", error);
     const staleModels = getStaleCachedModels();
@@ -483,7 +406,7 @@ export async function fetchImageModels(openRouterApiKey: string): Promise<ImageM
       };
     }
     return {
-      models: getDefaultImageModels(),
+      models: unavailableImageModels("Catalog unavailable; pricing cannot be verified"),
       error: "Network error fetching models",
     };
   }

@@ -1,0 +1,49 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Image Generation API Credit Flow > canonical passage authority > ignores forged text/context/theme and replaces legacy cached plans > canonical image prompt 1`] = `
+"PRIORITY RULES:
+1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).
+2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).
+3) Single unified scene only (no split panels, collage, or multi-scene layout).
+
+SCENE:
+Render a single, cohesive biblical-era scene for Genesis 1:1: "In the beginning God created the heavens and the earth."
+
+SCENE PLAN (supporting; do not override priority rules):
+Primary subject: Created world
+Action: emerging
+Setting: cosmos
+
+NARRATIVE CONTINUITY:
+- Next: v2: The earth was formless and empty.
+Keep continuity cues only; focus composition on the current verse moment.
+
+SCENE PRESENTATION:
+- Depict the moment directly, as if the viewer is present inside the biblical scene.
+- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.
+- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.
+- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.
+
+CHAPTER THEME:
+Setting: Creation of the cosmos
+Visual elements: primordial void, divine light rays, swirling waters, emerging forms
+Color palette: deep cosmic blues, radiant golds, ethereal whites
+Style: classical religious art, Baroque lighting, majestic and reverent
+
+STYLE PROFILE: Classical Painterly
+Rendering: Stylized, painterly, biblical-era, mysterious, expansive; epic scale and reverent tone. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.
+Palette: Mature, grounded color; rich but restrained contrast.
+Lighting: Luminous, dramatic lighting.
+Materials/Texture: Gritty, raw texture; avoid polished digital smoothness.
+Composition: Cinematic, immersive viewpoint; heroic but grounded.
+STYLE NEGATIVES:
+Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.
+
+GLOBAL NEGATIVES:
+- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).
+- No anachronistic materials (plastic, neon, LEDs).
+- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.
+- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).
+
+Aspect ratio: 16:9 (WIDESCREEN landscape)."
+`;

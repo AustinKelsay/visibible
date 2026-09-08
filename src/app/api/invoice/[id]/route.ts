@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateSessionWithIp, withSessionRefreshCookie } from "@/lib/session";
-import { lookupLndInvoice, isLndConfigured } from "@/lib/lnd";
+import { lookupLndInvoice, isLndConfigured, settledInvoiceAmount } from "@/lib/lnd";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import {
   createRequestObservabilityContext,
@@ -127,7 +127,7 @@ export async function GET(
   const { id: invoiceId } = await params;
 
   try {
-    let invoice = await convex.query(api.invoices.getInvoice, { invoiceId });
+    let invoice = await convex.query(api.invoices.getInvoice, { invoiceId, ownerSid: sid, serverSecret });
 
     if (!invoice) {
       return withSessionRefresh(
@@ -141,51 +141,34 @@ export async function GET(
       );
     }
 
-    if (invoice.status === "pending") {
-      const now = Date.now();
-
-      if (now > invoice.expiresAt) {
-        await convex.mutation(api.invoices.expireInvoice, { invoiceId, serverSecret });
-        invoice = { ...invoice, status: "expired" };
-      } else if (invoice.paymentHash && isLndConfigured()) {
-        try {
-          const lndStatus = await lookupLndInvoice(invoice.paymentHash);
-
-          if (lndStatus.state === "SETTLED") {
-            // Payment received - confirm and grant credits
-            await convex.action(api.invoices.confirmPayment, {
-              invoiceId,
-              paymentHash: invoice.paymentHash,
-              serverSecret,
-            });
-            logSettlementEvent({
-              context: requestContext,
-              outcome: "confirmed",
-              sid,
-              invoiceId,
-            });
-            // Update local status for response
-            invoice = { ...invoice, status: "paid" };
-          } else if (lndStatus.state === "CANCELED") {
-            // Invoice was canceled
-            await convex.mutation(api.invoices.expireInvoice, {
-              invoiceId,
-              serverSecret,
-            });
-            invoice = { ...invoice, status: "expired" };
-          }
-          // "OPEN" and "ACCEPTED" states mean still waiting for payment
-        } catch (lndError) {
-          logApiFailure({
-            context: requestContext,
-            stage: "invoice_status_lnd_lookup",
-            error: lndError,
-            statusCode: 502,
-            sid,
+    if (invoice.status !== "paid") {
+      if (!invoice.paymentHash || !isLndConfigured()) {
+        return withSessionRefresh(NextResponse.json(
+          { error: "Lightning status unavailable", status: invoice.status }, { status: 503 }
+        ));
+      }
+      try {
+        const lndStatus = await lookupLndInvoice(invoice.paymentHash);
+        if (lndStatus.state === "SETTLED") {
+          const amountPaidSats = settledInvoiceAmount(lndStatus, {
+            paymentHash: invoice.paymentHash, amountSats: invoice.amountSats,
           });
-          // Log but don't fail - we can still return the cached status
-          console.warn("Failed to check LND status:", lndError);
+          await convex.action(api.invoices.confirmPayment, {
+            invoiceId, paymentHash: invoice.paymentHash, amountPaidSats, serverSecret,
+          });
+          logSettlementEvent({ context: requestContext, outcome: "confirmed", sid, invoiceId });
+          const confirmed = await convex.query(api.invoices.getInvoice, { invoiceId, ownerSid: sid, serverSecret });
+          if (!confirmed || confirmed.status !== "paid") throw new Error("Confirmed invoice unavailable");
+          invoice = confirmed;
+        } else if (lndStatus.state === "CANCELED" || Date.now() > invoice.expiresAt) {
+          await convex.mutation(api.invoices.expireInvoice, { invoiceId, serverSecret });
+          invoice = { ...invoice, status: "expired" };
         }
+      } catch (error) {
+        logApiFailure({ context: requestContext, stage: "invoice_status_lnd_lookup", error, statusCode: 502, sid });
+        return withSessionRefresh(NextResponse.json(
+          { error: "Unable to verify Lightning payment", status: invoice.status }, { status: 502 }
+        ));
       }
     }
 
@@ -275,7 +258,7 @@ export async function POST(
   const { id: invoiceId } = await params;
 
   try {
-    const invoice = await convex.query(api.invoices.getInvoice, { invoiceId });
+    const invoice = await convex.query(api.invoices.getInvoice, { invoiceId, ownerSid: sid, serverSecret });
 
     if (!invoice) {
       return withSessionRefresh(
@@ -287,6 +270,10 @@ export async function POST(
       return withSessionRefresh(
         NextResponse.json({ error: "Forbidden" }, { status: 403 })
       );
+    }
+
+    if (invoice.status === "paid") {
+      return withSessionRefresh(NextResponse.json({ success: true, alreadyPaid: true }));
     }
 
     if (!invoice.paymentHash) {
@@ -303,21 +290,24 @@ export async function POST(
       ));
     }
 
-    const now = Date.now();
-    if (now > invoice.expiresAt) {
-      await convex.mutation(api.invoices.expireInvoice, { invoiceId, serverSecret });
+    let lndStatus;
+    try {
+      lndStatus = await lookupLndInvoice(invoice.paymentHash);
+      if (lndStatus.state === "SETTLED") settledInvoiceAmount(lndStatus, {
+        paymentHash: invoice.paymentHash, amountSats: invoice.amountSats,
+      });
+    } catch (error) {
+      logApiFailure({ context: requestContext, stage: "invoice_confirm_lnd_lookup", error, statusCode: 502, sid });
       return withSessionRefresh(NextResponse.json(
-        { error: "Invoice has expired" },
-        { status: 410 }
+        { error: "Unable to verify Lightning payment" }, { status: 502 }
       ));
     }
-
-    const lndStatus = await lookupLndInvoice(invoice.paymentHash);
 
     if (lndStatus.state === "SETTLED") {
       const result = await convex.action(api.invoices.confirmPayment, {
         invoiceId,
         paymentHash: invoice.paymentHash,
+        amountPaidSats: Number(lndStatus.amt_paid_sat),
         serverSecret,
       });
       logSettlementEvent({
@@ -339,10 +329,10 @@ export async function POST(
       }));
     }
 
-    if (lndStatus.state === "CANCELED") {
+    if (lndStatus.state === "CANCELED" || Date.now() > invoice.expiresAt) {
       await convex.mutation(api.invoices.expireInvoice, { invoiceId, serverSecret });
       return withSessionRefresh(NextResponse.json(
-        { error: "Invoice was canceled" },
+        { error: lndStatus.state === "CANCELED" ? "Invoice was canceled" : "Invoice has expired" },
         { status: 410 }
       ));
     }

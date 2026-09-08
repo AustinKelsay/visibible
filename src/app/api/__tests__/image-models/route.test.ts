@@ -1,3 +1,4 @@
+import { imageModelFixture } from "../shared/image-model-fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mockFetchImageModels = vi.fn();
@@ -38,7 +39,7 @@ describe("Image Models API", () => {
     mockFetchImageModels.mockResolvedValue({
       models: [
         {
-          id: "google/gemini-2.5-flash-image",
+          ...imageModelFixture(),
           name: "Gemini 2.5 Flash Image",
           provider: "Google",
           creditsCost: 2,
@@ -48,7 +49,8 @@ describe("Image Models API", () => {
           id: "openai/dall-e-3",
           name: "DALL-E 3",
           provider: "OpenAI",
-          creditsCost: 5,
+          availability: "unavailable",
+          creditsCost: null,
           etaSeconds: 14,
         },
       ],
@@ -93,63 +95,17 @@ describe("Image Models API", () => {
     vi.resetModules();
   });
 
-  it("returns learned per-resolution estimates with the planner surcharge added", async () => {
+  it("quotes supported settings and ignores unversioned global samples", async () => {
     const { GET } = await import("../../image-models/route");
-
     const response = await GET();
     expect(response.status).toBe(200);
-
     const body = await response.json();
-    expect(body.scenePlannerCreditsCost).toBe(1);
-    expect(body.creditRange).toEqual({ min: 8, max: 10 });
+    expect(body.creditRange).toEqual({ min: 3, max: 3 });
     expect(body.models[0].etaSeconds).toBe(8);
-    expect(body.models[0].estimatedCreditsByResolution).toEqual({
-      "1K": 8,
-      "2K": 8,
-      "4K": 8,
-    });
-    expect(body.models[1].estimatedCreditsByResolution).toEqual({
-      "1K": 10,
-      "2K": 10,
-      "4K": 10,
-    });
-  });
-
-  it("backfills learned estimates from generation history when the stats table is empty", async () => {
-    let estimatesQueryCount = 0;
-    mockConvex.query.mockImplementation(async (_apiPath: unknown, args: Record<string, unknown>) => {
-      if (!("serverSecret" in args)) {
-        return [{ modelId: "google/gemini-2.5-flash-image", etaSeconds: 8 }];
-      }
-
-      estimatesQueryCount += 1;
-      if (estimatesQueryCount === 1) {
-        return [];
-      }
-
-      return [
-        {
-          scopeType: "model",
-          scopeValue: "google/gemini-2.5-flash-image",
-          resolution: "1K",
-          estimateCredits: 5,
-          sampleCount: 10,
-        },
-      ];
-    });
-
-    const { GET } = await import("../../image-models/route");
-
-    const response = await GET();
-    expect(response.status).toBe(200);
-
-    const body = await response.json();
-    expect(mockConvex.mutation).toHaveBeenCalledTimes(1);
-    expect(body.models[0].estimatedCreditsByResolution).toEqual({
-      "1K": 6,
-      "2K": 6,
-      "4K": 6,
-    });
+    expect(body.models[0].estimatedCreditsByResolution).toEqual({ "1K": 3 });
+    expect(body.models[1].estimatedCreditsByResolution).toEqual({});
+    expect(mockConvex.mutation).not.toHaveBeenCalled();
+    expect(mockConvex.query).toHaveBeenCalledTimes(1);
   });
 
   it("falls back cleanly when the OpenRouter API key is missing", async () => {
@@ -163,7 +119,8 @@ describe("Image Models API", () => {
 
     const body = await response.json();
     expect(body.scenePlannerCreditsCost).toBe(0);
-    expect(body.creditRange).toEqual({ min: 20, max: 20 });
+    expect(body.creditRange).toBeNull();
+    expect(body.models[0].availability).toBe("unavailable");
     expect(mockFetchImageModels).not.toHaveBeenCalled();
   });
 });

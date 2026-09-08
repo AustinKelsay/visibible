@@ -11,6 +11,7 @@ import {
   ImageResolution,
   isValidAspectRatio,
   isValidResolution,
+  normalizeResolutionForModel,
 } from "@/lib/image-models";
 import { DEFAULT_CHAT_MODEL } from "@/lib/chat-models";
 import {
@@ -63,7 +64,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
             setTranslationState(prefs.translation as Translation);
           }
           // Load image model preference
-          if (prefs.imageModel) {
+          if (typeof prefs.imageModel === "string" && prefs.imageModel.length <= 200) {
             setImageModelState(prefs.imageModel);
           }
           // Load image aspect ratio preference
@@ -72,7 +73,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
           }
           // Load image resolution preference
           if (prefs.imageResolution && isValidResolution(prefs.imageResolution)) {
-            setImageResolutionState(prefs.imageResolution);
+            setImageResolutionState(normalizeResolutionForModel(typeof prefs.imageModel === "string" ? prefs.imageModel : DEFAULT_IMAGE_MODEL, prefs.imageResolution));
           }
           // Load chat model preference
           if (prefs.chatModel) {
@@ -157,12 +158,14 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     newModel: string,
     source: PreferenceChangeSource = "unknown"
   ) => {
+    const nextResolution = normalizeResolutionForModel(newModel, imageResolution);
+    setImageResolutionState(nextResolution);
     setImageModelState(newModel);
     savePreferences({
       translation,
       imageModel: newModel,
       imageAspectRatio,
-      imageResolution,
+      imageResolution: nextResolution,
       chatModel,
     });
     // Set cookie for server-side reading (expires in 1 year)
@@ -206,6 +209,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     newResolution: ImageResolution,
     source: PreferenceChangeSource = "unknown"
   ) => {
+    newResolution = normalizeResolutionForModel(imageModel, newResolution);
     setImageResolutionState(newResolution);
     savePreferences({
       translation,

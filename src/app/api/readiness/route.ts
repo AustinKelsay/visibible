@@ -93,6 +93,7 @@ export async function GET(
       getConvexServerSecret();
       const checkStartedAt = Date.now();
       await convex.query(api.rateLimit.getRateLimitStatus, {
+      serverSecret: getConvexServerSecret(),
         identifier: "_readiness_probe",
         endpoint: "chat",
       });

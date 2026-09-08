@@ -1,0 +1,2859 @@
+{
+  "program": "Visibible modernization",
+  "baseline": "6ae456839208ab6c97d630f80f8719becda9c050",
+  "date": "2026-09-07",
+  "repository": "AustinKelsay/visibible",
+  "original_items": [
+    {
+      "id": 1,
+      "title": "Chat pricing"
+    },
+    {
+      "id": 2,
+      "title": "Fallback pricing"
+    },
+    {
+      "id": 3,
+      "title": "Image pricing"
+    },
+    {
+      "id": 4,
+      "title": "Credit calculations"
+    },
+    {
+      "id": 5,
+      "title": "Price validation"
+    },
+    {
+      "id": 6,
+      "title": "Image reservations"
+    },
+    {
+      "id": 7,
+      "title": "Resolution pricing"
+    },
+    {
+      "id": 8,
+      "title": "Cost records"
+    },
+    {
+      "id": 9,
+      "title": "Planner costs"
+    },
+    {
+      "id": 10,
+      "title": "Customer billing"
+    },
+    {
+      "id": 11,
+      "title": "Spending limits"
+    },
+    {
+      "id": 12,
+      "title": "Learned estimates"
+    },
+    {
+      "id": 13,
+      "title": "Estimate backfill"
+    },
+    {
+      "id": 14,
+      "title": "Quote calculation"
+    },
+    {
+      "id": 15,
+      "title": "Cost-event delivery"
+    },
+    {
+      "id": 16,
+      "title": "Cost-event duplicates"
+    },
+    {
+      "id": 17,
+      "title": "Chat errors"
+    },
+    {
+      "id": 18,
+      "title": "Chat cancellation"
+    },
+    {
+      "id": 19,
+      "title": "Chat input"
+    },
+    {
+      "id": 20,
+      "title": "Chat route"
+    },
+    {
+      "id": 21,
+      "title": "Late payment checks"
+    },
+    {
+      "id": 22,
+      "title": "Payment background work"
+    },
+    {
+      "id": 23,
+      "title": "Invoice creation"
+    },
+    {
+      "id": 24,
+      "title": "Credit purchases"
+    },
+    {
+      "id": 25,
+      "title": "Convex identity"
+    },
+    {
+      "id": 26,
+      "title": "Private queries"
+    },
+    {
+      "id": 27,
+      "title": "Bulk writes"
+    },
+    {
+      "id": 28,
+      "title": "Access and balance lifetime"
+    },
+    {
+      "id": 29,
+      "title": "Session cleanup"
+    },
+    {
+      "id": 30,
+      "title": "Credit balance UI"
+    },
+    {
+      "id": 31,
+      "title": "Image request identity"
+    },
+    {
+      "id": 32,
+      "title": "Request-ID reuse"
+    },
+    {
+      "id": 33,
+      "title": "Generation state"
+    },
+    {
+      "id": 34,
+      "title": "Image execution"
+    },
+    {
+      "id": 35,
+      "title": "Provider attempts"
+    },
+    {
+      "id": 36,
+      "title": "Image completion"
+    },
+    {
+      "id": 37,
+      "title": "Storage duplicates"
+    },
+    {
+      "id": 38,
+      "title": "Storage recovery"
+    },
+    {
+      "id": 39,
+      "title": "Bulk execution"
+    },
+    {
+      "id": 40,
+      "title": "Bulk browser locks"
+    },
+    {
+      "id": 41,
+      "title": "Interrupted bulk items"
+    },
+    {
+      "id": 42,
+      "title": "Bulk controls"
+    },
+    {
+      "id": 43,
+      "title": "Bulk capacity"
+    },
+    {
+      "id": 44,
+      "title": "Large queue creation"
+    },
+    {
+      "id": 45,
+      "title": "Canonical Scripture"
+    },
+    {
+      "id": 46,
+      "title": "Scene-plan cache"
+    },
+    {
+      "id": 47,
+      "title": "Prompt construction"
+    },
+    {
+      "id": 48,
+      "title": "Image model interface"
+    },
+    {
+      "id": 49,
+      "title": "Model availability"
+    },
+    {
+      "id": 50,
+      "title": "Image history"
+    },
+    {
+      "id": 51,
+      "title": "Image availability"
+    },
+    {
+      "id": 52,
+      "title": "Image module"
+    },
+    {
+      "id": 53,
+      "title": "Remote image fetches"
+    },
+    {
+      "id": 54,
+      "title": "Image impressions"
+    },
+    {
+      "id": 55,
+      "title": "Nostr ranking"
+    },
+    {
+      "id": 56,
+      "title": "Nostr recovery"
+    },
+    {
+      "id": 57,
+      "title": "Generation controls"
+    },
+    {
+      "id": 58,
+      "title": "Hero image UI"
+    },
+    {
+      "id": 59,
+      "title": "Reactive image updates"
+    },
+    {
+      "id": 60,
+      "title": "Preferences"
+    },
+    {
+      "id": 61,
+      "title": "Welcome and purchases"
+    },
+    {
+      "id": 62,
+      "title": "Scripture errors"
+    },
+    {
+      "id": 63,
+      "title": "Scripture cache"
+    },
+    {
+      "id": 64,
+      "title": "Navigation data"
+    },
+    {
+      "id": 65,
+      "title": "Translation coverage"
+    },
+    {
+      "id": 66,
+      "title": "Shared image translations"
+    },
+    {
+      "id": 67,
+      "title": "Pricing tests"
+    },
+    {
+      "id": 68,
+      "title": "Chat stream tests"
+    },
+    {
+      "id": 69,
+      "title": "Convex tests"
+    },
+    {
+      "id": 70,
+      "title": "Failure recovery tests"
+    },
+    {
+      "id": 71,
+      "title": "Browser tests"
+    },
+    {
+      "id": 72,
+      "title": "Coverage reporting"
+    },
+    {
+      "id": 73,
+      "title": "Chat quality"
+    },
+    {
+      "id": 74,
+      "title": "Image quality"
+    },
+    {
+      "id": 75,
+      "title": "Model updates"
+    },
+    {
+      "id": 76,
+      "title": "Operational records"
+    },
+    {
+      "id": 77,
+      "title": "Operational metrics"
+    },
+    {
+      "id": 78,
+      "title": "Dependency health"
+    },
+    {
+      "id": 79,
+      "title": "Product copy"
+    },
+    {
+      "id": 80,
+      "title": "Data retention"
+    },
+    {
+      "id": 81,
+      "title": "Existing behavior"
+    },
+    {
+      "id": 82,
+      "title": "Data migration"
+    },
+    {
+      "id": 83,
+      "title": "Release switching"
+    },
+    {
+      "id": 84,
+      "title": "Rollback"
+    },
+    {
+      "id": 85,
+      "title": "Retired code"
+    },
+    {
+      "id": 86,
+      "title": "Documentation"
+    }
+  ],
+  "specs": [
+    {
+      "id": "S01",
+      "title": "Accurate quotes and auditable credit charges",
+      "problem": "Guests cannot rely on displayed costs when catalog units, fallback prices, reservation rules, and final charge records disagree. Operators cannot reliably compare provider spend with revenue.",
+      "solution": "Give each accepted operation a versioned quote, a visible maximum charge, and a receipt. Calculate money consistently and reconcile credits exactly once.",
+      "stories": [
+        [
+          "guest",
+          "see an estimate and maximum charge before paid work",
+          "I understand what I authorize"
+        ],
+        [
+          "guest",
+          "receive unused reserved credits automatically",
+          "failed or cheaper work does not lock my balance"
+        ],
+        [
+          "guest",
+          "pay at most the accepted maximum",
+          "a provider price change cannot create an unexpected debit"
+        ],
+        [
+          "guest",
+          "use supported resolution settings at an explainable price",
+          "I pay for the output I selected"
+        ],
+        [
+          "operator",
+          "see planner and image provider spend separately",
+          "I can measure the full cost of a generation"
+        ],
+        [
+          "operator",
+          "distinguish zero usage cost from missing data",
+          "I do not manufacture charges from unavailable telemetry"
+        ],
+        [
+          "operator",
+          "retry receipt delivery safely",
+          "reporting does not duplicate charges or costs"
+        ],
+        [
+          "maintainer",
+          "test catalog fixtures in their original units",
+          "unit conversion errors cannot survive mocked examples"
+        ],
+        [
+          "guest",
+          "use the documented small-balance allowance for explicit image generation",
+          "my remaining credits remain useful"
+        ]
+      ],
+      "decisions": [
+        "Preserve one credit = USD 0.01 and 25% markup. Use decimal or checked fixed-point monetary arithmetic; round credits once at the final operation total, with a one-credit minimum for successful chargeable work. Reject nonfinite and negative input; represent known zero, estimated, and missing usage distinctly.",
+        "Normalize provider pricing to explicit billable units in a catalog adapter. Emergency values have identical units and provenance. A price field name alone is not proof of a flat per-image cost. Unsupported/unpriceable paid choices fail closed with a user explanation; browsing remains free.",
+        "Quotes contain immutable input fingerprint, catalog and policy versions, estimate, maximum charge, creation time and 5-minute expiry. Accepted quotes freeze the customer policy for that operation. A stale quote requires refreshed acceptance before provider work.",
+        "For new execution, charge successful work from reported usage plus markup, capped at the accepted maximum. Missing usage uses the accepted estimate, capped likewise, and remains labeled estimated. Never retroactively increase a finalized guest charge or reprice historical ledger entries. Keep provider corrections as separately versioned accounting records.",
+        "For quote admission preserve the 100-credit chat ceiling and existing non-admin daily limit default, but track provider-spend exposure separately from customer billings. Bound chat input and output; reserve exposure for concurrent admitted work. Reconcile daily exposure by reservation day, including midnight crossings.",
+        "Replace the 35x rule with explicit max-charge holds. Preserve the five-credit spend-down allowance for explicit image requests: positive balance, estimate no more than five credits above it, maximum charge and hold capped at that balance, remainder absorbed by Visibible. Auto-generation requires full estimated affordability. New UI states show the estimate and any higher maximum distinctly.",
+        "Image failure, cancellation before durable completion, and unusable final output release the customer reservation; record all known provider spend. A completed, durably saved image remains chargeable even if its HTTP delivery is interrupted. Successful chat means accepted nonempty output with a permitted finish outcome; error/cancelled streams release under S04.",
+        "Write wallet changes, immutable settlement receipt, and delivery intent in one Convex transaction. The Neutral Cost component is a reporting projection, not a second wallet. Projection processing must have atomic operation-key deduplication and recoverable retries.",
+        "Learn estimates only from actual provider usage. Use the existing nearest-rank 75th percentile over settings-normalized buckets, at least five recent actual samples for a learned quote, a 30-day freshness window, and at most the latest 30 samples. Less-specific estimates are visibly lower confidence and never authorization ceilings. Backfill is an explicit bounded operator operation.",
+        "Keep pure quote arithmetic in a shared library. Both legacy fixes and new operations call it; typed adapters separate raw usage and billable amounts."
+      ],
+      "tests": [
+        "Test quote-to-reservation-to-settlement through the wallet interface with real Convex handlers and realistic provider fixtures.",
+        "Cover one-credit rounding, free usage, absent usage, fallback unit parity, concurrent holds, duplicate finalization, capped shortfall and midnight release.",
+        "Crash after settlement but before reporting; replay delivery concurrently and assert one wallet effect and one projection.",
+        "Extend existing credit-flow and session invariant tests; do not reproduce the arithmetic in mocks."
+      ],
+      "out": [
+        "New credit bundles or markup changes",
+        "Repricing old guest charges",
+        "Automated refunds to an external Lightning wallet"
+      ],
+      "tickets": [
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06"
+      ],
+      "items": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        48,
+        49,
+        67
+      ],
+      "filename": "s01.md"
+    },
+    {
+      "id": "S02",
+      "title": "Verified guest access and protected credit ownership",
+      "problem": "Private operations use inconsistent ownership checks, and session expiry is mixed with retention of purchased credits.",
+      "solution": "Keep anonymous browsing while making private reads and writes use verified identity. Preserve credit ownership independently of expired access credentials.",
+      "stories": [
+        [
+          "guest",
+          "browse without registering",
+          "I can read Scripture immediately"
+        ],
+        [
+          "guest",
+          "see only my private balance and invoices",
+          "my spending history stays private"
+        ],
+        [
+          "guest",
+          "see the same balance in two tabs",
+          "I can understand concurrent purchases and generation"
+        ],
+        [
+          "guest",
+          "receive clear information about cookie loss and expiry",
+          "I know the limits of anonymous access"
+        ],
+        [
+          "operator",
+          "retain funded session records after access expires",
+          "cleanup cannot erase credit ownership"
+        ],
+        [
+          "operator",
+          "revoke compromised guest or admin access",
+          "private operations stop promptly"
+        ],
+        [
+          "maintainer",
+          "derive ownership from verified identity",
+          "a supplied session ID is never sufficient authorization"
+        ],
+        [
+          "existing guest",
+          "keep my current credit balance through migration",
+          "authentication changes do not make me pay again"
+        ]
+      ],
+      "decisions": [
+        "Use a Next.js token broker backed by the existing valid signed HttpOnly guest cookie and a Convex custom JWT integration. Issue short-lived RS256 tokens with kid, subject, issuer, audience, issued-at and expiry; keep the signing key server-side and publish only verification keys. Choose a 5-minute token lifetime and test rotation overlap.",
+        "Convex derives the guest subject from verified identity and resolves the existing SID mapping. Do not pass or accept an arbitrary owner SID as proof. Privileged tier comes from the current database record, not a stale client token.",
+        "First close unauthenticated access to private session, invoice, credit-history and bulk functions. Keep intentionally public library reads public. Server-to-server callers use a separate authenticated interface while transitioning.",
+        "Preserve existing seven-day idle and thirty-day absolute HTTP access expiry for this program. Expiry ends access, not ownership; this program adds no cross-device or lost-cookie recovery and must say so before purchase. Token refresh cannot extend the underlying session beyond its allowed expiry.",
+        "Never automatically delete a positive balance, unresolved reservation, invoice needing reconciliation or associated financial record. Preserve expired funded sessions as inaccessible records pending a separately specified recovery feature. Never accept an expired cookie as proof solely to restore funds.",
+        "Migrate a valid existing session to verified Convex identity without a credit transfer. Existing immutable ledger/SID relationships remain resolvable. Query balances reactively and remove client-side arithmetic.",
+        "Guest token issuance follows same-origin/CSRF rules and bounded rate limits. Tokens stay in memory, not localStorage. A revocation or deleted subject causes private functions to reject even a cryptographically valid token."
+      ],
+      "tests": [
+        "Use two guest identities and an unauthenticated client against actual private handlers; known foreign IDs must not grant access.",
+        "Test cookie/token expiry, bad issuer/audience/signature, signing-key rotation, revocation and downgraded admin access.",
+        "Verify purchases, holds, releases and charges in two browser tabs without polling balance.",
+        "Retain prior session/IP tests while adding authenticated query behavior."
+      ],
+      "out": [
+        "Named accounts",
+        "Cross-device balances or recovery codes",
+        "Changing anonymous session expiry durations"
+      ],
+      "tickets": [
+        "T07",
+        "T08",
+        "T09",
+        "T10"
+      ],
+      "items": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "filename": "s02.md"
+    },
+    {
+      "id": "S03",
+      "title": "Lightning purchases that settle without an open tab",
+      "problem": "A guest can pay within the invoice window but receive no credits if the app observes the payment after local expiry. Browser polling is also responsible for settlement progress.",
+      "solution": "Create recoverable invoice attempts and reconcile LND truth on the server. Grant each purchased credit bundle once, even after the guest leaves.",
+      "stories": [
+        [
+          "guest",
+          "pay the existing USD 1 or USD 3 bundle",
+          "I can buy credits using Lightning"
+        ],
+        [
+          "guest",
+          "leave the payment screen after paying",
+          "I still receive my credits"
+        ],
+        [
+          "guest",
+          "see paid status when a payment is first observed late",
+          "a local timer cannot discard payment truth"
+        ],
+        [
+          "guest",
+          "retry invoice creation after a connection problem",
+          "I do not get unrelated duplicate payment requests"
+        ],
+        [
+          "operator",
+          "find incomplete invoice creation attempts",
+          "I can recover partial failures"
+        ],
+        [
+          "operator",
+          "reconcile old pending or locally expired invoices",
+          "previously missed payments are detectable"
+        ],
+        [
+          "operator",
+          "confirm a payment repeatedly without extra credits",
+          "retries are safe"
+        ],
+        [
+          "guest",
+          "see a delayed-check state during an LND outage",
+          "I do not mistake unavailable status for payment failure"
+        ]
+      ],
+      "decisions": [
+        "LND verified settlement is authoritative. Validate payment hash, amount and settled state; a locally elapsed invoice deadline prevents presenting it as payable but cannot override a settled payment. Separate local display expiry from reconciled provider state.",
+        "Use one atomic confirmation mutation for the invoice-paid record and purchase ledger entry, uniquely keyed by payment hash/invoice identity. Repeated confirmation returns the existing result without another credit.",
+        "Record an invoice-creation intent before external I/O and reconcile any ambiguous creation result. Prefer a provider-supported stable payment identity; validate the deployed LND capability first. If safe lookup is unavailable, expose an unresolved creation attempt rather than silently generating another payable invoice.",
+        "Use bounded Convex scheduled reconciliation with an authenticated LND adapter. Validate network reachability from the chosen execution environment before moving credentials. If direct access is unavailable, use a narrowly scoped authenticated server bridge; never require the browser to drive settlement.",
+        "Poll new pending invoices at most every 15 seconds, back off on failures up to 5 minutes, and reconcile late-observed states until LND establishes terminal truth. Run a bounded historical sweep for locally expired/unresolved records. Expose retry age and operator action instead of an infinite invisible loop.",
+        "Freeze sats amount, USD bundle and credit count at invoice creation. Keep the existing bundle prices and invoice-only credentials. Observe invoice status through authorized reactive queries once identity integration is available.",
+        "Preserve financial evidence and hashed identifiers; never expose macaroons or payment preimages in logs, public responses, specs or tickets."
+      ],
+      "tests": [
+        "Test timely payment first observed after local expiry through both HTTP confirmation and real Convex settlement.",
+        "Simulate crash before and after LND creation, delayed settlement, outage, duplicate notification, amount mismatch and concurrent confirmations.",
+        "Leave/close the browser, settle a fake invoice, reopen and assert one credit addition.",
+        "Use existing invoice IP-binding tests as prior art; add actual invoice handler tests instead of only mocked credits."
+      ],
+      "out": [
+        "Fiat checkout",
+        "New bundles",
+        "External wallet refunds"
+      ],
+      "tickets": [
+        "T11",
+        "T12",
+        "T13"
+      ],
+      "items": [
+        21,
+        22,
+        23,
+        24
+      ],
+      "filename": "s03.md"
+    },
+    {
+      "id": "S04",
+      "title": "Reliable Scripture chat with correct stream settlement",
+      "problem": "A chat error can arrive as ordinary stream data and still trigger a charge. Cancellation, input trust and long histories are not enforced through one coherent chat interface.",
+      "solution": "Provide bounded, passage-grounded chat that reports a clear outcome and settles credits according to actual stream success.",
+      "stories": [
+        [
+          "guest",
+          "receive an answer about my selected passage",
+          "chat stays connected to reading"
+        ],
+        [
+          "guest",
+          "avoid a charge for a failed stream",
+          "errors do not consume my credits"
+        ],
+        [
+          "guest",
+          "cancel a response",
+          "unwanted work stops and follows the published billing rule"
+        ],
+        [
+          "guest",
+          "see accurate token and charge metadata",
+          "I understand each completed turn"
+        ],
+        [
+          "guest",
+          "receive a clear limit message for an oversized conversation",
+          "the request fails before paid work"
+        ],
+        [
+          "operator",
+          "measure spend on failed and cancelled turns",
+          "subsidized costs remain visible"
+        ],
+        [
+          "maintainer",
+          "test the installed SDK error format",
+          "stream-library changes cannot silently alter charging"
+        ],
+        [
+          "guest",
+          "receive server-grounded Scripture context",
+          "another client payload cannot replace the app instructions"
+        ]
+      ],
+      "decisions": [
+        "Keep streaming chat in Next.js for this program. Put admission, server-owned passage context, stream outcome and credit settlement behind one chat interface. Persistent conversations are out of scope.",
+        "An accepted success requires nonempty assistant text, no provider error, and an allowed stop or length finish. Label length-limited output as incomplete but chargeable. Empty, error and cancelled outcomes release customer holds; always retain known provider spend.",
+        "Wire the request abort signal to provider streaming and cancel the active reader correctly. Settle once under completion/error/cancel races. After a terminal success is recorded, a late disconnect does not reverse the charge.",
+        "Only the server supplies system instructions. Accept user and assistant history with explicit role/part validation; resolve passage text from canonical reference and translation. User content cannot become a privileged system message.",
+        "Calculate admission from bounded serialized input and selected model limits. Enforce a default maximum of 2,048 output tokens, also constrained by model context/capabilities and accepted quote. Make truncation or rejection visible instead of silently dropping meaningful history.",
+        "First repair incorrect units and stream outcomes on the existing route. Integrate versioned quote caps and durable receipts after the wallet changes, without delaying the independent correctness fixes.",
+        "Any context, SDK or model-behavior change must pass the existing chat evaluation release rules as well as mechanical tests. If candidate evaluation does not pass, retain the baseline and record the result."
+      ],
+      "tests": [
+        "Use the real installed AI SDK with a fake model provider; include errors encoded as UI stream parts that close normally.",
+        "Test normal stop, length finish, empty output, exception, cancellation and cancellation racing completion through the chat interface.",
+        "Assert stable balance/ledger effects, not TransformStream internals or source text.",
+        "Use existing credit-flow tests for prior behavior and S10 evaluations for answer quality."
+      ],
+      "out": [
+        "Persisted chat history",
+        "Tools or retrieval beyond canonical passage context",
+        "A redesigned chat persona"
+      ],
+      "tickets": [
+        "T14",
+        "T15",
+        "T20",
+        "T21"
+      ],
+      "items": [
+        8,
+        10,
+        11,
+        17,
+        18,
+        19,
+        20,
+        68
+      ],
+      "filename": "s04.md"
+    },
+    {
+      "id": "S05",
+      "title": "Durable single-verse image generation",
+      "problem": "An HTTP retry can duplicate provider work and charges. A generation may be marked succeeded before its image is saved, and request failure can strand its progress.",
+      "solution": "Accept one authenticated generation intent, run it durably, persist its image and settle once. Readers can recover the result by generation identity.",
+      "stories": [
+        [
+          "guest",
+          "generate an image for a selected verse",
+          "I can visualize what I am reading"
+        ],
+        [
+          "guest",
+          "retry the same request safely",
+          "a lost response cannot make me pay twice"
+        ],
+        [
+          "guest",
+          "return after a disconnection",
+          "I can recover the saved image and receipt"
+        ],
+        [
+          "guest",
+          "see useful progress states",
+          "I know whether work is queued, generating or saving"
+        ],
+        [
+          "guest",
+          "cancel work that has not completed",
+          "I can control spending and wait time"
+        ],
+        [
+          "operator",
+          "inspect each provider attempt",
+          "unknown outcomes are recoverable"
+        ],
+        [
+          "guest",
+          "know whether an image is saved",
+          "temporary output is not presented as durable"
+        ],
+        [
+          "operator",
+          "recover a storage failure without regeneration",
+          "recovery does not create another paid provider request"
+        ]
+      ],
+      "decisions": [
+        "Use a mutation to atomically accept owner-scoped operation identity, canonical input fingerprint, quote and reservation, then schedule a Convex Workflow. Keep one workflow per generation and store large bytes outside workflow journals; pass IDs between steps.",
+        "Transport retries reuse the same owner and intent ID. A deliberate new variation uses a new ID. Reuse with a different fingerprint is a conflict. Historical and archived operation identities retain deduplication tombstones.",
+        "Operation states are accepted, planning, generating, saving, succeeded, failed, cancelled and uncertain. Only valid transitions are permitted. Terminal outcomes are immutable; uncertain is a recovery state, not a license to repeat paid work.",
+        "Persist provider-attempt identity before calling the provider; record result identity and usage as soon as available. Use provider idempotency only when its behavior is verified. Disable automatic retries of non-idempotent paid steps; ambiguous completion enters uncertain and releases the customer hold after a maximum 30-minute resolution window, retaining operator reconciliation and provider cost evidence.",
+        "Save validated output, then atomically finalize the saved-image link, receipt and charge. Store provider spend independently of delivery. Storage retry uses existing output and never silently invokes the model again.",
+        "Cancellation stops pending steps. If durable success committed first, cancellation returns that success and its charge; otherwise cancel/release according to the policy. Provider cancellation is best-effort and any spend remains accounted for.",
+        "Initially support the current default image model through the existing provider transport. Extend other supported models through the adapter contract; adopting a dedicated image API requires verified capability and fixture parity, not a simultaneous provider migration.",
+        "Legacy route fixes for request deduplication and terminal-state guards land independently before switching execution. A per-operation executor version ensures that legacy and new implementations cannot both perform one generation."
+      ],
+      "tests": [
+        "Test the generation request/status/result interface with real database handlers and fake provider/storage effects.",
+        "Inject failures after admission, provider success, storage and settlement; assert one debit, one image record and a recoverable result.",
+        "Test duplicate intents, fingerprint conflicts, foreign owners and cancelled/terminal races.",
+        "Run a preview resume-after-disconnect exercise before enabling the new executor."
+      ],
+      "out": [
+        "New artistic styles",
+        "Automatic provider failover after an ambiguous paid request",
+        "Exactly-once guarantees for an external service without supporting evidence"
+      ],
+      "tickets": [
+        "T22",
+        "T25",
+        "T26",
+        "T27"
+      ],
+      "items": [
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        38,
+        70
+      ],
+      "filename": "s05.md"
+    },
+    {
+      "id": "S06",
+      "title": "Bulk generation managed by the server",
+      "problem": "Bulk jobs depend on browser locks and heartbeat timers. Interrupted generating items and client-written counters can leave progress inaccurate.",
+      "solution": "Let guests request a verse scope and observe a server-owned queue that continues without an open tab.",
+      "stories": [
+        [
+          "guest",
+          "generate next verses, chapter ranges or a book",
+          "I can illustrate a meaningful scope"
+        ],
+        [
+          "guest",
+          "close the tab while a job runs",
+          "my accepted job continues"
+        ],
+        [
+          "guest",
+          "pause and resume a job",
+          "I control future work"
+        ],
+        [
+          "guest",
+          "cancel a job",
+          "remaining verses do not start"
+        ],
+        [
+          "guest",
+          "see accurate progress in two tabs",
+          "both views describe the same job"
+        ],
+        [
+          "guest",
+          "resume after buying credits",
+          "completed items are not repeated"
+        ],
+        [
+          "operator",
+          "limit concurrent provider work",
+          "a large scope cannot exhaust capacity"
+        ],
+        [
+          "guest",
+          "recover interrupted work",
+          "one abandoned item cannot block the whole job"
+        ]
+      ],
+      "decisions": [
+        "Bulk items invoke the same generation interface as single images with a stable intent ID derived from job and item. Preserve existing scope semantics, reference order and per-item charging.",
+        "Create a job through verified identity. The browser can start, pause, resume or cancel, but only server workers write outcomes and aggregate credits. Update item state and parent counters transactionally from idempotent item transitions.",
+        "Begin with one active item per guest/job and two active provider calls globally in the new execution pool. Make limits configurable and enforce them server-side. Keep paid request quotas and admin rate limits; job scheduling is not an exemption.",
+        "Queue creation is a resumable building phase with bounded insertion batches in separate transactions. Execution begins only when the intended queue is complete. Bound to one canonical book per job and one active/paused job per guest, preserving the existing product scope.",
+        "Pause prevents new claims while allowing the current item to finish. Cancel prevents future claims; an already running item completes under the single-generation cancellation contract. Bulk cancellation must display in-flight work clearly.",
+        "Insufficient credits pauses for explicit guest resume. Provider throttling records retry-after and pauses with an actionable status; resuming before retry-after does not start work. Retry only safely retryable infrastructure steps.",
+        "Recover abandoned claims by inspecting the linked generation outcome, not simply moving every generating row back to queued. Resolve succeeded items and uncertain attempts without duplicate provider calls.",
+        "Remove browser leases, heartbeat timers and arithmetic only after the server path passes failure recovery and two-tab tests. Keep a compact reactive progress view with completed, failed, skipped and pending counts.",
+        "At job acceptance record per-item maximum charges and an aggregate authorization ceiling; no upfront whole-job debit. Requote and pause for explicit acceptance when a later item exceeds either ceiling. Existing accepted items retain their own quote and policy version."
+      ],
+      "tests": [
+        "Exercise start-to-completion with fake provider effects and actual job/item mutations.",
+        "Test closing all tabs, two tabs, server interruption, insufficient credits, throttling, pause/cancel races and resume.",
+        "Create the largest canonical book scope and verify bounded transaction sizes and resumable insertion.",
+        "Assert counters equal item outcomes and each item has at most one settled generation."
+      ],
+      "out": [
+        "Parallel per-guest generation beyond configured limits",
+        "New scope types",
+        "Upfront charging for an entire book"
+      ],
+      "tickets": [
+        "T28",
+        "T29",
+        "T30",
+        "T31",
+        "T32"
+      ],
+      "items": [
+        27,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        70
+      ],
+      "filename": "s06.md"
+    },
+    {
+      "id": "S07",
+      "title": "Canonical Scripture and versioned scene plans",
+      "problem": "Missing text, upstream failures and invalid references are mixed together. Supplied text can influence shared plans, and old plans can survive changes to their inputs.",
+      "solution": "Resolve canonical passages consistently, preserve reader location on errors, and reuse a scene plan only when its meaningful inputs match.",
+      "stories": [
+        [
+          "reader",
+          "stay at my intended verse when text is unavailable",
+          "a temporary failure does not send me to Genesis"
+        ],
+        [
+          "reader",
+          "know when my translation lacks a passage",
+          "I can choose another translation"
+        ],
+        [
+          "guest",
+          "generate from the declared Scripture text",
+          "the image is tied to the correct passage"
+        ],
+        [
+          "reader",
+          "navigate consistently across book and chapter edges",
+          "the controls follow one reference system"
+        ],
+        [
+          "guest",
+          "reuse compatible scene plans",
+          "I avoid unnecessary planner calls"
+        ],
+        [
+          "maintainer",
+          "invalidate plans after prompt or model changes",
+          "new behavior is evaluated on current inputs"
+        ],
+        [
+          "operator",
+          "bound cached chapter data",
+          "long-running processes do not accumulate unlimited entries"
+        ],
+        [
+          "reader",
+          "keep stable verse URLs",
+          "existing links remain useful"
+        ]
+      ],
+      "decisions": [
+        "A Scripture module owns book identity, parsing, canonical single-verse validation, translation lookup and adjacent navigation. Reuse existing navigation semantics and static metadata; consolidate duplicate book lists only behind preserved behavior.",
+        "The interface distinguishes invalid reference, unavailable translation text and retryable upstream failure. Preserve the requested URL and offer retry or translation selection. Never silently substitute another verse or translation for paid generation.",
+        "Canonical image requests supply reference, translation and generation settings. The server resolves current and adjacent text. Existing clients may temporarily send text for compatibility, but it is checked/ignored as authoritative input; custom text cannot populate the shared plan cache.",
+        "Prefer the existing platform chapter cache. If a process-local layer remains necessary, cap it at 256 chapter entries with 24-hour TTL and deduplicate in-flight fetches. Bound upstream waits and keep failed responses from becoming long-lived successful cache entries.",
+        "Scene-plan identity includes canonical passage content fingerprint, translation, planner model, prompt version, style version and any relevant chapter-theme/continuity inputs. Cache lookup is a query; hit accounting is a separate bounded write.",
+        "Prompt construction is a pure internal part of the generation module with bounded length and structured plan validation. Keep the existing classical style and Genesis 1 theme as the baseline. Preserve the visual intent and variation semantics; evaluate any changed prompt output under S10.",
+        "Shared image browsing continues to group by verse reference across translations, with translation/provenance visible on image details. Generation itself always uses the selected translation."
+      ],
+      "tests": [
+        "Test the highest Scripture resolve-and-navigate interface with realistic translation fixtures and upstream failure adapters.",
+        "Cover first/last verses, book transitions, missing chapter/verse coverage, timeout and transient error states.",
+        "Verify incompatible client text never alters shared cached plans, and each relevant version change invalidates a hit.",
+        "Retain navigation/bulk-scope tests; replace source assertions with rendered location/error behavior."
+      ],
+      "out": [
+        "A new Bible text provider or corpus ingestion",
+        "New translations",
+        "A general cross-chapter character/scene continuity engine"
+      ],
+      "tickets": [
+        "T16",
+        "T17",
+        "T18",
+        "T19"
+      ],
+      "items": [
+        45,
+        46,
+        47,
+        62,
+        63,
+        64,
+        65
+      ],
+      "filename": "s07.md"
+    },
+    {
+      "id": "S08",
+      "title": "Reliable shared image storage and bounded library reads",
+      "problem": "Image insertion can race, remote fetching has gaps, and gallery/count queries grow with all historical images. Readers need durable images without loading unbounded history.",
+      "solution": "Give each saved image a stable identity, safe storage and provenance. Serve summaries and paginated history while preserving public image responses.",
+      "stories": [
+        [
+          "reader",
+          "browse saved images for a verse",
+          "I can compare prior illustrations"
+        ],
+        [
+          "reader",
+          "open a saved-image link",
+          "I see the same image after navigation or refresh"
+        ],
+        [
+          "reader",
+          "browse a large chapter gallery",
+          "history size does not make the page unusable"
+        ],
+        [
+          "reader",
+          "see image counts and latest images",
+          "I can find illustrated passages quickly"
+        ],
+        [
+          "guest",
+          "see whether output is durably saved",
+          "I know whether I can return to it"
+        ],
+        [
+          "API consumer",
+          "keep using existing image endpoints",
+          "the internal refactor does not break my integration"
+        ],
+        [
+          "operator",
+          "save provider output without duplicate rows",
+          "retry processing is safe"
+        ],
+        [
+          "operator",
+          "limit remote image fetch destinations and size",
+          "external URLs cannot bypass storage restrictions"
+        ]
+      ],
+      "decisions": [
+        "Image insertion enforces generation identity inside its transaction. Storage retries reuse persisted bytes or a recoverable provider result. Clean up orphaned storage blobs through a bounded verified process; never delete a blob still referenced by an image.",
+        "Prefer provider-returned bytes. Remote fetch remains an adapter with HTTPS/allowlist validation, controlled redirects, MIME/size/time limits and a verified strategy against DNS rebinding/private destinations. Default to no redirects; enable a redirect only with destination validation. If the runtime cannot safely constrain resolution, reject that URL path rather than claim protection.",
+        "Separate generation lifecycle, planner cache, storage and library read implementations under small interfaces. Public outputs are explicit projections; private ownership data, prompts and financial fields remain excluded from the public API contract.",
+        "Keep old image IDs, public routes and storage URLs working. Use additive metadata for translation, model, prompt version, source generation and durable-storage state. Legacy URL-backed rows remain clearly identified.",
+        "Paginate reader history and gallery with stable cursor ordering. Default page size 30, max 100. Keep selected-image lookup independently addressable so pagination cannot break deep links.",
+        "Maintain verse/chapter/book availability summaries transactionally with image insert/delete operations. Backfill summaries in resumable batches and compare against reference queries before switching consumers.",
+        "Measure impression-driven invalidation first; move high-write impression counters away from image records when representative testing shows needless history/gallery recomputation. Publication ranking uses a dedicated count projection defined in S11."
+      ],
+      "tests": [
+        "Test save/read/public projection at their interfaces with real mutations and fake storage/fetch responses.",
+        "Concurrently save one generation and assert one image row; verify unused blobs are not mistaken for referenced ones.",
+        "Test pagination with repeated timestamps, insertion between pages, absent selected images and historical IDs.",
+        "Exercise blocked redirects, private destinations, oversized bytes, misleading MIME and timed-out bodies."
+      ],
+      "out": [
+        "Private image collections",
+        "New public API features",
+        "Deleting legacy images solely to simplify the schema"
+      ],
+      "tickets": [
+        "T23",
+        "T24",
+        "T33",
+        "T34"
+      ],
+      "items": [
+        37,
+        50,
+        51,
+        52,
+        53,
+        66
+      ],
+      "filename": "s08.md"
+    },
+    {
+      "id": "S09",
+      "title": "Consistent reader controls and preferences",
+      "problem": "Generation controls depend on a mounted image renderer. Preferences and balances have multiple local copies, and onboarding/purchase states are tightly coupled.",
+      "solution": "Let reader, gallery and header share one generation interface. Preserve navigation while reducing local synchronization and splitting unrelated UI state.",
+      "stories": [
+        [
+          "reader",
+          "generate from the reader or gallery controls",
+          "changing view does not disable the command unexpectedly"
+        ],
+        [
+          "reader",
+          "navigate while images load",
+          "passive loading does not look like paid generation"
+        ],
+        [
+          "reader",
+          "use keyboard and mobile gestures",
+          "navigation remains accessible"
+        ],
+        [
+          "reader",
+          "keep my selected translation and model",
+          "refresh does not reset my choices"
+        ],
+        [
+          "reader",
+          "open a specific saved image",
+          "history loading does not choose another image"
+        ],
+        [
+          "guest",
+          "see accurate generation progress and balance",
+          "I do not act on stale local data"
+        ],
+        [
+          "new reader",
+          "choose free browsing from welcome",
+          "payment onboarding does not obstruct reading"
+        ],
+        [
+          "guest",
+          "buy credits without confusing admin or welcome states",
+          "purchase steps remain understandable"
+        ]
+      ],
+      "decisions": [
+        "A verse generation module owns request/status/quote commands independently of HeroImage. Reader, gallery and header use it directly. Keep React local state for visual concerns: selected image, loading, gestures and fullscreen.",
+        "URL defines verse location, gallery base view and requested image. Preserve existing supported in-memory view overrides where tests demonstrate the intended behavior. Model/translation cookies are authoritative for server-visible preferences; localStorage supplies boot hints and stores purely client ratio/resolution preferences. Version/migrate preferences without changing user choices.",
+        "Use Convex subscriptions for saved history, generation state and authorized balance. Remove cache-busting tokens only once normal subscriptions and selected-image lookup cover recovery.",
+        "Separate welcome, bundle selection, invoice lifecycle and admin access into small UI modules within the existing design. Consolidate welcome flags with a migration that respects either prior completion flag. Keep Browse for Free and existing welcome behavior; redesigning when to show it is excluded.",
+        "Preserve mobile/keyboard behavior, fullscreen exit order, focus handling, gallery image links, loading distinctions and layout. Use browser verification and screenshots for visible changes.",
+        "Remove duplicate local cost/balance arithmetic. Present estimate, maximum, reserved amount and final charge using values from the owning modules. Make unsupported saved model settings visible and recover to a validated choice."
+      ],
+      "tests": [
+        "Browser tests follow reader -> gallery -> selected image -> generate -> saved result across refresh.",
+        "Exercise keyboard, touch, Escape, focus restoration, narrow/wide layouts and loading/error states.",
+        "Use two tabs to verify preference/balance expectations; inspect visible values rather than implementation hooks.",
+        "Replace existing string/source checks with behavioral tests only for their meaningful contracts."
+      ],
+      "out": [
+        "Visual rebranding",
+        "New navigation patterns",
+        "New onboarding sales flow"
+      ],
+      "tickets": [
+        "T37",
+        "T38",
+        "T39",
+        "T40",
+        "T48"
+      ],
+      "items": [
+        57,
+        58,
+        59,
+        60,
+        61,
+        71,
+        79,
+        81
+      ],
+      "filename": "s09.md"
+    },
+    {
+      "id": "S10",
+      "title": "Evidence-based model and prompt releases",
+      "problem": "Model age does not establish quality, and current tests do not measure Scripture grounding or image usefulness. The stated chat release evaluation process lacks a committed dataset and repeatable runner.",
+      "solution": "Create repeatable evaluations and compare current models/prompts with candidates before changing defaults or removing the planner.",
+      "stories": [
+        [
+          "reader",
+          "receive grounded explanations",
+          "chat does not invent references or overstate interpretation"
+        ],
+        [
+          "reader",
+          "see images suited to different Scripture genres",
+          "symbolic or difficult passages receive useful treatment"
+        ],
+        [
+          "operator",
+          "compare actual cost and latency with quality",
+          "default choices are informed by evidence"
+        ],
+        [
+          "maintainer",
+          "rerun the same cases after a provider change",
+          "regressions are comparable"
+        ],
+        [
+          "reviewer",
+          "see failed and borderline cases",
+          "average scores do not hide serious failures"
+        ],
+        [
+          "operator",
+          "restore a prior model configuration",
+          "a regression can be reversed promptly"
+        ],
+        [
+          "guest",
+          "retain a functioning default if a candidate disappoints",
+          "modernization does not force a worse model"
+        ],
+        [
+          "operator",
+          "compare direct and planner-assisted images",
+          "the extra planner call must justify its cost"
+        ]
+      ],
+      "decisions": [
+        "Commit at least 30 chat cases covering single verses, adjacent context, contested interpretations, off-topic requests, prompt injection and harm-sensitive questions. Each case includes exact context, expected behavior notes and rubric. Use the existing four 0-2 dimensions and release thresholds.",
+        "Commit at least 24 image cases spanning narrative, poetry, prophecy, genealogy, symbolic and difficult passages. Score passage relevance, visual clarity, unwanted text/artifacts and style adherence. Record prompt, model, settings, seed when supported, image IDs and human review notes.",
+        "Run baseline and candidates against identical inputs. Keep judge model/configuration versioned and supplement automation with human review of failures/edge cases; model-graded output alone is not approval.",
+        "Capture actual provider spend including planner, completion/failure rate, latency distribution and estimate variance. Use at least three repeated image runs per case for planner comparison where budget permits; otherwise label the result inconclusive rather than inventing confidence.",
+        "Planning creates the evaluation work, not authorization for unbounded provider spend. Provide dry-run and a configurable hard evaluation budget. Implementation may run local fake-provider checks; live runs require available budget authority and credentials, with a human owner recorded before production model release.",
+        "Candidate default changes are conditional on evidence. A completed comparison with a documented no-change result satisfies the evaluation ticket. Provider API adoption likewise requires model/capability compatibility; catalog presence alone is insufficient.",
+        "For approved releases record baseline/candidate scores, risk, exact rollback configuration and first-24-hour monitoring owner. Preserve the existing manual chat release gate."
+      ],
+      "tests": [
+        "Test the runner with deterministic fake providers: complete/failing outputs, missing cost, timeouts and budget exhaustion.",
+        "Verify report reproducibility metadata and failure visibility.",
+        "Keep mechanics and theological/visual quality checks distinct.",
+        "Smoke-test rollback configuration without generating duplicate paid production work."
+      ],
+      "out": [
+        "Changing defaults without evidence",
+        "Training models",
+        "Automated theological authority or unsupervised evaluation sign-off"
+      ],
+      "tickets": [
+        "T41",
+        "T42",
+        "T43"
+      ],
+      "items": [
+        73,
+        74,
+        75
+      ],
+      "filename": "s10.md"
+    },
+    {
+      "id": "S11",
+      "title": "Trustworthy publication, operations and retention",
+      "problem": "Publication ranking trusts raw public increments, operational counters reset with each process, and cleanup does not express a consistent retention policy.",
+      "solution": "Give operators durable summaries of work and reconciliation, bounded publication ranking and explicit cleanup rules.",
+      "stories": [
+        [
+          "operator",
+          "see unresolved generations and invoices after restarts",
+          "I can repair incomplete work"
+        ],
+        [
+          "operator",
+          "compare provider spend and guest charges",
+          "I can find unexpected subsidy or pricing drift"
+        ],
+        [
+          "operator",
+          "know what readiness actually checked",
+          "a green response is not mistaken for live provider health"
+        ],
+        [
+          "reader",
+          "see selected Scripture images shared to Nostr",
+          "the public library reaches others"
+        ],
+        [
+          "operator",
+          "avoid repeated publication after a relay timeout",
+          "recovery does not spam relays"
+        ],
+        [
+          "reader",
+          "have repeated views counted fairly",
+          "one browser cannot inflate a publication candidate without limit"
+        ],
+        [
+          "guest",
+          "read accurate privacy and credit notices",
+          "I understand stored data and session limitations"
+        ],
+        [
+          "operator",
+          "run bounded cleanup without erasing financial evidence",
+          "maintenance remains safe"
+        ]
+      ],
+      "decisions": [
+        "Use durable operation/receipt/invoice records for business metrics and unresolved-work views. Process counters can remain labeled local diagnostics; aggregate operational rates with suitable log/metric storage rather than summing arbitrary server snapshots.",
+        "Keep public health/readiness responses minimal. Report liveness, configuration readiness and last successful dependency observation separately. Dependency probes run on bounded schedules, never paid generation; authorize detailed operational output.",
+        "Default retention: preserve credit ledger, settled invoice evidence, positive balances, unresolved attempts, stable operation dedupe identities and Nostr publication IDs. Keep detailed completed job/operation diagnostics 90 days and processed outbox payloads 30 days, while retaining compact receipts and dedupe keys. Expire unused scene plans after 90 days; retain original saved-image provenance. Retention changes require an impact review and dry run, not an unbounded deletion.",
+        "Session access expiry does not authorize deleting funded records. Abandoned zero-balance sessions are eligible only after 90 days and after checking all linked unresolved/financial state. Feedback raw user-agent/IP context is minimized; retain feedback text/context for 180 days unless operational need is explicitly recorded.",
+        "Keep latest-completed-four-hour-window Nostr cadence and at-most-one selection. Do not backfill missed windows automatically. Choose at most one eligible impression per authenticated guest/image/window for ranking, with a bounded write rate; treat it as abuse resistance, not proof of unique humans. Views remain public.",
+        "Persist the signed Nostr event ID before publishing. Retry only the same signed event when safe; record relay acknowledgements and never create a new event solely because local recording failed. Preserve the current conservative handling of ambiguous historical windows.",
+        "Privacy and credit copy must cover feedback context, sessions, preferences, invoices, images, analytics, access expiry and actual persistence guarantees. No legal retention-compliance claim is made by this engineering policy."
+      ],
+      "tests": [
+        "Recreate an operator process and verify unresolved-work and spending summaries are still available.",
+        "Test unauthorized detailed probes, dependency outages and old observations without paid calls.",
+        "Inject relay success followed by failed recording, partial relay acknowledgement and downtime; assert stable event identity.",
+        "Run cleanup dry runs on synthetic linked data and verify no retained balance, financial record, pending task or referenced image is deleted."
+      ],
+      "out": [
+        "A social feed or voting system",
+        "New relay platforms",
+        "Automatic replay of missed publication windows"
+      ],
+      "tickets": [
+        "T35",
+        "T36",
+        "T45",
+        "T46",
+        "T47"
+      ],
+      "items": [
+        54,
+        55,
+        56,
+        76,
+        77,
+        78,
+        80
+      ],
+      "filename": "s11.md"
+    },
+    {
+      "id": "S12",
+      "title": "Verified migration and retirement of old implementations",
+      "problem": "A broad replacement can lose subtle reader behavior, hide untested modules or split financial truth between old and new execution.",
+      "solution": "Keep a traceable acceptance inventory, test public behavior and migrate in reversible slices with one executor and wallet per operation.",
+      "stories": [
+        [
+          "existing reader",
+          "keep my URLs and saved images",
+          "the replacement preserves useful work"
+        ],
+        [
+          "guest",
+          "keep my balance and purchase history",
+          "migration cannot erase or duplicate credits"
+        ],
+        [
+          "maintainer",
+          "see all 86 investigation items mapped to tickets",
+          "work does not disappear through grouping"
+        ],
+        [
+          "implementer",
+          "take one bounded ticket with explicit blockers",
+          "I can complete a verifiable slice"
+        ],
+        [
+          "reviewer",
+          "see relevant behavior tests and coverage gaps",
+          "passing CI reflects meaningful confidence"
+        ],
+        [
+          "operator",
+          "restore data and switch execution safely",
+          "rollout problems have a tested recovery path"
+        ],
+        [
+          "maintainer",
+          "delete the replaced code when safe",
+          "migration reduces long-term complexity"
+        ],
+        [
+          "future agent",
+          "find current behavior and decisions",
+          "documentation stays useful after code moves"
+        ]
+      ],
+      "decisions": [
+        "Keep every original backlog ID traceable to a primary spec and one or more tickets. A verification ticket can close with measured evidence and a justified no-change result; it cannot close with an unexecuted plan.",
+        "Capture acceptance cases for existing reader URLs, translations, keyboard/touch navigation, gallery/deep links, free browsing, credits, Lightning, public API and Nostr. Source-text tests are replaced only when their meaningful behavior has equivalent coverage.",
+        "Use real Convex handlers for ownership, ledger, invoices, jobs, receipts and insertion; fake only external effects at the adapter seam. Include production modules in coverage and explicitly baseline newly exposed gaps rather than lowering standards to hide them.",
+        "Create a protected export/restore and reconciliation procedure before data mutation. Use synthetic/local data by default. A live rehearsal requires the correct deployment identity and established release authority; this planning task does not access production secrets or data.",
+        "Expand schema additively, migrate with resumable checkpoints, reconcile counts/balances and preserve identifiers. Each admitted operation stores executor/policy version. Old in-flight work drains under its original executor while new admissions can switch. Never dual-execute paid work or maintain two balances.",
+        "Roll out by bounded session cohort after preview acceptance; a stop switch closes new admissions without cancelling recorded settlement/reconciliation. Rollback preserves newly created records, drains or resolves in-flight work, and never replays completed provider calls.",
+        "Remove old implementations only after caller inventory, migration verification and rollback rehearsal demonstrate no required dependency remains. Preserve compatibility adapters for external URLs and existing records until their contract permits retirement.",
+        "Update feature docs in the same ticket as changed behavior. The final documentation ticket checks consistency; it is not permission to defer all docs until the end. Existing guides remain authoritative for shipped behavior; specs describe intended behavior.",
+        "Complete repo-required lint, type checks and relevant tests per implementation slice. Visible changes include browser checks/screenshots. Model changes also use S10 evaluation requirements."
+      ],
+      "tests": [
+        "Use a synthetic pre-migration database with balances, old images, active reservations, pending invoices and Nostr records.",
+        "Verify upgrade, restart, interrupted backfill, mixed executors and rollback, comparing financial totals and public contracts.",
+        "Exercise end-to-end recovery for duplicate requests, provider ambiguity, late payments, storage failure and tab closure.",
+        "Validate ticket dependency graph and complete backlog coverage before publication."
+      ],
+      "out": [
+        "Implementing the full program during the specification task",
+        "Deleting production data to simplify migration",
+        "A second permanent application or credit ledger"
+      ],
+      "tickets": [
+        "T01",
+        "T44",
+        "T49",
+        "T50",
+        "T51",
+        "T52",
+        "T53",
+        "T54",
+        "T55"
+      ],
+      "items": [
+        24,
+        69,
+        70,
+        71,
+        72,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86
+      ],
+      "filename": "s12.md"
+    }
+  ],
+  "tickets": [
+    {
+      "key": "baseline",
+      "spec": "S12",
+      "title": "Capture existing behavior and expose coverage gaps",
+      "items": [
+        71,
+        72,
+        81
+      ],
+      "deps": [],
+      "deliver": "A maintainer can run an acceptance inventory and see which production modules are covered before replacing behavior.",
+      "criteria": [
+        "Record current reader/gallery/deep-link, translation, free-browse, credit, payment, API and Nostr contracts; identify accepted defects separately from behavior to preserve.",
+        "Include relevant production implementations in coverage; publish the newly visible baseline and preserve existing thresholds through explicit scoped ratchets rather than claiming the old percentage covers all files.",
+        "Replace at least one high-value source-string assertion with an equivalent rendered behavior check to establish reusable prior art.",
+        "Keep this slice limited to inventory, coverage configuration and the example behavior test; do not rewrite application flows."
+      ],
+      "test": "Run routine repo checks and prove an unimported central module appears in the coverage report. Demonstrate the example behavior regression fails when the behavior is intentionally broken.",
+      "scope": "No blanket dependency on this ticket for urgent correctness fixes; later migration verification consumes its inventory.",
+      "id": "T01",
+      "blocked_by": [],
+      "filename": "t01-baseline.md"
+    },
+    {
+      "key": "chat-pricing",
+      "spec": "S01",
+      "title": "Correct chat and planner price units",
+      "items": [
+        1,
+        2,
+        4,
+        5,
+        14,
+        67
+      ],
+      "deps": [],
+      "deliver": "A chat or planner quote uses correct provider units in normal and catalog-outage conditions.",
+      "criteria": [
+        "Normalize live and emergency prices to one explicit per-token representation and remove duplicate per-million conversion.",
+        "Use a shared validated monetary calculation for chat/planner quotes and metadata; keep one-credit minimum and 25% markup.",
+        "Reject negative/nonfinite/malformed rates; distinguish known free usage from missing information.",
+        "A fixture with USD 0.00001 per token and 1000 input plus 1000 output produces USD 0.02 and three credits; fallback mode uses the same units.",
+        "Do not reprice historical charges or alter the default chat model."
+      ],
+      "test": "Realistic catalog fixtures through quote and chat request paths, including free/missing prices, very small costs, outage fallback and overflow cases.",
+      "scope": "Immediate correctness repair on current execution; durable receipts and new chat max-charge UI follow separately.",
+      "id": "T02",
+      "blocked_by": [],
+      "filename": "t02-chat-pricing.md"
+    },
+    {
+      "key": "image-catalog",
+      "spec": "S01",
+      "title": "Quote supported image settings from verified billing units",
+      "items": [
+        3,
+        7,
+        48,
+        49,
+        67
+      ],
+      "deps": [],
+      "deliver": "A guest sees only supported image settings with prices derived from the correct output billing basis.",
+      "criteria": [
+        "Introduce a catalog/provider adapter that records explicit input/output units and capability provenance.",
+        "Remove use of input-image price as a flat output price; verify output token/per-image/resolution fields for each enabled model.",
+        "Apply the same normalized quote to selector and request validation; mark unavailable or unpriceable choices and explain fallback state.",
+        "Retain supported current default behavior; adopting another image API is conditional on fixture/capability parity.",
+        "Validate saved preferences and never inject a missing default as live-available solely because it is configured."
+      ],
+      "test": "Catalog fixtures with absent input-image price, explicit output units, unsupported resolution, stale catalog, default disappearance and malformed rates; assert UI quote equals server quote for same inputs.",
+      "scope": "No default-model quality change. Versioned quote acceptance and reservation policy are a separate slice.",
+      "id": "T03",
+      "blocked_by": [],
+      "filename": "t03-image-catalog.md"
+    },
+    {
+      "key": "quote-policy",
+      "spec": "S01",
+      "title": "Show and enforce a maximum charge for paid work",
+      "items": [
+        4,
+        6,
+        8,
+        10,
+        11
+      ],
+      "deps": [
+        "chat-pricing",
+        "image-catalog"
+      ],
+      "deliver": "A guest accepts a versioned estimate and maximum charge, then sees a reservation that matches that authorization.",
+      "criteria": [
+        "Persist quote fingerprint/version and five-minute expiry; reject stale or mismatched acceptance before provider work.",
+        "Show estimate and maximum in single-generation controls and chat admission; reserve the accepted maximum once.",
+        "Use capped actual-usage settlement for new-policy operations; missing usage uses the accepted estimate and remains labeled estimated.",
+        "Preserve positive-balance five-credit explicit-image grace with hold/max capped to balance; automatic generation requires full estimated affordability.",
+        "Enforce actual input/output bounds and separate provider exposure from customer billing, including concurrent requests and daily reset."
+      ],
+      "test": "Quote -> accept -> reserve -> finish/release tests through existing entry points; test expiry, tampering, grace, changed catalog, cap breach and midnight release.",
+      "scope": "Keep existing operation policy version for in-flight work; no automatic top-up debit or historical repricing.",
+      "id": "T04",
+      "blocked_by": [
+        "T02",
+        "T03"
+      ],
+      "filename": "t04-quote-policy.md"
+    },
+    {
+      "key": "learned-quotes",
+      "spec": "S01",
+      "title": "Use fresh cost samples and explicit estimate backfill",
+      "items": [
+        12,
+        13
+      ],
+      "deps": [
+        "image-catalog"
+      ],
+      "deliver": "Guests receive estimates with defensible sample provenance; operators backfill estimates explicitly.",
+      "criteria": [
+        "Use at most 30 recent actual samples, a five-sample minimum and a 30-day freshness limit with model/settings normalization.",
+        "Return source, sample count, age and confidence with learned estimates; fallback estimates never imply a guaranteed provider maximum.",
+        "Remove backfill writes from model-choice GET handling.",
+        "Provide a bounded resumable backfill with dry run, deterministic ordering and repeat-safe sample identity."
+      ],
+      "test": "Test aged samples, sparse model/provider/global buckets, changed resolution support, duplicated history and repeated backfill; model browsing must perform no backfill mutation.",
+      "scope": "No new statistical model beyond the specified recent percentile approach.",
+      "id": "T05",
+      "blocked_by": [
+        "T03"
+      ],
+      "filename": "t05-learned-quotes.md"
+    },
+    {
+      "key": "receipt-outbox",
+      "spec": "S01",
+      "title": "Finalize credits and durable cost reporting together",
+      "items": [
+        8,
+        9,
+        15,
+        16
+      ],
+      "deps": [
+        "quote-policy"
+      ],
+      "deliver": "An operator can recover one complete settlement receipt and cost projection after a crash.",
+      "criteria": [
+        "Atomically persist wallet effect, immutable receipt and outbox intent keyed to the operation.",
+        "Store provider spend, planner spend, estimate, hold, charged credits, released credits and absorbed shortfall separately with usage provenance.",
+        "Project to Neutral Cost through atomic deduplication; replay and concurrent workers cannot create duplicate events.",
+        "Expose pending/failed delivery with bounded retries; known zero is not missing usage.",
+        "Record provider corrections separately without reopening settled guest charges."
+      ],
+      "test": "Crash after settlement before delivery, double processing, provider success with unusable plan, missing usage and projection outage against real settlement/delivery handlers.",
+      "scope": "Neutral Cost remains a reporting projection. Do not create a second authoritative wallet.",
+      "id": "T06",
+      "blocked_by": [
+        "T04"
+      ],
+      "filename": "t06-receipt-outbox.md"
+    },
+    {
+      "key": "guest-token",
+      "spec": "S02",
+      "title": "Authenticate anonymous Convex access from valid sessions",
+      "items": [
+        25
+      ],
+      "deps": [],
+      "deliver": "An existing guest opens the app and receives verified Convex identity without registering or moving their balance.",
+      "criteria": [
+        "Issue short-lived RS256 tokens from valid signed HttpOnly sessions with verified issuer, audience, kid, iat and expiry.",
+        "Map subject to existing SID; derive tier from current server records; keep tokens in browser memory.",
+        "Connect client token refresh and key rotation; enforce underlying session expiry and revocation.",
+        "Protect issuance by origin/CSRF/rate checks and expose only public verification keys.",
+        "Free library browsing works without a valid private identity."
+      ],
+      "test": "Test wrong signature/issuer/audience, expiry, rotated keys, revoked session, stale admin tier and successful existing-session balance lookup.",
+      "scope": "No accounts, cross-device recovery or relaxed cookie expiry. This adds verified identity before migrating private callers.",
+      "id": "T07",
+      "blocked_by": [],
+      "filename": "t07-guest-token.md"
+    },
+    {
+      "key": "private-access",
+      "spec": "S02",
+      "title": "Enforce ownership on private records and job controls",
+      "items": [
+        26,
+        27
+      ],
+      "deps": [
+        "guest-token"
+      ],
+      "deliver": "Guests can access their own credit, invoice and bulk records while foreign identifiers grant no access.",
+      "criteria": [
+        "Inventory every exported Convex function and classify it public, guest-owned or internal/server-only.",
+        "Migrate private reads and controls to server-derived subject ownership; reject caller SID as proof.",
+        "Preserve server-side payment/generation callers through scoped authenticated interfaces.",
+        "Keep public image API projections unchanged; exclude private session and invoice data.",
+        "Check job mutation ownership and expiry through the same identity rule."
+      ],
+      "test": "Two guests plus unauthenticated client call actual handlers with known foreign IDs; verify denial for balance, history, invoice and bulk controls, and continued public browsing.",
+      "scope": "Bulk outcome/counter writes become worker-only in the bulk-execution ticket; this slice closes identity gaps first.",
+      "id": "T08",
+      "blocked_by": [
+        "T07"
+      ],
+      "filename": "t08-private-access.md"
+    },
+    {
+      "key": "credit-retention",
+      "spec": "S02",
+      "title": "Preserve funded records when guest access expires",
+      "items": [
+        28,
+        29
+      ],
+      "deps": [],
+      "deliver": "Expired access cannot cause automated cleanup to erase purchased credit ownership.",
+      "criteria": [
+        "Preserve current idle/absolute access timeouts and reject expired credentials.",
+        "Retain positive balances, financial links and unresolved reservations/invoices independently of access expiry.",
+        "Eligible zero-balance cleanup checks linked state and uses bounded dry-run batches.",
+        "Purchase and expiry notices explain that retained funds do not imply lost-cookie or cross-device recovery.",
+        "Keep valid legacy session mappings and balances intact."
+      ],
+      "test": "Synthetic expired sessions with positive/zero balances, pending invoices, holds and finalized purchases; verify access rejection separately from record retention.",
+      "scope": "No recovery feature and no attempt to authenticate an expired cookie.",
+      "id": "T09",
+      "blocked_by": [],
+      "filename": "t09-credit-retention.md"
+    },
+    {
+      "key": "reactive-balance",
+      "spec": "S02",
+      "title": "Keep credit balances consistent across tabs",
+      "items": [
+        30
+      ],
+      "deps": [
+        "private-access"
+      ],
+      "deliver": "Two open views immediately show the authoritative balance after a purchase, reservation, charge or refund.",
+      "criteria": [
+        "Use one authenticated Convex balance query as the UI authority.",
+        "Remove local balance subtraction and periodic balance refetch from single/bulk/chat/purchase callers as they use this interface.",
+        "Represent loading, expired access and pending holds distinctly.",
+        "Preserve free-browse behavior when private identity is unavailable."
+      ],
+      "test": "Two-tab browser scenario plus actual ledger mutations; compare displayed balances after overlapping purchase and generation events.",
+      "scope": "No visual redesign or new payment behavior.",
+      "id": "T10",
+      "blocked_by": [
+        "T08"
+      ],
+      "filename": "t10-reactive-balance.md"
+    },
+    {
+      "key": "late-payment",
+      "spec": "S03",
+      "title": "Credit settled invoices first observed after expiry",
+      "items": [
+        21,
+        24
+      ],
+      "deps": [],
+      "deliver": "A guest who paid on time receives credits even when the first successful status check is late.",
+      "criteria": [
+        "Read and validate LND settlement before using local expiry to reject credit confirmation.",
+        "Apply the rule consistently to status GET, explicit confirmation and internal finalization.",
+        "Make invoice-paid and purchase credit addition atomic and uniquely keyed.",
+        "Distinguish provider outage from unpaid/expired state; never grant credits from an unverified client report.",
+        "Keep existing bundles and paid/admin tier behavior."
+      ],
+      "test": "Actual invoice/credit handlers with fake LND: settled before deadline but observed late, unpaid expired, outage, insufficient paid amount and concurrent duplicate confirmation.",
+      "scope": "Independent hotfix; do not wait for the background worker or auth migration.",
+      "id": "T11",
+      "blocked_by": [],
+      "filename": "t11-late-payment.md"
+    },
+    {
+      "key": "invoice-intent",
+      "spec": "S03",
+      "title": "Recover interrupted invoice creation",
+      "items": [
+        23
+      ],
+      "deps": [
+        "late-payment"
+      ],
+      "deliver": "Retrying a purchase after a connection failure returns the known invoice or an explicit unresolved attempt.",
+      "criteria": [
+        "Persist owner, bundle, sats quote and stable creation intent before LND I/O.",
+        "Verify whether deployed LND supports a stable lookup identity for safe creation recovery and implement that path when supported.",
+        "Record results before returning BOLT11; repeated matching intents resolve to the same payable invoice.",
+        "If provider creation is ambiguous and cannot be reconciled, return unresolved status and operator instructions rather than blindly creating another invoice.",
+        "Validate hash/amount identity and keep sensitive provider fields out of client metadata/logs."
+      ],
+      "test": "Interrupt before provider call, after LND creation and after database save; test repeated and conflicting purchase intents with a fake LND adapter.",
+      "scope": "The capability check must end in working recovery or explicit safe unresolved behavior, not an investigation-only note.",
+      "id": "T12",
+      "blocked_by": [
+        "T11"
+      ],
+      "filename": "t12-invoice-intent.md"
+    },
+    {
+      "key": "invoice-worker",
+      "spec": "S03",
+      "title": "Reconcile Lightning invoices without browser polling",
+      "items": [
+        22
+      ],
+      "deps": [
+        "invoice-intent"
+      ],
+      "deliver": "A completed payment updates the guest balance even while every browser tab is closed.",
+      "criteria": [
+        "Schedule bounded server reconciliation from recorded invoice intents; validate execution-environment LND reachability.",
+        "Use direct server adapter or a narrowly authenticated bridge if required; no browser-driven settlement dependency.",
+        "Apply pending polling/backoff and historical locally-expired sweep from S03; expose unresolved age and retry status.",
+        "Reuse atomic confirmation and never issue a second purchase credit.",
+        "Keep invoice expiry display separate from verified settled truth."
+      ],
+      "test": "Close browser, settle fake LND invoice, advance scheduler, reopen; test outages, restart, backoff and late historical settlement.",
+      "scope": "No broader LND privileges, real-money test requirement or public payment callback without authentication.",
+      "id": "T13",
+      "blocked_by": [
+        "T12"
+      ],
+      "filename": "t13-invoice-worker.md"
+    },
+    {
+      "key": "chat-success",
+      "spec": "S04",
+      "title": "Release credits for embedded chat stream errors",
+      "items": [
+        17,
+        68
+      ],
+      "deps": [],
+      "deliver": "A failed chat stream releases its hold even if the SDK closes the response normally.",
+      "criteria": [
+        "Use explicit stream outcome with accepted nonempty stop/length success; reject empty/error output as successful billing.",
+        "Handle embedded error parts and thrown stream errors through one terminal settlement.",
+        "Emit correct charged/refunded metadata and label length-limited output.",
+        "Keep current chat persona and default model unchanged."
+      ],
+      "test": "Real installed SDK with fake model outputs: successful text, type:error followed by normal close, empty finish and thrown error; assert one charge or release through actual settlement interface.",
+      "scope": "Immediate stream correctness fix; durable receipt integration follows independently.",
+      "id": "T14",
+      "blocked_by": [],
+      "filename": "t14-chat-success.md"
+    },
+    {
+      "key": "chat-cancel",
+      "spec": "S04",
+      "title": "Cancel chat safely through the provider and wallet",
+      "items": [
+        18
+      ],
+      "deps": [
+        "chat-success"
+      ],
+      "deliver": "Cancelling chat stops processing and settles the reservation once.",
+      "criteria": [
+        "Connect request cancellation to provider abort and the active stream reader.",
+        "Resolve cancellation racing success according to the first recorded terminal outcome.",
+        "Release holds for cancelled/error streams and retain known provider spend.",
+        "Make disconnect/abort cleanup safe to repeat without hiding a failed release."
+      ],
+      "test": "Real SDK fake provider with cancellation before tokens, midstream and after success; assert cancellation signal and single final wallet effect.",
+      "scope": "Provider-side cancellation is best-effort; do not claim it erases already incurred spend.",
+      "id": "T15",
+      "blocked_by": [
+        "T14"
+      ],
+      "filename": "t15-chat-cancel.md"
+    },
+    {
+      "key": "scripture-errors",
+      "spec": "S07",
+      "title": "Resolve canonical passages and preserve unavailable locations",
+      "items": [
+        62,
+        64,
+        65
+      ],
+      "deps": [],
+      "deliver": "A reader stays at the intended passage when text is unavailable and gets correct adjacent navigation.",
+      "criteria": [
+        "Consolidate book identity and reference/adjacency rules behind the existing Scripture interface.",
+        "Distinguish invalid location, missing translation coverage and retryable upstream failure.",
+        "Render retry/translation alternatives at the requested URL instead of redirecting failures to Genesis.",
+        "Verify all selectable translations against representative missing-coverage and book-edge fixtures; document limitations.",
+        "Preserve existing canonical URLs, scope semantics and first/last verse behavior."
+      ],
+      "test": "Scripture resolve/navigation tests and rendered error states for upstream timeout, missing translation, invalid reference and cross-book edges.",
+      "scope": "No new corpus or translation. Replace duplicate metadata only where needed to keep one reference authority.",
+      "id": "T16",
+      "blocked_by": [],
+      "filename": "t16-scripture-errors.md"
+    },
+    {
+      "key": "scripture-cache",
+      "spec": "S07",
+      "title": "Bound chapter caching and concurrent lookup work",
+      "items": [
+        63
+      ],
+      "deps": [
+        "scripture-errors"
+      ],
+      "deliver": "Repeated reading uses a predictable chapter cache without unlimited process growth or duplicate in-flight fetches.",
+      "criteria": [
+        "Prefer the existing platform cache; retain a process layer only with demonstrated need.",
+        "If retained, enforce 256-entry maximum and 24-hour TTL, with in-flight request deduplication.",
+        "Bound external waits and represent retryable failures without caching them as valid empty chapters.",
+        "Keep translation in cache identity and preserve existing successful passage output."
+      ],
+      "test": "Fake clock/provider tests for eviction, expiry, concurrent same-chapter calls, translation isolation and recovery after failure.",
+      "scope": "No framework upgrade or new storage system required.",
+      "id": "T17",
+      "blocked_by": [
+        "T16"
+      ],
+      "filename": "t17-scripture-cache.md"
+    },
+    {
+      "key": "canonical-generation",
+      "spec": "S07",
+      "title": "Build shared images from verified Scripture text",
+      "items": [
+        45
+      ],
+      "deps": [
+        "scripture-errors"
+      ],
+      "deliver": "An image request always uses the verse and translation it declares, even if an older client sends conflicting text.",
+      "criteria": [
+        "Resolve current and adjacent text server-side from canonical reference/translation.",
+        "Treat client-supplied text as nonauthoritative compatibility input and prevent it from entering a shared scene cache.",
+        "Reject invalid or unavailable paid passages before reservation/provider work.",
+        "Return canonical provenance with successful generation metadata."
+      ],
+      "test": "Request-path tests for valid reference with altered text, wrong adjacent context, missing translation and lookup outage; inspect provider prompt and cache inputs.",
+      "scope": "No custom text generation mode or intentional prompt redesign.",
+      "id": "T18",
+      "blocked_by": [
+        "T16"
+      ],
+      "filename": "t18-canonical-generation.md"
+    },
+    {
+      "key": "scene-plan",
+      "spec": "S07",
+      "title": "Reuse only compatible scene plans",
+      "items": [
+        46,
+        47
+      ],
+      "deps": [
+        "canonical-generation"
+      ],
+      "deliver": "A guest gets a cached plan only when canonical inputs and prompt/model/style versions match.",
+      "criteria": [
+        "Extract bounded prompt construction and plan normalization behind the generation module.",
+        "Key cache by passage fingerprint, translation and relevant planner/prompt/style/theme/continuity versions.",
+        "Separate cache query from optional hit accounting; old incompatible entries miss safely.",
+        "Keep classical style, existing prompt limits and variation intent as the evaluation baseline."
+      ],
+      "test": "Cache hit/miss behavior for each version/input change, malformed planner output and empty/oversized fields; compare bounded prompt output on existing fixtures.",
+      "scope": "Any changed artistic output must also satisfy the model-quality release spec.",
+      "id": "T19",
+      "blocked_by": [
+        "T18"
+      ],
+      "filename": "t19-scene-plan.md"
+    },
+    {
+      "key": "chat-context",
+      "spec": "S04",
+      "title": "Bound chat input and keep system instructions server-owned",
+      "items": [
+        19,
+        20,
+        11
+      ],
+      "deps": [
+        "scripture-errors",
+        "chat-cancel"
+      ],
+      "deliver": "A guest can ask about the canonical passage with bounded history and cannot submit privileged system instructions.",
+      "criteria": [
+        "Accept explicit user/assistant history and supported parts; reject client system roles.",
+        "Resolve passage context on the server and bound serialized history against model capacity.",
+        "Enforce model-compatible output token limit with default maximum 2048; show rejection or length status clearly.",
+        "Keep request admission, context assembly and stream outcome behind the chat interface while preserving output intent.",
+        "Complete required baseline/candidate chat evaluation for context or provider behavior changes before release."
+      ],
+      "test": "Actual chat interface tests for role injection, altered passage context, overlong history, unsupported parts and context-window edge; real SDK fakes for bounded output.",
+      "scope": "No persistent conversations or new persona. Live evaluation is subject to the existing release gate.",
+      "id": "T20",
+      "blocked_by": [
+        "T16",
+        "T15"
+      ],
+      "filename": "t20-chat-context.md"
+    },
+    {
+      "key": "chat-receipt",
+      "spec": "S04",
+      "title": "Attach durable quotes and receipts to chat turns",
+      "items": [
+        8,
+        10,
+        20
+      ],
+      "deps": [
+        "chat-context",
+        "receipt-outbox"
+      ],
+      "deliver": "A completed or failed chat turn has one durable receipt matching its displayed charge.",
+      "criteria": [
+        "Accept the versioned chat quote before provider work and carry stable operation identity through streaming.",
+        "Finalize actual-usage capped charge or release through the shared wallet/receipt interface.",
+        "Record provider costs for failures and label estimated cost when usage is absent.",
+        "Return receipt identity and final charge in metadata; no duplicate billing on terminal callbacks."
+      ],
+      "test": "Stream success/error/cancel with changing catalog, missing usage, projection failure and duplicate callbacks; compare UI metadata with immutable receipt.",
+      "scope": "No persisted message content required; retain only the usage and outcome metadata needed for this contract.",
+      "id": "T21",
+      "blocked_by": [
+        "T20",
+        "T06"
+      ],
+      "filename": "t21-chat-receipt.md"
+    },
+    {
+      "key": "image-intent",
+      "spec": "S05",
+      "title": "Deduplicate image requests and guard terminal states",
+      "items": [
+        31,
+        32,
+        33
+      ],
+      "deps": [],
+      "deliver": "Retrying the current image route reuses one generation, while changed inputs with the same ID are rejected.",
+      "criteria": [
+        "Scope intent to verified HTTP guest identity and immutable canonical input fingerprint.",
+        "Atomically create/claim the operation and reuse its billing identity across transport retries.",
+        "Honor already-existing operations; return known progress/result and never blindly repeat the provider call.",
+        "Enforce valid state transitions and immutable terminal outcomes.",
+        "Record an executor/policy version on admission so a later migration can route the same operation safely."
+      ],
+      "test": "Concurrent identical POSTs, same ID with different owner/input, duplicate terminal updates and lost HTTP response; assert one provider attempt/reservation.",
+      "scope": "Hotfix current execution first; this ticket does not require the new Convex workflow.",
+      "id": "T22",
+      "blocked_by": [],
+      "filename": "t22-image-intent.md"
+    },
+    {
+      "key": "storage-unique",
+      "spec": "S08",
+      "title": "Save each generation once and retain its image identity",
+      "items": [
+        37,
+        52
+      ],
+      "deps": [],
+      "deliver": "Repeated image-save processing produces one durable image row and a stable lookup result.",
+      "criteria": [
+        "Move generation uniqueness check into the insertion mutation.",
+        "Keep saved-image identity and provenance stable across retried actions.",
+        "Separate storage persistence from unrelated library-query logic only as needed for a clear save/read interface.",
+        "Detect orphaned blobs safely; any cleanup is bounded and verifies absence of references."
+      ],
+      "test": "Concurrent saves with same generation ID against actual insertion handlers; duplicate/retry returns same image, different generations remain distinct.",
+      "scope": "No library pagination or deletion of legacy images.",
+      "id": "T23",
+      "blocked_by": [],
+      "filename": "t23-storage-unique.md"
+    },
+    {
+      "key": "remote-fetch",
+      "spec": "S08",
+      "title": "Constrain remote image storage fetches",
+      "items": [
+        53
+      ],
+      "deps": [],
+      "deliver": "Valid provider image output can be stored while forbidden destinations and malformed payloads are rejected.",
+      "criteria": [
+        "Prefer returned image bytes and preserve MIME, size and timeout enforcement through full body read.",
+        "Reject redirects by default; any supported redirect revalidates the destination before fetching.",
+        "Validate a runtime-compatible protection against private/DNS-rebound targets, or reject remote URL mode when that protection cannot be established.",
+        "Return an explicit persistence error rather than creating a durable-success claim for rejected output."
+      ],
+      "test": "Fake network responses for redirect chains, private hosts, DNS changes where testable, oversize/chunked bodies, invalid MIME and delayed body completion.",
+      "scope": "Do not expand allowlists or claim DNS protection based solely on string hostname checks.",
+      "id": "T24",
+      "blocked_by": [],
+      "filename": "t24-remote-fetch.md"
+    },
+    {
+      "key": "durable-image",
+      "spec": "S05",
+      "title": "Complete one image through a durable Convex workflow",
+      "items": [
+        34,
+        36
+      ],
+      "deps": [
+        "guest-token",
+        "image-intent",
+        "storage-unique",
+        "remote-fetch",
+        "scene-plan",
+        "receipt-outbox"
+      ],
+      "deliver": "A guest starts one default-model generation and can reopen its saved result and settled receipt after disconnection.",
+      "criteria": [
+        "Atomically accept operation/quote/reservation and schedule one workflow using stable operation identity.",
+        "Pass IDs rather than image bytes through the workflow journal; run external effects only in steps.",
+        "Persist output before terminal success; finalize saved image link and charge once.",
+        "Expose reactive accepted/planning/generating/saving/success/failure state and addressable result.",
+        "Use current default provider transport first and disable automatic retry of ambiguous paid actions."
+      ],
+      "test": "One-verse preview demo plus real handler tests with fake effects; disconnect after acceptance and verify saved image/receipt without another HTTP generation request.",
+      "scope": "Keep the slice to one configured model and happy path plus safe terminal failure; broad recovery/cancellation follow in explicit dependent tickets.",
+      "id": "T25",
+      "blocked_by": [
+        "T07",
+        "T22",
+        "T23",
+        "T24",
+        "T19",
+        "T06"
+      ],
+      "filename": "t25-durable-image.md"
+    },
+    {
+      "key": "image-recovery",
+      "spec": "S05",
+      "title": "Recover provider ambiguity and image storage failures",
+      "items": [
+        35,
+        38,
+        70
+      ],
+      "deps": [
+        "durable-image"
+      ],
+      "deliver": "An interrupted generation is reconciled from its recorded attempt rather than silently generating another paid image.",
+      "criteria": [
+        "Record attempt identity before provider call and persist response ID/usage/output as soon as possible.",
+        "Reconcile known provider outcomes using verified capabilities; unresolved attempts enter uncertain without automatic paid retry.",
+        "Retry saving existing output without regeneration; expose actionable persistence/uncertain status.",
+        "After the 30-minute unresolved customer hold limit, release once and retain reconciliation evidence; late cost discovery cannot reopen the guest debit.",
+        "Retain dedupe identity after diagnostic data is archived."
+      ],
+      "test": "Failure injection after provider success before local acknowledgement, after output save before finalization, lost storage response and delayed provider lookup.",
+      "scope": "No exactly-once claim for external providers that lack verifiable idempotency.",
+      "id": "T26",
+      "blocked_by": [
+        "T25"
+      ],
+      "filename": "t26-image-recovery.md"
+    },
+    {
+      "key": "image-cancel",
+      "spec": "S05",
+      "title": "Resolve image cancellation against durable completion",
+      "items": [
+        33,
+        36
+      ],
+      "deps": [
+        "image-recovery"
+      ],
+      "deliver": "A guest can cancel unfinished generation and receives an unambiguous saved/charged or cancelled/released result.",
+      "criteria": [
+        "Cancel pending steps and propagate supported provider cancellation.",
+        "Use a transactional terminal decision for cancel racing saved success.",
+        "If success committed first, return saved image and existing charge; otherwise release per policy and retain provider spend.",
+        "Pending/uncertain cancellation is visible in controls and survives refresh."
+      ],
+      "test": "Cancel before provider, during generation, during storage and after terminal success; replay cancel and completion concurrently against real handlers.",
+      "scope": "Cancellation cannot promise reversal of upstream provider charges.",
+      "id": "T27",
+      "blocked_by": [
+        "T26"
+      ],
+      "filename": "t27-image-cancel.md"
+    },
+    {
+      "key": "bulk-worker",
+      "spec": "S06",
+      "title": "Run a small bulk job entirely on the server",
+      "items": [
+        27,
+        39
+      ],
+      "deps": [
+        "image-cancel",
+        "private-access"
+      ],
+      "deliver": "A guest starts a short next-verses job and it finishes while all browser tabs are closed.",
+      "criteria": [
+        "Generate every item through the single-generation interface with deterministic job/item intent IDs.",
+        "Allow only authenticated job commands from clients; worker outcomes update item and parent counters atomically.",
+        "Begin with one active item per guest and bounded global worker concurrency.",
+        "Persist accepted per-item max charge and aggregate spending authorization without upfront bulk debit; pause for renewed authorization if a later quote exceeds either limit.",
+        "Show accurate reactive progress and result links."
+      ],
+      "test": "Start three verses, close tab, run fake worker effects and reopen; assert item/parent totals, one generation per item and no client-owned result writes.",
+      "scope": "Preserve existing scope semantics; large queue creation and robust controls have separate tickets.",
+      "id": "T28",
+      "blocked_by": [
+        "T27",
+        "T08"
+      ],
+      "filename": "t28-bulk-worker.md"
+    },
+    {
+      "key": "bulk-capacity",
+      "spec": "S06",
+      "title": "Create and schedule whole-book queues within limits",
+      "items": [
+        43,
+        44
+      ],
+      "deps": [
+        "bulk-worker"
+      ],
+      "deliver": "A whole-book bulk job is created and scheduled without oversized transactions or excessive provider concurrency.",
+      "criteria": [
+        "Build queue in bounded separate transactions with resumable checkpoints; execution waits for complete queue assembly.",
+        "Enforce one canonical book maximum, one active/paused job per guest and documented global/per-guest concurrency.",
+        "Validate input size/count server-side and keep quotas/admin rate rules in force.",
+        "Recover interrupted queue construction without duplicate/missing items or incorrect initial counts."
+      ],
+      "test": "Create largest book with fake provider; inspect transaction sizes, restart mid-build, repeat creation and run multiple guests under configured capacity.",
+      "scope": "No new bulk scope or per-guest parallelism beyond the initial one-active-item rule.",
+      "id": "T29",
+      "blocked_by": [
+        "T28"
+      ],
+      "filename": "t29-bulk-capacity.md"
+    },
+    {
+      "key": "bulk-recovery",
+      "spec": "S06",
+      "title": "Recover interrupted bulk items from generation truth",
+      "items": [
+        41,
+        70
+      ],
+      "deps": [
+        "bulk-worker"
+      ],
+      "deliver": "A restarted job resolves abandoned generating items and continues without repeating completed work.",
+      "criteria": [
+        "Reconcile each abandoned claim against linked generation state/result.",
+        "Finalize counters once for completed/failed items and preserve uncertain attempts for safe resolution.",
+        "Prevent a stale worker from overwriting a newer or terminal item outcome.",
+        "Expose recovery status instead of leaving a permanent generating spinner."
+      ],
+      "test": "Crash before generation, after saved image, after settlement and before parent counter update; restart and verify exact totals and no additional provider call.",
+      "scope": "No blind requeue of uncertain paid attempts.",
+      "id": "T30",
+      "blocked_by": [
+        "T28"
+      ],
+      "filename": "t30-bulk-recovery.md"
+    },
+    {
+      "key": "bulk-controls",
+      "spec": "S06",
+      "title": "Make bulk pause resume and cancel authoritative",
+      "items": [
+        42
+      ],
+      "deps": [
+        "bulk-recovery",
+        "bulk-capacity"
+      ],
+      "deliver": "A guest controls future bulk work reliably across refresh and multiple tabs.",
+      "criteria": [
+        "Pause prevents new claims while showing the in-flight item until completion.",
+        "Cancel prevents future work and clearly reports any current item outcome under the generation contract.",
+        "Insufficient credits pauses for explicit resume; throttling records retry-after and prevents early restart.",
+        "Resuming reuses pending items and accepted authorization, refreshing it when required.",
+        "Counters and total charge always derive from item receipts, never client supplied totals."
+      ],
+      "test": "Two-tab controls, pause/cancel racing claim, low-credit purchase/resume, retry-after and repeated commands against actual job handlers.",
+      "scope": "No automatic spending increase on resume.",
+      "id": "T31",
+      "blocked_by": [
+        "T30",
+        "T29"
+      ],
+      "filename": "t31-bulk-controls.md"
+    },
+    {
+      "key": "retire-browser-worker",
+      "spec": "S06",
+      "title": "Remove browser bulk leases and local counters",
+      "items": [
+        40
+      ],
+      "deps": [
+        "bulk-controls",
+        "reactive-balance"
+      ],
+      "deliver": "The bulk UI observes server jobs without managing work locks or subtracting credits.",
+      "criteria": [
+        "Remove browser runner, localStorage lease, BroadcastChannel takeover and heartbeat code once caller inventory confirms server execution.",
+        "Use authorized reactive job/item/balance queries and small command handlers.",
+        "Preserve bulk scope panel and current progress/error affordances.",
+        "Migrate/reconcile legacy active jobs before deleting the old runner; do not start both executors."
+      ],
+      "test": "Browser closes/reopens across jobs; two tabs observe identical state; existing panel scope tests and server recovery tests remain green.",
+      "scope": "Contract step: blocked until the replacement controls and authoritative balance are working.",
+      "id": "T32",
+      "blocked_by": [
+        "T31",
+        "T10"
+      ],
+      "filename": "t32-retire-browser-worker.md"
+    },
+    {
+      "key": "library-pages",
+      "spec": "S08",
+      "title": "Browse paginated history without breaking image links",
+      "items": [
+        50,
+        52,
+        66
+      ],
+      "deps": [
+        "storage-unique"
+      ],
+      "deliver": "Readers and API consumers can browse large image histories while opening a specific historical image directly.",
+      "criteria": [
+        "Provide stable cursor pagination with default 30 and maximum 100 results through the library interface.",
+        "Keep selected-image lookup addressable independently of the current page.",
+        "Migrate reader history and chapter gallery consumers without losing newest-first/verse grouping semantics.",
+        "Keep existing public routes and projected fields compatible; test insertion between page reads.",
+        "Keep history grouped by verse across translations and display each image translation/provenance in details; generation remains tied to the selected translation."
+      ],
+      "test": "Large synthetic histories, equal timestamps, newly inserted images, missing/deleted selected ID and public API contract fixtures; verify reader/gallery navigation.",
+      "scope": "No new public metadata fields or private collections.",
+      "id": "T33",
+      "blocked_by": [
+        "T23"
+      ],
+      "filename": "t33-library-pages.md"
+    },
+    {
+      "key": "library-summaries",
+      "spec": "S08",
+      "title": "Serve image counts and availability from bounded summaries",
+      "items": [
+        51
+      ],
+      "deps": [
+        "storage-unique"
+      ],
+      "deliver": "Book menus and verse strips show accurate image counts without reading all image history.",
+      "criteria": [
+        "Maintain latest-image and count summaries during image insert/delete using the same transaction where feasible.",
+        "Backfill in bounded repeatable batches while preserving stable IDs.",
+        "Compare summary output against reference queries before switching book/chapter/verse consumers.",
+        "Measure representative query reads and return sizes for large histories."
+      ],
+      "test": "Insert/delete/retry/backfill scenarios and reconciliation against source rows, plus menu/verse-strip behavior tests.",
+      "scope": "No aggregation component required unless measurements justify it.",
+      "id": "T34",
+      "blocked_by": [
+        "T23"
+      ],
+      "filename": "t34-library-summaries.md"
+    },
+    {
+      "key": "impressions",
+      "spec": "S11",
+      "title": "Bound publication impressions and measure reactive fan-out",
+      "items": [
+        54,
+        55
+      ],
+      "deps": [
+        "guest-token",
+        "library-pages"
+      ],
+      "deliver": "Publication ranking counts repeat views under an explicit rule without avoidable gallery recomputation.",
+      "criteria": [
+        "Count at most one eligible impression per authenticated guest/image/four-hour window and enforce a bounded write rate.",
+        "Preserve public image browsing; unauthenticated views need not count toward ranking.",
+        "Measure history/gallery invalidations at representative loads and move counters away from image records if needed.",
+        "Document that guest uniqueness is an abuse control, not unique-human proof; keep ranking output inspectable."
+      ],
+      "test": "Repeated/simultaneous impressions, multiple images/windows, foreign IDs and load comparison before/after; attach measurements even if no counter move is warranted.",
+      "scope": "No social voting or tracking of extra identifying data solely for perfect uniqueness.",
+      "id": "T35",
+      "blocked_by": [
+        "T07",
+        "T33"
+      ],
+      "filename": "t35-impressions.md"
+    },
+    {
+      "key": "publication-recovery",
+      "spec": "S11",
+      "title": "Keep Nostr publication identity stable through failures",
+      "items": [
+        56
+      ],
+      "deps": [],
+      "deliver": "A scheduled image is shared without generating duplicate events when recording or relay acknowledgement fails.",
+      "criteria": [
+        "Persist the signed event identity before external publication and retry only that same event when safe.",
+        "Record relay outcomes and preserve historical publication IDs and conservative ambiguous-window handling.",
+        "Keep latest completed four-hour selection and skip missed windows rather than automatically flooding a backlog.",
+        "Provide operator-visible unresolved status with safe reconciliation steps."
+      ],
+      "test": "Fake relays: success then local failure, partial acknowledgements, timeout, restart and scheduler downtime; assert at most one signed event identity per selected publication.",
+      "scope": "No new relay platform or live publication during tests.",
+      "id": "T36",
+      "blocked_by": [],
+      "filename": "t36-publication-recovery.md"
+    },
+    {
+      "key": "generation-controls",
+      "spec": "S09",
+      "title": "Use one generation interface in reader gallery and header",
+      "items": [
+        57,
+        58,
+        59
+      ],
+      "deps": [
+        "image-cancel",
+        "library-pages"
+      ],
+      "deliver": "Guests can start and recover a generation from the available verse controls without requiring HeroImage to own the command.",
+      "criteria": [
+        "Move command/quote/status ownership out of the renderer into a verse generation interface.",
+        "Connect reader, gallery and header controls to the same selected passage and operation.",
+        "Keep visual image-selection/loading/fullscreen/gesture state local and separate from paid work.",
+        "Remove manual history refresh tokens once subscriptions and direct selected-image lookup cover updates.",
+        "Preserve auto-generation affordability and avoid duplicate effects when switching views."
+      ],
+      "test": "Reader -> gallery -> generate -> navigate away -> reopen result; mount/unmount renderer; passive image load versus paid progress; verify no extra provider request.",
+      "scope": "No visual redesign; use existing controls and layout.",
+      "id": "T37",
+      "blocked_by": [
+        "T27",
+        "T33"
+      ],
+      "filename": "t37-generation-controls.md"
+    },
+    {
+      "key": "preferences",
+      "spec": "S09",
+      "title": "Make preference hydration and persistence consistent",
+      "items": [
+        60
+      ],
+      "deps": [
+        "image-catalog"
+      ],
+      "deliver": "A reader keeps valid translation/model/settings choices across refresh without conflicting storage copies.",
+      "criteria": [
+        "Use cookies as authority for server-visible translation/model preferences and versioned localStorage for client-only settings/boot hints.",
+        "Migrate existing values and handle unavailable models/settings explicitly.",
+        "Prevent hydration effects from reverting a user choice or triggering paid work.",
+        "Preserve route refresh semantics only where server-visible content actually changes."
+      ],
+      "test": "Stale cookie/localStorage combinations, fresh browser, unavailable model, translation switch and rapid selection during hydration; verify rendered choices and next request settings.",
+      "scope": "No cross-device preference sync.",
+      "id": "T38",
+      "blocked_by": [
+        "T03"
+      ],
+      "filename": "t38-preferences.md"
+    },
+    {
+      "key": "purchase-ui",
+      "spec": "S09",
+      "title": "Separate welcome purchase and admin states",
+      "items": [
+        61
+      ],
+      "deps": [
+        "invoice-worker",
+        "reactive-balance"
+      ],
+      "deliver": "A guest completes welcome or a Lightning purchase without unrelated modal state interfering.",
+      "criteria": [
+        "Separate welcome, bundle choice, invoice status and admin access behind small UI interfaces.",
+        "Migrate both old welcome flags to one completed state without re-showing onboarding to existing readers.",
+        "Use authorized reactive invoice/balance state with clear late-check/unavailable/paid states.",
+        "Preserve Browse for Free, existing bundles and current visual layout."
+      ],
+      "test": "New/existing guest welcome, free-browse exit, create/pay/close/reopen invoice, expired access and admin flow; screenshots at mobile/desktop sizes.",
+      "scope": "No change to when welcome appears and no new sales funnel.",
+      "id": "T39",
+      "blocked_by": [
+        "T13",
+        "T10"
+      ],
+      "filename": "t39-purchase-ui.md"
+    },
+    {
+      "key": "reader-regressions",
+      "spec": "S09",
+      "title": "Protect reader interaction through behavior tests",
+      "items": [
+        71,
+        81
+      ],
+      "deps": [
+        "generation-controls",
+        "preferences"
+      ],
+      "deliver": "A maintainer can refactor reader internals while tests protect the interactions readers actually use.",
+      "criteria": [
+        "Cover keyboard/touch navigation, Escape order, focus restoration and fullscreen across reader/gallery.",
+        "Protect deep links, image selection and passive loading/error behavior on narrow/wide layouts.",
+        "Replace corresponding source-text assertions only after behavior coverage exists.",
+        "Record visual checks and fix regressions introduced by replacement, keeping established design."
+      ],
+      "test": "Browser acceptance suite with deterministic Scripture/image fixtures and no paid provider calls; demonstrate failures for broken interaction contracts.",
+      "scope": "Test slice limited to reader interactions, not broad snapshot coverage of every component.",
+      "id": "T40",
+      "blocked_by": [
+        "T37",
+        "T38"
+      ],
+      "filename": "t40-reader-regressions.md"
+    },
+    {
+      "key": "chat-evals",
+      "spec": "S10",
+      "title": "Create repeatable Scripture chat evaluations",
+      "items": [
+        73
+      ],
+      "deps": [],
+      "deliver": "Reviewers can compare chat baselines and candidates with the committed release rubric.",
+      "criteria": [
+        "Commit at least 30 cases covering the categories and exact context/expected behavior required by the release guide.",
+        "Implement a repeatable runner with fake-provider dry run, versioned inputs/judges, cost budget and machine-readable report.",
+        "Score grounding, interpretation, tone and uncertainty; surface critical/minor failures and human review cases.",
+        "Attach baseline/candidate procedure, quality thresholds and 24-hour monitoring/rollback fields without claiming unrun scores."
+      ],
+      "test": "Deterministic fake-provider pass/fail/timeout/budget tests and report-schema validation; live runs only with available authority and budget.",
+      "scope": "No default change or paid evaluation run implied by this ticket.",
+      "id": "T41",
+      "blocked_by": [],
+      "filename": "t41-chat-evals.md"
+    },
+    {
+      "key": "image-evals",
+      "spec": "S10",
+      "title": "Evaluate image quality and planner value",
+      "items": [
+        74
+      ],
+      "deps": [],
+      "deliver": "Reviewers can compare direct and planner-assisted images across Scripture genres.",
+      "criteria": [
+        "Commit at least 24 representative image cases with reference, translation, settings and expected visual behavior.",
+        "Produce reports for relevance, clarity, artifacts/style, latency, provider/planner spend and failure rate.",
+        "Support repeated samples, fixed inputs and budget enforcement; label undersampled comparison inconclusive.",
+        "Provide human side-by-side review using stable output references rather than selecting only successful examples."
+      ],
+      "test": "Fake image/provider fixtures exercise reports, missing usage, planner failure, partial results and exhausted budget.",
+      "scope": "No automatic removal of the planner or new style engine.",
+      "id": "T42",
+      "blocked_by": [],
+      "filename": "t42-image-evals.md"
+    },
+    {
+      "key": "model-release",
+      "spec": "S10",
+      "title": "Select model defaults from measured comparisons",
+      "items": [
+        75
+      ],
+      "deps": [
+        "chat-evals",
+        "image-evals",
+        "image-catalog"
+      ],
+      "deliver": "A default-model decision is backed by comparable evidence and a working rollback configuration.",
+      "criteria": [
+        "Compare current defaults and eligible candidates using committed cases and identical settings.",
+        "Record quality, latency, actual cost, failure rate and estimate variance; retain baseline if evidence does not justify change.",
+        "Verify provider/API capability compatibility before switching transport or models.",
+        "For any release attach required failed-case review, risks, exact rollback and first-24-hour owner; an evidence-backed no-change result is a valid completed outcome."
+      ],
+      "test": "Dry-run config selection/rollback; baseline/candidate live reports only after budget/credentials are established. Do not close with fabricated or unexecuted evidence.",
+      "scope": "No blanket latest-model upgrade or self-approved theological evaluation.",
+      "id": "T43",
+      "blocked_by": [
+        "T41",
+        "T42",
+        "T03"
+      ],
+      "filename": "t43-model-release.md"
+    },
+    {
+      "key": "convex-contracts",
+      "spec": "S12",
+      "title": "Exercise private and financial Convex handlers directly",
+      "items": [
+        24,
+        69,
+        70
+      ],
+      "deps": [
+        "private-access",
+        "late-payment",
+        "receipt-outbox"
+      ],
+      "deliver": "The core ownership and financial tests use real handlers instead of a second handwritten billing implementation.",
+      "criteria": [
+        "Cover session ownership, invoice confirmation, quote reservation, settlement receipt and outbox invariants using actual handlers.",
+        "Replace business-rule duplication in route mocks with thin adapter fakes or shared handler harnesses.",
+        "Exercise concurrent confirmation/reservation/release and rollback-on-error semantics with a suitable Convex test environment.",
+        "Keep fast pure arithmetic tests and clearly separate fake-runtime checks from deployment-level concurrency guarantees."
+      ],
+      "test": "Introduce intentional ownership/double-charge regression to confirm tests fail; run relevant API/session suites and documented runtime checks.",
+      "scope": "Image and bulk handler tests live with their implementation tickets; do not postpone those tests until this integration ticket.",
+      "id": "T44",
+      "blocked_by": [
+        "T08",
+        "T11",
+        "T06"
+      ],
+      "filename": "t44-convex-contracts.md"
+    },
+    {
+      "key": "ops-records",
+      "spec": "S11",
+      "title": "Inspect durable unresolved work and financial outcomes",
+      "items": [
+        76,
+        77
+      ],
+      "deps": [
+        "invoice-worker",
+        "image-recovery"
+      ],
+      "deliver": "An operator can see unresolved jobs/payments and spending totals after server restart.",
+      "criteria": [
+        "Provide authenticated bounded queries for unresolved generation attempts, payment checks and receipt delivery.",
+        "Show provider spend, charges and shortfall totals with missing/estimated usage clearly separated.",
+        "Supplement process counters with suitable aggregate metrics/log storage; label local diagnostics honestly.",
+        "Add age/attempt thresholds that identify actionable failures without exposing guest secrets or raw keys."
+      ],
+      "test": "Restart process, inject failed delivery and payment/provider outage, and verify durable operator results; reject unauthorized access.",
+      "scope": "A focused operational view/query is sufficient; no general analytics warehouse.",
+      "id": "T45",
+      "blocked_by": [
+        "T13",
+        "T26"
+      ],
+      "filename": "t45-ops-records.md"
+    },
+    {
+      "key": "dependency-health",
+      "spec": "S11",
+      "title": "Distinguish readiness from observed dependency health",
+      "items": [
+        78
+      ],
+      "deps": [],
+      "deliver": "Operators know whether the app is configured and whether dependencies were actually observed working.",
+      "criteria": [
+        "Keep public liveness/readiness output minimal and detailed diagnostics authenticated.",
+        "Separate configuration checks from last-success dependency observations, with timestamp and stale status.",
+        "Use bounded background non-billable checks where useful; no paid generation from health endpoints.",
+        "Return useful outage/unknown states without disclosing credentials or private deployment internals."
+      ],
+      "test": "Unauthorized detail access, missing configuration, provider/LND outage, stale observation and process restart using fake probes.",
+      "scope": "No promise that a configuration-only check verifies provider availability.",
+      "id": "T46",
+      "blocked_by": [],
+      "filename": "t46-dependency-health.md"
+    },
+    {
+      "key": "retention-policy",
+      "spec": "S11",
+      "title": "Apply bounded retention without losing financial evidence",
+      "items": [
+        80
+      ],
+      "deps": [
+        "credit-retention",
+        "receipt-outbox"
+      ],
+      "deliver": "Operators can dry-run cleanup and see exactly what can expire without removing balances or unresolved work.",
+      "criteria": [
+        "Implement S11 retention classes with compact financial receipts and operation dedupe identities retained.",
+        "Use bounded resumable cleanup for eligible diagnostics, processed outbox payloads, stale plans and minimized feedback context.",
+        "Check linked state and blob references before deletion; unresolved/financial records are never swept by age alone.",
+        "Provide dry-run counts, sampled identifiers and reconciliation totals with sensitive data redacted.",
+        "New retention rules apply through a reviewed staged rollout; no destructive production cleanup is part of the implementation test."
+      ],
+      "test": "Synthetic linked data at expiry boundaries, interrupted cleanup and repeat run; verify retained balances, pending invoices, dedupe behavior and saved-image provenance.",
+      "scope": "No legal-compliance claim and no indefinite retention of avoidable raw diagnostic payloads.",
+      "id": "T47",
+      "blocked_by": [
+        "T09",
+        "T06"
+      ],
+      "filename": "t47-retention-policy.md"
+    },
+    {
+      "key": "truthful-copy",
+      "spec": "S09",
+      "title": "Align privacy credits and storage copy with behavior",
+      "items": [
+        79
+      ],
+      "deps": [
+        "purchase-ui",
+        "retention-policy"
+      ],
+      "deliver": "Guests read accurate descriptions of charges, access expiry, stored information and image persistence.",
+      "criteria": [
+        "Describe session/cookie limitations without promising recovery or cross-device access.",
+        "Explain estimate, accepted maximum, reservation and final charge using consistent terms.",
+        "Correct privacy copy to include actual feedback/session/payment/image/analytics context.",
+        "Use distinct wording for saved images and temporary output; keep browsing and purchase notices concise."
+      ],
+      "test": "Compare each claim against implemented flows and retention rules; inspect rendered mobile/desktop copy and relevant links.",
+      "scope": "No broad marketing rewrite or new refund promise.",
+      "id": "T48",
+      "blocked_by": [
+        "T39",
+        "T47"
+      ],
+      "filename": "t48-truthful-copy.md"
+    },
+    {
+      "key": "restore-rehearsal",
+      "spec": "S12",
+      "title": "Prove data export restore and reconciliation",
+      "items": [
+        82
+      ],
+      "deps": [
+        "baseline"
+      ],
+      "deliver": "An operator can restore a representative pre-migration dataset and verify its balances and public identities.",
+      "criteria": [
+        "Create a documented protected export/restore procedure that identifies the intended environment.",
+        "Use synthetic sessions, ledger, images, active reservations, pending invoices and Nostr records for a repeatable rehearsal.",
+        "Compare balance totals, invoice identity, image URLs/IDs and publication IDs before/after.",
+        "Keep export artifacts containing real private data outside tracked planning files; any live access needs established environment authority."
+      ],
+      "test": "Execute synthetic restore and reconciliation; inject an omitted record and verify the report fails.",
+      "scope": "No production export, destructive restore or real secret values in this planning program.",
+      "id": "T49",
+      "blocked_by": [
+        "T01"
+      ],
+      "filename": "t49-restore-rehearsal.md"
+    },
+    {
+      "key": "executor-switch",
+      "spec": "S12",
+      "title": "Switch new admissions without duplicating paid work",
+      "items": [
+        83
+      ],
+      "deps": [
+        "restore-rehearsal",
+        "durable-image"
+      ],
+      "deliver": "Operators can send a bounded cohort of new image operations to the replacement while old work drains safely.",
+      "criteria": [
+        "Persist executor and policy version per operation and route retries to that same executor.",
+        "Use one authoritative ledger and no dual execution or shadow paid calls.",
+        "Provide a new-admission stop switch and a small session-cohort rollout control.",
+        "Keep existing URLs/data readable across versions and expose old in-flight work until drained."
+      ],
+      "test": "Mixed old/new synthetic operations, switched routing during retry, stop/start admissions and existing balance checks.",
+      "scope": "Deployment preparation only until preview/release gates pass; never backfill work by replaying provider calls.",
+      "id": "T50",
+      "blocked_by": [
+        "T49",
+        "T25"
+      ],
+      "filename": "t50-executor-switch.md"
+    },
+    {
+      "key": "rollback-rehearsal",
+      "spec": "S12",
+      "title": "Rehearse rollback with active jobs and payments",
+      "items": [
+        70,
+        84
+      ],
+      "deps": [
+        "executor-switch",
+        "bulk-controls",
+        "invoice-worker",
+        "convex-contracts"
+      ],
+      "deliver": "Operators can stop or roll back the replacement without losing new records or replaying completed work.",
+      "criteria": [
+        "Seed mixed executors, active jobs/holds, pending invoices, saved images and unresolved attempts.",
+        "Rehearse stop admissions, drain/reconcile, switch reader/executor compatibility and restore operation visibility.",
+        "Verify balances/receipts, image IDs/public contracts and publication records survive rollback.",
+        "Record exact rollback conditions, steps, data compatibility limits and recovery outcomes."
+      ],
+      "test": "Executed synthetic/preview failure drill with reconciliation report and browser revisit; no completed provider call is repeated.",
+      "scope": "Rollback cannot delete new ledger entries or pretend uncertain attempts never existed.",
+      "id": "T51",
+      "blocked_by": [
+        "T50",
+        "T31",
+        "T13",
+        "T44"
+      ],
+      "filename": "t51-rollback-rehearsal.md"
+    },
+    {
+      "key": "retire-image-execution",
+      "spec": "S12",
+      "title": "Retire replaced image executors after old work drains",
+      "items": [
+        85
+      ],
+      "deps": [
+        "rollback-rehearsal",
+        "retire-browser-worker"
+      ],
+      "deliver": "Maintainers have one supported image executor and retain safe lookup of historical and unresolved operations.",
+      "criteria": [
+        "Inventory legacy image route callers, active operations and replay needs; record zero remaining execution dependencies before deletion.",
+        "Remove superseded image orchestration and browser worker adapters while keeping public admission and historical lookup contracts.",
+        "Remove only mocks and helpers exclusive to that executor; preserve uncertainty records, receipts and stable image identifiers.",
+        "Run single-image and bulk recovery cases against the retained executor, including revisits to old image URLs."
+      ],
+      "test": "Caller inventory plus image and bulk acceptance/recovery tests; lint and type checks remain green.",
+      "scope": "Only image execution retirement. Do not remove wallet, library, preferences or historical record compatibility.",
+      "id": "T52",
+      "blocked_by": [
+        "T51",
+        "T32"
+      ],
+      "filename": "t52-retire-image-execution.md"
+    },
+    {
+      "key": "retire-pricing-chat",
+      "spec": "S12",
+      "title": "Retire duplicated pricing and chat settlement paths",
+      "items": [
+        85
+      ],
+      "deps": [
+        "rollback-rehearsal",
+        "chat-receipt",
+        "learned-quotes"
+      ],
+      "deliver": "Chat and image charges use the same supported price and settlement policy without orphaning old financial records.",
+      "criteria": [
+        "Inventory remaining quote and settlement callers; migrate any old-policy read adapter before removing duplicate logic.",
+        "Delete replaced price conversions, ad hoc cost reporting and obsolete chat settlement branches only after all new callers use shared policy.",
+        "Retain historical policy interpretation and reconciliation of unresolved legacy holds; prove no active operation needs removed execution code.",
+        "Verify chat success/error/cancel, image rounding and duplicate settlement with one authoritative wallet."
+      ],
+      "test": "Financial fixture regression and caller inventory; compare recorded charges and provider spend before and after retirement.",
+      "scope": "Only pricing and chat contract cleanup; no historical repricing, financial record deletion or image-executor rewrite.",
+      "id": "T53",
+      "blocked_by": [
+        "T51",
+        "T21",
+        "T05"
+      ],
+      "filename": "t53-retire-pricing-chat.md"
+    },
+    {
+      "key": "retire-reader-library",
+      "spec": "S12",
+      "title": "Retire replaced reader state and library queries",
+      "items": [
+        85
+      ],
+      "deps": [
+        "rollback-rehearsal",
+        "reader-regressions",
+        "library-summaries"
+      ],
+      "deliver": "Reader controls and image history use the replacement state and bounded queries with existing URLs intact.",
+      "criteria": [
+        "Confirm all reader/gallery callers use the shared generation command and canonical preferences.",
+        "Remove superseded local state/event plumbing, unbounded library queries and compatibility code with no remaining supported callers.",
+        "Retain preference migration and old image deep-link resolution for existing readers; inventory required adapters explicitly.",
+        "Verify navigation, gallery pages, preferences, responsive controls and live image arrival after removal."
+      ],
+      "test": "Browser acceptance scenarios plus stable public image responses and bounded query assertions; capture visible regression evidence.",
+      "scope": "Only reader and library retirement; no changes to the supported public URL contract or removal of persisted images.",
+      "id": "T54",
+      "blocked_by": [
+        "T51",
+        "T40",
+        "T34"
+      ],
+      "filename": "t54-retire-reader-library.md"
+    },
+    {
+      "key": "final-docs",
+      "spec": "S12",
+      "title": "Close the modernization traceability and documentation audit",
+      "items": [
+        86
+      ],
+      "deps": [
+        "retire-image-execution",
+        "retire-pricing-chat",
+        "retire-reader-library",
+        "ops-records",
+        "dependency-health",
+        "publication-recovery",
+        "impressions",
+        "truthful-copy",
+        "scripture-cache",
+        "model-release"
+      ],
+      "deliver": "A future implementer can distinguish completed behavior, deferred outcomes and remaining operational work for every original item.",
+      "criteria": [
+        "Reconcile all 86 original IDs against completed ticket evidence; leave unresolved work open rather than marking the program done.",
+        "Update current feature guides, architecture and setup around implemented module ownership and verification.",
+        "Check spec/ticket/status links, public API documentation and data retention/cost language for consistency.",
+        "Record evaluation no-change decisions or follow-up blockers explicitly; docs throughout the program were updated with their implementation tickets."
+      ],
+      "test": "Link/reference validation, acceptance inventory reconciliation and human-readable summary of implemented versus deliberately deferred outcomes.",
+      "scope": "No automatic parent closure and no substitution of documentation for unfinished behavior.",
+      "id": "T55",
+      "blocked_by": [
+        "T52",
+        "T53",
+        "T54",
+        "T45",
+        "T46",
+        "T36",
+        "T35",
+        "T48",
+        "T17",
+        "T43"
+      ],
+      "filename": "t55-final-docs.md"
+    }
+  ]
+}

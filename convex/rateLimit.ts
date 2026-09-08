@@ -11,6 +11,7 @@ export const RATE_LIMITS = {
   chat: { windowMs: 60_000, maxRequests: 20 }, // 20 requests per minute
   "generate-image": { windowMs: 60_000, maxRequests: 5 }, // 5 images per minute
   "admin-login": { windowMs: 900_000, maxRequests: 5 }, // 5 attempts per 15 minutes
+  "guest-token": { windowMs: 60_000, maxRequests: 30 },
   session: { windowMs: 60_000, maxRequests: 10 }, // 10 session creates per minute
   invoice: { windowMs: 60_000, maxRequests: 10 }, // 10 invoice creates per minute
   "invoice-status": { windowMs: 60_000, maxRequests: 30 }, // 30 invoice status checks/confirms per minute
@@ -102,6 +103,7 @@ export const checkRateLimit = mutation({
  */
 export const getRateLimitStatus = query({
   args: {
+    serverSecret: v.string(),
     identifier: v.string(),
     endpoint: v.string(),
   },
@@ -109,6 +111,7 @@ export const getRateLimitStatus = query({
     remaining: number;
     resetAt: number;
   }> => {
+    validateServerSecret(args.serverSecret);
     const config = RATE_LIMITS[args.endpoint as RateLimitEndpoint];
     if (!config) {
       return { remaining: 999, resetAt: Date.now() };
@@ -165,6 +168,7 @@ function calculateLockoutDuration(lockoutCount: number): number {
  */
 export const checkAdminLoginAllowed = query({
   args: {
+    serverSecret: v.string(),
     ipHash: v.string(),
   },
   handler: async (ctx, args): Promise<{
@@ -173,6 +177,7 @@ export const checkAdminLoginAllowed = query({
     attemptsRemaining?: number;
     lockoutCount?: number;
   }> => {
+    validateServerSecret(args.serverSecret);
     const record = await ctx.db
       .query("adminLoginAttempts")
       .withIndex("by_ipHash", (q) => q.eq("ipHash", args.ipHash))

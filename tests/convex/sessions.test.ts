@@ -24,6 +24,7 @@ type SessionDoc = {
 };
 
 type LedgerDoc = {
+  pendingReservation?: boolean;
   _id: string;
   _creationTime: number;
   sid: string;
@@ -172,9 +173,9 @@ class MockDb {
   }
 
   async patch(id: string, patch: Record<string, unknown>): Promise<void> {
-    const session = this.sessions.find((entry) => entry._id === id);
+    const session = this.sessions.find((entry) => entry._id === id) ?? this.creditLedger.find((entry) => entry._id === id);
     if (!session) {
-      throw new Error(`Session not found for patch: ${id}`);
+      throw new Error(`Record not found for patch: ${id}`);
     }
     Object.assign(session, patch);
   }

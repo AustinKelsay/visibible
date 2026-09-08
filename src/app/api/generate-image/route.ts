@@ -1,21 +1,24 @@
+import { catalogImageQuote, imageCapabilities } from "@/lib/image-catalog";
+import {
+  PROMPT_VERSION, DEFAULT_STYLE_PROFILE, STYLE_PROFILES,
+  normalizeScenePlan, extractJsonObject, clipText,
+  buildScenePlannerPrompt, buildImagePrompt, scenePlanInputFingerprint, type ScenePlan, type PromptPacket,
+} from "@/lib/image-prompts";
+import type { FunctionReturnType } from "convex/server";
+import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import {
   DEFAULT_IMAGE_MODEL,
-  DEFAULT_CREDITS_COST,
   fetchImageModels,
-  computeAdjustedCreditsCost,
   CONSERVATIVE_ESTIMATE_MULTIPLIER,
   getProviderName,
   CREDIT_USD,
   canAffordImageGeneration,
   DEFAULT_ASPECT_RATIO,
   DEFAULT_RESOLUTION,
-  RESOLUTIONS,
   isValidAspectRatio,
   isValidResolution,
-  normalizeResolutionForModel,
-  supportsResolution,
   ImageAspectRatio,
   ImageResolution,
 } from "@/lib/image-models";
@@ -23,13 +26,9 @@ import {
   DEFAULT_TRANSLATION,
   TRANSLATIONS,
   BibleApiLookupError,
-  getVerse,
-  getChapter,
-  getVerseByReference,
-  type VerseData,
   type Translation,
 } from "@/lib/bible-api";
-import { BIBLE_BOOKS, type BibleBook } from "@/data/bible-structure";
+import { resolveGenerationPassage } from "@/lib/generation-passage";
 import { getScenePlannerEstimatedCreditsCost, getScenePlannerModelId, isScenePlannerEnabled } from "@/lib/scene-planner";
 import {
   validateSessionWithIp,
@@ -63,15 +62,8 @@ export const dynamic = "force-dynamic";
 const isImageGenerationEnabled =
   process.env.ENABLE_IMAGE_GENERATION === "true";
 
-// Fallback text if no verse provided
-const DEFAULT_TEXT = "In the beginning God created the heaven and the earth.";
-const PROMPT_VERSION = "2026-03-19";
-const DEFAULT_STYLE_PROFILE = "classical";
+// Version boundary prevents reuse of plans derived from client-authored Scripture.
 const DEFAULT_TRANSLATION_ID = "default";
-const SCENE_PLAN_MAX_FIELD_LENGTH = 180;
-const PROMPT_MAX_CHARS = 2800;
-const CONTINUITY_HINT_MAX_CHARS = 160;
-const SCENE_PLANNER_VERSE_MAX_CHARS = 280;
 const DEFAULT_COST_MARKUP_MULTIPLIER = 1.25;
 const MAX_IMAGE_REQUEST_BODY_SIZE = DEFAULT_MAX_BODY_SIZE;
 const COST_EVENT_PERSIST_TIMEOUT_MS = Number.parseInt(
@@ -93,116 +85,6 @@ const SCENE_PLANNER_TIMEOUT_MS = Number.parseInt(
   10
 );
 const IMAGE_GENERATION_TIMEOUT_MESSAGE_PREFIX = "Image generation timed out after";
-
-type ScenePlan = {
-  primarySubject: string;
-  action: string;
-  setting: string;
-  secondaryElements?: string;
-  mood?: string;
-  timeOfDay?: string;
-  composition?: string;
-};
-
-type PromptPacket = {
-  verseId: string;
-  translationId: string;
-  reference: string;
-  currentVerse: string;
-  styleProfileId: string;
-  aspectRatio: ImageAspectRatio;
-  resolution: ImageResolution;
-  chapterTheme?: {
-    setting: string;
-    palette: string;
-    elements: string;
-    style: string;
-  };
-  continuity?: {
-    previous?: string;
-    next?: string;
-  };
-  scenePlan?: ScenePlan;
-  flags: {
-    scenePlannerUsed: boolean;
-    scenePlanFromCache: boolean;
-    narrativeContextIncluded: boolean;
-    generationNoteIncluded: boolean;
-  };
-  budget: {
-    maxChars: number;
-    finalChars: number;
-  };
-};
-
-type VerseTarget = {
-  book: BibleBook;
-  chapter: number;
-  verse: number;
-};
-
-function normalizeSceneField(value: unknown): string | undefined {
-  if (typeof value !== "string") return undefined;
-  const cleaned = value
-    .replace(/[\x00-\x1F\x7F]/g, "")
-    .replace(/\s+/g, " ")
-    .trim()
-    .slice(0, SCENE_PLAN_MAX_FIELD_LENGTH);
-  return cleaned.length > 0 ? cleaned : undefined;
-}
-
-function normalizeScenePlan(value: unknown): ScenePlan | null {
-  if (!value || typeof value !== "object") return null;
-  const data = value as Record<string, unknown>;
-  const primarySubject = normalizeSceneField(data.primarySubject);
-  const action = normalizeSceneField(data.action);
-  const setting = normalizeSceneField(data.setting);
-  if (!primarySubject || !action || !setting) return null;
-  const scenePlan: ScenePlan = {
-    primarySubject,
-    action,
-    setting,
-  };
-  const secondaryElements = normalizeSceneField(data.secondaryElements);
-  const mood = normalizeSceneField(data.mood);
-  const timeOfDay = normalizeSceneField(data.timeOfDay);
-  const composition = normalizeSceneField(data.composition);
-  if (secondaryElements) scenePlan.secondaryElements = secondaryElements;
-  if (mood) scenePlan.mood = mood;
-  if (timeOfDay) scenePlan.timeOfDay = timeOfDay;
-  if (composition) scenePlan.composition = composition;
-  return scenePlan;
-}
-
-function extractJsonObject(text: string): string | null {
-  const start = text.indexOf("{");
-  const end = text.lastIndexOf("}");
-  if (start === -1 || end === -1 || end <= start) return null;
-  return text.slice(start, end + 1);
-}
-
-function formatScenePlan(scenePlan: ScenePlan): string {
-  const lines = [
-    "SCENE PLAN (supporting; do not override priority rules):",
-    `Primary subject: ${scenePlan.primarySubject}`,
-    `Action: ${scenePlan.action}`,
-    `Setting: ${scenePlan.setting}`,
-  ];
-  if (scenePlan.secondaryElements) {
-    lines.push(`Secondary elements: ${scenePlan.secondaryElements}`);
-  }
-  if (scenePlan.mood) lines.push(`Mood: ${scenePlan.mood}`);
-  if (scenePlan.timeOfDay) lines.push(`Time of day: ${scenePlan.timeOfDay}`);
-  if (scenePlan.composition) lines.push(`Composition: ${scenePlan.composition}`);
-  return `\n\n${lines.join("\n")}`;
-}
-
-function clipText(value: string, maxChars: number): string {
-  if (!value) return "";
-  const normalized = value.replace(/\s+/g, " ").trim();
-  if (normalized.length <= maxChars) return normalized;
-  return `${normalized.slice(0, Math.max(0, maxChars - 1)).trimEnd()}…`;
-}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -338,12 +220,6 @@ function toVerseId(reference: string): string {
     .replace(/^-|-$/g, "");
 }
 
-function sanitizeRequestId(value: string | null): string | null {
-  if (!value) return null;
-  const cleaned = value.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 80);
-  return cleaned.length >= 8 ? cleaned : null;
-}
-
 function sanitizeTranslationId(value: string | null): string {
   if (!value) return DEFAULT_TRANSLATION_ID;
   const cleaned = value.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40);
@@ -352,12 +228,6 @@ function sanitizeTranslationId(value: string | null): string {
 
 function isSupportedTranslation(value: string): value is Translation {
   return Object.prototype.hasOwnProperty.call(TRANSLATIONS, value);
-}
-
-function toContinuityHint(verse: { number: number; text: string } | null): string | undefined {
-  if (!verse) return undefined;
-  const text = clipText(verse.text, CONTINUITY_HINT_MAX_CHARS);
-  return text ? `v${verse.number}: ${text}` : undefined;
 }
 
 function quoteUsdCostLocally(usd: number): { credits: number; billedUsd: number } {
@@ -389,108 +259,6 @@ async function withTimeout<T>(
   }
 }
 
-// Security: Validate and sanitize Bible reference format
-function sanitizeReference(ref: string): string {
-  // Only allow alphanumeric, spaces, colons, hyphens, and basic punctuation
-  const sanitized = ref.replace(/[^\w\s:,\-.'()]/g, "").slice(0, 50);
-  return sanitized || "Scripture";
-}
-
-// Security: Sanitize verse text to prevent prompt injection
-function sanitizeVerseText(text: string): string {
-  // Remove control characters and limit length
-  // Strip common prompt injection patterns
-  return text
-    .replace(/[\x00-\x1F\x7F]/g, "") // Remove control chars
-    .replace(
-      /\b(ignore|disregard|forget|override|system|prompt|instruction)/gi,
-      ""
-    )
-    .slice(0, 1200); // Limit to reasonable verse length
-}
-
-function computePreviousTarget(params: {
-  currentVerse: { chapter: number; verse: number };
-  currentBook: BibleBook;
-  currentBookIndex: number;
-  prevVerse: { number: number; text: string; reference?: string } | null;
-}): VerseTarget | null {
-  const { currentVerse, currentBook, currentBookIndex, prevVerse } = params;
-  if (prevVerse) return null;
-
-  if (currentVerse.verse > 1) {
-    return {
-      book: currentBook,
-      chapter: currentVerse.chapter,
-      verse: currentVerse.verse - 1,
-    };
-  }
-
-  if (currentVerse.chapter > 1) {
-    return {
-      book: currentBook,
-      chapter: currentVerse.chapter - 1,
-      verse: currentBook.chapters[currentVerse.chapter - 2],
-    };
-  }
-
-  if (currentBookIndex <= 0) {
-    return null;
-  }
-
-  const previousBook = BIBLE_BOOKS[currentBookIndex - 1];
-  const previousChapter = previousBook.chapters.length;
-  return {
-    book: previousBook,
-    chapter: previousChapter,
-    verse: previousBook.chapters[previousChapter - 1],
-  };
-}
-
-function computeNextTarget(params: {
-  currentVerse: { chapter: number; verse: number };
-  currentBook: BibleBook;
-  currentBookIndex: number;
-  versesInChapter: number;
-  nextVerse: { number: number; text: string; reference?: string } | null;
-}): VerseTarget | null {
-  const { currentVerse, currentBook, currentBookIndex, versesInChapter, nextVerse } = params;
-  if (nextVerse) return null;
-
-  if (currentVerse.verse < versesInChapter) {
-    return {
-      book: currentBook,
-      chapter: currentVerse.chapter,
-      verse: currentVerse.verse + 1,
-    };
-  }
-
-  if (currentVerse.chapter < currentBook.chapters.length) {
-    return {
-      book: currentBook,
-      chapter: currentVerse.chapter + 1,
-      verse: 1,
-    };
-  }
-
-  if (currentBookIndex < 0 || currentBookIndex >= BIBLE_BOOKS.length - 1) {
-    return null;
-  }
-
-  return {
-    book: BIBLE_BOOKS[currentBookIndex + 1],
-    chapter: 1,
-    verse: 1,
-  };
-}
-
-type ChapterTheme = {
-  setting: string;
-  palette: string;
-  elements: string;
-  style: string;
-};
-
 const chapterThemeSchema = z.object({
   setting: z.string(),
   palette: z.string(),
@@ -510,14 +278,14 @@ const generateImageSchema = z
     theme: z.union([chapterThemeSchema, z.string()]).optional(),
     prevVerse: z.union([verseContextSchema, z.string()]).optional(),
     nextVerse: z.union([verseContextSchema, z.string()]).optional(),
-    reference: z.string().optional(),
+    reference: z.string().trim().min(1).max(80),
     model: z.string().optional(),
     generation: z.union([z.number().finite(), z.string()]).optional(),
     style: z.string().optional(),
     aspectRatio: z.string().optional(),
     resolution: z.string().optional(),
     translation: z.string().optional(),
-    requestId: z.string().optional(),
+    requestId: z.string().regex(/^[a-zA-Z0-9_-]{8,80}$/).optional(),
   })
   .passthrough();
 
@@ -713,13 +481,8 @@ export async function POST(request: Request) {
     );
   }
 
-  // Get verse text, theme, model, and context from JSON body.
-  // SECURITY: All user-provided text is sanitized to prevent prompt injection.
-  const hasUserReference =
-    typeof requestBody.reference === "string" &&
-    requestBody.reference.trim().length > 0;
-  let verseText = requestBody.text ? sanitizeVerseText(requestBody.text) : "";
-  let reference = sanitizeReference(requestBody.reference || "Scripture");
+  // Legacy text/context fields are accepted but never authoritative.
+  let reference = requestBody.reference;
   const requestedModelId = requestBody.model;
   const requestedStyleId = requestBody.style;
   const requestedAspectRatio = requestBody.aspectRatio;
@@ -750,7 +513,7 @@ export async function POST(request: Request) {
   const bibleTranslation: Translation = normalizedTranslation;
   const translationId = bibleTranslation;
   const clientRequestId =
-    sanitizeRequestId(requestBody.requestId ?? null) || crypto.randomUUID();
+    requestBody.requestId ?? crypto.randomUUID();
 
   // Validate and set aspect ratio (default: 16:9)
   const aspectRatio: ImageAspectRatio = requestedAspectRatio && isValidAspectRatio(requestedAspectRatio)
@@ -758,99 +521,52 @@ export async function POST(request: Request) {
     : DEFAULT_ASPECT_RATIO;
 
   // Validate and set resolution (default: 1K)
+  if ((requestedResolution && !isValidResolution(requestedResolution)) ||
+      (requestedAspectRatio && !isValidAspectRatio(requestedAspectRatio))) {
+    return jsonWithSessionRefresh({ error: "Unsupported image settings" }, { status: 400 });
+  }
   const resolution: ImageResolution = requestedResolution && isValidResolution(requestedResolution)
     ? requestedResolution
     : DEFAULT_RESOLUTION;
 
-  let modelId = DEFAULT_IMAGE_MODEL;
-  let modelPricing: string | undefined;
-  let modelUsesEmergencyPricing = false;
-  let selectedModel:
-    | Awaited<ReturnType<typeof fetchImageModels>>["models"][number]
-    | undefined;
-  type StyleProfile = {
-    id: string;
-    label: string;
-    rendering: string;
-    palette?: string;
-    lighting?: string;
-    materials?: string;
-    composition?: string;
-    negative: string;
-  };
-
-  const STYLE_PROFILES: Record<string, StyleProfile> = {
-    classical: {
-      id: "classical",
-      label: "Classical Painterly",
-      rendering:
-        "Stylized, painterly, biblical-era, mysterious, expansive; epic scale and reverent tone. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.",
-      palette: "Mature, grounded color; rich but restrained contrast.",
-      lighting: "Luminous, dramatic lighting.",
-      materials: "Gritty, raw texture; avoid polished digital smoothness.",
-      composition: "Cinematic, immersive viewpoint; heroic but grounded.",
-      negative:
-        "Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.",
-    },
-  };
-
-  /**
-   * Parses and sanitizes a verse context object from the request body.
-   * Accepts either a verse-shaped object or a JSON string (backward compatibility).
-   * Returns null if the value is not valid.
-   */
-  function parseVerseContext(
-    value: unknown
-  ): { number: number; text: string; reference?: string } | null {
-    let obj: Record<string, unknown> | null = null;
-    if (value && typeof value === "object") {
-      obj = value as Record<string, unknown>;
-    } else if (typeof value === "string") {
-      try {
-        const parsed = JSON.parse(value) as unknown;
-        if (parsed && typeof parsed === "object") obj = parsed as Record<string, unknown>;
-      } catch {
-        return null;
-      }
+  // Stable ordering and explicit fields exclude transport identity and unknown extras.
+  const inputFingerprint = createHash("sha256").update(JSON.stringify({
+    text: requestBody.text ?? null, reference: requestBody.reference ?? null,
+    translation: translationId, model: requestedModelId ?? null, style: requestedStyleId ?? null,
+    aspectRatio, resolution, theme: requestBody.theme ?? null,
+    generation: requestBody.generation ?? null, prevVerse: requestBody.prevVerse ?? null,
+    nextVerse: requestBody.nextVerse ?? null,
+  })).digest("hex");
+  const existingIntentResponse = (admission: FunctionReturnType<typeof api.verseImages.createGenerationRequest>) => {
+    if (admission.conflict) {
+      return jsonWithSessionRefresh({ error: "Request ID already belongs to different inputs or owner" }, { status: 409 });
     }
-    if (!obj) return null;
-    const text = obj?.text;
-    if (typeof text !== "string") return null;
-    const number =
-      typeof obj.number === "number" && Number.isFinite(obj.number)
-        ? obj.number
-        : 0;
-    const reference =
-      typeof obj.reference === "string" ? obj.reference : undefined;
-    return {
-      number,
-      text: sanitizeVerseText(text),
-      ...(reference !== undefined ? { reference } : {}),
-    };
+    const saved = admission.savedImage;
+    if (saved?.imageUrl) return jsonWithSessionRefresh({
+      requestId: clientRequestId, generationId: admission.generationId,
+      status: admission.status, reused: true, savedImageId: saved.id,
+      imageUrl: saved.imageUrl, reference: saved.reference, translationId: saved.translationId,
+      verseText: saved.verseText, promptInputs: saved.promptInputs,
+      model: saved.model, creditsCost: saved.creditsCost, durationMs: saved.durationMs,
+    });
+    if (admission.status === "failed" || admission.status === "succeeded") {
+      return jsonWithSessionRefresh({ requestId: clientRequestId, status: admission.status,
+        error: admission.error || "The original operation ended without an available saved image", reused: true,
+      }, { status: 409 });
+    }
+    return jsonWithSessionRefresh({ requestId: clientRequestId, status: admission.status, reused: true }, { status: 202 });
+  };
+  try {
+    const existing = await convex.query(api.verseImages.getGenerationIntent, {
+      requestId: clientRequestId, sid, inputFingerprint, serverSecret,
+    });
+    if (existing) return existingIntentResponse(existing);
+  } catch (error) {
+    logApiFailure({ context: requestContext, stage: "image_intent_lookup", error, statusCode: 503, sid });
+    return jsonWithSessionRefresh({ error: "Unable to safely check image generation" }, { status: 503 });
   }
 
-  const parseChapterTheme = (
-    value: GenerateImageRequestBody["theme"]
-  ): ChapterTheme | null => {
-    if (!value) return null;
-    if (typeof value === "object") {
-      return value;
-    }
-    try {
-      const parsed = JSON.parse(value) as unknown;
-      const themeParse = chapterThemeSchema.safeParse(parsed);
-      if (themeParse.success) {
-        return themeParse.data;
-      }
-    } catch (e) {
-      console.warn("[generate-image] Failed to parse chapterTheme:", {
-        value: value?.substring(0, 100),
-        error: e instanceof Error ? e.message : "Unknown error",
-      });
-    }
-    return null;
-  };
-
+  let modelId = DEFAULT_IMAGE_MODEL;
   const parseGenerationNumber = (
     value: GenerateImageRequestBody["generation"]
   ): number | null => {
@@ -862,195 +578,27 @@ export async function POST(request: Request) {
     return Number.isNaN(parsed) ? null : parsed;
   };
 
-  let prevVerse = parseVerseContext(requestBody.prevVerse);
-  let nextVerse = parseVerseContext(requestBody.nextVerse);
-
-  let currentVerse: VerseData | null = null;
-  if (reference !== "Scripture") {
-    try {
-      const resolvedVerses = await getVerseByReference(reference, bibleTranslation);
-      if (!resolvedVerses || resolvedVerses.length !== 1) {
-        return jsonWithSessionRefresh(
-          {
-            error: "Invalid reference",
-            message: "Please provide a single-verse reference like John 3:16.",
-          },
-          { status: 400 }
-        );
-      }
-      currentVerse = resolvedVerses[0];
-      const currentVerseReference = sanitizeReference(
-        `${currentVerse.bookName} ${currentVerse.chapter}:${currentVerse.verse}`
-      );
-
-      reference = currentVerseReference;
-
-      if (!verseText) {
-        verseText = sanitizeVerseText(currentVerse.text);
-      }
-    } catch (error) {
-      const lookupStatus =
-        error instanceof BibleApiLookupError ? error.statusCode : undefined;
-      const retryableLookupError =
-        error instanceof BibleApiLookupError
-          ? error.retryable
-          : true;
-
-      console.warn("[generate-image] Failed to resolve current verse from reference:", {
-        reference,
-        translation: bibleTranslation,
-        error: error instanceof Error ? error.message : "Unknown error",
-        errorName: error instanceof Error ? error.name : undefined,
-        upstreamStatus: lookupStatus,
-        retryable: retryableLookupError,
-        rawError: error,
-      });
-      if (hasUserReference) {
-        if (error instanceof BibleApiLookupError && error.kind === "not_found") {
-          return jsonWithSessionRefresh(
-            {
-              error: "Reference not found",
-              message: `Could not resolve "${reference}" in the ${translationId.toUpperCase()} translation.`,
-            },
-            { status: 400 }
-          );
-        }
-
-        const referenceLookupStatus =
-          retryableLookupError &&
-          (lookupStatus === undefined || lookupStatus === 503)
-            ? 503
-            : 502;
-        return jsonWithSessionRefresh(
-          {
-            error: "Reference lookup unavailable",
-            message: `Could not verify "${reference}" in the ${translationId.toUpperCase()} translation right now. Please try again.`,
-            details: {
-              upstreamStatus: lookupStatus ?? null,
-              upstreamError:
-                error instanceof Error ? error.message : "Unknown error",
-            },
-          },
-          { status: referenceLookupStatus }
-        );
-      }
-    }
+  let passage: Awaited<ReturnType<typeof resolveGenerationPassage>>;
+  try {
+    passage = await resolveGenerationPassage(reference, bibleTranslation);
+  } catch (error) {
+    const lookupStatus = error instanceof BibleApiLookupError ? error.statusCode : undefined;
+    return jsonWithSessionRefresh({
+      error: "Reference lookup unavailable",
+      message: `Could not verify "${reference}" in the ${translationId.toUpperCase()} translation right now. Please try again.`,
+      details: { upstreamStatus: lookupStatus ?? null },
+    }, { status: lookupStatus === undefined || lookupStatus === 503 ? 503 : 502 });
   }
-
-  if (currentVerse) {
-    try {
-      const currentBook = BIBLE_BOOKS.find(
-        (book) => book.id === currentVerse.bookId
-      );
-
-      if (currentBook) {
-        const versesInChapter = currentBook.chapters[currentVerse.chapter - 1];
-        const currentBookIndex = BIBLE_BOOKS.findIndex(
-          (book) => book.slug === currentBook.slug
-        );
-        const previousTarget = computePreviousTarget({
-          currentVerse,
-          currentBook,
-          currentBookIndex,
-          prevVerse,
-        });
-        const nextTarget = computeNextTarget({
-          currentVerse,
-          currentBook,
-          currentBookIndex,
-          versesInChapter,
-          nextVerse,
-        });
-        const sharedChapterTarget =
-          previousTarget &&
-          nextTarget &&
-          previousTarget.book.slug === nextTarget.book.slug &&
-          previousTarget.chapter === nextTarget.chapter
-            ? previousTarget
-            : null;
-
-        const sharedChapterPromise = sharedChapterTarget
-          ? getChapter(
-              sharedChapterTarget.book.slug,
-              sharedChapterTarget.chapter,
-              bibleTranslation
-            )
-          : null;
-
-        const prevVersePromise =
-          previousTarget
-            ? sharedChapterTarget
-              ? sharedChapterPromise!.then((chapterData) =>
-                  chapterData?.verses.find((item) => item.verse === previousTarget.verse) ?? null
-                )
-              : getVerse(
-                  previousTarget.book.slug,
-                  previousTarget.chapter,
-                  previousTarget.verse,
-                  bibleTranslation
-                )
-            : Promise.resolve(null);
-        const nextVersePromise =
-          nextTarget
-            ? sharedChapterTarget
-              ? sharedChapterPromise!.then((chapterData) =>
-                  chapterData?.verses.find((item) => item.verse === nextTarget.verse) ?? null
-                )
-              : getVerse(
-                  nextTarget.book.slug,
-                  nextTarget.chapter,
-                  nextTarget.verse,
-                  bibleTranslation
-                )
-            : Promise.resolve(null);
-
-        const [prevVerseData, nextVerseData] = await Promise.all([
-          prevVersePromise,
-          nextVersePromise,
-        ]);
-
-        if (prevVerseData) {
-          prevVerse = {
-            number: prevVerseData.verse,
-            text: sanitizeVerseText(prevVerseData.text),
-            reference: `${previousTarget?.book.name ?? currentVerse.bookName} ${prevVerseData.chapter}:${prevVerseData.verse}`,
-          };
-        }
-
-        if (nextVerseData) {
-          nextVerse = {
-            number: nextVerseData.verse,
-            text: sanitizeVerseText(nextVerseData.text),
-            reference: `${nextTarget?.book.name ?? currentVerse.bookName} ${nextVerseData.chapter}:${nextVerseData.verse}`,
-          };
-        }
-      }
-    } catch (error) {
-      console.warn("[generate-image] Failed to resolve neighboring verse context:", {
-        reference,
-        translation: bibleTranslation,
-        error: error instanceof Error ? error.message : "Unknown error",
-      });
-    }
+  if (!passage) {
+    return jsonWithSessionRefresh({
+      error: "Invalid or unavailable reference",
+      message: "Please provide a single verse available in the selected translation, like John 3:16.",
+    }, { status: 400 });
   }
-
-  if (!verseText && hasUserReference) {
-    return jsonWithSessionRefresh(
-      {
-        error: "Reference not found",
-        message: `Could not resolve "${reference}" in the ${translationId.toUpperCase()} translation.`,
-      },
-      { status: 400 }
-    );
-  }
-
-  if (!verseText) {
-    verseText = DEFAULT_TEXT;
-  }
-
+  reference = passage.reference;
+  const { verseText, prevVerse, nextVerse, chapterTheme } = passage;
   const verseId = toVerseId(reference);
 
-  const chapterTheme = parseChapterTheme(requestBody.theme);
   const generationNumber = parseGenerationNumber(requestBody.generation);
   const requestedStyleProfile = requestedStyleId
     ? STYLE_PROFILES[requestedStyleId]
@@ -1070,34 +618,17 @@ export async function POST(request: Request) {
   // SECURITY: Validate model exists and has pricing to prevent cost abuse
   const result = await fetchImageModels(openRouterApiKey);
 
-  if (requestedModelId && requestedModelId !== DEFAULT_IMAGE_MODEL) {
-    const foundModel = result.models.find(
-      (model) => model.id === requestedModelId
-    );
-    if (!foundModel) {
-      return jsonWithSessionRefresh(
-        {
-          error: "Model not available",
-          message: `The model "${requestedModelId}" is not available. Please select a different model.`,
-        },
-        { status: 400 }
-      );
-    }
-    selectedModel = foundModel;
-    modelId = requestedModelId;
-    modelPricing = foundModel.pricing?.imageOutput;
-    modelUsesEmergencyPricing = foundModel.usesEmergencyPricing === true;
-  } else {
-    // Use default model, but still validate it exists and has pricing
-    const foundModel = result.models.find((model) => model.id === modelId);
-    selectedModel = foundModel;
-    modelPricing = foundModel?.pricing?.imageOutput;
-    modelUsesEmergencyPricing = foundModel?.usesEmergencyPricing === true;
+  modelId = requestedModelId || DEFAULT_IMAGE_MODEL;
+  const selectedModel = result.models.find(model => model.id === modelId);
+  const capabilities = imageCapabilities(modelId);
+  const catalogQuote = catalogImageQuote(modelId, selectedModel?.billing, resolution);
+  if (!selectedModel || selectedModel.availability === "unavailable" || !catalogQuote ||
+      !capabilities?.aspectRatios.includes(aspectRatio)) {
+    return jsonWithSessionRefresh({
+      error: "Model or settings unavailable",
+      message: selectedModel?.unavailableReason ?? "Choose an available model and a supported resolution before generating.",
+    }, { status: 400 });
   }
-
-  const parsedModelPricingUsd = modelPricing ? Number.parseFloat(modelPricing) : Number.NaN;
-  const hasCatalogImagePricing =
-    Number.isFinite(parsedModelPricingUsd) && parsedModelPricingUsd > 0;
 
   const quoteUsdCost = async (
     usd: number
@@ -1123,86 +654,35 @@ export async function POST(request: Request) {
     }
   };
 
-  const fallbackBaseImageCreditsCost =
-    selectedModel?.creditsCost ?? DEFAULT_CREDITS_COST;
-  const baseImageQuote = hasCatalogImagePricing
-    ? await quoteUsdCost(parsedModelPricingUsd)
-    : {
-        credits: fallbackBaseImageCreditsCost,
-        billedUsd: fallbackBaseImageCreditsCost * CREDIT_USD,
-        viaNeutralCost: false,
-      };
-  const baseImageCreditsCost = baseImageQuote.credits;
+  const modelSupportsResolution = capabilities.resolutions.length > 1;
+  const learnedEstimateResolution = resolution;
+  // Historical model/provider/global samples are unversioned. T05 restores
+  // learned quotes after validating freshness, sample count and pricing identity.
+  const imageCreditsCost = catalogQuote.credits;
 
-  if (!hasCatalogImagePricing) {
-    console.warn(
-      `[Image API] Missing catalog image pricing for model=${modelId}; using fallback estimate=${fallbackBaseImageCreditsCost} credits`
-    );
-  }
-
-  // Check if this model supports resolution settings
-  // Only certain models (currently Gemini) support configurable resolution
-  const modelSupportsResolution = supportsResolution(modelId);
-  const learnedEstimateResolution = normalizeResolutionForModel(
-    modelId,
-    resolution
-  );
-
-  // Apply resolution multiplier only if model supports it
-  // This prevents charging users extra for resolution settings that are ignored
-  const fallbackImageCreditsCost = computeAdjustedCreditsCost(
-    baseImageCreditsCost,
-    resolution,
-    modelId
-  );
-  let imageCreditsCost = fallbackImageCreditsCost;
-
-  try {
-    const learnedEstimate = await convex.query(api.modelCostStats.getEstimate, {
-      modelId,
-      resolution: learnedEstimateResolution,
-      fallbackCredits: fallbackImageCreditsCost,
-      serverSecret,
-    });
-    imageCreditsCost = learnedEstimate.credits;
-  } catch (error) {
-    console.warn("[Image API] Failed to fetch learned image cost estimate:", error);
-  }
-
-  // Compute conservative estimate for reservation (accounts for OpenRouter API pricing discrepancy)
-  // The OpenRouter models API often underreports actual costs for multimodal image models
-  // Emergency fallback prices are already conservative final-price baselines.
-  // Avoid applying the catalog underreporting multiplier twice in outage mode.
-  const baseReservationCredits =
-    selectedModel?.reservationCreditsCost ??
-    (hasCatalogImagePricing
-      ? Math.ceil(
-          baseImageCreditsCost *
-            (modelUsesEmergencyPricing ? 1 : CONSERVATIVE_ESTIMATE_MULTIPLIER)
-        )
-      : baseImageCreditsCost);
-  const reservationImageCredits = computeAdjustedCreditsCost(
-    baseReservationCredits,
-    resolution,
-    modelId
-  );
+  // Preserve the legacy hold policy until T04 replaces it with accepted maxima.
+  const reservationImageCredits = catalogQuote.credits * CONSERVATIVE_ESTIMATE_MULTIPLIER;
 
   // Determine scene planner settings early for cost calculation
   const enableScenePlanner = isScenePlannerEnabled();
   const scenePlannerModel = getScenePlannerModelId();
+
+  const sceneCacheIdentity = {
+    verseId, translationId, styleProfileId: styleProfile.id,
+    plannerModel: scenePlannerModel, promptVersion: PROMPT_VERSION,
+    inputFingerprint: scenePlanInputFingerprint({ reference, verseText, prevVerse, nextVerse, chapterTheme, styleProfile }),
+  };
 
   // Phase 2: check scene plan cache before deciding planner cost.
   let cachedScenePlan: ScenePlan | null = null;
   let scenePlanFromCache = false;
   if (enableScenePlanner) {
     try {
-      const cacheEntry = await convex.mutation(api.verseImages.getScenePlanCache, {
-        verseId,
-        translationId,
-        styleProfileId: styleProfile.id,
+      const cacheEntry = await convex.query(api.verseImages.getScenePlanCache, {
+        ...sceneCacheIdentity,
         serverSecret,
       });
-      const normalizedCached = cacheEntry?.scenePlan
+      const normalizedCached = cacheEntry?.scenePlan && cacheEntry.promptVersion === PROMPT_VERSION && cacheEntry.plannerModel === scenePlannerModel
         ? normalizeScenePlan(cacheEntry.scenePlan)
         : null;
       if (normalizedCached) {
@@ -1241,10 +721,10 @@ export async function POST(request: Request) {
   let updatedCredits: number | undefined;
   let shouldCharge = false;
   let reservationMade = false;
-  const chargeGenerationId = crypto.randomUUID();
+  let chargeGenerationId = crypto.randomUUID();
 
   // Check if user is admin (unlimited access)
-  const session = await convex.query(api.sessions.getSession, { sid });
+  const session = await convex.query(api.sessions.getSession, { sid, serverSecret: getConvexServerSecret() });
   if (!session) {
     return jsonWithSessionRefresh(
       { error: "Session not found" },
@@ -1254,30 +734,6 @@ export async function POST(request: Request) {
   const isAdmin = session?.tier === "admin";
   let generationRequestCreated = false;
   const generationRequestId = clientRequestId;
-
-  const createGenerationRequest = async () => {
-    if (generationRequestCreated) return;
-    try {
-      await convex.mutation(api.verseImages.createGenerationRequest, {
-        requestId: generationRequestId,
-        sid,
-        verseId,
-        translationId,
-        reference,
-        modelId,
-        aspectRatio,
-        resolution,
-        promptVersion: PROMPT_VERSION,
-        scenePlannerModel: scenePlannerModel,
-        estimatedCreditsCost,
-        estimatedCostUsd: estimatedTotalCostUsd,
-        serverSecret,
-      });
-      generationRequestCreated = true;
-    } catch (error) {
-      console.warn("[Image API] Failed to create generation request:", error);
-    }
-  };
 
   const updateGenerationRequest = async (
     status: "planning" | "generating" | "succeeded" | "failed",
@@ -1330,7 +786,22 @@ export async function POST(request: Request) {
     }
   };
 
-  await createGenerationRequest();
+  try {
+    const admission = await convex.mutation(api.verseImages.createGenerationRequest, {
+      requestId: generationRequestId, sid, verseId, translationId, reference, modelId,
+      aspectRatio, resolution, promptVersion: PROMPT_VERSION, scenePlannerModel,
+      estimatedCreditsCost, estimatedCostUsd: estimatedTotalCostUsd, serverSecret,
+      inputFingerprint, generationId: chargeGenerationId,
+      executorVersion: "next-image-v1", billingPolicyVersion: "legacy-image-v1",
+    });
+    if (admission.alreadyExists) return existingIntentResponse(admission);
+    if (!admission.generationId) throw new Error("Missing admitted billing identity");
+    chargeGenerationId = admission.generationId;
+    generationRequestCreated = true;
+  } catch (error) {
+    logApiFailure({ context: requestContext, stage: "image_admission", error, statusCode: 503, sid });
+    return jsonWithSessionRefresh({ error: "Unable to safely start image generation" }, { status: 503 });
+  }
 
   const canStartGeneration = isAdmin
     ? true
@@ -1429,34 +900,6 @@ export async function POST(request: Request) {
   // Track generation start time for stats
   const generationStartTime = Date.now();
 
-  const aspectRatioLabel = aspectRatio === "21:9"
-    ? "ULTRA-WIDE CINEMATIC"
-    : aspectRatio === "3:2"
-      ? "CLASSIC WIDE"
-      : "WIDESCREEN";
-  const aspectRatioInstruction = `Aspect ratio: ${aspectRatio} (${aspectRatioLabel} landscape).`;
-
-  /**
-   * Get ordinal suffix for a number (1st, 2nd, 3rd, 4th, etc.)
-   */
-  function getOrdinalSuffix(n: number): string {
-    const j = n % 10;
-    const k = n % 100;
-    if (j === 1 && k !== 11) return "st";
-    if (j === 2 && k !== 12) return "nd";
-    if (j === 3 && k !== 13) return "rd";
-    return "th";
-  }
-
-  // Add generation diversity for non-first images
-  let generationNote = "";
-  if (generationNumber && generationNumber > 1) {
-    generationNote = `\n\nVariation note: ${generationNumber}${getOrdinalSuffix(generationNumber)} generation for this verse. Keep the same canonical scene, but vary composition and camera feel.`;
-  }
-
-  const prevHint = toContinuityHint(prevVerse);
-  const nextHint = toContinuityHint(nextVerse);
-
   // Scene planner settings already defined above for cost calculation
   await updateGenerationRequest("planning");
 
@@ -1467,9 +910,7 @@ export async function POST(request: Request) {
     if (cachedScenePlan) {
       void convex
         .mutation(api.verseImages.markScenePlanCacheHit, {
-          verseId,
-          translationId,
-          styleProfileId: styleProfile.id,
+          ...sceneCacheIdentity,
           serverSecret,
         })
         .catch((error) => {
@@ -1478,28 +919,7 @@ export async function POST(request: Request) {
       return { scenePlan: cachedScenePlan, fromCache: true };
     }
     if (!enableScenePlanner) return { scenePlan: null, fromCache: false };
-    const scenePlannerPrompt = `You are a scene planner for biblical illustrations. Return ONLY valid JSON.
-
-Rules:
-- Single scene only (no collage, no split panels).
-- Biblical-era setting, no modern artifacts.
-- Do not include any text or written elements.
-- Keep it visually depictable, concise, and grounded in the verse.
-- Use short phrases (no full sentences).
-- Describe an immersive in-world scene, not an artwork object, poster, mural, or gallery presentation.
-- Favor environmental backgrounds over blank white, cream, or beige backdrops.
-
-Return JSON with keys:
-primarySubject, action, setting, secondaryElements, mood, timeOfDay, composition
-
-Inputs:
-Reference: ${reference}
-Verse: "${clipText(verseText, SCENE_PLANNER_VERSE_MAX_CHARS)}"
-${prevVerse ? `Previous: "${clipText(prevVerse.text, SCENE_PLANNER_VERSE_MAX_CHARS)}"` : ""}
-${nextVerse ? `Next: "${clipText(nextVerse.text, SCENE_PLANNER_VERSE_MAX_CHARS)}"` : ""}
-${chapterTheme ? `Theme setting: ${chapterTheme.setting}` : "Theme setting: none"}
-${chapterTheme ? `Theme elements: ${chapterTheme.elements}` : "Theme elements: none"}
-Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
+    const scenePlannerPrompt = buildScenePlannerPrompt({ reference, verseText, prevVerse, nextVerse, chapterTheme, styleProfile });
 
     try {
       const controller = new AbortController();
@@ -1555,12 +975,8 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
       if (normalized) {
         void convex
           .mutation(api.verseImages.upsertScenePlanCache, {
-            verseId,
-            translationId,
-            styleProfileId: styleProfile.id,
+            ...sceneCacheIdentity,
             scenePlan: normalized,
-            plannerModel: scenePlannerModel,
-            promptVersion: PROMPT_VERSION,
             serverSecret,
           })
           .catch((error) => {
@@ -1601,162 +1017,11 @@ Style profile: ${styleProfile.label} (${styleProfile.rendering})`;
   // Track whether scene planner was actually used (for partial refund on failure)
   const scenePlannerUsed = scenePlan !== null && !scenePlanFromCache;
 
-  const includeNarrativeContext = Boolean(prevHint || nextHint);
-  const narrativeContext = includeNarrativeContext
-    ? [
-      "",
-      "",
-      "NARRATIVE CONTINUITY:",
-      ...(prevHint ? [`- Previous: ${prevHint}`] : []),
-      ...(nextHint ? [`- Next: ${nextHint}`] : []),
-      "Keep continuity cues only; focus composition on the current verse moment.",
-    ].join("\n")
-    : "";
-
-  const promptInputs = {
-    reference,
-    aspectRatio,
-    styleProfileId: styleProfile.id,
-    ...(scenePlan ? { scenePlan } : {}),
-    ...(generationNumber ? { generationNumber } : {}),
-    ...(prevVerse ? { prevVerse: { ...prevVerse, text: clipText(prevVerse.text, CONTINUITY_HINT_MAX_CHARS) } } : {}),
-    ...(nextVerse ? { nextVerse: { ...nextVerse, text: clipText(nextVerse.text, CONTINUITY_HINT_MAX_CHARS) } } : {}),
-  };
-
-  const priorityRules = `PRIORITY RULES:
-1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).
-2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).
-3) Single unified scene only (no split panels, collage, or multi-scene layout).`;
-
-  const globalNegatives = `GLOBAL NEGATIVES:
-- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).
-- No anachronistic materials (plastic, neon, LEDs).
-- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.
-- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).`;
-
-  const scenePresentation = `SCENE PRESENTATION:
-- Depict the moment directly, as if the viewer is present inside the biblical scene.
-- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.
-- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.
-- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.`;
-
-  const scenePlanBlock = scenePlan ? formatScenePlan(scenePlan) : "";
-  const styleSummary = [
-    `STYLE PROFILE: ${styleProfile.label}`,
-    `Rendering: ${styleProfile.rendering}`,
-    styleProfile.palette ? `Palette: ${styleProfile.palette}` : "",
-    styleProfile.lighting ? `Lighting: ${styleProfile.lighting}` : "",
-    styleProfile.materials ? `Materials/Texture: ${styleProfile.materials}` : "",
-    styleProfile.composition ? `Composition: ${styleProfile.composition}` : "",
-    "",
-    "STYLE NEGATIVES:",
-    styleProfile.negative,
-  ]
-    .filter(Boolean)
-    .join("\n");
-
-  const buildPrompt = (options: {
-    includeNarrative: boolean;
-    includeGenerationNote: boolean;
-    includeFullStyleDetails: boolean;
-  }): string => {
-    const styleBlock = options.includeFullStyleDetails
-      ? styleSummary
-      : `STYLE PROFILE: ${styleProfile.label}
-Rendering: ${styleProfile.rendering}
-
-STYLE NEGATIVES:
-${styleProfile.negative}`;
-
-    const chapterThemeBlock = chapterTheme
-      ? `CHAPTER THEME:
-Setting: ${chapterTheme.setting}
-Visual elements: ${chapterTheme.elements}
-Color palette: ${chapterTheme.palette}
-Style: ${chapterTheme.style}
-
-`
-      : "";
-
-    const generationBlock = options.includeGenerationNote ? generationNote : "";
-    const continuityBlock = options.includeNarrative ? narrativeContext : "";
-
-    return `${priorityRules}
-
-SCENE:
-Render a single, cohesive biblical-era scene for ${reference}: "${clipText(verseText, 900)}"${scenePlanBlock}${continuityBlock}${generationBlock}
-
-${scenePresentation}
-
-${chapterThemeBlock}${styleBlock}
-
-${globalNegatives}
-
-${aspectRatioInstruction}`;
-  };
-
-  let includeNarrative = includeNarrativeContext;
-  let includeGeneration = Boolean(generationNote);
-  let includeFullStyle = true;
-  let prompt = buildPrompt({
-    includeNarrative,
-    includeGenerationNote: includeGeneration,
-    includeFullStyleDetails: includeFullStyle,
+  const { prompt, promptPacket, promptInputs } = buildImagePrompt({
+    verseId, translationId, reference, verseText, prevVerse, nextVerse,
+    chapterTheme, styleProfile, aspectRatio, resolution, generationNumber,
+    scenePlan, scenePlannerUsed, scenePlanFromCache,
   });
-
-  if (prompt.length > PROMPT_MAX_CHARS && includeGeneration) {
-    includeGeneration = false;
-    prompt = buildPrompt({
-      includeNarrative,
-      includeGenerationNote: includeGeneration,
-      includeFullStyleDetails: includeFullStyle,
-    });
-  }
-
-  if (prompt.length > PROMPT_MAX_CHARS && includeFullStyle) {
-    includeFullStyle = false;
-    prompt = buildPrompt({
-      includeNarrative,
-      includeGenerationNote: includeGeneration,
-      includeFullStyleDetails: includeFullStyle,
-    });
-  }
-
-  if (prompt.length > PROMPT_MAX_CHARS && includeNarrative) {
-    includeNarrative = false;
-    prompt = buildPrompt({
-      includeNarrative,
-      includeGenerationNote: includeGeneration,
-      includeFullStyleDetails: includeFullStyle,
-    });
-  }
-
-  if (prompt.length > PROMPT_MAX_CHARS) {
-    prompt = prompt.slice(0, PROMPT_MAX_CHARS).trimEnd();
-  }
-
-  const promptPacket: PromptPacket = {
-    verseId,
-    translationId,
-    reference,
-    currentVerse: clipText(verseText, 350),
-    styleProfileId: styleProfile.id,
-    aspectRatio,
-    resolution,
-    ...(chapterTheme ? { chapterTheme } : {}),
-    ...((prevHint || nextHint) ? { continuity: { ...(prevHint ? { previous: prevHint } : {}), ...(nextHint ? { next: nextHint } : {}) } } : {}),
-    ...(scenePlan ? { scenePlan } : {}),
-    flags: {
-      scenePlannerUsed,
-      scenePlanFromCache,
-      narrativeContextIncluded: includeNarrative,
-      generationNoteIncluded: includeGeneration,
-    },
-    budget: {
-      maxChars: PROMPT_MAX_CHARS,
-      finalChars: prompt.length,
-    },
-  };
 
   await updateGenerationRequest("generating", {
     scenePlannerUsed,
@@ -2060,17 +1325,6 @@ ${aspectRatioInstruction}`;
         ? Math.max(0, finalChargedCostUsd - settledScenePlannerCostUsd)
         : actualImageCostUsd;
 
-      await updateGenerationRequest("succeeded", {
-        generationId: chargeGenerationId,
-        providerRequestId,
-        scenePlannerUsed,
-        scenePlanFromCache,
-        usedFallbackEstimate,
-        actualCreditsCost: finalChargedCredits,
-        actualCostUsd: finalChargedCostUsd,
-        durationMs: generationDurationMs,
-      });
-
       const costEventPayload = {
         sid,
         requestId: generationRequestId,
@@ -2167,6 +1421,17 @@ ${aspectRatioInstruction}`;
         console.error("[Image API] Failed to persist generated image:", saveError);
       }
 
+      await updateGenerationRequest("succeeded", {
+        generationId: chargeGenerationId,
+        providerRequestId,
+        scenePlannerUsed,
+        scenePlanFromCache,
+        usedFallbackEstimate,
+        actualCreditsCost: finalChargedCredits,
+        actualCostUsd: finalChargedCostUsd,
+        durationMs: generationDurationMs,
+      });
+
       return jsonWithSessionRefresh(
         {
           requestId: generationRequestId,
@@ -2180,6 +1445,7 @@ ${aspectRatioInstruction}`;
           promptVersion: PROMPT_VERSION,
           promptInputs,
           reference,
+          translationId,
           verseText,
           chapterTheme: chapterTheme ?? undefined,
           generationNumber: generationNumber ?? undefined,
@@ -2205,7 +1471,8 @@ ${aspectRatioInstruction}`;
           aspectRatio,
           resolution,
           // Only show actual multiplier if model supports resolution
-          resolutionMultiplier: modelSupportsResolution ? RESOLUTIONS[resolution].multiplier : 1.0,
+          billingVersion: selectedModel.billing?.version,
+          catalogEstimatedProviderUsd: catalogQuote.providerUsd,
           resolutionSupported: modelSupportsResolution,
           ...(updatedCredits !== undefined && { credits: updatedCredits }),
         },

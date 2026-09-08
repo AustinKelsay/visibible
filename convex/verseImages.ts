@@ -1,3 +1,4 @@
+import { authenticatedGuest } from "./guestAuth";
 import {
   action,
   internalMutation,
@@ -9,7 +10,7 @@ import {
 import { paginationOptsValidator } from "convex/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
-import { Id } from "./_generated/dataModel";
+import { Id, type Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
 
 const chapterThemeValidator = v.object({
@@ -750,12 +751,14 @@ export const getGenerationRequestStatus = query({
     requestId: v.string(),
   },
   handler: async (ctx, args) => {
+    const guest = await authenticatedGuest(ctx);
+    if (!guest) return null;
     const request = await ctx.db
       .query("imageGenerationRequests")
       .withIndex("by_requestId", (q) => q.eq("requestId", args.requestId))
       .first();
 
-    if (!request) return null;
+    if (!request || request.sid !== guest.sid) return null;
 
     return {
       requestId: request.requestId,
@@ -773,11 +776,14 @@ export const getGenerationRequestStatus = query({
 /**
  * Secure query for scene plan cache lookup.
  */
-export const getScenePlanCache = mutation({
+export const getScenePlanCache = query({
   args: {
     verseId: v.string(),
     translationId: v.string(),
     styleProfileId: v.string(),
+    inputFingerprint: v.string(),
+    plannerModel: v.string(),
+    promptVersion: v.string(),
     serverSecret: v.string(),
   },
   handler: async (ctx, args) => {
@@ -792,7 +798,8 @@ export const getScenePlanCache = mutation({
       )
       .first();
 
-    if (!cached) return null;
+    if (!cached || cached.inputFingerprint !== args.inputFingerprint ||
+        cached.plannerModel !== args.plannerModel || cached.promptVersion !== args.promptVersion) return null;
 
     return {
       scenePlan: cached.scenePlan,
@@ -813,6 +820,9 @@ export const markScenePlanCacheHit = mutation({
     verseId: v.string(),
     translationId: v.string(),
     styleProfileId: v.string(),
+    inputFingerprint: v.string(),
+    plannerModel: v.string(),
+    promptVersion: v.string(),
     serverSecret: v.string(),
   },
   handler: async (ctx, args): Promise<{ success: boolean }> => {
@@ -827,7 +837,8 @@ export const markScenePlanCacheHit = mutation({
       )
       .first();
 
-    if (!cached) return { success: false };
+    if (!cached || cached.inputFingerprint !== args.inputFingerprint ||
+        cached.plannerModel !== args.plannerModel || cached.promptVersion !== args.promptVersion) return { success: false };
 
     const newHitCount = (cached.hitCount ?? 0) + 1;
     await ctx.db.patch(cached._id, {
@@ -849,6 +860,7 @@ export const upsertScenePlanCache = mutation({
     translationId: v.string(),
     styleProfileId: v.string(),
     scenePlan: scenePlanValidator,
+    inputFingerprint: v.optional(v.string()),
     plannerModel: v.optional(v.string()),
     promptVersion: v.optional(v.string()),
     serverSecret: v.string(),
@@ -872,6 +884,7 @@ export const upsertScenePlanCache = mutation({
         translationId: args.translationId,
         styleProfileId: args.styleProfileId,
         scenePlan: args.scenePlan,
+        inputFingerprint: args.inputFingerprint,
         plannerModel: args.plannerModel,
         promptVersion: args.promptVersion,
         hitCount: 1,
@@ -885,6 +898,7 @@ export const upsertScenePlanCache = mutation({
     const newHitCount = (cached.hitCount ?? 0) + 1;
     await ctx.db.patch(cached._id, {
       scenePlan: args.scenePlan,
+      inputFingerprint: args.inputFingerprint,
       plannerModel: args.plannerModel,
       promptVersion: args.promptVersion,
       hitCount: newHitCount,
@@ -896,12 +910,49 @@ export const upsertScenePlanCache = mutation({
   },
 });
 
+async function existingIntentResult(
+  ctx: QueryCtx,
+  existing: Doc<"imageGenerationRequests">,
+  args: { requestId: string; sid: string; inputFingerprint: string }
+) {
+  if (existing.sid !== args.sid || existing.inputFingerprint !== args.inputFingerprint) {
+    return { requestId: args.requestId, status: "failed" as const, alreadyExists: true, conflict: true };
+  }
+  const generationId = existing.generationId;
+  const image = generationId ? await ctx.db.query("verseImages")
+    .withIndex("by_generationId", (q) => q.eq("generationId", generationId)).first() : null;
+  return {
+    requestId: existing.requestId, status: existing.status, alreadyExists: true,
+    generationId: existing.generationId, error: existing.error,
+    ...(image ? { savedImage: {
+      id: image._id, imageUrl: image.storageId ? await ctx.storage.getUrl(image.storageId) : image.imageUrl ?? null,
+      model: image.model, creditsCost: image.creditsCost, durationMs: image.durationMs,
+      reference: image.reference, translationId: image.translationId, verseText: image.verseText, promptInputs: image.promptInputs,
+    } } : {}),
+  };
+}
+
+/** Authenticated HTTP retry lookup; performed before external catalog/Scripture reads. */
+export const getGenerationIntent = query({
+  args: { requestId: v.string(), sid: v.string(), inputFingerprint: v.string(), serverSecret: v.string() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const existing = await ctx.db.query("imageGenerationRequests")
+      .withIndex("by_requestId", (q) => q.eq("requestId", args.requestId)).first();
+    return existing ? existingIntentResult(ctx, existing, args) : null;
+  },
+});
+
 /**
  * Secure action to create a generation request record.
  */
 export const createGenerationRequest = mutation({
   args: {
     requestId: v.string(),
+    inputFingerprint: v.string(),
+    generationId: v.string(),
+    executorVersion: v.literal("next-image-v1"),
+    billingPolicyVersion: v.literal("legacy-image-v1"),
     sid: v.string(),
     verseId: v.string(),
     translationId: v.optional(v.string()),
@@ -919,6 +970,10 @@ export const createGenerationRequest = mutation({
     requestId: string;
     status: "queued" | "planning" | "generating" | "succeeded" | "failed";
     alreadyExists: boolean;
+    conflict?: boolean;
+    generationId?: string;
+    error?: string;
+    savedImage?: { id: Id<"verseImages">; imageUrl: string | null; model: string; creditsCost?: number; durationMs?: number; reference?: string; translationId?: string; verseText?: string; promptInputs?: Doc<"verseImages">["promptInputs"] };
   }> => {
     validateServerSecret(args.serverSecret);
     const existing = await ctx.db
@@ -926,17 +981,15 @@ export const createGenerationRequest = mutation({
       .withIndex("by_requestId", (q) => q.eq("requestId", args.requestId))
       .first();
 
-    if (existing) {
-      return {
-        requestId: existing.requestId,
-        status: existing.status,
-        alreadyExists: true,
-      };
-    }
+    if (existing) return existingIntentResult(ctx, existing, args);
 
     const now = Date.now();
     await ctx.db.insert("imageGenerationRequests", {
       requestId: args.requestId,
+      inputFingerprint: args.inputFingerprint,
+      generationId: args.generationId,
+      executorVersion: args.executorVersion,
+      billingPolicyVersion: args.billingPolicyVersion,
       sid: args.sid,
       verseId: args.verseId,
       translationId: args.translationId,
@@ -953,7 +1006,7 @@ export const createGenerationRequest = mutation({
       updatedAt: now,
     });
 
-    return { requestId: args.requestId, status: "queued", alreadyExists: false };
+    return { requestId: args.requestId, generationId: args.generationId, status: "queued", alreadyExists: false };
   },
 });
 
@@ -987,6 +1040,20 @@ export const updateGenerationRequest = mutation({
       return { success: false, error: "Request not found" };
     }
 
+    if (request.status === "succeeded" || request.status === "failed") {
+      return { success: request.status === args.status, ...(request.status !== args.status ? { error: "Request is terminal" } : {}) };
+    }
+    if (args.generationId && request.generationId && args.generationId !== request.generationId) {
+      return { success: false, error: "Billing identity is immutable" };
+    }
+    const transitions = {
+      queued: ["queued", "planning", "generating", "failed"],
+      planning: ["planning", "generating", "failed"],
+      generating: ["generating", "succeeded", "failed"],
+    };
+    if (!transitions[request.status].includes(args.status)) {
+      return { success: false, error: "Invalid request transition" };
+    }
     const now = Date.now();
     const patch: Record<string, unknown> = {
       status: args.status,
@@ -1066,6 +1133,20 @@ export const saveImageWithStorage = internalMutation({
     generationId: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    if (args.generationId) {
+      const existing = await ctx.db.query("verseImages")
+        .withIndex("by_generationId", (q) => q.eq("generationId", args.generationId)).first();
+      if (existing) {
+        // A losing concurrent upload is disposable only when no image references it.
+        if (existing.storageId !== args.storageId) {
+          const referenced = await ctx.db.query("verseImages")
+            .withIndex("by_storageId", (q) => q.eq("storageId", args.storageId)).first();
+          if (!referenced) await ctx.storage.delete(args.storageId);
+        }
+        return existing._id;
+      }
+    }
+    if (!await ctx.db.system.get(args.storageId)) throw new Error("Image blob not found");
     const id = await ctx.db.insert("verseImages", {
       verseId: args.verseId,
       storageId: args.storageId,
@@ -1187,6 +1268,11 @@ export const saveImageWithUrl = internalMutation({
     generationId: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    if (args.generationId) {
+      const existing = await ctx.db.query("verseImages")
+        .withIndex("by_generationId", (q) => q.eq("generationId", args.generationId)).first();
+      if (existing) return existing._id;
+    }
     const id = await ctx.db.insert("verseImages", {
       verseId: args.verseId,
       imageUrl: args.imageUrl,
