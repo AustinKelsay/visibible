@@ -557,12 +557,11 @@ describe("Image Generation API Credit Flow", () => {
             status: 200,
             json: async () => ({
               verses: [
-                { book_id: "GEN", book_name: "Genesis", chapter: 1, verse: 1, text: "In the beginning God created." },
-                { book_id: "GEN", book_name: "Genesis", chapter: 1, verse: 2, text: "The earth was formless and empty." },
-                { book_id: "GEN", book_name: "Genesis", chapter: 1, verse: 3, text: "God said, Let there be light." },
+                { book_id: "GEN", book: "Genesis", chapter: 1, verse: 1, text: "In the beginning God created." },
+                { book_id: "GEN", book: "Genesis", chapter: 1, verse: 2, text: "The earth was formless and empty." },
+                { book_id: "GEN", book: "Genesis", chapter: 1, verse: 3, text: "God said, Let there be light." },
               ],
-              translation_id: "web",
-              translation_name: "World English Bible",
+              translation: { identifier: "web", name: "World English Bible" },
             }),
           };
         }
@@ -633,11 +632,10 @@ describe("Image Generation API Credit Flow", () => {
             status: 200,
             json: async () => ({
               verses: [
-                { book_id: "EXO", book_name: "Exodus", chapter: 1, verse: 1, text: "Now these are the names of the sons of Israel." },
-                { book_id: "EXO", book_name: "Exodus", chapter: 1, verse: 2, text: "Reuben, Simeon, Levi, and Judah," },
+                { book_id: "EXO", book: "Exodus", chapter: 1, verse: 1, text: "Now these are the names of the sons of Israel." },
+                { book_id: "EXO", book: "Exodus", chapter: 1, verse: 2, text: "Reuben, Simeon, Levi, and Judah," },
               ],
-              translation_id: "web",
-              translation_name: "World English Bible",
+              translation: { identifier: "web", name: "World English Bible" },
             }),
           };
         }
@@ -648,11 +646,10 @@ describe("Image Generation API Credit Flow", () => {
             status: 200,
             json: async () => ({
               verses: [
-                { book_id: "GEN", book_name: "Genesis", chapter: 50, verse: 25, text: "Joseph took an oath of the children of Israel." },
-                { book_id: "GEN", book_name: "Genesis", chapter: 50, verse: 26, text: "So Joseph died, being one hundred ten years old." },
+                { book_id: "GEN", book: "Genesis", chapter: 50, verse: 25, text: "Joseph took an oath of the children of Israel." },
+                { book_id: "GEN", book: "Genesis", chapter: 50, verse: 26, text: "So Joseph died, being one hundred ten years old." },
               ],
-              translation_id: "web",
-              translation_name: "World English Bible",
+              translation: { identifier: "web", name: "World English Bible" },
             }),
           };
         }
@@ -723,11 +720,10 @@ describe("Image Generation API Credit Flow", () => {
             status: 200,
             json: async () => ({
               verses: [
-                { book_id: "GEN", book_name: "Genesis", chapter: 1, verse: 30, text: "To every animal of the earth, and to every bird of the sky..." },
-                { book_id: "GEN", book_name: "Genesis", chapter: 1, verse: 31, text: "God saw everything that he had made, and, behold, it was very good." },
+                { book_id: "GEN", book: "Genesis", chapter: 1, verse: 30, text: "To every animal of the earth, and to every bird of the sky..." },
+                { book_id: "GEN", book: "Genesis", chapter: 1, verse: 31, text: "God saw everything that he had made, and, behold, it was very good." },
               ],
-              translation_id: "web",
-              translation_name: "World English Bible",
+              translation: { identifier: "web", name: "World English Bible" },
             }),
           };
         }
@@ -738,11 +734,10 @@ describe("Image Generation API Credit Flow", () => {
             status: 200,
             json: async () => ({
               verses: [
-                { book_id: "GEN", book_name: "Genesis", chapter: 2, verse: 1, text: "The heavens, the earth, and all their vast array were finished." },
-                { book_id: "GEN", book_name: "Genesis", chapter: 2, verse: 2, text: "On the seventh day God finished his work which he had done." },
+                { book_id: "GEN", book: "Genesis", chapter: 2, verse: 1, text: "The heavens, the earth, and all their vast array were finished." },
+                { book_id: "GEN", book: "Genesis", chapter: 2, verse: 2, text: "On the seventh day God finished his work which he had done." },
               ],
-              translation_id: "web",
-              translation_name: "World English Bible",
+              translation: { identifier: "web", name: "World English Bible" },
             }),
           };
         }

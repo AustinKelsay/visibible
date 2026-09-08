@@ -33,3 +33,17 @@ CodeRabbit reviewed the first diff and raised five issues. Fixed the two invoice
 Authenticated retry lookup runs before external Scripture/catalog reads. A canonical request fingerprint binds request ID to owner and inputs; admission atomically claims one billing ID and pins `next-image-v1` / `legacy-image-v1`. Duplicate POSTs return progress or the saved result. Admission failures start no paid work. Terminal lifecycle rows and billing identity are immutable, and backwards progress is rejected. The hero follows HTTP 202 via its existing Convex subscription.
 
 Evidence: actual HTTP handlers plus Convex intent mutations cover concurrent POSTs, saved-result replay despite catalog outage, changed inputs and failed admission; mutation tests cover owner isolation and terminal/reordered updates; a rendered React test covers 202 through terminal failure. A temporary internal dev check passed five concurrent claims, stable billing ID, owner isolation and terminal guard; its fixture and module were removed. No provider call or public image was created by this dev check.
+
+## Scripture availability checkpoint (T16)
+
+Invalid references return not-found; missing translation text and upstream failures retain the requested URL with retry and translation controls. Chapter payload validation follows the provider's actual nested translation metadata (the reference endpoint has a different shape). Canonical structure validates integer chapter/verse bounds and owns adjacent navigation. Prompt context no longer loads unrelated chapters.
+
+The all-translation evidence snapshot records book listings plus two representative chapter endpoints; limitations are documented in `llm/context/BIBLE-API.md`. It is not a whole-corpus coverage claim. Local adapter and server-rendered page tests cover the real response shape, malformed/mismatched payloads, missing text, timeouts, invalid references and every book boundary.
+
+Browser verification on port 3100 passed missing-text → retry → select WEB → reader recovery at the same URL with no browser errors. Screenshots: [missing translation](screenshots/scripture-unavailable.png), [recovered reader](screenshots/scripture-recovered.png). The live provider returned access errors during this run, verifying the real outage screen. Successful recovery used a temporary Node-process-only Scripture fixture, which was removed along with its Next fetch cache after verification. This did not verify current live provider availability. The original port 3000 had an additional OrbStack listener and a stale dev server; it was not used as final evidence.
+
+## Chapter lookup checkpoint (T17)
+
+Removed the unbounded completed-chapter map. Next.js owns response caching; a 256-entry maximum active-request table coalesces chapter and verse calls, retains translation identity, and releases entries on success or failure. The 10-second upstream signal bounds waits. No additional completed-entry TTL or eviction policy is needed because that process cache was removed.
+
+Seven new adapter tests cover concurrent chapter/verse callers, platform-cache delegation, translation isolation, shared missing/malformed/error responses followed by recovery, fake-clock timeout, and capacity recovery after 256 concurrent distinct lookups. Full checkpoint verification: 477 tests across 50 files, type checking and lint.
