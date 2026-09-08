@@ -69,3 +69,13 @@ The implementation branch contains T02, T09, T11, T14, T16, T17, T18, T19, T22 a
 Convex development deployment `coordinated-shepherd-515` contains the backend changes; all temporary internal verification modules and synthetic records have been removed. Production was not deployed. Live LND remains unavailable. Model evaluations, durable background generation, verified Convex browser identity and the rest of the backlog remain separate implementation work.
 
 Final browser check used the normal server at `http://localhost:3100` with no fixture preload: a complete 31-verse Genesis chapter rendered, `/` navigated to the reader, and no console error or framework overlay appeared. The browser session was closed afterward. Coverage thresholds pass (69.36% lines under the existing include/exclude configuration); central modules excluded by that configuration remain a known T44/T01 reporting limitation, so this percentage is not full-system coverage.
+
+## Verified guest identity bridge (T07 / #63)
+
+Added the RS256 token broker, public-key Convex configuration, memory-only client refresh hook and authenticated session lookup. Existing SIDs and balances are preserved; current tier and revocation are read from the database. Issuance uses the real HttpOnly cookie verifier, origin, CSRF and persisted rate checks. Background token renewal does not extend cookie expiry.
+
+Local tests cover token claims/signatures, cookie deadlines, rotation overlap/removal, HTTP admission/rate limits, revoked/deleted sessions, stale admin claims, concurrent browser requests and subject changes. Live development checks rejected invalid signatures/issuer/audience/expiry, returned the synthetic existing balance and denied the same token after revocation. Fixtures and temporary modules were removed. The browser issued a token and read its own Convex record with no persisted bearer and no initial console errors.
+
+Configuration and rotation: [guest auth](../../agents/guest-auth.md). Private-call migration and reactive balance conversion remain T08/T10. Hosted preview and production signing environments are not configured by this checkpoint.
+
+T07 checkpoint: 529 tests in 56 files pass, with lint and TypeScript checks passing. Invalid-cookie browser verification retained Scripture and returned 401 for token issuance. The JWT includes a unique ID so same-second refreshes remain distinct for the installed Convex SDK.

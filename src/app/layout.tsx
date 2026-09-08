@@ -41,8 +41,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ConvexClientProvider>
-          <SessionProvider>
+        <SessionProvider>
+          <ConvexClientProvider>
             <PreferencesProvider>
               <NavigationProvider>
                 <GenerationProvider>
@@ -55,8 +55,8 @@ export default function RootLayout({
                 </GenerationProvider>
               </NavigationProvider>
             </PreferencesProvider>
-          </SessionProvider>
-        </ConvexClientProvider>
+          </ConvexClientProvider>
+        </SessionProvider>
         {enableVercelAnalytics ? <Analytics /> : null}
       </body>
     </html>

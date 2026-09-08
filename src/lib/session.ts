@@ -313,6 +313,7 @@ export interface SessionValidationResult {
   refreshedToken?: string;
   invalidReason?: SessionInvalidReason;
   ipChanged?: boolean;
+  expiresAt?: number;
 }
 
 /**
@@ -366,6 +367,7 @@ export async function validateSessionWithIp(
     currentIpHash,
     refreshedToken: refreshedToken ?? undefined,
     ipChanged,
+    expiresAt: sessionData.expiresAt,
   };
 }
 

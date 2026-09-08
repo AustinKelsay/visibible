@@ -1,7 +1,9 @@
 "use client";
 
-import { ConvexProvider, ConvexReactClient } from "convex/react";
+import { ConvexProviderWithAuth, ConvexReactClient } from "convex/react";
 import { ReactNode, createContext, useContext } from "react";
+
+import { useGuestAuth } from "@/lib/use-guest-auth";
 
 const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
 const normalizedConvexUrl = convexUrl?.trim();
@@ -21,7 +23,7 @@ export function ConvexClientProvider({ children }: { children: ReactNode }) {
 
   return (
     <ConvexAvailabilityContext.Provider value={isConvexEnabled}>
-      <ConvexProvider client={convex}>{children}</ConvexProvider>
+      <ConvexProviderWithAuth client={convex} useAuth={useGuestAuth}>{children}</ConvexProviderWithAuth>
     </ConvexAvailabilityContext.Provider>
   );
 }
