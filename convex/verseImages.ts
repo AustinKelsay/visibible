@@ -1066,6 +1066,20 @@ export const saveImageWithStorage = internalMutation({
     generationId: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    if (args.generationId) {
+      const existing = await ctx.db.query("verseImages")
+        .withIndex("by_generationId", (q) => q.eq("generationId", args.generationId)).first();
+      if (existing) {
+        // A losing concurrent upload is disposable only when no image references it.
+        if (existing.storageId !== args.storageId) {
+          const referenced = await ctx.db.query("verseImages")
+            .withIndex("by_storageId", (q) => q.eq("storageId", args.storageId)).first();
+          if (!referenced) await ctx.storage.delete(args.storageId);
+        }
+        return existing._id;
+      }
+    }
+    if (!await ctx.db.system.get(args.storageId)) throw new Error("Image blob not found");
     const id = await ctx.db.insert("verseImages", {
       verseId: args.verseId,
       storageId: args.storageId,
@@ -1187,6 +1201,11 @@ export const saveImageWithUrl = internalMutation({
     generationId: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    if (args.generationId) {
+      const existing = await ctx.db.query("verseImages")
+        .withIndex("by_generationId", (q) => q.eq("generationId", args.generationId)).first();
+      if (existing) return existing._id;
+    }
     const id = await ctx.db.insert("verseImages", {
       verseId: args.verseId,
       imageUrl: args.imageUrl,

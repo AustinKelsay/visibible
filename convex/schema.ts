@@ -98,6 +98,12 @@ const modelCostScopeTypeValidator = v.union(
 );
 
 export default defineSchema({
+  maintenanceState: defineTable({
+    key: v.string(),
+    cursor: v.union(v.string(), v.null()),
+    cutoff: v.number(),
+    epoch: v.number(),
+  }).index("by_key", ["key"]),
   verseImages: defineTable({
     // Verse identifier (lowercase, e.g., "genesis-1-1")
     verseId: v.string(),
@@ -151,6 +157,7 @@ export default defineSchema({
   })
     // Index for querying all images for a verse sorted by creation time
     .index("by_verse", ["verseId", "createdAt"])
+    .index("by_storageId", ["storageId"])
     .index("by_generationId", ["generationId"])
     .index("by_createdAt", ["createdAt"]),
 
@@ -274,6 +281,7 @@ export default defineSchema({
     sid: v.string(),
     delta: v.number(), // positive (purchase/refund) or negative (generation)
     reason: v.string(), // "purchase" | "generation" | "refund"
+    invoiceId: v.optional(v.string()), // Purchase identity; legacy entries remain unchanged.
     modelId: v.optional(v.string()),
     costUsd: v.optional(v.number()),
     generationId: v.optional(v.string()),
@@ -281,7 +289,8 @@ export default defineSchema({
   })
     .index("by_sid", ["sid", "createdAt"])
     .index("by_generationId", ["generationId", "sid"])
-    .index("by_reason_createdAt", ["reason", "createdAt"]),
+    .index("by_reason_createdAt", ["reason", "createdAt"])
+    .index("by_invoiceId", ["invoiceId"]),
 
   // Model generation statistics for ETA estimation
   modelStats: defineTable({

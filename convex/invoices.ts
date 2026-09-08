@@ -128,13 +128,14 @@ export const getSessionInvoices = query({
 export const confirmPaymentInternal = internalMutation({
   args: {
     invoiceId: v.string(),
-    paymentHash: v.optional(v.string()),
+    paymentHash: v.string(),
+    amountPaidSats: v.number(),
   },
   handler: async (ctx, args) => {
     const invoice = await ctx.db
       .query("invoices")
       .withIndex("by_invoiceId", (q) => q.eq("invoiceId", args.invoiceId))
-      .first();
+      .unique();
 
     if (!invoice) {
       throw new Error("Invoice not found");
@@ -144,23 +145,25 @@ export const confirmPaymentInternal = internalMutation({
       return { success: true, alreadyPaid: true };
     }
 
-    if (invoice.status === "expired" || invoice.status === "failed") {
-      throw new Error(`Invoice is ${invoice.status}`);
+    // Trusted settlement evidence takes precedence over a local expiry estimate.
+    if (args.paymentHash !== invoice.paymentHash ||
+        !Number.isSafeInteger(args.amountPaidSats) || args.amountPaidSats < invoice.amountSats) {
+      throw new Error("Settlement does not match invoice");
     }
-
+    const paidInvoice = await ctx.db.query("invoices")
+      .withIndex("by_paymentHash", (q) => q.eq("paymentHash", args.paymentHash))
+      .filter((q) => q.eq(q.field("status"), "paid"))
+      .first();
+    if (paidInvoice) throw new Error("Payment already credited");
+    const purchase = await ctx.db.query("creditLedger")
+      .withIndex("by_invoiceId", (q) => q.eq("invoiceId", args.invoiceId)).first();
+    if (purchase) throw new Error("Invoice purchase already recorded");
     const now = Date.now();
-
-    // Check expiration
-    if (now > invoice.expiresAt) {
-      await ctx.db.patch(invoice._id, { status: "expired" });
-      throw new Error("Invoice has expired");
-    }
 
     // Mark invoice as paid
     await ctx.db.patch(invoice._id, {
       status: "paid",
       paidAt: now,
-      ...(args.paymentHash !== undefined && { paymentHash: args.paymentHash }),
     });
 
     // Get session
@@ -187,6 +190,7 @@ export const confirmPaymentInternal = internalMutation({
       sid: invoice.sid,
       delta: creditsToAdd,
       reason: "purchase",
+      invoiceId: invoice.invoiceId,
       createdAt: now,
     });
 
@@ -205,7 +209,8 @@ export const confirmPaymentInternal = internalMutation({
 export const confirmPayment = action({
   args: {
     invoiceId: v.string(),
-    paymentHash: v.optional(v.string()),
+    paymentHash: v.string(),
+    amountPaidSats: v.number(),
     serverSecret: v.string(),
   },
   handler: async (ctx, args): Promise<{
@@ -218,6 +223,7 @@ export const confirmPayment = action({
     return ctx.runMutation(internal.invoices.confirmPaymentInternal, {
       invoiceId: args.invoiceId,
       paymentHash: args.paymentHash,
+      amountPaidSats: args.amountPaidSats,
     });
   },
 });

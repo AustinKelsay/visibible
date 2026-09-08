@@ -83,7 +83,7 @@ describe("computeChatCreditsCost", () => {
 
   it("should apply premium multiplier correctly", () => {
     // Test with known pricing: $10/million tokens for both prompt and completion
-    const pricing = { prompt: "10", completion: "10" };
+    const pricing = { prompt: "0.00001", completion: "0.00001" };
     const result = computeChatCreditsCost(pricing, 1000);
 
     // Expected: (10 * 500 / 1_000_000) + (10 * 500 / 1_000_000) = 0.005 + 0.005 = 0.01 USD
@@ -120,7 +120,7 @@ describe("computeActualChatCreditsCost", () => {
 
   it("should calculate based on actual token counts", () => {
     // $10/million tokens
-    const pricing = { prompt: "10", completion: "10" };
+    const pricing = { prompt: "0.00001", completion: "0.00001" };
     const result = computeActualChatCreditsCost(pricing, 500, 500);
 
     // Cost: (10 * 500 / 1_000_000) + (10 * 500 / 1_000_000) = 0.01 USD

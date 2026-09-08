@@ -8,6 +8,7 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { fixtures, type Session } from "../shared/test-fixtures";
+import { providerStream } from "../shared/chat-provider";
 
 // Create mock state - mocks reference this at call time
 const mockState = {
@@ -29,6 +30,7 @@ const originalEnv = { ...process.env };
 
 // Configurable mock values
 const mockCreditsCost = { value: 2 };
+const useRealPricing = { value: false };
 const mockRequestBody: { value: unknown } = { value: null };
 const mockStreamTextImpl = vi.fn();
 
@@ -160,53 +162,36 @@ vi.mock("@/lib/convex-client", () => ({
   getConvexServerSecret: vi.fn(() => "test-server-secret"),
 }));
 
-// Mock streamText - delegates to mockStreamTextImpl which can be reconfigured
-vi.mock("ai", () => ({
-  streamText: (...args: unknown[]) => mockStreamTextImpl(...args),
-}));
-
-vi.mock("@ai-sdk/openai", () => ({
-  createOpenAI: vi.fn(() => ({
-    chat: vi.fn((modelId: string) => ({ modelId, provider: "openrouter" })),
-  })),
-}));
+// Keep the installed SDK; fake only its provider transport.
+vi.mock("@ai-sdk/openai", async () => {
+  const { MockLanguageModelV3 } = await import("ai/test");
+  return { createOpenAI: vi.fn(() => ({
+    chat: vi.fn(() => new MockLanguageModelV3({ doStream: mockStreamTextImpl })),
+  })) };
+});
 
 // Mock chat-models with configurable cost
-vi.mock("@/lib/chat-models", () => ({
-  DEFAULT_CHAT_MODEL: "test/cheap-model",
-  getChatModelPricing: vi.fn(async () => ({ prompt: "0.001", completion: "0.002" })),
-  computeChatCreditsCost: vi.fn(() => mockCreditsCost.value),
-  computeActualChatCreditsCost: vi.fn(() => mockCreditsCost.value),
-  CREDIT_USD: 0.01,
-}));
+vi.mock("@/lib/chat-models", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/chat-models")>();
+  return {
+    ...actual,
+    DEFAULT_CHAT_MODEL: "test/cheap-model",
+    getChatModelPricing: vi.fn(async () => ({ prompt: "0.00001", completion: "0.00001" })),
+    computeChatCreditsCost: vi.fn((...args: Parameters<typeof actual.computeChatCreditsCost>) =>
+      useRealPricing.value ? actual.computeChatCreditsCost(...args) : mockCreditsCost.value
+    ),
+    computeActualChatCreditsCost: vi.fn((...args: Parameters<typeof actual.computeActualChatCreditsCost>) =>
+      useRealPricing.value ? actual.computeActualChatCreditsCost(...args) : mockCreditsCost.value
+    ),
+  };
+});
 
 // Import route AFTER all mocks are set up
 import { POST } from "../../chat/route";
 
 // Helper to create mock stream response
 function createMockStreamResponse(chunks: string[] = ["Hello", " world!"]) {
-  const encoder = new TextEncoder();
-  let chunkIndex = 0;
-
-  const stream = new ReadableStream<Uint8Array>({
-    pull(controller) {
-      if (chunkIndex >= chunks.length) {
-        controller.close();
-        return;
-      }
-      controller.enqueue(encoder.encode(chunks[chunkIndex]));
-      chunkIndex++;
-    },
-  });
-
-  return {
-    toUIMessageStreamResponse: vi.fn(() => {
-      return new Response(stream, {
-        status: 200,
-        headers: { "Content-Type": "text/event-stream" },
-      });
-    }),
-  };
+  return providerStream(chunks.join(""));
 }
 
 // Helper functions
@@ -227,6 +212,7 @@ describe("Chat API Credit Flow", () => {
     vi.clearAllMocks();
     resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session" }]);
     mockCreditsCost.value = 2;
+    useRealPricing.value = false;
     mockRequestBody.value = { messages: fixtures.messages.valid };
     mockStreamTextImpl.mockReturnValue(createMockStreamResponse());
   });
@@ -236,6 +222,19 @@ describe("Chat API Credit Flow", () => {
   });
 
   describe("Happy Path", () => {
+    it("reserves and settles the real per-token catalog quote", async () => {
+      useRealPricing.value = true;
+      const response = await POST(new Request("http://localhost:3000/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      }));
+      expect(response.status).toBe(200);
+      await response.text();
+      const reservation = mockState.callHistory.find((call) => call.action === "reserveCredits");
+      expect(reservation?.args.amount).toBe(3);
+      expect(getCallCount("deductCredits")).toBe(1);
+    });
+
     it("reserve-stream-deduct: reserves credits and completes stream", async () => {
       resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session" }]);
       mockRequestBody.value = { messages: fixtures.messages.valid, context: fixtures.context.verse };
@@ -336,7 +335,7 @@ describe("Chat API Credit Flow", () => {
       expect(body.error).toBe("Request too expensive");
     });
 
-    it("openrouter-rate-limit-429: returns 429 and releases credits", async () => {
+    it("provider rate-limit errors appear in the stream and release credits", async () => {
       resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session" }]);
       mockStreamTextImpl.mockImplementation(() => {
         const error = new Error("Rate limited") as Error & { statusCode: number; responseBody: string };
@@ -351,14 +350,12 @@ describe("Chat API Credit Flow", () => {
       });
 
       const response = await POST(request);
-      expect(response.status).toBe(429);
-
-      const body = await response.json();
-      expect(body.error).toBe("Rate limit reached");
+      expect(response.status).toBe(200);
+      expect(await response.text()).toContain('"type":"error"');
       expect(getCallCount("releaseReservation")).toBe(1);
     });
 
-    it("generic-stream-error: returns 500 and releases credits", async () => {
+    it("provider failures appear in the stream and release credits", async () => {
       resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session" }]);
       mockStreamTextImpl.mockImplementation(() => {
         const error = new Error("API error") as Error & { statusCode: number; responseBody: string };
@@ -373,10 +370,8 @@ describe("Chat API Credit Flow", () => {
       });
 
       const response = await POST(request);
-      expect(response.status).toBe(500);
-
-      const body = await response.json();
-      expect(body.error).toBe("Failed to process chat request");
+      expect(response.status).toBe(200);
+      expect(await response.text()).toContain('"type":"error"');
       expect(getCallCount("releaseReservation")).toBe(1);
     });
   });

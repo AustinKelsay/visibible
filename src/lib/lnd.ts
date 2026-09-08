@@ -157,3 +157,18 @@ function hexToBase64(hex: string): string {
 export function isLndConfigured(): boolean {
   return !!(process.env.LND_HOST && process.env.LND_INVOICE_MACAROON);
 }
+
+/** Validate server-fetched settlement evidence before granting a purchase. */
+export function settledInvoiceAmount(
+  status: LndInvoiceLookup,
+  expected: { paymentHash: string; amountSats: number }
+): number {
+  const amount = Number(status.amt_paid_sat);
+  if (status.state !== "SETTLED" || !status.settled ||
+      base64ToHex(status.r_hash) !== expected.paymentHash.toLowerCase() ||
+      !/^\d+$/.test(status.amt_paid_sat) || !Number.isSafeInteger(amount) ||
+      amount < expected.amountSats) {
+    throw new Error("Invalid Lightning settlement evidence");
+  }
+  return amount;
+}

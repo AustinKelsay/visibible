@@ -65,8 +65,8 @@ describe("model catalog resilience", () => {
                 output_modalities: ["text"],
               },
               pricing: {
-                prompt: "0.25",
-                completion: "1.25",
+                prompt: "0.00000025",
+                completion: "0.00000125",
               },
             },
           ],

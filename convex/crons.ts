@@ -3,11 +3,12 @@ import { internal } from "./_generated/api";
 
 const crons = cronJobs();
 
-// Clean up expired sessions frequently to prevent stale-session buildup.
+// Remove expired empty sessions; retain balances and linked financial history.
 crons.interval(
   "cleanup expired sessions",
   { minutes: 15 },
-  internal.cleanup.cleanupExpiredSessions
+  internal.cleanup.cleanupExpiredSessions,
+  {}
 );
 
 // Clean up stale rate-limit records frequently for high-churn protection.

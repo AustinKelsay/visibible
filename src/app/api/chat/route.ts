@@ -1,5 +1,5 @@
 import { createOpenAI } from "@ai-sdk/openai";
-import { streamText } from "ai";
+import { streamText, createUIMessageStreamResponse, type UIMessageChunk } from "ai";
 import { z } from "zod";
 import {
   DEFAULT_CHAT_MODEL,
@@ -385,17 +385,20 @@ export async function POST(req: Request) {
   let generationId: string | null = null;
   let creditReserved = false;
   const creditAmount = estimatedCredits; // Dynamic cost based on model
+  let billingStatus: "pending" | "charged" | "released" | "unresolved" = "pending";
 
   // Best-effort cleanup for reserved credits to avoid permanently locking balances.
   // Safe to call multiple times because releaseReservation is idempotent.
   const releaseReservedCredits = async (reason: string) => {
     if (!generationId || !creditReserved) return;
     try {
-      await convex.action(api.sessions.releaseReservation, {
+      const released = await convex.action(api.sessions.releaseReservation, {
         sid: sessionId,
         generationId,
         serverSecret,
       });
+      if (!released.success) throw new Error("Reservation release did not succeed");
+      billingStatus = "released";
       console.log(`[Chat API] Released credit reservation (${reason})`);
       logSettlementEvent({
         context: requestContext,
@@ -405,6 +408,7 @@ export async function POST(req: Request) {
         details: { reason },
       });
     } catch (refundErr) {
+      billingStatus = "unresolved";
       logSettlementEvent({
         context: requestContext,
         outcome: "release_failed",
@@ -462,6 +466,7 @@ export async function POST(req: Request) {
           );
           await releaseReservedCredits("deduct-failed");
         } else {
+          billingStatus = "charged";
           logSettlementEvent({
             context: requestContext,
             outcome: "confirmed",
@@ -627,125 +632,94 @@ export async function POST(req: Request) {
       content,
     }));
 
+    if (req.signal.aborted) {
+      await settleCredits("release", "request-aborted");
+      return withSessionRefresh(Response.json({ error: "Request cancelled" }, { status: 499 }));
+    }
+    const cancellation = new AbortController();
+    const signal = AbortSignal.any([req.signal, cancellation.signal]);
+    let failed = false;
+    const onAbort = () => {
+      failed = true;
+      void settleCredits("release", "stream-cancel");
+    };
+    signal.addEventListener("abort", onAbort, { once: true });
     const result = streamText({
       model: openRouter.chat(modelId),
       system,
       messages: modelMessages,
+      abortSignal: signal,
+      onError: async () => {
+        failed = true;
+        await settleCredits("release", "provider-error");
+      },
     });
 
-    // Get the base streaming response with metadata injection
-    const baseResponse = result.toUIMessageStreamResponse({
-      messageMetadata: ({ part }) => {
-        // Inject metadata on finish to capture usage stats
-        if (part.type === "finish") {
-          const endTime = Date.now();
-          const inputTokens = part.totalUsage?.inputTokens ?? 0;
-          const outputTokens = part.totalUsage?.outputTokens ?? 0;
-
-          // Calculate actual cost for logging/comparison
-          const actualCredits = computeActualChatCreditsCost(
-            modelPricing,
-            inputTokens,
-            outputTokens
-          );
-
-          // Log cost comparison for monitoring
-          if (actualCredits !== null && creditAmount !== actualCredits) {
-            const diff = creditAmount - actualCredits;
-            console.log(
-              `[Chat API] Cost variance: estimated=${creditAmount} actual=${actualCredits} diff=${diff > 0 ? "+" : ""}${diff} model=${modelId}`
-            );
-          }
-
-          return {
-            model: modelId,
-            promptTokens: inputTokens,
-            completionTokens: outputTokens,
-            totalTokens: inputTokens + outputTokens,
-            finishReason: part.finishReason,
-            latencyMs: endTime - startTime,
-            creditsCharged: creditAmount,
-            actualCredits: actualCredits ?? creditAmount,
-          };
+    let hasText = false;
+    let finish: Extract<UIMessageChunk, { type: "finish" }> | null = null;
+    // Defer the UI finish chunk until the SDK has fully completed and settlement
+    // is known. Error chunks are data, not necessarily thrown stream exceptions.
+    const settledStream = result.toUIMessageStream().pipeThrough(
+      new TransformStream<UIMessageChunk, UIMessageChunk>({
+        transform(chunk, controller) {
+          if (chunk.type === "text-delta" && chunk.delta.trim()) hasText = true;
+          if (chunk.type === "error" || chunk.type === "abort") failed = true;
+          if (chunk.type === "finish") finish = chunk;
+          else controller.enqueue(chunk);
+        },
+        async flush(controller) {
+          const success = !failed && !signal.aborted && hasText &&
+            (finish?.finishReason === "stop" || finish?.finishReason === "length");
+          await settleCredits(success ? "deduct" : "release", success ? "stream-success" : "stream-failed");
+          signal.removeEventListener("abort", onAbort);
+          const usage = await Promise.resolve(result.totalUsage).catch(() => null);
+          const promptTokens = usage?.inputTokens ?? 0;
+          const completionTokens = usage?.outputTokens ?? 0;
+          const finishReason = failed ? "error" : finish?.finishReason ?? "error";
+          controller.enqueue({
+            type: "finish",
+            finishReason,
+            messageMetadata: {
+              model: modelId,
+              promptTokens,
+              completionTokens,
+              totalTokens: promptTokens + completionTokens,
+              finishReason,
+              latencyMs: Date.now() - startTime,
+              creditsCharged: billingStatus === "charged" ? creditAmount : 0,
+              creditsRefunded: billingStatus === "released" ? creditAmount : 0,
+              billingStatus: creditReserved ? billingStatus : "not_required",
+              actualCredits: computeActualChatCreditsCost(modelPricing, promptTokens, completionTokens),
+              incomplete: success && finish?.finishReason === "length",
+            },
+          });
+        },
+      })
+    );
+    const reader = settledStream.getReader();
+    let cancelled = false;
+    const cancelAwareStream = new ReadableStream<UIMessageChunk>({
+      async pull(controller) {
+        try {
+          const next = await reader.read();
+          if (cancelled) return;
+          if (next.done) controller.close();
+          else controller.enqueue(next.value);
+        } catch (error) {
+          signal.removeEventListener("abort", onAbort);
+          await settleCredits("release", "stream-error");
+          if (!cancelled) controller.error(error);
         }
-        return undefined;
-      },
-    });
-
-    // If no credits reserved (admin user), return response as-is
-    if (!generationId || !creditReserved) {
-      return withSessionRefresh(baseResponse);
-    }
-
-    // Wrap stream with TransformStream to ensure credit deduction is awaited
-    // before the stream closes. The flush() method blocks stream completion
-    // until our async work finishes.
-    const body = baseResponse.body;
-    if (!body) {
-      return withSessionRefresh(baseResponse);
-    }
-
-    const creditDeductionStream = new TransformStream({
-      transform(chunk, controller) {
-        // Propagate chunks; errors here will trigger the pump's catch block
-        controller.enqueue(chunk);
-      },
-      async flush() {
-        // This runs when input stream ends and is awaited before output closes
-        await settleCredits("deduct", "stream-finish");
-      },
-    });
-
-    const streamedBody = body.pipeThrough(creditDeductionStream);
-    const cancelAwareBody = new ReadableStream({
-      async start(controller) {
-        const reader = streamedBody.getReader();
-
-        // Pump loop with error handling to ensure credits are released on mid-stream errors
-        const pump = async (): Promise<void> => {
-          try {
-            while (true) {
-              const { done, value } = await reader.read();
-              if (done) {
-                controller.close();
-                return;
-              }
-              controller.enqueue(value);
-            }
-          } catch (err) {
-            // Mid-stream error: release the reserved credit
-            logApiFailure({
-              context: requestContext,
-              stage: "chat_stream_pump",
-              error: err,
-              statusCode: 500,
-              sid: sessionId,
-              generationId: generationId ?? undefined,
-            });
-            console.error("[Chat API] Stream error during pump:", err);
-            await settleCredits("release", "stream-error");
-            controller.error(err);
-          }
-        };
-
-        // Start pumping (don't await - let the stream flow)
-        pump();
       },
       async cancel(reason) {
-        try {
-          await streamedBody.cancel(reason);
-        } catch {
-          // Ignore cancellation errors.
-        }
+        cancelled = true;
+        cancellation.abort(reason);
         await settleCredits("release", "stream-cancel");
+        await reader.cancel(reason).catch(() => {});
+        signal.removeEventListener("abort", onAbort);
       },
     });
-
-    return withSessionRefresh(new Response(cancelAwareBody, {
-      status: baseResponse.status,
-      statusText: baseResponse.statusText,
-      headers: baseResponse.headers,
-    }));
+    return withSessionRefresh(createUIMessageStreamResponse({ stream: cancelAwareStream }));
   } catch (error) {
     logApiFailure({
       context: requestContext,

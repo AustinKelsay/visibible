@@ -699,7 +699,7 @@ export function BuyCreditsModal() {
                   ⚠️ Session-only credits
                 </p>
                 <p className="text-amber-700 dark:text-amber-300">
-                  You have no account. Credits are stored in this browser only. Clearing cookies or site data, or using a different browser, will result in lost credits.
+                  Your balance is stored on our server, but access depends on this browser’s session. Clearing cookies or letting the session expire ends access. Retaining the balance record does not restore access; cross-device and lost-cookie recovery are not available.
                 </p>
               </div>
 
