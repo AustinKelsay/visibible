@@ -8,11 +8,11 @@ Read each ticket's current GitHub brief and parent policy before implementation.
 
 | Ticket | Implementation | Evidence | Remaining |
 | --- | --- | --- | --- |
-| T02 | Shared exact decimal per-token pricing for chat/planner estimates and actual costs, with one total rounding step | Pricing fixtures, invalid-input cases, catalog/outage parity and actual chat admission regression | Final review |
-| T09 | Retain funded or financially linked expired sessions; cursor cleanup; truthful access notice | Actual Convex tests for retention, empty deletion, dry run, cursor progress; dev push and empty dry run; purchase notice browser check | Final review |
-| T14 | Settle from successful model outcome instead of stream closure; report actual billing status | Installed AI SDK with fake provider: embedded error, error finish, empty, stop, length; financial regression tests | Final review |
+| T02 | Shared exact decimal per-token pricing for chat/planner estimates and actual costs, with one total rounding step | Pricing fixtures, invalid-input cases, catalog/outage parity and actual chat admission regression | Reviewed checkpoint; not merged |
+| T09 | Retain funded or financially linked expired sessions; cursor cleanup; truthful access notice | Actual Convex tests for retention, empty deletion, dry run, cursor progress; dev push and empty dry run; purchase notice browser check | Reviewed checkpoint; not merged |
+| T14 | Settle from successful model outcome instead of stream closure; report actual billing status | Installed AI SDK with fake provider: embedded error, error finish, empty, stop, length; financial regression tests | Reviewed checkpoint; not merged |
 | T15 | Propagate request/response abort; prevent cancellation reversing completed charge | SDK cancellation and single-settlement tests | Known provider-spend persistence, failed-release recovery, before-token/race coverage |
-| T11 | Verify settlement before local expiry; validate payment hash and amount; atomic invoice/wallet/ledger update; duplicate-payment guard | Actual Next handlers and Convex mutations with fake LND, late pending/expired, unpaid, outage, invalid evidence, duplicate confirmation and rollback | Final review; live LND pending |
+| T11 | Verify settlement before local expiry; validate payment hash and amount; atomic invoice/wallet/ledger update; duplicate-payment guard | Actual Next handlers and Convex mutations with fake LND, late pending/expired, unpaid, outage, invalid evidence, duplicate confirmation and rollback | Reviewed checkpoint; not merged; live LND pending |
 
 Local verification at this checkpoint: 437 tests in 46 files passed; lint and TypeScript checks passed. The test harness uses `convex-test@0.0.41`, compatible with the installed Convex SDK. Harness modules live outside `convex/` so test-only `import.meta.glob` is never deployed.
 
@@ -53,3 +53,17 @@ Seven new adapter tests cover concurrent chapter/verse callers, platform-cache d
 The shared resolver requires a reference, resolves aliases, validates static location and selected chapter identity, and obtains current/neighboring text from Scripture. Compatibility text/context/theme cannot reach shared prompts. Missing current passages and upstream failures stop before paid work. Genesis 1 retains its server-owned theme. A new prompt-policy version and planner-model gate exclude legacy plans that could contain client-authored content; complete cache fingerprints remain T19.
 
 Request tests inspect actual provider prompts, saved image provenance, and real Convex cache handlers with forged current text, neighbors, theme and an old cached plan. They verify replacement with canonical inputs and no reservation/provider call for absent passages. Existing cross-book/chapter continuity and payment regressions still pass. Latest checks: 482 tests across 50 files, lint and type checking. No live paid generation was used.
+
+## Compatible scene plans checkpoint (T19)
+
+Extracted prompt construction, normalization and canonical scene fingerprinting into `src/lib/image-prompts.ts`. The existing image prompt snapshot is unchanged. Fingerprints include complete canonical current/neighbor text, theme/style inputs and the rendered planner prompt; query/hit handlers additionally require matching translation, prompt version and planner model. Legacy rows miss; delayed hits cannot increment replacement records. Variation/output dimensions stay outside the planner identity because they do not change its canonical scene input.
+
+Local tests cover every identity field, old entries, read-only hits, delayed hit writes, normalization and limits. A temporary internal check passed matching/mismatched identity and replacement-hit behavior on Convex dev. Its synthetic row was deleted in `finally`, and the module was removed after execution.
+
+CodeRabbit's T18 finding about upstream error propagation was partly already covered by chapter/timeout handling. The remaining reference-endpoint 401/403 path is fixed; regressions preserve 401/403/429/500/503 status evidence and prove no paid request or reservation starts.
+
+## Current checkpoint status
+
+The implementation branch contains T02, T09, T11, T14, T16, T17, T18, T19, T22 and T23 work. T15 remains partial; the broader program is not complete and no ticket is closed solely because it appears here. Final local verification passes 512 tests in 52 files, lint and type checking. The Scripture and scene-plan reviews completed with no outstanding findings after the reference-error correction. A final retry regression additionally proved and fixed success being announced before the image-save attempt finished: retries now remain in progress during that attempt.
+
+Convex development deployment `coordinated-shepherd-515` contains the backend changes; all temporary internal verification modules and synthetic records have been removed. Production was not deployed. Live LND remains unavailable. Model evaluations, durable background generation, verified Convex browser identity and the rest of the backlog remain separate implementation work.

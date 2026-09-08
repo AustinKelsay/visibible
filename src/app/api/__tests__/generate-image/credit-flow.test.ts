@@ -11,6 +11,7 @@ import { api, internal } from "../../../../../convex/_generated/api";
 import { modules } from "../../../../../tests/convex/modules";
 let requestDb = convexTest(schema, modules);
 let failAdmission = false;
+let saveBarrier: Promise<void> | null = null;
 import { fixtures, type Session } from "../shared/test-fixtures";
 import { clearBibleApiCache } from "@/lib/bible-api";
 import {
@@ -93,7 +94,10 @@ vi.mock("@/lib/session", () => ({
 // Mock Convex client - uses args-based dispatch to avoid String(apiPath) error
 vi.mock("@/lib/convex-client", () => ({
   getConvexClient: vi.fn(() => ({
-    query: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+    query: vi.fn(async (_apiPath: FunctionReference<"query">, args: Record<string, unknown>) => {
+      if (getFunctionName(_apiPath) === "verseImages:getScenePlanCache") {
+        return requestDb.query(api.verseImages.getScenePlanCache, args as FunctionArgs<typeof api.verseImages.getScenePlanCache>);
+      }
       if ("inputFingerprint" in args) return requestDb.query(api.verseImages.getGenerationIntent, args as FunctionArgs<typeof api.verseImages.getGenerationIntent>);
       if ("fallbackCredits" in args && "modelId" in args && "resolution" in args) {
         mockState.callHistory.push({ action: "getEstimate", args });
@@ -113,8 +117,6 @@ vi.mock("@/lib/convex-client", () => ({
     }),
     mutation: vi.fn(async (_apiPath: FunctionReference<"mutation">, args: Record<string, unknown>) => {
       switch (getFunctionName(_apiPath)) {
-        case "verseImages:getScenePlanCache":
-          return requestDb.mutation(api.verseImages.getScenePlanCache, args as FunctionArgs<typeof api.verseImages.getScenePlanCache>);
         case "verseImages:upsertScenePlanCache":
           return requestDb.mutation(api.verseImages.upsertScenePlanCache, args as FunctionArgs<typeof api.verseImages.upsertScenePlanCache>);
         case "verseImages:markScenePlanCacheHit":
@@ -175,6 +177,7 @@ vi.mock("@/lib/convex-client", () => ({
 
       if ("verseId" in args && "imageUrl" in args && "model" in args) {
         mockState.callHistory.push({ action: "saveImage", args });
+        await saveBarrier;
         const id = await requestDb.mutation(internal.verseImages.saveImageWithUrl, {
           verseId: String(args.verseId), imageUrl: String(args.imageUrl), model: String(args.model),
           generationId: String(args.generationId),
@@ -440,6 +443,7 @@ describe("Image Generation API Credit Flow", () => {
     vi.clearAllMocks();
     requestDb = convexTest(schema, modules);
     failAdmission = false;
+    saveBarrier = null;
     clearBibleApiCache();
     fetchImageModelsMock.mockReset();
     fetchImageModelsMock.mockResolvedValue({
@@ -495,6 +499,27 @@ describe("Image Generation API Credit Flow", () => {
     });
   });
 
+  it("keeps retries in progress until the saved result is available", async () => {
+    let finishSave!: () => void;
+    saveBarrier = new Promise<void>((resolve) => { finishSave = resolve; });
+    const { POST } = await import("../../generate-image/route");
+    const body = { requestId: "pending-save-request", reference: "Genesis 1:1" };
+    const first = POST(createGenerateImageRequest(body));
+    await vi.waitFor(() => expect(getCallCount("saveImage")).toBe(1));
+    try {
+      const retry = await POST(createGenerateImageRequest(body));
+      expect(retry.status).toBe(202);
+      expect((await retry.json()).status).toBe("generating");
+    } finally {
+      finishSave();
+      await first;
+    }
+    const recovered = await POST(createGenerateImageRequest(body));
+    expect(recovered.status).toBe(200);
+    expect((await recovered.json()).savedImageId).toBeDefined();
+    expect(getCallCount("sessions:reserveCredits")).toBe(1);
+  });
+
   describe("canonical passage authority", () => {
     it("ignores forged text/context/theme and replaces legacy cached plans", async () => {
       process.env.ENABLE_SCENE_PLANNER = "true";
@@ -529,6 +554,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(body.translationId).toBe("web");
       expect(body.promptInputs.prevVerse).toBeUndefined();
       expect(body.promptInputs.nextVerse).toMatchObject({ number: 2, text: "The earth was formless and empty." });
+      expect(body.prompt).toMatchSnapshot("canonical image prompt");
       expect(prompts).toHaveLength(2);
       expect(prompts.join(" ")).not.toContain("FORGED");
       expect(prompts[0]).toContain("In the beginning God created");
@@ -547,6 +573,22 @@ describe("Image Generation API Credit Flow", () => {
       expect((await POST(createGenerateImageRequest({ reference, text: "FORGED_CURRENT" }))).status).toBe(400);
       expect(getCallCount("sessions:reserveCredits")).toBe(0);
       expect(getCallCount("saveImage")).toBe(0);
+    });
+
+    it.each([401, 403, 429, 500, 503])("preserves upstream reference failure %i without charging", async (status) => {
+      setMockFetchBibleApiBypass((url) => decodeURIComponent(url.pathname) === "/Genesis 1:1");
+      const providerCalls = vi.fn();
+      mockFetchImpl = async (input) => {
+        if (String(input).includes("bible-api.com")) return { ok: false, status, json: async () => ({}) };
+        providerCalls();
+        throw new Error("Paid provider must not run");
+      };
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest({}));
+      expect(response.status).toBe(status === 503 ? 503 : 502);
+      expect((await response.json()).details.upstreamStatus).toBe(status);
+      expect(providerCalls).not.toHaveBeenCalled();
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
     });
 
     it("rejects absent canonical chapter text even when the reference endpoint and client supply text", async () => {

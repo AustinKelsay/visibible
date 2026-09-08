@@ -231,13 +231,7 @@ export async function getVerseByReference(
     });
 
     if (!response.ok) {
-      const isRetryableStatus =
-        response.status >= 500 ||
-        response.status === 408 ||
-        response.status === 429;
-      if (!isRetryableStatus) {
-        return null;
-      }
+      if (response.status === 400 || response.status === 404) return null;
       throw new BibleApiLookupError(
         `Bible API reference lookup failed with status ${response.status}`,
         {

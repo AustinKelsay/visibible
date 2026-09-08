@@ -773,11 +773,14 @@ export const getGenerationRequestStatus = query({
 /**
  * Secure query for scene plan cache lookup.
  */
-export const getScenePlanCache = mutation({
+export const getScenePlanCache = query({
   args: {
     verseId: v.string(),
     translationId: v.string(),
     styleProfileId: v.string(),
+    inputFingerprint: v.string(),
+    plannerModel: v.string(),
+    promptVersion: v.string(),
     serverSecret: v.string(),
   },
   handler: async (ctx, args) => {
@@ -792,7 +795,8 @@ export const getScenePlanCache = mutation({
       )
       .first();
 
-    if (!cached) return null;
+    if (!cached || cached.inputFingerprint !== args.inputFingerprint ||
+        cached.plannerModel !== args.plannerModel || cached.promptVersion !== args.promptVersion) return null;
 
     return {
       scenePlan: cached.scenePlan,
@@ -813,6 +817,9 @@ export const markScenePlanCacheHit = mutation({
     verseId: v.string(),
     translationId: v.string(),
     styleProfileId: v.string(),
+    inputFingerprint: v.string(),
+    plannerModel: v.string(),
+    promptVersion: v.string(),
     serverSecret: v.string(),
   },
   handler: async (ctx, args): Promise<{ success: boolean }> => {
@@ -827,7 +834,8 @@ export const markScenePlanCacheHit = mutation({
       )
       .first();
 
-    if (!cached) return { success: false };
+    if (!cached || cached.inputFingerprint !== args.inputFingerprint ||
+        cached.plannerModel !== args.plannerModel || cached.promptVersion !== args.promptVersion) return { success: false };
 
     const newHitCount = (cached.hitCount ?? 0) + 1;
     await ctx.db.patch(cached._id, {
@@ -849,6 +857,7 @@ export const upsertScenePlanCache = mutation({
     translationId: v.string(),
     styleProfileId: v.string(),
     scenePlan: scenePlanValidator,
+    inputFingerprint: v.optional(v.string()),
     plannerModel: v.optional(v.string()),
     promptVersion: v.optional(v.string()),
     serverSecret: v.string(),
@@ -872,6 +881,7 @@ export const upsertScenePlanCache = mutation({
         translationId: args.translationId,
         styleProfileId: args.styleProfileId,
         scenePlan: args.scenePlan,
+        inputFingerprint: args.inputFingerprint,
         plannerModel: args.plannerModel,
         promptVersion: args.promptVersion,
         hitCount: 1,
@@ -885,6 +895,7 @@ export const upsertScenePlanCache = mutation({
     const newHitCount = (cached.hitCount ?? 0) + 1;
     await ctx.db.patch(cached._id, {
       scenePlan: args.scenePlan,
+      inputFingerprint: args.inputFingerprint,
       plannerModel: args.plannerModel,
       promptVersion: args.promptVersion,
       hitCount: newHitCount,

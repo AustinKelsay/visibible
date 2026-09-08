@@ -218,6 +218,7 @@ export default defineSchema({
     translationId: v.string(),
     styleProfileId: v.string(),
     scenePlan: scenePlanValidator,
+    inputFingerprint: v.optional(v.string()),
     plannerModel: v.optional(v.string()),
     promptVersion: v.optional(v.string()),
     hitCount: v.number(),
