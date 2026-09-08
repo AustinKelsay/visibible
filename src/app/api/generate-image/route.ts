@@ -25,13 +25,9 @@ import {
   DEFAULT_TRANSLATION,
   TRANSLATIONS,
   BibleApiLookupError,
-  getVerse,
-  getChapter,
-  getVerseByReference,
-  type VerseData,
   type Translation,
 } from "@/lib/bible-api";
-import { BIBLE_BOOKS, type BibleBook } from "@/data/bible-structure";
+import { resolveGenerationPassage } from "@/lib/generation-passage";
 import { getScenePlannerEstimatedCreditsCost, getScenePlannerModelId, isScenePlannerEnabled } from "@/lib/scene-planner";
 import {
   validateSessionWithIp,
@@ -65,9 +61,8 @@ export const dynamic = "force-dynamic";
 const isImageGenerationEnabled =
   process.env.ENABLE_IMAGE_GENERATION === "true";
 
-// Fallback text if no verse provided
-const DEFAULT_TEXT = "In the beginning God created the heaven and the earth.";
-const PROMPT_VERSION = "2026-03-19";
+// Version boundary prevents reuse of plans derived from client-authored Scripture.
+const PROMPT_VERSION = "2026-09-08-canonical";
 const DEFAULT_STYLE_PROFILE = "classical";
 const DEFAULT_TRANSLATION_ID = "default";
 const SCENE_PLAN_MAX_FIELD_LENGTH = 180;
@@ -137,11 +132,7 @@ type PromptPacket = {
   };
 };
 
-type VerseTarget = {
-  book: BibleBook;
-  chapter: number;
-  verse: number;
-};
+
 
 function normalizeSceneField(value: unknown): string | undefined {
   if (typeof value !== "string") return undefined;
@@ -385,108 +376,6 @@ async function withTimeout<T>(
   }
 }
 
-// Security: Validate and sanitize Bible reference format
-function sanitizeReference(ref: string): string {
-  // Only allow alphanumeric, spaces, colons, hyphens, and basic punctuation
-  const sanitized = ref.replace(/[^\w\s:,\-.'()]/g, "").slice(0, 50);
-  return sanitized || "Scripture";
-}
-
-// Security: Sanitize verse text to prevent prompt injection
-function sanitizeVerseText(text: string): string {
-  // Remove control characters and limit length
-  // Strip common prompt injection patterns
-  return text
-    .replace(/[\x00-\x1F\x7F]/g, "") // Remove control chars
-    .replace(
-      /\b(ignore|disregard|forget|override|system|prompt|instruction)/gi,
-      ""
-    )
-    .slice(0, 1200); // Limit to reasonable verse length
-}
-
-function computePreviousTarget(params: {
-  currentVerse: { chapter: number; verse: number };
-  currentBook: BibleBook;
-  currentBookIndex: number;
-  prevVerse: { number: number; text: string; reference?: string } | null;
-}): VerseTarget | null {
-  const { currentVerse, currentBook, currentBookIndex, prevVerse } = params;
-  if (prevVerse) return null;
-
-  if (currentVerse.verse > 1) {
-    return {
-      book: currentBook,
-      chapter: currentVerse.chapter,
-      verse: currentVerse.verse - 1,
-    };
-  }
-
-  if (currentVerse.chapter > 1) {
-    return {
-      book: currentBook,
-      chapter: currentVerse.chapter - 1,
-      verse: currentBook.chapters[currentVerse.chapter - 2],
-    };
-  }
-
-  if (currentBookIndex <= 0) {
-    return null;
-  }
-
-  const previousBook = BIBLE_BOOKS[currentBookIndex - 1];
-  const previousChapter = previousBook.chapters.length;
-  return {
-    book: previousBook,
-    chapter: previousChapter,
-    verse: previousBook.chapters[previousChapter - 1],
-  };
-}
-
-function computeNextTarget(params: {
-  currentVerse: { chapter: number; verse: number };
-  currentBook: BibleBook;
-  currentBookIndex: number;
-  versesInChapter: number;
-  nextVerse: { number: number; text: string; reference?: string } | null;
-}): VerseTarget | null {
-  const { currentVerse, currentBook, currentBookIndex, versesInChapter, nextVerse } = params;
-  if (nextVerse) return null;
-
-  if (currentVerse.verse < versesInChapter) {
-    return {
-      book: currentBook,
-      chapter: currentVerse.chapter,
-      verse: currentVerse.verse + 1,
-    };
-  }
-
-  if (currentVerse.chapter < currentBook.chapters.length) {
-    return {
-      book: currentBook,
-      chapter: currentVerse.chapter + 1,
-      verse: 1,
-    };
-  }
-
-  if (currentBookIndex < 0 || currentBookIndex >= BIBLE_BOOKS.length - 1) {
-    return null;
-  }
-
-  return {
-    book: BIBLE_BOOKS[currentBookIndex + 1],
-    chapter: 1,
-    verse: 1,
-  };
-}
-
-type ChapterTheme = {
-  setting: string;
-  palette: string;
-  elements: string;
-  style: string;
-};
-
 const chapterThemeSchema = z.object({
   setting: z.string(),
   palette: z.string(),
@@ -506,7 +395,7 @@ const generateImageSchema = z
     theme: z.union([chapterThemeSchema, z.string()]).optional(),
     prevVerse: z.union([verseContextSchema, z.string()]).optional(),
     nextVerse: z.union([verseContextSchema, z.string()]).optional(),
-    reference: z.string().optional(),
+    reference: z.string().trim().min(1).max(80),
     model: z.string().optional(),
     generation: z.union([z.number().finite(), z.string()]).optional(),
     style: z.string().optional(),
@@ -709,13 +598,8 @@ export async function POST(request: Request) {
     );
   }
 
-  // Get verse text, theme, model, and context from JSON body.
-  // SECURITY: All user-provided text is sanitized to prevent prompt injection.
-  const hasUserReference =
-    typeof requestBody.reference === "string" &&
-    requestBody.reference.trim().length > 0;
-  let verseText = requestBody.text ? sanitizeVerseText(requestBody.text) : "";
-  let reference = sanitizeReference(requestBody.reference || "Scripture");
+  // Legacy text/context fields are accepted but never authoritative.
+  let reference = requestBody.reference;
   const requestedModelId = requestBody.model;
   const requestedStyleId = requestBody.style;
   const requestedAspectRatio = requestBody.aspectRatio;
@@ -774,7 +658,9 @@ export async function POST(request: Request) {
     if (saved?.imageUrl) return jsonWithSessionRefresh({
       requestId: clientRequestId, generationId: admission.generationId,
       status: admission.status, reused: true, savedImageId: saved.id,
-      imageUrl: saved.imageUrl, model: saved.model, creditsCost: saved.creditsCost, durationMs: saved.durationMs,
+      imageUrl: saved.imageUrl, reference: saved.reference, translationId: saved.translationId,
+      verseText: saved.verseText, promptInputs: saved.promptInputs,
+      model: saved.model, creditsCost: saved.creditsCost, durationMs: saved.durationMs,
     });
     if (admission.status === "failed" || admission.status === "succeeded") {
       return jsonWithSessionRefresh({ requestId: clientRequestId, status: admission.status,
@@ -825,63 +711,6 @@ export async function POST(request: Request) {
     },
   };
 
-  /**
-   * Parses and sanitizes a verse context object from the request body.
-   * Accepts either a verse-shaped object or a JSON string (backward compatibility).
-   * Returns null if the value is not valid.
-   */
-  function parseVerseContext(
-    value: unknown
-  ): { number: number; text: string; reference?: string } | null {
-    let obj: Record<string, unknown> | null = null;
-    if (value && typeof value === "object") {
-      obj = value as Record<string, unknown>;
-    } else if (typeof value === "string") {
-      try {
-        const parsed = JSON.parse(value) as unknown;
-        if (parsed && typeof parsed === "object") obj = parsed as Record<string, unknown>;
-      } catch {
-        return null;
-      }
-    }
-    if (!obj) return null;
-    const text = obj?.text;
-    if (typeof text !== "string") return null;
-    const number =
-      typeof obj.number === "number" && Number.isFinite(obj.number)
-        ? obj.number
-        : 0;
-    const reference =
-      typeof obj.reference === "string" ? obj.reference : undefined;
-    return {
-      number,
-      text: sanitizeVerseText(text),
-      ...(reference !== undefined ? { reference } : {}),
-    };
-  }
-
-  const parseChapterTheme = (
-    value: GenerateImageRequestBody["theme"]
-  ): ChapterTheme | null => {
-    if (!value) return null;
-    if (typeof value === "object") {
-      return value;
-    }
-    try {
-      const parsed = JSON.parse(value) as unknown;
-      const themeParse = chapterThemeSchema.safeParse(parsed);
-      if (themeParse.success) {
-        return themeParse.data;
-      }
-    } catch (e) {
-      console.warn("[generate-image] Failed to parse chapterTheme:", {
-        value: value?.substring(0, 100),
-        error: e instanceof Error ? e.message : "Unknown error",
-      });
-    }
-    return null;
-  };
-
   const parseGenerationNumber = (
     value: GenerateImageRequestBody["generation"]
   ): number | null => {
@@ -893,195 +722,27 @@ export async function POST(request: Request) {
     return Number.isNaN(parsed) ? null : parsed;
   };
 
-  let prevVerse = parseVerseContext(requestBody.prevVerse);
-  let nextVerse = parseVerseContext(requestBody.nextVerse);
-
-  let currentVerse: VerseData | null = null;
-  if (reference !== "Scripture") {
-    try {
-      const resolvedVerses = await getVerseByReference(reference, bibleTranslation);
-      if (!resolvedVerses || resolvedVerses.length !== 1) {
-        return jsonWithSessionRefresh(
-          {
-            error: "Invalid reference",
-            message: "Please provide a single-verse reference like John 3:16.",
-          },
-          { status: 400 }
-        );
-      }
-      currentVerse = resolvedVerses[0];
-      const currentVerseReference = sanitizeReference(
-        `${currentVerse.bookName} ${currentVerse.chapter}:${currentVerse.verse}`
-      );
-
-      reference = currentVerseReference;
-
-      if (!verseText) {
-        verseText = sanitizeVerseText(currentVerse.text);
-      }
-    } catch (error) {
-      const lookupStatus =
-        error instanceof BibleApiLookupError ? error.statusCode : undefined;
-      const retryableLookupError =
-        error instanceof BibleApiLookupError
-          ? error.retryable
-          : true;
-
-      console.warn("[generate-image] Failed to resolve current verse from reference:", {
-        reference,
-        translation: bibleTranslation,
-        error: error instanceof Error ? error.message : "Unknown error",
-        errorName: error instanceof Error ? error.name : undefined,
-        upstreamStatus: lookupStatus,
-        retryable: retryableLookupError,
-        rawError: error,
-      });
-      if (hasUserReference) {
-        if (error instanceof BibleApiLookupError && error.kind === "not_found") {
-          return jsonWithSessionRefresh(
-            {
-              error: "Reference not found",
-              message: `Could not resolve "${reference}" in the ${translationId.toUpperCase()} translation.`,
-            },
-            { status: 400 }
-          );
-        }
-
-        const referenceLookupStatus =
-          retryableLookupError &&
-          (lookupStatus === undefined || lookupStatus === 503)
-            ? 503
-            : 502;
-        return jsonWithSessionRefresh(
-          {
-            error: "Reference lookup unavailable",
-            message: `Could not verify "${reference}" in the ${translationId.toUpperCase()} translation right now. Please try again.`,
-            details: {
-              upstreamStatus: lookupStatus ?? null,
-              upstreamError:
-                error instanceof Error ? error.message : "Unknown error",
-            },
-          },
-          { status: referenceLookupStatus }
-        );
-      }
-    }
+  let passage: Awaited<ReturnType<typeof resolveGenerationPassage>>;
+  try {
+    passage = await resolveGenerationPassage(reference, bibleTranslation);
+  } catch (error) {
+    const lookupStatus = error instanceof BibleApiLookupError ? error.statusCode : undefined;
+    return jsonWithSessionRefresh({
+      error: "Reference lookup unavailable",
+      message: `Could not verify "${reference}" in the ${translationId.toUpperCase()} translation right now. Please try again.`,
+      details: { upstreamStatus: lookupStatus ?? null },
+    }, { status: lookupStatus === undefined || lookupStatus === 503 ? 503 : 502 });
   }
-
-  if (currentVerse) {
-    try {
-      const currentBook = BIBLE_BOOKS.find(
-        (book) => book.id === currentVerse.bookId
-      );
-
-      if (currentBook) {
-        const versesInChapter = currentBook.chapters[currentVerse.chapter - 1];
-        const currentBookIndex = BIBLE_BOOKS.findIndex(
-          (book) => book.slug === currentBook.slug
-        );
-        const previousTarget = computePreviousTarget({
-          currentVerse,
-          currentBook,
-          currentBookIndex,
-          prevVerse,
-        });
-        const nextTarget = computeNextTarget({
-          currentVerse,
-          currentBook,
-          currentBookIndex,
-          versesInChapter,
-          nextVerse,
-        });
-        const sharedChapterTarget =
-          previousTarget &&
-          nextTarget &&
-          previousTarget.book.slug === nextTarget.book.slug &&
-          previousTarget.chapter === nextTarget.chapter
-            ? previousTarget
-            : null;
-
-        const sharedChapterPromise = sharedChapterTarget
-          ? getChapter(
-              sharedChapterTarget.book.slug,
-              sharedChapterTarget.chapter,
-              bibleTranslation
-            )
-          : null;
-
-        const prevVersePromise =
-          previousTarget
-            ? sharedChapterTarget
-              ? sharedChapterPromise!.then((chapterData) =>
-                  chapterData?.verses.find((item) => item.verse === previousTarget.verse) ?? null
-                )
-              : getVerse(
-                  previousTarget.book.slug,
-                  previousTarget.chapter,
-                  previousTarget.verse,
-                  bibleTranslation
-                )
-            : Promise.resolve(null);
-        const nextVersePromise =
-          nextTarget
-            ? sharedChapterTarget
-              ? sharedChapterPromise!.then((chapterData) =>
-                  chapterData?.verses.find((item) => item.verse === nextTarget.verse) ?? null
-                )
-              : getVerse(
-                  nextTarget.book.slug,
-                  nextTarget.chapter,
-                  nextTarget.verse,
-                  bibleTranslation
-                )
-            : Promise.resolve(null);
-
-        const [prevVerseData, nextVerseData] = await Promise.all([
-          prevVersePromise,
-          nextVersePromise,
-        ]);
-
-        if (prevVerseData) {
-          prevVerse = {
-            number: prevVerseData.verse,
-            text: sanitizeVerseText(prevVerseData.text),
-            reference: `${previousTarget?.book.name ?? currentVerse.bookName} ${prevVerseData.chapter}:${prevVerseData.verse}`,
-          };
-        }
-
-        if (nextVerseData) {
-          nextVerse = {
-            number: nextVerseData.verse,
-            text: sanitizeVerseText(nextVerseData.text),
-            reference: `${nextTarget?.book.name ?? currentVerse.bookName} ${nextVerseData.chapter}:${nextVerseData.verse}`,
-          };
-        }
-      }
-    } catch (error) {
-      console.warn("[generate-image] Failed to resolve neighboring verse context:", {
-        reference,
-        translation: bibleTranslation,
-        error: error instanceof Error ? error.message : "Unknown error",
-      });
-    }
+  if (!passage) {
+    return jsonWithSessionRefresh({
+      error: "Invalid or unavailable reference",
+      message: "Please provide a single verse available in the selected translation, like John 3:16.",
+    }, { status: 400 });
   }
-
-  if (!verseText && hasUserReference) {
-    return jsonWithSessionRefresh(
-      {
-        error: "Reference not found",
-        message: `Could not resolve "${reference}" in the ${translationId.toUpperCase()} translation.`,
-      },
-      { status: 400 }
-    );
-  }
-
-  if (!verseText) {
-    verseText = DEFAULT_TEXT;
-  }
-
+  reference = passage.reference;
+  const { verseText, prevVerse, nextVerse, chapterTheme } = passage;
   const verseId = toVerseId(reference);
 
-  const chapterTheme = parseChapterTheme(requestBody.theme);
   const generationNumber = parseGenerationNumber(requestBody.generation);
   const requestedStyleProfile = requestedStyleId
     ? STYLE_PROFILES[requestedStyleId]
@@ -1233,7 +894,7 @@ export async function POST(request: Request) {
         styleProfileId: styleProfile.id,
         serverSecret,
       });
-      const normalizedCached = cacheEntry?.scenePlan
+      const normalizedCached = cacheEntry?.scenePlan && cacheEntry.promptVersion === PROMPT_VERSION && cacheEntry.plannerModel === scenePlannerModel
         ? normalizeScenePlan(cacheEntry.scenePlan)
         : null;
       if (normalizedCached) {
@@ -2202,6 +1863,7 @@ ${aspectRatioInstruction}`;
           promptVersion: PROMPT_VERSION,
           promptInputs,
           reference,
+          translationId,
           verseText,
           chapterTheme: chapterTheme ?? undefined,
           generationNumber: generationNumber ?? undefined,

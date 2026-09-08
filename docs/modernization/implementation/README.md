@@ -47,3 +47,9 @@ Browser verification on port 3100 passed missing-text → retry → select WEB �
 Removed the unbounded completed-chapter map. Next.js owns response caching; a 256-entry maximum active-request table coalesces chapter and verse calls, retains translation identity, and releases entries on success or failure. The 10-second upstream signal bounds waits. No additional completed-entry TTL or eviction policy is needed because that process cache was removed.
 
 Seven new adapter tests cover concurrent chapter/verse callers, platform-cache delegation, translation isolation, shared missing/malformed/error responses followed by recovery, fake-clock timeout, and capacity recovery after 256 concurrent distinct lookups. Full checkpoint verification: 477 tests across 50 files, type checking and lint.
+
+## Canonical generation checkpoint (T18)
+
+The shared resolver requires a reference, resolves aliases, validates static location and selected chapter identity, and obtains current/neighboring text from Scripture. Compatibility text/context/theme cannot reach shared prompts. Missing current passages and upstream failures stop before paid work. Genesis 1 retains its server-owned theme. A new prompt-policy version and planner-model gate exclude legacy plans that could contain client-authored content; complete cache fingerprints remain T19.
+
+Request tests inspect actual provider prompts, saved image provenance, and real Convex cache handlers with forged current text, neighbors, theme and an old cached plan. They verify replacement with canonical inputs and no reservation/provider call for absent passages. Existing cross-book/chapter continuity and payment regressions still pass. Latest checks: 482 tests across 50 files, lint and type checking. No live paid generation was used.

@@ -300,7 +300,7 @@ function createGenerateImageRequest(body: Record<string, unknown>) {
       [CSRF_HEADER_NAME]: TEST_CSRF_TOKEN,
       cookie: `${CSRF_COOKIE_NAME}=${TEST_CSRF_TOKEN}`,
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify({ reference: "Genesis 1:1", ...body }),
   });
 }
 

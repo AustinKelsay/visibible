@@ -5,7 +5,7 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { convexTest } from "convex-test";
-import type { FunctionArgs } from "convex/server";
+import { getFunctionName, type FunctionArgs, type FunctionReference } from "convex/server";
 import schema from "../../../../../convex/schema";
 import { api, internal } from "../../../../../convex/_generated/api";
 import { modules } from "../../../../../tests/convex/modules";
@@ -111,7 +111,15 @@ vi.mock("@/lib/convex-client", () => ({
       const session = mockState.sessions.get(sid);
       return session || null;
     }),
-    mutation: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+    mutation: vi.fn(async (_apiPath: FunctionReference<"mutation">, args: Record<string, unknown>) => {
+      switch (getFunctionName(_apiPath)) {
+        case "verseImages:getScenePlanCache":
+          return requestDb.mutation(api.verseImages.getScenePlanCache, args as FunctionArgs<typeof api.verseImages.getScenePlanCache>);
+        case "verseImages:upsertScenePlanCache":
+          return requestDb.mutation(api.verseImages.upsertScenePlanCache, args as FunctionArgs<typeof api.verseImages.upsertScenePlanCache>);
+        case "verseImages:markScenePlanCacheHit":
+          return requestDb.mutation(api.verseImages.markScenePlanCacheHit, args as FunctionArgs<typeof api.verseImages.markScenePlanCacheHit>);
+      }
       if ("inputFingerprint" in args) {
         if (failAdmission) throw new Error("Admission unavailable");
         return requestDb.mutation(api.verseImages.createGenerationRequest, args as FunctionArgs<typeof api.verseImages.createGenerationRequest>);
@@ -170,6 +178,9 @@ vi.mock("@/lib/convex-client", () => ({
         const id = await requestDb.mutation(internal.verseImages.saveImageWithUrl, {
           verseId: String(args.verseId), imageUrl: String(args.imageUrl), model: String(args.model),
           generationId: String(args.generationId),
+          reference: args.reference as string, verseText: args.verseText as string,
+          translationId: args.translationId as string,
+          promptInputs: args.promptInputs as FunctionArgs<typeof internal.verseImages.saveImageWithUrl>["promptInputs"],
         });
         return { success: true, type: "url", id };
       }
@@ -420,7 +431,7 @@ function createGenerateImageRequest(body: Record<string, unknown>) {
       "x-csrf-token": TEST_CSRF_TOKEN,
       cookie: `visibible_csrf=${TEST_CSRF_TOKEN}`,
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify({ reference: "Genesis 1:1", ...body }),
   });
 }
 
@@ -481,6 +492,75 @@ describe("Image Generation API Credit Flow", () => {
       expect(getCallCount("reserveCredits")).toBe(0);
       expect(getCallCount("saveImage")).toBe(0);
       expect(mockFetch.mock.calls.filter(([url]) => String(url).includes("openrouter.ai"))).toHaveLength(0);
+    });
+  });
+
+  describe("canonical passage authority", () => {
+    it("ignores forged text/context/theme and replaces legacy cached plans", async () => {
+      process.env.ENABLE_SCENE_PLANNER = "true";
+      const legacyPlan = { primarySubject: "FORGED_OLD_PLAN", action: "posing", setting: "studio" };
+      await requestDb.mutation(api.verseImages.upsertScenePlanCache, {
+        verseId: "genesis-1-1", translationId: "web", styleProfileId: "classical",
+        scenePlan: legacyPlan, plannerModel: "old-planner", promptVersion: "2026-03-19", serverSecret: "test-server-secret",
+      });
+      const prompts: string[] = [];
+      mockFetchImpl = async (_input, init) => {
+        const payload = JSON.parse(String(init?.body));
+        prompts.push(JSON.stringify(payload.messages));
+        return {
+          ok: true, status: 200,
+          json: async () => prompts.length === 1 ? {
+            choices: [{ message: { content: JSON.stringify({ primarySubject: "Created world", action: "emerging", setting: "cosmos" }) } }],
+            usage: { cost: 0.001 },
+          } : {
+            choices: [{ message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } }], usage: { cost: 0.01 },
+          },
+        };
+      };
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest({
+        reference: "Genesis 1:1", text: "FORGED_CURRENT", prevVerse: { number: 9, text: "FORGED_PREVIOUS" },
+        nextVerse: JSON.stringify({ number: 9, text: "FORGED_NEXT" }),
+        theme: { setting: "FORGED_THEME", palette: "FORGED_PALETTE", elements: "FORGED_ELEMENTS", style: "FORGED_STYLE" },
+      }));
+      expect(response.status).toBe(200);
+      const body = await response.json();
+      expect(body.verseText).toBe("In the beginning God created the heavens and the earth.");
+      expect(body.translationId).toBe("web");
+      expect(body.promptInputs.prevVerse).toBeUndefined();
+      expect(body.promptInputs.nextVerse).toMatchObject({ number: 2, text: "The earth was formless and empty." });
+      expect(prompts).toHaveLength(2);
+      expect(prompts.join(" ")).not.toContain("FORGED");
+      expect(prompts[0]).toContain("In the beginning God created");
+      expect(prompts[0]).toContain("Creation of the cosmos");
+      const saved = await requestDb.query(internal.verseImages.getImageById, { imageId: body.savedImageId });
+      expect(saved).toMatchObject({ verseText: body.verseText, reference: "Genesis 1:1", translationId: "web" });
+      expect(JSON.stringify(saved?.promptInputs)).not.toContain("FORGED");
+      const plans = await requestDb.run((ctx) => ctx.db.query("scenePlanCache").collect());
+      expect(plans).toHaveLength(1);
+      expect(plans[0]).toMatchObject({ promptVersion: "2026-09-08-canonical", scenePlan: { primarySubject: "Created world" } });
+    });
+
+    it.each([undefined, "", "Scripture"])("rejects a noncanonical reference (%s) before paid work", async (reference) => {
+      mockFetchImpl = async () => ({ ok: false, status: 404, json: async () => ({}) });
+      const { POST } = await import("../../generate-image/route");
+      expect((await POST(createGenerateImageRequest({ reference, text: "FORGED_CURRENT" }))).status).toBe(400);
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+      expect(getCallCount("saveImage")).toBe(0);
+    });
+
+    it("rejects absent canonical chapter text even when the reference endpoint and client supply text", async () => {
+      setMockFetchBibleApiBypass((url) => url.pathname === "/data/web/GEN/1");
+      const providerCalls = vi.fn();
+      mockFetchImpl = async (input) => {
+        if (String(input).includes("bible-api.com")) return { ok: false, status: 404, json: async () => ({}) };
+        providerCalls();
+        throw new Error("Paid provider must not run");
+      };
+      const { POST } = await import("../../generate-image/route");
+      expect((await POST(createGenerateImageRequest({ text: "FORGED_CURRENT" }))).status).toBe(400);
+      expect(providerCalls).not.toHaveBeenCalled();
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
     });
   });
 

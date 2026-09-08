@@ -5,8 +5,8 @@
 ## Request lifecycle
 
 1. Validate the feature flag, origin, CSRF token, signed session with current-IP tracking, body, model, rate limit and credit eligibility.
-2. Resolve the reference/translation and available verse context. The JSON body can supply text and adjacent context; a supplied reference must resolve to a single verse. Upstream lookup failures are reported separately from invalid references.
-3. Create the Convex lifecycle record and look up the scene plan by verse, translation and style profile. Cache hits skip the planner call and its reservation. On a miss, the optional planner produces a normalized plan for caching.
+2. Resolve the required single-verse reference and selected translation through [the canonical passage resolver](../../src/lib/generation-passage.ts). The reference endpoint resolves aliases; a validated canonical chapter supplies the text. Neighbors use the shared navigation rules. Client text, neighboring context and theme are compatibility fields only and never become prompt/cache input. Genesis 1 uses the server-owned theme. Missing/invalid current text and upstream failures stop before reservation or provider work; missing neighboring text is omitted, while neighboring lookup errors remain retryable.
+3. Authenticated retries return the existing operation before catalog or Scripture reads. New requests look up the scene plan by verse, translation and style; only entries matching the canonical prompt-policy version and planner model are reused. Atomically claim the owner/input fingerprint and billing ID before any paid work. Admission failure starts no provider call. A cache miss runs the optional planner with verified server inputs.
 4. Assemble the bounded prompt, mark the request as generating, and call OpenRouter with the configured timeout.
 5. Settle credits, persist the cost event (or enqueue its outbox fallback), attempt server-side image storage, and return the image and available saved-image ID. Failure to save does not imply that generation failed or that the image is permanently stored.
 
@@ -24,3 +24,5 @@ Lifecycle states are `queued`, `planning`, `generating`, `succeeded`, and `faile
 - Timeout/model overrides are listed in [.env.example](../../.env.example); the route and [scene-planner.ts](../../src/lib/scene-planner.ts) define defaults.
 - [Prompt specification](../implementation/IMAGE_PROMPT_SPEC.md), [persistence](IMAGE-PERSISTENCE.md), and [bulk generation](BULK-GENERATION.md) cover those separate concerns.
 - [Credit-flow](../../src/app/api/__tests__/generate-image/credit-flow.test.ts) and [scene-planner](../../src/app/api/__tests__/generate-image/scene-planner.test.ts) tests cover request behavior.
+
+The canonical-input version boundary is `2026-09-08-canonical`. It prevents plans authored under the older client-text policy from being reused. Full content/style/theme cache identity remains T19. Saved image records and replay responses preserve the original reference, translation and verse text; existing historical images are not rewritten. The provider receives bounded canonical text with whitespace normalized, without removing words such as “instruction” from Scripture.

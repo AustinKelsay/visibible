@@ -913,6 +913,7 @@ async function existingIntentResult(
     ...(image ? { savedImage: {
       id: image._id, imageUrl: image.storageId ? await ctx.storage.getUrl(image.storageId) : image.imageUrl ?? null,
       model: image.model, creditsCost: image.creditsCost, durationMs: image.durationMs,
+      reference: image.reference, translationId: image.translationId, verseText: image.verseText, promptInputs: image.promptInputs,
     } } : {}),
   };
 }
@@ -958,7 +959,7 @@ export const createGenerationRequest = mutation({
     conflict?: boolean;
     generationId?: string;
     error?: string;
-    savedImage?: { id: Id<"verseImages">; imageUrl: string | null; model: string; creditsCost?: number; durationMs?: number };
+    savedImage?: { id: Id<"verseImages">; imageUrl: string | null; model: string; creditsCost?: number; durationMs?: number; reference?: string; translationId?: string; verseText?: string; promptInputs?: Doc<"verseImages">["promptInputs"] };
   }> => {
     validateServerSecret(args.serverSecret);
     const existing = await ctx.db
