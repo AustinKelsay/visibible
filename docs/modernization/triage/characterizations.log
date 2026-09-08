@@ -1,0 +1,13 @@
+npm notice run visibible@0.1.0 test
+npm notice run vitest --run src/lib/__tests__/triage-20260907.test.ts
+
+ RUN  v4.0.16 /Users/plebdev/Desktop/Projects/visibible
+
+(node:60316) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ✓ src/lib/__tests__/triage-20260907.test.ts (9 tests) 37ms
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  19:23:14
+   Duration  351ms (transform 84ms, setup 0ms, import 197ms, tests 37ms, environment 0ms)

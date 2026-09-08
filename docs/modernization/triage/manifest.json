@@ -1,0 +1,823 @@
+{
+  "date": "2026-09-07",
+  "baseline": "6ae456839208ab6c97d630f80f8719becda9c050",
+  "items": {
+    "S01": {
+      "number": 45,
+      "url": "https://github.com/AustinKelsay/visibible/issues/45",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577214702,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/45#issuecomment-5577214702",
+      "blocked_by": [],
+      "brief_sha256": "82e460e99e19fc2d04965da36368a6cfc6bc915bef4ffc419ad223ec459fa7cc"
+    },
+    "S02": {
+      "number": 46,
+      "url": "https://github.com/AustinKelsay/visibible/issues/46",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577215247,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/46#issuecomment-5577215247",
+      "blocked_by": [],
+      "brief_sha256": "48e0f484bc6e0addcc64740705b545fe8826ff03ef919432b9cf5b1acb5c2501"
+    },
+    "S03": {
+      "number": 47,
+      "url": "https://github.com/AustinKelsay/visibible/issues/47",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577215905,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/47#issuecomment-5577215905",
+      "blocked_by": [],
+      "brief_sha256": "70cca6da59857689256bd306256b8d620d8be8642b10ae532a3e712af4e5e671"
+    },
+    "S04": {
+      "number": 48,
+      "url": "https://github.com/AustinKelsay/visibible/issues/48",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577216369,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/48#issuecomment-5577216369",
+      "blocked_by": [],
+      "brief_sha256": "c47fd233e7bbaf30f4a529408a27ef69bd6ada367a8c3e84e00172e5e9d1df34"
+    },
+    "S05": {
+      "number": 49,
+      "url": "https://github.com/AustinKelsay/visibible/issues/49",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577217091,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/49#issuecomment-5577217091",
+      "blocked_by": [],
+      "brief_sha256": "db4f772cff6bb7d2589a0d8a3c6ca9d7a76bd9007794e2134f77049191c16416"
+    },
+    "S06": {
+      "number": 50,
+      "url": "https://github.com/AustinKelsay/visibible/issues/50",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577217506,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/50#issuecomment-5577217506",
+      "blocked_by": [],
+      "brief_sha256": "4a850421ac700880e84161b40e77140107e651446616c7cbc8d56ff55dc73e95"
+    },
+    "S07": {
+      "number": 51,
+      "url": "https://github.com/AustinKelsay/visibible/issues/51",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577218081,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/51#issuecomment-5577218081",
+      "blocked_by": [],
+      "brief_sha256": "33a92dd3d42edb24fce9d183da4c49078512a8544d8f6d5ff67244c5618194c1"
+    },
+    "S08": {
+      "number": 52,
+      "url": "https://github.com/AustinKelsay/visibible/issues/52",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577218724,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/52#issuecomment-5577218724",
+      "blocked_by": [],
+      "brief_sha256": "3a3ca6b0031230734512a0c46a7c16751fc7c65d34eafb26554b7110209438a6"
+    },
+    "S09": {
+      "number": 53,
+      "url": "https://github.com/AustinKelsay/visibible/issues/53",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577219141,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/53#issuecomment-5577219141",
+      "blocked_by": [],
+      "brief_sha256": "345b31fed8867607400ae6ab4e506dd53c4dcb9e557d3c15fdfb3456307f7c7b"
+    },
+    "S10": {
+      "number": 54,
+      "url": "https://github.com/AustinKelsay/visibible/issues/54",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577219856,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/54#issuecomment-5577219856",
+      "blocked_by": [],
+      "brief_sha256": "b34194868a31a52c49efbfebdecabb51cd449b8cdddabe69e352486216962cf6"
+    },
+    "S11": {
+      "number": 55,
+      "url": "https://github.com/AustinKelsay/visibible/issues/55",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577220336,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/55#issuecomment-5577220336",
+      "blocked_by": [],
+      "brief_sha256": "d471f315d2706c433caadc4e3bfe010f8ae5a353f0389b5f15a5e7c982ef5528"
+    },
+    "S12": {
+      "number": 56,
+      "url": "https://github.com/AustinKelsay/visibible/issues/56",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577220967,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/56#issuecomment-5577220967",
+      "blocked_by": [],
+      "brief_sha256": "1098986d30715b3008409eaced056f140c5873a1b549dac84130e1fc660ed5bc"
+    },
+    "T01": {
+      "number": 57,
+      "url": "https://github.com/AustinKelsay/visibible/issues/57",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577221700,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/57#issuecomment-5577221700",
+      "blocked_by": [],
+      "brief_sha256": "19108ea8cff24446a09d22bc668e88426b03c08f9ef2a678c8342e461a2953bd"
+    },
+    "T02": {
+      "number": 58,
+      "url": "https://github.com/AustinKelsay/visibible/issues/58",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577222130,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/58#issuecomment-5577222130",
+      "blocked_by": [],
+      "brief_sha256": "d3da2fafb58e07e0ec06bf76580e592a89b4a3eeed3e54721d3f7e60b72e94da"
+    },
+    "T03": {
+      "number": 59,
+      "url": "https://github.com/AustinKelsay/visibible/issues/59",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577222880,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/59#issuecomment-5577222880",
+      "blocked_by": [],
+      "brief_sha256": "9de5a28c4c0f1bc992adf983a770b3c0bd001f6c1af17055e31e16fedfe34b06"
+    },
+    "T04": {
+      "number": 60,
+      "url": "https://github.com/AustinKelsay/visibible/issues/60",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577223354,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/60#issuecomment-5577223354",
+      "blocked_by": [
+        "T02",
+        "T03"
+      ],
+      "brief_sha256": "1b1af0adbf1c7093d892782f5976c82b2909515d369d108a754bcf0ccef694b9"
+    },
+    "T05": {
+      "number": 61,
+      "url": "https://github.com/AustinKelsay/visibible/issues/61",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577223885,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/61#issuecomment-5577223885",
+      "blocked_by": [
+        "T03"
+      ],
+      "brief_sha256": "3f5435e81e0c178b79815b8034cea9c58c80002155cdbb379171fc01bb749d37"
+    },
+    "T06": {
+      "number": 62,
+      "url": "https://github.com/AustinKelsay/visibible/issues/62",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577224634,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/62#issuecomment-5577224634",
+      "blocked_by": [
+        "T04"
+      ],
+      "brief_sha256": "7079489f9f9e389ffc228c0ed0163a706c81c897d5d9aaf6114fbac6f62bf8e5"
+    },
+    "T07": {
+      "number": 63,
+      "url": "https://github.com/AustinKelsay/visibible/issues/63",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577225088,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/63#issuecomment-5577225088",
+      "blocked_by": [],
+      "brief_sha256": "2ab2e75c76b0e6c8361640e11f42bdfccc99dbf9efec36dd2b9d3c76cd4276b5"
+    },
+    "T08": {
+      "number": 64,
+      "url": "https://github.com/AustinKelsay/visibible/issues/64",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577225511,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/64#issuecomment-5577225511",
+      "blocked_by": [
+        "T07"
+      ],
+      "brief_sha256": "7ad20f6148f7d19d2b0e8aa976fc7934b3f2c61c639f3b456c41db90f1a3927b"
+    },
+    "T09": {
+      "number": 65,
+      "url": "https://github.com/AustinKelsay/visibible/issues/65",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577226138,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/65#issuecomment-5577226138",
+      "blocked_by": [],
+      "brief_sha256": "879841f6f3a57158112c8f91176cf24ae354179339077c2d4137219e98b21be0"
+    },
+    "T10": {
+      "number": 66,
+      "url": "https://github.com/AustinKelsay/visibible/issues/66",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577226633,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/66#issuecomment-5577226633",
+      "blocked_by": [
+        "T08"
+      ],
+      "brief_sha256": "5bb6c7ce16c43c91b9650cf0beb710db3ce6978fdfc2de8b8336e555fda56f26"
+    },
+    "T11": {
+      "number": 67,
+      "url": "https://github.com/AustinKelsay/visibible/issues/67",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577227401,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/67#issuecomment-5577227401",
+      "blocked_by": [],
+      "brief_sha256": "ce96c40a23a9334963d6a105ce3b28ad7c5f2c6ad985e91a31120c53ac02447b"
+    },
+    "T12": {
+      "number": 68,
+      "url": "https://github.com/AustinKelsay/visibible/issues/68",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577227821,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/68#issuecomment-5577227821",
+      "blocked_by": [
+        "T11"
+      ],
+      "brief_sha256": "ded9810f42d7bf950e009a68657e54303b05705c474780e5eee22ef305037d6b"
+    },
+    "T13": {
+      "number": 69,
+      "url": "https://github.com/AustinKelsay/visibible/issues/69",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577228379,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/69#issuecomment-5577228379",
+      "blocked_by": [
+        "T12"
+      ],
+      "brief_sha256": "6088dd855121fac4a8d91deb664a511c97ece5982ffebeab96e35673666afb2a"
+    },
+    "T14": {
+      "number": 70,
+      "url": "https://github.com/AustinKelsay/visibible/issues/70",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577229198,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/70#issuecomment-5577229198",
+      "blocked_by": [],
+      "brief_sha256": "8cdde296a15e3dfc703f259a8094233072b6cc59177e872514192505f5db3e3f"
+    },
+    "T15": {
+      "number": 71,
+      "url": "https://github.com/AustinKelsay/visibible/issues/71",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577229598,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/71#issuecomment-5577229598",
+      "blocked_by": [
+        "T14"
+      ],
+      "brief_sha256": "8c7bfdfd0c917cd4a7f8dcf8fb9b3d4b2cf0fce58a035efd270ce9c7b4912304"
+    },
+    "T16": {
+      "number": 72,
+      "url": "https://github.com/AustinKelsay/visibible/issues/72",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577230204,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/72#issuecomment-5577230204",
+      "blocked_by": [],
+      "brief_sha256": "3fb515e5048fbf4b9b4d084d6f342212351efe5abcdcb2aecaaaf44fea57bd65"
+    },
+    "T17": {
+      "number": 73,
+      "url": "https://github.com/AustinKelsay/visibible/issues/73",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577230810,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/73#issuecomment-5577230810",
+      "blocked_by": [
+        "T16"
+      ],
+      "brief_sha256": "0786877891e19c785000826a79329d3da470ed5a90d7426df50a139a844bccd8"
+    },
+    "T18": {
+      "number": 74,
+      "url": "https://github.com/AustinKelsay/visibible/issues/74",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577231313,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/74#issuecomment-5577231313",
+      "blocked_by": [
+        "T16"
+      ],
+      "brief_sha256": "56991c9338a942177f3f7ac2666040639e5dbfd1f4be4a3699c9e572f3b972a7"
+    },
+    "T19": {
+      "number": 75,
+      "url": "https://github.com/AustinKelsay/visibible/issues/75",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577232117,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/75#issuecomment-5577232117",
+      "blocked_by": [
+        "T18"
+      ],
+      "brief_sha256": "dc97f1ca667a828c9f2bef9bad95f46f2fcdbc6c23174a63b5badfdcf6697e5b"
+    },
+    "T20": {
+      "number": 76,
+      "url": "https://github.com/AustinKelsay/visibible/issues/76",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577232702,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/76#issuecomment-5577232702",
+      "blocked_by": [
+        "T16",
+        "T15"
+      ],
+      "brief_sha256": "53b2714d0356934514fe23d1d914ae5369e9e3efaf57548569437076b62cfbfa"
+    },
+    "T21": {
+      "number": 77,
+      "url": "https://github.com/AustinKelsay/visibible/issues/77",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577233184,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/77#issuecomment-5577233184",
+      "blocked_by": [
+        "T20",
+        "T06"
+      ],
+      "brief_sha256": "94adfed330098135cfe109efafbc7466a25e796b31aa1034f14fd92ac052e73b"
+    },
+    "T22": {
+      "number": 78,
+      "url": "https://github.com/AustinKelsay/visibible/issues/78",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577234189,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/78#issuecomment-5577234189",
+      "blocked_by": [],
+      "brief_sha256": "f55e88a8341fc3190bf8201b9290a6920987de0c44c285a946d1c28e50dd58e3"
+    },
+    "T23": {
+      "number": 79,
+      "url": "https://github.com/AustinKelsay/visibible/issues/79",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577234690,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/79#issuecomment-5577234690",
+      "blocked_by": [],
+      "brief_sha256": "62d058c00fd164f5722d5b04e09f7591e26c8561da0185c90f66524063a6e029"
+    },
+    "T24": {
+      "number": 80,
+      "url": "https://github.com/AustinKelsay/visibible/issues/80",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577235259,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/80#issuecomment-5577235259",
+      "blocked_by": [],
+      "brief_sha256": "7d34e3af98fc374ba0c77d20a42dd98d55018405245ac1055884040db225f7ad"
+    },
+    "T25": {
+      "number": 81,
+      "url": "https://github.com/AustinKelsay/visibible/issues/81",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577235962,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/81#issuecomment-5577235962",
+      "blocked_by": [
+        "T07",
+        "T22",
+        "T23",
+        "T24",
+        "T19",
+        "T06"
+      ],
+      "brief_sha256": "3029a3b452a70b3c40c205934c0c9e69dfe834d9c9cd16bca51c2eb29ffd642c"
+    },
+    "T26": {
+      "number": 82,
+      "url": "https://github.com/AustinKelsay/visibible/issues/82",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577236425,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/82#issuecomment-5577236425",
+      "blocked_by": [
+        "T25"
+      ],
+      "brief_sha256": "12478dd2592aaa2c78635a9dc3319fae7015cb77d922df9181ccfa4642c22043"
+    },
+    "T27": {
+      "number": 83,
+      "url": "https://github.com/AustinKelsay/visibible/issues/83",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577237016,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/83#issuecomment-5577237016",
+      "blocked_by": [
+        "T26"
+      ],
+      "brief_sha256": "2bbdfd6613eedf3b1e8a33e2745d2cf541f3055a91d16f3fea6ab0f5c85308eb"
+    },
+    "T28": {
+      "number": 84,
+      "url": "https://github.com/AustinKelsay/visibible/issues/84",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577237718,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/84#issuecomment-5577237718",
+      "blocked_by": [
+        "T27",
+        "T08"
+      ],
+      "brief_sha256": "052e81694c9ecade7f73117fd176049256aa9e80e1ee7574e6ab7a61bbaabbce"
+    },
+    "T29": {
+      "number": 85,
+      "url": "https://github.com/AustinKelsay/visibible/issues/85",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577238209,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/85#issuecomment-5577238209",
+      "blocked_by": [
+        "T28"
+      ],
+      "brief_sha256": "271f149a1afda061c126d290f3758284b36dbf6eafbf6810039a66370c953b3c"
+    },
+    "T30": {
+      "number": 86,
+      "url": "https://github.com/AustinKelsay/visibible/issues/86",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577238931,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/86#issuecomment-5577238931",
+      "blocked_by": [
+        "T28"
+      ],
+      "brief_sha256": "e668b9841347a7dd360aed9f40d85cb6f10694d6e021ca10989ebfcebc5bc4d5"
+    },
+    "T31": {
+      "number": 87,
+      "url": "https://github.com/AustinKelsay/visibible/issues/87",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577239482,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/87#issuecomment-5577239482",
+      "blocked_by": [
+        "T30",
+        "T29"
+      ],
+      "brief_sha256": "24ffd5c25dd2c2d7deb4b8d38df2bcc0ca778363a754b009758bf020c32c1845"
+    },
+    "T32": {
+      "number": 88,
+      "url": "https://github.com/AustinKelsay/visibible/issues/88",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577240003,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/88#issuecomment-5577240003",
+      "blocked_by": [
+        "T31",
+        "T10"
+      ],
+      "brief_sha256": "8041ac1b6e2412536b11477dbf3f93a7d6ce866c93e12c463a419514a33e57e9"
+    },
+    "T33": {
+      "number": 89,
+      "url": "https://github.com/AustinKelsay/visibible/issues/89",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577240651,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/89#issuecomment-5577240651",
+      "blocked_by": [
+        "T23"
+      ],
+      "brief_sha256": "8beee68a5f0c7bf4cc3693bb3fa4903797504b7b389861595e002711d166faf4"
+    },
+    "T34": {
+      "number": 90,
+      "url": "https://github.com/AustinKelsay/visibible/issues/90",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577241088,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/90#issuecomment-5577241088",
+      "blocked_by": [
+        "T23"
+      ],
+      "brief_sha256": "79e7ec64937c8b7e40a4d8b6df27e3d9608edcd2875c97d49e4bb9c8b6a3eeaa"
+    },
+    "T35": {
+      "number": 91,
+      "url": "https://github.com/AustinKelsay/visibible/issues/91",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577241845,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/91#issuecomment-5577241845",
+      "blocked_by": [
+        "T07",
+        "T33"
+      ],
+      "brief_sha256": "86d6963a0550d6d4ed23de07072a1a8001f8d0b38a705596ccda7b9b35e60cef"
+    },
+    "T36": {
+      "number": 92,
+      "url": "https://github.com/AustinKelsay/visibible/issues/92",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577242333,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/92#issuecomment-5577242333",
+      "blocked_by": [],
+      "brief_sha256": "7e9e39f29e9f6d1a28821cb7c0beeb5827255c2a4cfc3b9510f2c33d94200690"
+    },
+    "T37": {
+      "number": 93,
+      "url": "https://github.com/AustinKelsay/visibible/issues/93",
+      "category": "bug",
+      "state": "ready-for-agent",
+      "comment_id": 5577242923,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/93#issuecomment-5577242923",
+      "blocked_by": [
+        "T27",
+        "T33"
+      ],
+      "brief_sha256": "aafd2850165f904e2914016cfef1ee5cae4197fa4e9aeeb35f9d143d79492f02"
+    },
+    "T38": {
+      "number": 94,
+      "url": "https://github.com/AustinKelsay/visibible/issues/94",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577243508,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/94#issuecomment-5577243508",
+      "blocked_by": [
+        "T03"
+      ],
+      "brief_sha256": "8abbc4ade612bb467ad0bfb22c4dd5af246a372f578aa6c87ed550a58040faa6"
+    },
+    "T39": {
+      "number": 95,
+      "url": "https://github.com/AustinKelsay/visibible/issues/95",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577243965,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/95#issuecomment-5577243965",
+      "blocked_by": [
+        "T13",
+        "T10"
+      ],
+      "brief_sha256": "3667e2d602ebacd96d626c1b0e0804818925df0a0d513267fbf682175a4fe646"
+    },
+    "T40": {
+      "number": 96,
+      "url": "https://github.com/AustinKelsay/visibible/issues/96",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577244769,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/96#issuecomment-5577244769",
+      "blocked_by": [
+        "T37",
+        "T38"
+      ],
+      "brief_sha256": "20db712724485b684e4bba8eb8debd436d1e9ac82196d6e3d0a112bf80b210a8"
+    },
+    "T41": {
+      "number": 97,
+      "url": "https://github.com/AustinKelsay/visibible/issues/97",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577245344,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/97#issuecomment-5577245344",
+      "blocked_by": [],
+      "brief_sha256": "e590817f284cec1f6d080a8f0e94b6b29f952619934bbef8ee138b123cdcab58"
+    },
+    "T42": {
+      "number": 98,
+      "url": "https://github.com/AustinKelsay/visibible/issues/98",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577245747,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/98#issuecomment-5577245747",
+      "blocked_by": [],
+      "brief_sha256": "20284028914941a1549f2af17a4ec1459dafb1c87fd725de83b6309890262510"
+    },
+    "T43": {
+      "number": 99,
+      "url": "https://github.com/AustinKelsay/visibible/issues/99",
+      "category": "enhancement",
+      "state": "ready-for-human",
+      "comment_id": 5577246228,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/99#issuecomment-5577246228",
+      "blocked_by": [
+        "T41",
+        "T42",
+        "T03"
+      ],
+      "brief_sha256": "6a85573e9965a90f9d840ce1ca6a3137fc13709dc542f0bd2142b4948c5e3bf5"
+    },
+    "T44": {
+      "number": 100,
+      "url": "https://github.com/AustinKelsay/visibible/issues/100",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577246736,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/100#issuecomment-5577246736",
+      "blocked_by": [
+        "T08",
+        "T11",
+        "T06"
+      ],
+      "brief_sha256": "d70a4e0158b52746de0511a25bbdc399dbcfcd02a4c94bcc79b47535231db17b"
+    },
+    "T45": {
+      "number": 101,
+      "url": "https://github.com/AustinKelsay/visibible/issues/101",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577247286,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/101#issuecomment-5577247286",
+      "blocked_by": [
+        "T13",
+        "T26"
+      ],
+      "brief_sha256": "e553521eb35af4844b52571c33ce479b9c2e8a9628751f4068ec1334da8f2d53"
+    },
+    "T46": {
+      "number": 102,
+      "url": "https://github.com/AustinKelsay/visibible/issues/102",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577247753,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/102#issuecomment-5577247753",
+      "blocked_by": [],
+      "brief_sha256": "ab8d87da155e62b545c07423e09d4e896873298447b6dd6f85a176434167df23"
+    },
+    "T47": {
+      "number": 103,
+      "url": "https://github.com/AustinKelsay/visibible/issues/103",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577248596,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/103#issuecomment-5577248596",
+      "blocked_by": [
+        "T09",
+        "T06"
+      ],
+      "brief_sha256": "b18c2a337f73fa1e7e307b7b9b4c42c684d03c8672b1a80aedb6b32a794eccbb"
+    },
+    "T48": {
+      "number": 104,
+      "url": "https://github.com/AustinKelsay/visibible/issues/104",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577248980,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/104#issuecomment-5577248980",
+      "blocked_by": [
+        "T39",
+        "T47"
+      ],
+      "brief_sha256": "f8934feb0aa742731c51255a7e3407f74de905e6882615b8c0fb4cbe44d05b9f"
+    },
+    "T49": {
+      "number": 105,
+      "url": "https://github.com/AustinKelsay/visibible/issues/105",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577249640,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/105#issuecomment-5577249640",
+      "blocked_by": [
+        "T01"
+      ],
+      "brief_sha256": "b6bc708d3aee268997c58d3a3ccc9ed9be9044ba335319cf2197eb0fcc71b62d"
+    },
+    "T50": {
+      "number": 106,
+      "url": "https://github.com/AustinKelsay/visibible/issues/106",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577250566,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/106#issuecomment-5577250566",
+      "blocked_by": [
+        "T49",
+        "T25"
+      ],
+      "brief_sha256": "424ceedb273cdc3a53db8305149a42ff20766aea7a9366646da0c8614b06b536"
+    },
+    "T51": {
+      "number": 107,
+      "url": "https://github.com/AustinKelsay/visibible/issues/107",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577251163,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/107#issuecomment-5577251163",
+      "blocked_by": [
+        "T50",
+        "T31",
+        "T13",
+        "T44"
+      ],
+      "brief_sha256": "2e0d4fd77552dde7c0059cd7dfdc42ad8bd80f2da5a2932cbd7c13e60749b031"
+    },
+    "T52": {
+      "number": 108,
+      "url": "https://github.com/AustinKelsay/visibible/issues/108",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577251601,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/108#issuecomment-5577251601",
+      "blocked_by": [
+        "T51",
+        "T32"
+      ],
+      "brief_sha256": "e4dd6b4f8a8aaa1259357de832321fb33e8054025a0df48b40adca492c48f391"
+    },
+    "T53": {
+      "number": 109,
+      "url": "https://github.com/AustinKelsay/visibible/issues/109",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577252377,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/109#issuecomment-5577252377",
+      "blocked_by": [
+        "T51",
+        "T21",
+        "T05"
+      ],
+      "brief_sha256": "b2073704a09bf3546cd70971cf8bd8147d318a0debb3287204827756c687c391"
+    },
+    "T54": {
+      "number": 110,
+      "url": "https://github.com/AustinKelsay/visibible/issues/110",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577252828,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/110#issuecomment-5577252828",
+      "blocked_by": [
+        "T51",
+        "T40",
+        "T34"
+      ],
+      "brief_sha256": "f2f932b5eae632953230662f45bc6b96e4819ac1861d45af93077960471b1ce6"
+    },
+    "T55": {
+      "number": 111,
+      "url": "https://github.com/AustinKelsay/visibible/issues/111",
+      "category": "enhancement",
+      "state": "ready-for-agent",
+      "comment_id": 5577253512,
+      "comment_url": "https://github.com/AustinKelsay/visibible/issues/111#issuecomment-5577253512",
+      "blocked_by": [
+        "T52",
+        "T53",
+        "T54",
+        "T45",
+        "T46",
+        "T36",
+        "T35",
+        "T48",
+        "T17",
+        "T43"
+      ],
+      "brief_sha256": "46563cdfd670e8e3c6db80cb0fbd8d9a9c5fecc0b5781c0e9c3f4b41dfe452e5"
+    }
+  },
+  "removed_blockers": [
+    [
+      "T09",
+      "T07"
+    ],
+    [
+      "T14",
+      "T02"
+    ],
+    [
+      "T22",
+      "T04"
+    ]
+  ],
+  "verified": true,
+  "summary": {
+    "issues": 67,
+    "bugs": 17,
+    "enhancements": 50,
+    "ready_for_agent": 66,
+    "ready_for_human": 1,
+    "unblocked_agent_tickets": 15,
+    "native_parent_links": 55,
+    "native_blocking_edges": 80,
+    "original_items": 86,
+    "runtime_characterizations": 9
+  }
+}
