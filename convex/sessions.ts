@@ -162,8 +162,21 @@ export type GenerationSettlementState = "none" | "reserved" | "released" | "char
 type GenerationLedgerEntry = {
   reason: string;
   delta: number;
+  createdAt?: number;
   costUsd?: number;
 };
+
+// The session stores one admission-day bucket. Late completion must not adjust
+// a newer bucket. Missing timestamps retain compatibility with legacy callers.
+function reservationMatchesSpendDay(
+  entries: GenerationLedgerEntry[],
+  lastDayReset: number | undefined
+): boolean {
+  if (lastDayReset === undefined) return true;
+  return entries.filter(entry => entry.reason === "reservation").every(entry =>
+    entry.createdAt === undefined || getUtcDayStart(entry.createdAt) === getUtcDayStart(lastDayReset)
+  );
+}
 
 export interface GenerationSettlementSummary {
   state: GenerationSettlementState;
@@ -560,7 +573,8 @@ export const reconcileStaleReservations = internalMutation({
           }
 
           const reservedAmount = settlement.reservedAmount;
-          const reservationCostUsd = settlement.reservationCostUsd;
+          const reservationCostUsd = reservationMatchesSpendDay(ledgerEntries, session.lastDayReset)
+            ? settlement.reservationCostUsd : 0;
           if (reservedAmount <= 0) {
             skippedSettled += 1;
             continue;
@@ -739,20 +753,6 @@ export const reserveCreditsInternal = internalMutation({
       return { success: false, error: "Session not found" };
     }
 
-    // SECURITY: Check daily spending limit before allowing reservation
-    const costUsd = args.costUsd ?? 0;
-    const spendCheck = checkDailySpendLimit(session, costUsd);
-
-    if (!spendCheck.allowed) {
-      return {
-        success: false,
-        error: "Daily spending limit exceeded",
-        dailyLimit: spendCheck.limit,
-        dailySpent: spendCheck.currentSpend,
-        remaining: spendCheck.remaining,
-      };
-    }
-
     // Check for existing reservation or debit for this generationId (idempotency)
     const ledgerEntries = await ctx.db
       .query("creditLedger")
@@ -777,6 +777,20 @@ export const reserveCreditsInternal = internalMutation({
         success: true,
         newBalance: session.credits,
         alreadyReserved: true,
+      };
+    }
+
+    // SECURITY: Check daily spending limit before allowing reservation
+    const costUsd = args.costUsd ?? 0;
+    const spendCheck = checkDailySpendLimit(session, costUsd);
+
+    if (!spendCheck.allowed) {
+      return {
+        success: false,
+        error: "Daily spending limit exceeded",
+        dailyLimit: spendCheck.limit,
+        dailySpent: spendCheck.currentSpend,
+        remaining: spendCheck.remaining,
       };
     }
 
@@ -871,7 +885,8 @@ export const releaseReservationInternal = internalMutation({
     }
 
     const reservedAmount = settlement.reservedAmount;
-    const reservationCostUsd = settlement.reservationCostUsd;
+    const reservationCostUsd = reservationMatchesSpendDay(ledgerEntries, session.lastDayReset)
+      ? settlement.reservationCostUsd : 0;
 
     await closePendingHolds(ctx, ledgerEntries);
 
@@ -974,6 +989,14 @@ export const deductCreditsInternal = internalMutation({
         chargeAmount,
         chargeCostUsd,
       });
+
+      // Keep the original operation's charge metadata, but never subtract its
+      // reservation or add its final cost to a different admission-day bucket.
+      if (!reservationMatchesSpendDay(ledgerEntries, session.lastDayReset) &&
+          settlementOutcome.mode !== "shortfall") {
+        settlementOutcome.newDailySpendUsd = session.dailySpendUsd ?? 0;
+        if (settlementOutcome.mode === "exact") settlementOutcome.dailySpendChanged = false;
+      }
 
       await closePendingHolds(ctx, ledgerEntries);
 

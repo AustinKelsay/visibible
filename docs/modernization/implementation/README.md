@@ -123,3 +123,11 @@ The saved-preference browser scenario kept the reader visible, disabled generati
 CodeRabbit reviewed 21 code/fixture files and raised two minor issues: premature/duplicate availability messages and enabling resolutions without a quote. Both are corrected. Rendered tests cover warning timing, one error message, and desktop/mobile controls for a partially quoted model.
 
 Final T03 checks: **567 tests across 62 files**, lint and type checking pass. The 390-pixel browser view fits without horizontal overflow and retains Scripture without a framework overlay. No production deployment or live paid verification occurred.
+
+## T04 prerequisite: reservation-day accounting (2026-09-08)
+
+Daily-limit reconciliation now checks the reservation's admission day against the session's recorded day. Late release, stale cleanup, and cheaper/exact/additional settlement preserve a newer day's total. If no new-day admission has reset the session bucket, reconciliation still updates the original bucket. Repeating an existing reservation returns its original hold before checking the remaining daily allowance; it does not consume the allowance twice.
+
+Eight actual-handler regressions cover midnight outcomes, retries near the daily limit, concurrent admissions, and reconciliation before the next daily reset. All 575 tests across 63 files, lint, and type checking pass. Four synthetic cases also passed on `coordinated-shepherd-515`; their records and temporary verification module were removed. A protected development-data export preceded deployment. CodeRabbit reviewed the two changed code/test files and raised 0 issues.
+
+This is a prerequisite fix, not completion of T04. Persisted five-minute quotes, visible accepted maxima, capped settlement, bounded provider requests, and distinct provider-exposure accounting still need implementation. Current operation billing policies and historical ledger amounts remain unchanged.
