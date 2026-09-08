@@ -127,7 +127,7 @@ export async function GET(
   const { id: invoiceId } = await params;
 
   try {
-    let invoice = await convex.query(api.invoices.getInvoice, { invoiceId });
+    let invoice = await convex.query(api.invoices.getInvoice, { invoiceId, ownerSid: sid, serverSecret });
 
     if (!invoice) {
       return withSessionRefresh(
@@ -157,7 +157,7 @@ export async function GET(
             invoiceId, paymentHash: invoice.paymentHash, amountPaidSats, serverSecret,
           });
           logSettlementEvent({ context: requestContext, outcome: "confirmed", sid, invoiceId });
-          const confirmed = await convex.query(api.invoices.getInvoice, { invoiceId });
+          const confirmed = await convex.query(api.invoices.getInvoice, { invoiceId, ownerSid: sid, serverSecret });
           if (!confirmed || confirmed.status !== "paid") throw new Error("Confirmed invoice unavailable");
           invoice = confirmed;
         } else if (lndStatus.state === "CANCELED" || Date.now() > invoice.expiresAt) {
@@ -258,7 +258,7 @@ export async function POST(
   const { id: invoiceId } = await params;
 
   try {
-    const invoice = await convex.query(api.invoices.getInvoice, { invoiceId });
+    const invoice = await convex.query(api.invoices.getInvoice, { invoiceId, ownerSid: sid, serverSecret });
 
     if (!invoice) {
       return withSessionRefresh(

@@ -801,7 +801,7 @@ export async function POST(request: Request) {
   let chargeGenerationId = crypto.randomUUID();
 
   // Check if user is admin (unlimited access)
-  const session = await convex.query(api.sessions.getSession, { sid });
+  const session = await convex.query(api.sessions.getSession, { sid, serverSecret: getConvexServerSecret() });
   if (!session) {
     return jsonWithSessionRefresh(
       { error: "Session not found" },

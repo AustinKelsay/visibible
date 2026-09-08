@@ -1,18 +1,35 @@
 "use client";
 
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useSession } from "@/context/session-context";
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "./csrf-constants";
 
 /** Convex owns token refresh scheduling. No bearer token is persisted. */
 export function useGuestAuth() {
-  const { sid, isLoading } = useSession();
+  const { sid, isLoading, refetch } = useSession();
+  const [connectionEpoch, setConnectionEpoch] = useState(0);
+  useEffect(() => {
+    // Focus is user activity: renew the HTTP session/CSRF cookie normally.
+    const onFocus = () => { void refetch(); };
+    // A network reconnect only retries bearer acquisition; it does not renew
+    // the underlying cookie's idle deadline.
+    const onOnline = () => setConnectionEpoch((epoch) => epoch + 1);
+    window.addEventListener("focus", onFocus);
+    window.addEventListener("online", onOnline);
+    return () => {
+      window.removeEventListener("focus", onFocus);
+      window.removeEventListener("online", onOnline);
+    };
+  }, [refetch]);
   const latestSid = useRef(sid);
-  latestSid.current = sid;
-  const pending = useRef<{ sid: string; promise: Promise<string | null> } | null>(null);
+  useLayoutEffect(() => {
+    latestSid.current = sid;
+    return () => { latestSid.current = null; };
+  }, [sid]);
+  const pending = useRef<{ sid: string; epoch: number; promise: Promise<string | null> } | null>(null);
   const fetchAccessToken = useCallback(async () => {
     if (!sid) return null;
-    if (pending.current?.sid === sid) return pending.current.promise;
+    if (pending.current?.sid === sid && pending.current.epoch === connectionEpoch) return pending.current.promise;
     const promise = (async () => {
       try {
         const csrf = document.cookie.split("; ").find((part) =>
@@ -29,9 +46,9 @@ export function useGuestAuth() {
         return null;
       }
     })();
-    pending.current = { sid, promise };
+    pending.current = { sid, epoch: connectionEpoch, promise };
     try { return await promise; }
     finally { if (pending.current?.promise === promise) pending.current = null; }
-  }, [sid]);
+  }, [sid, connectionEpoch]);
   return { isLoading, isAuthenticated: Boolean(sid), fetchAccessToken };
 }

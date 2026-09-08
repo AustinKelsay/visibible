@@ -32,3 +32,9 @@ export const current = query({
     return session ? { sid: session.sid, tier: session.tier, credits: session.credits } : null;
   },
 });
+
+export async function requireGuestOwner(ctx: QueryCtx, sid: string) {
+  const session = await authenticatedGuest(ctx);
+  if (!session || session.sid !== sid) throw new Error("Unauthorized guest access");
+  return session;
+}

@@ -79,3 +79,17 @@ Local tests cover token claims/signatures, cookie deadlines, rotation overlap/re
 Configuration and rotation: [guest auth](../../agents/guest-auth.md). Private-call migration and reactive balance conversion remain T08/T10. Hosted preview and production signing environments are not configured by this checkpoint.
 
 T07 checkpoint: 529 tests in 56 files pass, with lint and TypeScript checks passing. Invalid-cookie browser verification retained Scripture and returned 401 for token issuance. The JWT includes a unique ID so same-second refreshes remain distinct for the installed Convex SDK.
+
+## Private Convex callers (T08 / #64)
+
+Migrated session/balance/history, invoice, bulk job and image-request status reads to verified ownership. Bulk creation and every legacy control/write now verify the authenticated SID and current session before accepting compatibility SID arguments. Unauthorized queries return no private records; controls throw. Browser subscriptions wait for Convex authentication.
+
+Next.js uses explicit server credentials for private reads. Invoice HTTP reads additionally supply the cookie-derived owner and deny revoked owners. Rate-limit and admin lockout detail queries are server-only. The [complete function inventory](../../agents/convex-access.md) classifies all 90 registered handlers. Public library and API projections remain unchanged. Bulk counters remain writable by the verified owning browser until server execution replaces the legacy worker under S06.
+
+The first CodeRabbit review examined eight tracked files and raised one minor expiry-alignment issue. The broker intentionally does not renew its session cookie. Renamed the returned field to `cookieExpiresAt` and added a real-cookie regression proving that an almost-expired cookie cannot acquire an extended bearer lifetime. A broader review follows to include the new files omitted by that initial uncommitted review.
+
+T08 live dev verification passed for owner reads/control, known-ID isolation from a second valid guest and anonymous callers, and public library access. Synthetic sessions, invoices, jobs and verse records were deleted, and the temporary internal test module was removed and undeployed. Initial browser verification after the access migration rendered the full reader without console errors.
+
+Final T07/T08 local checks: **539 tests across 57 files**, lint and type checking pass. Reconnect/focus behavior and almost-expired-cookie issuance have explicit regressions. The first uncommitted CodeRabbit review omitted new files; the follow-up is scoped from `5584b98` to include the complete auth/access changes.
+
+The broader CodeRabbit review covered 36 files and raised three issues. The cookie-expiry route references and environment documentation were already correct in the current tree. Moved the hook's subject-ref update to a committed layout effect and added a suspended-render regression for the remaining issue. A real browser stayed open beyond five minutes: token requests increased from two initial handshakes to three without a page reload, confirming scheduled refresh; no console errors were reported.

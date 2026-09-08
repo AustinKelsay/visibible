@@ -1,3 +1,4 @@
+import { authenticatedGuest } from "./guestAuth";
 import { action, internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
@@ -33,7 +34,7 @@ export const createInvoice = mutation({
       .withIndex("by_sid", (q) => q.eq("sid", args.sid))
       .first();
 
-    if (!session) {
+    if (!session || session.revokedAt !== undefined) {
       throw new Error("Session not found");
     }
 
@@ -71,15 +72,26 @@ export const createInvoice = mutation({
  */
 export const getInvoice = query({
   args: {
+    serverSecret: v.optional(v.string()),
     invoiceId: v.string(),
+    ownerSid: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    if (args.serverSecret !== undefined) validateServerSecret(args.serverSecret);
+    const guest = args.serverSecret === undefined ? await authenticatedGuest(ctx) : null;
+    if (args.serverSecret === undefined && !guest) return null;
+    if (args.ownerSid !== undefined) {
+      const owner = await ctx.db.query("sessions")
+        .withIndex("by_sid", (q) => q.eq("sid", args.ownerSid!)).unique();
+      if (!owner || owner.revokedAt !== undefined) return null;
+    }
     const invoice = await ctx.db
       .query("invoices")
       .withIndex("by_invoiceId", (q) => q.eq("invoiceId", args.invoiceId))
       .first();
 
-    if (!invoice) {
+    if (!invoice || (guest && invoice.sid !== guest.sid) ||
+        (args.ownerSid !== undefined && invoice.sid !== args.ownerSid)) {
       return null;
     }
 
@@ -102,9 +114,12 @@ export const getInvoice = query({
  */
 export const getSessionInvoices = query({
   args: {
+    serverSecret: v.optional(v.string()),
     sid: v.string(),
   },
   handler: async (ctx, args) => {
+    if (args.serverSecret !== undefined) validateServerSecret(args.serverSecret);
+    else if ((await authenticatedGuest(ctx))?.sid !== args.sid) return [];
     const invoices = await ctx.db
       .query("invoices")
       .withIndex("by_sid", (q) => q.eq("sid", args.sid))

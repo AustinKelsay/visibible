@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef, type TouchEvent } from "react";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation, useQuery, useConvexAuth } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -529,9 +529,10 @@ function HeroImageBase({
   const handleManualRegenerateRef = useRef<((source?: GenerationTriggerSource) => void) | null>(null);
   const trackedImageIdsRef = useRef<Set<Id<"verseImages">>>(new Set());
 
+  const { isAuthenticated } = useConvexAuth();
   const generationRequestStatus = useQuery(
     api.verseImages.getGenerationRequestStatus,
-    activeRequestId ? { requestId: activeRequestId } : "skip"
+    isAuthenticated && activeRequestId ? { requestId: activeRequestId } : "skip"
   );
   const recordImageImpression = useMutation(
     api.verseImages.recordImageImpression

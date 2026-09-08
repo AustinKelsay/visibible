@@ -1,3 +1,4 @@
+import { authenticatedGuest } from "./guestAuth";
 import {
   action,
   internalMutation,
@@ -750,12 +751,14 @@ export const getGenerationRequestStatus = query({
     requestId: v.string(),
   },
   handler: async (ctx, args) => {
+    const guest = await authenticatedGuest(ctx);
+    if (!guest) return null;
     const request = await ctx.db
       .query("imageGenerationRequests")
       .withIndex("by_requestId", (q) => q.eq("requestId", args.requestId))
       .first();
 
-    if (!request) return null;
+    if (!request || request.sid !== guest.sid) return null;
 
     return {
       requestId: request.requestId,

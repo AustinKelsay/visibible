@@ -1,3 +1,4 @@
+import { authenticatedGuest } from "./guestAuth";
 import { action, internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
@@ -318,14 +319,17 @@ export function computeReservedChargeOutcome(
 export const getSession = query({
   args: {
     sid: v.string(),
+    serverSecret: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    if (args.serverSecret !== undefined) validateServerSecret(args.serverSecret);
+    else if ((await authenticatedGuest(ctx))?.sid !== args.sid) return null;
     const session = await ctx.db
       .query("sessions")
       .withIndex("by_sid", (q) => q.eq("sid", args.sid))
       .first();
 
-    if (!session) return null;
+    if (!session || session.revokedAt !== undefined) return null;
 
     // Check if daily spend needs reset (new day)
     const todayStart = getUtcDayStart();
@@ -1271,9 +1275,12 @@ export const deductCredits = action({
 export const getCreditHistory = query({
   args: {
     sid: v.string(),
+    serverSecret: v.optional(v.string()),
     limit: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
+    if (args.serverSecret !== undefined) validateServerSecret(args.serverSecret);
+    else if ((await authenticatedGuest(ctx))?.sid !== args.sid) return [];
     const query = ctx.db
       .query("creditLedger")
       .withIndex("by_sid", (q) => q.eq("sid", args.sid))

@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     return reply({ error: "Forbidden" }, 403);
   }
   const validation = await validateSessionWithIp(request);
-  if (!validation.valid || !validation.sid || !validation.expiresAt) {
+  if (!validation.valid || !validation.sid || !validation.cookieExpiresAt) {
     return reply({ error: "Session expired" }, 401);
   }
   try {
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     if (!session) return reply({ error: "Session unavailable" }, 401);
     // Deliberately do not set a refreshed session cookie: background token
     // renewal must not extend the underlying guest's idle lifetime.
-    const response = NextResponse.json(await issueGuestToken(session.sid, validation.expiresAt), {
+    const response = NextResponse.json(await issueGuestToken(session.sid, validation.cookieExpiresAt), {
       headers: { "Cache-Control": "no-store" },
     });
     const csrf = (await cookies()).get(CSRF_COOKIE_NAME)!.value;

@@ -103,6 +103,7 @@ export const checkRateLimit = mutation({
  */
 export const getRateLimitStatus = query({
   args: {
+    serverSecret: v.string(),
     identifier: v.string(),
     endpoint: v.string(),
   },
@@ -110,6 +111,7 @@ export const getRateLimitStatus = query({
     remaining: number;
     resetAt: number;
   }> => {
+    validateServerSecret(args.serverSecret);
     const config = RATE_LIMITS[args.endpoint as RateLimitEndpoint];
     if (!config) {
       return { remaining: 999, resetAt: Date.now() };
@@ -166,6 +168,7 @@ function calculateLockoutDuration(lockoutCount: number): number {
  */
 export const checkAdminLoginAllowed = query({
   args: {
+    serverSecret: v.string(),
     ipHash: v.string(),
   },
   handler: async (ctx, args): Promise<{
@@ -174,6 +177,7 @@ export const checkAdminLoginAllowed = query({
     attemptsRemaining?: number;
     lockoutCount?: number;
   }> => {
+    validateServerSecret(args.serverSecret);
     const record = await ctx.db
       .query("adminLoginAttempts")
       .withIndex("by_ipHash", (q) => q.eq("ipHash", args.ipHash))

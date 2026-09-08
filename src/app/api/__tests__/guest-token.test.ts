@@ -51,6 +51,18 @@ describe("guest token HTTP admission", () => {
     });
     expect(verified.payload.sub).toBe("existing-sid");
   });
+  it("caps issuance at the presented cookie deadline even when activity could renew it", async () => {
+    const { createSessionToken, SESSION_IDLE_TIMEOUT_SECONDS } = await import("@/lib/session");
+    const now = Math.floor(Date.now() / 1000);
+    const activity = now - SESSION_IDLE_TIMEOUT_SECONDS + 30;
+    cookieJar.set("visibible_session", { value: await createSessionToken("existing-sid", undefined, {
+      sessionStartedAt: activity, activityAt: activity,
+    }) });
+    const response = await post();
+    expect(response.status).toBe(200);
+    expect((await response.json()).expiresAt).toBe(now + 30);
+    expect(response.headers.get("Set-Cookie")).not.toContain("visibible_session");
+  });
   it("rejects cross-origin and missing or mismatched CSRF before issuance", async () => {
     expect((await post({ origin: "https://evil.example" })).status).toBe(403);
     expect((await post({ "x-csrf-token": "wrong" })).status).toBe(403);

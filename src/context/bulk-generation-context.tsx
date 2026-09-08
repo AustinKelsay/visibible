@@ -9,7 +9,7 @@ import {
   useEffect,
   type ReactNode,
 } from "react";
-import { useConvex, useMutation, useQuery } from "convex/react";
+import { useConvex, useConvexAuth, useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Doc, Id } from "../../convex/_generated/dataModel";
 import { useSession } from "@/context/session-context";
@@ -106,6 +106,7 @@ const BulkGenerationContext = createContext<BulkGenerationContextType | null>(
 export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const { sid, credits, updateCredits, refetch: refetchSession } = useSession();
   const convexEnabled = useConvexEnabled();
+  const { isAuthenticated } = useConvexAuth();
   const convex = useConvex();
 
   const [state, setState] = useState<BulkGenerationState>(DEFAULT_STATE);
@@ -332,11 +333,11 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   // Reactive query for active bulk job (enables resume on refresh)
   const activeBulk = useQuery(
     api.bulkGenerations.getActive,
-    convexEnabled && sid ? { sid } : "skip"
+    convexEnabled && isAuthenticated && sid ? { sid } : "skip"
   );
   const subscribedBulk = useQuery(
     api.bulkGenerations.get,
-    convexEnabled && sid && state.bulkId ? { id: state.bulkId, sid } : "skip"
+    convexEnabled && isAuthenticated && sid && state.bulkId ? { id: state.bulkId, sid } : "skip"
   );
   const bulkForState = subscribedBulk ?? activeBulk;
 
@@ -818,7 +819,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       resolution: string;
       translation: string;
     }) => {
-      if (!sid || !convexEnabled) return;
+      if (!sid || !convexEnabled || !isAuthenticated) return;
       if (params.queue.length === 0) {
         throw new Error("Cannot start bulk generation with an empty queue");
       }
@@ -878,7 +879,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         });
       }
     },
-    [sid, convexEnabled, acquireRunLock, createBulk, runGenerationLoop]
+    [sid, convexEnabled, isAuthenticated, acquireRunLock, createBulk, runGenerationLoop]
   );
 
   const pauseBulkGeneration = useCallback(async () => {

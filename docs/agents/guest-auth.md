@@ -26,6 +26,10 @@ Only the public values go to Convex. For CLI environment changes, feed values th
 
 ## Revocation and rollout scope
 
-Setting `sessions.revokedAt` denies the new authenticated lookup and future token issuance. Do not delete funded sessions to revoke access. The existing HTTP and private Convex callers are being migrated under T08; this bridge alone does not claim to secure all legacy functions. The current balance UI remains under T10 until it consumes the authenticated query.
+Setting `sessions.revokedAt` denies the new authenticated lookup and future token issuance. Do not delete funded sessions to revoke access. Private session, invoice, credit history, bulk control and generation-status callers now enforce ownership under T08; see [the function inventory](convex-access.md). Server credentials remain separate for backend work. The current balance UI remains under T10 until it consumes the authenticated query.
 
 T07 verification uses real cookie verification, CSRF and origin validation, real Convex handlers, `jose` signature checks, and live dev signature/claim rejection. The temporary dev fixture and test module were removed. No LND or paid provider calls are required for authentication verification.
+
+## Client recovery
+
+Convex schedules bearer refresh before expiry. Each issued JWT has a distinct `jti`, including issuances in the same second, so the installed SDK can recognize fresh credentials. Concurrent requests for the same subject are coalesced; a subject change discards the old response. Token fetches time out after ten seconds. Reconnect retries token acquisition; window focus performs ordinary HTTP session activity, which also renews CSRF protection after a long absence.

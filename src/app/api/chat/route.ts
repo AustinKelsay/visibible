@@ -491,7 +491,7 @@ export async function POST(req: Request) {
   };
 
   // Get session to check tier and credits
-  const session = await convex.query(api.sessions.getSession, { sid: sessionId });
+  const session = await convex.query(api.sessions.getSession, { sid: sessionId, serverSecret: getConvexServerSecret() });
 
   if (!session) {
     return withSessionRefresh(Response.json(
