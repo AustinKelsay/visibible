@@ -23,6 +23,7 @@ describe("GET /.well-known/lnurlp/[username]", () => {
     expect(response.status).toBe(200);
     expect(response.headers.get("content-type")).toBe("application/json");
     expect(response.headers.get("cache-control")).toBe("no-store");
+    expect(response.headers.get("access-control-allow-origin")).toBe("*");
     expect(await response.text()).toBe(body);
   });
 
@@ -54,6 +55,7 @@ describe("GET /.well-known/lnurlp/[username]", () => {
 
     expect(response.status).toBe(502);
     expect(response.headers.get("cache-control")).toBe("no-store");
+    expect(response.headers.get("access-control-allow-origin")).toBe("*");
     expect(await response.json()).toEqual({ status: "ERROR", reason: "Lightning service unavailable" });
   });
 });
