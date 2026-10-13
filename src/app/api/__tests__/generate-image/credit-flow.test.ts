@@ -1,10 +1,25 @@
+import { imageModelFixture } from "../shared/image-model-fixtures";
 /**
  * Integration tests for image generation API credit flow.
  * Tests reserve → generate → deduct lifecycle with actual vs estimated costs.
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { convexTest } from "convex-test";
+import { getFunctionName, type FunctionArgs, type FunctionReference } from "convex/server";
+import schema from "../../../../../convex/schema";
+import { api, internal } from "../../../../../convex/_generated/api";
+import { modules } from "../../../../../tests/convex/modules";
+let requestDb = convexTest(schema, modules);
+let failAdmission = false;
+let saveBarrier: Promise<void> | null = null;
 import { fixtures, type Session } from "../shared/test-fixtures";
+import { clearBibleApiCache } from "@/lib/bible-api";
+import {
+  mockFetchBibleApi,
+  resetMockFetchBibleApiBypass,
+  setMockFetchBibleApiBypass,
+} from "@/app/api/__tests__/shared/bible-api-mocks";
 
 // Create mock state
 const mockState = {
@@ -34,17 +49,9 @@ let forceRecordImageCostEventFailure = false;
 let mockLearnedEstimate:
   | { credits: number; source: "model" | "provider" | "global" | "fallback"; sampleCount: number }
   | null = null;
-const mockImageSpendDownGraceCredits = 5;
-const defaultImageCatalogModels: Array<{
-  id: string;
-  pricing?: { imageOutput: string };
-  creditsCost?: number | null;
-  reservationCreditsCost?: number | null;
-  usesEmergencyPricing?: boolean;
-}> = [
-  { id: "google/gemini-2.0-flash-exp:free", pricing: { imageOutput: "0.01" } },
-  { id: "google/gemini-2.5-flash-image", pricing: { imageOutput: "0.02" } },
-  { id: "openai/dall-e-3", pricing: { imageOutput: "0.04" } },
+const defaultImageCatalogModels = [
+  imageModelFixture(),
+  imageModelFixture("google/gemini-3.1-flash-image-preview", "0.000015"),
 ];
 const fetchImageModelsMock = vi.fn(async () => ({
   models: defaultImageCatalogModels,
@@ -79,7 +86,12 @@ vi.mock("@/lib/session", () => ({
 // Mock Convex client - uses args-based dispatch to avoid String(apiPath) error
 vi.mock("@/lib/convex-client", () => ({
   getConvexClient: vi.fn(() => ({
-    query: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+    query: vi.fn(async (_apiPath: FunctionReference<"query">, args: Record<string, unknown>) => {
+      if (["modelStats:getAllModelStats", "modelCostStats:getAllEstimates"].includes(getFunctionName(_apiPath))) return [];
+      if (getFunctionName(_apiPath) === "verseImages:getScenePlanCache") {
+        return requestDb.query(api.verseImages.getScenePlanCache, args as FunctionArgs<typeof api.verseImages.getScenePlanCache>);
+      }
+      if ("inputFingerprint" in args) return requestDb.query(api.verseImages.getGenerationIntent, args as FunctionArgs<typeof api.verseImages.getGenerationIntent>);
       if ("fallbackCredits" in args && "modelId" in args && "resolution" in args) {
         mockState.callHistory.push({ action: "getEstimate", args });
         return (
@@ -96,7 +108,20 @@ vi.mock("@/lib/convex-client", () => ({
       const session = mockState.sessions.get(sid);
       return session || null;
     }),
-    mutation: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+    mutation: vi.fn(async (_apiPath: FunctionReference<"mutation">, args: Record<string, unknown>) => {
+      switch (getFunctionName(_apiPath)) {
+        case "verseImages:upsertScenePlanCache":
+          return requestDb.mutation(api.verseImages.upsertScenePlanCache, args as FunctionArgs<typeof api.verseImages.upsertScenePlanCache>);
+        case "verseImages:markScenePlanCacheHit":
+          return requestDb.mutation(api.verseImages.markScenePlanCacheHit, args as FunctionArgs<typeof api.verseImages.markScenePlanCacheHit>);
+      }
+      if ("inputFingerprint" in args) {
+        if (failAdmission) throw new Error("Admission unavailable");
+        return requestDb.mutation(api.verseImages.createGenerationRequest, args as FunctionArgs<typeof api.verseImages.createGenerationRequest>);
+      }
+      if ("requestId" in args && "status" in args) {
+        return requestDb.mutation(api.verseImages.updateGenerationRequest, args as FunctionArgs<typeof api.verseImages.updateGenerationRequest>);
+      }
       if ("actualCredits" in args && "modelId" in args && "resolution" in args) {
         mockState.callHistory.push({ action: "recordActualCost", args });
         return null;
@@ -145,7 +170,15 @@ vi.mock("@/lib/convex-client", () => ({
 
       if ("verseId" in args && "imageUrl" in args && "model" in args) {
         mockState.callHistory.push({ action: "saveImage", args });
-        return { success: true, type: "storage", id: "saved-image-1" };
+        await saveBarrier;
+        const id = await requestDb.mutation(internal.verseImages.saveImageWithUrl, {
+          verseId: String(args.verseId), imageUrl: String(args.imageUrl), model: String(args.model),
+          generationId: String(args.generationId),
+          reference: args.reference as string, verseText: args.verseText as string,
+          translationId: args.translationId as string,
+          promptInputs: args.promptInputs as FunctionArgs<typeof internal.verseImages.saveImageWithUrl>["promptInputs"],
+        });
+        return { success: true, type: "url", id };
       }
 
       if ("generationId" in args && !("amount" in args)) {
@@ -199,7 +232,12 @@ vi.mock("@/lib/convex-client", () => ({
           });
         }
 
-        const chargedAmount = Math.min(actualAmount, reservedAmount);
+        // Like computeReservedChargeOutcome: an overrun is charged from the
+        // balance when it fits, and is a shortfall only when it does not.
+        const additional = actualAmount - reservedAmount;
+        const chargeAdditional = additional > 0 && session.credits >= additional;
+        if (chargeAdditional) session.credits -= additional;
+        const chargedAmount = chargeAdditional ? actualAmount : Math.min(actualAmount, reservedAmount);
         mockState.ledger.push({
           sid,
           delta: -chargedAmount,
@@ -207,7 +245,7 @@ vi.mock("@/lib/convex-client", () => ({
           generationId,
         });
 
-        if (actualAmount > reservedAmount) {
+        if (actualAmount > reservedAmount && !chargeAdditional) {
           const shortfall = actualAmount - reservedAmount;
           mockState.ledger.push({
             sid,
@@ -266,51 +304,9 @@ vi.mock("@/lib/convex-client", () => ({
   getConvexServerSecret: vi.fn(() => "test-server-secret"),
 }));
 
-vi.mock("@/lib/image-models", () => ({
-  DEFAULT_IMAGE_MODEL: "google/gemini-2.0-flash-exp:free",
-  DEFAULT_CREDITS_COST: 20,
+vi.mock("@/lib/image-models", async () => ({
+  ...await vi.importActual<typeof import("@/lib/image-models")>("@/lib/image-models"),
   fetchImageModels: fetchImageModelsMock,
-  computeCreditsCost: vi.fn((pricing: string | undefined) => {
-    if (!pricing) return null;
-    const usd = parseFloat(pricing);
-    return Math.ceil(usd * 1.25 / 0.01);
-  }),
-  computeConservativeEstimate: vi.fn((pricing: string | undefined) => {
-    if (!pricing) return null;
-    const usd = parseFloat(pricing);
-    return Math.ceil(usd * 1.25 * 35 / 0.01);
-  }),
-  computeAdjustedCreditsCost: vi.fn((baseCost: number | null, resolution: string, modelId?: string) => {
-    if (baseCost === null) return 13;
-    if (!modelId || !modelId.toLowerCase().includes("gemini")) return baseCost;
-    const multipliers: Record<string, number> = { "1K": 1.0, "2K": 3.5, "4K": 6.5 };
-    return Math.ceil(baseCost * (multipliers[resolution] ?? 1.0));
-  }),
-  computeCreditsFromActualUsage: vi.fn((actualUsd: number | null, fallback: number) => {
-    if (actualUsd === null || actualUsd <= 0) {
-      return { credits: fallback, usedActual: false };
-    }
-    return { credits: Math.ceil(actualUsd * 1.25 / 0.01), usedActual: true };
-  }),
-  CONSERVATIVE_ESTIMATE_MULTIPLIER: 35,
-  getProviderName: vi.fn(() => "openrouter"),
-  CREDIT_USD: 0.01,
-  PREMIUM_MULTIPLIER: 1.25,
-  IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS: mockImageSpendDownGraceCredits,
-  DEFAULT_ASPECT_RATIO: "16:9",
-  DEFAULT_RESOLUTION: "1K",
-  RESOLUTIONS: { "1K": { multiplier: 1.0 }, "2K": { multiplier: 3.5 }, "4K": { multiplier: 6.5 } },
-  canAffordImageGeneration: vi.fn((credits: number, estimatedCreditsCost: number) =>
-    credits >= estimatedCreditsCost ||
-    (credits > 0 &&
-      credits + mockImageSpendDownGraceCredits >= estimatedCreditsCost)
-  ),
-  isValidAspectRatio: vi.fn(() => true),
-  isValidResolution: vi.fn(() => true),
-  normalizeResolutionForModel: vi.fn((modelId: string, resolution: string) =>
-    modelId.toLowerCase().includes("gemini") ? resolution : "1K"
-  ),
-  supportsResolution: vi.fn((modelId: string) => modelId.toLowerCase().includes("gemini")),
 }));
 
 vi.mock("@/lib/chat-models", () => ({
@@ -334,6 +330,10 @@ let mockFetchImpl:
   | null = null;
 
 const mockFetch = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+  const bibleApiResponse = mockFetchBibleApi(input);
+  if (bibleApiResponse) {
+    return bibleApiResponse;
+  }
   if (mockFetchImpl) {
     return await mockFetchImpl(input, init);
   }
@@ -379,13 +379,17 @@ function createGenerateImageRequest(body: Record<string, unknown>) {
       "x-csrf-token": TEST_CSRF_TOKEN,
       cookie: `visibible_csrf=${TEST_CSRF_TOKEN}`,
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify({ reference: "Genesis 1:1", ...body }),
   });
 }
 
 describe("Image Generation API Credit Flow", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    requestDb = convexTest(schema, modules);
+    failAdmission = false;
+    saveBarrier = null;
+    clearBibleApiCache();
     fetchImageModelsMock.mockReset();
     fetchImageModelsMock.mockResolvedValue({
       models: defaultImageCatalogModels,
@@ -393,6 +397,7 @@ describe("Image Generation API Credit Flow", () => {
     resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 }]);
     mockFetchResponse = null;
     mockFetchImpl = null;
+    resetMockFetchBibleApiBypass();
     forceQuoteFailure = false;
     forceRecordImageCostEventFailure = false;
     mockLearnedEstimate = null;
@@ -402,6 +407,171 @@ describe("Image Generation API Credit Flow", () => {
   afterEach(() => {
     process.env = { ...originalEnv };
     global.fetch = originalFetch;
+    resetMockFetchBibleApiBypass();
+  });
+
+  describe("durable HTTP intent admission", () => {
+    const body = { requestId: "stable-request-id", reference: "Genesis 1:1", text: "In the beginning God created." };
+    it("concurrent identical POSTs and a lost-response retry reserve and call the provider once", async () => {
+      const { POST } = await import("../../generate-image/route");
+      const responses = await Promise.all([POST(createGenerateImageRequest(body)), POST(createGenerateImageRequest(body))]);
+      expect(responses.map((r) => r.status)).toContain(200);
+      expect(responses.every((r) => r.status === 200 || r.status === 202)).toBe(true);
+      const networkCallsBeforeRetry = mockFetch.mock.calls.length;
+      fetchImageModelsMock.mockRejectedValueOnce(new Error("Catalog offline"));
+      const retry = await POST(createGenerateImageRequest(body));
+      expect(mockFetch.mock.calls).toHaveLength(networkCallsBeforeRetry);
+      expect(retry.status).toBe(200);
+      expect(await retry.json()).toMatchObject({ reused: true, savedImageId: expect.any(String) });
+      expect(getCallCount("reserveCredits")).toBe(1);
+      expect(getCallCount("saveImage")).toBe(1);
+      expect(mockFetch.mock.calls.filter(([url]) => String(url).includes("openrouter.ai"))).toHaveLength(1);
+    });
+    it("rejects changed immutable input without starting a second paid call", async () => {
+      const { POST } = await import("../../generate-image/route");
+      await POST(createGenerateImageRequest(body));
+      const conflict = await POST(createGenerateImageRequest({ ...body, generation: 2 }));
+      expect(conflict.status).toBe(409);
+      expect(getCallCount("reserveCredits")).toBe(1);
+    });
+    it("does not reserve or call the provider when admission cannot be persisted", async () => {
+      const { POST } = await import("../../generate-image/route");
+      failAdmission = true;
+      expect((await POST(createGenerateImageRequest(body))).status).toBe(503);
+      expect(getCallCount("reserveCredits")).toBe(0);
+      expect(getCallCount("saveImage")).toBe(0);
+      expect(mockFetch.mock.calls.filter(([url]) => String(url).includes("openrouter.ai"))).toHaveLength(0);
+    });
+    it.each([
+      ["insufficient credits", { credits: 0 }, 402],
+      ["the daily spend limit", { dailySpendUsd: 4.99 }, 429],
+    ] as const)("admits the same ID after a refusal for %s before paid work", async (_reason, refusal, status) => {
+      const funded = { ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 };
+      resetMockState([{ ...funded, ...refusal }]);
+      const { POST } = await import("../../generate-image/route");
+      expect((await POST(createGenerateImageRequest(body))).status).toBe(status);
+      expect(getCallCount("reserveCredits")).toBe(0);
+      mockState.sessions.set("test-session", funded);
+      expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
+      expect(getCallCount("reserveCredits")).toBe(1);
+    });
+    it("holds the verified quote with bounded headroom", async () => {
+      const { catalogImageQuote, DEFAULT_IMAGE_MODEL, IMAGE_RESERVATION_HEADROOM_MULTIPLIER } =
+        await import("@/lib/image-models");
+      const { POST } = await import("../../generate-image/route");
+      expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
+      const quote = catalogImageQuote(DEFAULT_IMAGE_MODEL, imageModelFixture().billing, "1K");
+      const reserve = mockState.callHistory.find((c) => c.action === "reserveCredits");
+      expect((reserve?.args as { amount: number }).amount)
+        .toBe(quote!.credits * IMAGE_RESERVATION_HEADROOM_MULTIPLIER);
+    });
+  });
+
+  it("keeps retries in progress until the saved result is available", async () => {
+    let finishSave!: () => void;
+    saveBarrier = new Promise<void>((resolve) => { finishSave = resolve; });
+    const { POST } = await import("../../generate-image/route");
+    const body = { requestId: "pending-save-request", reference: "Genesis 1:1" };
+    const first = POST(createGenerateImageRequest(body));
+    await vi.waitFor(() => expect(getCallCount("saveImage")).toBe(1));
+    try {
+      const retry = await POST(createGenerateImageRequest(body));
+      expect(retry.status).toBe(202);
+      expect((await retry.json()).status).toBe("generating");
+    } finally {
+      finishSave();
+      await first;
+    }
+    const recovered = await POST(createGenerateImageRequest(body));
+    expect(recovered.status).toBe(200);
+    expect((await recovered.json()).savedImageId).toBeDefined();
+    expect(getCallCount("sessions:reserveCredits")).toBe(1);
+  });
+
+  describe("canonical passage authority", () => {
+    it("ignores forged text/context/theme and replaces legacy cached plans", async () => {
+      process.env.ENABLE_SCENE_PLANNER = "true";
+      const legacyPlan = { primarySubject: "FORGED_OLD_PLAN", action: "posing", setting: "studio" };
+      await requestDb.mutation(api.verseImages.upsertScenePlanCache, {
+        verseId: "genesis-1-1", translationId: "web", styleProfileId: "classical",
+        scenePlan: legacyPlan, plannerModel: "old-planner", promptVersion: "2026-03-19", serverSecret: "test-server-secret",
+      });
+      const prompts: string[] = [];
+      mockFetchImpl = async (_input, init) => {
+        const payload = JSON.parse(String(init?.body));
+        prompts.push(JSON.stringify(payload.messages));
+        return {
+          ok: true, status: 200,
+          json: async () => prompts.length === 1 ? {
+            choices: [{ message: { content: JSON.stringify({ primarySubject: "Created world", action: "emerging", setting: "cosmos" }) } }],
+            usage: { cost: 0.001 },
+          } : {
+            choices: [{ message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } }], usage: { cost: 0.01 },
+          },
+        };
+      };
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest({
+        reference: "Genesis 1:1", text: "FORGED_CURRENT", prevVerse: { number: 9, text: "FORGED_PREVIOUS" },
+        nextVerse: JSON.stringify({ number: 9, text: "FORGED_NEXT" }),
+        theme: { setting: "FORGED_THEME", palette: "FORGED_PALETTE", elements: "FORGED_ELEMENTS", style: "FORGED_STYLE" },
+      }));
+      expect(response.status).toBe(200);
+      const body = await response.json();
+      expect(body.verseText).toBe("In the beginning God created the heavens and the earth.");
+      expect(body.translationId).toBe("web");
+      expect(body.promptInputs.prevVerse).toBeUndefined();
+      expect(body.promptInputs.nextVerse).toMatchObject({ number: 2, text: "The earth was formless and empty." });
+      expect(body.prompt).toMatchSnapshot("canonical image prompt");
+      expect(prompts).toHaveLength(2);
+      expect(prompts.join(" ")).not.toContain("FORGED");
+      expect(prompts[0]).toContain("In the beginning God created");
+      expect(prompts[0]).toContain("Creation of the cosmos");
+      const saved = await requestDb.query(internal.verseImages.getImageById, { imageId: body.savedImageId });
+      expect(saved).toMatchObject({ verseText: body.verseText, reference: "Genesis 1:1", translationId: "web" });
+      expect(JSON.stringify(saved?.promptInputs)).not.toContain("FORGED");
+      const plans = await requestDb.run((ctx) => ctx.db.query("scenePlanCache").collect());
+      expect(plans).toHaveLength(1);
+      expect(plans[0]).toMatchObject({ promptVersion: "2026-09-08-canonical", scenePlan: { primarySubject: "Created world" } });
+    });
+
+    it.each([undefined, "", "Scripture"])("rejects a noncanonical reference (%s) before paid work", async (reference) => {
+      mockFetchImpl = async () => ({ ok: false, status: 404, json: async () => ({}) });
+      const { POST } = await import("../../generate-image/route");
+      expect((await POST(createGenerateImageRequest({ reference, text: "FORGED_CURRENT" }))).status).toBe(400);
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+      expect(getCallCount("saveImage")).toBe(0);
+    });
+
+    it.each([401, 403, 429, 500, 503])("preserves upstream reference failure %i without charging", async (status) => {
+      setMockFetchBibleApiBypass((url) => decodeURIComponent(url.pathname) === "/Genesis 1:1");
+      const providerCalls = vi.fn();
+      mockFetchImpl = async (input) => {
+        if (String(input).includes("bible-api.com")) return { ok: false, status, json: async () => ({}) };
+        providerCalls();
+        throw new Error("Paid provider must not run");
+      };
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest({}));
+      expect(response.status).toBe(status === 503 ? 503 : 502);
+      expect((await response.json()).details.upstreamStatus).toBe(status);
+      expect(providerCalls).not.toHaveBeenCalled();
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+    });
+
+    it("rejects absent canonical chapter text even when the reference endpoint and client supply text", async () => {
+      setMockFetchBibleApiBypass((url) => url.pathname === "/data/web/GEN/1");
+      const providerCalls = vi.fn();
+      mockFetchImpl = async (input) => {
+        if (String(input).includes("bible-api.com")) return { ok: false, status: 404, json: async () => ({}) };
+        providerCalls();
+        throw new Error("Paid provider must not run");
+      };
+      const { POST } = await import("../../generate-image/route");
+      expect((await POST(createGenerateImageRequest({ text: "FORGED_CURRENT" }))).status).toBe(400);
+      expect(providerCalls).not.toHaveBeenCalled();
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+    });
   });
 
   describe("Happy Path", () => {
@@ -431,12 +601,380 @@ describe("Image Generation API Credit Flow", () => {
 
       const body = await response.json();
       expect(body.imageUrl).toBeDefined();
-      expect(body.savedImageId).toBe("saved-image-1");
+      expect(await requestDb.query(internal.verseImages.getImageById, { imageId: body.savedImageId })).toMatchObject({ generationId: body.generationId });
       expect(getCallCount("sessions:reserveCredits")).toBe(1);
       expect(getCallCount("sessions:deductCredits")).toBe(1);
       expect(getCallCount("saveImage")).toBe(1);
       expect(body.openRouterUsageUsd).toBe(0.05);
       expect(body.usedActualCost).toBe(true);
+    });
+
+    it("reference-only requests resolve verse text and same-chapter continuity context", async () => {
+      setMockFetchBibleApiBypass((url) => url.pathname === "/data/web/GEN/1");
+      mockFetchImpl = async (input: RequestInfo | URL) => {
+        const url = typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.toString()
+            : input.url;
+
+        if (url.includes("bible-api.com/Genesis%201%3A2?translation=web")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              reference: "Genesis 1:2",
+              verses: [
+                {
+                  book_id: "GEN",
+                  book_name: "Genesis",
+                  chapter: 1,
+                  verse: 2,
+                  text: "The earth was formless and empty.",
+                },
+              ],
+              text: "The earth was formless and empty.",
+              translation_id: "web",
+              translation_name: "World English Bible",
+              translation_note: "",
+            }),
+          };
+        }
+
+        if (url.includes("bible-api.com/data/web/GEN/1")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              verses: [
+                { book_id: "GEN", book: "Genesis", chapter: 1, verse: 1, text: "In the beginning God created." },
+                { book_id: "GEN", book: "Genesis", chapter: 1, verse: 2, text: "The earth was formless and empty." },
+                { book_id: "GEN", book: "Genesis", chapter: 1, verse: 3, text: "God said, Let there be light." },
+              ],
+              translation: { identifier: "web", name: "World English Bible" },
+            }),
+          };
+        }
+
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            id: "gen-123",
+            choices: [
+              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+            ],
+            usage: { cost: 0.01 },
+          }),
+        };
+      };
+
+      const { POST } = await import("../../generate-image/route");
+      const request = createGenerateImageRequest({
+        reference: "Genesis 1:2",
+        translation: "web",
+      });
+      const response = await POST(request);
+
+      expect(response.status).toBe(200);
+
+      const body = await response.json();
+      expect(body.reference).toBe("Genesis 1:2");
+      expect(body.verseText).toBe("The earth was formless and empty.");
+      expect(body.promptInputs.prevVerse.reference).toBe("Genesis 1:1");
+      expect(body.promptInputs.nextVerse.reference).toBe("Genesis 1:3");
+    });
+
+    it("reference-only requests resolve previous-book continuity at book boundaries", async () => {
+      mockFetchImpl = async (input: RequestInfo | URL) => {
+        const url = typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.toString()
+            : input.url;
+
+        if (url.includes("bible-api.com/Exodus%201%3A1?translation=web")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              reference: "Exodus 1:1",
+              verses: [
+                {
+                  book_id: "EXO",
+                  book_name: "Exodus",
+                  chapter: 1,
+                  verse: 1,
+                  text: "Now these are the names of the sons of Israel.",
+                },
+              ],
+              text: "Now these are the names of the sons of Israel.",
+              translation_id: "web",
+              translation_name: "World English Bible",
+              translation_note: "",
+            }),
+          };
+        }
+
+        if (url.includes("bible-api.com/data/web/EXO/1")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              verses: [
+                { book_id: "EXO", book: "Exodus", chapter: 1, verse: 1, text: "Now these are the names of the sons of Israel." },
+                { book_id: "EXO", book: "Exodus", chapter: 1, verse: 2, text: "Reuben, Simeon, Levi, and Judah," },
+              ],
+              translation: { identifier: "web", name: "World English Bible" },
+            }),
+          };
+        }
+
+        if (url.includes("bible-api.com/data/web/GEN/50")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              verses: [
+                { book_id: "GEN", book: "Genesis", chapter: 50, verse: 25, text: "Joseph took an oath of the children of Israel." },
+                { book_id: "GEN", book: "Genesis", chapter: 50, verse: 26, text: "So Joseph died, being one hundred ten years old." },
+              ],
+              translation: { identifier: "web", name: "World English Bible" },
+            }),
+          };
+        }
+
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            id: "gen-123",
+            choices: [
+              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+            ],
+            usage: { cost: 0.01 },
+          }),
+        };
+      };
+
+      const { POST } = await import("../../generate-image/route");
+      const request = createGenerateImageRequest({
+        reference: "Exodus 1:1",
+        translation: "web",
+      });
+      const response = await POST(request);
+
+      expect(response.status).toBe(200);
+
+      const body = await response.json();
+      expect(body.reference).toBe("Exodus 1:1");
+      expect(body.promptInputs.prevVerse.reference).toBe("Genesis 50:26");
+      expect(body.promptInputs.nextVerse.reference).toBe("Exodus 1:2");
+    });
+
+    it("reference-only requests resolve next-chapter continuity at chapter boundaries", async () => {
+      setMockFetchBibleApiBypass((url) => url.pathname === "/data/web/GEN/1");
+      mockFetchImpl = async (input: RequestInfo | URL) => {
+        const url = typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.toString()
+            : input.url;
+
+        if (url.includes("bible-api.com/Genesis%201%3A31?translation=web")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              reference: "Genesis 1:31",
+              verses: [
+                {
+                  book_id: "GEN",
+                  book_name: "Genesis",
+                  chapter: 1,
+                  verse: 31,
+                  text: "God saw everything that he had made, and, behold, it was very good.",
+                },
+              ],
+              text: "God saw everything that he had made, and, behold, it was very good.",
+              translation_id: "web",
+              translation_name: "World English Bible",
+              translation_note: "",
+            }),
+          };
+        }
+
+        if (url.includes("bible-api.com/data/web/GEN/1")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              verses: [
+                { book_id: "GEN", book: "Genesis", chapter: 1, verse: 30, text: "To every animal of the earth, and to every bird of the sky..." },
+                { book_id: "GEN", book: "Genesis", chapter: 1, verse: 31, text: "God saw everything that he had made, and, behold, it was very good." },
+              ],
+              translation: { identifier: "web", name: "World English Bible" },
+            }),
+          };
+        }
+
+        if (url.includes("bible-api.com/data/web/GEN/2")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              verses: [
+                { book_id: "GEN", book: "Genesis", chapter: 2, verse: 1, text: "The heavens, the earth, and all their vast array were finished." },
+                { book_id: "GEN", book: "Genesis", chapter: 2, verse: 2, text: "On the seventh day God finished his work which he had done." },
+              ],
+              translation: { identifier: "web", name: "World English Bible" },
+            }),
+          };
+        }
+
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            id: "gen-123",
+            choices: [
+              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+            ],
+            usage: { cost: 0.01 },
+          }),
+        };
+      };
+
+      const { POST } = await import("../../generate-image/route");
+      const request = createGenerateImageRequest({
+        reference: "Genesis 1:31",
+        translation: "web",
+      });
+      const response = await POST(request);
+
+      expect(response.status).toBe(200);
+
+      const body = await response.json();
+      expect(body.reference).toBe("Genesis 1:31");
+      expect(body.promptInputs.prevVerse.reference).toBe("Genesis 1:30");
+      expect(body.promptInputs.nextVerse.reference).toBe("Genesis 2:1");
+    });
+
+    it("returns 503 and does not bill when reference lookup is temporarily unavailable", async () => {
+      const mockFetchImplSpy = vi.fn(async (input: RequestInfo | URL) => {
+        const url = typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.toString()
+            : input.url;
+
+        if (url.includes("bible-api.com/Genesis%201%3A2?translation=web")) {
+          return {
+            ok: false,
+            status: 503,
+            json: async () => ({
+              error: "upstream unavailable",
+            }),
+          };
+        }
+
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            id: "gen-123",
+            choices: [
+              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+            ],
+            usage: { cost: 0.01 },
+          }),
+        };
+      });
+      mockFetchImpl = mockFetchImplSpy;
+
+      const { POST } = await import("../../generate-image/route");
+      const request = createGenerateImageRequest({
+        reference: "Genesis 1:2",
+        translation: "web",
+      });
+      const response = await POST(request);
+
+      expect(response.status).toBe(503);
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+      expect(getCallCount("sessions:deductCredits")).toBe(0);
+
+      const body = await response.json();
+      expect(body.error).toBe("Reference lookup unavailable");
+      expect(body.details.upstreamStatus).toBe(503);
+      expect(
+        mockFetchImplSpy.mock.calls.some(([input]) => {
+          const url = typeof input === "string"
+            ? input
+            : input instanceof URL
+              ? input.toString()
+              : input.url;
+          return url.includes("bible-api.com/Genesis%201%3A2?translation=web");
+        })
+      ).toBe(true);
+    });
+
+    it("returns 400 and does not bill when reference lookup fails", async () => {
+      const mockFetchImplSpy = vi.fn(async (input: RequestInfo | URL) => {
+        const url = typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.toString()
+            : input.url;
+
+        if (url.includes("bible-api.com/Genesis%201%3A2?translation=web")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              reference: "Genesis 1:2",
+              verses: [],
+              text: "",
+              translation_id: "web",
+              translation_name: "World English Bible",
+              translation_note: "",
+            }),
+          };
+        }
+
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            id: "gen-123",
+            choices: [
+              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+            ],
+            usage: { cost: 0.01 },
+          }),
+        };
+      });
+      mockFetchImpl = mockFetchImplSpy;
+
+      const { POST } = await import("../../generate-image/route");
+      const request = createGenerateImageRequest({
+        reference: "Genesis 1:2",
+        translation: "web",
+      });
+      const response = await POST(request);
+
+      expect(response.status).toBe(400);
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+      expect(getCallCount("sessions:deductCredits")).toBe(0);
+      expect(
+        mockFetchImplSpy.mock.calls.some(([input]) => {
+          const url = typeof input === "string"
+            ? input
+            : input instanceof URL
+              ? input.toString()
+              : input.url;
+          return url.includes("openrouter.ai");
+        })
+      ).toBe(false);
     });
 
     it("reserve-generate-deduct-fallback: falls back to API estimate when no cost returned", async () => {
@@ -470,84 +1008,19 @@ describe("Image Generation API Credit Flow", () => {
       const body = await response.json();
       expect(body.usedFallbackEstimate).toBe(true);
       expect(body.usedActualCost).toBe(false);
-      expect(body.imageCreditsCost).toBe(7);
-      expect(body.creditsCost).toBe(7);
-      expect(body.estimatedCreditsCost).toBe(7);
+      expect(body.imageCreditsCost).toBe(2);
+      expect(body.creditsCost).toBe(2);
+      expect(body.estimatedCreditsCost).toBe(2);
     });
 
-    it("emergency-pricing: does not double-apply conservative reservation multiplier", async () => {
-      fetchImageModelsMock.mockResolvedValueOnce({
-        models: [
-          {
-            id: "google/gemini-2.0-flash-exp:free",
-            pricing: { imageOutput: "0.10" },
-            usesEmergencyPricing: true,
-          },
-        ],
-      });
-      mockFetchResponse = {
-        ok: true,
-        status: 200,
-        json: async () => ({
-          id: "gen-123",
-          choices: [
-            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-          ],
-        }),
-      };
-
+    it.each(["missing-default", "unpriced"])("rejects %s before reserving or calling a paid provider", async kind => {
+      fetchImageModelsMock.mockResolvedValueOnce({ models: kind === "missing-default" ? [] : [{ ...imageModelFixture(), billing: undefined, availability: "unavailable" }] });
       const { POST } = await import("../../generate-image/route");
-
-      const url = new URL("http://localhost:3000/api/generate-image");
-      url.searchParams.set("text", "Emergency fallback pricing test");
-
-      const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-      const reserveCall = mockState.callHistory.find((c) => c.action === "reserveCredits");
-      expect(reserveCall).toBeDefined();
-      expect((reserveCall?.args as { amount: number }).amount).toBe(13);
-    });
-
-    it("token-priced image models fall back to the default estimate instead of failing", async () => {
-      fetchImageModelsMock.mockResolvedValueOnce({
-        models: [
-          { id: "google/gemini-2.0-flash-exp:free", pricing: { imageOutput: "0.01" } },
-          { id: "openai/gpt-5-image", creditsCost: null, reservationCreditsCost: null },
-        ],
-      });
-      mockFetchResponse = {
-        ok: true,
-        status: 200,
-        json: async () => ({
-          id: "gen-123",
-          choices: [
-            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-          ],
-          usage: { cost: 0.05 },
-        }),
-      };
-
-      const { POST } = await import("../../generate-image/route");
-
-      const request = createGenerateImageRequest({
-        text: "Token priced image model",
-        reference: "Genesis 1:1",
-        model: "openai/gpt-5-image",
-      });
-      const response = await POST(request);
-
-      expect(response.status).toBe(200);
-      expect(getCallCount("quoteUsdCost")).toBe(1);
-
-      const estimateCall = mockState.callHistory.find((c) => c.action === "getEstimate");
-      expect(estimateCall).toBeDefined();
-      expect((estimateCall?.args as { fallbackCredits: number }).fallbackCredits).toBe(20);
-
-      const reserveCall = mockState.callHistory.find((c) => c.action === "reserveCredits");
-      expect(reserveCall).toBeDefined();
-      expect((reserveCall?.args as { amount: number }).amount).toBe(20);
+      const response = await POST(createGenerateImageRequest({ reference: "Genesis 1:1" }));
+      expect(response.status).toBe(400);
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+      expect(getCallCount("quoteUsdCost")).toBe(0);
+      expect(mockFetch.mock.calls.some(([input]) => String(input).includes("chat/completions"))).toBe(false);
     });
 
     it("actual-usage-local-fallback: quote failure still charges from usage.cost", async () => {
@@ -580,7 +1053,17 @@ describe("Image Generation API Credit Flow", () => {
       expect(body.neutralCostUsedForActual).toBe(false);
     });
 
-    it("resolution-multiplier-gemini: applies 3.5x for 2K", async () => {
+    it.each(["1K", "2K", "4K"])("uses the same %s quote in discovery and admission", async resolution => {
+      const { GET } = await import("../../image-models/route");
+      const discovery = await (await GET()).json();
+      const model = discovery.models.find((m: { id: string }) => m.id === "google/gemini-3.1-flash-image-preview");
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest({ reference: "Genesis 1:1", model: model.id, resolution }));
+      expect(response.status).toBe(200);
+      expect((await response.json()).estimatedCreditsCost).toBe(model.estimatedCreditsByResolution[resolution]);
+    });
+
+    it("quotes documented output tokens for 2K on Gemini 3.1 image preview", async () => {
       mockFetchResponse = {
         ok: true,
         status: 200,
@@ -597,7 +1080,7 @@ describe("Image Generation API Credit Flow", () => {
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
-      url.searchParams.set("model", "google/gemini-2.5-flash-image");
+      url.searchParams.set("model", "google/gemini-3.1-flash-image-preview");
       url.searchParams.set("resolution", "2K");
 
       const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
@@ -607,29 +1090,46 @@ describe("Image Generation API Credit Flow", () => {
 
       const body = await response.json();
       expect(body.resolution).toBe("2K");
-      expect(body.resolutionMultiplier).toBe(3.5);
+      expect(body.catalogEstimatedProviderUsd).toBeCloseTo(0.0252);
+      expect(body.estimatedCreditsCost).toBe(4);
       expect(body.resolutionSupported).toBe(true);
     });
 
-    it("resolution-ignored-non-gemini: no multiplier for non-Gemini models", async () => {
-      mockFetchResponse = {
-        ok: true,
-        status: 200,
-        json: async () => ({
-          id: "gen-123",
-          choices: [
-            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
-          ],
-          usage: { cost: 0.04 },
-        }),
+    it.each(["4K", "8K"])("rejects unsupported default-model resolution %s before payment", async resolution => {
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest({ reference: "Genesis 1:1", resolution }));
+      expect(response.status).toBe(400);
+      expect(getCallCount("sessions:reserveCredits")).toBe(0);
+    });
+
+    it("resolution-ignored-gemini-2-5: omits image_size for Gemini 2.5 Flash Image", async () => {
+      let capturedImageConfig: Record<string, unknown> | null = null;
+
+      mockFetchImpl = async (_input: RequestInfo | URL, init?: RequestInit) => {
+        const requestBody = JSON.parse(String(init?.body ?? "{}")) as {
+          image_config?: Record<string, unknown>;
+        };
+        capturedImageConfig = requestBody.image_config ?? null;
+
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            id: "gen-123",
+            choices: [
+              { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+            ],
+            usage: { cost: 0.02 },
+          }),
+        };
       };
 
       const { POST } = await import("../../generate-image/route");
 
       const url = new URL("http://localhost:3000/api/generate-image");
       url.searchParams.set("text", "Test verse");
-      url.searchParams.set("model", "openai/dall-e-3");
-      url.searchParams.set("resolution", "4K");
+      url.searchParams.set("model", "google/gemini-2.5-flash-image");
+      url.searchParams.set("resolution", "1K");
 
       const request = createGenerateImageRequest(Object.fromEntries(url.searchParams.entries()));
       const response = await POST(request);
@@ -637,16 +1137,11 @@ describe("Image Generation API Credit Flow", () => {
       expect(response.status).toBe(200);
 
       const body = await response.json();
-      expect(body.resolutionMultiplier).toBe(1.0);
+      expect(capturedImageConfig).toEqual({
+        aspect_ratio: "16:9",
+      });
+      expect(body.resolution).toBe("1K");
       expect(body.resolutionSupported).toBe(false);
-      const estimateCall = mockState.callHistory.find((entry) => entry.action === "getEstimate");
-      expect(estimateCall).toBeDefined();
-      expect((estimateCall?.args as { resolution: string }).resolution).toBe("1K");
-      const recordActualCostCall = mockState.callHistory.find(
-        (entry) => entry.action === "recordActualCost"
-      );
-      expect(recordActualCostCall).toBeDefined();
-      expect((recordActualCostCall?.args as { resolution: string }).resolution).toBe("1K");
     });
 
     it("low-balance-spend-down: reserves remaining credits and still succeeds within grace", async () => {
@@ -870,7 +1365,8 @@ describe("Image Generation API Credit Flow", () => {
 
       expect(response.status).toBe(500);
       const body = await response.json();
-      expect(body.error).toContain("No image");
+      expect(body.error).toBe("Model returned no image output");
+      expect(body.message).toContain("No image");
       expect(getCallCount("sessions:releaseReservation")).toBe(1);
     });
 
@@ -912,7 +1408,8 @@ describe("Image Generation API Credit Flow", () => {
           ...fixtures.sessions.paidWithCredits,
           sid: "test-session",
           credits: 1,
-          dailySpendUsd: 4.5,
+          // A one-credit capped hold fits; only the uncapped hold exceeds the limit.
+          dailySpendUsd: 4.99,
           dailySpendLimitUsd: 5.0,
         },
       ]);
@@ -1001,7 +1498,7 @@ describe("Image Generation API Credit Flow", () => {
 
       expect(response.status).toBe(400);
       const body = await response.json();
-      expect(body.error).toBe("Model not available");
+      expect(body.error).toBe("Model or settings unavailable");
     });
   });
 });

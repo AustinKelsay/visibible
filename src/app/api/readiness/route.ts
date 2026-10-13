@@ -38,6 +38,7 @@ type ReadinessDetailedResponse = ReadinessSummaryResponse & {
 
 type ReadinessResponse = ReadinessSummaryResponse | ReadinessDetailedResponse;
 
+// Keep the public readiness gate focused on core dependencies only.
 const REQUIRED_ENV_VARS = [
   "OPENROUTER_API_KEY",
   "NEXT_PUBLIC_CONVEX_URL",
@@ -89,9 +90,10 @@ export async function GET(
     convexCheck.error = "Convex client not configured";
   } else {
     try {
-      getConvexServerSecret();
+      const serverSecret = getConvexServerSecret();
       const checkStartedAt = Date.now();
       await convex.query(api.rateLimit.getRateLimitStatus, {
+        serverSecret,
         identifier: "_readiness_probe",
         endpoint: "chat",
       });

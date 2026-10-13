@@ -65,8 +65,8 @@ describe("model catalog resilience", () => {
                 output_modalities: ["text"],
               },
               pricing: {
-                prompt: "0.25",
-                completion: "1.25",
+                prompt: "0.00000025",
+                completion: "0.00000125",
               },
             },
           ],
@@ -85,30 +85,15 @@ describe("model catalog resilience", () => {
     expect(second.models.some((model) => model.id === cachedModelId)).toBe(true);
   });
 
-  it("image models include emergency default pricing during models API outage", async () => {
+  it("disables paid choices during a cold catalog outage", async () => {
     mockFetchSequence([{ ok: false, status: 503 }]);
-
-    const {
-      DEFAULT_IMAGE_MODEL,
-      EMERGENCY_IMAGE_MODEL_PRICING_USD,
-      computeCreditsCost,
-      fetchImageModels,
-    } = await import("../image-models");
-
+    const { fetchImageModels } = await import("../image-models");
     const result = await fetchImageModels("test-key");
-    const defaultModel = result.models.find((model) => model.id === DEFAULT_IMAGE_MODEL);
-    expect(defaultModel).toBeDefined();
-    expect(defaultModel?.pricing?.imageOutput).toBe(
-      EMERGENCY_IMAGE_MODEL_PRICING_USD[DEFAULT_IMAGE_MODEL]
-    );
-    expect(defaultModel?.usesEmergencyPricing).toBe(true);
-    expect(defaultModel?.creditsCost).toBe(
-      computeCreditsCost(EMERGENCY_IMAGE_MODEL_PRICING_USD[DEFAULT_IMAGE_MODEL])
-    );
+    expect(result.models[0]).toMatchObject({ availability: "unavailable", creditsCost: null });
   });
 
   it("image models use stale cached snapshot when a later models fetch fails", async () => {
-    const cachedModelId = "google/gemini-2.5-image";
+    const cachedModelId = "google/gemini-2.5-flash-image";
 
     mockFetchSequence([
       {
@@ -123,7 +108,7 @@ describe("model catalog resilience", () => {
                 output_modalities: ["image"],
               },
               pricing: {
-                image: "0.05",
+                prompt: "0.0000003", completion: "0.0000025", image_output: "0.00003",
               },
             },
           ],
@@ -139,6 +124,7 @@ describe("model catalog resilience", () => {
 
     const second = await fetchImageModels("test-key");
     expect(second.error).toContain("cached image models");
+    expect(second.models[0].availability).toBe("stale");
     expect(second.models.some((model) => model.id === cachedModelId)).toBe(true);
   });
 });

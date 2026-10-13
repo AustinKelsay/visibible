@@ -197,14 +197,6 @@ export function buildPublicVerseHistoryUrl(
   return `${apiBaseUrl}/api/public/images/verses/${location.book.slug}/${location.chapter}/${location.verse}/images`;
 }
 
-export function buildPublicChapterUrl(
-  request: Request,
-  bookSlug: string,
-  chapter: number
-): string {
-  return `${new URL(request.url).origin}/api/public/images/chapters/${bookSlug}/${chapter}`;
-}
-
 export function buildPublicChapterUrlTemplate(request: Request, bookSlug: string): string {
   return `${new URL(request.url).origin}/api/public/images/chapters/${bookSlug}/{chapter}`;
 }

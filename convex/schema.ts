@@ -70,7 +70,40 @@ const generationStatusValidator = v.union(
   v.literal("failed")
 );
 
+const bulkGenerationStatusValidator = v.union(
+  v.literal("active"),
+  v.literal("paused"),
+  v.literal("completed"),
+  v.literal("cancelled")
+);
+
+const bulkGenerationVerseStatusValidator = v.union(
+  v.literal("queued"),
+  v.literal("generating"),
+  v.literal("completed"),
+  v.literal("failed"),
+  v.literal("skipped")
+);
+
+const bulkGenerationScopeTypeValidator = v.union(
+  v.literal("verses"),
+  v.literal("chapters"),
+  v.literal("book")
+);
+
+const modelCostScopeTypeValidator = v.union(
+  v.literal("model"),
+  v.literal("provider"),
+  v.literal("global")
+);
+
 export default defineSchema({
+  maintenanceState: defineTable({
+    key: v.string(),
+    cursor: v.union(v.string(), v.null()),
+    cutoff: v.number(),
+    epoch: v.number(),
+  }).index("by_key", ["key"]),
   verseImages: defineTable({
     // Verse identifier (lowercase, e.g., "genesis-1-1")
     verseId: v.string(),
@@ -124,6 +157,7 @@ export default defineSchema({
   })
     // Index for querying all images for a verse sorted by creation time
     .index("by_verse", ["verseId", "createdAt"])
+    .index("by_storageId", ["storageId"])
     .index("by_generationId", ["generationId"])
     .index("by_createdAt", ["createdAt"]),
 
@@ -143,6 +177,9 @@ export default defineSchema({
   // Request lifecycle for image generation to support progress sync and observability
   imageGenerationRequests: defineTable({
     requestId: v.string(),
+    inputFingerprint: v.optional(v.string()),
+    executorVersion: v.optional(v.string()),
+    billingPolicyVersion: v.optional(v.string()),
     sid: v.string(),
     verseId: v.string(),
     translationId: v.optional(v.string()),
@@ -181,6 +218,7 @@ export default defineSchema({
     translationId: v.string(),
     styleProfileId: v.string(),
     scenePlan: scenePlanValidator,
+    inputFingerprint: v.optional(v.string()),
     plannerModel: v.optional(v.string()),
     promptVersion: v.optional(v.string()),
     hitCount: v.number(),
@@ -209,6 +247,7 @@ export default defineSchema({
   // Anonymous sessions with credit balances
   sessions: defineTable({
     sid: v.string(),
+    revokedAt: v.optional(v.number()),
     tier: v.string(), // "paid" | "admin"
     credits: v.number(),
     createdAt: v.number(),
@@ -244,17 +283,21 @@ export default defineSchema({
 
   // Credit transaction ledger for auditing
   creditLedger: defineTable({
+    pendingReservation: v.optional(v.boolean()), // Indexed read projection; amounts remain immutable.
     sid: v.string(),
     delta: v.number(), // positive (purchase/refund) or negative (generation)
     reason: v.string(), // "purchase" | "generation" | "refund"
+    invoiceId: v.optional(v.string()), // Purchase identity; legacy entries remain unchanged.
     modelId: v.optional(v.string()),
     costUsd: v.optional(v.number()),
     generationId: v.optional(v.string()),
     createdAt: v.number(),
   })
     .index("by_sid", ["sid", "createdAt"])
+    .index("by_sid_pending", ["sid", "pendingReservation"])
     .index("by_generationId", ["generationId", "sid"])
-    .index("by_reason_createdAt", ["reason", "createdAt"]),
+    .index("by_reason_createdAt", ["reason", "createdAt"])
+    .index("by_invoiceId", ["invoiceId"]),
 
   // Model generation statistics for ETA estimation
   modelStats: defineTable({
@@ -267,7 +310,7 @@ export default defineSchema({
 
   // Learned image-credit estimates based on recent actual generation costs.
   modelCostStats: defineTable({
-    scopeType: v.string(), // "model" | "provider" | "global"
+    scopeType: modelCostScopeTypeValidator,
     scopeValue: v.string(), // modelId, provider ID, or "global"
     resolution: v.string(),
     sampleCredits: v.array(v.number()),
@@ -325,6 +368,45 @@ export default defineSchema({
     userAgent: v.optional(v.string()),
     createdAt: v.number(),
   }).index("by_createdAt", ["createdAt"]),
+
+  // Bulk image generation jobs
+  bulkGenerations: defineTable({
+    sid: v.string(),
+    status: bulkGenerationStatusValidator,
+    scopeType: bulkGenerationScopeTypeValidator,
+    scopeLabel: v.string(), // human-readable, e.g. "Next 10 verses"
+    startVerseId: v.string(),
+    totalVerses: v.number(),
+    completedCount: v.number(),
+    failedCount: v.number(),
+    skippedCount: v.number(),
+    totalCreditsUsed: v.number(),
+    estimatedTotalCredits: v.number(),
+    modelId: v.string(),
+    aspectRatio: v.string(),
+    resolution: v.string(),
+    translation: v.string(),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+    completedAt: v.optional(v.number()),
+  })
+    .index("by_sid_status", ["sid", "status"])
+    .index("by_sid_createdAt", ["sid", "createdAt"]),
+
+  // Individual verse entries within a bulk generation job
+  bulkGenerationVerses: defineTable({
+    bulkGenerationId: v.id("bulkGenerations"),
+    verseId: v.string(),
+    reference: v.string(),
+    order: v.number(),
+    status: bulkGenerationVerseStatusValidator,
+    creditsCost: v.optional(v.number()),
+    error: v.optional(v.string()),
+    updatedAt: v.number(),
+  })
+    .index("by_bulk_order", ["bulkGenerationId", "order"])
+    .index("by_bulk_verse", ["bulkGenerationId", "verseId"])
+    .index("by_bulk_status", ["bulkGenerationId", "status"]),
 
   // SECURITY: Admin usage audit log for tracking admin API usage
   // Admin bypasses credit checks, so we log separately for visibility

@@ -16,7 +16,6 @@ import {
 import {
   canAffordImageGeneration,
   computeCreditsCost,
-  computeConservativeEstimate,
   computeCreditsFromActualUsage,
   computeAdjustedCreditsCost,
   computeEstimatedImageGenerationCreditsCost,
@@ -24,7 +23,6 @@ import {
   normalizeResolutionForModel,
   resolveLearnedImageCreditsEstimate,
   supportsResolution,
-  CONSERVATIVE_ESTIMATE_MULTIPLIER,
   DEFAULT_CREDITS_COST,
   IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS,
   getDisplayedCreditsCost,
@@ -83,7 +81,7 @@ describe("computeChatCreditsCost", () => {
 
   it("should apply premium multiplier correctly", () => {
     // Test with known pricing: $10/million tokens for both prompt and completion
-    const pricing = { prompt: "10", completion: "10" };
+    const pricing = { prompt: "0.00001", completion: "0.00001" };
     const result = computeChatCreditsCost(pricing, 1000);
 
     // Expected: (10 * 500 / 1_000_000) + (10 * 500 / 1_000_000) = 0.005 + 0.005 = 0.01 USD
@@ -120,7 +118,7 @@ describe("computeActualChatCreditsCost", () => {
 
   it("should calculate based on actual token counts", () => {
     // $10/million tokens
-    const pricing = { prompt: "10", completion: "10" };
+    const pricing = { prompt: "0.00001", completion: "0.00001" };
     const result = computeActualChatCreditsCost(pricing, 500, 500);
 
     // Cost: (10 * 500 / 1_000_000) + (10 * 500 / 1_000_000) = 0.01 USD
@@ -270,21 +268,6 @@ describe("canAffordImageGeneration", () => {
   });
 });
 
-describe("computeConservativeEstimate", () => {
-  it("should return null for unpriced models", () => {
-    expect(computeConservativeEstimate(undefined)).toBeNull();
-    expect(computeConservativeEstimate("0")).toBeNull();
-  });
-
-  it("should apply 35x multiplier for pricing discrepancy", () => {
-    const baseCost = computeCreditsCost("0.1");
-    const conservative = computeConservativeEstimate("0.1");
-
-    // Conservative should be approximately 35x the base (with ceiling effects)
-    expect(conservative).toBe(Math.ceil(baseCost! * CONSERVATIVE_ESTIMATE_MULTIPLIER));
-  });
-});
-
 describe("computeCreditsFromActualUsage", () => {
   it("should use actual usage when available", () => {
     // $0.10 actual usage
@@ -319,13 +302,15 @@ describe("computeCreditsFromActualUsage", () => {
 });
 
 describe("supportsResolution", () => {
-  it("should detect google/gemini models as supporting resolution", () => {
-    expect(supportsResolution("google/gemini-2.5-flash-image")).toBe(true);
-    expect(supportsResolution("google/gemini-pro")).toBe(true);
-    expect(supportsResolution("GOOGLE/GEMINI-flash")).toBe(true); // Case insensitive
+  it("should detect documented Gemini image preview models as supporting resolution", () => {
+    expect(supportsResolution("google/gemini-3.1-flash-image-preview")).toBe(true);
+    expect(supportsResolution("google/gemini-3-pro-image-preview")).toBe(true);
+    expect(supportsResolution("GOOGLE/GEMINI-3.1-FLASH-IMAGE-PREVIEW")).toBe(true);
   });
 
-  it("should NOT detect non-Gemini models as supporting resolution", () => {
+  it("should NOT detect models without documented image_size support", () => {
+    expect(supportsResolution("google/gemini-2.5-flash-image")).toBe(false);
+    expect(supportsResolution("google/gemini-pro")).toBe(false);
     expect(supportsResolution("openai/dall-e-3")).toBe(false);
     expect(supportsResolution("stability/stable-diffusion")).toBe(false);
     expect(supportsResolution("anthropic/claude-3")).toBe(false);
@@ -335,11 +320,12 @@ describe("supportsResolution", () => {
 describe("normalizeResolutionForModel", () => {
   it("keeps the selected resolution for models that support it", () => {
     expect(
-      normalizeResolutionForModel("google/gemini-2.5-flash-image", "4K")
+      normalizeResolutionForModel("google/gemini-3.1-flash-image-preview", "4K")
     ).toBe("4K");
   });
 
   it("normalizes unsupported models to 1K for learned pricing buckets", () => {
+    expect(normalizeResolutionForModel("google/gemini-2.5-flash-image", "4K")).toBe("1K");
     expect(normalizeResolutionForModel("openai/dall-e-3", "4K")).toBe("1K");
   });
 });
@@ -356,29 +342,30 @@ describe("computeAdjustedCreditsCost", () => {
     expect(computeAdjustedCreditsCost(10, "4K")).toBe(10);
   });
 
-  it("should NOT apply multiplier for non-Gemini models", () => {
+  it("should NOT apply multiplier for models without image_size support", () => {
+    expect(computeAdjustedCreditsCost(10, "2K", "google/gemini-2.5-flash-image")).toBe(10);
     expect(computeAdjustedCreditsCost(10, "2K", "openai/dall-e-3")).toBe(10);
     expect(computeAdjustedCreditsCost(10, "4K", "stability/stable-diffusion")).toBe(10);
   });
 
-  it("should apply 3.5x multiplier for 2K Gemini", () => {
-    const result = computeAdjustedCreditsCost(10, "2K", "google/gemini-2.5-flash-image");
-    expect(result).toBe(35); // 10 * 3.5 = 35
+  it("uses the documented 1.5x token ratio for 2K on supported Gemini image preview models", () => {
+    const result = computeAdjustedCreditsCost(10, "2K", "google/gemini-3.1-flash-image-preview");
+    expect(result).toBe(15);
   });
 
-  it("should apply 6.5x multiplier for 4K Gemini", () => {
-    const result = computeAdjustedCreditsCost(10, "4K", "google/gemini-2.5-flash-image");
-    expect(result).toBe(65); // 10 * 6.5 = 65
+  it("uses the documented 2.25x token ratio for 4K on supported Gemini image preview models", () => {
+    const result = computeAdjustedCreditsCost(10, "4K", "google/gemini-3.1-flash-image-preview");
+    expect(result).toBe(23);
   });
 
-  it("should apply 1.0x multiplier for 1K Gemini", () => {
-    const result = computeAdjustedCreditsCost(10, "1K", "google/gemini-2.5-flash-image");
+  it("should apply 1.0x multiplier for 1K on supported Gemini image preview models", () => {
+    const result = computeAdjustedCreditsCost(10, "1K", "google/gemini-3.1-flash-image-preview");
     expect(result).toBe(10);
   });
 
   it("should ceil fractional credits", () => {
-    const result = computeAdjustedCreditsCost(3, "2K", "google/gemini-pro");
-    expect(result).toBe(11); // ceil(3 * 3.5) = 11
+    const result = computeAdjustedCreditsCost(3, "2K", "google/gemini-3-pro-image-preview");
+    expect(result).toBe(3); // Pro uses the same image token count at 1K and 2K
   });
 });
 
@@ -388,7 +375,7 @@ describe("computeEstimatedImageGenerationCreditsCost", () => {
       computeEstimatedImageGenerationCreditsCost(
         10,
         "1K",
-        "google/gemini-2.5-flash-image",
+        "google/gemini-3.1-flash-image-preview",
         1
       )
     ).toBe(11);
@@ -399,10 +386,10 @@ describe("computeEstimatedImageGenerationCreditsCost", () => {
       computeEstimatedImageGenerationCreditsCost(
         10,
         "2K",
-        "google/gemini-2.5-flash-image",
+        "google/gemini-3.1-flash-image-preview",
         2
       )
-    ).toBe(37);
+    ).toBe(17);
   });
 
   it("ignores negative planner surcharges", () => {
@@ -410,7 +397,7 @@ describe("computeEstimatedImageGenerationCreditsCost", () => {
       computeEstimatedImageGenerationCreditsCost(
         10,
         "1K",
-        "google/gemini-2.5-flash-image",
+        "google/gemini-3.1-flash-image-preview",
         -5
       )
     ).toBe(10);
@@ -555,10 +542,24 @@ describe("getEstimatedCreditsCostForResolution", () => {
         "2K",
         1
       )
-    ).toBe(20);
+    ).toBe(8);
   });
 
   it("falls back to computed image plus planner cost when learned totals are unavailable", () => {
+    expect(
+      getEstimatedCreditsCostForResolution(
+        {
+          id: "google/gemini-3.1-flash-image-preview",
+          creditsCost: 2,
+          reservationCreditsCost: 70,
+        },
+        "2K",
+        1
+      )
+    ).toBe(4);
+  });
+
+  it("ignores higher resolutions for models that do not support image_size", () => {
     expect(
       getEstimatedCreditsCostForResolution(
         {
@@ -566,9 +567,9 @@ describe("getEstimatedCreditsCostForResolution", () => {
           creditsCost: 2,
           reservationCreditsCost: 70,
         },
-        "2K",
+        "4K",
         1
       )
-    ).toBe(8);
+    ).toBe(3);
   });
 });

@@ -1,144 +1,59 @@
-# Convex Setup and Environments
+# Convex setup
 
-This project uses Convex for sessions, credits, invoices, image storage, and scheduled cleanup jobs.
+Convex stores sessions, credits, invoices, images, feedback, bulk progress and scheduled-job state. Use a development deployment for local work and Vercel Preview, and a separate production deployment for Vercel Production. This is the intended mapping; verify actual deployment settings before release.
 
-## Environment Model
+## Development
 
-Use two Convex deployments:
-
-- `dev` deployment: local development and testing
-- `prod` deployment: live production traffic
-
-Do not use your production Convex deployment for day-to-day local development.
-
-## 1) Create Deployment Target Files
+From the repository root:
 
 ```bash
 cp .env.convex.dev.example .env.convex.dev
-cp .env.convex.prod.example .env.convex.prod
 ```
 
-Set deployment names from the Convex dashboard:
-
-- `.env.convex.dev`: `CONVEX_DEPLOYMENT=dev:your-project`
-- `.env.convex.prod`: `CONVEX_DEPLOYMENT=prod:your-project`
-
-## 2) Configure Local Next.js To Use Dev
-
-In `.env.local`, keep Convex values pointed at your dev deployment:
-
-- `NEXT_PUBLIC_CONVEX_URL=https://api.dev.visibible.com` (dev API URL)
-- `CONVEX_SERVER_SECRET=<dev secret>`
-
-Keep `CONVEX_DEPLOYMENT=dev:...` in `.env.convex.dev` for CLI targeting.
-
-Custom domain pattern in this project:
-
-- Dev Convex API: `api.dev.visibible.com`
-- Dev Convex HTTP Actions: `actions.dev.visibible.com`
-- Prod Convex API: `api.visibible.com`
-- Prod Convex HTTP Actions: `actions.visibible.com`
-
-## 3) Initialize or Reconfigure Dev Deployment
-
-Run once if needed:
+Set its `CONVEX_DEPLOYMENT` to your `dev:...` target, then initialize the existing project:
 
 ```bash
 npm run convex:dev:setup
 ```
 
-This runs:
+Set `.env.local`'s `NEXT_PUBLIC_CONVEX_URL` to that deployment's API URL and `CONVEX_SERVER_SECRET` to a generated secret of at least 32 characters. Configure the same secret in the selected Convex deployment:
 
 ```bash
-convex dev --configure existing --once --env-file .env.convex.dev
+npx convex env set CONVEX_SERVER_SECRET '<dev-secret>' --env-file .env.convex.dev
 ```
 
-## 4) Daily Development
+Replace the placeholder locally. Keep secrets out of committed files. Run `npm run convex:dev` in a dedicated terminal to watch, generate types and sync backend changes; run `npm run dev` separately for Next.js.
 
-Run in a dedicated terminal while editing `convex/*.ts`:
+## Environment boundaries
+
+Convex actions cannot read Next.js `.env.local`. Configure these in the target Convex deployment as needed:
+
+- `CONVEX_SERVER_SECRET`: matches the corresponding Next.js runtime.
+- `ADMIN_PASSWORD_SECRET`: matches Next.js when admin login is enabled.
+- `IMAGE_FETCH_ALLOWLIST`: optional additional remote-image hosts, read by the storage action.
+- Nostr key, relays and image URL base: see [Nostr](../llm/context/NOSTR.md).
+
+Pass `--env-file .env.convex.dev` or `--env-file .env.convex.prod` on environment commands. The project scripts `convex:env:list:dev` and `convex:env:list:prod` inspect the respective deployment's values; their output can contain secrets.
+
+`CONVEX_DEPLOYMENT` selects the CLI target. `NEXT_PUBLIC_CONVEX_URL` selects the application's runtime API target. An HTTP Actions URL used for `/image/:storageId` is a separate setting; do not substitute it for the runtime API URL.
+
+## Production
 
 ```bash
-npm run convex:dev
+cp .env.convex.prod.example .env.convex.prod
 ```
 
-This watches files, codegens types, and syncs schema/functions to the dev deployment.
-
-## 5) Production Deploy
-
-Before release (or backend updates):
+Set the intended `prod:...` target and production Convex environment values. Review and deploy backend changes with:
 
 ```bash
 npm run convex:deploy:prod:dry-run
 npm run convex:deploy:prod
 ```
 
-## 6) Convex Environment Variables (Per Deployment)
+For the frontend release and matching runtime values, follow [Vercel deployment](../llm/workflow/VERCEL_WORKFLOWS.md).
 
-Convex env vars are stored in Convex, not in `.env.local`.
-Set them for both dev and prod deployments (with environment-specific values):
+## Maintenance and troubleshooting
 
-```bash
-convex env set CONVEX_SERVER_SECRET "..."
-convex env set ADMIN_PASSWORD_SECRET "..."
-convex env set NOSTR_PRIVATE_KEY "..." # optional
-convex env set NOSTR_RELAYS "wss://relay.nostr.band,wss://nos.lol,wss://relay.damus.io,wss://relay.primal.net" # optional
-convex env set CONVEX_SITE_URL "https://actions.dev.visibible.com" # optional, recommended when using custom HTTP actions domain
-convex env set NOSTR_IMAGE_BASE_URL "https://actions.dev.visibible.com" # optional explicit override for Nostr image links
-```
+[schema.ts](schema.ts) defines tables; [crons.ts](crons.ts) defines cleanup, stale reservation reconciliation, cost-event replay and Nostr scheduling. These jobs run in each deployment with that deployment's data/environment.
 
-Nostr image URL base precedence inside Convex actions:
-
-1. `NOSTR_IMAGE_BASE_URL` (explicit override)
-2. `CONVEX_SITE_URL` (custom Convex HTTP actions domain)
-3. `CONVEX_CLOUD_URL` (Convex-provided fallback, built-in)
-
-When Nostr publishing is enabled, Convex now evaluates image candidates on a
-recurring schedule instead of posting every saved image immediately. The
-scheduler picks one unposted stored image from the latest completed 4-hour UTC
-window, preferring the image with the highest Convex-tracked impression count
-and falling back to a random eligible image when the window has no impressions.
-
-Use the deployment target files to select where values are set:
-
-```bash
-convex env list --env-file .env.convex.dev
-convex env list --env-file .env.convex.prod
-```
-
-## 7) Core Commands
-
-From repository root:
-
-- `npm run convex:dev`
-- `npm run convex:dev:setup`
-- `npm run convex:deploy:prod`
-- `npm run convex:deploy:prod:dry-run`
-- `npm run convex:env:list:dev`
-- `npm run convex:env:list:prod`
-
-## 8) After Convex Setup: Vercel
-
-Configure Vercel Preview and Production environment variables to match this Convex split.
-Runbook: `llm/workflow/VERCEL_WORKFLOWS.md`
-
-## 9) Scheduled Jobs (Crons)
-
-Crons are defined in `convex/crons.ts` and run automatically in each deployment:
-
-- Expired session cleanup (every 15 minutes)
-- Stale rate-limit record cleanup (every 10 minutes)
-- Admin login attempt cleanup (hourly)
-- Image cost-event outbox processing (every 5 minutes)
-- Stale credit reservation reconciliation (every 5 minutes)
-- Scheduled Nostr publication evaluation (hourly; publishes at most one image
-  from each completed 4-hour UTC window)
-
-## Troubleshooting
-
-- Unauthorized action calls:
-  - Ensure `CONVEX_SERVER_SECRET` matches between Next.js env and the active Convex deployment.
-- Wrong data environment:
-  - Check `NEXT_PUBLIC_CONVEX_URL` in `.env.local`.
-  - Check which env file (`.env.convex.dev` vs `.env.convex.prod`) is used by your CLI command.
-- Functions not updating:
-  - Keep `npm run convex:dev` running and verify no typecheck/codegen errors.
+Unauthorized actions usually indicate mismatched server secrets. Wrong data usually indicates the wrong runtime URL or CLI target. Missing backend changes warrant checking the watcher and its typecheck/codegen output.

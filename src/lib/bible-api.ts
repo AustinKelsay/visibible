@@ -1,4 +1,4 @@
-import { BOOK_BY_SLUG, BibleBook } from "@/data/bible-structure";
+import { BOOK_BY_SLUG, BibleBook, isValidLocation } from "@/data/bible-structure";
 
 // Supported translations from bible-api.com
 export type Translation =
@@ -56,6 +56,27 @@ export interface ChapterData {
   translationName: string;
 }
 
+export class BibleApiLookupError extends Error {
+  kind: "not_found" | "upstream";
+  retryable: boolean;
+  statusCode?: number;
+
+  constructor(
+    message: string,
+    options: {
+      kind: "not_found" | "upstream";
+      retryable: boolean;
+      statusCode?: number;
+    }
+  ) {
+    super(message);
+    this.name = "BibleApiLookupError";
+    this.kind = options.kind;
+    this.retryable = options.retryable;
+    this.statusCode = options.statusCode;
+  }
+}
+
 interface BibleApiVerse {
   book_id: string;
   book_name: string;
@@ -73,8 +94,14 @@ interface BibleApiResponse {
   translation_note: string;
 }
 
-// Cache for chapter data to reduce API calls
-const chapterCache = new Map<string, ChapterData>();
+// Next fetch owns completed-response caching. Only coalesce active lookups here:
+// passing a timeout signal opts out of Next/React request memoization.
+const pendingChapters = new Map<string, Promise<ChapterData | null>>();
+const MAX_PENDING_CHAPTERS = 256;
+
+export function clearBibleApiCache() {
+  pendingChapters.clear();
+}
 
 /**
  * Fetch a single verse from the Bible API
@@ -86,20 +113,10 @@ export async function getVerse(
   verse: number,
   translation: Translation = DEFAULT_TRANSLATION
 ): Promise<VerseData | null> {
-  const book = BOOK_BY_SLUG[bookSlug.toLowerCase()];
-  if (!book) return null;
+  const book = Object.hasOwn(BOOK_BY_SLUG, bookSlug.toLowerCase()) ? BOOK_BY_SLUG[bookSlug.toLowerCase()] : undefined;
+  if (!book || !isValidLocation(book, chapter, verse)) return null;
 
-  // Try to get from chapter cache first (cache key includes translation)
-  const cacheKey = `${book.id}-${chapter}-${translation}`;
-  let chapterData: ChapterData | null = chapterCache.get(cacheKey) || null;
-
-  if (!chapterData) {
-    // Fetch entire chapter and cache it
-    chapterData = await fetchChapter(book, chapter, translation);
-    if (chapterData) {
-      chapterCache.set(cacheKey, chapterData);
-    }
-  }
+  const chapterData = await getChapter(bookSlug, chapter, translation);
 
   if (!chapterData) return null;
 
@@ -115,19 +132,25 @@ export async function getChapter(
   chapter: number,
   translation: Translation = DEFAULT_TRANSLATION
 ): Promise<ChapterData | null> {
-  const book = BOOK_BY_SLUG[bookSlug.toLowerCase()];
-  if (!book) return null;
+  const book = Object.hasOwn(BOOK_BY_SLUG, bookSlug.toLowerCase()) ? BOOK_BY_SLUG[bookSlug.toLowerCase()] : undefined;
+  if (!book || !Number.isSafeInteger(chapter) || chapter < 1 || chapter > book.chapters.length) return null;
 
   const cacheKey = `${book.id}-${chapter}-${translation}`;
-  const cached = chapterCache.get(cacheKey);
-  if (cached) return cached;
-
-  const chapterData = await fetchChapter(book, chapter, translation);
-  if (chapterData) {
-    chapterCache.set(cacheKey, chapterData);
+  const pending = pendingChapters.get(cacheKey);
+  if (pending) return pending;
+  if (pendingChapters.size >= MAX_PENDING_CHAPTERS) {
+    throw new BibleApiLookupError("Too many pending Scripture lookups", {
+      kind: "upstream", retryable: true,
+    });
   }
 
-  return chapterData;
+  const lookup = fetchChapter(book, chapter, translation);
+  pendingChapters.set(cacheKey, lookup);
+  try {
+    return await lookup;
+  } finally {
+    if (pendingChapters.get(cacheKey) === lookup) pendingChapters.delete(cacheKey);
+  }
 }
 
 /**
@@ -143,6 +166,7 @@ async function fetchChapter(
     const url = `https://bible-api.com/data/${translation}/${book.id}/${chapter}`;
 
     const response = await fetch(url, {
+      signal: AbortSignal.timeout(10000),
       next: {
         revalidate: 86400 * 30, // 30 days - Bible text is immutable
         tags: [`bible-${book.id}-${chapter}-${translation}`],
@@ -150,33 +174,41 @@ async function fetchChapter(
     });
 
     if (!response.ok) {
-      console.error(`Bible API error: ${response.status}`);
-      return null;
+      if (response.status === 404) return null;
+      throw new BibleApiLookupError(`Bible API chapter lookup failed with status ${response.status}`, {
+        kind: "upstream", retryable: true, statusCode: response.status,
+      });
     }
 
     const data = (await response.json()) as {
-      verses: BibleApiVerse[];
-      translation_id: string;
-      translation_name: string;
+      verses: Array<Omit<BibleApiVerse, "book_name"> & { book: string }>;
+      translation: { identifier: string; name: string };
     };
 
+    if (!Array.isArray(data.verses)) throw new Error("Invalid chapter response");
+    if (data.verses.length === 0) return null;
+    if (data.translation?.identifier !== translation || typeof data.translation.name !== "string" || data.verses.some((v) =>
+      v.book_id !== book.id || v.chapter !== chapter || !Number.isSafeInteger(v.verse) ||
+      v.verse < 1 || typeof v.text !== "string" || !v.text.trim())) {
+      throw new Error("Mismatched chapter response");
+    }
     return {
       bookId: book.id,
       bookName: book.name,
       chapter,
       verses: data.verses.map((v) => ({
         bookId: v.book_id,
-        bookName: v.book_name,
+        bookName: book.name,
         chapter: v.chapter,
         verse: v.verse,
         text: v.text.trim(),
       })),
-      translationId: data.translation_id,
-      translationName: data.translation_name,
+      translationId: data.translation.identifier,
+      translationName: data.translation.name,
     };
   } catch (error) {
-    console.error("Failed to fetch chapter:", error);
-    return null;
+    if (error instanceof BibleApiLookupError) throw error;
+    throw new BibleApiLookupError("Unable to load Scripture chapter", { kind: "upstream", retryable: true });
   }
 }
 
@@ -192,14 +224,22 @@ export async function getVerseByReference(
     const url = `https://bible-api.com/${encodeURIComponent(reference)}?translation=${translation}`;
 
     const response = await fetch(url, {
+      signal: AbortSignal.timeout(10000),
       next: {
         revalidate: 86400 * 30,
       },
     });
 
     if (!response.ok) {
-      console.error(`Bible API error: ${response.status}`);
-      return null;
+      if (response.status === 400 || response.status === 404) return null;
+      throw new BibleApiLookupError(
+        `Bible API reference lookup failed with status ${response.status}`,
+        {
+          kind: "upstream",
+          retryable: true,
+          statusCode: response.status,
+        }
+      );
     }
 
     const data = (await response.json()) as BibleApiResponse;
@@ -212,7 +252,18 @@ export async function getVerseByReference(
       text: v.text.trim(),
     }));
   } catch (error) {
-    console.error("Failed to fetch verse:", error);
-    return null;
+    if (error instanceof BibleApiLookupError) {
+      throw error;
+    }
+
+    throw new BibleApiLookupError(
+      error instanceof Error
+        ? error.message
+        : "Failed to fetch verse by reference",
+      {
+        kind: "upstream",
+        retryable: true,
+      }
+    );
   }
 }

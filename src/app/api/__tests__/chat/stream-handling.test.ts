@@ -5,6 +5,8 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { fixtures, type Session } from "../shared/test-fixtures";
+import { providerStream } from "../shared/chat-provider";
+import type { LanguageModelV3StreamPart } from "@ai-sdk/provider";
 
 // Create mock state
 const mockState = {
@@ -142,15 +144,12 @@ vi.mock("@/lib/convex-client", () => ({
 }));
 
 const mockStreamTextImpl = vi.fn();
-vi.mock("ai", () => ({
-  streamText: (...args: unknown[]) => mockStreamTextImpl(...args),
-}));
-
-vi.mock("@ai-sdk/openai", () => ({
-  createOpenAI: vi.fn(() => ({
-    chat: vi.fn((modelId: string) => ({ modelId, provider: "openrouter" })),
-  })),
-}));
+vi.mock("@ai-sdk/openai", async () => {
+  const { MockLanguageModelV3 } = await import("ai/test");
+  return { createOpenAI: vi.fn(() => ({
+    chat: vi.fn(() => new MockLanguageModelV3({ doStream: mockStreamTextImpl })),
+  })) };
+});
 
 vi.mock("@/lib/chat-models", () => ({
   DEFAULT_CHAT_MODEL: "test/cheap-model",
@@ -160,341 +159,99 @@ vi.mock("@/lib/chat-models", () => ({
   CREDIT_USD: 0.01,
 }));
 
-// Controllable stream for testing cancellation and errors
-function createControllableStream() {
-  const encoder = new TextEncoder();
-  let controller: ReadableStreamDefaultController<Uint8Array> | null = null;
-  let pullResolver: (() => void) | null = null;
+const { POST } = await import("../../chat/route");
+const request = (signal?: AbortSignal) => new Request("http://localhost:3000/api/chat", {
+  method: "POST", headers: { "Content-Type": "application/json" }, signal,
+});
+function calls(action: string) {
+  return mockState.callHistory.filter((call) => call.action === action);
+}
 
-  const stream = new ReadableStream<Uint8Array>({
-    start(ctrl) {
-      controller = ctrl;
-    },
-    pull() {
-      return new Promise<void>((resolve) => {
-        pullResolver = resolve;
-      });
+function pendingProvider() {
+  let controller: ReadableStreamDefaultController<LanguageModelV3StreamPart>;
+  let providerSignal: AbortSignal | undefined;
+  const stream = new ReadableStream<LanguageModelV3StreamPart>({
+    start(c) {
+      controller = c;
+      c.enqueue({ type: "stream-start", warnings: [] });
+      c.enqueue({ type: "text-start", id: "answer" });
+      c.enqueue({ type: "text-delta", id: "answer", delta: "Partial" });
     },
   });
-
-  return {
-    stream,
-    enqueue: (data: string) => {
-      controller?.enqueue(encoder.encode(data));
-      pullResolver?.();
-    },
-    close: () => {
-      controller?.close();
-      pullResolver?.();
-    },
-    error: (err: Error) => {
-      controller?.error(err);
-      pullResolver?.();
-    },
-  };
+  mockStreamTextImpl.mockImplementation(async (options: { abortSignal?: AbortSignal }) => {
+    providerSignal = options.abortSignal;
+    options.abortSignal?.addEventListener("abort", () => controller.error(new DOMException("Aborted", "AbortError")), { once: true });
+    return { stream };
+  });
+  return { signal: () => providerSignal };
 }
 
-// Helper functions
-function resetMockState(sessions: Session[] = []) {
-  mockState.sessions.clear();
-  sessions.forEach((s) => mockState.sessions.set(s.sid, { ...s }));
-  mockState.callHistory.length = 0;
-  mockState.ledger.length = 0;
-}
-
-function getCallCount(action: string) {
-  // Extract the action name from "sessions:actionName" format
-  const actionName = action.split(":").pop() || action;
-  return mockState.callHistory.filter((c) => c.action === actionName).length;
-}
-
-function getSession(sid: string) {
-  return mockState.sessions.get(sid);
-}
-
-describe("Chat API Stream Handling", () => {
+describe("chat SDK outcomes and settlement", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session" }]);
+    mockState.sessions.clear();
+    mockState.sessions.set("test-session", { ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 100 });
+    mockState.callHistory.length = 0;
+    mockState.ledger.length = 0;
     mockRequestBody.value = { messages: fixtures.messages.valid };
+    mockStreamTextImpl.mockReturnValue(providerStream());
+  });
+  afterEach(() => { process.env = { ...originalEnv }; });
+
+  it.each(["stop", "length"] as const)("charges nonempty %s completion once and reports settled metadata", async (reason) => {
+    mockStreamTextImpl.mockReturnValue(providerStream("Answer", reason));
+    const response = await POST(request());
+    const body = await response.text();
+    expect(calls("deductCredits")).toHaveLength(1);
+    expect(calls("releaseReservation")).toHaveLength(0);
+    expect(body).toContain('"creditsCharged":2');
+    expect(body).toContain('"incomplete":' + (reason === "length"));
+    expect(mockState.sessions.get("test-session")?.credits).toBe(98);
   });
 
-  afterEach(() => {
-    process.env = { ...originalEnv };
+  it.each([
+    ["", "stop", false], ["Partial", "error", false], ["Partial", "stop", true],
+  ] as const)("releases unusable/error output (%s, %s, embedded=%s)", async (text, reason, embedded) => {
+    mockStreamTextImpl.mockReturnValue(providerStream(text, reason, embedded));
+    const body = await (await POST(request())).text();
+    expect(calls("releaseReservation")).toHaveLength(1);
+    expect(calls("deductCredits")).toHaveLength(0);
+    expect(body).toContain('"creditsCharged":0');
+    expect(body).toContain('"creditsRefunded":2');
+    expect(mockState.sessions.get("test-session")?.credits).toBe(100);
   });
 
-  describe("Stream Completion", () => {
-    it("stream-complete-deducts: flush triggers deductCredits", async () => {
-      const controllable = createControllableStream();
-
-      mockStreamTextImpl.mockReturnValue({
-        toUIMessageStreamResponse: vi.fn(() => {
-          return new Response(controllable.stream, {
-            status: 200,
-            headers: { "Content-Type": "text/event-stream" },
-          });
-        }),
-      });
-
-      const { POST } = await import("../../chat/route");
-
-      const request = new Request("http://localhost:3000/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-
-      const response = await POST(request);
-      expect(response.status).toBe(200);
-
-      // Verify reservation was made
-      expect(getCallCount("sessions:reserveCredits")).toBe(1);
-
-      // Start reading
-      const reader = response.body?.getReader();
-
-      // Send data
-      controllable.enqueue("Hello");
-      await reader?.read();
-
-      // Deduction should not happen yet
-      expect(getCallCount("sessions:deductCredits")).toBe(0);
-
-      // Close stream
-      controllable.close();
-
-      // Read until done
-      if (reader) {
-        while (true) {
-          const { done } = await reader.read();
-          if (done) break;
-        }
-      }
-
-      // Deduction should happen after close
-      expect(getCallCount("sessions:deductCredits")).toBe(1);
-    });
+  it("propagates response-reader cancellation to the provider and releases once", async () => {
+    const provider = pendingProvider();
+    const response = await POST(request());
+    const reader = response.body!.getReader();
+    await reader.read();
+    await vi.waitFor(() => expect(provider.signal()).toBeDefined());
+    await reader.cancel("User stopped");
+    // Cancellation propagates asynchronously through the SDK SSE transforms.
+    await vi.waitFor(() => expect(provider.signal()?.aborted).toBe(true));
+    expect(calls("releaseReservation")).toHaveLength(1);
+    expect(calls("deductCredits")).toHaveLength(0);
   });
 
-  describe("Stream Cancellation", () => {
-    it("stream-cancel-releases-credit: client abort triggers releaseReservation", async () => {
-      const controllable = createControllableStream();
-
-      mockStreamTextImpl.mockReturnValue({
-        toUIMessageStreamResponse: vi.fn(() => {
-          return new Response(controllable.stream, {
-            status: 200,
-            headers: { "Content-Type": "text/event-stream" },
-          });
-        }),
-      });
-
-      const { POST } = await import("../../chat/route");
-
-      const request = new Request("http://localhost:3000/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-
-      const response = await POST(request);
-      expect(response.status).toBe(200);
-
-      // Reservation made
-      expect(getCallCount("sessions:reserveCredits")).toBe(1);
-
-      // Read and then cancel
-      const reader = response.body?.getReader();
-      controllable.enqueue("Hello");
-      await reader?.read();
-
-      // Cancel (simulating client abort)
-      await reader?.cancel("User cancelled");
-
-      // Allow async operations
-      await new Promise((resolve) => setTimeout(resolve, 50));
-
-      // Release should be called, not deduct
-      expect(getCallCount("sessions:releaseReservation")).toBe(1);
-      expect(getCallCount("sessions:deductCredits")).toBe(0);
-    });
+  it("propagates incoming request abort and releases once", async () => {
+    const provider = pendingProvider();
+    const abort = new AbortController();
+    const response = await POST(request(abort.signal));
+    const reading = response.text();
+    await vi.waitFor(() => expect(provider.signal()).toBeDefined());
+    abort.abort();
+    await reading;
+    expect(provider.signal()?.aborted).toBe(true);
+    expect(calls("releaseReservation")).toHaveLength(1);
+    expect(calls("deductCredits")).toHaveLength(0);
   });
 
-  describe("Stream Errors", () => {
-    it("stream-error-releases-credit: error mid-stream triggers releaseReservation", async () => {
-      const controllable = createControllableStream();
-
-      mockStreamTextImpl.mockReturnValue({
-        toUIMessageStreamResponse: vi.fn(() => {
-          return new Response(controllable.stream, {
-            status: 200,
-            headers: { "Content-Type": "text/event-stream" },
-          });
-        }),
-      });
-
-      const { POST } = await import("../../chat/route");
-
-      const request = new Request("http://localhost:3000/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-
-      const response = await POST(request);
-      expect(response.status).toBe(200);
-
-      const reader = response.body?.getReader();
-      controllable.enqueue("Hello");
-      await reader?.read();
-
-      // Trigger error
-      controllable.error(new Error("Stream error"));
-
-      try {
-        await reader?.read();
-      } catch {
-        // Expected
-      }
-
-      await new Promise((resolve) => setTimeout(resolve, 50));
-
-      // Release should be called due to error
-      expect(getCallCount("sessions:releaseReservation")).toBe(1);
-      expect(getCallCount("sessions:deductCredits")).toBe(0);
-    });
-  });
-
-  describe("Settlement Idempotency", () => {
-    it("settlement-idempotent: multiple settle calls are no-op after first", async () => {
-      const controllable = createControllableStream();
-
-      mockStreamTextImpl.mockReturnValue({
-        toUIMessageStreamResponse: vi.fn(() => {
-          return new Response(controllable.stream, {
-            status: 200,
-            headers: { "Content-Type": "text/event-stream" },
-          });
-        }),
-      });
-
-      const { POST } = await import("../../chat/route");
-
-      const request = new Request("http://localhost:3000/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-
-      const response = await POST(request);
-      expect(response.status).toBe(200);
-
-      const reader = response.body?.getReader();
-
-      // Complete normally
-      controllable.enqueue("Hello");
-      await reader?.read();
-      controllable.close();
-
-      if (reader) {
-        while (true) {
-          const { done } = await reader.read();
-          if (done) break;
-        }
-      }
-
-      // Deduction exactly once
-      expect(getCallCount("sessions:deductCredits")).toBe(1);
-      expect(getCallCount("sessions:releaseReservation")).toBe(0);
-    });
-  });
-
-  describe("Credit Balance Tracking", () => {
-    it("correctly updates session balance after successful stream", async () => {
-      const initialCredits = 100;
-      const creditCost = 2;
-
-      resetMockState([
-        { ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: initialCredits },
-      ]);
-
-      const controllable = createControllableStream();
-
-      mockStreamTextImpl.mockReturnValue({
-        toUIMessageStreamResponse: vi.fn(() => {
-          return new Response(controllable.stream, {
-            status: 200,
-            headers: { "Content-Type": "text/event-stream" },
-          });
-        }),
-      });
-
-      const { POST } = await import("../../chat/route");
-
-      const request = new Request("http://localhost:3000/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-
-      const response = await POST(request);
-
-      // After reservation
-      const sessionAfterReserve = getSession("test-session");
-      expect(sessionAfterReserve?.credits).toBe(initialCredits - creditCost);
-
-      // Complete stream
-      controllable.close();
-
-      const reader = response.body?.getReader();
-      if (reader) {
-        while (true) {
-          const { done } = await reader.read();
-          if (done) break;
-        }
-      }
-
-      // Balance unchanged (reservation already deducted)
-      const sessionAfterDeduct = getSession("test-session");
-      expect(sessionAfterDeduct?.credits).toBe(initialCredits - creditCost);
-    });
-
-    it("restores credits after stream cancellation", async () => {
-      const initialCredits = 100;
-      const creditCost = 2;
-
-      resetMockState([
-        { ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: initialCredits },
-      ]);
-
-      const controllable = createControllableStream();
-
-      mockStreamTextImpl.mockReturnValue({
-        toUIMessageStreamResponse: vi.fn(() => {
-          return new Response(controllable.stream, {
-            status: 200,
-            headers: { "Content-Type": "text/event-stream" },
-          });
-        }),
-      });
-
-      const { POST } = await import("../../chat/route");
-
-      const request = new Request("http://localhost:3000/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-
-      const response = await POST(request);
-
-      // After reservation
-      const sessionAfterReserve = getSession("test-session");
-      expect(sessionAfterReserve?.credits).toBe(initialCredits - creditCost);
-
-      // Cancel
-      const reader = response.body?.getReader();
-      await reader?.cancel("User cancelled");
-
-      await new Promise((resolve) => setTimeout(resolve, 50));
-
-      // Credits restored
-      const sessionAfterRelease = getSession("test-session");
-      expect(sessionAfterRelease?.credits).toBe(initialCredits);
-    });
+  it("does not reverse a completed settlement on late cancellation", async () => {
+    const abort = new AbortController();
+    await (await POST(request(abort.signal))).text();
+    abort.abort();
+    expect(calls("deductCredits")).toHaveLength(1);
+    expect(calls("releaseReservation")).toHaveLength(0);
   });
 });

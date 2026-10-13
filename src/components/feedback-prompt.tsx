@@ -63,7 +63,6 @@ function buildDismissedState(previous: FeedbackPromptState): FeedbackPromptState
 /**
  * Feedback prompt CTA that appears occasionally to ask for user feedback.
  * Shows after a random number of verse visits (5-15) and respects a 24-hour cooldown.
- * Positioned above the ChatPrompt near the FAB.
  */
 export function FeedbackPrompt() {
   const { isChatOpen, chatContext, openFeedback } = useNavigation();
@@ -133,7 +132,7 @@ export function FeedbackPrompt() {
       };
     }
 
-    // Show prompt after a delay (longer than ChatPrompt to avoid overlap)
+    // Show prompt after a brief delay so it does not compete with first paint.
     showTimerRef.current = setTimeout(() => {
       setIsVisible(true);
       if (!isLoading) {
@@ -162,7 +161,7 @@ export function FeedbackPrompt() {
           return nextState;
         });
       }, 8000); // 8 seconds visible
-    }, 2000); // 2 second delay (ChatPrompt shows at 500ms)
+    }, 2000);
 
     return () => {
       // Clear both timers on cleanup

@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, useCallback, useRef } from "react";
-import { useMutation, useQuery } from "convex/react";
+import { useEffect, useState, useCallback, useRef, type TouchEvent } from "react";
+import { useMutation, useQuery, useConvexAuth } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -10,7 +10,6 @@ import { usePreferences } from "@/context/preferences-context";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useSession } from "@/context/session-context";
 import { useNavigation } from "@/context/navigation-context";
-import { useVerseView } from "@/context/verse-view-context";
 import { useGeneration } from "@/context/generation-context";
 import { ImageLoadingSkeleton } from "@/components/image-loading-skeleton";
 import { VerseImagePlaceholder } from "@/components/verse-image-placeholder";
@@ -97,6 +96,17 @@ function createVerseId(reference: string): string {
     .toLowerCase()
     .replace(/\s+/g, "-")
     .replace(/:/g, "-");
+}
+
+const imageSwipeThresholdPx = 48;
+
+function isInteractiveTouchTarget(target: EventTarget | null): boolean {
+  return target instanceof Element &&
+    Boolean(
+      target.closest(
+        "button, a, input, textarea, select, label, [role=\"button\"], [role=\"link\"], [contenteditable], [tabindex]"
+      )
+    );
 }
 
 export function HeroImage({
@@ -286,6 +296,9 @@ function HeroImageWithConvex({
 }
 
 interface ModelPricing {
+  modelId?: string;
+  availability?: "available" | "stale" | "unavailable";
+  unavailableReason?: string;
   creditsCost: number | null;
   reservationCreditsCost: number | null;
   estimatedCreditsByResolution?: Partial<Record<ImageResolution, number>>;
@@ -313,9 +326,8 @@ function HeroImageBase({
 }: HeroImageBaseProps) {
   const { imageModel, imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution, translation } = usePreferences();
   const isConvexEnabled = useConvexEnabled();
-  const { tier, credits, buyCredits, updateCredits, isLoading: sessionLoading } = useSession();
+  const { tier, credits, buyCredits, isLoading: sessionLoading } = useSession();
   const { setCurrentImageId, isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
-  const { markEngaged } = useVerseView();
   const router = useRouter();
   const searchParams = useSearchParams();
   const {
@@ -335,53 +347,43 @@ function HeroImageBase({
   });
   const [scenePlannerCreditsCost, setScenePlannerCreditsCost] = useState(0);
   const [pricingLoaded, setPricingLoaded] = useState(false);
-  const modelPricingCache = useRef<Map<string, ModelPricing>>(new Map());
 
   useEffect(() => {
     let isCancelled = false;
     setPricingLoaded(false);
 
-    // Check cache first
-    const cached = modelPricingCache.current.get(imageModel);
-    if (cached) {
-      setModelPricing(cached);
-      setPricingLoaded(true);
-      return;
-    }
-
     // Fetch models to get pricing for current model
     fetch("/api/image-models", { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
+        if (isCancelled) return;
         setScenePlannerCreditsCost(
           typeof data.scenePlannerCreditsCost === "number"
             ? data.scenePlannerCreditsCost
             : 0
         );
-        if (data.models) {
-          // Cache all models
-          for (const model of data.models) {
-            modelPricingCache.current.set(model.id, {
-              creditsCost: model.creditsCost,
-              reservationCreditsCost: model.reservationCreditsCost ?? null,
-              estimatedCreditsByResolution: model.estimatedCreditsByResolution,
-              etaSeconds: model.etaSeconds ?? 12,
-            });
-          }
+        if (Array.isArray(data.models)) {
           // Set current model pricing
           const current = data.models.find((m: { id: string }) => m.id === imageModel);
           if (current) {
             setModelPricing({
+              modelId: imageModel,
+              availability: current.availability,
+              unavailableReason: current.unavailableReason,
               creditsCost: current.creditsCost,
               reservationCreditsCost: current.reservationCreditsCost ?? null,
               estimatedCreditsByResolution: current.estimatedCreditsByResolution,
               etaSeconds: current.etaSeconds ?? 12,
             });
+          } else {
+            setModelPricing({ modelId: imageModel, creditsCost: null, reservationCreditsCost: null, etaSeconds: 12, availability: "unavailable", unavailableReason: "Saved model unavailable. Choose another model." });
           }
+        } else {
+          throw new Error("Invalid image catalog");
         }
       })
       .catch(() => {
-        // Keep defaults on error
+        if (!isCancelled) setModelPricing({ modelId: imageModel, creditsCost: null, reservationCreditsCost: null, etaSeconds: 12, availability: "unavailable", unavailableReason: "Image pricing unavailable. Reopen the reader to retry." });
       })
       .finally(() => {
         if (!isCancelled) {
@@ -422,18 +424,15 @@ function HeroImageBase({
   const displayCostByResolution = modelPricing.estimatedCreditsByResolution;
   const effectiveEta = modelPricing.etaSeconds;
   const isAdmin = tier === "admin";
-  const pricingPending = isConvexEnabled && !isAdmin && !pricingLoaded;
-  const canGenerate =
-    !isConvexEnabled ||
-    isAdmin ||
-    (pricingLoaded &&
-      tier === "paid" &&
-      canAffordImageGeneration(credits, effectiveCost));
-  const canAutoGenerate =
-    !isConvexEnabled ||
-    isAdmin ||
-    (pricingLoaded && tier === "paid" && credits >= effectiveCost);
-  const showCreditsCost = isConvexEnabled && !isAdmin && pricingLoaded;
+  const pricingAvailable = pricingLoaded && modelPricing.modelId === imageModel && modelPricing.creditsCost !== null && modelPricing.availability !== "unavailable";
+  const pricingPending = isConvexEnabled && (!pricingLoaded || modelPricing.modelId !== imageModel);
+  const pricingUnavailable = pricingLoaded && !pricingPending && !pricingAvailable
+    ? modelPricing.unavailableReason ?? "Image pricing unavailable. Choose an available model."
+    : undefined;
+  const canGenerate = pricingAvailable && (isAdmin ||
+    (tier === "paid" && canAffordImageGeneration(credits, effectiveCost)));
+  const canAutoGenerate = pricingAvailable && (isAdmin || (tier === "paid" && credits >= effectiveCost));
+  const showCreditsCost = isConvexEnabled && !isAdmin && pricingAvailable;
 
   // Create verse ID for Convex query
   const verseId = currentReference ? createVerseId(currentReference) : null;
@@ -508,6 +507,7 @@ function HeroImageBase({
   const [hasAttemptedGeneration, setHasAttemptedGeneration] = useState(false);
   const [imageLoadAttempts, setImageLoadAttempts] = useState(0);
   const [activeRequestId, setActiveRequestId] = useState<string | null>(null);
+  const [followingRequest, setFollowingRequest] = useState(false);
   const [generationProgress, setGenerationProgress] = useState(0);
   const activeRequest = useRef<AbortController | null>(null);
   const isMounted = useRef(true);
@@ -515,12 +515,14 @@ function HeroImageBase({
   const generationIdRef = useRef(0);
   const generationStartedAtRef = useRef<number | null>(null);
   const imageElementRef = useRef<HTMLImageElement | null>(null);
+  const swipeStartRef = useRef<{ x: number; y: number; ignore: boolean } | null>(null);
   const handleManualRegenerateRef = useRef<((source?: GenerationTriggerSource) => void) | null>(null);
   const trackedImageIdsRef = useRef<Set<Id<"verseImages">>>(new Set());
 
+  const { isAuthenticated } = useConvexAuth();
   const generationRequestStatus = useQuery(
     api.verseImages.getGenerationRequestStatus,
-    activeRequestId ? { requestId: activeRequestId } : "skip"
+    isAuthenticated && activeRequestId ? { requestId: activeRequestId } : "skip"
   );
   const recordImageImpression = useMutation(
     api.verseImages.recordImageImpression
@@ -624,6 +626,7 @@ function HeroImageBase({
 
     pendingFollowLatest.current = selectedImageId === null;
     setIsGenerating(true);
+    setFollowingRequest(false);
     setError(null);
     setPendingImageId(null);
     setImageLoadAttempts(0);
@@ -635,6 +638,7 @@ function HeroImageBase({
       ? crypto.randomUUID()
       : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
     setActiveRequestId(clientRequestId);
+    let followExistingRequest = false;
 
     try {
       const csrfCookiePrefix = `${CSRF_COOKIE_NAME}=`;
@@ -687,7 +691,6 @@ function HeroImageBase({
         tier,
         hasCredits: credits > 0,
       });
-      markEngaged("image_generation_started");
 
       const response = await fetch("/api/generate-image", {
         method: "POST",
@@ -783,13 +786,14 @@ function HeroImageBase({
         throw new Error(data?.error || "Failed to generate image");
       }
 
+      if (response.status === 202 && data?.reused) {
+        followExistingRequest = true;
+        setFollowingRequest(true);
+        return;
+      }
+
       if (data?.imageUrl) {
         const modelUsed = data.model || imageModel || "unknown";
-
-        // Update credits in session context if returned
-        if (typeof data.credits === "number") {
-          updateCredits(data.credits);
-        }
 
         if (isStale()) {
           return;
@@ -861,7 +865,7 @@ function HeroImageBase({
       // Always clean up if this is still the current generation
       if (thisGenerationId === generationIdRef.current) {
         activeRequest.current = null;
-        if (isMounted.current) {
+        if (isMounted.current && !followExistingRequest) {
           setActiveRequestId(null);
           setIsGenerating(false);
         }
@@ -880,21 +884,20 @@ function HeroImageBase({
     translation,
     selectedImageId,
     imageHistory,
-    updateCredits,
     tier,
     credits,
     effectiveCost,
-    markEngaged,
   ]);
 
   // Manual regenerate function - resets load attempts and queues a new image
   const handleManualRegenerate = useCallback((source: GenerationTriggerSource = "hero_retry") => {
+    if (pricingPending || pricingUnavailable) return;
     setImageLoadAttempts(0);
     setError(null);
     setGeneratedImage(null);
     setPendingImageId(null);
     generateImage(source);
-  }, [generateImage]);
+  }, [generateImage, pricingPending, pricingUnavailable]);
 
   useEffect(() => {
     handleManualRegenerateRef.current = handleManualRegenerate;
@@ -944,6 +947,7 @@ function HeroImageBase({
       canGenerate,
       isGenerating,
       pricingPending,
+      pricingUnavailable,
       effectiveCost,
       effectiveEta,
       showCreditsCost,
@@ -960,6 +964,7 @@ function HeroImageBase({
     canGenerate,
     isGenerating,
     pricingPending,
+    pricingUnavailable,
     effectiveCost,
     effectiveEta,
     showCreditsCost,
@@ -975,7 +980,7 @@ function HeroImageBase({
   ]);
 
   // Image navigation functions
-  const goToPrevImage = useCallback((surface: "desktop_dock" | "mobile_overlay" | "fullscreen") => {
+  const goToPrevImage = useCallback((surface: "desktop_dock" | "overlay" | "fullscreen") => {
     if (!imageHistory || imageHistory.length === 0) return;
     const idx = selectedImageId
       ? imageHistory.findIndex((img) => img.id === selectedImageId)
@@ -1001,7 +1006,7 @@ function HeroImageBase({
     }
   }, [selectedImageId, imageHistory, book, chapter, verse, tier, credits]);
 
-  const goToNextImage = useCallback((surface: "desktop_dock" | "mobile_overlay" | "fullscreen") => {
+  const goToNextImage = useCallback((surface: "desktop_dock" | "overlay" | "fullscreen") => {
     if (!imageHistory || imageHistory.length === 0) return;
     const idx = selectedImageId
       ? imageHistory.findIndex((img) => img.id === selectedImageId)
@@ -1026,6 +1031,51 @@ function HeroImageBase({
       });
     }
   }, [selectedImageId, imageHistory, book, chapter, verse, tier, credits]);
+
+  const handleSwipeStart = useCallback((event: TouchEvent<HTMLDivElement>) => {
+    if (event.touches.length !== 1) {
+      swipeStartRef.current = null;
+      return;
+    }
+
+    const touch = event.touches[0];
+    swipeStartRef.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+      ignore: isInteractiveTouchTarget(event.target),
+    };
+  }, []);
+
+  const handleSwipeEnd = useCallback((
+    event: TouchEvent<HTMLDivElement>,
+    surface: "overlay" | "fullscreen",
+  ) => {
+    const swipeStart = swipeStartRef.current;
+    swipeStartRef.current = null;
+
+    if (!swipeStart || swipeStart.ignore || totalImages <= 1 || event.changedTouches.length !== 1) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - swipeStart.x;
+    const deltaY = touch.clientY - swipeStart.y;
+
+    if (Math.abs(deltaX) < imageSwipeThresholdPx || Math.abs(deltaX) <= Math.abs(deltaY)) {
+      return;
+    }
+
+    if (deltaX > 0) {
+      goToNextImage(surface);
+      return;
+    }
+
+    goToPrevImage(surface);
+  }, [goToNextImage, goToPrevImage, totalImages]);
+
+  const resetSwipe = useCallback(() => {
+    swipeStartRef.current = null;
+  }, []);
 
   // Auto-generate on first visit only when the user can strictly cover the estimate.
   // The spend-down grace is reserved for explicit generate actions.
@@ -1072,8 +1122,15 @@ function HeroImageBase({
       generationRequestStatus?.status === "failed"
     ) {
       setActiveRequestId(null);
+      if (followingRequest) {
+        setIsGenerating(false);
+        setFollowingRequest(false);
+        if (generationRequestStatus.status === "failed") {
+          setError(generationRequestStatus.error || "The original generation failed");
+        }
+      }
     }
-  }, [activeRequestId, generationRequestStatus?.status]);
+  }, [activeRequestId, generationRequestStatus?.status, generationRequestStatus?.error, followingRequest]);
 
   // Reset state when verse changes
   useEffect(() => {
@@ -1084,6 +1141,8 @@ function HeroImageBase({
     setImageLoadAttempts(0);
     setPendingImageId(null);
     setActiveRequestId(null);
+    setIsGenerating(false);
+    setFollowingRequest(false);
     setIsImageLoading(false);
     pendingFollowLatest.current = true;
     if (activeRequest.current) {
@@ -1163,7 +1222,11 @@ function HeroImageBase({
       {/* Image Container - taller 4:5 on mobile, user-selected ratio on desktop */}
       <div
         className="relative w-full overflow-hidden bg-[var(--image-stage)] aspect-[4/5] sm:[aspect-ratio:var(--ar)]"
-        style={{ "--ar": containerAspectRatioCss } as React.CSSProperties}
+        style={{ "--ar": containerAspectRatioCss, touchAction: "pan-y" } as React.CSSProperties}
+        data-testid="hero-swipe-overlay"
+        onTouchStart={handleSwipeStart}
+        onTouchEnd={(event) => handleSwipeEnd(event, "overlay")}
+        onTouchCancel={resetSwipe}
       >
         {displayImage?.url ? (
           <>
@@ -1252,7 +1315,6 @@ function HeroImageBase({
             {/* Fullscreen toggle button - mobile only (desktop uses VerseStripBar) */}
             <button
               onClick={() => {
-                markEngaged("image_fullscreen_opened");
                 trackImageFullscreenOpened({
                   book,
                   chapter,
@@ -1320,6 +1382,8 @@ function HeroImageBase({
                       <Loader2 size={18} strokeWidth={2} className="animate-spin" />
                       <span className="text-sm font-medium">Loading pricing...</span>
                     </button>
+                  ) : pricingUnavailable ? (
+                    <p className="text-sm text-[var(--muted)] px-4 text-center">{pricingUnavailable}</p>
                   ) : canGenerate ? (
                     <button
                       onClick={() => handleManualRegenerate("hero_generate")}
@@ -1385,7 +1449,7 @@ function HeroImageBase({
           <div className="sm:hidden">
             {/* Left arrow - newer image */}
             <button
-              onClick={() => goToNextImage("mobile_overlay")}
+              onClick={() => goToNextImage("overlay")}
               disabled={!canGoNewer}
               className="absolute left-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
               aria-label="Newer image"
@@ -1395,7 +1459,7 @@ function HeroImageBase({
 
             {/* Right arrow - older image */}
             <button
-              onClick={() => goToPrevImage("mobile_overlay")}
+              onClick={() => goToPrevImage("overlay")}
               disabled={!canGoOlder}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-20 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--surface)]/70 backdrop-blur-sm border border-[var(--divider)]/60 text-[var(--foreground)] disabled:opacity-30 active:scale-95 transition-all"
               aria-label="Older image"
@@ -1469,7 +1533,14 @@ function HeroImageBase({
             {/* Centered column: image + iterator + verse text */}
             <div className="flex flex-col items-center max-w-full max-h-full min-h-0">
               {displayImage?.url ? (
-                <div className="relative max-w-full max-h-[70vh] w-full flex items-center justify-center rounded-[var(--radius-md)] bg-[var(--image-stage)]">
+                <div
+                  className="relative max-w-full max-h-[70vh] w-full flex items-center justify-center rounded-[var(--radius-md)] bg-[var(--image-stage)]"
+                  style={{ touchAction: "pan-y" }}
+                  data-testid="hero-swipe-fullscreen"
+                  onTouchStart={handleSwipeStart}
+                  onTouchEnd={(event) => handleSwipeEnd(event, "fullscreen")}
+                  onTouchCancel={resetSwipe}
+                >
                   {!isFullscreenImageReady && isGenerating && (
                     <HeroImageLoadingState
                       label={generationPhaseLabel}
@@ -1578,7 +1649,9 @@ function HeroImageBase({
                         <Loader2 size={18} strokeWidth={2} className="animate-spin" />
                         <span className="text-sm font-medium">Loading pricing...</span>
                       </button>
-                    ) : canGenerate ? (
+                    ) : pricingUnavailable ? (
+                    <p className="text-sm text-[var(--muted)] px-4 text-center">{pricingUnavailable}</p>
+                  ) : canGenerate ? (
                       <button
                         onClick={() => handleManualRegenerate("hero_generate")}
                         className="min-h-[44px] px-5 inline-flex items-center gap-2 rounded-full bg-white text-black hover:bg-white/90 transition-colors duration-[var(--motion-fast)]"

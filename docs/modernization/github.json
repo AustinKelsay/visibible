@@ -1,0 +1,1038 @@
+{
+  "repository": "AustinKelsay/visibible",
+  "baseline": "6ae456839208ab6c97d630f80f8719becda9c050",
+  "published_date": "2026-09-07",
+  "issues": {
+    "S01": {
+      "number": 45,
+      "id": 5380230702,
+      "url": "https://github.com/AustinKelsay/visibible/issues/45",
+      "title": "[Spec S01] Accurate quotes and auditable credit charges",
+      "body_sha256": "1f99e77663d6e62d5f673ffdfd495a8971ec1f6c7b83ba8f6de6b902a31594db"
+    },
+    "S02": {
+      "number": 46,
+      "id": 5380230813,
+      "url": "https://github.com/AustinKelsay/visibible/issues/46",
+      "title": "[Spec S02] Verified guest access and protected credit ownership",
+      "body_sha256": "2232bbf478a5e9912662e608768ac5ac3df17f09742e36787492f6b86b039e5e"
+    },
+    "S03": {
+      "number": 47,
+      "id": 5380230942,
+      "url": "https://github.com/AustinKelsay/visibible/issues/47",
+      "title": "[Spec S03] Lightning purchases that settle without an open tab",
+      "body_sha256": "a24bf5a4d7cfcfa8f2e7fb6459e23affcfa588fec1ef630f4b1df7ed7ba285d0"
+    },
+    "S04": {
+      "number": 48,
+      "id": 5380231173,
+      "url": "https://github.com/AustinKelsay/visibible/issues/48",
+      "title": "[Spec S04] Reliable Scripture chat with correct stream settlement",
+      "body_sha256": "ffa3d3b1c98a44e6e61d72193cffa13217ae507913e9d71a9e0d524563b89b6e"
+    },
+    "S05": {
+      "number": 49,
+      "id": 5380231425,
+      "url": "https://github.com/AustinKelsay/visibible/issues/49",
+      "title": "[Spec S05] Durable single-verse image generation",
+      "body_sha256": "8a1cdce78c5819d1ad6e5b88eda25de88b2c57dc3811ae75df27a389bd8bb149"
+    },
+    "S06": {
+      "number": 50,
+      "id": 5380231636,
+      "url": "https://github.com/AustinKelsay/visibible/issues/50",
+      "title": "[Spec S06] Bulk generation managed by the server",
+      "body_sha256": "7bfb11658a61b4524d84331e6261392d0a3f310a1beba662d69ccb9fba77a096"
+    },
+    "S07": {
+      "number": 51,
+      "id": 5380231770,
+      "url": "https://github.com/AustinKelsay/visibible/issues/51",
+      "title": "[Spec S07] Canonical Scripture and versioned scene plans",
+      "body_sha256": "185503572ed7798c51922fe4b2e3fdd8fe9791a0fb16fc645d78c045af439a54"
+    },
+    "S08": {
+      "number": 52,
+      "id": 5380231906,
+      "url": "https://github.com/AustinKelsay/visibible/issues/52",
+      "title": "[Spec S08] Reliable shared image storage and bounded library reads",
+      "body_sha256": "6d54efb847ac8bd401af8330ddd0de22f93052913d3f79444eb88444b8ef23ef"
+    },
+    "S09": {
+      "number": 53,
+      "id": 5380232050,
+      "url": "https://github.com/AustinKelsay/visibible/issues/53",
+      "title": "[Spec S09] Consistent reader controls and preferences",
+      "body_sha256": "98f316ddf6dee4b01e7ca43e87a42388989a1d8cafe0321be58698ff41399946"
+    },
+    "S10": {
+      "number": 54,
+      "id": 5380232169,
+      "url": "https://github.com/AustinKelsay/visibible/issues/54",
+      "title": "[Spec S10] Evidence-based model and prompt releases",
+      "body_sha256": "96def1d96f21e6685fe631690b592aa39e82975eeca7a043f3e00f530af4e1fe"
+    },
+    "S11": {
+      "number": 55,
+      "id": 5380232299,
+      "url": "https://github.com/AustinKelsay/visibible/issues/55",
+      "title": "[Spec S11] Trustworthy publication, operations and retention",
+      "body_sha256": "93044d3881e2672cfbf0eda860577ef371f344b4667b4f060bf9e3b1dc316ade"
+    },
+    "S12": {
+      "number": 56,
+      "id": 5380232744,
+      "url": "https://github.com/AustinKelsay/visibible/issues/56",
+      "title": "[Spec S12] Verified migration and retirement of old implementations",
+      "body_sha256": "26370b373b25f816adcb61935981395110cf808c6919b997c8b54ad64c16a8e8"
+    },
+    "T01": {
+      "number": 57,
+      "id": 5380232886,
+      "url": "https://github.com/AustinKelsay/visibible/issues/57",
+      "title": "[T01] Capture existing behavior and expose coverage gaps",
+      "body_sha256": "812ebe9f0820bc3e8c2c7a639d702d741288324c38ff610cad762948270faedd"
+    },
+    "T02": {
+      "number": 58,
+      "id": 5380233031,
+      "url": "https://github.com/AustinKelsay/visibible/issues/58",
+      "title": "[T02] Correct chat and planner price units",
+      "body_sha256": "b1eab594180035cb5bb39d3a16189bf7ba24de7ffcde8cfeaa97f532e53a6dfa"
+    },
+    "T03": {
+      "number": 59,
+      "id": 5380233175,
+      "url": "https://github.com/AustinKelsay/visibible/issues/59",
+      "title": "[T03] Quote supported image settings from verified billing units",
+      "body_sha256": "a697c7a43b3f8fe27cb86deecc58438c89dc961d93945f62b2bf63228c1fc0da"
+    },
+    "T04": {
+      "number": 60,
+      "id": 5380233324,
+      "url": "https://github.com/AustinKelsay/visibible/issues/60",
+      "title": "[T04] Show and enforce a maximum charge for paid work",
+      "body_sha256": "487365bc51e185288de3166a7a5941882d74ffefe3cbb676cba19ddda7e40164"
+    },
+    "T05": {
+      "number": 61,
+      "id": 5380233449,
+      "url": "https://github.com/AustinKelsay/visibible/issues/61",
+      "title": "[T05] Use fresh cost samples and explicit estimate backfill",
+      "body_sha256": "4cf146cbb6032faeb9892afacf81cdb4e0871c8aeff6b0e82577f38da54c9a0f"
+    },
+    "T06": {
+      "number": 62,
+      "id": 5380233589,
+      "url": "https://github.com/AustinKelsay/visibible/issues/62",
+      "title": "[T06] Finalize credits and durable cost reporting together",
+      "body_sha256": "06bc0b537bf62d241069e20951141c26ae777e832e2112ebc5f1a894c080216b"
+    },
+    "T07": {
+      "number": 63,
+      "id": 5380233898,
+      "url": "https://github.com/AustinKelsay/visibible/issues/63",
+      "title": "[T07] Authenticate anonymous Convex access from valid sessions",
+      "body_sha256": "d385e528afbbd8773fcd41a24ad059929d44178f4b1df7f84a92ac442fffdd30"
+    },
+    "T08": {
+      "number": 64,
+      "id": 5380239444,
+      "url": "https://github.com/AustinKelsay/visibible/issues/64",
+      "title": "[T08] Enforce ownership on private records and job controls",
+      "body_sha256": "256d64531b48d5859f98f946cffec0ecf34c35f0c024160d1121bb75d799d25c"
+    },
+    "T09": {
+      "number": 65,
+      "id": 5380239596,
+      "url": "https://github.com/AustinKelsay/visibible/issues/65",
+      "title": "[T09] Preserve funded records when guest access expires",
+      "body_sha256": "1fdfbdae850363fdab99a8df3aa99e6bf1e1c69c487e770e0850496704ef4aaa"
+    },
+    "T10": {
+      "number": 66,
+      "id": 5380239898,
+      "url": "https://github.com/AustinKelsay/visibible/issues/66",
+      "title": "[T10] Keep credit balances consistent across tabs",
+      "body_sha256": "e0993d9f38b7c5ffe47821366692e4a695ab3930c6589b46a51c260ac6a86877"
+    },
+    "T11": {
+      "number": 67,
+      "id": 5380240037,
+      "url": "https://github.com/AustinKelsay/visibible/issues/67",
+      "title": "[T11] Credit settled invoices first observed after expiry",
+      "body_sha256": "360da5efbe46bf81bc194c8230f3b4f44544369384b5db0834cb29b4a52762c9"
+    },
+    "T12": {
+      "number": 68,
+      "id": 5380240193,
+      "url": "https://github.com/AustinKelsay/visibible/issues/68",
+      "title": "[T12] Recover interrupted invoice creation",
+      "body_sha256": "95c0d936221f0eab0f12ce8961fddad86607b74dea34bdb7f3a589108ae34a3a"
+    },
+    "T13": {
+      "number": 69,
+      "id": 5380240341,
+      "url": "https://github.com/AustinKelsay/visibible/issues/69",
+      "title": "[T13] Reconcile Lightning invoices without browser polling",
+      "body_sha256": "97025c4fb3aaf47f870c27425fcd64867a12a5da488a6abe9587dab84135a239"
+    },
+    "T14": {
+      "number": 70,
+      "id": 5380240567,
+      "url": "https://github.com/AustinKelsay/visibible/issues/70",
+      "title": "[T14] Release credits for embedded chat stream errors",
+      "body_sha256": "5177050848f4db6ffcce535799112f23cee51445c86051b6ccccd7140719b058"
+    },
+    "T15": {
+      "number": 71,
+      "id": 5380240909,
+      "url": "https://github.com/AustinKelsay/visibible/issues/71",
+      "title": "[T15] Cancel chat safely through the provider and wallet",
+      "body_sha256": "cc29256c6ecc62eb0d2fdbdfb0dcda8d515bb4900050d782ca7de449f838a943"
+    },
+    "T16": {
+      "number": 72,
+      "id": 5380241067,
+      "url": "https://github.com/AustinKelsay/visibible/issues/72",
+      "title": "[T16] Resolve canonical passages and preserve unavailable locations",
+      "body_sha256": "4b267c975772afaf86bf531450a427315eeee07a424b07b5b36e630c81d7c920"
+    },
+    "T17": {
+      "number": 73,
+      "id": 5380241195,
+      "url": "https://github.com/AustinKelsay/visibible/issues/73",
+      "title": "[T17] Bound chapter caching and concurrent lookup work",
+      "body_sha256": "f493938a10d157868eec4edc7d3e1387cd0fdb56bda72be04055119c86fcc612"
+    },
+    "T18": {
+      "number": 74,
+      "id": 5380241476,
+      "url": "https://github.com/AustinKelsay/visibible/issues/74",
+      "title": "[T18] Build shared images from verified Scripture text",
+      "body_sha256": "3bdc564ddf905dd6fe1c089a4ea9db8200e4b147b26d11b0b3acc421fe0e010a"
+    },
+    "T19": {
+      "number": 75,
+      "id": 5380241635,
+      "url": "https://github.com/AustinKelsay/visibible/issues/75",
+      "title": "[T19] Reuse only compatible scene plans",
+      "body_sha256": "5a13339fc3d628e5169797eb9b96bb1f7dd9fb326b57bbf2a6baa4f341c043ee"
+    },
+    "T20": {
+      "number": 76,
+      "id": 5380241785,
+      "url": "https://github.com/AustinKelsay/visibible/issues/76",
+      "title": "[T20] Bound chat input and keep system instructions server-owned",
+      "body_sha256": "7c4286897a17827e532f57103dd65edf8df2c5795e708c0f6fa496b2bd1cdb65"
+    },
+    "T21": {
+      "number": 77,
+      "id": 5380241915,
+      "url": "https://github.com/AustinKelsay/visibible/issues/77",
+      "title": "[T21] Attach durable quotes and receipts to chat turns",
+      "body_sha256": "cf85cd63fd8f648a814acb7b7d0fcfcf7000f810035032a57922834a760002fb"
+    },
+    "T22": {
+      "number": 78,
+      "id": 5380242073,
+      "url": "https://github.com/AustinKelsay/visibible/issues/78",
+      "title": "[T22] Deduplicate image requests and guard terminal states",
+      "body_sha256": "4fa50e2a8565586e2cfb4576c96b1db187567b0ccd1fa3486c42bce41753dd14"
+    },
+    "T23": {
+      "number": 79,
+      "id": 5380242266,
+      "url": "https://github.com/AustinKelsay/visibible/issues/79",
+      "title": "[T23] Save each generation once and retain its image identity",
+      "body_sha256": "c484804fb753928b6953dd34f0abc1c7884566b673f2e7a5300d56f49df09cd6"
+    },
+    "T24": {
+      "number": 80,
+      "id": 5380242670,
+      "url": "https://github.com/AustinKelsay/visibible/issues/80",
+      "title": "[T24] Constrain remote image storage fetches",
+      "body_sha256": "7e2f0eebe76afe0d1d5577f15fca05da103d8ef8ac43bcafe0a07efb7780a2fa"
+    },
+    "T25": {
+      "number": 81,
+      "id": 5380242811,
+      "url": "https://github.com/AustinKelsay/visibible/issues/81",
+      "title": "[T25] Complete one image through a durable Convex workflow",
+      "body_sha256": "3c3659d89a852f00b290ddfc60b195c47a8debfb237737490671eb627b2b0eac"
+    },
+    "T26": {
+      "number": 82,
+      "id": 5380242982,
+      "url": "https://github.com/AustinKelsay/visibible/issues/82",
+      "title": "[T26] Recover provider ambiguity and image storage failures",
+      "body_sha256": "38eb4bb1490d8b669d2337b9dd411514ed9ef1668b9a550cadc270f578560df8"
+    },
+    "T27": {
+      "number": 83,
+      "id": 5380243252,
+      "url": "https://github.com/AustinKelsay/visibible/issues/83",
+      "title": "[T27] Resolve image cancellation against durable completion",
+      "body_sha256": "0fd88bd2fd46552446bdff2d0c72c70dfe8f9dd3dc22e25771d0e506151984fe"
+    },
+    "T28": {
+      "number": 84,
+      "id": 5380243396,
+      "url": "https://github.com/AustinKelsay/visibible/issues/84",
+      "title": "[T28] Run a small bulk job entirely on the server",
+      "body_sha256": "586f9c7f6a4a97ecb23a0e6bb79d14633d45fa03e62f957007f7036f44b77f76"
+    },
+    "T29": {
+      "number": 85,
+      "id": 5380243550,
+      "url": "https://github.com/AustinKelsay/visibible/issues/85",
+      "title": "[T29] Create and schedule whole-book queues within limits",
+      "body_sha256": "d18a1e7104f4e95d76c90365d6135ca202a5d15e2074150aec3d8fa80f450b27"
+    },
+    "T30": {
+      "number": 86,
+      "id": 5380243729,
+      "url": "https://github.com/AustinKelsay/visibible/issues/86",
+      "title": "[T30] Recover interrupted bulk items from generation truth",
+      "body_sha256": "9730872f32922ff8b0f16d60b1e9492483ae8e6618a59b66031077d1e8348e3e"
+    },
+    "T31": {
+      "number": 87,
+      "id": 5380243907,
+      "url": "https://github.com/AustinKelsay/visibible/issues/87",
+      "title": "[T31] Make bulk pause resume and cancel authoritative",
+      "body_sha256": "e2f1ac3bb4216e81f9ac1166e88b09d76a817b99413a51aa2ec1437e955ffe48"
+    },
+    "T32": {
+      "number": 88,
+      "id": 5380244179,
+      "url": "https://github.com/AustinKelsay/visibible/issues/88",
+      "title": "[T32] Remove browser bulk leases and local counters",
+      "body_sha256": "506d460a13e2b942872a3b4665632a6e59652da4933c784a024ce9626950afd9"
+    },
+    "T33": {
+      "number": 89,
+      "id": 5380244331,
+      "url": "https://github.com/AustinKelsay/visibible/issues/89",
+      "title": "[T33] Browse paginated history without breaking image links",
+      "body_sha256": "38c74b3797d3387dce33533da4714854da5d9b4cccaa99f3145db4f1b1f60a3d"
+    },
+    "T34": {
+      "number": 90,
+      "id": 5380244589,
+      "url": "https://github.com/AustinKelsay/visibible/issues/90",
+      "title": "[T34] Serve image counts and availability from bounded summaries",
+      "body_sha256": "d7bc1d047f9d252b2ae8dfff74f4601595462d5e6c32ca4df9757ec6a7346626"
+    },
+    "T35": {
+      "number": 91,
+      "id": 5380244771,
+      "url": "https://github.com/AustinKelsay/visibible/issues/91",
+      "title": "[T35] Bound publication impressions and measure reactive fan-out",
+      "body_sha256": "ce5f37b4ffbe2e75e9f8b8807943983adc707602676aa88953c9f3ee5d614456"
+    },
+    "T36": {
+      "number": 92,
+      "id": 5380244911,
+      "url": "https://github.com/AustinKelsay/visibible/issues/92",
+      "title": "[T36] Keep Nostr publication identity stable through failures",
+      "body_sha256": "828f9c1fd1f058cfcfaef90116dd086c19d9528a1e9cbf9d535c62a34fcdb47b"
+    },
+    "T37": {
+      "number": 93,
+      "id": 5380245154,
+      "url": "https://github.com/AustinKelsay/visibible/issues/93",
+      "title": "[T37] Use one generation interface in reader gallery and header",
+      "body_sha256": "3f100685bd4a51dee5e9b6f6d40c346b520511e5b8d46c5921a043ef3ce537df"
+    },
+    "T38": {
+      "number": 94,
+      "id": 5380245323,
+      "url": "https://github.com/AustinKelsay/visibible/issues/94",
+      "title": "[T38] Make preference hydration and persistence consistent",
+      "body_sha256": "fe107b6997ed14de1282d1fbfe2987add9046df50f849d42101a91f615037bb7"
+    },
+    "T39": {
+      "number": 95,
+      "id": 5380245459,
+      "url": "https://github.com/AustinKelsay/visibible/issues/95",
+      "title": "[T39] Separate welcome purchase and admin states",
+      "body_sha256": "792b849cbcc256bb87d9b793df88d9b001ffbb0bef96581fde6c2262e087244e"
+    },
+    "T40": {
+      "number": 96,
+      "id": 5380245686,
+      "url": "https://github.com/AustinKelsay/visibible/issues/96",
+      "title": "[T40] Protect reader interaction through behavior tests",
+      "body_sha256": "905e171ca3e38ea04cde9871930515ae7147435ad8d7172f50200cff78e20524"
+    },
+    "T41": {
+      "number": 97,
+      "id": 5380245885,
+      "url": "https://github.com/AustinKelsay/visibible/issues/97",
+      "title": "[T41] Create repeatable Scripture chat evaluations",
+      "body_sha256": "efb32a6211bac87b552f9c51eeac35f3e34646cf83fcf52d23ea9802445cfd67"
+    },
+    "T42": {
+      "number": 98,
+      "id": 5380246048,
+      "url": "https://github.com/AustinKelsay/visibible/issues/98",
+      "title": "[T42] Evaluate image quality and planner value",
+      "body_sha256": "4a55972166bfa8fafc2cb2931a08ed51a46a4a524e61746915df72b92d7f095f"
+    },
+    "T43": {
+      "number": 99,
+      "id": 5380246316,
+      "url": "https://github.com/AustinKelsay/visibible/issues/99",
+      "title": "[T43] Select model defaults from measured comparisons",
+      "body_sha256": "42ac13bfd9cca09567397a65d466a25bfe4b42d7f17cf0d1db34b39d2e1cb0e5"
+    },
+    "T44": {
+      "number": 100,
+      "id": 5380246458,
+      "url": "https://github.com/AustinKelsay/visibible/issues/100",
+      "title": "[T44] Exercise private and financial Convex handlers directly",
+      "body_sha256": "b66cc6e53627444e0f9bf68910b2c8fa19ba3574e4301d8a03a02db982d73592"
+    },
+    "T45": {
+      "number": 101,
+      "id": 5380246620,
+      "url": "https://github.com/AustinKelsay/visibible/issues/101",
+      "title": "[T45] Inspect durable unresolved work and financial outcomes",
+      "body_sha256": "18f1f9221367ceaa5bc7b72e4a80198f31dfa18de18a66237cbb6eb3d6494b5c"
+    },
+    "T46": {
+      "number": 102,
+      "id": 5380246829,
+      "url": "https://github.com/AustinKelsay/visibible/issues/102",
+      "title": "[T46] Distinguish readiness from observed dependency health",
+      "body_sha256": "d250912a18958ddb5873c96c00162ee2855ab52e297eae17eb40823c07f4b561"
+    },
+    "T47": {
+      "number": 103,
+      "id": 5380246957,
+      "url": "https://github.com/AustinKelsay/visibible/issues/103",
+      "title": "[T47] Apply bounded retention without losing financial evidence",
+      "body_sha256": "d7d673d467ff4602792d8bc599d9770009a451520d2a6f4b43a6b2ed7aab6c60"
+    },
+    "T48": {
+      "number": 104,
+      "id": 5380247404,
+      "url": "https://github.com/AustinKelsay/visibible/issues/104",
+      "title": "[T48] Align privacy credits and storage copy with behavior",
+      "body_sha256": "e1a803c102605d7cd786c7bd61579452b557e72471b3757ef740a5ec612ff3a2"
+    },
+    "T49": {
+      "number": 105,
+      "id": 5380247534,
+      "url": "https://github.com/AustinKelsay/visibible/issues/105",
+      "title": "[T49] Prove data export restore and reconciliation",
+      "body_sha256": "8c61af526da6657fb46419ac9da6fc8a480abdb8f8bb2b950306d8d2f8e299da"
+    },
+    "T50": {
+      "number": 106,
+      "id": 5380247673,
+      "url": "https://github.com/AustinKelsay/visibible/issues/106",
+      "title": "[T50] Switch new admissions without duplicating paid work",
+      "body_sha256": "0ec3f5b197df604281271cb6b7d050b439b7a1197a4f010534e47adc3a1617d7"
+    },
+    "T51": {
+      "number": 107,
+      "id": 5380247823,
+      "url": "https://github.com/AustinKelsay/visibible/issues/107",
+      "title": "[T51] Rehearse rollback with active jobs and payments",
+      "body_sha256": "b9d841b71da2b01c9765712334010c21fc67edac8f210b3c0fa69100fa440c72"
+    },
+    "T52": {
+      "number": 108,
+      "id": 5380248110,
+      "url": "https://github.com/AustinKelsay/visibible/issues/108",
+      "title": "[T52] Retire replaced image executors after old work drains",
+      "body_sha256": "bf095d8ededb9876b0724f763cf63dfa316ae01fc7404e772e6e2a034a0dcbfd"
+    },
+    "T53": {
+      "number": 109,
+      "id": 5380248254,
+      "url": "https://github.com/AustinKelsay/visibible/issues/109",
+      "title": "[T53] Retire duplicated pricing and chat settlement paths",
+      "body_sha256": "73976901d82240eb2a9cc2f16956e12f609b829a0698a7593eda74905e5d0b1e"
+    },
+    "T54": {
+      "number": 110,
+      "id": 5380248374,
+      "url": "https://github.com/AustinKelsay/visibible/issues/110",
+      "title": "[T54] Retire replaced reader state and library queries",
+      "body_sha256": "b2018cce3f56d87172f27c478e22cf080580e7cef74f8b3ba7152be5a7f864f7"
+    },
+    "T55": {
+      "number": 111,
+      "id": 5380248501,
+      "url": "https://github.com/AustinKelsay/visibible/issues/111",
+      "title": "[T55] Close the modernization traceability and documentation audit",
+      "body_sha256": "58b44ec28082aac22ab5730f884769b64a31a422ff4a6d7fef1db99387e62c03"
+    }
+  },
+  "sub_issues": [
+    [
+      "S12",
+      "T01"
+    ],
+    [
+      "S01",
+      "T02"
+    ],
+    [
+      "S01",
+      "T03"
+    ],
+    [
+      "S01",
+      "T04"
+    ],
+    [
+      "S01",
+      "T05"
+    ],
+    [
+      "S01",
+      "T06"
+    ],
+    [
+      "S02",
+      "T07"
+    ],
+    [
+      "S02",
+      "T08"
+    ],
+    [
+      "S02",
+      "T09"
+    ],
+    [
+      "S02",
+      "T10"
+    ],
+    [
+      "S03",
+      "T11"
+    ],
+    [
+      "S03",
+      "T12"
+    ],
+    [
+      "S03",
+      "T13"
+    ],
+    [
+      "S04",
+      "T14"
+    ],
+    [
+      "S04",
+      "T15"
+    ],
+    [
+      "S07",
+      "T16"
+    ],
+    [
+      "S07",
+      "T17"
+    ],
+    [
+      "S07",
+      "T18"
+    ],
+    [
+      "S07",
+      "T19"
+    ],
+    [
+      "S04",
+      "T20"
+    ],
+    [
+      "S04",
+      "T21"
+    ],
+    [
+      "S05",
+      "T22"
+    ],
+    [
+      "S08",
+      "T23"
+    ],
+    [
+      "S08",
+      "T24"
+    ],
+    [
+      "S05",
+      "T25"
+    ],
+    [
+      "S05",
+      "T26"
+    ],
+    [
+      "S05",
+      "T27"
+    ],
+    [
+      "S06",
+      "T28"
+    ],
+    [
+      "S06",
+      "T29"
+    ],
+    [
+      "S06",
+      "T30"
+    ],
+    [
+      "S06",
+      "T31"
+    ],
+    [
+      "S06",
+      "T32"
+    ],
+    [
+      "S08",
+      "T33"
+    ],
+    [
+      "S08",
+      "T34"
+    ],
+    [
+      "S11",
+      "T35"
+    ],
+    [
+      "S11",
+      "T36"
+    ],
+    [
+      "S09",
+      "T37"
+    ],
+    [
+      "S09",
+      "T38"
+    ],
+    [
+      "S09",
+      "T39"
+    ],
+    [
+      "S09",
+      "T40"
+    ],
+    [
+      "S10",
+      "T41"
+    ],
+    [
+      "S10",
+      "T42"
+    ],
+    [
+      "S10",
+      "T43"
+    ],
+    [
+      "S12",
+      "T44"
+    ],
+    [
+      "S11",
+      "T45"
+    ],
+    [
+      "S11",
+      "T46"
+    ],
+    [
+      "S11",
+      "T47"
+    ],
+    [
+      "S09",
+      "T48"
+    ],
+    [
+      "S12",
+      "T49"
+    ],
+    [
+      "S12",
+      "T50"
+    ],
+    [
+      "S12",
+      "T51"
+    ],
+    [
+      "S12",
+      "T52"
+    ],
+    [
+      "S12",
+      "T53"
+    ],
+    [
+      "S12",
+      "T54"
+    ],
+    [
+      "S12",
+      "T55"
+    ]
+  ],
+  "dependencies": [
+    [
+      "T04",
+      "T02"
+    ],
+    [
+      "T04",
+      "T03"
+    ],
+    [
+      "T05",
+      "T03"
+    ],
+    [
+      "T06",
+      "T04"
+    ],
+    [
+      "T08",
+      "T07"
+    ],
+    [
+      "T10",
+      "T08"
+    ],
+    [
+      "T12",
+      "T11"
+    ],
+    [
+      "T13",
+      "T12"
+    ],
+    [
+      "T15",
+      "T14"
+    ],
+    [
+      "T17",
+      "T16"
+    ],
+    [
+      "T18",
+      "T16"
+    ],
+    [
+      "T19",
+      "T18"
+    ],
+    [
+      "T20",
+      "T16"
+    ],
+    [
+      "T20",
+      "T15"
+    ],
+    [
+      "T21",
+      "T20"
+    ],
+    [
+      "T21",
+      "T06"
+    ],
+    [
+      "T25",
+      "T07"
+    ],
+    [
+      "T25",
+      "T22"
+    ],
+    [
+      "T25",
+      "T23"
+    ],
+    [
+      "T25",
+      "T24"
+    ],
+    [
+      "T25",
+      "T19"
+    ],
+    [
+      "T25",
+      "T06"
+    ],
+    [
+      "T26",
+      "T25"
+    ],
+    [
+      "T27",
+      "T26"
+    ],
+    [
+      "T28",
+      "T27"
+    ],
+    [
+      "T28",
+      "T08"
+    ],
+    [
+      "T29",
+      "T28"
+    ],
+    [
+      "T30",
+      "T28"
+    ],
+    [
+      "T31",
+      "T30"
+    ],
+    [
+      "T31",
+      "T29"
+    ],
+    [
+      "T32",
+      "T31"
+    ],
+    [
+      "T32",
+      "T10"
+    ],
+    [
+      "T33",
+      "T23"
+    ],
+    [
+      "T34",
+      "T23"
+    ],
+    [
+      "T35",
+      "T07"
+    ],
+    [
+      "T35",
+      "T33"
+    ],
+    [
+      "T37",
+      "T27"
+    ],
+    [
+      "T37",
+      "T33"
+    ],
+    [
+      "T38",
+      "T03"
+    ],
+    [
+      "T39",
+      "T13"
+    ],
+    [
+      "T39",
+      "T10"
+    ],
+    [
+      "T40",
+      "T37"
+    ],
+    [
+      "T40",
+      "T38"
+    ],
+    [
+      "T43",
+      "T41"
+    ],
+    [
+      "T43",
+      "T42"
+    ],
+    [
+      "T43",
+      "T03"
+    ],
+    [
+      "T44",
+      "T08"
+    ],
+    [
+      "T44",
+      "T11"
+    ],
+    [
+      "T44",
+      "T06"
+    ],
+    [
+      "T45",
+      "T13"
+    ],
+    [
+      "T45",
+      "T26"
+    ],
+    [
+      "T47",
+      "T09"
+    ],
+    [
+      "T47",
+      "T06"
+    ],
+    [
+      "T48",
+      "T39"
+    ],
+    [
+      "T48",
+      "T47"
+    ],
+    [
+      "T49",
+      "T01"
+    ],
+    [
+      "T50",
+      "T49"
+    ],
+    [
+      "T50",
+      "T25"
+    ],
+    [
+      "T51",
+      "T50"
+    ],
+    [
+      "T51",
+      "T31"
+    ],
+    [
+      "T51",
+      "T13"
+    ],
+    [
+      "T51",
+      "T44"
+    ],
+    [
+      "T52",
+      "T51"
+    ],
+    [
+      "T52",
+      "T32"
+    ],
+    [
+      "T53",
+      "T51"
+    ],
+    [
+      "T53",
+      "T21"
+    ],
+    [
+      "T53",
+      "T05"
+    ],
+    [
+      "T54",
+      "T51"
+    ],
+    [
+      "T54",
+      "T40"
+    ],
+    [
+      "T54",
+      "T34"
+    ],
+    [
+      "T55",
+      "T52"
+    ],
+    [
+      "T55",
+      "T53"
+    ],
+    [
+      "T55",
+      "T54"
+    ],
+    [
+      "T55",
+      "T45"
+    ],
+    [
+      "T55",
+      "T46"
+    ],
+    [
+      "T55",
+      "T36"
+    ],
+    [
+      "T55",
+      "T35"
+    ],
+    [
+      "T55",
+      "T48"
+    ],
+    [
+      "T55",
+      "T17"
+    ],
+    [
+      "T55",
+      "T43"
+    ]
+  ],
+  "verified": true,
+  "verification": {
+    "issue_count": 67,
+    "parent_links": 55,
+    "blocking_edges": 80,
+    "source_items": 86,
+    "checks": [
+      "remote bodies",
+      "open state",
+      "triage/type labels",
+      "native parents",
+      "native blockers",
+      "acyclic dependency graph",
+      "complete original item mapping",
+      "triage classifications and 67 execution briefs"
+    ]
+  },
+  "triage_manifest": "triage/manifest.json"
+}

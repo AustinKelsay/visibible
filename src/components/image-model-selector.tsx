@@ -5,7 +5,6 @@ import { ChevronDown, Check, ImageIcon, Loader2 } from "lucide-react";
 import { usePreferences } from "@/context/preferences-context";
 import {
   ImageModel,
-  DEFAULT_IMAGE_MODEL,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
   getEstimatedCreditsCostForResolution,
 } from "@/lib/image-models";
@@ -30,7 +29,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
 
   // Fetch models when dropdown opens (lazy loading)
   useEffect(() => {
-    if (isOpen && !hasFetched.current && models.length === 0) {
+    if (isOpen && !hasFetched.current) {
       hasFetched.current = true;
       
       // Defer state updates to avoid synchronous setState in effect
@@ -57,15 +56,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
             console.error("Failed to fetch image models:", err);
             setError("Failed to load models");
             // Set fallback model with the normal estimated charge
-            setModels([
-              {
-                id: DEFAULT_IMAGE_MODEL,
-                name: "Gemini 2.5 Flash (Default)",
-                provider: "Google",
-                creditsCost: DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
-                etaSeconds: 12,
-              },
-            ]);
+            setModels([]);
             setScenePlannerCreditsCost(0);
           })
           .finally(() => {
@@ -76,14 +67,8 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
   }, [isOpen, models.length]);
 
   useEffect(() => {
-    if (!isOpen && error) {
-      hasFetched.current = false;
-      queueMicrotask(() => {
-        setError(null);
-        setModels([]);
-      });
-    }
-  }, [error, isOpen]);
+    if (!isOpen) hasFetched.current = false;
+  }, [isOpen]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -161,6 +146,8 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
             <div className="px-3 py-4 text-sm text-red-500 text-center">{error}</div>
           ) : (
             <>
+              {error && <p className="px-3 py-2 text-xs text-[var(--muted)]">{error}</p>}
+              {models.length > 0 && !currentModel && <p className="px-3 py-2 text-xs">Saved model unavailable. Choose another model.</p>}
               {Object.entries(groupedModels).map(([provider, providerModels]) => (
                 <div key={provider}>
                   <div className="px-3 py-2 text-xs font-medium text-[var(--muted)] uppercase tracking-wider bg-[var(--surface)] sticky top-0">
@@ -168,10 +155,8 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
                   </div>
                   {providerModels.map((model) => {
                     const isSelected = imageModel === model.id;
-                    const isPricingAvailable =
-                      model.estimatedCreditsByResolution != null ||
-                      model.creditsCost != null ||
-                      model.reservationCreditsCost != null;
+                    const isPricingAvailable = model.availability !== "unavailable" &&
+                      getEstimatedCreditsCostForResolution(model, "1K") !== null;
                     return (
                       <button
                         key={model.id}
@@ -190,9 +175,9 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
                           <div className="text-sm font-medium truncate">{model.name}</div>
                           <p className="text-xs text-[var(--muted)] truncate">
                             {model.creditsCost == null && model.reservationCreditsCost == null ? (
-                              "Pricing unavailable"
+                              model.unavailableReason ?? "Pricing unavailable"
                             ) : (
-                              <>~{model.etaSeconds ?? 12}s · About {getModelDisplayCost(model)} credits</>
+                              <>{model.availability === "stale" ? "Cached pricing · " : ""}~{model.etaSeconds ?? 12}s · About {getModelDisplayCost(model)} credits</>
                             )}
                           </p>
                         </div>
@@ -206,7 +191,7 @@ export function ImageModelSelector({ variant = "compact" }: ImageModelSelectorPr
               ))}
               {/* Refund note */}
               <div className="px-3 py-2 text-[10px] text-[var(--muted)] border-t border-[var(--divider)] bg-[var(--surface)]">
-                Unused credits refunded after generation
+                Estimates include text and planner allowance. Unused held credits are refunded.
               </div>
             </>
           )}

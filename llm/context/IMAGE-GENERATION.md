@@ -1,147 +1,44 @@
-# Image Generation Context
+# Image generation
 
-Current high-level overview of Visibible image generation.
+[POST /api/generate-image](../../src/app/api/generate-image/route.ts) performs the OpenRouter request in Next.js. Convex tracks state, credits, cached scene plans and saved images; it is not a background worker for this request.
 
-## Current State (Phase 1 + Phase 2)
+## Request lifecycle
 
-Image generation is Convex-orchestrated, includes scene-plan caching, uses Neutral Cost for cost quoting/tracking, and learns better image-credit estimates from recent actual generations.
+1. Validate the feature flag, origin, CSRF token, signed session with current-IP tracking, body, model and rate limit.
+2. Resolve the required single-verse reference and selected translation through [the canonical passage resolver](../../src/lib/generation-passage.ts). The reference endpoint resolves aliases; a validated canonical chapter supplies the text. Neighbors use the shared navigation rules. Client text, neighboring context and theme are compatibility fields only and never become prompt/cache input. Genesis 1 uses the server-owned theme. Missing/invalid current text and upstream failures stop before reservation or provider work; missing neighboring text is omitted, while neighboring lookup errors remain retryable.
+3. Authenticated retries return the existing operation before catalog or Scripture reads. New requests query the scene plan by verse, translation and style; reuse also requires the full canonical-input fingerprint, prompt version and planner model. The fingerprint includes complete current/neighbor text, theme/style fields and the exact planner prompt. A lookup does not update hit counters; the separate hit mutation verifies the same identity so a delayed write cannot affect a replacement. Affordability (HTTP 402) and the daily spending limit (HTTP 429) are checked before the request is recorded, so a refused request does not consume its request ID; a retry with the same ID after a top-up, as bulk resume sends, is admitted normally. The reservation repeats both checks atomically to guard races. Atomically claim the owner/input fingerprint and billing ID before any paid work. Admission failure starts no provider call. A cache miss runs the optional planner with verified server inputs. If the planner model's pricing is unknown (missing or malformed catalog rates, or a failed pricing lookup), the request skips the planner and uses the direct verse prompt, so no unpriced provider work runs; a known-free planner still runs.
+4. Assemble the bounded prompt, mark the request as generating, and call OpenRouter with the configured timeout.
+5. Settle credits, persist the cost event (or enqueue its outbox fallback), attempt server-side image storage, and return the image and available saved-image ID. Failure to save does not imply that generation failed or that the image is permanently stored.
 
-- Request lifecycle is tracked in Convex (`queued`, `planning`, `generating`, `succeeded`, `failed`).
-- The UI subscribes to live request status and shows phase labels.
-- Prompt assembly uses strict char budgets and section-priority compaction.
-- Scene plans are cached in Convex by `(verseId, translationId, styleProfileId)`.
-- Cache hits skip planner API calls and skip planner credit reservations.
-- Neutral Cost is used to quote USD->credit charges and persist per-generation cost records.
-- Displayed image estimates prefer learned history from recent actual charges (model -> provider -> global -> catalog fallback).
-- If the learned-cost table is empty but historical generation records already exist, `/api/image-models` backfills the learned table from recent successful non-planner generations before serving estimates.
-- If real-time cost persistence times out/fails, events are queued in Convex outbox and retried by cron.
-- Structured observability events/metrics are emitted for rate-limit blocks, timeout paths, and settlement outcomes.
+Lifecycle states are `queued`, `planning`, `generating`, `succeeded`, and `failed`. [verseImages.ts](../../convex/verseImages.ts) provides the lifecycle/cache/storage functions; [schema.ts](../../convex/schema.ts) defines their fields. [costs.ts](../../convex/costs.ts) handles Neutral Cost and outbox replay.
 
-## End-to-End Flow
+## UI and pricing
 
-1. Verse page fetches verse context and passes theme/context into `HeroImage`.
-2. `HeroImage` sends `/api/generate-image` request with:
-   - `requestId`
-   - verse/context payload
-   - model + ratio + resolution
-   - `translation` id
-3. API validates security/session/rate limit/credits and creates lifecycle record in Convex.
-4. API checks scene plan cache using `(verseId, translationId, styleProfileId)`.
-5. If cache hit:
-   - planner call is skipped
-   - planner cost is not reserved
-   - cache hit metadata is updated
-6. If cache miss:
-   - optional planner call runs
-   - successful plan is upserted into cache
-7. API builds compact prompt packet, updates status to `generating`, calls OpenRouter.
-8. API settles credits and writes terminal lifecycle state.
-9. API persists a Neutral Cost event for the generation (metadata + final charge details).
-10. API persists the generated image server-side via `saveImage` (server-secret authenticated) and returns image payload (including `savedImageId` when persistence succeeds).
-11. UI follows status via Convex query and updates generation phase messaging.
+[HeroImage](../../src/components/hero-image.tsx) sends a request ID, subscribes to lifecycle status, and registers generation controls with [GenerationContext](../../src/context/generation-context.tsx). Header controls share that state. First-image auto-generation requires loaded empty history and strict affordability; explicit actions can use the spend-down grace. Empty history alone does not cause a paid request.
 
-## Convex Data Model
+`/api/image-models` supplies per-resolution catalog quotes including the planner surcharge, plus timing information. Resolution support is normalized before lookup. The backend can quote less than the UI on a planner cache hit. [Sessions and credits](SESSIONS_AND_CREDITS.md) explains holds, settlement and fallback charges.
 
-### `imageGenerationRequests`
+## Configuration and related behavior
 
-Lifecycle + observability table.
+- `ENABLE_IMAGE_GENERATION=true` enables the route. `ENABLE_SCENE_PLANNER=false` disables planning; planning is otherwise enabled.
+- Timeout/model overrides are listed in [.env.example](../../.env.example); the route and [scene-planner.ts](../../src/lib/scene-planner.ts) define defaults.
+- [Prompt specification](../implementation/IMAGE_PROMPT_SPEC.md), [persistence](IMAGE-PERSISTENCE.md), and [bulk generation](BULK-GENERATION.md) cover those separate concerns.
+- [Credit-flow](../../src/app/api/__tests__/generate-image/credit-flow.test.ts) and [scene-planner](../../src/app/api/__tests__/generate-image/scene-planner.test.ts) tests cover request behavior.
 
-Key fields:
-- identity: `requestId`, `sid`, `verseId`, `translationId`
-- settings: `modelId`, `aspectRatio`, `resolution`, `scenePlannerModel`
-- status/timing: status + timestamps + `durationMs`
-- diagnostics: `error`, `scenePlannerUsed`, `scenePlanFromCache`, `usedFallbackEstimate`
-- costs: estimated and actual credits/USD
-- prompt metadata: `promptVersion`, `promptPacket`
+The canonical-input version boundary is `2026-09-08-canonical`. It prevents plans authored under the older client-text policy from being reused. Legacy entries without the full input fingerprint miss safely. One cache slot remains per verse/translation/style; a newer incompatible input replaces that slot rather than growing versions indefinitely. Saved image records and replay responses preserve the original reference, translation and verse text; existing historical images are not rewritten. The provider receives bounded canonical text with whitespace normalized, without removing words such as “instruction” from Scripture.
 
-### `scenePlanCache`
+[Image prompts](../../src/lib/image-prompts.ts) owns scene-plan normalization, bounded image prompt construction, planner prompt construction, and cache fingerprinting. Its classical style strings, priority rules, trimming order, 180-character plan fields and 2,800-character image budget preserve the captured baseline. Model/prompt changes must update their declared version and follow the evaluation release policy.
 
-Reusable planner outputs.
+## Catalog quotes and supported settings (T03)
 
-Key fields:
-- key: `verseId`, `translationId`, `styleProfileId`
-- payload: `scenePlan`, `plannerModel`, `promptVersion`
-- usage/freshness: `hitCount`, `lastUsedAt`, `updatedAt`
+[Image catalog](../../src/lib/image-catalog.ts) normalizes the general OpenRouter catalog for the existing chat-completion image request. It reads text input/output rates and `pricing.image_output` as USD per output token for the verified Gemini families; it never treats `pricing.image` as a generated-image price. Billing metadata contains its source, capture time, unit and policy version. Capabilities contain documentation provenance. The adapter does not switch generation APIs.
 
-### `modelCostStats`
+Google documents 1,290 output tokens for Gemini 2.5 Flash Image. Gemini 3 Pro uses 1,120 at 1K/2K and 2,000 at 4K; Gemini 3.1 Flash uses 1,120/1,680/2,520. Estimates additionally allow 1,000 text input and 1,000 text output tokens. These are estimation assumptions, not enforced spending caps. The combined decimal sum rounds to credits once. Sources: [Google image dimensions/token counts](https://ai.google.dev/gemini-api/docs/image-generation), [Google pricing](https://ai.google.dev/gemini-api/docs/pricing), [OpenRouter chat request contract](https://openrouter.ai/docs/api/api-reference/chat/send-chat-completion-request).
 
-Learned image-credit estimates.
+The verified registry covers the existing default and 3 Pro/3.1 Flash stable and preview identifiers. Unknown models remain visible but disabled until output units and request settings are verified. No default-model quality change is included. Explicit unsupported settings fail before reservation/provider work. Stored resolutions normalize when selecting a model; a removed saved model requires an explicit new selection.
 
-Key fields:
-- scope: `scopeType` (`model`, `provider`, `global`) + `scopeValue`
-- bucket: `resolution`
-- samples: `sampleCredits`, `sampleCount`, `lastActualCredits`
-- output: `estimateCredits`, `updatedAt`
+Discovery and admission use the same catalog quote. Discovery includes the planner allowance (zero when planner pricing is unknown); an existing compatible scene plan can reduce admission by that allowance. Cost samples are still recorded, but unversioned historical/model/provider/global estimates do not override current quotes. T05 introduces validated learned estimates. The model-list GET no longer starts a historical backfill.
 
-### Neutral Cost Component Tables
+A catalog outage may use a labeled last-known snapshot for at most six hours. Without one, choices are unavailable; the configured default is never inserted into a successful catalog that removed it. Selectors refetch when reopened. Scripture remains available during pricing failure.
 
-Managed by Convex component `neutralCost`:
-- `toolsPricing`
-- `costPerTools`
-- `markupMultiplier`
-
-### Cost Event Outbox
-
-Table: `costEventOutbox`
-
-- Stores failed/timeout cost events for later replay.
-- Cron retries pending events every 5 minutes.
-- Replay is idempotent by generation id check before recording cost event.
-
-## Convex Functions
-
-In `convex/verseImages.ts`:
-
-Lifecycle:
-- `createGenerationRequest`
-- `updateGenerationRequest`
-- `getGenerationRequestStatus`
-
-Scene plan cache:
-- `getScenePlanCache`
-- `markScenePlanCacheHit`
-- `upsertScenePlanCache`
-
-Neutral cost:
-- `quoteUsdCost`
-- `recordImageCostEvent`
-
-Image persistence (see `llm/implementation/IMAGE_PERSISTENCE_IMPLEMENTATION.md` for full data model):
-- `saveImage` (server-authenticated action)
-
-All write operations and cache lookup in server flows are gated by `CONVEX_SERVER_SECRET`.
-
-## Prompt Strategy
-
-Prompting now favors bounded, reusable context over raw expansion:
-
-- continuity hints are short (`vN: ...`) and clipped
-- narrative continuity section is omitted when scene plan exists
-- section-level compaction enforces prompt budget (`PROMPT_MAX_CHARS`)
-- `promptPacket` records exactly what survived compaction
-
-## Current UI Behavior
-
-`HeroImage`:
-- creates/sends `requestId`
-- subscribes to request status
-- uses `/api/image-models` pricing metadata to show the estimated request charge in selectors/CTAs
-- displayed estimate prefers learned per-resolution totals from recent actual charges, then falls back to provider/global/catalog pricing
-- displayed estimate includes the planner surcharge when the planner is enabled
-- models that do not support resolution learn against a shared 1K bucket, so their `1K`/`2K`/`4K` UI estimates stay aligned instead of diverging artificially
-- scene-plan cache hits can make the final backend estimate lower because the planner call is skipped
-- displays phase labels:
-  - `Planning scene...`
-  - `Generating image...`
-
-## Theme Wiring
-
-Genesis 1 chapter theme is now actively passed from the verse page into image generation.
-
-## Entry Points
-
-- API route: `src/app/api/generate-image/route.ts`
-- UI: `src/components/hero-image.tsx`
-- Verse page: `src/app/[book]/[chapter]/[verse]/page.tsx`
-- Convex schema: `convex/schema.ts`
-- Convex functions: `convex/verseImages.ts`
+Holds use the bounded headroom described in [Sessions and credits](SESSIONS_AND_CREDITS.md); final settlement still uses actual usage where available. A visible accepted maximum, input/output exposure bounds and versioned quote acceptance (T04) are not implemented. Historical charges are unchanged.

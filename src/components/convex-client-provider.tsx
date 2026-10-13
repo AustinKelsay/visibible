@@ -1,10 +1,17 @@
 "use client";
 
-import { ConvexProvider, ConvexReactClient } from "convex/react";
+import { ConvexProviderWithAuth, ConvexReactClient } from "convex/react";
 import { ReactNode, createContext, useContext } from "react";
 
+import { useGuestAuth } from "@/lib/use-guest-auth";
+
 const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
-const convex = convexUrl ? new ConvexReactClient(convexUrl) : null;
+const normalizedConvexUrl = convexUrl?.trim();
+const placeholderConvexUrl = "https://placeholder.convex.invalid";
+const convexClientUrl = normalizedConvexUrl || placeholderConvexUrl;
+const convex = new ConvexReactClient(convexClientUrl, {
+  skipConvexDeploymentUrlCheck: convexClientUrl === placeholderConvexUrl,
+});
 const ConvexAvailabilityContext = createContext(false);
 
 export function useConvexEnabled() {
@@ -12,19 +19,11 @@ export function useConvexEnabled() {
 }
 
 export function ConvexClientProvider({ children }: { children: ReactNode }) {
-  const isConvexEnabled = Boolean(convex);
-
-  if (!convex) {
-    return (
-      <ConvexAvailabilityContext.Provider value={isConvexEnabled}>
-        {children}
-      </ConvexAvailabilityContext.Provider>
-    );
-  }
+  const isConvexEnabled = Boolean(normalizedConvexUrl);
 
   return (
     <ConvexAvailabilityContext.Provider value={isConvexEnabled}>
-      <ConvexProvider client={convex}>{children}</ConvexProvider>
+      <ConvexProviderWithAuth client={convex} useAuth={useGuestAuth}>{children}</ConvexProviderWithAuth>
     </ConvexAvailabilityContext.Provider>
   );
 }

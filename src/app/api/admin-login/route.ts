@@ -78,6 +78,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   // SECURITY: Check if IP is locked out due to too many failed attempts
   const loginAllowedResult = await convex.query(api.rateLimit.checkAdminLoginAllowed, {
+    serverSecret: rateLimitServerSecret,
     ipHash,
   });
 

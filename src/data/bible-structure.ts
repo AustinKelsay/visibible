@@ -496,6 +496,7 @@ export function isValidLocation(
   chapter: number,
   verse: number
 ): boolean {
+  if (!Number.isSafeInteger(chapter) || !Number.isSafeInteger(verse)) return false;
   if (chapter < 1 || chapter > book.chapters.length) return false;
   if (verse < 1 || verse > book.chapters[chapter - 1]) return false;
   return true;
