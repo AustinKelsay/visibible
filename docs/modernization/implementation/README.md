@@ -131,3 +131,24 @@ Daily-limit reconciliation now checks the reservation's admission day against th
 Eight actual-handler regressions cover midnight outcomes, retries near the daily limit, concurrent admissions, and reconciliation before the next daily reset. All 575 tests across 63 files, lint, and type checking pass. Four synthetic cases also passed on `coordinated-shepherd-515`; their records and temporary verification module were removed. A protected development-data export preceded deployment. CodeRabbit reviewed the two changed code/test files and raised 0 issues.
 
 This is a prerequisite fix, not completion of T04. Persisted five-minute quotes, visible accepted maxima, capped settlement, bounded provider requests, and distinct provider-exposure accounting still need implementation. Current operation billing policies and historical ledger amounts remain unchanged.
+
+## Release polish and end-to-end verification (2026-10-13)
+
+Merged `main` (LNURL-pay proxy, `.well-known` type checking) and kept the verse-view flag rollout removed, as on `dev`. A spec and standards review of the checkpoint found three billing defects, now fixed with regressions that fail without the fix:
+
+- The legacy 35x hold offset the old mis-unit image price. Applied to verified quotes it held about 35x the real cost (210 credits for a 6-credit image) and put Gemini 3 Pro past the $5 daily limit on every request. Holds are now the verified quote times `IMAGE_RESERVATION_HEADROOM_MULTIPLIER` (2), plus planner credits.
+- Affordability (402) and daily-limit (429) refusals happened after the generation request was recorded, so bulk resume, which reuses its request ID, received 409 and failed the verse permanently. Both checks now run before admission; reservation repeats them atomically.
+- Unknown scene-planner pricing was treated as free. The planner is now skipped for that request.
+
+The session-expiry notice now explains that a retained balance does not restore access. Behavior guides under `llm/context` were updated for the checkpoint. CodeRabbit raised 0 issues on the 22 changed files. All **582 tests across 64 files**, lint, type checking and `next build` pass.
+
+Guest signing keys were installed for hosted environments: a preview key (Vercel Preview and `dev`, added beside the local key in the Convex dev JWKS) and a separate production key, issuer and audience (Vercel Production and Convex production). Private JWKs exist only in Vercel as sensitive values.
+
+End-to-end checks:
+
+- Hosted preview: session, CSRF and `/api/convex-token` issued an RS256 token with the preview key; Convex dev accepted it and returned the guest's wallet.
+- Hosted preview, real provider: Genesis 1:3 held 12 credits, charged 5 from actual usage, saved the image and returned the same saved image for a same-ID retry without another charge.
+- Browser against Convex dev with a hosted OpenRouter key: a synthetic grant appeared without reload; generation showed the 13-credit hold and settled from 100 to 95 ([screenshot](screenshots/bounded-hold-generated.png)); chat held and charged one credit. A provider 401 released its 13-credit hold exactly once.
+- Bulk-style request ID: a 402 refusal recorded no request; after the balance recovered, the same ID generated and saved Genesis 1:4.
+
+Synthetic `e2e-test-grant` ledger rows and the generated images remain on Convex dev. Live Lightning settlement is still unverified: the configured LND REST host returns 404 on every path in every environment, including production.
