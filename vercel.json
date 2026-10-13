@@ -1,12 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/.well-known/lnurlp/:path*",
-      "destination": "https://tower.taila60b27.ts.net/.well-known/lnurlp/:path*"
-    },
-    {
       "source": "/lnurlp/:path*",
-      "destination": "https://tower.taila60b27.ts.net/lnurlp/:path*"
+      "destination": "https://tower.taila60b27.ts.net:10000/lnurlp/:path*"
     }
   ]
 }
