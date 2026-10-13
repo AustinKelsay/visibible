@@ -1,3 +1,4 @@
+import type { NextRequest } from "next/server";
 import {
   createFlagsDiscoveryEndpoint,
   getProviderData as getGenericProviderData,
@@ -17,9 +18,14 @@ async function getDiscoveryData() {
   return getGenericProviderData(flags);
 }
 
-export const GET = createFlagsDiscoveryEndpoint(
-  async () => getDiscoveryData(),
-  {
-    secret: getFlagsSecret(),
-  }
-);
+// Resolve the secret per request so a missing FLAGS_SECRET fails this endpoint, not the build.
+export async function GET(request: NextRequest) {
+  const handler = createFlagsDiscoveryEndpoint(
+    async () => getDiscoveryData(),
+    {
+      secret: getFlagsSecret(),
+    }
+  );
+
+  return handler(request);
+}
