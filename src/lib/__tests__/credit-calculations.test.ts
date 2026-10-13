@@ -16,7 +16,6 @@ import {
 import {
   canAffordImageGeneration,
   computeCreditsCost,
-  computeConservativeEstimate,
   computeCreditsFromActualUsage,
   computeAdjustedCreditsCost,
   computeEstimatedImageGenerationCreditsCost,
@@ -24,7 +23,6 @@ import {
   normalizeResolutionForModel,
   resolveLearnedImageCreditsEstimate,
   supportsResolution,
-  CONSERVATIVE_ESTIMATE_MULTIPLIER,
   DEFAULT_CREDITS_COST,
   IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS,
   getDisplayedCreditsCost,
@@ -267,21 +265,6 @@ describe("canAffordImageGeneration", () => {
         3 + IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS
       )
     ).toBe(false);
-  });
-});
-
-describe("computeConservativeEstimate", () => {
-  it("should return null for unpriced models", () => {
-    expect(computeConservativeEstimate(undefined)).toBeNull();
-    expect(computeConservativeEstimate("0")).toBeNull();
-  });
-
-  it("should apply 35x multiplier for pricing discrepancy", () => {
-    const baseCost = computeCreditsCost("0.1");
-    const conservative = computeConservativeEstimate("0.1");
-
-    // Conservative should be approximately 35x the base (with ceiling effects)
-    expect(conservative).toBe(Math.ceil(baseCost! * CONSERVATIVE_ESTIMATE_MULTIPLIER));
   });
 });
 

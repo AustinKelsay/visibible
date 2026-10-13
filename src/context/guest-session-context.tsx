@@ -54,7 +54,7 @@ export function GuestSessionProvider({ children }: { children: ReactNode }) {
         if (data.status === "invalid") {
           const invalidReasonMessage =
             data.invalidReason === "expired"
-              ? "Your previous session expired. Reload to start a new session."
+              ? "Your previous session expired. Its balance record is kept on our server, but expired sessions can't be restored here or on another device. Reload to start a new session."
               : "Your previous session could not be restored. Reload to start a new session.";
           setSid(null);
 

@@ -11,7 +11,7 @@ import { z } from "zod";
 import {
   DEFAULT_IMAGE_MODEL,
   fetchImageModels,
-  CONSERVATIVE_ESTIMATE_MULTIPLIER,
+  IMAGE_RESERVATION_HEADROOM_MULTIPLIER,
   getProviderName,
   CREDIT_USD,
   canAffordImageGeneration,
@@ -62,7 +62,6 @@ export const dynamic = "force-dynamic";
 const isImageGenerationEnabled =
   process.env.ENABLE_IMAGE_GENERATION === "true";
 
-// Version boundary prevents reuse of plans derived from client-authored Scripture.
 const DEFAULT_TRANSLATION_ID = "default";
 const DEFAULT_COST_MARKUP_MULTIPLIER = 1.25;
 const MAX_IMAGE_REQUEST_BODY_SIZE = DEFAULT_MAX_BODY_SIZE;
@@ -660,8 +659,7 @@ export async function POST(request: Request) {
   // learned quotes after validating freshness, sample count and pricing identity.
   const imageCreditsCost = catalogQuote.credits;
 
-  // Preserve the legacy hold policy until T04 replaces it with accepted maxima.
-  const reservationImageCredits = catalogQuote.credits * CONSERVATIVE_ESTIMATE_MULTIPLIER;
+  const reservationImageCredits = catalogQuote.credits * IMAGE_RESERVATION_HEADROOM_MULTIPLIER;
 
   // Determine scene planner settings early for cost calculation
   const enableScenePlanner = isScenePlannerEnabled();
@@ -697,10 +695,12 @@ export async function POST(request: Request) {
   // Calculate scene planner cost only when planner call is still needed.
   let scenePlannerCreditsCost = 0;
   let scenePlannerCostUsd = 0;
+  let runScenePlanner = enableScenePlanner;
   if (enableScenePlanner && !scenePlanFromCache) {
-    scenePlannerCreditsCost = await getScenePlannerEstimatedCreditsCost(
-      openRouterApiKey
-    );
+    const plannerCredits = await getScenePlannerEstimatedCreditsCost(openRouterApiKey);
+    // Unpriced planner work would go unbilled, so use the direct prompt instead.
+    if (plannerCredits === null) runScenePlanner = false;
+    scenePlannerCreditsCost = plannerCredits ?? 0;
     scenePlannerCostUsd = scenePlannerCreditsCost * CREDIT_USD;
   }
 
@@ -732,6 +732,33 @@ export async function POST(request: Request) {
     );
   }
   const isAdmin = session?.tier === "admin";
+
+  // Refuse before admission so a refused request ID stays usable after a
+  // top-up or daily reset. Reservation repeats both checks atomically.
+  if (!isAdmin && !canAffordImageGeneration(session.credits, estimatedCreditsCost)) {
+    return jsonWithSessionRefresh(
+      {
+        error: "Insufficient credits",
+        requestId: clientRequestId,
+        required: estimatedCreditsCost,
+        available: session.credits,
+      },
+      { status: 402 }
+    );
+  }
+  if (!isAdmin && session.dailySpendUsd + reservationCostUsd > session.dailySpendLimitUsd) {
+    return jsonWithSessionRefresh(
+      {
+        error: "Daily spending limit exceeded",
+        dailyLimit: session.dailySpendLimitUsd,
+        dailySpent: session.dailySpendUsd,
+        requestId: clientRequestId,
+        remaining: Math.max(0, session.dailySpendLimitUsd - session.dailySpendUsd),
+      },
+      { status: 429 }
+    );
+  }
+
   let generationRequestCreated = false;
   const generationRequestId = clientRequestId;
 
@@ -801,24 +828,6 @@ export async function POST(request: Request) {
   } catch (error) {
     logApiFailure({ context: requestContext, stage: "image_admission", error, statusCode: 503, sid });
     return jsonWithSessionRefresh({ error: "Unable to safely start image generation" }, { status: 503 });
-  }
-
-  const canStartGeneration = isAdmin
-    ? true
-    : canAffordImageGeneration(session.credits, estimatedCreditsCost);
-  if (!canStartGeneration) {
-    await updateGenerationRequest("failed", {
-      error: "Insufficient credits",
-    });
-    return jsonWithSessionRefresh(
-      {
-        error: "Insufficient credits",
-        requestId: generationRequestId,
-        required: estimatedCreditsCost,
-        available: session.credits,
-      },
-      { status: 402 }
-    );
   }
 
   if (!isAdmin) {
@@ -918,7 +927,7 @@ export async function POST(request: Request) {
         });
       return { scenePlan: cachedScenePlan, fromCache: true };
     }
-    if (!enableScenePlanner) return { scenePlan: null, fromCache: false };
+    if (!runScenePlanner) return { scenePlan: null, fromCache: false };
     const scenePlannerPrompt = buildScenePlannerPrompt({ reference, verseText, prevVerse, nextVerse, chapterTheme, styleProfile });
 
     try {
@@ -1155,7 +1164,7 @@ export async function POST(request: Request) {
     }
 
     // Calculate actual credits to charge based on OpenRouter usage
-    // Fall back to API-based estimate (not conservative 35x) if actual usage not available
+    // Fall back to the catalog estimate, not the reservation hold, if actual usage is not available
     const effectiveScenePlannerCredits = scenePlannerUsed ? scenePlannerCreditsCost : 0;
     const effectiveScenePlannerCostUsd = scenePlannerUsed ? scenePlannerCostUsd : 0;
 
@@ -1187,7 +1196,7 @@ export async function POST(request: Request) {
     // Record generation duration for ETA estimation
     const generationDurationMs = Date.now() - generationStartTime;
 
-    // Track if there was a charge shortfall (rare: actual exceeded 35x conservative estimate)
+    // Track a charge shortfall: actual usage exceeded the hold and the remaining balance
     let chargeShortfall: { wantedCredits: number; chargedCredits: number; shortfall: number } | null = null;
 
     // Helper to record stats and return success
@@ -1465,7 +1474,7 @@ export async function POST(request: Request) {
           usedActualCost: usedActual,
           usedFallbackEstimate, // true when OpenRouter didn't return usage data
           neutralCostUsedForActual,
-          // Shortfall tracking (rare: actual exceeded 35x conservative estimate)
+          // Shortfall tracking: actual usage exceeded the hold and remaining balance
           ...(chargeShortfall && { chargeShortfall }),
           durationMs: generationDurationMs,
           aspectRatio,

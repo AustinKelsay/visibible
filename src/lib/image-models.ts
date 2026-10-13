@@ -15,7 +15,6 @@ export interface ImageModel {
   creditsCost?: number | null; // null = unpriced, number = estimated credits charged
   reservationCreditsCost?: number | null; // conservative reservation hold for low-variance billing
   estimatedCreditsByResolution?: Partial<Record<ImageResolution, number>>;
-  usesEmergencyPricing?: boolean; // true when model pricing came from local outage fallback
   etaSeconds?: number; // estimated generation time
 }
 
@@ -37,8 +36,9 @@ export const DEFAULT_CREDITS_COST = 20; // default credit cost for unpriced mode
 export const IMAGE_GENERATION_SPEND_DOWN_GRACE_CREDITS = 5;
 const MODEL_CACHE_MAX_STALE_MS = 6 * 60 * 60 * 1000; // 6 hours
 
-// Legacy hold policy retained until T04 introduces accepted maximum charges.
-export const CONSERVATIVE_ESTIMATE_MULTIPLIER = 35;
+// Holds bound settlement variance over a verified quote until accepted maximum
+// charges replace them. The former 35x offset a mis-unit price that is now gone.
+export const IMAGE_RESERVATION_HEADROOM_MULTIPLIER = 2;
 
 /**
  * Legacy flat-USD conversion. Never pass a raw catalog image/token rate here.
@@ -52,13 +52,6 @@ export function computeCreditsCost(pricingImage: string | undefined): number | n
 
   const effectiveUsd = baseUsd * PREMIUM_MULTIPLIER;
   return Math.max(1, Math.ceil(effectiveUsd / CREDIT_USD));
-}
-
-/** Legacy flat-USD hold helper; current catalog quotes use explicit output units. */
-export function computeConservativeEstimate(pricingImage: string | undefined): number | null {
-  const baseCost = computeCreditsCost(pricingImage);
-  if (baseCost === null) return null;
-  return Math.ceil(baseCost * CONSERVATIVE_ESTIMATE_MULTIPLIER);
 }
 
 /**
@@ -383,7 +376,7 @@ export async function fetchImageModels(openRouterApiKey: string): Promise<ImageM
           unavailableReason: quote ? undefined : imageCapabilities(model.id)
             ? "Output pricing unavailable" : "Pricing and settings not verified",
           creditsCost: quote?.credits ?? null,
-          reservationCreditsCost: quote ? quote.credits * CONSERVATIVE_ESTIMATE_MULTIPLIER : null,
+          reservationCreditsCost: quote ? quote.credits * IMAGE_RESERVATION_HEADROOM_MULTIPLIER : null,
           etaSeconds: DEFAULT_ETA_SECONDS,
         };
       })

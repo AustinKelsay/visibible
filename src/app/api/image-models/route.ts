@@ -21,9 +21,11 @@ export async function GET() {
       scenePlannerCreditsCost: 0, creditRange: null, error: "Image generation is not configured" },
       { headers: { "Cache-Control": "private, no-store" } });
   }
-  const [result, scenePlannerCreditsCost] = await Promise.all([
+  const [result, plannerCredits] = await Promise.all([
     fetchImageModels(key), getScenePlannerEstimatedCreditsCost(key),
   ]);
+  // Generation skips a planner with unknown pricing, so it adds nothing to quotes.
+  const scenePlannerCreditsCost = plannerCredits ?? 0;
   const etas = new Map<string, number>();
   const convex = getConvexClient();
   if (convex) {

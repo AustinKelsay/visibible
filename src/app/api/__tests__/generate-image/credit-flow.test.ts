@@ -232,7 +232,12 @@ vi.mock("@/lib/convex-client", () => ({
           });
         }
 
-        const chargedAmount = Math.min(actualAmount, reservedAmount);
+        // Like computeReservedChargeOutcome: an overrun is charged from the
+        // balance when it fits, and is a shortfall only when it does not.
+        const additional = actualAmount - reservedAmount;
+        const chargeAdditional = additional > 0 && session.credits >= additional;
+        if (chargeAdditional) session.credits -= additional;
+        const chargedAmount = chargeAdditional ? actualAmount : Math.min(actualAmount, reservedAmount);
         mockState.ledger.push({
           sid,
           delta: -chargedAmount,
@@ -240,7 +245,7 @@ vi.mock("@/lib/convex-client", () => ({
           generationId,
         });
 
-        if (actualAmount > reservedAmount) {
+        if (actualAmount > reservedAmount && !chargeAdditional) {
           const shortfall = actualAmount - reservedAmount;
           mockState.ledger.push({
             sid,
@@ -436,6 +441,29 @@ describe("Image Generation API Credit Flow", () => {
       expect(getCallCount("reserveCredits")).toBe(0);
       expect(getCallCount("saveImage")).toBe(0);
       expect(mockFetch.mock.calls.filter(([url]) => String(url).includes("openrouter.ai"))).toHaveLength(0);
+    });
+    it.each([
+      ["insufficient credits", { credits: 0 }, 402],
+      ["the daily spend limit", { dailySpendUsd: 4.99 }, 429],
+    ] as const)("admits the same ID after a refusal for %s before paid work", async (_reason, refusal, status) => {
+      const funded = { ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 };
+      resetMockState([{ ...funded, ...refusal }]);
+      const { POST } = await import("../../generate-image/route");
+      expect((await POST(createGenerateImageRequest(body))).status).toBe(status);
+      expect(getCallCount("reserveCredits")).toBe(0);
+      mockState.sessions.set("test-session", funded);
+      expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
+      expect(getCallCount("reserveCredits")).toBe(1);
+    });
+    it("holds the verified quote with bounded headroom", async () => {
+      const { catalogImageQuote, DEFAULT_IMAGE_MODEL, IMAGE_RESERVATION_HEADROOM_MULTIPLIER } =
+        await import("@/lib/image-models");
+      const { POST } = await import("../../generate-image/route");
+      expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
+      const quote = catalogImageQuote(DEFAULT_IMAGE_MODEL, imageModelFixture().billing, "1K");
+      const reserve = mockState.callHistory.find((c) => c.action === "reserveCredits");
+      expect((reserve?.args as { amount: number }).amount)
+        .toBe(quote!.credits * IMAGE_RESERVATION_HEADROOM_MULTIPLIER);
     });
   });
 
@@ -1380,7 +1408,8 @@ describe("Image Generation API Credit Flow", () => {
           ...fixtures.sessions.paidWithCredits,
           sid: "test-session",
           credits: 1,
-          dailySpendUsd: 4.5,
+          // A one-credit capped hold fits; only the uncapped hold exceeds the limit.
+          dailySpendUsd: 4.99,
           dailySpendLimitUsd: 5.0,
         },
       ]);

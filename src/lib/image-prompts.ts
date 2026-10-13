@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import type { ImageAspectRatio, ImageResolution } from "./image-models";
 
+// Version boundary prevents reuse of plans derived from client-authored Scripture.
 export const PROMPT_VERSION = "2026-09-08-canonical";
 export const DEFAULT_STYLE_PROFILE = "classical";
 const SCENE_PLAN_MAX_FIELD_LENGTH = 180;

@@ -14,7 +14,6 @@ export interface ChatModel {
 
 // Credit pricing constants (shared with image-models.ts)
 export const CREDIT_USD = 0.01; // 1 credit = $0.01
-export const PREMIUM_MULTIPLIER = 1.25; // 25% premium over OpenRouter price
 export const DEFAULT_ESTIMATED_TOKENS = 2000; // Conservative estimate for chat (1000 prompt + 1000 completion)
 export const MIN_CHAT_CREDITS = 1; // Minimum credits to charge per chat
 

@@ -70,7 +70,7 @@ export const fixtures = {
     image: {
       standard: {
         id: "google/gemini-2.0-flash-exp:free",
-        pricing: { imageOutput: "0.01" }, // ~13 credits, ~455 with 35x
+        pricing: { imageOutput: "0.01" }, // ~13 credits
       },
       gemini: {
         id: "google/gemini-2.5-flash-image",

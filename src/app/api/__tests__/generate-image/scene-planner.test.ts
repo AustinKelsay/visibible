@@ -431,6 +431,33 @@ describe("Scene Planner Refund Logic", () => {
     });
   });
 
+  describe("Unpriced Scene Planner Model", () => {
+    it("skips the planner instead of running it unbilled", async () => {
+      const { getChatModelPricing } = await import("@/lib/chat-models");
+      vi.mocked(getChatModelPricing).mockResolvedValueOnce(null);
+      imageGenerationResponse = {
+        ok: true,
+        status: 200,
+        json: async () => ({
+          id: "gen-123",
+          choices: [
+            { message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } },
+          ],
+          usage: { cost: 0.01 },
+        }),
+      };
+
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest({ text: "Test verse" }));
+
+      expect(response.status).toBe(200);
+      const body = await response.json();
+      expect(body.scenePlannerUsed).toBe(false);
+      expect(body.scenePlannerCredits).toBe(0);
+      expect(fetchCallIndex).toBe(1);
+    });
+  });
+
   describe("Free Scene Planner Model", () => {
     it("no refund needed when scene planner model is free", async () => {
       mockIsModelFree.value = true;
