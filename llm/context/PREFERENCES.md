@@ -4,6 +4,6 @@
 
 Translation, image model and chat model setters also write cookies. Translation and image model changes refresh the route. Ratio and resolution changes apply to subsequent generation; chat model changes apply to subsequent messages. Selecting a model does not itself guarantee generation or catalog availability.
 
-Model defaults, supported ratios/resolutions and resolution normalization are defined in [image-models.ts](../../src/lib/image-models.ts) and [chat-models.ts](../../src/lib/chat-models.ts). Models without resolution support use the normalized 1K estimate bucket.
+Model defaults, ratio/resolution options and resolution normalization are defined in [image-models.ts](../../src/lib/image-models.ts) and [chat-models.ts](../../src/lib/chat-models.ts); the per-model supported-resolution registry lives in [image-catalog.ts](../../src/lib/image-catalog.ts). Models without resolution support use the normalized 1K estimate bucket.
 
 Reader/gallery state is separate from saved preferences; see [Navigation](NAVIGATION.md). Preference events use the source values defined in [analytics.ts](../../src/lib/analytics.ts).
