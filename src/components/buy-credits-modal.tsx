@@ -152,7 +152,7 @@ const CREDIT_BUNDLES = [
 type CreditBundle = (typeof CREDIT_BUNDLES)[number];
 
 export function BuyCreditsModal() {
-  const { isBuyModalOpen, closeBuyModal, refetch, credits, tier } = useSession();
+  const { isBuyModalOpen, closeBuyModal, credits, tier } = useSession();
   const [state, setState] = useState<ModalState>("welcome");
   const [invoice, setInvoice] = useState<Invoice | null>(null);
   const [invoiceCreatedAt, setInvoiceCreatedAt] = useState<number>(0);
@@ -324,8 +324,7 @@ export function BuyCreditsModal() {
         return;
       }
 
-      // Success - refetch session and close
-      await refetch();
+      // Tier updates arrive through the authenticated wallet subscription.
       trackModalClosed(state);
       closeBuyModal();
     } catch {
@@ -382,8 +381,7 @@ export function BuyCreditsModal() {
               hasCredits: true, // They just paid, so they have credits now
             });
           }
-          // Refetch session to update credits
-          await refetch();
+          // The wallet subscription receives the committed credit purchase.
         } else if (data.status === "expired" || data.status === "failed") {
           setError("Invoice expired. Please try again.");
           setState("error");
@@ -431,7 +429,7 @@ export function BuyCreditsModal() {
       clearInterval(pollInterval);
       clearInterval(expirationCheckRef.current!);
     };
-  }, [state, invoice, invoiceCreatedAt, refetch, tier, credits]);
+  }, [state, invoice, invoiceCreatedAt, tier, credits]);
 
   const copyBolt11 = useCallback(async () => {
     if (!invoice) return;
@@ -699,7 +697,7 @@ export function BuyCreditsModal() {
                   ⚠️ Session-only credits
                 </p>
                 <p className="text-amber-700 dark:text-amber-300">
-                  You have no account. Credits are stored in this browser only. Clearing cookies or site data, or using a different browser, will result in lost credits.
+                  Your balance is stored on our server, but access depends on this browser’s session. Clearing cookies or letting the session expire ends access. Retaining the balance record does not restore access; cross-device and lost-cookie recovery are not available.
                 </p>
               </div>
 

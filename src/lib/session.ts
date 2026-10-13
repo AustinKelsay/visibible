@@ -313,6 +313,8 @@ export interface SessionValidationResult {
   refreshedToken?: string;
   invalidReason?: SessionInvalidReason;
   ipChanged?: boolean;
+  /** Expiry of the presented cookie, before any optional activity renewal. */
+  cookieExpiresAt?: number;
 }
 
 /**
@@ -366,6 +368,7 @@ export async function validateSessionWithIp(
     currentIpHash,
     refreshedToken: refreshedToken ?? undefined,
     ipChanged,
+    cookieExpiresAt: sessionData.expiresAt,
   };
 }
 

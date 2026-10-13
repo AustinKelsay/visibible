@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { api } from "../../../../convex/_generated/api";
-import { getConvexClient } from "@/lib/convex-client";
+import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { validateSessionWithIp, withSessionRefreshCookie } from "@/lib/session";
 import { RATE_LIMITS } from "../../../../convex/rateLimit";
 import { DEFAULT_DAILY_SPEND_LIMIT_USD } from "../../../../convex/sessions";
@@ -72,14 +72,16 @@ export async function GET(request: Request): Promise<NextResponse<RateLimitStatu
   // Fetch rate limit status for each endpoint in parallel
   const [chatStatus, imageStatus, session] = await Promise.all([
     convex.query(api.rateLimit.getRateLimitStatus, {
+      serverSecret: getConvexServerSecret(),
       identifier: rateLimitIdentifier,
       endpoint: "chat",
     }),
     convex.query(api.rateLimit.getRateLimitStatus, {
+      serverSecret: getConvexServerSecret(),
       identifier: rateLimitIdentifier,
       endpoint: "generate-image",
     }),
-    convex.query(api.sessions.getSession, { sid }),
+    convex.query(api.sessions.getSession, { sid, serverSecret: getConvexServerSecret() }),
   ]);
 
   // Calculate daily spend info

@@ -10,6 +10,7 @@ import {
   RESOLUTIONS,
   getEstimatedCreditsCostForResolution,
   supportsResolution,
+  imageCapabilities,
   type ImageAspectRatio,
   type ImageModel,
   type ImageResolution,
@@ -68,9 +69,10 @@ export function ImageGenerationSettingsPanel({
       model,
       resolution,
       plannerCreditsCost
-    ) ?? DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
+    );
 
   const getResolutionDisplayCost = (resolution: ImageResolution) => {
+    if (!imageCapabilities(selectedModelId)?.resolutions.includes(resolution)) return null;
     if (selectedModel) {
       return getModelDisplayCost(selectedModel, resolution);
     }
@@ -94,6 +96,8 @@ export function ImageGenerationSettingsPanel({
   return (
     <div className="space-y-5">
       <div>
+        {modelsError && models.length > 0 && <p className="text-xs text-[var(--muted)]">{modelsError}</p>}
+        {!modelsLoading && (state.pricingUnavailable || (models.length > 0 && !selectedModel)) && <p className="text-xs">{state.pricingUnavailable ?? "Saved model unavailable. Choose another model."}</p>}
         <span className="text-sm font-medium text-[var(--foreground)]">Model</span>
         {modelsLoading ? (
           <div className="flex items-center justify-center py-6">
@@ -112,10 +116,8 @@ export function ImageGenerationSettingsPanel({
                   </div>
                   {providerModels.map((model) => {
                     const isSelected = selectedModelId === model.id;
-                    const isPricingAvailable =
-                      model.estimatedCreditsByResolution != null ||
-                      model.creditsCost != null ||
-                      model.reservationCreditsCost != null;
+                    const isPricingAvailable = model.availability !== "unavailable" &&
+                      getEstimatedCreditsCostForResolution(model, "1K") !== null;
 
                     return (
                       <button
@@ -136,9 +138,9 @@ export function ImageGenerationSettingsPanel({
                           <div className="text-sm font-medium truncate">{model.name}</div>
                           <p className="text-xs text-[var(--muted)] truncate">
                             {model.creditsCost == null && model.reservationCreditsCost == null ? (
-                              "Pricing unavailable"
+                              model.unavailableReason ?? "Pricing unavailable"
                             ) : (
-                              <>~{model.etaSeconds ?? 12}s · About {getModelDisplayCost(model, imageResolution)} credits</>
+                              <>{model.availability === "stale" ? "Cached pricing · " : ""}~{model.etaSeconds ?? 12}s · About {getModelDisplayCost(model, imageResolution)} credits</>
                             )}
                           </p>
                         </div>
@@ -186,27 +188,28 @@ export function ImageGenerationSettingsPanel({
         <div className="flex gap-2">
           {(Object.keys(RESOLUTIONS) as ImageResolution[]).map((resolution) => {
             const cost = getResolutionDisplayCost(resolution);
+            const resolutionAvailable = cost !== null && (modelSupportsResolution || resolution === "1K");
 
             return (
               <button
                 key={resolution}
                 onClick={() => {
-                  if (modelSupportsResolution) {
+                  if (resolutionAvailable) {
                     setResolution(resolution, "header_generate_modal");
                   }
                 }}
-                disabled={!modelSupportsResolution}
-                aria-disabled={!modelSupportsResolution}
+                disabled={!resolutionAvailable}
+                aria-disabled={!resolutionAvailable}
                 className={`flex-1 min-h-[36px] rounded-[var(--radius-md)] text-xs font-medium transition-colors flex flex-col items-center justify-center ${
                   imageResolution === resolution
                     ? "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/50"
                     : `bg-[var(--surface)] text-[var(--muted)] border border-transparent ${
                         modelSupportsResolution ? "hover:bg-[var(--divider)]" : ""
                       }`
-                } ${!modelSupportsResolution ? "opacity-60 cursor-not-allowed" : ""}`}
+                } ${!resolutionAvailable ? "opacity-60 cursor-not-allowed" : ""}`}
               >
                 <span>{resolution}</span>
-                {showCreditsCost ? (
+                {showCreditsCost && cost !== null ? (
                   <span className="inline-flex items-center gap-0.5 text-[10px] opacity-70">
                     <Zap size={10} strokeWidth={2} />
                     {cost}

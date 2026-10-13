@@ -11,6 +11,7 @@ export interface MessageMetadata {
   completionTokens?: number;
   totalTokens?: number;
   finishReason?: string;
+  incomplete?: boolean;
   latencyMs?: number;
 }
 
@@ -184,6 +185,7 @@ export function MessageMetadataDisplay({ metadata, modelPricing }: MessageMetada
         aria-expanded={false}
         aria-label="Show message details"
       >
+        {metadata.incomplete && <span>Incomplete response •</span>}
         <Zap size={10} />
         <span>{(metadata.totalTokens || 0).toLocaleString()} tokens</span>
         <span>•</span>
@@ -204,6 +206,7 @@ export function MessageMetadataDisplay({ metadata, modelPricing }: MessageMetada
         <ChevronDown size={12} className="rotate-180" />
       </button>
       <div className="px-2 py-1.5 space-y-1">
+        {metadata.incomplete && <p>Incomplete response: the model reached its output limit.</p>}
         <MetadataRow label="Model" value={metadata.model?.split("/").pop() || "Unknown"} />
         <MetadataRow label="Prompt" value={`${(metadata.promptTokens || 0).toLocaleString()} tokens`} />
         <MetadataRow label="Completion" value={`${(metadata.completionTokens || 0).toLocaleString()} tokens`} />

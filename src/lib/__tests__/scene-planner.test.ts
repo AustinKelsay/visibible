@@ -84,11 +84,21 @@ describe("scene planner helpers", () => {
     expect(mockComputeChatCreditsCost).not.toHaveBeenCalled();
   });
 
-  it("returns 0 when planner pricing lookup fails", async () => {
+  it("returns null when planner pricing lookup fails", async () => {
     mockGetChatModelPricing.mockRejectedValue(new Error("boom"));
 
     await expect(
       getScenePlannerEstimatedCreditsCost("test-api-key")
-    ).resolves.toBe(0);
+    ).resolves.toBeNull();
+  });
+
+  it("returns null when planner pricing is missing or malformed", async () => {
+    mockGetChatModelPricing.mockResolvedValueOnce(null);
+    await expect(getScenePlannerEstimatedCreditsCost("test-api-key")).resolves.toBeNull();
+
+    mockGetChatModelPricing.mockResolvedValueOnce({ prompt: "abc", completion: "-1" });
+    mockIsModelFree.mockReturnValue(false);
+    mockComputeChatCreditsCost.mockReturnValueOnce(null);
+    await expect(getScenePlannerEstimatedCreditsCost("test-api-key")).resolves.toBeNull();
   });
 });

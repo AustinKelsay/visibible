@@ -1,0 +1,82 @@
+import { describe, expect, it, vi, afterAll } from "vitest";
+import { estimateCost, computeChatCreditsCost } from "../chat-models";
+import { computeCreditsCost, computeConservativeEstimate, computeCreditsFromActualUsage } from "../image-models";
+import { confirmPaymentInternal } from "../../../convex/invoices";
+import { getSession } from "../../../convex/sessions";
+import { cleanupExpiredSessions } from "../../../convex/cleanup";
+import { updateGenerationRequest, saveImageWithStorage, getScenePlanCache } from "../../../convex/verseImages";
+import { streamText } from "ai";
+import { MockLanguageModelV3, simulateReadableStream } from "ai/test";
+const beforeSecret = process.env.CONVEX_SERVER_SECRET;
+process.env.CONVEX_SERVER_SECRET = "synthetic-triage-secret";
+afterAll(() => { if (beforeSecret === undefined) delete process.env.CONVEX_SERVER_SECRET; else process.env.CONVEX_SERVER_SECRET = beforeSecret; });
+function query(value: unknown) {
+  const q: any = { eq: () => q, lt: () => q, withIndex: (_: string, cb: any) => { cb?.(q); return q; }, first: async () => value, take: async () => [value] };
+  return q;
+}
+// These characterize current defects, not desired regression expectations.
+describe("isolated triage characterizations", () => {
+  it("T02: per-token catalog fixture is divided by a million again", () => {
+    const pricing = { prompt: "0.00001", completion: "0.00001" };
+    expect(estimateCost(1000, 1000, pricing)).toBeCloseTo(0.00000002, 12);
+    expect(computeChatCreditsCost(pricing, 2000)).toBe(1);
+    expect((1000 + 1000) * 0.00001).toBe(0.02);
+  });
+  it("T03/T04: rounded image quote receives a 35-fold hold", () => {
+    expect(computeCreditsCost("0.001")).toBe(1);
+    expect(computeConservativeEstimate("0.001")).toBe(35);
+    expect(computeCreditsFromActualUsage(0, 9)).toEqual({ credits: 9, usedActual: false });
+  });
+  it("T08: a known SID reads private balance without consulting identity", async () => {
+    const auth = { getUserIdentity: vi.fn(async () => null) };
+    const ctx: any = { auth, db: { query: () => query({ sid: "victim", credits: 100, tier: "paid" }) } };
+    const result = await (getSession as any)._handler(ctx, { sid: "victim" });
+    expect(result.credits).toBe(100);
+    expect(auth.getUserIdentity).not.toHaveBeenCalled();
+  });
+  it("T09: expired funded session is selected for deletion", async () => {
+    const remove = vi.fn();
+    const ctx: any = { db: { query: () => query({ _id: "funded", credits: 100, expiresAt: 1 }), delete: remove } };
+    await (cleanupExpiredSessions as any)._handler(ctx, {});
+    expect(remove).toHaveBeenCalledWith("funded");
+  });
+  it("T11: settlement handler rejects an invoice first observed after expiry", async () => {
+    const ctx: any = { db: { query: () => query({ _id: "inv", status: "pending", expiresAt: Date.now()-1000 }), patch: vi.fn() } };
+    await expect((confirmPaymentInternal as any)._handler(ctx, { invoiceId: "inv", paymentHash: "verified-payment-hash" })).rejects.toThrow("expired");
+  });
+  it("T19: scene cache returns an old prompt and planner version", async () => {
+    const ctx: any = { db: { query: () => query({ scenePlan: {}, promptVersion: "old", plannerModel: "retired", hitCount: 1 }) } };
+    const value = await (getScenePlanCache as any)._handler(ctx, { verseId: "john-3-16", translationId: "web", styleProfileId: "classical", serverSecret: "synthetic-triage-secret" });
+    expect(value.promptVersion).toBe("old");
+    expect(value.plannerModel).toBe("retired");
+  });
+  it("T22: terminal generation can regress to generating", async () => {
+    const patch = vi.fn();
+    const ctx: any = { db: { query: () => query({ _id: "gen", status: "succeeded" }), patch } };
+    await (updateGenerationRequest as any)._handler(ctx, { requestId: "req", status: "generating", serverSecret: "synthetic-triage-secret" });
+    expect(patch).toHaveBeenCalledWith("gen", expect.objectContaining({ status: "generating" }));
+  });
+  it("T23: final insertion accepts duplicate generation identities", async () => {
+    const insert = vi.fn().mockResolvedValueOnce("one").mockResolvedValueOnce("two");
+    const ctx: any = { db: { insert } };
+    const args = { verseId: "john-3-16", storageId: "synthetic", model: "fake", generationId: "same-intent" };
+    await (saveImageWithStorage as any)._handler(ctx, args);
+    await (saveImageWithStorage as any)._handler(ctx, args);
+    expect(insert).toHaveBeenCalledTimes(2);
+  });
+  it("T14: real SDK error data closes normally and calls transform flush", async () => {
+    const model = new MockLanguageModelV3({ doStream: async () => ({
+      stream: simulateReadableStream({ chunks: [
+        { type: "stream-start", warnings: [] },
+        { type: "error", error: new Error("synthetic provider failure") },
+        { type: "finish", finishReason: { unified: "error", raw: "error" }, usage: { inputTokens: { total: 0 }, outputTokens: { total: 0 } } }
+      ] }),
+    }) });
+    const response = streamText({ model, prompt: "synthetic", onError: () => {} }).toUIMessageStreamResponse({ onError: () => "synthetic provider failure" });
+    let flushed = false;
+    const body = response.body!.pipeThrough(new TransformStream({ transform(chunk, controller) { controller.enqueue(chunk); }, flush() { flushed = true; } }));
+    const text = await new Response(body).text();
+    expect(text).toContain('"type":"error"');
+    expect(flushed).toBe(true);
+  });
+});

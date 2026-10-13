@@ -44,6 +44,7 @@ vi.mock("@/lib/lnd", () => ({
   base64ToHex: vi.fn(() => "hex-payment-hash"),
   isLndConfigured: vi.fn(() => true),
   lookupLndInvoice: vi.fn(async () => ({ state: "OPEN" })),
+  settledInvoiceAmount: vi.fn(() => 3000),
 }));
 
 describe("Invoice IP Binding", () => {

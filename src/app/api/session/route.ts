@@ -91,15 +91,16 @@ export async function GET(request: Request): Promise<NextResponse<SessionRespons
   }
 
   const sid = validation.sid;
-  let serverSecret: string | null = null;
+  let serverSecret: string;
   try {
     serverSecret = getConvexServerSecret();
   } catch {
     console.error("[Session API] CONVEX_SERVER_SECRET not configured");
+    return NextResponse.json({ sid: null, tier: "paid" as const, credits: 0 }, { status: 503 });
   }
 
   // Fetch session from Convex
-  const session = await convex.query(api.sessions.getSession, { sid });
+  const session = await convex.query(api.sessions.getSession, { sid, serverSecret });
 
   if (!session) {
     const response = NextResponse.json({
@@ -210,6 +211,7 @@ export async function POST(request: Request): Promise<NextResponse<SessionRespon
   if (existingValidation.valid && existingValidation.sid) {
     const existingSession = await convex.query(api.sessions.getSession, {
       sid: existingValidation.sid,
+      serverSecret,
     });
     if (existingSession) {
       // Return existing session but refresh token with IP if needed

@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/lnurlp/:path*",
+      "destination": "https://tower.taila60b27.ts.net:10000/lnurlp/:path*"
+    }
+  ]
+}

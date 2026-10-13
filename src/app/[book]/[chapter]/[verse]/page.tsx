@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { Header } from "@/components/header";
 import { BookMenu } from "@/components/book-menu";
 import { LayoutWrapper } from "@/components/layout-wrapper";
@@ -7,10 +7,11 @@ import { ChatContextSetter } from "@/components/chat-context-setter";
 import { Footer } from "@/components/footer";
 import { MobileVerseNav } from "@/components/mobile-verse-nav";
 import { VerseAnalytics } from "@/components/verse-analytics";
+import { PassageUnavailable } from "@/components/passage-unavailable";
 import { VersePageContent } from "@/components/verse-page-content";
 import { VerseViewProvider } from "@/context/verse-view-context";
 import { genesis1Theme } from "@/data/genesis-1";
-import { getChapter, getVerse } from "@/lib/bible-api";
+import { BibleApiLookupError, getChapter, getVerse } from "@/lib/bible-api";
 import { getTranslationFromCookies } from "@/lib/get-translation";
 import { MOBILE_VERSE_NAV_OFFSET } from "@/lib/mobile-verse-nav";
 import {
@@ -48,7 +49,7 @@ export async function generateMetadata({
 
   // Fetch verse text for description
   const translation = await getTranslationFromCookies();
-  const verseData = await getVerse(book, location.chapter, location.verse, translation);
+  const verseData = await getVerse(book, location.chapter, location.verse, translation).catch(() => null);
   const description = verseData
     ? verseData.text.slice(0, 155) + (verseData.text.length > 155 ? "..." : "")
     : `Read ${reference} with AI-powered insights and imagery`;
@@ -76,20 +77,31 @@ export default async function VersePage({ params }: VersePageProps) {
   // Parse and validate the URL
   const location = parseVerseUrl(book, chapter, verse);
   if (!location) {
-    redirect("/genesis/1/1");
+    notFound();
   }
 
   const bookData = location.book;
 
   // Get user's translation preference from cookie
   const translation = await getTranslationFromCookies();
-  const chapterData = await getChapter(location.book.slug, location.chapter, translation);
-  if (!chapterData) {
-    redirect("/genesis/1/1");
+  let chapterData;
+  let retryable = false;
+  try {
+    chapterData = await getChapter(location.book.slug, location.chapter, translation);
+  } catch (error) {
+    if (!(error instanceof BibleApiLookupError)) throw error;
+    retryable = error.retryable;
   }
-  const verseData = chapterData.verses.find((item) => item.verse === location.verse);
-  if (!verseData) {
-    redirect("/genesis/1/1");
+  const verseData = chapterData?.verses.find((item) => item.verse === location.verse);
+  if (!chapterData || !verseData) {
+    return (
+      <LayoutWrapper>
+        <Header />
+        <PassageUnavailable reference={formatReference(location)} translation={translation} retryable={retryable} />
+        <Footer />
+        <BookMenu />
+      </LayoutWrapper>
+    );
   }
 
   // Calculate navigation URLs
@@ -100,23 +112,15 @@ export default async function VersePage({ params }: VersePageProps) {
   const prevLocation = getPreviousVerse(location);
   const nextLocation = getNextVerse(location);
 
-  // Fetch in parallel for efficiency (Bible API caches by chapter)
-  const [prevVerseData, nextVerseData] = await Promise.all([
-    prevLocation
-      ? getVerse(prevLocation.book.slug, prevLocation.chapter, prevLocation.verse, translation)
-      : Promise.resolve(null),
-    nextLocation
-      ? getVerse(nextLocation.book.slug, nextLocation.chapter, nextLocation.verse, translation)
-      : Promise.resolve(null),
-  ]);
-
-  // Build context objects for prev/next verses (only if same chapter for relevant narrative context)
-  const prevVerse = prevVerseData && prevLocation && prevLocation.chapter === location.chapter
-    ? { number: prevLocation.verse, text: prevVerseData.text, reference: formatReference(prevLocation) }
-    : undefined;
-  const nextVerse = nextVerseData && nextLocation && nextLocation.chapter === location.chapter
-    ? { number: nextLocation.verse, text: nextVerseData.text, reference: formatReference(nextLocation) }
-    : undefined;
+  // Adjacent prompt context comes from this exact chapter and translation.
+  const prevVerseData = prevLocation?.book.id === bookData.id && prevLocation.chapter === location.chapter
+    ? chapterData.verses.find((item) => item.verse === prevLocation.verse) : undefined;
+  const nextVerseData = nextLocation?.book.id === bookData.id && nextLocation.chapter === location.chapter
+    ? chapterData.verses.find((item) => item.verse === nextLocation.verse) : undefined;
+  const prevVerse = prevVerseData && prevLocation
+    ? { number: prevLocation.verse, text: prevVerseData.text, reference: formatReference(prevLocation) } : undefined;
+  const nextVerse = nextVerseData && nextLocation
+    ? { number: nextLocation.verse, text: nextVerseData.text, reference: formatReference(nextLocation) } : undefined;
 
   // Build chat context for sidebar
   const chatContext = {

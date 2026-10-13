@@ -88,26 +88,25 @@ export function mockFetchBibleApi(input: RequestInfo | URL): TestFetchResponse |
       ok: true,
       status: 200,
       json: async () => ({
-        translation_id: "web",
-        translation_name: "World English Bible",
+        translation: { identifier: "web", name: "World English Bible" },
         verses: [
           {
             book_id: "GEN",
-            book_name: "Genesis",
+            book: "Genesis",
             chapter: 1,
             verse: 1,
             text: "In the beginning God created the heavens and the earth.",
           },
           {
             book_id: "GEN",
-            book_name: "Genesis",
+            book: "Genesis",
             chapter: 1,
             verse: 2,
             text: "The earth was formless and empty.",
           },
           {
             book_id: "GEN",
-            book_name: "Genesis",
+            book: "Genesis",
             chapter: 1,
             verse: 3,
             text: "God said, Let there be light; and there was light.",

@@ -90,9 +90,10 @@ export async function GET(
     convexCheck.error = "Convex client not configured";
   } else {
     try {
-      getConvexServerSecret();
+      const serverSecret = getConvexServerSecret();
       const checkStartedAt = Date.now();
       await convex.query(api.rateLimit.getRateLimitStatus, {
+        serverSecret,
         identifier: "_readiness_probe",
         endpoint: "chat",
       });

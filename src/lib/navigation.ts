@@ -1,4 +1,4 @@
-import { BibleBook, BIBLE_BOOKS, BOOK_BY_SLUG } from "@/data/bible-structure";
+import { BibleBook, BIBLE_BOOKS, BOOK_BY_SLUG, isValidLocation } from "@/data/bible-structure";
 
 export interface VerseLocation {
   book: BibleBook;
@@ -130,12 +130,11 @@ export function parseVerseUrl(
   }
   const book = BOOK_BY_SLUG[normalizedBookSlug];
 
-  const chapterNum = parseInt(chapter, 10);
-  const verseNum = parseInt(verse, 10);
+  if (!/^\d+$/.test(chapter) || !/^\d+$/.test(verse)) return null;
+  const chapterNum = Number(chapter);
+  const verseNum = Number(verse);
 
-  if (isNaN(chapterNum) || isNaN(verseNum)) return null;
-  if (chapterNum < 1 || chapterNum > book.chapters.length) return null;
-  if (verseNum < 1 || verseNum > book.chapters[chapterNum - 1]) return null;
+  if (!isValidLocation(book, chapterNum, verseNum)) return null;
 
   return { book, chapter: chapterNum, verse: verseNum };
 }

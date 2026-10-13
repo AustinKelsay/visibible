@@ -16,6 +16,7 @@ import { trackImageBrowsed } from "@/lib/analytics";
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
 vi.mock("convex/react", () => ({
+  useConvexAuth: () => ({ isAuthenticated: true, isLoading: false }),
   useMutation: vi.fn(),
   useQuery: vi.fn(),
 }));
@@ -118,7 +119,7 @@ function createTouchEvent(
   return event;
 }
 
-describe("HeroImage swipe handling", () => {
+describe("HeroImage interactions", () => {
   let container: HTMLDivElement | null = null;
   let root: Root | null = null;
   let fetchMock: ReturnType<typeof vi.fn>;
@@ -217,6 +218,51 @@ describe("HeroImage swipe handling", () => {
       surface.dispatchEvent(createTouchEvent("touchend", [end]));
     });
   }
+
+  it("does not submit generation when the saved model is absent from the catalog", async () => {
+    const registerGenerate = vi.fn<(callback: () => void) => void>();
+    const updateState = vi.fn();
+    useGenerationMock.mockReturnValue({ registerGenerate, updateState, unregisterGenerate: vi.fn(),
+      registerBuyCredits: vi.fn(), registerSettings: vi.fn() } as never);
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({ models: [], scenePlannerCreditsCost: 0 }) });
+    await renderHeroImage();
+    expect(updateState.mock.lastCall?.[0]).toMatchObject({ canGenerate: false, pricingUnavailable: "Saved model unavailable. Choose another model." });
+    await act(async () => { registerGenerate.mock.lastCall![0](); });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it.each(["failure", "navigation"])("follows HTTP 202 and exits the busy state on %s", async (outcome) => {
+    const registerGenerate = vi.fn<(callback: () => void) => void>();
+    const updateState = vi.fn();
+    useGenerationMock.mockReturnValue({
+      registerGenerate, updateState, unregisterGenerate: vi.fn(),
+      registerBuyCredits: vi.fn(), registerSettings: vi.fn(),
+    } as never);
+    let requestStatus = { status: "generating", error: undefined as string | undefined };
+    useQueryMock.mockImplementation((_query, args?: unknown) => {
+      if (args && typeof args === "object" && "requestId" in args) return requestStatus;
+      if (args && typeof args === "object" && "verseId" in args) return imageHistory;
+      return null;
+    });
+    const generateFetch = vi.fn(async () => new Response(JSON.stringify({ requestId: "existing-request", reused: true, status: "generating" }), { status: 202 }));
+    const catalogFetch = globalThis.fetch;
+    vi.stubGlobal("fetch", async (url: string) => url.includes("generate-image") ? generateFetch() : catalogFetch(url));
+    document.cookie = "visibible_csrf=" + "a".repeat(64);
+    await renderHeroImage();
+    await act(async () => { registerGenerate.mock.lastCall![0](); });
+    expect(generateFetch).toHaveBeenCalledTimes(1);
+    expect(updateState.mock.lastCall?.[0]).toMatchObject({ isGenerating: true });
+    expect(container?.textContent).not.toContain("Missing image URL");
+    if (outcome === "failure") {
+      requestStatus = { status: "failed", error: "Original operation failed" };
+      await renderHeroImage();
+      expect(container?.textContent).toContain("Original operation failed");
+    } else {
+      await act(async () => { root?.render(<HeroImage {...baseProps} verse={2} currentReference="Genesis 1:2" />); });
+    }
+    expect(updateState.mock.lastCall?.[0]).toMatchObject({ isGenerating: false });
+    document.cookie = "visibible_csrf=; Max-Age=0";
+  });
 
   it("ignores swipes that do not clear the horizontal threshold", async () => {
     await renderHeroImage();

@@ -98,6 +98,12 @@ const modelCostScopeTypeValidator = v.union(
 );
 
 export default defineSchema({
+  maintenanceState: defineTable({
+    key: v.string(),
+    cursor: v.union(v.string(), v.null()),
+    cutoff: v.number(),
+    epoch: v.number(),
+  }).index("by_key", ["key"]),
   verseImages: defineTable({
     // Verse identifier (lowercase, e.g., "genesis-1-1")
     verseId: v.string(),
@@ -151,6 +157,7 @@ export default defineSchema({
   })
     // Index for querying all images for a verse sorted by creation time
     .index("by_verse", ["verseId", "createdAt"])
+    .index("by_storageId", ["storageId"])
     .index("by_generationId", ["generationId"])
     .index("by_createdAt", ["createdAt"]),
 
@@ -170,6 +177,9 @@ export default defineSchema({
   // Request lifecycle for image generation to support progress sync and observability
   imageGenerationRequests: defineTable({
     requestId: v.string(),
+    inputFingerprint: v.optional(v.string()),
+    executorVersion: v.optional(v.string()),
+    billingPolicyVersion: v.optional(v.string()),
     sid: v.string(),
     verseId: v.string(),
     translationId: v.optional(v.string()),
@@ -208,6 +218,7 @@ export default defineSchema({
     translationId: v.string(),
     styleProfileId: v.string(),
     scenePlan: scenePlanValidator,
+    inputFingerprint: v.optional(v.string()),
     plannerModel: v.optional(v.string()),
     promptVersion: v.optional(v.string()),
     hitCount: v.number(),
@@ -236,6 +247,7 @@ export default defineSchema({
   // Anonymous sessions with credit balances
   sessions: defineTable({
     sid: v.string(),
+    revokedAt: v.optional(v.number()),
     tier: v.string(), // "paid" | "admin"
     credits: v.number(),
     createdAt: v.number(),
@@ -271,17 +283,21 @@ export default defineSchema({
 
   // Credit transaction ledger for auditing
   creditLedger: defineTable({
+    pendingReservation: v.optional(v.boolean()), // Indexed read projection; amounts remain immutable.
     sid: v.string(),
     delta: v.number(), // positive (purchase/refund) or negative (generation)
     reason: v.string(), // "purchase" | "generation" | "refund"
+    invoiceId: v.optional(v.string()), // Purchase identity; legacy entries remain unchanged.
     modelId: v.optional(v.string()),
     costUsd: v.optional(v.number()),
     generationId: v.optional(v.string()),
     createdAt: v.number(),
   })
     .index("by_sid", ["sid", "createdAt"])
+    .index("by_sid_pending", ["sid", "pendingReservation"])
     .index("by_generationId", ["generationId", "sid"])
-    .index("by_reason_createdAt", ["reason", "createdAt"]),
+    .index("by_reason_createdAt", ["reason", "createdAt"])
+    .index("by_invoiceId", ["invoiceId"]),
 
   // Model generation statistics for ETA estimation
   modelStats: defineTable({

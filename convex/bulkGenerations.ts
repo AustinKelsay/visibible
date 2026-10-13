@@ -1,3 +1,4 @@
+import { authenticatedGuest, requireGuestOwner } from "./guestAuth";
 import { mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import { v } from "convex/values";
 import type { Id } from "./_generated/dataModel";
@@ -31,16 +32,7 @@ const BULK_GENERATION_AUTH_ERROR = "Unauthorized bulk generation access.";
 type BulkGenerationCtx = QueryCtx | MutationCtx;
 
 async function requireValidBulkSession(ctx: BulkGenerationCtx, sid: string) {
-  const session = await ctx.db
-    .query("sessions")
-    .withIndex("by_sid", (q) => q.eq("sid", sid))
-    .first();
-
-  if (!session) {
-    throw new Error(BULK_GENERATION_AUTH_ERROR);
-  }
-
-  return session;
+  return requireGuestOwner(ctx, sid);
 }
 
 async function requireOwnedBulkGeneration(
@@ -181,7 +173,7 @@ export const create = mutation({
 export const getActive = query({
   args: { sid: v.string() },
   handler: async (ctx, args) => {
-    await requireValidBulkSession(ctx, args.sid);
+    if ((await authenticatedGuest(ctx))?.sid !== args.sid) return null;
 
     // Check for active first
     const active = await ctx.db
@@ -212,7 +204,9 @@ export const get = query({
     sid: v.string(),
   },
   handler: async (ctx, args) => {
-    return await requireOwnedBulkGeneration(ctx, args.sid, args.id);
+    if ((await authenticatedGuest(ctx))?.sid !== args.sid) return null;
+    const job = await ctx.db.get(args.id);
+    return job?.sid === args.sid ? job : null;
   },
 });
 
@@ -227,7 +221,8 @@ export const getVerses = query({
     offset: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    await requireOwnedBulkGeneration(ctx, args.sid, args.bulkGenerationId);
+    if ((await authenticatedGuest(ctx))?.sid !== args.sid) return [];
+    if ((await ctx.db.get(args.bulkGenerationId))?.sid !== args.sid) return [];
 
     const verseQuery = ctx.db
       .query("bulkGenerationVerses")

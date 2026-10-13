@@ -35,3 +35,7 @@ Exact dependencies and commands: [package.json](../package.json). Environment te
 ## Research data
 
 [Market research query ideas](market-research/visibible-market-research-search-terms.md) is a brainstorming dataset used by its adjacent JSON generator, not current product requirements or validated demand.
+
+## Proposed modernization
+
+[Specs and implementation tickets](../docs/modernization/README.md) describe intended changes from the [rebuild assessment](research/2026-09-07-rebuild-assessment.md). They do not replace the current-behavior guides until the corresponding work is implemented.
