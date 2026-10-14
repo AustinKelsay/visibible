@@ -40,6 +40,11 @@ _Avoid_: Actual cost when referring to a quote.
 
 **Settlement receipt**: The record explaining a reservation, final charge or release, provider spend, and any difference absorbed by Visibible.
 
+**Credit bundle**: A fixed number of credits offered for a fixed USD price.
+
 **Invoice**: A Lightning payment request for a credit bundle.
+
+**Credit purchase**: The credits added to a credit balance, exactly once, when its invoice is paid.
+_Avoid_: Settlement when referring to a paid invoice; settlement belongs to credit reservations.
 
 **Publication**: A verse image and Scripture text shared through Nostr, together with the record of that sharing.
