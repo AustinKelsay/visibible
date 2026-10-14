@@ -41,7 +41,7 @@ async function getLnurlJson(url: URL): Promise<Record<string, unknown>> {
 /**
  * Create a Lightning invoice through the LNURL-pay callback.
  * @param amountSats - Invoice amount in satoshis
- * @param comment - Added to the invoice description
+ * @param comment - Sent to the LNURL-pay callback (LUD-12); not encoded in the invoice
  */
 export async function createLightningInvoice(
   amountSats: number,
