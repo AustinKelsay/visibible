@@ -4,7 +4,7 @@ Investigated October 14, 2026, against commit `bf318e0`. Measurements cited as "
 
 **Recommendation**
 
-Keep `nvidia/nemotron-3-super-120b-a12b:free` as the scene planner, and keep `reasoning: { enabled: false }` in the request. It was the only tested free model that returned a valid Scene plan on every call (6/6, 244–608 ms, zero reasoning tokens), and its plans followed the verse most closely. Because it is free, it adds 0 credits to a Generation's Quote and Credit charge. `nvidia/nemotron-3.5-lightning:free` also worked on every call but produced weaker plans; treat it as a stopgap.
+Keep `nvidia/nemotron-3-super-120b-a12b:free` as the scene planner, and keep `reasoning: { enabled: false }` in the request. It returned a valid Scene plan on every call (6/6, 244–608 ms, zero reasoning tokens), and of the models that did, its plans followed the verse most closely. Because it is free, it adds 0 credits to a Generation's Quote and Credit charge. `nvidia/nemotron-3.5-lightning:free` also worked on every call but produced weaker plans; treat it as a stopgap.
 
 The free variant has two costs. OpenRouter caps free-model requests per account, and the variant's only endpoint is marked as retaining prompts and possibly training on them. The planner prompt contains only public Scripture text, the chapter theme and the style profile. If either cost becomes unacceptable, the paid `nvidia/nemotron-3-super-120b-a12b` is the closest replacement. It was not live-tested, and it would add the 1-credit minimum to each uncached Generation's Quote ([token pricing](../../src/lib/token-pricing.ts)).
 
