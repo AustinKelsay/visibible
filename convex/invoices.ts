@@ -14,7 +14,7 @@ function getBundleCredits(amountUsd: number): number {
 
 /**
  * Create a new invoice for credit purchase.
- * Accepts pre-computed values from the API route (which calls LND).
+ * Accepts pre-computed values from the API route (which creates the Lightning invoice).
  */
 export const createInvoice = mutation({
   args: {
@@ -24,6 +24,7 @@ export const createInvoice = mutation({
     amountSats: v.number(),
     bolt11: v.string(),
     paymentHash: v.string(),
+    expiresAt: v.number(),
     serverSecret: v.string(),
   },
   handler: async (ctx, args) => {
@@ -39,11 +40,11 @@ export const createInvoice = mutation({
     }
 
     const now = Date.now();
-    const expiresAt = now + 15 * 60 * 1000; // 15 minutes
+    const expiresAt = args.expiresAt; // from the Lightning invoice, so the UI never hides a payable invoice
     const invoiceId = args.invoiceId;
     const credits = getBundleCredits(args.amountUsd);
 
-    // Create invoice record with real LND data
+    // Create invoice record with real Lightning invoice data
     await ctx.db.insert("invoices", {
       invoiceId,
       sid: args.sid,
@@ -245,7 +246,7 @@ export const confirmPayment = action({
 
 /**
  * Mark an invoice as expired or canceled.
- * Called when LND reports the invoice is canceled or has expired.
+ * Called when the receiving node reports the invoice is canceled or it has expired.
  */
 export const expireInvoice = mutation({
   args: {

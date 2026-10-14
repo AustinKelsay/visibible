@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { api } from "../../../../convex/_generated/api";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
-import { isLndConfigured } from "@/lib/lnd";
+import { isLightningConfigured } from "@/lib/lightning";
 import { authorizeOpsRequest } from "@/lib/ops-auth";
 import {
   createRequestObservabilityContext,
@@ -110,12 +110,12 @@ export async function GET(
     }
   }
 
-  const lndConfigured = isLndConfigured();
+  const lndConfigured = isLightningConfigured();
   const lndCheck: CheckResult & { configured: boolean } = {
     ok: lndConfigured,
     configured: lndConfigured,
     critical: false,
-    ...(!lndConfigured ? { error: "LND not configured" } : {}),
+    ...(!lndConfigured ? { error: "Lightning not configured" } : {}),
   };
 
   const ready = envCheck.ok && convexCheck.ok;
