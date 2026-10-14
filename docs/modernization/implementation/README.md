@@ -151,4 +151,4 @@ End-to-end checks:
 - Browser against Convex dev with a hosted OpenRouter key: a synthetic grant appeared without reload; generation showed the 13-credit hold and settled from 100 to 95 ([screenshot](screenshots/bounded-hold-generated.png)); chat held and charged one credit. A provider 401 released its 13-credit hold exactly once.
 - Bulk-style request ID: a 402 refusal recorded no request; after the balance recovered, the same ID generated and saved Genesis 1:4.
 
-Synthetic `e2e-test-grant` ledger rows and the generated images remain on Convex dev. Live Lightning settlement is still unverified: the configured LND REST host returns 404 on every path in every environment, including production.
+Synthetic `e2e-test-grant` ledger rows and the generated images remain on Convex dev. Live Lightning settlement is still unverified: the configured LND REST host returns 404 on every path in every environment, including production. Follow-up (2026-10-14, #115 and #117): credit invoices moved to the LNURL-pay server on tower, and a real production purchase settled and credited once.
