@@ -61,6 +61,7 @@ export async function createLightningInvoice(
   const amount = section("amount");
   const paymentHash = section("payment_hash");
   const timestamp = section("timestamp");
+  const expiry = section("expiry");
 
   // Credits are granted for this amount, so the invoice must request exactly it.
   if (!amount || !("value" in amount) || amount.value !== String(amountSats * 1000)) {
@@ -74,10 +75,15 @@ export async function createLightningInvoice(
     throw new Error("Lightning invoice has no timestamp");
   }
 
+  // BOLT 11: an invoice without an expiry tag expires after 3600 seconds.
+  const expirySeconds = expiry && "value" in expiry && typeof expiry.value === "number"
+    ? expiry.value
+    : 3600;
+
   return {
     bolt11: pr,
     paymentHash: paymentHash.value,
-    expiresAt: (timestamp.value + decoded.expiry) * 1000,
+    expiresAt: (timestamp.value + expirySeconds) * 1000,
   };
 }
 

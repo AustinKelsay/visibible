@@ -13,6 +13,9 @@ import {
 const PAY_URL = "https://node.example/lnurlp/pay";
 const BOLT11 =
   "lnbc10n1p4val22pp5m2djyaf4ud2uzjjsp3lujw8z29tk20wy4w8c8qul555thfxlnu0sdpz2e5hx6tzd93xcefqu2qfggrxd9u8gatjv5cqzzsxqrrsssp5vkqnfpylqccekte07aztrcz8sdu02ffactg53d0ffv20xyky9eps9qxpqysgq4n4fagkqltfphev5qezuy959jsydagt8wzdqdwzskmgaaghxmtexrcm46hr0cdht0jtzpc2qj4l7e2y8d8z8u7cvf286zpzsgtkhz7qpp0jn3m";
+// The BOLT11 above with its expiry tag removed and the checksum recomputed (the decoder does not check signatures).
+const BOLT11_NO_EXPIRY =
+  "lnbc10n1p4val22pp5m2djyaf4ud2uzjjsp3lujw8z29tk20wy4w8c8qul555thfxlnu0sdpz2e5hx6tzd93xcefqu2qfggrxd9u8gatjv5cqzzssp5vkqnfpylqccekte07aztrcz8sdu02ffactg53d0ffv20xyky9eps9qxpqysgq4n4fagkqltfphev5qezuy959jsydagt8wzdqdwzskmgaaghxmtexrcm46hr0cdht0jtzpc2qj4l7e2y8d8z8u7cvf286zpzsgtkhz7qpql4dz5";
 const PAYMENT_HASH = "da9b227535e355c14a500c7fc938e25157653dc4ab8f83839fa528bba4df9f1f";
 
 const fetchMock = vi.fn();
@@ -47,6 +50,14 @@ describe("createLightningInvoice", () => {
       paymentHash: PAYMENT_HASH,
       expiresAt: (1791950154 + 3600) * 1000,
     });
+  });
+
+  it("uses the one-hour default when the invoice has no expiry tag", async () => {
+    fetchMock.mockResolvedValue(reply({ pr: BOLT11_NO_EXPIRY, routes: [], status: "OK" }));
+
+    const invoice = await createLightningInvoice(1, "credits abc");
+
+    expect(invoice.expiresAt).toBe((1791950154 + 3600) * 1000);
   });
 
   it("rejects an invoice for a different amount", async () => {
