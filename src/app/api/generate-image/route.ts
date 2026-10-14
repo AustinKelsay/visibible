@@ -954,6 +954,8 @@ export async function POST(request: Request) {
             ],
             temperature: 0.2,
             max_tokens: 220,
+            // Reasoning tokens count against max_tokens and leave no room for the JSON.
+            reasoning: { enabled: false },
           }),
           signal: controller.signal,
         });
