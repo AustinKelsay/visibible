@@ -21,7 +21,7 @@ Lifecycle states are `queued`, `planning`, `generating`, `succeeded`, and `faile
 ## Configuration and related behavior
 
 - `ENABLE_IMAGE_GENERATION=true` enables the route. `ENABLE_SCENE_PLANNER=false` disables planning; planning is otherwise enabled.
-- Timeout/model overrides are listed in [.env.example](../../.env.example); the route and [scene-planner.ts](../../src/lib/scene-planner.ts) define defaults. The planner request disables reasoning, because reasoning tokens count against its 220-token limit; a planner model must allow that (`openai/gpt-oss-*` does not).
+- Timeout/model overrides are listed in [.env.example](../../.env.example); the route and [scene-planner.ts](../../src/lib/scene-planner.ts) define defaults. The planner request disables reasoning, because reasoning tokens count against its 220-token limit; a planner model must allow that (`openai/gpt-oss-*` does not). The [model comparison](../research/2026-10-14-scene-planner-free-models.md) explains the current default.
 - [Prompt specification](../implementation/IMAGE_PROMPT_SPEC.md), [persistence](IMAGE-PERSISTENCE.md), and [bulk generation](BULK-GENERATION.md) cover those separate concerns.
 - [Credit-flow](../../src/app/api/__tests__/generate-image/credit-flow.test.ts) and [scene-planner](../../src/app/api/__tests__/generate-image/scene-planner.test.ts) tests cover request behavior.
 
