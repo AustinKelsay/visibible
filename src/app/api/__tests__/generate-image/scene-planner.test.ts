@@ -213,9 +213,10 @@ type MockFetchResponse = {
 
 let fetchCallIndex = 0;
 let scenePlannerResponse: MockFetchResponse | (() => Promise<never>) | null = null;
+let scenePlannerRequestBody: unknown = null;
 let imageGenerationResponse: MockFetchResponse | null = null;
 
-const mockFetch = vi.fn(async (input: RequestInfo | URL) => {
+const mockFetch = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
   const bibleApiResponse = mockFetchBibleApi(input);
   if (bibleApiResponse) {
     return bibleApiResponse;
@@ -226,6 +227,7 @@ const mockFetch = vi.fn(async (input: RequestInfo | URL) => {
 
   // First call is scene planner
   if (currentIndex === 0 && scenePlannerResponse) {
+    scenePlannerRequestBody = JSON.parse(String(init?.body));
     if (typeof scenePlannerResponse === "function") {
       return scenePlannerResponse();
     }
@@ -287,6 +289,7 @@ describe("Scene Planner Refund Logic", () => {
     resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 }]);
     fetchCallIndex = 0;
     scenePlannerResponse = null;
+    scenePlannerRequestBody = null;
     imageGenerationResponse = null;
     mockIsModelFree.value = false;
     mockLearnedEstimate = null;
@@ -348,6 +351,11 @@ describe("Scene Planner Refund Logic", () => {
 
       const body = await response.json();
       expect(body.scenePlannerUsed).toBe(true);
+      expect(scenePlannerRequestBody).toMatchObject({
+        model: "nvidia/nemotron-3-super-120b-a12b:free",
+        max_tokens: 220,
+        reasoning: { enabled: false },
+      });
       expect(body.scenePlannerCredits).toBe(SCENE_PLANNER_CREDITS);
       expect(getCallCount("sessions:addCredits")).toBe(0); // No refund
       expect(body.estimatedCreditsCost).toBe(3);
