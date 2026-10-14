@@ -23,6 +23,10 @@ These guides describe the repository's current behavior. Source links identify t
 | Scheduled Nostr posts | [Nostr](context/NOSTR.md) |
 | Styling and layout conventions | [Theme](context/THEME.md) |
 
+## Decisions
+
+[Decision records](../docs/adr/) explain hard-to-reverse choices and why they were made. Read the one covering an area before changing it.
+
 ## Operations
 
 - [Convex setup](../convex/README.md)
@@ -35,6 +39,8 @@ Exact dependencies and commands: [package.json](../package.json). Environment te
 ## Research data
 
 [Market research query ideas](market-research/visibible-market-research-search-terms.md) is a brainstorming dataset used by its adjacent JSON generator, not current product requirements or validated demand.
+
+[Scene planner free models](research/2026-10-14-scene-planner-free-models.md) records why the planner uses its current model and how to re-run the comparison when that model disappears.
 
 ## Proposed modernization
 
