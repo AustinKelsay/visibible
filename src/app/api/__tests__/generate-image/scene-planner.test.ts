@@ -8,6 +8,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { fixtures, type Session } from "../shared/test-fixtures";
 import { mockFetchBibleApi } from "@/app/api/__tests__/shared/bible-api-mocks";
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
+import { getMetricsSnapshot, resetObservabilityStateForTests } from "@/lib/observability";
 
 // Create mock state
 const mockState = {
@@ -36,6 +37,7 @@ const testEnv = {
 Object.assign(process.env, testEnv);
 
 const SCENE_PLANNER_CREDITS = 1;
+let mockCachedScenePlan: Record<string, string> | null = null;
 let mockLearnedEstimate:
   | { credits: number; source: "model" | "provider" | "global" | "fallback"; sampleCount: number }
   | null = null;
@@ -70,6 +72,11 @@ vi.mock("@/lib/session", () => ({
 vi.mock("@/lib/convex-client", () => ({
   getConvexClient: vi.fn(() => ({
     query: vi.fn(async (_apiPath: unknown, args: Record<string, unknown>) => {
+      if ("plannerModel" in args && "promptVersion" in args) {
+        return mockCachedScenePlan
+          ? { scenePlan: mockCachedScenePlan, promptVersion: args.promptVersion, plannerModel: args.plannerModel }
+          : null;
+      }
       if ("inputFingerprint" in args) return null;
       if ("fallbackCredits" in args && "modelId" in args && "resolution" in args) {
         mockState.callHistory.push({ action: "getEstimate", args });
@@ -266,6 +273,15 @@ function getCallCount(action: string) {
   return mockState.callHistory.filter((c) => c.action === actionName).length;
 }
 
+/** Scene planner outcome counts from the metrics snapshot that /api/metrics serves, keyed by outcome. */
+function plannerOutcomes(): Record<string, number> {
+  return Object.fromEntries(
+    getMetricsSnapshot().counters
+      .filter((counter) => counter.name === "scene_planner_outcomes_total")
+      .map((counter) => [counter.labels.outcome, counter.value])
+  );
+}
+
 const TEST_CSRF_TOKEN = "a".repeat(64);
 
 function createGenerateImageRequest(body: Record<string, unknown>) {
@@ -293,6 +309,8 @@ describe("Scene Planner Refund Logic", () => {
     imageGenerationResponse = null;
     mockIsModelFree.value = false;
     mockLearnedEstimate = null;
+    resetObservabilityStateForTests();
+    mockCachedScenePlan = null;
     global.fetch = mockFetch as unknown as typeof fetch;
   });
 
@@ -351,6 +369,7 @@ describe("Scene Planner Refund Logic", () => {
 
       const body = await response.json();
       expect(body.scenePlannerUsed).toBe(true);
+      expect(plannerOutcomes()).toEqual({ planned: 1 });
       expect(scenePlannerRequestBody).toMatchObject({
         model: "nvidia/nemotron-3-super-120b-a12b:free",
         max_tokens: 220,
@@ -398,6 +417,7 @@ describe("Scene Planner Refund Logic", () => {
       expect(body.scenePlannerCredits).toBe(0);
       expect(body.creditsCost).toBe(2);
       expect(getCallCount("sessions:addCredits")).toBe(0);
+      expect(plannerOutcomes()).toEqual({ http_error: 1 });
     });
   });
 
@@ -436,6 +456,7 @@ describe("Scene Planner Refund Logic", () => {
 
       // No separate refund needed
       expect(getCallCount("sessions:addCredits")).toBe(0);
+      expect(plannerOutcomes()).toEqual({ disabled: 1 });
     });
   });
 
@@ -463,6 +484,7 @@ describe("Scene Planner Refund Logic", () => {
       expect(body.scenePlannerUsed).toBe(false);
       expect(body.scenePlannerCredits).toBe(0);
       expect(fetchCallIndex).toBe(1);
+      expect(plannerOutcomes()).toEqual({ skipped_unpriced: 1 });
     });
   });
 
@@ -551,6 +573,7 @@ describe("Scene Planner Refund Logic", () => {
       expect(body.scenePlannerCredits).toBe(0);
       expect(body.creditsCost).toBe(2);
       expect(getCallCount("sessions:addCredits")).toBe(0);
+      expect(plannerOutcomes()).toEqual({ invalid_plan: 1 });
     });
 
     it("handles missing required fields gracefully", async () => {
@@ -597,6 +620,86 @@ describe("Scene Planner Refund Logic", () => {
       expect(body.scenePlannerCredits).toBe(0);
       expect(body.creditsCost).toBe(2);
       expect(getCallCount("sessions:addCredits")).toBe(0);
+      expect(plannerOutcomes()).toEqual({ invalid_plan: 1 });
+    });
+  });
+
+  describe("Scene Planner Outcomes", () => {
+    async function generateWithPlannerResponse(response: typeof scenePlannerResponse) {
+      scenePlannerResponse = response;
+      const { POST } = await import("../../generate-image/route");
+      const result = await POST(createGenerateImageRequest({ text: "Test verse" }));
+      expect(result.status).toBe(200);
+      return result.json();
+    }
+
+    it("logs a failed planner request at warn level with its status", async () => {
+      const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+      await generateWithPlannerResponse({ ok: false, status: 429, json: async () => ({}) });
+
+      const events = warn.mock.calls
+        .map(([line]) => (typeof line === "string" && line.startsWith("{") ? JSON.parse(line) : null))
+        .filter((event) => event?.event === "scene_planner.outcome");
+      warn.mockRestore();
+      expect(events).toHaveLength(1);
+      expect(events[0]).toMatchObject({
+        level: "warn",
+        outcome: "http_error",
+        statusCode: 429,
+        plannerModel: "nvidia/nemotron-3-super-120b-a12b:free",
+        sid: "test...sion",
+        generationId: expect.any(String),
+      });
+    });
+
+    it("records empty content when the planner returns no text", async () => {
+      const body = await generateWithPlannerResponse({
+        ok: true,
+        status: 200,
+        json: async () => ({ choices: [{ message: { content: "" }, finish_reason: "length" }] }),
+      });
+
+      expect(body.scenePlannerUsed).toBe(false);
+      expect(plannerOutcomes()).toEqual({ empty_content: 1 });
+    });
+
+    it("records a timeout when the planner request is aborted", async () => {
+      const body = await generateWithPlannerResponse(() =>
+        Promise.reject(Object.assign(new Error("aborted"), { name: "AbortError" }))
+      );
+
+      expect(body.scenePlannerUsed).toBe(false);
+      expect(plannerOutcomes()).toEqual({ timeout: 1 });
+    });
+
+    it("records an error when the planner request fails", async () => {
+      const body = await generateWithPlannerResponse(() =>
+        Promise.reject(new TypeError("fetch failed"))
+      );
+
+      expect(body.scenePlannerUsed).toBe(false);
+      expect(plannerOutcomes()).toEqual({ error: 1 });
+    });
+
+    it("records an error, not an invalid plan, when the response body is not JSON", async () => {
+      const body = await generateWithPlannerResponse({
+        ok: true,
+        status: 200,
+        json: async () => JSON.parse("<html>proxy error</html>"),
+      });
+
+      expect(body.scenePlannerUsed).toBe(false);
+      expect(plannerOutcomes()).toEqual({ error: 1 });
+    });
+
+    it("records a cache hit when a saved scene plan is reused", async () => {
+      mockCachedScenePlan = { primarySubject: "A figure", action: "standing", setting: "a hillside" };
+
+      const body = await generateWithPlannerResponse(null);
+
+      expect(body.scenePlannerUsed).toBe(false);
+      expect(plannerOutcomes()).toEqual({ cache_hit: 1 });
     });
   });
 });

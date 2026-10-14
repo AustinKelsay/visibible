@@ -50,9 +50,11 @@ import {
   emitMetric,
   logApiFailure,
   logApiTimeout,
+  logScenePlannerOutcome,
   logSettlementEvent,
   logWarn,
   redactSid,
+  type ScenePlannerOutcome,
 } from "@/lib/observability";
 import { api } from "../../../../convex/_generated/api";
 
@@ -912,6 +914,16 @@ export async function POST(request: Request) {
   // Scene planner settings already defined above for cost calculation
   await updateGenerationRequest("planning");
 
+  const recordPlannerOutcome = (outcome: ScenePlannerOutcome, statusCode?: number) =>
+    logScenePlannerOutcome({
+      context: requestContext,
+      outcome,
+      plannerModel: scenePlannerModel,
+      sid,
+      generationId: chargeGenerationId,
+      statusCode,
+    });
+
   const buildScenePlan = async (): Promise<{
     scenePlan: ScenePlan | null;
     fromCache: boolean;
@@ -925,9 +937,17 @@ export async function POST(request: Request) {
         .catch((error) => {
           console.warn("[Image API] Scene plan cache hit update failed:", error);
         });
+      recordPlannerOutcome("cache_hit");
       return { scenePlan: cachedScenePlan, fromCache: true };
     }
-    if (!runScenePlanner) return { scenePlan: null, fromCache: false };
+    if (!enableScenePlanner) {
+      recordPlannerOutcome("disabled");
+      return { scenePlan: null, fromCache: false };
+    }
+    if (!runScenePlanner) {
+      recordPlannerOutcome("skipped_unpriced");
+      return { scenePlan: null, fromCache: false };
+    }
     const scenePlannerPrompt = buildScenePlannerPrompt({ reference, verseText, prevVerse, nextVerse, chapterTheme, styleProfile });
 
     try {
@@ -964,7 +984,7 @@ export async function POST(request: Request) {
       }
 
       if (!response.ok) {
-        console.warn(`[Image API] Scene planner failed: status=${response.status}`);
+        recordPlannerOutcome("http_error", response.status);
         return { scenePlan: null, fromCache: false };
       }
 
@@ -979,9 +999,17 @@ export async function POST(request: Request) {
           .join("");
       }
 
-      if (!content) return { scenePlan: null, fromCache: false };
+      if (!content) {
+        recordPlannerOutcome("empty_content");
+        return { scenePlan: null, fromCache: false };
+      }
       const jsonString = extractJsonObject(content) || content.trim();
-      const parsed = JSON.parse(jsonString);
+      let parsed: unknown = null;
+      try {
+        parsed = JSON.parse(jsonString);
+      } catch {
+        // Unparseable model text is an invalid plan, not a failed request.
+      }
       const normalized = normalizeScenePlan(parsed);
       if (normalized) {
         void convex
@@ -994,9 +1022,11 @@ export async function POST(request: Request) {
             console.warn("[Image API] Scene plan cache upsert failed:", error);
           });
       }
+      recordPlannerOutcome(normalized ? "planned" : "invalid_plan");
       return { scenePlan: normalized, fromCache: false };
     } catch (error) {
       if (error instanceof Error && error.name === "AbortError") {
+        recordPlannerOutcome("timeout");
         logApiTimeout({
           context: requestContext,
           stage: "scene_planner",
@@ -1004,10 +1034,8 @@ export async function POST(request: Request) {
           sid,
           generationId: chargeGenerationId,
         });
-        console.warn(
-          `[Image API] Scene planner timeout after ${SCENE_PLANNER_TIMEOUT_MS}ms`
-        );
       } else {
+        recordPlannerOutcome("error");
         logApiFailure({
           context: requestContext,
           stage: "scene_planner",
@@ -1016,7 +1044,6 @@ export async function POST(request: Request) {
           sid,
           generationId: chargeGenerationId,
         });
-        console.warn("[Image API] Scene planner error:", error);
       }
       return { scenePlan: null, fromCache: false };
     }
