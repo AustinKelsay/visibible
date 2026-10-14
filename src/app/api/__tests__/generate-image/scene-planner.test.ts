@@ -273,7 +273,7 @@ function getCallCount(action: string) {
   return mockState.callHistory.filter((c) => c.action === actionName).length;
 }
 
-/** Scene planner outcome counts from the /api/metrics snapshot, keyed by outcome. */
+/** Scene planner outcome counts from the metrics snapshot that /api/metrics serves, keyed by outcome. */
 function plannerOutcomes(): Record<string, number> {
   return Object.fromEntries(
     getMetricsSnapshot().counters
@@ -633,6 +633,26 @@ describe("Scene Planner Refund Logic", () => {
       return result.json();
     }
 
+    it("logs a failed planner request at warn level with its status", async () => {
+      const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+      await generateWithPlannerResponse({ ok: false, status: 429, json: async () => ({}) });
+
+      const events = warn.mock.calls
+        .map(([line]) => (typeof line === "string" && line.startsWith("{") ? JSON.parse(line) : null))
+        .filter((event) => event?.event === "scene_planner.outcome");
+      warn.mockRestore();
+      expect(events).toHaveLength(1);
+      expect(events[0]).toMatchObject({
+        level: "warn",
+        outcome: "http_error",
+        statusCode: 429,
+        plannerModel: "nvidia/nemotron-3-super-120b-a12b:free",
+        sid: "test...sion",
+        generationId: expect.any(String),
+      });
+    });
+
     it("records empty content when the planner returns no text", async () => {
       const body = await generateWithPlannerResponse({
         ok: true,
@@ -657,6 +677,17 @@ describe("Scene Planner Refund Logic", () => {
       const body = await generateWithPlannerResponse(() =>
         Promise.reject(new TypeError("fetch failed"))
       );
+
+      expect(body.scenePlannerUsed).toBe(false);
+      expect(plannerOutcomes()).toEqual({ error: 1 });
+    });
+
+    it("records an error, not an invalid plan, when the response body is not JSON", async () => {
+      const body = await generateWithPlannerResponse({
+        ok: true,
+        status: 200,
+        json: async () => JSON.parse("<html>proxy error</html>"),
+      });
 
       expect(body.scenePlannerUsed).toBe(false);
       expect(plannerOutcomes()).toEqual({ error: 1 });

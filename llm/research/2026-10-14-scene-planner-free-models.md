@@ -28,7 +28,7 @@ Every planner failure ends the same way: the Generation completes with the direc
 | Unparseable JSON or network error | Direct prompt | `logApiFailure` |
 | Timeout (`SCENE_PLANNER_TIMEOUT_MS`, default 10 s) | Direct prompt | `logApiTimeout` |
 
-The table records behavior at the time of the outage. Since #122, every row also records one `scene_planner_outcomes_total` count and a `scene_planner.outcome` log.
+The table records behavior at the time of the outage. Since issue [#122](https://github.com/AustinKelsay/visibible/issues/122), every row also records one `scene_planner_outcomes_total` count and a `scene_planner.outcome` log.
 
 The fix (commit `088b20d`, merged to `dev` in PR #120 as `bf318e0`, released to `main` in PR #121) changed `DEFAULT_SCENE_PLANNER_MODEL`, added `reasoning: { enabled: false }` to the request, and updated the Vercel variable in all environments. After deploy, a Joshua 1:2 Generation at 2026-10-14 19:16 UTC wrote a `scenePlanCache` row with plannerModel `nvidia/nemotron-3-super-120b-a12b:free`. Its generation record shows `scenePlannerUsed: true` and a total of 5 credits ($0.0487), the same as an unplanned image earlier that day, so the planner added 0.
 

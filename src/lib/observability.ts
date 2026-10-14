@@ -272,8 +272,8 @@ export type ScenePlannerOutcome =
   | "timeout"
   | "error";
 
-// Outcomes that mean the planner behaved as configured; the rest are skips or failures.
-const EXPECTED_SCENE_PLANNER_OUTCOMES: ReadonlySet<ScenePlannerOutcome> = new Set(["planned", "cache_hit", "disabled"]);
+// The planner behaved as configured; every other outcome is a skip or failure.
+const HEALTHY_SCENE_PLANNER_OUTCOMES: ReadonlySet<ScenePlannerOutcome> = new Set(["planned", "cache_hit", "disabled"]);
 
 export function logScenePlannerOutcome(args: {
   context: RequestObservabilityContext;
@@ -287,7 +287,7 @@ export function logScenePlannerOutcome(args: {
     route: args.context.route,
     outcome: args.outcome,
   });
-  const log = EXPECTED_SCENE_PLANNER_OUTCOMES.has(args.outcome) ? logInfo : logWarn;
+  const log = HEALTHY_SCENE_PLANNER_OUTCOMES.has(args.outcome) ? logInfo : logWarn;
   log("scene_planner.outcome", {
     route: args.context.route,
     requestId: args.context.requestId,

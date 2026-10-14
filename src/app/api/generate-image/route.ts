@@ -1004,9 +1004,13 @@ export async function POST(request: Request) {
         return { scenePlan: null, fromCache: false };
       }
       const jsonString = extractJsonObject(content) || content.trim();
-      const parsed = JSON.parse(jsonString);
+      let parsed: unknown = null;
+      try {
+        parsed = JSON.parse(jsonString);
+      } catch {
+        // Unparseable model text is an invalid plan, not a failed request.
+      }
       const normalized = normalizeScenePlan(parsed);
-      recordPlannerOutcome(normalized ? "planned" : "invalid_plan");
       if (normalized) {
         void convex
           .mutation(api.verseImages.upsertScenePlanCache, {
@@ -1018,11 +1022,11 @@ export async function POST(request: Request) {
             console.warn("[Image API] Scene plan cache upsert failed:", error);
           });
       }
+      recordPlannerOutcome(normalized ? "planned" : "invalid_plan");
       return { scenePlan: normalized, fromCache: false };
     } catch (error) {
-      const timedOut = error instanceof Error && error.name === "AbortError";
-      recordPlannerOutcome(timedOut ? "timeout" : error instanceof SyntaxError ? "invalid_plan" : "error");
-      if (timedOut) {
+      if (error instanceof Error && error.name === "AbortError") {
+        recordPlannerOutcome("timeout");
         logApiTimeout({
           context: requestContext,
           stage: "scene_planner",
@@ -1030,10 +1034,8 @@ export async function POST(request: Request) {
           sid,
           generationId: chargeGenerationId,
         });
-        console.warn(
-          `[Image API] Scene planner timeout after ${SCENE_PLANNER_TIMEOUT_MS}ms`
-        );
       } else {
+        recordPlannerOutcome("error");
         logApiFailure({
           context: requestContext,
           stage: "scene_planner",
@@ -1042,7 +1044,6 @@ export async function POST(request: Request) {
           sid,
           generationId: chargeGenerationId,
         });
-        console.warn("[Image API] Scene planner error:", error);
       }
       return { scenePlan: null, fromCache: false };
     }
