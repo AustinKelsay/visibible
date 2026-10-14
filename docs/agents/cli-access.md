@@ -10,7 +10,7 @@ The repository has Convex CLI 1.31.2 and this machine has a saved CLI login. A r
 ./node_modules/.bin/convex data --deployment-name coordinated-shepherd-515
 ```
 
-This lists table names; adding a table argument reads documents. Production access has not been verified.
+This lists table names; adding a table argument reads documents. The same read-only access worked against production (`--deployment-name unique-impala-244`) on 2026-10-14.
 
 In the installed CLI version, using `--env-file` with a deployment-only file can skip loading the saved login when the file has no deploy key. The initial attempt using `.env.convex.dev` returned `401 MissingAccessToken`; explicit deployment selection without `--env-file` succeeded. Do not infer that the user must log in again from that error alone. Recheck this behavior after a CLI upgrade. Do not copy login tokens into project environment files.
 
@@ -29,6 +29,6 @@ The unscoped npm package lookup returned 404 during this check; the existing sou
 
 ## Current development prerequisites
 
-The user reports the LND node is offline. Implement and verify payment behavior with a controlled LND adapter and synthetic invoices on local/dev paths. Live invoice creation, node connectivity and real settlement verification remain pending until the node returns; do not report them as verified by mocks.
+Credit invoices come from the LNURL-pay server on tower, behind `pay@visibible.com` (see [Lightning credit purchases](../../llm/context/PAYMENTS.md)). Local and dev runs use the same node, so they create real invoices; leave them unpaid unless a real purchase is intended. A real production purchase settled and credited once on 2026-10-14. Do not report payment behavior as verified by mocks alone.
 
 Dev environment inspection confirmed the shared server secret, Nostr signing key and relay configuration are set. OpenRouter credentials are configured for the local Next.js application but were not listed on the Convex dev deployment. Moving provider calls into Convex will require configuring that dev execution environment as part of implementation. Provider account quota and live model availability have not been tested by these configuration checks.
