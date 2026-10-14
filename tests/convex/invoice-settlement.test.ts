@@ -4,7 +4,7 @@ import schema from "../../convex/schema";
 import { api, internal } from "../../convex/_generated/api";
 import { modules } from "./modules";
 import { GET, POST } from "../../src/app/api/invoice/[id]/route";
-import { lookupLndInvoice, type LndInvoiceLookup } from "../../src/lib/lnd";
+import { lookupLightningInvoiceState } from "../../src/lib/lightning";
 
 let t = convexTest(schema, modules);
 vi.mock("@/lib/convex-client", () => ({
@@ -20,21 +20,12 @@ vi.mock("@/lib/session", () => ({
   withSessionRefreshCookie: (response: Response) => response,
 }));
 vi.mock("@/lib/origin", () => ({ validateOrigin: () => true }));
-vi.mock("@/lib/lnd", async (importOriginal) => ({
-  ...await importOriginal<typeof import("../../src/lib/lnd")>(),
-  lookupLndInvoice: vi.fn(),
-  isLndConfigured: () => true,
+vi.mock("@/lib/lightning", () => ({
+  lookupLightningInvoiceState: vi.fn(),
+  isLightningConfigured: () => true,
 }));
 const hash = "ab".repeat(32);
 const evidence = { invoiceId: "purchase", paymentHash: hash, amountPaidSats: 1000 };
-function lnd(overrides: Partial<LndInvoiceLookup> = {}): LndInvoiceLookup {
-  return {
-    state: "SETTLED", settled: true, r_hash: Buffer.from(hash, "hex").toString("base64"),
-    amt_paid_sat: "1000", amt_paid_msat: "1000000", value: "1000", value_msat: "1000000",
-    memo: "", r_preimage: "", payment_request: "lnbc-test", creation_date: "1",
-    settle_date: "2", expiry: "900", ...overrides,
-  };
-}
 async function seed(status: "pending" | "expired" = "pending", tier = "free") {
   await t.run(async (ctx) => {
     await ctx.db.insert("sessions", {
@@ -59,7 +50,7 @@ function request(method: "GET" | "POST") {
 beforeEach(() => {
   t = convexTest(schema, modules);
   vi.stubEnv("CONVEX_SERVER_SECRET", "test-secret");
-  vi.mocked(lookupLndInvoice).mockReset().mockResolvedValue(lnd());
+  vi.mocked(lookupLightningInvoiceState).mockReset().mockResolvedValue("SETTLED");
 });
 afterEach(() => vi.unstubAllEnvs());
 
@@ -78,28 +69,34 @@ describe("verified late Lightning purchases", () => {
     });
     it(`${method} distinguishes an outage from expiry and never grants credits`, async () => {
       await seed();
-      vi.mocked(lookupLndInvoice).mockRejectedValue(new Error("Node offline"));
+      vi.mocked(lookupLightningInvoiceState).mockRejectedValue(new Error("Node offline"));
       const response = await handler(request(method), { params: Promise.resolve({ id: "purchase" }) });
       expect(response.status).toBe(502);
       expect((await state()).invoice?.status).toBe("pending");
       expect((await state()).ledger).toHaveLength(0);
     });
-    it(`${method} expires verified unpaid invoices without granting credits`, async () => {
+    it.each(["OPEN", "ACCEPTED", "CANCELED"] as const)(`${method} expires verified unpaid %s invoices without granting credits`, async (nodeState) => {
       await seed();
-      vi.mocked(lookupLndInvoice).mockResolvedValue(lnd({ state: "OPEN", settled: false }));
+      vi.mocked(lookupLightningInvoiceState).mockResolvedValue(nodeState);
       const response = await handler(request(method), { params: Promise.resolve({ id: "purchase" }) });
       expect(response.status).toBe(method === "GET" ? 200 : 410);
       expect((await state()).invoice?.status).toBe("expired");
       expect((await state()).ledger).toHaveLength(0);
     });
-    it.each([{ amt_paid_sat: "999" }, { r_hash: Buffer.alloc(32).toString("base64") }])(`${method} rejects mismatched settlement evidence %j`, async (invalid) => {
-      await seed();
-      vi.mocked(lookupLndInvoice).mockResolvedValue(lnd(invalid));
-      const response = await handler(request(method), { params: Promise.resolve({ id: "purchase" }) });
-      expect(response.status).toBe(502);
-      expect((await state()).ledger).toHaveLength(0);
-    });
   }
+  it("stores the Lightning invoice's own expiry", async () => {
+    await t.run(async (ctx) => {
+      await ctx.db.insert("sessions", {
+        sid: "purchase-guest", credits: 0, tier: "free", createdAt: 1, lastSeenAt: 1, expiresAt: 2,
+      });
+    });
+    const created = await t.mutation(api.invoices.createInvoice, {
+      invoiceId: "purchase", sid: "purchase-guest", amountUsd: 1, amountSats: 1000,
+      bolt11: "lnbc-test", paymentHash: hash, expiresAt: 3_600_000, serverSecret: "test-secret",
+    });
+    expect(created.expiresAt).toBe(3_600_000);
+    expect((await state()).invoice?.expiresAt).toBe(3_600_000);
+  });
   it("concurrent confirmations grant one purchase and preserve admin tier", async () => {
     await seed("expired", "admin");
     await Promise.all(Array.from({ length: 5 }, () => t.action(api.invoices.confirmPayment, {

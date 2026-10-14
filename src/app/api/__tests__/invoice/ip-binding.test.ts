@@ -36,15 +36,14 @@ vi.mock("@/lib/btc-price", () => ({
   usdToSats: vi.fn((usd: number) => usd * 1_000),
 }));
 
-vi.mock("@/lib/lnd", () => ({
-  createLndInvoice: vi.fn(async () => ({
-    payment_request: "lnbc1test",
-    r_hash: "base64-hash",
+vi.mock("@/lib/lightning", () => ({
+  createLightningInvoice: vi.fn(async () => ({
+    bolt11: "lnbc1test",
+    paymentHash: "hex-payment-hash",
+    expiresAt: Date.now() + 3600_000,
   })),
-  base64ToHex: vi.fn(() => "hex-payment-hash"),
-  isLndConfigured: vi.fn(() => true),
-  lookupLndInvoice: vi.fn(async () => ({ state: "OPEN" })),
-  settledInvoiceAmount: vi.fn(() => 3000),
+  isLightningConfigured: vi.fn(() => true),
+  lookupLightningInvoiceState: vi.fn(async () => "OPEN"),
 }));
 
 describe("Invoice IP Binding", () => {
@@ -277,22 +276,8 @@ describe("Invoice IP Binding", () => {
       currentIpHash: "bound-ip-hash",
     };
     const now = Date.now();
-    const { lookupLndInvoice } = await import("@/lib/lnd");
-    vi.mocked(lookupLndInvoice).mockResolvedValueOnce({
-      memo: "Visibible: settled-invoice",
-      r_preimage: "",
-      r_hash: "hash-base64",
-      value: "3000",
-      value_msat: "3000000",
-      settled: true,
-      creation_date: String(Math.floor(now / 1000) - 60),
-      settle_date: String(Math.floor(now / 1000)),
-      payment_request: "lnbc1test",
-      expiry: "900",
-      state: "SETTLED",
-      amt_paid_sat: "3000",
-      amt_paid_msat: "3000000",
-    });
+    const { lookupLightningInvoiceState } = await import("@/lib/lightning");
+    vi.mocked(lookupLightningInvoiceState).mockResolvedValueOnce("SETTLED");
 
     mockConvex.query.mockImplementation(async (_apiPath: unknown, args: Record<string, unknown>) => {
       if (args.invoiceId === "settled-invoice") {
@@ -359,6 +344,7 @@ describe("Invoice IP Binding", () => {
       expect.objectContaining({
         invoiceId: "settled-invoice",
         paymentHash: "hex-payment-hash",
+        amountPaidSats: 3000,
       })
     );
   });

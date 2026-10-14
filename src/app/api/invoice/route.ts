@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { validateSessionWithIp, withSessionRefreshCookie } from "@/lib/session";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { getBtcPrice, usdToSats } from "@/lib/btc-price";
-import { createLndInvoice, base64ToHex, isLndConfigured } from "@/lib/lnd";
+import { createLightningInvoice, isLightningConfigured } from "@/lib/lightning";
 import { validateOrigin, invalidOriginResponse } from "@/lib/origin";
 import {
   createRequestObservabilityContext,
@@ -76,7 +76,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
-  if (!isLndConfigured()) {
+  if (!isLightningConfigured()) {
     return NextResponse.json(
       { error: "Lightning payments not configured" },
       { status: 503 }
@@ -94,7 +94,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   const withSessionRefresh = (response: Response) =>
     withSessionRefreshCookie(response, sessionValidation.refreshedToken) as NextResponse;
 
-  // SECURITY: Rate limit invoice creation to prevent LND flooding
+  // SECURITY: Rate limit invoice creation to prevent node flooding
   // Use IP hash only (not session) to prevent multi-session bypass from same IP
   const rateLimitIdentifier = sessionValidation.currentIpHash;
 
@@ -135,24 +135,19 @@ export async function POST(request: Request): Promise<NextResponse> {
     const btcPrice = await getBtcPrice();
     const amountSats = usdToSats(amountUsd, btcPrice);
 
-    // Generate invoiceId before LND call so we can include it in memo for linking
+    // Generate invoiceId before the Lightning call so we can include it in the description for linking
     const invoiceId = crypto.randomUUID();
-    const memo = `Visibible: ${invoiceId}`;
 
-    // Create real Lightning invoice via LND
-    const lndInvoice = await createLndInvoice(amountSats, memo);
+    const lightningInvoice = await createLightningInvoice(amountSats, `credits ${invoiceId}`);
 
-    // Convert payment hash from base64 to hex
-    const paymentHash = base64ToHex(lndInvoice.r_hash);
-
-    // Store in Convex with real LND data
     const invoice = await convex.mutation(api.invoices.createInvoice, {
       invoiceId,
       sid,
       amountUsd,
       amountSats,
-      bolt11: lndInvoice.payment_request,
-      paymentHash,
+      bolt11: lightningInvoice.bolt11,
+      paymentHash: lightningInvoice.paymentHash,
+      expiresAt: lightningInvoice.expiresAt,
       serverSecret,
     });
 

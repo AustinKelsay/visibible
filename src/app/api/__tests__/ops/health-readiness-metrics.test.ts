@@ -31,8 +31,8 @@ vi.mock("@/lib/convex-client", () => ({
   }),
 }));
 
-vi.mock("@/lib/lnd", () => ({
-  isLndConfigured: vi.fn(() => readinessState.lndConfigured),
+vi.mock("@/lib/lightning", () => ({
+  isLightningConfigured: vi.fn(() => readinessState.lndConfigured),
 }));
 
 import { GET as healthGET } from "../../health/route";
