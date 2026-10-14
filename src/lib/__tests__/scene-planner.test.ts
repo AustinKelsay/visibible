@@ -11,7 +11,6 @@ const {
 }));
 
 vi.mock("../chat-models", () => ({
-  DEFAULT_CHAT_MODEL: "openai/gpt-oss-120b",
   SCENE_PLANNER_ESTIMATED_TOKENS: 450,
   computeChatCreditsCost: mockComputeChatCreditsCost,
   getChatModelPricing: mockGetChatModelPricing,
@@ -39,7 +38,7 @@ describe("scene planner helpers", () => {
   });
 
   it("uses the default planner model when no override is configured", () => {
-    expect(getScenePlannerModelId()).toBe("openai/gpt-oss-120b");
+    expect(getScenePlannerModelId()).toBe("nvidia/nemotron-3-super-120b-a12b:free");
   });
 
   it("detects when the scene planner is disabled", () => {
@@ -65,7 +64,7 @@ describe("scene planner helpers", () => {
       getScenePlannerEstimatedCreditsCost("test-api-key")
     ).resolves.toBe(2);
     expect(mockGetChatModelPricing).toHaveBeenCalledWith(
-      "openai/gpt-oss-120b",
+      "nvidia/nemotron-3-super-120b-a12b:free",
       "test-api-key"
     );
     expect(mockComputeChatCreditsCost).toHaveBeenCalledWith(
