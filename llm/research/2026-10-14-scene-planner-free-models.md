@@ -28,6 +28,8 @@ Every planner failure ends the same way: the Generation completes with the direc
 | Unparseable JSON or network error | Direct prompt | `logApiFailure` |
 | Timeout (`SCENE_PLANNER_TIMEOUT_MS`, default 10 s) | Direct prompt | `logApiTimeout` |
 
+The table records behavior at the time of the outage. Since #122, every row also records one `scene_planner_outcomes_total` count and a `scene_planner.outcome` log.
+
 The fix (commit `088b20d`, merged to `dev` in PR #120 as `bf318e0`, released to `main` in PR #121) changed `DEFAULT_SCENE_PLANNER_MODEL`, added `reasoning: { enabled: false }` to the request, and updated the Vercel variable in all environments. After deploy, a Joshua 1:2 Generation at 2026-10-14 19:16 UTC wrote a `scenePlanCache` row with plannerModel `nvidia/nemotron-3-super-120b-a12b:free`. Its generation record shows `scenePlannerUsed: true` and a total of 5 credits ($0.0487), the same as an unplanned image earlier that day, so the planner added 0.
 
 **Method**
@@ -83,7 +85,7 @@ The production Joshua 1:2 plan from Super had subject "Joshua standing on the ea
 
 Re-run when the planner model leaves the catalog, gains an `expiration_date`, or starts returning errors.
 
-1. Detect. In production, find the newest `scenePlanCache` `createdAt` per `plannerModel`, and check `scenePlannerUsed` on recent generation records ([CLI access](../../docs/agents/cli-access.md)). No new rows while uncached Generations continue means the planner is skipped or failing. Nothing alerts on this yet ([#122](https://github.com/AustinKelsay/visibible/issues/122)).
+1. Detect. In production, find the newest `scenePlanCache` `createdAt` per `plannerModel`, and check `scenePlannerUsed` on recent generation records ([CLI access](../../docs/agents/cli-access.md)). No new rows while uncached Generations continue means the planner is skipped or failing. Since [#122](https://github.com/AustinKelsay/visibible/issues/122), the `scene_planner_outcomes_total` counter and `scene_planner.outcome` warnings show which; nothing alerts on them.
 2. Shortlist free text models from `GET /api/v1/models` (no key needed) whose `reasoning` is absent or has `mandatory: false`. The request disables reasoning, so a mandatory-reasoning model fails with HTTP 400. Using one would mean changing the request to a low effort with a larger `max_tokens`, and the results above show `effort: "low"` still returns empty content sometimes.
 3. Call each candidate with the real prompt on the three verses above, varying only `reasoning` (none, `{ enabled: false }`, `{ effort: "low" }`). Record valid plans, latency, `usage.completion_tokens_details.reasoning_tokens`, `finish_reason` and HTTP errors. Run the leaders twice. The Super free endpoint also lists `response_format` and `structured_outputs` ([endpoints](https://openrouter.ai/api/v1/models/nvidia/nemotron-3-super-120b-a12b:free/endpoints)); a JSON schema request is untested.
 4. Compare plans for a depictable subject and the verse's actual action. John 11:35 and Genesis 1:3 separated the models in this run.
