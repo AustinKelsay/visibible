@@ -8,13 +8,12 @@ export const IMAGE_CATALOG_SOURCE = "https://openrouter.ai/api/v1/models";
 export const IMAGE_BILLING_VERSION = "google-output-tokens-2026-09-08";
 
 // These counts are documented per output image, independent of our three ratios.
-// Keep unknown models disabled until their billing units and request settings are verified.
+// Only these models are offered; others stay hidden until their billing units and request settings are verified.
 const OUTPUT_TOKENS: Record<string, Partial<Record<ImageResolution, number>>> = {
   "google/gemini-2.5-flash-image": { "1K": 1290 },
-  "google/gemini-3-pro-image": { "1K": 1120, "2K": 1120, "4K": 2000 },
-  "google/gemini-3-pro-image-preview": { "1K": 1120, "2K": 1120, "4K": 2000 },
   "google/gemini-3.1-flash-image": { "1K": 1120, "2K": 1680, "4K": 2520 },
   "google/gemini-3.1-flash-image-preview": { "1K": 1120, "2K": 1680, "4K": 2520 },
+  "google/gemini-3.1-flash-lite-image": { "1K": 1120 },
 };
 
 export interface ImageBilling {

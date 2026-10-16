@@ -42,6 +42,8 @@ Exact dependencies and commands: [package.json](../package.json). Environment te
 
 [Scene planner free models](research/2026-10-14-scene-planner-free-models.md) records why the planner uses its current model and how to re-run the comparison when that model disappears.
 
+[Image models](research/2026-10-14-image-models.md) records why Gemini 3.1 Flash Lite Image is the default image model, what the other candidates measured, and how to re-run the comparison.
+
 ## Proposed modernization
 
 [Specs and implementation tickets](../docs/modernization/README.md) describe intended changes from the [rebuild assessment](research/2026-09-07-rebuild-assessment.md). They do not replace the current-behavior guides until the corresponding work is implemented.
