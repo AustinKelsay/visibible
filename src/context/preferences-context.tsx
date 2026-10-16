@@ -40,6 +40,18 @@ const STORAGE_KEY = "visibible-preferences";
 const COOKIE_NAME = "visibible-translation";
 const IMAGE_MODEL_COOKIE = "visibible-image-model";
 const CHAT_MODEL_COOKIE = "visibible-chat-model";
+// The default when saved preferences did not yet record which default was current.
+const LEGACY_DEFAULT_IMAGE_MODEL = "google/gemini-2.5-flash-image";
+
+/**
+ * Every save writes the image model, whether or not the visitor chose it. A
+ * saved model equal to the default current at save time follows the new default.
+ */
+function resolveSavedImageModel(prefs: { imageModel?: unknown; defaultImageModel?: unknown }): string {
+  if (typeof prefs.imageModel !== "string" || prefs.imageModel.length > 200) return DEFAULT_IMAGE_MODEL;
+  const defaultAtSave = typeof prefs.defaultImageModel === "string" ? prefs.defaultImageModel : LEGACY_DEFAULT_IMAGE_MODEL;
+  return prefs.imageModel === defaultAtSave ? DEFAULT_IMAGE_MODEL : prefs.imageModel;
+}
 
 export function PreferencesProvider({ children }: { children: ReactNode }) {
   const [translation, setTranslationState] = useState<Translation>(DEFAULT_TRANSLATION);
@@ -64,16 +76,15 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
             setTranslationState(prefs.translation as Translation);
           }
           // Load image model preference
-          if (typeof prefs.imageModel === "string" && prefs.imageModel.length <= 200) {
-            setImageModelState(prefs.imageModel);
-          }
+          const savedImageModel = resolveSavedImageModel(prefs);
+          setImageModelState(savedImageModel);
           // Load image aspect ratio preference
           if (prefs.imageAspectRatio && isValidAspectRatio(prefs.imageAspectRatio)) {
             setImageAspectRatioState(prefs.imageAspectRatio);
           }
           // Load image resolution preference
           if (prefs.imageResolution && isValidResolution(prefs.imageResolution)) {
-            setImageResolutionState(normalizeResolutionForModel(typeof prefs.imageModel === "string" ? prefs.imageModel : DEFAULT_IMAGE_MODEL, prefs.imageResolution));
+            setImageResolutionState(normalizeResolutionForModel(savedImageModel, prefs.imageResolution));
           }
           // Load chat model preference
           if (prefs.chatModel) {
@@ -120,6 +131,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({
         ...existing,
         ...prefs,
+        defaultImageModel: DEFAULT_IMAGE_MODEL,
       }));
     } catch {
       // Ignore errors

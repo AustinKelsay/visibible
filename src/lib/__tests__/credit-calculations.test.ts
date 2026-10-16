@@ -304,12 +304,13 @@ describe("computeCreditsFromActualUsage", () => {
 describe("supportsResolution", () => {
   it("should detect documented Gemini image preview models as supporting resolution", () => {
     expect(supportsResolution("google/gemini-3.1-flash-image-preview")).toBe(true);
-    expect(supportsResolution("google/gemini-3-pro-image-preview")).toBe(true);
+    expect(supportsResolution("google/gemini-3.1-flash-image")).toBe(true);
     expect(supportsResolution("GOOGLE/GEMINI-3.1-FLASH-IMAGE-PREVIEW")).toBe(true);
   });
 
   it("should NOT detect models without documented image_size support", () => {
     expect(supportsResolution("google/gemini-2.5-flash-image")).toBe(false);
+    expect(supportsResolution("google/gemini-3.1-flash-lite-image")).toBe(false);
     expect(supportsResolution("google/gemini-pro")).toBe(false);
     expect(supportsResolution("openai/dall-e-3")).toBe(false);
     expect(supportsResolution("stability/stable-diffusion")).toBe(false);
@@ -364,8 +365,8 @@ describe("computeAdjustedCreditsCost", () => {
   });
 
   it("should ceil fractional credits", () => {
-    const result = computeAdjustedCreditsCost(3, "2K", "google/gemini-3-pro-image-preview");
-    expect(result).toBe(3); // Pro uses the same image token count at 1K and 2K
+    const result = computeAdjustedCreditsCost(3, "2K", "google/gemini-3.1-flash-image-preview");
+    expect(result).toBe(5); // 3 × 1.5 = 4.5
   });
 });
 

@@ -39,7 +39,7 @@ describe("Image Models API", () => {
     mockFetchImageModels.mockResolvedValue({
       models: [
         {
-          ...imageModelFixture(),
+          ...imageModelFixture("google/gemini-2.5-flash-image"),
           name: "Gemini 2.5 Flash Image",
           provider: "Google",
           creditsCost: 2,

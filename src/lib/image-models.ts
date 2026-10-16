@@ -77,7 +77,7 @@ export function computeCreditsFromActualUsage(
   return { credits: fallbackCredits, usedActual: false };
 }
 
-export const DEFAULT_IMAGE_MODEL = "google/gemini-2.5-flash-image";
+export const DEFAULT_IMAGE_MODEL = "google/gemini-3.1-flash-lite-image";
 export const EMERGENCY_IMAGE_MODEL_PRICING_USD: Record<string, string> = {
   // Legacy placeholder retained for incomplete display state, never catalog admission.
   [DEFAULT_IMAGE_MODEL]: "0.10",
@@ -299,7 +299,7 @@ function cloneImageModels(models: ImageModel[]): ImageModel[] {
 }
 
 export function unavailableImageModels(reason: string): ImageModel[] {
-  return [{ id: DEFAULT_IMAGE_MODEL, name: "Gemini 2.5 Flash", provider: "Google",
+  return [{ id: DEFAULT_IMAGE_MODEL, name: "Nano Banana 2 Lite", provider: "Google",
     availability: "unavailable", unavailableReason: reason, creditsCost: null, reservationCreditsCost: null }];
 }
 
@@ -344,10 +344,11 @@ export async function fetchImageModels(openRouterApiKey: string): Promise<ImageM
     const data = await response.json();
     if (!Array.isArray(data.data)) throw new Error("Invalid image catalog");
 
-    // First, get all image-capable models
+    // Offer only image models whose billing units and request settings are verified
     const allImageModels: OpenRouterModel[] = (data.data || []).filter(
       (model: OpenRouterModel) =>
-        model && typeof model.id === "string" && Array.isArray(model.architecture?.output_modalities) && model.architecture.output_modalities.includes("image")
+        model && typeof model.id === "string" && Array.isArray(model.architecture?.output_modalities) && model.architecture.output_modalities.includes("image") &&
+        imageCapabilities(model.id) !== null
     );
 
     // Build set of stable model IDs (non-preview)
@@ -373,8 +374,7 @@ export async function fetchImageModels(openRouterApiKey: string): Promise<ImageM
         return {
           id: model.id, name: typeof model.name === "string" ? model.name : model.id, provider: getProviderName(model.id), billing, capabilities: imageCapabilities(model.id),
           availability: quote ? "available" : "unavailable",
-          unavailableReason: quote ? undefined : imageCapabilities(model.id)
-            ? "Output pricing unavailable" : "Pricing and settings not verified",
+          unavailableReason: quote ? undefined : "Output pricing unavailable",
           creditsCost: quote?.credits ?? null,
           reservationCreditsCost: quote ? quote.credits * IMAGE_RESERVATION_HEADROOM_MULTIPLIER : null,
           etaSeconds: DEFAULT_ETA_SECONDS,
