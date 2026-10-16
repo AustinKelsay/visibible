@@ -18,12 +18,12 @@ vi.mock("@/lib/analytics", () => ({ trackPreferenceChanged: vi.fn() }));
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 afterEach(() => vi.unstubAllGlobals());
 
-it("labels stale pricing, disables unverified choices and repairs unsupported saved resolution on selection", async () => {
+it("labels stale pricing, disables unpriced choices and repairs unsupported saved resolution on selection", async () => {
   const storage = new Map([["visibible-preferences", JSON.stringify({ imageModel: "removed/model", imageResolution: "4K" })]]);
   vi.stubGlobal("localStorage", { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => storage.set(key, value) });
   vi.stubGlobal("fetch", vi.fn(async () => Response.json({ models: [
     { id: "google/gemini-2.5-flash-image", name: "Default image", provider: "Google", availability: "stale", creditsCost: 6, estimatedCreditsByResolution: { "1K": 7 } },
-    { id: "unverified/model", name: "Unverified", provider: "Other", availability: "unavailable", creditsCost: null, unavailableReason: "Pricing and settings not verified" },
+    { id: "google/gemini-3.1-flash-image", name: "Unpriced", provider: "Google", availability: "unavailable", creditsCost: null, unavailableReason: "Output pricing unavailable" },
   ], scenePlannerCreditsCost: 1, error: "Using cached image models" })));
   let current: ReturnType<typeof usePreferences>;
   function Probe() {

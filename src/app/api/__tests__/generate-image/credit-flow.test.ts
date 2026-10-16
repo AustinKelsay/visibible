@@ -51,6 +51,7 @@ let mockLearnedEstimate:
   | null = null;
 const defaultImageCatalogModels = [
   imageModelFixture(),
+  imageModelFixture("google/gemini-2.5-flash-image"),
   imageModelFixture("google/gemini-3.1-flash-image-preview", "0.000015"),
 ];
 const fetchImageModelsMock = vi.fn(async () => ({
