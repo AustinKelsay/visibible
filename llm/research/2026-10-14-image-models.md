@@ -68,6 +68,8 @@ Saves now also record `defaultImageModel`, and a saved model equal to it follows
 
 **List changes (October 16)**
 
+![The model picker lists Nano Banana, Nano Banana 2 and Nano Banana 2 Lite, with Lite selected](2026-10-16-image-model-picker.png)
+
 - **Gemini 3 Pro Image** (stable and preview) was removed from the registry. It cost about four times Lite's price, took 20 s, and ranks below Lite on both leaderboards. A visitor with it saved is asked to choose another model.
 - **Models outside the registry** are no longer listed. Previously the selector showed every catalog image model and disabled the unverified ones, such as GPT-5 Image. Registered models without a usable catalog price remain listed and disabled.
 - **Nano Banana 2.1** was retried on October 16 and again returned HTTP 429, "rate-limited upstream", from OpenRouter's shared Google AI Studio pool. Its catalog image output rate, $0.00003 per token, is half of Gemini 3.1 Flash's, so it would cut 2K and 4K costs if it becomes reliably available.
