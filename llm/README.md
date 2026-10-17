@@ -44,6 +44,8 @@ Exact dependencies and commands: [package.json](../package.json). Environment te
 
 [Image models](research/2026-10-14-image-models.md) records why Gemini 3.1 Flash Lite Image is the default image model, what the other candidates measured, and how to re-run the comparison.
 
+[Verse entity datasets](research/2026-10-17-verse-entity-datasets.md) compares open datasets that map verses to named people, places and story sections, and samples the most frequent characters and locations.
+
 ## Proposed modernization
 
 [Specs and implementation tickets](../docs/modernization/README.md) describe intended changes from the [rebuild assessment](research/2026-09-07-rebuild-assessment.md). They do not replace the current-behavior guides until the corresponding work is implemented.
