@@ -5,7 +5,8 @@ import type { ImageAspectRatio, ImageResolution } from "./image-models";
 export const PROMPT_VERSION = "2026-09-08-canonical";
 export const DEFAULT_STYLE_PROFILE = "classical";
 const SCENE_PLAN_MAX_FIELD_LENGTH = 180;
-export const PROMPT_MAX_CHARS = 2800;
+// PROTOTYPE: env override so the art-style prototype can compare full style briefs.
+export const PROMPT_MAX_CHARS = Number(process.env.PROTOTYPE_PROMPT_MAX_CHARS) || 2800;
 const CONTINUITY_HINT_MAX_CHARS = 160;
 const SCENE_PLANNER_VERSE_MAX_CHARS = 280;
 

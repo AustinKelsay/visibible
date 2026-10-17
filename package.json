@@ -22,7 +22,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:watch": "vitest --watch",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "prototype:art-styles": "esbuild src/lib/art-styles.prototype.ts --bundle --platform=node --format=esm --outfile=.prototype/art-styles.mjs --log-level=warning && node --env-file=.env.local .prototype/art-styles.mjs"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.1",

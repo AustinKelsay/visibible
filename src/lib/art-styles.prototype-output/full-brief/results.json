@@ -1,0 +1,671 @@
+{
+  "model": "google/gemini-3.1-flash-lite-image",
+  "planner": "nvidia/nemotron-3-super-120b-a12b:free",
+  "translation": "web",
+  "styles": [
+    {
+      "id": "classical",
+      "label": "Classical Painterly",
+      "rendering": "Stylized, painterly, biblical-era, mysterious, expansive; epic scale and reverent tone. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.",
+      "palette": "Mature, grounded color; rich but restrained contrast.",
+      "lighting": "Luminous, dramatic lighting.",
+      "materials": "Gritty, raw texture; avoid polished digital smoothness.",
+      "composition": "Cinematic, immersive viewpoint; heroic but grounded.",
+      "negative": "Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge."
+    },
+    {
+      "id": "storybook",
+      "label": "Illustrated Storybook",
+      "rendering": "Warm hand-illustrated storybook art in gouache and coloured pencil; gentle, approachable and reverent, suitable for families. Simplified shapes and expressive faces with grounded proportions. The illustration is the depicted world itself, not a printed page.",
+      "palette": "Soft, warm palette with clear, friendly colour accents; gentle contrast.",
+      "lighting": "Soft golden light with a gentle glow on key figures.",
+      "materials": "Visible gouache brushwork and pencil grain; matte finish.",
+      "composition": "Clear storytelling staging; readable silhouettes; the key moment centred.",
+      "negative": "Avoid photorealism, 3D render or CGI look. Avoid anime, chibi or exaggerated caricature. Never show a book page, page edges, gutter, white margins, border or vignette. The illustrated world must fill the image edge-to-edge."
+    },
+    {
+      "id": "cinematic",
+      "label": "Cinematic Film Still",
+      "rendering": "Photorealistic film still from a large-scale historical epic shot on location; authentic ancient Near Eastern costume, people and architecture; reverent and grounded.",
+      "palette": "Natural filmic colour grade; earthy tones with restrained amber and teal contrast.",
+      "lighting": "Motivated natural light (sun, fire, torches); volumetric haze and atmosphere.",
+      "materials": "Real fabric weave, weathered skin, dust, stone and wood; fine film grain.",
+      "composition": "Anamorphic widescreen framing; purposeful camera angle; shallow depth of field on the key figure.",
+      "negative": "Avoid painterly, illustrated or cartoon looks. Avoid glossy CGI, plastic skin, video-game rendering or fantasy armour. No letterbox bars, film borders, cameras, crew or behind-the-scenes elements."
+    },
+    {
+      "id": "stained-glass",
+      "label": "Stained Glass",
+      "rendering": "The scene rendered entirely in the visual language of medieval stained glass: jewel-toned glass segments bounded by dark lead lines, stylised reverent figures, luminous and symbolic. The glass treatment is the rendering of the world itself.",
+      "palette": "Saturated jewel tones: cobalt, ruby, emerald and amber, with dark leading.",
+      "lighting": "Glowing back-lit radiance, as if light passes through every segment.",
+      "materials": "Faceted glass with subtle streaks and bubbles; painted grisaille detail on faces and drapery.",
+      "composition": "Clear iconic staging with bold, readable figure shapes.",
+      "negative": "Never show a window frame, window arch, church interior, wall or light falling on a floor. No border or surrounding architecture; the glass design fills the image edge-to-edge. Avoid photorealism."
+    },
+    {
+      "id": "icon",
+      "label": "Byzantine Icon",
+      "rendering": "Byzantine icon painting: flat, frontal, stylised figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.",
+      "palette": "Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.",
+      "lighting": "No cast shadows; inner light shown through layered highlights; gold glow.",
+      "materials": "Egg tempera and gold-leaf texture within the scene.",
+      "composition": "Hieratic, balanced staging; the key figure largest and central; stylised rocks, buildings and trees.",
+      "negative": "Never show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Halos may appear but never with lettering. Avoid photorealism and modern illustration. The gold sky and stylised landscape fill the image edge-to-edge."
+    },
+    {
+      "id": "watercolour",
+      "label": "Ink & Watercolour",
+      "rendering": "Loose pen-and-ink drawing with transparent watercolour washes; expressive, airy and contemplative, like a travelling artist's field study of the biblical world.",
+      "palette": "Transparent washes of ochre, sienna, indigo and sage; luminous lights.",
+      "lighting": "Bright, airy daylight; shadows as cool layered washes.",
+      "materials": "Confident ink linework, wet-in-wet blooms, granulating pigment.",
+      "composition": "Sketch-like economy; detail concentrated on key figures, softer surroundings.",
+      "negative": "Washes and scenery must reach every edge: no white paper margins, paper edges, sketchbook, tape or border. Avoid photorealism, digital airbrush smoothness and cartoon caricature."
+    }
+  ],
+  "verses": [
+    {
+      "book": "GEN",
+      "name": "Genesis",
+      "chapter": 1,
+      "verse": 3
+    },
+    {
+      "book": "EXO",
+      "name": "Exodus",
+      "chapter": 14,
+      "verse": 21
+    },
+    {
+      "book": "1SA",
+      "name": "1 Samuel",
+      "chapter": 17,
+      "verse": 49
+    },
+    {
+      "book": "LUK",
+      "name": "Luke",
+      "chapter": 2,
+      "verse": 7
+    },
+    {
+      "book": "ACT",
+      "name": "Acts",
+      "chapter": 1,
+      "verse": 9
+    }
+  ],
+  "results": [
+    {
+      "reference": "Genesis 1:3",
+      "style": "storybook",
+      "promptChars": 3335,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "divine light emerging from darkness",
+        "action": "radiant light breaking through primordial void",
+        "setting": "formless cosmic waters under swirling darkness",
+        "secondaryElements": "hovering divine presence as subtle luminous mist, faint geometric patterns forming in water",
+        "mood": "awe-inspiring and sacred",
+        "timeOfDay": "eternal moment before time",
+        "composition": "central burst of light radiating outward from upper center, dark waters below and around, soft gradients of gold and white piercing deep indigo and black"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Genesis 1:3: \"God said, “Let there be light,” and there was light.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: divine light emerging from darkness\nAction: radiant light breaking through primordial void\nSetting: formless cosmic waters under swirling darkness\nSecondary elements: hovering divine presence as subtle luminous mist, faint geometric patterns forming in water\nMood: awe-inspiring and sacred\nTime of day: eternal moment before time\nComposition: central burst of light radiating outward from upper center, dark waters below and around, soft gradients of gold and white piercing deep indigo and black\n\nNARRATIVE CONTINUITY:\n- Previous: v2: The earth was formless and empty. Darkness was on the surface of the deep and God’s Spirit was hovering over the surface of the waters.\n- Next: v4: God saw the light, and saw that it was good. God divided the light from the darkness.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nCHAPTER THEME:\nSetting: Creation of the cosmos\nVisual elements: primordial void, divine light rays, swirling waters, emerging forms\nColor palette: deep cosmic blues, radiant golds, ethereal whites\nStyle: Illustrated Storybook\n\nSTYLE PROFILE: Illustrated Storybook\nRendering: Warm hand-illustrated storybook art in gouache and coloured pencil; gentle, approachable and reverent, suitable for families. Simplified shapes and expressive faces with grounded proportions. The illustration is the depicted world itself, not a printed page.\nPalette: Soft, warm palette with clear, friendly colour accents; gentle contrast.\nLighting: Soft golden light with a gentle glow on key figures.\nMaterials/Texture: Visible gouache brushwork and pencil grain; matte finish.\nComposition: Clear storytelling staging; readable silhouettes; the key moment centred.\nSTYLE NEGATIVES:\nAvoid photorealism, 3D render or CGI look. Avoid anime, chibi or exaggerated caricature. Never show a book page, page edges, gutter, white margins, border or vignette. The illustrated world must fill the image edge-to-edge.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "gen-1-3--storybook.jpg",
+      "costUsd": 0.03378625,
+      "ms": 2777
+    },
+    {
+      "reference": "Genesis 1:3",
+      "style": "classical",
+      "promptChars": 3372,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "divine light emerging from darkness",
+        "action": "radiant light breaking through primordial void",
+        "setting": "formless cosmic waters under swirling darkness",
+        "secondaryElements": "hovering divine presence as subtle luminous mist, faint geometric patterns forming in water",
+        "mood": "awe-inspiring and sacred",
+        "timeOfDay": "eternal moment before time",
+        "composition": "central burst of light radiating outward from upper center, dark waters below and around, soft gradients of gold and white piercing deep indigo and black"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Genesis 1:3: \"God said, “Let there be light,” and there was light.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: divine light emerging from darkness\nAction: radiant light breaking through primordial void\nSetting: formless cosmic waters under swirling darkness\nSecondary elements: hovering divine presence as subtle luminous mist, faint geometric patterns forming in water\nMood: awe-inspiring and sacred\nTime of day: eternal moment before time\nComposition: central burst of light radiating outward from upper center, dark waters below and around, soft gradients of gold and white piercing deep indigo and black\n\nNARRATIVE CONTINUITY:\n- Previous: v2: The earth was formless and empty. Darkness was on the surface of the deep and God’s Spirit was hovering over the surface of the waters.\n- Next: v4: God saw the light, and saw that it was good. God divided the light from the darkness.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nCHAPTER THEME:\nSetting: Creation of the cosmos\nVisual elements: primordial void, divine light rays, swirling waters, emerging forms\nColor palette: deep cosmic blues, radiant golds, ethereal whites\nStyle: classical religious art, Baroque lighting, majestic and reverent\n\nSTYLE PROFILE: Classical Painterly\nRendering: Stylized, painterly, biblical-era, mysterious, expansive; epic scale and reverent tone. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.\nPalette: Mature, grounded color; rich but restrained contrast.\nLighting: Luminous, dramatic lighting.\nMaterials/Texture: Gritty, raw texture; avoid polished digital smoothness.\nComposition: Cinematic, immersive viewpoint; heroic but grounded.\nSTYLE NEGATIVES:\nAvoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "gen-1-3--classical.jpg",
+      "costUsd": 0.03378925,
+      "ms": 3374
+    },
+    {
+      "reference": "Genesis 1:3",
+      "style": "cinematic",
+      "promptChars": 3289,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "divine light emerging from darkness",
+        "action": "radiant light breaking through primordial void",
+        "setting": "formless cosmic waters under swirling darkness",
+        "secondaryElements": "hovering divine presence as subtle luminous mist, faint geometric patterns forming in water",
+        "mood": "awe-inspiring and sacred",
+        "timeOfDay": "eternal moment before time",
+        "composition": "central burst of light radiating outward from upper center, dark waters below and around, soft gradients of gold and white piercing deep indigo and black"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Genesis 1:3: \"God said, “Let there be light,” and there was light.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: divine light emerging from darkness\nAction: radiant light breaking through primordial void\nSetting: formless cosmic waters under swirling darkness\nSecondary elements: hovering divine presence as subtle luminous mist, faint geometric patterns forming in water\nMood: awe-inspiring and sacred\nTime of day: eternal moment before time\nComposition: central burst of light radiating outward from upper center, dark waters below and around, soft gradients of gold and white piercing deep indigo and black\n\nNARRATIVE CONTINUITY:\n- Previous: v2: The earth was formless and empty. Darkness was on the surface of the deep and God’s Spirit was hovering over the surface of the waters.\n- Next: v4: God saw the light, and saw that it was good. God divided the light from the darkness.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nCHAPTER THEME:\nSetting: Creation of the cosmos\nVisual elements: primordial void, divine light rays, swirling waters, emerging forms\nColor palette: deep cosmic blues, radiant golds, ethereal whites\nStyle: Cinematic Film Still\n\nSTYLE PROFILE: Cinematic Film Still\nRendering: Photorealistic film still from a large-scale historical epic shot on location; authentic ancient Near Eastern costume, people and architecture; reverent and grounded.\nPalette: Natural filmic colour grade; earthy tones with restrained amber and teal contrast.\nLighting: Motivated natural light (sun, fire, torches); volumetric haze and atmosphere.\nMaterials/Texture: Real fabric weave, weathered skin, dust, stone and wood; fine film grain.\nComposition: Anamorphic widescreen framing; purposeful camera angle; shallow depth of field on the key figure.\nSTYLE NEGATIVES:\nAvoid painterly, illustrated or cartoon looks. Avoid glossy CGI, plastic skin, video-game rendering or fantasy armour. No letterbox bars, film borders, cameras, crew or behind-the-scenes elements.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "gen-1-3--cinematic.jpg",
+      "costUsd": 0.03378425,
+      "ms": 3462
+    },
+    {
+      "reference": "Genesis 1:3",
+      "style": "stained-glass",
+      "promptChars": 3310,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "divine light emerging from darkness",
+        "action": "radiant light breaking through primordial void",
+        "setting": "formless cosmic waters under swirling darkness",
+        "secondaryElements": "hovering divine presence as subtle luminous mist, faint geometric patterns forming in water",
+        "mood": "awe-inspiring and sacred",
+        "timeOfDay": "eternal moment before time",
+        "composition": "central burst of light radiating outward from upper center, dark waters below and around, soft gradients of gold and white piercing deep indigo and black"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Genesis 1:3: \"God said, “Let there be light,” and there was light.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: divine light emerging from darkness\nAction: radiant light breaking through primordial void\nSetting: formless cosmic waters under swirling darkness\nSecondary elements: hovering divine presence as subtle luminous mist, faint geometric patterns forming in water\nMood: awe-inspiring and sacred\nTime of day: eternal moment before time\nComposition: central burst of light radiating outward from upper center, dark waters below and around, soft gradients of gold and white piercing deep indigo and black\n\nNARRATIVE CONTINUITY:\n- Previous: v2: The earth was formless and empty. Darkness was on the surface of the deep and God’s Spirit was hovering over the surface of the waters.\n- Next: v4: God saw the light, and saw that it was good. God divided the light from the darkness.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nCHAPTER THEME:\nSetting: Creation of the cosmos\nVisual elements: primordial void, divine light rays, swirling waters, emerging forms\nColor palette: deep cosmic blues, radiant golds, ethereal whites\nStyle: Stained Glass\n\nSTYLE PROFILE: Stained Glass\nRendering: The scene rendered entirely in the visual language of medieval stained glass: jewel-toned glass segments bounded by dark lead lines, stylised reverent figures, luminous and symbolic. The glass treatment is the rendering of the world itself.\nPalette: Saturated jewel tones: cobalt, ruby, emerald and amber, with dark leading.\nLighting: Glowing back-lit radiance, as if light passes through every segment.\nMaterials/Texture: Faceted glass with subtle streaks and bubbles; painted grisaille detail on faces and drapery.\nComposition: Clear iconic staging with bold, readable figure shapes.\nSTYLE NEGATIVES:\nNever show a window frame, window arch, church interior, wall or light falling on a floor. No border or surrounding architecture; the glass design fills the image edge-to-edge. Avoid photorealism.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "gen-1-3--stained-glass.jpg",
+      "costUsd": 0.03378625,
+      "ms": 3821
+    },
+    {
+      "reference": "Genesis 1:3",
+      "style": "icon",
+      "promptChars": 3306,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "divine light emerging from darkness",
+        "action": "radiant light breaking through primordial void",
+        "setting": "formless cosmic waters under swirling darkness",
+        "secondaryElements": "hovering divine presence as subtle luminous mist, faint geometric patterns forming in water",
+        "mood": "awe-inspiring and sacred",
+        "timeOfDay": "eternal moment before time",
+        "composition": "central burst of light radiating outward from upper center, dark waters below and around, soft gradients of gold and white piercing deep indigo and black"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Genesis 1:3: \"God said, “Let there be light,” and there was light.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: divine light emerging from darkness\nAction: radiant light breaking through primordial void\nSetting: formless cosmic waters under swirling darkness\nSecondary elements: hovering divine presence as subtle luminous mist, faint geometric patterns forming in water\nMood: awe-inspiring and sacred\nTime of day: eternal moment before time\nComposition: central burst of light radiating outward from upper center, dark waters below and around, soft gradients of gold and white piercing deep indigo and black\n\nNARRATIVE CONTINUITY:\n- Previous: v2: The earth was formless and empty. Darkness was on the surface of the deep and God’s Spirit was hovering over the surface of the waters.\n- Next: v4: God saw the light, and saw that it was good. God divided the light from the darkness.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nCHAPTER THEME:\nSetting: Creation of the cosmos\nVisual elements: primordial void, divine light rays, swirling waters, emerging forms\nColor palette: deep cosmic blues, radiant golds, ethereal whites\nStyle: Byzantine Icon\n\nSTYLE PROFILE: Byzantine Icon\nRendering: Byzantine icon painting: flat, frontal, stylised figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.\nPalette: Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.\nLighting: No cast shadows; inner light shown through layered highlights; gold glow.\nMaterials/Texture: Egg tempera and gold-leaf texture within the scene.\nComposition: Hieratic, balanced staging; the key figure largest and central; stylised rocks, buildings and trees.\nSTYLE NEGATIVES:\nNever show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Halos may appear but never with lettering. Avoid photorealism and modern illustration. The gold sky and stylised landscape fill the image edge-to-edge.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "gen-1-3--icon.jpg",
+      "costUsd": 0.03378625,
+      "ms": 3964
+    },
+    {
+      "reference": "Genesis 1:3",
+      "style": "watercolour",
+      "promptChars": 3194,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "divine light emerging from darkness",
+        "action": "radiant light breaking through primordial void",
+        "setting": "formless cosmic waters under swirling darkness",
+        "secondaryElements": "hovering divine presence as subtle luminous mist, faint geometric patterns forming in water",
+        "mood": "awe-inspiring and sacred",
+        "timeOfDay": "eternal moment before time",
+        "composition": "central burst of light radiating outward from upper center, dark waters below and around, soft gradients of gold and white piercing deep indigo and black"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Genesis 1:3: \"God said, “Let there be light,” and there was light.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: divine light emerging from darkness\nAction: radiant light breaking through primordial void\nSetting: formless cosmic waters under swirling darkness\nSecondary elements: hovering divine presence as subtle luminous mist, faint geometric patterns forming in water\nMood: awe-inspiring and sacred\nTime of day: eternal moment before time\nComposition: central burst of light radiating outward from upper center, dark waters below and around, soft gradients of gold and white piercing deep indigo and black\n\nNARRATIVE CONTINUITY:\n- Previous: v2: The earth was formless and empty. Darkness was on the surface of the deep and God’s Spirit was hovering over the surface of the waters.\n- Next: v4: God saw the light, and saw that it was good. God divided the light from the darkness.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nCHAPTER THEME:\nSetting: Creation of the cosmos\nVisual elements: primordial void, divine light rays, swirling waters, emerging forms\nColor palette: deep cosmic blues, radiant golds, ethereal whites\nStyle: Ink & Watercolour\n\nSTYLE PROFILE: Ink & Watercolour\nRendering: Loose pen-and-ink drawing with transparent watercolour washes; expressive, airy and contemplative, like a travelling artist's field study of the biblical world.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy daylight; shadows as cool layered washes.\nMaterials/Texture: Confident ink linework, wet-in-wet blooms, granulating pigment.\nComposition: Sketch-like economy; detail concentrated on key figures, softer surroundings.\nSTYLE NEGATIVES:\nWashes and scenery must reach every edge: no white paper margins, paper edges, sketchbook, tape or border. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "gen-1-3--watercolour.jpg",
+      "costUsd": 0.0337805,
+      "ms": 4317
+    },
+    {
+      "reference": "Exodus 14:21",
+      "style": "classical",
+      "promptChars": 3585,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Moses standing on a rocky shore with arms outstretched toward the sea",
+        "action": "Moses stretching his hand over the parted waters as wind sweeps across the exposed seabed",
+        "setting": "The Red Sea divided into towering walls of water on either side, revealing wet sand and scattered shells under a stormy sky",
+        "secondaryElements": "Distant silhouettes of Egyptian chariots halted at the water's edge, faint glow of divine presence between the camps, scattered Israelite families poised to cross",
+        "mood": "Awe-filled tension, reverent anticipation",
+        "timeOfDay": "Pre-dawn, just before first light",
+        "composition": "Low-angle view emphasizing the immense height of the water walls, Moses centered slightly left, wind-driven sand and spray in motion, divine light faintly illuminating the gap betw"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Exodus 14:21: \"Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Moses standing on a rocky shore with arms outstretched toward the sea\nAction: Moses stretching his hand over the parted waters as wind sweeps across the exposed seabed\nSetting: The Red Sea divided into towering walls of water on either side, revealing wet sand and scattered shells under a stormy sky\nSecondary elements: Distant silhouettes of Egyptian chariots halted at the water's edge, faint glow of divine presence between the camps, scattered Israelite families poised to cross\nMood: Awe-filled tension, reverent anticipation\nTime of day: Pre-dawn, just before first light\nComposition: Low-angle view emphasizing the immense height of the water walls, Moses centered slightly left, wind-driven sand and spray in motion, divine light faintly illuminating the gap betw\n\nNARRATIVE CONTINUITY:\n- Previous: v20: It came between the camp of Egypt and the camp of Israel; and there was the cloud and the darkness, yet gave it light by night: and one didn’t come near the ot…\n- Next: v22: The children of Israel went into the middle of the sea on the dry ground, and the waters were a wall to them on their right hand, and on their left.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Classical Painterly\nRendering: Stylized, painterly, biblical-era, mysterious, expansive; epic scale and reverent tone. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.\nPalette: Mature, grounded color; rich but restrained contrast.\nLighting: Luminous, dramatic lighting.\nMaterials/Texture: Gritty, raw texture; avoid polished digital smoothness.\nComposition: Cinematic, immersive viewpoint; heroic but grounded.\nSTYLE NEGATIVES:\nAvoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "exo-14-21--classical.jpg",
+      "costUsd": 0.03380475,
+      "ms": 3738
+    },
+    {
+      "reference": "Exodus 14:21",
+      "style": "storybook",
+      "promptChars": 3591,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Moses standing on a rocky shore with arms outstretched toward the sea",
+        "action": "Moses stretching his hand over the parted waters as wind sweeps across the exposed seabed",
+        "setting": "The Red Sea divided into towering walls of water on either side, revealing wet sand and scattered shells under a stormy sky",
+        "secondaryElements": "Distant silhouettes of Egyptian chariots halted at the water's edge, faint glow of divine presence between the camps, scattered Israelite families poised to cross",
+        "mood": "Awe-filled tension, reverent anticipation",
+        "timeOfDay": "Pre-dawn, just before first light",
+        "composition": "Low-angle view emphasizing the immense height of the water walls, Moses centered slightly left, wind-driven sand and spray in motion, divine light faintly illuminating the gap betw"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Exodus 14:21: \"Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Moses standing on a rocky shore with arms outstretched toward the sea\nAction: Moses stretching his hand over the parted waters as wind sweeps across the exposed seabed\nSetting: The Red Sea divided into towering walls of water on either side, revealing wet sand and scattered shells under a stormy sky\nSecondary elements: Distant silhouettes of Egyptian chariots halted at the water's edge, faint glow of divine presence between the camps, scattered Israelite families poised to cross\nMood: Awe-filled tension, reverent anticipation\nTime of day: Pre-dawn, just before first light\nComposition: Low-angle view emphasizing the immense height of the water walls, Moses centered slightly left, wind-driven sand and spray in motion, divine light faintly illuminating the gap betw\n\nNARRATIVE CONTINUITY:\n- Previous: v20: It came between the camp of Egypt and the camp of Israel; and there was the cloud and the darkness, yet gave it light by night: and one didn’t come near the ot…\n- Next: v22: The children of Israel went into the middle of the sea on the dry ground, and the waters were a wall to them on their right hand, and on their left.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Illustrated Storybook\nRendering: Warm hand-illustrated storybook art in gouache and coloured pencil; gentle, approachable and reverent, suitable for families. Simplified shapes and expressive faces with grounded proportions. The illustration is the depicted world itself, not a printed page.\nPalette: Soft, warm palette with clear, friendly colour accents; gentle contrast.\nLighting: Soft golden light with a gentle glow on key figures.\nMaterials/Texture: Visible gouache brushwork and pencil grain; matte finish.\nComposition: Clear storytelling staging; readable silhouettes; the key moment centred.\nSTYLE NEGATIVES:\nAvoid photorealism, 3D render or CGI look. Avoid anime, chibi or exaggerated caricature. Never show a book page, page edges, gutter, white margins, border or vignette. The illustrated world must fill the image edge-to-edge.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "exo-14-21--storybook.jpg",
+      "costUsd": 0.03380375,
+      "ms": 4683
+    },
+    {
+      "reference": "Exodus 14:21",
+      "style": "stained-glass",
+      "promptChars": 3574,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Moses standing on a rocky shore with arms outstretched toward the sea",
+        "action": "Moses stretching his hand over the parted waters as wind sweeps across the exposed seabed",
+        "setting": "The Red Sea divided into towering walls of water on either side, revealing wet sand and scattered shells under a stormy sky",
+        "secondaryElements": "Distant silhouettes of Egyptian chariots halted at the water's edge, faint glow of divine presence between the camps, scattered Israelite families poised to cross",
+        "mood": "Awe-filled tension, reverent anticipation",
+        "timeOfDay": "Pre-dawn, just before first light",
+        "composition": "Low-angle view emphasizing the immense height of the water walls, Moses centered slightly left, wind-driven sand and spray in motion, divine light faintly illuminating the gap betw"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Exodus 14:21: \"Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Moses standing on a rocky shore with arms outstretched toward the sea\nAction: Moses stretching his hand over the parted waters as wind sweeps across the exposed seabed\nSetting: The Red Sea divided into towering walls of water on either side, revealing wet sand and scattered shells under a stormy sky\nSecondary elements: Distant silhouettes of Egyptian chariots halted at the water's edge, faint glow of divine presence between the camps, scattered Israelite families poised to cross\nMood: Awe-filled tension, reverent anticipation\nTime of day: Pre-dawn, just before first light\nComposition: Low-angle view emphasizing the immense height of the water walls, Moses centered slightly left, wind-driven sand and spray in motion, divine light faintly illuminating the gap betw\n\nNARRATIVE CONTINUITY:\n- Previous: v20: It came between the camp of Egypt and the camp of Israel; and there was the cloud and the darkness, yet gave it light by night: and one didn’t come near the ot…\n- Next: v22: The children of Israel went into the middle of the sea on the dry ground, and the waters were a wall to them on their right hand, and on their left.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Stained Glass\nRendering: The scene rendered entirely in the visual language of medieval stained glass: jewel-toned glass segments bounded by dark lead lines, stylised reverent figures, luminous and symbolic. The glass treatment is the rendering of the world itself.\nPalette: Saturated jewel tones: cobalt, ruby, emerald and amber, with dark leading.\nLighting: Glowing back-lit radiance, as if light passes through every segment.\nMaterials/Texture: Faceted glass with subtle streaks and bubbles; painted grisaille detail on faces and drapery.\nComposition: Clear iconic staging with bold, readable figure shapes.\nSTYLE NEGATIVES:\nNever show a window frame, window arch, church interior, wall or light falling on a floor. No border or surrounding architecture; the glass design fills the image edge-to-edge. Avoid photorealism.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "exo-14-21--stained-glass.jpg",
+      "costUsd": 0.03380375,
+      "ms": 4234
+    },
+    {
+      "reference": "Exodus 14:21",
+      "style": "cinematic",
+      "promptChars": 3546,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Moses standing on a rocky shore with arms outstretched toward the sea",
+        "action": "Moses stretching his hand over the parted waters as wind sweeps across the exposed seabed",
+        "setting": "The Red Sea divided into towering walls of water on either side, revealing wet sand and scattered shells under a stormy sky",
+        "secondaryElements": "Distant silhouettes of Egyptian chariots halted at the water's edge, faint glow of divine presence between the camps, scattered Israelite families poised to cross",
+        "mood": "Awe-filled tension, reverent anticipation",
+        "timeOfDay": "Pre-dawn, just before first light",
+        "composition": "Low-angle view emphasizing the immense height of the water walls, Moses centered slightly left, wind-driven sand and spray in motion, divine light faintly illuminating the gap betw"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Exodus 14:21: \"Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Moses standing on a rocky shore with arms outstretched toward the sea\nAction: Moses stretching his hand over the parted waters as wind sweeps across the exposed seabed\nSetting: The Red Sea divided into towering walls of water on either side, revealing wet sand and scattered shells under a stormy sky\nSecondary elements: Distant silhouettes of Egyptian chariots halted at the water's edge, faint glow of divine presence between the camps, scattered Israelite families poised to cross\nMood: Awe-filled tension, reverent anticipation\nTime of day: Pre-dawn, just before first light\nComposition: Low-angle view emphasizing the immense height of the water walls, Moses centered slightly left, wind-driven sand and spray in motion, divine light faintly illuminating the gap betw\n\nNARRATIVE CONTINUITY:\n- Previous: v20: It came between the camp of Egypt and the camp of Israel; and there was the cloud and the darkness, yet gave it light by night: and one didn’t come near the ot…\n- Next: v22: The children of Israel went into the middle of the sea on the dry ground, and the waters were a wall to them on their right hand, and on their left.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Cinematic Film Still\nRendering: Photorealistic film still from a large-scale historical epic shot on location; authentic ancient Near Eastern costume, people and architecture; reverent and grounded.\nPalette: Natural filmic colour grade; earthy tones with restrained amber and teal contrast.\nLighting: Motivated natural light (sun, fire, torches); volumetric haze and atmosphere.\nMaterials/Texture: Real fabric weave, weathered skin, dust, stone and wood; fine film grain.\nComposition: Anamorphic widescreen framing; purposeful camera angle; shallow depth of field on the key figure.\nSTYLE NEGATIVES:\nAvoid painterly, illustrated or cartoon looks. Avoid glossy CGI, plastic skin, video-game rendering or fantasy armour. No letterbox bars, film borders, cameras, crew or behind-the-scenes elements.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "exo-14-21--cinematic.jpg",
+      "costUsd": 0.03380175,
+      "ms": 4423
+    },
+    {
+      "reference": "Exodus 14:21",
+      "style": "icon",
+      "promptChars": 3569,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Moses standing on a rocky shore with arms outstretched toward the sea",
+        "action": "Moses stretching his hand over the parted waters as wind sweeps across the exposed seabed",
+        "setting": "The Red Sea divided into towering walls of water on either side, revealing wet sand and scattered shells under a stormy sky",
+        "secondaryElements": "Distant silhouettes of Egyptian chariots halted at the water's edge, faint glow of divine presence between the camps, scattered Israelite families poised to cross",
+        "mood": "Awe-filled tension, reverent anticipation",
+        "timeOfDay": "Pre-dawn, just before first light",
+        "composition": "Low-angle view emphasizing the immense height of the water walls, Moses centered slightly left, wind-driven sand and spray in motion, divine light faintly illuminating the gap betw"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Exodus 14:21: \"Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Moses standing on a rocky shore with arms outstretched toward the sea\nAction: Moses stretching his hand over the parted waters as wind sweeps across the exposed seabed\nSetting: The Red Sea divided into towering walls of water on either side, revealing wet sand and scattered shells under a stormy sky\nSecondary elements: Distant silhouettes of Egyptian chariots halted at the water's edge, faint glow of divine presence between the camps, scattered Israelite families poised to cross\nMood: Awe-filled tension, reverent anticipation\nTime of day: Pre-dawn, just before first light\nComposition: Low-angle view emphasizing the immense height of the water walls, Moses centered slightly left, wind-driven sand and spray in motion, divine light faintly illuminating the gap betw\n\nNARRATIVE CONTINUITY:\n- Previous: v20: It came between the camp of Egypt and the camp of Israel; and there was the cloud and the darkness, yet gave it light by night: and one didn’t come near the ot…\n- Next: v22: The children of Israel went into the middle of the sea on the dry ground, and the waters were a wall to them on their right hand, and on their left.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Byzantine Icon\nRendering: Byzantine icon painting: flat, frontal, stylised figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.\nPalette: Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.\nLighting: No cast shadows; inner light shown through layered highlights; gold glow.\nMaterials/Texture: Egg tempera and gold-leaf texture within the scene.\nComposition: Hieratic, balanced staging; the key figure largest and central; stylised rocks, buildings and trees.\nSTYLE NEGATIVES:\nNever show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Halos may appear but never with lettering. Avoid photorealism and modern illustration. The gold sky and stylised landscape fill the image edge-to-edge.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "exo-14-21--icon.jpg",
+      "costUsd": 0.033804,
+      "ms": 3993
+    },
+    {
+      "reference": "Exodus 14:21",
+      "style": "watercolour",
+      "promptChars": 3454,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Moses standing on a rocky shore with arms outstretched toward the sea",
+        "action": "Moses stretching his hand over the parted waters as wind sweeps across the exposed seabed",
+        "setting": "The Red Sea divided into towering walls of water on either side, revealing wet sand and scattered shells under a stormy sky",
+        "secondaryElements": "Distant silhouettes of Egyptian chariots halted at the water's edge, faint glow of divine presence between the camps, scattered Israelite families poised to cross",
+        "mood": "Awe-filled tension, reverent anticipation",
+        "timeOfDay": "Pre-dawn, just before first light",
+        "composition": "Low-angle view emphasizing the immense height of the water walls, Moses centered slightly left, wind-driven sand and spray in motion, divine light faintly illuminating the gap betw"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Exodus 14:21: \"Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night, and made the sea dry land, and the waters were divided.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Moses standing on a rocky shore with arms outstretched toward the sea\nAction: Moses stretching his hand over the parted waters as wind sweeps across the exposed seabed\nSetting: The Red Sea divided into towering walls of water on either side, revealing wet sand and scattered shells under a stormy sky\nSecondary elements: Distant silhouettes of Egyptian chariots halted at the water's edge, faint glow of divine presence between the camps, scattered Israelite families poised to cross\nMood: Awe-filled tension, reverent anticipation\nTime of day: Pre-dawn, just before first light\nComposition: Low-angle view emphasizing the immense height of the water walls, Moses centered slightly left, wind-driven sand and spray in motion, divine light faintly illuminating the gap betw\n\nNARRATIVE CONTINUITY:\n- Previous: v20: It came between the camp of Egypt and the camp of Israel; and there was the cloud and the darkness, yet gave it light by night: and one didn’t come near the ot…\n- Next: v22: The children of Israel went into the middle of the sea on the dry ground, and the waters were a wall to them on their right hand, and on their left.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Ink & Watercolour\nRendering: Loose pen-and-ink drawing with transparent watercolour washes; expressive, airy and contemplative, like a travelling artist's field study of the biblical world.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy daylight; shadows as cool layered washes.\nMaterials/Texture: Confident ink linework, wet-in-wet blooms, granulating pigment.\nComposition: Sketch-like economy; detail concentrated on key figures, softer surroundings.\nSTYLE NEGATIVES:\nWashes and scenery must reach every edge: no white paper margins, paper edges, sketchbook, tape or border. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "exo-14-21--watercolour.jpg",
+      "costUsd": 0.033798,
+      "ms": 4395
+    },
+    {
+      "reference": "1 Samuel 17:49",
+      "style": "classical",
+      "promptChars": 3269,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "David mid-sling release",
+        "action": "hurling a stone from a sling toward Goliath's forehead",
+        "setting": "Valley of Elah with rocky terrain and sparse vegetation",
+        "secondaryElements": "Goliath staggering backward, shield arm raised, Philistine and Israelite armies watching from distant ridges",
+        "mood": "tense and decisive",
+        "timeOfDay": "late afternoon",
+        "composition": "David in foreground left, sling extended, Goliath center-right recoiling, valley depth showing both armies on opposing hills"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for 1 Samuel 17:49: \"David put his hand in his bag, took a stone, and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: David mid-sling release\nAction: hurling a stone from a sling toward Goliath's forehead\nSetting: Valley of Elah with rocky terrain and sparse vegetation\nSecondary elements: Goliath staggering backward, shield arm raised, Philistine and Israelite armies watching from distant ridges\nMood: tense and decisive\nTime of day: late afternoon\nComposition: David in foreground left, sling extended, Goliath center-right recoiling, valley depth showing both armies on opposing hills\n\nNARRATIVE CONTINUITY:\n- Previous: v48: When the Philistine arose, and walked and came near to meet David, David hurried, and ran toward the army to meet the Philistine.\n- Next: v50: So David prevailed over the Philistine with a sling and with a stone, and struck the Philistine, and killed him; but there was no sword in the hand of David.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Classical Painterly\nRendering: Stylized, painterly, biblical-era, mysterious, expansive; epic scale and reverent tone. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.\nPalette: Mature, grounded color; rich but restrained contrast.\nLighting: Luminous, dramatic lighting.\nMaterials/Texture: Gritty, raw texture; avoid polished digital smoothness.\nComposition: Cinematic, immersive viewpoint; heroic but grounded.\nSTYLE NEGATIVES:\nAvoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "1sa-17-49--classical.jpg",
+      "costUsd": 0.0337905,
+      "ms": 3590
+    },
+    {
+      "reference": "1 Samuel 17:49",
+      "style": "cinematic",
+      "promptChars": 3230,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "David mid-sling release",
+        "action": "hurling a stone from a sling toward Goliath's forehead",
+        "setting": "Valley of Elah with rocky terrain and sparse vegetation",
+        "secondaryElements": "Goliath staggering backward, shield arm raised, Philistine and Israelite armies watching from distant ridges",
+        "mood": "tense and decisive",
+        "timeOfDay": "late afternoon",
+        "composition": "David in foreground left, sling extended, Goliath center-right recoiling, valley depth showing both armies on opposing hills"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for 1 Samuel 17:49: \"David put his hand in his bag, took a stone, and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: David mid-sling release\nAction: hurling a stone from a sling toward Goliath's forehead\nSetting: Valley of Elah with rocky terrain and sparse vegetation\nSecondary elements: Goliath staggering backward, shield arm raised, Philistine and Israelite armies watching from distant ridges\nMood: tense and decisive\nTime of day: late afternoon\nComposition: David in foreground left, sling extended, Goliath center-right recoiling, valley depth showing both armies on opposing hills\n\nNARRATIVE CONTINUITY:\n- Previous: v48: When the Philistine arose, and walked and came near to meet David, David hurried, and ran toward the army to meet the Philistine.\n- Next: v50: So David prevailed over the Philistine with a sling and with a stone, and struck the Philistine, and killed him; but there was no sword in the hand of David.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Cinematic Film Still\nRendering: Photorealistic film still from a large-scale historical epic shot on location; authentic ancient Near Eastern costume, people and architecture; reverent and grounded.\nPalette: Natural filmic colour grade; earthy tones with restrained amber and teal contrast.\nLighting: Motivated natural light (sun, fire, torches); volumetric haze and atmosphere.\nMaterials/Texture: Real fabric weave, weathered skin, dust, stone and wood; fine film grain.\nComposition: Anamorphic widescreen framing; purposeful camera angle; shallow depth of field on the key figure.\nSTYLE NEGATIVES:\nAvoid painterly, illustrated or cartoon looks. Avoid glossy CGI, plastic skin, video-game rendering or fantasy armour. No letterbox bars, film borders, cameras, crew or behind-the-scenes elements.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "1sa-17-49--cinematic.jpg",
+      "costUsd": 0.0337875,
+      "ms": 3606
+    },
+    {
+      "reference": "1 Samuel 17:49",
+      "style": "storybook",
+      "promptChars": 3275,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "David mid-sling release",
+        "action": "hurling a stone from a sling toward Goliath's forehead",
+        "setting": "Valley of Elah with rocky terrain and sparse vegetation",
+        "secondaryElements": "Goliath staggering backward, shield arm raised, Philistine and Israelite armies watching from distant ridges",
+        "mood": "tense and decisive",
+        "timeOfDay": "late afternoon",
+        "composition": "David in foreground left, sling extended, Goliath center-right recoiling, valley depth showing both armies on opposing hills"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for 1 Samuel 17:49: \"David put his hand in his bag, took a stone, and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: David mid-sling release\nAction: hurling a stone from a sling toward Goliath's forehead\nSetting: Valley of Elah with rocky terrain and sparse vegetation\nSecondary elements: Goliath staggering backward, shield arm raised, Philistine and Israelite armies watching from distant ridges\nMood: tense and decisive\nTime of day: late afternoon\nComposition: David in foreground left, sling extended, Goliath center-right recoiling, valley depth showing both armies on opposing hills\n\nNARRATIVE CONTINUITY:\n- Previous: v48: When the Philistine arose, and walked and came near to meet David, David hurried, and ran toward the army to meet the Philistine.\n- Next: v50: So David prevailed over the Philistine with a sling and with a stone, and struck the Philistine, and killed him; but there was no sword in the hand of David.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Illustrated Storybook\nRendering: Warm hand-illustrated storybook art in gouache and coloured pencil; gentle, approachable and reverent, suitable for families. Simplified shapes and expressive faces with grounded proportions. The illustration is the depicted world itself, not a printed page.\nPalette: Soft, warm palette with clear, friendly colour accents; gentle contrast.\nLighting: Soft golden light with a gentle glow on key figures.\nMaterials/Texture: Visible gouache brushwork and pencil grain; matte finish.\nComposition: Clear storytelling staging; readable silhouettes; the key moment centred.\nSTYLE NEGATIVES:\nAvoid photorealism, 3D render or CGI look. Avoid anime, chibi or exaggerated caricature. Never show a book page, page edges, gutter, white margins, border or vignette. The illustrated world must fill the image edge-to-edge.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "1sa-17-49--storybook.jpg",
+      "costUsd": 0.0337895,
+      "ms": 3719
+    },
+    {
+      "reference": "1 Samuel 17:49",
+      "style": "stained-glass",
+      "promptChars": 3258,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "David mid-sling release",
+        "action": "hurling a stone from a sling toward Goliath's forehead",
+        "setting": "Valley of Elah with rocky terrain and sparse vegetation",
+        "secondaryElements": "Goliath staggering backward, shield arm raised, Philistine and Israelite armies watching from distant ridges",
+        "mood": "tense and decisive",
+        "timeOfDay": "late afternoon",
+        "composition": "David in foreground left, sling extended, Goliath center-right recoiling, valley depth showing both armies on opposing hills"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for 1 Samuel 17:49: \"David put his hand in his bag, took a stone, and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: David mid-sling release\nAction: hurling a stone from a sling toward Goliath's forehead\nSetting: Valley of Elah with rocky terrain and sparse vegetation\nSecondary elements: Goliath staggering backward, shield arm raised, Philistine and Israelite armies watching from distant ridges\nMood: tense and decisive\nTime of day: late afternoon\nComposition: David in foreground left, sling extended, Goliath center-right recoiling, valley depth showing both armies on opposing hills\n\nNARRATIVE CONTINUITY:\n- Previous: v48: When the Philistine arose, and walked and came near to meet David, David hurried, and ran toward the army to meet the Philistine.\n- Next: v50: So David prevailed over the Philistine with a sling and with a stone, and struck the Philistine, and killed him; but there was no sword in the hand of David.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Stained Glass\nRendering: The scene rendered entirely in the visual language of medieval stained glass: jewel-toned glass segments bounded by dark lead lines, stylised reverent figures, luminous and symbolic. The glass treatment is the rendering of the world itself.\nPalette: Saturated jewel tones: cobalt, ruby, emerald and amber, with dark leading.\nLighting: Glowing back-lit radiance, as if light passes through every segment.\nMaterials/Texture: Faceted glass with subtle streaks and bubbles; painted grisaille detail on faces and drapery.\nComposition: Clear iconic staging with bold, readable figure shapes.\nSTYLE NEGATIVES:\nNever show a window frame, window arch, church interior, wall or light falling on a floor. No border or surrounding architecture; the glass design fills the image edge-to-edge. Avoid photorealism.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "1sa-17-49--stained-glass.jpg",
+      "costUsd": 0.0337895,
+      "ms": 3184
+    },
+    {
+      "reference": "1 Samuel 17:49",
+      "style": "icon",
+      "promptChars": 3253,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "David mid-sling release",
+        "action": "hurling a stone from a sling toward Goliath's forehead",
+        "setting": "Valley of Elah with rocky terrain and sparse vegetation",
+        "secondaryElements": "Goliath staggering backward, shield arm raised, Philistine and Israelite armies watching from distant ridges",
+        "mood": "tense and decisive",
+        "timeOfDay": "late afternoon",
+        "composition": "David in foreground left, sling extended, Goliath center-right recoiling, valley depth showing both armies on opposing hills"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for 1 Samuel 17:49: \"David put his hand in his bag, took a stone, and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: David mid-sling release\nAction: hurling a stone from a sling toward Goliath's forehead\nSetting: Valley of Elah with rocky terrain and sparse vegetation\nSecondary elements: Goliath staggering backward, shield arm raised, Philistine and Israelite armies watching from distant ridges\nMood: tense and decisive\nTime of day: late afternoon\nComposition: David in foreground left, sling extended, Goliath center-right recoiling, valley depth showing both armies on opposing hills\n\nNARRATIVE CONTINUITY:\n- Previous: v48: When the Philistine arose, and walked and came near to meet David, David hurried, and ran toward the army to meet the Philistine.\n- Next: v50: So David prevailed over the Philistine with a sling and with a stone, and struck the Philistine, and killed him; but there was no sword in the hand of David.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Byzantine Icon\nRendering: Byzantine icon painting: flat, frontal, stylised figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.\nPalette: Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.\nLighting: No cast shadows; inner light shown through layered highlights; gold glow.\nMaterials/Texture: Egg tempera and gold-leaf texture within the scene.\nComposition: Hieratic, balanced staging; the key figure largest and central; stylised rocks, buildings and trees.\nSTYLE NEGATIVES:\nNever show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Halos may appear but never with lettering. Avoid photorealism and modern illustration. The gold sky and stylised landscape fill the image edge-to-edge.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "1sa-17-49--icon.jpg",
+      "costUsd": 0.03378975,
+      "ms": 3794
+    },
+    {
+      "reference": "1 Samuel 17:49",
+      "style": "watercolour",
+      "promptChars": 3138,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "David mid-sling release",
+        "action": "hurling a stone from a sling toward Goliath's forehead",
+        "setting": "Valley of Elah with rocky terrain and sparse vegetation",
+        "secondaryElements": "Goliath staggering backward, shield arm raised, Philistine and Israelite armies watching from distant ridges",
+        "mood": "tense and decisive",
+        "timeOfDay": "late afternoon",
+        "composition": "David in foreground left, sling extended, Goliath center-right recoiling, valley depth showing both armies on opposing hills"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for 1 Samuel 17:49: \"David put his hand in his bag, took a stone, and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: David mid-sling release\nAction: hurling a stone from a sling toward Goliath's forehead\nSetting: Valley of Elah with rocky terrain and sparse vegetation\nSecondary elements: Goliath staggering backward, shield arm raised, Philistine and Israelite armies watching from distant ridges\nMood: tense and decisive\nTime of day: late afternoon\nComposition: David in foreground left, sling extended, Goliath center-right recoiling, valley depth showing both armies on opposing hills\n\nNARRATIVE CONTINUITY:\n- Previous: v48: When the Philistine arose, and walked and came near to meet David, David hurried, and ran toward the army to meet the Philistine.\n- Next: v50: So David prevailed over the Philistine with a sling and with a stone, and struck the Philistine, and killed him; but there was no sword in the hand of David.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Ink & Watercolour\nRendering: Loose pen-and-ink drawing with transparent watercolour washes; expressive, airy and contemplative, like a travelling artist's field study of the biblical world.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy daylight; shadows as cool layered washes.\nMaterials/Texture: Confident ink linework, wet-in-wet blooms, granulating pigment.\nComposition: Sketch-like economy; detail concentrated on key figures, softer surroundings.\nSTYLE NEGATIVES:\nWashes and scenery must reach every edge: no white paper margins, paper edges, sketchbook, tape or border. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "1sa-17-49--watercolour.jpg",
+      "costUsd": 0.03378375,
+      "ms": 3785
+    },
+    {
+      "reference": "Luke 2:7",
+      "style": "storybook",
+      "promptChars": 3083,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Mary holding newborn Jesus",
+        "action": "wrapping the infant in cloth bands",
+        "setting": "humble stable interior with stone walls and wooden beams",
+        "secondaryElements": "feeding trough filled with straw, Joseph nearby tending a small fire, soft light from a lantern hanging above",
+        "mood": "reverent and tender",
+        "timeOfDay": "night",
+        "composition": "close focus on Mary and child with stable receding into shadowed depth, warm light illuminating faces"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Luke 2:7: \"She gave birth to her firstborn son. She wrapped him in bands of cloth, and laid him in a feeding trough, because there was no room for them in the inn.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Mary holding newborn Jesus\nAction: wrapping the infant in cloth bands\nSetting: humble stable interior with stone walls and wooden beams\nSecondary elements: feeding trough filled with straw, Joseph nearby tending a small fire, soft light from a lantern hanging above\nMood: reverent and tender\nTime of day: night\nComposition: close focus on Mary and child with stable receding into shadowed depth, warm light illuminating faces\n\nNARRATIVE CONTINUITY:\n- Previous: v6: While they were there, the day had come for her to give birth.\n- Next: v8: There were shepherds in the same country staying in the field, and keeping watch by night over their flock.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Illustrated Storybook\nRendering: Warm hand-illustrated storybook art in gouache and coloured pencil; gentle, approachable and reverent, suitable for families. Simplified shapes and expressive faces with grounded proportions. The illustration is the depicted world itself, not a printed page.\nPalette: Soft, warm palette with clear, friendly colour accents; gentle contrast.\nLighting: Soft golden light with a gentle glow on key figures.\nMaterials/Texture: Visible gouache brushwork and pencil grain; matte finish.\nComposition: Clear storytelling staging; readable silhouettes; the key moment centred.\nSTYLE NEGATIVES:\nAvoid photorealism, 3D render or CGI look. Avoid anime, chibi or exaggerated caricature. Never show a book page, page edges, gutter, white margins, border or vignette. The illustrated world must fill the image edge-to-edge.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "luk-2-7--storybook.jpg",
+      "costUsd": 0.03377475,
+      "ms": 4210
+    },
+    {
+      "reference": "Luke 2:7",
+      "style": "classical",
+      "promptChars": 3077,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Mary holding newborn Jesus",
+        "action": "wrapping the infant in cloth bands",
+        "setting": "humble stable interior with stone walls and wooden beams",
+        "secondaryElements": "feeding trough filled with straw, Joseph nearby tending a small fire, soft light from a lantern hanging above",
+        "mood": "reverent and tender",
+        "timeOfDay": "night",
+        "composition": "close focus on Mary and child with stable receding into shadowed depth, warm light illuminating faces"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Luke 2:7: \"She gave birth to her firstborn son. She wrapped him in bands of cloth, and laid him in a feeding trough, because there was no room for them in the inn.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Mary holding newborn Jesus\nAction: wrapping the infant in cloth bands\nSetting: humble stable interior with stone walls and wooden beams\nSecondary elements: feeding trough filled with straw, Joseph nearby tending a small fire, soft light from a lantern hanging above\nMood: reverent and tender\nTime of day: night\nComposition: close focus on Mary and child with stable receding into shadowed depth, warm light illuminating faces\n\nNARRATIVE CONTINUITY:\n- Previous: v6: While they were there, the day had come for her to give birth.\n- Next: v8: There were shepherds in the same country staying in the field, and keeping watch by night over their flock.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Classical Painterly\nRendering: Stylized, painterly, biblical-era, mysterious, expansive; epic scale and reverent tone. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.\nPalette: Mature, grounded color; rich but restrained contrast.\nLighting: Luminous, dramatic lighting.\nMaterials/Texture: Gritty, raw texture; avoid polished digital smoothness.\nComposition: Cinematic, immersive viewpoint; heroic but grounded.\nSTYLE NEGATIVES:\nAvoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "luk-2-7--classical.jpg",
+      "costUsd": 0.03377575,
+      "ms": 5217
+    },
+    {
+      "reference": "Luke 2:7",
+      "style": "cinematic",
+      "promptChars": 3038,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Mary holding newborn Jesus",
+        "action": "wrapping the infant in cloth bands",
+        "setting": "humble stable interior with stone walls and wooden beams",
+        "secondaryElements": "feeding trough filled with straw, Joseph nearby tending a small fire, soft light from a lantern hanging above",
+        "mood": "reverent and tender",
+        "timeOfDay": "night",
+        "composition": "close focus on Mary and child with stable receding into shadowed depth, warm light illuminating faces"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Luke 2:7: \"She gave birth to her firstborn son. She wrapped him in bands of cloth, and laid him in a feeding trough, because there was no room for them in the inn.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Mary holding newborn Jesus\nAction: wrapping the infant in cloth bands\nSetting: humble stable interior with stone walls and wooden beams\nSecondary elements: feeding trough filled with straw, Joseph nearby tending a small fire, soft light from a lantern hanging above\nMood: reverent and tender\nTime of day: night\nComposition: close focus on Mary and child with stable receding into shadowed depth, warm light illuminating faces\n\nNARRATIVE CONTINUITY:\n- Previous: v6: While they were there, the day had come for her to give birth.\n- Next: v8: There were shepherds in the same country staying in the field, and keeping watch by night over their flock.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Cinematic Film Still\nRendering: Photorealistic film still from a large-scale historical epic shot on location; authentic ancient Near Eastern costume, people and architecture; reverent and grounded.\nPalette: Natural filmic colour grade; earthy tones with restrained amber and teal contrast.\nLighting: Motivated natural light (sun, fire, torches); volumetric haze and atmosphere.\nMaterials/Texture: Real fabric weave, weathered skin, dust, stone and wood; fine film grain.\nComposition: Anamorphic widescreen framing; purposeful camera angle; shallow depth of field on the key figure.\nSTYLE NEGATIVES:\nAvoid painterly, illustrated or cartoon looks. Avoid glossy CGI, plastic skin, video-game rendering or fantasy armour. No letterbox bars, film borders, cameras, crew or behind-the-scenes elements.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "luk-2-7--cinematic.jpg",
+      "costUsd": 0.03377275,
+      "ms": 4994
+    },
+    {
+      "reference": "Luke 2:7",
+      "style": "icon",
+      "promptChars": 3061,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Mary holding newborn Jesus",
+        "action": "wrapping the infant in cloth bands",
+        "setting": "humble stable interior with stone walls and wooden beams",
+        "secondaryElements": "feeding trough filled with straw, Joseph nearby tending a small fire, soft light from a lantern hanging above",
+        "mood": "reverent and tender",
+        "timeOfDay": "night",
+        "composition": "close focus on Mary and child with stable receding into shadowed depth, warm light illuminating faces"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Luke 2:7: \"She gave birth to her firstborn son. She wrapped him in bands of cloth, and laid him in a feeding trough, because there was no room for them in the inn.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Mary holding newborn Jesus\nAction: wrapping the infant in cloth bands\nSetting: humble stable interior with stone walls and wooden beams\nSecondary elements: feeding trough filled with straw, Joseph nearby tending a small fire, soft light from a lantern hanging above\nMood: reverent and tender\nTime of day: night\nComposition: close focus on Mary and child with stable receding into shadowed depth, warm light illuminating faces\n\nNARRATIVE CONTINUITY:\n- Previous: v6: While they were there, the day had come for her to give birth.\n- Next: v8: There were shepherds in the same country staying in the field, and keeping watch by night over their flock.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Byzantine Icon\nRendering: Byzantine icon painting: flat, frontal, stylised figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.\nPalette: Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.\nLighting: No cast shadows; inner light shown through layered highlights; gold glow.\nMaterials/Texture: Egg tempera and gold-leaf texture within the scene.\nComposition: Hieratic, balanced staging; the key figure largest and central; stylised rocks, buildings and trees.\nSTYLE NEGATIVES:\nNever show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Halos may appear but never with lettering. Avoid photorealism and modern illustration. The gold sky and stylised landscape fill the image edge-to-edge.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "luk-2-7--icon.jpg",
+      "costUsd": 0.033775,
+      "ms": 4069
+    },
+    {
+      "reference": "Luke 2:7",
+      "style": "stained-glass",
+      "promptChars": 3066,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Mary holding newborn Jesus",
+        "action": "wrapping the infant in cloth bands",
+        "setting": "humble stable interior with stone walls and wooden beams",
+        "secondaryElements": "feeding trough filled with straw, Joseph nearby tending a small fire, soft light from a lantern hanging above",
+        "mood": "reverent and tender",
+        "timeOfDay": "night",
+        "composition": "close focus on Mary and child with stable receding into shadowed depth, warm light illuminating faces"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Luke 2:7: \"She gave birth to her firstborn son. She wrapped him in bands of cloth, and laid him in a feeding trough, because there was no room for them in the inn.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Mary holding newborn Jesus\nAction: wrapping the infant in cloth bands\nSetting: humble stable interior with stone walls and wooden beams\nSecondary elements: feeding trough filled with straw, Joseph nearby tending a small fire, soft light from a lantern hanging above\nMood: reverent and tender\nTime of day: night\nComposition: close focus on Mary and child with stable receding into shadowed depth, warm light illuminating faces\n\nNARRATIVE CONTINUITY:\n- Previous: v6: While they were there, the day had come for her to give birth.\n- Next: v8: There were shepherds in the same country staying in the field, and keeping watch by night over their flock.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Stained Glass\nRendering: The scene rendered entirely in the visual language of medieval stained glass: jewel-toned glass segments bounded by dark lead lines, stylised reverent figures, luminous and symbolic. The glass treatment is the rendering of the world itself.\nPalette: Saturated jewel tones: cobalt, ruby, emerald and amber, with dark leading.\nLighting: Glowing back-lit radiance, as if light passes through every segment.\nMaterials/Texture: Faceted glass with subtle streaks and bubbles; painted grisaille detail on faces and drapery.\nComposition: Clear iconic staging with bold, readable figure shapes.\nSTYLE NEGATIVES:\nNever show a window frame, window arch, church interior, wall or light falling on a floor. No border or surrounding architecture; the glass design fills the image edge-to-edge. Avoid photorealism.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "luk-2-7--stained-glass.jpg",
+      "costUsd": 0.03377475,
+      "ms": 4446
+    },
+    {
+      "reference": "Luke 2:7",
+      "style": "watercolour",
+      "promptChars": 2946,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Mary holding newborn Jesus",
+        "action": "wrapping the infant in cloth bands",
+        "setting": "humble stable interior with stone walls and wooden beams",
+        "secondaryElements": "feeding trough filled with straw, Joseph nearby tending a small fire, soft light from a lantern hanging above",
+        "mood": "reverent and tender",
+        "timeOfDay": "night",
+        "composition": "close focus on Mary and child with stable receding into shadowed depth, warm light illuminating faces"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Luke 2:7: \"She gave birth to her firstborn son. She wrapped him in bands of cloth, and laid him in a feeding trough, because there was no room for them in the inn.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Mary holding newborn Jesus\nAction: wrapping the infant in cloth bands\nSetting: humble stable interior with stone walls and wooden beams\nSecondary elements: feeding trough filled with straw, Joseph nearby tending a small fire, soft light from a lantern hanging above\nMood: reverent and tender\nTime of day: night\nComposition: close focus on Mary and child with stable receding into shadowed depth, warm light illuminating faces\n\nNARRATIVE CONTINUITY:\n- Previous: v6: While they were there, the day had come for her to give birth.\n- Next: v8: There were shepherds in the same country staying in the field, and keeping watch by night over their flock.\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Ink & Watercolour\nRendering: Loose pen-and-ink drawing with transparent watercolour washes; expressive, airy and contemplative, like a travelling artist's field study of the biblical world.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy daylight; shadows as cool layered washes.\nMaterials/Texture: Confident ink linework, wet-in-wet blooms, granulating pigment.\nComposition: Sketch-like economy; detail concentrated on key figures, softer surroundings.\nSTYLE NEGATIVES:\nWashes and scenery must reach every edge: no white paper margins, paper edges, sketchbook, tape or border. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "luk-2-7--watercolour.jpg",
+      "costUsd": 0.033769,
+      "ms": 4297
+    },
+    {
+      "reference": "Acts 1:9",
+      "style": "classical",
+      "promptChars": 3231,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Jesus ascending into the sky",
+        "action": "being lifted upward as disciples watch",
+        "setting": "Mount of Olives with rocky terrain and distant Jerusalem",
+        "secondaryElements": "group of disciples gazing upward, hands raised in awe, robes flowing, early Christian symbols subtly woven into fabric folds",
+        "mood": "reverent awe and solemn wonder",
+        "timeOfDay": "late afternoon light",
+        "composition": "vertical emphasis with Jesus centered in upper third, disciples clustered below in a semi-circle, sky opening with a luminous cloud receiving him"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Acts 1:9: \"When he had said these things, as they were looking, he was taken up, and a cloud received him out of their sight.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Jesus ascending into the sky\nAction: being lifted upward as disciples watch\nSetting: Mount of Olives with rocky terrain and distant Jerusalem\nSecondary elements: group of disciples gazing upward, hands raised in awe, robes flowing, early Christian symbols subtly woven into fabric folds\nMood: reverent awe and solemn wonder\nTime of day: late afternoon light\nComposition: vertical emphasis with Jesus centered in upper third, disciples clustered below in a semi-circle, sky opening with a luminous cloud receiving him\n\nNARRATIVE CONTINUITY:\n- Previous: v8: But you will receive power when the Holy Spirit has come upon you. You will be witnesses to me in Jerusalem, in all Judea and Samaria, and to the uttermost par…\n- Next: v10: While they were looking steadfastly into the sky as he went, behold, two men stood by them in white clothing,\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Classical Painterly\nRendering: Stylized, painterly, biblical-era, mysterious, expansive; epic scale and reverent tone. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.\nPalette: Mature, grounded color; rich but restrained contrast.\nLighting: Luminous, dramatic lighting.\nMaterials/Texture: Gritty, raw texture; avoid polished digital smoothness.\nComposition: Cinematic, immersive viewpoint; heroic but grounded.\nSTYLE NEGATIVES:\nAvoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "act-1-9--classical.jpg",
+      "costUsd": 0.0337845,
+      "ms": 3724
+    },
+    {
+      "reference": "Acts 1:9",
+      "style": "stained-glass",
+      "promptChars": 3220,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Jesus ascending into the sky",
+        "action": "being lifted upward as disciples watch",
+        "setting": "Mount of Olives with rocky terrain and distant Jerusalem",
+        "secondaryElements": "group of disciples gazing upward, hands raised in awe, robes flowing, early Christian symbols subtly woven into fabric folds",
+        "mood": "reverent awe and solemn wonder",
+        "timeOfDay": "late afternoon light",
+        "composition": "vertical emphasis with Jesus centered in upper third, disciples clustered below in a semi-circle, sky opening with a luminous cloud receiving him"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Acts 1:9: \"When he had said these things, as they were looking, he was taken up, and a cloud received him out of their sight.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Jesus ascending into the sky\nAction: being lifted upward as disciples watch\nSetting: Mount of Olives with rocky terrain and distant Jerusalem\nSecondary elements: group of disciples gazing upward, hands raised in awe, robes flowing, early Christian symbols subtly woven into fabric folds\nMood: reverent awe and solemn wonder\nTime of day: late afternoon light\nComposition: vertical emphasis with Jesus centered in upper third, disciples clustered below in a semi-circle, sky opening with a luminous cloud receiving him\n\nNARRATIVE CONTINUITY:\n- Previous: v8: But you will receive power when the Holy Spirit has come upon you. You will be witnesses to me in Jerusalem, in all Judea and Samaria, and to the uttermost par…\n- Next: v10: While they were looking steadfastly into the sky as he went, behold, two men stood by them in white clothing,\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Stained Glass\nRendering: The scene rendered entirely in the visual language of medieval stained glass: jewel-toned glass segments bounded by dark lead lines, stylised reverent figures, luminous and symbolic. The glass treatment is the rendering of the world itself.\nPalette: Saturated jewel tones: cobalt, ruby, emerald and amber, with dark leading.\nLighting: Glowing back-lit radiance, as if light passes through every segment.\nMaterials/Texture: Faceted glass with subtle streaks and bubbles; painted grisaille detail on faces and drapery.\nComposition: Clear iconic staging with bold, readable figure shapes.\nSTYLE NEGATIVES:\nNever show a window frame, window arch, church interior, wall or light falling on a floor. No border or surrounding architecture; the glass design fills the image edge-to-edge. Avoid photorealism.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "act-1-9--stained-glass.jpg",
+      "costUsd": 0.0337835,
+      "ms": 2830
+    },
+    {
+      "reference": "Acts 1:9",
+      "style": "cinematic",
+      "promptChars": 3192,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Jesus ascending into the sky",
+        "action": "being lifted upward as disciples watch",
+        "setting": "Mount of Olives with rocky terrain and distant Jerusalem",
+        "secondaryElements": "group of disciples gazing upward, hands raised in awe, robes flowing, early Christian symbols subtly woven into fabric folds",
+        "mood": "reverent awe and solemn wonder",
+        "timeOfDay": "late afternoon light",
+        "composition": "vertical emphasis with Jesus centered in upper third, disciples clustered below in a semi-circle, sky opening with a luminous cloud receiving him"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Acts 1:9: \"When he had said these things, as they were looking, he was taken up, and a cloud received him out of their sight.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Jesus ascending into the sky\nAction: being lifted upward as disciples watch\nSetting: Mount of Olives with rocky terrain and distant Jerusalem\nSecondary elements: group of disciples gazing upward, hands raised in awe, robes flowing, early Christian symbols subtly woven into fabric folds\nMood: reverent awe and solemn wonder\nTime of day: late afternoon light\nComposition: vertical emphasis with Jesus centered in upper third, disciples clustered below in a semi-circle, sky opening with a luminous cloud receiving him\n\nNARRATIVE CONTINUITY:\n- Previous: v8: But you will receive power when the Holy Spirit has come upon you. You will be witnesses to me in Jerusalem, in all Judea and Samaria, and to the uttermost par…\n- Next: v10: While they were looking steadfastly into the sky as he went, behold, two men stood by them in white clothing,\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Cinematic Film Still\nRendering: Photorealistic film still from a large-scale historical epic shot on location; authentic ancient Near Eastern costume, people and architecture; reverent and grounded.\nPalette: Natural filmic colour grade; earthy tones with restrained amber and teal contrast.\nLighting: Motivated natural light (sun, fire, torches); volumetric haze and atmosphere.\nMaterials/Texture: Real fabric weave, weathered skin, dust, stone and wood; fine film grain.\nComposition: Anamorphic widescreen framing; purposeful camera angle; shallow depth of field on the key figure.\nSTYLE NEGATIVES:\nAvoid painterly, illustrated or cartoon looks. Avoid glossy CGI, plastic skin, video-game rendering or fantasy armour. No letterbox bars, film borders, cameras, crew or behind-the-scenes elements.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "act-1-9--cinematic.jpg",
+      "costUsd": 0.0337815,
+      "ms": 3513
+    },
+    {
+      "reference": "Acts 1:9",
+      "style": "storybook",
+      "promptChars": 3237,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Jesus ascending into the sky",
+        "action": "being lifted upward as disciples watch",
+        "setting": "Mount of Olives with rocky terrain and distant Jerusalem",
+        "secondaryElements": "group of disciples gazing upward, hands raised in awe, robes flowing, early Christian symbols subtly woven into fabric folds",
+        "mood": "reverent awe and solemn wonder",
+        "timeOfDay": "late afternoon light",
+        "composition": "vertical emphasis with Jesus centered in upper third, disciples clustered below in a semi-circle, sky opening with a luminous cloud receiving him"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Acts 1:9: \"When he had said these things, as they were looking, he was taken up, and a cloud received him out of their sight.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Jesus ascending into the sky\nAction: being lifted upward as disciples watch\nSetting: Mount of Olives with rocky terrain and distant Jerusalem\nSecondary elements: group of disciples gazing upward, hands raised in awe, robes flowing, early Christian symbols subtly woven into fabric folds\nMood: reverent awe and solemn wonder\nTime of day: late afternoon light\nComposition: vertical emphasis with Jesus centered in upper third, disciples clustered below in a semi-circle, sky opening with a luminous cloud receiving him\n\nNARRATIVE CONTINUITY:\n- Previous: v8: But you will receive power when the Holy Spirit has come upon you. You will be witnesses to me in Jerusalem, in all Judea and Samaria, and to the uttermost par…\n- Next: v10: While they were looking steadfastly into the sky as he went, behold, two men stood by them in white clothing,\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Illustrated Storybook\nRendering: Warm hand-illustrated storybook art in gouache and coloured pencil; gentle, approachable and reverent, suitable for families. Simplified shapes and expressive faces with grounded proportions. The illustration is the depicted world itself, not a printed page.\nPalette: Soft, warm palette with clear, friendly colour accents; gentle contrast.\nLighting: Soft golden light with a gentle glow on key figures.\nMaterials/Texture: Visible gouache brushwork and pencil grain; matte finish.\nComposition: Clear storytelling staging; readable silhouettes; the key moment centred.\nSTYLE NEGATIVES:\nAvoid photorealism, 3D render or CGI look. Avoid anime, chibi or exaggerated caricature. Never show a book page, page edges, gutter, white margins, border or vignette. The illustrated world must fill the image edge-to-edge.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "act-1-9--storybook.jpg",
+      "costUsd": 0.0337835,
+      "ms": 3902
+    },
+    {
+      "reference": "Acts 1:9",
+      "style": "icon",
+      "promptChars": 3215,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Jesus ascending into the sky",
+        "action": "being lifted upward as disciples watch",
+        "setting": "Mount of Olives with rocky terrain and distant Jerusalem",
+        "secondaryElements": "group of disciples gazing upward, hands raised in awe, robes flowing, early Christian symbols subtly woven into fabric folds",
+        "mood": "reverent awe and solemn wonder",
+        "timeOfDay": "late afternoon light",
+        "composition": "vertical emphasis with Jesus centered in upper third, disciples clustered below in a semi-circle, sky opening with a luminous cloud receiving him"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Acts 1:9: \"When he had said these things, as they were looking, he was taken up, and a cloud received him out of their sight.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Jesus ascending into the sky\nAction: being lifted upward as disciples watch\nSetting: Mount of Olives with rocky terrain and distant Jerusalem\nSecondary elements: group of disciples gazing upward, hands raised in awe, robes flowing, early Christian symbols subtly woven into fabric folds\nMood: reverent awe and solemn wonder\nTime of day: late afternoon light\nComposition: vertical emphasis with Jesus centered in upper third, disciples clustered below in a semi-circle, sky opening with a luminous cloud receiving him\n\nNARRATIVE CONTINUITY:\n- Previous: v8: But you will receive power when the Holy Spirit has come upon you. You will be witnesses to me in Jerusalem, in all Judea and Samaria, and to the uttermost par…\n- Next: v10: While they were looking steadfastly into the sky as he went, behold, two men stood by them in white clothing,\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Byzantine Icon\nRendering: Byzantine icon painting: flat, frontal, stylised figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.\nPalette: Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.\nLighting: No cast shadows; inner light shown through layered highlights; gold glow.\nMaterials/Texture: Egg tempera and gold-leaf texture within the scene.\nComposition: Hieratic, balanced staging; the key figure largest and central; stylised rocks, buildings and trees.\nSTYLE NEGATIVES:\nNever show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Halos may appear but never with lettering. Avoid photorealism and modern illustration. The gold sky and stylised landscape fill the image edge-to-edge.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "act-1-9--icon.jpg",
+      "costUsd": 0.03378375,
+      "ms": 3294
+    },
+    {
+      "reference": "Acts 1:9",
+      "style": "watercolour",
+      "promptChars": 3100,
+      "fullStyleKept": true,
+      "scenePlan": {
+        "primarySubject": "Jesus ascending into the sky",
+        "action": "being lifted upward as disciples watch",
+        "setting": "Mount of Olives with rocky terrain and distant Jerusalem",
+        "secondaryElements": "group of disciples gazing upward, hands raised in awe, robes flowing, early Christian symbols subtly woven into fabric folds",
+        "mood": "reverent awe and solemn wonder",
+        "timeOfDay": "late afternoon light",
+        "composition": "vertical emphasis with Jesus centered in upper third, disciples clustered below in a semi-circle, sky opening with a luminous cloud receiving him"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) Full-bleed immersive scene only (no frame, border, canvas-on-wall, poster, mockup, visible paper, matting, or blank backdrop).\n3) Single unified scene only (no split panels, collage, or multi-scene layout).\n\nSCENE:\nRender a single, cohesive biblical-era scene for Acts 1:9: \"When he had said these things, as they were looking, he was taken up, and a cloud received him out of their sight.\"\n\nSCENE PLAN (supporting; do not override priority rules):\nPrimary subject: Jesus ascending into the sky\nAction: being lifted upward as disciples watch\nSetting: Mount of Olives with rocky terrain and distant Jerusalem\nSecondary elements: group of disciples gazing upward, hands raised in awe, robes flowing, early Christian symbols subtly woven into fabric folds\nMood: reverent awe and solemn wonder\nTime of day: late afternoon light\nComposition: vertical emphasis with Jesus centered in upper third, disciples clustered below in a semi-circle, sky opening with a luminous cloud receiving him\n\nNARRATIVE CONTINUITY:\n- Previous: v8: But you will receive power when the Holy Spirit has come upon you. You will be witnesses to me in Jerusalem, in all Judea and Samaria, and to the uttermost par…\n- Next: v10: While they were looking steadfastly into the sky as he went, behold, two men stood by them in white clothing,\nKeep continuity cues only; focus composition on the current verse moment.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the biblical scene.\n- The image itself is the scene, not a photo of a painting, fresco, mural, manuscript, print, or gallery installation.\n- Extend scenery, sky, cloud, darkness, architecture, foliage, or atmosphere all the way to the edges.\n- Background must be environmental and in-world, never a blank white/cream/beige backdrop or studio sweep.\n\nSTYLE PROFILE: Ink & Watercolour\nRendering: Loose pen-and-ink drawing with transparent watercolour washes; expressive, airy and contemplative, like a travelling artist's field study of the biblical world.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy daylight; shadows as cool layered washes.\nMaterials/Texture: Confident ink linework, wet-in-wet blooms, granulating pigment.\nComposition: Sketch-like economy; detail concentrated on key figures, softer surroundings.\nSTYLE NEGATIVES:\nWashes and scenery must reach every edge: no white paper margins, paper edges, sketchbook, tape or border. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\n\nGLOBAL NEGATIVES:\n- No modern artifacts or technology (vehicles, screens, guns, electric fixtures, modern buildings, modern clothing).\n- No anachronistic materials (plastic, neon, LEDs).\n- No blank white, cream, or beige background; no gallery wall, studio sweep, paper backdrop, or empty negative-space presentation.\n- No distorted anatomy (extra limbs/fingers, malformed hands/feet, warped faces).\n\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "file": "act-1-9--watercolour.jpg",
+      "costUsd": 0.03377775,
+      "ms": 4004
+    }
+  ]
+}
