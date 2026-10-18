@@ -32,7 +32,11 @@ _Avoid_: Pericope, chapter (when meaning the episode)
 
 **Section cast**: The characters and locations present in a story section, including those the text does not name in every verse.
 
-**Section look**: The place, time of day, weather, light, and clothing shared by every verse image of a story section, in every translation and art style.
+**Section look**: What is particular to one story section, such as its time of day, weather, light, and situational clothing, shared by every verse image of that section in every translation and art style. Canon, not the section look, describes how its characters and locations normally appear.
+
+**Reference sheet**: An approved picture of a character at one life stage, or of a location, sent with each generation that depicts it so the image model draws the same figure or place.
+
+**Style reference**: An approved picture with no characters that shows one art style's rendering, sent with generations in that style.
 
 **Passage continuity**: Consistent setting, costume, lighting, and props across the verse images of one story section.
 
