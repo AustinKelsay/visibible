@@ -1,0 +1,65 @@
+{
+  "_note": "PROTOTYPE draft canon for wayfinder ticket #142. Throwaway: drafted by the prototype agent following the canon rules decided in #140, not owner-approved. Canon fixes identity only; the scene plan decides pose, expression, action and situational details.",
+  "rules": [
+    "All people are historically grounded ancient Near Eastern people (olive-to-brown skin, dark hair), in every art style.",
+    "God is never shown as a human figure: the LORD's presence appears only as light, cloud, fire or wind."
+  ],
+  "characters": [
+    {
+      "id": "peter",
+      "name": "Peter",
+      "aliases": ["Simon", "Simon Peter", "Cephas"],
+      "lifeStages": [
+        {
+          "id": "apostle",
+          "appliesTo": "Gospels and Acts (one stage; the story spans only a few years)",
+          "ageRange": "about 40",
+          "build": "stocky and broad-shouldered, thick forearms, heavy calloused fisherman's hands",
+          "skin": "sun-darkened olive-brown skin, weathered",
+          "hairAndBeard": "short, tight black curls receding at the temples; a short, dense, curly black beard with one white-grey streak at the centre of the chin",
+          "facialNotes": "broad square face, heavy brow, a crooked once-broken nose bending to his right, a short pale scar through his left eyebrow, deep-set dark eyes",
+          "garments": "knee-length undyed oatmeal wool tunic, brown leather belt, heavy rust-orange wool mantle with two narrow dark-brown hem stripes, sandals",
+          "props": "none fixed (nets, oars and boats belong to the scene)"
+        }
+      ]
+    },
+    {
+      "id": "moses",
+      "name": "Moses",
+      "aliases": [],
+      "lifeStages": [
+        {
+          "id": "elder",
+          "appliesTo": "Exodus 3 to Deuteronomy 34 (about 80 to 120). Earlier stages (infant, Egyptian prince, Midian shepherd) are out of scope for this prototype.",
+          "ageRange": "about 80, old but vigorous",
+          "build": "tall, lean and sinewy, upright",
+          "skin": "deep olive-brown skin, sun-weathered and deeply lined",
+          "hairAndBeard": "long white hair to the shoulders, a long full white beard to mid-chest, thick white eyebrows",
+          "facialNotes": "long face, high cheekbones, prominent hooked nose, deep-set dark eyes",
+          "garments": "ankle-length undyed cream wool tunic, deep madder-red mantle with a woven ochre border over one shoulder, brown leather belt, sandals",
+          "props": "a tall, gnarled dark acacia-wood staff, taller than he is, with a curved crook at the top"
+        }
+      ]
+    }
+  ],
+  "locations": [
+    {
+      "id": "sea-of-galilee",
+      "name": "Sea of Galilee",
+      "aliases": ["Lake of Gennesaret", "Sea of Tiberias"],
+      "terrain": "a broad green-blue freshwater lake ringed by hills; steep dark cliffs and flat-topped heights on the east shore; green slopes and a small plain to the north-west; black basalt pebble shores with reed beds",
+      "architecture": "flat-roofed black basalt fishing towns and low stone jetties; 8 m wooden fishing boats with dark tarred hulls, oars and one square sail",
+      "vegetation": "grassy slopes, scattered olive and carob trees, oleander, reeds, date palms",
+      "landmarks": "the sheer cliff of Mount Arbel on the north-west shore; snow-capped Mount Hermon far to the north"
+    },
+    {
+      "id": "red-sea-crossing",
+      "name": "Red Sea crossing site",
+      "aliases": ["Red Sea", "Yam Suph", "Sea of Reeds"],
+      "terrain": "a wide arm of deep blue-green sea; a flat plain of pale sand and gravel on the near (western) shore; bare, jagged red-brown granite mountains on the far shore; when exposed, the seabed is rippled wet sand with shells, seaweed and dark rocks",
+      "architecture": "none: open wilderness, no buildings",
+      "vegetation": "almost none; scattered acacia and tamarisk shrubs and dry grass tufts on the shore",
+      "landmarks": "the jagged red-brown mountain range on the far shore; a rocky headland closing the bay to the north"
+    }
+  ]
+}

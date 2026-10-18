@@ -23,7 +23,8 @@
     "test": "vitest",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
-    "prototype:art-styles": "esbuild src/lib/art-styles.prototype.ts --bundle --platform=node --format=esm --outfile=.prototype/art-styles.mjs --log-level=warning && node --env-file=.env.local .prototype/art-styles.mjs"
+    "prototype:art-styles": "esbuild src/lib/art-styles.prototype.ts --bundle --platform=node --format=esm --outfile=.prototype/art-styles.mjs --log-level=warning && node --env-file=.env.local .prototype/art-styles.mjs",
+    "prototype:consistency": "esbuild src/lib/consistency.prototype.ts --bundle --platform=node --format=esm --outfile=.prototype/consistency.mjs --log-level=warning && PROTOTYPE_PROMPT_MAX_CHARS=5000 node --env-file=.env.local .prototype/consistency.mjs"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.1",
