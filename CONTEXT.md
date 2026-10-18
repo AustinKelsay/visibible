@@ -7,6 +7,15 @@ Visibible supports reading Scripture, generating verse images, discussing passag
 **Work**: The whole text being read and illustrated, such as the Bible or The Adventures of Sherlock Holmes. A work may divide into books, chapters, stories, verses or paragraphs.
 _Avoid_: Book (when meaning the whole text)
 
+**Division**: A named part of a work that holds units or smaller divisions, such as a book, chapter, story or part.
+
+**Unit**: The smallest numbered piece of a work's text, such as a verse, paragraph or line.
+
+**Reference text**: The one text of a work that its images are planned from, such as the World English Bible. Other translations of the work share those images.
+
+**Moment**: A run of one or more consecutive units, inside one story section, that one image illustrates. In the Bible, each verse is its own moment.
+_Avoid_: Passage, scene (when meaning this span)
+
 **Passage**: Scripture text identified by its reference and translation. A passage can contain one or more verses.
 
 **Verse reference**: The book, chapter, and verse that identify one verse independently of its translation.
@@ -30,7 +39,7 @@ _Avoid_: Theme, style profile
 
 **Life stage**: A period of a character's life with its own canon appearance, such as the shepherd boy David or King David.
 
-**Story section**: A run of consecutive verses that tells one episode, such as the crossing of the Red Sea.
+**Story section**: A run of consecutive units that tells one episode, such as the crossing of the Red Sea.
 _Avoid_: Pericope, chapter (when meaning the episode)
 
 **Section cast**: The characters and locations present in a story section, including those the text does not name in every verse.
