@@ -47,6 +47,7 @@ Lite is `google/gemini-3.1-flash-lite-image` and 3.1 Flash is `google/gemini-3.1
 - The planner and the section-look draft were free.
 - The first session stopped at $2.096152, when OpenRouter returned HTTP 402 `in_flight_budget_exhausted` on an account that was nearly empty. The 29 failed calls were not billed. After a top-up, the run resumed and finished at $3.304254 more.
 - Map total: $2.93 before this ticket, plus $5.40, is about **$8.33 of $10**.
+- The [Icon follow-up](#icon-follow-up) added $0.683854, for a prototype total of **$6.084260** over 144 billed calls and a map total of about **$9.01**.
 
 ## Results
 
@@ -137,6 +138,38 @@ Contact sheets are in [`montages/`](montages/). The conditions-side-by-side shee
   - One Classical sheet per entity, plus one style reference per style (D2), kept colours true and needs one sheet per entity.
   - Per-style sheets (D1) give stronger style but need colour and frame review for every sheet.
 - **Text canon is the cheap base:** it delivers costume and section consistency at today's cost. References add place identity and some facial resemblance.
+
+## Icon follow-up
+
+The owner's verdict was:
+- Stained Glass is dropped because of the window frames, and Byzantine Icon replaces it.
+- The setup is canon text plus reference images on Lite: one Classical sheet per character or place, plus one style reference per non-Classical style (the D2 setup), at most 3 references per image.
+
+This follow-up checks Icon under that setup. Its spend was **$0.683854** over 19 billed calls, against a $0.80 cap, with no failures. That brings the prototype total to **$6.084260** over 144 calls, and the map total to about **$9.01 of $10**.
+
+**Method:**
+- **Icon brief:** the `icon` brief from `prototype/art-styles`, with frame negatives added: no panel, frame, border, arched top or wall, and gold sky and landscape running into all four corners.
+- **Style reference:** made with 3.1 Flash ([`refs/style--icon.jpg`](refs/style--icon.jpg)). It has a full-bleed gold sky and no frame or lettering, so it needed no regeneration.
+- **Images (Lite, 5 credits, 3.3–6.4 s, median 4.1 s; prompts 3,435–7,073 characters):**
+  - Peter set: B (canon text) and D2 (Classical Peter sheet, the Galilee sheet where it applies, and the Icon style reference).
+  - Exodus set: B, and D2, which is condition C plus the Icon style reference.
+  - Genesis 1:3: two samples. The canon block holds only the people rule and a firmer divine-presence rule: "God is never shown as a human figure, face or hand; show divine presence only as light, cloud or fire." No chapter theme was sent, since #141 retired it.
+
+Contact sheets: [Peter](montages/peter--icon--by-condition.jpg) · [Exodus](montages/exodus--icon--by-condition.jpg) · [Genesis 1:3](montages/genesis--icon.jpg). The Genesis sheet sets the two Icon renders from the #138 style test beside the new ones.
+
+![Peter, Icon, B vs D2](montages/peter--icon--by-condition.jpg)
+
+- **Peter's mantle:** Icon did not pull him to the traditional ochre over blue. He wears the canon's rust-orange mantle over the oatmeal tunic in 10 of 10, with the colour slightly more ochre in B Matthew 14:29. Jesus, who has no canon entry, takes the traditional red-and-blue.
+- **Frames:**
+  - The raised gold panel border of a real icon appears in 3 of 8 B images (Matthew 14:29, John 21:7, Exodus 14:21) and in 0 of 8 D2 images. The full-bleed style reference appears to suppress it.
+  - Both Genesis samples have a gold strip down the left edge, a partial panel edge.
+  - There were no arched tops or walls.
+- **Appearance:** everyone still looks ancient Near Eastern: olive-to-brown skin and dark hair, Jesus included.
+- **Halos:** only holy figures get them: Jesus, Peter, the apostles in the boat and in Acts 2:14 B, and Moses in Exodus 14:21 B. D2 shows fewer. No crowd member, Israelite or Egyptian soldier got one.
+- **Moses in 14:22:** added in both images (B and D2), although the plan omits him. This is the same open problem as before.
+- **Is Icon recognisable on Lite with Classical references?** Yes. All 8 D2 images keep the gold-leaf sky, flat stylised waves and rocks, and frontal figures; faces are slightly softer than in B. D2 also brings back the Galilee landmarks (snowy Hermon, cliffs) that B lacks.
+- **Section look:** Icon's gold sky overrides the section look's night. Exodus 14:21 D2 reads as day, and only B keeps a dark sky inside the gold.
+- **Genesis 1:3:** neither sample has a human figure, face or hand; both show only light, cloud and water. The #138 style test without the rule drew a human figure in the light (production budget) and standing angels or saints (full brief).
 
 ## Files
 

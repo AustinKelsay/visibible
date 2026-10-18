@@ -43,7 +43,8 @@ const MODELS = {
 type ModelKey = keyof typeof MODELS;
 const PLANNER_MODEL = "nvidia/nemotron-3-super-120b-a12b:free";
 const TRANSLATION = "web";
-const CAP_USD = 6.5;
+// PROTOTYPE_CAP_USD lowers the total cap for follow-up runs (Icon follow-up: 5.400406 + 0.80).
+const CAP_USD = Number(process.env.PROTOTYPE_CAP_USD) || 6.5;
 // Conservative per-call estimates used to reserve budget before a call starts.
 const ESTIMATE_USD: Record<ModelKey, number> = { lite: 0.037, flash: 0.072 };
 const OUT = path.resolve("src/lib/consistency.prototype-output");
@@ -78,6 +79,18 @@ const STAINED_GLASS: StyleProfile = {
   materials: "Faceted glass with subtle streaks and bubbles; painted grisaille detail on faces and drapery.",
   composition: "Clear iconic staging with bold, readable figure shapes.",
   negative: "Never show a window, window frame or window shape: no arched, pointed or rounded top, no oval or circular outline, no tracery, church interior, wall or light falling on a floor. No dark or black corners, vignette or border: lit glass segments carry the scene into all four corners and every edge of the rectangle. Avoid photorealism.",
+};
+// Icon follow-up (the owner replaced Stained Glass with Byzantine Icon): the `icon` brief from
+// src/lib/art-styles.prototype.ts, with Stained Glass-style frame negatives added.
+const ICON: StyleProfile = {
+  id: "icon",
+  label: "Byzantine Icon",
+  rendering: "Byzantine icon painting: flat, frontal, stylised figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.",
+  palette: "Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.",
+  lighting: "No cast shadows; inner light shown through layered highlights; gold glow.",
+  materials: "Egg tempera and gold-leaf texture within the scene.",
+  composition: "Hieratic, balanced staging; the key figure largest and central; stylised rocks, buildings and trees.",
+  negative: "Never show a wooden panel, panel edges, frame, border, arched or rounded top, wall, or the icon as a physical object. No plain, dark or unpainted corners: the gold sky and stylised landscape run edge-to-edge into all four corners. Halos may appear but never with lettering or inscriptions. Avoid photorealism and modern illustration.",
 };
 const STYLES = [CLASSICAL, WATERCOLOUR, STAINED_GLASS];
 
@@ -114,7 +127,9 @@ const NO_TEXT = "Absolutely no text of any kind anywhere: no names, labels, capt
 
 type Verse = {
   id: string; book: string; name: string; chapter: number; verse: number;
-  set: "peter" | "exodus"; characters: string[]; locations: string[]; section?: boolean;
+  set: "peter" | "exodus" | "genesis"; characters: string[]; locations: string[]; section?: boolean;
+  /** Overrides canon.rules (Genesis 1:3 uses the firmer divine-presence rule). */
+  rules?: string[];
 };
 const VERSES: Verse[] = [
   { id: "luk-5-8", book: "LUK", name: "Luke", chapter: 5, verse: 8, set: "peter", characters: ["peter"], locations: ["sea-of-galilee"] },
@@ -126,6 +141,15 @@ const VERSES: Verse[] = [
   { id: "exo-14-22", book: "EXO", name: "Exodus", chapter: 14, verse: 22, set: "exodus", characters: ["moses"], locations: ["red-sea-crossing"], section: true },
   { id: "exo-14-27", book: "EXO", name: "Exodus", chapter: 14, verse: 27, set: "exodus", characters: ["moses"], locations: ["red-sea-crossing"], section: true },
 ];
+
+// Icon follow-up only. The Genesis 1 chapter theme is retired (#141), so no theme is sent.
+const GENESIS: Verse = {
+  id: "gen-1-3", book: "GEN", name: "Genesis", chapter: 1, verse: 3, set: "genesis", characters: [], locations: [],
+  rules: [
+    "All people are historically grounded ancient Near Eastern people (olive-to-brown skin, dark hair), in every art style.",
+    "God is never shown as a human figure, face or hand; show divine presence only as light, cloud or fire.",
+  ],
+};
 
 type ChapterVerse = { verse: number; text: string };
 const chapterCache = new Map<string, ChapterVerse[]>();
@@ -336,7 +360,7 @@ ${NO_TEXT}`,
   },
   { id: "peter--watercolour", kind: "sheet", refs: ["peter--classical"], prompt: restyledSheet(character("peter"), WATERCOLOUR) },
   { id: "peter--stained-glass", kind: "sheet", refs: ["peter--classical"], prompt: restyledSheet(character("peter"), STAINED_GLASS) },
-  ...[WATERCOLOUR, STAINED_GLASS].map((style): RefSpec => ({
+  ...[WATERCOLOUR, STAINED_GLASS, ICON].map((style): RefSpec => ({
     id: `style--${style.id}`, kind: "style-ref", refs: [], prompt: `Style reference image for an illustrated Bible; it exists only to show the art style.
 Subject: a quiet hillside in the land of Israel: an old olive tree, a low dry-stone wall, wildflowers and rocks in the foreground, terraced hills fading into the distance under a soft sky. No people, no animals, no buildings, no water.
 Art style: ${style.label}. ${styleBrief(style)}
@@ -369,7 +393,7 @@ async function makeRefs(only: string[]) {
 const PLANS_FILE = path.join(OUT, "plans.json");
 async function makePlans() {
   const plans: Record<string, ScenePlan | null> = existsSync(PLANS_FILE) ? JSON.parse(await readFile(PLANS_FILE, "utf8")) : {};
-  for (const v of VERSES) {
+  for (const v of [...VERSES, GENESIS]) {
     if (plans[v.id]) continue;
     const ctx = await verseContext(v);
     try {
@@ -419,10 +443,10 @@ async function versePrompt(v: Verse, style: StyleProfile, condition: Condition, 
   const blocks: string[] = [
     [
       "CANON (fixed identity of named people and places; the scene plan decides pose, expression, action and situational details):",
-      ...canon.rules.map((r) => `- ${r}`),
+      ...(v.rules ?? canon.rules).map((r) => `- ${r}`),
       ...v.characters.map((id) => `- ${characterText(character(id))}`),
       ...v.locations.map((id) => `- Location, ${locationText(location(id))}`),
-      `- Only ${names.join(" and ")} ${names.length > 1 ? "have" : "has"} this canon look; any other people get clearly different faces, hair and clothing colours.`,
+      ...(names.length ? [`- Only ${names.join(" and ")} ${names.length > 1 ? "have" : "has"} this canon look; any other people get clearly different faces, hair and clothing colours.`] : []),
     ].join("\n"),
   ];
   if (v.section) {
@@ -451,8 +475,8 @@ async function buildJobs(): Promise<Job[]> {
   const plans = JSON.parse(await readFile(PLANS_FILE, "utf8")) as Record<string, ScenePlan | null>;
   const sectionLook = JSON.parse(await readFile(SECTION_LOOK_FILE, "utf8")) as SectionLook;
   const jobs: Job[] = [];
-  const add = async (v: Verse, style: StyleProfile, condition: Condition, model: ModelKey, refs: string[]) => {
-    jobs.push({ id: `${v.id}--${style.id}--${condition}-${model}`, verse: v, style, condition, model, refs, text: await versePrompt(v, style, condition, refs, plans, sectionLook) });
+  const add = async (v: Verse, style: StyleProfile, condition: Condition, model: ModelKey, refs: string[], suffix = "") => {
+    jobs.push({ id: `${v.id}--${style.id}--${condition}-${model}${suffix}`, verse: v, style, condition, model, refs, text: await versePrompt(v, style, condition, refs, plans, sectionLook) });
   };
   const classicalRefs = (v: Verse) => [...v.characters, ...v.locations].map((id) => `${id}--classical`);
   // Order is budget priority: 3.1 Flash runs last, so a budget stop cuts Flash repetitions first.
@@ -467,6 +491,13 @@ async function buildJobs(): Promise<Job[]> {
     }
   }
   for (const v of VERSES) for (const style of STYLES) await add(v, style, "C", "flash", classicalRefs(v));
+  // Icon follow-up, Lite only: canon text (B), and the owner's chosen setup (D2: Classical sheets
+  // plus the Icon style reference, at most 3). For Exodus, D2 is condition C plus the style reference.
+  for (const v of VERSES) {
+    await add(v, ICON, "B", "lite", []);
+    await add(v, ICON, "D2", "lite", [...classicalRefs(v), `style--${ICON.id}`]);
+  }
+  for (const n of [1, 2]) await add(GENESIS, ICON, "B", "lite", [], `-s${n}`);
   for (const j of jobs) if (j.refs.length > 3) throw new Error(`${j.id} exceeds the 3-reference cap`);
   return jobs;
 }
@@ -502,7 +533,7 @@ async function writeResults() {
     models: MODELS, planner: PLANNER_MODEL, translation: TRANSLATION, promptMaxChars: PROMPT_MAX_CHARS, capUsd: CAP_USD,
     spendUsd: Number(spent().toFixed(6)), billedCalls: billed.length,
     spendByKind: Object.fromEntries(["sheet", "style-ref", "verse"].map((k) => [k, Number(billed.filter((e) => e.kind === k).reduce((s, e) => s + (e.costUsd ?? 0), 0).toFixed(6))])),
-    styles: STYLES, verses: VERSES, sheets, images,
+    styles: [...STYLES, ICON], verses: [...VERSES, GENESIS], sheets, images,
   }, null, 2));
   console.log(`results.json: ${images.filter((i) => i.file).length}/${images.length} images, spend $${spent().toFixed(4)}`);
 }

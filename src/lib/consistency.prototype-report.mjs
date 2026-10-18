@@ -75,6 +75,32 @@ for (const set of SETS) {
     execFileSync(MONTAGE, args);
   }
 }
+// Icon follow-up sheets: B (canon text) vs D2 (Classical sheets + Icon style reference), Lite.
+for (const set of SETS) {
+  const args = ["-font", FONT, "-pointsize", "15", "-background", "white"];
+  for (const v of verses(set.id)) {
+    for (const [c, label] of [["B-lite", "B · Canon text"], ["D2-lite", "D2 · Classical sheets + Icon style ref"]]) {
+      const img = byId.get(`${v.id}--icon--${c}`);
+      args.push("-label", `${refName(v)} · ${label}${img?.ms ? ` · ${(img.ms / 1000).toFixed(1)} s · ${img.refs.length} refs` : ""}`, img?.file ? path.join(OUT, img.file) : "xc:#ddd");
+    }
+  }
+  args.push("-tile", "2x", "-geometry", "560x315+4+4", "-title", `${set.label} — Byzantine Icon (Lite): conditions side by side`, "-quality", "80",
+    path.join(OUT, "montages", `${set.id}--icon--by-condition.jpg`));
+  execFileSync(MONTAGE, args);
+}
+{
+  const prior = path.resolve("src/lib/art-styles.prototype-output");
+  const cells = [
+    [path.join(prior, "gen-1-3--icon.jpg"), "Style test (#138), production budget, no rule"],
+    [path.join(prior, "full-brief", "gen-1-3--icon.jpg"), "Style test (#138), full brief, no rule"],
+    ...[1, 2].map((n) => { const i = byId.get(`gen-1-3--icon--B-lite-s${n}`); return [path.join(OUT, i.file), `Sample ${n} · firm rule · ${(i.ms / 1000).toFixed(1)} s`]; }),
+  ];
+  const args = ["-font", FONT, "-pointsize", "15", "-background", "white"];
+  for (const [file, label] of cells) args.push("-label", label, existsSync(file) ? file : "xc:#ddd");
+  args.push("-tile", "2x", "-geometry", "560x315+4+4", "-title", "Genesis 1:3 — Byzantine Icon (Lite): before and after the divine-presence rule", "-quality", "80",
+    path.join(OUT, "montages", "genesis--icon.jpg"));
+  execFileSync(MONTAGE, args);
+}
 // Reference sheets montage.
 {
   const args = ["-font", FONT, "-pointsize", "15", "-background", "white"];
