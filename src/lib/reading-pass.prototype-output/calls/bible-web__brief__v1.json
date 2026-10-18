@@ -1,0 +1,101 @@
+{
+ "record": {
+  "label": "bible-web__brief__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354872-QCgw3qgDLsl2uRGFsilc",
+  "seconds": 6.9,
+  "finish_reason": "stop",
+  "prompt_tokens": 12109,
+  "completion_tokens": 1577,
+  "cost": 0.0019994,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:21:19"
+ },
+ "system": "You draft the work brief for an illustration engine: one page that tells every illustrator how this whole work looks and feels. You get the work's title and author, the draft briefs the reading pass wrote for each of its divisions, and the ordered list of the work's story sections (id, division, title).\n\nReturn:\n1. tone: one line on the mood every picture of this work should carry.\n2. depiction_rules: a short list of how certain things in the work may or may not be shown, drawn from the divisions' drafts, the text and what you know about the work. Each rule is one line.\n3. eras: one or more stretches of the work's world. Each has a short name and four lines: people (who lives in it and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist). Use as few eras as the work needs: one when the whole work shares a setting, several when its people, dress or technology change from one stretch of the story to the next.\n4. assignments: every story section belongs to exactly one era. Give runs of consecutive sections in the order listed: each run names its first and last section id and its era. The runs must cover every section in order, with no gaps and no overlaps.\n\nThe brief holds only what is true for the whole work or a whole era. One person or place is described in the cast, not here. One episode's look belongs to its section, not here. Do not write rules or era lines about a single character, place or episode.\n\nKeep the tone, rules and eras under 400 words in total.",
+ "user_chars": 23597,
+ "content": "{\"tone\":\"Reverent, awe-filled and grave: sacred wonder breaking into ordinary life, with dread at judgment and oppression, quiet intimacy in household and dialogue scenes, and grief giving way to hope.\",\"depiction_rules\":[\"Depict God and the divine presence only through signs such as fire, cloud, light, glory or a voice, never as a visible human-like form; the Holy Spirit as dove or wind only where named.\",\"Show Jesus as a first-century Jewish man, not in the halo-and-blue-robe stereotype unless a scene calls for a glory motif.\",\"Show angels as light or white figures through posture rather than detailed flesh; demons and Satan as dark or distorted presences, not monsters.\",\"Handle violence (plagues, the sea, battles, the crucifixion, the death of Saul, the beheading referred to by Herod) with restraint and weight, never gratuitous gore.\",\"Show women and children as full participants throughout, including in nativity, healing and resurrection scenes.\",\"Depict opponents such as Pharisees, Pharaoh's court and Philistines with individual dignity, avoiding caricature.\",\"Ark, tabernacle and sanctuary furnishings follow the given pattern in gold, acacia wood, bronze and blue, purple and scarlet linen.\",\"Show the law codes and feasts by tablets, objects or gatherings, not by dwelling on violence in the laws.\"],\"eras\":[{\"name\":\"Late Bronze Age Egypt and the Sinai wilderness\",\"people\":\"Egyptians of the New Kingdom with shaved heads and linen kilts, Hebrew families as desert laborers and tent-dwellers, Midianite herders.\",\"dress\":\"Linen kilts and wigs for Egyptians; simple tunics and cloaks for Israelites; priests in linen tunic, robe, ephod, breastplate and turban.\",\"buildings_and_objects\":\"Brick storage cities, Egyptian palaces and chariots, goatskin tents, the portable tabernacle with acacia boards, gold overlay and bronze altar, papyrus boats.\",\"technology\":\"Chariots, bronze and gold working, woven linen and goat-hair cloth, mud brick; no iron in common use, no writing beyond inscriptions and engraved stones.\"},{\"name\":\"Iron Age Canaan and the hill country of Israel, c. 11th century BCE\",\"people\":\"Israelites in tribal villages and hill towns, Philistines in coastal cities, Ammonites, Moabites and Amalekites nearby; shepherds with staffs.\",\"dress\":\"Linen ephods for priests; wool or linen tunics, cloaks and sashes; kings and warriors in bronze helmets and mail; Philistines in heavy bronze armor.\",\"buildings_and_objects\":\"Mud-brick and stone houses, walled towns, high places, the tabernacle and ark, bronze and iron weapons, slings, clay pottery, carts with wheels.\",\"technology\":\"Iron working, chariots and horses among Philistines and Saul's men, oxen-drawn carts, lamps and grain storage; no coined money, writing only simple records.\"},{\"name\":\"First-century Roman Judea and Galilee\",\"people\":\"Jewish villagers, farmers, fishermen, shepherds, tax collectors, priests, Pharisees and Sadducees, Roman soldiers and officials, Samaritans; Eastern Mediterranean people with olive, brown or dark hair.\",\"dress\":\"Linen and wool tunics, cloaks and mantles, veils for women, phylacteries and tassels for devout men; priests in white linen; Roman soldiers in armor; the wealthy in purple and fine linen.\",\"buildings_and_objects\":\"Stone and mud-brick houses with flat roofs, the Herodian temple, synagogues, rock-cut tombs with rolling stones, oil lamps, fishing boats and nets, vineyards, scrolls.\",\"technology\":\"Scrolls and wax tablets, Roman roads and denarii, handlooms and plows; no printing, clocks, firearms or mechanical transport beyond boats and animals.\"}],\"assignments\":[{\"first_section\":\"EXO-s1\",\"last_section\":\"EXO-s105\",\"era\":\"Late Bronze Age Egypt and the Sinai wilderness\"},{\"first_section\":\"1SA-s1\",\"last_section\":\"1SA-s70\",\"era\":\"Iron Age Canaan and the hill country of Israel, c. 11th century BCE\"},{\"first_section\":\"LUK-s1\",\"last_section\":\"LUK-s96\",\"era\":\"First-century Roman Judea and Galilee\"},{\"first_section\":\"JHN-s1\",\"last_section\":\"JHN-s57\",\"era\":\"First-century Roman Judea and Galilee\"}]}",
+ "parsed": {
+  "tone": "Reverent, awe-filled and grave: sacred wonder breaking into ordinary life, with dread at judgment and oppression, quiet intimacy in household and dialogue scenes, and grief giving way to hope.",
+  "depiction_rules": [
+   "Depict God and the divine presence only through signs such as fire, cloud, light, glory or a voice, never as a visible human-like form; the Holy Spirit as dove or wind only where named.",
+   "Show Jesus as a first-century Jewish man, not in the halo-and-blue-robe stereotype unless a scene calls for a glory motif.",
+   "Show angels as light or white figures through posture rather than detailed flesh; demons and Satan as dark or distorted presences, not monsters.",
+   "Handle violence (plagues, the sea, battles, the crucifixion, the death of Saul, the beheading referred to by Herod) with restraint and weight, never gratuitous gore.",
+   "Show women and children as full participants throughout, including in nativity, healing and resurrection scenes.",
+   "Depict opponents such as Pharisees, Pharaoh's court and Philistines with individual dignity, avoiding caricature.",
+   "Ark, tabernacle and sanctuary furnishings follow the given pattern in gold, acacia wood, bronze and blue, purple and scarlet linen.",
+   "Show the law codes and feasts by tablets, objects or gatherings, not by dwelling on violence in the laws."
+  ],
+  "eras": [
+   {
+    "name": "Late Bronze Age Egypt and the Sinai wilderness",
+    "people": "Egyptians of the New Kingdom with shaved heads and linen kilts, Hebrew families as desert laborers and tent-dwellers, Midianite herders.",
+    "dress": "Linen kilts and wigs for Egyptians; simple tunics and cloaks for Israelites; priests in linen tunic, robe, ephod, breastplate and turban.",
+    "buildings_and_objects": "Brick storage cities, Egyptian palaces and chariots, goatskin tents, the portable tabernacle with acacia boards, gold overlay and bronze altar, papyrus boats.",
+    "technology": "Chariots, bronze and gold working, woven linen and goat-hair cloth, mud brick; no iron in common use, no writing beyond inscriptions and engraved stones."
+   },
+   {
+    "name": "Iron Age Canaan and the hill country of Israel, c. 11th century BCE",
+    "people": "Israelites in tribal villages and hill towns, Philistines in coastal cities, Ammonites, Moabites and Amalekites nearby; shepherds with staffs.",
+    "dress": "Linen ephods for priests; wool or linen tunics, cloaks and sashes; kings and warriors in bronze helmets and mail; Philistines in heavy bronze armor.",
+    "buildings_and_objects": "Mud-brick and stone houses, walled towns, high places, the tabernacle and ark, bronze and iron weapons, slings, clay pottery, carts with wheels.",
+    "technology": "Iron working, chariots and horses among Philistines and Saul's men, oxen-drawn carts, lamps and grain storage; no coined money, writing only simple records."
+   },
+   {
+    "name": "First-century Roman Judea and Galilee",
+    "people": "Jewish villagers, farmers, fishermen, shepherds, tax collectors, priests, Pharisees and Sadducees, Roman soldiers and officials, Samaritans; Eastern Mediterranean people with olive, brown or dark hair.",
+    "dress": "Linen and wool tunics, cloaks and mantles, veils for women, phylacteries and tassels for devout men; priests in white linen; Roman soldiers in armor; the wealthy in purple and fine linen.",
+    "buildings_and_objects": "Stone and mud-brick houses with flat roofs, the Herodian temple, synagogues, rock-cut tombs with rolling stones, oil lamps, fishing boats and nets, vineyards, scrolls.",
+    "technology": "Scrolls and wax tablets, Roman roads and denarii, handlooms and plows; no printing, clocks, firearms or mechanical transport beyond boats and animals."
+   }
+  ],
+  "assignments": [
+   {
+    "first_section": "EXO-s1",
+    "last_section": "EXO-s105",
+    "era": "Late Bronze Age Egypt and the Sinai wilderness"
+   },
+   {
+    "first_section": "1SA-s1",
+    "last_section": "1SA-s70",
+    "era": "Iron Age Canaan and the hill country of Israel, c. 11th century BCE"
+   },
+   {
+    "first_section": "LUK-s1",
+    "last_section": "LUK-s96",
+    "era": "First-century Roman Judea and Galilee"
+   },
+   {
+    "first_section": "JHN-s1",
+    "last_section": "JHN-s57",
+    "era": "First-century Roman Judea and Galilee"
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 12109,
+  "completion_tokens": 1577,
+  "total_tokens": 13686,
+  "cost": 0.0019994,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0019994,
+   "upstream_inference_prompt_cost": 0.0012109,
+   "upstream_inference_completions_cost": 0.0007885
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

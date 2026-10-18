@@ -1,0 +1,70 @@
+{
+ "record": {
+  "label": "holmes-adventures__brief__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354850-J3jVCFiCP589qIaZ3vVl",
+  "seconds": 5.8,
+  "finish_reason": "stop",
+  "prompt_tokens": 15930,
+  "completion_tokens": 667,
+  "cost": 0.0019265,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:20:56"
+ },
+ "system": "You draft the work brief for an illustration engine: one page that tells every illustrator how this whole work looks and feels. You get the work's title and author, the draft briefs the reading pass wrote for each of its divisions, and the ordered list of the work's story sections (id, division, title).\n\nReturn:\n1. tone: one line on the mood every picture of this work should carry.\n2. depiction_rules: a short list of how certain things in the work may or may not be shown, drawn from the divisions' drafts, the text and what you know about the work. Each rule is one line.\n3. eras: one or more stretches of the work's world. Each has a short name and four lines: people (who lives in it and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist). Use as few eras as the work needs: one when the whole work shares a setting, several when its people, dress or technology change from one stretch of the story to the next.\n4. assignments: every story section belongs to exactly one era. Give runs of consecutive sections in the order listed: each run names its first and last section id and its era. The runs must cover every section in order, with no gaps and no overlaps.\n\nThe brief holds only what is true for the whole work or a whole era. One person or place is described in the cast, not here. One episode's look belongs to its section, not here. Do not write rules or era lines about a single character, place or episode.\n\nKeep the tone, rules and eras under 400 words in total.",
+ "user_chars": 36013,
+ "content": "{\"tone\":\"Brisk, foggy Victorian detective mood: witty and comic at its lighter edges, tense and gothic in its darker stretches, always with dry restraint and gaslit intimacy.\",\"depiction_rules\":[\"Holmes is lean and sharp-eyed, in dressing-gown or ulster, with pipe and violin; disguises are convincing costumes, never real addiction.\",\"Violence, wounds and deaths are kept offstage, restrained, or suggested by objects rather than shown in gore.\",\"Opium dens and drug use are squalid and dim, never glamorised.\",\"Holmes's cocaine use is never shown explicitly.\",\"Dim, lamp-lit or dark-lantern light for night and vault scenes to preserve suspense.\",\"Avoid anachronistic gadgets, telephones, electric light and motor cars in any scene.\"],\"eras\":[{\"name\":\"Victorian England, 1880s to early 1890s\",\"people\":\"Londoners of every class: gentlemen, clerks, tradesmen, cabmen, servants and police, with country gentry and farm folk in the provinces.\",\"dress\":\"Frock-coats, top hats, bowler hats, ulsters and tweeds for men; bonnets, bustles, high-necked and plush-trimmed dresses for women; plain dress for servants and labourers.\",\"buildings_and_objects\":\"Gaslit streets and rooms with coal or oil lamps, hansom cabs and dog-carts, brick townhouses, country manors and farmhouses, printed newspapers, handwritten letters and telegrams, clay pipes and cigars.\",\"technology\":\"Railways, telegraph and telegrams, the early Underground, typewriters as a novelty and early photography; no telephones in the story's main scenes, no electric light, no motor cars.\"}],\"assignments\":[{\"first_section\":\"a-scandal-in-bohemia-s1\",\"last_section\":\"the-adventure-of-the-copper-beeches-s12\",\"era\":\"Victorian England, 1880s to early 1890s\"}]}",
+ "parsed": {
+  "tone": "Brisk, foggy Victorian detective mood: witty and comic at its lighter edges, tense and gothic in its darker stretches, always with dry restraint and gaslit intimacy.",
+  "depiction_rules": [
+   "Holmes is lean and sharp-eyed, in dressing-gown or ulster, with pipe and violin; disguises are convincing costumes, never real addiction.",
+   "Violence, wounds and deaths are kept offstage, restrained, or suggested by objects rather than shown in gore.",
+   "Opium dens and drug use are squalid and dim, never glamorised.",
+   "Holmes's cocaine use is never shown explicitly.",
+   "Dim, lamp-lit or dark-lantern light for night and vault scenes to preserve suspense.",
+   "Avoid anachronistic gadgets, telephones, electric light and motor cars in any scene."
+  ],
+  "eras": [
+   {
+    "name": "Victorian England, 1880s to early 1890s",
+    "people": "Londoners of every class: gentlemen, clerks, tradesmen, cabmen, servants and police, with country gentry and farm folk in the provinces.",
+    "dress": "Frock-coats, top hats, bowler hats, ulsters and tweeds for men; bonnets, bustles, high-necked and plush-trimmed dresses for women; plain dress for servants and labourers.",
+    "buildings_and_objects": "Gaslit streets and rooms with coal or oil lamps, hansom cabs and dog-carts, brick townhouses, country manors and farmhouses, printed newspapers, handwritten letters and telegrams, clay pipes and cigars.",
+    "technology": "Railways, telegraph and telegrams, the early Underground, typewriters as a novelty and early photography; no telephones in the story's main scenes, no electric light, no motor cars."
+   }
+  ],
+  "assignments": [
+   {
+    "first_section": "a-scandal-in-bohemia-s1",
+    "last_section": "the-adventure-of-the-copper-beeches-s12",
+    "era": "Victorian England, 1880s to early 1890s"
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 15930,
+  "completion_tokens": 667,
+  "total_tokens": 16597,
+  "cost": 0.0019265,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0019265,
+   "upstream_inference_prompt_cost": 0.001593,
+   "upstream_inference_completions_cost": 0.0003335
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

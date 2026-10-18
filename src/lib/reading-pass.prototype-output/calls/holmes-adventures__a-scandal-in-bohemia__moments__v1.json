@@ -1,0 +1,269 @@
+{
+ "record": {
+  "label": "holmes-adventures__a-scandal-in-bohemia__moments__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354879-kvK94GK83nXjCpmGPcn6",
+  "seconds": 15.0,
+  "finish_reason": "stop",
+  "prompt_tokens": 19019,
+  "completion_tokens": 3332,
+  "cost": 0.0035679,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:21:34"
+ },
+ "system": "You split the story sections of one division of a prose work into moments for an illustration engine, which draws one picture per moment.\n\nThe text comes as numbered paragraphs: each line starts with its id in square brackets and its word count in parentheses, for example `[12] (34w)`. After the text you get the division's story sections, each with its first and last paragraph id.\n\nReturn moments, in order. A moment is a run of consecutive paragraphs that is one beat you can picture: one place, one continuous action or exchange, seen at one instant. Aim for roughly 100 to 400 words per moment, using the word counts given; a moment may be shorter when the beat is a single striking paragraph, and may run past 400 only when one unbroken exchange cannot be cut. Very short paragraphs (lines of dialogue) join their neighbours. Moments tile every section: each paragraph belongs to exactly one moment, moments never cross a section boundary, and together they cover every paragraph of every section with no gaps and no overlaps. Give each moment its first and last paragraph id, the section it lies in (by its first paragraph id), and a one-line summary of what you would see in the picture: who is there, where, doing what. Do not quote the text.",
+ "user_chars": 50705,
+ "content": "{\"moments\":[{\"section_start\":\"a-scandal-in-bohemia-s1\",\"start\":\"[1]\",\"end\":\"[2]\",\"summary\":\"Watson narrates Holmes's cold, unemotional regard for Irene Adler as the only woman in his mind; a quiet study of a reasoner's mind.\"},{\"section_start\":\"a-scandal-in-bohemia-s1\",\"start\":\"[3]\",\"end\":\"[4]\",\"summary\":\"Watson, married and busy, sees Holmes in Baker Street among old books and drug haze; he passes the familiar door one evening and glimpses Holmes pacing the lit room.\"},{\"section_start\":\"a-scandal-in-bohemia-s1\",\"start\":\"[5]\",\"end\":\"[13]\",\"summary\":\"Holmes in his rooms by the fire greets Watson, deduces his marriage and wet walk from his shoe and servant, and explains the reasoning while gesturing at Watson's clothing.\"},{\"section_start\":\"a-scandal-in-bohemia-s1\",\"start\":\"[14]\",\"end\":\"[14]\",\"summary\":\"Watson laughs at the ease of Holmes's deductions, holding a cigarette-smoking Holmes and his puzzled friend in the room.\"},{\"section_start\":\"a-scandal-in-bohemia-s2\",\"start\":\"[15]\",\"end\":\"[21]\",\"summary\":\"Holmes quizzes Watson on the seventeen steps to the room, then tosses him the thick pink notepaper that came by post.\"},{\"section_start\":\"a-scandal-in-bohemia-s2\",\"start\":\"[22]\",\"end\":\"[23]\",\"summary\":\"Watson reads the undated, unsigned note warning of a masked visitor at a quarter to eight.\"},{\"section_start\":\"a-scandal-in-bohemia-s3\",\"start\":\"[24]\",\"end\":\"[31]\",\"summary\":\"Watson examines the paper against the light, finds woven watermarks, and Holmes lifts the gazetteer.\"},{\"section_start\":\"a-scandal-in-bohemia-s3\",\"start\":\"[32]\",\"end\":\"[34]\",\"summary\":\"Holmes reads the Egria entry aloud, triumphant with a blue cloud of smoke; the note's German syntax points to a German writer, and a brougham outside announces the caller.\"},{\"section_start\":\"a-scandal-in-bohemia-s4\",\"start\":\"[35]\",\"end\":\"[42]\",\"summary\":\"The pair of horses and brougham pull up outside; Holmes insists Watson stay, and a heavy tread halts at the door before the tap.\"},{\"section_start\":\"a-scandal-in-bohemia-s5\",\"start\":\"[43]\",\"end\":\"[47]\",\"summary\":\"A giant masked man in rich furs and a flaming beryl brooch enters, introduces himself as Count Von Kramm, and Holmes keeps Watson present.\"},{\"section_start\":\"a-scandal-in-bohemia-s5\",\"start\":\"[48]\",\"end\":\"[56]\",\"summary\":\"The visitor binds them to secrecy and names the House of Ormstein; Holmes lounges, eyes closed, while the giant grows impatient.\"},{\"section_start\":\"a-scandal-in-bohemia-s5\",\"start\":\"[57]\",\"end\":\"[62]\",\"summary\":\"The masked man tears off his mask and admits he is the King; Holmes names him Wilhelm von Ormstein and Watson looks up Irene Adler in the index.\"},{\"section_start\":\"a-scandal-in-bohemia-s6\",\"start\":\"[63]\",\"end\":\"[70]\",\"summary\":\"Holmes recites Irene Adler's biography and questions the King about any marriage or papers, learning there were only letters and a photograph.\"},{\"section_start\":\"a-scandal-in-bohemia-s6\",\"start\":\"[71]\",\"end\":\"[90]\",\"summary\":\"A quick-fire exchange: forgery, stolen note-paper, the King's seal and photograph; five failed attempts to recover it, and the King pleads for help.\"},{\"section_start\":\"a-scandal-in-bohemia-s7\",\"start\":\"[91]\",\"end\":\"[104]\",\"summary\":\"Holmes learns Irene plans to send the photograph to the King's fiancee, Clotilde, on Monday; the King is distraught and sits still as Holmes questions him.\"},{\"section_start\":\"a-scandal-in-bohemia-s7\",\"start\":\"[105]\",\"end\":\"[121]\",\"summary\":\"Holmes asks the King to stay in London, takes a chamois bag of gold and notes and a receipt, learns Briony Lodge's address, and sees the King off into the street.\"},{\"section_start\":\"a-scandal-in-bohemia-s8\",\"start\":\"[122]\",\"end\":\"[124]\",\"summary\":\"Watson waits at Baker Street at three; at four a drunken groom in side-whiskers stumbles in, and Holmes, changed back, laughs by the fire.\"},{\"section_start\":\"a-scandal-in-bohemia-s8\",\"start\":\"[125]\",\"end\":\"[133]\",\"summary\":\"Holmes describes watching Briony Lodge disguised as a groom, the mews gossip about Irene, and her visitor Godfrey Norton, a lawyer.\"},{\"section_start\":\"a-scandal-in-bohemia-s8\",\"start\":\"[134]\",\"end\":\"[136]\",\"summary\":\"Norton arrives in a hansom, rushes inside, emerges pulling out his watch and ordering the cabman to race to a church.\"},{\"section_start\":\"a-scandal-in-bohemia-s8\",\"start\":\"[137]\",\"end\":\"[139]\",\"summary\":\"Irene hurries from the house in a landau, cries for St. Monica's, and Holmes hails a cab to follow.\"},{\"section_start\":\"a-scandal-in-bohemia-s8\",\"start\":\"[140]\",\"end\":\"[144]\",\"summary\":\"Inside the church, Norton grabs Holmes as a witness, and Holmes is pressed into vouching for the marriage of Irene and Norton.\"},{\"section_start\":\"a-scandal-in-bohemia-s8\",\"start\":\"[145]\",\"end\":\"[148]\",\"summary\":\"The couple part ways outside; Irene says she will drive in the park at five; Holmes sits down to cold beef and asks for Watson's help.\"},{\"section_start\":\"a-scandal-in-bohemia-s9\",\"start\":\"[149]\",\"end\":\"[161]\",\"summary\":\"Holmes explains that Watson must do nothing but watch from the window and throw the signal rocket when he raises his hand, then cry fire.\"},{\"section_start\":\"a-scandal-in-bohemia-s9\",\"start\":\"[162]\",\"end\":\"[172]\",\"summary\":\"Holmes details the signal rocket and Watson's role in detail and then goes to change for his new role.\"},{\"section_start\":\"a-scandal-in-bohemia-s10\",\"start\":\"[173]\",\"end\":\"[174]\",\"summary\":\"Holmes emerges as a benevolent Nonconformist clergyman and the two set out, arriving in Serpentine Avenue at dusk with loiterers around.\"},{\"section_start\":\"a-scandal-in-bohemia-s10\",\"start\":\"[175]\",\"end\":\"[187]\",\"summary\":\"Holmes and Watson pace before Briony Lodge reasoning about where the photograph is hidden; the landau arrives and Holmes prepares his plan.\"},{\"section_start\":\"a-scandal-in-bohemia-s11\",\"start\":\"[188]\",\"end\":\"[188]\",\"summary\":\"A staged scuffle erupts at the carriage door; Holmes is struck down with red paint on his face while Irene stands on the steps.\"},{\"section_start\":\"a-scandal-in-bohemia-s12\",\"start\":\"[189]\",\"end\":\"[195]\",\"summary\":\"Holmes is carried into the sitting-room on a sofa while Irene tends him; Watson, ashamed, hardens his heart by the window.\"},{\"section_start\":\"a-scandal-in-bohemia-s12\",\"start\":\"[196]\",\"end\":\"[196]\",\"summary\":\"Holmes raises his hand and Watson throws the rocket in with a cry of fire; the room fills with smoke and the crowd shouts, and Watson escapes to the corner.\"},{\"section_start\":\"a-scandal-in-bohemia-s13\",\"start\":\"[197]\",\"end\":\"[209]\",\"summary\":\"Walking away with Holmes, he explains the trick: the staged fall, the fire alarm, and how Irene rushed to the hidden panel and the photograph.\"},{\"section_start\":\"a-scandal-in-bohemia-s13\",\"start\":\"[210]\",\"end\":\"[217]\",\"summary\":\"Holmes plans to call with the King next morning; at Baker Street a slim youth in an ulster calls out Holmes's name in the dim street.\"},{\"section_start\":\"a-scandal-in-bohemia-s14\",\"start\":\"[218]\",\"end\":\"[227]\",\"summary\":\"Next morning the King bursts in at breakfast; the three drive off in the brougham, and Holmes says Irene has married Norton.\"},{\"section_start\":\"a-scandal-in-bohemia-s14\",\"start\":\"[228]\",\"end\":\"[237]\",\"summary\":\"The King laments that Irene was not of his station; the brougham stops at Serpentine Avenue and the King broods silently.\"},{\"section_start\":\"a-scandal-in-bohemia-s15\",\"start\":\"[238]\",\"end\":\"[243]\",\"summary\":\"An elderly servant on the steps watches them and reports that her mistress has fled to the Continent with her husband that morning.\"},{\"section_start\":\"a-scandal-in-bohemia-s15\",\"start\":\"[244]\",\"end\":\"[245]\",\"summary\":\"The drawing-room is ransacked; Holmes tears open a sliding shutter and pulls out the photograph and a letter addressed to himself.\"},{\"section_start\":\"a-scandal-in-bohemia-s16\",\"start\":\"[246]\",\"end\":\"[250]\",\"summary\":\"Irene's letter is read aloud: she saw through Holmes's disguise and fled, keeping the photograph as safeguard and signing herself Irene Norton, nee Adler.\"},{\"section_start\":\"a-scandal-in-bohemia-s16\",\"start\":\"[251]\",\"end\":\"[262]\",\"summary\":\"The King praises Irene; Holmes refuses the emerald ring and asks for the photograph itself, and the two men leave the King in the drawing-room closing the scandal.\"}]}",
+ "parsed": {
+  "moments": [
+   {
+    "section_start": "a-scandal-in-bohemia-s1",
+    "start": "[1]",
+    "end": "[2]",
+    "summary": "Watson narrates Holmes's cold, unemotional regard for Irene Adler as the only woman in his mind; a quiet study of a reasoner's mind."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s1",
+    "start": "[3]",
+    "end": "[4]",
+    "summary": "Watson, married and busy, sees Holmes in Baker Street among old books and drug haze; he passes the familiar door one evening and glimpses Holmes pacing the lit room."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s1",
+    "start": "[5]",
+    "end": "[13]",
+    "summary": "Holmes in his rooms by the fire greets Watson, deduces his marriage and wet walk from his shoe and servant, and explains the reasoning while gesturing at Watson's clothing."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s1",
+    "start": "[14]",
+    "end": "[14]",
+    "summary": "Watson laughs at the ease of Holmes's deductions, holding a cigarette-smoking Holmes and his puzzled friend in the room."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s2",
+    "start": "[15]",
+    "end": "[21]",
+    "summary": "Holmes quizzes Watson on the seventeen steps to the room, then tosses him the thick pink notepaper that came by post."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s2",
+    "start": "[22]",
+    "end": "[23]",
+    "summary": "Watson reads the undated, unsigned note warning of a masked visitor at a quarter to eight."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s3",
+    "start": "[24]",
+    "end": "[31]",
+    "summary": "Watson examines the paper against the light, finds woven watermarks, and Holmes lifts the gazetteer."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s3",
+    "start": "[32]",
+    "end": "[34]",
+    "summary": "Holmes reads the Egria entry aloud, triumphant with a blue cloud of smoke; the note's German syntax points to a German writer, and a brougham outside announces the caller."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s4",
+    "start": "[35]",
+    "end": "[42]",
+    "summary": "The pair of horses and brougham pull up outside; Holmes insists Watson stay, and a heavy tread halts at the door before the tap."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s5",
+    "start": "[43]",
+    "end": "[47]",
+    "summary": "A giant masked man in rich furs and a flaming beryl brooch enters, introduces himself as Count Von Kramm, and Holmes keeps Watson present."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s5",
+    "start": "[48]",
+    "end": "[56]",
+    "summary": "The visitor binds them to secrecy and names the House of Ormstein; Holmes lounges, eyes closed, while the giant grows impatient."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s5",
+    "start": "[57]",
+    "end": "[62]",
+    "summary": "The masked man tears off his mask and admits he is the King; Holmes names him Wilhelm von Ormstein and Watson looks up Irene Adler in the index."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s6",
+    "start": "[63]",
+    "end": "[70]",
+    "summary": "Holmes recites Irene Adler's biography and questions the King about any marriage or papers, learning there were only letters and a photograph."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s6",
+    "start": "[71]",
+    "end": "[90]",
+    "summary": "A quick-fire exchange: forgery, stolen note-paper, the King's seal and photograph; five failed attempts to recover it, and the King pleads for help."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s7",
+    "start": "[91]",
+    "end": "[104]",
+    "summary": "Holmes learns Irene plans to send the photograph to the King's fiancee, Clotilde, on Monday; the King is distraught and sits still as Holmes questions him."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s7",
+    "start": "[105]",
+    "end": "[121]",
+    "summary": "Holmes asks the King to stay in London, takes a chamois bag of gold and notes and a receipt, learns Briony Lodge's address, and sees the King off into the street."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s8",
+    "start": "[122]",
+    "end": "[124]",
+    "summary": "Watson waits at Baker Street at three; at four a drunken groom in side-whiskers stumbles in, and Holmes, changed back, laughs by the fire."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s8",
+    "start": "[125]",
+    "end": "[133]",
+    "summary": "Holmes describes watching Briony Lodge disguised as a groom, the mews gossip about Irene, and her visitor Godfrey Norton, a lawyer."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s8",
+    "start": "[134]",
+    "end": "[136]",
+    "summary": "Norton arrives in a hansom, rushes inside, emerges pulling out his watch and ordering the cabman to race to a church."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s8",
+    "start": "[137]",
+    "end": "[139]",
+    "summary": "Irene hurries from the house in a landau, cries for St. Monica's, and Holmes hails a cab to follow."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s8",
+    "start": "[140]",
+    "end": "[144]",
+    "summary": "Inside the church, Norton grabs Holmes as a witness, and Holmes is pressed into vouching for the marriage of Irene and Norton."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s8",
+    "start": "[145]",
+    "end": "[148]",
+    "summary": "The couple part ways outside; Irene says she will drive in the park at five; Holmes sits down to cold beef and asks for Watson's help."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s9",
+    "start": "[149]",
+    "end": "[161]",
+    "summary": "Holmes explains that Watson must do nothing but watch from the window and throw the signal rocket when he raises his hand, then cry fire."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s9",
+    "start": "[162]",
+    "end": "[172]",
+    "summary": "Holmes details the signal rocket and Watson's role in detail and then goes to change for his new role."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s10",
+    "start": "[173]",
+    "end": "[174]",
+    "summary": "Holmes emerges as a benevolent Nonconformist clergyman and the two set out, arriving in Serpentine Avenue at dusk with loiterers around."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s10",
+    "start": "[175]",
+    "end": "[187]",
+    "summary": "Holmes and Watson pace before Briony Lodge reasoning about where the photograph is hidden; the landau arrives and Holmes prepares his plan."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s11",
+    "start": "[188]",
+    "end": "[188]",
+    "summary": "A staged scuffle erupts at the carriage door; Holmes is struck down with red paint on his face while Irene stands on the steps."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s12",
+    "start": "[189]",
+    "end": "[195]",
+    "summary": "Holmes is carried into the sitting-room on a sofa while Irene tends him; Watson, ashamed, hardens his heart by the window."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s12",
+    "start": "[196]",
+    "end": "[196]",
+    "summary": "Holmes raises his hand and Watson throws the rocket in with a cry of fire; the room fills with smoke and the crowd shouts, and Watson escapes to the corner."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s13",
+    "start": "[197]",
+    "end": "[209]",
+    "summary": "Walking away with Holmes, he explains the trick: the staged fall, the fire alarm, and how Irene rushed to the hidden panel and the photograph."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s13",
+    "start": "[210]",
+    "end": "[217]",
+    "summary": "Holmes plans to call with the King next morning; at Baker Street a slim youth in an ulster calls out Holmes's name in the dim street."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s14",
+    "start": "[218]",
+    "end": "[227]",
+    "summary": "Next morning the King bursts in at breakfast; the three drive off in the brougham, and Holmes says Irene has married Norton."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s14",
+    "start": "[228]",
+    "end": "[237]",
+    "summary": "The King laments that Irene was not of his station; the brougham stops at Serpentine Avenue and the King broods silently."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s15",
+    "start": "[238]",
+    "end": "[243]",
+    "summary": "An elderly servant on the steps watches them and reports that her mistress has fled to the Continent with her husband that morning."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s15",
+    "start": "[244]",
+    "end": "[245]",
+    "summary": "The drawing-room is ransacked; Holmes tears open a sliding shutter and pulls out the photograph and a letter addressed to himself."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s16",
+    "start": "[246]",
+    "end": "[250]",
+    "summary": "Irene's letter is read aloud: she saw through Holmes's disguise and fled, keeping the photograph as safeguard and signing herself Irene Norton, nee Adler."
+   },
+   {
+    "section_start": "a-scandal-in-bohemia-s16",
+    "start": "[251]",
+    "end": "[262]",
+    "summary": "The King praises Irene; Holmes refuses the emerald ring and asks for the photograph itself, and the two men leave the King in the drawing-room closing the scandal."
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 19019,
+  "completion_tokens": 3332,
+  "total_tokens": 22351,
+  "cost": 0.0035679,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0035679,
+   "upstream_inference_prompt_cost": 0.0019019,
+   "upstream_inference_completions_cost": 0.001666
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

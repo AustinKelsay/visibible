@@ -1,0 +1,560 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-adventure-of-the-speckled-band__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354444-hWMbPmURmHgoiB3Y7jv3",
+  "seconds": 16.9,
+  "finish_reason": "stop",
+  "prompt_tokens": 20859,
+  "completion_tokens": 4220,
+  "cost": 0.0041959,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:21"
+ },
+ "system": "You are the reading pass of an illustration engine. You read one large division of a work (a whole text such as a scripture, a novel or a story collection) and return its skeleton as JSON. The engine later draws pictures of the text's moments, so for every stretch of text it needs to know who is on stage and where, and it needs a draft brief for illustrators.\n\nThe text comes as numbered units. Each unit line starts with its id (for example `17:4` or `[12]`). Lines starting with `##` are headings, not units.\n\nReturn:\n\n1. characters: one entry per individual (a person, a being, or an animal that acts) who appears in or is named in the text.\n   - One individual is one entry, even when the text uses different names, titles or descriptions for them. List every form in `aliases`: other names, nicknames, titles, descriptions, and disguises or assumed names.\n   - Different individuals who share a name or a title get separate entries, one each. Never fold two people into one entry because they share a name. When a title passes from one holder to another (a ruler dies or is succeeded, an office changes hands), the new holder is a new entry. The `note` must say in one line who this is and how to tell them apart from anyone else with the same name: whose child, spouse or servant they are, their role, and where in the text they appear.\n   - A disguised, renamed or unnamed person who the text later identifies is the same entry as their named self, with the disguise or description in `aliases`. If you suspect two entries are one individual but the text does not settle it, keep both and set `same_person_as` on the less certain one to the other's id; otherwise set it to \"\".\n   - Skip people who occur only inside a list of names (a genealogy or roster) and never act.\n   - Add a group (an army, a crowd, a household) only when it acts as one on stage, with kind \"group\".\n2. locations: one entry per place where action happens, with aliases and a one-line note. Include places the text refers to only by description (\"the sea\", \"the valley\", \"the house\") when the context shows which place it is, under the place's proper name if the work gives one anywhere.\n3. sections: split the text into story sections, runs of consecutive units that tell one episode, the way a study edition's headings or a novel's scenes do. Start a new section when the time, the place or the main action changes. Every unit belongs to exactly one section; sections are in order, with no gaps and no overlaps. This division has 251 units. Aim for roughly 14 sections (11 to 17), averaging about 18 units each; some sections will be much shorter and some longer. Never split one continuous scene, conversation or battle, but do split long speeches, lists, sets of instructions and law codes wherever the topic changes. Give the ids of each section's first and last unit and a short title. For each section:\n   - setting: ids of the locations where its action happens.\n   - on_stage: ids of every character present in the section's action, whether the section names them or only refers to them by a pronoun, a title or a description, or does not mention them but they are clearly there.\n   - mentioned_only: ids of characters the section names or refers to who are not present.\n4. brief: a draft brief for illustrators, for this division only. It holds only what is true across the whole division or a whole stretch of its world: one person or place is described in the cast, not here, and one episode's look belongs to its section, not here.\n   - tone: one line on the mood the pictures should carry.\n   - depiction_rules: a short list of how certain things in this text may or may not be shown, drawn from the text and from what you know about the work.\n   - era: the stretch of the world this division is set in: a name, its people (who lives there and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist).\n   Keep the brief under 200 words.\n\nUse short, stable snake_case ids (for example `david`, `the_queen`, `main_street`). Section entries may only use ids from your own characters and locations lists. Do not quote the text.",
+ "user_chars": 54212,
+ "content": "{\"characters\":[{\"id\":\"sherlock_holmes\",\"name\":\"Sherlock Holmes\",\"aliases\":[\"Holmes\",\"my friend\",\"the meddler\",\"the Scotland Yard Jack-in-office\"],\"note\":\"Consulting detective, Baker Street; narrator's friend and flatmate; the one who solves the case.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"watson\",\"name\":\"Dr. Watson\",\"aliases\":[\"Watson\",\"I\",\"narrator\"],\"note\":\"Narrator and Holmes's companion; a doctor who shares rooms with Holmes in Baker Street.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"helen_stoner\",\"name\":\"Helen Stoner\",\"aliases\":[\"Miss Stoner\",\"Miss Roylott\",\"our visitor\",\"our client\",\"the lady in black\"],\"note\":\"Young woman, twin sister of Julia; stepdaughter of Dr. Grimesby Roylott; comes to Holmes in Baker Street, later stays at the Stoke Moran manor.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"julia_stoner\",\"name\":\"Julia Stoner\",\"aliases\":[\"my sister\",\"Julia\",\"the dead woman\"],\"note\":\"Helen's twin sister, dead two years before the events; died in her bedroom at Stoke Moran after a night-time whistle and cry; recalled in Helen's account.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"grimesby_roylott\",\"name\":\"Dr. Grimesby Roylott\",\"aliases\":[\"the Doctor\",\"my stepfather\",\"Dr. Roylott\",\"the old man\",\"the apparition\"],\"note\":\"Violent Stoke Moran physician, stepfather of Helen and Julia, former Calcutta practitioner; the one who keeps the swamp adder and dies of it; visits Baker Street and is shown in the Stoke Moran chamber.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mrs_hudson\",\"name\":\"Mrs. Hudson\",\"aliases\":[\"Mrs. Hudson\"],\"note\":\"Landlady at Baker Street; mentioned only in passing as having lit the fire and been woken.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"percy_armitage\",\"name\":\"Percy Armitage\",\"aliases\":[\"Armitage\",\"my dear friend\"],\"note\":\"Second son of Mr. Armitage of Crane Water near Reading; Helen's intended husband; only mentioned, never on stage.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"aunt_honoria\",\"name\":\"Miss Honoria Westphail\",\"aliases\":[\"my aunt\",\"Aunt Westphail\"],\"note\":\"Helen and Julia's maternal aunt near Harrow; mentioned; Helen is sent to her after the events.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mrs_farintosh\",\"name\":\"Mrs. Farintosh\",\"aliases\":[\"Farintosh\"],\"note\":\"Earlier client of Holmes whose opal tiara case is recalled; mentioned only.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"swamp_adder\",\"name\":\"Swamp adder\",\"aliases\":[\"the speckled band\",\"the band\",\"the snake\",\"the creature\"],\"note\":\"Deadly Indian snake kept by Dr. Roylott; comes through the ventilator and kills him; an animal that acts.\",\"kind\":\"animal\",\"same_person_as\":\"\"},{\"id\":\"cheetah_and_baboon\",\"name\":\"Cheetah and baboon\",\"aliases\":[\"the cheetah\",\"the baboon\",\"the pets\"],\"note\":\"Indian animals kept freely in the grounds by Dr. Roylott; heard and glimpsed at night.\",\"kind\":\"animal\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"baker_street_rooms\",\"name\":\"Baker Street rooms\",\"aliases\":[\"Baker Street\",\"our sitting-room\"],\"note\":\"Holmes and Watson's sitting-room in London where Helen first consults Holmes and Roylott later storms in.\"},{\"id\":\"stoke_moran_manor\",\"name\":\"Stoke Moran manor\",\"aliases\":[\"the Manor House\",\"the old house\",\"the ancestral house\",\"Stoke Moran\"],\"note\":\"Ancient Roylott family house on the Surrey border, with a wing in ruin and an inhabited right-hand block.\"},{\"id\":\"julias_bedroom\",\"name\":\"Julia's bedroom\",\"aliases\":[\"the middle room\",\"the second bedroom\",\"Helen's room\"],\"note\":\"Middle bedroom of the inhabited wing, where Julia died and where Helen now sleeps; bed clamped to floor, dummy bell-rope, ventilator to the next room.\"},{\"id\":\"roylott_chamber\",\"name\":\"Dr. Roylott's chamber\",\"aliases\":[\"the Doctor's room\",\"the room with the safe\"],\"note\":\"Roylott's bedroom beside Julia's, with the iron safe, camp-bed and wooden chair; scene of his death.\"},{\"id\":\"crown_inn\",\"name\":\"The Crown Inn\",\"aliases\":[\"the Crown\",\"village inn\"],\"note\":\"Village inn at Stoke Moran where Holmes and Watson take rooms overlooking the manor.\"},{\"id\":\"leatherhead_route\",\"name\":\"Road and railway to Leatherhead\",\"aliases\":[\"Leatherhead\",\"Waterloo\",\"the Surrey lanes\",\"the fields and stile\"],\"note\":\"Route through Surrey lanes from Leatherhead station to Stoke Moran, and the London railway to Waterloo.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"8\",\"title\":\"Helen's early-morning visit to Baker Street\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"helen_stoner\",\"mrs_hudson\"],\"mentioned_only\":[]},{\"start\":\"9\",\"end\":\"19\",\"title\":\"Helen's arrival and the reason for coming\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"helen_stoner\"],\"mentioned_only\":[\"mrs_farintosh\"]},{\"start\":\"20\",\"end\":\"34\",\"title\":\"Helen describes her family and the Roylott history\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"helen_stoner\"],\"mentioned_only\":[\"grimesby_roylott\",\"julia_stoner\"]},{\"start\":\"35\",\"end\":\"49\",\"title\":\"Julia's account of the night whistle\",\"setting\":[\"baker_street_rooms\",\"julias_bedroom\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"helen_stoner\"],\"mentioned_only\":[\"julia_stoner\",\"grimesby_roylott\"]},{\"start\":\"50\",\"end\":\"57\",\"title\":\"Julia's death and the coroner's findings\",\"setting\":[\"julias_bedroom\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"helen_stoner\"],\"mentioned_only\":[\"julia_stoner\",\"grimesby_roylott\"]},{\"start\":\"58\",\"end\":\"71\",\"title\":\"Julia's engagement, Helen's new room and the wrist marks\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"helen_stoner\"],\"mentioned_only\":[\"percy_armitage\",\"grimesby_roylott\"]},{\"start\":\"72\",\"end\":\"83\",\"title\":\"The bruises revealed and the plan to visit Stoke Moran\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"helen_stoner\"],\"mentioned_only\":[\"grimesby_roylott\"]},{\"start\":\"84\",\"end\":\"94\",\"title\":\"Holmes and Watson discuss the case; Roylott bursts in\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"grimesby_roylott\"],\"mentioned_only\":[\"helen_stoner\"]},{\"start\":\"95\",\"end\":\"115\",\"title\":\"Roylott's threats and Holmes's inquiry at Doctors' Commons\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"grimesby_roylott\"],\"mentioned_only\":[\"helen_stoner\"]},{\"start\":\"116\",\"end\":\"126\",\"title\":\"Journey through the Surrey lanes to Stoke Moran\",\"setting\":[\"leatherhead_route\",\"stoke_moran_manor\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"helen_stoner\"],\"mentioned_only\":[\"grimesby_roylott\"]},{\"start\":\"127\",\"end\":\"140\",\"title\":\"Examination of the outside of the wing and the shutters\",\"setting\":[\"stoke_moran_manor\",\"julias_bedroom\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"helen_stoner\"],\"mentioned_only\":[\"julia_stoner\"]},{\"start\":\"141\",\"end\":\"157\",\"title\":\"Inspection of Julia's bedroom: the bell-rope and ventilator\",\"setting\":[\"julias_bedroom\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"helen_stoner\"],\"mentioned_only\":[\"julia_stoner\"]},{\"start\":\"158\",\"end\":\"172\",\"title\":\"Inspection of Roylott's chamber: safe, saucer and dog-lash\",\"setting\":[\"roylott_chamber\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"helen_stoner\"],\"mentioned_only\":[\"grimesby_roylott\",\"cheetah_and_baboon\"]},{\"start\":\"173\",\"end\":\"194\",\"title\":\"Holmes's plan for the night\",\"setting\":[\"stoke_moran_manor\",\"julias_bedroom\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"helen_stoner\"],\"mentioned_only\":[\"grimesby_roylott\",\"julia_stoner\"]},{\"start\":\"195\",\"end\":\"218\",\"title\":\"Waiting at the Crown and the approach to the manor\",\"setting\":[\"crown_inn\",\"stoke_moran_manor\"],\"on_stage\":[\"sherlock_holmes\",\"watson\"],\"mentioned_only\":[\"grimesby_roylott\",\"cheetah_and_baboon\"]},{\"start\":\"219\",\"end\":\"234\",\"title\":\"The vigil in darkness\",\"setting\":[\"julias_bedroom\"],\"on_stage\":[\"sherlock_holmes\",\"watson\"],\"mentioned_only\":[\"cheetah_and_baboon\",\"swamp_adder\"]},{\"start\":\"235\",\"end\":\"246\",\"title\":\"The snake, Roylott's death and its discovery\",\"setting\":[\"julias_bedroom\",\"roylott_chamber\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"grimesby_roylott\",\"swamp_adder\"],\"mentioned_only\":[\"helen_stoner\"]},{\"start\":\"247\",\"end\":\"251\",\"title\":\"Aftermath and Holmes's explanation\",\"setting\":[\"stoke_moran_manor\"],\"on_stage\":[\"sherlock_holmes\",\"watson\"],\"mentioned_only\":[\"helen_stoner\",\"aunt_honoria\",\"swamp_adder\"]}],\"brief\":{\"tone\":\"Gothic and foreboding, with rural Surrey spring light giving way to a claustrophobic, dread-filled night at a decaying manor.\",\"depiction_rules\":[\"The snake may be shown only in the final scene and kept at a distance; no gore on Roylott's body beyond stillness and the coiled serpent.\",\"Roylott should be drawn as a huge, looming, bird-of-prey figure with yellow, weathered face and burning eyes, not as a cartoon villain.\",\"The speckled band reads as a yellow headband with brown speckles, which is the reveal; do not show it early.\",\"Holmes and Watson should appear in period dress as gentlemen; Watson is never the dominant figure.\",\"Keep the nocturnal scenes dark and lit only by lamp or dark-lantern light; avoid showing the cheetah and baboon clearly.\"],\"era\":{\"name\":\"Surrey, England, 1883\",\"people\":\"English gentry and rural villagers; a Saxon-descended landowning family in decline; gipsies camping on family land; a metropolitan London professional class.\",\"dress\":\"Victorian: women in dark mourning dresses, veils and bonnets; men in frock coats, top hats, high gaiters; Roylott in a long grey dressing-gown and red Turkish slippers.\",\"buildings_and_objects\":\"Grey lichen-stained stone manor with a high central block and curving wings, one wing ruined and boarded; whitewashed corridors, worm-eaten oak panelling, iron-barred shutters, iron safe, oil lamps and dark-lanterns, a trap and dog-cart.\",\"technology\":\"Railways connect Leatherhead and Waterloo; telegraph-era communication; no electric light, no telephone, and no modern forensic chemical tests for snake venom.\"}}}",
+ "parsed": {
+  "characters": [
+   {
+    "id": "sherlock_holmes",
+    "name": "Sherlock Holmes",
+    "aliases": [
+     "Holmes",
+     "my friend",
+     "the meddler",
+     "the Scotland Yard Jack-in-office"
+    ],
+    "note": "Consulting detective, Baker Street; narrator's friend and flatmate; the one who solves the case.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "watson",
+    "name": "Dr. Watson",
+    "aliases": [
+     "Watson",
+     "I",
+     "narrator"
+    ],
+    "note": "Narrator and Holmes's companion; a doctor who shares rooms with Holmes in Baker Street.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "helen_stoner",
+    "name": "Helen Stoner",
+    "aliases": [
+     "Miss Stoner",
+     "Miss Roylott",
+     "our visitor",
+     "our client",
+     "the lady in black"
+    ],
+    "note": "Young woman, twin sister of Julia; stepdaughter of Dr. Grimesby Roylott; comes to Holmes in Baker Street, later stays at the Stoke Moran manor.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "julia_stoner",
+    "name": "Julia Stoner",
+    "aliases": [
+     "my sister",
+     "Julia",
+     "the dead woman"
+    ],
+    "note": "Helen's twin sister, dead two years before the events; died in her bedroom at Stoke Moran after a night-time whistle and cry; recalled in Helen's account.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "grimesby_roylott",
+    "name": "Dr. Grimesby Roylott",
+    "aliases": [
+     "the Doctor",
+     "my stepfather",
+     "Dr. Roylott",
+     "the old man",
+     "the apparition"
+    ],
+    "note": "Violent Stoke Moran physician, stepfather of Helen and Julia, former Calcutta practitioner; the one who keeps the swamp adder and dies of it; visits Baker Street and is shown in the Stoke Moran chamber.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mrs_hudson",
+    "name": "Mrs. Hudson",
+    "aliases": [
+     "Mrs. Hudson"
+    ],
+    "note": "Landlady at Baker Street; mentioned only in passing as having lit the fire and been woken.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "percy_armitage",
+    "name": "Percy Armitage",
+    "aliases": [
+     "Armitage",
+     "my dear friend"
+    ],
+    "note": "Second son of Mr. Armitage of Crane Water near Reading; Helen's intended husband; only mentioned, never on stage.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "aunt_honoria",
+    "name": "Miss Honoria Westphail",
+    "aliases": [
+     "my aunt",
+     "Aunt Westphail"
+    ],
+    "note": "Helen and Julia's maternal aunt near Harrow; mentioned; Helen is sent to her after the events.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mrs_farintosh",
+    "name": "Mrs. Farintosh",
+    "aliases": [
+     "Farintosh"
+    ],
+    "note": "Earlier client of Holmes whose opal tiara case is recalled; mentioned only.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "swamp_adder",
+    "name": "Swamp adder",
+    "aliases": [
+     "the speckled band",
+     "the band",
+     "the snake",
+     "the creature"
+    ],
+    "note": "Deadly Indian snake kept by Dr. Roylott; comes through the ventilator and kills him; an animal that acts.",
+    "kind": "animal",
+    "same_person_as": ""
+   },
+   {
+    "id": "cheetah_and_baboon",
+    "name": "Cheetah and baboon",
+    "aliases": [
+     "the cheetah",
+     "the baboon",
+     "the pets"
+    ],
+    "note": "Indian animals kept freely in the grounds by Dr. Roylott; heard and glimpsed at night.",
+    "kind": "animal",
+    "same_person_as": ""
+   }
+  ],
+  "locations": [
+   {
+    "id": "baker_street_rooms",
+    "name": "Baker Street rooms",
+    "aliases": [
+     "Baker Street",
+     "our sitting-room"
+    ],
+    "note": "Holmes and Watson's sitting-room in London where Helen first consults Holmes and Roylott later storms in."
+   },
+   {
+    "id": "stoke_moran_manor",
+    "name": "Stoke Moran manor",
+    "aliases": [
+     "the Manor House",
+     "the old house",
+     "the ancestral house",
+     "Stoke Moran"
+    ],
+    "note": "Ancient Roylott family house on the Surrey border, with a wing in ruin and an inhabited right-hand block."
+   },
+   {
+    "id": "julias_bedroom",
+    "name": "Julia's bedroom",
+    "aliases": [
+     "the middle room",
+     "the second bedroom",
+     "Helen's room"
+    ],
+    "note": "Middle bedroom of the inhabited wing, where Julia died and where Helen now sleeps; bed clamped to floor, dummy bell-rope, ventilator to the next room."
+   },
+   {
+    "id": "roylott_chamber",
+    "name": "Dr. Roylott's chamber",
+    "aliases": [
+     "the Doctor's room",
+     "the room with the safe"
+    ],
+    "note": "Roylott's bedroom beside Julia's, with the iron safe, camp-bed and wooden chair; scene of his death."
+   },
+   {
+    "id": "crown_inn",
+    "name": "The Crown Inn",
+    "aliases": [
+     "the Crown",
+     "village inn"
+    ],
+    "note": "Village inn at Stoke Moran where Holmes and Watson take rooms overlooking the manor."
+   },
+   {
+    "id": "leatherhead_route",
+    "name": "Road and railway to Leatherhead",
+    "aliases": [
+     "Leatherhead",
+     "Waterloo",
+     "the Surrey lanes",
+     "the fields and stile"
+    ],
+    "note": "Route through Surrey lanes from Leatherhead station to Stoke Moran, and the London railway to Waterloo."
+   }
+  ],
+  "sections": [
+   {
+    "start": "1",
+    "end": "8",
+    "title": "Helen's early-morning visit to Baker Street",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "helen_stoner",
+     "mrs_hudson"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "9",
+    "end": "19",
+    "title": "Helen's arrival and the reason for coming",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "helen_stoner"
+    ],
+    "mentioned_only": [
+     "mrs_farintosh"
+    ]
+   },
+   {
+    "start": "20",
+    "end": "34",
+    "title": "Helen describes her family and the Roylott history",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "helen_stoner"
+    ],
+    "mentioned_only": [
+     "grimesby_roylott",
+     "julia_stoner"
+    ]
+   },
+   {
+    "start": "35",
+    "end": "49",
+    "title": "Julia's account of the night whistle",
+    "setting": [
+     "baker_street_rooms",
+     "julias_bedroom"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "helen_stoner"
+    ],
+    "mentioned_only": [
+     "julia_stoner",
+     "grimesby_roylott"
+    ]
+   },
+   {
+    "start": "50",
+    "end": "57",
+    "title": "Julia's death and the coroner's findings",
+    "setting": [
+     "julias_bedroom"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "helen_stoner"
+    ],
+    "mentioned_only": [
+     "julia_stoner",
+     "grimesby_roylott"
+    ]
+   },
+   {
+    "start": "58",
+    "end": "71",
+    "title": "Julia's engagement, Helen's new room and the wrist marks",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "helen_stoner"
+    ],
+    "mentioned_only": [
+     "percy_armitage",
+     "grimesby_roylott"
+    ]
+   },
+   {
+    "start": "72",
+    "end": "83",
+    "title": "The bruises revealed and the plan to visit Stoke Moran",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "helen_stoner"
+    ],
+    "mentioned_only": [
+     "grimesby_roylott"
+    ]
+   },
+   {
+    "start": "84",
+    "end": "94",
+    "title": "Holmes and Watson discuss the case; Roylott bursts in",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "grimesby_roylott"
+    ],
+    "mentioned_only": [
+     "helen_stoner"
+    ]
+   },
+   {
+    "start": "95",
+    "end": "115",
+    "title": "Roylott's threats and Holmes's inquiry at Doctors' Commons",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "grimesby_roylott"
+    ],
+    "mentioned_only": [
+     "helen_stoner"
+    ]
+   },
+   {
+    "start": "116",
+    "end": "126",
+    "title": "Journey through the Surrey lanes to Stoke Moran",
+    "setting": [
+     "leatherhead_route",
+     "stoke_moran_manor"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "helen_stoner"
+    ],
+    "mentioned_only": [
+     "grimesby_roylott"
+    ]
+   },
+   {
+    "start": "127",
+    "end": "140",
+    "title": "Examination of the outside of the wing and the shutters",
+    "setting": [
+     "stoke_moran_manor",
+     "julias_bedroom"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "helen_stoner"
+    ],
+    "mentioned_only": [
+     "julia_stoner"
+    ]
+   },
+   {
+    "start": "141",
+    "end": "157",
+    "title": "Inspection of Julia's bedroom: the bell-rope and ventilator",
+    "setting": [
+     "julias_bedroom"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "helen_stoner"
+    ],
+    "mentioned_only": [
+     "julia_stoner"
+    ]
+   },
+   {
+    "start": "158",
+    "end": "172",
+    "title": "Inspection of Roylott's chamber: safe, saucer and dog-lash",
+    "setting": [
+     "roylott_chamber"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "helen_stoner"
+    ],
+    "mentioned_only": [
+     "grimesby_roylott",
+     "cheetah_and_baboon"
+    ]
+   },
+   {
+    "start": "173",
+    "end": "194",
+    "title": "Holmes's plan for the night",
+    "setting": [
+     "stoke_moran_manor",
+     "julias_bedroom"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "helen_stoner"
+    ],
+    "mentioned_only": [
+     "grimesby_roylott",
+     "julia_stoner"
+    ]
+   },
+   {
+    "start": "195",
+    "end": "218",
+    "title": "Waiting at the Crown and the approach to the manor",
+    "setting": [
+     "crown_inn",
+     "stoke_moran_manor"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "grimesby_roylott",
+     "cheetah_and_baboon"
+    ]
+   },
+   {
+    "start": "219",
+    "end": "234",
+    "title": "The vigil in darkness",
+    "setting": [
+     "julias_bedroom"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "cheetah_and_baboon",
+     "swamp_adder"
+    ]
+   },
+   {
+    "start": "235",
+    "end": "246",
+    "title": "The snake, Roylott's death and its discovery",
+    "setting": [
+     "julias_bedroom",
+     "roylott_chamber"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "grimesby_roylott",
+     "swamp_adder"
+    ],
+    "mentioned_only": [
+     "helen_stoner"
+    ]
+   },
+   {
+    "start": "247",
+    "end": "251",
+    "title": "Aftermath and Holmes's explanation",
+    "setting": [
+     "stoke_moran_manor"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "helen_stoner",
+     "aunt_honoria",
+     "swamp_adder"
+    ]
+   }
+  ],
+  "brief": {
+   "tone": "Gothic and foreboding, with rural Surrey spring light giving way to a claustrophobic, dread-filled night at a decaying manor.",
+   "depiction_rules": [
+    "The snake may be shown only in the final scene and kept at a distance; no gore on Roylott's body beyond stillness and the coiled serpent.",
+    "Roylott should be drawn as a huge, looming, bird-of-prey figure with yellow, weathered face and burning eyes, not as a cartoon villain.",
+    "The speckled band reads as a yellow headband with brown speckles, which is the reveal; do not show it early.",
+    "Holmes and Watson should appear in period dress as gentlemen; Watson is never the dominant figure.",
+    "Keep the nocturnal scenes dark and lit only by lamp or dark-lantern light; avoid showing the cheetah and baboon clearly."
+   ],
+   "era": {
+    "name": "Surrey, England, 1883",
+    "people": "English gentry and rural villagers; a Saxon-descended landowning family in decline; gipsies camping on family land; a metropolitan London professional class.",
+    "dress": "Victorian: women in dark mourning dresses, veils and bonnets; men in frock coats, top hats, high gaiters; Roylott in a long grey dressing-gown and red Turkish slippers.",
+    "buildings_and_objects": "Grey lichen-stained stone manor with a high central block and curving wings, one wing ruined and boarded; whitewashed corridors, worm-eaten oak panelling, iron-barred shutters, iron safe, oil lamps and dark-lanterns, a trap and dog-cart.",
+    "technology": "Railways connect Leatherhead and Waterloo; telegraph-era communication; no electric light, no telephone, and no modern forensic chemical tests for snake venom."
+   }
+  }
+ },
+ "usage": {
+  "prompt_tokens": 20859,
+  "completion_tokens": 4220,
+  "total_tokens": 25079,
+  "cost": 0.0041959,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0041959,
+   "upstream_inference_prompt_cost": 0.0020859,
+   "upstream_inference_completions_cost": 0.00211
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

@@ -1,0 +1,269 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-adventure-of-the-speckled-band__moments__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354882-92aHPD5XniJYbrv6J75a",
+  "seconds": 13.7,
+  "finish_reason": "stop",
+  "prompt_tokens": 20962,
+  "completion_tokens": 3267,
+  "cost": 0.0037297,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:21:35"
+ },
+ "system": "You split the story sections of one division of a prose work into moments for an illustration engine, which draws one picture per moment.\n\nThe text comes as numbered paragraphs: each line starts with its id in square brackets and its word count in parentheses, for example `[12] (34w)`. After the text you get the division's story sections, each with its first and last paragraph id.\n\nReturn moments, in order. A moment is a run of consecutive paragraphs that is one beat you can picture: one place, one continuous action or exchange, seen at one instant. Aim for roughly 100 to 400 words per moment, using the word counts given; a moment may be shorter when the beat is a single striking paragraph, and may run past 400 only when one unbroken exchange cannot be cut. Very short paragraphs (lines of dialogue) join their neighbours. Moments tile every section: each paragraph belongs to exactly one moment, moments never cross a section boundary, and together they cover every paragraph of every section with no gaps and no overlaps. Give each moment its first and last paragraph id, the section it lies in (by its first paragraph id), and a one-line summary of what you would see in the picture: who is there, where, doing what. Do not quote the text.",
+ "user_chars": 57637,
+ "content": "{\"moments\":[{\"section_start\":\"the-adventure-of-the-speckled-band-s1\",\"start\":\"[1]\",\"end\":\"[1]\",\"summary\":\"A narrator-writer reflects in an ordinary room about his many cases with Holmes; no visual action, only a writer at a desk with notes.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s1\",\"start\":\"[2]\",\"end\":\"[8]\",\"summary\":\"Holmes, fully dressed, stands at the bedside of a sleepy Watson at a quarter past seven; later in the sitting-room a veiled woman in black sits by the fire while Holmes greets her and orders coffee.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s2\",\"start\":\"[9]\",\"end\":\"[16]\",\"summary\":\"Helen Stoner, pale and shivering in her black veil, shifts seats by the fire as Holmes reads her mud-spattered sleeve and return ticket.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s2\",\"start\":\"[17]\",\"end\":\"[19]\",\"summary\":\"Helen pleads for help while Holmes takes a small case-book from his desk and consults it.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s3\",\"start\":\"[20]\",\"end\":\"[27]\",\"summary\":\"Helen, seated by the fire, introduces herself and her stepfather's family history while Holmes listens with eyes half-closed; the scene is the sitting-room.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s3\",\"start\":\"[28]\",\"end\":\"[34]\",\"summary\":\"Helen describes her dead twin sister and the layout of the bedrooms, Holmes leaning back attentively in the sitting-room.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s4\",\"start\":\"[35]\",\"end\":\"[44]\",\"summary\":\"Helen and Julia stand at Helen's bedroom door at night, Julia asking about a strange whistle before hurrying off and locking her door.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s4\",\"start\":\"[45]\",\"end\":\"[49]\",\"summary\":\"Holmes questions Helen in the sitting-room about the habit of locking doors because of the cheetah and baboon.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s5\",\"start\":\"[50]\",\"end\":\"[50]\",\"summary\":\"Helen, in a wild storm, rushes into the corridor as her sister Julia staggers from her unlocked door, collapsing in terror and gasping about the speckled band.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s5\",\"start\":\"[51]\",\"end\":\"[57]\",\"summary\":\"In the sitting-room Holmes presses Helen on the whistle and the charred match, while the inquest findings are discussed.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s6\",\"start\":\"[58]\",\"end\":\"[66]\",\"summary\":\"Holmes and Helen talk over the coroner's verdict and the phrase about a band, Holmes shaking his head by the fire.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s6\",\"start\":\"[67]\",\"end\":\"[71]\",\"summary\":\"Helen explains her engagement and the new bedroom where she now sleeps; Holmes notes she is hiding something.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s7\",\"start\":\"[72]\",\"end\":\"[78]\",\"summary\":\"Holmes lifts the black lace from Helen's wrist to reveal five livid finger-marks while she colours and covers them.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s7\",\"start\":\"[79]\",\"end\":\"[83]\",\"summary\":\"Holmes arranges with Helen to visit Stoke Moran that day; she gathers her veil and glides out of the room.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s8\",\"start\":\"[84]\",\"end\":\"[94]\",\"summary\":\"Holmes and Watson sit by the fire talking through the case; the door crashes open and a huge, furious Roylott fills the doorway with his hunting-crop.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s9\",\"start\":\"[95]\",\"end\":\"[111]\",\"summary\":\"Roylott rages in the sitting-room, bends a steel poker in his hands and storms out while Holmes watches calmly.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s9\",\"start\":\"[112]\",\"end\":\"[115]\",\"summary\":\"Holmes straightens the poker back out and, at the table, reads Doctors' Commons notes on the will's figures.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s10\",\"start\":\"[116]\",\"end\":\"[126]\",\"summary\":\"Holmes and Watson ride in a trap through the Surrey lanes and approach the old Stoke Moran manor, where Helen waits at the stile.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s11\",\"start\":\"[127]\",\"end\":\"[131]\",\"summary\":\"Helen, joyful, learns of Roylott's trip to town; Holmes warns her and asks to see the rooms.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s11\",\"start\":\"[132]\",\"end\":\"[140]\",\"summary\":\"Holmes walks the ill-trimmed lawn studying the windows of the ruined wing, then tests the shutters and hinges from inside Helen's room.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s12\",\"start\":\"[141]\",\"end\":\"[147]\",\"summary\":\"Holmes sits in the small whitewashed bedroom looking round at the bed, chest and bell-rope tassel lying on the pillow.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s12\",\"start\":\"[148]\",\"end\":\"[157]\",\"summary\":\"Holmes crawls on the floor with his lens, tugs the dummy bell-rope and studies the ventilator above the bed.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s13\",\"start\":\"[158]\",\"end\":\"[166]\",\"summary\":\"In Roylott's plainly furnished room Holmes examines the iron safe and the saucer of milk on top of it.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s13\",\"start\":\"[167]\",\"end\":\"[172]\",\"summary\":\"Holmes squats by the wooden chair and then lifts a dog-lash with a tied whipcord loop hanging from the bed corner.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s14\",\"start\":\"[173]\",\"end\":\"[194]\",\"summary\":\"On the lawn Holmes gives Helen his instructions for the night and she listens, hands clasped, in the grey afternoon light.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s15\",\"start\":\"[195]\",\"end\":\"[199]\",\"summary\":\"From a window of the Crown Inn at dusk Holmes and Watson watch Roylott's trap drive past and the manor lamp light up.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s15\",\"start\":\"[200]\",\"end\":\"[208]\",\"summary\":\"In the inn's upper room Holmes and Watson talk by the window in gathering darkness, Holmes explaining the ventilator clue.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s15\",\"start\":\"[209]\",\"end\":\"[218]\",\"summary\":\"Holmes and Watson sit in the dark inn room with pipes, then set off into the night with the signal light ahead.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s15\",\"start\":\"[219]\",\"end\":\"[221]\",\"summary\":\"The two men leave the inn at night along a dark road, a single yellow light twinkling ahead through the gloom.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s15\",\"start\":\"[222]\",\"end\":\"[226]\",\"summary\":\"Crossing the moonless lawn toward the window, a strange deformed creature bolts from the laurels into the darkness.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s16\",\"start\":\"[227]\",\"end\":\"[234]\",\"summary\":\"Inside Helen's room in total darkness, Holmes and Watson sit by the bed, pistol and cane ready, listening.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s16\",\"start\":\"[235]\",\"end\":\"[236]\",\"summary\":\"The two men wait in the dark room as the clock strikes the hours and a lantern's gleam and burning-oil smell come through the ventilator.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s17\",\"start\":\"[237]\",\"end\":\"[238]\",\"summary\":\"Holmes strikes a match and lashes his cane at the bell-pull while a terrible cry rings through the house.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s17\",\"start\":\"[239]\",\"end\":\"[242]\",\"summary\":\"Holmes and Watson enter Roylott's chamber with a lantern, finding the doctor dead in his chair, a yellow speckled band around his head.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s17\",\"start\":\"[243]\",\"end\":\"[246]\",\"summary\":\"A swamp adder rears from Roylott's hair; Holmes seizes it with the dog-lash and thrusts it into the iron safe.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s18\",\"start\":\"[247]\",\"end\":\"[247]\",\"summary\":\"Aftermath summarized: Helen is taken to Harrow and the inquest rules the death an accident with a pet.\"},{\"section_start\":\"the-adventure-of-the-speckled-band-s18\",\"start\":\"[248]\",\"end\":\"[251]\",\"summary\":\"On the train home Holmes explains his reasoning to Watson, the two talking seated across from each other in the carriage.\"}]}",
+ "parsed": {
+  "moments": [
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s1",
+    "start": "[1]",
+    "end": "[1]",
+    "summary": "A narrator-writer reflects in an ordinary room about his many cases with Holmes; no visual action, only a writer at a desk with notes."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s1",
+    "start": "[2]",
+    "end": "[8]",
+    "summary": "Holmes, fully dressed, stands at the bedside of a sleepy Watson at a quarter past seven; later in the sitting-room a veiled woman in black sits by the fire while Holmes greets her and orders coffee."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s2",
+    "start": "[9]",
+    "end": "[16]",
+    "summary": "Helen Stoner, pale and shivering in her black veil, shifts seats by the fire as Holmes reads her mud-spattered sleeve and return ticket."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s2",
+    "start": "[17]",
+    "end": "[19]",
+    "summary": "Helen pleads for help while Holmes takes a small case-book from his desk and consults it."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s3",
+    "start": "[20]",
+    "end": "[27]",
+    "summary": "Helen, seated by the fire, introduces herself and her stepfather's family history while Holmes listens with eyes half-closed; the scene is the sitting-room."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s3",
+    "start": "[28]",
+    "end": "[34]",
+    "summary": "Helen describes her dead twin sister and the layout of the bedrooms, Holmes leaning back attentively in the sitting-room."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s4",
+    "start": "[35]",
+    "end": "[44]",
+    "summary": "Helen and Julia stand at Helen's bedroom door at night, Julia asking about a strange whistle before hurrying off and locking her door."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s4",
+    "start": "[45]",
+    "end": "[49]",
+    "summary": "Holmes questions Helen in the sitting-room about the habit of locking doors because of the cheetah and baboon."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s5",
+    "start": "[50]",
+    "end": "[50]",
+    "summary": "Helen, in a wild storm, rushes into the corridor as her sister Julia staggers from her unlocked door, collapsing in terror and gasping about the speckled band."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s5",
+    "start": "[51]",
+    "end": "[57]",
+    "summary": "In the sitting-room Holmes presses Helen on the whistle and the charred match, while the inquest findings are discussed."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s6",
+    "start": "[58]",
+    "end": "[66]",
+    "summary": "Holmes and Helen talk over the coroner's verdict and the phrase about a band, Holmes shaking his head by the fire."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s6",
+    "start": "[67]",
+    "end": "[71]",
+    "summary": "Helen explains her engagement and the new bedroom where she now sleeps; Holmes notes she is hiding something."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s7",
+    "start": "[72]",
+    "end": "[78]",
+    "summary": "Holmes lifts the black lace from Helen's wrist to reveal five livid finger-marks while she colours and covers them."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s7",
+    "start": "[79]",
+    "end": "[83]",
+    "summary": "Holmes arranges with Helen to visit Stoke Moran that day; she gathers her veil and glides out of the room."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s8",
+    "start": "[84]",
+    "end": "[94]",
+    "summary": "Holmes and Watson sit by the fire talking through the case; the door crashes open and a huge, furious Roylott fills the doorway with his hunting-crop."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s9",
+    "start": "[95]",
+    "end": "[111]",
+    "summary": "Roylott rages in the sitting-room, bends a steel poker in his hands and storms out while Holmes watches calmly."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s9",
+    "start": "[112]",
+    "end": "[115]",
+    "summary": "Holmes straightens the poker back out and, at the table, reads Doctors' Commons notes on the will's figures."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s10",
+    "start": "[116]",
+    "end": "[126]",
+    "summary": "Holmes and Watson ride in a trap through the Surrey lanes and approach the old Stoke Moran manor, where Helen waits at the stile."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s11",
+    "start": "[127]",
+    "end": "[131]",
+    "summary": "Helen, joyful, learns of Roylott's trip to town; Holmes warns her and asks to see the rooms."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s11",
+    "start": "[132]",
+    "end": "[140]",
+    "summary": "Holmes walks the ill-trimmed lawn studying the windows of the ruined wing, then tests the shutters and hinges from inside Helen's room."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s12",
+    "start": "[141]",
+    "end": "[147]",
+    "summary": "Holmes sits in the small whitewashed bedroom looking round at the bed, chest and bell-rope tassel lying on the pillow."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s12",
+    "start": "[148]",
+    "end": "[157]",
+    "summary": "Holmes crawls on the floor with his lens, tugs the dummy bell-rope and studies the ventilator above the bed."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s13",
+    "start": "[158]",
+    "end": "[166]",
+    "summary": "In Roylott's plainly furnished room Holmes examines the iron safe and the saucer of milk on top of it."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s13",
+    "start": "[167]",
+    "end": "[172]",
+    "summary": "Holmes squats by the wooden chair and then lifts a dog-lash with a tied whipcord loop hanging from the bed corner."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s14",
+    "start": "[173]",
+    "end": "[194]",
+    "summary": "On the lawn Holmes gives Helen his instructions for the night and she listens, hands clasped, in the grey afternoon light."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s15",
+    "start": "[195]",
+    "end": "[199]",
+    "summary": "From a window of the Crown Inn at dusk Holmes and Watson watch Roylott's trap drive past and the manor lamp light up."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s15",
+    "start": "[200]",
+    "end": "[208]",
+    "summary": "In the inn's upper room Holmes and Watson talk by the window in gathering darkness, Holmes explaining the ventilator clue."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s15",
+    "start": "[209]",
+    "end": "[218]",
+    "summary": "Holmes and Watson sit in the dark inn room with pipes, then set off into the night with the signal light ahead."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s15",
+    "start": "[219]",
+    "end": "[221]",
+    "summary": "The two men leave the inn at night along a dark road, a single yellow light twinkling ahead through the gloom."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s15",
+    "start": "[222]",
+    "end": "[226]",
+    "summary": "Crossing the moonless lawn toward the window, a strange deformed creature bolts from the laurels into the darkness."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s16",
+    "start": "[227]",
+    "end": "[234]",
+    "summary": "Inside Helen's room in total darkness, Holmes and Watson sit by the bed, pistol and cane ready, listening."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s16",
+    "start": "[235]",
+    "end": "[236]",
+    "summary": "The two men wait in the dark room as the clock strikes the hours and a lantern's gleam and burning-oil smell come through the ventilator."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s17",
+    "start": "[237]",
+    "end": "[238]",
+    "summary": "Holmes strikes a match and lashes his cane at the bell-pull while a terrible cry rings through the house."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s17",
+    "start": "[239]",
+    "end": "[242]",
+    "summary": "Holmes and Watson enter Roylott's chamber with a lantern, finding the doctor dead in his chair, a yellow speckled band around his head."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s17",
+    "start": "[243]",
+    "end": "[246]",
+    "summary": "A swamp adder rears from Roylott's hair; Holmes seizes it with the dog-lash and thrusts it into the iron safe."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s18",
+    "start": "[247]",
+    "end": "[247]",
+    "summary": "Aftermath summarized: Helen is taken to Harrow and the inquest rules the death an accident with a pet."
+   },
+   {
+    "section_start": "the-adventure-of-the-speckled-band-s18",
+    "start": "[248]",
+    "end": "[251]",
+    "summary": "On the train home Holmes explains his reasoning to Watson, the two talking seated across from each other in the carriage."
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 20962,
+  "completion_tokens": 3267,
+  "total_tokens": 24229,
+  "cost": 0.0037297,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0037297,
+   "upstream_inference_prompt_cost": 0.0020962,
+   "upstream_inference_completions_cost": 0.0016335
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

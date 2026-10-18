@@ -1,0 +1,541 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-boscombe-valley-mystery__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354443-jnOvvVGxfSGMHmU8MMhm",
+  "seconds": 16.2,
+  "finish_reason": "stop",
+  "prompt_tokens": 20033,
+  "completion_tokens": 3986,
+  "cost": 0.0039963,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:19"
+ },
+ "system": "You are the reading pass of an illustration engine. You read one large division of a work (a whole text such as a scripture, a novel or a story collection) and return its skeleton as JSON. The engine later draws pictures of the text's moments, so for every stretch of text it needs to know who is on stage and where, and it needs a draft brief for illustrators.\n\nThe text comes as numbered units. Each unit line starts with its id (for example `17:4` or `[12]`). Lines starting with `##` are headings, not units.\n\nReturn:\n\n1. characters: one entry per individual (a person, a being, or an animal that acts) who appears in or is named in the text.\n   - One individual is one entry, even when the text uses different names, titles or descriptions for them. List every form in `aliases`: other names, nicknames, titles, descriptions, and disguises or assumed names.\n   - Different individuals who share a name or a title get separate entries, one each. Never fold two people into one entry because they share a name. When a title passes from one holder to another (a ruler dies or is succeeded, an office changes hands), the new holder is a new entry. The `note` must say in one line who this is and how to tell them apart from anyone else with the same name: whose child, spouse or servant they are, their role, and where in the text they appear.\n   - A disguised, renamed or unnamed person who the text later identifies is the same entry as their named self, with the disguise or description in `aliases`. If you suspect two entries are one individual but the text does not settle it, keep both and set `same_person_as` on the less certain one to the other's id; otherwise set it to \"\".\n   - Skip people who occur only inside a list of names (a genealogy or roster) and never act.\n   - Add a group (an army, a crowd, a household) only when it acts as one on stage, with kind \"group\".\n2. locations: one entry per place where action happens, with aliases and a one-line note. Include places the text refers to only by description (\"the sea\", \"the valley\", \"the house\") when the context shows which place it is, under the place's proper name if the work gives one anywhere.\n3. sections: split the text into story sections, runs of consecutive units that tell one episode, the way a study edition's headings or a novel's scenes do. Start a new section when the time, the place or the main action changes. Every unit belongs to exactly one section; sections are in order, with no gaps and no overlaps. This division has 215 units. Aim for roughly 12 sections (10 to 14), averaging about 18 units each; some sections will be much shorter and some longer. Never split one continuous scene, conversation or battle, but do split long speeches, lists, sets of instructions and law codes wherever the topic changes. Give the ids of each section's first and last unit and a short title. For each section:\n   - setting: ids of the locations where its action happens.\n   - on_stage: ids of every character present in the section's action, whether the section names them or only refers to them by a pronoun, a title or a description, or does not mention them but they are clearly there.\n   - mentioned_only: ids of characters the section names or refers to who are not present.\n4. brief: a draft brief for illustrators, for this division only. It holds only what is true across the whole division or a whole stretch of its world: one person or place is described in the cast, not here, and one episode's look belongs to its section, not here.\n   - tone: one line on the mood the pictures should carry.\n   - depiction_rules: a short list of how certain things in this text may or may not be shown, drawn from the text and from what you know about the work.\n   - era: the stretch of the world this division is set in: a name, its people (who lives there and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist).\n   Keep the brief under 200 words.\n\nUse short, stable snake_case ids (for example `david`, `the_queen`, `main_street`). Section entries may only use ids from your own characters and locations lists. Do not quote the text.",
+ "user_chars": 52437,
+ "content": "{\"characters\":[{\"id\":\"watson\",\"name\":\"Dr. Watson\",\"aliases\":[\"I\",\"my companion's friend\",\"the narrator\"],\"note\":\"Narrator and Holmes's companion; a former army doctor who served in Afghanistan, married, and present throughout the division.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"sherlock_holmes\",\"name\":\"Sherlock Holmes\",\"aliases\":[\"Holmes\",\"my companion\",\"the detective\"],\"note\":\"The consulting detective, tall and gaunt, who takes the case from Ross and works out the solution.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mrs_watson\",\"name\":\"Mrs. Watson\",\"aliases\":[\"my wife\"],\"note\":\"Watson's wife; appears only at the breakfast opening, in the home at London.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"lestrade\",\"name\":\"Lestrade\",\"aliases\":[\"Lestrade of Scotland Yard\",\"the inspector\"],\"note\":\"Ferret-like Scotland Yard detective who meets the train at Ross and holds to the theory that James is guilty.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"alice_turner\",\"name\":\"Alice Turner\",\"aliases\":[\"Miss Turner\",\"the young lady\",\"Turner's daughter\",\"Alice\"],\"note\":\"Daughter of John Turner, of the Hall; young woman who has loved James since childhood and hires Holmes; she visits the hotel at Ross.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"james_mccarthy\",\"name\":\"James McCarthy\",\"aliases\":[\"young McCarthy\",\"James\",\"the son\",\"the accused\"],\"note\":\"Son of Charles McCarthy, age eighteen, accused of killing his father; son of the murdered man, not the other McCarthy.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"charles_mccarthy\",\"name\":\"Charles McCarthy\",\"aliases\":[\"McCarthy senior\",\"Mr. McCarthy\",\"the murdered man\",\"old McCarthy\",\"the dead man\"],\"note\":\"Former Australian convict driver, tenant of Hatherley Farm and murder victim by the pool; father of James McCarthy.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"john_turner\",\"name\":\"John Turner\",\"aliases\":[\"Mr. Turner\",\"Black Jack of Ballarat\",\"old Turner\",\"the old man\",\"the landowner\"],\"note\":\"Wealthy landowner of the Hall, former Ballarat gang member and the actual killer; father of Alice Turner, dying of diabetes.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"william_crowder\",\"name\":\"William Crowder\",\"aliases\":[\"the game-keeper\",\"the keeper\"],\"note\":\"Game-keeper in the employ of Mr. Turner; a witness who saw McCarthy walking alone and James following.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"patience_moran\",\"name\":\"Patience Moran\",\"aliases\":[\"the girl\",\"the little girl\",\"Moran\"],\"note\":\"Fourteen-year-old daughter of the lodge-keeper, who saw the McCarthys quarrelling near the pool.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"dr_willows\",\"name\":\"Dr. Willows\",\"aliases\":[\"the doctor\"],\"note\":\"Physician attending John Turner, who says Turner's nervous system is shattered and forbids visitors.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"john_cobb\",\"name\":\"John Cobb\",\"aliases\":[\"the groom\",\"the serving-man\"],\"note\":\"Groom and servant of McCarthy, who was with him in Ross on the morning of the murder; mentioned only.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"moran_lodge_keeper\",\"name\":\"Moran, the lodge-keeper\",\"aliases\":[\"the lodge-keeper\",\"Patience's father\"],\"note\":\"Lodge-keeper of the Boscombe Valley estate, father of Patience Moran; receives James and the detectives.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"barmaid_wife\",\"name\":\"the barmaid\",\"aliases\":[\"James's barmaid wife\"],\"note\":\"Bristol barmaid whom James secretly married; mentioned only, never on stage.\",\"kind\":\"person\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"baker_street_breakfast\",\"name\":\"Watson's home in London\",\"aliases\":[\"the breakfast table\"],\"note\":\"Watson's home where the telegram arrives at breakfast.\"},{\"id\":\"paddington_train\",\"name\":\"Train from Paddington to Ross\",\"aliases\":[\"the train\",\"the carriage\"],\"note\":\"Railway carriage on the journey west through Reading and Swindon to Ross.\"},{\"id\":\"ross_hereford_arms\",\"name\":\"Hereford Arms, Ross\",\"aliases\":[\"the hotel\",\"Ross\"],\"note\":\"The Hereford Arms hotel in the small town of Ross, where Holmes, Watson and Lestrade take rooms.\"},{\"id\":\"hereford_prison\",\"name\":\"Hereford prison\",\"aliases\":[\"the prison\",\"the gaol\"],\"note\":\"Prison at Hereford where Holmes and Lestrade visit James McCarthy; not shown in action.\"},{\"id\":\"hatherley_farm\",\"name\":\"Hatherley Farm\",\"aliases\":[\"the farm\",\"Hatherley Farmhouse\"],\"note\":\"McCarthy's farmhouse, a quarter mile from the pool; the boots are examined here.\"},{\"id\":\"boscombe_pool\",\"name\":\"Boscombe Pool\",\"aliases\":[\"the pool\",\"the lake\"],\"note\":\"Small reed-fringed lake at the boundary of Hatherley Farm and Turner's park, where the murder took place.\"},{\"id\":\"boscombe_wood\",\"name\":\"Boscombe Wood\",\"aliases\":[\"the wood\",\"the beech tree\"],\"note\":\"Woods around the pool, where Holmes finds the cigar ash and the beech tree where Turner hid.\"},{\"id\":\"the_hall\",\"name\":\"The Hall\",\"aliases\":[\"Turner's house\",\"the red pinnacles\"],\"note\":\"John Turner's dwelling in the private park beyond the pool; mentioned, not visited.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"8\",\"title\":\"Telegram and departure from London\",\"setting\":[\"baker_street_breakfast\",\"paddington_train\"],\"on_stage\":[\"watson\",\"sherlock_holmes\",\"mrs_watson\"],\"mentioned_only\":[]},{\"start\":\"9\",\"end\":\"36\",\"title\":\"Holmes explains the case on the train\",\"setting\":[\"paddington_train\"],\"on_stage\":[\"watson\",\"sherlock_holmes\"],\"mentioned_only\":[\"charles_mccarthy\",\"james_mccarthy\",\"john_turner\",\"william_crowder\",\"patience_moran\",\"lestrade\"]},{\"start\":\"37\",\"end\":\"67\",\"title\":\"James McCarthy's inquest statement\",\"setting\":[\"paddington_train\"],\"on_stage\":[\"watson\",\"sherlock_holmes\"],\"mentioned_only\":[\"james_mccarthy\",\"charles_mccarthy\",\"william_crowder\",\"john_cobb\"]},{\"start\":\"68\",\"end\":\"69\",\"title\":\"Discussion of the coroner's remarks\",\"setting\":[\"paddington_train\"],\"on_stage\":[\"watson\",\"sherlock_holmes\"],\"mentioned_only\":[\"james_mccarthy\"]},{\"start\":\"70\",\"end\":\"75\",\"title\":\"Arrival at Ross and meeting Lestrade\",\"setting\":[\"ross_hereford_arms\"],\"on_stage\":[\"watson\",\"sherlock_holmes\",\"lestrade\"],\"mentioned_only\":[]},{\"start\":\"76\",\"end\":\"105\",\"title\":\"Alice Turner's visit to the hotel\",\"setting\":[\"ross_hereford_arms\"],\"on_stage\":[\"watson\",\"sherlock_holmes\",\"lestrade\",\"alice_turner\"],\"mentioned_only\":[\"james_mccarthy\",\"charles_mccarthy\",\"john_turner\",\"dr_willows\"]},{\"start\":\"106\",\"end\":\"106\",\"title\":\"Watson alone at the hotel\",\"setting\":[\"ross_hereford_arms\"],\"on_stage\":[\"watson\"],\"mentioned_only\":[\"john_turner\",\"james_mccarthy\"]},{\"start\":\"107\",\"end\":\"116\",\"title\":\"Holmes's visit to James and his report\",\"setting\":[\"ross_hereford_arms\"],\"on_stage\":[\"watson\",\"sherlock_holmes\"],\"mentioned_only\":[\"james_mccarthy\",\"barmaid_wife\",\"charles_mccarthy\"]},{\"start\":\"117\",\"end\":\"129\",\"title\":\"Morning journey to Hatherley Farm and Lestrade's views\",\"setting\":[\"hatherley_farm\"],\"on_stage\":[\"watson\",\"sherlock_holmes\",\"lestrade\"],\"mentioned_only\":[\"john_turner\"]},{\"start\":\"130\",\"end\":\"135\",\"title\":\"Examining the farm, the pool and the tracks\",\"setting\":[\"hatherley_farm\",\"boscombe_pool\",\"boscombe_wood\"],\"on_stage\":[\"watson\",\"sherlock_holmes\",\"lestrade\",\"moran_lodge_keeper\"],\"mentioned_only\":[\"charles_mccarthy\",\"james_mccarthy\",\"john_turner\"]},{\"start\":\"136\",\"end\":\"156\",\"title\":\"Holmes leaves the stone and speaks with Lestrade\",\"setting\":[\"boscombe_pool\",\"ross_hereford_arms\"],\"on_stage\":[\"watson\",\"sherlock_holmes\",\"lestrade\"],\"mentioned_only\":[]},{\"start\":\"157\",\"end\":\"186\",\"title\":\"Holmes's deductions at the hotel\",\"setting\":[\"ross_hereford_arms\"],\"on_stage\":[\"watson\",\"sherlock_holmes\"],\"mentioned_only\":[\"charles_mccarthy\",\"john_turner\",\"james_mccarthy\"]},{\"start\":\"187\",\"end\":\"200\",\"title\":\"John Turner's visit and the setting of his confession\",\"setting\":[\"ross_hereford_arms\"],\"on_stage\":[\"watson\",\"sherlock_holmes\",\"john_turner\"],\"mentioned_only\":[\"alice_turner\",\"charles_mccarthy\"]},{\"start\":\"201\",\"end\":\"215\",\"title\":\"Turner's confession and the acquittal\",\"setting\":[\"ross_hereford_arms\"],\"on_stage\":[\"watson\",\"sherlock_holmes\",\"john_turner\"],\"mentioned_only\":[\"charles_mccarthy\",\"james_mccarthy\",\"alice_turner\"]}],\"brief\":{\"tone\":\"Cool, misty English countryside melancholy with a tense detective's focus; tragic and quiet rather than lurid, with the sense of a hidden past surfacing.\",\"depiction_rules\":[\"Show the murder victim only as a body or unseen; do not depict the blows or the bloodied head in graphic detail.\",\"Holmes is lean and gaunt in a grey travelling cloak and cloth cap; keep him in the tradition of Sidney Paget's illustrations.\",\"Show the damp meadow, reed-fringed pool, beech tree and footprints as clues rather than as spectacle.\",\"Do not depict John Turner's confession as a dramatic flashback; keep him seated and weary in the hotel room.\",\"Avoid romanticising Turner's Ballarat past; render the gold-convoy robbery only as memory, if at all.\"],\"era\":{\"name\":\"England and Australia in the 1880s, Victorian era\",\"people\":\"English country folk, farmers, gamekeepers and gentry in Herefordshire; former gold-diggers and convicts from Victoria, Australia, now settled as landowners and tenants.\",\"dress\":\"Victorian tweed suits, long travelling cloaks, dustcoats and leather leggings for the country; the gentry in frock coats; women in dark dresses; Holmes in a grey cloak and cloth cap.\",\"buildings_and_objects\":\"Stone and slate farmhouses with lichen-covered walls, a country hotel with a yellow-backed novel and sofa, a lodge, a red-pinnacled Hall, and an 1880s rail network.\",\"technology\":\"Railways, telegrams and newspapers exist; no telephones or photography at the scene. Forensic work is done by eye, lens and cigar-ash identification.\"}}}",
+ "parsed": {
+  "characters": [
+   {
+    "id": "watson",
+    "name": "Dr. Watson",
+    "aliases": [
+     "I",
+     "my companion's friend",
+     "the narrator"
+    ],
+    "note": "Narrator and Holmes's companion; a former army doctor who served in Afghanistan, married, and present throughout the division.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "sherlock_holmes",
+    "name": "Sherlock Holmes",
+    "aliases": [
+     "Holmes",
+     "my companion",
+     "the detective"
+    ],
+    "note": "The consulting detective, tall and gaunt, who takes the case from Ross and works out the solution.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mrs_watson",
+    "name": "Mrs. Watson",
+    "aliases": [
+     "my wife"
+    ],
+    "note": "Watson's wife; appears only at the breakfast opening, in the home at London.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "lestrade",
+    "name": "Lestrade",
+    "aliases": [
+     "Lestrade of Scotland Yard",
+     "the inspector"
+    ],
+    "note": "Ferret-like Scotland Yard detective who meets the train at Ross and holds to the theory that James is guilty.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "alice_turner",
+    "name": "Alice Turner",
+    "aliases": [
+     "Miss Turner",
+     "the young lady",
+     "Turner's daughter",
+     "Alice"
+    ],
+    "note": "Daughter of John Turner, of the Hall; young woman who has loved James since childhood and hires Holmes; she visits the hotel at Ross.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "james_mccarthy",
+    "name": "James McCarthy",
+    "aliases": [
+     "young McCarthy",
+     "James",
+     "the son",
+     "the accused"
+    ],
+    "note": "Son of Charles McCarthy, age eighteen, accused of killing his father; son of the murdered man, not the other McCarthy.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "charles_mccarthy",
+    "name": "Charles McCarthy",
+    "aliases": [
+     "McCarthy senior",
+     "Mr. McCarthy",
+     "the murdered man",
+     "old McCarthy",
+     "the dead man"
+    ],
+    "note": "Former Australian convict driver, tenant of Hatherley Farm and murder victim by the pool; father of James McCarthy.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "john_turner",
+    "name": "John Turner",
+    "aliases": [
+     "Mr. Turner",
+     "Black Jack of Ballarat",
+     "old Turner",
+     "the old man",
+     "the landowner"
+    ],
+    "note": "Wealthy landowner of the Hall, former Ballarat gang member and the actual killer; father of Alice Turner, dying of diabetes.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "william_crowder",
+    "name": "William Crowder",
+    "aliases": [
+     "the game-keeper",
+     "the keeper"
+    ],
+    "note": "Game-keeper in the employ of Mr. Turner; a witness who saw McCarthy walking alone and James following.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "patience_moran",
+    "name": "Patience Moran",
+    "aliases": [
+     "the girl",
+     "the little girl",
+     "Moran"
+    ],
+    "note": "Fourteen-year-old daughter of the lodge-keeper, who saw the McCarthys quarrelling near the pool.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "dr_willows",
+    "name": "Dr. Willows",
+    "aliases": [
+     "the doctor"
+    ],
+    "note": "Physician attending John Turner, who says Turner's nervous system is shattered and forbids visitors.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "john_cobb",
+    "name": "John Cobb",
+    "aliases": [
+     "the groom",
+     "the serving-man"
+    ],
+    "note": "Groom and servant of McCarthy, who was with him in Ross on the morning of the murder; mentioned only.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "moran_lodge_keeper",
+    "name": "Moran, the lodge-keeper",
+    "aliases": [
+     "the lodge-keeper",
+     "Patience's father"
+    ],
+    "note": "Lodge-keeper of the Boscombe Valley estate, father of Patience Moran; receives James and the detectives.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "barmaid_wife",
+    "name": "the barmaid",
+    "aliases": [
+     "James's barmaid wife"
+    ],
+    "note": "Bristol barmaid whom James secretly married; mentioned only, never on stage.",
+    "kind": "person",
+    "same_person_as": ""
+   }
+  ],
+  "locations": [
+   {
+    "id": "baker_street_breakfast",
+    "name": "Watson's home in London",
+    "aliases": [
+     "the breakfast table"
+    ],
+    "note": "Watson's home where the telegram arrives at breakfast."
+   },
+   {
+    "id": "paddington_train",
+    "name": "Train from Paddington to Ross",
+    "aliases": [
+     "the train",
+     "the carriage"
+    ],
+    "note": "Railway carriage on the journey west through Reading and Swindon to Ross."
+   },
+   {
+    "id": "ross_hereford_arms",
+    "name": "Hereford Arms, Ross",
+    "aliases": [
+     "the hotel",
+     "Ross"
+    ],
+    "note": "The Hereford Arms hotel in the small town of Ross, where Holmes, Watson and Lestrade take rooms."
+   },
+   {
+    "id": "hereford_prison",
+    "name": "Hereford prison",
+    "aliases": [
+     "the prison",
+     "the gaol"
+    ],
+    "note": "Prison at Hereford where Holmes and Lestrade visit James McCarthy; not shown in action."
+   },
+   {
+    "id": "hatherley_farm",
+    "name": "Hatherley Farm",
+    "aliases": [
+     "the farm",
+     "Hatherley Farmhouse"
+    ],
+    "note": "McCarthy's farmhouse, a quarter mile from the pool; the boots are examined here."
+   },
+   {
+    "id": "boscombe_pool",
+    "name": "Boscombe Pool",
+    "aliases": [
+     "the pool",
+     "the lake"
+    ],
+    "note": "Small reed-fringed lake at the boundary of Hatherley Farm and Turner's park, where the murder took place."
+   },
+   {
+    "id": "boscombe_wood",
+    "name": "Boscombe Wood",
+    "aliases": [
+     "the wood",
+     "the beech tree"
+    ],
+    "note": "Woods around the pool, where Holmes finds the cigar ash and the beech tree where Turner hid."
+   },
+   {
+    "id": "the_hall",
+    "name": "The Hall",
+    "aliases": [
+     "Turner's house",
+     "the red pinnacles"
+    ],
+    "note": "John Turner's dwelling in the private park beyond the pool; mentioned, not visited."
+   }
+  ],
+  "sections": [
+   {
+    "start": "1",
+    "end": "8",
+    "title": "Telegram and departure from London",
+    "setting": [
+     "baker_street_breakfast",
+     "paddington_train"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes",
+     "mrs_watson"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "9",
+    "end": "36",
+    "title": "Holmes explains the case on the train",
+    "setting": [
+     "paddington_train"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes"
+    ],
+    "mentioned_only": [
+     "charles_mccarthy",
+     "james_mccarthy",
+     "john_turner",
+     "william_crowder",
+     "patience_moran",
+     "lestrade"
+    ]
+   },
+   {
+    "start": "37",
+    "end": "67",
+    "title": "James McCarthy's inquest statement",
+    "setting": [
+     "paddington_train"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes"
+    ],
+    "mentioned_only": [
+     "james_mccarthy",
+     "charles_mccarthy",
+     "william_crowder",
+     "john_cobb"
+    ]
+   },
+   {
+    "start": "68",
+    "end": "69",
+    "title": "Discussion of the coroner's remarks",
+    "setting": [
+     "paddington_train"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes"
+    ],
+    "mentioned_only": [
+     "james_mccarthy"
+    ]
+   },
+   {
+    "start": "70",
+    "end": "75",
+    "title": "Arrival at Ross and meeting Lestrade",
+    "setting": [
+     "ross_hereford_arms"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes",
+     "lestrade"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "76",
+    "end": "105",
+    "title": "Alice Turner's visit to the hotel",
+    "setting": [
+     "ross_hereford_arms"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes",
+     "lestrade",
+     "alice_turner"
+    ],
+    "mentioned_only": [
+     "james_mccarthy",
+     "charles_mccarthy",
+     "john_turner",
+     "dr_willows"
+    ]
+   },
+   {
+    "start": "106",
+    "end": "106",
+    "title": "Watson alone at the hotel",
+    "setting": [
+     "ross_hereford_arms"
+    ],
+    "on_stage": [
+     "watson"
+    ],
+    "mentioned_only": [
+     "john_turner",
+     "james_mccarthy"
+    ]
+   },
+   {
+    "start": "107",
+    "end": "116",
+    "title": "Holmes's visit to James and his report",
+    "setting": [
+     "ross_hereford_arms"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes"
+    ],
+    "mentioned_only": [
+     "james_mccarthy",
+     "barmaid_wife",
+     "charles_mccarthy"
+    ]
+   },
+   {
+    "start": "117",
+    "end": "129",
+    "title": "Morning journey to Hatherley Farm and Lestrade's views",
+    "setting": [
+     "hatherley_farm"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes",
+     "lestrade"
+    ],
+    "mentioned_only": [
+     "john_turner"
+    ]
+   },
+   {
+    "start": "130",
+    "end": "135",
+    "title": "Examining the farm, the pool and the tracks",
+    "setting": [
+     "hatherley_farm",
+     "boscombe_pool",
+     "boscombe_wood"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes",
+     "lestrade",
+     "moran_lodge_keeper"
+    ],
+    "mentioned_only": [
+     "charles_mccarthy",
+     "james_mccarthy",
+     "john_turner"
+    ]
+   },
+   {
+    "start": "136",
+    "end": "156",
+    "title": "Holmes leaves the stone and speaks with Lestrade",
+    "setting": [
+     "boscombe_pool",
+     "ross_hereford_arms"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes",
+     "lestrade"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "157",
+    "end": "186",
+    "title": "Holmes's deductions at the hotel",
+    "setting": [
+     "ross_hereford_arms"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes"
+    ],
+    "mentioned_only": [
+     "charles_mccarthy",
+     "john_turner",
+     "james_mccarthy"
+    ]
+   },
+   {
+    "start": "187",
+    "end": "200",
+    "title": "John Turner's visit and the setting of his confession",
+    "setting": [
+     "ross_hereford_arms"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes",
+     "john_turner"
+    ],
+    "mentioned_only": [
+     "alice_turner",
+     "charles_mccarthy"
+    ]
+   },
+   {
+    "start": "201",
+    "end": "215",
+    "title": "Turner's confession and the acquittal",
+    "setting": [
+     "ross_hereford_arms"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes",
+     "john_turner"
+    ],
+    "mentioned_only": [
+     "charles_mccarthy",
+     "james_mccarthy",
+     "alice_turner"
+    ]
+   }
+  ],
+  "brief": {
+   "tone": "Cool, misty English countryside melancholy with a tense detective's focus; tragic and quiet rather than lurid, with the sense of a hidden past surfacing.",
+   "depiction_rules": [
+    "Show the murder victim only as a body or unseen; do not depict the blows or the bloodied head in graphic detail.",
+    "Holmes is lean and gaunt in a grey travelling cloak and cloth cap; keep him in the tradition of Sidney Paget's illustrations.",
+    "Show the damp meadow, reed-fringed pool, beech tree and footprints as clues rather than as spectacle.",
+    "Do not depict John Turner's confession as a dramatic flashback; keep him seated and weary in the hotel room.",
+    "Avoid romanticising Turner's Ballarat past; render the gold-convoy robbery only as memory, if at all."
+   ],
+   "era": {
+    "name": "England and Australia in the 1880s, Victorian era",
+    "people": "English country folk, farmers, gamekeepers and gentry in Herefordshire; former gold-diggers and convicts from Victoria, Australia, now settled as landowners and tenants.",
+    "dress": "Victorian tweed suits, long travelling cloaks, dustcoats and leather leggings for the country; the gentry in frock coats; women in dark dresses; Holmes in a grey cloak and cloth cap.",
+    "buildings_and_objects": "Stone and slate farmhouses with lichen-covered walls, a country hotel with a yellow-backed novel and sofa, a lodge, a red-pinnacled Hall, and an 1880s rail network.",
+    "technology": "Railways, telegrams and newspapers exist; no telephones or photography at the scene. Forensic work is done by eye, lens and cigar-ash identification."
+   }
+  }
+ },
+ "usage": {
+  "prompt_tokens": 20033,
+  "completion_tokens": 3986,
+  "total_tokens": 24019,
+  "cost": 0.0039963,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0039963,
+   "upstream_inference_prompt_cost": 0.0020033,
+   "upstream_inference_completions_cost": 0.001993
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

@@ -1,0 +1,233 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-adventure-of-the-beryl-coronet__moments__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354894-vCTPIDrqXGIgYZwgalCM",
+  "seconds": 12.8,
+  "finish_reason": "stop",
+  "prompt_tokens": 19475,
+  "completion_tokens": 2987,
+  "cost": 0.003441,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:21:47"
+ },
+ "system": "You split the story sections of one division of a prose work into moments for an illustration engine, which draws one picture per moment.\n\nThe text comes as numbered paragraphs: each line starts with its id in square brackets and its word count in parentheses, for example `[12] (34w)`. After the text you get the division's story sections, each with its first and last paragraph id.\n\nReturn moments, in order. A moment is a run of consecutive paragraphs that is one beat you can picture: one place, one continuous action or exchange, seen at one instant. Aim for roughly 100 to 400 words per moment, using the word counts given; a moment may be shorter when the beat is a single striking paragraph, and may run past 400 only when one unbroken exchange cannot be cut. Very short paragraphs (lines of dialogue) join their neighbours. Moments tile every section: each paragraph belongs to exactly one moment, moments never cross a section boundary, and together they cover every paragraph of every section with no gaps and no overlaps. Give each moment its first and last paragraph id, the section it lies in (by its first paragraph id), and a one-line summary of what you would see in the picture: who is there, where, doing what. Do not quote the text.",
+ "user_chars": 54690,
+ "content": "{\"moments\":[{\"section_start\":\"the-adventure-of-the-beryl-coronet-s1\",\"start\":\"[1]\",\"end\":\"[2]\",\"summary\":\"Watson and Holmes stand in the bow-window of Baker Street on a snowy February morning, looking down at the street where a distraught man approaches.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s1\",\"start\":\"[3]\",\"end\":\"[7]\",\"summary\":\"The portly, well-dressed man runs wildly along the snowy pavement, flinging his arms and contorting his face, then pounds the Baker Street doorbell.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s1\",\"start\":\"[8]\",\"end\":\"[16]\",\"summary\":\"In the sitting room the distraught visitor beats his head against the wall, and Holmes soothes him into the easy-chair before he gives his name, Alexander Holder of the banking firm.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s2\",\"start\":\"[17]\",\"end\":\"[25]\",\"summary\":\"Holder sits in the room explaining his hurried journey, while the great nobleman's visit to his bank office is recalled as the banker weighs the loan request.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s2\",\"start\":\"[26]\",\"end\":\"[34]\",\"summary\":\"In the bank office the visiting nobleman opens a black morocco case, revealing the Beryl Coronet nestled in flesh-coloured velvet, as Holder examines it.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s2\",\"start\":\"[34]\",\"end\":\"[34]\",\"summary\":\"The nobleman leans across the banker's desk, stressing the coronet's value and urging discretion as he hands it over.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s3\",\"start\":\"[35]\",\"end\":\"[36]\",\"summary\":\"In the bank the cashier counts out fifty thousand pounds in notes while Holder, alone, locks the coronet away and later carries it home in a cab to Streatham.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s3\",\"start\":\"[37]\",\"end\":\"[44]\",\"summary\":\"At the Holder household drawing room after dinner, Holder, Arthur and Mary sit with coffee while the coronet is discussed, the maid Lucy possibly listening at the door.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s4\",\"start\":\"[45]\",\"end\":\"[56]\",\"summary\":\"Arthur pleads for money in the father's bedroom and is refused, then the banker unlocks his bureau to check the coronet before going round the house.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s4\",\"start\":\"[57]\",\"end\":\"[63]\",\"summary\":\"In the dim hall Mary, at the side window, warns her father that the maid came in by the back door, then he kisses her and goes up to bed.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s5\",\"start\":\"[64]\",\"end\":\"[67]\",\"summary\":\"In the dressing-room, the banker finds Arthur in his shirt and trousers beside the gaslight holding the twisted coronet, one gold corner with three beryls missing.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s5\",\"start\":\"[68]\",\"end\":\"[75]\",\"summary\":\"The enraged father shakes his son by the shoulder in the dressing-room while Arthur stands defiant and refuses to explain himself.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s5\",\"start\":\"[76]\",\"end\":\"[80]\",\"summary\":\"Mary faints in the bedroom doorway at the sight of the coronet as the police inspector and constable enter the house and Arthur is taken into custody.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s6\",\"start\":\"[81]\",\"end\":\"[90]\",\"summary\":\"In the Baker Street room the distraught banker rocks in his chair while Holmes, brows knitted, questions him about his household and company.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s6\",\"start\":\"[91]\",\"end\":\"[102]\",\"summary\":\"Holmes questions the banker by the fire about Arthur's guilt, the sounds heard in the night, and the search of the garden.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s6\",\"start\":\"[103]\",\"end\":\"[106]\",\"summary\":\"Holmes lays out the improbable theory of the son's guilt and proposes a visit to Streatham, Watson accompanying them in the cab.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s8\",\"start\":\"[107]\",\"end\":\"[107]\",\"summary\":\"Watson, Holmes and Holder approach Fairbank, the white stone house with snowy carriage-sweep, tradesmen's path and stable lane.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s8\",\"start\":\"[108]\",\"end\":\"[119]\",\"summary\":\"In the dining-room the pale, dark-eyed Mary Holder enters, passes a hand over her uncle's head, and pleads for Arthur's release while Holmes waits.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s9\",\"start\":\"[120]\",\"end\":\"[134]\",\"summary\":\"Holmes questions Mary in the dining-room about the windows, the maid's visit to her sweetheart, and the greengrocer with the wooden leg.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s9\",\"start\":\"[135]\",\"end\":\"[140]\",\"summary\":\"Holmes questions Mary about the wooden-legged man, then walks the hall windows and examines the sill with his lens.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s9\",\"start\":\"[141]\",\"end\":\"[155]\",\"summary\":\"In the dressing-room Holmes opens the bureau, examines the coronet's cracked corner and tries to break it, while Mary and the banker watch.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s10\",\"start\":\"[156]\",\"end\":\"[166]\",\"summary\":\"Holmes leaves the house alone, then returns with snowy feet to tell the banker to call on him in Baker Street next morning.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s11\",\"start\":\"[167]\",\"end\":\"[172]\",\"summary\":\"Holmes changes into a shabby loafer's disguise in the Baker Street sitting room and departs, leaving Watson by the fire.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s11\",\"start\":\"[173]\",\"end\":\"[176]\",\"summary\":\"Holmes returns in good spirits to the sitting room, changes out of his disguise and heads out again; next morning he is fresh at breakfast.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s12\",\"start\":\"[177]\",\"end\":\"[186]\",\"summary\":\"The haggard banker enters the Baker Street room and reads Mary's farewell note, while Holmes reassures him that the matter is nearly resolved.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s12\",\"start\":\"[187]\",\"end\":\"[193]\",\"summary\":\"Holmes writes out the cheque and drops the recovered triangle of gold with three gems onto the table, and the banker clutches it up in joy.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s12\",\"start\":\"[194]\",\"end\":\"[203]\",\"summary\":\"The banker hugs the recovered gems to his chest while Holmes presses him to apologise to his son, then begins to reveal Mary's secret tie to Sir George Burnwell.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s13\",\"start\":\"[204]\",\"end\":\"[208]\",\"summary\":\"Holmes narrates in the Baker Street room how Mary, at the stable-lane window, handed the coronet to Sir George while Arthur watched from behind the curtain.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s13\",\"start\":\"[209]\",\"end\":\"[212]\",\"summary\":\"Holmes describes Arthur chasing the thief into the snowy stable lane and their struggle, while the banker realises his error and regrets his accusation.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s13\",\"start\":\"[213]\",\"end\":\"[219]\",\"summary\":\"Holmes recounts reading the snow tracks, the bloodspots and the wooden-legged greengrocer's footprints, while the banker recalls seeing a ragged vagabond in the lane.\"},{\"section_start\":\"the-adventure-of-the-beryl-coronet-s13\",\"start\":\"[220]\",\"end\":\"[222]\",\"summary\":\"Holmes recounts confronting Sir George with a pistol and buying back the gems, and the banker rises to thank him before they speculate where Mary has gone.\"}]}",
+ "parsed": {
+  "moments": [
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s1",
+    "start": "[1]",
+    "end": "[2]",
+    "summary": "Watson and Holmes stand in the bow-window of Baker Street on a snowy February morning, looking down at the street where a distraught man approaches."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s1",
+    "start": "[3]",
+    "end": "[7]",
+    "summary": "The portly, well-dressed man runs wildly along the snowy pavement, flinging his arms and contorting his face, then pounds the Baker Street doorbell."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s1",
+    "start": "[8]",
+    "end": "[16]",
+    "summary": "In the sitting room the distraught visitor beats his head against the wall, and Holmes soothes him into the easy-chair before he gives his name, Alexander Holder of the banking firm."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s2",
+    "start": "[17]",
+    "end": "[25]",
+    "summary": "Holder sits in the room explaining his hurried journey, while the great nobleman's visit to his bank office is recalled as the banker weighs the loan request."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s2",
+    "start": "[26]",
+    "end": "[34]",
+    "summary": "In the bank office the visiting nobleman opens a black morocco case, revealing the Beryl Coronet nestled in flesh-coloured velvet, as Holder examines it."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s2",
+    "start": "[34]",
+    "end": "[34]",
+    "summary": "The nobleman leans across the banker's desk, stressing the coronet's value and urging discretion as he hands it over."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s3",
+    "start": "[35]",
+    "end": "[36]",
+    "summary": "In the bank the cashier counts out fifty thousand pounds in notes while Holder, alone, locks the coronet away and later carries it home in a cab to Streatham."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s3",
+    "start": "[37]",
+    "end": "[44]",
+    "summary": "At the Holder household drawing room after dinner, Holder, Arthur and Mary sit with coffee while the coronet is discussed, the maid Lucy possibly listening at the door."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s4",
+    "start": "[45]",
+    "end": "[56]",
+    "summary": "Arthur pleads for money in the father's bedroom and is refused, then the banker unlocks his bureau to check the coronet before going round the house."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s4",
+    "start": "[57]",
+    "end": "[63]",
+    "summary": "In the dim hall Mary, at the side window, warns her father that the maid came in by the back door, then he kisses her and goes up to bed."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s5",
+    "start": "[64]",
+    "end": "[67]",
+    "summary": "In the dressing-room, the banker finds Arthur in his shirt and trousers beside the gaslight holding the twisted coronet, one gold corner with three beryls missing."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s5",
+    "start": "[68]",
+    "end": "[75]",
+    "summary": "The enraged father shakes his son by the shoulder in the dressing-room while Arthur stands defiant and refuses to explain himself."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s5",
+    "start": "[76]",
+    "end": "[80]",
+    "summary": "Mary faints in the bedroom doorway at the sight of the coronet as the police inspector and constable enter the house and Arthur is taken into custody."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s6",
+    "start": "[81]",
+    "end": "[90]",
+    "summary": "In the Baker Street room the distraught banker rocks in his chair while Holmes, brows knitted, questions him about his household and company."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s6",
+    "start": "[91]",
+    "end": "[102]",
+    "summary": "Holmes questions the banker by the fire about Arthur's guilt, the sounds heard in the night, and the search of the garden."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s6",
+    "start": "[103]",
+    "end": "[106]",
+    "summary": "Holmes lays out the improbable theory of the son's guilt and proposes a visit to Streatham, Watson accompanying them in the cab."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s8",
+    "start": "[107]",
+    "end": "[107]",
+    "summary": "Watson, Holmes and Holder approach Fairbank, the white stone house with snowy carriage-sweep, tradesmen's path and stable lane."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s8",
+    "start": "[108]",
+    "end": "[119]",
+    "summary": "In the dining-room the pale, dark-eyed Mary Holder enters, passes a hand over her uncle's head, and pleads for Arthur's release while Holmes waits."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s9",
+    "start": "[120]",
+    "end": "[134]",
+    "summary": "Holmes questions Mary in the dining-room about the windows, the maid's visit to her sweetheart, and the greengrocer with the wooden leg."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s9",
+    "start": "[135]",
+    "end": "[140]",
+    "summary": "Holmes questions Mary about the wooden-legged man, then walks the hall windows and examines the sill with his lens."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s9",
+    "start": "[141]",
+    "end": "[155]",
+    "summary": "In the dressing-room Holmes opens the bureau, examines the coronet's cracked corner and tries to break it, while Mary and the banker watch."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s10",
+    "start": "[156]",
+    "end": "[166]",
+    "summary": "Holmes leaves the house alone, then returns with snowy feet to tell the banker to call on him in Baker Street next morning."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s11",
+    "start": "[167]",
+    "end": "[172]",
+    "summary": "Holmes changes into a shabby loafer's disguise in the Baker Street sitting room and departs, leaving Watson by the fire."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s11",
+    "start": "[173]",
+    "end": "[176]",
+    "summary": "Holmes returns in good spirits to the sitting room, changes out of his disguise and heads out again; next morning he is fresh at breakfast."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s12",
+    "start": "[177]",
+    "end": "[186]",
+    "summary": "The haggard banker enters the Baker Street room and reads Mary's farewell note, while Holmes reassures him that the matter is nearly resolved."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s12",
+    "start": "[187]",
+    "end": "[193]",
+    "summary": "Holmes writes out the cheque and drops the recovered triangle of gold with three gems onto the table, and the banker clutches it up in joy."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s12",
+    "start": "[194]",
+    "end": "[203]",
+    "summary": "The banker hugs the recovered gems to his chest while Holmes presses him to apologise to his son, then begins to reveal Mary's secret tie to Sir George Burnwell."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s13",
+    "start": "[204]",
+    "end": "[208]",
+    "summary": "Holmes narrates in the Baker Street room how Mary, at the stable-lane window, handed the coronet to Sir George while Arthur watched from behind the curtain."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s13",
+    "start": "[209]",
+    "end": "[212]",
+    "summary": "Holmes describes Arthur chasing the thief into the snowy stable lane and their struggle, while the banker realises his error and regrets his accusation."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s13",
+    "start": "[213]",
+    "end": "[219]",
+    "summary": "Holmes recounts reading the snow tracks, the bloodspots and the wooden-legged greengrocer's footprints, while the banker recalls seeing a ragged vagabond in the lane."
+   },
+   {
+    "section_start": "the-adventure-of-the-beryl-coronet-s13",
+    "start": "[220]",
+    "end": "[222]",
+    "summary": "Holmes recounts confronting Sir George with a pistol and buying back the gems, and the banker rises to thank him before they speculate where Mary has gone."
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 19475,
+  "completion_tokens": 2987,
+  "total_tokens": 22462,
+  "cost": 0.003441,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.003441,
+   "upstream_inference_prompt_cost": 0.0019475,
+   "upstream_inference_completions_cost": 0.0014935
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

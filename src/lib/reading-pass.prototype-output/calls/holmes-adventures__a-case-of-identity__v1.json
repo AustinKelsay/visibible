@@ -1,0 +1,341 @@
+{
+ "record": {
+  "label": "holmes-adventures__a-case-of-identity__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354402-o3FijiNZwTqC1TkAhYWw",
+  "seconds": 18.5,
+  "finish_reason": "stop",
+  "prompt_tokens": 15471,
+  "completion_tokens": 2676,
+  "cost": 0.0028851,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:13:40"
+ },
+ "system": "You are the reading pass of an illustration engine. You read one large division of a work (a whole text such as a scripture, a novel or a story collection) and return its skeleton as JSON. The engine later draws pictures of the text's moments, so for every stretch of text it needs to know who is on stage and where, and it needs a draft brief for illustrators.\n\nThe text comes as numbered units. Each unit line starts with its id (for example `17:4` or `[12]`). Lines starting with `##` are headings, not units.\n\nReturn:\n\n1. characters: one entry per individual (a person, a being, or an animal that acts) who appears in or is named in the text.\n   - One individual is one entry, even when the text uses different names, titles or descriptions for them. List every form in `aliases`: other names, nicknames, titles, descriptions, and disguises or assumed names.\n   - Different individuals who share a name or a title get separate entries, one each. Never fold two people into one entry because they share a name. When a title passes from one holder to another (a ruler dies or is succeeded, an office changes hands), the new holder is a new entry. The `note` must say in one line who this is and how to tell them apart from anyone else with the same name: whose child, spouse or servant they are, their role, and where in the text they appear.\n   - A disguised, renamed or unnamed person who the text later identifies is the same entry as their named self, with the disguise or description in `aliases`. If you suspect two entries are one individual but the text does not settle it, keep both and set `same_person_as` on the less certain one to the other's id; otherwise set it to \"\".\n   - Skip people who occur only inside a list of names (a genealogy or roster) and never act.\n   - Add a group (an army, a crowd, a household) only when it acts as one on stage, with kind \"group\".\n2. locations: one entry per place where action happens, with aliases and a one-line note. Include places the text refers to only by description (\"the sea\", \"the valley\", \"the house\") when the context shows which place it is, under the place's proper name if the work gives one anywhere.\n3. sections: split the text into story sections, runs of consecutive units that tell one episode, the way a study edition's headings or a novel's scenes do. Start a new section when the time, the place or the main action changes. Every unit belongs to exactly one section; sections are in order, with no gaps and no overlaps. This division has 137 units. Aim for roughly 8 sections (6 to 10), averaging about 18 units each; some sections will be much shorter and some longer. Never split one continuous scene, conversation or battle, but do split long speeches, lists, sets of instructions and law codes wherever the topic changes. Give the ids of each section's first and last unit and a short title. For each section:\n   - setting: ids of the locations where its action happens.\n   - on_stage: ids of every character present in the section's action, whether the section names them or only refers to them by a pronoun, a title or a description, or does not mention them but they are clearly there.\n   - mentioned_only: ids of characters the section names or refers to who are not present.\n4. brief: a draft brief for illustrators, for this division only. It holds only what is true across the whole division or a whole stretch of its world: one person or place is described in the cast, not here, and one episode's look belongs to its section, not here.\n   - tone: one line on the mood the pictures should carry.\n   - depiction_rules: a short list of how certain things in this text may or may not be shown, drawn from the text and from what you know about the work.\n   - era: the stretch of the world this division is set in: a name, its people (who lives there and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist).\n   Keep the brief under 200 words.\n\nUse short, stable snake_case ids (for example `david`, `the_queen`, `main_street`). Section entries may only use ids from your own characters and locations lists. Do not quote the text.",
+ "user_chars": 38610,
+ "content": "{\"characters\":[{\"id\":\"sherlock_holmes\",\"name\":\"Sherlock Holmes\",\"aliases\":[\"Holmes\"],\"note\":\"Consulting detective at Baker Street; narrates through Watson's eyes; the investigator who unmasks the disguise.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"watson\",\"name\":\"Dr. Watson\",\"aliases\":[\"Watson\",\"I\",\"the doctor\"],\"note\":\"Holmes's friend and companion, narrator of the story; a doctor with a busy practice.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mary_sutherland\",\"name\":\"Miss Mary Sutherland\",\"aliases\":[\"the young lady\",\"the maiden\",\"Miss Sutherland\"],\"note\":\"Typewriting young woman, client who seeks Holmes's help about her missing fiancé; daughter of the late plumber.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"hosmer_angel\",\"name\":\"Mr. Hosmer Angel\",\"aliases\":[\"Hosmer\",\"the missing bridegroom\",\"Mr. Angel\",\"the gentleman with tinted glasses\"],\"note\":\"Fiancé who vanished at the church door; actually a disguise adopted by James Windibank. Not a real person in the story.\",\"kind\":\"person\",\"same_person_as\":\"james_windibank\"},{\"id\":\"james_windibank\",\"name\":\"Mr. James Windibank\",\"aliases\":[\"Mr. Windibank\",\"stepfather\",\"the stepfather\",\"father\",\"the travelling wine agent\"],\"note\":\"Mary's stepfather, a traveller for Westhouse & Marbank; secretly disguised as Hosmer Angel; married to Mary's mother.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mrs_sutherland\",\"name\":\"Mary's mother\",\"aliases\":[\"mother\",\"Mrs. Sutherland\"],\"note\":\"Widow who remarried Windibank; encouraged Mary's engagement to Angel and was in on the deception; not on stage.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mr_hardy\",\"name\":\"Mr. Hardy\",\"aliases\":[\"the foreman\"],\"note\":\"Former foreman of Mary's late father's plumbing business; escorted the women to the gasfitters' ball; mentioned only.\",\"kind\":\"person\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"baker_street_lodgings\",\"name\":\"Baker Street lodgings\",\"aliases\":[\"Baker Street\",\"Holmes's rooms\",\"his lodgings\"],\"note\":\"Sherlock Holmes's sitting room at 221B Baker Street, with fireplace, armchairs and chemical apparatus.\"},{\"id\":\"leadenhall_street\",\"name\":\"Leadenhall Street\",\"aliases\":[\"the office in Leadenhall Street\"],\"note\":\"City street where Angel supposedly worked as a cashier and where the letters were addressed; mentioned only.\"},{\"id\":\"st_saviours_church\",\"name\":\"St. Saviour's church, King's Cross\",\"aliases\":[\"the church\",\"St. Saviour's\"],\"note\":\"Church where the wedding was to take place and where Angel vanished; mentioned only.\"},{\"id\":\"lyon_place\",\"name\":\"31 Lyon Place, Camberwell\",\"aliases\":[\"Mary's home\",\"Camberwell\"],\"note\":\"Mary Sutherland's home address; mentioned only.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"11\",\"title\":\"Fireside talk on life and fiction\",\"setting\":[\"baker_street_lodgings\"],\"on_stage\":[\"sherlock_holmes\",\"watson\"],\"mentioned_only\":[]},{\"start\":\"12\",\"end\":\"30\",\"title\":\"Arrival of Miss Sutherland\",\"setting\":[\"baker_street_lodgings\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"mary_sutherland\"],\"mentioned_only\":[\"james_windibank\",\"mrs_sutherland\"]},{\"start\":\"31\",\"end\":\"50\",\"title\":\"Mary's courtship by Hosmer Angel\",\"setting\":[\"baker_street_lodgings\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"mary_sutherland\"],\"mentioned_only\":[\"hosmer_angel\",\"james_windibank\",\"mrs_sutherland\",\"mr_hardy\",\"leadenhall_street\"]},{\"start\":\"51\",\"end\":\"67\",\"title\":\"The wedding morning and the vanished bridegroom\",\"setting\":[\"baker_street_lodgings\",\"st_saviours_church\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"mary_sutherland\"],\"mentioned_only\":[\"hosmer_angel\",\"james_windibank\",\"mrs_sutherland\"]},{\"start\":\"68\",\"end\":\"80\",\"title\":\"Holmes takes the case; Mary departs\",\"setting\":[\"baker_street_lodgings\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"mary_sutherland\"],\"mentioned_only\":[\"hosmer_angel\",\"lyon_place\"]},{\"start\":\"81\",\"end\":\"101\",\"title\":\"Holmes reads the clues; letters sent\",\"setting\":[\"baker_street_lodgings\"],\"on_stage\":[\"sherlock_holmes\",\"watson\"],\"mentioned_only\":[\"hosmer_angel\",\"mary_sutherland\"]},{\"start\":\"102\",\"end\":\"110\",\"title\":\"Windibank arrives\",\"setting\":[\"baker_street_lodgings\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"james_windibank\"],\"mentioned_only\":[\"mary_sutherland\",\"hosmer_angel\"]},{\"start\":\"111\",\"end\":\"130\",\"title\":\"Confrontation and the unmasking\",\"setting\":[\"baker_street_lodgings\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"james_windibank\"],\"mentioned_only\":[\"mary_sutherland\",\"mrs_sutherland\",\"hosmer_angel\"]},{\"start\":\"131\",\"end\":\"137\",\"title\":\"Holmes explains his reasoning\",\"setting\":[\"baker_street_lodgings\"],\"on_stage\":[\"sherlock_holmes\",\"watson\"],\"mentioned_only\":[\"james_windibank\",\"mary_sutherland\",\"hosmer_angel\"]}],\"brief\":{\"tone\":\"Quiet, domestic Victorian detective mystery with an undercurrent of comic deceit and sly irony rather than menace.\",\"depiction_rules\":[\"Holmes is tall, thin, sharp-featured, in a dressing gown or shirt-sleeves in his rooms, with a clay pipe and the gaunt air of a man absorbed in thought.\",\"Watson is a stout-to-average, mustachioed doctor in a frock-coat, seen mostly as an attentive observer.\",\"Mary Sutherland is a broad-faced, good-humoured young woman in a large feathered hat, fur boa and brown dress with purple plush trim; she should look nervous but simple-hearted.\",\"Windibank in disguise (as Angel) wears tinted glasses, bushy black side-whiskers and moustache; unmasked he is clean-shaven, sallow and sharp-eyed.\",\"Do not depict the disguise as anything more than a costume; the fraud is a domestic trick, not violence.\",\"The wedding-day cab and church need only be suggested in the reading room; avoid gore or alarm.\"],\"era\":{\"name\":\"London, 1880s, late Victorian\",\"people\":\"Londoners of the lower middle class: typewriters, clerks, plumbers, wine travellers, cab drivers; women of modest means in wide-brimmed hats and bustles.\",\"dress\":\"Frock-coats, top-hats, high collars and tinted spectacles for men; broad-brimmed feathered hats, fur boas, jet-bead jackets and plush-trimmed dresses for women.\",\"buildings_and_objects\":\"Gaslit Baker Street rooms with a coal fire, hansom cabs and four-wheelers, a St. Saviour's-style church near King's Cross, Leadenhall Street offices, Post Office poste restante, printed newspaper advertisements, chemical glassware and test-tubes.\",\"technology\":\"Typewriters exist and are a new novelty in offices; telegrams and the post are current; no telephone, electric light, or motorcars.\"}}}",
+ "parsed": {
+  "characters": [
+   {
+    "id": "sherlock_holmes",
+    "name": "Sherlock Holmes",
+    "aliases": [
+     "Holmes"
+    ],
+    "note": "Consulting detective at Baker Street; narrates through Watson's eyes; the investigator who unmasks the disguise.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "watson",
+    "name": "Dr. Watson",
+    "aliases": [
+     "Watson",
+     "I",
+     "the doctor"
+    ],
+    "note": "Holmes's friend and companion, narrator of the story; a doctor with a busy practice.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mary_sutherland",
+    "name": "Miss Mary Sutherland",
+    "aliases": [
+     "the young lady",
+     "the maiden",
+     "Miss Sutherland"
+    ],
+    "note": "Typewriting young woman, client who seeks Holmes's help about her missing fiancé; daughter of the late plumber.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "hosmer_angel",
+    "name": "Mr. Hosmer Angel",
+    "aliases": [
+     "Hosmer",
+     "the missing bridegroom",
+     "Mr. Angel",
+     "the gentleman with tinted glasses"
+    ],
+    "note": "Fiancé who vanished at the church door; actually a disguise adopted by James Windibank. Not a real person in the story.",
+    "kind": "person",
+    "same_person_as": "james_windibank"
+   },
+   {
+    "id": "james_windibank",
+    "name": "Mr. James Windibank",
+    "aliases": [
+     "Mr. Windibank",
+     "stepfather",
+     "the stepfather",
+     "father",
+     "the travelling wine agent"
+    ],
+    "note": "Mary's stepfather, a traveller for Westhouse & Marbank; secretly disguised as Hosmer Angel; married to Mary's mother.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mrs_sutherland",
+    "name": "Mary's mother",
+    "aliases": [
+     "mother",
+     "Mrs. Sutherland"
+    ],
+    "note": "Widow who remarried Windibank; encouraged Mary's engagement to Angel and was in on the deception; not on stage.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mr_hardy",
+    "name": "Mr. Hardy",
+    "aliases": [
+     "the foreman"
+    ],
+    "note": "Former foreman of Mary's late father's plumbing business; escorted the women to the gasfitters' ball; mentioned only.",
+    "kind": "person",
+    "same_person_as": ""
+   }
+  ],
+  "locations": [
+   {
+    "id": "baker_street_lodgings",
+    "name": "Baker Street lodgings",
+    "aliases": [
+     "Baker Street",
+     "Holmes's rooms",
+     "his lodgings"
+    ],
+    "note": "Sherlock Holmes's sitting room at 221B Baker Street, with fireplace, armchairs and chemical apparatus."
+   },
+   {
+    "id": "leadenhall_street",
+    "name": "Leadenhall Street",
+    "aliases": [
+     "the office in Leadenhall Street"
+    ],
+    "note": "City street where Angel supposedly worked as a cashier and where the letters were addressed; mentioned only."
+   },
+   {
+    "id": "st_saviours_church",
+    "name": "St. Saviour's church, King's Cross",
+    "aliases": [
+     "the church",
+     "St. Saviour's"
+    ],
+    "note": "Church where the wedding was to take place and where Angel vanished; mentioned only."
+   },
+   {
+    "id": "lyon_place",
+    "name": "31 Lyon Place, Camberwell",
+    "aliases": [
+     "Mary's home",
+     "Camberwell"
+    ],
+    "note": "Mary Sutherland's home address; mentioned only."
+   }
+  ],
+  "sections": [
+   {
+    "start": "1",
+    "end": "11",
+    "title": "Fireside talk on life and fiction",
+    "setting": [
+     "baker_street_lodgings"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "12",
+    "end": "30",
+    "title": "Arrival of Miss Sutherland",
+    "setting": [
+     "baker_street_lodgings"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "mary_sutherland"
+    ],
+    "mentioned_only": [
+     "james_windibank",
+     "mrs_sutherland"
+    ]
+   },
+   {
+    "start": "31",
+    "end": "50",
+    "title": "Mary's courtship by Hosmer Angel",
+    "setting": [
+     "baker_street_lodgings"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "mary_sutherland"
+    ],
+    "mentioned_only": [
+     "hosmer_angel",
+     "james_windibank",
+     "mrs_sutherland",
+     "mr_hardy",
+     "leadenhall_street"
+    ]
+   },
+   {
+    "start": "51",
+    "end": "67",
+    "title": "The wedding morning and the vanished bridegroom",
+    "setting": [
+     "baker_street_lodgings",
+     "st_saviours_church"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "mary_sutherland"
+    ],
+    "mentioned_only": [
+     "hosmer_angel",
+     "james_windibank",
+     "mrs_sutherland"
+    ]
+   },
+   {
+    "start": "68",
+    "end": "80",
+    "title": "Holmes takes the case; Mary departs",
+    "setting": [
+     "baker_street_lodgings"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "mary_sutherland"
+    ],
+    "mentioned_only": [
+     "hosmer_angel",
+     "lyon_place"
+    ]
+   },
+   {
+    "start": "81",
+    "end": "101",
+    "title": "Holmes reads the clues; letters sent",
+    "setting": [
+     "baker_street_lodgings"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "hosmer_angel",
+     "mary_sutherland"
+    ]
+   },
+   {
+    "start": "102",
+    "end": "110",
+    "title": "Windibank arrives",
+    "setting": [
+     "baker_street_lodgings"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "james_windibank"
+    ],
+    "mentioned_only": [
+     "mary_sutherland",
+     "hosmer_angel"
+    ]
+   },
+   {
+    "start": "111",
+    "end": "130",
+    "title": "Confrontation and the unmasking",
+    "setting": [
+     "baker_street_lodgings"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "james_windibank"
+    ],
+    "mentioned_only": [
+     "mary_sutherland",
+     "mrs_sutherland",
+     "hosmer_angel"
+    ]
+   },
+   {
+    "start": "131",
+    "end": "137",
+    "title": "Holmes explains his reasoning",
+    "setting": [
+     "baker_street_lodgings"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "james_windibank",
+     "mary_sutherland",
+     "hosmer_angel"
+    ]
+   }
+  ],
+  "brief": {
+   "tone": "Quiet, domestic Victorian detective mystery with an undercurrent of comic deceit and sly irony rather than menace.",
+   "depiction_rules": [
+    "Holmes is tall, thin, sharp-featured, in a dressing gown or shirt-sleeves in his rooms, with a clay pipe and the gaunt air of a man absorbed in thought.",
+    "Watson is a stout-to-average, mustachioed doctor in a frock-coat, seen mostly as an attentive observer.",
+    "Mary Sutherland is a broad-faced, good-humoured young woman in a large feathered hat, fur boa and brown dress with purple plush trim; she should look nervous but simple-hearted.",
+    "Windibank in disguise (as Angel) wears tinted glasses, bushy black side-whiskers and moustache; unmasked he is clean-shaven, sallow and sharp-eyed.",
+    "Do not depict the disguise as anything more than a costume; the fraud is a domestic trick, not violence.",
+    "The wedding-day cab and church need only be suggested in the reading room; avoid gore or alarm."
+   ],
+   "era": {
+    "name": "London, 1880s, late Victorian",
+    "people": "Londoners of the lower middle class: typewriters, clerks, plumbers, wine travellers, cab drivers; women of modest means in wide-brimmed hats and bustles.",
+    "dress": "Frock-coats, top-hats, high collars and tinted spectacles for men; broad-brimmed feathered hats, fur boas, jet-bead jackets and plush-trimmed dresses for women.",
+    "buildings_and_objects": "Gaslit Baker Street rooms with a coal fire, hansom cabs and four-wheelers, a St. Saviour's-style church near King's Cross, Leadenhall Street offices, Post Office poste restante, printed newspaper advertisements, chemical glassware and test-tubes.",
+    "technology": "Typewriters exist and are a new novelty in offices; telegrams and the post are current; no telephone, electric light, or motorcars."
+   }
+  }
+ },
+ "usage": {
+  "prompt_tokens": 15471,
+  "completion_tokens": 2676,
+  "total_tokens": 18147,
+  "cost": 0.0028851,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0028851,
+   "upstream_inference_prompt_cost": 0.0015471,
+   "upstream_inference_completions_cost": 0.001338
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

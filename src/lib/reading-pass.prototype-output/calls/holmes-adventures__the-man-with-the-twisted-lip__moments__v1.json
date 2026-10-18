@@ -1,0 +1,227 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-man-with-the-twisted-lip__moments__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354881-zg1ailkalcUZI0qnVBKe",
+  "seconds": 13.3,
+  "finish_reason": "stop",
+  "prompt_tokens": 19290,
+  "completion_tokens": 2760,
+  "cost": 0.003309,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:21:34"
+ },
+ "system": "You split the story sections of one division of a prose work into moments for an illustration engine, which draws one picture per moment.\n\nThe text comes as numbered paragraphs: each line starts with its id in square brackets and its word count in parentheses, for example `[12] (34w)`. After the text you get the division's story sections, each with its first and last paragraph id.\n\nReturn moments, in order. A moment is a run of consecutive paragraphs that is one beat you can picture: one place, one continuous action or exchange, seen at one instant. Aim for roughly 100 to 400 words per moment, using the word counts given; a moment may be shorter when the beat is a single striking paragraph, and may run past 400 only when one unbroken exchange cannot be cut. Very short paragraphs (lines of dialogue) join their neighbours. Moments tile every section: each paragraph belongs to exactly one moment, moments never cross a section boundary, and together they cover every paragraph of every section with no gaps and no overlaps. Give each moment its first and last paragraph id, the section it lies in (by its first paragraph id), and a one-line summary of what you would see in the picture: who is there, where, doing what. Do not quote the text.",
+ "user_chars": 52587,
+ "content": "{\"moments\":[{\"section_start\":\"the-man-with-the-twisted-lip-s1\",\"start\":\"[1]\",\"end\":\"[1]\",\"summary\":\"A narrator's study at night, with a pale, hollow-faced opium addict slumped in a chair in memory, lit by lamplight.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s1\",\"start\":\"[2]\",\"end\":\"[6]\",\"summary\":\"In the narrator's sitting room, a doctor and his wife are startled as a veiled, distraught woman bursts in and throws her arms around the wife, sobbing.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s1\",\"start\":\"[7]\",\"end\":\"[13]\",\"summary\":\"The veiled woman, Kate Whitney, weeps in the sitting room while the doctor and his wife listen; the doctor agrees to go alone to the opium den in Upper Swandam Lane and sets out in a hansom.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s2\",\"start\":\"[14]\",\"end\":\"[15]\",\"summary\":\"The narrator descends worn steps into a low, smoke-thick opium den lined with wooden berths, where figures lie in strange poses under dim red pipe glows.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s2\",\"start\":\"[16]\",\"end\":\"[18]\",\"summary\":\"A Malay attendant offers a pipe while the narrator sees Whitney, pale and haggard, peering out from a berth.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s3\",\"start\":\"[19]\",\"end\":\"[27]\",\"summary\":\"Whitney, shaking and tearful, is told the date and urged toward the cab; he sobs and asks to be taken home.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s4\",\"start\":\"[28]\",\"end\":\"[28]\",\"summary\":\"In the den, a stooped old opium smoker whispers; he straightens into Sherlock Holmes, the narrator staring in astonishment at the brazier.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s4\",\"start\":\"[29]\",\"end\":\"[34]\",\"summary\":\"Outside the den, Holmes, now upright and bright-eyed, speaks quietly with the narrator beside a waiting cab in a dark street.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s5\",\"start\":\"[35]\",\"end\":\"[51]\",\"summary\":\"Holmes and the narrator walk away from the den, then climb into a tall dog-cart on the dark street, Holmes taking the reins for Lee.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s6\",\"start\":\"[52]\",\"end\":\"[52]\",\"summary\":\"The dog-cart races across a broad bridge over a murky river under drifting clouds, Holmes silent and brooding beside the narrator.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s6\",\"start\":\"[53]\",\"end\":\"[56]\",\"summary\":\"On the suburban road, Holmes turns to the narrator, preparing to explain the case, as the lights of villages pass.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s7\",\"start\":\"[57]\",\"end\":\"[63]\",\"summary\":\"Holmes recounts the Neville St. Clair story to the narrator as the cart rolls through the night, describing the wife's glimpse of him at the window.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s8\",\"start\":\"[64]\",\"end\":\"[64]\",\"summary\":\"Holmes describes the scarred beggar Hugh Boone with orange hair and twisted lip, sitting cross-legged at a City street corner.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s8\",\"start\":\"[65]\",\"end\":\"[68]\",\"summary\":\"The narrator doubts a crippled man could overpower someone; Holmes replies that compensating strength is plausible, and details the police handling of Boone.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s8\",\"start\":\"[69]\",\"end\":\"[75]\",\"summary\":\"Holmes explains the recovered coat stuffed with pennies and half-pennies, and his theory of how Boone threw it out the window.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s9\",\"start\":\"[76]\",\"end\":\"[79]\",\"summary\":\"The cart passes through the last villages to Lee in Kent, with a villa light among trees and Holmes explaining his lodging.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s9\",\"start\":\"[80]\",\"end\":\"[92]\",\"summary\":\"At the lit door of The Cedars, a small blonde woman in pale gown and pink chiffon leans out anxiously as Holmes shakes his head.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s10\",\"start\":\"[93]\",\"end\":\"[103]\",\"summary\":\"In the lit dining room, Mrs. St. Clair stands before a seated Holmes, asking whether her husband is alive; she then shows him a letter from Neville.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s10\",\"start\":\"[104]\",\"end\":\"[114]\",\"summary\":\"Holmes springs up and examines the Gravesend-postmarked envelope under the lamp, noting the ink and blotting.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s10\",\"start\":\"[115]\",\"end\":\"[128]\",\"summary\":\"Holmes reads the pencilled note and inspects the signet ring as Mrs. St. Clair insists it is her husband's hand.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s10\",\"start\":\"[129]\",\"end\":\"[156]\",\"summary\":\"Holmes questions Mrs. St. Clair closely about the Monday window scene and her husband's clothing, then ends the interview for supper and rest.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s11\",\"start\":\"[157]\",\"end\":\"[157]\",\"summary\":\"Holmes sits cross-legged on a heap of pillows and cushions in a dressing gown, smoking his pipe in a dim lamplit bedroom.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s11\",\"start\":\"[158]\",\"end\":\"[168]\",\"summary\":\"Morning light fills the room; Holmes, smoke-hazed and cheerful, announces he has the key and sends the narrator to dress for an early drive.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s12\",\"start\":\"[169]\",\"end\":\"[175]\",\"summary\":\"The trap races through Londonin the early morning; Holmes greets Inspector Bradstreet at Bow Street and asks to see the prisoner.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s12\",\"start\":\"[176]\",\"end\":\"[190]\",\"summary\":\"In the inspector's office and down a whitewashed corridor, the men peer through a grating at the sleeping prisoner, scarred and red-haired.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s12\",\"start\":\"[191]\",\"end\":\"[197]\",\"summary\":\"Holmes takes a large sponge into the cell and scrubs the prisoner's face, revealing the pale, dark-haired Neville St. Clair beneath the disguise.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s13\",\"start\":\"[198]\",\"end\":\"[205]\",\"summary\":\"The inspector recognises the missing man; Neville, hiding his face, asks what he is charged with while Holmes sits beside him on the couch.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s13\",\"start\":\"[206]\",\"end\":\"[212]\",\"summary\":\"Neville confesses his begging life, his backed bill, and his struggle to give up reporting for coins earned in disguise.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s13\",\"start\":\"[213]\",\"end\":\"[216]\",\"summary\":\"Neville describes how he saw his wife in the street, changed clothes, threw his weighted coat into the Thames, and sent his ring via the Lascar.\"},{\"section_start\":\"the-man-with-the-twisted-lip-s13\",\"start\":\"[217]\",\"end\":\"[222]\",\"summary\":\"Inspector Bradstreet and Holmes agree Neville must stop begging; Holmes ends by saying he reached the answer sitting on pillows, and they plan to drive home for breakfast.\"}]}",
+ "parsed": {
+  "moments": [
+   {
+    "section_start": "the-man-with-the-twisted-lip-s1",
+    "start": "[1]",
+    "end": "[1]",
+    "summary": "A narrator's study at night, with a pale, hollow-faced opium addict slumped in a chair in memory, lit by lamplight."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s1",
+    "start": "[2]",
+    "end": "[6]",
+    "summary": "In the narrator's sitting room, a doctor and his wife are startled as a veiled, distraught woman bursts in and throws her arms around the wife, sobbing."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s1",
+    "start": "[7]",
+    "end": "[13]",
+    "summary": "The veiled woman, Kate Whitney, weeps in the sitting room while the doctor and his wife listen; the doctor agrees to go alone to the opium den in Upper Swandam Lane and sets out in a hansom."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s2",
+    "start": "[14]",
+    "end": "[15]",
+    "summary": "The narrator descends worn steps into a low, smoke-thick opium den lined with wooden berths, where figures lie in strange poses under dim red pipe glows."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s2",
+    "start": "[16]",
+    "end": "[18]",
+    "summary": "A Malay attendant offers a pipe while the narrator sees Whitney, pale and haggard, peering out from a berth."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s3",
+    "start": "[19]",
+    "end": "[27]",
+    "summary": "Whitney, shaking and tearful, is told the date and urged toward the cab; he sobs and asks to be taken home."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s4",
+    "start": "[28]",
+    "end": "[28]",
+    "summary": "In the den, a stooped old opium smoker whispers; he straightens into Sherlock Holmes, the narrator staring in astonishment at the brazier."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s4",
+    "start": "[29]",
+    "end": "[34]",
+    "summary": "Outside the den, Holmes, now upright and bright-eyed, speaks quietly with the narrator beside a waiting cab in a dark street."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s5",
+    "start": "[35]",
+    "end": "[51]",
+    "summary": "Holmes and the narrator walk away from the den, then climb into a tall dog-cart on the dark street, Holmes taking the reins for Lee."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s6",
+    "start": "[52]",
+    "end": "[52]",
+    "summary": "The dog-cart races across a broad bridge over a murky river under drifting clouds, Holmes silent and brooding beside the narrator."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s6",
+    "start": "[53]",
+    "end": "[56]",
+    "summary": "On the suburban road, Holmes turns to the narrator, preparing to explain the case, as the lights of villages pass."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s7",
+    "start": "[57]",
+    "end": "[63]",
+    "summary": "Holmes recounts the Neville St. Clair story to the narrator as the cart rolls through the night, describing the wife's glimpse of him at the window."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s8",
+    "start": "[64]",
+    "end": "[64]",
+    "summary": "Holmes describes the scarred beggar Hugh Boone with orange hair and twisted lip, sitting cross-legged at a City street corner."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s8",
+    "start": "[65]",
+    "end": "[68]",
+    "summary": "The narrator doubts a crippled man could overpower someone; Holmes replies that compensating strength is plausible, and details the police handling of Boone."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s8",
+    "start": "[69]",
+    "end": "[75]",
+    "summary": "Holmes explains the recovered coat stuffed with pennies and half-pennies, and his theory of how Boone threw it out the window."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s9",
+    "start": "[76]",
+    "end": "[79]",
+    "summary": "The cart passes through the last villages to Lee in Kent, with a villa light among trees and Holmes explaining his lodging."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s9",
+    "start": "[80]",
+    "end": "[92]",
+    "summary": "At the lit door of The Cedars, a small blonde woman in pale gown and pink chiffon leans out anxiously as Holmes shakes his head."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s10",
+    "start": "[93]",
+    "end": "[103]",
+    "summary": "In the lit dining room, Mrs. St. Clair stands before a seated Holmes, asking whether her husband is alive; she then shows him a letter from Neville."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s10",
+    "start": "[104]",
+    "end": "[114]",
+    "summary": "Holmes springs up and examines the Gravesend-postmarked envelope under the lamp, noting the ink and blotting."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s10",
+    "start": "[115]",
+    "end": "[128]",
+    "summary": "Holmes reads the pencilled note and inspects the signet ring as Mrs. St. Clair insists it is her husband's hand."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s10",
+    "start": "[129]",
+    "end": "[156]",
+    "summary": "Holmes questions Mrs. St. Clair closely about the Monday window scene and her husband's clothing, then ends the interview for supper and rest."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s11",
+    "start": "[157]",
+    "end": "[157]",
+    "summary": "Holmes sits cross-legged on a heap of pillows and cushions in a dressing gown, smoking his pipe in a dim lamplit bedroom."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s11",
+    "start": "[158]",
+    "end": "[168]",
+    "summary": "Morning light fills the room; Holmes, smoke-hazed and cheerful, announces he has the key and sends the narrator to dress for an early drive."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s12",
+    "start": "[169]",
+    "end": "[175]",
+    "summary": "The trap races through Londonin the early morning; Holmes greets Inspector Bradstreet at Bow Street and asks to see the prisoner."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s12",
+    "start": "[176]",
+    "end": "[190]",
+    "summary": "In the inspector's office and down a whitewashed corridor, the men peer through a grating at the sleeping prisoner, scarred and red-haired."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s12",
+    "start": "[191]",
+    "end": "[197]",
+    "summary": "Holmes takes a large sponge into the cell and scrubs the prisoner's face, revealing the pale, dark-haired Neville St. Clair beneath the disguise."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s13",
+    "start": "[198]",
+    "end": "[205]",
+    "summary": "The inspector recognises the missing man; Neville, hiding his face, asks what he is charged with while Holmes sits beside him on the couch."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s13",
+    "start": "[206]",
+    "end": "[212]",
+    "summary": "Neville confesses his begging life, his backed bill, and his struggle to give up reporting for coins earned in disguise."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s13",
+    "start": "[213]",
+    "end": "[216]",
+    "summary": "Neville describes how he saw his wife in the street, changed clothes, threw his weighted coat into the Thames, and sent his ring via the Lascar."
+   },
+   {
+    "section_start": "the-man-with-the-twisted-lip-s13",
+    "start": "[217]",
+    "end": "[222]",
+    "summary": "Inspector Bradstreet and Holmes agree Neville must stop begging; Holmes ends by saying he reached the answer sitting on pillows, and they plan to drive home for breakfast."
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 19290,
+  "completion_tokens": 2760,
+  "total_tokens": 22050,
+  "cost": 0.003309,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.003309,
+   "upstream_inference_prompt_cost": 0.001929,
+   "upstream_inference_completions_cost": 0.00138
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

@@ -1,0 +1,518 @@
+{
+ "record": {
+  "label": "bible-web__merge-groups-0__main",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792355306-thQDBSjwG8bo23H0vbyD",
+  "seconds": 12.2,
+  "finish_reason": "stop",
+  "prompt_tokens": 8356,
+  "completion_tokens": 3570,
+  "cost": 0.0026206,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:28:38"
+ },
+ "system": "You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key (\"division:id\"), name, kind, aliases, note, and the sections where each appears.\n\nFor each group, split its entries into clusters, one cluster per individual (or per place). The divisions are parts of one work, so the same individual or place appearing in several divisions is one cluster: join entries from different divisions whenever their notes, roles, relations and places agree. Keep entries apart only when they are different individuals: never join entries on a shared name alone when their notes describe different people, and two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of the group must appear in exactly one of its clusters.",
+ "user_chars": 17878,
+ "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Miriam\",\"kind\":\"person\",\"note\":\"Sister of Moses and Aaron, prophetess who leads the song after the sea crossing; the 'sister' watching the basket is the same person, identified only by role.\",\"members\":[\"EXO:miriam\",\"EXO:miriam_as_child\"]}]},{\"group\":1,\"clusters\":[{\"name\":\"Yahweh (God of Israel)\",\"kind\":\"divine\",\"note\":\"The God of Israel in Exodus (burning bush, plagues, law) and in 1 Samuel (Hannah, Samuel, the ark); the same deity across both books.\",\"members\":[\"EXO:the_lord\",\"1SA:yahweh\"]}]},{\"group\":2,\"clusters\":[{\"name\":\"Amalekites\",\"kind\":\"group\",\"note\":\"The people who attack Israel at Rephidim in Exodus and raid Ziklag in 1 Samuel; the same people across both books.\",\"members\":[\"EXO:amalek\",\"1SA:amalekites\"]}]},{\"group\":3,\"clusters\":[{\"name\":\"Hophni\",\"kind\":\"person\",\"note\":\"Wicked son of Eli, priest at Shiloh, killed at Aphek.\",\"members\":[\"1SA:hophni\"]},{\"name\":\"Phinehas (son of Eli)\",\"kind\":\"person\",\"note\":\"Wicked son of Eli, priest at Shiloh, killed at Aphek; the other brother, distinct from Hophni.\",\"members\":[\"1SA:phinehas\"]}]},{\"group\":4,\"clusters\":[{\"name\":\"Jonathan\",\"kind\":\"person\",\"note\":\"Eldest son of Saul, David's covenant friend, who dies on Gilboa.\",\"members\":[\"1SA:jonathan\"]},{\"name\":\"Ishvi\",\"kind\":\"person\",\"note\":\"Son of Saul named only in the genealogy of chapter 14.\",\"members\":[\"1SA:ishvi\"]},{\"name\":\"Malchishua\",\"kind\":\"person\",\"note\":\"Son of Saul killed on Gilboa with Jonathan.\",\"members\":[\"1SA:malchishua\"]}]},{\"group\":5,\"clusters\":[{\"name\":\"Abinadab (son of Jesse)\",\"kind\":\"person\",\"note\":\"Brother of David who passed before Samuel; not the Abinadab of Kiriath Jearim.\",\"members\":[\"1SA:abinadab\"]},{\"name\":\"Shammah\",\"kind\":\"person\",\"note\":\"Brother of David who passed before Samuel and fought with Saul.\",\"members\":[\"1SA:shammah\"]}]},{\"group\":6,\"clusters\":[{\"name\":\"Joel (son of Samuel)\",\"kind\":\"person\",\"note\":\"Eldest son of Samuel, corrupt judge at Beersheba.\",\"members\":[\"1SA:joel\"]},{\"name\":\"Abijah (son of Samuel)\",\"kind\":\"person\",\"note\":\"Second son of Samuel, corrupt judge at Beersheba.\",\"members\":[\"1SA:abijah\"]}]},{\"group\":7,\"clusters\":[{\"name\":\"John the Baptist\",\"kind\":\"person\",\"note\":\"Prophet and baptizer, son of Zacharias, in Luke and John alike; same figure described in both gospels.\",\"members\":[\"LUK:john_the_baptist\",\"JHN:john_the_baptist\"]}]},{\"group\":8,\"clusters\":[{\"name\":\"Mary, mother of Jesus\",\"kind\":\"person\",\"note\":\"Virgin of Nazareth, mother of Jesus, present at Cana and the cross; the mother in both Luke and John.\",\"members\":[\"LUK:mary\",\"JHN:mary_mother_of_jesus\"]},{\"name\":\"Mary Magdalene\",\"kind\":\"person\",\"note\":\"Woman healed of seven demons who witnesses the empty tomb and meets the risen Jesus; the same figure in Luke and John.\",\"members\":[\"LUK:mary_magdalene\",\"JHN:mary_magdalene\"]},{\"name\":\"Mary of Bethany\",\"kind\":\"person\",\"note\":\"Sister of Martha and Lazarus who sits at Jesus' feet and anoints him; the same woman in Luke and John.\",\"members\":[\"LUK:mary_of_bethany\",\"JHN:mary_of_bethany\"]},{\"name\":\"Mary the mother of James\",\"kind\":\"person\",\"note\":\"Woman at the tomb who tells the apostles, named separately in Luke; not the mother of Jesus here.\",\"members\":[\"LUK:mary_the_mother_of_james\"]}]},{\"group\":9,\"clusters\":[{\"name\":\"Joseph, husband of Mary\",\"kind\":\"person\",\"note\":\"Of David's house, betrothed to Mary and foster father of Jesus.\",\"members\":[\"LUK:joseph\"]},{\"name\":\"Joseph of Arimathaea\",\"kind\":\"person\",\"note\":\"Council member who asks Pilate for Jesus' body and buries him; distinct from Mary's husband.\",\"members\":[\"LUK:joseph_of_arimathaea\"]}]},{\"group\":10,\"clusters\":[{\"name\":\"Jesus\",\"kind\":\"person\",\"note\":\"Central figure of both the Gospel of Luke and the Gospel of John, son of Mary/Joseph of Nazareth, crucified and risen.\",\"members\":[\"LUK:jesus\",\"JHN:jesus\"]}]},{\"group\":11,\"clusters\":[{\"name\":\"Pontius Pilate\",\"kind\":\"person\",\"note\":\"Roman governor of Judea who tries Jesus and orders his crucifixion, in both gospels.\",\"members\":[\"LUK:pontius_pilate\",\"JHN:pilate\"]}]},{\"group\":12,\"clusters\":[{\"name\":\"Simon Peter\",\"kind\":\"person\",\"note\":\"Fisherman apostle, brother of Andrew, called Cephas, who denies Jesus three times; the same disciple in Luke and John.\",\"members\":[\"LUK:simon_peter\",\"JHN:simon_peter\"]},{\"name\":\"Simon the Pharisee\",\"kind\":\"person\",\"note\":\"Pharisee who hosts Jesus and is rebuked over the sinful woman; not the disciple.\",\"members\":[\"LUK:simon_the_pharisee\"]}]},{\"group\":13,\"clusters\":[{\"name\":\"Philip the apostle\",\"kind\":\"person\",\"note\":\"Disciple from Bethsaida who brings Nathanael to Jesus and the Greeks to Andrew; one of the twelve, same figure in Luke and John.\",\"members\":[\"LUK:philip_apostle\",\"JHN:philip\"]}]},{\"group\":14,\"clusters\":[{\"name\":\"Andrew\",\"kind\":\"person\",\"note\":\"Brother of Simon Peter, one of the twelve and first to follow Jesus; the same disciple in both gospels.\",\"members\":[\"LUK:andrew\",\"JHN:andrew\"]}]},{\"group\":15,\"clusters\":[{\"name\":\"Thomas\",\"kind\":\"person\",\"note\":\"Disciple called Didymus who doubts the resurrection until he sees Jesus; the same apostle in Luke and John, including the placeholder mention in John 21.\",\"members\":[\"LUK:thomas\",\"JHN:thomas\",\"JHN:thomas_the_second_mention\"]}]},{\"group\":16,\"clusters\":[{\"name\":\"Judas Iscariot\",\"kind\":\"person\",\"note\":\"Disciple who keeps the money box and betrays Jesus; the same traitor in Luke and John.\",\"members\":[\"LUK:judas_iscariot\",\"JHN:judas_iscariot\"]},{\"name\":\"Judas (not Iscariot)\",\"kind\":\"person\",\"note\":\"Disciple who asks at the supper why Jesus will reveal himself only to them; distinct from the traitor.\",\"members\":[\"JHN:judas_not_iscariot\"]}]},{\"group\":17,\"clusters\":[{\"name\":\"Martha\",\"kind\":\"person\",\"note\":\"Sister of Mary and Lazarus who serves Jesus in Bethany; the same woman in Luke and John.\",\"members\":[\"LUK:martha\",\"JHN:martha\"]}]},{\"group\":18,\"clusters\":[{\"name\":\"Lazarus of Bethany\",\"kind\":\"person\",\"note\":\"Brother of Martha and Mary, raised from the tomb in John; sits at table in Bethany.\",\"members\":[\"JHN:lazarus\"]},{\"name\":\"Lazarus the beggar\",\"kind\":\"person\",\"note\":\"Poor beggar at the rich man's gate in the parable of Luke 16; a figure of the parable, not the Bethany man.\",\"members\":[\"LUK:lazarus\"]}]},{\"group\":19,\"clusters\":[{\"name\":\"The nobleman of Capernaum\",\"kind\":\"person\",\"note\":\"Royal official whose son Jesus heals at a distance in John; the nobleman of Luke's parable of the minas is a different figure.\",\"members\":[\"JHN:nobleman\"]},{\"name\":\"The nobleman of the parable of the minas\",\"kind\":\"person\",\"note\":\"Nobleman in Luke's parable who goes to receive a kingdom and returns to reward and punish.\",\"members\":[\"LUK:nobleman_parable\"]}]},{\"group\":20,\"clusters\":[{\"name\":\"Soldiers at the trial and crucifixion (Luke)\",\"kind\":\"group\",\"note\":\"Soldiers in Luke who mock Jesus and divide his garments.\",\"members\":[\"LUK:pilate_soldiers\"]},{\"name\":\"Roman soldiers (John)\",\"kind\":\"group\",\"note\":\"Roman soldiers in John who arrest, flog and crucify Jesus and pierce his side.\",\"members\":[\"JHN:the_soldiers\"]}]},{\"group\":21,\"clusters\":[{\"name\":\"Barabbas\",\"kind\":\"person\",\"note\":\"Prisoner or robber whom the crowd asks Pilate to release instead of Jesus; the same figure in Luke and John.\",\"members\":[\"LUK:barabbas\",\"JHN:barabbas\"]}]},{\"group\":22,\"clusters\":[{\"name\":\"The wilderness of Exodus\",\"kind\":\"place\",\"note\":\"Desert between Egypt and the mountain where Israel is fed with manna and finds water.\",\"members\":[\"EXO:wilderness\"]},{\"name\":\"The wilderness of Luke\",\"kind\":\"place\",\"note\":\"Desert where John grows up and preaches and where Jesus is tempted.\",\"members\":[\"LUK:wilderness\"]}]},{\"group\":23,\"clusters\":[{\"name\":\"Bethlehem Judah (1 Samuel)\",\"kind\":\"place\",\"note\":\"Home of Jesse and David, where Samuel anoints David.\",\"members\":[\"1SA:bethlehem\"]},{\"name\":\"Bethlehem (Luke)\",\"kind\":\"place\",\"note\":\"Town of David where Jesus is born.\",\"members\":[\"LUK:bethlehem\"]}]},{\"group\":24,\"clusters\":[{\"name\":\"Jerusalem\",\"kind\":\"place\",\"note\":\"Holy city and seat of the temple, scene of the feasts, trial and crucifixion in both gospels.\",\"members\":[\"LUK:jerusalem\",\"JHN:jerusalem\"]}]}]}",
+ "parsed": {
+  "groups": [
+   {
+    "group": 0,
+    "clusters": [
+     {
+      "name": "Miriam",
+      "kind": "person",
+      "note": "Sister of Moses and Aaron, prophetess who leads the song after the sea crossing; the 'sister' watching the basket is the same person, identified only by role.",
+      "members": [
+       "EXO:miriam",
+       "EXO:miriam_as_child"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 1,
+    "clusters": [
+     {
+      "name": "Yahweh (God of Israel)",
+      "kind": "divine",
+      "note": "The God of Israel in Exodus (burning bush, plagues, law) and in 1 Samuel (Hannah, Samuel, the ark); the same deity across both books.",
+      "members": [
+       "EXO:the_lord",
+       "1SA:yahweh"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 2,
+    "clusters": [
+     {
+      "name": "Amalekites",
+      "kind": "group",
+      "note": "The people who attack Israel at Rephidim in Exodus and raid Ziklag in 1 Samuel; the same people across both books.",
+      "members": [
+       "EXO:amalek",
+       "1SA:amalekites"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 3,
+    "clusters": [
+     {
+      "name": "Hophni",
+      "kind": "person",
+      "note": "Wicked son of Eli, priest at Shiloh, killed at Aphek.",
+      "members": [
+       "1SA:hophni"
+      ]
+     },
+     {
+      "name": "Phinehas (son of Eli)",
+      "kind": "person",
+      "note": "Wicked son of Eli, priest at Shiloh, killed at Aphek; the other brother, distinct from Hophni.",
+      "members": [
+       "1SA:phinehas"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 4,
+    "clusters": [
+     {
+      "name": "Jonathan",
+      "kind": "person",
+      "note": "Eldest son of Saul, David's covenant friend, who dies on Gilboa.",
+      "members": [
+       "1SA:jonathan"
+      ]
+     },
+     {
+      "name": "Ishvi",
+      "kind": "person",
+      "note": "Son of Saul named only in the genealogy of chapter 14.",
+      "members": [
+       "1SA:ishvi"
+      ]
+     },
+     {
+      "name": "Malchishua",
+      "kind": "person",
+      "note": "Son of Saul killed on Gilboa with Jonathan.",
+      "members": [
+       "1SA:malchishua"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 5,
+    "clusters": [
+     {
+      "name": "Abinadab (son of Jesse)",
+      "kind": "person",
+      "note": "Brother of David who passed before Samuel; not the Abinadab of Kiriath Jearim.",
+      "members": [
+       "1SA:abinadab"
+      ]
+     },
+     {
+      "name": "Shammah",
+      "kind": "person",
+      "note": "Brother of David who passed before Samuel and fought with Saul.",
+      "members": [
+       "1SA:shammah"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 6,
+    "clusters": [
+     {
+      "name": "Joel (son of Samuel)",
+      "kind": "person",
+      "note": "Eldest son of Samuel, corrupt judge at Beersheba.",
+      "members": [
+       "1SA:joel"
+      ]
+     },
+     {
+      "name": "Abijah (son of Samuel)",
+      "kind": "person",
+      "note": "Second son of Samuel, corrupt judge at Beersheba.",
+      "members": [
+       "1SA:abijah"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 7,
+    "clusters": [
+     {
+      "name": "John the Baptist",
+      "kind": "person",
+      "note": "Prophet and baptizer, son of Zacharias, in Luke and John alike; same figure described in both gospels.",
+      "members": [
+       "LUK:john_the_baptist",
+       "JHN:john_the_baptist"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 8,
+    "clusters": [
+     {
+      "name": "Mary, mother of Jesus",
+      "kind": "person",
+      "note": "Virgin of Nazareth, mother of Jesus, present at Cana and the cross; the mother in both Luke and John.",
+      "members": [
+       "LUK:mary",
+       "JHN:mary_mother_of_jesus"
+      ]
+     },
+     {
+      "name": "Mary Magdalene",
+      "kind": "person",
+      "note": "Woman healed of seven demons who witnesses the empty tomb and meets the risen Jesus; the same figure in Luke and John.",
+      "members": [
+       "LUK:mary_magdalene",
+       "JHN:mary_magdalene"
+      ]
+     },
+     {
+      "name": "Mary of Bethany",
+      "kind": "person",
+      "note": "Sister of Martha and Lazarus who sits at Jesus' feet and anoints him; the same woman in Luke and John.",
+      "members": [
+       "LUK:mary_of_bethany",
+       "JHN:mary_of_bethany"
+      ]
+     },
+     {
+      "name": "Mary the mother of James",
+      "kind": "person",
+      "note": "Woman at the tomb who tells the apostles, named separately in Luke; not the mother of Jesus here.",
+      "members": [
+       "LUK:mary_the_mother_of_james"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 9,
+    "clusters": [
+     {
+      "name": "Joseph, husband of Mary",
+      "kind": "person",
+      "note": "Of David's house, betrothed to Mary and foster father of Jesus.",
+      "members": [
+       "LUK:joseph"
+      ]
+     },
+     {
+      "name": "Joseph of Arimathaea",
+      "kind": "person",
+      "note": "Council member who asks Pilate for Jesus' body and buries him; distinct from Mary's husband.",
+      "members": [
+       "LUK:joseph_of_arimathaea"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 10,
+    "clusters": [
+     {
+      "name": "Jesus",
+      "kind": "person",
+      "note": "Central figure of both the Gospel of Luke and the Gospel of John, son of Mary/Joseph of Nazareth, crucified and risen.",
+      "members": [
+       "LUK:jesus",
+       "JHN:jesus"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 11,
+    "clusters": [
+     {
+      "name": "Pontius Pilate",
+      "kind": "person",
+      "note": "Roman governor of Judea who tries Jesus and orders his crucifixion, in both gospels.",
+      "members": [
+       "LUK:pontius_pilate",
+       "JHN:pilate"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 12,
+    "clusters": [
+     {
+      "name": "Simon Peter",
+      "kind": "person",
+      "note": "Fisherman apostle, brother of Andrew, called Cephas, who denies Jesus three times; the same disciple in Luke and John.",
+      "members": [
+       "LUK:simon_peter",
+       "JHN:simon_peter"
+      ]
+     },
+     {
+      "name": "Simon the Pharisee",
+      "kind": "person",
+      "note": "Pharisee who hosts Jesus and is rebuked over the sinful woman; not the disciple.",
+      "members": [
+       "LUK:simon_the_pharisee"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 13,
+    "clusters": [
+     {
+      "name": "Philip the apostle",
+      "kind": "person",
+      "note": "Disciple from Bethsaida who brings Nathanael to Jesus and the Greeks to Andrew; one of the twelve, same figure in Luke and John.",
+      "members": [
+       "LUK:philip_apostle",
+       "JHN:philip"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 14,
+    "clusters": [
+     {
+      "name": "Andrew",
+      "kind": "person",
+      "note": "Brother of Simon Peter, one of the twelve and first to follow Jesus; the same disciple in both gospels.",
+      "members": [
+       "LUK:andrew",
+       "JHN:andrew"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 15,
+    "clusters": [
+     {
+      "name": "Thomas",
+      "kind": "person",
+      "note": "Disciple called Didymus who doubts the resurrection until he sees Jesus; the same apostle in Luke and John, including the placeholder mention in John 21.",
+      "members": [
+       "LUK:thomas",
+       "JHN:thomas",
+       "JHN:thomas_the_second_mention"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 16,
+    "clusters": [
+     {
+      "name": "Judas Iscariot",
+      "kind": "person",
+      "note": "Disciple who keeps the money box and betrays Jesus; the same traitor in Luke and John.",
+      "members": [
+       "LUK:judas_iscariot",
+       "JHN:judas_iscariot"
+      ]
+     },
+     {
+      "name": "Judas (not Iscariot)",
+      "kind": "person",
+      "note": "Disciple who asks at the supper why Jesus will reveal himself only to them; distinct from the traitor.",
+      "members": [
+       "JHN:judas_not_iscariot"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 17,
+    "clusters": [
+     {
+      "name": "Martha",
+      "kind": "person",
+      "note": "Sister of Mary and Lazarus who serves Jesus in Bethany; the same woman in Luke and John.",
+      "members": [
+       "LUK:martha",
+       "JHN:martha"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 18,
+    "clusters": [
+     {
+      "name": "Lazarus of Bethany",
+      "kind": "person",
+      "note": "Brother of Martha and Mary, raised from the tomb in John; sits at table in Bethany.",
+      "members": [
+       "JHN:lazarus"
+      ]
+     },
+     {
+      "name": "Lazarus the beggar",
+      "kind": "person",
+      "note": "Poor beggar at the rich man's gate in the parable of Luke 16; a figure of the parable, not the Bethany man.",
+      "members": [
+       "LUK:lazarus"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 19,
+    "clusters": [
+     {
+      "name": "The nobleman of Capernaum",
+      "kind": "person",
+      "note": "Royal official whose son Jesus heals at a distance in John; the nobleman of Luke's parable of the minas is a different figure.",
+      "members": [
+       "JHN:nobleman"
+      ]
+     },
+     {
+      "name": "The nobleman of the parable of the minas",
+      "kind": "person",
+      "note": "Nobleman in Luke's parable who goes to receive a kingdom and returns to reward and punish.",
+      "members": [
+       "LUK:nobleman_parable"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 20,
+    "clusters": [
+     {
+      "name": "Soldiers at the trial and crucifixion (Luke)",
+      "kind": "group",
+      "note": "Soldiers in Luke who mock Jesus and divide his garments.",
+      "members": [
+       "LUK:pilate_soldiers"
+      ]
+     },
+     {
+      "name": "Roman soldiers (John)",
+      "kind": "group",
+      "note": "Roman soldiers in John who arrest, flog and crucify Jesus and pierce his side.",
+      "members": [
+       "JHN:the_soldiers"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 21,
+    "clusters": [
+     {
+      "name": "Barabbas",
+      "kind": "person",
+      "note": "Prisoner or robber whom the crowd asks Pilate to release instead of Jesus; the same figure in Luke and John.",
+      "members": [
+       "LUK:barabbas",
+       "JHN:barabbas"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 22,
+    "clusters": [
+     {
+      "name": "The wilderness of Exodus",
+      "kind": "place",
+      "note": "Desert between Egypt and the mountain where Israel is fed with manna and finds water.",
+      "members": [
+       "EXO:wilderness"
+      ]
+     },
+     {
+      "name": "The wilderness of Luke",
+      "kind": "place",
+      "note": "Desert where John grows up and preaches and where Jesus is tempted.",
+      "members": [
+       "LUK:wilderness"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 23,
+    "clusters": [
+     {
+      "name": "Bethlehem Judah (1 Samuel)",
+      "kind": "place",
+      "note": "Home of Jesse and David, where Samuel anoints David.",
+      "members": [
+       "1SA:bethlehem"
+      ]
+     },
+     {
+      "name": "Bethlehem (Luke)",
+      "kind": "place",
+      "note": "Town of David where Jesus is born.",
+      "members": [
+       "LUK:bethlehem"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 24,
+    "clusters": [
+     {
+      "name": "Jerusalem",
+      "kind": "place",
+      "note": "Holy city and seat of the temple, scene of the feasts, trial and crucifixion in both gospels.",
+      "members": [
+       "LUK:jerusalem",
+       "JHN:jerusalem"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 8356,
+  "completion_tokens": 3570,
+  "total_tokens": 11926,
+  "cost": 0.0026206,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0026206,
+   "upstream_inference_prompt_cost": 0.0008356,
+   "upstream_inference_completions_cost": 0.001785
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

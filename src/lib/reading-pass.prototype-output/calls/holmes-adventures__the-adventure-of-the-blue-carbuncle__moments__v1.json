@@ -1,0 +1,299 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-adventure-of-the-blue-carbuncle__moments__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354881-8AsCvPO03YKOrSivZors",
+  "seconds": 16.9,
+  "finish_reason": "stop",
+  "prompt_tokens": 17380,
+  "completion_tokens": 4323,
+  "cost": 0.0038995,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:21:38"
+ },
+ "system": "You split the story sections of one division of a prose work into moments for an illustration engine, which draws one picture per moment.\n\nThe text comes as numbered paragraphs: each line starts with its id in square brackets and its word count in parentheses, for example `[12] (34w)`. After the text you get the division's story sections, each with its first and last paragraph id.\n\nReturn moments, in order. A moment is a run of consecutive paragraphs that is one beat you can picture: one place, one continuous action or exchange, seen at one instant. Aim for roughly 100 to 400 words per moment, using the word counts given; a moment may be shorter when the beat is a single striking paragraph, and may run past 400 only when one unbroken exchange cannot be cut. Very short paragraphs (lines of dialogue) join their neighbours. Moments tile every section: each paragraph belongs to exactly one moment, moments never cross a section boundary, and together they cover every paragraph of every section with no gaps and no overlaps. Give each moment its first and last paragraph id, the section it lies in (by its first paragraph id), and a one-line summary of what you would see in the picture: who is there, where, doing what. Do not quote the text.",
+ "user_chars": 45718,
+ "content": "{\"moments\":[{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s1\",\"start\":\"[1]\",\"end\":\"[1]\",\"summary\":\"Watson enters Holmes's sitting room to find him lounging on a sofa in a purple dressing-gown, with a pipe-rack and crumpled newspapers nearby and a battered old hat hanging from a chair, examined with a lens and forceps.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s1\",\"start\":\"[2]\",\"end\":\"[8]\",\"summary\":\"Holmes, seated by the fire, waves Watson toward the armchair as he explains the hat is a trivial matter tied to Peterson the commissionaire, whose name is mentioned as the bearer of the trophy.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s2\",\"start\":\"[9]\",\"end\":\"[11]\",\"summary\":\"Holmes gestures at the battered hat on the chair while Watson looks on, and then recounts Peterson's Christmas morning encounter on Tottenham Court Road, where a stranger dropped a goose and fled.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s2\",\"start\":\"[12]\",\"end\":\"[21]\",\"summary\":\"Holmes and Watson discuss the card on the goose and the initials inside the hat, with the men stood in the room; Holmes explains why the owner was not easily traced and that the hat and goose were brought to him.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s2\",\"start\":\"[22]\",\"end\":\"[28]\",\"summary\":\"Watson turns the hat over with a rueful look, Holmes handing it back and then picking it up with an introspective gaze as he begins to reason aloud about its owner.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s3\",\"start\":\"[29]\",\"end\":\"[30]\",\"summary\":\"Holmes, holding the hat, lists his inferences about the owner's middle age, grizzled hair, and lack of gas lighting as Watson protests in the room.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s3\",\"start\":\"[31]\",\"end\":\"[36]\",\"summary\":\"Holmes puts the hat on his own head, where it settles over his nose, and explains that its size reveals intellect and its age and quality reveal the owner's decline.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s3\",\"start\":\"[37]\",\"end\":\"[40]\",\"summary\":\"Holmes points to the hat-securer and the ink-smeared stains as signs of foresight and self-respect, then examines the lining under the lens for hair-ends and lime-cream.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s3\",\"start\":\"[41]\",\"end\":\"[46]\",\"summary\":\"Holmes deduces the wife's lost affection from the unbrushed hat and the tallow stains, telling Watson of the owner walking upstairs with a candle while Watson sits listening.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s4\",\"start\":\"[47]\",\"end\":\"[48]\",\"summary\":\"Watson remarks that the whole deduction seems a waste of energy with no crime; Holmes opens his mouth to reply as Peterson bursts into the room, flushed and astonished.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s4\",\"start\":\"[49]\",\"end\":\"[51]\",\"summary\":\"Peterson, gasping, holds out his palm to Holmes, who sits up on the sofa, revealing a brilliant blue stone found in the goose's crop.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s4\",\"start\":\"[52]\",\"end\":\"[58]\",\"summary\":\"Holmes sits up with a whistle and identifies the stone as the Countess of Morcar's blue carbuncle, with Peterson sinking into a chair and staring at both men.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s5\",\"start\":\"[59]\",\"end\":\"[62]\",\"summary\":\"Holmes rummages through newspapers and reads aloud the police-court report of the Hotel Cosmopolitan jewel robbery, with Watson listening in the room.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s5\",\"start\":\"[63]\",\"end\":\"[66]\",\"summary\":\"Holmes takes a pencil and slip of paper and composes an advertisement for Henry Baker to claim the goose and hat, explaining its wording to Watson.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s5\",\"start\":\"[67]\",\"end\":\"[70]\",\"summary\":\"Holmes sends Peterson off with the advertisement to the newspapers and asks him to buy a replacement goose, while Holmes keeps the stone.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s6\",\"start\":\"[71]\",\"end\":\"[71]\",\"summary\":\"Holmes holds the blue stone up to the lamplight in his room, describing its sinister history as a carbuncle with a trail of crimes behind it.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s6\",\"start\":\"[72]\",\"end\":\"[78]\",\"summary\":\"Watson asks whether Horner and Baker are innocent, Holmes answers guardedly, and Watson agrees to return at the appointed hour for the evening.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s7\",\"start\":\"[79]\",\"end\":\"[80]\",\"summary\":\"Holmes proposes examining the woodcock's crop; Watson arrives at Baker Street near six-thirty and sees a tall man in a Scotch bonnet waiting in the light from the fanlight.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s7\",\"start\":\"[81]\",\"end\":\"[85]\",\"summary\":\"Holmes greets Henry Baker warmly and seats him by the fire; Baker, a large grizzled man with a pointed beard, confirms the hat is his and explains he did not advertise.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s7\",\"start\":\"[86]\",\"end\":\"[94]\",\"summary\":\"Holmes says they ate the first goose and offers a replacement; Baker accepts the new bird and explains the goose club at the Alpha Inn before bowing and striding off.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s8\",\"start\":\"[95]\",\"end\":\"[98]\",\"summary\":\"Holmes, with Watson, dismisses Baker as innocent and suggests turning dinner into supper to follow the clue while it is hot.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s8\",\"start\":\"[99]\",\"end\":\"[99]\",\"summary\":\"Holmes and Watson walk through the cold street, pulling on ulsters and cravats, their breath steaming in the starlight as they pass the doctors' quarter toward Bloomsbury.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s8\",\"start\":\"[100]\",\"end\":\"[108]\",\"summary\":\"In the private bar of the Alpha Inn, Holmes and Watson drink beer with the ruddy-faced landlord, who admits the geese came from a salesman in Covent Garden.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s9\",\"start\":\"[109]\",\"end\":\"[110]\",\"summary\":\"Holmes tells Watson they must follow the line of investigation to the end, and they cross Holborn and Covent Garden to the Breckinridge stall, where a horsey salesman is helping a boy shutter it.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s9\",\"start\":\"[111]\",\"end\":\"[121]\",\"summary\":\"Holmes greets the salesman at the bare marble slabs and asks about the geese, while the salesman eyes him suspiciously under the gas-flare.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s9\",\"start\":\"[122]\",\"end\":\"[136]\",\"summary\":\"The salesman grows angry and argues with Holmes over whether the geese were country or town bred, the two haggling over a wager at the stall.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s9\",\"start\":\"[137]\",\"end\":\"[149]\",\"summary\":\"The boy brings the ledgers beneath the hanging lamp and the salesman shows Holmes the supplier entries, the greasy ledger open between them.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s9\",\"start\":\"[150]\",\"end\":\"[151]\",\"summary\":\"Holmes throws down a sovereign and turns away chagrined, then laughs under a lamp-post, explaining how he drew the salesman out by a bet.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s9\",\"start\":\"[152]\",\"end\":\"[152]\",\"summary\":\"A loud hubbub erupts at the stall as a rat-faced little man stands in the lamplight while Breckinridge shakes his fists at him.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s10\",\"start\":\"[153]\",\"end\":\"[157]\",\"summary\":\"Breckinridge shouts that he has had enough of the geese and sets his dog at the rat-faced man, who flees into the darkness.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s10\",\"start\":\"[158]\",\"end\":\"[165]\",\"summary\":\"Holmes strides through the market crowd, overtakes the little man, and reveals that he knows of the geese and their path, startling him into a trembling plea.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s10\",\"start\":\"[166]\",\"end\":\"[171]\",\"summary\":\"Holmes hails a four-wheeler and coaxes the man, who gives his name as James Ryder, into the cab for the ride back to Baker Street.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s10\",\"start\":\"[172]\",\"end\":\"[172]\",\"summary\":\"Ryder sits in the basket-chair in the Baker Street sitting room, watched by Holmes, who puts on his slippers and asks about the white goose.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s11\",\"start\":\"[173]\",\"end\":\"[178]\",\"summary\":\"Holmes says the white goose with a barred tail came to him and laid a blue egg after it was dead, offering to show Ryder the bird's remains.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s11\",\"start\":\"[179]\",\"end\":\"[182]\",\"summary\":\"Ryder staggers to his feet and grips the mantelpiece as Holmes holds up the blue carbuncle, which glitters coldly in the lamplight; Holmes steadies him.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s11\",\"start\":\"[183]\",\"end\":\"[184]\",\"summary\":\"Ryder, pale and in the basket-chair, admits Catherine Cusack told him of the stone, while Holmes lays out how he framed Horner for the theft.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s11\",\"start\":\"[185]\",\"end\":\"[187]\",\"summary\":\"Ryder throws himself onto the rug and clutches Holmes's knees, pleading for mercy for his father and mother, while Holmes sternly tells him to get back into his chair.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s11\",\"start\":\"[188]\",\"end\":\"[190]\",\"summary\":\"Holmes demands the truth of how the stone entered the goose, and Ryder begins to recount his flight to his sister's house in Brixton Road.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s11\",\"start\":\"[191]\",\"end\":\"[200]\",\"summary\":\"Ryder describes forcing the stone down the throat of a white barred-tailed goose in the yard while his sister Maggie looks on, and then taking the bird away to Kilburn.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s12\",\"start\":\"[201]\",\"end\":\"[208]\",\"summary\":\"Ryder finds the yard empty, learns the birds went to Breckinridge, and sobs with his face in his hands in the Baker Street room.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s12\",\"start\":\"[209]\",\"end\":\"[213]\",\"summary\":\"After a long silence, Holmes rises and throws open the door, telling Ryder to get out, and the man rushes down the stairs into the street.\"},{\"section_start\":\"the-adventure-of-the-blue-carbuncle-s12\",\"start\":\"[214]\",\"end\":\"[214]\",\"summary\":\"Holmes lights his clay pipe and explains to Watson why he lets Ryder go, then reaches for the bell to begin the next investigation, which will also feature a bird.\"}]}",
+ "parsed": {
+  "moments": [
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s1",
+    "start": "[1]",
+    "end": "[1]",
+    "summary": "Watson enters Holmes's sitting room to find him lounging on a sofa in a purple dressing-gown, with a pipe-rack and crumpled newspapers nearby and a battered old hat hanging from a chair, examined with a lens and forceps."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s1",
+    "start": "[2]",
+    "end": "[8]",
+    "summary": "Holmes, seated by the fire, waves Watson toward the armchair as he explains the hat is a trivial matter tied to Peterson the commissionaire, whose name is mentioned as the bearer of the trophy."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s2",
+    "start": "[9]",
+    "end": "[11]",
+    "summary": "Holmes gestures at the battered hat on the chair while Watson looks on, and then recounts Peterson's Christmas morning encounter on Tottenham Court Road, where a stranger dropped a goose and fled."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s2",
+    "start": "[12]",
+    "end": "[21]",
+    "summary": "Holmes and Watson discuss the card on the goose and the initials inside the hat, with the men stood in the room; Holmes explains why the owner was not easily traced and that the hat and goose were brought to him."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s2",
+    "start": "[22]",
+    "end": "[28]",
+    "summary": "Watson turns the hat over with a rueful look, Holmes handing it back and then picking it up with an introspective gaze as he begins to reason aloud about its owner."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s3",
+    "start": "[29]",
+    "end": "[30]",
+    "summary": "Holmes, holding the hat, lists his inferences about the owner's middle age, grizzled hair, and lack of gas lighting as Watson protests in the room."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s3",
+    "start": "[31]",
+    "end": "[36]",
+    "summary": "Holmes puts the hat on his own head, where it settles over his nose, and explains that its size reveals intellect and its age and quality reveal the owner's decline."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s3",
+    "start": "[37]",
+    "end": "[40]",
+    "summary": "Holmes points to the hat-securer and the ink-smeared stains as signs of foresight and self-respect, then examines the lining under the lens for hair-ends and lime-cream."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s3",
+    "start": "[41]",
+    "end": "[46]",
+    "summary": "Holmes deduces the wife's lost affection from the unbrushed hat and the tallow stains, telling Watson of the owner walking upstairs with a candle while Watson sits listening."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s4",
+    "start": "[47]",
+    "end": "[48]",
+    "summary": "Watson remarks that the whole deduction seems a waste of energy with no crime; Holmes opens his mouth to reply as Peterson bursts into the room, flushed and astonished."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s4",
+    "start": "[49]",
+    "end": "[51]",
+    "summary": "Peterson, gasping, holds out his palm to Holmes, who sits up on the sofa, revealing a brilliant blue stone found in the goose's crop."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s4",
+    "start": "[52]",
+    "end": "[58]",
+    "summary": "Holmes sits up with a whistle and identifies the stone as the Countess of Morcar's blue carbuncle, with Peterson sinking into a chair and staring at both men."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s5",
+    "start": "[59]",
+    "end": "[62]",
+    "summary": "Holmes rummages through newspapers and reads aloud the police-court report of the Hotel Cosmopolitan jewel robbery, with Watson listening in the room."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s5",
+    "start": "[63]",
+    "end": "[66]",
+    "summary": "Holmes takes a pencil and slip of paper and composes an advertisement for Henry Baker to claim the goose and hat, explaining its wording to Watson."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s5",
+    "start": "[67]",
+    "end": "[70]",
+    "summary": "Holmes sends Peterson off with the advertisement to the newspapers and asks him to buy a replacement goose, while Holmes keeps the stone."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s6",
+    "start": "[71]",
+    "end": "[71]",
+    "summary": "Holmes holds the blue stone up to the lamplight in his room, describing its sinister history as a carbuncle with a trail of crimes behind it."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s6",
+    "start": "[72]",
+    "end": "[78]",
+    "summary": "Watson asks whether Horner and Baker are innocent, Holmes answers guardedly, and Watson agrees to return at the appointed hour for the evening."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s7",
+    "start": "[79]",
+    "end": "[80]",
+    "summary": "Holmes proposes examining the woodcock's crop; Watson arrives at Baker Street near six-thirty and sees a tall man in a Scotch bonnet waiting in the light from the fanlight."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s7",
+    "start": "[81]",
+    "end": "[85]",
+    "summary": "Holmes greets Henry Baker warmly and seats him by the fire; Baker, a large grizzled man with a pointed beard, confirms the hat is his and explains he did not advertise."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s7",
+    "start": "[86]",
+    "end": "[94]",
+    "summary": "Holmes says they ate the first goose and offers a replacement; Baker accepts the new bird and explains the goose club at the Alpha Inn before bowing and striding off."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s8",
+    "start": "[95]",
+    "end": "[98]",
+    "summary": "Holmes, with Watson, dismisses Baker as innocent and suggests turning dinner into supper to follow the clue while it is hot."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s8",
+    "start": "[99]",
+    "end": "[99]",
+    "summary": "Holmes and Watson walk through the cold street, pulling on ulsters and cravats, their breath steaming in the starlight as they pass the doctors' quarter toward Bloomsbury."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s8",
+    "start": "[100]",
+    "end": "[108]",
+    "summary": "In the private bar of the Alpha Inn, Holmes and Watson drink beer with the ruddy-faced landlord, who admits the geese came from a salesman in Covent Garden."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s9",
+    "start": "[109]",
+    "end": "[110]",
+    "summary": "Holmes tells Watson they must follow the line of investigation to the end, and they cross Holborn and Covent Garden to the Breckinridge stall, where a horsey salesman is helping a boy shutter it."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s9",
+    "start": "[111]",
+    "end": "[121]",
+    "summary": "Holmes greets the salesman at the bare marble slabs and asks about the geese, while the salesman eyes him suspiciously under the gas-flare."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s9",
+    "start": "[122]",
+    "end": "[136]",
+    "summary": "The salesman grows angry and argues with Holmes over whether the geese were country or town bred, the two haggling over a wager at the stall."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s9",
+    "start": "[137]",
+    "end": "[149]",
+    "summary": "The boy brings the ledgers beneath the hanging lamp and the salesman shows Holmes the supplier entries, the greasy ledger open between them."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s9",
+    "start": "[150]",
+    "end": "[151]",
+    "summary": "Holmes throws down a sovereign and turns away chagrined, then laughs under a lamp-post, explaining how he drew the salesman out by a bet."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s9",
+    "start": "[152]",
+    "end": "[152]",
+    "summary": "A loud hubbub erupts at the stall as a rat-faced little man stands in the lamplight while Breckinridge shakes his fists at him."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s10",
+    "start": "[153]",
+    "end": "[157]",
+    "summary": "Breckinridge shouts that he has had enough of the geese and sets his dog at the rat-faced man, who flees into the darkness."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s10",
+    "start": "[158]",
+    "end": "[165]",
+    "summary": "Holmes strides through the market crowd, overtakes the little man, and reveals that he knows of the geese and their path, startling him into a trembling plea."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s10",
+    "start": "[166]",
+    "end": "[171]",
+    "summary": "Holmes hails a four-wheeler and coaxes the man, who gives his name as James Ryder, into the cab for the ride back to Baker Street."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s10",
+    "start": "[172]",
+    "end": "[172]",
+    "summary": "Ryder sits in the basket-chair in the Baker Street sitting room, watched by Holmes, who puts on his slippers and asks about the white goose."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s11",
+    "start": "[173]",
+    "end": "[178]",
+    "summary": "Holmes says the white goose with a barred tail came to him and laid a blue egg after it was dead, offering to show Ryder the bird's remains."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s11",
+    "start": "[179]",
+    "end": "[182]",
+    "summary": "Ryder staggers to his feet and grips the mantelpiece as Holmes holds up the blue carbuncle, which glitters coldly in the lamplight; Holmes steadies him."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s11",
+    "start": "[183]",
+    "end": "[184]",
+    "summary": "Ryder, pale and in the basket-chair, admits Catherine Cusack told him of the stone, while Holmes lays out how he framed Horner for the theft."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s11",
+    "start": "[185]",
+    "end": "[187]",
+    "summary": "Ryder throws himself onto the rug and clutches Holmes's knees, pleading for mercy for his father and mother, while Holmes sternly tells him to get back into his chair."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s11",
+    "start": "[188]",
+    "end": "[190]",
+    "summary": "Holmes demands the truth of how the stone entered the goose, and Ryder begins to recount his flight to his sister's house in Brixton Road."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s11",
+    "start": "[191]",
+    "end": "[200]",
+    "summary": "Ryder describes forcing the stone down the throat of a white barred-tailed goose in the yard while his sister Maggie looks on, and then taking the bird away to Kilburn."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s12",
+    "start": "[201]",
+    "end": "[208]",
+    "summary": "Ryder finds the yard empty, learns the birds went to Breckinridge, and sobs with his face in his hands in the Baker Street room."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s12",
+    "start": "[209]",
+    "end": "[213]",
+    "summary": "After a long silence, Holmes rises and throws open the door, telling Ryder to get out, and the man rushes down the stairs into the street."
+   },
+   {
+    "section_start": "the-adventure-of-the-blue-carbuncle-s12",
+    "start": "[214]",
+    "end": "[214]",
+    "summary": "Holmes lights his clay pipe and explains to Watson why he lets Ryder go, then reaches for the bell to begin the next investigation, which will also feature a bird."
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 17380,
+  "completion_tokens": 4323,
+  "total_tokens": 21703,
+  "cost": 0.0038995,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0038995,
+   "upstream_inference_prompt_cost": 0.001738,
+   "upstream_inference_completions_cost": 0.0021615
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

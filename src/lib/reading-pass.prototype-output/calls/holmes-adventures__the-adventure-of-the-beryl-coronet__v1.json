@@ -1,0 +1,460 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-adventure-of-the-beryl-coronet__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354457-RFLz76fLkihBrkyxFzra",
+  "seconds": 14.2,
+  "finish_reason": "stop",
+  "prompt_tokens": 19755,
+  "completion_tokens": 3355,
+  "cost": 0.003653,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:31"
+ },
+ "system": "You are the reading pass of an illustration engine. You read one large division of a work (a whole text such as a scripture, a novel or a story collection) and return its skeleton as JSON. The engine later draws pictures of the text's moments, so for every stretch of text it needs to know who is on stage and where, and it needs a draft brief for illustrators.\n\nThe text comes as numbered units. Each unit line starts with its id (for example `17:4` or `[12]`). Lines starting with `##` are headings, not units.\n\nReturn:\n\n1. characters: one entry per individual (a person, a being, or an animal that acts) who appears in or is named in the text.\n   - One individual is one entry, even when the text uses different names, titles or descriptions for them. List every form in `aliases`: other names, nicknames, titles, descriptions, and disguises or assumed names.\n   - Different individuals who share a name or a title get separate entries, one each. Never fold two people into one entry because they share a name. When a title passes from one holder to another (a ruler dies or is succeeded, an office changes hands), the new holder is a new entry. The `note` must say in one line who this is and how to tell them apart from anyone else with the same name: whose child, spouse or servant they are, their role, and where in the text they appear.\n   - A disguised, renamed or unnamed person who the text later identifies is the same entry as their named self, with the disguise or description in `aliases`. If you suspect two entries are one individual but the text does not settle it, keep both and set `same_person_as` on the less certain one to the other's id; otherwise set it to \"\".\n   - Skip people who occur only inside a list of names (a genealogy or roster) and never act.\n   - Add a group (an army, a crowd, a household) only when it acts as one on stage, with kind \"group\".\n2. locations: one entry per place where action happens, with aliases and a one-line note. Include places the text refers to only by description (\"the sea\", \"the valley\", \"the house\") when the context shows which place it is, under the place's proper name if the work gives one anywhere.\n3. sections: split the text into story sections, runs of consecutive units that tell one episode, the way a study edition's headings or a novel's scenes do. Start a new section when the time, the place or the main action changes. Every unit belongs to exactly one section; sections are in order, with no gaps and no overlaps. This division has 222 units. Aim for roughly 12 sections (10 to 14), averaging about 18 units each; some sections will be much shorter and some longer. Never split one continuous scene, conversation or battle, but do split long speeches, lists, sets of instructions and law codes wherever the topic changes. Give the ids of each section's first and last unit and a short title. For each section:\n   - setting: ids of the locations where its action happens.\n   - on_stage: ids of every character present in the section's action, whether the section names them or only refers to them by a pronoun, a title or a description, or does not mention them but they are clearly there.\n   - mentioned_only: ids of characters the section names or refers to who are not present.\n4. brief: a draft brief for illustrators, for this division only. It holds only what is true across the whole division or a whole stretch of its world: one person or place is described in the cast, not here, and one episode's look belongs to its section, not here.\n   - tone: one line on the mood the pictures should carry.\n   - depiction_rules: a short list of how certain things in this text may or may not be shown, drawn from the text and from what you know about the work.\n   - era: the stretch of the world this division is set in: a name, its people (who lives there and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist).\n   Keep the brief under 200 words.\n\nUse short, stable snake_case ids (for example `david`, `the_queen`, `main_street`). Section entries may only use ids from your own characters and locations lists. Do not quote the text.",
+ "user_chars": 52083,
+ "content": "{\"characters\":[{\"id\":\"holmes\",\"name\":\"Sherlock Holmes\",\"aliases\":[\"Holmes\",\"my friend\",\"the consulting detective\"],\"note\":\"Consulting detective living in Baker Street with Watson; investigates the coronet theft and recovers the gems.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"watson\",\"name\":\"Watson\",\"aliases\":[\"I\",\"the narrator\"],\"note\":\"Narrator and Holmes's companion in Baker Street; accompanies Holmes to Fairbank; not named in the text.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"alexander_holder\",\"name\":\"Alexander Holder\",\"aliases\":[\"Mr. Holder\",\"our client\",\"the banker\",\"dad\",\"uncle\"],\"note\":\"Senior partner of the banking firm Holder & Stevenson in Threadneedle Street; father of Arthur and uncle of Mary; lives at Fairbank, Streatham.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"arthur_holder\",\"name\":\"Arthur Holder\",\"aliases\":[\"Arthur\",\"the boy\",\"my boy\",\"the lad\",\"my son\"],\"note\":\"Son of Alexander Holder; wild young man suspected of theft; in love with his cousin Mary; innocent.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mary_holder\",\"name\":\"Mary Holder\",\"aliases\":[\"Mary\",\"Miss Holder\",\"my little Mary\",\"my niece\",\"the young lady\"],\"note\":\"Niece and adopted daughter of Alexander Holder, aged twenty-four; secretly took the coronet to her lover Sir George Burnwell and then fled with him.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"sir_george_burnwell\",\"name\":\"Sir George Burnwell\",\"aliases\":[\"Sir George\",\"Boots\",\"the man in the lane\",\"Arthur's friend\"],\"note\":\"Older aristocratic gambler and Arthur's friend; Mary's lover; took three beryls from the coronet and fled with Mary.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"the_client_nobleman\",\"name\":\"The illustrious client\",\"aliases\":[\"the nobleman\",\"the great personage\",\"my client\"],\"note\":\"Unnamed very high-ranking person who deposited the Beryl Coronet with Alexander Holder as security for a £50,000 loan; does not appear on stage.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"lucy_parr\",\"name\":\"Lucy Parr\",\"aliases\":[\"Lucy\",\"the second waiting-maid\",\"the maid\"],\"note\":\"Second waiting-maid at Fairbank who has a sweetheart, the wooden-legged greengrocer; hints of her outing are part of the story.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"francis_prosper\",\"name\":\"Francis Prosper\",\"aliases\":[\"Wooden-leg\",\"the greengrocer\"],\"note\":\"Greengrocer with a wooden leg who brings vegetables to Fairbank and is Lucy Parr's sweetheart.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"inspector\",\"name\":\"The police inspector\",\"aliases\":[\"the inspector\",\"the constable\"],\"note\":\"Police inspector who arrests Arthur and conducts the search at Fairbank; not named.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"receiver_of_stolen_goods\",\"name\":\"The receiver\",\"aliases\":[\"the receiver\"],\"note\":\"Dealer who bought the three stolen beryls from Sir George Burnwell; off-stage.\",\"kind\":\"person\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"baker_street_rooms\",\"name\":\"Baker Street rooms\",\"aliases\":[\"our rooms\",\"Baker Street\",\"our room\",\"the bow-window\"],\"note\":\"Holmes and Watson's lodgings in Baker Street, London, with a bow-window overlooking the street.\"},{\"id\":\"fairbank\",\"name\":\"Fairbank\",\"aliases\":[\"the house\",\"Streatham house\"],\"note\":\"Alexander Holder's modest square white stone house in Streatham, with dining-room, hall, dressing-room, garden and tradesmen's path.\"},{\"id\":\"threadneedle_street_bank\",\"name\":\"Holder & Stevenson bank\",\"aliases\":[\"the bank\",\"my office\",\"Threadneedle Street office\"],\"note\":\"Banking firm's office in Threadneedle Street, City of London, where the coronet was deposited.\"},{\"id\":\"stable_lane\",\"name\":\"Stable lane\",\"aliases\":[\"the lane\",\"the back lane\"],\"note\":\"Public lane behind Fairbank's garden where Sir George Burnwell waited and the struggle took place.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"16\",\"title\":\"A distressed visitor arrives at Baker Street\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"holmes\",\"watson\",\"alexander_holder\"],\"mentioned_only\":[]},{\"start\":\"17\",\"end\":\"34\",\"title\":\"The banker's account of the loan and the coronet\",\"setting\":[\"baker_street_rooms\",\"threadneedle_street_bank\"],\"on_stage\":[\"holmes\",\"watson\",\"alexander_holder\"],\"mentioned_only\":[\"the_client_nobleman\"]},{\"start\":\"35\",\"end\":\"44\",\"title\":\"The coronet taken home to Streatham\",\"setting\":[\"threadneedle_street_bank\",\"fairbank\"],\"on_stage\":[\"alexander_holder\"],\"mentioned_only\":[\"the_client_nobleman\"]},{\"start\":\"45\",\"end\":\"63\",\"title\":\"Household details and the night's warnings\",\"setting\":[\"fairbank\"],\"on_stage\":[\"alexander_holder\",\"arthur_holder\",\"mary_holder\"],\"mentioned_only\":[\"lucy_parr\",\"sir_george_burnwell\"]},{\"start\":\"64\",\"end\":\"80\",\"title\":\"Discovery of Arthur with the coronet\",\"setting\":[\"fairbank\"],\"on_stage\":[\"alexander_holder\",\"arthur_holder\",\"mary_holder\",\"inspector\"],\"mentioned_only\":[]},{\"start\":\"81\",\"end\":\"98\",\"title\":\"Questioning the banker at Baker Street\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"holmes\",\"watson\",\"alexander_holder\"],\"mentioned_only\":[\"arthur_holder\"]},{\"start\":\"99\",\"end\":\"106\",\"title\":\"Plan to visit Streatham\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"holmes\",\"watson\",\"alexander_holder\"],\"mentioned_only\":[]},{\"start\":\"107\",\"end\":\"119\",\"title\":\"Arrival at Fairbank and meeting Mary\",\"setting\":[\"fairbank\"],\"on_stage\":[\"holmes\",\"watson\",\"alexander_holder\",\"mary_holder\"],\"mentioned_only\":[\"arthur_holder\"]},{\"start\":\"120\",\"end\":\"146\",\"title\":\"Questions to Mary and the coronet examined\",\"setting\":[\"fairbank\"],\"on_stage\":[\"holmes\",\"watson\",\"alexander_holder\",\"mary_holder\"],\"mentioned_only\":[\"lucy_parr\",\"francis_prosper\",\"arthur_holder\"]},{\"start\":\"147\",\"end\":\"166\",\"title\":\"Holmes examines the grounds and departs\",\"setting\":[\"fairbank\",\"stable_lane\"],\"on_stage\":[\"holmes\",\"watson\",\"alexander_holder\",\"mary_holder\"],\"mentioned_only\":[\"arthur_holder\"]},{\"start\":\"167\",\"end\":\"176\",\"title\":\"Holmes disguised and sets out\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"holmes\",\"watson\"],\"mentioned_only\":[\"sir_george_burnwell\"]},{\"start\":\"177\",\"end\":\"203\",\"title\":\"Mary's flight and the recovered gem\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"holmes\",\"watson\",\"alexander_holder\"],\"mentioned_only\":[\"mary_holder\",\"sir_george_burnwell\",\"arthur_holder\"]},{\"start\":\"204\",\"end\":\"222\",\"title\":\"Holmes explains the solution\",\"setting\":[\"baker_street_rooms\",\"stable_lane\",\"fairbank\"],\"on_stage\":[\"holmes\",\"watson\",\"alexander_holder\"],\"mentioned_only\":[\"arthur_holder\",\"mary_holder\",\"sir_george_burnwell\",\"lucy_parr\",\"francis_prosper\",\"the_client_nobleman\",\"receiver_of_stolen_goods\"]}],\"brief\":{\"tone\":\"Winter gloom and a tense, quietly intense domestic crisis, with the cold February light and snowy streets underscoring grief, suspicion, and a slow return to hope.\",\"depiction_rules\":[\"Show Holmes as lean, sharp-eyed and dressing-gowned indoors; disguised as a shabby loafer in a worn coat and cravat when out.\",\"Do not show the coronet's ruined gold corner in close, gory detail; the stolen beryls are gems in a triangular gold piece.\",\"Sir George Burnwell's identity is revealed late; he may be shown only obliquely (boots, figure in the lane) before the explanation.\",\"Arthur appears barefoot in shirt and trousers during the night scene; keep the mood restrained rather than melodramatic.\",\"Mary is pale and dark-haired, with a composed, self-restrained bearing.\"],\"era\":{\"name\":\"Late Victorian London and Streatham, c. 1880s\",\"people\":\"Upper-middle-class London bankers and their families, aristocratic gamblers, servants and tradesmen, and a crowd of City clerks and cabmen.\",\"dress\":\"Frock-coats, shining top hats, gaiters and pearl-grey trousers for gentlemen; dark-coloured dresses and shawls for ladies; servants in plain uniforms; Holmes's disguise of a worn coat and red cravat.\",\"buildings_and_objects\":\"Brick and white-stone townhouses, a bow-window in Baker Street, a bank with private safes and bureaus, gas lighting, an iron-gated carriage drive, a lumber-room cupboard, and a jeweller's coronet of thirty-nine beryls.\",\"technology\":\"Gas lamps and the Metropolitan underground railway; hansom cabs; no telephone; handwritten notes and cheques; magnifying lenses and plaster-of-paris-era detection; no electric light.\"}}}",
+ "parsed": {
+  "characters": [
+   {
+    "id": "holmes",
+    "name": "Sherlock Holmes",
+    "aliases": [
+     "Holmes",
+     "my friend",
+     "the consulting detective"
+    ],
+    "note": "Consulting detective living in Baker Street with Watson; investigates the coronet theft and recovers the gems.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "watson",
+    "name": "Watson",
+    "aliases": [
+     "I",
+     "the narrator"
+    ],
+    "note": "Narrator and Holmes's companion in Baker Street; accompanies Holmes to Fairbank; not named in the text.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "alexander_holder",
+    "name": "Alexander Holder",
+    "aliases": [
+     "Mr. Holder",
+     "our client",
+     "the banker",
+     "dad",
+     "uncle"
+    ],
+    "note": "Senior partner of the banking firm Holder & Stevenson in Threadneedle Street; father of Arthur and uncle of Mary; lives at Fairbank, Streatham.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "arthur_holder",
+    "name": "Arthur Holder",
+    "aliases": [
+     "Arthur",
+     "the boy",
+     "my boy",
+     "the lad",
+     "my son"
+    ],
+    "note": "Son of Alexander Holder; wild young man suspected of theft; in love with his cousin Mary; innocent.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mary_holder",
+    "name": "Mary Holder",
+    "aliases": [
+     "Mary",
+     "Miss Holder",
+     "my little Mary",
+     "my niece",
+     "the young lady"
+    ],
+    "note": "Niece and adopted daughter of Alexander Holder, aged twenty-four; secretly took the coronet to her lover Sir George Burnwell and then fled with him.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "sir_george_burnwell",
+    "name": "Sir George Burnwell",
+    "aliases": [
+     "Sir George",
+     "Boots",
+     "the man in the lane",
+     "Arthur's friend"
+    ],
+    "note": "Older aristocratic gambler and Arthur's friend; Mary's lover; took three beryls from the coronet and fled with Mary.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "the_client_nobleman",
+    "name": "The illustrious client",
+    "aliases": [
+     "the nobleman",
+     "the great personage",
+     "my client"
+    ],
+    "note": "Unnamed very high-ranking person who deposited the Beryl Coronet with Alexander Holder as security for a £50,000 loan; does not appear on stage.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "lucy_parr",
+    "name": "Lucy Parr",
+    "aliases": [
+     "Lucy",
+     "the second waiting-maid",
+     "the maid"
+    ],
+    "note": "Second waiting-maid at Fairbank who has a sweetheart, the wooden-legged greengrocer; hints of her outing are part of the story.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "francis_prosper",
+    "name": "Francis Prosper",
+    "aliases": [
+     "Wooden-leg",
+     "the greengrocer"
+    ],
+    "note": "Greengrocer with a wooden leg who brings vegetables to Fairbank and is Lucy Parr's sweetheart.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "inspector",
+    "name": "The police inspector",
+    "aliases": [
+     "the inspector",
+     "the constable"
+    ],
+    "note": "Police inspector who arrests Arthur and conducts the search at Fairbank; not named.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "receiver_of_stolen_goods",
+    "name": "The receiver",
+    "aliases": [
+     "the receiver"
+    ],
+    "note": "Dealer who bought the three stolen beryls from Sir George Burnwell; off-stage.",
+    "kind": "person",
+    "same_person_as": ""
+   }
+  ],
+  "locations": [
+   {
+    "id": "baker_street_rooms",
+    "name": "Baker Street rooms",
+    "aliases": [
+     "our rooms",
+     "Baker Street",
+     "our room",
+     "the bow-window"
+    ],
+    "note": "Holmes and Watson's lodgings in Baker Street, London, with a bow-window overlooking the street."
+   },
+   {
+    "id": "fairbank",
+    "name": "Fairbank",
+    "aliases": [
+     "the house",
+     "Streatham house"
+    ],
+    "note": "Alexander Holder's modest square white stone house in Streatham, with dining-room, hall, dressing-room, garden and tradesmen's path."
+   },
+   {
+    "id": "threadneedle_street_bank",
+    "name": "Holder & Stevenson bank",
+    "aliases": [
+     "the bank",
+     "my office",
+     "Threadneedle Street office"
+    ],
+    "note": "Banking firm's office in Threadneedle Street, City of London, where the coronet was deposited."
+   },
+   {
+    "id": "stable_lane",
+    "name": "Stable lane",
+    "aliases": [
+     "the lane",
+     "the back lane"
+    ],
+    "note": "Public lane behind Fairbank's garden where Sir George Burnwell waited and the struggle took place."
+   }
+  ],
+  "sections": [
+   {
+    "start": "1",
+    "end": "16",
+    "title": "A distressed visitor arrives at Baker Street",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "alexander_holder"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "17",
+    "end": "34",
+    "title": "The banker's account of the loan and the coronet",
+    "setting": [
+     "baker_street_rooms",
+     "threadneedle_street_bank"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "alexander_holder"
+    ],
+    "mentioned_only": [
+     "the_client_nobleman"
+    ]
+   },
+   {
+    "start": "35",
+    "end": "44",
+    "title": "The coronet taken home to Streatham",
+    "setting": [
+     "threadneedle_street_bank",
+     "fairbank"
+    ],
+    "on_stage": [
+     "alexander_holder"
+    ],
+    "mentioned_only": [
+     "the_client_nobleman"
+    ]
+   },
+   {
+    "start": "45",
+    "end": "63",
+    "title": "Household details and the night's warnings",
+    "setting": [
+     "fairbank"
+    ],
+    "on_stage": [
+     "alexander_holder",
+     "arthur_holder",
+     "mary_holder"
+    ],
+    "mentioned_only": [
+     "lucy_parr",
+     "sir_george_burnwell"
+    ]
+   },
+   {
+    "start": "64",
+    "end": "80",
+    "title": "Discovery of Arthur with the coronet",
+    "setting": [
+     "fairbank"
+    ],
+    "on_stage": [
+     "alexander_holder",
+     "arthur_holder",
+     "mary_holder",
+     "inspector"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "81",
+    "end": "98",
+    "title": "Questioning the banker at Baker Street",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "alexander_holder"
+    ],
+    "mentioned_only": [
+     "arthur_holder"
+    ]
+   },
+   {
+    "start": "99",
+    "end": "106",
+    "title": "Plan to visit Streatham",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "alexander_holder"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "107",
+    "end": "119",
+    "title": "Arrival at Fairbank and meeting Mary",
+    "setting": [
+     "fairbank"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "alexander_holder",
+     "mary_holder"
+    ],
+    "mentioned_only": [
+     "arthur_holder"
+    ]
+   },
+   {
+    "start": "120",
+    "end": "146",
+    "title": "Questions to Mary and the coronet examined",
+    "setting": [
+     "fairbank"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "alexander_holder",
+     "mary_holder"
+    ],
+    "mentioned_only": [
+     "lucy_parr",
+     "francis_prosper",
+     "arthur_holder"
+    ]
+   },
+   {
+    "start": "147",
+    "end": "166",
+    "title": "Holmes examines the grounds and departs",
+    "setting": [
+     "fairbank",
+     "stable_lane"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "alexander_holder",
+     "mary_holder"
+    ],
+    "mentioned_only": [
+     "arthur_holder"
+    ]
+   },
+   {
+    "start": "167",
+    "end": "176",
+    "title": "Holmes disguised and sets out",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "sir_george_burnwell"
+    ]
+   },
+   {
+    "start": "177",
+    "end": "203",
+    "title": "Mary's flight and the recovered gem",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "alexander_holder"
+    ],
+    "mentioned_only": [
+     "mary_holder",
+     "sir_george_burnwell",
+     "arthur_holder"
+    ]
+   },
+   {
+    "start": "204",
+    "end": "222",
+    "title": "Holmes explains the solution",
+    "setting": [
+     "baker_street_rooms",
+     "stable_lane",
+     "fairbank"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "alexander_holder"
+    ],
+    "mentioned_only": [
+     "arthur_holder",
+     "mary_holder",
+     "sir_george_burnwell",
+     "lucy_parr",
+     "francis_prosper",
+     "the_client_nobleman",
+     "receiver_of_stolen_goods"
+    ]
+   }
+  ],
+  "brief": {
+   "tone": "Winter gloom and a tense, quietly intense domestic crisis, with the cold February light and snowy streets underscoring grief, suspicion, and a slow return to hope.",
+   "depiction_rules": [
+    "Show Holmes as lean, sharp-eyed and dressing-gowned indoors; disguised as a shabby loafer in a worn coat and cravat when out.",
+    "Do not show the coronet's ruined gold corner in close, gory detail; the stolen beryls are gems in a triangular gold piece.",
+    "Sir George Burnwell's identity is revealed late; he may be shown only obliquely (boots, figure in the lane) before the explanation.",
+    "Arthur appears barefoot in shirt and trousers during the night scene; keep the mood restrained rather than melodramatic.",
+    "Mary is pale and dark-haired, with a composed, self-restrained bearing."
+   ],
+   "era": {
+    "name": "Late Victorian London and Streatham, c. 1880s",
+    "people": "Upper-middle-class London bankers and their families, aristocratic gamblers, servants and tradesmen, and a crowd of City clerks and cabmen.",
+    "dress": "Frock-coats, shining top hats, gaiters and pearl-grey trousers for gentlemen; dark-coloured dresses and shawls for ladies; servants in plain uniforms; Holmes's disguise of a worn coat and red cravat.",
+    "buildings_and_objects": "Brick and white-stone townhouses, a bow-window in Baker Street, a bank with private safes and bureaus, gas lighting, an iron-gated carriage drive, a lumber-room cupboard, and a jeweller's coronet of thirty-nine beryls.",
+    "technology": "Gas lamps and the Metropolitan underground railway; hansom cabs; no telephone; handwritten notes and cheques; magnifying lenses and plaster-of-paris-era detection; no electric light."
+   }
+  }
+ },
+ "usage": {
+  "prompt_tokens": 19755,
+  "completion_tokens": 3355,
+  "total_tokens": 23110,
+  "cost": 0.003653,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.003653,
+   "upstream_inference_prompt_cost": 0.0019755,
+   "upstream_inference_completions_cost": 0.0016775
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

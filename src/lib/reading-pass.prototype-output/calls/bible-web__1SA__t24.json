@@ -1,0 +1,1567 @@
+{
+ "record": {
+  "label": "bible-web__1SA__t24",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792355126-J4sHFqJ2Bc0mCAPYVd05",
+  "seconds": 38.1,
+  "finish_reason": "stop",
+  "prompt_tokens": 48473,
+  "completion_tokens": 10426,
+  "cost": 0.0100603,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:26:04"
+ },
+ "system": "You are the reading pass of an illustration engine. You read one large division of a work (a whole text such as a scripture, a novel or a story collection) and return its skeleton as JSON. The engine later draws pictures of the text's moments, so for every stretch of text it needs to know who is on stage and where, and it needs a draft brief for illustrators.\n\nThe text comes as numbered units. Each unit line starts with its id (for example `17:4` or `[12]`). Lines starting with `##` are headings, not units.\n\nReturn:\n\n1. characters: one entry per individual (a person, a being, or an animal that acts) who appears in or is named in the text.\n   - One individual is one entry, even when the text uses different names, titles or descriptions for them. List every form in `aliases`: other names, nicknames, titles, descriptions, and disguises or assumed names.\n   - Different individuals who share a name or a title get separate entries, one each. Never fold two people into one entry because they share a name. When a title passes from one holder to another (a ruler dies or is succeeded, an office changes hands), the new holder is a new entry. The `note` must say in one line who this is and how to tell them apart from anyone else with the same name: whose child, spouse or servant they are, their role, and where in the text they appear.\n   - A disguised, renamed or unnamed person who the text later identifies is the same entry as their named self, with the disguise or description in `aliases`. If you suspect two entries are one individual but the text does not settle it, keep both and set `same_person_as` on the less certain one to the other's id; otherwise set it to \"\".\n   - Skip people who occur only inside a list of names (a genealogy or roster) and never act.\n   - Add a group (an army, a crowd, a household) only when it acts as one on stage, with kind \"group\".\n2. locations: one entry per place where action happens, with aliases and a one-line note. Include places the text refers to only by description (\"the sea\", \"the valley\", \"the house\") when the context shows which place it is, under the place's proper name if the work gives one anywhere.\n3. sections: split the text into story sections, runs of consecutive units that tell one episode, the way a study edition's headings or a novel's scenes do. Start a new section when the time, the place or the main action changes. Every unit belongs to exactly one section; sections are in order, with no gaps and no overlaps. This division has 810 units. Aim for roughly 34 sections (27 to 41), averaging about 24 units each; some sections will be much shorter and some longer. Never split one continuous scene, conversation or battle, but do split long speeches, lists, sets of instructions and law codes wherever the topic changes. Give the ids of each section's first and last unit and a short title. For each section:\n   - setting: ids of the locations where its action happens.\n   - on_stage: ids of every character present in the section's action, whether the section names them or only refers to them by a pronoun, a title or a description, or does not mention them but they are clearly there.\n   - mentioned_only: ids of characters the section names or refers to who are not present.\n4. brief: a draft brief for illustrators, for this division only. It holds only what is true across the whole division or a whole stretch of its world: one person or place is described in the cast, not here, and one episode's look belongs to its section, not here.\n   - tone: one line on the mood the pictures should carry.\n   - depiction_rules: a short list of how certain things in this text may or may not be shown, drawn from the text and from what you know about the work.\n   - era: the stretch of the world this division is set in: a name, its people (who lives there and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist).\n   Keep the brief under 200 words.\n\nUse short, stable snake_case ids (for example `david`, `the_queen`, `main_street`). Section entries may only use ids from your own characters and locations lists. Do not quote the text.",
+ "user_chars": 127347,
+ "content": "{\"characters\":[{\"id\":\"elkanah\",\"name\":\"Elkanah\",\"aliases\":[\"the Ephraimite\"],\"note\":\"Ephraimite man of Ramathaim Zophim, husband of Hannah and Peninnah, father of Samuel; goes yearly to Shiloh to sacrifice.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"hannah\",\"name\":\"Hannah\",\"aliases\":[],\"note\":\"Elkanah's wife, barren, prays at Shiloh for a son; mother of Samuel.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"peninnah\",\"name\":\"Peninnah\",\"aliases\":[\"her rival\"],\"note\":\"Elkanah's other wife, mother of children, who provokes Hannah.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"eli\",\"name\":\"Eli\",\"aliases\":[\"the priest\"],\"note\":\"Old priest at Shiloh, judge of Israel forty years; father of Hophni and Phinehas; raised Samuel.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"samuel\",\"name\":\"Samuel\",\"aliases\":[\"the seer\",\"the prophet\",\"the man of God\"],\"note\":\"Son of Hannah, dedicated to Yahweh; serves under Eli, becomes prophet and judge, anoints Saul and David.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"hophni\",\"name\":\"Hophni\",\"aliases\":[\"sons of Eli\"],\"note\":\"Wicked son of Eli, priest at Shiloh; killed in battle at Aphek.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"phinehas\",\"name\":\"Phinehas\",\"aliases\":[\"sons of Eli\"],\"note\":\"Wicked son of Eli, priest at Shiloh; killed in battle at Aphek. Not the later Phinehas son of Eleazar.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"ichabod\",\"name\":\"Ichabod\",\"aliases\":[\"the child of Phinehas' wife\"],\"note\":\"Infant son of Phinehas' wife, named for the departure of glory.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"saul\",\"name\":\"Saul\",\"aliases\":[\"the king\",\"the son of Kish\"],\"note\":\"Benjamite son of Kish, first king of Israel; rejected by Samuel; dies on Mount Gilboa.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"jonathan\",\"name\":\"Jonathan\",\"aliases\":[\"son of Saul\"],\"note\":\"Eldest son of Saul, close friend and covenant partner of David; dies on Gilboa.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"david\",\"name\":\"David\",\"aliases\":[\"the son of Jesse\",\"the Bethlehemite\",\"the youth\"],\"note\":\"Youngest son of Jesse of Bethlehem, anointed by Samuel, slays Goliath, flees Saul, becomes king.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"jesse\",\"name\":\"Jesse\",\"aliases\":[\"the Bethlehemite\"],\"note\":\"Father of David and eight sons, of Bethlehem.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"goliath\",\"name\":\"Goliath\",\"aliases\":[\"the Philistine champion\",\"the Philistine\",\"the uncircumcised Philistine\"],\"note\":\"Philistine champion of Gath, slain by David with a sling.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"abner\",\"name\":\"Abner\",\"aliases\":[\"captain of the army\"],\"note\":\"Saul's cousin and army commander, son of Ner.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"michal\",\"name\":\"Michal\",\"aliases\":[\"Saul's daughter\"],\"note\":\"Younger daughter of Saul, wife of David; helps him escape.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"merab\",\"name\":\"Merab\",\"aliases\":[\"Saul's elder daughter\"],\"note\":\"Elder daughter of Saul, promised to David but given to Adriel.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"ahinoam_of_jezreel\",\"name\":\"Ahinoam of Jezreel\",\"aliases\":[\"the Jezreelitess\"],\"note\":\"One of David's two wives, taken captive by Amalekites at Ziklag and rescued. Not Saul's wife Ahinoam daughter of Ahimaaz.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"ahinoam_saul_wife\",\"name\":\"Ahinoam daughter of Ahimaaz\",\"aliases\":[\"Saul's wife\"],\"note\":\"Wife of Saul, mentioned only in the genealogy-like note in chapter 14.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"abigail\",\"name\":\"Abigail\",\"aliases\":[\"the Carmelitess\",\"Nabal's wife\"],\"note\":\"Intelligent wife of Nabal of Carmel, later wife of David.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"nabal\",\"name\":\"Nabal\",\"aliases\":[\"the fool\"],\"note\":\"Rich, surly man of Carmel, husband of Abigail; dies after insulting David.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"ahimelech\",\"name\":\"Ahimelech\",\"aliases\":[\"the priest of Nob\",\"son of Ahitub\"],\"note\":\"Priest at Nob who gives David holy bread and Goliath's sword; killed by Saul's order.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"abiathar\",\"name\":\"Abiathar\",\"aliases\":[\"son of Ahimelech\"],\"note\":\"Son of Ahimelech who escapes the massacre at Nob and joins David with the ephod.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"doeg\",\"name\":\"Doeg\",\"aliases\":[\"the Edomite\"],\"note\":\"Edomite herdsman of Saul who reports David at Nob and kills the priests.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"achish\",\"name\":\"Achish\",\"aliases\":[\"king of Gath\",\"son of Maoch\"],\"note\":\"Philistine king of Gath who receives David and gives him Ziklag.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"agag\",\"name\":\"Agag\",\"aliases\":[\"king of the Amalekites\"],\"note\":\"King of Amalek spared by Saul and killed by Samuel.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"gad\",\"name\":\"Gad\",\"aliases\":[\"the prophet\"],\"note\":\"Prophet who advises David to leave the stronghold.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"nahash\",\"name\":\"Nahash\",\"aliases\":[\"the Ammonite\"],\"note\":\"Ammonite king who besieges Jabesh Gilead.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"abishai\",\"name\":\"Abishai\",\"aliases\":[\"son of Zeruiah\"],\"note\":\"Nephew of David, brother of Joab, who wants to kill Saul in the camp.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"ahimelech_hittite\",\"name\":\"Ahimelech the Hittite\",\"aliases\":[],\"note\":\"Hittite named as one of David's companions when going to Saul's camp; distinct from the priest Ahimelech of Nob.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"eliab\",\"name\":\"Eliab\",\"aliases\":[\"David's eldest brother\"],\"note\":\"Eldest brother of David, angry at him at the battle.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"abinadab\",\"name\":\"Abinadab\",\"aliases\":[\"son of Jesse\"],\"note\":\"Brother of David, passed before Samuel; separate from Abinadab of Kiriath Jearim, host of the ark.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"abinadab_kiriath\",\"name\":\"Abinadab of Kiriath Jearim\",\"aliases\":[\"the man on the hill\"],\"note\":\"Householder in Kiriath Jearim whose house keeps the ark for twenty years.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"shammah\",\"name\":\"Shammah\",\"aliases\":[\"son of Jesse\"],\"note\":\"Brother of David, passed before Samuel and fought with Saul.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"ishvi\",\"name\":\"Ishvi\",\"aliases\":[\"son of Saul\"],\"note\":\"Son of Saul named in genealogy in chapter 14.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"malchishua\",\"name\":\"Malchishua\",\"aliases\":[\"son of Saul\"],\"note\":\"Son of Saul killed on Gilboa with Jonathan.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"joel\",\"name\":\"Joel\",\"aliases\":[\"son of Samuel\"],\"note\":\"Eldest son of Samuel, a corrupt judge at Beersheba.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"abijah\",\"name\":\"Abijah\",\"aliases\":[\"son of Samuel\"],\"note\":\"Second son of Samuel, a corrupt judge at Beersheba.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"kish\",\"name\":\"Kish\",\"aliases\":[\"father of Saul\"],\"note\":\"Benjamite father of Saul, lost the donkeys.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"palti\",\"name\":\"Palti\",\"aliases\":[\"son of Laish\"],\"note\":\"Man to whom Saul gave Michal in marriage.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"adriel\",\"name\":\"Adriel\",\"aliases\":[\"the Meholathite\"],\"note\":\"Husband of Merab.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"egyptian_servant\",\"name\":\"Egyptian servant\",\"aliases\":[\"young man of Egypt\"],\"note\":\"Sick Egyptian slave of an Amalekite found by David's men.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"witch_of_endor\",\"name\":\"The woman of Endor\",\"aliases\":[\"woman with a familiar spirit\"],\"note\":\"Medium at Endor who raises Samuel's spirit for Saul.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"yahweh\",\"name\":\"Yahweh\",\"aliases\":[\"God\",\"the God of Israel\",\"Yahweh of Armies\"],\"note\":\"God of Israel, speaks through Samuel and acts throughout.\",\"kind\":\"divine\",\"same_person_as\":\"\"},{\"id\":\"israelites\",\"name\":\"Israelite army\",\"aliases\":[\"the people\",\"men of Israel\"],\"note\":\"Israelite army and people acting collectively in battle and assembly.\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"philistines\",\"name\":\"Philistine army\",\"aliases\":[\"the Philistines\",\"lords of the Philistines\"],\"note\":\"Philistine armies and lords acting collectively against Israel.\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"amalekites\",\"name\":\"Amalekites\",\"aliases\":[\"Amalek\"],\"note\":\"Raiders who burn Ziklag and capture the women; devoted to destruction by Saul.\",\"kind\":\"group\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"ramah\",\"name\":\"Ramah\",\"aliases\":[\"Ramathaim Zophim\",\"Ramah of Samuel\"],\"note\":\"Home of Elkanah and Samuel and of Samuel's burial; Samuel's house is here.Naioth in Ramah is a dwelling for prophets.\"},{\"id\":\"shiloh\",\"name\":\"Shiloh\",\"aliases\":[\"Yahweh's house\"],\"note\":\"Sanctuary where the ark and the house of Eli are, and where Samuel grows up.\"},{\"id\":\"ebenezer\",\"name\":\"Ebenezer\",\"aliases\":[\"the stone of help\"],\"note\":\"Site of Israel's defeat and the stone Samuel sets up later between Mizpah and Shen.\"},{\"id\":\"aphek\",\"name\":\"Aphek\",\"aliases\":[],\"note\":\"Encampment of the Philistines where Israel is defeated by them.\"},{\"id\":\"ashdod\",\"name\":\"Ashdod\",\"aliases\":[\"house of Dagon\"],\"note\":\"Philistine city where the ark is placed in Dagon's temple.\"},{\"id\":\"gath\",\"name\":\"Gath\",\"aliases\":[],\"note\":\"Philistine city of Goliath and Achish; also a place the ark is moved to.\"},{\"id\":\"ekron\",\"name\":\"Ekron\",\"aliases\":[],\"note\":\"Philistine city to which the ark is moved and where the ark is returned from.\"},{\"id\":\"beth_shemesh\",\"name\":\"Beth Shemesh\",\"aliases\":[],\"note\":\"Israelite town where the ark returns on the cart; people are struck for looking inside.\"},{\"id\":\"kiriath_jearim\",\"name\":\"Kiriath Jearim\",\"aliases\":[],\"note\":\"Town where the ark is kept in Abinadab's house on the hill for twenty years.\"},{\"id\":\"mizpah\",\"name\":\"Mizpah\",\"aliases\":[],\"note\":\"Gathering place where Samuel judges Israel and prays; also where the Philistines are routed.\"},{\"id\":\"gibeah_of_saul\",\"name\":\"Gibeah\",\"aliases\":[\"Gibeah of Benjamin\",\"Saul's house in Gibeah\"],\"note\":\"Saul's home town in Benjamin where he dwells and holds court under the tamarisk.\"},{\"id\":\"gilgal\",\"name\":\"Gilgal\",\"aliases\":[],\"note\":\"Place where Saul is confirmed as king and where he offers sacrifice and is rebuked by Samuel.\"},{\"id\":\"jabesh_gilead\",\"name\":\"Jabesh Gilead\",\"aliases\":[\"Jabesh\"],\"note\":\"Besieged by Nahash; later place where Saul's body is buried.\"},{\"id\":\"michmash\",\"name\":\"Michmash\",\"aliases\":[\"pass of Michmash\"],\"note\":\"Site of the Philistine camp and the pass where Jonathan attacks.\"},{\"id\":\"geba\",\"name\":\"Geba\",\"aliases\":[],\"note\":\"Place of a Philistine garrison struck by Jonathan.\"},{\"id\":\"valley_of_elah\",\"name\":\"Valley of Elah\",\"aliases\":[],\"note\":\"Valley where David fights Goliath.\"},{\"id\":\"bethlehem\",\"name\":\"Bethlehem\",\"aliases\":[\"Bethlehem Judah\"],\"note\":\"Home of Jesse and David, where Samuel anoints David.\"},{\"id\":\"nob\",\"name\":\"Nob\",\"aliases\":[\"city of the priests\"],\"note\":\"City of priests where Ahimelech gives David bread and Doeg kills the priests.\"},{\"id\":\"gath_achish\",\"name\":\"Gath of Achish\",\"aliases\":[\"royal city\"],\"note\":\"Achish's court city where David stays as a vassal.Also Gath as a Philistine city.\"},{\"id\":\"adullam\",\"name\":\"Adullam's cave\",\"aliases\":[\"the cave of Adullam\"],\"note\":\"Cave where David gathers men in distress.\"},{\"id\":\"mizpeh_moab\",\"name\":\"Mizpeh of Moab\",\"aliases\":[],\"note\":\"Place in Moab where David leaves his parents with the king of Moab.\"},{\"id\":\"hereth_forest\",\"name\":\"Forest of Hereth\",\"aliases\":[],\"note\":\"Woodland in Judah where David hides.\"},{\"id\":\"keilah\",\"name\":\"Keilah\",\"aliases\":[],\"note\":\"Judean town besieged by Philistines and saved by David.\"},{\"id\":\"ziph\",\"name\":\"Ziph\",\"aliases\":[\"wilderness of Ziph\"],\"note\":\"Wilderness where David hides and Ziphites betray him.\"},{\"id\":\"maon\",\"name\":\"Maon\",\"aliases\":[\"wilderness of Maon\"],\"note\":\"Wilderness and town near Carmel where Nabal lives and David pursues Saul.\"},{\"id\":\"carmel\",\"name\":\"Carmel\",\"aliases\":[\"Carmel of Judah\"],\"note\":\"Town where Nabal's sheep are shorn and where Abigail meets David.\"},{\"id\":\"en_gedi\",\"name\":\"En Gedi\",\"aliases\":[\"rocks of the wild goats\"],\"note\":\"Desert oasis where David spares Saul in a cave.\"},{\"id\":\"ziklag\",\"name\":\"Ziklag\",\"aliases\":[],\"note\":\"Town given to David by Achish, sacked and burned by Amalekites.\"},{\"id\":\"endor\",\"name\":\"Endor\",\"aliases\":[],\"note\":\"Town where the woman with the familiar spirit lives.\"},{\"id\":\"mount_gilboa\",\"name\":\"Mount Gilboa\",\"aliases\":[\"Gilboa\"],\"note\":\"Mountain where the Israelite army falls and Saul and his sons die.\"},{\"id\":\"beth_shan\",\"name\":\"Beth Shan\",\"aliases\":[],\"note\":\"City where the Philistines fasten Saul's body on the wall.\"},{\"id\":\"tamarisk_tree_jabesh\",\"name\":\"Tamarisk under Jabesh\",\"aliases\":[],\"note\":\"Place where Saul and his sons are buried.\"},{\"id\":\"shunem\",\"name\":\"Shunem\",\"aliases\":[],\"note\":\"Philistine encampment before the battle of Gilboa.\"},{\"id\":\"jezreel\",\"name\":\"Jezreel\",\"aliases\":[\"spring at Jezreel\"],\"note\":\"Place near the spring where Israel camps before Gilboa.\"}],\"sections\":[{\"start\":\"1:1\",\"end\":\"1:28\",\"title\":\"Hannah's prayer and the birth of Samuel\",\"setting\":[\"ramah\",\"shiloh\"],\"on_stage\":[\"elkanah\",\"hannah\",\"peninnah\",\"eli\",\"samuel\"],\"mentioned_only\":[\"hophni\",\"phinehas\"]},{\"start\":\"2:1\",\"end\":\"2:10\",\"title\":\"Hannah's song\",\"setting\":[\"shiloh\"],\"on_stage\":[\"hannah\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"2:11\",\"end\":\"2:36\",\"title\":\"The sin of Eli's sons and the oracle against Eli\",\"setting\":[\"shiloh\",\"ramah\"],\"on_stage\":[\"eli\",\"samuel\",\"hophni\",\"phinehas\",\"elkanah\"],\"mentioned_only\":[\"yahweh\",\"hannah\"]},{\"start\":\"3:1\",\"end\":\"3:21\",\"title\":\"Samuel's call\",\"setting\":[\"shiloh\"],\"on_stage\":[\"samuel\",\"eli\",\"yahweh\"],\"mentioned_only\":[\"hophni\",\"phinehas\"]},{\"start\":\"4:1\",\"end\":\"4:11\",\"title\":\"Battle of Aphek and loss of the ark\",\"setting\":[\"aphek\",\"ebenezer\"],\"on_stage\":[\"israelites\",\"philistines\",\"hophni\",\"phinehas\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"4:12\",\"end\":\"4:22\",\"title\":\"Death of Eli and birth of Ichabod\",\"setting\":[\"shiloh\"],\"on_stage\":[\"eli\",\"ichabod\"],\"mentioned_only\":[\"phinehas\",\"hophni\"]},{\"start\":\"5:1\",\"end\":\"5:12\",\"title\":\"The ark in Ashdod, Gath and Ekron\",\"setting\":[\"ashdod\",\"gath\",\"ekron\"],\"on_stage\":[\"philistines\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"6:1\",\"end\":\"6:21\",\"title\":\"The ark returned to Beth Shemesh\",\"setting\":[\"beth_shemesh\"],\"on_stage\":[\"philistines\",\"israelites\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"7:1\",\"end\":\"7:17\",\"title\":\"Samuel's judgeship and victory at Mizpah\",\"setting\":[\"kiriath_jearim\",\"mizpah\",\"ramah\"],\"on_stage\":[\"samuel\",\"israelites\",\"philistines\",\"abinadab_kiriath\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"8:1\",\"end\":\"8:22\",\"title\":\"The people demand a king\",\"setting\":[\"ramah\"],\"on_stage\":[\"samuel\",\"elders_placeholder\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"9:1\",\"end\":\"9:27\",\"title\":\"Saul seeks the donkeys and meets Samuel\",\"setting\":[\"ramah\"],\"on_stage\":[\"saul\",\"samuel\",\"kish\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"10:1\",\"end\":\"10:16\",\"title\":\"Saul anointed and receives signs\",\"setting\":[\"ramah\",\"gibeah_of_saul\"],\"on_stage\":[\"samuel\",\"saul\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"10:17\",\"end\":\"10:27\",\"title\":\"Saul chosen by lot at Mizpah\",\"setting\":[\"mizpah\",\"gibeah_of_saul\"],\"on_stage\":[\"samuel\",\"saul\",\"israelites\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"11:1\",\"end\":\"11:15\",\"title\":\"Siege of Jabesh Gilead and Saul's victory\",\"setting\":[\"jabesh_gilead\",\"gilgal\",\"gibeah_of_saul\"],\"on_stage\":[\"saul\",\"nahash\",\"samuel\",\"israelites\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"12:1\",\"end\":\"12:25\",\"title\":\"Samuel's farewell speech\",\"setting\":[\"gilgal\"],\"on_stage\":[\"samuel\",\"israelites\",\"saul\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"13:1\",\"end\":\"13:23\",\"title\":\"Saul's rash sacrifice and the Philistine threat\",\"setting\":[\"gilgal\",\"michmash\",\"geba\",\"gibeah_of_saul\"],\"on_stage\":[\"saul\",\"samuel\",\"israelites\",\"philistines\",\"jonathan\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"14:1\",\"end\":\"14:23\",\"title\":\"Jonathan's attack at Michmash\",\"setting\":[\"michmash\",\"geba\",\"gibeah_of_saul\"],\"on_stage\":[\"jonathan\",\"saul\",\"israelites\",\"philistines\",\"ahijah_placeholder\"],\"mentioned_only\":[]},{\"start\":\"14:24\",\"end\":\"14:46\",\"title\":\"Saul's oath and Jonathan's peril\",\"setting\":[\"michmash\",\"gibeah_of_saul\"],\"on_stage\":[\"saul\",\"jonathan\",\"israelites\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"14:47\",\"end\":\"14:52\",\"title\":\"Saul's wars and family\",\"setting\":[\"gibeah_of_saul\"],\"on_stage\":[\"saul\"],\"mentioned_only\":[\"abner\",\"jonathan\",\"ishvi\",\"malchishua\",\"merab\",\"michal\",\"ahinoam_saul_wife\"]},{\"start\":\"15:1\",\"end\":\"15:35\",\"title\":\"Saul disobeys concerning Amalek\",\"setting\":[\"gilgal\",\"gibeah_of_saul\",\"ramah\"],\"on_stage\":[\"samuel\",\"saul\",\"israelites\",\"agag\",\"kenites_placeholder\"],\"mentioned_only\":[\"yahweh\",\"amalekites\"]},{\"start\":\"16:1\",\"end\":\"16:13\",\"title\":\"Samuel anoints David at Bethlehem\",\"setting\":[\"bethlehem\",\"ramah\"],\"on_stage\":[\"samuel\",\"jesse\",\"eliab\",\"david\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"16:14\",\"end\":\"16:23\",\"title\":\"David plays for Saul\",\"setting\":[\"gibeah_of_saul\"],\"on_stage\":[\"saul\",\"david\"],\"mentioned_only\":[\"jesse\"]},{\"start\":\"17:1\",\"end\":\"17:18\",\"title\":\"Goliath's challenge and David sent with supplies\",\"setting\":[\"valley_of_elah\",\"bethlehem\"],\"on_stage\":[\"goliath\",\"israelites\",\"philistines\",\"jesse\",\"david\"],\"mentioned_only\":[\"eliab\",\"abinadab\",\"shammah\"]},{\"start\":\"17:19\",\"end\":\"17:30\",\"title\":\"David at the camp hears the challenge\",\"setting\":[\"valley_of_elah\"],\"on_stage\":[\"david\",\"eliab\",\"israelites\",\"goliath\"],\"mentioned_only\":[]},{\"start\":\"17:31\",\"end\":\"17:58\",\"title\":\"David fights Goliath\",\"setting\":[\"valley_of_elah\"],\"on_stage\":[\"david\",\"saul\",\"goliath\",\"abner\",\"israelites\",\"philistines\"],\"mentioned_only\":[\"jesse\"]},{\"start\":\"18:1\",\"end\":\"18:9\",\"title\":\"Jonathan's covenant with David and the women's song\",\"setting\":[\"gibeah_of_saul\"],\"on_stage\":[\"jonathan\",\"david\",\"saul\"],\"mentioned_only\":[]},{\"start\":\"18:10\",\"end\":\"18:30\",\"title\":\"Saul's jealousy and the bride-price\",\"setting\":[\"gibeah_of_saul\"],\"on_stage\":[\"saul\",\"david\",\"michal\",\"jonathan\"],\"mentioned_only\":[\"merab\",\"adriel\"]},{\"start\":\"19:1\",\"end\":\"19:17\",\"title\":\"Jonathan intercedes and Michal lets David escape\",\"setting\":[\"gibeah_of_saul\"],\"on_stage\":[\"saul\",\"jonathan\",\"david\",\"michal\"],\"mentioned_only\":[]},{\"start\":\"19:18\",\"end\":\"19:24\",\"title\":\"David at Naioth with Samuel\",\"setting\":[\"ramah\"],\"on_stage\":[\"david\",\"samuel\",\"saul\"],\"mentioned_only\":[]},{\"start\":\"20:1\",\"end\":\"20:23\",\"title\":\"David and Jonathan's covenant at the stone Ezel\",\"setting\":[\"ramah\"],\"on_stage\":[\"david\",\"jonathan\"],\"mentioned_only\":[\"saul\"]},{\"start\":\"20:24\",\"end\":\"20:42\",\"title\":\"The new moon feast and parting\",\"setting\":[\"gibeah_of_saul\"],\"on_stage\":[\"saul\",\"jonathan\",\"abner\",\"david\"],\"mentioned_only\":[]},{\"start\":\"21:1\",\"end\":\"21:9\",\"title\":\"David at Nob\",\"setting\":[\"nob\"],\"on_stage\":[\"david\",\"ahimelech\",\"doeg\"],\"mentioned_only\":[\"saul\"]},{\"start\":\"21:10\",\"end\":\"21:15\",\"title\":\"David feigns madness at Gath\",\"setting\":[\"gath_achish\"],\"on_stage\":[\"david\",\"achish\"],\"mentioned_only\":[]},{\"start\":\"22:1\",\"end\":\"22:5\",\"title\":\"David gathers men at Adullam\",\"setting\":[\"adullam\",\"mizpeh_moab\",\"hereth_forest\"],\"on_stage\":[\"david\",\"gad\"],\"mentioned_only\":[\"saul\"]},{\"start\":\"22:6\",\"end\":\"22:23\",\"title\":\"Saul slaughters the priests of Nob\",\"setting\":[\"gibeah_of_saul\",\"nob\"],\"on_stage\":[\"saul\",\"doeg\",\"ahimelech\",\"abiathar\"],\"mentioned_only\":[\"david\"]},{\"start\":\"23:1\",\"end\":\"23:13\",\"title\":\"David rescues Keilah\",\"setting\":[\"keilah\"],\"on_stage\":[\"david\",\"abiathar\",\"saul\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"23:14\",\"end\":\"23:29\",\"title\":\"David in the wilderness of Ziph and Maon\",\"setting\":[\"ziph\",\"maon\",\"en_gedi\"],\"on_stage\":[\"david\",\"jonathan\",\"saul\"],\"mentioned_only\":[\"ziphites_placeholder\"]},{\"start\":\"24:1\",\"end\":\"24:22\",\"title\":\"David spares Saul in the cave at En Gedi\",\"setting\":[\"en_gedi\"],\"on_stage\":[\"david\",\"saul\"],\"mentioned_only\":[]},{\"start\":\"25:1\",\"end\":\"25:31\",\"title\":\"Nabal's insult and Abigail's intercession\",\"setting\":[\"maon\",\"carmel\"],\"on_stage\":[\"david\",\"nabal\",\"abigail\"],\"mentioned_only\":[\"samuel\"]},{\"start\":\"25:32\",\"end\":\"25:44\",\"title\":\"Nabal's death and David's marriages\",\"setting\":[\"carmel\"],\"on_stage\":[\"david\",\"abigail\",\"nabal\"],\"mentioned_only\":[\"ahinoam_of_jezreel\",\"michal\",\"palti\",\"saul\"]},{\"start\":\"26:1\",\"end\":\"26:25\",\"title\":\"David spares Saul in the camp at Hachilah\",\"setting\":[\"ziph\",\"gibeah_of_saul\"],\"on_stage\":[\"david\",\"abishai\",\"saul\",\"abner\"],\"mentioned_only\":[\"ahimelech_hittite\"]},{\"start\":\"27:1\",\"end\":\"27:12\",\"title\":\"David at Gath and raids\",\"setting\":[\"gath_achish\",\"ziklag\"],\"on_stage\":[\"david\",\"achish\"],\"mentioned_only\":[\"saul\",\"ahinoam_of_jezreel\",\"abigail\"]},{\"start\":\"28:1\",\"end\":\"28:25\",\"title\":\"Saul and the woman of Endor\",\"setting\":[\"endor\",\"shunem\"],\"on_stage\":[\"saul\",\"witch_of_endor\",\"samuel\"],\"mentioned_only\":[\"david\",\"achish\"]},{\"start\":\"29:1\",\"end\":\"29:11\",\"title\":\"The Philistines reject David\",\"setting\":[\"aphek\",\"jezreel\"],\"on_stage\":[\"achish\",\"david\",\"philistines\"],\"mentioned_only\":[\"saul\"]},{\"start\":\"30:1\",\"end\":\"30:31\",\"title\":\"David recovers Ziklag and shares the spoil\",\"setting\":[\"ziklag\",\"amalekites\"],\"on_stage\":[\"david\",\"amalekites\",\"egyptian_servant\",\"abiathar\"],\"mentioned_only\":[\"ahinoam_of_jezreel\",\"abigail\"]},{\"start\":\"31:1\",\"end\":\"31:13\",\"title\":\"Death of Saul and his sons\",\"setting\":[\"mount_gilboa\",\"beth_shan\",\"jabesh_gilead\",\"tamarisk_tree_jabesh\"],\"on_stage\":[\"saul\",\"jonathan\",\"israelites\",\"philistines\",\"abner_placeholder\"],\"mentioned_only\":[\"malchishua\"]}],\"brief\":{\"tone\":\"Austere, tense and intimate: a book of prophecy, kingship and fraught loyalty, with grief and dread in quiet interiors and bursts of violence on open fields.\",\"depiction_rules\":[\"Yahweh is never shown in human or animal form; depict only effects (a voice, light, thunder, the ark) rather than a visible deity.\",\"The ark of the covenant may be depicted as a gold-covered chest with cherubim, not as a person.\",\"Dagon, the Ashtaroth and the teraphim are idols and may be shown as statues without divine presence.\",\"The Philistine champion Goliath is a fully armed giant; the raw violence of the sling stone and beheading may be shown but without gratuitous gore.\",\"The Woman of Endor's necromancy is shown with Samuel as an old robed figure rising from the ground, not as a dramatic demonic spectacle.\",\"Nudity (Saul prophesying naked, 19:24) may be depicted with restraint.\"],\"era\":{\"name\":\"Late Bronze to early Iron Age Israel and Philistia, c. 11th century BCE\",\"people\":\"Israelite tribes (Ephraimites, Benjamites, Judahites) living as farmers and herders in hill country; Philistines as an organized city-state people with bronze and iron weapons; neighbors include Ammonites, Moabites, Amalekites and Edomites.\",\"dress\":\"Linen ephods for priests and boys; robes and mantles for elders and kings; bronze helmets and coats of mail for warriors; shepherds' bags and slings; simple woven tunics for common people.\",\"buildings_and_objects\":\"Mud-brick and stone houses with flat roofs; the tabernacle at Shiloh with doorposts and gates; altars of stone; the wooden ark overlaid with gold; threshing floors; watchtowers and strongholds; caves used as refuges.\",\"technology\":\"Bronze and emerging iron weapons and tools (iron spearheads, blacksmiths are rare among Israel); chariots and horses used by Philistines; oil lamps and horns for anointing; no writing of a full literary kind beyond scribal notes, but a book of royal law is written.\"}}}",
+ "parsed": {
+  "characters": [
+   {
+    "id": "elkanah",
+    "name": "Elkanah",
+    "aliases": [
+     "the Ephraimite"
+    ],
+    "note": "Ephraimite man of Ramathaim Zophim, husband of Hannah and Peninnah, father of Samuel; goes yearly to Shiloh to sacrifice.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "hannah",
+    "name": "Hannah",
+    "aliases": [],
+    "note": "Elkanah's wife, barren, prays at Shiloh for a son; mother of Samuel.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "peninnah",
+    "name": "Peninnah",
+    "aliases": [
+     "her rival"
+    ],
+    "note": "Elkanah's other wife, mother of children, who provokes Hannah.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "eli",
+    "name": "Eli",
+    "aliases": [
+     "the priest"
+    ],
+    "note": "Old priest at Shiloh, judge of Israel forty years; father of Hophni and Phinehas; raised Samuel.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "samuel",
+    "name": "Samuel",
+    "aliases": [
+     "the seer",
+     "the prophet",
+     "the man of God"
+    ],
+    "note": "Son of Hannah, dedicated to Yahweh; serves under Eli, becomes prophet and judge, anoints Saul and David.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "hophni",
+    "name": "Hophni",
+    "aliases": [
+     "sons of Eli"
+    ],
+    "note": "Wicked son of Eli, priest at Shiloh; killed in battle at Aphek.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "phinehas",
+    "name": "Phinehas",
+    "aliases": [
+     "sons of Eli"
+    ],
+    "note": "Wicked son of Eli, priest at Shiloh; killed in battle at Aphek. Not the later Phinehas son of Eleazar.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "ichabod",
+    "name": "Ichabod",
+    "aliases": [
+     "the child of Phinehas' wife"
+    ],
+    "note": "Infant son of Phinehas' wife, named for the departure of glory.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "saul",
+    "name": "Saul",
+    "aliases": [
+     "the king",
+     "the son of Kish"
+    ],
+    "note": "Benjamite son of Kish, first king of Israel; rejected by Samuel; dies on Mount Gilboa.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "jonathan",
+    "name": "Jonathan",
+    "aliases": [
+     "son of Saul"
+    ],
+    "note": "Eldest son of Saul, close friend and covenant partner of David; dies on Gilboa.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "david",
+    "name": "David",
+    "aliases": [
+     "the son of Jesse",
+     "the Bethlehemite",
+     "the youth"
+    ],
+    "note": "Youngest son of Jesse of Bethlehem, anointed by Samuel, slays Goliath, flees Saul, becomes king.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "jesse",
+    "name": "Jesse",
+    "aliases": [
+     "the Bethlehemite"
+    ],
+    "note": "Father of David and eight sons, of Bethlehem.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "goliath",
+    "name": "Goliath",
+    "aliases": [
+     "the Philistine champion",
+     "the Philistine",
+     "the uncircumcised Philistine"
+    ],
+    "note": "Philistine champion of Gath, slain by David with a sling.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "abner",
+    "name": "Abner",
+    "aliases": [
+     "captain of the army"
+    ],
+    "note": "Saul's cousin and army commander, son of Ner.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "michal",
+    "name": "Michal",
+    "aliases": [
+     "Saul's daughter"
+    ],
+    "note": "Younger daughter of Saul, wife of David; helps him escape.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "merab",
+    "name": "Merab",
+    "aliases": [
+     "Saul's elder daughter"
+    ],
+    "note": "Elder daughter of Saul, promised to David but given to Adriel.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "ahinoam_of_jezreel",
+    "name": "Ahinoam of Jezreel",
+    "aliases": [
+     "the Jezreelitess"
+    ],
+    "note": "One of David's two wives, taken captive by Amalekites at Ziklag and rescued. Not Saul's wife Ahinoam daughter of Ahimaaz.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "ahinoam_saul_wife",
+    "name": "Ahinoam daughter of Ahimaaz",
+    "aliases": [
+     "Saul's wife"
+    ],
+    "note": "Wife of Saul, mentioned only in the genealogy-like note in chapter 14.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "abigail",
+    "name": "Abigail",
+    "aliases": [
+     "the Carmelitess",
+     "Nabal's wife"
+    ],
+    "note": "Intelligent wife of Nabal of Carmel, later wife of David.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "nabal",
+    "name": "Nabal",
+    "aliases": [
+     "the fool"
+    ],
+    "note": "Rich, surly man of Carmel, husband of Abigail; dies after insulting David.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "ahimelech",
+    "name": "Ahimelech",
+    "aliases": [
+     "the priest of Nob",
+     "son of Ahitub"
+    ],
+    "note": "Priest at Nob who gives David holy bread and Goliath's sword; killed by Saul's order.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "abiathar",
+    "name": "Abiathar",
+    "aliases": [
+     "son of Ahimelech"
+    ],
+    "note": "Son of Ahimelech who escapes the massacre at Nob and joins David with the ephod.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "doeg",
+    "name": "Doeg",
+    "aliases": [
+     "the Edomite"
+    ],
+    "note": "Edomite herdsman of Saul who reports David at Nob and kills the priests.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "achish",
+    "name": "Achish",
+    "aliases": [
+     "king of Gath",
+     "son of Maoch"
+    ],
+    "note": "Philistine king of Gath who receives David and gives him Ziklag.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "agag",
+    "name": "Agag",
+    "aliases": [
+     "king of the Amalekites"
+    ],
+    "note": "King of Amalek spared by Saul and killed by Samuel.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "gad",
+    "name": "Gad",
+    "aliases": [
+     "the prophet"
+    ],
+    "note": "Prophet who advises David to leave the stronghold.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "nahash",
+    "name": "Nahash",
+    "aliases": [
+     "the Ammonite"
+    ],
+    "note": "Ammonite king who besieges Jabesh Gilead.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "abishai",
+    "name": "Abishai",
+    "aliases": [
+     "son of Zeruiah"
+    ],
+    "note": "Nephew of David, brother of Joab, who wants to kill Saul in the camp.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "ahimelech_hittite",
+    "name": "Ahimelech the Hittite",
+    "aliases": [],
+    "note": "Hittite named as one of David's companions when going to Saul's camp; distinct from the priest Ahimelech of Nob.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "eliab",
+    "name": "Eliab",
+    "aliases": [
+     "David's eldest brother"
+    ],
+    "note": "Eldest brother of David, angry at him at the battle.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "abinadab",
+    "name": "Abinadab",
+    "aliases": [
+     "son of Jesse"
+    ],
+    "note": "Brother of David, passed before Samuel; separate from Abinadab of Kiriath Jearim, host of the ark.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "abinadab_kiriath",
+    "name": "Abinadab of Kiriath Jearim",
+    "aliases": [
+     "the man on the hill"
+    ],
+    "note": "Householder in Kiriath Jearim whose house keeps the ark for twenty years.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "shammah",
+    "name": "Shammah",
+    "aliases": [
+     "son of Jesse"
+    ],
+    "note": "Brother of David, passed before Samuel and fought with Saul.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "ishvi",
+    "name": "Ishvi",
+    "aliases": [
+     "son of Saul"
+    ],
+    "note": "Son of Saul named in genealogy in chapter 14.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "malchishua",
+    "name": "Malchishua",
+    "aliases": [
+     "son of Saul"
+    ],
+    "note": "Son of Saul killed on Gilboa with Jonathan.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "joel",
+    "name": "Joel",
+    "aliases": [
+     "son of Samuel"
+    ],
+    "note": "Eldest son of Samuel, a corrupt judge at Beersheba.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "abijah",
+    "name": "Abijah",
+    "aliases": [
+     "son of Samuel"
+    ],
+    "note": "Second son of Samuel, a corrupt judge at Beersheba.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "kish",
+    "name": "Kish",
+    "aliases": [
+     "father of Saul"
+    ],
+    "note": "Benjamite father of Saul, lost the donkeys.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "palti",
+    "name": "Palti",
+    "aliases": [
+     "son of Laish"
+    ],
+    "note": "Man to whom Saul gave Michal in marriage.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "adriel",
+    "name": "Adriel",
+    "aliases": [
+     "the Meholathite"
+    ],
+    "note": "Husband of Merab.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "egyptian_servant",
+    "name": "Egyptian servant",
+    "aliases": [
+     "young man of Egypt"
+    ],
+    "note": "Sick Egyptian slave of an Amalekite found by David's men.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "witch_of_endor",
+    "name": "The woman of Endor",
+    "aliases": [
+     "woman with a familiar spirit"
+    ],
+    "note": "Medium at Endor who raises Samuel's spirit for Saul.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "yahweh",
+    "name": "Yahweh",
+    "aliases": [
+     "God",
+     "the God of Israel",
+     "Yahweh of Armies"
+    ],
+    "note": "God of Israel, speaks through Samuel and acts throughout.",
+    "kind": "divine",
+    "same_person_as": ""
+   },
+   {
+    "id": "israelites",
+    "name": "Israelite army",
+    "aliases": [
+     "the people",
+     "men of Israel"
+    ],
+    "note": "Israelite army and people acting collectively in battle and assembly.",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "philistines",
+    "name": "Philistine army",
+    "aliases": [
+     "the Philistines",
+     "lords of the Philistines"
+    ],
+    "note": "Philistine armies and lords acting collectively against Israel.",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "amalekites",
+    "name": "Amalekites",
+    "aliases": [
+     "Amalek"
+    ],
+    "note": "Raiders who burn Ziklag and capture the women; devoted to destruction by Saul.",
+    "kind": "group",
+    "same_person_as": ""
+   }
+  ],
+  "locations": [
+   {
+    "id": "ramah",
+    "name": "Ramah",
+    "aliases": [
+     "Ramathaim Zophim",
+     "Ramah of Samuel"
+    ],
+    "note": "Home of Elkanah and Samuel and of Samuel's burial; Samuel's house is here.Naioth in Ramah is a dwelling for prophets."
+   },
+   {
+    "id": "shiloh",
+    "name": "Shiloh",
+    "aliases": [
+     "Yahweh's house"
+    ],
+    "note": "Sanctuary where the ark and the house of Eli are, and where Samuel grows up."
+   },
+   {
+    "id": "ebenezer",
+    "name": "Ebenezer",
+    "aliases": [
+     "the stone of help"
+    ],
+    "note": "Site of Israel's defeat and the stone Samuel sets up later between Mizpah and Shen."
+   },
+   {
+    "id": "aphek",
+    "name": "Aphek",
+    "aliases": [],
+    "note": "Encampment of the Philistines where Israel is defeated by them."
+   },
+   {
+    "id": "ashdod",
+    "name": "Ashdod",
+    "aliases": [
+     "house of Dagon"
+    ],
+    "note": "Philistine city where the ark is placed in Dagon's temple."
+   },
+   {
+    "id": "gath",
+    "name": "Gath",
+    "aliases": [],
+    "note": "Philistine city of Goliath and Achish; also a place the ark is moved to."
+   },
+   {
+    "id": "ekron",
+    "name": "Ekron",
+    "aliases": [],
+    "note": "Philistine city to which the ark is moved and where the ark is returned from."
+   },
+   {
+    "id": "beth_shemesh",
+    "name": "Beth Shemesh",
+    "aliases": [],
+    "note": "Israelite town where the ark returns on the cart; people are struck for looking inside."
+   },
+   {
+    "id": "kiriath_jearim",
+    "name": "Kiriath Jearim",
+    "aliases": [],
+    "note": "Town where the ark is kept in Abinadab's house on the hill for twenty years."
+   },
+   {
+    "id": "mizpah",
+    "name": "Mizpah",
+    "aliases": [],
+    "note": "Gathering place where Samuel judges Israel and prays; also where the Philistines are routed."
+   },
+   {
+    "id": "gibeah_of_saul",
+    "name": "Gibeah",
+    "aliases": [
+     "Gibeah of Benjamin",
+     "Saul's house in Gibeah"
+    ],
+    "note": "Saul's home town in Benjamin where he dwells and holds court under the tamarisk."
+   },
+   {
+    "id": "gilgal",
+    "name": "Gilgal",
+    "aliases": [],
+    "note": "Place where Saul is confirmed as king and where he offers sacrifice and is rebuked by Samuel."
+   },
+   {
+    "id": "jabesh_gilead",
+    "name": "Jabesh Gilead",
+    "aliases": [
+     "Jabesh"
+    ],
+    "note": "Besieged by Nahash; later place where Saul's body is buried."
+   },
+   {
+    "id": "michmash",
+    "name": "Michmash",
+    "aliases": [
+     "pass of Michmash"
+    ],
+    "note": "Site of the Philistine camp and the pass where Jonathan attacks."
+   },
+   {
+    "id": "geba",
+    "name": "Geba",
+    "aliases": [],
+    "note": "Place of a Philistine garrison struck by Jonathan."
+   },
+   {
+    "id": "valley_of_elah",
+    "name": "Valley of Elah",
+    "aliases": [],
+    "note": "Valley where David fights Goliath."
+   },
+   {
+    "id": "bethlehem",
+    "name": "Bethlehem",
+    "aliases": [
+     "Bethlehem Judah"
+    ],
+    "note": "Home of Jesse and David, where Samuel anoints David."
+   },
+   {
+    "id": "nob",
+    "name": "Nob",
+    "aliases": [
+     "city of the priests"
+    ],
+    "note": "City of priests where Ahimelech gives David bread and Doeg kills the priests."
+   },
+   {
+    "id": "gath_achish",
+    "name": "Gath of Achish",
+    "aliases": [
+     "royal city"
+    ],
+    "note": "Achish's court city where David stays as a vassal.Also Gath as a Philistine city."
+   },
+   {
+    "id": "adullam",
+    "name": "Adullam's cave",
+    "aliases": [
+     "the cave of Adullam"
+    ],
+    "note": "Cave where David gathers men in distress."
+   },
+   {
+    "id": "mizpeh_moab",
+    "name": "Mizpeh of Moab",
+    "aliases": [],
+    "note": "Place in Moab where David leaves his parents with the king of Moab."
+   },
+   {
+    "id": "hereth_forest",
+    "name": "Forest of Hereth",
+    "aliases": [],
+    "note": "Woodland in Judah where David hides."
+   },
+   {
+    "id": "keilah",
+    "name": "Keilah",
+    "aliases": [],
+    "note": "Judean town besieged by Philistines and saved by David."
+   },
+   {
+    "id": "ziph",
+    "name": "Ziph",
+    "aliases": [
+     "wilderness of Ziph"
+    ],
+    "note": "Wilderness where David hides and Ziphites betray him."
+   },
+   {
+    "id": "maon",
+    "name": "Maon",
+    "aliases": [
+     "wilderness of Maon"
+    ],
+    "note": "Wilderness and town near Carmel where Nabal lives and David pursues Saul."
+   },
+   {
+    "id": "carmel",
+    "name": "Carmel",
+    "aliases": [
+     "Carmel of Judah"
+    ],
+    "note": "Town where Nabal's sheep are shorn and where Abigail meets David."
+   },
+   {
+    "id": "en_gedi",
+    "name": "En Gedi",
+    "aliases": [
+     "rocks of the wild goats"
+    ],
+    "note": "Desert oasis where David spares Saul in a cave."
+   },
+   {
+    "id": "ziklag",
+    "name": "Ziklag",
+    "aliases": [],
+    "note": "Town given to David by Achish, sacked and burned by Amalekites."
+   },
+   {
+    "id": "endor",
+    "name": "Endor",
+    "aliases": [],
+    "note": "Town where the woman with the familiar spirit lives."
+   },
+   {
+    "id": "mount_gilboa",
+    "name": "Mount Gilboa",
+    "aliases": [
+     "Gilboa"
+    ],
+    "note": "Mountain where the Israelite army falls and Saul and his sons die."
+   },
+   {
+    "id": "beth_shan",
+    "name": "Beth Shan",
+    "aliases": [],
+    "note": "City where the Philistines fasten Saul's body on the wall."
+   },
+   {
+    "id": "tamarisk_tree_jabesh",
+    "name": "Tamarisk under Jabesh",
+    "aliases": [],
+    "note": "Place where Saul and his sons are buried."
+   },
+   {
+    "id": "shunem",
+    "name": "Shunem",
+    "aliases": [],
+    "note": "Philistine encampment before the battle of Gilboa."
+   },
+   {
+    "id": "jezreel",
+    "name": "Jezreel",
+    "aliases": [
+     "spring at Jezreel"
+    ],
+    "note": "Place near the spring where Israel camps before Gilboa."
+   }
+  ],
+  "sections": [
+   {
+    "start": "1:1",
+    "end": "1:28",
+    "title": "Hannah's prayer and the birth of Samuel",
+    "setting": [
+     "ramah",
+     "shiloh"
+    ],
+    "on_stage": [
+     "elkanah",
+     "hannah",
+     "peninnah",
+     "eli",
+     "samuel"
+    ],
+    "mentioned_only": [
+     "hophni",
+     "phinehas"
+    ]
+   },
+   {
+    "start": "2:1",
+    "end": "2:10",
+    "title": "Hannah's song",
+    "setting": [
+     "shiloh"
+    ],
+    "on_stage": [
+     "hannah"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "2:11",
+    "end": "2:36",
+    "title": "The sin of Eli's sons and the oracle against Eli",
+    "setting": [
+     "shiloh",
+     "ramah"
+    ],
+    "on_stage": [
+     "eli",
+     "samuel",
+     "hophni",
+     "phinehas",
+     "elkanah"
+    ],
+    "mentioned_only": [
+     "yahweh",
+     "hannah"
+    ]
+   },
+   {
+    "start": "3:1",
+    "end": "3:21",
+    "title": "Samuel's call",
+    "setting": [
+     "shiloh"
+    ],
+    "on_stage": [
+     "samuel",
+     "eli",
+     "yahweh"
+    ],
+    "mentioned_only": [
+     "hophni",
+     "phinehas"
+    ]
+   },
+   {
+    "start": "4:1",
+    "end": "4:11",
+    "title": "Battle of Aphek and loss of the ark",
+    "setting": [
+     "aphek",
+     "ebenezer"
+    ],
+    "on_stage": [
+     "israelites",
+     "philistines",
+     "hophni",
+     "phinehas"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "4:12",
+    "end": "4:22",
+    "title": "Death of Eli and birth of Ichabod",
+    "setting": [
+     "shiloh"
+    ],
+    "on_stage": [
+     "eli",
+     "ichabod"
+    ],
+    "mentioned_only": [
+     "phinehas",
+     "hophni"
+    ]
+   },
+   {
+    "start": "5:1",
+    "end": "5:12",
+    "title": "The ark in Ashdod, Gath and Ekron",
+    "setting": [
+     "ashdod",
+     "gath",
+     "ekron"
+    ],
+    "on_stage": [
+     "philistines"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "6:1",
+    "end": "6:21",
+    "title": "The ark returned to Beth Shemesh",
+    "setting": [
+     "beth_shemesh"
+    ],
+    "on_stage": [
+     "philistines",
+     "israelites"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "7:1",
+    "end": "7:17",
+    "title": "Samuel's judgeship and victory at Mizpah",
+    "setting": [
+     "kiriath_jearim",
+     "mizpah",
+     "ramah"
+    ],
+    "on_stage": [
+     "samuel",
+     "israelites",
+     "philistines",
+     "abinadab_kiriath"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "8:1",
+    "end": "8:22",
+    "title": "The people demand a king",
+    "setting": [
+     "ramah"
+    ],
+    "on_stage": [
+     "samuel",
+     "elders_placeholder"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "9:1",
+    "end": "9:27",
+    "title": "Saul seeks the donkeys and meets Samuel",
+    "setting": [
+     "ramah"
+    ],
+    "on_stage": [
+     "saul",
+     "samuel",
+     "kish"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "10:1",
+    "end": "10:16",
+    "title": "Saul anointed and receives signs",
+    "setting": [
+     "ramah",
+     "gibeah_of_saul"
+    ],
+    "on_stage": [
+     "samuel",
+     "saul"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "10:17",
+    "end": "10:27",
+    "title": "Saul chosen by lot at Mizpah",
+    "setting": [
+     "mizpah",
+     "gibeah_of_saul"
+    ],
+    "on_stage": [
+     "samuel",
+     "saul",
+     "israelites"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "11:1",
+    "end": "11:15",
+    "title": "Siege of Jabesh Gilead and Saul's victory",
+    "setting": [
+     "jabesh_gilead",
+     "gilgal",
+     "gibeah_of_saul"
+    ],
+    "on_stage": [
+     "saul",
+     "nahash",
+     "samuel",
+     "israelites"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "12:1",
+    "end": "12:25",
+    "title": "Samuel's farewell speech",
+    "setting": [
+     "gilgal"
+    ],
+    "on_stage": [
+     "samuel",
+     "israelites",
+     "saul"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "13:1",
+    "end": "13:23",
+    "title": "Saul's rash sacrifice and the Philistine threat",
+    "setting": [
+     "gilgal",
+     "michmash",
+     "geba",
+     "gibeah_of_saul"
+    ],
+    "on_stage": [
+     "saul",
+     "samuel",
+     "israelites",
+     "philistines",
+     "jonathan"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "14:1",
+    "end": "14:23",
+    "title": "Jonathan's attack at Michmash",
+    "setting": [
+     "michmash",
+     "geba",
+     "gibeah_of_saul"
+    ],
+    "on_stage": [
+     "jonathan",
+     "saul",
+     "israelites",
+     "philistines",
+     "ahijah_placeholder"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "14:24",
+    "end": "14:46",
+    "title": "Saul's oath and Jonathan's peril",
+    "setting": [
+     "michmash",
+     "gibeah_of_saul"
+    ],
+    "on_stage": [
+     "saul",
+     "jonathan",
+     "israelites"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "14:47",
+    "end": "14:52",
+    "title": "Saul's wars and family",
+    "setting": [
+     "gibeah_of_saul"
+    ],
+    "on_stage": [
+     "saul"
+    ],
+    "mentioned_only": [
+     "abner",
+     "jonathan",
+     "ishvi",
+     "malchishua",
+     "merab",
+     "michal",
+     "ahinoam_saul_wife"
+    ]
+   },
+   {
+    "start": "15:1",
+    "end": "15:35",
+    "title": "Saul disobeys concerning Amalek",
+    "setting": [
+     "gilgal",
+     "gibeah_of_saul",
+     "ramah"
+    ],
+    "on_stage": [
+     "samuel",
+     "saul",
+     "israelites",
+     "agag",
+     "kenites_placeholder"
+    ],
+    "mentioned_only": [
+     "yahweh",
+     "amalekites"
+    ]
+   },
+   {
+    "start": "16:1",
+    "end": "16:13",
+    "title": "Samuel anoints David at Bethlehem",
+    "setting": [
+     "bethlehem",
+     "ramah"
+    ],
+    "on_stage": [
+     "samuel",
+     "jesse",
+     "eliab",
+     "david"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "16:14",
+    "end": "16:23",
+    "title": "David plays for Saul",
+    "setting": [
+     "gibeah_of_saul"
+    ],
+    "on_stage": [
+     "saul",
+     "david"
+    ],
+    "mentioned_only": [
+     "jesse"
+    ]
+   },
+   {
+    "start": "17:1",
+    "end": "17:18",
+    "title": "Goliath's challenge and David sent with supplies",
+    "setting": [
+     "valley_of_elah",
+     "bethlehem"
+    ],
+    "on_stage": [
+     "goliath",
+     "israelites",
+     "philistines",
+     "jesse",
+     "david"
+    ],
+    "mentioned_only": [
+     "eliab",
+     "abinadab",
+     "shammah"
+    ]
+   },
+   {
+    "start": "17:19",
+    "end": "17:30",
+    "title": "David at the camp hears the challenge",
+    "setting": [
+     "valley_of_elah"
+    ],
+    "on_stage": [
+     "david",
+     "eliab",
+     "israelites",
+     "goliath"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "17:31",
+    "end": "17:58",
+    "title": "David fights Goliath",
+    "setting": [
+     "valley_of_elah"
+    ],
+    "on_stage": [
+     "david",
+     "saul",
+     "goliath",
+     "abner",
+     "israelites",
+     "philistines"
+    ],
+    "mentioned_only": [
+     "jesse"
+    ]
+   },
+   {
+    "start": "18:1",
+    "end": "18:9",
+    "title": "Jonathan's covenant with David and the women's song",
+    "setting": [
+     "gibeah_of_saul"
+    ],
+    "on_stage": [
+     "jonathan",
+     "david",
+     "saul"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "18:10",
+    "end": "18:30",
+    "title": "Saul's jealousy and the bride-price",
+    "setting": [
+     "gibeah_of_saul"
+    ],
+    "on_stage": [
+     "saul",
+     "david",
+     "michal",
+     "jonathan"
+    ],
+    "mentioned_only": [
+     "merab",
+     "adriel"
+    ]
+   },
+   {
+    "start": "19:1",
+    "end": "19:17",
+    "title": "Jonathan intercedes and Michal lets David escape",
+    "setting": [
+     "gibeah_of_saul"
+    ],
+    "on_stage": [
+     "saul",
+     "jonathan",
+     "david",
+     "michal"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "19:18",
+    "end": "19:24",
+    "title": "David at Naioth with Samuel",
+    "setting": [
+     "ramah"
+    ],
+    "on_stage": [
+     "david",
+     "samuel",
+     "saul"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "20:1",
+    "end": "20:23",
+    "title": "David and Jonathan's covenant at the stone Ezel",
+    "setting": [
+     "ramah"
+    ],
+    "on_stage": [
+     "david",
+     "jonathan"
+    ],
+    "mentioned_only": [
+     "saul"
+    ]
+   },
+   {
+    "start": "20:24",
+    "end": "20:42",
+    "title": "The new moon feast and parting",
+    "setting": [
+     "gibeah_of_saul"
+    ],
+    "on_stage": [
+     "saul",
+     "jonathan",
+     "abner",
+     "david"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "21:1",
+    "end": "21:9",
+    "title": "David at Nob",
+    "setting": [
+     "nob"
+    ],
+    "on_stage": [
+     "david",
+     "ahimelech",
+     "doeg"
+    ],
+    "mentioned_only": [
+     "saul"
+    ]
+   },
+   {
+    "start": "21:10",
+    "end": "21:15",
+    "title": "David feigns madness at Gath",
+    "setting": [
+     "gath_achish"
+    ],
+    "on_stage": [
+     "david",
+     "achish"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "22:1",
+    "end": "22:5",
+    "title": "David gathers men at Adullam",
+    "setting": [
+     "adullam",
+     "mizpeh_moab",
+     "hereth_forest"
+    ],
+    "on_stage": [
+     "david",
+     "gad"
+    ],
+    "mentioned_only": [
+     "saul"
+    ]
+   },
+   {
+    "start": "22:6",
+    "end": "22:23",
+    "title": "Saul slaughters the priests of Nob",
+    "setting": [
+     "gibeah_of_saul",
+     "nob"
+    ],
+    "on_stage": [
+     "saul",
+     "doeg",
+     "ahimelech",
+     "abiathar"
+    ],
+    "mentioned_only": [
+     "david"
+    ]
+   },
+   {
+    "start": "23:1",
+    "end": "23:13",
+    "title": "David rescues Keilah",
+    "setting": [
+     "keilah"
+    ],
+    "on_stage": [
+     "david",
+     "abiathar",
+     "saul"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "23:14",
+    "end": "23:29",
+    "title": "David in the wilderness of Ziph and Maon",
+    "setting": [
+     "ziph",
+     "maon",
+     "en_gedi"
+    ],
+    "on_stage": [
+     "david",
+     "jonathan",
+     "saul"
+    ],
+    "mentioned_only": [
+     "ziphites_placeholder"
+    ]
+   },
+   {
+    "start": "24:1",
+    "end": "24:22",
+    "title": "David spares Saul in the cave at En Gedi",
+    "setting": [
+     "en_gedi"
+    ],
+    "on_stage": [
+     "david",
+     "saul"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "25:1",
+    "end": "25:31",
+    "title": "Nabal's insult and Abigail's intercession",
+    "setting": [
+     "maon",
+     "carmel"
+    ],
+    "on_stage": [
+     "david",
+     "nabal",
+     "abigail"
+    ],
+    "mentioned_only": [
+     "samuel"
+    ]
+   },
+   {
+    "start": "25:32",
+    "end": "25:44",
+    "title": "Nabal's death and David's marriages",
+    "setting": [
+     "carmel"
+    ],
+    "on_stage": [
+     "david",
+     "abigail",
+     "nabal"
+    ],
+    "mentioned_only": [
+     "ahinoam_of_jezreel",
+     "michal",
+     "palti",
+     "saul"
+    ]
+   },
+   {
+    "start": "26:1",
+    "end": "26:25",
+    "title": "David spares Saul in the camp at Hachilah",
+    "setting": [
+     "ziph",
+     "gibeah_of_saul"
+    ],
+    "on_stage": [
+     "david",
+     "abishai",
+     "saul",
+     "abner"
+    ],
+    "mentioned_only": [
+     "ahimelech_hittite"
+    ]
+   },
+   {
+    "start": "27:1",
+    "end": "27:12",
+    "title": "David at Gath and raids",
+    "setting": [
+     "gath_achish",
+     "ziklag"
+    ],
+    "on_stage": [
+     "david",
+     "achish"
+    ],
+    "mentioned_only": [
+     "saul",
+     "ahinoam_of_jezreel",
+     "abigail"
+    ]
+   },
+   {
+    "start": "28:1",
+    "end": "28:25",
+    "title": "Saul and the woman of Endor",
+    "setting": [
+     "endor",
+     "shunem"
+    ],
+    "on_stage": [
+     "saul",
+     "witch_of_endor",
+     "samuel"
+    ],
+    "mentioned_only": [
+     "david",
+     "achish"
+    ]
+   },
+   {
+    "start": "29:1",
+    "end": "29:11",
+    "title": "The Philistines reject David",
+    "setting": [
+     "aphek",
+     "jezreel"
+    ],
+    "on_stage": [
+     "achish",
+     "david",
+     "philistines"
+    ],
+    "mentioned_only": [
+     "saul"
+    ]
+   },
+   {
+    "start": "30:1",
+    "end": "30:31",
+    "title": "David recovers Ziklag and shares the spoil",
+    "setting": [
+     "ziklag",
+     "amalekites"
+    ],
+    "on_stage": [
+     "david",
+     "amalekites",
+     "egyptian_servant",
+     "abiathar"
+    ],
+    "mentioned_only": [
+     "ahinoam_of_jezreel",
+     "abigail"
+    ]
+   },
+   {
+    "start": "31:1",
+    "end": "31:13",
+    "title": "Death of Saul and his sons",
+    "setting": [
+     "mount_gilboa",
+     "beth_shan",
+     "jabesh_gilead",
+     "tamarisk_tree_jabesh"
+    ],
+    "on_stage": [
+     "saul",
+     "jonathan",
+     "israelites",
+     "philistines",
+     "abner_placeholder"
+    ],
+    "mentioned_only": [
+     "malchishua"
+    ]
+   }
+  ],
+  "brief": {
+   "tone": "Austere, tense and intimate: a book of prophecy, kingship and fraught loyalty, with grief and dread in quiet interiors and bursts of violence on open fields.",
+   "depiction_rules": [
+    "Yahweh is never shown in human or animal form; depict only effects (a voice, light, thunder, the ark) rather than a visible deity.",
+    "The ark of the covenant may be depicted as a gold-covered chest with cherubim, not as a person.",
+    "Dagon, the Ashtaroth and the teraphim are idols and may be shown as statues without divine presence.",
+    "The Philistine champion Goliath is a fully armed giant; the raw violence of the sling stone and beheading may be shown but without gratuitous gore.",
+    "The Woman of Endor's necromancy is shown with Samuel as an old robed figure rising from the ground, not as a dramatic demonic spectacle.",
+    "Nudity (Saul prophesying naked, 19:24) may be depicted with restraint."
+   ],
+   "era": {
+    "name": "Late Bronze to early Iron Age Israel and Philistia, c. 11th century BCE",
+    "people": "Israelite tribes (Ephraimites, Benjamites, Judahites) living as farmers and herders in hill country; Philistines as an organized city-state people with bronze and iron weapons; neighbors include Ammonites, Moabites, Amalekites and Edomites.",
+    "dress": "Linen ephods for priests and boys; robes and mantles for elders and kings; bronze helmets and coats of mail for warriors; shepherds' bags and slings; simple woven tunics for common people.",
+    "buildings_and_objects": "Mud-brick and stone houses with flat roofs; the tabernacle at Shiloh with doorposts and gates; altars of stone; the wooden ark overlaid with gold; threshing floors; watchtowers and strongholds; caves used as refuges.",
+    "technology": "Bronze and emerging iron weapons and tools (iron spearheads, blacksmiths are rare among Israel); chariots and horses used by Philistines; oil lamps and horns for anointing; no writing of a full literary kind beyond scribal notes, but a book of royal law is written."
+   }
+  }
+ },
+ "usage": {
+  "prompt_tokens": 48473,
+  "completion_tokens": 10426,
+  "total_tokens": 58899,
+  "cost": 0.0100603,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0100603,
+   "upstream_inference_prompt_cost": 0.0048473,
+   "upstream_inference_completions_cost": 0.005213
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

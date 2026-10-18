@@ -1,0 +1,138 @@
+{
+ "record": {
+  "label": "bible-web__merge-groups-1__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354856-UFql3sSSlUMAi7m51wSB",
+  "seconds": 4.6,
+  "finish_reason": "stop",
+  "prompt_tokens": 2158,
+  "completion_tokens": 811,
+  "cost": 0.0006213,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:21:01"
+ },
+ "system": "You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key (\"division:id\"), name, kind, aliases, note, and the sections where each appears.\n\nFor each group, split its entries into clusters, one cluster per individual (or per place). Two entries are one individual only when their notes, roles, relations and places agree; never join entries on a shared name alone. Two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of the group must appear in exactly one of its clusters.",
+ "user_chars": 3303,
+ "content": "{\"groups\":[{\"group\":25,\"clusters\":[{\"name\":\"Galilee (region and sea)\",\"kind\":\"place\",\"note\":\"The northern region where Jesus grows up and ministers, and the lake (Sea of Galilee/Tiberias) where he walks on water and appears after the resurrection; the Luke and John entries are the same region and are joined here.\",\"members\":[\"LUK:galilee\",\"JHN:galilee\"]}]},{\"group\":26,\"clusters\":[{\"name\":\"Capernaum\",\"kind\":\"place\",\"note\":\"The Galilean town where Jesus teaches and heals, including the nobleman's son in John and the healings in Luke; the same town in both Gospels.\",\"members\":[\"LUK:capernaum\",\"JHN:capernaum\"]}]},{\"group\":27,\"clusters\":[{\"name\":\"Samaria (region and villages)\",\"kind\":\"place\",\"note\":\"The region of the Samaritans in Luke, where a village refuses Jesus and a grateful leper returns; distinct from John's Sychar, the Samaritan town by Jacob's well where Jesus meets the woman.\",\"members\":[\"LUK:samaria\"]},{\"name\":\"Sychar in Samaria\",\"kind\":\"place\",\"note\":\"The Samaritan town by Jacob's well in John where Jesus meets the woman and the town believes; a specific town, not the wider region of Luke's entry.\",\"members\":[\"JHN:samaria_sychar\"]}]},{\"group\":28,\"clusters\":[{\"name\":\"Bethany\",\"kind\":\"place\",\"note\":\"The village near Jerusalem home of Martha, Mary and Lazarus, where Jesus visits in Luke and raises Lazarus in John; the same village in both Gospels.\",\"members\":[\"LUK:bethany\",\"JHN:bethany\"]}]},{\"group\":29,\"clusters\":[{\"name\":\"The Mount of Olives\",\"kind\":\"place\",\"note\":\"The hill east of Jerusalem where Jesus teaches, the colt is fetched and he prays in Gethsemane in Luke, and where he goes at night in John; the same hill in both Gospels.\",\"members\":[\"LUK:mount_of_olives\",\"JHN:mount_of_olives\"]}]},{\"group\":30,\"clusters\":[{\"name\":\"Golgotha (The Skull)\",\"kind\":\"place\",\"note\":\"The hill outside Jerusalem where Jesus is crucified, called The Skull or Golgotha; the same site in both Gospels.\",\"members\":[\"LUK:golgotha\",\"JHN:golgotha\"]}]}]}",
+ "parsed": {
+  "groups": [
+   {
+    "group": 25,
+    "clusters": [
+     {
+      "name": "Galilee (region and sea)",
+      "kind": "place",
+      "note": "The northern region where Jesus grows up and ministers, and the lake (Sea of Galilee/Tiberias) where he walks on water and appears after the resurrection; the Luke and John entries are the same region and are joined here.",
+      "members": [
+       "LUK:galilee",
+       "JHN:galilee"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 26,
+    "clusters": [
+     {
+      "name": "Capernaum",
+      "kind": "place",
+      "note": "The Galilean town where Jesus teaches and heals, including the nobleman's son in John and the healings in Luke; the same town in both Gospels.",
+      "members": [
+       "LUK:capernaum",
+       "JHN:capernaum"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 27,
+    "clusters": [
+     {
+      "name": "Samaria (region and villages)",
+      "kind": "place",
+      "note": "The region of the Samaritans in Luke, where a village refuses Jesus and a grateful leper returns; distinct from John's Sychar, the Samaritan town by Jacob's well where Jesus meets the woman.",
+      "members": [
+       "LUK:samaria"
+      ]
+     },
+     {
+      "name": "Sychar in Samaria",
+      "kind": "place",
+      "note": "The Samaritan town by Jacob's well in John where Jesus meets the woman and the town believes; a specific town, not the wider region of Luke's entry.",
+      "members": [
+       "JHN:samaria_sychar"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 28,
+    "clusters": [
+     {
+      "name": "Bethany",
+      "kind": "place",
+      "note": "The village near Jerusalem home of Martha, Mary and Lazarus, where Jesus visits in Luke and raises Lazarus in John; the same village in both Gospels.",
+      "members": [
+       "LUK:bethany",
+       "JHN:bethany"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 29,
+    "clusters": [
+     {
+      "name": "The Mount of Olives",
+      "kind": "place",
+      "note": "The hill east of Jerusalem where Jesus teaches, the colt is fetched and he prays in Gethsemane in Luke, and where he goes at night in John; the same hill in both Gospels.",
+      "members": [
+       "LUK:mount_of_olives",
+       "JHN:mount_of_olives"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 30,
+    "clusters": [
+     {
+      "name": "Golgotha (The Skull)",
+      "kind": "place",
+      "note": "The hill outside Jerusalem where Jesus is crucified, called The Skull or Golgotha; the same site in both Gospels.",
+      "members": [
+       "LUK:golgotha",
+       "JHN:golgotha"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 2158,
+  "completion_tokens": 811,
+  "total_tokens": 2969,
+  "cost": 0.0006213,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0006213,
+   "upstream_inference_prompt_cost": 0.0002158,
+   "upstream_inference_completions_cost": 0.0004055
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

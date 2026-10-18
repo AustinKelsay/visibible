@@ -1,0 +1,740 @@
+{
+ "record": {
+  "label": "bible-web__1SA__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354475-Uji1MamzqhKFTI6FmONg",
+  "seconds": 22.0,
+  "finish_reason": "stop",
+  "prompt_tokens": 48473,
+  "completion_tokens": 6009,
+  "cost": 0.0078518,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:57"
+ },
+ "system": "You are the reading pass of an illustration engine. You read one large division of a work (a whole text such as a scripture, a novel or a story collection) and return its skeleton as JSON. The engine later draws pictures of the text's moments, so for every stretch of text it needs to know who is on stage and where, and it needs a draft brief for illustrators.\n\nThe text comes as numbered units. Each unit line starts with its id (for example `17:4` or `[12]`). Lines starting with `##` are headings, not units.\n\nReturn:\n\n1. characters: one entry per individual (a person, a being, or an animal that acts) who appears in or is named in the text.\n   - One individual is one entry, even when the text uses different names, titles or descriptions for them. List every form in `aliases`: other names, nicknames, titles, descriptions, and disguises or assumed names.\n   - Different individuals who share a name or a title get separate entries, one each. Never fold two people into one entry because they share a name. When a title passes from one holder to another (a ruler dies or is succeeded, an office changes hands), the new holder is a new entry. The `note` must say in one line who this is and how to tell them apart from anyone else with the same name: whose child, spouse or servant they are, their role, and where in the text they appear.\n   - A disguised, renamed or unnamed person who the text later identifies is the same entry as their named self, with the disguise or description in `aliases`. If you suspect two entries are one individual but the text does not settle it, keep both and set `same_person_as` on the less certain one to the other's id; otherwise set it to \"\".\n   - Skip people who occur only inside a list of names (a genealogy or roster) and never act.\n   - Add a group (an army, a crowd, a household) only when it acts as one on stage, with kind \"group\".\n2. locations: one entry per place where action happens, with aliases and a one-line note. Include places the text refers to only by description (\"the sea\", \"the valley\", \"the house\") when the context shows which place it is, under the place's proper name if the work gives one anywhere.\n3. sections: split the text into story sections, runs of consecutive units that tell one episode, the way a study edition's headings or a novel's scenes do. Start a new section when the time, the place or the main action changes. Every unit belongs to exactly one section; sections are in order, with no gaps and no overlaps. This division has 810 units. Aim for roughly 45 sections (36 to 54), averaging about 18 units each; some sections will be much shorter and some longer. Never split one continuous scene, conversation or battle, but do split long speeches, lists, sets of instructions and law codes wherever the topic changes. Give the ids of each section's first and last unit and a short title. For each section:\n   - setting: ids of the locations where its action happens.\n   - on_stage: ids of every character present in the section's action, whether the section names them or only refers to them by a pronoun, a title or a description, or does not mention them but they are clearly there.\n   - mentioned_only: ids of characters the section names or refers to who are not present.\n4. brief: a draft brief for illustrators, for this division only. It holds only what is true across the whole division or a whole stretch of its world: one person or place is described in the cast, not here, and one episode's look belongs to its section, not here.\n   - tone: one line on the mood the pictures should carry.\n   - depiction_rules: a short list of how certain things in this text may or may not be shown, drawn from the text and from what you know about the work.\n   - era: the stretch of the world this division is set in: a name, its people (who lives there and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist).\n   Keep the brief under 200 words.\n\nUse short, stable snake_case ids (for example `david`, `the_queen`, `main_street`). Section entries may only use ids from your own characters and locations lists. Do not quote the text.",
+ "user_chars": 127347,
+ "content": "{\"characters\":[{\"id\":\"elkanah\",\"name\":\"Elkanah\",\"aliases\":[\"the man of Ramathaim Zophim\"],\"note\":\"Ephraimite husband of Hannah and Peninnah, father of Samuel; goes yearly to Shiloh to sacrifice (ch. 1-2).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"hannah\",\"name\":\"Hannah\",\"aliases\":[\"the woman in bitterness\"],\"note\":\"Elkanah's wife, barren, who prays for a son and gives Samuel to Yahweh at Shiloh (ch. 1-2).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"peninnah\",\"name\":\"Peninnah\",\"aliases\":[\"her rival\"],\"note\":\"Elkanah's other wife, mother of many children, who provokes Hannah (ch. 1).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"eli\",\"name\":\"Eli\",\"aliases\":[\"the priest at Shiloh\"],\"note\":\"Old priest at Shiloh, father of Hophni and Phinehas, who judges Israel forty years and dies on hearing of the ark's capture (ch. 1-4).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"samuel\",\"name\":\"Samuel\",\"aliases\":[\"the child\",\"the seer\",\"the prophet\"],\"note\":\"Son of Hannah, raised at Shiloh under Eli; becomes prophet and judge who anoints Saul and David (ch. 1-28).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"hophni\",\"name\":\"Hophni\",\"aliases\":[\"the sons of Eli\"],\"note\":\"Wicked son of Eli, priest at Shiloh, killed in battle with the ark (ch. 2, 4).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"phinehas_son_of_eli\",\"name\":\"Phinehas\",\"aliases\":[\"Eli's son\",\"Phinehas's wife's husband\"],\"note\":\"Wicked son of Eli, priest at Shiloh, killed in battle; not to be confused with later Phinehas (ch. 2, 4).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"phinehas_wife\",\"name\":\"Phinehas's wife\",\"aliases\":[\"the daughter-in-law of Eli\"],\"note\":\"Wife of Eli's son Phinehas; names her son Ichabod on hearing of the ark's loss and dies in childbirth (ch. 4).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"ichabod\",\"name\":\"Ichabod\",\"aliases\":[\"the infant born at Shiloh\"],\"note\":\"Son of Phinehas's wife, named for the departed glory (ch. 4).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"dagon\",\"name\":\"Dagon\",\"aliases\":[\"the god of Ashdod\"],\"note\":\"Philistine god whose image falls before the ark in Ashdod (ch. 5).\",\"kind\":\"divine\",\"same_person_as\":\"\"},{\"id\":\"yahweh\",\"name\":\"Yahweh\",\"aliases\":[\"the God of Israel\",\"Yahweh of Armies\",\"the Holy One\",\"the Strength of Israel\"],\"note\":\"God of Israel, speaking and acting throughout; appears as speaker and actor in the narrative (all chapters).\",\"kind\":\"divine\",\"same_person_as\":\"\"},{\"id\":\"philistine_lords\",\"name\":\"Philistine lords\",\"aliases\":[\"lords of the Philistines\",\"the princes of the Philistines\"],\"note\":\"Rulers of the five Philistine cities who consult about the ark and gather in councils (ch. 5-6, 29).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"ark_of_yahweh\",\"name\":\"Ark of Yahweh\",\"aliases\":[\"God's ark\",\"the ark of the covenant\"],\"note\":\"The sacred ark moved between Shiloh, Ebenezer, Ashdod, Gath, Ekron, Beth Shemesh and Kiriath Jearim; a central object (ch. 4-7).\",\"kind\":\"other\",\"same_person_as\":\"\"},{\"id\":\"men_of_ashdod\",\"name\":\"Men of Ashdod\",\"aliases\":[\"the people of Ashdod\"],\"note\":\"Philistine townsmen struck with tumors when the ark is brought to them (ch. 5).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"men_of_beth_shemesh\",\"name\":\"Men of Beth Shemesh\",\"aliases\":[\"the people of Beth Shemesh\"],\"note\":\"Israelite town that receives the ark on a cart and is struck for looking into it (ch. 6).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"israelite_elders\",\"name\":\"Elders of Israel\",\"aliases\":[\"the men of Israel\",\"all Israel\"],\"note\":\"Israelite leaders who ask Samuel for a king and gather for war (ch. 4, 8, 10-11).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"kish\",\"name\":\"Kish\",\"aliases\":[\"the father of Saul\"],\"note\":\"Benjamite whose donkeys are lost; father of Saul (ch. 9-10).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"saul\",\"name\":\"Saul\",\"aliases\":[\"the king\",\"the son of Kish\",\"my lord the king\"],\"note\":\"First king of Israel, son of Kish, anointed by Samuel; rejected by Yahweh; dies on Mount Gilboa (ch. 9-31).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"saul_servant\",\"name\":\"Saul's servant\",\"aliases\":[\"the young man with Saul\",\"the servant\"],\"note\":\"Servant who accompanies Saul to find the donkeys and to Samuel (ch. 9).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"saul_uncle\",\"name\":\"Saul's uncle\",\"aliases\":[\"Saul's uncle\"],\"note\":\"Uncle of Saul who asks where Saul has been (ch. 10).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"maidens_at_well\",\"name\":\"Young women at the city\",\"aliases\":[\"the young maidens\"],\"note\":\"Girls drawing water who direct Saul to Samuel (ch. 9).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"band_of_prophets\",\"name\":\"Band of prophets\",\"aliases\":[\"the prophets\"],\"note\":\"Group of prophets Saul meets near Gibeah of God (ch. 10, 19).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"nahash\",\"name\":\"Nahash\",\"aliases\":[\"Nahash the Ammonite\",\"the king of the children of Ammon\"],\"note\":\"Ammonite king who besieges Jabesh Gilead (ch. 11-12).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"men_of_jabesh_gilead\",\"name\":\"Men of Jabesh Gilead\",\"aliases\":[\"the elders of Jabesh\"],\"note\":\"Besieged town whose elders bargain with Nahash and are rescued by Saul (ch. 11).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"worthless_fellows\",\"name\":\"Worthless fellows\",\"aliases\":[\"certain worthless fellows\"],\"note\":\"Men who despise Saul after his election and bring no tribute (ch. 10).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"jonathan\",\"name\":\"Jonathan\",\"aliases\":[\"the son of Saul\"],\"note\":\"Son of Saul, friend and covenant partner of David; struck the Philistine garrison at Geba (ch. 13-20, 31).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"jonathan_armor_bearer\",\"name\":\"Jonathan's armor bearer\",\"aliases\":[\"the young man who bore his armor\"],\"note\":\"Armor bearer who joins Jonathan's attack on the Philistine garrison (ch. 14).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"philistine_garrison\",\"name\":\"Philistine garrison\",\"aliases\":[\"the garrison of the Philistines\",\"the raiders\"],\"note\":\"Philistine troops at Michmash and Geba who are attacked by Jonathan (ch. 13-14).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"ahijah_priest\",\"name\":\"Ahijah\",\"aliases\":[\"the priest with the ephod\",\"son of Ahitub\"],\"note\":\"Priest with Saul at Gibeah who wears the ephod; son of Ahitub, descendant of Eli (ch. 14).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"agag\",\"name\":\"Agag\",\"aliases\":[\"the king of the Amalekites\"],\"note\":\"Amalekite king spared by Saul and cut in pieces by Samuel at Gilgal (ch. 15).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"amalekites\",\"name\":\"Amalekites\",\"aliases\":[\"Amalek\"],\"note\":\"Enemy people to be destroyed; attacked by Saul and later by David at Ziklag (ch. 15, 27, 30).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"kenites\",\"name\":\"Kenites\",\"aliases\":[\"the Kenites\"],\"note\":\"People who showed kindness to Israel and are spared by Saul (ch. 15).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"jesse\",\"name\":\"Jesse\",\"aliases\":[\"the Bethlehemite\",\"the father of David\"],\"note\":\"Father of eight sons including David, of Bethlehem (ch. 16-17).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"eliab\",\"name\":\"Eliab\",\"aliases\":[\"David's eldest brother\"],\"note\":\"Eldest son of Jesse; rebukes David at the battle lines and is passed over by Samuel (ch. 16-17).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"abinadab\",\"name\":\"Abinadab\",\"aliases\":[\"son of Jesse\"],\"note\":\"Son of Jesse passed over by Samuel; a brother of David (ch. 16-17).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"shammah\",\"name\":\"Shammah\",\"aliases\":[\"son of Jesse\"],\"note\":\"Son of Jesse passed over by Samuel; a brother of David (ch. 16-17).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"david\",\"name\":\"David\",\"aliases\":[\"the son of Jesse\",\"the Bethlehemite\",\"the youth\",\"the servant of Saul's household\"],\"note\":\"Youngest son of Jesse, anointed by Samuel; harpist, armor bearer and slayer of Goliath; fugitive from Saul and later king of Judah (ch. 16-31).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"goliath\",\"name\":\"Goliath\",\"aliases\":[\"the Philistine champion\",\"the Philistine of Gath\"],\"note\":\"Philistine champion from Gath, killed by David with a sling (ch. 17).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"goliath_shield_bearer\",\"name\":\"Goliath's shield bearer\",\"aliases\":[\"the man who bore the shield\"],\"note\":\"Shield bearer walking before Goliath (ch. 17).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"abner\",\"name\":\"Abner\",\"aliases\":[\"the captain of the army\",\"son of Ner\"],\"note\":\"Saul's cousin and army captain; presents David to Saul and is rebuked at night (ch. 14, 17, 20, 26).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"merab\",\"name\":\"Merab\",\"aliases\":[\"Saul's elder daughter\"],\"note\":\"Saul's elder daughter promised to David but given to Adriel (ch. 14, 18).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"michal\",\"name\":\"Michal\",\"aliases\":[\"Saul's younger daughter\",\"David's wife\"],\"note\":\"Saul's younger daughter who loves David, becomes his wife, and helps him escape (ch. 14, 18-19, 25).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"women_singers\",\"name\":\"Women singers\",\"aliases\":[\"the women of Israel\"],\"note\":\"Women who sing of Saul's and David's victories (ch. 18).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"evil_spirit\",\"name\":\"Evil spirit from Yahweh\",\"aliases\":[\"the evil spirit\"],\"note\":\"Spirit troubling Saul, eased by David's harp (ch. 16, 18-19).\",\"kind\":\"other\",\"same_person_as\":\"\"},{\"id\":\"saul_servants\",\"name\":\"Saul's servants\",\"aliases\":[\"Saul's young men\"],\"note\":\"Servants who counsel Saul and carry out his orders (ch. 16-19).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"adriel\",\"name\":\"Adriel\",\"aliases\":[\"the Meholathite\"],\"note\":\"Man to whom Merab is given as wife (ch. 18).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"ahimelech_priest\",\"name\":\"Ahimelech\",\"aliases\":[\"the priest of Nob\",\"son of Ahitub\"],\"note\":\"Priest at Nob who gives David bread and Goliath's sword and is killed by Saul's order (ch. 21-22).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"doeg\",\"name\":\"Doeg\",\"aliases\":[\"the Edomite\",\"the herdsman of Saul\"],\"note\":\"Edomite herdsman of Saul who reports David to Saul and kills the priests of Nob (ch. 21-22).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"achish\",\"name\":\"Achish\",\"aliases\":[\"king of Gath\",\"son of Maoch\"],\"note\":\"King of Gath who receives David and gives him Ziklag (ch. 21, 27-29).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"gad_prophet\",\"name\":\"Gad\",\"aliases\":[\"the prophet Gad\"],\"note\":\"Prophet who advises David to leave the stronghold (ch. 22).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"abiathar\",\"name\":\"Abiathar\",\"aliases\":[\"son of Ahimelech\",\"the priest with the ephod\"],\"note\":\"Surviving son of Ahimelech who flees to David and carries the ephod (ch. 22-23, 30).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"david_men\",\"name\":\"David's men\",\"aliases\":[\"his men\",\"the six hundred\"],\"note\":\"Band of outlaws and debtors who follow David (ch. 22-30).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"ziphites\",\"name\":\"Ziphites\",\"aliases\":[\"the men of Ziph\"],\"note\":\"Men of Ziph who betray David's hiding places to Saul (ch. 23, 26).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"nabal\",\"name\":\"Nabal\",\"aliases\":[\"the rich man of Carmel\"],\"note\":\"Wealthy surly man of Carmel who insults David; dies ten days after (ch. 25).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"abigail\",\"name\":\"Abigail\",\"aliases\":[\"Nabal's wife\"],\"note\":\"Intelligent wife of Nabal who pleads with David and then becomes his wife (ch. 25, 27, 30).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"abishai\",\"name\":\"Abishai\",\"aliases\":[\"son of Zeruiah\",\"brother of Joab\"],\"note\":\"David's nephew who offers to kill Saul in the camp (ch. 26).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"ahinoam_jezreelitess\",\"name\":\"Ahinoam of Jezreel\",\"aliases\":[\"David's wife from Jezreel\"],\"note\":\"One of David's wives taken at Ziklag and rescued (ch. 25, 27, 30).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"palti\",\"name\":\"Palti\",\"aliases\":[\"son of Laish\"],\"note\":\"Man to whom Saul gave Michal (ch. 25).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"samuel_witch_of_endor\",\"name\":\"Woman of Endor\",\"aliases\":[\"the woman with a familiar spirit\"],\"note\":\"Medium at Endor who raises Samuel's spirit for Saul (ch. 28).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"amalekite_slave\",\"name\":\"Egyptian servant\",\"aliases\":[\"the young man of Egypt\",\"servant of an Amalekite\"],\"note\":\"Egyptian servant abandoned by Amalekites who guides David to their camp (ch. 30).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"saul_armor_bearer\",\"name\":\"Saul's armor bearer\",\"aliases\":[\"his armor bearer\"],\"note\":\"Armor bearer who refuses to kill Saul and then dies on his own sword (ch. 31).\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"men_of_jabesh_burial\",\"name\":\"Valiant men of Jabesh Gilead\",\"aliases\":[\"the valiant men of Jabesh\"],\"note\":\"Men who recover Saul's body from Beth Shan and bury it at Jabesh (ch. 31).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"philistines_army\",\"name\":\"Philistines\",\"aliases\":[\"the Philistine army\"],\"note\":\"Philistine army and people in the wars against Israel (throughout).\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"israel_army\",\"name\":\"Israelite army\",\"aliases\":[\"the army of Israel\",\"the people\"],\"note\":\"Israelite army and people in the battles (throughout).\",\"kind\":\"group\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"ramah\",\"name\":\"Ramah\",\"aliases\":[\"Ramathaim Zophim\",\"Ramah of Benjamin\"],\"note\":\"Home town of Elkanah and later Samuel's house and seat of judgment (ch. 1, 7-9, 19).-\"}],\"sections\":[],\"brief\":{\"tone\":\"\",\"depiction_rules\":[],\"era\":{\"name\":\"\",\"people\":\"\",\"dress\":\"\",\"buildings_and_objects\":\"\",\"technology\":\"\"}}}",
+ "parsed": {
+  "characters": [
+   {
+    "id": "elkanah",
+    "name": "Elkanah",
+    "aliases": [
+     "the man of Ramathaim Zophim"
+    ],
+    "note": "Ephraimite husband of Hannah and Peninnah, father of Samuel; goes yearly to Shiloh to sacrifice (ch. 1-2).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "hannah",
+    "name": "Hannah",
+    "aliases": [
+     "the woman in bitterness"
+    ],
+    "note": "Elkanah's wife, barren, who prays for a son and gives Samuel to Yahweh at Shiloh (ch. 1-2).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "peninnah",
+    "name": "Peninnah",
+    "aliases": [
+     "her rival"
+    ],
+    "note": "Elkanah's other wife, mother of many children, who provokes Hannah (ch. 1).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "eli",
+    "name": "Eli",
+    "aliases": [
+     "the priest at Shiloh"
+    ],
+    "note": "Old priest at Shiloh, father of Hophni and Phinehas, who judges Israel forty years and dies on hearing of the ark's capture (ch. 1-4).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "samuel",
+    "name": "Samuel",
+    "aliases": [
+     "the child",
+     "the seer",
+     "the prophet"
+    ],
+    "note": "Son of Hannah, raised at Shiloh under Eli; becomes prophet and judge who anoints Saul and David (ch. 1-28).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "hophni",
+    "name": "Hophni",
+    "aliases": [
+     "the sons of Eli"
+    ],
+    "note": "Wicked son of Eli, priest at Shiloh, killed in battle with the ark (ch. 2, 4).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "phinehas_son_of_eli",
+    "name": "Phinehas",
+    "aliases": [
+     "Eli's son",
+     "Phinehas's wife's husband"
+    ],
+    "note": "Wicked son of Eli, priest at Shiloh, killed in battle; not to be confused with later Phinehas (ch. 2, 4).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "phinehas_wife",
+    "name": "Phinehas's wife",
+    "aliases": [
+     "the daughter-in-law of Eli"
+    ],
+    "note": "Wife of Eli's son Phinehas; names her son Ichabod on hearing of the ark's loss and dies in childbirth (ch. 4).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "ichabod",
+    "name": "Ichabod",
+    "aliases": [
+     "the infant born at Shiloh"
+    ],
+    "note": "Son of Phinehas's wife, named for the departed glory (ch. 4).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "dagon",
+    "name": "Dagon",
+    "aliases": [
+     "the god of Ashdod"
+    ],
+    "note": "Philistine god whose image falls before the ark in Ashdod (ch. 5).",
+    "kind": "divine",
+    "same_person_as": ""
+   },
+   {
+    "id": "yahweh",
+    "name": "Yahweh",
+    "aliases": [
+     "the God of Israel",
+     "Yahweh of Armies",
+     "the Holy One",
+     "the Strength of Israel"
+    ],
+    "note": "God of Israel, speaking and acting throughout; appears as speaker and actor in the narrative (all chapters).",
+    "kind": "divine",
+    "same_person_as": ""
+   },
+   {
+    "id": "philistine_lords",
+    "name": "Philistine lords",
+    "aliases": [
+     "lords of the Philistines",
+     "the princes of the Philistines"
+    ],
+    "note": "Rulers of the five Philistine cities who consult about the ark and gather in councils (ch. 5-6, 29).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "ark_of_yahweh",
+    "name": "Ark of Yahweh",
+    "aliases": [
+     "God's ark",
+     "the ark of the covenant"
+    ],
+    "note": "The sacred ark moved between Shiloh, Ebenezer, Ashdod, Gath, Ekron, Beth Shemesh and Kiriath Jearim; a central object (ch. 4-7).",
+    "kind": "other",
+    "same_person_as": ""
+   },
+   {
+    "id": "men_of_ashdod",
+    "name": "Men of Ashdod",
+    "aliases": [
+     "the people of Ashdod"
+    ],
+    "note": "Philistine townsmen struck with tumors when the ark is brought to them (ch. 5).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "men_of_beth_shemesh",
+    "name": "Men of Beth Shemesh",
+    "aliases": [
+     "the people of Beth Shemesh"
+    ],
+    "note": "Israelite town that receives the ark on a cart and is struck for looking into it (ch. 6).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "israelite_elders",
+    "name": "Elders of Israel",
+    "aliases": [
+     "the men of Israel",
+     "all Israel"
+    ],
+    "note": "Israelite leaders who ask Samuel for a king and gather for war (ch. 4, 8, 10-11).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "kish",
+    "name": "Kish",
+    "aliases": [
+     "the father of Saul"
+    ],
+    "note": "Benjamite whose donkeys are lost; father of Saul (ch. 9-10).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "saul",
+    "name": "Saul",
+    "aliases": [
+     "the king",
+     "the son of Kish",
+     "my lord the king"
+    ],
+    "note": "First king of Israel, son of Kish, anointed by Samuel; rejected by Yahweh; dies on Mount Gilboa (ch. 9-31).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "saul_servant",
+    "name": "Saul's servant",
+    "aliases": [
+     "the young man with Saul",
+     "the servant"
+    ],
+    "note": "Servant who accompanies Saul to find the donkeys and to Samuel (ch. 9).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "saul_uncle",
+    "name": "Saul's uncle",
+    "aliases": [
+     "Saul's uncle"
+    ],
+    "note": "Uncle of Saul who asks where Saul has been (ch. 10).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "maidens_at_well",
+    "name": "Young women at the city",
+    "aliases": [
+     "the young maidens"
+    ],
+    "note": "Girls drawing water who direct Saul to Samuel (ch. 9).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "band_of_prophets",
+    "name": "Band of prophets",
+    "aliases": [
+     "the prophets"
+    ],
+    "note": "Group of prophets Saul meets near Gibeah of God (ch. 10, 19).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "nahash",
+    "name": "Nahash",
+    "aliases": [
+     "Nahash the Ammonite",
+     "the king of the children of Ammon"
+    ],
+    "note": "Ammonite king who besieges Jabesh Gilead (ch. 11-12).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "men_of_jabesh_gilead",
+    "name": "Men of Jabesh Gilead",
+    "aliases": [
+     "the elders of Jabesh"
+    ],
+    "note": "Besieged town whose elders bargain with Nahash and are rescued by Saul (ch. 11).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "worthless_fellows",
+    "name": "Worthless fellows",
+    "aliases": [
+     "certain worthless fellows"
+    ],
+    "note": "Men who despise Saul after his election and bring no tribute (ch. 10).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "jonathan",
+    "name": "Jonathan",
+    "aliases": [
+     "the son of Saul"
+    ],
+    "note": "Son of Saul, friend and covenant partner of David; struck the Philistine garrison at Geba (ch. 13-20, 31).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "jonathan_armor_bearer",
+    "name": "Jonathan's armor bearer",
+    "aliases": [
+     "the young man who bore his armor"
+    ],
+    "note": "Armor bearer who joins Jonathan's attack on the Philistine garrison (ch. 14).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "philistine_garrison",
+    "name": "Philistine garrison",
+    "aliases": [
+     "the garrison of the Philistines",
+     "the raiders"
+    ],
+    "note": "Philistine troops at Michmash and Geba who are attacked by Jonathan (ch. 13-14).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "ahijah_priest",
+    "name": "Ahijah",
+    "aliases": [
+     "the priest with the ephod",
+     "son of Ahitub"
+    ],
+    "note": "Priest with Saul at Gibeah who wears the ephod; son of Ahitub, descendant of Eli (ch. 14).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "agag",
+    "name": "Agag",
+    "aliases": [
+     "the king of the Amalekites"
+    ],
+    "note": "Amalekite king spared by Saul and cut in pieces by Samuel at Gilgal (ch. 15).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "amalekites",
+    "name": "Amalekites",
+    "aliases": [
+     "Amalek"
+    ],
+    "note": "Enemy people to be destroyed; attacked by Saul and later by David at Ziklag (ch. 15, 27, 30).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "kenites",
+    "name": "Kenites",
+    "aliases": [
+     "the Kenites"
+    ],
+    "note": "People who showed kindness to Israel and are spared by Saul (ch. 15).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "jesse",
+    "name": "Jesse",
+    "aliases": [
+     "the Bethlehemite",
+     "the father of David"
+    ],
+    "note": "Father of eight sons including David, of Bethlehem (ch. 16-17).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "eliab",
+    "name": "Eliab",
+    "aliases": [
+     "David's eldest brother"
+    ],
+    "note": "Eldest son of Jesse; rebukes David at the battle lines and is passed over by Samuel (ch. 16-17).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "abinadab",
+    "name": "Abinadab",
+    "aliases": [
+     "son of Jesse"
+    ],
+    "note": "Son of Jesse passed over by Samuel; a brother of David (ch. 16-17).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "shammah",
+    "name": "Shammah",
+    "aliases": [
+     "son of Jesse"
+    ],
+    "note": "Son of Jesse passed over by Samuel; a brother of David (ch. 16-17).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "david",
+    "name": "David",
+    "aliases": [
+     "the son of Jesse",
+     "the Bethlehemite",
+     "the youth",
+     "the servant of Saul's household"
+    ],
+    "note": "Youngest son of Jesse, anointed by Samuel; harpist, armor bearer and slayer of Goliath; fugitive from Saul and later king of Judah (ch. 16-31).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "goliath",
+    "name": "Goliath",
+    "aliases": [
+     "the Philistine champion",
+     "the Philistine of Gath"
+    ],
+    "note": "Philistine champion from Gath, killed by David with a sling (ch. 17).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "goliath_shield_bearer",
+    "name": "Goliath's shield bearer",
+    "aliases": [
+     "the man who bore the shield"
+    ],
+    "note": "Shield bearer walking before Goliath (ch. 17).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "abner",
+    "name": "Abner",
+    "aliases": [
+     "the captain of the army",
+     "son of Ner"
+    ],
+    "note": "Saul's cousin and army captain; presents David to Saul and is rebuked at night (ch. 14, 17, 20, 26).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "merab",
+    "name": "Merab",
+    "aliases": [
+     "Saul's elder daughter"
+    ],
+    "note": "Saul's elder daughter promised to David but given to Adriel (ch. 14, 18).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "michal",
+    "name": "Michal",
+    "aliases": [
+     "Saul's younger daughter",
+     "David's wife"
+    ],
+    "note": "Saul's younger daughter who loves David, becomes his wife, and helps him escape (ch. 14, 18-19, 25).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "women_singers",
+    "name": "Women singers",
+    "aliases": [
+     "the women of Israel"
+    ],
+    "note": "Women who sing of Saul's and David's victories (ch. 18).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "evil_spirit",
+    "name": "Evil spirit from Yahweh",
+    "aliases": [
+     "the evil spirit"
+    ],
+    "note": "Spirit troubling Saul, eased by David's harp (ch. 16, 18-19).",
+    "kind": "other",
+    "same_person_as": ""
+   },
+   {
+    "id": "saul_servants",
+    "name": "Saul's servants",
+    "aliases": [
+     "Saul's young men"
+    ],
+    "note": "Servants who counsel Saul and carry out his orders (ch. 16-19).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "adriel",
+    "name": "Adriel",
+    "aliases": [
+     "the Meholathite"
+    ],
+    "note": "Man to whom Merab is given as wife (ch. 18).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "ahimelech_priest",
+    "name": "Ahimelech",
+    "aliases": [
+     "the priest of Nob",
+     "son of Ahitub"
+    ],
+    "note": "Priest at Nob who gives David bread and Goliath's sword and is killed by Saul's order (ch. 21-22).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "doeg",
+    "name": "Doeg",
+    "aliases": [
+     "the Edomite",
+     "the herdsman of Saul"
+    ],
+    "note": "Edomite herdsman of Saul who reports David to Saul and kills the priests of Nob (ch. 21-22).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "achish",
+    "name": "Achish",
+    "aliases": [
+     "king of Gath",
+     "son of Maoch"
+    ],
+    "note": "King of Gath who receives David and gives him Ziklag (ch. 21, 27-29).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "gad_prophet",
+    "name": "Gad",
+    "aliases": [
+     "the prophet Gad"
+    ],
+    "note": "Prophet who advises David to leave the stronghold (ch. 22).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "abiathar",
+    "name": "Abiathar",
+    "aliases": [
+     "son of Ahimelech",
+     "the priest with the ephod"
+    ],
+    "note": "Surviving son of Ahimelech who flees to David and carries the ephod (ch. 22-23, 30).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "david_men",
+    "name": "David's men",
+    "aliases": [
+     "his men",
+     "the six hundred"
+    ],
+    "note": "Band of outlaws and debtors who follow David (ch. 22-30).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "ziphites",
+    "name": "Ziphites",
+    "aliases": [
+     "the men of Ziph"
+    ],
+    "note": "Men of Ziph who betray David's hiding places to Saul (ch. 23, 26).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "nabal",
+    "name": "Nabal",
+    "aliases": [
+     "the rich man of Carmel"
+    ],
+    "note": "Wealthy surly man of Carmel who insults David; dies ten days after (ch. 25).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "abigail",
+    "name": "Abigail",
+    "aliases": [
+     "Nabal's wife"
+    ],
+    "note": "Intelligent wife of Nabal who pleads with David and then becomes his wife (ch. 25, 27, 30).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "abishai",
+    "name": "Abishai",
+    "aliases": [
+     "son of Zeruiah",
+     "brother of Joab"
+    ],
+    "note": "David's nephew who offers to kill Saul in the camp (ch. 26).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "ahinoam_jezreelitess",
+    "name": "Ahinoam of Jezreel",
+    "aliases": [
+     "David's wife from Jezreel"
+    ],
+    "note": "One of David's wives taken at Ziklag and rescued (ch. 25, 27, 30).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "palti",
+    "name": "Palti",
+    "aliases": [
+     "son of Laish"
+    ],
+    "note": "Man to whom Saul gave Michal (ch. 25).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "samuel_witch_of_endor",
+    "name": "Woman of Endor",
+    "aliases": [
+     "the woman with a familiar spirit"
+    ],
+    "note": "Medium at Endor who raises Samuel's spirit for Saul (ch. 28).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "amalekite_slave",
+    "name": "Egyptian servant",
+    "aliases": [
+     "the young man of Egypt",
+     "servant of an Amalekite"
+    ],
+    "note": "Egyptian servant abandoned by Amalekites who guides David to their camp (ch. 30).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "saul_armor_bearer",
+    "name": "Saul's armor bearer",
+    "aliases": [
+     "his armor bearer"
+    ],
+    "note": "Armor bearer who refuses to kill Saul and then dies on his own sword (ch. 31).",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "men_of_jabesh_burial",
+    "name": "Valiant men of Jabesh Gilead",
+    "aliases": [
+     "the valiant men of Jabesh"
+    ],
+    "note": "Men who recover Saul's body from Beth Shan and bury it at Jabesh (ch. 31).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "philistines_army",
+    "name": "Philistines",
+    "aliases": [
+     "the Philistine army"
+    ],
+    "note": "Philistine army and people in the wars against Israel (throughout).",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "israel_army",
+    "name": "Israelite army",
+    "aliases": [
+     "the army of Israel",
+     "the people"
+    ],
+    "note": "Israelite army and people in the battles (throughout).",
+    "kind": "group",
+    "same_person_as": ""
+   }
+  ],
+  "locations": [
+   {
+    "id": "ramah",
+    "name": "Ramah",
+    "aliases": [
+     "Ramathaim Zophim",
+     "Ramah of Benjamin"
+    ],
+    "note": "Home town of Elkanah and later Samuel's house and seat of judgment (ch. 1, 7-9, 19).-"
+   }
+  ],
+  "sections": [],
+  "brief": {
+   "tone": "",
+   "depiction_rules": [],
+   "era": {
+    "name": "",
+    "people": "",
+    "dress": "",
+    "buildings_and_objects": "",
+    "technology": ""
+   }
+  }
+ },
+ "usage": {
+  "prompt_tokens": 48473,
+  "completion_tokens": 6009,
+  "total_tokens": 54482,
+  "cost": 0.0078518,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0078518,
+   "upstream_inference_prompt_cost": 0.0048473,
+   "upstream_inference_completions_cost": 0.0030045
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

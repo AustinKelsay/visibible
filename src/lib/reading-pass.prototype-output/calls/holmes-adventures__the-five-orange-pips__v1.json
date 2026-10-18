@@ -1,0 +1,422 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-five-orange-pips__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354443-0XgGBENujJ9UojxZ8GNn",
+  "seconds": 14.0,
+  "finish_reason": "stop",
+  "prompt_tokens": 15913,
+  "completion_tokens": 3283,
+  "cost": 0.0032328,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:17"
+ },
+ "system": "You are the reading pass of an illustration engine. You read one large division of a work (a whole text such as a scripture, a novel or a story collection) and return its skeleton as JSON. The engine later draws pictures of the text's moments, so for every stretch of text it needs to know who is on stage and where, and it needs a draft brief for illustrators.\n\nThe text comes as numbered units. Each unit line starts with its id (for example `17:4` or `[12]`). Lines starting with `##` are headings, not units.\n\nReturn:\n\n1. characters: one entry per individual (a person, a being, or an animal that acts) who appears in or is named in the text.\n   - One individual is one entry, even when the text uses different names, titles or descriptions for them. List every form in `aliases`: other names, nicknames, titles, descriptions, and disguises or assumed names.\n   - Different individuals who share a name or a title get separate entries, one each. Never fold two people into one entry because they share a name. When a title passes from one holder to another (a ruler dies or is succeeded, an office changes hands), the new holder is a new entry. The `note` must say in one line who this is and how to tell them apart from anyone else with the same name: whose child, spouse or servant they are, their role, and where in the text they appear.\n   - A disguised, renamed or unnamed person who the text later identifies is the same entry as their named self, with the disguise or description in `aliases`. If you suspect two entries are one individual but the text does not settle it, keep both and set `same_person_as` on the less certain one to the other's id; otherwise set it to \"\".\n   - Skip people who occur only inside a list of names (a genealogy or roster) and never act.\n   - Add a group (an army, a crowd, a household) only when it acts as one on stage, with kind \"group\".\n2. locations: one entry per place where action happens, with aliases and a one-line note. Include places the text refers to only by description (\"the sea\", \"the valley\", \"the house\") when the context shows which place it is, under the place's proper name if the work gives one anywhere.\n3. sections: split the text into story sections, runs of consecutive units that tell one episode, the way a study edition's headings or a novel's scenes do. Start a new section when the time, the place or the main action changes. Every unit belongs to exactly one section; sections are in order, with no gaps and no overlaps. This division has 178 units. Aim for roughly 10 sections (8 to 12), averaging about 18 units each; some sections will be much shorter and some longer. Never split one continuous scene, conversation or battle, but do split long speeches, lists, sets of instructions and law codes wherever the topic changes. Give the ids of each section's first and last unit and a short title. For each section:\n   - setting: ids of the locations where its action happens.\n   - on_stage: ids of every character present in the section's action, whether the section names them or only refers to them by a pronoun, a title or a description, or does not mention them but they are clearly there.\n   - mentioned_only: ids of characters the section names or refers to who are not present.\n4. brief: a draft brief for illustrators, for this division only. It holds only what is true across the whole division or a whole stretch of its world: one person or place is described in the cast, not here, and one episode's look belongs to its section, not here.\n   - tone: one line on the mood the pictures should carry.\n   - depiction_rules: a short list of how certain things in this text may or may not be shown, drawn from the text and from what you know about the work.\n   - era: the stretch of the world this division is set in: a name, its people (who lives there and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist).\n   Keep the brief under 200 words.\n\nUse short, stable snake_case ids (for example `david`, `the_queen`, `main_street`). Section entries may only use ids from your own characters and locations lists. Do not quote the text.",
+ "user_chars": 40345,
+ "content": "{\"characters\":[{\"id\":\"sherlock_holmes\",\"name\":\"Sherlock Holmes\",\"aliases\":[\"Holmes\",\"my friend\"],\"note\":\"Consulting detective living at Baker Street with Watson; narrator's friend; present throughout the division.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"watson\",\"name\":\"Dr. Watson\",\"aliases\":[\"Watson\",\"I\",\"the narrator\"],\"note\":\"Narrator and Holmes's companion at Baker Street, a doctor; present at the fireside and breakfast scenes.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"john_openshaw\",\"name\":\"John Openshaw\",\"aliases\":[\"young Openshaw\",\"the young man\"],\"note\":\"Young client, about 22, nephew of Colonel Elias Openshaw and son of Joseph Openshaw; visits Baker Street on the stormy night and is later found drowned near Waterloo Bridge.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"colonel_elias_openshaw\",\"name\":\"Colonel Elias Openshaw\",\"aliases\":[\"my uncle\",\"the colonel\",\"Elias Openshaw\"],\"note\":\"Uncle of John, former planter and Confederate colonel in America, living in Horsham; dies in a garden pool in May 1883 after receiving the K.K.K. warning; not to be confused with John.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"joseph_openshaw\",\"name\":\"Joseph Openshaw\",\"aliases\":[\"my father\",\"Openshaw senior\"],\"note\":\"Brother of Colonel Elias and father of John; former Coventry factory owner who inherits Horsham estate; dies falling into a chalk-pit in January 1885.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"major_prendergast\",\"name\":\"Major Prendergast\",\"aliases\":[\"Prendergast\"],\"note\":\"Army officer whom Openshaw consulted; referred him to Holmes; mentioned only.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"fordham\",\"name\":\"Mr. Fordham\",\"aliases\":[\"the Horsham lawyer\"],\"note\":\"Horsham lawyer who witnessed the colonel's will in 1883; mentioned only.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"major_freebody\",\"name\":\"Major Freebody\",\"aliases\":[\"the major\"],\"note\":\"Commander of a fort on Portsdown Hill and friend of Joseph Openshaw; sent telegram after his fall; mentioned only.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"captain_james_calhoun\",\"name\":\"Captain James Calhoun\",\"aliases\":[\"Captain Calhoun\",\"the leader of the gang\"],\"note\":\"Master of the barque Lone Star of Savannah, identified by Holmes as leader of the K.K.K. gang; never appears on stage; mentioned only.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"police_constable_cook\",\"name\":\"Police-Constable Cook\",\"aliases\":[\"Cook\"],\"note\":\"H Division constable who heard the cry near Waterloo Bridge; reported in newspaper; mentioned only.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"hudson\",\"name\":\"Hudson\",\"aliases\":[],\"note\":\"Name appearing in colonel's 1869 diary page; mentioned only.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mccauley\",\"name\":\"McCauley\",\"aliases\":[],\"note\":\"Name in the 1869 diary page, marked with pips and cleared; mentioned only.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"paramore\",\"name\":\"Paramore\",\"aliases\":[],\"note\":\"Name in the 1869 diary page, visited; mentioned only.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"john_swain\",\"name\":\"John Swain\",\"aliases\":[\"John Swain of St. Augustine\"],\"note\":\"Name in the 1869 diary page, marked with pips and cleared; mentioned only.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mary\",\"name\":\"Mary\",\"aliases\":[],\"note\":\"Household servant at Horsham; mentioned only.\",\"kind\":\"person\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"baker_street_rooms\",\"name\":\"Baker Street rooms\",\"aliases\":[\"Baker Street\",\"our quarters\"],\"note\":\"Holmes and Watson's sitting room at 221B Baker Street, London, where the visit and breakfast take place.\"},{\"id\":\"horsham_estate\",\"name\":\"Horsham estate\",\"aliases\":[\"Horsham\",\"the estate in Sussex\"],\"note\":\"Colonel Openshaw's house near Horsham in Sussex, with attic, garden and sundial; mentioned in the narration.\"},{\"id\":\"waterloo_bridge\",\"name\":\"Waterloo Bridge\",\"aliases\":[\"the Embankment\"],\"note\":\"Thames bridge in London near where John Openshaw's body is recovered; mentioned only.\"},{\"id\":\"lone_star_barque\",\"name\":\"the barque Lone Star\",\"aliases\":[\"Lone Star\",\"the Lone Star of Savannah\"],\"note\":\"American sailing ship bound for Savannah, Georgia, carrying the gang; mentioned only.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"11\",\"title\":\"A stormy night and an unexpected visitor\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"john_openshaw\"],\"mentioned_only\":[]},{\"start\":\"12\",\"end\":\"34\",\"title\":\"Openshaw introduces his family\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"john_openshaw\"],\"mentioned_only\":[\"major_prendergast\"]},{\"start\":\"35\",\"end\":\"45\",\"title\":\"Colonel Elias Openshaw's life and death\",\"setting\":[\"horsham_estate\"],\"on_stage\":[],\"mentioned_only\":[\"colonel_elias_openshaw\",\"joseph_openshaw\",\"fordham\"]},{\"start\":\"46\",\"end\":\"49\",\"title\":\"The attic box and the colonel's will\",\"setting\":[\"horsham_estate\"],\"on_stage\":[\"john_openshaw\"],\"mentioned_only\":[\"colonel_elias_openshaw\",\"fordham\"]},{\"start\":\"50\",\"end\":\"67\",\"title\":\"The father's letter and death\",\"setting\":[\"horsham_estate\"],\"on_stage\":[\"john_openshaw\"],\"mentioned_only\":[\"joseph_openshaw\",\"major_freebody\"]},{\"start\":\"68\",\"end\":\"86\",\"title\":\"Openshaw's second warning and the police\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"john_openshaw\"],\"mentioned_only\":[]},{\"start\":\"87\",\"end\":\"95\",\"title\":\"The diary page and Holmes's instructions\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"john_openshaw\"],\"mentioned_only\":[\"hudson\",\"mccauley\",\"paramore\",\"john_swain\"]},{\"start\":\"96\",\"end\":\"114\",\"title\":\"Openshaw departs and Holmes reflects\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"john_openshaw\"],\"mentioned_only\":[]},{\"start\":\"115\",\"end\":\"136\",\"title\":\"Holmes explains the K.K.K. and the ship\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\"],\"mentioned_only\":[\"captain_james_calhoun\"]},{\"start\":\"137\",\"end\":\"153\",\"title\":\"The news of Openshaw's death\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\"],\"mentioned_only\":[\"john_openshaw\",\"police_constable_cook\",\"waterloo_bridge\"]},{\"start\":\"154\",\"end\":\"178\",\"title\":\"The trap for the Lone Star\",\"setting\":[\"baker_street_rooms\",\"lone_star_barque\"],\"on_stage\":[\"sherlock_holmes\",\"watson\"],\"mentioned_only\":[\"captain_james_calhoun\"]}],\"brief\":{\"tone\":\"Stormy, foreboding and claustrophobic in London, with dread growing from the quiet Horsham household into a grim, fatal hunt at sea.\",\"depiction_rules\":[\"Show the K.K.K. warnings only as the small dried orange pips and the scrawled letters, never as hooded figures or lynching scenes.\",\"Do not depict the colonel's death or the chalk-pit fall in gory detail; keep them off-screen or suggested by the pool and the empty box.\",\"Holmes is shown in his Baker Street rooms with pipe, violin and reference books, not in disguise.\",\"Keep the American slavery and Reconstruction background as referenced politics, with no graphic racial violence shown.\",\"Show the Lone Star only at a distance or as a final shattered stern-post, not a lingering shipboard scene.\"],\"era\":{\"name\":\"Victorian England, 1883 to 1885, with American Reconstruction and Confederate backdrop\",\"people\":\"English professionals, servants and police in London and Sussex; Openshaw is a young English gentleman; the colonel is a former Southern planter, and the gang are American sailors of Finnish and German crews.\",\"dress\":\"Frock coats, waistcoats and overcoats for men, long waterproof coats and umbrellas in rain; pince-nez for John; plain dress for servants and dock workers.\",\"buildings_and_objects\":\"Gaslit Baker Street sitting room with fire and lamp, Horsham country house with attic lumber-room and garden sundial, brass cash-box, chalk-pits, Waterloo Bridge, Albert Dock and sailing barques.\",\"technology\":\"Gas lighting, railways and telegraph, steamboats and sailing ships, printed newspapers and encyclopaedias; no telephones, motorcars or electric light.\"}}}",
+ "parsed": {
+  "characters": [
+   {
+    "id": "sherlock_holmes",
+    "name": "Sherlock Holmes",
+    "aliases": [
+     "Holmes",
+     "my friend"
+    ],
+    "note": "Consulting detective living at Baker Street with Watson; narrator's friend; present throughout the division.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "watson",
+    "name": "Dr. Watson",
+    "aliases": [
+     "Watson",
+     "I",
+     "the narrator"
+    ],
+    "note": "Narrator and Holmes's companion at Baker Street, a doctor; present at the fireside and breakfast scenes.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "john_openshaw",
+    "name": "John Openshaw",
+    "aliases": [
+     "young Openshaw",
+     "the young man"
+    ],
+    "note": "Young client, about 22, nephew of Colonel Elias Openshaw and son of Joseph Openshaw; visits Baker Street on the stormy night and is later found drowned near Waterloo Bridge.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "colonel_elias_openshaw",
+    "name": "Colonel Elias Openshaw",
+    "aliases": [
+     "my uncle",
+     "the colonel",
+     "Elias Openshaw"
+    ],
+    "note": "Uncle of John, former planter and Confederate colonel in America, living in Horsham; dies in a garden pool in May 1883 after receiving the K.K.K. warning; not to be confused with John.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "joseph_openshaw",
+    "name": "Joseph Openshaw",
+    "aliases": [
+     "my father",
+     "Openshaw senior"
+    ],
+    "note": "Brother of Colonel Elias and father of John; former Coventry factory owner who inherits Horsham estate; dies falling into a chalk-pit in January 1885.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "major_prendergast",
+    "name": "Major Prendergast",
+    "aliases": [
+     "Prendergast"
+    ],
+    "note": "Army officer whom Openshaw consulted; referred him to Holmes; mentioned only.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "fordham",
+    "name": "Mr. Fordham",
+    "aliases": [
+     "the Horsham lawyer"
+    ],
+    "note": "Horsham lawyer who witnessed the colonel's will in 1883; mentioned only.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "major_freebody",
+    "name": "Major Freebody",
+    "aliases": [
+     "the major"
+    ],
+    "note": "Commander of a fort on Portsdown Hill and friend of Joseph Openshaw; sent telegram after his fall; mentioned only.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "captain_james_calhoun",
+    "name": "Captain James Calhoun",
+    "aliases": [
+     "Captain Calhoun",
+     "the leader of the gang"
+    ],
+    "note": "Master of the barque Lone Star of Savannah, identified by Holmes as leader of the K.K.K. gang; never appears on stage; mentioned only.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "police_constable_cook",
+    "name": "Police-Constable Cook",
+    "aliases": [
+     "Cook"
+    ],
+    "note": "H Division constable who heard the cry near Waterloo Bridge; reported in newspaper; mentioned only.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "hudson",
+    "name": "Hudson",
+    "aliases": [],
+    "note": "Name appearing in colonel's 1869 diary page; mentioned only.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mccauley",
+    "name": "McCauley",
+    "aliases": [],
+    "note": "Name in the 1869 diary page, marked with pips and cleared; mentioned only.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "paramore",
+    "name": "Paramore",
+    "aliases": [],
+    "note": "Name in the 1869 diary page, visited; mentioned only.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "john_swain",
+    "name": "John Swain",
+    "aliases": [
+     "John Swain of St. Augustine"
+    ],
+    "note": "Name in the 1869 diary page, marked with pips and cleared; mentioned only.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mary",
+    "name": "Mary",
+    "aliases": [],
+    "note": "Household servant at Horsham; mentioned only.",
+    "kind": "person",
+    "same_person_as": ""
+   }
+  ],
+  "locations": [
+   {
+    "id": "baker_street_rooms",
+    "name": "Baker Street rooms",
+    "aliases": [
+     "Baker Street",
+     "our quarters"
+    ],
+    "note": "Holmes and Watson's sitting room at 221B Baker Street, London, where the visit and breakfast take place."
+   },
+   {
+    "id": "horsham_estate",
+    "name": "Horsham estate",
+    "aliases": [
+     "Horsham",
+     "the estate in Sussex"
+    ],
+    "note": "Colonel Openshaw's house near Horsham in Sussex, with attic, garden and sundial; mentioned in the narration."
+   },
+   {
+    "id": "waterloo_bridge",
+    "name": "Waterloo Bridge",
+    "aliases": [
+     "the Embankment"
+    ],
+    "note": "Thames bridge in London near where John Openshaw's body is recovered; mentioned only."
+   },
+   {
+    "id": "lone_star_barque",
+    "name": "the barque Lone Star",
+    "aliases": [
+     "Lone Star",
+     "the Lone Star of Savannah"
+    ],
+    "note": "American sailing ship bound for Savannah, Georgia, carrying the gang; mentioned only."
+   }
+  ],
+  "sections": [
+   {
+    "start": "1",
+    "end": "11",
+    "title": "A stormy night and an unexpected visitor",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "john_openshaw"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "12",
+    "end": "34",
+    "title": "Openshaw introduces his family",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "john_openshaw"
+    ],
+    "mentioned_only": [
+     "major_prendergast"
+    ]
+   },
+   {
+    "start": "35",
+    "end": "45",
+    "title": "Colonel Elias Openshaw's life and death",
+    "setting": [
+     "horsham_estate"
+    ],
+    "on_stage": [],
+    "mentioned_only": [
+     "colonel_elias_openshaw",
+     "joseph_openshaw",
+     "fordham"
+    ]
+   },
+   {
+    "start": "46",
+    "end": "49",
+    "title": "The attic box and the colonel's will",
+    "setting": [
+     "horsham_estate"
+    ],
+    "on_stage": [
+     "john_openshaw"
+    ],
+    "mentioned_only": [
+     "colonel_elias_openshaw",
+     "fordham"
+    ]
+   },
+   {
+    "start": "50",
+    "end": "67",
+    "title": "The father's letter and death",
+    "setting": [
+     "horsham_estate"
+    ],
+    "on_stage": [
+     "john_openshaw"
+    ],
+    "mentioned_only": [
+     "joseph_openshaw",
+     "major_freebody"
+    ]
+   },
+   {
+    "start": "68",
+    "end": "86",
+    "title": "Openshaw's second warning and the police",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "john_openshaw"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "87",
+    "end": "95",
+    "title": "The diary page and Holmes's instructions",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "john_openshaw"
+    ],
+    "mentioned_only": [
+     "hudson",
+     "mccauley",
+     "paramore",
+     "john_swain"
+    ]
+   },
+   {
+    "start": "96",
+    "end": "114",
+    "title": "Openshaw departs and Holmes reflects",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "john_openshaw"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "115",
+    "end": "136",
+    "title": "Holmes explains the K.K.K. and the ship",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "captain_james_calhoun"
+    ]
+   },
+   {
+    "start": "137",
+    "end": "153",
+    "title": "The news of Openshaw's death",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "john_openshaw",
+     "police_constable_cook",
+     "waterloo_bridge"
+    ]
+   },
+   {
+    "start": "154",
+    "end": "178",
+    "title": "The trap for the Lone Star",
+    "setting": [
+     "baker_street_rooms",
+     "lone_star_barque"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "captain_james_calhoun"
+    ]
+   }
+  ],
+  "brief": {
+   "tone": "Stormy, foreboding and claustrophobic in London, with dread growing from the quiet Horsham household into a grim, fatal hunt at sea.",
+   "depiction_rules": [
+    "Show the K.K.K. warnings only as the small dried orange pips and the scrawled letters, never as hooded figures or lynching scenes.",
+    "Do not depict the colonel's death or the chalk-pit fall in gory detail; keep them off-screen or suggested by the pool and the empty box.",
+    "Holmes is shown in his Baker Street rooms with pipe, violin and reference books, not in disguise.",
+    "Keep the American slavery and Reconstruction background as referenced politics, with no graphic racial violence shown.",
+    "Show the Lone Star only at a distance or as a final shattered stern-post, not a lingering shipboard scene."
+   ],
+   "era": {
+    "name": "Victorian England, 1883 to 1885, with American Reconstruction and Confederate backdrop",
+    "people": "English professionals, servants and police in London and Sussex; Openshaw is a young English gentleman; the colonel is a former Southern planter, and the gang are American sailors of Finnish and German crews.",
+    "dress": "Frock coats, waistcoats and overcoats for men, long waterproof coats and umbrellas in rain; pince-nez for John; plain dress for servants and dock workers.",
+    "buildings_and_objects": "Gaslit Baker Street sitting room with fire and lamp, Horsham country house with attic lumber-room and garden sundial, brass cash-box, chalk-pits, Waterloo Bridge, Albert Dock and sailing barques.",
+    "technology": "Gas lighting, railways and telegraph, steamboats and sailing ships, printed newspapers and encyclopaedias; no telephones, motorcars or electric light."
+   }
+  }
+ },
+ "usage": {
+  "prompt_tokens": 15913,
+  "completion_tokens": 3283,
+  "total_tokens": 19196,
+  "cost": 0.0032328,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0032328,
+   "upstream_inference_prompt_cost": 0.0015913,
+   "upstream_inference_completions_cost": 0.0016415
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

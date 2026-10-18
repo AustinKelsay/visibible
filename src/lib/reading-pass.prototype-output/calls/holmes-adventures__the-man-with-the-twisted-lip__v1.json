@@ -1,0 +1,508 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-man-with-the-twisted-lip__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354443-ddHGTsVIOlZUqFuahdVv",
+  "seconds": 16.9,
+  "finish_reason": "stop",
+  "prompt_tokens": 19648,
+  "completion_tokens": 3986,
+  "cost": 0.0039578,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:20"
+ },
+ "system": "You are the reading pass of an illustration engine. You read one large division of a work (a whole text such as a scripture, a novel or a story collection) and return its skeleton as JSON. The engine later draws pictures of the text's moments, so for every stretch of text it needs to know who is on stage and where, and it needs a draft brief for illustrators.\n\nThe text comes as numbered units. Each unit line starts with its id (for example `17:4` or `[12]`). Lines starting with `##` are headings, not units.\n\nReturn:\n\n1. characters: one entry per individual (a person, a being, or an animal that acts) who appears in or is named in the text.\n   - One individual is one entry, even when the text uses different names, titles or descriptions for them. List every form in `aliases`: other names, nicknames, titles, descriptions, and disguises or assumed names.\n   - Different individuals who share a name or a title get separate entries, one each. Never fold two people into one entry because they share a name. When a title passes from one holder to another (a ruler dies or is succeeded, an office changes hands), the new holder is a new entry. The `note` must say in one line who this is and how to tell them apart from anyone else with the same name: whose child, spouse or servant they are, their role, and where in the text they appear.\n   - A disguised, renamed or unnamed person who the text later identifies is the same entry as their named self, with the disguise or description in `aliases`. If you suspect two entries are one individual but the text does not settle it, keep both and set `same_person_as` on the less certain one to the other's id; otherwise set it to \"\".\n   - Skip people who occur only inside a list of names (a genealogy or roster) and never act.\n   - Add a group (an army, a crowd, a household) only when it acts as one on stage, with kind \"group\".\n2. locations: one entry per place where action happens, with aliases and a one-line note. Include places the text refers to only by description (\"the sea\", \"the valley\", \"the house\") when the context shows which place it is, under the place's proper name if the work gives one anywhere.\n3. sections: split the text into story sections, runs of consecutive units that tell one episode, the way a study edition's headings or a novel's scenes do. Start a new section when the time, the place or the main action changes. Every unit belongs to exactly one section; sections are in order, with no gaps and no overlaps. This division has 222 units. Aim for roughly 12 sections (10 to 14), averaging about 18 units each; some sections will be much shorter and some longer. Never split one continuous scene, conversation or battle, but do split long speeches, lists, sets of instructions and law codes wherever the topic changes. Give the ids of each section's first and last unit and a short title. For each section:\n   - setting: ids of the locations where its action happens.\n   - on_stage: ids of every character present in the section's action, whether the section names them or only refers to them by a pronoun, a title or a description, or does not mention them but they are clearly there.\n   - mentioned_only: ids of characters the section names or refers to who are not present.\n4. brief: a draft brief for illustrators, for this division only. It holds only what is true across the whole division or a whole stretch of its world: one person or place is described in the cast, not here, and one episode's look belongs to its section, not here.\n   - tone: one line on the mood the pictures should carry.\n   - depiction_rules: a short list of how certain things in this text may or may not be shown, drawn from the text and from what you know about the work.\n   - era: the stretch of the world this division is set in: a name, its people (who lives there and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist).\n   Keep the brief under 200 words.\n\nUse short, stable snake_case ids (for example `david`, `the_queen`, `main_street`). Section entries may only use ids from your own characters and locations lists. Do not quote the text.",
+ "user_chars": 50280,
+ "content": "{\"characters\":[{\"id\":\"isa_whitney\",\"name\":\"Isa Whitney\",\"aliases\":[\"Whitney\",\"Mr. Whitney\"],\"note\":\"Brother of the late Elias Whitney, D.D.; an opium addict and husband of Kate Whitney. Found in an opium den in Upper Swandam Lane and taken home by Watson; appears in units 1 to 33.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"kate_whitney\",\"name\":\"Kate Whitney\",\"aliases\":[\"Kate\",\"Mrs. Whitney\"],\"note\":\"Wife of Isa Whitney and old school companion of Mrs. Watson; comes to Watson's house asking for help in units 5 to 12.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"watson\",\"name\":\"Dr. Watson\",\"aliases\":[\"Watson\",\"I\",\"narrator\",\"John\"],\"note\":\"The narrator, a doctor and companion of Sherlock Holmes; present throughout the division.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mrs_watson\",\"name\":\"Mrs. Watson\",\"aliases\":[\"my wife\",\"James's wife\"],\"note\":\"Watson's wife, an old friend of Kate Whitney; present only at the start of the division in her home.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"sherlock_holmes\",\"name\":\"Sherlock Holmes\",\"aliases\":[\"Holmes\",\"my friend\",\"the old man by the brazier\"],\"note\":\"The detective, who disguises himself as an opium-smoking old man in the den; a companion of Watson throughout the division.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"malay_attendant\",\"name\":\"Malay attendant\",\"aliases\":[\"sallow Malay attendant\"],\"note\":\"Attendant at the opium den who offers Watson a pipe; appears only in unit 16.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"lascar_manager\",\"name\":\"Lascar manager\",\"aliases\":[\"the Lascar\",\"rascally Lascar\",\"Lascar scoundrel\",\"Lascar confederate\"],\"note\":\"Keeper of the opium den in Upper Swandam Lane who thrust Mrs. St. Clair back and kept Boone's secret; mentioned in units 40, 61, 63, 209 and 216.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"dane_assistant\",\"name\":\"Dane assistant\",\"aliases\":[\"a Dane\"],\"note\":\"Assistant at the opium den who helped push Mrs. St. Clair into the street; only mentioned in unit 61.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"neville_st_clair\",\"name\":\"Neville St. Clair\",\"aliases\":[\"Mr. St. Clair\",\"Hugh Boone\",\"the beggar\",\"the cripple\",\"the man in the bath\",\"Boone\"],\"note\":\"A respectable Lee gentleman who disguised himself as the beggar Hugh Boone to earn money; the same person as Hugh Boone. Appears on stage in the Bow Street cell scene and is also the figure seen at the opium-den window and in the den's upper room.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"hugh_boone\",\"name\":\"Hugh Boone\",\"aliases\":[\"Boone\",\"the beggar with the twisted lip\",\"the cripple\",\"the lodger\"],\"note\":\"Disguise of Neville St. Clair as a professional beggar with a scarred face and red hair; the same person as Neville St. Clair, who is listed as the entry for the man.\",\"kind\":\"person\",\"same_person_as\":\"neville_st_clair\"},{\"id\":\"mrs_st_clair\",\"name\":\"Mrs. St. Clair\",\"aliases\":[\"the little blonde woman\",\"the lady\",\"Mrs. Neville St. Clair\",\"my wife\",\"the wife\"],\"note\":\"Wife of Neville St. Clair, daughter of a local brewer, living at The Cedars in Lee; saw her husband at the window of the den and receives his note.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"inspector_barton\",\"name\":\"Inspector Barton\",\"aliases\":[\"Barton\"],\"note\":\"Police inspector in charge of the St. Clair case who searched the den; mentioned only, in unit 68.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"inspector_bradstreet\",\"name\":\"Inspector Bradstreet\",\"aliases\":[\"Bradstreet\",\"the inspector\"],\"note\":\"Duty inspector at Bow Street police station who receives Holmes and sees the prisoner unmasked; appears in units 170 to 221.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"john_stable_boy\",\"name\":\"John the cabman\",\"aliases\":[\"John\",\"the stable-boy\",\"the cabman\"],\"note\":\"Cabman who drives Whitney home and the stable-boy at The Cedars who puts the trap out; appears in units 51 and 163 to 167.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"new_horse_cart\",\"name\":\"the horse\",\"aliases\":[\"the horse\",\"the trap\",\"the dog-cart\"],\"note\":\"Not a character to illustrate separately; included only as a reference point for the conveyance.\",\"kind\":\"other\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"watson_house\",\"name\":\"Watson's house\",\"aliases\":[\"our sitting-room\",\"our home\",\"my armchair and cheery sitting-room\"],\"note\":\"Watson's sitting-room in London where Kate Whitney comes at night in June 1889; units 2 to 13.\"},{\"id\":\"upper_swandam_lane_den\",\"name\":\"the Bar of Gold opium den\",\"aliases\":[\"the den\",\"the opium den\",\"the Bar of Gold\",\"the house in Upper Swandam Lane\"],\"note\":\"A vile opium den at the foot of steps in Upper Swandam Lane by the wharves east of London Bridge, with a second-floor room where Boone lodged; units 14 to 34 and 61 to 62.\"},{\"id\":\"dog_cart_road\",\"name\":\"the road to Lee\",\"aliases\":[\"the London Road\",\"the dog-cart\",\"the cab road\"],\"note\":\"The route by dog-cart from the City through suburbs to Lee in Kent, with Holmes and Watson talking; units 33, 40 to 52, 76 to 77, 167 to 168.\"},{\"id\":\"the_cedars\",\"name\":\"The Cedars\",\"aliases\":[\"the villa\",\"St. Clair's house\",\"the house at Lee\"],\"note\":\"The St. Clair villa near Lee in Kent, with its gravel drive and dining room, where Holmes and Watson stay; units 53 to 60, 77 to 92, 156 to 167.\"},{\"id\":\"bow_street_station\",\"name\":\"Bow Street police station\",\"aliases\":[\"Bow Street\",\"the cells\",\"the station\"],\"note\":\"Police station in Bow Street where Boone is held in a cell and unmasked; units 169 to 222.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"13\",\"title\":\"Kate Whitney's Appeal\",\"setting\":[\"watson_house\"],\"on_stage\":[\"watson\",\"mrs_watson\",\"kate_whitney\"],\"mentioned_only\":[\"isa_whitney\",\"sherlock_holmes\"]},{\"start\":\"14\",\"end\":\"18\",\"title\":\"The Opium Den\",\"setting\":[\"upper_swandam_lane_den\"],\"on_stage\":[\"watson\",\"isa_whitney\",\"malay_attendant\",\"sherlock_holmes\"],\"mentioned_only\":[\"lascar_manager\"]},{\"start\":\"19\",\"end\":\"27\",\"title\":\"Whitney Released to the Cab\",\"setting\":[\"upper_swandam_lane_den\"],\"on_stage\":[\"watson\",\"isa_whitney\",\"sherlock_holmes\"],\"mentioned_only\":[\"john_stable_boy\"]},{\"start\":\"28\",\"end\":\"34\",\"title\":\"Holmes in Disguise\",\"setting\":[\"upper_swandam_lane_den\"],\"on_stage\":[\"watson\",\"sherlock_holmes\"],\"mentioned_only\":[\"lascar_manager\"]},{\"start\":\"35\",\"end\":\"51\",\"title\":\"The Drive Begins\",\"setting\":[\"upper_swandam_lane_den\",\"dog_cart_road\"],\"on_stage\":[\"watson\",\"sherlock_holmes\",\"john_stable_boy\"],\"mentioned_only\":[\"lascar_manager\"]},{\"start\":\"52\",\"end\":\"56\",\"title\":\"The Drive Through the Night\",\"setting\":[\"dog_cart_road\"],\"on_stage\":[\"watson\",\"sherlock_holmes\"],\"mentioned_only\":[]},{\"start\":\"57\",\"end\":\"63\",\"title\":\"Holmes Recounts the Case\",\"setting\":[\"dog_cart_road\"],\"on_stage\":[\"watson\",\"sherlock_holmes\"],\"mentioned_only\":[\"neville_st_clair\",\"mrs_st_clair\",\"hugh_boone\",\"lascar_manager\",\"dane_assistant\",\"inspector_barton\"]},{\"start\":\"64\",\"end\":\"75\",\"title\":\"Holmes on Boone and the Coins\",\"setting\":[\"dog_cart_road\"],\"on_stage\":[\"watson\",\"sherlock_holmes\"],\"mentioned_only\":[\"hugh_boone\",\"neville_st_clair\",\"inspector_barton\"]},{\"start\":\"76\",\"end\":\"92\",\"title\":\"Arrival at The Cedars\",\"setting\":[\"the_cedars\",\"dog_cart_road\"],\"on_stage\":[\"watson\",\"sherlock_holmes\",\"mrs_st_clair\"],\"mentioned_only\":[]},{\"start\":\"93\",\"end\":\"156\",\"title\":\"The Letter from Neville\",\"setting\":[\"the_cedars\"],\"on_stage\":[\"watson\",\"sherlock_holmes\",\"mrs_st_clair\"],\"mentioned_only\":[\"neville_st_clair\"]},{\"start\":\"157\",\"end\":\"168\",\"title\":\"Holmes's Night and Early Departure\",\"setting\":[\"the_cedars\"],\"on_stage\":[\"watson\",\"sherlock_holmes\",\"john_stable_boy\"],\"mentioned_only\":[]},{\"start\":\"169\",\"end\":\"199\",\"title\":\"The Cell and the Unmasking\",\"setting\":[\"bow_street_station\"],\"on_stage\":[\"watson\",\"sherlock_holmes\",\"inspector_bradstreet\",\"neville_st_clair\"],\"mentioned_only\":[\"hugh_boone\"]},{\"start\":\"200\",\"end\":\"222\",\"title\":\"Neville's Confession\",\"setting\":[\"bow_street_station\"],\"on_stage\":[\"watson\",\"sherlock_holmes\",\"inspector_bradstreet\",\"neville_st_clair\"],\"mentioned_only\":[\"mrs_st_clair\",\"lascar_manager\"]}],\"brief\":{\"tone\":\"A wry, late-Victorian mystery of London fog and gaslight, with moments of comic reversal and a melancholy undertone of addiction.\",\"depiction_rules\":[\"Show the opium den as squalid and dim, with bodies in berths and small red pipe-glows; do not depict drug use in graphic or glamorised detail.\",\"Neville St. Clair's disguise as Hugh Boone should be shown with the scar, twisted lip and red hair in the street scenes, and its removal in the cell scene.\",\"Holmes's disguise as an old opium smoker is a costume to be shown convincingly aged, not as a real addict.\",\"The Thames, the wharves and the murky river should carry the atmosphere; avoid depicting any body in the water.\"],\"era\":{\"name\":\"London and Kent, June 1889\",\"people\":\"Late-Victorian Londoners and Kentish villagers; dock labourers, Lascar and Malay seamen in the East End, respectable middle-class families in Lee.\",\"dress\":\"Frock coats, waistcoats, top hats and bowler hats for gentlemen; high-necked dresses, mousseline and pinafores for women; constables in frogged jackets and peaked caps; ragged beggar's clothes for Boone.\",\"buildings_and_objects\":\"Gas and oil street lamps, cobbled and gravel streets, stone wharves and bridges over the Thames, opium dens with wooden berths, hansom cabs and dog-carts, villas in gardens, the Bow Street police station with its whitewashed cells.\",\"technology\":\"Horse-drawn transport and railways, telegrams, and the telephone; no motor cars, electric lighting or photography beyond early plates in the police files.\"}}}",
+ "parsed": {
+  "characters": [
+   {
+    "id": "isa_whitney",
+    "name": "Isa Whitney",
+    "aliases": [
+     "Whitney",
+     "Mr. Whitney"
+    ],
+    "note": "Brother of the late Elias Whitney, D.D.; an opium addict and husband of Kate Whitney. Found in an opium den in Upper Swandam Lane and taken home by Watson; appears in units 1 to 33.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "kate_whitney",
+    "name": "Kate Whitney",
+    "aliases": [
+     "Kate",
+     "Mrs. Whitney"
+    ],
+    "note": "Wife of Isa Whitney and old school companion of Mrs. Watson; comes to Watson's house asking for help in units 5 to 12.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "watson",
+    "name": "Dr. Watson",
+    "aliases": [
+     "Watson",
+     "I",
+     "narrator",
+     "John"
+    ],
+    "note": "The narrator, a doctor and companion of Sherlock Holmes; present throughout the division.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mrs_watson",
+    "name": "Mrs. Watson",
+    "aliases": [
+     "my wife",
+     "James's wife"
+    ],
+    "note": "Watson's wife, an old friend of Kate Whitney; present only at the start of the division in her home.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "sherlock_holmes",
+    "name": "Sherlock Holmes",
+    "aliases": [
+     "Holmes",
+     "my friend",
+     "the old man by the brazier"
+    ],
+    "note": "The detective, who disguises himself as an opium-smoking old man in the den; a companion of Watson throughout the division.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "malay_attendant",
+    "name": "Malay attendant",
+    "aliases": [
+     "sallow Malay attendant"
+    ],
+    "note": "Attendant at the opium den who offers Watson a pipe; appears only in unit 16.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "lascar_manager",
+    "name": "Lascar manager",
+    "aliases": [
+     "the Lascar",
+     "rascally Lascar",
+     "Lascar scoundrel",
+     "Lascar confederate"
+    ],
+    "note": "Keeper of the opium den in Upper Swandam Lane who thrust Mrs. St. Clair back and kept Boone's secret; mentioned in units 40, 61, 63, 209 and 216.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "dane_assistant",
+    "name": "Dane assistant",
+    "aliases": [
+     "a Dane"
+    ],
+    "note": "Assistant at the opium den who helped push Mrs. St. Clair into the street; only mentioned in unit 61.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "neville_st_clair",
+    "name": "Neville St. Clair",
+    "aliases": [
+     "Mr. St. Clair",
+     "Hugh Boone",
+     "the beggar",
+     "the cripple",
+     "the man in the bath",
+     "Boone"
+    ],
+    "note": "A respectable Lee gentleman who disguised himself as the beggar Hugh Boone to earn money; the same person as Hugh Boone. Appears on stage in the Bow Street cell scene and is also the figure seen at the opium-den window and in the den's upper room.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "hugh_boone",
+    "name": "Hugh Boone",
+    "aliases": [
+     "Boone",
+     "the beggar with the twisted lip",
+     "the cripple",
+     "the lodger"
+    ],
+    "note": "Disguise of Neville St. Clair as a professional beggar with a scarred face and red hair; the same person as Neville St. Clair, who is listed as the entry for the man.",
+    "kind": "person",
+    "same_person_as": "neville_st_clair"
+   },
+   {
+    "id": "mrs_st_clair",
+    "name": "Mrs. St. Clair",
+    "aliases": [
+     "the little blonde woman",
+     "the lady",
+     "Mrs. Neville St. Clair",
+     "my wife",
+     "the wife"
+    ],
+    "note": "Wife of Neville St. Clair, daughter of a local brewer, living at The Cedars in Lee; saw her husband at the window of the den and receives his note.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "inspector_barton",
+    "name": "Inspector Barton",
+    "aliases": [
+     "Barton"
+    ],
+    "note": "Police inspector in charge of the St. Clair case who searched the den; mentioned only, in unit 68.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "inspector_bradstreet",
+    "name": "Inspector Bradstreet",
+    "aliases": [
+     "Bradstreet",
+     "the inspector"
+    ],
+    "note": "Duty inspector at Bow Street police station who receives Holmes and sees the prisoner unmasked; appears in units 170 to 221.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "john_stable_boy",
+    "name": "John the cabman",
+    "aliases": [
+     "John",
+     "the stable-boy",
+     "the cabman"
+    ],
+    "note": "Cabman who drives Whitney home and the stable-boy at The Cedars who puts the trap out; appears in units 51 and 163 to 167.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "new_horse_cart",
+    "name": "the horse",
+    "aliases": [
+     "the horse",
+     "the trap",
+     "the dog-cart"
+    ],
+    "note": "Not a character to illustrate separately; included only as a reference point for the conveyance.",
+    "kind": "other",
+    "same_person_as": ""
+   }
+  ],
+  "locations": [
+   {
+    "id": "watson_house",
+    "name": "Watson's house",
+    "aliases": [
+     "our sitting-room",
+     "our home",
+     "my armchair and cheery sitting-room"
+    ],
+    "note": "Watson's sitting-room in London where Kate Whitney comes at night in June 1889; units 2 to 13."
+   },
+   {
+    "id": "upper_swandam_lane_den",
+    "name": "the Bar of Gold opium den",
+    "aliases": [
+     "the den",
+     "the opium den",
+     "the Bar of Gold",
+     "the house in Upper Swandam Lane"
+    ],
+    "note": "A vile opium den at the foot of steps in Upper Swandam Lane by the wharves east of London Bridge, with a second-floor room where Boone lodged; units 14 to 34 and 61 to 62."
+   },
+   {
+    "id": "dog_cart_road",
+    "name": "the road to Lee",
+    "aliases": [
+     "the London Road",
+     "the dog-cart",
+     "the cab road"
+    ],
+    "note": "The route by dog-cart from the City through suburbs to Lee in Kent, with Holmes and Watson talking; units 33, 40 to 52, 76 to 77, 167 to 168."
+   },
+   {
+    "id": "the_cedars",
+    "name": "The Cedars",
+    "aliases": [
+     "the villa",
+     "St. Clair's house",
+     "the house at Lee"
+    ],
+    "note": "The St. Clair villa near Lee in Kent, with its gravel drive and dining room, where Holmes and Watson stay; units 53 to 60, 77 to 92, 156 to 167."
+   },
+   {
+    "id": "bow_street_station",
+    "name": "Bow Street police station",
+    "aliases": [
+     "Bow Street",
+     "the cells",
+     "the station"
+    ],
+    "note": "Police station in Bow Street where Boone is held in a cell and unmasked; units 169 to 222."
+   }
+  ],
+  "sections": [
+   {
+    "start": "1",
+    "end": "13",
+    "title": "Kate Whitney's Appeal",
+    "setting": [
+     "watson_house"
+    ],
+    "on_stage": [
+     "watson",
+     "mrs_watson",
+     "kate_whitney"
+    ],
+    "mentioned_only": [
+     "isa_whitney",
+     "sherlock_holmes"
+    ]
+   },
+   {
+    "start": "14",
+    "end": "18",
+    "title": "The Opium Den",
+    "setting": [
+     "upper_swandam_lane_den"
+    ],
+    "on_stage": [
+     "watson",
+     "isa_whitney",
+     "malay_attendant",
+     "sherlock_holmes"
+    ],
+    "mentioned_only": [
+     "lascar_manager"
+    ]
+   },
+   {
+    "start": "19",
+    "end": "27",
+    "title": "Whitney Released to the Cab",
+    "setting": [
+     "upper_swandam_lane_den"
+    ],
+    "on_stage": [
+     "watson",
+     "isa_whitney",
+     "sherlock_holmes"
+    ],
+    "mentioned_only": [
+     "john_stable_boy"
+    ]
+   },
+   {
+    "start": "28",
+    "end": "34",
+    "title": "Holmes in Disguise",
+    "setting": [
+     "upper_swandam_lane_den"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes"
+    ],
+    "mentioned_only": [
+     "lascar_manager"
+    ]
+   },
+   {
+    "start": "35",
+    "end": "51",
+    "title": "The Drive Begins",
+    "setting": [
+     "upper_swandam_lane_den",
+     "dog_cart_road"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes",
+     "john_stable_boy"
+    ],
+    "mentioned_only": [
+     "lascar_manager"
+    ]
+   },
+   {
+    "start": "52",
+    "end": "56",
+    "title": "The Drive Through the Night",
+    "setting": [
+     "dog_cart_road"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "57",
+    "end": "63",
+    "title": "Holmes Recounts the Case",
+    "setting": [
+     "dog_cart_road"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes"
+    ],
+    "mentioned_only": [
+     "neville_st_clair",
+     "mrs_st_clair",
+     "hugh_boone",
+     "lascar_manager",
+     "dane_assistant",
+     "inspector_barton"
+    ]
+   },
+   {
+    "start": "64",
+    "end": "75",
+    "title": "Holmes on Boone and the Coins",
+    "setting": [
+     "dog_cart_road"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes"
+    ],
+    "mentioned_only": [
+     "hugh_boone",
+     "neville_st_clair",
+     "inspector_barton"
+    ]
+   },
+   {
+    "start": "76",
+    "end": "92",
+    "title": "Arrival at The Cedars",
+    "setting": [
+     "the_cedars",
+     "dog_cart_road"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes",
+     "mrs_st_clair"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "93",
+    "end": "156",
+    "title": "The Letter from Neville",
+    "setting": [
+     "the_cedars"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes",
+     "mrs_st_clair"
+    ],
+    "mentioned_only": [
+     "neville_st_clair"
+    ]
+   },
+   {
+    "start": "157",
+    "end": "168",
+    "title": "Holmes's Night and Early Departure",
+    "setting": [
+     "the_cedars"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes",
+     "john_stable_boy"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "169",
+    "end": "199",
+    "title": "The Cell and the Unmasking",
+    "setting": [
+     "bow_street_station"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes",
+     "inspector_bradstreet",
+     "neville_st_clair"
+    ],
+    "mentioned_only": [
+     "hugh_boone"
+    ]
+   },
+   {
+    "start": "200",
+    "end": "222",
+    "title": "Neville's Confession",
+    "setting": [
+     "bow_street_station"
+    ],
+    "on_stage": [
+     "watson",
+     "sherlock_holmes",
+     "inspector_bradstreet",
+     "neville_st_clair"
+    ],
+    "mentioned_only": [
+     "mrs_st_clair",
+     "lascar_manager"
+    ]
+   }
+  ],
+  "brief": {
+   "tone": "A wry, late-Victorian mystery of London fog and gaslight, with moments of comic reversal and a melancholy undertone of addiction.",
+   "depiction_rules": [
+    "Show the opium den as squalid and dim, with bodies in berths and small red pipe-glows; do not depict drug use in graphic or glamorised detail.",
+    "Neville St. Clair's disguise as Hugh Boone should be shown with the scar, twisted lip and red hair in the street scenes, and its removal in the cell scene.",
+    "Holmes's disguise as an old opium smoker is a costume to be shown convincingly aged, not as a real addict.",
+    "The Thames, the wharves and the murky river should carry the atmosphere; avoid depicting any body in the water."
+   ],
+   "era": {
+    "name": "London and Kent, June 1889",
+    "people": "Late-Victorian Londoners and Kentish villagers; dock labourers, Lascar and Malay seamen in the East End, respectable middle-class families in Lee.",
+    "dress": "Frock coats, waistcoats, top hats and bowler hats for gentlemen; high-necked dresses, mousseline and pinafores for women; constables in frogged jackets and peaked caps; ragged beggar's clothes for Boone.",
+    "buildings_and_objects": "Gas and oil street lamps, cobbled and gravel streets, stone wharves and bridges over the Thames, opium dens with wooden berths, hansom cabs and dog-carts, villas in gardens, the Bow Street police station with its whitewashed cells.",
+    "technology": "Horse-drawn transport and railways, telegrams, and the telephone; no motor cars, electric lighting or photography beyond early plates in the police files."
+   }
+  }
+ },
+ "usage": {
+  "prompt_tokens": 19648,
+  "completion_tokens": 3986,
+  "total_tokens": 23634,
+  "cost": 0.0039578,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0039578,
+   "upstream_inference_prompt_cost": 0.0019648,
+   "upstream_inference_completions_cost": 0.001993
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

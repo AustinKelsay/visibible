@@ -1,0 +1,494 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-adventure-of-the-copper-beeches__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354459-VWoumWMA8IuTTzqoDjST",
+  "seconds": 15.8,
+  "finish_reason": "stop",
+  "prompt_tokens": 20806,
+  "completion_tokens": 3820,
+  "cost": 0.0039906,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:34"
+ },
+ "system": "You are the reading pass of an illustration engine. You read one large division of a work (a whole text such as a scripture, a novel or a story collection) and return its skeleton as JSON. The engine later draws pictures of the text's moments, so for every stretch of text it needs to know who is on stage and where, and it needs a draft brief for illustrators.\n\nThe text comes as numbered units. Each unit line starts with its id (for example `17:4` or `[12]`). Lines starting with `##` are headings, not units.\n\nReturn:\n\n1. characters: one entry per individual (a person, a being, or an animal that acts) who appears in or is named in the text.\n   - One individual is one entry, even when the text uses different names, titles or descriptions for them. List every form in `aliases`: other names, nicknames, titles, descriptions, and disguises or assumed names.\n   - Different individuals who share a name or a title get separate entries, one each. Never fold two people into one entry because they share a name. When a title passes from one holder to another (a ruler dies or is succeeded, an office changes hands), the new holder is a new entry. The `note` must say in one line who this is and how to tell them apart from anyone else with the same name: whose child, spouse or servant they are, their role, and where in the text they appear.\n   - A disguised, renamed or unnamed person who the text later identifies is the same entry as their named self, with the disguise or description in `aliases`. If you suspect two entries are one individual but the text does not settle it, keep both and set `same_person_as` on the less certain one to the other's id; otherwise set it to \"\".\n   - Skip people who occur only inside a list of names (a genealogy or roster) and never act.\n   - Add a group (an army, a crowd, a household) only when it acts as one on stage, with kind \"group\".\n2. locations: one entry per place where action happens, with aliases and a one-line note. Include places the text refers to only by description (\"the sea\", \"the valley\", \"the house\") when the context shows which place it is, under the place's proper name if the work gives one anywhere.\n3. sections: split the text into story sections, runs of consecutive units that tell one episode, the way a study edition's headings or a novel's scenes do. Start a new section when the time, the place or the main action changes. Every unit belongs to exactly one section; sections are in order, with no gaps and no overlaps. This division has 212 units. Aim for roughly 12 sections (10 to 14), averaging about 18 units each; some sections will be much shorter and some longer. Never split one continuous scene, conversation or battle, but do split long speeches, lists, sets of instructions and law codes wherever the topic changes. Give the ids of each section's first and last unit and a short title. For each section:\n   - setting: ids of the locations where its action happens.\n   - on_stage: ids of every character present in the section's action, whether the section names them or only refers to them by a pronoun, a title or a description, or does not mention them but they are clearly there.\n   - mentioned_only: ids of characters the section names or refers to who are not present.\n4. brief: a draft brief for illustrators, for this division only. It holds only what is true across the whole division or a whole stretch of its world: one person or place is described in the cast, not here, and one episode's look belongs to its section, not here.\n   - tone: one line on the mood the pictures should carry.\n   - depiction_rules: a short list of how certain things in this text may or may not be shown, drawn from the text and from what you know about the work.\n   - era: the stretch of the world this division is set in: a name, its people (who lives there and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist).\n   Keep the brief under 200 words.\n\nUse short, stable snake_case ids (for example `david`, `the_queen`, `main_street`). Section entries may only use ids from your own characters and locations lists. Do not quote the text.",
+ "user_chars": 54095,
+ "content": "{\"characters\":[{\"id\":\"sherlock_holmes\",\"name\":\"Sherlock Holmes\",\"aliases\":[\"Holmes\",\"my friend\"],\"note\":\"Consulting detective of Baker Street, narrator Watson's friend; sharp, abstracted, smokes a long cherry-wood pipe; present throughout the case.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"watson\",\"name\":\"Dr. Watson\",\"aliases\":[\"Watson\",\"I\",\"narrator\"],\"note\":\"Narrator and Holmes's companion, a medical man who accompanies him to Hampshire and carries a pistol; present throughout.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"violet_hunter\",\"name\":\"Violet Hunter\",\"aliases\":[\"Miss Hunter\",\"the young lady\",\"the governess\"],\"note\":\"Young governess with a bright quick freckled face and chestnut hair she cut off; the client who consults Holmes, then is taken to Copper Beeches under a false identity.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"jephro_rucastle\",\"name\":\"Jephro Rucastle\",\"aliases\":[\"Mr. Rucastle\",\"the fat man\",\"my employer\"],\"note\":\"Stout, smiling, bluff father of Alice Rucastle and husband of the second wife; keeps his daughter imprisoned, sets his mastiff loose, and is mauled by it at the end.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mrs_rucastle\",\"name\":\"Mrs. Rucastle\",\"aliases\":[\"the second wife\",\"the lady of the house\"],\"note\":\"Pale, silent, much younger second wife of Jephro Rucastle; devoted to her husband and son, sad-eyed; not mad.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"edward_rucastle\",\"name\":\"Edward\",\"aliases\":[\"little Edward\",\"the child\",\"the romper\"],\"note\":\"Six-year-old spoiled son of the Rucastles, cruel to weaker creatures; Violet's charge.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"alice_rucastle\",\"name\":\"Alice Rucastle\",\"aliases\":[\"Miss Alice\",\"Miss Rucastle\",\"the daughter\",\"the prisoner\"],\"note\":\"Daughter of Jephro Rucastle by his first wife, heiress with rights of her own by will; supposedly in Philadelphia, actually locked in the barricaded room; not present on stage.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"toller\",\"name\":\"Toller\",\"aliases\":[\"old Toller\",\"the groom\"],\"note\":\"Rough, drunken groom and manservant of Copper Beeches, husband of Mrs. Toller; lets the mastiff loose at night.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mrs_toller\",\"name\":\"Mrs. Toller\",\"aliases\":[\"the cook\",\"the tall woman\"],\"note\":\"Tall, gaunt, sour-faced wife of Toller; cook and servant at Copper Beeches, later locked in the cellar and reveals the plot.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"fowler\",\"name\":\"Mr. Fowler\",\"aliases\":[\"the man in the road\",\"the seaman\",\"her young man\"],\"note\":\"Alice Rucastle's fiancé, a bearded man in a grey suit who watches the house from the Southampton road, bribed Toller and Mrs. Toller; not present on stage.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"miss_stoper\",\"name\":\"Miss Stoper\",\"aliases\":[\"the manageress\"],\"note\":\"Manageress of Westaway's governess agency in the West End who handles Violet's application.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"carlo\",\"name\":\"Carlo\",\"aliases\":[\"the mastiff\",\"the dog\",\"the hound\"],\"note\":\"Giant tawny mastiff kept at Copper Beeches, loosed at night and shot by Watson after mauling Rucastle.\",\"kind\":\"animal\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"baker_street\",\"name\":\"Baker Street\",\"aliases\":[\"the old room at Baker Street\",\"our rooms\"],\"note\":\"Holmes and Watson's sitting-room in London, where Violet Hunter first consults Holmes.\"},{\"id\":\"westaways_agency\",\"name\":\"Westaway's agency\",\"aliases\":[\"the governess agency\",\"the West End office\"],\"note\":\"Governess agency in the West End where Violet was offered the post by Rucastle.\"},{\"id\":\"black_swan_hotel\",\"name\":\"Black Swan Hotel\",\"aliases\":[\"the Black Swan\",\"the inn at Winchester\"],\"note\":\"Inn in the High Street at Winchester where Holmes and Watson meet Violet.\"},{\"id\":\"copper_beeches\",\"name\":\"Copper Beeches\",\"aliases\":[\"the house\",\"the sinister house\",\"the Rucastles' house\"],\"note\":\"Large whitewashed square house five miles from Winchester in Hampshire, named for its copper beech trees, with a barricaded wing and a dog kennel outbuilding.\"},{\"id\":\"barricaded_room\",\"name\":\"the barricaded room\",\"aliases\":[\"the forbidden wing\",\"the suite of rooms\",\"the attic prison\"],\"note\":\"Locked room in the deserted wing of Copper Beeches, lit by a skylight, where Alice Rucastle was held.\"},{\"id\":\"drawing_room\",\"name\":\"the drawing-room\",\"aliases\":[\"the long room\"],\"note\":\"Large room along the front of Copper Beeches with three long windows, where Violet sat for the mirror-game and where Rucastle was later laid.\"},{\"id\":\"southampton_road\",\"name\":\"the Southampton road\",\"aliases\":[\"the high road\",\"the road\"],\"note\":\"Public highway in front of Copper Beeches where Fowler watched from the railings.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"9\",\"title\":\"Holmes's dull mail and the governess's visit\",\"setting\":[\"baker_street\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"violet_hunter\"],\"mentioned_only\":[]},{\"start\":\"10\",\"end\":\"65\",\"title\":\"Violet's account of the Westaway offer and Rucastle's letter\",\"setting\":[\"baker_street\",\"westaways_agency\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"violet_hunter\"],\"mentioned_only\":[\"miss_stoper\",\"jephro_rucastle\"]},{\"start\":\"66\",\"end\":\"81\",\"title\":\"Holmes advises Violet and she departs\",\"setting\":[\"baker_street\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"violet_hunter\"],\"mentioned_only\":[\"jephro_rucastle\"]},{\"start\":\"82\",\"end\":\"92\",\"title\":\"The telegram and the decision to travel\",\"setting\":[\"baker_street\"],\"on_stage\":[\"sherlock_holmes\",\"watson\"],\"mentioned_only\":[\"violet_hunter\"]},{\"start\":\"93\",\"end\":\"104\",\"title\":\"The journey to Winchester\",\"setting\":[\"black_swan_hotel\"],\"on_stage\":[\"sherlock_holmes\",\"watson\"],\"mentioned_only\":[]},{\"start\":\"105\",\"end\":\"128\",\"title\":\"Violet's account of Copper Beeches and the mirror-game\",\"setting\":[\"black_swan_hotel\",\"copper_beeches\",\"drawing_room\",\"southampton_road\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"violet_hunter\"],\"mentioned_only\":[\"jephro_rucastle\",\"mrs_rucastle\",\"edward_rucastle\",\"toller\",\"mrs_toller\",\"fowler\"]},{\"start\":\"129\",\"end\":\"145\",\"title\":\"The mastiff, the hair in the drawer and the forbidden wing\",\"setting\":[\"black_swan_hotel\",\"copper_beeches\",\"barricaded_room\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"violet_hunter\"],\"mentioned_only\":[\"jephro_rucastle\",\"carlo\",\"fowler\",\"alice_rucastle\"]},{\"start\":\"146\",\"end\":\"158\",\"title\":\"Rucastle's threat and Violet's flight to Winchester\",\"setting\":[\"copper_beeches\",\"barricaded_room\",\"black_swan_hotel\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"violet_hunter\",\"jephro_rucastle\"],\"mentioned_only\":[\"carlo\"]},{\"start\":\"159\",\"end\":\"174\",\"title\":\"Holmes's deduction and the plan\",\"setting\":[\"black_swan_hotel\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"violet_hunter\"],\"mentioned_only\":[\"jephro_rucastle\",\"alice_rucastle\",\"fowler\",\"edward_rucastle\",\"mrs_toller\",\"toller\"]},{\"start\":\"175\",\"end\":\"181\",\"title\":\"Arrival at Copper Beeches and entry to the barricaded room\",\"setting\":[\"copper_beeches\",\"barricaded_room\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"violet_hunter\"],\"mentioned_only\":[\"mrs_toller\",\"toller\",\"alice_rucastle\"]},{\"start\":\"182\",\"end\":\"195\",\"title\":\"The escape, the mastiff attack and Rucastle's wounding\",\"setting\":[\"barricaded_room\",\"copper_beeches\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"violet_hunter\",\"jephro_rucastle\",\"toller\",\"carlo\"],\"mentioned_only\":[\"alice_rucastle\",\"mrs_rucastle\"]},{\"start\":\"196\",\"end\":\"212\",\"title\":\"Mrs. Toller's account and the resolution\",\"setting\":[\"drawing_room\",\"copper_beeches\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"violet_hunter\",\"mrs_toller\",\"mrs_rucastle\",\"jephro_rucastle\"],\"mentioned_only\":[\"alice_rucastle\",\"fowler\",\"toller\"]}],\"brief\":{\"tone\":\"Quiet, foggy domestic unease in London giving way to a sunny but menacing Hampshire countryside, ending in a sudden violent climax; restrained Victorian detective mood rather than gothic excess.\",\"depiction_rules\":[\"Show the mastiff's attack only at the end, and keep Rucastle's wounds offstage or lightly suggested rather than graphic.\",\"Do not depict Alice Rucastle's imprisonment in detail; the barricaded room may be shown empty or dim with the bed and linen.\",\"Violet's cut hair may be shown as short and the electric-blue dress as worn but well-fitted.\",\"Holmes is shown in his Baker Street manner with pipe and dressing-gown contexts as appropriate; avoid anachronistic gadgets.\",\"Show the copper beeches as a dark-leafed group of trees before a whitewashed house.\"],\"era\":{\"name\":\"Late Victorian England, c. 1890s, Hampshire countryside and London\",\"people\":\"English middle and working classes: a governess, a stout gentleman, a drunken groom and his wife, a sad young wife and a spoiled child.\",\"dress\":\"Victorian day wear: governess's plain neat dress, a cloak and hat, a gentleman's suit with a waistcoat, Violet's electric-blue dress of beige-toned material, working-class servants' plain clothing.\",\"buildings_and_objects\":\"Baker Street sitting-room with gas lighting and a coal fire; a whitewashed country house with a drawing-room and long windows; outbuildings and an iron bed used as a barricade; old inns and a cathedral town of Winchester.\",\"technology\":\"Telegraph and telegrams, railway trains with timetables (Bradshaw), gas lamps, dog-carts and traps; no motor cars, no telephones at the house, no electric lighting.\"}}}",
+ "parsed": {
+  "characters": [
+   {
+    "id": "sherlock_holmes",
+    "name": "Sherlock Holmes",
+    "aliases": [
+     "Holmes",
+     "my friend"
+    ],
+    "note": "Consulting detective of Baker Street, narrator Watson's friend; sharp, abstracted, smokes a long cherry-wood pipe; present throughout the case.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "watson",
+    "name": "Dr. Watson",
+    "aliases": [
+     "Watson",
+     "I",
+     "narrator"
+    ],
+    "note": "Narrator and Holmes's companion, a medical man who accompanies him to Hampshire and carries a pistol; present throughout.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "violet_hunter",
+    "name": "Violet Hunter",
+    "aliases": [
+     "Miss Hunter",
+     "the young lady",
+     "the governess"
+    ],
+    "note": "Young governess with a bright quick freckled face and chestnut hair she cut off; the client who consults Holmes, then is taken to Copper Beeches under a false identity.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "jephro_rucastle",
+    "name": "Jephro Rucastle",
+    "aliases": [
+     "Mr. Rucastle",
+     "the fat man",
+     "my employer"
+    ],
+    "note": "Stout, smiling, bluff father of Alice Rucastle and husband of the second wife; keeps his daughter imprisoned, sets his mastiff loose, and is mauled by it at the end.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mrs_rucastle",
+    "name": "Mrs. Rucastle",
+    "aliases": [
+     "the second wife",
+     "the lady of the house"
+    ],
+    "note": "Pale, silent, much younger second wife of Jephro Rucastle; devoted to her husband and son, sad-eyed; not mad.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "edward_rucastle",
+    "name": "Edward",
+    "aliases": [
+     "little Edward",
+     "the child",
+     "the romper"
+    ],
+    "note": "Six-year-old spoiled son of the Rucastles, cruel to weaker creatures; Violet's charge.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "alice_rucastle",
+    "name": "Alice Rucastle",
+    "aliases": [
+     "Miss Alice",
+     "Miss Rucastle",
+     "the daughter",
+     "the prisoner"
+    ],
+    "note": "Daughter of Jephro Rucastle by his first wife, heiress with rights of her own by will; supposedly in Philadelphia, actually locked in the barricaded room; not present on stage.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "toller",
+    "name": "Toller",
+    "aliases": [
+     "old Toller",
+     "the groom"
+    ],
+    "note": "Rough, drunken groom and manservant of Copper Beeches, husband of Mrs. Toller; lets the mastiff loose at night.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mrs_toller",
+    "name": "Mrs. Toller",
+    "aliases": [
+     "the cook",
+     "the tall woman"
+    ],
+    "note": "Tall, gaunt, sour-faced wife of Toller; cook and servant at Copper Beeches, later locked in the cellar and reveals the plot.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "fowler",
+    "name": "Mr. Fowler",
+    "aliases": [
+     "the man in the road",
+     "the seaman",
+     "her young man"
+    ],
+    "note": "Alice Rucastle's fiancé, a bearded man in a grey suit who watches the house from the Southampton road, bribed Toller and Mrs. Toller; not present on stage.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "miss_stoper",
+    "name": "Miss Stoper",
+    "aliases": [
+     "the manageress"
+    ],
+    "note": "Manageress of Westaway's governess agency in the West End who handles Violet's application.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "carlo",
+    "name": "Carlo",
+    "aliases": [
+     "the mastiff",
+     "the dog",
+     "the hound"
+    ],
+    "note": "Giant tawny mastiff kept at Copper Beeches, loosed at night and shot by Watson after mauling Rucastle.",
+    "kind": "animal",
+    "same_person_as": ""
+   }
+  ],
+  "locations": [
+   {
+    "id": "baker_street",
+    "name": "Baker Street",
+    "aliases": [
+     "the old room at Baker Street",
+     "our rooms"
+    ],
+    "note": "Holmes and Watson's sitting-room in London, where Violet Hunter first consults Holmes."
+   },
+   {
+    "id": "westaways_agency",
+    "name": "Westaway's agency",
+    "aliases": [
+     "the governess agency",
+     "the West End office"
+    ],
+    "note": "Governess agency in the West End where Violet was offered the post by Rucastle."
+   },
+   {
+    "id": "black_swan_hotel",
+    "name": "Black Swan Hotel",
+    "aliases": [
+     "the Black Swan",
+     "the inn at Winchester"
+    ],
+    "note": "Inn in the High Street at Winchester where Holmes and Watson meet Violet."
+   },
+   {
+    "id": "copper_beeches",
+    "name": "Copper Beeches",
+    "aliases": [
+     "the house",
+     "the sinister house",
+     "the Rucastles' house"
+    ],
+    "note": "Large whitewashed square house five miles from Winchester in Hampshire, named for its copper beech trees, with a barricaded wing and a dog kennel outbuilding."
+   },
+   {
+    "id": "barricaded_room",
+    "name": "the barricaded room",
+    "aliases": [
+     "the forbidden wing",
+     "the suite of rooms",
+     "the attic prison"
+    ],
+    "note": "Locked room in the deserted wing of Copper Beeches, lit by a skylight, where Alice Rucastle was held."
+   },
+   {
+    "id": "drawing_room",
+    "name": "the drawing-room",
+    "aliases": [
+     "the long room"
+    ],
+    "note": "Large room along the front of Copper Beeches with three long windows, where Violet sat for the mirror-game and where Rucastle was later laid."
+   },
+   {
+    "id": "southampton_road",
+    "name": "the Southampton road",
+    "aliases": [
+     "the high road",
+     "the road"
+    ],
+    "note": "Public highway in front of Copper Beeches where Fowler watched from the railings."
+   }
+  ],
+  "sections": [
+   {
+    "start": "1",
+    "end": "9",
+    "title": "Holmes's dull mail and the governess's visit",
+    "setting": [
+     "baker_street"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "violet_hunter"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "10",
+    "end": "65",
+    "title": "Violet's account of the Westaway offer and Rucastle's letter",
+    "setting": [
+     "baker_street",
+     "westaways_agency"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "violet_hunter"
+    ],
+    "mentioned_only": [
+     "miss_stoper",
+     "jephro_rucastle"
+    ]
+   },
+   {
+    "start": "66",
+    "end": "81",
+    "title": "Holmes advises Violet and she departs",
+    "setting": [
+     "baker_street"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "violet_hunter"
+    ],
+    "mentioned_only": [
+     "jephro_rucastle"
+    ]
+   },
+   {
+    "start": "82",
+    "end": "92",
+    "title": "The telegram and the decision to travel",
+    "setting": [
+     "baker_street"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "violet_hunter"
+    ]
+   },
+   {
+    "start": "93",
+    "end": "104",
+    "title": "The journey to Winchester",
+    "setting": [
+     "black_swan_hotel"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "105",
+    "end": "128",
+    "title": "Violet's account of Copper Beeches and the mirror-game",
+    "setting": [
+     "black_swan_hotel",
+     "copper_beeches",
+     "drawing_room",
+     "southampton_road"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "violet_hunter"
+    ],
+    "mentioned_only": [
+     "jephro_rucastle",
+     "mrs_rucastle",
+     "edward_rucastle",
+     "toller",
+     "mrs_toller",
+     "fowler"
+    ]
+   },
+   {
+    "start": "129",
+    "end": "145",
+    "title": "The mastiff, the hair in the drawer and the forbidden wing",
+    "setting": [
+     "black_swan_hotel",
+     "copper_beeches",
+     "barricaded_room"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "violet_hunter"
+    ],
+    "mentioned_only": [
+     "jephro_rucastle",
+     "carlo",
+     "fowler",
+     "alice_rucastle"
+    ]
+   },
+   {
+    "start": "146",
+    "end": "158",
+    "title": "Rucastle's threat and Violet's flight to Winchester",
+    "setting": [
+     "copper_beeches",
+     "barricaded_room",
+     "black_swan_hotel"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "violet_hunter",
+     "jephro_rucastle"
+    ],
+    "mentioned_only": [
+     "carlo"
+    ]
+   },
+   {
+    "start": "159",
+    "end": "174",
+    "title": "Holmes's deduction and the plan",
+    "setting": [
+     "black_swan_hotel"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "violet_hunter"
+    ],
+    "mentioned_only": [
+     "jephro_rucastle",
+     "alice_rucastle",
+     "fowler",
+     "edward_rucastle",
+     "mrs_toller",
+     "toller"
+    ]
+   },
+   {
+    "start": "175",
+    "end": "181",
+    "title": "Arrival at Copper Beeches and entry to the barricaded room",
+    "setting": [
+     "copper_beeches",
+     "barricaded_room"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "violet_hunter"
+    ],
+    "mentioned_only": [
+     "mrs_toller",
+     "toller",
+     "alice_rucastle"
+    ]
+   },
+   {
+    "start": "182",
+    "end": "195",
+    "title": "The escape, the mastiff attack and Rucastle's wounding",
+    "setting": [
+     "barricaded_room",
+     "copper_beeches"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "violet_hunter",
+     "jephro_rucastle",
+     "toller",
+     "carlo"
+    ],
+    "mentioned_only": [
+     "alice_rucastle",
+     "mrs_rucastle"
+    ]
+   },
+   {
+    "start": "196",
+    "end": "212",
+    "title": "Mrs. Toller's account and the resolution",
+    "setting": [
+     "drawing_room",
+     "copper_beeches"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "violet_hunter",
+     "mrs_toller",
+     "mrs_rucastle",
+     "jephro_rucastle"
+    ],
+    "mentioned_only": [
+     "alice_rucastle",
+     "fowler",
+     "toller"
+    ]
+   }
+  ],
+  "brief": {
+   "tone": "Quiet, foggy domestic unease in London giving way to a sunny but menacing Hampshire countryside, ending in a sudden violent climax; restrained Victorian detective mood rather than gothic excess.",
+   "depiction_rules": [
+    "Show the mastiff's attack only at the end, and keep Rucastle's wounds offstage or lightly suggested rather than graphic.",
+    "Do not depict Alice Rucastle's imprisonment in detail; the barricaded room may be shown empty or dim with the bed and linen.",
+    "Violet's cut hair may be shown as short and the electric-blue dress as worn but well-fitted.",
+    "Holmes is shown in his Baker Street manner with pipe and dressing-gown contexts as appropriate; avoid anachronistic gadgets.",
+    "Show the copper beeches as a dark-leafed group of trees before a whitewashed house."
+   ],
+   "era": {
+    "name": "Late Victorian England, c. 1890s, Hampshire countryside and London",
+    "people": "English middle and working classes: a governess, a stout gentleman, a drunken groom and his wife, a sad young wife and a spoiled child.",
+    "dress": "Victorian day wear: governess's plain neat dress, a cloak and hat, a gentleman's suit with a waistcoat, Violet's electric-blue dress of beige-toned material, working-class servants' plain clothing.",
+    "buildings_and_objects": "Baker Street sitting-room with gas lighting and a coal fire; a whitewashed country house with a drawing-room and long windows; outbuildings and an iron bed used as a barricade; old inns and a cathedral town of Winchester.",
+    "technology": "Telegraph and telegrams, railway trains with timetables (Bradshaw), gas lamps, dog-carts and traps; no motor cars, no telephones at the house, no electric lighting."
+   }
+  }
+ },
+ "usage": {
+  "prompt_tokens": 20806,
+  "completion_tokens": 3820,
+  "total_tokens": 24626,
+  "cost": 0.0039906,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0039906,
+   "upstream_inference_prompt_cost": 0.0020806,
+   "upstream_inference_completions_cost": 0.00191
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

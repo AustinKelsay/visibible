@@ -1,0 +1,185 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-five-orange-pips__moments__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354881-drjDBnF2Qj8RDYmPKjdM",
+  "seconds": 10.7,
+  "finish_reason": "stop",
+  "prompt_tokens": 15274,
+  "completion_tokens": 2180,
+  "cost": 0.0026174,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:21:31"
+ },
+ "system": "You split the story sections of one division of a prose work into moments for an illustration engine, which draws one picture per moment.\n\nThe text comes as numbered paragraphs: each line starts with its id in square brackets and its word count in parentheses, for example `[12] (34w)`. After the text you get the division's story sections, each with its first and last paragraph id.\n\nReturn moments, in order. A moment is a run of consecutive paragraphs that is one beat you can picture: one place, one continuous action or exchange, seen at one instant. Aim for roughly 100 to 400 words per moment, using the word counts given; a moment may be shorter when the beat is a single striking paragraph, and may run past 400 only when one unbroken exchange cannot be cut. Very short paragraphs (lines of dialogue) join their neighbours. Moments tile every section: each paragraph belongs to exactly one moment, moments never cross a section boundary, and together they cover every paragraph of every section with no gaps and no overlaps. Give each moment its first and last paragraph id, the section it lies in (by its first paragraph id), and a one-line summary of what you would see in the picture: who is there, where, doing what. Do not quote the text.",
+ "user_chars": 42283,
+ "content": "{\"moments\":[{\"section_start\":\"the-five-orange-pips-s1\",\"start\":\"1\",\"end\":\"3\",\"summary\":\"Watson looks back on his notes of cases from the 1880s and describes the stormy autumn evening in Baker Street, with Holmes cross-indexing records by one side of the fire and Watson reading at the other.\"},{\"section_start\":\"the-five-orange-pips-s1\",\"start\":\"4\",\"end\":\"11\",\"summary\":\"A bell rings in the storm; Holmes turns the lamp toward the empty chair as a pale, well-dressed young man with a streaming umbrella enters and introduces himself as John Openshaw.\"},{\"section_start\":\"the-five-orange-pips-s2\",\"start\":\"12\",\"end\":\"34\",\"summary\":\"Openshaw pulls his chair near the fire, his wet feet toward the blaze, and begins to explain his family's mysterious history while Holmes listens attentively.\"},{\"section_start\":\"the-five-orange-pips-s3\",\"start\":\"35\",\"end\":\"37\",\"summary\":\"Openshaw describes his father's bicycle-tyre business and his uncle Elias, a fierce, brandy-drinking planter back from America, living in a Sussex house near Horsham with the young boy as his household deputy.\"},{\"section_start\":\"the-five-orange-pips-s3\",\"start\":\"38\",\"end\":\"41\",\"summary\":\"At breakfast the colonel opens a letter from Pondicherry; five dried orange pips fall onto his plate, and he collapses in terror, shrieking K.K.K. and ordering a fire lit in his room.\"},{\"section_start\":\"the-five-orange-pips-s3\",\"start\":\"42\",\"end\":\"45\",\"summary\":\"Inside the colonel's room a fire burns and the open brass box, marked K.K.K., stands beside black ash, while the lawyer Fordham witnesses his will; later the colonel is found drowned in a green-scummed pool.\"},{\"section_start\":\"the-five-orange-pips-s4\",\"start\":\"46\",\"end\":\"49\",\"summary\":\"Holmes questions Openshaw about dates, and Openshaw reports the attic's contents: the brass box with its label and the sorted papers about the colonel's American life.\"},{\"section_start\":\"the-five-orange-pips-s5\",\"start\":\"50\",\"end\":\"56\",\"summary\":\"At the breakfast table in January 1885 Openshaw's father opens an envelope with orange pips and K.K.K. written inside, reads the instruction to put the papers on the sundial, and looks baffled and scared.\"},{\"section_start\":\"the-five-orange-pips-s5\",\"start\":\"57\",\"end\":\"64\",\"summary\":\"Father and son argue over the Dundee-postmarked letter; the father refuses to involve the police and dismisses the warning as nonsense.\"},{\"section_start\":\"the-five-orange-pips-s5\",\"start\":\"65\",\"end\":\"67\",\"summary\":\"Openshaw describes his father's fatal fall into a chalk-pit on the way back from Fareham, and his own unease as he lives on at Horsham.\"},{\"section_start\":\"the-five-orange-pips-s6\",\"start\":\"68\",\"end\":\"72\",\"summary\":\"Openshaw lays a new envelope with five orange pips on the table in Baker Street, showing the London postmark and the K.K.K. warning, and Holmes asks what he has done.\"},{\"section_start\":\"the-five-orange-pips-s6\",\"start\":\"73\",\"end\":\"86\",\"summary\":\"Openshaw confesses helplessness, reports that the police dismissed his story, and produces a torn blue-tinted diary page from the colonel's room, which Holmes studies by lamplight.\"},{\"section_start\":\"the-five-orange-pips-s7\",\"start\":\"87\",\"end\":\"92\",\"summary\":\"Holmes and Watson bend over the diary page headed March 1869, reading its cryptic entries about Hudson, the pips sent to McCauley, Paramore and John Swain, and who cleared.\"},{\"section_start\":\"the-five-orange-pips-s7\",\"start\":\"93\",\"end\":\"95\",\"summary\":\"Holmes tells Openshaw to put the surviving page into the brass box with a note, then set the box out on the sundial immediately.\"},{\"section_start\":\"the-five-orange-pips-s8\",\"start\":\"96\",\"end\":\"101\",\"summary\":\"Holmes urges Openshaw to act at once and to take care on the streets, while Openshaw stands with his overcoat on, ready to leave for the London train.\"},{\"section_start\":\"the-five-orange-pips-s8\",\"start\":\"102\",\"end\":\"106\",\"summary\":\"Openshaw declares he is armed and says goodbye; Holmes promises to work on the case, and the storm outside seems to swallow the strange visit.\"},{\"section_start\":\"the-five-orange-pips-s8\",\"start\":\"107\",\"end\":\"114\",\"summary\":\"Holmes sits silently smoking by the fire, then begins a lecture to Watson on the ideal reasoner and the usefulness of stored knowledge.\"},{\"section_start\":\"the-five-orange-pips-s9\",\"start\":\"115\",\"end\":\"125\",\"summary\":\"Holmes and Watson recall Watson's old list of Holmes's accomplishments, then Holmes deduces from the postmarks that the senders travel by sailing ship, with the delay implying the distance.\"},{\"section_start\":\"the-five-orange-pips-s9\",\"start\":\"126\",\"end\":\"136\",\"summary\":\"Holmes explains that the K.K.K. is a secret society, reads from the encyclopaedia about the Ku Klux Klan and its warnings of orange pips, and predicts the danger to Openshaw is urgent.\"},{\"section_start\":\"the-five-orange-pips-s10\",\"start\":\"137\",\"end\":\"142\",\"summary\":\"At breakfast the next morning Holmes prepares to leave for the City while Watson waits, having just noticed a newspaper heading that chills him.\"},{\"section_start\":\"the-five-orange-pips-s10\",\"start\":\"143\",\"end\":\"153\",\"summary\":\"Watson reads the newspaper report of Openshaw's body pulled from the river near Waterloo Bridge, and Holmes, pale and shaken, paces the room with a vow of revenge; that evening he returns hungry and worn.\"},{\"section_start\":\"the-five-orange-pips-s11\",\"start\":\"154\",\"end\":\"166\",\"summary\":\"Holmes tears an orange, squeezes out five pips into an envelope marked S.H. for J.O., and addresses it to Captain James Calhoun of the barque Lone Star at Savannah.\"},{\"section_start\":\"the-five-orange-pips-s11\",\"start\":\"167\",\"end\":\"178\",\"summary\":\"Holmes lays out his paper of dates and names, explaining how he traced the Lone Star from Pondicherry and Dundee to London and why its American crew are now to be arrested for murder.\"}]}",
+ "parsed": {
+  "moments": [
+   {
+    "section_start": "the-five-orange-pips-s1",
+    "start": "1",
+    "end": "3",
+    "summary": "Watson looks back on his notes of cases from the 1880s and describes the stormy autumn evening in Baker Street, with Holmes cross-indexing records by one side of the fire and Watson reading at the other."
+   },
+   {
+    "section_start": "the-five-orange-pips-s1",
+    "start": "4",
+    "end": "11",
+    "summary": "A bell rings in the storm; Holmes turns the lamp toward the empty chair as a pale, well-dressed young man with a streaming umbrella enters and introduces himself as John Openshaw."
+   },
+   {
+    "section_start": "the-five-orange-pips-s2",
+    "start": "12",
+    "end": "34",
+    "summary": "Openshaw pulls his chair near the fire, his wet feet toward the blaze, and begins to explain his family's mysterious history while Holmes listens attentively."
+   },
+   {
+    "section_start": "the-five-orange-pips-s3",
+    "start": "35",
+    "end": "37",
+    "summary": "Openshaw describes his father's bicycle-tyre business and his uncle Elias, a fierce, brandy-drinking planter back from America, living in a Sussex house near Horsham with the young boy as his household deputy."
+   },
+   {
+    "section_start": "the-five-orange-pips-s3",
+    "start": "38",
+    "end": "41",
+    "summary": "At breakfast the colonel opens a letter from Pondicherry; five dried orange pips fall onto his plate, and he collapses in terror, shrieking K.K.K. and ordering a fire lit in his room."
+   },
+   {
+    "section_start": "the-five-orange-pips-s3",
+    "start": "42",
+    "end": "45",
+    "summary": "Inside the colonel's room a fire burns and the open brass box, marked K.K.K., stands beside black ash, while the lawyer Fordham witnesses his will; later the colonel is found drowned in a green-scummed pool."
+   },
+   {
+    "section_start": "the-five-orange-pips-s4",
+    "start": "46",
+    "end": "49",
+    "summary": "Holmes questions Openshaw about dates, and Openshaw reports the attic's contents: the brass box with its label and the sorted papers about the colonel's American life."
+   },
+   {
+    "section_start": "the-five-orange-pips-s5",
+    "start": "50",
+    "end": "56",
+    "summary": "At the breakfast table in January 1885 Openshaw's father opens an envelope with orange pips and K.K.K. written inside, reads the instruction to put the papers on the sundial, and looks baffled and scared."
+   },
+   {
+    "section_start": "the-five-orange-pips-s5",
+    "start": "57",
+    "end": "64",
+    "summary": "Father and son argue over the Dundee-postmarked letter; the father refuses to involve the police and dismisses the warning as nonsense."
+   },
+   {
+    "section_start": "the-five-orange-pips-s5",
+    "start": "65",
+    "end": "67",
+    "summary": "Openshaw describes his father's fatal fall into a chalk-pit on the way back from Fareham, and his own unease as he lives on at Horsham."
+   },
+   {
+    "section_start": "the-five-orange-pips-s6",
+    "start": "68",
+    "end": "72",
+    "summary": "Openshaw lays a new envelope with five orange pips on the table in Baker Street, showing the London postmark and the K.K.K. warning, and Holmes asks what he has done."
+   },
+   {
+    "section_start": "the-five-orange-pips-s6",
+    "start": "73",
+    "end": "86",
+    "summary": "Openshaw confesses helplessness, reports that the police dismissed his story, and produces a torn blue-tinted diary page from the colonel's room, which Holmes studies by lamplight."
+   },
+   {
+    "section_start": "the-five-orange-pips-s7",
+    "start": "87",
+    "end": "92",
+    "summary": "Holmes and Watson bend over the diary page headed March 1869, reading its cryptic entries about Hudson, the pips sent to McCauley, Paramore and John Swain, and who cleared."
+   },
+   {
+    "section_start": "the-five-orange-pips-s7",
+    "start": "93",
+    "end": "95",
+    "summary": "Holmes tells Openshaw to put the surviving page into the brass box with a note, then set the box out on the sundial immediately."
+   },
+   {
+    "section_start": "the-five-orange-pips-s8",
+    "start": "96",
+    "end": "101",
+    "summary": "Holmes urges Openshaw to act at once and to take care on the streets, while Openshaw stands with his overcoat on, ready to leave for the London train."
+   },
+   {
+    "section_start": "the-five-orange-pips-s8",
+    "start": "102",
+    "end": "106",
+    "summary": "Openshaw declares he is armed and says goodbye; Holmes promises to work on the case, and the storm outside seems to swallow the strange visit."
+   },
+   {
+    "section_start": "the-five-orange-pips-s8",
+    "start": "107",
+    "end": "114",
+    "summary": "Holmes sits silently smoking by the fire, then begins a lecture to Watson on the ideal reasoner and the usefulness of stored knowledge."
+   },
+   {
+    "section_start": "the-five-orange-pips-s9",
+    "start": "115",
+    "end": "125",
+    "summary": "Holmes and Watson recall Watson's old list of Holmes's accomplishments, then Holmes deduces from the postmarks that the senders travel by sailing ship, with the delay implying the distance."
+   },
+   {
+    "section_start": "the-five-orange-pips-s9",
+    "start": "126",
+    "end": "136",
+    "summary": "Holmes explains that the K.K.K. is a secret society, reads from the encyclopaedia about the Ku Klux Klan and its warnings of orange pips, and predicts the danger to Openshaw is urgent."
+   },
+   {
+    "section_start": "the-five-orange-pips-s10",
+    "start": "137",
+    "end": "142",
+    "summary": "At breakfast the next morning Holmes prepares to leave for the City while Watson waits, having just noticed a newspaper heading that chills him."
+   },
+   {
+    "section_start": "the-five-orange-pips-s10",
+    "start": "143",
+    "end": "153",
+    "summary": "Watson reads the newspaper report of Openshaw's body pulled from the river near Waterloo Bridge, and Holmes, pale and shaken, paces the room with a vow of revenge; that evening he returns hungry and worn."
+   },
+   {
+    "section_start": "the-five-orange-pips-s11",
+    "start": "154",
+    "end": "166",
+    "summary": "Holmes tears an orange, squeezes out five pips into an envelope marked S.H. for J.O., and addresses it to Captain James Calhoun of the barque Lone Star at Savannah."
+   },
+   {
+    "section_start": "the-five-orange-pips-s11",
+    "start": "167",
+    "end": "178",
+    "summary": "Holmes lays out his paper of dates and names, explaining how he traced the Lone Star from Pondicherry and Dundee to London and why its American crew are now to be arrested for murder."
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 15274,
+  "completion_tokens": 2180,
+  "total_tokens": 17454,
+  "cost": 0.0026174,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0026174,
+   "upstream_inference_prompt_cost": 0.0015274,
+   "upstream_inference_completions_cost": 0.00109
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

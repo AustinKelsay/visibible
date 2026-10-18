@@ -1,0 +1,473 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-red-headed-league__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354442-ELSiswbs07PHyymJzB0i",
+  "seconds": 13.7,
+  "finish_reason": "stop",
+  "prompt_tokens": 19762,
+  "completion_tokens": 3318,
+  "cost": 0.0036352,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:16"
+ },
+ "system": "You are the reading pass of an illustration engine. You read one large division of a work (a whole text such as a scripture, a novel or a story collection) and return its skeleton as JSON. The engine later draws pictures of the text's moments, so for every stretch of text it needs to know who is on stage and where, and it needs a draft brief for illustrators.\n\nThe text comes as numbered units. Each unit line starts with its id (for example `17:4` or `[12]`). Lines starting with `##` are headings, not units.\n\nReturn:\n\n1. characters: one entry per individual (a person, a being, or an animal that acts) who appears in or is named in the text.\n   - One individual is one entry, even when the text uses different names, titles or descriptions for them. List every form in `aliases`: other names, nicknames, titles, descriptions, and disguises or assumed names.\n   - Different individuals who share a name or a title get separate entries, one each. Never fold two people into one entry because they share a name. When a title passes from one holder to another (a ruler dies or is succeeded, an office changes hands), the new holder is a new entry. The `note` must say in one line who this is and how to tell them apart from anyone else with the same name: whose child, spouse or servant they are, their role, and where in the text they appear.\n   - A disguised, renamed or unnamed person who the text later identifies is the same entry as their named self, with the disguise or description in `aliases`. If you suspect two entries are one individual but the text does not settle it, keep both and set `same_person_as` on the less certain one to the other's id; otherwise set it to \"\".\n   - Skip people who occur only inside a list of names (a genealogy or roster) and never act.\n   - Add a group (an army, a crowd, a household) only when it acts as one on stage, with kind \"group\".\n2. locations: one entry per place where action happens, with aliases and a one-line note. Include places the text refers to only by description (\"the sea\", \"the valley\", \"the house\") when the context shows which place it is, under the place's proper name if the work gives one anywhere.\n3. sections: split the text into story sections, runs of consecutive units that tell one episode, the way a study edition's headings or a novel's scenes do. Start a new section when the time, the place or the main action changes. Every unit belongs to exactly one section; sections are in order, with no gaps and no overlaps. This division has 215 units. Aim for roughly 12 sections (10 to 14), averaging about 18 units each; some sections will be much shorter and some longer. Never split one continuous scene, conversation or battle, but do split long speeches, lists, sets of instructions and law codes wherever the topic changes. Give the ids of each section's first and last unit and a short title. For each section:\n   - setting: ids of the locations where its action happens.\n   - on_stage: ids of every character present in the section's action, whether the section names them or only refers to them by a pronoun, a title or a description, or does not mention them but they are clearly there.\n   - mentioned_only: ids of characters the section names or refers to who are not present.\n4. brief: a draft brief for illustrators, for this division only. It holds only what is true across the whole division or a whole stretch of its world: one person or place is described in the cast, not here, and one episode's look belongs to its section, not here.\n   - tone: one line on the mood the pictures should carry.\n   - depiction_rules: a short list of how certain things in this text may or may not be shown, drawn from the text and from what you know about the work.\n   - era: the stretch of the world this division is set in: a name, its people (who lives there and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist).\n   Keep the brief under 200 words.\n\nUse short, stable snake_case ids (for example `david`, `the_queen`, `main_street`). Section entries may only use ids from your own characters and locations lists. Do not quote the text.",
+ "user_chars": 50334,
+ "content": "{\"characters\":[{\"id\":\"holmes\",\"name\":\"Sherlock Holmes\",\"aliases\":[\"Mr. Holmes\",\"my friend\"],\"note\":\"Consulting detective at Baker Street; narrates via Watson; the single Holmes in this division.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"watson\",\"name\":\"Dr. Watson\",\"aliases\":[\"Doctor\",\"my dear Watson\",\"I\"],\"note\":\"Narrator and Holmes's companion, a physician living in Kensington; first-person voice of the story.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"jabez_wilson\",\"name\":\"Jabez Wilson\",\"aliases\":[\"Mr. Wilson\",\"the red-headed client\",\"the portly client\"],\"note\":\"Stout, red-haired pawnbroker of Saxe-Coburg Square, the client who brings the case; a widower with no children.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"vincent_spaulding\",\"name\":\"Vincent Spaulding\",\"aliases\":[\"the assistant\",\"Spaulding\",\"the smooth-faced assistant\"],\"note\":\"Wilson's clean-shaven assistant with acid mark on forehead and pierced ears; actually the conspirator John Clay's accomplice in disguise, distinct from the criminal leader.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"duncan_ross\",\"name\":\"Duncan Ross\",\"aliases\":[\"the little red-headed manager\",\"William Morris\",\"the manager\"],\"note\":\"Small red-headed man running the League office at Pope's Court; a false identity, allied with Clay.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"john_clay\",\"name\":\"John Clay\",\"aliases\":[\"young John Clay\",\"the prisoner\",\"his Highness\"],\"note\":\"Young royal-blooded criminal, skilled thief and forger, who dug the tunnel from the pawnshop cellar to the bank; arrested in the vault.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"archie\",\"name\":\"Archie\",\"aliases\":[\"the pale red-haired companion\",\"the other\"],\"note\":\"Lithe, red-haired accomplice of John Clay who escapes down the hole; the one Holmes names as Clay's pal.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"peter_jones\",\"name\":\"Peter Jones\",\"aliases\":[\"Jones\",\"the official police agent\"],\"note\":\"Official police agent from Scotland Yard, consequential and brave; hunts with Holmes.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mr_merryweather\",\"name\":\"Mr. Merryweather\",\"aliases\":[\"the bank director\",\"the chairman of directors\",\"Merryweather\"],\"note\":\"Solemn, long, thin, sad-faced chairman of the bank directors of the City and Suburban Bank branch, and a whist player.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mary_sutherland\",\"name\":\"Miss Mary Sutherland\",\"aliases\":[\"Miss Sutherland\"],\"note\":\"A client of an earlier case, only mentioned in passing by Holmes.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"ezekiah_hopkins\",\"name\":\"Ezekiah Hopkins\",\"aliases\":[\"the American millionaire\",\"the late Ezekiah Hopkins\",\"the benefactor\"],\"note\":\"Deceased American millionaire of Lebanon, Pennsylvania, who founded the League; only referred to, never present.\",\"kind\":\"person\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"baker_street\",\"name\":\"Baker Street\",\"aliases\":[\"Holmes's rooms\"],\"note\":\"Holmes's lodgings in London, where the story begins and ends and where the night expedition sets out.\"},{\"id\":\"saxe_coburg_square\",\"name\":\"Saxe-Coburg Square\",\"aliases\":[\"Coburg Square\"],\"note\":\"Small shabby square near the City where Wilson's pawnshop stands and the tunnel begins.\"},{\"id\":\"pope_court\",\"name\":\"Pope's Court, Fleet Street\",\"aliases\":[\"the offices of the League\",\"Pope's Court\"],\"note\":\"Offices of the Red-Headed League, where the crowd of applicants gathers and Wilson is hired.\"},{\"id\":\"bank_cellar\",\"name\":\"Bank cellar, City branch\",\"aliases\":[\"the vault\",\"the cellar\",\"the City and Suburban Bank cellar\"],\"note\":\"Vault of the City branch bank where the napoleons are stored; the tunnel ends here and the arrest occurs.\"},{\"id\":\"st_james_hall\",\"name\":\"St. James's Hall\",\"aliases\":[\"the concert hall\"],\"note\":\"Concert hall where Holmes and Watson hear Sarasate play in the afternoon.\"},{\"id\":\"city_road\",\"name\":\"Main City road\",\"aliases\":[\"the road round the corner\",\"the thoroughfare\"],\"note\":\"Busy commercial artery near Saxe-Coburg Square, where the bank's frontage faces.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"12\",\"title\":\"Wilson introduced to Holmes\",\"setting\":[\"baker_street\"],\"on_stage\":[\"holmes\",\"watson\",\"jabez_wilson\"],\"mentioned_only\":[]},{\"start\":\"13\",\"end\":\"26\",\"title\":\"Holmes reads Wilson's bearing\",\"setting\":[\"baker_street\"],\"on_stage\":[\"holmes\",\"watson\",\"jabez_wilson\"],\"mentioned_only\":[]},{\"start\":\"27\",\"end\":\"38\",\"title\":\"The advertisement and Wilson's shop\",\"setting\":[\"baker_street\",\"saxe_coburg_square\"],\"on_stage\":[\"holmes\",\"watson\",\"jabez_wilson\"],\"mentioned_only\":[\"vincent_spaulding\"]},{\"start\":\"39\",\"end\":\"57\",\"title\":\"Spaulding's tip and the crowd at Pope's Court\",\"setting\":[\"saxe_coburg_square\",\"pope_court\"],\"on_stage\":[\"jabez_wilson\",\"vincent_spaulding\"],\"mentioned_only\":[\"duncan_ross\",\"ezekiah_hopkins\"]},{\"start\":\"58\",\"end\":\"85\",\"title\":\"Hiring interview with Duncan Ross\",\"setting\":[\"pope_court\"],\"on_stage\":[\"jabez_wilson\",\"vincent_spaulding\",\"duncan_ross\"],\"mentioned_only\":[\"ezekiah_hopkins\"]},{\"start\":\"86\",\"end\":\"89\",\"title\":\"Eight weeks of copying\",\"setting\":[\"pope_court\"],\"on_stage\":[\"jabez_wilson\"],\"mentioned_only\":[\"duncan_ross\"]},{\"start\":\"90\",\"end\":\"111\",\"title\":\"The League dissolved; Wilson's client inquiries\",\"setting\":[\"baker_street\",\"pope_court\"],\"on_stage\":[\"holmes\",\"watson\",\"jabez_wilson\"],\"mentioned_only\":[\"duncan_ross\",\"vincent_spaulding\"]},{\"start\":\"112\",\"end\":\"129\",\"title\":\"Questioning Wilson about Spaulding\",\"setting\":[\"baker_street\"],\"on_stage\":[\"holmes\",\"watson\",\"jabez_wilson\"],\"mentioned_only\":[\"vincent_spaulding\"]},{\"start\":\"130\",\"end\":\"151\",\"title\":\"Holmes examines Saxe-Coburg Square\",\"setting\":[\"saxe_coburg_square\",\"city_road\"],\"on_stage\":[\"holmes\",\"watson\"],\"mentioned_only\":[\"vincent_spaulding\"]},{\"start\":\"152\",\"end\":\"161\",\"title\":\"Afternoon concert and plans for the night\",\"setting\":[\"st_james_hall\",\"baker_street\"],\"on_stage\":[\"holmes\",\"watson\"],\"mentioned_only\":[\"mary_sutherland\"]},{\"start\":\"162\",\"end\":\"171\",\"title\":\"Gathering the party at Baker Street\",\"setting\":[\"baker_street\"],\"on_stage\":[\"holmes\",\"watson\",\"peter_jones\",\"mr_merryweather\"],\"mentioned_only\":[\"john_clay\"]},{\"start\":\"172\",\"end\":\"189\",\"title\":\"The bank cellar stakeout\",\"setting\":[\"city_road\",\"bank_cellar\"],\"on_stage\":[\"holmes\",\"watson\",\"peter_jones\",\"mr_merryweather\"],\"mentioned_only\":[]},{\"start\":\"190\",\"end\":\"203\",\"title\":\"Clay breaks through and is captured\",\"setting\":[\"bank_cellar\"],\"on_stage\":[\"holmes\",\"watson\",\"peter_jones\",\"mr_merryweather\",\"john_clay\",\"archie\"],\"mentioned_only\":[]},{\"start\":\"204\",\"end\":\"215\",\"title\":\"Explanation at Baker Street\",\"setting\":[\"bank_cellar\",\"baker_street\"],\"on_stage\":[\"holmes\",\"watson\",\"mr_merryweather\"],\"mentioned_only\":[\"john_clay\",\"vincent_spaulding\",\"duncan_ross\"]}],\"brief\":{\"tone\":\"Dry, comic, foggy Victorian mystery: a whimsical premise giving way to tense darkness underground, with Holmes's quiet confidence.\",\"depiction_rules\":[\"Show Wilson's flaming red hair plainly, as it is the plot's key feature.\",\"Show Spaulding's disguise and Clay's refined manner without over-explaining the concealment.\",\"Keep the vault scenes dim, lantern-lit, and mostly in shadow to preserve suspense.\",\"Depict the crowd at Pope's Court as a jostling mass of varied red hair shades, not individuals.\"],\"era\":{\"name\":\"London, autumn 1890\",\"people\":\"Late-Victorian Londoners: tradesmen, clerks, pawnbrokers, bankers, police agents, with a crowd of red-haired applicants from all over the city.\",\"dress\":\"Frock-coats, top-hats, waistcoats with watch chains, greatcoats, bowler hats (derbies), and working-class caps and shawls for the crowd.\",\"buildings_and_objects\":\"Gas-lit streets, brick townhouses, shopfronts with gilt balls, the City's counting-houses, cellars with lead-foiled crates of napoleons, stone floors and iron gates.\",\"technology\":\"Hansom cabs, the Underground railway, handheld cameras, lanterns and dark lanterns, revolvers; no electric lighting or telephones.\"}}}",
+ "parsed": {
+  "characters": [
+   {
+    "id": "holmes",
+    "name": "Sherlock Holmes",
+    "aliases": [
+     "Mr. Holmes",
+     "my friend"
+    ],
+    "note": "Consulting detective at Baker Street; narrates via Watson; the single Holmes in this division.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "watson",
+    "name": "Dr. Watson",
+    "aliases": [
+     "Doctor",
+     "my dear Watson",
+     "I"
+    ],
+    "note": "Narrator and Holmes's companion, a physician living in Kensington; first-person voice of the story.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "jabez_wilson",
+    "name": "Jabez Wilson",
+    "aliases": [
+     "Mr. Wilson",
+     "the red-headed client",
+     "the portly client"
+    ],
+    "note": "Stout, red-haired pawnbroker of Saxe-Coburg Square, the client who brings the case; a widower with no children.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "vincent_spaulding",
+    "name": "Vincent Spaulding",
+    "aliases": [
+     "the assistant",
+     "Spaulding",
+     "the smooth-faced assistant"
+    ],
+    "note": "Wilson's clean-shaven assistant with acid mark on forehead and pierced ears; actually the conspirator John Clay's accomplice in disguise, distinct from the criminal leader.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "duncan_ross",
+    "name": "Duncan Ross",
+    "aliases": [
+     "the little red-headed manager",
+     "William Morris",
+     "the manager"
+    ],
+    "note": "Small red-headed man running the League office at Pope's Court; a false identity, allied with Clay.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "john_clay",
+    "name": "John Clay",
+    "aliases": [
+     "young John Clay",
+     "the prisoner",
+     "his Highness"
+    ],
+    "note": "Young royal-blooded criminal, skilled thief and forger, who dug the tunnel from the pawnshop cellar to the bank; arrested in the vault.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "archie",
+    "name": "Archie",
+    "aliases": [
+     "the pale red-haired companion",
+     "the other"
+    ],
+    "note": "Lithe, red-haired accomplice of John Clay who escapes down the hole; the one Holmes names as Clay's pal.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "peter_jones",
+    "name": "Peter Jones",
+    "aliases": [
+     "Jones",
+     "the official police agent"
+    ],
+    "note": "Official police agent from Scotland Yard, consequential and brave; hunts with Holmes.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mr_merryweather",
+    "name": "Mr. Merryweather",
+    "aliases": [
+     "the bank director",
+     "the chairman of directors",
+     "Merryweather"
+    ],
+    "note": "Solemn, long, thin, sad-faced chairman of the bank directors of the City and Suburban Bank branch, and a whist player.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mary_sutherland",
+    "name": "Miss Mary Sutherland",
+    "aliases": [
+     "Miss Sutherland"
+    ],
+    "note": "A client of an earlier case, only mentioned in passing by Holmes.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "ezekiah_hopkins",
+    "name": "Ezekiah Hopkins",
+    "aliases": [
+     "the American millionaire",
+     "the late Ezekiah Hopkins",
+     "the benefactor"
+    ],
+    "note": "Deceased American millionaire of Lebanon, Pennsylvania, who founded the League; only referred to, never present.",
+    "kind": "person",
+    "same_person_as": ""
+   }
+  ],
+  "locations": [
+   {
+    "id": "baker_street",
+    "name": "Baker Street",
+    "aliases": [
+     "Holmes's rooms"
+    ],
+    "note": "Holmes's lodgings in London, where the story begins and ends and where the night expedition sets out."
+   },
+   {
+    "id": "saxe_coburg_square",
+    "name": "Saxe-Coburg Square",
+    "aliases": [
+     "Coburg Square"
+    ],
+    "note": "Small shabby square near the City where Wilson's pawnshop stands and the tunnel begins."
+   },
+   {
+    "id": "pope_court",
+    "name": "Pope's Court, Fleet Street",
+    "aliases": [
+     "the offices of the League",
+     "Pope's Court"
+    ],
+    "note": "Offices of the Red-Headed League, where the crowd of applicants gathers and Wilson is hired."
+   },
+   {
+    "id": "bank_cellar",
+    "name": "Bank cellar, City branch",
+    "aliases": [
+     "the vault",
+     "the cellar",
+     "the City and Suburban Bank cellar"
+    ],
+    "note": "Vault of the City branch bank where the napoleons are stored; the tunnel ends here and the arrest occurs."
+   },
+   {
+    "id": "st_james_hall",
+    "name": "St. James's Hall",
+    "aliases": [
+     "the concert hall"
+    ],
+    "note": "Concert hall where Holmes and Watson hear Sarasate play in the afternoon."
+   },
+   {
+    "id": "city_road",
+    "name": "Main City road",
+    "aliases": [
+     "the road round the corner",
+     "the thoroughfare"
+    ],
+    "note": "Busy commercial artery near Saxe-Coburg Square, where the bank's frontage faces."
+   }
+  ],
+  "sections": [
+   {
+    "start": "1",
+    "end": "12",
+    "title": "Wilson introduced to Holmes",
+    "setting": [
+     "baker_street"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "jabez_wilson"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "13",
+    "end": "26",
+    "title": "Holmes reads Wilson's bearing",
+    "setting": [
+     "baker_street"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "jabez_wilson"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "27",
+    "end": "38",
+    "title": "The advertisement and Wilson's shop",
+    "setting": [
+     "baker_street",
+     "saxe_coburg_square"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "jabez_wilson"
+    ],
+    "mentioned_only": [
+     "vincent_spaulding"
+    ]
+   },
+   {
+    "start": "39",
+    "end": "57",
+    "title": "Spaulding's tip and the crowd at Pope's Court",
+    "setting": [
+     "saxe_coburg_square",
+     "pope_court"
+    ],
+    "on_stage": [
+     "jabez_wilson",
+     "vincent_spaulding"
+    ],
+    "mentioned_only": [
+     "duncan_ross",
+     "ezekiah_hopkins"
+    ]
+   },
+   {
+    "start": "58",
+    "end": "85",
+    "title": "Hiring interview with Duncan Ross",
+    "setting": [
+     "pope_court"
+    ],
+    "on_stage": [
+     "jabez_wilson",
+     "vincent_spaulding",
+     "duncan_ross"
+    ],
+    "mentioned_only": [
+     "ezekiah_hopkins"
+    ]
+   },
+   {
+    "start": "86",
+    "end": "89",
+    "title": "Eight weeks of copying",
+    "setting": [
+     "pope_court"
+    ],
+    "on_stage": [
+     "jabez_wilson"
+    ],
+    "mentioned_only": [
+     "duncan_ross"
+    ]
+   },
+   {
+    "start": "90",
+    "end": "111",
+    "title": "The League dissolved; Wilson's client inquiries",
+    "setting": [
+     "baker_street",
+     "pope_court"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "jabez_wilson"
+    ],
+    "mentioned_only": [
+     "duncan_ross",
+     "vincent_spaulding"
+    ]
+   },
+   {
+    "start": "112",
+    "end": "129",
+    "title": "Questioning Wilson about Spaulding",
+    "setting": [
+     "baker_street"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "jabez_wilson"
+    ],
+    "mentioned_only": [
+     "vincent_spaulding"
+    ]
+   },
+   {
+    "start": "130",
+    "end": "151",
+    "title": "Holmes examines Saxe-Coburg Square",
+    "setting": [
+     "saxe_coburg_square",
+     "city_road"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "vincent_spaulding"
+    ]
+   },
+   {
+    "start": "152",
+    "end": "161",
+    "title": "Afternoon concert and plans for the night",
+    "setting": [
+     "st_james_hall",
+     "baker_street"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "mary_sutherland"
+    ]
+   },
+   {
+    "start": "162",
+    "end": "171",
+    "title": "Gathering the party at Baker Street",
+    "setting": [
+     "baker_street"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "peter_jones",
+     "mr_merryweather"
+    ],
+    "mentioned_only": [
+     "john_clay"
+    ]
+   },
+   {
+    "start": "172",
+    "end": "189",
+    "title": "The bank cellar stakeout",
+    "setting": [
+     "city_road",
+     "bank_cellar"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "peter_jones",
+     "mr_merryweather"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "190",
+    "end": "203",
+    "title": "Clay breaks through and is captured",
+    "setting": [
+     "bank_cellar"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "peter_jones",
+     "mr_merryweather",
+     "john_clay",
+     "archie"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "204",
+    "end": "215",
+    "title": "Explanation at Baker Street",
+    "setting": [
+     "bank_cellar",
+     "baker_street"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "mr_merryweather"
+    ],
+    "mentioned_only": [
+     "john_clay",
+     "vincent_spaulding",
+     "duncan_ross"
+    ]
+   }
+  ],
+  "brief": {
+   "tone": "Dry, comic, foggy Victorian mystery: a whimsical premise giving way to tense darkness underground, with Holmes's quiet confidence.",
+   "depiction_rules": [
+    "Show Wilson's flaming red hair plainly, as it is the plot's key feature.",
+    "Show Spaulding's disguise and Clay's refined manner without over-explaining the concealment.",
+    "Keep the vault scenes dim, lantern-lit, and mostly in shadow to preserve suspense.",
+    "Depict the crowd at Pope's Court as a jostling mass of varied red hair shades, not individuals."
+   ],
+   "era": {
+    "name": "London, autumn 1890",
+    "people": "Late-Victorian Londoners: tradesmen, clerks, pawnbrokers, bankers, police agents, with a crowd of red-haired applicants from all over the city.",
+    "dress": "Frock-coats, top-hats, waistcoats with watch chains, greatcoats, bowler hats (derbies), and working-class caps and shawls for the crowd.",
+    "buildings_and_objects": "Gas-lit streets, brick townhouses, shopfronts with gilt balls, the City's counting-houses, cellars with lead-foiled crates of napoleons, stone floors and iron gates.",
+    "technology": "Hansom cabs, the Underground railway, handheld cameras, lanterns and dark lanterns, revolvers; no electric lighting or telephones."
+   }
+  }
+ },
+ "usage": {
+  "prompt_tokens": 19762,
+  "completion_tokens": 3318,
+  "total_tokens": 23080,
+  "cost": 0.0036352,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0036352,
+   "upstream_inference_prompt_cost": 0.0019762,
+   "upstream_inference_completions_cost": 0.001659
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

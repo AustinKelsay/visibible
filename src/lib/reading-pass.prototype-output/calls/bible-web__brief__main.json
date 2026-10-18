@@ -1,0 +1,103 @@
+{
+ "record": {
+  "label": "bible-web__brief__main",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792355318-5YAQQKTJkxl5FPJ2sN7b",
+  "seconds": 6.4,
+  "finish_reason": "stop",
+  "prompt_tokens": 10856,
+  "completion_tokens": 1547,
+  "cost": 0.0018591,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:28:45"
+ },
+ "system": "You draft the work brief for an illustration engine: one page that tells every illustrator how this whole work looks and feels. You get the work's title and author, the draft briefs the reading pass wrote for each of its divisions, and the ordered list of the work's story sections (id, division, title).\n\nReturn:\n1. tone: one line on the mood every picture of this work should carry.\n2. depiction_rules: a short list of how certain things in the work may or may not be shown, drawn from the divisions' drafts, the text and what you know about the work. Each rule is one line.\n3. eras: one or more stretches of the work's world. Each has a short name and four lines: people (who lives in it and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist). Use as few eras as the work needs: one when the whole work shares a setting, several when its people, dress or technology change from one stretch of the story to the next.\n4. assignments: every story section belongs to exactly one era. Give runs of consecutive sections in the order listed: each run names its first and last section id and its era. The runs must cover every section in order, with no gaps and no overlaps.\n\nThe brief holds only what is true for the whole work or a whole era. One person or place is described in the cast, not here. One episode's look belongs to its section, not here. Do not write rules or era lines about a single character, place or episode.\n\nKeep the tone, rules and eras under 400 words in total.",
+ "user_chars": 21337,
+ "content": "{\"tone\":\"Reverent and mixed in mood: awe and sacred dread in the plague, mountain, and wonder scenes, grief and tension in flight, violence and dread in the kingship struggles, intimate luminous calm in household and devotional scenes, and quiet hope in the resurrection and farewell passages.\",\"depiction_rules\":[\"Yahweh and God the Father are never given a human or animal form; show only effects such as a voice, burning bush, pillar of cloud or fire, light, thunder, or glory filling the tabernacle.\",\"The Holy Spirit appears as a dove or wind/breath only where the text names it.\",\"Jesus is drawn as a 1st-century Jewish man, without halo or stereotyped blue robe unless the scene calls for a glory motif.\",\"Angels appear through light, cloud, and posture rather than detailed flesh where possible.\",\"Idols (the golden calf, Dagon, the teraphim) are shown as objects without divine presence.\",\"Violence (plagues, Goliath's death, the crucifixion, the death of Saul) is depicted with weight but without gratuitous gore.\",\"Nudity, such as Saul prophesying naked, is shown with restraint.\",\"Women are drawn as full participants throughout, including the births, the healings, and the resurrection.\",\"Opponents such as Pharisees, Judas and crowds are shown with individual dignity, not caricature.\",\"Laws and ritual instructions appear as settings and objects, not as literal legal scenes.\"],\"eras\":[{\"name\":\"Late Bronze Age Egypt and Sinai\",\"people\":\"Egyptians with shaven heads and wigs; Hebrew clans in simple desert clothing, dark-haired and bearded; Midianite shepherds.\",\"dress\":\"Linen kilts and tunics for Egyptians; plain woven wool and linen for Israelites; priestly garments of blue, purple, scarlet and gold-threaded linen.\",\"buildings_and_objects\":\"Brick storage cities for Pharaoh; tents and a portable tabernacle with acacia boards, gold-overlaid ark, lampstand, altars and bronze court; papyrus baskets, clay troughs, staves.\",\"technology\":\"Brickmaking with straw, chariots and horses, bronze and gold metalwork, weaving; no iron tools, no coinage (weights used).\"},{\"name\":\"Late Bronze to early Iron Age Israel and Philistia\",\"people\":\"Israelite tribes as farmers and herders in hill country; Philistines as city-state people; Ammonites, Moabites, Amalekites and Edomites as neighbors.\",\"dress\":\"Linen ephods for priests; robes and mantles for elders and kings; bronze helmets and mail for warriors; shepherds' bags and slings; simple woven tunics.\",\"buildings_and_objects\":\"Mud-brick and stone houses with flat roofs; the tabernacle at Shiloh; stone altars; the gold-covered ark; threshing floors; watchtowers, strongholds and caves.\",\"technology\":\"Bronze and emerging iron weapons and tools; chariots and horses among Philistines; oil lamps and anointing horns; no full literary writing beyond scribal notes.\"},{\"name\":\"First-century Roman Judea and Galilee\",\"people\":\"Jewish villagers, fishermen, shepherds, tax collectors, priests, Pharisees, Roman soldiers, Samaritans and Gentiles; olive and brown-skinned people with dark hair.\",\"dress\":\"Linen and wool tunics, cloaks and mantles, head coverings and veils, phylacteries and tassels; priests in white linen; soldiers in armor; the wealthy in purple.\",\"buildings_and_objects\":\"Stone and mud-brick houses with flat or tiled roofs, the Herodian temple, synagogues, rock-cut tombs with rolling stones, oil lamps, fishing boats, vineyards, scrolls.\",\"technology\":\"No printing, clocks, machinery or firearms; scrolls and wax tablets; Roman roads and denarii; lamps, plows and looms.\"}],\"assignments\":[{\"first_section\":\"EXO-s1\",\"last_section\":\"EXO-s76\",\"era\":\"Late Bronze Age Egypt and Sinai\"},{\"first_section\":\"1SA-s1\",\"last_section\":\"1SA-s46\",\"era\":\"Late Bronze to early Iron Age Israel and Philistia\"},{\"first_section\":\"LUK-s1\",\"last_section\":\"LUK-s96\",\"era\":\"First-century Roman Judea and Galilee\"},{\"first_section\":\"JHN-s1\",\"last_section\":\"JHN-s57\",\"era\":\"First-century Roman Judea and Galilee\"}]}",
+ "parsed": {
+  "tone": "Reverent and mixed in mood: awe and sacred dread in the plague, mountain, and wonder scenes, grief and tension in flight, violence and dread in the kingship struggles, intimate luminous calm in household and devotional scenes, and quiet hope in the resurrection and farewell passages.",
+  "depiction_rules": [
+   "Yahweh and God the Father are never given a human or animal form; show only effects such as a voice, burning bush, pillar of cloud or fire, light, thunder, or glory filling the tabernacle.",
+   "The Holy Spirit appears as a dove or wind/breath only where the text names it.",
+   "Jesus is drawn as a 1st-century Jewish man, without halo or stereotyped blue robe unless the scene calls for a glory motif.",
+   "Angels appear through light, cloud, and posture rather than detailed flesh where possible.",
+   "Idols (the golden calf, Dagon, the teraphim) are shown as objects without divine presence.",
+   "Violence (plagues, Goliath's death, the crucifixion, the death of Saul) is depicted with weight but without gratuitous gore.",
+   "Nudity, such as Saul prophesying naked, is shown with restraint.",
+   "Women are drawn as full participants throughout, including the births, the healings, and the resurrection.",
+   "Opponents such as Pharisees, Judas and crowds are shown with individual dignity, not caricature.",
+   "Laws and ritual instructions appear as settings and objects, not as literal legal scenes."
+  ],
+  "eras": [
+   {
+    "name": "Late Bronze Age Egypt and Sinai",
+    "people": "Egyptians with shaven heads and wigs; Hebrew clans in simple desert clothing, dark-haired and bearded; Midianite shepherds.",
+    "dress": "Linen kilts and tunics for Egyptians; plain woven wool and linen for Israelites; priestly garments of blue, purple, scarlet and gold-threaded linen.",
+    "buildings_and_objects": "Brick storage cities for Pharaoh; tents and a portable tabernacle with acacia boards, gold-overlaid ark, lampstand, altars and bronze court; papyrus baskets, clay troughs, staves.",
+    "technology": "Brickmaking with straw, chariots and horses, bronze and gold metalwork, weaving; no iron tools, no coinage (weights used)."
+   },
+   {
+    "name": "Late Bronze to early Iron Age Israel and Philistia",
+    "people": "Israelite tribes as farmers and herders in hill country; Philistines as city-state people; Ammonites, Moabites, Amalekites and Edomites as neighbors.",
+    "dress": "Linen ephods for priests; robes and mantles for elders and kings; bronze helmets and mail for warriors; shepherds' bags and slings; simple woven tunics.",
+    "buildings_and_objects": "Mud-brick and stone houses with flat roofs; the tabernacle at Shiloh; stone altars; the gold-covered ark; threshing floors; watchtowers, strongholds and caves.",
+    "technology": "Bronze and emerging iron weapons and tools; chariots and horses among Philistines; oil lamps and anointing horns; no full literary writing beyond scribal notes."
+   },
+   {
+    "name": "First-century Roman Judea and Galilee",
+    "people": "Jewish villagers, fishermen, shepherds, tax collectors, priests, Pharisees, Roman soldiers, Samaritans and Gentiles; olive and brown-skinned people with dark hair.",
+    "dress": "Linen and wool tunics, cloaks and mantles, head coverings and veils, phylacteries and tassels; priests in white linen; soldiers in armor; the wealthy in purple.",
+    "buildings_and_objects": "Stone and mud-brick houses with flat or tiled roofs, the Herodian temple, synagogues, rock-cut tombs with rolling stones, oil lamps, fishing boats, vineyards, scrolls.",
+    "technology": "No printing, clocks, machinery or firearms; scrolls and wax tablets; Roman roads and denarii; lamps, plows and looms."
+   }
+  ],
+  "assignments": [
+   {
+    "first_section": "EXO-s1",
+    "last_section": "EXO-s76",
+    "era": "Late Bronze Age Egypt and Sinai"
+   },
+   {
+    "first_section": "1SA-s1",
+    "last_section": "1SA-s46",
+    "era": "Late Bronze to early Iron Age Israel and Philistia"
+   },
+   {
+    "first_section": "LUK-s1",
+    "last_section": "LUK-s96",
+    "era": "First-century Roman Judea and Galilee"
+   },
+   {
+    "first_section": "JHN-s1",
+    "last_section": "JHN-s57",
+    "era": "First-century Roman Judea and Galilee"
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 10856,
+  "completion_tokens": 1547,
+  "total_tokens": 12403,
+  "cost": 0.0018591,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0018591,
+   "upstream_inference_prompt_cost": 0.0010856,
+   "upstream_inference_completions_cost": 0.0007735
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

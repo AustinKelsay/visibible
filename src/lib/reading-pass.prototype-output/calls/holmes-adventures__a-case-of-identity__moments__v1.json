@@ -1,0 +1,161 @@
+{
+ "record": {
+  "label": "holmes-adventures__a-case-of-identity__moments__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354880-cs4zfBgV6TULt1WrHLMa",
+  "seconds": 8.1,
+  "finish_reason": "stop",
+  "prompt_tokens": 14590,
+  "completion_tokens": 1680,
+  "cost": 0.002299,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:21:28"
+ },
+ "system": "You split the story sections of one division of a prose work into moments for an illustration engine, which draws one picture per moment.\n\nThe text comes as numbered paragraphs: each line starts with its id in square brackets and its word count in parentheses, for example `[12] (34w)`. After the text you get the division's story sections, each with its first and last paragraph id.\n\nReturn moments, in order. A moment is a run of consecutive paragraphs that is one beat you can picture: one place, one continuous action or exchange, seen at one instant. Aim for roughly 100 to 400 words per moment, using the word counts given; a moment may be shorter when the beat is a single striking paragraph, and may run past 400 only when one unbroken exchange cannot be cut. Very short paragraphs (lines of dialogue) join their neighbours. Moments tile every section: each paragraph belongs to exactly one moment, moments never cross a section boundary, and together they cover every paragraph of every section with no gaps and no overlaps. Give each moment its first and last paragraph id, the section it lies in (by its first paragraph id), and a one-line summary of what you would see in the picture: who is there, where, doing what. Do not quote the text.",
+ "user_chars": 40124,
+ "content": "{\"moments\":[{\"section_start\":\"a-case-of-identity-s1\",\"start\":\"[1]\",\"end\":\"[4]\",\"summary\":\"Holmes and the narrator sit by the fire at Baker Street, Holmes gesturing toward the window as he speaks of life's strangeness while the narrator holds up the morning paper.\"},{\"section_start\":\"a-case-of-identity-s1\",\"start\":\"[5]\",\"end\":\"[11]\",\"summary\":\"Holmes takes the paper and then displays his jewelled snuffbox and ring, while the narrator asks about his current cases with the window blinds parted behind him.\"},{\"section_start\":\"a-case-of-identity-s2\",\"start\":\"[12]\",\"end\":\"[13]\",\"summary\":\"Seen from the window, a large woman in a fur boa and red-feathered hat hesitates on the pavement opposite before hurrying across the road toward the door.\"},{\"section_start\":\"a-case-of-identity-s2\",\"start\":\"[14]\",\"end\":\"[17]\",\"summary\":\"Miss Mary Sutherland, a broad-faced woman in a heavy hat, is shown into the room by the boy in buttons and sits in an armchair while Holmes studies her closely.\"},{\"section_start\":\"a-case-of-identity-s2\",\"start\":\"[18]\",\"end\":\"[30]\",\"summary\":\"Mary sits anxiously in the armchair explaining her stepfather and her small income while Holmes, fingertips together, listens intently.\"},{\"section_start\":\"a-case-of-identity-s3\",\"start\":\"[31]\",\"end\":\"[40]\",\"summary\":\"Mary, flushing and picking at her jacket fringe, recounts meeting Hosmer Angel at the gasfitters' ball while Holmes and Watson listen.\"},{\"section_start\":\"a-case-of-identity-s3\",\"start\":\"[41]\",\"end\":\"[50]\",\"summary\":\"Mary describes the engagement and the couple's odd letter arrangements while Holmes questions her about the shy, tinted-glasses suitor.\"},{\"section_start\":\"a-case-of-identity-s4\",\"start\":\"[51]\",\"end\":\"[56]\",\"summary\":\"Mary recounts Angel's proposal to marry before her stepfather returns, and the failed letter to Bordeaux, as Holmes listens by the fire.\"},{\"section_start\":\"a-case-of-identity-s4\",\"start\":\"[57]\",\"end\":\"[61]\",\"summary\":\"At the church door of St. Saviour's, Mary stands beside an empty four-wheeler whose cabman stares into its vacant interior, having seen Angel get in.\"},{\"section_start\":\"a-case-of-identity-s4\",\"start\":\"[62]\",\"end\":\"[67]\",\"summary\":\"Mary sits sobbing into a handkerchief in her muff while Holmes stands near the fireplace, her parents' reactions discussed in the room.\"},{\"section_start\":\"a-case-of-identity-s5\",\"start\":\"[68]\",\"end\":\"[80]\",\"summary\":\"Holmes rises and comforts Mary, handing her the advertisement slip and letters, as she leaves the room with the narrator watching.\"},{\"section_start\":\"a-case-of-identity-s6\",\"start\":\"[81]\",\"end\":\"[92]\",\"summary\":\"Holmes sits back with his clay pipe and a cloud of smoke while Watson reads the advertisement's description of the missing man aloud.\"},{\"section_start\":\"a-case-of-identity-s6\",\"start\":\"[93]\",\"end\":\"[101]\",\"summary\":\"Holmes shows Watson the typewritten letters and signatures on the desk, then writes his letters, while Watson leaves him puffing his pipe.\"},{\"section_start\":\"a-case-of-identity-s7\",\"start\":\"[102]\",\"end\":\"[107]\",\"summary\":\"Holmes sits half-asleep in his armchair amid bottles and test-tubes of chemical apparatus as Watson enters and asks about the case.\"},{\"section_start\":\"a-case-of-identity-s7\",\"start\":\"[108]\",\"end\":\"[110]\",\"summary\":\"James Windibank, a sallow middle-aged man in a shiny top-hat, sidles into the room and sits in the nearest chair as Holmes greets him.\"},{\"section_start\":\"a-case-of-identity-s8\",\"start\":\"[111]\",\"end\":\"[118]\",\"summary\":\"Holmes lays four typewritten letters on the table beside a magnifying lens while Windibank sits tense, dropping his gloves and rising to leave.\"},{\"section_start\":\"a-case-of-identity-s8\",\"start\":\"[119]\",\"end\":\"[126]\",\"summary\":\"Holmes locks the door and Windibank, pale and sweating, collapses into a chair as Holmes faces him across the room.\"},{\"section_start\":\"a-case-of-identity-s8\",\"start\":\"[127]\",\"end\":\"[130]\",\"summary\":\"Holmes paces by the mantelpiece reciting the stepfather's scheme while Windibank rises sneering, then bolts down the stairs as Holmes reaches for a hunting crop.\"},{\"section_start\":\"a-case-of-identity-s9\",\"start\":\"[131]\",\"end\":\"[137]\",\"summary\":\"Holmes laughs and settles back into his chair while Watson asks about his reasoning, with the room still and the hunting crop lying on the table.\"}]}",
+ "parsed": {
+  "moments": [
+   {
+    "section_start": "a-case-of-identity-s1",
+    "start": "[1]",
+    "end": "[4]",
+    "summary": "Holmes and the narrator sit by the fire at Baker Street, Holmes gesturing toward the window as he speaks of life's strangeness while the narrator holds up the morning paper."
+   },
+   {
+    "section_start": "a-case-of-identity-s1",
+    "start": "[5]",
+    "end": "[11]",
+    "summary": "Holmes takes the paper and then displays his jewelled snuffbox and ring, while the narrator asks about his current cases with the window blinds parted behind him."
+   },
+   {
+    "section_start": "a-case-of-identity-s2",
+    "start": "[12]",
+    "end": "[13]",
+    "summary": "Seen from the window, a large woman in a fur boa and red-feathered hat hesitates on the pavement opposite before hurrying across the road toward the door."
+   },
+   {
+    "section_start": "a-case-of-identity-s2",
+    "start": "[14]",
+    "end": "[17]",
+    "summary": "Miss Mary Sutherland, a broad-faced woman in a heavy hat, is shown into the room by the boy in buttons and sits in an armchair while Holmes studies her closely."
+   },
+   {
+    "section_start": "a-case-of-identity-s2",
+    "start": "[18]",
+    "end": "[30]",
+    "summary": "Mary sits anxiously in the armchair explaining her stepfather and her small income while Holmes, fingertips together, listens intently."
+   },
+   {
+    "section_start": "a-case-of-identity-s3",
+    "start": "[31]",
+    "end": "[40]",
+    "summary": "Mary, flushing and picking at her jacket fringe, recounts meeting Hosmer Angel at the gasfitters' ball while Holmes and Watson listen."
+   },
+   {
+    "section_start": "a-case-of-identity-s3",
+    "start": "[41]",
+    "end": "[50]",
+    "summary": "Mary describes the engagement and the couple's odd letter arrangements while Holmes questions her about the shy, tinted-glasses suitor."
+   },
+   {
+    "section_start": "a-case-of-identity-s4",
+    "start": "[51]",
+    "end": "[56]",
+    "summary": "Mary recounts Angel's proposal to marry before her stepfather returns, and the failed letter to Bordeaux, as Holmes listens by the fire."
+   },
+   {
+    "section_start": "a-case-of-identity-s4",
+    "start": "[57]",
+    "end": "[61]",
+    "summary": "At the church door of St. Saviour's, Mary stands beside an empty four-wheeler whose cabman stares into its vacant interior, having seen Angel get in."
+   },
+   {
+    "section_start": "a-case-of-identity-s4",
+    "start": "[62]",
+    "end": "[67]",
+    "summary": "Mary sits sobbing into a handkerchief in her muff while Holmes stands near the fireplace, her parents' reactions discussed in the room."
+   },
+   {
+    "section_start": "a-case-of-identity-s5",
+    "start": "[68]",
+    "end": "[80]",
+    "summary": "Holmes rises and comforts Mary, handing her the advertisement slip and letters, as she leaves the room with the narrator watching."
+   },
+   {
+    "section_start": "a-case-of-identity-s6",
+    "start": "[81]",
+    "end": "[92]",
+    "summary": "Holmes sits back with his clay pipe and a cloud of smoke while Watson reads the advertisement's description of the missing man aloud."
+   },
+   {
+    "section_start": "a-case-of-identity-s6",
+    "start": "[93]",
+    "end": "[101]",
+    "summary": "Holmes shows Watson the typewritten letters and signatures on the desk, then writes his letters, while Watson leaves him puffing his pipe."
+   },
+   {
+    "section_start": "a-case-of-identity-s7",
+    "start": "[102]",
+    "end": "[107]",
+    "summary": "Holmes sits half-asleep in his armchair amid bottles and test-tubes of chemical apparatus as Watson enters and asks about the case."
+   },
+   {
+    "section_start": "a-case-of-identity-s7",
+    "start": "[108]",
+    "end": "[110]",
+    "summary": "James Windibank, a sallow middle-aged man in a shiny top-hat, sidles into the room and sits in the nearest chair as Holmes greets him."
+   },
+   {
+    "section_start": "a-case-of-identity-s8",
+    "start": "[111]",
+    "end": "[118]",
+    "summary": "Holmes lays four typewritten letters on the table beside a magnifying lens while Windibank sits tense, dropping his gloves and rising to leave."
+   },
+   {
+    "section_start": "a-case-of-identity-s8",
+    "start": "[119]",
+    "end": "[126]",
+    "summary": "Holmes locks the door and Windibank, pale and sweating, collapses into a chair as Holmes faces him across the room."
+   },
+   {
+    "section_start": "a-case-of-identity-s8",
+    "start": "[127]",
+    "end": "[130]",
+    "summary": "Holmes paces by the mantelpiece reciting the stepfather's scheme while Windibank rises sneering, then bolts down the stairs as Holmes reaches for a hunting crop."
+   },
+   {
+    "section_start": "a-case-of-identity-s9",
+    "start": "[131]",
+    "end": "[137]",
+    "summary": "Holmes laughs and settles back into his chair while Watson asks about his reasoning, with the room still and the hunting crop lying on the table."
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 14590,
+  "completion_tokens": 1680,
+  "total_tokens": 16270,
+  "cost": 0.002299,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.002299,
+   "upstream_inference_prompt_cost": 0.001459,
+   "upstream_inference_completions_cost": 0.00084
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

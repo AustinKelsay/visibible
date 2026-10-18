@@ -1,0 +1,482 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-adventure-of-the-noble-bachelor__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354456-fe4brqoPr8g6qV2Gxwsx",
+  "seconds": 14.5,
+  "finish_reason": "stop",
+  "prompt_tokens": 18018,
+  "completion_tokens": 3661,
+  "cost": 0.0036323,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:30"
+ },
+ "system": "You are the reading pass of an illustration engine. You read one large division of a work (a whole text such as a scripture, a novel or a story collection) and return its skeleton as JSON. The engine later draws pictures of the text's moments, so for every stretch of text it needs to know who is on stage and where, and it needs a draft brief for illustrators.\n\nThe text comes as numbered units. Each unit line starts with its id (for example `17:4` or `[12]`). Lines starting with `##` are headings, not units.\n\nReturn:\n\n1. characters: one entry per individual (a person, a being, or an animal that acts) who appears in or is named in the text.\n   - One individual is one entry, even when the text uses different names, titles or descriptions for them. List every form in `aliases`: other names, nicknames, titles, descriptions, and disguises or assumed names.\n   - Different individuals who share a name or a title get separate entries, one each. Never fold two people into one entry because they share a name. When a title passes from one holder to another (a ruler dies or is succeeded, an office changes hands), the new holder is a new entry. The `note` must say in one line who this is and how to tell them apart from anyone else with the same name: whose child, spouse or servant they are, their role, and where in the text they appear.\n   - A disguised, renamed or unnamed person who the text later identifies is the same entry as their named self, with the disguise or description in `aliases`. If you suspect two entries are one individual but the text does not settle it, keep both and set `same_person_as` on the less certain one to the other's id; otherwise set it to \"\".\n   - Skip people who occur only inside a list of names (a genealogy or roster) and never act.\n   - Add a group (an army, a crowd, a household) only when it acts as one on stage, with kind \"group\".\n2. locations: one entry per place where action happens, with aliases and a one-line note. Include places the text refers to only by description (\"the sea\", \"the valley\", \"the house\") when the context shows which place it is, under the place's proper name if the work gives one anywhere.\n3. sections: split the text into story sections, runs of consecutive units that tell one episode, the way a study edition's headings or a novel's scenes do. Start a new section when the time, the place or the main action changes. Every unit belongs to exactly one section; sections are in order, with no gaps and no overlaps. This division has 226 units. Aim for roughly 13 sections (10 to 16), averaging about 18 units each; some sections will be much shorter and some longer. Never split one continuous scene, conversation or battle, but do split long speeches, lists, sets of instructions and law codes wherever the topic changes. Give the ids of each section's first and last unit and a short title. For each section:\n   - setting: ids of the locations where its action happens.\n   - on_stage: ids of every character present in the section's action, whether the section names them or only refers to them by a pronoun, a title or a description, or does not mention them but they are clearly there.\n   - mentioned_only: ids of characters the section names or refers to who are not present.\n4. brief: a draft brief for illustrators, for this division only. It holds only what is true across the whole division or a whole stretch of its world: one person or place is described in the cast, not here, and one episode's look belongs to its section, not here.\n   - tone: one line on the mood the pictures should carry.\n   - depiction_rules: a short list of how certain things in this text may or may not be shown, drawn from the text and from what you know about the work.\n   - era: the stretch of the world this division is set in: a name, its people (who lives there and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist).\n   Keep the brief under 200 words.\n\nUse short, stable snake_case ids (for example `david`, `the_queen`, `main_street`). Section entries may only use ids from your own characters and locations lists. Do not quote the text.",
+ "user_chars": 45239,
+ "content": "{\"characters\":[{\"id\":\"sherlock_holmes\",\"name\":\"Sherlock Holmes\",\"aliases\":[\"Holmes\",\"my friend\",\"Master Holmes\"],\"note\":\"Consulting detective living in Baker Street; narrator Watson's friend; takes Lord St. Simon's case and solves it.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"watson\",\"name\":\"Dr. Watson\",\"aliases\":[\"Watson\",\"I\",\"narrator\"],\"note\":\"Narrator and Holmes's companion and fellow lodger in Baker Street; a doctor back from Afghanistan with a wounded leg.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"lord_st_simon\",\"name\":\"Lord Robert St. Simon\",\"aliases\":[\"Lord St. Simon\",\"our client\",\"the bridegroom\",\"his Lordship\"],\"note\":\"Aristocratic second son of the Duke of Balmoral, around forty-one, pale and fussy, who married Hatty Doran and was deserted at the wedding breakfast.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"hatty_doran\",\"name\":\"Hatty Doran\",\"aliases\":[\"Lady St. Simon\",\"Mrs. Francis Hay Moulton\",\"the bride\",\"Mrs. Moulton\"],\"note\":\"Daughter of Aloysius Doran of San Francisco; the bride who vanished at the wedding breakfast to run off with her first husband Frank Moulton.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"francis_hay_moulton\",\"name\":\"Francis Hay Moulton\",\"aliases\":[\"Frank\",\"Mr. Moulton\",\"Frank Moulton\",\"the American\",\"the stranger in the pew\"],\"note\":\"Small, wiry, sunburnt American prospector, Hatty's first husband, presumed dead in the Apache attack; appears as the man in the pew at the wedding.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"lestrade\",\"name\":\"Lestrade\",\"aliases\":[\"Mr. Lestrade\",\"the official detective\",\"Scotland Yard man\"],\"note\":\"Inspector of Scotland Yard working the case; wears a pea-jacket and drags the Serpentine.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"flora_millar\",\"name\":\"Flora Millar\",\"aliases\":[\"Miss Flora Millar\",\"F. H. M.\",\"the woman in the church\",\"the woman who caused the disturbance\"],\"note\":\"Former dancer at the Allegro and former mistress of Lord St. Simon; arrested after causing a disturbance at the Doran house. Not to be confused with Frank Moulton, whose initials are also F. H. M.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"alice\",\"name\":\"Alice\",\"aliases\":[\"the maid\",\"Lady St. Simon's maid\"],\"note\":\"Hatty Doran's American maid from California, who packed the bride's ulster and bonnet.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"aloysius_doran\",\"name\":\"Aloysius Doran\",\"aliases\":[\"Mr. Doran\",\"Pa\",\"the father of the bride\"],\"note\":\"Rich San Francisco mining man and father of Hatty Doran.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"duke_of_balmoral\",\"name\":\"Duke of Balmoral\",\"aliases\":[\"the Duke\",\"the Duchess of Balmoral\"],\"note\":\"Father of Lord St. Simon; referred to but absent from the action.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"lord_backwater\",\"name\":\"Lord Backwater\",\"aliases\":[],\"note\":\"Acquaintance who recommended Holmes to Lord St. Simon; referred to but absent.\",\"kind\":\"person\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"baker_street_rooms\",\"name\":\"Baker Street rooms\",\"aliases\":[\"Baker Street\",\"our lodgings\",\"our rooms\"],\"note\":\"Holmes and Watson's shared lodgings, where the interviews and supper take place.\"},{\"id\":\"grosvenor_mansions\",\"name\":\"Grosvenor Mansions\",\"aliases\":[],\"note\":\"Lord St. Simon's residence, named in his letter; referred to only.\"},{\"id\":\"st_georges_hanover_square\",\"name\":\"St. George's, Hanover Square\",\"aliases\":[\"the church\",\"the vestry\"],\"note\":\"Church where the wedding ceremony took place.\"},{\"id\":\"doran_house_lancaster_gate\",\"name\":\"Doran house, Lancaster Gate\",\"aliases\":[\"the breakfast room\",\"Mr. Doran's house\"],\"note\":\"Furnished house at Lancaster Gate where the wedding breakfast took place and the bride vanished.\"},{\"id\":\"hyde_park\",\"name\":\"Hyde Park\",\"aliases\":[\"the Park\"],\"note\":\"Park into which Hatty followed Frank after leaving the house.\"},{\"id\":\"serpentine\",\"name\":\"the Serpentine\",\"aliases\":[],\"note\":\"Lake in Hyde Park where Lestrade dragged for the bride's body and found her wedding clothes.\"},{\"id\":\"gordon_square\",\"name\":\"Gordon Square\",\"aliases\":[\"226 Gordon Square\"],\"note\":\"Lodgings where Hatty and Frank went after leaving the Park.\"}],\"sections\":[{\"start\":\"1\",\"end\":\"16\",\"title\":\"Lord St. Simon's letter and the newspaper cuttings\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\"],\"mentioned_only\":[\"lord_st_simon\",\"hatty_doran\",\"aloysius_doran\",\"flora_millar\"]},{\"start\":\"17\",\"end\":\"45\",\"title\":\"Holmes reads the notice and the newspaper account\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\"],\"mentioned_only\":[\"lord_st_simon\",\"hatty_doran\",\"aloysius_doran\",\"flora_millar\",\"duke_of_balmoral\",\"lord_backwater\"]},{\"start\":\"46\",\"end\":\"80\",\"title\":\"Lord St. Simon's first interview\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"lord_st_simon\"],\"mentioned_only\":[\"hatty_doran\",\"aloysius_doran\"]},{\"start\":\"81\",\"end\":\"110\",\"title\":\"The wedding morning and the maid\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"lord_st_simon\"],\"mentioned_only\":[\"hatty_doran\",\"alice\",\"aloysius_doran\"]},{\"start\":\"111\",\"end\":\"128\",\"title\":\"Flora Millar and the disturbance at the house\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"lord_st_simon\"],\"mentioned_only\":[\"flora_millar\",\"hatty_doran\"]},{\"start\":\"129\",\"end\":\"141\",\"title\":\"Holmes's conclusions and Lord St. Simon's departure\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"lord_st_simon\"],\"mentioned_only\":[\"hatty_doran\"]},{\"start\":\"142\",\"end\":\"158\",\"title\":\"Lestrade arrives with the wedding clothes\",\"setting\":[\"baker_street_rooms\",\"serpentine\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"lestrade\"],\"mentioned_only\":[\"hatty_doran\"]},{\"start\":\"159\",\"end\":\"178\",\"title\":\"The note and the hotel bill\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"lestrade\"],\"mentioned_only\":[\"flora_millar\",\"hatty_doran\"]},{\"start\":\"179\",\"end\":\"186\",\"title\":\"Lestrade leaves and the supper arrives\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\"],\"mentioned_only\":[\"lestrade\",\"lord_st_simon\"]},{\"start\":\"187\",\"end\":\"200\",\"title\":\"Lord St. Simon meets Hatty and Frank\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"lord_st_simon\",\"hatty_doran\",\"francis_hay_moulton\"],\"mentioned_only\":[]},{\"start\":\"201\",\"end\":\"210\",\"title\":\"Hatty tells her story\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"lord_st_simon\",\"hatty_doran\",\"francis_hay_moulton\"],\"mentioned_only\":[\"alice\",\"hyde_park\",\"gordon_square\"]},{\"start\":\"211\",\"end\":\"217\",\"title\":\"Lord St. Simon leaves and the supper\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\",\"lord_st_simon\",\"hatty_doran\",\"francis_hay_moulton\"],\"mentioned_only\":[]},{\"start\":\"218\",\"end\":\"226\",\"title\":\"Holmes explains his reasoning\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"sherlock_holmes\",\"watson\"],\"mentioned_only\":[\"lord_st_simon\",\"hatty_doran\",\"francis_hay_moulton\",\"lestrade\",\"gordon_square\"]}],\"brief\":{\"tone\":\"Urbane Victorian detective mystery with a wry, faintly comic undertone and domestic intimacy in the Baker Street rooms.\",\"depiction_rules\":[\"Show Holmes and Watson in the Baker Street rooms in Victorian dress, with fire, papers, and the supper laid out.\",\"Lord St. Simon is a fastidious aristocrat: high collar, frock-coat, yellow gloves, golden eyeglasses on a cord.\",\"Hatty Doran should be shown with lustrous dark hair and a striking face, consistent with the ivory miniature.\",\"Do not show the bride's flight or the Serpentine search as violent; keep the mood civil and sly.\",\"Avoid depicting the Apache attack in detail; Frank's past is told only in speech.\"],\"era\":{\"name\":\"Victorian London, c. 1888-1890s, with American Western backstory (California, Montana, Arizona, New Mexico)\",\"people\":\"English aristocrats, Scotland Yard officers, and London servants; Americans from San Francisco and mining camps of the Rockies and the Pacific slope, rugged and sunburnt.\",\"dress\":\"Frock-coats, high collars, top hats, ulsters and bonnets for women, wedding silk and satin with veil and wreath; policemen in pea-jacket and cravat for Lestrade.\",\"buildings_and_objects\":\"Gas-lit Baker Street lodgings with mahogany table and basket-chair, Hanover Square church, Lancaster Gate townhouse, Hyde Park and the Serpentine, Northumberland Avenue hotel, cards, newspapers, and cigars.\",\"technology\":\"Newspapers and printed society columns, hansom cabs, handwritten letters with quill pens, pencil notes; no telephone or photography beyond the miniature and cartes.\"}}}",
+ "parsed": {
+  "characters": [
+   {
+    "id": "sherlock_holmes",
+    "name": "Sherlock Holmes",
+    "aliases": [
+     "Holmes",
+     "my friend",
+     "Master Holmes"
+    ],
+    "note": "Consulting detective living in Baker Street; narrator Watson's friend; takes Lord St. Simon's case and solves it.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "watson",
+    "name": "Dr. Watson",
+    "aliases": [
+     "Watson",
+     "I",
+     "narrator"
+    ],
+    "note": "Narrator and Holmes's companion and fellow lodger in Baker Street; a doctor back from Afghanistan with a wounded leg.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "lord_st_simon",
+    "name": "Lord Robert St. Simon",
+    "aliases": [
+     "Lord St. Simon",
+     "our client",
+     "the bridegroom",
+     "his Lordship"
+    ],
+    "note": "Aristocratic second son of the Duke of Balmoral, around forty-one, pale and fussy, who married Hatty Doran and was deserted at the wedding breakfast.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "hatty_doran",
+    "name": "Hatty Doran",
+    "aliases": [
+     "Lady St. Simon",
+     "Mrs. Francis Hay Moulton",
+     "the bride",
+     "Mrs. Moulton"
+    ],
+    "note": "Daughter of Aloysius Doran of San Francisco; the bride who vanished at the wedding breakfast to run off with her first husband Frank Moulton.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "francis_hay_moulton",
+    "name": "Francis Hay Moulton",
+    "aliases": [
+     "Frank",
+     "Mr. Moulton",
+     "Frank Moulton",
+     "the American",
+     "the stranger in the pew"
+    ],
+    "note": "Small, wiry, sunburnt American prospector, Hatty's first husband, presumed dead in the Apache attack; appears as the man in the pew at the wedding.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "lestrade",
+    "name": "Lestrade",
+    "aliases": [
+     "Mr. Lestrade",
+     "the official detective",
+     "Scotland Yard man"
+    ],
+    "note": "Inspector of Scotland Yard working the case; wears a pea-jacket and drags the Serpentine.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "flora_millar",
+    "name": "Flora Millar",
+    "aliases": [
+     "Miss Flora Millar",
+     "F. H. M.",
+     "the woman in the church",
+     "the woman who caused the disturbance"
+    ],
+    "note": "Former dancer at the Allegro and former mistress of Lord St. Simon; arrested after causing a disturbance at the Doran house. Not to be confused with Frank Moulton, whose initials are also F. H. M.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "alice",
+    "name": "Alice",
+    "aliases": [
+     "the maid",
+     "Lady St. Simon's maid"
+    ],
+    "note": "Hatty Doran's American maid from California, who packed the bride's ulster and bonnet.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "aloysius_doran",
+    "name": "Aloysius Doran",
+    "aliases": [
+     "Mr. Doran",
+     "Pa",
+     "the father of the bride"
+    ],
+    "note": "Rich San Francisco mining man and father of Hatty Doran.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "duke_of_balmoral",
+    "name": "Duke of Balmoral",
+    "aliases": [
+     "the Duke",
+     "the Duchess of Balmoral"
+    ],
+    "note": "Father of Lord St. Simon; referred to but absent from the action.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "lord_backwater",
+    "name": "Lord Backwater",
+    "aliases": [],
+    "note": "Acquaintance who recommended Holmes to Lord St. Simon; referred to but absent.",
+    "kind": "person",
+    "same_person_as": ""
+   }
+  ],
+  "locations": [
+   {
+    "id": "baker_street_rooms",
+    "name": "Baker Street rooms",
+    "aliases": [
+     "Baker Street",
+     "our lodgings",
+     "our rooms"
+    ],
+    "note": "Holmes and Watson's shared lodgings, where the interviews and supper take place."
+   },
+   {
+    "id": "grosvenor_mansions",
+    "name": "Grosvenor Mansions",
+    "aliases": [],
+    "note": "Lord St. Simon's residence, named in his letter; referred to only."
+   },
+   {
+    "id": "st_georges_hanover_square",
+    "name": "St. George's, Hanover Square",
+    "aliases": [
+     "the church",
+     "the vestry"
+    ],
+    "note": "Church where the wedding ceremony took place."
+   },
+   {
+    "id": "doran_house_lancaster_gate",
+    "name": "Doran house, Lancaster Gate",
+    "aliases": [
+     "the breakfast room",
+     "Mr. Doran's house"
+    ],
+    "note": "Furnished house at Lancaster Gate where the wedding breakfast took place and the bride vanished."
+   },
+   {
+    "id": "hyde_park",
+    "name": "Hyde Park",
+    "aliases": [
+     "the Park"
+    ],
+    "note": "Park into which Hatty followed Frank after leaving the house."
+   },
+   {
+    "id": "serpentine",
+    "name": "the Serpentine",
+    "aliases": [],
+    "note": "Lake in Hyde Park where Lestrade dragged for the bride's body and found her wedding clothes."
+   },
+   {
+    "id": "gordon_square",
+    "name": "Gordon Square",
+    "aliases": [
+     "226 Gordon Square"
+    ],
+    "note": "Lodgings where Hatty and Frank went after leaving the Park."
+   }
+  ],
+  "sections": [
+   {
+    "start": "1",
+    "end": "16",
+    "title": "Lord St. Simon's letter and the newspaper cuttings",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "lord_st_simon",
+     "hatty_doran",
+     "aloysius_doran",
+     "flora_millar"
+    ]
+   },
+   {
+    "start": "17",
+    "end": "45",
+    "title": "Holmes reads the notice and the newspaper account",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "lord_st_simon",
+     "hatty_doran",
+     "aloysius_doran",
+     "flora_millar",
+     "duke_of_balmoral",
+     "lord_backwater"
+    ]
+   },
+   {
+    "start": "46",
+    "end": "80",
+    "title": "Lord St. Simon's first interview",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "lord_st_simon"
+    ],
+    "mentioned_only": [
+     "hatty_doran",
+     "aloysius_doran"
+    ]
+   },
+   {
+    "start": "81",
+    "end": "110",
+    "title": "The wedding morning and the maid",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "lord_st_simon"
+    ],
+    "mentioned_only": [
+     "hatty_doran",
+     "alice",
+     "aloysius_doran"
+    ]
+   },
+   {
+    "start": "111",
+    "end": "128",
+    "title": "Flora Millar and the disturbance at the house",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "lord_st_simon"
+    ],
+    "mentioned_only": [
+     "flora_millar",
+     "hatty_doran"
+    ]
+   },
+   {
+    "start": "129",
+    "end": "141",
+    "title": "Holmes's conclusions and Lord St. Simon's departure",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "lord_st_simon"
+    ],
+    "mentioned_only": [
+     "hatty_doran"
+    ]
+   },
+   {
+    "start": "142",
+    "end": "158",
+    "title": "Lestrade arrives with the wedding clothes",
+    "setting": [
+     "baker_street_rooms",
+     "serpentine"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "lestrade"
+    ],
+    "mentioned_only": [
+     "hatty_doran"
+    ]
+   },
+   {
+    "start": "159",
+    "end": "178",
+    "title": "The note and the hotel bill",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "lestrade"
+    ],
+    "mentioned_only": [
+     "flora_millar",
+     "hatty_doran"
+    ]
+   },
+   {
+    "start": "179",
+    "end": "186",
+    "title": "Lestrade leaves and the supper arrives",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "lestrade",
+     "lord_st_simon"
+    ]
+   },
+   {
+    "start": "187",
+    "end": "200",
+    "title": "Lord St. Simon meets Hatty and Frank",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "lord_st_simon",
+     "hatty_doran",
+     "francis_hay_moulton"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "201",
+    "end": "210",
+    "title": "Hatty tells her story",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "lord_st_simon",
+     "hatty_doran",
+     "francis_hay_moulton"
+    ],
+    "mentioned_only": [
+     "alice",
+     "hyde_park",
+     "gordon_square"
+    ]
+   },
+   {
+    "start": "211",
+    "end": "217",
+    "title": "Lord St. Simon leaves and the supper",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson",
+     "lord_st_simon",
+     "hatty_doran",
+     "francis_hay_moulton"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "218",
+    "end": "226",
+    "title": "Holmes explains his reasoning",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "sherlock_holmes",
+     "watson"
+    ],
+    "mentioned_only": [
+     "lord_st_simon",
+     "hatty_doran",
+     "francis_hay_moulton",
+     "lestrade",
+     "gordon_square"
+    ]
+   }
+  ],
+  "brief": {
+   "tone": "Urbane Victorian detective mystery with a wry, faintly comic undertone and domestic intimacy in the Baker Street rooms.",
+   "depiction_rules": [
+    "Show Holmes and Watson in the Baker Street rooms in Victorian dress, with fire, papers, and the supper laid out.",
+    "Lord St. Simon is a fastidious aristocrat: high collar, frock-coat, yellow gloves, golden eyeglasses on a cord.",
+    "Hatty Doran should be shown with lustrous dark hair and a striking face, consistent with the ivory miniature.",
+    "Do not show the bride's flight or the Serpentine search as violent; keep the mood civil and sly.",
+    "Avoid depicting the Apache attack in detail; Frank's past is told only in speech."
+   ],
+   "era": {
+    "name": "Victorian London, c. 1888-1890s, with American Western backstory (California, Montana, Arizona, New Mexico)",
+    "people": "English aristocrats, Scotland Yard officers, and London servants; Americans from San Francisco and mining camps of the Rockies and the Pacific slope, rugged and sunburnt.",
+    "dress": "Frock-coats, high collars, top hats, ulsters and bonnets for women, wedding silk and satin with veil and wreath; policemen in pea-jacket and cravat for Lestrade.",
+    "buildings_and_objects": "Gas-lit Baker Street lodgings with mahogany table and basket-chair, Hanover Square church, Lancaster Gate townhouse, Hyde Park and the Serpentine, Northumberland Avenue hotel, cards, newspapers, and cigars.",
+    "technology": "Newspapers and printed society columns, hansom cabs, handwritten letters with quill pens, pencil notes; no telephone or photography beyond the miniature and cartes."
+   }
+  }
+ },
+ "usage": {
+  "prompt_tokens": 18018,
+  "completion_tokens": 3661,
+  "total_tokens": 21679,
+  "cost": 0.0036323,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0036323,
+   "upstream_inference_prompt_cost": 0.0018018,
+   "upstream_inference_completions_cost": 0.0018305
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

@@ -1,0 +1,917 @@
+{
+ "record": {
+  "label": "bible-web__EXO__research",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354661-yOWtROSQ8FgkAleMon0T",
+  "seconds": 24.8,
+  "finish_reason": "stop",
+  "prompt_tokens": 62906,
+  "completion_tokens": 6301,
+  "cost": 0.0094411,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:18:05"
+ },
+ "system": "You are the reading pass of an illustration engine. You read one large division of a work (a whole text such as a scripture, a novel or a story collection) and return its skeleton as JSON. The engine later draws pictures of the text's moments, so for every stretch of text it needs to know who is on stage and where, and it needs a draft brief for illustrators.\n\nThe text comes as numbered units. Each unit line starts with its id (for example `17:4` or `[12]`). Lines starting with `##` are headings, not units.\n\nReturn:\n\n1. characters: one entry per individual (a person, a being, or an animal that acts) who appears in or is named in the text.\n   - One individual is one entry, even when the text uses different names, titles or descriptions for them. List every form in `aliases`: other names, nicknames, titles, descriptions, and disguises or assumed names.\n   - Different individuals who share a name or a title get separate entries, one each. Never fold two people into one entry because they share a name. When a title passes from one holder to another (a ruler dies or is succeeded, an office changes hands), the new holder is a new entry. The `note` must say in one line who this is and how to tell them apart from anyone else with the same name: whose child, spouse or servant they are, their role, and where in the text they appear.\n   - A disguised, renamed or unnamed person who the text later identifies is the same entry as their named self, with the disguise or description in `aliases`. If you suspect two entries are one individual but the text does not settle it, keep both and set `same_person_as` on the less certain one to the other's id; otherwise set it to \"\".\n   - Skip people who occur only inside a list of names (a genealogy or roster) and never act.\n   - Add a group (an army, a crowd, a household) only when it acts as one on stage, with kind \"group\".\n2. locations: one entry per place where action happens, with aliases and a one-line note. Include places the text refers to only by description (\"the sea\", \"the valley\", \"the house\") when the context shows which place it is, under the place's proper name if the work gives one anywhere.\n3. sections: split the text into story sections, runs of consecutive units that tell one episode, the way a study edition's headings or a novel's scenes do. Start a new section when the time, the place or the main action changes. Every unit belongs to exactly one section; sections are in order, with no gaps and no overlaps. A section usually spans 5 to 30 units; prefer fewer, longer sections to many short ones, and never split one continuous scene, conversation or battle. Give the ids of each section's first and last unit and a short title. For each section:\n   - setting: ids of the locations where its action happens.\n   - on_stage: ids of every character present in the section's action, whether the section names them or only refers to them by a pronoun, a title or a description, or does not mention them but they are clearly there.\n   - mentioned_only: ids of characters the section names or refers to who are not present.\n4. brief: a draft brief for illustrators, for this division only. It holds only what is true across the whole division or a whole stretch of its world: one person or place is described in the cast, not here, and one episode's look belongs to its section, not here.\n   - tone: one line on the mood the pictures should carry.\n   - depiction_rules: a short list of how certain things in this text may or may not be shown, drawn from the text and from what you know about the work.\n   - era: the stretch of the world this division is set in: a name, its people (who lives there and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist).\n   Keep the brief under 200 words.\n\nUse short, stable snake_case ids (for example `david`, `the_queen`, `main_street`). Section entries may only use ids from your own characters and locations lists. Do not quote the text.",
+ "user_chars": 167199,
+ "content": "{\"characters\":[{\"id\":\"moses\",\"name\":\"Moses\",\"aliases\":[\"the man of God\",\"Yahweh's prophet\"],\"note\":\"Hebrew leader raised in Pharaoh's household, later the deliverer who leads Israel out of Egypt; son of Amram and Jochebed, husband of Zipporah, brother of Aaron; appears throughout Exodus.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"aaron\",\"name\":\"Aaron\",\"aliases\":[\"the Levite\",\"Moses' brother\"],\"note\":\"Elder brother of Moses, son of Amram and Jochebed; spokesman and later high priest; appears from chapter 4 onward.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"yahweh\",\"name\":\"Yahweh\",\"aliases\":[\"God\",\"I AM\",\"the God of the Hebrews\",\"the God of Israel\",\"God Almighty\"],\"note\":\"The deity who speaks, acts, and appears in fire, cloud and voice; present across Exodus.\",\"kind\":\"divine\",\"same_person_as\":\"\"},{\"id\":\"pharaoh_of_oppression\",\"name\":\"Pharaoh\",\"aliases\":[\"the king of Egypt\",\"Pharaoh king of Egypt\"],\"note\":\"The king who did not know Joseph and enslaved Israel, hardens his heart against Moses; unnamed in the text, the Pharaoh of chapters 1 through 14, to be distinguished from later Pharaohs of the same title.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"pharaohs_daughter\",\"name\":\"Pharaoh's daughter\",\"aliases\":[\"the daughter of Pharaoh\"],\"note\":\"Princess who finds baby Moses in the reeds and adopts him; appears only in chapter 2.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"miriam\",\"name\":\"Miriam\",\"aliases\":[\"the prophetess\",\"Moses' sister\",\"Aaron's sister\"],\"note\":\"Sister of Moses and Aaron, prophetess who watches over baby Moses and leads the women's song at the sea; appears in 2:4 and 15:20-21.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"shiphrah\",\"name\":\"Shiphrah\",\"aliases\":[\"the Hebrew midwife\"],\"note\":\"One of two Hebrew midwives who defy Pharaoh's order to kill the boys; appears in chapter 1 only, distinct from Puah.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"puah\",\"name\":\"Puah\",\"aliases\":[\"the Hebrew midwife\"],\"note\":\"The second Hebrew midwife, with Shiphrah, who fears God and saves the boys; appears in chapter 1 only.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"jethro\",\"name\":\"Jethro\",\"aliases\":[\"Reuel\",\"the priest of Midian\",\"Moses' father-in-law\"],\"note\":\"Priest of Midian, father of Zipporah, who gives Moses a home and later counsels him to appoint judges; appears in chapters 2, 3, 4 and 18.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"zipporah\",\"name\":\"Zipporah\",\"aliases\":[\"the daughter of the priest of Midian\",\"Moses' wife\"],\"note\":\"Daughter of Jethro, wife of Moses, who circumcises their son at a lodging place; appears in chapters 2, 4 and 18.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"joshua\",\"name\":\"Joshua\",\"aliases\":[\"Moses' servant\",\"the son of Nun\"],\"note\":\"Moses' young attendant who fights Amalek and accompanies him up the mountain; appears in chapters 17, 24, 32 and 33.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"amalek\",\"name\":\"Amalek\",\"aliases\":[\"the Amalekites\"],\"note\":\"Enemy people who attack Israel at Rephidim; appear as a group in chapter 17.\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"hur\",\"name\":\"Hur\",\"aliases\":[\"Aaron and Hur\"],\"note\":\"Companion of Moses and Aaron who holds up Moses' hands during the battle with Amalek; appears in chapters 17 and 24.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"bezalel\",\"name\":\"Bezalel\",\"aliases\":[\"the son of Uri\",\"the son of Hur\"],\"note\":\"Craftsman of the tribe of Judah called by Yahweh to build the tabernacle; appears in chapters 31, 35-38.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"oholiab\",\"name\":\"Oholiab\",\"aliases\":[\"the son of Ahisamach\"],\"note\":\"Craftsman of the tribe of Dan who works with Bezalel on the tabernacle; appears in chapters 31, 35, 36 and 38.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"egyptians\",\"name\":\"the Egyptians\",\"aliases\":[\"the Egyptian\",\"Pharaoh's servants\",\"the magicians of Egypt\"],\"note\":\"The Egyptian people and their officials, taskmasters and magicians; act as a group in the plague and sea narratives.\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"israelites\",\"name\":\"the children of Israel\",\"aliases\":[\"the Hebrews\",\"the people\",\"the congregation\",\"the house of Israel\"],\"note\":\"The Israelite people, who act as a group; present in most chapters.\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"elders_of_israel\",\"name\":\"the elders of Israel\",\"aliases\":[\"the rulers of the congregation\"],\"note\":\"Israelite elders who are gathered by Moses and Aaron and who go up part way on the mountain; a group.\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"nadab_and_abihu\",\"name\":\"Nadab and Abihu\",\"aliases\":[\"the sons of Aaron\"],\"note\":\"Sons of Aaron who go up the mountain with the elders in chapter 24; named and later mentioned as priests.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"taskmasters\",\"name\":\"the taskmasters\",\"aliases\":[\"Pharaoh's taskmasters\",\"the officers of the children of Israel\"],\"note\":\"Egyptian overseers who drive Israel's labor, and the Israelite officers beaten by them; a group.\",\"kind\":\"group\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"egypt\",\"name\":\"Egypt\",\"aliases\":[\"the land of Egypt\",\"the house of bondage\"],\"note\":\"Land of bondage from which Israel is led out; setting of the plagues and of the Passover.Chapters 1 through 13.  .\"},{\"id\":\"goshen\",\"name\":\"Goshen\",\"aliases\":[\"the land of Goshen\"],\"note\":\"Region of Egypt where the Israelites live and where the plagues do not fall; referenced in 8:22, 9:26.\"},{\"id\":\"pithom_and_raamses\",\"name\":\"Pithom and Raamses\",\"aliases\":[\"the storage cities\",\"Rameses\"],\"note\":\"Store cities built by Israelite labor for Pharaoh; referenced in chapter 1 and as the starting point of the Exodus in 12:37.\"},{\"id\":\"nile_river\",\"name\":\"the river Nile\",\"aliases\":[\"the river\",\"the water of the river\"],\"note\":\"The river where baby Moses is set adrift and into which Aaron's rod turns the waters to blood.\"},{\"id\":\"midian\",\"name\":\"Midian\",\"aliases\":[\"the land of Midian\",\"the wilderness of Midian\"],\"note\":\"Land where Moses flees and dwells with Jethro; site of the well and the flock.\"},{\"id\":\"mount_sinai\",\"name\":\"Mount Sinai\",\"aliases\":[\"Horeb\",\"the mountain of God\",\"God's mountain\",\"the mountain\"],\"note\":\"The mountain where Yahweh appears in the bush and on which the Law is given.\"},{\"id\":\"wilderness\",\"name\":\"the wilderness\",\"aliases\":[\"the wilderness of Sinai\",\"the wilderness of Sin\",\"the wilderness of Shur\"],\"note\":\"Desert through which Israel travels from the sea to Sinai and beyond.\"},{\"id\":\"red_sea\",\"name\":\"the Red Sea\",\"aliases\":[\"the sea\",\"the sea of reeds\"],\"note\":\"Sea that is divided so Israel passes on dry ground and then closes over the Egyptian army.\"},{\"id\":\"tabernacle_court\",\"name\":\"the tabernacle and its court\",\"aliases\":[\"the tabernacle\",\"the Tent of Meeting\",\"the sanctuary\"],\"note\":\"The portable sanctuary and courtyard built in the wilderness, where Yahweh dwells among Israel; described in chapters 25-27 and 35-40.\"},{\"id\":\"rephidim\",\"name\":\"Rephidim\",\"aliases\":[\"Massah\",\"Meribah\"],\"note\":\"Camp in the wilderness where Israel lacks water and fights Amalek.\"},{\"id\":\"camp_of_israel\",\"name\":\"the camp\",\"aliases\":[\"the camp of Israel\"],\"note\":\"The Israelite encampment in the wilderness, which is the setting for the golden calf and the tent outside it.\"}],\"sections\":[{\"start\":\"1:1\",\"end\":\"1:22\",\"title\":\"Israel multiplies and is oppressed\",\"setting\":[\"egypt\"],\"on_stage\":[\"pharaoh_of_oppression\",\"taskmasters\",\"israelites\",\"shiphrah\",\"puah\",\"egyptians\"],\"mentioned_only\":[]},{\"start\":\"2:1\",\"end\":\"2:10\",\"title\":\"Birth of Moses and his rescue\",\"setting\":[\"egypt\",\"nile_river\"],\"on_stage\":[\"pharaohs_daughter\",\"miriam\",\"israelites\"],\"mentioned_only\":[\"pharaoh_of_oppression\"]},{\"start\":\"2:11\",\"end\":\"2:25\",\"title\":\"Moses flees to Midian\",\"setting\":[\"egypt\",\"midian\"],\"on_stage\":[\"moses\",\"egyptians\",\"israelites\"],\"mentioned_only\":[\"pharaoh_of_oppression\",\"yahweh\"]},{\"start\":\"3:1\",\"end\":\"3:22\",\"title\":\"The burning bush\",\"setting\":[\"mount_sinai\",\"midian\"],\"on_stage\":[\"moses\",\"yahweh\"],\"mentioned_only\":[\"jethro\"]},{\"start\":\"4:1\",\"end\":\"4:17\",\"title\":\"Signs and Moses' objections\",\"setting\":[\"mount_sinai\"],\"on_stage\":[\"moses\",\"yahweh\"],\"mentioned_only\":[\"aaron\"]},{\"start\":\"4:18\",\"end\":\"4:31\",\"title\":\"Return to Egypt and the elders\",\"setting\":[\"midian\",\"egypt\"],\"on_stage\":[\"moses\",\"aaron\",\"zipporah\",\"jethro\",\"elders_of_israel\",\"israelites\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"5:1\",\"end\":\"5:23\",\"title\":\"Confrontation with Pharaoh over straw\",\"setting\":[\"egypt\"],\"on_stage\":[\"moses\",\"aaron\",\"pharaoh_of_oppression\",\"taskmasters\",\"israelites\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"6:1\",\"end\":\"6:30\",\"title\":\"Renewed promise and genealogy\",\"setting\":[\"egypt\"],\"on_stage\":[\"yahweh\",\"moses\",\"aaron\"],\"mentioned_only\":[\"pharaoh_of_oppression\"]},{\"start\":\"7:1\",\"end\":\"7:25\",\"title\":\"The rod and the river turned to blood\",\"setting\":[\"egypt\",\"nile_river\"],\"on_stage\":[\"moses\",\"aaron\",\"pharaoh_of_oppression\",\"egyptians\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"8:1\",\"end\":\"8:32\",\"title\":\"Frogs, lice and flies\",\"setting\":[\"egypt\",\"goshen\"],\"on_stage\":[\"moses\",\"aaron\",\"pharaoh_of_oppression\",\"egyptians\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"9:1\",\"end\":\"9:35\",\"title\":\"Livestock, boils and hail\",\"setting\":[\"egypt\",\"goshen\"],\"on_stage\":[\"moses\",\"aaron\",\"pharaoh_of_oppression\",\"egyptians\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"10:1\",\"end\":\"10:29\",\"title\":\"Locusts and darkness\",\"setting\":[\"egypt\"],\"on_stage\":[\"moses\",\"aaron\",\"pharaoh_of_oppression\",\"egyptians\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"11:1\",\"end\":\"12:36\",\"title\":\"Death of the firstborn and the Passover\",\"setting\":[\"egypt\"],\"on_stage\":[\"moses\",\"aaron\",\"pharaoh_of_oppression\",\"egyptians\",\"israelites\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"12:37\",\"end\":\"13:22\",\"title\":\"Departure from Egypt\",\"setting\":[\"pithom_and_raamses\",\"wilderness\"],\"on_stage\":[\"israelites\",\"moses\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"14:1\",\"end\":\"14:31\",\"title\":\"Crossing the Red Sea\",\"setting\":[\"red_sea\",\"wilderness\"],\"on_stage\":[\"moses\",\"israelites\",\"pharaoh_of_oppression\",\"egyptians\",\"yahweh\"],\"mentioned_only\":[]},{\"start\":\"15:1\",\"end\":\"15:21\",\"title\":\"Song of the sea\",\"setting\":[\"red_sea\"],\"on_stage\":[\"moses\",\"israelites\",\"miriam\"],\"mentioned_only\":[\"pharaoh_of_oppression\"]},{\"start\":\"15:22\",\"end\":\"16:36\",\"title\":\"Marah, Elim and manna\",\"setting\":[\"wilderness\"],\"on_stage\":[\"moses\",\"aaron\",\"israelites\",\"yahweh\"],\"mentioned_only\":[]},{\"start\":\"17:1\",\"end\":\"17:16\",\"title\":\"Water from the rock and the battle with Amalek\",\"setting\":[\"rephidim\"],\"on_stage\":[\"moses\",\"joshua\",\"hur\",\"aaron\",\"israelites\",\"amalek\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"18:1\",\"end\":\"18:27\",\"title\":\"Jethro's visit and the judges\",\"setting\":[\"wilderness\",\"mount_sinai\"],\"on_stage\":[\"jethro\",\"moses\",\"zipporah\",\"aaron\",\"elders_of_israel\"],\"mentioned_only\":[\"yahweh\"]},{\"start\":\"19:1\",\"end\":\"19:25\",\"title\":\"Preparing at the mountain\",\"setting\":[\"mount_sinai\"],\"on_stage\":[\"moses\",\"israelites\",\"aaron\",\"yahweh\"],\"mentioned_only\":[\"elders_of_israel\"]},{\"start\":\"20:1\",\"end\":\"20:26\",\"title\":\"The Ten Commandments and the altar law\",\"setting\":[\"mount_sinai\"],\"on_stage\":[\"yahweh\",\"moses\",\"israelites\"],\"mentioned_only\":[]},{\"start\":\"21:1\",\"end\":\"23:33\",\"title\":\"Laws of justice and feasts\",\"setting\":[\"mount_sinai\"],\"on_stage\":[\"yahweh\",\"moses\"],\"mentioned_only\":[\"israelites\"]},{\"start\":\"24:1\",\"end\":\"24:18\",\"title\":\"Covenant ratified and the ascent\",\"setting\":[\"mount_sinai\"],\"on_stage\":[\"moses\",\"aaron\",\"nadab_and_abihu\",\"elders_of_israel\",\"joshua\",\"yahweh\"],\"mentioned_only\":[\"israelites\"]},{\"start\":\"25:1\",\"end\":\"27:21\",\"title\":\"Instructions for the tabernacle\",\"setting\":[\"mount_sinai\",\"tabernacle_court\"],\"on_stage\":[\"yahweh\",\"moses\"],\"mentioned_only\":[\"israelites\"]},{\"start\":\"28:1\",\"end\":\"29:46\",\"title\":\"Priestly garments and consecration\",\"setting\":[\"mount_sinai\",\"tabernacle_court\"],\"on_stage\":[\"yahweh\",\"moses\",\"aaron\",\"nadab_and_abihu\"],\"mentioned_only\":[]},{\"start\":\"30:1\",\"end\":\"31:18\",\"title\":\"Altar of incense, census and craftsmen\",\"setting\":[\"mount_sinai\",\"tabernacle_court\"],\"on_stage\":[\"yahweh\",\"moses\",\"bezalel\",\"oholiab\"],\"mentioned_only\":[\"aaron\"]},{\"start\":\"32:1\",\"end\":\"32:35\",\"title\":\"The golden calf\",\"setting\":[\"camp_of_israel\",\"mount_sinai\"],\"on_stage\":[\"moses\",\"aaron\",\"joshua\",\"israelites\",\"yahweh\"],\"mentioned_only\":[]},{\"start\":\"33:1\",\"end\":\"34:35\",\"title\":\"Renewed covenant and Moses' shining face\",\"setting\":[\"mount_sinai\",\"camp_of_israel\"],\"on_stage\":[\"moses\",\"joshua\",\"yahweh\",\"aaron\",\"israelites\"],\"mentioned_only\":[]},{\"start\":\"35:1\",\"end\":\"36:38\",\"title\":\"Offerings and construction begins\",\"setting\":[\"camp_of_israel\",\"tabernacle_court\"],\"on_stage\":[\"moses\",\"bezalel\",\"oholiab\",\"israelites\"],\"mentioned_only\":[\"aaron\"]},{\"start\":\"37:1\",\"end\":\"39:43\",\"title\":\"Construction of the tabernacle\",\"setting\":[\"tabernacle_court\"],\"on_stage\":[\"bezalel\",\"oholiab\",\"moses\",\"israelites\"],\"mentioned_only\":[\"aaron\"]},{\"start\":\"40:1\",\"end\":\"40:38\",\"title\":\"Raising the tabernacle\",\"setting\":[\"tabernacle_court\"],\"on_stage\":[\"moses\",\"aaron\",\"yahweh\"],\"mentioned_only\":[\"israelites\"]}],\"brief\":{\"tone\":\"Awe-struck and monumental, with mounting dread in the plague and sea scenes and quiet reverence in the sanctuary chapters.\",\"depiction_rules\":[\"Yahweh is not shown in human form; depict only fire, cloud, voice, or light, as the text does.\",\"Show the plagues as natural catastrophes filling the land, not as cartoonish spectacle.\",\"Do not depict the golden calf worship as celebratory; show it as transgression.\",\"Depict the tabernacle and its furnishings as described, drawing on the stated materials, without inventing ornament beyond the text.\",\"Moses should not be shown with horns; the shining face is rendered as light only.\"],\"era\":{\"name\":\"Bronze Age Egypt and the Sinai wilderness (c. 13th century BCE, traditional setting)\",\"people\":\"Egyptians with dark skin and linen-wrapped dress, Hebrew slaves in rough undyed tunics, Midianite herders of the desert, Amalekite warriors.\",\"dress\":\"Linen kilts and wigs for Egyptians; coarse wool and linen tunics for Israelites; for priests, fine linen tunics, blue, purple and scarlet woven robes, ephod with gold and onyx; for Pharaoh, royal headdress and jewelry.\",\"buildings_and_objects\":\"Brick and stone monumental architecture, storage cities, chariots, papyrus baskets and tents of goats' hair; in the wilderness, a portable tabernacle with acacia boards, gold-covered ark, lampstand, bronze altar and linen-hung courtyard.\",\"technology\":\"Chariots, bronze and gold metalwork, weaving and dyeing, and writing on stone tablets; no iron tools, no coinage, no mechanized devices, and no glass.\"}}}",
+ "parsed": {
+  "characters": [
+   {
+    "id": "moses",
+    "name": "Moses",
+    "aliases": [
+     "the man of God",
+     "Yahweh's prophet"
+    ],
+    "note": "Hebrew leader raised in Pharaoh's household, later the deliverer who leads Israel out of Egypt; son of Amram and Jochebed, husband of Zipporah, brother of Aaron; appears throughout Exodus.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "aaron",
+    "name": "Aaron",
+    "aliases": [
+     "the Levite",
+     "Moses' brother"
+    ],
+    "note": "Elder brother of Moses, son of Amram and Jochebed; spokesman and later high priest; appears from chapter 4 onward.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "yahweh",
+    "name": "Yahweh",
+    "aliases": [
+     "God",
+     "I AM",
+     "the God of the Hebrews",
+     "the God of Israel",
+     "God Almighty"
+    ],
+    "note": "The deity who speaks, acts, and appears in fire, cloud and voice; present across Exodus.",
+    "kind": "divine",
+    "same_person_as": ""
+   },
+   {
+    "id": "pharaoh_of_oppression",
+    "name": "Pharaoh",
+    "aliases": [
+     "the king of Egypt",
+     "Pharaoh king of Egypt"
+    ],
+    "note": "The king who did not know Joseph and enslaved Israel, hardens his heart against Moses; unnamed in the text, the Pharaoh of chapters 1 through 14, to be distinguished from later Pharaohs of the same title.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "pharaohs_daughter",
+    "name": "Pharaoh's daughter",
+    "aliases": [
+     "the daughter of Pharaoh"
+    ],
+    "note": "Princess who finds baby Moses in the reeds and adopts him; appears only in chapter 2.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "miriam",
+    "name": "Miriam",
+    "aliases": [
+     "the prophetess",
+     "Moses' sister",
+     "Aaron's sister"
+    ],
+    "note": "Sister of Moses and Aaron, prophetess who watches over baby Moses and leads the women's song at the sea; appears in 2:4 and 15:20-21.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "shiphrah",
+    "name": "Shiphrah",
+    "aliases": [
+     "the Hebrew midwife"
+    ],
+    "note": "One of two Hebrew midwives who defy Pharaoh's order to kill the boys; appears in chapter 1 only, distinct from Puah.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "puah",
+    "name": "Puah",
+    "aliases": [
+     "the Hebrew midwife"
+    ],
+    "note": "The second Hebrew midwife, with Shiphrah, who fears God and saves the boys; appears in chapter 1 only.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "jethro",
+    "name": "Jethro",
+    "aliases": [
+     "Reuel",
+     "the priest of Midian",
+     "Moses' father-in-law"
+    ],
+    "note": "Priest of Midian, father of Zipporah, who gives Moses a home and later counsels him to appoint judges; appears in chapters 2, 3, 4 and 18.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "zipporah",
+    "name": "Zipporah",
+    "aliases": [
+     "the daughter of the priest of Midian",
+     "Moses' wife"
+    ],
+    "note": "Daughter of Jethro, wife of Moses, who circumcises their son at a lodging place; appears in chapters 2, 4 and 18.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "joshua",
+    "name": "Joshua",
+    "aliases": [
+     "Moses' servant",
+     "the son of Nun"
+    ],
+    "note": "Moses' young attendant who fights Amalek and accompanies him up the mountain; appears in chapters 17, 24, 32 and 33.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "amalek",
+    "name": "Amalek",
+    "aliases": [
+     "the Amalekites"
+    ],
+    "note": "Enemy people who attack Israel at Rephidim; appear as a group in chapter 17.",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "hur",
+    "name": "Hur",
+    "aliases": [
+     "Aaron and Hur"
+    ],
+    "note": "Companion of Moses and Aaron who holds up Moses' hands during the battle with Amalek; appears in chapters 17 and 24.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "bezalel",
+    "name": "Bezalel",
+    "aliases": [
+     "the son of Uri",
+     "the son of Hur"
+    ],
+    "note": "Craftsman of the tribe of Judah called by Yahweh to build the tabernacle; appears in chapters 31, 35-38.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "oholiab",
+    "name": "Oholiab",
+    "aliases": [
+     "the son of Ahisamach"
+    ],
+    "note": "Craftsman of the tribe of Dan who works with Bezalel on the tabernacle; appears in chapters 31, 35, 36 and 38.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "egyptians",
+    "name": "the Egyptians",
+    "aliases": [
+     "the Egyptian",
+     "Pharaoh's servants",
+     "the magicians of Egypt"
+    ],
+    "note": "The Egyptian people and their officials, taskmasters and magicians; act as a group in the plague and sea narratives.",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "israelites",
+    "name": "the children of Israel",
+    "aliases": [
+     "the Hebrews",
+     "the people",
+     "the congregation",
+     "the house of Israel"
+    ],
+    "note": "The Israelite people, who act as a group; present in most chapters.",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "elders_of_israel",
+    "name": "the elders of Israel",
+    "aliases": [
+     "the rulers of the congregation"
+    ],
+    "note": "Israelite elders who are gathered by Moses and Aaron and who go up part way on the mountain; a group.",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "nadab_and_abihu",
+    "name": "Nadab and Abihu",
+    "aliases": [
+     "the sons of Aaron"
+    ],
+    "note": "Sons of Aaron who go up the mountain with the elders in chapter 24; named and later mentioned as priests.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "taskmasters",
+    "name": "the taskmasters",
+    "aliases": [
+     "Pharaoh's taskmasters",
+     "the officers of the children of Israel"
+    ],
+    "note": "Egyptian overseers who drive Israel's labor, and the Israelite officers beaten by them; a group.",
+    "kind": "group",
+    "same_person_as": ""
+   }
+  ],
+  "locations": [
+   {
+    "id": "egypt",
+    "name": "Egypt",
+    "aliases": [
+     "the land of Egypt",
+     "the house of bondage"
+    ],
+    "note": "Land of bondage from which Israel is led out; setting of the plagues and of the Passover.Chapters 1 through 13.  ."
+   },
+   {
+    "id": "goshen",
+    "name": "Goshen",
+    "aliases": [
+     "the land of Goshen"
+    ],
+    "note": "Region of Egypt where the Israelites live and where the plagues do not fall; referenced in 8:22, 9:26."
+   },
+   {
+    "id": "pithom_and_raamses",
+    "name": "Pithom and Raamses",
+    "aliases": [
+     "the storage cities",
+     "Rameses"
+    ],
+    "note": "Store cities built by Israelite labor for Pharaoh; referenced in chapter 1 and as the starting point of the Exodus in 12:37."
+   },
+   {
+    "id": "nile_river",
+    "name": "the river Nile",
+    "aliases": [
+     "the river",
+     "the water of the river"
+    ],
+    "note": "The river where baby Moses is set adrift and into which Aaron's rod turns the waters to blood."
+   },
+   {
+    "id": "midian",
+    "name": "Midian",
+    "aliases": [
+     "the land of Midian",
+     "the wilderness of Midian"
+    ],
+    "note": "Land where Moses flees and dwells with Jethro; site of the well and the flock."
+   },
+   {
+    "id": "mount_sinai",
+    "name": "Mount Sinai",
+    "aliases": [
+     "Horeb",
+     "the mountain of God",
+     "God's mountain",
+     "the mountain"
+    ],
+    "note": "The mountain where Yahweh appears in the bush and on which the Law is given."
+   },
+   {
+    "id": "wilderness",
+    "name": "the wilderness",
+    "aliases": [
+     "the wilderness of Sinai",
+     "the wilderness of Sin",
+     "the wilderness of Shur"
+    ],
+    "note": "Desert through which Israel travels from the sea to Sinai and beyond."
+   },
+   {
+    "id": "red_sea",
+    "name": "the Red Sea",
+    "aliases": [
+     "the sea",
+     "the sea of reeds"
+    ],
+    "note": "Sea that is divided so Israel passes on dry ground and then closes over the Egyptian army."
+   },
+   {
+    "id": "tabernacle_court",
+    "name": "the tabernacle and its court",
+    "aliases": [
+     "the tabernacle",
+     "the Tent of Meeting",
+     "the sanctuary"
+    ],
+    "note": "The portable sanctuary and courtyard built in the wilderness, where Yahweh dwells among Israel; described in chapters 25-27 and 35-40."
+   },
+   {
+    "id": "rephidim",
+    "name": "Rephidim",
+    "aliases": [
+     "Massah",
+     "Meribah"
+    ],
+    "note": "Camp in the wilderness where Israel lacks water and fights Amalek."
+   },
+   {
+    "id": "camp_of_israel",
+    "name": "the camp",
+    "aliases": [
+     "the camp of Israel"
+    ],
+    "note": "The Israelite encampment in the wilderness, which is the setting for the golden calf and the tent outside it."
+   }
+  ],
+  "sections": [
+   {
+    "start": "1:1",
+    "end": "1:22",
+    "title": "Israel multiplies and is oppressed",
+    "setting": [
+     "egypt"
+    ],
+    "on_stage": [
+     "pharaoh_of_oppression",
+     "taskmasters",
+     "israelites",
+     "shiphrah",
+     "puah",
+     "egyptians"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "2:1",
+    "end": "2:10",
+    "title": "Birth of Moses and his rescue",
+    "setting": [
+     "egypt",
+     "nile_river"
+    ],
+    "on_stage": [
+     "pharaohs_daughter",
+     "miriam",
+     "israelites"
+    ],
+    "mentioned_only": [
+     "pharaoh_of_oppression"
+    ]
+   },
+   {
+    "start": "2:11",
+    "end": "2:25",
+    "title": "Moses flees to Midian",
+    "setting": [
+     "egypt",
+     "midian"
+    ],
+    "on_stage": [
+     "moses",
+     "egyptians",
+     "israelites"
+    ],
+    "mentioned_only": [
+     "pharaoh_of_oppression",
+     "yahweh"
+    ]
+   },
+   {
+    "start": "3:1",
+    "end": "3:22",
+    "title": "The burning bush",
+    "setting": [
+     "mount_sinai",
+     "midian"
+    ],
+    "on_stage": [
+     "moses",
+     "yahweh"
+    ],
+    "mentioned_only": [
+     "jethro"
+    ]
+   },
+   {
+    "start": "4:1",
+    "end": "4:17",
+    "title": "Signs and Moses' objections",
+    "setting": [
+     "mount_sinai"
+    ],
+    "on_stage": [
+     "moses",
+     "yahweh"
+    ],
+    "mentioned_only": [
+     "aaron"
+    ]
+   },
+   {
+    "start": "4:18",
+    "end": "4:31",
+    "title": "Return to Egypt and the elders",
+    "setting": [
+     "midian",
+     "egypt"
+    ],
+    "on_stage": [
+     "moses",
+     "aaron",
+     "zipporah",
+     "jethro",
+     "elders_of_israel",
+     "israelites"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "5:1",
+    "end": "5:23",
+    "title": "Confrontation with Pharaoh over straw",
+    "setting": [
+     "egypt"
+    ],
+    "on_stage": [
+     "moses",
+     "aaron",
+     "pharaoh_of_oppression",
+     "taskmasters",
+     "israelites"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "6:1",
+    "end": "6:30",
+    "title": "Renewed promise and genealogy",
+    "setting": [
+     "egypt"
+    ],
+    "on_stage": [
+     "yahweh",
+     "moses",
+     "aaron"
+    ],
+    "mentioned_only": [
+     "pharaoh_of_oppression"
+    ]
+   },
+   {
+    "start": "7:1",
+    "end": "7:25",
+    "title": "The rod and the river turned to blood",
+    "setting": [
+     "egypt",
+     "nile_river"
+    ],
+    "on_stage": [
+     "moses",
+     "aaron",
+     "pharaoh_of_oppression",
+     "egyptians"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "8:1",
+    "end": "8:32",
+    "title": "Frogs, lice and flies",
+    "setting": [
+     "egypt",
+     "goshen"
+    ],
+    "on_stage": [
+     "moses",
+     "aaron",
+     "pharaoh_of_oppression",
+     "egyptians"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "9:1",
+    "end": "9:35",
+    "title": "Livestock, boils and hail",
+    "setting": [
+     "egypt",
+     "goshen"
+    ],
+    "on_stage": [
+     "moses",
+     "aaron",
+     "pharaoh_of_oppression",
+     "egyptians"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "10:1",
+    "end": "10:29",
+    "title": "Locusts and darkness",
+    "setting": [
+     "egypt"
+    ],
+    "on_stage": [
+     "moses",
+     "aaron",
+     "pharaoh_of_oppression",
+     "egyptians"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "11:1",
+    "end": "12:36",
+    "title": "Death of the firstborn and the Passover",
+    "setting": [
+     "egypt"
+    ],
+    "on_stage": [
+     "moses",
+     "aaron",
+     "pharaoh_of_oppression",
+     "egyptians",
+     "israelites"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "12:37",
+    "end": "13:22",
+    "title": "Departure from Egypt",
+    "setting": [
+     "pithom_and_raamses",
+     "wilderness"
+    ],
+    "on_stage": [
+     "israelites",
+     "moses"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "14:1",
+    "end": "14:31",
+    "title": "Crossing the Red Sea",
+    "setting": [
+     "red_sea",
+     "wilderness"
+    ],
+    "on_stage": [
+     "moses",
+     "israelites",
+     "pharaoh_of_oppression",
+     "egyptians",
+     "yahweh"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "15:1",
+    "end": "15:21",
+    "title": "Song of the sea",
+    "setting": [
+     "red_sea"
+    ],
+    "on_stage": [
+     "moses",
+     "israelites",
+     "miriam"
+    ],
+    "mentioned_only": [
+     "pharaoh_of_oppression"
+    ]
+   },
+   {
+    "start": "15:22",
+    "end": "16:36",
+    "title": "Marah, Elim and manna",
+    "setting": [
+     "wilderness"
+    ],
+    "on_stage": [
+     "moses",
+     "aaron",
+     "israelites",
+     "yahweh"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "17:1",
+    "end": "17:16",
+    "title": "Water from the rock and the battle with Amalek",
+    "setting": [
+     "rephidim"
+    ],
+    "on_stage": [
+     "moses",
+     "joshua",
+     "hur",
+     "aaron",
+     "israelites",
+     "amalek"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "18:1",
+    "end": "18:27",
+    "title": "Jethro's visit and the judges",
+    "setting": [
+     "wilderness",
+     "mount_sinai"
+    ],
+    "on_stage": [
+     "jethro",
+     "moses",
+     "zipporah",
+     "aaron",
+     "elders_of_israel"
+    ],
+    "mentioned_only": [
+     "yahweh"
+    ]
+   },
+   {
+    "start": "19:1",
+    "end": "19:25",
+    "title": "Preparing at the mountain",
+    "setting": [
+     "mount_sinai"
+    ],
+    "on_stage": [
+     "moses",
+     "israelites",
+     "aaron",
+     "yahweh"
+    ],
+    "mentioned_only": [
+     "elders_of_israel"
+    ]
+   },
+   {
+    "start": "20:1",
+    "end": "20:26",
+    "title": "The Ten Commandments and the altar law",
+    "setting": [
+     "mount_sinai"
+    ],
+    "on_stage": [
+     "yahweh",
+     "moses",
+     "israelites"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "21:1",
+    "end": "23:33",
+    "title": "Laws of justice and feasts",
+    "setting": [
+     "mount_sinai"
+    ],
+    "on_stage": [
+     "yahweh",
+     "moses"
+    ],
+    "mentioned_only": [
+     "israelites"
+    ]
+   },
+   {
+    "start": "24:1",
+    "end": "24:18",
+    "title": "Covenant ratified and the ascent",
+    "setting": [
+     "mount_sinai"
+    ],
+    "on_stage": [
+     "moses",
+     "aaron",
+     "nadab_and_abihu",
+     "elders_of_israel",
+     "joshua",
+     "yahweh"
+    ],
+    "mentioned_only": [
+     "israelites"
+    ]
+   },
+   {
+    "start": "25:1",
+    "end": "27:21",
+    "title": "Instructions for the tabernacle",
+    "setting": [
+     "mount_sinai",
+     "tabernacle_court"
+    ],
+    "on_stage": [
+     "yahweh",
+     "moses"
+    ],
+    "mentioned_only": [
+     "israelites"
+    ]
+   },
+   {
+    "start": "28:1",
+    "end": "29:46",
+    "title": "Priestly garments and consecration",
+    "setting": [
+     "mount_sinai",
+     "tabernacle_court"
+    ],
+    "on_stage": [
+     "yahweh",
+     "moses",
+     "aaron",
+     "nadab_and_abihu"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "30:1",
+    "end": "31:18",
+    "title": "Altar of incense, census and craftsmen",
+    "setting": [
+     "mount_sinai",
+     "tabernacle_court"
+    ],
+    "on_stage": [
+     "yahweh",
+     "moses",
+     "bezalel",
+     "oholiab"
+    ],
+    "mentioned_only": [
+     "aaron"
+    ]
+   },
+   {
+    "start": "32:1",
+    "end": "32:35",
+    "title": "The golden calf",
+    "setting": [
+     "camp_of_israel",
+     "mount_sinai"
+    ],
+    "on_stage": [
+     "moses",
+     "aaron",
+     "joshua",
+     "israelites",
+     "yahweh"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "33:1",
+    "end": "34:35",
+    "title": "Renewed covenant and Moses' shining face",
+    "setting": [
+     "mount_sinai",
+     "camp_of_israel"
+    ],
+    "on_stage": [
+     "moses",
+     "joshua",
+     "yahweh",
+     "aaron",
+     "israelites"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "35:1",
+    "end": "36:38",
+    "title": "Offerings and construction begins",
+    "setting": [
+     "camp_of_israel",
+     "tabernacle_court"
+    ],
+    "on_stage": [
+     "moses",
+     "bezalel",
+     "oholiab",
+     "israelites"
+    ],
+    "mentioned_only": [
+     "aaron"
+    ]
+   },
+   {
+    "start": "37:1",
+    "end": "39:43",
+    "title": "Construction of the tabernacle",
+    "setting": [
+     "tabernacle_court"
+    ],
+    "on_stage": [
+     "bezalel",
+     "oholiab",
+     "moses",
+     "israelites"
+    ],
+    "mentioned_only": [
+     "aaron"
+    ]
+   },
+   {
+    "start": "40:1",
+    "end": "40:38",
+    "title": "Raising the tabernacle",
+    "setting": [
+     "tabernacle_court"
+    ],
+    "on_stage": [
+     "moses",
+     "aaron",
+     "yahweh"
+    ],
+    "mentioned_only": [
+     "israelites"
+    ]
+   }
+  ],
+  "brief": {
+   "tone": "Awe-struck and monumental, with mounting dread in the plague and sea scenes and quiet reverence in the sanctuary chapters.",
+   "depiction_rules": [
+    "Yahweh is not shown in human form; depict only fire, cloud, voice, or light, as the text does.",
+    "Show the plagues as natural catastrophes filling the land, not as cartoonish spectacle.",
+    "Do not depict the golden calf worship as celebratory; show it as transgression.",
+    "Depict the tabernacle and its furnishings as described, drawing on the stated materials, without inventing ornament beyond the text.",
+    "Moses should not be shown with horns; the shining face is rendered as light only."
+   ],
+   "era": {
+    "name": "Bronze Age Egypt and the Sinai wilderness (c. 13th century BCE, traditional setting)",
+    "people": "Egyptians with dark skin and linen-wrapped dress, Hebrew slaves in rough undyed tunics, Midianite herders of the desert, Amalekite warriors.",
+    "dress": "Linen kilts and wigs for Egyptians; coarse wool and linen tunics for Israelites; for priests, fine linen tunics, blue, purple and scarlet woven robes, ephod with gold and onyx; for Pharaoh, royal headdress and jewelry.",
+    "buildings_and_objects": "Brick and stone monumental architecture, storage cities, chariots, papyrus baskets and tents of goats' hair; in the wilderness, a portable tabernacle with acacia boards, gold-covered ark, lampstand, bronze altar and linen-hung courtyard.",
+    "technology": "Chariots, bronze and gold metalwork, weaving and dyeing, and writing on stone tablets; no iron tools, no coinage, no mechanized devices, and no glass."
+   }
+  }
+ },
+ "usage": {
+  "prompt_tokens": 62906,
+  "completion_tokens": 6301,
+  "total_tokens": 69207,
+  "cost": 0.0094411,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0094411,
+   "upstream_inference_prompt_cost": 0.0062906,
+   "upstream_inference_completions_cost": 0.0031505
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

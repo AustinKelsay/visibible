@@ -1,0 +1,152 @@
+{
+ "record": {
+  "label": "bible-web__merge-groups-1__main",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792355307-5enUewAykSvHqBItiRCp",
+  "seconds": 4.3,
+  "finish_reason": "stop",
+  "prompt_tokens": 2572,
+  "completion_tokens": 885,
+  "cost": 0.0006997,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:28:31"
+ },
+ "system": "You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key (\"division:id\"), name, kind, aliases, note, and the sections where each appears.\n\nFor each group, split its entries into clusters, one cluster per individual (or per place). The divisions are parts of one work, so the same individual or place appearing in several divisions is one cluster: join entries from different divisions whenever their notes, roles, relations and places agree. Keep entries apart only when they are different individuals: never join entries on a shared name alone when their notes describe different people, and two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of the group must appear in exactly one of its clusters.",
+ "user_chars": 4153,
+ "content": "{\"groups\":[{\"group\":25,\"clusters\":[{\"name\":\"Temple in Jerusalem\",\"kind\":\"place\",\"note\":\"The principal temple in Jerusalem where Zacharias serves, Jesus is presented and teaches, and Jesus cleanses the sellers; the Luke and John entries describe the same building and are joined.\",\"members\":[\"LUK:temple\",\"JHN:temple\"]}]},{\"group\":26,\"clusters\":[{\"name\":\"Galilee\",\"kind\":\"place\",\"note\":\"The northern region and its lake (Sea of Galilee/Tiberias) where Jesus grows up and ministers; the Luke and John entries describe the same region and are joined.\",\"members\":[\"LUK:galilee\",\"JHN:galilee\"]}]},{\"group\":27,\"clusters\":[{\"name\":\"Capernaum\",\"kind\":\"place\",\"note\":\"The Galilean town where Jesus heals and teaches in the synagogue; the Luke and John entries describe the same town and are joined.\",\"members\":[\"LUK:capernaum\",\"JHN:capernaum\"]}]},{\"group\":28,\"clusters\":[{\"name\":\"Samaria\",\"kind\":\"place\",\"note\":\"The region of the Samaritans, where Jesus is refused in Luke and healed lepers return; the John entry is the Samaritan town of Sychar by Jacob's well, a distinct locale within Samaria, so it is kept apart.\",\"members\":[\"LUK:samaria\"]},{\"name\":\"Sychar in Samaria\",\"kind\":\"place\",\"note\":\"The Samaritan town by Jacob's well where Jesus meets the woman at the well; a specific town, distinct from the wider region of Samaria.\",\"members\":[\"JHN:samaria_sychar\"]}]},{\"group\":29,\"clusters\":[{\"name\":\"Bethany\",\"kind\":\"place\",\"note\":\"The village near Jerusalem home of Martha, Mary and Lazarus, where Jesus stays and where he ascends; the Luke and John entries describe the same village and are joined.\",\"members\":[\"LUK:bethany\",\"JHN:bethany\"]}]},{\"group\":30,\"clusters\":[{\"name\":\"The Mount of Olives\",\"kind\":\"place\",\"note\":\"The hill east of Jerusalem where Jesus teaches, prays and withdraws at night; the Luke and John entries describe the same hill and are joined.\",\"members\":[\"LUK:mount_of_olives\",\"JHN:mount_of_olives\"]}]},{\"group\":31,\"clusters\":[{\"name\":\"Golgotha\",\"kind\":\"place\",\"note\":\"The hill outside Jerusalem called The Skull, where Jesus is crucified; the Luke and John entries describe the same site and are joined.\",\"members\":[\"LUK:golgotha\",\"JHN:golgotha\"]}]}]}",
+ "parsed": {
+  "groups": [
+   {
+    "group": 25,
+    "clusters": [
+     {
+      "name": "Temple in Jerusalem",
+      "kind": "place",
+      "note": "The principal temple in Jerusalem where Zacharias serves, Jesus is presented and teaches, and Jesus cleanses the sellers; the Luke and John entries describe the same building and are joined.",
+      "members": [
+       "LUK:temple",
+       "JHN:temple"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 26,
+    "clusters": [
+     {
+      "name": "Galilee",
+      "kind": "place",
+      "note": "The northern region and its lake (Sea of Galilee/Tiberias) where Jesus grows up and ministers; the Luke and John entries describe the same region and are joined.",
+      "members": [
+       "LUK:galilee",
+       "JHN:galilee"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 27,
+    "clusters": [
+     {
+      "name": "Capernaum",
+      "kind": "place",
+      "note": "The Galilean town where Jesus heals and teaches in the synagogue; the Luke and John entries describe the same town and are joined.",
+      "members": [
+       "LUK:capernaum",
+       "JHN:capernaum"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 28,
+    "clusters": [
+     {
+      "name": "Samaria",
+      "kind": "place",
+      "note": "The region of the Samaritans, where Jesus is refused in Luke and healed lepers return; the John entry is the Samaritan town of Sychar by Jacob's well, a distinct locale within Samaria, so it is kept apart.",
+      "members": [
+       "LUK:samaria"
+      ]
+     },
+     {
+      "name": "Sychar in Samaria",
+      "kind": "place",
+      "note": "The Samaritan town by Jacob's well where Jesus meets the woman at the well; a specific town, distinct from the wider region of Samaria.",
+      "members": [
+       "JHN:samaria_sychar"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 29,
+    "clusters": [
+     {
+      "name": "Bethany",
+      "kind": "place",
+      "note": "The village near Jerusalem home of Martha, Mary and Lazarus, where Jesus stays and where he ascends; the Luke and John entries describe the same village and are joined.",
+      "members": [
+       "LUK:bethany",
+       "JHN:bethany"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 30,
+    "clusters": [
+     {
+      "name": "The Mount of Olives",
+      "kind": "place",
+      "note": "The hill east of Jerusalem where Jesus teaches, prays and withdraws at night; the Luke and John entries describe the same hill and are joined.",
+      "members": [
+       "LUK:mount_of_olives",
+       "JHN:mount_of_olives"
+      ]
+     }
+    ]
+   },
+   {
+    "group": 31,
+    "clusters": [
+     {
+      "name": "Golgotha",
+      "kind": "place",
+      "note": "The hill outside Jerusalem called The Skull, where Jesus is crucified; the Luke and John entries describe the same site and are joined.",
+      "members": [
+       "LUK:golgotha",
+       "JHN:golgotha"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 2572,
+  "completion_tokens": 885,
+  "total_tokens": 3457,
+  "cost": 0.0006997,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0006997,
+   "upstream_inference_prompt_cost": 0.0002572,
+   "upstream_inference_completions_cost": 0.0004425
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

@@ -1,0 +1,287 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-boscombe-valley-mystery__moments__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354880-wKlutS4HSEFmJo5S9wa1",
+  "seconds": 14.5,
+  "finish_reason": "stop",
+  "prompt_tokens": 19730,
+  "completion_tokens": 3522,
+  "cost": 0.003734,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:21:35"
+ },
+ "system": "You split the story sections of one division of a prose work into moments for an illustration engine, which draws one picture per moment.\n\nThe text comes as numbered paragraphs: each line starts with its id in square brackets and its word count in parentheses, for example `[12] (34w)`. After the text you get the division's story sections, each with its first and last paragraph id.\n\nReturn moments, in order. A moment is a run of consecutive paragraphs that is one beat you can picture: one place, one continuous action or exchange, seen at one instant. Aim for roughly 100 to 400 words per moment, using the word counts given; a moment may be shorter when the beat is a single striking paragraph, and may run past 400 only when one unbroken exchange cannot be cut. Very short paragraphs (lines of dialogue) join their neighbours. Moments tile every section: each paragraph belongs to exactly one moment, moments never cross a section boundary, and together they cover every paragraph of every section with no gaps and no overlaps. Give each moment its first and last paragraph id, the section it lies in (by its first paragraph id), and a one-line summary of what you would see in the picture: who is there, where, doing what. Do not quote the text.",
+ "user_chars": 55009,
+ "content": "{\"moments\":[{\"section_start\":\"the-boscombe-valley-mystery-s1\",\"start\":\"[1]\",\"end\":\"[3]\",\"summary\":\"Watson and his wife at the breakfast table, a maid handing over a telegram while the wife looks across at him.\"},{\"section_start\":\"the-boscombe-valley-mystery-s1\",\"start\":\"[4]\",\"end\":\"[8]\",\"summary\":\"Watson hesitates over his workload, his wife urges him to go, and he packs; then at Paddington Station Holmes paces the platform in his grey cloak and cap.\"},{\"section_start\":\"the-boscombe-valley-mystery-s2\",\"start\":\"[9]\",\"end\":\"[14]\",\"summary\":\"Inside a railway carriage Holmes tosses a huge ball of newspapers onto the rack while Watson looks on, and Holmes begins explaining the case.\"},{\"section_start\":\"the-boscombe-valley-mystery-s2\",\"start\":\"[15]\",\"end\":\"[17]\",\"summary\":\"Holmes lays out the background of the Boscombe Valley families, Turner and McCarthy, in the carriage as the countryside passes.\"},{\"section_start\":\"the-boscombe-valley-mystery-s2\",\"start\":\"[18]\",\"end\":\"[20]\",\"summary\":\"Holmes recounts the movements of McCarthy on the afternoon of the killing and the quarrel witnessed by the young girl near the pool.\"},{\"section_start\":\"the-boscombe-valley-mystery-s2\",\"start\":\"[21]\",\"end\":\"[24]\",\"summary\":\"Watson and Holmes debate the damning circumstantial evidence, Holmes pointing out that the room's window is on the right.\"},{\"section_start\":\"the-boscombe-valley-mystery-s2\",\"start\":\"[25]\",\"end\":\"[28]\",\"summary\":\"Holmes demonstrates his observational powers by pointing out Watson's uneven shaving on the left side, then mentions the arrest remark.\"},{\"section_start\":\"the-boscombe-valley-mystery-s2\",\"start\":\"[29]\",\"end\":\"[36]\",\"summary\":\"Holmes and Watson discuss the young man's reaction to arrest and his claims of innocence, and Holmes offers the local newspaper.\"},{\"section_start\":\"the-boscombe-valley-mystery-s3\",\"start\":\"[37]\",\"end\":\"[38]\",\"summary\":\"Watson settles in the carriage corner with the newspaper, reading young McCarthy's statement of the events at the pool.\"},{\"section_start\":\"the-boscombe-valley-mystery-s3\",\"start\":\"[39]\",\"end\":\"[52]\",\"summary\":\"In the inquest room the coroner presses James McCarthy, who stands uneasily before the jury and refuses to explain the quarrel.\"},{\"section_start\":\"the-boscombe-valley-mystery-s3\",\"start\":\"[53]\",\"end\":\"[67]\",\"summary\":\"The questioning turns to the vanished grey cloth James glimpsed near the body, the jury and coroner pressing him on its disappearance.\"},{\"section_start\":\"the-boscombe-valley-mystery-s4\",\"start\":\"[68]\",\"end\":\"[69]\",\"summary\":\"Watson reflects on the coroner's damning remarks while Holmes reclines on the seat, arguing the young man's account may be true.\"},{\"section_start\":\"the-boscombe-valley-mystery-s5\",\"start\":\"[70]\",\"end\":\"[72]\",\"summary\":\"Holmes and Watson step off the train at Ross, where Lestrade waits in his rustic dustcoat, and they head to the Hereford Arms.\"},{\"section_start\":\"the-boscombe-valley-mystery-s5\",\"start\":\"[73]\",\"end\":\"[75]\",\"summary\":\"At the hotel tea table Holmes comments on the barometer and cigarettes while Lestrade, puzzled, dismisses the case as plain.\"},{\"section_start\":\"the-boscombe-valley-mystery-s6\",\"start\":\"[76]\",\"end\":\"[81]\",\"summary\":\"Alice Turner bursts into the hotel room, her violet eyes bright, insisting that James is innocent and appealing to Holmes.\"},{\"section_start\":\"the-boscombe-valley-mystery-s6\",\"start\":\"[82]\",\"end\":\"[91]\",\"summary\":\"Alice explains the quarrels over her marriage to James and speaks of her ailing father, Lestrade shrugging as Holmes questions her.\"},{\"section_start\":\"the-boscombe-valley-mystery-s6\",\"start\":\"[92]\",\"end\":\"[105]\",\"summary\":\"Holmes gets Alice's answers about the Victorian gold mines, then she leaves, and Holmes arranges to visit the prison at Hereford.\"},{\"section_start\":\"the-boscombe-valley-mystery-s7\",\"start\":\"[106]\",\"end\":\"[106]\",\"summary\":\"Watson lies on the sofa at the hotel with a novel, his mind turning over the injuries, the rat and the grey cloth.\"},{\"section_start\":\"the-boscombe-valley-mystery-s8\",\"start\":\"[107]\",\"end\":\"[116]\",\"summary\":\"Holmes returns alone in the evening and reports his talk with James, explaining the Bristol marriage and the crucial clues of the cry and the appointment.\"},{\"section_start\":\"the-boscombe-valley-mystery-s9\",\"start\":\"[117]\",\"end\":\"[123]\",\"summary\":\"Next morning Lestrade drives Holmes and Watson out, reporting Turner's illness, and Holmes questions McCarthy's generosity and marriage plans.\"},{\"section_start\":\"the-boscombe-valley-mystery-s9\",\"start\":\"[124]\",\"end\":\"[129]\",\"summary\":\"Lestrade and Holmes spar over facts and theories in the carriage as the Hatherley Farm comes into view.\"},{\"section_start\":\"the-boscombe-valley-mystery-s9\",\"start\":\"[130]\",\"end\":\"[130]\",\"summary\":\"At Hatherley Farm the maid shows the boots of the father and son, which Holmes measures carefully in the yard.\"},{\"section_start\":\"the-boscombe-valley-mystery-s10\",\"start\":\"[131]\",\"end\":\"[131]\",\"summary\":\"Holmes, transformed by the scent, strides along the marshy track through the meadows with Lestrade and Watson trailing behind.\"},{\"section_start\":\"the-boscombe-valley-mystery-s10\",\"start\":\"[132]\",\"end\":\"[134]\",\"summary\":\"At the Boscombe Pool Holmes questions Lestrade about his raking of the water while examining the trampled grass by the reeds.\"},{\"section_start\":\"the-boscombe-valley-mystery-s10\",\"start\":\"[135]\",\"end\":\"[135]\",\"summary\":\"Holmes crawls on his waterproof reading footprints, then under a great beech tree gathers ash and examines the bark with his lens.\"},{\"section_start\":\"the-boscombe-valley-mystery-s11\",\"start\":\"[136]\",\"end\":\"[137]\",\"summary\":\"Holmes leaves the wood, speaks of visiting the lodge, and rejoins the cab carrying a stone from the wood.\"},{\"section_start\":\"the-boscombe-valley-mystery-s11\",\"start\":\"[138]\",\"end\":\"[146]\",\"summary\":\"Holmes hands Lestrade the stone and describes the murderer's build, limp, boots and cigar habits, while Lestrade remains skeptical.\"},{\"section_start\":\"the-boscombe-valley-mystery-s11\",\"start\":\"[147]\",\"end\":\"[156]\",\"summary\":\"Holmes and Lestrade exchange terse words on the unfinished case, and Holmes leaves Lestrade at his lodgings.\"},{\"section_start\":\"the-boscombe-valley-mystery-s12\",\"start\":\"[157]\",\"end\":\"[162]\",\"summary\":\"Back at the hotel over the lunch cloth, Holmes sits in his chair and begins expounding the 'Cooee' signal and its Australian meaning.\"},{\"section_start\":\"the-boscombe-valley-mystery-s12\",\"start\":\"[163]\",\"end\":\"[170]\",\"summary\":\"Holmes spreads a map of Victoria on the table, revealing the word Ballarat in the dying man's mumbled rat reference.\"},{\"section_start\":\"the-boscombe-valley-mystery-s12\",\"start\":\"[171]\",\"end\":\"[181]\",\"summary\":\"Holmes explains how he deduced the murderer's height, lameness and boots from the footprints, with Watson listening intently.\"},{\"section_start\":\"the-boscombe-valley-mystery-s12\",\"start\":\"[182]\",\"end\":\"[186]\",\"summary\":\"Holmes lays out the left-handedness, the Indian cigar ash and the blunt pen-knife, and Watson names Turner just as the waiter announces a visitor.\"},{\"section_start\":\"the-boscombe-valley-mystery-s13\",\"start\":\"[187]\",\"end\":\"[190]\",\"summary\":\"John Turner enters the sitting room, a gaunt, bluish-lipped old man leaning on his limp, and sinks onto the sofa as Holmes greets him.\"},{\"section_start\":\"the-boscombe-valley-mystery-s13\",\"start\":\"[191]\",\"end\":\"[196]\",\"summary\":\"Turner covers his face in despair as Holmes acknowledges he knows about McCarthy, and the old man vows he would have spoken at the Assizes.\"},{\"section_start\":\"the-boscombe-valley-mystery-s13\",\"start\":\"[197]\",\"end\":\"[200]\",\"summary\":\"Holmes sits at the table with pen and paper preparing to take down Turner's confession, Watson present as witness.\"},{\"section_start\":\"the-boscombe-valley-mystery-s14\",\"start\":\"[201]\",\"end\":\"[203]\",\"summary\":\"Turner begins his confession, describing himself as a young highwayman known as Black Jack of Ballarat, with Holmes writing beside him.\"},{\"section_start\":\"the-boscombe-valley-mystery-s14\",\"start\":\"[204]\",\"end\":\"[206]\",\"summary\":\"Turner recounts the gold convoy robbery and then McCarthy accosting him in Regent Street, the old man's voice trembling as he speaks.\"},{\"section_start\":\"the-boscombe-valley-mystery-s14\",\"start\":\"[207]\",\"end\":\"[209]\",\"summary\":\"Turner tells of McCarthy's grip on him and the fatal meeting at the pool, where he strikes McCarthy down behind a tree.\"},{\"section_start\":\"the-boscombe-valley-mystery-s14\",\"start\":\"[210]\",\"end\":\"[214]\",\"summary\":\"Turner signs the statement, Holmes promises his secret will be kept, and the old man shuffles slowly out of the room.\"},{\"section_start\":\"the-boscombe-valley-mystery-s14\",\"start\":\"[215]\",\"end\":\"[215]\",\"summary\":\"Holmes and Watson sit in silence after the visitor leaves, and the story closes with James's acquittal at the Assizes.\"}]}",
+ "parsed": {
+  "moments": [
+   {
+    "section_start": "the-boscombe-valley-mystery-s1",
+    "start": "[1]",
+    "end": "[3]",
+    "summary": "Watson and his wife at the breakfast table, a maid handing over a telegram while the wife looks across at him."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s1",
+    "start": "[4]",
+    "end": "[8]",
+    "summary": "Watson hesitates over his workload, his wife urges him to go, and he packs; then at Paddington Station Holmes paces the platform in his grey cloak and cap."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s2",
+    "start": "[9]",
+    "end": "[14]",
+    "summary": "Inside a railway carriage Holmes tosses a huge ball of newspapers onto the rack while Watson looks on, and Holmes begins explaining the case."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s2",
+    "start": "[15]",
+    "end": "[17]",
+    "summary": "Holmes lays out the background of the Boscombe Valley families, Turner and McCarthy, in the carriage as the countryside passes."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s2",
+    "start": "[18]",
+    "end": "[20]",
+    "summary": "Holmes recounts the movements of McCarthy on the afternoon of the killing and the quarrel witnessed by the young girl near the pool."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s2",
+    "start": "[21]",
+    "end": "[24]",
+    "summary": "Watson and Holmes debate the damning circumstantial evidence, Holmes pointing out that the room's window is on the right."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s2",
+    "start": "[25]",
+    "end": "[28]",
+    "summary": "Holmes demonstrates his observational powers by pointing out Watson's uneven shaving on the left side, then mentions the arrest remark."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s2",
+    "start": "[29]",
+    "end": "[36]",
+    "summary": "Holmes and Watson discuss the young man's reaction to arrest and his claims of innocence, and Holmes offers the local newspaper."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s3",
+    "start": "[37]",
+    "end": "[38]",
+    "summary": "Watson settles in the carriage corner with the newspaper, reading young McCarthy's statement of the events at the pool."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s3",
+    "start": "[39]",
+    "end": "[52]",
+    "summary": "In the inquest room the coroner presses James McCarthy, who stands uneasily before the jury and refuses to explain the quarrel."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s3",
+    "start": "[53]",
+    "end": "[67]",
+    "summary": "The questioning turns to the vanished grey cloth James glimpsed near the body, the jury and coroner pressing him on its disappearance."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s4",
+    "start": "[68]",
+    "end": "[69]",
+    "summary": "Watson reflects on the coroner's damning remarks while Holmes reclines on the seat, arguing the young man's account may be true."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s5",
+    "start": "[70]",
+    "end": "[72]",
+    "summary": "Holmes and Watson step off the train at Ross, where Lestrade waits in his rustic dustcoat, and they head to the Hereford Arms."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s5",
+    "start": "[73]",
+    "end": "[75]",
+    "summary": "At the hotel tea table Holmes comments on the barometer and cigarettes while Lestrade, puzzled, dismisses the case as plain."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s6",
+    "start": "[76]",
+    "end": "[81]",
+    "summary": "Alice Turner bursts into the hotel room, her violet eyes bright, insisting that James is innocent and appealing to Holmes."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s6",
+    "start": "[82]",
+    "end": "[91]",
+    "summary": "Alice explains the quarrels over her marriage to James and speaks of her ailing father, Lestrade shrugging as Holmes questions her."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s6",
+    "start": "[92]",
+    "end": "[105]",
+    "summary": "Holmes gets Alice's answers about the Victorian gold mines, then she leaves, and Holmes arranges to visit the prison at Hereford."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s7",
+    "start": "[106]",
+    "end": "[106]",
+    "summary": "Watson lies on the sofa at the hotel with a novel, his mind turning over the injuries, the rat and the grey cloth."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s8",
+    "start": "[107]",
+    "end": "[116]",
+    "summary": "Holmes returns alone in the evening and reports his talk with James, explaining the Bristol marriage and the crucial clues of the cry and the appointment."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s9",
+    "start": "[117]",
+    "end": "[123]",
+    "summary": "Next morning Lestrade drives Holmes and Watson out, reporting Turner's illness, and Holmes questions McCarthy's generosity and marriage plans."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s9",
+    "start": "[124]",
+    "end": "[129]",
+    "summary": "Lestrade and Holmes spar over facts and theories in the carriage as the Hatherley Farm comes into view."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s9",
+    "start": "[130]",
+    "end": "[130]",
+    "summary": "At Hatherley Farm the maid shows the boots of the father and son, which Holmes measures carefully in the yard."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s10",
+    "start": "[131]",
+    "end": "[131]",
+    "summary": "Holmes, transformed by the scent, strides along the marshy track through the meadows with Lestrade and Watson trailing behind."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s10",
+    "start": "[132]",
+    "end": "[134]",
+    "summary": "At the Boscombe Pool Holmes questions Lestrade about his raking of the water while examining the trampled grass by the reeds."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s10",
+    "start": "[135]",
+    "end": "[135]",
+    "summary": "Holmes crawls on his waterproof reading footprints, then under a great beech tree gathers ash and examines the bark with his lens."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s11",
+    "start": "[136]",
+    "end": "[137]",
+    "summary": "Holmes leaves the wood, speaks of visiting the lodge, and rejoins the cab carrying a stone from the wood."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s11",
+    "start": "[138]",
+    "end": "[146]",
+    "summary": "Holmes hands Lestrade the stone and describes the murderer's build, limp, boots and cigar habits, while Lestrade remains skeptical."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s11",
+    "start": "[147]",
+    "end": "[156]",
+    "summary": "Holmes and Lestrade exchange terse words on the unfinished case, and Holmes leaves Lestrade at his lodgings."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s12",
+    "start": "[157]",
+    "end": "[162]",
+    "summary": "Back at the hotel over the lunch cloth, Holmes sits in his chair and begins expounding the 'Cooee' signal and its Australian meaning."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s12",
+    "start": "[163]",
+    "end": "[170]",
+    "summary": "Holmes spreads a map of Victoria on the table, revealing the word Ballarat in the dying man's mumbled rat reference."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s12",
+    "start": "[171]",
+    "end": "[181]",
+    "summary": "Holmes explains how he deduced the murderer's height, lameness and boots from the footprints, with Watson listening intently."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s12",
+    "start": "[182]",
+    "end": "[186]",
+    "summary": "Holmes lays out the left-handedness, the Indian cigar ash and the blunt pen-knife, and Watson names Turner just as the waiter announces a visitor."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s13",
+    "start": "[187]",
+    "end": "[190]",
+    "summary": "John Turner enters the sitting room, a gaunt, bluish-lipped old man leaning on his limp, and sinks onto the sofa as Holmes greets him."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s13",
+    "start": "[191]",
+    "end": "[196]",
+    "summary": "Turner covers his face in despair as Holmes acknowledges he knows about McCarthy, and the old man vows he would have spoken at the Assizes."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s13",
+    "start": "[197]",
+    "end": "[200]",
+    "summary": "Holmes sits at the table with pen and paper preparing to take down Turner's confession, Watson present as witness."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s14",
+    "start": "[201]",
+    "end": "[203]",
+    "summary": "Turner begins his confession, describing himself as a young highwayman known as Black Jack of Ballarat, with Holmes writing beside him."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s14",
+    "start": "[204]",
+    "end": "[206]",
+    "summary": "Turner recounts the gold convoy robbery and then McCarthy accosting him in Regent Street, the old man's voice trembling as he speaks."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s14",
+    "start": "[207]",
+    "end": "[209]",
+    "summary": "Turner tells of McCarthy's grip on him and the fatal meeting at the pool, where he strikes McCarthy down behind a tree."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s14",
+    "start": "[210]",
+    "end": "[214]",
+    "summary": "Turner signs the statement, Holmes promises his secret will be kept, and the old man shuffles slowly out of the room."
+   },
+   {
+    "section_start": "the-boscombe-valley-mystery-s14",
+    "start": "[215]",
+    "end": "[215]",
+    "summary": "Holmes and Watson sit in silence after the visitor leaves, and the story closes with James's acquittal at the Assizes."
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 19730,
+  "completion_tokens": 3522,
+  "total_tokens": 23252,
+  "cost": 0.003734,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.003734,
+   "upstream_inference_prompt_cost": 0.001973,
+   "upstream_inference_completions_cost": 0.001761
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

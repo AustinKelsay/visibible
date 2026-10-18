@@ -1,0 +1,454 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-adventure-of-the-engineers-thumb__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354444-Ai60OLfZSStM75MucZRE",
+  "seconds": 14.7,
+  "finish_reason": "stop",
+  "prompt_tokens": 17773,
+  "completion_tokens": 3529,
+  "cost": 0.0035418,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:19"
+ },
+ "system": "You are the reading pass of an illustration engine. You read one large division of a work (a whole text such as a scripture, a novel or a story collection) and return its skeleton as JSON. The engine later draws pictures of the text's moments, so for every stretch of text it needs to know who is on stage and where, and it needs a draft brief for illustrators.\n\nThe text comes as numbered units. Each unit line starts with its id (for example `17:4` or `[12]`). Lines starting with `##` are headings, not units.\n\nReturn:\n\n1. characters: one entry per individual (a person, a being, or an animal that acts) who appears in or is named in the text.\n   - One individual is one entry, even when the text uses different names, titles or descriptions for them. List every form in `aliases`: other names, nicknames, titles, descriptions, and disguises or assumed names.\n   - Different individuals who share a name or a title get separate entries, one each. Never fold two people into one entry because they share a name. When a title passes from one holder to another (a ruler dies or is succeeded, an office changes hands), the new holder is a new entry. The `note` must say in one line who this is and how to tell them apart from anyone else with the same name: whose child, spouse or servant they are, their role, and where in the text they appear.\n   - A disguised, renamed or unnamed person who the text later identifies is the same entry as their named self, with the disguise or description in `aliases`. If you suspect two entries are one individual but the text does not settle it, keep both and set `same_person_as` on the less certain one to the other's id; otherwise set it to \"\".\n   - Skip people who occur only inside a list of names (a genealogy or roster) and never act.\n   - Add a group (an army, a crowd, a household) only when it acts as one on stage, with kind \"group\".\n2. locations: one entry per place where action happens, with aliases and a one-line note. Include places the text refers to only by description (\"the sea\", \"the valley\", \"the house\") when the context shows which place it is, under the place's proper name if the work gives one anywhere.\n3. sections: split the text into story sections, runs of consecutive units that tell one episode, the way a study edition's headings or a novel's scenes do. Start a new section when the time, the place or the main action changes. Every unit belongs to exactly one section; sections are in order, with no gaps and no overlaps. This division has 176 units. Aim for roughly 10 sections (8 to 12), averaging about 18 units each; some sections will be much shorter and some longer. Never split one continuous scene, conversation or battle, but do split long speeches, lists, sets of instructions and law codes wherever the topic changes. Give the ids of each section's first and last unit and a short title. For each section:\n   - setting: ids of the locations where its action happens.\n   - on_stage: ids of every character present in the section's action, whether the section names them or only refers to them by a pronoun, a title or a description, or does not mention them but they are clearly there.\n   - mentioned_only: ids of characters the section names or refers to who are not present.\n4. brief: a draft brief for illustrators, for this division only. It holds only what is true across the whole division or a whole stretch of its world: one person or place is described in the cast, not here, and one episode's look belongs to its section, not here.\n   - tone: one line on the mood the pictures should carry.\n   - depiction_rules: a short list of how certain things in this text may or may not be shown, drawn from the text and from what you know about the work.\n   - era: the stretch of the world this division is set in: a name, its people (who lives there and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist).\n   Keep the brief under 200 words.\n\nUse short, stable snake_case ids (for example `david`, `the_queen`, `main_street`). Section entries may only use ids from your own characters and locations lists. Do not quote the text.",
+ "user_chars": 45490,
+ "content": "{\"characters\":[{\"id\":\"victor_hatherley\",\"name\":\"Victor Hatherley\",\"aliases\":[\"Mr. Hatherley\",\"my patient\",\"the engineer\",\"Jeremiah Hayling\"],\"note\":\"Young hydraulic engineer, narrator of his own ordeal; the morning patient who brings the case to Watson and Holmes. Only one Hatherley in the division; he is the Hatherley of the title.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"watson\",\"name\":\"Dr. Watson\",\"aliases\":[\"I\",\"the doctor\",\"my friend\"],\"note\":\"Narrator of the story, a doctor with a civil practice near Paddington Station who brings Hatherley to Holmes; appears throughout as the first-person observer.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"holmes\",\"name\":\"Sherlock Holmes\",\"aliases\":[\"my friend\",\"Mr. Sherlock Holmes\"],\"note\":\"Consulting detective in his Baker Street rooms, lounging in a dressing-gown; Watson's friend who solves the case by reasoning.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"colonel_stark\",\"name\":\"Colonel Lysander Stark\",\"aliases\":[\"the colonel\",\"the German\",\"the sinister German\",\"Fritz\"],\"note\":\"Thin, emaciated man of about forty with a German accent, who hires Hatherley under false pretences and tries to kill him in the press; the chief criminal, a coiner.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"elise\",\"name\":\"Elise\",\"aliases\":[\"the woman\",\"the lady\",\"the beautiful woman\"],\"note\":\"Pretty young woman in a rich dark dress, apparently Stark's wife or companion, who warns Hatherley and saves him from the press; speaks broken English.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"ferguson\",\"name\":\"Mr. Ferguson\",\"aliases\":[\"the morose Englishman\",\"the fat manager\",\"the secretary and manager\"],\"note\":\"Short, thick-set man with a chinchilla beard, Stark's secretary and manager; a fellow-countryman who helps carry the unconscious Hatherley away.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"bradstreet\",\"name\":\"Inspector Bradstreet\",\"aliases\":[\"the inspector\"],\"note\":\"Inspector of Scotland Yard who accompanies Holmes and Hatherley to Eyford to pursue the gang.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"jeremiah_hayling\",\"name\":\"Jeremiah Hayling\",\"aliases\":[\"the missing engineer named in the advertisement\"],\"note\":\"Hydraulic engineer aged twenty-six, reported missing a year earlier after leaving his lodgings; a earlier victim of Stark's press, not present on stage.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"guard\",\"name\":\"The guard\",\"aliases\":[\"my old ally, the guard\",\"the tout\"],\"note\":\"Railway guard from Paddington who brings Hatherley to Watson's consulting-room at dawn.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"maid\",\"name\":\"The maid\",\"aliases\":[],\"note\":\"Watson's maid who wakes him to announce the visitors.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"station_master\",\"name\":\"The station-master\",\"aliases\":[],\"note\":\"Station-master at Eyford who reports the fire at Dr. Becher's house.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"eyford_porter\",\"name\":\"The porter\",\"aliases\":[\"the sleepy porter\"],\"note\":\"Single night porter at Eyford Station who sees Hatherley arrive and later answers his questions.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"driver\",\"name\":\"The driver\",\"aliases\":[\"the coachman\"],\"note\":\"Unnamed driver of the chestnut horse and closed carriage that takes Hatherley from Eyford to the house; never seen.\",\"kind\":\"person\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"watson_consulting_room\",\"name\":\"Watson's consulting-room\",\"aliases\":[\"the consulting-room\",\"my room\"],\"note\":\"Watson's consulting-room near Paddington where Hatherley first appears at dawn with his bandaged hand.</note>\"},{\"id\":\"baker_street_rooms\",\"name\":\"Baker Street rooms\",\"aliases\":[\"Holmes's sitting-room\",\"Baker Street\"],\"note\":\"Holmes's sitting-room in Baker Street where he eats breakfast and hears Hatherley's story.\"},{\"id\":\"hatherley_chambers\",\"name\":\"Hatherley's chambers, Victoria Street\",\"aliases\":[\"the office\",\"my little den\",\"Victoria Street\"],\"note\":\"Hatherley's professional chambers, third floor, 16A Victoria Street, where Stark calls on him.\"},{\"id\":\"eyford_house\",\"name\":\"Eyford house (Dr. Becher's)\",\"aliases\":[\"the house\",\"the German house\",\"the press house\"],\"note\":\"Isolated, whitewashed old house seven or more miles from Eyford in Berkshire, containing the hydraulic press; later burned down. Known later as Dr. Becher's house.\"},{\"id\":\"eyford_station\",\"name\":\"Eyford Station\",\"aliases\":[\"the little dim-lit station\",\"Eyford\"],\"note\":\"Small station in Berkshire where Hatherley arrives at night and later returns at dawn.\"},{\"id\":\"eyford_garden\",\"name\":\"The garden and rose-bushes\",\"aliases\":[\"the garden\"],\"note\":\"Garden of the house beneath the bedroom window, where Hatherley falls and faints among the rose-bushes.\"},{\"id\":\"reading\",\"name\":\"Reading\",\"aliases\":[\"the road to Reading\"],\"note\":\"Town where Hatherley changes trains and where the gang's carts were seen heading.\"},{\"id\":\"scotland_yard\",\"name\":\"Scotland Yard\",\"aliases\":[],\"note\":\"Police headquarters where Holmes and Hatherley go before travelling to Eyford.\"}],\"sections\":[{\"start\":\"[1]\",\"end\":\"[6]\",\"title\":\"Watson is woken by the guard\",\"setting\":[\"watson_consulting_room\"],\"on_stage\":[\"watson\",\"guard\"],\"mentioned_only\":[\"victor_hatherley\"]},{\"start\":\"[7]\",\"end\":\"[15]\",\"title\":\"Hatherley's arrival and hysteria\",\"setting\":[\"watson_consulting_room\"],\"on_stage\":[\"watson\",\"victor_hatherley\"],\"mentioned_only\":[]},{\"start\":\"[16]\",\"end\":\"[39]\",\"title\":\"The wound is dressed and the pair go to Holmes\",\"setting\":[\"watson_consulting_room\"],\"on_stage\":[\"watson\",\"victor_hatherley\"],\"mentioned_only\":[\"holmes\"]},{\"start\":\"[40]\",\"end\":\"[44]\",\"title\":\"Breakfast at Baker Street\",\"setting\":[\"baker_street_rooms\"],\"on_stage\":[\"watson\",\"holmes\",\"victor_hatherley\"],\"mentioned_only\":[]},{\"start\":\"[45]\",\"end\":\"[87]\",\"title\":\"Stark's commission in Victoria Street\",\"setting\":[\"hatherley_chambers\"],\"on_stage\":[\"victor_hatherley\",\"colonel_stark\"],\"mentioned_only\":[\"holmes\",\"watson\"]},{\"start\":\"[88]\",\"end\":\"[96]\",\"title\":\"The night drive to Eyford\",\"setting\":[\"eyford_station\"],\"on_stage\":[\"victor_hatherley\",\"colonel_stark\",\"driver\"],\"mentioned_only\":[]},{\"start\":\"[97]\",\"end\":\"[112]\",\"title\":\"Arrival and the woman's warning\",\"setting\":[\"eyford_house\"],\"on_stage\":[\"victor_hatherley\",\"colonel_stark\",\"elise\",\"ferguson\"],\"mentioned_only\":[]},{\"start\":\"[113]\",\"end\":\"[121]\",\"title\":\"Trapped in the hydraulic press\",\"setting\":[\"eyford_house\"],\"on_stage\":[\"victor_hatherley\",\"colonel_stark\",\"ferguson\"],\"mentioned_only\":[\"elise\"]},{\"start\":\"[122]\",\"end\":\"[133]\",\"title\":\"Escape through the window and recovery in the garden\",\"setting\":[\"eyford_house\",\"eyford_garden\",\"eyford_station\"],\"on_stage\":[\"victor_hatherley\",\"elise\",\"colonel_stark\"],\"mentioned_only\":[\"ferguson\"]},{\"start\":\"[134]\",\"end\":\"[160]\",\"title\":\"Holmes reads the advertisement and the party heads for Eyford\",\"setting\":[\"baker_street_rooms\",\"scotland_yard\",\"eyford_station\"],\"on_stage\":[\"holmes\",\"watson\",\"victor_hatherley\",\"bradstreet\"],\"mentioned_only\":[\"jeremiah_hayling\",\"colonel_stark\"]},{\"start\":\"[161]\",\"end\":\"[176]\",\"title\":\"The burning house and the aftermath\",\"setting\":[\"eyford_house\",\"eyford_station\"],\"on_stage\":[\"holmes\",\"watson\",\"victor_hatherley\",\"bradstreet\",\"station_master\"],\"mentioned_only\":[\"colonel_stark\",\"elise\",\"ferguson\"]}],\"brief\":{\"tone\":\"Tense, claustrophobic Victorian mystery: a clammy, secretive country house, rising dread in the press scene, and dry, wry detection in London.\",\"depiction_rules\":[\"Show the hydraulic press's descending ceiling as a threat but do not depict the mutilation graphically; the bandaged bloodied hand may be shown restrained.\",\"Holmes is shown in his dressing-gown and armchair, smoking, with heavy-lidded composure.\",\"Stark should be drawn gaunt and sharp-faced, with a bright, suspicious gaze.\",\"Elise appears only at the doorway and window, beautiful and frightened, never fully revealed as a villain.\",\"No modern machinery; the press is wooden-walled with an iron floor and water cylinders.\"],\"era\":{\"name\":\"Late Victorian England, summer 1889\",\"people\":\"English professionals and tradesmen; a German-speaking foreign couple and an Englishman in Berkshire country houses; railway officials and Scotland Yard inspectors.\",\"dress\":\"Frock coats, waistcoats, tweed suits and caps for men; dark rich gowns for women; Holmes in a dressing-gown at home.\",\"buildings_and_objects\":\"Terraced London townhouses with consulting-rooms, Baker Street lodgings, gas-lit and oil-lamp-lit rooms, a dilapidated country house with bare upper floors, whitewashed walls, and a small rural station.\",\"technology\":\"Steam railways and hansom cabs, hydraulic presses, oil lamps and candles, ordnance maps and compasses; no telephone in the story, no electric light, no motor car.\"}}}",
+ "parsed": {
+  "characters": [
+   {
+    "id": "victor_hatherley",
+    "name": "Victor Hatherley",
+    "aliases": [
+     "Mr. Hatherley",
+     "my patient",
+     "the engineer",
+     "Jeremiah Hayling"
+    ],
+    "note": "Young hydraulic engineer, narrator of his own ordeal; the morning patient who brings the case to Watson and Holmes. Only one Hatherley in the division; he is the Hatherley of the title.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "watson",
+    "name": "Dr. Watson",
+    "aliases": [
+     "I",
+     "the doctor",
+     "my friend"
+    ],
+    "note": "Narrator of the story, a doctor with a civil practice near Paddington Station who brings Hatherley to Holmes; appears throughout as the first-person observer.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "holmes",
+    "name": "Sherlock Holmes",
+    "aliases": [
+     "my friend",
+     "Mr. Sherlock Holmes"
+    ],
+    "note": "Consulting detective in his Baker Street rooms, lounging in a dressing-gown; Watson's friend who solves the case by reasoning.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "colonel_stark",
+    "name": "Colonel Lysander Stark",
+    "aliases": [
+     "the colonel",
+     "the German",
+     "the sinister German",
+     "Fritz"
+    ],
+    "note": "Thin, emaciated man of about forty with a German accent, who hires Hatherley under false pretences and tries to kill him in the press; the chief criminal, a coiner.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "elise",
+    "name": "Elise",
+    "aliases": [
+     "the woman",
+     "the lady",
+     "the beautiful woman"
+    ],
+    "note": "Pretty young woman in a rich dark dress, apparently Stark's wife or companion, who warns Hatherley and saves him from the press; speaks broken English.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "ferguson",
+    "name": "Mr. Ferguson",
+    "aliases": [
+     "the morose Englishman",
+     "the fat manager",
+     "the secretary and manager"
+    ],
+    "note": "Short, thick-set man with a chinchilla beard, Stark's secretary and manager; a fellow-countryman who helps carry the unconscious Hatherley away.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "bradstreet",
+    "name": "Inspector Bradstreet",
+    "aliases": [
+     "the inspector"
+    ],
+    "note": "Inspector of Scotland Yard who accompanies Holmes and Hatherley to Eyford to pursue the gang.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "jeremiah_hayling",
+    "name": "Jeremiah Hayling",
+    "aliases": [
+     "the missing engineer named in the advertisement"
+    ],
+    "note": "Hydraulic engineer aged twenty-six, reported missing a year earlier after leaving his lodgings; a earlier victim of Stark's press, not present on stage.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "guard",
+    "name": "The guard",
+    "aliases": [
+     "my old ally, the guard",
+     "the tout"
+    ],
+    "note": "Railway guard from Paddington who brings Hatherley to Watson's consulting-room at dawn.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "maid",
+    "name": "The maid",
+    "aliases": [],
+    "note": "Watson's maid who wakes him to announce the visitors.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "station_master",
+    "name": "The station-master",
+    "aliases": [],
+    "note": "Station-master at Eyford who reports the fire at Dr. Becher's house.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "eyford_porter",
+    "name": "The porter",
+    "aliases": [
+     "the sleepy porter"
+    ],
+    "note": "Single night porter at Eyford Station who sees Hatherley arrive and later answers his questions.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "driver",
+    "name": "The driver",
+    "aliases": [
+     "the coachman"
+    ],
+    "note": "Unnamed driver of the chestnut horse and closed carriage that takes Hatherley from Eyford to the house; never seen.",
+    "kind": "person",
+    "same_person_as": ""
+   }
+  ],
+  "locations": [
+   {
+    "id": "watson_consulting_room",
+    "name": "Watson's consulting-room",
+    "aliases": [
+     "the consulting-room",
+     "my room"
+    ],
+    "note": "Watson's consulting-room near Paddington where Hatherley first appears at dawn with his bandaged hand.</note>"
+   },
+   {
+    "id": "baker_street_rooms",
+    "name": "Baker Street rooms",
+    "aliases": [
+     "Holmes's sitting-room",
+     "Baker Street"
+    ],
+    "note": "Holmes's sitting-room in Baker Street where he eats breakfast and hears Hatherley's story."
+   },
+   {
+    "id": "hatherley_chambers",
+    "name": "Hatherley's chambers, Victoria Street",
+    "aliases": [
+     "the office",
+     "my little den",
+     "Victoria Street"
+    ],
+    "note": "Hatherley's professional chambers, third floor, 16A Victoria Street, where Stark calls on him."
+   },
+   {
+    "id": "eyford_house",
+    "name": "Eyford house (Dr. Becher's)",
+    "aliases": [
+     "the house",
+     "the German house",
+     "the press house"
+    ],
+    "note": "Isolated, whitewashed old house seven or more miles from Eyford in Berkshire, containing the hydraulic press; later burned down. Known later as Dr. Becher's house."
+   },
+   {
+    "id": "eyford_station",
+    "name": "Eyford Station",
+    "aliases": [
+     "the little dim-lit station",
+     "Eyford"
+    ],
+    "note": "Small station in Berkshire where Hatherley arrives at night and later returns at dawn."
+   },
+   {
+    "id": "eyford_garden",
+    "name": "The garden and rose-bushes",
+    "aliases": [
+     "the garden"
+    ],
+    "note": "Garden of the house beneath the bedroom window, where Hatherley falls and faints among the rose-bushes."
+   },
+   {
+    "id": "reading",
+    "name": "Reading",
+    "aliases": [
+     "the road to Reading"
+    ],
+    "note": "Town where Hatherley changes trains and where the gang's carts were seen heading."
+   },
+   {
+    "id": "scotland_yard",
+    "name": "Scotland Yard",
+    "aliases": [],
+    "note": "Police headquarters where Holmes and Hatherley go before travelling to Eyford."
+   }
+  ],
+  "sections": [
+   {
+    "start": "[1]",
+    "end": "[6]",
+    "title": "Watson is woken by the guard",
+    "setting": [
+     "watson_consulting_room"
+    ],
+    "on_stage": [
+     "watson",
+     "guard"
+    ],
+    "mentioned_only": [
+     "victor_hatherley"
+    ]
+   },
+   {
+    "start": "[7]",
+    "end": "[15]",
+    "title": "Hatherley's arrival and hysteria",
+    "setting": [
+     "watson_consulting_room"
+    ],
+    "on_stage": [
+     "watson",
+     "victor_hatherley"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "[16]",
+    "end": "[39]",
+    "title": "The wound is dressed and the pair go to Holmes",
+    "setting": [
+     "watson_consulting_room"
+    ],
+    "on_stage": [
+     "watson",
+     "victor_hatherley"
+    ],
+    "mentioned_only": [
+     "holmes"
+    ]
+   },
+   {
+    "start": "[40]",
+    "end": "[44]",
+    "title": "Breakfast at Baker Street",
+    "setting": [
+     "baker_street_rooms"
+    ],
+    "on_stage": [
+     "watson",
+     "holmes",
+     "victor_hatherley"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "[45]",
+    "end": "[87]",
+    "title": "Stark's commission in Victoria Street",
+    "setting": [
+     "hatherley_chambers"
+    ],
+    "on_stage": [
+     "victor_hatherley",
+     "colonel_stark"
+    ],
+    "mentioned_only": [
+     "holmes",
+     "watson"
+    ]
+   },
+   {
+    "start": "[88]",
+    "end": "[96]",
+    "title": "The night drive to Eyford",
+    "setting": [
+     "eyford_station"
+    ],
+    "on_stage": [
+     "victor_hatherley",
+     "colonel_stark",
+     "driver"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "[97]",
+    "end": "[112]",
+    "title": "Arrival and the woman's warning",
+    "setting": [
+     "eyford_house"
+    ],
+    "on_stage": [
+     "victor_hatherley",
+     "colonel_stark",
+     "elise",
+     "ferguson"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "[113]",
+    "end": "[121]",
+    "title": "Trapped in the hydraulic press",
+    "setting": [
+     "eyford_house"
+    ],
+    "on_stage": [
+     "victor_hatherley",
+     "colonel_stark",
+     "ferguson"
+    ],
+    "mentioned_only": [
+     "elise"
+    ]
+   },
+   {
+    "start": "[122]",
+    "end": "[133]",
+    "title": "Escape through the window and recovery in the garden",
+    "setting": [
+     "eyford_house",
+     "eyford_garden",
+     "eyford_station"
+    ],
+    "on_stage": [
+     "victor_hatherley",
+     "elise",
+     "colonel_stark"
+    ],
+    "mentioned_only": [
+     "ferguson"
+    ]
+   },
+   {
+    "start": "[134]",
+    "end": "[160]",
+    "title": "Holmes reads the advertisement and the party heads for Eyford",
+    "setting": [
+     "baker_street_rooms",
+     "scotland_yard",
+     "eyford_station"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "victor_hatherley",
+     "bradstreet"
+    ],
+    "mentioned_only": [
+     "jeremiah_hayling",
+     "colonel_stark"
+    ]
+   },
+   {
+    "start": "[161]",
+    "end": "[176]",
+    "title": "The burning house and the aftermath",
+    "setting": [
+     "eyford_house",
+     "eyford_station"
+    ],
+    "on_stage": [
+     "holmes",
+     "watson",
+     "victor_hatherley",
+     "bradstreet",
+     "station_master"
+    ],
+    "mentioned_only": [
+     "colonel_stark",
+     "elise",
+     "ferguson"
+    ]
+   }
+  ],
+  "brief": {
+   "tone": "Tense, claustrophobic Victorian mystery: a clammy, secretive country house, rising dread in the press scene, and dry, wry detection in London.",
+   "depiction_rules": [
+    "Show the hydraulic press's descending ceiling as a threat but do not depict the mutilation graphically; the bandaged bloodied hand may be shown restrained.",
+    "Holmes is shown in his dressing-gown and armchair, smoking, with heavy-lidded composure.",
+    "Stark should be drawn gaunt and sharp-faced, with a bright, suspicious gaze.",
+    "Elise appears only at the doorway and window, beautiful and frightened, never fully revealed as a villain.",
+    "No modern machinery; the press is wooden-walled with an iron floor and water cylinders."
+   ],
+   "era": {
+    "name": "Late Victorian England, summer 1889",
+    "people": "English professionals and tradesmen; a German-speaking foreign couple and an Englishman in Berkshire country houses; railway officials and Scotland Yard inspectors.",
+    "dress": "Frock coats, waistcoats, tweed suits and caps for men; dark rich gowns for women; Holmes in a dressing-gown at home.",
+    "buildings_and_objects": "Terraced London townhouses with consulting-rooms, Baker Street lodgings, gas-lit and oil-lamp-lit rooms, a dilapidated country house with bare upper floors, whitewashed walls, and a small rural station.",
+    "technology": "Steam railways and hansom cabs, hydraulic presses, oil lamps and candles, ordnance maps and compasses; no telephone in the story, no electric light, no motor car."
+   }
+  }
+ },
+ "usage": {
+  "prompt_tokens": 17773,
+  "completion_tokens": 3529,
+  "total_tokens": 21302,
+  "cost": 0.0035418,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0035418,
+   "upstream_inference_prompt_cost": 0.0017773,
+   "upstream_inference_completions_cost": 0.0017645
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

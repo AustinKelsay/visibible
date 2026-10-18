@@ -1,0 +1,257 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-red-headed-league__moments__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354880-EbXDOsEu3WmxWnOHNxcp",
+  "seconds": 14.2,
+  "finish_reason": "stop",
+  "prompt_tokens": 19380,
+  "completion_tokens": 3045,
+  "cost": 0.0034605,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:21:34"
+ },
+ "system": "You split the story sections of one division of a prose work into moments for an illustration engine, which draws one picture per moment.\n\nThe text comes as numbered paragraphs: each line starts with its id in square brackets and its word count in parentheses, for example `[12] (34w)`. After the text you get the division's story sections, each with its first and last paragraph id.\n\nReturn moments, in order. A moment is a run of consecutive paragraphs that is one beat you can picture: one place, one continuous action or exchange, seen at one instant. Aim for roughly 100 to 400 words per moment, using the word counts given; a moment may be shorter when the beat is a single striking paragraph, and may run past 400 only when one unbroken exchange cannot be cut. Very short paragraphs (lines of dialogue) join their neighbours. Moments tile every section: each paragraph belongs to exactly one moment, moments never cross a section boundary, and together they cover every paragraph of every section with no gaps and no overlaps. Give each moment its first and last paragraph id, the section it lies in (by its first paragraph id), and a one-line summary of what you would see in the picture: who is there, where, doing what. Do not quote the text.",
+ "user_chars": 52762,
+ "content": "{\"moments\":[{\"section_start\":\"the-red-headed-league-s1\",\"start\":\"1\",\"end\":\"2\",\"summary\":\"Watson enters Holmes's room to find Holmes deep in talk with a stout, red-haired elderly man, Mr. Wilson, and Holmes pulls Watson inside to stay.\"},{\"section_start\":\"the-red-headed-league-s1\",\"start\":\"3\",\"end\":\"12\",\"summary\":\"Holmes, fingertips together, invites Watson to sit on the settee and asks Wilson to restart his story while Wilson sits with the newspaper on his knee.\"},{\"section_start\":\"the-red-headed-league-s2\",\"start\":\"13\",\"end\":\"14\",\"summary\":\"Watson studies Wilson's shabby appearance: baggy checked trousers, unbuttoned frock-coat, brassy Albert chain, frayed top-hat and faded overcoat on a chair.\"},{\"section_start\":\"the-red-headed-league-s2\",\"start\":\"15\",\"end\":\"22\",\"summary\":\"Holmes lists his deductions about Wilson's manual labour, snuff and Freemasonry while Wilson leans forward, startled, the paper in his hand.\"},{\"section_start\":\"the-red-headed-league-s2\",\"start\":\"23\",\"end\":\"26\",\"summary\":\"Holmes explains the tattoo of a fish and the Chinese coin on the watch-chain, and Wilson laughs heavily as Holmes pauses over the advertisement.\"},{\"section_start\":\"the-red-headed-league-s3\",\"start\":\"27\",\"end\":\"31\",\"summary\":\"Wilson's thick red finger points to the newspaper advertisement, which Watson reads aloud in a bewildered voice while Holmes chuckles and wriggles in his chair.\"},{\"section_start\":\"the-red-headed-league-s3\",\"start\":\"32\",\"end\":\"38\",\"summary\":\"Wilson describes his small pawnbroker's shop in Coburg Square and his assistant Vincent Spaulding, who works for half wages and takes photographs.\"},{\"section_start\":\"the-red-headed-league-s4\",\"start\":\"39\",\"end\":\"49\",\"summary\":\"Wilson recounts Spaulding coming down to the shop with the newspaper, eager that his hair might change colour, and explaining the League of the Red-headed Men.\"},{\"section_start\":\"the-red-headed-league-s4\",\"start\":\"50\",\"end\":\"57\",\"summary\":\"Wilson and Spaulding push through a vast crowd of red-headed men thronging Fleet Street and Pope's Court, a sight like a coster's orange barrow.\"},{\"section_start\":\"the-red-headed-league-s5\",\"start\":\"58\",\"end\":\"62\",\"summary\":\"In the small office, the red-headed manager Duncan Ross inspects Wilson's hair closely, tugs it hard, and then shouts from the window that the vacancy is filled.\"},{\"section_start\":\"the-red-headed-league-s5\",\"start\":\"63\",\"end\":\"72\",\"summary\":\"Ross questions whether Wilson is married, frowns at his bachelorhood, then agrees and sets the hours from ten to two while Spaulding offers to mind the shop.\"},{\"section_start\":\"the-red-headed-league-s5\",\"start\":\"73\",\"end\":\"85\",\"summary\":\"Ross explains the pay and the rule of never leaving the building, then sets Wilson copying the Encyclopaedia Britannica at a table in the office.\"},{\"section_start\":\"the-red-headed-league-s6\",\"start\":\"86\",\"end\":\"89\",\"summary\":\"Wilson, doubting the scheme, returns the next morning with ink, pen and foolscap, finds the office ready, and copies entries day after day for eight weeks.\"},{\"section_start\":\"the-red-headed-league-s7\",\"start\":\"90\",\"end\":\"94\",\"summary\":\"Wilson shows a cardboard notice on the locked office door announcing the League is dissolved, and Holmes and Watson burst into laughter.\"},{\"section_start\":\"the-red-headed-league-s7\",\"start\":\"95\",\"end\":\"111\",\"summary\":\"Wilson describes his fruitless search: the landlord, the artificial knee-cap factory, and Holmes questions him about Spaulding's appearance and ears.\"},{\"section_start\":\"the-red-headed-league-s8\",\"start\":\"112\",\"end\":\"129\",\"summary\":\"Holmes sits up in excitement at the pierced ears while Wilson confirms Spaulding has been with him a month and has never missed a morning, and Holmes promises an opinion by Monday.\"},{\"section_start\":\"the-red-headed-league-s9\",\"start\":\"130\",\"end\":\"137\",\"summary\":\"Holmes sits curled in his armchair smoking a black clay pipe in silence, then springs up and proposes they go to the afternoon concert.\"},{\"section_start\":\"the-red-headed-league-s9\",\"start\":\"138\",\"end\":\"141\",\"summary\":\"Holmes stops before the shabby pawnbroker's on Saxe-Coburg Square, thumps the pavement with his stick, and speaks with the bright young assistant at the door.\"},{\"section_start\":\"the-red-headed-league-s9\",\"start\":\"142\",\"end\":\"149\",\"summary\":\"Holmes and Watson walk away from the square, with Holmes saying he noticed the knees of the assistant's trousers and calling them spies in enemy country.\"},{\"section_start\":\"the-red-headed-league-s9\",\"start\":\"150\",\"end\":\"151\",\"summary\":\"On the busy main road behind the square, Holmes names the shops in order at the corner before leading Watson off for a sandwich and coffee.\"},{\"section_start\":\"the-red-headed-league-s10\",\"start\":\"152\",\"end\":\"152\",\"summary\":\"Holmes sits rapt in the stalls at St. James's Hall, gently waving his fingers to German music, his face serene and dreamy.\"},{\"section_start\":\"the-red-headed-league-s10\",\"start\":\"153\",\"end\":\"161\",\"summary\":\"As they emerge from the concert hall, Holmes tells Watson to meet him at Baker Street at ten armed with his revolver, promising danger and a serious crime.\"},{\"section_start\":\"the-red-headed-league-s11\",\"start\":\"162\",\"end\":\"163\",\"summary\":\"Watson rides home puzzling over the plan, then crosses the Park and arrives at Baker Street to find Holmes talking with Peter Jones and Merryweather.\"},{\"section_start\":\"the-red-headed-league-s11\",\"start\":\"164\",\"end\":\"171\",\"summary\":\"Holmes introduces Jones of Scotland Yard and Merryweather, the bank director, and Jones describes John Clay, the criminal they hope to catch.\"},{\"section_start\":\"the-red-headed-league-s11\",\"start\":\"172\",\"end\":\"173\",\"summary\":\"In a cab rattling through gaslit streets, Holmes hums tunes and remarks that Merryweather is a bank director and Jones brave but dim.\"},{\"section_start\":\"the-red-headed-league-s12\",\"start\":\"174\",\"end\":\"178\",\"summary\":\"Merryweather leads the party through a side door, down winding stone steps and dark passages into a vast bank cellar piled with crates, where he knocks the floor and Holmes scolds him.\"},{\"section_start\":\"the-red-headed-league-s12\",\"start\":\"179\",\"end\":\"184\",\"summary\":\"Holmes examines the cracks in the flagstones with a lens and explains the bank holds French gold in the cellar, while Merryweather perches on a crate.\"},{\"section_start\":\"the-red-headed-league-s12\",\"start\":\"185\",\"end\":\"189\",\"summary\":\"Holmes assigns hiding places behind crates, shutters the lantern into total darkness, and the men wait silently for the robbers.\"},{\"section_start\":\"the-red-headed-league-s12\",\"start\":\"190\",\"end\":\"191\",\"summary\":\"In the black vault Watson waits, his nerves tense, until a glint of light appears in a crack and a pale hand emerges from the floor.\"},{\"section_start\":\"the-red-headed-league-s13\",\"start\":\"192\",\"end\":\"194\",\"summary\":\"A stone turns over and a boyish red-haired man climbs through the hole with a lantern, hauling up a companion, until Holmes seizes him and knocks a revolver from John Clay's wrist.\"},{\"section_start\":\"the-red-headed-league-s13\",\"start\":\"195\",\"end\":\"200\",\"summary\":\"Holmes and Clay trade calm remarks while Jones snaps on the handcuffs and reports the men waiting at the door.\"},{\"section_start\":\"the-red-headed-league-s13\",\"start\":\"201\",\"end\":\"203\",\"summary\":\"Clay demands polite address and a royal courtesy, and Jones mockingly leads him upstairs toward a cab as Clay bows and walks off serenely.\"},{\"section_start\":\"the-red-headed-league-s14\",\"start\":\"204\",\"end\":\"205\",\"summary\":\"Merryweather thanks Holmes effusively as they leave the cellar, and Holmes says he will expect the bank to refund his expenses.\"},{\"section_start\":\"the-red-headed-league-s14\",\"start\":\"206\",\"end\":\"211\",\"summary\":\"At Baker Street in the early morning, Holmes sits with whisky and soda explaining to Watson how he reasoned out the scheme from the cellar and the assistant's knees.\"},{\"section_start\":\"the-red-headed-league-s14\",\"start\":\"212\",\"end\":\"215\",\"summary\":\"Watson praises the chain of reasoning, Holmes yawns and speaks of escaping the commonplace, quoting Flaubert, as they sit by the fire at Baker Street.\"}]}",
+ "parsed": {
+  "moments": [
+   {
+    "section_start": "the-red-headed-league-s1",
+    "start": "1",
+    "end": "2",
+    "summary": "Watson enters Holmes's room to find Holmes deep in talk with a stout, red-haired elderly man, Mr. Wilson, and Holmes pulls Watson inside to stay."
+   },
+   {
+    "section_start": "the-red-headed-league-s1",
+    "start": "3",
+    "end": "12",
+    "summary": "Holmes, fingertips together, invites Watson to sit on the settee and asks Wilson to restart his story while Wilson sits with the newspaper on his knee."
+   },
+   {
+    "section_start": "the-red-headed-league-s2",
+    "start": "13",
+    "end": "14",
+    "summary": "Watson studies Wilson's shabby appearance: baggy checked trousers, unbuttoned frock-coat, brassy Albert chain, frayed top-hat and faded overcoat on a chair."
+   },
+   {
+    "section_start": "the-red-headed-league-s2",
+    "start": "15",
+    "end": "22",
+    "summary": "Holmes lists his deductions about Wilson's manual labour, snuff and Freemasonry while Wilson leans forward, startled, the paper in his hand."
+   },
+   {
+    "section_start": "the-red-headed-league-s2",
+    "start": "23",
+    "end": "26",
+    "summary": "Holmes explains the tattoo of a fish and the Chinese coin on the watch-chain, and Wilson laughs heavily as Holmes pauses over the advertisement."
+   },
+   {
+    "section_start": "the-red-headed-league-s3",
+    "start": "27",
+    "end": "31",
+    "summary": "Wilson's thick red finger points to the newspaper advertisement, which Watson reads aloud in a bewildered voice while Holmes chuckles and wriggles in his chair."
+   },
+   {
+    "section_start": "the-red-headed-league-s3",
+    "start": "32",
+    "end": "38",
+    "summary": "Wilson describes his small pawnbroker's shop in Coburg Square and his assistant Vincent Spaulding, who works for half wages and takes photographs."
+   },
+   {
+    "section_start": "the-red-headed-league-s4",
+    "start": "39",
+    "end": "49",
+    "summary": "Wilson recounts Spaulding coming down to the shop with the newspaper, eager that his hair might change colour, and explaining the League of the Red-headed Men."
+   },
+   {
+    "section_start": "the-red-headed-league-s4",
+    "start": "50",
+    "end": "57",
+    "summary": "Wilson and Spaulding push through a vast crowd of red-headed men thronging Fleet Street and Pope's Court, a sight like a coster's orange barrow."
+   },
+   {
+    "section_start": "the-red-headed-league-s5",
+    "start": "58",
+    "end": "62",
+    "summary": "In the small office, the red-headed manager Duncan Ross inspects Wilson's hair closely, tugs it hard, and then shouts from the window that the vacancy is filled."
+   },
+   {
+    "section_start": "the-red-headed-league-s5",
+    "start": "63",
+    "end": "72",
+    "summary": "Ross questions whether Wilson is married, frowns at his bachelorhood, then agrees and sets the hours from ten to two while Spaulding offers to mind the shop."
+   },
+   {
+    "section_start": "the-red-headed-league-s5",
+    "start": "73",
+    "end": "85",
+    "summary": "Ross explains the pay and the rule of never leaving the building, then sets Wilson copying the Encyclopaedia Britannica at a table in the office."
+   },
+   {
+    "section_start": "the-red-headed-league-s6",
+    "start": "86",
+    "end": "89",
+    "summary": "Wilson, doubting the scheme, returns the next morning with ink, pen and foolscap, finds the office ready, and copies entries day after day for eight weeks."
+   },
+   {
+    "section_start": "the-red-headed-league-s7",
+    "start": "90",
+    "end": "94",
+    "summary": "Wilson shows a cardboard notice on the locked office door announcing the League is dissolved, and Holmes and Watson burst into laughter."
+   },
+   {
+    "section_start": "the-red-headed-league-s7",
+    "start": "95",
+    "end": "111",
+    "summary": "Wilson describes his fruitless search: the landlord, the artificial knee-cap factory, and Holmes questions him about Spaulding's appearance and ears."
+   },
+   {
+    "section_start": "the-red-headed-league-s8",
+    "start": "112",
+    "end": "129",
+    "summary": "Holmes sits up in excitement at the pierced ears while Wilson confirms Spaulding has been with him a month and has never missed a morning, and Holmes promises an opinion by Monday."
+   },
+   {
+    "section_start": "the-red-headed-league-s9",
+    "start": "130",
+    "end": "137",
+    "summary": "Holmes sits curled in his armchair smoking a black clay pipe in silence, then springs up and proposes they go to the afternoon concert."
+   },
+   {
+    "section_start": "the-red-headed-league-s9",
+    "start": "138",
+    "end": "141",
+    "summary": "Holmes stops before the shabby pawnbroker's on Saxe-Coburg Square, thumps the pavement with his stick, and speaks with the bright young assistant at the door."
+   },
+   {
+    "section_start": "the-red-headed-league-s9",
+    "start": "142",
+    "end": "149",
+    "summary": "Holmes and Watson walk away from the square, with Holmes saying he noticed the knees of the assistant's trousers and calling them spies in enemy country."
+   },
+   {
+    "section_start": "the-red-headed-league-s9",
+    "start": "150",
+    "end": "151",
+    "summary": "On the busy main road behind the square, Holmes names the shops in order at the corner before leading Watson off for a sandwich and coffee."
+   },
+   {
+    "section_start": "the-red-headed-league-s10",
+    "start": "152",
+    "end": "152",
+    "summary": "Holmes sits rapt in the stalls at St. James's Hall, gently waving his fingers to German music, his face serene and dreamy."
+   },
+   {
+    "section_start": "the-red-headed-league-s10",
+    "start": "153",
+    "end": "161",
+    "summary": "As they emerge from the concert hall, Holmes tells Watson to meet him at Baker Street at ten armed with his revolver, promising danger and a serious crime."
+   },
+   {
+    "section_start": "the-red-headed-league-s11",
+    "start": "162",
+    "end": "163",
+    "summary": "Watson rides home puzzling over the plan, then crosses the Park and arrives at Baker Street to find Holmes talking with Peter Jones and Merryweather."
+   },
+   {
+    "section_start": "the-red-headed-league-s11",
+    "start": "164",
+    "end": "171",
+    "summary": "Holmes introduces Jones of Scotland Yard and Merryweather, the bank director, and Jones describes John Clay, the criminal they hope to catch."
+   },
+   {
+    "section_start": "the-red-headed-league-s11",
+    "start": "172",
+    "end": "173",
+    "summary": "In a cab rattling through gaslit streets, Holmes hums tunes and remarks that Merryweather is a bank director and Jones brave but dim."
+   },
+   {
+    "section_start": "the-red-headed-league-s12",
+    "start": "174",
+    "end": "178",
+    "summary": "Merryweather leads the party through a side door, down winding stone steps and dark passages into a vast bank cellar piled with crates, where he knocks the floor and Holmes scolds him."
+   },
+   {
+    "section_start": "the-red-headed-league-s12",
+    "start": "179",
+    "end": "184",
+    "summary": "Holmes examines the cracks in the flagstones with a lens and explains the bank holds French gold in the cellar, while Merryweather perches on a crate."
+   },
+   {
+    "section_start": "the-red-headed-league-s12",
+    "start": "185",
+    "end": "189",
+    "summary": "Holmes assigns hiding places behind crates, shutters the lantern into total darkness, and the men wait silently for the robbers."
+   },
+   {
+    "section_start": "the-red-headed-league-s12",
+    "start": "190",
+    "end": "191",
+    "summary": "In the black vault Watson waits, his nerves tense, until a glint of light appears in a crack and a pale hand emerges from the floor."
+   },
+   {
+    "section_start": "the-red-headed-league-s13",
+    "start": "192",
+    "end": "194",
+    "summary": "A stone turns over and a boyish red-haired man climbs through the hole with a lantern, hauling up a companion, until Holmes seizes him and knocks a revolver from John Clay's wrist."
+   },
+   {
+    "section_start": "the-red-headed-league-s13",
+    "start": "195",
+    "end": "200",
+    "summary": "Holmes and Clay trade calm remarks while Jones snaps on the handcuffs and reports the men waiting at the door."
+   },
+   {
+    "section_start": "the-red-headed-league-s13",
+    "start": "201",
+    "end": "203",
+    "summary": "Clay demands polite address and a royal courtesy, and Jones mockingly leads him upstairs toward a cab as Clay bows and walks off serenely."
+   },
+   {
+    "section_start": "the-red-headed-league-s14",
+    "start": "204",
+    "end": "205",
+    "summary": "Merryweather thanks Holmes effusively as they leave the cellar, and Holmes says he will expect the bank to refund his expenses."
+   },
+   {
+    "section_start": "the-red-headed-league-s14",
+    "start": "206",
+    "end": "211",
+    "summary": "At Baker Street in the early morning, Holmes sits with whisky and soda explaining to Watson how he reasoned out the scheme from the cellar and the assistant's knees."
+   },
+   {
+    "section_start": "the-red-headed-league-s14",
+    "start": "212",
+    "end": "215",
+    "summary": "Watson praises the chain of reasoning, Holmes yawns and speaks of escaping the commonplace, quoting Flaubert, as they sit by the fire at Baker Street."
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 19380,
+  "completion_tokens": 3045,
+  "total_tokens": 22425,
+  "cost": 0.0034605,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0034605,
+   "upstream_inference_prompt_cost": 0.001938,
+   "upstream_inference_completions_cost": 0.0015225
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

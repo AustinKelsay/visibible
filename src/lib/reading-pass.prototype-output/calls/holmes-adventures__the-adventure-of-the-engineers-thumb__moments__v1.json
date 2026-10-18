@@ -1,0 +1,197 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-adventure-of-the-engineers-thumb__moments__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354888-W5sUnWFf3CSQdXALUUma",
+  "seconds": 10.2,
+  "finish_reason": "stop",
+  "prompt_tokens": 17221,
+  "completion_tokens": 2333,
+  "cost": 0.0028886,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:21:38"
+ },
+ "system": "You split the story sections of one division of a prose work into moments for an illustration engine, which draws one picture per moment.\n\nThe text comes as numbered paragraphs: each line starts with its id in square brackets and its word count in parentheses, for example `[12] (34w)`. After the text you get the division's story sections, each with its first and last paragraph id.\n\nReturn moments, in order. A moment is a run of consecutive paragraphs that is one beat you can picture: one place, one continuous action or exchange, seen at one instant. Aim for roughly 100 to 400 words per moment, using the word counts given; a moment may be shorter when the beat is a single striking paragraph, and may run past 400 only when one unbroken exchange cannot be cut. Very short paragraphs (lines of dialogue) join their neighbours. Moments tile every section: each paragraph belongs to exactly one moment, moments never cross a section boundary, and together they cover every paragraph of every section with no gaps and no overlaps. Give each moment its first and last paragraph id, the section it lies in (by its first paragraph id), and a one-line summary of what you would see in the picture: who is there, where, doing what. Do not quote the text.",
+ "user_chars": 47634,
+ "content": "{\"moments\":[{\"section_start\":\"the-adventure-of-the-engineers-thumb-s1\",\"start\":\"1\",\"end\":\"6\",\"summary\":\"Watson in his dressing gown at the top of his stairs while the railway guard, by the consulting-room door, whispers that he has brought a new patient.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s2\",\"start\":\"7\",\"end\":\"15\",\"summary\":\"Watson in his consulting room with a pale young man in heather tweed, his bloodstained handkerchief wrapped around one hand, who laughs hysterically before being steadied with brandy.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s3\",\"start\":\"16\",\"end\":\"28\",\"summary\":\"The young man unwinds his handkerchief to show the mutilated hand with its thumb torn away, and Watson sponges, cleans and bandages the bloody wound.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s3\",\"start\":\"29\",\"end\":\"39\",\"summary\":\"Watson and the patient, now revived, talk of the attack as they prepare to leave, and Watson hurries upstairs to fetch his wife before the two ride off in a hansom.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s4\",\"start\":\"40\",\"end\":\"44\",\"summary\":\"Holmes in a dressing gown in his Baker Street sitting room, serving breakfast and settling the injured visitor on a sofa with a pillow and brandy while Watson watches.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s5\",\"start\":\"45\",\"end\":\"51\",\"summary\":\"In Hatherley's sparse Victoria Street office, the thin, pale Colonel Stark stands at the door eyeing the young engineer suspiciously and demanding his promise of secrecy.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s5\",\"start\":\"52\",\"end\":\"61\",\"summary\":\"Stark springs to the open door to check the empty passage, then draws his chair close and fixes Hatherley with a hard, questioning stare.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s5\",\"start\":\"62\",\"end\":\"87\",\"summary\":\"Stark offers fifty guineas for a night's work at Eyford and explains the fuller's-earth scheme while Hatherley listens and then leaves the office.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s6\",\"start\":\"88\",\"end\":\"96\",\"summary\":\"A chestnut carriage waits in the dark at Eyford station, and Hatherley is hurried inside by a silent man and driven along jolting country roads.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s7\",\"start\":\"97\",\"end\":\"100\",\"summary\":\"A pretty woman in a rich dark dress holds up a lamp in a dim hallway as Stark whispers to her, then Stark shows Hatherley into a plain room with German books.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s7\",\"start\":\"101\",\"end\":\"104\",\"summary\":\"The frightened woman slips into the quiet room, pleads with Hatherley in broken English to leave, and then vanishes as footsteps approach on the stairs.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s7\",\"start\":\"105\",\"end\":\"112\",\"summary\":\"Stark and a stout, bearded manager named Ferguson lead Hatherley up through a decaying labyrinth of corridors to the machine room.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s8\",\"start\":\"113\",\"end\":\"116\",\"summary\":\"Hatherley crouches inside the small iron-floored chamber of the hydraulic press, examining the leaking cylinder by lamplight.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s8\",\"start\":\"117\",\"end\":\"120\",\"summary\":\"Stark looks down at Hatherley scraping the trough, then slams the little door shut and turns the key in the lock.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s8\",\"start\":\"121\",\"end\":\"121\",\"summary\":\"The black iron ceiling descends slowly toward a terrified Hatherley, who claws at the locked door in the lamplight as the engine clanks.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s9\",\"start\":\"122\",\"end\":\"123\",\"summary\":\"Hatherley squeezes through a hidden panel in the wooden wall into a dim stone corridor, where the woman kneels beside him holding a candle.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s9\",\"start\":\"124\",\"end\":\"127\",\"summary\":\"The woman urges Hatherley toward a moonlit bedroom while Stark charges down the passage with a lantern and a cleaver, and Hatherley climbs onto the window sill.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s9\",\"start\":\"128\",\"end\":\"129\",\"summary\":\"Stark shoves past the woman, who clings to him, and swings his cleaver at Hatherley hanging from the sill, who falls into the moonlit garden.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s9\",\"start\":\"130\",\"end\":\"131\",\"summary\":\"Hatherley staggers through the rose bushes, sees his bleeding thumb, and then collapses in a faint beside the hedge at dawn.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s9\",\"start\":\"132\",\"end\":\"133\",\"summary\":\"Hatherley, bloodied and dazed, questions a porter at the morning station about a carriage and Colonel Stark, the porter shaking his head.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s10\",\"start\":\"134\",\"end\":\"137\",\"summary\":\"In Baker Street, Holmes reads from a cutting about a missing hydraulic engineer while Watson and Hatherley listen.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s10\",\"start\":\"138\",\"end\":\"151\",\"summary\":\"In a train carriage, the inspector spreads a county map and draws a circle, while the four men each name a different direction.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s10\",\"start\":\"152\",\"end\":\"160\",\"summary\":\"Holmes points to the centre of the map circle, and then the party sees a column of smoke rising over trees as the train reaches Eyford.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s11\",\"start\":\"161\",\"end\":\"172\",\"summary\":\"The party hurries up a hill to see a whitewashed house blazing, with firemen labouring in the garden and Hatherley pointing at the window he jumped from.\"},{\"section_start\":\"the-adventure-of-the-engineers-thumb-s11\",\"start\":\"173\",\"end\":\"176\",\"summary\":\"Hatherley and Holmes ride back to London in a train carriage, Hatherley lamenting his lost thumb and fee while Holmes laughs and calls it experience.\"}]}",
+ "parsed": {
+  "moments": [
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s1",
+    "start": "1",
+    "end": "6",
+    "summary": "Watson in his dressing gown at the top of his stairs while the railway guard, by the consulting-room door, whispers that he has brought a new patient."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s2",
+    "start": "7",
+    "end": "15",
+    "summary": "Watson in his consulting room with a pale young man in heather tweed, his bloodstained handkerchief wrapped around one hand, who laughs hysterically before being steadied with brandy."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s3",
+    "start": "16",
+    "end": "28",
+    "summary": "The young man unwinds his handkerchief to show the mutilated hand with its thumb torn away, and Watson sponges, cleans and bandages the bloody wound."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s3",
+    "start": "29",
+    "end": "39",
+    "summary": "Watson and the patient, now revived, talk of the attack as they prepare to leave, and Watson hurries upstairs to fetch his wife before the two ride off in a hansom."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s4",
+    "start": "40",
+    "end": "44",
+    "summary": "Holmes in a dressing gown in his Baker Street sitting room, serving breakfast and settling the injured visitor on a sofa with a pillow and brandy while Watson watches."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s5",
+    "start": "45",
+    "end": "51",
+    "summary": "In Hatherley's sparse Victoria Street office, the thin, pale Colonel Stark stands at the door eyeing the young engineer suspiciously and demanding his promise of secrecy."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s5",
+    "start": "52",
+    "end": "61",
+    "summary": "Stark springs to the open door to check the empty passage, then draws his chair close and fixes Hatherley with a hard, questioning stare."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s5",
+    "start": "62",
+    "end": "87",
+    "summary": "Stark offers fifty guineas for a night's work at Eyford and explains the fuller's-earth scheme while Hatherley listens and then leaves the office."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s6",
+    "start": "88",
+    "end": "96",
+    "summary": "A chestnut carriage waits in the dark at Eyford station, and Hatherley is hurried inside by a silent man and driven along jolting country roads."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s7",
+    "start": "97",
+    "end": "100",
+    "summary": "A pretty woman in a rich dark dress holds up a lamp in a dim hallway as Stark whispers to her, then Stark shows Hatherley into a plain room with German books."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s7",
+    "start": "101",
+    "end": "104",
+    "summary": "The frightened woman slips into the quiet room, pleads with Hatherley in broken English to leave, and then vanishes as footsteps approach on the stairs."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s7",
+    "start": "105",
+    "end": "112",
+    "summary": "Stark and a stout, bearded manager named Ferguson lead Hatherley up through a decaying labyrinth of corridors to the machine room."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s8",
+    "start": "113",
+    "end": "116",
+    "summary": "Hatherley crouches inside the small iron-floored chamber of the hydraulic press, examining the leaking cylinder by lamplight."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s8",
+    "start": "117",
+    "end": "120",
+    "summary": "Stark looks down at Hatherley scraping the trough, then slams the little door shut and turns the key in the lock."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s8",
+    "start": "121",
+    "end": "121",
+    "summary": "The black iron ceiling descends slowly toward a terrified Hatherley, who claws at the locked door in the lamplight as the engine clanks."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s9",
+    "start": "122",
+    "end": "123",
+    "summary": "Hatherley squeezes through a hidden panel in the wooden wall into a dim stone corridor, where the woman kneels beside him holding a candle."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s9",
+    "start": "124",
+    "end": "127",
+    "summary": "The woman urges Hatherley toward a moonlit bedroom while Stark charges down the passage with a lantern and a cleaver, and Hatherley climbs onto the window sill."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s9",
+    "start": "128",
+    "end": "129",
+    "summary": "Stark shoves past the woman, who clings to him, and swings his cleaver at Hatherley hanging from the sill, who falls into the moonlit garden."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s9",
+    "start": "130",
+    "end": "131",
+    "summary": "Hatherley staggers through the rose bushes, sees his bleeding thumb, and then collapses in a faint beside the hedge at dawn."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s9",
+    "start": "132",
+    "end": "133",
+    "summary": "Hatherley, bloodied and dazed, questions a porter at the morning station about a carriage and Colonel Stark, the porter shaking his head."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s10",
+    "start": "134",
+    "end": "137",
+    "summary": "In Baker Street, Holmes reads from a cutting about a missing hydraulic engineer while Watson and Hatherley listen."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s10",
+    "start": "138",
+    "end": "151",
+    "summary": "In a train carriage, the inspector spreads a county map and draws a circle, while the four men each name a different direction."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s10",
+    "start": "152",
+    "end": "160",
+    "summary": "Holmes points to the centre of the map circle, and then the party sees a column of smoke rising over trees as the train reaches Eyford."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s11",
+    "start": "161",
+    "end": "172",
+    "summary": "The party hurries up a hill to see a whitewashed house blazing, with firemen labouring in the garden and Hatherley pointing at the window he jumped from."
+   },
+   {
+    "section_start": "the-adventure-of-the-engineers-thumb-s11",
+    "start": "173",
+    "end": "176",
+    "summary": "Hatherley and Holmes ride back to London in a train carriage, Hatherley lamenting his lost thumb and fee while Holmes laughs and calls it experience."
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 17221,
+  "completion_tokens": 2333,
+  "total_tokens": 19554,
+  "cost": 0.0028886,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0028886,
+   "upstream_inference_prompt_cost": 0.0017221,
+   "upstream_inference_completions_cost": 0.0011665
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

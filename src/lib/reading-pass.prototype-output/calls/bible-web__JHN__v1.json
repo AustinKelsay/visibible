@@ -1,0 +1,1512 @@
+{
+ "record": {
+  "label": "bible-web__JHN__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354476-s7nUaQxTvqfiSWx8PeTh",
+  "seconds": 36.9,
+  "finish_reason": "stop",
+  "prompt_tokens": 38804,
+  "completion_tokens": 10424,
+  "cost": 0.0090924,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:15:12"
+ },
+ "system": "You are the reading pass of an illustration engine. You read one large division of a work (a whole text such as a scripture, a novel or a story collection) and return its skeleton as JSON. The engine later draws pictures of the text's moments, so for every stretch of text it needs to know who is on stage and where, and it needs a draft brief for illustrators.\n\nThe text comes as numbered units. Each unit line starts with its id (for example `17:4` or `[12]`). Lines starting with `##` are headings, not units.\n\nReturn:\n\n1. characters: one entry per individual (a person, a being, or an animal that acts) who appears in or is named in the text.\n   - One individual is one entry, even when the text uses different names, titles or descriptions for them. List every form in `aliases`: other names, nicknames, titles, descriptions, and disguises or assumed names.\n   - Different individuals who share a name or a title get separate entries, one each. Never fold two people into one entry because they share a name. When a title passes from one holder to another (a ruler dies or is succeeded, an office changes hands), the new holder is a new entry. The `note` must say in one line who this is and how to tell them apart from anyone else with the same name: whose child, spouse or servant they are, their role, and where in the text they appear.\n   - A disguised, renamed or unnamed person who the text later identifies is the same entry as their named self, with the disguise or description in `aliases`. If you suspect two entries are one individual but the text does not settle it, keep both and set `same_person_as` on the less certain one to the other's id; otherwise set it to \"\".\n   - Skip people who occur only inside a list of names (a genealogy or roster) and never act.\n   - Add a group (an army, a crowd, a household) only when it acts as one on stage, with kind \"group\".\n2. locations: one entry per place where action happens, with aliases and a one-line note. Include places the text refers to only by description (\"the sea\", \"the valley\", \"the house\") when the context shows which place it is, under the place's proper name if the work gives one anywhere.\n3. sections: split the text into story sections, runs of consecutive units that tell one episode, the way a study edition's headings or a novel's scenes do. Start a new section when the time, the place or the main action changes. Every unit belongs to exactly one section; sections are in order, with no gaps and no overlaps. This division has 879 units. Aim for roughly 49 sections (39 to 59), averaging about 18 units each; some sections will be much shorter and some longer. Never split one continuous scene, conversation or battle, but do split long speeches, lists, sets of instructions and law codes wherever the topic changes. Give the ids of each section's first and last unit and a short title. For each section:\n   - setting: ids of the locations where its action happens.\n   - on_stage: ids of every character present in the section's action, whether the section names them or only refers to them by a pronoun, a title or a description, or does not mention them but they are clearly there.\n   - mentioned_only: ids of characters the section names or refers to who are not present.\n4. brief: a draft brief for illustrators, for this division only. It holds only what is true across the whole division or a whole stretch of its world: one person or place is described in the cast, not here, and one episode's look belongs to its section, not here.\n   - tone: one line on the mood the pictures should carry.\n   - depiction_rules: a short list of how certain things in this text may or may not be shown, drawn from the text and from what you know about the work.\n   - era: the stretch of the world this division is set in: a name, its people (who lives there and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist).\n   Keep the brief under 200 words.\n\nUse short, stable snake_case ids (for example `david`, `the_queen`, `main_street`). Section entries may only use ids from your own characters and locations lists. Do not quote the text.",
+ "user_chars": 101534,
+ "content": "{\"characters\":[{\"id\":\"jesus\",\"name\":\"Jesus\",\"aliases\":[\"the Word\",\"the Lamb of God\",\"Jesus of Nazareth\",\"the Son of Man\",\"the Christ\",\"Rabbi\",\"Teacher\",\"the Lord\",\"the Son of God\",\"the prophet\",\"the good shepherd\",\"the light of the world\",\"the bread of life\"],\"note\":\"Central figure of the Gospel, son of Joseph of Nazareth in the people's view, claimed as God's Son; appears throughout, from the Word prologue to the resurrection appearances.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"john_the_baptist\",\"name\":\"John the Baptist\",\"aliases\":[\"John\",\"the baptizer\",\"the voice crying in the wilderness\"],\"note\":\"Prophet who baptizes at Bethany beyond the Jordan and in Enon; testifies to Jesus; not to be confused with the disciple John.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"john_the_disciple\",\"name\":\"John the beloved disciple\",\"aliases\":[\"the disciple whom Jesus loved\",\"the other disciple\",\"the disciple who testifies\"],\"note\":\"Unnamed disciple in the text who leans on Jesus' chest at supper, stands at the cross, and is traditionally the author; distinct from John the Baptist.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"andrew\",\"name\":\"Andrew\",\"aliases\":[\"Simon Peter's brother\"],\"note\":\"Disciple from Bethsaida, brother of Simon Peter, first to follow Jesus with John's disciple.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"simon_peter\",\"name\":\"Simon Peter\",\"aliases\":[\"Simon\",\"Cephas\",\"Peter\",\"son of Jonah\"],\"note\":\"Fisherman disciple, brother of Andrew; renamed Cephas; denies Jesus three times; restored by the lake.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"philip\",\"name\":\"Philip\",\"aliases\":[\"Philip of Bethsaida\"],\"note\":\"Disciple from Bethsaida who brings Nathanael to Jesus and brings the Greeks to Andrew.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"nathanael\",\"name\":\"Nathanael\",\"aliases\":[\"an Israelite without deceit\",\"Nathanael of Cana\"],\"note\":\"Man from Cana, called by Philip; praised by Jesus as an Israelite without deceit; present by the sea in chapter 21.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"thomas\",\"name\":\"Thomas\",\"aliases\":[\"Didymus\",\"the Twin\"],\"note\":\"Disciple who says he will go and die with Jesus, asks about the way, and doubts the resurrection until he sees Jesus.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"judas_iscariot\",\"name\":\"Judas Iscariot\",\"aliases\":[\"Judas, son of Simon Iscariot\",\"the traitor\",\"one of the twelve who would betray him\"],\"note\":\"Disciple who keeps the money box and betrays Jesus; not to be confused with Judas not Iscariot.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"judas_not_iscariot\",\"name\":\"Judas (not Iscariot)\",\"aliases\":[\"Judas\"],\"note\":\"Disciple who asks at the supper why Jesus will reveal himself only to them; distinct from Judas Iscariot.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mary_mother_of_jesus\",\"name\":\"Jesus' mother\",\"aliases\":[\"Mary\",\"woman\",\"his mother\"],\"note\":\"Mother of Jesus, present at the wedding in Cana and at the cross; entrusted to the beloved disciple.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mary_of_bethany\",\"name\":\"Mary of Bethany\",\"aliases\":[\"Mary\",\"the sister of Martha\",\"the woman who anointed the Lord\"],\"note\":\"Sister of Lazarus and Martha in Bethany; anoints Jesus' feet with nard; weeps at Lazarus' tomb. Not the mother of Jesus.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"martha\",\"name\":\"Martha\",\"aliases\":[\"the sister of Mary and Lazarus\"],\"note\":\"Sister of Lazarus and Mary of Bethany; serves at supper; confesses Jesus as the Christ.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"lazarus\",\"name\":\"Lazarus\",\"aliases\":[\"the dead man\",\"Lazarus of Bethany\"],\"note\":\"Brother of Martha and Mary, raised from the tomb after four days; sits at table in Bethany.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"mary_magdalene\",\"name\":\"Mary Magdalene\",\"aliases\":[\"Mary\",\"the woman at the tomb\"],\"note\":\"Woman who first finds the empty tomb and meets the risen Jesus in the garden; distinct from Mary of Bethany.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"nicodemus\",\"name\":\"Nicodemus\",\"aliases\":[\"a ruler of the Jews\",\"a Pharisee\"],\"note\":\"Pharisee and ruler who comes to Jesus by night; speaks up in the council; brings spices for the burial.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"samaritan_woman\",\"name\":\"the Samaritan woman\",\"aliases\":[\"the woman of Samaria\"],\"note\":\"Woman at Jacob's well in Sychar with five former husbands; testifies to her town.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"nobleman\",\"name\":\"the nobleman\",\"aliases\":[\"the royal official\",\"the father of the sick son\"],\"note\":\"Official at Capernaum whose son Jesus heals from a distance.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"invalid_man\",\"name\":\"the sick man at Bethesda\",\"aliases\":[\"the man who had been sick for thirty-eight years\"],\"note\":\"Paralyzed man healed at the pool of Bethesda on the Sabbath.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"blind_man\",\"name\":\"the man born blind\",\"aliases\":[\"the blind man who received sight\"],\"note\":\"Man born blind, healed with mud and spittle at the pool of Siloam; questioned by the Pharisees and cast out.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"blind_mans_parents\",\"name\":\"the parents of the blind man\",\"aliases\":[\"his parents\"],\"note\":\"Parents of the man born blind, who fear the Jews and send the questions back to their son.\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"woman_taken_in_adultery\",\"name\":\"the woman taken in adultery\",\"aliases\":[\"the woman\",\"her who was taken in adultery\"],\"note\":\"Woman brought to Jesus in the temple by the scribes and Pharisees; not condemned.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"caiaphas\",\"name\":\"Caiaphas\",\"aliases\":[\"the high priest\"],\"note\":\"High priest that year who advises that one man should die for the people; sends Jesus to Pilate.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"annas\",\"name\":\"Annas\",\"aliases\":[\"the father-in-law of Caiaphas\"],\"note\":\"Former high priest and father-in-law of Caiaphas, who first questions Jesus.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"pilate\",\"name\":\"Pilate\",\"aliases\":[\"the governor\",\"Pontius Pilate\"],\"note\":\"Roman governor who examines Jesus, has him flogged, and sentences him to crucifixion.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"barabbas\",\"name\":\"Barabbas\",\"aliases\":[\"a robber\"],\"note\":\"Robber whom the crowd asks Pilate to release instead of Jesus.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"malchus\",\"name\":\"Malchus\",\"aliases\":[\"the high priest's servant\"],\"note\":\"Servant of the high priest whose right ear Peter cuts off in the garden.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"joseph_of_arimathea\",\"name\":\"Joseph of Arimathea\",\"aliases\":[\"a secret disciple\"],\"note\":\"Secret disciple who asks Pilate for Jesus' body and buries him in his new tomb.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"the_chief_priests\",\"name\":\"the chief priests and Pharisees\",\"aliases\":[\"the Jews\",\"the scribes\",\"the rulers\",\"the officers of the chief priests\"],\"note\":\"Religious authorities who plot against Jesus, sending officers to arrest him and gathering the council.\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"the_crowd\",\"name\":\"the crowd\",\"aliases\":[\"the multitude\",\"the people\",\"the Jews who believed\"],\"note\":\"Multitude who follow Jesus, are fed by the loaves, shout for his crucifixion, and debate who he is.\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"the_soldiers\",\"name\":\"the soldiers\",\"aliases\":[\"the detachment\",\"the officers\",\"the guards\"],\"note\":\"Roman soldiers who arrest Jesus, crown him with thorns, crucify him, and divide his clothing.\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"the_disciples\",\"name\":\"the disciples\",\"aliases\":[\"the twelve\",\"the brothers\"],\"note\":\"The followers of Jesus as a body; they fish at the sea, hide behind locked doors, and hear the commission.\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"the_disciples_of_john\",\"name\":\"John's disciples\",\"aliases\":[\"the disciples of John\"],\"note\":\"Followers of John the Baptist who dispute with a Jew about purification and who speak to John about Jesus' baptizing.\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"the_servants_at_cana\",\"name\":\"the servants at Cana\",\"aliases\":[\"the servants\"],\"note\":\"Servants at the wedding in Cana who fill the water pots.\",\"kind\":\"group\",\"same_person_as\":\"\"},{\"id\":\"the_ruler_of_the_feast\",\"name\":\"the ruler of the feast\",\"aliases\":[\"the master of the feast\"],\"note\":\"Man in charge of the wedding feast at Cana who tastes the wine.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"the_bridegroom\",\"name\":\"the bridegroom\",\"aliases\":[],\"note\":\"Groom at the wedding in Cana, rebuked by the ruler of the feast for keeping the good wine.\",\"kind\":\"person\",\"same_person_as\":\"\"},{\"id\":\"the_angels\",\"name\":\"the angels\",\"aliases\":[\"two angels in white\"],\"note\":\"Angels who sit in the empty tomb, and the angel who troubles the pool at Bethesda.\",\"kind\":\"divine\",\"same_person_as\":\"\"},{\"id\":\"thomas_the_second_mention\",\"name\":\"Thomas (fourth disciple listed)\",\"aliases\":[],\"note\":\"Placeholder for the disciple Thomas named in 21:2; same individual as Thomas.\",\"kind\":\"person\",\"same_person_as\":\"thomas\"},{\"id\":\"the_cross_thieves\",\"name\":\"the two others crucified\",\"aliases\":[\"the two malefactors\"],\"note\":\"The two men crucified on either side of Jesus, whose legs are broken.\",\"kind\":\"group\",\"same_person_as\":\"\"}],\"locations\":[{\"id\":\"cana\",\"name\":\"Cana of Galilee\",\"aliases\":[\"Cana\"],\"note\":\"Village where Jesus turns water into wine at a wedding; Nathanael's home.\"},{\"id\":\"bethany_beyond_jordan\",\"name\":\"Bethany beyond the Jordan\",\"aliases\":[\"Bethabara\"],\"note\":\"Place across the Jordan where John baptizes and Jesus later withdraws.\"},{\"id\":\"bethany\",\"name\":\"Bethany\",\"aliases\":[\"the village of Mary and Martha\"],\"note\":\"Village near Jerusalem home of Lazarus, Mary and Martha.\"},{\"id\":\"capernaum\",\"name\":\"Capernaum\",\"aliases\":[],\"note\":\"Galilean town where the nobleman's son is healed and Jesus teaches in the synagogue.\"},{\"id\":\"jerusalem\",\"name\":\"Jerusalem\",\"aliases\":[\"the holy city\"],\"note\":\"City of the feasts, the temple, the pool of Bethesda, and the trial and crucifixion.\"},{\"id\":\"temple\",\"name\":\"the temple\",\"aliases\":[\"Solomon's porch\",\"the treasury\"],\"note\":\"Temple in Jerusalem where Jesus cleanses the sellers and teaches.\"},{\"id\":\"samaria_sychar\",\"name\":\"Sychar in Samaria\",\"aliases\":[\"Samaria\",\"the well of Jacob\"],\"note\":\"Samaritan town by Jacob's well where Jesus meets the woman.\"},{\"id\":\"galilee\",\"name\":\"Galilee\",\"aliases\":[\"the sea of Galilee\",\"the Sea of Tiberias\"],\"note\":\"Region and lake where Jesus teaches, feeds the five thousand, walks on water, and appears after the resurrection.\"},{\"id\":\"bethesda_pool\",\"name\":\"the pool of Bethesda\",\"aliases\":[\"the sheep gate pool\"],\"note\":\"Pool with five porches in Jerusalem where the paralyzed man is healed.\"},{\"id\":\"siloam\",\"name\":\"the pool of Siloam\",\"aliases\":[\"Siloam\"],\"note\":\"Pool where the blind man washes and receives his sight.\"},{\"id\":\"mount_of_olives\",\"name\":\"the Mount of Olives\",\"aliases\":[],\"note\":\"Hill where Jesus goes at night and to which he returns before dawn.\"},{\"id\":\"kidron_garden\",\"name\":\"the garden across the Kidron\",\"aliases\":[\"the garden\",\"the brook Kidron\"],\"note\":\"Garden across the brook Kidron where Jesus is arrested.\"},{\"id\":\"praetorium\",\"name\":\"the Praetorium\",\"aliases\":[\"the pavement\",\"Gabbatha\"],\"note\":\"Roman governor's headquarters where Pilate tries Jesus.\"},{\"id\":\"golgotha\",\"name\":\"Golgotha\",\"aliases\":[\"the place of a skull\"],\"note\":\"Hill outside the city where Jesus is crucified.\"},{\"id\":\"joseph_garden_tomb\",\"name\":\"the garden tomb\",\"aliases\":[\"the new tomb\",\"the tomb\"],\"note\":\"New rock tomb in a garden near Golgotha where Jesus is laid and later found empty.\"},{\"id\":\"ephraim\",\"name\":\"Ephraim\",\"aliases\":[\"the city near the wilderness\"],\"note\":\"Town in the country near the wilderness where Jesus stays before the last Passover.\"},{\"id\":\"sea_of_tiberias_shore\",\"name\":\"the shore of the sea of Tiberias\",\"aliases\":[\"the beach\"],\"note\":\"Lakeshore where the risen Jesus cooks breakfast for the seven disciples.\"},{\"id\":\"enon_salim\",\"name\":\"Enon near Salim\",\"aliases\":[\"Enon\"],\"note\":\"Place with much water where John baptizes.\"}],\"sections\":[{\"start\":\"1:1\",\"end\":\"1:18\",\"title\":\"The Word and the light\",\"setting\":[],\"on_stage\":[\"jesus\"],\"mentioned_only\":[\"john_the_baptist\"]},{\"start\":\"1:19\",\"end\":\"1:28\",\"title\":\"John denies being the Christ\",\"setting\":[\"bethany_beyond_jordan\"],\"on_stage\":[\"john_the_baptist\",\"the_crowd\"],\"mentioned_only\":[\"the_chief_priests\"]},{\"start\":\"1:29\",\"end\":\"1:34\",\"title\":\"The Lamb of God\",\"setting\":[\"bethany_beyond_jordan\"],\"on_stage\":[\"john_the_baptist\",\"jesus\"],\"mentioned_only\":[]},{\"start\":\"1:35\",\"end\":\"1:42\",\"title\":\"First disciples follow Jesus\",\"setting\":[\"bethany_beyond_jordan\"],\"on_stage\":[\"john_the_baptist\",\"john_the_disciple\",\"andrew\",\"simon_peter\",\"jesus\"],\"mentioned_only\":[]},{\"start\":\"1:43\",\"end\":\"1:51\",\"title\":\"Philip and Nathanael\",\"setting\":[\"galilee\"],\"on_stage\":[\"jesus\",\"philip\",\"nathanael\"],\"mentioned_only\":[]},{\"start\":\"2:1\",\"end\":\"2:11\",\"title\":\"Water into wine at Cana\",\"setting\":[\"cana\"],\"on_stage\":[\"jesus\",\"mary_mother_of_jesus\",\"the_servants_at_cana\",\"the_ruler_of_the_feast\",\"the_bridegroom\",\"the_disciples\"],\"mentioned_only\":[]},{\"start\":\"2:12\",\"end\":\"2:22\",\"title\":\"Cleansing the temple\",\"setting\":[\"capernaum\",\"temple\",\"jerusalem\"],\"on_stage\":[\"jesus\",\"the_disciples\",\"the_chief_priests\"],\"mentioned_only\":[\"mary_mother_of_jesus\"]},{\"start\":\"2:23\",\"end\":\"3:21\",\"title\":\"Nicodemus comes by night\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"nicodemus\"],\"mentioned_only\":[]},{\"start\":\"3:22\",\"end\":\"3:36\",\"title\":\"John's final testimony\",\"setting\":[\"enon_salim\",\"bethany_beyond_jordan\"],\"on_stage\":[\"john_the_baptist\",\"the_disciples_of_john\",\"jesus\"],\"mentioned_only\":[]},{\"start\":\"4:1\",\"end\":\"4:26\",\"title\":\"Jesus and the Samaritan woman at the well\",\"setting\":[\"samaria_sychar\"],\"on_stage\":[\"jesus\",\"samaritan_woman\"],\"mentioned_only\":[\"the_disciples\"]},{\"start\":\"4:27\",\"end\":\"4:42\",\"title\":\"The disciples return; the town believes\",\"setting\":[\"samaria_sychar\"],\"on_stage\":[\"jesus\",\"the_disciples\",\"samaritan_woman\",\"the_crowd\"],\"mentioned_only\":[]},{\"start\":\"4:43\",\"end\":\"4:54\",\"title\":\"The nobleman's son healed\",\"setting\":[\"cana\",\"capernaum\"],\"on_stage\":[\"jesus\",\"nobleman\"],\"mentioned_only\":[]},{\"start\":\"5:1\",\"end\":\"5:18\",\"title\":\"The man at Bethesda healed on the Sabbath\",\"setting\":[\"jerusalem\",\"bethesda_pool\"],\"on_stage\":[\"jesus\",\"invalid_man\",\"the_chief_priests\"],\"mentioned_only\":[]},{\"start\":\"5:19\",\"end\":\"5:47\",\"title\":\"The Son's authority and the witnesses\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"the_chief_priests\"],\"mentioned_only\":[\"john_the_baptist\",\"moses\"]},{\"start\":\"6:1\",\"end\":\"6:21\",\"title\":\"Feeding the five thousand; walking on the sea\",\"setting\":[\"galilee\"],\"on_stage\":[\"jesus\",\"the_disciples\",\"philip\",\"andrew\",\"the_crowd\"],\"mentioned_only\":[\"simon_peter\"]},{\"start\":\"6:22\",\"end\":\"6:59\",\"title\":\"The bread of life discourse\",\"setting\":[\"capernaum\",\"galilee\"],\"on_stage\":[\"jesus\",\"the_crowd\",\"the_chief_priests\"],\"mentioned_only\":[]},{\"start\":\"6:60\",\"end\":\"6:71\",\"title\":\"Many disciples leave; Peter confesses\",\"setting\":[\"capernaum\"],\"on_stage\":[\"jesus\",\"the_disciples\",\"simon_peter\",\"judas_iscariot\"],\"mentioned_only\":[]},{\"start\":\"7:1\",\"end\":\"7:13\",\"title\":\"Brothers urge Jesus to the feast\",\"setting\":[\"galilee\",\"jerusalem\"],\"on_stage\":[\"jesus\"],\"mentioned_only\":[\"the_crowd\"]},{\"start\":\"7:14\",\"end\":\"7:36\",\"title\":\"Jesus teaches at the Feast of Booths\",\"setting\":[\"temple\"],\"on_stage\":[\"jesus\",\"the_crowd\",\"the_chief_priests\"],\"mentioned_only\":[]},{\"start\":\"7:37\",\"end\":\"7:53\",\"title\":\"Rivers of living water; division among the crowd\",\"setting\":[\"temple\"],\"on_stage\":[\"jesus\",\"the_crowd\",\"the_soldiers\",\"the_chief_priests\",\"nicodemus\"],\"mentioned_only\":[]},{\"start\":\"8:1\",\"end\":\"8:11\",\"title\":\"The woman taken in adultery\",\"setting\":[\"temple\"],\"on_stage\":[\"jesus\",\"woman_taken_in_adultery\",\"the_chief_priests\"],\"mentioned_only\":[]},{\"start\":\"8:12\",\"end\":\"8:30\",\"title\":\"I am the light of the world\",\"setting\":[\"temple\"],\"on_stage\":[\"jesus\",\"the_chief_priests\"],\"mentioned_only\":[\"the_father\"]},{\"start\":\"8:31\",\"end\":\"8:59\",\"title\":\"Freedom, Abraham and the I AM\",\"setting\":[\"temple\"],\"on_stage\":[\"jesus\",\"the_crowd\",\"the_chief_priests\"],\"mentioned_only\":[]},{\"start\":\"9:1\",\"end\":\"9:12\",\"title\":\"The man born blind\",\"setting\":[\"jerusalem\",\"siloam\"],\"on_stage\":[\"jesus\",\"the_disciples\",\"blind_man\",\"the_crowd\"],\"mentioned_only\":[]},{\"start\":\"9:13\",\"end\":\"9:34\",\"title\":\"The Pharisees question the healed man\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"blind_man\",\"blind_mans_parents\",\"the_chief_priests\"],\"mentioned_only\":[\"jesus\"]},{\"start\":\"9:35\",\"end\":\"9:41\",\"title\":\"The man worships; the blind and seeing\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"blind_man\",\"the_chief_priests\"],\"mentioned_only\":[]},{\"start\":\"10:1\",\"end\":\"10:21\",\"title\":\"The good shepherd\",\"setting\":[\"temple\"],\"on_stage\":[\"jesus\",\"the_crowd\"],\"mentioned_only\":[]},{\"start\":\"10:22\",\"end\":\"10:42\",\"title\":\"At the Feast of Dedication; Jesus across the Jordan\",\"setting\":[\"temple\",\"bethany_beyond_jordan\"],\"on_stage\":[\"jesus\",\"the_crowd\",\"the_chief_priests\"],\"mentioned_only\":[\"john_the_baptist\"]},{\"start\":\"11:1\",\"end\":\"11:16\",\"title\":\"The illness of Lazarus\",\"setting\":[\"bethany\"],\"on_stage\":[\"jesus\",\"the_disciples\",\"thomas\"],\"mentioned_only\":[\"lazarus\",\"martha\",\"mary_of_bethany\"]},{\"start\":\"11:17\",\"end\":\"11:37\",\"title\":\"Martha and Mary meet Jesus\",\"setting\":[\"bethany\"],\"on_stage\":[\"jesus\",\"martha\",\"mary_of_bethany\",\"the_crowd\"],\"mentioned_only\":[\"lazarus\"]},{\"start\":\"11:38\",\"end\":\"11:44\",\"title\":\"Lazarus raised from the tomb\",\"setting\":[\"bethany\",\"joseph_garden_tomb\"],\"on_stage\":[\"jesus\",\"martha\",\"lazarus\",\"the_crowd\"],\"mentioned_only\":[]},{\"start\":\"11:45\",\"end\":\"11:57\",\"title\":\"The council plans Jesus' death\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"the_chief_priests\",\"caiaphas\"],\"mentioned_only\":[\"jesus\"]},{\"start\":\"11:57\",\"end\":\"12:11\",\"title\":\"Jesus withdraws; Lazarus at supper\",\"setting\":[\"ephraim\",\"bethany\"],\"on_stage\":[\"jesus\",\"lazarus\",\"martha\",\"mary_of_bethany\",\"judas_iscariot\",\"the_disciples\"],\"mentioned_only\":[\"the_chief_priests\"]},{\"start\":\"12:12\",\"end\":\"12:19\",\"title\":\"Triumphal entry\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"the_crowd\",\"the_chief_priests\"],\"mentioned_only\":[]},{\"start\":\"12:20\",\"end\":\"12:36\",\"title\":\"Greeks seek Jesus; the hour of glory\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"philip\",\"andrew\",\"the_crowd\"],\"mentioned_only\":[]},{\"start\":\"12:37\",\"end\":\"12:50\",\"title\":\"Unbelief and Jesus' final cry\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"the_crowd\"],\"mentioned_only\":[\"isaiah\"]},{\"start\":\"13:1\",\"end\":\"13:20\",\"title\":\"The washing of the feet\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"the_disciples\",\"simon_peter\",\"judas_iscariot\"],\"mentioned_only\":[]},{\"start\":\"13:21\",\"end\":\"13:38\",\"title\":\"The betrayal foretold; the new commandment\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"the_disciples\",\"john_the_disciple\",\"simon_peter\",\"judas_iscariot\"],\"mentioned_only\":[]},{\"start\":\"14:1\",\"end\":\"14:14\",\"title\":\"The way to the Father\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"thomas\",\"philip\",\"the_disciples\"],\"mentioned_only\":[]},{\"start\":\"14:15\",\"end\":\"14:31\",\"title\":\"The promise of the Counselor\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"judas_not_iscariot\",\"the_disciples\"],\"mentioned_only\":[]},{\"start\":\"15:1\",\"end\":\"15:17\",\"title\":\"The true vine\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"the_disciples\"],\"mentioned_only\":[]},{\"start\":\"15:18\",\"end\":\"16:15\",\"title\":\"The world's hatred; the Spirit's witness\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"the_disciples\"],\"mentioned_only\":[]},{\"start\":\"16:16\",\"end\":\"16:33\",\"title\":\"Sorrow turned to joy\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"the_disciples\"],\"mentioned_only\":[]},{\"start\":\"17:1\",\"end\":\"17:26\",\"title\":\"The high priestly prayer\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"the_disciples\"],\"mentioned_only\":[]},{\"start\":\"18:1\",\"end\":\"18:11\",\"title\":\"The arrest in the garden\",\"setting\":[\"kidron_garden\"],\"on_stage\":[\"jesus\",\"judas_iscariot\",\"the_soldiers\",\"simon_peter\",\"malchus\",\"the_disciples\"],\"mentioned_only\":[\"the_chief_priests\"]},{\"start\":\"18:12\",\"end\":\"18:27\",\"title\":\"Peter's denials; Jesus before Annas\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"annas\",\"caiaphas\",\"simon_peter\",\"the_soldiers\"],\"mentioned_only\":[]},{\"start\":\"18:28\",\"end\":\"18:40\",\"title\":\"Jesus before Pilate; Barabbas\",\"setting\":[\"praetorium\"],\"on_stage\":[\"jesus\",\"pilate\",\"the_chief_priests\",\"the_crowd\",\"barabbas\"],\"mentioned_only\":[]},{\"start\":\"19:1\",\"end\":\"19:16\",\"title\":\"Flogging, crown and sentence\",\"setting\":[\"praetorium\"],\"on_stage\":[\"jesus\",\"pilate\",\"the_soldiers\",\"the_chief_priests\",\"the_crowd\"],\"mentioned_only\":[]},{\"start\":\"19:17\",\"end\":\"19:27\",\"title\":\"The crucifixion; the mother and the disciple\",\"setting\":[\"golgotha\"],\"on_stage\":[\"jesus\",\"the_soldiers\",\"mary_mother_of_jesus\",\"john_the_disciple\",\"mary_magdalene\",\"the_chief_priests\"],\"mentioned_only\":[\"the_cross_thieves\"]},{\"start\":\"19:28\",\"end\":\"19:37\",\"title\":\"The death of Jesus; the soldiers' spear\",\"setting\":[\"golgotha\"],\"on_stage\":[\"jesus\",\"the_soldiers\",\"the_chief_priests\"],\"mentioned_only\":[\"the_cross_thieves\"]},{\"start\":\"19:38\",\"end\":\"19:42\",\"title\":\"The burial\",\"setting\":[\"golgotha\",\"joseph_garden_tomb\"],\"on_stage\":[\"joseph_of_arimathea\",\"nicodemus\"],\"mentioned_only\":[\"pilate\",\"jesus\"]},{\"start\":\"20:1\",\"end\":\"20:10\",\"title\":\"The empty tomb\",\"setting\":[\"joseph_garden_tomb\"],\"on_stage\":[\"mary_magdalene\",\"simon_peter\",\"john_the_disciple\"],\"mentioned_only\":[\"jesus\"]},{\"start\":\"20:11\",\"end\":\"20:18\",\"title\":\"Mary meets the risen Lord\",\"setting\":[\"joseph_garden_tomb\"],\"on_stage\":[\"mary_magdalene\",\"the_angels\",\"jesus\"],\"mentioned_only\":[]},{\"start\":\"20:19\",\"end\":\"20:23\",\"title\":\"Jesus appears to the disciples\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"the_disciples\"],\"mentioned_only\":[]},{\"start\":\"20:24\",\"end\":\"20:31\",\"title\":\"Thomas and the purpose of the book\",\"setting\":[\"jerusalem\"],\"on_stage\":[\"jesus\",\"thomas\",\"the_disciples\"],\"mentioned_only\":[]},{\"start\":\"21:1\",\"end\":\"21:14\",\"title\":\"Breakfast on the shore\",\"setting\":[\"sea_of_tiberias_shore\",\"galilee\"],\"on_stage\":[\"jesus\",\"simon_peter\",\"thomas\",\"nathanael\",\"john_the_disciple\",\"the_disciples\"],\"mentioned_only\":[]},{\"start\":\"21:15\",\"end\":\"21:25\",\"title\":\"Peter restored; the beloved disciple\",\"setting\":[\"sea_of_tiberias_shore\"],\"on_stage\":[\"jesus\",\"simon_peter\",\"john_the_disciple\"],\"mentioned_only\":[]}],\"brief\":{\"tone\":\"Contemplative and luminous, with a sense of divine glory breaking into ordinary life; quiet intimacy in dialogue scenes and tension in conflict scenes.\",\"depiction_rules\":[\"Depict Jesus as a Jewish man of the 1st century, not with the halo-and-blue-robe stereotype of later art unless the illustration calls for it.\",\"Show the divine voice from the sky and the angels in white as light rather than as human figures where possible.\",\"Handle the crucifixion with restraint, avoiding gratuitous gore while keeping its weight.\",\"Do not depict God the Father in human form.\",\"Show the Holy Spirit as a dove or as wind/breath only where the text names it.\",\"Avoid caricaturing Jews, Pharisees and Judas; depict the opponents as religious authorities and crowds with individual dignity.\"],\"era\":{\"name\":\"Roman Judea and Galilee, c. AD 30\",\"people\":\"Jewish villagers, fishermen, priests, Pharisees, Samaritans, Roman soldiers and officials; mostly brown-skinned Mediterranean people with dark hair and beards for men.\",\"dress\":\"Linen tunics, woolen cloaks and mantles, head coverings, sandals; priests in linen robes; Roman soldiers in armor and tunic; purple garment as mock royalty.\",\"buildings_and_objects\":\"Stone houses with flat roofs, village wells, stone water jars, the Jerusalem temple and its courts, synagogues, rock-cut tombs closed by a rolled stone, lamps, nets and boats on the Sea of Galilee, olive groves and vineyards.\",\"technology\":\"Oil lamps, torches, handmade boats and nets, hand-milled grain and baked bread, wine and oil; no photography, no printed books, no firearms, no clocks; Roman roads and governor's praetorium exist.\"}}}",
+ "parsed": {
+  "characters": [
+   {
+    "id": "jesus",
+    "name": "Jesus",
+    "aliases": [
+     "the Word",
+     "the Lamb of God",
+     "Jesus of Nazareth",
+     "the Son of Man",
+     "the Christ",
+     "Rabbi",
+     "Teacher",
+     "the Lord",
+     "the Son of God",
+     "the prophet",
+     "the good shepherd",
+     "the light of the world",
+     "the bread of life"
+    ],
+    "note": "Central figure of the Gospel, son of Joseph of Nazareth in the people's view, claimed as God's Son; appears throughout, from the Word prologue to the resurrection appearances.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "john_the_baptist",
+    "name": "John the Baptist",
+    "aliases": [
+     "John",
+     "the baptizer",
+     "the voice crying in the wilderness"
+    ],
+    "note": "Prophet who baptizes at Bethany beyond the Jordan and in Enon; testifies to Jesus; not to be confused with the disciple John.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "john_the_disciple",
+    "name": "John the beloved disciple",
+    "aliases": [
+     "the disciple whom Jesus loved",
+     "the other disciple",
+     "the disciple who testifies"
+    ],
+    "note": "Unnamed disciple in the text who leans on Jesus' chest at supper, stands at the cross, and is traditionally the author; distinct from John the Baptist.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "andrew",
+    "name": "Andrew",
+    "aliases": [
+     "Simon Peter's brother"
+    ],
+    "note": "Disciple from Bethsaida, brother of Simon Peter, first to follow Jesus with John's disciple.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "simon_peter",
+    "name": "Simon Peter",
+    "aliases": [
+     "Simon",
+     "Cephas",
+     "Peter",
+     "son of Jonah"
+    ],
+    "note": "Fisherman disciple, brother of Andrew; renamed Cephas; denies Jesus three times; restored by the lake.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "philip",
+    "name": "Philip",
+    "aliases": [
+     "Philip of Bethsaida"
+    ],
+    "note": "Disciple from Bethsaida who brings Nathanael to Jesus and brings the Greeks to Andrew.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "nathanael",
+    "name": "Nathanael",
+    "aliases": [
+     "an Israelite without deceit",
+     "Nathanael of Cana"
+    ],
+    "note": "Man from Cana, called by Philip; praised by Jesus as an Israelite without deceit; present by the sea in chapter 21.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "thomas",
+    "name": "Thomas",
+    "aliases": [
+     "Didymus",
+     "the Twin"
+    ],
+    "note": "Disciple who says he will go and die with Jesus, asks about the way, and doubts the resurrection until he sees Jesus.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "judas_iscariot",
+    "name": "Judas Iscariot",
+    "aliases": [
+     "Judas, son of Simon Iscariot",
+     "the traitor",
+     "one of the twelve who would betray him"
+    ],
+    "note": "Disciple who keeps the money box and betrays Jesus; not to be confused with Judas not Iscariot.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "judas_not_iscariot",
+    "name": "Judas (not Iscariot)",
+    "aliases": [
+     "Judas"
+    ],
+    "note": "Disciple who asks at the supper why Jesus will reveal himself only to them; distinct from Judas Iscariot.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mary_mother_of_jesus",
+    "name": "Jesus' mother",
+    "aliases": [
+     "Mary",
+     "woman",
+     "his mother"
+    ],
+    "note": "Mother of Jesus, present at the wedding in Cana and at the cross; entrusted to the beloved disciple.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mary_of_bethany",
+    "name": "Mary of Bethany",
+    "aliases": [
+     "Mary",
+     "the sister of Martha",
+     "the woman who anointed the Lord"
+    ],
+    "note": "Sister of Lazarus and Martha in Bethany; anoints Jesus' feet with nard; weeps at Lazarus' tomb. Not the mother of Jesus.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "martha",
+    "name": "Martha",
+    "aliases": [
+     "the sister of Mary and Lazarus"
+    ],
+    "note": "Sister of Lazarus and Mary of Bethany; serves at supper; confesses Jesus as the Christ.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "lazarus",
+    "name": "Lazarus",
+    "aliases": [
+     "the dead man",
+     "Lazarus of Bethany"
+    ],
+    "note": "Brother of Martha and Mary, raised from the tomb after four days; sits at table in Bethany.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "mary_magdalene",
+    "name": "Mary Magdalene",
+    "aliases": [
+     "Mary",
+     "the woman at the tomb"
+    ],
+    "note": "Woman who first finds the empty tomb and meets the risen Jesus in the garden; distinct from Mary of Bethany.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "nicodemus",
+    "name": "Nicodemus",
+    "aliases": [
+     "a ruler of the Jews",
+     "a Pharisee"
+    ],
+    "note": "Pharisee and ruler who comes to Jesus by night; speaks up in the council; brings spices for the burial.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "samaritan_woman",
+    "name": "the Samaritan woman",
+    "aliases": [
+     "the woman of Samaria"
+    ],
+    "note": "Woman at Jacob's well in Sychar with five former husbands; testifies to her town.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "nobleman",
+    "name": "the nobleman",
+    "aliases": [
+     "the royal official",
+     "the father of the sick son"
+    ],
+    "note": "Official at Capernaum whose son Jesus heals from a distance.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "invalid_man",
+    "name": "the sick man at Bethesda",
+    "aliases": [
+     "the man who had been sick for thirty-eight years"
+    ],
+    "note": "Paralyzed man healed at the pool of Bethesda on the Sabbath.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "blind_man",
+    "name": "the man born blind",
+    "aliases": [
+     "the blind man who received sight"
+    ],
+    "note": "Man born blind, healed with mud and spittle at the pool of Siloam; questioned by the Pharisees and cast out.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "blind_mans_parents",
+    "name": "the parents of the blind man",
+    "aliases": [
+     "his parents"
+    ],
+    "note": "Parents of the man born blind, who fear the Jews and send the questions back to their son.",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "woman_taken_in_adultery",
+    "name": "the woman taken in adultery",
+    "aliases": [
+     "the woman",
+     "her who was taken in adultery"
+    ],
+    "note": "Woman brought to Jesus in the temple by the scribes and Pharisees; not condemned.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "caiaphas",
+    "name": "Caiaphas",
+    "aliases": [
+     "the high priest"
+    ],
+    "note": "High priest that year who advises that one man should die for the people; sends Jesus to Pilate.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "annas",
+    "name": "Annas",
+    "aliases": [
+     "the father-in-law of Caiaphas"
+    ],
+    "note": "Former high priest and father-in-law of Caiaphas, who first questions Jesus.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "pilate",
+    "name": "Pilate",
+    "aliases": [
+     "the governor",
+     "Pontius Pilate"
+    ],
+    "note": "Roman governor who examines Jesus, has him flogged, and sentences him to crucifixion.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "barabbas",
+    "name": "Barabbas",
+    "aliases": [
+     "a robber"
+    ],
+    "note": "Robber whom the crowd asks Pilate to release instead of Jesus.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "malchus",
+    "name": "Malchus",
+    "aliases": [
+     "the high priest's servant"
+    ],
+    "note": "Servant of the high priest whose right ear Peter cuts off in the garden.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "joseph_of_arimathea",
+    "name": "Joseph of Arimathea",
+    "aliases": [
+     "a secret disciple"
+    ],
+    "note": "Secret disciple who asks Pilate for Jesus' body and buries him in his new tomb.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "the_chief_priests",
+    "name": "the chief priests and Pharisees",
+    "aliases": [
+     "the Jews",
+     "the scribes",
+     "the rulers",
+     "the officers of the chief priests"
+    ],
+    "note": "Religious authorities who plot against Jesus, sending officers to arrest him and gathering the council.",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "the_crowd",
+    "name": "the crowd",
+    "aliases": [
+     "the multitude",
+     "the people",
+     "the Jews who believed"
+    ],
+    "note": "Multitude who follow Jesus, are fed by the loaves, shout for his crucifixion, and debate who he is.",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "the_soldiers",
+    "name": "the soldiers",
+    "aliases": [
+     "the detachment",
+     "the officers",
+     "the guards"
+    ],
+    "note": "Roman soldiers who arrest Jesus, crown him with thorns, crucify him, and divide his clothing.",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "the_disciples",
+    "name": "the disciples",
+    "aliases": [
+     "the twelve",
+     "the brothers"
+    ],
+    "note": "The followers of Jesus as a body; they fish at the sea, hide behind locked doors, and hear the commission.",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "the_disciples_of_john",
+    "name": "John's disciples",
+    "aliases": [
+     "the disciples of John"
+    ],
+    "note": "Followers of John the Baptist who dispute with a Jew about purification and who speak to John about Jesus' baptizing.",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "the_servants_at_cana",
+    "name": "the servants at Cana",
+    "aliases": [
+     "the servants"
+    ],
+    "note": "Servants at the wedding in Cana who fill the water pots.",
+    "kind": "group",
+    "same_person_as": ""
+   },
+   {
+    "id": "the_ruler_of_the_feast",
+    "name": "the ruler of the feast",
+    "aliases": [
+     "the master of the feast"
+    ],
+    "note": "Man in charge of the wedding feast at Cana who tastes the wine.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "the_bridegroom",
+    "name": "the bridegroom",
+    "aliases": [],
+    "note": "Groom at the wedding in Cana, rebuked by the ruler of the feast for keeping the good wine.",
+    "kind": "person",
+    "same_person_as": ""
+   },
+   {
+    "id": "the_angels",
+    "name": "the angels",
+    "aliases": [
+     "two angels in white"
+    ],
+    "note": "Angels who sit in the empty tomb, and the angel who troubles the pool at Bethesda.",
+    "kind": "divine",
+    "same_person_as": ""
+   },
+   {
+    "id": "thomas_the_second_mention",
+    "name": "Thomas (fourth disciple listed)",
+    "aliases": [],
+    "note": "Placeholder for the disciple Thomas named in 21:2; same individual as Thomas.",
+    "kind": "person",
+    "same_person_as": "thomas"
+   },
+   {
+    "id": "the_cross_thieves",
+    "name": "the two others crucified",
+    "aliases": [
+     "the two malefactors"
+    ],
+    "note": "The two men crucified on either side of Jesus, whose legs are broken.",
+    "kind": "group",
+    "same_person_as": ""
+   }
+  ],
+  "locations": [
+   {
+    "id": "cana",
+    "name": "Cana of Galilee",
+    "aliases": [
+     "Cana"
+    ],
+    "note": "Village where Jesus turns water into wine at a wedding; Nathanael's home."
+   },
+   {
+    "id": "bethany_beyond_jordan",
+    "name": "Bethany beyond the Jordan",
+    "aliases": [
+     "Bethabara"
+    ],
+    "note": "Place across the Jordan where John baptizes and Jesus later withdraws."
+   },
+   {
+    "id": "bethany",
+    "name": "Bethany",
+    "aliases": [
+     "the village of Mary and Martha"
+    ],
+    "note": "Village near Jerusalem home of Lazarus, Mary and Martha."
+   },
+   {
+    "id": "capernaum",
+    "name": "Capernaum",
+    "aliases": [],
+    "note": "Galilean town where the nobleman's son is healed and Jesus teaches in the synagogue."
+   },
+   {
+    "id": "jerusalem",
+    "name": "Jerusalem",
+    "aliases": [
+     "the holy city"
+    ],
+    "note": "City of the feasts, the temple, the pool of Bethesda, and the trial and crucifixion."
+   },
+   {
+    "id": "temple",
+    "name": "the temple",
+    "aliases": [
+     "Solomon's porch",
+     "the treasury"
+    ],
+    "note": "Temple in Jerusalem where Jesus cleanses the sellers and teaches."
+   },
+   {
+    "id": "samaria_sychar",
+    "name": "Sychar in Samaria",
+    "aliases": [
+     "Samaria",
+     "the well of Jacob"
+    ],
+    "note": "Samaritan town by Jacob's well where Jesus meets the woman."
+   },
+   {
+    "id": "galilee",
+    "name": "Galilee",
+    "aliases": [
+     "the sea of Galilee",
+     "the Sea of Tiberias"
+    ],
+    "note": "Region and lake where Jesus teaches, feeds the five thousand, walks on water, and appears after the resurrection."
+   },
+   {
+    "id": "bethesda_pool",
+    "name": "the pool of Bethesda",
+    "aliases": [
+     "the sheep gate pool"
+    ],
+    "note": "Pool with five porches in Jerusalem where the paralyzed man is healed."
+   },
+   {
+    "id": "siloam",
+    "name": "the pool of Siloam",
+    "aliases": [
+     "Siloam"
+    ],
+    "note": "Pool where the blind man washes and receives his sight."
+   },
+   {
+    "id": "mount_of_olives",
+    "name": "the Mount of Olives",
+    "aliases": [],
+    "note": "Hill where Jesus goes at night and to which he returns before dawn."
+   },
+   {
+    "id": "kidron_garden",
+    "name": "the garden across the Kidron",
+    "aliases": [
+     "the garden",
+     "the brook Kidron"
+    ],
+    "note": "Garden across the brook Kidron where Jesus is arrested."
+   },
+   {
+    "id": "praetorium",
+    "name": "the Praetorium",
+    "aliases": [
+     "the pavement",
+     "Gabbatha"
+    ],
+    "note": "Roman governor's headquarters where Pilate tries Jesus."
+   },
+   {
+    "id": "golgotha",
+    "name": "Golgotha",
+    "aliases": [
+     "the place of a skull"
+    ],
+    "note": "Hill outside the city where Jesus is crucified."
+   },
+   {
+    "id": "joseph_garden_tomb",
+    "name": "the garden tomb",
+    "aliases": [
+     "the new tomb",
+     "the tomb"
+    ],
+    "note": "New rock tomb in a garden near Golgotha where Jesus is laid and later found empty."
+   },
+   {
+    "id": "ephraim",
+    "name": "Ephraim",
+    "aliases": [
+     "the city near the wilderness"
+    ],
+    "note": "Town in the country near the wilderness where Jesus stays before the last Passover."
+   },
+   {
+    "id": "sea_of_tiberias_shore",
+    "name": "the shore of the sea of Tiberias",
+    "aliases": [
+     "the beach"
+    ],
+    "note": "Lakeshore where the risen Jesus cooks breakfast for the seven disciples."
+   },
+   {
+    "id": "enon_salim",
+    "name": "Enon near Salim",
+    "aliases": [
+     "Enon"
+    ],
+    "note": "Place with much water where John baptizes."
+   }
+  ],
+  "sections": [
+   {
+    "start": "1:1",
+    "end": "1:18",
+    "title": "The Word and the light",
+    "setting": [],
+    "on_stage": [
+     "jesus"
+    ],
+    "mentioned_only": [
+     "john_the_baptist"
+    ]
+   },
+   {
+    "start": "1:19",
+    "end": "1:28",
+    "title": "John denies being the Christ",
+    "setting": [
+     "bethany_beyond_jordan"
+    ],
+    "on_stage": [
+     "john_the_baptist",
+     "the_crowd"
+    ],
+    "mentioned_only": [
+     "the_chief_priests"
+    ]
+   },
+   {
+    "start": "1:29",
+    "end": "1:34",
+    "title": "The Lamb of God",
+    "setting": [
+     "bethany_beyond_jordan"
+    ],
+    "on_stage": [
+     "john_the_baptist",
+     "jesus"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "1:35",
+    "end": "1:42",
+    "title": "First disciples follow Jesus",
+    "setting": [
+     "bethany_beyond_jordan"
+    ],
+    "on_stage": [
+     "john_the_baptist",
+     "john_the_disciple",
+     "andrew",
+     "simon_peter",
+     "jesus"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "1:43",
+    "end": "1:51",
+    "title": "Philip and Nathanael",
+    "setting": [
+     "galilee"
+    ],
+    "on_stage": [
+     "jesus",
+     "philip",
+     "nathanael"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "2:1",
+    "end": "2:11",
+    "title": "Water into wine at Cana",
+    "setting": [
+     "cana"
+    ],
+    "on_stage": [
+     "jesus",
+     "mary_mother_of_jesus",
+     "the_servants_at_cana",
+     "the_ruler_of_the_feast",
+     "the_bridegroom",
+     "the_disciples"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "2:12",
+    "end": "2:22",
+    "title": "Cleansing the temple",
+    "setting": [
+     "capernaum",
+     "temple",
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_disciples",
+     "the_chief_priests"
+    ],
+    "mentioned_only": [
+     "mary_mother_of_jesus"
+    ]
+   },
+   {
+    "start": "2:23",
+    "end": "3:21",
+    "title": "Nicodemus comes by night",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "nicodemus"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "3:22",
+    "end": "3:36",
+    "title": "John's final testimony",
+    "setting": [
+     "enon_salim",
+     "bethany_beyond_jordan"
+    ],
+    "on_stage": [
+     "john_the_baptist",
+     "the_disciples_of_john",
+     "jesus"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "4:1",
+    "end": "4:26",
+    "title": "Jesus and the Samaritan woman at the well",
+    "setting": [
+     "samaria_sychar"
+    ],
+    "on_stage": [
+     "jesus",
+     "samaritan_woman"
+    ],
+    "mentioned_only": [
+     "the_disciples"
+    ]
+   },
+   {
+    "start": "4:27",
+    "end": "4:42",
+    "title": "The disciples return; the town believes",
+    "setting": [
+     "samaria_sychar"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_disciples",
+     "samaritan_woman",
+     "the_crowd"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "4:43",
+    "end": "4:54",
+    "title": "The nobleman's son healed",
+    "setting": [
+     "cana",
+     "capernaum"
+    ],
+    "on_stage": [
+     "jesus",
+     "nobleman"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "5:1",
+    "end": "5:18",
+    "title": "The man at Bethesda healed on the Sabbath",
+    "setting": [
+     "jerusalem",
+     "bethesda_pool"
+    ],
+    "on_stage": [
+     "jesus",
+     "invalid_man",
+     "the_chief_priests"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "5:19",
+    "end": "5:47",
+    "title": "The Son's authority and the witnesses",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_chief_priests"
+    ],
+    "mentioned_only": [
+     "john_the_baptist",
+     "moses"
+    ]
+   },
+   {
+    "start": "6:1",
+    "end": "6:21",
+    "title": "Feeding the five thousand; walking on the sea",
+    "setting": [
+     "galilee"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_disciples",
+     "philip",
+     "andrew",
+     "the_crowd"
+    ],
+    "mentioned_only": [
+     "simon_peter"
+    ]
+   },
+   {
+    "start": "6:22",
+    "end": "6:59",
+    "title": "The bread of life discourse",
+    "setting": [
+     "capernaum",
+     "galilee"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_crowd",
+     "the_chief_priests"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "6:60",
+    "end": "6:71",
+    "title": "Many disciples leave; Peter confesses",
+    "setting": [
+     "capernaum"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_disciples",
+     "simon_peter",
+     "judas_iscariot"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "7:1",
+    "end": "7:13",
+    "title": "Brothers urge Jesus to the feast",
+    "setting": [
+     "galilee",
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus"
+    ],
+    "mentioned_only": [
+     "the_crowd"
+    ]
+   },
+   {
+    "start": "7:14",
+    "end": "7:36",
+    "title": "Jesus teaches at the Feast of Booths",
+    "setting": [
+     "temple"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_crowd",
+     "the_chief_priests"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "7:37",
+    "end": "7:53",
+    "title": "Rivers of living water; division among the crowd",
+    "setting": [
+     "temple"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_crowd",
+     "the_soldiers",
+     "the_chief_priests",
+     "nicodemus"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "8:1",
+    "end": "8:11",
+    "title": "The woman taken in adultery",
+    "setting": [
+     "temple"
+    ],
+    "on_stage": [
+     "jesus",
+     "woman_taken_in_adultery",
+     "the_chief_priests"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "8:12",
+    "end": "8:30",
+    "title": "I am the light of the world",
+    "setting": [
+     "temple"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_chief_priests"
+    ],
+    "mentioned_only": [
+     "the_father"
+    ]
+   },
+   {
+    "start": "8:31",
+    "end": "8:59",
+    "title": "Freedom, Abraham and the I AM",
+    "setting": [
+     "temple"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_crowd",
+     "the_chief_priests"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "9:1",
+    "end": "9:12",
+    "title": "The man born blind",
+    "setting": [
+     "jerusalem",
+     "siloam"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_disciples",
+     "blind_man",
+     "the_crowd"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "9:13",
+    "end": "9:34",
+    "title": "The Pharisees question the healed man",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "blind_man",
+     "blind_mans_parents",
+     "the_chief_priests"
+    ],
+    "mentioned_only": [
+     "jesus"
+    ]
+   },
+   {
+    "start": "9:35",
+    "end": "9:41",
+    "title": "The man worships; the blind and seeing",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "blind_man",
+     "the_chief_priests"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "10:1",
+    "end": "10:21",
+    "title": "The good shepherd",
+    "setting": [
+     "temple"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_crowd"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "10:22",
+    "end": "10:42",
+    "title": "At the Feast of Dedication; Jesus across the Jordan",
+    "setting": [
+     "temple",
+     "bethany_beyond_jordan"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_crowd",
+     "the_chief_priests"
+    ],
+    "mentioned_only": [
+     "john_the_baptist"
+    ]
+   },
+   {
+    "start": "11:1",
+    "end": "11:16",
+    "title": "The illness of Lazarus",
+    "setting": [
+     "bethany"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_disciples",
+     "thomas"
+    ],
+    "mentioned_only": [
+     "lazarus",
+     "martha",
+     "mary_of_bethany"
+    ]
+   },
+   {
+    "start": "11:17",
+    "end": "11:37",
+    "title": "Martha and Mary meet Jesus",
+    "setting": [
+     "bethany"
+    ],
+    "on_stage": [
+     "jesus",
+     "martha",
+     "mary_of_bethany",
+     "the_crowd"
+    ],
+    "mentioned_only": [
+     "lazarus"
+    ]
+   },
+   {
+    "start": "11:38",
+    "end": "11:44",
+    "title": "Lazarus raised from the tomb",
+    "setting": [
+     "bethany",
+     "joseph_garden_tomb"
+    ],
+    "on_stage": [
+     "jesus",
+     "martha",
+     "lazarus",
+     "the_crowd"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "11:45",
+    "end": "11:57",
+    "title": "The council plans Jesus' death",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "the_chief_priests",
+     "caiaphas"
+    ],
+    "mentioned_only": [
+     "jesus"
+    ]
+   },
+   {
+    "start": "11:57",
+    "end": "12:11",
+    "title": "Jesus withdraws; Lazarus at supper",
+    "setting": [
+     "ephraim",
+     "bethany"
+    ],
+    "on_stage": [
+     "jesus",
+     "lazarus",
+     "martha",
+     "mary_of_bethany",
+     "judas_iscariot",
+     "the_disciples"
+    ],
+    "mentioned_only": [
+     "the_chief_priests"
+    ]
+   },
+   {
+    "start": "12:12",
+    "end": "12:19",
+    "title": "Triumphal entry",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_crowd",
+     "the_chief_priests"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "12:20",
+    "end": "12:36",
+    "title": "Greeks seek Jesus; the hour of glory",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "philip",
+     "andrew",
+     "the_crowd"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "12:37",
+    "end": "12:50",
+    "title": "Unbelief and Jesus' final cry",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_crowd"
+    ],
+    "mentioned_only": [
+     "isaiah"
+    ]
+   },
+   {
+    "start": "13:1",
+    "end": "13:20",
+    "title": "The washing of the feet",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_disciples",
+     "simon_peter",
+     "judas_iscariot"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "13:21",
+    "end": "13:38",
+    "title": "The betrayal foretold; the new commandment",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_disciples",
+     "john_the_disciple",
+     "simon_peter",
+     "judas_iscariot"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "14:1",
+    "end": "14:14",
+    "title": "The way to the Father",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "thomas",
+     "philip",
+     "the_disciples"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "14:15",
+    "end": "14:31",
+    "title": "The promise of the Counselor",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "judas_not_iscariot",
+     "the_disciples"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "15:1",
+    "end": "15:17",
+    "title": "The true vine",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_disciples"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "15:18",
+    "end": "16:15",
+    "title": "The world's hatred; the Spirit's witness",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_disciples"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "16:16",
+    "end": "16:33",
+    "title": "Sorrow turned to joy",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_disciples"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "17:1",
+    "end": "17:26",
+    "title": "The high priestly prayer",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_disciples"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "18:1",
+    "end": "18:11",
+    "title": "The arrest in the garden",
+    "setting": [
+     "kidron_garden"
+    ],
+    "on_stage": [
+     "jesus",
+     "judas_iscariot",
+     "the_soldiers",
+     "simon_peter",
+     "malchus",
+     "the_disciples"
+    ],
+    "mentioned_only": [
+     "the_chief_priests"
+    ]
+   },
+   {
+    "start": "18:12",
+    "end": "18:27",
+    "title": "Peter's denials; Jesus before Annas",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "annas",
+     "caiaphas",
+     "simon_peter",
+     "the_soldiers"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "18:28",
+    "end": "18:40",
+    "title": "Jesus before Pilate; Barabbas",
+    "setting": [
+     "praetorium"
+    ],
+    "on_stage": [
+     "jesus",
+     "pilate",
+     "the_chief_priests",
+     "the_crowd",
+     "barabbas"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "19:1",
+    "end": "19:16",
+    "title": "Flogging, crown and sentence",
+    "setting": [
+     "praetorium"
+    ],
+    "on_stage": [
+     "jesus",
+     "pilate",
+     "the_soldiers",
+     "the_chief_priests",
+     "the_crowd"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "19:17",
+    "end": "19:27",
+    "title": "The crucifixion; the mother and the disciple",
+    "setting": [
+     "golgotha"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_soldiers",
+     "mary_mother_of_jesus",
+     "john_the_disciple",
+     "mary_magdalene",
+     "the_chief_priests"
+    ],
+    "mentioned_only": [
+     "the_cross_thieves"
+    ]
+   },
+   {
+    "start": "19:28",
+    "end": "19:37",
+    "title": "The death of Jesus; the soldiers' spear",
+    "setting": [
+     "golgotha"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_soldiers",
+     "the_chief_priests"
+    ],
+    "mentioned_only": [
+     "the_cross_thieves"
+    ]
+   },
+   {
+    "start": "19:38",
+    "end": "19:42",
+    "title": "The burial",
+    "setting": [
+     "golgotha",
+     "joseph_garden_tomb"
+    ],
+    "on_stage": [
+     "joseph_of_arimathea",
+     "nicodemus"
+    ],
+    "mentioned_only": [
+     "pilate",
+     "jesus"
+    ]
+   },
+   {
+    "start": "20:1",
+    "end": "20:10",
+    "title": "The empty tomb",
+    "setting": [
+     "joseph_garden_tomb"
+    ],
+    "on_stage": [
+     "mary_magdalene",
+     "simon_peter",
+     "john_the_disciple"
+    ],
+    "mentioned_only": [
+     "jesus"
+    ]
+   },
+   {
+    "start": "20:11",
+    "end": "20:18",
+    "title": "Mary meets the risen Lord",
+    "setting": [
+     "joseph_garden_tomb"
+    ],
+    "on_stage": [
+     "mary_magdalene",
+     "the_angels",
+     "jesus"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "20:19",
+    "end": "20:23",
+    "title": "Jesus appears to the disciples",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "the_disciples"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "20:24",
+    "end": "20:31",
+    "title": "Thomas and the purpose of the book",
+    "setting": [
+     "jerusalem"
+    ],
+    "on_stage": [
+     "jesus",
+     "thomas",
+     "the_disciples"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "21:1",
+    "end": "21:14",
+    "title": "Breakfast on the shore",
+    "setting": [
+     "sea_of_tiberias_shore",
+     "galilee"
+    ],
+    "on_stage": [
+     "jesus",
+     "simon_peter",
+     "thomas",
+     "nathanael",
+     "john_the_disciple",
+     "the_disciples"
+    ],
+    "mentioned_only": []
+   },
+   {
+    "start": "21:15",
+    "end": "21:25",
+    "title": "Peter restored; the beloved disciple",
+    "setting": [
+     "sea_of_tiberias_shore"
+    ],
+    "on_stage": [
+     "jesus",
+     "simon_peter",
+     "john_the_disciple"
+    ],
+    "mentioned_only": []
+   }
+  ],
+  "brief": {
+   "tone": "Contemplative and luminous, with a sense of divine glory breaking into ordinary life; quiet intimacy in dialogue scenes and tension in conflict scenes.",
+   "depiction_rules": [
+    "Depict Jesus as a Jewish man of the 1st century, not with the halo-and-blue-robe stereotype of later art unless the illustration calls for it.",
+    "Show the divine voice from the sky and the angels in white as light rather than as human figures where possible.",
+    "Handle the crucifixion with restraint, avoiding gratuitous gore while keeping its weight.",
+    "Do not depict God the Father in human form.",
+    "Show the Holy Spirit as a dove or as wind/breath only where the text names it.",
+    "Avoid caricaturing Jews, Pharisees and Judas; depict the opponents as religious authorities and crowds with individual dignity."
+   ],
+   "era": {
+    "name": "Roman Judea and Galilee, c. AD 30",
+    "people": "Jewish villagers, fishermen, priests, Pharisees, Samaritans, Roman soldiers and officials; mostly brown-skinned Mediterranean people with dark hair and beards for men.",
+    "dress": "Linen tunics, woolen cloaks and mantles, head coverings, sandals; priests in linen robes; Roman soldiers in armor and tunic; purple garment as mock royalty.",
+    "buildings_and_objects": "Stone houses with flat roofs, village wells, stone water jars, the Jerusalem temple and its courts, synagogues, rock-cut tombs closed by a rolled stone, lamps, nets and boats on the Sea of Galilee, olive groves and vineyards.",
+    "technology": "Oil lamps, torches, handmade boats and nets, hand-milled grain and baked bread, wine and oil; no photography, no printed books, no firearms, no clocks; Roman roads and governor's praetorium exist."
+   }
+  }
+ },
+ "usage": {
+  "prompt_tokens": 38804,
+  "completion_tokens": 10424,
+  "total_tokens": 49228,
+  "cost": 0.0090924,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0090924,
+   "upstream_inference_prompt_cost": 0.0038804,
+   "upstream_inference_completions_cost": 0.005212
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

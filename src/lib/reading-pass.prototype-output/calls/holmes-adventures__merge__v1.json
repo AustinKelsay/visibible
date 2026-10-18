@@ -1,0 +1,2388 @@
+{
+ "record": {
+  "label": "holmes-adventures__merge__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354792-EqVycT0J1dVa7y0hCoa6",
+  "seconds": 58.4,
+  "finish_reason": "stop",
+  "prompt_tokens": 33327,
+  "completion_tokens": 19484,
+  "cost": 0.0130747,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:20:50"
+ },
+ "system": "You merge the reading-pass results for the divisions of one work into one cast. You get, for each division, its characters and locations (id, name, aliases, note, and for characters a possible same_person_as link) and the titles of the sections each one appears in.\n\nReturn:\n1. characters: one entry per individual across the whole work. Merge division entries that are the same individual, even when the divisions used different ids or names. Entries that name each other (one's same_person_as points at the other, or one's aliases include the other's name) are candidates to be one individual: merge them when the notes and the story support it, and otherwise keep them apart and say why in the note. Keep entries apart when they are different individuals who share a name; never join entries on a shared name alone. The note is one line saying who this is and how to tell them apart. `members` lists every merged division entry as \"division:id\".\n2. locations: the same, for places. Two places are one entry only when they are the same place, not when one is inside the other.\n\nEvery division entry must appear in exactly one merged entry's members. Use short, stable snake_case ids.",
+ "user_chars": 80990,
+ "content": "{\"characters\":[{\"id\":\"sherlock_holmes\",\"name\":\"Sherlock Holmes\",\"aliases\":[\"Holmes\",\"Mr. Holmes\",\"my friend\",\"Master Holmes\",\"the consulting detective\",\"Mr. Sherlock Holmes\"],\"note\":\"Consulting detective of 221B Baker Street, narrated through Watson's eyes; present throughout the cases in these divisions and the one who solves each.\",\"kind\":\"person\",\"members\":[\"a-scandal-in-bohemia:sherlock_holmes\",\"the-red-headed-league:holmes\",\"a-case-of-identity:sherlock_holmes\",\"the-boscombe-valley-mystery:sherlock_holmes\",\"the-five-orange-pips:sherlock_holmes\",\"the-man-with-the-twisted-lip:sherlock_holmes\",\"the-adventure-of-the-blue-carbuncle:sherlock_holmes\",\"the-adventure-of-the-speckled-band:sherlock_holmes\",\"the-adventure-of-the-engineers-thumb:holmes\",\"the-adventure-of-the-noble-bachelor:sherlock_holmes\",\"the-adventure-of-the-beryl-coronet:holmes\",\"the-adventure-of-the-copper-beeches:sherlock_holmes\"]},{\"id\":\"dr_watson\",\"name\":\"Dr. Watson\",\"aliases\":[\"Watson\",\"I\",\"my dear Doctor\",\"Doctor\",\"my dear Watson\",\"the narrator\"],\"note\":\"Narrator and Holmes's companion, a doctor; first-person voice throughout these divisions.\",\"kind\":\"person\",\"members\":[\"a-scandal-in-bohemia:dr_watson\",\"the-red-headed-league:watson\",\"a-case-of-identity:watson\",\"the-boscombe-valley-mystery:watson\",\"the-five-orange-pips:watson\",\"the-man-with-the-twisted-lip:watson\",\"the-adventure-of-the-blue-carbuncle:watson\",\"the-adventure-of-the-speckled-band:watson\",\"the-adventure-of-the-engineers-thumb:watson\",\"the-adventure-of-the-noble-bachelor:watson\",\"the-adventure-of-the-beryl-coronet:watson\",\"the-adventure-of-the-copper-beeches:watson\"]},{\"id\":\"king_of_bohemia\",\"name\":\"Wilhelm Gottsreich Sigismond von Ormstein\",\"aliases\":[\"the King\",\"the King of Bohemia\",\"Count Von Kramm\",\"your Majesty\"],\"note\":\"Hereditary King of Bohemia who visits Baker Street disguised as Count Von Kramm to recover his photograph with Irene Adler; distinct from the Bohemian royal figures of other stories.\",\"kind\":\"person\",\"members\":[\"a-scandal-in-bohemia:king_of_bohemia\"]},{\"id\":\"irene_adler\",\"name\":\"Irene Adler\",\"aliases\":[\"Irene Norton\",\"Irene Adler Norton\",\"Madame\",\"Miss Irene\",\"the woman\",\"the adventuress\"],\"note\":\"Former opera contralto and adventuress of Briony Lodge who marries Godfrey Norton and flees to the Continent.\",\"kind\":\"person\",\"members\":[\"a-scandal-in-bohemia:irene_adler\"]},{\"id\":\"godfrey_norton\",\"name\":\"Godfrey Norton\",\"aliases\":[\"Mr. Godfrey Norton\",\"Norton\",\"the bridegroom\",\"the lawyer\"],\"note\":\"Barrister of the Inner Temple who visits Irene Adler and becomes her husband; not to be confused with other Norton-named figures.\",\"kind\":\"person\",\"members\":[\"a-scandal-in-bohemia:godfrey_norton\"]},{\"id\":\"john_coachman\",\"name\":\"John\",\"aliases\":[\"the coachman\"],\"note\":\"Irene Adler's coachman sent to watch Holmes; distinct from the cabman and stable-boy John of the Man With the Twisted Lip.\",\"kind\":\"person\",\"members\":[\"a-scandal-in-bohemia:john_coachman\"]},{\"id\":\"mrs_turner\",\"name\":\"Mrs. Turner\",\"aliases\":[\"our landlady\"],\"note\":\"Landlady at Baker Street; distinct from Mrs. Hudson, the landlady of other stories.\",\"kind\":\"person\",\"members\":[\"a-scandal-in-bohemia:mrs_turner\"]},{\"id\":\"mary_jane\",\"name\":\"Mary Jane\",\"aliases\":[\"the servant girl\",\"the slavey\"],\"note\":\"Watson's careless servant mentioned in passing by Holmes's deductions; distinct from the other Mary characters.\",\"kind\":\"person\",\"members\":[\"a-scandal-in-bohemia:mary_jane\"]},{\"id\":\"irene_servant\",\"name\":\"the elderly woman\",\"aliases\":[\"the maid\",\"the servant at Briony Lodge\",\"the elderly servant\"],\"note\":\"Elderly servant at Briony Lodge who tells Holmes the lady has left for the Continent.\",\"kind\":\"person\",\"members\":[\"a-scandal-in-bohemia:irene_servant\"]},{\"id\":\"street_loungers\",\"name\":\"the loungers\",\"aliases\":[\"the crowd\",\"the guardsmen\",\"the scissors-grinder\",\"the spectators\"],\"note\":\"Group of confederates staging the street quarrel and false fire alarm on Holmes's orders.\",\"kind\":\"group\",\"members\":[\"a-scandal-in-bohemia:street_loungers\"]},{\"id\":\"youth_in_ulster\",\"name\":\"the slim youth in an ulster\",\"aliases\":[\"the passer-by\"],\"note\":\"Unidentified youth who greets Holmes by name in the street at the end of the Bohemia story.\",\"kind\":\"person\",\"members\":[\"a-scandal-in-bohemia:youth_in_ulster\"]},{\"id\":\"jabez_wilson\",\"name\":\"Jabez Wilson\",\"aliases\":[\"Mr. Wilson\",\"the red-headed client\",\"the portly client\"],\"note\":\"Stout, red-haired pawnbroker of Saxe-Coburg Square who brings the Red-Headed League case.\",\"kind\":\"person\",\"members\":[\"the-red-headed-league:jabez_wilson\"]},{\"id\":\"vincent_spaulding\",\"name\":\"Vincent Spaulding\",\"aliases\":[\"the assistant\",\"Spaulding\",\"the smooth-faced assistant\"],\"note\":\"Clean-shaven assistant of Wilson who is really John Clay's accomplice in disguise; distinct from the criminal leader Clay.\",\"kind\":\"person\",\"members\":[\"the-red-headed-league:vincent_spaulding\"]},{\"id\":\"duncan_ross\",\"name\":\"Duncan Ross\",\"aliases\":[\"the little red-headed manager\",\"William Morris\",\"the manager\"],\"note\":\"Small red-headed man running the League office at Pope's Court under a false identity, allied with Clay.\",\"kind\":\"person\",\"members\":[\"the-red-headed-league:duncan_ross\"]},{\"id\":\"john_clay\",\"name\":\"John Clay\",\"aliases\":[\"young John Clay\",\"the prisoner\",\"his Highness\"],\"note\":\"Royal-blooded young thief and forger who tunnelled from the pawnshop cellar to the bank; arrested in the vault.\",\"kind\":\"person\",\"members\":[\"the-red-headed-league:john_clay\"]},{\"id\":\"archie\",\"name\":\"Archie\",\"aliases\":[\"the pale red-haired companion\",\"the other\"],\"note\":\"Red-haired accomplice of John Clay who escapes down the hole.\",\"kind\":\"person\",\"members\":[\"the-red-headed-league:archie\"]},{\"id\":\"peter_jones\",\"name\":\"Peter Jones\",\"aliases\":[\"Jones\",\"the official police agent\"],\"note\":\"Official police agent from Scotland Yard who hunts with Holmes in the Red-Headed League case.\",\"kind\":\"person\",\"members\":[\"the-red-headed-league:peter_jones\"]},{\"id\":\"mr_merryweather\",\"name\":\"Mr. Merryweather\",\"aliases\":[\"the bank director\",\"the chairman of directors\",\"Merryweather\"],\"note\":\"Solemn chairman of the bank directors of the City and Suburban Bank branch, and a whist player.\",\"kind\":\"person\",\"members\":[\"the-red-headed-league:mr_merryweather\"]},{\"id\":\"mary_sutherland\",\"name\":\"Miss Mary Sutherland\",\"aliases\":[\"Miss Sutherland\",\"the young lady\",\"the maiden\"],\"note\":\"Typewriting young woman whose missing fiancé Hosmer Angel is her stepfather in disguise; distinct from the Mary of other stories, and the Miss Sutherland mentioned in Red-Headed League only in passing.\",\"kind\":\"person\",\"members\":[\"the-red-headed-league:mary_sutherland\",\"a-case-of-identity:mary_sutherland\"]},{\"id\":\"ezekiah_hopkins\",\"name\":\"Ezekiah Hopkins\",\"aliases\":[\"the American millionaire\",\"the late Ezekiah Hopkins\",\"the benefactor\"],\"note\":\"Deceased American millionaire who founded the Red-Headed League; referred to only.\",\"kind\":\"person\",\"members\":[\"the-red-headed-league:ezekiah_hopkins\"]},{\"id\":\"james_windibank\",\"name\":\"Mr. James Windibank\",\"aliases\":[\"Mr. Windibank\",\"stepfather\",\"the stepfather\",\"the travelling wine agent\",\"Hosmer Angel\",\"Mr. Hosmer Angel\",\"the missing bridegroom\",\"the gentleman with tinted glasses\"],\"note\":\"Mary Sutherland's stepfather who secretly disguised himself as her fiancé Hosmer Angel to prevent the marriage; Hosmer Angel is not a real person in the story.\",\"kind\":\"person\",\"members\":[\"a-case-of-identity:james_windibank\",\"a-case-of-identity:hosmer_angel\"]},{\"id\":\"mrs_sutherland\",\"name\":\"Mrs. Sutherland\",\"aliases\":[\"mother\",\"Mary's mother\"],\"note\":\"Widow who remarried Windibank and was in on the deception; not on stage.\",\"kind\":\"person\",\"members\":[\"a-case-of-identity:mrs_sutherland\"]},{\"id\":\"mr_hardy\",\"name\":\"Mr. Hardy\",\"aliases\":[\"the foreman\"],\"note\":\"Former foreman of Mary's late father's business; mentioned only.\",\"kind\":\"person\",\"members\":[\"a-case-of-identity:mr_hardy\"]},{\"id\":\"mrs_watson\",\"name\":\"Mrs. Watson\",\"aliases\":[\"my wife\",\"James's wife\"],\"note\":\"Watson's wife, appearing only at the opening of The Man With the Twisted Lip and in the Boscombe breakfast scene.\",\"kind\":\"person\",\"members\":[\"the-boscombe-valley-mystery:mrs_watson\",\"the-man-with-the-twisted-lip:mrs_watson\"]},{\"id\":\"lestrade\",\"name\":\"Lestrade\",\"aliases\":[\"Mr. Lestrade\",\"Lestrade of Scotland Yard\",\"the inspector\",\"the official detective\",\"Scotland Yard man\"],\"note\":\"Ferret-like Scotland Yard detective; appears in the Boscombe and Noble Bachelor cases.\",\"kind\":\"person\",\"members\":[\"the-boscombe-valley-mystery:lestrade\",\"the-adventure-of-the-noble-bachelor:lestrade\"]},{\"id\":\"alice_turner\",\"name\":\"Alice Turner\",\"aliases\":[\"Miss Turner\",\"the young lady\",\"Turner's daughter\",\"Alice\"],\"note\":\"Daughter of John Turner who hires Holmes in the Boscombe Valley case; distinct from Alice the maid of the Noble Bachelor case.\",\"kind\":\"person\",\"members\":[\"the-boscombe-valley-mystery:alice_turner\"]},{\"id\":\"james_mccarthy\",\"name\":\"James McCarthy\",\"aliases\":[\"young McCarthy\",\"James\",\"the son\",\"the accused\"],\"note\":\"Son of Charles McCarthy, accused of killing his father in the Boscombe Valley case.\",\"kind\":\"person\",\"members\":[\"the-boscombe-valley-mystery:james_mccarthy\"]},{\"id\":\"charles_mccarthy\",\"name\":\"Charles McCarthy\",\"aliases\":[\"McCarthy senior\",\"Mr. McCarthy\",\"the murdered man\",\"old McCarthy\",\"the dead man\"],\"note\":\"Former convict driver, tenant of Hatherley Farm, and murder victim by the pool.\",\"kind\":\"person\",\"members\":[\"the-boscombe-valley-mystery:charles_mccarthy\"]},{\"id\":\"john_turner\",\"name\":\"John Turner\",\"aliases\":[\"Mr. Turner\",\"Black Jack of Ballarat\",\"old Turner\",\"the old man\",\"the landowner\"],\"note\":\"Wealthy landowner of the Hall and the actual killer in the Boscombe Valley case.\",\"kind\":\"person\",\"members\":[\"the-boscombe-valley-mystery:john_turner\"]},{\"id\":\"william_crowder\",\"name\":\"William Crowder\",\"aliases\":[\"the game-keeper\",\"the keeper\"],\"note\":\"Game-keeper employed by Turner who witnessed McCarthy walking alone.\",\"kind\":\"person\",\"members\":[\"the-boscombe-valley-mystery:william_crowder\"]},{\"id\":\"patience_moran\",\"name\":\"Patience Moran\",\"aliases\":[\"the girl\",\"the little girl\",\"Moran\"],\"note\":\"Fourteen-year-old daughter of the lodge-keeper who saw the McCarthys quarrelling.\",\"kind\":\"person\",\"members\":[\"the-boscombe-valley-mystery:patience_moran\"]},{\"id\":\"dr_willows\",\"name\":\"Dr. Willows\",\"aliases\":[\"the doctor\"],\"note\":\"Physician attending John Turner.\",\"kind\":\"person\",\"members\":[\"the-boscombe-valley-mystery:dr_willows\"]},{\"id\":\"john_cobb\",\"name\":\"John Cobb\",\"aliases\":[\"the groom\",\"the serving-man\"],\"note\":\"Groom and servant of McCarthy; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-boscombe-valley-mystery:john_cobb\"]},{\"id\":\"moran_lodge_keeper\",\"name\":\"Moran, the lodge-keeper\",\"aliases\":[\"the lodge-keeper\",\"Patience's father\"],\"note\":\"Lodge-keeper of the Boscombe Valley estate, father of Patience Moran.\",\"kind\":\"person\",\"members\":[\"the-boscombe-valley-mystery:moran_lodge_keeper\"]},{\"id\":\"barmaid_wife\",\"name\":\"the barmaid\",\"aliases\":[\"James's barmaid wife\"],\"note\":\"Bristol barmaid whom James secretly married; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-boscombe-valley-mystery:barmaid_wife\"]},{\"id\":\"john_openshaw\",\"name\":\"John Openshaw\",\"aliases\":[\"young Openshaw\",\"the young man\"],\"note\":\"Young client, nephew of Colonel Elias Openshaw, found drowned near Waterloo Bridge; not to be confused with his uncle.\",\"kind\":\"person\",\"members\":[\"the-five-orange-pips:john_openshaw\"]},{\"id\":\"colonel_elias_openshaw\",\"name\":\"Colonel Elias Openshaw\",\"aliases\":[\"my uncle\",\"the colonel\",\"Elias Openshaw\"],\"note\":\"Uncle of John Openshaw, former Confederate colonel who dies in a garden pool after the K.K.K. warning; not to be confused with John.\",\"kind\":\"person\",\"members\":[\"the-five-orange-pips:colonel_elias_openshaw\"]},{\"id\":\"joseph_openshaw\",\"name\":\"Joseph Openshaw\",\"aliases\":[\"my father\",\"Openshaw senior\"],\"note\":\"Brother of Colonel Elias and father of John; dies falling into a chalk-pit.\",\"kind\":\"person\",\"members\":[\"the-five-orange-pips:joseph_openshaw\"]},{\"id\":\"major_prendergast\",\"name\":\"Major Prendergast\",\"aliases\":[\"Prendergast\"],\"note\":\"Army officer who referred Openshaw to Holmes; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-five-orange-pips:major_prendergast\"]},{\"id\":\"fordham\",\"name\":\"Mr. Fordham\",\"aliases\":[\"the Horsham lawyer\"],\"note\":\"Horsham lawyer who witnessed the colonel's will; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-five-orange-pips:fordham\"]},{\"id\":\"major_freebody\",\"name\":\"Major Freebody\",\"aliases\":[\"the major\"],\"note\":\"Commander of a fort on Portsdown Hill; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-five-orange-pips:major_freebody\"]},{\"id\":\"captain_james_calhoun\",\"name\":\"Captain James Calhoun\",\"aliases\":[\"Captain Calhoun\",\"the leader of the gang\"],\"note\":\"Master of the barque Lone Star and leader of the K.K.K. gang; never on stage.\",\"kind\":\"person\",\"members\":[\"the-five-orange-pips:captain_james_calhoun\"]},{\"id\":\"police_constable_cook\",\"name\":\"Police-Constable Cook\",\"aliases\":[\"Cook\"],\"note\":\"H Division constable who heard the cry near Waterloo Bridge; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-five-orange-pips:police_constable_cook\"]},{\"id\":\"hudson\",\"name\":\"Hudson\",\"aliases\":[],\"note\":\"Name in the colonel's 1869 diary page; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-five-orange-pips:hudson\"]},{\"id\":\"mccauley\",\"name\":\"McCauley\",\"aliases\":[],\"note\":\"Name in the 1869 diary page; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-five-orange-pips:mccauley\"]},{\"id\":\"paramore\",\"name\":\"Paramore\",\"aliases\":[],\"note\":\"Name in the 1869 diary page; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-five-orange-pips:paramore\"]},{\"id\":\"john_swain\",\"name\":\"John Swain\",\"aliases\":[\"John Swain of St. Augustine\"],\"note\":\"Name in the 1869 diary page; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-five-orange-pips:john_swain\"]},{\"id\":\"mary\",\"name\":\"Mary\",\"aliases\":[],\"note\":\"Household servant at Horsham; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-five-orange-pips:mary\"]},{\"id\":\"isa_whitney\",\"name\":\"Isa Whitney\",\"aliases\":[\"Whitney\",\"Mr. Whitney\"],\"note\":\"Brother of Elias Whitney and opium addict found in an opium den; husband of Kate Whitney.\",\"kind\":\"person\",\"members\":[\"the-man-with-the-twisted-lip:isa_whitney\"]},{\"id\":\"kate_whitney\",\"name\":\"Kate Whitney\",\"aliases\":[\"Kate\",\"Mrs. Whitney\"],\"note\":\"Wife of Isa Whitney who comes to Watson's house asking for help.\",\"kind\":\"person\",\"members\":[\"the-man-with-the-twisted-lip:kate_whitney\"]},{\"id\":\"malay_attendant\",\"name\":\"Malay attendant\",\"aliases\":[\"sallow Malay attendant\"],\"note\":\"Attendant at the opium den who offers Watson a pipe.\",\"kind\":\"person\",\"members\":[\"the-man-with-the-twisted-lip:malay_attendant\"]},{\"id\":\"lascar_manager\",\"name\":\"Lascar manager\",\"aliases\":[\"the Lascar\",\"rascally Lascar\",\"Lascar scoundrel\",\"Lascar confederate\"],\"note\":\"Keeper of the opium den in Upper Swandam Lane.\",\"kind\":\"person\",\"members\":[\"the-man-with-the-twisted-lip:lascar_manager\"]},{\"id\":\"dane_assistant\",\"name\":\"Dane assistant\",\"aliases\":[\"a Dane\"],\"note\":\"Assistant at the opium den; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-man-with-the-twisted-lip:dane_assistant\"]},{\"id\":\"neville_st_clair\",\"name\":\"Neville St. Clair\",\"aliases\":[\"Mr. St. Clair\",\"Hugh Boone\",\"the beggar\",\"the cripple\",\"the man in the bath\",\"Boone\",\"the beggar with the twisted lip\",\"the lodger\"],\"note\":\"Respectable Lee gentleman who disguised himself as the beggar Hugh Boone; Hugh Boone is the same person and is merged here.\",\"kind\":\"person\",\"members\":[\"the-man-with-the-twisted-lip:neville_st_clair\",\"the-man-with-the-twisted-lip:hugh_boone\"]},{\"id\":\"mrs_st_clair\",\"name\":\"Mrs. St. Clair\",\"aliases\":[\"the little blonde woman\",\"the lady\",\"Mrs. Neville St. Clair\",\"my wife\",\"the wife\"],\"note\":\"Wife of Neville St. Clair living at The Cedars in Lee.\",\"kind\":\"person\",\"members\":[\"the-man-with-the-twisted-lip:mrs_st_clair\"]},{\"id\":\"inspector_barton\",\"name\":\"Inspector Barton\",\"aliases\":[\"Barton\"],\"note\":\"Police inspector who searched the den; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-man-with-the-twisted-lip:inspector_barton\"]},{\"id\":\"inspector_bradstreet\",\"name\":\"Inspector Bradstreet\",\"aliases\":[\"Bradstreet\",\"the inspector\"],\"note\":\"Police inspector who receives Holmes at Bow Street in one story and arrests Horner in another.\",\"kind\":\"person\",\"members\":[\"the-man-with-the-twisted-lip:inspector_bradstreet\",\"the-adventure-of-the-blue-carbuncle:inspector_bradstreet\",\"the-adventure-of-the-engineers-thumb:bradstreet\"]},{\"id\":\"john_stable_boy\",\"name\":\"John the cabman\",\"aliases\":[\"John\",\"the stable-boy\",\"the cabman\"],\"note\":\"Cabman who drives Whitney home and stable-boy at The Cedars; distinct from John Coachman of the Bohemia story.\",\"kind\":\"person\",\"members\":[\"the-man-with-the-twisted-lip:john_stable_boy\"]},{\"id\":\"new_horse_cart\",\"name\":\"the horse\",\"aliases\":[\"the trap\",\"the dog-cart\"],\"note\":\"Reference point for the conveyance rather than a character.\",\"kind\":\"other\",\"members\":[\"the-man-with-the-twisted-lip:new_horse_cart\"]},{\"id\":\"victor_hatherley\",\"name\":\"Victor Hatherley\",\"aliases\":[\"Mr. Hatherley\",\"my patient\",\"the engineer\",\"Jeremiah Hayling\"],\"note\":\"Young hydraulic engineer who brings his ordeal to Watson and Holmes; the Hatherley of the title.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-engineers-thumb:victor_hatherley\"]},{\"id\":\"colonel_stark\",\"name\":\"Colonel Lysander Stark\",\"aliases\":[\"the colonel\",\"the German\",\"the sinister German\",\"Fritz\"],\"note\":\"Thin German-accented coiner who hires Hatherley under false pretences.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-engineers-thumb:colonel_stark\"]},{\"id\":\"elise\",\"name\":\"Elise\",\"aliases\":[\"the woman\",\"the lady\",\"the beautiful woman\"],\"note\":\"Young woman apparently Stark's wife or companion who warns Hatherley.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-engineers-thumb:elise\"]},{\"id\":\"ferguson\",\"name\":\"Mr. Ferguson\",\"aliases\":[\"the morose Englishman\",\"the fat manager\",\"the secretary and manager\"],\"note\":\"Stark's secretary and manager who helps carry Hatherley away.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-engineers-thumb:ferguson\"]},{\"id\":\"jeremiah_hayling\",\"name\":\"Jeremiah Hayling\",\"aliases\":[\"the missing engineer named in the advertisement\"],\"note\":\"Earlier victim of Stark's press, not present on stage.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-engineers-thumb:jeremiah_hayling\"]},{\"id\":\"guard\",\"name\":\"The guard\",\"aliases\":[\"my old ally\",\"the tout\"],\"note\":\"Railway guard who brings Hatherley to Watson at dawn.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-engineers-thumb:guard\"]},{\"id\":\"maid\",\"name\":\"The maid\",\"aliases\":[],\"note\":\"Watson's maid who announces visitors; unnamed.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-engineers-thumb:maid\"]},{\"id\":\"station_master\",\"name\":\"The station-master\",\"aliases\":[],\"note\":\"Station-master at Eyford who reports the fire.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-engineers-thumb:station_master\"]},{\"id\":\"eyford_porter\",\"name\":\"The porter\",\"aliases\":[\"the sleepy porter\"],\"note\":\"Night porter at Eyford Station.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-engineers-thumb:eyford_porter\"]},{\"id\":\"driver\",\"name\":\"The driver\",\"aliases\":[\"the coachman\"],\"note\":\"Unnamed driver who takes Hatherley from Eyford; never seen.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-engineers-thumb:driver\"]},{\"id\":\"lord_st_simon\",\"name\":\"Lord Robert St. Simon\",\"aliases\":[\"Lord St. Simon\",\"our client\",\"the bridegroom\",\"his Lordship\"],\"note\":\"Aristocratic bridegroom deserted at the wedding breakfast.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-noble-bachelor:lord_st_simon\"]},{\"id\":\"hatty_doran\",\"name\":\"Hatty Doran\",\"aliases\":[\"Lady St. Simon\",\"Mrs. Francis Hay Moulton\",\"the bride\",\"Mrs. Moulton\"],\"note\":\"Bride who vanished at the wedding breakfast to run off with her first husband Frank Moulton.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-noble-bachelor:hatty_doran\"]},{\"id\":\"francis_hay_moulton\",\"name\":\"Francis Hay Moulton\",\"aliases\":[\"Frank\",\"Mr. Moulton\",\"Frank Moulton\",\"the American\",\"the stranger in the pew\"],\"note\":\"Hatty's first husband, presumed dead, who appears at the wedding.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-noble-bachelor:francis_hay_moulton\"]},{\"id\":\"flora_millar\",\"name\":\"Flora Millar\",\"aliases\":[\"Miss Flora Millar\",\"F. H. M.\",\"the woman in the church\",\"the woman who caused the disturbance\"],\"note\":\"Former dancer and mistress of Lord St. Simon; distinct from Frank Moulton despite shared initials.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-noble-bachelor:flora_millar\"]},{\"id\":\"alice_maid\",\"name\":\"Alice\",\"aliases\":[\"the maid\",\"Lady St. Simon's maid\"],\"note\":\"Hatty Doran's American maid from California; distinct from Alice Turner of Boscombe Valley.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-noble-bachelor:alice\"]},{\"id\":\"aloysius_doran\",\"name\":\"Aloysius Doran\",\"aliases\":[\"Mr. Doran\",\"Pa\",\"the father of the bride\"],\"note\":\"Rich San Francisco mining man and father of Hatty Doran.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-noble-bachelor:aloysius_doran\"]},{\"id\":\"duke_of_balmoral\",\"name\":\"Duke of Balmoral\",\"aliases\":[\"the Duke\",\"the Duchess of Balmoral\"],\"note\":\"Father of Lord St. Simon; absent from the action.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-noble-bachelor:duke_of_balmoral\"]},{\"id\":\"lord_backwater\",\"name\":\"Lord Backwater\",\"aliases\":[],\"note\":\"Acquaintance who recommended Holmes; absent.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-noble-bachelor:lord_backwater\"]},{\"id\":\"alexander_holder\",\"name\":\"Alexander Holder\",\"aliases\":[\"Mr. Holder\",\"our client\",\"the banker\",\"dad\",\"uncle\"],\"note\":\"Senior partner of the banking firm Holder & Stevenson whose coronet is stolen.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-beryl-coronet:alexander_holder\"]},{\"id\":\"arthur_holder\",\"name\":\"Arthur Holder\",\"aliases\":[\"Arthur\",\"the boy\",\"my boy\",\"the lad\",\"my son\"],\"note\":\"Son of Alexander Holder suspected of stealing the coronet; innocent.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-beryl-coronet:arthur_holder\"]},{\"id\":\"mary_holder\",\"name\":\"Mary Holder\",\"aliases\":[\"Mary\",\"Miss Holder\",\"my little Mary\",\"my niece\",\"the young lady\"],\"note\":\"Niece of Alexander Holder who secretly took the coronet to her lover; distinct from Mary Sutherland and Mary Jane.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-beryl-coronet:mary_holder\"]},{\"id\":\"sir_george_burnwell\",\"name\":\"Sir George Burnwell\",\"aliases\":[\"Sir George\",\"Boots\",\"the man in the lane\",\"Arthur's friend\"],\"note\":\"Aristocratic gambler, Mary's lover, who took three beryls from the coronet.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-beryl-coronet:sir_george_burnwell\"]},{\"id\":\"the_client_nobleman\",\"name\":\"The illustrious client\",\"aliases\":[\"the nobleman\",\"the great personage\",\"my client\"],\"note\":\"Unnamed high-ranking person who deposited the coronet; off-stage.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-beryl-coronet:the_client_nobleman\"]},{\"id\":\"lucy_parr\",\"name\":\"Lucy Parr\",\"aliases\":[\"Lucy\",\"the second waiting-maid\",\"the maid\"],\"note\":\"Second waiting-maid at Fairbank with a sweetheart.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-beryl-coronet:lucy_parr\"]},{\"id\":\"francis_prosper\",\"name\":\"Francis Prosper\",\"aliases\":[\"Wooden-leg\",\"the greengrocer\"],\"note\":\"Greengrocer with a wooden leg, Lucy Parr's sweetheart.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-beryl-coronet:francis_prosper\"]},{\"id\":\"receiver_of_stolen_goods\",\"name\":\"The receiver\",\"aliases\":[\"the receiver\"],\"note\":\"Dealer who bought the stolen beryls; off-stage.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-beryl-coronet:receiver_of_stolen_goods\"]},{\"id\":\"henry_baker\",\"name\":\"Henry Baker\",\"aliases\":[\"Mr. Baker\",\"H. B.\",\"the owner of the hat\"],\"note\":\"Grizzled gentleman who lost the hat and goose; member of the Alpha Inn goose club.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-blue-carbuncle:henry_baker\"]},{\"id\":\"peterson\",\"name\":\"Peterson\",\"aliases\":[\"the commissionaire\"],\"note\":\"Honest commissionaire who finds the hat and goose.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-blue-carbuncle:peterson\"]},{\"id\":\"john_horner\",\"name\":\"John Horner\",\"aliases\":[\"Horner\",\"the plumber\"],\"note\":\"Plumber wrongly accused of stealing the blue carbuncle.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-blue-carbuncle:john_horner\"]},{\"id\":\"countess_of_morcar\",\"name\":\"Countess of Morcar\",\"aliases\":[\"the Countess\",\"her ladyship\"],\"note\":\"Owner of the blue carbuncle.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-blue-carbuncle:countess_of_morcar\"]},{\"id\":\"james_ryder\",\"name\":\"James Ryder\",\"aliases\":[\"Jem\",\"John Robinson\",\"Ryder\",\"the head attendant\",\"the little man\",\"rat-faced fellow\"],\"note\":\"Head attendant at the Hotel Cosmopolitan who stole the stone and hid it in a goose.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-blue-carbuncle:james_ryder\"]},{\"id\":\"catherine_cusack\",\"name\":\"Catherine Cusack\",\"aliases\":[\"Cusack\",\"the maid\",\"her ladyship's waiting-maid\"],\"note\":\"Maid to the Countess who was Ryder's accomplice.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-blue-carbuncle:catherine_cusack\"]},{\"id\":\"breckinridge\",\"name\":\"Breckinridge\",\"aliases\":[\"the salesman\",\"the Covent Garden salesman\"],\"note\":\"Covent Garden poultry salesman who sold the geese.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-blue-carbuncle:breckinridge\"]},{\"id\":\"windigate\",\"name\":\"Windigate\",\"aliases\":[\"the landlord\",\"the landlord of the Alpha\"],\"note\":\"Landlord of the Alpha Inn and host of the goose club.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-blue-carbuncle:windigate\"]},{\"id\":\"mrs_oakshott\",\"name\":\"Mrs. Oakshott\",\"aliases\":[\"Maggie\",\"Ryder's sister\",\"my sister\"],\"note\":\"Poultry supplier at Brixton Road and Ryder's sister.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-blue-carbuncle:mrs_oakshott\"]},{\"id\":\"mrs_hudson\",\"name\":\"Mrs. Hudson\",\"aliases\":[\"the housekeeper\"],\"note\":\"Holmes's landlady; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-blue-carbuncle:mrs_hudson\",\"the-adventure-of-the-speckled-band:mrs_hudson\"]},{\"id\":\"maudsley\",\"name\":\"Maudsley\",\"aliases\":[\"my pal\",\"a friend of Ryder's\"],\"note\":\"Ryder's former associate; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-blue-carbuncle:maudsley\"]},{\"id\":\"the_goose\",\"name\":\"the goose\",\"aliases\":[\"the white goose with a barred tail\",\"the bird\",\"the blue carbuncle's carrier\"],\"note\":\"White goose that swallowed the stone.\",\"kind\":\"animal\",\"members\":[\"the-adventure-of-the-blue-carbuncle:the_goose\"]},{\"id\":\"helen_stoner\",\"name\":\"Helen Stoner\",\"aliases\":[\"Miss Stoner\",\"Miss Roylott\",\"our visitor\",\"our client\",\"the lady in black\"],\"note\":\"Young woman who consults Holmes about her dead twin's death at Stoke Moran.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-speckled-band:helen_stoner\"]},{\"id\":\"julia_stoner\",\"name\":\"Julia Stoner\",\"aliases\":[\"my sister\",\"Julia\",\"the dead woman\"],\"note\":\"Helen's twin sister who died at Stoke Moran.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-speckled-band:julia_stoner\"]},{\"id\":\"grimesby_roylott\",\"name\":\"Dr. Grimesby Roylott\",\"aliases\":[\"the Doctor\",\"my stepfather\",\"Dr. Roylott\",\"the old man\",\"the apparition\"],\"note\":\"Violent Stoke Moran physician, stepfather of Helen and Julia, who dies of the swamp adder.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-speckled-band:grimesby_roylott\"]},{\"id\":\"percy_armitage\",\"name\":\"Percy Armitage\",\"aliases\":[\"Armitage\",\"my dear friend\"],\"note\":\"Helen's intended husband; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-speckled-band:percy_armitage\"]},{\"id\":\"aunt_honoria\",\"name\":\"Miss Honoria Westphail\",\"aliases\":[\"my aunt\",\"Aunt Westphail\"],\"note\":\"Maternal aunt of Helen and Julia; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-speckled-band:aunt_honoria\"]},{\"id\":\"mrs_farintosh\",\"name\":\"Mrs. Farintosh\",\"aliases\":[\"Farintosh\"],\"note\":\"Earlier client of Holmes; mentioned only.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-speckled-band:mrs_farintosh\"]},{\"id\":\"swamp_adder\",\"name\":\"Swamp adder\",\"aliases\":[\"the speckled band\",\"the band\",\"the snake\",\"the creature\"],\"note\":\"Deadly snake that kills Roylott.\",\"kind\":\"animal\",\"members\":[\"the-adventure-of-the-speckled-band:swamp_adder\"]},{\"id\":\"cheetah_and_baboon\",\"name\":\"Cheetah and baboon\",\"aliases\":[\"the cheetah\",\"the baboon\",\"the pets\"],\"note\":\"Animals kept by Roylott; heard and glimpsed at night.\",\"kind\":\"animal\",\"members\":[\"the-adventure-of-the-speckled-band:cheetah_and_baboon\"]},{\"id\":\"violet_hunter\",\"name\":\"Violet Hunter\",\"aliases\":[\"Miss Hunter\",\"the young lady\",\"the governess\"],\"note\":\"Governess who consults Holmes and is taken to Copper Beeches.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-copper-beeches:violet_hunter\"]},{\"id\":\"jephro_rucastle\",\"name\":\"Jephro Rucastle\",\"aliases\":[\"Mr. Rucastle\",\"the fat man\",\"my employer\"],\"note\":\"Stout father of Alice Rucastle who imprisons his daughter and is mauled by his mastiff.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-copper-beeches:jephro_rucastle\"]},{\"id\":\"mrs_rucastle\",\"name\":\"Mrs. Rucastle\",\"aliases\":[\"the second wife\",\"the lady of the house\"],\"note\":\"Pale second wife of Jephro Rucastle.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-copper-beeches:mrs_rucastle\"]},{\"id\":\"edward_rucastle\",\"name\":\"Edward\",\"aliases\":[\"little Edward\",\"the child\",\"the romper\"],\"note\":\"Six-year-old spoiled son of the Rucastles.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-copper-beeches:edward_rucastle\"]},{\"id\":\"alice_rucastle\",\"name\":\"Alice Rucastle\",\"aliases\":[\"Miss Alice\",\"Miss Rucastle\",\"the daughter\",\"the prisoner\"],\"note\":\"Daughter of Jephro Rucastle by his first wife, held in the barricaded room; distinct from Alice Turner and Alice the maid.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-copper-beeches:alice_rucastle\"]},{\"id\":\"toller\",\"name\":\"Toller\",\"aliases\":[\"old Toller\",\"the groom\"],\"note\":\"Drunken groom at Copper Beeches who lets the mastiff loose.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-copper-beeches:toller\"]},{\"id\":\"mrs_toller\",\"name\":\"Mrs. Toller\",\"aliases\":[\"the cook\",\"the tall woman\"],\"note\":\"Gaunt wife of Toller and cook at Copper Beeches.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-copper-beeches:mrs_toller\"]},{\"id\":\"fowler\",\"name\":\"Mr. Fowler\",\"aliases\":[\"the man in the road\",\"the seaman\",\"her young man\"],\"note\":\"Alice Rucastle's fiancé who watched the house; not on stage.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-copper-beeches:fowler\"]},{\"id\":\"miss_stoper\",\"name\":\"Miss Stoper\",\"aliases\":[\"the manageress\"],\"note\":\"Manageress of the Westaway governess agency.\",\"kind\":\"person\",\"members\":[\"the-adventure-of-the-copper-beeches:miss_stoper\"]},{\"id\":\"carlo\",\"name\":\"Carlo\",\"aliases\":[\"the mastiff\",\"the dog\",\"the hound\"],\"note\":\"Giant mastiff at Copper Beeches, shot by Watson.\",\"kind\":\"animal\",\"members\":[\"the-adventure-of-the-copper-beeches:carlo\"]}],\"locations\":[{\"id\":\"baker_street\",\"name\":\"221B Baker Street\",\"aliases\":[\"Baker Street\",\"Baker Street rooms\",\"Baker Street lodgings\",\"Holmes's rooms\",\"our rooms\",\"our lodgings\",\"the sitting-room\"],\"note\":\"Holmes and Watson's shared sitting-room in London, the base for most of these cases.\",\"members\":[\"a-scandal-in-bohemia:baker_street_rooms\",\"the-red-headed-league:baker_street\",\"a-case-of-identity:baker_street_lodgings\",\"the-five-orange-pips:baker_street_rooms\",\"the-man-with-the-twisted-lip:watson_house\",\"the-adventure-of-the-blue-carbuncle:baker_street_221b\",\"the-adventure-of-the-speckled-band:baker_street_rooms\",\"the-adventure-of-the-engineers-thumb:baker_street_rooms\",\"the-adventure-of-the-noble-bachelor:baker_street_rooms\",\"the-adventure-of-the-beryl-coronet:baker_street_rooms\",\"the-adventure-of-the-copper-beeches:baker_street\"]},{\"id\":\"serpentine_avenue\",\"name\":\"Serpentine Avenue\",\"aliases\":[\"the avenue\",\"the street\",\"the lane\"],\"note\":\"Quiet St. John's Wood street where Briony Lodge stands.\",\"members\":[\"a-scandal-in-bohemia:serpentine_avenue\"]},{\"id\":\"briony_lodge\",\"name\":\"Briony Lodge\",\"aliases\":[\"the house\",\"Serpentine Avenue house\"],\"note\":\"Irene Adler's villa with a hidden photograph panel.\",\"members\":[\"a-scandal-in-bohemia:briony_lodge\"]},{\"id\":\"church_of_st_monica\",\"name\":\"Church of St. Monica\",\"aliases\":[\"St. Monica\",\"the church\"],\"note\":\"Edgeware Road church where Irene Adler marries Godfrey Norton.\",\"members\":[\"a-scandal-in-bohemia:church_of_st_monica\"]},{\"id\":\"langham_hotel\",\"name\":\"The Langham\",\"aliases\":[\"the hotel\"],\"note\":\"London hotel where the King stays as Count Von Kramm.\",\"members\":[\"a-scandal-in-bohemia:langham_hotel\"]},{\"id\":\"london_streets\",\"name\":\"London streets\",\"aliases\":[\"the Temple\",\"Regent Street\",\"Gross & Hankey's\",\"Edgeware Road\"],\"note\":\"Streets Irene Adler and Norton pass through on the wedding day.\",\"members\":[\"a-scandal-in-bohemia:london_streets\"]},{\"id\":\"saxe_coburg_square\",\"name\":\"Saxe-Coburg Square\",\"aliases\":[\"Coburg Square\"],\"note\":\"Shabby square near the City where Wilson's pawnshop stands.\",\"members\":[\"the-red-headed-league:saxe_coburg_square\"]},{\"id\":\"pope_court\",\"name\":\"Pope's Court, Fleet Street\",\"aliases\":[\"the offices of the League\",\"Pope's Court\"],\"note\":\"Offices of the Red-Headed League.\",\"members\":[\"the-red-headed-league:pope_court\"]},{\"id\":\"bank_cellar\",\"name\":\"Bank cellar, City branch\",\"aliases\":[\"the vault\",\"the cellar\",\"the City and Suburban Bank cellar\"],\"note\":\"Vault of the City branch bank where the tunnel ends.\",\"members\":[\"the-red-headed-league:bank_cellar\"]},{\"id\":\"st_james_hall\",\"name\":\"St. James's Hall\",\"aliases\":[\"the concert hall\"],\"note\":\"Concert hall where Holmes and Watson hear Sarasate.\",\"members\":[\"the-red-headed-league:st_james_hall\"]},{\"id\":\"city_road\",\"name\":\"Main City road\",\"aliases\":[\"the road round the corner\",\"the thoroughfare\"],\"note\":\"Commercial artery near Saxe-Coburg Square.\",\"members\":[\"the-red-headed-league:city_road\"]},{\"id\":\"leadenhall_street\",\"name\":\"Leadenhall Street\",\"aliases\":[\"the office in Leadenhall Street\"],\"note\":\"City street where Angel supposedly worked; mentioned only.\",\"members\":[\"a-case-of-identity:leadenhall_street\"]},{\"id\":\"st_saviours_church\",\"name\":\"St. Saviour's church, King's Cross\",\"aliases\":[\"the church\",\"St. Saviour's\"],\"note\":\"Church where the wedding was to take place; mentioned only.\",\"members\":[\"a-case-of-identity:st_saviours_church\"]},{\"id\":\"lyon_place\",\"name\":\"31 Lyon Place, Camberwell\",\"aliases\":[\"Mary's home\",\"Camberwell\"],\"note\":\"Mary Sutherland's home address; mentioned only.\",\"members\":[\"a-case-of-identity:lyon_place\"]},{\"id\":\"watson_breakfast_home\",\"name\":\"Watson's home in London\",\"aliases\":[\"the breakfast table\"],\"note\":\"Watson's home where the Boscombe telegram arrives.\",\"members\":[\"the-boscombe-valley-mystery:baker_street_breakfast\"]},{\"id\":\"paddington_train\",\"name\":\"Train from Paddington to Ross\",\"aliases\":[\"the train\",\"the carriage\"],\"note\":\"Railway carriage on the journey west to Ross.\",\"members\":[\"the-boscombe-valley-mystery:paddington_train\"]},{\"id\":\"ross_hereford_arms\",\"name\":\"Hereford Arms, Ross\",\"aliases\":[\"the hotel\",\"Ross\"],\"note\":\"Hotel where Holmes, Watson and Lestrade take rooms.\",\"members\":[\"the-boscombe-valley-mystery:ross_hereford_arms\"]},{\"id\":\"hereford_prison\",\"name\":\"Hereford prison\",\"aliases\":[\"the prison\",\"the gaol\"],\"note\":\"Prison at Hereford; not shown in action.\",\"members\":[\"the-boscombe-valley-mystery:hereford_prison\"]},{\"id\":\"hatherley_farm\",\"name\":\"Hatherley Farm\",\"aliases\":[\"the farm\",\"Hatherley Farmhouse\"],\"note\":\"McCarthy's farmhouse near the pool.\",\"members\":[\"the-boscombe-valley-mystery:hatherley_farm\"]},{\"id\":\"boscombe_pool\",\"name\":\"Boscombe Pool\",\"aliases\":[\"the pool\",\"the lake\"],\"note\":\"Small lake where the murder took place.\",\"members\":[\"the-boscombe-valley-mystery:boscombe_pool\"]},{\"id\":\"boscombe_wood\",\"name\":\"Boscombe Wood\",\"aliases\":[\"the wood\",\"the beech tree\"],\"note\":\"Woods around the pool where Turner hid.\",\"members\":[\"the-boscombe-valley-mystery:boscombe_wood\"]},{\"id\":\"the_hall\",\"name\":\"The Hall\",\"aliases\":[\"Turner's house\",\"the red pinnacles\"],\"note\":\"John Turner's dwelling; mentioned, not visited.\",\"members\":[\"the-boscombe-valley-mystery:the_hall\"]},{\"id\":\"horsham_estate\",\"name\":\"Horsham estate\",\"aliases\":[\"Horsham\",\"the estate in Sussex\"],\"note\":\"Colonel Openshaw's house near Horsham.\",\"members\":[\"the-five-orange-pips:horsham_estate\"]},{\"id\":\"waterloo_bridge\",\"name\":\"Waterloo Bridge\",\"aliases\":[\"the Embankment\"],\"note\":\"Thames bridge near where John Openshaw's body is found; mentioned only.\",\"members\":[\"the-five-orange-pips:waterloo_bridge\"]},{\"id\":\"lone_star_barque\",\"name\":\"the barque Lone Star\",\"aliases\":[\"Lone Star\",\"the Lone Star of Savannah\"],\"note\":\"American sailing ship carrying the gang; mentioned only.\",\"members\":[\"the-five-orange-pips:lone_star_barque\"]},{\"id\":\"watson_house\",\"name\":\"Watson's sitting-room\",\"aliases\":[\"our home\",\"my armchair and cheery sitting-room\"],\"note\":\"Watson's London sitting-room where Kate Whitney comes at night.\",\"members\":[\"the-man-with-the-twisted-lip:watson_house\"]},{\"id\":\"upper_swandam_lane_den\",\"name\":\"the Bar of Gold opium den\",\"aliases\":[\"the den\",\"the opium den\",\"the Bar of Gold\",\"the house in Upper Swandam Lane\"],\"note\":\"Opium den in Upper Swandam Lane by the wharves east of London Bridge.\",\"members\":[\"the-man-with-the-twisted-lip:upper_swandam_lane_den\"]},{\"id\":\"dog_cart_road\",\"name\":\"the road to Lee\",\"aliases\":[\"the London Road\",\"the dog-cart\",\"the cab road\"],\"note\":\"Route from the City to Lee in Kent.\",\"members\":[\"the-man-with-the-twisted-lip:dog_cart_road\"]},{\"id\":\"the_cedars\",\"name\":\"The Cedars\",\"aliases\":[\"the villa\",\"St. Clair's house\",\"the house at Lee\"],\"note\":\"St. Clair villa near Lee in Kent.\",\"members\":[\"the-man-with-the-twisted-lip:the_cedars\"]},{\"id\":\"bow_street_station\",\"name\":\"Bow Street police station\",\"aliases\":[\"Bow Street\",\"the cells\",\"the station\"],\"note\":\"Police station where Boone is held and unmasked.\",\"members\":[\"the-man-with-the-twisted-lip:bow_street_station\"]},{\"id\":\"tottenham_court_road\",\"name\":\"Tottenham Court Road\",\"aliases\":[\"the corner of Goodge Street\"],\"note\":\"Street where Peterson finds the hat and goose.\",\"members\":[\"the-adventure-of-the-blue-carbuncle:tottenham_court_road\"]},{\"id\":\"alpha_inn\",\"name\":\"the Alpha Inn\",\"aliases\":[\"the Alpha\",\"the private bar\"],\"note\":\"Public house home of Henry Baker's goose club.\",\"members\":[\"the-adventure-of-the-blue-carbuncle:alpha_inn\"]},{\"id\":\"covent_garden_market\",\"name\":\"Covent Garden Market\",\"aliases\":[\"Covent Garden\",\"the market\"],\"note\":\"Market where Breckinridge's stall stands.\",\"members\":[\"the-adventure-of-the-blue-carbuncle:covent_garden_market\"]},{\"id\":\"hotel_cosmopolitan\",\"name\":\"Hotel Cosmopolitan\",\"aliases\":[\"the hotel\",\"the dressing-room\"],\"note\":\"Hotel where the Countess's jewel-case was rifled.\",\"members\":[\"the-adventure-of-the-blue-carbuncle:hotel_cosmopolitan\"]},{\"id\":\"brixton_road\",\"name\":\"Brixton Road\",\"aliases\":[\"117 Brixton Road\"],\"note\":\"Mrs. Oakshott's house and poultry yard.\",\"members\":[\"the-adventure-of-the-blue-carbuncle:brixton_road\"]},{\"id\":\"stoke_moran_manor\",\"name\":\"Stoke Moran manor\",\"aliases\":[\"the Manor House\",\"the old house\",\"the ancestral house\",\"Stoke Moran\"],\"note\":\"Ancient Roylott family house on the Surrey border.\",\"members\":[\"the-adventure-of-the-speckled-band:stoke_moran_manor\"]},{\"id\":\"julias_bedroom\",\"name\":\"Julia's bedroom\",\"aliases\":[\"the middle room\",\"the second bedroom\",\"Helen's room\"],\"note\":\"Middle bedroom where Julia died and Helen now sleeps.\",\"members\":[\"the-adventure-of-the-speckled-band:julias_bedroom\"]},{\"id\":\"roylott_chamber\",\"name\":\"Dr. Roylott's chamber\",\"aliases\":[\"the Doctor's room\",\"the room with the safe\"],\"note\":\"Roylott's bedroom, scene of his death.\",\"members\":[\"the-adventure-of-the-speckled-band:roylott_chamber\"]},{\"id\":\"crown_inn\",\"name\":\"The Crown Inn\",\"aliases\":[\"the Crown\",\"village inn\"],\"note\":\"Village inn at Stoke Moran.\",\"members\":[\"the-adventure-of-the-speckled-band:crown_inn\"]},{\"id\":\"leatherhead_route\",\"name\":\"Road and railway to Leatherhead\",\"aliases\":[\"Leatherhead\",\"Waterloo\",\"the Surrey lanes\",\"the fields and stile\"],\"note\":\"Route through Surrey lanes to Stoke Moran.\",\"members\":[\"the-adventure-of-the-speckled-band:leatherhead_route\"]},{\"id\":\"hatherley_chambers\",\"name\":\"Hatherley's chambers, Victoria Street\",\"aliases\":[\"the office\",\"my little den\",\"Victoria Street\"],\"note\":\"Hatherley's professional chambers where Stark calls on him.\",\"members\":[\"the-adventure-of-the-engineers-thumb:hatherley_chambers\"]},{\"id\":\"eyford_house\",\"name\":\"Eyford house (Dr. Becher's)\",\"aliases\":[\"the house\",\"the German house\",\"the press house\"],\"note\":\"Isolated house containing the hydraulic press; later burned.\",\"members\":[\"the-adventure-of-the-engineers-thumb:eyford_house\"]},{\"id\":\"eyford_station\",\"name\":\"Eyford Station\",\"aliases\":[\"the little dim-lit station\",\"Eyford\"],\"note\":\"Small Berkshire station where Hatherley arrives at night.\",\"members\":[\"the-adventure-of-the-engineers-thumb:eyford_station\"]},{\"id\":\"eyford_garden\",\"name\":\"The garden and rose-bushes\",\"aliases\":[\"the garden\"],\"note\":\"Garden beneath the bedroom window where Hatherley falls.\",\"members\":[\"the-adventure-of-the-engineers-thumb:eyford_garden\"]},{\"id\":\"reading\",\"name\":\"Reading\",\"aliases\":[\"the road to Reading\"],\"note\":\"Town where Hatherley changes trains; mentioned.\",\"members\":[\"the-adventure-of-the-engineers-thumb:reading\"]},{\"id\":\"scotland_yard\",\"name\":\"Scotland Yard\",\"aliases\":[],\"note\":\"Police headquarters visited before travelling to Eyford.\",\"members\":[\"the-adventure-of-the-engineers-thumb:scotland_yard\"]},{\"id\":\"grosvenor_mansions\",\"name\":\"Grosvenor Mansions\",\"aliases\":[],\"note\":\"Lord St. Simon's residence; referred to only.\",\"members\":[\"the-adventure-of-the-noble-bachelor:grosvenor_mansions\"]},{\"id\":\"st_georges_hanover_square\",\"name\":\"St. George's, Hanover Square\",\"aliases\":[\"the church\",\"the vestry\"],\"note\":\"Church of the wedding ceremony.\",\"members\":[\"the-adventure-of-the-noble-bachelor:st_georges_hanover_square\"]},{\"id\":\"doran_house_lancaster_gate\",\"name\":\"Doran house, Lancaster Gate\",\"aliases\":[\"the breakfast room\",\"Mr. Doran's house\"],\"note\":\"House where the wedding breakfast took place.\",\"members\":[\"the-adventure-of-the-noble-bachelor:doran_house_lancaster_gate\"]},{\"id\":\"hyde_park\",\"name\":\"Hyde Park\",\"aliases\":[\"the Park\"],\"note\":\"Park into which Hatty followed Frank.\",\"members\":[\"the-adventure-of-the-noble-bachelor:hyde_park\"]},{\"id\":\"serpentine\",\"name\":\"the Serpentine\",\"aliases\":[],\"note\":\"Lake where Lestrade dragged for the bride's body.\",\"members\":[\"the-adventure-of-the-noble-bachelor:serpentine\"]},{\"id\":\"gordon_square\",\"name\":\"Gordon Square\",\"aliases\":[\"226 Gordon Square\"],\"note\":\"Lodgings where Hatty and Frank went.\",\"members\":[\"the-adventure-of-the-noble-bachelor:gordon_square\"]},{\"id\":\"fairbank\",\"name\":\"Fairbank\",\"aliases\":[\"the house\",\"Streatham house\"],\"note\":\"Alexander Holder's house in Streatham.\",\"members\":[\"the-adventure-of-the-beryl-coronet:fairbank\"]},{\"id\":\"threadneedle_street_bank\",\"name\":\"Holder & Stevenson bank\",\"aliases\":[\"the bank\",\"my office\",\"Threadneedle Street office\"],\"note\":\"Banking firm's office in Threadneedle Street.\",\"members\":[\"the-adventure-of-the-beryl-coronet:threadneedle_street_bank\"]},{\"id\":\"stable_lane\",\"name\":\"Stable lane\",\"aliases\":[\"the lane\",\"the back lane\"],\"note\":\"Lane behind Fairbank where the struggle took place.\",\"members\":[\"the-adventure-of-the-beryl-coronet:stable_lane\"]},{\"id\":\"copper_beeches\",\"name\":\"Copper Beeches\",\"aliases\":[\"the house\",\"the sinister house\",\"the Rucastles' house\"],\"note\":\"Whitewashed house near Winchester named for its copper beeches.\",\"members\":[\"the-adventure-of-the-copper-beeches:copper_beeches\"]},{\"id\":\"westaways_agency\",\"name\":\"Westaway's agency\",\"aliases\":[\"the governess agency\",\"the West End office\"],\"note\":\"Governess agency in the West End.\",\"members\":[\"the-adventure-of-the-copper-beeches:westaways_agency\"]},{\"id\":\"black_swan_hotel\",\"name\":\"Black Swan Hotel\",\"aliases\":[\"the Black Swan\",\"the inn at Winchester\"],\"note\":\"Winchester inn where Holmes meets Violet.\",\"members\":[\"the-adventure-of-the-copper-beeches:black_swan_hotel\"]},{\"id\":\"barricaded_room\",\"name\":\"the barricaded room\",\"aliases\":[\"the forbidden wing\",\"the suite of rooms\",\"the attic prison\"],\"note\":\"Locked room where Alice Rucastle was held.\",\"members\":[\"the-adventure-of-the-copper-beeches:barricaded_room\"]},{\"id\":\"drawing_room\",\"name\":\"the drawing-room\",\"aliases\":[\"the long room\"],\"note\":\"Large room where Violet sat for the mirror-game.\",\"members\":[\"the-adventure-of-the-copper-beeches:drawing_room\"]},{\"id\":\"southampton_road\",\"name\":\"the Southampton road\",\"aliases\":[\"the high road\",\"the road\"],\"note\":\"Highway where Fowler watched the house.\",\"members\":[\"the-adventure-of-the-copper-beeches:southampton_road\"]}]}",
+ "parsed": {
+  "characters": [
+   {
+    "id": "sherlock_holmes",
+    "name": "Sherlock Holmes",
+    "aliases": [
+     "Holmes",
+     "Mr. Holmes",
+     "my friend",
+     "Master Holmes",
+     "the consulting detective",
+     "Mr. Sherlock Holmes"
+    ],
+    "note": "Consulting detective of 221B Baker Street, narrated through Watson's eyes; present throughout the cases in these divisions and the one who solves each.",
+    "kind": "person",
+    "members": [
+     "a-scandal-in-bohemia:sherlock_holmes",
+     "the-red-headed-league:holmes",
+     "a-case-of-identity:sherlock_holmes",
+     "the-boscombe-valley-mystery:sherlock_holmes",
+     "the-five-orange-pips:sherlock_holmes",
+     "the-man-with-the-twisted-lip:sherlock_holmes",
+     "the-adventure-of-the-blue-carbuncle:sherlock_holmes",
+     "the-adventure-of-the-speckled-band:sherlock_holmes",
+     "the-adventure-of-the-engineers-thumb:holmes",
+     "the-adventure-of-the-noble-bachelor:sherlock_holmes",
+     "the-adventure-of-the-beryl-coronet:holmes",
+     "the-adventure-of-the-copper-beeches:sherlock_holmes"
+    ]
+   },
+   {
+    "id": "dr_watson",
+    "name": "Dr. Watson",
+    "aliases": [
+     "Watson",
+     "I",
+     "my dear Doctor",
+     "Doctor",
+     "my dear Watson",
+     "the narrator"
+    ],
+    "note": "Narrator and Holmes's companion, a doctor; first-person voice throughout these divisions.",
+    "kind": "person",
+    "members": [
+     "a-scandal-in-bohemia:dr_watson",
+     "the-red-headed-league:watson",
+     "a-case-of-identity:watson",
+     "the-boscombe-valley-mystery:watson",
+     "the-five-orange-pips:watson",
+     "the-man-with-the-twisted-lip:watson",
+     "the-adventure-of-the-blue-carbuncle:watson",
+     "the-adventure-of-the-speckled-band:watson",
+     "the-adventure-of-the-engineers-thumb:watson",
+     "the-adventure-of-the-noble-bachelor:watson",
+     "the-adventure-of-the-beryl-coronet:watson",
+     "the-adventure-of-the-copper-beeches:watson"
+    ]
+   },
+   {
+    "id": "king_of_bohemia",
+    "name": "Wilhelm Gottsreich Sigismond von Ormstein",
+    "aliases": [
+     "the King",
+     "the King of Bohemia",
+     "Count Von Kramm",
+     "your Majesty"
+    ],
+    "note": "Hereditary King of Bohemia who visits Baker Street disguised as Count Von Kramm to recover his photograph with Irene Adler; distinct from the Bohemian royal figures of other stories.",
+    "kind": "person",
+    "members": [
+     "a-scandal-in-bohemia:king_of_bohemia"
+    ]
+   },
+   {
+    "id": "irene_adler",
+    "name": "Irene Adler",
+    "aliases": [
+     "Irene Norton",
+     "Irene Adler Norton",
+     "Madame",
+     "Miss Irene",
+     "the woman",
+     "the adventuress"
+    ],
+    "note": "Former opera contralto and adventuress of Briony Lodge who marries Godfrey Norton and flees to the Continent.",
+    "kind": "person",
+    "members": [
+     "a-scandal-in-bohemia:irene_adler"
+    ]
+   },
+   {
+    "id": "godfrey_norton",
+    "name": "Godfrey Norton",
+    "aliases": [
+     "Mr. Godfrey Norton",
+     "Norton",
+     "the bridegroom",
+     "the lawyer"
+    ],
+    "note": "Barrister of the Inner Temple who visits Irene Adler and becomes her husband; not to be confused with other Norton-named figures.",
+    "kind": "person",
+    "members": [
+     "a-scandal-in-bohemia:godfrey_norton"
+    ]
+   },
+   {
+    "id": "john_coachman",
+    "name": "John",
+    "aliases": [
+     "the coachman"
+    ],
+    "note": "Irene Adler's coachman sent to watch Holmes; distinct from the cabman and stable-boy John of the Man With the Twisted Lip.",
+    "kind": "person",
+    "members": [
+     "a-scandal-in-bohemia:john_coachman"
+    ]
+   },
+   {
+    "id": "mrs_turner",
+    "name": "Mrs. Turner",
+    "aliases": [
+     "our landlady"
+    ],
+    "note": "Landlady at Baker Street; distinct from Mrs. Hudson, the landlady of other stories.",
+    "kind": "person",
+    "members": [
+     "a-scandal-in-bohemia:mrs_turner"
+    ]
+   },
+   {
+    "id": "mary_jane",
+    "name": "Mary Jane",
+    "aliases": [
+     "the servant girl",
+     "the slavey"
+    ],
+    "note": "Watson's careless servant mentioned in passing by Holmes's deductions; distinct from the other Mary characters.",
+    "kind": "person",
+    "members": [
+     "a-scandal-in-bohemia:mary_jane"
+    ]
+   },
+   {
+    "id": "irene_servant",
+    "name": "the elderly woman",
+    "aliases": [
+     "the maid",
+     "the servant at Briony Lodge",
+     "the elderly servant"
+    ],
+    "note": "Elderly servant at Briony Lodge who tells Holmes the lady has left for the Continent.",
+    "kind": "person",
+    "members": [
+     "a-scandal-in-bohemia:irene_servant"
+    ]
+   },
+   {
+    "id": "street_loungers",
+    "name": "the loungers",
+    "aliases": [
+     "the crowd",
+     "the guardsmen",
+     "the scissors-grinder",
+     "the spectators"
+    ],
+    "note": "Group of confederates staging the street quarrel and false fire alarm on Holmes's orders.",
+    "kind": "group",
+    "members": [
+     "a-scandal-in-bohemia:street_loungers"
+    ]
+   },
+   {
+    "id": "youth_in_ulster",
+    "name": "the slim youth in an ulster",
+    "aliases": [
+     "the passer-by"
+    ],
+    "note": "Unidentified youth who greets Holmes by name in the street at the end of the Bohemia story.",
+    "kind": "person",
+    "members": [
+     "a-scandal-in-bohemia:youth_in_ulster"
+    ]
+   },
+   {
+    "id": "jabez_wilson",
+    "name": "Jabez Wilson",
+    "aliases": [
+     "Mr. Wilson",
+     "the red-headed client",
+     "the portly client"
+    ],
+    "note": "Stout, red-haired pawnbroker of Saxe-Coburg Square who brings the Red-Headed League case.",
+    "kind": "person",
+    "members": [
+     "the-red-headed-league:jabez_wilson"
+    ]
+   },
+   {
+    "id": "vincent_spaulding",
+    "name": "Vincent Spaulding",
+    "aliases": [
+     "the assistant",
+     "Spaulding",
+     "the smooth-faced assistant"
+    ],
+    "note": "Clean-shaven assistant of Wilson who is really John Clay's accomplice in disguise; distinct from the criminal leader Clay.",
+    "kind": "person",
+    "members": [
+     "the-red-headed-league:vincent_spaulding"
+    ]
+   },
+   {
+    "id": "duncan_ross",
+    "name": "Duncan Ross",
+    "aliases": [
+     "the little red-headed manager",
+     "William Morris",
+     "the manager"
+    ],
+    "note": "Small red-headed man running the League office at Pope's Court under a false identity, allied with Clay.",
+    "kind": "person",
+    "members": [
+     "the-red-headed-league:duncan_ross"
+    ]
+   },
+   {
+    "id": "john_clay",
+    "name": "John Clay",
+    "aliases": [
+     "young John Clay",
+     "the prisoner",
+     "his Highness"
+    ],
+    "note": "Royal-blooded young thief and forger who tunnelled from the pawnshop cellar to the bank; arrested in the vault.",
+    "kind": "person",
+    "members": [
+     "the-red-headed-league:john_clay"
+    ]
+   },
+   {
+    "id": "archie",
+    "name": "Archie",
+    "aliases": [
+     "the pale red-haired companion",
+     "the other"
+    ],
+    "note": "Red-haired accomplice of John Clay who escapes down the hole.",
+    "kind": "person",
+    "members": [
+     "the-red-headed-league:archie"
+    ]
+   },
+   {
+    "id": "peter_jones",
+    "name": "Peter Jones",
+    "aliases": [
+     "Jones",
+     "the official police agent"
+    ],
+    "note": "Official police agent from Scotland Yard who hunts with Holmes in the Red-Headed League case.",
+    "kind": "person",
+    "members": [
+     "the-red-headed-league:peter_jones"
+    ]
+   },
+   {
+    "id": "mr_merryweather",
+    "name": "Mr. Merryweather",
+    "aliases": [
+     "the bank director",
+     "the chairman of directors",
+     "Merryweather"
+    ],
+    "note": "Solemn chairman of the bank directors of the City and Suburban Bank branch, and a whist player.",
+    "kind": "person",
+    "members": [
+     "the-red-headed-league:mr_merryweather"
+    ]
+   },
+   {
+    "id": "mary_sutherland",
+    "name": "Miss Mary Sutherland",
+    "aliases": [
+     "Miss Sutherland",
+     "the young lady",
+     "the maiden"
+    ],
+    "note": "Typewriting young woman whose missing fiancé Hosmer Angel is her stepfather in disguise; distinct from the Mary of other stories, and the Miss Sutherland mentioned in Red-Headed League only in passing.",
+    "kind": "person",
+    "members": [
+     "the-red-headed-league:mary_sutherland",
+     "a-case-of-identity:mary_sutherland"
+    ]
+   },
+   {
+    "id": "ezekiah_hopkins",
+    "name": "Ezekiah Hopkins",
+    "aliases": [
+     "the American millionaire",
+     "the late Ezekiah Hopkins",
+     "the benefactor"
+    ],
+    "note": "Deceased American millionaire who founded the Red-Headed League; referred to only.",
+    "kind": "person",
+    "members": [
+     "the-red-headed-league:ezekiah_hopkins"
+    ]
+   },
+   {
+    "id": "james_windibank",
+    "name": "Mr. James Windibank",
+    "aliases": [
+     "Mr. Windibank",
+     "stepfather",
+     "the stepfather",
+     "the travelling wine agent",
+     "Hosmer Angel",
+     "Mr. Hosmer Angel",
+     "the missing bridegroom",
+     "the gentleman with tinted glasses"
+    ],
+    "note": "Mary Sutherland's stepfather who secretly disguised himself as her fiancé Hosmer Angel to prevent the marriage; Hosmer Angel is not a real person in the story.",
+    "kind": "person",
+    "members": [
+     "a-case-of-identity:james_windibank",
+     "a-case-of-identity:hosmer_angel"
+    ]
+   },
+   {
+    "id": "mrs_sutherland",
+    "name": "Mrs. Sutherland",
+    "aliases": [
+     "mother",
+     "Mary's mother"
+    ],
+    "note": "Widow who remarried Windibank and was in on the deception; not on stage.",
+    "kind": "person",
+    "members": [
+     "a-case-of-identity:mrs_sutherland"
+    ]
+   },
+   {
+    "id": "mr_hardy",
+    "name": "Mr. Hardy",
+    "aliases": [
+     "the foreman"
+    ],
+    "note": "Former foreman of Mary's late father's business; mentioned only.",
+    "kind": "person",
+    "members": [
+     "a-case-of-identity:mr_hardy"
+    ]
+   },
+   {
+    "id": "mrs_watson",
+    "name": "Mrs. Watson",
+    "aliases": [
+     "my wife",
+     "James's wife"
+    ],
+    "note": "Watson's wife, appearing only at the opening of The Man With the Twisted Lip and in the Boscombe breakfast scene.",
+    "kind": "person",
+    "members": [
+     "the-boscombe-valley-mystery:mrs_watson",
+     "the-man-with-the-twisted-lip:mrs_watson"
+    ]
+   },
+   {
+    "id": "lestrade",
+    "name": "Lestrade",
+    "aliases": [
+     "Mr. Lestrade",
+     "Lestrade of Scotland Yard",
+     "the inspector",
+     "the official detective",
+     "Scotland Yard man"
+    ],
+    "note": "Ferret-like Scotland Yard detective; appears in the Boscombe and Noble Bachelor cases.",
+    "kind": "person",
+    "members": [
+     "the-boscombe-valley-mystery:lestrade",
+     "the-adventure-of-the-noble-bachelor:lestrade"
+    ]
+   },
+   {
+    "id": "alice_turner",
+    "name": "Alice Turner",
+    "aliases": [
+     "Miss Turner",
+     "the young lady",
+     "Turner's daughter",
+     "Alice"
+    ],
+    "note": "Daughter of John Turner who hires Holmes in the Boscombe Valley case; distinct from Alice the maid of the Noble Bachelor case.",
+    "kind": "person",
+    "members": [
+     "the-boscombe-valley-mystery:alice_turner"
+    ]
+   },
+   {
+    "id": "james_mccarthy",
+    "name": "James McCarthy",
+    "aliases": [
+     "young McCarthy",
+     "James",
+     "the son",
+     "the accused"
+    ],
+    "note": "Son of Charles McCarthy, accused of killing his father in the Boscombe Valley case.",
+    "kind": "person",
+    "members": [
+     "the-boscombe-valley-mystery:james_mccarthy"
+    ]
+   },
+   {
+    "id": "charles_mccarthy",
+    "name": "Charles McCarthy",
+    "aliases": [
+     "McCarthy senior",
+     "Mr. McCarthy",
+     "the murdered man",
+     "old McCarthy",
+     "the dead man"
+    ],
+    "note": "Former convict driver, tenant of Hatherley Farm, and murder victim by the pool.",
+    "kind": "person",
+    "members": [
+     "the-boscombe-valley-mystery:charles_mccarthy"
+    ]
+   },
+   {
+    "id": "john_turner",
+    "name": "John Turner",
+    "aliases": [
+     "Mr. Turner",
+     "Black Jack of Ballarat",
+     "old Turner",
+     "the old man",
+     "the landowner"
+    ],
+    "note": "Wealthy landowner of the Hall and the actual killer in the Boscombe Valley case.",
+    "kind": "person",
+    "members": [
+     "the-boscombe-valley-mystery:john_turner"
+    ]
+   },
+   {
+    "id": "william_crowder",
+    "name": "William Crowder",
+    "aliases": [
+     "the game-keeper",
+     "the keeper"
+    ],
+    "note": "Game-keeper employed by Turner who witnessed McCarthy walking alone.",
+    "kind": "person",
+    "members": [
+     "the-boscombe-valley-mystery:william_crowder"
+    ]
+   },
+   {
+    "id": "patience_moran",
+    "name": "Patience Moran",
+    "aliases": [
+     "the girl",
+     "the little girl",
+     "Moran"
+    ],
+    "note": "Fourteen-year-old daughter of the lodge-keeper who saw the McCarthys quarrelling.",
+    "kind": "person",
+    "members": [
+     "the-boscombe-valley-mystery:patience_moran"
+    ]
+   },
+   {
+    "id": "dr_willows",
+    "name": "Dr. Willows",
+    "aliases": [
+     "the doctor"
+    ],
+    "note": "Physician attending John Turner.",
+    "kind": "person",
+    "members": [
+     "the-boscombe-valley-mystery:dr_willows"
+    ]
+   },
+   {
+    "id": "john_cobb",
+    "name": "John Cobb",
+    "aliases": [
+     "the groom",
+     "the serving-man"
+    ],
+    "note": "Groom and servant of McCarthy; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-boscombe-valley-mystery:john_cobb"
+    ]
+   },
+   {
+    "id": "moran_lodge_keeper",
+    "name": "Moran, the lodge-keeper",
+    "aliases": [
+     "the lodge-keeper",
+     "Patience's father"
+    ],
+    "note": "Lodge-keeper of the Boscombe Valley estate, father of Patience Moran.",
+    "kind": "person",
+    "members": [
+     "the-boscombe-valley-mystery:moran_lodge_keeper"
+    ]
+   },
+   {
+    "id": "barmaid_wife",
+    "name": "the barmaid",
+    "aliases": [
+     "James's barmaid wife"
+    ],
+    "note": "Bristol barmaid whom James secretly married; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-boscombe-valley-mystery:barmaid_wife"
+    ]
+   },
+   {
+    "id": "john_openshaw",
+    "name": "John Openshaw",
+    "aliases": [
+     "young Openshaw",
+     "the young man"
+    ],
+    "note": "Young client, nephew of Colonel Elias Openshaw, found drowned near Waterloo Bridge; not to be confused with his uncle.",
+    "kind": "person",
+    "members": [
+     "the-five-orange-pips:john_openshaw"
+    ]
+   },
+   {
+    "id": "colonel_elias_openshaw",
+    "name": "Colonel Elias Openshaw",
+    "aliases": [
+     "my uncle",
+     "the colonel",
+     "Elias Openshaw"
+    ],
+    "note": "Uncle of John Openshaw, former Confederate colonel who dies in a garden pool after the K.K.K. warning; not to be confused with John.",
+    "kind": "person",
+    "members": [
+     "the-five-orange-pips:colonel_elias_openshaw"
+    ]
+   },
+   {
+    "id": "joseph_openshaw",
+    "name": "Joseph Openshaw",
+    "aliases": [
+     "my father",
+     "Openshaw senior"
+    ],
+    "note": "Brother of Colonel Elias and father of John; dies falling into a chalk-pit.",
+    "kind": "person",
+    "members": [
+     "the-five-orange-pips:joseph_openshaw"
+    ]
+   },
+   {
+    "id": "major_prendergast",
+    "name": "Major Prendergast",
+    "aliases": [
+     "Prendergast"
+    ],
+    "note": "Army officer who referred Openshaw to Holmes; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-five-orange-pips:major_prendergast"
+    ]
+   },
+   {
+    "id": "fordham",
+    "name": "Mr. Fordham",
+    "aliases": [
+     "the Horsham lawyer"
+    ],
+    "note": "Horsham lawyer who witnessed the colonel's will; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-five-orange-pips:fordham"
+    ]
+   },
+   {
+    "id": "major_freebody",
+    "name": "Major Freebody",
+    "aliases": [
+     "the major"
+    ],
+    "note": "Commander of a fort on Portsdown Hill; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-five-orange-pips:major_freebody"
+    ]
+   },
+   {
+    "id": "captain_james_calhoun",
+    "name": "Captain James Calhoun",
+    "aliases": [
+     "Captain Calhoun",
+     "the leader of the gang"
+    ],
+    "note": "Master of the barque Lone Star and leader of the K.K.K. gang; never on stage.",
+    "kind": "person",
+    "members": [
+     "the-five-orange-pips:captain_james_calhoun"
+    ]
+   },
+   {
+    "id": "police_constable_cook",
+    "name": "Police-Constable Cook",
+    "aliases": [
+     "Cook"
+    ],
+    "note": "H Division constable who heard the cry near Waterloo Bridge; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-five-orange-pips:police_constable_cook"
+    ]
+   },
+   {
+    "id": "hudson",
+    "name": "Hudson",
+    "aliases": [],
+    "note": "Name in the colonel's 1869 diary page; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-five-orange-pips:hudson"
+    ]
+   },
+   {
+    "id": "mccauley",
+    "name": "McCauley",
+    "aliases": [],
+    "note": "Name in the 1869 diary page; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-five-orange-pips:mccauley"
+    ]
+   },
+   {
+    "id": "paramore",
+    "name": "Paramore",
+    "aliases": [],
+    "note": "Name in the 1869 diary page; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-five-orange-pips:paramore"
+    ]
+   },
+   {
+    "id": "john_swain",
+    "name": "John Swain",
+    "aliases": [
+     "John Swain of St. Augustine"
+    ],
+    "note": "Name in the 1869 diary page; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-five-orange-pips:john_swain"
+    ]
+   },
+   {
+    "id": "mary",
+    "name": "Mary",
+    "aliases": [],
+    "note": "Household servant at Horsham; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-five-orange-pips:mary"
+    ]
+   },
+   {
+    "id": "isa_whitney",
+    "name": "Isa Whitney",
+    "aliases": [
+     "Whitney",
+     "Mr. Whitney"
+    ],
+    "note": "Brother of Elias Whitney and opium addict found in an opium den; husband of Kate Whitney.",
+    "kind": "person",
+    "members": [
+     "the-man-with-the-twisted-lip:isa_whitney"
+    ]
+   },
+   {
+    "id": "kate_whitney",
+    "name": "Kate Whitney",
+    "aliases": [
+     "Kate",
+     "Mrs. Whitney"
+    ],
+    "note": "Wife of Isa Whitney who comes to Watson's house asking for help.",
+    "kind": "person",
+    "members": [
+     "the-man-with-the-twisted-lip:kate_whitney"
+    ]
+   },
+   {
+    "id": "malay_attendant",
+    "name": "Malay attendant",
+    "aliases": [
+     "sallow Malay attendant"
+    ],
+    "note": "Attendant at the opium den who offers Watson a pipe.",
+    "kind": "person",
+    "members": [
+     "the-man-with-the-twisted-lip:malay_attendant"
+    ]
+   },
+   {
+    "id": "lascar_manager",
+    "name": "Lascar manager",
+    "aliases": [
+     "the Lascar",
+     "rascally Lascar",
+     "Lascar scoundrel",
+     "Lascar confederate"
+    ],
+    "note": "Keeper of the opium den in Upper Swandam Lane.",
+    "kind": "person",
+    "members": [
+     "the-man-with-the-twisted-lip:lascar_manager"
+    ]
+   },
+   {
+    "id": "dane_assistant",
+    "name": "Dane assistant",
+    "aliases": [
+     "a Dane"
+    ],
+    "note": "Assistant at the opium den; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-man-with-the-twisted-lip:dane_assistant"
+    ]
+   },
+   {
+    "id": "neville_st_clair",
+    "name": "Neville St. Clair",
+    "aliases": [
+     "Mr. St. Clair",
+     "Hugh Boone",
+     "the beggar",
+     "the cripple",
+     "the man in the bath",
+     "Boone",
+     "the beggar with the twisted lip",
+     "the lodger"
+    ],
+    "note": "Respectable Lee gentleman who disguised himself as the beggar Hugh Boone; Hugh Boone is the same person and is merged here.",
+    "kind": "person",
+    "members": [
+     "the-man-with-the-twisted-lip:neville_st_clair",
+     "the-man-with-the-twisted-lip:hugh_boone"
+    ]
+   },
+   {
+    "id": "mrs_st_clair",
+    "name": "Mrs. St. Clair",
+    "aliases": [
+     "the little blonde woman",
+     "the lady",
+     "Mrs. Neville St. Clair",
+     "my wife",
+     "the wife"
+    ],
+    "note": "Wife of Neville St. Clair living at The Cedars in Lee.",
+    "kind": "person",
+    "members": [
+     "the-man-with-the-twisted-lip:mrs_st_clair"
+    ]
+   },
+   {
+    "id": "inspector_barton",
+    "name": "Inspector Barton",
+    "aliases": [
+     "Barton"
+    ],
+    "note": "Police inspector who searched the den; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-man-with-the-twisted-lip:inspector_barton"
+    ]
+   },
+   {
+    "id": "inspector_bradstreet",
+    "name": "Inspector Bradstreet",
+    "aliases": [
+     "Bradstreet",
+     "the inspector"
+    ],
+    "note": "Police inspector who receives Holmes at Bow Street in one story and arrests Horner in another.",
+    "kind": "person",
+    "members": [
+     "the-man-with-the-twisted-lip:inspector_bradstreet",
+     "the-adventure-of-the-blue-carbuncle:inspector_bradstreet",
+     "the-adventure-of-the-engineers-thumb:bradstreet"
+    ]
+   },
+   {
+    "id": "john_stable_boy",
+    "name": "John the cabman",
+    "aliases": [
+     "John",
+     "the stable-boy",
+     "the cabman"
+    ],
+    "note": "Cabman who drives Whitney home and stable-boy at The Cedars; distinct from John Coachman of the Bohemia story.",
+    "kind": "person",
+    "members": [
+     "the-man-with-the-twisted-lip:john_stable_boy"
+    ]
+   },
+   {
+    "id": "new_horse_cart",
+    "name": "the horse",
+    "aliases": [
+     "the trap",
+     "the dog-cart"
+    ],
+    "note": "Reference point for the conveyance rather than a character.",
+    "kind": "other",
+    "members": [
+     "the-man-with-the-twisted-lip:new_horse_cart"
+    ]
+   },
+   {
+    "id": "victor_hatherley",
+    "name": "Victor Hatherley",
+    "aliases": [
+     "Mr. Hatherley",
+     "my patient",
+     "the engineer",
+     "Jeremiah Hayling"
+    ],
+    "note": "Young hydraulic engineer who brings his ordeal to Watson and Holmes; the Hatherley of the title.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:victor_hatherley"
+    ]
+   },
+   {
+    "id": "colonel_stark",
+    "name": "Colonel Lysander Stark",
+    "aliases": [
+     "the colonel",
+     "the German",
+     "the sinister German",
+     "Fritz"
+    ],
+    "note": "Thin German-accented coiner who hires Hatherley under false pretences.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:colonel_stark"
+    ]
+   },
+   {
+    "id": "elise",
+    "name": "Elise",
+    "aliases": [
+     "the woman",
+     "the lady",
+     "the beautiful woman"
+    ],
+    "note": "Young woman apparently Stark's wife or companion who warns Hatherley.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:elise"
+    ]
+   },
+   {
+    "id": "ferguson",
+    "name": "Mr. Ferguson",
+    "aliases": [
+     "the morose Englishman",
+     "the fat manager",
+     "the secretary and manager"
+    ],
+    "note": "Stark's secretary and manager who helps carry Hatherley away.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:ferguson"
+    ]
+   },
+   {
+    "id": "jeremiah_hayling",
+    "name": "Jeremiah Hayling",
+    "aliases": [
+     "the missing engineer named in the advertisement"
+    ],
+    "note": "Earlier victim of Stark's press, not present on stage.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:jeremiah_hayling"
+    ]
+   },
+   {
+    "id": "guard",
+    "name": "The guard",
+    "aliases": [
+     "my old ally",
+     "the tout"
+    ],
+    "note": "Railway guard who brings Hatherley to Watson at dawn.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:guard"
+    ]
+   },
+   {
+    "id": "maid",
+    "name": "The maid",
+    "aliases": [],
+    "note": "Watson's maid who announces visitors; unnamed.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:maid"
+    ]
+   },
+   {
+    "id": "station_master",
+    "name": "The station-master",
+    "aliases": [],
+    "note": "Station-master at Eyford who reports the fire.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:station_master"
+    ]
+   },
+   {
+    "id": "eyford_porter",
+    "name": "The porter",
+    "aliases": [
+     "the sleepy porter"
+    ],
+    "note": "Night porter at Eyford Station.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:eyford_porter"
+    ]
+   },
+   {
+    "id": "driver",
+    "name": "The driver",
+    "aliases": [
+     "the coachman"
+    ],
+    "note": "Unnamed driver who takes Hatherley from Eyford; never seen.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:driver"
+    ]
+   },
+   {
+    "id": "lord_st_simon",
+    "name": "Lord Robert St. Simon",
+    "aliases": [
+     "Lord St. Simon",
+     "our client",
+     "the bridegroom",
+     "his Lordship"
+    ],
+    "note": "Aristocratic bridegroom deserted at the wedding breakfast.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-noble-bachelor:lord_st_simon"
+    ]
+   },
+   {
+    "id": "hatty_doran",
+    "name": "Hatty Doran",
+    "aliases": [
+     "Lady St. Simon",
+     "Mrs. Francis Hay Moulton",
+     "the bride",
+     "Mrs. Moulton"
+    ],
+    "note": "Bride who vanished at the wedding breakfast to run off with her first husband Frank Moulton.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-noble-bachelor:hatty_doran"
+    ]
+   },
+   {
+    "id": "francis_hay_moulton",
+    "name": "Francis Hay Moulton",
+    "aliases": [
+     "Frank",
+     "Mr. Moulton",
+     "Frank Moulton",
+     "the American",
+     "the stranger in the pew"
+    ],
+    "note": "Hatty's first husband, presumed dead, who appears at the wedding.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-noble-bachelor:francis_hay_moulton"
+    ]
+   },
+   {
+    "id": "flora_millar",
+    "name": "Flora Millar",
+    "aliases": [
+     "Miss Flora Millar",
+     "F. H. M.",
+     "the woman in the church",
+     "the woman who caused the disturbance"
+    ],
+    "note": "Former dancer and mistress of Lord St. Simon; distinct from Frank Moulton despite shared initials.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-noble-bachelor:flora_millar"
+    ]
+   },
+   {
+    "id": "alice_maid",
+    "name": "Alice",
+    "aliases": [
+     "the maid",
+     "Lady St. Simon's maid"
+    ],
+    "note": "Hatty Doran's American maid from California; distinct from Alice Turner of Boscombe Valley.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-noble-bachelor:alice"
+    ]
+   },
+   {
+    "id": "aloysius_doran",
+    "name": "Aloysius Doran",
+    "aliases": [
+     "Mr. Doran",
+     "Pa",
+     "the father of the bride"
+    ],
+    "note": "Rich San Francisco mining man and father of Hatty Doran.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-noble-bachelor:aloysius_doran"
+    ]
+   },
+   {
+    "id": "duke_of_balmoral",
+    "name": "Duke of Balmoral",
+    "aliases": [
+     "the Duke",
+     "the Duchess of Balmoral"
+    ],
+    "note": "Father of Lord St. Simon; absent from the action.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-noble-bachelor:duke_of_balmoral"
+    ]
+   },
+   {
+    "id": "lord_backwater",
+    "name": "Lord Backwater",
+    "aliases": [],
+    "note": "Acquaintance who recommended Holmes; absent.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-noble-bachelor:lord_backwater"
+    ]
+   },
+   {
+    "id": "alexander_holder",
+    "name": "Alexander Holder",
+    "aliases": [
+     "Mr. Holder",
+     "our client",
+     "the banker",
+     "dad",
+     "uncle"
+    ],
+    "note": "Senior partner of the banking firm Holder & Stevenson whose coronet is stolen.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-beryl-coronet:alexander_holder"
+    ]
+   },
+   {
+    "id": "arthur_holder",
+    "name": "Arthur Holder",
+    "aliases": [
+     "Arthur",
+     "the boy",
+     "my boy",
+     "the lad",
+     "my son"
+    ],
+    "note": "Son of Alexander Holder suspected of stealing the coronet; innocent.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-beryl-coronet:arthur_holder"
+    ]
+   },
+   {
+    "id": "mary_holder",
+    "name": "Mary Holder",
+    "aliases": [
+     "Mary",
+     "Miss Holder",
+     "my little Mary",
+     "my niece",
+     "the young lady"
+    ],
+    "note": "Niece of Alexander Holder who secretly took the coronet to her lover; distinct from Mary Sutherland and Mary Jane.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-beryl-coronet:mary_holder"
+    ]
+   },
+   {
+    "id": "sir_george_burnwell",
+    "name": "Sir George Burnwell",
+    "aliases": [
+     "Sir George",
+     "Boots",
+     "the man in the lane",
+     "Arthur's friend"
+    ],
+    "note": "Aristocratic gambler, Mary's lover, who took three beryls from the coronet.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-beryl-coronet:sir_george_burnwell"
+    ]
+   },
+   {
+    "id": "the_client_nobleman",
+    "name": "The illustrious client",
+    "aliases": [
+     "the nobleman",
+     "the great personage",
+     "my client"
+    ],
+    "note": "Unnamed high-ranking person who deposited the coronet; off-stage.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-beryl-coronet:the_client_nobleman"
+    ]
+   },
+   {
+    "id": "lucy_parr",
+    "name": "Lucy Parr",
+    "aliases": [
+     "Lucy",
+     "the second waiting-maid",
+     "the maid"
+    ],
+    "note": "Second waiting-maid at Fairbank with a sweetheart.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-beryl-coronet:lucy_parr"
+    ]
+   },
+   {
+    "id": "francis_prosper",
+    "name": "Francis Prosper",
+    "aliases": [
+     "Wooden-leg",
+     "the greengrocer"
+    ],
+    "note": "Greengrocer with a wooden leg, Lucy Parr's sweetheart.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-beryl-coronet:francis_prosper"
+    ]
+   },
+   {
+    "id": "receiver_of_stolen_goods",
+    "name": "The receiver",
+    "aliases": [
+     "the receiver"
+    ],
+    "note": "Dealer who bought the stolen beryls; off-stage.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-beryl-coronet:receiver_of_stolen_goods"
+    ]
+   },
+   {
+    "id": "henry_baker",
+    "name": "Henry Baker",
+    "aliases": [
+     "Mr. Baker",
+     "H. B.",
+     "the owner of the hat"
+    ],
+    "note": "Grizzled gentleman who lost the hat and goose; member of the Alpha Inn goose club.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:henry_baker"
+    ]
+   },
+   {
+    "id": "peterson",
+    "name": "Peterson",
+    "aliases": [
+     "the commissionaire"
+    ],
+    "note": "Honest commissionaire who finds the hat and goose.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:peterson"
+    ]
+   },
+   {
+    "id": "john_horner",
+    "name": "John Horner",
+    "aliases": [
+     "Horner",
+     "the plumber"
+    ],
+    "note": "Plumber wrongly accused of stealing the blue carbuncle.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:john_horner"
+    ]
+   },
+   {
+    "id": "countess_of_morcar",
+    "name": "Countess of Morcar",
+    "aliases": [
+     "the Countess",
+     "her ladyship"
+    ],
+    "note": "Owner of the blue carbuncle.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:countess_of_morcar"
+    ]
+   },
+   {
+    "id": "james_ryder",
+    "name": "James Ryder",
+    "aliases": [
+     "Jem",
+     "John Robinson",
+     "Ryder",
+     "the head attendant",
+     "the little man",
+     "rat-faced fellow"
+    ],
+    "note": "Head attendant at the Hotel Cosmopolitan who stole the stone and hid it in a goose.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:james_ryder"
+    ]
+   },
+   {
+    "id": "catherine_cusack",
+    "name": "Catherine Cusack",
+    "aliases": [
+     "Cusack",
+     "the maid",
+     "her ladyship's waiting-maid"
+    ],
+    "note": "Maid to the Countess who was Ryder's accomplice.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:catherine_cusack"
+    ]
+   },
+   {
+    "id": "breckinridge",
+    "name": "Breckinridge",
+    "aliases": [
+     "the salesman",
+     "the Covent Garden salesman"
+    ],
+    "note": "Covent Garden poultry salesman who sold the geese.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:breckinridge"
+    ]
+   },
+   {
+    "id": "windigate",
+    "name": "Windigate",
+    "aliases": [
+     "the landlord",
+     "the landlord of the Alpha"
+    ],
+    "note": "Landlord of the Alpha Inn and host of the goose club.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:windigate"
+    ]
+   },
+   {
+    "id": "mrs_oakshott",
+    "name": "Mrs. Oakshott",
+    "aliases": [
+     "Maggie",
+     "Ryder's sister",
+     "my sister"
+    ],
+    "note": "Poultry supplier at Brixton Road and Ryder's sister.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:mrs_oakshott"
+    ]
+   },
+   {
+    "id": "mrs_hudson",
+    "name": "Mrs. Hudson",
+    "aliases": [
+     "the housekeeper"
+    ],
+    "note": "Holmes's landlady; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:mrs_hudson",
+     "the-adventure-of-the-speckled-band:mrs_hudson"
+    ]
+   },
+   {
+    "id": "maudsley",
+    "name": "Maudsley",
+    "aliases": [
+     "my pal",
+     "a friend of Ryder's"
+    ],
+    "note": "Ryder's former associate; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:maudsley"
+    ]
+   },
+   {
+    "id": "the_goose",
+    "name": "the goose",
+    "aliases": [
+     "the white goose with a barred tail",
+     "the bird",
+     "the blue carbuncle's carrier"
+    ],
+    "note": "White goose that swallowed the stone.",
+    "kind": "animal",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:the_goose"
+    ]
+   },
+   {
+    "id": "helen_stoner",
+    "name": "Helen Stoner",
+    "aliases": [
+     "Miss Stoner",
+     "Miss Roylott",
+     "our visitor",
+     "our client",
+     "the lady in black"
+    ],
+    "note": "Young woman who consults Holmes about her dead twin's death at Stoke Moran.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-speckled-band:helen_stoner"
+    ]
+   },
+   {
+    "id": "julia_stoner",
+    "name": "Julia Stoner",
+    "aliases": [
+     "my sister",
+     "Julia",
+     "the dead woman"
+    ],
+    "note": "Helen's twin sister who died at Stoke Moran.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-speckled-band:julia_stoner"
+    ]
+   },
+   {
+    "id": "grimesby_roylott",
+    "name": "Dr. Grimesby Roylott",
+    "aliases": [
+     "the Doctor",
+     "my stepfather",
+     "Dr. Roylott",
+     "the old man",
+     "the apparition"
+    ],
+    "note": "Violent Stoke Moran physician, stepfather of Helen and Julia, who dies of the swamp adder.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-speckled-band:grimesby_roylott"
+    ]
+   },
+   {
+    "id": "percy_armitage",
+    "name": "Percy Armitage",
+    "aliases": [
+     "Armitage",
+     "my dear friend"
+    ],
+    "note": "Helen's intended husband; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-speckled-band:percy_armitage"
+    ]
+   },
+   {
+    "id": "aunt_honoria",
+    "name": "Miss Honoria Westphail",
+    "aliases": [
+     "my aunt",
+     "Aunt Westphail"
+    ],
+    "note": "Maternal aunt of Helen and Julia; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-speckled-band:aunt_honoria"
+    ]
+   },
+   {
+    "id": "mrs_farintosh",
+    "name": "Mrs. Farintosh",
+    "aliases": [
+     "Farintosh"
+    ],
+    "note": "Earlier client of Holmes; mentioned only.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-speckled-band:mrs_farintosh"
+    ]
+   },
+   {
+    "id": "swamp_adder",
+    "name": "Swamp adder",
+    "aliases": [
+     "the speckled band",
+     "the band",
+     "the snake",
+     "the creature"
+    ],
+    "note": "Deadly snake that kills Roylott.",
+    "kind": "animal",
+    "members": [
+     "the-adventure-of-the-speckled-band:swamp_adder"
+    ]
+   },
+   {
+    "id": "cheetah_and_baboon",
+    "name": "Cheetah and baboon",
+    "aliases": [
+     "the cheetah",
+     "the baboon",
+     "the pets"
+    ],
+    "note": "Animals kept by Roylott; heard and glimpsed at night.",
+    "kind": "animal",
+    "members": [
+     "the-adventure-of-the-speckled-band:cheetah_and_baboon"
+    ]
+   },
+   {
+    "id": "violet_hunter",
+    "name": "Violet Hunter",
+    "aliases": [
+     "Miss Hunter",
+     "the young lady",
+     "the governess"
+    ],
+    "note": "Governess who consults Holmes and is taken to Copper Beeches.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-copper-beeches:violet_hunter"
+    ]
+   },
+   {
+    "id": "jephro_rucastle",
+    "name": "Jephro Rucastle",
+    "aliases": [
+     "Mr. Rucastle",
+     "the fat man",
+     "my employer"
+    ],
+    "note": "Stout father of Alice Rucastle who imprisons his daughter and is mauled by his mastiff.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-copper-beeches:jephro_rucastle"
+    ]
+   },
+   {
+    "id": "mrs_rucastle",
+    "name": "Mrs. Rucastle",
+    "aliases": [
+     "the second wife",
+     "the lady of the house"
+    ],
+    "note": "Pale second wife of Jephro Rucastle.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-copper-beeches:mrs_rucastle"
+    ]
+   },
+   {
+    "id": "edward_rucastle",
+    "name": "Edward",
+    "aliases": [
+     "little Edward",
+     "the child",
+     "the romper"
+    ],
+    "note": "Six-year-old spoiled son of the Rucastles.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-copper-beeches:edward_rucastle"
+    ]
+   },
+   {
+    "id": "alice_rucastle",
+    "name": "Alice Rucastle",
+    "aliases": [
+     "Miss Alice",
+     "Miss Rucastle",
+     "the daughter",
+     "the prisoner"
+    ],
+    "note": "Daughter of Jephro Rucastle by his first wife, held in the barricaded room; distinct from Alice Turner and Alice the maid.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-copper-beeches:alice_rucastle"
+    ]
+   },
+   {
+    "id": "toller",
+    "name": "Toller",
+    "aliases": [
+     "old Toller",
+     "the groom"
+    ],
+    "note": "Drunken groom at Copper Beeches who lets the mastiff loose.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-copper-beeches:toller"
+    ]
+   },
+   {
+    "id": "mrs_toller",
+    "name": "Mrs. Toller",
+    "aliases": [
+     "the cook",
+     "the tall woman"
+    ],
+    "note": "Gaunt wife of Toller and cook at Copper Beeches.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-copper-beeches:mrs_toller"
+    ]
+   },
+   {
+    "id": "fowler",
+    "name": "Mr. Fowler",
+    "aliases": [
+     "the man in the road",
+     "the seaman",
+     "her young man"
+    ],
+    "note": "Alice Rucastle's fiancé who watched the house; not on stage.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-copper-beeches:fowler"
+    ]
+   },
+   {
+    "id": "miss_stoper",
+    "name": "Miss Stoper",
+    "aliases": [
+     "the manageress"
+    ],
+    "note": "Manageress of the Westaway governess agency.",
+    "kind": "person",
+    "members": [
+     "the-adventure-of-the-copper-beeches:miss_stoper"
+    ]
+   },
+   {
+    "id": "carlo",
+    "name": "Carlo",
+    "aliases": [
+     "the mastiff",
+     "the dog",
+     "the hound"
+    ],
+    "note": "Giant mastiff at Copper Beeches, shot by Watson.",
+    "kind": "animal",
+    "members": [
+     "the-adventure-of-the-copper-beeches:carlo"
+    ]
+   }
+  ],
+  "locations": [
+   {
+    "id": "baker_street",
+    "name": "221B Baker Street",
+    "aliases": [
+     "Baker Street",
+     "Baker Street rooms",
+     "Baker Street lodgings",
+     "Holmes's rooms",
+     "our rooms",
+     "our lodgings",
+     "the sitting-room"
+    ],
+    "note": "Holmes and Watson's shared sitting-room in London, the base for most of these cases.",
+    "members": [
+     "a-scandal-in-bohemia:baker_street_rooms",
+     "the-red-headed-league:baker_street",
+     "a-case-of-identity:baker_street_lodgings",
+     "the-five-orange-pips:baker_street_rooms",
+     "the-man-with-the-twisted-lip:watson_house",
+     "the-adventure-of-the-blue-carbuncle:baker_street_221b",
+     "the-adventure-of-the-speckled-band:baker_street_rooms",
+     "the-adventure-of-the-engineers-thumb:baker_street_rooms",
+     "the-adventure-of-the-noble-bachelor:baker_street_rooms",
+     "the-adventure-of-the-beryl-coronet:baker_street_rooms",
+     "the-adventure-of-the-copper-beeches:baker_street"
+    ]
+   },
+   {
+    "id": "serpentine_avenue",
+    "name": "Serpentine Avenue",
+    "aliases": [
+     "the avenue",
+     "the street",
+     "the lane"
+    ],
+    "note": "Quiet St. John's Wood street where Briony Lodge stands.",
+    "members": [
+     "a-scandal-in-bohemia:serpentine_avenue"
+    ]
+   },
+   {
+    "id": "briony_lodge",
+    "name": "Briony Lodge",
+    "aliases": [
+     "the house",
+     "Serpentine Avenue house"
+    ],
+    "note": "Irene Adler's villa with a hidden photograph panel.",
+    "members": [
+     "a-scandal-in-bohemia:briony_lodge"
+    ]
+   },
+   {
+    "id": "church_of_st_monica",
+    "name": "Church of St. Monica",
+    "aliases": [
+     "St. Monica",
+     "the church"
+    ],
+    "note": "Edgeware Road church where Irene Adler marries Godfrey Norton.",
+    "members": [
+     "a-scandal-in-bohemia:church_of_st_monica"
+    ]
+   },
+   {
+    "id": "langham_hotel",
+    "name": "The Langham",
+    "aliases": [
+     "the hotel"
+    ],
+    "note": "London hotel where the King stays as Count Von Kramm.",
+    "members": [
+     "a-scandal-in-bohemia:langham_hotel"
+    ]
+   },
+   {
+    "id": "london_streets",
+    "name": "London streets",
+    "aliases": [
+     "the Temple",
+     "Regent Street",
+     "Gross & Hankey's",
+     "Edgeware Road"
+    ],
+    "note": "Streets Irene Adler and Norton pass through on the wedding day.",
+    "members": [
+     "a-scandal-in-bohemia:london_streets"
+    ]
+   },
+   {
+    "id": "saxe_coburg_square",
+    "name": "Saxe-Coburg Square",
+    "aliases": [
+     "Coburg Square"
+    ],
+    "note": "Shabby square near the City where Wilson's pawnshop stands.",
+    "members": [
+     "the-red-headed-league:saxe_coburg_square"
+    ]
+   },
+   {
+    "id": "pope_court",
+    "name": "Pope's Court, Fleet Street",
+    "aliases": [
+     "the offices of the League",
+     "Pope's Court"
+    ],
+    "note": "Offices of the Red-Headed League.",
+    "members": [
+     "the-red-headed-league:pope_court"
+    ]
+   },
+   {
+    "id": "bank_cellar",
+    "name": "Bank cellar, City branch",
+    "aliases": [
+     "the vault",
+     "the cellar",
+     "the City and Suburban Bank cellar"
+    ],
+    "note": "Vault of the City branch bank where the tunnel ends.",
+    "members": [
+     "the-red-headed-league:bank_cellar"
+    ]
+   },
+   {
+    "id": "st_james_hall",
+    "name": "St. James's Hall",
+    "aliases": [
+     "the concert hall"
+    ],
+    "note": "Concert hall where Holmes and Watson hear Sarasate.",
+    "members": [
+     "the-red-headed-league:st_james_hall"
+    ]
+   },
+   {
+    "id": "city_road",
+    "name": "Main City road",
+    "aliases": [
+     "the road round the corner",
+     "the thoroughfare"
+    ],
+    "note": "Commercial artery near Saxe-Coburg Square.",
+    "members": [
+     "the-red-headed-league:city_road"
+    ]
+   },
+   {
+    "id": "leadenhall_street",
+    "name": "Leadenhall Street",
+    "aliases": [
+     "the office in Leadenhall Street"
+    ],
+    "note": "City street where Angel supposedly worked; mentioned only.",
+    "members": [
+     "a-case-of-identity:leadenhall_street"
+    ]
+   },
+   {
+    "id": "st_saviours_church",
+    "name": "St. Saviour's church, King's Cross",
+    "aliases": [
+     "the church",
+     "St. Saviour's"
+    ],
+    "note": "Church where the wedding was to take place; mentioned only.",
+    "members": [
+     "a-case-of-identity:st_saviours_church"
+    ]
+   },
+   {
+    "id": "lyon_place",
+    "name": "31 Lyon Place, Camberwell",
+    "aliases": [
+     "Mary's home",
+     "Camberwell"
+    ],
+    "note": "Mary Sutherland's home address; mentioned only.",
+    "members": [
+     "a-case-of-identity:lyon_place"
+    ]
+   },
+   {
+    "id": "watson_breakfast_home",
+    "name": "Watson's home in London",
+    "aliases": [
+     "the breakfast table"
+    ],
+    "note": "Watson's home where the Boscombe telegram arrives.",
+    "members": [
+     "the-boscombe-valley-mystery:baker_street_breakfast"
+    ]
+   },
+   {
+    "id": "paddington_train",
+    "name": "Train from Paddington to Ross",
+    "aliases": [
+     "the train",
+     "the carriage"
+    ],
+    "note": "Railway carriage on the journey west to Ross.",
+    "members": [
+     "the-boscombe-valley-mystery:paddington_train"
+    ]
+   },
+   {
+    "id": "ross_hereford_arms",
+    "name": "Hereford Arms, Ross",
+    "aliases": [
+     "the hotel",
+     "Ross"
+    ],
+    "note": "Hotel where Holmes, Watson and Lestrade take rooms.",
+    "members": [
+     "the-boscombe-valley-mystery:ross_hereford_arms"
+    ]
+   },
+   {
+    "id": "hereford_prison",
+    "name": "Hereford prison",
+    "aliases": [
+     "the prison",
+     "the gaol"
+    ],
+    "note": "Prison at Hereford; not shown in action.",
+    "members": [
+     "the-boscombe-valley-mystery:hereford_prison"
+    ]
+   },
+   {
+    "id": "hatherley_farm",
+    "name": "Hatherley Farm",
+    "aliases": [
+     "the farm",
+     "Hatherley Farmhouse"
+    ],
+    "note": "McCarthy's farmhouse near the pool.",
+    "members": [
+     "the-boscombe-valley-mystery:hatherley_farm"
+    ]
+   },
+   {
+    "id": "boscombe_pool",
+    "name": "Boscombe Pool",
+    "aliases": [
+     "the pool",
+     "the lake"
+    ],
+    "note": "Small lake where the murder took place.",
+    "members": [
+     "the-boscombe-valley-mystery:boscombe_pool"
+    ]
+   },
+   {
+    "id": "boscombe_wood",
+    "name": "Boscombe Wood",
+    "aliases": [
+     "the wood",
+     "the beech tree"
+    ],
+    "note": "Woods around the pool where Turner hid.",
+    "members": [
+     "the-boscombe-valley-mystery:boscombe_wood"
+    ]
+   },
+   {
+    "id": "the_hall",
+    "name": "The Hall",
+    "aliases": [
+     "Turner's house",
+     "the red pinnacles"
+    ],
+    "note": "John Turner's dwelling; mentioned, not visited.",
+    "members": [
+     "the-boscombe-valley-mystery:the_hall"
+    ]
+   },
+   {
+    "id": "horsham_estate",
+    "name": "Horsham estate",
+    "aliases": [
+     "Horsham",
+     "the estate in Sussex"
+    ],
+    "note": "Colonel Openshaw's house near Horsham.",
+    "members": [
+     "the-five-orange-pips:horsham_estate"
+    ]
+   },
+   {
+    "id": "waterloo_bridge",
+    "name": "Waterloo Bridge",
+    "aliases": [
+     "the Embankment"
+    ],
+    "note": "Thames bridge near where John Openshaw's body is found; mentioned only.",
+    "members": [
+     "the-five-orange-pips:waterloo_bridge"
+    ]
+   },
+   {
+    "id": "lone_star_barque",
+    "name": "the barque Lone Star",
+    "aliases": [
+     "Lone Star",
+     "the Lone Star of Savannah"
+    ],
+    "note": "American sailing ship carrying the gang; mentioned only.",
+    "members": [
+     "the-five-orange-pips:lone_star_barque"
+    ]
+   },
+   {
+    "id": "watson_house",
+    "name": "Watson's sitting-room",
+    "aliases": [
+     "our home",
+     "my armchair and cheery sitting-room"
+    ],
+    "note": "Watson's London sitting-room where Kate Whitney comes at night.",
+    "members": [
+     "the-man-with-the-twisted-lip:watson_house"
+    ]
+   },
+   {
+    "id": "upper_swandam_lane_den",
+    "name": "the Bar of Gold opium den",
+    "aliases": [
+     "the den",
+     "the opium den",
+     "the Bar of Gold",
+     "the house in Upper Swandam Lane"
+    ],
+    "note": "Opium den in Upper Swandam Lane by the wharves east of London Bridge.",
+    "members": [
+     "the-man-with-the-twisted-lip:upper_swandam_lane_den"
+    ]
+   },
+   {
+    "id": "dog_cart_road",
+    "name": "the road to Lee",
+    "aliases": [
+     "the London Road",
+     "the dog-cart",
+     "the cab road"
+    ],
+    "note": "Route from the City to Lee in Kent.",
+    "members": [
+     "the-man-with-the-twisted-lip:dog_cart_road"
+    ]
+   },
+   {
+    "id": "the_cedars",
+    "name": "The Cedars",
+    "aliases": [
+     "the villa",
+     "St. Clair's house",
+     "the house at Lee"
+    ],
+    "note": "St. Clair villa near Lee in Kent.",
+    "members": [
+     "the-man-with-the-twisted-lip:the_cedars"
+    ]
+   },
+   {
+    "id": "bow_street_station",
+    "name": "Bow Street police station",
+    "aliases": [
+     "Bow Street",
+     "the cells",
+     "the station"
+    ],
+    "note": "Police station where Boone is held and unmasked.",
+    "members": [
+     "the-man-with-the-twisted-lip:bow_street_station"
+    ]
+   },
+   {
+    "id": "tottenham_court_road",
+    "name": "Tottenham Court Road",
+    "aliases": [
+     "the corner of Goodge Street"
+    ],
+    "note": "Street where Peterson finds the hat and goose.",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:tottenham_court_road"
+    ]
+   },
+   {
+    "id": "alpha_inn",
+    "name": "the Alpha Inn",
+    "aliases": [
+     "the Alpha",
+     "the private bar"
+    ],
+    "note": "Public house home of Henry Baker's goose club.",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:alpha_inn"
+    ]
+   },
+   {
+    "id": "covent_garden_market",
+    "name": "Covent Garden Market",
+    "aliases": [
+     "Covent Garden",
+     "the market"
+    ],
+    "note": "Market where Breckinridge's stall stands.",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:covent_garden_market"
+    ]
+   },
+   {
+    "id": "hotel_cosmopolitan",
+    "name": "Hotel Cosmopolitan",
+    "aliases": [
+     "the hotel",
+     "the dressing-room"
+    ],
+    "note": "Hotel where the Countess's jewel-case was rifled.",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:hotel_cosmopolitan"
+    ]
+   },
+   {
+    "id": "brixton_road",
+    "name": "Brixton Road",
+    "aliases": [
+     "117 Brixton Road"
+    ],
+    "note": "Mrs. Oakshott's house and poultry yard.",
+    "members": [
+     "the-adventure-of-the-blue-carbuncle:brixton_road"
+    ]
+   },
+   {
+    "id": "stoke_moran_manor",
+    "name": "Stoke Moran manor",
+    "aliases": [
+     "the Manor House",
+     "the old house",
+     "the ancestral house",
+     "Stoke Moran"
+    ],
+    "note": "Ancient Roylott family house on the Surrey border.",
+    "members": [
+     "the-adventure-of-the-speckled-band:stoke_moran_manor"
+    ]
+   },
+   {
+    "id": "julias_bedroom",
+    "name": "Julia's bedroom",
+    "aliases": [
+     "the middle room",
+     "the second bedroom",
+     "Helen's room"
+    ],
+    "note": "Middle bedroom where Julia died and Helen now sleeps.",
+    "members": [
+     "the-adventure-of-the-speckled-band:julias_bedroom"
+    ]
+   },
+   {
+    "id": "roylott_chamber",
+    "name": "Dr. Roylott's chamber",
+    "aliases": [
+     "the Doctor's room",
+     "the room with the safe"
+    ],
+    "note": "Roylott's bedroom, scene of his death.",
+    "members": [
+     "the-adventure-of-the-speckled-band:roylott_chamber"
+    ]
+   },
+   {
+    "id": "crown_inn",
+    "name": "The Crown Inn",
+    "aliases": [
+     "the Crown",
+     "village inn"
+    ],
+    "note": "Village inn at Stoke Moran.",
+    "members": [
+     "the-adventure-of-the-speckled-band:crown_inn"
+    ]
+   },
+   {
+    "id": "leatherhead_route",
+    "name": "Road and railway to Leatherhead",
+    "aliases": [
+     "Leatherhead",
+     "Waterloo",
+     "the Surrey lanes",
+     "the fields and stile"
+    ],
+    "note": "Route through Surrey lanes to Stoke Moran.",
+    "members": [
+     "the-adventure-of-the-speckled-band:leatherhead_route"
+    ]
+   },
+   {
+    "id": "hatherley_chambers",
+    "name": "Hatherley's chambers, Victoria Street",
+    "aliases": [
+     "the office",
+     "my little den",
+     "Victoria Street"
+    ],
+    "note": "Hatherley's professional chambers where Stark calls on him.",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:hatherley_chambers"
+    ]
+   },
+   {
+    "id": "eyford_house",
+    "name": "Eyford house (Dr. Becher's)",
+    "aliases": [
+     "the house",
+     "the German house",
+     "the press house"
+    ],
+    "note": "Isolated house containing the hydraulic press; later burned.",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:eyford_house"
+    ]
+   },
+   {
+    "id": "eyford_station",
+    "name": "Eyford Station",
+    "aliases": [
+     "the little dim-lit station",
+     "Eyford"
+    ],
+    "note": "Small Berkshire station where Hatherley arrives at night.",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:eyford_station"
+    ]
+   },
+   {
+    "id": "eyford_garden",
+    "name": "The garden and rose-bushes",
+    "aliases": [
+     "the garden"
+    ],
+    "note": "Garden beneath the bedroom window where Hatherley falls.",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:eyford_garden"
+    ]
+   },
+   {
+    "id": "reading",
+    "name": "Reading",
+    "aliases": [
+     "the road to Reading"
+    ],
+    "note": "Town where Hatherley changes trains; mentioned.",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:reading"
+    ]
+   },
+   {
+    "id": "scotland_yard",
+    "name": "Scotland Yard",
+    "aliases": [],
+    "note": "Police headquarters visited before travelling to Eyford.",
+    "members": [
+     "the-adventure-of-the-engineers-thumb:scotland_yard"
+    ]
+   },
+   {
+    "id": "grosvenor_mansions",
+    "name": "Grosvenor Mansions",
+    "aliases": [],
+    "note": "Lord St. Simon's residence; referred to only.",
+    "members": [
+     "the-adventure-of-the-noble-bachelor:grosvenor_mansions"
+    ]
+   },
+   {
+    "id": "st_georges_hanover_square",
+    "name": "St. George's, Hanover Square",
+    "aliases": [
+     "the church",
+     "the vestry"
+    ],
+    "note": "Church of the wedding ceremony.",
+    "members": [
+     "the-adventure-of-the-noble-bachelor:st_georges_hanover_square"
+    ]
+   },
+   {
+    "id": "doran_house_lancaster_gate",
+    "name": "Doran house, Lancaster Gate",
+    "aliases": [
+     "the breakfast room",
+     "Mr. Doran's house"
+    ],
+    "note": "House where the wedding breakfast took place.",
+    "members": [
+     "the-adventure-of-the-noble-bachelor:doran_house_lancaster_gate"
+    ]
+   },
+   {
+    "id": "hyde_park",
+    "name": "Hyde Park",
+    "aliases": [
+     "the Park"
+    ],
+    "note": "Park into which Hatty followed Frank.",
+    "members": [
+     "the-adventure-of-the-noble-bachelor:hyde_park"
+    ]
+   },
+   {
+    "id": "serpentine",
+    "name": "the Serpentine",
+    "aliases": [],
+    "note": "Lake where Lestrade dragged for the bride's body.",
+    "members": [
+     "the-adventure-of-the-noble-bachelor:serpentine"
+    ]
+   },
+   {
+    "id": "gordon_square",
+    "name": "Gordon Square",
+    "aliases": [
+     "226 Gordon Square"
+    ],
+    "note": "Lodgings where Hatty and Frank went.",
+    "members": [
+     "the-adventure-of-the-noble-bachelor:gordon_square"
+    ]
+   },
+   {
+    "id": "fairbank",
+    "name": "Fairbank",
+    "aliases": [
+     "the house",
+     "Streatham house"
+    ],
+    "note": "Alexander Holder's house in Streatham.",
+    "members": [
+     "the-adventure-of-the-beryl-coronet:fairbank"
+    ]
+   },
+   {
+    "id": "threadneedle_street_bank",
+    "name": "Holder & Stevenson bank",
+    "aliases": [
+     "the bank",
+     "my office",
+     "Threadneedle Street office"
+    ],
+    "note": "Banking firm's office in Threadneedle Street.",
+    "members": [
+     "the-adventure-of-the-beryl-coronet:threadneedle_street_bank"
+    ]
+   },
+   {
+    "id": "stable_lane",
+    "name": "Stable lane",
+    "aliases": [
+     "the lane",
+     "the back lane"
+    ],
+    "note": "Lane behind Fairbank where the struggle took place.",
+    "members": [
+     "the-adventure-of-the-beryl-coronet:stable_lane"
+    ]
+   },
+   {
+    "id": "copper_beeches",
+    "name": "Copper Beeches",
+    "aliases": [
+     "the house",
+     "the sinister house",
+     "the Rucastles' house"
+    ],
+    "note": "Whitewashed house near Winchester named for its copper beeches.",
+    "members": [
+     "the-adventure-of-the-copper-beeches:copper_beeches"
+    ]
+   },
+   {
+    "id": "westaways_agency",
+    "name": "Westaway's agency",
+    "aliases": [
+     "the governess agency",
+     "the West End office"
+    ],
+    "note": "Governess agency in the West End.",
+    "members": [
+     "the-adventure-of-the-copper-beeches:westaways_agency"
+    ]
+   },
+   {
+    "id": "black_swan_hotel",
+    "name": "Black Swan Hotel",
+    "aliases": [
+     "the Black Swan",
+     "the inn at Winchester"
+    ],
+    "note": "Winchester inn where Holmes meets Violet.",
+    "members": [
+     "the-adventure-of-the-copper-beeches:black_swan_hotel"
+    ]
+   },
+   {
+    "id": "barricaded_room",
+    "name": "the barricaded room",
+    "aliases": [
+     "the forbidden wing",
+     "the suite of rooms",
+     "the attic prison"
+    ],
+    "note": "Locked room where Alice Rucastle was held.",
+    "members": [
+     "the-adventure-of-the-copper-beeches:barricaded_room"
+    ]
+   },
+   {
+    "id": "drawing_room",
+    "name": "the drawing-room",
+    "aliases": [
+     "the long room"
+    ],
+    "note": "Large room where Violet sat for the mirror-game.",
+    "members": [
+     "the-adventure-of-the-copper-beeches:drawing_room"
+    ]
+   },
+   {
+    "id": "southampton_road",
+    "name": "the Southampton road",
+    "aliases": [
+     "the high road",
+     "the road"
+    ],
+    "note": "Highway where Fowler watched the house.",
+    "members": [
+     "the-adventure-of-the-copper-beeches:southampton_road"
+    ]
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 33327,
+  "completion_tokens": 19484,
+  "total_tokens": 52811,
+  "cost": 0.0130747,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0130747,
+   "upstream_inference_prompt_cost": 0.0033327,
+   "upstream_inference_completions_cost": 0.009742
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

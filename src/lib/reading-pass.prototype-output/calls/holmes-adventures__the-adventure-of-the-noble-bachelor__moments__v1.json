@@ -1,0 +1,341 @@
+{
+ "record": {
+  "label": "holmes-adventures__the-adventure-of-the-noble-bachelor__moments__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354891-IxVLprXvsXd8lKxsAk6h",
+  "seconds": 17.3,
+  "finish_reason": "stop",
+  "prompt_tokens": 17775,
+  "completion_tokens": 4219,
+  "cost": 0.003887,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:21:48"
+ },
+ "system": "You split the story sections of one division of a prose work into moments for an illustration engine, which draws one picture per moment.\n\nThe text comes as numbered paragraphs: each line starts with its id in square brackets and its word count in parentheses, for example `[12] (34w)`. After the text you get the division's story sections, each with its first and last paragraph id.\n\nReturn moments, in order. A moment is a run of consecutive paragraphs that is one beat you can picture: one place, one continuous action or exchange, seen at one instant. Aim for roughly 100 to 400 words per moment, using the word counts given; a moment may be shorter when the beat is a single striking paragraph, and may run past 400 only when one unbroken exchange cannot be cut. Very short paragraphs (lines of dialogue) join their neighbours. Moments tile every section: each paragraph belongs to exactly one moment, moments never cross a section boundary, and together they cover every paragraph of every section with no gaps and no overlaps. Give each moment its first and last paragraph id, the section it lies in (by its first paragraph id), and a one-line summary of what you would see in the picture: who is there, where, doing what. Do not quote the text.",
+ "user_chars": 47857,
+ "content": "{\"moments\":[{\"section_start\":\"the-adventure-of-the-noble-bachelor-s1\",\"start\":\"[1]\",\"end\":\"[1]\",\"summary\":\"A reflective narrator, Watson, in an upper-class setting: the St. Simon affair fades from society gossip, though he will sketch it now.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s1\",\"start\":\"[2]\",\"end\":\"[2]\",\"summary\":\"Watson lounges in an armchair in rainy Baker Street, legs up, newspapers strewn about, a noble crest envelope lying on the table.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s1\",\"start\":\"[3]\",\"end\":\"[11]\",\"summary\":\"Holmes enters and opens the crested letter at the table; he and Watson banter about its professional, noble origin.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s1\",\"start\":\"[12]\",\"end\":\"[16]\",\"summary\":\"Holmes asks Watson to turn over newspapers while he reads the letter aloud, Watson sitting in the armchair among the clippings.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s2\",\"start\":\"[17]\",\"end\":\"[20]\",\"summary\":\"Holmes reads the letter aloud and inspects the ink smear on the sheet, glancing at the clock showing three.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s2\",\"start\":\"[21]\",\"end\":\"[25]\",\"summary\":\"Holmes takes a red reference volume from the shelf by the mantelpiece and reads the peerage entry while Watson sorts clippings.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s2\",\"start\":\"[26]\",\"end\":\"[27]\",\"summary\":\"Watson reads the society column about the American heiress's marriage; Holmes stretches his legs toward the fire, yawning.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s2\",\"start\":\"[28]\",\"end\":\"[37]\",\"summary\":\"Watson lists the wedding notices, and Holmes sits upright when told the bride vanished at the wedding breakfast.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s2\",\"start\":\"[38]\",\"end\":\"[45]\",\"summary\":\"Watson reads the morning paper account of the wedding; a bell rings at the door as the clock passes four.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s3\",\"start\":\"[46]\",\"end\":\"[48]\",\"summary\":\"Lord St. Simon enters, pale and stooped with grizzled hair and dandyish dress, swinging his eyeglasses; Holmes rises to greet him.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s3\",\"start\":\"[49]\",\"end\":\"[56]\",\"summary\":\"Holmes and the nobleman exchange clipped remarks by the fire about past clients, the nobleman seated in a basket chair.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s3\",\"start\":\"[57]\",\"end\":\"[73]\",\"summary\":\"Holmes questions the nobleman briskly about how he met the bride in America and her father's wealth.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s3\",\"start\":\"[74]\",\"end\":\"[80]\",\"summary\":\"The nobleman describes his wife's character and opens a locket to show her ivory miniature; Holmes studies it closely.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s4\",\"start\":\"[81]\",\"end\":\"[90]\",\"summary\":\"Holmes asks about the wedding day; the nobleman recalls his bride's cheerfulness and first hints of temper.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s4\",\"start\":\"[91]\",\"end\":\"[98]\",\"summary\":\"The nobleman recounts the dropped bouquet and a gentleman in a pew who returned it, in the church setting.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s4\",\"start\":\"[99]\",\"end\":\"[106]\",\"summary\":\"At the Doran house, the bride speaks in hushed tones with her American maid Alice, mentioning 'jumping a claim'.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s4\",\"start\":\"[107]\",\"end\":\"[110]\",\"summary\":\"The bride walks alone into the breakfast room, then hurriedly leaves the table and never returns.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s5\",\"start\":\"[111]\",\"end\":\"[118]\",\"summary\":\"Holmes questions the nobleman about the maid's account and the bride's seen walk into the Park with Flora Millar.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s5\",\"start\":\"[119]\",\"end\":\"[126]\",\"summary\":\"The nobleman describes Flora Millar's past at the Allegro and her disturbance at the door, with police men nearby.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s5\",\"start\":\"[127]\",\"end\":\"[128]\",\"summary\":\"Holmes asks whether the nobleman could see out of the window from the breakfast table; the Park is visible.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s6\",\"start\":\"[129]\",\"end\":\"[133]\",\"summary\":\"Holmes says he is done questioning; the nobleman rises, and Holmes claims he has already solved it.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s6\",\"start\":\"[134]\",\"end\":\"[141]\",\"summary\":\"The nobleman demands where his wife is; Holmes says he will supply the detail, and the nobleman bows out stiffly.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s6\",\"start\":\"[142]\",\"end\":\"[141]\",\"summary\":\"Holmes, pleased, lights a cigar and says he had reached his conclusions before the client arrived; Lestrade enters in a pea-jacket.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s7\",\"start\":\"[142]\",\"end\":\"[146]\",\"summary\":\"Lestrade sits, wet and nautical, complaining of the case as Holmes watches him with a twinkle.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s7\",\"start\":\"[147]\",\"end\":\"[154]\",\"summary\":\"Lestrade admits he has been dragging the Serpentine for the bride's body; Holmes laughs and mocks the search.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s7\",\"start\":\"[155]\",\"end\":\"[161]\",\"summary\":\"Lestrade opens his canvas bag and spills a wet wedding dress, satin shoes, and veil onto the floor.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s7\",\"start\":\"[162]\",\"end\":\"[165]\",\"summary\":\"Holmes rebukes Lestrade's reasoning as Lestrade insists the dress implicates Flora Millar.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s7\",\"start\":\"[166]\",\"end\":\"[168]\",\"summary\":\"Lestrade produces a card-case note from the dress pocket and slaps it on the table in front of Holmes.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s8\",\"start\":\"[169]\",\"end\":\"[174]\",\"summary\":\"Holmes examines the note and turns the paper over, catching his eye on a fragment of hotel bill on the reverse.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s8\",\"start\":\"[175]\",\"end\":\"[178]\",\"summary\":\"Lestrade protests that the wrong side is up and reads the hotel bill aloud; Holmes insists it matters.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s8\",\"start\":\"[179]\",\"end\":\"[178]\",\"summary\":\"Lestrade gathers the garments into his bag and heads for the door while Holmes calls out a parting taunt.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s9\",\"start\":\"[179]\",\"end\":\"[186]\",\"summary\":\"Lestrade departs with a look of despair and a gesture, and Holmes puts on his overcoat as a confectioner's man lays out a cold supper.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s9\",\"start\":\"[183]\",\"end\":\"[186]\",\"summary\":\"Holmes returns at nine, sees the supper laid for five, and hears Lord St. Simon's footsteps on the stairs.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s10\",\"start\":\"[187]\",\"end\":\"[190]\",\"summary\":\"Lord St. Simon bursts in, glasses swinging, agitated, and sinks into a chair with his hand to his forehead.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s10\",\"start\":\"[191]\",\"end\":\"[198]\",\"summary\":\"Lord St. Simon frets about the family's humiliation as Holmes opens the door to the American couple.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s10\",\"start\":\"[199]\",\"end\":\"[200]\",\"summary\":\"Hatty steps toward Lord St. Simon, who stands rigid with his hand in his coat; she pleads with him.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s11\",\"start\":\"[201]\",\"end\":\"[204]\",\"summary\":\"Lord St. Simon bitterly refuses apology while Holmes offers to leave the room; the American husband speaks up.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s11\",\"start\":\"[205]\",\"end\":\"[205]\",\"summary\":\"Hatty recounts the old mining-camp romance with Frank, the engagement and her father's disapproval.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s11\",\"start\":\"[206]\",\"end\":\"[206]\",\"summary\":\"Hatty describes hearing Frank was killed by Apaches and her long grief, then her London engagement.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s11\",\"start\":\"[207]\",\"end\":\"[207]\",\"summary\":\"At the altar, Hatty sees Frank in the first pew; he signals her to be still and passes a note.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s11\",\"start\":\"[208]\",\"end\":\"[208]\",\"summary\":\"Hatty recalls slipping out after Frank, a cab ride, and lodgings in Gordon Square where the couple reunited.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s11\",\"start\":\"[209]\",\"end\":\"[210]\",\"summary\":\"Frank explains how he read the wedding notice, and Hatty explains the bundle of clothes dropped away and her shame.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s12\",\"start\":\"[211]\",\"end\":\"[214]\",\"summary\":\"Lord St. Simon stiffly objects to discussing private affairs publicly, then coldly shakes Hatty's hand.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s12\",\"start\":\"[215]\",\"end\":\"[216]\",\"summary\":\"Holmes invites the party to supper; Lord St. Simon declines and bows his way out of the room.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s12\",\"start\":\"[217]\",\"end\":\"[217]\",\"summary\":\"Holmes greets Frank warmly, speaking of Anglo-American kinship as the two stand in the lamplit room.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s13\",\"start\":\"[218]\",\"end\":\"[219]\",\"summary\":\"After the visitors leave, Holmes explains the case's simplicity; Watson asks whether Holmes himself erred.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s13\",\"start\":\"[220]\",\"end\":\"[220]\",\"summary\":\"Holmes traces his chain of deduction by the fire, showing how the bride's conduct revealed a previous husband.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s13\",\"start\":\"[221]\",\"end\":\"[224]\",\"summary\":\"Holmes describes tracing the hotel bill and the couple's Gordon Square address through the hotel registers.\"},{\"section_start\":\"the-adventure-of-the-noble-bachelor-s13\",\"start\":\"[225]\",\"end\":\"[226]\",\"summary\":\"Watson remarks on Lord St. Simon's ungracious manner; Holmes smiles and reaches for his violin by the fire.\"}]}",
+ "parsed": {
+  "moments": [
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s1",
+    "start": "[1]",
+    "end": "[1]",
+    "summary": "A reflective narrator, Watson, in an upper-class setting: the St. Simon affair fades from society gossip, though he will sketch it now."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s1",
+    "start": "[2]",
+    "end": "[2]",
+    "summary": "Watson lounges in an armchair in rainy Baker Street, legs up, newspapers strewn about, a noble crest envelope lying on the table."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s1",
+    "start": "[3]",
+    "end": "[11]",
+    "summary": "Holmes enters and opens the crested letter at the table; he and Watson banter about its professional, noble origin."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s1",
+    "start": "[12]",
+    "end": "[16]",
+    "summary": "Holmes asks Watson to turn over newspapers while he reads the letter aloud, Watson sitting in the armchair among the clippings."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s2",
+    "start": "[17]",
+    "end": "[20]",
+    "summary": "Holmes reads the letter aloud and inspects the ink smear on the sheet, glancing at the clock showing three."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s2",
+    "start": "[21]",
+    "end": "[25]",
+    "summary": "Holmes takes a red reference volume from the shelf by the mantelpiece and reads the peerage entry while Watson sorts clippings."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s2",
+    "start": "[26]",
+    "end": "[27]",
+    "summary": "Watson reads the society column about the American heiress's marriage; Holmes stretches his legs toward the fire, yawning."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s2",
+    "start": "[28]",
+    "end": "[37]",
+    "summary": "Watson lists the wedding notices, and Holmes sits upright when told the bride vanished at the wedding breakfast."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s2",
+    "start": "[38]",
+    "end": "[45]",
+    "summary": "Watson reads the morning paper account of the wedding; a bell rings at the door as the clock passes four."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s3",
+    "start": "[46]",
+    "end": "[48]",
+    "summary": "Lord St. Simon enters, pale and stooped with grizzled hair and dandyish dress, swinging his eyeglasses; Holmes rises to greet him."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s3",
+    "start": "[49]",
+    "end": "[56]",
+    "summary": "Holmes and the nobleman exchange clipped remarks by the fire about past clients, the nobleman seated in a basket chair."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s3",
+    "start": "[57]",
+    "end": "[73]",
+    "summary": "Holmes questions the nobleman briskly about how he met the bride in America and her father's wealth."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s3",
+    "start": "[74]",
+    "end": "[80]",
+    "summary": "The nobleman describes his wife's character and opens a locket to show her ivory miniature; Holmes studies it closely."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s4",
+    "start": "[81]",
+    "end": "[90]",
+    "summary": "Holmes asks about the wedding day; the nobleman recalls his bride's cheerfulness and first hints of temper."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s4",
+    "start": "[91]",
+    "end": "[98]",
+    "summary": "The nobleman recounts the dropped bouquet and a gentleman in a pew who returned it, in the church setting."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s4",
+    "start": "[99]",
+    "end": "[106]",
+    "summary": "At the Doran house, the bride speaks in hushed tones with her American maid Alice, mentioning 'jumping a claim'."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s4",
+    "start": "[107]",
+    "end": "[110]",
+    "summary": "The bride walks alone into the breakfast room, then hurriedly leaves the table and never returns."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s5",
+    "start": "[111]",
+    "end": "[118]",
+    "summary": "Holmes questions the nobleman about the maid's account and the bride's seen walk into the Park with Flora Millar."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s5",
+    "start": "[119]",
+    "end": "[126]",
+    "summary": "The nobleman describes Flora Millar's past at the Allegro and her disturbance at the door, with police men nearby."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s5",
+    "start": "[127]",
+    "end": "[128]",
+    "summary": "Holmes asks whether the nobleman could see out of the window from the breakfast table; the Park is visible."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s6",
+    "start": "[129]",
+    "end": "[133]",
+    "summary": "Holmes says he is done questioning; the nobleman rises, and Holmes claims he has already solved it."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s6",
+    "start": "[134]",
+    "end": "[141]",
+    "summary": "The nobleman demands where his wife is; Holmes says he will supply the detail, and the nobleman bows out stiffly."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s6",
+    "start": "[142]",
+    "end": "[141]",
+    "summary": "Holmes, pleased, lights a cigar and says he had reached his conclusions before the client arrived; Lestrade enters in a pea-jacket."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s7",
+    "start": "[142]",
+    "end": "[146]",
+    "summary": "Lestrade sits, wet and nautical, complaining of the case as Holmes watches him with a twinkle."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s7",
+    "start": "[147]",
+    "end": "[154]",
+    "summary": "Lestrade admits he has been dragging the Serpentine for the bride's body; Holmes laughs and mocks the search."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s7",
+    "start": "[155]",
+    "end": "[161]",
+    "summary": "Lestrade opens his canvas bag and spills a wet wedding dress, satin shoes, and veil onto the floor."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s7",
+    "start": "[162]",
+    "end": "[165]",
+    "summary": "Holmes rebukes Lestrade's reasoning as Lestrade insists the dress implicates Flora Millar."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s7",
+    "start": "[166]",
+    "end": "[168]",
+    "summary": "Lestrade produces a card-case note from the dress pocket and slaps it on the table in front of Holmes."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s8",
+    "start": "[169]",
+    "end": "[174]",
+    "summary": "Holmes examines the note and turns the paper over, catching his eye on a fragment of hotel bill on the reverse."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s8",
+    "start": "[175]",
+    "end": "[178]",
+    "summary": "Lestrade protests that the wrong side is up and reads the hotel bill aloud; Holmes insists it matters."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s8",
+    "start": "[179]",
+    "end": "[178]",
+    "summary": "Lestrade gathers the garments into his bag and heads for the door while Holmes calls out a parting taunt."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s9",
+    "start": "[179]",
+    "end": "[186]",
+    "summary": "Lestrade departs with a look of despair and a gesture, and Holmes puts on his overcoat as a confectioner's man lays out a cold supper."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s9",
+    "start": "[183]",
+    "end": "[186]",
+    "summary": "Holmes returns at nine, sees the supper laid for five, and hears Lord St. Simon's footsteps on the stairs."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s10",
+    "start": "[187]",
+    "end": "[190]",
+    "summary": "Lord St. Simon bursts in, glasses swinging, agitated, and sinks into a chair with his hand to his forehead."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s10",
+    "start": "[191]",
+    "end": "[198]",
+    "summary": "Lord St. Simon frets about the family's humiliation as Holmes opens the door to the American couple."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s10",
+    "start": "[199]",
+    "end": "[200]",
+    "summary": "Hatty steps toward Lord St. Simon, who stands rigid with his hand in his coat; she pleads with him."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s11",
+    "start": "[201]",
+    "end": "[204]",
+    "summary": "Lord St. Simon bitterly refuses apology while Holmes offers to leave the room; the American husband speaks up."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s11",
+    "start": "[205]",
+    "end": "[205]",
+    "summary": "Hatty recounts the old mining-camp romance with Frank, the engagement and her father's disapproval."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s11",
+    "start": "[206]",
+    "end": "[206]",
+    "summary": "Hatty describes hearing Frank was killed by Apaches and her long grief, then her London engagement."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s11",
+    "start": "[207]",
+    "end": "[207]",
+    "summary": "At the altar, Hatty sees Frank in the first pew; he signals her to be still and passes a note."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s11",
+    "start": "[208]",
+    "end": "[208]",
+    "summary": "Hatty recalls slipping out after Frank, a cab ride, and lodgings in Gordon Square where the couple reunited."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s11",
+    "start": "[209]",
+    "end": "[210]",
+    "summary": "Frank explains how he read the wedding notice, and Hatty explains the bundle of clothes dropped away and her shame."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s12",
+    "start": "[211]",
+    "end": "[214]",
+    "summary": "Lord St. Simon stiffly objects to discussing private affairs publicly, then coldly shakes Hatty's hand."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s12",
+    "start": "[215]",
+    "end": "[216]",
+    "summary": "Holmes invites the party to supper; Lord St. Simon declines and bows his way out of the room."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s12",
+    "start": "[217]",
+    "end": "[217]",
+    "summary": "Holmes greets Frank warmly, speaking of Anglo-American kinship as the two stand in the lamplit room."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s13",
+    "start": "[218]",
+    "end": "[219]",
+    "summary": "After the visitors leave, Holmes explains the case's simplicity; Watson asks whether Holmes himself erred."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s13",
+    "start": "[220]",
+    "end": "[220]",
+    "summary": "Holmes traces his chain of deduction by the fire, showing how the bride's conduct revealed a previous husband."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s13",
+    "start": "[221]",
+    "end": "[224]",
+    "summary": "Holmes describes tracing the hotel bill and the couple's Gordon Square address through the hotel registers."
+   },
+   {
+    "section_start": "the-adventure-of-the-noble-bachelor-s13",
+    "start": "[225]",
+    "end": "[226]",
+    "summary": "Watson remarks on Lord St. Simon's ungracious manner; Holmes smiles and reaches for his violin by the fire."
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 17775,
+  "completion_tokens": 4219,
+  "total_tokens": 21994,
+  "cost": 0.003887,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.003887,
+   "upstream_inference_prompt_cost": 0.0017775,
+   "upstream_inference_completions_cost": 0.0021095
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}
