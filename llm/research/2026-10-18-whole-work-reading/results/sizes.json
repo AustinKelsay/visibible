@@ -1,0 +1,200 @@
+{
+  "tokenizers": [
+    "o200k_base",
+    "cl100k_base"
+  ],
+  "bible_web_66": {
+    "verses": 31103,
+    "chapters": 1189,
+    "words": 749984,
+    "chars_plain": 3974839,
+    "tokens_plain": {
+      "o200k_base": 949096,
+      "cl100k_base": 962370
+    },
+    "tokens_with_full_refs": {
+      "o200k_base": 1123073,
+      "cl100k_base": 1137118
+    },
+    "tokens_compact_refs": {
+      "o200k_base": 985300,
+      "cl100k_base": 998712
+    },
+    "per_chapter_o200k": {
+      "median": 780,
+      "max": 3159,
+      "min": 44
+    },
+    "largest_books_o200k": [
+      [
+        "PSA",
+        55341
+      ],
+      [
+        "JER",
+        53929
+      ],
+      [
+        "EZK",
+        48226
+      ],
+      [
+        "GEN",
+        47702
+      ],
+      [
+        "ISA",
+        45978
+      ],
+      [
+        "NUM",
+        40502
+      ],
+      [
+        "EXO",
+        39359
+      ],
+      [
+        "DEU",
+        33731
+      ]
+    ],
+    "testament_o200k": {
+      "OT": 760995,
+      "NT": 224304
+    }
+  },
+  "holmes_1661": {
+    "stories": 12,
+    "paragraphs": 2530,
+    "words": 104350,
+    "chars": 560865,
+    "tokens_plain": {
+      "o200k_base": 128757,
+      "cl100k_base": 129227
+    },
+    "tokens_numbered_o200k": 137431,
+    "per_story": [
+      {
+        "title": "A SCANDAL IN BOHEMIA",
+        "paragraphs": 262,
+        "words": 8521,
+        "tokens_plain": {
+          "o200k_base": 10652,
+          "cl100k_base": 10695
+        },
+        "tokens_numbered_o200k": 11574
+      },
+      {
+        "title": "THE RED-HEADED LEAGUE",
+        "paragraphs": 215,
+        "words": 9105,
+        "tokens_plain": {
+          "o200k_base": 11329,
+          "cl100k_base": 11355
+        },
+        "tokens_numbered_o200k": 12041
+      },
+      {
+        "title": "A CASE OF IDENTITY",
+        "paragraphs": 137,
+        "words": 6975,
+        "tokens_plain": {
+          "o200k_base": 8670,
+          "cl100k_base": 8704
+        },
+        "tokens_numbered_o200k": 9164
+      },
+      {
+        "title": "THE BOSCOMBE VALLEY MYSTERY",
+        "paragraphs": 215,
+        "words": 9615,
+        "tokens_plain": {
+          "o200k_base": 11714,
+          "cl100k_base": 11723
+        },
+        "tokens_numbered_o200k": 12473
+      },
+      {
+        "title": "THE FIVE ORANGE PIPS",
+        "paragraphs": 178,
+        "words": 7314,
+        "tokens_plain": {
+          "o200k_base": 9015,
+          "cl100k_base": 9067
+        },
+        "tokens_numbered_o200k": 9626
+      },
+      {
+        "title": "THE MAN WITH THE TWISTED LIP",
+        "paragraphs": 222,
+        "words": 9199,
+        "tokens_plain": {
+          "o200k_base": 11334,
+          "cl100k_base": 11373
+        },
+        "tokens_numbered_o200k": 12123
+      },
+      {
+        "title": "THE ADVENTURE OF THE BLUE CARBUNCLE",
+        "paragraphs": 214,
+        "words": 7808,
+        "tokens_plain": {
+          "o200k_base": 9919,
+          "cl100k_base": 9969
+        },
+        "tokens_numbered_o200k": 10633
+      },
+      {
+        "title": "THE ADVENTURE OF THE SPECKLED BAND",
+        "paragraphs": 251,
+        "words": 9805,
+        "tokens_plain": {
+          "o200k_base": 11993,
+          "cl100k_base": 12033
+        },
+        "tokens_numbered_o200k": 12867
+      },
+      {
+        "title": "THE ADVENTURE OF THE ENGINEER’S THUMB",
+        "paragraphs": 176,
+        "words": 8283,
+        "tokens_plain": {
+          "o200k_base": 10144,
+          "cl100k_base": 10197
+        },
+        "tokens_numbered_o200k": 10702
+      },
+      {
+        "title": "THE ADVENTURE OF THE NOBLE BACHELOR",
+        "paragraphs": 226,
+        "words": 8102,
+        "tokens_plain": {
+          "o200k_base": 10005,
+          "cl100k_base": 10064
+        },
+        "tokens_numbered_o200k": 10816
+      },
+      {
+        "title": "THE ADVENTURE OF THE BERYL CORONET",
+        "paragraphs": 222,
+        "words": 9679,
+        "tokens_plain": {
+          "o200k_base": 11698,
+          "cl100k_base": 11742
+        },
+        "tokens_numbered_o200k": 12435
+      },
+      {
+        "title": "THE ADVENTURE OF THE COPPER BEECHES",
+        "paragraphs": 212,
+        "words": 9944,
+        "tokens_plain": {
+          "o200k_base": 12283,
+          "cl100k_base": 12304
+        },
+        "tokens_numbered_o200k": 12977
+      }
+    ]
+  }
+}

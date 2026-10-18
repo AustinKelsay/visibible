@@ -1,0 +1,279 @@
+Work: The Adventures of Sherlock Holmes (Arthur Conan Doyle, 1892)
+
+## Part s1
+Characters:
+- s1:sherlock_holmes | Sherlock Holmes | aliases: Holmes, my friend, the detective, the groom, the clergyman, Mr. Sherlock Holmes | Consulting detective; disguises himself as a drunken groom and as a Nonconformist clergyman.
+- s1:watson | Dr. Watson | aliases: Watson, I, the doctor, the narrator, Doctor | Narrator, Holmes's friend and former lodger, recently married.
+- s1:king_of_bohemia | Wilhelm Gottsreich Sigismond von Ormstein | aliases: the King, Count Von Kramm, Count Von Kramm, a Bohemian nobleman, your Majesty, the Grand Duke of Cassel-Felstein, the visitor, the masked man, his Majesty | King of Bohemia, who visits in a mask under the name Count Von Kramm.
+- s1:irene_adler | Irene Adler | aliases: the woman, Miss Irene Adler, Madame, Irene Norton, the lady, Mademoiselle, Irene, or Madame, the lady of Briony Lodge, the beautiful creature | American-born opera contralto and adventuress; becomes Irene Norton by marriage.
+- s1:godfrey_norton | Godfrey Norton | aliases: Mr. Godfrey Norton, Norton, the bridegroom, the gentleman, the handsome dark man | Barrister of the Inner Temple, Irene's lover and later husband.
+- s1:mrs_turner | Mrs. Turner | aliases: our landlady, the landlady | Landlady at Baker Street.
+- s1:mary_jane | Mary Jane | aliases: the servant girl, the slavey | Watson's clumsy servant girl.
+- s1:john_coachman | John | aliases: the coachman, the landau coachman | Irene's coachman, sent to watch Holmes.
+- s1:clergyman_st_monica | the surpliced clergyman | aliases: the clergyman | Priest at the Church of St. Monica who performs the wedding.
+- s1:adler_servant | the elderly woman | aliases: the servant, my mistress's servant | Elderly servant left at Briony Lodge.
+- s1:street_loungers | the loungers | aliases: the crowd, the loafers, the guardsmen, the scissors-grinder | Men hired by Holmes to stage the street brawl.
+Locations:
+- s1:baker_street | Baker Street | aliases: our lodgings, the lodgings, Baker Street lodgings | Holmes and Watson's rooms in London.
+- s1:briony_lodge | Briony Lodge | aliases: the house, Serpentine Avenue house | Irene Adler's villa on Serpentine Avenue, St. John's Wood.
+- s1:serpentine_avenue | Serpentine Avenue | aliases: the street, the avenue, Serpentine-mews | Street in St. John's Wood where Briony Lodge stands.
+- s1:church_of_st_monica | Church of St. Monica | aliases: the church | Edgeware Road church where Irene marries Norton.
+- s1:langham_hotel | the Langham | aliases: the hotel | London hotel where the King stays under the name Count Von Kramm.
+- s1:the_temple | the Temple | aliases: the Inner Temple, his chambers | Norton's chambers in London.
+Brief: {"era": "London, 1888 (late Victorian).", "place": "London: Baker Street lodgings, Serpentine Avenue in St. John's Wood, Edgeware Road, the Inner Temple; the King's Bohemia is referenced but not shown.", "dress": "Holmes in tweed suits and disguises (a shabby drunken groom, an amiable Nonconformist clergyman with broad black hat and white tie); Watson in Victorian civilian dress with ulster and top-hat; the King in rich Continental attire with astrakhan-trimmed coat, blue cloak lined with flame-coloured silk, fur-topped boots, and a black vizard mask; Irene in evening dress or walking clothes.", "buildings_and_objects": "Baker Street rooms with fireplace, armchairs, cigar case, spirit case and gasogene; Briony Lodge with a sitting-room with long windows and a sliding panel above the bell-pull; a landau and brougham with pairs of horses; pink-tinted notepaper watermarked with E, g, P, G, t; a cabinet-size photograph; a smoke-rocket; an emerald snake ring; a gold watch.", "depiction_rules": ["The King should be shown masked in the first meeting and unmasked only after he tears the mask off.", "Irene Adler is always the woman, shown beautiful and self-possessed; in the brawl she is in the doorway with her figure outlined against the hall lights.", "Holmes's disguises should be visibly different from his usual appearance; he is never shown in his own face during disguises.", "Show the smoke and street crowd as a chaotic brawl with men struggling, not as a clean scene."]}
+## Part s2
+Characters:
+- s2:sherlock_holmes | Sherlock Holmes | aliases: Holmes, my friend, the sleuth | Consulting detective; narrator's friend.
+- s2:watson | Dr. Watson | aliases: Watson, I, the narrator, Doctor | Narrator; Holmes's companion and chronicler.
+- s2:jabez_wilson | Jabez Wilson | aliases: Mr. Wilson, our client, the red-headed client, the stout gentleman, the portly client | Pawnbroker at Saxe-Coburg Square; red-headed client.
+- s2:vincent_spaulding | Vincent Spaulding | aliases: Spaulding, my assistant, the assistant, the smart fellow, the red-headed youth | Pawnbroker's assistant; in fact John Clay's accomplice, not a red-head.
+- s2:duncan_ross | Duncan Ross | aliases: the little man, the manager, the red-headed man at No. 4, William Morris | Red-headed agent of the League; a false identity used by the conspirators.
+- s2:john_clay | John Clay | aliases: the murderer, Mr. John Clay, the prisoner, his Highness, the young man, red-headed accomplice's leader | Criminal mastermind and grandson of a royal duke; leads the cellar tunnel plot.
+- s2:archie | Archie | aliases: the other, the lithe small companion, the pale-faced red-haired accomplice | Red-haired accomplice who dives down the hole.
+- s2:peter_jones | Peter Jones | aliases: Jones, the police agent, the official police agent | Official police agent from Scotland Yard.
+- s2:merryweather | Mr. Merryweather | aliases: the bank director, the director, the chairman of directors, the stranger | Chairman of directors of the City and Suburban Bank.
+- s2:ezekiah_hopkins | Ezekiah Hopkins | aliases: the late Ezekiah Hopkins, the American millionaire | Deceased benefactor named in the advertisement; mentioned only.
+- s2:mary_sutherland | Miss Mary Sutherland | aliases: Miss Mary Sutherland | Client of an earlier case; mentioned only.
+- s2:sarasate | Sarasate | aliases: - | Violinist performing at St. James's Hall; mentioned only.
+Locations:
+- s2:baker_street | Baker Street | aliases: Baker Street | Holmes's rooms.
+- s2:saxe_coburg_square | Saxe-Coburg Square | aliases: Coburg Square, Saxe-Coburg Square | Site of Wilson's pawnbroker shop.
+- s2:fleet_street_pope_court | Pope's Court, Fleet Street | aliases: Pope's Court, 7 Pope's Court, the offices of the League, the League's offices | Offices of the Red-headed League.
+- s2:city_bank_vault | City branch bank cellar | aliases: the cellar, the vault, the bank cellar, the City and Suburban Bank cellar | Vault of the City and Suburban Bank where the tunnel ends and the gold is kept.
+- s2:st_james_hall | St. James's Hall | aliases: St. James's Hall | Concert hall where Holmes hears Sarasate.
+- s2:farrington_street | Farrington Street | aliases: Farrington Street | Street approached on the way to the bank.
+- s2:king_edward_street | 17 King Edward Street | aliases: King Edward Street | False address given for William Morris; a artificial knee-cap manufactory.
+Brief: {"era": "London, 1890; autumn 1890 with the story's events in October.", "place": "Central London: the shabby Saxe-Coburg Square near the City, crowded Fleet Street and Pope's Court, the busy City thoroughfare, and a bank cellar with stone flags and crates.", "dress": "Victorian: frock-coats, top-hats, greatcoats, pea-jacket, Albert chain; Wilson in baggy grey shepherd's check trousers and a drab waistcoat; Holmes in a dressing gown and pipe at home.", "buildings_and_objects": "Brick two-storey houses, gas-lit streets, hansom cabs, pawnbroker's three gilt balls and brown board, the League's office with a cardboard notice, a cellar of crates and lead-foil-packed napoleons, a dark lantern, hunting crop, revolver, and handcuffs.", "depiction_rules": ["Red hair is the defining trait of the League's men; depict it vividly red where it is described.", "Spaulding should show a white acid splash on the forehead and pierced ears for earrings.", "Holmes's knees and the worn trouser knees are a clue; render them with some wear and staining.", "Keep the bank cellar dark and lit only by the lantern in the climactic scenes."]}
+## Part s3
+Characters:
+- s3:sherlock_holmes | Sherlock Holmes | aliases: Holmes | Consulting detective, Baker Street lodger.
+- s3:watson | Dr. Watson | aliases: Watson, I, my dear fellow | Narrator and Holmes's companion.
+- s3:mary_sutherland | Miss Mary Sutherland | aliases: the maiden, the young lady, the girl, Miss Sutherland | Visitor, typewriter, short-sighted, stepdaughter of James Windibank.
+- s3:james_windibank | James Windibank | aliases: Mr. Windibank, Hosmer Angel, Mr. Angel, the stepfather, the disguised man, the bridegroom | Stepfather of Mary Sutherland who disguised himself as her fiancé Hosmer Angel.
+- s3:hosmer_angel | Hosmer Angel | aliases: Mr. Hosmer Angel, the gentleman, the fiancé | Disguise adopted by James Windibank; not a separate person.
+- s3:mary_sutherland_mother | Mrs. Sutherland | aliases: mother, Mrs. Windibank | Mary's mother, married to James Windibank; complicit in the deception.
+- s3:mrs_etherege | Mrs. Etherege | aliases: - | Former client mentioned only as a referrer.
+- s3:boy_in_buttons | Boy in buttons | aliases: the boy | Page who announces visitors.
+Locations:
+- s3:baker_street | Baker Street lodgings | aliases: Baker Street, his lodgings, the sitting room | Holmes and Watson's rooms in London, by the fire.
+- s3:lyon_place | 31 Lyon Place, Camberwell | aliases: Lyon Place | Mary Sutherland's home, mentioned only.
+- s3:st_saviours_church | St. Saviour's, near King's Cross | aliases: the church | Church where the wedding was to take place; Hosmer Angel vanished nearby, mentioned only.
+Brief: {"era": "London, 1890s (late Victorian).", "place": "Baker Street lodgings of Sherlock Holmes; a sitting room with a fire, armchairs, a mantelpiece, bottles and test-tubes. Also London streets and a church near King's Cross.", "dress": "Victorian: Mary Sutherland wears a slate-coloured broad-brimmed straw hat with a brick-red feather, a black jacket with jet beadwork, a brown dress with purple plush at neck and sleeves, grey worn gloves, odd boots, small gold earrings and a fur boa. Windibank is clean-shaven, sallow, in a shiny top-hat; disguised as Hosmer Angel with tinted glasses, bushy black side-whiskers and moustache, black frock-coat, grey Harris tweed trousers, gold Albert chain. Holmes wears a dressing gown and smokes a clay pipe.", "buildings_and_objects": "Typewriter with worn 'e' and tailless 'r'; typewritten letters and advertisement slip; snuffbox of old gold with amethyst; a hansom cab and four-wheeler; a hunting crop; magnifying lens; hydrochloric acid and test-tubes; the church door.", "depiction_rules": ["Show Mary Sutherland as a short-sighted, good-humoured woman with a large hat, not as a fragile figure.", "Depict Windibank in the disguise of Hosmer Angel (tinted glasses, whiskers) when acting as the fiancé, and unmasked in the final confrontation.", "Keep the Baker Street room period-accurate with the fire and oil lamps; no modern electric fittings.", "Holmes and Watson are shown together in the fireside scenes; Holmes is typically seated, with his feet on the mantelpiece."]}
+## Part s4
+Characters:
+- s4:sherlock_holmes | Sherlock Holmes | aliases: Holmes, my companion, my friend, the detective | Consulting detective, narrator's companion.
+- s4:watson | Watson | aliases: I, me, the narrator, Dr. Watson | Narrator, Holmes's companion and chronicler.
+- s4:mrs_watson | Mrs. Watson | aliases: my wife, my dear fellow's wife | Watson's wife, present at the breakfast opening.
+- s4:lestrade | Lestrade | aliases: Mr. Lestrade, my colleague, Lestrade of Scotland Yard, the ferret-like man | Detective from Scotland Yard.
+- s4:alice_turner | Alice Turner | aliases: Miss Turner, the young woman, Turner's daughter, Alice | Daughter of John Turner, in love with James McCarthy.
+- s4:john_turner | John Turner | aliases: Mr. Turner, old Turner, Black Jack of Ballarat, Jack, the old man, the landowner | Wealthy landowner who made his money in Australia; the actual murderer.
+- s4:charles_mccarthy | Charles McCarthy | aliases: Mr. McCarthy, McCarthy senior, the dead man, the victim, the father, McCarthy | Murdered tenant farmer of Hatherley Farm, ex-Australian, former wagon-driver.
+- s4:james_mccarthy | James McCarthy | aliases: young McCarthy, Mr. James McCarthy, the son, the young man, the lad | Son of Charles McCarthy, accused of the murder.
+- s4:william_crowder | William Crowder | aliases: the game-keeper, the keeper | Game-keeper employed by Turner, witness.
+- s4:patience_moran | Patience Moran | aliases: the little girl, the girl, Moran | Fourteen-year-old daughter of the lodge-keeper, witness.
+- s4:john_cobb | John Cobb | aliases: the groom | Groom who drove McCarthy senior to Ross.
+- s4:dr_willows | Dr. Willows | aliases: the doctor | Doctor attending John Turner.
+Locations:
+- s4:baker_street | Baker Street | aliases: our rooms | Watson and Holmes's home in London; only referred to, not shown on stage.
+- s4:paddington_station | Paddington Station | aliases: Paddington | London station where the journey begins.
+- s4:ross_hereford_arms | Hereford Arms, Ross | aliases: the Hereford Arms, the hotel, our hotel, Ross | Hotel in the small country town of Ross where the detectives stay.
+- s4:hatherley_farm | Hatherley Farm | aliases: Hatherley, the farm, the farmhouse | McCarthy's farm, rented from Turner.
+- s4:boscombe_pool | Boscombe Pool | aliases: the pool, the lake, the glade | Small lake where the murder occurred, on the boundary between Hatherley and Turner's estate.
+- s4:boscombe_wood | Boscombe Wood | aliases: the wood, the woods, the beech | Woodland around the pool, where the quarrel was witnessed and the cigar ash found.
+- s4:hereford_gaol | Hereford prison | aliases: the prison, the gaol, Hereford | Prison where James McCarthy is held; visited at night.
+- s4:turner_hall | Turner's Hall | aliases: the Hall, the private park, Turner's house | Turner's residence, seen with its red pinnacles above the woods.
+Brief: {"era": "1880s-1890s England, with flashback to 1860s Victorian Australian goldfields.", "place": "Rural Herefordshire near Ross; Boscombe Pool and its wooded margins; a small market town hotel; a Victorian train journey from London.", "dress": "Victorian tweeds and travelling-cloaks for Holmes and Watson; Lestrade in light brown dustcoat and leather leggings; Holmes in a long grey travelling-cloak and close-fitting cloth cap; Turner frail, with grizzled hair and tangled beard; Alice in a respectable young woman's dress; the McCarthys in rustic working clothes; the murderer's grey cloak is a key clue.", "buildings_and_objects": "Hatherley Farm, a two-storied slate-roofed building with lichen-stained grey walls; Boscombe Pool, a reed-girt lake; a great beech in the wood; the red jutting pinnacles of Turner's Hall above the trees; a blunt stone as weapon; a gun, an Indian cigar with holder, a pocket Petrarch; a map of Victoria.", "depiction_rules": ["Show Holmes as a lean, gaunt, tall figure; in the tracking scene his face should show intense concentration.", "Show Turner as frail and ashen with blue-tinged lips, though physically large and craggy.", "The murderer is left-handed, lame in the right leg, and wears a grey cloak and thick-soled boots; keep these visible where the clues are discussed.", "Do not show the murder itself; the blow is only described, so depict the aftermath or the quarrel at a distance.", "Alice should be depicted as a lovely, impulsive young woman with violet eyes."]}
+## Part s5
+Characters:
+- s5:sherlock_holmes | Sherlock Holmes | aliases: Holmes, my friend | Consulting detective, Baker Street; narrator's companion.
+- s5:watson | Watson | aliases: I, the narrator, Doctor | First-person narrator, Holmes's friend and chronicler, a doctor.
+- s5:john_openshaw | John Openshaw | aliases: young Openshaw, the young man, the young gentleman | Young visitor from Horsham; nephew of Colonel Openshaw and son of Joseph Openshaw; killed near Waterloo Bridge.
+- s5:colonel_elias_openshaw | Colonel Elias Openshaw | aliases: my uncle, the colonel, Elias | John's uncle, former Confederate colonel and Florida planter; died in a garden pool in 1883.
+- s5:joseph_openshaw | Joseph Openshaw | aliases: my father, my poor father, Openshaw senior | John's father, Coventry bicycle-tire patentee; died after falling into a chalk-pit in 1885.
+- s5:major_prendergast | Major Prendergast | aliases: Major | Mentioned by John; Holmes once saved him in the Tankerville Club scandal.
+- s5:major_freebody | Major Freebody | aliases: the major | Commander of a fort on Portsdown Hill; Joseph Openshaw's friend.
+- s5:mr_fordham | Mr. Fordham | aliases: the Horsham lawyer, Fordham | Horsham lawyer who witnessed the colonel's will.
+- s5:mary | Mary | aliases: the maid | Openshaw household servant.
+- s5:police_constable_cook | Police-Constable Cook | aliases: Cook | Heard the cry near Waterloo Bridge; only in the newspaper report.
+- s5:captain_james_calhoun | Captain James Calhoun | aliases: Calhoun, the leader of the gang, the captain | Master of the barque Lone Star; Holmes's target; only mentioned.
+- s5:k_k_k_society | K. K. K. | aliases: the Ku Klux Klan, the society, the gang | Secret society whose warnings take the form of orange pips; treated as a group that pursues the family.
+- s5:hudson | Hudson | aliases: - | Named only in the colonel's diary entry, as a man who came.
+- s5:mccauley | McCauley | aliases: - | Named in the colonel's diary as a man marked with pips and later cleared.
+- s5:paramore | Paramore | aliases: - | Named in the colonel's diary as a man visited.
+- s5:john_swain | John Swain | aliases: - | Named in the colonel's diary as a man of St. Augustine who was marked and cleared.
+- s5:cuvier | Cuvier | aliases: - | Cited by Holmes as an example of deduction from a single bone.
+Locations:
+- s5:baker_street | Baker Street | aliases: our quarters, our rooms | Holmes and Watson's rooms, where the interview and later scenes take place.
+- s5:horsham | Horsham | aliases: the Openshaw estate, the estate in Sussex | Sussex town where the Openshaw estate lies.
+- s5:coventry | Coventry | aliases: - | Where Joseph Openshaw's factory stood; mentioned only.
+- s5:florida | Florida | aliases: the plantation | Colonel Openshaw's American plantation; mentioned only.
+- s5:portsdown_hill | Portsdown Hill | aliases: the fort | Site of Major Freebody's fort, where Joseph Openshaw was visiting; mentioned only.
+- s5:waterloo_bridge | Waterloo Bridge | aliases: the Embankment, the river | Where John Openshaw's body was recovered from the Thames.
+- s5:waterloo_station | Waterloo Station | aliases: Waterloo | Railway station John took to return to Horsham; mentioned only.
+- s5:pondicherry | Pondicherry | aliases: - | Postmark of the first letter; mentioned only.
+- s5:dundee | Dundee | aliases: - | Postmark of the second letter; mentioned only.
+- s5:savannah | Savannah | aliases: - | Destination port of the Lone Star; mentioned only.
+Brief: {"era": "1880s, Victorian England; the story's flashbacks reach back to the American South around 1869 and the Reconstruction era.", "place": "Baker Street, London, with Horsham in Sussex as the family seat; scenes also reach Waterloo Bridge on the Thames and the American South.", "dress": "Victorian middle-class and professional dress: frock coats, waterproofs and umbrellas for John Openshaw, pince-nez, and the colonel's Southern planter bearing.", "buildings_and_objects": "Gaslit Baker Street sitting room with fireplace and violin; a lumber-room attic with a brass box; a garden sundial and a green-scummed pool; a Thames embankment; a sailing barque; dried orange pips and their envelopes; blue-tinted paper page from a diary.", "depiction_rules": ["The K. K. K. society should be suggested through the orange pips, letters and envelopes rather than shown as a group of figures.", "Hooded Klan imagery should be avoided; the society's threat is conveyed by its symbols.", "The colonel's death and John's death should be shown without gratuitous violence, consistent with the accidental verdicts.", "The Lone Star is seen only as a sailing barque at sea or as its shattered stern-post, never with identifiable crew.", "Holmes and Watson are shown in their Baker Street room, with the storm visible through the windows."]}
+## Part s6
+Characters:
+- s6:isa_whitney | Isa Whitney | aliases: Whitney, Mr. Whitney, the opium-smoker | Brother of the late Elias Whitney, D.D.; opium addict found in the den.
+- s6:kate_whitney | Kate Whitney | aliases: Mrs. Whitney, the lady in dark stuff, the wife | Isa Whitney's wife; school companion of Mrs. Watson.
+- s6:watson | Watson | aliases: Dr. Watson, I, the narrator, my friend | Narrator and doctor, Holmes's companion.
+- s6:mrs_watson | Mrs. Watson | aliases: my wife | Narrator's wife; receives Kate Whitney.
+- s6:sherlock_holmes | Sherlock Holmes | aliases: Holmes, my friend, the old man by the brazier | Detective; disguised as a decrepit opium smoker in the den.
+- s6:neville_st_clair | Neville St. Clair | aliases: Mr. St. Clair, the missing gentleman, Hugh Boone, the beggar, the cripple, the prisoner | Missing gentleman of Lee who in disguise works as the beggar Hugh Boone.
+- s6:hugh_boone | Hugh Boone | aliases: the beggar, the cripple, the sinister cripple, the prisoner | Disguise of Neville St. Clair; the same individual, shown in the cell.
+- s6:lascar_manager | the Lascar | aliases: the Lascar manager, the rascally Lascar, the proprietor | Manager of the opium den, confederate of the beggar.
+- s6:malay_attendant | the Malay attendant | aliases: sallow Malay attendant | Attendant at the den who brings a pipe to Watson.
+- s6:mrs_st_clair_wife | Mrs. St. Clair | aliases: the little blonde woman, the lady of the house, Neville's wife | Wife of Neville St. Clair; daughter of a local brewer.
+- s6:inspector_barton | Inspector Barton | aliases: the inspector | Police inspector at the opium den; mentioned only.
+- s6:inspector_bradstreet | Inspector Bradstreet | aliases: Bradstreet, the inspector | Inspector on duty at Bow Street.
+- s6:dane_assistant | the Dane | aliases: the Dane who acts as assistant | Assistant at the opium den; mentioned only.
+Locations:
+- s6:upper_swandam_lane | Upper Swandam Lane | aliases: Swandam Lane, the Bar of Gold, the opium den | Lane east of London Bridge where the opium den stands.
+
+- s6:the_cedars | The Cedars | aliases: Mr. St. Clair's house, the villa at Lee | St. Clair villa near Lee, in Kent.
+
+- s6:bow_street | Bow Street | aliases: Bow Street police station, the cells | Police station where Boone is held.
+
+- s6:baker_street | Baker Street | aliases: Watson's sitting-room | Watson's home area; mentioned only.
+
+- s6:thames_river | the Thames | aliases: the river, the murky river | River where the coat was thrown and where the tide covers the mud-bank.
+
+Brief: {"era": "London, 1889, late Victorian.", "place": "East London opium dens near Upper Swandam Lane and the wharves by London Bridge; a villa at Lee in Kent; Bow Street police cells.", "dress": "Victorian middle-class dress for Watson and Holmes (frock coat, waistcoat, dressing-gown at night). Mrs. St. Clair wears light mousseline de soie with pink chiffon. Hugh Boone/the beggar wears tattered coarse clothing, a coloured shirt, and a shock of bright red hair. Holmes disguised as a decrepit old opium smoker.", "buildings_and_objects": "Opium den with wooden berths, brazier, pipes and oil-lamp; hansom and dog-cart; the Thames with wharves and a mud-bank at low tide; villa with gravel drive; Bow Street cells; Gladstone bag and large bath-sponge; the children's box of bricks; the coat weighted with pennies and half-pennies.", "depiction_rules": ["Boone's scar and twisted lip must be visible only in the disguised state; the revealed Neville St. Clair has a smooth face and black hair.", "Holmes's disguise as an old opium smoker should be shown as decrepit before the reveal.", "The opium den should be shown dim, smoky and crowded with sleeping figures.", "Depict the coat and coins only in river and mud-bank scenes."]}
+## Part s7
+Characters:
+- s7:sherlock_holmes | Sherlock Holmes | aliases: Holmes, my friend | Consulting detective; lodges at 221B Baker Street.
+- s7:watson | Watson | aliases: I, Dr. Watson, my companion, Doctor | Narrator; Holmes's friend and chronicler.
+- s7:peterson | Peterson | aliases: the commissionaire | Commissionaire who finds the goose and hat.
+- s7:henry_baker | Henry Baker | aliases: Mr. Baker, the gentleman with the bad hat, H. B. | Owner of the hat and goose; member of the Alpha Inn goose club.
+- s7:john_horner | John Horner | aliases: Horner, the plumber, the prisoner | Plumber wrongly accused of stealing the blue carbuncle.
+- s7:james_ryder | James Ryder | aliases: Ryder, John Robinson, Jem, the little man, the rat-faced fellow, the head attendant | Head attendant at the Hotel Cosmopolitan; the real thief.
+- s7:breckinridge | Breckinridge | aliases: the salesman, the proprietor of the Covent Garden stall | Covent Garden poultry salesman.
+- s7:windigate | Windigate | aliases: the landlord, our good host | Landlord of the Alpha Inn who runs the goose club.
+- s7:mrs_oakshott | Mrs. Oakshott | aliases: my sister, Maggie | Ryder's sister; poultry supplier in Brixton Road.
+- s7:catherine_cusack | Catherine Cusack | aliases: the maid, Cusack | Maid to the Countess of Morcar; Ryder's accomplice.
+- s7:countess_of_morcar | Countess of Morcar | aliases: her ladyship, the Countess | Owner of the blue carbuncle.
+- s7:maudsley | Maudsley | aliases: my pal | Former criminal friend of Ryder, living in Kilburn.
+- s7:inspector_bradstreet | Inspector Bradstreet | aliases: Bradstreet | Police inspector who arrested Horner.
+- s7:goose_bird | the goose | aliases: the white goose with a barred tail, the bird | The goose that swallowed the blue carbuncle.
+- s7:carbuncle_stone | the blue carbuncle | aliases: the stone, the gem | Blue gem, forty grains, from the Amoy River.
+Locations:
+- s7:baker_street | Baker Street | aliases: 221B Baker Street, the sitting-room | Holmes's sitting-room.
+- s7:tottenham_court_road | Tottenham Court Road | aliases: the corner of Goodge Street | Where the goose and hat were dropped on Christmas morning.
+- s7:hotel_cosmopolitan | Hotel Cosmopolitan | aliases: the hotel | Where the jewel robbery took place.
+- s7:alpha_inn | Alpha Inn | aliases: the Alpha | Public house near the Museum in Bloomsbury.
+- s7:covent_garden_market | Covent Garden Market | aliases: Covent Garden | Market where Breckinridge's stall stands.
+- s7:brixton_road | Brixton Road | aliases: 117 Brixton Road | Mrs. Oakshott's poultry house.
+- s7:kilburn | Kilburn | aliases: - | Where Maudsley lives.
+Brief: {"era": "London, late Victorian, around 1890s, December after Christmas.", "place": "Baker Street sitting-room, the streets of Bloomsbury, Covent Garden market at night, Brixton Road, Kilburn.", "dress": "Holmes in a purple dressing-gown; Watson in frock coat and ulster; Henry Baker in a Scotch bonnet and buttoned rusty black frock-coat; Ryder and the market men in working or hotel-attendant dress; cravats and ulsters against the frost.", "buildings_and_objects": "Gaslight and gas-jets in streets and shops, tallow candles in private rooms, coal fires, a basket-chair, a clay pipe, a strong-box, a four-wheeler cab, market stalls under swinging lamps, a hard-felt billycock hat with a hat-securer, a white goose with a barred tail.", "depiction_rules": ["The blue carbuncle should be shown as a small, brilliant blue gem, rather smaller than a bean.", "The goose is white with a black bar across the tail.", "Ryder should be shown as a small, rat-faced, nervous man.", "Show the Covent Garden and Bloomsbury scenes at night, cold and frosty, with visible breath."]}
+## Part s8
+Characters:
+- s8:sherlock_holmes | Sherlock Holmes | aliases: Holmes, my friend, my companion, the meddler | Consulting detective, Baker Street lodger; investigates the case.
+- s8:watson | Dr. Watson | aliases: Watson, I, narrator | Narrator and Holmes's companion; a doctor who accompanies him.
+- s8:helen_stoner | Helen Stoner | aliases: Miss Stoner, the lady, our client, our visitor, the young lady | Client; twin sister of Julia, stepdaughter of Dr. Roylott.
+- s8:julia_stoner | Julia Stoner | aliases: Julia, my sister, the dying woman | Helen's twin sister, who died in the night; appears only in recollection.
+- s8:grimesby_roylott | Dr. Grimesby Roylott | aliases: Dr. Roylott, the Doctor, my stepfather, the old man, the huge man | Helen's and Julia's stepfather, a violent former Calcutta physician of Stoke Moran; killed by his snake.
+- s8:baboon_pet | Roylott's baboon | aliases: the baboon, the hideous child | Indian animal kept by Dr. Roylott, roaming the grounds.
+- s8:cheetah_pet | Roylott's cheetah | aliases: the cheetah | Indian animal kept by Dr. Roylott, heard prowling outside.
+- s8:swamp_adder | the swamp adder | aliases: the speckled band, the snake, the reptile, the creature | Deadly Indian snake trained by Roylott to return via the ventilator; kills Dr. Roylott.
+- s8:mrs_hudson | Mrs. Hudson | aliases: the landlady | Landlady at Baker Street; mentioned only, never on stage.
+- s8:mrs_farintosh | Mrs. Farintosh | aliases: Farintosh | Former client whose case was the opal tiara; mentioned only.
+- s8:percy_armitage | Percy Armitage | aliases: Armitage, my friend | Helen's fiancé; mentioned only.
+- s8:gipsies | the gipsies | aliases: the gipsies in the plantation, vagabonds | Wandering encampment on the Roylott land; mentioned only.
+Locations:
+- s8:baker_street | Baker Street | aliases: our rooms, the sitting-room | Holmes and Watson's shared lodgings in London.
+- s8:stoke_moran_manor | Stoke Moran Manor | aliases: the manor-house, the old house, the Roylott house, the ancestral house | Old Roylott family house on the Surrey border, with bedrooms on the ground floor of the inhabited wing.
+- s8:helens_bedroom | Helen's bedroom | aliases: the middle room, the chamber in which my sister died | Room where Julia died; Helen sleeps here after the repairs, with a dummy bell-rope and ventilator to Roylott's room.
+- s8:roylott_bedroom | Dr. Roylott's room | aliases: the Doctor's room, his chamber | Roylott's bedroom with iron safe and the chair he stood on; where he dies.
+- s8:crown_inn | the Crown Inn | aliases: the Crown, the village inn | Village inn opposite the manor where Holmes and Watson lodge for the night.
+- s8:doctors_commons | Doctors' Commons | aliases: - | Where Holmes examines the will; mentioned only.
+- s8:waterloo_station | Waterloo | aliases: - | London station of the train to Leatherhead.
+- s8:leatherhead | Leatherhead | aliases: - | Town where Helen takes the train and where the party hires a trap.
+Brief: {"era": "Victorian England, April 1883.", "place": "Baker Street, London; the Surrey countryside around Leatherhead; Stoke Moran Manor, an old grey lichen-blotched stone house with a central block and two curving wings, one ruined.", "dress": "Victorian dress: Holmes in a dressing-gown or frock-coat; Helen in black mourning dress with a heavy veil; Roylott in a black top-hat, long frock-coat, high gaiters and carrying a hunting-crop, and later in a long grey dressing-gown and red Turkish slippers with a yellow speckled band around his head.", "buildings_and_objects": "Brown worm-eaten oak panelling, narrow white-counterpaned bed clamped to the floor, dummy bell-rope tassel on the pillow, ventilator opening above the bed, shutters with iron bars, iron safe, saucer of milk, dark-lantern, the dog-lash with whipcord loop, poker bent in a curve, Eley's No. 2 revolver.", "depiction_rules": ["The baboon and cheetah are animals, never shown as human figures.", "The swamp adder is a loathsome serpent with a squat diamond-shaped head and puffed neck; it should be visible as a snake rising from Roylott's hair, not as a band.", "Roylott's speckled band should read as a yellow band with brownish speckles around his brow, which turns out to be the snake.", "Julia appears only in recollection and should not be drawn on stage in the present scenes.", "Do not show the gipsies on stage; they remain offstage in the plantation."]}
+## Part s9
+Characters:
+- s9:victor_hatherley | Victor Hatherley | aliases: Mr. Hatherley, the engineer, my patient, my morning visitor | Young hydraulic engineer, narrator of his own ordeal; loses his thumb in the press at Eyford.
+- s9:watson | Dr. Watson | aliases: I, the narrator, the doctor | Narrator of the story, a doctor who treats Hatherley and brings him to Holmes.
+- s9:holmes | Sherlock Holmes | aliases: Holmes, my friend, Mr. Sherlock Holmes | Consulting detective at Baker Street.
+- s9:lysander_stark | Colonel Lysander Stark | aliases: Colonel Stark, the colonel, the thin man, the cadaverous man, Fritz | Emaciated, German-accented criminal who operates the coining press; also called Fritz by Elise.
+- s9:elise | Elise | aliases: the woman, the lady, the girl, the beautiful woman | Stark's pretty foreign companion who warns Hatherley and helps him escape.
+- s9:ferguson | Mr. Ferguson | aliases: the fat manager, the secretary, the short thick man, the morose Englishman | Stout Englishman with a chinchilla beard, Stark's manager and accomplice.
+- s9:bradstreet | Inspector Bradstreet | aliases: the inspector | Scotland Yard inspector who accompanies the party to Eyford.
+- s9:guard | the guard | aliases: my old ally, the trusty tout | Railway guard who brings Hatherley to Watson's door at dawn.
+- s9:station_master | the station-master | aliases: the station-master at Eyford | Eyford station-master who reports the fire at Dr. Becher's house.
+- s9:plain_clothes_man | the plain-clothes man | aliases: the detective | Officer who accompanies Bradstreet and suggests the west.
+- s9:porter | the porter | aliases: the sleepy porter | Sleepy porter at Eyford station on the night Hatherley arrives.
+- s9:jeremiah_hayling | Jeremiah Hayling | aliases: the missing engineer | Hydraulic engineer from a year-old advertisement, probably a previous victim of the press; mentioned only.
+- s9:dr_becher | Dr. Becher | aliases: - | Englishman whose house at Eyford burns; a name used by the criminals, mentioned only.
+Locations:
+- s9:baker_street | Baker Street | aliases: Baker Street rooms, Holmes's sitting-room | Holmes's sitting-room at 221B Baker Street.
+- s9:watson_consulting_room | Watson's consulting-room | aliases: the consulting-room, my library | Watson's consulting room near Paddington Station in London.
+- s9:victoria_street_chambers | Victoria Street chambers | aliases: 16A, Victoria Street, his office | Hatherley's professional chambers, where Stark calls on him.
+- s9:eyford_house | the house at Eyford | aliases: the house, Dr. Becher's house, the Stark house, the whitewashed building | Remote house near Eyford in Berkshire with the hydraulic press; burned down at the end.
+- s9:eyford_station | Eyford Station | aliases: the station, the little dim-lit station | Small railway station in Berkshire where Hatherley arrives and later returns.
+- s9:reading | Reading | aliases: the junction | Town where Hatherley changes trains.
+- s9:hatherley_road | the country road | aliases: the high road, the drive | The long, jolting carriage route from Eyford Station to the house.
+Brief: {"era": "Late 1880s England, 1889.", "place": "London (Paddington, Baker Street, Victoria Street) and a remote, overgrown house near Eyford in Berkshire, near Reading, with a long gravel drive and a high road.", "dress": "Victorian: Hatherley in a heather tweed suit and soft cap; Watson in a frock-coated doctor's dress; Holmes in a dressing-gown at home; Stark thin and plainly but neatly dressed; Elise in a rich dark dress; Ferguson stout with a chinchilla beard; Bradstreet in a Scotland Yard inspector's dress.", "buildings_and_objects": "A dim, decaying old house with corridors, low doors, a stone-floored passage, a bedroom window about thirty feet over a garden, and a hydraulic press with an iron floor and descending wooden-walled chamber, lamps, a harmonium, German books, and a barred oak shutter. A hansom cab, a single chestnut horse, a closed carriage with frosted-glass windows, and an ordnance map.", "depiction_rules": ["Show Hatherley's bandaged hand and the missing thumb accurately in scenes after the injury.", "Stark should be drawn as gaunt and cadaverous, with sharpened nose and chin and taut cheeks.", "Elise should be shown as frightened and beautiful, holding a lamp or candle.", "Show the press as a huge descending ceiling in a small square chamber, not as a human-scale room.", "Keep the fire and burned house visible only in the late scenes, with the roof having fallen in."]}
+## Part s10
+Characters:
+- s10:sherlock_holmes | Sherlock Holmes | aliases: Holmes, my friend, my companion | Consulting detective; narrator's friend and flatmate in Baker Street.
+- s10:watson | Dr. Watson | aliases: Watson, I, narrator, Dr. Watson | Narrator; Holmes's friend and biographer, a former army doctor.
+- s10:lord_st_simon | Lord Robert St. Simon | aliases: Lord St. Simon, Robert St. Simon, our client, the bridegroom, our noble client, his Lordship | Aristocratic bridegroom, second son of the Duke of Balmoral.
+- s10:hatty_doran | Hatty Doran | aliases: Lady St. Simon, Miss Doran, the bride, Mrs. Francis Hay Moulton, Mrs. Moulton, the lady | American heiress who married Lord St. Simon, then left and later married Francis Moulton.
+- s10:francis_moulton | Francis Hay Moulton | aliases: Frank, Mr. Moulton, the American, the strange gentleman, her first husband, the man in the pew | Hatty's former fiancé and first husband, believed dead, now alive.
+- s10:lestrade | Lestrade | aliases: Mr. Lestrade, the official detective, Scotland Yard detective | Inspector of Scotland Yard working the case.
+- s10:flora_millar | Flora Millar | aliases: Miss Flora Millar, the woman, F. H. M., the former dancer | Former dancer at the Allegro, Lord St. Simon's earlier companion; arrested.
+- s10:alice | Alice | aliases: the maid, her maid | Hatty's American maid, who had known Francis in California.
+- s10:aloysius_doran | Aloysius Doran | aliases: Mr. Doran, Pa, the father of the bride, her father | Californian millionaire, father of the bride.
+Locations:
+- s10:baker_street | Baker Street lodgings | aliases: Baker Street, our rooms, our humble lodging-house, our lodgings | Holmes and Watson's rooms, where the interviews take place.
+- s10:st_george_hanover_square | St. George's, Hanover Square | aliases: the church, the vestry, the altar | Church where the wedding was performed.
+- s10:doran_house_lancaster_gate | Doran house, Lancaster Gate | aliases: Mr. Doran's house, the house at Lancaster Gate, the furnished house | Wedding breakfast location where the bride vanished.
+- s10:hyde_park | Hyde Park | aliases: the Park | Park into which the bride walked and was seen with Flora Millar.
+- s10:serpentine | the Serpentine | aliases: the lake | Lake in Hyde Park that Lestrade dragged for the bride's body.
+- s10:gordon_square | Gordon Square lodgings | aliases: 226 Gordon Square, the lodgings in Gordon Square | Lodgings where the Moultons went after the wedding.
+Brief: {"era": "1890s London, late Victorian.", "place": "Baker Street lodgings in London; Hanover Square church; Lancaster Gate house; Hyde Park; the Serpentine; a Gordon Square lodging.", "dress": "Victorian formal and daywear: frock-coats, high collars, white waistcoats, yellow gloves for Lord St. Simon; ulster and bonnet for the bride; wedding dress of watered silk with veil and white satin shoes; pea-jacket and cravat for Lestrade; American Westerner Moulton is sunburnt and clean-shaven.", "buildings_and_objects": "Shabby Baker Street sitting room with fireplace, basket-chair, mahogany table, cigars and whisky; the supper of woodcock, pheasant and pâté; the crested letter; the ivory miniature locket; the wet wedding dress and wreath; the pencilled note; the hotel bill; the wedding breakfast room with a window onto the Park.", "depiction_rules": ["Show Holmes and Watson in the Baker Street room, not the hotel or church, unless a unit is set there.", "Lord St. Simon should appear stiff and aristocratic, eyeglasses swinging on a cord.", "Hatty Doran should be shown as a lovely, lively woman with dark hair and large dark eyes.", "Do not depict the Serpentine or the body; only the dragged clothing is seen.", "Depict the Moultons as Western American frontier figures, contrasted with the English gentry."]}
+## Part s11
+Characters:
+- s11:holmes | Sherlock Holmes | aliases: Holmes, my friend, the detective | Consulting detective, lodges at Baker Street with Watson.
+- s11:watson | Dr. Watson | aliases: I, narrator, my companion | Narrator and Holmes's companion at Baker Street.
+- s11:alexander_holder | Alexander Holder | aliases: Mr. Holder, our visitor, our client, the banker, dad, uncle | Senior partner of Holder & Stevenson, banking firm in Threadneedle Street; uncle of Mary and father of Arthur.
+- s11:arthur_holder | Arthur Holder | aliases: Arthur, my boy, my unhappy boy, the lad, young Holder | Son of Alexander Holder, accused of stealing the coronet gems.
+- s11:mary_holder | Mary Holder | aliases: Mary, Miss Holder, my little Mary, the young lady, my niece | Niece of Alexander Holder, adopted daughter, who secretly aided Sir George Burnwell.
+- s11:sir_george_burnwell | Sir George Burnwell | aliases: Sir George, Boots, the wooden-legged man's accomplice, the man in the lane | Gambler and villain, friend of Arthur, lover of Mary; the figure in the stable lane.
+- s11:lucy_parr | Lucy Parr | aliases: Lucy, the maid, the second waiting-maid | Second waiting-maid at Fairbank, who met her sweetheart at the back gate.
+- s11:francis_prosper | Francis Prosper | aliases: the greengrocer, Wooden-leg, the man with a wooden leg | Greengrocer and sweetheart of Lucy Parr.
+- s11:the_great_personage | the noble client | aliases: the illustrious client, the gentleman of high rank, him | Unnamed very high-ranking personage who deposited the Beryl Coronet as security; never named in the text.
+- s11:police_inspector | the police inspector | aliases: the inspector, a constable | Police officer who arrested Arthur and suggested Holder consult Holmes.
+Locations:
+- s11:baker_street | Baker Street | aliases: our rooms, the bow-window, our room | Holmes and Watson's rooms in London.
+- s11:threadneedle_street | Threadneedle Street | aliases: the bank, the office, the City | Location of Holder & Stevenson bank.
+- s11:fairbank | Fairbank | aliases: Streatham, the house, the residence | Alexander Holder's house in Streatham, with stable lane and side windows.
+- s11:stable_lane | the stable lane | aliases: the lane | Public lane behind Fairbank where the exchange of the coronet took place.
+- s11:dressing_room | the dressing-room | aliases: the bureau room | Alexander Holder's dressing-room at Fairbank where the bureau held the coronet.
+- s11:receivers_shop | the receiver's premises | aliases: the receiver | Place where the stolen gems were recovered from a receiver.
+Brief: {"era": "Late Victorian London, February 1890s (published 1892).", "place": "Baker Street flat; City of London bank in Threadneedle Street; Fairbank, a square white stone house in Streatham with snowy lawn, iron gates, tradesmen's path and a stable lane behind.", "dress": "Holder: sombre black frock-coat, shining hat, brown gaiters, pearl-grey trousers. Holmes in dressing-gown at home; disguised as a common loafer with worn coat, red cravat and seedy boots. Mary: dark, pale, dressed as a well-bred young woman. Arthur: shirt and trousers when caught at night, otherwise gentleman's dress. Sir George: well-dressed, handsome.", "buildings_and_objects": "Bow-window at Baker Street; bank safe and morocco case; the Beryl Coronet of gold with thirty-nine beryls, one corner with three gems torn away; bureau with noiseless lock in the dressing-room; hall side window onto the stable lane; deep snow with footprints; a life-preserver and pistol.", "depiction_rules": ["Show the coronet as a gold diadem with a visibly broken corner missing three gems.", "Snow should be deep and white on the pavements and lawns, with a wintry sun.", "Mary is pale with dark hair and eyes, and should appear grieved or flushed from weeping.", "Keep Holmes in dressing-gown or disguise as the scene requires; avoid modern dress.", "The noble client is never named and should be shown only obliquely or from behind."]}
+## Part s12
+Characters:
+- s12:holmes | Sherlock Holmes | aliases: Holmes, my friend | Detective; narrator Watson's companion.
+- s12:watson | Watson | aliases: I, narrator, Dr. Watson | Narrator and Holmes's companion; a medical man.
+- s12:violet_hunter | Violet Hunter | aliases: Miss Hunter, the young lady, our client | Governess who consults Holmes.
+- s12:jephro_rucastle | Jephro Rucastle | aliases: Mr. Rucastle, the fat man, my employer, the gentleman | Employer at the Copper Beeches; jovial, cruel father of Alice.
+- s12:mrs_rucastle | Mrs. Rucastle | aliases: Mrs. Rucastle, his wife, the stepmother | Silent second wife of Jephro Rucastle.
+- s12:edward_rucastle | Edward | aliases: little Edward, the child, the boy, the romper | Spoiled young son of the Rucastles.
+- s12:alice_rucastle | Alice Rucastle | aliases: Miss Rucastle, Miss Alice, the prisoner, the daughter | Jephro Rucastle's daughter by his first wife, imprisoned in the locked wing.
+- s12:toller | Toller | aliases: the groom, old Toller, the drunken man | Rough, drunken manservant at the Copper Beeches.
+- s12:mrs_toller | Mrs. Toller | aliases: the tall woman, Toller's wife | Silent, sour servant who later helps Holmes.
+- s12:fowler | Mr. Fowler | aliases: the man in the road, her young man, the bearded man | Alice's sailor fiancé who watches the house.
+- s12:miss_stoper | Miss Stoper | aliases: the manageress | Manageress of Westaway's governess agency.
+- s12:carlo | Carlo | aliases: the mastiff, the dog, the giant dog | Savage mastiff kept to guard the house.
+Locations:
+- s12:baker_street | Baker Street | aliases: the old room at Baker Street, our rooms | Holmes and Watson's lodgings in London.
+- s12:copper_beeches | The Copper Beeches | aliases: the house, the sinister house, the Copper Beeches | Isolated house near Winchester, Hampshire.
+- s12:black_swan_winchester | The Black Swan Hotel | aliases: the Black Swan, the inn | Inn in Winchester High Street where Hunter meets Holmes.
+- s12:westaways_agency | Westaway's | aliases: the agency | Governess agency in the West End.
+- s12:outhouse_dog | Dog outhouse | aliases: the outhouse | Outhouse near kitchen where Carlo is kept.
+- s12:locked_wing | The locked wing | aliases: the empty wing, the suite of rooms, the barricaded room | Deserted suite where Alice is confined.
+- s12:wine_cellar | Wine cellar | aliases: the cellar | Cellar where Mrs. Toller is locked in.
+Brief: {"era": "Late Victorian England, c. 1890s.", "place": "London (Baker Street) and rural Hampshire near Winchester; an isolated, whitewashed square house with copper beeches before its door, a lawn, woods, and the Southampton road.", "dress": "Victorian middle-class and servant dress. Violet Hunter wears a plain, neat dress and later an electric-blue dress of beige-like material; Jephro Rucastle is stout and jovial; Mrs. Toller is tall, gaunt and severe; Toller is rough and unkempt.", "buildings_and_objects": "Baker Street sitting room with fire, gas lamps and tea things; the Black Swan Hotel's sitting room; the Copper Beeches' drawing-room with long windows, the nursery, the barred and shuttered locked wing, a pallet bed, a skylight and a long light ladder; a wine cellar; the dog outhouse near the kitchen door.", "depiction_rules": ["Carlo the mastiff is a giant, tawny, dog-like animal as large as a calf; never depict it as a human figure.", "Alice Rucastle is never seen on stage; she should appear only as a shadowy figure or not at all.", "Mr. Fowler appears only as a small bearded man in a grey suit seen at a distance by the road.", "Show the Copper Beeches as a large plain whitewashed block with copper beeches in front, not as a grand mansion.", "Holmes is depicted in a dressing gown or tweeds with his pipe; Watson as a sober medical man in period clothing."]}
