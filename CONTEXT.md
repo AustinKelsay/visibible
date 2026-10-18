@@ -4,6 +4,9 @@ Visibible supports reading Scripture, generating verse images, discussing passag
 
 ## Language
 
+**Work**: The whole text being read and illustrated, such as the Bible or The Adventures of Sherlock Holmes. A work may divide into books, chapters, stories, verses or paragraphs.
+_Avoid_: Book (when meaning the whole text)
+
 **Passage**: Scripture text identified by its reference and translation. A passage can contain one or more verses.
 
 **Verse reference**: The book, chapter, and verse that identify one verse independently of its translation.
