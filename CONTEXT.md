@@ -16,6 +16,13 @@ _Avoid_: Book (when meaning the whole text)
 **Moment**: A run of one or more consecutive units, inside one story section, that one image illustrates. In the Bible, each verse is its own moment.
 _Avoid_: Passage, scene (when meaning this span)
 
+**Work brief**: The one page describing a work's tone, depiction rules and eras, approved by the owner before the work's first image.
+_Avoid_: World bible, style guide, theme
+
+**Era**: A stretch of a work's world whose people, dress, buildings and technology stay the same, such as Roman Judea or late Victorian London. Each story section belongs to one era.
+
+**Depiction rule**: A rule in a work brief about how something in the work may or may not be shown, such as drawing a disguised character as the disguise.
+
 **Passage**: Scripture text identified by its reference and translation. A passage can contain one or more verses.
 
 **Verse reference**: The book, chapter, and verse that identify one verse independently of its translation.
