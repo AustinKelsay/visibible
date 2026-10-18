@@ -5,7 +5,7 @@ date: 2026-10-17
 
 # Consistent verse images come from canon and reference images, not a continuity engine
 
-The [S07 spec](https://github.com/AustinKelsay/visibible/issues/51) listed "a general cross-chapter character/scene continuity engine" as out of scope. The [art styles and consistency map](https://github.com/AustinKelsay/visibible/issues/135) now needs the same **character**, **location** and **section look** across verse images in three **art styles**, so this record narrows that exclusion.
+The [S07 spec](https://github.com/AustinKelsay/visibible/issues/51) listed "a general cross-chapter character/scene continuity engine" as out of scope. The [art styles and consistency map](https://github.com/AustinKelsay/visibible/issues/135) now needs the same **character**, **location** and **section look** across verse images in three **art styles**. This record narrows that exclusion, and [the spec](https://github.com/AustinKelsay/visibible/issues/151) assembles the full set of decisions.
 
 Consistency comes from fixed inputs on the existing OpenRouter image request. It does not come from a new engine or from chaining images.
 
