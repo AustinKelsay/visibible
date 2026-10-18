@@ -16,6 +16,26 @@ Visibible supports reading Scripture, generating verse images, discussing passag
 
 **Scene plan**: A description of the subject, action, setting, and composition used to guide a verse image.
 
+**Art style**: The shared look of verse images (rendering, palette, lighting, texture), independent of what any one image depicts.
+_Avoid_: Theme, style profile
+
+**Character**: A person or being who appears in more than one verse image, such as Moses.
+
+**Location**: A place that appears in more than one verse image, such as the Red Sea or the temple in Jerusalem.
+
+**Canon**: The description of a character's or location's identity, shared by every art style, so each style depicts the same figure or place.
+
+**Life stage**: A period of a character's life with its own canon appearance, such as the shepherd boy David or King David.
+
+**Story section**: A run of consecutive verses that tells one episode, such as the crossing of the Red Sea.
+_Avoid_: Pericope, chapter (when meaning the episode)
+
+**Section cast**: The characters and locations present in a story section, including those the text does not name in every verse.
+
+**Section look**: The place, time of day, weather, light, and clothing shared by every verse image of a story section, in every translation and art style.
+
+**Passage continuity**: Consistent setting, costume, lighting, and props across the verse images of one story section.
+
 **Generation**: The work requested to produce one verse image. A repeated delivery of the same request is still the same generation.
 _Avoid_: Image request when referring to each network delivery as separate paid work.
 
