@@ -58,7 +58,7 @@ _Avoid_: Pericope, chapter (when meaning the episode)
 
 **Section look**: What is particular to one story section, such as its time of day, weather, light, and situational clothing, shared by every verse image of that section in every translation and art style. Canon, not the section look, describes how its characters and locations normally appear.
 
-**Reference sheet**: An approved picture of a character at one stage, or of a location or object, sent with each generation that depicts it so the image model draws the same figure or place.
+**Reference sheet**: A picture the engine makes from a canon entry, showing a character at one stage, or a location or object, in fixed views on a plain background, checked by a vision model and sent with each generation that depicts it so the image model draws the same figure, place or thing.
 
 **Style reference**: A picture with no people, made for one art style and one work, that shows the style's rendering in that work's world, sent with every generation in that style.
 
