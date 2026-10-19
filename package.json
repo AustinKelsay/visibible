@@ -22,7 +22,9 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:watch": "vitest --watch",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "works:import": "tsx scripts/works/import.mts",
+    "works:check": "tsx scripts/works/import.mts --check"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.1",
@@ -63,6 +65,7 @@
     "eslint-config-next": "16.1.5",
     "jsdom": "^27.0.0",
     "tailwindcss": "^4.1.18",
+    "tsx": "^4.23.15",
     "typescript": "^5",
     "vitest": "^4.0.16"
   }

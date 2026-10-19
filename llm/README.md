@@ -5,6 +5,7 @@ These guides describe the repository's current behavior. Source links identify t
 | When changing | Read |
 | --- | --- |
 | Scripture fetching, translations, lookup errors | [Bible API](context/BIBLE-API.md) |
+| Imported reference works, unit identities, moment ranges or source refreshes | [Work input](context/WORK-INPUT.md) |
 | Reader, gallery, menus, keyboard or mobile navigation | [Navigation](context/NAVIGATION.md) |
 | Model, translation, ratio or resolution preferences | [Preferences](context/PREFERENCES.md) |
 | Image requests, planner cache or progress | [Image generation](context/IMAGE-GENERATION.md) |
