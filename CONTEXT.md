@@ -2,6 +2,8 @@
 
 Visibible supports reading Scripture, generating verse images, discussing passages, and browsing a shared image library.
 
+The image-engine terms below describe the accepted design in [A generic image engine with shared canon and art styles](https://github.com/AustinKelsay/visibible/issues/165), with the Bible as its first work. They do not imply that the engine migration has shipped.
+
 ## Language
 
 **Work**: The whole text being read and illustrated, such as the Bible or The Adventures of Sherlock Holmes. A work may divide into books, chapters, stories, verses or paragraphs.
@@ -16,7 +18,7 @@ _Avoid_: Book (when meaning the whole text)
 **Moment**: A run of one or more consecutive units, inside one story section, that one image illustrates. In the Bible, each verse is its own moment.
 _Avoid_: Passage, scene (when meaning this span)
 
-**Work brief**: The one page describing a work's tone, depiction rules and eras, approved by the owner before the work's first image.
+**Work brief**: The one page describing a work's tone, depiction rules, eras and style set, approved by the owner before the work's first image.
 _Avoid_: World bible, style guide, theme
 
 **Era**: A stretch of a work's world whose people, dress, buildings and technology stay the same, such as Roman Judea or late Victorian London. Each story section belongs to one era. A work's main era is the era with the most story sections.
@@ -29,11 +31,11 @@ _Avoid_: World bible, style guide, theme
 
 **Translation**: A named rendering of Scripture in a particular language.
 
-**Verse image**: An illustration associated with a verse reference, with information about the translation and generation that produced it.
+**Verse image**: The Bible app's name for an illustration of one moment, associated with a verse reference and the reference text and generation that produced it.
 
 **Shared image library**: Saved verse images available for public browsing and reuse.
 
-**Scene plan**: A description of the subject, action, setting, and composition used to guide a verse image.
+**Scene plan**: A description of a moment's subject, action, setting, and composition, shared across art styles and reader translations.
 
 **Art style**: The shared look of images (rendering, palette, lighting, texture), independent of any work and of what any one image depicts.
 _Avoid_: Theme, style profile
@@ -56,11 +58,11 @@ _Avoid_: Pericope, chapter (when meaning the episode)
 
 **Section cast**: The characters, locations and objects present in a story section, including those the text does not name in every unit.
 
-**Section look**: What is particular to one story section, such as its time of day, weather, light, and situational clothing, shared by every verse image of that section in every translation and art style. Canon, not the section look, describes how its characters and locations normally appear.
+**Section look**: What is particular to one story section, such as its time of day, weather, light, and situational clothing, shared by images of that section's moments across translations and art styles. Canon describes how its characters and locations normally appear.
 
-**Reference sheet**: A picture the engine makes from a canon entry, showing a character at one stage, or a location or object, in fixed views on a plain background, checked by a vision model and sent with each generation that depicts it so the image model draws the same figure, place or thing.
+**Reference sheet**: An engine-made, vision-checked picture of a canon entry in fixed views on a plain background: a character or location at one stage, or an object. It is an optional visual reference for images depicting that entry.
 
-**Style reference**: A picture with no people, made for one art style and one work, that shows the style's rendering in that work's world, sent with every generation in that style.
+**Style reference**: A picture with no people, made for one art style and one work, that shows the style's rendering in that work's world. It is an optional visual reference for images in that style.
 
 **Analysis**: Everything the engine makes for a work from its reading pass onward: story sections, moments, cast, canon, section casts, section looks, scene plans, reference sheets and style references. The owner corrects it after the fact; only the work brief is approved beforehand.
 
@@ -70,9 +72,9 @@ _Avoid_: Pericope, chapter (when meaning the episode)
 
 **Attention list**: The owner's collection of concerns about a work's analysis and saved images, including image reports and problems found while preparing the work.
 
-**Passage continuity**: Consistent setting, costume, lighting, and props across the verse images of one story section.
+**Passage continuity**: Consistent setting, costume, lighting, and props across images of one story section's moments.
 
-**Generation**: The work requested to produce one verse image. A repeated delivery of the same request is still the same generation.
+**Generation**: The work requested to produce one image of a moment. A repeated delivery of the same request is still the same generation.
 _Avoid_: Image request when referring to each network delivery as separate paid work.
 
 **Generation attempt**: One attempt to obtain output from a model provider for a generation.
