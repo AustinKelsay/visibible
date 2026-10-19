@@ -19,7 +19,7 @@ _Avoid_: Passage, scene (when meaning this span)
 **Work brief**: The one page describing a work's tone, depiction rules and eras, approved by the owner before the work's first image.
 _Avoid_: World bible, style guide, theme
 
-**Era**: A stretch of a work's world whose people, dress, buildings and technology stay the same, such as Roman Judea or late Victorian London. Each story section belongs to one era.
+**Era**: A stretch of a work's world whose people, dress, buildings and technology stay the same, such as Roman Judea or late Victorian London. Each story section belongs to one era. A work's main era is the era with the most story sections.
 
 **Depiction rule**: A rule in a work brief about how something in the work may or may not be shown, such as drawing a disguised character as the disguise.
 
@@ -35,8 +35,10 @@ _Avoid_: World bible, style guide, theme
 
 **Scene plan**: A description of the subject, action, setting, and composition used to guide a verse image.
 
-**Art style**: The shared look of verse images (rendering, palette, lighting, texture), independent of what any one image depicts.
+**Art style**: The shared look of images (rendering, palette, lighting, texture), independent of any work and of what any one image depicts.
 _Avoid_: Theme, style profile
+
+**Style set**: The ordered list of art styles a work offers, named in its work brief. The first is the work's default.
 
 **Character**: A person or being who appears in more than one verse image, such as Moses.
 
@@ -55,7 +57,7 @@ _Avoid_: Pericope, chapter (when meaning the episode)
 
 **Reference sheet**: An approved picture of a character at one life stage, or of a location, sent with each generation that depicts it so the image model draws the same figure or place.
 
-**Style reference**: An approved picture with no characters that shows one art style's rendering, sent with generations in that style.
+**Style reference**: A picture with no people, made for one art style and one work, that shows the style's rendering in that work's world, sent with every generation in that style.
 
 **Passage continuity**: Consistent setting, costume, lighting, and props across the verse images of one story section.
 
