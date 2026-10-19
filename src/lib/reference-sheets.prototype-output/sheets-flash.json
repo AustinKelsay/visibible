@@ -1,0 +1,949 @@
+{
+ "sherlock_holmes_main--flash": {
+  "entry": "Sherlock Holmes",
+  "entry_id": "sherlock_holmes",
+  "stage": "sherlock_holmes_main",
+  "stage_label": "Sherlock Holmes",
+  "kind": "character",
+  "work": "holmes",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Character reference sheet for an illustrated edition of The Adventures of Sherlock Holmes.\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Londoners of every class: gentlemen, clerks, tradesmen, cabmen, servants and police, with country gentry and farm folk in the provinces. Frock-coats, top hats, bowler hats, ulsters and tweeds for men; bonnets, bustles, high-necked and plush-trimmed dresses for women; plain dress for servants and labourers.\nCharacter: Sherlock Holmes: man in his thirties; lean, wiry build; pale, angular face with a sharp, hawk-like nose and keen grey eyes; clean-shaven; dark hair worn short and neat. Dressed in a tweed suit or dark frock-coat, a long ulster or a dressing-gown in dark red or plum; pipe and violin as signature props.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+  "canon_text": "Sherlock Holmes: man in his thirties; lean, wiry build; pale, angular face with a sharp, hawk-like nose and keen grey eyes; clean-shaven; dark hair worn short and neat. Dressed in a tweed suit or dark frock-coat, a long ulster or a dressing-gown in dark red or plum; pipe and violin as signature props.",
+  "tries": [
+   {
+    "n": 1,
+    "file": "sheets/sherlock_holmes_main--flash.try1.jpg",
+    "generate": {
+     "seconds": 9.5,
+     "cost": 0.06744,
+     "provider": "Google",
+     "prompt_tokens": 480,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 8.8,
+     "cost": 0.0004358
+    },
+    "verdict": {
+     "views_ok": false,
+     "views_note": "Front and three-quarter views are full-length, but the third view is a three-quarter/side view with a pipe, and the close-up is a head-and-shoulders with violin; close-up is not a plain head-and-shoulders and includes props and a purple robe. Layout is acceptable but close-up composition differs from required.",
+     "same_subject": false,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [
+      "Close-up shows a purple dressing-gown and violin, while the views show a dark tweed ulster with no visible plum robe in full-length views; clothing differs between views",
+      "Full-length views show a dark overcoat over a waistcoat, inconsistent with a single costume across views",
+      "Pipe appears only in one view and is held in hand, with violin only in close-up, so props differ between views"
+     ],
+     "verdict": "fail",
+     "reasons": [
+      "Clothing colour and garments differ between full-length and close-up views",
+      "Props (pipe and violin) do not appear consistently across views",
+      "Close-up framing includes a violin and purple robe rather than a plain head-and-shoulders view"
+     ]
+    },
+    "feedback_sent": ""
+   },
+   {
+    "n": 2,
+    "file": "sheets/sherlock_holmes_main--flash.try2.jpg",
+    "generate": {
+     "seconds": 9.5,
+     "cost": 0.0675125,
+     "provider": "Google",
+     "prompt_tokens": 625,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 5.7,
+     "cost": 0.0003063
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Full-length front, full-length three-quarter, and close-up head-and-shoulders views are present in order.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [],
+     "verdict": "pass",
+     "reasons": []
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: Clothing colour and garments differ between full-length and close-up views; Props (pipe and violin) do not appear consistently across views; Close-up framing includes a violin and purple robe rather than a plain head-and-shoulders view; Close-up shows a purple dressing-gown and violin, while the views show a dark tweed ulster with no visible plum robe in full-length views; clothing differs between views; Full-length views show a dark overcoat over a waistcoat, inconsistent with a single costume across views; Pipe appears only in one view and is held in hand, with violin only in close-up, so props differ between views. Fix these."
+   }
+  ],
+  "final": "sheets/sherlock_holmes_main--flash.jpg",
+  "wall_seconds": 33.8,
+  "cost": 0.13569
+ },
+ "dr_watson-s1--flash": {
+  "entry": "Dr. Watson",
+  "entry_id": "dr_watson",
+  "stage": "dr_watson-s1",
+  "stage_label": "Watson, the narrator-companion",
+  "kind": "character",
+  "work": "holmes",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Character reference sheet for an illustrated edition of The Adventures of Sherlock Holmes.\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Londoners of every class: gentlemen, clerks, tradesmen, cabmen, servants and police, with country gentry and farm folk in the provinces. Frock-coats, top hats, bowler hats, ulsters and tweeds for men; bonnets, bustles, high-necked and plush-trimmed dresses for women; plain dress for servants and labourers.\nCharacter: Dr. Watson: man in his late thirties to forties, sturdy and solidly built with a comfortable, well-fed frame, having gained weight since marriage; fair to light-brown hair neatly parted, full drooping moustache, pleasant open face with kindly, steady eyes. Dresses as a respectable Victorian gentleman doctor in dark frock-coat or tweed suit, waistcoat, high collar and cravat; carries a physician's black bag and a walking stick, and often a revolver for dangerous nights.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+  "canon_text": "Dr. Watson: man in his late thirties to forties, sturdy and solidly built with a comfortable, well-fed frame, having gained weight since marriage; fair to light-brown hair neatly parted, full drooping moustache, pleasant open face with kindly, steady eyes. Dresses as a respectable Victorian gentleman doctor in dark frock-coat or tweed suit, waistcoat, high collar and cravat; carries a physician's black bag and a walking stick, and often a revolver for dangerous nights.",
+  "tries": [
+   {
+    "n": 1,
+    "file": "sheets/dr_watson-s1--flash.try1.jpg",
+    "generate": {
+     "seconds": 8.2,
+     "cost": 0.067451,
+     "provider": "Google",
+     "prompt_tokens": 502,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 3.1,
+     "cost": 0.0003456
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Front full-length, three-quarter full-length, and head-and-shoulders close-up are all present in the expected order.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [
+      "Canon says solidly built with a comfortable, well-fed frame; figure appears slim rather than sturdy."
+     ],
+     "verdict": "fail",
+     "reasons": [
+      "Build contradicts canon: figure reads slim, not sturdy and well-fed."
+     ]
+    },
+    "feedback_sent": ""
+   },
+   {
+    "n": 2,
+    "file": "sheets/dr_watson-s1--flash.try2.jpg",
+    "generate": {
+     "seconds": 7.9,
+     "cost": 0.067474,
+     "provider": "Google",
+     "prompt_tokens": 548,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 4.8,
+     "cost": 0.0003691
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Full-length front, full-length three-quarter, and head-and-shoulders close-up are present in the correct order.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [
+      "Subject appears to have a slim-to-average build rather than the sturdy, well-fed frame described in canon",
+      "Subject's hair appears light brown to fair as canon allows, but close-up shows a shorter, less clearly parted style than canon's neat parting"
+     ],
+     "verdict": "fail",
+     "reasons": [
+      "Build does not match canon's sturdy, comfortable frame with added weight since marriage"
+     ]
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: Build contradicts canon: figure reads slim, not sturdy and well-fed.; Canon says solidly built with a comfortable, well-fed frame; figure appears slim rather than sturdy.. Fix these."
+   },
+   {
+    "n": 3,
+    "file": "sheets/dr_watson-s1--flash.try3.jpg",
+    "generate": {
+     "seconds": 8.2,
+     "cost": 0.067493,
+     "provider": "Google",
+     "prompt_tokens": 586,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 4.5,
+     "cost": 0.0003456
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Front full-length, three-quarter full-length, and head-and-shoulders close-up present in order on plain grey background.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [
+      "Figure appears trim rather than sturdy and well-fed with a comfortable frame, contrary to canon build"
+     ],
+     "verdict": "fail",
+     "reasons": [
+      "Build contradicts canon: subject is slim, not sturdy and well-fed."
+     ]
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: Build does not match canon's sturdy, comfortable frame with added weight since marriage; Subject appears to have a slim-to-average build rather than the sturdy, well-fed frame described in canon; Subject's hair appears light brown to fair as canon allows, but close-up shows a shorter, less clearly parted style than canon's neat parting. Fix these."
+   }
+  ],
+  "final": null,
+  "wall_seconds": 37.3,
+  "cost": 0.20348,
+  "last_try": "sheets/dr_watson-s1--flash.try3.jpg"
+ },
+ "lestrade-s1--flash": {
+  "entry": "Lestrade",
+  "entry_id": "lestrade",
+  "stage": "lestrade-s1",
+  "stage_label": "Lestrade",
+  "kind": "character",
+  "work": "holmes",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Character reference sheet for an illustrated edition of The Adventures of Sherlock Holmes.\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Londoners of every class: gentlemen, clerks, tradesmen, cabmen, servants and police, with country gentry and farm folk in the provinces. Frock-coats, top hats, bowler hats, ulsters and tweeds for men; bonnets, bustles, high-necked and plush-trimmed dresses for women; plain dress for servants and labourers.\nCharacter: Lestrade: a lean, wiry Scotland Yard inspector of about forty, with a ferret-like face, narrow sharp features and a sly, furtive cast to the eyes. Short, neatly brushed sandy-brown hair and a trim sandy moustache. Country dress: light brown dustcoat and leather leggings. Town dress: pea-jacket, cravat, and a black canvas bag in hand.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+  "canon_text": "Lestrade: a lean, wiry Scotland Yard inspector of about forty, with a ferret-like face, narrow sharp features and a sly, furtive cast to the eyes. Short, neatly brushed sandy-brown hair and a trim sandy moustache. Country dress: light brown dustcoat and leather leggings. Town dress: pea-jacket, cravat, and a black canvas bag in hand.",
+  "tries": [
+   {
+    "n": 1,
+    "file": "sheets/lestrade-s1--flash.try1.jpg",
+    "generate": {
+     "seconds": 9.1,
+     "cost": 0.0674415,
+     "provider": "Google",
+     "prompt_tokens": 483,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 7.1,
+     "cost": 0.0004251
+    },
+    "verdict": {
+     "views_ok": false,
+     "views_note": "Front and three-quarter full-length views are present and the close-up head-and-shoulders is present, but the second view is turned rather than a clear three-quarter, and the figure in the close-up is not a clean match. Views are roughly in order.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [
+      "Subject appears broader and more solid rather than lean and wiry",
+      "Face is fuller and less ferret-like, lacking the narrow sharp features and sly furtive eyes",
+      "Hair is a fuller, combed-back style rather than short neatly brushed",
+      "Town dress shown with a black canvas bag, but the dustcoat is worn over a dark waistcoat with pea-jacket style, not clearly a pea-jacket"
+     ],
+     "verdict": "fail",
+     "reasons": [
+      "Subject does not match the lean, ferret-faced canon description",
+      "Hair and facial features diverge from canon",
+      "Second view is not a clear three-quarter angle"
+     ]
+    },
+    "feedback_sent": ""
+   },
+   {
+    "n": 2,
+    "file": "sheets/lestrade-s1--flash.try2.jpg",
+    "generate": {
+     "seconds": 8.9,
+     "cost": 0.067503,
+     "provider": "Google",
+     "prompt_tokens": 606,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 4.9,
+     "cost": 0.0004966
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Three views present: full-length front, three-quarter, and head-and-shoulders close-up, in the required order.",
+     "same_subject": false,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [
+      "Front and three-quarter views wear a light brown dustcoat, but the town view wears a dark navy pea-jacket, so the subject's clothing differs between views.",
+      "The bag is held in the three-quarter and town views but absent from the front view, and the second bag shadow in the three-quarter view suggests an extra bag.",
+      "Face and hair read as more youthful and rounder than a lean, wiry, ferret-like inspector of about forty with narrow sharp features and a sly, furtive gaze.",
+      "Hair is a fuller, lighter blond rather than short, neatly brushed sandy-brown, and the close-up eyes look open rather than sly and furtive.",
+      "Town dress shows a dark brown waistcoat and trousers that differ from the light brown country dress, which is acceptable, but the front view lacks the leather leggings, showing trousers tucked into boots instead."
+     ],
+     "verdict": "fail",
+     "reasons": [
+      "Subject's clothing colour changes between views (light brown dustcoat vs navy pea-jacket).",
+      "Facial features and hair colour do not match the canon's ferret-like, sandy-brown inspector.",
+      "Bag presence is inconsistent across views and an extra bag appears."
+     ]
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: Subject does not match the lean, ferret-faced canon description; Hair and facial features diverge from canon; Second view is not a clear three-quarter angle; Subject appears broader and more solid rather than lean and wiry; Face is fuller and less ferret-like, lacking the narrow sharp features and sly furtive eyes; Hair is a fuller, combed-back style rather than short neatly brushed; Town dress shown with a black canvas bag, but the dustcoat is worn over a dark waistcoat with pea-jacket style, not clearly a pea-jacket. Fix these."
+   },
+   {
+    "n": 3,
+    "file": "sheets/lestrade-s1--flash.try3.jpg",
+    "generate": {
+     "seconds": 9.2,
+     "cost": 0.0675615,
+     "provider": "Google",
+     "prompt_tokens": 723,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 8.3,
+     "cost": 0.0005011
+    },
+    "verdict": {
+     "views_ok": false,
+     "views_note": "Three views present: full-length front, full-length three-quarter, and head-and-shoulders close-up, but the close-up is not on the same framing standard and the figures are different builds; mainly the views are present, though the hair and face do not match across views.",
+     "same_subject": false,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [
+      "Canon describes a lean, wiry man with a ferret-like face and sly, furtive eyes; the figures appear broader and more genial with a neutral, open expression.",
+      "Canon specifies light brown dustcoat and leather leggings for country dress, but the figure wears a dark pea-jacket, cravat and waistcoat with grey trousers.",
+      "Canon specifies a black canvas bag in hand, which is present, but the jacket and tie are in the town-dress style only while no country dress view is shown.",
+      "Hair in the close-up appears fuller and lighter than the short neatly brushed sandy-brown hair described, and the head size and proportions differ between the full-length views and the close-up.",
+      "Moustache appears in the close-up but the face in the full-length views looks rounder and less narrow than the canon ferret-like features."
+     ],
+     "verdict": "fail",
+     "reasons": [
+      "Face and build do not match the lean, wiry, ferret-like canon description.",
+      "Subject proportions and hair differ between full-length views and close-up, so views may not show the same subject.",
+      "Clothing does not match canon dress for the figure shown."
+     ]
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: Subject's clothing colour changes between views (light brown dustcoat vs navy pea-jacket).; Facial features and hair colour do not match the canon's ferret-like, sandy-brown inspector.; Bag presence is inconsistent across views and an extra bag appears.; Front and three-quarter views wear a light brown dustcoat, but the town view wears a dark navy pea-jacket, so the subject's clothing differs between views.; The bag is held in the three-quarter and town views but absent from the front view, and the second bag shadow in the three-quarter view suggests an extra bag.; Face and hair read as more youthful and rounder than a lean, wiry, ferret-like inspector of about forty with narrow sharp features and a sly, furtive gaze.; Hair is a fuller, lighter blond rather than short, neatly brushed sandy-brown, and the close-up eyes look open rather than sly and furtive.; Town dress shows a dark brown waistcoat and trousers that differ from the light brown country dress, which is acceptable, but the front view lacks the leather leggings, showing trousers tucked into boots instead.. Fix these."
+   }
+  ],
+  "final": null,
+  "wall_seconds": 47.9,
+  "cost": 0.20393,
+  "last_try": "sheets/lestrade-s1--flash.try3.jpg"
+ },
+ "221b_baker_street_main--flash": {
+  "entry": "221B Baker Street",
+  "entry_id": "221b_baker_street",
+  "stage": "221b_baker_street_main",
+  "stage_label": "Baker Street lodgings",
+  "kind": "location",
+  "work": "holmes",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Location reference sheet for an illustrated edition of The Adventures of Sherlock Holmes.\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Gaslit streets and rooms with coal or oil lamps, hansom cabs and dog-carts, brick townhouses, country manors and farmhouses, printed newspapers, handwritten letters and telegrams, clay pipes and cigars.\nLocation: 221B Baker Street: first-floor sitting-room of a brick townhouse on a London street of dun-coloured brick houses; large bow-window onto the street; hearth with a coal fire and mantel; gaslit fittings; a sideboard and a table with white cloth; shelves of old books, chemical bottles and test-tubes; armchairs either side of the fire; violin and pipe on the mantelpiece; fog or snow outside.\nLayout: two views of this same place side by side, each filling half of the image, separated by a narrow plain mid-grey gap: left, a wide establishing view showing the whole place and its surroundings; right, a closer ground-level view of its most characteristic part. Clear, neutral daylight. No people, no animals.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+  "canon_text": "221B Baker Street: first-floor sitting-room of a brick townhouse on a London street of dun-coloured brick houses; large bow-window onto the street; hearth with a coal fire and mantel; gaslit fittings; a sideboard and a table with white cloth; shelves of old books, chemical bottles and test-tubes; armchairs either side of the fire; violin and pipe on the mantelpiece; fog or snow outside.",
+  "tries": [
+   {
+    "n": 1,
+    "file": "sheets/221b_baker_street_main--flash.try1.jpg",
+    "generate": {
+     "seconds": 9.4,
+     "cost": 0.0674115,
+     "provider": "Google",
+     "prompt_tokens": 423,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 4.4,
+     "cost": 0.0003403
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Wide establishing view on left and closer ground-level view on right, separated by a plain gap.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": false,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [
+      "Two framed pictures and a wall plate appear on the walls, not in canon but not contradictory",
+      "Street visible through bow-window shows buildings rather than only dun-coloured brick houses, not clearly contradictory"
+     ],
+     "verdict": "pass",
+     "reasons": []
+    },
+    "feedback_sent": ""
+   }
+  ],
+  "final": "sheets/221b_baker_street_main--flash.jpg",
+  "wall_seconds": 13.9,
+  "cost": 0.06775
+ },
+ "jesus-main--flash": {
+  "entry": "Jesus",
+  "entry_id": "jesus",
+  "stage": "jesus-main",
+  "stage_label": "Jesus of Nazareth, adult teacher",
+  "kind": "character",
+  "work": "bible",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Character reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Jewish villagers, fishermen, shepherds, tax collectors, priests, Pharisees, Roman soldiers, Samaritans and Gentiles; olive and brown-skinned people with dark hair. Linen and wool tunics, cloaks and mantles, head coverings and veils, phylacteries and tassels; priests in white linen; soldiers in armor; the wealthy in purple.\nCharacter: Jesus: man in his early thirties; lean, sturdy build of a Galilean labourer; olive-brown skin weathered by sun and travel; short dark-brown hair and a trimmed dark beard in the manner of a 1st-century Jewish man; kind, direct, grave face with dark eyes; plain undyed linen or wool tunic in earth tones with a dark-blue or white fringed tassel at the hem of his cloak as a Jewish man would wear; a simple wool mantle; no halo, no stereotyped blue robe; no crown except where the scene is the mockery.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+  "canon_text": "Jesus: man in his early thirties; lean, sturdy build of a Galilean labourer; olive-brown skin weathered by sun and travel; short dark-brown hair and a trimmed dark beard in the manner of a 1st-century Jewish man; kind, direct, grave face with dark eyes; plain undyed linen or wool tunic in earth tones with a dark-blue or white fringed tassel at the hem of his cloak as a Jewish man would wear; a simple wool mantle; no halo, no stereotyped blue robe; no crown except where the scene is the mockery.",
+  "tries": [
+   {
+    "n": 1,
+    "file": "sheets/jesus-main--flash.try1.jpg",
+    "generate": {
+     "seconds": 9.4,
+     "cost": 0.0674595,
+     "provider": "Google",
+     "prompt_tokens": 519,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 3.3,
+     "cost": 0.00041
+    },
+    "verdict": {
+     "views_ok": false,
+     "views_note": "Front full-length, three-quarter full-length and head-and-shoulders close-up are present in order, but the three full-length views are not full-length in the sense of the required framing for the close-up; the sheet otherwise matches the layout.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [
+      "Tassel fringe is dark blue, which is acceptable per canon, but the cloak/mantle reads as a long open outer garment rather than a simple wool mantle",
+      "Figure appears in a shoulder-to-hem layout with the close-up showing a different hair length and fuller beard than the full-length views"
+     ],
+     "verdict": "fail",
+     "reasons": [
+      "Head-and-shoulders close-up shows noticeably different hair and beard styling from the full-length views",
+      "Beard length and hair volume differ between views, which counts as a mismatch between views"
+     ]
+    },
+    "feedback_sent": ""
+   },
+   {
+    "n": 2,
+    "file": "sheets/jesus-main--flash.try2.jpg",
+    "generate": {
+     "seconds": 8.3,
+     "cost": 0.0675165,
+     "provider": "Google",
+     "prompt_tokens": 633,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 4.8,
+     "cost": 0.000401
+    },
+    "verdict": {
+     "views_ok": false,
+     "views_note": "Second view is a full-length figure in a grey garment, but the three full-length views are not consistent (second figure wears a different robe, fringe differs), and the required three-quarter view is not clearly distinct; close-up present.",
+     "same_subject": false,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [
+      "Second full-length view shows a grey robe and different clothing from the tan tunic and earth-tone mantle in the other views",
+      "Clothing colours differ between views, which the sheet must not show",
+      "Tassel colour is dark blue and appears on views that otherwise differ in garments"
+     ],
+     "verdict": "fail",
+     "reasons": [
+      "Clothing differs between views (grey robe in second view vs tan tunic and mantle elsewhere)",
+      "Views do not consistently depict the same costume"
+     ]
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: Head-and-shoulders close-up shows noticeably different hair and beard styling from the full-length views; Beard length and hair volume differ between views, which counts as a mismatch between views; Tassel fringe is dark blue, which is acceptable per canon, but the cloak/mantle reads as a long open outer garment rather than a simple wool mantle; Figure appears in a shoulder-to-hem layout with the close-up showing a different hair length and fuller beard than the full-length views. Fix these."
+   },
+   {
+    "n": 3,
+    "file": "sheets/jesus-main--flash.try3.jpg",
+    "generate": {
+     "seconds": 8.6,
+     "cost": 0.0676225,
+     "provider": "Google",
+     "prompt_tokens": 611,
+     "completion_tokens": 1159
+    },
+    "check": {
+     "seconds": 5.5,
+     "cost": 0.0003135
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Front full-length, three-quarter full-length, and head-and-shoulders close-up present in order on grey background.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [],
+     "verdict": "pass",
+     "reasons": []
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: Clothing differs between views (grey robe in second view vs tan tunic and mantle elsewhere); Views do not consistently depict the same costume; Second full-length view shows a grey robe and different clothing from the tan tunic and earth-tone mantle in the other views; Clothing colours differ between views, which the sheet must not show; Tassel colour is dark blue and appears on views that otherwise differ in garments. Fix these."
+   }
+  ],
+  "final": "sheets/jesus-main--flash.jpg",
+  "wall_seconds": 40.1,
+  "cost": 0.20372
+ },
+ "simon_peter_main--flash": {
+  "entry": "Simon Peter",
+  "entry_id": "simon_peter",
+  "stage": "simon_peter_main",
+  "stage_label": "Simon Peter, fisherman apostle",
+  "kind": "character",
+  "work": "bible",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Character reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Jewish villagers, fishermen, shepherds, tax collectors, priests, Pharisees, Roman soldiers, Samaritans and Gentiles; olive and brown-skinned people with dark hair. Linen and wool tunics, cloaks and mantles, head coverings and veils, phylacteries and tassels; priests in white linen; soldiers in armor; the wealthy in purple.\nCharacter: Simon Peter: a sturdy Galilean fisherman in his thirties, weathered olive-brown skin, short dark curly hair and a full dark beard flecked with grey at the chin, broad calloused hands, a strong lined face. Wears a undyed linen tunic belted at the waist with a rough wool cloak in earth brown or faded blue-grey, bare or sandalled feet; carries a fisherman's net or a folded coat.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+  "canon_text": "Simon Peter: a sturdy Galilean fisherman in his thirties, weathered olive-brown skin, short dark curly hair and a full dark beard flecked with grey at the chin, broad calloused hands, a strong lined face. Wears a undyed linen tunic belted at the waist with a rough wool cloak in earth brown or faded blue-grey, bare or sandalled feet; carries a fisherman's net or a folded coat.",
+  "tries": [
+   {
+    "n": 1,
+    "file": "sheets/simon_peter_main--flash.try1.jpg",
+    "generate": {
+     "seconds": 8.7,
+     "cost": 0.067444,
+     "provider": "Google",
+     "prompt_tokens": 488,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 2.2,
+     "cost": 0.0003114
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Full-length front, full-length three-quarter, and head-and-shoulders close-up are present in order on a plain grey background.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [],
+     "verdict": "pass",
+     "reasons": []
+    },
+    "feedback_sent": ""
+   }
+  ],
+  "final": "sheets/simon_peter_main--flash.jpg",
+  "wall_seconds": 11.0,
+  "cost": 0.06776
+ },
+ "moses-s1--flash": {
+  "entry": "Moses",
+  "entry_id": "moses",
+  "stage": "moses-s1",
+  "stage_label": "Moses, shepherd of Midian and prophet of the exodus",
+  "kind": "character",
+  "work": "bible",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Character reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Egyptians with shaven heads and wigs; Hebrew clans in simple desert clothing, dark-haired and bearded; Midianite shepherds. Linen kilts and tunics for Egyptians; plain woven wool and linen for Israelites; priestly garments of blue, purple, scarlet and gold-threaded linen.\nCharacter: Moses: man in his prime and then elder, aged 40 to 80 and beyond; lean, weathered build from desert shepherding; warm brown skin from sun; dark hair and a full dark beard, with some grey in later years; calm, grave face. Plain undyed woven wool robe with a simple linen belt, sandals; carries a shepherd's wooden staff, the rod of God. Dress is restrained and humble, never royal, though he was raised in Pharaoh's house.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+  "canon_text": "Moses: man in his prime and then elder, aged 40 to 80 and beyond; lean, weathered build from desert shepherding; warm brown skin from sun; dark hair and a full dark beard, with some grey in later years; calm, grave face. Plain undyed woven wool robe with a simple linen belt, sandals; carries a shepherd's wooden staff, the rod of God. Dress is restrained and humble, never royal, though he was raised in Pharaoh's house.",
+  "tries": [
+   {
+    "n": 1,
+    "file": "sheets/moses-s1--flash.try1.jpg",
+    "generate": {
+     "seconds": 8.8,
+     "cost": 0.0674445,
+     "provider": "Google",
+     "prompt_tokens": 489,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 8.4,
+     "cost": 0.0004205
+    },
+    "verdict": {
+     "views_ok": false,
+     "views_note": "Shows front full-length, three-quarter full-length, and head-and-shoulders close-up, but the middle figure is not a true three-quarter view of the same framing as the front; close-up present. Views are in order but framing/pose consistency is loose.",
+     "same_subject": false,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [
+      "Robe appears undyed off-white linen-like cloth, acceptable, but the middle figure's hair and beard appear greyer and differently styled than the front view",
+      "Hair and beard grey distribution differs between views, suggesting different apparent ages",
+      "Sandals and belt are present; staff is present in all full-length views"
+     ],
+     "verdict": "fail",
+     "reasons": [
+      "Hair, beard and apparent age differ noticeably between the full-length views",
+      "Middle view's facial hair and hairline do not match the front view",
+      "Head-and-shoulders close-up shows a heavier, greyer beard and different face than the full-length figures"
+     ]
+    },
+    "feedback_sent": ""
+   },
+   {
+    "n": 2,
+    "file": "sheets/moses-s1--flash.try2.jpg",
+    "generate": {
+     "seconds": 8.6,
+     "cost": 0.0678135,
+     "provider": "Google",
+     "prompt_tokens": 621,
+     "completion_tokens": 1221
+    },
+    "check": {
+     "seconds": 6.9,
+     "cost": 0.0003085
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Full-length front, full-length three-quarter, and head-and-shoulders close-up are present in order.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [],
+     "verdict": "pass",
+     "reasons": []
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: Hair, beard and apparent age differ noticeably between the full-length views; Middle view's facial hair and hairline do not match the front view; Head-and-shoulders close-up shows a heavier, greyer beard and different face than the full-length figures; Robe appears undyed off-white linen-like cloth, acceptable, but the middle figure's hair and beard appear greyer and differently styled than the front view; Hair and beard grey distribution differs between views, suggesting different apparent ages; Sandals and belt are present; staff is present in all full-length views. Fix these."
+   }
+  ],
+  "final": "sheets/moses-s1--flash.jpg",
+  "wall_seconds": 32.9,
+  "cost": 0.13599
+ },
+ "david-youth--flash": {
+  "entry": "David",
+  "entry_id": "david",
+  "stage": "david-youth",
+  "stage_label": "David as youth and shepherd",
+  "kind": "character",
+  "work": "bible",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Character reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Israelite tribes as farmers and herders in hill country; Philistines as city-state people; Ammonites, Moabites, Amalekites and Edomites as neighbors. Linen ephods for priests; robes and mantles for elders and kings; bronze helmets and mail for warriors; shepherds' bags and slings; simple woven tunics.\nCharacter: David: a youth of about fifteen to eighteen, slight but wiry, with a ruddy, fair complexion and bright eyes. Thick dark-brown hair cut to shoulder length, a short fine beard or none. Simple undyed linen or wool woven tunic belted with a leather sash, sandals; shepherd's leather bag slung at the hip and a sling of plaited cord, with a few smooth river stones.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+  "canon_text": "David: a youth of about fifteen to eighteen, slight but wiry, with a ruddy, fair complexion and bright eyes. Thick dark-brown hair cut to shoulder length, a short fine beard or none. Simple undyed linen or wool woven tunic belted with a leather sash, sandals; shepherd's leather bag slung at the hip and a sling of plaited cord, with a few smooth river stones.",
+  "tries": [
+   {
+    "n": 1,
+    "file": "sheets/david-youth--flash.try1.jpg",
+    "generate": {
+     "seconds": 8.9,
+     "cost": 0.0674415,
+     "provider": "Google",
+     "prompt_tokens": 483,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 5.3,
+     "cost": 0.0003596
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Front full-length, three-quarter full-length, and head-and-shoulders close-up are present in the correct order on grey background.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [
+      "Front view shows no beard while three-quarter view shows a short beard; close-up shows stubble-like beard, acceptable under 'a short fine beard or none' but beard varies between views",
+      "Tunic appears knee-length and belt/sash present; shoulder-length hair consistent; sling and stones present"
+     ],
+     "verdict": "pass",
+     "reasons": []
+    },
+    "feedback_sent": ""
+   }
+  ],
+  "final": "sheets/david-youth--flash.jpg",
+  "wall_seconds": 14.2,
+  "cost": 0.0678
+ },
+ "david-warrior-king--flash": {
+  "entry": "David",
+  "entry_id": "david",
+  "stage": "david-warrior-king",
+  "stage_label": "David as warrior and later king",
+  "kind": "character",
+  "work": "bible",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Character reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Israelite tribes as farmers and herders in hill country; Philistines as city-state people; Ammonites, Moabites, Amalekites and Edomites as neighbors. Linen ephods for priests; robes and mantles for elders and kings; bronze helmets and mail for warriors; shepherds' bags and slings; simple woven tunics.\nCharacter: David: a man of about thirty, broad-shouldered and lean from years in the wilderness, with a ruddy, weathered complexion and a close-trimmed dark beard. Dark hair kept short. Woven wool tunic and mantle in deep undyed brown or earth-red, a leather belt with a bronze-hilted sword; a royal mantle of blue-purple trimmed with gold may mark kingship. Sling and shepherd's bag still at his side.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+  "canon_text": "David: a man of about thirty, broad-shouldered and lean from years in the wilderness, with a ruddy, weathered complexion and a close-trimmed dark beard. Dark hair kept short. Woven wool tunic and mantle in deep undyed brown or earth-red, a leather belt with a bronze-hilted sword; a royal mantle of blue-purple trimmed with gold may mark kingship. Sling and shepherd's bag still at his side.",
+  "tries": [
+   {
+    "n": 1,
+    "file": "sheets/david-warrior-king--flash.try1.jpg",
+    "generate": {
+     "seconds": 8.3,
+     "cost": 0.067446,
+     "provider": "Google",
+     "prompt_tokens": 492,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 4.1,
+     "cost": 0.0003099
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Front full-length, three-quarter full-length, and head-and-shoulders close-up are all present in the correct order.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [],
+     "verdict": "pass",
+     "reasons": []
+    },
+    "feedback_sent": ""
+   }
+  ],
+  "final": "sheets/david-warrior-king--flash.jpg",
+  "wall_seconds": 12.5,
+  "cost": 0.06776
+ },
+ "goliath-main--flash": {
+  "entry": "Goliath",
+  "entry_id": "goliath",
+  "stage": "goliath-main",
+  "stage_label": "Goliath of Gath",
+  "kind": "character",
+  "work": "bible",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Character reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Israelite tribes as farmers and herders in hill country; Philistines as city-state people; Ammonites, Moabites, Amalekites and Edomites as neighbors. Linen ephods for priests; robes and mantles for elders and kings; bronze helmets and mail for warriors; shepherds' bags and slings; simple woven tunics.\nCharacter: Goliath: a giant warrior of about nine feet, towering and broad-shouldered, mature adult in his prime, bronze-skinned Philistine man of the Late Bronze to early Iron Age, close-cropped dark hair and a full beard, heavy brow and fierce set face, bronze helmet and scale-armour coat of mail with bronze greaves, a large round shield borne by an attendant, and a spear and sword at his side.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+  "canon_text": "Goliath: a giant warrior of about nine feet, towering and broad-shouldered, mature adult in his prime, bronze-skinned Philistine man of the Late Bronze to early Iron Age, close-cropped dark hair and a full beard, heavy brow and fierce set face, bronze helmet and scale-armour coat of mail with bronze greaves, a large round shield borne by an attendant, and a spear and sword at his side.",
+  "tries": [
+   {
+    "n": 1,
+    "file": "sheets/goliath-main--flash.try1.jpg",
+    "generate": {
+     "seconds": 9.5,
+     "cost": 0.067444,
+     "provider": "Google",
+     "prompt_tokens": 488,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 4.7,
+     "cost": 0.0003892
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Full-length front, full-length three-quarter, and head-and-shoulders close-up are present in the right order.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [
+      "Figure appears about normal human height relative to frame rather than towering nine feet, though scale is hard to judge from views alone",
+      "No large round shield borne by an attendant is shown",
+      "Helmet is a crested bronze helmet with cheek guards rather than clearly the bronze helmet described; minor",
+      "Spear and sword are present, consistent with canon"
+     ],
+     "verdict": "fail",
+     "reasons": [
+      "Canon specifies a large round shield borne by an attendant, which is absent from the sheet",
+      "Giant stature of about nine feet is not conveyed relative to the frame"
+     ]
+    },
+    "feedback_sent": ""
+   },
+   {
+    "n": 2,
+    "file": "sheets/goliath-main--flash.try2.jpg",
+    "generate": {
+     "seconds": 13.7,
+     "cost": 0.067498,
+     "provider": "Google",
+     "prompt_tokens": 596,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 5.1,
+     "cost": 0.0004087
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Full-length front, full-length three-quarter (rear-facing turn), and head-and-shoulders close-up are present in order on grey background.",
+     "same_subject": false,
+     "extra_figures": true,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [
+      "A second figure (attendant) appears in the three-quarter view, which is a figure beyond the subject",
+      "Figure in the front view shows a spear held in hand, but the attendant's shield is included in the three-quarter view; attendant is an extra figure",
+      "Subject appears of ordinary human height relative to the grey background rather than clearly towering at about nine feet, though no scale reference is given"
+     ],
+     "verdict": "fail",
+     "reasons": [
+      "Extra figure (shield-bearing attendant) appears in the three-quarter view",
+      "Views show subject's clothing and scale-armour in slightly varying detail, and subject does not clearly read as a nine-foot giant"
+     ]
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: Canon specifies a large round shield borne by an attendant, which is absent from the sheet; Giant stature of about nine feet is not conveyed relative to the frame; Figure appears about normal human height relative to frame rather than towering nine feet, though scale is hard to judge from views alone; No large round shield borne by an attendant is shown; Helmet is a crested bronze helmet with cheek guards rather than clearly the bronze helmet described; minor; Spear and sword are present, consistent with canon. Fix these."
+   },
+   {
+    "n": 3,
+    "file": "sheets/goliath-main--flash.try3.jpg",
+    "generate": {
+     "seconds": 11.7,
+     "cost": 0.0677535,
+     "provider": "Google",
+     "prompt_tokens": 627,
+     "completion_tokens": 1200
+    },
+    "check": {
+     "seconds": 5.7,
+     "cost": 0.0004007
+    },
+    "verdict": {
+     "views_ok": false,
+     "views_note": "Three views present (full front, three-quarter, close-up) but the sheet contains number labels (1), (2), (3) and the figure is not nine feet, and the shield is not borne by an attendant.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": true,
+     "frame_present": false,
+     "canon_mismatches": [
+      "Numbered labels (1), (2), (3) appear on the sheet",
+      "Figure is not depicted as a towering nine-foot giant; scale is normal human",
+      "Large round shield is held by the figure himself rather than an attendant",
+      "Bronze-skinned Philistine look is not clearly conveyed as a towering warrior"
+     ],
+     "verdict": "fail",
+     "reasons": [
+      "Text labels (1), (2), (3) are present",
+      "Figure does not read as a nine-foot giant as the canon requires",
+      "Shield is carried by the subject rather than an attendant"
+     ]
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: Extra figure (shield-bearing attendant) appears in the three-quarter view; Views show subject's clothing and scale-armour in slightly varying detail, and subject does not clearly read as a nine-foot giant; A second figure (attendant) appears in the three-quarter view, which is a figure beyond the subject; Figure in the front view shows a spear held in hand, but the attendant's shield is included in the three-quarter view; attendant is an extra figure; Subject appears of ordinary human height relative to the grey background rather than clearly towering at about nine feet, though no scale reference is given. Fix these."
+   }
+  ],
+  "final": null,
+  "wall_seconds": 50.6,
+  "cost": 0.20389,
+  "last_try": "sheets/goliath-main--flash.try3.jpg"
+ },
+ "temple_in_jerusalem_herodian--flash": {
+  "entry": "Temple in Jerusalem",
+  "entry_id": "temple_in_jerusalem",
+  "stage": "temple_in_jerusalem_herodian",
+  "stage_label": "Herodian temple, Jerusalem",
+  "kind": "location",
+  "work": "bible",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Location reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Stone and mud-brick houses with flat or tiled roofs, the Herodian temple, synagogues, rock-cut tombs with rolling stones, oil lamps, fishing boats, vineyards, scrolls.\nLocation: Temple in Jerusalem: a vast Herodian complex on a raised stone platform atop Mount Moriah, white and golden limestone walls with great dressed stone blocks, colonnaded porticoes including Solomon's porch, a gilded gate and a veil-screened inner sanctuary, courts thronged with pilgrims, oil lamps, altar of burnt offering, olive trees and the Mount of Olives rising beyond the eastern wall.\nLayout: two views of this same place side by side, each filling half of the image, separated by a narrow plain mid-grey gap: left, a wide establishing view showing the whole place and its surroundings; right, a closer ground-level view of its most characteristic part. Clear, neutral daylight. No people, no animals.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+  "canon_text": "Temple in Jerusalem: a vast Herodian complex on a raised stone platform atop Mount Moriah, white and golden limestone walls with great dressed stone blocks, colonnaded porticoes including Solomon's porch, a gilded gate and a veil-screened inner sanctuary, courts thronged with pilgrims, oil lamps, altar of burnt offering, olive trees and the Mount of Olives rising beyond the eastern wall.",
+  "tries": [
+   {
+    "n": 1,
+    "file": "sheets/temple_in_jerusalem_herodian--flash.try1.jpg",
+    "generate": {
+     "seconds": 8.8,
+     "cost": 0.0674025,
+     "provider": "Google",
+     "prompt_tokens": 405,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 5.6,
+     "cost": 0.000309
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Wide establishing aerial view on left and closer ground-level view on right, separated by a plain grey gap.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": false,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [],
+     "verdict": "pass",
+     "reasons": []
+    },
+    "feedback_sent": ""
+   }
+  ],
+  "final": "sheets/temple_in_jerusalem_herodian--flash.jpg",
+  "wall_seconds": 14.6,
+  "cost": 0.06771
+ },
+ "ark_of_the_covenant_tabernacle--flash": {
+  "entry": "The ark of the covenant",
+  "entry_id": "ark_of_the_covenant",
+  "stage": "ark_of_the_covenant_tabernacle",
+  "stage_label": "Sinai tabernacle ark",
+  "kind": "object",
+  "work": "bible",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Object reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Stone and mud-brick houses with flat or tiled roofs, the Herodian temple, synagogues, rock-cut tombs with rolling stones, oil lamps, fishing boats, vineyards, scrolls.\nObject: ark of the covenant: a rectangular chest about two and a half cubits long and a cubit and a half wide and high, of acacia wood overlaid with pure gold; a gold mercy seat lies on its lid with two cherubim facing each other above it; gold rings at its four corners hold two long carrying poles that are never removed; set behind a woven veil in the tabernacle's inner chamber.\nLayout: the same object shown twice side by side on one plain, even mid-grey background: left, the whole object seen from a three-quarter angle; right, a close detail of its most characteristic part. Neutral, even light. No people, no hands, no animals.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+  "canon_text": "ark of the covenant: a rectangular chest about two and a half cubits long and a cubit and a half wide and high, of acacia wood overlaid with pure gold; a gold mercy seat lies on its lid with two cherubim facing each other above it; gold rings at its four corners hold two long carrying poles that are never removed; set behind a woven veil in the tabernacle's inner chamber.",
+  "tries": [
+   {
+    "n": 1,
+    "file": "sheets/ark_of_the_covenant_tabernacle--flash.try1.jpg",
+    "generate": {
+     "seconds": 9.1,
+     "cost": 0.067399,
+     "provider": "Google",
+     "prompt_tokens": 398,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 5.9,
+     "cost": 0.0003667
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Whole object view on left and close detail of cherubim on right, in correct order.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": false,
+     "text_present": false,
+     "frame_present": true,
+     "canon_mismatches": [
+      "Background contains draped curtains and a stone wall rather than a plain grey background, though the sheet itself is grey.",
+      "Each view is set on a separate panel with visible panel edges."
+     ],
+     "verdict": "fail",
+     "reasons": [
+      "Visible panel edges/frame around each view.",
+      "Background is not plain; curtains and wall are visible behind the object.",
+      "Cherubim are depicted as winged figures with faces, consistent with canon, so no mismatch there."
+     ]
+    },
+    "feedback_sent": ""
+   },
+   {
+    "n": 2,
+    "file": "sheets/ark_of_the_covenant_tabernacle--flash.try2.jpg",
+    "generate": {
+     "seconds": 7.1,
+     "cost": 0.0674435,
+     "provider": "Google",
+     "prompt_tokens": 487,
+     "completion_tokens": 1120
+    },
+    "check": {
+     "seconds": 7.2,
+     "cost": 0.0003017
+    },
+    "verdict": {
+     "views_ok": true,
+     "views_note": "Whole object on left, close detail of lid cherubim and corner on right; both present.",
+     "same_subject": true,
+     "extra_figures": false,
+     "background_plain": true,
+     "text_present": false,
+     "frame_present": false,
+     "canon_mismatches": [],
+     "verdict": "pass",
+     "reasons": []
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: Visible panel edges/frame around each view.; Background is not plain; curtains and wall are visible behind the object.; Cherubim are depicted as winged figures with faces, consistent with canon, so no mismatch there.; Background contains draped curtains and a stone wall rather than a plain grey background, though the sheet itself is grey.; Each view is set on a separate panel with visible panel edges.. Fix these."
+   }
+  ],
+  "final": "sheets/ark_of_the_covenant_tabernacle--flash.jpg",
+  "wall_seconds": 29.5,
+  "cost": 0.13551
+ }
+}

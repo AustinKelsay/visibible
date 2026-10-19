@@ -1,0 +1,286 @@
+<!doctype html><meta charset=utf-8><title>Reference sheets prototype (#159)</title>
+<style>body{font:14px/1.4 system-ui;margin:20px;max-width:1500px}img{width:100%;display:block;background:#ddd}
+.card{border:1px solid #ccc;padding:10px;margin:14px 0}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.v{display:none;background:#f6f6f6;padding:8px;margin-top:6px;font-size:13px}.show .v{display:block}
+.pass{color:#060}.fail{color:#a00}small{color:#555}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:3px 8px;text-align:left}
+.tries img{width:32%;display:inline-block;margin-right:1%}</style>
+<h1>Reference sheets prototype</h1><p>Spend $2.895. <button onclick="document.body.classList.toggle('show')">Show / hide engine verdicts</button></p>
+
+<div class=card><h2>1. Sherlock Holmes <small>— Sherlock Holmes · character · gemini-3.1-flash-image</small></h2>
+<p><b>Canon:</b> Sherlock Holmes: man in his thirties; lean, wiry build; pale, angular face with a sharp, hawk-like nose and keen grey eyes; clean-shaven; dark hair worn short and neat. Dressed in a tweed suit or dark frock-coat, a long ulster or a dressing-gown in dark red or plum; pipe and violin as signature props.</p>
+<img src='sheets/sherlock_holmes_main--flash.jpg'>
+<p><small>2 tries, 33.8 s wall, $0.136; final: yes</small></p>
+<div class=v>
+<p>Try 1: <b class=fail>fail</b> Clothing colour and garments differ between full-length and close-up views; Props (pipe and violin) do not appear consistently across views; Close-up framing includes a violin and purple robe rather than a plain head-and-shoulders view <i>Close-up shows a purple dressing-gown and violin, while the views show a dark tweed ulster with no visible plum robe in full-length views; clothing differs between views; Full-length views show a dark overcoat over a waistcoat, inconsistent with a single costume across views; Pipe appears only in one view and is held in hand, with violin only in close-up, so props differ between views</i> <small>views_ok=False same=False extra=False plain=True text=False frame=False</small></p>
+<p>Try 2: <b class=pass>pass</b>  <i></i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+<div class=tries><img src='sheets/sherlock_holmes_main--flash.try1.jpg'><img src='sheets/sherlock_holmes_main--flash.try2.jpg'></div>
+</div></div>
+<div class=card><h2>2. Dr. Watson <small>— Watson, the narrator-companion · character · gemini-3.1-flash-image</small></h2>
+<p><b>Canon:</b> Dr. Watson: man in his late thirties to forties, sturdy and solidly built with a comfortable, well-fed frame, having gained weight since marriage; fair to light-brown hair neatly parted, full drooping moustache, pleasant open face with kindly, steady eyes. Dresses as a respectable Victorian gentleman doctor in dark frock-coat or tweed suit, waistcoat, high collar and cravat; carries a physician's black bag and a walking stick, and often a revolver for dangerous nights.</p>
+<img src='sheets/dr_watson-s1--flash.try3.jpg'>
+<p><small>3 tries, 37.3 s wall, $0.203; final: NO (engine would run without a sheet and surface this)</small></p>
+<div class=v>
+<p>Try 1: <b class=fail>fail</b> Build contradicts canon: figure reads slim, not sturdy and well-fed. <i>Canon says solidly built with a comfortable, well-fed frame; figure appears slim rather than sturdy.</i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+<p>Try 2: <b class=fail>fail</b> Build does not match canon's sturdy, comfortable frame with added weight since marriage <i>Subject appears to have a slim-to-average build rather than the sturdy, well-fed frame described in canon; Subject's hair appears light brown to fair as canon allows, but close-up shows a shorter, less clearly parted style than canon's neat parting</i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+<p>Try 3: <b class=fail>fail</b> Build contradicts canon: subject is slim, not sturdy and well-fed. <i>Figure appears trim rather than sturdy and well-fed with a comfortable frame, contrary to canon build</i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+<div class=tries><img src='sheets/dr_watson-s1--flash.try1.jpg'><img src='sheets/dr_watson-s1--flash.try2.jpg'><img src='sheets/dr_watson-s1--flash.try3.jpg'></div>
+</div></div>
+<div class=card><h2>3. Lestrade <small>— Lestrade · character · gemini-3.1-flash-image</small></h2>
+<p><b>Canon:</b> Lestrade: a lean, wiry Scotland Yard inspector of about forty, with a ferret-like face, narrow sharp features and a sly, furtive cast to the eyes. Short, neatly brushed sandy-brown hair and a trim sandy moustache. Country dress: light brown dustcoat and leather leggings. Town dress: pea-jacket, cravat, and a black canvas bag in hand.</p>
+<img src='sheets/lestrade-s1--flash.try3.jpg'>
+<p><small>3 tries, 47.9 s wall, $0.204; final: NO (engine would run without a sheet and surface this)</small></p>
+<div class=v>
+<p>Try 1: <b class=fail>fail</b> Subject does not match the lean, ferret-faced canon description; Hair and facial features diverge from canon; Second view is not a clear three-quarter angle <i>Subject appears broader and more solid rather than lean and wiry; Face is fuller and less ferret-like, lacking the narrow sharp features and sly furtive eyes; Hair is a fuller, combed-back style rather than short neatly brushed; Town dress shown with a black canvas bag, but the dustcoat is worn over a dark waistcoat with pea-jacket style, not clearly a pea-jacket</i> <small>views_ok=False same=True extra=False plain=True text=False frame=False</small></p>
+<p>Try 2: <b class=fail>fail</b> Subject's clothing colour changes between views (light brown dustcoat vs navy pea-jacket).; Facial features and hair colour do not match the canon's ferret-like, sandy-brown inspector.; Bag presence is inconsistent across views and an extra bag appears. <i>Front and three-quarter views wear a light brown dustcoat, but the town view wears a dark navy pea-jacket, so the subject's clothing differs between views.; The bag is held in the three-quarter and town views but absent from the front view, and the second bag shadow in the three-quarter view suggests an extra bag.; Face and hair read as more youthful and rounder than a lean, wiry, ferret-like inspector of about forty with narrow sharp features and a sly, furtive gaze.; Hair is a fuller, lighter blond rather than short, neatly brushed sandy-brown, and the close-up eyes look open rather than sly and furtive.; Town dress shows a dark brown waistcoat and trousers that differ from the light brown country dress, which is acceptable, but the front view lacks the leather leggings, showing trousers tucked into boots instead.</i> <small>views_ok=True same=False extra=False plain=True text=False frame=False</small></p>
+<p>Try 3: <b class=fail>fail</b> Face and build do not match the lean, wiry, ferret-like canon description.; Subject proportions and hair differ between full-length views and close-up, so views may not show the same subject.; Clothing does not match canon dress for the figure shown. <i>Canon describes a lean, wiry man with a ferret-like face and sly, furtive eyes; the figures appear broader and more genial with a neutral, open expression.; Canon specifies light brown dustcoat and leather leggings for country dress, but the figure wears a dark pea-jacket, cravat and waistcoat with grey trousers.; Canon specifies a black canvas bag in hand, which is present, but the jacket and tie are in the town-dress style only while no country dress view is shown.; Hair in the close-up appears fuller and lighter than the short neatly brushed sandy-brown hair described, and the head size and proportions differ between the full-length views and the close-up.; Moustache appears in the close-up but the face in the full-length views looks rounder and less narrow than the canon ferret-like features.</i> <small>views_ok=False same=False extra=False plain=True text=False frame=False</small></p>
+<div class=tries><img src='sheets/lestrade-s1--flash.try1.jpg'><img src='sheets/lestrade-s1--flash.try2.jpg'><img src='sheets/lestrade-s1--flash.try3.jpg'></div>
+</div></div>
+<div class=card><h2>4. 221B Baker Street <small>— Baker Street lodgings · location · gemini-3.1-flash-image</small></h2>
+<p><b>Canon:</b> 221B Baker Street: first-floor sitting-room of a brick townhouse on a London street of dun-coloured brick houses; large bow-window onto the street; hearth with a coal fire and mantel; gaslit fittings; a sideboard and a table with white cloth; shelves of old books, chemical bottles and test-tubes; armchairs either side of the fire; violin and pipe on the mantelpiece; fog or snow outside.</p>
+<img src='sheets/221b_baker_street_main--flash.jpg'>
+<p><small>1 try, 13.9 s wall, $0.068; final: yes</small></p>
+<div class=v>
+<p>Try 1: <b class=pass>pass</b>  <i>Two framed pictures and a wall plate appear on the walls, not in canon but not contradictory; Street visible through bow-window shows buildings rather than only dun-coloured brick houses, not clearly contradictory</i> <small>views_ok=True same=True extra=False plain=False text=False frame=False</small></p>
+</div></div>
+<div class=card><h2>5. Jesus <small>— Jesus of Nazareth, adult teacher · character · gemini-3.1-flash-image</small></h2>
+<p><b>Canon:</b> Jesus: man in his early thirties; lean, sturdy build of a Galilean labourer; olive-brown skin weathered by sun and travel; short dark-brown hair and a trimmed dark beard in the manner of a 1st-century Jewish man; kind, direct, grave face with dark eyes; plain undyed linen or wool tunic in earth tones with a dark-blue or white fringed tassel at the hem of his cloak as a Jewish man would wear; a simple wool mantle; no halo, no stereotyped blue robe; no crown except where the scene is the mockery.</p>
+<img src='sheets/jesus-main--flash.jpg'>
+<p><small>3 tries, 40.1 s wall, $0.204; final: yes</small></p>
+<div class=v>
+<p>Try 1: <b class=fail>fail</b> Head-and-shoulders close-up shows noticeably different hair and beard styling from the full-length views; Beard length and hair volume differ between views, which counts as a mismatch between views <i>Tassel fringe is dark blue, which is acceptable per canon, but the cloak/mantle reads as a long open outer garment rather than a simple wool mantle; Figure appears in a shoulder-to-hem layout with the close-up showing a different hair length and fuller beard than the full-length views</i> <small>views_ok=False same=True extra=False plain=True text=False frame=False</small></p>
+<p>Try 2: <b class=fail>fail</b> Clothing differs between views (grey robe in second view vs tan tunic and mantle elsewhere); Views do not consistently depict the same costume <i>Second full-length view shows a grey robe and different clothing from the tan tunic and earth-tone mantle in the other views; Clothing colours differ between views, which the sheet must not show; Tassel colour is dark blue and appears on views that otherwise differ in garments</i> <small>views_ok=False same=False extra=False plain=True text=False frame=False</small></p>
+<p>Try 3: <b class=pass>pass</b>  <i></i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+<div class=tries><img src='sheets/jesus-main--flash.try1.jpg'><img src='sheets/jesus-main--flash.try2.jpg'><img src='sheets/jesus-main--flash.try3.jpg'></div>
+</div></div>
+<div class=card><h2>6. Simon Peter <small>— Simon Peter, fisherman apostle · character · gemini-3.1-flash-image</small></h2>
+<p><b>Canon:</b> Simon Peter: a sturdy Galilean fisherman in his thirties, weathered olive-brown skin, short dark curly hair and a full dark beard flecked with grey at the chin, broad calloused hands, a strong lined face. Wears a undyed linen tunic belted at the waist with a rough wool cloak in earth brown or faded blue-grey, bare or sandalled feet; carries a fisherman's net or a folded coat.</p>
+<img src='sheets/simon_peter_main--flash.jpg'>
+<p><small>1 try, 11.0 s wall, $0.068; final: yes</small></p>
+<div class=v>
+<p>Try 1: <b class=pass>pass</b>  <i></i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+</div></div>
+<div class=card><h2>7. Moses <small>— Moses, shepherd of Midian and prophet of the exodus · character · gemini-3.1-flash-image</small></h2>
+<p><b>Canon:</b> Moses: man in his prime and then elder, aged 40 to 80 and beyond; lean, weathered build from desert shepherding; warm brown skin from sun; dark hair and a full dark beard, with some grey in later years; calm, grave face. Plain undyed woven wool robe with a simple linen belt, sandals; carries a shepherd's wooden staff, the rod of God. Dress is restrained and humble, never royal, though he was raised in Pharaoh's house.</p>
+<img src='sheets/moses-s1--flash.jpg'>
+<p><small>2 tries, 32.9 s wall, $0.136; final: yes</small></p>
+<div class=v>
+<p>Try 1: <b class=fail>fail</b> Hair, beard and apparent age differ noticeably between the full-length views; Middle view's facial hair and hairline do not match the front view; Head-and-shoulders close-up shows a heavier, greyer beard and different face than the full-length figures <i>Robe appears undyed off-white linen-like cloth, acceptable, but the middle figure's hair and beard appear greyer and differently styled than the front view; Hair and beard grey distribution differs between views, suggesting different apparent ages; Sandals and belt are present; staff is present in all full-length views</i> <small>views_ok=False same=False extra=False plain=True text=False frame=False</small></p>
+<p>Try 2: <b class=pass>pass</b>  <i></i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+<div class=tries><img src='sheets/moses-s1--flash.try1.jpg'><img src='sheets/moses-s1--flash.try2.jpg'></div>
+</div></div>
+<div class=card><h2>8. David <small>— David as youth and shepherd · character · gemini-3.1-flash-image</small></h2>
+<p><b>Canon:</b> David: a youth of about fifteen to eighteen, slight but wiry, with a ruddy, fair complexion and bright eyes. Thick dark-brown hair cut to shoulder length, a short fine beard or none. Simple undyed linen or wool woven tunic belted with a leather sash, sandals; shepherd's leather bag slung at the hip and a sling of plaited cord, with a few smooth river stones.</p>
+<img src='sheets/david-youth--flash.jpg'>
+<p><small>1 try, 14.2 s wall, $0.068; final: yes</small></p>
+<div class=v>
+<p>Try 1: <b class=pass>pass</b>  <i>Front view shows no beard while three-quarter view shows a short beard; close-up shows stubble-like beard, acceptable under 'a short fine beard or none' but beard varies between views; Tunic appears knee-length and belt/sash present; shoulder-length hair consistent; sling and stones present</i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+</div></div>
+<div class=card><h2>9. David <small>— David as warrior and later king · character · gemini-3.1-flash-image</small></h2>
+<p><b>Canon:</b> David: a man of about thirty, broad-shouldered and lean from years in the wilderness, with a ruddy, weathered complexion and a close-trimmed dark beard. Dark hair kept short. Woven wool tunic and mantle in deep undyed brown or earth-red, a leather belt with a bronze-hilted sword; a royal mantle of blue-purple trimmed with gold may mark kingship. Sling and shepherd's bag still at his side.</p>
+<img src='sheets/david-warrior-king--flash.jpg'>
+<p><small>1 try, 12.5 s wall, $0.068; final: yes</small></p>
+<div class=v>
+<p>Try 1: <b class=pass>pass</b>  <i></i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+</div></div>
+<div class=card><h2>10. Goliath <small>— Goliath of Gath · character · gemini-3.1-flash-image</small></h2>
+<p><b>Canon:</b> Goliath: a giant warrior of about nine feet, towering and broad-shouldered, mature adult in his prime, bronze-skinned Philistine man of the Late Bronze to early Iron Age, close-cropped dark hair and a full beard, heavy brow and fierce set face, bronze helmet and scale-armour coat of mail with bronze greaves, a large round shield borne by an attendant, and a spear and sword at his side.</p>
+<img src='sheets/goliath-main--flash.try3.jpg'>
+<p><small>3 tries, 50.6 s wall, $0.204; final: NO (engine would run without a sheet and surface this)</small></p>
+<div class=v>
+<p>Try 1: <b class=fail>fail</b> Canon specifies a large round shield borne by an attendant, which is absent from the sheet; Giant stature of about nine feet is not conveyed relative to the frame <i>Figure appears about normal human height relative to frame rather than towering nine feet, though scale is hard to judge from views alone; No large round shield borne by an attendant is shown; Helmet is a crested bronze helmet with cheek guards rather than clearly the bronze helmet described; minor; Spear and sword are present, consistent with canon</i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+<p>Try 2: <b class=fail>fail</b> Extra figure (shield-bearing attendant) appears in the three-quarter view; Views show subject's clothing and scale-armour in slightly varying detail, and subject does not clearly read as a nine-foot giant <i>A second figure (attendant) appears in the three-quarter view, which is a figure beyond the subject; Figure in the front view shows a spear held in hand, but the attendant's shield is included in the three-quarter view; attendant is an extra figure; Subject appears of ordinary human height relative to the grey background rather than clearly towering at about nine feet, though no scale reference is given</i> <small>views_ok=True same=False extra=True plain=True text=False frame=False</small></p>
+<p>Try 3: <b class=fail>fail</b> Text labels (1), (2), (3) are present; Figure does not read as a nine-foot giant as the canon requires; Shield is carried by the subject rather than an attendant <i>Numbered labels (1), (2), (3) appear on the sheet; Figure is not depicted as a towering nine-foot giant; scale is normal human; Large round shield is held by the figure himself rather than an attendant; Bronze-skinned Philistine look is not clearly conveyed as a towering warrior</i> <small>views_ok=False same=True extra=False plain=True text=True frame=False</small></p>
+<div class=tries><img src='sheets/goliath-main--flash.try1.jpg'><img src='sheets/goliath-main--flash.try2.jpg'><img src='sheets/goliath-main--flash.try3.jpg'></div>
+</div></div>
+<div class=card><h2>11. Temple in Jerusalem <small>— Herodian temple, Jerusalem · location · gemini-3.1-flash-image</small></h2>
+<p><b>Canon:</b> Temple in Jerusalem: a vast Herodian complex on a raised stone platform atop Mount Moriah, white and golden limestone walls with great dressed stone blocks, colonnaded porticoes including Solomon's porch, a gilded gate and a veil-screened inner sanctuary, courts thronged with pilgrims, oil lamps, altar of burnt offering, olive trees and the Mount of Olives rising beyond the eastern wall.</p>
+<img src='sheets/temple_in_jerusalem_herodian--flash.jpg'>
+<p><small>1 try, 14.6 s wall, $0.068; final: yes</small></p>
+<div class=v>
+<p>Try 1: <b class=pass>pass</b>  <i></i> <small>views_ok=True same=True extra=False plain=False text=False frame=False</small></p>
+</div></div>
+<div class=card><h2>12. The ark of the covenant <small>— Sinai tabernacle ark · object · gemini-3.1-flash-image</small></h2>
+<p><b>Canon:</b> ark of the covenant: a rectangular chest about two and a half cubits long and a cubit and a half wide and high, of acacia wood overlaid with pure gold; a gold mercy seat lies on its lid with two cherubim facing each other above it; gold rings at its four corners hold two long carrying poles that are never removed; set behind a woven veil in the tabernacle's inner chamber.</p>
+<img src='sheets/ark_of_the_covenant_tabernacle--flash.jpg'>
+<p><small>2 tries, 29.5 s wall, $0.136; final: yes</small></p>
+<div class=v>
+<p>Try 1: <b class=fail>fail</b> Visible panel edges/frame around each view.; Background is not plain; curtains and wall are visible behind the object.; Cherubim are depicted as winged figures with faces, consistent with canon, so no mismatch there. <i>Background contains draped curtains and a stone wall rather than a plain grey background, though the sheet itself is grey.; Each view is set on a separate panel with visible panel edges.</i> <small>views_ok=True same=True extra=False plain=False text=False frame=True</small></p>
+<p>Try 2: <b class=pass>pass</b>  <i></i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+<div class=tries><img src='sheets/ark_of_the_covenant_tabernacle--flash.try1.jpg'><img src='sheets/ark_of_the_covenant_tabernacle--flash.try2.jpg'></div>
+</div></div>
+<div class=card><h2>13. Sherlock Holmes <small>— Sherlock Holmes · character · gemini-3.1-flash-lite-image</small></h2>
+<p><b>Canon:</b> Sherlock Holmes: man in his thirties; lean, wiry build; pale, angular face with a sharp, hawk-like nose and keen grey eyes; clean-shaven; dark hair worn short and neat. Dressed in a tweed suit or dark frock-coat, a long ulster or a dressing-gown in dark red or plum; pipe and violin as signature props.</p>
+<img src='sheets/sherlock_holmes_main--lite.jpg'>
+<p><small>2 tries, 16.2 s wall, $0.068; final: yes</small></p>
+<div class=v>
+<p>Try 1: <b class=fail>fail</b> Background is not plain even grey; cobblestone ground patch is present; Briefcase prop appears in full-length views and is not in the canon entry; Outerwear colour is dark brown, not the dark red or plum specified by canon <i>Subject carries a briefcase, which is not a canon signature prop (canon lists pipe and violin); Dark brown coat and suit rather than tweed suit or dark frock-coat with dark red or plum dressing-gown or ulster; coat is dark brown, not plum or red; Cobblestone ground patch and textured background departs from the required plain even grey background</i> <small>views_ok=False same=True extra=False plain=False text=False frame=False</small></p>
+<p>Try 2: <b class=pass>pass</b>  <i></i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+<div class=tries><img src='sheets/sherlock_holmes_main--lite.try1.jpg'><img src='sheets/sherlock_holmes_main--lite.try2.jpg'></div>
+</div></div>
+<div class=card><h2>14. Dr. Watson <small>— Watson, the narrator-companion · character · gemini-3.1-flash-lite-image</small></h2>
+<p><b>Canon:</b> Dr. Watson: man in his late thirties to forties, sturdy and solidly built with a comfortable, well-fed frame, having gained weight since marriage; fair to light-brown hair neatly parted, full drooping moustache, pleasant open face with kindly, steady eyes. Dresses as a respectable Victorian gentleman doctor in dark frock-coat or tweed suit, waistcoat, high collar and cravat; carries a physician's black bag and a walking stick, and often a revolver for dangerous nights.</p>
+<img src='sheets/dr_watson-s1--lite.try3.jpg'>
+<p><small>3 tries, 27.7 s wall, $0.102; final: NO (engine would run without a sheet and surface this)</small></p>
+<div class=v>
+<p>Try 1: <b class=fail>fail</b> Build reads as slim rather than the sturdy, comfortable, well-fed frame specified in canon <i>Figure appears lean rather than sturdy and well-fed, contrary to canon build; Hair appears light brown and neatly parted, consistent; moustache full and drooping, consistent</i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+<p>Try 2: <b class=fail>fail</b> Props differ between views: bag and stick are held in the front view but absent in the three-quarter view. <i>Front view shows the figure carrying a black bag and walking stick, but the three-quarter view shows empty hands, which is a prop inconsistency between views.</i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+<p>Try 3: <b class=fail>fail</b> Bag colour differs between the front and three-quarter views (brown vs black); Subject build in full-length views does not match the sturdy, well-fed canon description; Minor but noticeable differences in facial features and moustache across views suggest inconsistent subject rendering <i>Physician's bag is brown in the front view but black in the three-quarter view; Build appears lean rather than sturdy and well-fed in the full-length views; Hair and moustache vary in appearance between views, with the close-up showing a different hairline and moustache shape</i> <small>views_ok=False same=False extra=False plain=True text=False frame=False</small></p>
+<div class=tries><img src='sheets/dr_watson-s1--lite.try1.jpg'><img src='sheets/dr_watson-s1--lite.try2.jpg'><img src='sheets/dr_watson-s1--lite.try3.jpg'></div>
+</div></div>
+<div class=card><h2>15. 221B Baker Street <small>— Baker Street lodgings · location · gemini-3.1-flash-lite-image</small></h2>
+<p><b>Canon:</b> 221B Baker Street: first-floor sitting-room of a brick townhouse on a London street of dun-coloured brick houses; large bow-window onto the street; hearth with a coal fire and mantel; gaslit fittings; a sideboard and a table with white cloth; shelves of old books, chemical bottles and test-tubes; armchairs either side of the fire; violin and pipe on the mantelpiece; fog or snow outside.</p>
+<img src='sheets/221b_baker_street_main--lite.jpg'>
+<p><small>1 try, 8.9 s wall, $0.034; final: yes</small></p>
+<div class=v>
+<p>Try 1: <b class=pass>pass</b>  <i></i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+</div></div>
+<div class=card><h2>16. Jesus <small>— Jesus of Nazareth, adult teacher · character · gemini-3.1-flash-lite-image</small></h2>
+<p><b>Canon:</b> Jesus: man in his early thirties; lean, sturdy build of a Galilean labourer; olive-brown skin weathered by sun and travel; short dark-brown hair and a trimmed dark beard in the manner of a 1st-century Jewish man; kind, direct, grave face with dark eyes; plain undyed linen or wool tunic in earth tones with a dark-blue or white fringed tassel at the hem of his cloak as a Jewish man would wear; a simple wool mantle; no halo, no stereotyped blue robe; no crown except where the scene is the mockery.</p>
+<img src='sheets/jesus-main--lite.jpg'>
+<p><small>1 try, 8.5 s wall, $0.034; final: yes</small></p>
+<div class=v>
+<p>Try 1: <b class=pass>pass</b>  <i></i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+</div></div>
+<div class=card><h2>17. David <small>— David as youth and shepherd · character · gemini-3.1-flash-lite-image</small></h2>
+<p><b>Canon:</b> David: a youth of about fifteen to eighteen, slight but wiry, with a ruddy, fair complexion and bright eyes. Thick dark-brown hair cut to shoulder length, a short fine beard or none. Simple undyed linen or wool woven tunic belted with a leather sash, sandals; shepherd's leather bag slung at the hip and a sling of plaited cord, with a few smooth river stones.</p>
+<img src='sheets/david-youth--lite.jpg'>
+<p><small>1 try, 7.7 s wall, $0.034; final: yes</small></p>
+<div class=v>
+<p>Try 1: <b class=pass>pass</b>  <i>Sling of plaited cord and river stones are not clearly visible; only a cord loop hangs from the belt; Hair is shoulder-length dark brown, consistent; beard is short stubble, consistent</i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+</div></div>
+<div class=card><h2>18. The ark of the covenant <small>— Sinai tabernacle ark · object · gemini-3.1-flash-lite-image</small></h2>
+<p><b>Canon:</b> ark of the covenant: a rectangular chest about two and a half cubits long and a cubit and a half wide and high, of acacia wood overlaid with pure gold; a gold mercy seat lies on its lid with two cherubim facing each other above it; gold rings at its four corners hold two long carrying poles that are never removed; set behind a woven veil in the tabernacle's inner chamber.</p>
+<img src='sheets/ark_of_the_covenant_tabernacle--lite.jpg'>
+<p><small>2 tries, 17.0 s wall, $0.068; final: yes</small></p>
+<div class=v>
+<p>Try 1: <b class=fail>fail</b> Background is not plain even grey; patterned veil is present; Vertical divider line between the two views acts as a frame/panel edge; Detail view shows exposed wood rather than gold overlay, contradicting canon <i>Background includes a woven veil with pomegranate pattern rather than being plain grey in the whole-object view; Wood is visible in the detail view where canon specifies gold overlay over acacia; detail shows exposed brown wood; Chest appears to have a visible vertical divide down the middle of the sheet acting as a panel edge</i> <small>views_ok=True same=True extra=False plain=False text=False frame=True</small></p>
+<p>Try 2: <b class=pass>pass</b>  <i></i> <small>views_ok=True same=True extra=False plain=True text=False frame=False</small></p>
+<div class=tries><img src='sheets/ark_of_the_covenant_tabernacle--lite.try1.jpg'><img src='sheets/ark_of_the_covenant_tabernacle--lite.try2.jpg'></div>
+</div></div>
+<h1>Style references</h1>
+<div class=card><h2>19. holmes--watercolour <small>— main era: Victorian England, 1880s to early 1890s</small></h2>
+<img src='style-refs/holmes--watercolour.try3.jpg' style='max-width:900px'>
+<p><small>3 tries, 42.5 s, $0.203; final: NO</small></p><div class=v>
+<p>Try 1: <b class=fail>fail</b> Visible text: 'PRINTED NEWS' on the newspaper and handwritten text on the letter.; Horses present pulling the carriage (animals are not prohibited, noted for reference).; No people visible; no frame or border detected; scene reaches all four edges.</p>
+<p>Try 2: <b class=fail>fail</b> Text present: handwritten/printed writing is visible on the telegram form at the lower right and on the newspaper.; Scene runs to all four edges with no frame, border, or vignette, so full-bleed and frame checks pass.</p>
+<p>Try 3: <b class=fail>fail</b> Figures of people are visible on carriages and in the street scene (e.g., coachmen and passengers).; Horses are present pulling carriages.; Vignette-style dark and white edge margins and framing appear around the scene, with the watercolor fading into paper margins at the edges.; Handwritten text is visible on letters and papers on the tables.; The scene does not fully run to all four edges; the watercolor washes stop short with paper showing at the borders.</p>
+</div></div>
+<div class=card><h2>20. holmes--icon <small>— main era: Victorian England, 1880s to early 1890s</small></h2>
+<img src='style-refs/holmes--icon.jpg' style='max-width:900px'>
+<p><small>2 tries, 26.9 s, $0.135; final: yes</small></p><div class=v>
+<p>Try 1: <b class=fail>fail</b> A gold leaf border frames the scene on all sides, breaking the no-frame rule.; The scene does not run to all four edges because the gold margin surrounds the artwork.; Horses are visible pulling a carriage, which is not disallowed but noted.; No people or text are visibly present.</p>
+<p>Try 2: <b class=pass>pass</b> </p>
+</div></div>
+<div class=card><h2>21. bible--watercolour <small>— main era: First-century Roman Judea and Galilee</small></h2>
+<img src='style-refs/bible--watercolour.jpg' style='max-width:900px'>
+<p><small>3 tries, 46.7 s, $0.203; final: yes</small></p><div class=v>
+<p>Try 1: <b class=fail>fail</b> A small robed figure is visible near the boats on the right, so people are present.; The painting has a white paper margin along the edges and does not run fully to all four edges.; Scroll writing or inscription marks on the rolled scroll in the foreground, suggesting text is present.</p>
+<p>Try 2: <b class=fail>fail</b> Scene is a watercolor vignette that fades into white paper margins on all sides rather than running to all four edges; Visible paper margin/vignette border around the illustration; Scrolls in foreground display script-like markings that read as text</p>
+<p>Try 3: <b class=pass>pass</b> No people visible in the scene.; No frame, border, vignette or margin; the artwork runs to all four edges.; No text or lettering present.; Scene reaches all four edges and corners.</p>
+</div></div>
+<div class=card><h2>22. bible--icon <small>— main era: First-century Roman Judea and Galilee</small></h2>
+<img src='style-refs/bible--icon.jpg' style='max-width:900px'>
+<p><small>1 tries, 15.0 s, $0.068; final: yes</small></p><div class=v>
+<p>Try 1: <b class=pass>pass</b> </p>
+</div></div>
+<div class=card><h2>23. holmes--watercolour--v2 <small>— main era: Victorian England, 1880s to early 1890s</small></h2>
+<img src='style-refs/holmes--watercolour--v2.try3.jpg' style='max-width:900px'>
+<p><small>3 tries, 47.3 s, $0.203; final: NO</small></p><div class=v>
+<p>Try 1: <b class=fail>fail</b> The illustration does not reach all four edges: the watercolor wash fades into a white paper margin on the top and right and bottom edges, leaving unpainted paper border.; No people, animals, frame or text are visible, but the full-bleed requirement is broken.</p>
+<p>Try 2: <b class=fail>fail</b> Watercolor vignette fades to white paper margins on the left, right and top edges, so the scene does not run to all four edges.; Visible unpainted paper border acts as a frame/margin.; Horses are present in the carriages, which is not prohibited but is noted.; No people or text visible.</p>
+<p>Try 3: <b class=fail>fail</b> Watercolor vignette with unpainted white paper margins visible along the top, left, right and bottom edges, so the scene does not run to all four edges.; Soft faded edges act as a paper margin/vignette, which counts as a frame.; No people, animals or text are visible.</p>
+</div></div>
+<div class=card><h2>24. holmes--icon--v2 <small>— main era: Victorian England, 1880s to early 1890s</small></h2>
+<img src='style-refs/holmes--icon--v2.jpg' style='max-width:900px'>
+<p><small>1 tries, 14.3 s, $0.068; final: yes</small></p><div class=v>
+<p>Try 1: <b class=pass>pass</b> </p>
+</div></div>
+<div class=card><h2>25. bible--watercolour--v2 <small>— main era: First-century Roman Judea and Galilee</small></h2>
+<img src='style-refs/bible--watercolour--v2.jpg' style='max-width:900px'>
+<p><small>1 tries, 12.7 s, $0.068; final: yes</small></p><div class=v>
+<p>Try 1: <b class=pass>pass</b> No people visible in the scene.; No frame, border, vignette or margin; the painting runs to all four edges.; No text or lettering present.; Scene reaches all four edges and corners.</p>
+</div></div>
+<h1>Stats</h1><pre>{
+ "sheet_stats": {
+  "flash": {
+   "sheets": 12,
+   "passed": 9,
+   "first_try_pass": 5,
+   "tries_total": 23,
+   "mean_tries": 1.92,
+   "gen_cost_mean": 0.0675,
+   "gen_seconds_mean": 9.1,
+   "check_cost_mean": 0.00037,
+   "check_seconds_mean": 5.5,
+   "wall_seconds_mean": 28.2,
+   "cost_per_passed_sheet": 0.1734
+  },
+  "lite": {
+   "sheets": 6,
+   "passed": 5,
+   "first_try_pass": 3,
+   "tries_total": 10,
+   "mean_tries": 1.67,
+   "gen_cost_mean": 0.0337,
+   "gen_seconds_mean": 3.1,
+   "check_cost_mean": 0.00035,
+   "check_seconds_mean": 5.5,
+   "wall_seconds_mean": 14.3,
+   "cost_per_passed_sheet": 0.0682
+  }
+ },
+ "recurrence": {
+  "holmes": {
+   "sections": 156,
+   "entries": 108,
+   "recurring": 68,
+   "recurring_by_kind": {
+    "character": 37,
+    "location": 31
+   },
+   "units": 2530,
+   "divisions": 12
+  },
+  "bible": {
+   "sections": 275,
+   "entries": 256,
+   "recurring": 136,
+   "recurring_by_kind": {
+    "character": 79,
+    "location": 57
+   },
+   "units": 4053,
+   "divisions": 4
+  }
+ },
+ "projection": {
+  "flash": {
+   "per_sheet_usd": 0.1734,
+   "wall_seconds": 28.2,
+   "holmes_recurring": 68,
+   "holmes_usd": 11.79,
+   "bible_4_books_recurring": 136,
+   "bible_4_books_usd": 23.58,
+   "whole_bible_recurring_est": 1044,
+   "whole_bible_usd_est": 181,
+   "whole_bible_hours_sequential_est": 8.2
+  },
+  "lite": {
+   "per_sheet_usd": 0.0682,
+   "wall_seconds": 14.3,
+   "holmes_recurring": 68,
+   "holmes_usd": 4.64,
+   "bible_4_books_recurring": 136,
+   "bible_4_books_usd": 9.28,
+   "whole_bible_recurring_est": 1044,
+   "whole_bible_usd_est": 71,
+   "whole_bible_hours_sequential_est": 4.1
+  }
+ },
+ "spend_by_phase": {
+  "canon": 0.0119,
+  "sheet": 1.9234,
+  "styleref": 0.9436,
+  "check": 0.0161
+ }
+}</pre>

@@ -1,0 +1,2438 @@
+{
+ "question": "Can reference sheets be made and checked without the owner? (#159)",
+ "models": {
+  "sheets": [
+   "google/gemini-3.1-flash-image",
+   "google/gemini-3.1-flash-lite-image"
+  ],
+  "canon_and_checks": "anthropic/claude-haiku-5.5"
+ },
+ "spend_usd": 2.895,
+ "spend_by_phase": {
+  "canon": 0.0119,
+  "sheet": 1.9234,
+  "styleref": 0.9436,
+  "check": 0.0161
+ },
+ "billed_calls": 107,
+ "canon": {
+  "sherlock_holmes": {
+   "work": "holmes",
+   "name": "Sherlock Holmes",
+   "kind": "character",
+   "note": "Consulting detective of 221B Baker Street, narrated through Watson's eyes; present throughout the cases in these divisions and the one who solves each.",
+   "sections": 137,
+   "eras": [
+    "Victorian England, 1880s to early 1890s"
+   ],
+   "id": "sherlock_holmes",
+   "appearance_from_text": "The text fixes little visual detail for Holmes beyond his being a sharp, cold, observant man and a convincing master of disguise; the look (lean, sharp-eyed, dressing-gown or ulster, pipe, violin) follows the brief and widely known Paget-style tradition.",
+   "stages": [
+    {
+     "id": "sherlock_holmes_main",
+     "label": "Sherlock Holmes",
+     "when": "all sections, 1880s to early 1890s",
+     "text": "Sherlock Holmes: man in his thirties; lean, wiry build; pale, angular face with a sharp, hawk-like nose and keen grey eyes; clean-shaven; dark hair worn short and neat. Dressed in a tweed suit or dark frock-coat, a long ulster or a dressing-gown in dark red or plum; pipe and violin as signature props.",
+     "source": "mixed",
+     "quotes": [
+      {
+       "unit": "a-scandal-in-bohemia-124",
+       "quote": "Accustomed as I was to my friend’s amazing powers in the use of disguises"
+      },
+      {
+       "unit": "the-adventure-of-the-speckled-band-31",
+       "quote": "Sherlock Holmes had been leaning back in his chair with his eyes closed"
+      },
+      {
+       "unit": "the-adventure-of-the-blue-carbuncle-209",
+       "quote": "the measured tapping of Sherlock Holmes’ finger-tips upon the edge of the table"
+      }
+     ]
+    }
+   ],
+   "quote_problems": [],
+   "cost": 0.0012188,
+   "seconds": 5.0,
+   "call": "canon__sherlock_holmes.json"
+  },
+  "dr_watson": {
+   "work": "holmes",
+   "name": "Dr. Watson",
+   "kind": "character",
+   "note": "Narrator and Holmes's companion, a doctor; first-person voice throughout these divisions.",
+   "sections": 142,
+   "eras": [
+    "Victorian England, 1880s to early 1890s"
+   ],
+   "id": "dr_watson",
+   "appearance_from_text": "The text fixes almost nothing of Watson's looks beyond his being a married doctor who has put on weight since his marriage; the rest (age, build, dress, moustache) is supplied from the widely known Paget-style tradition of a sturdy, moustached Victorian army-surgeon type in frock-coat and tweeds.",
+   "stages": [
+    {
+     "id": "dr_watson-s1",
+     "label": "Watson, the narrator-companion",
+     "when": "Whole collection, single stage",
+     "text": "Dr. Watson: man in his late thirties to forties, sturdy and solidly built with a comfortable, well-fed frame, having gained weight since marriage; fair to light-brown hair neatly parted, full drooping moustache, pleasant open face with kindly, steady eyes. Dresses as a respectable Victorian gentleman doctor in dark frock-coat or tweed suit, waistcoat, high collar and cravat; carries a physician's black bag and a walking stick, and often a revolver for dangerous nights.",
+     "source": "mixed",
+     "quotes": [
+      {
+       "unit": "a-scandal-in-bohemia-6",
+       "quote": "“Wedlock suits you,” he remarked. “I think, Watson, that you have put on seven and a half pounds since I saw you.”"
+      },
+      {
+       "unit": "the-adventure-of-the-copper-beeches-186",
+       "quote": "I think, Watson, that it would be as well for you to have your pistol ready."
+      }
+     ]
+    }
+   ],
+   "quote_problems": [],
+   "cost": 0.0012961,
+   "seconds": 5.4,
+   "call": "canon__dr_watson.json"
+  },
+  "lestrade": {
+   "work": "holmes",
+   "name": "Lestrade",
+   "kind": "character",
+   "note": "Ferret-like Scotland Yard detective; appears in the Boscombe and Noble Bachelor cases.",
+   "sections": 7,
+   "eras": [
+    "Victorian England, 1880s to early 1890s"
+   ],
+   "id": "lestrade",
+   "appearance_from_text": "The text fixes a lean, ferret-like, furtive and sly-looking build, a light brown dustcoat with leather leggings in the country, and a pea-jacket and cravat in town; the rest (age, hair, face detail) is supplied from the work's tradition and the era.",
+   "stages": [
+    {
+     "id": "lestrade-s1",
+     "label": "Lestrade",
+     "when": "the Boscombe Valley and Noble Bachelor cases, across all seven sections",
+     "text": "Lestrade: a lean, wiry Scotland Yard inspector of about forty, with a ferret-like face, narrow sharp features and a sly, furtive cast to the eyes. Short, neatly brushed sandy-brown hair and a trim sandy moustache. Country dress: light brown dustcoat and leather leggings. Town dress: pea-jacket, cravat, and a black canvas bag in hand.",
+     "source": "mixed",
+     "quotes": [
+      {
+       "unit": "the-boscombe-valley-mystery-70",
+       "quote": "A lean, ferret-like man, furtive and sly-looking"
+      },
+      {
+       "unit": "the-boscombe-valley-mystery-70",
+       "quote": "light brown dustcoat and leather-leggings"
+      },
+      {
+       "unit": "the-adventure-of-the-noble-bachelor-142",
+       "quote": "pea-jacket and cravat"
+      },
+      {
+       "unit": "the-adventure-of-the-noble-bachelor-142",
+       "quote": "a black canvas bag in his hand"
+      }
+     ]
+    }
+   ],
+   "quote_problems": [],
+   "cost": 0.0010386,
+   "seconds": 4.2,
+   "call": "canon__lestrade.json"
+  },
+  "221b_baker_street": {
+   "work": "holmes",
+   "name": "221B Baker Street",
+   "kind": "location",
+   "note": "Holmes and Watson's shared sitting-room in London, the base for most of these cases.",
+   "sections": 83,
+   "eras": [
+    "Victorian England, 1880s to early 1890s"
+   ],
+   "id": "221b_baker_street",
+   "appearance_from_text": "The text fixes a first-floor sitting-room in Baker Street with a fireside, an armchair setting, a bow-window, a sideboard, a table with white cloth, gas lighting, shelves of old books and chemical apparatus, and a view onto a street of dun-coloured brick houses under fog and snow; the furnishing details beyond these are supplied by the Victorian tradition.",
+   "stages": [
+    {
+     "id": "221b_baker_street_main",
+     "label": "Baker Street lodgings",
+     "when": "Across the stories, the shared sitting-room in Baker Street",
+     "text": "221B Baker Street: first-floor sitting-room of a brick townhouse on a London street of dun-coloured brick houses; large bow-window onto the street; hearth with a coal fire and mantel; gaslit fittings; a sideboard and a table with white cloth; shelves of old books, chemical bottles and test-tubes; armchairs either side of the fire; violin and pipe on the mantelpiece; fog or snow outside.",
+     "source": "mixed",
+     "quotes": [
+      {
+       "unit": "a-case-of-identity-1",
+       "quote": "as we sat on either side of the fire in his lodgings at Baker Street"
+      },
+      {
+       "unit": "the-adventure-of-the-copper-beeches-6",
+       "quote": "a cheery fire in the old room at Baker Street"
+      },
+      {
+       "unit": "the-adventure-of-the-copper-beeches-6",
+       "quote": "Our gas was lit and shone on the white cloth and glimmer of china and metal"
+      },
+      {
+       "unit": "the-adventure-of-the-beryl-coronet-2",
+       "quote": "the snow of the day before still lay deep upon the ground"
+      },
+      {
+       "unit": "a-scandal-in-bohemia-3",
+       "quote": "remained in our lodgings in Baker Street, buried among his old books"
+      },
+      {
+       "unit": "the-adventure-of-the-beryl-coronet-2",
+       "quote": "Down the centre of Baker Street it had been ploughed into a brown crumbly band by the traffic"
+      }
+     ]
+    }
+   ],
+   "quote_problems": [],
+   "cost": 0.0013067,
+   "seconds": 5.4,
+   "call": "canon__221b_baker_street.json"
+  },
+  "jesus": {
+   "work": "bible",
+   "name": "Jesus",
+   "kind": "character",
+   "note": "Central figure of both the Gospel of Luke and the Gospel of John, son of Mary/Joseph of Nazareth, crucified and risen.",
+   "sections": 135,
+   "eras": [
+    "First-century Roman Judea and Galilee"
+   ],
+   "id": "jesus",
+   "appearance_from_text": "The text fixes almost no physical appearance for Jesus; it describes him as Nazareth-born, a Jewish teacher, and a man who is sometimes weary (John 4:6 style travel) and sometimes wept or groaned, so the look is supplied from the 1st-century Judean tradition and the owner's depiction rules (no halo, no stereotyped blue robe).",
+   "stages": [
+    {
+     "id": "jesus-main",
+     "label": "Jesus of Nazareth, adult teacher",
+     "when": "Whole Gospel narrative, from the baptism and ministry through the crucifixion and resurrection",
+     "text": "Jesus: man in his early thirties; lean, sturdy build of a Galilean labourer; olive-brown skin weathered by sun and travel; short dark-brown hair and a trimmed dark beard in the manner of a 1st-century Jewish man; kind, direct, grave face with dark eyes; plain undyed linen or wool tunic in earth tones with a dark-blue or white fringed tassel at the hem of his cloak as a Jewish man would wear; a simple wool mantle; no halo, no stereotyped blue robe; no crown except where the scene is the mockery.",
+     "source": "mixed",
+     "quotes": [
+      {
+       "unit": "john-19-19",
+       "quote": "JESUS OF NAZARETH, THE KING OF THE JEWS."
+      },
+      {
+       "unit": "luke-4-17",
+       "quote": "The book of the prophet Isaiah was handed to him."
+      },
+      {
+       "unit": "john-11-38",
+       "quote": "Jesus therefore, again groaning in himself, came to the tomb."
+      },
+      {
+       "unit": "luke-2-40",
+       "quote": "The child was growing, and was becoming strong in spirit"
+      }
+     ]
+    }
+   ],
+   "quote_problems": [],
+   "cost": 0.0012598,
+   "seconds": 4.3,
+   "call": "canon__jesus.json"
+  },
+  "simon_peter": {
+   "work": "bible",
+   "name": "Simon Peter",
+   "kind": "character",
+   "note": "Fisherman apostle, brother of Andrew, called Cephas, who denies Jesus three times; the same disciple in Luke and John.",
+   "sections": 22,
+   "eras": [
+    "First-century Roman Judea and Galilee"
+   ],
+   "id": "simon_peter",
+   "appearance_from_text": "The text fixes almost nothing about his looks beyond his occupation as a fisherman with a boat and nets, his brotherhood with Andrew, and that he was naked while fishing and wrapped a coat around himself; the rest (age, build, dress, hair) is supplied from the first-century Galilean setting and the work's brief.",
+   "stages": [
+    {
+     "id": "simon_peter_main",
+     "label": "Simon Peter, fisherman apostle",
+     "when": "Galilean ministry through the resurrection appearances",
+     "text": "Simon Peter: a sturdy Galilean fisherman in his thirties, weathered olive-brown skin, short dark curly hair and a full dark beard flecked with grey at the chin, broad calloused hands, a strong lined face. Wears a undyed linen tunic belted at the waist with a rough wool cloak in earth brown or faded blue-grey, bare or sandalled feet; carries a fisherman's net or a folded coat.",
+     "source": "mixed",
+     "quotes": [
+      {
+       "unit": "luke-5-3",
+       "quote": "He entered into one of the boats, which was Simon’s"
+      },
+      {
+       "unit": "john-21-7",
+       "quote": "he wrapped his coat around himself (for he was naked)"
+      },
+      {
+       "unit": "john-13-6",
+       "quote": "Then he came to Simon Peter."
+      },
+      {
+       "unit": "john-18-10",
+       "quote": "Simon Peter therefore, having a sword, drew it"
+      }
+     ]
+    }
+   ],
+   "quote_problems": [],
+   "cost": 0.0009033,
+   "seconds": 4.6,
+   "call": "canon__simon_peter.json"
+  },
+  "moses": {
+   "work": "bible",
+   "name": "Moses",
+   "kind": "character",
+   "note": "Hebrew leader raised in Pharaoh's house, son of a Levite mother; flees to Midian, then leads Israel out of Egypt and receives the law at Sinai.",
+   "sections": 67,
+   "eras": [
+    "Late Bronze Age Egypt and Sinai"
+   ],
+   "id": "moses",
+   "appearance_from_text": "The text fixes Moses' age at eighty when he speaks to Pharaoh, his Levite parentage, his shepherd's work in Midian, his staff (rod), and his uncircumcised-lips speech difficulty and radiant face after Sinai; it gives no physical description, so build, face, and dress are supplied from the era and tradition.",
+   "stages": [
+    {
+     "id": "moses-s1",
+     "label": "Moses, shepherd of Midian and prophet of the exodus",
+     "when": "Exodus 2 through 40, from the flight to Midian to the completion of the tabernacle",
+     "text": "Moses: man in his prime and then elder, aged 40 to 80 and beyond; lean, weathered build from desert shepherding; warm brown skin from sun; dark hair and a full dark beard, with some grey in later years; calm, grave face. Plain undyed woven wool robe with a simple linen belt, sandals; carries a shepherd's wooden staff, the rod of God. Dress is restrained and humble, never royal, though he was raised in Pharaoh's house.",
+     "source": "mixed",
+     "quotes": [
+      {
+       "unit": "exodus-7-7",
+       "quote": "Moses was eighty years old, and Aaron eighty-three years old, when they spoke to Pharaoh."
+      },
+      {
+       "unit": "exodus-3-1",
+       "quote": "Moses was keeping the flock of Jethro, his father-in-law, the priest of Midian"
+      },
+      {
+       "unit": "exodus-6-30",
+       "quote": "Behold, I am of uncircumcised lips"
+      },
+      {
+       "unit": "exodus-4-4",
+       "quote": "it became a rod in his hand."
+      },
+      {
+       "unit": "exodus-34-34",
+       "quote": "he took the veil off, until he came out"
+      }
+     ]
+    }
+   ],
+   "quote_problems": [],
+   "cost": 0.0012956,
+   "seconds": 3.8,
+   "call": "canon__moses.json"
+  },
+  "david": {
+   "work": "bible",
+   "name": "David",
+   "kind": "character",
+   "note": "Youngest son of Jesse of Bethlehem, anointed by Samuel, slays Goliath, flees Saul, becomes king.",
+   "sections": 23,
+   "eras": [
+    "Late Bronze to early Iron Age Israel and Philistia"
+   ],
+   "id": "david",
+   "appearance_from_text": "The text fixes that David is the youngest son of Jesse of Bethlehem, a shepherd who keeps sheep, is ruddy and fair-looking, carries a sling and stones, a sword and a shepherd's bag, is a skilled player of music, and that he later wears a robe and mantle as king. Build, hair, skin and beard are not described and were supplied from the work's traditional look for a Bronze-to-Iron Age Israelite youth.",
+   "stages": [
+    {
+     "id": "david-youth",
+     "label": "David as youth and shepherd",
+     "when": "1 Samuel 16-18, youth before and at the victory over Goliath",
+     "text": "David: a youth of about fifteen to eighteen, slight but wiry, with a ruddy, fair complexion and bright eyes. Thick dark-brown hair cut to shoulder length, a short fine beard or none. Simple undyed linen or wool woven tunic belted with a leather sash, sandals; shepherd's leather bag slung at the hip and a sling of plaited cord, with a few smooth river stones.",
+     "source": "mixed",
+     "quotes": [
+      {
+       "unit": "1-samuel-16-1",
+       "quote": "Fill your horn with oil, and go."
+      },
+      {
+       "unit": "1-samuel-17-34",
+       "quote": "Your servant was keeping his father’s sheep"
+      },
+      {
+       "unit": "1-samuel-17-50",
+       "quote": "David prevailed over the Philistine with a sling and with a stone"
+      },
+      {
+       "unit": "1-samuel-17-12",
+       "quote": "he had eight sons"
+      }
+     ]
+    },
+    {
+     "id": "david-warrior-king",
+     "label": "David as warrior and later king",
+     "when": "1 Samuel 18-31, fugitive years and early kingship",
+     "text": "David: a man of about thirty, broad-shouldered and lean from years in the wilderness, with a ruddy, weathered complexion and a close-trimmed dark beard. Dark hair kept short. Woven wool tunic and mantle in deep undyed brown or earth-red, a leather belt with a bronze-hilted sword; a royal mantle of blue-purple trimmed with gold may mark kingship. Sling and shepherd's bag still at his side.",
+     "source": "mixed",
+     "quotes": [
+      {
+       "unit": "1-samuel-18-4",
+       "quote": "Jonathan stripped himself of the robe that was on him and gave it to David"
+      },
+      {
+       "unit": "1-samuel-18-16",
+       "quote": "But all Israel and Judah loved David"
+      },
+      {
+       "unit": "1-samuel-26-22",
+       "quote": "Behold the spear, O king!"
+      }
+     ]
+    }
+   ],
+   "quote_problems": [],
+   "cost": 0.0013279,
+   "seconds": 5.1,
+   "call": "canon__david.json"
+  },
+  "goliath": {
+   "work": "bible",
+   "name": "Goliath",
+   "kind": "character",
+   "note": "Philistine champion of Gath, slain by David with a sling.",
+   "sections": 3,
+   "eras": [
+    "Late Bronze to early Iron Age Israel and Philistia"
+   ],
+   "id": "goliath",
+   "appearance_from_text": "The text fixes his stature (six cubits and a span), his Philistine and Gath origin, his bronze helmet, coat of mail and greaves are not stated so these are supplied from the era's warrior dress, and his shield-bearer and sword are named; the brief's violence rule shapes the depiction of his death.",
+   "stages": [
+    {
+     "id": "goliath-main",
+     "label": "Goliath of Gath",
+     "when": "the challenge and the duel, 1 Samuel 17",
+     "text": "Goliath: a giant warrior of about nine feet, towering and broad-shouldered, mature adult in his prime, bronze-skinned Philistine man of the Late Bronze to early Iron Age, close-cropped dark hair and a full beard, heavy brow and fierce set face, bronze helmet and scale-armour coat of mail with bronze greaves, a large round shield borne by an attendant, and a spear and sword at his side.",
+     "source": "mixed",
+     "quotes": [
+      {
+       "unit": "1-samuel-17-4",
+       "quote": "whose height was six cubits and a span went out"
+      },
+      {
+       "unit": "1-samuel-17-41",
+       "quote": "the man who bore the shield went before him"
+      },
+      {
+       "unit": "1-samuel-17-45",
+       "quote": "You come to me with a sword, with a spear, and with a javelin"
+      },
+      {
+       "unit": "1-samuel-17-49",
+       "quote": "The stone sank into his forehead, and he fell on his face to the earth."
+      }
+     ]
+    }
+   ],
+   "quote_problems": [],
+   "cost": 0.0006163,
+   "seconds": 3.3,
+   "call": "canon__goliath.json"
+  },
+  "temple_in_jerusalem": {
+   "work": "bible",
+   "name": "Temple in Jerusalem",
+   "kind": "location",
+   "note": "The principal temple in Jerusalem where Zacharias serves, Jesus is presented and teaches, and Jesus cleanses the sellers; the Luke and John entries describe the same building and are joined.",
+   "sections": 20,
+   "eras": [
+    "First-century Roman Judea and Galilee"
+   ],
+   "id": "temple_in_jerusalem",
+   "appearance_from_text": "The text fixes that the temple is a large walled sanctuary with a veil, a treasury, colonnades called Solomon's porch, a pinnacle, an altar, courts where animals and money changers are found, and Mount Olivet nearby; its stone decoration is mentioned. Architecture, stone colour and exact layout were supplied from the Herodian temple tradition.",
+   "stages": [
+    {
+     "id": "temple_in_jerusalem_herodian",
+     "label": "Herodian temple, Jerusalem",
+     "when": "all scenes from Zacharias to the ascension, first century",
+     "text": "Temple in Jerusalem: a vast Herodian complex on a raised stone platform atop Mount Moriah, white and golden limestone walls with great dressed stone blocks, colonnaded porticoes including Solomon's porch, a gilded gate and a veil-screened inner sanctuary, courts thronged with pilgrims, oil lamps, altar of burnt offering, olive trees and the Mount of Olives rising beyond the eastern wall.",
+     "source": "mixed",
+     "quotes": [
+      {
+       "unit": "luke-21-5",
+       "quote": "how it was decorated with beautiful stones and gifts"
+      },
+      {
+       "unit": "luke-23-45",
+       "quote": "the veil of the temple was torn in two"
+      },
+      {
+       "unit": "luke-21-37",
+       "quote": "he would go out and spend the night on the mountain that is called Olivet"
+      },
+      {
+       "unit": "john-10-23",
+       "quote": "Jesus was walking in the temple, in Solomon's porch"
+      },
+      {
+       "unit": "luke-1-9",
+       "quote": "his lot was to enter into the temple of the Lord and burn incense"
+      }
+     ]
+    }
+   ],
+   "quote_problems": [],
+   "cost": 0.0007285,
+   "seconds": 4.4,
+   "call": "canon__temple_in_jerusalem.json"
+  },
+  "ark_of_the_covenant": {
+   "work": "bible",
+   "name": "The ark of the covenant",
+   "kind": "object",
+   "note": "The gold-covered chest built in Exodus, carried into battle and captured by the Philistines in 1 Samuel.",
+   "sections": 0,
+   "eras": [],
+   "id": "ark_of_the_covenant",
+   "appearance_from_text": "The text fixes the ark's material and dimensions (acacia wood, overlaid with gold per the wider Exodus account; about 2.5 by 1.5 cubits), its carrying poles through rings that are never removed, the mercy seat with cherubim on top, and the veil screening it; the gold overlay is stated in the tradition of Exodus 25 and the surfaces, finish and carrying gear are supplied by invention within the Sinai-era tabernacle style.",
+   "stages": [
+    {
+     "id": "ark_of_the_covenant_tabernacle",
+     "label": "Sinai tabernacle ark",
+     "when": "Exodus 25-40, construction and placement in the tabernacle",
+     "text": "ark of the covenant: a rectangular chest about two and a half cubits long and a cubit and a half wide and high, of acacia wood overlaid with pure gold; a gold mercy seat lies on its lid with two cherubim facing each other above it; gold rings at its four corners hold two long carrying poles that are never removed; set behind a woven veil in the tabernacle's inner chamber.",
+     "source": "mixed",
+     "quotes": [
+      {
+       "unit": "exodus-25-14",
+       "quote": "You shall put the poles into the rings on the sides of the ark to carry the ark."
+      },
+      {
+       "unit": "exodus-25-15",
+       "quote": "The poles shall be in the rings of the ark. They shall not be taken from it."
+      },
+      {
+       "unit": "exodus-25-22",
+       "quote": "from between the two cherubim which are on the ark of the covenant"
+      },
+      {
+       "unit": "exodus-37-1",
+       "quote": "Bezalel made the ark of acacia wood. Its length was two and a half cubits, and its width a cubit and a half, and a cubit and a half its height."
+      },
+      {
+       "unit": "exodus-26-33",
+       "quote": "The veil shall separate the holy place from the most holy for you."
+      }
+     ]
+    },
+    {
+     "id": "ark_of_the_covenant_shiloh_philistia",
+     "label": "Shiloh, battle and captivity",
+     "when": "1 Samuel 4-7, carried into battle, captured, and returned",
+     "text": "ark of the covenant: a wooden chest of acacia overlaid with gold, with a gold lid and two cherubim, and gold carrying poles through its rings; the poles are carried on the shoulders of priests when it is moved, and it is kept under a veil or cloth when stored; no figure of God is shown, the box alone bears the presence of the holy.",
+     "source": "mixed",
+     "quotes": [
+      {
+       "unit": "1-samuel-4-4",
+       "quote": "they brought from there the ark of the covenant of Yahweh of Armies, who sits above the cherubim"
+      },
+      {
+       "unit": "1-samuel-5-8",
+       "quote": "They carried the ark of the God of Israel there."
+      },
+      {
+       "unit": "1-samuel-6-13",
+       "quote": "they lifted up their eyes and saw the ark, and rejoiced to see it."
+      }
+     ]
+    }
+   ],
+   "quote_problems": [],
+   "cost": 0.0008902,
+   "seconds": 5.0,
+   "call": "canon__ark_of_the_covenant.json"
+  }
+ },
+ "sheet_stats": {
+  "flash": {
+   "sheets": 12,
+   "passed": 9,
+   "first_try_pass": 5,
+   "tries_total": 23,
+   "mean_tries": 1.92,
+   "gen_cost_mean": 0.0675,
+   "gen_seconds_mean": 9.1,
+   "check_cost_mean": 0.00037,
+   "check_seconds_mean": 5.5,
+   "wall_seconds_mean": 28.2,
+   "cost_per_passed_sheet": 0.1734
+  },
+  "lite": {
+   "sheets": 6,
+   "passed": 5,
+   "first_try_pass": 3,
+   "tries_total": 10,
+   "mean_tries": 1.67,
+   "gen_cost_mean": 0.0337,
+   "gen_seconds_mean": 3.1,
+   "check_cost_mean": 0.00035,
+   "check_seconds_mean": 5.5,
+   "wall_seconds_mean": 14.3,
+   "cost_per_passed_sheet": 0.0682
+  }
+ },
+ "recurrence": {
+  "holmes": {
+   "sections": 156,
+   "entries": 108,
+   "recurring": 68,
+   "recurring_by_kind": {
+    "character": 37,
+    "location": 31
+   },
+   "units": 2530,
+   "divisions": 12
+  },
+  "bible": {
+   "sections": 275,
+   "entries": 256,
+   "recurring": 136,
+   "recurring_by_kind": {
+    "character": 79,
+    "location": 57
+   },
+   "units": 4053,
+   "divisions": 4
+  }
+ },
+ "projection": {
+  "flash": {
+   "per_sheet_usd": 0.1734,
+   "wall_seconds": 28.2,
+   "holmes_recurring": 68,
+   "holmes_usd": 11.79,
+   "bible_4_books_recurring": 136,
+   "bible_4_books_usd": 23.58,
+   "whole_bible_recurring_est": 1044,
+   "whole_bible_usd_est": 181,
+   "whole_bible_hours_sequential_est": 8.2
+  },
+  "lite": {
+   "per_sheet_usd": 0.0682,
+   "wall_seconds": 14.3,
+   "holmes_recurring": 68,
+   "holmes_usd": 4.64,
+   "bible_4_books_recurring": 136,
+   "bible_4_books_usd": 9.28,
+   "whole_bible_recurring_est": 1044,
+   "whole_bible_usd_est": 71,
+   "whole_bible_hours_sequential_est": 4.1
+  }
+ },
+ "sheets": {
+  "sherlock_holmes_main--flash": {
+   "entry": "Sherlock Holmes",
+   "entry_id": "sherlock_holmes",
+   "stage": "sherlock_holmes_main",
+   "stage_label": "Sherlock Holmes",
+   "kind": "character",
+   "work": "holmes",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Character reference sheet for an illustrated edition of The Adventures of Sherlock Holmes.\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Londoners of every class: gentlemen, clerks, tradesmen, cabmen, servants and police, with country gentry and farm folk in the provinces. Frock-coats, top hats, bowler hats, ulsters and tweeds for men; bonnets, bustles, high-necked and plush-trimmed dresses for women; plain dress for servants and labourers.\nCharacter: Sherlock Holmes: man in his thirties; lean, wiry build; pale, angular face with a sharp, hawk-like nose and keen grey eyes; clean-shaven; dark hair worn short and neat. Dressed in a tweed suit or dark frock-coat, a long ulster or a dressing-gown in dark red or plum; pipe and violin as signature props.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "Sherlock Holmes: man in his thirties; lean, wiry build; pale, angular face with a sharp, hawk-like nose and keen grey eyes; clean-shaven; dark hair worn short and neat. Dressed in a tweed suit or dark frock-coat, a long ulster or a dressing-gown in dark red or plum; pipe and violin as signature props.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/sherlock_holmes_main--flash.try1.jpg",
+     "generate": {
+      "seconds": 9.5,
+      "cost": 0.06744,
+      "provider": "Google",
+      "prompt_tokens": 480,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 8.8,
+      "cost": 0.0004358
+     },
+     "verdict": {
+      "views_ok": false,
+      "views_note": "Front and three-quarter views are full-length, but the third view is a three-quarter/side view with a pipe, and the close-up is a head-and-shoulders with violin; close-up is not a plain head-and-shoulders and includes props and a purple robe. Layout is acceptable but close-up composition differs from required.",
+      "same_subject": false,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Close-up shows a purple dressing-gown and violin, while the views show a dark tweed ulster with no visible plum robe in full-length views; clothing differs between views",
+       "Full-length views show a dark overcoat over a waistcoat, inconsistent with a single costume across views",
+       "Pipe appears only in one view and is held in hand, with violin only in close-up, so props differ between views"
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Clothing colour and garments differ between full-length and close-up views",
+       "Props (pipe and violin) do not appear consistently across views",
+       "Close-up framing includes a violin and purple robe rather than a plain head-and-shoulders view"
+      ]
+     },
+     "feedback_sent": ""
+    },
+    {
+     "n": 2,
+     "file": "sheets/sherlock_holmes_main--flash.try2.jpg",
+     "generate": {
+      "seconds": 9.5,
+      "cost": 0.0675125,
+      "provider": "Google",
+      "prompt_tokens": 625,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 5.7,
+      "cost": 0.0003063
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Full-length front, full-length three-quarter, and close-up head-and-shoulders views are present in order.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [],
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Clothing colour and garments differ between full-length and close-up views; Props (pipe and violin) do not appear consistently across views; Close-up framing includes a violin and purple robe rather than a plain head-and-shoulders view; Close-up shows a purple dressing-gown and violin, while the views show a dark tweed ulster with no visible plum robe in full-length views; clothing differs between views; Full-length views show a dark overcoat over a waistcoat, inconsistent with a single costume across views; Pipe appears only in one view and is held in hand, with violin only in close-up, so props differ between views. Fix these."
+    }
+   ],
+   "final": "sheets/sherlock_holmes_main--flash.jpg",
+   "wall_seconds": 33.8,
+   "cost": 0.13569
+  },
+  "dr_watson-s1--flash": {
+   "entry": "Dr. Watson",
+   "entry_id": "dr_watson",
+   "stage": "dr_watson-s1",
+   "stage_label": "Watson, the narrator-companion",
+   "kind": "character",
+   "work": "holmes",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Character reference sheet for an illustrated edition of The Adventures of Sherlock Holmes.\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Londoners of every class: gentlemen, clerks, tradesmen, cabmen, servants and police, with country gentry and farm folk in the provinces. Frock-coats, top hats, bowler hats, ulsters and tweeds for men; bonnets, bustles, high-necked and plush-trimmed dresses for women; plain dress for servants and labourers.\nCharacter: Dr. Watson: man in his late thirties to forties, sturdy and solidly built with a comfortable, well-fed frame, having gained weight since marriage; fair to light-brown hair neatly parted, full drooping moustache, pleasant open face with kindly, steady eyes. Dresses as a respectable Victorian gentleman doctor in dark frock-coat or tweed suit, waistcoat, high collar and cravat; carries a physician's black bag and a walking stick, and often a revolver for dangerous nights.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "Dr. Watson: man in his late thirties to forties, sturdy and solidly built with a comfortable, well-fed frame, having gained weight since marriage; fair to light-brown hair neatly parted, full drooping moustache, pleasant open face with kindly, steady eyes. Dresses as a respectable Victorian gentleman doctor in dark frock-coat or tweed suit, waistcoat, high collar and cravat; carries a physician's black bag and a walking stick, and often a revolver for dangerous nights.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/dr_watson-s1--flash.try1.jpg",
+     "generate": {
+      "seconds": 8.2,
+      "cost": 0.067451,
+      "provider": "Google",
+      "prompt_tokens": 502,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 3.1,
+      "cost": 0.0003456
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Front full-length, three-quarter full-length, and head-and-shoulders close-up are all present in the expected order.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Canon says solidly built with a comfortable, well-fed frame; figure appears slim rather than sturdy."
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Build contradicts canon: figure reads slim, not sturdy and well-fed."
+      ]
+     },
+     "feedback_sent": ""
+    },
+    {
+     "n": 2,
+     "file": "sheets/dr_watson-s1--flash.try2.jpg",
+     "generate": {
+      "seconds": 7.9,
+      "cost": 0.067474,
+      "provider": "Google",
+      "prompt_tokens": 548,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 4.8,
+      "cost": 0.0003691
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Full-length front, full-length three-quarter, and head-and-shoulders close-up are present in the correct order.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Subject appears to have a slim-to-average build rather than the sturdy, well-fed frame described in canon",
+       "Subject's hair appears light brown to fair as canon allows, but close-up shows a shorter, less clearly parted style than canon's neat parting"
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Build does not match canon's sturdy, comfortable frame with added weight since marriage"
+      ]
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Build contradicts canon: figure reads slim, not sturdy and well-fed.; Canon says solidly built with a comfortable, well-fed frame; figure appears slim rather than sturdy.. Fix these."
+    },
+    {
+     "n": 3,
+     "file": "sheets/dr_watson-s1--flash.try3.jpg",
+     "generate": {
+      "seconds": 8.2,
+      "cost": 0.067493,
+      "provider": "Google",
+      "prompt_tokens": 586,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 4.5,
+      "cost": 0.0003456
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Front full-length, three-quarter full-length, and head-and-shoulders close-up present in order on plain grey background.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Figure appears trim rather than sturdy and well-fed with a comfortable frame, contrary to canon build"
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Build contradicts canon: subject is slim, not sturdy and well-fed."
+      ]
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Build does not match canon's sturdy, comfortable frame with added weight since marriage; Subject appears to have a slim-to-average build rather than the sturdy, well-fed frame described in canon; Subject's hair appears light brown to fair as canon allows, but close-up shows a shorter, less clearly parted style than canon's neat parting. Fix these."
+    }
+   ],
+   "final": null,
+   "wall_seconds": 37.3,
+   "cost": 0.20348,
+   "last_try": "sheets/dr_watson-s1--flash.try3.jpg"
+  },
+  "lestrade-s1--flash": {
+   "entry": "Lestrade",
+   "entry_id": "lestrade",
+   "stage": "lestrade-s1",
+   "stage_label": "Lestrade",
+   "kind": "character",
+   "work": "holmes",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Character reference sheet for an illustrated edition of The Adventures of Sherlock Holmes.\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Londoners of every class: gentlemen, clerks, tradesmen, cabmen, servants and police, with country gentry and farm folk in the provinces. Frock-coats, top hats, bowler hats, ulsters and tweeds for men; bonnets, bustles, high-necked and plush-trimmed dresses for women; plain dress for servants and labourers.\nCharacter: Lestrade: a lean, wiry Scotland Yard inspector of about forty, with a ferret-like face, narrow sharp features and a sly, furtive cast to the eyes. Short, neatly brushed sandy-brown hair and a trim sandy moustache. Country dress: light brown dustcoat and leather leggings. Town dress: pea-jacket, cravat, and a black canvas bag in hand.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "Lestrade: a lean, wiry Scotland Yard inspector of about forty, with a ferret-like face, narrow sharp features and a sly, furtive cast to the eyes. Short, neatly brushed sandy-brown hair and a trim sandy moustache. Country dress: light brown dustcoat and leather leggings. Town dress: pea-jacket, cravat, and a black canvas bag in hand.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/lestrade-s1--flash.try1.jpg",
+     "generate": {
+      "seconds": 9.1,
+      "cost": 0.0674415,
+      "provider": "Google",
+      "prompt_tokens": 483,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 7.1,
+      "cost": 0.0004251
+     },
+     "verdict": {
+      "views_ok": false,
+      "views_note": "Front and three-quarter full-length views are present and the close-up head-and-shoulders is present, but the second view is turned rather than a clear three-quarter, and the figure in the close-up is not a clean match. Views are roughly in order.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Subject appears broader and more solid rather than lean and wiry",
+       "Face is fuller and less ferret-like, lacking the narrow sharp features and sly furtive eyes",
+       "Hair is a fuller, combed-back style rather than short neatly brushed",
+       "Town dress shown with a black canvas bag, but the dustcoat is worn over a dark waistcoat with pea-jacket style, not clearly a pea-jacket"
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Subject does not match the lean, ferret-faced canon description",
+       "Hair and facial features diverge from canon",
+       "Second view is not a clear three-quarter angle"
+      ]
+     },
+     "feedback_sent": ""
+    },
+    {
+     "n": 2,
+     "file": "sheets/lestrade-s1--flash.try2.jpg",
+     "generate": {
+      "seconds": 8.9,
+      "cost": 0.067503,
+      "provider": "Google",
+      "prompt_tokens": 606,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 4.9,
+      "cost": 0.0004966
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Three views present: full-length front, three-quarter, and head-and-shoulders close-up, in the required order.",
+      "same_subject": false,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Front and three-quarter views wear a light brown dustcoat, but the town view wears a dark navy pea-jacket, so the subject's clothing differs between views.",
+       "The bag is held in the three-quarter and town views but absent from the front view, and the second bag shadow in the three-quarter view suggests an extra bag.",
+       "Face and hair read as more youthful and rounder than a lean, wiry, ferret-like inspector of about forty with narrow sharp features and a sly, furtive gaze.",
+       "Hair is a fuller, lighter blond rather than short, neatly brushed sandy-brown, and the close-up eyes look open rather than sly and furtive.",
+       "Town dress shows a dark brown waistcoat and trousers that differ from the light brown country dress, which is acceptable, but the front view lacks the leather leggings, showing trousers tucked into boots instead."
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Subject's clothing colour changes between views (light brown dustcoat vs navy pea-jacket).",
+       "Facial features and hair colour do not match the canon's ferret-like, sandy-brown inspector.",
+       "Bag presence is inconsistent across views and an extra bag appears."
+      ]
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Subject does not match the lean, ferret-faced canon description; Hair and facial features diverge from canon; Second view is not a clear three-quarter angle; Subject appears broader and more solid rather than lean and wiry; Face is fuller and less ferret-like, lacking the narrow sharp features and sly furtive eyes; Hair is a fuller, combed-back style rather than short neatly brushed; Town dress shown with a black canvas bag, but the dustcoat is worn over a dark waistcoat with pea-jacket style, not clearly a pea-jacket. Fix these."
+    },
+    {
+     "n": 3,
+     "file": "sheets/lestrade-s1--flash.try3.jpg",
+     "generate": {
+      "seconds": 9.2,
+      "cost": 0.0675615,
+      "provider": "Google",
+      "prompt_tokens": 723,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 8.3,
+      "cost": 0.0005011
+     },
+     "verdict": {
+      "views_ok": false,
+      "views_note": "Three views present: full-length front, full-length three-quarter, and head-and-shoulders close-up, but the close-up is not on the same framing standard and the figures are different builds; mainly the views are present, though the hair and face do not match across views.",
+      "same_subject": false,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Canon describes a lean, wiry man with a ferret-like face and sly, furtive eyes; the figures appear broader and more genial with a neutral, open expression.",
+       "Canon specifies light brown dustcoat and leather leggings for country dress, but the figure wears a dark pea-jacket, cravat and waistcoat with grey trousers.",
+       "Canon specifies a black canvas bag in hand, which is present, but the jacket and tie are in the town-dress style only while no country dress view is shown.",
+       "Hair in the close-up appears fuller and lighter than the short neatly brushed sandy-brown hair described, and the head size and proportions differ between the full-length views and the close-up.",
+       "Moustache appears in the close-up but the face in the full-length views looks rounder and less narrow than the canon ferret-like features."
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Face and build do not match the lean, wiry, ferret-like canon description.",
+       "Subject proportions and hair differ between full-length views and close-up, so views may not show the same subject.",
+       "Clothing does not match canon dress for the figure shown."
+      ]
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Subject's clothing colour changes between views (light brown dustcoat vs navy pea-jacket).; Facial features and hair colour do not match the canon's ferret-like, sandy-brown inspector.; Bag presence is inconsistent across views and an extra bag appears.; Front and three-quarter views wear a light brown dustcoat, but the town view wears a dark navy pea-jacket, so the subject's clothing differs between views.; The bag is held in the three-quarter and town views but absent from the front view, and the second bag shadow in the three-quarter view suggests an extra bag.; Face and hair read as more youthful and rounder than a lean, wiry, ferret-like inspector of about forty with narrow sharp features and a sly, furtive gaze.; Hair is a fuller, lighter blond rather than short, neatly brushed sandy-brown, and the close-up eyes look open rather than sly and furtive.; Town dress shows a dark brown waistcoat and trousers that differ from the light brown country dress, which is acceptable, but the front view lacks the leather leggings, showing trousers tucked into boots instead.. Fix these."
+    }
+   ],
+   "final": null,
+   "wall_seconds": 47.9,
+   "cost": 0.20393,
+   "last_try": "sheets/lestrade-s1--flash.try3.jpg"
+  },
+  "221b_baker_street_main--flash": {
+   "entry": "221B Baker Street",
+   "entry_id": "221b_baker_street",
+   "stage": "221b_baker_street_main",
+   "stage_label": "Baker Street lodgings",
+   "kind": "location",
+   "work": "holmes",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Location reference sheet for an illustrated edition of The Adventures of Sherlock Holmes.\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Gaslit streets and rooms with coal or oil lamps, hansom cabs and dog-carts, brick townhouses, country manors and farmhouses, printed newspapers, handwritten letters and telegrams, clay pipes and cigars.\nLocation: 221B Baker Street: first-floor sitting-room of a brick townhouse on a London street of dun-coloured brick houses; large bow-window onto the street; hearth with a coal fire and mantel; gaslit fittings; a sideboard and a table with white cloth; shelves of old books, chemical bottles and test-tubes; armchairs either side of the fire; violin and pipe on the mantelpiece; fog or snow outside.\nLayout: two views of this same place side by side, each filling half of the image, separated by a narrow plain mid-grey gap: left, a wide establishing view showing the whole place and its surroundings; right, a closer ground-level view of its most characteristic part. Clear, neutral daylight. No people, no animals.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "221B Baker Street: first-floor sitting-room of a brick townhouse on a London street of dun-coloured brick houses; large bow-window onto the street; hearth with a coal fire and mantel; gaslit fittings; a sideboard and a table with white cloth; shelves of old books, chemical bottles and test-tubes; armchairs either side of the fire; violin and pipe on the mantelpiece; fog or snow outside.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/221b_baker_street_main--flash.try1.jpg",
+     "generate": {
+      "seconds": 9.4,
+      "cost": 0.0674115,
+      "provider": "Google",
+      "prompt_tokens": 423,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 4.4,
+      "cost": 0.0003403
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Wide establishing view on left and closer ground-level view on right, separated by a plain gap.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": false,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Two framed pictures and a wall plate appear on the walls, not in canon but not contradictory",
+       "Street visible through bow-window shows buildings rather than only dun-coloured brick houses, not clearly contradictory"
+      ],
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": ""
+    }
+   ],
+   "final": "sheets/221b_baker_street_main--flash.jpg",
+   "wall_seconds": 13.9,
+   "cost": 0.06775
+  },
+  "jesus-main--flash": {
+   "entry": "Jesus",
+   "entry_id": "jesus",
+   "stage": "jesus-main",
+   "stage_label": "Jesus of Nazareth, adult teacher",
+   "kind": "character",
+   "work": "bible",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Character reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Jewish villagers, fishermen, shepherds, tax collectors, priests, Pharisees, Roman soldiers, Samaritans and Gentiles; olive and brown-skinned people with dark hair. Linen and wool tunics, cloaks and mantles, head coverings and veils, phylacteries and tassels; priests in white linen; soldiers in armor; the wealthy in purple.\nCharacter: Jesus: man in his early thirties; lean, sturdy build of a Galilean labourer; olive-brown skin weathered by sun and travel; short dark-brown hair and a trimmed dark beard in the manner of a 1st-century Jewish man; kind, direct, grave face with dark eyes; plain undyed linen or wool tunic in earth tones with a dark-blue or white fringed tassel at the hem of his cloak as a Jewish man would wear; a simple wool mantle; no halo, no stereotyped blue robe; no crown except where the scene is the mockery.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "Jesus: man in his early thirties; lean, sturdy build of a Galilean labourer; olive-brown skin weathered by sun and travel; short dark-brown hair and a trimmed dark beard in the manner of a 1st-century Jewish man; kind, direct, grave face with dark eyes; plain undyed linen or wool tunic in earth tones with a dark-blue or white fringed tassel at the hem of his cloak as a Jewish man would wear; a simple wool mantle; no halo, no stereotyped blue robe; no crown except where the scene is the mockery.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/jesus-main--flash.try1.jpg",
+     "generate": {
+      "seconds": 9.4,
+      "cost": 0.0674595,
+      "provider": "Google",
+      "prompt_tokens": 519,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 3.3,
+      "cost": 0.00041
+     },
+     "verdict": {
+      "views_ok": false,
+      "views_note": "Front full-length, three-quarter full-length and head-and-shoulders close-up are present in order, but the three full-length views are not full-length in the sense of the required framing for the close-up; the sheet otherwise matches the layout.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Tassel fringe is dark blue, which is acceptable per canon, but the cloak/mantle reads as a long open outer garment rather than a simple wool mantle",
+       "Figure appears in a shoulder-to-hem layout with the close-up showing a different hair length and fuller beard than the full-length views"
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Head-and-shoulders close-up shows noticeably different hair and beard styling from the full-length views",
+       "Beard length and hair volume differ between views, which counts as a mismatch between views"
+      ]
+     },
+     "feedback_sent": ""
+    },
+    {
+     "n": 2,
+     "file": "sheets/jesus-main--flash.try2.jpg",
+     "generate": {
+      "seconds": 8.3,
+      "cost": 0.0675165,
+      "provider": "Google",
+      "prompt_tokens": 633,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 4.8,
+      "cost": 0.000401
+     },
+     "verdict": {
+      "views_ok": false,
+      "views_note": "Second view is a full-length figure in a grey garment, but the three full-length views are not consistent (second figure wears a different robe, fringe differs), and the required three-quarter view is not clearly distinct; close-up present.",
+      "same_subject": false,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Second full-length view shows a grey robe and different clothing from the tan tunic and earth-tone mantle in the other views",
+       "Clothing colours differ between views, which the sheet must not show",
+       "Tassel colour is dark blue and appears on views that otherwise differ in garments"
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Clothing differs between views (grey robe in second view vs tan tunic and mantle elsewhere)",
+       "Views do not consistently depict the same costume"
+      ]
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Head-and-shoulders close-up shows noticeably different hair and beard styling from the full-length views; Beard length and hair volume differ between views, which counts as a mismatch between views; Tassel fringe is dark blue, which is acceptable per canon, but the cloak/mantle reads as a long open outer garment rather than a simple wool mantle; Figure appears in a shoulder-to-hem layout with the close-up showing a different hair length and fuller beard than the full-length views. Fix these."
+    },
+    {
+     "n": 3,
+     "file": "sheets/jesus-main--flash.try3.jpg",
+     "generate": {
+      "seconds": 8.6,
+      "cost": 0.0676225,
+      "provider": "Google",
+      "prompt_tokens": 611,
+      "completion_tokens": 1159
+     },
+     "check": {
+      "seconds": 5.5,
+      "cost": 0.0003135
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Front full-length, three-quarter full-length, and head-and-shoulders close-up present in order on grey background.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [],
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Clothing differs between views (grey robe in second view vs tan tunic and mantle elsewhere); Views do not consistently depict the same costume; Second full-length view shows a grey robe and different clothing from the tan tunic and earth-tone mantle in the other views; Clothing colours differ between views, which the sheet must not show; Tassel colour is dark blue and appears on views that otherwise differ in garments. Fix these."
+    }
+   ],
+   "final": "sheets/jesus-main--flash.jpg",
+   "wall_seconds": 40.1,
+   "cost": 0.20372
+  },
+  "simon_peter_main--flash": {
+   "entry": "Simon Peter",
+   "entry_id": "simon_peter",
+   "stage": "simon_peter_main",
+   "stage_label": "Simon Peter, fisherman apostle",
+   "kind": "character",
+   "work": "bible",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Character reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Jewish villagers, fishermen, shepherds, tax collectors, priests, Pharisees, Roman soldiers, Samaritans and Gentiles; olive and brown-skinned people with dark hair. Linen and wool tunics, cloaks and mantles, head coverings and veils, phylacteries and tassels; priests in white linen; soldiers in armor; the wealthy in purple.\nCharacter: Simon Peter: a sturdy Galilean fisherman in his thirties, weathered olive-brown skin, short dark curly hair and a full dark beard flecked with grey at the chin, broad calloused hands, a strong lined face. Wears a undyed linen tunic belted at the waist with a rough wool cloak in earth brown or faded blue-grey, bare or sandalled feet; carries a fisherman's net or a folded coat.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "Simon Peter: a sturdy Galilean fisherman in his thirties, weathered olive-brown skin, short dark curly hair and a full dark beard flecked with grey at the chin, broad calloused hands, a strong lined face. Wears a undyed linen tunic belted at the waist with a rough wool cloak in earth brown or faded blue-grey, bare or sandalled feet; carries a fisherman's net or a folded coat.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/simon_peter_main--flash.try1.jpg",
+     "generate": {
+      "seconds": 8.7,
+      "cost": 0.067444,
+      "provider": "Google",
+      "prompt_tokens": 488,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 2.2,
+      "cost": 0.0003114
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Full-length front, full-length three-quarter, and head-and-shoulders close-up are present in order on a plain grey background.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [],
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": ""
+    }
+   ],
+   "final": "sheets/simon_peter_main--flash.jpg",
+   "wall_seconds": 11.0,
+   "cost": 0.06776
+  },
+  "moses-s1--flash": {
+   "entry": "Moses",
+   "entry_id": "moses",
+   "stage": "moses-s1",
+   "stage_label": "Moses, shepherd of Midian and prophet of the exodus",
+   "kind": "character",
+   "work": "bible",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Character reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Egyptians with shaven heads and wigs; Hebrew clans in simple desert clothing, dark-haired and bearded; Midianite shepherds. Linen kilts and tunics for Egyptians; plain woven wool and linen for Israelites; priestly garments of blue, purple, scarlet and gold-threaded linen.\nCharacter: Moses: man in his prime and then elder, aged 40 to 80 and beyond; lean, weathered build from desert shepherding; warm brown skin from sun; dark hair and a full dark beard, with some grey in later years; calm, grave face. Plain undyed woven wool robe with a simple linen belt, sandals; carries a shepherd's wooden staff, the rod of God. Dress is restrained and humble, never royal, though he was raised in Pharaoh's house.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "Moses: man in his prime and then elder, aged 40 to 80 and beyond; lean, weathered build from desert shepherding; warm brown skin from sun; dark hair and a full dark beard, with some grey in later years; calm, grave face. Plain undyed woven wool robe with a simple linen belt, sandals; carries a shepherd's wooden staff, the rod of God. Dress is restrained and humble, never royal, though he was raised in Pharaoh's house.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/moses-s1--flash.try1.jpg",
+     "generate": {
+      "seconds": 8.8,
+      "cost": 0.0674445,
+      "provider": "Google",
+      "prompt_tokens": 489,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 8.4,
+      "cost": 0.0004205
+     },
+     "verdict": {
+      "views_ok": false,
+      "views_note": "Shows front full-length, three-quarter full-length, and head-and-shoulders close-up, but the middle figure is not a true three-quarter view of the same framing as the front; close-up present. Views are in order but framing/pose consistency is loose.",
+      "same_subject": false,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Robe appears undyed off-white linen-like cloth, acceptable, but the middle figure's hair and beard appear greyer and differently styled than the front view",
+       "Hair and beard grey distribution differs between views, suggesting different apparent ages",
+       "Sandals and belt are present; staff is present in all full-length views"
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Hair, beard and apparent age differ noticeably between the full-length views",
+       "Middle view's facial hair and hairline do not match the front view",
+       "Head-and-shoulders close-up shows a heavier, greyer beard and different face than the full-length figures"
+      ]
+     },
+     "feedback_sent": ""
+    },
+    {
+     "n": 2,
+     "file": "sheets/moses-s1--flash.try2.jpg",
+     "generate": {
+      "seconds": 8.6,
+      "cost": 0.0678135,
+      "provider": "Google",
+      "prompt_tokens": 621,
+      "completion_tokens": 1221
+     },
+     "check": {
+      "seconds": 6.9,
+      "cost": 0.0003085
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Full-length front, full-length three-quarter, and head-and-shoulders close-up are present in order.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [],
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Hair, beard and apparent age differ noticeably between the full-length views; Middle view's facial hair and hairline do not match the front view; Head-and-shoulders close-up shows a heavier, greyer beard and different face than the full-length figures; Robe appears undyed off-white linen-like cloth, acceptable, but the middle figure's hair and beard appear greyer and differently styled than the front view; Hair and beard grey distribution differs between views, suggesting different apparent ages; Sandals and belt are present; staff is present in all full-length views. Fix these."
+    }
+   ],
+   "final": "sheets/moses-s1--flash.jpg",
+   "wall_seconds": 32.9,
+   "cost": 0.13599
+  },
+  "david-youth--flash": {
+   "entry": "David",
+   "entry_id": "david",
+   "stage": "david-youth",
+   "stage_label": "David as youth and shepherd",
+   "kind": "character",
+   "work": "bible",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Character reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Israelite tribes as farmers and herders in hill country; Philistines as city-state people; Ammonites, Moabites, Amalekites and Edomites as neighbors. Linen ephods for priests; robes and mantles for elders and kings; bronze helmets and mail for warriors; shepherds' bags and slings; simple woven tunics.\nCharacter: David: a youth of about fifteen to eighteen, slight but wiry, with a ruddy, fair complexion and bright eyes. Thick dark-brown hair cut to shoulder length, a short fine beard or none. Simple undyed linen or wool woven tunic belted with a leather sash, sandals; shepherd's leather bag slung at the hip and a sling of plaited cord, with a few smooth river stones.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "David: a youth of about fifteen to eighteen, slight but wiry, with a ruddy, fair complexion and bright eyes. Thick dark-brown hair cut to shoulder length, a short fine beard or none. Simple undyed linen or wool woven tunic belted with a leather sash, sandals; shepherd's leather bag slung at the hip and a sling of plaited cord, with a few smooth river stones.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/david-youth--flash.try1.jpg",
+     "generate": {
+      "seconds": 8.9,
+      "cost": 0.0674415,
+      "provider": "Google",
+      "prompt_tokens": 483,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 5.3,
+      "cost": 0.0003596
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Front full-length, three-quarter full-length, and head-and-shoulders close-up are present in the correct order on grey background.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Front view shows no beard while three-quarter view shows a short beard; close-up shows stubble-like beard, acceptable under 'a short fine beard or none' but beard varies between views",
+       "Tunic appears knee-length and belt/sash present; shoulder-length hair consistent; sling and stones present"
+      ],
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": ""
+    }
+   ],
+   "final": "sheets/david-youth--flash.jpg",
+   "wall_seconds": 14.2,
+   "cost": 0.0678
+  },
+  "david-warrior-king--flash": {
+   "entry": "David",
+   "entry_id": "david",
+   "stage": "david-warrior-king",
+   "stage_label": "David as warrior and later king",
+   "kind": "character",
+   "work": "bible",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Character reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Israelite tribes as farmers and herders in hill country; Philistines as city-state people; Ammonites, Moabites, Amalekites and Edomites as neighbors. Linen ephods for priests; robes and mantles for elders and kings; bronze helmets and mail for warriors; shepherds' bags and slings; simple woven tunics.\nCharacter: David: a man of about thirty, broad-shouldered and lean from years in the wilderness, with a ruddy, weathered complexion and a close-trimmed dark beard. Dark hair kept short. Woven wool tunic and mantle in deep undyed brown or earth-red, a leather belt with a bronze-hilted sword; a royal mantle of blue-purple trimmed with gold may mark kingship. Sling and shepherd's bag still at his side.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "David: a man of about thirty, broad-shouldered and lean from years in the wilderness, with a ruddy, weathered complexion and a close-trimmed dark beard. Dark hair kept short. Woven wool tunic and mantle in deep undyed brown or earth-red, a leather belt with a bronze-hilted sword; a royal mantle of blue-purple trimmed with gold may mark kingship. Sling and shepherd's bag still at his side.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/david-warrior-king--flash.try1.jpg",
+     "generate": {
+      "seconds": 8.3,
+      "cost": 0.067446,
+      "provider": "Google",
+      "prompt_tokens": 492,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 4.1,
+      "cost": 0.0003099
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Front full-length, three-quarter full-length, and head-and-shoulders close-up are all present in the correct order.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [],
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": ""
+    }
+   ],
+   "final": "sheets/david-warrior-king--flash.jpg",
+   "wall_seconds": 12.5,
+   "cost": 0.06776
+  },
+  "goliath-main--flash": {
+   "entry": "Goliath",
+   "entry_id": "goliath",
+   "stage": "goliath-main",
+   "stage_label": "Goliath of Gath",
+   "kind": "character",
+   "work": "bible",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Character reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Israelite tribes as farmers and herders in hill country; Philistines as city-state people; Ammonites, Moabites, Amalekites and Edomites as neighbors. Linen ephods for priests; robes and mantles for elders and kings; bronze helmets and mail for warriors; shepherds' bags and slings; simple woven tunics.\nCharacter: Goliath: a giant warrior of about nine feet, towering and broad-shouldered, mature adult in his prime, bronze-skinned Philistine man of the Late Bronze to early Iron Age, close-cropped dark hair and a full beard, heavy brow and fierce set face, bronze helmet and scale-armour coat of mail with bronze greaves, a large round shield borne by an attendant, and a spear and sword at his side.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "Goliath: a giant warrior of about nine feet, towering and broad-shouldered, mature adult in his prime, bronze-skinned Philistine man of the Late Bronze to early Iron Age, close-cropped dark hair and a full beard, heavy brow and fierce set face, bronze helmet and scale-armour coat of mail with bronze greaves, a large round shield borne by an attendant, and a spear and sword at his side.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/goliath-main--flash.try1.jpg",
+     "generate": {
+      "seconds": 9.5,
+      "cost": 0.067444,
+      "provider": "Google",
+      "prompt_tokens": 488,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 4.7,
+      "cost": 0.0003892
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Full-length front, full-length three-quarter, and head-and-shoulders close-up are present in the right order.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Figure appears about normal human height relative to frame rather than towering nine feet, though scale is hard to judge from views alone",
+       "No large round shield borne by an attendant is shown",
+       "Helmet is a crested bronze helmet with cheek guards rather than clearly the bronze helmet described; minor",
+       "Spear and sword are present, consistent with canon"
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Canon specifies a large round shield borne by an attendant, which is absent from the sheet",
+       "Giant stature of about nine feet is not conveyed relative to the frame"
+      ]
+     },
+     "feedback_sent": ""
+    },
+    {
+     "n": 2,
+     "file": "sheets/goliath-main--flash.try2.jpg",
+     "generate": {
+      "seconds": 13.7,
+      "cost": 0.067498,
+      "provider": "Google",
+      "prompt_tokens": 596,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 5.1,
+      "cost": 0.0004087
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Full-length front, full-length three-quarter (rear-facing turn), and head-and-shoulders close-up are present in order on grey background.",
+      "same_subject": false,
+      "extra_figures": true,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "A second figure (attendant) appears in the three-quarter view, which is a figure beyond the subject",
+       "Figure in the front view shows a spear held in hand, but the attendant's shield is included in the three-quarter view; attendant is an extra figure",
+       "Subject appears of ordinary human height relative to the grey background rather than clearly towering at about nine feet, though no scale reference is given"
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Extra figure (shield-bearing attendant) appears in the three-quarter view",
+       "Views show subject's clothing and scale-armour in slightly varying detail, and subject does not clearly read as a nine-foot giant"
+      ]
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Canon specifies a large round shield borne by an attendant, which is absent from the sheet; Giant stature of about nine feet is not conveyed relative to the frame; Figure appears about normal human height relative to frame rather than towering nine feet, though scale is hard to judge from views alone; No large round shield borne by an attendant is shown; Helmet is a crested bronze helmet with cheek guards rather than clearly the bronze helmet described; minor; Spear and sword are present, consistent with canon. Fix these."
+    },
+    {
+     "n": 3,
+     "file": "sheets/goliath-main--flash.try3.jpg",
+     "generate": {
+      "seconds": 11.7,
+      "cost": 0.0677535,
+      "provider": "Google",
+      "prompt_tokens": 627,
+      "completion_tokens": 1200
+     },
+     "check": {
+      "seconds": 5.7,
+      "cost": 0.0004007
+     },
+     "verdict": {
+      "views_ok": false,
+      "views_note": "Three views present (full front, three-quarter, close-up) but the sheet contains number labels (1), (2), (3) and the figure is not nine feet, and the shield is not borne by an attendant.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": true,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Numbered labels (1), (2), (3) appear on the sheet",
+       "Figure is not depicted as a towering nine-foot giant; scale is normal human",
+       "Large round shield is held by the figure himself rather than an attendant",
+       "Bronze-skinned Philistine look is not clearly conveyed as a towering warrior"
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Text labels (1), (2), (3) are present",
+       "Figure does not read as a nine-foot giant as the canon requires",
+       "Shield is carried by the subject rather than an attendant"
+      ]
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Extra figure (shield-bearing attendant) appears in the three-quarter view; Views show subject's clothing and scale-armour in slightly varying detail, and subject does not clearly read as a nine-foot giant; A second figure (attendant) appears in the three-quarter view, which is a figure beyond the subject; Figure in the front view shows a spear held in hand, but the attendant's shield is included in the three-quarter view; attendant is an extra figure; Subject appears of ordinary human height relative to the grey background rather than clearly towering at about nine feet, though no scale reference is given. Fix these."
+    }
+   ],
+   "final": null,
+   "wall_seconds": 50.6,
+   "cost": 0.20389,
+   "last_try": "sheets/goliath-main--flash.try3.jpg"
+  },
+  "temple_in_jerusalem_herodian--flash": {
+   "entry": "Temple in Jerusalem",
+   "entry_id": "temple_in_jerusalem",
+   "stage": "temple_in_jerusalem_herodian",
+   "stage_label": "Herodian temple, Jerusalem",
+   "kind": "location",
+   "work": "bible",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Location reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Stone and mud-brick houses with flat or tiled roofs, the Herodian temple, synagogues, rock-cut tombs with rolling stones, oil lamps, fishing boats, vineyards, scrolls.\nLocation: Temple in Jerusalem: a vast Herodian complex on a raised stone platform atop Mount Moriah, white and golden limestone walls with great dressed stone blocks, colonnaded porticoes including Solomon's porch, a gilded gate and a veil-screened inner sanctuary, courts thronged with pilgrims, oil lamps, altar of burnt offering, olive trees and the Mount of Olives rising beyond the eastern wall.\nLayout: two views of this same place side by side, each filling half of the image, separated by a narrow plain mid-grey gap: left, a wide establishing view showing the whole place and its surroundings; right, a closer ground-level view of its most characteristic part. Clear, neutral daylight. No people, no animals.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "Temple in Jerusalem: a vast Herodian complex on a raised stone platform atop Mount Moriah, white and golden limestone walls with great dressed stone blocks, colonnaded porticoes including Solomon's porch, a gilded gate and a veil-screened inner sanctuary, courts thronged with pilgrims, oil lamps, altar of burnt offering, olive trees and the Mount of Olives rising beyond the eastern wall.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/temple_in_jerusalem_herodian--flash.try1.jpg",
+     "generate": {
+      "seconds": 8.8,
+      "cost": 0.0674025,
+      "provider": "Google",
+      "prompt_tokens": 405,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 5.6,
+      "cost": 0.000309
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Wide establishing aerial view on left and closer ground-level view on right, separated by a plain grey gap.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": false,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [],
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": ""
+    }
+   ],
+   "final": "sheets/temple_in_jerusalem_herodian--flash.jpg",
+   "wall_seconds": 14.6,
+   "cost": 0.06771
+  },
+  "ark_of_the_covenant_tabernacle--flash": {
+   "entry": "The ark of the covenant",
+   "entry_id": "ark_of_the_covenant",
+   "stage": "ark_of_the_covenant_tabernacle",
+   "stage_label": "Sinai tabernacle ark",
+   "kind": "object",
+   "work": "bible",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Object reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Stone and mud-brick houses with flat or tiled roofs, the Herodian temple, synagogues, rock-cut tombs with rolling stones, oil lamps, fishing boats, vineyards, scrolls.\nObject: ark of the covenant: a rectangular chest about two and a half cubits long and a cubit and a half wide and high, of acacia wood overlaid with pure gold; a gold mercy seat lies on its lid with two cherubim facing each other above it; gold rings at its four corners hold two long carrying poles that are never removed; set behind a woven veil in the tabernacle's inner chamber.\nLayout: the same object shown twice side by side on one plain, even mid-grey background: left, the whole object seen from a three-quarter angle; right, a close detail of its most characteristic part. Neutral, even light. No people, no hands, no animals.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "ark of the covenant: a rectangular chest about two and a half cubits long and a cubit and a half wide and high, of acacia wood overlaid with pure gold; a gold mercy seat lies on its lid with two cherubim facing each other above it; gold rings at its four corners hold two long carrying poles that are never removed; set behind a woven veil in the tabernacle's inner chamber.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/ark_of_the_covenant_tabernacle--flash.try1.jpg",
+     "generate": {
+      "seconds": 9.1,
+      "cost": 0.067399,
+      "provider": "Google",
+      "prompt_tokens": 398,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 5.9,
+      "cost": 0.0003667
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Whole object view on left and close detail of cherubim on right, in correct order.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": false,
+      "text_present": false,
+      "frame_present": true,
+      "canon_mismatches": [
+       "Background contains draped curtains and a stone wall rather than a plain grey background, though the sheet itself is grey.",
+       "Each view is set on a separate panel with visible panel edges."
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Visible panel edges/frame around each view.",
+       "Background is not plain; curtains and wall are visible behind the object.",
+       "Cherubim are depicted as winged figures with faces, consistent with canon, so no mismatch there."
+      ]
+     },
+     "feedback_sent": ""
+    },
+    {
+     "n": 2,
+     "file": "sheets/ark_of_the_covenant_tabernacle--flash.try2.jpg",
+     "generate": {
+      "seconds": 7.1,
+      "cost": 0.0674435,
+      "provider": "Google",
+      "prompt_tokens": 487,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 7.2,
+      "cost": 0.0003017
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Whole object on left, close detail of lid cherubim and corner on right; both present.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [],
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Visible panel edges/frame around each view.; Background is not plain; curtains and wall are visible behind the object.; Cherubim are depicted as winged figures with faces, consistent with canon, so no mismatch there.; Background contains draped curtains and a stone wall rather than a plain grey background, though the sheet itself is grey.; Each view is set on a separate panel with visible panel edges.. Fix these."
+    }
+   ],
+   "final": "sheets/ark_of_the_covenant_tabernacle--flash.jpg",
+   "wall_seconds": 29.5,
+   "cost": 0.13551
+  },
+  "sherlock_holmes_main--lite": {
+   "entry": "Sherlock Holmes",
+   "entry_id": "sherlock_holmes",
+   "stage": "sherlock_holmes_main",
+   "stage_label": "Sherlock Holmes",
+   "kind": "character",
+   "work": "holmes",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "prompt": "Character reference sheet for an illustrated edition of The Adventures of Sherlock Holmes.\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Londoners of every class: gentlemen, clerks, tradesmen, cabmen, servants and police, with country gentry and farm folk in the provinces. Frock-coats, top hats, bowler hats, ulsters and tweeds for men; bonnets, bustles, high-necked and plush-trimmed dresses for women; plain dress for servants and labourers.\nCharacter: Sherlock Holmes: man in his thirties; lean, wiry build; pale, angular face with a sharp, hawk-like nose and keen grey eyes; clean-shaven; dark hair worn short and neat. Dressed in a tweed suit or dark frock-coat, a long ulster or a dressing-gown in dark red or plum; pipe and violin as signature props.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "Sherlock Holmes: man in his thirties; lean, wiry build; pale, angular face with a sharp, hawk-like nose and keen grey eyes; clean-shaven; dark hair worn short and neat. Dressed in a tweed suit or dark frock-coat, a long ulster or a dressing-gown in dark red or plum; pipe and violin as signature props.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/sherlock_holmes_main--lite.try1.jpg",
+     "generate": {
+      "seconds": 3.0,
+      "cost": 0.03372,
+      "provider": "Google",
+      "prompt_tokens": 480,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 6.9,
+      "cost": 0.0004273
+     },
+     "verdict": {
+      "views_ok": false,
+      "views_note": "Front full-length and three-quarter full-length views are present, but the head-and-shoulders close-up is present; however the background is not plain grey, a cobblestone ground patch appears under the front figure, and a briefcase is held in both full-length views.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": false,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Subject carries a briefcase, which is not a canon signature prop (canon lists pipe and violin)",
+       "Dark brown coat and suit rather than tweed suit or dark frock-coat with dark red or plum dressing-gown or ulster; coat is dark brown, not plum or red",
+       "Cobblestone ground patch and textured background departs from the required plain even grey background"
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Background is not plain even grey; cobblestone ground patch is present",
+       "Briefcase prop appears in full-length views and is not in the canon entry",
+       "Outerwear colour is dark brown, not the dark red or plum specified by canon"
+      ]
+     },
+     "feedback_sent": ""
+    },
+    {
+     "n": 2,
+     "file": "sheets/sherlock_holmes_main--lite.try2.jpg",
+     "generate": {
+      "seconds": 2.6,
+      "cost": 0.03375275,
+      "provider": "Google",
+      "prompt_tokens": 611,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 3.6,
+      "cost": 0.0003098
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Left full-length front, middle full-length three-quarter, right head-and-shoulders close-up; order and framing match the requirement.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [],
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Background is not plain even grey; cobblestone ground patch is present; Briefcase prop appears in full-length views and is not in the canon entry; Outerwear colour is dark brown, not the dark red or plum specified by canon; Subject carries a briefcase, which is not a canon signature prop (canon lists pipe and violin); Dark brown coat and suit rather than tweed suit or dark frock-coat with dark red or plum dressing-gown or ulster; coat is dark brown, not plum or red; Cobblestone ground patch and textured background departs from the required plain even grey background. Fix these."
+    }
+   ],
+   "final": "sheets/sherlock_holmes_main--lite.jpg",
+   "wall_seconds": 16.2,
+   "cost": 0.06821
+  },
+  "dr_watson-s1--lite": {
+   "entry": "Dr. Watson",
+   "entry_id": "dr_watson",
+   "stage": "dr_watson-s1",
+   "stage_label": "Watson, the narrator-companion",
+   "kind": "character",
+   "work": "holmes",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "prompt": "Character reference sheet for an illustrated edition of The Adventures of Sherlock Holmes.\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Londoners of every class: gentlemen, clerks, tradesmen, cabmen, servants and police, with country gentry and farm folk in the provinces. Frock-coats, top hats, bowler hats, ulsters and tweeds for men; bonnets, bustles, high-necked and plush-trimmed dresses for women; plain dress for servants and labourers.\nCharacter: Dr. Watson: man in his late thirties to forties, sturdy and solidly built with a comfortable, well-fed frame, having gained weight since marriage; fair to light-brown hair neatly parted, full drooping moustache, pleasant open face with kindly, steady eyes. Dresses as a respectable Victorian gentleman doctor in dark frock-coat or tweed suit, waistcoat, high collar and cravat; carries a physician's black bag and a walking stick, and often a revolver for dangerous nights.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "Dr. Watson: man in his late thirties to forties, sturdy and solidly built with a comfortable, well-fed frame, having gained weight since marriage; fair to light-brown hair neatly parted, full drooping moustache, pleasant open face with kindly, steady eyes. Dresses as a respectable Victorian gentleman doctor in dark frock-coat or tweed suit, waistcoat, high collar and cravat; carries a physician's black bag and a walking stick, and often a revolver for dangerous nights.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/dr_watson-s1--lite.try1.jpg",
+     "generate": {
+      "seconds": 3.4,
+      "cost": 0.0337255,
+      "provider": "Google",
+      "prompt_tokens": 502,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 5.9,
+      "cost": 0.0003571
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Full-length front, full-length three-quarter, and head-and-shoulders close-up present in correct order.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Figure appears lean rather than sturdy and well-fed, contrary to canon build",
+       "Hair appears light brown and neatly parted, consistent; moustache full and drooping, consistent"
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Build reads as slim rather than the sturdy, comfortable, well-fed frame specified in canon"
+      ]
+     },
+     "feedback_sent": ""
+    },
+    {
+     "n": 2,
+     "file": "sheets/dr_watson-s1--lite.try2.jpg",
+     "generate": {
+      "seconds": 2.7,
+      "cost": 0.03374125,
+      "provider": "Google",
+      "prompt_tokens": 565,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 7.1,
+      "cost": 0.0003526
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Full-length front, full-length three-quarter, and head-and-shoulders close-up are present in the required order.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Front view shows the figure carrying a black bag and walking stick, but the three-quarter view shows empty hands, which is a prop inconsistency between views."
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Props differ between views: bag and stick are held in the front view but absent in the three-quarter view."
+      ]
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Build reads as slim rather than the sturdy, comfortable, well-fed frame specified in canon; Figure appears lean rather than sturdy and well-fed, contrary to canon build; Hair appears light brown and neatly parted, consistent; moustache full and drooping, consistent. Fix these."
+    },
+    {
+     "n": 3,
+     "file": "sheets/dr_watson-s1--lite.try3.jpg",
+     "generate": {
+      "seconds": 3.0,
+      "cost": 0.03374175,
+      "provider": "Google",
+      "prompt_tokens": 567,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 5.6,
+      "cost": 0.0004181
+     },
+     "verdict": {
+      "views_ok": false,
+      "views_note": "Front full-length and three-quarter full-length views are present, and a head-and-shoulders close-up is present, but the front view bag is brown while the three-quarter view bag is black, and the front view's stance and bag differ, so views are not fully consistent.",
+      "same_subject": false,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Physician's bag is brown in the front view but black in the three-quarter view",
+       "Build appears lean rather than sturdy and well-fed in the full-length views",
+       "Hair and moustache vary in appearance between views, with the close-up showing a different hairline and moustache shape"
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Bag colour differs between the front and three-quarter views (brown vs black)",
+       "Subject build in full-length views does not match the sturdy, well-fed canon description",
+       "Minor but noticeable differences in facial features and moustache across views suggest inconsistent subject rendering"
+      ]
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Props differ between views: bag and stick are held in the front view but absent in the three-quarter view.; Front view shows the figure carrying a black bag and walking stick, but the three-quarter view shows empty hands, which is a prop inconsistency between views.. Fix these."
+    }
+   ],
+   "final": null,
+   "wall_seconds": 27.7,
+   "cost": 0.10234,
+   "last_try": "sheets/dr_watson-s1--lite.try3.jpg"
+  },
+  "221b_baker_street_main--lite": {
+   "entry": "221B Baker Street",
+   "entry_id": "221b_baker_street",
+   "stage": "221b_baker_street_main",
+   "stage_label": "Baker Street lodgings",
+   "kind": "location",
+   "work": "holmes",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "prompt": "Location reference sheet for an illustrated edition of The Adventures of Sherlock Holmes.\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Gaslit streets and rooms with coal or oil lamps, hansom cabs and dog-carts, brick townhouses, country manors and farmhouses, printed newspapers, handwritten letters and telegrams, clay pipes and cigars.\nLocation: 221B Baker Street: first-floor sitting-room of a brick townhouse on a London street of dun-coloured brick houses; large bow-window onto the street; hearth with a coal fire and mantel; gaslit fittings; a sideboard and a table with white cloth; shelves of old books, chemical bottles and test-tubes; armchairs either side of the fire; violin and pipe on the mantelpiece; fog or snow outside.\nLayout: two views of this same place side by side, each filling half of the image, separated by a narrow plain mid-grey gap: left, a wide establishing view showing the whole place and its surroundings; right, a closer ground-level view of its most characteristic part. Clear, neutral daylight. No people, no animals.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "221B Baker Street: first-floor sitting-room of a brick townhouse on a London street of dun-coloured brick houses; large bow-window onto the street; hearth with a coal fire and mantel; gaslit fittings; a sideboard and a table with white cloth; shelves of old books, chemical bottles and test-tubes; armchairs either side of the fire; violin and pipe on the mantelpiece; fog or snow outside.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/221b_baker_street_main--lite.try1.jpg",
+     "generate": {
+      "seconds": 3.7,
+      "cost": 0.03370575,
+      "provider": "Google",
+      "prompt_tokens": 423,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 5.1,
+      "cost": 0.0003073
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Wide establishing view on left and closer ground-level view on right, separated by a plain grey gap.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [],
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": ""
+    }
+   ],
+   "final": "sheets/221b_baker_street_main--lite.jpg",
+   "wall_seconds": 8.9,
+   "cost": 0.03401
+  },
+  "jesus-main--lite": {
+   "entry": "Jesus",
+   "entry_id": "jesus",
+   "stage": "jesus-main",
+   "stage_label": "Jesus of Nazareth, adult teacher",
+   "kind": "character",
+   "work": "bible",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "prompt": "Character reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Jewish villagers, fishermen, shepherds, tax collectors, priests, Pharisees, Roman soldiers, Samaritans and Gentiles; olive and brown-skinned people with dark hair. Linen and wool tunics, cloaks and mantles, head coverings and veils, phylacteries and tassels; priests in white linen; soldiers in armor; the wealthy in purple.\nCharacter: Jesus: man in his early thirties; lean, sturdy build of a Galilean labourer; olive-brown skin weathered by sun and travel; short dark-brown hair and a trimmed dark beard in the manner of a 1st-century Jewish man; kind, direct, grave face with dark eyes; plain undyed linen or wool tunic in earth tones with a dark-blue or white fringed tassel at the hem of his cloak as a Jewish man would wear; a simple wool mantle; no halo, no stereotyped blue robe; no crown except where the scene is the mockery.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "Jesus: man in his early thirties; lean, sturdy build of a Galilean labourer; olive-brown skin weathered by sun and travel; short dark-brown hair and a trimmed dark beard in the manner of a 1st-century Jewish man; kind, direct, grave face with dark eyes; plain undyed linen or wool tunic in earth tones with a dark-blue or white fringed tassel at the hem of his cloak as a Jewish man would wear; a simple wool mantle; no halo, no stereotyped blue robe; no crown except where the scene is the mockery.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/jesus-main--lite.try1.jpg",
+     "generate": {
+      "seconds": 3.2,
+      "cost": 0.03372975,
+      "provider": "Google",
+      "prompt_tokens": 519,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 5.3,
+      "cost": 0.000312
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Front full-length, three-quarter full-length, and head-and-shoulders close-up present in order.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [],
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": ""
+    }
+   ],
+   "final": "sheets/jesus-main--lite.jpg",
+   "wall_seconds": 8.5,
+   "cost": 0.03404
+  },
+  "david-youth--lite": {
+   "entry": "David",
+   "entry_id": "david",
+   "stage": "david-youth",
+   "stage_label": "David as youth and shepherd",
+   "kind": "character",
+   "work": "bible",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "prompt": "Character reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Israelite tribes as farmers and herders in hill country; Philistines as city-state people; Ammonites, Moabites, Amalekites and Edomites as neighbors. Linen ephods for priests; robes and mantles for elders and kings; bronze helmets and mail for warriors; shepherds' bags and slings; simple woven tunics.\nCharacter: David: a youth of about fifteen to eighteen, slight but wiry, with a ruddy, fair complexion and bright eyes. Thick dark-brown hair cut to shoulder length, a short fine beard or none. Simple undyed linen or wool woven tunic belted with a leather sash, sandals; shepherd's leather bag slung at the hip and a sling of plaited cord, with a few smooth river stones.\nLayout: the same figure shown three times side by side, evenly spaced, on one plain, even mid-grey background: (1) full-length standing view facing the viewer; (2) full-length standing view in a three-quarter turn; (3) a large head-and-shoulders close-up portrait in three-quarter view that shows the face clearly. Calm, neutral standing pose and expression, arms relaxed. Face, hair, build, garments and colours identical in all three views. No other people or figures.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "David: a youth of about fifteen to eighteen, slight but wiry, with a ruddy, fair complexion and bright eyes. Thick dark-brown hair cut to shoulder length, a short fine beard or none. Simple undyed linen or wool woven tunic belted with a leather sash, sandals; shepherd's leather bag slung at the hip and a sling of plaited cord, with a few smooth river stones.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/david-youth--lite.try1.jpg",
+     "generate": {
+      "seconds": 2.8,
+      "cost": 0.03372075,
+      "provider": "Google",
+      "prompt_tokens": 483,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 5.0,
+      "cost": 0.0003411
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Front full-length, three-quarter full-length, and head-and-shoulders close-up are present in order.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [
+       "Sling of plaited cord and river stones are not clearly visible; only a cord loop hangs from the belt",
+       "Hair is shoulder-length dark brown, consistent; beard is short stubble, consistent"
+      ],
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": ""
+    }
+   ],
+   "final": "sheets/david-youth--lite.jpg",
+   "wall_seconds": 7.7,
+   "cost": 0.03406
+  },
+  "ark_of_the_covenant_tabernacle--lite": {
+   "entry": "The ark of the covenant",
+   "entry_id": "ark_of_the_covenant",
+   "stage": "ark_of_the_covenant_tabernacle",
+   "stage_label": "Sinai tabernacle ark",
+   "kind": "object",
+   "work": "bible",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "prompt": "Object reference sheet for an illustrated edition of The Holy Bible (WEB).\nArt style: Classical Painterly. Stylized, painterly, mysterious, expansive; epic scale. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork. Mature, grounded color; rich but restrained contrast. Luminous, dramatic lighting. Gritty, raw texture; avoid polished digital smoothness. Cinematic, immersive viewpoint; heroic but grounded.\nWorld: Stone and mud-brick houses with flat or tiled roofs, the Herodian temple, synagogues, rock-cut tombs with rolling stones, oil lamps, fishing boats, vineyards, scrolls.\nObject: ark of the covenant: a rectangular chest about two and a half cubits long and a cubit and a half wide and high, of acacia wood overlaid with pure gold; a gold mercy seat lies on its lid with two cherubim facing each other above it; gold rings at its four corners hold two long carrying poles that are never removed; set behind a woven veil in the tabernacle's inner chamber.\nLayout: the same object shown twice side by side on one plain, even mid-grey background: left, the whole object seen from a three-quarter angle; right, a close detail of its most characteristic part. Neutral, even light. No people, no hands, no animals.\nAbsolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.\nStyle negatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nNot a photograph.",
+   "canon_text": "ark of the covenant: a rectangular chest about two and a half cubits long and a cubit and a half wide and high, of acacia wood overlaid with pure gold; a gold mercy seat lies on its lid with two cherubim facing each other above it; gold rings at its four corners hold two long carrying poles that are never removed; set behind a woven veil in the tabernacle's inner chamber.",
+   "tries": [
+    {
+     "n": 1,
+     "file": "sheets/ark_of_the_covenant_tabernacle--lite.try1.jpg",
+     "generate": {
+      "seconds": 3.6,
+      "cost": 0.0336995,
+      "provider": "Google",
+      "prompt_tokens": 398,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 4.8,
+      "cost": 0.0003967
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Left view shows the whole chest with poles; right view shows a close detail of cherub, ring and pole. Order and framing acceptable.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": false,
+      "text_present": false,
+      "frame_present": true,
+      "canon_mismatches": [
+       "Background includes a woven veil with pomegranate pattern rather than being plain grey in the whole-object view",
+       "Wood is visible in the detail view where canon specifies gold overlay over acacia; detail shows exposed brown wood",
+       "Chest appears to have a visible vertical divide down the middle of the sheet acting as a panel edge"
+      ],
+      "verdict": "fail",
+      "reasons": [
+       "Background is not plain even grey; patterned veil is present",
+       "Vertical divider line between the two views acts as a frame/panel edge",
+       "Detail view shows exposed wood rather than gold overlay, contradicting canon"
+      ]
+     },
+     "feedback_sent": ""
+    },
+    {
+     "n": 2,
+     "file": "sheets/ark_of_the_covenant_tabernacle--lite.try2.jpg",
+     "generate": {
+      "seconds": 3.0,
+      "cost": 0.0337275,
+      "provider": "Google",
+      "prompt_tokens": 510,
+      "completion_tokens": 1120
+     },
+     "check": {
+      "seconds": 5.5,
+      "cost": 0.0002992
+     },
+     "verdict": {
+      "views_ok": true,
+      "views_note": "Whole object view on left and close detail on right, both present in correct order.",
+      "same_subject": true,
+      "extra_figures": false,
+      "background_plain": true,
+      "text_present": false,
+      "frame_present": false,
+      "canon_mismatches": [],
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Background is not plain even grey; patterned veil is present; Vertical divider line between the two views acts as a frame/panel edge; Detail view shows exposed wood rather than gold overlay, contradicting canon; Background includes a woven veil with pomegranate pattern rather than being plain grey in the whole-object view; Wood is visible in the detail view where canon specifies gold overlay over acacia; detail shows exposed brown wood; Chest appears to have a visible vertical divide down the middle of the sheet acting as a panel edge. Fix these."
+    }
+   ],
+   "final": "sheets/ark_of_the_covenant_tabernacle--lite.jpg",
+   "wall_seconds": 17.0,
+   "cost": 0.06812
+  }
+ },
+ "style_refs": {
+  "holmes--watercolour": {
+   "work": "holmes",
+   "style": "watercolour",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: a wide, quiet view of the world of this era, with no people and no animals: Gaslit streets and rooms with coal or oil lamps, hansom cabs and dog-carts, brick townhouses, country manors and farmhouses, printed newspapers, handwritten letters and telegrams, clay pipes and cigars.\nArt style: Ink & Watercolor. Loose pen-and-ink drawing with transparent watercolour washes; expressive, airy and contemplative, like a travelling artist's field study of the work's world. Transparent washes of ochre, sienna, indigo and sage; luminous lights. Bright, airy daylight; shadows as cool layered washes. Confident ink linework, wet-in-wet blooms, granulating pigment. Sketch-like economy; detail concentrated on key subjects, softer surroundings.\nStyle negatives: Paint washes and scenery all the way into every edge and all four corners: no white or unpainted paper margins, no white vignette, no fading out to blank paper at the edges, no paper edges, sketchbook, tape or border. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+   "main_era": "Victorian England, 1880s to early 1890s",
+   "tries": [
+    {
+     "n": 1,
+     "file": "style-refs/holmes--watercolour.try1.jpg",
+     "generate": {
+      "seconds": 8.2,
+      "cost": 0.0675735,
+      "provider": "Google"
+     },
+     "check": {
+      "seconds": 6.0,
+      "cost": 0.0002683
+     },
+     "verdict": {
+      "people_present": false,
+      "animals_present": true,
+      "frame_present": false,
+      "text_present": true,
+      "full_bleed": true,
+      "verdict": "fail",
+      "reasons": [
+       "Visible text: 'PRINTED NEWS' on the newspaper and handwritten text on the letter.",
+       "Horses present pulling the carriage (animals are not prohibited, noted for reference).",
+       "No people visible; no frame or border detected; scene reaches all four edges."
+      ]
+     },
+     "feedback_sent": ""
+    },
+    {
+     "n": 2,
+     "file": "style-refs/holmes--watercolour.try2.jpg",
+     "generate": {
+      "seconds": 8.3,
+      "cost": 0.067388,
+      "provider": "Google"
+     },
+     "check": {
+      "seconds": 6.2,
+      "cost": 0.0002613
+     },
+     "verdict": {
+      "people_present": false,
+      "animals_present": false,
+      "frame_present": false,
+      "text_present": true,
+      "full_bleed": true,
+      "verdict": "fail",
+      "reasons": [
+       "Text present: handwritten/printed writing is visible on the telegram form at the lower right and on the newspaper.",
+       "Scene runs to all four edges with no frame, border, or vignette, so full-bleed and frame checks pass."
+      ]
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Visible text: 'PRINTED NEWS' on the newspaper and handwritten text on the letter.; Horses present pulling the carriage (animals are not prohibited, noted for reference).; No people visible; no frame or border detected; scene reaches all four edges.. Fix these."
+    },
+    {
+     "n": 3,
+     "file": "style-refs/holmes--watercolour.try3.jpg",
+     "generate": {
+      "seconds": 9.4,
+      "cost": 0.067386,
+      "provider": "Google"
+     },
+     "check": {
+      "seconds": 3.9,
+      "cost": 0.0002973
+     },
+     "verdict": {
+      "people_present": true,
+      "animals_present": true,
+      "frame_present": true,
+      "text_present": true,
+      "full_bleed": false,
+      "verdict": "fail",
+      "reasons": [
+       "Figures of people are visible on carriages and in the street scene (e.g., coachmen and passengers).",
+       "Horses are present pulling carriages.",
+       "Vignette-style dark and white edge margins and framing appear around the scene, with the watercolor fading into paper margins at the edges.",
+       "Handwritten text is visible on letters and papers on the tables.",
+       "The scene does not fully run to all four edges; the watercolor washes stop short with paper showing at the borders."
+      ]
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Text present: handwritten/printed writing is visible on the telegram form at the lower right and on the newspaper.; Scene runs to all four edges with no frame, border, or vignette, so full-bleed and frame checks pass.. Fix these."
+    }
+   ],
+   "final": null,
+   "wall_seconds": 42.5,
+   "cost": 0.20317
+  },
+  "holmes--icon": {
+   "work": "holmes",
+   "style": "icon",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: a wide, quiet view of the world of this era, with no people and no animals: Gaslit streets and rooms with coal or oil lamps, hansom cabs and dog-carts, brick townhouses, country manors and farmhouses, printed newspapers, handwritten letters and telegrams, clay pipes and cigars.\nArt style: Byzantine Icon. Byzantine icon painting: flat, frontal, stylised figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space. Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens. No cast shadows; inner light shown through layered highlights; gold glow. Egg tempera and gold-leaf texture within the scene. Hieratic, balanced staging; the key subject largest and central; stylised rocks, buildings and trees.\nStyle negatives: Never show a wooden panel, panel edges, frame, border, arched or rounded top, wall, or the icon as a physical object. No plain, dark or unpainted corners: the gold sky and stylised landscape run edge-to-edge into all four corners. Avoid photorealism and modern illustration.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+   "main_era": "Victorian England, 1880s to early 1890s",
+   "tries": [
+    {
+     "n": 1,
+     "file": "style-refs/holmes--icon.try1.jpg",
+     "generate": {
+      "seconds": 8.8,
+      "cost": 0.0673605,
+      "provider": "Google"
+     },
+     "check": {
+      "seconds": 4.8,
+      "cost": 0.0002738
+     },
+     "verdict": {
+      "people_present": false,
+      "animals_present": true,
+      "frame_present": true,
+      "text_present": false,
+      "full_bleed": false,
+      "verdict": "fail",
+      "reasons": [
+       "A gold leaf border frames the scene on all sides, breaking the no-frame rule.",
+       "The scene does not run to all four edges because the gold margin surrounds the artwork.",
+       "Horses are visible pulling a carriage, which is not disallowed but noted.",
+       "No people or text are visibly present."
+      ]
+     },
+     "feedback_sent": ""
+    },
+    {
+     "n": 2,
+     "file": "style-refs/holmes--icon.try2.jpg",
+     "generate": {
+      "seconds": 8.6,
+      "cost": 0.0673945,
+      "provider": "Google"
+     },
+     "check": {
+      "seconds": 4.4,
+      "cost": 0.0002253
+     },
+     "verdict": {
+      "people_present": false,
+      "animals_present": false,
+      "frame_present": false,
+      "text_present": false,
+      "full_bleed": true,
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: A gold leaf border frames the scene on all sides, breaking the no-frame rule.; The scene does not run to all four edges because the gold margin surrounds the artwork.; Horses are visible pulling a carriage, which is not disallowed but noted.; No people or text are visibly present.. Fix these."
+    }
+   ],
+   "final": "style-refs/holmes--icon.jpg",
+   "wall_seconds": 26.9,
+   "cost": 0.13525
+  },
+  "bible--watercolour": {
+   "work": "bible",
+   "style": "watercolour",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: a wide, quiet view of the world of this era, with no people and no animals: Stone and mud-brick houses with flat or tiled roofs, the Herodian temple, synagogues, rock-cut tombs with rolling stones, oil lamps, fishing boats, vineyards, scrolls.\nArt style: Ink & Watercolor. Loose pen-and-ink drawing with transparent watercolour washes; expressive, airy and contemplative, like a travelling artist's field study of the work's world. Transparent washes of ochre, sienna, indigo and sage; luminous lights. Bright, airy daylight; shadows as cool layered washes. Confident ink linework, wet-in-wet blooms, granulating pigment. Sketch-like economy; detail concentrated on key subjects, softer surroundings.\nStyle negatives: Paint washes and scenery all the way into every edge and all four corners: no white or unpainted paper margins, no white vignette, no fading out to blank paper at the edges, no paper edges, sketchbook, tape or border. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+   "main_era": "First-century Roman Judea and Galilee",
+   "tries": [
+    {
+     "n": 1,
+     "file": "style-refs/bible--watercolour.try1.jpg",
+     "generate": {
+      "seconds": 8.6,
+      "cost": 0.067354,
+      "provider": "Google"
+     },
+     "check": {
+      "seconds": 7.6,
+      "cost": 0.0002673
+     },
+     "verdict": {
+      "people_present": true,
+      "animals_present": false,
+      "frame_present": true,
+      "text_present": true,
+      "full_bleed": false,
+      "verdict": "fail",
+      "reasons": [
+       "A small robed figure is visible near the boats on the right, so people are present.",
+       "The painting has a white paper margin along the edges and does not run fully to all four edges.",
+       "Scroll writing or inscription marks on the rolled scroll in the foreground, suggesting text is present."
+      ]
+     },
+     "feedback_sent": ""
+    },
+    {
+     "n": 2,
+     "file": "style-refs/bible--watercolour.try2.jpg",
+     "generate": {
+      "seconds": 8.7,
+      "cost": 0.067388,
+      "provider": "Google"
+     },
+     "check": {
+      "seconds": 5.8,
+      "cost": 0.0002618
+     },
+     "verdict": {
+      "people_present": false,
+      "animals_present": false,
+      "frame_present": true,
+      "text_present": true,
+      "full_bleed": false,
+      "verdict": "fail",
+      "reasons": [
+       "Scene is a watercolor vignette that fades into white paper margins on all sides rather than running to all four edges",
+       "Visible paper margin/vignette border around the illustration",
+       "Scrolls in foreground display script-like markings that read as text"
+      ]
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: A small robed figure is visible near the boats on the right, so people are present.; The painting has a white paper margin along the edges and does not run fully to all four edges.; Scroll writing or inscription marks on the rolled scroll in the foreground, suggesting text is present.. Fix these."
+    },
+    {
+     "n": 3,
+     "file": "style-refs/bible--watercolour.try3.jpg",
+     "generate": {
+      "seconds": 8.5,
+      "cost": 0.067383,
+      "provider": "Google"
+     },
+     "check": {
+      "seconds": 7.1,
+      "cost": 0.0002548
+     },
+     "verdict": {
+      "people_present": false,
+      "animals_present": false,
+      "frame_present": false,
+      "text_present": false,
+      "full_bleed": true,
+      "verdict": "pass",
+      "reasons": [
+       "No people visible in the scene.",
+       "No frame, border, vignette or margin; the artwork runs to all four edges.",
+       "No text or lettering present.",
+       "Scene reaches all four edges and corners."
+      ]
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Scene is a watercolor vignette that fades into white paper margins on all sides rather than running to all four edges; Visible paper margin/vignette border around the illustration; Scrolls in foreground display script-like markings that read as text. Fix these."
+    }
+   ],
+   "final": "style-refs/bible--watercolour.jpg",
+   "wall_seconds": 46.7,
+   "cost": 0.20291
+  },
+  "bible--icon": {
+   "work": "bible",
+   "style": "icon",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: a wide, quiet view of the world of this era, with no people and no animals: Stone and mud-brick houses with flat or tiled roofs, the Herodian temple, synagogues, rock-cut tombs with rolling stones, oil lamps, fishing boats, vineyards, scrolls.\nArt style: Byzantine Icon. Byzantine icon painting: flat, frontal, stylised figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space. Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens. No cast shadows; inner light shown through layered highlights; gold glow. Egg tempera and gold-leaf texture within the scene. Hieratic, balanced staging; the key subject largest and central; stylised rocks, buildings and trees.\nStyle negatives: Never show a wooden panel, panel edges, frame, border, arched or rounded top, wall, or the icon as a physical object. No plain, dark or unpainted corners: the gold sky and stylised landscape run edge-to-edge into all four corners. Avoid photorealism and modern illustration.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+   "main_era": "First-century Roman Judea and Galilee",
+   "tries": [
+    {
+     "n": 1,
+     "file": "style-refs/bible--icon.try1.jpg",
+     "generate": {
+      "seconds": 9.5,
+      "cost": 0.067357,
+      "provider": "Google"
+     },
+     "check": {
+      "seconds": 5.4,
+      "cost": 0.0002253
+     },
+     "verdict": {
+      "people_present": false,
+      "animals_present": false,
+      "frame_present": false,
+      "text_present": false,
+      "full_bleed": true,
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": ""
+    }
+   ],
+   "final": "style-refs/bible--icon.jpg",
+   "wall_seconds": 15.0,
+   "cost": 0.06758
+  },
+  "holmes--watercolour--v2": {
+   "work": "holmes",
+   "style": "watercolour",
+   "template": "v2",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: one wide, quiet outdoor view of the kind of place this era's stories happen in (Victorian England, 1880s to early 1890s): buildings and streets or countryside of this era, drawn from this list but shown as a single natural scene, not a collection of objects: Gaslit streets and rooms with coal or oil lamps, hansom cabs and dog-carts, brick townhouses, country manors and farmhouses, printed newspapers, handwritten letters and telegrams, clay pipes and cigars. Leave out every small object, paper, book, letter, sign, poster or anything bearing writing. No people, no animals, no vehicles with drivers or passengers.\nArt style: Ink & Watercolor. Loose pen-and-ink drawing with transparent watercolour washes; expressive, airy and contemplative, like a travelling artist's field study of the work's world. Transparent washes of ochre, sienna, indigo and sage; luminous lights. Bright, airy daylight; shadows as cool layered washes. Confident ink linework, wet-in-wet blooms, granulating pigment. Sketch-like economy; detail concentrated on key subjects, softer surroundings.\nStyle negatives: Paint washes and scenery all the way into every edge and all four corners: no white or unpainted paper margins, no white vignette, no fading out to blank paper at the edges, no paper edges, sketchbook, tape or border. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+   "main_era": "Victorian England, 1880s to early 1890s",
+   "tries": [
+    {
+     "n": 1,
+     "file": "style-refs/holmes--watercolour--v2.try1.jpg",
+     "generate": {
+      "seconds": 9.6,
+      "cost": 0.067397,
+      "provider": "Google"
+     },
+     "check": {
+      "seconds": 8.5,
+      "cost": 0.0002658
+     },
+     "verdict": {
+      "people_present": false,
+      "animals_present": false,
+      "frame_present": false,
+      "text_present": false,
+      "full_bleed": false,
+      "verdict": "fail",
+      "reasons": [
+       "The illustration does not reach all four edges: the watercolor wash fades into a white paper margin on the top and right and bottom edges, leaving unpainted paper border.",
+       "No people, animals, frame or text are visible, but the full-bleed requirement is broken."
+      ]
+     },
+     "feedback_sent": ""
+    },
+    {
+     "n": 2,
+     "file": "style-refs/holmes--watercolour--v2.try2.jpg",
+     "generate": {
+      "seconds": 8.0,
+      "cost": 0.067429,
+      "provider": "Google"
+     },
+     "check": {
+      "seconds": 8.2,
+      "cost": 0.0002713
+     },
+     "verdict": {
+      "people_present": false,
+      "animals_present": true,
+      "frame_present": true,
+      "text_present": false,
+      "full_bleed": false,
+      "verdict": "fail",
+      "reasons": [
+       "Watercolor vignette fades to white paper margins on the left, right and top edges, so the scene does not run to all four edges.",
+       "Visible unpainted paper border acts as a frame/margin.",
+       "Horses are present in the carriages, which is not prohibited but is noted.",
+       "No people or text visible."
+      ]
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: The illustration does not reach all four edges: the watercolor wash fades into a white paper margin on the top and right and bottom edges, leaving unpainted paper border.; No people, animals, frame or text are visible, but the full-bleed requirement is broken.. Fix these."
+    },
+    {
+     "n": 3,
+     "file": "style-refs/holmes--watercolour--v2.try3.jpg",
+     "generate": {
+      "seconds": 7.6,
+      "cost": 0.0674325,
+      "provider": "Google"
+     },
+     "check": {
+      "seconds": 5.2,
+      "cost": 0.0002688
+     },
+     "verdict": {
+      "people_present": false,
+      "animals_present": false,
+      "frame_present": true,
+      "text_present": false,
+      "full_bleed": false,
+      "verdict": "fail",
+      "reasons": [
+       "Watercolor vignette with unpainted white paper margins visible along the top, left, right and bottom edges, so the scene does not run to all four edges.",
+       "Soft faded edges act as a paper margin/vignette, which counts as a frame.",
+       "No people, animals or text are visible."
+      ]
+     },
+     "feedback_sent": "\n\nA previous attempt was rejected because: Watercolor vignette fades to white paper margins on the left, right and top edges, so the scene does not run to all four edges.; Visible unpainted paper border acts as a frame/margin.; Horses are present in the carriages, which is not prohibited but is noted.; No people or text visible.. Fix these."
+    }
+   ],
+   "final": null,
+   "wall_seconds": 47.3,
+   "cost": 0.20306
+  },
+  "holmes--icon--v2": {
+   "work": "holmes",
+   "style": "icon",
+   "template": "v2",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: one wide, quiet outdoor view of the kind of place this era's stories happen in (Victorian England, 1880s to early 1890s): buildings and streets or countryside of this era, drawn from this list but shown as a single natural scene, not a collection of objects: Gaslit streets and rooms with coal or oil lamps, hansom cabs and dog-carts, brick townhouses, country manors and farmhouses, printed newspapers, handwritten letters and telegrams, clay pipes and cigars. Leave out every small object, paper, book, letter, sign, poster or anything bearing writing. No people, no animals, no vehicles with drivers or passengers.\nArt style: Byzantine Icon. Byzantine icon painting: flat, frontal, stylised figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space. Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens. No cast shadows; inner light shown through layered highlights; gold glow. Egg tempera and gold-leaf texture within the scene. Hieratic, balanced staging; the key subject largest and central; stylised rocks, buildings and trees.\nStyle negatives: Never show a wooden panel, panel edges, frame, border, arched or rounded top, wall, or the icon as a physical object. No plain, dark or unpainted corners: the gold sky and stylised landscape run edge-to-edge into all four corners. Avoid photorealism and modern illustration.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+   "main_era": "Victorian England, 1880s to early 1890s",
+   "tries": [
+    {
+     "n": 1,
+     "file": "style-refs/holmes--icon--v2.try1.jpg",
+     "generate": {
+      "seconds": 8.6,
+      "cost": 0.0674,
+      "provider": "Google"
+     },
+     "check": {
+      "seconds": 5.6,
+      "cost": 0.0002253
+     },
+     "verdict": {
+      "people_present": false,
+      "animals_present": false,
+      "frame_present": false,
+      "text_present": false,
+      "full_bleed": true,
+      "verdict": "pass",
+      "reasons": []
+     },
+     "feedback_sent": ""
+    }
+   ],
+   "final": "style-refs/holmes--icon--v2.jpg",
+   "wall_seconds": 14.3,
+   "cost": 0.06763
+  },
+  "bible--watercolour--v2": {
+   "work": "bible",
+   "style": "watercolour",
+   "template": "v2",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: one wide, quiet outdoor view of the kind of place this era's stories happen in (First-century Roman Judea and Galilee): buildings and streets or countryside of this era, drawn from this list but shown as a single natural scene, not a collection of objects: Stone and mud-brick houses with flat or tiled roofs, the Herodian temple, synagogues, rock-cut tombs with rolling stones, oil lamps, fishing boats, vineyards, scrolls. Leave out every small object, paper, book, letter, sign, poster or anything bearing writing. No people, no animals, no vehicles with drivers or passengers.\nArt style: Ink & Watercolor. Loose pen-and-ink drawing with transparent watercolour washes; expressive, airy and contemplative, like a travelling artist's field study of the work's world. Transparent washes of ochre, sienna, indigo and sage; luminous lights. Bright, airy daylight; shadows as cool layered washes. Confident ink linework, wet-in-wet blooms, granulating pigment. Sketch-like economy; detail concentrated on key subjects, softer surroundings.\nStyle negatives: Paint washes and scenery all the way into every edge and all four corners: no white or unpainted paper margins, no white vignette, no fading out to blank paper at the edges, no paper edges, sketchbook, tape or border. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+   "main_era": "First-century Roman Judea and Galilee",
+   "tries": [
+    {
+     "n": 1,
+     "file": "style-refs/bible--watercolour--v2.try1.jpg",
+     "generate": {
+      "seconds": 9.3,
+      "cost": 0.0673885,
+      "provider": "Google"
+     },
+     "check": {
+      "seconds": 3.3,
+      "cost": 0.0002543
+     },
+     "verdict": {
+      "people_present": false,
+      "animals_present": false,
+      "frame_present": false,
+      "text_present": false,
+      "full_bleed": true,
+      "verdict": "pass",
+      "reasons": [
+       "No people visible in the scene.",
+       "No frame, border, vignette or margin; the painting runs to all four edges.",
+       "No text or lettering present.",
+       "Scene reaches all four edges and corners."
+      ]
+     },
+     "feedback_sent": ""
+    }
+   ],
+   "final": "style-refs/bible--watercolour--v2.jpg",
+   "wall_seconds": 12.7,
+   "cost": 0.06764
+  }
+ }
+}

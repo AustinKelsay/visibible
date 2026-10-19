@@ -1,0 +1,459 @@
+{
+ "holmes--watercolour": {
+  "work": "holmes",
+  "style": "watercolour",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: a wide, quiet view of the world of this era, with no people and no animals: Gaslit streets and rooms with coal or oil lamps, hansom cabs and dog-carts, brick townhouses, country manors and farmhouses, printed newspapers, handwritten letters and telegrams, clay pipes and cigars.\nArt style: Ink & Watercolor. Loose pen-and-ink drawing with transparent watercolour washes; expressive, airy and contemplative, like a travelling artist's field study of the work's world. Transparent washes of ochre, sienna, indigo and sage; luminous lights. Bright, airy daylight; shadows as cool layered washes. Confident ink linework, wet-in-wet blooms, granulating pigment. Sketch-like economy; detail concentrated on key subjects, softer surroundings.\nStyle negatives: Paint washes and scenery all the way into every edge and all four corners: no white or unpainted paper margins, no white vignette, no fading out to blank paper at the edges, no paper edges, sketchbook, tape or border. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+  "main_era": "Victorian England, 1880s to early 1890s",
+  "tries": [
+   {
+    "n": 1,
+    "file": "style-refs/holmes--watercolour.try1.jpg",
+    "generate": {
+     "seconds": 8.2,
+     "cost": 0.0675735,
+     "provider": "Google"
+    },
+    "check": {
+     "seconds": 6.0,
+     "cost": 0.0002683
+    },
+    "verdict": {
+     "people_present": false,
+     "animals_present": true,
+     "frame_present": false,
+     "text_present": true,
+     "full_bleed": true,
+     "verdict": "fail",
+     "reasons": [
+      "Visible text: 'PRINTED NEWS' on the newspaper and handwritten text on the letter.",
+      "Horses present pulling the carriage (animals are not prohibited, noted for reference).",
+      "No people visible; no frame or border detected; scene reaches all four edges."
+     ]
+    },
+    "feedback_sent": ""
+   },
+   {
+    "n": 2,
+    "file": "style-refs/holmes--watercolour.try2.jpg",
+    "generate": {
+     "seconds": 8.3,
+     "cost": 0.067388,
+     "provider": "Google"
+    },
+    "check": {
+     "seconds": 6.2,
+     "cost": 0.0002613
+    },
+    "verdict": {
+     "people_present": false,
+     "animals_present": false,
+     "frame_present": false,
+     "text_present": true,
+     "full_bleed": true,
+     "verdict": "fail",
+     "reasons": [
+      "Text present: handwritten/printed writing is visible on the telegram form at the lower right and on the newspaper.",
+      "Scene runs to all four edges with no frame, border, or vignette, so full-bleed and frame checks pass."
+     ]
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: Visible text: 'PRINTED NEWS' on the newspaper and handwritten text on the letter.; Horses present pulling the carriage (animals are not prohibited, noted for reference).; No people visible; no frame or border detected; scene reaches all four edges.. Fix these."
+   },
+   {
+    "n": 3,
+    "file": "style-refs/holmes--watercolour.try3.jpg",
+    "generate": {
+     "seconds": 9.4,
+     "cost": 0.067386,
+     "provider": "Google"
+    },
+    "check": {
+     "seconds": 3.9,
+     "cost": 0.0002973
+    },
+    "verdict": {
+     "people_present": true,
+     "animals_present": true,
+     "frame_present": true,
+     "text_present": true,
+     "full_bleed": false,
+     "verdict": "fail",
+     "reasons": [
+      "Figures of people are visible on carriages and in the street scene (e.g., coachmen and passengers).",
+      "Horses are present pulling carriages.",
+      "Vignette-style dark and white edge margins and framing appear around the scene, with the watercolor fading into paper margins at the edges.",
+      "Handwritten text is visible on letters and papers on the tables.",
+      "The scene does not fully run to all four edges; the watercolor washes stop short with paper showing at the borders."
+     ]
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: Text present: handwritten/printed writing is visible on the telegram form at the lower right and on the newspaper.; Scene runs to all four edges with no frame, border, or vignette, so full-bleed and frame checks pass.. Fix these."
+   }
+  ],
+  "final": null,
+  "wall_seconds": 42.5,
+  "cost": 0.20317
+ },
+ "holmes--icon": {
+  "work": "holmes",
+  "style": "icon",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: a wide, quiet view of the world of this era, with no people and no animals: Gaslit streets and rooms with coal or oil lamps, hansom cabs and dog-carts, brick townhouses, country manors and farmhouses, printed newspapers, handwritten letters and telegrams, clay pipes and cigars.\nArt style: Byzantine Icon. Byzantine icon painting: flat, frontal, stylised figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space. Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens. No cast shadows; inner light shown through layered highlights; gold glow. Egg tempera and gold-leaf texture within the scene. Hieratic, balanced staging; the key subject largest and central; stylised rocks, buildings and trees.\nStyle negatives: Never show a wooden panel, panel edges, frame, border, arched or rounded top, wall, or the icon as a physical object. No plain, dark or unpainted corners: the gold sky and stylised landscape run edge-to-edge into all four corners. Avoid photorealism and modern illustration.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+  "main_era": "Victorian England, 1880s to early 1890s",
+  "tries": [
+   {
+    "n": 1,
+    "file": "style-refs/holmes--icon.try1.jpg",
+    "generate": {
+     "seconds": 8.8,
+     "cost": 0.0673605,
+     "provider": "Google"
+    },
+    "check": {
+     "seconds": 4.8,
+     "cost": 0.0002738
+    },
+    "verdict": {
+     "people_present": false,
+     "animals_present": true,
+     "frame_present": true,
+     "text_present": false,
+     "full_bleed": false,
+     "verdict": "fail",
+     "reasons": [
+      "A gold leaf border frames the scene on all sides, breaking the no-frame rule.",
+      "The scene does not run to all four edges because the gold margin surrounds the artwork.",
+      "Horses are visible pulling a carriage, which is not disallowed but noted.",
+      "No people or text are visibly present."
+     ]
+    },
+    "feedback_sent": ""
+   },
+   {
+    "n": 2,
+    "file": "style-refs/holmes--icon.try2.jpg",
+    "generate": {
+     "seconds": 8.6,
+     "cost": 0.0673945,
+     "provider": "Google"
+    },
+    "check": {
+     "seconds": 4.4,
+     "cost": 0.0002253
+    },
+    "verdict": {
+     "people_present": false,
+     "animals_present": false,
+     "frame_present": false,
+     "text_present": false,
+     "full_bleed": true,
+     "verdict": "pass",
+     "reasons": []
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: A gold leaf border frames the scene on all sides, breaking the no-frame rule.; The scene does not run to all four edges because the gold margin surrounds the artwork.; Horses are visible pulling a carriage, which is not disallowed but noted.; No people or text are visibly present.. Fix these."
+   }
+  ],
+  "final": "style-refs/holmes--icon.jpg",
+  "wall_seconds": 26.9,
+  "cost": 0.13525
+ },
+ "bible--watercolour": {
+  "work": "bible",
+  "style": "watercolour",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: a wide, quiet view of the world of this era, with no people and no animals: Stone and mud-brick houses with flat or tiled roofs, the Herodian temple, synagogues, rock-cut tombs with rolling stones, oil lamps, fishing boats, vineyards, scrolls.\nArt style: Ink & Watercolor. Loose pen-and-ink drawing with transparent watercolour washes; expressive, airy and contemplative, like a travelling artist's field study of the work's world. Transparent washes of ochre, sienna, indigo and sage; luminous lights. Bright, airy daylight; shadows as cool layered washes. Confident ink linework, wet-in-wet blooms, granulating pigment. Sketch-like economy; detail concentrated on key subjects, softer surroundings.\nStyle negatives: Paint washes and scenery all the way into every edge and all four corners: no white or unpainted paper margins, no white vignette, no fading out to blank paper at the edges, no paper edges, sketchbook, tape or border. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+  "main_era": "First-century Roman Judea and Galilee",
+  "tries": [
+   {
+    "n": 1,
+    "file": "style-refs/bible--watercolour.try1.jpg",
+    "generate": {
+     "seconds": 8.6,
+     "cost": 0.067354,
+     "provider": "Google"
+    },
+    "check": {
+     "seconds": 7.6,
+     "cost": 0.0002673
+    },
+    "verdict": {
+     "people_present": true,
+     "animals_present": false,
+     "frame_present": true,
+     "text_present": true,
+     "full_bleed": false,
+     "verdict": "fail",
+     "reasons": [
+      "A small robed figure is visible near the boats on the right, so people are present.",
+      "The painting has a white paper margin along the edges and does not run fully to all four edges.",
+      "Scroll writing or inscription marks on the rolled scroll in the foreground, suggesting text is present."
+     ]
+    },
+    "feedback_sent": ""
+   },
+   {
+    "n": 2,
+    "file": "style-refs/bible--watercolour.try2.jpg",
+    "generate": {
+     "seconds": 8.7,
+     "cost": 0.067388,
+     "provider": "Google"
+    },
+    "check": {
+     "seconds": 5.8,
+     "cost": 0.0002618
+    },
+    "verdict": {
+     "people_present": false,
+     "animals_present": false,
+     "frame_present": true,
+     "text_present": true,
+     "full_bleed": false,
+     "verdict": "fail",
+     "reasons": [
+      "Scene is a watercolor vignette that fades into white paper margins on all sides rather than running to all four edges",
+      "Visible paper margin/vignette border around the illustration",
+      "Scrolls in foreground display script-like markings that read as text"
+     ]
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: A small robed figure is visible near the boats on the right, so people are present.; The painting has a white paper margin along the edges and does not run fully to all four edges.; Scroll writing or inscription marks on the rolled scroll in the foreground, suggesting text is present.. Fix these."
+   },
+   {
+    "n": 3,
+    "file": "style-refs/bible--watercolour.try3.jpg",
+    "generate": {
+     "seconds": 8.5,
+     "cost": 0.067383,
+     "provider": "Google"
+    },
+    "check": {
+     "seconds": 7.1,
+     "cost": 0.0002548
+    },
+    "verdict": {
+     "people_present": false,
+     "animals_present": false,
+     "frame_present": false,
+     "text_present": false,
+     "full_bleed": true,
+     "verdict": "pass",
+     "reasons": [
+      "No people visible in the scene.",
+      "No frame, border, vignette or margin; the artwork runs to all four edges.",
+      "No text or lettering present.",
+      "Scene reaches all four edges and corners."
+     ]
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: Scene is a watercolor vignette that fades into white paper margins on all sides rather than running to all four edges; Visible paper margin/vignette border around the illustration; Scrolls in foreground display script-like markings that read as text. Fix these."
+   }
+  ],
+  "final": "style-refs/bible--watercolour.jpg",
+  "wall_seconds": 46.7,
+  "cost": 0.20291
+ },
+ "bible--icon": {
+  "work": "bible",
+  "style": "icon",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: a wide, quiet view of the world of this era, with no people and no animals: Stone and mud-brick houses with flat or tiled roofs, the Herodian temple, synagogues, rock-cut tombs with rolling stones, oil lamps, fishing boats, vineyards, scrolls.\nArt style: Byzantine Icon. Byzantine icon painting: flat, frontal, stylised figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space. Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens. No cast shadows; inner light shown through layered highlights; gold glow. Egg tempera and gold-leaf texture within the scene. Hieratic, balanced staging; the key subject largest and central; stylised rocks, buildings and trees.\nStyle negatives: Never show a wooden panel, panel edges, frame, border, arched or rounded top, wall, or the icon as a physical object. No plain, dark or unpainted corners: the gold sky and stylised landscape run edge-to-edge into all four corners. Avoid photorealism and modern illustration.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+  "main_era": "First-century Roman Judea and Galilee",
+  "tries": [
+   {
+    "n": 1,
+    "file": "style-refs/bible--icon.try1.jpg",
+    "generate": {
+     "seconds": 9.5,
+     "cost": 0.067357,
+     "provider": "Google"
+    },
+    "check": {
+     "seconds": 5.4,
+     "cost": 0.0002253
+    },
+    "verdict": {
+     "people_present": false,
+     "animals_present": false,
+     "frame_present": false,
+     "text_present": false,
+     "full_bleed": true,
+     "verdict": "pass",
+     "reasons": []
+    },
+    "feedback_sent": ""
+   }
+  ],
+  "final": "style-refs/bible--icon.jpg",
+  "wall_seconds": 15.0,
+  "cost": 0.06758
+ },
+ "holmes--watercolour--v2": {
+  "work": "holmes",
+  "style": "watercolour",
+  "template": "v2",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: one wide, quiet outdoor view of the kind of place this era's stories happen in (Victorian England, 1880s to early 1890s): buildings and streets or countryside of this era, drawn from this list but shown as a single natural scene, not a collection of objects: Gaslit streets and rooms with coal or oil lamps, hansom cabs and dog-carts, brick townhouses, country manors and farmhouses, printed newspapers, handwritten letters and telegrams, clay pipes and cigars. Leave out every small object, paper, book, letter, sign, poster or anything bearing writing. No people, no animals, no vehicles with drivers or passengers.\nArt style: Ink & Watercolor. Loose pen-and-ink drawing with transparent watercolour washes; expressive, airy and contemplative, like a travelling artist's field study of the work's world. Transparent washes of ochre, sienna, indigo and sage; luminous lights. Bright, airy daylight; shadows as cool layered washes. Confident ink linework, wet-in-wet blooms, granulating pigment. Sketch-like economy; detail concentrated on key subjects, softer surroundings.\nStyle negatives: Paint washes and scenery all the way into every edge and all four corners: no white or unpainted paper margins, no white vignette, no fading out to blank paper at the edges, no paper edges, sketchbook, tape or border. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+  "main_era": "Victorian England, 1880s to early 1890s",
+  "tries": [
+   {
+    "n": 1,
+    "file": "style-refs/holmes--watercolour--v2.try1.jpg",
+    "generate": {
+     "seconds": 9.6,
+     "cost": 0.067397,
+     "provider": "Google"
+    },
+    "check": {
+     "seconds": 8.5,
+     "cost": 0.0002658
+    },
+    "verdict": {
+     "people_present": false,
+     "animals_present": false,
+     "frame_present": false,
+     "text_present": false,
+     "full_bleed": false,
+     "verdict": "fail",
+     "reasons": [
+      "The illustration does not reach all four edges: the watercolor wash fades into a white paper margin on the top and right and bottom edges, leaving unpainted paper border.",
+      "No people, animals, frame or text are visible, but the full-bleed requirement is broken."
+     ]
+    },
+    "feedback_sent": ""
+   },
+   {
+    "n": 2,
+    "file": "style-refs/holmes--watercolour--v2.try2.jpg",
+    "generate": {
+     "seconds": 8.0,
+     "cost": 0.067429,
+     "provider": "Google"
+    },
+    "check": {
+     "seconds": 8.2,
+     "cost": 0.0002713
+    },
+    "verdict": {
+     "people_present": false,
+     "animals_present": true,
+     "frame_present": true,
+     "text_present": false,
+     "full_bleed": false,
+     "verdict": "fail",
+     "reasons": [
+      "Watercolor vignette fades to white paper margins on the left, right and top edges, so the scene does not run to all four edges.",
+      "Visible unpainted paper border acts as a frame/margin.",
+      "Horses are present in the carriages, which is not prohibited but is noted.",
+      "No people or text visible."
+     ]
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: The illustration does not reach all four edges: the watercolor wash fades into a white paper margin on the top and right and bottom edges, leaving unpainted paper border.; No people, animals, frame or text are visible, but the full-bleed requirement is broken.. Fix these."
+   },
+   {
+    "n": 3,
+    "file": "style-refs/holmes--watercolour--v2.try3.jpg",
+    "generate": {
+     "seconds": 7.6,
+     "cost": 0.0674325,
+     "provider": "Google"
+    },
+    "check": {
+     "seconds": 5.2,
+     "cost": 0.0002688
+    },
+    "verdict": {
+     "people_present": false,
+     "animals_present": false,
+     "frame_present": true,
+     "text_present": false,
+     "full_bleed": false,
+     "verdict": "fail",
+     "reasons": [
+      "Watercolor vignette with unpainted white paper margins visible along the top, left, right and bottom edges, so the scene does not run to all four edges.",
+      "Soft faded edges act as a paper margin/vignette, which counts as a frame.",
+      "No people, animals or text are visible."
+     ]
+    },
+    "feedback_sent": "\n\nA previous attempt was rejected because: Watercolor vignette fades to white paper margins on the left, right and top edges, so the scene does not run to all four edges.; Visible unpainted paper border acts as a frame/margin.; Horses are present in the carriages, which is not prohibited but is noted.; No people or text visible.. Fix these."
+   }
+  ],
+  "final": null,
+  "wall_seconds": 47.3,
+  "cost": 0.20306
+ },
+ "holmes--icon--v2": {
+  "work": "holmes",
+  "style": "icon",
+  "template": "v2",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: one wide, quiet outdoor view of the kind of place this era's stories happen in (Victorian England, 1880s to early 1890s): buildings and streets or countryside of this era, drawn from this list but shown as a single natural scene, not a collection of objects: Gaslit streets and rooms with coal or oil lamps, hansom cabs and dog-carts, brick townhouses, country manors and farmhouses, printed newspapers, handwritten letters and telegrams, clay pipes and cigars. Leave out every small object, paper, book, letter, sign, poster or anything bearing writing. No people, no animals, no vehicles with drivers or passengers.\nArt style: Byzantine Icon. Byzantine icon painting: flat, frontal, stylised figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space. Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens. No cast shadows; inner light shown through layered highlights; gold glow. Egg tempera and gold-leaf texture within the scene. Hieratic, balanced staging; the key subject largest and central; stylised rocks, buildings and trees.\nStyle negatives: Never show a wooden panel, panel edges, frame, border, arched or rounded top, wall, or the icon as a physical object. No plain, dark or unpainted corners: the gold sky and stylised landscape run edge-to-edge into all four corners. Avoid photorealism and modern illustration.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+  "main_era": "Victorian England, 1880s to early 1890s",
+  "tries": [
+   {
+    "n": 1,
+    "file": "style-refs/holmes--icon--v2.try1.jpg",
+    "generate": {
+     "seconds": 8.6,
+     "cost": 0.0674,
+     "provider": "Google"
+    },
+    "check": {
+     "seconds": 5.6,
+     "cost": 0.0002253
+    },
+    "verdict": {
+     "people_present": false,
+     "animals_present": false,
+     "frame_present": false,
+     "text_present": false,
+     "full_bleed": true,
+     "verdict": "pass",
+     "reasons": []
+    },
+    "feedback_sent": ""
+   }
+  ],
+  "final": "style-refs/holmes--icon--v2.jpg",
+  "wall_seconds": 14.3,
+  "cost": 0.06763
+ },
+ "bible--watercolour--v2": {
+  "work": "bible",
+  "style": "watercolour",
+  "template": "v2",
+  "model": "google/gemini-3.1-flash-image",
+  "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: one wide, quiet outdoor view of the kind of place this era's stories happen in (First-century Roman Judea and Galilee): buildings and streets or countryside of this era, drawn from this list but shown as a single natural scene, not a collection of objects: Stone and mud-brick houses with flat or tiled roofs, the Herodian temple, synagogues, rock-cut tombs with rolling stones, oil lamps, fishing boats, vineyards, scrolls. Leave out every small object, paper, book, letter, sign, poster or anything bearing writing. No people, no animals, no vehicles with drivers or passengers.\nArt style: Ink & Watercolor. Loose pen-and-ink drawing with transparent watercolour washes; expressive, airy and contemplative, like a travelling artist's field study of the work's world. Transparent washes of ochre, sienna, indigo and sage; luminous lights. Bright, airy daylight; shadows as cool layered washes. Confident ink linework, wet-in-wet blooms, granulating pigment. Sketch-like economy; detail concentrated on key subjects, softer surroundings.\nStyle negatives: Paint washes and scenery all the way into every edge and all four corners: no white or unpainted paper margins, no white vignette, no fading out to blank paper at the edges, no paper edges, sketchbook, tape or border. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+  "main_era": "First-century Roman Judea and Galilee",
+  "tries": [
+   {
+    "n": 1,
+    "file": "style-refs/bible--watercolour--v2.try1.jpg",
+    "generate": {
+     "seconds": 9.3,
+     "cost": 0.0673885,
+     "provider": "Google"
+    },
+    "check": {
+     "seconds": 3.3,
+     "cost": 0.0002543
+    },
+    "verdict": {
+     "people_present": false,
+     "animals_present": false,
+     "frame_present": false,
+     "text_present": false,
+     "full_bleed": true,
+     "verdict": "pass",
+     "reasons": [
+      "No people visible in the scene.",
+      "No frame, border, vignette or margin; the painting runs to all four edges.",
+      "No text or lettering present.",
+      "Scene reaches all four edges and corners."
+     ]
+    },
+    "feedback_sent": ""
+   }
+  ],
+  "final": "style-refs/bible--watercolour--v2.jpg",
+  "wall_seconds": 12.7,
+  "cost": 0.06764
+ }
+}
