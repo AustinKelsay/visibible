@@ -66,6 +66,10 @@ _Avoid_: Pericope, chapter (when meaning the episode)
 
 **Pin**: An owner's choice of one reference sheet or style reference that the engine keeps, ignoring staleness, until unpinned.
 
+**Image report**: A reader's feedback about one saved image, linked to the available context of how it was generated.
+
+**Attention list**: The owner's collection of concerns about a work's analysis and saved images, including image reports and problems found while preparing the work.
+
 **Passage continuity**: Consistent setting, costume, lighting, and props across the verse images of one story section.
 
 **Generation**: The work requested to produce one verse image. A repeated delivery of the same request is still the same generation.
