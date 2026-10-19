@@ -40,22 +40,25 @@ _Avoid_: Theme, style profile
 
 **Style set**: The ordered list of art styles a work offers, named in its work brief. The first is the work's default.
 
-**Character**: A person or being who appears in more than one verse image, such as Moses.
+**Character**: A person, being, animal or group that stands on stage in a work's story sections, such as Moses or the crowd.
 
-**Location**: A place that appears in more than one verse image, such as the Red Sea or the temple in Jerusalem.
+**Location**: A place that stands on stage in a work's story sections, such as the Red Sea or 221B Baker Street.
 
-**Canon**: The description of a character's or location's identity, shared by every art style, so each style depicts the same figure or place.
+**Object**: A thing with a fixed look that stands on stage in a work's story sections, such as the ark of the covenant.
 
-**Life stage**: A period of a character's life with its own canon appearance, such as the shepherd boy David or King David.
+**Canon**: The description of a character's, location's or object's identity, shared by every art style, so each style depicts the same figure, place or thing.
+
+**Stage**: A period of a character's life or a location's history with its own canon appearance, such as the shepherd boy David or Herod's temple.
+_Avoid_: Life stage, era (when meaning one figure's period)
 
 **Story section**: A run of consecutive units that tells one episode, such as the crossing of the Red Sea.
 _Avoid_: Pericope, chapter (when meaning the episode)
 
-**Section cast**: The characters and locations present in a story section, including those the text does not name in every verse.
+**Section cast**: The characters, locations and objects present in a story section, including those the text does not name in every unit.
 
 **Section look**: What is particular to one story section, such as its time of day, weather, light, and situational clothing, shared by every verse image of that section in every translation and art style. Canon, not the section look, describes how its characters and locations normally appear.
 
-**Reference sheet**: An approved picture of a character at one life stage, or of a location, sent with each generation that depicts it so the image model draws the same figure or place.
+**Reference sheet**: An approved picture of a character at one stage, or of a location or object, sent with each generation that depicts it so the image model draws the same figure or place.
 
 **Style reference**: A picture with no people, made for one art style and one work, that shows the style's rendering in that work's world, sent with every generation in that style.
 
