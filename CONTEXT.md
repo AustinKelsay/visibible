@@ -62,6 +62,10 @@ _Avoid_: Pericope, chapter (when meaning the episode)
 
 **Style reference**: A picture with no people, made for one art style and one work, that shows the style's rendering in that work's world, sent with every generation in that style.
 
+**Analysis**: Everything the engine makes for a work from its reading pass onward: story sections, moments, cast, canon, section casts, section looks, scene plans, reference sheets and style references. The owner corrects it after the fact; only the work brief is approved beforehand.
+
+**Pin**: An owner's choice of one reference sheet or style reference that the engine keeps, ignoring staleness, until unpinned.
+
 **Passage continuity**: Consistent setting, costume, lighting, and props across the verse images of one story section.
 
 **Generation**: The work requested to produce one verse image. A repeated delivery of the same request is still the same generation.
