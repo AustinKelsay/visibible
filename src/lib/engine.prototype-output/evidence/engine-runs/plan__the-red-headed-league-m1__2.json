@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__the-red-headed-league-m1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424179-02OBKM36KnLUaFE2TLw7",
+  "seconds": 4.6,
+  "finish_reason": "stop",
+  "prompt_tokens": 1450,
+  "completion_tokens": 356,
+  "cost": 0.000323,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:36:24"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 2260,
+ "content": "{\"primarySubject\":\"Sherlock Holmes in dressing-gown and slippers, drawing Dr. Watson into the room with one hand, the door being shut behind him\",\"action\":\"Holmes pulls Watson inside abruptly while Watson halts mid-step at the threshold, half-apologetic; the stout elderly Mr. Wilson sits turned toward them in his chair\",\"setting\":\"Sherlock Holmes's cluttered sitting room at 221B Baker Street, books and papers piled on the table and settee, a coal fire glowing\",\"secondaryElements\":\"Grey autumn daylight through the window mixed with a gas lamp glow; Wilson's dark tweed suit and florid face; a hat and walking stick set aside near the door\",\"mood\":\"Brisk, warm, faintly comic, with dry gaslit intimacy\",\"timeOfDay\":\"Autumn afternoon\",\"composition\":\"Medium shot from the doorway, Watson entering from the left edge, Holmes central and mid-gesture, Wilson seated at right in profile, the fire and window balancing the frame\"}",
+ "parsed": {
+  "primarySubject": "Sherlock Holmes in dressing-gown and slippers, drawing Dr. Watson into the room with one hand, the door being shut behind him",
+  "action": "Holmes pulls Watson inside abruptly while Watson halts mid-step at the threshold, half-apologetic; the stout elderly Mr. Wilson sits turned toward them in his chair",
+  "setting": "Sherlock Holmes's cluttered sitting room at 221B Baker Street, books and papers piled on the table and settee, a coal fire glowing",
+  "secondaryElements": "Grey autumn daylight through the window mixed with a gas lamp glow; Wilson's dark tweed suit and florid face; a hat and walking stick set aside near the door",
+  "mood": "Brisk, warm, faintly comic, with dry gaslit intimacy",
+  "timeOfDay": "Autumn afternoon",
+  "composition": "Medium shot from the doorway, Watson entering from the left edge, Holmes central and mid-gesture, Wilson seated at right in profile, the fire and window balancing the frame"
+ },
+ "usage": {
+  "prompt_tokens": 1450,
+  "completion_tokens": 356,
+  "total_tokens": 1806,
+  "cost": 0.000323,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000323,
+   "upstream_inference_prompt_cost": 0.000145,
+   "upstream_inference_completions_cost": 0.000178
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

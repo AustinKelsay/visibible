@@ -1,0 +1,50 @@
+{
+ "record": {
+  "label": "look__bible__MAT-s83",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424059-TjweS6bajeieVGEbce0J",
+  "seconds": 3.1,
+  "finish_reason": "stop",
+  "prompt_tokens": 1487,
+  "completion_tokens": 206,
+  "cost": 0.0002517,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:34:21"
+ },
+ "system": "You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.\nRules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.",
+ "user_chars": 2635,
+ "content": "{\"place\":\"Courtyard of the high priest's house in Jerusalem, stone paving, with a covered porch and gateway opening to the street; a brazier and oil lamps among the people\",\"timeOfDay\":\"Night, before dawn, shifting toward first light by the end of the section\",\"weather\":\"Clear, cool night air\",\"light\":\"Warm flickering firelight and lamplight from the brazier, deepening to pale grey dawn light at the gateway\",\"clothing\":\"Linen and wool tunics, fringed cloaks and mantles, head coverings, sandals; servants and guards in simple tunics, a Temple guard in plain dress\"}",
+ "parsed": {
+  "place": "Courtyard of the high priest's house in Jerusalem, stone paving, with a covered porch and gateway opening to the street; a brazier and oil lamps among the people",
+  "timeOfDay": "Night, before dawn, shifting toward first light by the end of the section",
+  "weather": "Clear, cool night air",
+  "light": "Warm flickering firelight and lamplight from the brazier, deepening to pale grey dawn light at the gateway",
+  "clothing": "Linen and wool tunics, fringed cloaks and mantles, head coverings, sandals; servants and guards in simple tunics, a Temple guard in plain dress"
+ },
+ "usage": {
+  "prompt_tokens": 1487,
+  "completion_tokens": 206,
+  "total_tokens": 1693,
+  "cost": 0.0002517,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0002517,
+   "upstream_inference_prompt_cost": 0.0001487,
+   "upstream_inference_completions_cost": 0.000103
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

@@ -1,0 +1,846 @@
+{
+ "work": "holmes-adventures",
+ "division": "the-adventure-of-the-speckled-band",
+ "division_name": "The Adventure Of The Speckled Band",
+ "units": 251,
+ "record": {
+  "label": "holmes-adventures__the-adventure-of-the-speckled-band__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354444-hWMbPmURmHgoiB3Y7jv3",
+  "seconds": 16.9,
+  "finish_reason": "stop",
+  "prompt_tokens": 20859,
+  "completion_tokens": 4220,
+  "cost": 0.0041959,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:21"
+ },
+ "characters": [
+  {
+   "id": "sherlock_holmes",
+   "name": "Sherlock Holmes",
+   "aliases": [
+    "Holmes",
+    "my friend",
+    "the meddler",
+    "the Scotland Yard Jack-in-office"
+   ],
+   "note": "Consulting detective, Baker Street; narrator's friend and flatmate; the one who solves the case.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "watson",
+   "name": "Dr. Watson",
+   "aliases": [
+    "Watson",
+    "I",
+    "narrator"
+   ],
+   "note": "Narrator and Holmes's companion; a doctor who shares rooms with Holmes in Baker Street.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "helen_stoner",
+   "name": "Helen Stoner",
+   "aliases": [
+    "Miss Stoner",
+    "Miss Roylott",
+    "our visitor",
+    "our client",
+    "the lady in black"
+   ],
+   "note": "Young woman, twin sister of Julia; stepdaughter of Dr. Grimesby Roylott; comes to Holmes in Baker Street, later stays at the Stoke Moran manor.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "julia_stoner",
+   "name": "Julia Stoner",
+   "aliases": [
+    "my sister",
+    "Julia",
+    "the dead woman"
+   ],
+   "note": "Helen's twin sister, dead two years before the events; died in her bedroom at Stoke Moran after a night-time whistle and cry; recalled in Helen's account.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "grimesby_roylott",
+   "name": "Dr. Grimesby Roylott",
+   "aliases": [
+    "the Doctor",
+    "my stepfather",
+    "Dr. Roylott",
+    "the old man",
+    "the apparition"
+   ],
+   "note": "Violent Stoke Moran physician, stepfather of Helen and Julia, former Calcutta practitioner; the one who keeps the swamp adder and dies of it; visits Baker Street and is shown in the Stoke Moran chamber.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mrs_hudson",
+   "name": "Mrs. Hudson",
+   "aliases": [
+    "Mrs. Hudson"
+   ],
+   "note": "Landlady at Baker Street; mentioned only in passing as having lit the fire and been woken.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "percy_armitage",
+   "name": "Percy Armitage",
+   "aliases": [
+    "Armitage",
+    "my dear friend"
+   ],
+   "note": "Second son of Mr. Armitage of Crane Water near Reading; Helen's intended husband; only mentioned, never on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "aunt_honoria",
+   "name": "Miss Honoria Westphail",
+   "aliases": [
+    "my aunt",
+    "Aunt Westphail"
+   ],
+   "note": "Helen and Julia's maternal aunt near Harrow; mentioned; Helen is sent to her after the events.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mrs_farintosh",
+   "name": "Mrs. Farintosh",
+   "aliases": [
+    "Farintosh"
+   ],
+   "note": "Earlier client of Holmes whose opal tiara case is recalled; mentioned only.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "swamp_adder",
+   "name": "Swamp adder",
+   "aliases": [
+    "the speckled band",
+    "the band",
+    "the snake",
+    "the creature"
+   ],
+   "note": "Deadly Indian snake kept by Dr. Roylott; comes through the ventilator and kills him; an animal that acts.",
+   "kind": "animal",
+   "same_person_as": ""
+  },
+  {
+   "id": "cheetah_and_baboon",
+   "name": "Cheetah and baboon",
+   "aliases": [
+    "the cheetah",
+    "the baboon",
+    "the pets"
+   ],
+   "note": "Indian animals kept freely in the grounds by Dr. Roylott; heard and glimpsed at night.",
+   "kind": "animal",
+   "same_person_as": ""
+  }
+ ],
+ "locations": [
+  {
+   "id": "baker_street_rooms",
+   "name": "Baker Street rooms",
+   "aliases": [
+    "Baker Street",
+    "our sitting-room"
+   ],
+   "note": "Holmes and Watson's sitting-room in London where Helen first consults Holmes and Roylott later storms in."
+  },
+  {
+   "id": "stoke_moran_manor",
+   "name": "Stoke Moran manor",
+   "aliases": [
+    "the Manor House",
+    "the old house",
+    "the ancestral house",
+    "Stoke Moran"
+   ],
+   "note": "Ancient Roylott family house on the Surrey border, with a wing in ruin and an inhabited right-hand block."
+  },
+  {
+   "id": "julias_bedroom",
+   "name": "Julia's bedroom",
+   "aliases": [
+    "the middle room",
+    "the second bedroom",
+    "Helen's room"
+   ],
+   "note": "Middle bedroom of the inhabited wing, where Julia died and where Helen now sleeps; bed clamped to floor, dummy bell-rope, ventilator to the next room."
+  },
+  {
+   "id": "roylott_chamber",
+   "name": "Dr. Roylott's chamber",
+   "aliases": [
+    "the Doctor's room",
+    "the room with the safe"
+   ],
+   "note": "Roylott's bedroom beside Julia's, with the iron safe, camp-bed and wooden chair; scene of his death."
+  },
+  {
+   "id": "crown_inn",
+   "name": "The Crown Inn",
+   "aliases": [
+    "the Crown",
+    "village inn"
+   ],
+   "note": "Village inn at Stoke Moran where Holmes and Watson take rooms overlooking the manor."
+  },
+  {
+   "id": "leatherhead_route",
+   "name": "Road and railway to Leatherhead",
+   "aliases": [
+    "Leatherhead",
+    "Waterloo",
+    "the Surrey lanes",
+    "the fields and stile"
+   ],
+   "note": "Route through Surrey lanes from Leatherhead station to Stoke Moran, and the London railway to Waterloo."
+  }
+ ],
+ "sections": [
+  {
+   "id": "the-adventure-of-the-speckled-band-s1",
+   "start": "the-adventure-of-the-speckled-band-1",
+   "end": "the-adventure-of-the-speckled-band-8",
+   "start_idx": 0,
+   "end_idx": 7,
+   "n_units": 8,
+   "words": 592,
+   "start_ref": "The Adventure Of The Speckled Band ¶1",
+   "end_ref": "The Adventure Of The Speckled Band ¶8",
+   "title": "Helen's early-morning visit to Baker Street",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "helen_stoner",
+     "named": true
+    },
+    {
+     "id": "mrs_hudson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s2",
+   "start": "the-adventure-of-the-speckled-band-9",
+   "end": "the-adventure-of-the-speckled-band-19",
+   "start_idx": 8,
+   "end_idx": 18,
+   "n_units": 11,
+   "words": 543,
+   "start_ref": "The Adventure Of The Speckled Band ¶9",
+   "end_ref": "The Adventure Of The Speckled Band ¶19",
+   "title": "Helen's arrival and the reason for coming",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "helen_stoner",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "mrs_farintosh"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s3",
+   "start": "the-adventure-of-the-speckled-band-20",
+   "end": "the-adventure-of-the-speckled-band-34",
+   "start_idx": 19,
+   "end_idx": 33,
+   "n_units": 15,
+   "words": 1144,
+   "start_ref": "The Adventure Of The Speckled Band ¶20",
+   "end_ref": "The Adventure Of The Speckled Band ¶34",
+   "title": "Helen describes her family and the Roylott history",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "helen_stoner",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "grimesby_roylott",
+    "julia_stoner"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s4",
+   "start": "the-adventure-of-the-speckled-band-35",
+   "end": "the-adventure-of-the-speckled-band-49",
+   "start_idx": 34,
+   "end_idx": 48,
+   "n_units": 15,
+   "words": 304,
+   "start_ref": "The Adventure Of The Speckled Band ¶35",
+   "end_ref": "The Adventure Of The Speckled Band ¶49",
+   "title": "Julia's account of the night whistle",
+   "setting": [
+    "baker_street_rooms",
+    "julias_bedroom"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "helen_stoner",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "julia_stoner",
+    "grimesby_roylott"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s5",
+   "start": "the-adventure-of-the-speckled-band-50",
+   "end": "the-adventure-of-the-speckled-band-57",
+   "start_idx": 49,
+   "end_idx": 56,
+   "n_units": 8,
+   "words": 624,
+   "start_ref": "The Adventure Of The Speckled Band ¶50",
+   "end_ref": "The Adventure Of The Speckled Band ¶57",
+   "title": "Julia's death and the coroner's findings",
+   "setting": [
+    "julias_bedroom"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "helen_stoner",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "julia_stoner",
+    "grimesby_roylott"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s6",
+   "start": "the-adventure-of-the-speckled-band-58",
+   "end": "the-adventure-of-the-speckled-band-71",
+   "start_idx": 57,
+   "end_idx": 70,
+   "n_units": 14,
+   "words": 422,
+   "start_ref": "The Adventure Of The Speckled Band ¶58",
+   "end_ref": "The Adventure Of The Speckled Band ¶71",
+   "title": "Julia's engagement, Helen's new room and the wrist marks",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "helen_stoner",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "percy_armitage",
+    "grimesby_roylott"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s7",
+   "start": "the-adventure-of-the-speckled-band-72",
+   "end": "the-adventure-of-the-speckled-band-83",
+   "start_idx": 71,
+   "end_idx": 82,
+   "n_units": 12,
+   "words": 335,
+   "start_ref": "The Adventure Of The Speckled Band ¶72",
+   "end_ref": "The Adventure Of The Speckled Band ¶83",
+   "title": "The bruises revealed and the plan to visit Stoke Moran",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "helen_stoner",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "grimesby_roylott"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s8",
+   "start": "the-adventure-of-the-speckled-band-84",
+   "end": "the-adventure-of-the-speckled-band-94",
+   "start_idx": 83,
+   "end_idx": 93,
+   "n_units": 11,
+   "words": 255,
+   "start_ref": "The Adventure Of The Speckled Band ¶84",
+   "end_ref": "The Adventure Of The Speckled Band ¶94",
+   "title": "Holmes and Watson discuss the case; Roylott bursts in",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "grimesby_roylott",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "helen_stoner"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s9",
+   "start": "the-adventure-of-the-speckled-band-95",
+   "end": "the-adventure-of-the-speckled-band-115",
+   "start_idx": 94,
+   "end_idx": 114,
+   "n_units": 21,
+   "words": 766,
+   "start_ref": "The Adventure Of The Speckled Band ¶95",
+   "end_ref": "The Adventure Of The Speckled Band ¶115",
+   "title": "Roylott's threats and Holmes's inquiry at Doctors' Commons",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "grimesby_roylott",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "helen_stoner"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s10",
+   "start": "the-adventure-of-the-speckled-band-116",
+   "end": "the-adventure-of-the-speckled-band-126",
+   "start_idx": 115,
+   "end_idx": 125,
+   "n_units": 11,
+   "words": 409,
+   "start_ref": "The Adventure Of The Speckled Band ¶116",
+   "end_ref": "The Adventure Of The Speckled Band ¶126",
+   "title": "Journey through the Surrey lanes to Stoke Moran",
+   "setting": [
+    "leatherhead_route",
+    "stoke_moran_manor"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "helen_stoner",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "grimesby_roylott"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s11",
+   "start": "the-adventure-of-the-speckled-band-127",
+   "end": "the-adventure-of-the-speckled-band-140",
+   "start_idx": 126,
+   "end_idx": 139,
+   "n_units": 14,
+   "words": 524,
+   "start_ref": "The Adventure Of The Speckled Band ¶127",
+   "end_ref": "The Adventure Of The Speckled Band ¶140",
+   "title": "Examination of the outside of the wing and the shutters",
+   "setting": [
+    "stoke_moran_manor",
+    "julias_bedroom"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "helen_stoner",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "julia_stoner"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s12",
+   "start": "the-adventure-of-the-speckled-band-141",
+   "end": "the-adventure-of-the-speckled-band-157",
+   "start_idx": 140,
+   "end_idx": 156,
+   "n_units": 17,
+   "words": 521,
+   "start_ref": "The Adventure Of The Speckled Band ¶141",
+   "end_ref": "The Adventure Of The Speckled Band ¶157",
+   "title": "Inspection of Julia's bedroom: the bell-rope and ventilator",
+   "setting": [
+    "julias_bedroom"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "helen_stoner",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "julia_stoner"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s13",
+   "start": "the-adventure-of-the-speckled-band-158",
+   "end": "the-adventure-of-the-speckled-band-172",
+   "start_idx": 157,
+   "end_idx": 171,
+   "n_units": 15,
+   "words": 337,
+   "start_ref": "The Adventure Of The Speckled Band ¶158",
+   "end_ref": "The Adventure Of The Speckled Band ¶172",
+   "title": "Inspection of Roylott's chamber: safe, saucer and dog-lash",
+   "setting": [
+    "roylott_chamber"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "helen_stoner",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "grimesby_roylott",
+    "cheetah_and_baboon"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s14",
+   "start": "the-adventure-of-the-speckled-band-173",
+   "end": "the-adventure-of-the-speckled-band-194",
+   "start_idx": 172,
+   "end_idx": 193,
+   "n_units": 22,
+   "words": 418,
+   "start_ref": "The Adventure Of The Speckled Band ¶173",
+   "end_ref": "The Adventure Of The Speckled Band ¶194",
+   "title": "Holmes's plan for the night",
+   "setting": [
+    "stoke_moran_manor",
+    "julias_bedroom"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "helen_stoner",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "grimesby_roylott",
+    "julia_stoner"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s15",
+   "start": "the-adventure-of-the-speckled-band-195",
+   "end": "the-adventure-of-the-speckled-band-218",
+   "start_idx": 194,
+   "end_idx": 217,
+   "n_units": 24,
+   "words": 585,
+   "start_ref": "The Adventure Of The Speckled Band ¶195",
+   "end_ref": "The Adventure Of The Speckled Band ¶218",
+   "title": "Waiting at the Crown and the approach to the manor",
+   "setting": [
+    "crown_inn",
+    "stoke_moran_manor"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "grimesby_roylott",
+    "cheetah_and_baboon"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s16",
+   "start": "the-adventure-of-the-speckled-band-219",
+   "end": "the-adventure-of-the-speckled-band-234",
+   "start_idx": 218,
+   "end_idx": 233,
+   "n_units": 16,
+   "words": 562,
+   "start_ref": "The Adventure Of The Speckled Band ¶219",
+   "end_ref": "The Adventure Of The Speckled Band ¶234",
+   "title": "The vigil in darkness",
+   "setting": [
+    "julias_bedroom"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "cheetah_and_baboon",
+    "swamp_adder"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s17",
+   "start": "the-adventure-of-the-speckled-band-235",
+   "end": "the-adventure-of-the-speckled-band-246",
+   "start_idx": 234,
+   "end_idx": 245,
+   "n_units": 12,
+   "words": 737,
+   "start_ref": "The Adventure Of The Speckled Band ¶235",
+   "end_ref": "The Adventure Of The Speckled Band ¶246",
+   "title": "The snake, Roylott's death and its discovery",
+   "setting": [
+    "julias_bedroom",
+    "roylott_chamber"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "grimesby_roylott",
+     "named": true
+    },
+    {
+     "id": "swamp_adder",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "helen_stoner"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-speckled-band-s18",
+   "start": "the-adventure-of-the-speckled-band-247",
+   "end": "the-adventure-of-the-speckled-band-251",
+   "start_idx": 246,
+   "end_idx": 250,
+   "n_units": 5,
+   "words": 727,
+   "start_ref": "The Adventure Of The Speckled Band ¶247",
+   "end_ref": "The Adventure Of The Speckled Band ¶251",
+   "title": "Aftermath and Holmes's explanation",
+   "setting": [
+    "stoke_moran_manor"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "helen_stoner",
+    "aunt_honoria",
+    "swamp_adder"
+   ],
+   "unknown_ids": []
+  }
+ ],
+ "brief": {
+  "tone": "Gothic and foreboding, with rural Surrey spring light giving way to a claustrophobic, dread-filled night at a decaying manor.",
+  "depiction_rules": [
+   "The snake may be shown only in the final scene and kept at a distance; no gore on Roylott's body beyond stillness and the coiled serpent.",
+   "Roylott should be drawn as a huge, looming, bird-of-prey figure with yellow, weathered face and burning eyes, not as a cartoon villain.",
+   "The speckled band reads as a yellow headband with brown speckles, which is the reveal; do not show it early.",
+   "Holmes and Watson should appear in period dress as gentlemen; Watson is never the dominant figure.",
+   "Keep the nocturnal scenes dark and lit only by lamp or dark-lantern light; avoid showing the cheetah and baboon clearly."
+  ],
+  "era": {
+   "name": "Surrey, England, 1883",
+   "people": "English gentry and rural villagers; a Saxon-descended landowning family in decline; gipsies camping on family land; a metropolitan London professional class.",
+   "dress": "Victorian: women in dark mourning dresses, veils and bonnets; men in frock coats, top hats, high gaiters; Roylott in a long grey dressing-gown and red Turkish slippers.",
+   "buildings_and_objects": "Grey lichen-stained stone manor with a high central block and curving wings, one wing ruined and boarded; whitewashed corridors, worm-eaten oak panelling, iron-barred shutters, iron safe, oil lamps and dark-lanterns, a trap and dog-cart.",
+   "technology": "Railways connect Leatherhead and Waterloo; telegraph-era communication; no electric light, no telephone, and no modern forensic chemical tests for snake venom."
+  }
+ },
+ "checks": {
+  "bad_section_ids": [],
+  "uncovered_units": 0,
+  "uncovered_sample": [],
+  "overlap_units": 0,
+  "sections_with_unknown_ids": 0
+ }
+}

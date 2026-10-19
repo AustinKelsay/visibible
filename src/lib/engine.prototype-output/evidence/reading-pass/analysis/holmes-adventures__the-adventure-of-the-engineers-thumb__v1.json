@@ -1,0 +1,624 @@
+{
+ "work": "holmes-adventures",
+ "division": "the-adventure-of-the-engineers-thumb",
+ "division_name": "The Adventure Of The Engineer’S Thumb",
+ "units": 176,
+ "record": {
+  "label": "holmes-adventures__the-adventure-of-the-engineers-thumb__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354444-Ai60OLfZSStM75MucZRE",
+  "seconds": 14.7,
+  "finish_reason": "stop",
+  "prompt_tokens": 17773,
+  "completion_tokens": 3529,
+  "cost": 0.0035418,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:19"
+ },
+ "characters": [
+  {
+   "id": "victor_hatherley",
+   "name": "Victor Hatherley",
+   "aliases": [
+    "Mr. Hatherley",
+    "my patient",
+    "the engineer",
+    "Jeremiah Hayling"
+   ],
+   "note": "Young hydraulic engineer, narrator of his own ordeal; the morning patient who brings the case to Watson and Holmes. Only one Hatherley in the division; he is the Hatherley of the title.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "watson",
+   "name": "Dr. Watson",
+   "aliases": [
+    "I",
+    "the doctor",
+    "my friend"
+   ],
+   "note": "Narrator of the story, a doctor with a civil practice near Paddington Station who brings Hatherley to Holmes; appears throughout as the first-person observer.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "holmes",
+   "name": "Sherlock Holmes",
+   "aliases": [
+    "my friend",
+    "Mr. Sherlock Holmes"
+   ],
+   "note": "Consulting detective in his Baker Street rooms, lounging in a dressing-gown; Watson's friend who solves the case by reasoning.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "colonel_stark",
+   "name": "Colonel Lysander Stark",
+   "aliases": [
+    "the colonel",
+    "the German",
+    "the sinister German",
+    "Fritz"
+   ],
+   "note": "Thin, emaciated man of about forty with a German accent, who hires Hatherley under false pretences and tries to kill him in the press; the chief criminal, a coiner.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "elise",
+   "name": "Elise",
+   "aliases": [
+    "the woman",
+    "the lady",
+    "the beautiful woman"
+   ],
+   "note": "Pretty young woman in a rich dark dress, apparently Stark's wife or companion, who warns Hatherley and saves him from the press; speaks broken English.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ferguson",
+   "name": "Mr. Ferguson",
+   "aliases": [
+    "the morose Englishman",
+    "the fat manager",
+    "the secretary and manager"
+   ],
+   "note": "Short, thick-set man with a chinchilla beard, Stark's secretary and manager; a fellow-countryman who helps carry the unconscious Hatherley away.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "bradstreet",
+   "name": "Inspector Bradstreet",
+   "aliases": [
+    "the inspector"
+   ],
+   "note": "Inspector of Scotland Yard who accompanies Holmes and Hatherley to Eyford to pursue the gang.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "jeremiah_hayling",
+   "name": "Jeremiah Hayling",
+   "aliases": [
+    "the missing engineer named in the advertisement"
+   ],
+   "note": "Hydraulic engineer aged twenty-six, reported missing a year earlier after leaving his lodgings; a earlier victim of Stark's press, not present on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "guard",
+   "name": "The guard",
+   "aliases": [
+    "my old ally, the guard",
+    "the tout"
+   ],
+   "note": "Railway guard from Paddington who brings Hatherley to Watson's consulting-room at dawn.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "maid",
+   "name": "The maid",
+   "aliases": [],
+   "note": "Watson's maid who wakes him to announce the visitors.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "station_master",
+   "name": "The station-master",
+   "aliases": [],
+   "note": "Station-master at Eyford who reports the fire at Dr. Becher's house.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "eyford_porter",
+   "name": "The porter",
+   "aliases": [
+    "the sleepy porter"
+   ],
+   "note": "Single night porter at Eyford Station who sees Hatherley arrive and later answers his questions.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "driver",
+   "name": "The driver",
+   "aliases": [
+    "the coachman"
+   ],
+   "note": "Unnamed driver of the chestnut horse and closed carriage that takes Hatherley from Eyford to the house; never seen.",
+   "kind": "person",
+   "same_person_as": ""
+  }
+ ],
+ "locations": [
+  {
+   "id": "watson_consulting_room",
+   "name": "Watson's consulting-room",
+   "aliases": [
+    "the consulting-room",
+    "my room"
+   ],
+   "note": "Watson's consulting-room near Paddington where Hatherley first appears at dawn with his bandaged hand.</note>"
+  },
+  {
+   "id": "baker_street_rooms",
+   "name": "Baker Street rooms",
+   "aliases": [
+    "Holmes's sitting-room",
+    "Baker Street"
+   ],
+   "note": "Holmes's sitting-room in Baker Street where he eats breakfast and hears Hatherley's story."
+  },
+  {
+   "id": "hatherley_chambers",
+   "name": "Hatherley's chambers, Victoria Street",
+   "aliases": [
+    "the office",
+    "my little den",
+    "Victoria Street"
+   ],
+   "note": "Hatherley's professional chambers, third floor, 16A Victoria Street, where Stark calls on him."
+  },
+  {
+   "id": "eyford_house",
+   "name": "Eyford house (Dr. Becher's)",
+   "aliases": [
+    "the house",
+    "the German house",
+    "the press house"
+   ],
+   "note": "Isolated, whitewashed old house seven or more miles from Eyford in Berkshire, containing the hydraulic press; later burned down. Known later as Dr. Becher's house."
+  },
+  {
+   "id": "eyford_station",
+   "name": "Eyford Station",
+   "aliases": [
+    "the little dim-lit station",
+    "Eyford"
+   ],
+   "note": "Small station in Berkshire where Hatherley arrives at night and later returns at dawn."
+  },
+  {
+   "id": "eyford_garden",
+   "name": "The garden and rose-bushes",
+   "aliases": [
+    "the garden"
+   ],
+   "note": "Garden of the house beneath the bedroom window, where Hatherley falls and faints among the rose-bushes."
+  },
+  {
+   "id": "reading",
+   "name": "Reading",
+   "aliases": [
+    "the road to Reading"
+   ],
+   "note": "Town where Hatherley changes trains and where the gang's carts were seen heading."
+  },
+  {
+   "id": "scotland_yard",
+   "name": "Scotland Yard",
+   "aliases": [],
+   "note": "Police headquarters where Holmes and Hatherley go before travelling to Eyford."
+  }
+ ],
+ "sections": [
+  {
+   "id": "the-adventure-of-the-engineers-thumb-s1",
+   "start": "the-adventure-of-the-engineers-thumb-1",
+   "end": "the-adventure-of-the-engineers-thumb-6",
+   "start_idx": 0,
+   "end_idx": 5,
+   "n_units": 6,
+   "words": 488,
+   "start_ref": "The Adventure Of The Engineer’S Thumb ¶1",
+   "end_ref": "The Adventure Of The Engineer’S Thumb ¶6",
+   "title": "Watson is woken by the guard",
+   "setting": [
+    "watson_consulting_room"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "guard",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "victor_hatherley"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-engineers-thumb-s2",
+   "start": "the-adventure-of-the-engineers-thumb-7",
+   "end": "the-adventure-of-the-engineers-thumb-15",
+   "start_idx": 6,
+   "end_idx": 14,
+   "n_units": 9,
+   "words": 377,
+   "start_ref": "The Adventure Of The Engineer’S Thumb ¶7",
+   "end_ref": "The Adventure Of The Engineer’S Thumb ¶15",
+   "title": "Hatherley's arrival and hysteria",
+   "setting": [
+    "watson_consulting_room"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "victor_hatherley",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-engineers-thumb-s3",
+   "start": "the-adventure-of-the-engineers-thumb-16",
+   "end": "the-adventure-of-the-engineers-thumb-39",
+   "start_idx": 15,
+   "end_idx": 38,
+   "n_units": 24,
+   "words": 527,
+   "start_ref": "The Adventure Of The Engineer’S Thumb ¶16",
+   "end_ref": "The Adventure Of The Engineer’S Thumb ¶39",
+   "title": "The wound is dressed and the pair go to Holmes",
+   "setting": [
+    "watson_consulting_room"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "victor_hatherley",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "holmes"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-engineers-thumb-s4",
+   "start": "the-adventure-of-the-engineers-thumb-40",
+   "end": "the-adventure-of-the-engineers-thumb-44",
+   "start_idx": 39,
+   "end_idx": 43,
+   "n_units": 5,
+   "words": 325,
+   "start_ref": "The Adventure Of The Engineer’S Thumb ¶40",
+   "end_ref": "The Adventure Of The Engineer’S Thumb ¶44",
+   "title": "Breakfast at Baker Street",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "holmes",
+     "named": true
+    },
+    {
+     "id": "victor_hatherley",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-engineers-thumb-s5",
+   "start": "the-adventure-of-the-engineers-thumb-45",
+   "end": "the-adventure-of-the-engineers-thumb-87",
+   "start_idx": 44,
+   "end_idx": 86,
+   "n_units": 43,
+   "words": 1654,
+   "start_ref": "The Adventure Of The Engineer’S Thumb ¶45",
+   "end_ref": "The Adventure Of The Engineer’S Thumb ¶87",
+   "title": "Stark's commission in Victoria Street",
+   "setting": [
+    "hatherley_chambers"
+   ],
+   "on_stage": [
+    {
+     "id": "victor_hatherley",
+     "named": true
+    },
+    {
+     "id": "colonel_stark",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "holmes",
+    "watson"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-engineers-thumb-s6",
+   "start": "the-adventure-of-the-engineers-thumb-88",
+   "end": "the-adventure-of-the-engineers-thumb-96",
+   "start_idx": 87,
+   "end_idx": 95,
+   "n_units": 9,
+   "words": 448,
+   "start_ref": "The Adventure Of The Engineer’S Thumb ¶88",
+   "end_ref": "The Adventure Of The Engineer’S Thumb ¶96",
+   "title": "The night drive to Eyford",
+   "setting": [
+    "eyford_station"
+   ],
+   "on_stage": [
+    {
+     "id": "victor_hatherley",
+     "named": false
+    },
+    {
+     "id": "colonel_stark",
+     "named": true
+    },
+    {
+     "id": "driver",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-engineers-thumb-s7",
+   "start": "the-adventure-of-the-engineers-thumb-97",
+   "end": "the-adventure-of-the-engineers-thumb-112",
+   "start_idx": 96,
+   "end_idx": 111,
+   "n_units": 16,
+   "words": 1005,
+   "start_ref": "The Adventure Of The Engineer’S Thumb ¶97",
+   "end_ref": "The Adventure Of The Engineer’S Thumb ¶112",
+   "title": "Arrival and the woman's warning",
+   "setting": [
+    "eyford_house"
+   ],
+   "on_stage": [
+    {
+     "id": "victor_hatherley",
+     "named": false
+    },
+    {
+     "id": "colonel_stark",
+     "named": true
+    },
+    {
+     "id": "elise",
+     "named": false
+    },
+    {
+     "id": "ferguson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-engineers-thumb-s8",
+   "start": "the-adventure-of-the-engineers-thumb-113",
+   "end": "the-adventure-of-the-engineers-thumb-121",
+   "start_idx": 112,
+   "end_idx": 120,
+   "n_units": 9,
+   "words": 963,
+   "start_ref": "The Adventure Of The Engineer’S Thumb ¶113",
+   "end_ref": "The Adventure Of The Engineer’S Thumb ¶121",
+   "title": "Trapped in the hydraulic press",
+   "setting": [
+    "eyford_house"
+   ],
+   "on_stage": [
+    {
+     "id": "victor_hatherley",
+     "named": false
+    },
+    {
+     "id": "colonel_stark",
+     "named": true
+    },
+    {
+     "id": "ferguson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "elise"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-engineers-thumb-s9",
+   "start": "the-adventure-of-the-engineers-thumb-122",
+   "end": "the-adventure-of-the-engineers-thumb-133",
+   "start_idx": 121,
+   "end_idx": 132,
+   "n_units": 12,
+   "words": 1039,
+   "start_ref": "The Adventure Of The Engineer’S Thumb ¶122",
+   "end_ref": "The Adventure Of The Engineer’S Thumb ¶133",
+   "title": "Escape through the window and recovery in the garden",
+   "setting": [
+    "eyford_house",
+    "eyford_garden",
+    "eyford_station"
+   ],
+   "on_stage": [
+    {
+     "id": "victor_hatherley",
+     "named": false
+    },
+    {
+     "id": "elise",
+     "named": true
+    },
+    {
+     "id": "colonel_stark",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "ferguson"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-engineers-thumb-s10",
+   "start": "the-adventure-of-the-engineers-thumb-134",
+   "end": "the-adventure-of-the-engineers-thumb-160",
+   "start_idx": 133,
+   "end_idx": 159,
+   "n_units": 27,
+   "words": 787,
+   "start_ref": "The Adventure Of The Engineer’S Thumb ¶134",
+   "end_ref": "The Adventure Of The Engineer’S Thumb ¶160",
+   "title": "Holmes reads the advertisement and the party heads for Eyford",
+   "setting": [
+    "baker_street_rooms",
+    "scotland_yard",
+    "eyford_station"
+   ],
+   "on_stage": [
+    {
+     "id": "holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "victor_hatherley",
+     "named": true
+    },
+    {
+     "id": "bradstreet",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "jeremiah_hayling",
+    "colonel_stark"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-engineers-thumb-s11",
+   "start": "the-adventure-of-the-engineers-thumb-161",
+   "end": "the-adventure-of-the-engineers-thumb-176",
+   "start_idx": 160,
+   "end_idx": 175,
+   "n_units": 16,
+   "words": 670,
+   "start_ref": "The Adventure Of The Engineer’S Thumb ¶161",
+   "end_ref": "The Adventure Of The Engineer’S Thumb ¶176",
+   "title": "The burning house and the aftermath",
+   "setting": [
+    "eyford_house",
+    "eyford_station"
+   ],
+   "on_stage": [
+    {
+     "id": "holmes",
+     "named": false
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "victor_hatherley",
+     "named": true
+    },
+    {
+     "id": "bradstreet",
+     "named": true
+    },
+    {
+     "id": "station_master",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "colonel_stark",
+    "elise",
+    "ferguson"
+   ],
+   "unknown_ids": []
+  }
+ ],
+ "brief": {
+  "tone": "Tense, claustrophobic Victorian mystery: a clammy, secretive country house, rising dread in the press scene, and dry, wry detection in London.",
+  "depiction_rules": [
+   "Show the hydraulic press's descending ceiling as a threat but do not depict the mutilation graphically; the bandaged bloodied hand may be shown restrained.",
+   "Holmes is shown in his dressing-gown and armchair, smoking, with heavy-lidded composure.",
+   "Stark should be drawn gaunt and sharp-faced, with a bright, suspicious gaze.",
+   "Elise appears only at the doorway and window, beautiful and frightened, never fully revealed as a villain.",
+   "No modern machinery; the press is wooden-walled with an iron floor and water cylinders."
+  ],
+  "era": {
+   "name": "Late Victorian England, summer 1889",
+   "people": "English professionals and tradesmen; a German-speaking foreign couple and an Englishman in Berkshire country houses; railway officials and Scotland Yard inspectors.",
+   "dress": "Frock coats, waistcoats, tweed suits and caps for men; dark rich gowns for women; Holmes in a dressing-gown at home.",
+   "buildings_and_objects": "Terraced London townhouses with consulting-rooms, Baker Street lodgings, gas-lit and oil-lamp-lit rooms, a dilapidated country house with bare upper floors, whitewashed walls, and a small rural station.",
+   "technology": "Steam railways and hansom cabs, hydraulic presses, oil lamps and candles, ordnance maps and compasses; no telephone in the story, no electric light, no motor car."
+  }
+ },
+ "checks": {
+  "bad_section_ids": [],
+  "uncovered_units": 0,
+  "uncovered_sample": [],
+  "overlap_units": 0,
+  "sections_with_unknown_ids": 0
+ }
+}

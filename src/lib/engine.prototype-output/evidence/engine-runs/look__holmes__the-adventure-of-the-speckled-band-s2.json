@@ -1,0 +1,50 @@
+{
+ "record": {
+  "label": "look__holmes__the-adventure-of-the-speckled-band-s2",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424062-CysHaSyvR7jnDvMEEihb",
+  "seconds": 2.3,
+  "finish_reason": "stop",
+  "prompt_tokens": 2161,
+  "completion_tokens": 214,
+  "cost": 0.0003231,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:34:25"
+ },
+ "system": "You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.\nRules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.",
+ "user_chars": 4594,
+ "content": "{\"place\":\"Sherlock Holmes's sitting room at 221B Baker Street, London, with a coal fire, gaslit lamps, and a cluttered desk by the window\",\"timeOfDay\":\"Morning, under a dim grey daylight that filters through the window\",\"weather\":\"Cold, overcast winter morning with damp roads outside\",\"light\":\"Soft grey daylight from the window mixed with warm glow from the coal fire and gas lamp\",\"clothing\":\"Visitor in a dark travelling dress and jacket spattered with mud, veiled bonnet, return train ticket in glove; Holmes in dressing-gown, Watson in frock-coat\"}",
+ "parsed": {
+  "place": "Sherlock Holmes's sitting room at 221B Baker Street, London, with a coal fire, gaslit lamps, and a cluttered desk by the window",
+  "timeOfDay": "Morning, under a dim grey daylight that filters through the window",
+  "weather": "Cold, overcast winter morning with damp roads outside",
+  "light": "Soft grey daylight from the window mixed with warm glow from the coal fire and gas lamp",
+  "clothing": "Visitor in a dark travelling dress and jacket spattered with mud, veiled bonnet, return train ticket in glove; Holmes in dressing-gown, Watson in frock-coat"
+ },
+ "usage": {
+  "prompt_tokens": 2161,
+  "completion_tokens": 214,
+  "total_tokens": 2375,
+  "cost": 0.0003231,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003231,
+   "upstream_inference_prompt_cost": 0.0002161,
+   "upstream_inference_completions_cost": 0.000107
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

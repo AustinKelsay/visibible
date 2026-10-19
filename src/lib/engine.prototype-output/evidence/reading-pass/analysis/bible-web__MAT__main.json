@@ -1,0 +1,3831 @@
+{
+ "work": "bible-web",
+ "division": "MAT",
+ "division_name": "Matthew",
+ "units": 1071,
+ "record": {
+  "label": "bible-web__MAT__main",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792423947-TB8aByaPgik034aqZ6mM",
+  "seconds": 51.9,
+  "finish_reason": "stop",
+  "prompt_tokens": 48182,
+  "completion_tokens": 15090,
+  "cost": 0.0123632,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:33:19"
+ },
+ "characters": [
+  {
+   "id": "jesus",
+   "name": "Jesus",
+   "aliases": [
+    "Jesus Christ",
+    "the Christ",
+    "the Son of Man",
+    "Son of David",
+    "Teacher",
+    "Rabbi",
+    "the Nazarene",
+    "the carpenter's son",
+    "the Galilean"
+   ],
+   "note": "Central figure of the Gospel; born in Bethlehem, raised in Nazareth, teaches and heals in Galilee and Judea, crucified in Jerusalem and raised.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "joseph_husband_of_mary",
+   "name": "Joseph",
+   "aliases": [
+    "Joseph son of David",
+    "Joseph of Nazareth"
+   ],
+   "note": "Husband of Mary and foster father of Jesus; a carpenter who receives angelic dreams (1:18-2:23). Not the same as Joseph of Arimathea.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mary_mother_of_jesus",
+   "name": "Mary",
+   "aliases": [
+    "the mother of Jesus",
+    "the virgin",
+    "his mother"
+   ],
+   "note": "Mother of Jesus, betrothed to Joseph; appears in the birth narrative and with her son and brothers (12:46, 13:55).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "herod_the_great",
+   "name": "King Herod",
+   "aliases": [
+    "Herod the king"
+   ],
+   "note": "King of Judea who seeks the child Jesus and orders the killing of boys in Bethlehem; dies before Joseph returns from Egypt. Distinct from Herod Antipas.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "wise_men",
+   "name": "the wise men",
+   "aliases": [
+    "magi",
+    "wise men from the east"
+   ],
+   "note": "Eastern visitors who follow a star to Bethlehem and bring gifts (2:1-12).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "angel_of_the_lord",
+   "name": "an angel of the Lord",
+   "aliases": [
+    "the angel",
+    "angels"
+   ],
+   "note": "Messenger who speaks to Joseph in dreams (1:20, 2:13, 2:19) and to the women at the tomb (28:2-7).",
+   "kind": "divine",
+   "same_person_as": ""
+  },
+  {
+   "id": "john_the_baptizer",
+   "name": "John the Baptizer",
+   "aliases": [
+    "John",
+    "the baptizer"
+   ],
+   "note": "Preacher in the Judean wilderness who baptizes Jesus; imprisoned and beheaded by Herod Antipas (14:3-12). Not John the apostle.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "pharisees",
+   "name": "the Pharisees",
+   "aliases": [
+    "Pharisee"
+   ],
+   "note": "Religious leaders who repeatedly oppose or question Jesus.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "sadducees",
+   "name": "the Sadducees",
+   "aliases": [
+    "Sadducee"
+   ],
+   "note": "Religious party who question Jesus about the resurrection and join the Pharisees in testing him.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "scribes",
+   "name": "the scribes",
+   "aliases": [
+    "teachers of the law",
+    "lawyer"
+   ],
+   "note": "Teachers of the law who debate with Jesus and join the chief priests against him.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "satan_the_devil",
+   "name": "the devil",
+   "aliases": [
+    "Satan",
+    "the tempter",
+    "the evil one",
+    "Beelzebul",
+    "the prince of the demons"
+   ],
+   "note": "Tempts Jesus in the wilderness and is accused by the Pharisees of being the source of Jesus's power.",
+   "kind": "divine",
+   "same_person_as": ""
+  },
+  {
+   "id": "peter",
+   "name": "Simon Peter",
+   "aliases": [
+    "Peter",
+    "Simon",
+    "Simon Bar Jonah",
+    "Cephas"
+   ],
+   "note": "Fisherman from Capernaum, first of the twelve disciples; walks on water, confesses Jesus as Christ, and denies him three times. Not Simon the Zealot.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "andrew",
+   "name": "Andrew",
+   "aliases": [
+    "Peter's brother"
+   ],
+   "note": "Brother of Simon Peter and fisherman, one of the first four disciples.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "james_son_of_zebedee",
+   "name": "James son of Zebedee",
+   "aliases": [
+    "James",
+    "the sons of Zebedee"
+   ],
+   "note": "Fisherman and one of the first disciples, brother of John; present at the transfiguration. Not James son of Alphaeus.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "john_apostle",
+   "name": "John the apostle",
+   "aliases": [
+    "John, his brother",
+    "the beloved disciple"
+   ],
+   "note": "Son of Zebedee and brother of James, a disciple; present at the transfiguration and Gethsemane. Not John the Baptizer.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "zebedee",
+   "name": "Zebedee",
+   "aliases": [
+    "the father of James and John"
+   ],
+   "note": "Father of James and John, a fisherman mending nets with his sons when Jesus calls them (4:21).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "matthew_tax_collector",
+   "name": "Matthew",
+   "aliases": [
+    "Levi",
+    "the tax collector"
+   ],
+   "note": "Tax collector called to follow Jesus (9:9); one of the twelve apostles listed in 10:3.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "judas_iscariot",
+   "name": "Judas Iscariot",
+   "aliases": [
+    "Judas"
+   ],
+   "note": "One of the twelve who betrays Jesus for thirty pieces of silver and later hangs himself.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "philip_apostle",
+   "name": "Philip",
+   "aliases": [],
+   "note": "One of the twelve apostles listed in 10:3. Not Philip the tetrarch.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "thomas",
+   "name": "Thomas",
+   "aliases": [],
+   "note": "One of the twelve apostles listed in 10:3.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "bartholomew",
+   "name": "Bartholomew",
+   "aliases": [],
+   "note": "One of the twelve apostles listed in 10:3; named only in lists.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "james_son_of_alphaeus",
+   "name": "James son of Alphaeus",
+   "aliases": [],
+   "note": "One of the twelve apostles listed in 10:3; named only in lists.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "thaddaeus",
+   "name": "Thaddaeus",
+   "aliases": [
+    "Lebbaeus"
+   ],
+   "note": "One of the twelve apostles listed in 10:3; named only in lists.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "simon_the_zealot",
+   "name": "Simon the Zealot",
+   "aliases": [],
+   "note": "One of the twelve apostles listed in 10:4; named only in lists.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "herod_antipas",
+   "name": "Herod the tetrarch",
+   "aliases": [
+    "Herod"
+   ],
+   "note": "Ruler of Galilee who hears of Jesus, executes John the Baptizer at Herodias's request, and later mocks Jesus. Distinct from King Herod the Great.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "herodias",
+   "name": "Herodias",
+   "aliases": [
+    "the mother of the daughter"
+   ],
+   "note": "Wife of Herod's brother Philip who urges the execution of John the Baptizer.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "herodias_daughter",
+   "name": "the daughter of Herodias",
+   "aliases": [
+    "the young lady",
+    "the girl"
+   ],
+   "note": "Dances before Herod and asks for John's head on a platter (14:6-11).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "caiaphas",
+   "name": "Caiaphas",
+   "aliases": [
+    "the high priest"
+   ],
+   "note": "High priest who presides over the council that condemns Jesus.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "pontius_pilate",
+   "name": "Pontius Pilate",
+   "aliases": [
+    "Pilate",
+    "the governor"
+   ],
+   "note": "Roman governor who questions Jesus and orders his crucifixion.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "barabbas",
+   "name": "Barabbas",
+   "aliases": [],
+   "note": "Prisoner released instead of Jesus.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "chief_priests_and_elders",
+   "name": "the chief priests and elders",
+   "aliases": [
+    "the elders of the people",
+    "the chief priests"
+   ],
+   "note": "Jerusalem's religious leaders who plot against Jesus and bribe the guards.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "roman_soldiers",
+   "name": "the soldiers",
+   "aliases": [
+    "the guards",
+    "the centurion's soldiers",
+    "the governor's soldiers"
+   ],
+   "note": "Roman soldiers who mock, flog and crucify Jesus and guard the tomb.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "centurion_of_capernaum",
+   "name": "the centurion",
+   "aliases": [
+    "a centurion"
+   ],
+   "note": "Roman officer whose servant Jesus heals (8:5-13); distinct from the centurion at the crucifixion.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "centurion_at_cross",
+   "name": "the centurion at the cross",
+   "aliases": [
+    "the centurion"
+   ],
+   "note": "Officer who watches the crucifixion and declares Jesus the Son of God (27:54). Possibly the same as the Capernaum centurion but not identified as such.",
+   "kind": "person",
+   "same_person_as": "centurion_of_capernaum"
+  },
+  {
+   "id": "joseph_of_arimathea",
+   "name": "Joseph of Arimathea",
+   "aliases": [
+    "a rich man from Arimathaea"
+   ],
+   "note": "Rich disciple who buries Jesus in his new tomb (27:57-60). Not Joseph husband of Mary.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mary_magdalene",
+   "name": "Mary Magdalene",
+   "aliases": [
+    "the other Mary"
+   ],
+   "note": "Woman who watches the crucifixion, the burial, and goes to the tomb on the first day.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mary_mother_of_james_and_joses",
+   "name": "Mary, mother of James and Joses",
+   "aliases": [
+    "the other Mary"
+   ],
+   "note": "Woman at the crucifixion and the tomb, mother of James and Joses; distinct from Mary the mother of Jesus.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "simon_of_cyrene",
+   "name": "Simon of Cyrene",
+   "aliases": [
+    "a man of Cyrene"
+   ],
+   "note": "Man compelled by soldiers to carry Jesus's cross.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "simon_the_leper",
+   "name": "Simon the leper",
+   "aliases": [],
+   "note": "Host at Bethany where a woman anoints Jesus (26:6).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "anointing_woman",
+   "name": "the woman with the alabaster jar",
+   "aliases": [
+    "a woman"
+   ],
+   "note": "Woman who anoints Jesus's head at Bethany (26:7).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "bleeding_woman",
+   "name": "the woman with the discharge of blood",
+   "aliases": [
+    "the woman"
+   ],
+   "note": "Woman healed by touching Jesus's garment (9:20-22).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "canaanite_woman",
+   "name": "the Canaanite woman",
+   "aliases": [
+    "a Canaanite woman"
+   ],
+   "note": "Woman from Tyre and Sidon whose daughter is healed (15:22-28).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ruler_whose_daughter_died",
+   "name": "a ruler",
+   "aliases": [
+    "the ruler"
+   ],
+   "note": "Synagogue ruler whose daughter Jesus raises (9:18-25).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "leper",
+   "name": "the leper",
+   "aliases": [
+    "a leper"
+   ],
+   "note": "Man healed of leprosy on the mountainside (8:2-4).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "paralytic",
+   "name": "the paralytic",
+   "aliases": [
+    "a man who was paralyzed"
+   ],
+   "note": "Paralyzed man carried on a bed and forgiven and healed (9:2-8).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "demoniacs_of_gadara",
+   "name": "the two demon-possessed men",
+   "aliases": [
+    "the men possessed by demons"
+   ],
+   "note": "Two men living among the tombs in the country of the Gergesenes (8:28-34).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "rich_young_man",
+   "name": "the rich young man",
+   "aliases": [
+    "the young man"
+   ],
+   "note": "Man who asks what good thing to do for eternal life and goes away sad (19:16-22).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "blind_men_of_jericho",
+   "name": "the two blind men",
+   "aliases": [
+    "the blind men"
+   ],
+   "note": "Blind men healed near Jericho or in Galilee (9:27-31, 20:30-34).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "disciples",
+   "name": "the disciples",
+   "aliases": [
+    "the twelve",
+    "the eleven"
+   ],
+   "note": "Jesus's followers as a group.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "crowds",
+   "name": "the multitudes",
+   "aliases": [
+    "the crowd",
+    "the people"
+   ],
+   "note": "Large crowds who follow Jesus, hear him, and sometimes shout for his crucifixion.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "judas_of_hangs",
+   "name": "the mother of the sons of Zebedee",
+   "aliases": [],
+   "note": "Mother of James and John who asks for places beside Jesus (20:20).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lawyer_tester",
+   "name": "a lawyer",
+   "aliases": [
+    "one of them, a lawyer"
+   ],
+   "note": "Scribe who asks Jesus which commandment is greatest (22:35).",
+   "kind": "person",
+   "same_person_as": "scribes"
+  },
+  {
+   "id": "guard_at_tomb",
+   "name": "the guards at the tomb",
+   "aliases": [
+    "some of the guards"
+   ],
+   "note": "Soldiers who see the angel and report to the chief priests (28:11-15). Grouped with soldiers.",
+   "kind": "group",
+   "same_person_as": "roman_soldiers"
+  },
+  {
+   "id": "thieves_crucified",
+   "name": "the two robbers",
+   "aliases": [
+    "the robbers"
+   ],
+   "note": "Two men crucified beside Jesus who revile him (27:38, 44).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "moses",
+   "name": "Moses",
+   "aliases": [],
+   "note": "Appears with Elijah at the transfiguration (17:3).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "elijah",
+   "name": "Elijah",
+   "aliases": [],
+   "note": "Appears with Moses at the transfiguration; the crowd thinks Jesus calls him at the cross.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "abraham_patriarch",
+   "name": "Abraham",
+   "aliases": [],
+   "note": "Named in the genealogy and in teaching; mentioned only.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "david_king",
+   "name": "King David",
+   "aliases": [
+    "David"
+   ],
+   "note": "Named in the genealogy and as the son of David title; mentioned only in most episodes.",
+   "kind": "person",
+   "same_person_as": ""
+  }
+ ],
+ "locations": [
+  {
+   "id": "bethlehem",
+   "name": "Bethlehem",
+   "aliases": [
+    "Bethlehem of Judea"
+   ],
+   "note": "Town where Jesus is born and where Herod orders the killing of children."
+  },
+  {
+   "id": "jerusalem",
+   "name": "Jerusalem",
+   "aliases": [
+    "the holy city",
+    "the city of the great King"
+   ],
+   "note": "Holy city with the temple; site of the temple confrontations, the trial, and the crucifixion."
+  },
+  {
+   "id": "nazareth",
+   "name": "Nazareth",
+   "aliases": [],
+   "note": "Town in Galilee where Joseph and Mary settle with Jesus."
+  },
+  {
+   "id": "egypt",
+   "name": "Egypt",
+   "aliases": [],
+   "note": "Place of refuge for the holy family."
+  },
+  {
+   "id": "jordan_river",
+   "name": "the Jordan",
+   "aliases": [
+    "the Jordan River"
+   ],
+   "note": "River where John baptizes and Jesus is baptized."
+  },
+  {
+   "id": "judean_wilderness",
+   "name": "the wilderness of Judea",
+   "aliases": [
+    "the wilderness"
+   ],
+   "note": "Desert where John preaches and Jesus is tempted."
+  },
+  {
+   "id": "mountain_of_temptation",
+   "name": "an exceedingly high mountain",
+   "aliases": [
+    "the mountain"
+   ],
+   "note": "Place where the devil shows Jesus all the kingdoms of the world."
+  },
+  {
+   "id": "capernaum",
+   "name": "Capernaum",
+   "aliases": [
+    "the city by the sea"
+   ],
+   "note": "Galilean town on the sea where Jesus lives; Peter's house is there."
+  },
+  {
+   "id": "sea_of_galilee",
+   "name": "the sea of Galilee",
+   "aliases": [
+    "the sea",
+    "the lake"
+   ],
+   "note": "Lake where the fishermen work, the storm occurs, and Jesus walks on the water."
+  },
+  {
+   "id": "country_of_gergesenes",
+   "name": "the country of the Gergesenes",
+   "aliases": [
+    "the other side"
+   ],
+   "note": "Region across the sea where the demon-possessed men are healed and the pigs drown."
+  },
+  {
+   "id": "mount_of_beatitudes",
+   "name": "the mountain",
+   "aliases": [
+    "the mountain"
+   ],
+   "note": "Hillside where the sermon on the mount is preached (chapters 5-7)."
+  },
+  {
+   "id": "temple",
+   "name": "the temple",
+   "aliases": [
+    "the holy place",
+    "the house of God"
+   ],
+   "note": "Temple in Jerusalem; site of cleansing, teaching, and the veil torn at the crucifixion."
+  },
+  {
+   "id": "mount_of_olives",
+   "name": "the Mount of Olives",
+   "aliases": [
+    "Olivet"
+   ],
+   "note": "Hill east of Jerusalem where Jesus teaches about the end and is later arrested at Gethsemane."
+  },
+  {
+   "id": "gethsemane",
+   "name": "Gethsemane",
+   "aliases": [
+    "a place called Gethsemane"
+   ],
+   "note": "Garden on the Mount of Olives where Jesus prays and is arrested."
+  },
+  {
+   "id": "caiaphas_court",
+   "name": "the court of the high priest",
+   "aliases": [
+    "the palace of the high priest"
+   ],
+   "note": "Where Jesus is interrogated and Peter denies him."
+  },
+  {
+   "id": "praetorium",
+   "name": "the Praetorium",
+   "aliases": [
+    "the governor's residence"
+   ],
+   "note": "Headquarters of Pilate where Jesus is mocked and flogged."
+  },
+  {
+   "id": "golgotha",
+   "name": "Golgotha",
+   "aliases": [
+    "the place of a skull"
+   ],
+   "note": "Site of the crucifixion outside Jerusalem."
+  },
+  {
+   "id": "joseph_tomb",
+   "name": "Joseph's tomb",
+   "aliases": [
+    "the tomb",
+    "a new tomb cut in the rock"
+   ],
+   "note": "Rock tomb where Jesus is laid and later found empty."
+  },
+  {
+   "id": "bethany",
+   "name": "Bethany",
+   "aliases": [
+    "the house of Simon the leper"
+   ],
+   "note": "Village near Jerusalem where Jesus stays, is anointed, and camps."
+  },
+  {
+   "id": "caesarea_philippi",
+   "name": "Caesarea Philippi",
+   "aliases": [
+    "the parts of Caesarea Philippi"
+   ],
+   "note": "Region where Peter confesses Jesus as Christ."
+  },
+  {
+   "id": "jericho",
+   "name": "Jericho",
+   "aliases": [],
+   "note": "City on the road to Jerusalem where blind men are healed."
+  },
+  {
+   "id": "galilee_region",
+   "name": "Galilee",
+   "aliases": [
+    "the region of Galilee"
+   ],
+   "note": "Northern region where Jesus grows up and carries out much of his ministry."
+  },
+  {
+   "id": "tyre_and_sidon",
+   "name": "Tyre and Sidon",
+   "aliases": [
+    "the region of Tyre and Sidon"
+   ],
+   "note": "Gentile region where the Canaanite woman comes from."
+  },
+  {
+   "id": "tomb_of_the_resurrection",
+   "name": "the tomb",
+   "aliases": [
+    "the empty tomb"
+   ],
+   "note": "Where the women and the guards encounter the angel."
+  }
+ ],
+ "sections": [
+  {
+   "id": "MAT-s1",
+   "start": "matthew-1-1",
+   "end": "matthew-1-17",
+   "start_idx": 0,
+   "end_idx": 16,
+   "n_units": 17,
+   "words": 332,
+   "start_ref": "Matthew 1:1",
+   "end_ref": "Matthew 1:17",
+   "title": "The genealogy of Jesus",
+   "setting": [],
+   "on_stage": [],
+   "mentioned_only": [
+    "abraham_patriarch",
+    "david_king",
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s2",
+   "start": "matthew-1-18",
+   "end": "matthew-1-25",
+   "start_idx": 17,
+   "end_idx": 24,
+   "n_units": 8,
+   "words": 208,
+   "start_ref": "Matthew 1:18",
+   "end_ref": "Matthew 1:25",
+   "title": "The birth of Jesus revealed to Joseph",
+   "setting": [
+    "nazareth"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph_husband_of_mary",
+     "named": true
+    },
+    {
+     "id": "mary_mother_of_jesus",
+     "named": true
+    },
+    {
+     "id": "angel_of_the_lord",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s3",
+   "start": "matthew-2-1",
+   "end": "matthew-2-12",
+   "start_idx": 25,
+   "end_idx": 36,
+   "n_units": 12,
+   "words": 270,
+   "start_ref": "Matthew 2:1",
+   "end_ref": "Matthew 2:12",
+   "title": "The wise men come to Herod and worship the child",
+   "setting": [
+    "jerusalem",
+    "bethlehem"
+   ],
+   "on_stage": [
+    {
+     "id": "herod_the_great",
+     "named": true
+    },
+    {
+     "id": "wise_men",
+     "named": false
+    },
+    {
+     "id": "mary_mother_of_jesus",
+     "named": true
+    },
+    {
+     "id": "jesus",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "chief_priests_and_elders",
+    "scribes"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s4",
+   "start": "matthew-2-13",
+   "end": "matthew-2-23",
+   "start_idx": 37,
+   "end_idx": 47,
+   "n_units": 11,
+   "words": 310,
+   "start_ref": "Matthew 2:13",
+   "end_ref": "Matthew 2:23",
+   "title": "Flight into Egypt and return to Nazareth",
+   "setting": [
+    "egypt",
+    "nazareth",
+    "bethlehem"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph_husband_of_mary",
+     "named": true
+    },
+    {
+     "id": "mary_mother_of_jesus",
+     "named": false
+    },
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "angel_of_the_lord",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "herod_the_great"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s5",
+   "start": "matthew-3-1",
+   "end": "matthew-3-12",
+   "start_idx": 48,
+   "end_idx": 59,
+   "n_units": 12,
+   "words": 266,
+   "start_ref": "Matthew 3:1",
+   "end_ref": "Matthew 3:12",
+   "title": "John the Baptizer preaches in the wilderness",
+   "setting": [
+    "judean_wilderness",
+    "jordan_river"
+   ],
+   "on_stage": [
+    {
+     "id": "john_the_baptizer",
+     "named": true
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "sadducees",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s6",
+   "start": "matthew-3-13",
+   "end": "matthew-3-17",
+   "start_idx": 60,
+   "end_idx": 64,
+   "n_units": 5,
+   "words": 111,
+   "start_ref": "Matthew 3:13",
+   "end_ref": "Matthew 3:17",
+   "title": "Baptism of Jesus",
+   "setting": [
+    "jordan_river"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "john_the_baptizer",
+     "named": true
+    },
+    {
+     "id": "angel_of_the_lord",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s7",
+   "start": "matthew-4-1",
+   "end": "matthew-4-11",
+   "start_idx": 65,
+   "end_idx": 75,
+   "n_units": 11,
+   "words": 231,
+   "start_ref": "Matthew 4:1",
+   "end_ref": "Matthew 4:11",
+   "title": "The temptation in the wilderness",
+   "setting": [
+    "judean_wilderness",
+    "jerusalem",
+    "mountain_of_temptation"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "satan_the_devil",
+     "named": true
+    },
+    {
+     "id": "angel_of_the_lord",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s8",
+   "start": "matthew-4-12",
+   "end": "matthew-4-22",
+   "start_idx": 76,
+   "end_idx": 86,
+   "n_units": 11,
+   "words": 204,
+   "start_ref": "Matthew 4:12",
+   "end_ref": "Matthew 4:22",
+   "title": "Jesus moves to Capernaum and calls the first disciples",
+   "setting": [
+    "capernaum",
+    "sea_of_galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "andrew",
+     "named": true
+    },
+    {
+     "id": "james_son_of_zebedee",
+     "named": true
+    },
+    {
+     "id": "john_apostle",
+     "named": false
+    },
+    {
+     "id": "zebedee",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "john_the_baptizer"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s9",
+   "start": "matthew-4-23",
+   "end": "matthew-4-25",
+   "start_idx": 87,
+   "end_idx": 89,
+   "n_units": 3,
+   "words": 74,
+   "start_ref": "Matthew 4:23",
+   "end_ref": "Matthew 4:25",
+   "title": "Jesus teaches and heals throughout Galilee",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s10",
+   "start": "matthew-5-1",
+   "end": "matthew-5-16",
+   "start_idx": 90,
+   "end_idx": 105,
+   "n_units": 16,
+   "words": 273,
+   "start_ref": "Matthew 5:1",
+   "end_ref": "Matthew 5:16",
+   "title": "The beatitudes and the salt and light",
+   "setting": [
+    "mount_of_beatitudes"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s11",
+   "start": "matthew-5-17",
+   "end": "matthew-5-48",
+   "start_idx": 106,
+   "end_idx": 137,
+   "n_units": 32,
+   "words": 789,
+   "start_ref": "Matthew 5:17",
+   "end_ref": "Matthew 5:48",
+   "title": "Teaching on the law and on anger, lust, oaths and enemies",
+   "setting": [
+    "mount_of_beatitudes"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "scribes",
+    "pharisees"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s12",
+   "start": "matthew-6-1",
+   "end": "matthew-6-18",
+   "start_idx": 138,
+   "end_idx": 155,
+   "n_units": 18,
+   "words": 399,
+   "start_ref": "Matthew 6:1",
+   "end_ref": "Matthew 6:18",
+   "title": "Teaching on giving, prayer and fasting, and the Lord's Prayer",
+   "setting": [
+    "mount_of_beatitudes"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "pharisees"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s13",
+   "start": "matthew-6-19",
+   "end": "matthew-6-34",
+   "start_idx": 156,
+   "end_idx": 171,
+   "n_units": 16,
+   "words": 371,
+   "start_ref": "Matthew 6:19",
+   "end_ref": "Matthew 6:34",
+   "title": "Treasures, the lamp of the body, and anxiety",
+   "setting": [
+    "mount_of_beatitudes"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s14",
+   "start": "matthew-7-1",
+   "end": "matthew-7-29",
+   "start_idx": 172,
+   "end_idx": 200,
+   "n_units": 29,
+   "words": 592,
+   "start_ref": "Matthew 7:1",
+   "end_ref": "Matthew 7:29",
+   "title": "Judging, the narrow gate, false prophets, and the two houses",
+   "setting": [
+    "mount_of_beatitudes"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s15",
+   "start": "matthew-8-1",
+   "end": "matthew-8-4",
+   "start_idx": 201,
+   "end_idx": 204,
+   "n_units": 4,
+   "words": 79,
+   "start_ref": "Matthew 8:1",
+   "end_ref": "Matthew 8:4",
+   "title": "Healing of a leper",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "crowds",
+     "named": false
+    },
+    {
+     "id": "leper",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s16",
+   "start": "matthew-8-5",
+   "end": "matthew-8-13",
+   "start_idx": 205,
+   "end_idx": 213,
+   "n_units": 9,
+   "words": 198,
+   "start_ref": "Matthew 8:5",
+   "end_ref": "Matthew 8:13",
+   "title": "Healing of the centurion's servant",
+   "setting": [
+    "capernaum"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "centurion_of_capernaum",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s17",
+   "start": "matthew-8-14",
+   "end": "matthew-8-22",
+   "start_idx": 214,
+   "end_idx": 222,
+   "n_units": 9,
+   "words": 171,
+   "start_ref": "Matthew 8:14",
+   "end_ref": "Matthew 8:22",
+   "title": "Healing at Peter's house and the cost of following",
+   "setting": [
+    "capernaum"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "scribes"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s18",
+   "start": "matthew-8-23",
+   "end": "matthew-8-27",
+   "start_idx": 223,
+   "end_idx": 227,
+   "n_units": 5,
+   "words": 97,
+   "start_ref": "Matthew 8:23",
+   "end_ref": "Matthew 8:27",
+   "title": "Stilling the storm",
+   "setting": [
+    "sea_of_galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s19",
+   "start": "matthew-8-28",
+   "end": "matthew-9-1",
+   "start_idx": 228,
+   "end_idx": 235,
+   "n_units": 8,
+   "words": 189,
+   "start_ref": "Matthew 8:28",
+   "end_ref": "Matthew 9:1",
+   "title": "The demon-possessed men of Gadara",
+   "setting": [
+    "country_of_gergesenes",
+    "sea_of_galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "demoniacs_of_gadara",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "crowds"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s20",
+   "start": "matthew-9-2",
+   "end": "matthew-9-8",
+   "start_idx": 236,
+   "end_idx": 242,
+   "n_units": 7,
+   "words": 131,
+   "start_ref": "Matthew 9:2",
+   "end_ref": "Matthew 9:8",
+   "title": "Healing of the paralytic",
+   "setting": [
+    "capernaum"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "paralytic",
+     "named": false
+    },
+    {
+     "id": "scribes",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s21",
+   "start": "matthew-9-9",
+   "end": "matthew-9-13",
+   "start_idx": 243,
+   "end_idx": 247,
+   "n_units": 5,
+   "words": 121,
+   "start_ref": "Matthew 9:9",
+   "end_ref": "Matthew 9:13",
+   "title": "Calling of Matthew and the meal with sinners",
+   "setting": [
+    "capernaum"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "matthew_tax_collector",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s22",
+   "start": "matthew-9-14",
+   "end": "matthew-9-17",
+   "start_idx": 248,
+   "end_idx": 251,
+   "n_units": 4,
+   "words": 121,
+   "start_ref": "Matthew 9:14",
+   "end_ref": "Matthew 9:17",
+   "title": "Question about fasting",
+   "setting": [
+    "capernaum"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "john_the_baptizer"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s23",
+   "start": "matthew-9-18",
+   "end": "matthew-9-26",
+   "start_idx": 252,
+   "end_idx": 260,
+   "n_units": 9,
+   "words": 170,
+   "start_ref": "Matthew 9:18",
+   "end_ref": "Matthew 9:26",
+   "title": "Jairus's daughter and the bleeding woman",
+   "setting": [
+    "capernaum"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "ruler_whose_daughter_died",
+     "named": false
+    },
+    {
+     "id": "bleeding_woman",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s24",
+   "start": "matthew-9-27",
+   "end": "matthew-9-34",
+   "start_idx": 261,
+   "end_idx": 268,
+   "n_units": 8,
+   "words": 152,
+   "start_ref": "Matthew 9:27",
+   "end_ref": "Matthew 9:34",
+   "title": "Two blind men and a mute demoniac healed",
+   "setting": [
+    "capernaum"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "blind_men_of_jericho",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s25",
+   "start": "matthew-9-35",
+   "end": "matthew-10-4",
+   "start_idx": 269,
+   "end_idx": 276,
+   "n_units": 8,
+   "words": 167,
+   "start_ref": "Matthew 9:35",
+   "end_ref": "Matthew 10:4",
+   "title": "Compassion for the crowd and the twelve named",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s26",
+   "start": "matthew-10-5",
+   "end": "matthew-10-23",
+   "start_idx": 277,
+   "end_idx": 295,
+   "n_units": 19,
+   "words": 382,
+   "start_ref": "Matthew 10:5",
+   "end_ref": "Matthew 10:23",
+   "title": "Instructions for the mission",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s27",
+   "start": "matthew-10-24",
+   "end": "matthew-10-42",
+   "start_idx": 296,
+   "end_idx": 314,
+   "n_units": 19,
+   "words": 406,
+   "start_ref": "Matthew 10:24",
+   "end_ref": "Matthew 10:42",
+   "title": "Instructions on persecution and discipleship",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s28",
+   "start": "matthew-11-1",
+   "end": "matthew-11-19",
+   "start_idx": 315,
+   "end_idx": 333,
+   "n_units": 19,
+   "words": 380,
+   "start_ref": "Matthew 11:1",
+   "end_ref": "Matthew 11:19",
+   "title": "John's question and Jesus on his generation",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "john_the_baptizer",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s29",
+   "start": "matthew-11-20",
+   "end": "matthew-11-30",
+   "start_idx": 334,
+   "end_idx": 344,
+   "n_units": 11,
+   "words": 262,
+   "start_ref": "Matthew 11:20",
+   "end_ref": "Matthew 11:30",
+   "title": "Woes on the cities and the gentle yoke",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s30",
+   "start": "matthew-12-1",
+   "end": "matthew-12-21",
+   "start_idx": 345,
+   "end_idx": 365,
+   "n_units": 21,
+   "words": 408,
+   "start_ref": "Matthew 12:1",
+   "end_ref": "Matthew 12:21",
+   "title": "Plucking grain on the Sabbath and the healing of the withered hand",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "david_king"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s31",
+   "start": "matthew-12-22",
+   "end": "matthew-12-37",
+   "start_idx": 366,
+   "end_idx": 381,
+   "n_units": 16,
+   "words": 365,
+   "start_ref": "Matthew 12:22",
+   "end_ref": "Matthew 12:37",
+   "title": "Beelzebul controversy",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "satan_the_devil"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s32",
+   "start": "matthew-12-38",
+   "end": "matthew-12-50",
+   "start_idx": 382,
+   "end_idx": 394,
+   "n_units": 13,
+   "words": 335,
+   "start_ref": "Matthew 12:38",
+   "end_ref": "Matthew 12:50",
+   "title": "Sign of Jonah and Jesus's true family",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "scribes",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "mary_mother_of_jesus",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s33",
+   "start": "matthew-13-1",
+   "end": "matthew-13-23",
+   "start_idx": 395,
+   "end_idx": 417,
+   "n_units": 23,
+   "words": 512,
+   "start_ref": "Matthew 13:1",
+   "end_ref": "Matthew 13:23",
+   "title": "The parable of the sower",
+   "setting": [
+    "sea_of_galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s34",
+   "start": "matthew-13-24",
+   "end": "matthew-13-35",
+   "start_idx": 418,
+   "end_idx": 429,
+   "n_units": 12,
+   "words": 302,
+   "start_ref": "Matthew 13:24",
+   "end_ref": "Matthew 13:35",
+   "title": "Parables of the weeds, mustard seed and yeast",
+   "setting": [
+    "sea_of_galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s35",
+   "start": "matthew-13-36",
+   "end": "matthew-13-52",
+   "start_idx": 430,
+   "end_idx": 446,
+   "n_units": 17,
+   "words": 384,
+   "start_ref": "Matthew 13:36",
+   "end_ref": "Matthew 13:52",
+   "title": "Explanation of the weeds and the hidden treasure and pearl",
+   "setting": [
+    "sea_of_galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s36",
+   "start": "matthew-13-53",
+   "end": "matthew-13-58",
+   "start_idx": 447,
+   "end_idx": 452,
+   "n_units": 6,
+   "words": 111,
+   "start_ref": "Matthew 13:53",
+   "end_ref": "Matthew 13:58",
+   "title": "Rejection at Nazareth",
+   "setting": [
+    "nazareth"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "mary_mother_of_jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s37",
+   "start": "matthew-14-1",
+   "end": "matthew-14-12",
+   "start_idx": 453,
+   "end_idx": 464,
+   "n_units": 12,
+   "words": 207,
+   "start_ref": "Matthew 14:1",
+   "end_ref": "Matthew 14:12",
+   "title": "Herod hears of Jesus and John's execution",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "herod_antipas",
+     "named": true
+    },
+    {
+     "id": "herodias",
+     "named": true
+    },
+    {
+     "id": "herodias_daughter",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "john_the_baptizer",
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s38",
+   "start": "matthew-14-13",
+   "end": "matthew-14-21",
+   "start_idx": 465,
+   "end_idx": 473,
+   "n_units": 9,
+   "words": 197,
+   "start_ref": "Matthew 14:13",
+   "end_ref": "Matthew 14:21",
+   "title": "Feeding of the five thousand",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s39",
+   "start": "matthew-14-22",
+   "end": "matthew-14-33",
+   "start_idx": 474,
+   "end_idx": 485,
+   "n_units": 12,
+   "words": 231,
+   "start_ref": "Matthew 14:22",
+   "end_ref": "Matthew 14:33",
+   "title": "Jesus walks on the sea",
+   "setting": [
+    "sea_of_galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s40",
+   "start": "matthew-14-34",
+   "end": "matthew-14-36",
+   "start_idx": 486,
+   "end_idx": 488,
+   "n_units": 3,
+   "words": 57,
+   "start_ref": "Matthew 14:34",
+   "end_ref": "Matthew 14:36",
+   "title": "Healing at Gennesaret",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s41",
+   "start": "matthew-15-1",
+   "end": "matthew-15-20",
+   "start_idx": 489,
+   "end_idx": 508,
+   "n_units": 20,
+   "words": 340,
+   "start_ref": "Matthew 15:1",
+   "end_ref": "Matthew 15:20",
+   "title": "Tradition of the elders and what defiles",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "scribes",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s42",
+   "start": "matthew-15-21",
+   "end": "matthew-15-28",
+   "start_idx": 509,
+   "end_idx": 516,
+   "n_units": 8,
+   "words": 154,
+   "start_ref": "Matthew 15:21",
+   "end_ref": "Matthew 15:28",
+   "title": "The Canaanite woman's faith",
+   "setting": [
+    "tyre_and_sidon"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "canaanite_woman",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s43",
+   "start": "matthew-15-29",
+   "end": "matthew-15-39",
+   "start_idx": 517,
+   "end_idx": 527,
+   "n_units": 11,
+   "words": 244,
+   "start_ref": "Matthew 15:29",
+   "end_ref": "Matthew 15:39",
+   "title": "Healing crowds and feeding the four thousand",
+   "setting": [
+    "sea_of_galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s44",
+   "start": "matthew-16-1",
+   "end": "matthew-16-12",
+   "start_idx": 528,
+   "end_idx": 539,
+   "n_units": 12,
+   "words": 245,
+   "start_ref": "Matthew 16:1",
+   "end_ref": "Matthew 16:12",
+   "title": "Request for a sign and the yeast of the Pharisees",
+   "setting": [
+    "sea_of_galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "sadducees",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s45",
+   "start": "matthew-16-13",
+   "end": "matthew-16-20",
+   "start_idx": 540,
+   "end_idx": 547,
+   "n_units": 8,
+   "words": 174,
+   "start_ref": "Matthew 16:13",
+   "end_ref": "Matthew 16:20",
+   "title": "Peter's confession at Caesarea Philippi",
+   "setting": [
+    "caesarea_philippi"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "john_the_baptizer",
+    "elijah"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s46",
+   "start": "matthew-16-21",
+   "end": "matthew-16-28",
+   "start_idx": 548,
+   "end_idx": 555,
+   "n_units": 8,
+   "words": 225,
+   "start_ref": "Matthew 16:21",
+   "end_ref": "Matthew 16:28",
+   "title": "First passion prediction and cost of discipleship",
+   "setting": [
+    "caesarea_philippi"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "chief_priests_and_elders",
+    "scribes"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s47",
+   "start": "matthew-17-1",
+   "end": "matthew-17-8",
+   "start_idx": 556,
+   "end_idx": 563,
+   "n_units": 8,
+   "words": 158,
+   "start_ref": "Matthew 17:1",
+   "end_ref": "Matthew 17:8",
+   "title": "The transfiguration",
+   "setting": [
+    "mount_of_beatitudes"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "james_son_of_zebedee",
+     "named": true
+    },
+    {
+     "id": "john_apostle",
+     "named": false
+    },
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "elijah",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s48",
+   "start": "matthew-17-9",
+   "end": "matthew-17-13",
+   "start_idx": 564,
+   "end_idx": 568,
+   "n_units": 5,
+   "words": 102,
+   "start_ref": "Matthew 17:9",
+   "end_ref": "Matthew 17:13",
+   "title": "Coming down from the mountain and Elijah",
+   "setting": [
+    "mount_of_beatitudes"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": false
+    },
+    {
+     "id": "james_son_of_zebedee",
+     "named": false
+    },
+    {
+     "id": "john_apostle",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "elijah",
+    "john_the_baptizer"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s49",
+   "start": "matthew-17-14",
+   "end": "matthew-17-21",
+   "start_idx": 569,
+   "end_idx": 576,
+   "n_units": 8,
+   "words": 171,
+   "start_ref": "Matthew 17:14",
+   "end_ref": "Matthew 17:21",
+   "title": "Healing of the epileptic boy",
+   "setting": [
+    "mount_of_beatitudes"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s50",
+   "start": "matthew-17-22",
+   "end": "matthew-17-27",
+   "start_idx": 577,
+   "end_idx": 582,
+   "n_units": 6,
+   "words": 163,
+   "start_ref": "Matthew 17:22",
+   "end_ref": "Matthew 17:27",
+   "title": "Second passion prediction and the temple tax",
+   "setting": [
+    "galilee_region",
+    "capernaum"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s51",
+   "start": "matthew-18-1",
+   "end": "matthew-18-14",
+   "start_idx": 583,
+   "end_idx": 596,
+   "n_units": 14,
+   "words": 358,
+   "start_ref": "Matthew 18:1",
+   "end_ref": "Matthew 18:14",
+   "title": "The greatest in the kingdom and the little ones",
+   "setting": [
+    "capernaum"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s52",
+   "start": "matthew-18-15",
+   "end": "matthew-18-35",
+   "start_idx": 597,
+   "end_idx": 617,
+   "n_units": 21,
+   "words": 485,
+   "start_ref": "Matthew 18:15",
+   "end_ref": "Matthew 18:35",
+   "title": "Church discipline and the parable of the unforgiving servant",
+   "setting": [
+    "capernaum"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s53",
+   "start": "matthew-19-1",
+   "end": "matthew-19-12",
+   "start_idx": 618,
+   "end_idx": 629,
+   "n_units": 12,
+   "words": 279,
+   "start_ref": "Matthew 19:1",
+   "end_ref": "Matthew 19:12",
+   "title": "Divorce and eunuchs",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "moses"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s54",
+   "start": "matthew-19-13",
+   "end": "matthew-19-15",
+   "start_idx": 630,
+   "end_idx": 632,
+   "n_units": 3,
+   "words": 57,
+   "start_ref": "Matthew 19:13",
+   "end_ref": "Matthew 19:15",
+   "title": "Jesus blesses the little children",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s55",
+   "start": "matthew-19-16",
+   "end": "matthew-19-30",
+   "start_idx": 633,
+   "end_idx": 647,
+   "n_units": 15,
+   "words": 349,
+   "start_ref": "Matthew 19:16",
+   "end_ref": "Matthew 19:30",
+   "title": "The rich young man and the reward of discipleship",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "rich_young_man",
+     "named": false
+    },
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s56",
+   "start": "matthew-20-1",
+   "end": "matthew-20-16",
+   "start_idx": 648,
+   "end_idx": 663,
+   "n_units": 16,
+   "words": 338,
+   "start_ref": "Matthew 20:1",
+   "end_ref": "Matthew 20:16",
+   "title": "Parable of the laborers in the vineyard",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s57",
+   "start": "matthew-20-17",
+   "end": "matthew-20-28",
+   "start_idx": 664,
+   "end_idx": 675,
+   "n_units": 12,
+   "words": 312,
+   "start_ref": "Matthew 20:17",
+   "end_ref": "Matthew 20:28",
+   "title": "Third passion prediction and the request of the sons of Zebedee",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "james_son_of_zebedee",
+     "named": false
+    },
+    {
+     "id": "john_apostle",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": [
+    "mother_of_sons_of_zebedee"
+   ]
+  },
+  {
+   "id": "MAT-s58",
+   "start": "matthew-20-29",
+   "end": "matthew-20-34",
+   "start_idx": 676,
+   "end_idx": 681,
+   "n_units": 6,
+   "words": 110,
+   "start_ref": "Matthew 20:29",
+   "end_ref": "Matthew 20:34",
+   "title": "Blind men healed near Jericho",
+   "setting": [
+    "jericho"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "blind_men_of_jericho",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s59",
+   "start": "matthew-21-1",
+   "end": "matthew-21-11",
+   "start_idx": 682,
+   "end_idx": 692,
+   "n_units": 11,
+   "words": 224,
+   "start_ref": "Matthew 21:1",
+   "end_ref": "Matthew 21:11",
+   "title": "Triumphal entry into Jerusalem",
+   "setting": [
+    "mount_of_olives",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s60",
+   "start": "matthew-21-12",
+   "end": "matthew-21-17",
+   "start_idx": 693,
+   "end_idx": 698,
+   "n_units": 6,
+   "words": 157,
+   "start_ref": "Matthew 21:12",
+   "end_ref": "Matthew 21:17",
+   "title": "Cleansing of the temple",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "crowds",
+     "named": false
+    },
+    {
+     "id": "chief_priests_and_elders",
+     "named": false
+    },
+    {
+     "id": "scribes",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s61",
+   "start": "matthew-21-18",
+   "end": "matthew-21-22",
+   "start_idx": 699,
+   "end_idx": 703,
+   "n_units": 5,
+   "words": 122,
+   "start_ref": "Matthew 21:18",
+   "end_ref": "Matthew 21:22",
+   "title": "The fig tree withers",
+   "setting": [
+    "bethany",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s62",
+   "start": "matthew-21-23",
+   "end": "matthew-21-32",
+   "start_idx": 704,
+   "end_idx": 713,
+   "n_units": 10,
+   "words": 275,
+   "start_ref": "Matthew 21:23",
+   "end_ref": "Matthew 21:32",
+   "title": "Authority questioned and the parable of the two sons",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "chief_priests_and_elders",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "john_the_baptizer"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s63",
+   "start": "matthew-21-33",
+   "end": "matthew-21-46",
+   "start_idx": 714,
+   "end_idx": 727,
+   "n_units": 14,
+   "words": 298,
+   "start_ref": "Matthew 21:33",
+   "end_ref": "Matthew 21:46",
+   "title": "Parable of the wicked tenants",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "chief_priests_and_elders",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s64",
+   "start": "matthew-22-1",
+   "end": "matthew-22-14",
+   "start_idx": 728,
+   "end_idx": 741,
+   "n_units": 14,
+   "words": 274,
+   "start_ref": "Matthew 22:1",
+   "end_ref": "Matthew 22:14",
+   "title": "Parable of the wedding feast",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "chief_priests_and_elders",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s65",
+   "start": "matthew-22-15",
+   "end": "matthew-22-22",
+   "start_idx": 742,
+   "end_idx": 749,
+   "n_units": 8,
+   "words": 142,
+   "start_ref": "Matthew 22:15",
+   "end_ref": "Matthew 22:22",
+   "title": "Question on taxes to Caesar",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "roman_soldiers",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s66",
+   "start": "matthew-22-23",
+   "end": "matthew-22-33",
+   "start_idx": 750,
+   "end_idx": 760,
+   "n_units": 11,
+   "words": 193,
+   "start_ref": "Matthew 22:23",
+   "end_ref": "Matthew 22:33",
+   "title": "Question on the resurrection",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "sadducees",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "moses"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s67",
+   "start": "matthew-22-34",
+   "end": "matthew-22-46",
+   "start_idx": 761,
+   "end_idx": 773,
+   "n_units": 13,
+   "words": 189,
+   "start_ref": "Matthew 22:34",
+   "end_ref": "Matthew 22:46",
+   "title": "The greatest commandment and David's son",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "lawyer_tester",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "david_king"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s68",
+   "start": "matthew-23-1",
+   "end": "matthew-23-12",
+   "start_idx": 774,
+   "end_idx": 785,
+   "n_units": 12,
+   "words": 195,
+   "start_ref": "Matthew 23:1",
+   "end_ref": "Matthew 23:12",
+   "title": "Jesus on the scribes and the Pharisees",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "scribes",
+    "pharisees"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s69",
+   "start": "matthew-23-13",
+   "end": "matthew-23-39",
+   "start_idx": 786,
+   "end_idx": 812,
+   "n_units": 27,
+   "words": 620,
+   "start_ref": "Matthew 23:13",
+   "end_ref": "Matthew 23:39",
+   "title": "Seven woes and the lament over Jerusalem",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "scribes",
+    "pharisees"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s70",
+   "start": "matthew-24-1",
+   "end": "matthew-24-14",
+   "start_idx": 813,
+   "end_idx": 826,
+   "n_units": 14,
+   "words": 276,
+   "start_ref": "Matthew 24:1",
+   "end_ref": "Matthew 24:14",
+   "title": "Prediction of the temple's destruction and signs of the end",
+   "setting": [
+    "mount_of_olives"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s71",
+   "start": "matthew-24-15",
+   "end": "matthew-24-28",
+   "start_idx": 827,
+   "end_idx": 840,
+   "n_units": 14,
+   "words": 260,
+   "start_ref": "Matthew 24:15",
+   "end_ref": "Matthew 24:28",
+   "title": "Great tribulation and warnings",
+   "setting": [
+    "mount_of_olives"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": [
+    "daniel_prophet_placeholder"
+   ]
+  },
+  {
+   "id": "MAT-s72",
+   "start": "matthew-24-29",
+   "end": "matthew-24-51",
+   "start_idx": 841,
+   "end_idx": 863,
+   "n_units": 23,
+   "words": 506,
+   "start_ref": "Matthew 24:29",
+   "end_ref": "Matthew 24:51",
+   "title": "The coming of the Son of Man and the parable of the watchful servant",
+   "setting": [
+    "mount_of_olives"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s73",
+   "start": "matthew-25-1",
+   "end": "matthew-25-30",
+   "start_idx": 864,
+   "end_idx": 893,
+   "n_units": 30,
+   "words": 603,
+   "start_ref": "Matthew 25:1",
+   "end_ref": "Matthew 25:30",
+   "title": "Parables of the ten virgins and the talents",
+   "setting": [
+    "mount_of_olives"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s74",
+   "start": "matthew-25-31",
+   "end": "matthew-25-46",
+   "start_idx": 894,
+   "end_idx": 909,
+   "n_units": 16,
+   "words": 373,
+   "start_ref": "Matthew 25:31",
+   "end_ref": "Matthew 25:46",
+   "title": "The sheep and the goats",
+   "setting": [
+    "mount_of_olives"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s75",
+   "start": "matthew-26-1",
+   "end": "matthew-26-5",
+   "start_idx": 910,
+   "end_idx": 914,
+   "n_units": 5,
+   "words": 88,
+   "start_ref": "Matthew 26:1",
+   "end_ref": "Matthew 26:5",
+   "title": "Plot to kill Jesus",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "chief_priests_and_elders",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "caiaphas"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s76",
+   "start": "matthew-26-6",
+   "end": "matthew-26-13",
+   "start_idx": 915,
+   "end_idx": 922,
+   "n_units": 8,
+   "words": 147,
+   "start_ref": "Matthew 26:6",
+   "end_ref": "Matthew 26:13",
+   "title": "Anointing at Bethany",
+   "setting": [
+    "bethany"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "simon_the_leper",
+     "named": true
+    },
+    {
+     "id": "anointing_woman",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s77",
+   "start": "matthew-26-14",
+   "end": "matthew-26-16",
+   "start_idx": 923,
+   "end_idx": 925,
+   "n_units": 3,
+   "words": 49,
+   "start_ref": "Matthew 26:14",
+   "end_ref": "Matthew 26:16",
+   "title": "Judas agrees to betray Jesus",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "judas_iscariot",
+     "named": true
+    },
+    {
+     "id": "chief_priests_and_elders",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s78",
+   "start": "matthew-26-17",
+   "end": "matthew-26-30",
+   "start_idx": 926,
+   "end_idx": 939,
+   "n_units": 14,
+   "words": 302,
+   "start_ref": "Matthew 26:17",
+   "end_ref": "Matthew 26:30",
+   "title": "The Last Supper",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    },
+    {
+     "id": "judas_iscariot",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s79",
+   "start": "matthew-26-31",
+   "end": "matthew-26-35",
+   "start_idx": 940,
+   "end_idx": 944,
+   "n_units": 5,
+   "words": 114,
+   "start_ref": "Matthew 26:31",
+   "end_ref": "Matthew 26:35",
+   "title": "Predictions of Peter's denial and the scattering",
+   "setting": [
+    "mount_of_olives"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s80",
+   "start": "matthew-26-36",
+   "end": "matthew-26-46",
+   "start_idx": 945,
+   "end_idx": 955,
+   "n_units": 11,
+   "words": 237,
+   "start_ref": "Matthew 26:36",
+   "end_ref": "Matthew 26:46",
+   "title": "Prayer in Gethsemane",
+   "setting": [
+    "gethsemane"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "james_son_of_zebedee",
+     "named": false
+    },
+    {
+     "id": "john_apostle",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s81",
+   "start": "matthew-26-47",
+   "end": "matthew-26-56",
+   "start_idx": 956,
+   "end_idx": 965,
+   "n_units": 10,
+   "words": 228,
+   "start_ref": "Matthew 26:47",
+   "end_ref": "Matthew 26:56",
+   "title": "Arrest of Jesus",
+   "setting": [
+    "gethsemane"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "judas_iscariot",
+     "named": true
+    },
+    {
+     "id": "crowds",
+     "named": false
+    },
+    {
+     "id": "chief_priests_and_elders",
+     "named": false
+    },
+    {
+     "id": "peter",
+     "named": false
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s82",
+   "start": "matthew-26-57",
+   "end": "matthew-26-68",
+   "start_idx": 966,
+   "end_idx": 977,
+   "n_units": 12,
+   "words": 261,
+   "start_ref": "Matthew 26:57",
+   "end_ref": "Matthew 26:68",
+   "title": "Trial before Caiaphas and the mockery",
+   "setting": [
+    "caiaphas_court"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "caiaphas",
+     "named": true
+    },
+    {
+     "id": "chief_priests_and_elders",
+     "named": false
+    },
+    {
+     "id": "scribes",
+     "named": false
+    },
+    {
+     "id": "peter",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s83",
+   "start": "matthew-26-69",
+   "end": "matthew-26-75",
+   "start_idx": 978,
+   "end_idx": 984,
+   "n_units": 7,
+   "words": 147,
+   "start_ref": "Matthew 26:69",
+   "end_ref": "Matthew 26:75",
+   "title": "Peter's denial",
+   "setting": [
+    "caiaphas_court"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s84",
+   "start": "matthew-27-1",
+   "end": "matthew-27-10",
+   "start_idx": 985,
+   "end_idx": 994,
+   "n_units": 10,
+   "words": 212,
+   "start_ref": "Matthew 27:1",
+   "end_ref": "Matthew 27:10",
+   "title": "Judas's remorse and the field of blood",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "judas_iscariot",
+     "named": true
+    },
+    {
+     "id": "chief_priests_and_elders",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jesus"
+   ],
+   "unknown_ids": [
+    "jeremiah_prophet_placeholder"
+   ]
+  },
+  {
+   "id": "MAT-s85",
+   "start": "matthew-27-11",
+   "end": "matthew-27-26",
+   "start_idx": 995,
+   "end_idx": 1010,
+   "n_units": 16,
+   "words": 319,
+   "start_ref": "Matthew 27:11",
+   "end_ref": "Matthew 27:26",
+   "title": "Jesus before Pilate and the choice of Barabbas",
+   "setting": [
+    "praetorium"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "pontius_pilate",
+     "named": true
+    },
+    {
+     "id": "barabbas",
+     "named": true
+    },
+    {
+     "id": "chief_priests_and_elders",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s86",
+   "start": "matthew-27-27",
+   "end": "matthew-27-44",
+   "start_idx": 1011,
+   "end_idx": 1028,
+   "n_units": 18,
+   "words": 335,
+   "start_ref": "Matthew 27:27",
+   "end_ref": "Matthew 27:44",
+   "title": "Mockery and the road to Golgotha",
+   "setting": [
+    "praetorium",
+    "golgotha"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "roman_soldiers",
+     "named": false
+    },
+    {
+     "id": "simon_of_cyrene",
+     "named": false
+    },
+    {
+     "id": "crowds",
+     "named": false
+    },
+    {
+     "id": "thieves_crucified",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s87",
+   "start": "matthew-27-45",
+   "end": "matthew-27-56",
+   "start_idx": 1029,
+   "end_idx": 1040,
+   "n_units": 12,
+   "words": 233,
+   "start_ref": "Matthew 27:45",
+   "end_ref": "Matthew 27:56",
+   "title": "The crucifixion and death of Jesus",
+   "setting": [
+    "golgotha"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "roman_soldiers",
+     "named": false
+    },
+    {
+     "id": "centurion_at_cross",
+     "named": false
+    },
+    {
+     "id": "mary_magdalene",
+     "named": true
+    },
+    {
+     "id": "mary_mother_of_james_and_joses",
+     "named": false
+    },
+    {
+     "id": "thieves_crucified",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "elijah"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s88",
+   "start": "matthew-27-57",
+   "end": "matthew-27-66",
+   "start_idx": 1041,
+   "end_idx": 1050,
+   "n_units": 10,
+   "words": 208,
+   "start_ref": "Matthew 27:57",
+   "end_ref": "Matthew 27:66",
+   "title": "Burial and the sealed tomb",
+   "setting": [
+    "joseph_tomb",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph_of_arimathea",
+     "named": false
+    },
+    {
+     "id": "mary_magdalene",
+     "named": true
+    },
+    {
+     "id": "chief_priests_and_elders",
+     "named": false
+    },
+    {
+     "id": "roman_soldiers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "pontius_pilate",
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s89",
+   "start": "matthew-28-1",
+   "end": "matthew-28-8",
+   "start_idx": 1051,
+   "end_idx": 1058,
+   "n_units": 8,
+   "words": 168,
+   "start_ref": "Matthew 28:1",
+   "end_ref": "Matthew 28:8",
+   "title": "The angel at the empty tomb",
+   "setting": [
+    "tomb_of_the_resurrection"
+   ],
+   "on_stage": [
+    {
+     "id": "mary_magdalene",
+     "named": true
+    },
+    {
+     "id": "mary_mother_of_james_and_joses",
+     "named": false
+    },
+    {
+     "id": "angel_of_the_lord",
+     "named": false
+    },
+    {
+     "id": "roman_soldiers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s90",
+   "start": "matthew-28-9",
+   "end": "matthew-28-15",
+   "start_idx": 1059,
+   "end_idx": 1065,
+   "n_units": 7,
+   "words": 149,
+   "start_ref": "Matthew 28:9",
+   "end_ref": "Matthew 28:15",
+   "title": "Jesus meets the women and the guards' report",
+   "setting": [
+    "tomb_of_the_resurrection",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "mary_magdalene",
+     "named": false
+    },
+    {
+     "id": "mary_mother_of_james_and_joses",
+     "named": false
+    },
+    {
+     "id": "roman_soldiers",
+     "named": false
+    },
+    {
+     "id": "chief_priests_and_elders",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "MAT-s91",
+   "start": "matthew-28-16",
+   "end": "matthew-28-20",
+   "start_idx": 1066,
+   "end_idx": 1070,
+   "n_units": 5,
+   "words": 96,
+   "start_ref": "Matthew 28:16",
+   "end_ref": "Matthew 28:20",
+   "title": "The commissioning on the mountain in Galilee",
+   "setting": [
+    "galilee_region"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  }
+ ],
+ "brief": {
+  "tone": "Reverent and luminous in the miracles and birth scenes, grave and sorrowful through the passion, with austere moral weight in the teaching discourses.",
+  "depiction_rules": [
+   "Show Jesus as central and always identifiable; avoid depicting God the Father directly, use a voice from the cloud or light.",
+   "Angels appear as luminous human-like messengers, not winged cherubs drawn from later tradition unless the scene calls for it.",
+   "Depict the Holy Spirit as a dove in the baptism scene only, as the text describes.",
+   "The crucifixion may be shown but without gratuitous gore; the veil torn and the darkness are depicted as signs, not spectacle.",
+   "Parables are shown as realistic scenes of rural and town life of the period rather than allegorical symbols.",
+   "Avoid antisemitic caricature of Pharisees, scribes and crowds; show them as individuals with varied expressions."
+  ],
+  "era": {
+   "name": "First-century Roman Judea and Galilee",
+   "people": "Jewish villagers, fishermen, shepherds, tax collectors, Roman soldiers and officials, Pharisees and priests in traditional dress; Gentiles from Tyre, Sidon and Syria appear in some scenes.",
+   "dress": "Tunics and cloaks with fringed garments, head coverings, sandals, linen and wool; Roman soldiers in armor and tunics; priests in linen robes; women with veils.",
+   "buildings_and_objects": "Stone and mud-brick houses with flat roofs, village synagogues, the Jerusalem temple with courts and veil, marketplaces, vineyards, threshing floors, fishing boats and nets, oil lamps, clay jars, tombs cut in rock.",
+   "technology": "No gunpowder, printing or clocks; oil lamps, boats with sails and oars, hand mills, ox carts, coins such as denarii and shekels. Writing exists on scrolls and parchment."
+  }
+ },
+ "checks": {
+  "bad_section_ids": [],
+  "uncovered_units": 0,
+  "uncovered_sample": [],
+  "overlap_units": 0,
+  "sections_with_unknown_ids": 3
+ }
+}

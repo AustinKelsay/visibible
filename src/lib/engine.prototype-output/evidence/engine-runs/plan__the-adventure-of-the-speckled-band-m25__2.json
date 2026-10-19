@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__the-adventure-of-the-speckled-band-m25",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424188-oHuRerpxWqXaUWDeXTNw",
+  "seconds": 5.9,
+  "finish_reason": "stop",
+  "prompt_tokens": 2041,
+  "completion_tokens": 362,
+  "cost": 0.0003851,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:36:31"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 4076,
+ "content": "{\"primarySubject\":\"Sherlock Holmes and Dr. Watson standing with Helen Stoner on the manor lawn, Holmes gesturing toward the village inn across the fields\",\"action\":\"Holmes speaks earnestly while pointing toward the distant inn; Miss Stoner listens with hands clasped, Watson looks on in quiet astonishment\",\"setting\":\"Stoke Moran manor grounds in rural Surrey, a sloping lawn with hedgerows and fields beyond, the village inn visible in the distance\",\"secondaryElements\":\"Damp rural chill, a few bare trees, a manor window beginning to show, plain high-necked dress and shawl for Miss Stoner, tweed and ulster for Watson, frock-coat for Holmes\",\"mood\":\"Grave, tense, intimate and restrained, with a sense of impending danger\",\"timeOfDay\":\"Late afternoon, dim grey daylight fading toward dusk\",\"composition\":\"Medium-wide shot from the lawn, figures grouped in the lower third, the inn and fields receding to the horizon under overcast sky\"}",
+ "parsed": {
+  "primarySubject": "Sherlock Holmes and Dr. Watson standing with Helen Stoner on the manor lawn, Holmes gesturing toward the village inn across the fields",
+  "action": "Holmes speaks earnestly while pointing toward the distant inn; Miss Stoner listens with hands clasped, Watson looks on in quiet astonishment",
+  "setting": "Stoke Moran manor grounds in rural Surrey, a sloping lawn with hedgerows and fields beyond, the village inn visible in the distance",
+  "secondaryElements": "Damp rural chill, a few bare trees, a manor window beginning to show, plain high-necked dress and shawl for Miss Stoner, tweed and ulster for Watson, frock-coat for Holmes",
+  "mood": "Grave, tense, intimate and restrained, with a sense of impending danger",
+  "timeOfDay": "Late afternoon, dim grey daylight fading toward dusk",
+  "composition": "Medium-wide shot from the lawn, figures grouped in the lower third, the inn and fields receding to the horizon under overcast sky"
+ },
+ "usage": {
+  "prompt_tokens": 2041,
+  "completion_tokens": 362,
+  "total_tokens": 2403,
+  "cost": 0.0003851,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003851,
+   "upstream_inference_prompt_cost": 0.0002041,
+   "upstream_inference_completions_cost": 0.000181
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

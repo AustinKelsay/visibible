@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__the-adventure-of-the-speckled-band-m36",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424186-7yJTPlDMw0gSV29LhicT",
+  "seconds": 2.7,
+  "finish_reason": "stop",
+  "prompt_tokens": 1578,
+  "completion_tokens": 286,
+  "cost": 0.0003008,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:36:29"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 2738,
+ "content": "{\"primarySubject\":\"Sherlock Holmes and Dr. Watson seated opposite each other in a railway carriage\",\"action\":\"Holmes leans forward speaking earnestly while Watson listens attentively, notebook closed on his knee\",\"setting\":\"Interior of a Victorian railway carriage travelling back to London through the Surrey countryside\",\"secondaryElements\":\"Plush-upholstered seats, window showing grey fields and hedgerows, Holmes in tweed travelling clothes and Watson in a dark frock-coat, a folded newspaper on the seat beside them\",\"mood\":\"Reflective, restrained and intimate, with quiet gravity after the night's death\",\"timeOfDay\":\"Morning, overcast grey daylight through the carriage window\",\"composition\":\"Two-shot framed through the compartment, figures seated facing each other across the frame with the window light falling across them\"}",
+ "parsed": {
+  "primarySubject": "Sherlock Holmes and Dr. Watson seated opposite each other in a railway carriage",
+  "action": "Holmes leans forward speaking earnestly while Watson listens attentively, notebook closed on his knee",
+  "setting": "Interior of a Victorian railway carriage travelling back to London through the Surrey countryside",
+  "secondaryElements": "Plush-upholstered seats, window showing grey fields and hedgerows, Holmes in tweed travelling clothes and Watson in a dark frock-coat, a folded newspaper on the seat beside them",
+  "mood": "Reflective, restrained and intimate, with quiet gravity after the night's death",
+  "timeOfDay": "Morning, overcast grey daylight through the carriage window",
+  "composition": "Two-shot framed through the compartment, figures seated facing each other across the frame with the window light falling across them"
+ },
+ "usage": {
+  "prompt_tokens": 1578,
+  "completion_tokens": 286,
+  "total_tokens": 1864,
+  "cost": 0.0003008,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003008,
+   "upstream_inference_prompt_cost": 0.0001578,
+   "upstream_inference_completions_cost": 0.000143
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

@@ -1,0 +1,466 @@
+{
+ "work": "holmes-adventures",
+ "division": "a-case-of-identity",
+ "division_name": "A Case Of Identity",
+ "units": 137,
+ "record": {
+  "label": "holmes-adventures__a-case-of-identity__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354402-o3FijiNZwTqC1TkAhYWw",
+  "seconds": 18.5,
+  "finish_reason": "stop",
+  "prompt_tokens": 15471,
+  "completion_tokens": 2676,
+  "cost": 0.0028851,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:13:40"
+ },
+ "characters": [
+  {
+   "id": "sherlock_holmes",
+   "name": "Sherlock Holmes",
+   "aliases": [
+    "Holmes"
+   ],
+   "note": "Consulting detective at Baker Street; narrates through Watson's eyes; the investigator who unmasks the disguise.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "watson",
+   "name": "Dr. Watson",
+   "aliases": [
+    "Watson",
+    "I",
+    "the doctor"
+   ],
+   "note": "Holmes's friend and companion, narrator of the story; a doctor with a busy practice.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mary_sutherland",
+   "name": "Miss Mary Sutherland",
+   "aliases": [
+    "the young lady",
+    "the maiden",
+    "Miss Sutherland"
+   ],
+   "note": "Typewriting young woman, client who seeks Holmes's help about her missing fiancé; daughter of the late plumber.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "hosmer_angel",
+   "name": "Mr. Hosmer Angel",
+   "aliases": [
+    "Hosmer",
+    "the missing bridegroom",
+    "Mr. Angel",
+    "the gentleman with tinted glasses"
+   ],
+   "note": "Fiancé who vanished at the church door; actually a disguise adopted by James Windibank. Not a real person in the story.",
+   "kind": "person",
+   "same_person_as": "james_windibank"
+  },
+  {
+   "id": "james_windibank",
+   "name": "Mr. James Windibank",
+   "aliases": [
+    "Mr. Windibank",
+    "stepfather",
+    "the stepfather",
+    "father",
+    "the travelling wine agent"
+   ],
+   "note": "Mary's stepfather, a traveller for Westhouse & Marbank; secretly disguised as Hosmer Angel; married to Mary's mother.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mrs_sutherland",
+   "name": "Mary's mother",
+   "aliases": [
+    "mother",
+    "Mrs. Sutherland"
+   ],
+   "note": "Widow who remarried Windibank; encouraged Mary's engagement to Angel and was in on the deception; not on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mr_hardy",
+   "name": "Mr. Hardy",
+   "aliases": [
+    "the foreman"
+   ],
+   "note": "Former foreman of Mary's late father's plumbing business; escorted the women to the gasfitters' ball; mentioned only.",
+   "kind": "person",
+   "same_person_as": ""
+  }
+ ],
+ "locations": [
+  {
+   "id": "baker_street_lodgings",
+   "name": "Baker Street lodgings",
+   "aliases": [
+    "Baker Street",
+    "Holmes's rooms",
+    "his lodgings"
+   ],
+   "note": "Sherlock Holmes's sitting room at 221B Baker Street, with fireplace, armchairs and chemical apparatus."
+  },
+  {
+   "id": "leadenhall_street",
+   "name": "Leadenhall Street",
+   "aliases": [
+    "the office in Leadenhall Street"
+   ],
+   "note": "City street where Angel supposedly worked as a cashier and where the letters were addressed; mentioned only."
+  },
+  {
+   "id": "st_saviours_church",
+   "name": "St. Saviour's church, King's Cross",
+   "aliases": [
+    "the church",
+    "St. Saviour's"
+   ],
+   "note": "Church where the wedding was to take place and where Angel vanished; mentioned only."
+  },
+  {
+   "id": "lyon_place",
+   "name": "31 Lyon Place, Camberwell",
+   "aliases": [
+    "Mary's home",
+    "Camberwell"
+   ],
+   "note": "Mary Sutherland's home address; mentioned only."
+  }
+ ],
+ "sections": [
+  {
+   "id": "a-case-of-identity-s1",
+   "start": "a-case-of-identity-1",
+   "end": "a-case-of-identity-11",
+   "start_idx": 0,
+   "end_idx": 10,
+   "n_units": 11,
+   "words": 755,
+   "start_ref": "A Case Of Identity ¶1",
+   "end_ref": "A Case Of Identity ¶11",
+   "title": "Fireside talk on life and fiction",
+   "setting": [
+    "baker_street_lodgings"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-case-of-identity-s2",
+   "start": "a-case-of-identity-12",
+   "end": "a-case-of-identity-30",
+   "start_idx": 11,
+   "end_idx": 29,
+   "n_units": 19,
+   "words": 1042,
+   "start_ref": "A Case Of Identity ¶12",
+   "end_ref": "A Case Of Identity ¶30",
+   "title": "Arrival of Miss Sutherland",
+   "setting": [
+    "baker_street_lodgings"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "mary_sutherland",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "james_windibank",
+    "mrs_sutherland"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-case-of-identity-s3",
+   "start": "a-case-of-identity-31",
+   "end": "a-case-of-identity-50",
+   "start_idx": 30,
+   "end_idx": 49,
+   "n_units": 20,
+   "words": 668,
+   "start_ref": "A Case Of Identity ¶31",
+   "end_ref": "A Case Of Identity ¶50",
+   "title": "Mary's courtship by Hosmer Angel",
+   "setting": [
+    "baker_street_lodgings"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "mary_sutherland",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "hosmer_angel",
+    "james_windibank",
+    "mrs_sutherland",
+    "mr_hardy"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-case-of-identity-s4",
+   "start": "a-case-of-identity-51",
+   "end": "a-case-of-identity-67",
+   "start_idx": 50,
+   "end_idx": 66,
+   "n_units": 17,
+   "words": 787,
+   "start_ref": "A Case Of Identity ¶51",
+   "end_ref": "A Case Of Identity ¶67",
+   "title": "The wedding morning and the vanished bridegroom",
+   "setting": [
+    "baker_street_lodgings",
+    "st_saviours_church"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "mary_sutherland",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "hosmer_angel",
+    "james_windibank",
+    "mrs_sutherland"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-case-of-identity-s5",
+   "start": "a-case-of-identity-68",
+   "end": "a-case-of-identity-80",
+   "start_idx": 67,
+   "end_idx": 79,
+   "n_units": 13,
+   "words": 279,
+   "start_ref": "A Case Of Identity ¶68",
+   "end_ref": "A Case Of Identity ¶80",
+   "title": "Holmes takes the case; Mary departs",
+   "setting": [
+    "baker_street_lodgings"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "mary_sutherland",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "hosmer_angel"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-case-of-identity-s6",
+   "start": "a-case-of-identity-81",
+   "end": "a-case-of-identity-101",
+   "start_idx": 80,
+   "end_idx": 100,
+   "n_units": 21,
+   "words": 1222,
+   "start_ref": "A Case Of Identity ¶81",
+   "end_ref": "A Case Of Identity ¶101",
+   "title": "Holmes reads the clues; letters sent",
+   "setting": [
+    "baker_street_lodgings"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "hosmer_angel",
+    "mary_sutherland"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-case-of-identity-s7",
+   "start": "a-case-of-identity-102",
+   "end": "a-case-of-identity-110",
+   "start_idx": 101,
+   "end_idx": 109,
+   "n_units": 9,
+   "words": 329,
+   "start_ref": "A Case Of Identity ¶102",
+   "end_ref": "A Case Of Identity ¶110",
+   "title": "Windibank arrives",
+   "setting": [
+    "baker_street_lodgings"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "james_windibank",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "mary_sutherland",
+    "hosmer_angel"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-case-of-identity-s8",
+   "start": "a-case-of-identity-111",
+   "end": "a-case-of-identity-130",
+   "start_idx": 110,
+   "end_idx": 129,
+   "n_units": 20,
+   "words": 1484,
+   "start_ref": "A Case Of Identity ¶111",
+   "end_ref": "A Case Of Identity ¶130",
+   "title": "Confrontation and the unmasking",
+   "setting": [
+    "baker_street_lodgings"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "james_windibank",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "mary_sutherland",
+    "mrs_sutherland",
+    "hosmer_angel"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-case-of-identity-s9",
+   "start": "a-case-of-identity-131",
+   "end": "a-case-of-identity-137",
+   "start_idx": 130,
+   "end_idx": 136,
+   "n_units": 7,
+   "words": 409,
+   "start_ref": "A Case Of Identity ¶131",
+   "end_ref": "A Case Of Identity ¶137",
+   "title": "Holmes explains his reasoning",
+   "setting": [
+    "baker_street_lodgings"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "james_windibank",
+    "mary_sutherland",
+    "hosmer_angel"
+   ],
+   "unknown_ids": []
+  }
+ ],
+ "brief": {
+  "tone": "Quiet, domestic Victorian detective mystery with an undercurrent of comic deceit and sly irony rather than menace.",
+  "depiction_rules": [
+   "Holmes is tall, thin, sharp-featured, in a dressing gown or shirt-sleeves in his rooms, with a clay pipe and the gaunt air of a man absorbed in thought.",
+   "Watson is a stout-to-average, mustachioed doctor in a frock-coat, seen mostly as an attentive observer.",
+   "Mary Sutherland is a broad-faced, good-humoured young woman in a large feathered hat, fur boa and brown dress with purple plush trim; she should look nervous but simple-hearted.",
+   "Windibank in disguise (as Angel) wears tinted glasses, bushy black side-whiskers and moustache; unmasked he is clean-shaven, sallow and sharp-eyed.",
+   "Do not depict the disguise as anything more than a costume; the fraud is a domestic trick, not violence.",
+   "The wedding-day cab and church need only be suggested in the reading room; avoid gore or alarm."
+  ],
+  "era": {
+   "name": "London, 1880s, late Victorian",
+   "people": "Londoners of the lower middle class: typewriters, clerks, plumbers, wine travellers, cab drivers; women of modest means in wide-brimmed hats and bustles.",
+   "dress": "Frock-coats, top-hats, high collars and tinted spectacles for men; broad-brimmed feathered hats, fur boas, jet-bead jackets and plush-trimmed dresses for women.",
+   "buildings_and_objects": "Gaslit Baker Street rooms with a coal fire, hansom cabs and four-wheelers, a St. Saviour's-style church near King's Cross, Leadenhall Street offices, Post Office poste restante, printed newspaper advertisements, chemical glassware and test-tubes.",
+   "technology": "Typewriters exist and are a new novelty in offices; telegrams and the post are current; no telephone, electric light, or motorcars."
+  }
+ },
+ "checks": {
+  "bad_section_ids": [],
+  "uncovered_units": 0,
+  "uncovered_sample": [],
+  "overlap_units": 0,
+  "sections_with_unknown_ids": 0
+ }
+}

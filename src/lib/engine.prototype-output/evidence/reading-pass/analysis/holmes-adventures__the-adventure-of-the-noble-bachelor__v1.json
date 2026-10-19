@@ -1,0 +1,689 @@
+{
+ "work": "holmes-adventures",
+ "division": "the-adventure-of-the-noble-bachelor",
+ "division_name": "The Adventure Of The Noble Bachelor",
+ "units": 226,
+ "record": {
+  "label": "holmes-adventures__the-adventure-of-the-noble-bachelor__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354456-fe4brqoPr8g6qV2Gxwsx",
+  "seconds": 14.5,
+  "finish_reason": "stop",
+  "prompt_tokens": 18018,
+  "completion_tokens": 3661,
+  "cost": 0.0036323,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:30"
+ },
+ "characters": [
+  {
+   "id": "sherlock_holmes",
+   "name": "Sherlock Holmes",
+   "aliases": [
+    "Holmes",
+    "my friend",
+    "Master Holmes"
+   ],
+   "note": "Consulting detective living in Baker Street; narrator Watson's friend; takes Lord St. Simon's case and solves it.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "watson",
+   "name": "Dr. Watson",
+   "aliases": [
+    "Watson",
+    "I",
+    "narrator"
+   ],
+   "note": "Narrator and Holmes's companion and fellow lodger in Baker Street; a doctor back from Afghanistan with a wounded leg.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lord_st_simon",
+   "name": "Lord Robert St. Simon",
+   "aliases": [
+    "Lord St. Simon",
+    "our client",
+    "the bridegroom",
+    "his Lordship"
+   ],
+   "note": "Aristocratic second son of the Duke of Balmoral, around forty-one, pale and fussy, who married Hatty Doran and was deserted at the wedding breakfast.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "hatty_doran",
+   "name": "Hatty Doran",
+   "aliases": [
+    "Lady St. Simon",
+    "Mrs. Francis Hay Moulton",
+    "the bride",
+    "Mrs. Moulton"
+   ],
+   "note": "Daughter of Aloysius Doran of San Francisco; the bride who vanished at the wedding breakfast to run off with her first husband Frank Moulton.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "francis_hay_moulton",
+   "name": "Francis Hay Moulton",
+   "aliases": [
+    "Frank",
+    "Mr. Moulton",
+    "Frank Moulton",
+    "the American",
+    "the stranger in the pew"
+   ],
+   "note": "Small, wiry, sunburnt American prospector, Hatty's first husband, presumed dead in the Apache attack; appears as the man in the pew at the wedding.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lestrade",
+   "name": "Lestrade",
+   "aliases": [
+    "Mr. Lestrade",
+    "the official detective",
+    "Scotland Yard man"
+   ],
+   "note": "Inspector of Scotland Yard working the case; wears a pea-jacket and drags the Serpentine.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "flora_millar",
+   "name": "Flora Millar",
+   "aliases": [
+    "Miss Flora Millar",
+    "F. H. M.",
+    "the woman in the church",
+    "the woman who caused the disturbance"
+   ],
+   "note": "Former dancer at the Allegro and former mistress of Lord St. Simon; arrested after causing a disturbance at the Doran house. Not to be confused with Frank Moulton, whose initials are also F. H. M.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "alice",
+   "name": "Alice",
+   "aliases": [
+    "the maid",
+    "Lady St. Simon's maid"
+   ],
+   "note": "Hatty Doran's American maid from California, who packed the bride's ulster and bonnet.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "aloysius_doran",
+   "name": "Aloysius Doran",
+   "aliases": [
+    "Mr. Doran",
+    "Pa",
+    "the father of the bride"
+   ],
+   "note": "Rich San Francisco mining man and father of Hatty Doran.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "duke_of_balmoral",
+   "name": "Duke of Balmoral",
+   "aliases": [
+    "the Duke",
+    "the Duchess of Balmoral"
+   ],
+   "note": "Father of Lord St. Simon; referred to but absent from the action.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lord_backwater",
+   "name": "Lord Backwater",
+   "aliases": [],
+   "note": "Acquaintance who recommended Holmes to Lord St. Simon; referred to but absent.",
+   "kind": "person",
+   "same_person_as": ""
+  }
+ ],
+ "locations": [
+  {
+   "id": "baker_street_rooms",
+   "name": "Baker Street rooms",
+   "aliases": [
+    "Baker Street",
+    "our lodgings",
+    "our rooms"
+   ],
+   "note": "Holmes and Watson's shared lodgings, where the interviews and supper take place."
+  },
+  {
+   "id": "grosvenor_mansions",
+   "name": "Grosvenor Mansions",
+   "aliases": [],
+   "note": "Lord St. Simon's residence, named in his letter; referred to only."
+  },
+  {
+   "id": "st_georges_hanover_square",
+   "name": "St. George's, Hanover Square",
+   "aliases": [
+    "the church",
+    "the vestry"
+   ],
+   "note": "Church where the wedding ceremony took place."
+  },
+  {
+   "id": "doran_house_lancaster_gate",
+   "name": "Doran house, Lancaster Gate",
+   "aliases": [
+    "the breakfast room",
+    "Mr. Doran's house"
+   ],
+   "note": "Furnished house at Lancaster Gate where the wedding breakfast took place and the bride vanished."
+  },
+  {
+   "id": "hyde_park",
+   "name": "Hyde Park",
+   "aliases": [
+    "the Park"
+   ],
+   "note": "Park into which Hatty followed Frank after leaving the house."
+  },
+  {
+   "id": "serpentine",
+   "name": "the Serpentine",
+   "aliases": [],
+   "note": "Lake in Hyde Park where Lestrade dragged for the bride's body and found her wedding clothes."
+  },
+  {
+   "id": "gordon_square",
+   "name": "Gordon Square",
+   "aliases": [
+    "226 Gordon Square"
+   ],
+   "note": "Lodgings where Hatty and Frank went after leaving the Park."
+  }
+ ],
+ "sections": [
+  {
+   "id": "the-adventure-of-the-noble-bachelor-s1",
+   "start": "the-adventure-of-the-noble-bachelor-1",
+   "end": "the-adventure-of-the-noble-bachelor-16",
+   "start_idx": 0,
+   "end_idx": 15,
+   "n_units": 16,
+   "words": 531,
+   "start_ref": "The Adventure Of The Noble Bachelor ¶1",
+   "end_ref": "The Adventure Of The Noble Bachelor ¶16",
+   "title": "Lord St. Simon's letter and the newspaper cuttings",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "lord_st_simon",
+    "hatty_doran",
+    "aloysius_doran",
+    "flora_millar"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-noble-bachelor-s2",
+   "start": "the-adventure-of-the-noble-bachelor-17",
+   "end": "the-adventure-of-the-noble-bachelor-45",
+   "start_idx": 16,
+   "end_idx": 44,
+   "n_units": 29,
+   "words": 1610,
+   "start_ref": "The Adventure Of The Noble Bachelor ¶17",
+   "end_ref": "The Adventure Of The Noble Bachelor ¶45",
+   "title": "Holmes reads the notice and the newspaper account",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "lord_st_simon",
+    "hatty_doran",
+    "aloysius_doran",
+    "flora_millar",
+    "duke_of_balmoral",
+    "lord_backwater"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-noble-bachelor-s3",
+   "start": "the-adventure-of-the-noble-bachelor-46",
+   "end": "the-adventure-of-the-noble-bachelor-80",
+   "start_idx": 45,
+   "end_idx": 79,
+   "n_units": 35,
+   "words": 808,
+   "start_ref": "The Adventure Of The Noble Bachelor ¶46",
+   "end_ref": "The Adventure Of The Noble Bachelor ¶80",
+   "title": "Lord St. Simon's first interview",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "lord_st_simon",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "hatty_doran",
+    "aloysius_doran"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-noble-bachelor-s4",
+   "start": "the-adventure-of-the-noble-bachelor-81",
+   "end": "the-adventure-of-the-noble-bachelor-110",
+   "start_idx": 80,
+   "end_idx": 109,
+   "n_units": 30,
+   "words": 509,
+   "start_ref": "The Adventure Of The Noble Bachelor ¶81",
+   "end_ref": "The Adventure Of The Noble Bachelor ¶110",
+   "title": "The wedding morning and the maid",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": false
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "lord_st_simon",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "hatty_doran",
+    "alice",
+    "aloysius_doran"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-noble-bachelor-s5",
+   "start": "the-adventure-of-the-noble-bachelor-111",
+   "end": "the-adventure-of-the-noble-bachelor-128",
+   "start_idx": 110,
+   "end_idx": 127,
+   "n_units": 18,
+   "words": 539,
+   "start_ref": "The Adventure Of The Noble Bachelor ¶111",
+   "end_ref": "The Adventure Of The Noble Bachelor ¶128",
+   "title": "Flora Millar and the disturbance at the house",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "lord_st_simon",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "flora_millar",
+    "hatty_doran"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-noble-bachelor-s6",
+   "start": "the-adventure-of-the-noble-bachelor-129",
+   "end": "the-adventure-of-the-noble-bachelor-141",
+   "start_idx": 128,
+   "end_idx": 140,
+   "n_units": 13,
+   "words": 275,
+   "start_ref": "The Adventure Of The Noble Bachelor ¶129",
+   "end_ref": "The Adventure Of The Noble Bachelor ¶141",
+   "title": "Holmes's conclusions and Lord St. Simon's departure",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "lord_st_simon",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "hatty_doran"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-noble-bachelor-s7",
+   "start": "the-adventure-of-the-noble-bachelor-142",
+   "end": "the-adventure-of-the-noble-bachelor-158",
+   "start_idx": 141,
+   "end_idx": 157,
+   "n_units": 17,
+   "words": 245,
+   "start_ref": "The Adventure Of The Noble Bachelor ¶142",
+   "end_ref": "The Adventure Of The Noble Bachelor ¶158",
+   "title": "Lestrade arrives with the wedding clothes",
+   "setting": [
+    "baker_street_rooms",
+    "serpentine"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "lestrade",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "hatty_doran"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-noble-bachelor-s8",
+   "start": "the-adventure-of-the-noble-bachelor-159",
+   "end": "the-adventure-of-the-noble-bachelor-178",
+   "start_idx": 158,
+   "end_idx": 177,
+   "n_units": 20,
+   "words": 594,
+   "start_ref": "The Adventure Of The Noble Bachelor ¶159",
+   "end_ref": "The Adventure Of The Noble Bachelor ¶178",
+   "title": "The note and the hotel bill",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "lestrade",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "flora_millar",
+    "hatty_doran"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-noble-bachelor-s9",
+   "start": "the-adventure-of-the-noble-bachelor-179",
+   "end": "the-adventure-of-the-noble-bachelor-186",
+   "start_idx": 178,
+   "end_idx": 185,
+   "n_units": 8,
+   "words": 320,
+   "start_ref": "The Adventure Of The Noble Bachelor ¶179",
+   "end_ref": "The Adventure Of The Noble Bachelor ¶186",
+   "title": "Lestrade leaves and the supper arrives",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "lestrade",
+    "lord_st_simon"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-noble-bachelor-s10",
+   "start": "the-adventure-of-the-noble-bachelor-187",
+   "end": "the-adventure-of-the-noble-bachelor-200",
+   "start_idx": 186,
+   "end_idx": 199,
+   "n_units": 14,
+   "words": 354,
+   "start_ref": "The Adventure Of The Noble Bachelor ¶187",
+   "end_ref": "The Adventure Of The Noble Bachelor ¶200",
+   "title": "Lord St. Simon meets Hatty and Frank",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "lord_st_simon",
+     "named": true
+    },
+    {
+     "id": "hatty_doran",
+     "named": true
+    },
+    {
+     "id": "francis_hay_moulton",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-noble-bachelor-s11",
+   "start": "the-adventure-of-the-noble-bachelor-201",
+   "end": "the-adventure-of-the-noble-bachelor-210",
+   "start_idx": 200,
+   "end_idx": 209,
+   "n_units": 10,
+   "words": 1344,
+   "start_ref": "The Adventure Of The Noble Bachelor ¶201",
+   "end_ref": "The Adventure Of The Noble Bachelor ¶210",
+   "title": "Hatty tells her story",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "lord_st_simon",
+     "named": true
+    },
+    {
+     "id": "hatty_doran",
+     "named": true
+    },
+    {
+     "id": "francis_hay_moulton",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "alice"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-noble-bachelor-s12",
+   "start": "the-adventure-of-the-noble-bachelor-211",
+   "end": "the-adventure-of-the-noble-bachelor-217",
+   "start_idx": 210,
+   "end_idx": 216,
+   "n_units": 7,
+   "words": 242,
+   "start_ref": "The Adventure Of The Noble Bachelor ¶211",
+   "end_ref": "The Adventure Of The Noble Bachelor ¶217",
+   "title": "Lord St. Simon leaves and the supper",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "lord_st_simon",
+     "named": true
+    },
+    {
+     "id": "hatty_doran",
+     "named": true
+    },
+    {
+     "id": "francis_hay_moulton",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-adventure-of-the-noble-bachelor-s13",
+   "start": "the-adventure-of-the-noble-bachelor-218",
+   "end": "the-adventure-of-the-noble-bachelor-226",
+   "start_idx": 217,
+   "end_idx": 225,
+   "n_units": 9,
+   "words": 731,
+   "start_ref": "The Adventure Of The Noble Bachelor ¶218",
+   "end_ref": "The Adventure Of The Noble Bachelor ¶226",
+   "title": "Holmes explains his reasoning",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "lord_st_simon",
+    "hatty_doran",
+    "francis_hay_moulton",
+    "lestrade"
+   ],
+   "unknown_ids": []
+  }
+ ],
+ "brief": {
+  "tone": "Urbane Victorian detective mystery with a wry, faintly comic undertone and domestic intimacy in the Baker Street rooms.",
+  "depiction_rules": [
+   "Show Holmes and Watson in the Baker Street rooms in Victorian dress, with fire, papers, and the supper laid out.",
+   "Lord St. Simon is a fastidious aristocrat: high collar, frock-coat, yellow gloves, golden eyeglasses on a cord.",
+   "Hatty Doran should be shown with lustrous dark hair and a striking face, consistent with the ivory miniature.",
+   "Do not show the bride's flight or the Serpentine search as violent; keep the mood civil and sly.",
+   "Avoid depicting the Apache attack in detail; Frank's past is told only in speech."
+  ],
+  "era": {
+   "name": "Victorian London, c. 1888-1890s, with American Western backstory (California, Montana, Arizona, New Mexico)",
+   "people": "English aristocrats, Scotland Yard officers, and London servants; Americans from San Francisco and mining camps of the Rockies and the Pacific slope, rugged and sunburnt.",
+   "dress": "Frock-coats, high collars, top hats, ulsters and bonnets for women, wedding silk and satin with veil and wreath; policemen in pea-jacket and cravat for Lestrade.",
+   "buildings_and_objects": "Gas-lit Baker Street lodgings with mahogany table and basket-chair, Hanover Square church, Lancaster Gate townhouse, Hyde Park and the Serpentine, Northumberland Avenue hotel, cards, newspapers, and cigars.",
+   "technology": "Newspapers and printed society columns, hansom cabs, handwritten letters with quill pens, pencil notes; no telephone or photography beyond the miniature and cartes."
+  }
+ },
+ "checks": {
+  "bad_section_ids": [],
+  "uncovered_units": 0,
+  "uncovered_sample": [],
+  "overlap_units": 0,
+  "sections_with_unknown_ids": 0
+ }
+}

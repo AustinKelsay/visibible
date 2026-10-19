@@ -1,0 +1,764 @@
+{
+ "work": "holmes-adventures",
+ "division": "a-scandal-in-bohemia",
+ "division_name": "A Scandal In Bohemia",
+ "units": 262,
+ "record": {
+  "label": "holmes-adventures__a-scandal-in-bohemia__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354442-iZgbtvLDdd4eO3w1DgWV",
+  "seconds": 16.5,
+  "finish_reason": "stop",
+  "prompt_tokens": 19030,
+  "completion_tokens": 3983,
+  "cost": 0.0038945,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:18"
+ },
+ "characters": [
+  {
+   "id": "sherlock_holmes",
+   "name": "Sherlock Holmes",
+   "aliases": [
+    "Holmes",
+    "Mr. Sherlock Holmes",
+    "the clergyman",
+    "the drunken groom"
+   ],
+   "note": "The consulting detective, lodging at Baker Street; narrated through Watson's eyes; disguises himself as a groom in II and as a Nonconformist clergyman in II.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "dr_watson",
+   "name": "Dr. Watson",
+   "aliases": [
+    "Watson",
+    "my dear Doctor",
+    "Doctor",
+    "Boswell"
+   ],
+   "note": "The narrator, Holmes's friend and former lodger, recently married and back in civil practice; accompanies Holmes in II.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "king_of_bohemia",
+   "name": "Wilhelm Gottsreich Sigismond von Ormstein",
+   "aliases": [
+    "the King",
+    "the King of Bohemia",
+    "Count Von Kramm",
+    "your Majesty",
+    "the Grand Duke of Cassel-Felstein"
+   ],
+   "note": "Hereditary King of Bohemia, the client who visits Baker Street disguised as a Bohemian count; seeks recovery of his photograph with Irene Adler.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "irene_adler",
+   "name": "Irene Adler",
+   "aliases": [
+    "Irene Norton",
+    "Irene Adler Norton",
+    "Madame",
+    "Miss Irene",
+    "the woman",
+    "the lady",
+    "Mademoiselle",
+    "the adventuress"
+   ],
+   "note": "Former opera contralto and adventuress, living at Briony Lodge; marries Godfrey Norton on the morning of the 20th of March 1888 and flees to the Continent.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "godfrey_norton",
+   "name": "Godfrey Norton",
+   "aliases": [
+    "Mr. Godfrey Norton",
+    "Norton",
+    "the bridegroom",
+    "the lawyer"
+   ],
+   "note": "Barrister of the Inner Temple, Irene Adler's visitor and then husband; not to be confused with the other Norton-named figures.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "john_coachman",
+   "name": "John",
+   "aliases": [
+    "the coachman"
+   ],
+   "note": "Irene Adler's coachman, sent to watch Holmes; mentioned as having returned, and as the coachman who watched the house.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mrs_turner",
+   "name": "Mrs. Turner",
+   "aliases": [
+    "our landlady"
+   ],
+   "note": "Landlady at Baker Street, who serves Holmes and Watson.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mary_jane",
+   "name": "Mary Jane",
+   "aliases": [
+    "the servant girl",
+    "the slavey"
+   ],
+   "note": "Watson's careless servant, referred to in passing by Holmes's deductions.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "irene_servant",
+   "name": "the elderly woman",
+   "aliases": [
+    "the maid",
+    "the servant at Briony Lodge",
+    "the elderly servant"
+   ],
+   "note": "Elderly servant of Irene Adler at Briony Lodge who tells Holmes the lady has left for the Continent.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "street_loungers",
+   "name": "the loungers",
+   "aliases": [
+    "the crowd",
+    "the guardsmen",
+    "the scissors-grinder",
+    "the spectators"
+   ],
+   "note": "A group of confederates staging the street quarrel and fire alarm on Holmes's orders.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "youth_in_ulster",
+   "name": "the slim youth in an ulster",
+   "aliases": [
+    "the passer-by"
+   ],
+   "note": "Unidentified youth who greets Holmes by name in the street at the end of II; possibly the one whose voice Holmes recognises.",
+   "kind": "person",
+   "same_person_as": ""
+  }
+ ],
+ "locations": [
+  {
+   "id": "baker_street_rooms",
+   "name": "Baker Street lodgings",
+   "aliases": [
+    "Baker Street",
+    "our lodgings",
+    "my rooms"
+   ],
+   "note": "Holmes's rooms at 221B Baker Street, where the King calls and where Watson sleeps overnight."
+  },
+  {
+   "id": "briony_lodge",
+   "name": "Briony Lodge",
+   "aliases": [
+    "the house",
+    "Serpentine Avenue house"
+   ],
+   "note": "Irene Adler's villa on Serpentine Avenue, St. John's Wood, with a sitting-room and a hidden panel holding the photograph."
+  },
+  {
+   "id": "serpentine_avenue",
+   "name": "Serpentine Avenue",
+   "aliases": [
+    "the avenue",
+    "the street",
+    "the lane"
+   ],
+   "note": "Quiet street in St. John's Wood where Briony Lodge stands and where the street staging takes place."
+  },
+  {
+   "id": "church_of_st_monica",
+   "name": "Church of St. Monica",
+   "aliases": [
+    "St. Monica",
+    "the church"
+   ],
+   "note": "Edgeware Road church where Irene Adler marries Godfrey Norton."
+  },
+  {
+   "id": "langham_hotel",
+   "name": "the Langham",
+   "aliases": [
+    "the hotel"
+   ],
+   "note": "London hotel where the King is staying under the name Count Von Kramm."
+  },
+  {
+   "id": "london_streets",
+   "name": "London streets",
+   "aliases": [
+    "the Temple",
+    "Regent Street",
+    "Gross & Hankey's",
+    "Edgeware Road"
+   ],
+   "note": "Places Irene Adler and Norton pass through on the wedding day, including Gross & Hankey's in Regent Street and the Inner Temple chambers."
+  }
+ ],
+ "sections": [
+  {
+   "id": "a-scandal-in-bohemia-s1",
+   "start": "a-scandal-in-bohemia-1",
+   "end": "a-scandal-in-bohemia-14",
+   "start_idx": 0,
+   "end_idx": 13,
+   "n_units": 14,
+   "words": 1085,
+   "start_ref": "A Scandal In Bohemia ¶1",
+   "end_ref": "A Scandal In Bohemia ¶14",
+   "title": "Holmes on Irene Adler and Watson's deductions",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "dr_watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "irene_adler",
+    "mary_jane"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-scandal-in-bohemia-s2",
+   "start": "a-scandal-in-bohemia-15",
+   "end": "a-scandal-in-bohemia-21",
+   "start_idx": 14,
+   "end_idx": 20,
+   "n_units": 7,
+   "words": 151,
+   "start_ref": "A Scandal In Bohemia ¶15",
+   "end_ref": "A Scandal In Bohemia ¶21",
+   "title": "Observation versus seeing; the pink notepaper arrives",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": false
+    },
+    {
+     "id": "dr_watson",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-scandal-in-bohemia-s3",
+   "start": "a-scandal-in-bohemia-22",
+   "end": "a-scandal-in-bohemia-34",
+   "start_idx": 21,
+   "end_idx": 33,
+   "n_units": 13,
+   "words": 484,
+   "start_ref": "A Scandal In Bohemia ¶22",
+   "end_ref": "A Scandal In Bohemia ¶34",
+   "title": "The notepaper traced to Bohemia",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "dr_watson",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-scandal-in-bohemia-s4",
+   "start": "a-scandal-in-bohemia-35",
+   "end": "a-scandal-in-bohemia-42",
+   "start_idx": 34,
+   "end_idx": 41,
+   "n_units": 8,
+   "words": 167,
+   "start_ref": "A Scandal In Bohemia ¶35",
+   "end_ref": "A Scandal In Bohemia ¶42",
+   "title": "The brougham arrives and the visitor is awaited",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "dr_watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "king_of_bohemia"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-scandal-in-bohemia-s5",
+   "start": "a-scandal-in-bohemia-43",
+   "end": "a-scandal-in-bohemia-62",
+   "start_idx": 42,
+   "end_idx": 61,
+   "n_units": 20,
+   "words": 881,
+   "start_ref": "A Scandal In Bohemia ¶43",
+   "end_ref": "A Scandal In Bohemia ¶62",
+   "title": "The masked visitor unmasked as the King",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "dr_watson",
+     "named": true
+    },
+    {
+     "id": "king_of_bohemia",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "irene_adler"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-scandal-in-bohemia-s6",
+   "start": "a-scandal-in-bohemia-63",
+   "end": "a-scandal-in-bohemia-90",
+   "start_idx": 62,
+   "end_idx": 89,
+   "n_units": 28,
+   "words": 219,
+   "start_ref": "A Scandal In Bohemia ¶63",
+   "end_ref": "A Scandal In Bohemia ¶90",
+   "title": "The King explains the Irene Adler photograph",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "dr_watson",
+     "named": false
+    },
+    {
+     "id": "king_of_bohemia",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "irene_adler"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-scandal-in-bohemia-s7",
+   "start": "a-scandal-in-bohemia-91",
+   "end": "a-scandal-in-bohemia-121",
+   "start_idx": 90,
+   "end_idx": 120,
+   "n_units": 31,
+   "words": 447,
+   "start_ref": "A Scandal In Bohemia ¶91",
+   "end_ref": "A Scandal In Bohemia ¶121",
+   "title": "Payment and terms; the King departs",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "dr_watson",
+     "named": true
+    },
+    {
+     "id": "king_of_bohemia",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "irene_adler"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-scandal-in-bohemia-s8",
+   "start": "a-scandal-in-bohemia-122",
+   "end": "a-scandal-in-bohemia-144",
+   "start_idx": 121,
+   "end_idx": 143,
+   "n_units": 23,
+   "words": 1587,
+   "start_ref": "A Scandal In Bohemia ¶122",
+   "end_ref": "A Scandal In Bohemia ¶144",
+   "title": "Holmes's morning reconnaissance and the wedding",
+   "setting": [
+    "baker_street_rooms",
+    "serpentine_avenue",
+    "church_of_st_monica",
+    "london_streets"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "dr_watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "irene_adler",
+    "godfrey_norton",
+    "john_coachman"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-scandal-in-bohemia-s9",
+   "start": "a-scandal-in-bohemia-145",
+   "end": "a-scandal-in-bohemia-160",
+   "start_idx": 144,
+   "end_idx": 159,
+   "n_units": 16,
+   "words": 307,
+   "start_ref": "A Scandal In Bohemia ¶145",
+   "end_ref": "A Scandal In Bohemia ¶160",
+   "title": "Holmes's plan and his instructions to Watson",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": false
+    },
+    {
+     "id": "dr_watson",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "irene_adler"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-scandal-in-bohemia-s10",
+   "start": "a-scandal-in-bohemia-161",
+   "end": "a-scandal-in-bohemia-174",
+   "start_idx": 160,
+   "end_idx": 173,
+   "n_units": 14,
+   "words": 486,
+   "start_ref": "A Scandal In Bohemia ¶161",
+   "end_ref": "A Scandal In Bohemia ¶174",
+   "title": "Holmes's disguise and the approach to Briony Lodge",
+   "setting": [
+    "baker_street_rooms",
+    "serpentine_avenue"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "dr_watson",
+     "named": false
+    },
+    {
+     "id": "street_loungers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "irene_adler"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-scandal-in-bohemia-s11",
+   "start": "a-scandal-in-bohemia-175",
+   "end": "a-scandal-in-bohemia-188",
+   "start_idx": 174,
+   "end_idx": 187,
+   "n_units": 14,
+   "words": 546,
+   "start_ref": "A Scandal In Bohemia ¶175",
+   "end_ref": "A Scandal In Bohemia ¶188",
+   "title": "Waiting outside; Irene Adler returns and the staged quarrel",
+   "setting": [
+    "serpentine_avenue"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "dr_watson",
+     "named": false
+    },
+    {
+     "id": "irene_adler",
+     "named": true
+    },
+    {
+     "id": "street_loungers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-scandal-in-bohemia-s12",
+   "start": "a-scandal-in-bohemia-189",
+   "end": "a-scandal-in-bohemia-196",
+   "start_idx": 188,
+   "end_idx": 195,
+   "n_units": 8,
+   "words": 444,
+   "start_ref": "A Scandal In Bohemia ¶189",
+   "end_ref": "A Scandal In Bohemia ¶196",
+   "title": "Holmes carried in; the false fire alarm",
+   "setting": [
+    "briony_lodge",
+    "serpentine_avenue"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "dr_watson",
+     "named": false
+    },
+    {
+     "id": "irene_adler",
+     "named": false
+    },
+    {
+     "id": "street_loungers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-scandal-in-bohemia-s13",
+   "start": "a-scandal-in-bohemia-197",
+   "end": "a-scandal-in-bohemia-217",
+   "start_idx": 196,
+   "end_idx": 216,
+   "n_units": 21,
+   "words": 635,
+   "start_ref": "A Scandal In Bohemia ¶197",
+   "end_ref": "A Scandal In Bohemia ¶217",
+   "title": "Holmes explains the trick; the greeting in the street",
+   "setting": [
+    "serpentine_avenue",
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "dr_watson",
+     "named": false
+    },
+    {
+     "id": "youth_in_ulster",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "irene_adler"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-scandal-in-bohemia-s14",
+   "start": "a-scandal-in-bohemia-218",
+   "end": "a-scandal-in-bohemia-227",
+   "start_idx": 217,
+   "end_idx": 226,
+   "n_units": 10,
+   "words": 91,
+   "start_ref": "A Scandal In Bohemia ¶218",
+   "end_ref": "A Scandal In Bohemia ¶227",
+   "title": "Next morning: the King arrives and they set off",
+   "setting": [
+    "baker_street_rooms",
+    "serpentine_avenue"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "dr_watson",
+     "named": false
+    },
+    {
+     "id": "king_of_bohemia",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "irene_adler"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-scandal-in-bohemia-s15",
+   "start": "a-scandal-in-bohemia-228",
+   "end": "a-scandal-in-bohemia-243",
+   "start_idx": 227,
+   "end_idx": 242,
+   "n_units": 16,
+   "words": 217,
+   "start_ref": "A Scandal In Bohemia ¶228",
+   "end_ref": "A Scandal In Bohemia ¶243",
+   "title": "Briony Lodge deserted; the servant's news",
+   "setting": [
+    "briony_lodge"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "dr_watson",
+     "named": false
+    },
+    {
+     "id": "king_of_bohemia",
+     "named": true
+    },
+    {
+     "id": "irene_servant",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "irene_adler",
+    "godfrey_norton"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "a-scandal-in-bohemia-s16",
+   "start": "a-scandal-in-bohemia-244",
+   "end": "a-scandal-in-bohemia-262",
+   "start_idx": 243,
+   "end_idx": 261,
+   "n_units": 19,
+   "words": 774,
+   "start_ref": "A Scandal In Bohemia ¶244",
+   "end_ref": "A Scandal In Bohemia ¶262",
+   "title": "Irene's letter, the photograph, and the close",
+   "setting": [
+    "briony_lodge",
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "dr_watson",
+     "named": false
+    },
+    {
+     "id": "king_of_bohemia",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "irene_adler",
+    "godfrey_norton"
+   ],
+   "unknown_ids": []
+  }
+ ],
+ "brief": {
+  "tone": "Brisk, witty Victorian detective mystery with a touch of comedy at Holmes's expense and a sense of royal danger tempered by fond irony.",
+  "depiction_rules": [
+   "Holmes is shown with his analytical, observant manner and disguises (groom, clergyman) rendered convincingly; no cocaine use should be shown explicitly.",
+   "The King is shown masked in his first appearance, unmasked only after he tears the mask off in the room.",
+   "Irene Adler is glimpsed rather than fully revealed in the early sections, presented as beautiful and resolute; her face is seen clearly only at the threshold and in the photograph.",
+   "The street quarrel and smoke-rocket fire alarm are shown as staged comedy, not real violence; Holmes's blood is red paint."
+  ],
+  "era": {
+   "name": "London and Bohemia, late 1880s (March 1888)",
+   "people": "English gentlemen in frock and tweed; a Bohemian King of Teutonic bearing; London street types such as cabmen, ostlers, a scissors-grinder, guardsmen and loungers; servants in plain dress.",
+   "dress": "Victorian: frock coats, top hats, ulsters, walking dress and bonnets for women; the King wears rich astrakhan-trimmed double-breasted coat, a blue cloak lined with flame-coloured silk and a beryl brooch, with fur-trimmed boots.",
+   "buildings_and_objects": "Gaslit London with lamplighting at dusk; hansom cabs, broughams and landaus drawn by horses; villas with sliding panels and window fasteners; cabinet-size photographs; pink notepaper watermarked with Bohemian paper-mill marks; a gasogene and spirit case.",
+   "technology": "Pre-electric lighting (gas and oil lamps), railway travel (the 5:15 train from Charing Cross), telegraph wires, smoke-rockets and plumber's tools; no telephones or motor cars in use here."
+  }
+ },
+ "checks": {
+  "bad_section_ids": [],
+  "uncovered_units": 0,
+  "uncovered_sample": [],
+  "overlap_units": 0,
+  "sections_with_unknown_ids": 0
+ }
+}

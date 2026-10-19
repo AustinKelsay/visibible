@@ -1,0 +1,272 @@
+{
+ "bible:LUK-s15": {
+  "place": "Lakeshore of Gennesaret in Galilee, with two fishing boats and a stone shoreline beside a village of flat-roofed houses",
+  "timeOfDay": "Early morning after an all-night fishing effort, dawn light over the lake",
+  "weather": "Clear, calm morning with still water and mild air",
+  "light": "Soft pale dawn light low over the lake, warm sun gradually rising",
+  "clothing": "Linen and wool tunics, fringed cloaks and mantles, head coverings, sandals; fishermen in short work tunics; crowd in everyday village dress",
+  "cost": 0.0002641,
+  "seconds": 3.1
+ },
+ "bible:MAT-s39": {
+  "place": "Sea of Galilee, a wind-whipped lake with a fishing boat on rough dark water, rocky hills and a village shore in the distance",
+  "timeOfDay": "Night, in the fourth watch before dawn, shifting toward first light by the end of the section",
+  "weather": "Strong contrary wind raising high waves, clearing to calm water once the wind ceases",
+  "light": "Dim moonlit or starlit night with a faint lantern glow in the boat, brightening to pale dawn light",
+  "clothing": "Fishermen in linen and wool tunics with fringed cloaks, Jesus in a simple undyed tunic and mantle, soaked garments from the waves",
+  "cost": 0.0002807,
+  "seconds": 3.2
+ },
+ "bible:MAT-s83": {
+  "place": "Courtyard of the high priest's house in Jerusalem, stone paving, with a covered porch and gateway opening to the street; a brazier and oil lamps among the people",
+  "timeOfDay": "Night, before dawn, shifting toward first light by the end of the section",
+  "weather": "Clear, cool night air",
+  "light": "Warm flickering firelight and lamplight from the brazier, deepening to pale grey dawn light at the gateway",
+  "clothing": "Linen and wool tunics, fringed cloaks and mantles, head coverings, sandals; servants and guards in simple tunics, a Temple guard in plain dress",
+  "cost": 0.0002517,
+  "seconds": 3.1
+ },
+ "bible:JHN-s56": {
+  "place": "Shore of the Sea of Galilee (Tiberias) with a small wooden fishing boat and nets on the water, a charcoal fire on the beach; first-century Galilean fishing village setting",
+  "timeOfDay": "Early morning at daybreak, after a night of fishing; the scene spans the transition from night into dawn",
+  "weather": "Clear, calm morning with still water and light mist lifting off the lake",
+  "light": "Soft pale dawn light low over the water, warming to golden sunrise tones; the fire glows warmly against the cool morning",
+  "clothing": "Linen and wool tunics, fringed mantles and head coverings; fishermen in short work tunics; Peter stripped of his outer coat while fishing, otherwise plain Galilean dress",
+  "cost": 0.0003138,
+  "seconds": 3.5
+ },
+ "bible:ACT-s5": {
+  "place": "Jerusalem, open area near the temple courts with crowds of Jewish pilgrims in the street, flat-roofed stone houses around",
+  "timeOfDay": "Mid-morning, third hour of the day, with the sun climbing; the scene is daytime",
+  "weather": "Clear, dry spring day with a bright sky, a faint breeze moving the cloth of garments",
+  "light": "Strong Mediterranean midday-morning sunlight from above, crisp shadows, warm golden tones",
+  "clothing": "Linen and wool tunics, fringed cloaks and mantles, head coverings and veils, sandals; pilgrims in festival dress, dark-haired, olive-skinned",
+  "cost": 0.0002695,
+  "seconds": 2.2
+ },
+ "bible:EXO-s40": {
+  "place": "Sea of Reeds, a wide shallow sea with walls of water on either side of a dry sea floor, hill country shore beyond",
+  "timeOfDay": "Night passing into early morning, the change from night to morning occurs during the section",
+  "weather": "Still air with a strong east wind overnight, a towering pillar of cloud, clearing at dawn",
+  "light": "Pillar of cloud glowing with fire by night, pale dawn light spreading across the water at morning",
+  "clothing": "Israelites in plain woven wool; Egyptians in linen kilts, shaven heads and wigs, bronze helmets and mail for warriors, chariots and horsemen",
+  "cost": 0.0003234,
+  "seconds": 2.6
+ },
+ "bible:GEN-s1": {
+  "place": "Formless primeval void giving way to a fertile Mesopotamian-style land of seas, dry earth, grasses and fruit trees under open sky",
+  "timeOfDay": "Primeval cosmic time, shifting from deep darkness on day one through successive evenings and mornings across six days",
+  "weather": "Clear, luminous sky after the first day, with waters above and below separated by an expanse; no storms",
+  "light": "Begins in total darkness, then a pure radiant divine light from no visible source, later sun and moon and stars; warm golden tones",
+  "clothing": "No human clothing in the creation scenes; man and woman, when shown, are unclothed or covered with simple linen",
+  "cost": 0.0003665,
+  "seconds": 2.8
+ },
+ "holmes:a-scandal-in-bohemia-s1": {
+  "place": "Baker Street lodgings, a London townhouse sitting room with gaslit lamps and a coal fire, and the street outside",
+  "timeOfDay": "Night, 20 March 1888, with a brief return to earlier daytime on Thursday",
+  "weather": "Cold March night, the street damp from recent wet weather",
+  "light": "Warm firelight and lamplight inside the rooms, dim gas-lit street and dark silhouettes against drawn blinds",
+  "clothing": "Frock-coats and waistcoats for gentlemen, Holmes in a dressing-gown indoors, Watson in a dark suit, plain servant dress for the household girl",
+  "cost": 0.0004219,
+  "seconds": 3.2
+ },
+ "holmes:the-red-headed-league-s1": {
+  "place": "Sherlock Holmes's sitting room at 221B Baker Street, London, cluttered with books, papers and a settee",
+  "timeOfDay": "Autumn afternoon",
+  "weather": "Overcast autumn day, grey light through the window",
+  "light": "Soft grey daylight from the window mixed with a coal fire glow and a gas lamp",
+  "clothing": "Frock-coats, waistcoats and high collars for gentlemen; Holmes in dressing-gown and slippers; stout elderly Mr. Wilson in a dark tweed or frock-coat suit",
+  "cost": 0.0003083,
+  "seconds": 1.7
+ },
+ "holmes:a-case-of-identity-s1": {
+  "place": "Sitting room of Holmes's lodgings at 221B Baker Street, with a coal fire in the grate and shelves of books and papers",
+  "timeOfDay": "Morning, early in the day, with the morning paper on the floor",
+  "weather": "Overcast London weather outside the window, grey and damp",
+  "light": "Dim interior lit by the coal fire glow and daylight filtering through the window, soft and muted",
+  "clothing": "Men in frock-coat or dressing-gown and tweeds; Holmes in dressing-gown with pipe; plain indoor dress",
+  "cost": 0.0003416,
+  "seconds": 1.9
+ },
+ "holmes:the-five-orange-pips-s1": {
+  "place": "Sherlock Holmes's first-floor sitting room at 221B Baker Street, London, with coal fire and oil or gas lamps",
+  "timeOfDay": "Late evening, night, late September",
+  "weather": "Violent equinoctial storm with howling wind and driving rain against the windows",
+  "light": "Dim, warm lamplight and firelight inside; dark, rain-streaked night beyond the windows",
+  "clothing": "Victorian indoor dress: Holmes in dressing-gown or dark lounge suit; Watson in tweed; visitor in a long wet waterproof and trim suit, carrying a streaming umbrella",
+  "cost": 0.0003568,
+  "seconds": 2.3
+ },
+ "holmes:the-adventure-of-the-blue-carbuncle-s1": {
+  "place": "Baker Street sitting-room, London, lodgings with gas and coal fire; wooden chair by sofa holding a battered hat under a lens",
+  "timeOfDay": "Morning, second day after Christmas",
+  "weather": "Hard winter frost; windows thick with ice crystals",
+  "light": "Dim grey winter daylight from frosted windows, warmed by a crackling coal fire",
+  "clothing": "Holmes in purple dressing-gown; visitor in frock-coat and top hat; old seedy hard-felt hat, cracked and worn",
+  "cost": 0.0002847,
+  "seconds": 1.6
+ },
+ "holmes:the-adventure-of-the-speckled-band-s1": {
+  "place": "Sitting-room at 221B Baker Street, London, with a coal fire in the grate and gaslit fittings; a bedroom with a clock on the mantelpiece",
+  "timeOfDay": "Early morning, about a quarter past seven in early April, shifting from the bedroom to the sitting-room",
+  "weather": "Cool spring morning, damp and overcast",
+  "light": "Grey dawn light through the window, softened by the coal fire's warm glow",
+  "clothing": "Holmes in dressing-gown or fully dressed with frock-coat; Watson dressing hurriedly; the visitor a lady in black mourning dress and heavy veil, shivering",
+  "cost": 0.0003295,
+  "seconds": 1.9
+ },
+ "holmes:the-adventure-of-the-speckled-band-s2": {
+  "place": "Sherlock Holmes's sitting room at 221B Baker Street, London, with a coal fire, gaslit lamps, and a cluttered desk by the window",
+  "timeOfDay": "Morning, under a dim grey daylight that filters through the window",
+  "weather": "Cold, overcast winter morning with damp roads outside",
+  "light": "Soft grey daylight from the window mixed with warm glow from the coal fire and gas lamp",
+  "clothing": "Visitor in a dark travelling dress and jacket spattered with mud, veiled bonnet, return train ticket in glove; Holmes in dressing-gown, Watson in frock-coat",
+  "cost": 0.0003231,
+  "seconds": 2.3
+ },
+ "holmes:the-adventure-of-the-speckled-band-s3": {
+  "place": "Old manor-house at Stoke Moran, Surrey, ground-floor bedroom wing with a shared corridor; country farmland and bramble-covered grounds beyond",
+  "timeOfDay": "Daytime, present-day recollection in a London sitting-room; the memories concern the manor in the years before Julia's death",
+  "weather": "Overcast English countryside, damp and grey; indoors the rooms are cold and dim",
+  "light": "Dim, lamp-lit or grey daylight through small windows; shadowed corridors and old panelled rooms",
+  "clothing": "Victorian plain country dress for the sisters (high-necked dresses, bonnets outdoors); Dr. Roylott in a dark frock-coat; Holmes in a dressing-gown in a Baker Street room",
+  "cost": 0.0004579,
+  "seconds": 2.9
+ },
+ "holmes:the-adventure-of-the-speckled-band-s4": {
+  "place": "Stoke Moran, a rural English manor house; two bedrooms opening onto a lawn, plus a sitting room, with an adjacent plantation of trees beyond the grounds",
+  "timeOfDay": "Late night, around eleven o'clock into the small hours near three in the morning",
+  "weather": "Still, quiet night; dark sky with no moon or rain mentioned, calm air",
+  "light": "Dim lamplight from oil lamps or candles inside the rooms; dark outside, with the lawn in shadow",
+  "clothing": "Women in plain high-necked nightdresses and wrappers; period bedroom attire, household dress for servants",
+  "cost": 0.0002953,
+  "seconds": 2.1
+ },
+ "holmes:the-adventure-of-the-speckled-band-s5": {
+  "place": "Stoke Moran, a dilapidated country manor in rural Surrey; a bedchamber and corridor with old-fashioned shutters and barred chimney",
+  "timeOfDay": "Night, a wild stormy night",
+  "weather": "Gale-force wind and driving rain against the windows",
+  "light": "Dim lamplight and a flickering corridor lamp; dark, shadowy interiors",
+  "clothing": "Victorian nightwear, shawls and dressing-gowns for the household; plain country dress for servants",
+  "cost": 0.0003114,
+  "seconds": 2.1
+ },
+ "holmes:the-adventure-of-the-speckled-band-s6": {
+  "place": "Stoke Moran country manor, its west wing under repair; bedroom in the old chamber, plain Victorian furnishings; plantation of trees beyond the grounds",
+  "timeOfDay": "Night into early morning, then daylight; the lamp is lit at night and the morning is fresh",
+  "weather": "Cool, still English spring air, grey dawn sky",
+  "light": "Dim oil lamp in the bedroom at night; soft grey daylight by morning",
+  "clothing": "Women in high-necked plain dresses and shawls; the young lady dressed simply after rising in the night; men in frock-coats or tweed",
+  "cost": 0.0003059,
+  "seconds": 2.1
+ },
+ "holmes:the-adventure-of-the-speckled-band-s7": {
+  "place": "Baker Street sitting-room in London, later the country manor of Stoke Moran and its bedroom",
+  "timeOfDay": "Morning in London, with the afternoon journey to Stoke Moran",
+  "weather": "Overcast winter morning, grey daylight",
+  "light": "Grey daylight through the window, with a coal fire crackling and glowing in the grate",
+  "clothing": "Men in frock-coats, tweeds and ulsters; visitor in black mourning dress with black lace and a thick black veil",
+  "cost": 0.0002657,
+  "seconds": 1.9
+ },
+ "holmes:the-adventure-of-the-speckled-band-s8": {
+  "place": "Baker Street sitting room, lamp-lit and cluttered with papers, pipe smoke, and a violin on a chair; later the room's door",
+  "timeOfDay": "Morning, before departure for Stoke Moran",
+  "weather": "Overcast grey London morning light through the window",
+  "light": "Soft grey daylight from the window mixed with a dim coal fire and a single oil lamp",
+  "clothing": "Holmes in dressing-gown and slippers; Watson in tweed suit; Victorian gentleman's indoor attire",
+  "cost": 0.0002578,
+  "seconds": 2.0
+ },
+ "holmes:the-adventure-of-the-speckled-band-s9": {
+  "place": "Baker Street sitting room in lodgings, Holmes and Watson's rooms, with a Doctors' Commons-bound excursion; coal fire, gaslit interior, brick townhouse street outside",
+  "timeOfDay": "Late morning into early afternoon, about one o'clock",
+  "weather": "Cold, raw winter-spring day with an edge of chill in the air",
+  "light": "Pale grey daylight through the window, warmed by a coal fire and gas lamps inside",
+  "clothing": "Holmes in dressing-gown or tweed suit; Roylott in black top-hat, long frock-coat and high gaiters; Watson in frock-coat",
+  "cost": 0.0003956,
+  "seconds": 1.8
+ },
+ "holmes:the-adventure-of-the-speckled-band-s10": {
+  "place": "Surrey lanes and meadows near Stoke Moran, a country manor with grey gables set in a heavily timbered park on a slope",
+  "timeOfDay": "Bright late afternoon in early spring",
+  "weather": "Clear and sunny with a few fleecy clouds; mild, moist earth air",
+  "light": "Bright open daylight, warm sun over fresh green hedges and budding trees",
+  "clothing": "Gentlemen in tweed and ulster with top hat or deerstalker; the lady in a plain, high-necked walking dress and bonnet; cabman in plain working dress",
+  "cost": 0.0002965,
+  "seconds": 2.2
+ },
+ "holmes:the-adventure-of-the-speckled-band-s11": {
+  "place": "Grey lichen-stained stone manor at Stoke Moran, Surrey, with a central block and curving wings, one wing ruined and boarded, scaffolding against the end wall, ill-trimmed lawn",
+  "timeOfDay": "Daytime, late morning",
+  "weather": "Overcast, grey, still air",
+  "light": "Soft diffuse daylight, muted and even",
+  "clothing": "Frock-coat and tweeds for gentlemen, plain dark dress for the young woman, ulster optional",
+  "cost": 0.0003059,
+  "seconds": 1.8
+ },
+ "holmes:the-adventure-of-the-speckled-band-s12": {
+  "place": "Small whitewashed-corridor bedroom in an old English country house, low ceiling, gaping fireplace, worm-eaten brown oak panelling, square Wilton carpet",
+  "timeOfDay": "Daytime",
+  "weather": "Overcast, muted grey daylight",
+  "light": "Soft dim daylight through a window, no electric light, no gaslight",
+  "clothing": "Plain country-house dress for the lady, Victorian tweeds and frock-coat for Holmes and Watson",
+  "cost": 0.0003128,
+  "seconds": 1.5
+ },
+ "holmes:the-adventure-of-the-speckled-band-s13": {
+  "place": "Dr. Roylott's plainly furnished bedroom in a country manor, with camp-bed, wooden shelf of books, armchair, plain wooden chair, round table and large iron safe",
+  "timeOfDay": "Daytime, late morning",
+  "weather": "Overcast, muted daylight through the window",
+  "light": "Soft grey daylight from a window, dim interior shadows",
+  "clothing": "Victorian daywear: tweed suit for Holmes, plain dark dress for Miss Stoner, servant-plain attire",
+  "cost": 0.0002815,
+  "seconds": 1.9
+ },
+ "holmes:the-adventure-of-the-speckled-band-s14": {
+  "place": "Stoner family country manor grounds and bedroom in rural Surrey, with the village inn visible across the fields",
+  "timeOfDay": "Late afternoon turning to deep night",
+  "weather": "Mild, still and overcast, with a damp rural chill",
+  "light": "Dim grey daylight fading to dark night, lit by a single lamp in the bedroom window",
+  "clothing": "Frock-coats, tweed and ulsters for men; high-necked plain dress and shawl for Miss Stoner, country-style",
+  "cost": 0.0003043,
+  "seconds": 2.9
+ },
+ "holmes:the-adventure-of-the-speckled-band-s15": {
+  "place": "Crown Inn upper bedroom and sitting-room in a Surrey village, with a view across to the avenue gate and the inhabited wing of Stoke Moran Manor House among trees",
+  "timeOfDay": "Dusk into full night, the same evening",
+  "weather": "Mild, still, overcast late-autumn evening",
+  "light": "Dim gathering darkness, lamp-lit rooms with coal and oil lamps, a distant lit window through the trees",
+  "clothing": "Victorian gentlemen in frock-coats and tweed suits, Holmes in a dressing-gown or ulster and a pipe, village inn setting",
+  "cost": 0.0003609,
+  "seconds": 4.9
+ },
+ "holmes:the-adventure-of-the-speckled-band-s16": {
+  "place": "Stoke Moran Manor bedroom, Surrey countryside, old upper-floor room with shuttered window and ventilator",
+  "timeOfDay": "Late night, around eleven, continuing in total darkness",
+  "weather": "Calm, chill night air outside, dark and moonless",
+  "light": "Lamp extinguished and shutters closed, complete darkness; only a single lamp earlier and no light inside",
+  "clothing": "Gentlemen in dark tweed and frock-coat, shoes removed, Holmes in dressing-gown or ulster; plain dark evening wear",
+  "cost": 0.0003231,
+  "seconds": 2.1
+ },
+ "holmes:the-adventure-of-the-speckled-band-s17": {
+  "place": "Stoke Moran manor bedroom and adjoining study, English country manor, 1880s, lamp-lit rooms with oak panelling and a ventilator above the wall",
+  "timeOfDay": "Deep night, past three in the morning, continuing into the small hours",
+  "weather": "Still, cold night air; quiet countryside outside",
+  "light": "Dim, lamp-lit or dark-lantern light; a single beam from an open dark-lantern and a lamp carried down a dark corridor",
+  "clothing": "Victorian nightwear and dressing-gowns; Holmes in dressing-gown, Roylott in long grey dressing-gown and red Turkish slippers; a plain high-necked nightgown for Miss Stoner",
+  "cost": 0.0003799,
+  "seconds": 2.2
+ },
+ "holmes:the-adventure-of-the-speckled-band-s18": {
+  "place": "Stoke Moran country manor, Surrey, bedroom and study, and a railway carriage travelling back to London",
+  "timeOfDay": "Morning, following the night of the death",
+  "weather": "Overcast, grey English morning",
+  "light": "Pale daylight through windows, lamplight lingering in dim interior rooms",
+  "clothing": "Victorian tweeds and frock-coats for men, plain dark dress and bonnet for women, plain servant dress",
+  "cost": 0.0003057,
+  "seconds": 1.5
+ }
+}

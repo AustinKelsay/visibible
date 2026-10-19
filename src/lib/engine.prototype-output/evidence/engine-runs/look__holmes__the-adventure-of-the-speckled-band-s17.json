@@ -1,0 +1,50 @@
+{
+ "record": {
+  "label": "look__holmes__the-adventure-of-the-speckled-band-s17",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424066-R37fsHcZgDBQRkBRXytL",
+  "seconds": 2.2,
+  "finish_reason": "stop",
+  "prompt_tokens": 2594,
+  "completion_tokens": 241,
+  "cost": 0.0003799,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:34:29"
+ },
+ "system": "You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.\nRules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.",
+ "user_chars": 5822,
+ "content": "{\"place\":\"Stoke Moran manor bedroom and adjoining study, English country manor, 1880s, lamp-lit rooms with oak panelling and a ventilator above the wall\",\"timeOfDay\":\"Deep night, past three in the morning, continuing into the small hours\",\"weather\":\"Still, cold night air; quiet countryside outside\",\"light\":\"Dim, lamp-lit or dark-lantern light; a single beam from an open dark-lantern and a lamp carried down a dark corridor\",\"clothing\":\"Victorian nightwear and dressing-gowns; Holmes in dressing-gown, Roylott in long grey dressing-gown and red Turkish slippers; a plain high-necked nightgown for Miss Stoner\"}",
+ "parsed": {
+  "place": "Stoke Moran manor bedroom and adjoining study, English country manor, 1880s, lamp-lit rooms with oak panelling and a ventilator above the wall",
+  "timeOfDay": "Deep night, past three in the morning, continuing into the small hours",
+  "weather": "Still, cold night air; quiet countryside outside",
+  "light": "Dim, lamp-lit or dark-lantern light; a single beam from an open dark-lantern and a lamp carried down a dark corridor",
+  "clothing": "Victorian nightwear and dressing-gowns; Holmes in dressing-gown, Roylott in long grey dressing-gown and red Turkish slippers; a plain high-necked nightgown for Miss Stoner"
+ },
+ "usage": {
+  "prompt_tokens": 2594,
+  "completion_tokens": 241,
+  "total_tokens": 2835,
+  "cost": 0.0003799,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003799,
+   "upstream_inference_prompt_cost": 0.0002594,
+   "upstream_inference_completions_cost": 0.0001205
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

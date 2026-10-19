@@ -1,0 +1,1226 @@
+{
+ "holmes:221b_baker_street": {
+  "work": "holmes",
+  "id": "221b_baker_street",
+  "name": "221B Baker Street",
+  "kind": "location",
+  "eras": [
+   "Victorian England, 1880s to early 1890s"
+  ],
+  "stages": [
+   {
+    "id": "221b_baker_street_main",
+    "label": "Baker Street lodgings",
+    "when": "1880s to early 1890s",
+    "text": "221B Baker Street: a narrow brick Georgian townhouse on a busy London street, its upper sitting-room lit by gas and fronted by a bow-window. Plain sash windows, a panelled door with a fanlight, and a crowded interior of shelves, books, pipes and a hearth. Street plane trees and iron railings below; fog-blurred neighbouring houses of dun-coloured brick.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "a-case-of-identity-1",
+      "quote": "sat on either side of the fire in his lodgings at Baker Street"
+     },
+     {
+      "unit": "the-adventure-of-the-copper-beeches-6",
+      "quote": "A thick fog rolled down between the lines of dun-coloured houses"
+     },
+     {
+      "unit": "the-adventure-of-the-copper-beeches-6",
+      "quote": "the old room at Baker Street"
+     },
+     {
+      "unit": "the-adventure-of-the-beryl-coronet-2",
+      "quote": "Down the centre of Baker Street it had been ploughed into a brown crumbly band by the traffic"
+     },
+     {
+      "unit": "the-adventure-of-the-copper-beeches-6",
+      "quote": "Our gas was lit and shone on the white cloth"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0010836,
+  "seconds": 3.1
+ },
+ "holmes:dr_grimesby_roylott": {
+  "work": "holmes",
+  "id": "dr_grimesby_roylott",
+  "name": "Dr. Grimesby Roylott",
+  "kind": "character",
+  "eras": [
+   "Victorian England, 1880s to early 1890s"
+  ],
+  "stages": [
+   {
+    "id": "dr_grimesby_roylott_s1",
+    "label": "Dr. Grimesby Roylott",
+    "when": "Victorian England, 1880s, Stoke Moran, Surrey, and London",
+    "text": "Dr. Grimesby Roylott: man in his sixties, tall and huge-framed, heavy and powerful build, sallow weathered skin marked by years in India, thick iron-grey hair and bushy grey side-whiskers, deep-set fierce eyes, heavy brow and hard mouth. Signature outfit: a dark brown or claret-coloured dressing-gown of heavy wool over shirt and waistcoat, worn at home, with a dark frock-coat and top hat when out. Carries a heavy stick of dark wood; keeps a smell of strong Indian cigars about him.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "the-adventure-of-the-speckled-band-1",
+      "quote": "Dr. Grimesby Roylott"
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-35",
+      "quote": "the smell of the strong Indian cigars which it was his custom to smoke"
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-50",
+      "quote": "he met him hastening from his room in his dressing-gown"
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-226",
+      "quote": "There was a cheetah, too"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [
+   "dr_grimesby_roylott_s1: quote not found: 'he met him hastening from his room in his dressing'"
+  ],
+  "cost": 0.0010126,
+  "seconds": 3.0
+ },
+ "holmes:dr_roylotts_chamber": {
+  "work": "holmes",
+  "id": "dr_roylotts_chamber",
+  "name": "Dr. Roylott's chamber",
+  "kind": "location",
+  "eras": [
+   "Victorian England, 1880s to early 1890s"
+  ],
+  "stages": [
+   {
+    "id": "dr_roylotts_chamber_s1",
+    "label": "Roylott's chamber",
+    "when": "Victorian England, 1880s, Stoke Moran country manor, night and day",
+    "text": "Dr. Roylott's chamber: a large, square bedroom on the ground floor of an old Surrey manor, with a heavy oak bed-frame, a barred iron-shuttered window, a small iron safe set into the wall, a saucer of milk on the floor, and a dog-lash hanging near the bell-rope. Walls of faded plaster, dark wood panelling, a worn Turkey carpet, and bare, damp boards.",
+    "source": "text",
+    "quotes": [
+     {
+      "unit": "the-adventure-of-the-speckled-band-158",
+      "quote": "the room with the safe"
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-172",
+      "quote": "the dog-lash"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [
+   "2 stages drafted, kept 1",
+   "dr_roylotts_chamber_s1: quote not found: 'the room with the safe'",
+   "dr_roylotts_chamber_s1: quote not found: 'the dog-lash'"
+  ],
+  "cost": 0.0005116,
+  "seconds": 3.6
+ },
+ "holmes:dr_watson": {
+  "work": "holmes",
+  "id": "dr_watson",
+  "name": "Dr. Watson",
+  "kind": "character",
+  "eras": [
+   "Victorian England, 1880s to early 1890s"
+  ],
+  "stages": [
+   {
+    "id": "dr_watson_main",
+    "label": "Dr. Watson, the companion",
+    "when": "throughout the Adventures, 1880s to early 1890s",
+    "text": "Dr. Watson: man in his thirties to early forties, sturdy and of medium height, a little broader in build since his marriage; fair complexion, ruddy from London weather; short light-brown hair, neatly parted, with a full moustache; open, good-humoured face. Signature outfit: a dark frock-coat and waistcoat with a plain white collar, in dark grey or navy, worn with a dark bowler or top hat. Carries a doctor's black bag; no props unique to him beyond his revolver for dangerous nights.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "a-scandal-in-bohemia-6",
+      "quote": "I think, Watson, that you have put on seven and a half pounds since I saw you."
+     },
+     {
+      "unit": "the-red-headed-league-149",
+      "quote": "We are spies in an enemy’s country."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0011182,
+  "seconds": 5.3
+ },
+ "holmes:helen_stoner": {
+  "work": "holmes",
+  "id": "helen_stoner",
+  "name": "Helen Stoner",
+  "kind": "character",
+  "eras": [
+   "Victorian England, 1880s to early 1890s"
+  ],
+  "stages": [
+   {
+    "id": "helen_stoner_base",
+    "label": "Helen Stoner",
+    "when": "Victorian England, 1880s to early 1890s",
+    "text": "Helen Stoner: young woman, about twenty-three; slender, pale-complexioned, with a delicate, anxious face; dark hair pinned back plainly; no ornament beyond a plain gold ring. Signature outfit: a plain black mourning dress of high-necked wool with a fall of black lace at the wrists, black bonnet. Carries no props.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "the-adventure-of-the-speckled-band-22",
+      "quote": "My name is Helen Stoner, and I am living with my stepfather"
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-72",
+      "quote": "Five little livid spots, the marks of four fingers and a thumb, were printed upon the white wrist."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0007068,
+  "seconds": 2.3
+ },
+ "holmes:jabez_wilson": {
+  "work": "holmes",
+  "id": "jabez_wilson",
+  "name": "Jabez Wilson",
+  "kind": "character",
+  "eras": [
+   "Victorian England, 1880s to early 1890s"
+  ],
+  "stages": [
+   {
+    "id": "jabez_wilson_s1",
+    "label": "Jabez Wilson",
+    "when": "Victorian England, 1880s to early 1890s",
+    "text": "Jabez Wilson: a stout man of middle years, portly with a broad chest and a full belly. Ruddy, fleshy face, fair skin reddened by weather and exertion. Thick hair and full beard in fiery, bright red. Round, mild features, slightly pouchy eyes. Signature outfit: a dirty, much-worn greatcoat over a tradesman's dark frock coat and waistcoat, with a plain shirt and dark tie. Carries a folded, creased newspaper in the inside pocket of his coat.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "the-red-headed-league-13",
+      "quote": "The portly client puffed out his chest with an appearance of some little pride and pulled a dirty and wrinkled newspaper from the inside pocket of his greatcoat."
+     },
+     {
+      "unit": "the-red-headed-league-34",
+      "quote": "I have a small pawnbroker’s business at Coburg Square, near the City."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.000701,
+  "seconds": 2.9
+ },
+ "holmes:john_openshaw": {
+  "work": "holmes",
+  "id": "john_openshaw",
+  "name": "John Openshaw",
+  "kind": "character",
+  "eras": [
+   "Victorian England, 1880s to early 1890s"
+  ],
+  "stages": [
+   {
+    "id": "john_openshaw-s1",
+    "label": "Young client",
+    "when": "the-five-orange-pips-s1 to the-five-orange-pips-s8",
+    "text": "John Openshaw: a young man of about twenty-five to thirty, slight and tall, with a pale, drawn face and wet, dark hair clinging to his brow after the rain. Clean-shaven, with a thin, nervous mouth and anxious grey eyes. Signature outfit: a dark, rain-soaked overcoat of heavy wool over a dark frock-coat and waistcoat, with a plain white collar. Carries a crumpled envelope and a discoloured blue-tinted paper, and no other props.",
+    "source": "invention",
+    "quotes": [
+     {
+      "unit": "the-five-orange-pips-33",
+      "quote": "The young man pulled his chair up and pushed his wet feet out towards the blaze."
+     },
+     {
+      "unit": "the-five-orange-pips-68",
+      "quote": "The young man took from his waistcoat a crumpled envelope"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0005632,
+  "seconds": 2.4
+ },
+ "holmes:julias_bedroom": {
+  "work": "holmes",
+  "id": "julias_bedroom",
+  "name": "Julia's bedroom",
+  "kind": "location",
+  "eras": [
+   "Victorian England, 1880s to early 1890s"
+  ],
+  "stages": [
+   {
+    "id": "julias_bedroom-s1",
+    "label": "Middle bedroom at Stoke Moran",
+    "when": "1883, Victorian England, country manor",
+    "text": "Julia's bedroom: a plain, square middle room in the west wing of an old Surrey manor, with a low ceiling, bare whitewashed walls, a narrow iron bedstead, and a heavy wooden floor. A ventilator opens high in the wall, and a bell-rope hangs beside the bed. A single shuttered window overlooks the lawn. A dim, lamp-lit room of old timber and plaster.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "the-adventure-of-the-speckled-band-141",
+      "quote": "the bell-rope"
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-35",
+      "quote": "the middle one of the three"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [
+   "julias_bedroom-s1: quote not found: 'the bell-rope'",
+   "julias_bedroom-s1: quote not found: 'the middle one of the three'"
+  ],
+  "cost": 0.0003924,
+  "seconds": 2.1
+ },
+ "holmes:mrs_hudson": {
+  "work": "holmes",
+  "id": "mrs_hudson",
+  "name": "Mrs. Hudson",
+  "kind": "character",
+  "eras": [
+   "Victorian England, 1880s to early 1890s"
+  ],
+  "stages": [
+   {
+    "id": "mrs_hudson_s1",
+    "label": "Baker Street landlady",
+    "when": "1880s, Baker Street, London",
+    "text": "Mrs. Hudson: woman in her fifties or sixties; sturdy, motherly build; fair complexion with ruddy cheeks; grey-streaked hair drawn back under a plain cap; practical, kindly face. Signature outfit: plain dark skirt and bodice of wool with a white apron and a modest high collar, in brown and grey tones. Props: none beyond household keys at her waist.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "the-adventure-of-the-speckled-band-8",
+      "quote": "Ha! I am glad to see that Mrs. Hudson has had the good sense to light the fire."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0003687,
+  "seconds": 2.4
+ },
+ "holmes:road_and_railway_to_leatherhead": {
+  "work": "holmes",
+  "id": "road_and_railway_to_leatherhead",
+  "name": "Road and railway to Leatherhead",
+  "kind": "location",
+  "eras": [
+   "Victorian England, 1880s to early 1890s"
+  ],
+  "stages": [
+   {
+    "id": "road_and_railway_to_leatherhead-s10",
+    "label": "Journey through the Surrey lanes to Stoke Moran",
+    "when": "Victorian England, 1880s to early 1890s, spring morning",
+    "text": "Road and railway to Leatherhead: flat Surrey meadows and winding country lanes between hedgerows of fresh green shoots; a brick-built railway station at Leatherhead with an inn beside it; the broad road beyond lined with trees and open fields; scattered stiles and low wooden fences; bright spring sky with a few fleecy clouds.",
+    "source": "text",
+    "quotes": [
+     {
+      "unit": "the-adventure-of-the-speckled-band-116",
+      "quote": "We were fortunate in catching a train for Leatherhead, where we hired a trap at the station inn"
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-116",
+      "quote": "The trees and wayside hedges were just throwing out their first green shoots"
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-17",
+      "quote": "I started from home before six, reached Leatherhead at twenty past, and came in by the first train to Waterloo"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0005447,
+  "seconds": 2.4
+ },
+ "holmes:sherlock_holmes": {
+  "work": "holmes",
+  "id": "sherlock_holmes",
+  "name": "Sherlock Holmes",
+  "kind": "character",
+  "eras": [
+   "Victorian England, 1880s to early 1890s"
+  ],
+  "stages": [
+   {
+    "id": "sherlock_holmes_s1",
+    "label": "Sherlock Holmes, consulting detective",
+    "when": "Victorian London, 1880s to early 1890s, the cases of the adventures",
+    "text": "Sherlock Holmes: man in his thirties; lean, tall and angular with a sharp, keen-eyed face, clean-shaven or with a close-cut moustache; pale complexion with a hawk-like nose; dark hair brushed back from a high forehead. Signature outfit: a dark tweed suit or a mouse-grey dressing-gown with a velvet collar, worn loosely over shirtsleeves, with a dark cravat. Props alone: a clay pipe and a violin.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "a-scandal-in-bohemia-2",
+      "quote": "He was, I take it, the most perfect reasoning and observing machine that the world has seen"
+     },
+     {
+      "unit": "a-scandal-in-bohemia-52",
+      "quote": "“I was aware of it,” said Holmes dryly."
+     },
+     {
+      "unit": "the-five-orange-pips-3",
+      "quote": "Sherlock Holmes sat moodily at one side of the fireplace cross-indexing his records of crime"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0010736,
+  "seconds": 4.7
+ },
+ "holmes:stoke_moran_manor": {
+  "work": "holmes",
+  "id": "stoke_moran_manor",
+  "name": "Stoke Moran manor",
+  "kind": "location",
+  "eras": [
+   "Victorian England, 1880s to early 1890s"
+  ],
+  "stages": [
+   {
+    "id": "stoke_moran_manor-main",
+    "label": "Stoke Moran manor",
+    "when": "Victorian England, 1880s, the Surrey border",
+    "text": "Stoke Moran Manor House: old Saxon-rooted country house of grey-brown stone and weathered brick, a long low wing with narrow shuttered windows, a steep slate roof, and a heavy iron avenue gate at the end of a tree-lined drive. Dense old elms, yews and overgrown lawns surround it; flat Surrey heath and lanes lie beyond. Ventilator openings pierce the walls near the roofline.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "the-adventure-of-the-speckled-band-195",
+      "quote": "a view of the avenue gate, and of the inhabited wing of Stoke Moran Manor House"
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-22",
+      "quote": "the oldest Saxon families in England, the Roylotts of Stoke Moran, on the western border of Surrey"
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-195",
+      "quote": "The boy had some slight difficulty in undoing the heavy iron gates"
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-206",
+      "quote": "I knew that we should find a ventilator before ever we came to Stoke Moran."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0006605,
+  "seconds": 2.8
+ },
+ "holmes:swamp_adder": {
+  "work": "holmes",
+  "id": "swamp_adder",
+  "name": "Swamp adder",
+  "kind": "character",
+  "eras": [
+   "Victorian England, 1880s to early 1890s"
+  ],
+  "stages": [
+   {
+    "id": "swamp_adder-s17",
+    "label": "The speckled band",
+    "when": "the night of Roylott's death, in the stepfather's bedroom at Stoke Moran",
+    "text": "Swamp adder: a venomous Indian snake, the speckled band of the story; sleek, thick-bodied and roughly four feet long, its scales a dull mottled yellow-brown with dark speckled bands along the back, pale yellow belly, and a flattened head marked by two small, dark, venom-fanged punctures.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "the-adventure-of-the-speckled-band-245",
+      "quote": "It is a swamp adder!” cried Holmes; “the deadliest snake in India."
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-248",
+      "quote": "It would be a sharp-eyed coroner, indeed, who could distinguish the two little dark punctures"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0005339,
+  "seconds": 3.4
+ },
+ "holmes:the_crown_inn": {
+  "work": "holmes",
+  "id": "the_crown_inn",
+  "name": "The Crown Inn",
+  "kind": "location",
+  "eras": [
+   "Victorian England, 1880s to early 1890s"
+  ],
+  "stages": [
+   {
+    "id": "the_crown_inn-s15",
+    "label": "Stoke Moran village inn",
+    "when": "the-adventure-of-the-speckled-band-s15",
+    "text": "The Crown Inn: a timber-framed village inn of red brick and whitewashed plaster on a lane opposite the avenue gate of Stoke Moran Manor, Surrey. Steep tiled roof with dormer windows, a swinging inn sign on an iron bracket, a low porch, and a yard at the side with a stable for dog-carts. Elms and hawthorn line the lane; flat green meadows and distant copses lie beyond.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "the-adventure-of-the-speckled-band-67",
+      "quote": "got a dog-cart at the Crown Inn, which is opposite"
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-195",
+      "quote": "They were on the upper floor, and from our window we could command a view of the avenue gate"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0004417,
+  "seconds": 3.0
+ },
+ "bible:andrew": {
+  "work": "bible",
+  "id": "andrew",
+  "name": "Andrew",
+  "kind": "character",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "andrew-main",
+    "label": "Andrew, fisherman of Bethsaida",
+    "when": "Galilean ministry, the calling of the first disciples through the Greeks' request in Jerusalem",
+    "text": "Andrew: a man of about thirty to forty years, lean and sun-weathered from years on the Sea of Galilee; olive-brown skin, dark hair cut short above the ears, a trimmed dark beard flecked with grey; a steady, quiet, open face with deep-set eyes. Signature outfit: a plain undyed linen tunic in earth brown worn belted, with a faded blue-grey wool mantle with fringed corners. Carries no props alone; when fishing, a coiled brown net over his shoulder.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "matthew-4-18",
+      "quote": "Walking by the sea of Galilee, he saw two brothers: Simon, who is called Peter, and Andrew, his brother"
+     },
+     {
+      "unit": "john-1-40",
+      "quote": "One of the two who heard John and followed him was Andrew, Simon Peter’s brother."
+     },
+     {
+      "unit": "john-6-8",
+      "quote": "One of his disciples, Andrew, Simon Peter’s brother, said to him,"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.000491,
+  "seconds": 3.4
+ },
+ "bible:crowd_at_pentecost": {
+  "work": "bible",
+  "id": "crowd_at_pentecost",
+  "name": "Crowd at Pentecost",
+  "kind": "character",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "crowd_at_pentecost-s1",
+    "label": "Diaspora Jewish pilgrim at Pentecost",
+    "when": "First-century Jerusalem, the feast of Pentecost; Diaspora Jews and proselytes gathered from many nations",
+    "text": "Crowd at Pentecost: adult man or woman, late twenties to fifties; medium-brown to olive Mediterranean skin, dark-haired or grey-streaked, short beard for men, head covering or veil for women; typical member wears a fringed wool cloak and undertunic in undyed cream, brown and madder-red, with leather sandals; carries a clay water jar or leather pouch as a traveller's sign. No single signature prop beyond the pilgrim's bag.",
+    "source": "invention",
+    "quotes": [
+     {
+      "unit": "acts-2-6",
+      "quote": "everyone heard them speaking in his own language"
+     }
+    ]
+   },
+   {
+    "id": "crowd_at_pentecost-s2",
+    "label": "Settled Jerusalem believer of the early church",
+    "when": "First-century Jerusalem, the early church community after Pentecost, sharing goods in common",
+    "text": "Crowd at Pentecost (believer): adult man or woman, thirties to fifties; olive to tanned skin, dark hair, beard for men, head veil for women; typical member wears a plain linen tunic in cream or ochre under a fringed mantle of blue-grey wool, with sandals; no signature prop beyond a folded scroll or bread basket.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "acts-4-32",
+      "quote": "The multitude of those who believed were of one heart and soul."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0006232,
+  "seconds": 3.9
+ },
+ "bible:galilee_northern_region_and_sea": {
+  "work": "bible",
+  "id": "galilee_northern_region_and_sea",
+  "name": "Galilee (northern region and sea)",
+  "kind": "location",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "galilee_northern_region_and_sea_s1",
+    "label": "Galilee and the Sea of Galilee",
+    "when": "First-century Roman Galilee, the northern region of Judea's neighbouring province, during Jesus's ministry",
+    "text": "Galilee: a green hill country of rolling slopes, terraced olive groves and vineyards, with flat-roofed stone and mud-brick villages and village synagogues. Beside it lies the Sea of Galilee, a freshwater lake ringed by pebbled shores and fishing harbours, with wooden boats, nets and clay jars on the shore. Oleanders and palms grow near the water; Capernaum is a lakeside town. No people.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "matthew-4-18",
+      "quote": "Walking by the sea of Galilee, he saw two brothers"
+     },
+     {
+      "unit": "matthew-4-23",
+      "quote": "Jesus went about in all Galilee, teaching in their synagogues"
+     },
+     {
+      "unit": "john-6-1",
+      "quote": "Jesus went away to the other side of the sea of Galilee, which is also called the Sea of Tiberias."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.000796,
+  "seconds": 2.7
+ },
+ "bible:god_yahweh": {
+  "work": "bible",
+  "id": "god_yahweh",
+  "name": "God (Yahweh)",
+  "kind": "character",
+  "eras": [
+   "Ancient Near East: primeval, patriarchal and Egyptian bronze-age world",
+   "Exodus, wilderness and early Israel"
+  ],
+  "stages": [
+   {
+    "id": "god_yahweh_main",
+    "label": "God (Yahweh)",
+    "when": "Primeval creation through the post-exodus wilderness and early Acts; a single unchanging presence across the work",
+    "text": "God (Yahweh): ageless, without age or body; never shown with a human face or form. Presence is conveyed by radiant light, a cloud, pillar of fire, a voice from the sky, or a hand where tradition permits. Signature manifestation: the pillar of cloud and fire, and the glory that fills the tent. No props.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "exodus-14-24",
+      "quote": "Yahweh looked out on the Egyptian army through the pillar of fire and of cloud"
+     },
+     {
+      "unit": "exodus-20-21",
+      "quote": "Moses came near to the thick darkness where God was."
+     },
+     {
+      "unit": "genesis-1-1",
+      "quote": "In the beginning, God created the heavens and the earth."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.001095,
+  "seconds": 2.9
+ },
+ "bible:james_son_of_zebedee": {
+  "work": "bible",
+  "id": "james_son_of_zebedee",
+  "name": "James son of Zebedee",
+  "kind": "character",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "james_son_of_zebedee_main",
+    "label": "James son of Zebedee",
+    "when": "First-century Galilee and Jerusalem, the apostolic period",
+    "text": "James son of Zebedee: a strong young Galilean fisherman, about twenty-five to thirty years old, of lean, weathered build; olive-tanned skin; short dark curly hair and a trimmed dark beard; calm, steady face with a broad brow. Signature outfit: a sun-faded undyed linen tunic in earth brown under a fringed woollen mantle in dull ochre, with leather sandals. Signature prop: a coil of fishing net over one shoulder.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "matthew-4-21",
+      "quote": "James the son of Zebedee, and John his brother, in the boat with Zebedee their father, mending their nets."
+     },
+     {
+      "unit": "luke-5-10",
+      "quote": "and so also were James and John, sons of Zebedee, who were partners with Simon."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0005414,
+  "seconds": 2.7
+ },
+ "bible:jerusalem": {
+  "work": "bible",
+  "id": "jerusalem",
+  "name": "Jerusalem",
+  "kind": "location",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "jerusalem-main",
+    "label": "Jerusalem",
+    "when": "Across the Gospels and Acts, the holy city of the first century",
+    "text": "Jerusalem: a hill city of pale limestone and sandstone set on ridges, with flat-roofed stone houses stacked on terraced slopes. The great Temple complex crowns the eastern height, its white marble courts and gilded gateways gleaming above the city walls. Olive groves and vineyards cover the surrounding hills, the Mount of Olives rises to the east, and the Kidron valley lies below. Rock-cut tombs are cut into nearby slopes.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "matthew-5-35",
+      "quote": "nor by Jerusalem, for it is the city of the great King."
+     },
+     {
+      "unit": "matthew-21-1",
+      "quote": "When they came near to Jerusalem and came to Bethsphage, to the Mount of Olives"
+     },
+     {
+      "unit": "acts-1-12",
+      "quote": "from the mountain called Olivet, which is near Jerusalem, a Sabbath day’s journey away."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0010683,
+  "seconds": 3.2
+ },
+ "bible:jesus_of_nazareth": {
+  "work": "bible",
+  "id": "jesus_of_nazareth",
+  "name": "Jesus of Nazareth",
+  "kind": "character",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "jesus_of_nazareth_s1",
+    "label": "Jesus of Nazareth",
+    "when": "first-century Roman Judea and Galilee, across the Gospel narrative",
+    "text": "Jesus of Nazareth: man in his early thirties, a first-century Jewish man of Galilee; lean, medium height, olive-brown skin of Mediterranean tone; shoulder-length dark brown wavy hair, parted in the middle; short dark beard, neatly kept; deep-set dark eyes, calm and steady, with a gentle, serious face. Signature outfit: plain undyed off-white linen tunic belted at the waist, with a dark blue-grey fringed wool mantle with tassels at its corners; sandals. No halo, no crown, no ornate robes.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "luke-3-23",
+      "quote": "Jesus himself, when he began to teach, was about thirty years old"
+     },
+     {
+      "unit": "luke-5-1",
+      "quote": "he was standing by the lake of Gennesaret"
+     },
+     {
+      "unit": "matthew-21-11",
+      "quote": "This is the prophet, Jesus, from Nazareth of Galilee."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0011292,
+  "seconds": 3.4
+ },
+ "bible:john_the_apostle_son_of_zebedee": {
+  "work": "bible",
+  "id": "john_the_apostle_son_of_zebedee",
+  "name": "John the apostle son of Zebedee",
+  "kind": "character",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "john_the_apostle_son_of_zebedee_s1",
+    "label": "John the apostle, son of Zebedee",
+    "when": "First-century Roman Judea and Galilee, from the call by the Sea of Galilee through the early church in Jerusalem",
+    "text": "John the apostle: a young man of about twenty to thirty, lean and wiry from fishing work, with a tanned olive-brown Galilean complexion. Dark hair cut to the shoulders, a short beard just forming, clean-lined face with a strong brow and gentle, intent eyes. Signature outfit: a sleeveless undertunic of undyed linen with a fringed woollen mantle in earthen brown, plus sandals. Carries a fishing net coil or a rolled scroll when needed.",
+    "source": "tradition",
+    "quotes": [
+     {
+      "unit": "matthew-4-21",
+      "quote": "James the son of Zebedee, and John his brother, in the boat with Zebedee their father, mending their nets."
+     },
+     {
+      "unit": "luke-5-10",
+      "quote": "and so also were James and John, sons of Zebedee, who were partners with Simon."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.000887,
+  "seconds": 3.4
+ },
+ "bible:john_the_beloved_disciple": {
+  "work": "bible",
+  "id": "john_the_beloved_disciple",
+  "name": "John the beloved disciple",
+  "kind": "character",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "john_the_beloved_disciple_s1",
+    "label": "John, the beloved disciple",
+    "when": "First-century Roman Judea, the period of Jesus' ministry and the days after the resurrection",
+    "text": "John the beloved disciple: a young man of about twenty-five to thirty, slender and wiry build, Galilean fisherman's frame, olive-tanned skin, dark brown hair cut to the shoulder, short beard, gentle and earnest face with dark eyes. Signature outfit worn most often: a plain undyed linen tunic in natural cream with a brown woollen fringed mantle over the shoulders. Carries no props alone.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "john-20-2",
+      "quote": "the other disciple whom Jesus loved"
+     },
+     {
+      "unit": "john-21-20",
+      "quote": "This was the disciple whom Jesus loved"
+     },
+     {
+      "unit": "john-21-24",
+      "quote": "This is the disciple who testifies about these things"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0004439,
+  "seconds": 3.1
+ },
+ "bible:moses": {
+  "work": "bible",
+  "id": "moses",
+  "name": "Moses",
+  "kind": "character",
+  "eras": [
+   "Exodus, wilderness and early Israel",
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "moses-s1",
+    "label": "Moses, Hebrew leader",
+    "when": "Exodus through Deuteronomy, wilderness and early Israel",
+    "text": "Moses: man of about eighty at the Exodus, though earlier life spans his prime; lean, wiry build; weathered tan skin of Hebrew desert shepherds; short grey-streaked beard and dark hair falling to the shoulders; deep-set, lined face, calm and strong-featured. Signature outfit: plain undyed woven wool robe in brown-grey, with a simple cloak of the same cloth. Signature prop: a long dark wooden shepherd's staff, the rod of God, plain and unadorned.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "exodus-3-1",
+      "quote": "Moses was keeping the flock of Jethro, his father-in-law, the priest of Midian"
+     },
+     {
+      "unit": "exodus-4-3",
+      "quote": "He threw it on the ground, and it became a snake; and Moses ran away from it."
+     },
+     {
+      "unit": "exodus-17-9",
+      "quote": "I will stand on the top of the hill with God’s rod in my hand."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0011401,
+  "seconds": 3.4
+ },
+ "bible:nathanael": {
+  "work": "bible",
+  "id": "nathanael",
+  "name": "Nathanael",
+  "kind": "character",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "nathanael-s1",
+    "label": "Nathanael of Cana",
+    "when": "First-century Galilee, the time of Jesus' first disciples",
+    "text": "Nathanael: a man in his thirties, lean and sun-browned from Galilean fieldwork, with olive skin, short dark hair and a close-trimmed dark beard with some grey at the chin. Calm, watchful eyes and a straight, honest brow. Signature outfit: a plain undyed linen tunic in pale ochre belted with brown leather, under a fringed wool mantle in deep blue-grey with tassels at the corners. Sandals. He carries no props alone.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "john-21-2",
+      "quote": "Nathanael of Cana in Galilee"
+     },
+     {
+      "unit": "john-1-47",
+      "quote": "Behold, an Israelite indeed, in whom is no deceit!"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0004093,
+  "seconds": 2.3
+ },
+ "bible:simon_peter": {
+  "work": "bible",
+  "id": "simon_peter",
+  "name": "Simon Peter",
+  "kind": "character",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "simon_peter_main",
+    "label": "Simon Peter, Galilean fisherman and apostle",
+    "when": "Galilee and Judea, first century CE, from calling to the early church",
+    "text": "Simon Peter: man in his thirties to forties, sturdy and broad-shouldered from hauling nets; weathered olive-brown skin; short dark curly hair and a full, close-cut dark beard streaked lightly with grey; strong brow, broad nose, direct and steady eyes. Signature outfit: a sleeveless undertunic of undyed brown wool under a faded blue-grey fringed cloak, bare or sandaled feet. Signature prop: a coiled fishing net carried over one shoulder.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "matthew-4-18",
+      "quote": "Simon, who is called Peter, and Andrew, his brother, casting a net into the sea; for they were fishermen."
+     },
+     {
+      "unit": "john-21-7",
+      "quote": "he wrapped his coat around himself (for he was naked), and threw himself into the sea."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0010923,
+  "seconds": 2.8
+ },
+ "bible:the_children_of_israel": {
+  "work": "bible",
+  "id": "the_children_of_israel",
+  "name": "The children of Israel",
+  "kind": "character",
+  "eras": [
+   "Exodus, wilderness and early Israel"
+  ],
+  "stages": [
+   {
+    "id": "the_children_of_israel-s1",
+    "label": "The Israelite people in Egypt and the wilderness",
+    "when": "Exodus 1 through Exodus 40, the people from the oppression in Egypt through the wilderness journey to the tabernacle",
+    "text": "The children of Israel: a typical member is a man of about thirty to fifty years, lean and sun-darkened from desert labour, with a clean-shaven or short-bearded face, brown skin, dark hair cropped close or tied back, and deep-set eyes. Plain undyed or earth-brown wool tunic and cloak, belted with a cord, bare or sandaled feet; women wear similar plain wool with head coverings. Signature props: a wooden staff, and a simple woven tent-cloth or travelling bundle slung over the shoulder.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "exodus-1-7",
+      "quote": "The children of Israel were fruitful, and increased abundantly, and multiplied, and grew exceedingly mighty"
+     },
+     {
+      "unit": "exodus-1-13",
+      "quote": "The Egyptians ruthlessly made the children of Israel serve"
+     },
+     {
+      "unit": "exodus-16-2",
+      "quote": "The whole congregation of the children of Israel murmured against Moses and against Aaron in the wilderness"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0011104,
+  "seconds": 3.5
+ },
+ "bible:the_court_of_the_high_priest": {
+  "work": "bible",
+  "id": "the_court_of_the_high_priest",
+  "name": "the court of the high priest",
+  "kind": "location",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "the_court_of_the_high_priest_s1",
+    "label": "Court of the high priest",
+    "when": "Night of Jesus' arrest, first-century Jerusalem",
+    "text": "the court of the high priest: a walled courtyard inside a stately stone palace in Jerusalem's upper city, flat limestone paving worn smooth, a colonnade of squared stone pillars along one side, a stone gateway with a wooden door and a porter's alcove, a raised step leading into the great hall, a charcoal brazier pit at the centre, potted olive and fig trees against the walls, clay oil lamps on iron stands, and a view above the wall of the Temple's white stone towers.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "matthew-26-3",
+      "quote": "gathered together in the court of the high priest, who was called Caiaphas"
+     },
+     {
+      "unit": "matthew-26-58",
+      "quote": "followed him from a distance to the court of the high priest, and entered in"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.000399,
+  "seconds": 3.5
+ },
+ "bible:the_disciples": {
+  "work": "bible",
+  "id": "the_disciples",
+  "name": "The disciples",
+  "kind": "character",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "the_disciples_s1",
+    "label": "The Twelve and the companions of Jesus",
+    "when": "First-century Galilee and Judea, the years of Jesus' ministry",
+    "text": "The disciples: Jewish men of Galilee aged roughly 20 to 40; sturdy fishermen's build, weathered tanned Mediterranean skin, dark to olive-brown hair and short beards; faces lined by sun and work. Signature outfit: a plain undyed linen tunic of earth brown under a wool mantle of faded blue-grey with tassel fringes, leather sandals. Signature props: none carried alone; the fishermen's nets and boat belong to the scene.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "matthew-10-2",
+      "quote": "Now the names of the twelve apostles are these."
+     },
+     {
+      "unit": "john-21-4",
+      "quote": "Jesus stood on the beach; yet the disciples didn't know that it was Jesus."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.000747,
+  "seconds": 2.9
+ },
+ "bible:the_egyptians": {
+  "work": "bible",
+  "id": "the_egyptians",
+  "name": "The Egyptians",
+  "kind": "character",
+  "eras": [
+   "Exodus, wilderness and early Israel"
+  ],
+  "stages": [
+   {
+    "id": "the_egyptians-s1",
+    "label": "The Egyptians",
+    "when": "Exodus 1 to 14, the oppression, the plagues, and the pursuit to the Red Sea",
+    "text": "The Egyptians: adult men and women, mostly in their prime, lean and sturdy from labour and river life; olive-brown to deep bronze skin; close-shaven heads or smooth-shaven faces, with women wearing plaited hair or long dark wigs; Egyptian linen kilts (shendyt) for men, linen shifts for women, white or undyed; gold collars and bead bracelets for officials; carry staves, baskets and brick-making tools.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "exodus-1-13",
+      "quote": "The Egyptians ruthlessly made the children of Israel serve,"
+     },
+     {
+      "unit": "exodus-1-11",
+      "quote": "Therefore they set taskmasters over them to afflict them with their burdens."
+     },
+     {
+      "unit": "exodus-14-9",
+      "quote": "The Egyptians pursued them. All the horses and chariots of Pharaoh, his horsemen, and his army overtook them"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.000801,
+  "seconds": 3.8
+ },
+ "bible:the_eleven_apostles": {
+  "work": "bible",
+  "id": "the_eleven_apostles",
+  "name": "The eleven apostles",
+  "kind": "character",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "the_eleven_apostles-s1",
+    "label": "The company of apostles in Jerusalem",
+    "when": "Acts 1-2, 4-6, first-century Jerusalem",
+    "text": "The eleven apostles: Galilean Jewish men aged roughly 25 to 60, of sturdy fisherman and craftsman build; olive to tanned skin; dark to graying short beards and cropped or shoulder-length dark hair; weathered, earnest faces. Signature outfit: a plain undyed or earth-brown linen tunic under a fringed woollen cloak in muted ochre, with sandals and a head covering of the same cloth. Signature props: none carried alone; a rolled scroll may be held by one.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "acts-1-26",
+      "quote": "he was counted with the eleven apostles."
+     },
+     {
+      "unit": "acts-4-33",
+      "quote": "With great power, the apostles gave their testimony of the resurrection of the Lord Jesus."
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0005993,
+  "seconds": 3.4
+ },
+ "bible:the_lake": {
+  "work": "bible",
+  "id": "the_lake",
+  "name": "The lake",
+  "kind": "location",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "the_lake",
+    "label": "The lake",
+    "when": "Ministry of Jesus in Galilee, Luke 5 and 8",
+    "text": "The lake: a freshwater lake of Galilee, wide and ringed by low hills, its shoreline of smooth grey pebbles and sand with reed beds and tamarisk. Fishing villages of flat-roofed stone and mud-brick houses stand along the shore, with wooden fishing boats drawn up and rough stone jetties. Oleander and wild oats grow on the slopes, and the water runs deep blue-green near the rocky steep bank on the far side.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "luke-5-1",
+      "quote": "he was standing by the lake of Gennesaret"
+     },
+     {
+      "unit": "luke-5-2",
+      "quote": "He saw two boats standing by the lake"
+     },
+     {
+      "unit": "luke-8-23",
+      "quote": "A wind storm came down on the lake"
+     },
+     {
+      "unit": "luke-8-33",
+      "quote": "the herd rushed down the steep bank into the lake"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0004317,
+  "seconds": 2.7
+ },
+ "bible:the_red_sea": {
+  "work": "bible",
+  "id": "the_red_sea",
+  "name": "The Red Sea",
+  "kind": "location",
+  "eras": [
+   "Exodus, wilderness and early Israel"
+  ],
+  "stages": [
+   {
+    "id": "the_red_sea-s1",
+    "label": "The Red Sea",
+    "when": "Exodus 13:17–15:21, the crossing and its aftermath",
+    "text": "The Red Sea: a wide arm of salt water between sandy desert shores, with reed beds and shallow marsh along the edges, rocky headlands and low dunes rising to the wilderness, a dark blue-green expanse under open sky, and scattered date palms and tamarisk near the shoreline.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "exodus-13-18",
+      "quote": "the way of the wilderness by the Red Sea"
+     },
+     {
+      "unit": "exodus-14-2",
+      "quote": "between Migdol and the sea"
+     },
+     {
+      "unit": "exodus-14-22",
+      "quote": "the waters were a wall to them on their right hand and on their left"
+     },
+     {
+      "unit": "exodus-15-8",
+      "quote": "The deeps were congealed in the heart of the sea"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0005166,
+  "seconds": 2.5
+ },
+ "bible:the_sea_of_galilee": {
+  "work": "bible",
+  "id": "the_sea_of_galilee",
+  "name": "the sea of Galilee",
+  "kind": "location",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "the_sea_of_galilee_s1",
+    "label": "The Sea of Galilee",
+    "when": "First-century Roman Galilee, the lakeshore villages of Capernaum and Gadara's region",
+    "text": "The sea of Galilee: a freshwater lake lying low among hills in northern Galilee, its shore of pebbled sand and reed beds, with wide blue-grey water and steep basalt cliffs dropping to the water's edge on the eastern side. Fishing boats of wood are drawn up on the beach; nets hang to dry on stone walls. Terraced hills of olive trees and vineyards rise behind the western shore. Fig and palm grow among the flat-roofed stone houses of Capernaum by the water, and a mountain rises above the northern shore.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "matthew-4-18",
+      "quote": "Walking by the sea of Galilee, he saw two brothers"
+     },
+     {
+      "unit": "matthew-8-32",
+      "quote": "the whole herd of pigs rushed down the cliff into the sea"
+     },
+     {
+      "unit": "matthew-15-29",
+      "quote": "came near to the sea of Galilee; and he went up on the mountain"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0005401,
+  "seconds": 3.0
+ },
+ "bible:the_shore_of_the_sea_of_tiberias": {
+  "work": "bible",
+  "id": "the_shore_of_the_sea_of_tiberias",
+  "name": "the shore of the sea of Tiberias",
+  "kind": "location",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "the_shore_of_the_sea_of_tiberias_s1",
+    "label": "Breakfast on the shore",
+    "when": "First-century Galilee, after the resurrection, at dawn",
+    "text": "the shore of the sea of Tiberias: a wide pebbled and sandy beach sloping gently to a freshwater lake ringed by low hills; a few flat-roofed stone and mud-brick fishing houses and a stone jetty at the water's edge; wild grasses, oleander and scattered palms along the upper shore; distant basalt hills rising beyond the water; a few clay jars and fishing nets drying on the stones; a small charcoal fire ring of dark stones near the sand.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "john-21-4",
+      "quote": "But when day had already come, Jesus stood on the beach"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0003764,
+  "seconds": 2.5
+ },
+ "bible:thomas": {
+  "work": "bible",
+  "id": "thomas",
+  "name": "Thomas",
+  "kind": "character",
+  "eras": [
+   "First-century Roman Judea, Galilee and the wider empire"
+  ],
+  "stages": [
+   {
+    "id": "thomas-main",
+    "label": "Thomas (Didymus)",
+    "when": "First century, Galilee and Judea, the years of Jesus' ministry and after the resurrection",
+    "text": "Thomas: a man of about thirty to forty years, lean and sturdy from fishing and travel; olive-tanned skin; dark brown hair cut short above the ears, with a close-trimmed dark beard flecked with grey at the chin; deep-set, watchful eyes and a serious, searching face. Signature outfit: a short undyed linen tunic of natural cream with a dusty brown wool mantle with tassels at the corners. Carries no props alone, though a fisherman's cord may hang at his belt.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "john-20-24",
+      "quote": "Thomas, one of the twelve, called Didymus, wasn’t with them when Jesus came."
+     },
+     {
+      "unit": "john-11-16",
+      "quote": "Thomas therefore, who is called Didymus, said to his fellow disciples"
+     },
+     {
+      "unit": "john-21-2",
+      "quote": "Simon Peter, Thomas called Didymus, Nathanael of Cana in Galilee"
+     }
+    ]
+   }
+  ],
+  "quote_problems": [],
+  "cost": 0.0004896,
+  "seconds": 3.0
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__the-adventure-of-the-speckled-band-m19",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424184-BWwzJfQZzL8TTCMLKvSe",
+  "seconds": 2.1,
+  "finish_reason": "stop",
+  "prompt_tokens": 1640,
+  "completion_tokens": 291,
+  "cost": 0.0003095,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:36:26"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 2899,
+ "content": "{\"primarySubject\":\"Sherlock Holmes and Dr. Watson standing with Helen Stoner on the lawn before the manor's grey stone wing\",\"action\":\"Holmes gestures toward the boarded windows while Helen, pale and tense, grips her shawl; Watson listens with his hat in hand\",\"setting\":\"Ill-trimmed lawn at Stoke Moran, beside the ruined wing with scaffolding against its end wall\",\"secondaryElements\":\"Broken, boarded windows of the wing, partly caved roof, lichen-stained stone, a stray garden rake leaning on the wall\",\"mood\":\"Tense, restrained, watchful, with quiet urgency\",\"timeOfDay\":\"Late morning, overcast grey daylight\",\"composition\":\"Medium-long shot from the lawn, figures grouped in the lower third, the wing's curving line sweeping across the frame\"}",
+ "parsed": {
+  "primarySubject": "Sherlock Holmes and Dr. Watson standing with Helen Stoner on the lawn before the manor's grey stone wing",
+  "action": "Holmes gestures toward the boarded windows while Helen, pale and tense, grips her shawl; Watson listens with his hat in hand",
+  "setting": "Ill-trimmed lawn at Stoke Moran, beside the ruined wing with scaffolding against its end wall",
+  "secondaryElements": "Broken, boarded windows of the wing, partly caved roof, lichen-stained stone, a stray garden rake leaning on the wall",
+  "mood": "Tense, restrained, watchful, with quiet urgency",
+  "timeOfDay": "Late morning, overcast grey daylight",
+  "composition": "Medium-long shot from the lawn, figures grouped in the lower third, the wing's curving line sweeping across the frame"
+ },
+ "usage": {
+  "prompt_tokens": 1640,
+  "completion_tokens": 291,
+  "total_tokens": 1931,
+  "cost": 0.0003095,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003095,
+   "upstream_inference_prompt_cost": 0.000164,
+   "upstream_inference_completions_cost": 0.0001455
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

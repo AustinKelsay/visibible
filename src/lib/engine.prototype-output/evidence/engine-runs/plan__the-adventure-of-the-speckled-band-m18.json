@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__the-adventure-of-the-speckled-band-m18",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424119-yUT7yr8JovRvhkHWR3R9",
+  "seconds": 6.1,
+  "finish_reason": "stop",
+  "prompt_tokens": 2163,
+  "completion_tokens": 408,
+  "cost": 0.0004203,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:35:25"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 4328,
+ "content": "{\"primarySubject\":\"Sherlock Holmes seated in an open trap, arms folded, hat pulled low, chin sunk in thought, then sitting upright and pointing across the meadows toward the park\",\"action\":\"Holmes suddenly starts, taps Watson's shoulder and points over the fields; Watson beside him looks toward the grey gables above the trees\",\"setting\":\"A Surrey lane near Leatherhead in bright early spring, a hired two-wheeled trap on a dirt track, with fresh green hedges and budding trees along the verge\",\"secondaryElements\":\"Heavily timbered park rising on a gentle slope to a grove, grey gables and high roof of an old manor jutting above the branches; a cabman in plain working dress; a cluster of village roofs in the distance; a stile and footpath across the meadow\",\"mood\":\"Sunny and fresh with a faint undercurrent of foreboding, dry restraint and quiet anticipation\",\"timeOfDay\":\"Bright late afternoon in early spring, warm sun with a few fleecy clouds\",\"composition\":\"Wide landscape shot from the rear of the trap, the two men in the foreground framed by hedges, the manor and park rising on the right, open meadows leading the eye toward the house\"}",
+ "parsed": {
+  "primarySubject": "Sherlock Holmes seated in an open trap, arms folded, hat pulled low, chin sunk in thought, then sitting upright and pointing across the meadows toward the park",
+  "action": "Holmes suddenly starts, taps Watson's shoulder and points over the fields; Watson beside him looks toward the grey gables above the trees",
+  "setting": "A Surrey lane near Leatherhead in bright early spring, a hired two-wheeled trap on a dirt track, with fresh green hedges and budding trees along the verge",
+  "secondaryElements": "Heavily timbered park rising on a gentle slope to a grove, grey gables and high roof of an old manor jutting above the branches; a cabman in plain working dress; a cluster of village roofs in the distance; a stile and footpath across the meadow",
+  "mood": "Sunny and fresh with a faint undercurrent of foreboding, dry restraint and quiet anticipation",
+  "timeOfDay": "Bright late afternoon in early spring, warm sun with a few fleecy clouds",
+  "composition": "Wide landscape shot from the rear of the trap, the two men in the foreground framed by hedges, the manor and park rising on the right, open meadows leading the eye toward the house"
+ },
+ "usage": {
+  "prompt_tokens": 2163,
+  "completion_tokens": 408,
+  "total_tokens": 2571,
+  "cost": 0.0004203,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0004203,
+   "upstream_inference_prompt_cost": 0.0002163,
+   "upstream_inference_completions_cost": 0.000204
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

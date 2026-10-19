@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__john-21-7",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424112-G9CnZHe21NeoLhyckA5w",
+  "seconds": 3.5,
+  "finish_reason": "stop",
+  "prompt_tokens": 1822,
+  "completion_tokens": 337,
+  "cost": 0.0003507,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:35:16"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 3399,
+ "content": "{\"primarySubject\":\"Simon Peter, a sturdy Galilean fisherman, wrapping his outer coat around his body as he leaps from the boat\",\"action\":\"Peter hurls himself over the side into the shallow water, coat clutched tight, while the disciple beside him points toward the shore\",\"setting\":\"Shore of the Sea of Galilee at Tiberias; a small wooden fishing boat with a heavy net on still water, a charcoal fire glowing on the beach\",\"secondaryElements\":\"Jesus standing on the shore near the fire in plain dress, other disciples gathered in the boat, lake mist lifting off the water, fish stirring in the net\",\"mood\":\"Joyful urgency and reverent recognition, with a rush of impulsive devotion\",\"timeOfDay\":\"Daybreak, pale dawn light warming toward golden sunrise over the water\",\"composition\":\"Wide shot from the boat's stern, Peter mid-leap in the foreground splash, Jesus small and distant by the glowing fire on the far shore\"}",
+ "parsed": {
+  "primarySubject": "Simon Peter, a sturdy Galilean fisherman, wrapping his outer coat around his body as he leaps from the boat",
+  "action": "Peter hurls himself over the side into the shallow water, coat clutched tight, while the disciple beside him points toward the shore",
+  "setting": "Shore of the Sea of Galilee at Tiberias; a small wooden fishing boat with a heavy net on still water, a charcoal fire glowing on the beach",
+  "secondaryElements": "Jesus standing on the shore near the fire in plain dress, other disciples gathered in the boat, lake mist lifting off the water, fish stirring in the net",
+  "mood": "Joyful urgency and reverent recognition, with a rush of impulsive devotion",
+  "timeOfDay": "Daybreak, pale dawn light warming toward golden sunrise over the water",
+  "composition": "Wide shot from the boat's stern, Peter mid-leap in the foreground splash, Jesus small and distant by the glowing fire on the far shore"
+ },
+ "usage": {
+  "prompt_tokens": 1822,
+  "completion_tokens": 337,
+  "total_tokens": 2159,
+  "cost": 0.0003507,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003507,
+   "upstream_inference_prompt_cost": 0.0001822,
+   "upstream_inference_completions_cost": 0.0001685
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

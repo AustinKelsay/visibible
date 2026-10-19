@@ -1,0 +1,561 @@
+{
+ "work": "holmes-adventures",
+ "division": "the-five-orange-pips",
+ "division_name": "The Five Orange Pips",
+ "units": 178,
+ "record": {
+  "label": "holmes-adventures__the-five-orange-pips__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354443-0XgGBENujJ9UojxZ8GNn",
+  "seconds": 14.0,
+  "finish_reason": "stop",
+  "prompt_tokens": 15913,
+  "completion_tokens": 3283,
+  "cost": 0.0032328,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:17"
+ },
+ "characters": [
+  {
+   "id": "sherlock_holmes",
+   "name": "Sherlock Holmes",
+   "aliases": [
+    "Holmes",
+    "my friend"
+   ],
+   "note": "Consulting detective living at Baker Street with Watson; narrator's friend; present throughout the division.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "watson",
+   "name": "Dr. Watson",
+   "aliases": [
+    "Watson",
+    "I",
+    "the narrator"
+   ],
+   "note": "Narrator and Holmes's companion at Baker Street, a doctor; present at the fireside and breakfast scenes.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "john_openshaw",
+   "name": "John Openshaw",
+   "aliases": [
+    "young Openshaw",
+    "the young man"
+   ],
+   "note": "Young client, about 22, nephew of Colonel Elias Openshaw and son of Joseph Openshaw; visits Baker Street on the stormy night and is later found drowned near Waterloo Bridge.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "colonel_elias_openshaw",
+   "name": "Colonel Elias Openshaw",
+   "aliases": [
+    "my uncle",
+    "the colonel",
+    "Elias Openshaw"
+   ],
+   "note": "Uncle of John, former planter and Confederate colonel in America, living in Horsham; dies in a garden pool in May 1883 after receiving the K.K.K. warning; not to be confused with John.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "joseph_openshaw",
+   "name": "Joseph Openshaw",
+   "aliases": [
+    "my father",
+    "Openshaw senior"
+   ],
+   "note": "Brother of Colonel Elias and father of John; former Coventry factory owner who inherits Horsham estate; dies falling into a chalk-pit in January 1885.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "major_prendergast",
+   "name": "Major Prendergast",
+   "aliases": [
+    "Prendergast"
+   ],
+   "note": "Army officer whom Openshaw consulted; referred him to Holmes; mentioned only.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "fordham",
+   "name": "Mr. Fordham",
+   "aliases": [
+    "the Horsham lawyer"
+   ],
+   "note": "Horsham lawyer who witnessed the colonel's will in 1883; mentioned only.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "major_freebody",
+   "name": "Major Freebody",
+   "aliases": [
+    "the major"
+   ],
+   "note": "Commander of a fort on Portsdown Hill and friend of Joseph Openshaw; sent telegram after his fall; mentioned only.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "captain_james_calhoun",
+   "name": "Captain James Calhoun",
+   "aliases": [
+    "Captain Calhoun",
+    "the leader of the gang"
+   ],
+   "note": "Master of the barque Lone Star of Savannah, identified by Holmes as leader of the K.K.K. gang; never appears on stage; mentioned only.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "police_constable_cook",
+   "name": "Police-Constable Cook",
+   "aliases": [
+    "Cook"
+   ],
+   "note": "H Division constable who heard the cry near Waterloo Bridge; reported in newspaper; mentioned only.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "hudson",
+   "name": "Hudson",
+   "aliases": [],
+   "note": "Name appearing in colonel's 1869 diary page; mentioned only.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mccauley",
+   "name": "McCauley",
+   "aliases": [],
+   "note": "Name in the 1869 diary page, marked with pips and cleared; mentioned only.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "paramore",
+   "name": "Paramore",
+   "aliases": [],
+   "note": "Name in the 1869 diary page, visited; mentioned only.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "john_swain",
+   "name": "John Swain",
+   "aliases": [
+    "John Swain of St. Augustine"
+   ],
+   "note": "Name in the 1869 diary page, marked with pips and cleared; mentioned only.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mary",
+   "name": "Mary",
+   "aliases": [],
+   "note": "Household servant at Horsham; mentioned only.",
+   "kind": "person",
+   "same_person_as": ""
+  }
+ ],
+ "locations": [
+  {
+   "id": "baker_street_rooms",
+   "name": "Baker Street rooms",
+   "aliases": [
+    "Baker Street",
+    "our quarters"
+   ],
+   "note": "Holmes and Watson's sitting room at 221B Baker Street, London, where the visit and breakfast take place."
+  },
+  {
+   "id": "horsham_estate",
+   "name": "Horsham estate",
+   "aliases": [
+    "Horsham",
+    "the estate in Sussex"
+   ],
+   "note": "Colonel Openshaw's house near Horsham in Sussex, with attic, garden and sundial; mentioned in the narration."
+  },
+  {
+   "id": "waterloo_bridge",
+   "name": "Waterloo Bridge",
+   "aliases": [
+    "the Embankment"
+   ],
+   "note": "Thames bridge in London near where John Openshaw's body is recovered; mentioned only."
+  },
+  {
+   "id": "lone_star_barque",
+   "name": "the barque Lone Star",
+   "aliases": [
+    "Lone Star",
+    "the Lone Star of Savannah"
+   ],
+   "note": "American sailing ship bound for Savannah, Georgia, carrying the gang; mentioned only."
+  }
+ ],
+ "sections": [
+  {
+   "id": "the-five-orange-pips-s1",
+   "start": "the-five-orange-pips-1",
+   "end": "the-five-orange-pips-11",
+   "start_idx": 0,
+   "end_idx": 10,
+   "n_units": 11,
+   "words": 808,
+   "start_ref": "The Five Orange Pips ¶1",
+   "end_ref": "The Five Orange Pips ¶11",
+   "title": "A stormy night and an unexpected visitor",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "john_openshaw",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-five-orange-pips-s2",
+   "start": "the-five-orange-pips-12",
+   "end": "the-five-orange-pips-34",
+   "start_idx": 11,
+   "end_idx": 33,
+   "n_units": 23,
+   "words": 328,
+   "start_ref": "The Five Orange Pips ¶12",
+   "end_ref": "The Five Orange Pips ¶34",
+   "title": "Openshaw introduces his family",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "john_openshaw",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "major_prendergast"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-five-orange-pips-s3",
+   "start": "the-five-orange-pips-35",
+   "end": "the-five-orange-pips-45",
+   "start_idx": 34,
+   "end_idx": 44,
+   "n_units": 11,
+   "words": 1354,
+   "start_ref": "The Five Orange Pips ¶35",
+   "end_ref": "The Five Orange Pips ¶45",
+   "title": "Colonel Elias Openshaw's life and death",
+   "setting": [
+    "horsham_estate"
+   ],
+   "on_stage": [],
+   "mentioned_only": [
+    "colonel_elias_openshaw",
+    "joseph_openshaw",
+    "fordham"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-five-orange-pips-s4",
+   "start": "the-five-orange-pips-46",
+   "end": "the-five-orange-pips-49",
+   "start_idx": 45,
+   "end_idx": 48,
+   "n_units": 4,
+   "words": 238,
+   "start_ref": "The Five Orange Pips ¶46",
+   "end_ref": "The Five Orange Pips ¶49",
+   "title": "The attic box and the colonel's will",
+   "setting": [
+    "horsham_estate"
+   ],
+   "on_stage": [
+    {
+     "id": "john_openshaw",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "colonel_elias_openshaw",
+    "fordham"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-five-orange-pips-s5",
+   "start": "the-five-orange-pips-50",
+   "end": "the-five-orange-pips-67",
+   "start_idx": 49,
+   "end_idx": 66,
+   "n_units": 18,
+   "words": 690,
+   "start_ref": "The Five Orange Pips ¶50",
+   "end_ref": "The Five Orange Pips ¶67",
+   "title": "The father's letter and death",
+   "setting": [
+    "horsham_estate"
+   ],
+   "on_stage": [
+    {
+     "id": "john_openshaw",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "joseph_openshaw",
+    "major_freebody"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-five-orange-pips-s6",
+   "start": "the-five-orange-pips-68",
+   "end": "the-five-orange-pips-86",
+   "start_idx": 67,
+   "end_idx": 85,
+   "n_units": 19,
+   "words": 463,
+   "start_ref": "The Five Orange Pips ¶68",
+   "end_ref": "The Five Orange Pips ¶86",
+   "title": "Openshaw's second warning and the police",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "john_openshaw",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-five-orange-pips-s7",
+   "start": "the-five-orange-pips-87",
+   "end": "the-five-orange-pips-95",
+   "start_idx": 86,
+   "end_idx": 94,
+   "n_units": 9,
+   "words": 211,
+   "start_ref": "The Five Orange Pips ¶87",
+   "end_ref": "The Five Orange Pips ¶95",
+   "title": "The diary page and Holmes's instructions",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "john_openshaw",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "hudson",
+    "mccauley",
+    "paramore",
+    "john_swain"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-five-orange-pips-s8",
+   "start": "the-five-orange-pips-96",
+   "end": "the-five-orange-pips-114",
+   "start_idx": 95,
+   "end_idx": 113,
+   "n_units": 19,
+   "words": 690,
+   "start_ref": "The Five Orange Pips ¶96",
+   "end_ref": "The Five Orange Pips ¶114",
+   "title": "Openshaw departs and Holmes reflects",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "john_openshaw",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-five-orange-pips-s9",
+   "start": "the-five-orange-pips-115",
+   "end": "the-five-orange-pips-136",
+   "start_idx": 114,
+   "end_idx": 135,
+   "n_units": 22,
+   "words": 1230,
+   "start_ref": "The Five Orange Pips ¶115",
+   "end_ref": "The Five Orange Pips ¶136",
+   "title": "Holmes explains the K.K.K. and the ship",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "captain_james_calhoun"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-five-orange-pips-s10",
+   "start": "the-five-orange-pips-137",
+   "end": "the-five-orange-pips-153",
+   "start_idx": 136,
+   "end_idx": 152,
+   "n_units": 17,
+   "words": 651,
+   "start_ref": "The Five Orange Pips ¶137",
+   "end_ref": "The Five Orange Pips ¶153",
+   "title": "The news of Openshaw's death",
+   "setting": [
+    "baker_street_rooms"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "john_openshaw",
+    "police_constable_cook"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-five-orange-pips-s11",
+   "start": "the-five-orange-pips-154",
+   "end": "the-five-orange-pips-178",
+   "start_idx": 153,
+   "end_idx": 177,
+   "n_units": 25,
+   "words": 651,
+   "start_ref": "The Five Orange Pips ¶154",
+   "end_ref": "The Five Orange Pips ¶178",
+   "title": "The trap for the Lone Star",
+   "setting": [
+    "baker_street_rooms",
+    "lone_star_barque"
+   ],
+   "on_stage": [
+    {
+     "id": "sherlock_holmes",
+     "named": false
+    },
+    {
+     "id": "watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "captain_james_calhoun"
+   ],
+   "unknown_ids": []
+  }
+ ],
+ "brief": {
+  "tone": "Stormy, foreboding and claustrophobic in London, with dread growing from the quiet Horsham household into a grim, fatal hunt at sea.",
+  "depiction_rules": [
+   "Show the K.K.K. warnings only as the small dried orange pips and the scrawled letters, never as hooded figures or lynching scenes.",
+   "Do not depict the colonel's death or the chalk-pit fall in gory detail; keep them off-screen or suggested by the pool and the empty box.",
+   "Holmes is shown in his Baker Street rooms with pipe, violin and reference books, not in disguise.",
+   "Keep the American slavery and Reconstruction background as referenced politics, with no graphic racial violence shown.",
+   "Show the Lone Star only at a distance or as a final shattered stern-post, not a lingering shipboard scene."
+  ],
+  "era": {
+   "name": "Victorian England, 1883 to 1885, with American Reconstruction and Confederate backdrop",
+   "people": "English professionals, servants and police in London and Sussex; Openshaw is a young English gentleman; the colonel is a former Southern planter, and the gang are American sailors of Finnish and German crews.",
+   "dress": "Frock coats, waistcoats and overcoats for men, long waterproof coats and umbrellas in rain; pince-nez for John; plain dress for servants and dock workers.",
+   "buildings_and_objects": "Gaslit Baker Street sitting room with fire and lamp, Horsham country house with attic lumber-room and garden sundial, brass cash-box, chalk-pits, Waterloo Bridge, Albert Dock and sailing barques.",
+   "technology": "Gas lighting, railways and telegraph, steamboats and sailing ships, printed newspapers and encyclopaedias; no telephones, motorcars or electric light."
+  }
+ },
+ "checks": {
+  "bad_section_ids": [],
+  "uncovered_units": 0,
+  "uncovered_sample": [],
+  "overlap_units": 0,
+  "sections_with_unknown_ids": 0
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__the-adventure-of-the-speckled-band-m5",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424118-f5UwqI6D9GzRQTJm2ky8",
+  "seconds": 4.1,
+  "finish_reason": "stop",
+  "prompt_tokens": 2931,
+  "completion_tokens": 340,
+  "cost": 0.0004631,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:35:22"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 6981,
+ "content": "{\"primarySubject\":\"Helen Stoner, a pale young woman in a plain high-necked dark dress, seated and leaning forward with clasped hands\",\"action\":\"Speaking earnestly to Holmes while glancing away, her posture tense and her gaze averted as if recalling painful family history\",\"setting\":\"Holmes's sitting-room at 221B Baker Street, cramped and book-lined, with a coal fire and a lamp-lit corner\",\"secondaryElements\":\"Holmes in a dressing-gown in an armchair, attentive and still; Dr. Watson seated nearby in the background; faint suggestion of the old Stoke Moran manor through a shadowed memory-tinted corner\",\"mood\":\"Restrained, anxious, gaslit intimacy with dry, foggy gravity\",\"timeOfDay\":\"Overcast daytime with grey window light mixed with lamplight inside\",\"composition\":\"Medium two-shot with Helen in the foreground left and Holmes seated right, a grey window behind, room darkened and cold at the edges\"}",
+ "parsed": {
+  "primarySubject": "Helen Stoner, a pale young woman in a plain high-necked dark dress, seated and leaning forward with clasped hands",
+  "action": "Speaking earnestly to Holmes while glancing away, her posture tense and her gaze averted as if recalling painful family history",
+  "setting": "Holmes's sitting-room at 221B Baker Street, cramped and book-lined, with a coal fire and a lamp-lit corner",
+  "secondaryElements": "Holmes in a dressing-gown in an armchair, attentive and still; Dr. Watson seated nearby in the background; faint suggestion of the old Stoke Moran manor through a shadowed memory-tinted corner",
+  "mood": "Restrained, anxious, gaslit intimacy with dry, foggy gravity",
+  "timeOfDay": "Overcast daytime with grey window light mixed with lamplight inside",
+  "composition": "Medium two-shot with Helen in the foreground left and Holmes seated right, a grey window behind, room darkened and cold at the edges"
+ },
+ "usage": {
+  "prompt_tokens": 2931,
+  "completion_tokens": 340,
+  "total_tokens": 3271,
+  "cost": 0.0004631,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0004631,
+   "upstream_inference_prompt_cost": 0.0002931,
+   "upstream_inference_completions_cost": 0.00017
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

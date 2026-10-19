@@ -1,0 +1,50 @@
+{
+ "record": {
+  "label": "look__holmes__the-adventure-of-the-speckled-band-s3",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424063-bZxMLShn49nCYWzRWCwg",
+  "seconds": 2.9,
+  "finish_reason": "stop",
+  "prompt_tokens": 3284,
+  "completion_tokens": 259,
+  "cost": 0.0004579,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:34:25"
+ },
+ "system": "You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.\nRules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.",
+ "user_chars": 8191,
+ "content": "{\"place\":\"Old manor-house at Stoke Moran, Surrey, ground-floor bedroom wing with a shared corridor; country farmland and bramble-covered grounds beyond\",\"timeOfDay\":\"Daytime, present-day recollection in a London sitting-room; the memories concern the manor in the years before Julia's death\",\"weather\":\"Overcast English countryside, damp and grey; indoors the rooms are cold and dim\",\"light\":\"Dim, lamp-lit or grey daylight through small windows; shadowed corridors and old panelled rooms\",\"clothing\":\"Victorian plain country dress for the sisters (high-necked dresses, bonnets outdoors); Dr. Roylott in a dark frock-coat; Holmes in a dressing-gown in a Baker Street room\"}",
+ "parsed": {
+  "place": "Old manor-house at Stoke Moran, Surrey, ground-floor bedroom wing with a shared corridor; country farmland and bramble-covered grounds beyond",
+  "timeOfDay": "Daytime, present-day recollection in a London sitting-room; the memories concern the manor in the years before Julia's death",
+  "weather": "Overcast English countryside, damp and grey; indoors the rooms are cold and dim",
+  "light": "Dim, lamp-lit or grey daylight through small windows; shadowed corridors and old panelled rooms",
+  "clothing": "Victorian plain country dress for the sisters (high-necked dresses, bonnets outdoors); Dr. Roylott in a dark frock-coat; Holmes in a dressing-gown in a Baker Street room"
+ },
+ "usage": {
+  "prompt_tokens": 3284,
+  "completion_tokens": 259,
+  "total_tokens": 3543,
+  "cost": 0.0004579,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0004579,
+   "upstream_inference_prompt_cost": 0.0003284,
+   "upstream_inference_completions_cost": 0.0001295
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

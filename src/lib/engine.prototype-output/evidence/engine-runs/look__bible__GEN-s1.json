@@ -1,0 +1,50 @@
+{
+ "record": {
+  "label": "look__bible__GEN-s1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424060-UoV4U74WJobGa322ceSV",
+  "seconds": 2.8,
+  "finish_reason": "stop",
+  "prompt_tokens": 2560,
+  "completion_tokens": 221,
+  "cost": 0.0003665,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:34:22"
+ },
+ "system": "You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.\nRules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.",
+ "user_chars": 5837,
+ "content": "{\"place\":\"Formless primeval void giving way to a fertile Mesopotamian-style land of seas, dry earth, grasses and fruit trees under open sky\",\"timeOfDay\":\"Primeval cosmic time, shifting from deep darkness on day one through successive evenings and mornings across six days\",\"weather\":\"Clear, luminous sky after the first day, with waters above and below separated by an expanse; no storms\",\"light\":\"Begins in total darkness, then a pure radiant divine light from no visible source, later sun and moon and stars; warm golden tones\",\"clothing\":\"No human clothing in the creation scenes; man and woman, when shown, are unclothed or covered with simple linen\"}",
+ "parsed": {
+  "place": "Formless primeval void giving way to a fertile Mesopotamian-style land of seas, dry earth, grasses and fruit trees under open sky",
+  "timeOfDay": "Primeval cosmic time, shifting from deep darkness on day one through successive evenings and mornings across six days",
+  "weather": "Clear, luminous sky after the first day, with waters above and below separated by an expanse; no storms",
+  "light": "Begins in total darkness, then a pure radiant divine light from no visible source, later sun and moon and stars; warm golden tones",
+  "clothing": "No human clothing in the creation scenes; man and woman, when shown, are unclothed or covered with simple linen"
+ },
+ "usage": {
+  "prompt_tokens": 2560,
+  "completion_tokens": 221,
+  "total_tokens": 2781,
+  "cost": 0.0003665,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003665,
+   "upstream_inference_prompt_cost": 0.000256,
+   "upstream_inference_completions_cost": 0.0001105
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

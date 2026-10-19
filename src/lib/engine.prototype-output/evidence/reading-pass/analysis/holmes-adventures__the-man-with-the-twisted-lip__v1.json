@@ -1,0 +1,709 @@
+{
+ "work": "holmes-adventures",
+ "division": "the-man-with-the-twisted-lip",
+ "division_name": "The Man With The Twisted Lip",
+ "units": 222,
+ "record": {
+  "label": "holmes-adventures__the-man-with-the-twisted-lip__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354443-ddHGTsVIOlZUqFuahdVv",
+  "seconds": 16.9,
+  "finish_reason": "stop",
+  "prompt_tokens": 19648,
+  "completion_tokens": 3986,
+  "cost": 0.0039578,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:20"
+ },
+ "characters": [
+  {
+   "id": "isa_whitney",
+   "name": "Isa Whitney",
+   "aliases": [
+    "Whitney",
+    "Mr. Whitney"
+   ],
+   "note": "Brother of the late Elias Whitney, D.D.; an opium addict and husband of Kate Whitney. Found in an opium den in Upper Swandam Lane and taken home by Watson; appears in units 1 to 33.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "kate_whitney",
+   "name": "Kate Whitney",
+   "aliases": [
+    "Kate",
+    "Mrs. Whitney"
+   ],
+   "note": "Wife of Isa Whitney and old school companion of Mrs. Watson; comes to Watson's house asking for help in units 5 to 12.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "watson",
+   "name": "Dr. Watson",
+   "aliases": [
+    "Watson",
+    "I",
+    "narrator",
+    "John"
+   ],
+   "note": "The narrator, a doctor and companion of Sherlock Holmes; present throughout the division.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mrs_watson",
+   "name": "Mrs. Watson",
+   "aliases": [
+    "my wife",
+    "James's wife"
+   ],
+   "note": "Watson's wife, an old friend of Kate Whitney; present only at the start of the division in her home.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "sherlock_holmes",
+   "name": "Sherlock Holmes",
+   "aliases": [
+    "Holmes",
+    "my friend",
+    "the old man by the brazier"
+   ],
+   "note": "The detective, who disguises himself as an opium-smoking old man in the den; a companion of Watson throughout the division.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "malay_attendant",
+   "name": "Malay attendant",
+   "aliases": [
+    "sallow Malay attendant"
+   ],
+   "note": "Attendant at the opium den who offers Watson a pipe; appears only in unit 16.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lascar_manager",
+   "name": "Lascar manager",
+   "aliases": [
+    "the Lascar",
+    "rascally Lascar",
+    "Lascar scoundrel",
+    "Lascar confederate"
+   ],
+   "note": "Keeper of the opium den in Upper Swandam Lane who thrust Mrs. St. Clair back and kept Boone's secret; mentioned in units 40, 61, 63, 209 and 216.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "dane_assistant",
+   "name": "Dane assistant",
+   "aliases": [
+    "a Dane"
+   ],
+   "note": "Assistant at the opium den who helped push Mrs. St. Clair into the street; only mentioned in unit 61.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "neville_st_clair",
+   "name": "Neville St. Clair",
+   "aliases": [
+    "Mr. St. Clair",
+    "Hugh Boone",
+    "the beggar",
+    "the cripple",
+    "the man in the bath",
+    "Boone"
+   ],
+   "note": "A respectable Lee gentleman who disguised himself as the beggar Hugh Boone to earn money; the same person as Hugh Boone. Appears on stage in the Bow Street cell scene and is also the figure seen at the opium-den window and in the den's upper room.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "hugh_boone",
+   "name": "Hugh Boone",
+   "aliases": [
+    "Boone",
+    "the beggar with the twisted lip",
+    "the cripple",
+    "the lodger"
+   ],
+   "note": "Disguise of Neville St. Clair as a professional beggar with a scarred face and red hair; the same person as Neville St. Clair, who is listed as the entry for the man.",
+   "kind": "person",
+   "same_person_as": "neville_st_clair"
+  },
+  {
+   "id": "mrs_st_clair",
+   "name": "Mrs. St. Clair",
+   "aliases": [
+    "the little blonde woman",
+    "the lady",
+    "Mrs. Neville St. Clair",
+    "my wife",
+    "the wife"
+   ],
+   "note": "Wife of Neville St. Clair, daughter of a local brewer, living at The Cedars in Lee; saw her husband at the window of the den and receives his note.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "inspector_barton",
+   "name": "Inspector Barton",
+   "aliases": [
+    "Barton"
+   ],
+   "note": "Police inspector in charge of the St. Clair case who searched the den; mentioned only, in unit 68.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "inspector_bradstreet",
+   "name": "Inspector Bradstreet",
+   "aliases": [
+    "Bradstreet",
+    "the inspector"
+   ],
+   "note": "Duty inspector at Bow Street police station who receives Holmes and sees the prisoner unmasked; appears in units 170 to 221.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "john_stable_boy",
+   "name": "John the cabman",
+   "aliases": [
+    "John",
+    "the stable-boy",
+    "the cabman"
+   ],
+   "note": "Cabman who drives Whitney home and the stable-boy at The Cedars who puts the trap out; appears in units 51 and 163 to 167.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "new_horse_cart",
+   "name": "the horse",
+   "aliases": [
+    "the horse",
+    "the trap",
+    "the dog-cart"
+   ],
+   "note": "Not a character to illustrate separately; included only as a reference point for the conveyance.",
+   "kind": "other",
+   "same_person_as": ""
+  }
+ ],
+ "locations": [
+  {
+   "id": "watson_house",
+   "name": "Watson's house",
+   "aliases": [
+    "our sitting-room",
+    "our home",
+    "my armchair and cheery sitting-room"
+   ],
+   "note": "Watson's sitting-room in London where Kate Whitney comes at night in June 1889; units 2 to 13."
+  },
+  {
+   "id": "upper_swandam_lane_den",
+   "name": "the Bar of Gold opium den",
+   "aliases": [
+    "the den",
+    "the opium den",
+    "the Bar of Gold",
+    "the house in Upper Swandam Lane"
+   ],
+   "note": "A vile opium den at the foot of steps in Upper Swandam Lane by the wharves east of London Bridge, with a second-floor room where Boone lodged; units 14 to 34 and 61 to 62."
+  },
+  {
+   "id": "dog_cart_road",
+   "name": "the road to Lee",
+   "aliases": [
+    "the London Road",
+    "the dog-cart",
+    "the cab road"
+   ],
+   "note": "The route by dog-cart from the City through suburbs to Lee in Kent, with Holmes and Watson talking; units 33, 40 to 52, 76 to 77, 167 to 168."
+  },
+  {
+   "id": "the_cedars",
+   "name": "The Cedars",
+   "aliases": [
+    "the villa",
+    "St. Clair's house",
+    "the house at Lee"
+   ],
+   "note": "The St. Clair villa near Lee in Kent, with its gravel drive and dining room, where Holmes and Watson stay; units 53 to 60, 77 to 92, 156 to 167."
+  },
+  {
+   "id": "bow_street_station",
+   "name": "Bow Street police station",
+   "aliases": [
+    "Bow Street",
+    "the cells",
+    "the station"
+   ],
+   "note": "Police station in Bow Street where Boone is held in a cell and unmasked; units 169 to 222."
+  }
+ ],
+ "sections": [
+  {
+   "id": "the-man-with-the-twisted-lip-s1",
+   "start": "the-man-with-the-twisted-lip-1",
+   "end": "the-man-with-the-twisted-lip-13",
+   "start_idx": 0,
+   "end_idx": 12,
+   "n_units": 13,
+   "words": 746,
+   "start_ref": "The Man With The Twisted Lip ¶1",
+   "end_ref": "The Man With The Twisted Lip ¶13",
+   "title": "Kate Whitney's Appeal",
+   "setting": [
+    "watson_house"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "mrs_watson",
+     "named": false
+    },
+    {
+     "id": "kate_whitney",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "isa_whitney",
+    "sherlock_holmes"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-man-with-the-twisted-lip-s2",
+   "start": "the-man-with-the-twisted-lip-14",
+   "end": "the-man-with-the-twisted-lip-18",
+   "start_idx": 13,
+   "end_idx": 17,
+   "n_units": 5,
+   "words": 379,
+   "start_ref": "The Man With The Twisted Lip ¶14",
+   "end_ref": "The Man With The Twisted Lip ¶18",
+   "title": "The Opium Den",
+   "setting": [
+    "upper_swandam_lane_den"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "isa_whitney",
+     "named": true
+    },
+    {
+     "id": "malay_attendant",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "lascar_manager"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-man-with-the-twisted-lip-s3",
+   "start": "the-man-with-the-twisted-lip-19",
+   "end": "the-man-with-the-twisted-lip-27",
+   "start_idx": 18,
+   "end_idx": 26,
+   "n_units": 9,
+   "words": 170,
+   "start_ref": "The Man With The Twisted Lip ¶19",
+   "end_ref": "The Man With The Twisted Lip ¶27",
+   "title": "Whitney Released to the Cab",
+   "setting": [
+    "upper_swandam_lane_den"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "isa_whitney",
+     "named": false
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "john_stable_boy"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-man-with-the-twisted-lip-s4",
+   "start": "the-man-with-the-twisted-lip-28",
+   "end": "the-man-with-the-twisted-lip-34",
+   "start_idx": 27,
+   "end_idx": 33,
+   "n_units": 7,
+   "words": 528,
+   "start_ref": "The Man With The Twisted Lip ¶28",
+   "end_ref": "The Man With The Twisted Lip ¶34",
+   "title": "Holmes in Disguise",
+   "setting": [
+    "upper_swandam_lane_den"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "lascar_manager"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-man-with-the-twisted-lip-s5",
+   "start": "the-man-with-the-twisted-lip-35",
+   "end": "the-man-with-the-twisted-lip-51",
+   "start_idx": 34,
+   "end_idx": 50,
+   "n_units": 17,
+   "words": 387,
+   "start_ref": "The Man With The Twisted Lip ¶35",
+   "end_ref": "The Man With The Twisted Lip ¶51",
+   "title": "The Drive Begins",
+   "setting": [
+    "upper_swandam_lane_den",
+    "dog_cart_road"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "john_stable_boy",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "lascar_manager"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-man-with-the-twisted-lip-s6",
+   "start": "the-man-with-the-twisted-lip-52",
+   "end": "the-man-with-the-twisted-lip-56",
+   "start_idx": 51,
+   "end_idx": 55,
+   "n_units": 5,
+   "words": 345,
+   "start_ref": "The Man With The Twisted Lip ¶52",
+   "end_ref": "The Man With The Twisted Lip ¶56",
+   "title": "The Drive Through the Night",
+   "setting": [
+    "dog_cart_road"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-man-with-the-twisted-lip-s7",
+   "start": "the-man-with-the-twisted-lip-57",
+   "end": "the-man-with-the-twisted-lip-63",
+   "start_idx": 56,
+   "end_idx": 62,
+   "n_units": 7,
+   "words": 1123,
+   "start_ref": "The Man With The Twisted Lip ¶57",
+   "end_ref": "The Man With The Twisted Lip ¶63",
+   "title": "Holmes Recounts the Case",
+   "setting": [
+    "dog_cart_road"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "neville_st_clair",
+    "mrs_st_clair",
+    "hugh_boone",
+    "lascar_manager",
+    "dane_assistant",
+    "inspector_barton"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-man-with-the-twisted-lip-s8",
+   "start": "the-man-with-the-twisted-lip-64",
+   "end": "the-man-with-the-twisted-lip-75",
+   "start_idx": 63,
+   "end_idx": 74,
+   "n_units": 12,
+   "words": 1138,
+   "start_ref": "The Man With The Twisted Lip ¶64",
+   "end_ref": "The Man With The Twisted Lip ¶75",
+   "title": "Holmes on Boone and the Coins",
+   "setting": [
+    "dog_cart_road"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "hugh_boone",
+    "neville_st_clair",
+    "inspector_barton"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-man-with-the-twisted-lip-s9",
+   "start": "the-man-with-the-twisted-lip-76",
+   "end": "the-man-with-the-twisted-lip-92",
+   "start_idx": 75,
+   "end_idx": 91,
+   "n_units": 17,
+   "words": 581,
+   "start_ref": "The Man With The Twisted Lip ¶76",
+   "end_ref": "The Man With The Twisted Lip ¶92",
+   "title": "Arrival at The Cedars",
+   "setting": [
+    "the_cedars",
+    "dog_cart_road"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "mrs_st_clair",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-man-with-the-twisted-lip-s10",
+   "start": "the-man-with-the-twisted-lip-93",
+   "end": "the-man-with-the-twisted-lip-156",
+   "start_idx": 92,
+   "end_idx": 155,
+   "n_units": 64,
+   "words": 934,
+   "start_ref": "The Man With The Twisted Lip ¶93",
+   "end_ref": "The Man With The Twisted Lip ¶156",
+   "title": "The Letter from Neville",
+   "setting": [
+    "the_cedars"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "mrs_st_clair",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "neville_st_clair"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-man-with-the-twisted-lip-s11",
+   "start": "the-man-with-the-twisted-lip-157",
+   "end": "the-man-with-the-twisted-lip-168",
+   "start_idx": 156,
+   "end_idx": 167,
+   "n_units": 12,
+   "words": 611,
+   "start_ref": "The Man With The Twisted Lip ¶157",
+   "end_ref": "The Man With The Twisted Lip ¶168",
+   "title": "Holmes's Night and Early Departure",
+   "setting": [
+    "the_cedars"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "john_stable_boy",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-man-with-the-twisted-lip-s12",
+   "start": "the-man-with-the-twisted-lip-169",
+   "end": "the-man-with-the-twisted-lip-199",
+   "start_idx": 168,
+   "end_idx": 198,
+   "n_units": 31,
+   "words": 832,
+   "start_ref": "The Man With The Twisted Lip ¶169",
+   "end_ref": "The Man With The Twisted Lip ¶199",
+   "title": "The Cell and the Unmasking",
+   "setting": [
+    "bow_street_station"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "inspector_bradstreet",
+     "named": true
+    },
+    {
+     "id": "neville_st_clair",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "hugh_boone"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-man-with-the-twisted-lip-s13",
+   "start": "the-man-with-the-twisted-lip-200",
+   "end": "the-man-with-the-twisted-lip-222",
+   "start_idx": 199,
+   "end_idx": 221,
+   "n_units": 23,
+   "words": 1425,
+   "start_ref": "The Man With The Twisted Lip ¶200",
+   "end_ref": "The Man With The Twisted Lip ¶222",
+   "title": "Neville's Confession",
+   "setting": [
+    "bow_street_station"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "inspector_bradstreet",
+     "named": true
+    },
+    {
+     "id": "neville_st_clair",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "mrs_st_clair",
+    "lascar_manager"
+   ],
+   "unknown_ids": []
+  }
+ ],
+ "brief": {
+  "tone": "A wry, late-Victorian mystery of London fog and gaslight, with moments of comic reversal and a melancholy undertone of addiction.",
+  "depiction_rules": [
+   "Show the opium den as squalid and dim, with bodies in berths and small red pipe-glows; do not depict drug use in graphic or glamorised detail.",
+   "Neville St. Clair's disguise as Hugh Boone should be shown with the scar, twisted lip and red hair in the street scenes, and its removal in the cell scene.",
+   "Holmes's disguise as an old opium smoker is a costume to be shown convincingly aged, not as a real addict.",
+   "The Thames, the wharves and the murky river should carry the atmosphere; avoid depicting any body in the water."
+  ],
+  "era": {
+   "name": "London and Kent, June 1889",
+   "people": "Late-Victorian Londoners and Kentish villagers; dock labourers, Lascar and Malay seamen in the East End, respectable middle-class families in Lee.",
+   "dress": "Frock coats, waistcoats, top hats and bowler hats for gentlemen; high-necked dresses, mousseline and pinafores for women; constables in frogged jackets and peaked caps; ragged beggar's clothes for Boone.",
+   "buildings_and_objects": "Gas and oil street lamps, cobbled and gravel streets, stone wharves and bridges over the Thames, opium dens with wooden berths, hansom cabs and dog-carts, villas in gardens, the Bow Street police station with its whitewashed cells.",
+   "technology": "Horse-drawn transport and railways, telegrams, and the telephone; no motor cars, electric lighting or photography beyond early plates in the police files."
+  }
+ },
+ "checks": {
+  "bad_section_ids": [],
+  "uncovered_units": 0,
+  "uncovered_sample": [],
+  "overlap_units": 0,
+  "sections_with_unknown_ids": 0
+ }
+}

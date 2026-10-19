@@ -1,0 +1,6289 @@
+{
+ "work": "bible-web",
+ "division": "ACT",
+ "division_name": "Acts",
+ "units": 1007,
+ "record": {
+  "label": "bible-web__ACT__main",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792423607-EjvyChY0EtklgEIFklM1",
+  "seconds": 126.9,
+  "finish_reason": "stop",
+  "prompt_tokens": 48119,
+  "completion_tokens": 36373,
+  "cost": 0.0229984,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:28:53"
+ },
+ "characters": [
+  {
+   "id": "jesus",
+   "name": "Jesus",
+   "aliases": [
+    "Jesus of Nazareth",
+    "Jesus Christ",
+    "the Lord",
+    "the Christ",
+    "the Prince of life",
+    "the Servant Jesus",
+    "the Righteous One"
+   ],
+   "note": "Risen teacher who appears to the apostles in Acts 1 and is preached throughout the book; appears in person only in the Acts 1 ascension and in Saul's vision (Acts 9, 22, 26).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "theophilus",
+   "name": "Theophilus",
+   "aliases": [],
+   "note": "Addressee of the book; named only in Acts 1:1 and not present in any scene.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "peter",
+   "name": "Peter",
+   "aliases": [
+    "Simon Peter",
+    "Cephas"
+   ],
+   "note": "Apostle, fisherman of Galilee, leader of the Jerusalem disciples in Acts 1-12; preaches, heals and speaks at the council; distinct from Simon the tanner and Simon the sorcerer.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "john_apostle",
+   "name": "John",
+   "aliases": [
+    "John the apostle",
+    "son of Zebedee"
+   ],
+   "note": "Apostle, companion of Peter in Acts 1-4, 8; not to be confused with John Mark or John the Baptist.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "james_zebedee",
+   "name": "James",
+   "aliases": [
+    "James the son of Zebedee",
+    "brother of John"
+   ],
+   "note": "Apostle executed by Herod in Acts 12:2; not to be confused with James the brother of Jesus.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "james_brother_of_jesus",
+   "name": "James the brother of Jesus",
+   "aliases": [
+    "James the Just",
+    "James"
+   ],
+   "note": "Leader of the Jerusalem assembly who speaks at the council (Acts 15) and receives Paul (Acts 21); distinct from James son of Zebedee.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "andrew",
+   "name": "Andrew",
+   "aliases": [],
+   "note": "Apostle named only in the list of Acts 1:13; does not act.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "philip_apostle",
+   "name": "Philip the apostle",
+   "aliases": [
+    "Philip"
+   ],
+   "note": "One of the apostles in the upper room (Acts 1:13); distinct from Philip the evangelist, one of the seven.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "thomas",
+   "name": "Thomas",
+   "aliases": [],
+   "note": "Apostle named only in the list of Acts 1:13; does not act.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "bartholomew",
+   "name": "Bartholomew",
+   "aliases": [],
+   "note": "Apostle named only in the list of Acts 1:13; does not act.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "matthew_apostle",
+   "name": "Matthew",
+   "aliases": [],
+   "note": "Apostle named only in the list of Acts 1:13; does not act.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "james_son_of_alphaeus",
+   "name": "James son of Alphaeus",
+   "aliases": [],
+   "note": "Apostle named only in the list of Acts 1:13; does not act.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "simon_zealot",
+   "name": "Simon the Zealot",
+   "aliases": [],
+   "note": "Apostle named only in the list of Acts 1:13; does not act.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "judas_son_of_james",
+   "name": "Judas son of James",
+   "aliases": [],
+   "note": "Apostle named only in the list of Acts 1:13; does not act.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "judas_iscariot",
+   "name": "Judas Iscariot",
+   "aliases": [
+    "Judas"
+   ],
+   "note": "Former apostle who betrayed Jesus; his death is described by Peter in Acts 1:16-20; does not appear on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mary_mother_of_jesus",
+   "name": "Mary the mother of Jesus",
+   "aliases": [
+    "Mary"
+   ],
+   "note": "Mother of Jesus, named in the upper room gathering of Acts 1:14; does not speak.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "matthias",
+   "name": "Matthias",
+   "aliases": [],
+   "note": "Chosen by lot to replace Judas (Acts 1:23-26) and counted with the eleven.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "joseph_barsabbas",
+   "name": "Joseph called Barsabbas",
+   "aliases": [
+    "Justus"
+   ],
+   "note": "Candidate put forward with Matthias to replace Judas (Acts 1:23); not chosen.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "two_men_in_white",
+   "name": "Two men in white clothing",
+   "aliases": [
+    "two men",
+    "men of Galilee's angels"
+   ],
+   "note": "Heavenly messengers who speak at the ascension (Acts 1:10-11).",
+   "kind": "divine",
+   "same_person_as": ""
+  },
+  {
+   "id": "holy_spirit",
+   "name": "Holy Spirit",
+   "aliases": [
+    "the Spirit",
+    "the Spirit of the Lord"
+   ],
+   "note": "Divine presence acting in the book, descending at Pentecost (Acts 2) and directing missionaries; appears as tongues of fire and wind.",
+   "kind": "divine",
+   "same_person_as": ""
+  },
+  {
+   "id": "god_the_father",
+   "name": "God",
+   "aliases": [
+    "the Father",
+    "the Lord God",
+    "the God of Abraham",
+    "the Most High",
+    "the God of glory"
+   ],
+   "note": "God, who speaks and acts through angels, prophets and the Spirit; appears in Stephen's vision and in Paul's speeches; not depicted in human form.",
+   "kind": "divine",
+   "same_person_as": ""
+  },
+  {
+   "id": "pentecost_crowd",
+   "name": "Crowd at Pentecost",
+   "aliases": [
+    "the multitude",
+    "the Jews from every nation"
+   ],
+   "note": "Diaspora Jews and proselytes gathered in Jerusalem who hear the disciples speak in their own languages (Acts 2:5-13).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "the_eleven_apostles",
+   "name": "The eleven apostles",
+   "aliases": [
+    "the twelve",
+    "the apostles"
+   ],
+   "note": "The company of apostles acting together in Jerusalem (Acts 1-2, 4-6); they speak as a body at points.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "the_disciples_in_jerusalem",
+   "name": "The assembly of disciples in Jerusalem",
+   "aliases": [
+    "the brothers",
+    "the believers",
+    "the assembly"
+   ],
+   "note": "The believing community in Jerusalem who pray, share goods and gather in the temple (Acts 2-5).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "the_council",
+   "name": "The council",
+   "aliases": [
+    "the Sanhedrin",
+    "the senate of the children of Israel",
+    "the elders and scribes"
+   ],
+   "note": "Jerusalem ruling council that arrests and examines the apostles (Acts 4-5, 6, 22-23).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "annas_high_priest",
+   "name": "Annas the high priest",
+   "aliases": [
+    "the high priest"
+   ],
+   "note": "Elder high priest present at the trial of Peter and John (Acts 4:6); distinct from later high priests of the same title.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "caiaphas",
+   "name": "Caiaphas",
+   "aliases": [],
+   "note": "Priest named at the trial of Peter and John (Acts 4:6); does not speak.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lame_man_at_beautiful_gate",
+   "name": "The lame man at the Beautiful Gate",
+   "aliases": [
+    "the lame man",
+    "the man lame from birth"
+   ],
+   "note": "Beggar healed by Peter and John at the temple gate (Acts 3:2-10).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ananias_of_jerusalem",
+   "name": "Ananias",
+   "aliases": [
+    "Ananias the husband of Sapphira"
+   ],
+   "note": "Believer who lies about his land sale and dies (Acts 5:1-5); not to be confused with Ananias of Damascus or Ananias the high priest of Acts 23.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "sapphira",
+   "name": "Sapphira",
+   "aliases": [
+    "Ananias's wife"
+   ],
+   "note": "Wife of Ananias who lies with him and dies (Acts 5:1-10).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "gamaliel",
+   "name": "Gamaliel",
+   "aliases": [
+    "the Pharisee teacher"
+   ],
+   "note": "Pharisee teacher of the law who urges the council to release the apostles (Acts 5:34); also Paul's teacher (Acts 22:3).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "theudas",
+   "name": "Theudas",
+   "aliases": [],
+   "note": "Rebel leader mentioned in Gamaliel's speech (Acts 5:36); does not appear on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "judas_of_galilee",
+   "name": "Judas of Galilee",
+   "aliases": [],
+   "note": "Rebel leader of the census days mentioned in Gamaliel's speech (Acts 5:37); does not appear on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "stephen",
+   "name": "Stephen",
+   "aliases": [
+    "the deacon Stephen"
+   ],
+   "note": "One of the seven chosen to serve tables (Acts 6:5), preacher and first martyr, stoned in Acts 7; distinct from no one else of that name.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "nicolaus_proselyte",
+   "name": "Nicolaus of Antioch",
+   "aliases": [
+    "Nicolaus",
+    "a proselyte of Antioch"
+   ],
+   "note": "One of the seven chosen in Acts 6:5; named only, does not act.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "prochorus",
+   "name": "Prochorus",
+   "aliases": [],
+   "note": "One of the seven chosen in Acts 6:5; named only, does not act.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "nicanor",
+   "name": "Nicanor",
+   "aliases": [],
+   "note": "One of the seven chosen in Acts 6:5; named only, does not act.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "timon",
+   "name": "Timon",
+   "aliases": [],
+   "note": "One of the seven chosen in Acts 6:5; named only, does not act.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "parmenas",
+   "name": "Parmenas",
+   "aliases": [],
+   "note": "One of the seven chosen in Acts 6:5; named only, does not act.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "the_libertines",
+   "name": "The Libertines",
+   "aliases": [
+    "Cyrenians, Alexandrians and men of Cilicia and Asia",
+    "Hellenist opponents"
+   ],
+   "note": "Diaspora synagogue members who dispute with Stephen and bring him before the council (Acts 6:9-12).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "false_witnesses",
+   "name": "False witnesses",
+   "aliases": [
+    "men set up to testify"
+   ],
+   "note": "Men secretly induced to accuse Stephen (Acts 6:11-13).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "philip_evangelist",
+   "name": "Philip the evangelist",
+   "aliases": [
+    "Philip"
+   ],
+   "note": "One of the seven, who preaches in Samaria and baptizes the Ethiopian eunuch (Acts 8); later host of Paul in Caesarea (Acts 21:8); distinct from Philip the apostle.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "simon_magus",
+   "name": "Simon the sorcerer",
+   "aliases": [
+    "Simon",
+    "Simon Magus"
+   ],
+   "note": "Samaritan sorcerer who believes, offers money for the Spirit and is rebuked by Peter (Acts 8:9-24); distinct from Simon Peter and Simon the tanner.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ethiopian_eunuch",
+   "name": "The Ethiopian eunuch",
+   "aliases": [
+    "the eunuch",
+    "the treasurer of Candace"
+   ],
+   "note": "Court official of Candace, queen of Ethiopia, reading Isaiah in his chariot and baptized by Philip (Acts 8:27-39).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "candace",
+   "name": "Candace",
+   "aliases": [
+    "queen of the Ethiopians"
+   ],
+   "note": "Queen of the Ethiopians, named only as the eunuch's mistress (Acts 8:27); does not appear on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "saul_paul",
+   "name": "Saul",
+   "aliases": [
+    "Paul",
+    "Saul of Tarsus",
+    "the apostle Paul"
+   ],
+   "note": "Pharisee persecutor who consents to Stephen's death, is converted on the road to Damascus, then becomes the apostle Paul; the main figure from Acts 7 onward.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ananias_of_damascus",
+   "name": "Ananias of Damascus",
+   "aliases": [
+    "Ananias the disciple"
+   ],
+   "note": "Disciple at Damascus who receives Saul's sight in a vision (Acts 9:10-19); distinct from Ananias the husband of Sapphira.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "barnabas",
+   "name": "Barnabas",
+   "aliases": [
+    "Joses",
+    "Son of Encouragement"
+   ],
+   "note": "Cypriot Levite who sells land (Acts 4:36), vouches for Saul, and travels with Paul on the first journey; distinct from John Mark, his cousin.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "aeneas",
+   "name": "Aeneas",
+   "aliases": [],
+   "note": "Paralyzed man at Lydda healed by Peter (Acts 9:33-34).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "tabitha_dorcas",
+   "name": "Tabitha",
+   "aliases": [
+    "Dorcas"
+   ],
+   "note": "Disciple of Joppa known for good works, raised from death by Peter (Acts 9:36-41).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "simon_tanner",
+   "name": "Simon the tanner",
+   "aliases": [
+    "Simon"
+   ],
+   "note": "Tanner in Joppa with whose house Peter lodges (Acts 9:43, 10:6); distinct from Simon Peter and Simon the sorcerer.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "cornelius",
+   "name": "Cornelius",
+   "aliases": [
+    "the centurion"
+   ],
+   "note": "Roman centurion of the Italian Regiment in Caesarea, a devout God-fearer whose vision brings Peter to his house (Acts 10).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "cornelius_servants_and_soldier",
+   "name": "Cornelius's servants and soldier",
+   "aliases": [
+    "two household servants and a devout soldier",
+    "the men sent by Cornelius"
+   ],
+   "note": "Men sent by Cornelius to fetch Peter (Acts 10:7-8, 17-23).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "herod_agrippa_i",
+   "name": "King Herod",
+   "aliases": [
+    "Herod the king",
+    "Herod Agrippa"
+   ],
+   "note": "King who kills James son of Zebedee, imprisons Peter, and is struck dead by an angel (Acts 12); distinct from Herod Antipas of the Gospels and from Agrippa II.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "rhoda",
+   "name": "Rhoda",
+   "aliases": [
+    "a servant girl"
+   ],
+   "note": "Servant girl at Mary's house who recognizes Peter's voice (Acts 12:13-15).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mary_mother_of_john_mark",
+   "name": "Mary the mother of John Mark",
+   "aliases": [
+    "Mary"
+   ],
+   "note": "Woman in Jerusalem whose house hosts the praying believers (Acts 12:12); distinct from Mary the mother of Jesus.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "john_mark",
+   "name": "John Mark",
+   "aliases": [
+    "John who was called Mark",
+    "Mark"
+   ],
+   "note": "Companion of Barnabas and Paul who leaves them in Pamphylia (Acts 12:25, 13:5, 13:13, 15:37-39); distinct from John the apostle.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "blastus",
+   "name": "Blastus",
+   "aliases": [
+    "the king's personal aide"
+   ],
+   "note": "Court official who mediates between Herod and the people of Tyre and Sidon (Acts 12:20); does not speak.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "people_of_tyre_and_sidon",
+   "name": "People of Tyre and Sidon",
+   "aliases": [
+    "the people of Tyre"
+   ],
+   "note": "Delegation seeking peace with Herod (Acts 12:20).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "prophets_and_teachers_of_antioch",
+   "name": "Prophets and teachers of Antioch",
+   "aliases": [
+    "Simeon called Niger",
+    "Lucius of Cyrene",
+    "Manaen"
+   ],
+   "note": "Group of named leaders in Antioch who set apart Barnabas and Saul (Acts 13:1-3).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "simeon_niger",
+   "name": "Simeon called Niger",
+   "aliases": [
+    "Niger"
+   ],
+   "note": "Antioch prophet named only in Acts 13:1.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lucius_of_cyrene",
+   "name": "Lucius of Cyrene",
+   "aliases": [],
+   "note": "Antioch prophet named only in Acts 13:1.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "manaen",
+   "name": "Manaen",
+   "aliases": [
+    "foster brother of Herod the tetrarch"
+   ],
+   "note": "Antioch prophet named only in Acts 13:1.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "elymas_bar_jesus",
+   "name": "Elymas Bar-Jesus",
+   "aliases": [
+    "Elymas the sorcerer",
+    "Bar Jesus",
+    "the false prophet"
+   ],
+   "note": "Jewish sorcerer in Paphos who opposes Paul and is struck blind (Acts 13:6-11).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "sergius_paulus",
+   "name": "Sergius Paulus",
+   "aliases": [
+    "the proconsul"
+   ],
+   "note": "Roman proconsul of Cyprus who believes after witnessing the blinding of Elymas (Acts 13:7-12).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "judas_barsabbas",
+   "name": "Judas called Barsabbas",
+   "aliases": [
+    "Judas Barsabbas"
+   ],
+   "note": "Chief man among the brothers sent with Silas from Jerusalem to Antioch (Acts 15:22, 27, 32); distinct from Judas Iscariot.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "silas",
+   "name": "Silas",
+   "aliases": [
+    "Silvanus"
+   ],
+   "note": "Leading brother from Jerusalem who becomes Paul's companion on the second journey (Acts 15:22-18:5); also a prophet.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "timothy",
+   "name": "Timothy",
+   "aliases": [
+    "Timotheus"
+   ],
+   "note": "Young disciple of Lystra, son of a Jewish mother and Greek father, circumcised by Paul and joins him (Acts 16:1-3, 17:14-15, 18:5, 19:22, 20:4).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lydia",
+   "name": "Lydia",
+   "aliases": [
+    "a seller of purple from Thyatira"
+   ],
+   "note": "Dealer in purple cloth in Philippi who hears Paul by the river and is baptized with her household (Acts 16:14-15, 40).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "slave_girl_with_divining_spirit",
+   "name": "Slave girl with a spirit of divination",
+   "aliases": [
+    "the girl with a python spirit",
+    "the servant girl"
+   ],
+   "note": "Fortune-telling slave in Philippi whose spirit Paul exorcises (Acts 16:16-18).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "slave_girl_owners",
+   "name": "Her masters",
+   "aliases": [
+    "the masters of the slave girl"
+   ],
+   "note": "Owners who profit from the slave girl and drag Paul and Silas to the magistrates (Acts 16:16-24).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "philippi_magistrates",
+   "name": "The magistrates of Philippi",
+   "aliases": [
+    "the rulers",
+    "the praetors"
+   ],
+   "note": "City magistrates who order Paul and Silas beaten and later release them (Acts 16:20-39).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "philippian_jailer",
+   "name": "The Philippian jailer",
+   "aliases": [
+    "the jailer"
+   ],
+   "note": "Jailer who is converted after the earthquake and washes the apostles' wounds (Acts 16:27-34).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "jason_of_thessalonica",
+   "name": "Jason",
+   "aliases": [
+    "Jason of Thessalonica"
+   ],
+   "note": "Host in Thessalonica whose house is attacked by a mob and who is brought before the city rulers (Acts 17:5-9); distinct from Jason in Acts 17 only in name identity question with no other Jason.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "thessalonian_mob",
+   "name": "Thessalonian Jewish mob",
+   "aliases": [
+    "unpersuaded Jews",
+    "wicked men from the marketplace"
+   ],
+   "note": "Crowd who riot against Paul and Silas in Thessalonica and follow them to Beroea (Acts 17:5-13).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "dionysius_areopagite",
+   "name": "Dionysius the Areopagite",
+   "aliases": [
+    "Dionysius"
+   ],
+   "note": "Athenian who believes after Paul's Areopagus speech (Acts 17:34).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "damaris",
+   "name": "Damaris",
+   "aliases": [],
+   "note": "Woman of Athens who believes after Paul's Areopagus speech (Acts 17:34).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "athenian_philosophers",
+   "name": "Epicurean and Stoic philosophers",
+   "aliases": [
+    "Athenians",
+    "the men of Athens"
+   ],
+   "note": "Philosophers and citizens of Athens who debate with Paul and hear him at the Areopagus (Acts 17:18-32).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "aquila",
+   "name": "Aquila",
+   "aliases": [
+    "a man of Pontus"
+   ],
+   "note": "Jewish tentmaker from Pontus, expelled from Rome, who works and lodges with Paul in Corinth (Acts 18:2-3, 18-26).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "priscilla",
+   "name": "Priscilla",
+   "aliases": [
+    "Prisca"
+   ],
+   "note": "Wife of Aquila, tentmaker, who with her husband instructs Apollos in Ephesus (Acts 18:2, 18, 26).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "crispus",
+   "name": "Crispus",
+   "aliases": [
+    "ruler of the synagogue"
+   ],
+   "note": "Ruler of the Corinthian synagogue who believes with his household (Acts 18:8).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "justus_corinth",
+   "name": "Justus",
+   "aliases": [
+    "a man who worshiped God"
+   ],
+   "note": "Corinthian host next door to the synagogue (Acts 18:7); distinct from Joseph called Justus.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "gallio",
+   "name": "Gallio",
+   "aliases": [
+    "the proconsul of Achaia"
+   ],
+   "note": "Roman proconsul of Achaia who refuses to judge Paul's case in Corinth (Acts 18:12-17).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "sosthenes_corinth",
+   "name": "Sosthenes",
+   "aliases": [
+    "ruler of the synagogue"
+   ],
+   "note": "Ruler of the Corinthian synagogue beaten before Gallio's seat by the Greeks (Acts 18:17); distinct from the co-author of 1 Corinthians.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "apollos",
+   "name": "Apollos",
+   "aliases": [
+    "an Alexandrian Jew"
+   ],
+   "note": "Eloquent Alexandrian preacher instructed by Priscilla and Aquila at Ephesus and sent to Achaia (Acts 18:24-28).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ephesian_disciples_twelve",
+   "name": "Twelve disciples of John at Ephesus",
+   "aliases": [
+    "the about twelve men"
+   ],
+   "note": "Disciples who know only John's baptism and receive the Spirit from Paul (Acts 19:1-7).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "sceva_sons",
+   "name": "Seven sons of Sceva",
+   "aliases": [
+    "the sons of Sceva",
+    "itinerant exorcists"
+   ],
+   "note": "Jewish exorcists who invoke Jesus and are attacked by a possessed man (Acts 19:13-16).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "sceva",
+   "name": "Sceva",
+   "aliases": [
+    "a Jewish chief priest"
+   ],
+   "note": "Father of the seven exorcist sons; named only (Acts 19:14).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "possessed_man_ephesus",
+   "name": "The man with the evil spirit",
+   "aliases": [
+    "the possessed man"
+   ],
+   "note": "Man at Ephesus who overpowers the seven exorcists (Acts 19:16).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "demetrius_silversmith",
+   "name": "Demetrius",
+   "aliases": [
+    "the silversmith"
+   ],
+   "note": "Silversmith of Ephesus who makes silver shrines of Artemis and incites the riot (Acts 19:24-27).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "silversmiths_of_ephesus",
+   "name": "Silversmiths and craftsmen of Ephesus",
+   "aliases": [
+    "the craftsmen",
+    "the workmen"
+   ],
+   "note": "Trade guild that riots in the theater crying for Artemis (Acts 19:24-34).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "gaius_macedonian",
+   "name": "Gaius of Macedonia",
+   "aliases": [
+    "Gaius"
+   ],
+   "note": "Macedonian companion of Paul seized in the Ephesian theater riot (Acts 19:29); distinct from Gaius of Derbe.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "aristarchus",
+   "name": "Aristarchus",
+   "aliases": [
+    "Aristarchus of Macedonia"
+   ],
+   "note": "Macedonian travel companion seized with Gaius in Ephesus (Acts 19:29), later with Paul to Rome (Acts 27:2).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "alexander_ephesus",
+   "name": "Alexander",
+   "aliases": [
+    "Alexander the Jew"
+   ],
+   "note": "Jew pushed forward by the Jews to speak to the Ephesian crowd (Acts 19:33).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ephesian_crowd",
+   "name": "The Ephesian crowd",
+   "aliases": [
+    "the theater crowd",
+    "the multitude"
+   ],
+   "note": "Crowd that fills the theater crying 'Great is Artemis of the Ephesians' (Acts 19:29-34).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "town_clerk_ephesus",
+   "name": "The town clerk",
+   "aliases": [
+    "the city clerk"
+   ],
+   "note": "Official who calms the Ephesian crowd and dismisses the assembly (Acts 19:35-41).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "asiarchs",
+   "name": "Asiarchs",
+   "aliases": [
+    "certain of the Asiarchs"
+   ],
+   "note": "Provincial officials, friends of Paul, who beg him not to enter the theater (Acts 19:31).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "sopater_beroea",
+   "name": "Sopater of Beroea",
+   "aliases": [
+    "Sopater"
+   ],
+   "note": "Companion of Paul traveling to Asia (Acts 20:4).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "secundus",
+   "name": "Secundus",
+   "aliases": [],
+   "note": "Thessalonian companion of Paul listed in Acts 20:4.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "gaius_derbe",
+   "name": "Gaius of Derbe",
+   "aliases": [
+    "Gaius"
+   ],
+   "note": "Companion of Paul from Derbe listed in Acts 20:4; distinct from Gaius of Macedonia.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "tychicus",
+   "name": "Tychicus",
+   "aliases": [],
+   "note": "Asian companion of Paul listed in Acts 20:4; named only.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "trophimus",
+   "name": "Trophimus",
+   "aliases": [
+    "Trophimus the Ephesian"
+   ],
+   "note": "Ephesian companion of Paul whom Jews wrongly think Paul brought into the temple (Acts 20:4, 21:29).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "eutychus",
+   "name": "Eutychus",
+   "aliases": [
+    "the young man"
+   ],
+   "note": "Young man who falls from a window during Paul's long speech at Troas and is restored (Acts 20:9-12).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ephesian_elders",
+   "name": "Elders of Ephesus",
+   "aliases": [
+    "the elders of the assembly"
+   ],
+   "note": "Church elders summoned by Paul at Miletus to hear his farewell (Acts 20:17-38).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "agabus",
+   "name": "Agabus",
+   "aliases": [
+    "the prophet from Judea"
+   ],
+   "note": "Prophet who foretells Paul's arrest in Judea and binds his own hands with Paul's belt (Acts 11:27-28, 21:10-11).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mnason_cyprus",
+   "name": "Mnason of Cyprus",
+   "aliases": [
+    "an early disciple"
+   ],
+   "note": "Early disciple in Jerusalem who hosts Paul's company (Acts 21:16).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "jewish_asian_crowd_temple",
+   "name": "The Jews from Asia and the temple crowd",
+   "aliases": [
+    "men of Israel",
+    "the multitude",
+    "the mob"
+   ],
+   "note": "Jerusalem crowd who seize Paul in the temple and try to kill him (Acts 21:27-36).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "claudius_lysias",
+   "name": "Claudius Lysias",
+   "aliases": [
+    "the commanding officer",
+    "the chief captain",
+    "the tribune"
+   ],
+   "note": "Roman commander in Jerusalem who arrests Paul, has him bound, and sends him to Felix (Acts 21:31-23:30).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "sisters_son_of_paul",
+   "name": "Paul's sister's son",
+   "aliases": [
+    "the young man nephew"
+   ],
+   "note": "Nephew of Paul who warns him of the plot to kill him (Acts 23:16-22).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "centurion_julius",
+   "name": "Julius",
+   "aliases": [
+    "the centurion of the Augustan band"
+   ],
+   "note": "Centurion who escorts Paul to Rome and treats him kindly (Acts 27:1-44).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "sailors_and_soldiers_ship",
+   "name": "Sailors and soldiers of the ship",
+   "aliases": [
+    "the soldiers",
+    "the sailors",
+    "the master and owner of the ship"
+   ],
+   "note": "Crew and soldiers aboard the ship to Italy (Acts 27).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "ananias_high_priest",
+   "name": "Ananias the high priest",
+   "aliases": [
+    "the high priest Ananias"
+   ],
+   "note": "High priest who orders Paul struck before the council (Acts 23:2) and comes to Caesarea with Tertullus (Acts 24:1); distinct from Ananias of Damascus and Ananias husband of Sapphira.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "pharisees_sadducees",
+   "name": "Pharisees and Sadducees",
+   "aliases": [
+    "the Sadducees",
+    "the Pharisees"
+   ],
+   "note": "Rival parties in the council who quarrel over the resurrection (Acts 23:6-10).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "forty_conspirators",
+   "name": "The forty men under a curse",
+   "aliases": [
+    "more than forty Jews",
+    "the conspirators"
+   ],
+   "note": "Jews who bind themselves under an oath to kill Paul (Acts 23:12-21).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "felix",
+   "name": "Felix",
+   "aliases": [
+    "the governor Felix",
+    "most excellent Felix"
+   ],
+   "note": "Roman governor of Judea at Caesarea who keeps Paul in custody and hears him with his wife Drusilla (Acts 23:24-24:27).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "drusilla",
+   "name": "Drusilla",
+   "aliases": [
+    "Felix's wife",
+    "a Jewess"
+   ],
+   "note": "Jewish wife of Felix who hears Paul about faith in Christ (Acts 24:24).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "tertullus",
+   "name": "Tertullus",
+   "aliases": [
+    "the orator"
+   ],
+   "note": "Lawyer who prosecutes Paul before Felix for the high priest (Acts 24:1-8).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "porcius_festus",
+   "name": "Porcius Festus",
+   "aliases": [
+    "Festus",
+    "the governor"
+   ],
+   "note": "Roman governor succeeding Felix, who hears Paul's appeal to Caesar and consults Agrippa (Acts 24:27-26:32).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "king_agrippa_ii",
+   "name": "King Agrippa",
+   "aliases": [
+    "Agrippa",
+    "King Agrippa II"
+   ],
+   "note": "Jewish king who hears Paul's defense with his sister Bernice (Acts 25:13-26:32); distinct from Herod Agrippa I.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "bernice",
+   "name": "Bernice",
+   "aliases": [
+    "Berenice"
+   ],
+   "note": "Sister of King Agrippa who accompanies him to hear Paul (Acts 25:13, 23; 26:30).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "emperor_caesar",
+   "name": "Caesar",
+   "aliases": [
+    "the emperor"
+   ],
+   "note": "Roman emperor to whom Paul appeals; does not appear on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "malta_natives",
+   "name": "The natives of Malta",
+   "aliases": [
+    "the barbarians",
+    "the islanders"
+   ],
+   "note": "Islanders who kindle a fire for the shipwrecked and watch the viper incident (Acts 28:1-6).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "publius",
+   "name": "Publius",
+   "aliases": [
+    "the chief man of the island"
+   ],
+   "note": "Chief man of Malta who hosts Paul for three days and whose father Paul heals (Acts 28:7-8).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "roman_brothers_rome",
+   "name": "Brothers of Rome",
+   "aliases": [
+    "the brothers from Rome"
+   ],
+   "note": "Believers of Puteoli and Rome who meet Paul on the road (Acts 28:14-15).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "jews_of_rome",
+   "name": "Leaders of the Jews in Rome",
+   "aliases": [
+    "the leaders of the Jews"
+   ],
+   "note": "Jewish leaders in Rome who hear Paul explain himself and debate (Acts 28:17-29).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "isaiah",
+   "name": "Isaiah",
+   "aliases": [
+    "the prophet Isaiah"
+   ],
+   "note": "Prophet quoted by Paul and by the Ethiopian eunuch's scroll (Acts 8:28-35, 28:25); does not appear on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "david_king",
+   "name": "David",
+   "aliases": [
+    "the patriarch David"
+   ],
+   "note": "Israelite king quoted in Peter's speeches (Acts 1:16, 2:25-34); does not appear on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "abraham",
+   "name": "Abraham",
+   "aliases": [
+    "our father Abraham"
+   ],
+   "note": "Patriarch recounted by Stephen (Acts 7:2-8); does not appear on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "moses",
+   "name": "Moses",
+   "aliases": [],
+   "note": "Lawgiver recounted in Stephen's speech (Acts 7:20-44); does not appear on stage except as a voice in Stephen's account.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "joseph_patriarch",
+   "name": "Joseph the patriarch",
+   "aliases": [
+    "Joseph"
+   ],
+   "note": "Son of Jacob sold into Egypt, recounted by Stephen (Acts 7:9-18); does not appear on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ahead_of_the_pharaoh",
+   "name": "Pharaoh",
+   "aliases": [
+    "the king of Egypt"
+   ],
+   "note": "Egyptian ruler in Stephen's account; does not appear on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "samuel",
+   "name": "Samuel",
+   "aliases": [
+    "Samuel the prophet"
+   ],
+   "note": "Prophet named in Paul's and Peter's speeches; does not appear on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "john_the_baptist",
+   "name": "John the Baptist",
+   "aliases": [
+    "John"
+   ],
+   "note": "Baptizer mentioned in Acts 1, 10, 11, 13; does not appear on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "judas_galilean_census",
+   "name": "Judas the Galilean",
+   "aliases": [],
+   "note": "See judas_of_galilee; duplicate reference, not separate.",
+   "kind": "person",
+   "same_person_as": "judas_of_galilee"
+  },
+  {
+   "id": "pontius_pilate",
+   "name": "Pontius Pilate",
+   "aliases": [
+    "Pilate"
+   ],
+   "note": "Roman governor who handed Jesus over; named in Peter's speeches and prayer; does not appear on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ananias_high_priest_acts4",
+   "name": "Ananias (high priest of Acts 4)",
+   "aliases": [],
+   "note": "Possibly the same high priest as Annas; kept separate because the text names only Annas here.",
+   "kind": "person",
+   "same_person_as": "annas_high_priest"
+  },
+  {
+   "id": "cornelius_centurion_italian_cohort",
+   "name": "Cornelius the centurion of the Italian cohort",
+   "aliases": [],
+   "note": "Duplicate of Cornelius; same person.",
+   "kind": "person",
+   "same_person_as": "cornelius"
+  },
+  {
+   "id": "apostles_group_peter_john",
+   "name": "Peter and John",
+   "aliases": [],
+   "note": "Pair of apostles who act together in Acts 3-4 and 8; see individual entries.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "herod_tetrarch",
+   "name": "Herod the tetrarch",
+   "aliases": [
+    "Herod Antipas"
+   ],
+   "note": "Tetrarch named in Acts 4:27 and 13:1; does not appear on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "proselytes_of_antioch_group",
+   "name": "Diaspora Jews and proselytes of Antioch",
+   "aliases": [],
+   "note": "Antioch-in-Pisidia synagogue audience who follow Paul and Barnabas (Acts 13:43).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "jews_of_antioch_pisidia",
+   "name": "Jews of Antioch and Iconium",
+   "aliases": [
+    "the Jews from Antioch and Iconium"
+   ],
+   "note": "Opponents who stone Paul at Lystra (Acts 14:19).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "lystra_crowd",
+   "name": "The crowd of Lystra",
+   "aliases": [
+    "the multitude",
+    "the people of Lycaonia"
+   ],
+   "note": "Crowd who wish to sacrifice to Barnabas and Paul as gods (Acts 14:11-18).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "priest_of_jupiter",
+   "name": "The priest of Jupiter",
+   "aliases": [
+    "the priest of Zeus"
+   ],
+   "note": "Priest who brings oxen and garlands to the gates of Lystra (Acts 14:13).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lame_man_lystra",
+   "name": "The lame man at Lystra",
+   "aliases": [
+    "a cripple from his mother's womb"
+   ],
+   "note": "Crippled man healed by Paul at Lystra (Acts 14:8-10).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "judas_and_silas_prophets",
+   "name": "Judas and Silas",
+   "aliases": [],
+   "note": "Pair sent with the letter; see individual entries.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "james_letter_writers",
+   "name": "The apostles and elders of Jerusalem",
+   "aliases": [
+    "the apostles, elders, and brothers"
+   ],
+   "note": "Jerusalem leaders who write the decree of Acts 15 and send delegates; a group that acts as one.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "pharisee_believers_jerusalem",
+   "name": "Believing Pharisees",
+   "aliases": [
+    "some of the sect of the Pharisees who believed"
+   ],
+   "note": "Pharisee believers who insist on circumcision (Acts 15:5).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "men_from_judea_circumcision",
+   "name": "Men from Judea",
+   "aliases": [
+    "some men who came down from Judea"
+   ],
+   "note": "Visitors who teach circumcision at Antioch (Acts 15:1).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "lydian_household",
+   "name": "Lydia's household",
+   "aliases": [
+    "her household"
+   ],
+   "note": "Household baptized with Lydia (Acts 16:15).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "jailer_household",
+   "name": "The jailer's household",
+   "aliases": [
+    "his household"
+   ],
+   "note": "Household baptized with the jailer (Acts 16:33).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "beroean_jews",
+   "name": "The Jews of Beroea",
+   "aliases": [
+    "the more noble Berean Jews"
+   ],
+   "note": "Synagogue audience in Beroea who examine the Scriptures (Acts 17:10-12).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "thessalonian_jews_visiting_beroea",
+   "name": "Jews of Thessalonica",
+   "aliases": [],
+   "note": "Thessalonian opponents who come to Beroea to stir up the crowd (Acts 17:13).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "corinthian_believers",
+   "name": "The Corinthian believers",
+   "aliases": [
+    "many of the Corinthians"
+   ],
+   "note": "Corinthians who hear and are baptized (Acts 18:8).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "ephesian_jews_synagogue",
+   "name": "Ephesian Jews",
+   "aliases": [
+    "the Jews at Ephesus"
+   ],
+   "note": "Synagogue audience in Ephesus who ask Paul to stay (Acts 18:19-20).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "crowd_of_ephesus_synagogue",
+   "name": "Hardened listeners at Ephesus",
+   "aliases": [],
+   "note": "Opponents who speak evil of the Way (Acts 19:9); same as Ephesian Jews group.",
+   "kind": "group",
+   "same_person_as": "ephesian_jews_synagogue"
+  },
+  {
+   "id": "ephesian_believers_confessing",
+   "name": "Believers who confess their deeds",
+   "aliases": [
+    "many who had believed"
+   ],
+   "note": "Believers who bring their magic books to burn (Acts 19:18-19).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "magicians_of_ephesus",
+   "name": "Practitioners of magical arts",
+   "aliases": [
+    "those who practiced magical arts"
+   ],
+   "note": "Ephesians who burn their books (Acts 19:19).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "troas_young_men_congregation",
+   "name": "Disciples at Troas",
+   "aliases": [
+    "the disciples gathered to break bread"
+   ],
+   "note": "Congregation at Troas listening to Paul's late-night teaching (Acts 20:7-12).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "roman_centurion_guard",
+   "name": "The centurion and his guard",
+   "aliases": [
+    "the centurion who delivered the prisoners",
+    "the captain of the guard"
+   ],
+   "note": "Officials who deliver prisoners to Rome (Acts 28:16).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "caesar_augustus_band",
+   "name": "The Augustan band",
+   "aliases": [],
+   "note": "Military unit to which Julius belongs; does not act as a group.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "malta_viper",
+   "name": "The viper",
+   "aliases": [
+    "the creature"
+   ],
+   "note": "Snake that fastens on Paul's hand on Malta (Acts 28:3-5).",
+   "kind": "animal",
+   "same_person_as": ""
+  },
+  {
+   "id": "crowd_in_jerusalem_seize_stephen",
+   "name": "The crowd who stone Stephen",
+   "aliases": [
+    "they with one accord"
+   ],
+   "note": "Jews who cast Stephen out of the city and stone him (Acts 7:57-60).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "witnesses_stoning",
+   "name": "The witnesses to the stoning",
+   "aliases": [
+    "the witnesses"
+   ],
+   "note": "Men who lay their garments at the feet of Saul (Acts 7:58).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "the_seven_deacons",
+   "name": "The seven chosen to serve tables",
+   "aliases": [
+    "the seven"
+   ],
+   "note": "Group chosen by the Twelve in Acts 6:3-6; see individuals Stephen, Philip, Prochorus, Nicanor, Timon, Parmenas, Nicolaus.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "alexandrians_cyrenians",
+   "name": "Cyrenians and Alexandrians",
+   "aliases": [],
+   "note": "Jews from Cyrene and Alexandria in the synagogue dispute with Stephen (Acts 6:9); also in the crowd of Acts 2.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "damascus_jews_plot",
+   "name": "Jews of Damascus",
+   "aliases": [
+    "the Jews who lived at Damascus"
+   ],
+   "note": "Opponents who plot to kill Saul at Damascus (Acts 9:23-25).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "chief_priests_authority_saul",
+   "name": "The chief priests",
+   "aliases": [
+    "the high priest"
+   ],
+   "note": "Authorities who give Saul letters to arrest believers (Acts 9:1-2, 14, 26:10).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "disciples_of_damascus_saul",
+   "name": "Disciples of Damascus",
+   "aliases": [
+    "his disciples"
+   ],
+   "note": "Believers who lower Saul in a basket from the wall (Acts 9:25).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "men_traveling_with_saul",
+   "name": "The men traveling with Saul",
+   "aliases": [
+    "those who traveled with him"
+   ],
+   "note": "Companions who hear the voice but see no one on the road (Acts 9:7; 22:9; 26:14).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "herod_judean_unnamed",
+   "name": "Herod's soldiers",
+   "aliases": [
+    "the guards",
+    "the soldiers",
+    "four squads of soldiers"
+   ],
+   "note": "Soldiers guarding Peter in prison (Acts 12:4-19).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "people_of_lydda_sharon",
+   "name": "People of Lydda and Sharon",
+   "aliases": [
+    "all who lived at Lydda"
+   ],
+   "note": "Residents who turn to the Lord after Aeneas is healed (Acts 9:35).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "widows_of_joppa",
+   "name": "The widows of Joppa",
+   "aliases": [
+    "all the widows"
+   ],
+   "note": "Widows who weep and show the garments Tabitha made (Acts 9:39).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "crowd_at_caesarea_cornelius",
+   "name": "Cornelius's relatives and near friends",
+   "aliases": [
+    "his relatives and near friends"
+   ],
+   "note": "Gathering in Cornelius's house (Acts 10:24, 27).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "circumcised_believers_jerusalem",
+   "name": "Circumcised believers",
+   "aliases": [
+    "they of the circumcision"
+   ],
+   "note": "Jewish believers who object to Peter's visit to the Gentiles (Acts 10:45; 11:2).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "antioch_hellenist_preachers",
+   "name": "Men of Cyprus and Cyrene in Antioch",
+   "aliases": [
+    "some of them men of Cyprus and Cyrene"
+   ],
+   "note": "Unnamed evangelists who preach to Greeks at Antioch (Acts 11:20).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "syrian_assemblies_visitors",
+   "name": "Visitors from Phoenicia and Samaria",
+   "aliases": [],
+   "note": "Travel companions who report the conversion of the Gentiles (Acts 15:3).",
+   "kind": "group",
+   "same_person_as": ""
+  }
+ ],
+ "locations": [
+  {
+   "id": "mount_olivet",
+   "name": "Mount of Olives",
+   "aliases": [
+    "Olivet",
+    "the mountain called Olivet"
+   ],
+   "note": "Hill near Jerusalem from which Jesus ascends (Acts 1:12).  Also where the disciples return.  ## Note: placed here as the site of the ascension.  ## See 1:9-12.  ## Stub for setting.  ##.  ## Mountain near Jerusalem."
+  },
+  {
+   "id": "jerusalem",
+   "name": "Jerusalem",
+   "aliases": [
+    "Zion",
+    "the holy city"
+   ],
+   "note": "Main city of action in Acts 1-8, the seat of the apostles, temple and council; later the place of Paul's arrest (Acts 21-23)."
+  },
+  {
+   "id": "upper_room_jerusalem",
+   "name": "Upper room in Jerusalem",
+   "aliases": [
+    "the upper room where they were staying"
+   ],
+   "note": "Room where the eleven and the women gather to pray (Acts 1:13), and where the Spirit comes at Pentecost (Acts 2:1-2)."
+  },
+  {
+   "id": "temple_jerusalem",
+   "name": "The temple in Jerusalem",
+   "aliases": [
+    "the temple",
+    "the Beautiful Gate",
+    "Solomon's porch"
+   ],
+   "note": "Temple courts where Peter and John heal the lame man, the apostles preach, and Paul is seized (Acts 3-5, 21)."
+  },
+  {
+   "id": "beautiful_gate",
+   "name": "The Beautiful Gate",
+   "aliases": [
+    "the gate called Beautiful"
+   ],
+   "note": "Gate of the temple where the lame man is laid (Acts 3:2, 10)."
+  },
+  {
+   "id": "solomons_porch",
+   "name": "Solomon's porch",
+   "aliases": [
+    "the porch that is called Solomon's"
+   ],
+   "note": "Colonnade of the temple where the crowd gathers around Peter (Acts 3:11, 5:12)."
+  },
+  {
+   "id": "field_of_blood",
+   "name": "Akeldama, the field of blood",
+   "aliases": [
+    "the field bought with the reward of wickedness"
+   ],
+   "note": "Field Judas acquired (Acts 1:18-19); referred to in speech, not shown as a setting."
+  },
+  {
+   "id": "damascus",
+   "name": "Damascus",
+   "aliases": [],
+   "note": "City where Saul is converted, blinded and baptized; later where he preaches and escapes (Acts 9, 22, 26)."
+  },
+  {
+   "id": "straight_street_damascus",
+   "name": "Straight Street in Damascus",
+   "aliases": [
+    "the street which is called Straight"
+   ],
+   "note": "Street where Saul lodges and Ananias finds him (Acts 9:11)."
+  },
+  {
+   "id": "joppa",
+   "name": "Joppa",
+   "aliases": [],
+   "note": "Port town where Tabitha dies and is raised; where Peter stays with Simon the tanner and receives his vision (Acts 9:36-10:23)."
+  },
+  {
+   "id": "caesarea_maritima",
+   "name": "Caesarea",
+   "aliases": [
+    "Caesarea Maritima"
+   ],
+   "note": "Roman port and administrative seat; home of Cornelius, Philip, Herod's palace where Paul is held (Acts 8:40, 10, 12:19, 21:8, 23-26)."
+  },
+  {
+   "id": "lydda",
+   "name": "Lydda",
+   "aliases": [],
+   "note": "Town where Peter heals Aeneas (Acts 9:32-35)."
+  },
+  {
+   "id": "cornelius_house_caesarea",
+   "name": "Cornelius's house",
+   "aliases": [
+    "the house of Cornelius"
+   ],
+   "note": "House in Caesarea where Peter preaches and the Spirit falls on the Gentiles (Acts 10:24-48)."
+  },
+  {
+   "id": "simons_house_joppa",
+   "name": "Simon the tanner's house by the sea",
+   "aliases": [
+    "the house of the tanner"
+   ],
+   "note": "House by the seaside in Joppa where Peter lodges and goes up to the roof to pray (Acts 9:43, 10:6-9)."
+  },
+  {
+   "id": "rooftop_joppa",
+   "name": "The housetop in Joppa",
+   "aliases": [
+    "the roof",
+    "the housetop"
+   ],
+   "note": "Roof where Peter sees the vision of the sheet (Acts 10:9-16)."
+  },
+  {
+   "id": "antioch_syria",
+   "name": "Antioch in Syria",
+   "aliases": [
+    "Antioch"
+   ],
+   "note": "Church in Syria where believers are first called Christians, where Paul and Barnabas are set apart (Acts 11:19-30, 13:1-3, 14:26-28, 15:30-35)."
+  },
+  {
+   "id": "rhodes_samos_chios",
+   "name": "Islands of the Aegean (Chios, Samos, Cos, Rhodes)",
+   "aliases": [
+    "Chios",
+    "Samos",
+    "Cos",
+    "Rhodes",
+    "Patara"
+   ],
+   "note": "Ports on Paul's return voyage (Acts 20:15, 21:1)."
+  },
+  {
+   "id": "herod_palace_caesarea",
+   "name": "Herod's palace in Caesarea",
+   "aliases": [
+    "the palace of Herod"
+   ],
+   "note": "Palace where Felix and Festus hold Paul in custody and Agrippa hears him (Acts 23:35, 25:23)."
+  },
+  {
+   "id": "herod_prison_jerusalem",
+   "name": "The prison in Jerusalem",
+   "aliases": [
+    "the prison",
+    "the cell"
+   ],
+   "note": "Prison where Peter is held and freed by an angel (Acts 12:4-11)."
+  },
+  {
+   "id": "iron_gate_city",
+   "name": "The iron gate to the city",
+   "aliases": [
+    "the iron gate that leads into the city"
+   ],
+   "note": "Gate that opens by itself for Peter's escape (Acts 12:10)."
+  },
+  {
+   "id": "mary_house_jerusalem",
+   "name": "House of Mary the mother of John Mark",
+   "aliases": [
+    "the house of Mary"
+   ],
+   "note": "Jerusalem house where believers gather to pray; Peter knocks at the gate (Acts 12:12-17)."
+  },
+  {
+   "id": "herod_council_chamber",
+   "name": "The council chamber in Jerusalem",
+   "aliases": [
+    "the council"
+   ],
+   "note": "Meeting place of the Sanhedrin where Peter and John, Stephen and Paul are judged (Acts 4:15, 5:27, 6:12, 22:30, 23:1)."
+  },
+  {
+   "id": "hellenist_synagogue_jerusalem",
+   "name": "Synagogue of the Libertines",
+   "aliases": [
+    "synagogue of the Freedmen"
+   ],
+   "note": "Synagogue in Jerusalem where Stephen debates the diaspora Jews (Acts 6:9)."
+  },
+  {
+   "id": "samaria_city",
+   "name": "Samaria",
+   "aliases": [
+    "the city of Samaria",
+    "the regions of Samaria"
+   ],
+   "note": "City and region where Philip preaches and Peter and John come to lay hands on converts (Acts 8:4-25)."
+  },
+  {
+   "id": "gaza_road",
+   "name": "The road from Jerusalem to Gaza",
+   "aliases": [
+    "the desert road",
+    "the way that goes down to Gaza"
+   ],
+   "note": "Wilderness road where Philip meets the Ethiopian eunuch (Acts 8:26-39)."
+  },
+  {
+   "id": "chariot_road_ethiopia",
+   "name": "The eunuch's chariot",
+   "aliases": [
+    "the chariot"
+   ],
+   "note": "Chariot on the desert road where the eunuch reads Isaiah and is baptized (Acts 8:28-38)."
+  },
+  {
+   "id": "water_on_gaza_road",
+   "name": "Water beside the road",
+   "aliases": [
+    "some water"
+   ],
+   "note": "Place on the desert road where the eunuch is baptized (Acts 8:36-38)."
+  },
+  {
+   "id": "azotus",
+   "name": "Azotus",
+   "aliases": [
+    "Ashdod"
+   ],
+   "note": "Town where Philip reappears after the Spirit takes him (Acts 8:40)."
+  },
+  {
+   "id": "lydia_river_philippi",
+   "name": "The riverside outside Philippi",
+   "aliases": [
+    "the place of prayer by the river"
+   ],
+   "note": "Riverbank outside the gate where Paul speaks to women and Lydia is baptized (Acts 16:13)."
+  },
+  {
+   "id": "philippi",
+   "name": "Philippi",
+   "aliases": [
+    "a Roman colony in Macedonia"
+   ],
+   "note": "Roman colony where Lydia, the slave girl, Paul and Silas, and the jailer appear (Acts 16:12-40)."
+  },
+  {
+   "id": "philippi_prison",
+   "name": "The prison at Philippi",
+   "aliases": [
+    "the inner prison",
+    "the stocks"
+   ],
+   "note": "Inner prison where Paul and Silas are held in stocks and freed by earthquake (Acts 16:23-34)."
+  },
+  {
+   "id": "philippi_marketplace",
+   "name": "The marketplace of Philippi",
+   "aliases": [
+    "the marketplace",
+    "the forum"
+   ],
+   "note": "Public square where Paul and Silas are dragged before the magistrates (Acts 16:19)."
+  },
+  {
+   "id": "thessalonica",
+   "name": "Thessalonica",
+   "aliases": [],
+   "note": "City with a Jewish synagogue where Paul preaches three Sabbaths and Jason's house is attacked (Acts 17:1-9)."
+  },
+  {
+   "id": "jason_house_thessalonica",
+   "name": "Jason's house in Thessalonica",
+   "aliases": [
+    "the house of Jason"
+   ],
+   "note": "House attacked by the mob (Acts 17:5)."
+  },
+  {
+   "id": "beroea",
+   "name": "Beroea",
+   "aliases": [
+    "Berea"
+   ],
+   "note": "City where Jews examine the Scriptures daily and believe (Acts 17:10-14)."
+  },
+  {
+   "id": "athens",
+   "name": "Athens",
+   "aliases": [],
+   "note": "City full of idols where Paul debates in the synagogue and marketplace (Acts 17:16-34)."
+  },
+  {
+   "id": "areopagus",
+   "name": "The Areopagus",
+   "aliases": [
+    "Mars' Hill",
+    "the Areopagus Hill"
+   ],
+   "note": "Hill and council place in Athens where Paul speaks about the unknown god (Acts 17:19-34)."
+  },
+  {
+   "id": "corinth",
+   "name": "Corinth",
+   "aliases": [],
+   "note": "City where Paul lives eighteen months with Aquila and Priscilla and faces the case before Gallio (Acts 18:1-17)."
+  },
+  {
+   "id": "justus_house_corinth",
+   "name": "House of Justus next to the synagogue in Corinth",
+   "aliases": [
+    "the house of Justus"
+   ],
+   "note": "House beside the synagogue where Paul teaches (Acts 18:7)."
+  },
+  {
+   "id": "judgment_seat_corinth",
+   "name": "The judgment seat at Corinth",
+   "aliases": [
+    "the bema",
+    "the tribunal of Gallio"
+   ],
+   "note": "Court where Gallio dismisses the charges against Paul (Acts 18:12-17)."
+  },
+  {
+   "id": "cenchreae",
+   "name": "Cenchreae",
+   "aliases": [],
+   "note": "Port near Corinth where Paul shaves his head for a vow (Acts 18:18)."
+  },
+  {
+   "id": "ephesus",
+   "name": "Ephesus",
+   "aliases": [],
+   "note": "City where Paul spends two years, the sons of Sceva are beaten, and the silversmith riot occurs (Acts 18:19-19:41)."
+  },
+  {
+   "id": "school_of_tyrannus",
+   "name": "School of Tyrannus",
+   "aliases": [
+    "the lecture hall of Tyrannus"
+   ],
+   "note": "Lecture hall in Ephesus where Paul reasons daily (Acts 19:9)."
+  },
+  {
+   "id": "ephesian_theater",
+   "name": "The theater at Ephesus",
+   "aliases": [
+    "the theater"
+   ],
+   "note": "Theater where the silversmiths' mob gathers and cries for Artemis (Acts 19:29-41)."
+  },
+  {
+   "id": "temple_of_artemis_ephesus",
+   "name": "Temple of Artemis at Ephesus",
+   "aliases": [
+    "the temple of the great goddess Artemis"
+   ],
+   "note": "Great temple whose shrines and worship are threatened (Acts 19:27)."
+  },
+  {
+   "id": "macedonia",
+   "name": "Macedonia",
+   "aliases": [],
+   "note": "Region visited by Paul on his journeys, including Philippi, Thessalonica and Beroea (Acts 16:9-17:14, 19:21-20:3)."
+  },
+  {
+   "id": "troas",
+   "name": "Troas",
+   "aliases": [],
+   "note": "Port where Paul receives the Macedonian vision and where Eutychus falls from the window (Acts 16:8, 20:5-12)."
+  },
+  {
+   "id": "upper_room_troas",
+   "name": "Upper room at Troas",
+   "aliases": [
+    "the upper room where we were gathered"
+   ],
+   "note": "Room with many lamps where Paul speaks late and Eutychus falls (Acts 20:7-9)."
+  },
+  {
+   "id": "miletus",
+   "name": "Miletus",
+   "aliases": [],
+   "note": "Port where Paul meets the Ephesian elders for farewell (Acts 20:15-38)."
+  },
+  {
+   "id": "tyre",
+   "name": "Tyre",
+   "aliases": [],
+   "note": "Port where Paul's company stays seven days and the believers pray on the beach (Acts 21:3-6)."
+  },
+  {
+   "id": "tyre_beach",
+   "name": "The beach at Tyre",
+   "aliases": [
+    "the beach"
+   ],
+   "note": "Shore where Paul kneels with the disciples and they pray (Acts 21:5)."
+  },
+  {
+   "id": "ptolemais",
+   "name": "Ptolemais",
+   "aliases": [],
+   "note": "Port where the company greets the brothers for one day (Acts 21:7)."
+  },
+  {
+   "id": "temple_court_jerusalem",
+   "name": "Court of the temple",
+   "aliases": [
+    "the temple court",
+    "the outer court"
+   ],
+   "note": "Place where Paul is seized by the Asian Jews and nearly killed (Acts 21:27-36)."
+  },
+  {
+   "id": "barracks_jerusalem",
+   "name": "The Roman barracks",
+   "aliases": [
+    "the barracks",
+    "the castle"
+   ],
+   "note": "Roman fortress where Paul is taken under guard (Acts 21:34-37, 22:24, 23:10, 16)."
+  },
+  {
+   "id": "stairs_of_the_fortress",
+   "name": "Stairs of the fortress",
+   "aliases": [
+    "the stairs"
+   ],
+   "note": "Steps from which Paul addresses the crowd in Hebrew (Acts 21:40-22:21)."
+  },
+  {
+   "id": "antipatris",
+   "name": "Antipatris",
+   "aliases": [],
+   "note": "Stop on the night road from Jerusalem to Caesarea (Acts 23:31)."
+  },
+  {
+   "id": "fair_havens_crete",
+   "name": "Fair Havens near Lasea, Crete",
+   "aliases": [
+    "Fair Havens"
+   ],
+   "note": "Harbor on Crete where the ship stays and Paul gives advice (Acts 27:8-12)."
+  },
+  {
+   "id": "ship_to_rome",
+   "name": "The ship bound for Italy",
+   "aliases": [
+    "the ship",
+    "the ship of Alexandria"
+   ],
+   "note": "Ship carrying Paul and the prisoners to Italy, wrecked near Malta (Acts 27:1-44)."
+  },
+  {
+   "id": "island_of_malta",
+   "name": "Malta",
+   "aliases": [
+    "the island called Malta"
+   ],
+   "note": "Island where the ship is wrecked and Paul heals the father of Publius (Acts 28:1-10)."
+  },
+  {
+   "id": "syracuse_rhegium_puteoli",
+   "name": "Syracuse, Rhegium, Puteoli",
+   "aliases": [
+    "Syracuse",
+    "Rhegium",
+    "Puteoli"
+   ],
+   "note": "Ports on the Italian voyage (Acts 28:12-14)."
+  },
+  {
+   "id": "rome",
+   "name": "Rome",
+   "aliases": [
+    "the city of Rome"
+   ],
+   "note": "Paul's final destination where he is held under guard in his rented house and preaches freely (Acts 28:14-31)."
+  },
+  {
+   "id": "appii_forum_tres_tabernae",
+   "name": "The Market of Appius and The Three Taverns",
+   "aliases": [
+    "Appii Forum",
+    "Three Taverns"
+   ],
+   "note": "Roadside stops where Roman brothers meet Paul (Acts 28:15)."
+  },
+  {
+   "id": "paul_rented_house_rome",
+   "name": "Paul's rented house in Rome",
+   "aliases": [
+    "his own rented house"
+   ],
+   "note": "House where Paul receives visitors for two years (Acts 28:30)."
+  },
+  {
+   "id": "tarsus",
+   "name": "Tarsus",
+   "aliases": [
+    "Tarsus of Cilicia"
+   ],
+   "note": "Paul's birthplace, to which he is sent away from Jerusalem by the brothers (Acts 9:11, 30; 11:25; 21:39; 22:3)."
+  },
+  {
+   "id": "gaza",
+   "name": "Gaza",
+   "aliases": [],
+   "note": "City at the end of the desert road from Jerusalem (Acts 8:26)."
+  },
+  {
+   "id": "cyprus_island",
+   "name": "Cyprus",
+   "aliases": [
+    "the island of Cyprus"
+   ],
+   "note": "Island visited by Barnabas and Paul; home of Barnabas and Mnason (Acts 4:36, 11:20, 13:4-12, 15:39, 21:16)."
+  },
+  {
+   "id": "salamis_paphos",
+   "name": "Salamis and Paphos",
+   "aliases": [
+    "Salamis",
+    "Paphos"
+   ],
+   "note": "Cypriot cities visited by Barnabas, Paul and John Mark, where Elymas is blinded (Acts 13:5-12)."
+  },
+  {
+   "id": "perga_pamphylia",
+   "name": "Perga in Pamphylia",
+   "aliases": [
+    "Perga",
+    "Attalia"
+   ],
+   "note": "Cities where John Mark leaves the missionaries and where they preach (Acts 13:13, 14:25)."
+  },
+  {
+   "id": "antioch_pisidia",
+   "name": "Antioch of Pisidia",
+   "aliases": [
+    "Pisidian Antioch"
+   ],
+   "note": "Synagogue city where Paul preaches a long sermon on the Sabbath (Acts 13:14-52)."
+  },
+  {
+   "id": "iconium",
+   "name": "Iconium",
+   "aliases": [],
+   "note": "City of Lycaonia where Paul and Barnabas preach, are opposed and flee (Acts 13:51-14:6)."
+  },
+  {
+   "id": "lystra",
+   "name": "Lystra",
+   "aliases": [],
+   "note": "City of Lycaonia where Paul heals the lame man and is stoned (Acts 14:6-20; 16:1-2)."
+  },
+  {
+   "id": "derbe",
+   "name": "Derbe",
+   "aliases": [],
+   "note": "City of Lycaonia where Paul and Barnabas make many disciples (Acts 14:6, 20; 16:1; 20:4)."
+  },
+  {
+   "id": "lycaonia_region",
+   "name": "Lycaonia",
+   "aliases": [
+    "the region of Lycaonia"
+   ],
+   "note": "Region including Lystra, Derbe and Iconium where Paul is taken for Hermes (Acts 14:6-11)."
+  },
+  {
+   "id": "phrygia_galatia",
+   "name": "Phrygia and Galatia",
+   "aliases": [
+    "the region of Galatia and Phrygia"
+   ],
+   "note": "Regions traversed by Paul on the journeys (Acts 16:6, 18:23)."
+  },
+  {
+   "id": "mysia_bithynia",
+   "name": "Mysia and Bithynia",
+   "aliases": [
+    "Mysia",
+    "Bithynia"
+   ],
+   "note": "Regions Paul is forbidden to enter (Acts 16:7-8)."
+  },
+  {
+   "id": "asia_province",
+   "name": "Asia",
+   "aliases": [
+    "the province of Asia"
+   ],
+   "note": "Roman province where Paul is forbidden to speak and later ministers in Ephesus (Acts 16:6, 19:10, 20:18)."
+  },
+  {
+   "id": "judea_region",
+   "name": "Judea",
+   "aliases": [
+    "all Judea"
+   ],
+   "note": "Region in which the disciples are scattered and to which Paul is sent by the Spirit's wider commission (Acts 1:8, 8:1, 9:31, 11:1, 26:20)."
+  },
+  {
+   "id": "galilee_region",
+   "name": "Galilee",
+   "aliases": [],
+   "note": "Region where the apostles are from; mentioned as the place from which Peter's audience comes and the men who witnessed Jesus (Acts 1:11, 2:7, 9:31, 10:37)."
+  },
+  {
+   "id": "egypt_land",
+   "name": "Egypt",
+   "aliases": [
+    "the land of Egypt"
+   ],
+   "note": "Land of Joseph and Moses' exodus, recounted by Stephen and Paul (Acts 7:9-39, 13:17)."
+  },
+  {
+   "id": "sinai_mount",
+   "name": "Mount Sinai",
+   "aliases": [
+    "the wilderness of Sinai"
+   ],
+   "note": "Mountain where the angel speaks to Moses in the bush (Acts 7:30-38)."
+  },
+  {
+   "id": "haran_mesopotamia",
+   "name": "Mesopotamia and Haran",
+   "aliases": [
+    "Mesopotamia",
+    "Haran"
+   ],
+   "note": "Places where God calls Abraham (Acts 7:2-4)."
+  },
+  {
+   "id": "shechem_tomb",
+   "name": "Shechem",
+   "aliases": [
+    "the tomb at Shechem"
+   ],
+   "note": "Place where Jacob and the fathers are buried (Acts 7:16); referred to in speech."
+  },
+  {
+   "id": "babylon_region",
+   "name": "Babylon",
+   "aliases": [],
+   "note": "Place of exile in Stephen's quotation (Acts 7:43); referred to in speech."
+  },
+  {
+   "id": "wilderness_forty_years",
+   "name": "The wilderness",
+   "aliases": [
+    "the wilderness"
+   ],
+   "note": "Desert where Israel wanders forty years in Stephen's and Paul's speeches (Acts 7:36, 42; 13:18); referred to in speech."
+  },
+  {
+   "id": "holy_ground_bush",
+   "name": "The burning bush",
+   "aliases": [
+    "the bush"
+   ],
+   "note": "Place of the angel's appearance to Moses (Acts 7:30-33)."
+  },
+  {
+   "id": "fear_of_roman_rules_regions",
+   "name": "Roman provinces of Achaia and Macedonia",
+   "aliases": [
+    "Achaia",
+    "Greece"
+   ],
+   "note": "Provinces through which Paul travels to Corinth and Achaia (Acts 18:12, 19:21, 20:2-3)."
+  },
+  {
+   "id": "italy_region",
+   "name": "Italy",
+   "aliases": [],
+   "note": "Region toward which Paul is sent, and from which Aquila and Priscilla came (Acts 18:2, 27:1)."
+  },
+  {
+   "id": "sea_of_galilee",
+   "name": "The sea",
+   "aliases": [
+    "the Adriatic Sea",
+    "the sea which is off Cilicia and Pamphylia",
+    "the Red Sea"
+   ],
+   "note": "Several seas referred to in the narrative, including the sea of the shipwreck (Acts 27:27) and the Red Sea (Acts 7:36)."
+  },
+  {
+   "id": "stonings_outside_city",
+   "name": "Outside the city wall of Jerusalem",
+   "aliases": [
+    "outside the city",
+    "beyond the city gate"
+   ],
+   "note": "Place where Stephen is stoned after being cast out (Acts 7:58)."
+  },
+  {
+   "id": "city_walls_damascus",
+   "name": "The wall of Damascus",
+   "aliases": [
+    "the wall"
+   ],
+   "note": "Wall through which Saul is lowered in a basket (Acts 9:25)."
+  },
+  {
+   "id": "city_gate_damascus",
+   "name": "Gate of Damascus",
+   "aliases": [
+    "the gates"
+   ],
+   "note": "Gate watched by the Jews who plot to kill Saul (Acts 9:24)."
+  },
+  {
+   "id": "ship_at_sea_shipwreck",
+   "name": "Shipwreck site near the island",
+   "aliases": [
+    "the island",
+    "the bay with a beach"
+   ],
+   "note": "Coast where the ship runs aground and the passengers reach land (Acts 27:39-44)."
+  },
+  {
+   "id": "hall_of_hearing_caesarea",
+   "name": "Hall of hearing in Caesarea",
+   "aliases": [
+    "the place of hearing",
+    "the audience chamber"
+   ],
+   "note": "Official hall where Festus brings Paul before Agrippa and Bernice (Acts 25:23)."
+  },
+  {
+   "id": "judgment_seat_caesarea",
+   "name": "The judgment seat in Caesarea",
+   "aliases": [
+    "the judgment seat"
+   ],
+   "note": "Tribunal where Festus sits and Paul is brought (Acts 25:6, 17)."
+  },
+  {
+   "id": "jerusalem_temple_gate_nicanor",
+   "name": "Gate of the temple",
+   "aliases": [
+    "the gate"
+   ],
+   "note": "Temple gate where Peter and John meet the lame man (Acts 3:2; cf. Beautiful Gate); included for the setting of Acts 3."
+  },
+  {
+   "id": "caesarea_philips_house",
+   "name": "The house of Philip the evangelist",
+   "aliases": [
+    "the house of Philip"
+   ],
+   "note": "Caesarean house where Paul stays with Philip and his four prophesying daughters (Acts 21:8-10)."
+  },
+  {
+   "id": "jerusalem_council_apostles_house",
+   "name": "House where the apostles met",
+   "aliases": [
+    "the apostles and elders' meeting place"
+   ],
+   "note": "Place in Jerusalem where the council of Acts 15 is held; not separately named in the text."
+  },
+  {
+   "id": "damascus_house_judah",
+   "name": "House of Judas in Damascus",
+   "aliases": [
+    "the house of Judah"
+   ],
+   "note": "House on Straight Street where Saul is kept three days blind (Acts 9:11)."
+  }
+ ],
+ "sections": [
+  {
+   "id": "ACT-s1",
+   "start": "acts-1-1",
+   "end": "acts-1-11",
+   "start_idx": 0,
+   "end_idx": 10,
+   "n_units": 11,
+   "words": 272,
+   "start_ref": "Acts 1:1",
+   "end_ref": "Acts 1:11",
+   "title": "The Prologue and the Ascension",
+   "setting": [
+    "mount_olivet"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "theophilus",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": false
+    },
+    {
+     "id": "john_apostle",
+     "named": true
+    },
+    {
+     "id": "james_zebedee",
+     "named": false
+    },
+    {
+     "id": "the_eleven_apostles",
+     "named": false
+    },
+    {
+     "id": "two_men_in_white",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "holy_spirit"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s2",
+   "start": "acts-1-12",
+   "end": "acts-1-14",
+   "start_idx": 11,
+   "end_idx": 13,
+   "n_units": 3,
+   "words": 84,
+   "start_ref": "Acts 1:12",
+   "end_ref": "Acts 1:14",
+   "title": "Return to Jerusalem and the Upper Room",
+   "setting": [
+    "upper_room_jerusalem",
+    "mount_olivet",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "the_eleven_apostles",
+     "named": false
+    },
+    {
+     "id": "mary_mother_of_jesus",
+     "named": true
+    },
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s3",
+   "start": "acts-1-15",
+   "end": "acts-1-26",
+   "start_idx": 14,
+   "end_idx": 25,
+   "n_units": 12,
+   "words": 269,
+   "start_ref": "Acts 1:15",
+   "end_ref": "Acts 1:26",
+   "title": "Choosing Matthias in Place of Judas",
+   "setting": [
+    "upper_room_jerusalem",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "the_eleven_apostles",
+     "named": false
+    },
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    },
+    {
+     "id": "matthias",
+     "named": true
+    },
+    {
+     "id": "joseph_barsabbas",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "judas_iscariot",
+    "holy_spirit",
+    "david_king"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s4",
+   "start": "acts-2-1",
+   "end": "acts-2-13",
+   "start_idx": 26,
+   "end_idx": 38,
+   "n_units": 13,
+   "words": 210,
+   "start_ref": "Acts 2:1",
+   "end_ref": "Acts 2:13",
+   "title": "Pentecost and the Tongues of Fire",
+   "setting": [
+    "upper_room_jerusalem",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "the_eleven_apostles",
+     "named": false
+    },
+    {
+     "id": "pentecost_crowd",
+     "named": false
+    },
+    {
+     "id": "holy_spirit",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s5",
+   "start": "acts-2-14",
+   "end": "acts-2-21",
+   "start_idx": 39,
+   "end_idx": 46,
+   "n_units": 8,
+   "words": 185,
+   "start_ref": "Acts 2:14",
+   "end_ref": "Acts 2:21",
+   "title": "Peter's Sermon: The Prophecy of Joel",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "the_eleven_apostles",
+     "named": false
+    },
+    {
+     "id": "pentecost_crowd",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "holy_spirit"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s6",
+   "start": "acts-2-22",
+   "end": "acts-2-36",
+   "start_idx": 47,
+   "end_idx": 61,
+   "n_units": 15,
+   "words": 348,
+   "start_ref": "Acts 2:22",
+   "end_ref": "Acts 2:36",
+   "title": "Peter on Jesus, David, and the Resurrection",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": false
+    },
+    {
+     "id": "pentecost_crowd",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jesus",
+    "david_king",
+    "god_the_father",
+    "pontius_pilate"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s7",
+   "start": "acts-2-37",
+   "end": "acts-2-47",
+   "start_idx": 62,
+   "end_idx": 72,
+   "n_units": 11,
+   "words": 229,
+   "start_ref": "Acts 2:37",
+   "end_ref": "Acts 2:47",
+   "title": "Three Thousand Baptized and the Common Life",
+   "setting": [
+    "jerusalem",
+    "temple_jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "the_eleven_apostles",
+     "named": false
+    },
+    {
+     "id": "pentecost_crowd",
+     "named": false
+    },
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "holy_spirit"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s8",
+   "start": "acts-3-1",
+   "end": "acts-3-11",
+   "start_idx": 73,
+   "end_idx": 83,
+   "n_units": 11,
+   "words": 241,
+   "start_ref": "Acts 3:1",
+   "end_ref": "Acts 3:11",
+   "title": "The Healing of the Lame Man at the Beautiful Gate",
+   "setting": [
+    "beautiful_gate",
+    "temple_jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "john_apostle",
+     "named": true
+    },
+    {
+     "id": "lame_man_at_beautiful_gate",
+     "named": false
+    },
+    {
+     "id": "pentecost_crowd",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s9",
+   "start": "acts-3-12",
+   "end": "acts-3-26",
+   "start_idx": 84,
+   "end_idx": 98,
+   "n_units": 15,
+   "words": 381,
+   "start_ref": "Acts 3:12",
+   "end_ref": "Acts 3:26",
+   "title": "Peter's Speech in Solomon's Porch",
+   "setting": [
+    "solomons_porch",
+    "temple_jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "john_apostle",
+     "named": false
+    },
+    {
+     "id": "lame_man_at_beautiful_gate",
+     "named": false
+    },
+    {
+     "id": "pentecost_crowd",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "god_the_father",
+    "jesus",
+    "pontius_pilate",
+    "moses",
+    "abraham"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s10",
+   "start": "acts-4-1",
+   "end": "acts-4-4",
+   "start_idx": 99,
+   "end_idx": 102,
+   "n_units": 4,
+   "words": 76,
+   "start_ref": "Acts 4:1",
+   "end_ref": "Acts 4:4",
+   "title": "The Arrest of Peter and John",
+   "setting": [
+    "temple_jerusalem",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": false
+    },
+    {
+     "id": "john_apostle",
+     "named": false
+    },
+    {
+     "id": "annas_high_priest",
+     "named": false
+    },
+    {
+     "id": "the_council",
+     "named": false
+    },
+    {
+     "id": "pentecost_crowd",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s11",
+   "start": "acts-4-5",
+   "end": "acts-4-22",
+   "start_idx": 103,
+   "end_idx": 120,
+   "n_units": 18,
+   "words": 410,
+   "start_ref": "Acts 4:5",
+   "end_ref": "Acts 4:22",
+   "title": "Peter and John Before the Council",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "john_apostle",
+     "named": true
+    },
+    {
+     "id": "annas_high_priest",
+     "named": true
+    },
+    {
+     "id": "caiaphas",
+     "named": true
+    },
+    {
+     "id": "the_council",
+     "named": false
+    },
+    {
+     "id": "lame_man_at_beautiful_gate",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jesus"
+   ],
+   "unknown_ids": [
+    "council_chamber_placeholder_jerusalem"
+   ]
+  },
+  {
+   "id": "ACT-s12",
+   "start": "acts-4-23",
+   "end": "acts-4-31",
+   "start_idx": 121,
+   "end_idx": 129,
+   "n_units": 9,
+   "words": 208,
+   "start_ref": "Acts 4:23",
+   "end_ref": "Acts 4:31",
+   "title": "The Believers Pray for Boldness",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": false
+    },
+    {
+     "id": "john_apostle",
+     "named": false
+    },
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "god_the_father",
+    "david_king",
+    "pontius_pilate",
+    "herod_agrippa_i",
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s13",
+   "start": "acts-4-32",
+   "end": "acts-4-37",
+   "start_idx": 130,
+   "end_idx": 135,
+   "n_units": 6,
+   "words": 145,
+   "start_ref": "Acts 4:32",
+   "end_ref": "Acts 4:37",
+   "title": "Sharing Goods; Barnabas Sells His Field",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    },
+    {
+     "id": "barnabas",
+     "named": true
+    },
+    {
+     "id": "the_eleven_apostles",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s14",
+   "start": "acts-5-1",
+   "end": "acts-5-11",
+   "start_idx": 136,
+   "end_idx": 146,
+   "n_units": 11,
+   "words": 251,
+   "start_ref": "Acts 5:1",
+   "end_ref": "Acts 5:11",
+   "title": "Ananias and Sapphira",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "ananias_of_jerusalem",
+     "named": true
+    },
+    {
+     "id": "sapphira",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "holy_spirit"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s15",
+   "start": "acts-5-12",
+   "end": "acts-5-16",
+   "start_idx": 147,
+   "end_idx": 151,
+   "n_units": 5,
+   "words": 107,
+   "start_ref": "Acts 5:12",
+   "end_ref": "Acts 5:16",
+   "title": "Signs in Solomon's Porch and the Sick in the Streets",
+   "setting": [
+    "solomons_porch",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "the_eleven_apostles",
+     "named": false
+    },
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    },
+    {
+     "id": "pentecost_crowd",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s16",
+   "start": "acts-5-17",
+   "end": "acts-5-26",
+   "start_idx": 152,
+   "end_idx": 161,
+   "n_units": 10,
+   "words": 231,
+   "start_ref": "Acts 5:17",
+   "end_ref": "Acts 5:26",
+   "title": "Apostles Freed from Prison by an Angel",
+   "setting": [
+    "herod_prison_jerusalem",
+    "temple_jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "the_eleven_apostles",
+     "named": false
+    },
+    {
+     "id": "the_council",
+     "named": false
+    },
+    {
+     "id": "two_men_in_white",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s17",
+   "start": "acts-5-27",
+   "end": "acts-5-42",
+   "start_idx": 162,
+   "end_idx": 177,
+   "n_units": 16,
+   "words": 376,
+   "start_ref": "Acts 5:27",
+   "end_ref": "Acts 5:42",
+   "title": "Gamaliel's Counsel Before the Council",
+   "setting": [
+    "temple_jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "the_eleven_apostles",
+     "named": false
+    },
+    {
+     "id": "the_council",
+     "named": false
+    },
+    {
+     "id": "gamaliel",
+     "named": true
+    },
+    {
+     "id": "annas_high_priest",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "theudas",
+    "judas_of_galilee",
+    "jesus"
+   ],
+   "unknown_ids": [
+    "council_chamber_placeholder_jerusalem"
+   ]
+  },
+  {
+   "id": "ACT-s18",
+   "start": "acts-6-1",
+   "end": "acts-6-7",
+   "start_idx": 178,
+   "end_idx": 184,
+   "n_units": 7,
+   "words": 167,
+   "start_ref": "Acts 6:1",
+   "end_ref": "Acts 6:7",
+   "title": "Choosing the Seven",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "the_eleven_apostles",
+     "named": false
+    },
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    },
+    {
+     "id": "the_seven_deacons",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s19",
+   "start": "acts-6-8",
+   "end": "acts-6-15",
+   "start_idx": 185,
+   "end_idx": 192,
+   "n_units": 8,
+   "words": 168,
+   "start_ref": "Acts 6:8",
+   "end_ref": "Acts 6:15",
+   "title": "Stephen Seized and Accused",
+   "setting": [
+    "hellenist_synagogue_jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "stephen",
+     "named": true
+    },
+    {
+     "id": "the_libertines",
+     "named": false
+    },
+    {
+     "id": "the_council",
+     "named": false
+    },
+    {
+     "id": "false_witnesses",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": [
+    "council_chamber_placeholder_jerusalem"
+   ]
+  },
+  {
+   "id": "ACT-s20",
+   "start": "acts-7-1",
+   "end": "acts-7-53",
+   "start_idx": 193,
+   "end_idx": 245,
+   "n_units": 53,
+   "words": 1223,
+   "start_ref": "Acts 7:1",
+   "end_ref": "Acts 7:53",
+   "title": "Stephen's Speech: The History of Israel",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "stephen",
+     "named": false
+    },
+    {
+     "id": "annas_high_priest",
+     "named": false
+    },
+    {
+     "id": "the_council",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "abraham",
+    "joseph_patriarch",
+    "moses",
+    "samuel",
+    "david_king",
+    "god_the_father",
+    "ahead_of_the_pharaoh",
+    "jesus"
+   ],
+   "unknown_ids": [
+    "council_chamber_placeholder_jerusalem"
+   ]
+  },
+  {
+   "id": "ACT-s21",
+   "start": "acts-7-54",
+   "end": "acts-7-60",
+   "start_idx": 246,
+   "end_idx": 252,
+   "n_units": 7,
+   "words": 148,
+   "start_ref": "Acts 7:54",
+   "end_ref": "Acts 7:60",
+   "title": "The Stoning of Stephen",
+   "setting": [
+    "stonings_outside_city"
+   ],
+   "on_stage": [
+    {
+     "id": "stephen",
+     "named": true
+    },
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "witnesses_stoning",
+     "named": false
+    },
+    {
+     "id": "crowd_in_jerusalem_seize_stephen",
+     "named": false
+    },
+    {
+     "id": "jesus",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "holy_spirit"
+   ],
+   "unknown_ids": [
+    "council_chamber_placeholder_jerusalem"
+   ]
+  },
+  {
+   "id": "ACT-s22",
+   "start": "acts-8-1",
+   "end": "acts-8-3",
+   "start_idx": 253,
+   "end_idx": 255,
+   "n_units": 3,
+   "words": 63,
+   "start_ref": "Acts 8:1",
+   "end_ref": "Acts 8:3",
+   "title": "Saul Ravages the Assembly",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "stephen"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s23",
+   "start": "acts-8-4",
+   "end": "acts-8-8",
+   "start_idx": 256,
+   "end_idx": 260,
+   "n_units": 5,
+   "words": 85,
+   "start_ref": "Acts 8:4",
+   "end_ref": "Acts 8:8",
+   "title": "Philip Preaches in Samaria",
+   "setting": [
+    "samaria_city"
+   ],
+   "on_stage": [
+    {
+     "id": "philip_evangelist",
+     "named": true
+    },
+    {
+     "id": "pentecost_crowd",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s24",
+   "start": "acts-8-9",
+   "end": "acts-8-25",
+   "start_idx": 261,
+   "end_idx": 277,
+   "n_units": 17,
+   "words": 347,
+   "start_ref": "Acts 8:9",
+   "end_ref": "Acts 8:25",
+   "title": "Simon the Sorcerer and Peter in Samaria",
+   "setting": [
+    "samaria_city"
+   ],
+   "on_stage": [
+    {
+     "id": "simon_magus",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "john_apostle",
+     "named": true
+    },
+    {
+     "id": "philip_evangelist",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "holy_spirit"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s25",
+   "start": "acts-8-26",
+   "end": "acts-8-40",
+   "start_idx": 278,
+   "end_idx": 292,
+   "n_units": 15,
+   "words": 323,
+   "start_ref": "Acts 8:26",
+   "end_ref": "Acts 8:40",
+   "title": "Philip and the Ethiopian Eunuch",
+   "setting": [
+    "gaza_road",
+    "chariot_road_ethiopia",
+    "water_on_gaza_road",
+    "azotus"
+   ],
+   "on_stage": [
+    {
+     "id": "philip_evangelist",
+     "named": true
+    },
+    {
+     "id": "ethiopian_eunuch",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "candace",
+    "isaiah",
+    "holy_spirit"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s26",
+   "start": "acts-9-1",
+   "end": "acts-9-9",
+   "start_idx": 293,
+   "end_idx": 301,
+   "n_units": 9,
+   "words": 173,
+   "start_ref": "Acts 9:1",
+   "end_ref": "Acts 9:9",
+   "title": "Saul's Vision on the Road to Damascus",
+   "setting": [
+    "damascus"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "men_traveling_with_saul",
+     "named": false
+    },
+    {
+     "id": "jesus",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "chief_priests_authority_saul"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s27",
+   "start": "acts-9-10",
+   "end": "acts-9-19",
+   "start_idx": 302,
+   "end_idx": 311,
+   "n_units": 10,
+   "words": 247,
+   "start_ref": "Acts 9:10",
+   "end_ref": "Acts 9:19",
+   "title": "Ananias Heals Saul",
+   "setting": [
+    "straight_street_damascus",
+    "damascus_house_judah"
+   ],
+   "on_stage": [
+    {
+     "id": "ananias_of_damascus",
+     "named": false
+    },
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "jesus",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s28",
+   "start": "acts-9-20",
+   "end": "acts-9-31",
+   "start_idx": 312,
+   "end_idx": 323,
+   "n_units": 12,
+   "words": 274,
+   "start_ref": "Acts 9:20",
+   "end_ref": "Acts 9:31",
+   "title": "Saul Preaches and Escapes Damascus",
+   "setting": [
+    "damascus",
+    "city_walls_damascus",
+    "city_gate_damascus",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "barnabas",
+     "named": true
+    },
+    {
+     "id": "disciples_of_damascus_saul",
+     "named": false
+    },
+    {
+     "id": "damascus_jews_plot",
+     "named": false
+    },
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s29",
+   "start": "acts-9-32",
+   "end": "acts-9-35",
+   "start_idx": 324,
+   "end_idx": 327,
+   "n_units": 4,
+   "words": 71,
+   "start_ref": "Acts 9:32",
+   "end_ref": "Acts 9:35",
+   "title": "Peter Heals Aeneas at Lydda",
+   "setting": [
+    "lydda"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "aeneas",
+     "named": true
+    },
+    {
+     "id": "people_of_lydda_sharon",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s30",
+   "start": "acts-9-36",
+   "end": "acts-9-43",
+   "start_idx": 328,
+   "end_idx": 335,
+   "n_units": 8,
+   "words": 188,
+   "start_ref": "Acts 9:36",
+   "end_ref": "Acts 9:43",
+   "title": "Peter Raises Tabitha at Joppa",
+   "setting": [
+    "joppa",
+    "simons_house_joppa"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "tabitha_dorcas",
+     "named": true
+    },
+    {
+     "id": "widows_of_joppa",
+     "named": false
+    },
+    {
+     "id": "simon_tanner",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s31",
+   "start": "acts-10-1",
+   "end": "acts-10-8",
+   "start_idx": 336,
+   "end_idx": 343,
+   "n_units": 8,
+   "words": 171,
+   "start_ref": "Acts 10:1",
+   "end_ref": "Acts 10:8",
+   "title": "Cornelius's Vision",
+   "setting": [
+    "caesarea_maritima",
+    "cornelius_house_caesarea"
+   ],
+   "on_stage": [
+    {
+     "id": "cornelius",
+     "named": true
+    },
+    {
+     "id": "two_men_in_white",
+     "named": false
+    },
+    {
+     "id": "cornelius_servants_and_soldier",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s32",
+   "start": "acts-10-9",
+   "end": "acts-10-23",
+   "start_idx": 344,
+   "end_idx": 358,
+   "n_units": 15,
+   "words": 319,
+   "start_ref": "Acts 10:9",
+   "end_ref": "Acts 10:23",
+   "title": "Peter's Vision of the Sheet and the Visitors",
+   "setting": [
+    "rooftop_joppa",
+    "simons_house_joppa"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "cornelius_servants_and_soldier",
+     "named": false
+    },
+    {
+     "id": "holy_spirit",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s33",
+   "start": "acts-10-24",
+   "end": "acts-10-33",
+   "start_idx": 359,
+   "end_idx": 368,
+   "n_units": 10,
+   "words": 250,
+   "start_ref": "Acts 10:24",
+   "end_ref": "Acts 10:33",
+   "title": "Peter Arrives at Cornelius's House",
+   "setting": [
+    "cornelius_house_caesarea"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "cornelius",
+     "named": true
+    },
+    {
+     "id": "crowd_at_caesarea_cornelius",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s34",
+   "start": "acts-10-34",
+   "end": "acts-10-48",
+   "start_idx": 369,
+   "end_idx": 383,
+   "n_units": 15,
+   "words": 318,
+   "start_ref": "Acts 10:34",
+   "end_ref": "Acts 10:48",
+   "title": "Peter's Sermon to the Gentiles",
+   "setting": [
+    "cornelius_house_caesarea"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "cornelius",
+     "named": false
+    },
+    {
+     "id": "crowd_at_caesarea_cornelius",
+     "named": false
+    },
+    {
+     "id": "circumcised_believers_jerusalem",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jesus",
+    "god_the_father"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s35",
+   "start": "acts-11-1",
+   "end": "acts-11-18",
+   "start_idx": 384,
+   "end_idx": 401,
+   "n_units": 18,
+   "words": 363,
+   "start_ref": "Acts 11:1",
+   "end_ref": "Acts 11:18",
+   "title": "Peter Explains to Jerusalem",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "circumcised_believers_jerusalem",
+     "named": false
+    },
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "cornelius"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s36",
+   "start": "acts-11-19",
+   "end": "acts-11-26",
+   "start_idx": 402,
+   "end_idx": 409,
+   "n_units": 8,
+   "words": 195,
+   "start_ref": "Acts 11:19",
+   "end_ref": "Acts 11:26",
+   "title": "The Gospel Reaches Antioch",
+   "setting": [
+    "antioch_syria",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "barnabas",
+     "named": true
+    },
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "antioch_hellenist_preachers",
+     "named": false
+    },
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "stephen"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s37",
+   "start": "acts-11-27",
+   "end": "acts-11-30",
+   "start_idx": 410,
+   "end_idx": 413,
+   "n_units": 4,
+   "words": 77,
+   "start_ref": "Acts 11:27",
+   "end_ref": "Acts 11:30",
+   "title": "Agabus Foretells Famine",
+   "setting": [
+    "antioch_syria"
+   ],
+   "on_stage": [
+    {
+     "id": "agabus",
+     "named": true
+    },
+    {
+     "id": "barnabas",
+     "named": true
+    },
+    {
+     "id": "saul_paul",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s38",
+   "start": "acts-12-1",
+   "end": "acts-12-5",
+   "start_idx": 414,
+   "end_idx": 418,
+   "n_units": 5,
+   "words": 101,
+   "start_ref": "Acts 12:1",
+   "end_ref": "Acts 12:5",
+   "title": "Herod Kills James and Imprisons Peter",
+   "setting": [
+    "jerusalem",
+    "herod_prison_jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "herod_agrippa_i",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "herod_judean_unnamed",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "james_zebedee"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s39",
+   "start": "acts-12-6",
+   "end": "acts-12-19",
+   "start_idx": 419,
+   "end_idx": 432,
+   "n_units": 14,
+   "words": 398,
+   "start_ref": "Acts 12:6",
+   "end_ref": "Acts 12:19",
+   "title": "Peter Freed from Prison by the Angel",
+   "setting": [
+    "herod_prison_jerusalem",
+    "iron_gate_city",
+    "mary_house_jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "two_men_in_white",
+     "named": false
+    },
+    {
+     "id": "herod_judean_unnamed",
+     "named": false
+    },
+    {
+     "id": "rhoda",
+     "named": true
+    },
+    {
+     "id": "mary_mother_of_john_mark",
+     "named": true
+    },
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "herod_agrippa_i"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s40",
+   "start": "acts-12-20",
+   "end": "acts-12-25",
+   "start_idx": 433,
+   "end_idx": 438,
+   "n_units": 6,
+   "words": 128,
+   "start_ref": "Acts 12:20",
+   "end_ref": "Acts 12:25",
+   "title": "Herod's Death and the Word Grows",
+   "setting": [
+    "caesarea_maritima",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "herod_agrippa_i",
+     "named": true
+    },
+    {
+     "id": "blastus",
+     "named": true
+    },
+    {
+     "id": "people_of_tyre_and_sidon",
+     "named": false
+    },
+    {
+     "id": "barnabas",
+     "named": true
+    },
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "john_mark",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "holy_spirit"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s41",
+   "start": "acts-13-1",
+   "end": "acts-13-3",
+   "start_idx": 439,
+   "end_idx": 441,
+   "n_units": 3,
+   "words": 76,
+   "start_ref": "Acts 13:1",
+   "end_ref": "Acts 13:3",
+   "title": "Barnabas and Saul Set Apart at Antioch",
+   "setting": [
+    "antioch_syria"
+   ],
+   "on_stage": [
+    {
+     "id": "prophets_and_teachers_of_antioch",
+     "named": true
+    },
+    {
+     "id": "simeon_niger",
+     "named": true
+    },
+    {
+     "id": "lucius_of_cyrene",
+     "named": true
+    },
+    {
+     "id": "manaen",
+     "named": true
+    },
+    {
+     "id": "barnabas",
+     "named": true
+    },
+    {
+     "id": "saul_paul",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "holy_spirit",
+    "herod_tetrarch"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s42",
+   "start": "acts-13-4",
+   "end": "acts-13-12",
+   "start_idx": 442,
+   "end_idx": 450,
+   "n_units": 9,
+   "words": 217,
+   "start_ref": "Acts 13:4",
+   "end_ref": "Acts 13:12",
+   "title": "Elymas Blinded on Cyprus",
+   "setting": [
+    "cyprus_island",
+    "salamis_paphos"
+   ],
+   "on_stage": [
+    {
+     "id": "barnabas",
+     "named": true
+    },
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "john_mark",
+     "named": false
+    },
+    {
+     "id": "elymas_bar_jesus",
+     "named": true
+    },
+    {
+     "id": "sergius_paulus",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s43",
+   "start": "acts-13-13",
+   "end": "acts-13-16",
+   "start_idx": 451,
+   "end_idx": 454,
+   "n_units": 4,
+   "words": 94,
+   "start_ref": "Acts 13:13",
+   "end_ref": "Acts 13:16",
+   "title": "John Mark Leaves; Arrival at Antioch of Pisidia",
+   "setting": [
+    "perga_pamphylia",
+    "antioch_pisidia"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "barnabas",
+     "named": false
+    },
+    {
+     "id": "john_mark",
+     "named": false
+    },
+    {
+     "id": "jews_of_antioch_pisidia",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s44",
+   "start": "acts-13-17",
+   "end": "acts-13-41",
+   "start_idx": 455,
+   "end_idx": 479,
+   "n_units": 25,
+   "words": 546,
+   "start_ref": "Acts 13:17",
+   "end_ref": "Acts 13:41",
+   "title": "Paul's Sermon at Antioch in Pisidia",
+   "setting": [
+    "antioch_pisidia"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "barnabas",
+     "named": false
+    },
+    {
+     "id": "jews_of_antioch_pisidia",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "god_the_father",
+    "david_king",
+    "john_the_baptist",
+    "jesus",
+    "moses",
+    "samuel",
+    "pontius_pilate"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s45",
+   "start": "acts-13-42",
+   "end": "acts-13-52",
+   "start_idx": 480,
+   "end_idx": 490,
+   "n_units": 11,
+   "words": 256,
+   "start_ref": "Acts 13:42",
+   "end_ref": "Acts 13:52",
+   "title": "Gentiles Welcome; Expulsion from Antioch",
+   "setting": [
+    "antioch_pisidia",
+    "iconium"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "barnabas",
+     "named": true
+    },
+    {
+     "id": "jews_of_antioch_pisidia",
+     "named": false
+    },
+    {
+     "id": "proselytes_of_antioch_group",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s46",
+   "start": "acts-14-1",
+   "end": "acts-14-7",
+   "start_idx": 491,
+   "end_idx": 497,
+   "n_units": 7,
+   "words": 134,
+   "start_ref": "Acts 14:1",
+   "end_ref": "Acts 14:7",
+   "title": "Preaching at Iconium",
+   "setting": [
+    "iconium",
+    "lycaonia_region"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": false
+    },
+    {
+     "id": "barnabas",
+     "named": false
+    },
+    {
+     "id": "jews_of_antioch_pisidia",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s47",
+   "start": "acts-14-8",
+   "end": "acts-14-18",
+   "start_idx": 498,
+   "end_idx": 508,
+   "n_units": 11,
+   "words": 258,
+   "start_ref": "Acts 14:8",
+   "end_ref": "Acts 14:18",
+   "title": "Healing at Lystra and the Crowd's Worship",
+   "setting": [
+    "lystra",
+    "lycaonia_region"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "barnabas",
+     "named": true
+    },
+    {
+     "id": "lame_man_lystra",
+     "named": false
+    },
+    {
+     "id": "lystra_crowd",
+     "named": false
+    },
+    {
+     "id": "priest_of_jupiter",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s48",
+   "start": "acts-14-19",
+   "end": "acts-14-28",
+   "start_idx": 509,
+   "end_idx": 518,
+   "n_units": 10,
+   "words": 215,
+   "start_ref": "Acts 14:19",
+   "end_ref": "Acts 14:28",
+   "title": "Stoning at Lystra and Return to Antioch",
+   "setting": [
+    "lystra",
+    "derbe",
+    "antioch_syria"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "barnabas",
+     "named": true
+    },
+    {
+     "id": "jews_of_antioch_pisidia",
+     "named": false
+    },
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s49",
+   "start": "acts-15-1",
+   "end": "acts-15-5",
+   "start_idx": 519,
+   "end_idx": 523,
+   "n_units": 5,
+   "words": 144,
+   "start_ref": "Acts 15:1",
+   "end_ref": "Acts 15:5",
+   "title": "The Dispute over Circumcision",
+   "setting": [
+    "antioch_syria"
+   ],
+   "on_stage": [
+    {
+     "id": "men_from_judea_circumcision",
+     "named": false
+    },
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "barnabas",
+     "named": true
+    },
+    {
+     "id": "pharisee_believers_jerusalem",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s50",
+   "start": "acts-15-6",
+   "end": "acts-15-21",
+   "start_idx": 524,
+   "end_idx": 539,
+   "n_units": 16,
+   "words": 328,
+   "start_ref": "Acts 15:6",
+   "end_ref": "Acts 15:21",
+   "title": "Council at Jerusalem",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "the_eleven_apostles",
+     "named": false
+    },
+    {
+     "id": "james_brother_of_jesus",
+     "named": true
+    },
+    {
+     "id": "peter",
+     "named": true
+    },
+    {
+     "id": "barnabas",
+     "named": true
+    },
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "pharisee_believers_jerusalem",
+     "named": false
+    },
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "moses"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s51",
+   "start": "acts-15-22",
+   "end": "acts-15-35",
+   "start_idx": 540,
+   "end_idx": 553,
+   "n_units": 14,
+   "words": 295,
+   "start_ref": "Acts 15:22",
+   "end_ref": "Acts 15:35",
+   "title": "The Letter to the Gentile Believers",
+   "setting": [
+    "jerusalem",
+    "antioch_syria"
+   ],
+   "on_stage": [
+    {
+     "id": "james_letter_writers",
+     "named": false
+    },
+    {
+     "id": "judas_barsabbas",
+     "named": true
+    },
+    {
+     "id": "silas",
+     "named": true
+    },
+    {
+     "id": "barnabas",
+     "named": true
+    },
+    {
+     "id": "saul_paul",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "holy_spirit"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s52",
+   "start": "acts-15-36",
+   "end": "acts-15-41",
+   "start_idx": 554,
+   "end_idx": 559,
+   "n_units": 6,
+   "words": 123,
+   "start_ref": "Acts 15:36",
+   "end_ref": "Acts 15:41",
+   "title": "Paul and Barnabas Separate",
+   "setting": [
+    "antioch_syria",
+    "cyprus_island"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "barnabas",
+     "named": true
+    },
+    {
+     "id": "john_mark",
+     "named": true
+    },
+    {
+     "id": "silas",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s53",
+   "start": "acts-16-1",
+   "end": "acts-16-5",
+   "start_idx": 560,
+   "end_idx": 564,
+   "n_units": 5,
+   "words": 119,
+   "start_ref": "Acts 16:1",
+   "end_ref": "Acts 16:5",
+   "title": "Timothy Joins Paul",
+   "setting": [
+    "lystra",
+    "derbe",
+    "iconium"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "timothy",
+     "named": true
+    },
+    {
+     "id": "silas",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s54",
+   "start": "acts-16-6",
+   "end": "acts-16-10",
+   "start_idx": 565,
+   "end_idx": 569,
+   "n_units": 5,
+   "words": 104,
+   "start_ref": "Acts 16:6",
+   "end_ref": "Acts 16:10",
+   "title": "The Macedonian Vision at Troas",
+   "setting": [
+    "phrygia_galatia",
+    "mysia_bithynia",
+    "troas"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "silas",
+     "named": false
+    },
+    {
+     "id": "timothy",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "holy_spirit"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s55",
+   "start": "acts-16-11",
+   "end": "acts-16-18",
+   "start_idx": 570,
+   "end_idx": 577,
+   "n_units": 8,
+   "words": 234,
+   "start_ref": "Acts 16:11",
+   "end_ref": "Acts 16:18",
+   "title": "Lydia and the Slave Girl in Philippi",
+   "setting": [
+    "philippi",
+    "lydia_river_philippi"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "silas",
+     "named": false
+    },
+    {
+     "id": "lydia",
+     "named": true
+    },
+    {
+     "id": "slave_girl_with_divining_spirit",
+     "named": false
+    },
+    {
+     "id": "slave_girl_owners",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s56",
+   "start": "acts-16-19",
+   "end": "acts-16-24",
+   "start_idx": 578,
+   "end_idx": 583,
+   "n_units": 6,
+   "words": 124,
+   "start_ref": "Acts 16:19",
+   "end_ref": "Acts 16:24",
+   "title": "Paul and Silas Beaten and Imprisoned",
+   "setting": [
+    "philippi_marketplace",
+    "philippi_prison"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "silas",
+     "named": true
+    },
+    {
+     "id": "slave_girl_owners",
+     "named": false
+    },
+    {
+     "id": "philippi_magistrates",
+     "named": false
+    },
+    {
+     "id": "the_council",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s57",
+   "start": "acts-16-25",
+   "end": "acts-16-34",
+   "start_idx": 584,
+   "end_idx": 593,
+   "n_units": 10,
+   "words": 196,
+   "start_ref": "Acts 16:25",
+   "end_ref": "Acts 16:34",
+   "title": "The Earthquake and the Philippian Jailer",
+   "setting": [
+    "philippi_prison"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "silas",
+     "named": true
+    },
+    {
+     "id": "philippian_jailer",
+     "named": false
+    },
+    {
+     "id": "jailer_household",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s58",
+   "start": "acts-16-35",
+   "end": "acts-16-40",
+   "start_idx": 594,
+   "end_idx": 599,
+   "n_units": 6,
+   "words": 141,
+   "start_ref": "Acts 16:35",
+   "end_ref": "Acts 16:40",
+   "title": "Release and Departure from Philippi",
+   "setting": [
+    "philippi_marketplace",
+    "philippi",
+    "lydia_river_philippi"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "silas",
+     "named": false
+    },
+    {
+     "id": "philippi_magistrates",
+     "named": false
+    },
+    {
+     "id": "philippian_jailer",
+     "named": false
+    },
+    {
+     "id": "lydia",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s59",
+   "start": "acts-17-1",
+   "end": "acts-17-9",
+   "start_idx": 600,
+   "end_idx": 608,
+   "n_units": 9,
+   "words": 206,
+   "start_ref": "Acts 17:1",
+   "end_ref": "Acts 17:9",
+   "title": "Thessalonica: The Riot Against Jason",
+   "setting": [
+    "thessalonica",
+    "jason_house_thessalonica"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "silas",
+     "named": true
+    },
+    {
+     "id": "jason_of_thessalonica",
+     "named": true
+    },
+    {
+     "id": "thessalonian_mob",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s60",
+   "start": "acts-17-10",
+   "end": "acts-17-15",
+   "start_idx": 609,
+   "end_idx": 614,
+   "n_units": 6,
+   "words": 145,
+   "start_ref": "Acts 17:10",
+   "end_ref": "Acts 17:15",
+   "title": "Beroea and Departure for Athens",
+   "setting": [
+    "beroea",
+    "athens"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "silas",
+     "named": true
+    },
+    {
+     "id": "timothy",
+     "named": true
+    },
+    {
+     "id": "beroean_jews",
+     "named": false
+    },
+    {
+     "id": "thessalonian_jews_visiting_beroea",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s61",
+   "start": "acts-17-16",
+   "end": "acts-17-21",
+   "start_idx": 615,
+   "end_idx": 620,
+   "n_units": 6,
+   "words": 151,
+   "start_ref": "Acts 17:16",
+   "end_ref": "Acts 17:21",
+   "title": "Paul in Athens",
+   "setting": [
+    "athens"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "athenian_philosophers",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s62",
+   "start": "acts-17-22",
+   "end": "acts-17-34",
+   "start_idx": 621,
+   "end_idx": 633,
+   "n_units": 13,
+   "words": 322,
+   "start_ref": "Acts 17:22",
+   "end_ref": "Acts 17:34",
+   "title": "Paul's Speech at the Areopagus",
+   "setting": [
+    "areopagus",
+    "athens"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "athenian_philosophers",
+     "named": false
+    },
+    {
+     "id": "dionysius_areopagite",
+     "named": true
+    },
+    {
+     "id": "damaris",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "god_the_father",
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s63",
+   "start": "acts-18-1",
+   "end": "acts-18-4",
+   "start_idx": 634,
+   "end_idx": 637,
+   "n_units": 4,
+   "words": 81,
+   "start_ref": "Acts 18:1",
+   "end_ref": "Acts 18:4",
+   "title": "Paul Meets Aquila and Priscilla in Corinth",
+   "setting": [
+    "corinth"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "aquila",
+     "named": true
+    },
+    {
+     "id": "priscilla",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "emperor_caesar"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s64",
+   "start": "acts-18-5",
+   "end": "acts-18-11",
+   "start_idx": 638,
+   "end_idx": 644,
+   "n_units": 7,
+   "words": 165,
+   "start_ref": "Acts 18:5",
+   "end_ref": "Acts 18:11",
+   "title": "Paul's Work in Corinth and a Vision",
+   "setting": [
+    "corinth",
+    "justus_house_corinth"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "silas",
+     "named": true
+    },
+    {
+     "id": "timothy",
+     "named": true
+    },
+    {
+     "id": "crispus",
+     "named": true
+    },
+    {
+     "id": "justus_corinth",
+     "named": true
+    },
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "corinthian_believers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s65",
+   "start": "acts-18-12",
+   "end": "acts-18-17",
+   "start_idx": 645,
+   "end_idx": 650,
+   "n_units": 6,
+   "words": 135,
+   "start_ref": "Acts 18:12",
+   "end_ref": "Acts 18:17",
+   "title": "Paul Before Gallio",
+   "setting": [
+    "judgment_seat_corinth",
+    "corinth"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "gallio",
+     "named": true
+    },
+    {
+     "id": "sosthenes_corinth",
+     "named": true
+    },
+    {
+     "id": "pentecost_crowd",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s66",
+   "start": "acts-18-18",
+   "end": "acts-18-23",
+   "start_idx": 651,
+   "end_idx": 656,
+   "n_units": 6,
+   "words": 145,
+   "start_ref": "Acts 18:18",
+   "end_ref": "Acts 18:23",
+   "title": "Sailing to Syria and Return to Antioch",
+   "setting": [
+    "cenchreae",
+    "ephesus",
+    "caesarea_maritima",
+    "antioch_syria"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "aquila",
+     "named": true
+    },
+    {
+     "id": "priscilla",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s67",
+   "start": "acts-18-24",
+   "end": "acts-18-28",
+   "start_idx": 657,
+   "end_idx": 661,
+   "n_units": 5,
+   "words": 134,
+   "start_ref": "Acts 18:24",
+   "end_ref": "Acts 18:28",
+   "title": "Apollos Instructed at Ephesus",
+   "setting": [
+    "ephesus"
+   ],
+   "on_stage": [
+    {
+     "id": "apollos",
+     "named": true
+    },
+    {
+     "id": "aquila",
+     "named": true
+    },
+    {
+     "id": "priscilla",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s68",
+   "start": "acts-19-1",
+   "end": "acts-19-7",
+   "start_idx": 662,
+   "end_idx": 668,
+   "n_units": 7,
+   "words": 134,
+   "start_ref": "Acts 19:1",
+   "end_ref": "Acts 19:7",
+   "title": "Paul and the Disciples of John at Ephesus",
+   "setting": [
+    "ephesus"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "ephesian_disciples_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "holy_spirit"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s69",
+   "start": "acts-19-8",
+   "end": "acts-19-20",
+   "start_idx": 669,
+   "end_idx": 681,
+   "n_units": 13,
+   "words": 288,
+   "start_ref": "Acts 19:8",
+   "end_ref": "Acts 19:20",
+   "title": "Paul's Ministry in Ephesus; the Exorcists and the Books",
+   "setting": [
+    "school_of_tyrannus",
+    "ephesus"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "sceva_sons",
+     "named": false
+    },
+    {
+     "id": "possessed_man_ephesus",
+     "named": false
+    },
+    {
+     "id": "ephesian_believers_confessing",
+     "named": false
+    },
+    {
+     "id": "magicians_of_ephesus",
+     "named": false
+    },
+    {
+     "id": "ephesian_jews_synagogue",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s70",
+   "start": "acts-19-21",
+   "end": "acts-19-41",
+   "start_idx": 682,
+   "end_idx": 702,
+   "n_units": 21,
+   "words": 505,
+   "start_ref": "Acts 19:21",
+   "end_ref": "Acts 19:41",
+   "title": "The Silversmiths' Riot in the Theater",
+   "setting": [
+    "ephesus",
+    "ephesian_theater",
+    "temple_of_artemis_ephesus"
+   ],
+   "on_stage": [
+    {
+     "id": "demetrius_silversmith",
+     "named": true
+    },
+    {
+     "id": "silversmiths_of_ephesus",
+     "named": false
+    },
+    {
+     "id": "gaius_macedonian",
+     "named": true
+    },
+    {
+     "id": "aristarchus",
+     "named": true
+    },
+    {
+     "id": "alexander_ephesus",
+     "named": true
+    },
+    {
+     "id": "ephesian_crowd",
+     "named": false
+    },
+    {
+     "id": "town_clerk_ephesus",
+     "named": false
+    },
+    {
+     "id": "asiarchs",
+     "named": true
+    },
+    {
+     "id": "saul_paul",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "timothy"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s71",
+   "start": "acts-20-1",
+   "end": "acts-20-6",
+   "start_idx": 703,
+   "end_idx": 708,
+   "n_units": 6,
+   "words": 132,
+   "start_ref": "Acts 20:1",
+   "end_ref": "Acts 20:6",
+   "title": "Travel to Macedonia and the Company",
+   "setting": [
+    "macedonia",
+    "philippi",
+    "troas"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "sopater_beroea",
+     "named": true
+    },
+    {
+     "id": "secundus",
+     "named": true
+    },
+    {
+     "id": "aristarchus",
+     "named": true
+    },
+    {
+     "id": "gaius_derbe",
+     "named": true
+    },
+    {
+     "id": "timothy",
+     "named": true
+    },
+    {
+     "id": "tychicus",
+     "named": true
+    },
+    {
+     "id": "trophimus",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s72",
+   "start": "acts-20-7",
+   "end": "acts-20-12",
+   "start_idx": 709,
+   "end_idx": 714,
+   "n_units": 6,
+   "words": 139,
+   "start_ref": "Acts 20:7",
+   "end_ref": "Acts 20:12",
+   "title": "Eutychus Falls at Troas",
+   "setting": [
+    "upper_room_troas",
+    "troas"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "eutychus",
+     "named": true
+    },
+    {
+     "id": "troas_young_men_congregation",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s73",
+   "start": "acts-20-13",
+   "end": "acts-20-16",
+   "start_idx": 715,
+   "end_idx": 718,
+   "n_units": 4,
+   "words": 108,
+   "start_ref": "Acts 20:13",
+   "end_ref": "Acts 20:16",
+   "title": "Voyage to Miletus",
+   "setting": [
+    "miletus"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s74",
+   "start": "acts-20-17",
+   "end": "acts-20-38",
+   "start_idx": 719,
+   "end_idx": 740,
+   "n_units": 22,
+   "words": 474,
+   "start_ref": "Acts 20:17",
+   "end_ref": "Acts 20:38",
+   "title": "Paul's Farewell to the Ephesian Elders",
+   "setting": [
+    "miletus"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "ephesian_elders",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jesus",
+    "holy_spirit"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s75",
+   "start": "acts-21-1",
+   "end": "acts-21-6",
+   "start_idx": 741,
+   "end_idx": 746,
+   "n_units": 6,
+   "words": 151,
+   "start_ref": "Acts 21:1",
+   "end_ref": "Acts 21:6",
+   "title": "Voyage to Tyre; Farewell on the Beach",
+   "setting": [
+    "tyre",
+    "tyre_beach",
+    "ptolemais"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "disciples_of_damascus_saul",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "holy_spirit"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s76",
+   "start": "acts-21-7",
+   "end": "acts-21-14",
+   "start_idx": 747,
+   "end_idx": 754,
+   "n_units": 8,
+   "words": 191,
+   "start_ref": "Acts 21:7",
+   "end_ref": "Acts 21:14",
+   "title": "Warnings at Caesarea; Agabus and the Belt",
+   "setting": [
+    "ptolemais",
+    "caesarea_philips_house",
+    "caesarea_maritima"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "philip_evangelist",
+     "named": true
+    },
+    {
+     "id": "agabus",
+     "named": true
+    },
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "holy_spirit"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s77",
+   "start": "acts-21-15",
+   "end": "acts-21-26",
+   "start_idx": 755,
+   "end_idx": 766,
+   "n_units": 12,
+   "words": 305,
+   "start_ref": "Acts 21:15",
+   "end_ref": "Acts 21:26",
+   "title": "Arrival at Jerusalem and Counsel of James",
+   "setting": [
+    "jerusalem",
+    "temple_jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "james_brother_of_jesus",
+     "named": true
+    },
+    {
+     "id": "the_disciples_in_jerusalem",
+     "named": false
+    },
+    {
+     "id": "mnason_cyprus",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s78",
+   "start": "acts-21-27",
+   "end": "acts-21-36",
+   "start_idx": 767,
+   "end_idx": 776,
+   "n_units": 10,
+   "words": 250,
+   "start_ref": "Acts 21:27",
+   "end_ref": "Acts 21:36",
+   "title": "Paul Seized in the Temple",
+   "setting": [
+    "temple_court_jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "jewish_asian_crowd_temple",
+     "named": false
+    },
+    {
+     "id": "claudius_lysias",
+     "named": false
+    },
+    {
+     "id": "trophimus",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s79",
+   "start": "acts-21-37",
+   "end": "acts-21-40",
+   "start_idx": 777,
+   "end_idx": 780,
+   "n_units": 4,
+   "words": 112,
+   "start_ref": "Acts 21:37",
+   "end_ref": "Acts 21:40",
+   "title": "Paul Asks to Speak",
+   "setting": [
+    "stairs_of_the_fortress",
+    "barracks_jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "claudius_lysias",
+     "named": false
+    },
+    {
+     "id": "jewish_asian_crowd_temple",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s80",
+   "start": "acts-22-1",
+   "end": "acts-22-21",
+   "start_idx": 781,
+   "end_idx": 801,
+   "n_units": 21,
+   "words": 486,
+   "start_ref": "Acts 22:1",
+   "end_ref": "Acts 22:21",
+   "title": "Paul's Defense on the Stairs",
+   "setting": [
+    "stairs_of_the_fortress"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "jewish_asian_crowd_temple",
+     "named": false
+    },
+    {
+     "id": "ananias_of_damascus",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "gamaliel",
+    "stephen",
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s81",
+   "start": "acts-22-22",
+   "end": "acts-22-30",
+   "start_idx": 802,
+   "end_idx": 810,
+   "n_units": 9,
+   "words": 244,
+   "start_ref": "Acts 22:22",
+   "end_ref": "Acts 22:30",
+   "title": "Paul's Roman Citizenship",
+   "setting": [
+    "barracks_jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "claudius_lysias",
+     "named": false
+    },
+    {
+     "id": "jewish_asian_crowd_temple",
+     "named": false
+    },
+    {
+     "id": "the_council",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s82",
+   "start": "acts-23-1",
+   "end": "acts-23-11",
+   "start_idx": 811,
+   "end_idx": 821,
+   "n_units": 11,
+   "words": 292,
+   "start_ref": "Acts 23:1",
+   "end_ref": "Acts 23:11",
+   "title": "Paul Before the Council; Dispute of Sadducees and Pharisees",
+   "setting": [
+    "barracks_jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "ananias_high_priest",
+     "named": false
+    },
+    {
+     "id": "pharisees_sadducees",
+     "named": true
+    },
+    {
+     "id": "the_council",
+     "named": false
+    },
+    {
+     "id": "claudius_lysias",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jesus"
+   ],
+   "unknown_ids": [
+    "council_chamber_placeholder_jerusalem"
+   ]
+  },
+  {
+   "id": "ACT-s83",
+   "start": "acts-23-12",
+   "end": "acts-23-22",
+   "start_idx": 822,
+   "end_idx": 832,
+   "n_units": 11,
+   "words": 299,
+   "start_ref": "Acts 23:12",
+   "end_ref": "Acts 23:22",
+   "title": "The Plot Against Paul; His Nephew Warns",
+   "setting": [
+    "barracks_jerusalem",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "forty_conspirators",
+     "named": false
+    },
+    {
+     "id": "chief_priests_authority_saul",
+     "named": false
+    },
+    {
+     "id": "sisters_son_of_paul",
+     "named": false
+    },
+    {
+     "id": "claudius_lysias",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s84",
+   "start": "acts-23-23",
+   "end": "acts-23-35",
+   "start_idx": 833,
+   "end_idx": 845,
+   "n_units": 13,
+   "words": 270,
+   "start_ref": "Acts 23:23",
+   "end_ref": "Acts 23:35",
+   "title": "Paul Sent to Felix at Caesarea",
+   "setting": [
+    "barracks_jerusalem",
+    "antipatris",
+    "herod_palace_caesarea"
+   ],
+   "on_stage": [
+    {
+     "id": "claudius_lysias",
+     "named": true
+    },
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "felix",
+     "named": true
+    },
+    {
+     "id": "herod_judean_unnamed",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s85",
+   "start": "acts-24-1",
+   "end": "acts-24-9",
+   "start_idx": 846,
+   "end_idx": 854,
+   "n_units": 9,
+   "words": 155,
+   "start_ref": "Acts 24:1",
+   "end_ref": "Acts 24:9",
+   "title": "Tertullus Accuses Paul Before Felix",
+   "setting": [
+    "herod_palace_caesarea"
+   ],
+   "on_stage": [
+    {
+     "id": "ananias_high_priest",
+     "named": false
+    },
+    {
+     "id": "tertullus",
+     "named": true
+    },
+    {
+     "id": "felix",
+     "named": true
+    },
+    {
+     "id": "the_council",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s86",
+   "start": "acts-24-10",
+   "end": "acts-24-21",
+   "start_idx": 855,
+   "end_idx": 866,
+   "n_units": 12,
+   "words": 269,
+   "start_ref": "Acts 24:10",
+   "end_ref": "Acts 24:21",
+   "title": "Paul's Defense Before Felix",
+   "setting": [
+    "herod_palace_caesarea"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "felix",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s87",
+   "start": "acts-24-22",
+   "end": "acts-24-27",
+   "start_idx": 867,
+   "end_idx": 872,
+   "n_units": 6,
+   "words": 169,
+   "start_ref": "Acts 24:22",
+   "end_ref": "Acts 24:27",
+   "title": "Felix Defers Paul",
+   "setting": [
+    "herod_palace_caesarea"
+   ],
+   "on_stage": [
+    {
+     "id": "felix",
+     "named": true
+    },
+    {
+     "id": "drusilla",
+     "named": true
+    },
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "porcius_festus",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s88",
+   "start": "acts-25-1",
+   "end": "acts-25-12",
+   "start_idx": 873,
+   "end_idx": 884,
+   "n_units": 12,
+   "words": 310,
+   "start_ref": "Acts 25:1",
+   "end_ref": "Acts 25:12",
+   "title": "Festus Hears the Accusations; Paul Appeals to Caesar",
+   "setting": [
+    "jerusalem",
+    "judgment_seat_caesarea"
+   ],
+   "on_stage": [
+    {
+     "id": "porcius_festus",
+     "named": true
+    },
+    {
+     "id": "ananias_high_priest",
+     "named": false
+    },
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "the_council",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "emperor_caesar"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s89",
+   "start": "acts-25-13",
+   "end": "acts-25-22",
+   "start_idx": 885,
+   "end_idx": 894,
+   "n_units": 10,
+   "words": 246,
+   "start_ref": "Acts 25:13",
+   "end_ref": "Acts 25:22",
+   "title": "Festus Explains Paul's Case to Agrippa",
+   "setting": [
+    "herod_palace_caesarea"
+   ],
+   "on_stage": [
+    {
+     "id": "porcius_festus",
+     "named": true
+    },
+    {
+     "id": "king_agrippa_ii",
+     "named": true
+    },
+    {
+     "id": "bernice",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "felix",
+    "saul_paul",
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s90",
+   "start": "acts-25-23",
+   "end": "acts-25-27",
+   "start_idx": 895,
+   "end_idx": 899,
+   "n_units": 5,
+   "words": 162,
+   "start_ref": "Acts 25:23",
+   "end_ref": "Acts 25:27",
+   "title": "Paul Brought Before Agrippa and Bernice",
+   "setting": [
+    "hall_of_hearing_caesarea"
+   ],
+   "on_stage": [
+    {
+     "id": "king_agrippa_ii",
+     "named": true
+    },
+    {
+     "id": "bernice",
+     "named": true
+    },
+    {
+     "id": "porcius_festus",
+     "named": true
+    },
+    {
+     "id": "saul_paul",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s91",
+   "start": "acts-26-1",
+   "end": "acts-26-11",
+   "start_idx": 900,
+   "end_idx": 910,
+   "n_units": 11,
+   "words": 252,
+   "start_ref": "Acts 26:1",
+   "end_ref": "Acts 26:11",
+   "title": "Paul's Autobiography Before Agrippa",
+   "setting": [
+    "hall_of_hearing_caesarea"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "king_agrippa_ii",
+     "named": true
+    },
+    {
+     "id": "bernice",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jesus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s92",
+   "start": "acts-26-12",
+   "end": "acts-26-23",
+   "start_idx": 911,
+   "end_idx": 922,
+   "n_units": 12,
+   "words": 307,
+   "start_ref": "Acts 26:12",
+   "end_ref": "Acts 26:23",
+   "title": "Paul's Account of the Damascus Road",
+   "setting": [
+    "hall_of_hearing_caesarea"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "king_agrippa_ii",
+     "named": true
+    },
+    {
+     "id": "bernice",
+     "named": false
+    },
+    {
+     "id": "men_traveling_with_saul",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jesus",
+    "moses"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s93",
+   "start": "acts-26-24",
+   "end": "acts-26-32",
+   "start_idx": 923,
+   "end_idx": 931,
+   "n_units": 9,
+   "words": 190,
+   "start_ref": "Acts 26:24",
+   "end_ref": "Acts 26:32",
+   "title": "Festus and Agrippa Respond",
+   "setting": [
+    "hall_of_hearing_caesarea"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "porcius_festus",
+     "named": true
+    },
+    {
+     "id": "king_agrippa_ii",
+     "named": true
+    },
+    {
+     "id": "bernice",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s94",
+   "start": "acts-27-1",
+   "end": "acts-27-8",
+   "start_idx": 932,
+   "end_idx": 939,
+   "n_units": 8,
+   "words": 182,
+   "start_ref": "Acts 27:1",
+   "end_ref": "Acts 27:8",
+   "title": "The Voyage Begins; Myra and Fair Havens",
+   "setting": [
+    "ship_to_rome",
+    "fair_havens_crete"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "centurion_julius",
+     "named": true
+    },
+    {
+     "id": "aristarchus",
+     "named": true
+    },
+    {
+     "id": "sailors_and_soldiers_ship",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s95",
+   "start": "acts-27-9",
+   "end": "acts-27-20",
+   "start_idx": 940,
+   "end_idx": 951,
+   "n_units": 12,
+   "words": 284,
+   "start_ref": "Acts 27:9",
+   "end_ref": "Acts 27:20",
+   "title": "Storm and Paul's Warning",
+   "setting": [
+    "ship_to_rome",
+    "fair_havens_crete"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "centurion_julius",
+     "named": false
+    },
+    {
+     "id": "sailors_and_soldiers_ship",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s96",
+   "start": "acts-27-21",
+   "end": "acts-27-26",
+   "start_idx": 952,
+   "end_idx": 957,
+   "n_units": 6,
+   "words": 130,
+   "start_ref": "Acts 27:21",
+   "end_ref": "Acts 27:26",
+   "title": "Paul's Vision of the Angel",
+   "setting": [
+    "ship_to_rome"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "sailors_and_soldiers_ship",
+     "named": false
+    },
+    {
+     "id": "centurion_julius",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "holy_spirit"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s97",
+   "start": "acts-27-27",
+   "end": "acts-27-44",
+   "start_idx": 958,
+   "end_idx": 975,
+   "n_units": 18,
+   "words": 415,
+   "start_ref": "Acts 27:27",
+   "end_ref": "Acts 27:44",
+   "title": "The Shipwreck and Safe Landing",
+   "setting": [
+    "ship_at_sea_shipwreck",
+    "island_of_malta",
+    "ship_to_rome"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "centurion_julius",
+     "named": false
+    },
+    {
+     "id": "sailors_and_soldiers_ship",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s98",
+   "start": "acts-28-1",
+   "end": "acts-28-6",
+   "start_idx": 976,
+   "end_idx": 981,
+   "n_units": 6,
+   "words": 154,
+   "start_ref": "Acts 28:1",
+   "end_ref": "Acts 28:6",
+   "title": "Malta: The Viper",
+   "setting": [
+    "island_of_malta"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "malta_natives",
+     "named": false
+    },
+    {
+     "id": "malta_viper",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s99",
+   "start": "acts-28-7",
+   "end": "acts-28-10",
+   "start_idx": 982,
+   "end_idx": 985,
+   "n_units": 4,
+   "words": 91,
+   "start_ref": "Acts 28:7",
+   "end_ref": "Acts 28:10",
+   "title": "Paul Heals on Malta",
+   "setting": [
+    "island_of_malta"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "publius",
+     "named": true
+    },
+    {
+     "id": "malta_natives",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s100",
+   "start": "acts-28-11",
+   "end": "acts-28-16",
+   "start_idx": 986,
+   "end_idx": 991,
+   "n_units": 6,
+   "words": 140,
+   "start_ref": "Acts 28:11",
+   "end_ref": "Acts 28:16",
+   "title": "Journey to Rome",
+   "setting": [
+    "syracuse_rhegium_puteoli",
+    "appii_forum_tres_tabernae",
+    "rome"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "centurion_julius",
+     "named": false
+    },
+    {
+     "id": "roman_brothers_rome",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s101",
+   "start": "acts-28-17",
+   "end": "acts-28-29",
+   "start_idx": 992,
+   "end_idx": 1004,
+   "n_units": 13,
+   "words": 361,
+   "start_ref": "Acts 28:17",
+   "end_ref": "Acts 28:29",
+   "title": "Paul Speaks to the Jews of Rome",
+   "setting": [
+    "rome",
+    "paul_rented_house_rome"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    },
+    {
+     "id": "jews_of_rome",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "isaiah",
+    "holy_spirit"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "ACT-s102",
+   "start": "acts-28-30",
+   "end": "acts-28-31",
+   "start_idx": 1005,
+   "end_idx": 1006,
+   "n_units": 2,
+   "words": 35,
+   "start_ref": "Acts 28:30",
+   "end_ref": "Acts 28:31",
+   "title": "Two Years in Rome",
+   "setting": [
+    "paul_rented_house_rome",
+    "rome"
+   ],
+   "on_stage": [
+    {
+     "id": "saul_paul",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "jesus"
+   ],
+   "unknown_ids": []
+  }
+ ],
+ "brief": {
+  "tone": "Hopeful and urgent: a young movement spreading outward from Jerusalem, marked by miracles, fierce opposition, courtroom tension, and quiet communal devotion.",
+  "depiction_rules": [
+   "Depict the risen Jesus only in the Acts 1 ascension and in Saul's vision; do not show a face or body for God the Father, only light, cloud or a hand.",
+   "The Holy Spirit appears as wind, tongues of fire or a dove-like presence, not as a human figure.",
+   "Angels appear as men in white or bright clothing, as the text describes them.",
+   "Show miracles (healing, the earthquake, the viper) as events in the scene, not as spectacle; avoid gore in the stoning and the death of Ananias and Sapphira beyond the implied moment.",
+   "Avoid depicting Judas's death in detail; the text describes it only in speech.",
+   "Show the crowds at Ephesus and Jerusalem as agitated but not caricatured."
+  ],
+  "era": {
+   "name": "First-century Roman Empire, c. AD 30-62, from Jerusalem and Judea to Rome",
+   "people": "Jews of Galilee and Judea, Hellenistic Jews of the diaspora, Samaritans, Greeks, Romans, Cypriots, Lycaonians, Ethiopians, and islanders of Malta; Roman officials, soldiers and sailors; many languages in use.",
+   "dress": "Robes and cloaks (himation, tunics), head coverings for men and women, sandals, belts, military Roman tunics and cloaks for soldiers, white garments for angels and priests, sailors in short tunics.",
+   "buildings_and_objects": "Jerusalem temple and its porches and gates, synagogues, upper rooms with lamps, Roman barracks and governors' palaces such as Herod's palace at Caesarea, city gates and walls, Greek theaters and temples (Artemis at Ephesus), ships with sails and anchors, chariots, scrolls and letters.",
+   "technology": "Sailing ships and oared vessels, lamps and oil light, carts and chariots, scrolls and written letters, no printing, no firearms, no mechanical clocks; time reckoned by hours of the day."
+  }
+ },
+ "checks": {
+  "bad_section_ids": [],
+  "uncovered_units": 0,
+  "uncovered_sample": [],
+  "overlap_units": 0,
+  "sections_with_unknown_ids": 6
+ }
+}

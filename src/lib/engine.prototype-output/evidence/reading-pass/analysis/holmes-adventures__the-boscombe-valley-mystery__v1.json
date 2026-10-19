@@ -1,0 +1,747 @@
+{
+ "work": "holmes-adventures",
+ "division": "the-boscombe-valley-mystery",
+ "division_name": "The Boscombe Valley Mystery",
+ "units": 215,
+ "record": {
+  "label": "holmes-adventures__the-boscombe-valley-mystery__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354443-jnOvvVGxfSGMHmU8MMhm",
+  "seconds": 16.2,
+  "finish_reason": "stop",
+  "prompt_tokens": 20033,
+  "completion_tokens": 3986,
+  "cost": 0.0039963,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:14:19"
+ },
+ "characters": [
+  {
+   "id": "watson",
+   "name": "Dr. Watson",
+   "aliases": [
+    "I",
+    "my companion's friend",
+    "the narrator"
+   ],
+   "note": "Narrator and Holmes's companion; a former army doctor who served in Afghanistan, married, and present throughout the division.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "sherlock_holmes",
+   "name": "Sherlock Holmes",
+   "aliases": [
+    "Holmes",
+    "my companion",
+    "the detective"
+   ],
+   "note": "The consulting detective, tall and gaunt, who takes the case from Ross and works out the solution.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mrs_watson",
+   "name": "Mrs. Watson",
+   "aliases": [
+    "my wife"
+   ],
+   "note": "Watson's wife; appears only at the breakfast opening, in the home at London.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lestrade",
+   "name": "Lestrade",
+   "aliases": [
+    "Lestrade of Scotland Yard",
+    "the inspector"
+   ],
+   "note": "Ferret-like Scotland Yard detective who meets the train at Ross and holds to the theory that James is guilty.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "alice_turner",
+   "name": "Alice Turner",
+   "aliases": [
+    "Miss Turner",
+    "the young lady",
+    "Turner's daughter",
+    "Alice"
+   ],
+   "note": "Daughter of John Turner, of the Hall; young woman who has loved James since childhood and hires Holmes; she visits the hotel at Ross.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "james_mccarthy",
+   "name": "James McCarthy",
+   "aliases": [
+    "young McCarthy",
+    "James",
+    "the son",
+    "the accused"
+   ],
+   "note": "Son of Charles McCarthy, age eighteen, accused of killing his father; son of the murdered man, not the other McCarthy.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "charles_mccarthy",
+   "name": "Charles McCarthy",
+   "aliases": [
+    "McCarthy senior",
+    "Mr. McCarthy",
+    "the murdered man",
+    "old McCarthy",
+    "the dead man"
+   ],
+   "note": "Former Australian convict driver, tenant of Hatherley Farm and murder victim by the pool; father of James McCarthy.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "john_turner",
+   "name": "John Turner",
+   "aliases": [
+    "Mr. Turner",
+    "Black Jack of Ballarat",
+    "old Turner",
+    "the old man",
+    "the landowner"
+   ],
+   "note": "Wealthy landowner of the Hall, former Ballarat gang member and the actual killer; father of Alice Turner, dying of diabetes.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "william_crowder",
+   "name": "William Crowder",
+   "aliases": [
+    "the game-keeper",
+    "the keeper"
+   ],
+   "note": "Game-keeper in the employ of Mr. Turner; a witness who saw McCarthy walking alone and James following.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "patience_moran",
+   "name": "Patience Moran",
+   "aliases": [
+    "the girl",
+    "the little girl",
+    "Moran"
+   ],
+   "note": "Fourteen-year-old daughter of the lodge-keeper, who saw the McCarthys quarrelling near the pool.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "dr_willows",
+   "name": "Dr. Willows",
+   "aliases": [
+    "the doctor"
+   ],
+   "note": "Physician attending John Turner, who says Turner's nervous system is shattered and forbids visitors.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "john_cobb",
+   "name": "John Cobb",
+   "aliases": [
+    "the groom",
+    "the serving-man"
+   ],
+   "note": "Groom and servant of McCarthy, who was with him in Ross on the morning of the murder; mentioned only.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "moran_lodge_keeper",
+   "name": "Moran, the lodge-keeper",
+   "aliases": [
+    "the lodge-keeper",
+    "Patience's father"
+   ],
+   "note": "Lodge-keeper of the Boscombe Valley estate, father of Patience Moran; receives James and the detectives.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "barmaid_wife",
+   "name": "the barmaid",
+   "aliases": [
+    "James's barmaid wife"
+   ],
+   "note": "Bristol barmaid whom James secretly married; mentioned only, never on stage.",
+   "kind": "person",
+   "same_person_as": ""
+  }
+ ],
+ "locations": [
+  {
+   "id": "baker_street_breakfast",
+   "name": "Watson's home in London",
+   "aliases": [
+    "the breakfast table"
+   ],
+   "note": "Watson's home where the telegram arrives at breakfast."
+  },
+  {
+   "id": "paddington_train",
+   "name": "Train from Paddington to Ross",
+   "aliases": [
+    "the train",
+    "the carriage"
+   ],
+   "note": "Railway carriage on the journey west through Reading and Swindon to Ross."
+  },
+  {
+   "id": "ross_hereford_arms",
+   "name": "Hereford Arms, Ross",
+   "aliases": [
+    "the hotel",
+    "Ross"
+   ],
+   "note": "The Hereford Arms hotel in the small town of Ross, where Holmes, Watson and Lestrade take rooms."
+  },
+  {
+   "id": "hereford_prison",
+   "name": "Hereford prison",
+   "aliases": [
+    "the prison",
+    "the gaol"
+   ],
+   "note": "Prison at Hereford where Holmes and Lestrade visit James McCarthy; not shown in action."
+  },
+  {
+   "id": "hatherley_farm",
+   "name": "Hatherley Farm",
+   "aliases": [
+    "the farm",
+    "Hatherley Farmhouse"
+   ],
+   "note": "McCarthy's farmhouse, a quarter mile from the pool; the boots are examined here."
+  },
+  {
+   "id": "boscombe_pool",
+   "name": "Boscombe Pool",
+   "aliases": [
+    "the pool",
+    "the lake"
+   ],
+   "note": "Small reed-fringed lake at the boundary of Hatherley Farm and Turner's park, where the murder took place."
+  },
+  {
+   "id": "boscombe_wood",
+   "name": "Boscombe Wood",
+   "aliases": [
+    "the wood",
+    "the beech tree"
+   ],
+   "note": "Woods around the pool, where Holmes finds the cigar ash and the beech tree where Turner hid."
+  },
+  {
+   "id": "the_hall",
+   "name": "The Hall",
+   "aliases": [
+    "Turner's house",
+    "the red pinnacles"
+   ],
+   "note": "John Turner's dwelling in the private park beyond the pool; mentioned, not visited."
+  }
+ ],
+ "sections": [
+  {
+   "id": "the-boscombe-valley-mystery-s1",
+   "start": "the-boscombe-valley-mystery-1",
+   "end": "the-boscombe-valley-mystery-8",
+   "start_idx": 0,
+   "end_idx": 7,
+   "n_units": 8,
+   "words": 298,
+   "start_ref": "The Boscombe Valley Mystery ¶1",
+   "end_ref": "The Boscombe Valley Mystery ¶8",
+   "title": "Telegram and departure from London",
+   "setting": [
+    "baker_street_breakfast",
+    "paddington_train"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "mrs_watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-boscombe-valley-mystery-s2",
+   "start": "the-boscombe-valley-mystery-9",
+   "end": "the-boscombe-valley-mystery-36",
+   "start_idx": 8,
+   "end_idx": 35,
+   "n_units": 28,
+   "words": 1858,
+   "start_ref": "The Boscombe Valley Mystery ¶9",
+   "end_ref": "The Boscombe Valley Mystery ¶36",
+   "title": "Holmes explains the case on the train",
+   "setting": [
+    "paddington_train"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "charles_mccarthy",
+    "james_mccarthy",
+    "john_turner",
+    "william_crowder",
+    "patience_moran",
+    "lestrade"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-boscombe-valley-mystery-s3",
+   "start": "the-boscombe-valley-mystery-37",
+   "end": "the-boscombe-valley-mystery-67",
+   "start_idx": 36,
+   "end_idx": 66,
+   "n_units": 31,
+   "words": 857,
+   "start_ref": "The Boscombe Valley Mystery ¶37",
+   "end_ref": "The Boscombe Valley Mystery ¶67",
+   "title": "James McCarthy's inquest statement",
+   "setting": [
+    "paddington_train"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "james_mccarthy",
+    "charles_mccarthy",
+    "william_crowder",
+    "john_cobb"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-boscombe-valley-mystery-s4",
+   "start": "the-boscombe-valley-mystery-68",
+   "end": "the-boscombe-valley-mystery-69",
+   "start_idx": 67,
+   "end_idx": 68,
+   "n_units": 2,
+   "words": 246,
+   "start_ref": "The Boscombe Valley Mystery ¶68",
+   "end_ref": "The Boscombe Valley Mystery ¶69",
+   "title": "Discussion of the coroner's remarks",
+   "setting": [
+    "paddington_train"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "james_mccarthy"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-boscombe-valley-mystery-s5",
+   "start": "the-boscombe-valley-mystery-70",
+   "end": "the-boscombe-valley-mystery-75",
+   "start_idx": 69,
+   "end_idx": 74,
+   "n_units": 6,
+   "words": 299,
+   "start_ref": "The Boscombe Valley Mystery ¶70",
+   "end_ref": "The Boscombe Valley Mystery ¶75",
+   "title": "Arrival at Ross and meeting Lestrade",
+   "setting": [
+    "ross_hereford_arms"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "lestrade",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-boscombe-valley-mystery-s6",
+   "start": "the-boscombe-valley-mystery-76",
+   "end": "the-boscombe-valley-mystery-105",
+   "start_idx": 75,
+   "end_idx": 104,
+   "n_units": 30,
+   "words": 771,
+   "start_ref": "The Boscombe Valley Mystery ¶76",
+   "end_ref": "The Boscombe Valley Mystery ¶105",
+   "title": "Alice Turner's visit to the hotel",
+   "setting": [
+    "ross_hereford_arms"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "lestrade",
+     "named": true
+    },
+    {
+     "id": "alice_turner",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "james_mccarthy",
+    "charles_mccarthy",
+    "john_turner",
+    "dr_willows"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-boscombe-valley-mystery-s7",
+   "start": "the-boscombe-valley-mystery-106",
+   "end": "the-boscombe-valley-mystery-106",
+   "start_idx": 105,
+   "end_idx": 105,
+   "n_units": 1,
+   "words": 465,
+   "start_ref": "The Boscombe Valley Mystery ¶106",
+   "end_ref": "The Boscombe Valley Mystery ¶106",
+   "title": "Watson alone at the hotel",
+   "setting": [
+    "ross_hereford_arms"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "john_turner",
+    "james_mccarthy"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-boscombe-valley-mystery-s8",
+   "start": "the-boscombe-valley-mystery-107",
+   "end": "the-boscombe-valley-mystery-116",
+   "start_idx": 106,
+   "end_idx": 115,
+   "n_units": 10,
+   "words": 576,
+   "start_ref": "The Boscombe Valley Mystery ¶107",
+   "end_ref": "The Boscombe Valley Mystery ¶116",
+   "title": "Holmes's visit to James and his report",
+   "setting": [
+    "ross_hereford_arms"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "james_mccarthy",
+    "barmaid_wife",
+    "charles_mccarthy"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-boscombe-valley-mystery-s9",
+   "start": "the-boscombe-valley-mystery-117",
+   "end": "the-boscombe-valley-mystery-129",
+   "start_idx": 116,
+   "end_idx": 128,
+   "n_units": 13,
+   "words": 372,
+   "start_ref": "The Boscombe Valley Mystery ¶117",
+   "end_ref": "The Boscombe Valley Mystery ¶129",
+   "title": "Morning journey to Hatherley Farm and Lestrade's views",
+   "setting": [
+    "hatherley_farm"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "lestrade",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "john_turner"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-boscombe-valley-mystery-s10",
+   "start": "the-boscombe-valley-mystery-130",
+   "end": "the-boscombe-valley-mystery-135",
+   "start_idx": 129,
+   "end_idx": 134,
+   "n_units": 6,
+   "words": 932,
+   "start_ref": "The Boscombe Valley Mystery ¶130",
+   "end_ref": "The Boscombe Valley Mystery ¶135",
+   "title": "Examining the farm, the pool and the tracks",
+   "setting": [
+    "hatherley_farm",
+    "boscombe_pool",
+    "boscombe_wood"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "lestrade",
+     "named": true
+    },
+    {
+     "id": "moran_lodge_keeper",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "charles_mccarthy",
+    "james_mccarthy",
+    "john_turner"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-boscombe-valley-mystery-s11",
+   "start": "the-boscombe-valley-mystery-136",
+   "end": "the-boscombe-valley-mystery-156",
+   "start_idx": 135,
+   "end_idx": 155,
+   "n_units": 21,
+   "words": 381,
+   "start_ref": "The Boscombe Valley Mystery ¶136",
+   "end_ref": "The Boscombe Valley Mystery ¶156",
+   "title": "Holmes leaves the stone and speaks with Lestrade",
+   "setting": [
+    "boscombe_pool",
+    "ross_hereford_arms"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "lestrade",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-boscombe-valley-mystery-s12",
+   "start": "the-boscombe-valley-mystery-157",
+   "end": "the-boscombe-valley-mystery-186",
+   "start_idx": 156,
+   "end_idx": 185,
+   "n_units": 30,
+   "words": 831,
+   "start_ref": "The Boscombe Valley Mystery ¶157",
+   "end_ref": "The Boscombe Valley Mystery ¶186",
+   "title": "Holmes's deductions at the hotel",
+   "setting": [
+    "ross_hereford_arms"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "charles_mccarthy",
+    "john_turner",
+    "james_mccarthy"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-boscombe-valley-mystery-s13",
+   "start": "the-boscombe-valley-mystery-187",
+   "end": "the-boscombe-valley-mystery-200",
+   "start_idx": 186,
+   "end_idx": 199,
+   "n_units": 14,
+   "words": 435,
+   "start_ref": "The Boscombe Valley Mystery ¶187",
+   "end_ref": "The Boscombe Valley Mystery ¶200",
+   "title": "John Turner's visit and the setting of his confession",
+   "setting": [
+    "ross_hereford_arms"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "john_turner",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "alice_turner",
+    "charles_mccarthy"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "the-boscombe-valley-mystery-s14",
+   "start": "the-boscombe-valley-mystery-201",
+   "end": "the-boscombe-valley-mystery-215",
+   "start_idx": 200,
+   "end_idx": 214,
+   "n_units": 15,
+   "words": 1294,
+   "start_ref": "The Boscombe Valley Mystery ¶201",
+   "end_ref": "The Boscombe Valley Mystery ¶215",
+   "title": "Turner's confession and the acquittal",
+   "setting": [
+    "ross_hereford_arms"
+   ],
+   "on_stage": [
+    {
+     "id": "watson",
+     "named": true
+    },
+    {
+     "id": "sherlock_holmes",
+     "named": true
+    },
+    {
+     "id": "john_turner",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "charles_mccarthy",
+    "james_mccarthy",
+    "alice_turner"
+   ],
+   "unknown_ids": []
+  }
+ ],
+ "brief": {
+  "tone": "Cool, misty English countryside melancholy with a tense detective's focus; tragic and quiet rather than lurid, with the sense of a hidden past surfacing.",
+  "depiction_rules": [
+   "Show the murder victim only as a body or unseen; do not depict the blows or the bloodied head in graphic detail.",
+   "Holmes is lean and gaunt in a grey travelling cloak and cloth cap; keep him in the tradition of Sidney Paget's illustrations.",
+   "Show the damp meadow, reed-fringed pool, beech tree and footprints as clues rather than as spectacle.",
+   "Do not depict John Turner's confession as a dramatic flashback; keep him seated and weary in the hotel room.",
+   "Avoid romanticising Turner's Ballarat past; render the gold-convoy robbery only as memory, if at all."
+  ],
+  "era": {
+   "name": "England and Australia in the 1880s, Victorian era",
+   "people": "English country folk, farmers, gamekeepers and gentry in Herefordshire; former gold-diggers and convicts from Victoria, Australia, now settled as landowners and tenants.",
+   "dress": "Victorian tweed suits, long travelling cloaks, dustcoats and leather leggings for the country; the gentry in frock coats; women in dark dresses; Holmes in a grey cloak and cloth cap.",
+   "buildings_and_objects": "Stone and slate farmhouses with lichen-covered walls, a country hotel with a yellow-backed novel and sofa, a lodge, a red-pinnacled Hall, and an 1880s rail network.",
+   "technology": "Railways, telegrams and newspapers exist; no telephones or photography at the scene. Forensic work is done by eye, lens and cigar-ash identification."
+  }
+ },
+ "checks": {
+  "bad_section_ids": [],
+  "uncovered_units": 0,
+  "uncovered_sample": [],
+  "overlap_units": 0,
+  "sections_with_unknown_ids": 0
+ }
+}

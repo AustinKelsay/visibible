@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__the-adventure-of-the-speckled-band-m26",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424186-GJacmOEvQh61i1xYH6Qg",
+  "seconds": 2.7,
+  "finish_reason": "stop",
+  "prompt_tokens": 1678,
+  "completion_tokens": 362,
+  "cost": 0.0003488,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:36:28"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 2901,
+ "content": "{\"primarySubject\":\"Sherlock Holmes in a dressing-gown and ulster, pipe in hand, seated beside Dr. Watson in a frock-coat and tweed suit at the window of an upper room\",\"action\":\"Holmes turns from the window toward Watson as they sit together in the gathering darkness, Holmes gesturing gravely while Watson listens attentively\",\"setting\":\"Upper-floor bedroom and sitting-room of the Crown Inn in a Surrey village, with a view through the window across to the avenue gate and the trees\",\"secondaryElements\":\"Far off through the trees, a single window glows as a lamp is lit in a sitting-room of the manor; coal fire and oil lamps in the room, a pipe smoke haze, a small distant trap on the drive\",\"mood\":\"Tense, restrained, intimate and foggy, with quiet foreboding and dry gaslit restraint\",\"timeOfDay\":\"Dusk settling into full night, late-autumn evening\",\"composition\":\"Interior framed by the window, with the two men in the foreground and the distant lit manor window small among dark trees in the background\"}",
+ "parsed": {
+  "primarySubject": "Sherlock Holmes in a dressing-gown and ulster, pipe in hand, seated beside Dr. Watson in a frock-coat and tweed suit at the window of an upper room",
+  "action": "Holmes turns from the window toward Watson as they sit together in the gathering darkness, Holmes gesturing gravely while Watson listens attentively",
+  "setting": "Upper-floor bedroom and sitting-room of the Crown Inn in a Surrey village, with a view through the window across to the avenue gate and the trees",
+  "secondaryElements": "Far off through the trees, a single window glows as a lamp is lit in a sitting-room of the manor; coal fire and oil lamps in the room, a pipe smoke haze, a small distant trap on the drive",
+  "mood": "Tense, restrained, intimate and foggy, with quiet foreboding and dry gaslit restraint",
+  "timeOfDay": "Dusk settling into full night, late-autumn evening",
+  "composition": "Interior framed by the window, with the two men in the foreground and the distant lit manor window small among dark trees in the background"
+ },
+ "usage": {
+  "prompt_tokens": 1678,
+  "completion_tokens": 362,
+  "total_tokens": 2040,
+  "cost": 0.0003488,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003488,
+   "upstream_inference_prompt_cost": 0.0001678,
+   "upstream_inference_completions_cost": 0.000181
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

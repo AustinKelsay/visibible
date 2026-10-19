@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__the-adventure-of-the-speckled-band-m16",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424183-EmStJ8HTPyyGtXzJuzE1",
+  "seconds": 2.6,
+  "finish_reason": "stop",
+  "prompt_tokens": 2226,
+  "completion_tokens": 350,
+  "cost": 0.0003976,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:36:26"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 4409,
+ "content": "{\"primarySubject\":\"Dr. Grimesby Roylott framed in the doorway of 221B Baker Street, huge and towering, hat brushing the lintel\",\"action\":\"Roylott bursts in, hunting-crop raised in one hand, glaring at Holmes while Holmes and Watson look up startled from their chairs\",\"setting\":\"Baker Street sitting room, gaslit interior with a coal fire, pale grey winter daylight through the window, brick townhouse street visible outside\",\"secondaryElements\":\"Watson rising from his chair in frock-coat, Holmes in tweed suit seated calmly, the open doorway edged with gaslight, a poker on the hearth, cold draught stirring the room\",\"mood\":\"tense, menacing yet restrained, with dry gaslit intimacy and an undercurrent of suspense\",\"timeOfDay\":\"Late morning, about one o'clock\",\"composition\":\"Wide interior shot from the sitting room, Roylott large in the doorway at upper frame, Holmes and Watson small and lit by the fire in the lower foreground\"}",
+ "parsed": {
+  "primarySubject": "Dr. Grimesby Roylott framed in the doorway of 221B Baker Street, huge and towering, hat brushing the lintel",
+  "action": "Roylott bursts in, hunting-crop raised in one hand, glaring at Holmes while Holmes and Watson look up startled from their chairs",
+  "setting": "Baker Street sitting room, gaslit interior with a coal fire, pale grey winter daylight through the window, brick townhouse street visible outside",
+  "secondaryElements": "Watson rising from his chair in frock-coat, Holmes in tweed suit seated calmly, the open doorway edged with gaslight, a poker on the hearth, cold draught stirring the room",
+  "mood": "tense, menacing yet restrained, with dry gaslit intimacy and an undercurrent of suspense",
+  "timeOfDay": "Late morning, about one o'clock",
+  "composition": "Wide interior shot from the sitting room, Roylott large in the doorway at upper frame, Holmes and Watson small and lit by the fire in the lower foreground"
+ },
+ "usage": {
+  "prompt_tokens": 2226,
+  "completion_tokens": 350,
+  "total_tokens": 2576,
+  "cost": 0.0003976,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003976,
+   "upstream_inference_prompt_cost": 0.0002226,
+   "upstream_inference_completions_cost": 0.000175
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

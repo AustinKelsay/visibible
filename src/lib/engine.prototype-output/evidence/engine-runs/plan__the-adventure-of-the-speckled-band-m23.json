@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__the-adventure-of-the-speckled-band-m23",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424121-aPAZ5F1Ez2CW9XfLfSCf",
+  "seconds": 2.1,
+  "finish_reason": "stop",
+  "prompt_tokens": 1770,
+  "completion_tokens": 321,
+  "cost": 0.0003375,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:35:23"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 3142,
+ "content": "{\"primarySubject\":\"Sherlock Holmes in a tweed suit, lean and sharp-eyed, bending over a small saucer on top of a large iron safe\",\"action\":\"Holmes lifts the saucer of milk from the top of the safe and studies it closely while Watson and Helen Stoner watch from the room\",\"setting\":\"Dr. Roylott's plainly furnished bedroom in the country manor with camp-bed, wooden shelf of books, armchair, round table and iron safe\",\"secondaryElements\":\"Watson standing near the camp-bed with a watchful stance, Helen Stoner in a plain dark dress hovering by the armchair, the plain wooden chair against the wall\",\"mood\":\"Quiet, tense, intimate and watchful with dry restraint\",\"timeOfDay\":\"Late morning\",\"composition\":\"Medium interior shot from the doorway, safe and Holmes in the foreground left, Watson and Helen in the middle distance, soft grey daylight from the window\"}",
+ "parsed": {
+  "primarySubject": "Sherlock Holmes in a tweed suit, lean and sharp-eyed, bending over a small saucer on top of a large iron safe",
+  "action": "Holmes lifts the saucer of milk from the top of the safe and studies it closely while Watson and Helen Stoner watch from the room",
+  "setting": "Dr. Roylott's plainly furnished bedroom in the country manor with camp-bed, wooden shelf of books, armchair, round table and iron safe",
+  "secondaryElements": "Watson standing near the camp-bed with a watchful stance, Helen Stoner in a plain dark dress hovering by the armchair, the plain wooden chair against the wall",
+  "mood": "Quiet, tense, intimate and watchful with dry restraint",
+  "timeOfDay": "Late morning",
+  "composition": "Medium interior shot from the doorway, safe and Holmes in the foreground left, Watson and Helen in the middle distance, soft grey daylight from the window"
+ },
+ "usage": {
+  "prompt_tokens": 1770,
+  "completion_tokens": 321,
+  "total_tokens": 2091,
+  "cost": 0.0003375,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003375,
+   "upstream_inference_prompt_cost": 0.000177,
+   "upstream_inference_completions_cost": 0.0001605
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

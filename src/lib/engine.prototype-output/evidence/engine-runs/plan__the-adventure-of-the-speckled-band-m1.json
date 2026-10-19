@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__the-adventure-of-the-speckled-band-m1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424117-VGabzan6TAqzpRkLC7kf",
+  "seconds": 2.5,
+  "finish_reason": "stop",
+  "prompt_tokens": 1905,
+  "completion_tokens": 367,
+  "cost": 0.000374,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:35:19"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 3740,
+ "content": "{\"primarySubject\":\"Helen Stoner, a lady in black mourning dress and heavy veil, shivering, standing just inside the sitting-room doorway\",\"action\":\"Watson, half-dressed and hurried, glances up at Holmes while Holmes, fully dressed in frock-coat, leans toward Helen to draw her in and steady her\",\"setting\":\"Sitting-room at 221B Baker Street with a coal fire glowing in the grate and gaslit wall fittings turned low, the bedroom door ajar behind\",\"secondaryElements\":\"Mantel clock showing a quarter past seven, Mrs. Hudson faintly visible in the hall doorway with a tray, Watson's scattered clothing over a chair\",\"mood\":\"Hushed, urgent, gaslit intimacy with a hint of foreboding\",\"timeOfDay\":\"Early morning, about a quarter past seven in early April\",\"composition\":\"Medium shot from the bedroom threshold looking across to the fire, Helen at left in dark mourning black, Holmes centred, Watson at right, grey dawn light through the window softened by the fire's warm glow\"}",
+ "parsed": {
+  "primarySubject": "Helen Stoner, a lady in black mourning dress and heavy veil, shivering, standing just inside the sitting-room doorway",
+  "action": "Watson, half-dressed and hurried, glances up at Holmes while Holmes, fully dressed in frock-coat, leans toward Helen to draw her in and steady her",
+  "setting": "Sitting-room at 221B Baker Street with a coal fire glowing in the grate and gaslit wall fittings turned low, the bedroom door ajar behind",
+  "secondaryElements": "Mantel clock showing a quarter past seven, Mrs. Hudson faintly visible in the hall doorway with a tray, Watson's scattered clothing over a chair",
+  "mood": "Hushed, urgent, gaslit intimacy with a hint of foreboding",
+  "timeOfDay": "Early morning, about a quarter past seven in early April",
+  "composition": "Medium shot from the bedroom threshold looking across to the fire, Helen at left in dark mourning black, Holmes centred, Watson at right, grey dawn light through the window softened by the fire's warm glow"
+ },
+ "usage": {
+  "prompt_tokens": 1905,
+  "completion_tokens": 367,
+  "total_tokens": 2272,
+  "cost": 0.000374,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000374,
+   "upstream_inference_prompt_cost": 0.0001905,
+   "upstream_inference_completions_cost": 0.0001835
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

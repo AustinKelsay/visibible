@@ -1,0 +1,72 @@
+{
+ "holmes--watercolour": {
+  "work": "holmes",
+  "style": "watercolour",
+  "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: one wide, quiet outdoor view of the kind of place this era's stories happen in (Victorian England, 1880s to early 1890s): buildings and streets or countryside of this era, drawn from this list but shown as a single natural scene, not a collection of objects: Gaslit streets and rooms with coal or oil lamps, hansom cabs and dog-carts, brick townhouses, country manors and farmhouses, printed newspapers, handwritten letters and telegrams, clay pipes and cigars. Leave out every small object, paper, book, letter, sign, poster or anything bearing writing. No people, no animals, no vehicles with drivers or passengers.\nArt style: Ink & Watercolor. Loose pen-and-ink drawing with transparent watercolour washes; expressive, airy and contemplative, like a travelling artist's field study of the work's world. Transparent washes of ochre, sienna, indigo and sage; luminous lights. Bright, airy daylight; shadows as cool layered washes. Confident ink linework, wet-in-wet blooms, granulating pigment. Sketch-like economy; detail concentrated on key subjects, softer surroundings.\nStyle negatives: Paint washes and scenery all the way into every edge and all four corners: no white or unpainted paper margins, no white vignette, no fading out to blank paper at the edges, no paper edges, sketchbook, tape or border. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+  "tries": [
+   {
+    "n": 1,
+    "file": "style-refs/holmes--watercolour.try1.jpg",
+    "seconds": 8.4,
+    "cost": 0.067397,
+    "verdict": {
+     "people_present": false,
+     "frame_present": false,
+     "text_present": false,
+     "full_bleed": true,
+     "verdict": "pass",
+     "reasons": [
+      "No people are visible in the scene.",
+      "No frame, border, window-shaped mask, paper margin, or vignette is present; the watercolor washes extend to all four edges.",
+      "No text or lettering is visible.",
+      "The illustration runs to all four edges of the image."
+     ]
+    }
+   }
+  ],
+  "final": "style-refs/holmes--watercolour.jpg",
+  "wall_seconds": 14.8
+ },
+ "holmes--icon": {
+  "work": "holmes",
+  "style": "icon",
+  "final": "style-refs/holmes--icon.jpg",
+  "copied_from": "prototype/reference-sheets (template v2)",
+  "tries": []
+ },
+ "bible--watercolour": {
+  "work": "bible",
+  "style": "watercolour",
+  "final": "style-refs/bible--watercolour.jpg",
+  "copied_from": "prototype/reference-sheets (template v2)",
+  "tries": []
+ },
+ "bible--icon": {
+  "work": "bible",
+  "style": "icon",
+  "prompt": "Style reference image for an illustrated edition; it exists only to show the art style.\nSubject: one wide, quiet outdoor view of the kind of place this era's stories happen in (First-century Roman Judea, Galilee and the wider empire): buildings and streets or countryside of this era, drawn from this list but shown as a single natural scene, not a collection of objects: Flat-roofed stone and mud-brick houses, village synagogues, the Jerusalem temple, rock-cut tombs with rolled stones, Roman barracks and governors' palaces, Greek theaters, oil lamps, clay jars, boats, nets, vineyards, scrolls and letters. Leave out every small object, paper, book, letter, sign, poster or anything bearing writing. No people, no animals, no vehicles with drivers or passengers.\nArt style: Byzantine Icon. Byzantine icon painting: flat, frontal, stylised figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space. Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens. No cast shadows; inner light shown through layered highlights; gold glow. Egg tempera and gold-leaf texture within the scene. Hieratic, balanced staging; the key subject largest and central; stylised rocks, buildings and trees.\nStyle negatives: Never show a wooden panel, panel edges, frame, border, arched or rounded top, wall, or the icon as a physical object. No plain, dark or unpainted corners: the gold sky and stylised landscape run edge-to-edge into all four corners. Avoid photorealism and modern illustration.\nOne single full-bleed scene, composed as a cropped detail of a larger work: the painted scene runs off all four edges, with colour in every corner. Absolutely no text of any kind anywhere: no names, labels, captions, titles, letters, numbers, arrows, colour swatches, rulers, frames, borders or panel dividers.",
+  "tries": [
+   {
+    "n": 1,
+    "file": "style-refs/bible--icon.try1.jpg",
+    "seconds": 10.0,
+    "cost": 0.067401,
+    "verdict": {
+     "people_present": false,
+     "frame_present": false,
+     "text_present": false,
+     "full_bleed": true,
+     "verdict": "pass",
+     "reasons": [
+      "No people are visible in the image.",
+      "No frame, border, window shape, margin, or vignette is present; the artwork extends to all four edges.",
+      "No text or lettering is visible.",
+      "The painted scene runs full bleed to the top, bottom, left, and right edges."
+     ]
+    }
+   }
+  ],
+  "final": "style-refs/bible--icon.jpg",
+  "wall_seconds": 15.2
+ }
+}

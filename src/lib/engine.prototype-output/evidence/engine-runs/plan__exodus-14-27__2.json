@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__exodus-14-27",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424178-ovHIXy4lalS8TnOKIWUf",
+  "seconds": 2.5,
+  "finish_reason": "stop",
+  "prompt_tokens": 1492,
+  "completion_tokens": 314,
+  "cost": 0.0003062,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:36:20"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 2490,
+ "content": "{\"primarySubject\":\"Moses standing at the water's edge with his arm stretched out over the sea\",\"action\":\"Walls of water begin to collapse back toward the Egyptian host as the sea returns to its strength at dawn; Egyptian chariots and horsemen flee against the surge\",\"setting\":\"Sea of Reeds, dry sea floor between towering walls of water, hill country shore beyond\",\"secondaryElements\":\"Pillar of cloud glowing with fire above; Israelite clans watching from the shore in plain woven wool; Egyptian warriors in bronze helmets and mail, chariot wheels breaking in the churning water\",\"mood\":\"Sacred dread and awe, with the weight of judgment and deliverance\",\"timeOfDay\":\"Early morning, pale dawn light spreading across the water\",\"composition\":\"Wide panoramic view with Moses small at the left foreground, the collapsing water wall rising dramatically across the center, Israelites on the right shore\"}",
+ "parsed": {
+  "primarySubject": "Moses standing at the water's edge with his arm stretched out over the sea",
+  "action": "Walls of water begin to collapse back toward the Egyptian host as the sea returns to its strength at dawn; Egyptian chariots and horsemen flee against the surge",
+  "setting": "Sea of Reeds, dry sea floor between towering walls of water, hill country shore beyond",
+  "secondaryElements": "Pillar of cloud glowing with fire above; Israelite clans watching from the shore in plain woven wool; Egyptian warriors in bronze helmets and mail, chariot wheels breaking in the churning water",
+  "mood": "Sacred dread and awe, with the weight of judgment and deliverance",
+  "timeOfDay": "Early morning, pale dawn light spreading across the water",
+  "composition": "Wide panoramic view with Moses small at the left foreground, the collapsing water wall rising dramatically across the center, Israelites on the right shore"
+ },
+ "usage": {
+  "prompt_tokens": 1492,
+  "completion_tokens": 314,
+  "total_tokens": 1806,
+  "cost": 0.0003062,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003062,
+   "upstream_inference_prompt_cost": 0.0001492,
+   "upstream_inference_completions_cost": 0.000157
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

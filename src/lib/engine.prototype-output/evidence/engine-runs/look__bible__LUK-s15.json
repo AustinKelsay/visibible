@@ -1,0 +1,50 @@
+{
+ "record": {
+  "label": "look__bible__LUK-s15",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424058-46Ojvw0O6bxK0gIF39uh",
+  "seconds": 3.1,
+  "finish_reason": "stop",
+  "prompt_tokens": 1676,
+  "completion_tokens": 193,
+  "cost": 0.0002641,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:34:21"
+ },
+ "system": "You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.\nRules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.",
+ "user_chars": 3177,
+ "content": "{\"place\":\"Lakeshore of Gennesaret in Galilee, with two fishing boats and a stone shoreline beside a village of flat-roofed houses\",\"timeOfDay\":\"Early morning after an all-night fishing effort, dawn light over the lake\",\"weather\":\"Clear, calm morning with still water and mild air\",\"light\":\"Soft pale dawn light low over the lake, warm sun gradually rising\",\"clothing\":\"Linen and wool tunics, fringed cloaks and mantles, head coverings, sandals; fishermen in short work tunics; crowd in everyday village dress\"}",
+ "parsed": {
+  "place": "Lakeshore of Gennesaret in Galilee, with two fishing boats and a stone shoreline beside a village of flat-roofed houses",
+  "timeOfDay": "Early morning after an all-night fishing effort, dawn light over the lake",
+  "weather": "Clear, calm morning with still water and mild air",
+  "light": "Soft pale dawn light low over the lake, warm sun gradually rising",
+  "clothing": "Linen and wool tunics, fringed cloaks and mantles, head coverings, sandals; fishermen in short work tunics; crowd in everyday village dress"
+ },
+ "usage": {
+  "prompt_tokens": 1676,
+  "completion_tokens": 193,
+  "total_tokens": 1869,
+  "cost": 0.0002641,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0002641,
+   "upstream_inference_prompt_cost": 0.0001676,
+   "upstream_inference_completions_cost": 9.65e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

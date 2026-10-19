@@ -1,0 +1,4417 @@
+{
+ "work": "bible-web",
+ "division": "LUK",
+ "division_name": "Luke",
+ "units": 1151,
+ "record": {
+  "label": "bible-web__LUK__v1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792354475-hi9G1p5w0Jg4XoBY8SCI",
+  "seconds": 74.9,
+  "finish_reason": "stop",
+  "prompt_tokens": 50398,
+  "completion_tokens": 20943,
+  "cost": 0.0155113,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:15:50"
+ },
+ "characters": [
+  {
+   "id": "zacharias",
+   "name": "Zacharias",
+   "aliases": [
+    "the priest Zacharias",
+    "father of John"
+   ],
+   "note": "An aged priest of the division of Abijah, husband of Elizabeth, father of John the Baptist; struck mute by Gabriel in the temple (1:5-23, 1:57-67).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "elizabeth",
+   "name": "Elizabeth",
+   "aliases": [
+    "the wife of Zacharias",
+    "kinswoman of Mary"
+   ],
+   "note": "Wife of Zacharias, barren but conceives John late in life; relative of Mary (1:5-57).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "gabriel",
+   "name": "Gabriel",
+   "aliases": [
+    "the angel",
+    "an angel of the Lord"
+   ],
+   "note": "Archangel who announces John's birth to Zacharias and Jesus' birth to Mary (1:19, 1:26).",
+   "kind": "divine",
+   "same_person_as": ""
+  },
+  {
+   "id": "john_the_baptist",
+   "name": "John the Baptist",
+   "aliases": [
+    "John",
+    "the Baptizer",
+    "son of Zacharias",
+    "John the prophet"
+   ],
+   "note": "Son of Zacharias and Elizabeth, preacher in the wilderness who baptizes Jesus; imprisoned by Herod Antipas (1:13-80, 3:1-20, 7:18-35).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mary",
+   "name": "Mary",
+   "aliases": [
+    "the virgin",
+    "the mother of Jesus",
+    "Mary of Nazareth",
+    "Mary the mother of James"
+   ],
+   "note": "Virgin of Nazareth betrothed to Joseph, mother of Jesus; visits Elizabeth; present at the nativity and later in the temple (1:27-2:51). Distinct from Mary Magdalene and Mary of Bethany.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "joseph",
+   "name": "Joseph",
+   "aliases": [
+    "the husband of Mary",
+    "son of Heli",
+    "Joseph of Nazareth",
+    "Joseph of Arimathaea"
+   ],
+   "note": "Of David's house, betrothed to Mary and foster father of Jesus (1:27, 2:4-51, 3:23). Distinct from Joseph of Arimathaea (23:50), a council member who buries Jesus.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "jesus",
+   "name": "Jesus",
+   "aliases": [
+    "the Lord",
+    "the Son of Man",
+    "the Christ",
+    "the Son of God",
+    "the Nazarene",
+    "the Teacher",
+    "the child",
+    "the man of Nazareth",
+    "the Son of David"
+   ],
+   "note": "Son of Mary, the central figure of the Gospel; a young boy in the temple at twelve, then an adult teacher, healer, and the crucified and risen Christ (1:31-24:53).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "caesar_augustus",
+   "name": "Caesar Augustus",
+   "aliases": [
+    "Augustus",
+    "Caesar"
+   ],
+   "note": "Roman emperor whose decree orders the census (2:1).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "quirinius",
+   "name": "Quirinius",
+   "aliases": [
+    "the governor of Syria"
+   ],
+   "note": "Governor of Syria during the first census (2:2).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "shepherds",
+   "name": "The shepherds",
+   "aliases": [
+    "the shepherds of Bethlehem"
+   ],
+   "note": "Field shepherds near Bethlehem who hear the angelic announcement and visit the infant (2:8-20).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "heavenly_host",
+   "name": "The heavenly host",
+   "aliases": [
+    "the heavenly army",
+    "a multitude of the heavenly army"
+   ],
+   "note": "Angels who praise God over the fields of Bethlehem (2:13-14).",
+   "kind": "divine",
+   "same_person_as": ""
+  },
+  {
+   "id": "simeon",
+   "name": "Simeon",
+   "aliases": [
+    "the righteous man in Jerusalem"
+   ],
+   "note": "Righteous and devout man in Jerusalem who blesses the infant Jesus in the temple (2:25-35). Distinct from Simon Peter and Simon the Pharisee.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "anna",
+   "name": "Anna",
+   "aliases": [
+    "the prophetess",
+    "daughter of Phanuel"
+   ],
+   "note": "Aged widowed prophetess of the tribe of Asher who serves in the temple and speaks of the child (2:36-38).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "herod_antipas",
+   "name": "Herod Antipas",
+   "aliases": [
+    "Herod",
+    "Herod the tetrarch",
+    "the tetrarch of Galilee",
+    "that fox"
+   ],
+   "note": "Tetrarch of Galilee, son of Herod the Great; imprisons John, hears of Jesus, and mocks him at his trial (3:1, 3:19-20, 9:7-9, 13:31-32, 23:6-15). Distinct from Herod the king of Judea (1:5).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "herod_the_great",
+   "name": "Herod the king of Judea",
+   "aliases": [
+    "Herod the king",
+    "the king of Judea in the days of Zacharias"
+   ],
+   "note": "King of Judea in the days of Zacharias and Elizabeth, father of Herod Antipas; named only as the period setting (1:5).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "pontius_pilate",
+   "name": "Pontius Pilate",
+   "aliases": [
+    "Pilate",
+    "the governor"
+   ],
+   "note": "Roman governor of Judea who tries Jesus and orders his crucifixion (3:1, 13:1, 23:1-25).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "tiberius_caesar",
+   "name": "Tiberius Caesar",
+   "aliases": [
+    "Tiberius"
+   ],
+   "note": "Roman emperor in the fifteenth year of whose reign John begins to preach (3:1).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "annas_and_caiaphas",
+   "name": "Annas and Caiaphas",
+   "aliases": [
+    "the high priests Annas and Caiaphas",
+    "Caiaphas the high priest",
+    "the high priest"
+   ],
+   "note": "High priests of Jerusalem during John's preaching and at Jesus' trial (3:2, 22:54).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "satan",
+   "name": "Satan",
+   "aliases": [
+    "the devil",
+    "the enemy",
+    "the tempter",
+    "Beelzebul"
+   ],
+   "note": "The adversary who tempts Jesus in the wilderness and enters Judas (4:1-13, 10:18, 11:15-18, 22:3, 22:31).",
+   "kind": "divine",
+   "same_person_as": ""
+  },
+  {
+   "id": "simon_peter",
+   "name": "Simon Peter",
+   "aliases": [
+    "Simon",
+    "Peter",
+    "Cephas"
+   ],
+   "note": "Fisherman called by Jesus, leading disciple and apostle who denies Jesus three times; not the Simon the Pharisee (5:3-10, 22:31-62).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "james_son_of_zebedee",
+   "name": "James son of Zebedee",
+   "aliases": [
+    "James",
+    "the sons of Zebedee",
+    "James the brother of John"
+   ],
+   "note": "Apostle, fisher partner of Simon, son of Zebedee, with John; present at the transfiguration and Gethsemane (5:10, 8:51, 9:28, 9:54).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "john_the_apostle",
+   "name": "John the apostle",
+   "aliases": [
+    "John son of Zebedee",
+    "the disciple John"
+   ],
+   "note": "Apostle, son of Zebedee, fisher partner, one of the inner three; distinct from John the Baptist (5:10, 8:51, 9:28-54).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "levi",
+   "name": "Levi",
+   "aliases": [
+    "Matthew",
+    "the tax collector Levi"
+   ],
+   "note": "Tax collector called from the tax booth who hosts a feast for Jesus (5:27-32). Probably the same as Matthew in the apostle list (6:15).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "leper_man",
+   "name": "The leper",
+   "aliases": [
+    "the man full of leprosy"
+   ],
+   "note": "Leper in a city who begs Jesus to cleanse him (5:12-14).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "paralytic",
+   "name": "The paralytic",
+   "aliases": [
+    "the paralyzed man",
+    "the man on the cot"
+   ],
+   "note": "Paralyzed man let down through the roof, forgiven and healed (5:18-26).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "pharisees",
+   "name": "The Pharisees",
+   "aliases": [
+    "the scribes and Pharisees",
+    "the lawyers",
+    "the teachers of the law"
+   ],
+   "note": "Religious leaders who oppose Jesus and watch him for accusation (5:17-30, 6:2-11, 7:30-39, 11:37-54, 13:31, 14:1-3).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "centurion",
+   "name": "The centurion",
+   "aliases": [
+    "the centurion of Capernaum",
+    "the Roman officer"
+   ],
+   "note": "Roman officer in Capernaum whose servant Jesus heals at a distance (7:2-10).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "centurions_servant",
+   "name": "The centurion's servant",
+   "aliases": [
+    "the servant who was sick"
+   ],
+   "note": "Servant of the centurion, dear to him, healed at a distance (7:2-10).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "widow_of_nain_son",
+   "name": "The only son of the widow of Nain",
+   "aliases": [
+    "the young man who was dead",
+    "the dead man"
+   ],
+   "note": "Only son of a widow in the city of Nain, raised from his coffin (7:11-17).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "widow_of_nain",
+   "name": "The widow of Nain",
+   "aliases": [
+    "the mother of the dead young man"
+   ],
+   "note": "Widow of Nain whose only son Jesus raises (7:11-15). Distinct from the widow in the parable (18:3) and the poor widow of the temple (21:2).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "sinful_woman",
+   "name": "The sinful woman",
+   "aliases": [
+    "the woman in the Pharisee's house",
+    "a woman in the city who was a sinner"
+   ],
+   "note": "Woman of the city who anoints Jesus' feet in Simon the Pharisee's house (7:36-50). Possibly the same as Mary Magdalene but the text does not say so.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "simon_the_pharisee",
+   "name": "Simon the Pharisee",
+   "aliases": [
+    "the Pharisee who invited him",
+    "Simon"
+   ],
+   "note": "Pharisee who hosts Jesus and is rebuked over the sinful woman (7:36-50). Distinct from Simon Peter.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mary_magdalene",
+   "name": "Mary Magdalene",
+   "aliases": [
+    "Mary called Magdalene",
+    "Mary from whom seven demons had gone out"
+   ],
+   "note": "Woman healed of seven demons who travels with Jesus and witnesses the resurrection (8:2, 24:10). Distinct from Mary the mother of Jesus.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "joanna",
+   "name": "Joanna",
+   "aliases": [
+    "the wife of Chuzas"
+   ],
+   "note": "Wife of Chuzas, Herod's steward, who follows Jesus and witnesses the resurrection (8:3, 24:10).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "susanna",
+   "name": "Susanna",
+   "aliases": [],
+   "note": "Woman who supports Jesus' ministry with her possessions (8:3).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "demoniac_of_gerasa",
+   "name": "The Gerasene demoniac",
+   "aliases": [
+    "the man with demons",
+    "Legion",
+    "the man out of the city"
+   ],
+   "note": "Man possessed by many demons who lives among the tombs in the country of the Gadarenes, healed and clothed (8:26-39).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "legion_demons",
+   "name": "The demons Legion",
+   "aliases": [
+    "the unclean spirits",
+    "the demons"
+   ],
+   "note": "Many demons within the Gerasene man, sent into a herd of pigs (8:30-33).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "jairus",
+   "name": "Jairus",
+   "aliases": [
+    "the ruler of the synagogue"
+   ],
+   "note": "Ruler of a synagogue whose only daughter Jesus raises (8:41-56).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "jairus_daughter",
+   "name": "The daughter of Jairus",
+   "aliases": [
+    "the child",
+    "the girl"
+   ],
+   "note": "Twelve-year-old daughter of Jairus, raised from death (8:42, 8:54-55).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "woman_with_flow_of_blood",
+   "name": "The woman with the flow of blood",
+   "aliases": [
+    "the woman who touched his cloak"
+   ],
+   "note": "Woman with a twelve-year bleeding who touches Jesus' cloak and is healed (8:43-48).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "the_twelve",
+   "name": "The twelve apostles",
+   "aliases": [
+    "the twelve",
+    "the apostles",
+    "the disciples",
+    "the seventy"
+   ],
+   "note": "Jesus' chosen twelve, sent out to preach and heal; also the separate seventy sent out in chapter 10 (6:13-16, 9:1-6, 22:14). Individual members are named where the text does so.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "seventy_disciples",
+   "name": "The seventy",
+   "aliases": [
+    "the seventy others"
+   ],
+   "note": "Seventy disciples sent two by two ahead of Jesus, who return with joy (10:1-20). Distinct from the twelve.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "philip_apostle",
+   "name": "Philip",
+   "aliases": [
+    "the apostle Philip"
+   ],
+   "note": "One of the twelve apostles listed (6:14). Distinct from Philip the tetrarch (3:1).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "andrew",
+   "name": "Andrew",
+   "aliases": [
+    "the brother of Simon"
+   ],
+   "note": "Brother of Simon Peter and one of the twelve (6:14).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "bartholomew",
+   "name": "Bartholomew",
+   "aliases": [],
+   "note": "One of the twelve apostles (6:14).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "thomas",
+   "name": "Thomas",
+   "aliases": [],
+   "note": "One of the twelve apostles (6:15).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "james_son_of_alphaeus",
+   "name": "James son of Alphaeus",
+   "aliases": [],
+   "note": "One of the twelve apostles (6:15).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "simon_the_zealot",
+   "name": "Simon the Zealot",
+   "aliases": [
+    "Simon who was called the Zealot"
+   ],
+   "note": "One of the twelve apostles (6:15).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "judas_son_of_james",
+   "name": "Judas son of James",
+   "aliases": [
+    "Judas the son of James"
+   ],
+   "note": "One of the twelve apostles (6:16).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "judas_iscariot",
+   "name": "Judas Iscariot",
+   "aliases": [
+    "Judas",
+    "the betrayer"
+   ],
+   "note": "One of the twelve who betrays Jesus for money and leads the arresting crowd (6:16, 22:3-48).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "martha",
+   "name": "Martha",
+   "aliases": [
+    "the sister of Mary"
+   ],
+   "note": "Woman who receives Jesus in her house and is busy serving; sister of Mary of Bethany (10:38-42).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "mary_of_bethany",
+   "name": "Mary of Bethany",
+   "aliases": [
+    "Mary, sister of Martha",
+    "the sister who sat at Jesus' feet"
+   ],
+   "note": "Sister of Martha who sits listening to Jesus (10:39-42). Distinct from Mary the mother of Jesus and from Mary Magdalene.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lawyer_tester",
+   "name": "The lawyer",
+   "aliases": [
+    "a certain lawyer",
+    "the expert in the law"
+   ],
+   "note": "Lawyer who tests Jesus about eternal life and asks who his neighbor is (10:25-37).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "good_samaritan",
+   "name": "The Samaritan",
+   "aliases": [
+    "a certain Samaritan"
+   ],
+   "note": "Traveler from Samaria who tends a wounded man (10:33-37).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "wounded_traveler",
+   "name": "The wounded man",
+   "aliases": [
+    "the man who fell among robbers"
+   ],
+   "note": "Traveler from Jerusalem to Jericho beaten by robbers, aided by the Samaritan (10:30-36).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "innkeeper",
+   "name": "The innkeeper",
+   "aliases": [
+    "the host"
+   ],
+   "note": "Host of the inn who is paid to care for the wounded man (10:35).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "rich_fool",
+   "name": "The rich man with the barns",
+   "aliases": [
+    "the rich fool"
+   ],
+   "note": "Man in a parable whose harvest exceeds his barns, told by God he will die that night (12:16-21).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "galileans_slain",
+   "name": "The Galileans killed by Pilate",
+   "aliases": [
+    "the Galileans whose blood Pilate mixed with their sacrifices"
+   ],
+   "note": "Galileans slaughtered by Pilate at their sacrifices, mentioned in conversation (13:1-3).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "crippled_woman",
+   "name": "The bent woman",
+   "aliases": [
+    "the woman with a spirit of infirmity",
+    "daughter of Abraham"
+   ],
+   "note": "Woman bent over for eighteen years, healed on the Sabbath (13:10-17).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ruler_of_synagogue_sabbath",
+   "name": "The ruler of the synagogue (Sabbath)",
+   "aliases": [
+    "the synagogue official"
+   ],
+   "note": "Synagogue ruler who objects to a Sabbath healing (13:14). Distinct from Jairus.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "dropsy_man",
+   "name": "The man with dropsy",
+   "aliases": [
+    "a certain man who had dropsy"
+   ],
+   "note": "Man with dropsy healed at a Sabbath meal in a Pharisee's house (14:1-4).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "tax_collectors_sinners",
+   "name": "The tax collectors and sinners",
+   "aliases": [
+    "the sinners"
+   ],
+   "note": "Tax collectors and sinners who gather to hear Jesus and eat with him (5:29-30, 15:1-2).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "prodigal_son",
+   "name": "The younger son",
+   "aliases": [
+    "the prodigal",
+    "the lost son"
+   ],
+   "note": "Younger son in the parable who leaves home, wastes his inheritance, and returns (15:11-32).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "elder_son",
+   "name": "The elder son",
+   "aliases": [
+    "the older brother"
+   ],
+   "note": "Elder son in the parable who resents his brother's welcome (15:25-32).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "prodigal_father",
+   "name": "The father in the parable",
+   "aliases": [
+    "the father of the two sons"
+   ],
+   "note": "Father of the two sons who runs to welcome the younger back (15:11-32).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "dishonest_manager",
+   "name": "The dishonest manager",
+   "aliases": [
+    "the manager",
+    "the steward"
+   ],
+   "note": "Steward in the parable who reduces his master's debtors' bills (16:1-8).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "rich_man_lazarus",
+   "name": "The rich man in Hades",
+   "aliases": [
+    "the rich man",
+    "the rich man who was clothed in purple"
+   ],
+   "note": "Rich man in the parable who dies and is tormented in Hades while Lazarus is comforted (16:19-31).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lazarus",
+   "name": "Lazarus",
+   "aliases": [
+    "the beggar",
+    "the beggar Lazarus"
+   ],
+   "note": "Poor beggar at the rich man's gate who is carried to Abraham's bosom (16:20-25). Distinct from Lazarus of Bethany in John's gospel, which this text does not mention.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "abraham",
+   "name": "Abraham",
+   "aliases": [
+    "father Abraham"
+   ],
+   "note": "Patriarch who appears in the parable of the rich man and Lazarus and in genealogies and debates (3:34, 13:28, 16:22-30, 20:37).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ten_lepers",
+   "name": "The ten lepers",
+   "aliases": [
+    "the ten men who were lepers"
+   ],
+   "note": "Ten lepers who beg for mercy and are cleansed; only one, a Samaritan, returns (17:12-19).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "samaritan_leper",
+   "name": "The Samaritan leper",
+   "aliases": [
+    "the one who returned",
+    "this foreigner"
+   ],
+   "note": "The one leper of the ten who returns to thank Jesus (17:15-19).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "persistent_widow",
+   "name": "The widow in the parable",
+   "aliases": [
+    "the widow who came to the judge"
+   ],
+   "note": "Widow who persistently seeks justice from an unjust judge (18:1-8).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "unjust_judge",
+   "name": "The unjust judge",
+   "aliases": [
+    "the judge"
+   ],
+   "note": "Judge who neither fears God nor respects man, in the parable of the persistent widow (18:2-6).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "tax_collector_temple",
+   "name": "The tax collector in the temple",
+   "aliases": [
+    "the tax collector who prayed"
+   ],
+   "note": "Tax collector who prays humbly in the temple (18:10-14).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "pharisee_temple",
+   "name": "The Pharisee who prayed in the temple",
+   "aliases": [
+    "the Pharisee in the parable"
+   ],
+   "note": "Pharisee in the parable who prays proudly in the temple (18:10-14). Distinct from Simon the Pharisee and the Pharisee at Zacchaeus' town.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "rich_young_ruler",
+   "name": "The rich ruler",
+   "aliases": [
+    "a certain ruler",
+    "the young ruler"
+   ],
+   "note": "Wealthy ruler who asks about eternal life and is told to sell all he has (18:18-30).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "blind_man_jericho",
+   "name": "The blind man of Jericho",
+   "aliases": [
+    "the blind beggar",
+    "son of David"
+   ],
+   "note": "Blind beggar by the road in Jericho who receives sight (18:35-43). Distinct from Bartimaeus, who is not named here.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "zacchaeus",
+   "name": "Zacchaeus",
+   "aliases": [
+    "the chief tax collector"
+   ],
+   "note": "Wealthy chief tax collector of Jericho who climbs a sycamore and hosts Jesus (19:1-10).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "nobleman_servants",
+   "name": "The servants given minas",
+   "aliases": [
+    "the ten servants"
+   ],
+   "note": "Servants in the parable of the minas who each receive money from the nobleman (19:11-27).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "nobleman_parable",
+   "name": "The nobleman",
+   "aliases": [
+    "the king in the parable",
+    "the master"
+   ],
+   "note": "Nobleman in the parable of the minas who goes to receive a kingdom and returns to reward and punish (19:12-27).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "colt_owners",
+   "name": "The owners of the colt",
+   "aliases": [
+    "the owners"
+   ],
+   "note": "Owners of the colt at Bethany who ask why it is being untied (19:33-34).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "chief_priests_scribes",
+   "name": "The chief priests and scribes",
+   "aliases": [
+    "the chief priests",
+    "the elders",
+    "the priests and scribes",
+    "the captains"
+   ],
+   "note": "Jerusalem leaders who question Jesus' authority, plot to kill him, and hand him to Pilate (19:47, 20:1-19, 22:2-66, 23:10).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "sadducees",
+   "name": "The Sadducees",
+   "aliases": [
+    "some of the Sadducees"
+   ],
+   "note": "Group who deny the resurrection and question Jesus with the seven brothers case (20:27-40).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "poor_widow_temple",
+   "name": "The poor widow",
+   "aliases": [
+    "the widow with two small coins"
+   ],
+   "note": "Poor widow who gives two small coins to the temple treasury (21:1-4).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "vineyard_farmers",
+   "name": "The tenant farmers",
+   "aliases": [
+    "the farmers"
+   ],
+   "note": "Tenants in the parable of the vineyard who kill the owner's son (20:9-16).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "vineyard_owner",
+   "name": "The owner of the vineyard",
+   "aliases": [
+    "the lord of the vineyard"
+   ],
+   "note": "Owner in the parable who sends servants and finally his son (20:9-16).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "servant_girl",
+   "name": "The servant girl",
+   "aliases": [
+    "a certain servant girl"
+   ],
+   "note": "Servant girl in the high priest's courtyard who identifies Peter (22:56-57).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "pilate_soldiers",
+   "name": "The soldiers",
+   "aliases": [
+    "the soldiers",
+    "Herod's soldiers"
+   ],
+   "note": "Soldiers who mock Jesus, crucify him, and divide his garments (23:11, 23:36-38, 23:34).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "simon_of_cyrene",
+   "name": "Simon of Cyrene",
+   "aliases": [
+    "Simon the Cyrenian"
+   ],
+   "note": "Man from the country compelled to carry the cross (23:26). Distinct from Simon Peter.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "criminals_crucified",
+   "name": "The two criminals",
+   "aliases": [
+    "the criminals",
+    "the thief"
+   ],
+   "note": "Two men crucified beside Jesus, one of whom asks to be remembered (23:32-43).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "barabbas",
+   "name": "Barabbas",
+   "aliases": [],
+   "note": "Prisoner for insurrection and murder whom the crowd asks Pilate to release (23:18-25).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "centurion_crucifixion",
+   "name": "The centurion at the cross",
+   "aliases": [
+    "the centurion"
+   ],
+   "note": "Roman centurion who glorifies God at Jesus' death (23:47). Distinct from the centurion of Capernaum.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "joseph_of_arimathaea",
+   "name": "Joseph of Arimathaea",
+   "aliases": [
+    "Joseph, a member of the council"
+   ],
+   "note": "Good and righteous council member who asks Pilate for Jesus' body and buries him (23:50-53). Distinct from Joseph the husband of Mary.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "women_of_galilee",
+   "name": "The women from Galilee",
+   "aliases": [
+    "the women who followed him",
+    "the women"
+   ],
+   "note": "Women who follow Jesus from Galilee, watch the crucifixion and burial, and bring spices to the tomb (8:1-3, 23:49-24:10).",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "two_men_in_white",
+   "name": "The two men in dazzling clothing",
+   "aliases": [
+    "two men",
+    "the two angels"
+   ],
+   "note": "Two figures at the empty tomb who announce the resurrection (24:4-7).",
+   "kind": "divine",
+   "same_person_as": ""
+  },
+  {
+   "id": "mary_the_mother_of_james",
+   "name": "Mary the mother of James",
+   "aliases": [],
+   "note": "Woman who goes to the tomb with the women and tells the apostles (24:10). Possibly the same as Mary the mother of Jesus in name only; the text distinguishes them here.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "cleopas",
+   "name": "Cleopas",
+   "aliases": [
+    "one of the two on the road to Emmaus"
+   ],
+   "note": "One of two disciples walking to Emmaus who converse with the risen Jesus (24:13-35).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "emmaus_disciple",
+   "name": "The second disciple on the road to Emmaus",
+   "aliases": [
+    "the other traveler"
+   ],
+   "note": "Unnamed companion of Cleopas on the road to Emmaus (24:13-35).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "eleven_disciples",
+   "name": "The eleven",
+   "aliases": [
+    "the eleven apostles",
+    "those gathered in Jerusalem"
+   ],
+   "note": "The remaining apostles gathered in Jerusalem after the resurrection (24:9, 24:33-49).",
+   "kind": "group",
+   "same_person_as": ""
+  }
+ ],
+ "locations": [
+  {
+   "id": "jerusalem",
+   "name": "Jerusalem",
+   "aliases": [
+    "the holy city",
+    "the city of David",
+    "the city"
+   ],
+   "note": "Holy city and seat of the temple; scene of the temple episodes, the Passover, trial, and crucifixion (1:8, 2:22-52, 19:28-24:53).  A city where many events happen."
+  },
+  {
+   "id": "temple",
+   "name": "The temple",
+   "aliases": [
+    "the house of God",
+    "the sanctuary",
+    "the house of the Lord"
+   ],
+   "note": "Temple in Jerusalem where Zacharias serves, Jesus is presented, boy Jesus teaches, and Jesus teaches and drives out traders (1:9, 2:27, 2:46, 19:45, 21:1-38, 24:53)."
+  },
+  {
+   "id": "nazareth",
+   "name": "Nazareth",
+   "aliases": [
+    "the city of Nazareth",
+    "Galilee city of Nazareth"
+   ],
+   "note": "Galilean town where Mary lives and Jesus is raised; site of the synagogue reading (1:26, 2:39, 4:16-30)."
+  },
+  {
+   "id": "bethlehem",
+   "name": "Bethlehem",
+   "aliases": [
+    "David's city",
+    "the city of David in Judea"
+   ],
+   "note": "Town of David where Jesus is born (2:4-16)."
+  },
+  {
+   "id": "galilee",
+   "name": "Galilee",
+   "aliases": [
+    "the region of Galilee"
+   ],
+   "note": "Northern region where Jesus grows up and conducts much of his ministry (3:1, 4:14-44, 8:1, 23:5-55)."
+  },
+  {
+   "id": "judea",
+   "name": "Judea",
+   "aliases": [
+    "the land of Judea",
+    "the hill country of Judea"
+   ],
+   "note": "Southern region including Jerusalem; the setting for Zacharias and the census journey (1:5, 1:65, 2:4, 3:1, 23:5)."
+  },
+  {
+   "id": "hill_country",
+   "name": "The hill country",
+   "aliases": [
+    "a city of Judah in the hill country"
+   ],
+   "note": "Hill country where Mary visits Elizabeth's household (1:39-40)."
+  },
+  {
+   "id": "jordan_river",
+   "name": "The Jordan",
+   "aliases": [
+    "the region around the Jordan"
+   ],
+   "note": "River where John baptizes and Jesus is baptized (3:3, 3:21, 4:1)."
+  },
+  {
+   "id": "wilderness",
+   "name": "The wilderness",
+   "aliases": [
+    "the desert",
+    "the uninhabited place",
+    "a deserted place"
+   ],
+   "note": "Desert where John grows up and preaches, and where Jesus is tempted (1:80, 3:2, 4:1-13, 9:12, 4:42)."
+  },
+  {
+   "id": "capernaum",
+   "name": "Capernaum",
+   "aliases": [
+    "the city of Capernaum"
+   ],
+   "note": "Galilean town where Jesus teaches and heals in the synagogue and at Simon's house (4:31-38, 7:1-10, 10:15)."
+  },
+  {
+   "id": "lake_gennesaret",
+   "name": "The lake",
+   "aliases": [
+    "the lake of Gennesaret",
+    "the sea of Galilee",
+    "the lake"
+   ],
+   "note": "Freshwater lake of Galilee where fishing boats sail and storms arise (5:1-11, 8:22-25)."
+  },
+  {
+   "id": "simons_house",
+   "name": "Simon's house",
+   "aliases": [
+    "Simon's house in Capernaum"
+   ],
+   "note": "House in Capernaum where Peter's mother-in-law is healed (4:38-39)."
+  },
+  {
+   "id": "gadarene_country",
+   "name": "The country of the Gadarenes",
+   "aliases": [
+    "the country across the lake",
+    "the other side of the lake"
+   ],
+   "note": "Gentile region across the lake where the Gerasene demoniac is healed (8:26-39)."
+  },
+  {
+   "id": "nain",
+   "name": "Nain",
+   "aliases": [
+    "the city of Nain"
+   ],
+   "note": "Town where Jesus raises the widow's son at the city gate (7:11-17)."
+  },
+  {
+   "id": "samaria",
+   "name": "Samaria",
+   "aliases": [
+    "a village of the Samaritans",
+    "the borders of Samaria"
+   ],
+   "note": "Region and villages of the Samaritans, one of which refuses Jesus, and where a grateful leper returns (9:52-56, 10:33, 17:11-19)."
+  },
+  {
+   "id": "mount_of_transfiguration",
+   "name": "The mountain",
+   "aliases": [
+    "the holy mountain",
+    "the high mountain"
+   ],
+   "note": "Mountain where Jesus is transfigured and speaks with Moses and Elijah (9:28-36). Unnamed in the text; also the mountain of the temptation (4:5)."
+  },
+  {
+   "id": "jericho",
+   "name": "Jericho",
+   "aliases": [
+    "the road to Jericho"
+   ],
+   "note": "City on the road from Jerusalem where the wounded man is found and where Zacchaeus lives (10:30, 18:35, 19:1-10)."
+  },
+  {
+   "id": "bethany",
+   "name": "Bethany",
+   "aliases": [
+    "the village of Mary and Martha"
+   ],
+   "note": "Village near Jerusalem where Martha and Mary live and where Jesus ascends (10:38, 19:29, 24:50)."
+  },
+  {
+   "id": "the_house_of_martha",
+   "name": "The house of Martha",
+   "aliases": [
+    "Martha's house"
+   ],
+   "note": "House in a village where Martha receives Jesus (10:38-42). Probably at Bethany, though the text names only the village."
+  },
+  {
+   "id": "mount_of_olives",
+   "name": "The Mount of Olives",
+   "aliases": [
+    "Olivet",
+    "the mountain called Olivet"
+   ],
+   "note": "Hill east of Jerusalem where Jesus teaches at night, the colt is fetched, and Jesus prays in Gethsemane (19:29-37, 21:37, 22:39)."
+  },
+  {
+   "id": "gethsemane",
+   "name": "The place of prayer on the mount",
+   "aliases": [
+    "the garden"
+   ],
+   "note": "Olive grove on the Mount of Olives where Jesus prays before arrest; named by the text only as 'the place' (22:39-46)."
+  },
+  {
+   "id": "high_priests_house",
+   "name": "The high priest's house",
+   "aliases": [
+    "the courtyard of the high priest",
+    "the council"
+   ],
+   "note": "House and courtyard of the high priest where Jesus is held, Peter denies him, and the council meets (22:54-71)."
+  },
+  {
+   "id": "pilates_hall",
+   "name": "Pilate's hall",
+   "aliases": [
+    "the governor's court",
+    "the praetorium"
+   ],
+   "note": "Roman governor's court where Jesus is tried before Pilate and Herod (23:1-25)."
+  },
+  {
+   "id": "golgotha",
+   "name": "The Skull",
+   "aliases": [
+    "the place called The Skull",
+    "Golgotha"
+   ],
+   "note": "Hill outside Jerusalem where Jesus is crucified between two criminals (23:33)."
+  },
+  {
+   "id": "joseph_tomb",
+   "name": "Joseph's tomb",
+   "aliases": [
+    "the rock tomb",
+    "the tomb"
+   ],
+   "note": "Rock-cut tomb where Joseph of Arimathaea lays Jesus; the empty tomb of the resurrection (23:53-24:12)."
+  },
+  {
+   "id": "emmaus",
+   "name": "Emmaus",
+   "aliases": [
+    "the village of Emmaus"
+   ],
+   "note": "Village about sixty stadia from Jerusalem where the risen Jesus shares a meal with two disciples (24:13-35)."
+  },
+  {
+   "id": "sycamore_tree",
+   "name": "The sycamore tree",
+   "aliases": [
+    "the tree"
+   ],
+   "note": "Sycamore tree in Jericho which Zacchaeus climbs to see Jesus (19:4)."
+  },
+  {
+   "id": "tax_office",
+   "name": "The tax office",
+   "aliases": [
+    "the tax booth"
+   ],
+   "note": "Tax booth where Levi sits when Jesus calls him (5:27)."
+  },
+  {
+   "id": "synagogues",
+   "name": "The synagogues",
+   "aliases": [
+    "the synagogue",
+    "the synagogue of the Jews"
+   ],
+   "note": "Places of worship in Galilee and Judea where Jesus teaches and heals (4:15-16, 4:31-37, 6:6, 13:10-17)."
+  },
+  {
+   "id": "far_country",
+   "name": "A far country",
+   "aliases": [
+    "a distant land"
+   ],
+   "note": "Distant land where the prodigal son wastes his inheritance (15:13)."
+  },
+  {
+   "id": "houses_of_the_parable",
+   "name": "The house of the parable",
+   "aliases": [
+    "the master of the house's house"
+   ],
+   "note": "Houses in various parables (the rich man's barns, the wedding feast, the narrow door); not a fixed setting."
+  }
+ ],
+ "sections": [
+  {
+   "id": "LUK-s1",
+   "start": "luke-1-1",
+   "end": "luke-1-25",
+   "start_idx": 0,
+   "end_idx": 24,
+   "n_units": 25,
+   "words": 539,
+   "start_ref": "Luke 1:1",
+   "end_ref": "Luke 1:25",
+   "title": "Prologue and Zacharias' vision",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "zacharias",
+     "named": true
+    },
+    {
+     "id": "gabriel",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "elizabeth",
+    "herod_the_great"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s2",
+   "start": "luke-1-26",
+   "end": "luke-1-38",
+   "start_idx": 25,
+   "end_idx": 37,
+   "n_units": 13,
+   "words": 271,
+   "start_ref": "Luke 1:26",
+   "end_ref": "Luke 1:38",
+   "title": "Annunciation to Mary",
+   "setting": [
+    "nazareth"
+   ],
+   "on_stage": [
+    {
+     "id": "gabriel",
+     "named": true
+    },
+    {
+     "id": "mary",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "joseph",
+    "elizabeth"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s3",
+   "start": "luke-1-39",
+   "end": "luke-1-56",
+   "start_idx": 38,
+   "end_idx": 55,
+   "n_units": 18,
+   "words": 275,
+   "start_ref": "Luke 1:39",
+   "end_ref": "Luke 1:56",
+   "title": "Visitation",
+   "setting": [
+    "hill_country"
+   ],
+   "on_stage": [
+    {
+     "id": "mary",
+     "named": true
+    },
+    {
+     "id": "elizabeth",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s4",
+   "start": "luke-1-57",
+   "end": "luke-1-66",
+   "start_idx": 56,
+   "end_idx": 65,
+   "n_units": 10,
+   "words": 176,
+   "start_ref": "Luke 1:57",
+   "end_ref": "Luke 1:66",
+   "title": "Birth and naming of John",
+   "setting": [
+    "hill_country"
+   ],
+   "on_stage": [
+    {
+     "id": "elizabeth",
+     "named": true
+    },
+    {
+     "id": "zacharias",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "john_the_baptist"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s5",
+   "start": "luke-1-67",
+   "end": "luke-1-80",
+   "start_idx": 66,
+   "end_idx": 79,
+   "n_units": 14,
+   "words": 229,
+   "start_ref": "Luke 1:67",
+   "end_ref": "Luke 1:80",
+   "title": "Zacharias' prophecy",
+   "setting": [
+    "hill_country"
+   ],
+   "on_stage": [
+    {
+     "id": "zacharias",
+     "named": true
+    },
+    {
+     "id": "john_the_baptist",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s6",
+   "start": "luke-2-1",
+   "end": "luke-2-7",
+   "start_idx": 80,
+   "end_idx": 86,
+   "n_units": 7,
+   "words": 132,
+   "start_ref": "Luke 2:1",
+   "end_ref": "Luke 2:7",
+   "title": "Census and the birth of Jesus",
+   "setting": [
+    "bethlehem"
+   ],
+   "on_stage": [
+    {
+     "id": "mary",
+     "named": true
+    },
+    {
+     "id": "joseph",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "caesar_augustus",
+    "quirinius"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s7",
+   "start": "luke-2-8",
+   "end": "luke-2-20",
+   "start_idx": 87,
+   "end_idx": 99,
+   "n_units": 13,
+   "words": 255,
+   "start_ref": "Luke 2:8",
+   "end_ref": "Luke 2:20",
+   "title": "Angels and shepherds",
+   "setting": [
+    "bethlehem"
+   ],
+   "on_stage": [
+    {
+     "id": "gabriel",
+     "named": false
+    },
+    {
+     "id": "heavenly_host",
+     "named": false
+    },
+    {
+     "id": "shepherds",
+     "named": false
+    },
+    {
+     "id": "mary",
+     "named": true
+    },
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "jesus",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s8",
+   "start": "luke-2-21",
+   "end": "luke-2-40",
+   "start_idx": 100,
+   "end_idx": 119,
+   "n_units": 20,
+   "words": 432,
+   "start_ref": "Luke 2:21",
+   "end_ref": "Luke 2:40",
+   "title": "Presentation in the temple",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "mary",
+     "named": true
+    },
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "simeon",
+     "named": true
+    },
+    {
+     "id": "anna",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s9",
+   "start": "luke-2-41",
+   "end": "luke-2-52",
+   "start_idx": 120,
+   "end_idx": 131,
+   "n_units": 12,
+   "words": 228,
+   "start_ref": "Luke 2:41",
+   "end_ref": "Luke 2:52",
+   "title": "Boy Jesus in the temple",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "mary",
+     "named": false
+    },
+    {
+     "id": "joseph",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s10",
+   "start": "luke-3-1",
+   "end": "luke-3-20",
+   "start_idx": 132,
+   "end_idx": 151,
+   "n_units": 20,
+   "words": 470,
+   "start_ref": "Luke 3:1",
+   "end_ref": "Luke 3:20",
+   "title": "John's preaching",
+   "setting": [
+    "wilderness",
+    "judea"
+   ],
+   "on_stage": [
+    {
+     "id": "john_the_baptist",
+     "named": true
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "tax_collectors_sinners",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "tiberius_caesar",
+    "pontius_pilate",
+    "herod_antipas",
+    "annas_and_caiaphas"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s11",
+   "start": "luke-3-21",
+   "end": "luke-3-38",
+   "start_idx": 152,
+   "end_idx": 169,
+   "n_units": 18,
+   "words": 373,
+   "start_ref": "Luke 3:21",
+   "end_ref": "Luke 3:38",
+   "title": "Baptism and genealogy of Jesus",
+   "setting": [
+    "jordan_river"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "john_the_baptist",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "joseph",
+    "abraham"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s12",
+   "start": "luke-4-1",
+   "end": "luke-4-13",
+   "start_idx": 170,
+   "end_idx": 182,
+   "n_units": 13,
+   "words": 262,
+   "start_ref": "Luke 4:1",
+   "end_ref": "Luke 4:13",
+   "title": "Temptation in the wilderness",
+   "setting": [
+    "wilderness"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "satan",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s13",
+   "start": "luke-4-14",
+   "end": "luke-4-30",
+   "start_idx": 183,
+   "end_idx": 199,
+   "n_units": 17,
+   "words": 376,
+   "start_ref": "Luke 4:14",
+   "end_ref": "Luke 4:30",
+   "title": "Rejection at Nazareth",
+   "setting": [
+    "synagogues",
+    "nazareth"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "abraham"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s14",
+   "start": "luke-4-31",
+   "end": "luke-4-44",
+   "start_idx": 200,
+   "end_idx": 213,
+   "n_units": 14,
+   "words": 335,
+   "start_ref": "Luke 4:31",
+   "end_ref": "Luke 4:44",
+   "title": "Healings at Capernaum",
+   "setting": [
+    "capernaum",
+    "simons_house"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "simon_peter",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s15",
+   "start": "luke-5-1",
+   "end": "luke-5-11",
+   "start_idx": 214,
+   "end_idx": 224,
+   "n_units": 11,
+   "words": 248,
+   "start_ref": "Luke 5:1",
+   "end_ref": "Luke 5:11",
+   "title": "Miraculous catch and first disciples",
+   "setting": [
+    "lake_gennesaret"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "simon_peter",
+     "named": true
+    },
+    {
+     "id": "andrew",
+     "named": false
+    },
+    {
+     "id": "james_son_of_zebedee",
+     "named": true
+    },
+    {
+     "id": "john_the_apostle",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s16",
+   "start": "luke-5-12",
+   "end": "luke-5-16",
+   "start_idx": 225,
+   "end_idx": 229,
+   "n_units": 5,
+   "words": 124,
+   "start_ref": "Luke 5:12",
+   "end_ref": "Luke 5:16",
+   "title": "Cleansing of a leper",
+   "setting": [
+    "capernaum"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "leper_man",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s17",
+   "start": "luke-5-17",
+   "end": "luke-5-26",
+   "start_idx": 230,
+   "end_idx": 239,
+   "n_units": 10,
+   "words": 240,
+   "start_ref": "Luke 5:17",
+   "end_ref": "Luke 5:26",
+   "title": "Paralytic let down through roof",
+   "setting": [
+    "capernaum"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "paralytic",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s18",
+   "start": "luke-5-27",
+   "end": "luke-5-39",
+   "start_idx": 240,
+   "end_idx": 252,
+   "n_units": 13,
+   "words": 271,
+   "start_ref": "Luke 5:27",
+   "end_ref": "Luke 5:39",
+   "title": "Calling of Levi and feast",
+   "setting": [
+    "tax_office"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "levi",
+     "named": true
+    },
+    {
+     "id": "tax_collectors_sinners",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "john_the_baptist"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s19",
+   "start": "luke-6-1",
+   "end": "luke-6-11",
+   "start_idx": 253,
+   "end_idx": 263,
+   "n_units": 11,
+   "words": 270,
+   "start_ref": "Luke 6:1",
+   "end_ref": "Luke 6:11",
+   "title": "Sabbath controversies",
+   "setting": [
+    "synagogues",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "abraham"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s20",
+   "start": "luke-6-12",
+   "end": "luke-6-19",
+   "start_idx": 264,
+   "end_idx": 271,
+   "n_units": 8,
+   "words": 159,
+   "start_ref": "Luke 6:12",
+   "end_ref": "Luke 6:19",
+   "title": "Choosing the twelve",
+   "setting": [
+    "mount_of_transfiguration"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    },
+    {
+     "id": "judas_iscariot",
+     "named": true
+    },
+    {
+     "id": "philip_apostle",
+     "named": true
+    },
+    {
+     "id": "bartholomew",
+     "named": true
+    },
+    {
+     "id": "thomas",
+     "named": true
+    },
+    {
+     "id": "james_son_of_alphaeus",
+     "named": false
+    },
+    {
+     "id": "simon_the_zealot",
+     "named": true
+    },
+    {
+     "id": "judas_son_of_james",
+     "named": true
+    },
+    {
+     "id": "andrew",
+     "named": true
+    },
+    {
+     "id": "simon_peter",
+     "named": true
+    },
+    {
+     "id": "james_son_of_zebedee",
+     "named": true
+    },
+    {
+     "id": "john_the_apostle",
+     "named": false
+    },
+    {
+     "id": "levi",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s21",
+   "start": "luke-6-20",
+   "end": "luke-6-49",
+   "start_idx": 272,
+   "end_idx": 301,
+   "n_units": 30,
+   "words": 742,
+   "start_ref": "Luke 6:20",
+   "end_ref": "Luke 6:49",
+   "title": "Sermon on the Plain",
+   "setting": [
+    "mount_of_transfiguration"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "abraham"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s22",
+   "start": "luke-7-1",
+   "end": "luke-7-10",
+   "start_idx": 302,
+   "end_idx": 311,
+   "n_units": 10,
+   "words": 233,
+   "start_ref": "Luke 7:1",
+   "end_ref": "Luke 7:10",
+   "title": "Centurion's servant healed",
+   "setting": [
+    "capernaum"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "centurion",
+     "named": false
+    },
+    {
+     "id": "centurions_servant",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s23",
+   "start": "luke-7-11",
+   "end": "luke-7-17",
+   "start_idx": 312,
+   "end_idx": 318,
+   "n_units": 7,
+   "words": 153,
+   "start_ref": "Luke 7:11",
+   "end_ref": "Luke 7:17",
+   "title": "Raising of the widow's son",
+   "setting": [
+    "nain"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "widow_of_nain_son",
+     "named": false
+    },
+    {
+     "id": "widow_of_nain",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s24",
+   "start": "luke-7-18",
+   "end": "luke-7-35",
+   "start_idx": 319,
+   "end_idx": 336,
+   "n_units": 18,
+   "words": 408,
+   "start_ref": "Luke 7:18",
+   "end_ref": "Luke 7:35",
+   "title": "John's question and Jesus on John",
+   "setting": [
+    "nain"
+   ],
+   "on_stage": [
+    {
+     "id": "john_the_baptist",
+     "named": true
+    },
+    {
+     "id": "jesus",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "herod_antipas"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s25",
+   "start": "luke-7-36",
+   "end": "luke-7-50",
+   "start_idx": 337,
+   "end_idx": 351,
+   "n_units": 15,
+   "words": 333,
+   "start_ref": "Luke 7:36",
+   "end_ref": "Luke 7:50",
+   "title": "Anointing in Simon's house",
+   "setting": [
+    "capernaum"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "simon_the_pharisee",
+     "named": true
+    },
+    {
+     "id": "sinful_woman",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s26",
+   "start": "luke-8-1",
+   "end": "luke-8-3",
+   "start_idx": 352,
+   "end_idx": 354,
+   "n_units": 3,
+   "words": 65,
+   "start_ref": "Luke 8:1",
+   "end_ref": "Luke 8:3",
+   "title": "Women who followed Jesus",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    },
+    {
+     "id": "mary_magdalene",
+     "named": false
+    },
+    {
+     "id": "joanna",
+     "named": true
+    },
+    {
+     "id": "susanna",
+     "named": true
+    },
+    {
+     "id": "women_of_galilee",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "herod_antipas"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s27",
+   "start": "luke-8-4",
+   "end": "luke-8-18",
+   "start_idx": 355,
+   "end_idx": 369,
+   "n_units": 15,
+   "words": 382,
+   "start_ref": "Luke 8:4",
+   "end_ref": "Luke 8:18",
+   "title": "Parable of the sower",
+   "setting": [
+    "lake_gennesaret"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s28",
+   "start": "luke-8-19",
+   "end": "luke-8-21",
+   "start_idx": 370,
+   "end_idx": 372,
+   "n_units": 3,
+   "words": 52,
+   "start_ref": "Luke 8:19",
+   "end_ref": "Luke 8:21",
+   "title": "Jesus' true family",
+   "setting": [
+    "lake_gennesaret"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "mary"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s29",
+   "start": "luke-8-22",
+   "end": "luke-8-25",
+   "start_idx": 373,
+   "end_idx": 376,
+   "n_units": 4,
+   "words": 123,
+   "start_ref": "Luke 8:22",
+   "end_ref": "Luke 8:25",
+   "title": "Stilling the storm",
+   "setting": [
+    "lake_gennesaret"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s30",
+   "start": "luke-8-26",
+   "end": "luke-8-39",
+   "start_idx": 377,
+   "end_idx": 390,
+   "n_units": 14,
+   "words": 379,
+   "start_ref": "Luke 8:26",
+   "end_ref": "Luke 8:39",
+   "title": "The Gerasene demoniac",
+   "setting": [
+    "gadarene_country"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "demoniac_of_gerasa",
+     "named": true
+    },
+    {
+     "id": "legion_demons",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s31",
+   "start": "luke-8-40",
+   "end": "luke-8-56",
+   "start_idx": 391,
+   "end_idx": 407,
+   "n_units": 17,
+   "words": 351,
+   "start_ref": "Luke 8:40",
+   "end_ref": "Luke 8:56",
+   "title": "Jairus and the woman with bleeding",
+   "setting": [
+    "capernaum"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "jairus",
+     "named": true
+    },
+    {
+     "id": "jairus_daughter",
+     "named": false
+    },
+    {
+     "id": "woman_with_flow_of_blood",
+     "named": false
+    },
+    {
+     "id": "simon_peter",
+     "named": true
+    },
+    {
+     "id": "james_son_of_zebedee",
+     "named": true
+    },
+    {
+     "id": "john_the_apostle",
+     "named": false
+    },
+    {
+     "id": "mary",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s32",
+   "start": "luke-9-1",
+   "end": "luke-9-6",
+   "start_idx": 408,
+   "end_idx": 413,
+   "n_units": 6,
+   "words": 102,
+   "start_ref": "Luke 9:1",
+   "end_ref": "Luke 9:6",
+   "title": "Sending of the twelve",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s33",
+   "start": "luke-9-7",
+   "end": "luke-9-9",
+   "start_idx": 414,
+   "end_idx": 416,
+   "n_units": 3,
+   "words": 69,
+   "start_ref": "Luke 9:7",
+   "end_ref": "Luke 9:9",
+   "title": "Herod's perplexity",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "herod_antipas",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "john_the_baptist"
+   ],
+   "unknown_ids": [
+    "elijah"
+   ]
+  },
+  {
+   "id": "LUK-s34",
+   "start": "luke-9-10",
+   "end": "luke-9-17",
+   "start_idx": 417,
+   "end_idx": 424,
+   "n_units": 8,
+   "words": 206,
+   "start_ref": "Luke 9:10",
+   "end_ref": "Luke 9:17",
+   "title": "Feeding of the five thousand",
+   "setting": [
+    "wilderness"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s35",
+   "start": "luke-9-18",
+   "end": "luke-9-27",
+   "start_idx": 425,
+   "end_idx": 434,
+   "n_units": 10,
+   "words": 230,
+   "start_ref": "Luke 9:18",
+   "end_ref": "Luke 9:27",
+   "title": "Peter's confession and first passion prediction",
+   "setting": [
+    "wilderness"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    },
+    {
+     "id": "simon_peter",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "john_the_baptist"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s36",
+   "start": "luke-9-28",
+   "end": "luke-9-36",
+   "start_idx": 435,
+   "end_idx": 443,
+   "n_units": 9,
+   "words": 200,
+   "start_ref": "Luke 9:28",
+   "end_ref": "Luke 9:36",
+   "title": "Transfiguration",
+   "setting": [
+    "mount_of_transfiguration"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "simon_peter",
+     "named": true
+    },
+    {
+     "id": "james_son_of_zebedee",
+     "named": true
+    },
+    {
+     "id": "john_the_apostle",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s37",
+   "start": "luke-9-37",
+   "end": "luke-9-43",
+   "start_idx": 444,
+   "end_idx": 450,
+   "n_units": 7,
+   "words": 156,
+   "start_ref": "Luke 9:37",
+   "end_ref": "Luke 9:43",
+   "title": "Healing of the boy with a spirit",
+   "setting": [
+    "mount_of_transfiguration"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s38",
+   "start": "luke-9-44",
+   "end": "luke-9-50",
+   "start_idx": 451,
+   "end_idx": 457,
+   "n_units": 7,
+   "words": 150,
+   "start_ref": "Luke 9:44",
+   "end_ref": "Luke 9:50",
+   "title": "Second passion prediction and dispute on greatness",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s39",
+   "start": "luke-9-51",
+   "end": "luke-9-62",
+   "start_idx": 458,
+   "end_idx": 469,
+   "n_units": 12,
+   "words": 260,
+   "start_ref": "Luke 9:51",
+   "end_ref": "Luke 9:62",
+   "title": "Journey toward Jerusalem and would-be followers",
+   "setting": [
+    "samaria"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    },
+    {
+     "id": "james_son_of_zebedee",
+     "named": true
+    },
+    {
+     "id": "john_the_apostle",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s40",
+   "start": "luke-10-1",
+   "end": "luke-10-16",
+   "start_idx": 470,
+   "end_idx": 485,
+   "n_units": 16,
+   "words": 326,
+   "start_ref": "Luke 10:1",
+   "end_ref": "Luke 10:16",
+   "title": "Sending of the seventy",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "seventy_disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s41",
+   "start": "luke-10-17",
+   "end": "luke-10-24",
+   "start_idx": 486,
+   "end_idx": 493,
+   "n_units": 8,
+   "words": 221,
+   "start_ref": "Luke 10:17",
+   "end_ref": "Luke 10:24",
+   "title": "Return of the seventy and blessing",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "seventy_disciples",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s42",
+   "start": "luke-10-25",
+   "end": "luke-10-37",
+   "start_idx": 494,
+   "end_idx": 506,
+   "n_units": 13,
+   "words": 288,
+   "start_ref": "Luke 10:25",
+   "end_ref": "Luke 10:37",
+   "title": "Good Samaritan",
+   "setting": [
+    "jericho"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "lawyer_tester",
+     "named": false
+    },
+    {
+     "id": "wounded_traveler",
+     "named": false
+    },
+    {
+     "id": "good_samaritan",
+     "named": false
+    },
+    {
+     "id": "innkeeper",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s43",
+   "start": "luke-10-38",
+   "end": "luke-10-42",
+   "start_idx": 507,
+   "end_idx": 511,
+   "n_units": 5,
+   "words": 104,
+   "start_ref": "Luke 10:38",
+   "end_ref": "Luke 10:42",
+   "title": "Martha and Mary",
+   "setting": [
+    "bethany",
+    "the_house_of_martha"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "martha",
+     "named": true
+    },
+    {
+     "id": "mary_of_bethany",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s44",
+   "start": "luke-11-1",
+   "end": "luke-11-13",
+   "start_idx": 512,
+   "end_idx": 524,
+   "n_units": 13,
+   "words": 331,
+   "start_ref": "Luke 11:1",
+   "end_ref": "Luke 11:13",
+   "title": "The Lord's Prayer and persistence",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "john_the_baptist"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s45",
+   "start": "luke-11-14",
+   "end": "luke-11-28",
+   "start_idx": 525,
+   "end_idx": 539,
+   "n_units": 15,
+   "words": 317,
+   "start_ref": "Luke 11:14",
+   "end_ref": "Luke 11:28",
+   "title": "Exorcism and charge of Beelzebul",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "satan"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s46",
+   "start": "luke-11-29",
+   "end": "luke-11-36",
+   "start_idx": 540,
+   "end_idx": 547,
+   "n_units": 8,
+   "words": 240,
+   "start_ref": "Luke 11:29",
+   "end_ref": "Luke 11:36",
+   "title": "Sign of Jonah and light parables",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": [
+    "jonah_prophet"
+   ]
+  },
+  {
+   "id": "LUK-s47",
+   "start": "luke-11-37",
+   "end": "luke-11-54",
+   "start_idx": 548,
+   "end_idx": 565,
+   "n_units": 18,
+   "words": 402,
+   "start_ref": "Luke 11:37",
+   "end_ref": "Luke 11:54",
+   "title": "Woes against Pharisees and lawyers",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "lawyer_tester",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s48",
+   "start": "luke-12-1",
+   "end": "luke-12-12",
+   "start_idx": 566,
+   "end_idx": 577,
+   "n_units": 12,
+   "words": 283,
+   "start_ref": "Luke 12:1",
+   "end_ref": "Luke 12:12",
+   "title": "Warnings and the Holy Spirit",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s49",
+   "start": "luke-12-13",
+   "end": "luke-12-21",
+   "start_idx": 578,
+   "end_idx": 586,
+   "n_units": 9,
+   "words": 181,
+   "start_ref": "Luke 12:13",
+   "end_ref": "Luke 12:21",
+   "title": "Parable of the rich fool",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "rich_fool",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s50",
+   "start": "luke-12-22",
+   "end": "luke-12-59",
+   "start_idx": 587,
+   "end_idx": 624,
+   "n_units": 38,
+   "words": 848,
+   "start_ref": "Luke 12:22",
+   "end_ref": "Luke 12:59",
+   "title": "Trust, watchfulness, and judgment",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    },
+    {
+     "id": "simon_peter",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s51",
+   "start": "luke-13-1",
+   "end": "luke-13-9",
+   "start_idx": 625,
+   "end_idx": 633,
+   "n_units": 9,
+   "words": 194,
+   "start_ref": "Luke 13:1",
+   "end_ref": "Luke 13:9",
+   "title": "Repentance and the fig tree",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "galileans_slain",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "pontius_pilate"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s52",
+   "start": "luke-13-10",
+   "end": "luke-13-17",
+   "start_idx": 634,
+   "end_idx": 641,
+   "n_units": 8,
+   "words": 192,
+   "start_ref": "Luke 13:10",
+   "end_ref": "Luke 13:17",
+   "title": "Healing of the bent woman",
+   "setting": [
+    "synagogues"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "crippled_woman",
+     "named": true
+    },
+    {
+     "id": "ruler_of_synagogue_sabbath",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s53",
+   "start": "luke-13-18",
+   "end": "luke-13-35",
+   "start_idx": 642,
+   "end_idx": 659,
+   "n_units": 18,
+   "words": 429,
+   "start_ref": "Luke 13:18",
+   "end_ref": "Luke 13:35",
+   "title": "Mustard seed, yeast, narrow door, and Jerusalem",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "herod_antipas"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s54",
+   "start": "luke-14-1",
+   "end": "luke-14-14",
+   "start_idx": 660,
+   "end_idx": 673,
+   "n_units": 14,
+   "words": 321,
+   "start_ref": "Luke 14:1",
+   "end_ref": "Luke 14:14",
+   "title": "Healing of dropsy and seating advice",
+   "setting": [
+    "synagogues"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "dropsy_man",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s55",
+   "start": "luke-14-15",
+   "end": "luke-14-24",
+   "start_idx": 674,
+   "end_idx": 683,
+   "n_units": 10,
+   "words": 231,
+   "start_ref": "Luke 14:15",
+   "end_ref": "Luke 14:24",
+   "title": "Parable of the great supper",
+   "setting": [
+    "synagogues"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s56",
+   "start": "luke-14-25",
+   "end": "luke-14-35",
+   "start_idx": 684,
+   "end_idx": 694,
+   "n_units": 11,
+   "words": 228,
+   "start_ref": "Luke 14:25",
+   "end_ref": "Luke 14:35",
+   "title": "Cost of discipleship",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s57",
+   "start": "luke-15-1",
+   "end": "luke-15-10",
+   "start_idx": 695,
+   "end_idx": 704,
+   "n_units": 10,
+   "words": 210,
+   "start_ref": "Luke 15:1",
+   "end_ref": "Luke 15:10",
+   "title": "Lost sheep and lost coin",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "tax_collectors_sinners",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s58",
+   "start": "luke-15-11",
+   "end": "luke-15-24",
+   "start_idx": 705,
+   "end_idx": 718,
+   "n_units": 14,
+   "words": 304,
+   "start_ref": "Luke 15:11",
+   "end_ref": "Luke 15:24",
+   "title": "Parable of the prodigal son",
+   "setting": [
+    "far_country"
+   ],
+   "on_stage": [
+    {
+     "id": "prodigal_son",
+     "named": false
+    },
+    {
+     "id": "prodigal_father",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s59",
+   "start": "luke-15-25",
+   "end": "luke-15-32",
+   "start_idx": 719,
+   "end_idx": 726,
+   "n_units": 8,
+   "words": 173,
+   "start_ref": "Luke 15:25",
+   "end_ref": "Luke 15:32",
+   "title": "The elder son",
+   "setting": [
+    "far_country"
+   ],
+   "on_stage": [
+    {
+     "id": "elder_son",
+     "named": false
+    },
+    {
+     "id": "prodigal_father",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s60",
+   "start": "luke-16-1",
+   "end": "luke-16-13",
+   "start_idx": 727,
+   "end_idx": 739,
+   "n_units": 13,
+   "words": 336,
+   "start_ref": "Luke 16:1",
+   "end_ref": "Luke 16:13",
+   "title": "Parable of the dishonest manager",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "dishonest_manager",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s61",
+   "start": "luke-16-14",
+   "end": "luke-16-18",
+   "start_idx": 740,
+   "end_idx": 744,
+   "n_units": 5,
+   "words": 125,
+   "start_ref": "Luke 16:14",
+   "end_ref": "Luke 16:18",
+   "title": "Pharisees mock; law and divorce",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s62",
+   "start": "luke-16-19",
+   "end": "luke-16-31",
+   "start_idx": 745,
+   "end_idx": 757,
+   "n_units": 13,
+   "words": 299,
+   "start_ref": "Luke 16:19",
+   "end_ref": "Luke 16:31",
+   "title": "Rich man and Lazarus",
+   "setting": [
+    "houses_of_the_parable"
+   ],
+   "on_stage": [
+    {
+     "id": "rich_man_lazarus",
+     "named": false
+    },
+    {
+     "id": "lazarus",
+     "named": true
+    },
+    {
+     "id": "abraham",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s63",
+   "start": "luke-17-1",
+   "end": "luke-17-10",
+   "start_idx": 758,
+   "end_idx": 767,
+   "n_units": 10,
+   "words": 231,
+   "start_ref": "Luke 17:1",
+   "end_ref": "Luke 17:10",
+   "title": "Stumbling blocks and faith",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s64",
+   "start": "luke-17-11",
+   "end": "luke-17-19",
+   "start_idx": 768,
+   "end_idx": 776,
+   "n_units": 9,
+   "words": 145,
+   "start_ref": "Luke 17:11",
+   "end_ref": "Luke 17:19",
+   "title": "Ten lepers and the grateful Samaritan",
+   "setting": [
+    "samaria"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "ten_lepers",
+     "named": false
+    },
+    {
+     "id": "samaritan_leper",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s65",
+   "start": "luke-17-20",
+   "end": "luke-17-37",
+   "start_idx": 777,
+   "end_idx": 794,
+   "n_units": 18,
+   "words": 353,
+   "start_ref": "Luke 17:20",
+   "end_ref": "Luke 17:37",
+   "title": "Coming of the Kingdom and the Son of Man",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": [
+    "noah",
+    "lot"
+   ]
+  },
+  {
+   "id": "LUK-s66",
+   "start": "luke-18-1",
+   "end": "luke-18-8",
+   "start_idx": 795,
+   "end_idx": 802,
+   "n_units": 8,
+   "words": 146,
+   "start_ref": "Luke 18:1",
+   "end_ref": "Luke 18:8",
+   "title": "Parable of the persistent widow",
+   "setting": [
+    "houses_of_the_parable"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "persistent_widow",
+     "named": false
+    },
+    {
+     "id": "unjust_judge",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s67",
+   "start": "luke-18-9",
+   "end": "luke-18-14",
+   "start_idx": 803,
+   "end_idx": 808,
+   "n_units": 6,
+   "words": 142,
+   "start_ref": "Luke 18:9",
+   "end_ref": "Luke 18:14",
+   "title": "Parable of the Pharisee and the tax collector",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "pharisee_temple",
+     "named": false
+    },
+    {
+     "id": "tax_collector_temple",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s68",
+   "start": "luke-18-15",
+   "end": "luke-18-30",
+   "start_idx": 809,
+   "end_idx": 824,
+   "n_units": 16,
+   "words": 311,
+   "start_ref": "Luke 18:15",
+   "end_ref": "Luke 18:30",
+   "title": "Children and the rich ruler",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "rich_young_ruler",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    },
+    {
+     "id": "simon_peter",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s69",
+   "start": "luke-18-31",
+   "end": "luke-18-34",
+   "start_idx": 825,
+   "end_idx": 828,
+   "n_units": 4,
+   "words": 86,
+   "start_ref": "Luke 18:31",
+   "end_ref": "Luke 18:34",
+   "title": "Third passion prediction",
+   "setting": [
+    "galilee"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s70",
+   "start": "luke-18-35",
+   "end": "luke-18-43",
+   "start_idx": 829,
+   "end_idx": 837,
+   "n_units": 9,
+   "words": 137,
+   "start_ref": "Luke 18:35",
+   "end_ref": "Luke 18:43",
+   "title": "Blind man healed near Jericho",
+   "setting": [
+    "jericho"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "blind_man_jericho",
+     "named": true
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s71",
+   "start": "luke-19-1",
+   "end": "luke-19-10",
+   "start_idx": 838,
+   "end_idx": 847,
+   "n_units": 10,
+   "words": 187,
+   "start_ref": "Luke 19:1",
+   "end_ref": "Luke 19:10",
+   "title": "Zacchaeus",
+   "setting": [
+    "jericho",
+    "sycamore_tree"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "zacchaeus",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s72",
+   "start": "luke-19-11",
+   "end": "luke-19-27",
+   "start_idx": 848,
+   "end_idx": 864,
+   "n_units": 17,
+   "words": 370,
+   "start_ref": "Luke 19:11",
+   "end_ref": "Luke 19:27",
+   "title": "Parable of the minas",
+   "setting": [
+    "jericho"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "nobleman_parable",
+     "named": false
+    },
+    {
+     "id": "nobleman_servants",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s73",
+   "start": "luke-19-28",
+   "end": "luke-19-40",
+   "start_idx": 865,
+   "end_idx": 877,
+   "n_units": 13,
+   "words": 239,
+   "start_ref": "Luke 19:28",
+   "end_ref": "Luke 19:40",
+   "title": "Triumphal entry",
+   "setting": [
+    "mount_of_olives",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    },
+    {
+     "id": "colt_owners",
+     "named": false
+    },
+    {
+     "id": "pharisees",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s74",
+   "start": "luke-19-41",
+   "end": "luke-19-48",
+   "start_idx": 878,
+   "end_idx": 885,
+   "n_units": 8,
+   "words": 173,
+   "start_ref": "Luke 19:41",
+   "end_ref": "Luke 19:48",
+   "title": "Lament over Jerusalem and cleansing of the temple",
+   "setting": [
+    "temple",
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "chief_priests_scribes",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s75",
+   "start": "luke-20-1",
+   "end": "luke-20-8",
+   "start_idx": 886,
+   "end_idx": 893,
+   "n_units": 8,
+   "words": 137,
+   "start_ref": "Luke 20:1",
+   "end_ref": "Luke 20:8",
+   "title": "Authority questioned",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "chief_priests_scribes",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "john_the_baptist"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s76",
+   "start": "luke-20-9",
+   "end": "luke-20-19",
+   "start_idx": 894,
+   "end_idx": 904,
+   "n_units": 11,
+   "words": 265,
+   "start_ref": "Luke 20:9",
+   "end_ref": "Luke 20:19",
+   "title": "Parable of the wicked tenants",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "vineyard_owner",
+     "named": false
+    },
+    {
+     "id": "vineyard_farmers",
+     "named": false
+    },
+    {
+     "id": "chief_priests_scribes",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s77",
+   "start": "luke-20-20",
+   "end": "luke-20-26",
+   "start_idx": 905,
+   "end_idx": 911,
+   "n_units": 7,
+   "words": 142,
+   "start_ref": "Luke 20:20",
+   "end_ref": "Luke 20:26",
+   "title": "Tribute to Caesar",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "chief_priests_scribes",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "caesar_augustus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s78",
+   "start": "luke-20-27",
+   "end": "luke-20-40",
+   "start_idx": 912,
+   "end_idx": 925,
+   "n_units": 14,
+   "words": 238,
+   "start_ref": "Luke 20:27",
+   "end_ref": "Luke 20:40",
+   "title": "Sadducees and the resurrection",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "sadducees",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "abraham"
+   ],
+   "unknown_ids": [
+    "moses"
+   ]
+  },
+  {
+   "id": "LUK-s79",
+   "start": "luke-20-41",
+   "end": "luke-21-4",
+   "start_idx": 926,
+   "end_idx": 936,
+   "n_units": 11,
+   "words": 181,
+   "start_ref": "Luke 20:41",
+   "end_ref": "Luke 21:4",
+   "title": "Son of David and the widow's offering",
+   "setting": [
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    },
+    {
+     "id": "poor_widow_temple",
+     "named": false
+    },
+    {
+     "id": "chief_priests_scribes",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": [
+    "david"
+   ]
+  },
+  {
+   "id": "LUK-s80",
+   "start": "luke-21-5",
+   "end": "luke-21-38",
+   "start_idx": 937,
+   "end_idx": 970,
+   "n_units": 34,
+   "words": 694,
+   "start_ref": "Luke 21:5",
+   "end_ref": "Luke 21:38",
+   "title": "Little apocalypse",
+   "setting": [
+    "temple",
+    "mount_of_olives"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s81",
+   "start": "luke-22-1",
+   "end": "luke-22-13",
+   "start_idx": 971,
+   "end_idx": 983,
+   "n_units": 13,
+   "words": 214,
+   "start_ref": "Luke 22:1",
+   "end_ref": "Luke 22:13",
+   "title": "Plot and preparation for Passover",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "judas_iscariot",
+     "named": true
+    },
+    {
+     "id": "chief_priests_scribes",
+     "named": false
+    },
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "simon_peter",
+     "named": true
+    },
+    {
+     "id": "john_the_apostle",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "satan"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s82",
+   "start": "luke-22-14",
+   "end": "luke-22-38",
+   "start_idx": 984,
+   "end_idx": 1008,
+   "n_units": 25,
+   "words": 517,
+   "start_ref": "Luke 22:14",
+   "end_ref": "Luke 22:38",
+   "title": "The Last Supper",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "the_twelve",
+     "named": false
+    },
+    {
+     "id": "judas_iscariot",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s83",
+   "start": "luke-22-39",
+   "end": "luke-22-46",
+   "start_idx": 1009,
+   "end_idx": 1016,
+   "n_units": 8,
+   "words": 136,
+   "start_ref": "Luke 22:39",
+   "end_ref": "Luke 22:46",
+   "title": "Prayer on the Mount of Olives",
+   "setting": [
+    "mount_of_olives",
+    "gethsemane"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "simon_peter",
+     "named": false
+    },
+    {
+     "id": "james_son_of_zebedee",
+     "named": false
+    },
+    {
+     "id": "john_the_apostle",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s84",
+   "start": "luke-22-47",
+   "end": "luke-22-53",
+   "start_idx": 1017,
+   "end_idx": 1023,
+   "n_units": 7,
+   "words": 157,
+   "start_ref": "Luke 22:47",
+   "end_ref": "Luke 22:53",
+   "title": "Arrest of Jesus",
+   "setting": [
+    "gethsemane"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "judas_iscariot",
+     "named": true
+    },
+    {
+     "id": "chief_priests_scribes",
+     "named": false
+    },
+    {
+     "id": "simon_peter",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s85",
+   "start": "luke-22-54",
+   "end": "luke-22-62",
+   "start_idx": 1024,
+   "end_idx": 1032,
+   "n_units": 9,
+   "words": 174,
+   "start_ref": "Luke 22:54",
+   "end_ref": "Luke 22:62",
+   "title": "Peter's denial",
+   "setting": [
+    "high_priests_house"
+   ],
+   "on_stage": [
+    {
+     "id": "simon_peter",
+     "named": true
+    },
+    {
+     "id": "servant_girl",
+     "named": false
+    },
+    {
+     "id": "jesus",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s86",
+   "start": "luke-22-63",
+   "end": "luke-22-71",
+   "start_idx": 1033,
+   "end_idx": 1041,
+   "n_units": 9,
+   "words": 161,
+   "start_ref": "Luke 22:63",
+   "end_ref": "Luke 22:71",
+   "title": "Mockery and questioning before the council",
+   "setting": [
+    "high_priests_house"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "chief_priests_scribes",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s87",
+   "start": "luke-23-1",
+   "end": "luke-23-12",
+   "start_idx": 1042,
+   "end_idx": 1053,
+   "n_units": 12,
+   "words": 229,
+   "start_ref": "Luke 23:1",
+   "end_ref": "Luke 23:12",
+   "title": "Trial before Pilate and Herod",
+   "setting": [
+    "pilates_hall"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "pontius_pilate",
+     "named": true
+    },
+    {
+     "id": "herod_antipas",
+     "named": true
+    },
+    {
+     "id": "chief_priests_scribes",
+     "named": false
+    },
+    {
+     "id": "pilate_soldiers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s88",
+   "start": "luke-23-13",
+   "end": "luke-23-25",
+   "start_idx": 1054,
+   "end_idx": 1066,
+   "n_units": 13,
+   "words": 228,
+   "start_ref": "Luke 23:13",
+   "end_ref": "Luke 23:25",
+   "title": "Pilate yields and Barabbas released",
+   "setting": [
+    "pilates_hall"
+   ],
+   "on_stage": [
+    {
+     "id": "pontius_pilate",
+     "named": true
+    },
+    {
+     "id": "chief_priests_scribes",
+     "named": false
+    },
+    {
+     "id": "barabbas",
+     "named": true
+    },
+    {
+     "id": "jesus",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s89",
+   "start": "luke-23-26",
+   "end": "luke-23-32",
+   "start_idx": 1067,
+   "end_idx": 1073,
+   "n_units": 7,
+   "words": 137,
+   "start_ref": "Luke 23:26",
+   "end_ref": "Luke 23:32",
+   "title": "Road to the cross",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "simon_of_cyrene",
+     "named": true
+    },
+    {
+     "id": "women_of_galilee",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s90",
+   "start": "luke-23-33",
+   "end": "luke-23-43",
+   "start_idx": 1074,
+   "end_idx": 1084,
+   "n_units": 11,
+   "words": 212,
+   "start_ref": "Luke 23:33",
+   "end_ref": "Luke 23:43",
+   "title": "Crucifixion and the two criminals",
+   "setting": [
+    "golgotha"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "criminals_crucified",
+     "named": false
+    },
+    {
+     "id": "pilate_soldiers",
+     "named": false
+    },
+    {
+     "id": "chief_priests_scribes",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s91",
+   "start": "luke-23-44",
+   "end": "luke-23-49",
+   "start_idx": 1085,
+   "end_idx": 1090,
+   "n_units": 6,
+   "words": 112,
+   "start_ref": "Luke 23:44",
+   "end_ref": "Luke 23:49",
+   "title": "Death of Jesus",
+   "setting": [
+    "golgotha"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "centurion_crucifixion",
+     "named": false
+    },
+    {
+     "id": "women_of_galilee",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s92",
+   "start": "luke-23-50",
+   "end": "luke-23-56",
+   "start_idx": 1091,
+   "end_idx": 1097,
+   "n_units": 7,
+   "words": 132,
+   "start_ref": "Luke 23:50",
+   "end_ref": "Luke 23:56",
+   "title": "Burial by Joseph of Arimathaea",
+   "setting": [
+    "joseph_tomb"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph_of_arimathaea",
+     "named": false
+    },
+    {
+     "id": "women_of_galilee",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "pontius_pilate"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s93",
+   "start": "luke-24-1",
+   "end": "luke-24-12",
+   "start_idx": 1098,
+   "end_idx": 1109,
+   "n_units": 12,
+   "words": 216,
+   "start_ref": "Luke 24:1",
+   "end_ref": "Luke 24:12",
+   "title": "Empty tomb",
+   "setting": [
+    "joseph_tomb"
+   ],
+   "on_stage": [
+    {
+     "id": "mary_magdalene",
+     "named": true
+    },
+    {
+     "id": "joanna",
+     "named": true
+    },
+    {
+     "id": "mary_the_mother_of_james",
+     "named": true
+    },
+    {
+     "id": "two_men_in_white",
+     "named": false
+    },
+    {
+     "id": "simon_peter",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s94",
+   "start": "luke-24-13",
+   "end": "luke-24-35",
+   "start_idx": 1110,
+   "end_idx": 1132,
+   "n_units": 23,
+   "words": 449,
+   "start_ref": "Luke 24:13",
+   "end_ref": "Luke 24:35",
+   "title": "Road to Emmaus",
+   "setting": [
+    "emmaus"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "cleopas",
+     "named": true
+    },
+    {
+     "id": "emmaus_disciple",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s95",
+   "start": "luke-24-36",
+   "end": "luke-24-49",
+   "start_idx": 1133,
+   "end_idx": 1146,
+   "n_units": 14,
+   "words": 260,
+   "start_ref": "Luke 24:36",
+   "end_ref": "Luke 24:49",
+   "title": "Appearance to the eleven",
+   "setting": [
+    "jerusalem"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": true
+    },
+    {
+     "id": "eleven_disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "LUK-s96",
+   "start": "luke-24-50",
+   "end": "luke-24-53",
+   "start_idx": 1147,
+   "end_idx": 1150,
+   "n_units": 4,
+   "words": 52,
+   "start_ref": "Luke 24:50",
+   "end_ref": "Luke 24:53",
+   "title": "Ascension",
+   "setting": [
+    "bethany",
+    "temple"
+   ],
+   "on_stage": [
+    {
+     "id": "jesus",
+     "named": false
+    },
+    {
+     "id": "eleven_disciples",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  }
+ ],
+ "brief": {
+  "tone": "Reverent, quiet and luminous: intimate household scenes beside public crowds, with angelic light and dusk over Jerusalem, and grief giving way to hope.",
+  "depiction_rules": [
+   "Show Jesus as a human figure without a fixed face-type rule beyond the era's appearance; avoid halos unless the scene demands a glory motif.",
+   "The divine voice and angels should appear through light, cloud, and posture rather than literal flesh where possible.",
+   "Satan and demons may be shown as dark or distorted presences, not as detailed monsters.",
+   "Violence (the crucifixion, the beheading referred to by Herod) is restrained and not gratuitous.",
+   "Women are present throughout and should be drawn as full participants, including in the nativity, the healing, and the resurrection.",
+   "Avoid depicting Jesus' mother with a mother-and-child emphasis that goes beyond the text."
+  ],
+  "era": {
+   "name": "First-century Roman Judea and Galilee",
+   "people": "Jewish villagers, farmers, fishermen, shepherds, tax collectors, priests, Pharisees and Sadducees, Roman soldiers and officials, Samaritans and Gentiles; people of the Eastern Mediterranean with olive, brown and dark hair and tanned skin.",
+   "dress": "Linen and wool tunics, cloaks and mantles (himation), head coverings and veils for women, phylacteries and tassels for devout men; priests in white linen; Roman soldiers in armor and tunics; tax collectors and wealthy in purple and fine linen.",
+   "buildings_and_objects": "Stone and mud-brick houses with flat roofs and tiled roofs, the Herodian temple in Jerusalem, synagogues, tombs cut into rock with rolling stones, oil lamps, feeding troughs, fishing boats and nets, threshing floors, vineyards, sycamore and fig trees, cups and bread, scrolls.",
+   "technology": "No printing, clocks, or machinery; no firearms; writing on scrolls and wax or wooden tablets; Roman roads and coins (denarii); lamps, plows, looms; no photography or mechanical transport beyond boats and animals."
+  }
+ },
+ "checks": {
+  "bad_section_ids": [],
+  "uncovered_units": 0,
+  "uncovered_sample": [],
+  "overlap_units": 0,
+  "sections_with_unknown_ids": 5
+ }
+}

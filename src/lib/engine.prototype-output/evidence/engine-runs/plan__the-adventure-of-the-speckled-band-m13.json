@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__the-adventure-of-the-speckled-band-m13",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424119-UoaQvvTLYzH2ygepKocF",
+  "seconds": 5.9,
+  "finish_reason": "stop",
+  "prompt_tokens": 1753,
+  "completion_tokens": 317,
+  "cost": 0.0003338,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:35:24"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 3224,
+ "content": "{\"primarySubject\":\"Sherlock Holmes leaning forward in a dressing-gown, gently pushing back black lace from the visitor's wrist to reveal bruises\",\"action\":\"Holmes leans his chin on his hands staring into the fire while the veiled visitor covers her injured wrist; Watson seated nearby listening\",\"setting\":\"Baker Street sitting-room, 221B, overcast grey winter morning light through the window, coal fire crackling in the grate\",\"secondaryElements\":\"Visitor in black mourning dress with black lace and thick black veil; Watson in tweeds; pipe and violin resting on the mantel; plain tea things on the table\",\"mood\":\"Tense, intimate, restrained, with a sombre undercurrent of menace\",\"timeOfDay\":\"Morning\",\"composition\":\"Medium shot from across the hearth, Holmes in left foreground silhouetted against the firelight, visitor seated at right, Watson in background, window light falling from the left\"}",
+ "parsed": {
+  "primarySubject": "Sherlock Holmes leaning forward in a dressing-gown, gently pushing back black lace from the visitor's wrist to reveal bruises",
+  "action": "Holmes leans his chin on his hands staring into the fire while the veiled visitor covers her injured wrist; Watson seated nearby listening",
+  "setting": "Baker Street sitting-room, 221B, overcast grey winter morning light through the window, coal fire crackling in the grate",
+  "secondaryElements": "Visitor in black mourning dress with black lace and thick black veil; Watson in tweeds; pipe and violin resting on the mantel; plain tea things on the table",
+  "mood": "Tense, intimate, restrained, with a sombre undercurrent of menace",
+  "timeOfDay": "Morning",
+  "composition": "Medium shot from across the hearth, Holmes in left foreground silhouetted against the firelight, visitor seated at right, Watson in background, window light falling from the left"
+ },
+ "usage": {
+  "prompt_tokens": 1753,
+  "completion_tokens": 317,
+  "total_tokens": 2070,
+  "cost": 0.0003338,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003338,
+   "upstream_inference_prompt_cost": 0.0001753,
+   "upstream_inference_completions_cost": 0.0001585
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

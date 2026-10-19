@@ -1,0 +1,2866 @@
+{
+ "work": "bible-web",
+ "division": "EXO",
+ "division_name": "Exodus",
+ "units": 1213,
+ "record": {
+  "label": "bible-web__EXO__t24",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792355126-zWiUTg2s7RxQrbmbWAsK",
+  "seconds": 35.7,
+  "finish_reason": "stop",
+  "prompt_tokens": 62956,
+  "completion_tokens": 9825,
+  "cost": 0.0112081,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-18T15:26:01"
+ },
+ "characters": [
+  {
+   "id": "moses",
+   "name": "Moses",
+   "aliases": [
+    "the man of God",
+    "Yahweh's servant"
+   ],
+   "note": "Hebrew leader raised in Pharaoh's house, son of a Levite mother; flees to Midian, then leads Israel out of Egypt and receives the law at Sinai.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "aaron",
+   "name": "Aaron",
+   "aliases": [
+    "Moses' brother",
+    "the priest"
+   ],
+   "note": "Moses' elder brother and spokesman; becomes the first high priest and makes the golden calf.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "pharaoh",
+   "name": "Pharaoh",
+   "aliases": [
+    "the king of Egypt"
+   ],
+   "note": "The Egyptian king who enslaves Israel and resists the plagues; the Pharaoh of the Exodus, whose predecessor (the king who did not know Joseph) is not named.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "pharaoh_s_daughter",
+   "name": "Pharaoh's daughter",
+   "aliases": [
+    "the king's daughter"
+   ],
+   "note": "Finds the infant Moses in the reeds and adopts him; she is unnamed in the text.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "miriam",
+   "name": "Miriam",
+   "aliases": [
+    "the prophetess",
+    "Aaron's sister"
+   ],
+   "note": "Sister of Moses and Aaron; leads the women in song and dance after the sea crossing.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "zipporah",
+   "name": "Zipporah",
+   "aliases": [
+    "Moses' wife",
+    "Jethro's daughter"
+   ],
+   "note": "Midianite wife of Moses, daughter of the priest Jethro (Reuel); circumcises their son at a lodging place.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "jethro",
+   "name": "Jethro",
+   "aliases": [
+    "Reuel",
+    "the priest of Midian",
+    "Moses' father-in-law"
+   ],
+   "note": "Priest of Midian and father-in-law of Moses; visits the camp and advises him to appoint judges.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "joshua",
+   "name": "Joshua",
+   "aliases": [
+    "Moses' servant",
+    "son of Nun"
+   ],
+   "note": "Moses' young assistant; leads the fight against Amalek and stays near the tent of meeting.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "bezalel",
+   "name": "Bezalel",
+   "aliases": [
+    "son of Uri",
+    "of the tribe of Judah"
+   ],
+   "note": "Craftsman filled with the Spirit of God who builds the tabernacle and its furnishings.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "oholiab",
+   "name": "Oholiab",
+   "aliases": [
+    "son of Ahisamach",
+    "of the tribe of Dan"
+   ],
+   "note": "Craftsman who works with Bezalel on the tabernacle, an engraver and embroiderer.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "shiphrah_and_puah",
+   "name": "Shiphrah and Puah",
+   "aliases": [
+    "the Hebrew midwives"
+   ],
+   "note": "Two Hebrew midwives who defy Pharaoh's order to kill the baby boys; treated as a pair.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "amram_s_wife_jochebed",
+   "name": "Moses' mother",
+   "aliases": [
+    "a woman of the house of Levi",
+    "Jochebed"
+   ],
+   "note": "Hides the infant Moses, floats him in a basket, and is hired back to nurse him; named Jochebed only in genealogy.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "miriam_as_child",
+   "name": "Moses' sister",
+   "aliases": [
+    "his sister"
+   ],
+   "note": "Watches the basket from afar and arranges the nurse; likely the same as Miriam, identified only by role here.",
+   "kind": "person",
+   "same_person_as": "miriam"
+  },
+  {
+   "id": "hur",
+   "name": "Hur",
+   "aliases": [
+    "Aaron's companion on the hill"
+   ],
+   "note": "Holds up Moses' hands with Aaron during the battle with Amalek; also named as one left in charge of disputes.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "seventy_elders",
+   "name": "The elders of Israel",
+   "aliases": [
+    "the elders",
+    "the rulers of the congregation"
+   ],
+   "note": "Israelite elders who are gathered, consulted, and go up the mountain with Moses and Aaron.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "israelites",
+   "name": "The children of Israel",
+   "aliases": [
+    "the people",
+    "the congregation",
+    "Hebrews"
+   ],
+   "note": "The whole Israelite people who leave Egypt, murmur in the wilderness, and gather at Sinai; acts as one body on stage.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "egyptians",
+   "name": "The Egyptians",
+   "aliases": [
+    "the Egyptian army",
+    "Pharaoh's army",
+    "taskmasters"
+   ],
+   "note": "Egyptian people, taskmasters, and the army that pursues Israel to the Red Sea.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "magicians_of_egypt",
+   "name": "The magicians of Egypt",
+   "aliases": [
+    "the wise men and sorcerers"
+   ],
+   "note": "Pharaoh's court magicians who imitate some of Aaron's signs before failing.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "the_lord",
+   "name": "Yahweh",
+   "aliases": [
+    "God",
+    "the LORD",
+    "I AM",
+    "the angel of God"
+   ],
+   "note": "God of Israel who speaks from the burning bush, sends the plagues, and gives the law; appears also as a pillar of cloud and fire.",
+   "kind": "divine",
+   "same_person_as": ""
+  },
+  {
+   "id": "amalek",
+   "name": "Amalek",
+   "aliases": [
+    "the Amalekites"
+   ],
+   "note": "A people who attack Israel at Rephidim; appear as a group in battle.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "nadab_and_abihu",
+   "name": "Nadab and Abihu",
+   "aliases": [
+    "Aaron's sons"
+   ],
+   "note": "Sons of Aaron who go up the mountain with the elders; named in the priestly garments section.",
+   "kind": "person",
+   "same_person_as": ""
+  }
+ ],
+ "locations": [
+  {
+   "id": "egypt",
+   "name": "Egypt",
+   "aliases": [
+    "the land of Egypt",
+    "the house of bondage"
+   ],
+   "note": "The land where Israel is enslaved and the plagues fall.; includes Pharaoh's palace and the cities of storage.; Goshen is the Israelite region within it."
+  },
+  {
+   "id": "goshen",
+   "name": "Goshen",
+   "aliases": [
+    "the land of Goshen"
+   ],
+   "note": "Region of Egypt where Israel dwells, spared from the plagues of flies, hail, and darkness."
+  },
+  {
+   "id": "nile",
+   "name": "The river (Nile)",
+   "aliases": [
+    "the river",
+    "the waters of Egypt"
+   ],
+   "note": "The river where the infant Moses is set adrift and where the first plague turns the water to blood."
+  },
+  {
+   "id": "midian",
+   "name": "Midian",
+   "aliases": [
+    "the land of Midian"
+   ],
+   "note": "Land where Moses flees, tends Jethro's flock, and receives his call at the mountain of God."
+  },
+  {
+   "id": "horeb_sinai",
+   "name": "Mount Sinai",
+   "aliases": [
+    "Horeb",
+    "God's mountain",
+    "the mountain of God",
+    "the mountain"
+   ],
+   "note": "The mountain where Yahweh appears in fire and cloud and gives the law and the tabernacle pattern."
+  },
+  {
+   "id": "red_sea",
+   "name": "The Red Sea",
+   "aliases": [
+    "the sea",
+    "the sea of reeds"
+   ],
+   "note": "The sea that is divided so Israel crosses on dry ground and the Egyptian army drowns."
+  },
+  {
+   "id": "wilderness",
+   "name": "The wilderness",
+   "aliases": [
+    "the wilderness of Shur",
+    "the wilderness of Sin"
+   ],
+   "note": "The desert between Egypt and the mountain, where Israel wanders, is fed with manna, and finds water."
+  },
+  {
+   "id": "elim_marah",
+   "name": "Marah and Elim",
+   "aliases": [
+    "the bitter waters",
+    "the twelve springs"
+   ],
+   "note": "Stopping places on the desert route, where the water of Marah is made sweet and Elim has springs and palms."
+  },
+  {
+   "id": "rephidim",
+   "name": "Rephidim",
+   "aliases": [],
+   "note": "Camp where Israel lacks water, Moses strikes the rock, and Amalek is defeated."
+  },
+  {
+   "id": "camp_of_israel",
+   "name": "The camp",
+   "aliases": [
+    "the camp of Israel",
+    "the camp"
+   ],
+   "note": "The Israelite encampment in the wilderness, where the golden calf is made and the tent of meeting stands outside."
+  },
+  {
+   "id": "tabernacle",
+   "name": "The tabernacle",
+   "aliases": [
+    "the tent of meeting",
+    "the sanctuary",
+    "the holy place"
+   ],
+   "note": "The portable sanctuary built according to the pattern shown on the mountain."
+  }
+ ],
+ "sections": [
+  {
+   "id": "EXO-s1",
+   "start": "exodus-1-1",
+   "end": "exodus-1-7",
+   "start_idx": 0,
+   "end_idx": 6,
+   "n_units": 7,
+   "words": 88,
+   "start_ref": "Exodus 1:1",
+   "end_ref": "Exodus 1:7",
+   "title": "Israel's sons come to Egypt and multiply",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [],
+   "mentioned_only": [
+    "israelites"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s2",
+   "start": "exodus-1-8",
+   "end": "exodus-1-14",
+   "start_idx": 7,
+   "end_idx": 13,
+   "n_units": 7,
+   "words": 153,
+   "start_ref": "Exodus 1:8",
+   "end_ref": "Exodus 1:14",
+   "title": "A new king oppresses the Israelites",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "pharaoh",
+     "named": true
+    },
+    {
+     "id": "egyptians",
+     "named": false
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s3",
+   "start": "exodus-1-15",
+   "end": "exodus-1-22",
+   "start_idx": 14,
+   "end_idx": 21,
+   "n_units": 8,
+   "words": 185,
+   "start_ref": "Exodus 1:15",
+   "end_ref": "Exodus 1:22",
+   "title": "Pharaoh orders the midwives to kill the boys",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "pharaoh",
+     "named": true
+    },
+    {
+     "id": "shiphrah_and_puah",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "israelites"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s4",
+   "start": "exodus-2-1",
+   "end": "exodus-2-10",
+   "start_idx": 22,
+   "end_idx": 31,
+   "n_units": 10,
+   "words": 246,
+   "start_ref": "Exodus 2:1",
+   "end_ref": "Exodus 2:10",
+   "title": "Moses is hidden and found by Pharaoh's daughter",
+   "setting": [
+    "nile",
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "amram_s_wife_jochebed",
+     "named": false
+    },
+    {
+     "id": "miriam_as_child",
+     "named": false
+    },
+    {
+     "id": "pharaoh_s_daughter",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "moses"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s5",
+   "start": "exodus-2-11",
+   "end": "exodus-2-15",
+   "start_idx": 32,
+   "end_idx": 36,
+   "n_units": 5,
+   "words": 153,
+   "start_ref": "Exodus 2:11",
+   "end_ref": "Exodus 2:15",
+   "title": "Moses kills an Egyptian and flees",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "egyptians",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "pharaoh"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s6",
+   "start": "exodus-2-16",
+   "end": "exodus-2-22",
+   "start_idx": 37,
+   "end_idx": 43,
+   "n_units": 7,
+   "words": 143,
+   "start_ref": "Exodus 2:16",
+   "end_ref": "Exodus 2:22",
+   "title": "Moses at the well in Midian",
+   "setting": [
+    "midian"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "jethro",
+     "named": true
+    },
+    {
+     "id": "zipporah",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s7",
+   "start": "exodus-2-23",
+   "end": "exodus-2-25",
+   "start_idx": 44,
+   "end_idx": 46,
+   "n_units": 3,
+   "words": 61,
+   "start_ref": "Exodus 2:23",
+   "end_ref": "Exodus 2:25",
+   "title": "God hears the groaning of Israel",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "pharaoh"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s8",
+   "start": "exodus-3-1",
+   "end": "exodus-3-10",
+   "start_idx": 47,
+   "end_idx": 56,
+   "n_units": 10,
+   "words": 295,
+   "start_ref": "Exodus 3:1",
+   "end_ref": "Exodus 3:10",
+   "title": "The burning bush and the call of Moses",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "israelites"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s9",
+   "start": "exodus-3-11",
+   "end": "exodus-3-22",
+   "start_idx": 57,
+   "end_idx": 68,
+   "n_units": 12,
+   "words": 426,
+   "start_ref": "Exodus 3:11",
+   "end_ref": "Exodus 3:22",
+   "title": "God gives his name and the promise of plunder",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": [
+    "elders_of_israel"
+   ]
+  },
+  {
+   "id": "EXO-s10",
+   "start": "exodus-4-1",
+   "end": "exodus-4-9",
+   "start_idx": 69,
+   "end_idx": 77,
+   "n_units": 9,
+   "words": 272,
+   "start_ref": "Exodus 4:1",
+   "end_ref": "Exodus 4:9",
+   "title": "Signs of the staff and the leprous hand",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s11",
+   "start": "exodus-4-10",
+   "end": "exodus-4-17",
+   "start_idx": 78,
+   "end_idx": 85,
+   "n_units": 8,
+   "words": 194,
+   "start_ref": "Exodus 4:10",
+   "end_ref": "Exodus 4:17",
+   "title": "Moses objects and Aaron is appointed spokesman",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "aaron"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s12",
+   "start": "exodus-4-18",
+   "end": "exodus-4-23",
+   "start_idx": 86,
+   "end_idx": 91,
+   "n_units": 6,
+   "words": 169,
+   "start_ref": "Exodus 4:18",
+   "end_ref": "Exodus 4:23",
+   "title": "Moses returns to Jethro and sets out for Egypt",
+   "setting": [
+    "midian",
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "jethro",
+     "named": true
+    },
+    {
+     "id": "zipporah",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s13",
+   "start": "exodus-4-24",
+   "end": "exodus-4-26",
+   "start_idx": 92,
+   "end_idx": 94,
+   "n_units": 3,
+   "words": 64,
+   "start_ref": "Exodus 4:24",
+   "end_ref": "Exodus 4:26",
+   "title": "Zipporah circumcises her son",
+   "setting": [
+    "wilderness"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "zipporah",
+     "named": true
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s14",
+   "start": "exodus-4-27",
+   "end": "exodus-4-31",
+   "start_idx": 95,
+   "end_idx": 99,
+   "n_units": 5,
+   "words": 109,
+   "start_ref": "Exodus 4:27",
+   "end_ref": "Exodus 4:31",
+   "title": "Aaron meets Moses and the elders believe",
+   "setting": [
+    "horeb_sinai",
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": [
+    "elders_of_israel"
+   ]
+  },
+  {
+   "id": "EXO-s15",
+   "start": "exodus-5-1",
+   "end": "exodus-5-9",
+   "start_idx": 100,
+   "end_idx": 108,
+   "n_units": 9,
+   "words": 236,
+   "start_ref": "Exodus 5:1",
+   "end_ref": "Exodus 5:9",
+   "title": "Moses and Aaron ask Pharaoh; the labor is increased",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "pharaoh",
+     "named": true
+    },
+    {
+     "id": "egyptians",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s16",
+   "start": "exodus-5-10",
+   "end": "exodus-5-23",
+   "start_idx": 109,
+   "end_idx": 122,
+   "n_units": 14,
+   "words": 337,
+   "start_ref": "Exodus 5:10",
+   "end_ref": "Exodus 5:23",
+   "title": "The Israelite officers complain to Pharaoh",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "pharaoh",
+     "named": true
+    },
+    {
+     "id": "egyptians",
+     "named": false
+    },
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": [
+    "elders_of_israel"
+   ]
+  },
+  {
+   "id": "EXO-s17",
+   "start": "exodus-6-1",
+   "end": "exodus-6-13",
+   "start_idx": 123,
+   "end_idx": 135,
+   "n_units": 13,
+   "words": 339,
+   "start_ref": "Exodus 6:1",
+   "end_ref": "Exodus 6:13",
+   "title": "God renews the promise to Moses",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "israelites",
+    "pharaoh"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s18",
+   "start": "exodus-6-14",
+   "end": "exodus-6-30",
+   "start_idx": 136,
+   "end_idx": 152,
+   "n_units": 17,
+   "words": 354,
+   "start_ref": "Exodus 6:14",
+   "end_ref": "Exodus 6:30",
+   "title": "Genealogy of Levi and Moses' lips",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "israelites"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s19",
+   "start": "exodus-7-1",
+   "end": "exodus-7-13",
+   "start_idx": 153,
+   "end_idx": 165,
+   "n_units": 13,
+   "words": 278,
+   "start_ref": "Exodus 7:1",
+   "end_ref": "Exodus 7:13",
+   "title": "The rod becomes a serpent before Pharaoh",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "pharaoh",
+     "named": true
+    },
+    {
+     "id": "magicians_of_egypt",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s20",
+   "start": "exodus-7-14",
+   "end": "exodus-7-25",
+   "start_idx": 166,
+   "end_idx": 177,
+   "n_units": 12,
+   "words": 357,
+   "start_ref": "Exodus 7:14",
+   "end_ref": "Exodus 7:25",
+   "title": "The first plague: the river turns to blood",
+   "setting": [
+    "nile",
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "pharaoh",
+     "named": true
+    },
+    {
+     "id": "egyptians",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s21",
+   "start": "exodus-8-1",
+   "end": "exodus-8-15",
+   "start_idx": 178,
+   "end_idx": 192,
+   "n_units": 15,
+   "words": 381,
+   "start_ref": "Exodus 8:1",
+   "end_ref": "Exodus 8:15",
+   "title": "The plagues of frogs",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "pharaoh",
+     "named": true
+    },
+    {
+     "id": "egyptians",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s22",
+   "start": "exodus-8-16",
+   "end": "exodus-8-19",
+   "start_idx": 193,
+   "end_idx": 196,
+   "n_units": 4,
+   "words": 115,
+   "start_ref": "Exodus 8:16",
+   "end_ref": "Exodus 8:19",
+   "title": "The plague of lice",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "magicians_of_egypt",
+     "named": false
+    },
+    {
+     "id": "pharaoh",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "moses"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s23",
+   "start": "exodus-8-20",
+   "end": "exodus-8-32",
+   "start_idx": 197,
+   "end_idx": 209,
+   "n_units": 13,
+   "words": 381,
+   "start_ref": "Exodus 8:20",
+   "end_ref": "Exodus 8:32",
+   "title": "The plague of flies and Pharaoh's bargaining",
+   "setting": [
+    "egypt",
+    "goshen"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "pharaoh",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "the_lord",
+    "israelites"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s24",
+   "start": "exodus-9-1",
+   "end": "exodus-9-12",
+   "start_idx": 210,
+   "end_idx": 221,
+   "n_units": 12,
+   "words": 306,
+   "start_ref": "Exodus 9:1",
+   "end_ref": "Exodus 9:12",
+   "title": "The plague on livestock and the boils",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "pharaoh",
+     "named": true
+    },
+    {
+     "id": "magicians_of_egypt",
+     "named": false
+    },
+    {
+     "id": "egyptians",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s25",
+   "start": "exodus-9-13",
+   "end": "exodus-9-35",
+   "start_idx": 222,
+   "end_idx": 244,
+   "n_units": 23,
+   "words": 613,
+   "start_ref": "Exodus 9:13",
+   "end_ref": "Exodus 9:35",
+   "title": "Hail, thunder, and Pharaoh's confession",
+   "setting": [
+    "egypt",
+    "goshen"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "pharaoh",
+     "named": true
+    },
+    {
+     "id": "egyptians",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "aaron"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s26",
+   "start": "exodus-10-1",
+   "end": "exodus-10-11",
+   "start_idx": 245,
+   "end_idx": 255,
+   "n_units": 11,
+   "words": 370,
+   "start_ref": "Exodus 10:1",
+   "end_ref": "Exodus 10:11",
+   "title": "Pharaoh's servants urge release; Pharaoh refuses",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "pharaoh",
+     "named": true
+    },
+    {
+     "id": "egyptians",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s27",
+   "start": "exodus-10-12",
+   "end": "exodus-10-20",
+   "start_idx": 256,
+   "end_idx": 264,
+   "n_units": 9,
+   "words": 263,
+   "start_ref": "Exodus 10:12",
+   "end_ref": "Exodus 10:20",
+   "title": "The plague of locusts",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "pharaoh",
+     "named": true
+    },
+    {
+     "id": "egyptians",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "aaron"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s28",
+   "start": "exodus-10-21",
+   "end": "exodus-10-29",
+   "start_idx": 265,
+   "end_idx": 273,
+   "n_units": 9,
+   "words": 213,
+   "start_ref": "Exodus 10:21",
+   "end_ref": "Exodus 10:29",
+   "title": "Darkness over Egypt and Pharaoh's threat",
+   "setting": [
+    "egypt",
+    "goshen"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "pharaoh",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s29",
+   "start": "exodus-11-1",
+   "end": "exodus-11-10",
+   "start_idx": 274,
+   "end_idx": 283,
+   "n_units": 10,
+   "words": 303,
+   "start_ref": "Exodus 11:1",
+   "end_ref": "Exodus 11:10",
+   "title": "The last plague announced",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "pharaoh",
+     "named": true
+    },
+    {
+     "id": "egyptians",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "aaron"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s30",
+   "start": "exodus-12-1",
+   "end": "exodus-12-13",
+   "start_idx": 284,
+   "end_idx": 296,
+   "n_units": 13,
+   "words": 371,
+   "start_ref": "Exodus 12:1",
+   "end_ref": "Exodus 12:13",
+   "title": "Instructions for the Passover lamb",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s31",
+   "start": "exodus-12-14",
+   "end": "exodus-12-20",
+   "start_idx": 297,
+   "end_idx": 303,
+   "n_units": 7,
+   "words": 237,
+   "start_ref": "Exodus 12:14",
+   "end_ref": "Exodus 12:20",
+   "title": "Law of the feast of unleavened bread",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": false
+    },
+    {
+     "id": "aaron",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "israelites"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s32",
+   "start": "exodus-12-21",
+   "end": "exodus-12-28",
+   "start_idx": 304,
+   "end_idx": 311,
+   "n_units": 8,
+   "words": 233,
+   "start_ref": "Exodus 12:21",
+   "end_ref": "Exodus 12:28",
+   "title": "Moses instructs the elders about the Passover",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "aaron"
+   ],
+   "unknown_ids": [
+    "elders_of_israel"
+   ]
+  },
+  {
+   "id": "EXO-s33",
+   "start": "exodus-12-29",
+   "end": "exodus-12-36",
+   "start_idx": 312,
+   "end_idx": 319,
+   "n_units": 8,
+   "words": 220,
+   "start_ref": "Exodus 12:29",
+   "end_ref": "Exodus 12:36",
+   "title": "The death of the firstborn and Pharaoh's release",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "pharaoh",
+     "named": true
+    },
+    {
+     "id": "egyptians",
+     "named": false
+    },
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s34",
+   "start": "exodus-12-37",
+   "end": "exodus-12-42",
+   "start_idx": 320,
+   "end_idx": 325,
+   "n_units": 6,
+   "words": 150,
+   "start_ref": "Exodus 12:37",
+   "end_ref": "Exodus 12:42",
+   "title": "Israel departs from Rameses and Succoth",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "moses"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s35",
+   "start": "exodus-12-43",
+   "end": "exodus-12-51",
+   "start_idx": 326,
+   "end_idx": 334,
+   "n_units": 9,
+   "words": 192,
+   "start_ref": "Exodus 12:43",
+   "end_ref": "Exodus 12:51",
+   "title": "Rules for who may eat the Passover",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s36",
+   "start": "exodus-13-1",
+   "end": "exodus-13-10",
+   "start_idx": 335,
+   "end_idx": 344,
+   "n_units": 10,
+   "words": 249,
+   "start_ref": "Exodus 13:1",
+   "end_ref": "Exodus 13:10",
+   "title": "Consecration of the firstborn and the feast of unleavened bread",
+   "setting": [
+    "wilderness"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s37",
+   "start": "exodus-13-11",
+   "end": "exodus-13-16",
+   "start_idx": 345,
+   "end_idx": 350,
+   "n_units": 6,
+   "words": 203,
+   "start_ref": "Exodus 13:11",
+   "end_ref": "Exodus 13:16",
+   "title": "Redemption of the firstborn and the sign on the hand",
+   "setting": [
+    "wilderness"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": false
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s38",
+   "start": "exodus-13-17",
+   "end": "exodus-13-22",
+   "start_idx": 351,
+   "end_idx": 356,
+   "n_units": 6,
+   "words": 181,
+   "start_ref": "Exodus 13:17",
+   "end_ref": "Exodus 13:22",
+   "title": "The pillar of cloud and fire",
+   "setting": [
+    "wilderness",
+    "red_sea"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    },
+    {
+     "id": "moses",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s39",
+   "start": "exodus-14-1",
+   "end": "exodus-14-14",
+   "start_idx": 357,
+   "end_idx": 370,
+   "n_units": 14,
+   "words": 368,
+   "start_ref": "Exodus 14:1",
+   "end_ref": "Exodus 14:14",
+   "title": "Israel encamped by the sea; the Egyptians pursue",
+   "setting": [
+    "red_sea"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    },
+    {
+     "id": "pharaoh",
+     "named": true
+    },
+    {
+     "id": "egyptians",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s40",
+   "start": "exodus-14-15",
+   "end": "exodus-14-31",
+   "start_idx": 371,
+   "end_idx": 387,
+   "n_units": 17,
+   "words": 487,
+   "start_ref": "Exodus 14:15",
+   "end_ref": "Exodus 14:31",
+   "title": "The sea divided and the Egyptians drowned",
+   "setting": [
+    "red_sea"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    },
+    {
+     "id": "egyptians",
+     "named": false
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "pharaoh"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s41",
+   "start": "exodus-15-1",
+   "end": "exodus-15-21",
+   "start_idx": 388,
+   "end_idx": 408,
+   "n_units": 21,
+   "words": 480,
+   "start_ref": "Exodus 15:1",
+   "end_ref": "Exodus 15:21",
+   "title": "The song of Moses and Miriam",
+   "setting": [
+    "red_sea"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "miriam",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "pharaoh"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s42",
+   "start": "exodus-15-22",
+   "end": "exodus-15-27",
+   "start_idx": 409,
+   "end_idx": 414,
+   "n_units": 6,
+   "words": 178,
+   "start_ref": "Exodus 15:22",
+   "end_ref": "Exodus 15:27",
+   "title": "Bitter water at Marah and Elim",
+   "setting": [
+    "wilderness",
+    "elim_marah"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s43",
+   "start": "exodus-16-1",
+   "end": "exodus-16-21",
+   "start_idx": 415,
+   "end_idx": 435,
+   "n_units": 21,
+   "words": 594,
+   "start_ref": "Exodus 16:1",
+   "end_ref": "Exodus 16:21",
+   "title": "Quail and manna",
+   "setting": [
+    "wilderness"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s44",
+   "start": "exodus-16-22",
+   "end": "exodus-16-36",
+   "start_idx": 436,
+   "end_idx": 450,
+   "n_units": 15,
+   "words": 367,
+   "start_ref": "Exodus 16:22",
+   "end_ref": "Exodus 16:36",
+   "title": "The Sabbath and the omer of manna",
+   "setting": [
+    "wilderness"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s45",
+   "start": "exodus-17-1",
+   "end": "exodus-17-7",
+   "start_idx": 451,
+   "end_idx": 457,
+   "n_units": 7,
+   "words": 214,
+   "start_ref": "Exodus 17:1",
+   "end_ref": "Exodus 17:7",
+   "title": "Water from the rock at Massah and Meribah",
+   "setting": [
+    "rephidim"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": [
+    "elders_of_israel"
+   ]
+  },
+  {
+   "id": "EXO-s46",
+   "start": "exodus-17-8",
+   "end": "exodus-17-16",
+   "start_idx": 458,
+   "end_idx": 466,
+   "n_units": 9,
+   "words": 199,
+   "start_ref": "Exodus 17:8",
+   "end_ref": "Exodus 17:16",
+   "title": "Battle with Amalek",
+   "setting": [
+    "rephidim"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "joshua",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "hur",
+     "named": true
+    },
+    {
+     "id": "amalek",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s47",
+   "start": "exodus-18-1",
+   "end": "exodus-18-12",
+   "start_idx": 467,
+   "end_idx": 478,
+   "n_units": 12,
+   "words": 299,
+   "start_ref": "Exodus 18:1",
+   "end_ref": "Exodus 18:12",
+   "title": "Jethro hears and visits Moses",
+   "setting": [
+    "wilderness",
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "jethro",
+     "named": true
+    },
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "zipporah",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": [
+    "elders_of_israel"
+   ]
+  },
+  {
+   "id": "EXO-s48",
+   "start": "exodus-18-13",
+   "end": "exodus-18-27",
+   "start_idx": 479,
+   "end_idx": 493,
+   "n_units": 15,
+   "words": 396,
+   "start_ref": "Exodus 18:13",
+   "end_ref": "Exodus 18:27",
+   "title": "Jethro's counsel and the appointment of judges",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "jethro",
+     "named": false
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s49",
+   "start": "exodus-19-1",
+   "end": "exodus-19-9",
+   "start_idx": 494,
+   "end_idx": 502,
+   "n_units": 9,
+   "words": 247,
+   "start_ref": "Exodus 19:1",
+   "end_ref": "Exodus 19:9",
+   "title": "Arrival at Sinai and the covenant offered",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": [
+    "elders_of_israel"
+   ]
+  },
+  {
+   "id": "EXO-s50",
+   "start": "exodus-19-10",
+   "end": "exodus-19-25",
+   "start_idx": 503,
+   "end_idx": 518,
+   "n_units": 16,
+   "words": 391,
+   "start_ref": "Exodus 19:10",
+   "end_ref": "Exodus 19:25",
+   "title": "Preparation and the boundaries of the mountain",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s51",
+   "start": "exodus-20-1",
+   "end": "exodus-20-21",
+   "start_idx": 519,
+   "end_idx": 539,
+   "n_units": 21,
+   "words": 413,
+   "start_ref": "Exodus 20:1",
+   "end_ref": "Exodus 20:21",
+   "title": "The Ten Commandments and the people's fear",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s52",
+   "start": "exodus-20-22",
+   "end": "exodus-21-11",
+   "start_idx": 540,
+   "end_idx": 555,
+   "n_units": 16,
+   "words": 393,
+   "start_ref": "Exodus 20:22",
+   "end_ref": "Exodus 21:11",
+   "title": "Laws on altars and Hebrew servants",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "moses",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "israelites"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s53",
+   "start": "exodus-21-12",
+   "end": "exodus-21-36",
+   "start_idx": 556,
+   "end_idx": 580,
+   "n_units": 25,
+   "words": 609,
+   "start_ref": "Exodus 21:12",
+   "end_ref": "Exodus 21:36",
+   "title": "Laws of injury, violence, and the goring ox",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "moses",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "egyptians"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s54",
+   "start": "exodus-22-1",
+   "end": "exodus-22-31",
+   "start_idx": 581,
+   "end_idx": 611,
+   "n_units": 31,
+   "words": 768,
+   "start_ref": "Exodus 22:1",
+   "end_ref": "Exodus 22:31",
+   "title": "Laws of theft, property, and the poor",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "moses",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "israelites"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s55",
+   "start": "exodus-23-1",
+   "end": "exodus-23-33",
+   "start_idx": 612,
+   "end_idx": 644,
+   "n_units": 33,
+   "words": 812,
+   "start_ref": "Exodus 23:1",
+   "end_ref": "Exodus 23:33",
+   "title": "Laws of justice, feasts, and the promise of the angel",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "moses",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "israelites"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s56",
+   "start": "exodus-24-1",
+   "end": "exodus-24-18",
+   "start_idx": 645,
+   "end_idx": 662,
+   "n_units": 18,
+   "words": 439,
+   "start_ref": "Exodus 24:1",
+   "end_ref": "Exodus 24:18",
+   "title": "The covenant ratified and Moses on the mountain",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "nadab_and_abihu",
+     "named": false
+    },
+    {
+     "id": "joshua",
+     "named": true
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": [
+    "elders_of_israel"
+   ]
+  },
+  {
+   "id": "EXO-s57",
+   "start": "exodus-25-1",
+   "end": "exodus-25-9",
+   "start_idx": 663,
+   "end_idx": 671,
+   "n_units": 9,
+   "words": 125,
+   "start_ref": "Exodus 25:1",
+   "end_ref": "Exodus 25:9",
+   "title": "Offerings for the sanctuary",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s58",
+   "start": "exodus-25-10",
+   "end": "exodus-25-40",
+   "start_idx": 672,
+   "end_idx": 702,
+   "n_units": 31,
+   "words": 738,
+   "start_ref": "Exodus 25:10",
+   "end_ref": "Exodus 25:40",
+   "title": "The ark, table, and lamp stand",
+   "setting": [
+    "horeb_sinai",
+    "tabernacle"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": false
+    },
+    {
+     "id": "moses",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s59",
+   "start": "exodus-26-1",
+   "end": "exodus-26-37",
+   "start_idx": 703,
+   "end_idx": 739,
+   "n_units": 37,
+   "words": 894,
+   "start_ref": "Exodus 26:1",
+   "end_ref": "Exodus 26:37",
+   "title": "Curtains, boards, and the veil",
+   "setting": [
+    "horeb_sinai",
+    "tabernacle"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": false
+    },
+    {
+     "id": "moses",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s60",
+   "start": "exodus-27-1",
+   "end": "exodus-27-21",
+   "start_idx": 740,
+   "end_idx": 760,
+   "n_units": 21,
+   "words": 528,
+   "start_ref": "Exodus 27:1",
+   "end_ref": "Exodus 27:21",
+   "title": "The bronze altar and the court",
+   "setting": [
+    "horeb_sinai",
+    "tabernacle"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "moses",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s61",
+   "start": "exodus-28-1",
+   "end": "exodus-28-43",
+   "start_idx": 761,
+   "end_idx": 803,
+   "n_units": 43,
+   "words": 1166,
+   "start_ref": "Exodus 28:1",
+   "end_ref": "Exodus 28:43",
+   "title": "Priestly garments",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "moses",
+     "named": false
+    },
+    {
+     "id": "aaron",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "nadab_and_abihu"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s62",
+   "start": "exodus-29-1",
+   "end": "exodus-29-46",
+   "start_idx": 804,
+   "end_idx": 849,
+   "n_units": 46,
+   "words": 1262,
+   "start_ref": "Exodus 29:1",
+   "end_ref": "Exodus 29:46",
+   "title": "Consecration of Aaron and his sons",
+   "setting": [
+    "horeb_sinai",
+    "tabernacle"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "moses",
+     "named": false
+    },
+    {
+     "id": "aaron",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s63",
+   "start": "exodus-30-1",
+   "end": "exodus-30-38",
+   "start_idx": 850,
+   "end_idx": 887,
+   "n_units": 38,
+   "words": 903,
+   "start_ref": "Exodus 30:1",
+   "end_ref": "Exodus 30:38",
+   "title": "Altar of incense, census tax, basin, and anointing oil",
+   "setting": [
+    "horeb_sinai",
+    "tabernacle"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s64",
+   "start": "exodus-31-1",
+   "end": "exodus-31-18",
+   "start_idx": 888,
+   "end_idx": 905,
+   "n_units": 18,
+   "words": 409,
+   "start_ref": "Exodus 31:1",
+   "end_ref": "Exodus 31:18",
+   "title": "Bezalel and Oholiab called; the Sabbath sign",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "bezalel",
+     "named": true
+    },
+    {
+     "id": "oholiab",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s65",
+   "start": "exodus-32-1",
+   "end": "exodus-32-14",
+   "start_idx": 906,
+   "end_idx": 919,
+   "n_units": 14,
+   "words": 452,
+   "start_ref": "Exodus 32:1",
+   "end_ref": "Exodus 32:14",
+   "title": "The golden calf and Yahweh's anger",
+   "setting": [
+    "camp_of_israel",
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    },
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "joshua"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s66",
+   "start": "exodus-32-15",
+   "end": "exodus-32-29",
+   "start_idx": 920,
+   "end_idx": 934,
+   "n_units": 15,
+   "words": 433,
+   "start_ref": "Exodus 32:15",
+   "end_ref": "Exodus 32:29",
+   "title": "Moses descends, breaks the tablets, and the Levites slay the idolaters",
+   "setting": [
+    "camp_of_israel"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "joshua",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s67",
+   "start": "exodus-32-30",
+   "end": "exodus-33-6",
+   "start_idx": 935,
+   "end_idx": 946,
+   "n_units": 12,
+   "words": 319,
+   "start_ref": "Exodus 32:30",
+   "end_ref": "Exodus 33:6",
+   "title": "Moses intercedes and the people mourn",
+   "setting": [
+    "camp_of_israel",
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s68",
+   "start": "exodus-33-7",
+   "end": "exodus-33-23",
+   "start_idx": 947,
+   "end_idx": 963,
+   "n_units": 17,
+   "words": 470,
+   "start_ref": "Exodus 33:7",
+   "end_ref": "Exodus 33:23",
+   "title": "The tent outside the camp and the glory of Yahweh",
+   "setting": [
+    "camp_of_israel",
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "joshua",
+     "named": true
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s69",
+   "start": "exodus-34-1",
+   "end": "exodus-34-17",
+   "start_idx": 964,
+   "end_idx": 980,
+   "n_units": 17,
+   "words": 459,
+   "start_ref": "Exodus 34:1",
+   "end_ref": "Exodus 34:17",
+   "title": "The second tablets and Yahweh's proclamation",
+   "setting": [
+    "horeb_sinai"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s70",
+   "start": "exodus-34-18",
+   "end": "exodus-34-35",
+   "start_idx": 981,
+   "end_idx": 998,
+   "n_units": 18,
+   "words": 495,
+   "start_ref": "Exodus 34:18",
+   "end_ref": "Exodus 34:35",
+   "title": "Feast laws and Moses' shining face",
+   "setting": [
+    "horeb_sinai",
+    "camp_of_israel"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": [
+    "elders_of_israel"
+   ]
+  },
+  {
+   "id": "EXO-s71",
+   "start": "exodus-35-1",
+   "end": "exodus-35-35",
+   "start_idx": 999,
+   "end_idx": 1033,
+   "n_units": 35,
+   "words": 749,
+   "start_ref": "Exodus 35:1",
+   "end_ref": "Exodus 35:35",
+   "title": "Moses calls for offerings and the craftsmen are named",
+   "setting": [
+    "camp_of_israel"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    },
+    {
+     "id": "bezalel",
+     "named": true
+    },
+    {
+     "id": "oholiab",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "the_lord"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s72",
+   "start": "exodus-36-1",
+   "end": "exodus-36-38",
+   "start_idx": 1034,
+   "end_idx": 1071,
+   "n_units": 38,
+   "words": 867,
+   "start_ref": "Exodus 36:1",
+   "end_ref": "Exodus 36:38",
+   "title": "The people bring too much and the work begins",
+   "setting": [
+    "camp_of_israel",
+    "tabernacle"
+   ],
+   "on_stage": [
+    {
+     "id": "bezalel",
+     "named": true
+    },
+    {
+     "id": "oholiab",
+     "named": true
+    },
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "israelites",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s73",
+   "start": "exodus-37-1",
+   "end": "exodus-37-29",
+   "start_idx": 1072,
+   "end_idx": 1100,
+   "n_units": 29,
+   "words": 672,
+   "start_ref": "Exodus 37:1",
+   "end_ref": "Exodus 37:29",
+   "title": "Bezalel makes the ark and furnishings",
+   "setting": [
+    "tabernacle"
+   ],
+   "on_stage": [
+    {
+     "id": "bezalel",
+     "named": true
+    },
+    {
+     "id": "oholiab",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s74",
+   "start": "exodus-38-1",
+   "end": "exodus-38-31",
+   "start_idx": 1101,
+   "end_idx": 1131,
+   "n_units": 31,
+   "words": 777,
+   "start_ref": "Exodus 38:1",
+   "end_ref": "Exodus 38:31",
+   "title": "The altar and the court; accounting of materials",
+   "setting": [
+    "tabernacle"
+   ],
+   "on_stage": [
+    {
+     "id": "bezalel",
+     "named": true
+    },
+    {
+     "id": "oholiab",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": [
+    "ithamar"
+   ]
+  },
+  {
+   "id": "EXO-s75",
+   "start": "exodus-39-1",
+   "end": "exodus-39-43",
+   "start_idx": 1132,
+   "end_idx": 1174,
+   "n_units": 43,
+   "words": 953,
+   "start_ref": "Exodus 39:1",
+   "end_ref": "Exodus 39:43",
+   "title": "The priestly garments made and the work completed",
+   "setting": [
+    "tabernacle"
+   ],
+   "on_stage": [
+    {
+     "id": "bezalel",
+     "named": false
+    },
+    {
+     "id": "oholiab",
+     "named": false
+    },
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "EXO-s76",
+   "start": "exodus-40-1",
+   "end": "exodus-40-38",
+   "start_idx": 1175,
+   "end_idx": 1212,
+   "n_units": 38,
+   "words": 755,
+   "start_ref": "Exodus 40:1",
+   "end_ref": "Exodus 40:38",
+   "title": "Raising the tabernacle and the glory filling it",
+   "setting": [
+    "tabernacle"
+   ],
+   "on_stage": [
+    {
+     "id": "moses",
+     "named": true
+    },
+    {
+     "id": "aaron",
+     "named": true
+    },
+    {
+     "id": "the_lord",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "israelites"
+   ],
+   "unknown_ids": []
+  }
+ ],
+ "brief": {
+  "tone": "Awe and sacred dread in the plague and mountain scenes, grief and tension in the flight, and warm, devotional calm in the craft and law passages.",
+  "depiction_rules": [
+   "Yahweh is never given a human face or full body; show him as a voice, a burning bush, a pillar of cloud or fire, or the glory filling the tabernacle.",
+   "Moses' face shines after Sinai; render as a radiance or veil rather than a literal glow.",
+   "The plagues are shown as they occur in the text, with the river blood, swarms, hail, locusts, and darkness, without gratuitous gore beyond the death of the firstborn.",
+   "The golden calf is an idol to be shown as a molten calf, not as a god.",
+   "The Passover blood on doorposts is shown on lintel and posts only.",
+   "Laws and ritual instructions can be shown as objects and settings, not as literal legal scenes."
+  ],
+  "era": {
+   "name": "Late Bronze Age Egypt, Sinai, and the Sinai wilderness",
+   "people": "Egyptians with shaven heads, linen kilts and wigs, and Hebrew clans in simple desert clothing, dark-haired and bearded; Midianite shepherds.",
+   "dress": "Linen kilts and tunics for Egyptians; plain woven wool and linen for Israelites; priestly garments of blue, purple, scarlet and gold-threaded linen with an ephod, breastplate and bells.",
+   "buildings_and_objects": "Brick storage cities such as Pithom and Raamses for Pharaoh; tents and a portable tabernacle with acacia boards, gold-overlaid ark, lampstand, altars and bronze court; papyrus baskets, clay kneading troughs, rods and staves.",
+   "technology": "Brickmaking with straw and mortar, chariots and horses in the Egyptian army, bronze and gold metalwork, weaving and embroidery, fire and oil lamps; no iron tools, writing on stone tablets, and no coinage (weights are used)."
+  }
+ },
+ "checks": {
+  "bad_section_ids": [],
+  "uncovered_units": 0,
+  "uncovered_sample": [],
+  "overlap_units": 0,
+  "sections_with_unknown_ids": 10
+ }
+}

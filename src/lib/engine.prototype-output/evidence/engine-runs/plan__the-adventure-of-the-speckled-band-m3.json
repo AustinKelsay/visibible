@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__the-adventure-of-the-speckled-band-m3",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424117-kfBTUvTUAUnJXMAaQBOX",
+  "seconds": 2.4,
+  "finish_reason": "stop",
+  "prompt_tokens": 2006,
+  "completion_tokens": 372,
+  "cost": 0.0003866,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:35:19"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 3906,
+ "content": "{\"primarySubject\":\"Helen Stoner, a woman of about thirty with premature grey streaks in her hair, seated in a veiled bonnet and mud-spattered travelling jacket, having just lifted her veil\",\"action\":\"She leans forward in her chair, drawn and frightened, while Holmes bends toward her to pat her forearm soothingly and Watson watches attentively nearby\",\"setting\":\"Sherlock Holmes's sitting room at 221B Baker Street, London; cluttered desk by the window, coal fire glowing, gaslit lamp on the mantel\",\"secondaryElements\":\"Return train ticket visible in her gloved palm, muddy stains on her left sleeve, Holmes in dressing-gown, Watson in frock-coat, violin and pipe resting on nearby furniture\",\"mood\":\"Tense, intimate, gaslit restraint with a sense of unease and quiet sympathy\",\"timeOfDay\":\"Morning under dim grey daylight from the window\",\"composition\":\"Medium two-figure shot centred on Helen and Holmes, Watson framed at the edge, window light on one side and fire glow on the other\"}",
+ "parsed": {
+  "primarySubject": "Helen Stoner, a woman of about thirty with premature grey streaks in her hair, seated in a veiled bonnet and mud-spattered travelling jacket, having just lifted her veil",
+  "action": "She leans forward in her chair, drawn and frightened, while Holmes bends toward her to pat her forearm soothingly and Watson watches attentively nearby",
+  "setting": "Sherlock Holmes's sitting room at 221B Baker Street, London; cluttered desk by the window, coal fire glowing, gaslit lamp on the mantel",
+  "secondaryElements": "Return train ticket visible in her gloved palm, muddy stains on her left sleeve, Holmes in dressing-gown, Watson in frock-coat, violin and pipe resting on nearby furniture",
+  "mood": "Tense, intimate, gaslit restraint with a sense of unease and quiet sympathy",
+  "timeOfDay": "Morning under dim grey daylight from the window",
+  "composition": "Medium two-figure shot centred on Helen and Holmes, Watson framed at the edge, window light on one side and fire glow on the other"
+ },
+ "usage": {
+  "prompt_tokens": 2006,
+  "completion_tokens": 372,
+  "total_tokens": 2378,
+  "cost": 0.0003866,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003866,
+   "upstream_inference_prompt_cost": 0.0002006,
+   "upstream_inference_completions_cost": 0.000186
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

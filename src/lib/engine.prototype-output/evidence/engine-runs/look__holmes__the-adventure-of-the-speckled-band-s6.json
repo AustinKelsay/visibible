@@ -1,0 +1,50 @@
+{
+ "record": {
+  "label": "look__holmes__the-adventure-of-the-speckled-band-s6",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424063-0oLp51VwByTFHGuMlITa",
+  "seconds": 2.1,
+  "finish_reason": "stop",
+  "prompt_tokens": 2044,
+  "completion_tokens": 203,
+  "cost": 0.0003059,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:34:25"
+ },
+ "system": "You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.\nRules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.",
+ "user_chars": 4168,
+ "content": "{\"place\":\"Stoke Moran country manor, its west wing under repair; bedroom in the old chamber, plain Victorian furnishings; plantation of trees beyond the grounds\",\"timeOfDay\":\"Night into early morning, then daylight; the lamp is lit at night and the morning is fresh\",\"weather\":\"Cool, still English spring air, grey dawn sky\",\"light\":\"Dim oil lamp in the bedroom at night; soft grey daylight by morning\",\"clothing\":\"Women in high-necked plain dresses and shawls; the young lady dressed simply after rising in the night; men in frock-coats or tweed\"}",
+ "parsed": {
+  "place": "Stoke Moran country manor, its west wing under repair; bedroom in the old chamber, plain Victorian furnishings; plantation of trees beyond the grounds",
+  "timeOfDay": "Night into early morning, then daylight; the lamp is lit at night and the morning is fresh",
+  "weather": "Cool, still English spring air, grey dawn sky",
+  "light": "Dim oil lamp in the bedroom at night; soft grey daylight by morning",
+  "clothing": "Women in high-necked plain dresses and shawls; the young lady dressed simply after rising in the night; men in frock-coats or tweed"
+ },
+ "usage": {
+  "prompt_tokens": 2044,
+  "completion_tokens": 203,
+  "total_tokens": 2247,
+  "cost": 0.0003059,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003059,
+   "upstream_inference_prompt_cost": 0.0002044,
+   "upstream_inference_completions_cost": 0.0001015
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

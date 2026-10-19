@@ -1,0 +1,100 @@
+{
+ "record": {
+  "label": "canon__holmes__dr_grimesby_roylott",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792423892-Xim7T4UGPRoYeUWvNdNO",
+  "seconds": 7.0,
+  "finish_reason": "stop",
+  "prompt_tokens": 7631,
+  "completion_tokens": 1050,
+  "cost": 0.0012881,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:31:39"
+ },
+ "system": "You write CANON ENTRIES for an illustrated edition of a work of literature. A canon entry fixes the identity of one character, location or object so that independently generated images agree with each other. Return only JSON matching the schema.\n\nRules:\n- The work's text is binding: anything it says about appearance must be in the entry.\n- Where the text is silent, follow the work's widely known visual tradition if one exists; otherwise invent a look that fits the era and the work brief. Never contradict the text.\n- Each entry's `text` is one prompt-ready paragraph of at most 500 characters, starting with the name and a colon.\n  - character (people, beings, animals, groups): age range; build; skin; hair and beard; facial notes; one signature outfit (the one worn most often) and its colours; signature props the figure carries alone. For a group, describe a typical member.\n  - location: terrain; architecture; vegetation; landmarks. No people.\n  - object: form; material; colour.\n- Fix only identity. Leave out poses, expressions, actions, weather, time of day, other people (attendants, companions, crowds) and anything that compares the figure with someone else.\n- STAGES: a character gets more than one stage only when the text itself moves them through childhood, youth, adulthood or old age across the work; a location only when the text marks it built, destroyed or rebuilt. At most three. Objects always have exactly one stage. Each stage is a complete entry on its own.\n- Obey the work brief's depiction rules: if a rule limits how this entry may be shown, write only the permitted showing.\n- `quotes`: short passages (under 120 characters, copied exactly) the entry relied on, each with the id of the unit it comes from. Only quote units you were given.\n- `source`: text, tradition, invention, or mixed.",
+ "user_chars": 18916,
+ "content": "{\"id\":\"dr_grimesby_roylott\",\"kind\":\"character\",\"stages\":[{\"id\":\"dr_grimesby_roylott_s8\",\"label\":\"Stoke Moran, bursting in\",\"when\":\"the-adventure-of-the-speckled-band-84 to the-adventure-of-the-speckled-band-94\",\"text\":\"Dr. Grimesby Roylott: man in his sixties, tall and massively built with a heavy frame gone slightly stooped; large weathered hands; long grey-streaked hair and a thick, bushy grey beard; deep-set, fierce eyes under heavy brows and a hard, florid face. Signature outfit: dark frock-coat and waistcoat over a dressing-gown of dark brocade or quilted silk. Carries a short, heavy riding-whip or cane.\",\"source\":\"mixed\",\"quotes\":[{\"unit\":\"the-adventure-of-the-speckled-band-1\",\"quote\":\"Dr. Grimesby Roylott\"},{\"unit\":\"the-adventure-of-the-speckled-band-98\",\"quote\":\"I am Dr. Grimesby Roylott, of Stoke Moran.\"}]},{\"id\":\"dr_grimesby_roylott_s9\",\"label\":\"Doctors' Commons and threats\",\"when\":\"the-adventure-of-the-speckled-band-95 to the-adventure-of-the-speckled-band-115\",\"text\":\"Dr. Grimesby Roylott: man in his sixties, tall and massively built with a heavy frame gone slightly stooped; large weathered hands; long grey-streaked hair and a thick, bushy grey beard; deep-set, fierce eyes under heavy brows and a hard, florid face. Signature outfit: dark frock-coat and waistcoat over a dressing-gown of dark brocade or quilted silk. Carries a short, heavy riding-whip or cane.\",\"source\":\"mixed\",\"quotes\":[{\"unit\":\"the-adventure-of-the-speckled-band-102\",\"quote\":\"What has she been saying to you?\"},{\"unit\":\"the-adventure-of-the-speckled-band-115\",\"quote\":\"the old man is aware that we are interesting ourselves in his affairs\"}]},{\"id\":\"dr_grimesby_roylott_s17\",\"label\":\"The snake and death\",\"when\":\"the-adventure-of-the-speckled-band-235 to the-adventure-of-the-speckled-band-246\",\"text\":\"Dr. Grimesby Roylott: man in his sixties, tall and massively built with a heavy frame gone slightly stooped; large weathered hands; long grey-streaked hair and a thick, bushy grey beard; deep-set, fierce eyes under heavy brows and a hard, florid face. Signature outfit: dark frock-coat and waistcoat over a dressing-gown of dark brocade or quilted silk. Carries a short, heavy riding-whip or cane.\",\"source\":\"mixed\",\"quotes\":[{\"unit\":\"the-adventure-of-the-speckled-band-251\",\"quote\":\"Some of the blows of my cane came home\"},{\"unit\":\"the-adventure-of-the-speckled-band-1\",\"quote\":\"the death of Dr. Grimesby Roylott\"}]}]}",
+ "parsed": {
+  "id": "dr_grimesby_roylott",
+  "kind": "character",
+  "stages": [
+   {
+    "id": "dr_grimesby_roylott_s8",
+    "label": "Stoke Moran, bursting in",
+    "when": "the-adventure-of-the-speckled-band-84 to the-adventure-of-the-speckled-band-94",
+    "text": "Dr. Grimesby Roylott: man in his sixties, tall and massively built with a heavy frame gone slightly stooped; large weathered hands; long grey-streaked hair and a thick, bushy grey beard; deep-set, fierce eyes under heavy brows and a hard, florid face. Signature outfit: dark frock-coat and waistcoat over a dressing-gown of dark brocade or quilted silk. Carries a short, heavy riding-whip or cane.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "the-adventure-of-the-speckled-band-1",
+      "quote": "Dr. Grimesby Roylott"
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-98",
+      "quote": "I am Dr. Grimesby Roylott, of Stoke Moran."
+     }
+    ]
+   },
+   {
+    "id": "dr_grimesby_roylott_s9",
+    "label": "Doctors' Commons and threats",
+    "when": "the-adventure-of-the-speckled-band-95 to the-adventure-of-the-speckled-band-115",
+    "text": "Dr. Grimesby Roylott: man in his sixties, tall and massively built with a heavy frame gone slightly stooped; large weathered hands; long grey-streaked hair and a thick, bushy grey beard; deep-set, fierce eyes under heavy brows and a hard, florid face. Signature outfit: dark frock-coat and waistcoat over a dressing-gown of dark brocade or quilted silk. Carries a short, heavy riding-whip or cane.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "the-adventure-of-the-speckled-band-102",
+      "quote": "What has she been saying to you?"
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-115",
+      "quote": "the old man is aware that we are interesting ourselves in his affairs"
+     }
+    ]
+   },
+   {
+    "id": "dr_grimesby_roylott_s17",
+    "label": "The snake and death",
+    "when": "the-adventure-of-the-speckled-band-235 to the-adventure-of-the-speckled-band-246",
+    "text": "Dr. Grimesby Roylott: man in his sixties, tall and massively built with a heavy frame gone slightly stooped; large weathered hands; long grey-streaked hair and a thick, bushy grey beard; deep-set, fierce eyes under heavy brows and a hard, florid face. Signature outfit: dark frock-coat and waistcoat over a dressing-gown of dark brocade or quilted silk. Carries a short, heavy riding-whip or cane.",
+    "source": "mixed",
+    "quotes": [
+     {
+      "unit": "the-adventure-of-the-speckled-band-251",
+      "quote": "Some of the blows of my cane came home"
+     },
+     {
+      "unit": "the-adventure-of-the-speckled-band-1",
+      "quote": "the death of Dr. Grimesby Roylott"
+     }
+    ]
+   }
+  ]
+ },
+ "usage": {
+  "prompt_tokens": 7631,
+  "completion_tokens": 1050,
+  "total_tokens": 8681,
+  "cost": 0.0012881,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0012881,
+   "upstream_inference_prompt_cost": 0.0007631,
+   "upstream_inference_completions_cost": 0.000525
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "record": {
+  "label": "look__holmes__the-adventure-of-the-speckled-band-s11",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424065-Yr5opF3vXm2KRauVdekS",
+  "seconds": 1.8,
+  "finish_reason": "stop",
+  "prompt_tokens": 2214,
+  "completion_tokens": 169,
+  "cost": 0.0003059,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:34:27"
+ },
+ "system": "You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.\nRules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.",
+ "user_chars": 4784,
+ "content": "{\"place\":\"Grey lichen-stained stone manor at Stoke Moran, Surrey, with a central block and curving wings, one wing ruined and boarded, scaffolding against the end wall, ill-trimmed lawn\",\"timeOfDay\":\"Daytime, late morning\",\"weather\":\"Overcast, grey, still air\",\"light\":\"Soft diffuse daylight, muted and even\",\"clothing\":\"Frock-coat and tweeds for gentlemen, plain dark dress for the young woman, ulster optional\"}",
+ "parsed": {
+  "place": "Grey lichen-stained stone manor at Stoke Moran, Surrey, with a central block and curving wings, one wing ruined and boarded, scaffolding against the end wall, ill-trimmed lawn",
+  "timeOfDay": "Daytime, late morning",
+  "weather": "Overcast, grey, still air",
+  "light": "Soft diffuse daylight, muted and even",
+  "clothing": "Frock-coat and tweeds for gentlemen, plain dark dress for the young woman, ulster optional"
+ },
+ "usage": {
+  "prompt_tokens": 2214,
+  "completion_tokens": 169,
+  "total_tokens": 2383,
+  "cost": 0.0003059,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003059,
+   "upstream_inference_prompt_cost": 0.0002214,
+   "upstream_inference_completions_cost": 8.45e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

@@ -1,0 +1,4431 @@
+{
+ "work": "bible-web",
+ "division": "GEN",
+ "division_name": "Genesis",
+ "units": 1533,
+ "record": {
+  "label": "bible-web__GEN__main",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792423606-GmonOieNx51tHx1gms4m",
+  "seconds": 69.2,
+  "finish_reason": "stop",
+  "prompt_tokens": 74738,
+  "completion_tokens": 19935,
+  "cost": 0.0174413,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:27:55"
+ },
+ "characters": [
+  {
+   "id": "god",
+   "name": "God",
+   "aliases": [
+    "Yahweh",
+    "the LORD",
+    "God Almighty",
+    "God Most High",
+    "the angel of God",
+    "God's angel",
+    "Yahweh's angel",
+    "the Judge of all the earth"
+   ],
+   "note": "The creator God of Genesis, who speaks, walks in the garden, makes covenants and appears in visions; he is also depicted in the form of visiting men (the three men at Mamre are called Yahweh's visitors). Appears from the first chapter to the end, in heavens, gardens, dreams and visions.",
+   "kind": "divine",
+   "same_person_as": ""
+  },
+  {
+   "id": "adam",
+   "name": "Adam",
+   "aliases": [
+    "the man",
+    "the first man"
+   ],
+   "note": "The first man, formed from the dust of the ground and placed in Eden; father of Cain, Abel and Seth, dies at 930 years. Appears in chapters 2 to 5 (the genealogy in chapter 5 is a list only).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "eve",
+   "name": "Eve",
+   "aliases": [
+    "the woman",
+    "Adam's wife"
+   ],
+   "note": "The first woman, made from Adam's rib, wife of Adam; tempted by the serpent in Eden and mother of Cain, Abel and Seth. Chapters 2 to 4.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "serpent",
+   "name": "the serpent",
+   "aliases": [
+    "the snake"
+   ],
+   "note": "The subtle serpent of the garden who tempts the woman and is cursed by God; chapter 3 only.",
+   "kind": "animal",
+   "same_person_as": ""
+  },
+  {
+   "id": "cain",
+   "name": "Cain",
+   "aliases": [
+    "Tubal Cain"
+   ],
+   "note": "Firstborn son of Adam and Eve, a tiller of the ground who kills his brother Abel; builds a city named for his son Enoch; chapter 4. Tubal Cain in 4:22 is a different, later descendant of Lamech.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "abel",
+   "name": "Abel",
+   "aliases": [],
+   "note": "Second son of Adam and Eve, a keeper of sheep, killed by his brother Cain; chapter 4.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "seth",
+   "name": "Seth",
+   "aliases": [],
+   "note": "Son of Adam and Eve born after Abel's death, father of Enosh; named in chapters 4 and 5.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "enoch_son_of_cain",
+   "name": "Enoch (son of Cain)",
+   "aliases": [],
+   "note": "Son of Cain, whose name is given to the city Cain builds; only named in chapter 4.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "enoch_son_of_jared",
+   "name": "Enoch (son of Jared)",
+   "aliases": [],
+   "note": "Seventh from Adam; walked with God for 300 years and was taken by God without dying; chapter 5 only.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lamech_son_of_methuselah",
+   "name": "Lamech (son of Methuselah)",
+   "aliases": [],
+   "note": "Father of Noah, who names his son Noah in hope of comfort from the ground's curse; chapter 5. Different from Lamech son of Methuselah's descendant in chapter 4 (see lamech_of_cain).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lamech_of_cain",
+   "name": "Lamech (descendant of Cain)",
+   "aliases": [],
+   "note": "Descendant of Cain with two wives, Adah and Zillah, who boasts of killing a man; father of Jabal, Jubal and Tubal Cain; chapter 4. Not the same as Lamech who fathered Noah in chapter 5.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "noah",
+   "name": "Noah",
+   "aliases": [
+    "the righteous man"
+   ],
+   "note": "A righteous man who builds the ship (ark) and survives the flood with his family and the animals; later plants a vineyard and is drunk; chapters 5 to 9.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "shem",
+   "name": "Shem",
+   "aliases": [],
+   "note": "Eldest son of Noah, who with Japheth covers their father's nakedness; ancestor of Abram's line (chapter 11); chapters 5 to 11.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ham",
+   "name": "Ham",
+   "aliases": [],
+   "note": "Son of Noah and father of Canaan, who sees his father's nakedness and is cursed through Canaan; chapters 9 to 10.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "japheth",
+   "name": "Japheth",
+   "aliases": [],
+   "note": "Son of Noah who with Shem covers their father; chapters 9 and 10.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "nimrod",
+   "name": "Nimrod",
+   "aliases": [],
+   "note": "A mighty hunter and founder of cities in Babel and Assyria, son of Cush; chapter 10 only.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "terah",
+   "name": "Terah",
+   "aliases": [],
+   "note": "Father of Abram, Nahor and Haran, who leaves Ur with his family for Canaan but dies in Haran; chapters 11 and 12 (early).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "abram",
+   "name": "Abram",
+   "aliases": [
+    "Abraham",
+    "the Hebrew",
+    "Abraham the servant of God"
+   ],
+   "note": "Son of Terah, called by God from Haran to Canaan; renamed Abraham in chapter 17 and father of Isaac and Ishmael; the main patriarch of Genesis 11 to 25, appearing in chapters 12 to 25.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "sarai",
+   "name": "Sarai",
+   "aliases": [
+    "Sarah"
+   ],
+   "note": "Wife of Abram and mother of Isaac, renamed Sarah in chapter 17; appears in chapters 11 to 23.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lot",
+   "name": "Lot",
+   "aliases": [
+    "Abram's nephew"
+   ],
+   "note": "Son of Haran, nephew of Abram, who settles in Sodom; he and his two daughters escape its destruction; chapters 11 to 19.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lots_wife",
+   "name": "Lot's wife",
+   "aliases": [],
+   "note": "Wife of Lot, who looks back at Sodom's destruction and becomes a pillar of salt; chapter 19.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "lots_daughters",
+   "name": "Lot's daughters",
+   "aliases": [
+    "the firstborn and the younger daughter of Lot"
+   ],
+   "note": "Two unnamed daughters of Lot who lie with their father and bear Moab and Ben Ammi; chapter 19. Treat as a group on stage.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "hagar",
+   "name": "Hagar",
+   "aliases": [
+    "the Egyptian maid"
+   ],
+   "note": "Egyptian servant of Sarai, mother of Ishmael by Abram; flees to the wilderness and is comforted by an angel; chapters 16 and 21.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ishmael",
+   "name": "Ishmael",
+   "aliases": [],
+   "note": "Son of Abram and Hagar, sent away with his mother; ancestor of the Ishmaelites; chapters 16, 17, 21, 25.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "isaac",
+   "name": "Isaac",
+   "aliases": [],
+   "note": "Son of Abraham and Sarah, born in old age; the promised heir; married to Rebekah; father of Esau and Jacob; chapters 17 to 35.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "rebekah",
+   "name": "Rebekah",
+   "aliases": [
+    "Rebecca"
+   ],
+   "note": "Wife of Isaac and mother of Esau and Jacob; daughter of Bethuel, sister of Laban; chapters 22 to 35.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "abimelech_of_gerar",
+   "name": "Abimelech (king of Gerar in Abraham's time)",
+   "aliases": [
+    "the king of Gerar"
+   ],
+   "note": "King of Gerar who takes Sarah into his household; chapters 20 and 21. The later Abimelech king of the Philistines in Isaac's time is a different individual, listed separately.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "abimelech_of_isaac",
+   "name": "Abimelech (Philistine king in Isaac's time)",
+   "aliases": [
+    "Abimelech king of the Philistines"
+   ],
+   "note": "Philistine king of Gerar in Isaac's time who makes a covenant with Isaac; chapter 26. Different from the Abimelech of Abraham's time (chapters 20 and 21).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "phicol",
+   "name": "Phicol",
+   "aliases": [
+    "captain of Abimelech's army"
+   ],
+   "note": "Captain of the army of Abimelech who makes a covenant with Abraham, and later with Isaac; chapters 21 and 26.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "eliezer_of_damascus",
+   "name": "Eliezer of Damascus",
+   "aliases": [
+    "Abraham's steward",
+    "the eldest servant of Abraham's house"
+   ],
+   "note": "Abraham's servant who would have been his heir, and who is sent to find Isaac a wife (chapter 24, where he is unnamed). Listed here since he is named in 15:2 and the servant of chapter 24 is the same person.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "bethuel",
+   "name": "Bethuel",
+   "aliases": [],
+   "note": "Son of Nahor and Milcah, father of Rebekah and Laban; chapters 22 and 24.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "laban",
+   "name": "Laban",
+   "aliases": [
+    "the Syrian"
+   ],
+   "note": "Brother of Rebekah and father of Leah and Rachel; Jacob serves him; chapters 24, 27 to 31. Different from Laban the Syrian mentioned in 31:20 only by context, but the same individual.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "esau",
+   "name": "Esau",
+   "aliases": [
+    "Edom"
+   ],
+   "note": "Elder son of Isaac and Rebekah, a hunter, who sells his birthright and loses his blessing to Jacob; chapters 25 to 36.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "jacob",
+   "name": "Jacob",
+   "aliases": [
+    "Israel"
+   ],
+   "note": "Younger son of Isaac and Rebekah, who wrestles with a man at Peniel and is renamed Israel; father of the twelve sons; chapters 25 to 50.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "leah",
+   "name": "Leah",
+   "aliases": [],
+   "note": "Elder daughter of Laban, first wife of Jacob, mother of Reuben, Simeon, Levi, Judah, and others; chapters 29 to 35.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "rachel",
+   "name": "Rachel",
+   "aliases": [],
+   "note": "Younger daughter of Laban, Jacob's beloved wife, mother of Joseph and Benjamin; chapters 29 to 35.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "bilhah",
+   "name": "Bilhah",
+   "aliases": [
+    "Rachel's maid"
+   ],
+   "note": "Servant of Rachel given to Jacob as a wife; mother of Dan and Naphtali; chapters 29, 30, 35.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "zilpah",
+   "name": "Zilpah",
+   "aliases": [
+    "Leah's maid"
+   ],
+   "note": "Servant of Leah given to Jacob as a wife; mother of Gad and Asher; chapters 29, 30, 35.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "reuben",
+   "name": "Reuben",
+   "aliases": [],
+   "note": "Firstborn son of Jacob and Leah; involved in the plot against Joseph and offers to save him; chapters 29, 35, 37, 42, 46, 49.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "simeon",
+   "name": "Simeon",
+   "aliases": [],
+   "note": "Son of Jacob and Leah; with Levi kills the men of Shechem; held hostage by Joseph in Egypt; chapters 29, 34, 42, 45.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "levi",
+   "name": "Levi",
+   "aliases": [],
+   "note": "Son of Jacob and Leah; with Simeon avenges Dinah; chapters 29, 34, 49.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "judah",
+   "name": "Judah",
+   "aliases": [],
+   "note": "Son of Jacob and Leah; urges selling Joseph to the Ishmaelites; later pledges himself for Benjamin; chapters 29, 37, 38, 43, 44, 46, 49.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "issachar",
+   "name": "Issachar",
+   "aliases": [],
+   "note": "Son of Jacob and Leah; named in the lists and in the blessing of Jacob; chapters 30, 35, 46, 49.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "zebulun",
+   "name": "Zebulun",
+   "aliases": [],
+   "note": "Son of Jacob and Leah; chapters 30, 35, 46, 49.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "dan_son_of_jacob",
+   "name": "Dan (son of Jacob)",
+   "aliases": [],
+   "note": "Son of Jacob and Bilhah; chapters 30, 35, 46, 49.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "naphtali",
+   "name": "Naphtali",
+   "aliases": [],
+   "note": "Son of Jacob and Bilhah; chapters 30, 35, 46, 49.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "gad",
+   "name": "Gad",
+   "aliases": [],
+   "note": "Son of Jacob and Zilpah; chapters 30, 35, 46, 49.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "asher",
+   "name": "Asher",
+   "aliases": [],
+   "note": "Son of Jacob and Zilpah; chapters 30, 35, 46, 49.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "joseph",
+   "name": "Joseph",
+   "aliases": [
+    "Zaphenath-Paneah",
+    "the governor of Egypt",
+    "Pharaoh's governor"
+   ],
+   "note": "Son of Jacob and Rachel, sold into Egypt by his brothers, later vizier to Pharaoh; chapters 30 and 37 to 50.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "benjamin",
+   "name": "Benjamin",
+   "aliases": [
+    "Benoni"
+   ],
+   "note": "Youngest son of Jacob and Rachel, who dies in childbirth naming him; brother of Joseph; chapters 35, 42 to 46.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "dinah",
+   "name": "Dinah",
+   "aliases": [],
+   "note": "Daughter of Jacob and Leah, defiled by Shechem and avenged by her brothers; chapter 34 (and listed in 30:21 and 46:15).",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "shechem",
+   "name": "Shechem",
+   "aliases": [
+    "Shechem the son of Hamor"
+   ],
+   "note": "Prince of Shechem son of Hamor, who defiles Dinah and asks to marry her; chapter 34.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "hamor",
+   "name": "Hamor",
+   "aliases": [
+    "Hamor the Hivite"
+   ],
+   "note": "Father of Shechem and prince of the Hivites, who negotiates with Jacob's sons; chapter 34.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "tamar",
+   "name": "Tamar",
+   "aliases": [],
+   "note": "Daughter-in-law of Judah, widow of Er and then of Onan, who tricks Judah into fathering Perez and Zerah; chapter 38.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "judah_s_wife",
+   "name": "Judah's wife (Shua's daughter)",
+   "aliases": [
+    "the daughter of Shua"
+   ],
+   "note": "Canaanite wife of Judah and mother of Er, Onan and Shelah; she dies in chapter 38 and is otherwise unnamed.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "potiphar",
+   "name": "Potiphar",
+   "aliases": [
+    "the captain of the guard"
+   ],
+   "note": "Egyptian officer of Pharaoh and captain of the guard who buys Joseph and imprisons him; chapter 39.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "potiphars_wife",
+   "name": "Potiphar's wife",
+   "aliases": [
+    "his master's wife"
+   ],
+   "note": "Wife of Potiphar who tries to seduce Joseph and accuses him falsely; chapter 39.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "chief_cup_bearer",
+   "name": "the chief cup bearer",
+   "aliases": [
+    "the butler of the king of Egypt"
+   ],
+   "note": "Pharaoh's cup bearer imprisoned with Joseph, who forgets him and then recommends him to Pharaoh; chapters 40 and 41.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "chief_baker",
+   "name": "the chief baker",
+   "aliases": [
+    "Pharaoh's baker"
+   ],
+   "note": "Pharaoh's baker imprisoned with the cup bearer, who is hanged; chapters 40 and 41.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "pharaoh_of_joseph",
+   "name": "Pharaoh (in Joseph's time)",
+   "aliases": [
+    "the king of Egypt"
+   ],
+   "note": "The Pharaoh who dreams of cattle and grain, promotes Joseph, and receives Jacob's family; chapters 12 (earlier Pharaoh), 40 to 47. The Pharaoh of Abram's time in chapter 12 is a different, earlier king.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "pharaoh_of_abram",
+   "name": "Pharaoh (in Abram's time)",
+   "aliases": [
+    "the king of Egypt"
+   ],
+   "note": "The Pharaoh who takes Sarai into his house and is plagued; chapter 12 only. Different from the Pharaoh of Joseph's time.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "asenath",
+   "name": "Asenath",
+   "aliases": [],
+   "note": "Daughter of Potiphera priest of On, wife of Joseph and mother of Manasseh and Ephraim; chapters 41 and 46.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "manasseh",
+   "name": "Manasseh",
+   "aliases": [],
+   "note": "Elder son of Joseph and Asenath, blessed by Jacob in chapter 48.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ephraim",
+   "name": "Ephraim",
+   "aliases": [],
+   "note": "Younger son of Joseph and Asenath, given precedence by Jacob in chapter 48.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "ben_ammi",
+   "name": "Ben Ammi",
+   "aliases": [],
+   "note": "Son of Lot's younger daughter, father of the Ammonites; named only in chapter 19.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "keturah",
+   "name": "Keturah",
+   "aliases": [],
+   "note": "Abraham's later wife who bears him six sons; chapter 25.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "melchizedek",
+   "name": "Melchizedek",
+   "aliases": [
+    "king of Salem",
+    "priest of God Most High"
+   ],
+   "note": "King of Salem and priest of God Most High who blesses Abram with bread and wine; chapter 14.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "amraphel",
+   "name": "Amraphel",
+   "aliases": [
+    "king of Shinar"
+   ],
+   "note": "One of the four kings who fight the kings of the Plain; chapter 14.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "chedorlaomer",
+   "name": "Chedorlaomer",
+   "aliases": [
+    "king of Elam"
+   ],
+   "note": "King of Elam who leads the coalition against the cities of the plain and captures Lot; chapter 14.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "bera_king_of_sodom",
+   "name": "Bera",
+   "aliases": [
+    "king of Sodom"
+   ],
+   "note": "King of Sodom who fights Chedorlaomer and offers Abram goods; chapter 14.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "men_of_sodom",
+   "name": "the men of Sodom",
+   "aliases": [
+    "the men of the city"
+   ],
+   "note": "Crowd of Sodom's men who surround Lot's house and demand the visitors; chapter 19. Acts as one group.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "angels_of_sodom",
+   "name": "the two angels",
+   "aliases": [
+    "the angels",
+    "the men who came to Lot"
+   ],
+   "note": "Two angels who visit Lot in Sodom and lead him out before its destruction; chapter 19.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "three_visitors_at_mamre",
+   "name": "the three men at Mamre",
+   "aliases": [
+    "the three men",
+    "Yahweh's visitors"
+   ],
+   "note": "Three travellers who visit Abraham by the oaks of Mamre and foretell Sarah's son; chapter 18.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "ephron_the_hittite",
+   "name": "Ephron the Hittite",
+   "aliases": [
+    "the son of Zohar"
+   ],
+   "note": "Hittite owner of the field and cave of Machpelah sold to Abraham for a burial place; chapters 23, 25, 49, 50.",
+   "kind": "person",
+   "same_person_as": ""
+  },
+  {
+   "id": "children_of_heth",
+   "name": "the children of Heth",
+   "aliases": [
+    "the Hittites"
+   ],
+   "note": "The Hittite people among whom Abraham seeks a burial place; they speak together in chapter 23. Acts as one group.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "ishmaelite_merchants",
+   "name": "the Ishmaelites",
+   "aliases": [
+    "the caravan of Ishmaelites",
+    "the Midianite merchants"
+   ],
+   "note": "Merchants and traders who buy Joseph from his brothers and carry him to Egypt; chapter 37. Acts as one group.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "sons_of_jacob_brothers",
+   "name": "Joseph's brothers",
+   "aliases": [
+    "the sons of Jacob",
+    "the sons of Israel"
+   ],
+   "note": "The ten (later eleven) sons of Jacob who sell Joseph and later come to Egypt for grain; chapters 34, 37, 42 to 50. Acts as one group when on stage.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "bethel_god_s_angel_jacob_dream",
+   "name": "the angels at the ladder",
+   "aliases": [
+    "the angels of God"
+   ],
+   "note": "Angels seen ascending and descending the stairway in Jacob's dream at Bethel; chapter 28.",
+   "kind": "group",
+   "same_person_as": ""
+  },
+  {
+   "id": "man_at_jabbok",
+   "name": "the man at Peniel",
+   "aliases": [
+    "a man"
+   ],
+   "note": "The man who wrestles Jacob at the ford of the Jabbok, later understood as God; chapter 32.",
+   "kind": "person",
+   "same_person_as": ""
+  }
+ ],
+ "locations": [
+  {
+   "id": "eden",
+   "name": "Eden",
+   "aliases": [
+    "the garden of Eden",
+    "the garden",
+    "the garden eastward"
+   ],
+   "note": "The garden planted by God in the east, watered by four rivers, where Adam and Eve live; chapters 2 and 3.; garden of God; the tree of life and of knowledge grow in its middle.; chapters 2 to 3."
+  },
+  {
+   "id": "nod_east_of_eden",
+   "name": "Nod",
+   "aliases": [
+    "the land of Nod"
+   ],
+   "note": "The land east of Eden where Cain goes after killing Abel and where he builds a city; chapter 4.; chapter 4."
+  },
+  {
+   "id": "ararat",
+   "name": "the mountains of Ararat",
+   "aliases": [
+    "Ararat"
+   ],
+   "note": "The mountains where Noah's ship rests after the flood; chapter 8.; chapter 8."
+  },
+  {
+   "id": "babel",
+   "name": "Babel",
+   "aliases": [
+    "Babylon",
+    "Shinar"
+   ],
+   "note": "Site of the tower built by mankind on the plain of Shinar, where the language is confused; chapter 11. Babel is also one of the first cities of Nimrod's kingdom (chapter 10).; chapters 10 and 11."
+  },
+  {
+   "id": "ur_of_the_chaldees",
+   "name": "Ur of the Chaldees",
+   "aliases": [
+    "Ur"
+   ],
+   "note": "City in Mesopotamia from which Terah leaves with Abram; chapters 11 and 15.; chapters 11, 15."
+  },
+  {
+   "id": "haran",
+   "name": "Haran",
+   "aliases": [],
+   "note": "City in northern Mesopotamia where Terah settles and dies and where Abram stays for a time; chapters 11 and 12.; chapters 11 to 12."
+  },
+  {
+   "id": "canaan_land",
+   "name": "the land of Canaan",
+   "aliases": [
+    "Canaan",
+    "the land"
+   ],
+   "note": "The land God promises to Abram's offspring, where the patriarchs live; chapters 12 to 50.; chapters 12 to 50."
+  },
+  {
+   "id": "egypt",
+   "name": "Egypt",
+   "aliases": [
+    "the land of Egypt",
+    "Mizraim"
+   ],
+   "note": "The land Abram visits in famine (chapter 12) and where Joseph rises to rule and the family settles (chapters 37 to 50).; chapters 12, 37 to 50."
+  },
+  {
+   "id": "shechem_city",
+   "name": "Shechem",
+   "aliases": [
+    "the city of Shechem"
+   ],
+   "note": "City in Canaan where Jacob buys land and where Dinah is defiled; chapters 12, 33, 34, 35, 37.; chapters 12, 33, 34, 37."
+  },
+  {
+   "id": "bethel",
+   "name": "Bethel",
+   "aliases": [
+    "Luz",
+    "El Beth El"
+   ],
+   "note": "A place between Bethel and Ai where Abram builds an altar, and where Jacob sees the ladder and names the place Bethel; chapters 12, 13, 28, 31, 35.; chapters 12, 28, 35."
+  },
+  {
+   "id": "sodom",
+   "name": "Sodom",
+   "aliases": [
+    "the cities of the plain"
+   ],
+   "note": "Wicked city of the plain where Lot lives and which God destroys with Gomorrah; chapters 13, 14, 18, 19.; chapters 13, 18, 19."
+  },
+  {
+   "id": "gomorrah",
+   "name": "Gomorrah",
+   "aliases": [],
+   "note": "City of the plain destroyed with Sodom; chapters 13, 14, 18, 19.; chapters 13, 18, 19."
+  },
+  {
+   "id": "plain_of_jordan",
+   "name": "the plain of the Jordan",
+   "aliases": [
+    "the Plain"
+   ],
+   "note": "The well-watered plain where Lot chooses to live; chapter 13.; chapter 13."
+  },
+  {
+   "id": "hebron",
+   "name": "Hebron",
+   "aliases": [
+    "Mamre",
+    "the oaks of Mamre",
+    "Kiriath Arba"
+   ],
+   "note": "Place where Abram settles by the oaks of Mamre and where Sarah dies and is buried in the cave of Machpelah; chapters 13, 14, 18, 23, 35, 37.; chapters 13, 18, 23, 35, 37, 49, 50."
+  },
+  {
+   "id": "gerar",
+   "name": "Gerar",
+   "aliases": [
+    "the valley of Gerar"
+   ],
+   "note": "Philistine town where Abraham and Isaac live as foreigners and where Abimelech rules; chapters 20 and 26.; chapters 20, 26."
+  },
+  {
+   "id": "beersheba",
+   "name": "Beersheba",
+   "aliases": [
+    "the well of the oath"
+   ],
+   "note": "A well and place where Abraham and Abimelech make a covenant and where Isaac builds an altar; chapters 21, 22, 26, 28, 46.; chapters 21, 22, 26, 28, 46."
+  },
+  {
+   "id": "mount_moriah",
+   "name": "the land of Moriah",
+   "aliases": [
+    "the mountain"
+   ],
+   "note": "Place where Abraham takes Isaac for the sacrifice; chapter 22.; chapter 22."
+  },
+  {
+   "id": "well_of_the_living_one_beer_lahai_roi",
+   "name": "Beer Lahai Roi",
+   "aliases": [],
+   "note": "The well where Hagar is comforted and where Isaac later lives; chapters 16, 24, 25.; chapters 16, 24, 25."
+  },
+  {
+   "id": "paddan_aram",
+   "name": "Paddan Aram",
+   "aliases": [
+    "Mesopotamia",
+    "the land of the east",
+    "Syria"
+   ],
+   "note": "Region of Haran to which Jacob flees and where Laban lives and Jacob marries and has children; chapters 24, 25, 28, 29, 31, 35.; chapters 24, 28 to 31, 35."
+  },
+  {
+   "id": "river_jabbok",
+   "name": "the ford of the Jabbok",
+   "aliases": [
+    "Peniel",
+    "Mahanaim"
+   ],
+   "note": "Place on the river where Jacob wrestles with the man and is renamed Israel; chapters 32, 33.; chapter 32."
+  },
+  {
+   "id": "succoth",
+   "name": "Succoth",
+   "aliases": [],
+   "note": "Place where Jacob builds a house and shelters for his livestock; chapter 33.; chapter 33."
+  },
+  {
+   "id": "dothan",
+   "name": "Dothan",
+   "aliases": [],
+   "note": "Place where Joseph's brothers find him and sell him; chapter 37.; chapter 37."
+  },
+  {
+   "id": "dan_city",
+   "name": "Dan",
+   "aliases": [
+    "the land of the Danites"
+   ],
+   "note": "A place to which Abram pursues the kings of the east; chapter 14. The later tribe is named in chapter 49.; chapter 14."
+  },
+  {
+   "id": "goshen",
+   "name": "Goshen",
+   "aliases": [
+    "the land of Goshen"
+   ],
+   "note": "Region of Egypt where Jacob's family settles; chapters 45 to 50.; chapters 45 to 50."
+  },
+  {
+   "id": "pit_in_wilderness",
+   "name": "the pit in the wilderness",
+   "aliases": [
+    "the pit"
+   ],
+   "note": "The empty pit into which Joseph's brothers throw him; chapter 37.; chapter 37."
+  },
+  {
+   "id": "threshing_floor_of_atad",
+   "name": "the threshing floor of Atad",
+   "aliases": [
+    "Abel Mizraim"
+   ],
+   "note": "Place beyond the Jordan where the funeral procession of Jacob mourns; chapter 50.; chapter 50."
+  },
+  {
+   "id": "cave_of_machpelah",
+   "name": "the cave of Machpelah",
+   "aliases": [
+    "the field of Machpelah",
+    "the cave of the field"
+   ],
+   "note": "The cave in the field of Machpelah before Mamre bought by Abraham as a burial place; chapters 23, 25, 49, 50.; chapters 23, 25, 49, 50."
+  },
+  {
+   "id": "prison_in_egypt",
+   "name": "the prison",
+   "aliases": [
+    "the dungeon",
+    "the place where the king's prisoners were bound"
+   ],
+   "note": "The Egyptian prison where Joseph is kept with Pharaoh's prisoners; chapters 39 to 41.; chapters 39 to 41."
+  },
+  {
+   "id": "pharaohs_palace",
+   "name": "Pharaoh's house",
+   "aliases": [
+    "the court of Pharaoh"
+   ],
+   "note": "The royal house in Egypt where Joseph serves; chapters 12, 41, 45, 47.; chapters 12, 41, 45, 47."
+  }
+ ],
+ "sections": [
+  {
+   "id": "GEN-s1",
+   "start": "genesis-1-1",
+   "end": "genesis-1-31",
+   "start_idx": 0,
+   "end_idx": 30,
+   "n_units": 31,
+   "words": 734,
+   "start_ref": "Genesis 1:1",
+   "end_ref": "Genesis 1:31",
+   "title": "Creation of the world in six days",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s2",
+   "start": "genesis-2-1",
+   "end": "genesis-2-3",
+   "start_idx": 31,
+   "end_idx": 33,
+   "n_units": 3,
+   "words": 62,
+   "start_ref": "Genesis 2:1",
+   "end_ref": "Genesis 2:3",
+   "title": "God rests on the seventh day",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s3",
+   "start": "genesis-2-4",
+   "end": "genesis-2-25",
+   "start_idx": 34,
+   "end_idx": 55,
+   "n_units": 22,
+   "words": 544,
+   "start_ref": "Genesis 2:4",
+   "end_ref": "Genesis 2:25",
+   "title": "Man formed and placed in Eden",
+   "setting": [
+    "eden"
+   ],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "adam",
+     "named": false
+    },
+    {
+     "id": "eve",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s4",
+   "start": "genesis-3-1",
+   "end": "genesis-3-7",
+   "start_idx": 56,
+   "end_idx": 62,
+   "n_units": 7,
+   "words": 195,
+   "start_ref": "Genesis 3:1",
+   "end_ref": "Genesis 3:7",
+   "title": "The serpent tempts the woman",
+   "setting": [
+    "eden"
+   ],
+   "on_stage": [
+    {
+     "id": "serpent",
+     "named": false
+    },
+    {
+     "id": "eve",
+     "named": false
+    },
+    {
+     "id": "adam",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "god"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s5",
+   "start": "genesis-3-8",
+   "end": "genesis-3-21",
+   "start_idx": 63,
+   "end_idx": 76,
+   "n_units": 14,
+   "words": 369,
+   "start_ref": "Genesis 3:8",
+   "end_ref": "Genesis 3:21",
+   "title": "God questions and curses the man, woman and serpent",
+   "setting": [
+    "eden"
+   ],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "adam",
+     "named": true
+    },
+    {
+     "id": "eve",
+     "named": true
+    },
+    {
+     "id": "serpent",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s6",
+   "start": "genesis-3-22",
+   "end": "genesis-3-24",
+   "start_idx": 77,
+   "end_idx": 79,
+   "n_units": 3,
+   "words": 91,
+   "start_ref": "Genesis 3:22",
+   "end_ref": "Genesis 3:24",
+   "title": "Expulsion from the garden",
+   "setting": [
+    "eden"
+   ],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "adam",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "eve"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s7",
+   "start": "genesis-4-1",
+   "end": "genesis-4-7",
+   "start_idx": 80,
+   "end_idx": 86,
+   "n_units": 7,
+   "words": 146,
+   "start_ref": "Genesis 4:1",
+   "end_ref": "Genesis 4:7",
+   "title": "Cain and Abel bring offerings",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "cain",
+     "named": true
+    },
+    {
+     "id": "abel",
+     "named": true
+    },
+    {
+     "id": "god",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "eve"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s8",
+   "start": "genesis-4-8",
+   "end": "genesis-4-16",
+   "start_idx": 87,
+   "end_idx": 95,
+   "n_units": 9,
+   "words": 205,
+   "start_ref": "Genesis 4:8",
+   "end_ref": "Genesis 4:16",
+   "title": "Cain kills Abel and is cursed",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "cain",
+     "named": true
+    },
+    {
+     "id": "abel",
+     "named": true
+    },
+    {
+     "id": "god",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s9",
+   "start": "genesis-4-17",
+   "end": "genesis-4-26",
+   "start_idx": 96,
+   "end_idx": 105,
+   "n_units": 10,
+   "words": 224,
+   "start_ref": "Genesis 4:17",
+   "end_ref": "Genesis 4:26",
+   "title": "Cain's line and the birth of Seth",
+   "setting": [
+    "nod_east_of_eden"
+   ],
+   "on_stage": [
+    {
+     "id": "cain",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "enoch_son_of_cain",
+    "lamech_of_cain",
+    "adam",
+    "eve",
+    "seth"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s10",
+   "start": "genesis-5-1",
+   "end": "genesis-5-32",
+   "start_idx": 106,
+   "end_idx": 137,
+   "n_units": 32,
+   "words": 530,
+   "start_ref": "Genesis 5:1",
+   "end_ref": "Genesis 5:32",
+   "title": "Genealogy from Adam to Noah's sons",
+   "setting": [],
+   "on_stage": [],
+   "mentioned_only": [
+    "adam",
+    "seth",
+    "noah",
+    "shem",
+    "ham",
+    "japheth",
+    "enoch_son_of_jared",
+    "lamech_son_of_methuselah"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s11",
+   "start": "genesis-6-1",
+   "end": "genesis-6-8",
+   "start_idx": 138,
+   "end_idx": 145,
+   "n_units": 8,
+   "words": 183,
+   "start_ref": "Genesis 6:1",
+   "end_ref": "Genesis 6:8",
+   "title": "Sons of God and daughters of men; God's grief",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "noah"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s12",
+   "start": "genesis-6-9",
+   "end": "genesis-6-22",
+   "start_idx": 146,
+   "end_idx": 159,
+   "n_units": 14,
+   "words": 341,
+   "start_ref": "Genesis 6:9",
+   "end_ref": "Genesis 6:22",
+   "title": "God commands Noah to build the ship",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "noah",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "shem",
+    "ham",
+    "japheth"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s13",
+   "start": "genesis-7-1",
+   "end": "genesis-7-10",
+   "start_idx": 160,
+   "end_idx": 169,
+   "n_units": 10,
+   "words": 189,
+   "start_ref": "Genesis 7:1",
+   "end_ref": "Genesis 7:10",
+   "title": "Animals and family enter the ship",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "noah",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s14",
+   "start": "genesis-7-11",
+   "end": "genesis-7-24",
+   "start_idx": 170,
+   "end_idx": 183,
+   "n_units": 14,
+   "words": 312,
+   "start_ref": "Genesis 7:11",
+   "end_ref": "Genesis 7:24",
+   "title": "The flood comes",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "noah",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "god"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s15",
+   "start": "genesis-8-1",
+   "end": "genesis-8-14",
+   "start_idx": 184,
+   "end_idx": 197,
+   "n_units": 14,
+   "words": 333,
+   "start_ref": "Genesis 8:1",
+   "end_ref": "Genesis 8:14",
+   "title": "The waters recede and the dove returns",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "noah",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "god"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s16",
+   "start": "genesis-8-15",
+   "end": "genesis-8-22",
+   "start_idx": 198,
+   "end_idx": 205,
+   "n_units": 8,
+   "words": 190,
+   "start_ref": "Genesis 8:15",
+   "end_ref": "Genesis 8:22",
+   "title": "Noah leaves the ship and makes an offering",
+   "setting": [
+    "ararat"
+   ],
+   "on_stage": [
+    {
+     "id": "noah",
+     "named": true
+    },
+    {
+     "id": "god",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "shem",
+    "ham",
+    "japheth"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s17",
+   "start": "genesis-9-1",
+   "end": "genesis-9-17",
+   "start_idx": 206,
+   "end_idx": 222,
+   "n_units": 17,
+   "words": 415,
+   "start_ref": "Genesis 9:1",
+   "end_ref": "Genesis 9:17",
+   "title": "God's covenant with Noah and the rainbow",
+   "setting": [
+    "ararat"
+   ],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "noah",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "shem",
+    "ham",
+    "japheth"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s18",
+   "start": "genesis-9-18",
+   "end": "genesis-9-29",
+   "start_idx": 223,
+   "end_idx": 234,
+   "n_units": 12,
+   "words": 195,
+   "start_ref": "Genesis 9:18",
+   "end_ref": "Genesis 9:29",
+   "title": "Noah's drunkenness and the curse of Canaan",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "noah",
+     "named": true
+    },
+    {
+     "id": "ham",
+     "named": true
+    },
+    {
+     "id": "shem",
+     "named": true
+    },
+    {
+     "id": "japheth",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s19",
+   "start": "genesis-10-1",
+   "end": "genesis-10-32",
+   "start_idx": 235,
+   "end_idx": 266,
+   "n_units": 32,
+   "words": 441,
+   "start_ref": "Genesis 10:1",
+   "end_ref": "Genesis 10:32",
+   "title": "Table of nations",
+   "setting": [],
+   "on_stage": [],
+   "mentioned_only": [
+    "nimrod",
+    "noah",
+    "shem",
+    "ham",
+    "japheth"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s20",
+   "start": "genesis-11-1",
+   "end": "genesis-11-9",
+   "start_idx": 267,
+   "end_idx": 275,
+   "n_units": 9,
+   "words": 202,
+   "start_ref": "Genesis 11:1",
+   "end_ref": "Genesis 11:9",
+   "title": "The tower of Babel",
+   "setting": [
+    "babel"
+   ],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s21",
+   "start": "genesis-11-10",
+   "end": "genesis-11-32",
+   "start_idx": 276,
+   "end_idx": 298,
+   "n_units": 23,
+   "words": 422,
+   "start_ref": "Genesis 11:10",
+   "end_ref": "Genesis 11:32",
+   "title": "Genealogy from Shem to Terah",
+   "setting": [
+    "ur_of_the_chaldees",
+    "haran"
+   ],
+   "on_stage": [],
+   "mentioned_only": [
+    "shem",
+    "terah",
+    "abram",
+    "sarai",
+    "lot"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s22",
+   "start": "genesis-12-1",
+   "end": "genesis-12-9",
+   "start_idx": 299,
+   "end_idx": 307,
+   "n_units": 9,
+   "words": 236,
+   "start_ref": "Genesis 12:1",
+   "end_ref": "Genesis 12:9",
+   "title": "God calls Abram to Canaan",
+   "setting": [
+    "haran",
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "abram",
+     "named": true
+    },
+    {
+     "id": "lot",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "sarai"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s23",
+   "start": "genesis-12-10",
+   "end": "genesis-12-20",
+   "start_idx": 308,
+   "end_idx": 318,
+   "n_units": 11,
+   "words": 245,
+   "start_ref": "Genesis 12:10",
+   "end_ref": "Genesis 12:20",
+   "title": "Abram and Sarai in Egypt",
+   "setting": [
+    "egypt",
+    "pharaohs_palace"
+   ],
+   "on_stage": [
+    {
+     "id": "abram",
+     "named": true
+    },
+    {
+     "id": "sarai",
+     "named": true
+    },
+    {
+     "id": "pharaoh_of_abram",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "god"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s24",
+   "start": "genesis-13-1",
+   "end": "genesis-13-18",
+   "start_idx": 319,
+   "end_idx": 336,
+   "n_units": 18,
+   "words": 418,
+   "start_ref": "Genesis 13:1",
+   "end_ref": "Genesis 13:18",
+   "title": "Abram and Lot separate",
+   "setting": [
+    "canaan_land",
+    "plain_of_jordan",
+    "hebron"
+   ],
+   "on_stage": [
+    {
+     "id": "abram",
+     "named": true
+    },
+    {
+     "id": "lot",
+     "named": true
+    },
+    {
+     "id": "god",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s25",
+   "start": "genesis-14-1",
+   "end": "genesis-14-12",
+   "start_idx": 337,
+   "end_idx": 348,
+   "n_units": 12,
+   "words": 272,
+   "start_ref": "Genesis 14:1",
+   "end_ref": "Genesis 14:12",
+   "title": "The war of the kings",
+   "setting": [
+    "sodom"
+   ],
+   "on_stage": [
+    {
+     "id": "amraphel",
+     "named": true
+    },
+    {
+     "id": "chedorlaomer",
+     "named": true
+    },
+    {
+     "id": "bera_king_of_sodom",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "lot"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s26",
+   "start": "genesis-14-13",
+   "end": "genesis-14-24",
+   "start_idx": 349,
+   "end_idx": 360,
+   "n_units": 12,
+   "words": 298,
+   "start_ref": "Genesis 14:13",
+   "end_ref": "Genesis 14:24",
+   "title": "Abram rescues Lot and meets Melchizedek",
+   "setting": [
+    "dan_city",
+    "sodom"
+   ],
+   "on_stage": [
+    {
+     "id": "abram",
+     "named": true
+    },
+    {
+     "id": "melchizedek",
+     "named": true
+    },
+    {
+     "id": "bera_king_of_sodom",
+     "named": true
+    },
+    {
+     "id": "lot",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s27",
+   "start": "genesis-15-1",
+   "end": "genesis-15-21",
+   "start_idx": 361,
+   "end_idx": 381,
+   "n_units": 21,
+   "words": 428,
+   "start_ref": "Genesis 15:1",
+   "end_ref": "Genesis 15:21",
+   "title": "God's covenant with Abram",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "abram",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "eliezer_of_damascus"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s28",
+   "start": "genesis-16-1",
+   "end": "genesis-16-16",
+   "start_idx": 382,
+   "end_idx": 397,
+   "n_units": 16,
+   "words": 380,
+   "start_ref": "Genesis 16:1",
+   "end_ref": "Genesis 16:16",
+   "title": "Hagar and the birth of Ishmael",
+   "setting": [
+    "well_of_the_living_one_beer_lahai_roi"
+   ],
+   "on_stage": [
+    {
+     "id": "sarai",
+     "named": true
+    },
+    {
+     "id": "hagar",
+     "named": true
+    },
+    {
+     "id": "abram",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "ishmael"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s29",
+   "start": "genesis-17-1",
+   "end": "genesis-17-14",
+   "start_idx": 398,
+   "end_idx": 411,
+   "n_units": 14,
+   "words": 335,
+   "start_ref": "Genesis 17:1",
+   "end_ref": "Genesis 17:14",
+   "title": "Covenant of circumcision",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "abram",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "sarai",
+    "isaac"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s30",
+   "start": "genesis-17-15",
+   "end": "genesis-17-27",
+   "start_idx": 412,
+   "end_idx": 424,
+   "n_units": 13,
+   "words": 317,
+   "start_ref": "Genesis 17:15",
+   "end_ref": "Genesis 17:27",
+   "title": "Promise of Isaac and circumcision of the household",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "abram",
+     "named": true
+    },
+    {
+     "id": "ishmael",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "sarai"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s31",
+   "start": "genesis-18-1",
+   "end": "genesis-18-15",
+   "start_idx": 425,
+   "end_idx": 439,
+   "n_units": 15,
+   "words": 346,
+   "start_ref": "Genesis 18:1",
+   "end_ref": "Genesis 18:15",
+   "title": "Three visitors and the promise of a son",
+   "setting": [
+    "hebron"
+   ],
+   "on_stage": [
+    {
+     "id": "three_visitors_at_mamre",
+     "named": false
+    },
+    {
+     "id": "abram",
+     "named": true
+    },
+    {
+     "id": "sarai",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s32",
+   "start": "genesis-18-16",
+   "end": "genesis-18-33",
+   "start_idx": 440,
+   "end_idx": 457,
+   "n_units": 18,
+   "words": 457,
+   "start_ref": "Genesis 18:16",
+   "end_ref": "Genesis 18:33",
+   "title": "Abraham pleads for Sodom",
+   "setting": [
+    "hebron",
+    "sodom"
+   ],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "abram",
+     "named": true
+    },
+    {
+     "id": "three_visitors_at_mamre",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s33",
+   "start": "genesis-19-1",
+   "end": "genesis-19-11",
+   "start_idx": 458,
+   "end_idx": 468,
+   "n_units": 11,
+   "words": 319,
+   "start_ref": "Genesis 19:1",
+   "end_ref": "Genesis 19:11",
+   "title": "Angels at Lot's house and the men of Sodom",
+   "setting": [
+    "sodom"
+   ],
+   "on_stage": [
+    {
+     "id": "angels_of_sodom",
+     "named": false
+    },
+    {
+     "id": "lot",
+     "named": true
+    },
+    {
+     "id": "men_of_sodom",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s34",
+   "start": "genesis-19-12",
+   "end": "genesis-19-29",
+   "start_idx": 469,
+   "end_idx": 486,
+   "n_units": 18,
+   "words": 461,
+   "start_ref": "Genesis 19:12",
+   "end_ref": "Genesis 19:29",
+   "title": "Destruction of Sodom and Gomorrah",
+   "setting": [
+    "sodom"
+   ],
+   "on_stage": [
+    {
+     "id": "angels_of_sodom",
+     "named": false
+    },
+    {
+     "id": "lot",
+     "named": true
+    },
+    {
+     "id": "lots_wife",
+     "named": false
+    },
+    {
+     "id": "god",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "abram"
+   ],
+   "unknown_ids": [
+    "zoar_placeholder"
+   ]
+  },
+  {
+   "id": "GEN-s35",
+   "start": "genesis-19-30",
+   "end": "genesis-19-38",
+   "start_idx": 487,
+   "end_idx": 495,
+   "n_units": 9,
+   "words": 242,
+   "start_ref": "Genesis 19:30",
+   "end_ref": "Genesis 19:38",
+   "title": "Lot's daughters and the birth of Moab and Ben Ammi",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "lot",
+     "named": true
+    },
+    {
+     "id": "lots_daughters",
+     "named": false
+    },
+    {
+     "id": "ben_ammi",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": [
+    "zoar_placeholder"
+   ]
+  },
+  {
+   "id": "GEN-s36",
+   "start": "genesis-20-1",
+   "end": "genesis-20-18",
+   "start_idx": 496,
+   "end_idx": 513,
+   "n_units": 18,
+   "words": 477,
+   "start_ref": "Genesis 20:1",
+   "end_ref": "Genesis 20:18",
+   "title": "Abraham and Sarah at Gerar",
+   "setting": [
+    "gerar"
+   ],
+   "on_stage": [
+    {
+     "id": "abram",
+     "named": true
+    },
+    {
+     "id": "sarai",
+     "named": true
+    },
+    {
+     "id": "abimelech_of_gerar",
+     "named": false
+    },
+    {
+     "id": "god",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s37",
+   "start": "genesis-21-1",
+   "end": "genesis-21-7",
+   "start_idx": 514,
+   "end_idx": 520,
+   "n_units": 7,
+   "words": 121,
+   "start_ref": "Genesis 21:1",
+   "end_ref": "Genesis 21:7",
+   "title": "Birth of Isaac",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "sarai",
+     "named": true
+    },
+    {
+     "id": "abram",
+     "named": true
+    },
+    {
+     "id": "isaac",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s38",
+   "start": "genesis-21-8",
+   "end": "genesis-21-21",
+   "start_idx": 521,
+   "end_idx": 534,
+   "n_units": 14,
+   "words": 355,
+   "start_ref": "Genesis 21:8",
+   "end_ref": "Genesis 21:21",
+   "title": "Hagar and Ishmael sent away",
+   "setting": [
+    "beersheba"
+   ],
+   "on_stage": [
+    {
+     "id": "sarai",
+     "named": true
+    },
+    {
+     "id": "hagar",
+     "named": true
+    },
+    {
+     "id": "ishmael",
+     "named": false
+    },
+    {
+     "id": "abram",
+     "named": true
+    },
+    {
+     "id": "god",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s39",
+   "start": "genesis-21-22",
+   "end": "genesis-21-34",
+   "start_idx": 535,
+   "end_idx": 547,
+   "n_units": 13,
+   "words": 259,
+   "start_ref": "Genesis 21:22",
+   "end_ref": "Genesis 21:34",
+   "title": "Covenant with Abimelech at Beersheba",
+   "setting": [
+    "beersheba"
+   ],
+   "on_stage": [
+    {
+     "id": "abram",
+     "named": true
+    },
+    {
+     "id": "abimelech_of_gerar",
+     "named": false
+    },
+    {
+     "id": "phicol",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s40",
+   "start": "genesis-22-1",
+   "end": "genesis-22-19",
+   "start_idx": 548,
+   "end_idx": 566,
+   "n_units": 19,
+   "words": 499,
+   "start_ref": "Genesis 22:1",
+   "end_ref": "Genesis 22:19",
+   "title": "Binding of Isaac",
+   "setting": [
+    "mount_moriah"
+   ],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "abram",
+     "named": true
+    },
+    {
+     "id": "isaac",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s41",
+   "start": "genesis-22-20",
+   "end": "genesis-22-24",
+   "start_idx": 567,
+   "end_idx": 571,
+   "n_units": 5,
+   "words": 61,
+   "start_ref": "Genesis 22:20",
+   "end_ref": "Genesis 22:24",
+   "title": "News of Nahor's children",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "abram",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "rebekah",
+    "bethuel"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s42",
+   "start": "genesis-23-1",
+   "end": "genesis-23-20",
+   "start_idx": 572,
+   "end_idx": 591,
+   "n_units": 20,
+   "words": 511,
+   "start_ref": "Genesis 23:1",
+   "end_ref": "Genesis 23:20",
+   "title": "Sarah dies and Abraham buys the cave",
+   "setting": [
+    "hebron",
+    "cave_of_machpelah"
+   ],
+   "on_stage": [
+    {
+     "id": "abram",
+     "named": true
+    },
+    {
+     "id": "ephron_the_hittite",
+     "named": true
+    },
+    {
+     "id": "children_of_heth",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "sarai"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s43",
+   "start": "genesis-24-1",
+   "end": "genesis-24-9",
+   "start_idx": 592,
+   "end_idx": 600,
+   "n_units": 9,
+   "words": 236,
+   "start_ref": "Genesis 24:1",
+   "end_ref": "Genesis 24:9",
+   "title": "Abraham's oath to the servant",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "abram",
+     "named": true
+    },
+    {
+     "id": "eliezer_of_damascus",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "isaac"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s44",
+   "start": "genesis-24-10",
+   "end": "genesis-24-28",
+   "start_idx": 601,
+   "end_idx": 619,
+   "n_units": 19,
+   "words": 469,
+   "start_ref": "Genesis 24:10",
+   "end_ref": "Genesis 24:28",
+   "title": "The servant meets Rebekah at the well",
+   "setting": [
+    "paddan_aram"
+   ],
+   "on_stage": [
+    {
+     "id": "eliezer_of_damascus",
+     "named": false
+    },
+    {
+     "id": "rebekah",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "god"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s45",
+   "start": "genesis-24-29",
+   "end": "genesis-24-61",
+   "start_idx": 620,
+   "end_idx": 652,
+   "n_units": 33,
+   "words": 832,
+   "start_ref": "Genesis 24:29",
+   "end_ref": "Genesis 24:61",
+   "title": "Laban and the betrothal of Rebekah",
+   "setting": [
+    "paddan_aram"
+   ],
+   "on_stage": [
+    {
+     "id": "laban",
+     "named": true
+    },
+    {
+     "id": "eliezer_of_damascus",
+     "named": false
+    },
+    {
+     "id": "rebekah",
+     "named": true
+    },
+    {
+     "id": "bethuel",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "abram",
+    "isaac"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s46",
+   "start": "genesis-24-62",
+   "end": "genesis-24-67",
+   "start_idx": 653,
+   "end_idx": 658,
+   "n_units": 6,
+   "words": 126,
+   "start_ref": "Genesis 24:62",
+   "end_ref": "Genesis 24:67",
+   "title": "Isaac meets Rebekah",
+   "setting": [
+    "beersheba"
+   ],
+   "on_stage": [
+    {
+     "id": "isaac",
+     "named": true
+    },
+    {
+     "id": "rebekah",
+     "named": true
+    },
+    {
+     "id": "eliezer_of_damascus",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "sarai"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s47",
+   "start": "genesis-25-1",
+   "end": "genesis-25-11",
+   "start_idx": 659,
+   "end_idx": 669,
+   "n_units": 11,
+   "words": 192,
+   "start_ref": "Genesis 25:1",
+   "end_ref": "Genesis 25:11",
+   "title": "Abraham's later family and death",
+   "setting": [
+    "hebron",
+    "cave_of_machpelah"
+   ],
+   "on_stage": [
+    {
+     "id": "abram",
+     "named": true
+    },
+    {
+     "id": "isaac",
+     "named": true
+    },
+    {
+     "id": "ishmael",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "keturah"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s48",
+   "start": "genesis-25-12",
+   "end": "genesis-25-18",
+   "start_idx": 670,
+   "end_idx": 676,
+   "n_units": 7,
+   "words": 129,
+   "start_ref": "Genesis 25:12",
+   "end_ref": "Genesis 25:18",
+   "title": "Ishmael's sons",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "ishmael",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s49",
+   "start": "genesis-25-19",
+   "end": "genesis-25-26",
+   "start_idx": 677,
+   "end_idx": 684,
+   "n_units": 8,
+   "words": 179,
+   "start_ref": "Genesis 25:19",
+   "end_ref": "Genesis 25:26",
+   "title": "Birth of Esau and Jacob",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "rebekah",
+     "named": true
+    },
+    {
+     "id": "isaac",
+     "named": true
+    },
+    {
+     "id": "esau",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "god"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s50",
+   "start": "genesis-25-27",
+   "end": "genesis-25-34",
+   "start_idx": 685,
+   "end_idx": 692,
+   "n_units": 8,
+   "words": 129,
+   "start_ref": "Genesis 25:27",
+   "end_ref": "Genesis 25:34",
+   "title": "Esau sells his birthright",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "esau",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s51",
+   "start": "genesis-26-1",
+   "end": "genesis-26-6",
+   "start_idx": 693,
+   "end_idx": 698,
+   "n_units": 6,
+   "words": 142,
+   "start_ref": "Genesis 26:1",
+   "end_ref": "Genesis 26:6",
+   "title": "Famine and God's promise to Isaac",
+   "setting": [
+    "gerar"
+   ],
+   "on_stage": [
+    {
+     "id": "isaac",
+     "named": true
+    },
+    {
+     "id": "god",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "abram"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s52",
+   "start": "genesis-26-7",
+   "end": "genesis-26-11",
+   "start_idx": 699,
+   "end_idx": 703,
+   "n_units": 5,
+   "words": 153,
+   "start_ref": "Genesis 26:7",
+   "end_ref": "Genesis 26:11",
+   "title": "Isaac and Rebekah at Gerar",
+   "setting": [
+    "gerar"
+   ],
+   "on_stage": [
+    {
+     "id": "isaac",
+     "named": true
+    },
+    {
+     "id": "rebekah",
+     "named": true
+    },
+    {
+     "id": "abimelech_of_isaac",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s53",
+   "start": "genesis-26-12",
+   "end": "genesis-26-22",
+   "start_idx": 704,
+   "end_idx": 714,
+   "n_units": 11,
+   "words": 240,
+   "start_ref": "Genesis 26:12",
+   "end_ref": "Genesis 26:22",
+   "title": "Isaac's wells and the Philistine quarrels",
+   "setting": [
+    "gerar"
+   ],
+   "on_stage": [
+    {
+     "id": "isaac",
+     "named": true
+    },
+    {
+     "id": "abimelech_of_isaac",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s54",
+   "start": "genesis-26-23",
+   "end": "genesis-26-35",
+   "start_idx": 715,
+   "end_idx": 727,
+   "n_units": 13,
+   "words": 280,
+   "start_ref": "Genesis 26:23",
+   "end_ref": "Genesis 26:35",
+   "title": "Covenant at Beersheba and Esau's wives",
+   "setting": [
+    "beersheba"
+   ],
+   "on_stage": [
+    {
+     "id": "isaac",
+     "named": true
+    },
+    {
+     "id": "abimelech_of_isaac",
+     "named": false
+    },
+    {
+     "id": "phicol",
+     "named": true
+    },
+    {
+     "id": "esau",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "rebekah"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s55",
+   "start": "genesis-27-1",
+   "end": "genesis-27-17",
+   "start_idx": 728,
+   "end_idx": 744,
+   "n_units": 17,
+   "words": 370,
+   "start_ref": "Genesis 27:1",
+   "end_ref": "Genesis 27:17",
+   "title": "Rebekah plans Jacob's deception",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "isaac",
+     "named": true
+    },
+    {
+     "id": "esau",
+     "named": true
+    },
+    {
+     "id": "rebekah",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s56",
+   "start": "genesis-27-18",
+   "end": "genesis-27-29",
+   "start_idx": 745,
+   "end_idx": 756,
+   "n_units": 12,
+   "words": 299,
+   "start_ref": "Genesis 27:18",
+   "end_ref": "Genesis 27:29",
+   "title": "Jacob receives the blessing",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "isaac",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "esau"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s57",
+   "start": "genesis-27-30",
+   "end": "genesis-27-40",
+   "start_idx": 757,
+   "end_idx": 767,
+   "n_units": 11,
+   "words": 315,
+   "start_ref": "Genesis 27:30",
+   "end_ref": "Genesis 27:40",
+   "title": "Esau comes and learns of the blessing",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "esau",
+     "named": true
+    },
+    {
+     "id": "isaac",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "jacob"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s58",
+   "start": "genesis-27-41",
+   "end": "genesis-28-9",
+   "start_idx": 768,
+   "end_idx": 782,
+   "n_units": 15,
+   "words": 397,
+   "start_ref": "Genesis 27:41",
+   "end_ref": "Genesis 28:9",
+   "title": "Esau's anger and Jacob sent away",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "esau",
+     "named": true
+    },
+    {
+     "id": "rebekah",
+     "named": true
+    },
+    {
+     "id": "isaac",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "laban",
+    "ishmael"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s59",
+   "start": "genesis-28-10",
+   "end": "genesis-28-22",
+   "start_idx": 783,
+   "end_idx": 795,
+   "n_units": 13,
+   "words": 367,
+   "start_ref": "Genesis 28:10",
+   "end_ref": "Genesis 28:22",
+   "title": "Jacob's dream at Bethel",
+   "setting": [
+    "bethel"
+   ],
+   "on_stage": [
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "angels_of_sodom",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s60",
+   "start": "genesis-29-1",
+   "end": "genesis-29-14",
+   "start_idx": 796,
+   "end_idx": 809,
+   "n_units": 14,
+   "words": 330,
+   "start_ref": "Genesis 29:1",
+   "end_ref": "Genesis 29:14",
+   "title": "Jacob meets Rachel at the well",
+   "setting": [
+    "paddan_aram"
+   ],
+   "on_stage": [
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "rachel",
+     "named": true
+    },
+    {
+     "id": "laban",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "rebekah"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s61",
+   "start": "genesis-29-15",
+   "end": "genesis-29-30",
+   "start_idx": 810,
+   "end_idx": 825,
+   "n_units": 16,
+   "words": 302,
+   "start_ref": "Genesis 29:15",
+   "end_ref": "Genesis 29:30",
+   "title": "Jacob marries Leah and Rachel",
+   "setting": [
+    "paddan_aram"
+   ],
+   "on_stage": [
+    {
+     "id": "laban",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "leah",
+     "named": true
+    },
+    {
+     "id": "rachel",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s62",
+   "start": "genesis-29-31",
+   "end": "genesis-29-35",
+   "start_idx": 826,
+   "end_idx": 830,
+   "n_units": 5,
+   "words": 128,
+   "start_ref": "Genesis 29:31",
+   "end_ref": "Genesis 29:35",
+   "title": "Birth of Leah's sons",
+   "setting": [
+    "paddan_aram"
+   ],
+   "on_stage": [
+    {
+     "id": "leah",
+     "named": true
+    },
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "rachel",
+    "reuben",
+    "simeon",
+    "levi",
+    "judah"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s63",
+   "start": "genesis-30-1",
+   "end": "genesis-30-13",
+   "start_idx": 831,
+   "end_idx": 843,
+   "n_units": 13,
+   "words": 207,
+   "start_ref": "Genesis 30:1",
+   "end_ref": "Genesis 30:13",
+   "title": "Rachel and Leah give their maids to Jacob",
+   "setting": [
+    "paddan_aram"
+   ],
+   "on_stage": [
+    {
+     "id": "rachel",
+     "named": true
+    },
+    {
+     "id": "leah",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "bilhah",
+     "named": true
+    },
+    {
+     "id": "zilpah",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s64",
+   "start": "genesis-30-14",
+   "end": "genesis-30-24",
+   "start_idx": 844,
+   "end_idx": 854,
+   "n_units": 11,
+   "words": 227,
+   "start_ref": "Genesis 30:14",
+   "end_ref": "Genesis 30:24",
+   "title": "Mandrakes and the birth of Joseph",
+   "setting": [
+    "paddan_aram"
+   ],
+   "on_stage": [
+    {
+     "id": "reuben",
+     "named": true
+    },
+    {
+     "id": "leah",
+     "named": true
+    },
+    {
+     "id": "rachel",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "god"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s65",
+   "start": "genesis-30-25",
+   "end": "genesis-30-43",
+   "start_idx": 855,
+   "end_idx": 873,
+   "n_units": 19,
+   "words": 497,
+   "start_ref": "Genesis 30:25",
+   "end_ref": "Genesis 30:43",
+   "title": "Jacob's bargain for the flocks",
+   "setting": [
+    "paddan_aram"
+   ],
+   "on_stage": [
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "laban",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "rachel",
+    "leah"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s66",
+   "start": "genesis-31-1",
+   "end": "genesis-31-21",
+   "start_idx": 874,
+   "end_idx": 894,
+   "n_units": 21,
+   "words": 463,
+   "start_ref": "Genesis 31:1",
+   "end_ref": "Genesis 31:21",
+   "title": "Jacob decides to flee",
+   "setting": [
+    "paddan_aram"
+   ],
+   "on_stage": [
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "rachel",
+     "named": true
+    },
+    {
+     "id": "leah",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "laban",
+    "god"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s67",
+   "start": "genesis-31-22",
+   "end": "genesis-31-42",
+   "start_idx": 895,
+   "end_idx": 915,
+   "n_units": 21,
+   "words": 562,
+   "start_ref": "Genesis 31:22",
+   "end_ref": "Genesis 31:42",
+   "title": "Laban pursues Jacob",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "laban",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "rachel",
+     "named": true
+    },
+    {
+     "id": "leah",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "god"
+   ],
+   "unknown_ids": [
+    "mountain_of_gilead_placeholder"
+   ]
+  },
+  {
+   "id": "GEN-s68",
+   "start": "genesis-31-43",
+   "end": "genesis-31-55",
+   "start_idx": 916,
+   "end_idx": 928,
+   "n_units": 13,
+   "words": 296,
+   "start_ref": "Genesis 31:43",
+   "end_ref": "Genesis 31:55",
+   "title": "Covenant at the heap of stones",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "laban",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": [
+    "mountain_of_gilead_placeholder"
+   ]
+  },
+  {
+   "id": "GEN-s69",
+   "start": "genesis-32-1",
+   "end": "genesis-32-12",
+   "start_idx": 929,
+   "end_idx": 940,
+   "n_units": 12,
+   "words": 310,
+   "start_ref": "Genesis 32:1",
+   "end_ref": "Genesis 32:12",
+   "title": "Jacob meets God's angels and sends messengers",
+   "setting": [],
+   "on_stage": [
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "angels_of_sodom",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "esau"
+   ],
+   "unknown_ids": [
+    "mahanaim_placeholder"
+   ]
+  },
+  {
+   "id": "GEN-s70",
+   "start": "genesis-32-13",
+   "end": "genesis-32-21",
+   "start_idx": 941,
+   "end_idx": 949,
+   "n_units": 9,
+   "words": 214,
+   "start_ref": "Genesis 32:13",
+   "end_ref": "Genesis 32:21",
+   "title": "Jacob prepares a present for Esau",
+   "setting": [
+    "river_jabbok"
+   ],
+   "on_stage": [
+    {
+     "id": "jacob",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "esau"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s71",
+   "start": "genesis-32-22",
+   "end": "genesis-32-32",
+   "start_idx": 950,
+   "end_idx": 960,
+   "n_units": 11,
+   "words": 244,
+   "start_ref": "Genesis 32:22",
+   "end_ref": "Genesis 32:32",
+   "title": "Jacob wrestles and is renamed Israel",
+   "setting": [
+    "river_jabbok"
+   ],
+   "on_stage": [
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "man_at_jabbok",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s72",
+   "start": "genesis-33-1",
+   "end": "genesis-33-17",
+   "start_idx": 961,
+   "end_idx": 977,
+   "n_units": 17,
+   "words": 411,
+   "start_ref": "Genesis 33:1",
+   "end_ref": "Genesis 33:17",
+   "title": "Jacob meets Esau",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "esau",
+     "named": true
+    },
+    {
+     "id": "leah",
+     "named": true
+    },
+    {
+     "id": "rachel",
+     "named": true
+    },
+    {
+     "id": "joseph",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s73",
+   "start": "genesis-33-18",
+   "end": "genesis-33-20",
+   "start_idx": 978,
+   "end_idx": 980,
+   "n_units": 3,
+   "words": 66,
+   "start_ref": "Genesis 33:18",
+   "end_ref": "Genesis 33:20",
+   "title": "Jacob settles at Shechem",
+   "setting": [
+    "shechem_city"
+   ],
+   "on_stage": [
+    {
+     "id": "jacob",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "hamor"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s74",
+   "start": "genesis-34-1",
+   "end": "genesis-34-17",
+   "start_idx": 981,
+   "end_idx": 997,
+   "n_units": 17,
+   "words": 392,
+   "start_ref": "Genesis 34:1",
+   "end_ref": "Genesis 34:17",
+   "title": "Shechem defiles Dinah and asks for her",
+   "setting": [
+    "shechem_city"
+   ],
+   "on_stage": [
+    {
+     "id": "dinah",
+     "named": true
+    },
+    {
+     "id": "shechem",
+     "named": true
+    },
+    {
+     "id": "hamor",
+     "named": true
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    },
+    {
+     "id": "jacob",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s75",
+   "start": "genesis-34-18",
+   "end": "genesis-34-31",
+   "start_idx": 998,
+   "end_idx": 1011,
+   "n_units": 14,
+   "words": 359,
+   "start_ref": "Genesis 34:18",
+   "end_ref": "Genesis 34:31",
+   "title": "The massacre at Shechem",
+   "setting": [
+    "shechem_city"
+   ],
+   "on_stage": [
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    },
+    {
+     "id": "shechem",
+     "named": true
+    },
+    {
+     "id": "hamor",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "simeon",
+     "named": true
+    },
+    {
+     "id": "levi",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "dinah"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s76",
+   "start": "genesis-35-1",
+   "end": "genesis-35-15",
+   "start_idx": 1012,
+   "end_idx": 1026,
+   "n_units": 15,
+   "words": 374,
+   "start_ref": "Genesis 35:1",
+   "end_ref": "Genesis 35:15",
+   "title": "God tells Jacob to go to Bethel",
+   "setting": [
+    "bethel"
+   ],
+   "on_stage": [
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s77",
+   "start": "genesis-35-16",
+   "end": "genesis-35-22",
+   "start_idx": 1027,
+   "end_idx": 1033,
+   "n_units": 7,
+   "words": 129,
+   "start_ref": "Genesis 35:16",
+   "end_ref": "Genesis 35:22",
+   "title": "Birth and death of Rachel; Reuben's sin",
+   "setting": [
+    "paddan_aram"
+   ],
+   "on_stage": [
+    {
+     "id": "rachel",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "reuben",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "benjamin"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s78",
+   "start": "genesis-35-23",
+   "end": "genesis-35-29",
+   "start_idx": 1034,
+   "end_idx": 1040,
+   "n_units": 7,
+   "words": 107,
+   "start_ref": "Genesis 35:23",
+   "end_ref": "Genesis 35:29",
+   "title": "Jacob's sons listed; death of Isaac",
+   "setting": [
+    "hebron"
+   ],
+   "on_stage": [
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "esau",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "isaac"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s79",
+   "start": "genesis-36-1",
+   "end": "genesis-36-43",
+   "start_idx": 1041,
+   "end_idx": 1083,
+   "n_units": 43,
+   "words": 813,
+   "start_ref": "Genesis 36:1",
+   "end_ref": "Genesis 36:43",
+   "title": "Genealogy of Esau",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [],
+   "mentioned_only": [
+    "esau"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s80",
+   "start": "genesis-37-1",
+   "end": "genesis-37-11",
+   "start_idx": 1084,
+   "end_idx": 1094,
+   "n_units": 11,
+   "words": 290,
+   "start_ref": "Genesis 37:1",
+   "end_ref": "Genesis 37:11",
+   "title": "Joseph's dreams",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s81",
+   "start": "genesis-37-12",
+   "end": "genesis-37-24",
+   "start_idx": 1095,
+   "end_idx": 1107,
+   "n_units": 13,
+   "words": 298,
+   "start_ref": "Genesis 37:12",
+   "end_ref": "Genesis 37:24",
+   "title": "Brothers plot against Joseph and throw him in a pit",
+   "setting": [
+    "dothan",
+    "pit_in_wilderness"
+   ],
+   "on_stage": [
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    },
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "reuben",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "jacob"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s82",
+   "start": "genesis-37-25",
+   "end": "genesis-37-36",
+   "start_idx": 1108,
+   "end_idx": 1119,
+   "n_units": 12,
+   "words": 297,
+   "start_ref": "Genesis 37:25",
+   "end_ref": "Genesis 37:36",
+   "title": "Joseph sold to the Ishmaelites and taken to Egypt",
+   "setting": [
+    "pit_in_wilderness",
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "judah",
+     "named": true
+    },
+    {
+     "id": "ishmaelite_merchants",
+     "named": false
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    },
+    {
+     "id": "reuben",
+     "named": true
+    },
+    {
+     "id": "potiphar",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "joseph",
+    "jacob"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s83",
+   "start": "genesis-38-1",
+   "end": "genesis-38-30",
+   "start_idx": 1120,
+   "end_idx": 1149,
+   "n_units": 30,
+   "words": 725,
+   "start_ref": "Genesis 38:1",
+   "end_ref": "Genesis 38:30",
+   "title": "Judah and Tamar",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "judah",
+     "named": true
+    },
+    {
+     "id": "tamar",
+     "named": true
+    },
+    {
+     "id": "judah_s_wife",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": [
+    "er_placeholder"
+   ]
+  },
+  {
+   "id": "GEN-s84",
+   "start": "genesis-39-1",
+   "end": "genesis-39-6",
+   "start_idx": 1150,
+   "end_idx": 1155,
+   "n_units": 6,
+   "words": 167,
+   "start_ref": "Genesis 39:1",
+   "end_ref": "Genesis 39:6",
+   "title": "Joseph prospers in Potiphar's house",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "potiphar",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "god"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s85",
+   "start": "genesis-39-7",
+   "end": "genesis-39-23",
+   "start_idx": 1156,
+   "end_idx": 1172,
+   "n_units": 17,
+   "words": 412,
+   "start_ref": "Genesis 39:7",
+   "end_ref": "Genesis 39:23",
+   "title": "Potiphar's wife and Joseph's imprisonment",
+   "setting": [
+    "egypt",
+    "prison_in_egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "potiphars_wife",
+     "named": false
+    },
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "potiphar",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s86",
+   "start": "genesis-40-1",
+   "end": "genesis-40-23",
+   "start_idx": 1173,
+   "end_idx": 1195,
+   "n_units": 23,
+   "words": 538,
+   "start_ref": "Genesis 40:1",
+   "end_ref": "Genesis 40:23",
+   "title": "The cup bearer and baker's dreams in prison",
+   "setting": [
+    "prison_in_egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "chief_cup_bearer",
+     "named": false
+    },
+    {
+     "id": "chief_baker",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "pharaoh_of_joseph"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s87",
+   "start": "genesis-41-1",
+   "end": "genesis-41-13",
+   "start_idx": 1196,
+   "end_idx": 1208,
+   "n_units": 13,
+   "words": 287,
+   "start_ref": "Genesis 41:1",
+   "end_ref": "Genesis 41:13",
+   "title": "Pharaoh's dreams and the cup bearer's remembrance",
+   "setting": [
+    "pharaohs_palace"
+   ],
+   "on_stage": [
+    {
+     "id": "pharaoh_of_joseph",
+     "named": false
+    },
+    {
+     "id": "chief_cup_bearer",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "joseph"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s88",
+   "start": "genesis-41-14",
+   "end": "genesis-41-40",
+   "start_idx": 1209,
+   "end_idx": 1235,
+   "n_units": 27,
+   "words": 624,
+   "start_ref": "Genesis 41:14",
+   "end_ref": "Genesis 41:40",
+   "title": "Joseph interprets Pharaoh's dreams",
+   "setting": [
+    "pharaohs_palace"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "pharaoh_of_joseph",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "god"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s89",
+   "start": "genesis-41-41",
+   "end": "genesis-41-57",
+   "start_idx": 1236,
+   "end_idx": 1252,
+   "n_units": 17,
+   "words": 414,
+   "start_ref": "Genesis 41:41",
+   "end_ref": "Genesis 41:57",
+   "title": "Joseph made ruler and the famine begins",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "pharaoh_of_joseph",
+     "named": false
+    },
+    {
+     "id": "joseph",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "asenath",
+    "manasseh",
+    "ephraim"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s90",
+   "start": "genesis-42-1",
+   "end": "genesis-42-20",
+   "start_idx": 1253,
+   "end_idx": 1272,
+   "n_units": 20,
+   "words": 433,
+   "start_ref": "Genesis 42:1",
+   "end_ref": "Genesis 42:20",
+   "title": "Joseph's brothers come to Egypt for grain",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    },
+    {
+     "id": "jacob",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "benjamin",
+    "simeon"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s91",
+   "start": "genesis-42-21",
+   "end": "genesis-42-38",
+   "start_idx": 1273,
+   "end_idx": 1290,
+   "n_units": 18,
+   "words": 503,
+   "start_ref": "Genesis 42:21",
+   "end_ref": "Genesis 42:38",
+   "title": "Joseph's brothers in prison; their guilt",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    },
+    {
+     "id": "reuben",
+     "named": true
+    },
+    {
+     "id": "simeon",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "jacob"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s92",
+   "start": "genesis-43-1",
+   "end": "genesis-43-14",
+   "start_idx": 1291,
+   "end_idx": 1304,
+   "n_units": 14,
+   "words": 350,
+   "start_ref": "Genesis 43:1",
+   "end_ref": "Genesis 43:14",
+   "title": "Judah pleads to take Benjamin",
+   "setting": [
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "judah",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "benjamin"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s93",
+   "start": "genesis-43-15",
+   "end": "genesis-43-34",
+   "start_idx": 1305,
+   "end_idx": 1324,
+   "n_units": 20,
+   "words": 515,
+   "start_ref": "Genesis 43:15",
+   "end_ref": "Genesis 43:34",
+   "title": "The brothers dine with Joseph",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    },
+    {
+     "id": "benjamin",
+     "named": true
+    },
+    {
+     "id": "simeon",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s94",
+   "start": "genesis-44-1",
+   "end": "genesis-44-17",
+   "start_idx": 1325,
+   "end_idx": 1341,
+   "n_units": 17,
+   "words": 424,
+   "start_ref": "Genesis 44:1",
+   "end_ref": "Genesis 44:17",
+   "title": "The silver cup in Benjamin's sack",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    },
+    {
+     "id": "judah",
+     "named": true
+    },
+    {
+     "id": "benjamin",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s95",
+   "start": "genesis-44-18",
+   "end": "genesis-44-34",
+   "start_idx": 1342,
+   "end_idx": 1358,
+   "n_units": 17,
+   "words": 408,
+   "start_ref": "Genesis 44:18",
+   "end_ref": "Genesis 44:34",
+   "title": "Judah's plea for Benjamin",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "judah",
+     "named": true
+    },
+    {
+     "id": "joseph",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jacob",
+    "benjamin"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s96",
+   "start": "genesis-45-1",
+   "end": "genesis-45-15",
+   "start_idx": 1359,
+   "end_idx": 1373,
+   "n_units": 15,
+   "words": 371,
+   "start_ref": "Genesis 45:1",
+   "end_ref": "Genesis 45:15",
+   "title": "Joseph reveals himself",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    },
+    {
+     "id": "benjamin",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "jacob",
+    "pharaoh_of_joseph"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s97",
+   "start": "genesis-45-16",
+   "end": "genesis-45-28",
+   "start_idx": 1374,
+   "end_idx": 1386,
+   "n_units": 13,
+   "words": 316,
+   "start_ref": "Genesis 45:16",
+   "end_ref": "Genesis 45:28",
+   "title": "Pharaoh sends the brothers for Jacob",
+   "setting": [
+    "egypt",
+    "canaan_land"
+   ],
+   "on_stage": [
+    {
+     "id": "pharaoh_of_joseph",
+     "named": false
+    },
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jacob"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s98",
+   "start": "genesis-46-1",
+   "end": "genesis-46-7",
+   "start_idx": 1387,
+   "end_idx": 1393,
+   "n_units": 7,
+   "words": 170,
+   "start_ref": "Genesis 46:1",
+   "end_ref": "Genesis 46:7",
+   "title": "Jacob's journey to Egypt",
+   "setting": [
+    "beersheba",
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "god",
+     "named": true
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s99",
+   "start": "genesis-46-8",
+   "end": "genesis-46-27",
+   "start_idx": 1394,
+   "end_idx": 1413,
+   "n_units": 20,
+   "words": 336,
+   "start_ref": "Genesis 46:8",
+   "end_ref": "Genesis 46:27",
+   "title": "Genealogy of those who went to Egypt",
+   "setting": [],
+   "on_stage": [],
+   "mentioned_only": [
+    "jacob",
+    "reuben",
+    "simeon",
+    "levi",
+    "judah",
+    "issachar",
+    "zebulun",
+    "gad",
+    "asher",
+    "joseph",
+    "benjamin",
+    "dan_son_of_jacob",
+    "naphtali"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s100",
+   "start": "genesis-46-28",
+   "end": "genesis-46-34",
+   "start_idx": 1414,
+   "end_idx": 1420,
+   "n_units": 7,
+   "words": 192,
+   "start_ref": "Genesis 46:28",
+   "end_ref": "Genesis 46:34",
+   "title": "Jacob meets Joseph in Goshen",
+   "setting": [
+    "goshen"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "pharaoh_of_joseph"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s101",
+   "start": "genesis-47-1",
+   "end": "genesis-47-12",
+   "start_idx": 1421,
+   "end_idx": 1432,
+   "n_units": 12,
+   "words": 316,
+   "start_ref": "Genesis 47:1",
+   "end_ref": "Genesis 47:12",
+   "title": "Joseph presents his family to Pharaoh",
+   "setting": [
+    "pharaohs_palace",
+    "goshen"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "pharaoh_of_joseph",
+     "named": false
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s102",
+   "start": "genesis-47-13",
+   "end": "genesis-47-26",
+   "start_idx": 1433,
+   "end_idx": 1446,
+   "n_units": 14,
+   "words": 478,
+   "start_ref": "Genesis 47:13",
+   "end_ref": "Genesis 47:26",
+   "title": "Joseph's economic policy in the famine",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "pharaoh_of_joseph",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s103",
+   "start": "genesis-47-27",
+   "end": "genesis-47-31",
+   "start_idx": 1447,
+   "end_idx": 1451,
+   "n_units": 5,
+   "words": 143,
+   "start_ref": "Genesis 47:27",
+   "end_ref": "Genesis 47:31",
+   "title": "Jacob's death request",
+   "setting": [
+    "goshen"
+   ],
+   "on_stage": [
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "joseph",
+     "named": true
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s104",
+   "start": "genesis-48-1",
+   "end": "genesis-48-22",
+   "start_idx": 1452,
+   "end_idx": 1473,
+   "n_units": 22,
+   "words": 606,
+   "start_ref": "Genesis 48:1",
+   "end_ref": "Genesis 48:22",
+   "title": "Jacob blesses Joseph's sons",
+   "setting": [
+    "goshen"
+   ],
+   "on_stage": [
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "manasseh",
+     "named": true
+    },
+    {
+     "id": "ephraim",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "god"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s105",
+   "start": "genesis-49-1",
+   "end": "genesis-49-28",
+   "start_idx": 1474,
+   "end_idx": 1501,
+   "n_units": 28,
+   "words": 599,
+   "start_ref": "Genesis 49:1",
+   "end_ref": "Genesis 49:28",
+   "title": "Jacob blesses his twelve sons",
+   "setting": [
+    "goshen"
+   ],
+   "on_stage": [
+    {
+     "id": "jacob",
+     "named": true
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s106",
+   "start": "genesis-49-29",
+   "end": "genesis-49-33",
+   "start_idx": 1502,
+   "end_idx": 1506,
+   "n_units": 5,
+   "words": 126,
+   "start_ref": "Genesis 49:29",
+   "end_ref": "Genesis 49:33",
+   "title": "Jacob's final instructions and death",
+   "setting": [
+    "goshen"
+   ],
+   "on_stage": [
+    {
+     "id": "jacob",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "abram",
+    "sarai",
+    "isaac",
+    "rebekah",
+    "leah"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s107",
+   "start": "genesis-50-1",
+   "end": "genesis-50-14",
+   "start_idx": 1507,
+   "end_idx": 1520,
+   "n_units": 14,
+   "words": 353,
+   "start_ref": "Genesis 50:1",
+   "end_ref": "Genesis 50:14",
+   "title": "Jacob's embalming and burial in Canaan",
+   "setting": [
+    "egypt",
+    "threshing_floor_of_atad",
+    "cave_of_machpelah"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "pharaoh_of_joseph",
+     "named": false
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jacob"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s108",
+   "start": "genesis-50-15",
+   "end": "genesis-50-21",
+   "start_idx": 1521,
+   "end_idx": 1527,
+   "n_units": 7,
+   "words": 168,
+   "start_ref": "Genesis 50:15",
+   "end_ref": "Genesis 50:21",
+   "title": "Joseph forgives his brothers",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph",
+     "named": true
+    },
+    {
+     "id": "sons_of_jacob_brothers",
+     "named": false
+    }
+   ],
+   "mentioned_only": [
+    "jacob"
+   ],
+   "unknown_ids": []
+  },
+  {
+   "id": "GEN-s109",
+   "start": "genesis-50-22",
+   "end": "genesis-50-26",
+   "start_idx": 1528,
+   "end_idx": 1532,
+   "n_units": 5,
+   "words": 118,
+   "start_ref": "Genesis 50:22",
+   "end_ref": "Genesis 50:26",
+   "title": "Death of Joseph",
+   "setting": [
+    "egypt"
+   ],
+   "on_stage": [
+    {
+     "id": "joseph",
+     "named": true
+    }
+   ],
+   "mentioned_only": [
+    "god"
+   ],
+   "unknown_ids": []
+  }
+ ],
+ "brief": {
+  "tone": "Ancient, solemn and intimate: a primordial beginning followed by family dramas of blessing, betrayal, reconciliation and promise.",
+  "depiction_rules": [
+   "God is not given a human face or body; show him by light, voice, a cloud or a hand where tradition permits, and angels as luminous messengers.",
+   "Show the tree of life and knowledge and the serpent with restraint; the serpent may be drawn as a plain animal.",
+   "Do not depict the nakedness of Noah, Ham, Lot or Lot's daughters explicitly; cover or turn figures away.",
+   "Lot's wife may be shown as a pillar of salt without gore.",
+   "Depict the flood, Sodom and the binding of Isaac with weight and dignity, without gratuitous violence."
+  ],
+  "era": {
+   "name": "The ancient Near East, from the primeval world through the patriarchal age to Egypt in the Middle or Late Bronze Age",
+   "people": "Semitic herders, farmers and city dwellers of Mesopotamia, Canaan, and Egypt; Egyptians, Philistines, Hittites and Canaanites appear in the narrative. People have dark hair and beards for men and wear simple, earth-toned clothing.",
+   "dress": "Simple linen or wool tunics and robes, cloaks and head coverings, sandals; Egyptian officials in fine linen with gold chains; women veiled in the presence of men.",
+   "buildings_and_objects": "Mud-brick and stone cities such as Ur, tents of goat hair for nomads, altars of stone, wells, vineyards, flocks, camels and donkeys, chariots in Egypt.",
+   "technology": "Bronze and early iron tools, pottery, weaving and the potter's wheel; no writing of the text itself at the time described, no firearms, no metal coins (silver is weighed by the shekel)."
+  }
+ },
+ "checks": {
+  "bad_section_ids": [],
+  "uncovered_units": 0,
+  "uncovered_sample": [],
+  "overlap_units": 0,
+  "sections_with_unknown_ids": 6
+ }
+}

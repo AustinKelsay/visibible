@@ -1,0 +1,50 @@
+{
+ "record": {
+  "label": "look__holmes__the-five-orange-pips-s1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424061-weLghXWIwD7fOJshp4v4",
+  "seconds": 2.3,
+  "finish_reason": "stop",
+  "prompt_tokens": 2523,
+  "completion_tokens": 209,
+  "cost": 0.0003568,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:34:24"
+ },
+ "system": "You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.\nRules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.",
+ "user_chars": 5970,
+ "content": "{\"place\":\"Sherlock Holmes's first-floor sitting room at 221B Baker Street, London, with coal fire and oil or gas lamps\",\"timeOfDay\":\"Late evening, night, late September\",\"weather\":\"Violent equinoctial storm with howling wind and driving rain against the windows\",\"light\":\"Dim, warm lamplight and firelight inside; dark, rain-streaked night beyond the windows\",\"clothing\":\"Victorian indoor dress: Holmes in dressing-gown or dark lounge suit; Watson in tweed; visitor in a long wet waterproof and trim suit, carrying a streaming umbrella\"}",
+ "parsed": {
+  "place": "Sherlock Holmes's first-floor sitting room at 221B Baker Street, London, with coal fire and oil or gas lamps",
+  "timeOfDay": "Late evening, night, late September",
+  "weather": "Violent equinoctial storm with howling wind and driving rain against the windows",
+  "light": "Dim, warm lamplight and firelight inside; dark, rain-streaked night beyond the windows",
+  "clothing": "Victorian indoor dress: Holmes in dressing-gown or dark lounge suit; Watson in tweed; visitor in a long wet waterproof and trim suit, carrying a streaming umbrella"
+ },
+ "usage": {
+  "prompt_tokens": 2523,
+  "completion_tokens": 209,
+  "total_tokens": 2732,
+  "cost": 0.0003568,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003568,
+   "upstream_inference_prompt_cost": 0.0002523,
+   "upstream_inference_completions_cost": 0.0001045
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

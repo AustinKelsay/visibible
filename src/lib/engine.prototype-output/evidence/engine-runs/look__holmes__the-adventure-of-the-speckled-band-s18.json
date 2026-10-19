@@ -1,0 +1,50 @@
+{
+ "record": {
+  "label": "look__holmes__the-adventure-of-the-speckled-band-s18",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424067-O7DsfKOOwVxu6MkcNYGd",
+  "seconds": 1.5,
+  "finish_reason": "stop",
+  "prompt_tokens": 2307,
+  "completion_tokens": 150,
+  "cost": 0.0003057,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:34:28"
+ },
+ "system": "You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.\nRules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.",
+ "user_chars": 5376,
+ "content": "{\"place\":\"Stoke Moran country manor, Surrey, bedroom and study, and a railway carriage travelling back to London\",\"timeOfDay\":\"Morning, following the night of the death\",\"weather\":\"Overcast, grey English morning\",\"light\":\"Pale daylight through windows, lamplight lingering in dim interior rooms\",\"clothing\":\"Victorian tweeds and frock-coats for men, plain dark dress and bonnet for women, plain servant dress\"}",
+ "parsed": {
+  "place": "Stoke Moran country manor, Surrey, bedroom and study, and a railway carriage travelling back to London",
+  "timeOfDay": "Morning, following the night of the death",
+  "weather": "Overcast, grey English morning",
+  "light": "Pale daylight through windows, lamplight lingering in dim interior rooms",
+  "clothing": "Victorian tweeds and frock-coats for men, plain dark dress and bonnet for women, plain servant dress"
+ },
+ "usage": {
+  "prompt_tokens": 2307,
+  "completion_tokens": 150,
+  "total_tokens": 2457,
+  "cost": 0.0003057,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003057,
+   "upstream_inference_prompt_cost": 0.0002307,
+   "upstream_inference_completions_cost": 7.5e-05
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

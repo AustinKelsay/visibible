@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__the-adventure-of-the-speckled-band-m1",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424180-0y17UuyeiSBNS59lSEwF",
+  "seconds": 2.5,
+  "finish_reason": "stop",
+  "prompt_tokens": 1829,
+  "completion_tokens": 352,
+  "cost": 0.0003589,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:36:22"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 3550,
+ "content": "{\"primarySubject\":\"Dr. Watson, half-dressed and hurried, sitting up in bed in his bedroom, blinking toward a figure at his bedside\",\"action\":\"Watson, roused from sleep, startles and squints up at Holmes standing fully dressed beside the bed, while the clock on the mantelpiece shows the early hour\",\"setting\":\"Bedroom at 221B Baker Street with a clock on the mantelpiece, bed and washstand, grey dawn light through the window\",\"secondaryElements\":\"Holmes in frock-coat with his hand near the bedside, rumpled bedclothes, a glimpse of the sitting-room door ajar with coal-fire glow beyond, Mrs. Hudson absent\",\"mood\":\"Brisk, slightly comic, gaslit intimacy with a hint of suspense\",\"timeOfDay\":\"Early morning, about a quarter past seven in early April\",\"composition\":\"Medium shot from the foot of the bed, Watson in the lower left, Holmes standing tall at the right, clock visible on the mantelpiece in the background\"}",
+ "parsed": {
+  "primarySubject": "Dr. Watson, half-dressed and hurried, sitting up in bed in his bedroom, blinking toward a figure at his bedside",
+  "action": "Watson, roused from sleep, startles and squints up at Holmes standing fully dressed beside the bed, while the clock on the mantelpiece shows the early hour",
+  "setting": "Bedroom at 221B Baker Street with a clock on the mantelpiece, bed and washstand, grey dawn light through the window",
+  "secondaryElements": "Holmes in frock-coat with his hand near the bedside, rumpled bedclothes, a glimpse of the sitting-room door ajar with coal-fire glow beyond, Mrs. Hudson absent",
+  "mood": "Brisk, slightly comic, gaslit intimacy with a hint of suspense",
+  "timeOfDay": "Early morning, about a quarter past seven in early April",
+  "composition": "Medium shot from the foot of the bed, Watson in the lower left, Holmes standing tall at the right, clock visible on the mantelpiece in the background"
+ },
+ "usage": {
+  "prompt_tokens": 1829,
+  "completion_tokens": 352,
+  "total_tokens": 2181,
+  "cost": 0.0003589,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.0003589,
+   "upstream_inference_prompt_cost": 0.0001829,
+   "upstream_inference_completions_cost": 0.000176
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}

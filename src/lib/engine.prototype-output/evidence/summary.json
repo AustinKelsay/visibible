@@ -1,0 +1,39 @@
+{
+  "reviewed_on": "2026-10-19",
+  "decision_ticket": "https://github.com/AustinKelsay/visibible/issues/161",
+  "owner_approval": "Q80\u2013Q85 approved in the design thread on 2026-10-19",
+  "image_stats": {
+    "images": 62,
+    "failed": 0,
+    "seconds_mean": 5.51,
+    "seconds_p90": 7.5,
+    "seconds_max": 8.9,
+    "cost_mean": 0.03477,
+    "credits_mean": 4.35,
+    "credits_max": 4.36,
+    "prompt_chars_max": 7996,
+    "over_10s": 0
+  },
+  "icon_image_count": 14,
+  "icon_frame_failures_observed": 2,
+  "sheet_records": 33,
+  "usable_sheets": 32,
+  "withheld_sheets": [
+    "bible--god_yahweh_main"
+  ],
+  "withheld_sheet_used_in_moment_images": false,
+  "plan_seconds_mean": 2.9625,
+  "plan_seconds_max": 5.9,
+  "plan_cost_mean_usd": 0.000346496875,
+  "engine_spend_usd": 3.71870765,
+  "new_reading_calls": 10,
+  "new_reading_spend_usd": 0.081178,
+  "ticket_spend_usd": 3.79988565,
+  "previous_map_spend_usd_rounded": 3.47,
+  "map_spend_usd_approx": 7.27,
+  "budget_usd": 10,
+  "extra_model_spend_during_resolution_usd": 0,
+  "timing_scope": "Image request latency only. Plans and looks were precomputed; total cold request latency was not measured.",
+  "reading_script_branch_commit": "3fd3a29034e998f2b5b489aaaf5e43b996d08c42",
+  "approved_followups_tested": false
+}

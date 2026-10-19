@@ -1,0 +1,52 @@
+{
+ "record": {
+  "label": "plan__acts-2-14",
+  "model": "anthropic/claude-haiku-5.5",
+  "status": 200,
+  "provider": "Anthropic",
+  "gen_id": "gen-1792424177-RtQMkkhj6phXKCIBG1Vg",
+  "seconds": 2.3,
+  "finish_reason": "stop",
+  "prompt_tokens": 1480,
+  "completion_tokens": 322,
+  "cost": 0.000309,
+  "valid_json": true,
+  "parse_error": null,
+  "ts": "2026-10-19T10:36:19"
+ },
+ "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the names of the characters, locations and objects on stage. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Name figures by the names given. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that); describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.",
+ "user_chars": 2347,
+ "content": "{\"primarySubject\":\"Simon Peter standing tall, arm raised, with the eleven apostles gathered close behind him\",\"action\":\"Peter lifts his voice and addresses the crowd of pilgrims, one hand open toward them in appeal\",\"setting\":\"Open stone area in Jerusalem near the temple courts, flat-roofed houses around, pilgrims filling the street\",\"secondaryElements\":\"Crowd of festival-dressed pilgrims in fringed cloaks and veils turning toward him, some listening intently, a few curious onlookers at the edges, faint breeze stirring garment cloth\",\"mood\":\"Reverent and urgent, a sense of expectant authority at the start of a proclamation\",\"timeOfDay\":\"Mid-morning, third hour of the day, sun climbing in a clear sky\",\"composition\":\"Wide shot with Peter elevated slightly on a step at center-left, apostles grouped behind him, crowd spreading across the foreground and receding toward the houses\"}",
+ "parsed": {
+  "primarySubject": "Simon Peter standing tall, arm raised, with the eleven apostles gathered close behind him",
+  "action": "Peter lifts his voice and addresses the crowd of pilgrims, one hand open toward them in appeal",
+  "setting": "Open stone area in Jerusalem near the temple courts, flat-roofed houses around, pilgrims filling the street",
+  "secondaryElements": "Crowd of festival-dressed pilgrims in fringed cloaks and veils turning toward him, some listening intently, a few curious onlookers at the edges, faint breeze stirring garment cloth",
+  "mood": "Reverent and urgent, a sense of expectant authority at the start of a proclamation",
+  "timeOfDay": "Mid-morning, third hour of the day, sun climbing in a clear sky",
+  "composition": "Wide shot with Peter elevated slightly on a step at center-left, apostles grouped behind him, crowd spreading across the foreground and receding toward the houses"
+ },
+ "usage": {
+  "prompt_tokens": 1480,
+  "completion_tokens": 322,
+  "total_tokens": 1802,
+  "cost": 0.000309,
+  "is_byok": false,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "cache_write_tokens": 0,
+   "audio_tokens": 0,
+   "video_tokens": 0
+  },
+  "cost_details": {
+   "upstream_inference_cost": 0.000309,
+   "upstream_inference_prompt_cost": 0.000148,
+   "upstream_inference_completions_cost": 0.000161
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0,
+   "image_tokens": 0,
+   "audio_tokens": 0
+  }
+ }
+}
