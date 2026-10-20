@@ -86,7 +86,7 @@ export function rulingSchemaForGroups(groups: Array<{ group: number; members: st
   });
   if (!options.length) throw new Error("A ruling request must have groups");
   // Plain unions emit anyOf; Zod's discriminated unions emit oneOf, unsupported by this provider.
-  return z.object({ groups: z.array(z.union(options)) }).strict();
+  return z.object({ groups: z.array(options.length === 1 ? options[0] : z.union(options)) }).strict();
 }
 
 export const RULING_SYSTEM = `You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key ("division:character:id" or "division:location:id"), name, kind, aliases, note, and the sections where each appears. A group may also carry a hint line from a reference index of the work saying how many distinct individuals bear that name in these divisions; use it as evidence, not as an order.

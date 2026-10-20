@@ -147,7 +147,8 @@ export async function mergeCasts(options: {
     return hints.length ? `  hint: ${hints.join("; ")}` : null;
   };
 
-  const perCall = options.groupsPerCall ?? 25;
+  // One group avoids a large union of per-group member enums in the provider grammar.
+  const perCall = options.groupsPerCall ?? 1;
   if (!Number.isSafeInteger(perCall) || perCall < 1) throw new Error("groupsPerCall must be a positive integer");
   const rulings = new Map<number, RulingOutput["groups"][number]["clusters"]>();
   const rulingRequests = new Map<number, TextModelRequest>();
