@@ -27,3 +27,16 @@ The visual intent is a single immersive biblical scene filling the image, withou
 ## Canon text in prompts
 
 The generic engine sends each selected entry's canon stage text (about 500 characters, fixed identity only) in the CANON block; the quotes stored with a stage are audit evidence and are never part of the prompt. Entries with `hasForm: false` contribute their constrained text but never a reference sheet. See [Work preparation](../context/WORK-PREPARATION.md#canon).
+
+## Generic rendering packet
+
+[engine/prompt.ts](../../src/lib/engine/prompt.ts) builds the generic engine's prompt from the moment's prepared inputs; it shares nothing with the legacy builder, whose Bible and Genesis wording stays confined to it. `GENERIC_PROMPT_VERSION` versions the structure and wording; the brief, style, canon, look and plan carry their own content versions in the packet.
+
+Blocks, in order: engine rules with the precedence line (rules, then brief, then style rendering, then look, then plan); the moment's reference and text; the brief's prompt form for the moment's era with only the depiction rules that apply to the style (unconditional ones and those naming it); the selected canon with a line reserving that look for the named figures; the section look; the scene plan; the art style's rendering and negatives plus its detail lines; the captions of the reference images; neighbour hints; the variation note; scene presentation and aspect ratio.
+
+References: at most three, in the order style reference (non-Classical only), main character sheet, location sheet, second character sheet; only entries the plan marked present, never a no-form entry, and only a sheet for the stage the section assigns. Each is captioned by role and identity, and the prompt says references supply identity and rendering, never layout, poses or background.
+
+Budget: 8,000 characters. Nothing required is trimmed: rules, brief form, selected canon, plan, captions and the style's main rendering line always stay. When over budget the variation note goes first, then neighbour hints, then the style's detail lines, then the look's weather, light and clothing lines. If the prompt still does not fit, `buildRenderingPacket` returns `ok: false` and no paid call is made. The returned packet records every input version, the chosen references and the trim flags, so the image can be reproduced and explained.
+
+Quotes: [engine/quote.ts](../../src/lib/engine/quote.ts) prices the actual assembled prompt length, a small response-text allowance, the model's output image tokens and each reference image at the catalog's input-image price (now carried as `imageInputUsd` in the image billing). A reference without a known input-image price cannot be quoted. The same quote is the missing-usage fallback for settlement. Shared preparation is never part of a guest's quote.
+
