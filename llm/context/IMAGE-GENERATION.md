@@ -44,3 +44,12 @@ Discovery and admission use the same catalog quote. Discovery includes the plann
 A catalog outage may use a labeled last-known snapshot for at most six hours. Without one, choices are unavailable; the configured default is never inserted into a successful catalog that removed it. Selectors refetch when reopened. Scripture remains available during pricing failure.
 
 Holds use the bounded headroom described in [Sessions and credits](SESSIONS_AND_CREDITS.md); final settlement still uses actual usage where available. A visible accepted maximum, input/output exposure bounds and versioned quote acceptance (T04) are not implemented. Historical charges are unchanged.
+
+## Engine admission
+
+Every new image request is bound to one engine at admission ([admission.ts](../../src/lib/engine/admission.ts)) and the binding is persisted on its `imageGenerationRequests` record (`engine`, `artStyleId`, and for the generic engine its `engineCommitments`: work, moment, brief version, analysis generation, prompt and billing versions). A replay of the same request returns the accepted engine and saved result and never reprices or switches engines; a request without an `engine` field is historical and legacy.
+
+`GENERIC_ENGINE_MODE` selects the rollout stage: `disabled` (default) routes Classical to the legacy engine and reports Ink & Watercolor and Byzantine Icon as temporarily unavailable with a retryable 503, leaving saved style preferences untouched; `owner` admits the generic engine only for a session whose tier is `admin`, verified server-side, so the owner can prove it in production; `public` sends every new request to the generic engine. Generic admission also requires the work's analysis to be ready (`getWorkStatus`); when it is not, the request gets a retryable "Preparing scene" 503 rather than a legacy fallback. Optional references and open attention items never gate admission.
+
+Generic dispatch goes through one seam ([dispatch.ts](../../src/lib/engine/dispatch.ts)). Until the generation slice connects it, the installed adapter declines with a retryable 503 before any reservation, request record or paid call, so no shadow paid execution can occur. Rollback is `GENERIC_ENGINE_MODE=disabled`: accepted generic requests keep their engine, new Classical requests use legacy, and the other styles report unavailable.
+

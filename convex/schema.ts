@@ -253,6 +253,18 @@ export default defineSchema({
     inputFingerprint: v.optional(v.string()),
     executorVersion: v.optional(v.string()),
     billingPolicyVersion: v.optional(v.string()),
+    // Engine binding (#174): decided at admission, immutable for the request's life. Absent on
+    // historical requests, which are legacy.
+    engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
+    artStyleId: v.optional(v.string()),
+    engineCommitments: v.optional(v.object({
+      workId: v.string(),
+      momentId: v.string(),
+      briefVersion: v.string(),
+      analysisGeneration: v.number(),
+      promptVersion: v.string(),
+      billingVersion: v.string(),
+    })),
     sid: v.string(),
     verseId: v.string(),
     translationId: v.optional(v.string()),

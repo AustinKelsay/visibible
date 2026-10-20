@@ -89,6 +89,9 @@ vi.mock("@/lib/convex-client", () => ({
   getConvexClient: vi.fn(() => ({
     query: vi.fn(async (_apiPath: FunctionReference<"query">, args: Record<string, unknown>) => {
       if (["modelStats:getAllModelStats", "modelCostStats:getAllEstimates"].includes(getFunctionName(_apiPath))) return [];
+      if (getFunctionName(_apiPath) === "analysis:getWorkStatus") {
+        return requestDb.query(api.analysis.getWorkStatus, args as FunctionArgs<typeof api.analysis.getWorkStatus>);
+      }
       if (getFunctionName(_apiPath) === "verseImages:getScenePlanCache") {
         return requestDb.query(api.verseImages.getScenePlanCache, args as FunctionArgs<typeof api.verseImages.getScenePlanCache>);
       }
@@ -409,6 +412,93 @@ describe("Image Generation API Credit Flow", () => {
     process.env = { ...originalEnv };
     global.fetch = originalFetch;
     resetMockFetchBibleApiBypass();
+  });
+
+  describe("engine admission", () => {
+    const body = { requestId: "engine-request", reference: "Genesis 1:1", text: "In the beginning God created." };
+    const openRouterCalls = () => mockFetch.mock.calls.filter(([url]) => String(url).includes("openrouter.ai")).length;
+    const storedRequest = async () => (await requestDb.run((ctx) => ctx.db.query("imageGenerationRequests").collect()))[0];
+    const readyWork = async () => {
+      const secret = process.env.CONVEX_SERVER_SECRET!;
+      await requestDb.mutation(api.analysis.registerWork, { serverSecret: secret, workId: "bible-web", workVersion: "wv", briefVersion: "bv" });
+      const { generation } = await requestDb.mutation(api.analysis.stageGeneration, { serverSecret: secret, workId: "bible-web", workVersion: "wv", briefVersion: "bv" });
+      await requestDb.mutation(api.analysis.putRecords, { serverSecret: secret, workId: "bible-web", generation, records: [
+        { kind: "entry", recordId: "god", payload: { kind: "entry", name: "God", entryKind: "character", hasForm: false, stages: [{ id: "main", text: "God: light only." }] } },
+        { kind: "section", recordId: "genesis-1-1", payload: { kind: "section", title: "Creation", firstUnit: "genesis-1-1", lastUnit: "genesis-1-31", cast: [{ entryId: "god", stageId: "main" }] } },
+        { kind: "moment", recordId: "genesis-1-1", payload: { kind: "moment", sectionId: "genesis-1-1", firstUnit: "genesis-1-1", lastUnit: "genesis-1-1" } },
+      ] });
+      await requestDb.mutation(api.analysis.activateGeneration, { serverSecret: secret, workId: "bible-web", generation });
+    };
+
+    it("disabled by default: Classical runs on legacy and is recorded as such; other styles are unavailable before any reservation", async () => {
+      const { POST } = await import("../../generate-image/route");
+      const unavailable = await POST(createGenerateImageRequest({ ...body, style: "watercolor" }));
+      expect(unavailable.status).toBe(503);
+      expect(await unavailable.json()).toMatchObject({ error: "Art style unavailable", retryable: true, style: "watercolor" });
+      expect(getCallCount("reserveCredits")).toBe(0);
+      expect(openRouterCalls()).toBe(0);
+      expect(await storedRequest()).toBeUndefined();
+      expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
+      expect(await storedRequest()).toMatchObject({ engine: "legacy", artStyleId: "classical" });
+      // An unregistered style stays a non-retryable 400, as before.
+      const unknown = await POST(createGenerateImageRequest({ ...body, requestId: "typo-style", style: "watrcolor" }));
+      expect(unknown.status).toBe(400);
+      expect(await unknown.json()).toMatchObject({ error: "Style profile not available" });
+    });
+
+    it("public mode with an unready work: retryable preparing error, no reservation, no legacy fallback", async () => {
+      process.env.GENERIC_ENGINE_MODE = "public";
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest(body));
+      expect(response.status).toBe(503);
+      expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true });
+      expect(getCallCount("reserveCredits")).toBe(0);
+      expect(openRouterCalls()).toBe(0);
+      expect(await storedRequest()).toBeUndefined();
+    });
+
+    it("owner mode: a non-owner session stays on legacy; an owner with a ready work reaches the generic seam, which declines without charging until integrated", async () => {
+      process.env.GENERIC_ENGINE_MODE = "owner";
+      await readyWork();
+      const { POST } = await import("../../generate-image/route");
+      expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
+      expect(await storedRequest()).toMatchObject({ engine: "legacy" });
+      expect(getCallCount("reserveCredits")).toBe(1);
+      const providerCallsBefore = openRouterCalls();
+      resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000, tier: "admin" }]); // clears the call history too
+      const owner = await POST(createGenerateImageRequest({ ...body, requestId: "owner-request" }));
+      expect(owner.status).toBe(503);
+      expect(await owner.json()).toMatchObject({ error: "Generic engine not available", retryable: true });
+      expect(getCallCount("reserveCredits")).toBe(0);
+      expect(openRouterCalls()).toBe(providerCallsBefore);
+      expect(await requestDb.run((ctx) => ctx.db.query("imageGenerationRequests").collect())).toHaveLength(1);
+    });
+
+    it("public mode with a ready work dispatches to the installed generic engine and replays an accepted legacy request unchanged", async () => {
+      const { POST } = await import("../../generate-image/route");
+      const { setGenericEngine } = await import("@/lib/engine/dispatch");
+      // Accepted on legacy while disabled.
+      expect((await POST(createGenerateImageRequest(body))).status).toBe(200);
+      // Switch flips to public with a ready work: the same request replays its saved legacy result, no new paid work.
+      process.env.GENERIC_ENGINE_MODE = "public";
+      await readyWork();
+      const replay = await POST(createGenerateImageRequest(body));
+      expect(replay.status).toBe(200);
+      expect(await replay.json()).toMatchObject({ reused: true });
+      expect(getCallCount("reserveCredits")).toBe(1);
+      // A new request goes to the generic engine seam.
+      const seen: unknown[] = [];
+      setGenericEngine({ id: "fake-generic", async execute(input) { seen.push(input); return { kind: "response", status: 200, body: { requestId: input.requestId, engine: "generic", styleId: input.styleId } }; } });
+      try {
+        const generic = await POST(createGenerateImageRequest({ ...body, requestId: "generic-request", style: "icon" }));
+        expect(generic.status).toBe(200);
+        expect(await generic.json()).toEqual({ requestId: "generic-request", engine: "generic", styleId: "icon" });
+        expect(seen).toEqual([expect.objectContaining({ requestId: "generic-request", sid: "test-session", isOwner: false, verseId: "genesis-1-1", styleId: "icon", translationId: "web" })]);
+        expect(getCallCount("reserveCredits")).toBe(1);
+      } finally {
+        setGenericEngine(null);
+      }
+    });
   });
 
   describe("durable HTTP intent admission", () => {

@@ -30,6 +30,9 @@ import {
 } from "@/lib/bible-api";
 import { resolveGenerationPassage } from "@/lib/generation-passage";
 import { getScenePlannerEstimatedCreditsCost, getScenePlannerModelId, isScenePlannerEnabled } from "@/lib/scene-planner";
+import { decideEngine, genericEngineMode } from "@/lib/engine/admission";
+import { SHARED_STYLES } from "@/lib/work-preparation";
+import { getGenericEngine } from "@/lib/engine/dispatch";
 import {
   validateSessionWithIp,
   withSessionRefreshCookie,
@@ -48,8 +51,10 @@ import {
 import {
   createRequestObservabilityContext,
   emitMetric,
+  incrementMetricCounter,
   logApiFailure,
   logApiTimeout,
+  logInfo,
   logScenePlannerOutcome,
   logSettlementEvent,
   logWarn,
@@ -567,6 +572,7 @@ export async function POST(request: Request) {
     return jsonWithSessionRefresh({ error: "Unable to safely check image generation" }, { status: 503 });
   }
 
+
   let modelId = DEFAULT_IMAGE_MODEL;
   const parseGenerationNumber = (
     value: GenerateImageRequestBody["generation"]
@@ -601,6 +607,33 @@ export async function POST(request: Request) {
   const verseId = toVerseId(reference);
 
   const generationNumber = parseGenerationNumber(requestBody.generation);
+  // Engine admission (#174): decided once per new request, persisted with it, never switched later.
+  if (requestedStyleId && !SHARED_STYLES.styles.some((style) => style.id === requestedStyleId)) {
+    // An unregistered style can never succeed: the same non-retryable answer as before.
+    return jsonWithSessionRefresh({ error: "Style profile not available", message: `The style "${requestedStyleId}" is not available. Please select a different style.` }, { status: 400 });
+  }
+  const engineMode = genericEngineMode();
+  // Owner status and readiness matter only once the generic engine is switched on; disabled mode adds no query.
+  const sessionForAdmission = engineMode === "disabled" ? null : await convex.query(api.sessions.getSession, { sid, serverSecret }).catch(() => null);
+  const isOwnerForAdmission = sessionForAdmission?.tier === "admin";
+  const bibleWorkId = "bible-web";
+  const readiness = engineMode === "disabled" ? null : await convex.query(api.analysis.getWorkStatus, { workId: bibleWorkId }).catch(() => null);
+  const engineDecision = decideEngine({
+    mode: engineMode, isOwner: isOwnerForAdmission, styleId: requestedStyleId ?? null,
+    readiness: readiness ? { ready: readiness.ready, reasons: readiness.reasons, activeGeneration: readiness.activeGeneration, briefVersion: readiness.briefVersion } : null,
+  });
+  logInfo("engine_admission", { requestId: clientRequestId, mode: engineMode, engine: engineDecision.engine, reason: engineDecision.engine ? engineDecision.reason : engineDecision.unavailable });
+  incrementMetricCounter("engine_admission", { mode: engineMode, engine: engineDecision.engine ?? "none" });
+  if (engineDecision.engine === null) {
+    return jsonWithSessionRefresh({ error: engineDecision.unavailable === "style" ? "Art style unavailable" : "Preparing scene", message: engineDecision.reason, retryable: engineDecision.retryable, style: requestedStyleId ?? null }, { status: 503 });
+  }
+  if (engineDecision.engine === "generic") {
+    const outcome = await getGenericEngine().execute({ requestId: clientRequestId, sid, isOwner: isOwnerForAdmission, verseId, reference, translationId, styleId: requestedStyleId ?? "classical", aspectRatio, resolution });
+    if (outcome.kind === "declined") return jsonWithSessionRefresh({ error: outcome.error, message: outcome.message, retryable: outcome.retryable }, { status: outcome.status });
+    return jsonWithSessionRefresh(outcome.body, { status: outcome.status });
+  }
+  const admittedEngine = engineDecision.engine;
+
   const requestedStyleProfile = requestedStyleId
     ? STYLE_PROFILES[requestedStyleId]
     : undefined;
@@ -822,6 +855,7 @@ export async function POST(request: Request) {
       estimatedCreditsCost, estimatedCostUsd: estimatedTotalCostUsd, serverSecret,
       inputFingerprint, generationId: chargeGenerationId,
       executorVersion: "next-image-v1", billingPolicyVersion: "legacy-image-v1",
+      engine: admittedEngine, artStyleId: styleProfile.id,
     });
     if (admission.alreadyExists) return existingIntentResponse(admission);
     if (!admission.generationId) throw new Error("Missing admitted billing identity");

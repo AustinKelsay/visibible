@@ -924,6 +924,8 @@ async function existingIntentResult(
   return {
     requestId: existing.requestId, status: existing.status, alreadyExists: true,
     generationId: existing.generationId, error: existing.error,
+    // The engine the request was accepted with: a replay never switches engines or reprices.
+    engine: existing.engine ?? ("legacy" as const), artStyleId: existing.artStyleId, engineCommitments: existing.engineCommitments,
     ...(image ? { savedImage: {
       id: image._id, imageUrl: image.storageId ? await ctx.storage.getUrl(image.storageId) : image.imageUrl ?? null,
       model: image.model, creditsCost: image.creditsCost, durationMs: image.durationMs,
@@ -953,6 +955,11 @@ export const createGenerationRequest = mutation({
     generationId: v.string(),
     executorVersion: v.literal("next-image-v1"),
     billingPolicyVersion: v.literal("legacy-image-v1"),
+    engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
+    artStyleId: v.optional(v.string()),
+    engineCommitments: v.optional(v.object({
+      workId: v.string(), momentId: v.string(), briefVersion: v.string(), analysisGeneration: v.number(), promptVersion: v.string(), billingVersion: v.string(),
+    })),
     sid: v.string(),
     verseId: v.string(),
     translationId: v.optional(v.string()),
@@ -972,6 +979,9 @@ export const createGenerationRequest = mutation({
     alreadyExists: boolean;
     conflict?: boolean;
     generationId?: string;
+    engine?: "legacy" | "generic";
+    artStyleId?: string;
+    engineCommitments?: { workId: string; momentId: string; briefVersion: string; analysisGeneration: number; promptVersion: string; billingVersion: string };
     error?: string;
     savedImage?: { id: Id<"verseImages">; imageUrl: string | null; model: string; creditsCost?: number; durationMs?: number; reference?: string; translationId?: string; verseText?: string; promptInputs?: Doc<"verseImages">["promptInputs"] };
   }> => {
@@ -982,14 +992,21 @@ export const createGenerationRequest = mutation({
       .first();
 
     if (existing) return existingIntentResult(ctx, existing, args);
+    if (args.engine === "generic" && !args.engineCommitments) {
+      throw new Error("A generic-engine request must carry its commitments before it is accepted");
+    }
 
     const now = Date.now();
+    const engine = args.engine ?? "legacy";
     await ctx.db.insert("imageGenerationRequests", {
       requestId: args.requestId,
       inputFingerprint: args.inputFingerprint,
       generationId: args.generationId,
       executorVersion: args.executorVersion,
       billingPolicyVersion: args.billingPolicyVersion,
+      engine,
+      artStyleId: args.artStyleId,
+      engineCommitments: args.engineCommitments,
       sid: args.sid,
       verseId: args.verseId,
       translationId: args.translationId,
@@ -1006,7 +1023,7 @@ export const createGenerationRequest = mutation({
       updatedAt: now,
     });
 
-    return { requestId: args.requestId, generationId: args.generationId, status: "queued", alreadyExists: false };
+    return { requestId: args.requestId, generationId: args.generationId, status: "queued", alreadyExists: false, engine, artStyleId: args.artStyleId, engineCommitments: args.engineCommitments };
   },
 });
 
