@@ -17,6 +17,8 @@ import { draftBrief, type BriefDraft } from "./brief";
 import { BudgetExceededError, estimateRequestCostUsd, type TextModel, type TextModelRequest, type TextModelResult } from "./model";
 import type { AnalysisRecordInput, AnalysisStore } from "./store";
 import type { StyleLibrary } from "../work-preparation";
+import { contentVersion } from "../../../convex/_helpers/contentVersion";
+import { responseSchema } from "./prompts";
 
 export type SpendLedgerEntry = { label: string; model: string; costUsd: number | null; promptTokens: number | null; completionTokens: number | null; elapsedMs: number; at: string };
 
@@ -27,6 +29,10 @@ export type ReadingPassState = {
   readings: Record<string, DivisionReading>;
   failures: Record<string, { attempts: DivisionReading["attempts"]; at: string }>;
   merge: MergeResult | null;
+  /** Accepted merge batches, keyed by their initial prompt identity, so interrupted merges resume free. */
+  mergeResponses?: Record<string, TextModelResult>;
+  /** Every paid merge answer remains audit evidence, including rejected and conflicting rulings. */
+  mergeAttempts?: Array<{ key: string; result: TextModelResult }>;
   moments: Record<string, MomentRange[]>;
   brief: BriefDraft | null;
   staged: { generation: number; records: number } | null;
@@ -140,7 +146,24 @@ export async function runReadingPass(options: {
   const readings = rootDivisions(work).map((d) => state.readings[d.id]);
   if (!state.merge) {
     log("merging casts");
-    state.merge = await mergeCasts({ workTitle: work.work.title, workAuthor: work.work.author, readings, model, sameNameHints: options.hints?.sameNames });
+    const responseKey = (request: TextModelRequest) => contentVersion({ model: model.id, system: request.system, user: request.user, schemaName: request.schemaName, schema: responseSchema(request.schema), maxTokens: request.maxTokens });
+    const mergeModel: TextModel = { id: model.id, async complete(request) {
+      const key = responseKey(request);
+      const cached = state.mergeResponses?.[key];
+      if (cached) return cached;
+      const result = await model.complete(request);
+      (state.mergeAttempts ??= []).push({ key, result });
+      await save();
+      return result;
+    } };
+    state.merge = await mergeCasts({ workTitle: work.work.title, workAuthor: work.work.author, readings, model: mergeModel, sameNameHints: options.hints?.sameNames,
+      onRuling: async (request, result) => {
+        const key = responseKey(request);
+        if (result) (state.mergeResponses ??= {})[key] = result;
+        else delete state.mergeResponses?.[key];
+        await save();
+      },
+    });
     await save();
     log(`  ${state.merge.entries.length} entries from ${state.merge.groups.length} groups in ${state.merge.calls} call(s)`);
   }
