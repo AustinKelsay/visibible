@@ -97,7 +97,8 @@ function key(kind: string, recordId: string) {
 /**
  * The structural rules a generation must satisfy before it may serve: sections and entries
  * exist; sections and moments are anchored to their first unit; every moment names a section;
- * every cast member, look and plan names a record that exists; stage counts respect the kind.
+ * every cast member, look and plan names a record that exists; stage counts respect the kind, and an
+ * entry a cast or plan uses has at least one stage (a mentioned-only entry may have none).
  * Optional references and attention notes are deliberately not checked here (#168).
  */
 export function structuralProblems(records: ReadonlyArray<Pick<Doc<"analysisRecords">, "kind" | "recordId" | "payload">>): string[] {
@@ -112,7 +113,8 @@ export function structuralProblems(records: ReadonlyArray<Pick<Doc<"analysisReco
     if (p.kind === "entry") {
       entries++;
       const cap = p.entryKind === "object" ? 1 : MAX_CHARACTER_STAGES;
-      if (p.stages.length < 1 || p.stages.length > cap) problems.push(`entry ${r.recordId}: ${p.stages.length} stages (allowed 1–${cap})`);
+      // An entry nothing draws (mentioned only) may have no stages; one a cast or plan uses must.
+      if (p.stages.length > cap) problems.push(`entry ${r.recordId}: ${p.stages.length} stages (allowed 1–${cap})`);
       entryStages.set(r.recordId, new Set(p.stages.map((s) => s.id)));
     }
   }
@@ -124,6 +126,7 @@ export function structuralProblems(records: ReadonlyArray<Pick<Doc<"analysisReco
       for (const c of p.cast) {
         const stages = entryStages.get(c.entryId);
         if (!stages) problems.push(`section ${r.recordId}: cast names unknown entry ${c.entryId}`);
+        else if (stages.size === 0) problems.push(`section ${r.recordId}: entry ${c.entryId} has no canon stages yet`);
         else if (!stages.has(c.stageId)) problems.push(`section ${r.recordId}: entry ${c.entryId} has no stage ${c.stageId}`);
       }
     } else if (p.kind === "moment") {

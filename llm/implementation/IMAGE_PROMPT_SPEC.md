@@ -23,3 +23,7 @@ The visual intent is a single immersive biblical scene filling the image, withou
 ## Stored metadata
 
 `promptPacket` captures normalized inputs, planner/cache flags, selected section flags and final character count. It is diagnostic metadata, not an exact reconstruction of the final prompt: it retains some inputs that compaction can omit, and hard truncation can cut sections after flags were set. Saved-image metadata also carries the prompt and its version.
+
+## Canon text in prompts
+
+The generic engine sends each selected entry's canon stage text (about 500 characters, fixed identity only) in the CANON block; the quotes stored with a stage are audit evidence and are never part of the prompt. Entries with `hasForm: false` contribute their constrained text but never a reference sheet. See [Work preparation](../context/WORK-PREPARATION.md#canon).

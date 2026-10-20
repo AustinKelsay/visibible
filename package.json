@@ -26,6 +26,7 @@
     "works:import": "tsx scripts/works/import.mts",
     "works:check": "tsx scripts/works/import.mts --check",
     "works:read": "tsx scripts/works/read.mts",
+    "works:canon": "tsx scripts/works/canon.mts",
     "works:bible-hints": "tsx scripts/works/bible-hints.mts"
   },
   "dependencies": {
