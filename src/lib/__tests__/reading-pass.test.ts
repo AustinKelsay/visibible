@@ -186,11 +186,12 @@ describe("reading pass", () => {
   it("carries the rejected answer into cast repairs and still rejects partial replacement sections", async () => {
     const work = createWorkReader(twoBooks);
     const division = rootDivisions(work)[0];
-    const rejected = { ...alphaReading, sections: alphaReading.sections.map((s, i) => i === 0 ? { ...s, on_stage: [...s.on_stage, "undefined_placeholder"] } : s) };
+    const rejected = { ...alphaReading, sections: alphaReading.sections.map((s, i) => i === 0 ? { ...s, on_stage: [...s.on_stage, "undefined_placeholder"], mentioned_only: [...s.mentioned_only, "the_lake"] } : s) };
     const model = scriptedModel({ "read:alpha": (request, calls) => {
       if (calls.length === 1) return rejected;
       expect(request.user).toContain(JSON.stringify(rejected));
       expect(request.user).toContain("unknown character id undefined_placeholder");
+      expect(request.user).toContain("mentioned_only contains location id the_lake; only characters belong");
       expect(request.user).toContain("FULL corrected JSON object, not a patch");
       expect(request.user).toContain("Every unit from 1-1 through 2-2 must still be covered");
       return alphaReading;

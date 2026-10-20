@@ -108,7 +108,14 @@ export function validateSections(output: DivisionOutput, units: readonly Referen
     if (start > next) problems.push(`units ${localUnitId(units[next])} to ${localUnitId(units[start - 1])} belong to no section`);
     next = Math.max(next, end + 1);
     for (const id of section.setting) if (!locationIds.has(id)) problems.push(`section ${index + 1} names unknown location id ${id}`);
-    for (const id of [...section.on_stage, ...section.mentioned_only]) if (!characterIds.has(id)) problems.push(`section ${index + 1} names unknown character id ${id}`);
+    for (const field of ["on_stage", "mentioned_only"] as const) {
+      for (const id of section[field]) {
+        if (characterIds.has(id)) continue;
+        problems.push(locationIds.has(id)
+          ? `section ${index + 1} ${field} contains location id ${id}; only characters belong in ${field}. Omit places that are only mentioned; setting names only where the action happens.`
+          : `section ${index + 1} names unknown character id ${id}`);
+      }
+    }
     const text = units.slice(start, end + 1).map((u) => u.text).join(" ");
     sections.push({
       firstUnitId: units[start].id, lastUnitId: units[Math.max(start, end)].id, title: section.title, setting: section.setting,

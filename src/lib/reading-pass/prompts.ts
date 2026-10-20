@@ -45,7 +45,7 @@ Return:
 3. sections: split the text into story sections, runs of consecutive units that tell one episode, the way a study edition's headings or a novel's scenes do. Start a new section when the time, the place or the main action changes. Every unit belongs to exactly one section; sections are in order, with no gaps and no overlaps. {granularity} Give the ids of each section's first and last unit and a short title. For each section:
    - setting: ids of the locations where its action happens.
    - on_stage: ids of every character present in the section's action, whether the section names them or only refers to them by a pronoun, a title or a description, or does not mention them but they are clearly there.
-   - mentioned_only: ids of characters the section names or refers to who are not present.
+   - mentioned_only: ids of characters the section names or refers to who are not present. Never put a location id in on_stage or mentioned_only. A place that is only mentioned belongs in neither character list nor setting.
 4. brief: a draft brief for illustrators, for this division only. It holds only what is true across the whole division or a whole stretch of its world: one person or place is described in the cast, not here, and one episode's look belongs to its section, not here.
    - tone: one line on the mood the pictures should carry.
    - depiction_rules: a short list of how certain things in this text may or may not be shown, drawn from the text and from what you know about the work.
