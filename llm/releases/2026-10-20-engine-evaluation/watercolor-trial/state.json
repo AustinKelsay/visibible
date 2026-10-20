@@ -1,0 +1,887 @@
+{
+ "schemaVersion": 1,
+ "run": "release-2026-10-20-watercolor-correction",
+ "createdAt": 1792529374439,
+ "imageModel": "google/gemini-3.1-flash-lite-image",
+ "plannerModel": null,
+ "promptVersion": "2026-09-08-canonical",
+ "samples": {
+  "holmes-scandal-the-woman/generic:watercolor/1": {
+   "caseId": "holmes-scandal-the-woman",
+   "arm": "generic:watercolor",
+   "n": 1,
+   "status": "completed",
+   "engine": "generic",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "promptVersion": "2026-09-08-canonical",
+   "settings": {
+    "aspectRatio": "16:9",
+    "resolution": "1K",
+    "translation": "web",
+    "style": "watercolor"
+   },
+   "plannerCostUsd": 0,
+   "imageCostUsd": 0.03457525,
+   "usageMissing": false,
+   "latencyMs": {
+    "planner": 0,
+    "image": 7295,
+    "total": 10154
+   },
+   "startedAt": 1792529375108,
+   "work": "holmes-adventures",
+   "unitId": "a-scandal-in-bohemia-1-1",
+   "preparationCalls": 0,
+   "preparationCostUsd": 0,
+   "preparationUsageMissing": false,
+   "prepared": true,
+   "momentId": "a-scandal-in-bohemia-1-1",
+   "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Adventures of Sherlock Holmes, A Scandal in Bohemia, Part I ¶1: \"To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his cold, precise but admirably balanced mind. He was, I take it, the most perfect reasoning and observing machine that the world has seen, but as a lover he would have placed himself in a false position. He never spoke of the softer passions, save with a gibe and a sneer. They were admirable things for the observer—excellent for drawing the veil from men’s motives and actions. But for the trained reasoner to admit such intrusions into his own delicate and finely adjusted temperament was to introduce a distracting factor which might throw a doubt upon all his mental results. Grit in a sensitive instrument, or a crack in one of his own high-power lenses, would not be more disturbing than a strong emotion in a nature such as his. And yet there was but one woman to him, and that woman was the late Irene Adler, of dubious and questionable memory.\"\n\nWORK BRIEF (holmes-adventures; what may be shown; it outranks the style, the look and the plan):\nTone: Observant, atmospheric detective fiction: lamplit rooms, foggy streets, restrained tension and dry wit.\nDepiction: Follow the narrated moment, including clues and disguises; avoid sensational gore.\nDepiction: Show every person with dignity; avoid racial and ethnic caricatures.\nDepiction: Do not borrow faces, costumes or props from screen adaptations.\nEra: Late Victorian England, 1880s to 1890s\nPeople: English households, professionals, workers, police and international visitors.\nDress: Wool coats, waistcoats, hats, period dresses and work clothes suited to occupation and means.\nBuildings and objects: Brick terraces, rural houses, lodgings, coal fires, desks, newspapers and horse-drawn cabs.\nTechnology: Steam rail, gas and oil lamps, telegrams, print and typewriters; other devices only when supported by the text.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Sherlock Holmes: man in his thirties; lean, long-limbed, narrow-shouldered build; pale skin; dark hair kept short; clean-shaven face with a hawk-like nose, deep-set grey eyes and a sharp, watchful expression; wears a dark tweed suit with a waistcoat, a plain collar and a dark overcoat. Carries a clay pipe and a magnifying glass.\n- Dr. Watson: a man in his thirties, of solid, medium build, filled out somewhat since his marriage; fair skin, short brown hair parted neatly, a trimmed moustache, and a steady, open face. Wears a dark wool frock coat, grey waistcoat, white collar and dark tie, with a bowler or silk hat. Carries a physician's black bag.\n- Only Sherlock Holmes, Dr. Watson have this canon look; any other people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Holmes's sitting room at 221B Baker Street, lodgings with a coal fire, desk and bookshelves\nTime of day: Evening, lamplit\nWeather: Foggy London dusk seen through the window\nLight: Warm lamplight and low coal-fire glow against dark window panes\nClothing: Period indoor wear: wool coats, waistcoats, shirtsleeves, dressing gowns\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Sherlock Holmes, lean and composed, seated in a dressing gown by the fireplace\nAction: Holmes sits motionless, gazing into the fire with a thoughtful, faintly sardonic expression while Watson stands nearby holding a glass of spirits\nSetting: Holmes's sitting room at 221B Baker Street, with a coal fire, a cluttered desk and bookshelves lining the walls\nSecondary elements: Dark window panes reflect the room; foggy London dusk glows faintly beyond the glass; a letter or photograph rests on the desk, unreadable\nMood: Restrained, contemplative, cool detachment with a hint of dry wit\nTime of day: Evening, lamplit\nComposition: Medium shot framing Holmes by the hearth with Watson at the edge, warm lamplight and low coal glow against the dark window\n\nART STYLE: Ink & Watercolor\nRendering: A complete scene in loose pen-and-ink and transparent watercolor washes, with expressive lines and airy light. Painted scenery fills the whole image, continuing beyond all four edges.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy light; shadows as cool layered washes.\nMaterials and texture: Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.\nComposition: Detail concentrated on key subjects; softer, fully painted surroundings extend through every corner.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\n- Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\nRender everything in the ART STYLE below, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: I had seen little of Holmes lately. My marriage had drifted us away from each other. My own complete happiness, and the home-centred interests which rise up around the man who first finds himself master of his own estab…\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+   "promptChars": 7441,
+   "packet": {
+    "promptVersion": "2026-10-20-generic-v1",
+    "workId": "holmes-adventures",
+    "momentId": "a-scandal-in-bohemia-1-1",
+    "sectionId": "a-scandal-in-bohemia-1-1",
+    "eraId": "late-victorian-england-1880s-to-1890s",
+    "styleId": "watercolor",
+    "styleVersion": "08dc433d2623e18e8210e3fd6583cd694766b282bcacb377a23c6d9ac3833422",
+    "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+    "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+    "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+    "canon": [
+     {
+      "entryId": "sherlock_holmes",
+      "stageId": "sherlock_holmes",
+      "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+     },
+     {
+      "entryId": "dr_watson",
+      "stageId": "dr_watson",
+      "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+     }
+    ],
+    "references": [
+     {
+      "kind": "sheet",
+      "id": "sherlock_holmes:sherlock_holmes",
+      "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+      "version": "5deeca4df0bf88ae15936ba5c803cb79",
+      "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     },
+     {
+      "kind": "sheet",
+      "id": "dr_watson:dr_watson",
+      "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+      "version": "c774094a856ccc250f32181234dacd76",
+      "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     }
+    ],
+    "flags": {
+     "variationIncluded": false,
+     "neighborsIncluded": true,
+     "styleDetailIncluded": true,
+     "lookDetailIncluded": true
+    },
+    "budget": {
+     "maxChars": 8000,
+     "finalChars": 7441
+    }
+   },
+   "referencesSent": 2,
+   "plannerOutcome": "not_used",
+   "quote": {
+    "credits": 5,
+    "providerUsd": 0.03477525,
+    "promptTokens": 1861,
+    "referenceImages": 2
+   },
+   "providerRequestId": "gen-1792529378-TofuiEJJxexTiEifwIy8",
+   "varianceUsd": -0.0001999999999999988,
+   "output": "outputs/holmes-scandal-the-woman/generic-watercolor-1.jpg"
+  },
+  "holmes-scandal-the-woman/generic:watercolor/2": {
+   "caseId": "holmes-scandal-the-woman",
+   "arm": "generic:watercolor",
+   "n": 2,
+   "status": "completed",
+   "engine": "generic",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "promptVersion": "2026-09-08-canonical",
+   "settings": {
+    "aspectRatio": "16:9",
+    "resolution": "1K",
+    "translation": "web",
+    "style": "watercolor"
+   },
+   "plannerCostUsd": 0,
+   "imageCostUsd": 0.03458175,
+   "usageMissing": false,
+   "latencyMs": {
+    "planner": 0,
+    "image": 4206,
+    "total": 6353
+   },
+   "startedAt": 1792529385263,
+   "work": "holmes-adventures",
+   "unitId": "a-scandal-in-bohemia-1-1",
+   "preparationCalls": 0,
+   "preparationCostUsd": 0,
+   "preparationUsageMissing": false,
+   "prepared": true,
+   "momentId": "a-scandal-in-bohemia-1-1",
+   "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Adventures of Sherlock Holmes, A Scandal in Bohemia, Part I ¶1: \"To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his cold, precise but admirably balanced mind. He was, I take it, the most perfect reasoning and observing machine that the world has seen, but as a lover he would have placed himself in a false position. He never spoke of the softer passions, save with a gibe and a sneer. They were admirable things for the observer—excellent for drawing the veil from men’s motives and actions. But for the trained reasoner to admit such intrusions into his own delicate and finely adjusted temperament was to introduce a distracting factor which might throw a doubt upon all his mental results. Grit in a sensitive instrument, or a crack in one of his own high-power lenses, would not be more disturbing than a strong emotion in a nature such as his. And yet there was but one woman to him, and that woman was the late Irene Adler, of dubious and questionable memory.\"\n\nWORK BRIEF (holmes-adventures; what may be shown; it outranks the style, the look and the plan):\nTone: Observant, atmospheric detective fiction: lamplit rooms, foggy streets, restrained tension and dry wit.\nDepiction: Follow the narrated moment, including clues and disguises; avoid sensational gore.\nDepiction: Show every person with dignity; avoid racial and ethnic caricatures.\nDepiction: Do not borrow faces, costumes or props from screen adaptations.\nEra: Late Victorian England, 1880s to 1890s\nPeople: English households, professionals, workers, police and international visitors.\nDress: Wool coats, waistcoats, hats, period dresses and work clothes suited to occupation and means.\nBuildings and objects: Brick terraces, rural houses, lodgings, coal fires, desks, newspapers and horse-drawn cabs.\nTechnology: Steam rail, gas and oil lamps, telegrams, print and typewriters; other devices only when supported by the text.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Sherlock Holmes: man in his thirties; lean, long-limbed, narrow-shouldered build; pale skin; dark hair kept short; clean-shaven face with a hawk-like nose, deep-set grey eyes and a sharp, watchful expression; wears a dark tweed suit with a waistcoat, a plain collar and a dark overcoat. Carries a clay pipe and a magnifying glass.\n- Dr. Watson: a man in his thirties, of solid, medium build, filled out somewhat since his marriage; fair skin, short brown hair parted neatly, a trimmed moustache, and a steady, open face. Wears a dark wool frock coat, grey waistcoat, white collar and dark tie, with a bowler or silk hat. Carries a physician's black bag.\n- Only Sherlock Holmes, Dr. Watson have this canon look; any other people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Holmes's sitting room at 221B Baker Street, lodgings with a coal fire, desk and bookshelves\nTime of day: Evening, lamplit\nWeather: Foggy London dusk seen through the window\nLight: Warm lamplight and low coal-fire glow against dark window panes\nClothing: Period indoor wear: wool coats, waistcoats, shirtsleeves, dressing gowns\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Sherlock Holmes, lean and composed, seated in a dressing gown by the fireplace\nAction: Holmes sits motionless, gazing into the fire with a thoughtful, faintly sardonic expression while Watson stands nearby holding a glass of spirits\nSetting: Holmes's sitting room at 221B Baker Street, with a coal fire, a cluttered desk and bookshelves lining the walls\nSecondary elements: Dark window panes reflect the room; foggy London dusk glows faintly beyond the glass; a letter or photograph rests on the desk, unreadable\nMood: Restrained, contemplative, cool detachment with a hint of dry wit\nTime of day: Evening, lamplit\nComposition: Medium shot framing Holmes by the hearth with Watson at the edge, warm lamplight and low coal glow against the dark window\n\nART STYLE: Ink & Watercolor\nRendering: A complete scene in loose pen-and-ink and transparent watercolor washes, with expressive lines and airy light. Painted scenery fills the whole image, continuing beyond all four edges.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy light; shadows as cool layered washes.\nMaterials and texture: Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.\nComposition: Detail concentrated on key subjects; softer, fully painted surroundings extend through every corner.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\n- Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\nRender everything in the ART STYLE below, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: I had seen little of Holmes lately. My marriage had drifted us away from each other. My own complete happiness, and the home-centred interests which rise up around the man who first finds himself master of his own estab…\n\nVariation note: this is image 2 of this moment. Keep the same canonical scene, but vary composition and camera feel.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+   "promptChars": 7559,
+   "packet": {
+    "promptVersion": "2026-10-20-generic-v1",
+    "workId": "holmes-adventures",
+    "momentId": "a-scandal-in-bohemia-1-1",
+    "sectionId": "a-scandal-in-bohemia-1-1",
+    "eraId": "late-victorian-england-1880s-to-1890s",
+    "styleId": "watercolor",
+    "styleVersion": "08dc433d2623e18e8210e3fd6583cd694766b282bcacb377a23c6d9ac3833422",
+    "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+    "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+    "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+    "canon": [
+     {
+      "entryId": "sherlock_holmes",
+      "stageId": "sherlock_holmes",
+      "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+     },
+     {
+      "entryId": "dr_watson",
+      "stageId": "dr_watson",
+      "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+     }
+    ],
+    "references": [
+     {
+      "kind": "sheet",
+      "id": "sherlock_holmes:sherlock_holmes",
+      "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+      "version": "5deeca4df0bf88ae15936ba5c803cb79",
+      "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     },
+     {
+      "kind": "sheet",
+      "id": "dr_watson:dr_watson",
+      "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+      "version": "c774094a856ccc250f32181234dacd76",
+      "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     }
+    ],
+    "flags": {
+     "variationIncluded": true,
+     "neighborsIncluded": true,
+     "styleDetailIncluded": true,
+     "lookDetailIncluded": true
+    },
+    "budget": {
+     "maxChars": 8000,
+     "finalChars": 7559
+    }
+   },
+   "referencesSent": 2,
+   "plannerOutcome": "not_used",
+   "quote": {
+    "credits": 5,
+    "providerUsd": 0.0347825,
+    "promptTokens": 1890,
+    "referenceImages": 2
+   },
+   "providerRequestId": "gen-1792529387-TT9W2yzpFfmPiirZeffo",
+   "varianceUsd": -0.00020074999999999954,
+   "output": "outputs/holmes-scandal-the-woman/generic-watercolor-2.jpg"
+  },
+  "holmes-scandal-the-woman/generic:watercolor/3": {
+   "caseId": "holmes-scandal-the-woman",
+   "arm": "generic:watercolor",
+   "n": 3,
+   "status": "completed",
+   "engine": "generic",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "promptVersion": "2026-09-08-canonical",
+   "settings": {
+    "aspectRatio": "16:9",
+    "resolution": "1K",
+    "translation": "web",
+    "style": "watercolor"
+   },
+   "plannerCostUsd": 0,
+   "imageCostUsd": 0.03458175,
+   "usageMissing": false,
+   "latencyMs": {
+    "planner": 0,
+    "image": 5866,
+    "total": 7928
+   },
+   "startedAt": 1792529391616,
+   "work": "holmes-adventures",
+   "unitId": "a-scandal-in-bohemia-1-1",
+   "preparationCalls": 0,
+   "preparationCostUsd": 0,
+   "preparationUsageMissing": false,
+   "prepared": true,
+   "momentId": "a-scandal-in-bohemia-1-1",
+   "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Adventures of Sherlock Holmes, A Scandal in Bohemia, Part I ¶1: \"To Sherlock Holmes she is always _the_ woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his cold, precise but admirably balanced mind. He was, I take it, the most perfect reasoning and observing machine that the world has seen, but as a lover he would have placed himself in a false position. He never spoke of the softer passions, save with a gibe and a sneer. They were admirable things for the observer—excellent for drawing the veil from men’s motives and actions. But for the trained reasoner to admit such intrusions into his own delicate and finely adjusted temperament was to introduce a distracting factor which might throw a doubt upon all his mental results. Grit in a sensitive instrument, or a crack in one of his own high-power lenses, would not be more disturbing than a strong emotion in a nature such as his. And yet there was but one woman to him, and that woman was the late Irene Adler, of dubious and questionable memory.\"\n\nWORK BRIEF (holmes-adventures; what may be shown; it outranks the style, the look and the plan):\nTone: Observant, atmospheric detective fiction: lamplit rooms, foggy streets, restrained tension and dry wit.\nDepiction: Follow the narrated moment, including clues and disguises; avoid sensational gore.\nDepiction: Show every person with dignity; avoid racial and ethnic caricatures.\nDepiction: Do not borrow faces, costumes or props from screen adaptations.\nEra: Late Victorian England, 1880s to 1890s\nPeople: English households, professionals, workers, police and international visitors.\nDress: Wool coats, waistcoats, hats, period dresses and work clothes suited to occupation and means.\nBuildings and objects: Brick terraces, rural houses, lodgings, coal fires, desks, newspapers and horse-drawn cabs.\nTechnology: Steam rail, gas and oil lamps, telegrams, print and typewriters; other devices only when supported by the text.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Sherlock Holmes: man in his thirties; lean, long-limbed, narrow-shouldered build; pale skin; dark hair kept short; clean-shaven face with a hawk-like nose, deep-set grey eyes and a sharp, watchful expression; wears a dark tweed suit with a waistcoat, a plain collar and a dark overcoat. Carries a clay pipe and a magnifying glass.\n- Dr. Watson: a man in his thirties, of solid, medium build, filled out somewhat since his marriage; fair skin, short brown hair parted neatly, a trimmed moustache, and a steady, open face. Wears a dark wool frock coat, grey waistcoat, white collar and dark tie, with a bowler or silk hat. Carries a physician's black bag.\n- Only Sherlock Holmes, Dr. Watson have this canon look; any other people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Holmes's sitting room at 221B Baker Street, lodgings with a coal fire, desk and bookshelves\nTime of day: Evening, lamplit\nWeather: Foggy London dusk seen through the window\nLight: Warm lamplight and low coal-fire glow against dark window panes\nClothing: Period indoor wear: wool coats, waistcoats, shirtsleeves, dressing gowns\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Sherlock Holmes, lean and composed, seated in a dressing gown by the fireplace\nAction: Holmes sits motionless, gazing into the fire with a thoughtful, faintly sardonic expression while Watson stands nearby holding a glass of spirits\nSetting: Holmes's sitting room at 221B Baker Street, with a coal fire, a cluttered desk and bookshelves lining the walls\nSecondary elements: Dark window panes reflect the room; foggy London dusk glows faintly beyond the glass; a letter or photograph rests on the desk, unreadable\nMood: Restrained, contemplative, cool detachment with a hint of dry wit\nTime of day: Evening, lamplit\nComposition: Medium shot framing Holmes by the hearth with Watson at the edge, warm lamplight and low coal glow against the dark window\n\nART STYLE: Ink & Watercolor\nRendering: A complete scene in loose pen-and-ink and transparent watercolor washes, with expressive lines and airy light. Painted scenery fills the whole image, continuing beyond all four edges.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy light; shadows as cool layered washes.\nMaterials and texture: Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.\nComposition: Detail concentrated on key subjects; softer, fully painted surroundings extend through every corner.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\n- Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\nRender everything in the ART STYLE below, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: I had seen little of Holmes lately. My marriage had drifted us away from each other. My own complete happiness, and the home-centred interests which rise up around the man who first finds himself master of his own estab…\n\nVariation note: this is image 3 of this moment. Keep the same canonical scene, but vary composition and camera feel.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+   "promptChars": 7559,
+   "packet": {
+    "promptVersion": "2026-10-20-generic-v1",
+    "workId": "holmes-adventures",
+    "momentId": "a-scandal-in-bohemia-1-1",
+    "sectionId": "a-scandal-in-bohemia-1-1",
+    "eraId": "late-victorian-england-1880s-to-1890s",
+    "styleId": "watercolor",
+    "styleVersion": "08dc433d2623e18e8210e3fd6583cd694766b282bcacb377a23c6d9ac3833422",
+    "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+    "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+    "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+    "canon": [
+     {
+      "entryId": "sherlock_holmes",
+      "stageId": "sherlock_holmes",
+      "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+     },
+     {
+      "entryId": "dr_watson",
+      "stageId": "dr_watson",
+      "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+     }
+    ],
+    "references": [
+     {
+      "kind": "sheet",
+      "id": "sherlock_holmes:sherlock_holmes",
+      "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+      "version": "5deeca4df0bf88ae15936ba5c803cb79",
+      "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     },
+     {
+      "kind": "sheet",
+      "id": "dr_watson:dr_watson",
+      "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+      "version": "c774094a856ccc250f32181234dacd76",
+      "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     }
+    ],
+    "flags": {
+     "variationIncluded": true,
+     "neighborsIncluded": true,
+     "styleDetailIncluded": true,
+     "lookDetailIncluded": true
+    },
+    "budget": {
+     "maxChars": 8000,
+     "finalChars": 7559
+    }
+   },
+   "referencesSent": 2,
+   "plannerOutcome": "not_used",
+   "quote": {
+    "credits": 5,
+    "providerUsd": 0.0347825,
+    "promptTokens": 1890,
+    "referenceImages": 2
+   },
+   "providerRequestId": "gen-1792529393-LGQgk3dYPSHI9aUCa49j",
+   "varianceUsd": -0.00020074999999999954,
+   "output": "outputs/holmes-scandal-the-woman/generic-watercolor-3.jpg"
+  },
+  "holmes-scandal-king-arrives/generic:watercolor/1": {
+   "caseId": "holmes-scandal-king-arrives",
+   "arm": "generic:watercolor",
+   "n": 1,
+   "status": "completed",
+   "engine": "generic",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "promptVersion": "2026-09-08-canonical",
+   "settings": {
+    "aspectRatio": "16:9",
+    "resolution": "1K",
+    "translation": "web",
+    "style": "watercolor"
+   },
+   "plannerCostUsd": 0,
+   "imageCostUsd": 0.03459625,
+   "usageMissing": false,
+   "latencyMs": {
+    "planner": 0,
+    "image": 5164,
+    "total": 7635
+   },
+   "startedAt": 1792529399544,
+   "work": "holmes-adventures",
+   "unitId": "a-scandal-in-bohemia-1-42",
+   "preparationCalls": 0,
+   "preparationCostUsd": 0,
+   "preparationUsageMissing": false,
+   "prepared": true,
+   "momentId": "a-scandal-in-bohemia-1-34",
+   "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Adventures of Sherlock Holmes, A Scandal in Bohemia, Part I ¶34 to A Scandal in Bohemia, Part I ¶47: \"As he spoke there was the sharp sound of horses’ hoofs and grating wheels against the curb, followed by a sharp pull at the bell. Holmes whistled. “A pair, by the sound,” said he. “Yes,” he continued, glancing out of the window. “A nice little brougham and a pair of beauties. A hundred and fifty guineas apiece. There’s money in this case, Watson, if there is nothing else.” “I think that I had better go, Holmes.” “Not a bit, Doctor. Stay where you are. I am lost without my Boswell. And this promises to be interesting. It would be a pity to miss it.” “But your client—” “Never mind him. I may want your help, and so may he. Here he comes. Sit down in that armchair, Doctor, and give us your best attention.” A slow and heavy step, which had been heard upon the stairs and in the passage, paused immediately outside the door. Then there was a loud and authoritative tap. “Come in!” said Holmes. A man entered who could hardly have been less than six feet six inches in height, with the chest and limbs of a Hercules. His dress was rich with a richness which would, in England, be looked upon as akin to bad taste. Heavy bands of astrakhan were slashed across the sleeves and fronts of his double-…\"\n\nWORK BRIEF (holmes-adventures; what may be shown; it outranks the style, the look and the plan):\nTone: Observant, atmospheric detective fiction: lamplit rooms, foggy streets, restrained tension and dry wit.\nDepiction: Follow the narrated moment, including clues and disguises; avoid sensational gore.\nDepiction: Show every person with dignity; avoid racial and ethnic caricatures.\nDepiction: Do not borrow faces, costumes or props from screen adaptations.\nEra: Late Victorian England, 1880s to 1890s\nPeople: English households, professionals, workers, police and international visitors.\nDress: Wool coats, waistcoats, hats, period dresses and work clothes suited to occupation and means.\nBuildings and objects: Brick terraces, rural houses, lodgings, coal fires, desks, newspapers and horse-drawn cabs.\nTechnology: Steam rail, gas and oil lamps, telegrams, print and typewriters; other devices only when supported by the text.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Sherlock Holmes: man in his thirties; lean, long-limbed, narrow-shouldered build; pale skin; dark hair kept short; clean-shaven face with a hawk-like nose, deep-set grey eyes and a sharp, watchful expression; wears a dark tweed suit with a waistcoat, a plain collar and a dark overcoat. Carries a clay pipe and a magnifying glass.\n- Dr. Watson: a man in his thirties, of solid, medium build, filled out somewhat since his marriage; fair skin, short brown hair parted neatly, a trimmed moustache, and a steady, open face. Wears a dark wool frock coat, grey waistcoat, white collar and dark tie, with a bowler or silk hat. Carries a physician's black bag.\n- Wilhelm Gottsreich Sigismond von Ormstein: a man in his thirties, broad-shouldered and heavily built; fair skin, short fair hair and a close-trimmed moustache; strong, aristocratic features; a black half-mask hides his eyes and upper face. Signature outfit: a dark wool travelling cloak over a dark frock coat and waistcoat, with a high white collar. Props: a heavy chamois leather bag of gold.\n- Only Sherlock Holmes, Dr. Watson, Wilhelm Gottsreich Sigismond von Ormstein, King of Bohemia have this canon look; any other people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Sherlock Holmes's sitting room at 221B Baker Street, a cluttered Victorian lodging with a coal fire and a window onto the street\nTime of day: Late afternoon, gradually fading into early evening\nWeather: Grey, damp London overcast with street fog pressing against the window glass\nLight: Dim daylight from the window giving way to lamplight within the room, warm pools of lamp glow against shadowed walls\nClothing: Period wool coats, waistcoats and high collars; the visitor's rich astrakhan-trimmed coat, flame-lined blue cloak and black vizard mask\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: A towering masked visitor in a rich astrakhan-trimmed coat and flame-lined blue cloak, standing just inside the doorway\nAction: He stands with hat in hand, one hand still raised to his black vizard mask; Holmes remains seated by the fire while Watson sits in the armchair, both turned toward the visitor\nSetting: Holmes's cluttered sitting room at 221B Baker Street, coal fire glowing, the window onto the street with fog pressing against the glass\nSecondary elements: Brougham horses and wheels visible faintly through the window; papers, pipes and books scattered on the table; warm lamp pools against shadowed walls\nMood: Restrained tension and dry anticipation, with a sense of mystery\nTime of day: Late afternoon fading into early evening, lamps being lit\nComposition: Visitor tall at the doorway, framed against the dim room; Holmes and Watson placed at the fireside to balance the figure\n\nART STYLE: Ink & Watercolor\nRendering: A complete scene in loose pen-and-ink and transparent watercolor washes, with expressive lines and airy light. Painted scenery fills the whole image, continuing beyond all four edges.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\n- Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\nRender everything in the ART STYLE below, even where a reference is painted in another style.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+   "promptChars": 7690,
+   "packet": {
+    "promptVersion": "2026-10-20-generic-v1",
+    "workId": "holmes-adventures",
+    "momentId": "a-scandal-in-bohemia-1-34",
+    "sectionId": "a-scandal-in-bohemia-1-34",
+    "eraId": "late-victorian-england-1880s-to-1890s",
+    "styleId": "watercolor",
+    "styleVersion": "08dc433d2623e18e8210e3fd6583cd694766b282bcacb377a23c6d9ac3833422",
+    "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+    "lookVersion": "3da73e5df29078b6ed277645bf1a6231",
+    "planVersion": "41f75e1ebcb77dd7b17cc3e6c46a2d92",
+    "canon": [
+     {
+      "entryId": "sherlock_holmes",
+      "stageId": "sherlock_holmes",
+      "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+     },
+     {
+      "entryId": "dr_watson",
+      "stageId": "dr_watson",
+      "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+     },
+     {
+      "entryId": "wilhelm_gottsreich_sigismond_von_ormstein_king_of_bohemia",
+      "stageId": "wilhelm_gottsreich_sigismond_von_ormstein_king_of_bohemia",
+      "version": "a59dd63ce1e8ab8f0a8006742537d260"
+     }
+    ],
+    "references": [
+     {
+      "kind": "sheet",
+      "id": "sherlock_holmes:sherlock_holmes",
+      "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+      "version": "5deeca4df0bf88ae15936ba5c803cb79",
+      "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     },
+     {
+      "kind": "sheet",
+      "id": "dr_watson:dr_watson",
+      "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+      "version": "c774094a856ccc250f32181234dacd76",
+      "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     }
+    ],
+    "flags": {
+     "variationIncluded": false,
+     "neighborsIncluded": false,
+     "styleDetailIncluded": false,
+     "lookDetailIncluded": true
+    },
+    "budget": {
+     "maxChars": 8000,
+     "finalChars": 7690
+    }
+   },
+   "referencesSent": 2,
+   "plannerOutcome": "not_used",
+   "quote": {
+    "credits": 5,
+    "providerUsd": 0.03479075,
+    "promptTokens": 1923,
+    "referenceImages": 2
+   },
+   "providerRequestId": "gen-1792529402-DR0rXHXMNB4AznoprD4r",
+   "varianceUsd": -0.00019450000000000023,
+   "output": "outputs/holmes-scandal-king-arrives/generic-watercolor-1.jpg"
+  },
+  "holmes-scandal-king-arrives/generic:watercolor/2": {
+   "caseId": "holmes-scandal-king-arrives",
+   "arm": "generic:watercolor",
+   "n": 2,
+   "status": "completed",
+   "engine": "generic",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "promptVersion": "2026-09-08-canonical",
+   "settings": {
+    "aspectRatio": "16:9",
+    "resolution": "1K",
+    "translation": "web",
+    "style": "watercolor"
+   },
+   "plannerCostUsd": 0,
+   "imageCostUsd": 0.03459625,
+   "usageMissing": false,
+   "latencyMs": {
+    "planner": 0,
+    "image": 4032,
+    "total": 6179
+   },
+   "startedAt": 1792529407179,
+   "work": "holmes-adventures",
+   "unitId": "a-scandal-in-bohemia-1-42",
+   "preparationCalls": 0,
+   "preparationCostUsd": 0,
+   "preparationUsageMissing": false,
+   "prepared": true,
+   "momentId": "a-scandal-in-bohemia-1-34",
+   "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Adventures of Sherlock Holmes, A Scandal in Bohemia, Part I ¶34 to A Scandal in Bohemia, Part I ¶47: \"As he spoke there was the sharp sound of horses’ hoofs and grating wheels against the curb, followed by a sharp pull at the bell. Holmes whistled. “A pair, by the sound,” said he. “Yes,” he continued, glancing out of the window. “A nice little brougham and a pair of beauties. A hundred and fifty guineas apiece. There’s money in this case, Watson, if there is nothing else.” “I think that I had better go, Holmes.” “Not a bit, Doctor. Stay where you are. I am lost without my Boswell. And this promises to be interesting. It would be a pity to miss it.” “But your client—” “Never mind him. I may want your help, and so may he. Here he comes. Sit down in that armchair, Doctor, and give us your best attention.” A slow and heavy step, which had been heard upon the stairs and in the passage, paused immediately outside the door. Then there was a loud and authoritative tap. “Come in!” said Holmes. A man entered who could hardly have been less than six feet six inches in height, with the chest and limbs of a Hercules. His dress was rich with a richness which would, in England, be looked upon as akin to bad taste. Heavy bands of astrakhan were slashed across the sleeves and fronts of his double-…\"\n\nWORK BRIEF (holmes-adventures; what may be shown; it outranks the style, the look and the plan):\nTone: Observant, atmospheric detective fiction: lamplit rooms, foggy streets, restrained tension and dry wit.\nDepiction: Follow the narrated moment, including clues and disguises; avoid sensational gore.\nDepiction: Show every person with dignity; avoid racial and ethnic caricatures.\nDepiction: Do not borrow faces, costumes or props from screen adaptations.\nEra: Late Victorian England, 1880s to 1890s\nPeople: English households, professionals, workers, police and international visitors.\nDress: Wool coats, waistcoats, hats, period dresses and work clothes suited to occupation and means.\nBuildings and objects: Brick terraces, rural houses, lodgings, coal fires, desks, newspapers and horse-drawn cabs.\nTechnology: Steam rail, gas and oil lamps, telegrams, print and typewriters; other devices only when supported by the text.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Sherlock Holmes: man in his thirties; lean, long-limbed, narrow-shouldered build; pale skin; dark hair kept short; clean-shaven face with a hawk-like nose, deep-set grey eyes and a sharp, watchful expression; wears a dark tweed suit with a waistcoat, a plain collar and a dark overcoat. Carries a clay pipe and a magnifying glass.\n- Dr. Watson: a man in his thirties, of solid, medium build, filled out somewhat since his marriage; fair skin, short brown hair parted neatly, a trimmed moustache, and a steady, open face. Wears a dark wool frock coat, grey waistcoat, white collar and dark tie, with a bowler or silk hat. Carries a physician's black bag.\n- Wilhelm Gottsreich Sigismond von Ormstein: a man in his thirties, broad-shouldered and heavily built; fair skin, short fair hair and a close-trimmed moustache; strong, aristocratic features; a black half-mask hides his eyes and upper face. Signature outfit: a dark wool travelling cloak over a dark frock coat and waistcoat, with a high white collar. Props: a heavy chamois leather bag of gold.\n- Only Sherlock Holmes, Dr. Watson, Wilhelm Gottsreich Sigismond von Ormstein, King of Bohemia have this canon look; any other people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Sherlock Holmes's sitting room at 221B Baker Street, a cluttered Victorian lodging with a coal fire and a window onto the street\nTime of day: Late afternoon, gradually fading into early evening\nWeather: Grey, damp London overcast with street fog pressing against the window glass\nLight: Dim daylight from the window giving way to lamplight within the room, warm pools of lamp glow against shadowed walls\nClothing: Period wool coats, waistcoats and high collars; the visitor's rich astrakhan-trimmed coat, flame-lined blue cloak and black vizard mask\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: A towering masked visitor in a rich astrakhan-trimmed coat and flame-lined blue cloak, standing just inside the doorway\nAction: He stands with hat in hand, one hand still raised to his black vizard mask; Holmes remains seated by the fire while Watson sits in the armchair, both turned toward the visitor\nSetting: Holmes's cluttered sitting room at 221B Baker Street, coal fire glowing, the window onto the street with fog pressing against the glass\nSecondary elements: Brougham horses and wheels visible faintly through the window; papers, pipes and books scattered on the table; warm lamp pools against shadowed walls\nMood: Restrained tension and dry anticipation, with a sense of mystery\nTime of day: Late afternoon fading into early evening, lamps being lit\nComposition: Visitor tall at the doorway, framed against the dim room; Holmes and Watson placed at the fireside to balance the figure\n\nART STYLE: Ink & Watercolor\nRendering: A complete scene in loose pen-and-ink and transparent watercolor washes, with expressive lines and airy light. Painted scenery fills the whole image, continuing beyond all four edges.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\n- Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\nRender everything in the ART STYLE below, even where a reference is painted in another style.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+   "promptChars": 7690,
+   "packet": {
+    "promptVersion": "2026-10-20-generic-v1",
+    "workId": "holmes-adventures",
+    "momentId": "a-scandal-in-bohemia-1-34",
+    "sectionId": "a-scandal-in-bohemia-1-34",
+    "eraId": "late-victorian-england-1880s-to-1890s",
+    "styleId": "watercolor",
+    "styleVersion": "08dc433d2623e18e8210e3fd6583cd694766b282bcacb377a23c6d9ac3833422",
+    "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+    "lookVersion": "3da73e5df29078b6ed277645bf1a6231",
+    "planVersion": "41f75e1ebcb77dd7b17cc3e6c46a2d92",
+    "canon": [
+     {
+      "entryId": "sherlock_holmes",
+      "stageId": "sherlock_holmes",
+      "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+     },
+     {
+      "entryId": "dr_watson",
+      "stageId": "dr_watson",
+      "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+     },
+     {
+      "entryId": "wilhelm_gottsreich_sigismond_von_ormstein_king_of_bohemia",
+      "stageId": "wilhelm_gottsreich_sigismond_von_ormstein_king_of_bohemia",
+      "version": "a59dd63ce1e8ab8f0a8006742537d260"
+     }
+    ],
+    "references": [
+     {
+      "kind": "sheet",
+      "id": "sherlock_holmes:sherlock_holmes",
+      "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+      "version": "5deeca4df0bf88ae15936ba5c803cb79",
+      "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     },
+     {
+      "kind": "sheet",
+      "id": "dr_watson:dr_watson",
+      "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+      "version": "c774094a856ccc250f32181234dacd76",
+      "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     }
+    ],
+    "flags": {
+     "variationIncluded": false,
+     "neighborsIncluded": false,
+     "styleDetailIncluded": false,
+     "lookDetailIncluded": true
+    },
+    "budget": {
+     "maxChars": 8000,
+     "finalChars": 7690
+    }
+   },
+   "referencesSent": 2,
+   "plannerOutcome": "not_used",
+   "quote": {
+    "credits": 5,
+    "providerUsd": 0.03479075,
+    "promptTokens": 1923,
+    "referenceImages": 2
+   },
+   "providerRequestId": "gen-1792529409-3SC3BvxsM0DacYp5ntbo",
+   "varianceUsd": -0.00019450000000000023,
+   "output": "outputs/holmes-scandal-king-arrives/generic-watercolor-2.jpg"
+  },
+  "holmes-scandal-king-arrives/generic:watercolor/3": {
+   "caseId": "holmes-scandal-king-arrives",
+   "arm": "generic:watercolor",
+   "n": 3,
+   "status": "completed",
+   "engine": "generic",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "promptVersion": "2026-09-08-canonical",
+   "settings": {
+    "aspectRatio": "16:9",
+    "resolution": "1K",
+    "translation": "web",
+    "style": "watercolor"
+   },
+   "plannerCostUsd": 0,
+   "imageCostUsd": 0.03459625,
+   "usageMissing": false,
+   "latencyMs": {
+    "planner": 0,
+    "image": 4666,
+    "total": 6550
+   },
+   "startedAt": 1792529413359,
+   "work": "holmes-adventures",
+   "unitId": "a-scandal-in-bohemia-1-42",
+   "preparationCalls": 0,
+   "preparationCostUsd": 0,
+   "preparationUsageMissing": false,
+   "prepared": true,
+   "momentId": "a-scandal-in-bohemia-1-34",
+   "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Adventures of Sherlock Holmes, A Scandal in Bohemia, Part I ¶34 to A Scandal in Bohemia, Part I ¶47: \"As he spoke there was the sharp sound of horses’ hoofs and grating wheels against the curb, followed by a sharp pull at the bell. Holmes whistled. “A pair, by the sound,” said he. “Yes,” he continued, glancing out of the window. “A nice little brougham and a pair of beauties. A hundred and fifty guineas apiece. There’s money in this case, Watson, if there is nothing else.” “I think that I had better go, Holmes.” “Not a bit, Doctor. Stay where you are. I am lost without my Boswell. And this promises to be interesting. It would be a pity to miss it.” “But your client—” “Never mind him. I may want your help, and so may he. Here he comes. Sit down in that armchair, Doctor, and give us your best attention.” A slow and heavy step, which had been heard upon the stairs and in the passage, paused immediately outside the door. Then there was a loud and authoritative tap. “Come in!” said Holmes. A man entered who could hardly have been less than six feet six inches in height, with the chest and limbs of a Hercules. His dress was rich with a richness which would, in England, be looked upon as akin to bad taste. Heavy bands of astrakhan were slashed across the sleeves and fronts of his double-…\"\n\nWORK BRIEF (holmes-adventures; what may be shown; it outranks the style, the look and the plan):\nTone: Observant, atmospheric detective fiction: lamplit rooms, foggy streets, restrained tension and dry wit.\nDepiction: Follow the narrated moment, including clues and disguises; avoid sensational gore.\nDepiction: Show every person with dignity; avoid racial and ethnic caricatures.\nDepiction: Do not borrow faces, costumes or props from screen adaptations.\nEra: Late Victorian England, 1880s to 1890s\nPeople: English households, professionals, workers, police and international visitors.\nDress: Wool coats, waistcoats, hats, period dresses and work clothes suited to occupation and means.\nBuildings and objects: Brick terraces, rural houses, lodgings, coal fires, desks, newspapers and horse-drawn cabs.\nTechnology: Steam rail, gas and oil lamps, telegrams, print and typewriters; other devices only when supported by the text.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Sherlock Holmes: man in his thirties; lean, long-limbed, narrow-shouldered build; pale skin; dark hair kept short; clean-shaven face with a hawk-like nose, deep-set grey eyes and a sharp, watchful expression; wears a dark tweed suit with a waistcoat, a plain collar and a dark overcoat. Carries a clay pipe and a magnifying glass.\n- Dr. Watson: a man in his thirties, of solid, medium build, filled out somewhat since his marriage; fair skin, short brown hair parted neatly, a trimmed moustache, and a steady, open face. Wears a dark wool frock coat, grey waistcoat, white collar and dark tie, with a bowler or silk hat. Carries a physician's black bag.\n- Wilhelm Gottsreich Sigismond von Ormstein: a man in his thirties, broad-shouldered and heavily built; fair skin, short fair hair and a close-trimmed moustache; strong, aristocratic features; a black half-mask hides his eyes and upper face. Signature outfit: a dark wool travelling cloak over a dark frock coat and waistcoat, with a high white collar. Props: a heavy chamois leather bag of gold.\n- Only Sherlock Holmes, Dr. Watson, Wilhelm Gottsreich Sigismond von Ormstein, King of Bohemia have this canon look; any other people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Sherlock Holmes's sitting room at 221B Baker Street, a cluttered Victorian lodging with a coal fire and a window onto the street\nTime of day: Late afternoon, gradually fading into early evening\nWeather: Grey, damp London overcast with street fog pressing against the window glass\nLight: Dim daylight from the window giving way to lamplight within the room, warm pools of lamp glow against shadowed walls\nClothing: Period wool coats, waistcoats and high collars; the visitor's rich astrakhan-trimmed coat, flame-lined blue cloak and black vizard mask\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: A towering masked visitor in a rich astrakhan-trimmed coat and flame-lined blue cloak, standing just inside the doorway\nAction: He stands with hat in hand, one hand still raised to his black vizard mask; Holmes remains seated by the fire while Watson sits in the armchair, both turned toward the visitor\nSetting: Holmes's cluttered sitting room at 221B Baker Street, coal fire glowing, the window onto the street with fog pressing against the glass\nSecondary elements: Brougham horses and wheels visible faintly through the window; papers, pipes and books scattered on the table; warm lamp pools against shadowed walls\nMood: Restrained tension and dry anticipation, with a sense of mystery\nTime of day: Late afternoon fading into early evening, lamps being lit\nComposition: Visitor tall at the doorway, framed against the dim room; Holmes and Watson placed at the fireside to balance the figure\n\nART STYLE: Ink & Watercolor\nRendering: A complete scene in loose pen-and-ink and transparent watercolor washes, with expressive lines and airy light. Painted scenery fills the whole image, continuing beyond all four edges.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\n- Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\nRender everything in the ART STYLE below, even where a reference is painted in another style.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+   "promptChars": 7690,
+   "packet": {
+    "promptVersion": "2026-10-20-generic-v1",
+    "workId": "holmes-adventures",
+    "momentId": "a-scandal-in-bohemia-1-34",
+    "sectionId": "a-scandal-in-bohemia-1-34",
+    "eraId": "late-victorian-england-1880s-to-1890s",
+    "styleId": "watercolor",
+    "styleVersion": "08dc433d2623e18e8210e3fd6583cd694766b282bcacb377a23c6d9ac3833422",
+    "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+    "lookVersion": "3da73e5df29078b6ed277645bf1a6231",
+    "planVersion": "41f75e1ebcb77dd7b17cc3e6c46a2d92",
+    "canon": [
+     {
+      "entryId": "sherlock_holmes",
+      "stageId": "sherlock_holmes",
+      "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+     },
+     {
+      "entryId": "dr_watson",
+      "stageId": "dr_watson",
+      "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+     },
+     {
+      "entryId": "wilhelm_gottsreich_sigismond_von_ormstein_king_of_bohemia",
+      "stageId": "wilhelm_gottsreich_sigismond_von_ormstein_king_of_bohemia",
+      "version": "a59dd63ce1e8ab8f0a8006742537d260"
+     }
+    ],
+    "references": [
+     {
+      "kind": "sheet",
+      "id": "sherlock_holmes:sherlock_holmes",
+      "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+      "version": "5deeca4df0bf88ae15936ba5c803cb79",
+      "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     },
+     {
+      "kind": "sheet",
+      "id": "dr_watson:dr_watson",
+      "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+      "version": "c774094a856ccc250f32181234dacd76",
+      "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     }
+    ],
+    "flags": {
+     "variationIncluded": false,
+     "neighborsIncluded": false,
+     "styleDetailIncluded": false,
+     "lookDetailIncluded": true
+    },
+    "budget": {
+     "maxChars": 8000,
+     "finalChars": 7690
+    }
+   },
+   "referencesSent": 2,
+   "plannerOutcome": "not_used",
+   "quote": {
+    "credits": 5,
+    "providerUsd": 0.03479075,
+    "promptTokens": 1923,
+    "referenceImages": 2
+   },
+   "providerRequestId": "gen-1792529415-Ia3a6BjiFs2Yl3QxsZKf",
+   "varianceUsd": -0.00019450000000000023,
+   "output": "outputs/holmes-scandal-king-arrives/generic-watercolor-3.jpg"
+  },
+  "holmes-red-headed-league/generic:watercolor/1": {
+   "caseId": "holmes-red-headed-league",
+   "arm": "generic:watercolor",
+   "n": 1,
+   "status": "completed",
+   "engine": "generic",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "promptVersion": "2026-09-08-canonical",
+   "settings": {
+    "aspectRatio": "16:9",
+    "resolution": "1K",
+    "translation": "web",
+    "style": "watercolor"
+   },
+   "plannerCostUsd": 0,
+   "imageCostUsd": 0.03460175,
+   "usageMissing": false,
+   "latencyMs": {
+    "planner": 0,
+    "image": 5053,
+    "total": 7738
+   },
+   "startedAt": 1792529419910,
+   "work": "holmes-adventures",
+   "unitId": "the-red-headed-league-1",
+   "preparationCalls": 0,
+   "preparationCostUsd": 0,
+   "preparationUsageMissing": false,
+   "prepared": true,
+   "momentId": "the-red-headed-league-1",
+   "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Adventures of Sherlock Holmes, The Red-Headed League ¶1 to The Red-Headed League ¶7: \"I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and closed the door behind me. “You could not possibly have come at a better time, my dear Watson,” he said cordially. “I was afraid that you were engaged.” “So I am. Very much so.” “Then I can wait in the next room.” “Not at all. This gentleman, Mr. Wilson, has been my partner and helper in many of my most successful cases, and I have no doubt that he will be of the utmost use to me in yours also.” The stout gentleman half rose from his chair and gave a bob of greeting, with a quick little questioning glance from his small fat-encircled eyes.\"\n\nWORK BRIEF (holmes-adventures; what may be shown; it outranks the style, the look and the plan):\nTone: Observant, atmospheric detective fiction: lamplit rooms, foggy streets, restrained tension and dry wit.\nDepiction: Follow the narrated moment, including clues and disguises; avoid sensational gore.\nDepiction: Show every person with dignity; avoid racial and ethnic caricatures.\nDepiction: Do not borrow faces, costumes or props from screen adaptations.\nEra: Late Victorian England, 1880s to 1890s\nPeople: English households, professionals, workers, police and international visitors.\nDress: Wool coats, waistcoats, hats, period dresses and work clothes suited to occupation and means.\nBuildings and objects: Brick terraces, rural houses, lodgings, coal fires, desks, newspapers and horse-drawn cabs.\nTechnology: Steam rail, gas and oil lamps, telegrams, print and typewriters; other devices only when supported by the text.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Sherlock Holmes: man in his thirties; lean, long-limbed, narrow-shouldered build; pale skin; dark hair kept short; clean-shaven face with a hawk-like nose, deep-set grey eyes and a sharp, watchful expression; wears a dark tweed suit with a waistcoat, a plain collar and a dark overcoat. Carries a clay pipe and a magnifying glass.\n- Dr. Watson: a man in his thirties, of solid, medium build, filled out somewhat since his marriage; fair skin, short brown hair parted neatly, a trimmed moustache, and a steady, open face. Wears a dark wool frock coat, grey waistcoat, white collar and dark tie, with a bowler or silk hat. Carries a physician's black bag.\n- Jabez Wilson: a stout, pompous pawnbroker of middle age, obese and slow in build, with fair English skin reddened about the face. His hair is a blazing, fiery red, and he has a close-cut red beard. Florid cheeks and a discontented, chagrined expression. Signature outfit: baggy grey shepherd's check trousers, a not over-clean black frock-coat, and a drab waistcoat with a heavy brassy Albert chain and a square pierced metal ornament.\n- Only Sherlock Holmes, Dr. Watson, Jabez Wilson have this canon look; any other people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Sherlock Holmes's sitting room at 221B Baker Street, a cluttered lodging with bookshelves, a desk and a coal fire\nTime of day: Autumn afternoon\nWeather: Overcast autumn day, grey light at the windows\nLight: Dim daylight through the window, warmed by a low coal fire and a lamp\nClothing: Period indoor dress: frock coats, waistcoats and collars for the men; Wilson in a dark wool suit and waistcoat, Holmes in a dressing gown or dark frock coat\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Jabez Wilson, a stout, florid-faced elderly man with fiery red hair, half rising from his chair in greeting\nAction: Holmes pulls Watson into the room and gestures toward the chairs while Wilson gives a small bob of greeting, glancing questioningly at Watson\nSetting: Sherlock Holmes's cluttered sitting room at 221B Baker Street, bookshelves and a desk, a low coal fire glowing\nSecondary elements: Watson half-turned near the closed door with his hat and coat still on; Holmes in a dark frock coat by the armchair, fingertips together; a settee nearby\nMood: Cordial, observant, faintly expectant with dry wit\nTime of day: Autumn afternoon\nComposition: Medium shot from the doorway, Watson in the foreground near the door, Wilson and Holmes framed by the fireplace and bookshelves\n\nART STYLE: Ink & Watercolor\nRendering: A complete scene in loose pen-and-ink and transparent watercolor washes, with expressive lines and airy light. Painted scenery fills the whole image, continuing beyond all four edges.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy light; shadows as cool layered washes.\nMaterials and texture: Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.\nComposition: Detail concentrated on key subjects; softer, fully painted surroundings extend through every corner.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\n- Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\nRender everything in the ART STYLE below, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: “Try the settee,” said Holmes, relapsing into his armchair and putting his fingertips together, as was his custom when in judicial moods. “I know, my dear Watson, that you share my love of all that is bizarre and outsid…\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+   "promptChars": 7757,
+   "packet": {
+    "promptVersion": "2026-10-20-generic-v1",
+    "workId": "holmes-adventures",
+    "momentId": "the-red-headed-league-1",
+    "sectionId": "the-red-headed-league-1",
+    "eraId": "late-victorian-england-1880s-to-1890s",
+    "styleId": "watercolor",
+    "styleVersion": "08dc433d2623e18e8210e3fd6583cd694766b282bcacb377a23c6d9ac3833422",
+    "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+    "lookVersion": "86bba154af5c0b574e3b5f1c1d1d00b0",
+    "planVersion": "b007c1f06192c827b7f9ed08969e574c",
+    "canon": [
+     {
+      "entryId": "sherlock_holmes",
+      "stageId": "sherlock_holmes",
+      "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+     },
+     {
+      "entryId": "dr_watson",
+      "stageId": "dr_watson",
+      "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+     },
+     {
+      "entryId": "jabez_wilson",
+      "stageId": "jabez_wilson",
+      "version": "135582da9ff519af438bddc2804080d6"
+     }
+    ],
+    "references": [
+     {
+      "kind": "sheet",
+      "id": "sherlock_holmes:sherlock_holmes",
+      "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+      "version": "5deeca4df0bf88ae15936ba5c803cb79",
+      "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     },
+     {
+      "kind": "sheet",
+      "id": "dr_watson:dr_watson",
+      "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+      "version": "c774094a856ccc250f32181234dacd76",
+      "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     }
+    ],
+    "flags": {
+     "variationIncluded": false,
+     "neighborsIncluded": true,
+     "styleDetailIncluded": true,
+     "lookDetailIncluded": true
+    },
+    "budget": {
+     "maxChars": 8000,
+     "finalChars": 7757
+    }
+   },
+   "referencesSent": 2,
+   "plannerOutcome": "not_used",
+   "quote": {
+    "credits": 5,
+    "providerUsd": 0.034795,
+    "promptTokens": 1940,
+    "referenceImages": 2
+   },
+   "providerRequestId": "gen-1792529422-LYRJoYmw7x8HT01TxufU",
+   "varianceUsd": -0.00019324999999999898,
+   "output": "outputs/holmes-red-headed-league/generic-watercolor-1.jpg"
+  },
+  "holmes-red-headed-league/generic:watercolor/2": {
+   "caseId": "holmes-red-headed-league",
+   "arm": "generic:watercolor",
+   "n": 2,
+   "status": "completed",
+   "engine": "generic",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "promptVersion": "2026-09-08-canonical",
+   "settings": {
+    "aspectRatio": "16:9",
+    "resolution": "1K",
+    "translation": "web",
+    "style": "watercolor"
+   },
+   "plannerCostUsd": 0,
+   "imageCostUsd": 0.03460825,
+   "usageMissing": false,
+   "latencyMs": {
+    "planner": 0,
+    "image": 5696,
+    "total": 7732
+   },
+   "startedAt": 1792529427650,
+   "work": "holmes-adventures",
+   "unitId": "the-red-headed-league-1",
+   "preparationCalls": 0,
+   "preparationCostUsd": 0,
+   "preparationUsageMissing": false,
+   "prepared": true,
+   "momentId": "the-red-headed-league-1",
+   "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Adventures of Sherlock Holmes, The Red-Headed League ¶1 to The Red-Headed League ¶7: \"I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and closed the door behind me. “You could not possibly have come at a better time, my dear Watson,” he said cordially. “I was afraid that you were engaged.” “So I am. Very much so.” “Then I can wait in the next room.” “Not at all. This gentleman, Mr. Wilson, has been my partner and helper in many of my most successful cases, and I have no doubt that he will be of the utmost use to me in yours also.” The stout gentleman half rose from his chair and gave a bob of greeting, with a quick little questioning glance from his small fat-encircled eyes.\"\n\nWORK BRIEF (holmes-adventures; what may be shown; it outranks the style, the look and the plan):\nTone: Observant, atmospheric detective fiction: lamplit rooms, foggy streets, restrained tension and dry wit.\nDepiction: Follow the narrated moment, including clues and disguises; avoid sensational gore.\nDepiction: Show every person with dignity; avoid racial and ethnic caricatures.\nDepiction: Do not borrow faces, costumes or props from screen adaptations.\nEra: Late Victorian England, 1880s to 1890s\nPeople: English households, professionals, workers, police and international visitors.\nDress: Wool coats, waistcoats, hats, period dresses and work clothes suited to occupation and means.\nBuildings and objects: Brick terraces, rural houses, lodgings, coal fires, desks, newspapers and horse-drawn cabs.\nTechnology: Steam rail, gas and oil lamps, telegrams, print and typewriters; other devices only when supported by the text.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Sherlock Holmes: man in his thirties; lean, long-limbed, narrow-shouldered build; pale skin; dark hair kept short; clean-shaven face with a hawk-like nose, deep-set grey eyes and a sharp, watchful expression; wears a dark tweed suit with a waistcoat, a plain collar and a dark overcoat. Carries a clay pipe and a magnifying glass.\n- Dr. Watson: a man in his thirties, of solid, medium build, filled out somewhat since his marriage; fair skin, short brown hair parted neatly, a trimmed moustache, and a steady, open face. Wears a dark wool frock coat, grey waistcoat, white collar and dark tie, with a bowler or silk hat. Carries a physician's black bag.\n- Jabez Wilson: a stout, pompous pawnbroker of middle age, obese and slow in build, with fair English skin reddened about the face. His hair is a blazing, fiery red, and he has a close-cut red beard. Florid cheeks and a discontented, chagrined expression. Signature outfit: baggy grey shepherd's check trousers, a not over-clean black frock-coat, and a drab waistcoat with a heavy brassy Albert chain and a square pierced metal ornament.\n- Only Sherlock Holmes, Dr. Watson, Jabez Wilson have this canon look; any other people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Sherlock Holmes's sitting room at 221B Baker Street, a cluttered lodging with bookshelves, a desk and a coal fire\nTime of day: Autumn afternoon\nWeather: Overcast autumn day, grey light at the windows\nLight: Dim daylight through the window, warmed by a low coal fire and a lamp\nClothing: Period indoor dress: frock coats, waistcoats and collars for the men; Wilson in a dark wool suit and waistcoat, Holmes in a dressing gown or dark frock coat\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Jabez Wilson, a stout, florid-faced elderly man with fiery red hair, half rising from his chair in greeting\nAction: Holmes pulls Watson into the room and gestures toward the chairs while Wilson gives a small bob of greeting, glancing questioningly at Watson\nSetting: Sherlock Holmes's cluttered sitting room at 221B Baker Street, bookshelves and a desk, a low coal fire glowing\nSecondary elements: Watson half-turned near the closed door with his hat and coat still on; Holmes in a dark frock coat by the armchair, fingertips together; a settee nearby\nMood: Cordial, observant, faintly expectant with dry wit\nTime of day: Autumn afternoon\nComposition: Medium shot from the doorway, Watson in the foreground near the door, Wilson and Holmes framed by the fireplace and bookshelves\n\nART STYLE: Ink & Watercolor\nRendering: A complete scene in loose pen-and-ink and transparent watercolor washes, with expressive lines and airy light. Painted scenery fills the whole image, continuing beyond all four edges.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy light; shadows as cool layered washes.\nMaterials and texture: Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.\nComposition: Detail concentrated on key subjects; softer, fully painted surroundings extend through every corner.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\n- Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\nRender everything in the ART STYLE below, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: “Try the settee,” said Holmes, relapsing into his armchair and putting his fingertips together, as was his custom when in judicial moods. “I know, my dear Watson, that you share my love of all that is bizarre and outsid…\n\nVariation note: this is image 2 of this moment. Keep the same canonical scene, but vary composition and camera feel.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+   "promptChars": 7875,
+   "packet": {
+    "promptVersion": "2026-10-20-generic-v1",
+    "workId": "holmes-adventures",
+    "momentId": "the-red-headed-league-1",
+    "sectionId": "the-red-headed-league-1",
+    "eraId": "late-victorian-england-1880s-to-1890s",
+    "styleId": "watercolor",
+    "styleVersion": "08dc433d2623e18e8210e3fd6583cd694766b282bcacb377a23c6d9ac3833422",
+    "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+    "lookVersion": "86bba154af5c0b574e3b5f1c1d1d00b0",
+    "planVersion": "b007c1f06192c827b7f9ed08969e574c",
+    "canon": [
+     {
+      "entryId": "sherlock_holmes",
+      "stageId": "sherlock_holmes",
+      "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+     },
+     {
+      "entryId": "dr_watson",
+      "stageId": "dr_watson",
+      "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+     },
+     {
+      "entryId": "jabez_wilson",
+      "stageId": "jabez_wilson",
+      "version": "135582da9ff519af438bddc2804080d6"
+     }
+    ],
+    "references": [
+     {
+      "kind": "sheet",
+      "id": "sherlock_holmes:sherlock_holmes",
+      "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+      "version": "5deeca4df0bf88ae15936ba5c803cb79",
+      "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     },
+     {
+      "kind": "sheet",
+      "id": "dr_watson:dr_watson",
+      "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+      "version": "c774094a856ccc250f32181234dacd76",
+      "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     }
+    ],
+    "flags": {
+     "variationIncluded": true,
+     "neighborsIncluded": true,
+     "styleDetailIncluded": true,
+     "lookDetailIncluded": true
+    },
+    "budget": {
+     "maxChars": 8000,
+     "finalChars": 7875
+    }
+   },
+   "referencesSent": 2,
+   "plannerOutcome": "not_used",
+   "quote": {
+    "credits": 5,
+    "providerUsd": 0.03480225,
+    "promptTokens": 1969,
+    "referenceImages": 2
+   },
+   "providerRequestId": "gen-1792529429-cMT3RqKIok7Qxa4ZsN1M",
+   "varianceUsd": -0.00019399999999999973,
+   "output": "outputs/holmes-red-headed-league/generic-watercolor-2.jpg"
+  },
+  "holmes-red-headed-league/generic:watercolor/3": {
+   "caseId": "holmes-red-headed-league",
+   "arm": "generic:watercolor",
+   "n": 3,
+   "status": "completed",
+   "engine": "generic",
+   "model": "google/gemini-3.1-flash-lite-image",
+   "promptVersion": "2026-09-08-canonical",
+   "settings": {
+    "aspectRatio": "16:9",
+    "resolution": "1K",
+    "translation": "web",
+    "style": "watercolor"
+   },
+   "plannerCostUsd": 0,
+   "imageCostUsd": 0.03460825,
+   "usageMissing": false,
+   "latencyMs": {
+    "planner": 0,
+    "image": 5348,
+    "total": 7157
+   },
+   "startedAt": 1792529435383,
+   "work": "holmes-adventures",
+   "unitId": "the-red-headed-league-1",
+   "preparationCalls": 0,
+   "preparationCostUsd": 0,
+   "preparationUsageMissing": false,
+   "prepared": true,
+   "momentId": "the-red-headed-league-1",
+   "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Adventures of Sherlock Holmes, The Red-Headed League ¶1 to The Red-Headed League ¶7: \"I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and closed the door behind me. “You could not possibly have come at a better time, my dear Watson,” he said cordially. “I was afraid that you were engaged.” “So I am. Very much so.” “Then I can wait in the next room.” “Not at all. This gentleman, Mr. Wilson, has been my partner and helper in many of my most successful cases, and I have no doubt that he will be of the utmost use to me in yours also.” The stout gentleman half rose from his chair and gave a bob of greeting, with a quick little questioning glance from his small fat-encircled eyes.\"\n\nWORK BRIEF (holmes-adventures; what may be shown; it outranks the style, the look and the plan):\nTone: Observant, atmospheric detective fiction: lamplit rooms, foggy streets, restrained tension and dry wit.\nDepiction: Follow the narrated moment, including clues and disguises; avoid sensational gore.\nDepiction: Show every person with dignity; avoid racial and ethnic caricatures.\nDepiction: Do not borrow faces, costumes or props from screen adaptations.\nEra: Late Victorian England, 1880s to 1890s\nPeople: English households, professionals, workers, police and international visitors.\nDress: Wool coats, waistcoats, hats, period dresses and work clothes suited to occupation and means.\nBuildings and objects: Brick terraces, rural houses, lodgings, coal fires, desks, newspapers and horse-drawn cabs.\nTechnology: Steam rail, gas and oil lamps, telegrams, print and typewriters; other devices only when supported by the text.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Sherlock Holmes: man in his thirties; lean, long-limbed, narrow-shouldered build; pale skin; dark hair kept short; clean-shaven face with a hawk-like nose, deep-set grey eyes and a sharp, watchful expression; wears a dark tweed suit with a waistcoat, a plain collar and a dark overcoat. Carries a clay pipe and a magnifying glass.\n- Dr. Watson: a man in his thirties, of solid, medium build, filled out somewhat since his marriage; fair skin, short brown hair parted neatly, a trimmed moustache, and a steady, open face. Wears a dark wool frock coat, grey waistcoat, white collar and dark tie, with a bowler or silk hat. Carries a physician's black bag.\n- Jabez Wilson: a stout, pompous pawnbroker of middle age, obese and slow in build, with fair English skin reddened about the face. His hair is a blazing, fiery red, and he has a close-cut red beard. Florid cheeks and a discontented, chagrined expression. Signature outfit: baggy grey shepherd's check trousers, a not over-clean black frock-coat, and a drab waistcoat with a heavy brassy Albert chain and a square pierced metal ornament.\n- Only Sherlock Holmes, Dr. Watson, Jabez Wilson have this canon look; any other people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Sherlock Holmes's sitting room at 221B Baker Street, a cluttered lodging with bookshelves, a desk and a coal fire\nTime of day: Autumn afternoon\nWeather: Overcast autumn day, grey light at the windows\nLight: Dim daylight through the window, warmed by a low coal fire and a lamp\nClothing: Period indoor dress: frock coats, waistcoats and collars for the men; Wilson in a dark wool suit and waistcoat, Holmes in a dressing gown or dark frock coat\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Jabez Wilson, a stout, florid-faced elderly man with fiery red hair, half rising from his chair in greeting\nAction: Holmes pulls Watson into the room and gestures toward the chairs while Wilson gives a small bob of greeting, glancing questioningly at Watson\nSetting: Sherlock Holmes's cluttered sitting room at 221B Baker Street, bookshelves and a desk, a low coal fire glowing\nSecondary elements: Watson half-turned near the closed door with his hat and coat still on; Holmes in a dark frock coat by the armchair, fingertips together; a settee nearby\nMood: Cordial, observant, faintly expectant with dry wit\nTime of day: Autumn afternoon\nComposition: Medium shot from the doorway, Watson in the foreground near the door, Wilson and Holmes framed by the fireplace and bookshelves\n\nART STYLE: Ink & Watercolor\nRendering: A complete scene in loose pen-and-ink and transparent watercolor washes, with expressive lines and airy light. Painted scenery fills the whole image, continuing beyond all four edges.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy light; shadows as cool layered washes.\nMaterials and texture: Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.\nComposition: Detail concentrated on key subjects; softer, fully painted surroundings extend through every corner.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\n- Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.\nRender everything in the ART STYLE below, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: “Try the settee,” said Holmes, relapsing into his armchair and putting his fingertips together, as was his custom when in judicial moods. “I know, my dear Watson, that you share my love of all that is bizarre and outsid…\n\nVariation note: this is image 3 of this moment. Keep the same canonical scene, but vary composition and camera feel.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+   "promptChars": 7875,
+   "packet": {
+    "promptVersion": "2026-10-20-generic-v1",
+    "workId": "holmes-adventures",
+    "momentId": "the-red-headed-league-1",
+    "sectionId": "the-red-headed-league-1",
+    "eraId": "late-victorian-england-1880s-to-1890s",
+    "styleId": "watercolor",
+    "styleVersion": "08dc433d2623e18e8210e3fd6583cd694766b282bcacb377a23c6d9ac3833422",
+    "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+    "lookVersion": "86bba154af5c0b574e3b5f1c1d1d00b0",
+    "planVersion": "b007c1f06192c827b7f9ed08969e574c",
+    "canon": [
+     {
+      "entryId": "sherlock_holmes",
+      "stageId": "sherlock_holmes",
+      "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+     },
+     {
+      "entryId": "dr_watson",
+      "stageId": "dr_watson",
+      "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+     },
+     {
+      "entryId": "jabez_wilson",
+      "stageId": "jabez_wilson",
+      "version": "135582da9ff519af438bddc2804080d6"
+     }
+    ],
+    "references": [
+     {
+      "kind": "sheet",
+      "id": "sherlock_holmes:sherlock_holmes",
+      "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+      "version": "5deeca4df0bf88ae15936ba5c803cb79",
+      "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     },
+     {
+      "kind": "sheet",
+      "id": "dr_watson:dr_watson",
+      "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+      "version": "c774094a856ccc250f32181234dacd76",
+      "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+     }
+    ],
+    "flags": {
+     "variationIncluded": true,
+     "neighborsIncluded": true,
+     "styleDetailIncluded": true,
+     "lookDetailIncluded": true
+    },
+    "budget": {
+     "maxChars": 8000,
+     "finalChars": 7875
+    }
+   },
+   "referencesSent": 2,
+   "plannerOutcome": "not_used",
+   "quote": {
+    "credits": 5,
+    "providerUsd": 0.03480225,
+    "promptTokens": 1969,
+    "referenceImages": 2
+   },
+   "providerRequestId": "gen-1792529437-nxDRJI81FV1ZCWQfJdg1",
+   "varianceUsd": -0.00019399999999999973,
+   "output": "outputs/holmes-red-headed-league/generic-watercolor-3.jpg"
+  }
+ },
+ "spentUsd": 0.31134575
+}

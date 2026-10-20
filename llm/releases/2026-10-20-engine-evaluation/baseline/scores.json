@@ -1,0 +1,494 @@
+{
+  "run": "release-2026-10-20-baseline",
+  "dimensions": {
+    "legacy": [
+      "relevance",
+      "clarity",
+      "artifacts_style"
+    ],
+    "generic": [
+      "relevance",
+      "identity",
+      "continuity",
+      "style",
+      "artifacts"
+    ]
+  },
+  "scale": "0 materially fails, 1 incomplete or mildly off, 2 meets",
+  "verdicts": [
+    "pass",
+    "accepted limitation",
+    "fail"
+  ],
+  "rules": "An observed depiction-rule or prohibited-likeness violation is a fail whatever the scores. A known Icon border may be recorded as an accepted limitation, never averaged away.",
+  "rows": [
+    {
+      "caseId": "genesis-1-3-light",
+      "arm": "planner",
+      "outputs": [
+        "outputs/genesis-1-3-light/planner-1.jpg",
+        "outputs/genesis-1-3-light/planner-2.jpg",
+        "outputs/genesis-1-3-light/planner-3.jpg"
+      ],
+      "relevance": 0,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "fail",
+      "notes": "Repeat 1 gives God a bearded human form over the waters. Repeats 2 and 3 use light alone. The observed depiction violation fails this case."
+    },
+    {
+      "caseId": "genesis-5-5-adam-days",
+      "arm": "planner",
+      "outputs": [
+        "outputs/genesis-5-5-adam-days/planner-1.jpg",
+        "outputs/genesis-5-5-adam-days/planner-2.jpg",
+        "outputs/genesis-5-5-adam-days/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Aged patriarch, burial or mourning family, ancient setting, no visible writing across all three repeats."
+    },
+    {
+      "caseId": "genesis-19-24-sodom",
+      "arm": "planner",
+      "outputs": [
+        "outputs/genesis-19-24-sodom/planner-1.jpg",
+        "outputs/genesis-19-24-sodom/planner-2.jpg",
+        "outputs/genesis-19-24-sodom/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Distant city destruction with fire from the sky; no visible gore or modern features across three repeats."
+    },
+    {
+      "caseId": "genesis-22-10-abraham-knife",
+      "arm": "planner",
+      "outputs": [
+        "outputs/genesis-22-10-abraham-knife/planner-1.jpg",
+        "outputs/genesis-22-10-abraham-knife/planner-2.jpg",
+        "outputs/genesis-22-10-abraham-knife/planner-3.jpg"
+      ],
+      "relevance": 1,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "accepted limitation",
+      "notes": "All show Abraham, bound Isaac and altar without blood; repeat 1 holds the knife low rather than raised."
+    },
+    {
+      "caseId": "exodus-14-21-sea-parts",
+      "arm": "planner",
+      "outputs": [
+        "outputs/exodus-14-21-sea-parts/planner-1.jpg",
+        "outputs/exodus-14-21-sea-parts/planner-2.jpg",
+        "outputs/exodus-14-21-sea-parts/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Moses extends an arm, wind and water walls open a dry path under a dark sky in all repeats."
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "arm": "planner",
+      "outputs": [
+        "outputs/exodus-14-22-sea-walls/planner-1.jpg",
+        "outputs/exodus-14-22-sea-walls/planner-2.jpg",
+        "outputs/exodus-14-22-sea-walls/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Crowds cross dry ground between water walls; setting and night lighting match the preceding sea-parting case."
+    },
+    {
+      "caseId": "leviticus-11-7-pig",
+      "arm": "planner",
+      "outputs": [
+        "outputs/leviticus-11-7-pig/planner-1.jpg",
+        "outputs/leviticus-11-7-pig/planner-2.jpg",
+        "outputs/leviticus-11-7-pig/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Pigs, ancient pastoral landscape and period observer, with no writing or modern farm across repeats."
+    },
+    {
+      "caseId": "joshua-6-20-jericho",
+      "arm": "planner",
+      "outputs": [
+        "outputs/joshua-6-20-jericho/planner-1.jpg",
+        "outputs/joshua-6-20-jericho/planner-2.jpg",
+        "outputs/joshua-6-20-jericho/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Collapsing walls, gathered ancient forces and raised trumpets; action is legible across repeats."
+    },
+    {
+      "caseId": "judges-19-29-concubine",
+      "arm": "planner",
+      "outputs": [
+        "outputs/judges-19-29-concubine/planner-1.jpg",
+        "outputs/judges-19-29-concubine/planner-2.jpg",
+        "outputs/judges-19-29-concubine/planner-3.jpg"
+      ],
+      "relevance": 0,
+      "clarity": 2,
+      "artifacts_style": 1,
+      "verdict": "fail",
+      "notes": "Cutting, exposed remains and dismemberment details are visible, particularly repeat 3. This fails the explicit expectation of restrained, non-explicit depiction."
+    },
+    {
+      "caseId": "ruth-4-22-genealogy",
+      "arm": "planner",
+      "outputs": [
+        "outputs/ruth-4-22-genealogy/planner-1.jpg",
+        "outputs/ruth-4-22-genealogy/planner-2.jpg",
+        "outputs/ruth-4-22-genealogy/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Three generations in an ancient Bethlehem pastoral setting; no labels visible."
+    },
+    {
+      "caseId": "1-samuel-17-49-sling",
+      "arm": "planner",
+      "outputs": [
+        "outputs/1-samuel-17-49-sling/planner-1.jpg",
+        "outputs/1-samuel-17-49-sling/planner-2.jpg",
+        "outputs/1-samuel-17-49-sling/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Young slinger and falling giant with a visible forehead strike, in a valley battlefield, across repeats."
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "arm": "planner",
+      "outputs": [
+        "outputs/2-kings-2-23-bears/planner-1.jpg",
+        "outputs/2-kings-2-23-bears/planner-2.jpg",
+        "outputs/2-kings-2-23-bears/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Bald prophet and mocking youths on a road by an ancient town; no bloodbath."
+    },
+    {
+      "caseId": "job-38-4-foundations",
+      "arm": "planner",
+      "outputs": [
+        "outputs/job-38-4-foundations/planner-1.jpg",
+        "outputs/job-38-4-foundations/planner-2.jpg",
+        "outputs/job-38-4-foundations/planner-3.jpg"
+      ],
+      "relevance": 0,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "fail",
+      "notes": "Repeat 3 includes a literal bearded human deity in the storm cloud. Repeats 1 and 2 use cosmic storm imagery; the observed depiction violation fails the case."
+    },
+    {
+      "caseId": "psalms-23-2-pastures",
+      "arm": "planner",
+      "outputs": [
+        "outputs/psalms-23-2-pastures/planner-1.jpg",
+        "outputs/psalms-23-2-pastures/planner-2.jpg",
+        "outputs/psalms-23-2-pastures/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Shepherd, sheep, green pasture and still water create a calm scene in all repeats."
+    },
+    {
+      "caseId": "psalms-137-1-babylon",
+      "arm": "planner",
+      "outputs": [
+        "outputs/psalms-137-1-babylon/planner-1.jpg",
+        "outputs/psalms-137-1-babylon/planner-2.jpg",
+        "outputs/psalms-137-1-babylon/planner-3.jpg"
+      ],
+      "relevance": 1,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "accepted limitation",
+      "notes": "Grieving exiles by a Babylonian river are clear; harps on willows are clear in repeats 1 and 2 but absent or not discernible in repeat 3."
+    },
+    {
+      "caseId": "song-of-solomon-2-1-rose",
+      "arm": "planner",
+      "outputs": [
+        "outputs/song-of-solomon-2-1-rose/planner-1.jpg",
+        "outputs/song-of-solomon-2-1-rose/planner-2.jpg",
+        "outputs/song-of-solomon-2-1-rose/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Roses and lilies in a valley with a clothed woman, no explicit imagery across repeats."
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "arm": "planner",
+      "outputs": [
+        "outputs/isaiah-6-2-seraphim/planner-1.jpg",
+        "outputs/isaiah-6-2-seraphim/planner-2.jpg",
+        "outputs/isaiah-6-2-seraphim/planner-3.jpg"
+      ],
+      "relevance": 0,
+      "clarity": 1,
+      "artifacts_style": 1,
+      "verdict": "fail",
+      "notes": "Visible human enthroned deity in repeat 2, plus inconsistent wing counts and uncovered seraph faces. The deity depiction fails the case."
+    },
+    {
+      "caseId": "isaiah-11-6-wolf-lamb",
+      "arm": "planner",
+      "outputs": [
+        "outputs/isaiah-11-6-wolf-lamb/planner-1.jpg",
+        "outputs/isaiah-11-6-wolf-lamb/planner-2.jpg",
+        "outputs/isaiah-11-6-wolf-lamb/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Child, peaceful wolf/lamb, leopard/kid and cattle/lion group in each repeat."
+    },
+    {
+      "caseId": "ezekiel-37-4-dry-bones",
+      "arm": "planner",
+      "outputs": [
+        "outputs/ezekiel-37-4-dry-bones/planner-1.jpg",
+        "outputs/ezekiel-37-4-dry-bones/planner-2.jpg",
+        "outputs/ezekiel-37-4-dry-bones/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Prophet addresses a broad valley of dry bones; solemn and non-graphic in all repeats."
+    },
+    {
+      "caseId": "daniel-6-22-lions",
+      "arm": "planner",
+      "outputs": [
+        "outputs/daniel-6-22-lions/planner-1.jpg",
+        "outputs/daniel-6-22-lions/planner-2.jpg",
+        "outputs/daniel-6-22-lions/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Unharmed Daniel among calm lions, angel and light from the opening above across repeats."
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "arm": "planner",
+      "outputs": [
+        "outputs/daniel-7-9-ancient-of-days/planner-1.jpg",
+        "outputs/daniel-7-9-ancient-of-days/planner-2.jpg",
+        "outputs/daniel-7-9-ancient-of-days/planner-3.jpg"
+      ],
+      "relevance": 0,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "fail",
+      "notes": "All three show a detailed bearded human deity seated on a fiery throne, rather than avoiding a literal portrait. Fails the depiction constraint."
+    },
+    {
+      "caseId": "jonah-1-17-fish",
+      "arm": "planner",
+      "outputs": [
+        "outputs/jonah-1-17-fish/planner-1.jpg",
+        "outputs/jonah-1-17-fish/planner-2.jpg",
+        "outputs/jonah-1-17-fish/planner-3.jpg"
+      ],
+      "relevance": 1,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "accepted limitation",
+      "notes": "All three show Jonah already inside the fish praying. The verse connection is clear, but the expected swallowing action and stormy sea are missing."
+    },
+    {
+      "caseId": "matthew-1-1-genealogy",
+      "arm": "planner",
+      "outputs": [
+        "outputs/matthew-1-1-genealogy/planner-1.jpg",
+        "outputs/matthew-1-1-genealogy/planner-2.jpg",
+        "outputs/matthew-1-1-genealogy/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Period family line and scroll imagery without legible writing across repeats."
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "arm": "planner",
+      "outputs": [
+        "outputs/matthew-14-29-peter-water/planner-1.jpg",
+        "outputs/matthew-14-29-peter-water/planner-2.jpg",
+        "outputs/matthew-14-29-peter-water/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Peter steps out of a boat toward Jesus on the water beneath storm clouds; consistent short-haired, bearded fisherman type."
+    },
+    {
+      "caseId": "john-21-7-peter-sea",
+      "arm": "planner",
+      "outputs": [
+        "outputs/john-21-7-peter-sea/planner-1.jpg",
+        "outputs/john-21-7-peter-sea/planner-2.jpg",
+        "outputs/john-21-7-peter-sea/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "accepted limitation",
+      "notes": "Peter leaves the fishing boat at dawn toward Jesus on shore. Broad fisherman identity matches the storm case, but facial and garment details vary between independently generated repeats."
+    },
+    {
+      "caseId": "mark-4-39-storm",
+      "arm": "planner",
+      "outputs": [
+        "outputs/mark-4-39-storm/planner-1.jpg",
+        "outputs/mark-4-39-storm/planner-2.jpg",
+        "outputs/mark-4-39-storm/planner-3.jpg"
+      ],
+      "relevance": 1,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "accepted limitation",
+      "notes": "Jesus rebukes the sea from a boat; waves remain visibly rough, especially repeat 2, so the sudden calm is incomplete."
+    },
+    {
+      "caseId": "luke-15-20-prodigal",
+      "arm": "planner",
+      "outputs": [
+        "outputs/luke-15-20-prodigal/planner-1.jpg",
+        "outputs/luke-15-20-prodigal/planner-2.jpg",
+        "outputs/luke-15-20-prodigal/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Father runs or embraces a ragged returning son on a road in all repeats."
+    },
+    {
+      "caseId": "john-11-43-lazarus",
+      "arm": "planner",
+      "outputs": [
+        "outputs/john-11-43-lazarus/planner-1.jpg",
+        "outputs/john-11-43-lazarus/planner-2.jpg",
+        "outputs/john-11-43-lazarus/planner-3.jpg"
+      ],
+      "relevance": 1,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "accepted limitation",
+      "notes": "Jesus calls beside the tomb with mourners; a wrapped Lazarus emerging is not clear across the three repeats."
+    },
+    {
+      "caseId": "acts-9-3-damascus",
+      "arm": "planner",
+      "outputs": [
+        "outputs/acts-9-3-damascus/planner-1.jpg",
+        "outputs/acts-9-3-damascus/planner-2.jpg",
+        "outputs/acts-9-3-damascus/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Blinding heavenly light interrupts travelers on the road with an ancient city beyond; no human figure in the light."
+    },
+    {
+      "caseId": "romans-8-28-all-things",
+      "arm": "planner",
+      "outputs": [
+        "outputs/romans-8-28-all-things/planner-1.jpg",
+        "outputs/romans-8-28-all-things/planner-2.jpg",
+        "outputs/romans-8-28-all-things/planner-3.jpg"
+      ],
+      "relevance": 1,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "accepted limitation",
+      "notes": "Ancient community gathered under warm light, without text; relevant to providence only indirectly and less abstract than the fixed expectation."
+    },
+    {
+      "caseId": "matthew-27-35-crucified",
+      "arm": "planner",
+      "outputs": [
+        "outputs/matthew-27-35-crucified/planner-1.jpg",
+        "outputs/matthew-27-35-crucified/planner-2.jpg",
+        "outputs/matthew-27-35-crucified/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 1,
+      "verdict": "accepted limitation",
+      "notes": "Soldiers cast lots beneath the cross without gratuitous gore. Repeat 1 adds a white picture border and drop shadow."
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "arm": "planner",
+      "outputs": [
+        "outputs/revelation-4-6-living-creatures/planner-1.jpg",
+        "outputs/revelation-4-6-living-creatures/planner-2.jpg",
+        "outputs/revelation-4-6-living-creatures/planner-3.jpg"
+      ],
+      "relevance": 1,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "accepted limitation",
+      "notes": "Glass-like sea, throne and four creature forms are present; the expected many eyes are not clearly resolved in the contact views."
+    },
+    {
+      "caseId": "revelation-21-1-new-heaven",
+      "arm": "planner",
+      "outputs": [
+        "outputs/revelation-21-1-new-heaven/planner-1.jpg",
+        "outputs/revelation-21-1-new-heaven/planner-2.jpg",
+        "outputs/revelation-21-1-new-heaven/planner-3.jpg"
+      ],
+      "relevance": 2,
+      "clarity": 2,
+      "artifacts_style": 2,
+      "verdict": "pass",
+      "notes": "Vast luminous renewed landscapes with rivers rather than an open sea, across all repeats."
+    }
+  ],
+  "review": {
+    "reviewer": "Codex agent",
+    "status": "provisional first pass; human release acceptance pending",
+    "reviewedAt": "2026-10-20T20:30:06.420Z",
+    "method": "Viewed all 99 outputs in six contact pages, three repeats per case. Case verdict is failed if any repeat violates a depiction rule. Accepted limitations are provisional classifications, not human acceptance."
+  }
+}
