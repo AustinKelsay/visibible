@@ -22,6 +22,7 @@ import { createReferenceBlobCache } from "./references";
 import { assembleRendering, type ReferenceRecord } from "./assemble";
 import { loadWorkInputs, type MomentRange, type WorkInputs } from "./work-inputs";
 import type { ConvexClient, GenericEngine, GenericGenerationInput, GenericGenerationOutcome } from "./dispatch";
+import { listAnalysisRecords } from "./analysis-records";
 
 type FetchLike = (input: string, init: RequestInit) => Promise<Response>;
 type Runtime = GenericGenerationInput["runtime"];
@@ -104,7 +105,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
     const key = `${workId}#${generation}`;
     let list = momentLists.get(key);
     if (!list) {
-      list = convex.query(api.analysis.listActiveRecords, { workId, kind: "moment" })
+      list = listAnalysisRecords(convex, workId, generation, "moment")
         .then((records) => records.filter((r) => r.payload.kind === "moment").map((r) => ({ id: r.recordId, firstUnit: (r.payload as { firstUnit: string }).firstUnit, lastUnit: (r.payload as { lastUnit: string }).lastUnit })))
         .catch((error) => { momentLists.delete(key); throw error; });
       momentLists.set(key, list);
