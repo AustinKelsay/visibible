@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "workId": "holmes-adventures",
+  "tone": "Observant, atmospheric detective fiction: lamplit rooms, foggy streets, restrained tension and dry wit.",
+  "depictionRules": [
+    {
+      "text": "Follow the narrated moment, including clues and disguises; avoid sensational gore."
+    },
+    {
+      "text": "Show every person with dignity; avoid racial and ethnic caricatures."
+    },
+    {
+      "text": "Do not borrow faces, costumes or props from screen adaptations."
+    }
+  ],
+  "eras": [
+    {
+      "id": "late-victorian-england-1880s-to-1890s",
+      "label": "Late Victorian England, 1880s to 1890s",
+      "people": "English households, professionals, workers, police and international visitors.",
+      "dress": "Wool coats, waistcoats, hats, period dresses and work clothes suited to occupation and means.",
+      "buildingsAndObjects": "Brick terraces, rural houses, lodgings, coal fires, desks, newspapers and horse-drawn cabs.",
+      "technology": "Steam rail, gas and oil lamps, telegrams, print and typewriters; other devices only when supported by the text."
+    }
+  ],
+  "styleIds": [
+    "watercolor",
+    "classical",
+    "icon"
+  ]
+}
