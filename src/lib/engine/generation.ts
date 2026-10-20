@@ -10,17 +10,17 @@
  * an unplanned prompt after admission, and a replayed request never pays twice.
  */
 import { api } from "../../../convex/_generated/api";
-import { contentVersion } from "../../../convex/_helpers/contentVersion";
 import { fetchImageModels, CREDIT_USD, DEFAULT_IMAGE_MODEL, IMAGE_RESERVATION_HEADROOM_MULTIPLIER, canAffordImageGeneration, getProviderName } from "../image-models";
 import { imageCapabilities, IMAGE_BILLING_VERSION } from "../image-catalog";
 import { extractNoImageText, extractOpenRouterUsageUsd, findResponseImageUrl, summarizeNoImageResponse } from "../image-response";
 import { incrementMetricCounter, logApiFailure, logApiTimeout, logInfo, logSettlementEvent, logWarn, redactSid } from "../observability";
 import { createOpenRouterTextModel, type TextModel } from "../reading-pass/model";
-import { createConvexPreparationStore, prepareMoment, PreparationUnavailableError, type PreparationStore } from "./preparation";
-import { buildRenderingPacket, GENERIC_PROMPT_VERSION, type AvailableReference, type SelectedCanon } from "./prompt";
+import { createConvexPreparationStore, type PreparationStore } from "./preparation";
+import { GENERIC_PROMPT_VERSION } from "./prompt";
 import { quoteGenericImage } from "./quote";
 import { createReferenceBlobCache } from "./references";
-import { loadWorkInputs, momentContext, momentForUnit, type MomentRange, type WorkInputs } from "./work-inputs";
+import { assembleRendering, type ReferenceRecord } from "./assemble";
+import { loadWorkInputs, type MomentRange, type WorkInputs } from "./work-inputs";
 import type { ConvexClient, GenericEngine, GenericGenerationInput, GenericGenerationOutcome } from "./dispatch";
 
 type FetchLike = (input: string, init: RequestInit) => Promise<Response>;
@@ -73,13 +73,7 @@ function withTimeout<T>(promise: Promise<T>, ms: number, message: string): Promi
   return Promise.race([promise, timeout]).finally(() => { if (timer) clearTimeout(timer); });
 }
 
-type ActiveRecord = { kind: string; recordId: string; version: string; inputs: Array<{ kind: string; recordId: string; version: string }>; payload: Record<string, unknown> & { kind: string } };
-type ReferenceRecord = { storageId: string; inputs: Array<{ kind: string; recordId: string; version: string }>; fingerprint: string; pinned: boolean } | null;
-
-/** A reference is usable when pinned or when every input the engine knows about matches the current versions. */
-export function referenceIsCurrent(reference: NonNullable<ReferenceRecord>, required: Array<{ kind: string; recordId: string; version: string }>) {
-  return reference.pinned || required.every((r) => reference.inputs.some((i) => i.kind === r.kind && i.recordId === r.recordId && i.version === r.version));
-}
+export { referenceIsCurrent } from "./assemble";
 
 export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine {
   const loadInputs = deps.loadInputs ?? ((workId: string) => loadWorkInputs(workId));
@@ -106,20 +100,17 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
     createConvexPreparationStore({ query: (ref, args) => convex.query(ref as never, args as never), mutation: (ref, args) => convex.mutation(ref as never, args as never) },
       api.analysis as unknown as Record<string, unknown>, workId, serverSecret);
 
-  async function resolveMoment(convex: ConvexClient, store: PreparationStore, inputs: WorkInputs, unitId: string, generation: number): Promise<ActiveRecord | null> {
-    const direct = await store.getActiveRecord("moment", unitId);
-    if (direct || inputs.work.momentMode === "unit") return direct;
-    const key = `${inputs.work.work.id}#${generation}`;
+  const listMomentsFor = (convex: ConvexClient, workId: string, generation: number) => (): Promise<MomentRange[]> => {
+    const key = `${workId}#${generation}`;
     let list = momentLists.get(key);
     if (!list) {
-      list = convex.query(api.analysis.listActiveRecords, { workId: inputs.work.work.id, kind: "moment" })
+      list = convex.query(api.analysis.listActiveRecords, { workId, kind: "moment" })
         .then((records) => records.filter((r) => r.payload.kind === "moment").map((r) => ({ id: r.recordId, firstUnit: (r.payload as { firstUnit: string }).firstUnit, lastUnit: (r.payload as { lastUnit: string }).lastUnit })))
         .catch((error) => { momentLists.delete(key); throw error; });
       momentLists.set(key, list);
     }
-    const range = momentForUnit(inputs.work, unitId, await list);
-    return range ? store.getActiveRecord("moment", range.id) : null;
-  }
+    return list;
+  };
 
   return {
     id: `generic:${modelId}`,
@@ -155,122 +146,50 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
         logWarn("generic.inputs_mismatch", { requestId: input.requestId, workId, deployedWork: inputs.workVersion, registeredWork: input.readiness.workVersion, deployedBrief: inputs.briefVersion, registeredBrief: input.readiness.briefVersion });
         return preparing("The deployed work or brief differs from the registered analysis.");
       }
-      const styleEntry = inputs.styles[input.styleId];
-      if (!styleEntry) return decline(503, "Art style unavailable", `The ${input.styleId} art style is not approved for this work.`, false);
-      const classical = inputs.styles.classical;
-      let unit;
-      try {
-        unit = inputs.work.getUnit(input.verseId);
-      } catch {
-        return decline(400, "Invalid or unavailable reference", "This passage is not part of the work's reference text.", false);
-      }
-
-      // 2. The moment, its section and its in-section neighbours, from the reference text.
       const store = storeFor(convex, workId, serverSecret);
-      let moment: ActiveRecord | null;
-      let section: ActiveRecord | null = null;
+      const cache = cacheFor(runtime);
+      let assembled;
       try {
-        moment = await resolveMoment(convex, store, inputs, unit.id, input.readiness.activeGeneration);
-        if (moment) section = await store.getActiveRecord("section", String(moment.payload.sectionId));
+        assembled = await assembleRendering({
+          inputs, store, model: textModel(runtime.openRouterApiKey), now,
+          listMoments: listMomentsFor(convex, workId, input.readiness.activeGeneration),
+          getReference: (kind, recordId) => convex.query(api.analysis.getReference, { workId, kind, recordId }) as Promise<ReferenceRecord | null>,
+          loadReference: (storageId) => cache.get(storageId),
+          onReferenceSkipped: (kind, id, reason) => logInfo("generic.reference_skipped", { requestId: input.requestId, workId, kind, id, reason }),
+          onReferenceUnavailable: (kind, id, error) => logWarn("generic.reference_unavailable", { requestId: input.requestId, workId, kind, id, error: error instanceof Error ? error.message : String(error) }),
+        }, { workId, unitId: input.verseId, styleId: input.styleId, variationNumber: input.generationNumber, aspectRatio: input.aspectRatio });
       } catch (error) {
         logApiFailure({ context: requestContext, stage: "generic_moment_lookup", error, statusCode: 503, sid });
         return preparing("The work's analysis could not be read.");
       }
-      if (!moment || moment.payload.kind !== "moment" || !section || section.payload.kind !== "section") {
-        return preparing("This passage has no moment in the work's analysis.");
-      }
-      const momentId = moment.recordId;
-      const sectionId = section.recordId;
-      let context;
-      try {
-        context = momentContext(inputs.work, { id: momentId, firstUnit: String(moment.payload.firstUnit), lastUnit: String(moment.payload.lastUnit) },
-          { firstUnit: String(section.payload.firstUnit), lastUnit: String(section.payload.lastUnit) });
-      } catch (error) {
-        logApiFailure({ context: requestContext, stage: "generic_moment_context", error, statusCode: 503, sid });
-        return preparing("This passage's moment is malformed in the work's analysis.");
-      }
-
-      // 3. Required look and plan; owner-funded, retryable without any image charge when they fail.
-      let prepared;
-      try {
-        prepared = await prepareMoment({ workId, momentId, store, model: textModel(runtime.openRouterApiKey), brief: inputs.brief, briefVersion: inputs.briefVersion, context, now });
-      } catch (error) {
-        const status = await convex.query(api.analysis.getPreparationStatus, { workId, momentId }).catch(() => null);
-        if (error instanceof PreparationUnavailableError) {
-          logWarn("generic.preparation_unavailable", { requestId: input.requestId, workId, momentId, stage: error.stage, message: error.message });
-          incrementMetricCounter("generic_preparation", { outcome: "unavailable", stage: error.stage });
-          return preparing(error.message, { preparation: status });
-        }
-        logApiFailure({ context: requestContext, stage: "generic_preparation", error, statusCode: 503, sid });
-        return preparing("Scene preparation failed.", { preparation: status });
-      }
-      incrementMetricCounter("generic_preparation", { outcome: prepared.calls > 0 ? "prepared" : "reused" });
-
-      // 4. The canon stages of the entries the plan marked present.
-      const canon: SelectedCanon[] = [];
-      for (const present of prepared.present) {
-        const entry = await store.getActiveRecord("entry", present.entryId);
-        if (!entry || entry.payload.kind !== "entry") continue;
-        const payload = entry.payload as unknown as { name: string; entryKind: SelectedCanon["kind"]; hasForm?: boolean; stages: Array<{ id: string; text: string }> };
-        const stage = payload.stages.find((s) => s.id === present.stageId) ?? payload.stages[0];
-        if (!stage) continue;
-        canon.push({ entryId: present.entryId, stageId: stage.id, kind: payload.entryKind, name: payload.name, text: stage.text, hasForm: payload.hasForm !== false, version: entry.version });
-      }
-
-      // 5. Optional references: only the ones the packet could select, only when current, only when their bytes load.
-      const available: AvailableReference[] = [];
-      const inline = new Map<string, Uint8Array>();
-      const cache = cacheFor(runtime);
-      type Required = Array<{ kind: string; recordId: string; version: string }>;
-      const candidates: Array<{ kind: "sheet" | "styleReference"; id: string; reference: (storageId: string, version: string) => AvailableReference; required: Required }> = [];
-      if (input.styleId !== "classical") {
-        candidates.push({ kind: "styleReference", id: input.styleId, reference: (storageId, version) => ({ kind: "styleReference", styleId: input.styleId, storageId, version }),
-          required: [{ kind: "style", recordId: input.styleId, version: styleEntry.version }] });
-      }
-      const eligible = canon.filter((c) => c.hasForm);
-      const characters = eligible.filter((c) => c.kind === "character");
-      const locations = eligible.filter((c) => c.kind === "location");
-      for (const entry of [characters[0], locations[0], characters[1]].filter((c): c is SelectedCanon => Boolean(c))) {
-        candidates.push({ kind: "sheet", id: `${entry.entryId}:${entry.stageId}`, reference: (storageId, version) => ({ kind: "sheet", entryId: entry.entryId, stageId: entry.stageId, storageId, version }),
-          required: [
-            { kind: "entry", recordId: entry.entryId, version: entry.version },
-            { kind: "stage", recordId: `${entry.entryId}:${entry.stageId}`, version: contentVersion(entry.text) },
-            ...(classical ? [{ kind: "style", recordId: "classical", version: classical.version }] : []),
-          ] });
-      }
-      for (const candidate of candidates) {
-        const record = (await convex.query(api.analysis.getReference, { workId, kind: candidate.kind, recordId: candidate.id }).catch(() => null)) as ReferenceRecord;
-        if (!record || !referenceIsCurrent(record, candidate.required)) {
-          logInfo("generic.reference_skipped", { requestId: input.requestId, workId, kind: candidate.kind, id: candidate.id, reason: record ? "stale" : "missing" });
-          continue;
-        }
-        try {
-          inline.set(record.storageId, await cache.get(record.storageId));
-          available.push(candidate.reference(record.storageId, record.fingerprint));
-        } catch (error) {
-          logWarn("generic.reference_unavailable", { requestId: input.requestId, workId, kind: candidate.kind, id: candidate.id, error: error instanceof Error ? error.message : String(error) });
+      if (!assembled.ok) {
+        switch (assembled.reason) {
+          case "style": return decline(503, "Art style unavailable", assembled.message, false);
+          case "unit": return decline(400, "Invalid or unavailable reference", assembled.message, false);
+          case "moment": return preparing(assembled.message);
+          case "context":
+            logApiFailure({ context: requestContext, stage: "generic_moment_context", error: assembled.error, statusCode: 503, sid });
+            return preparing(assembled.message);
+          case "preparation": {
+            const status = await convex.query(api.analysis.getPreparationStatus, { workId, momentId: input.verseId }).catch(() => null);
+            if (assembled.stage) {
+              logWarn("generic.preparation_unavailable", { requestId: input.requestId, workId, momentId: input.verseId, stage: assembled.stage, message: assembled.message });
+              incrementMetricCounter("generic_preparation", { outcome: "unavailable", stage: assembled.stage });
+            } else {
+              logApiFailure({ context: requestContext, stage: "generic_preparation", error: assembled.error, statusCode: 503, sid });
+            }
+            return preparing(assembled.message, { preparation: status });
+          }
+          case "packet":
+            await convex.mutation(api.analysis.noteAttention, { serverSecret, workId, reason: "prompt_over_budget", kind: "moment", recordId: assembled.momentId, detail: assembled.message }).catch(() => {});
+            logWarn("generic.prompt_over_budget", { requestId: input.requestId, workId, momentId: assembled.momentId, finalChars: assembled.finalChars });
+            return decline(503, "Scene unavailable", assembled.message, false);
         }
       }
-
-      // 6. The rendering packet, validated before any paid call.
+      const { momentId, sectionId, context, prepared, prompt, packet, sentReferences, styleEntry } = assembled;
       const { style } = styleEntry;
-      const rendering = buildRenderingPacket({
-        work: { id: workId, title: inputs.work.work.title },
-        moment: { id: momentId, sectionId, reference: context.moment.reference, text: context.moment.text },
-        neighbors: { previous: context.previous?.text ?? null, next: context.next?.text ?? null },
-        brief: inputs.brief, briefVersion: inputs.briefVersion, eraId: prepared.era ?? inputs.brief.eras[0].id,
-        style, styleVersion: styleEntry.version,
-        look: { version: prepared.look.version, ...prepared.look.payload },
-        plan: { version: prepared.plan.version, primarySubject: prepared.plan.payload.primarySubject, action: prepared.plan.payload.action, setting: prepared.plan.payload.setting, secondaryElements: prepared.plan.payload.secondaryElements, mood: prepared.plan.payload.mood, timeOfDay: prepared.plan.payload.timeOfDay, composition: prepared.plan.payload.composition },
-        canon, references: available, variationNumber: input.generationNumber, aspectRatio: input.aspectRatio,
-      });
-      if (!rendering.ok) {
-        await convex.mutation(api.analysis.noteAttention, { serverSecret, workId, reason: "prompt_over_budget", kind: "moment", recordId: momentId, detail: rendering.error }).catch(() => {});
-        logWarn("generic.prompt_over_budget", { requestId: input.requestId, workId, momentId, finalChars: rendering.finalChars });
-        return decline(503, "Scene unavailable", rendering.error, false);
-      }
-      const { prompt, packet } = rendering;
-      const sentReferences = rendering.references.map((r) => ({ storageId: r.storageId, bytes: inline.get(r.storageId)! }));
+      const unit = inputs.work.getUnit(input.verseId);
+      incrementMetricCounter("generic_preparation", { outcome: prepared.calls > 0 ? "prepared" : "reused" });
 
       // 7. A quote for the actual prompt and the references that will be sent.
       let catalog;

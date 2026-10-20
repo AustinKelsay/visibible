@@ -32,7 +32,11 @@ export function createOpenRouterEvalImageProvider(options: { apiKey: string; fet
     async generate(request) {
       const started = Date.now();
       const { response, payload } = await postJson(fetchImpl, options.apiKey, {
-        model: request.model, messages: [{ role: "user", content: request.prompt }], modalities: ["image", "text"],
+        model: request.model,
+        messages: [{ role: "user", content: request.references?.length
+          ? [{ type: "text", text: request.prompt }, ...request.references.map((r) => ({ type: "image_url", image_url: { url: `data:${r.mimeType};base64,${Buffer.from(r.bytes).toString("base64")}` } }))]
+          : request.prompt }],
+        modalities: ["image", "text"],
         image_config: { aspect_ratio: request.aspectRatio, ...(supportsResolution(request.model) ? { image_size: request.resolution } : {}) }, usage: { include: true },
       }, options.timeoutMs ?? 120_000);
       if (!response.ok) throw new Error(`OpenRouter ${response.status}: ${JSON.stringify(payload.error ?? payload).slice(0, 300)}`);

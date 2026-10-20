@@ -7,8 +7,10 @@ import { DEFAULT_ASPECT_RATIO, DEFAULT_IMAGE_MODEL, DEFAULT_RESOLUTION, isValidA
 
 export const EVAL_GENRES = ["narrative", "poetry", "prophecy", "genealogy", "symbolic", "difficult", "law", "epistle", "parable"] as const;
 export type EvalGenre = (typeof EVAL_GENRES)[number];
+/** The legacy arms; generic arms are `generic:<styleId>` (#181). */
 export const EVAL_ARMS = ["direct", "planner"] as const;
-export type EvalArm = (typeof EVAL_ARMS)[number];
+export type LegacyEvalArm = (typeof EVAL_ARMS)[number];
+export type EvalArm = LegacyEvalArm | `generic:${string}`;
 
 const settingsSchema = z.object({
   model: z.string().min(1).optional(),
@@ -26,6 +28,12 @@ const caseSchema = z.object({
   settings: settingsSchema.optional(),
   style: z.string().optional(),
   tags: z.array(z.string()).optional(),
+  /** The work the generic engine renders from; Bible verses resolve their unit from the reference. */
+  work: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).optional(),
+  /** The unit (verse or paragraph) id for the generic engine; derived from the reference when omitted. */
+  unitId: z.string().optional(),
+  /** Restrict the generic arms this case runs in; every requested style otherwise. */
+  styles: z.array(z.string()).optional(),
 }).strict();
 
 export const evalCaseFileSchema = z.object({
@@ -60,7 +68,17 @@ export const REQUIRED_GENRES: readonly EvalGenre[] = ["narrative", "poetry", "pr
 
 export function describeCoverage(cases: readonly EvalCase[]) {
   const byGenre: Record<string, number> = {};
-  for (const c of cases) byGenre[c.genre] = (byGenre[c.genre] ?? 0) + 1;
+  const byWork: Record<string, number> = {};
+  for (const c of cases) { byGenre[c.genre] = (byGenre[c.genre] ?? 0) + 1; const work = c.work ?? "bible-web"; byWork[work] = (byWork[work] ?? 0) + 1; }
   const missing = REQUIRED_GENRES.filter((g) => !byGenre[g]);
-  return { total: cases.length, byGenre, missing, representative: cases.length >= 24 && missing.length === 0 };
+  const bible = byWork["bible-web"] ?? 0;
+  return { total: cases.length, byGenre, byWork, missing, representative: bible >= 24 && missing.length === 0 };
+}
+
+export const toUnitId = (reference: string) => reference.toLowerCase().replace(/:/g, "-").replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+export const caseWork = (c: EvalCase) => c.work ?? "bible-web";
+export const caseUnitId = (c: EvalCase) => c.unitId ?? toUnitId(c.reference);
+/** The arms a case takes part in: every legacy arm, and the generic arms whose style the case allows. */
+export function armsFor(c: EvalCase, arms: readonly EvalArm[]): EvalArm[] {
+  return arms.filter((arm) => !arm.startsWith("generic:") || !c.styles || c.styles.includes(arm.slice("generic:".length)));
 }

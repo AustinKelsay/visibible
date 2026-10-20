@@ -21,3 +21,7 @@
 An input edit, redo or redraft never closes a reader report, regenerates the reported image or alters its provenance; the owner decides with `resolve` after checking the correction. Counts and warnings never change canon, references, styles or images by themselves.
 
 Corrections invalidate only actual dependents: a changed canon stage makes that entry's sheets, its sections' looks and their plans stale, and nothing else; nothing is regenerated until it is next needed or the owner reruns a preparation command. The analysis keeps every version, so the inputs behind a saved image stay inspectable after any correction ([Analysis storage](../context/ANALYSIS-STORAGE.md)).
+
+## Targeted check after a correction
+
+After editing a stage, redoing a sheet, pinning a reference or changing a look, check the affected examples rather than the whole set: `npm run evals:images -- --run check-<what> --arms generic --cases <the cases that show the entry or section> --repeats 2 --budget 0.50` renders those cases through the engine's own assembly with the corrected inputs (prepared looks and plans are reused; a cleared plan is remade and counted as preparation spend). Open the contact sheet, score the rows, and close the reader report with `resolve … --disposition "source corrected" --correction <kind:recordId:version> --check "<run name and what you saw>"`. The run directory is the check's evidence. See [Image eval and release requirements](IMAGE_EVAL_AND_RELEASE.md).
