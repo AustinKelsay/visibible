@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "workId": "bible-web",
+  "tone": "Reverent, grounded and epic; grief, hope and human dignity without spectacle.",
+  "depictionRules": [
+    {
+      "text": "God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human."
+    },
+    {
+      "text": "Treat battles, death and crucifixion seriously; avoid lingering gore."
+    },
+    {
+      "text": "No sexually explicit content; non-sexual nudity may follow the text."
+    },
+    {
+      "text": "Show all peoples with dignity, without ethnic or religious caricature."
+    },
+    {
+      "text": "Visionary creatures follow the text, strange and fearsome rather than comic."
+    }
+  ],
+  "eras": [
+    {
+      "id": "primeval-and-patriarchal-ancient-near-east",
+      "label": "Creation and the patriarchs",
+      "people": "Ancient Near Eastern households, herders and farmers.",
+      "dress": "Simple wool or linen wraps, tunics and sandals.",
+      "buildingsAndObjects": "Wild land, tents, wells, altars and mud-brick towns as the text allows.",
+      "technology": "Hand tools, herding, farming and weighed metal; no modern objects."
+    },
+    {
+      "id": "exodus-wilderness-and-conquest-of-canaan",
+      "label": "Egypt, wilderness and settlement",
+      "people": "Israelites, Egyptians and neighboring ancient peoples.",
+      "dress": "Woven tunics, cloaks, Egyptian linen and priestly garments.",
+      "buildingsAndObjects": "Tents, tabernacle, Egyptian palaces and fortified towns.",
+      "technology": "Bronze tools, chariots and early iron; no modern objects."
+    },
+    {
+      "id": "monarchy-of-israel-and-judah",
+      "label": "Kingdoms, exile and return",
+      "people": "Israelites and neighboring Levantine, Mesopotamian and Persian peoples.",
+      "dress": "Tunics, cloaks, court robes, priestly linen and period armor.",
+      "buildingsAndObjects": "Villages, palaces, temples, city gates and exile settlements.",
+      "technology": "Iron and bronze tools, chariots, siege works and scrolls; no modern objects."
+    },
+    {
+      "id": "roman-era-judea-galilee-and-the-early-church",
+      "label": "Roman Judea and the early church",
+      "people": "Jewish and Gentile Mediterranean communities under Roman rule.",
+      "dress": "Tunics, cloaks, priestly robes and Roman military clothing.",
+      "buildingsAndObjects": "Stone villages, synagogues, temple, fishing boats and Roman cities.",
+      "technology": "Oil lamps, sail and oar, roads, coins and papyrus; no modern objects."
+    },
+    {
+      "id": "visionary-heaven-and-the-end-of-days",
+      "label": "Visionary heaven and renewal",
+      "people": "Seers, heavenly beings and the redeemed as described.",
+      "dress": "Robes and garments with the text's colors and materials.",
+      "buildingsAndObjects": "Thrones, altars, glass-like sea and jeweled city as described.",
+      "technology": "Ancient lamps, trumpets, harps, swords and sailing ships; no modern objects."
+    }
+  ],
+  "styleIds": [
+    "icon",
+    "classical",
+    "watercolor"
+  ]
+}
