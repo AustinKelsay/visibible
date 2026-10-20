@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "workId": "bible-web",
+  "tone": "Reverent, grounded and epic in scale, with human vulnerability and the natural world treated seriously.",
+  "depictionRules": [
+    { "text": "Let the reference text govern what is present; use symbolic light for divine action when the text describes no visible body." },
+    { "text": "Represent communities with dignity, avoiding ethnic caricature." },
+    { "text": "Where the work's depiction rules call for a halo, use a plain unlettered gold disc.", "styleIds": ["icon"] }
+  ],
+  "eras": [
+    {
+      "id": "creation-patriarchs",
+      "label": "Creation and the patriarchs",
+      "people": "For human episodes, ancient Near Eastern communities; creation scenes follow the text's actual inhabitants.",
+      "dress": "Simple woven garments, wraps and leather sandals when clothing is present.",
+      "buildingsAndObjects": "Natural landscapes, tents, rough stone, wells and handmade vessels appropriate to the passage.",
+      "technology": "Hand tools, pastoral life and early agriculture; no modern industrial materials or machinery."
+    },
+    {
+      "id": "egypt-wilderness",
+      "label": "Egypt and the wilderness",
+      "people": "Ancient Egyptian and Levantine communities, varied in age and occupation.",
+      "dress": "Linen and wool garments, practical wraps and sandals.",
+      "buildingsAndObjects": "Mudbrick and stone settlements, desert encampments, portable furnishings and handmade pottery.",
+      "technology": "Bronze tools, carts and animal transport; no plastic, electric lighting or modern machinery."
+    },
+    {
+      "id": "judges-kings",
+      "label": "Judges and kings",
+      "people": "Iron Age Levantine communities with regional differences.",
+      "dress": "Layered woven tunics, cloaks, belts and sandals.",
+      "buildingsAndObjects": "Hill settlements, stone fortifications, courtyards, timber furnishings and earthenware.",
+      "technology": "Iron and bronze tools, farming implements and animal transport; nothing industrial or electric."
+    },
+    {
+      "id": "exile-return",
+      "label": "Exile and return",
+      "people": "Levantine and Mesopotamian populations under changing ancient empires.",
+      "dress": "Woven robes, regional head coverings and practical travelling garments.",
+      "buildingsAndObjects": "Brick cities, gates, administrative courtyards and rebuilt stone settlements.",
+      "technology": "Hand manufacture, irrigation and animal transport; no modern engines or synthetic materials."
+    },
+    {
+      "id": "roman-judea",
+      "label": "Roman Judea and the early church",
+      "people": "Eastern Mediterranean communities under Roman rule.",
+      "dress": "Linen and wool tunics, mantles and sandals; occupational distinctions follow the text.",
+      "buildingsAndObjects": "Stone villages, plastered interiors, fishing boats, markets and Roman roads.",
+      "technology": "Oil lamps, hand tools, sailing and animal transport; no firearms, electricity or motor vehicles."
+    }
+  ],
+  "styleIds": ["classical", "watercolor", "icon"]
+}

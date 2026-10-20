@@ -1,6 +1,10 @@
 # Image prompt construction
 
-Authoritative implementation: [generate-image/route.ts](../../src/app/api/generate-image/route.ts), including `PROMPT_VERSION`, style profiles, scene-plan normalization and prompt assembly. Update the version when changing the prompt contract. [Planner tests](../../src/app/api/__tests__/generate-image/scene-planner.test.ts) exercise this path.
+Authoritative prompt implementation: [image-prompts.ts](../../src/lib/image-prompts.ts), called by [generate-image/route.ts](../../src/app/api/generate-image/route.ts). It owns `PROMPT_VERSION`, legacy style profiles, scene-plan normalization and prompt assembly. Update the version when changing that prompt contract. [Planner tests](../../src/app/api/__tests__/generate-image/scene-planner.test.ts) exercise this path.
+
+## Generic brief and style contracts
+
+[Work preparation](../context/WORK-PREPARATION.md) documents the additive data contracts in [work-preparation.ts](../../src/lib/work-preparation.ts) and the shared `classical`, `watercolor` and `icon` files under [styles/](../../styles/). Briefs own tone, depiction and era content; styles own six rendering parts. The brief prompt form is validated for every era against 1,200 characters without truncation, and style descriptions are excluded from prompts. The new Classical file removes Bible-world/tone assumptions; the production `STYLE_PROFILES.classical` remains unchanged until the later generic-engine integration. These data contracts do not change the current prompt version, image route or compaction behavior described below. Example briefs are test fixtures, not approved production inputs.
 
 ## Inputs and cache
 

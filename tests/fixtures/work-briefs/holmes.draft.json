@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "workId": "holmes-adventures",
+  "tone": "Atmospheric and suspenseful, attentive to ordinary clues, social tensions and human motives; never comic or sensationalized.",
+  "depictionRules": [
+    { "text": "Show disguised characters as their disguise at that moment; do not reveal a hidden identity through costume or likeness." },
+    { "text": "Keep violence restrained and contextual; emphasize evidence and consequences." }
+  ],
+  "eras": [
+    {
+      "id": "late-victorian",
+      "label": "Late Victorian England",
+      "people": "Urban and rural communities with varied occupations and social positions; avoid caricatures of class or origin.",
+      "dress": "Tailored wool suits, coats, waistcoats, dresses, hats and workwear appropriate to the setting and occupation.",
+      "buildingsAndObjects": "Brick streets, lodging rooms, country houses, fireplaces, desks and ordinary domestic objects, weathered by use.",
+      "technology": "Gas and oil lighting, telegrams, steam trains and horse transport; no electric lighting, motor cars, modern plastics or screens."
+    }
+  ],
+  "styleIds": ["watercolor", "classical"]
+}
