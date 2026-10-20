@@ -16,13 +16,23 @@
     "vercel:env:pull:production": "npx vercel env pull .env.vercel.prod.local --environment=production",
     "vercel:deploy:preview": "npx vercel",
     "vercel:deploy:production": "npx vercel --prod",
-    "build": "next build",
+    "build": "npm run works:import && next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:watch": "vitest --watch",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "works:import": "tsx scripts/works/import.mts",
+    "works:check": "tsx scripts/works/import.mts --check",
+    "works:read": "tsx scripts/works/read.mts",
+    "works:canon": "tsx scripts/works/canon.mts",
+    "works:references": "tsx scripts/works/references.mts",
+    "works:correct": "tsx scripts/works/correct.mts",
+    "works:bible-hints": "tsx scripts/works/bible-hints.mts",
+    "evals:images": "tsx scripts/evals/images.mts",
+    "engine:retirement-inventory": "tsx scripts/engine/retirement-inventory.mts",
+    "rehearse": "vitest run --reporter=default --reporter=json --outputFile=evals/rehearsal/latest.json src/lib/__tests__/engine-admission.test.ts src/lib/__tests__/preparation.test.ts src/lib/__tests__/corrections.test.ts src/lib/__tests__/image-evals-generic.test.ts tests/convex/analysis.test.ts tests/convex/generation-intent.test.ts tests/convex/generic-provenance.test.ts tests/convex/art-style-library.test.ts tests/convex/image-reports.test.ts tests/convex/bulk-binding.test.ts tests/convex/rehearsal.test.ts src/app/api/__tests__/generate-image/credit-flow.test.ts src/app/api/__tests__/public-images/route.test.ts src/app/api/__tests__/feedback/route.test.ts src/app/api/__tests__/image-models/route.test.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.1",
@@ -42,6 +52,7 @@
     "rehype-highlight": "^7.0.2",
     "rehype-sanitize": "^6.0.0",
     "remark-gfm": "^4.0.1",
+    "sharp": "^0.35.5",
     "snstr": "^0.1.10",
     "zod": "^4.1.12"
   },
@@ -63,6 +74,7 @@
     "eslint-config-next": "16.1.5",
     "jsdom": "^27.0.0",
     "tailwindcss": "^4.1.18",
+    "tsx": "^4.23.15",
     "typescript": "^5",
     "vitest": "^4.0.16"
   }

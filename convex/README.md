@@ -1,6 +1,6 @@
 # Convex setup
 
-Convex stores sessions, credits, invoices, images, feedback, bulk progress and scheduled-job state. Use a development deployment for local work and Vercel Preview, and a separate production deployment for Vercel Production. This is the intended mapping; verify actual deployment settings before release.
+Convex stores sessions, credits, invoices, images, feedback, bulk progress and scheduled-job state. It also stores each work's generated analysis per deployment; see [Analysis storage](../llm/context/ANALYSIS-STORAGE.md). Use a development deployment for local work and Vercel Preview, and a separate production deployment for Vercel Production. This is the intended mapping; verify actual deployment settings before release.
 
 ## Development
 

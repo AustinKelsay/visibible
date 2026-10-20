@@ -62,6 +62,8 @@ interface BulkGenerationContextType {
     aspectRatio: string;
     resolution: string;
     translation: string;
+    /** The art style for every item; Classical until the reader can choose one. */
+    artStyleId?: string;
   }) => Promise<void>;
   /** Pause the running bulk generation */
   pauseBulkGeneration: () => Promise<void>;
@@ -98,6 +100,12 @@ const TAB_ID =
 // Context
 // ---------------------------------------------------------------------------
 
+const ITEM_RETRY_LIMIT = 3;
+const ITEM_RETRY_DELAY_MS = 2000;
+const IN_FLIGHT_WAIT_LIMIT = 20;
+const IN_FLIGHT_WAIT_DELAY_MS = 3000;
+const sleep = (ms: number) => new Promise<void>((resolve) => window.setTimeout(resolve, ms));
+
 const BulkGenerationContext = createContext<BulkGenerationContextType | null>(
   null
 );
@@ -128,7 +136,11 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     aspectRatio: string;
     resolution: string;
     translation: string;
+    /** The job's art style and, once the first item is accepted, its bound engine (#178). */
+    artStyleId: string;
+    engine?: "legacy" | "generic";
   } | null>(null);
+  const reconciledBulkIdRef = useRef<Id<"bulkGenerations"> | null>(null);
   const sessionCreditsRef = useRef(credits);
 
   // Convex mutations
@@ -138,6 +150,8 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
   const pauseBulk = useMutation(api.bulkGenerations.pause);
   const resumeBulk = useMutation(api.bulkGenerations.resume);
   const cancelBulk = useMutation(api.bulkGenerations.cancel);
+  const bindEngine = useMutation(api.bulkGenerations.bindEngine);
+  const reconcileInterrupted = useMutation(api.bulkGenerations.reconcileInterrupted);
 
   const getRunLockStorageKey = useCallback(
     (bulkId: Id<"bulkGenerations">) => `bulk-gen-lock-${bulkId}`,
@@ -379,11 +393,14 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       pausedResolverRef.current?.();
       pausedResolverRef.current = null;
     }
+    // The job's own configuration, never current UI defaults: style and bound engine included (#178).
     settingsRef.current = {
       modelId: bulkForState.modelId,
       aspectRatio: bulkForState.aspectRatio,
       resolution: bulkForState.resolution,
       translation: bulkForState.translation,
+      artStyleId: bulkForState.artStyleId ?? "classical",
+      engine: bulkForState.engine ?? settingsRef.current?.engine,
     };
 
     setState((prev) => ({
@@ -548,6 +565,9 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               translation: settings.translation,
               aspectRatio: settings.aspectRatio,
               resolution: settings.resolution,
+              style: settings.artStyleId,
+              // The bound engine, once known: the route refuses rather than admits on another engine.
+              ...(settings.engine ? { engine: settings.engine } : {}),
               requestId: `bulk-${bulkId}-${item.order}`,
             };
             const csrfToken = readCsrfToken();
@@ -579,7 +599,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               break;
             }
 
-            const response = await fetch("/api/generate-image", {
+            const submit = () => fetch("/api/generate-image", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -587,12 +607,32 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               },
               body: JSON.stringify(payload),
             });
+            // Retryable refusals (a scene still preparing, a style briefly unavailable) get a few
+            // tries; an accepted-but-unfinished earlier attempt (202) is waited on, never repeated.
+            let response = await submit();
+            for (let attempt = 0; attempt < ITEM_RETRY_LIMIT && response.status === 503; attempt++) {
+              const body = await response.clone().json().catch(() => null);
+              if (!body?.retryable) break;
+              await sleep(ITEM_RETRY_DELAY_MS);
+              response = await submit();
+            }
+            for (let waited = 0; waited < IN_FLIGHT_WAIT_LIMIT && response.status === 202; waited++) {
+              await sleep(IN_FLIGHT_WAIT_DELAY_MS);
+              response = await submit();
+            }
 
-            if (response.ok) {
+            if (response.ok && response.status !== 202) {
               const data = await response.json();
               const cost = data.creditsCost ?? 0;
               completed++;
               creditsUsed += cost;
+              if (!settings.engine && (data.engine === "legacy" || data.engine === "generic")) {
+                // The first accepted item binds the job; every later item is submitted with this engine.
+                settings.engine = data.engine;
+                await bindEngine({ sid, id: bulkId, engine: data.engine }).catch((error) => {
+                  console.error("Failed to bind bulk job engine:", error);
+                });
+              }
 
               await updateVerseStatus({
                 sid,
@@ -602,10 +642,18 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
                 expectedCurrentStatus: "generating",
                 creditsCost: cost,
               });
+            } else if (response.status === 202) {
+              // Still running server-side after the wait: leave it queued so resume replays it.
+              isPausedRef.current = true;
+              shouldMarkComplete = false;
+              await updateVerseStatus({ sid, bulkGenerationId: bulkId, verseId: item.verseId, status: "queued", expectedCurrentStatus: "generating" });
+              await pauseBulk({ id: bulkId, sid, reason: "in_flight" });
+              setState((prev) => ({ ...prev, status: "blocked", errorMessage: "An earlier attempt for this verse is still running. Resume in a moment to pick up its result." }));
+              break;
             } else if (response.status === 402) {
               isPausedRef.current = true;
               shouldMarkComplete = false;
-              await pauseBulk({ id: bulkId, sid });
+              await pauseBulk({ id: bulkId, sid, reason: "credits" });
               await updateVerseStatus({
                 sid,
                 bulkGenerationId: bulkId,
@@ -624,7 +672,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
                 status: "queued",
                 expectedCurrentStatus: "generating",
               });
-              await pauseBulk({ id: bulkId, sid });
+              await pauseBulk({ id: bulkId, sid, reason: "rate_limited" });
               setState((prev) => ({
                 ...prev,
                 status: "blocked",
@@ -632,12 +680,19 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
               }));
               break;
             } else {
-              let errorMsg = `HTTP ${response.status}`;
-              try {
-                const errData = await response.json();
-                errorMsg = errData.error || errData.message || errorMsg;
-              } catch {
-                // keep generic
+              const errData = await response.json().catch(() => null) as { error?: string; message?: string; retryable?: boolean } | null;
+              const errorMsg = errData?.error || errData?.message || `HTTP ${response.status}`;
+              const bindingChanged = response.status === 409 && errData?.error === "Engine binding changed";
+              const stillRetryable = response.status === 503 && errData?.retryable === true;
+              if (bindingChanged || stillRetryable) {
+                // The job keeps its configuration and completed outcomes; nothing was charged. It
+                // waits for the engine or style to be admitted again rather than switching.
+                isPausedRef.current = true;
+                shouldMarkComplete = false;
+                await updateVerseStatus({ sid, bulkGenerationId: bulkId, verseId: item.verseId, status: "queued", expectedCurrentStatus: "generating" });
+                await pauseBulk({ id: bulkId, sid, reason: bindingChanged ? "engine_unavailable" : errData?.error === "Art style unavailable" ? "style_unavailable" : "preparing" });
+                setState((prev) => ({ ...prev, status: "blocked", errorMessage: `${errData?.message || errorMsg} The job is paused; resume when it is available again.` }));
+                break;
               }
               failed++;
               await updateVerseStatus({
@@ -706,6 +761,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       updateVerseStatus,
       updateProgress,
       pauseBulk,
+      bindEngine,
       readCsrfToken,
       releaseRunLock,
       sid,
@@ -719,8 +775,27 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
 
     const syncRunnerQueue = async () => {
       try {
-        const verses = await loadAllVerses(bulkForState._id);
+        let verses = await loadAllVerses(bulkForState._id);
         if (cancelled) return;
+        // Items left "generating" by an interrupted browser are settled from their request records
+        // before anything is submitted: saved outcomes are kept, accepted work is replayed, never repeated.
+        let lockTakenToReconcile = false;
+        if (
+          sid &&
+          !isRunningRef.current &&
+          reconciledBulkIdRef.current !== bulkForState._id &&
+          verses.some((verse: BulkGenerationVerse) => verse.status === "generating")
+        ) {
+          // Only the run-lock owner may treat "generating" items as interrupted: another tab's
+          // in-flight item must not be requeued and counted twice.
+          if (!acquireRunLock(bulkForState._id)) return;
+          lockTakenToReconcile = true;
+          reconciledBulkIdRef.current = bulkForState._id;
+          await reconcileInterrupted({ sid, id: bulkForState._id });
+          if (cancelled) { releaseRunLock(bulkForState._id); return; }
+          verses = await loadAllVerses(bulkForState._id);
+          if (cancelled) { releaseRunLock(bulkForState._id); return; }
+        }
 
         const generatingVerse = verses.find(
           (verse: BulkGenerationVerse) => verse.status === "generating"
@@ -752,6 +827,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
           isRunningRef.current ||
           pendingQueue.length === 0
         ) {
+          if (lockTakenToReconcile) releaseRunLock(bulkForState._id);
           return;
         }
 
@@ -780,7 +856,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true;
     };
-  }, [acquireRunLock, bulkForState, loadAllVerses, runGenerationLoop, runLoopTrigger]);
+  }, [acquireRunLock, bulkForState, loadAllVerses, reconcileInterrupted, releaseRunLock, runGenerationLoop, runLoopTrigger, sid]);
 
   // ---------------------------------------------------------------------------
   // Public API
@@ -796,6 +872,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
       aspectRatio: string;
       resolution: string;
       translation: string;
+      artStyleId?: string;
     }) => {
       if (!sid || !convexEnabled || !isAuthenticated) return;
       if (params.queue.length === 0) {
@@ -812,6 +889,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         aspectRatio: params.aspectRatio,
         resolution: params.resolution,
         translation: params.translation,
+        artStyleId: params.artStyleId ?? "classical",
         verses: params.queue.map((v) => ({
           verseId: v.verseId,
           reference: v.reference,
@@ -845,6 +923,7 @@ export function BulkGenerationProvider({ children }: { children: ReactNode }) {
         aspectRatio: params.aspectRatio,
         resolution: params.resolution,
         translation: params.translation,
+        artStyleId: params.artStyleId ?? "classical",
       };
 
       if (acquireRunLock(bulk.bulkId)) {

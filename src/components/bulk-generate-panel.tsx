@@ -53,7 +53,7 @@ export function BulkGeneratePanel({
   onClose,
 }: BulkGeneratePanelProps) {
   const { credits, tier, buyCredits } = useSession();
-  const { translation } = usePreferences();
+  const { translation, artStyle } = usePreferences();
   const pathname = usePathname();
   const { state: bulkState, startBulkGeneration } = useBulkGeneration();
 
@@ -161,6 +161,7 @@ export function BulkGeneratePanel({
         aspectRatio,
         resolution,
         translation: translation || "web",
+        artStyleId: artStyle,
       });
     } catch (error) {
       console.error("Failed to start bulk generation:", error);

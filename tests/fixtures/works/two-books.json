@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "two-books",
+  "title": "Two Books",
+  "author": "Fixture",
+  "language": "en",
+  "referenceText": { "name": "Fixture edition", "source": "https://example.com/two-books", "credit": "Test fixture", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" },
+  "levels": ["Book", "Chapter", "Verse"],
+  "referenceFormats": { "Chapter": "{Book} {Chapter}:{Verse}" },
+  "momentMode": "unit",
+  "divisions": [
+    { "key": "alpha", "label": "Alpha", "level": "Book", "divisions": [
+      { "key": "1", "label": "1", "level": "Chapter", "units": [
+        { "number": 1, "text": "Jonah the fisherman mended his nets by the lake." },
+        { "number": 2, "text": "His brother Amos came down from the hills to help." },
+        { "number": 3, "text": "The king of the city sent a messenger to the lake." },
+        { "number": 4, "text": "Jonah followed the messenger up to the palace." }
+      ] },
+      { "key": "2", "label": "2", "level": "Chapter", "units": [
+        { "number": 1, "text": "In the palace the king asked Jonah to sail west." },
+        { "number": 2, "text": "Jonah agreed, and the king gave him a ship." }
+      ] }
+    ] },
+    { "key": "beta", "label": "Beta", "level": "Book", "divisions": [
+      { "key": "1", "label": "1", "level": "Chapter", "units": [
+        { "number": 1, "text": "A new king rose who did not know Jonah." },
+        { "number": 2, "text": "Jonah's ship came home to the lake at dawn." },
+        { "number": 3, "text": "The crowd on the shore cheered the sailor." }
+      ] }
+    ] }
+  ]
+}

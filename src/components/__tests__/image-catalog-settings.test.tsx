@@ -89,3 +89,36 @@ it("disables unquoted resolutions in desktop and mobile settings", async () => {
     expect(setResolution).toHaveBeenCalledWith("4K", "header_settings_popover");
   } finally { act(() => root.unmount()); }
 });
+
+it("offers the three art styles in order, keeps an unavailable selection without swapping it, and saves a choice", async () => {
+  const storage = new Map([["visibible-preferences", JSON.stringify({ imageModel: "google/gemini-2.5-flash-image", artStyle: "watercolor" })]]);
+  vi.stubGlobal("localStorage", { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => storage.set(key, value) });
+  const artStyles = [
+    { id: "classical", label: "Classical", description: "Oil painting.", available: true, reason: null },
+    { id: "watercolor", label: "Ink & Watercolor", description: "Ink and wash.", available: false, reason: "The watercolor art style is temporarily unavailable" },
+    { id: "icon", label: "Byzantine Icon", description: "Gold ground.", available: true, reason: null },
+  ];
+  let current: ReturnType<typeof usePreferences>;
+  function Probe() {
+    const preferences = usePreferences();
+    useLayoutEffect(() => { current = preferences; }, [preferences]);
+    return createElement(ImageGenerationSettingsPanel, { models: [], modelsLoading: false, modelsError: null, scenePlannerCreditsCost: 0, artStyles });
+  }
+  const container = document.createElement("div");
+  const root = createRoot(container);
+  try {
+    await act(async () => root.render(createElement(PreferencesProvider, null, createElement(Probe))));
+    await act(async () => { await new Promise(resolve => setTimeout(resolve, 0)); });
+    const radios = container.querySelectorAll<HTMLButtonElement>('button[role="radio"]');
+    expect(Array.from(radios).map((r) => r.textContent?.startsWith("Classical") || r.textContent?.startsWith("Ink") || r.textContent?.startsWith("Byzantine"))).toEqual([true, true, true]);
+    expect(radios[1].getAttribute("aria-checked")).toBe("true");
+    expect(container.textContent).toContain("Temporarily unavailable");
+    expect(container.textContent).toContain("temporarily unavailable");
+    expect(current!.artStyle).toBe("watercolor");
+    await act(async () => radios[2].click());
+    expect(current!.artStyle).toBe("icon");
+    expect(JSON.parse(storage.get("visibible-preferences")!).artStyle).toBe("icon");
+  } finally {
+    await act(async () => root.unmount());
+  }
+});

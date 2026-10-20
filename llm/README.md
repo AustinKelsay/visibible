@@ -5,12 +5,18 @@ These guides describe the repository's current behavior. Source links identify t
 | When changing | Read |
 | --- | --- |
 | Scripture fetching, translations, lookup errors | [Bible API](context/BIBLE-API.md) |
+| Imported reference works, unit identities, moment ranges or source refreshes | [Work input](context/WORK-INPUT.md) |
 | Reader, gallery, menus, keyboard or mobile navigation | [Navigation](context/NAVIGATION.md) |
 | Model, translation, ratio or resolution preferences | [Preferences](context/PREFERENCES.md) |
 | Image requests, planner cache or progress | [Image generation](context/IMAGE-GENERATION.md) |
 | Image prompt construction | [Prompt specification](implementation/IMAGE_PROMPT_SPEC.md) |
+| Work briefs, shared art styles, draft scope checks or preparation approval | [Work preparation](context/WORK-PREPARATION.md) |
 | Bulk queues, pause/resume or scope selection | [Bulk generation](context/BULK-GENERATION.md) |
 | Saved images, shared history or remote image storage | [Image persistence](context/IMAGE-PERSISTENCE.md) |
+| A work's analysis: generations, canon versions, looks, plans, references and attention | [Analysis storage](context/ANALYSIS-STORAGE.md) |
+| Reading a work into sections, moments, a cast and a draft brief | [Work preparation](context/WORK-PREPARATION.md) |
+| Section looks and scene plans made lazily for the generic engine | [Scene preparation](context/SCENE-PREPARATION.md) |
+| Correcting a work's analysis after the fact, attention items, wiping a work | [Owner corrections runbook](workflow/OWNER-CORRECTIONS.md) |
 | Public image API | [Public API](context/PUBLIC-IMAGE-API.md) |
 | Chat streaming or context | [Chat](context/CHAT.md) |
 | Sessions, credit estimates, reservations or settlement | [Sessions and credits](context/SESSIONS_AND_CREDITS.md) |
@@ -33,6 +39,8 @@ These guides describe the repository's current behavior. Source links identify t
 - [Vercel deployment](workflow/VERCEL_WORKFLOWS.md)
 - [Proxy trust](workflow/PROXY_CONFIGURATION.md)
 - [Chat eval and release requirements](workflow/CHAT_EVAL_AND_RELEASE.md)
+- [Image eval and release requirements](workflow/IMAGE_EVAL_AND_RELEASE.md)
+- [Generic engine release, rollback and retirement runbook](workflow/ENGINE_RELEASE.md)
 
 Exact dependencies and commands: [package.json](../package.json). Environment templates: [.env.example](../.env.example), [.env.convex.dev.example](../.env.convex.dev.example), [.env.convex.prod.example](../.env.convex.prod.example), [.env.vercel.preview.example](../.env.vercel.preview.example), [.env.vercel.prod.example](../.env.vercel.prod.example). Tables and scheduled jobs: [schema](../convex/schema.ts), [crons](../convex/crons.ts).
 

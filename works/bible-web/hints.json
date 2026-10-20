@@ -1,0 +1,4259 @@
+{
+ "schemaVersion": 1,
+ "workId": "bible-web",
+ "sources": [
+  {
+   "name": "Clear.Bible pericopes (BSB)",
+   "use": "target story-section count per book",
+   "license": "CC BY 4.0",
+   "source": "https://github.com/Clear-Bible/pericopes"
+  },
+  {
+   "name": "STEPBible TIPNR",
+   "use": "same-name individuals and places per book, as merge hints",
+   "license": "CC BY 4.0",
+   "source": "https://github.com/STEPBible/STEPBible-Data"
+  }
+ ],
+ "sectionTargets": {
+  "genesis": 76,
+  "exodus": 80,
+  "leviticus": 58,
+  "numbers": 57,
+  "deuteronomy": 14,
+  "joshua": 45,
+  "judges": 34,
+  "ruth": 6,
+  "1-samuel": 51,
+  "2-samuel": 52,
+  "1-kings": 60,
+  "2-kings": 75,
+  "1-chronicles": 54,
+  "2-chronicles": 59,
+  "ezra": 23,
+  "nehemiah": 25,
+  "esther": 14,
+  "job": 48,
+  "psalms": 171,
+  "proverbs": 30,
+  "ecclesiastes": 51,
+  "song-of-solomon": 35,
+  "isaiah": 113,
+  "jeremiah": 89,
+  "lamentations": 5,
+  "ezekiel": 56,
+  "daniel": 29,
+  "hosea": 14,
+  "joel": 7,
+  "amos": 15,
+  "obadiah": 5,
+  "jonah": 5,
+  "micah": 11,
+  "nahum": 13,
+  "habakkuk": 5,
+  "zephaniah": 3,
+  "haggai": 3,
+  "zechariah": 15,
+  "malachi": 6,
+  "matthew": 149,
+  "mark": 93,
+  "luke": 150,
+  "john": 87,
+  "acts": 91,
+  "romans": 41,
+  "1-corinthians": 35,
+  "2-corinthians": 24,
+  "galatians": 19,
+  "ephesians": 19,
+  "philippians": 17,
+  "colossians": 14,
+  "1-thessalonians": 12,
+  "2-thessalonians": 7,
+  "1-timothy": 18,
+  "2-timothy": 11,
+  "titus": 5,
+  "philemon": 5,
+  "hebrews": 26,
+  "james": 12,
+  "1-peter": 13,
+  "2-peter": 6,
+  "1-john": 12,
+  "2-john": 3,
+  "3-john": 5,
+  "jude": 5,
+  "revelation": 45
+ },
+ "sameNames": {
+  "abdon": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "abia": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "abiah": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "abiel": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "abiezer": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "abigail": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "2-samuel": 2
+   }
+  },
+  "abihail": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "abijah": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 5,
+    "1-kings": 2,
+    "2-chronicles": 2
+   }
+  },
+  "abimelech": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "2-samuel": 2
+   }
+  },
+  "abinadab": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "1-samuel": 3
+   }
+  },
+  "abishua": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "adah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "genesis": 2
+   }
+  },
+  "adaiah": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "ezra": 2,
+    "nehemiah": 2
+   }
+  },
+  "adiel": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "adin": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "adrammelech": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "2-kings": 2
+   }
+  },
+  "adrammelek": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "2-kings": 2
+   }
+  },
+  "ahaz": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "ahaziah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "2-chronicles": 2,
+    "2-kings": 2
+   }
+  },
+  "ahi": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "ahijah": {
+   "individuals": 9,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "1-kings": 3
+   }
+  },
+  "ahimelech": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-samuel": 2
+   }
+  },
+  "ahimelek": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-samuel": 2
+   }
+  },
+  "ahinoam": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-samuel": 2
+   }
+  },
+  "ahio": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "ahitub": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "ezra": 2
+   }
+  },
+  "ahlai": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "akkub": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "ezra": 2,
+    "nehemiah": 2
+   }
+  },
+  "alemeth": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "alexander": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "acts": 2
+   }
+  },
+  "amariah": {
+   "individuals": 9,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "2-chronicles": 2,
+    "ezra": 2,
+    "nehemiah": 2
+   }
+  },
+  "amasai": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "amaziah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "ammiel": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "2-samuel": 2
+   }
+  },
+  "ammihud": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "numbers": 3
+   }
+  },
+  "amminadab": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "exodus": 2,
+    "numbers": 2
+   }
+  },
+  "amnon": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "amon": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "2-chronicles": 2
+   }
+  },
+  "amram": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "anaiah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "ananias": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "acts": 3
+   }
+  },
+  "arah": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "aram": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "genesis": 2
+   }
+  },
+  "asa": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "asahel": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "2-chronicles": 2
+   }
+  },
+  "asaiah": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "asaph": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "2-chronicles": 2,
+    "nehemiah": 3
+   }
+  },
+  "ashur": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "assir": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "ater": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2,
+    "nehemiah": 3
+   }
+  },
+  "attai": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "azareel": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "azarel": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "nehemiah": 2
+   }
+  },
+  "azariah": {
+   "individuals": 24,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 8,
+    "1-kings": 2,
+    "2-chronicles": 12,
+    "2-kings": 3,
+    "ezra": 2,
+    "nehemiah": 3
+   }
+  },
+  "azaziah": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "azgad": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "azmaveth": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "azriel": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "azrikam": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "baal": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "baal-hanan": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "baana": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-kings": 2
+   }
+  },
+  "baanah": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "2-samuel": 2,
+    "nehemiah": 2
+   }
+  },
+  "bani": {
+   "individuals": 11,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "ezra": 3,
+    "nehemiah": 6
+   }
+  },
+  "barsabas": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "acts": 2
+   }
+  },
+  "barsabbas": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "acts": 2
+   }
+  },
+  "baruch": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 3
+   }
+  },
+  "barzillai": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "2-samuel": 2,
+    "ezra": 2,
+    "nehemiah": 2
+   }
+  },
+  "basemath": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "genesis": 2
+   }
+  },
+  "bashemath": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "genesis": 2
+   }
+  },
+  "bath-shua": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "bebai": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2,
+    "nehemiah": 2
+   }
+  },
+  "bela": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "genesis": 2
+   }
+  },
+  "ben-hadad": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "2-kings": 2
+   }
+  },
+  "benaiah": {
+   "individuals": 12,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 5,
+    "2-chronicles": 2,
+    "2-samuel": 2,
+    "ezra": 4
+   }
+  },
+  "benjamin": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "ezra": 2,
+    "nehemiah": 3
+   }
+  },
+  "berechiah": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "berekiah": {
+   "individuals": 7,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "2-chronicles": 2
+   }
+  },
+  "beriah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "bezai": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "bigvai": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2,
+    "nehemiah": 3
+   }
+  },
+  "bilhan": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "binnui": {
+   "individuals": 7,
+   "kind": "person",
+   "byBook": {
+    "ezra": 4,
+    "nehemiah": 4
+   }
+  },
+  "bunni": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 3
+   }
+  },
+  "caesar": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "acts": 2,
+    "luke": 2
+   }
+  },
+  "cainan": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "luke": 2
+   }
+  },
+  "caleb": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "carmi": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "cesar": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "acts": 2,
+    "luke": 2
+   }
+  },
+  "chelub": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "claudius": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "acts": 2
+   }
+  },
+  "col-hozeh": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "david": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "1-kings": 2,
+    "1-samuel": 2,
+    "2-chronicles": 2,
+    "2-kings": 2,
+    "2-samuel": 2,
+    "acts": 2,
+    "amos": 2,
+    "ezekiel": 2,
+    "ezra": 2,
+    "hebrews": 2,
+    "hosea": 2,
+    "isaiah": 2,
+    "jeremiah": 2,
+    "luke": 2,
+    "matthew": 2,
+    "nehemiah": 2,
+    "proverbs": 2,
+    "psalms": 2,
+    "revelation": 2,
+    "ruth": 2,
+    "zechariah": 2
+   }
+  },
+  "dedan": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "genesis": 2
+   }
+  },
+  "delaiah": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "nehemiah": 2
+   }
+  },
+  "dishan": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "genesis": 2
+   }
+  },
+  "dishon": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "genesis": 3
+   }
+  },
+  "dodo": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "2-samuel": 2
+   }
+  },
+  "ebal": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "genesis": 2
+   }
+  },
+  "eber": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "eden": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "2-chronicles": 2
+   }
+  },
+  "eder": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "ehud": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "elah": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "1-kings": 2
+   }
+  },
+  "elam": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "nehemiah": 3
+   }
+  },
+  "eleasah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "eleazar": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "ezra": 3
+   }
+  },
+  "elhanan": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "2-samuel": 2
+   }
+  },
+  "eliab": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "1-samuel": 2,
+    "numbers": 2
+   }
+  },
+  "eliakim": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "2-kings": 2
+   }
+  },
+  "eliam": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "2-samuel": 2
+   }
+  },
+  "eliasaph": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "numbers": 2
+   }
+  },
+  "eliashib": {
+   "individuals": 9,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "ezra": 4,
+    "nehemiah": 3
+   }
+  },
+  "eliel": {
+   "individuals": 9,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 8
+   }
+  },
+  "eliezer": {
+   "individuals": 11,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "ezra": 4
+   }
+  },
+  "elihu": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "elijah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2
+   }
+  },
+  "elioenai": {
+   "individuals": 7,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "ezra": 2
+   }
+  },
+  "eliphelet": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "2-samuel": 2,
+    "ezra": 2
+   }
+  },
+  "elishama": {
+   "individuals": 7,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "2-samuel": 2,
+    "jeremiah": 2
+   }
+  },
+  "elizaphan": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "numbers": 2
+   }
+  },
+  "elkanah": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 7
+   }
+  },
+  "elnathan": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "ezra": 3
+   }
+  },
+  "elon": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "genesis": 2
+   }
+  },
+  "elzabad": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "enoch": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "genesis": 2
+   }
+  },
+  "ephah": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "epher": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "ephron": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "genesis": 2
+   }
+  },
+  "er": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "ethan": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "psalms": 2
+   }
+  },
+  "ezer": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "nehemiah": 2
+   }
+  },
+  "ezra": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "gad": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "1-samuel": 2,
+    "2-samuel": 2
+   }
+  },
+  "gaius": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "acts": 2
+   }
+  },
+  "galal": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "gazez": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "gedaliah": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "jeremiah": 2
+   }
+  },
+  "gemariah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "jeremiah": 2
+   }
+  },
+  "gera": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "gershom": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "exodus": 2
+   }
+  },
+  "giddel": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2,
+    "nehemiah": 2
+   }
+  },
+  "gilead": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "guni": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "hadad": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "genesis": 3
+   }
+  },
+  "hadar": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "genesis": 2
+   }
+  },
+  "hadoram": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "2-samuel": 2
+   }
+  },
+  "hakkoz": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "hanan": {
+   "individuals": 9,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "nehemiah": 5
+   }
+  },
+  "hanani": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "hananiah": {
+   "individuals": 15,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "jeremiah": 3,
+    "nehemiah": 6
+   }
+  },
+  "hanoch": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "genesis": 2
+   }
+  },
+  "hanok": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "genesis": 2
+   }
+  },
+  "hanun": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "haran": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "harim": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "ezra": 3,
+    "nehemiah": 5
+   }
+  },
+  "hariph": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "hashabiah": {
+   "individuals": 11,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 5,
+    "ezra": 2,
+    "nehemiah": 5
+   }
+  },
+  "hashabneiah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "hashabniah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "hashub": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 4
+   }
+  },
+  "hashum": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 3
+   }
+  },
+  "hasshub": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 4
+   }
+  },
+  "hattush": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "havilah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "genesis": 2
+   }
+  },
+  "heber": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 5
+   }
+  },
+  "hebron": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "helez": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "heman": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "henadad": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 3
+   }
+  },
+  "henoch": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "genesis": 2
+   }
+  },
+  "hepher": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "hermas": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "romans": 2
+   }
+  },
+  "hermes": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "romans": 2
+   }
+  },
+  "herod": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "acts": 3,
+    "luke": 2,
+    "matthew": 2
+   }
+  },
+  "hezekiah": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "nehemiah": 2
+   }
+  },
+  "hezron": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "genesis": 2,
+    "numbers": 2
+   }
+  },
+  "hilkiah": {
+   "individuals": 7,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "2-kings": 2,
+    "jeremiah": 2,
+    "nehemiah": 3
+   }
+  },
+  "hiram": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-kings": 2,
+    "2-chronicles": 2
+   }
+  },
+  "hodaviah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "hodiah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 3
+   }
+  },
+  "hodijah": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 3
+   }
+  },
+  "hoshea": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "nehemiah": 2
+   }
+  },
+  "hotham": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "huppim": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "huram": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "1-kings": 2,
+    "2-chronicles": 2
+   }
+  },
+  "hushim": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "iddo": {
+   "individuals": 7,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "ezra": 2
+   }
+  },
+  "immer": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "nehemiah": 3
+   }
+  },
+  "ira": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "2-samuel": 3
+   }
+  },
+  "ishi": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "ishiah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "ishmael": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "2-chronicles": 2
+   }
+  },
+  "ishmaiah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "ishvi": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "issachar": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "isshiah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "ithran": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "ittai": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "2-samuel": 2
+   }
+  },
+  "izhar": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jaasiel": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jaazaniah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "ezekiel": 2,
+    "jeremiah": 2
+   }
+  },
+  "jachin": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "jacob": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "matthew": 2
+   }
+  },
+  "jaddua": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "jahath": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "jahaziel": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "jair": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jakan": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jakim": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jakin": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "james": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "acts": 4,
+    "luke": 3,
+    "mark": 3,
+    "matthew": 3
+   }
+  },
+  "jamin": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "exodus": 2,
+    "genesis": 2,
+    "nehemiah": 2,
+    "numbers": 2
+   }
+  },
+  "jarib": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2
+   }
+  },
+  "jashobeam": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jedaiah": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "nehemiah": 4
+   }
+  },
+  "jediael": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "jedithun": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jeduthun": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jehdeiah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jehiel": {
+   "individuals": 13,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 5,
+    "2-chronicles": 4,
+    "ezra": 4
+   }
+  },
+  "jehoahaz": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "2-chronicles": 3,
+    "2-kings": 3
+   }
+  },
+  "jehoash": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "2-chronicles": 2,
+    "2-kings": 2
+   }
+  },
+  "jehohanan": {
+   "individuals": 9,
+   "kind": "person",
+   "byBook": {
+    "2-chronicles": 3,
+    "ezra": 2,
+    "nehemiah": 3
+   }
+  },
+  "jehoiada": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "nehemiah": 2
+   }
+  },
+  "jehoiakim": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "2-chronicles": 2,
+    "2-kings": 2,
+    "jeremiah": 2
+   }
+  },
+  "jehoiarib": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jehonathan": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "2-samuel": 3
+   }
+  },
+  "jehoram": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "2-chronicles": 2
+   }
+  },
+  "jehoshaphat": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "1-kings": 3,
+    "2-kings": 2
+   }
+  },
+  "jehozabad": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "2-chronicles": 2
+   }
+  },
+  "jehu": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "1-kings": 2,
+    "2-chronicles": 2
+   }
+  },
+  "jeiel": {
+   "individuals": 11,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 5,
+    "2-chronicles": 4,
+    "ezra": 2
+   }
+  },
+  "jeish": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jekamiah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jephunneh": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jerahmeel": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jered": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jeremiah": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "jeremiah": 3
+   }
+  },
+  "jeremoth": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 5,
+    "ezra": 3
+   }
+  },
+  "jeriah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jerimoth": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 6,
+    "2-chronicles": 2
+   }
+  },
+  "jeroboam": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "2-kings": 2
+   }
+  },
+  "jeroham": {
+   "individuals": 7,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 6
+   }
+  },
+  "jeshaiah": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "ezra": 2
+   }
+  },
+  "jeshua": {
+   "individuals": 9,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "ezra": 5,
+    "nehemiah": 7
+   }
+  },
+  "jesiah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jesus": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "acts": 2,
+    "colossians": 2,
+    "hebrews": 2,
+    "john": 2,
+    "luke": 2,
+    "mark": 2,
+    "matthew": 2
+   }
+  },
+  "jether": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "jeuel": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "2-chronicles": 2
+   }
+  },
+  "jeush": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "joab": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "ezra": 2
+   }
+  },
+  "joah": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "2-chronicles": 3
+   }
+  },
+  "joahaz": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "2-chronicles": 3,
+    "2-kings": 2
+   }
+  },
+  "joanna": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "luke": 2
+   }
+  },
+  "joash": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 5,
+    "2-chronicles": 3,
+    "2-kings": 2
+   }
+  },
+  "jobab": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "genesis": 2
+   }
+  },
+  "joel": {
+   "individuals": 15,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 11
+   }
+  },
+  "joha": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "johanan": {
+   "individuals": 11,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 5,
+    "2-chronicles": 2,
+    "2-kings": 2,
+    "ezra": 2,
+    "nehemiah": 2
+   }
+  },
+  "john": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "acts": 4,
+    "john": 2,
+    "luke": 2,
+    "mark": 2,
+    "matthew": 3
+   }
+  },
+  "joiada": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "joiarib": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "jonah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "matthew": 2
+   }
+  },
+  "jonas": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "matthew": 2
+   }
+  },
+  "jonathan": {
+   "individuals": 14,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 5,
+    "2-samuel": 4,
+    "ezra": 2,
+    "jeremiah": 2,
+    "nehemiah": 3
+   }
+  },
+  "joram": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "2-chronicles": 2,
+    "2-kings": 2
+   }
+  },
+  "joseph": {
+   "individuals": 14,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "acts": 3,
+    "john": 3,
+    "luke": 5,
+    "mark": 3,
+    "matthew": 4,
+    "numbers": 2
+   }
+  },
+  "joses": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "mark": 2,
+    "matthew": 2
+   }
+  },
+  "joshaphat": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "joshua": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "ezra": 2,
+    "nehemiah": 3
+   }
+  },
+  "jotham": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "jozabad": {
+   "individuals": 11,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "2-chronicles": 3,
+    "ezra": 3,
+    "nehemiah": 2
+   }
+  },
+  "jozadak": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2
+   }
+  },
+  "juda": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "luke": 3,
+    "matthew": 2
+   }
+  },
+  "judah": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "ezra": 3,
+    "luke": 2,
+    "nehemiah": 6
+   }
+  },
+  "judas": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "acts": 5,
+    "john": 2,
+    "luke": 2,
+    "mark": 3,
+    "matthew": 3
+   }
+  },
+  "justus": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "acts": 2
+   }
+  },
+  "karmi": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "kelub": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "kenaz": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "kish": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "kol-hozeh": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "korah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "genesis": 2
+   }
+  },
+  "koz": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "laadan": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "ladan": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "lamech": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "genesis": 2
+   }
+  },
+  "levi": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "luke": 3
+   }
+  },
+  "libni": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "maacah": {
+   "individuals": 9,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 6,
+    "1-kings": 2
+   }
+  },
+  "maachah": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 5,
+    "1-kings": 2
+   }
+  },
+  "maakah": {
+   "individuals": 9,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 6,
+    "1-kings": 2
+   }
+  },
+  "maaseiah": {
+   "individuals": 21,
+   "kind": "person",
+   "byBook": {
+    "2-chronicles": 4,
+    "ezra": 4,
+    "jeremiah": 4,
+    "nehemiah": 8
+   }
+  },
+  "mahath": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "2-chronicles": 2
+   }
+  },
+  "mahli": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "malchiah": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "ezra": 2,
+    "nehemiah": 4
+   }
+  },
+  "malchijah": {
+   "individuals": 11,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "ezra": 2,
+    "nehemiah": 7
+   }
+  },
+  "malkijah": {
+   "individuals": 13,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "ezra": 3,
+    "nehemiah": 7
+   }
+  },
+  "malluch": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2,
+    "nehemiah": 2
+   }
+  },
+  "malluk": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2,
+    "nehemiah": 2
+   }
+  },
+  "manasseh": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "1-kings": 2,
+    "2-chronicles": 3,
+    "2-kings": 2,
+    "deuteronomy": 2,
+    "ezra": 3,
+    "isaiah": 2,
+    "jeremiah": 2,
+    "joshua": 2,
+    "judges": 2,
+    "matthew": 2,
+    "numbers": 2,
+    "psalms": 2,
+    "revelation": 2
+   }
+  },
+  "manasses": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "2-chronicles": 2
+   }
+  },
+  "mareshah": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "mary": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "acts": 2,
+    "john": 3,
+    "luke": 4,
+    "mark": 3,
+    "matthew": 3
+   }
+  },
+  "mattaniah": {
+   "individuals": 11,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "2-chronicles": 3,
+    "ezra": 4,
+    "nehemiah": 3
+   }
+  },
+  "mattathias": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "luke": 2
+   }
+  },
+  "mattenai": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2
+   }
+  },
+  "matthat": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "luke": 2
+   }
+  },
+  "mattithiah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "melchi": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "luke": 2
+   }
+  },
+  "melki": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "luke": 2
+   }
+  },
+  "mephibosheth": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "2-samuel": 2
+   }
+  },
+  "meraioth": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2,
+    "nehemiah": 2
+   }
+  },
+  "meremoth": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2
+   }
+  },
+  "mesha": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "meshech": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "genesis": 2
+   }
+  },
+  "meshek": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "genesis": 2
+   }
+  },
+  "meshezabeel": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 3
+   }
+  },
+  "meshezabel": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 3
+   }
+  },
+  "meshullam": {
+   "individuals": 21,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 7,
+    "ezra": 4,
+    "nehemiah": 11
+   }
+  },
+  "mibsam": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "mica": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "nehemiah": 3
+   }
+  },
+  "micah": {
+   "individuals": 7,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "micaiah": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-kings": 2,
+    "2-chronicles": 4,
+    "jeremiah": 2,
+    "nehemiah": 2
+   }
+  },
+  "micha": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "nehemiah": 3
+   }
+  },
+  "michael": {
+   "individuals": 11,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 7
+   }
+  },
+  "michaiah": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "2-chronicles": 3,
+    "nehemiah": 2
+   }
+  },
+  "michal": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-samuel": 2,
+    "2-samuel": 2
+   }
+  },
+  "mika": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "nehemiah": 3
+   }
+  },
+  "mikloth": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "miniamin": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "miriam": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "mishma": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "mithredath": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2
+   }
+  },
+  "moza": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "naaman": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "nadab": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "nahash": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "2-samuel": 3
+   }
+  },
+  "nahath": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "nahor": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "genesis": 2
+   }
+  },
+  "nathan": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "2-samuel": 3,
+    "ezra": 2
+   }
+  },
+  "neariah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "nebuzaradan": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "jeremiah": 2
+   }
+  },
+  "nehemiah": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 3
+   }
+  },
+  "nekoda": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2,
+    "nehemiah": 2
+   }
+  },
+  "nemuel": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "numbers": 2
+   }
+  },
+  "ner": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "1-samuel": 2
+   }
+  },
+  "nergal-sar-ezer": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "jeremiah": 2
+   }
+  },
+  "nergal-sharezer": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "jeremiah": 2
+   }
+  },
+  "nethaneel": {
+   "individuals": 10,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "2-chronicles": 2,
+    "nehemiah": 2
+   }
+  },
+  "nethanel": {
+   "individuals": 10,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "2-chronicles": 2,
+    "nehemiah": 2
+   }
+  },
+  "nethaniah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "jeremiah": 2
+   }
+  },
+  "obadiah": {
+   "individuals": 12,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 6,
+    "2-chronicles": 2,
+    "nehemiah": 2
+   }
+  },
+  "obed": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "oded": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "2-chronicles": 2
+   }
+  },
+  "omri": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "onam": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "ozem": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "pahath-moab": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 3
+   }
+  },
+  "parosh": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2,
+    "nehemiah": 3
+   }
+  },
+  "paseah": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "pashhur": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "jeremiah": 3,
+    "nehemiah": 2
+   }
+  },
+  "pashur": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "jeremiah": 3,
+    "nehemiah": 2
+   }
+  },
+  "pedaiah": {
+   "individuals": 7,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "nehemiah": 4
+   }
+  },
+  "pelatiah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "pelet": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "penuel": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "pethahiah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "pharaoh": {
+   "individuals": 10,
+   "kind": "person",
+   "byBook": {
+    "2-chronicles": 2,
+    "2-kings": 3,
+    "acts": 2,
+    "exodus": 2,
+    "genesis": 2,
+    "jeremiah": 3
+   }
+  },
+  "philip": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "acts": 2,
+    "luke": 3,
+    "mark": 2,
+    "matthew": 2
+   }
+  },
+  "phinehas": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2
+   }
+  },
+  "ram": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "rapha": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "reaiah": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "rehum": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2,
+    "nehemiah": 3
+   }
+  },
+  "rephaiah": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "reuel": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "numbers": 2
+   }
+  },
+  "sabteka": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "genesis": 2
+   }
+  },
+  "sacar": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "sachar": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "sakar": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "sala": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "luke": 2
+   }
+  },
+  "sallai": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "sallu": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "salma": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "samuel": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "sarah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "genesis": 2
+   }
+  },
+  "saul": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "acts": 2
+   }
+  },
+  "seraiah": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "2-kings": 2,
+    "ezra": 2,
+    "jeremiah": 4,
+    "nehemiah": 2
+   }
+  },
+  "shaaph": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "shabbethai": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "shallum": {
+   "individuals": 16,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 7,
+    "2-chronicles": 3,
+    "2-kings": 3,
+    "ezra": 4,
+    "jeremiah": 3,
+    "nehemiah": 4
+   }
+  },
+  "shamer": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "shammah": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "2-samuel": 4
+   }
+  },
+  "shammai": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "shammua": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "nehemiah": 2
+   }
+  },
+  "shaphat": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "shaul": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "genesis": 2
+   }
+  },
+  "sheba": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "genesis": 3
+   }
+  },
+  "shebaniah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 3
+   }
+  },
+  "shebuel": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "shecaniah": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "ezra": 3,
+    "nehemiah": 3
+   }
+  },
+  "shechaniah": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "ezra": 3,
+    "nehemiah": 3
+   }
+  },
+  "shekaniah": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "ezra": 3,
+    "nehemiah": 3
+   }
+  },
+  "shelah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "genesis": 2
+   }
+  },
+  "shelemiah": {
+   "individuals": 9,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2,
+    "jeremiah": 4,
+    "nehemiah": 2
+   }
+  },
+  "shelomith": {
+   "individuals": 7,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "shelomoth": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "shema": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "shemaiah": {
+   "individuals": 26,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 8,
+    "2-chronicles": 5,
+    "ezra": 4,
+    "jeremiah": 3,
+    "nehemiah": 8
+   }
+  },
+  "shemariah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2
+   }
+  },
+  "shemer": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "shemuel": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "shephatiah": {
+   "individuals": 9,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "ezra": 2,
+    "nehemiah": 3
+   }
+  },
+  "sherebiah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "sheva": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "shimea": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "2-samuel": 2
+   }
+  },
+  "shimeah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "shimei": {
+   "individuals": 18,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 10,
+    "1-kings": 2,
+    "2-chronicles": 3,
+    "2-samuel": 3,
+    "ezra": 3
+   }
+  },
+  "shimri": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "shobab": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "shobal": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "shua": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "shuah": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "genesis": 2
+   }
+  },
+  "shubael": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "shuppim": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "shuthelah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "simeon": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "acts": 2,
+    "luke": 3
+   }
+  },
+  "simon": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "acts": 4,
+    "john": 2,
+    "luke": 4,
+    "mark": 5,
+    "matthew": 5
+   }
+  },
+  "tahath": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "tamar": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "2-samuel": 2
+   }
+  },
+  "tarshish": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "tobiah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "ulam": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "uriah": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "uriel": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "urijah": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "uz": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "genesis": 3
+   }
+  },
+  "uzza": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "uzzah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "uzzi": {
+   "individuals": 7,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4,
+    "nehemiah": 3
+   }
+  },
+  "uzziah": {
+   "individuals": 5,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3
+   }
+  },
+  "uzziel": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "zabad": {
+   "individuals": 7,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "ezra": 3
+   }
+  },
+  "zabdi": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 4
+   }
+  },
+  "zaccai": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "zaccur": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "nehemiah": 4
+   }
+  },
+  "zachariah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "2-kings": 2
+   }
+  },
+  "zacharias": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "luke": 2
+   }
+  },
+  "zadok": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "2-chronicles": 2,
+    "nehemiah": 5
+   }
+  },
+  "zakkur": {
+   "individuals": 8,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 3,
+    "nehemiah": 4
+   }
+  },
+  "zattu": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "zebadiah": {
+   "individuals": 9,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 5,
+    "2-chronicles": 2,
+    "ezra": 2
+   }
+  },
+  "zechariah": {
+   "individuals": 30,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 6,
+    "2-chronicles": 9,
+    "2-kings": 2,
+    "ezra": 5,
+    "luke": 2,
+    "nehemiah": 7
+   }
+  },
+  "zedekiah": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "2-chronicles": 2,
+    "jeremiah": 3
+   }
+  },
+  "zerah": {
+   "individuals": 6,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 5,
+    "genesis": 4,
+    "numbers": 2
+   }
+  },
+  "zerahiah": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "ezra": 2
+   }
+  },
+  "zichri": {
+   "individuals": 12,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 6,
+    "2-chronicles": 3,
+    "nehemiah": 3
+   }
+  },
+  "ziha": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "nehemiah": 2
+   }
+  },
+  "zikri": {
+   "individuals": 12,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 6,
+    "2-chronicles": 3,
+    "nehemiah": 3
+   }
+  },
+  "zillethai": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "zilthai": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "zimri": {
+   "individuals": 4,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "ziph": {
+   "individuals": 2,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "ziza": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "zohar": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "1-chronicles": 2,
+    "genesis": 2
+   }
+  },
+  "zur": {
+   "individuals": 3,
+   "kind": "person",
+   "byBook": {
+    "numbers": 2
+   }
+  },
+  "achzib": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "akzib": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "antioch": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "acts": 2
+   }
+  },
+  "aphek": {
+   "individuals": 3,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "arabah": {
+   "individuals": 3,
+   "kind": "place",
+   "byBook": {
+    "2-kings": 2,
+    "deuteronomy": 2,
+    "joshua": 3
+   }
+  },
+  "aramean": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "1-chronicles": 2,
+    "1-kings": 2,
+    "2-chronicles": 2,
+    "2-kings": 2,
+    "2-samuel": 2,
+    "amos": 2,
+    "ezekiel": 2,
+    "isaiah": 2,
+    "jeremiah": 2,
+    "judges": 2
+   }
+  },
+  "aroer": {
+   "individuals": 3,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2,
+    "judges": 2
+   }
+  },
+  "aven": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "genesis": 2,
+    "jeremiah": 2
+   }
+  },
+  "baalah": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "baalath": {
+   "individuals": 3,
+   "kind": "place",
+   "byBook": {
+    "1-kings": 2,
+    "joshua": 2
+   }
+  },
+  "beth dagon": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "beth shemesh": {
+   "individuals": 3,
+   "kind": "place",
+   "byBook": {
+    "joshua": 3,
+    "judges": 2
+   }
+  },
+  "beth-dagon": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "beth-el": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "1-chronicles": 2,
+    "1-samuel": 2,
+    "joshua": 2
+   }
+  },
+  "beth-shemesh": {
+   "individuals": 4,
+   "kind": "place",
+   "byBook": {
+    "joshua": 3,
+    "judges": 2
+   }
+  },
+  "bethany": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "john": 2
+   }
+  },
+  "bethel": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "1-chronicles": 2,
+    "1-samuel": 2,
+    "joshua": 2
+   }
+  },
+  "border": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "bozrah": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "1-chronicles": 2,
+    "jeremiah": 2
+   }
+  },
+  "dan": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "ezekiel": 2
+   }
+  },
+  "debir": {
+   "individuals": 3,
+   "kind": "place",
+   "byBook": {
+    "joshua": 3
+   }
+  },
+  "en gannim": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "en-gannim": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "galilee": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "acts": 2,
+    "john": 2,
+    "luke": 2,
+    "mark": 2,
+    "matthew": 2
+   }
+  },
+  "gath rimmon": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "1-chronicles": 2,
+    "joshua": 2
+   }
+  },
+  "gath-rimmon": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "1-chronicles": 2,
+    "joshua": 2
+   }
+  },
+  "gibeah": {
+   "individuals": 3,
+   "kind": "place",
+   "byBook": {
+    "1-chronicles": 2,
+    "1-samuel": 2,
+    "2-chronicles": 2,
+    "isaiah": 2,
+    "joshua": 3
+   }
+  },
+  "gilgal": {
+   "individuals": 3,
+   "kind": "place",
+   "byBook": {
+    "2-kings": 2,
+    "joshua": 2
+   }
+  },
+  "ham": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "genesis": 2
+   }
+  },
+  "hazor": {
+   "individuals": 5,
+   "kind": "place",
+   "byBook": {
+    "joshua": 3
+   }
+  },
+  "jabneel": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "jarmuth": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "jezreel": {
+   "individuals": 3,
+   "kind": "place",
+   "byBook": {
+    "2-samuel": 3,
+    "joshua": 2
+   }
+  },
+  "jokmeam": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "judea": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "acts": 2,
+    "john": 2,
+    "luke": 2,
+    "mark": 2,
+    "matthew": 2
+   }
+  },
+  "kanah": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "kedesh": {
+   "individuals": 3,
+   "kind": "place",
+   "byBook": {
+    "1-chronicles": 2,
+    "joshua": 3,
+    "judges": 2
+   }
+  },
+  "kir": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "2-kings": 2,
+    "isaiah": 2
+   }
+  },
+  "luz": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "judges": 2
+   }
+  },
+  "meribah": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "deuteronomy": 2,
+    "psalms": 2
+   }
+  },
+  "mizpah": {
+   "individuals": 5,
+   "kind": "place",
+   "byBook": {
+    "1-kings": 2,
+    "1-samuel": 2,
+    "2-chronicles": 2,
+    "2-kings": 3,
+    "jeremiah": 2,
+    "joshua": 4,
+    "judges": 2
+   }
+  },
+  "mizpeh": {
+   "individuals": 5,
+   "kind": "place",
+   "byBook": {
+    "1-kings": 2,
+    "1-samuel": 2,
+    "2-chronicles": 2,
+    "2-kings": 3,
+    "jeremiah": 2,
+    "joshua": 4,
+    "judges": 2
+   }
+  },
+  "ophrah": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "phoenicia": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "acts": 2
+   }
+  },
+  "ramah": {
+   "individuals": 5,
+   "kind": "place",
+   "byBook": {
+    "1-kings": 3,
+    "2-chronicles": 3,
+    "2-kings": 2,
+    "hosea": 2,
+    "jeremiah": 2,
+    "joshua": 5,
+    "judges": 3,
+    "matthew": 2,
+    "nehemiah": 2
+   }
+  },
+  "rameses": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "exodus": 2
+   }
+  },
+  "ramoth": {
+   "individuals": 3,
+   "kind": "place",
+   "byBook": {
+    "1-chronicles": 3,
+    "1-kings": 2,
+    "joshua": 3
+   }
+  },
+  "red sea": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "numbers": 2
+   }
+  },
+  "region": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2,
+    "judges": 2
+   }
+  },
+  "rehob": {
+   "individuals": 3,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2,
+    "judges": 2
+   }
+  },
+  "rehoboth": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "genesis": 2
+   }
+  },
+  "rimmon": {
+   "individuals": 4,
+   "kind": "place",
+   "byBook": {
+    "1-chronicles": 2,
+    "joshua": 2
+   }
+  },
+  "river": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "1-kings": 2,
+    "2-chronicles": 2,
+    "2-kings": 2,
+    "isaiah": 2,
+    "joshua": 2,
+    "numbers": 2
+   }
+  },
+  "shaaraim": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "sharon": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "1-chronicles": 2
+   }
+  },
+  "shihor": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "ezekiel": 2,
+    "isaiah": 2
+   }
+  },
+  "sion": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "1-chronicles": 2,
+    "ezekiel": 2,
+    "jeremiah": 2,
+    "joshua": 2,
+    "judges": 2,
+    "psalms": 2,
+    "song-of-solomon": 2
+   }
+  },
+  "socoh": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "sokoh": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "south": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "2-chronicles": 2,
+    "ezekiel": 2,
+    "isaiah": 2,
+    "jeremiah": 2,
+    "psalms": 2
+   }
+  },
+  "syria": {
+   "individuals": 3,
+   "kind": "place",
+   "byBook": {
+    "1-chronicles": 2,
+    "1-kings": 2,
+    "2-chronicles": 2,
+    "2-kings": 2,
+    "2-samuel": 2,
+    "amos": 2,
+    "ezekiel": 2,
+    "genesis": 2,
+    "isaiah": 2,
+    "jeremiah": 2,
+    "judges": 2,
+    "numbers": 2
+   }
+  },
+  "syrian": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "1-chronicles": 2,
+    "1-kings": 2,
+    "2-chronicles": 2,
+    "2-kings": 2,
+    "2-samuel": 2,
+    "amos": 2,
+    "ezekiel": 2,
+    "isaiah": 2,
+    "jeremiah": 2,
+    "judges": 2
+   }
+  },
+  "tappuah": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "timnah": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "joshua": 2
+   }
+  },
+  "zeredah": {
+   "individuals": 2,
+   "kind": "place",
+   "byBook": {
+    "1-kings": 2
+   }
+  }
+ }
+}

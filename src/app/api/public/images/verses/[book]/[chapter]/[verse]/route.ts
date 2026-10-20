@@ -8,6 +8,7 @@ import {
   handlePublicApiFailure,
   jsonPublic,
   jsonPublicError,
+  parsePublicStyleFilter,
   publicApiOptionsResponse,
   PUBLIC_CONTENT_CACHE_CONTROL,
   queryPublicVerseLatestImage,
@@ -23,6 +24,20 @@ export async function GET(request: Request, { params }: VerseRouteProps) {
   const route = "/api/public/images/verses/[book]/[chapter]/[verse]";
   const context = createPublicApiContext(request, route);
   const { book, chapter, verse } = await params;
+  const style = parsePublicStyleFilter(request);
+  if (!style.ok) {
+    trackPublicApiRequest({
+      context,
+      endpoint: "public-images-verse",
+      statusCode: 400,
+      outcome: "error",
+    });
+    return jsonPublicError("Bad request", {
+      status: 400,
+      message: style.message,
+      cacheControl: "no-store",
+    });
+  }
 
   const { convex, serverSecret } = await getPublicApiServices();
   if (!convex || !serverSecret) {
@@ -62,7 +77,7 @@ export async function GET(request: Request, { params }: VerseRouteProps) {
     }
 
     const verseId = `${location.book.slug}-${location.chapter}-${location.verse}`;
-    const latestImage = await queryPublicVerseLatestImage(convex, serverSecret, verseId);
+    const latestImage = await queryPublicVerseLatestImage(convex, serverSecret, verseId, style.filter);
 
     if (!latestImage) {
       trackPublicApiRequest({
@@ -73,7 +88,7 @@ export async function GET(request: Request, { params }: VerseRouteProps) {
       });
       return jsonPublicError("Not found", {
         status: 404,
-        message: "No saved image exists for that verse yet.",
+        message: style.filter.artStyle ? `No saved ${style.filter.artStyle} image exists for that verse yet.` : "No saved image exists for that verse yet.",
         cacheControl: PUBLIC_CONTENT_CACHE_CONTROL,
       });
     }
@@ -81,6 +96,7 @@ export async function GET(request: Request, { params }: VerseRouteProps) {
     const versePayload = buildPublicVersePayload(request, location);
     const payload = {
       verse: versePayload,
+      ...(style.filter.artStyle ? { artStyle: style.filter.artStyle } : {}),
       image: buildPublicImageRecord(latestImage, versePayload.pageUrl),
     };
 

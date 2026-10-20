@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { Check, Loader2, Zap } from "lucide-react";
 import { useGeneration } from "@/context/generation-context";
 import { usePreferences } from "@/context/preferences-context";
+import { ART_STYLES, type ArtStyleAvailability } from "@/lib/art-styles";
 import {
   ASPECT_RATIOS,
   DEFAULT_IMAGE_ESTIMATED_CREDITS_COST,
@@ -21,6 +22,8 @@ interface ImageGenerationSettingsPanelProps {
   modelsLoading: boolean;
   modelsError: string | null;
   scenePlannerCreditsCost: number;
+  /** Which art styles generation admits right now, from the catalog response; null while unknown. */
+  artStyles?: ArtStyleAvailability[] | null;
 }
 
 export function ImageGenerationSettingsPanel({
@@ -28,6 +31,7 @@ export function ImageGenerationSettingsPanel({
   modelsLoading,
   modelsError,
   scenePlannerCreditsCost,
+  artStyles = null,
 }: ImageGenerationSettingsPanelProps) {
   const { state, setAspectRatio, setResolution } = useGeneration();
   const {
@@ -35,7 +39,11 @@ export function ImageGenerationSettingsPanel({
     imageAspectRatio,
     imageResolution,
     setImageModel,
+    artStyle,
+    setArtStyle,
   } = usePreferences();
+  const styleOptions = artStyles ?? ART_STYLES.map((style) => ({ ...style, available: true, reason: null }));
+  const selectedStyle = styleOptions.find((style) => style.id === artStyle);
   const {
     baseCost,
     displayCostByResolution,
@@ -155,6 +163,40 @@ export function ImageGenerationSettingsPanel({
             </div>
           </div>
         )}
+      </div>
+
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm font-medium text-[var(--foreground)]">Style</span>
+          {selectedStyle && !selectedStyle.available ? (
+            <span className="text-[10px] text-[var(--muted)] opacity-70">Temporarily unavailable</span>
+          ) : null}
+        </div>
+        <div role="radiogroup" aria-label="Art style" className="flex flex-col gap-2">
+          {styleOptions.map((style) => {
+            const isSelected = artStyle === style.id;
+            return (
+              <button
+                key={style.id}
+                type="button"
+                role="radio"
+                aria-checked={isSelected}
+                onClick={() => setArtStyle(style.id, "header_generate_modal")}
+                className={`w-full min-h-[44px] rounded-[var(--radius-md)] px-3 py-2 text-left transition-colors ${
+                  isSelected
+                    ? "bg-[var(--accent)]/15 border border-[var(--accent)]/50"
+                    : "bg-[var(--surface)] border border-transparent hover:bg-[var(--divider)]"
+                } ${!style.available ? "opacity-70" : ""}`}
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <span className={`text-sm font-medium ${isSelected ? "text-[var(--accent)]" : "text-[var(--foreground)]"}`}>{style.label}</span>
+                  {isSelected ? <Check size={16} className="text-[var(--accent)] flex-shrink-0" /> : null}
+                </div>
+                <p className="text-xs text-[var(--muted)]">{style.available ? style.description : style.reason ?? "Temporarily unavailable for generation; saved images stay available."}</p>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <div>

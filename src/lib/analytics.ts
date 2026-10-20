@@ -19,6 +19,7 @@ type BaseProps = {
 export type PreferenceChangeSource =
   | "translation_selector"
   | "image_model_selector"
+  | "art_style_selector"
   | "chat_model_selector"
   | "header_generate_modal"
   | "header_settings_popover"
@@ -88,6 +89,7 @@ type ImageGeneratedProps = BaseProps & {
   aspectRatio: string;
   resolution: string;
   generationNumber: number;
+  artStyle?: string;
   source: GenerationTriggerSource;
   durationMs?: number;
 };
@@ -97,6 +99,7 @@ type ImageGenerationStartedProps = BaseProps & {
   aspectRatio: string;
   resolution: string;
   generationNumber: number;
+  artStyle?: string;
   source: GenerationTriggerSource;
 };
 
@@ -110,6 +113,7 @@ type GenerationErrorProps = BaseProps & {
   imageModel: string;
   errorType: string;
   source: GenerationTriggerSource;
+  artStyle?: string;
 };
 
 type CreditsModalOpenedProps = BaseProps & {
@@ -154,6 +158,7 @@ type PreferenceChangedProps = BaseProps & {
     | "chatModel"
     | "imageAspectRatio"
     | "imageResolution"
+    | "artStyle"
     | "chapterGallery";
   value: string;
   source: PreferenceChangeSource;
@@ -163,6 +168,10 @@ type FeedbackSubmittedProps = BaseProps & {
   hasContext: boolean;
   hasImageContext: boolean;
   sidebarTab: "feedback";
+  /** "image" reports one saved image; "general" is everything else. */
+  kind?: "general" | "image";
+  /** The reported image's art style as the library reports it (historical images are Classical). */
+  artStyle?: string;
 };
 
 type FeedbackPromptInteractionProps = BaseProps & {

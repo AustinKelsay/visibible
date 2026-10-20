@@ -127,7 +127,7 @@ const mockConvex = {
       return mockState.chapters;
     }
 
-    if (Object.keys(args).length === 1 && "serverSecret" in args) {
+    if ("serverSecret" in args && Object.keys(args).every((key) => key === "serverSecret" || key === "artStyle")) {
       return mockState.discoveryResponses.shift() ?? null;
     }
 
@@ -231,6 +231,54 @@ describe("public image API routes", () => {
     );
   });
 
+  it("passes a valid style filter to every query, echoes it, and rejects an unknown style with 400 before any query", async () => {
+    const verseRoute = await import("../../public/images/verses/[book]/[chapter]/[verse]/route");
+    const filtered = await verseRoute.GET(
+      new Request("http://localhost:3000/api/public/images/verses/genesis/1/1?style=watercolor", { method: "GET" }),
+      { params: Promise.resolve({ book: "genesis", chapter: "1", verse: "1" }) }
+    );
+    expect(filtered.status).toBe(200);
+    expect((await filtered.json()).data.artStyle).toBe("watercolor");
+    const latestQueries = () => mockState.callHistory.filter((c) => c.method === "query" && typeof c.args === "object" && c.args !== null && "verseId" in c.args && !("paginationOpts" in c.args));
+    expect(latestQueries()[0]?.args).toMatchObject({ verseId: "genesis-1-1", artStyle: "watercolor" });
+
+    const unknown = await verseRoute.GET(
+      new Request("http://localhost:3000/api/public/images/verses/genesis/1/1?style=oil", { method: "GET" }),
+      { params: Promise.resolve({ book: "genesis", chapter: "1", verse: "1" }) }
+    );
+    expect(unknown.status).toBe(400);
+    expect((await unknown.json()).message).toContain("Unknown art style");
+    expect(unknown.headers.get("Cache-Control")).toBe("no-store");
+    expect(latestQueries()).toHaveLength(1);
+
+    // Omitted: no style argument reaches Convex, so every style is returned as before.
+    mockState.callHistory.length = 0;
+    const historyRoute = await import("../../public/images/verses/[book]/[chapter]/[verse]/images/route");
+    const history = await historyRoute.GET(
+      new Request("http://localhost:3000/api/public/images/verses/genesis/1/1/images?limit=5", { method: "GET" }),
+      { params: Promise.resolve({ book: "genesis", chapter: "1", verse: "1" }) }
+    );
+    expect(history.status).toBe(200);
+    const historyArgs = mockState.callHistory.find((c) => c.method === "query" && typeof c.args === "object" && c.args !== null && "paginationOpts" in c.args)?.args as Record<string, unknown>;
+    expect("artStyle" in historyArgs).toBe(false);
+    expect((await history.json()).data.artStyle).toBeUndefined();
+
+    // Discovery and chapter endpoints take the same filter.
+    mockState.discoveryResponses = [mockState.books];
+    const booksRoute = await import("../../public/images/books/route");
+    const books = await booksRoute.GET(new Request("http://localhost:3000/api/public/images/books?style=icon", { method: "GET" }));
+    expect(books.status).toBe(200);
+    expect((await books.json()).data.artStyle).toBe("icon");
+    expect(mockState.callHistory.find((c) => c.method === "query" && typeof c.args === "object" && c.args !== null && "artStyle" in c.args && !("verseIds" in c.args))?.args).toMatchObject({ artStyle: "icon" });
+    const chapterRoute = await import("../../public/images/chapters/[book]/[chapter]/route");
+    const chapter = await chapterRoute.GET(
+      new Request("http://localhost:3000/api/public/images/chapters/genesis/1?style=classical", { method: "GET" }),
+      { params: Promise.resolve({ book: "genesis", chapter: "1" }) }
+    );
+    expect(chapter.status).toBe(200);
+    expect(mockState.callHistory.find((c) => c.method === "query" && typeof c.args === "object" && c.args !== null && "verseIds" in c.args)?.args).toMatchObject({ artStyle: "classical" });
+  });
+
   it("returns 404 for invalid verse locations", async () => {
     const { GET } = await import("../../public/images/verses/[book]/[chapter]/[verse]/route");
     const response = await GET(
@@ -267,6 +315,7 @@ describe("public image API routes", () => {
       imageUrl: "https://actions.example.com/image/storage-1",
       reference: "Genesis 1:1",
       pageUrl: "https://visibible.com/genesis/1/1",
+      artStyle: "classical",
       model: "google/gemini-2.5-flash-image",
       translationId: "web",
       aspectRatio: "16:9",

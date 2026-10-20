@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useQuery } from "convex/react";
+import { usePreferences } from "@/context/preferences-context";
 import { api } from "../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 
@@ -28,10 +29,12 @@ export function VerseStrip(props: VerseStripProps) {
 
 function VerseStripWithConvex(props: VerseStripProps) {
   const { book, chapter } = props;
+  const { artStyle } = usePreferences();
 
   const imageStatus = useQuery(api.verseImages.getChapterImageStatus, {
     book,
     chapter,
+    artStyle,
   });
 
   return <VerseStripBase {...props} imageStatus={imageStatus} />;

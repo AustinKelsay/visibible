@@ -51,3 +51,14 @@ next-env.d.ts
 # Convex function metadata / specs (generated)
 function_spec.json
 *function_spec*.json
+
+# Rebuilt offline from checked source snapshots (npm run works:import)
+/works/*/work.json
+# Reading-pass run state and draft briefs await the owner's brief PR (npm run works:read)
+/works/*/.preparation/
+/works/*/brief.draft.json
+/works/*/brief.draft.review.json
+# Image evaluation runs: outputs, state and reports are owner evidence, not source
+/evals/images/runs/
+# Release rehearsal results: observed outcomes attached to the release PR, not source
+/evals/rehearsal/

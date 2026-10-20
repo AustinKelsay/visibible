@@ -21,7 +21,10 @@ describe("verified image billing and discovery", () => {
     expect(billing).toMatchObject({ unit: "token", observedAt: 123, imageOutputUsd: "0.00003" });
     expect(catalogImageQuote(id, billing, "1K")).toEqual({ providerUsd: 0.0415, credits: 6 });
     expect(catalogImageQuote(id, billing, "2K")).toBeNull();
-    expect(normalizeImageBilling(id, { ...pricing, image: "999999" }, 123)).toEqual(billing);
+    // An input-image price is carried for the generic engine's references but never enters this quote.
+    const withInputPrice = normalizeImageBilling(id, { ...pricing, image: "999999" }, 123)!;
+    expect(withInputPrice).toEqual({ ...billing, imageInputUsd: "999999" });
+    expect(catalogImageQuote(id, withInputPrice, "1K")).toEqual(catalogImageQuote(id, billing, "1K"));
   });
   it.each(["NaN", "Infinity", "-1", "0.03junk", "", "1e31"])("rejects malformed output rate %s without converting input-image pricing", rate => {
     expect(normalizeImageBilling(id, { ...raw.pricing, image_output: rate }, 1)).toBeUndefined();

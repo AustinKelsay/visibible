@@ -2,7 +2,7 @@
 
 [crons.ts](../../convex/crons.ts) runs [nostrScheduler.ts](../../convex/nostrScheduler.ts) hourly. It considers the latest completed four-hour UTC window and selects at most one eligible stored image from that window, rather than posting every generation.
 
-Eligible images have storage, reference and verse text and no recorded Nostr event. [nostrScheduling.ts](../../convex/lib/nostrScheduling.ts) ranks by Convex-tracked impressions and falls back to random selection when no candidate has impressions. The scheduler records window/claim state to coordinate runs; it does not drain all older windows after downtime.
+Eligible images have storage, reference and verse text and no recorded Nostr event; selection spans every art style and the post format carries no style label. The post quotes the chosen image's own saved text: the World English Bible text for generic-engine images and the unchanged text for legacy images. [nostrScheduling.ts](../../convex/lib/nostrScheduling.ts) ranks by Convex-tracked impressions and falls back to random selection when no candidate has impressions. The scheduler records window/claim state to coordinate runs; it does not drain all older windows after downtime.
 
 ## Convex configuration
 

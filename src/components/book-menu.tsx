@@ -44,18 +44,20 @@ function BookMenuWithConvex() {
   const [selectedBook, setSelectedBook] = useState<BibleBook | null>(null);
   const [selectedChapter, setSelectedChapter] = useState<number | null>(null);
 
-  const booksWithImages = useQuery(api.verseImages.getBooksWithImages) ?? [];
+  // Markers follow the selected art style; existing images count as Classical.
+  const { artStyle } = usePreferences();
+  const booksWithImages = useQuery(api.verseImages.getBooksWithImages, { artStyle }) ?? [];
 
   const chaptersWithImages =
     useQuery(
       api.verseImages.getChaptersWithImages,
-      selectedBook ? { book: selectedBook.slug } : "skip"
+      selectedBook ? { book: selectedBook.slug, artStyle } : "skip"
     ) ?? [];
 
   const versesImageStatus = useQuery(
     api.verseImages.getChapterImageStatus,
     selectedBook && selectedChapter
-      ? { book: selectedBook.slug, chapter: selectedChapter }
+      ? { book: selectedBook.slug, chapter: selectedChapter, artStyle }
       : "skip"
   );
 

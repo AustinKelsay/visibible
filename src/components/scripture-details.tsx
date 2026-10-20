@@ -84,6 +84,8 @@ interface ConvexImageData {
 interface ScriptureDetailsBaseProps extends ScriptureDetailsProps {
   isConvexEnabled: boolean;
   imageHistory: ConvexImageData[] | null | undefined;
+  /** Every style's images, so the displayed image is found when the hero shows another style. */
+  allImageHistory?: ConvexImageData[] | null | undefined;
   isQueryLoading: boolean;
 }
 
@@ -105,7 +107,13 @@ export function ScriptureDetails(props: ScriptureDetailsProps) {
 
 function ScriptureDetailsWithConvex(props: ScriptureDetailsProps) {
   const verseId = props.reference ? createVerseId(props.reference) : null;
+  const { artStyle } = usePreferences();
   const imageHistory = useQuery(
+    api.verseImages.getImageHistory,
+    verseId ? { verseId, artStyle } : "skip"
+  );
+  // The hero may be showing an image from another style; details must describe that exact image.
+  const allImageHistory = useQuery(
     api.verseImages.getImageHistory,
     verseId ? { verseId } : "skip"
   );
@@ -116,6 +124,7 @@ function ScriptureDetailsWithConvex(props: ScriptureDetailsProps) {
       {...props}
       isConvexEnabled={true}
       imageHistory={imageHistory}
+      allImageHistory={allImageHistory}
       isQueryLoading={isQueryLoading}
     />
   );
@@ -131,6 +140,7 @@ function ScriptureDetailsBase({
   imageAttribution,
   isConvexEnabled,
   imageHistory,
+  allImageHistory,
   isQueryLoading,
 }: ScriptureDetailsBaseProps) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -160,7 +170,9 @@ function ScriptureDetailsBase({
 
   // Image data - use currently displayed image (synced from HeroImage via context)
   const displayedImage = currentImageId && imageHistory
-    ? imageHistory.find((img) => img.id === currentImageId) || (imageHistory.length > 0 ? imageHistory[0] : null)
+    ? imageHistory.find((img) => img.id === currentImageId)
+      || allImageHistory?.find((img) => img.id === currentImageId)
+      || (imageHistory.length > 0 ? imageHistory[0] : null)
     : imageHistory && imageHistory.length > 0
       ? imageHistory[0]
       : null;

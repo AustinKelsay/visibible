@@ -45,6 +45,14 @@ const sections = [
     ],
   },
   {
+    title: "Sources",
+    body: [
+      "Scripture text for generated images comes from the World English Bible (public domain).",
+      "Story sections for the Bible draw on the pericope data published by Clear.Bible, licensed CC BY 4.0.",
+      "Same-name hints for the Bible draw on STEPBible's TIPNR (Translators Individualised Proper Names with all References), by Tyndale House, Cambridge, licensed CC BY 4.0.",
+    ],
+  },
+  {
     title: "Why",
     body: [
       "Scripture is worth spending time with. Visibible is a simple tool to help people do that — see the stories, sit with the text, and understand it better.",

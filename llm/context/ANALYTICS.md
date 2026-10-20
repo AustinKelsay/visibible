@@ -2,7 +2,7 @@
 
 [src/app/layout.tsx](../../src/app/layout.tsx) mounts Vercel Analytics only for `VERCEL_ENV=preview` or `production`. [analytics.ts](../../src/lib/analytics.ts) defines the typed custom-event contract and tracking functions. Consult it for exact event names/properties rather than maintaining a second schema here.
 
-Payloads use `tier` and `hasCredits` for segmentation, without session IDs or message text. This describes the custom client events, not all stored application data: feedback, billing and operational records have their own fields.
+Payloads use `tier` and `hasCredits` for segmentation, without session IDs or message text. `preference_changed` includes `artStyle`; image generation events (`image_generation_started`, `image_generated`, `generation_error`) carry `artStyle` when known. `feedback_submitted` adds `kind` (`general` or `image`) and, for image reports, the reported image's `artStyle` as the library resolves it. This describes the custom client events, not all stored application data: feedback, billing and operational records have their own fields.
 
 ## Interpretation
 

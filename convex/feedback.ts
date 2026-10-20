@@ -1,6 +1,8 @@
 import { mutation } from "./_generated/server";
-import { v } from "convex/values";
+import { ConvexError, v } from "convex/values";
 import { validateServerSecret } from "./_helpers/auth";
+import { openReaderReport } from "./_helpers/attention";
+import { artStyleOf } from "./verseImages";
 
 /**
  * Submit user feedback.
@@ -31,10 +33,13 @@ export const submitFeedback = mutation({
       })
     ),
     userAgent: v.optional(v.string()),
+    /** "image" reports one saved image, resolved here from its id; "general" (default) keeps the existing path. */
+    kind: v.optional(v.union(v.literal("general"), v.literal("image"))),
     serverSecret: v.string(),
   },
   handler: async (ctx, args) => {
     validateServerSecret(args.serverSecret);
+    const kind = args.kind ?? "general";
     // Basic validation - message must not be empty
     const trimmedMessage = args.message.trim();
     if (!trimmedMessage) {
@@ -48,6 +53,24 @@ export const submitFeedback = mutation({
 
     const now = Date.now();
 
+    if (kind === "image") {
+      // The report is about the exact saved image; nothing the client says about it is trusted.
+      const imageId = ctx.db.normalizeId("verseImages", args.imageContext?.imageId ?? "");
+      const image = imageId ? await ctx.db.get(imageId) : null;
+      // A ConvexError keeps its data in production, where a plain Error's message is redacted.
+      if (!imageId || !image) throw new ConvexError({ code: "UNKNOWN_IMAGE", message: "Unknown image" });
+      const resolvedImage = {
+        verseId: image.verseId, artStyle: artStyleOf(image), engine: image.engine, translationId: image.translationId,
+        workId: image.provenance?.workId, momentId: image.provenance?.momentId, provenanceKnown: image.provenance !== undefined,
+      };
+      const { id: attentionId, reopened } = await openReaderReport(ctx, { workId: resolvedImage.workId ?? "bible-web", imageId, message: trimmedMessage });
+      await ctx.db.insert("feedback", {
+        message: trimmedMessage, sid: args.sid, verseContext: args.verseContext, userAgent: args.userAgent, createdAt: now,
+        kind, imageId, resolvedImage, attentionId,
+      });
+      return { success: true, kind, attentionId, reopened, artStyle: resolvedImage.artStyle };
+    }
+
     await ctx.db.insert("feedback", {
       message: trimmedMessage,
       sid: args.sid,
@@ -55,8 +78,9 @@ export const submitFeedback = mutation({
       imageContext: args.imageContext,
       userAgent: args.userAgent,
       createdAt: now,
+      kind,
     });
 
-    return { success: true };
+    return { success: true, kind };
   },
 });

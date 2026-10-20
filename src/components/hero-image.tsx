@@ -36,6 +36,7 @@ import {
 import { resolveHasCreditsAfterGeneration } from "@/lib/analytics-event-utils";
 import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME } from "@/lib/csrf-constants";
 import { computeImageGenerationProgress } from "@/lib/image-generation-progress";
+import { DEFAULT_ART_STYLE, artStyleLabel, resolveArtStyle, type ArtStyleAvailability } from "@/lib/art-styles";
 
 interface ChapterTheme {
   setting: string;
@@ -199,6 +200,12 @@ interface HeroImageBaseProps extends HeroImageProps {
   isQueryLoading: boolean;
   imageRefreshKey?: number;
   onRefreshImages?: () => void;
+  /** Images of this verse in the selected art style; variation counts and auto-generation follow it (#177). */
+  selectedStyleImageCount?: number;
+  /** Images of this verse in every other style, shown through a deliberate view. */
+  otherStylesCount?: number;
+  showingOtherStyles?: boolean;
+  onToggleOtherStyles?: () => void;
 }
 
 function HeroImageLoadingState({
@@ -259,16 +266,29 @@ function HeroImageWithConvex({
   // Create verse ID for Convex query
   const verseId = currentReference ? createVerseId(currentReference) : null;
   const [refreshToken, setRefreshToken] = useState(0);
+  const { artStyle } = usePreferences();
+  // The other-styles view is keyed to the verse and style it was opened for, so changing either returns to the style's own images.
+  const [otherStylesViewKey, setOtherStylesViewKey] = useState<string | null>(null);
+  const viewKey = `${verseId ?? ""}|${artStyle}`;
+  const showingOtherStyles = otherStylesViewKey === viewKey;
 
-  // Query Convex for all images for this verse (sorted newest first)
-  const imageHistory = useQuery(
+  // The selected style's images (newest first) and, separately, every other style's for the other-styles view.
+  const styleHistory = useQuery(
     api.verseImages.getImageHistory,
-    verseId ? { verseId, refreshToken } : "skip"
+    verseId ? { verseId, refreshToken, artStyle } : "skip"
   );
+  const otherStylesHistory = useQuery(
+    api.verseImages.getImageHistory,
+    verseId ? { verseId, refreshToken, artStyle, otherStyles: true } : "skip"
+  );
+  const imageHistory = showingOtherStyles ? otherStylesHistory : styleHistory;
 
   const refreshImages = useCallback(() => {
     setRefreshToken((value) => value + 1);
   }, []);
+  const toggleOtherStyles = useCallback(() => {
+    setOtherStylesViewKey((current) => (current === viewKey ? null : viewKey));
+  }, [viewKey]);
 
   const isQueryLoading = imageHistory === undefined && verseId !== null;
 
@@ -291,6 +311,10 @@ function HeroImageWithConvex({
       isQueryLoading={isQueryLoading}
       imageRefreshKey={refreshToken}
       onRefreshImages={refreshImages}
+      selectedStyleImageCount={styleHistory?.length}
+      otherStylesCount={otherStylesHistory?.length ?? 0}
+      showingOtherStyles={showingOtherStyles}
+      onToggleOtherStyles={toggleOtherStyles}
     />
   );
 }
@@ -323,8 +347,12 @@ function HeroImageBase({
   isQueryLoading,
   imageRefreshKey = 0,
   onRefreshImages,
+  selectedStyleImageCount,
+  otherStylesCount = 0,
+  showingOtherStyles = false,
+  onToggleOtherStyles,
 }: HeroImageBaseProps) {
-  const { imageModel, imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution, translation } = usePreferences();
+  const { imageModel, imageAspectRatio, imageResolution, setImageAspectRatio, setImageResolution, translation, artStyle } = usePreferences();
   const isConvexEnabled = useConvexEnabled();
   const { tier, credits, buyCredits, isLoading: sessionLoading } = useSession();
   const { setCurrentImageId, isFullscreen, openFullscreen, closeFullscreen } = useNavigation();
@@ -347,6 +375,7 @@ function HeroImageBase({
   });
   const [scenePlannerCreditsCost, setScenePlannerCreditsCost] = useState(0);
   const [pricingLoaded, setPricingLoaded] = useState(false);
+  const [styleAvailability, setStyleAvailability] = useState<ArtStyleAvailability[] | null>(null);
 
   useEffect(() => {
     let isCancelled = false;
@@ -362,6 +391,7 @@ function HeroImageBase({
             ? data.scenePlannerCreditsCost
             : 0
         );
+        if (Array.isArray(data.artStyles)) setStyleAvailability(data.artStyles);
         if (Array.isArray(data.models)) {
           // Set current model pricing
           const current = data.models.find((m: { id: string }) => m.id === imageModel);
@@ -426,12 +456,17 @@ function HeroImageBase({
   const isAdmin = tier === "admin";
   const pricingAvailable = pricingLoaded && modelPricing.modelId === imageModel && modelPricing.creditsCost !== null && modelPricing.availability !== "unavailable";
   const pricingPending = isConvexEnabled && (!pricingLoaded || modelPricing.modelId !== imageModel);
+  // An offered style the server is not admitting (rollback) disables generation in it; it is never swapped for Classical.
+  const resolvedStyle = resolveArtStyle(artStyle, styleAvailability);
+  const styleAvailable = resolvedStyle.available !== false;
   const pricingUnavailable = pricingLoaded && !pricingPending && !pricingAvailable
     ? modelPricing.unavailableReason ?? "Image pricing unavailable. Choose an available model."
-    : undefined;
-  const canGenerate = pricingAvailable && (isAdmin ||
+    : pricingLoaded && !pricingPending && !styleAvailable
+      ? `${artStyleLabel(artStyle)} is temporarily unavailable for new images. Saved images stay available; choose another style to generate.`
+      : undefined;
+  const canGenerate = pricingAvailable && styleAvailable && (isAdmin ||
     (tier === "paid" && canAffordImageGeneration(credits, effectiveCost)));
-  const canAutoGenerate = pricingAvailable && (isAdmin || (tier === "paid" && credits >= effectiveCost));
+  const canAutoGenerate = pricingAvailable && styleAvailable && (isAdmin || (tier === "paid" && credits >= effectiveCost));
   const showCreditsCost = isConvexEnabled && !isAdmin && pricingAvailable;
 
   // Create verse ID for Convex query
@@ -532,7 +567,10 @@ function HeroImageBase({
     ? "Planning scene..."
     : generationRequestStatus?.status === "generating"
       ? "Generating image..."
-      : "Generating...";
+      : artStyle !== DEFAULT_ART_STYLE
+        // The generic engine prepares the section look and scene plan before a request is recorded.
+        ? "Preparing scene..."
+        : "Generating...";
 
   // Maximum number of retries before giving up
   const maxLoadAttempts = 3;
@@ -657,11 +695,12 @@ function HeroImageBase({
         translation,
         aspectRatio: imageAspectRatio,
         resolution: imageResolution,
+        style: artStyle,
         requestId: clientRequestId,
       };
 
-      // Pass existing image count to add generation diversity
-      const existingImageCount = imageHistory?.length || 0;
+      // Pass the selected style's image count to add generation diversity
+      const existingImageCount = selectedStyleImageCount ?? imageHistory?.length ?? 0;
       const generationNumber = existingImageCount + 1;
       if (existingImageCount > 0) {
         payload.generation = generationNumber;
@@ -673,6 +712,7 @@ function HeroImageBase({
           setError("Security check failed. Please refresh the page and try again.");
           trackGenerationError({
             imageModel,
+            artStyle,
             errorType: "csrf_missing",
             source,
             tier,
@@ -686,6 +726,7 @@ function HeroImageBase({
         imageModel: imageModel || "unknown",
         aspectRatio: imageAspectRatio,
         resolution: imageResolution,
+        artStyle,
         generationNumber,
         source,
         tier,
@@ -732,6 +773,7 @@ function HeroImageBase({
           setError(errorMessage);
           trackGenerationError({
             imageModel,
+            artStyle,
             errorType,
             source,
             tier,
@@ -747,6 +789,7 @@ function HeroImageBase({
           setError("Session required - please refresh the page");
           trackGenerationError({
             imageModel,
+            artStyle,
             errorType: "unauthorized",
             source,
             tier,
@@ -783,7 +826,9 @@ function HeroImageBase({
       }
 
       if (!response.ok) {
-        throw new Error(data?.error || "Failed to generate image");
+        // A retryable refusal (a scene still preparing, a style not admitted) carries its own explanation.
+        const retryableDetail = response.status === 503 && data?.retryable && typeof data?.message === "string" ? data.message : null;
+        throw new Error(retryableDetail ? `${data?.error || "Preparing scene"}: ${retryableDetail}` : data?.error || "Failed to generate image");
       }
 
       if (response.status === 202 && data?.reused) {
@@ -818,6 +863,7 @@ function HeroImageBase({
           imageModel: modelUsed,
           aspectRatio: data.aspectRatio || imageAspectRatio,
           resolution: imageResolution,
+          artStyle: typeof data.style === "string" ? data.style : artStyle,
           generationNumber: data.generationNumber || generationNumber,
           source,
           durationMs: data.durationMs,
@@ -856,6 +902,7 @@ function HeroImageBase({
         "generation_failed";
       trackGenerationError({
         imageModel,
+        artStyle,
         errorType,
         source,
         tier,
@@ -878,6 +925,8 @@ function HeroImageBase({
     prevVerse,
     nextVerse,
     currentReference,
+    artStyle,
+    selectedStyleImageCount,
     imageModel,
     imageAspectRatio,
     imageResolution,
@@ -1087,9 +1136,11 @@ function HeroImageBase({
     // 4. Haven't already attempted generation for this verse
     // 5. User has sufficient credits (paid tier)
     // 6. Session has loaded
+    const selectedStyleEmpty = selectedStyleImageCount !== undefined ? selectedStyleImageCount === 0 : imageHistory !== undefined && imageHistory.length === 0;
     if (
       imageHistory !== undefined &&
-      imageHistory.length === 0 &&
+      selectedStyleEmpty &&
+      !showingOtherStyles &&
       !isGenerating &&
       !hasAttemptedGeneration &&
       verseId &&
@@ -1100,7 +1151,7 @@ function HeroImageBase({
       pendingFollowLatest.current = true;
       generateImage("auto_generate");
     }
-  }, [imageHistory, isGenerating, hasAttemptedGeneration, verseId, generateImage, canAutoGenerate, sessionLoading]);
+  }, [imageHistory, selectedStyleImageCount, showingOtherStyles, isGenerating, hasAttemptedGeneration, verseId, generateImage, canAutoGenerate, sessionLoading]);
 
   // When a new image is saved, navigate only after it exists in history
   useEffect(() => {
@@ -1299,6 +1350,18 @@ function HeroImageBase({
               />
             )}
 
+            {totalImages === 0 && !isGenerating && !error && !isQueryLoading && onToggleOtherStyles && (otherStylesCount > 0 || showingOtherStyles) ? (
+              <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center">
+                <button
+                  type="button"
+                  onClick={onToggleOtherStyles}
+                  aria-pressed={showingOtherStyles}
+                  className="min-h-[36px] rounded-[var(--radius-full)] bg-black/50 px-4 text-xs text-white/90 backdrop-blur-sm hover:bg-black/70 focus-ring"
+                >
+                  {showingOtherStyles ? `Back to ${artStyleLabel(artStyle)}` : `${otherStylesCount} in other styles`}
+                </button>
+              </div>
+            ) : null}
             {error && !isGenerating && (
               <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[var(--image-stage)]/70 backdrop-blur-sm">
                 <div className="text-red-500 text-sm px-4 text-center">{error}</div>
@@ -1354,6 +1417,18 @@ function HeroImageBase({
             )}
 
             {/* Error state */}
+            {totalImages === 0 && !isGenerating && !error && !isQueryLoading && onToggleOtherStyles && (otherStylesCount > 0 || showingOtherStyles) ? (
+              <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center">
+                <button
+                  type="button"
+                  onClick={onToggleOtherStyles}
+                  aria-pressed={showingOtherStyles}
+                  className="min-h-[36px] rounded-[var(--radius-full)] bg-black/50 px-4 text-xs text-white/90 backdrop-blur-sm hover:bg-black/70 focus-ring"
+                >
+                  {showingOtherStyles ? `Back to ${artStyleLabel(artStyle)}` : `${otherStylesCount} in other styles`}
+                </button>
+              </div>
+            ) : null}
             {error && !isGenerating && (
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
                 <div className="text-red-500 text-sm px-4 text-center">{error}</div>
@@ -1428,6 +1503,16 @@ function HeroImageBase({
                   <div className="flex flex-col items-center leading-tight px-2">
                     <span className="text-[10px] uppercase tracking-[0.2em] text-white/50">Images</span>
                     <span className="text-xs text-white/90">{imageCountLabel}</span>
+                    {onToggleOtherStyles && (otherStylesCount > 0 || showingOtherStyles) ? (
+                      <button
+                        type="button"
+                        onClick={onToggleOtherStyles}
+                        aria-pressed={showingOtherStyles}
+                        className="ml-2 text-xs text-white/70 underline-offset-2 hover:text-white hover:underline focus-ring"
+                      >
+                        {showingOtherStyles ? `Back to ${artStyleLabel(artStyle)}` : `${otherStylesCount} in other styles`}
+                      </button>
+                    ) : null}
                   </div>
                   <button
                     onClick={() => goToPrevImage("desktop_dock")}
@@ -1684,6 +1769,16 @@ function HeroImageBase({
                     <ChevronLeft size={18} strokeWidth={1.5} />
                   </button>
                   <span className="text-xs text-white/70 px-2 select-none">{imageCountLabel}</span>
+                  {onToggleOtherStyles && (otherStylesCount > 0 || showingOtherStyles) ? (
+                    <button
+                      type="button"
+                      onClick={onToggleOtherStyles}
+                      aria-pressed={showingOtherStyles}
+                      className="text-xs text-white/70 px-2 underline-offset-2 hover:text-white hover:underline focus-ring"
+                    >
+                      {showingOtherStyles ? `Back to ${artStyleLabel(artStyle)}` : `${otherStylesCount} in other styles`}
+                    </button>
+                  ) : null}
                   <button
                     onClick={() => goToPrevImage("fullscreen")}
                     disabled={!canGoOlder}

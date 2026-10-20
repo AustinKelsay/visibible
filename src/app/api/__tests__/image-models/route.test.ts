@@ -124,3 +124,23 @@ describe("Image Models API", () => {
     expect(mockFetchImageModels).not.toHaveBeenCalled();
   });
 });
+
+describe("art style availability", () => {
+  it("reports every style with the admission decision: only Classical while the generic engine is disabled, all when public and ready", async () => {
+    process.env = { ...originalEnv, OPENROUTER_API_KEY: "test-api-key" };
+    delete process.env.GENERIC_ENGINE_MODE;
+    mockFetchImageModels.mockResolvedValue({ models: [imageModelFixture()] });
+    mockGetScenePlannerEstimatedCreditsCost.mockResolvedValue(1);
+    mockConvex.query.mockResolvedValue([]);
+    const { GET } = await import("../../image-models/route");
+    const disabled = await (await GET()).json();
+    expect(disabled.artStyles.map((s: { id: string; available: boolean }) => [s.id, s.available])).toEqual([["classical", true], ["watercolor", false], ["icon", false]]);
+    expect(disabled.artStyles[1].reason).toMatch(/temporarily unavailable/);
+
+    process.env.GENERIC_ENGINE_MODE = "public";
+    mockConvex.query.mockImplementation(async (_ref: unknown, args: Record<string, unknown>) =>
+      "workId" in args ? { ready: true, reasons: [], activeGeneration: 1, briefVersion: "bv" } : []);
+    const publicMode = await (await GET()).json();
+    expect(publicMode.artStyles.every((s: { available: boolean }) => s.available)).toBe(true);
+  });
+});

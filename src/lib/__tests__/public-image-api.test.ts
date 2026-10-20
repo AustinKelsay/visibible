@@ -50,6 +50,7 @@ describe("public image API helpers", () => {
       imageUrl: "https://actions.example.com/image/abc123",
       reference: "Genesis 1:1",
       pageUrl: "https://visibible.com/genesis/1/1",
+      artStyle: "classical",
       model: "google/gemini-2.5-flash-image",
       translationId: "web",
       aspectRatio: "16:9",
@@ -58,6 +59,12 @@ describe("public image API helpers", () => {
       imageHeight: 768,
       createdAt: 123456789,
     });
+  });
+
+  it("buildPublicImageRecord reports the saved art style and reads a missing one as Classical", () => {
+    const base = { id: "image-2", imageUrl: "https://actions.example.com/image/def", createdAt: 1 };
+    expect(buildPublicImageRecord({ ...base, artStyle: "watercolor" }, "https://visibible.com/genesis/1/1").artStyle).toBe("watercolor");
+    expect(buildPublicImageRecord({ ...base, artStyle: null }, "https://visibible.com/genesis/1/1").artStyle).toBe("classical");
   });
 
   it("validates verse locations against bible structure", () => {
