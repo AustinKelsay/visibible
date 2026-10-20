@@ -17,7 +17,20 @@ type AnalysisApi = {
   listStaleDependents: FunctionReference<"query">; getReference: FunctionReference<"query">; listAttention: FunctionReference<"query">;
   correctRecord: FunctionReference<"mutation">; clearRecord: FunctionReference<"mutation">; pinReference: FunctionReference<"mutation">;
   closeAttention: FunctionReference<"mutation">; closeAttentionFor: FunctionReference<"mutation">; wipeWork: FunctionReference<"mutation">;
+  /** Reader image reports (#180): one item with its messages and history. */
+  getAttentionItem: FunctionReference<"query">;
 };
+/** Functions outside the analysis module the commands need; the generated api object is a proxy, so it cannot be spread. */
+export type CorrectionExtras = { getImageProvenance?: FunctionReference<"query"> };
+export const READER_REPORT_DISPOSITIONS = Object.freeze(["source corrected", "isolated rendering error", "accepted limitation", "dismissed"]);
+export type ReportResolution = { disposition: string; correction?: { kind: string; recordId: string; version: string }; check?: string };
+
+/** `kind:recordId:version` as typed on the command line. */
+export function parseCorrectionLink(value: string) {
+  const match = value.match(/^([a-z]+):(.+):([0-9a-f]{32})$/);
+  if (!match) throw new Error(`--correction must be kind:recordId:version, got ${value}`);
+  return { kind: match[1], recordId: match[2], version: match[3] };
+}
 
 export const CHECKER_REASONS = Object.freeze(["sheet_failed", "style_reference_failed", "canon_note", "canon_check", "quote_check_failed", "unmatched_owner_edit"]);
 export const READER_REPORT_REASON = "reader_report";
@@ -26,7 +39,7 @@ export function imageUrl(siteUrl: string, storageId: string) {
   return `${siteUrl.replace(/\/$/, "")}/image/${encodeURIComponent(storageId)}`;
 }
 
-export function createCorrections(client: CorrectionClient, api: AnalysisApi, workId: string, serverSecret: string, siteUrl: string) {
+export function createCorrections(client: CorrectionClient, api: AnalysisApi, workId: string, serverSecret: string, siteUrl: string, extras: CorrectionExtras = {}) {
   const query = <T>(ref: FunctionReference<"query">, args: Record<string, unknown>) => client.query(ref, { workId, ...args }) as Promise<T>;
   const mutate = <T>(ref: FunctionReference<"mutation">, args: Record<string, unknown>) => client.mutation(ref, { serverSecret, workId, ...args }) as Promise<T>;
   type Record_ = { kind: string; recordId: string; version: string; source: string; generation: number; payload: Record<string, unknown> };
@@ -94,6 +107,34 @@ export function createCorrections(client: CorrectionClient, api: AnalysisApi, wo
     /** Plans are never edited: clearing one makes the next image replan. */
     async clearPlan(momentId: string) {
       return mutate<{ cleared: boolean }>(api.clearRecord, { kind: "plan", recordId: momentId });
+    },
+
+    /** Reader image reports with count, latest activity and the image's URL, style and source. */
+    async reports(status: "open" | "closed" = "open") {
+      const items = (await this.attention(status)).filter((a) => a.reason === READER_REPORT_REASON);
+      const rows = [];
+      for (const item of items) {
+        const image = extras.getImageProvenance && item.recordId
+          ? await client.query(extras.getImageProvenance, { serverSecret, imageId: item.recordId }) as { imageUrl: string | null; verseId: string; artStyle: string; engine?: string; translationId?: string } | null
+          : null;
+        rows.push({ ...item, link: image?.imageUrl ?? null, verseId: image?.verseId ?? null, artStyle: image?.artStyle ?? null, engine: image?.engine ?? null, translationId: image?.translationId ?? null, imageMissing: image === null });
+      }
+      return rows;
+    },
+
+    /** One report in full: every message with its time, the lifecycle, the last closure, and the image's resolved provenance (unknown for legacy images). */
+    async report(id: string) {
+      const item = await client.query(api.getAttentionItem, { serverSecret, id }) as { reason: string; recordId?: string; reports?: unknown[]; history?: unknown[]; closure?: unknown } | null;
+      if (!item) throw new Error(`No attention item ${id}`);
+      if (item.reason !== READER_REPORT_REASON) throw new Error(`${id} is a ${item.reason} item, not a reader report`);
+      const image = extras.getImageProvenance && item.recordId ? await client.query(extras.getImageProvenance, { serverSecret, imageId: item.recordId }) : null;
+      return { item, image: image ?? null };
+    },
+
+    /** Close a reader report with one disposition; "source corrected" needs the corrected version and a check. */
+    async resolve(id: string, resolution: ReportResolution) {
+      if (!READER_REPORT_DISPOSITIONS.includes(resolution.disposition)) throw new Error(`disposition must be one of: ${READER_REPORT_DISPOSITIONS.join(", ")}`);
+      return client.mutation(api.closeAttention, { serverSecret, id, disposition: resolution.disposition, ...(resolution.correction ? { correction: resolution.correction } : {}), ...(resolution.check ? { check: resolution.check } : {}) }) as Promise<{ closed: boolean }>;
     },
 
     async dismiss(id: string, disposition = "dismissed") {

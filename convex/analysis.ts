@@ -16,6 +16,7 @@ import type { Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
 import { contentVersion } from "./_helpers/contentVersion";
 import { analysisValidators } from "./schema";
+import { openAttention, READER_REPORT_DISPOSITIONS, READER_REPORT_REASON } from "./_helpers/attention";
 
 type Ctx = QueryCtx | MutationCtx;
 type AnalysisKind = Doc<"analysisRecords">["kind"];
@@ -148,25 +149,6 @@ export function structuralProblems(records: ReadonlyArray<Pick<Doc<"analysisReco
 }
 
 // ---------------------------------------------------------------- attention
-
-async function openAttention(
-  ctx: MutationCtx,
-  item: { workId: string; reason: string; kind?: string; recordId?: string; generation?: number; detail?: string },
-) {
-  const now = Date.now();
-  const existing = await ctx.db
-    .query("attentionItems")
-    .withIndex("by_work_reason_kind_recordId", (q) =>
-      q.eq("workId", item.workId).eq("reason", item.reason).eq("kind", item.kind).eq("recordId", item.recordId),
-    )
-    .collect();
-  const open = existing.find((a) => a.status === "open");
-  if (open) {
-    await ctx.db.patch(open._id, { count: open.count + 1, lastActivityAt: now, detail: item.detail ?? open.detail, generation: item.generation ?? open.generation });
-    return open._id;
-  }
-  return ctx.db.insert("attentionItems", { ...item, status: "open", count: 1, createdAt: now, lastActivityAt: now });
-}
 
 // ---------------------------------------------------------------- preparation (server)
 
@@ -579,14 +561,45 @@ export const noteAttention = mutation({
   },
 });
 
+/**
+ * Close one item. A reader report takes exactly one of the four dispositions; "source corrected"
+ * must link the input version that fixed it (which must exist in the analysis) and a targeted check.
+ * An input edit alone never closes a report, regenerates the saved image or alters its provenance.
+ */
 export const closeAttention = mutation({
-  args: { serverSecret: v.string(), id: v.id("attentionItems"), disposition: v.string() },
+  args: {
+    serverSecret: v.string(), id: v.id("attentionItems"), disposition: v.string(),
+    correction: v.optional(v.object({ kind: analysisValidators.kind, recordId: v.string(), version: v.string() })),
+    check: v.optional(v.string()),
+  },
   handler: async (ctx, args) => {
     validateServerSecret(args.serverSecret);
     const item = await ctx.db.get(args.id);
     if (!item) throw new Error("Unknown attention item");
-    await ctx.db.patch(args.id, { status: "closed", disposition: args.disposition, closedAt: Date.now(), lastActivityAt: Date.now() });
+    const now = Date.now();
+    if (item.reason === READER_REPORT_REASON) {
+      if (!READER_REPORT_DISPOSITIONS.includes(args.disposition)) throw new Error(`A reader report closes with one of: ${READER_REPORT_DISPOSITIONS.join(", ")}`);
+      if (args.disposition === "source corrected") {
+        if (!args.correction || !args.check?.trim()) throw new Error("\"source corrected\" must link the corrected input version (--correction kind:recordId:version) and a targeted check result (--check)");
+        const versions = await ctx.db.query("analysisRecords")
+          .withIndex("by_work_kind_recordId", (q) => q.eq("workId", item.workId).eq("kind", args.correction!.kind).eq("recordId", args.correction!.recordId)).collect();
+        if (!versions.some((r) => r.version === args.correction!.version)) throw new Error(`No ${args.correction.kind} ${args.correction.recordId} with version ${args.correction.version} in ${item.workId}`);
+      }
+    }
+    const closure = { at: now, disposition: args.disposition, ...(args.correction ? { correction: args.correction } : {}), ...(args.check?.trim() ? { check: args.check.trim() } : {}) };
+    const history = [...(item.history ?? []), { at: now, event: "closed", disposition: args.disposition, ...(args.check?.trim() ? { detail: args.check.trim() } : {}) }];
+    await ctx.db.patch(args.id, { status: "closed", disposition: args.disposition, closedAt: now, lastActivityAt: now, closure, history });
     return { closed: true };
+  },
+});
+
+/** One attention item with its full report and lifecycle history. */
+export const getAttentionItem = query({
+  args: { serverSecret: v.string(), id: v.id("attentionItems") },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const item = await ctx.db.get(args.id);
+    return item ? { id: item._id, ...withoutInternals(item) } : null;
   },
 });
 
@@ -602,7 +615,7 @@ export const closeAttentionFor = mutation({
     const now = Date.now();
     let closed = 0;
     for (const item of open) {
-      if (item.kind !== args.kind || item.recordId !== args.recordId || item.reason === "reader_report") continue;
+      if (item.kind !== args.kind || item.recordId !== args.recordId || item.reason === READER_REPORT_REASON) continue;
       await ctx.db.patch(item._id, { status: "closed", disposition: args.disposition, closedAt: now, lastActivityAt: now });
       closed++;
     }

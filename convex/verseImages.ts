@@ -816,6 +816,22 @@ export const getImageHistory = query({
   },
 });
 
+/** Everything the owner needs to review one saved image: its source, style, provenance and URL. Server-only. */
+export const getImageProvenance = query({
+  args: { serverSecret: v.string(), imageId: v.string() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const id = ctx.db.normalizeId("verseImages", args.imageId);
+    const image = id ? await ctx.db.get(id) : null;
+    if (!image) return null;
+    const imageUrl = image.storageId ? (await ctx.storage.getUrl(image.storageId)) ?? image.imageUrl ?? null : image.imageUrl ?? null;
+    return {
+      id: image._id, verseId: image.verseId, reference: image.reference, verseText: image.verseText, translationId: image.translationId, model: image.model, promptVersion: image.promptVersion,
+      createdAt: image.createdAt, imageUrl, ...imageSourceFields(image), provenance: image.provenance ?? null,
+    };
+  },
+});
+
 /**
  * Get status for a single image generation request.
  * This is intentionally minimal for safe client-side polling/subscription.

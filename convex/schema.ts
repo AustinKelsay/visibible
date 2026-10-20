@@ -500,7 +500,20 @@ export default defineSchema({
     ),
     userAgent: v.optional(v.string()),
     createdAt: v.number(),
-  }).index("by_createdAt", ["createdAt"]),
+    // Image reports (#180): the exact saved image, resolved server-side, and the attention item grouping its reports.
+    kind: v.optional(v.union(v.literal("general"), v.literal("image"))),
+    imageId: v.optional(v.id("verseImages")),
+    resolvedImage: v.optional(v.object({
+      verseId: v.string(),
+      artStyle: v.string(),
+      engine: v.optional(v.string()),
+      translationId: v.optional(v.string()),
+      workId: v.optional(v.string()),
+      momentId: v.optional(v.string()),
+      provenanceKnown: v.boolean(),
+    })),
+    attentionId: v.optional(v.id("attentionItems")),
+  }).index("by_createdAt", ["createdAt"]).index("by_imageId", ["imageId"]),
 
   // Bulk image generation jobs
   bulkGenerations: defineTable({
@@ -655,6 +668,16 @@ export default defineSchema({
     createdAt: v.number(),
     lastActivityAt: v.number(),
     closedAt: v.optional(v.number()),
+    // Reader image reports (#180): the saved image, every message with its time, the lifecycle, and how it was last closed.
+    imageId: v.optional(v.id("verseImages")),
+    reports: v.optional(v.array(v.object({ at: v.number(), message: v.string() }))),
+    history: v.optional(v.array(v.object({ at: v.number(), event: v.string(), disposition: v.optional(v.string()), detail: v.optional(v.string()) }))),
+    closure: v.optional(v.object({
+      at: v.number(),
+      disposition: v.string(),
+      correction: v.optional(v.object({ kind: v.string(), recordId: v.string(), version: v.string() })),
+      check: v.optional(v.string()),
+    })),
   })
     .index("by_work_status", ["workId", "status"])
     .index("by_work_reason_kind_recordId", ["workId", "reason", "kind", "recordId"]),

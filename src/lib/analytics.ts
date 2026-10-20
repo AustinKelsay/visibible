@@ -163,6 +163,10 @@ type FeedbackSubmittedProps = BaseProps & {
   hasContext: boolean;
   hasImageContext: boolean;
   sidebarTab: "feedback";
+  /** "image" reports one saved image; "general" is everything else. */
+  kind?: "general" | "image";
+  /** The reported image's art style as the library reports it (historical images are Classical). */
+  artStyle?: string;
 };
 
 type FeedbackPromptInteractionProps = BaseProps & {

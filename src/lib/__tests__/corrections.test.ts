@@ -34,7 +34,29 @@ describe("owner corrections", () => {
     t = convexTest(schema, modules);
     await t.mutation(api.analysis.registerWork, { serverSecret: SECRET, workId: WORK, workVersion: "wv", briefVersion: "bv" });
     await activate();
-    c = createCorrections(client() as never, api.analysis as never, WORK, SECRET, "https://site.test");
+    c = createCorrections(client() as never, api.analysis as never, WORK, SECRET, "https://site.test", { getImageProvenance: api.verseImages.getImageProvenance });
+  });
+
+  it("lists, inspects and resolves reader image reports with the image's own provenance", async () => {
+    process.env.CONVEX_SITE_URL = "https://site.test";
+    const { internal } = await import("../../../convex/_generated/api");
+    const storageId = await t.run(async (ctx) => ctx.storage.store(new Blob(["png"], { type: "image/png" })));
+    const provenance = { workId: WORK, momentId: "s1", sectionId: "s1", eraId: "e", styleId: "icon", styleVersion: "sv", briefVersion: "bv", lookVersion: "lv", planVersion: "pv", promptVersion: "p", analysisGeneration: 1, canon: [], references: [], requestTranslationId: "web" };
+    const imageId = await t.mutation(internal.verseImages.saveImageWithStorage, { verseId: "s1", storageId, model: "lite", generationId: "g1", verseText: "text", translationId: "web", engine: "generic", artStyleId: "icon", provenance });
+    await t.mutation(api.feedback.submitFeedback, { serverSecret: SECRET, message: "halo has letters", kind: "image", imageContext: { imageId } });
+    const rows = await c.reports();
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toMatchObject({ source: "reader", count: 1, verseId: "s1", artStyle: "icon", engine: "generic", translationId: "web", imageMissing: false });
+    expect(rows[0].link).toEqual(expect.any(String));
+    const full = await c.report(rows[0].id);
+    expect(full.item.reports).toEqual([{ at: expect.any(Number), message: "halo has letters" }]);
+    expect(full.image).toMatchObject({ artStyle: "icon", provenance: { workId: WORK, styleId: "icon" } });
+    await expect(c.resolve(rows[0].id, { disposition: "fixed it" })).rejects.toThrow(/one of/);
+    await expect(c.resolve(rows[0].id, { disposition: "source corrected" })).rejects.toThrow(/must link/);
+    const entry = (await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "jonah" }))!;
+    expect(await c.resolve(rows[0].id, { disposition: "source corrected", correction: { kind: "entry", recordId: "jonah", version: entry.version }, check: "two regenerations clean" })).toEqual({ closed: true });
+    expect(await c.reports()).toEqual([]);
+    expect((await c.reports("closed"))[0]).toMatchObject({ disposition: "source corrected" });
   });
 
   it("lists attention with links and sources, inspects an entry, and dismisses an item", async () => {

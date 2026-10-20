@@ -11,6 +11,10 @@
  *   npm run works:correct -- <work-id> redraft <entryId>                       (runs works:canon --redraft --activate)
  *   npm run works:correct -- <work-id> clear-plan <momentId>
  *   npm run works:correct -- <work-id> dismiss <attentionId> [--disposition ..]
+ *   npm run works:correct -- <work-id> reports [--closed]                        (reader image reports)
+ *   npm run works:correct -- <work-id> report <attentionId>                      (messages, history, image provenance)
+ *   npm run works:correct -- <work-id> resolve <attentionId> --disposition "source corrected" --correction entry:<id>:<version> --check "..."
+ *                                                            --disposition "isolated rendering error" | "accepted limitation" | "dismissed"
  *   npm run works:correct -- <work-id> wipe [--including-owner] [--confirm-production]
  *
  * Needs NEXT_PUBLIC_CONVEX_URL and CONVEX_SERVER_SECRET (read from .env.local when unset). A wipe
@@ -25,14 +29,14 @@ import path from "node:path";
 import { parseArgs } from "node:util";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "../../convex/_generated/api";
-import { createCorrections } from "@/lib/engine/corrections";
+import { createCorrections, parseCorrectionLink } from "@/lib/engine/corrections";
 import { validateWorkBrief, SHARED_STYLES } from "@/lib/work-preparation";
 import { createOpenRouterImageMaker, createOpenRouterVisionChecker } from "@/lib/engine/reference-adapters";
 import { emptyReferenceState, runReferences, type ReferenceRunState, type ReferenceStore } from "@/lib/engine/references-run";
 
 const { values, positionals } = parseArgs({ allowPositionals: true, options: {
   text: { type: "string" }, expect: { type: "string" }, place: { type: "string" }, time: { type: "string" }, weather: { type: "string" }, light: { type: "string" }, clothing: { type: "string" },
-  disposition: { type: "string" }, closed: { type: "boolean", default: false }, "including-owner": { type: "boolean", default: false }, "confirm-production": { type: "boolean", default: false },
+  disposition: { type: "string" }, correction: { type: "string" }, check: { type: "string" }, closed: { type: "boolean", default: false }, "including-owner": { type: "boolean", default: false }, "confirm-production": { type: "boolean", default: false },
   budget: { type: "string", default: "1.00" }, run: { type: "string", default: "latest" },
 } });
 const [workId, command, ...rest] = positionals;
@@ -52,7 +56,7 @@ const secret = process.env.CONVEX_SERVER_SECRET;
 if (!url || !secret) throw new Error("NEXT_PUBLIC_CONVEX_URL and CONVEX_SERVER_SECRET are needed");
 const siteUrl = process.env.NOSTR_IMAGE_BASE_URL || process.env.CONVEX_SITE_URL || url.replace(".convex.cloud", ".convex.site");
 const client = new ConvexHttpClient(url);
-const corrections = createCorrections(client, api.analysis as never, workId, secret, siteUrl);
+const corrections = createCorrections(client, api.analysis as never, workId, secret, siteUrl, { getImageProvenance: api.verseImages.getImageProvenance });
 const print = (value: unknown) => console.log(JSON.stringify(value, null, 2));
 
 switch (command) {
@@ -113,6 +117,18 @@ switch (command) {
   }
   case "clear-plan": print(await corrections.clearPlan(rest[0])); break;
   case "dismiss": print(await corrections.dismiss(rest[0], values.disposition ?? "dismissed")); break;
+  case "reports": {
+    const rows = await corrections.reports(values.closed ? "closed" : "open");
+    if (!rows.length) { console.log("No reader reports."); break; }
+    for (const r of rows) console.log(`${r.id}  ×${r.count}  ${new Date(r.lastActivityAt).toISOString()}  ${r.verseId ?? "?"}  ${r.artStyle ?? "?"}  ${r.engine ?? "legacy"}/${r.translationId ?? "?"}${r.disposition ? `  [${r.disposition}]` : ""}${r.imageMissing ? "  (image missing)" : ""}${r.link ? `\n    ${r.link}` : ""}${r.detail ? `\n    ${r.detail}` : ""}`);
+    break;
+  }
+  case "report": print(await corrections.report(rest[0])); break;
+  case "resolve": {
+    if (!values.disposition) throw new Error("--disposition is required");
+    print(await corrections.resolve(rest[0], { disposition: values.disposition, correction: values.correction ? parseCorrectionLink(values.correction) : undefined, check: values.check }));
+    break;
+  }
   case "wipe": {
     // The targeted deployment is the one the client connects to. It counts as development only
     // when its URL names the deployment in .env.convex.dev; anything else needs the production flag.
