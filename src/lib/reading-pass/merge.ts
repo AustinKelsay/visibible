@@ -1,13 +1,13 @@
 /**
  * Merge the divisions' casts into one work-wide cast (#169, spec #165 §2). Code groups entries
- * that share a name form or a same_person_as link; the model rules on each group, splitting it
- * into one cluster per individual. Singletons pass through. Merged entries get stable slugs, and
+ * that share one name form or a same_person_as link; the model rules on each group, splitting it
+ * into one cluster per individual. Only ruled identities connect overlapping groups. Singletons pass through. Merged entries get stable slugs, and
  * every section's cast is rewritten to merged ids. For the Bible, a same-name hint from TIPNR
  * accompanies each group.
  */
 import type { DivisionReading, DivisionSection } from "./division";
 import { RULING_SYSTEM, rulingOutputSchema, type RulingOutput } from "./prompts";
-import { parseModelJson, type TextModel } from "./model";
+import { parseModelJson, type TextModel, type TextModelRequest, type TextModelResult } from "./model";
 
 export type EntryKind = "character" | "location" | "object";
 
@@ -62,39 +62,33 @@ export function slugify(name: string): string {
 
 type Keyed = { key: string; division: string; entry: { id: string; name: string; aliases: string[]; note: string; kind?: string; same_person_as?: string } };
 
+export const MAX_MERGE_MEMBERS_PER_CALL = 150;
+const MAX_RULING_ATTEMPTS = 3;
+
 /** A division-local entry's key: pool-qualified, since a character and a location may share an id. */
 export function memberKey(division: string, pool: "characters" | "locations", id: string) {
   return `${division}:${pool === "characters" ? "character" : "location"}:${id}`;
 }
 
 function groupByForms(items: Keyed[]) {
-  const parent = new Map(items.map((i) => [i.key, i.key]));
-  const find = (x: string): string => {
-    let root = x;
-    while (parent.get(root) !== root) root = parent.get(root)!;
-    parent.set(x, root);
-    return root;
-  };
-  const union = (a: string, b: string) => parent.set(find(a), find(b));
   const byForm = new Map<string, string[]>();
   for (const item of items) {
     for (const form of nameForms(item.entry)) {
+      if (/^(a|an|the)$/.test(form)) continue;
       const list = byForm.get(form) ?? [];
       list.push(item.key);
       byForm.set(form, list);
     }
   }
-  for (const keys of byForm.values()) for (const key of keys.slice(1)) union(key, keys[0]);
+  const groups = [...byForm.values()].filter((members) => members.length > 1);
+  const keys = new Set(items.map((item) => item.key));
   for (const item of items) {
     const target = item.entry.same_person_as ? memberKey(item.division, "characters", item.entry.same_person_as) : null;
-    if (target && parent.has(target)) union(item.key, target);
+    if (target && keys.has(target) && target !== item.key) groups.push([item.key, target]);
   }
-  const groups = new Map<string, string[]>();
-  for (const item of items) {
-    const root = find(item.key);
-    groups.set(root, [...(groups.get(root) ?? []), item.key]);
-  }
-  return [...groups.values()];
+  // Aliases may overlap. Do not turn an alias chain into one unbounded candidate group.
+  const unique = new Map(groups.map((members) => [JSON.stringify([...members].sort()), members]));
+  return [...unique.values()];
 }
 
 function toEntryKind(readingKind: string | undefined, pool: "characters" | "locations"): EntryKind {
@@ -110,6 +104,8 @@ export async function mergeCasts(options: {
   sameNameHints?: SameNameHints;
   groupsPerCall?: number;
   beforeCall?: (request: { system: string; user: string; expectedCompletionTokens: number }) => Promise<void>;
+  /** Cache accepted batches by their initial request; null invalidates conflicting batches. */
+  onRuling?: (request: TextModelRequest, result: TextModelResult | null) => Promise<void>;
 }): Promise<MergeResult> {
   const { readings, model } = options;
   const lookup = new Map<string, Keyed & { pool: "characters" | "locations"; sections: string[] }>();
@@ -125,11 +121,10 @@ export async function mergeCasts(options: {
   const pools = { characters: [] as Keyed[], locations: [] as Keyed[] };
   for (const item of lookup.values()) pools[item.pool].push(item);
   const groups: Array<{ pool: "characters" | "locations"; members: string[] }> = [];
-  const singles: string[] = [];
   for (const pool of ["characters", "locations"] as const) {
     for (const members of groupByForms(pools[pool])) {
-      if (members.length > 1) groups.push({ pool, members });
-      else singles.push(members[0]);
+      if (members.length > MAX_MERGE_MEMBERS_PER_CALL) throw new Error(`Cast alias group has ${members.length} members, above the ${MAX_MERGE_MEMBERS_PER_CALL}-member limit; refine ambiguous cast aliases before merging`);
+      groups.push({ pool, members });
     }
   }
 
@@ -153,10 +148,15 @@ export async function mergeCasts(options: {
   };
 
   const perCall = options.groupsPerCall ?? 25;
+  if (!Number.isSafeInteger(perCall) || perCall < 1) throw new Error("groupsPerCall must be a positive integer");
   const rulings = new Map<number, RulingOutput["groups"][number]["clusters"]>();
+  const rulingRequests = new Map<number, TextModelRequest>();
   let calls = 0;
-  for (let start = 0; start < groups.length; start += perCall) {
-    const batch = groups.slice(start, start + perCall);
+  for (let start = 0; start < groups.length;) {
+    let end = start;
+    let members = 0;
+    while (end < groups.length && end - start < perCall && members + groups[end].members.length <= MAX_MERGE_MEMBERS_PER_CALL) members += groups[end++].members.length;
+    const batch = groups.slice(start, end);
     const lines = [`Work: ${options.workTitle} (${options.workAuthor})`, ""];
     batch.forEach((group, i) => {
       lines.push(`## Group ${start + i} (${group.pool === "locations" ? "places" : "characters"})`);
@@ -166,12 +166,45 @@ export async function mergeCasts(options: {
     });
     const user = lines.join("\n");
     const expectedCompletionTokens = 60 * batch.reduce((n, g) => n + g.members.length, 0) + 200;
-    await options.beforeCall?.({ system: RULING_SYSTEM, user, expectedCompletionTokens });
-    calls++;
-    const result = await model.complete({ label: `merge:${start}`, system: RULING_SYSTEM, user, schemaName: "merge_groups", schema: rulingOutputSchema, maxTokens: 30000, expectedCompletionTokens });
-    const parsed = parseModelJson(rulingOutputSchema, result.content);
-    if ("error" in parsed) throw new Error(`Merge ruling failed: ${parsed.error}`);
-    for (const g of parsed.value.groups) rulings.set(g.group, g.clusters);
+    const initialRequest = { label: `merge:${start}`, system: RULING_SYSTEM, user, schemaName: "merge_groups", schema: rulingOutputSchema, maxTokens: 30000, expectedCompletionTokens };
+    let feedback = "";
+    for (let attempt = 1; attempt <= MAX_RULING_ATTEMPTS; attempt++) {
+      const requestUser = user + feedback;
+      await options.beforeCall?.({ system: RULING_SYSTEM, user: requestUser, expectedCompletionTokens });
+      calls++;
+      const request = { ...initialRequest, label: attempt === 1 ? initialRequest.label : `merge:${start}:${attempt}`, user: requestUser };
+      const result = await model.complete(request);
+      const parsed = parseModelJson(rulingOutputSchema, result.content);
+      const problems: string[] = [];
+      const seenGroups = new Set<number>();
+      if ("error" in parsed) problems.push(parsed.error);
+      else for (const group of parsed.value.groups) {
+        if (group.group < start || group.group >= end || seenGroups.has(group.group)) { problems.push(`unknown or repeated group ${group.group}`); continue; }
+        seenGroups.add(group.group);
+        const expected = new Set(groups[group.group].members);
+        const seen = new Set<string>();
+        for (const cluster of group.clusters) {
+          if (!cluster.members.length) problems.push(`group ${group.group}: empty cluster`);
+          for (const member of cluster.members) {
+            if (!expected.has(member) || seen.has(member)) problems.push(`group ${group.group}: unknown or repeated member ${member}`);
+            seen.add(member);
+          }
+        }
+        for (const member of expected) if (!seen.has(member)) problems.push(`group ${group.group}: missing member ${member}`);
+      }
+      for (let index = start; index < end; index++) if (!seenGroups.has(index)) problems.push(`missing group ${index}`);
+      if (!problems.length && "value" in parsed) {
+        for (const group of parsed.value.groups) {
+          rulings.set(group.group, group.clusters);
+          rulingRequests.set(group.group, initialRequest);
+        }
+        await options.onRuling?.(initialRequest, result);
+        break;
+      }
+      if (attempt === MAX_RULING_ATTEMPTS) throw new Error(`Merge ruling failed after ${attempt} attempts: ${problems.join("; ")}`);
+      feedback = `\n\nThe previous answer was rejected: ${problems.join("; ")}\nReturn the FULL ruling for every numbered group above, using each exact member key once within its group.`;
+    }
+    start = end;
   }
 
   const entries: MergedEntry[] = [];
@@ -199,29 +232,46 @@ export async function mergeCasts(options: {
     return entry;
   };
   const groupReport: MergeResult["groups"] = [];
+  const parent = new Map([...lookup.keys()].map((key) => [key, key]));
+  const find = (key: string): string => {
+    let root = key;
+    while (parent.get(root) !== root) root = parent.get(root)!;
+    parent.set(key, root);
+    return root;
+  };
+  const descriptions = new Map<string, RulingOutput["groups"][number]["clusters"][number]>();
   groups.forEach((group, index) => {
-    const placed = new Set<string>();
     const clusters: Array<{ name: string; members: string[] }> = [];
-    for (const cluster of rulings.get(index) ?? []) {
-      const members = cluster.members.filter((m) => group.members.includes(m) && !placed.has(m));
-      if (!members.length) continue;
-      for (const m of members) placed.add(m);
-      const readingKind = cluster.kind === "place" ? undefined : cluster.kind;
-      addEntry(group.pool, cluster.name, group.pool === "characters" ? readingKind ?? lookup.get(members[0])!.entry.kind : undefined, cluster.note, members);
-      clusters.push({ name: cluster.name, members });
-    }
-    for (const m of group.members) {
-      if (placed.has(m)) continue;
-      const e = lookup.get(m)!.entry;
-      addEntry(group.pool, e.name, e.kind, e.note, [m]);
-      clusters.push({ name: e.name, members: [m] });
-      unplaced.push(m);
+    for (const cluster of rulings.get(index)!) {
+      for (const member of cluster.members) {
+        parent.set(find(member), find(cluster.members[0]));
+        if (!descriptions.has(member)) descriptions.set(member, cluster);
+      }
+      clusters.push({ name: cluster.name, members: cluster.members });
     }
     groupReport.push({ pool: group.pool, members: group.members, clusters });
   });
-  for (const key of singles) {
-    const item = lookup.get(key)!;
-    addEntry(item.pool, item.entry.name, item.entry.kind, item.entry.note, [key]);
+  for (const [index, clusters] of rulings) {
+    const separated = new Set<string>();
+    for (const cluster of clusters) {
+      const root = find(cluster.members[0]);
+      if (separated.has(root)) {
+        const implicated = new Set([...rulings].filter(([, candidates]) => candidates.some((candidate) => candidate.members.some((member) => find(member) === root))).map(([group]) => rulingRequests.get(group)!));
+        for (const request of implicated) await options.onRuling?.(request, null);
+        throw new Error(`Conflicting identity rulings in group ${index}: ${cluster.members[0]} was both joined and separated; inspect retained merge attempts`);
+      }
+      separated.add(root);
+    }
+  }
+  const identities = new Map<string, string[]>();
+  for (const key of lookup.keys()) {
+    const root = find(key);
+    identities.set(root, [...(identities.get(root) ?? []), key]);
+  }
+  for (const members of identities.values()) {
+    const item = lookup.get(members[0])!;
+    const description = descriptions.get(members[0]);
+    addEntry(item.pool, description?.name ?? item.entry.name, description?.kind ?? item.entry.kind, description?.note ?? item.entry.note, members);
   }
 
   const sections: MergedSection[] = [];

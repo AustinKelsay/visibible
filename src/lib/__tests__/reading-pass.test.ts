@@ -12,7 +12,8 @@ import { createWorkReader } from "../work-input";
 import type { TextModel, TextModelRequest, TextModelResult } from "../reading-pass/model";
 import { runReadingPass, emptyState, planReadingPass, BudgetExceededError, analysisRecords, type ReadingPassState } from "../reading-pass/run";
 import { createMemoryAnalysisStore, createConvexAnalysisStore } from "../reading-pass/store";
-import { readDivision, rootDivisions } from "../reading-pass/division";
+import { readDivision, rootDivisions, type DivisionReading } from "../reading-pass/division";
+import { mergeCasts, MAX_MERGE_MEMBERS_PER_CALL } from "../reading-pass/merge";
 import { splitLongRun } from "../reading-pass/moments";
 
 const twoBooks = JSON.parse(readFileSync(new URL("../../../tests/fixtures/works/two-books.json", import.meta.url), "utf8"));
@@ -76,6 +77,81 @@ const ruling = (request: TextModelRequest) => {
     return { group: g.n, clusters: [{ name, kind: members[0].endsWith(":the_lake") ? "place" : "person", note: "One and the same", members }] };
   }) };
 };
+
+function exactRuling(request: TextModelRequest, split = false) {
+  return { groups: [...request.user.matchAll(/## Group (\d+) \((?:characters|places)\)\n([\s\S]*?)(?=## Group|$)/g)].map((match) => {
+    const members = [...match[2].matchAll(/^- (\S+) \| /gm)].map((m) => m[1]);
+    return { group: Number(match[1]), clusters: (split ? members.map((m) => [m]) : [members]).map((keys) => ({ name: keys[0].split(":").at(-1)!, kind: "person", note: "Fixture identity ruling.", members: keys })) };
+  }) };
+}
+
+function castReading(divisionId: string, characters: DivisionReading["characters"]): DivisionReading {
+  return { divisionId, label: divisionId, unitCount: 0, characters, locations: [], sections: [], brief: alphaReading.brief, attempts: [] };
+}
+
+describe("bounded identity rulings", () => {
+  it("keeps overlapping aliases separate until ruled, and bounds long alias chains by member count", async () => {
+    const characters = Array.from({ length: 180 }, (_, i) => ({ id: `person${i}`, name: `Person${i}`, aliases: [`link${i}`, `link${i + 1}`], kind: "person" as const, note: `Distinct person ${i}.`, same_person_as: "" }));
+    const model = scriptedModel({ "merge:": (request) => {
+      expect([...request.user.matchAll(/^- \S+ \| /gm)].length).toBeLessThanOrEqual(MAX_MERGE_MEMBERS_PER_CALL);
+      // Shared aliases are candidates, not evidence that these 180 people are one person.
+      return exactRuling(request, true);
+    } });
+    const result = await mergeCasts({ workTitle: "Alias chain", workAuthor: "Fixture", readings: [castReading("alpha", characters)], model });
+    expect(result.entries).toHaveLength(180);
+    expect(result.groups.every((g) => g.members.length === 2)).toBe(true);
+    expect(result.unplaced).toEqual([]);
+    expect(model.calls.length).toBeGreaterThan(1);
+  });
+
+  it("retries omitted, duplicate and foreign members, then refuses incomplete rulings rather than inventing singletons", async () => {
+    const characters = [{ id: "ada", name: "Ada", aliases: [], kind: "person" as const, note: "One person.", same_person_as: "" }];
+    const readings = [castReading("alpha", characters), castReading("beta", characters)];
+    const repaired = scriptedModel({ "merge:": (request, calls) => {
+      const answer = exactRuling(request);
+      if (calls.length === 1) answer.groups[0].clusters[0].members.pop();
+      else expect(request.user).toContain("missing member beta:character:ada");
+      return answer;
+    } });
+    expect((await mergeCasts({ workTitle: "Ada", workAuthor: "Fixture", readings, model: repaired })).entries).toHaveLength(1);
+    expect(repaired.calls).toHaveLength(2);
+    for (const fault of ["missing", "duplicate", "foreign", "group"] as const) {
+      const model = scriptedModel({ "merge:": (request) => {
+        const answer = exactRuling(request);
+        const cluster = answer.groups[0].clusters[0];
+        if (fault === "missing") cluster.members.pop();
+        if (fault === "duplicate") cluster.members.push(cluster.members[0]);
+        if (fault === "foreign") cluster.members.push("other:character:ada");
+        if (fault === "group") answer.groups[0].group = 99;
+        return answer;
+      } });
+      await expect(mergeCasts({ workTitle: "Ada", workAuthor: "Fixture", readings, model })).rejects.toThrow(/Merge ruling failed after 3 attempts/);
+      expect(model.calls).toHaveLength(3);
+    }
+  });
+
+  it("refuses an oversized single alias before a paid call", async () => {
+    const readings = [castReading("alpha", Array.from({ length: 151 }, (_, i) => ({ id: `p${i}`, name: "the king", aliases: [], kind: "person" as const, note: "Different kings.", same_person_as: "" })))];
+    const model = scriptedModel({ "merge:": (request) => exactRuling(request) });
+    await expect(mergeCasts({ workTitle: "Kings", workAuthor: "Fixture", readings, model })).rejects.toThrow(/151 members.*150-member limit/);
+    expect(model.calls).toHaveLength(0);
+  });
+
+  it("rejects contradictory joins across overlapping name groups", async () => {
+    const characters = [
+      { id: "ada", name: "Ada", aliases: ["left", "right"] },
+      { id: "bea", name: "Bea", aliases: ["left", "middle"] },
+      { id: "cara", name: "Cara", aliases: ["right", "middle"] },
+    ].map((c) => ({ ...c, kind: "person" as const, note: "Distinct individuals.", same_person_as: "" }));
+    const model = scriptedModel({ "merge:": (request) => {
+      const answer = exactRuling(request);
+      const first = answer.groups[0].clusters[0];
+      answer.groups[0].clusters = first.members.map((member) => ({ ...first, members: [member] }));
+      return answer;
+    } });
+    await expect(mergeCasts({ workTitle: "Conflicting aliases", workAuthor: "Fixture", readings: [castReading("alpha", characters)], model })).rejects.toThrow(/Conflicting identity rulings/);
+  });
+});
 const briefAnswer = {
   tone: "Quiet, clear and sunlit.",
   depiction_rules: ["Jonah always carries a net.", "Royalty wears a plain circlet, never a jewelled crown."],
@@ -181,6 +257,77 @@ describe("reading pass", () => {
     expect(model.calls.map((c) => c.label)).toEqual(["read:alpha:1", "read:beta:1", "merge:0", "brief"]);
     expect(state.staged?.generation).toBe(1);
     await expect(runReadingPass({ workFile: twoBooks, workVersion: "wv2", model, store: memory.store, state, saveState, budgetUsd: 1 })).rejects.toThrow(/Start a new run/);
+  });
+
+  it("resumes an interrupted cast merge from retained responses without repeating completed paid batches", async () => {
+    const characters = Array.from({ length: 30 }, (_, i) => ({ id: `p${i}`, name: `Person${i}`, aliases: [], kind: "person" as const, note: `Same person ${i} across both books.`, same_person_as: "" }));
+    const reading = (source: typeof alphaReading | typeof betaReading) => ({ ...source, characters, locations: [], sections: source.sections.map((s) => ({ ...s, setting: [], on_stage: ["p0"], mentioned_only: [] })) });
+    const model = scriptedModel({
+      "read:alpha": () => reading(alphaReading), "read:beta": () => reading(betaReading),
+      "merge:": (request) => {
+        if (request.label === "merge:25") throw new Error("connection lost");
+        const answer = exactRuling(request);
+        if (request.label === "merge:0") answer.groups[0].clusters[0].members.pop();
+        return answer;
+      },
+    });
+    const state = emptyState("two-books", "v1");
+    const options = { workFile: twoBooks, workVersion: "v1", store: null, state, saveState: async () => {}, budgetUsd: 1 };
+    await expect(runReadingPass({ ...options, model })).rejects.toThrow("connection lost");
+    expect(Object.keys(state.mergeResponses ?? {})).toHaveLength(1);
+    expect(state.mergeAttempts).toHaveLength(2);
+    expect(state.ledger.map((entry) => entry.label)).toEqual(["read:alpha:1", "read:beta:1", "merge:0", "merge:0:2"]);
+    const resumed = scriptedModel({ "merge:": (request) => exactRuling(request), brief: () => briefAnswer });
+    const result = await runReadingPass({ ...options, state: JSON.parse(JSON.stringify(state)), model: resumed });
+    expect(resumed.calls.map((request) => request.label)).toEqual(["merge:25", "brief"]);
+    expect(result.merge?.entries).toHaveLength(30);
+  });
+
+  it("retains rejected merge answers for audit but asks for a fresh ruling when the same run resumes", async () => {
+    const model = scriptedModel({ ...happyScript, "merge:": () => ({ groups: [] }) });
+    const state = emptyState("two-books", "v1");
+    const options = { workFile: twoBooks, workVersion: "v1", store: null, state, saveState: async () => {}, budgetUsd: 1 };
+    await expect(runReadingPass({ ...options, model })).rejects.toThrow(/Merge ruling failed after 3 attempts/);
+    expect(Object.keys(state.mergeResponses ?? {})).toHaveLength(0);
+    expect(state.mergeAttempts).toHaveLength(3);
+    expect(state.merge).toBeNull();
+    const resumed = scriptedModel({ "merge:": ruling, brief: () => briefAnswer });
+    const result = await runReadingPass({ ...options, state: JSON.parse(JSON.stringify(state)), model: resumed });
+    expect(resumed.calls.map((request) => request.label)).toEqual(["merge:0", "brief"]);
+    expect(result.merge?.unplaced).toEqual([]);
+    expect(result.mergeAttempts).toHaveLength(4);
+    expect(result.ledger.filter((entry) => entry.label.startsWith("merge:"))).toHaveLength(4);
+  });
+
+  it("invalidates conflicting batches on resume while retaining unrelated accepted batches", async () => {
+    const common: DivisionReading["characters"] = Array.from({ length: 30 }, (_, i) => ({ id: `p${i}`, name: `Person${i}`, aliases: [], kind: "person", note: `Same person ${i} in both books.`, same_person_as: "" }));
+    const conflicting = [
+      { id: "ada", name: "Ada", aliases: ["left", "right"] },
+      { id: "bea", name: "Bea", aliases: ["left", "middle"] },
+      { id: "cara", name: "Cara", aliases: ["right", "middle"] },
+    ].map((entry) => ({ ...entry, kind: "person" as const, note: "Distinct people.", same_person_as: "" }));
+    const reading = (source: typeof alphaReading | typeof betaReading, characters: typeof common) => ({ ...source, characters, locations: [], sections: source.sections.map((section) => ({ ...section, setting: [], on_stage: ["p0"], mentioned_only: [] })) });
+    const model = scriptedModel({
+      "read:alpha": () => reading(alphaReading, [...conflicting, ...common]), "read:beta": () => reading(betaReading, common),
+      "merge:": (request) => {
+        const answer = exactRuling(request);
+        if (request.label === "merge:0") {
+          const cluster = answer.groups[0].clusters[0];
+          answer.groups[0].clusters = cluster.members.map((member) => ({ ...cluster, members: [member] }));
+        }
+        return answer;
+      },
+    });
+    const state = emptyState("two-books", "v1");
+    const options = { workFile: twoBooks, workVersion: "v1", store: null, state, saveState: async () => {}, budgetUsd: 1 };
+    await expect(runReadingPass({ ...options, model })).rejects.toThrow(/Conflicting identity rulings/);
+    expect(state.mergeAttempts).toHaveLength(2);
+    expect(Object.keys(state.mergeResponses ?? {})).toHaveLength(1);
+    const resumed = scriptedModel({ "merge:": (request) => exactRuling(request, true), brief: () => briefAnswer });
+    const result = await runReadingPass({ ...options, state: JSON.parse(JSON.stringify(state)), model: resumed });
+    expect(resumed.calls.map((request) => request.label)).toEqual(["merge:0", "brief"]);
+    expect(result.mergeAttempts).toHaveLength(3);
+    expect(result.merge?.entries).toHaveLength(55); // 22 split common pairs, eight reused joins, three distinct aliases.
   });
 
   it("carries the rejected answer into cast repairs and still rejects partial replacement sections", async () => {
