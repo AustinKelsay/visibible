@@ -410,6 +410,87 @@ export const putDerivedRecord = mutation({
   },
 });
 
+// ---------------------------------------------------------------- lazy preparation (server)
+
+/**
+ * Claim the right to make a look or plan. The first caller holds the claim until it releases it
+ * or the claim expires; later callers learn who holds it and wait for the record instead of
+ * funding a second call. A claim is not needed for correctness, only to avoid paying twice.
+ */
+export const claimPreparation = mutation({
+  args: { serverSecret: v.string(), workId: v.string(), kind: analysisValidators.derivedKind, recordId: v.string(), holder: v.string(), ttlMs: v.number() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const now = Date.now();
+    const existing = await ctx.db
+      .query("preparationClaims")
+      .withIndex("by_work_kind_recordId", (q) => q.eq("workId", args.workId).eq("kind", args.kind).eq("recordId", args.recordId))
+      .collect();
+    const live = existing.find((c) => c.expiresAt > now);
+    for (const stale of existing.filter((c) => c.expiresAt <= now)) await ctx.db.delete(stale._id);
+    if (live) return { held: live.holder === args.holder, holder: live.holder, expiresAt: live.expiresAt };
+    await ctx.db.insert("preparationClaims", { workId: args.workId, kind: args.kind, recordId: args.recordId, holder: args.holder, expiresAt: now + args.ttlMs, createdAt: now });
+    return { held: true, holder: args.holder, expiresAt: now + args.ttlMs };
+  },
+});
+
+export const releasePreparation = mutation({
+  args: { serverSecret: v.string(), workId: v.string(), kind: analysisValidators.derivedKind, recordId: v.string(), holder: v.string() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const claims = await ctx.db
+      .query("preparationClaims")
+      .withIndex("by_work_kind_recordId", (q) => q.eq("workId", args.workId).eq("kind", args.kind).eq("recordId", args.recordId))
+      .collect();
+    for (const claim of claims) if (claim.holder === args.holder) await ctx.db.delete(claim._id);
+    return { released: true };
+  },
+});
+
+/** Owner preparation spend, per call; never a guest charge. */
+export const recordPreparationSpend = mutation({
+  args: {
+    serverSecret: v.string(), workId: v.string(), kind: v.string(), recordId: v.string(), model: v.string(), outcome: v.string(),
+    costUsd: v.optional(v.number()), promptTokens: v.optional(v.number()), completionTokens: v.optional(v.number()), elapsedMs: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const { serverSecret, ...entry } = args;
+    void serverSecret;
+    await ctx.db.insert("preparationLedger", { ...entry, createdAt: Date.now() });
+    return { recorded: true };
+  },
+});
+
+export const getPreparationSpend = query({
+  args: { workId: v.string() },
+  handler: async (ctx, args) => {
+    const entries = await ctx.db.query("preparationLedger").withIndex("by_work_createdAt", (q) => q.eq("workId", args.workId)).collect();
+    return { calls: entries.length, costUsd: entries.reduce((n, e) => n + (e.costUsd ?? 0), 0), byKind: entries.reduce<Record<string, number>>((acc, e) => ({ ...acc, [e.kind]: (acc[e.kind] ?? 0) + (e.costUsd ?? 0) }), {}) };
+  },
+});
+
+/** What a reader waiting on "Preparing scene" can be told: whether the look and plan exist or are being made. */
+export const getPreparationStatus = query({
+  args: { workId: v.string(), momentId: v.string() },
+  handler: async (ctx, args) => {
+    const work = await findWork(ctx, args.workId);
+    if (!work || work.activeGeneration === undefined) return { ready: false, look: "missing" as const, plan: "missing" as const, sectionId: null };
+    const moment = await findCurrentRecord(ctx, args.workId, work.activeGeneration, "moment", args.momentId);
+    const sectionId = moment && moment.payload.kind === "moment" ? moment.payload.sectionId : null;
+    const now = Date.now();
+    const state = async (kind: "look" | "plan", recordId: string | null) => {
+      if (!recordId) return "missing" as const;
+      if (await findCurrentRecord(ctx, args.workId, work.activeGeneration!, kind, recordId)) return "ready" as const;
+      const claims = await ctx.db.query("preparationClaims").withIndex("by_work_kind_recordId", (q) => q.eq("workId", args.workId).eq("kind", kind).eq("recordId", recordId)).collect();
+      return claims.some((c) => c.expiresAt > now) ? ("preparing" as const) : ("missing" as const);
+    };
+    const look = await state("look", sectionId);
+    const plan = await state("plan", moment ? args.momentId : null);
+    return { ready: look === "ready" && plan === "ready", look, plan, sectionId };
+  },
+});
+
 // ---------------------------------------------------------------- references (server)
 
 /** Record a reference image blob (sheet or style reference) with the exact inputs it was made from. */

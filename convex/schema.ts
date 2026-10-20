@@ -556,6 +556,30 @@ export default defineSchema({
     .index("by_work_kind_recordId", ["workId", "kind", "recordId"])
     .index("by_work_status", ["workId", "status"]),
 
+  // Lazy preparation (#171): who is making a look or plan right now, so concurrent misses across
+  // server instances do not each fund the same call, and what owner preparation has cost.
+  preparationClaims: defineTable({
+    workId: v.string(),
+    kind: analysisKindValidator,
+    recordId: v.string(),
+    holder: v.string(),
+    expiresAt: v.number(),
+    createdAt: v.number(),
+  }).index("by_work_kind_recordId", ["workId", "kind", "recordId"]),
+
+  preparationLedger: defineTable({
+    workId: v.string(),
+    kind: v.string(),
+    recordId: v.string(),
+    model: v.string(),
+    costUsd: v.optional(v.number()),
+    promptTokens: v.optional(v.number()),
+    completionTokens: v.optional(v.number()),
+    elapsedMs: v.optional(v.number()),
+    outcome: v.string(),
+    createdAt: v.number(),
+  }).index("by_work_createdAt", ["workId", "createdAt"]),
+
   attentionItems: defineTable({
     workId: v.string(),
     reason: v.string(),
