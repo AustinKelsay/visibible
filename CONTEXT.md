@@ -68,6 +68,8 @@ _Avoid_: Pericope, chapter (when meaning the episode)
 
 **Pin**: An owner's choice of one reference sheet or style reference that the engine keeps, ignoring staleness, until unpinned.
 
+**Analysis generation**: One complete result of reading a work, staged as a candidate and activated whole, after which the engine serves it until the next one activates. Not a generation in the image sense.
+
 **Image report**: A reader's feedback about one saved image, linked to the available context of how it was generated.
 
 **Attention list**: The owner's collection of concerns about a work's analysis and saved images, including image reports and problems found while preparing the work.
