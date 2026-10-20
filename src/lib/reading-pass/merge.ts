@@ -6,7 +6,7 @@
  * accompanies each group.
  */
 import type { DivisionReading, DivisionSection } from "./division";
-import { RULING_SYSTEM, rulingOutputSchema, type RulingOutput } from "./prompts";
+import { RULING_SYSTEM, rulingOutputSchema, rulingSchemaForGroups, type RulingOutput } from "./prompts";
 import { parseModelJson, type TextModel, type TextModelRequest, type TextModelResult } from "./model";
 
 export type EntryKind = "character" | "location" | "object";
@@ -166,7 +166,8 @@ export async function mergeCasts(options: {
     });
     const user = lines.join("\n");
     const expectedCompletionTokens = 60 * batch.reduce((n, g) => n + g.members.length, 0) + 200;
-    const initialRequest = { label: `merge:${start}`, system: RULING_SYSTEM, user, schemaName: "merge_groups", schema: rulingOutputSchema, maxTokens: 30000, expectedCompletionTokens };
+    const schema = rulingSchemaForGroups(batch.map((group, i) => ({ group: start + i, members: group.members })));
+    const initialRequest = { label: `merge:${start}`, system: RULING_SYSTEM, user, schemaName: "merge_groups", schema, maxTokens: 30000, expectedCompletionTokens };
     let feedback = "";
     for (let attempt = 1; attempt <= MAX_RULING_ATTEMPTS; attempt++) {
       const requestUser = user + feedback;
@@ -202,7 +203,7 @@ export async function mergeCasts(options: {
         break;
       }
       if (attempt === MAX_RULING_ATTEMPTS) throw new Error(`Merge ruling failed after ${attempt} attempts: ${problems.join("; ")}`);
-      feedback = `\n\nThe previous answer was rejected: ${problems.join("; ")}\nReturn the FULL ruling for every numbered group above, using each exact member key once within its group.`;
+      feedback = `\n\nPrevious answer:\n${result.content}\n\nThe previous answer was rejected: ${problems.join("; ")}\nReturn the FULL ruling for every numbered group above, using each exact member key once within its group. Do not add keys from any other group.`;
     }
     start = end;
   }

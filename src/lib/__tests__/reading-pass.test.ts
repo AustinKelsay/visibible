@@ -15,6 +15,7 @@ import { createMemoryAnalysisStore, createConvexAnalysisStore } from "../reading
 import { readDivision, rootDivisions, type DivisionReading } from "../reading-pass/division";
 import { mergeCasts, MAX_MERGE_MEMBERS_PER_CALL } from "../reading-pass/merge";
 import { splitLongRun } from "../reading-pass/moments";
+import { responseSchema } from "../reading-pass/prompts";
 
 const twoBooks = JSON.parse(readFileSync(new URL("../../../tests/fixtures/works/two-books.json", import.meta.url), "utf8"));
 const voyage = JSON.parse(readFileSync(new URL("../../../tests/fixtures/nested-work.json", import.meta.url), "utf8"));
@@ -90,6 +91,27 @@ function castReading(divisionId: string, characters: DivisionReading["characters
 }
 
 describe("bounded identity rulings", () => {
+  it("constrains each group's provider schema to its own member keys, not other keys in the same batch", async () => {
+    const characters = ["ada", "bea"].map((id) => ({ id, name: id, aliases: [], kind: "person" as const, note: "Same person in both books.", same_person_as: "" }));
+    const model = scriptedModel({ "merge:": (request) => {
+      const answer = exactRuling(request);
+      expect(request.schema.safeParse(answer).success).toBe(true);
+      const providerSchema = responseSchema(request.schema);
+      expect(providerSchema).toHaveProperty("properties.groups.items.anyOf");
+      expect(providerSchema).not.toHaveProperty("properties.groups.items.oneOf");
+      const foreign = structuredClone(answer);
+      foreign.groups[0].clusters[0].members.push(answer.groups[1].clusters[0].members[0]);
+      expect(request.schema.safeParse(foreign).success).toBe(false);
+      const wrongGroup = structuredClone(answer);
+      wrongGroup.groups[0].group = 99;
+      expect(request.schema.safeParse(wrongGroup).success).toBe(false);
+      return answer;
+    } });
+    const result = await mergeCasts({ workTitle: "Ada and Bea", workAuthor: "Fixture", readings: [castReading("alpha", characters), castReading("beta", characters)], model });
+    expect(result.entries).toHaveLength(2);
+    expect(model.calls).toHaveLength(1);
+  });
+
   it("keeps overlapping aliases separate until ruled, and bounds long alias chains by member count", async () => {
     const characters = Array.from({ length: 180 }, (_, i) => ({ id: `person${i}`, name: `Person${i}`, aliases: [`link${i}`, `link${i + 1}`], kind: "person" as const, note: `Distinct person ${i}.`, same_person_as: "" }));
     const model = scriptedModel({ "merge:": (request) => {
@@ -110,7 +132,10 @@ describe("bounded identity rulings", () => {
     const repaired = scriptedModel({ "merge:": (request, calls) => {
       const answer = exactRuling(request);
       if (calls.length === 1) answer.groups[0].clusters[0].members.pop();
-      else expect(request.user).toContain("missing member beta:character:ada");
+      else {
+        expect(request.user).toContain("missing member beta:character:ada");
+        expect(request.user).toContain('Previous answer:\n{"groups":');
+      }
       return answer;
     } });
     expect((await mergeCasts({ workTitle: "Ada", workAuthor: "Fixture", readings, model: repaired })).entries).toHaveLength(1);
