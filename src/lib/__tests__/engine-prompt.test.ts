@@ -68,7 +68,7 @@ describe("rendering packet", () => {
       expect(result.references.map((r) => r.caption)).toEqual(result.packet.references.map((r) => r.caption));
       expect(result.references[result.references.length - 1].caption).toMatch(/^Image 3: /);
       expect(result.prompt).toContain(result.references[0].caption);
-      expect(result.packet).toMatchObject({ promptVersion: "2026-10-20-generic-v1", styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
+      expect(result.packet).toMatchObject({ promptVersion: "2026-10-20-generic-v2", styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
         canon: [{ entryId: "sherlock_holmes", stageId: "main", version: "h1" }, expect.anything(), expect.anything(), expect.anything()],
         flags: { variationIncluded: true, neighborsIncluded: true, styleDetailIncluded: true, lookDetailIncluded: true } });
       expect(result.packet.budget.finalChars).toBe(result.prompt.length);
