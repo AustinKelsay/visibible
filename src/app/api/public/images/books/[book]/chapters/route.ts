@@ -7,6 +7,7 @@ import {
   handlePublicApiFailure,
   jsonPublic,
   jsonPublicError,
+  parsePublicStyleFilter,
   publicApiOptionsResponse,
   PUBLIC_DISCOVERY_CACHE_CONTROL,
   queryPublicChaptersWithImages,
@@ -38,6 +39,20 @@ export async function GET(request: Request, { params }: ChaptersRouteProps) {
     });
   }
 
+  const style = parsePublicStyleFilter(request);
+  if (!style.ok) {
+    trackPublicApiRequest({
+      context,
+      endpoint: "public-images-discovery",
+      statusCode: 400,
+      outcome: "error",
+    });
+    return jsonPublicError("Bad request", {
+      status: 400,
+      message: style.message,
+      cacheControl: "no-store",
+    });
+  }
   const { convex, serverSecret } = await getPublicApiServices();
   if (!convex || !serverSecret) {
     return serviceUnavailableResponse({
@@ -63,7 +78,8 @@ export async function GET(request: Request, { params }: ChaptersRouteProps) {
       convex,
       serverSecret,
       book.slug,
-      book.chapters.length
+      book.chapters.length,
+      style.filter
     );
 
     trackPublicApiRequest({
@@ -77,6 +93,7 @@ export async function GET(request: Request, { params }: ChaptersRouteProps) {
       {
         book: book.slug,
         name: book.name,
+        ...(style.filter.artStyle ? { artStyle: style.filter.artStyle } : {}),
         chapters,
         hrefTemplate: buildPublicChapterUrlTemplate(request, book.slug),
       },

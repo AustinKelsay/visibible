@@ -8,6 +8,7 @@ import {
   handlePublicApiFailure,
   jsonPublic,
   jsonPublicError,
+  parsePublicStyleFilter,
   publicApiOptionsResponse,
   publicImageHistoryQuerySchema,
   PUBLIC_CONTENT_CACHE_CONTROL,
@@ -59,6 +60,20 @@ export async function GET(request: Request, { params }: VerseImagesRouteProps) {
     });
   }
 
+  const style = parsePublicStyleFilter(request);
+  if (!style.ok) {
+    trackPublicApiRequest({
+      context,
+      endpoint: "public-images-history",
+      statusCode: 400,
+      outcome: "error",
+    });
+    return jsonPublicError("Bad request", {
+      status: 400,
+      message: style.message,
+      cacheControl: "no-store",
+    });
+  }
   const { convex, serverSecret } = await getPublicApiServices();
   if (!convex || !serverSecret) {
     return serviceUnavailableResponse({
@@ -86,11 +101,13 @@ export async function GET(request: Request, { params }: VerseImagesRouteProps) {
       serverSecret,
       verseId,
       queryParse.data.cursor ?? null,
-      queryParse.data.limit
+      queryParse.data.limit,
+      style.filter
     );
     const versePayload = buildPublicVersePayload(request, location);
     const payload = {
       verse: versePayload,
+      ...(style.filter.artStyle ? { artStyle: style.filter.artStyle } : {}),
       images: result.page.map((image) => buildPublicImageRecord(image, versePayload.pageUrl)),
       pageInfo: {
         nextCursor: result.isDone ? null : result.continueCursor,

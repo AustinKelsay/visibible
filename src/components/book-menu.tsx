@@ -44,7 +44,7 @@ function BookMenuWithConvex() {
   const [selectedBook, setSelectedBook] = useState<BibleBook | null>(null);
   const [selectedChapter, setSelectedChapter] = useState<number | null>(null);
 
-  const booksWithImages = useQuery(api.verseImages.getBooksWithImages) ?? [];
+  const booksWithImages = useQuery(api.verseImages.getBooksWithImages, {}) ?? [];
 
   const chaptersWithImages =
     useQuery(

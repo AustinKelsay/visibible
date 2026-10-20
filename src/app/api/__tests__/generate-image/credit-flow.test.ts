@@ -197,6 +197,7 @@ vi.mock("@/lib/convex-client", () => ({
           prompt: args.prompt as string | undefined, promptVersion: args.promptVersion as string | undefined,
           creditsCost: args.creditsCost as number | undefined,
           engine: args.engine as "legacy" | "generic" | undefined,
+          artStyleId: args.artStyleId as string | undefined,
           provenance: args.provenance as FunctionArgs<typeof internal.verseImages.saveImageWithUrl>["provenance"],
         });
         return { success: true, type: "url", id };
@@ -641,7 +642,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(request.renderingPacket!.canon.map((c) => c.entryId)).toEqual(["adam", "eden", "god"]);
       // The saved image is WEB text with full provenance; the reader's translation is request context only.
       const [image] = await savedImages();
-      expect(image).toMatchObject({ verseId: "genesis-1-1", translationId: "web", verseText: webText[1], engine: "generic", promptVersion: "2026-10-20-generic-v1" });
+      expect(image).toMatchObject({ verseId: "genesis-1-1", translationId: "web", verseText: webText[1], engine: "generic", artStyleId: "watercolor", promptVersion: "2026-10-20-generic-v1" });
       expect(image.provenance).toMatchObject({ workId: WORK, momentId: "genesis-1-1", sectionId: "genesis-1-1", styleId: "watercolor", lookVersion: request.renderingPacket!.lookVersion, planVersion: request.renderingPacket!.planVersion, requestTranslationId: "web" });
       expect(image.provenance!.references).toEqual([{ kind: "styleReference", id: "watercolor", version: expect.any(String) }, { kind: "sheet", id: "adam:main", version: expect.any(String) }]);
       // A second style of the same moment reuses the look and plan: no new preparation call, no style reference for Classical.

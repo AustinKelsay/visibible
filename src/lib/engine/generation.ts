@@ -497,7 +497,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
           verseId: unit.id, imageUrl, model: modelId, prompt, reference: context.moment.reference, verseText: context.moment.text,
           generationNumber: input.generationNumber ?? undefined, promptVersion: GENERIC_PROMPT_VERSION, translationId: sourceTranslationId,
           provider: getProviderName(modelId), providerRequestId, creditsCost: chargedCredits, costUsd: chargedCostUsd, durationMs,
-          aspectRatio: input.aspectRatio, generationId, engine: "generic", provenance, serverSecret,
+          aspectRatio: input.aspectRatio, generationId, engine: "generic", artStyleId: style.id, provenance, serverSecret,
         });
         if (saved && typeof saved.id === "string") savedImageId = saved.id;
       } catch (error) {

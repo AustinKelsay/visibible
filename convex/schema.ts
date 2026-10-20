@@ -262,6 +262,8 @@ export default defineSchema({
     generationId: v.optional(v.string()),
     // Engine and provenance (#175); absent on historical images, whose source stays unknown.
     engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
+    // The art style the image was rendered in (#176); absent on historical images, which read as Classical.
+    artStyleId: v.optional(v.string()),
     provenance: v.optional(imageProvenanceValidator),
     // Nostr publishing metadata
     nostrEventId: v.optional(v.string()),
@@ -273,6 +275,8 @@ export default defineSchema({
   })
     // Index for querying all images for a verse sorted by creation time
     .index("by_verse", ["verseId", "createdAt"])
+    // Style-leading discovery (#176): does a book or chapter have any image in one style?
+    .index("by_artStyle_verse", ["artStyleId", "verseId"])
     .index("by_storageId", ["storageId"])
     .index("by_generationId", ["generationId"])
     .index("by_createdAt", ["createdAt"]),

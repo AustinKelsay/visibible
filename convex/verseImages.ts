@@ -7,10 +7,10 @@ import {
   query,
   type QueryCtx,
 } from "./_generated/server";
-import { paginationOptsValidator } from "convex/server";
+import { paginationOptsValidator, type OrderedQuery } from "convex/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
-import { Id, type Doc } from "./_generated/dataModel";
+import { Id, type DataModel, type Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
 import { imageProvenanceValidator, renderingPacketValidator } from "./schema";
 
@@ -242,6 +242,74 @@ const getPublicImageUrl = (image: {
   throw new Error("Verse image is missing a public image URL.");
 };
 
+// ---------------------------------------------------------------- art styles (#176)
+
+/** Optional style selection for library reads: one style, or every style but that one. Omitted: all styles. */
+const styleFilterArgs = {
+  artStyle: v.optional(v.string()),
+  otherStyles: v.optional(v.boolean()),
+} as const;
+type StyleFilterArgs = { artStyle?: string; otherStyles?: boolean };
+type StyleFilter = { artStyle: string; otherStyles: boolean };
+const ART_STYLE_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+export const DEFAULT_ART_STYLE_ID = "classical";
+
+function normalizeStyleFilter(args: StyleFilterArgs): StyleFilter | null {
+  if (args.artStyle === undefined) {
+    if (args.otherStyles) throw new Error("otherStyles needs an artStyle to exclude");
+    return null;
+  }
+  if (!ART_STYLE_ID.test(args.artStyle)) throw new Error("Invalid art style id");
+  return { artStyle: args.artStyle, otherStyles: args.otherStyles === true };
+}
+
+/** An image without a stored art style is Classical at read time; nothing stored is rewritten. */
+export function artStyleOf(image: { artStyleId?: string }): string {
+  return image.artStyleId ?? DEFAULT_ART_STYLE_ID;
+}
+
+/** Apply the style selection inside the database read, so counts, existence checks and pages agree. */
+function withStyleFilter<Q extends OrderedQuery<DataModel["verseImages"]>>(query: Q, filter: StyleFilter | null): Q {
+  if (!filter) return query;
+  return query.filter((q) => {
+    const field = q.field("artStyleId");
+    const isStyle = filter.artStyle === DEFAULT_ART_STYLE_ID
+      ? q.or(q.eq(field, DEFAULT_ART_STYLE_ID), q.eq(field, undefined))
+      : q.eq(field, filter.artStyle);
+    return filter.otherStyles ? q.not(isStyle) : isStyle;
+  }) as Q;
+}
+
+/**
+ * Whether any image with a verse id in [prefix, prefix~) exists under the style selection. One style
+ * reads the style-leading index (Classical also checks images with no stored style); "other styles"
+ * has no bounded index form and scans the range with the filter.
+ */
+async function existsInVerseRange(ctx: QueryCtx, prefix: string, filter: StyleFilter | null): Promise<boolean> {
+  const range = { gte: prefix, lt: `${prefix}~` };
+  if (!filter || filter.otherStyles) {
+    const hit = await withStyleFilter(ctx.db.query("verseImages")
+      .withIndex("by_verse", (q) => q.gte("verseId", range.gte).lt("verseId", range.lt)), filter).first();
+    return hit !== null;
+  }
+  const styleValues: Array<string | undefined> = filter.artStyle === DEFAULT_ART_STYLE_ID ? [undefined, DEFAULT_ART_STYLE_ID] : [filter.artStyle];
+  for (const value of styleValues) {
+    const hit = await ctx.db.query("verseImages")
+      .withIndex("by_artStyle_verse", (q) => q.eq("artStyleId", value).gte("verseId", range.gte).lt("verseId", range.lt)).first();
+    if (hit) return true;
+  }
+  return false;
+}
+
+/** Source and style facts every library record reports, truthfully for historical images too. */
+function imageSourceFields(image: Pick<Doc<"verseImages">, "artStyleId" | "engine" | "provenance">) {
+  return {
+    artStyle: artStyleOf(image),
+    engine: image.engine,
+    requestTranslationId: image.provenance?.requestTranslationId,
+  };
+}
+
 const toPublicImageRecord = (image: {
   _id: Id<"verseImages">;
   storageId?: Id<"_storage">;
@@ -254,6 +322,7 @@ const toPublicImageRecord = (image: {
   imageWidth?: number;
   imageHeight?: number;
   createdAt: number;
+  artStyleId?: string;
 }) => {
   const imageUrl = getPublicImageUrl(image);
 
@@ -262,6 +331,7 @@ const toPublicImageRecord = (image: {
     imageUrl,
     reference: image.reference,
     model: image.model,
+    artStyle: artStyleOf(image),
     translationId: image.translationId,
     aspectRatio: image.aspectRatio,
     imageMimeType: image.imageMimeType,
@@ -278,12 +348,13 @@ const toPublicImageRecord = (image: {
 export const getLatestImage = query({
   args: {
     verseId: v.string(),
+    ...styleFilterArgs,
   },
   handler: async (ctx, args) => {
-    const image = await ctx.db
+    const image = await withStyleFilter(ctx.db
       .query("verseImages")
       .withIndex("by_verse", (q) => q.eq("verseId", args.verseId))
-      .order("desc")
+      .order("desc"), normalizeStyleFilter(args))
       .first();
 
     if (!image) return null;
@@ -318,6 +389,7 @@ export const getLatestImage = query({
         imageWidth: image.imageWidth,
         imageHeight: image.imageHeight,
         createdAt: image.createdAt,
+        ...imageSourceFields(image),
       };
     }
 
@@ -333,6 +405,7 @@ export const getChapterImageStatus = query({
   args: {
     book: v.string(),
     chapter: v.number(),
+    ...styleFilterArgs,
   },
   handler: async (ctx, args) => {
     // Query all verse images that match the book/chapter prefix
@@ -340,11 +413,11 @@ export const getChapterImageStatus = query({
     const prefix = `${args.book.toLowerCase()}-${args.chapter}-`;
 
     // Use a prefix range so the index only scans this chapter's verseIds.
-    const images = await ctx.db
+    const images = await withStyleFilter(ctx.db
       .query("verseImages")
       .withIndex("by_verse", (q) =>
         q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
-      )
+      ), normalizeStyleFilter(args))
       .collect();
 
     // Count images per verse for this chapter
@@ -377,15 +450,16 @@ export const getChapterGallery = query({
   args: {
     book: v.string(),
     chapter: v.number(),
+    ...styleFilterArgs,
   },
   handler: async (ctx, args) => {
     const prefix = `${args.book.toLowerCase()}-${args.chapter}-`;
 
-    const images = await ctx.db
+    const images = await withStyleFilter(ctx.db
       .query("verseImages")
       .withIndex("by_verse", (q) =>
         q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
-      )
+      ), normalizeStyleFilter(args))
       .collect();
 
     const imageCounts = new Map<number, number>();
@@ -425,6 +499,7 @@ export const getChapterGallery = query({
             imageId: image._id,
             imageUrl,
             model: image.model,
+            artStyle: artStyleOf(image),
             createdAt: image.createdAt,
             isLatest,
           };
@@ -457,16 +532,10 @@ const ALL_BOOK_SLUGS = [
 
 type BookSlug = (typeof ALL_BOOK_SLUGS)[number];
 
-async function findBooksWithImages(ctx: QueryCtx): Promise<BookSlug[]> {
+async function findBooksWithImages(ctx: QueryCtx, filter: StyleFilter | null = null): Promise<BookSlug[]> {
   const checks = await Promise.all(
     ALL_BOOK_SLUGS.map(async (slug) => {
-      const prefix = `${slug}-`;
-      const exists = await ctx.db
-        .query("verseImages")
-        .withIndex("by_verse", (q) =>
-          q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
-        )
-        .first();
+      const exists = await existsInVerseRange(ctx, `${slug}-`, filter);
       return exists ? slug : null;
     })
   );
@@ -482,9 +551,9 @@ async function findBooksWithImages(ctx: QueryCtx): Promise<BookSlug[]> {
  * a full table scan. Each book check uses the index to find just one record.
  */
 export const getBooksWithImages = query({
-  args: {},
-  handler: async (ctx) => {
-    return findBooksWithImages(ctx);
+  args: { ...styleFilterArgs },
+  handler: async (ctx, args) => {
+    return findBooksWithImages(ctx, normalizeStyleFilter(args));
   },
 });
 
@@ -495,16 +564,17 @@ export const getBooksWithImages = query({
 export const getChaptersWithImages = query({
   args: {
     book: v.string(),
+    ...styleFilterArgs,
   },
   handler: async (ctx, args) => {
     const prefix = `${args.book.toLowerCase()}-`;
 
     // Use prefix range on by_verse index
-    const images = await ctx.db
+    const images = await withStyleFilter(ctx.db
       .query("verseImages")
       .withIndex("by_verse", (q) =>
         q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
-      )
+      ), normalizeStyleFilter(args))
       .collect();
 
     const chaptersWithImages = new Set<number>();
@@ -548,10 +618,11 @@ export const getPublicApiIndex = query({
 export const getPublicBooksWithImages = query({
   args: {
     serverSecret: v.string(),
+    artStyle: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     validateServerSecret(args.serverSecret);
-    return findBooksWithImages(ctx);
+    return findBooksWithImages(ctx, normalizeStyleFilter(args));
   },
 });
 
@@ -563,9 +634,11 @@ export const getPublicChaptersWithImages = query({
     book: v.string(),
     chapterCount: v.number(),
     serverSecret: v.string(),
+    artStyle: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     validateServerSecret(args.serverSecret);
+    const filter = normalizeStyleFilter(args);
     const MAX_CHAPTERS = 150;
     if (
       !Number.isInteger(args.chapterCount) ||
@@ -578,13 +651,7 @@ export const getPublicChaptersWithImages = query({
     const checks = await Promise.all(
       Array.from({ length: args.chapterCount }, async (_, index) => {
         const chapter = index + 1;
-        const prefix = `${args.book.toLowerCase()}-${chapter}-`;
-        const exists = await ctx.db
-          .query("verseImages")
-          .withIndex("by_verse", (q) =>
-            q.gte("verseId", prefix).lt("verseId", `${prefix}~`)
-          )
-          .first();
+        const exists = await existsInVerseRange(ctx, `${args.book.toLowerCase()}-${chapter}-`, filter);
         return exists ? chapter : null;
       })
     );
@@ -600,14 +667,15 @@ export const getPublicVerseLatestImage = query({
   args: {
     verseId: v.string(),
     serverSecret: v.string(),
+    artStyle: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     validateServerSecret(args.serverSecret);
 
-    const image = await ctx.db
+    const image = await withStyleFilter(ctx.db
       .query("verseImages")
       .withIndex("by_verse", (q) => q.eq("verseId", args.verseId))
-      .order("desc")
+      .order("desc"), normalizeStyleFilter(args))
       .first();
 
     if (!image) return null;
@@ -624,14 +692,15 @@ export const listPublicVerseImagesPaginated = query({
     verseId: v.string(),
     paginationOpts: paginationOptsValidator,
     serverSecret: v.string(),
+    artStyle: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     validateServerSecret(args.serverSecret);
 
-    const page = await ctx.db
+    const page = await withStyleFilter(ctx.db
       .query("verseImages")
       .withIndex("by_verse", (q) => q.eq("verseId", args.verseId))
-      .order("desc")
+      .order("desc"), normalizeStyleFilter(args))
       .paginate(args.paginationOpts);
 
     const images = page.page.map((image) => toPublicImageRecord(image));
@@ -651,9 +720,11 @@ export const getPublicChapterLatestImages = query({
   args: {
     verseIds: v.array(v.string()),
     serverSecret: v.string(),
+    artStyle: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     validateServerSecret(args.serverSecret);
+    const filter = normalizeStyleFilter(args);
     const MAX_VERSES = 200;
     if (args.verseIds.length > MAX_VERSES) {
       throw new Error(`verseIds array cannot exceed ${MAX_VERSES} items`);
@@ -661,10 +732,10 @@ export const getPublicChapterLatestImages = query({
 
     const results = await Promise.all(
       args.verseIds.map(async (verseId) => {
-        const image = await ctx.db
+        const image = await withStyleFilter(ctx.db
           .query("verseImages")
           .withIndex("by_verse", (q) => q.eq("verseId", verseId))
-          .order("desc")
+          .order("desc"), filter)
           .first();
 
         if (!image) {
@@ -691,12 +762,13 @@ export const getImageHistory = query({
     limit: v.optional(v.number()),
     // Cache-busting token: changing this value forces Convex to re-run the query
     refreshToken: v.optional(v.number()),
+    ...styleFilterArgs,
   },
   handler: async (ctx, args) => {
-    const query = ctx.db
+    const query = withStyleFilter(ctx.db
       .query("verseImages")
       .withIndex("by_verse", (q) => q.eq("verseId", args.verseId))
-      .order("desc");
+      .order("desc"), normalizeStyleFilter(args));
 
     const images = args.limit
       ? await query.take(args.limit)
@@ -735,6 +807,7 @@ export const getImageHistory = query({
           imageWidth: image.imageWidth,
           imageHeight: image.imageHeight,
           createdAt: image.createdAt,
+          ...imageSourceFields(image),
         };
       })
     );
@@ -1153,6 +1226,7 @@ export const saveImageWithStorage = internalMutation({
     generationId: v.optional(v.string()),
     engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
     provenance: v.optional(imageProvenanceValidator),
+    artStyleId: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     if (args.generationId) {
@@ -1195,6 +1269,7 @@ export const saveImageWithStorage = internalMutation({
       generationId: args.generationId,
       engine: args.engine,
       provenance: args.provenance,
+      artStyleId: args.artStyleId,
       createdAt: Date.now(),
     });
     return id;
@@ -1292,6 +1367,7 @@ export const saveImageWithUrl = internalMutation({
     generationId: v.optional(v.string()),
     engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
     provenance: v.optional(imageProvenanceValidator),
+    artStyleId: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     if (args.generationId) {
@@ -1325,6 +1401,7 @@ export const saveImageWithUrl = internalMutation({
       generationId: args.generationId,
       engine: args.engine,
       provenance: args.provenance,
+      artStyleId: args.artStyleId,
       createdAt: Date.now(),
     });
     return id;
@@ -1590,6 +1667,7 @@ export const saveImage = action({
     generationId: v.optional(v.string()),
     engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
     provenance: v.optional(imageProvenanceValidator),
+    artStyleId: v.optional(v.string()),
     serverSecret: v.string(),
   },
   handler: async (ctx, args): Promise<{ success: true; type: string; id: Id<"verseImages"> }> => {
@@ -1614,6 +1692,7 @@ export const saveImage = action({
       generationId,
       engine,
       provenance,
+      artStyleId,
       serverSecret,
     } = args;
     validateServerSecret(serverSecret);
@@ -1636,6 +1715,7 @@ export const saveImage = action({
       aspectRatio,
       engine,
       provenance,
+      artStyleId,
     };
 
     if (generationId) {
