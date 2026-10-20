@@ -4,6 +4,8 @@ import { beforeAll, describe, expect, it } from "vitest";
 import { BIBLE_BOOKS } from "@/data/bible-structure";
 import { formatReference, verseLocationToId, verseToUrl } from "@/lib/navigation";
 import { createMomentReader, createWorkReader } from "@/lib/work-input";
+import { caseUnitId, caseWork, loadEvalCases } from "@/lib/image-evals/cases";
+import evalCases from "../../evals/images/cases.json";
 import manifest from "../../works/sources/manifest.json";
 import footnotes from "../../works/sources/web-footnotes.json";
 import { importHolmes, importWeb, sha256 } from "./importers";
@@ -19,6 +21,24 @@ function source(name: "web" | "holmes") {
 const webSource = source("web");
 const holmesSource = source("holmes");
 const holmes = createWorkReader(importHolmes(holmesSource));
+
+describe("committed evaluation inputs", () => {
+  it("resolves every fixed case against its imported work and canonical reference", () => {
+    const works = { "bible-web": createWorkReader(importWeb(webSource)), "holmes-adventures": holmes };
+    for (const c of loadEvalCases(evalCases)) {
+      const work = works[caseWork(c) as keyof typeof works];
+      expect(work, c.id).toBeDefined();
+      expect(work.getUnit(caseUnitId(c)).reference, c.id).toBe(c.reference);
+    }
+  });
+
+  it("selects the visitor's arrival and the red-haired client for the Holmes continuity cases", () => {
+    const cases = loadEvalCases(evalCases);
+    const text = (id: string) => holmes.getUnit(caseUnitId(cases.find((c) => c.id === id)!)).text;
+    expect(text("holmes-scandal-king-arrives")).toContain("black vizard mask");
+    expect(text("holmes-red-headed-league")).toContain("fiery red hair");
+  });
+});
 
 describe("WEB import", () => {
   let bible: ReturnType<typeof createWorkReader>;
