@@ -1,0 +1,132 @@
+{
+  "observedAt": "2026-10-20T20:34:48.251Z",
+  "sources": {
+    "catalog": "https://openrouter.ai/api/v1/models",
+    "usage": "https://openrouter.ai/api/v1/generation",
+    "pricing": "https://ai.google.dev/gemini-api/docs/pricing",
+    "inputTokens": "https://ai.google.dev/gemini-api/docs/media-resolution"
+  },
+  "model": {
+    "id": "google/gemini-3.1-flash-lite-image",
+    "pricing": {
+      "prompt": "0.00000025",
+      "completion": "0.0000015",
+      "image_output": "0.00003",
+      "web_search": "0.014"
+    },
+    "architecture": {
+      "modality": "text+image->text+image",
+      "input_modalities": [
+        "image",
+        "text"
+      ],
+      "output_modalities": [
+        "image",
+        "text"
+      ],
+      "tokenizer": "Gemini",
+      "instruct_type": null
+    }
+  },
+  "samples": [
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "arm": "generic:classical",
+      "references": 2,
+      "promptChars": 7337,
+      "providerRequestId": "gen-1792528290-q2X1Kx9j6XhuMw4ZRdu7",
+      "reportedModel": "google/gemini-3.1-flash-lite-image-20260630",
+      "promptTokens": 3881,
+      "outputImageTokens": 1120,
+      "actualCostUsd": 0.03457025
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "arm": "generic:watercolor",
+      "references": 3,
+      "promptChars": 7508,
+      "providerRequestId": "gen-1792528313-c4UzawmY4CdAix5j2J1V",
+      "reportedModel": "google/gemini-3.1-flash-lite-image-20260630",
+      "promptTokens": 5044,
+      "outputImageTokens": 1120,
+      "actualCostUsd": 0.034861
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "arm": "generic:icon",
+      "references": 3,
+      "promptChars": 7455,
+      "providerRequestId": "gen-1792528339-Jk42ZiRS9wwc9WmF43ok",
+      "reportedModel": "google/gemini-3.1-flash-lite-image-20260630",
+      "promptTokens": 5026,
+      "outputImageTokens": 1120,
+      "actualCostUsd": 0.0348565
+    },
+    {
+      "caseId": "holmes-scandal-king-arrives",
+      "arm": "generic:classical",
+      "references": 2,
+      "promptChars": 7958,
+      "providerRequestId": "gen-1792528374-V9wQiKsPeW4GLa5ZZKyK",
+      "reportedModel": "google/gemini-3.1-flash-lite-image-20260630",
+      "promptTokens": 4043,
+      "outputImageTokens": 1120,
+      "actualCostUsd": 0.03461075
+    },
+    {
+      "caseId": "holmes-scandal-king-arrives",
+      "arm": "generic:watercolor",
+      "references": 3,
+      "promptChars": 7779,
+      "providerRequestId": "gen-1792528397-VZuJysimZRfKChGYuH11",
+      "reportedModel": "google/gemini-3.1-flash-lite-image-20260630",
+      "promptTokens": 5130,
+      "outputImageTokens": 1120,
+      "actualCostUsd": 0.0348825
+    },
+    {
+      "caseId": "holmes-scandal-king-arrives",
+      "arm": "generic:icon",
+      "references": 3,
+      "promptChars": 7716,
+      "providerRequestId": "gen-1792528421-ZsTtQch4wQcRes40YrPG",
+      "reportedModel": "google/gemini-3.1-flash-lite-image-20260630",
+      "promptTokens": 5109,
+      "outputImageTokens": 1120,
+      "actualCostUsd": 0.03487725
+    },
+    {
+      "caseId": "holmes-red-headed-league",
+      "arm": "generic:classical",
+      "references": 2,
+      "promptChars": 7653,
+      "providerRequestId": "gen-1792528464-mt6dWhpQqs5L7WjMFo8w",
+      "reportedModel": "google/gemini-3.1-flash-lite-image-20260630",
+      "promptTokens": 3987,
+      "outputImageTokens": 1120,
+      "actualCostUsd": 0.03459675
+    },
+    {
+      "caseId": "holmes-red-headed-league",
+      "arm": "generic:watercolor",
+      "references": 3,
+      "promptChars": 7824,
+      "providerRequestId": "gen-1792528492-KGFWsj77FBc55NrkOx0z",
+      "reportedModel": "google/gemini-3.1-flash-lite-image-20260630",
+      "promptTokens": 5150,
+      "outputImageTokens": 1120,
+      "actualCostUsd": 0.0348875
+    },
+    {
+      "caseId": "holmes-red-headed-league",
+      "arm": "generic:icon",
+      "references": 3,
+      "promptChars": 7771,
+      "providerRequestId": "gen-1792528518-GxDGk7OMmSRgpDChwFs9",
+      "reportedModel": "google/gemini-3.1-flash-lite-image-20260630",
+      "promptTokens": 5132,
+      "outputImageTokens": 1120,
+      "actualCostUsd": 0.034883
+    }
+  ]
+}

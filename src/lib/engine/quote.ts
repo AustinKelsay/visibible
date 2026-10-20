@@ -27,15 +27,21 @@ export type GenericImageQuote = {
 
 export function quoteGenericImage(args: { modelId: string; billing: ImageBilling | undefined; resolution: ImageResolution; promptChars: number; referenceImages: number }): GenericImageQuote | null {
   const { billing } = args;
+  if (!Number.isSafeInteger(args.referenceImages) || args.referenceImages < 0) return null;
   const outputTokens = imageCapabilities(args.modelId)?.outputTokens[args.resolution];
   if (!outputTokens || !billing || billing.unit !== "token" || billing.version !== IMAGE_BILLING_VERSION) return null;
-  if (args.referenceImages > 0 && !billing.imageInputUsd) return null; // a reference would be sent without a price for it
+  const imageInput = billing.imageInputUsd !== undefined
+    ? { price: billing.imageInputUsd, units: args.referenceImages }
+    : billing.imageInputTokens
+      ? { price: billing.imageInputTokens.usdPerToken, units: args.referenceImages * billing.imageInputTokens.perImage }
+      : null;
+  if (args.referenceImages > 0 && !imageInput) return null;
   const promptTokens = Math.ceil(args.promptChars / PROMPT_CHARS_PER_TOKEN);
   const quote = quoteBillableUnits([
     { price: billing.textInputUsd, units: promptTokens },
     { price: billing.textOutputUsd, units: RESPONSE_TEXT_TOKENS },
     { price: billing.imageOutputUsd, units: outputTokens },
-    ...(args.referenceImages > 0 ? [{ price: billing.imageInputUsd, units: args.referenceImages }] : []),
+    ...(args.referenceImages > 0 && imageInput ? [imageInput] : []),
   ]);
   if (!quote) return null;
   return { ...quote, promptTokens, referenceImages: args.referenceImages, outputTokens, withinEnvelope: quote.credits <= IMAGE_ENVELOPE_CREDITS };
