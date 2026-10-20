@@ -515,6 +515,8 @@ export default defineSchema({
     briefVersion: v.optional(v.string()),
     activeGeneration: v.optional(v.number()),
     candidateGeneration: v.optional(v.number()),
+    // After a wipe that kept owner versions: the generation whose owner versions the next activation carries forward.
+    ownerVersionsFrom: v.optional(v.number()),
     nextGeneration: v.number(),
     updatedAt: v.number(),
   }).index("by_workId", ["workId"]),

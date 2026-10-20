@@ -53,3 +53,4 @@ Every new image request is bound to one engine at admission ([admission.ts](../.
 
 Generic dispatch goes through one seam ([dispatch.ts](../../src/lib/engine/dispatch.ts)). Until the generation slice connects it, the installed adapter declines with a retryable 503 before any reservation, request record or paid call, so no shadow paid execution can occur. Rollback is `GENERIC_ENGINE_MODE=disabled`: accepted generic requests keep their engine, new Classical requests use legacy, and the other styles report unavailable.
 
+Corrections to the generic engine's inputs (canon, looks, references, plans) and the attention list go through the [owner corrections runbook](../workflow/OWNER-CORRECTIONS.md); they never alter saved images or charges.

@@ -285,7 +285,8 @@ export const activateGeneration = mutation({
     const candidateByKey: RecordMap = new Map(records.map((r) => [key(r.kind, r.recordId), r]));
     // Decide first what would actually serve: candidate records, with owner versions carried in
     // wherever their record id survived the reread. Only that set is checked for structure.
-    const previous = work.activeGeneration === undefined ? [] : await currentRecords(ctx, args.workId, work.activeGeneration);
+    const ownerSource = work.activeGeneration ?? work.ownerVersionsFrom;
+    const previous = ownerSource === undefined ? [] : await currentRecords(ctx, args.workId, ownerSource);
     const carriedOwners = previous.filter((r) => r.source === "owner" && candidateByKey.has(key(r.kind, r.recordId)));
     const unmatchedOwners = previous.filter((r) => r.source === "owner" && !candidateByKey.has(key(r.kind, r.recordId)));
     const effective = new Map(candidateByKey);
@@ -310,13 +311,13 @@ export const activateGeneration = mutation({
       });
       unmatched.push(key(owner.kind, owner.recordId));
     }
-    if (work.activeGeneration !== undefined) {
+    if (ownerSource !== undefined) {
       for (const r of previous) await ctx.db.patch(r._id, { status: "retired" });
-      const previousGeneration = await findGeneration(ctx, args.workId, work.activeGeneration);
-      if (previousGeneration) await ctx.db.patch(previousGeneration._id, { status: "retired", endedAt: now });
+      const previousGeneration = await findGeneration(ctx, args.workId, ownerSource);
+      if (previousGeneration && previousGeneration.status !== "retired") await ctx.db.patch(previousGeneration._id, { status: "retired", endedAt: now });
     }
     await ctx.db.patch(candidate._id, { status: "active", activatedAt: now });
-    await ctx.db.patch(work._id, { activeGeneration: args.generation, candidateGeneration: undefined, updatedAt: now });
+    await ctx.db.patch(work._id, { activeGeneration: args.generation, candidateGeneration: undefined, ownerVersionsFrom: undefined, updatedAt: now });
     return { generation: args.generation, carriedOwnerVersions: carried, unmatchedOwnerVersions: unmatched, retiredGeneration: work.activeGeneration ?? null };
   },
 });
@@ -349,6 +350,8 @@ export const correctRecord = mutation({
     kind: analysisValidators.kind,
     recordId: v.string(),
     payload: analysisValidators.payload,
+    /** The version the owner saw when editing; a newer current version makes the command stale and refused. */
+    expectedVersion: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     validateServerSecret(args.serverSecret);
@@ -358,7 +361,11 @@ export const correctRecord = mutation({
     const current = await findCurrentRecord(ctx, args.workId, work.activeGeneration, args.kind, args.recordId);
     if (!current) throw new Error(`No current ${args.kind} ${args.recordId} in generation ${work.activeGeneration}`);
     const version = contentVersion(args.payload);
-    if (version === current.version && current.source === "owner") return { version, changed: false };
+    if (version === current.version && current.source === "owner") return { version, changed: false, previousVersion: current.version };
+    if (args.expectedVersion !== undefined && args.expectedVersion !== current.version) {
+      // A retry of the same edit is safe (its result already stands); any other stale command is refused.
+      throw new Error(`Stale edit: ${args.kind} ${args.recordId} is at version ${current.version}, not ${args.expectedVersion}`);
+    }
     await writeVersion(ctx, current, {
       workId: args.workId, generation: work.activeGeneration, kind: args.kind, recordId: args.recordId, version,
       source: "owner", inputs: current.inputs, payload: args.payload,
@@ -580,6 +587,73 @@ export const closeAttention = mutation({
     if (!item) throw new Error("Unknown attention item");
     await ctx.db.patch(args.id, { status: "closed", disposition: args.disposition, closedAt: Date.now(), lastActivityAt: Date.now() });
     return { closed: true };
+  },
+});
+
+/**
+ * Close the checker-made attention items for one record after the owner corrected or redid it.
+ * Reader image reports (reason "reader_report") are never closed by an input change.
+ */
+export const closeAttentionFor = mutation({
+  args: { serverSecret: v.string(), workId: v.string(), kind: v.string(), recordId: v.string(), disposition: v.string() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const open = await ctx.db.query("attentionItems").withIndex("by_work_status", (q) => q.eq("workId", args.workId).eq("status", "open")).collect();
+    const now = Date.now();
+    let closed = 0;
+    for (const item of open) {
+      if (item.kind !== args.kind || item.recordId !== args.recordId || item.reason === "reader_report") continue;
+      await ctx.db.patch(item._id, { status: "closed", disposition: args.disposition, closedAt: now, lastActivityAt: now });
+      closed++;
+    }
+    return { closed };
+  },
+});
+
+/**
+ * Remove a work's generated analysis: records, generations, references and their blobs, claims
+ * and open checker attention. Owner versions stay unless `includingOwner`, and the next activation
+ * carries them forward. Saved images, requests and the spend ledger are never touched. The
+ * confirmation must repeat the work id, and the command enforces the production flag.
+ */
+export const wipeWork = mutation({
+  args: { serverSecret: v.string(), workId: v.string(), confirmation: v.string(), includingOwner: v.boolean() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    if (args.confirmation !== args.workId) throw new Error(`Confirmation must be the work id ${args.workId}`);
+    const work = await requireWork(ctx, args.workId);
+    const counts = { records: 0, ownerKept: 0, generations: 0, references: 0, attention: 0, claims: 0 };
+    const generations = await ctx.db.query("analysisGenerations").withIndex("by_work_generation", (q) => q.eq("workId", args.workId)).collect();
+    for (const generation of generations) {
+      const records = await ctx.db.query("analysisRecords").withIndex("by_work_generation_status", (q) => q.eq("workId", args.workId).eq("generation", generation.generation)).collect();
+      for (const record of records) {
+        if (record.source === "owner" && !args.includingOwner) { counts.ownerKept++; continue; }
+        await ctx.db.delete(record._id);
+        counts.records++;
+      }
+      await ctx.db.patch(generation._id, { status: "retired", endedAt: Date.now() });
+      counts.generations++;
+    }
+    const references = await ctx.db.query("referenceImages").withIndex("by_work_status", (q) => q.eq("workId", args.workId)).collect();
+    for (const reference of references) {
+      await ctx.storage.delete(reference.storageId).catch(() => undefined);
+      await ctx.db.delete(reference._id);
+      counts.references++;
+    }
+    for (const claim of await ctx.db.query("preparationClaims").withIndex("by_work_kind_recordId", (q) => q.eq("workId", args.workId)).collect()) {
+      await ctx.db.delete(claim._id);
+      counts.claims++;
+    }
+    for (const item of await ctx.db.query("attentionItems").withIndex("by_work_status", (q) => q.eq("workId", args.workId).eq("status", "open")).collect()) {
+      if (item.reason === "reader_report") continue;
+      await ctx.db.delete(item._id);
+      counts.attention++;
+    }
+    await ctx.db.patch(work._id, {
+      activeGeneration: undefined, candidateGeneration: undefined,
+      ownerVersionsFrom: args.includingOwner ? undefined : (work.activeGeneration ?? work.ownerVersionsFrom), updatedAt: Date.now(),
+    });
+    return counts;
   },
 });
 

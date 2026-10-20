@@ -73,6 +73,8 @@ export async function planReferences(options: { workId: string; brief: WorkBrief
 export async function runReferences(options: {
   workId: string; workTitle: string; brief: WorkBrief; store: ReferenceStore; maker: ImageMaker; checker: VisionChecker; blobs: ReferenceBlobStore;
   state: ReferenceRunState; saveState: (state: ReferenceRunState) => Promise<void>; budgetUsd: number; library?: StyleLibrary; styleVersions: Record<string, string>;
+  /** Make only these records ("entry:stage" or a style id), remaking them even if fresh. */
+  only?: string[];
   log?: (line: string) => void;
 }): Promise<ReferenceRunState> {
   const library = options.library ?? SHARED_STYLES;
@@ -110,6 +112,11 @@ export async function runReferences(options: {
   // inputs in this run state (so a failed reference is not paid for again until something changes).
   const skip = async (kind: "sheet" | "styleReference", recordId: string, inputs: InputRef[]) => {
     const existing = await store.getReference(kind, recordId, inputs);
+    if (options.only) {
+      if (!options.only.includes(recordId)) return true;
+      if (existing?.pinned) throw new Error(`${kind} ${recordId} is pinned; unpin it before redoing it`);
+      return false;
+    }
     if (existing && (existing.pinned || !existing.stale)) return true;
     const done = state.done[`${kind}:${recordId}`];
     return Boolean(done && done.fingerprint === inputFingerprint(inputs));
