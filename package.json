@@ -16,7 +16,7 @@
     "vercel:env:pull:production": "npx vercel env pull .env.vercel.prod.local --environment=production",
     "vercel:deploy:preview": "npx vercel",
     "vercel:deploy:production": "npx vercel --prod",
-    "build": "next build",
+    "build": "npm run works:import && next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",

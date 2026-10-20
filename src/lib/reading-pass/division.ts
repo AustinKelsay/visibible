@@ -73,10 +73,15 @@ export function divisionText(units: readonly ReferenceUnit[]): string {
   return lines.join("\n");
 }
 
-export function divisionUserPrompt(work: WorkReader, division: { label: string; units: readonly ReferenceUnit[] }, feedback: string | null): string {
+export function divisionUserPrompt(work: WorkReader, division: { label: string; units: readonly ReferenceUnit[] }, feedback: string | null, previous: DivisionOutput | null = null): string {
   const unitLevel = work.work.levels[work.work.levels.length - 1];
   const base = `Work: ${work.work.title} (${work.work.author})\nDivision: ${division.label}\nUnits are ${unitLevel.toLowerCase()}s; ids are in square brackets.\n\n${divisionText(division.units)}`;
-  return feedback ? `${base}\n\nA previous answer was rejected for these problems; return a corrected answer:\n${feedback}` : base;
+  if (!feedback) return base;
+  return `${base}\n\nA previous answer was rejected for these problems:\n${feedback}` +
+    (previous ? `\n\nPrevious complete answer:\n${JSON.stringify(previous)}` : "") +
+    `\n\nReturn the FULL corrected JSON object, not a patch or only the sections listed above. Preserve valid cast entries and sections. ` +
+    `Every unit from ${localUnitId(division.units[0])} through ${localUnitId(division.units[division.units.length - 1])} must still be covered. ` +
+    "For an unknown cast id, use an existing entry only when it is the same individual or place, or define the missing entry from the supplied text. Never use undefined placeholder ids.";
 }
 
 function normalizeId(raw: string): string {
@@ -103,7 +108,14 @@ export function validateSections(output: DivisionOutput, units: readonly Referen
     if (start > next) problems.push(`units ${localUnitId(units[next])} to ${localUnitId(units[start - 1])} belong to no section`);
     next = Math.max(next, end + 1);
     for (const id of section.setting) if (!locationIds.has(id)) problems.push(`section ${index + 1} names unknown location id ${id}`);
-    for (const id of [...section.on_stage, ...section.mentioned_only]) if (!characterIds.has(id)) problems.push(`section ${index + 1} names unknown character id ${id}`);
+    for (const field of ["on_stage", "mentioned_only"] as const) {
+      for (const id of section[field]) {
+        if (characterIds.has(id)) continue;
+        problems.push(locationIds.has(id)
+          ? `section ${index + 1} ${field} contains location id ${id}; only characters belong in ${field}. Omit places that are only mentioned; setting names only where the action happens.`
+          : `section ${index + 1} names unknown character id ${id}`);
+      }
+    }
     const text = units.slice(start, end + 1).map((u) => u.text).join(" ");
     sections.push({
       firstUnitId: units[start].id, lastUnitId: units[Math.max(start, end)].id, title: section.title, setting: section.setting,
@@ -145,10 +157,11 @@ export async function readDivision(options: {
   const attempts: DivisionAttempt[] = [];
   let unitsPerSection = options.unitsPerSection ?? DEFAULT_UNITS_PER_SECTION;
   let feedback: string | null = null;
+  let previous: DivisionOutput | null = null;
   const maxAttempts = options.maxAttempts ?? MAX_DIVISION_ATTEMPTS;
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     const system = DIVISION_SYSTEM.replace("{granularity}", granularityInstruction(division.units.length, unitsPerSection));
-    const user = divisionUserPrompt(work, division, feedback);
+    const user = divisionUserPrompt(work, division, feedback, previous);
     const expectedCompletionTokens = 12 * division.units.length + 2000;
     await options.beforeCall?.({ system, user, expectedCompletionTokens });
     const record: DivisionAttempt = { attempt, unitsPerSection, feedback, result: null, error: null, problems: [] };
@@ -175,9 +188,10 @@ export async function readDivision(options: {
     if (parsed.value.sections.length === 0) {
       record.problems = ["no sections returned"];
       unitsPerSection = Math.ceil(unitsPerSection * COARSER_FACTOR);
-      feedback = null;
+      feedback = previous ? "No sections were returned. Repair the previous complete answer instead of omitting the division." : null;
       continue;
     }
+    previous = parsed.value;
     const { sections, problems } = validateSections(parsed.value, division.units);
     record.problems = problems;
     if (problems.length === 0) {
