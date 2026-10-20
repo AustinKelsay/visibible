@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { imageModelFixture } from "../shared/image-model-fixtures";
 /**
  * Integration tests for image generation API credit flow.
@@ -625,6 +626,21 @@ describe("Image Generation API Credit Flow", () => {
       setGenericEngine(createGenericEngine({ loadInputs: async () => workInputs(tone), textModel: () => textModel, loadReferenceBytes, toJpeg: async (blob) => blob }));
     });
     afterEach(async () => { (await import("@/lib/engine/dispatch")).setGenericEngine(null); });
+
+    it("reserves and settles guest credits for the controlled owner-check session without granting admin billing", async () => {
+      await prepareWork();
+      process.env.GENERIC_ENGINE_MODE = "owner";
+      process.env.GENERIC_ENGINE_OWNER_CHECK_SESSION_SHA256 = createHash("sha256").update("test-session").digest("hex");
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest(body));
+      expect(response.status).toBe(200);
+      expect(await response.json()).toMatchObject({ engine: "generic", creditsCost: 2, credits: 998, usedActualCost: true });
+      expect(mockState.sessions.get("test-session")!.tier).toBe("paid");
+      expect(getCallCount("reserveCredits")).toBe(1);
+      expect(getCallCount("deductCredits")).toBe(1);
+      expect(getCallCount("logAdminUsage")).toBe(0);
+      expect(await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).toHaveLength(2);
+    });
 
     it("renders a cold moment with references and WEB text, then reuses the look and plan for another style", async () => {
       const { sheetBlob, styleBlob } = await prepareWork();

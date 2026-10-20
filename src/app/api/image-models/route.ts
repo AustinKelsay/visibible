@@ -4,6 +4,7 @@ import { DEFAULT_ETA_SECONDS, fetchImageModels, unavailableImageModels, type Ima
 import { getScenePlannerEstimatedCreditsCost } from "@/lib/scene-planner";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { decideEngine, genericEngineMode } from "@/lib/engine/admission";
+import { hasOwnerEngineAccess } from "@/lib/engine/owner-check";
 import { ART_STYLES, type ArtStyleAvailability } from "@/lib/art-styles";
 import { api } from "../../../../convex/_generated/api";
 
@@ -21,7 +22,7 @@ async function styleAvailability(request: Request | undefined, convex: ReturnTyp
       const session = request ? await (await import("@/lib/session")).validateSessionWithIp(request) : null;
       if (session?.valid && session.sid) {
         const record = await convex.query(api.sessions.getSession, { sid: session.sid, serverSecret: getConvexServerSecret() });
-        isOwner = record?.tier === "admin";
+        isOwner = hasOwnerEngineAccess(record);
       }
       const status = await convex.query(api.analysis.getWorkStatus, { workId: "bible-web" });
       readiness = { ready: status.ready, reasons: status.reasons, activeGeneration: status.activeGeneration, briefVersion: status.briefVersion };
