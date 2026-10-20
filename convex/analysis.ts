@@ -11,7 +11,7 @@
  * Writes are server-secret protected (the same boundary as saveImage); reads are public.
  */
 import { v } from "convex/values";
-import { mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
+import { action, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
 import { contentVersion } from "./_helpers/contentVersion";
@@ -543,6 +543,19 @@ async function findReference(ctx: Ctx, workId: string, kind: "sheet" | "styleRef
     .collect();
   return matches.find((r) => r.status === "current") ?? null;
 }
+
+/** Store a reference image's bytes (base64 JPEG) in Convex file storage; the record is written with putReference. */
+export const storeReferenceBlob = action({
+  args: { serverSecret: v.string(), base64: v.string(), mimeType: v.string() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    if (!/^image\/(jpeg|png|webp)$/.test(args.mimeType)) throw new Error(`Unsupported reference image type ${args.mimeType}`);
+    const bytes = Uint8Array.from(atob(args.base64), (c) => c.charCodeAt(0));
+    if (bytes.length === 0 || bytes.length > 4 * 1024 * 1024) throw new Error(`Reference image is ${bytes.length} bytes; the limit is 4 MiB`);
+    const storageId = await ctx.storage.store(new Blob([bytes], { type: args.mimeType }));
+    return { storageId, bytes: bytes.length };
+  },
+});
 
 // ---------------------------------------------------------------- attention (server)
 

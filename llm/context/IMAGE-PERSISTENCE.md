@@ -17,3 +17,5 @@ Verse IDs group history by reference (for example `genesis-1-1`), without transl
 [Public API](PUBLIC-IMAGE-API.md) describes the reduced external response, which intentionally omits prompts and cost details. [Nostr](NOSTR.md) describes scheduled sharing.
 
 The engine's analysis (canon, looks, plans, references) lives in separate tables described in [Analysis storage](ANALYSIS-STORAGE.md); saved image records are not changed by analysis activations or owner corrections.
+
+Reference sheets and style references for the generic engine are JPEG blobs in the same file storage, written by the `storeReferenceBlob` action and recorded in `referenceImages` with their input versions ([Reference images](WORK-PREPARATION.md#reference-images)). They are served by the same `/image/:storageId` route and read inline at request time through a bounded per-instance cache (`createReferenceBlobCache`), never fetched from a browser.
