@@ -14,6 +14,7 @@ These guides describe the repository's current behavior. Source links identify t
 | Bulk queues, pause/resume or scope selection | [Bulk generation](context/BULK-GENERATION.md) |
 | Saved images, shared history or remote image storage | [Image persistence](context/IMAGE-PERSISTENCE.md) |
 | A work's analysis: generations, canon versions, looks, plans, references and attention | [Analysis storage](context/ANALYSIS-STORAGE.md) |
+| Reading a work into sections, moments, a cast and a draft brief | [Work preparation](context/WORK-PREPARATION.md) |
 | Public image API | [Public API](context/PUBLIC-IMAGE-API.md) |
 | Chat streaming or context | [Chat](context/CHAT.md) |
 | Sessions, credit estimates, reservations or settlement | [Sessions and credits](context/SESSIONS_AND_CREDITS.md) |

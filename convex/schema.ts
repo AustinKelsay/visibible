@@ -113,7 +113,9 @@ const sectionPayloadValidator = v.object({
   firstUnit: v.string(),
   lastUnit: v.string(),
   era: v.optional(v.string()),
-  cast: v.array(v.object({ entryId: v.string(), stageId: v.string() })),
+  cast: v.array(v.object({ entryId: v.string(), stageId: v.string(), named: v.optional(v.boolean()) })),
+  // Entries the section names but that are not present; evidence for canon, never drawn.
+  mentionedOnly: v.optional(v.array(v.string())),
 });
 const momentPayloadValidator = v.object({
   kind: v.literal("moment"),
@@ -126,6 +128,12 @@ const entryPayloadValidator = v.object({
   name: v.string(),
   entryKind: v.union(v.literal("character"), v.literal("location"), v.literal("object")),
   hasForm: v.optional(v.boolean()),
+  // Reading-pass evidence carried for canon drafting: other name forms, a one-line note, and the
+  // division-local entries ("division:character:id" or "division:location:id") this merged entry came from.
+  aliases: v.optional(v.array(v.string())),
+  note: v.optional(v.string()),
+  members: v.optional(v.array(v.string())),
+  // Empty until canon is drafted; a generation with stage-less entries is not structurally valid.
   stages: v.array(v.object({
     id: v.string(),
     text: v.string(),
