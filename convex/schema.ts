@@ -62,6 +62,46 @@ const promptPacketValidator = v.object({
   }),
 });
 
+// Generic engine (#175): the exact rendering snapshot a request was accepted with, persisted
+// before the image-provider attempt, and the provenance saved with each new generic image.
+const engineCanonRefValidator = v.object({ entryId: v.string(), stageId: v.string(), version: v.string() });
+const engineReferenceRefValidator = v.object({
+  kind: v.union(v.literal("styleReference"), v.literal("sheet")), id: v.string(), storageId: v.string(), version: v.string(), caption: v.string(),
+});
+export const renderingPacketValidator = v.object({
+  promptVersion: v.string(),
+  workId: v.string(),
+  momentId: v.string(),
+  sectionId: v.string(),
+  eraId: v.string(),
+  styleId: v.string(),
+  styleVersion: v.string(),
+  briefVersion: v.string(),
+  lookVersion: v.string(),
+  planVersion: v.string(),
+  canon: v.array(engineCanonRefValidator),
+  references: v.array(engineReferenceRefValidator),
+  flags: v.object({ variationIncluded: v.boolean(), neighborsIncluded: v.boolean(), styleDetailIncluded: v.boolean(), lookDetailIncluded: v.boolean() }),
+  budget: v.object({ maxChars: v.number(), finalChars: v.number() }),
+});
+export const imageProvenanceValidator = v.object({
+  workId: v.string(),
+  momentId: v.string(),
+  sectionId: v.string(),
+  eraId: v.string(),
+  styleId: v.string(),
+  styleVersion: v.string(),
+  briefVersion: v.string(),
+  lookVersion: v.string(),
+  planVersion: v.string(),
+  promptVersion: v.string(),
+  analysisGeneration: v.number(),
+  canon: v.array(engineCanonRefValidator),
+  references: v.array(v.object({ kind: v.union(v.literal("styleReference"), v.literal("sheet")), id: v.string(), version: v.string() })),
+  // The reader's selected translation at request time; the saved verse text is the work's reference text.
+  requestTranslationId: v.string(),
+});
+
 const generationStatusValidator = v.union(
   v.literal("queued"),
   v.literal("planning"),
@@ -220,6 +260,9 @@ export default defineSchema({
     createdAt: v.number(),
     // Generation ID for idempotency
     generationId: v.optional(v.string()),
+    // Engine and provenance (#175); absent on historical images, whose source stays unknown.
+    engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
+    provenance: v.optional(imageProvenanceValidator),
     // Nostr publishing metadata
     nostrEventId: v.optional(v.string()),
     nostrPublishedAt: v.optional(v.number()),
@@ -276,6 +319,7 @@ export default defineSchema({
     error: v.optional(v.string()),
     promptVersion: v.optional(v.string()),
     promptPacket: v.optional(promptPacketValidator),
+    renderingPacket: v.optional(renderingPacketValidator),
     scenePlannerModel: v.optional(v.string()),
     scenePlannerUsed: v.optional(v.boolean()),
     scenePlanFromCache: v.optional(v.boolean()),

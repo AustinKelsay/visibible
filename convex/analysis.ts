@@ -798,6 +798,17 @@ export const getReference = query({
   },
 });
 
+/** A short-lived URL for a stored reference blob, so the request path can send it inline (#175). Server-only. */
+export const getReferenceBlobUrl = query({
+  args: { serverSecret: v.string(), storageId: v.id("_storage") },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const blob = await ctx.db.system.get(args.storageId);
+    if (!blob) return null;
+    return { url: await ctx.storage.getUrl(args.storageId), contentType: blob.contentType ?? null, size: blob.size };
+  },
+});
+
 export const listAttention = query({
   args: { workId: v.string(), status: v.optional(v.union(v.literal("open"), v.literal("closed"))) },
   handler: async (ctx, args) => {

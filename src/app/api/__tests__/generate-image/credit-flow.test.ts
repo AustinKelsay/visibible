@@ -13,8 +13,17 @@ import { modules } from "../../../../../tests/convex/modules";
 let requestDb = convexTest(schema, modules);
 let failAdmission = false;
 let saveBarrier: Promise<void> | null = null;
+let failSave = false;
+let failReserve = false;
+let failDeduct = false;
 import { fixtures, type Session } from "../shared/test-fixtures";
 import { clearBibleApiCache } from "@/lib/bible-api";
+import { contentVersion } from "../../../../../convex/_helpers/contentVersion";
+import { normalizeImageBilling } from "@/lib/image-catalog";
+import { createWorkReader } from "@/lib/work-input";
+import { SHARED_STYLES, type WorkBrief } from "@/lib/work-preparation";
+import type { TextModel } from "@/lib/reading-pass/model";
+import type { WorkInputs } from "@/lib/engine/work-inputs";
 import {
   mockFetchBibleApi,
   resetMockFetchBibleApiBypass,
@@ -89,8 +98,8 @@ vi.mock("@/lib/convex-client", () => ({
   getConvexClient: vi.fn(() => ({
     query: vi.fn(async (_apiPath: FunctionReference<"query">, args: Record<string, unknown>) => {
       if (["modelStats:getAllModelStats", "modelCostStats:getAllEstimates"].includes(getFunctionName(_apiPath))) return [];
-      if (getFunctionName(_apiPath) === "analysis:getWorkStatus") {
-        return requestDb.query(api.analysis.getWorkStatus, args as FunctionArgs<typeof api.analysis.getWorkStatus>);
+      if (getFunctionName(_apiPath).startsWith("analysis:")) {
+        return requestDb.query(_apiPath as never, args as never);
       }
       if (getFunctionName(_apiPath) === "verseImages:getScenePlanCache") {
         return requestDb.query(api.verseImages.getScenePlanCache, args as FunctionArgs<typeof api.verseImages.getScenePlanCache>);
@@ -113,6 +122,9 @@ vi.mock("@/lib/convex-client", () => ({
       return session || null;
     }),
     mutation: vi.fn(async (_apiPath: FunctionReference<"mutation">, args: Record<string, unknown>) => {
+      if (getFunctionName(_apiPath).startsWith("analysis:")) {
+        return requestDb.mutation(_apiPath as never, args as never);
+      }
       switch (getFunctionName(_apiPath)) {
         case "verseImages:upsertScenePlanCache":
           return requestDb.mutation(api.verseImages.upsertScenePlanCache, args as FunctionArgs<typeof api.verseImages.upsertScenePlanCache>);
@@ -175,12 +187,17 @@ vi.mock("@/lib/convex-client", () => ({
       if ("verseId" in args && "imageUrl" in args && "model" in args) {
         mockState.callHistory.push({ action: "saveImage", args });
         await saveBarrier;
+        if (failSave) throw new Error("storage unavailable");
         const id = await requestDb.mutation(internal.verseImages.saveImageWithUrl, {
           verseId: String(args.verseId), imageUrl: String(args.imageUrl), model: String(args.model),
           generationId: String(args.generationId),
           reference: args.reference as string, verseText: args.verseText as string,
           translationId: args.translationId as string,
           promptInputs: args.promptInputs as FunctionArgs<typeof internal.verseImages.saveImageWithUrl>["promptInputs"],
+          prompt: args.prompt as string | undefined, promptVersion: args.promptVersion as string | undefined,
+          creditsCost: args.creditsCost as number | undefined,
+          engine: args.engine as "legacy" | "generic" | undefined,
+          provenance: args.provenance as FunctionArgs<typeof internal.verseImages.saveImageWithUrl>["provenance"],
         });
         return { success: true, type: "url", id };
       }
@@ -212,6 +229,7 @@ vi.mock("@/lib/convex-client", () => ({
       if ("actualAmount" in args || ("generationId" in args && "amount" in args && !("modelId" in args))) {
         // deductCredits
         mockState.callHistory.push({ action: "deductCredits", args });
+        if (failDeduct) throw new Error("settlement unavailable");
         if (!session) return { success: false, error: "Session not found" };
         const actualAmount = (args.actualAmount as number) ?? (args.amount as number);
         const generationId = args.generationId as string;
@@ -271,6 +289,7 @@ vi.mock("@/lib/convex-client", () => ({
       if ("modelId" in args && "generationId" in args && "amount" in args) {
         // reserveCredits
         mockState.callHistory.push({ action: "reserveCredits", args });
+        if (failReserve) throw new Error("reservation unavailable");
         if (!session) return { success: false, error: "Session not found" };
 
         const amount = args.amount as number;
@@ -393,6 +412,9 @@ describe("Image Generation API Credit Flow", () => {
     requestDb = convexTest(schema, modules);
     failAdmission = false;
     saveBarrier = null;
+    failSave = false;
+    failReserve = false;
+    failDeduct = false;
     clearBibleApiCache();
     fetchImageModelsMock.mockReset();
     fetchImageModelsMock.mockResolvedValue({
@@ -457,7 +479,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(await storedRequest()).toBeUndefined();
     });
 
-    it("owner mode: a non-owner session stays on legacy; an owner with a ready work reaches the generic seam, which declines without charging until integrated", async () => {
+    it("owner mode: a non-owner session stays on legacy; an owner with a ready work reaches the generic engine, which declines without charging when the work's inputs are not deployed", async () => {
       process.env.GENERIC_ENGINE_MODE = "owner";
       await readyWork();
       const { POST } = await import("../../generate-image/route");
@@ -468,7 +490,7 @@ describe("Image Generation API Credit Flow", () => {
       resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000, tier: "admin" }]); // clears the call history too
       const owner = await POST(createGenerateImageRequest({ ...body, requestId: "owner-request" }));
       expect(owner.status).toBe(503);
-      expect(await owner.json()).toMatchObject({ error: "Generic engine not available", retryable: true });
+      expect(await owner.json()).toMatchObject({ error: "Preparing scene", retryable: true });
       expect(getCallCount("reserveCredits")).toBe(0);
       expect(openRouterCalls()).toBe(providerCallsBefore);
       expect(await requestDb.run((ctx) => ctx.db.query("imageGenerationRequests").collect())).toHaveLength(1);
@@ -498,6 +520,294 @@ describe("Image Generation API Credit Flow", () => {
       } finally {
         setGenericEngine(null);
       }
+    });
+  });
+
+  describe("generic engine generation", () => {
+    const SECRET = "test-server-secret";
+    const WORK = "bible-web";
+    const webText: Record<number, string> = {
+      1: "In the beginning, God created the heavens and the earth.",
+      2: "The earth was formless and empty. Darkness was on the surface of the deep.",
+      3: "God said, “Let there be light,” and there was light.",
+    };
+    const work = createWorkReader({
+      schemaVersion: 1, id: WORK, title: "The Holy Bible", author: "Various", language: "en",
+      referenceText: { name: "World English Bible", source: "https://ebible.org", credit: "Public domain", sha256: "0".repeat(64) },
+      levels: ["Book", "Chapter", "Verse"], referenceFormats: { Chapter: "{Book} {Chapter}:{Verse}" }, momentMode: "unit",
+      divisions: [{ key: "genesis", label: "Genesis", level: "Book", divisions: [{ key: "1", label: "1", level: "Chapter", units: [1, 2, 3].map((n) => ({ number: n, text: webText[n] })) }] }],
+    });
+    const brief: WorkBrief = {
+      schemaVersion: 1, workId: WORK, tone: "Reverent and grounded.", depictionRules: [{ text: "Use symbolic light for divine action." }],
+      eras: [{ id: "creation", label: "Creation", people: "The first people.", dress: "Simple wraps.", buildingsAndObjects: "Wild land and rivers.", technology: "None." }],
+      styleIds: ["classical", "watercolor", "icon"],
+    };
+    const adamText = "Adam: a young man with dark curly hair and brown skin, wearing a plain wrap.";
+    const workInputs = (tone = brief.tone): WorkInputs => ({
+      work, workVersion: "wv", brief: { ...brief, tone }, briefVersion: "bv",
+      styles: Object.fromEntries(SHARED_STYLES.styles.map((style) => [style.id, { style, version: `sv-${style.id}` }])),
+    });
+    const lookAnswer = { place: "A river garden", timeOfDay: "morning", weather: "clear", light: "soft first light", clothing: "plain wraps" };
+    const planAnswer = { present: ["adam", "eden", "god"], primarySubject: "Adam standing by the river", action: "looks up at the new light", setting: "garden", secondaryElements: "cedars, water", mood: "wonder", timeOfDay: "morning", composition: "wide" };
+    let modelCalls: string[] = [];
+    let modelFailure: Error | null = null;
+    const textModel: TextModel = {
+      id: "scripted",
+      async complete(request) {
+        modelCalls.push(request.label);
+        if (modelFailure) throw modelFailure;
+        return { content: JSON.stringify(request.schemaName === "section_look" ? lookAnswer : planAnswer), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd: 0.0004 }, elapsedMs: 1 };
+      },
+    };
+    let blobFailures = new Set<string>();
+    let loadedBlobs: string[] = [];
+    const loadReferenceBytes = async (_runtime: unknown, storageId: string) => {
+      loadedBlobs.push(storageId);
+      if (blobFailures.has(storageId)) throw new Error("blob gone");
+      return { bytes: new TextEncoder().encode(`jpeg:${storageId}`), mimeType: "image/jpeg" };
+    };
+    let tone = brief.tone;
+    const genericModel = { ...imageModelFixture(), billing: normalizeImageBilling("google/gemini-3.1-flash-lite-image", { prompt: "0.0000001", completion: "0.0000004", image_output: "0.00001", image: "0.001" }, 1) };
+    const imageCalls = () => mockFetch.mock.calls.filter(([url]) => String(url).includes("chat/completions")).map(([, init]) => JSON.parse(String(init?.body)) as { model: string; messages: Array<{ content: Array<{ type: string; text?: string; image_url?: { url: string } }> }> });
+    const storedRequests = () => requestDb.run((ctx) => ctx.db.query("imageGenerationRequests").collect());
+    const savedImages = () => requestDb.run((ctx) => ctx.db.query("verseImages").collect());
+    const body = { requestId: "generic-1", reference: "Genesis 1:1", text: "In the beginning God created.", style: "watercolor" };
+
+    const prepareWork = async () => {
+      await requestDb.mutation(api.analysis.registerWork, { serverSecret: SECRET, workId: WORK, workVersion: "wv", briefVersion: "bv" });
+      const { generation } = await requestDb.mutation(api.analysis.stageGeneration, { serverSecret: SECRET, workId: WORK, workVersion: "wv", briefVersion: "bv" });
+      await requestDb.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation, records: [
+        { kind: "entry", recordId: "god", payload: { kind: "entry", name: "God", entryKind: "character", hasForm: false, stages: [{ id: "main", text: "God: shown only as light." }] } },
+        { kind: "entry", recordId: "adam", payload: { kind: "entry", name: "Adam", entryKind: "character", hasForm: true, stages: [{ id: "main", text: adamText }] } },
+        { kind: "entry", recordId: "eden", payload: { kind: "entry", name: "Eden", entryKind: "location", hasForm: true, stages: [{ id: "main", text: "Eden: a lush river garden with tall cedars." }] } },
+        { kind: "section", recordId: "genesis-1-1", payload: { kind: "section", title: "Creation", firstUnit: "genesis-1-1", lastUnit: "genesis-1-3", era: "creation", cast: [{ entryId: "god", stageId: "main" }, { entryId: "adam", stageId: "main" }, { entryId: "eden", stageId: "main" }] } },
+        ...["genesis-1-1", "genesis-1-2", "genesis-1-3"].map((id) => ({ kind: "moment" as const, recordId: id, payload: { kind: "moment" as const, sectionId: "genesis-1-1", firstUnit: id, lastUnit: id } })),
+      ] });
+      await requestDb.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation });
+      const adam = await requestDb.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "adam" });
+      const store = () => requestDb.run((ctx) => ctx.storage.store(new Blob([new Uint8Array([137, 80, 78, 71])], { type: "image/png" })));
+      const sheetBlob = await store();
+      const styleBlob = await store();
+      await requestDb.mutation(api.analysis.putReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "adam:main", storageId: sheetBlob, inputs: [
+        { kind: "entry", recordId: "adam", version: adam!.version }, { kind: "stage", recordId: "adam:main", version: contentVersion(adamText) }, { kind: "style", recordId: "classical", version: "sv-classical" }, { kind: "era", recordId: "creation", version: "ev" },
+      ] });
+      await requestDb.mutation(api.analysis.putReference, { serverSecret: SECRET, workId: WORK, kind: "styleReference", recordId: "watercolor", storageId: styleBlob, inputs: [
+        { kind: "style", recordId: "watercolor", version: "sv-watercolor" }, { kind: "era", recordId: "creation", version: "ev" },
+      ] });
+      return { sheetBlob: String(sheetBlob), styleBlob: String(styleBlob), adamVersion: adam!.version };
+    };
+
+    beforeEach(async () => {
+      process.env.GENERIC_ENGINE_MODE = "public";
+      modelCalls = []; modelFailure = null; blobFailures = new Set(); loadedBlobs = []; tone = brief.tone;
+      fetchImageModelsMock.mockResolvedValue({ models: [genericModel] });
+      // Imported here, after the module mocks above are installed.
+      const { createGenericEngine } = await import("@/lib/engine/generation");
+      const { setGenericEngine } = await import("@/lib/engine/dispatch");
+      setGenericEngine(createGenericEngine({ loadInputs: async () => workInputs(tone), textModel: () => textModel, loadReferenceBytes, toJpeg: async (blob) => blob }));
+    });
+    afterEach(async () => { (await import("@/lib/engine/dispatch")).setGenericEngine(null); });
+
+    it("renders a cold moment with references and WEB text, then reuses the look and plan for another style", async () => {
+      const { sheetBlob, styleBlob } = await prepareWork();
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest(body));
+      expect(response.status).toBe(200);
+      const result = await response.json();
+      expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1"]);
+      // One provider call: the prompt first, then the style reference and Adam's sheet as JPEG data URLs; Eden has no sheet and God has no form.
+      const calls = imageCalls();
+      expect(calls).toHaveLength(1);
+      const parts = calls[0].messages[0].content;
+      expect(parts.map((p) => p.type)).toEqual(["text", "image_url", "image_url"]);
+      expect(parts[0].text).toContain(adamText);
+      expect(parts[0].text).toContain(webText[1]);
+      expect(parts[0].text).not.toContain("In the beginning God created the heavens");
+      expect(parts[1].image_url!.url).toBe(`data:image/jpeg;base64,${Buffer.from(`jpeg:${styleBlob}`).toString("base64")}`);
+      expect(parts[2].image_url!.url).toBe(`data:image/jpeg;base64,${Buffer.from(`jpeg:${sheetBlob}`).toString("base64")}`);
+      // Settled from actual usage ($0.01 → 2 credits) after a headroom reservation; the owner paid for the look and plan separately.
+      expect(result).toMatchObject({ engine: "generic", translationId: "web", requestTranslationId: "web", verseText: webText[1], creditsCost: 2, usedActualCost: true, credits: 998, style: "watercolor", preparation: { calls: 2, referencesSent: 2 } });
+      expect(result.estimatedCreditsCost).toBeGreaterThanOrEqual(2);
+      expect(mockState.sessions.get("test-session")!.credits).toBe(998);
+      expect(getCallCount("reserveCredits")).toBe(1);
+      expect(getCallCount("recordImageCostEvent")).toBe(1);
+      expect(mockState.callHistory.find((c) => c.action === "recordImageCostEvent")!.args).toMatchObject({ styleProfileId: "watercolor", scenePlannerUsed: false, actualCreditsCost: 2 });
+      expect(await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).toHaveLength(2);
+      // The request record carries the engine, its commitments and the exact packet snapshot.
+      const [request] = await storedRequests();
+      expect(request).toMatchObject({ engine: "generic", artStyleId: "watercolor", status: "succeeded", engineCommitments: { workId: WORK, momentId: "genesis-1-1", briefVersion: "bv", analysisGeneration: 1 } });
+      expect(request.renderingPacket).toMatchObject({ styleId: "watercolor", styleVersion: "sv-watercolor", briefVersion: "bv", eraId: "creation" });
+      expect(request.renderingPacket!.references.map((r) => r.id)).toEqual(["watercolor", "adam:main"]);
+      expect(request.renderingPacket!.canon.map((c) => c.entryId)).toEqual(["adam", "eden", "god"]);
+      // The saved image is WEB text with full provenance; the reader's translation is request context only.
+      const [image] = await savedImages();
+      expect(image).toMatchObject({ verseId: "genesis-1-1", translationId: "web", verseText: webText[1], engine: "generic", promptVersion: "2026-10-20-generic-v1" });
+      expect(image.provenance).toMatchObject({ workId: WORK, momentId: "genesis-1-1", sectionId: "genesis-1-1", styleId: "watercolor", lookVersion: request.renderingPacket!.lookVersion, planVersion: request.renderingPacket!.planVersion, requestTranslationId: "web" });
+      expect(image.provenance!.references).toEqual([{ kind: "styleReference", id: "watercolor", version: expect.any(String) }, { kind: "sheet", id: "adam:main", version: expect.any(String) }]);
+      // A second style of the same moment reuses the look and plan: no new preparation call, no style reference for Classical.
+      const classical = await POST(createGenerateImageRequest({ ...body, requestId: "generic-2", style: "classical" }));
+      expect(classical.status).toBe(200);
+      expect(modelCalls).toHaveLength(2);
+      expect(imageCalls()[1].messages[0].content.map((p) => p.type)).toEqual(["text", "image_url"]);
+      expect((await savedImages())[1].provenance!.references).toEqual([{ kind: "sheet", id: "adam:main", version: expect.any(String) }]);
+    });
+
+    it("returns a retryable preparing error with no charge, no request record and no provider call when the look or plan cannot be made", async () => {
+      await prepareWork();
+      modelFailure = new Error("Haiku unavailable");
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest(body));
+      expect(response.status).toBe(503);
+      expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true, preparation: { look: "missing", plan: "missing" } });
+      expect(getCallCount("reserveCredits")).toBe(0);
+      expect(imageCalls()).toHaveLength(0);
+      expect(await storedRequests()).toHaveLength(0);
+      expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
+      // The owner's failed attempts are still recorded as preparation spend, never as a guest charge.
+      expect((await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((e) => e.outcome.startsWith("error"))).toEqual([true, true]);
+    });
+
+    it("omits a reference whose blob cannot be loaded or whose inputs changed, and the packet reflects what was actually sent", async () => {
+      const { sheetBlob, adamVersion } = await prepareWork();
+      blobFailures.add(sheetBlob);
+      const { POST } = await import("../../generate-image/route");
+      const first = await POST(createGenerateImageRequest(body));
+      expect(first.status).toBe(200);
+      expect(imageCalls()[0].messages[0].content.map((p) => p.type)).toEqual(["text", "image_url"]);
+      expect((await storedRequests())[0].renderingPacket!.references.map((r) => r.id)).toEqual(["watercolor"]);
+      expect((await savedImages())[0].provenance!.references).toEqual([{ kind: "styleReference", id: "watercolor", version: expect.any(String) }]);
+      // An owner edit to Adam's canon makes his sheet stale: it is skipped without being loaded, and the plan is remade from the new canon.
+      blobFailures.clear();
+      await requestDb.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "adam", expectedVersion: adamVersion,
+        payload: { kind: "entry", name: "Adam", entryKind: "character", hasForm: true, stages: [{ id: "main", text: "Adam: an older man with grey hair." }] } });
+      loadedBlobs = [];
+      const second = await POST(createGenerateImageRequest({ ...body, requestId: "generic-2" }));
+      expect(second.status).toBe(200);
+      expect(loadedBlobs).not.toContain(sheetBlob);
+      expect(imageCalls()[1].messages[0].content.map((p) => p.type)).toEqual(["text", "image_url"]);
+      expect(imageCalls()[1].messages[0].content[0].text).toContain("Adam: an older man");
+      expect(modelCalls.filter((l) => l.startsWith("plan:"))).toHaveLength(2);
+    });
+
+    it("rejects an over-budget prompt before any paid call and leaves an attention item", async () => {
+      await prepareWork();
+      tone = "x".repeat(9000);
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest(body));
+      expect(response.status).toBe(503);
+      expect(await response.json()).toMatchObject({ error: "Scene unavailable", retryable: false });
+      expect(imageCalls()).toHaveLength(0);
+      expect(getCallCount("reserveCredits")).toBe(0);
+      expect(await storedRequests()).toHaveLength(0);
+      expect(await requestDb.query(api.analysis.listAttention, { workId: WORK, status: "open" })).toMatchObject([{ reason: "prompt_over_budget", recordId: "genesis-1-1" }]);
+    });
+
+    it("releases the reservation and fails the request when the model returns no image", async () => {
+      await prepareWork();
+      mockFetchResponse = { ok: true, status: 200, json: async () => ({ id: "gen-refused", choices: [{ message: { content: "I cannot depict this scene." } }], usage: { cost: 0.001 } }) };
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest(body));
+      expect(response.status).toBe(500);
+      expect(await response.json()).toMatchObject({ error: "Model returned no image output", message: "I cannot depict this scene.", requestId: "generic-1" });
+      expect(getCallCount("reserveCredits")).toBe(1);
+      expect(getCallCount("releaseReservation")).toBe(1);
+      expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
+      expect((await storedRequests())[0]).toMatchObject({ status: "failed", engine: "generic" });
+      expect(await savedImages()).toHaveLength(0);
+    });
+
+    it("settles from the packet-aware quote when the provider reports no usage", async () => {
+      await prepareWork();
+      mockFetchResponse = { ok: true, status: 200, json: async () => ({ id: "gen-nousage", choices: [{ message: { images: [{ image_url: { url: "data:image/png;base64,test" } }] } }] }) };
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest(body));
+      expect(response.status).toBe(200);
+      const result = await response.json();
+      expect(result).toMatchObject({ usedFallbackEstimate: true, usedActualCost: false, openRouterUsageUsd: null });
+      expect(result.creditsCost).toBe(result.estimatedCreditsCost);
+      expect(mockState.sessions.get("test-session")!.credits).toBe(1000 - result.estimatedCreditsCost);
+      expect(mockState.callHistory.find((c) => c.action === "recordImageCostEvent")!.args).toMatchObject({ usedFallbackEstimate: true, actualCreditsCost: result.estimatedCreditsCost });
+    });
+
+    it("delivers duplicate and concurrent requests once: one preparation, one reservation, one provider call", async () => {
+      await prepareWork();
+      const { POST } = await import("../../generate-image/route");
+      const responses = await Promise.all([POST(createGenerateImageRequest(body)), POST(createGenerateImageRequest(body))]);
+      const statuses = responses.map((r) => r.status);
+      expect(statuses).toContain(200);
+      expect(statuses.every((status) => status === 200 || status === 202)).toBe(true);
+      expect(imageCalls()).toHaveLength(1);
+      expect(getCallCount("reserveCredits")).toBe(1);
+      expect(modelCalls).toHaveLength(2);
+      const replay = await POST(createGenerateImageRequest(body));
+      expect(replay.status).toBe(200);
+      expect(await replay.json()).toMatchObject({ reused: true, translationId: "web", verseText: webText[1], savedImageId: expect.any(String) });
+      expect(imageCalls()).toHaveLength(1);
+      expect(mockState.sessions.get("test-session")!.credits).toBe(998);
+    });
+
+    it("never repeats a paid call after an interrupted save or an uncertain provider outcome", async () => {
+      await prepareWork();
+      const { POST } = await import("../../generate-image/route");
+      failSave = true;
+      const response = await POST(createGenerateImageRequest(body));
+      expect(response.status).toBe(200);
+      expect((await response.json()).savedImageId).toBeUndefined();
+      expect((await storedRequests())[0]).toMatchObject({ status: "succeeded" });
+      failSave = false;
+      const replay = await POST(createGenerateImageRequest(body));
+      expect(replay.status).toBe(409);
+      expect(await replay.json()).toMatchObject({ reused: true, status: "succeeded" });
+      expect(imageCalls()).toHaveLength(1);
+      expect(mockState.sessions.get("test-session")!.credits).toBe(998);
+      // A timeout after the attempt began: the hold is released, the request is failed and a retry is a replay, not a second attempt.
+      mockFetchImpl = async (_input, init) => new Promise((_, reject) => { init?.signal?.addEventListener("abort", () => reject(new DOMException("Request aborted", "AbortError")), { once: true }); });
+      const timedOut = await POST(createGenerateImageRequest({ ...body, requestId: "generic-timeout" }));
+      expect(timedOut.status).toBe(504);
+      expect(mockState.sessions.get("test-session")!.credits).toBe(998);
+      expect((await storedRequests())[1]).toMatchObject({ status: "failed", engine: "generic" });
+      mockFetchImpl = null;
+      const retry = await POST(createGenerateImageRequest({ ...body, requestId: "generic-timeout" }));
+      expect(retry.status).toBe(409);
+      expect(imageCalls()).toHaveLength(2);
+    });
+
+    it("fails the request and releases the hold when the reservation or settlement action throws, without a second attempt", async () => {
+      await prepareWork();
+      const { POST } = await import("../../generate-image/route");
+      failReserve = true;
+      const reserveFailed = await POST(createGenerateImageRequest(body));
+      expect(reserveFailed.status).toBe(503);
+      expect(await reserveFailed.json()).toMatchObject({ error: "Unable to safely start image generation", retryable: true });
+      expect(imageCalls()).toHaveLength(0);
+      expect(getCallCount("releaseReservation")).toBe(1);
+      expect((await storedRequests())[0]).toMatchObject({ status: "failed", engine: "generic" });
+      expect(await storedRequests()).toHaveLength(1);
+      failReserve = false;
+      failDeduct = true;
+      const settlementFailed = await POST(createGenerateImageRequest({ ...body, requestId: "generic-settle" }));
+      expect(settlementFailed.status).toBe(500);
+      expect(imageCalls()).toHaveLength(1);
+      expect(getCallCount("releaseReservation")).toBe(2);
+      expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
+      expect((await storedRequests())[1]).toMatchObject({ status: "failed", engine: "generic" });
+      expect(await savedImages()).toHaveLength(0);
+      failDeduct = false;
+      const retry = await POST(createGenerateImageRequest({ ...body, requestId: "generic-settle" }));
+      expect(retry.status).toBe(409);
+      expect(imageCalls()).toHaveLength(1);
+    });
+
+    it("lets the owner generate without a reservation while recording the audit entry", async () => {
+      await prepareWork();
+      resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000, tier: "admin" }]);
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest(body));
+      expect(response.status).toBe(200);
+      expect(getCallCount("reserveCredits")).toBe(0);
+      expect(getCallCount("deductCredits")).toBe(0);
+      expect(getCallCount("logAdminUsage")).toBe(1);
+      expect((await savedImages())[0]).toMatchObject({ engine: "generic", translationId: "web" });
     });
   });
 

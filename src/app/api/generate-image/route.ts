@@ -1,9 +1,10 @@
 import { catalogImageQuote, imageCapabilities } from "@/lib/image-catalog";
 import {
   PROMPT_VERSION, DEFAULT_STYLE_PROFILE, STYLE_PROFILES,
-  normalizeScenePlan, extractJsonObject, clipText,
+  normalizeScenePlan, extractJsonObject,
   buildScenePlannerPrompt, buildImagePrompt, scenePlanInputFingerprint, type ScenePlan, type PromptPacket,
 } from "@/lib/image-prompts";
+import { extractImageUrlFromPart, extractNoImageText, extractOpenRouterUsageUsd, summarizeNoImageResponse } from "@/lib/image-response";
 import type { FunctionReturnType } from "convex/server";
 import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
@@ -91,130 +92,6 @@ const SCENE_PLANNER_TIMEOUT_MS = Number.parseInt(
   10
 );
 const IMAGE_GENERATION_TIMEOUT_MESSAGE_PREFIX = "Image generation timed out after";
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function getNonEmptyString(value: unknown): string | null {
-  if (typeof value !== "string") return null;
-  const trimmed = value.trim();
-  return trimmed.length > 0 ? trimmed : null;
-}
-
-function buildInlineImageDataUrl(part: unknown): string | null {
-  if (!isRecord(part)) return null;
-
-  const inlineData = isRecord(part.inline_data)
-    ? part.inline_data
-    : isRecord(part.inlineData)
-      ? part.inlineData
-      : null;
-
-  if (!inlineData) return null;
-
-  const data = getNonEmptyString(inlineData.data);
-  if (!data) return null;
-
-  const mimeType = getNonEmptyString(inlineData.mime_type)
-    ?? getNonEmptyString(inlineData.mimeType)
-    ?? "image/png";
-
-  return `data:${mimeType};base64,${data}`;
-}
-
-function extractImageUrlFromPart(part: unknown): string | null {
-  if (typeof part === "string") {
-    return part.startsWith("data:image/") ? part : null;
-  }
-
-  if (!isRecord(part)) return null;
-
-  const directUrl = getNonEmptyString(part.url);
-  if (directUrl) return directUrl;
-
-  const directImageUrl = getNonEmptyString(part.image_url)
-    ?? getNonEmptyString(part.imageUrl);
-  if (directImageUrl) return directImageUrl;
-
-  const nestedImageUrl = isRecord(part.image_url)
-    ? part.image_url
-    : isRecord(part.imageUrl)
-      ? part.imageUrl
-      : null;
-  if (nestedImageUrl) {
-    const nestedUrl = getNonEmptyString(nestedImageUrl.url);
-    if (nestedUrl) return nestedUrl;
-  }
-
-  const inlineDataUrl = buildInlineImageDataUrl(part);
-  if (inlineDataUrl) return inlineDataUrl;
-
-  const b64Json = getNonEmptyString(part.b64_json);
-  if (b64Json) {
-    return `data:image/png;base64,${b64Json}`;
-  }
-
-  return null;
-}
-
-function extractNoImageText(message: unknown): string | null {
-  if (!isRecord(message)) return null;
-
-  const messageContent = getNonEmptyString(message.content);
-  if (messageContent) return clipText(messageContent, 180);
-
-  const refusal = getNonEmptyString(message.refusal);
-  if (refusal) return clipText(refusal, 180);
-
-  if (!Array.isArray(message.content)) return null;
-
-  for (const part of message.content) {
-    if (!isRecord(part)) continue;
-
-    const text = getNonEmptyString(part.text)
-      ?? getNonEmptyString(part.refusal)
-      ?? getNonEmptyString(part.content);
-
-    if (text) return clipText(text, 180);
-  }
-
-  return null;
-}
-
-function summarizeNoImageResponse(data: unknown): Record<string, unknown> {
-  if (!isRecord(data)) {
-    return { responseType: typeof data };
-  }
-
-  const choices = Array.isArray(data.choices) ? data.choices : [];
-
-  return {
-    id: getNonEmptyString(data.id),
-    choiceCount: choices.length,
-    choices: choices.slice(0, 2).map((choice) => {
-      if (!isRecord(choice)) {
-        return { choiceType: typeof choice };
-      }
-
-      const message = isRecord(choice.message) ? choice.message : null;
-      const content = message?.content;
-
-      return {
-        finishReason: getNonEmptyString(choice.finish_reason),
-        messageKeys: message ? Object.keys(message).slice(0, 8) : [],
-        imagesCount: Array.isArray(message?.images) ? message.images.length : 0,
-        contentType: Array.isArray(content) ? "array" : typeof content,
-        contentPartTypes: Array.isArray(content)
-          ? content.slice(0, 8).map((part) =>
-              isRecord(part) ? getNonEmptyString(part.type) ?? "unknown" : typeof part
-            )
-          : [],
-        textPreview: extractNoImageText(message),
-      };
-    }),
-  };
-}
 
 function toVerseId(reference: string): string {
   return reference
@@ -614,7 +491,12 @@ export async function POST(request: Request) {
   }
   const engineMode = genericEngineMode();
   // Owner status and readiness matter only once the generic engine is switched on; disabled mode adds no query.
-  const sessionForAdmission = engineMode === "disabled" ? null : await convex.query(api.sessions.getSession, { sid, serverSecret }).catch(() => null);
+  let sessionLookupFailed = false;
+  const sessionForAdmission = engineMode === "disabled" ? null : await convex.query(api.sessions.getSession, { sid, serverSecret }).catch((error) => {
+    sessionLookupFailed = true;
+    logApiFailure({ context: requestContext, stage: "engine_admission_session", error, statusCode: 503, sid });
+    return null;
+  });
   const isOwnerForAdmission = sessionForAdmission?.tier === "admin";
   const bibleWorkId = "bible-web";
   const readiness = engineMode === "disabled" ? null : await convex.query(api.analysis.getWorkStatus, { workId: bibleWorkId }).catch(() => null);
@@ -628,9 +510,22 @@ export async function POST(request: Request) {
     return jsonWithSessionRefresh({ error: engineDecision.unavailable === "style" ? "Art style unavailable" : "Preparing scene", message: engineDecision.reason, retryable: engineDecision.retryable, style: requestedStyleId ?? null }, { status: 503 });
   }
   if (engineDecision.engine === "generic") {
-    const outcome = await getGenericEngine().execute({ requestId: clientRequestId, sid, isOwner: isOwnerForAdmission, verseId, reference, translationId, styleId: requestedStyleId ?? "classical", aspectRatio, resolution });
-    if (outcome.kind === "declined") return jsonWithSessionRefresh({ error: outcome.error, message: outcome.message, retryable: outcome.retryable }, { status: outcome.status });
-    return jsonWithSessionRefresh(outcome.body, { status: outcome.status });
+    // A failed lookup is temporary; only a lookup that returned nothing means the session is gone.
+    if (sessionLookupFailed) return jsonWithSessionRefresh({ error: "Unable to verify session", retryable: true }, { status: 503 });
+    if (!sessionForAdmission) return jsonWithSessionRefresh({ error: "Session not found" }, { status: 401 });
+    if (!readiness || readiness.activeGeneration === null || !readiness.workVersion || !readiness.briefVersion) {
+      return jsonWithSessionRefresh({ error: "Preparing scene", message: "The work's analysis is not registered.", retryable: true }, { status: 503 });
+    }
+    const outcome = await getGenericEngine().execute({
+      requestId: clientRequestId, sid, isOwner: isOwnerForAdmission, verseId, reference, translationId, styleId: requestedStyleId ?? "classical", aspectRatio, resolution,
+      workId: bibleWorkId, readiness: { activeGeneration: readiness.activeGeneration, workVersion: readiness.workVersion, briefVersion: readiness.briefVersion },
+      session: { credits: sessionForAdmission.credits, dailySpendUsd: sessionForAdmission.dailySpendUsd, dailySpendLimitUsd: sessionForAdmission.dailySpendLimitUsd },
+      inputFingerprint, generationNumber,
+      runtime: { convex, serverSecret, openRouterApiKey, requestContext },
+    });
+    if (outcome.kind === "declined") return jsonWithSessionRefresh({ error: outcome.error, message: outcome.message, retryable: outcome.retryable, ...outcome.details }, { status: outcome.status });
+    if (outcome.kind === "existing") return existingIntentResponse(outcome.admission as Parameters<typeof existingIntentResponse>[0]);
+    return jsonWithSessionRefresh(outcome.body, outcome.status === 200 ? { headers: { "Cache-Control": "private, max-age=3600" } } : { status: outcome.status });
   }
   const admittedEngine = engineDecision.engine;
 
@@ -1197,25 +1092,7 @@ export async function POST(request: Request) {
     // Extract actual usage/cost from OpenRouter response
     // OpenRouter may return cost in various locations depending on API version and request type
     // Check multiple known locations in priority order
-    const openRouterUsageUsd: number | null = (() => {
-      // Priority 1: Direct cost field in usage object (most common for OpenRouter)
-      if (typeof data.usage?.cost === "number" && data.usage.cost > 0) {
-        return data.usage.cost;
-      }
-      // Priority 2: total_cost field (alternative naming)
-      if (typeof data.usage?.total_cost === "number" && data.usage.total_cost > 0) {
-        return data.usage.total_cost;
-      }
-      // Priority 3: Root-level cost field
-      if (typeof data.cost === "number" && data.cost > 0) {
-        return data.cost;
-      }
-      // Priority 4: Root-level total_cost field
-      if (typeof data.total_cost === "number" && data.total_cost > 0) {
-        return data.total_cost;
-      }
-      return null;
-    })();
+    const openRouterUsageUsd = extractOpenRouterUsageUsd(data);
 
     // Log when actual cost isn't available - include usage structure for debugging
     if (openRouterUsageUsd === null) {

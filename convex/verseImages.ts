@@ -12,6 +12,7 @@ import { internal } from "./_generated/api";
 import { v } from "convex/values";
 import { Id, type Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
+import { imageProvenanceValidator, renderingPacketValidator } from "./schema";
 
 const chapterThemeValidator = v.object({
   setting: v.string(),
@@ -1041,6 +1042,7 @@ export const updateGenerationRequest = mutation({
     scenePlanFromCache: v.optional(v.boolean()),
     usedFallbackEstimate: v.optional(v.boolean()),
     promptPacket: v.optional(promptPacketValidator),
+    renderingPacket: v.optional(renderingPacketValidator),
     actualCreditsCost: v.optional(v.number()),
     actualCostUsd: v.optional(v.number()),
     durationMs: v.optional(v.number()),
@@ -1084,6 +1086,7 @@ export const updateGenerationRequest = mutation({
     if (args.scenePlanFromCache !== undefined) patch.scenePlanFromCache = args.scenePlanFromCache;
     if (args.usedFallbackEstimate !== undefined) patch.usedFallbackEstimate = args.usedFallbackEstimate;
     if (args.promptPacket !== undefined) patch.promptPacket = args.promptPacket;
+    if (args.renderingPacket !== undefined) patch.renderingPacket = args.renderingPacket;
     if (args.actualCreditsCost !== undefined) patch.actualCreditsCost = args.actualCreditsCost;
     if (args.actualCostUsd !== undefined) patch.actualCostUsd = args.actualCostUsd;
     if (args.durationMs !== undefined) patch.durationMs = args.durationMs;
@@ -1148,6 +1151,8 @@ export const saveImageWithStorage = internalMutation({
     imageWidth: v.optional(v.number()),
     imageHeight: v.optional(v.number()),
     generationId: v.optional(v.string()),
+    engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
+    provenance: v.optional(imageProvenanceValidator),
   },
   handler: async (ctx, args) => {
     if (args.generationId) {
@@ -1188,6 +1193,8 @@ export const saveImageWithStorage = internalMutation({
       imageWidth: args.imageWidth,
       imageHeight: args.imageHeight,
       generationId: args.generationId,
+      engine: args.engine,
+      provenance: args.provenance,
       createdAt: Date.now(),
     });
     return id;
@@ -1283,6 +1290,8 @@ export const saveImageWithUrl = internalMutation({
     imageWidth: v.optional(v.number()),
     imageHeight: v.optional(v.number()),
     generationId: v.optional(v.string()),
+    engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
+    provenance: v.optional(imageProvenanceValidator),
   },
   handler: async (ctx, args) => {
     if (args.generationId) {
@@ -1314,6 +1323,8 @@ export const saveImageWithUrl = internalMutation({
       imageWidth: args.imageWidth,
       imageHeight: args.imageHeight,
       generationId: args.generationId,
+      engine: args.engine,
+      provenance: args.provenance,
       createdAt: Date.now(),
     });
     return id;
@@ -1577,6 +1588,8 @@ export const saveImage = action({
     durationMs: v.optional(v.number()),
     aspectRatio: v.optional(v.string()),
     generationId: v.optional(v.string()),
+    engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
+    provenance: v.optional(imageProvenanceValidator),
     serverSecret: v.string(),
   },
   handler: async (ctx, args): Promise<{ success: true; type: string; id: Id<"verseImages"> }> => {
@@ -1599,6 +1612,8 @@ export const saveImage = action({
       durationMs,
       aspectRatio,
       generationId,
+      engine,
+      provenance,
       serverSecret,
     } = args;
     validateServerSecret(serverSecret);
@@ -1619,6 +1634,8 @@ export const saveImage = action({
       costUsd,
       durationMs,
       aspectRatio,
+      engine,
+      provenance,
     };
 
     if (generationId) {
