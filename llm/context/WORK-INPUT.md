@@ -1,6 +1,6 @@
 # Imported reference works
 
-[Work input](../../src/lib/work-input.ts) provides the generic engine's offline reference-text boundary. It is not yet connected to image routing. The Bible reader and current generation route still use the [Bible API](BIBLE-API.md); changing an imported file does not change their behavior.
+[Work input](../../src/lib/work-input.ts) provides the generic engine's offline reference-text boundary. Generic image requests plan from these files and save their reference-text provenance. The Bible reader retains selected-translation fetching through the [Bible API](BIBLE-API.md); the legacy image path also keeps its existing passage fetching while available.
 
 ## Reproduce the files
 
@@ -15,7 +15,7 @@ Both commands run locally with no network or model calls. They verify the decomp
 - `works/bible-web/work.json`
 - `works/holmes-adventures/work.json`
 
-These generated files are ignored; the compressed source snapshots, checksums and importers are committed. Regenerate them before a future preparation command consumes the files. They are not put in `public/` or loaded into the reader's client bundle. See [source provenance and refresh instructions](../../works/sources/README.md).
+These generated files are ignored; the compressed source snapshots, checksums and importers are committed. `npm run build` regenerates them offline before Next.js traces the server files, so a clean deployment includes the same versioned reference text as preparation. Run `works:import` before local preparation commands too. The files are not put in `public/` or loaded into the reader's client bundle. See [source provenance and refresh instructions](../../works/sources/README.md).
 
 ## File contract
 

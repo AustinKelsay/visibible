@@ -52,7 +52,7 @@ Return:
    - era: the stretch of the world this division is set in: a name, its people (who lives there and what they look like), dress, buildings and objects, and technology (what exists and what does not yet exist).
    Keep the brief under 200 words.
 
-Use short, stable snake_case ids (for example \`david\`, \`the_queen\`, \`main_street\`). Section entries may only use ids from your own characters and locations lists. Do not quote the text.`;
+Use short, stable snake_case ids (for example \`david\`, \`the_queen\`, \`main_street\`). Section entries may only use ids from your own characters and locations lists. Define every referenced cast id; never use undefined placeholder ids. Return the complete division, including on retries, never just corrections. Do not quote the text.`;
 
 export function granularityInstruction(unitCount: number, unitsPerSection: number): string {
   const n = Math.max(1, Math.round(unitCount / unitsPerSection));
