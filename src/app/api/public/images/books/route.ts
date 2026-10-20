@@ -6,6 +6,8 @@ import {
   getPublicApiServices,
   handlePublicApiFailure,
   jsonPublic,
+  jsonPublicError,
+  parsePublicStyleFilter,
   publicApiOptionsResponse,
   PUBLIC_DISCOVERY_CACHE_CONTROL,
   queryPublicBooksWithImages,
@@ -16,6 +18,20 @@ import {
 export async function GET(request: Request) {
   const route = "/api/public/images/books";
   const context = createPublicApiContext(request, route);
+  const style = parsePublicStyleFilter(request);
+  if (!style.ok) {
+    trackPublicApiRequest({
+      context,
+      endpoint: "public-images-discovery",
+      statusCode: 400,
+      outcome: "error",
+    });
+    return jsonPublicError("Bad request", {
+      status: 400,
+      message: style.message,
+      cacheControl: "no-store",
+    });
+  }
   const { convex, serverSecret } = await getPublicApiServices();
 
   if (!convex || !serverSecret) {
@@ -38,7 +54,7 @@ export async function GET(request: Request) {
       return rateLimit.response;
     }
 
-    const booksWithImages = new Set<string>(await queryPublicBooksWithImages(convex, serverSecret));
+    const booksWithImages = new Set<string>(await queryPublicBooksWithImages(convex, serverSecret, style.filter));
     const books = BIBLE_BOOKS
       .filter((book) => booksWithImages.has(book.slug))
       .map((book) => ({
@@ -55,7 +71,7 @@ export async function GET(request: Request) {
       outcome: "success",
     });
 
-    return jsonPublic({ books }, { cacheControl: PUBLIC_DISCOVERY_CACHE_CONTROL });
+    return jsonPublic({ ...(style.filter.artStyle ? { artStyle: style.filter.artStyle } : {}), books }, { cacheControl: PUBLIC_DISCOVERY_CACHE_CONTROL });
   } catch (error) {
     return handlePublicApiFailure({
       context,

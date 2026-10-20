@@ -13,6 +13,7 @@ import {
 } from "@/lib/image-models";
 import { BulkGeneratePanel } from "@/components/bulk-generate-panel";
 import { ImageGenerationSettingsPanel } from "@/components/image-generation-settings-panel";
+import type { ArtStyleAvailability } from "@/lib/art-styles";
 
 /** Compact generate button for the header. Returns null on non-verse pages. */
 export function HeaderGenerateButton() {
@@ -26,6 +27,7 @@ export function HeaderGenerateButton() {
   const [modelsLoading, setModelsLoading] = useState(false);
   const [modelsError, setModelsError] = useState<string | null>(null);
   const [scenePlannerCreditsCost, setScenePlannerCreditsCost] = useState(0);
+  const [artStyles, setArtStyles] = useState<ArtStyleAvailability[] | null>(null);
   const hasFetchedModels = useRef(false);
   const singleTabRef = useRef<HTMLButtonElement | null>(null);
   const bulkTabRef = useRef<HTMLButtonElement | null>(null);
@@ -89,6 +91,7 @@ export function HeaderGenerateButton() {
                 : 0
             );
             if (data.models) setModels(data.models);
+            if (Array.isArray(data.artStyles)) setArtStyles(data.artStyles);
             if (data.error) setModelsError(data.error);
           })
           .catch((err) => {
@@ -321,6 +324,7 @@ export function HeaderGenerateButton() {
                     modelsLoading={modelsLoading}
                     modelsError={modelsError}
                     scenePlannerCreditsCost={scenePlannerCreditsCost}
+                    artStyles={artStyles}
                   />
                   <BulkGeneratePanel
                     perVerseCost={displayEffectiveCost}
@@ -337,6 +341,7 @@ export function HeaderGenerateButton() {
                     modelsLoading={modelsLoading}
                     modelsError={modelsError}
                     scenePlannerCreditsCost={scenePlannerCreditsCost}
+                    artStyles={artStyles}
                   />
                 </div>
               )}

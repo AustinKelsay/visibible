@@ -24,6 +24,9 @@ export interface ImageBilling {
   textInputUsd: string;
   textOutputUsd: string;
   imageOutputUsd: string;
+  // USD per supplied input image (OpenRouter's `image` price); absent when the catalog lists none.
+  // The legacy quote never sends images; the generic engine's quote charges each reference with it.
+  imageInputUsd?: string;
   // Estimates, not enforced output/spend caps. Versioned authorization belongs to T04.
   estimatedTextInputTokens: number;
   estimatedTextOutputTokens: number;
@@ -56,8 +59,10 @@ export function normalizeImageBilling(modelId: string, raw: Record<string, unkno
     version: IMAGE_BILLING_VERSION, source: IMAGE_CATALOG_SOURCE, observedAt, unit: "token",
     textInputUsd: typeof raw.prompt === "string" ? raw.prompt : "",
     textOutputUsd: typeof raw.completion === "string" ? raw.completion : "",
-    // `image` is input image pricing. It is deliberately never used here.
+    // `image` is input image pricing: unused by the legacy quote, which sends no images, and kept
+    // for the generic engine's reference-aware quote.
     imageOutputUsd: typeof raw.image_output === "string" ? raw.image_output : "",
+    ...(typeof raw.image === "string" && raw.image !== "" ? { imageInputUsd: raw.image } : {}),
     estimatedTextInputTokens: 1000, estimatedTextOutputTokens: 1000,
   };
   return catalogImageQuote(modelId, billing, "1K") ? billing : undefined;

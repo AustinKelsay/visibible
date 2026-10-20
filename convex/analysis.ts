@@ -11,11 +11,12 @@
  * Writes are server-secret protected (the same boundary as saveImage); reads are public.
  */
 import { v } from "convex/values";
-import { mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
+import { action, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
 import { contentVersion } from "./_helpers/contentVersion";
 import { analysisValidators } from "./schema";
+import { openAttention, READER_REPORT_DISPOSITIONS, READER_REPORT_REASON } from "./_helpers/attention";
 
 type Ctx = QueryCtx | MutationCtx;
 type AnalysisKind = Doc<"analysisRecords">["kind"];
@@ -97,7 +98,8 @@ function key(kind: string, recordId: string) {
 /**
  * The structural rules a generation must satisfy before it may serve: sections and entries
  * exist; sections and moments are anchored to their first unit; every moment names a section;
- * every cast member, look and plan names a record that exists; stage counts respect the kind.
+ * every cast member, look and plan names a record that exists; stage counts respect the kind, and an
+ * entry a cast or plan uses has at least one stage (a mentioned-only entry may have none).
  * Optional references and attention notes are deliberately not checked here (#168).
  */
 export function structuralProblems(records: ReadonlyArray<Pick<Doc<"analysisRecords">, "kind" | "recordId" | "payload">>): string[] {
@@ -112,7 +114,8 @@ export function structuralProblems(records: ReadonlyArray<Pick<Doc<"analysisReco
     if (p.kind === "entry") {
       entries++;
       const cap = p.entryKind === "object" ? 1 : MAX_CHARACTER_STAGES;
-      if (p.stages.length < 1 || p.stages.length > cap) problems.push(`entry ${r.recordId}: ${p.stages.length} stages (allowed 1–${cap})`);
+      // An entry nothing draws (mentioned only) may have no stages; one a cast or plan uses must.
+      if (p.stages.length > cap) problems.push(`entry ${r.recordId}: ${p.stages.length} stages (allowed 1–${cap})`);
       entryStages.set(r.recordId, new Set(p.stages.map((s) => s.id)));
     }
   }
@@ -124,6 +127,7 @@ export function structuralProblems(records: ReadonlyArray<Pick<Doc<"analysisReco
       for (const c of p.cast) {
         const stages = entryStages.get(c.entryId);
         if (!stages) problems.push(`section ${r.recordId}: cast names unknown entry ${c.entryId}`);
+        else if (stages.size === 0) problems.push(`section ${r.recordId}: entry ${c.entryId} has no canon stages yet`);
         else if (!stages.has(c.stageId)) problems.push(`section ${r.recordId}: entry ${c.entryId} has no stage ${c.stageId}`);
       }
     } else if (p.kind === "moment") {
@@ -145,25 +149,6 @@ export function structuralProblems(records: ReadonlyArray<Pick<Doc<"analysisReco
 }
 
 // ---------------------------------------------------------------- attention
-
-async function openAttention(
-  ctx: MutationCtx,
-  item: { workId: string; reason: string; kind?: string; recordId?: string; generation?: number; detail?: string },
-) {
-  const now = Date.now();
-  const existing = await ctx.db
-    .query("attentionItems")
-    .withIndex("by_work_reason_kind_recordId", (q) =>
-      q.eq("workId", item.workId).eq("reason", item.reason).eq("kind", item.kind).eq("recordId", item.recordId),
-    )
-    .collect();
-  const open = existing.find((a) => a.status === "open");
-  if (open) {
-    await ctx.db.patch(open._id, { count: open.count + 1, lastActivityAt: now, detail: item.detail ?? open.detail, generation: item.generation ?? open.generation });
-    return open._id;
-  }
-  return ctx.db.insert("attentionItems", { ...item, status: "open", count: 1, createdAt: now, lastActivityAt: now });
-}
 
 // ---------------------------------------------------------------- preparation (server)
 
@@ -282,7 +267,8 @@ export const activateGeneration = mutation({
     const candidateByKey: RecordMap = new Map(records.map((r) => [key(r.kind, r.recordId), r]));
     // Decide first what would actually serve: candidate records, with owner versions carried in
     // wherever their record id survived the reread. Only that set is checked for structure.
-    const previous = work.activeGeneration === undefined ? [] : await currentRecords(ctx, args.workId, work.activeGeneration);
+    const ownerSource = work.activeGeneration ?? work.ownerVersionsFrom;
+    const previous = ownerSource === undefined ? [] : await currentRecords(ctx, args.workId, ownerSource);
     const carriedOwners = previous.filter((r) => r.source === "owner" && candidateByKey.has(key(r.kind, r.recordId)));
     const unmatchedOwners = previous.filter((r) => r.source === "owner" && !candidateByKey.has(key(r.kind, r.recordId)));
     const effective = new Map(candidateByKey);
@@ -307,13 +293,13 @@ export const activateGeneration = mutation({
       });
       unmatched.push(key(owner.kind, owner.recordId));
     }
-    if (work.activeGeneration !== undefined) {
+    if (ownerSource !== undefined) {
       for (const r of previous) await ctx.db.patch(r._id, { status: "retired" });
-      const previousGeneration = await findGeneration(ctx, args.workId, work.activeGeneration);
-      if (previousGeneration) await ctx.db.patch(previousGeneration._id, { status: "retired", endedAt: now });
+      const previousGeneration = await findGeneration(ctx, args.workId, ownerSource);
+      if (previousGeneration && previousGeneration.status !== "retired") await ctx.db.patch(previousGeneration._id, { status: "retired", endedAt: now });
     }
     await ctx.db.patch(candidate._id, { status: "active", activatedAt: now });
-    await ctx.db.patch(work._id, { activeGeneration: args.generation, candidateGeneration: undefined, updatedAt: now });
+    await ctx.db.patch(work._id, { activeGeneration: args.generation, candidateGeneration: undefined, ownerVersionsFrom: undefined, updatedAt: now });
     return { generation: args.generation, carriedOwnerVersions: carried, unmatchedOwnerVersions: unmatched, retiredGeneration: work.activeGeneration ?? null };
   },
 });
@@ -346,6 +332,8 @@ export const correctRecord = mutation({
     kind: analysisValidators.kind,
     recordId: v.string(),
     payload: analysisValidators.payload,
+    /** The version the owner saw when editing; a newer current version makes the command stale and refused. */
+    expectedVersion: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     validateServerSecret(args.serverSecret);
@@ -355,7 +343,11 @@ export const correctRecord = mutation({
     const current = await findCurrentRecord(ctx, args.workId, work.activeGeneration, args.kind, args.recordId);
     if (!current) throw new Error(`No current ${args.kind} ${args.recordId} in generation ${work.activeGeneration}`);
     const version = contentVersion(args.payload);
-    if (version === current.version && current.source === "owner") return { version, changed: false };
+    if (version === current.version && current.source === "owner") return { version, changed: false, previousVersion: current.version };
+    if (args.expectedVersion !== undefined && args.expectedVersion !== current.version) {
+      // A retry of the same edit is safe (its result already stands); any other stale command is refused.
+      throw new Error(`Stale edit: ${args.kind} ${args.recordId} is at version ${current.version}, not ${args.expectedVersion}`);
+    }
     await writeVersion(ctx, current, {
       workId: args.workId, generation: work.activeGeneration, kind: args.kind, recordId: args.recordId, version,
       source: "owner", inputs: current.inputs, payload: args.payload,
@@ -404,6 +396,87 @@ export const putDerivedRecord = mutation({
       source: "generated", inputs: args.inputs, payload: args.payload,
     });
     return { version, generation: work.activeGeneration };
+  },
+});
+
+// ---------------------------------------------------------------- lazy preparation (server)
+
+/**
+ * Claim the right to make a look or plan. The first caller holds the claim until it releases it
+ * or the claim expires; later callers learn who holds it and wait for the record instead of
+ * funding a second call. A claim is not needed for correctness, only to avoid paying twice.
+ */
+export const claimPreparation = mutation({
+  args: { serverSecret: v.string(), workId: v.string(), kind: analysisValidators.derivedKind, recordId: v.string(), holder: v.string(), ttlMs: v.number() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const now = Date.now();
+    const existing = await ctx.db
+      .query("preparationClaims")
+      .withIndex("by_work_kind_recordId", (q) => q.eq("workId", args.workId).eq("kind", args.kind).eq("recordId", args.recordId))
+      .collect();
+    const live = existing.find((c) => c.expiresAt > now);
+    for (const stale of existing.filter((c) => c.expiresAt <= now)) await ctx.db.delete(stale._id);
+    if (live) return { held: live.holder === args.holder, holder: live.holder, expiresAt: live.expiresAt };
+    await ctx.db.insert("preparationClaims", { workId: args.workId, kind: args.kind, recordId: args.recordId, holder: args.holder, expiresAt: now + args.ttlMs, createdAt: now });
+    return { held: true, holder: args.holder, expiresAt: now + args.ttlMs };
+  },
+});
+
+export const releasePreparation = mutation({
+  args: { serverSecret: v.string(), workId: v.string(), kind: analysisValidators.derivedKind, recordId: v.string(), holder: v.string() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const claims = await ctx.db
+      .query("preparationClaims")
+      .withIndex("by_work_kind_recordId", (q) => q.eq("workId", args.workId).eq("kind", args.kind).eq("recordId", args.recordId))
+      .collect();
+    for (const claim of claims) if (claim.holder === args.holder) await ctx.db.delete(claim._id);
+    return { released: true };
+  },
+});
+
+/** Owner preparation spend, per call; never a guest charge. */
+export const recordPreparationSpend = mutation({
+  args: {
+    serverSecret: v.string(), workId: v.string(), kind: v.string(), recordId: v.string(), model: v.string(), outcome: v.string(),
+    costUsd: v.optional(v.number()), promptTokens: v.optional(v.number()), completionTokens: v.optional(v.number()), elapsedMs: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const { serverSecret, ...entry } = args;
+    void serverSecret;
+    await ctx.db.insert("preparationLedger", { ...entry, createdAt: Date.now() });
+    return { recorded: true };
+  },
+});
+
+export const getPreparationSpend = query({
+  args: { workId: v.string() },
+  handler: async (ctx, args) => {
+    const entries = await ctx.db.query("preparationLedger").withIndex("by_work_createdAt", (q) => q.eq("workId", args.workId)).collect();
+    return { calls: entries.length, costUsd: entries.reduce((n, e) => n + (e.costUsd ?? 0), 0), byKind: entries.reduce<Record<string, number>>((acc, e) => ({ ...acc, [e.kind]: (acc[e.kind] ?? 0) + (e.costUsd ?? 0) }), {}) };
+  },
+});
+
+/** What a reader waiting on "Preparing scene" can be told: whether the look and plan exist or are being made. */
+export const getPreparationStatus = query({
+  args: { workId: v.string(), momentId: v.string() },
+  handler: async (ctx, args) => {
+    const work = await findWork(ctx, args.workId);
+    if (!work || work.activeGeneration === undefined) return { ready: false, look: "missing" as const, plan: "missing" as const, sectionId: null };
+    const moment = await findCurrentRecord(ctx, args.workId, work.activeGeneration, "moment", args.momentId);
+    const sectionId = moment && moment.payload.kind === "moment" ? moment.payload.sectionId : null;
+    const now = Date.now();
+    const state = async (kind: "look" | "plan", recordId: string | null) => {
+      if (!recordId) return "missing" as const;
+      if (await findCurrentRecord(ctx, args.workId, work.activeGeneration!, kind, recordId)) return "ready" as const;
+      const claims = await ctx.db.query("preparationClaims").withIndex("by_work_kind_recordId", (q) => q.eq("workId", args.workId).eq("kind", kind).eq("recordId", recordId)).collect();
+      return claims.some((c) => c.expiresAt > now) ? ("preparing" as const) : ("missing" as const);
+    };
+    const look = await state("look", sectionId);
+    const plan = await state("plan", moment ? args.momentId : null);
+    return { ready: look === "ready" && plan === "ready", look, plan, sectionId };
   },
 });
 
@@ -460,6 +533,19 @@ async function findReference(ctx: Ctx, workId: string, kind: "sheet" | "styleRef
   return matches.find((r) => r.status === "current") ?? null;
 }
 
+/** Store a reference image's bytes (base64 JPEG) in Convex file storage; the record is written with putReference. */
+export const storeReferenceBlob = action({
+  args: { serverSecret: v.string(), base64: v.string(), mimeType: v.string() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    if (!/^image\/(jpeg|png|webp)$/.test(args.mimeType)) throw new Error(`Unsupported reference image type ${args.mimeType}`);
+    const bytes = Uint8Array.from(atob(args.base64), (c) => c.charCodeAt(0));
+    if (bytes.length === 0 || bytes.length > 4 * 1024 * 1024) throw new Error(`Reference image is ${bytes.length} bytes; the limit is 4 MiB`);
+    const storageId = await ctx.storage.store(new Blob([bytes], { type: args.mimeType }));
+    return { storageId, bytes: bytes.length };
+  },
+});
+
 // ---------------------------------------------------------------- attention (server)
 
 export const noteAttention = mutation({
@@ -475,14 +561,112 @@ export const noteAttention = mutation({
   },
 });
 
+/**
+ * Close one item. A reader report takes exactly one of the four dispositions; "source corrected"
+ * must link the input version that fixed it (which must exist in the analysis) and a targeted check.
+ * An input edit alone never closes a report, regenerates the saved image or alters its provenance.
+ */
 export const closeAttention = mutation({
-  args: { serverSecret: v.string(), id: v.id("attentionItems"), disposition: v.string() },
+  args: {
+    serverSecret: v.string(), id: v.id("attentionItems"), disposition: v.string(),
+    correction: v.optional(v.object({ kind: analysisValidators.kind, recordId: v.string(), version: v.string() })),
+    check: v.optional(v.string()),
+  },
   handler: async (ctx, args) => {
     validateServerSecret(args.serverSecret);
     const item = await ctx.db.get(args.id);
     if (!item) throw new Error("Unknown attention item");
-    await ctx.db.patch(args.id, { status: "closed", disposition: args.disposition, closedAt: Date.now(), lastActivityAt: Date.now() });
+    const now = Date.now();
+    if (item.reason === READER_REPORT_REASON) {
+      if (!READER_REPORT_DISPOSITIONS.includes(args.disposition)) throw new Error(`A reader report closes with one of: ${READER_REPORT_DISPOSITIONS.join(", ")}`);
+      if (args.disposition === "source corrected") {
+        if (!args.correction || !args.check?.trim()) throw new Error("\"source corrected\" must link the corrected input version (--correction kind:recordId:version) and a targeted check result (--check)");
+        const versions = await ctx.db.query("analysisRecords")
+          .withIndex("by_work_kind_recordId", (q) => q.eq("workId", item.workId).eq("kind", args.correction!.kind).eq("recordId", args.correction!.recordId)).collect();
+        if (!versions.some((r) => r.version === args.correction!.version)) throw new Error(`No ${args.correction.kind} ${args.correction.recordId} with version ${args.correction.version} in ${item.workId}`);
+      }
+    }
+    const closure = { at: now, disposition: args.disposition, ...(args.correction ? { correction: args.correction } : {}), ...(args.check?.trim() ? { check: args.check.trim() } : {}) };
+    const history = [...(item.history ?? []), { at: now, event: "closed", disposition: args.disposition, ...(args.check?.trim() ? { detail: args.check.trim() } : {}) }];
+    await ctx.db.patch(args.id, { status: "closed", disposition: args.disposition, closedAt: now, lastActivityAt: now, closure, history });
     return { closed: true };
+  },
+});
+
+/** One attention item with its full report and lifecycle history. */
+export const getAttentionItem = query({
+  args: { serverSecret: v.string(), id: v.id("attentionItems") },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const item = await ctx.db.get(args.id);
+    return item ? { id: item._id, ...withoutInternals(item) } : null;
+  },
+});
+
+/**
+ * Close the checker-made attention items for one record after the owner corrected or redid it.
+ * Reader image reports (reason "reader_report") are never closed by an input change.
+ */
+export const closeAttentionFor = mutation({
+  args: { serverSecret: v.string(), workId: v.string(), kind: v.string(), recordId: v.string(), disposition: v.string() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const open = await ctx.db.query("attentionItems").withIndex("by_work_status", (q) => q.eq("workId", args.workId).eq("status", "open")).collect();
+    const now = Date.now();
+    let closed = 0;
+    for (const item of open) {
+      if (item.kind !== args.kind || item.recordId !== args.recordId || item.reason === READER_REPORT_REASON) continue;
+      await ctx.db.patch(item._id, { status: "closed", disposition: args.disposition, closedAt: now, lastActivityAt: now });
+      closed++;
+    }
+    return { closed };
+  },
+});
+
+/**
+ * Remove a work's generated analysis: records, generations, references and their blobs, claims
+ * and open checker attention. Owner versions stay unless `includingOwner`, and the next activation
+ * carries them forward. Saved images, requests and the spend ledger are never touched. The
+ * confirmation must repeat the work id, and the command enforces the production flag.
+ */
+export const wipeWork = mutation({
+  args: { serverSecret: v.string(), workId: v.string(), confirmation: v.string(), includingOwner: v.boolean() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    if (args.confirmation !== args.workId) throw new Error(`Confirmation must be the work id ${args.workId}`);
+    const work = await requireWork(ctx, args.workId);
+    const counts = { records: 0, ownerKept: 0, generations: 0, references: 0, attention: 0, claims: 0 };
+    const generations = await ctx.db.query("analysisGenerations").withIndex("by_work_generation", (q) => q.eq("workId", args.workId)).collect();
+    for (const generation of generations) {
+      const records = await ctx.db.query("analysisRecords").withIndex("by_work_generation_status", (q) => q.eq("workId", args.workId).eq("generation", generation.generation)).collect();
+      for (const record of records) {
+        if (record.source === "owner" && !args.includingOwner) { counts.ownerKept++; continue; }
+        await ctx.db.delete(record._id);
+        counts.records++;
+      }
+      await ctx.db.patch(generation._id, { status: "retired", endedAt: Date.now() });
+      counts.generations++;
+    }
+    const references = await ctx.db.query("referenceImages").withIndex("by_work_status", (q) => q.eq("workId", args.workId)).collect();
+    for (const reference of references) {
+      await ctx.storage.delete(reference.storageId).catch(() => undefined);
+      await ctx.db.delete(reference._id);
+      counts.references++;
+    }
+    for (const claim of await ctx.db.query("preparationClaims").withIndex("by_work_kind_recordId", (q) => q.eq("workId", args.workId)).collect()) {
+      await ctx.db.delete(claim._id);
+      counts.claims++;
+    }
+    for (const item of await ctx.db.query("attentionItems").withIndex("by_work_status", (q) => q.eq("workId", args.workId).eq("status", "open")).collect()) {
+      if (item.reason === "reader_report") continue;
+      await ctx.db.delete(item._id);
+      counts.attention++;
+    }
+    await ctx.db.patch(work._id, {
+      activeGeneration: undefined, candidateGeneration: undefined,
+      ownerVersionsFrom: args.includingOwner ? undefined : (work.activeGeneration ?? work.ownerVersionsFrom), updatedAt: Date.now(),
+    });
+    return counts;
   },
 });
 
@@ -624,6 +808,17 @@ export const getReference = query({
     const expected = args.expectedInputs ? referenceFingerprint(args.expectedInputs) : null;
     const stale = !reference.pinned && expected !== null && expected !== reference.fingerprint;
     return { id: reference._id, ...withoutInternals(reference), stale };
+  },
+});
+
+/** A short-lived URL for a stored reference blob, so the request path can send it inline (#175). Server-only. */
+export const getReferenceBlobUrl = query({
+  args: { serverSecret: v.string(), storageId: v.id("_storage") },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const blob = await ctx.db.system.get(args.storageId);
+    if (!blob) return null;
+    return { url: await ctx.storage.getUrl(args.storageId), contentType: blob.contentType ?? null, size: blob.size };
   },
 });
 

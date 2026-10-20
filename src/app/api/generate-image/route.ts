@@ -1,9 +1,10 @@
 import { catalogImageQuote, imageCapabilities } from "@/lib/image-catalog";
 import {
   PROMPT_VERSION, DEFAULT_STYLE_PROFILE, STYLE_PROFILES,
-  normalizeScenePlan, extractJsonObject, clipText,
+  normalizeScenePlan, extractJsonObject,
   buildScenePlannerPrompt, buildImagePrompt, scenePlanInputFingerprint, type ScenePlan, type PromptPacket,
 } from "@/lib/image-prompts";
+import { extractImageUrlFromPart, extractNoImageText, extractOpenRouterUsageUsd, summarizeNoImageResponse } from "@/lib/image-response";
 import type { FunctionReturnType } from "convex/server";
 import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
@@ -30,6 +31,9 @@ import {
 } from "@/lib/bible-api";
 import { resolveGenerationPassage } from "@/lib/generation-passage";
 import { getScenePlannerEstimatedCreditsCost, getScenePlannerModelId, isScenePlannerEnabled } from "@/lib/scene-planner";
+import { decideEngine, genericEngineMode } from "@/lib/engine/admission";
+import { SHARED_STYLES } from "@/lib/work-preparation";
+import { getGenericEngine } from "@/lib/engine/dispatch";
 import {
   validateSessionWithIp,
   withSessionRefreshCookie,
@@ -48,8 +52,10 @@ import {
 import {
   createRequestObservabilityContext,
   emitMetric,
+  incrementMetricCounter,
   logApiFailure,
   logApiTimeout,
+  logInfo,
   logScenePlannerOutcome,
   logSettlementEvent,
   logWarn,
@@ -86,130 +92,6 @@ const SCENE_PLANNER_TIMEOUT_MS = Number.parseInt(
   10
 );
 const IMAGE_GENERATION_TIMEOUT_MESSAGE_PREFIX = "Image generation timed out after";
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function getNonEmptyString(value: unknown): string | null {
-  if (typeof value !== "string") return null;
-  const trimmed = value.trim();
-  return trimmed.length > 0 ? trimmed : null;
-}
-
-function buildInlineImageDataUrl(part: unknown): string | null {
-  if (!isRecord(part)) return null;
-
-  const inlineData = isRecord(part.inline_data)
-    ? part.inline_data
-    : isRecord(part.inlineData)
-      ? part.inlineData
-      : null;
-
-  if (!inlineData) return null;
-
-  const data = getNonEmptyString(inlineData.data);
-  if (!data) return null;
-
-  const mimeType = getNonEmptyString(inlineData.mime_type)
-    ?? getNonEmptyString(inlineData.mimeType)
-    ?? "image/png";
-
-  return `data:${mimeType};base64,${data}`;
-}
-
-function extractImageUrlFromPart(part: unknown): string | null {
-  if (typeof part === "string") {
-    return part.startsWith("data:image/") ? part : null;
-  }
-
-  if (!isRecord(part)) return null;
-
-  const directUrl = getNonEmptyString(part.url);
-  if (directUrl) return directUrl;
-
-  const directImageUrl = getNonEmptyString(part.image_url)
-    ?? getNonEmptyString(part.imageUrl);
-  if (directImageUrl) return directImageUrl;
-
-  const nestedImageUrl = isRecord(part.image_url)
-    ? part.image_url
-    : isRecord(part.imageUrl)
-      ? part.imageUrl
-      : null;
-  if (nestedImageUrl) {
-    const nestedUrl = getNonEmptyString(nestedImageUrl.url);
-    if (nestedUrl) return nestedUrl;
-  }
-
-  const inlineDataUrl = buildInlineImageDataUrl(part);
-  if (inlineDataUrl) return inlineDataUrl;
-
-  const b64Json = getNonEmptyString(part.b64_json);
-  if (b64Json) {
-    return `data:image/png;base64,${b64Json}`;
-  }
-
-  return null;
-}
-
-function extractNoImageText(message: unknown): string | null {
-  if (!isRecord(message)) return null;
-
-  const messageContent = getNonEmptyString(message.content);
-  if (messageContent) return clipText(messageContent, 180);
-
-  const refusal = getNonEmptyString(message.refusal);
-  if (refusal) return clipText(refusal, 180);
-
-  if (!Array.isArray(message.content)) return null;
-
-  for (const part of message.content) {
-    if (!isRecord(part)) continue;
-
-    const text = getNonEmptyString(part.text)
-      ?? getNonEmptyString(part.refusal)
-      ?? getNonEmptyString(part.content);
-
-    if (text) return clipText(text, 180);
-  }
-
-  return null;
-}
-
-function summarizeNoImageResponse(data: unknown): Record<string, unknown> {
-  if (!isRecord(data)) {
-    return { responseType: typeof data };
-  }
-
-  const choices = Array.isArray(data.choices) ? data.choices : [];
-
-  return {
-    id: getNonEmptyString(data.id),
-    choiceCount: choices.length,
-    choices: choices.slice(0, 2).map((choice) => {
-      if (!isRecord(choice)) {
-        return { choiceType: typeof choice };
-      }
-
-      const message = isRecord(choice.message) ? choice.message : null;
-      const content = message?.content;
-
-      return {
-        finishReason: getNonEmptyString(choice.finish_reason),
-        messageKeys: message ? Object.keys(message).slice(0, 8) : [],
-        imagesCount: Array.isArray(message?.images) ? message.images.length : 0,
-        contentType: Array.isArray(content) ? "array" : typeof content,
-        contentPartTypes: Array.isArray(content)
-          ? content.slice(0, 8).map((part) =>
-              isRecord(part) ? getNonEmptyString(part.type) ?? "unknown" : typeof part
-            )
-          : [],
-        textPreview: extractNoImageText(message),
-      };
-    }),
-  };
-}
 
 function toVerseId(reference: string): string {
   return reference
@@ -287,6 +169,8 @@ const generateImageSchema = z
     resolution: z.string().optional(),
     translation: z.string().optional(),
     requestId: z.string().regex(/^[a-zA-Z0-9_-]{8,80}$/).optional(),
+    /** A bulk job's bound engine: the request is refused rather than admitted on another engine (#178). */
+    engine: z.enum(["legacy", "generic"]).optional(),
   })
   .passthrough();
 
@@ -544,7 +428,7 @@ export async function POST(request: Request) {
     }
     const saved = admission.savedImage;
     if (saved?.imageUrl) return jsonWithSessionRefresh({
-      requestId: clientRequestId, generationId: admission.generationId,
+      requestId: clientRequestId, generationId: admission.generationId, engine: admission.engine ?? "legacy",
       status: admission.status, reused: true, savedImageId: saved.id,
       imageUrl: saved.imageUrl, reference: saved.reference, translationId: saved.translationId,
       verseText: saved.verseText, promptInputs: saved.promptInputs,
@@ -555,7 +439,7 @@ export async function POST(request: Request) {
         error: admission.error || "The original operation ended without an available saved image", reused: true,
       }, { status: 409 });
     }
-    return jsonWithSessionRefresh({ requestId: clientRequestId, status: admission.status, reused: true }, { status: 202 });
+    return jsonWithSessionRefresh({ requestId: clientRequestId, status: admission.status, reused: true, engine: admission.engine ?? "legacy" }, { status: 202 });
   };
   try {
     const existing = await convex.query(api.verseImages.getGenerationIntent, {
@@ -566,6 +450,7 @@ export async function POST(request: Request) {
     logApiFailure({ context: requestContext, stage: "image_intent_lookup", error, statusCode: 503, sid });
     return jsonWithSessionRefresh({ error: "Unable to safely check image generation" }, { status: 503 });
   }
+
 
   let modelId = DEFAULT_IMAGE_MODEL;
   const parseGenerationNumber = (
@@ -601,6 +486,56 @@ export async function POST(request: Request) {
   const verseId = toVerseId(reference);
 
   const generationNumber = parseGenerationNumber(requestBody.generation);
+  // Engine admission (#174): decided once per new request, persisted with it, never switched later.
+  if (requestedStyleId && !SHARED_STYLES.styles.some((style) => style.id === requestedStyleId)) {
+    // An unregistered style can never succeed: the same non-retryable answer as before.
+    return jsonWithSessionRefresh({ error: "Style profile not available", message: `The style "${requestedStyleId}" is not available. Please select a different style.` }, { status: 400 });
+  }
+  const engineMode = genericEngineMode();
+  // Owner status and readiness matter only once the generic engine is switched on; disabled mode adds no query.
+  let sessionLookupFailed = false;
+  const sessionForAdmission = engineMode === "disabled" ? null : await convex.query(api.sessions.getSession, { sid, serverSecret }).catch((error) => {
+    sessionLookupFailed = true;
+    logApiFailure({ context: requestContext, stage: "engine_admission_session", error, statusCode: 503, sid });
+    return null;
+  });
+  const isOwnerForAdmission = sessionForAdmission?.tier === "admin";
+  const bibleWorkId = "bible-web";
+  const readiness = engineMode === "disabled" ? null : await convex.query(api.analysis.getWorkStatus, { workId: bibleWorkId }).catch(() => null);
+  const engineDecision = decideEngine({
+    mode: engineMode, isOwner: isOwnerForAdmission, styleId: requestedStyleId ?? null,
+    readiness: readiness ? { ready: readiness.ready, reasons: readiness.reasons, activeGeneration: readiness.activeGeneration, briefVersion: readiness.briefVersion } : null,
+  });
+  logInfo("engine_admission", { requestId: clientRequestId, mode: engineMode, engine: engineDecision.engine, reason: engineDecision.engine ? engineDecision.reason : engineDecision.unavailable });
+  incrementMetricCounter("engine_admission", { mode: engineMode, engine: engineDecision.engine ?? "none" });
+  if (engineDecision.engine === null) {
+    return jsonWithSessionRefresh({ error: engineDecision.unavailable === "style" ? "Art style unavailable" : "Preparing scene", message: engineDecision.reason, retryable: engineDecision.retryable, style: requestedStyleId ?? null }, { status: 503 });
+  }
+  if (requestBody.engine && requestBody.engine !== engineDecision.engine) {
+    // A bound job never silently continues on another engine; nothing is reserved or recorded.
+    incrementMetricCounter("engine_binding_refused", { expected: requestBody.engine, decided: engineDecision.engine });
+    return jsonWithSessionRefresh({ error: "Engine binding changed", message: `This request is bound to the ${requestBody.engine} engine, which is not admitting new work right now.`, expectedEngine: requestBody.engine, engine: engineDecision.engine, retryable: true }, { status: 409 });
+  }
+  if (engineDecision.engine === "generic") {
+    // A failed lookup is temporary; only a lookup that returned nothing means the session is gone.
+    if (sessionLookupFailed) return jsonWithSessionRefresh({ error: "Unable to verify session", retryable: true }, { status: 503 });
+    if (!sessionForAdmission) return jsonWithSessionRefresh({ error: "Session not found" }, { status: 401 });
+    if (!readiness || readiness.activeGeneration === null || !readiness.workVersion || !readiness.briefVersion) {
+      return jsonWithSessionRefresh({ error: "Preparing scene", message: "The work's analysis is not registered.", retryable: true }, { status: 503 });
+    }
+    const outcome = await getGenericEngine().execute({
+      requestId: clientRequestId, sid, isOwner: isOwnerForAdmission, verseId, reference, translationId, styleId: requestedStyleId ?? "classical", aspectRatio, resolution,
+      workId: bibleWorkId, readiness: { activeGeneration: readiness.activeGeneration, workVersion: readiness.workVersion, briefVersion: readiness.briefVersion },
+      session: { credits: sessionForAdmission.credits, dailySpendUsd: sessionForAdmission.dailySpendUsd, dailySpendLimitUsd: sessionForAdmission.dailySpendLimitUsd },
+      inputFingerprint, generationNumber,
+      runtime: { convex, serverSecret, openRouterApiKey, requestContext },
+    });
+    if (outcome.kind === "declined") return jsonWithSessionRefresh({ error: outcome.error, message: outcome.message, retryable: outcome.retryable, ...outcome.details }, { status: outcome.status });
+    if (outcome.kind === "existing") return existingIntentResponse(outcome.admission as Parameters<typeof existingIntentResponse>[0]);
+    return jsonWithSessionRefresh(outcome.body, outcome.status === 200 ? { headers: { "Cache-Control": "private, max-age=3600" } } : { status: outcome.status });
+  }
+  const admittedEngine = engineDecision.engine;
+
   const requestedStyleProfile = requestedStyleId
     ? STYLE_PROFILES[requestedStyleId]
     : undefined;
@@ -822,6 +757,7 @@ export async function POST(request: Request) {
       estimatedCreditsCost, estimatedCostUsd: estimatedTotalCostUsd, serverSecret,
       inputFingerprint, generationId: chargeGenerationId,
       executorVersion: "next-image-v1", billingPolicyVersion: "legacy-image-v1",
+      engine: admittedEngine, artStyleId: styleProfile.id,
     });
     if (admission.alreadyExists) return existingIntentResponse(admission);
     if (!admission.generationId) throw new Error("Missing admitted billing identity");
@@ -1163,25 +1099,7 @@ export async function POST(request: Request) {
     // Extract actual usage/cost from OpenRouter response
     // OpenRouter may return cost in various locations depending on API version and request type
     // Check multiple known locations in priority order
-    const openRouterUsageUsd: number | null = (() => {
-      // Priority 1: Direct cost field in usage object (most common for OpenRouter)
-      if (typeof data.usage?.cost === "number" && data.usage.cost > 0) {
-        return data.usage.cost;
-      }
-      // Priority 2: total_cost field (alternative naming)
-      if (typeof data.usage?.total_cost === "number" && data.usage.total_cost > 0) {
-        return data.usage.total_cost;
-      }
-      // Priority 3: Root-level cost field
-      if (typeof data.cost === "number" && data.cost > 0) {
-        return data.cost;
-      }
-      // Priority 4: Root-level total_cost field
-      if (typeof data.total_cost === "number" && data.total_cost > 0) {
-        return data.total_cost;
-      }
-      return null;
-    })();
+    const openRouterUsageUsd = extractOpenRouterUsageUsd(data);
 
     // Log when actual cost isn't available - include usage structure for debugging
     if (openRouterUsageUsd === null) {
@@ -1473,6 +1391,7 @@ export async function POST(request: Request) {
       return jsonWithSessionRefresh(
         {
           requestId: generationRequestId,
+          engine: admittedEngine,
           imageUrl,
           ...(savedImageId ? { savedImageId } : {}),
           model: modelId,

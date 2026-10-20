@@ -10,6 +10,7 @@ import {
   handlePublicApiFailure,
   jsonPublic,
   jsonPublicError,
+  parsePublicStyleFilter,
   publicApiOptionsResponse,
   PUBLIC_CONTENT_CACHE_CONTROL,
   queryPublicChapterLatestImages,
@@ -41,6 +42,20 @@ export async function GET(request: Request, { params }: ChapterRouteProps) {
     });
   }
 
+  const style = parsePublicStyleFilter(request);
+  if (!style.ok) {
+    trackPublicApiRequest({
+      context,
+      endpoint: "public-images-chapter",
+      statusCode: 400,
+      outcome: "error",
+    });
+    return jsonPublicError("Bad request", {
+      status: 400,
+      message: style.message,
+      cacheControl: "no-store",
+    });
+  }
   const { convex, serverSecret } = await getPublicApiServices();
   if (!convex || !serverSecret) {
     return serviceUnavailableResponse({
@@ -65,7 +80,7 @@ export async function GET(request: Request, { params }: ChapterRouteProps) {
     const verseIds = Array.from({ length: location.book.chapters[location.chapter - 1] }, (_, index) =>
       `${location.book.slug}-${location.chapter}-${index + 1}`
     );
-    const chapterImages = await queryPublicChapterLatestImages(convex, serverSecret, verseIds);
+    const chapterImages = await queryPublicChapterLatestImages(convex, serverSecret, verseIds, style.filter);
     const byVerseId = new Map(chapterImages.map((entry) => [entry.verseId, entry.image]));
 
     const verses = verseIds
@@ -103,6 +118,7 @@ export async function GET(request: Request, { params }: ChapterRouteProps) {
         bookName: location.book.name,
         chapter: location.chapter,
         referencePrefix: `${location.book.name} ${location.chapter}`,
+        ...(style.filter.artStyle ? { artStyle: style.filter.artStyle } : {}),
         verses,
       },
       { cacheControl: PUBLIC_CONTENT_CACHE_CONTROL }

@@ -24,6 +24,7 @@ function createVerseId(book: string, chapter: number, verseRange: string): strin
 interface ImageHistoryItem {
   id: string;
   model: string;
+  artStyle?: string;
   provider?: string;
   aspectRatio?: string;
   imageWidth?: number;
@@ -115,6 +116,7 @@ function ChatSidebarBase({
   const imageContext: ImageContext | undefined = currentImage
     ? {
         imageId: currentImage.id,
+        artStyle: currentImage.artStyle,
         model: currentImage.model,
         provider: currentImage.provider,
         aspectRatio: currentImage.aspectRatio,

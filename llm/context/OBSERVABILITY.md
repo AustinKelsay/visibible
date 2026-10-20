@@ -11,3 +11,5 @@
 [ops-auth.ts](../../src/lib/ops-auth.ts) uses `READINESS_TOKEN`/`READINESS_IP_ALLOWLIST` and `METRICS_TOKEN`/`METRICS_IP_ALLOWLIST`. Either token or exact-IP policy can be configured; when both are set, both must pass. These allowlists are exact IPs, not CIDRs. Trusted proxy resolution still matters.
 
 Use [ops route tests](../../src/app/api/__tests__/ops/health-readiness-metrics.test.ts) and [observability tests](../../src/lib/__tests__/observability.test.ts) for changes. Client product events are separate; see [Analytics](ANALYTICS.md).
+
+Engine admission logs one `engine_admission` event per new image request (request id, mode, engine or the unavailability reason) and increments the `engine_admission` counter labelled by mode and engine; see [Image generation](IMAGE-GENERATION.md#engine-admission).

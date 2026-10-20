@@ -62,6 +62,46 @@ const promptPacketValidator = v.object({
   }),
 });
 
+// Generic engine (#175): the exact rendering snapshot a request was accepted with, persisted
+// before the image-provider attempt, and the provenance saved with each new generic image.
+const engineCanonRefValidator = v.object({ entryId: v.string(), stageId: v.string(), version: v.string() });
+const engineReferenceRefValidator = v.object({
+  kind: v.union(v.literal("styleReference"), v.literal("sheet")), id: v.string(), storageId: v.string(), version: v.string(), caption: v.string(),
+});
+export const renderingPacketValidator = v.object({
+  promptVersion: v.string(),
+  workId: v.string(),
+  momentId: v.string(),
+  sectionId: v.string(),
+  eraId: v.string(),
+  styleId: v.string(),
+  styleVersion: v.string(),
+  briefVersion: v.string(),
+  lookVersion: v.string(),
+  planVersion: v.string(),
+  canon: v.array(engineCanonRefValidator),
+  references: v.array(engineReferenceRefValidator),
+  flags: v.object({ variationIncluded: v.boolean(), neighborsIncluded: v.boolean(), styleDetailIncluded: v.boolean(), lookDetailIncluded: v.boolean() }),
+  budget: v.object({ maxChars: v.number(), finalChars: v.number() }),
+});
+export const imageProvenanceValidator = v.object({
+  workId: v.string(),
+  momentId: v.string(),
+  sectionId: v.string(),
+  eraId: v.string(),
+  styleId: v.string(),
+  styleVersion: v.string(),
+  briefVersion: v.string(),
+  lookVersion: v.string(),
+  planVersion: v.string(),
+  promptVersion: v.string(),
+  analysisGeneration: v.number(),
+  canon: v.array(engineCanonRefValidator),
+  references: v.array(v.object({ kind: v.union(v.literal("styleReference"), v.literal("sheet")), id: v.string(), version: v.string() })),
+  // The reader's selected translation at request time; the saved verse text is the work's reference text.
+  requestTranslationId: v.string(),
+});
+
 const generationStatusValidator = v.union(
   v.literal("queued"),
   v.literal("planning"),
@@ -220,6 +260,11 @@ export default defineSchema({
     createdAt: v.number(),
     // Generation ID for idempotency
     generationId: v.optional(v.string()),
+    // Engine and provenance (#175); absent on historical images, whose source stays unknown.
+    engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
+    // The art style the image was rendered in (#176); absent on historical images, which read as Classical.
+    artStyleId: v.optional(v.string()),
+    provenance: v.optional(imageProvenanceValidator),
     // Nostr publishing metadata
     nostrEventId: v.optional(v.string()),
     nostrPublishedAt: v.optional(v.number()),
@@ -230,6 +275,8 @@ export default defineSchema({
   })
     // Index for querying all images for a verse sorted by creation time
     .index("by_verse", ["verseId", "createdAt"])
+    // Style-leading discovery (#176): does a book or chapter have any image in one style?
+    .index("by_artStyle_verse", ["artStyleId", "verseId"])
     .index("by_storageId", ["storageId"])
     .index("by_generationId", ["generationId"])
     .index("by_createdAt", ["createdAt"]),
@@ -253,6 +300,18 @@ export default defineSchema({
     inputFingerprint: v.optional(v.string()),
     executorVersion: v.optional(v.string()),
     billingPolicyVersion: v.optional(v.string()),
+    // Engine binding (#174): decided at admission, immutable for the request's life. Absent on
+    // historical requests, which are legacy.
+    engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
+    artStyleId: v.optional(v.string()),
+    engineCommitments: v.optional(v.object({
+      workId: v.string(),
+      momentId: v.string(),
+      briefVersion: v.string(),
+      analysisGeneration: v.number(),
+      promptVersion: v.string(),
+      billingVersion: v.string(),
+    })),
     sid: v.string(),
     verseId: v.string(),
     translationId: v.optional(v.string()),
@@ -264,6 +323,7 @@ export default defineSchema({
     error: v.optional(v.string()),
     promptVersion: v.optional(v.string()),
     promptPacket: v.optional(promptPacketValidator),
+    renderingPacket: v.optional(renderingPacketValidator),
     scenePlannerModel: v.optional(v.string()),
     scenePlannerUsed: v.optional(v.boolean()),
     scenePlanFromCache: v.optional(v.boolean()),
@@ -440,7 +500,20 @@ export default defineSchema({
     ),
     userAgent: v.optional(v.string()),
     createdAt: v.number(),
-  }).index("by_createdAt", ["createdAt"]),
+    // Image reports (#180): the exact saved image, resolved server-side, and the attention item grouping its reports.
+    kind: v.optional(v.union(v.literal("general"), v.literal("image"))),
+    imageId: v.optional(v.id("verseImages")),
+    resolvedImage: v.optional(v.object({
+      verseId: v.string(),
+      artStyle: v.string(),
+      engine: v.optional(v.string()),
+      translationId: v.optional(v.string()),
+      workId: v.optional(v.string()),
+      momentId: v.optional(v.string()),
+      provenanceKnown: v.boolean(),
+    })),
+    attentionId: v.optional(v.id("attentionItems")),
+  }).index("by_createdAt", ["createdAt"]).index("by_imageId", ["imageId"]),
 
   // Bulk image generation jobs
   bulkGenerations: defineTable({
@@ -459,11 +532,18 @@ export default defineSchema({
     aspectRatio: v.string(),
     resolution: v.string(),
     translation: v.string(),
+    // Engine and style binding (#178): the art style chosen at creation and the engine the first
+    // admitted item was bound to; neither changes on resume. Jobs without them are legacy Classical.
+    engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
+    artStyleId: v.optional(v.string()),
+    // Why the job is paused when the coordinator did it (engine or style unavailable, limits).
+    pausedReason: v.optional(v.string()),
     createdAt: v.number(),
     updatedAt: v.number(),
     completedAt: v.optional(v.number()),
   })
     .index("by_sid_status", ["sid", "status"])
+    .index("by_status", ["status"])
     .index("by_sid_createdAt", ["sid", "createdAt"]),
 
   // Individual verse entries within a bulk generation job
@@ -503,6 +583,8 @@ export default defineSchema({
     briefVersion: v.optional(v.string()),
     activeGeneration: v.optional(v.number()),
     candidateGeneration: v.optional(v.number()),
+    // After a wipe that kept owner versions: the generation whose owner versions the next activation carries forward.
+    ownerVersionsFrom: v.optional(v.number()),
     nextGeneration: v.number(),
     updatedAt: v.number(),
   }).index("by_workId", ["workId"]),
@@ -556,6 +638,30 @@ export default defineSchema({
     .index("by_work_kind_recordId", ["workId", "kind", "recordId"])
     .index("by_work_status", ["workId", "status"]),
 
+  // Lazy preparation (#171): who is making a look or plan right now, so concurrent misses across
+  // server instances do not each fund the same call, and what owner preparation has cost.
+  preparationClaims: defineTable({
+    workId: v.string(),
+    kind: analysisKindValidator,
+    recordId: v.string(),
+    holder: v.string(),
+    expiresAt: v.number(),
+    createdAt: v.number(),
+  }).index("by_work_kind_recordId", ["workId", "kind", "recordId"]),
+
+  preparationLedger: defineTable({
+    workId: v.string(),
+    kind: v.string(),
+    recordId: v.string(),
+    model: v.string(),
+    costUsd: v.optional(v.number()),
+    promptTokens: v.optional(v.number()),
+    completionTokens: v.optional(v.number()),
+    elapsedMs: v.optional(v.number()),
+    outcome: v.string(),
+    createdAt: v.number(),
+  }).index("by_work_createdAt", ["workId", "createdAt"]),
+
   attentionItems: defineTable({
     workId: v.string(),
     reason: v.string(),
@@ -569,6 +675,16 @@ export default defineSchema({
     createdAt: v.number(),
     lastActivityAt: v.number(),
     closedAt: v.optional(v.number()),
+    // Reader image reports (#180): the saved image, every message with its time, the lifecycle, and how it was last closed.
+    imageId: v.optional(v.id("verseImages")),
+    reports: v.optional(v.array(v.object({ at: v.number(), message: v.string() }))),
+    history: v.optional(v.array(v.object({ at: v.number(), event: v.string(), disposition: v.optional(v.string()), detail: v.optional(v.string()) }))),
+    closure: v.optional(v.object({
+      at: v.number(),
+      disposition: v.string(),
+      correction: v.optional(v.object({ kind: v.string(), recordId: v.string(), version: v.string() })),
+      check: v.optional(v.string()),
+    })),
   })
     .index("by_work_status", ["workId", "status"])
     .index("by_work_reason_kind_recordId", ["workId", "reason", "kind", "recordId"]),

@@ -14,6 +14,7 @@ import {
   normalizeResolutionForModel,
 } from "@/lib/image-models";
 import { DEFAULT_CHAT_MODEL } from "@/lib/chat-models";
+import { DEFAULT_ART_STYLE, isArtStyleId } from "@/lib/art-styles";
 import {
   trackPreferenceChanged,
   type PreferenceChangeSource,
@@ -30,6 +31,9 @@ interface PreferencesContextType {
   setImageAspectRatio: (ratio: ImageAspectRatio, source?: PreferenceChangeSource) => void;
   imageResolution: ImageResolution;
   setImageResolution: (resolution: ImageResolution, source?: PreferenceChangeSource) => void;
+  /** The art style to generate and browse in (#177); stored like the model, never rewritten by what a work offers. */
+  artStyle: string;
+  setArtStyle: (styleId: string, source?: PreferenceChangeSource) => void;
   chatModel: string;
   setChatModel: (model: string, source?: PreferenceChangeSource) => void;
 }
@@ -59,6 +63,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   const [imageAspectRatio, setImageAspectRatioState] = useState<ImageAspectRatio>(DEFAULT_ASPECT_RATIO);
   const [imageResolution, setImageResolutionState] = useState<ImageResolution>(DEFAULT_RESOLUTION);
   const [chatModel, setChatModelState] = useState<string>(DEFAULT_CHAT_MODEL);
+  const [artStyle, setArtStyleState] = useState<string>(DEFAULT_ART_STYLE);
   const [isHydrated, setIsHydrated] = useState(false);
   const router = useRouter();
   const { tier, credits } = useSession();
@@ -90,6 +95,10 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
           if (prefs.chatModel) {
             setChatModelState(prefs.chatModel);
           }
+          // Load the art style; an unknown saved id is left in storage and the default is used.
+          if (isArtStyleId(prefs.artStyle)) {
+            setArtStyleState(prefs.artStyle);
+          }
           setIsHydrated(true);
         }, 0);
       } else {
@@ -112,6 +121,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     imageAspectRatio: ImageAspectRatio;
     imageResolution: ImageResolution;
     chatModel: string;
+    artStyle?: string;
   }) => {
     try {
       const existingRaw = localStorage.getItem(STORAGE_KEY);
@@ -239,6 +249,30 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  // Save the art style (no refresh needed: generation and library reads follow it reactively)
+  const setArtStyle = (
+    styleId: string,
+    source: PreferenceChangeSource = "unknown"
+  ) => {
+    if (!isArtStyleId(styleId)) return;
+    setArtStyleState(styleId);
+    savePreferences({
+      translation,
+      imageModel,
+      imageAspectRatio,
+      imageResolution,
+      chatModel,
+      artStyle: styleId,
+    });
+    trackPreferenceChanged({
+      preference: "artStyle",
+      value: styleId,
+      source,
+      tier,
+      hasCredits: credits > 0,
+    });
+  };
+
   // Save chat model preference (no refresh needed - takes effect on next message)
   const setChatModel = (
     newModel: string,
@@ -278,6 +312,8 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
         setImageResolution,
         chatModel: isHydrated ? chatModel : DEFAULT_CHAT_MODEL,
         setChatModel,
+        artStyle: isHydrated ? artStyle : DEFAULT_ART_STYLE,
+        setArtStyle,
       }}
     >
       {children}

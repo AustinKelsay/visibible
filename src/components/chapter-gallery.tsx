@@ -12,6 +12,7 @@ import {
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import { useQuery } from "convex/react";
+import { usePreferences } from "@/context/preferences-context";
 import { api } from "../../convex/_generated/api";
 import { useConvexEnabled } from "@/components/convex-client-provider";
 import { useNavigation } from "@/context/navigation-context";
@@ -412,9 +413,10 @@ export function ChapterGallery({
     tier,
   ]);
 
+  const { artStyle } = usePreferences();
   const galleryImages = useQuery(
     api.verseImages.getChapterGallery,
-    isConvexEnabled && isGalleryActive ? { book, chapter } : "skip"
+    isConvexEnabled && isGalleryActive ? { book, chapter, artStyle } : "skip"
   );
 
   const normalizedGalleryImages = normalizeChapterGalleryImages(galleryImages);

@@ -1,0 +1,27 @@
+# Owner corrections runbook
+
+`npm run works:correct -- <work-id> <command>` ([correct.mts](../../scripts/works/correct.mts), over [corrections.ts](../../src/lib/engine/corrections.ts)) is how the owner inspects and corrects a work's analysis after the fact. Every command runs with the deployment's server secret from `.env.local`; nothing here is reachable from a browser. Saved images and accounting are never changed by any command.
+
+| Command | What it does |
+| --- | --- |
+| `attention [--closed]` | Lists open (or closed) attention items with reason, source (`checker` or `reader`), record, count, latest activity, detail and the image URL for sheets and style references. Checker reasons: `sheet_failed`, `style_reference_failed`, `canon_note`, `canon_check`, `quote_check_failed`, `unmatched_owner_edit`. Reader reports (`reader_report`) are listed apart and are never closed by an input change. |
+| `inspect <entryId>` | The entry's current version and payload, its version history across generations, the sheet per stage with its pin state and URL, records that are stale against it, and its open attention. |
+| `edit-stage <entryId> <stageId> --text "…" [--expect <version>]` | Writes an owner version of the entry with that stage's text replaced. The command names the version it saw (`--expect`, defaulting to the current one at read time); a newer current version makes it refuse as stale, while a retry of the same edit is harmless. Closes the entry's checker items as "source corrected" and prints the dependents (sheets, looks, plans) now stale. |
+| `edit-look <sectionId> [--place …] [--time …] [--weather …] [--light …] [--clothing …] [--expect <version>]` | Writes an owner version of the section look; dependent plans show as stale and replan lazily. |
+| `pin sheet\|style <recordId>`, `unpin …` | A pinned reference ignores staleness and cannot be replaced; unpinning restores the dependency check. |
+| `redo-sheet <entryId:stageId>`, `redo-style <styleId>` | Remakes one reference through the normal check loop (owner-funded, three attempts); refuses a pinned one. Closes its checker items when it succeeds. |
+| `redraft <entryId>` | Runs the canon step with `--redraft` and `--activate` for one entry; the store carries every owner version forward, so a redraft never overwrites an owner edit. |
+| `clear-plan <momentId>` | Removes the moment's plan so the next image replans. Plans are never edited. |
+| `dismiss <attentionId> [--disposition …]` | Closes one checker item with a disposition (`dismissed` by default). A reader report refuses anything but its four dispositions. |
+| `reports [--closed]` | Reader image reports: count, latest activity, verse, the image's art style, engine and source translation as the library resolves them, the previous disposition when reopened, and the image URL. |
+| `report <attentionId>` | One report in full: every message with its time, the lifecycle history, the last closure, and the saved image's provenance (work, moment, section, style and brief versions, look, plan, canon stages and references; unknown for legacy images). |
+| `resolve <attentionId> --disposition "…" [--correction kind:recordId:version] [--check "…"]` | Closes a reader report with exactly one of `source corrected`, `isolated rendering error`, `accepted limitation` or `dismissed`. `source corrected` must link the input version that fixed it (which must exist in the analysis) and the targeted check you ran. A later report reopens the item with this closure kept in its history. |
+| `wipe [--including-owner] [--confirm-production]` | Deletes the work's generated analysis: records, generations, reference records and blobs, preparation claims and open checker items. Owner versions stay unless `--including-owner`, and the next activation carries them forward. The work becomes not ready. A deployment that looks like production needs `--confirm-production`; the mutation also requires the work id as confirmation. |
+
+An input edit, redo or redraft never closes a reader report, regenerates the reported image or alters its provenance; the owner decides with `resolve` after checking the correction. Counts and warnings never change canon, references, styles or images by themselves.
+
+Corrections invalidate only actual dependents: a changed canon stage makes that entry's sheets, its sections' looks and their plans stale, and nothing else; nothing is regenerated until it is next needed or the owner reruns a preparation command. The analysis keeps every version, so the inputs behind a saved image stay inspectable after any correction ([Analysis storage](../context/ANALYSIS-STORAGE.md)).
+
+## Targeted check after a correction
+
+After editing a stage, redoing a sheet, pinning a reference or changing a look, check the affected examples rather than the whole set: `npm run evals:images -- --run check-<what> --arms generic --cases <the cases that show the entry or section> --repeats 2 --budget 0.50` renders those cases through the engine's own assembly with the corrected inputs (prepared looks and plans are reused; a cleared plan is remade and counted as preparation spend). Open the contact sheet, score the rows, and close the reader report with `resolve … --disposition "source corrected" --correction <kind:recordId:version> --check "<run name and what you saw>"`. The run directory is the check's evidence. See [Image eval and release requirements](IMAGE_EVAL_AND_RELEASE.md).

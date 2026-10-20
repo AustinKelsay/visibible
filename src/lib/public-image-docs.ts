@@ -20,7 +20,7 @@ export const PUBLIC_IMAGE_API_ERRORS = [
   {
     status: "400",
     title: "Bad request",
-    description: "Returned when a query parameter is invalid, such as a non-numeric or out-of-range `limit`.",
+    description: "Returned when a query parameter is invalid, such as a non-numeric or out-of-range `limit` or an unknown `style`.",
   },
   {
     status: "404",
@@ -53,27 +53,27 @@ export const PUBLIC_IMAGE_API_ENDPOINTS = [
   {
     title: "Books with images",
     path: `${PUBLIC_IMAGE_API_BASE_PATH}/books`,
-    description: "Returns books that currently have at least one saved image.",
+    description: "Returns books that currently have at least one saved image. Accepts `?style=` to count one art style only.",
   },
   {
     title: "Chapters with images for a book",
     path: `${PUBLIC_IMAGE_API_BASE_PATH}/books/{book}/chapters`,
-    description: "Returns chapter numbers that currently have at least one saved image.",
+    description: "Returns chapter numbers that currently have at least one saved image. Accepts `?style=`.",
   },
   {
     title: "Latest images in a chapter",
     path: `${PUBLIC_IMAGE_API_BASE_PATH}/chapters/{book}/{chapter}`,
-    description: "Returns the latest saved image for each verse in a chapter that currently has art.",
+    description: "Returns the latest saved image for each verse in a chapter that currently has art. With `?style=`, the latest image in that style per verse.",
   },
   {
     title: "Latest image for a verse",
     path: `${PUBLIC_IMAGE_API_BASE_PATH}/verses/{book}/{chapter}/{verse}`,
-    description: "Returns the latest saved image for one verse.",
+    description: "Returns the latest saved image for one verse, or with `?style=` the latest in that art style (404 when the verse has none in it).",
   },
   {
     title: "Paginated image history for a verse",
     path: `${PUBLIC_IMAGE_API_BASE_PATH}/verses/{book}/{chapter}/{verse}/images?limit=20&cursor=...`,
-    description: "Returns a paginated list of saved images for one verse.",
+    description: "Returns a paginated list of saved images for one verse, optionally limited to one art style with `?style=`.",
   },
 ] as const;
 
@@ -160,6 +160,7 @@ function buildExampleVerseResponse(apiBaseUrl: string, pageBaseUrl: string) {
         reference: "Genesis 1:1",
         pageUrl,
         model: "google/gemini-2.5-flash-image",
+        artStyle: "classical",
         translationId: "web",
         aspectRatio: "16:9",
         imageMimeType: "image/png",
@@ -206,6 +207,7 @@ ${endpoint.description}`
     formatCurl(normalizedApiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/chapters/genesis/1`),
     formatCurl(normalizedApiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/verses/john/3/16`),
     formatCurl(normalizedApiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/verses/genesis/1/1/images?limit=10`),
+    formatCurl(normalizedApiBaseUrl, `${PUBLIC_IMAGE_API_BASE_PATH}/chapters/genesis/1?style=watercolor`),
   ].join("\n");
 
   return `
@@ -234,6 +236,12 @@ ${exampleRequests}
 \`\`\`json
 ${formatJson(exampleVerseResponse)}
 \`\`\`
+
+## Art styles
+
+Every image reports \`artStyle\`: \`classical\`, \`watercolor\` or \`icon\`. Images saved before art styles existed are reported as \`classical\`. Add \`?style=<id>\` to any endpoint except the index to limit results and counts to one style; omit it for every style. An unknown style returns \`400\`. Responses echo the applied filter as \`artStyle\` beside the data.
+
+\`translationId\` and \`reference\` describe the saved image's own source text (for example \`web\` for images rendered from the World English Bible), not the translation a reader was viewing when the image was requested.
 
 ## Pagination
 

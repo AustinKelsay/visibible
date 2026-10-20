@@ -45,3 +45,19 @@ it("keeps a saved model the visitor chose over the old default", async () => {
   expect(view.preferences()).toMatchObject({ imageModel: "google/gemini-3.1-flash-image", imageResolution: "4K" });
   view.unmount();
 });
+
+it("persists a chosen art style and uses the default for an unknown saved one without rewriting it", async () => {
+  const storage = new Map([["visibible-preferences", JSON.stringify({ imageModel: DEFAULT_IMAGE_MODEL, artStyle: "oil-pastel" })]]);
+  const first = await hydrate(storage);
+  expect(first.preferences().artStyle).toBe("classical");
+  expect(JSON.parse(storage.get("visibible-preferences")!).artStyle).toBe("oil-pastel");
+  await act(async () => first.preferences().setArtStyle("watercolor"));
+  expect(first.preferences().artStyle).toBe("watercolor");
+  await act(async () => first.preferences().setArtStyle("not-a-style"));
+  expect(first.preferences().artStyle).toBe("watercolor");
+  first.unmount();
+
+  const second = await hydrate(storage);
+  expect(second.preferences().artStyle).toBe("watercolor");
+  second.unmount();
+});

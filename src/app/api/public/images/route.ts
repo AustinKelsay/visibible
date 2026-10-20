@@ -5,6 +5,7 @@ import {
   handlePublicApiFailure,
   jsonPublic,
   publicApiOptionsResponse,
+  PUBLIC_ART_STYLE_IDS,
   PUBLIC_DISCOVERY_CACHE_CONTROL,
   queryPublicApiIndex,
   serviceUnavailableResponse,
@@ -57,7 +58,9 @@ export async function GET(request: Request) {
           verseLatest: true,
           verseHistory: true,
           chapterLatestPerVerse: true,
+          styleFilter: true,
         },
+        artStyles: PUBLIC_ART_STYLE_IDS,
         links: {
           books: `${new URL(request.url).origin}/api/public/images/books`,
           verseTemplate:

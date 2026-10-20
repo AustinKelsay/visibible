@@ -8,6 +8,7 @@ import { useNavigation } from "@/context/navigation-context";
 import { useOptionalVerseView } from "@/context/verse-view-context";
 import { TranslationSelector } from "./translation-selector";
 import { ImageModelSelector } from "./image-model-selector";
+import { ArtStyleSelector } from "@/components/art-style-selector";
 import { CreditsBadge } from "./credits-badge";
 import { HeaderSettingsPopover, MobileSettingsRows } from "./header-settings-popover";
 import { HeaderGenerateButton } from "./header-generate-button";
@@ -106,6 +107,7 @@ export function Header() {
           <div className="flex items-center">
             <TranslationSelector variant="compact" />
             <ImageModelSelector variant="compact" />
+            <ArtStyleSelector variant="compact" />
             <HeaderSettingsPopover />
           </div>
 
@@ -199,6 +201,10 @@ export function Header() {
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-[var(--foreground)]">Image Model</span>
               <ImageModelSelector variant="compact" />
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-[var(--foreground)]">Art Style</span>
+              <ArtStyleSelector variant="full" source="mobile_header_menu" />
             </div>
             <MobileSettingsRows />
           </div>

@@ -8,10 +8,14 @@ import type { FunctionArgs } from "convex/server";
 
 export type AnalysisRecordInput = FunctionArgs<typeof api.analysis.putRecords>["records"][number];
 
+export type AttentionInput = { workId: string; reason: string; kind?: string; recordId?: string; generation?: number; detail?: string };
+
 export interface AnalysisStore {
   registerWork(args: { workId: string; workVersion: string; briefVersion?: string }): Promise<void>;
   stageGeneration(args: { workId: string; workVersion: string; briefVersion: string; note?: string }): Promise<{ generation: number }>;
   putRecords(args: { workId: string; generation: number; records: AnalysisRecordInput[] }): Promise<void>;
+  activateGeneration(args: { workId: string; generation: number }): Promise<{ carriedOwnerVersions: string[]; unmatchedOwnerVersions: string[] }>;
+  noteAttention(item: AttentionInput): Promise<void>;
 }
 
 /** Records are written in batches so one mutation never carries a whole work. */
@@ -30,12 +34,21 @@ export function createConvexAnalysisStore(client: ConvexHttpClient, serverSecret
         await client.mutation(api.analysis.putRecords, { serverSecret, workId, generation, records: records.slice(i, i + PUT_RECORDS_BATCH) });
       }
     },
+    async activateGeneration(args) {
+      const result = await client.mutation(api.analysis.activateGeneration, { serverSecret, ...args });
+      return { carriedOwnerVersions: result.carriedOwnerVersions, unmatchedOwnerVersions: result.unmatchedOwnerVersions };
+    },
+    async noteAttention(item) {
+      await client.mutation(api.analysis.noteAttention, { serverSecret, ...item });
+    },
   };
 }
 
 export function createMemoryAnalysisStore() {
   const generations: Array<{ workId: string; generation: number; workVersion: string; briefVersion: string; records: AnalysisRecordInput[] }> = [];
   const works = new Map<string, { workVersion: string; briefVersion?: string }>();
+  const attention: AttentionInput[] = [];
+  const activated: number[] = [];
   const store: AnalysisStore = {
     async registerWork({ workId, workVersion, briefVersion }) {
       works.set(workId, { workVersion, briefVersion });
@@ -54,6 +67,13 @@ export function createMemoryAnalysisStore() {
         else target.records.push(record);
       }
     },
+    async activateGeneration({ generation }) {
+      activated.push(generation);
+      return { carriedOwnerVersions: [], unmatchedOwnerVersions: [] };
+    },
+    async noteAttention(item) {
+      attention.push(item);
+    },
   };
-  return { store, generations, works };
+  return { store, generations, works, attention, activated };
 }

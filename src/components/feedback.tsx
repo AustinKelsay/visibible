@@ -9,6 +9,7 @@ import { trackFeedbackSubmitted } from "@/lib/analytics";
 // Image context for feedback - which image the user was viewing
 export type ImageContext = {
   imageId?: string;
+  artStyle?: string;
   model?: string;
   provider?: string;
   aspectRatio?: string;
@@ -27,6 +28,10 @@ type FeedbackProps = {
 export function Feedback({ context, imageContext }: FeedbackProps) {
   const { tier, credits } = useSession();
   const [message, setMessage] = useState("");
+  // "This image" reports the saved image on screen; the server resolves its style and source itself.
+  const [kind, setKind] = useState<"general" | "image">("general");
+  const canReportImage = Boolean(imageContext?.imageId);
+  const effectiveKind = canReportImage ? kind : "general";
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -62,6 +67,7 @@ export function Feedback({ context, imageContext }: FeedbackProps) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          kind: effectiveKind,
           message: trimmedMessage,
           verseContext: context
             ? {
@@ -70,7 +76,7 @@ export function Feedback({ context, imageContext }: FeedbackProps) {
                 verseRange: context.verseRange,
               }
             : undefined,
-          imageContext: imageContext?.imageId ? imageContext : undefined,
+          imageContext: effectiveKind === "image" ? { imageId: imageContext!.imageId } : imageContext?.imageId ? imageContext : undefined,
         }),
       });
 
@@ -84,6 +90,8 @@ export function Feedback({ context, imageContext }: FeedbackProps) {
         hasContext: Boolean(context),
         hasImageContext: Boolean(imageContext?.imageId),
         sidebarTab: "feedback",
+        kind: effectiveKind,
+        ...(effectiveKind === "image" && imageContext?.artStyle ? { artStyle: imageContext.artStyle } : {}),
         tier,
         hasCredits: credits > 0,
       });
@@ -130,6 +138,29 @@ export function Feedback({ context, imageContext }: FeedbackProps) {
           </div>
         )}
 
+        {/* What the feedback is about */}
+        {canReportImage && (
+          <div role="radiogroup" aria-label="What is this feedback about?" className="mb-4 grid grid-cols-2 gap-2">
+            {([["general", "General feedback"], ["image", "This image"]] as const).map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                role="radio"
+                aria-checked={kind === value}
+                onClick={() => setKind(value)}
+                disabled={isSubmitting}
+                className={`min-h-[44px] px-3 rounded-[var(--radius-md)] border text-sm transition-colors duration-[var(--motion-fast)] ${
+                  kind === value
+                    ? "border-[var(--accent)] bg-[var(--accent)] text-[var(--accent-text)]"
+                    : "border-[var(--divider)] bg-[var(--surface)] text-[var(--foreground)] hover:border-[var(--accent)]"
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        )}
+
         {/* Image context indicator */}
         {imageContext?.imageId && (
           <div className="mb-4 p-3 bg-[var(--surface)] rounded-[var(--radius-md)] text-sm flex items-start gap-2">
@@ -137,6 +168,7 @@ export function Feedback({ context, imageContext }: FeedbackProps) {
             <div className="flex flex-col gap-0.5">
               <span className="text-[var(--foreground)]">
                 {imageContext.model?.split("/").pop()?.replace(/-image$/i, "") || "Image"}
+                {imageContext.artStyle ? ` · ${imageContext.artStyle}` : ""}
               </span>
               {imageContext.dimensions && (
                 <span className="text-xs text-[var(--muted)]">
@@ -180,7 +212,7 @@ export function Feedback({ context, imageContext }: FeedbackProps) {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             disabled={isSubmitting}
-            placeholder="Your feedback..."
+            placeholder={effectiveKind === "image" ? "What is wrong with this image?" : "Your feedback..."}
             aria-label="Feedback message"
             rows={3}
             maxLength={5000}

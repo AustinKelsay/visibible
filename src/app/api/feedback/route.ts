@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { ConvexError } from "convex/values";
 import {
   validateSessionWithIp,
   withSessionRefreshCookie,
@@ -17,6 +18,8 @@ import { api } from "../../../../convex/_generated/api";
 
 // SECURITY: Zod schema with strict length limits to prevent database exhaustion
 const feedbackSchema = z.object({
+  // "image" reports the saved image named by imageContext.imageId; the server resolves everything else about it.
+  kind: z.enum(["general", "image"]).optional(),
   message: z
     .string()
     .min(1, "Message is required")
@@ -139,6 +142,13 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
   const body = parseResult.data;
+  const kind = body.kind ?? "general";
+  if (kind === "image" && !body.imageContext?.imageId) {
+    return NextResponse.json(
+      { error: "Validation failed", message: "An image report needs the id of the image it is about." },
+      { status: 400 }
+    );
+  }
 
   // Get session ID (optional, for context)
   const sessionValidation = await validateSessionWithIp(request);
@@ -153,24 +163,25 @@ export async function POST(request: Request): Promise<NextResponse> {
   const userAgent = request.headers.get("user-agent") ?? undefined;
 
   try {
-    await convex.mutation(api.feedback.submitFeedback, {
+    const result = await convex.mutation(api.feedback.submitFeedback, {
       message: body.message,
       sid: sid ?? undefined,
       verseContext: body.verseContext,
-      imageContext: body.imageContext,
+      // For an image report only the id is forwarded; style, source and versions come from the saved image.
+      imageContext: kind === "image" ? { imageId: body.imageContext!.imageId } : body.imageContext,
       userAgent,
+      kind,
       serverSecret,
     });
 
-    return withSessionRefresh(NextResponse.json({ success: true }));
+    return withSessionRefresh(NextResponse.json({ success: true, kind, ...("artStyle" in result ? { artStyle: result.artStyle } : {}) }));
   } catch (error) {
     console.error("Feedback submission error:", error);
+    const message = error instanceof Error ? error.message : "Failed to submit feedback";
+    const unknownImage = error instanceof ConvexError && (error.data as { code?: string } | undefined)?.code === "UNKNOWN_IMAGE";
     return withSessionRefresh(NextResponse.json(
-      {
-        error:
-          error instanceof Error ? error.message : "Failed to submit feedback",
-      },
-      { status: 400 }
+      { error: unknownImage ? "Unknown image" : message, ...(unknownImage ? { message: "That image no longer exists, so it cannot be reported." } : {}) },
+      { status: unknownImage ? 404 : 400 }
     ));
   }
 }

@@ -58,3 +58,7 @@ function_spec.json
 /works/*/.preparation/
 /works/*/brief.draft.json
 /works/*/brief.draft.review.json
+# Image evaluation runs: outputs, state and reports are owner evidence, not source
+/evals/images/runs/
+# Release rehearsal results: observed outcomes attached to the release PR, not source
+/evals/rehearsal/

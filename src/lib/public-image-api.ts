@@ -3,6 +3,7 @@ import { z } from "zod";
 import { BOOK_BY_SLUG, type BibleBook } from "@/data/bible-structure";
 import { getConvexClient, getConvexServerSecret } from "@/lib/convex-client";
 import { getClientIp, hashIp } from "@/lib/session";
+import { SHARED_STYLES } from "@/lib/work-preparation";
 import {
   createRequestObservabilityContext,
   elapsedMs,
@@ -22,6 +23,25 @@ export const publicImageHistoryQuerySchema = z.object({
   cursor: z.string().trim().min(1).optional(),
 });
 
+/** The art styles the public API knows, in the library's order; `classical` is what historical images read as. */
+export const PUBLIC_ART_STYLE_IDS: readonly string[] = SHARED_STYLES.styles.map((style) => style.id);
+export const DEFAULT_PUBLIC_ART_STYLE = "classical";
+
+/** Optional `?style=` filter: omitted returns every style; an unknown value is a 400, never silently all styles. */
+export const publicStyleQuerySchema = z.object({
+  style: z.string().trim().min(1).refine((value) => PUBLIC_ART_STYLE_IDS.includes(value), {
+    message: `Unknown art style. Supported styles: ${PUBLIC_ART_STYLE_IDS.join(", ")}.`,
+  }).optional(),
+});
+
+export type PublicStyleFilter = { artStyle?: string };
+
+export function parsePublicStyleFilter(request: Request): { ok: true; filter: PublicStyleFilter } | { ok: false; message: string } {
+  const parsed = publicStyleQuerySchema.safeParse({ style: new URL(request.url).searchParams.get("style") ?? undefined });
+  if (!parsed.success) return { ok: false, message: parsed.error.issues[0]?.message || "Invalid style parameter." };
+  return { ok: true, filter: parsed.data.style ? { artStyle: parsed.data.style } : {} };
+}
+
 export interface PublicVerseLocation {
   book: BibleBook;
   chapter: number;
@@ -34,6 +54,8 @@ export interface PublicImageRecord {
   reference?: string;
   pageUrl: string;
   model?: string;
+  /** The art style the image was rendered in; images saved before art styles existed are Classical. */
+  artStyle: string;
   translationId?: string;
   aspectRatio?: string;
   imageMimeType?: string;
@@ -47,6 +69,7 @@ type PublicImageRecordInput = {
   imageUrl?: string | null;
   reference?: string | null;
   model?: string | null;
+  artStyle?: string | null;
   translationId?: string | null;
   aspectRatio?: string | null;
   imageMimeType?: string | null;
@@ -85,31 +108,35 @@ export async function queryPublicApiIndex(convex: ConvexLikeClient, serverSecret
   return convex.query(api.verseImages.getPublicApiIndex, { serverSecret });
 }
 
-export async function queryPublicBooksWithImages(convex: ConvexLikeClient, serverSecret: string) {
-  return convex.query(api.verseImages.getPublicBooksWithImages, { serverSecret });
+export async function queryPublicBooksWithImages(convex: ConvexLikeClient, serverSecret: string, filter: PublicStyleFilter = {}) {
+  return convex.query(api.verseImages.getPublicBooksWithImages, { serverSecret, ...filter });
 }
 
 export async function queryPublicChaptersWithImages(
   convex: ConvexLikeClient,
   serverSecret: string,
   book: string,
-  chapterCount: number
+  chapterCount: number,
+  filter: PublicStyleFilter = {}
 ) {
   return convex.query(api.verseImages.getPublicChaptersWithImages, {
     book,
     chapterCount,
     serverSecret,
+    ...filter,
   });
 }
 
 export async function queryPublicVerseLatestImage(
   convex: ConvexLikeClient,
   serverSecret: string,
-  verseId: string
+  verseId: string,
+  filter: PublicStyleFilter = {}
 ) {
   return convex.query(api.verseImages.getPublicVerseLatestImage, {
     verseId,
     serverSecret,
+    ...filter,
   });
 }
 
@@ -118,7 +145,8 @@ export async function queryPublicVerseImagesPaginated(
   serverSecret: string,
   verseId: string,
   cursor: string | null,
-  limit: number
+  limit: number,
+  filter: PublicStyleFilter = {}
 ) {
   return convex.query(api.verseImages.listPublicVerseImagesPaginated, {
     verseId,
@@ -127,17 +155,20 @@ export async function queryPublicVerseImagesPaginated(
       numItems: limit,
     },
     serverSecret,
+    ...filter,
   });
 }
 
 export async function queryPublicChapterLatestImages(
   convex: ConvexLikeClient,
   serverSecret: string,
-  verseIds: string[]
+  verseIds: string[],
+  filter: PublicStyleFilter = {}
 ) {
   return convex.query(api.verseImages.getPublicChapterLatestImages, {
     verseIds,
     serverSecret,
+    ...filter,
   });
 }
 
@@ -217,6 +248,7 @@ export function buildPublicImageRecord(
     id: record.id,
     imageUrl: record.imageUrl,
     pageUrl,
+    artStyle: record.artStyle || DEFAULT_PUBLIC_ART_STYLE,
   };
 
   if (record.reference) publicImage.reference = record.reference;
