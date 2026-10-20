@@ -8,6 +8,7 @@ import { buildRenderingPacket, selectReferences, GENERIC_PROMPT_MAX_CHARS, type 
 import { quoteGenericImage } from "../engine/quote";
 import { SHARED_STYLES, type WorkBrief } from "../work-preparation";
 import { normalizeImageBilling } from "../image-catalog";
+import referencePricing from "../../../tests/fixtures/lite-reference-pricing.json";
 
 const brief: WorkBrief = {
   schemaVersion: 1, workId: "holmes-adventures", tone: "Brisk, foggy Victorian detective mood.",
@@ -138,11 +139,37 @@ describe("generic image quote", () => {
     expect(quoteGenericImage({ modelId: lite, billing, resolution: "1K", promptChars: 2000, referenceImages: 0 })!.credits).toBeLessThanOrEqual(text.credits);
   });
 
-  it("refuses to quote a reference without an input-image price, or an unknown model", () => {
+  it("quotes the live Lite catalog's unified input-token rate when the per-image field is absent", () => {
     const noImagePrice = normalizeImageBilling(lite, { prompt: "0.00000025", completion: "0.0000015", image_output: "0.00003" }, 1);
-    expect(quoteGenericImage({ modelId: lite, billing: noImagePrice, resolution: "1K", promptChars: 1000, referenceImages: 0 })).not.toBeNull();
-    expect(quoteGenericImage({ modelId: lite, billing: noImagePrice, resolution: "1K", promptChars: 1000, referenceImages: 1 })).toBeNull();
+    const quote = quoteGenericImage({ modelId: lite, billing: noImagePrice, resolution: "1K", promptChars: 7800, referenceImages: 3 });
+    // 3 × 1,120 input image tokens at $0.25/M, plus the text and output image.
+    expect(quote?.providerUsd).toBeCloseTo(0.0350775, 8);
+    expect(quote?.credits).toBe(5);
+    expect(noImagePrice?.imageInputTokens).toEqual({ usdPerToken: "0.00000025", perImage: 1120 });
+    const oldFamily = "google/gemini-2.5-flash-image";
+    const unverifiedInput = normalizeImageBilling(oldFamily, { prompt: "0.0000003", completion: "0.0000025", image_output: "0.00003" }, 1);
+    expect(quoteGenericImage({ modelId: oldFamily, billing: unverifiedInput, resolution: "1K", promptChars: 1000, referenceImages: 1 })).toBeNull();
     expect(quoteGenericImage({ modelId: "unknown/model", billing, resolution: "1K", promptChars: 1000, referenceImages: 0 })).toBeNull();
     expect(billing?.imageInputUsd).toBe("0.0003");
+  });
+
+  it("refuses invalid reference counts and malformed explicit input-image prices", () => {
+    for (const referenceImages of [-1, 1.5, NaN, Infinity]) {
+      expect(quoteGenericImage({ modelId: lite, billing, resolution: "1K", promptChars: 1000, referenceImages })).toBeNull();
+    }
+    const invalid = normalizeImageBilling(lite, { prompt: "0.00000025", completion: "0.0000015", image_output: "0.00003", image: "invalid" }, 1);
+    expect(quoteGenericImage({ modelId: lite, billing: invalid, resolution: "1K", promptChars: 1000, referenceImages: 1 })).toBeNull();
+  });
+
+  it("quotes recorded two- and three-reference requests at five credits against retained provider usage", () => {
+    const captured = normalizeImageBilling(referencePricing.model.id, referencePricing.model.pricing, Date.parse(referencePricing.observedAt));
+    for (const sample of referencePricing.samples) {
+      const quote = quoteGenericImage({ modelId: referencePricing.model.id, billing: captured, resolution: "1K", promptChars: sample.promptChars, referenceImages: sample.references });
+      expect(quote, `${sample.caseId}/${sample.arm}`).toMatchObject({ credits: 5, referenceImages: sample.references, withinEnvelope: true });
+      expect(quote!.providerUsd).toBeGreaterThan(sample.actualCostUsd);
+      expect(quote!.providerUsd - sample.actualCostUsd).toBeLessThan(0.001);
+      // Provider native usage independently reconciles to the captured input/output rates.
+      expect(sample.promptTokens * Number(referencePricing.model.pricing.prompt) + sample.outputImageTokens * Number(referencePricing.model.pricing.image_output)).toBeCloseTo(sample.actualCostUsd, 10);
+    }
   });
 });

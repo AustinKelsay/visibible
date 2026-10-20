@@ -670,6 +670,20 @@ describe("Image Generation API Credit Flow", () => {
       expect((await savedImages())[1].provenance!.references).toEqual([{ kind: "sheet", id: "adam:main", version: expect.any(String) }]);
     });
 
+    it("admits reference-bearing Lite requests with the live catalog shape and settles actual usage separately", async () => {
+      await prepareWork();
+      fetchImageModelsMock.mockResolvedValueOnce({ models: [{ ...genericModel, billing: normalizeImageBilling("google/gemini-3.1-flash-lite-image", { prompt: "0.00000025", completion: "0.0000015", image_output: "0.00003" }, 1) }] });
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest(body));
+      expect(response.status).toBe(200);
+      expect(await response.json()).toMatchObject({ estimatedCreditsCost: 5, creditsCost: 2, usedActualCost: true, preparation: { referencesSent: 2 } });
+      expect(getCallCount("reserveCredits")).toBe(1);
+      expect(imageCalls()).toHaveLength(1);
+      expect((await storedRequests())[0].engineCommitments?.billingVersion).toBe("google-input-output-tokens-2026-10-20");
+      expect(mockState.sessions.get("test-session")!.credits).toBe(998);
+      expect(await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).toHaveLength(2);
+    });
+
     it("returns a retryable preparing error with no charge, no request record and no provider call when the look or plan cannot be made", async () => {
       await prepareWork();
       modelFailure = new Error("Haiku unavailable");
