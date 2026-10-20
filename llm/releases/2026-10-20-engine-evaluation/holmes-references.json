@@ -1,0 +1,244 @@
+{
+  "at": "2026-10-20T20:30:59.799Z",
+  "status": {
+    "activeGeneration": 1,
+    "activeVersions": {
+      "activatedAt": 1792527549315,
+      "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+      "workVersion": "a0dea2fb8184b9d0d63ff4b06b7c2066603f224c8341ef12ab5535e4fc076229"
+    },
+    "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+    "candidateGeneration": null,
+    "exists": true,
+    "ready": true,
+    "reasons": [],
+    "workVersion": "a0dea2fb8184b9d0d63ff4b06b7c2066603f224c8341ef12ab5535e4fc076229"
+  },
+  "attention": [
+    {
+      "count": 4,
+      "createdAt": 1792527770542,
+      "detail": "Hair is dark and short; face clean-shaven, consistent with canon",
+      "id": "mh7dfq58bkp3qeq3qeykp7btnd8gnfa9",
+      "kind": "sheet",
+      "lastActivityAt": 1792527770890,
+      "reason": "canon_note",
+      "recordId": "sherlock_holmes:sherlock_holmes",
+      "status": "open",
+      "workId": "holmes-adventures"
+    },
+    {
+      "count": 5,
+      "createdAt": 1792527779430,
+      "detail": "Head-and-shoulders close-up shows no hat and a slightly different hair styling than the full-length views",
+      "id": "mh7cq7jncg950eexhhpv3v2ae18gmdza",
+      "kind": "sheet",
+      "lastActivityAt": 1792527780206,
+      "reason": "canon_note",
+      "recordId": "dr_watson:dr_watson",
+      "status": "open",
+      "workId": "holmes-adventures"
+    },
+    {
+      "count": 1,
+      "createdAt": 1792527806924,
+      "detail": "Views depict different subjects: exterior street scene versus interior room.; Extra figures present: horse-drawn carriage with driver and a person near the street lamp.; Text present: '221B' lettering on the door fanlight and brass plate. | The two views do not show the same subject: one is the exterior of the house and the other is an interior room.; The sheet is meant to show a wide view and a closer view of one place, but the interior view does not depict the exterior location shown on the left. | Visible text '221B' appears on the exterior door, violating the no-text requirement.; The two views depict different subjects (exterior street facade versus interior room), not one place seen from two views.; A required wide/close pairing of the same place is not met because the views are of different subjects.",
+      "id": "mh7aq73fz9431nz3m4jc1c4e858gmcxt",
+      "kind": "sheet",
+      "lastActivityAt": 1792527806924,
+      "reason": "sheet_failed",
+      "recordId": "holmes_s_rooms_baker_street:holmes_s_rooms_baker_street",
+      "status": "open",
+      "workId": "holmes-adventures"
+    },
+    {
+      "count": 6,
+      "createdAt": 1792527815226,
+      "detail": "Front view shows a dark coat and cloak with no bag, which is acceptable.",
+      "id": "mh7dydwx1yq9be1m6aqbbvmcss8gm6t7",
+      "kind": "sheet",
+      "lastActivityAt": 1792527815986,
+      "reason": "canon_note",
+      "recordId": "wilhelm_gottsreich_sigismond_von_ormstein_king_of_bohemia:wilhelm_gottsreich_sigismond_von_ormstein_king_of_bohemia",
+      "status": "open",
+      "workId": "holmes-adventures"
+    },
+    {
+      "count": 5,
+      "createdAt": 1792527823020,
+      "detail": "Build and proportions appear consistent with canon description",
+      "id": "mh7e3snhq3dred1kf65tz7zdyx8gmz1s",
+      "kind": "sheet",
+      "lastActivityAt": 1792527823513,
+      "reason": "canon_note",
+      "recordId": "irene_adler:irene_adler",
+      "status": "open",
+      "workId": "holmes-adventures"
+    },
+    {
+      "count": 4,
+      "createdAt": 1792527831037,
+      "detail": "Expression is stern rather than explicitly chagrined, a minor deviation from canon",
+      "id": "mh7730mgj42xhmvzr7mqfnm5hx8gn6x6",
+      "kind": "sheet",
+      "lastActivityAt": 1792527831396,
+      "reason": "canon_note",
+      "recordId": "jabez_wilson:jabez_wilson",
+      "status": "open",
+      "workId": "holmes-adventures"
+    }
+  ],
+  "refs": [
+    {
+      "kind": "sheet",
+      "recordId": "sherlock_holmes:sherlock_holmes",
+      "reference": {
+        "createdAt": 1792527770454,
+        "fingerprint": "5deeca4df0bf88ae15936ba5c803cb79",
+        "id": "mx744vzy1e3sjk2xaavz5z6hsn8gmt54",
+        "inputs": [
+          {
+            "kind": "entry",
+            "recordId": "sherlock_holmes",
+            "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+          },
+          {
+            "kind": "stage",
+            "recordId": "sherlock_holmes:sherlock_holmes",
+            "version": "65ed69df0e36e24ea9ee24072afebba3"
+          },
+          {
+            "kind": "style",
+            "recordId": "classical",
+            "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+          },
+          {
+            "kind": "era",
+            "recordId": "late-victorian-england-1880s-to-1890s",
+            "version": "4784fc4c7f22e529c16033c4bc2c9700"
+          }
+        ],
+        "kind": "sheet",
+        "notes": [
+          "Build appears lean and long-limbed, consistent with canon",
+          "Dark tweed suit, waistcoat, dark overcoat and clay pipe present; magnifying glass visible in hand",
+          "Hawk-like nose, deep-set eyes and watchful expression match canon description",
+          "Hair is dark and short; face clean-shaven, consistent with canon"
+        ],
+        "pinned": false,
+        "recordId": "sherlock_holmes:sherlock_holmes",
+        "stale": false,
+        "status": "current",
+        "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+        "verdict": "pass",
+        "workId": "holmes-adventures"
+      }
+    },
+    {
+      "kind": "sheet",
+      "recordId": "dr_watson:dr_watson",
+      "reference": {
+        "createdAt": 1792527779300,
+        "fingerprint": "c774094a856ccc250f32181234dacd76",
+        "id": "mx74b5s32gns38z30tpyx30yts8gnhkw",
+        "inputs": [
+          {
+            "kind": "entry",
+            "recordId": "dr_watson",
+            "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+          },
+          {
+            "kind": "stage",
+            "recordId": "dr_watson:dr_watson",
+            "version": "25a15a5126cb12ac0b9868d9ac5921ad"
+          },
+          {
+            "kind": "style",
+            "recordId": "classical",
+            "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+          },
+          {
+            "kind": "era",
+            "recordId": "late-victorian-england-1880s-to-1890s",
+            "version": "4784fc4c7f22e529c16033c4bc2c9700"
+          }
+        ],
+        "kind": "sheet",
+        "notes": [
+          "Bowler hat, dark frock coat, grey waistcoat, white collar and dark tie match the canon wardrobe",
+          "Physician's black bag carried in both full-length views",
+          "Short brown hair and trimmed moustache consistent with canon",
+          "Build appears slimmer than the solid, medium build described in canon",
+          "Head-and-shoulders close-up shows no hat and a slightly different hair styling than the full-length views"
+        ],
+        "pinned": false,
+        "recordId": "dr_watson:dr_watson",
+        "stale": false,
+        "status": "current",
+        "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+        "verdict": "pass",
+        "workId": "holmes-adventures"
+      }
+    },
+    {
+      "kind": "styleReference",
+      "recordId": "watercolor",
+      "reference": {
+        "createdAt": 1792527850736,
+        "fingerprint": "3eda749bc6991072eba06b73136d75af",
+        "id": "mx737240czrvkca8p432sja4mn8gmajj",
+        "inputs": [
+          {
+            "kind": "style",
+            "recordId": "watercolor",
+            "version": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65"
+          },
+          {
+            "kind": "era",
+            "recordId": "late-victorian-england-1880s-to-1890s",
+            "version": "9b552e8e8286f84ff088f7665d2e74ea"
+          }
+        ],
+        "kind": "styleReference",
+        "notes": [],
+        "pinned": false,
+        "recordId": "watercolor",
+        "stale": false,
+        "status": "current",
+        "storageId": "kg20paet0rmgsjt0y7ar3wrd398gnc3s",
+        "verdict": "pass",
+        "workId": "holmes-adventures"
+      }
+    },
+    {
+      "kind": "styleReference",
+      "recordId": "icon",
+      "reference": {
+        "createdAt": 1792527858982,
+        "fingerprint": "ca4b97b994ea1284b4b34731122c8965",
+        "id": "mx70x1qyb88c3hcwr7hv4ydx658gmate",
+        "inputs": [
+          {
+            "kind": "style",
+            "recordId": "icon",
+            "version": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760"
+          },
+          {
+            "kind": "era",
+            "recordId": "late-victorian-england-1880s-to-1890s",
+            "version": "9b552e8e8286f84ff088f7665d2e74ea"
+          }
+        ],
+        "kind": "styleReference",
+        "notes": [],
+        "pinned": false,
+        "recordId": "icon",
+        "stale": false,
+        "status": "current",
+        "storageId": "kg23gn6ajrvv99payt346tcjks8gn6qz",
+        "verdict": "pass",
+        "workId": "holmes-adventures"
+      }
+    }
+  ]
+}

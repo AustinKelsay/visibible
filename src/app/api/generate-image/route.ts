@@ -32,6 +32,7 @@ import {
 import { resolveGenerationPassage } from "@/lib/generation-passage";
 import { getScenePlannerEstimatedCreditsCost, getScenePlannerModelId, isScenePlannerEnabled } from "@/lib/scene-planner";
 import { decideEngine, genericEngineMode } from "@/lib/engine/admission";
+import { hasOwnerEngineAccess } from "@/lib/engine/owner-check";
 import { SHARED_STYLES } from "@/lib/work-preparation";
 import { getGenericEngine } from "@/lib/engine/dispatch";
 import {
@@ -499,11 +500,11 @@ export async function POST(request: Request) {
     logApiFailure({ context: requestContext, stage: "engine_admission_session", error, statusCode: 503, sid });
     return null;
   });
-  const isOwnerForAdmission = sessionForAdmission?.tier === "admin";
+  const isAdminForBilling = sessionForAdmission?.tier === "admin";
   const bibleWorkId = "bible-web";
   const readiness = engineMode === "disabled" ? null : await convex.query(api.analysis.getWorkStatus, { workId: bibleWorkId }).catch(() => null);
   const engineDecision = decideEngine({
-    mode: engineMode, isOwner: isOwnerForAdmission, styleId: requestedStyleId ?? null,
+    mode: engineMode, isOwner: hasOwnerEngineAccess(sessionForAdmission), styleId: requestedStyleId ?? null,
     readiness: readiness ? { ready: readiness.ready, reasons: readiness.reasons, activeGeneration: readiness.activeGeneration, briefVersion: readiness.briefVersion } : null,
   });
   logInfo("engine_admission", { requestId: clientRequestId, mode: engineMode, engine: engineDecision.engine, reason: engineDecision.engine ? engineDecision.reason : engineDecision.unavailable });
@@ -524,7 +525,7 @@ export async function POST(request: Request) {
       return jsonWithSessionRefresh({ error: "Preparing scene", message: "The work's analysis is not registered.", retryable: true }, { status: 503 });
     }
     const outcome = await getGenericEngine().execute({
-      requestId: clientRequestId, sid, isOwner: isOwnerForAdmission, verseId, reference, translationId, styleId: requestedStyleId ?? "classical", aspectRatio, resolution,
+      requestId: clientRequestId, sid, isOwner: isAdminForBilling, verseId, reference, translationId, styleId: requestedStyleId ?? "classical", aspectRatio, resolution,
       workId: bibleWorkId, readiness: { activeGeneration: readiness.activeGeneration, workVersion: readiness.workVersion, briefVersion: readiness.briefVersion },
       session: { credits: sessionForAdmission.credits, dailySpendUsd: sessionForAdmission.dailySpendUsd, dailySpendLimitUsd: sessionForAdmission.dailySpendLimitUsd },
       inputFingerprint, generationNumber,

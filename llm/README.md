@@ -41,6 +41,7 @@ These guides describe the repository's current behavior. Source links identify t
 - [Chat eval and release requirements](workflow/CHAT_EVAL_AND_RELEASE.md)
 - [Image eval and release requirements](workflow/IMAGE_EVAL_AND_RELEASE.md)
 - [Generic engine release, rollback and retirement runbook](workflow/ENGINE_RELEASE.md)
+- [Initial generic-engine release evaluation and retained failures](releases/2026-10-20-engine-evaluation/README.md)
 
 Exact dependencies and commands: [package.json](../package.json). Environment templates: [.env.example](../.env.example), [.env.convex.dev.example](../.env.convex.dev.example), [.env.convex.prod.example](../.env.convex.prod.example), [.env.vercel.preview.example](../.env.vercel.preview.example), [.env.vercel.prod.example](../.env.vercel.prod.example). Tables and scheduled jobs: [schema](../convex/schema.ts), [crons](../convex/crons.ts).
 

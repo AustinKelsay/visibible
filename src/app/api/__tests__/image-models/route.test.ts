@@ -1,8 +1,10 @@
 import { imageModelFixture } from "../shared/image-model-fixtures";
+import { createHash } from "node:crypto";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mockFetchImageModels = vi.fn();
 const mockGetScenePlannerEstimatedCreditsCost = vi.fn();
+const mockValidateSession = vi.fn();
 const mockConvex = {
   query: vi.fn(),
   mutation: vi.fn(),
@@ -27,11 +29,14 @@ vi.mock("@/lib/convex-client", () => ({
   getConvexServerSecret: vi.fn(() => "test-server-secret"),
 }));
 
+vi.mock("@/lib/session", () => ({ validateSessionWithIp: mockValidateSession }));
+
 const originalEnv = { ...process.env };
 
 describe("Image Models API", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockValidateSession.mockResolvedValue({ valid: false });
     process.env = {
       ...originalEnv,
       OPENROUTER_API_KEY: "test-api-key",
@@ -93,6 +98,28 @@ describe("Image Models API", () => {
   afterEach(() => {
     process.env = { ...originalEnv };
     vi.resetModules();
+  });
+
+  it("shows owner-check styles only for the exact valid existing session, with private uncached responses", async () => {
+    process.env.GENERIC_ENGINE_MODE = "owner";
+    process.env.GENERIC_ENGINE_OWNER_CHECK_SESSION_SHA256 = createHash("sha256").update("controlled-session").digest("hex");
+    mockValidateSession.mockResolvedValue({ valid: true, sid: "controlled-session" });
+    let exists = true;
+    mockConvex.query.mockImplementation(async (_ref, args) => {
+      if ("sid" in args) return exists ? { sid: "controlled-session", tier: "paid" } : null;
+      if ("workId" in args) return { ready: true, reasons: [], activeGeneration: 1, briefVersion: "brief" };
+      return [];
+    });
+    const { GET } = await import("../../image-models/route");
+    const request = new Request("https://example.com/api/image-models");
+    const admitted = await GET(request);
+    expect(admitted.headers.get("Cache-Control")).toBe("private, no-store");
+    expect((await admitted.json()).artStyles.every((style: { available: boolean }) => style.available)).toBe(true);
+    exists = false;
+    expect((await (await GET(request)).json()).artStyles.find((style: { id: string }) => style.id === "watercolor").available).toBe(false);
+    exists = true;
+    mockValidateSession.mockResolvedValue({ valid: false, sid: "controlled-session" });
+    expect((await (await GET(request)).json()).artStyles.find((style: { id: string }) => style.id === "watercolor").available).toBe(false);
   });
 
   it("quotes supported settings and ignores unversioned global samples", async () => {

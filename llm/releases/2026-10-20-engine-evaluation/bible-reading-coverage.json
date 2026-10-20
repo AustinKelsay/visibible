@@ -1,0 +1,474 @@
+{
+  "at": "2026-10-20T20:48:46.465Z",
+  "run": "release-2026-10-20",
+  "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+  "books": [
+    {
+      "id": "genesis",
+      "units": 1533,
+      "sections": 127,
+      "characters": 77,
+      "locations": 32
+    },
+    {
+      "id": "exodus",
+      "units": 1213,
+      "sections": 106,
+      "characters": 23,
+      "locations": 13
+    },
+    {
+      "id": "leviticus",
+      "units": 859,
+      "sections": 85,
+      "characters": 24,
+      "locations": 7
+    },
+    {
+      "id": "numbers",
+      "units": 1288,
+      "sections": 80,
+      "characters": 29,
+      "locations": 13
+    },
+    {
+      "id": "deuteronomy",
+      "units": 959,
+      "sections": 17,
+      "characters": 19,
+      "locations": 6
+    },
+    {
+      "id": "joshua",
+      "units": 658,
+      "sections": 31,
+      "characters": 21,
+      "locations": 13
+    },
+    {
+      "id": "judges",
+      "units": 618,
+      "sections": 28,
+      "characters": 60,
+      "locations": 50
+    },
+    {
+      "id": "ruth",
+      "units": 85,
+      "sections": 8,
+      "characters": 12,
+      "locations": 6
+    },
+    {
+      "id": "1-samuel",
+      "units": 810,
+      "sections": 68,
+      "characters": 83,
+      "locations": 36
+    },
+    {
+      "id": "2-samuel",
+      "units": 695,
+      "sections": 71,
+      "characters": 51,
+      "locations": 14
+    },
+    {
+      "id": "1-kings",
+      "units": 816,
+      "sections": 103,
+      "characters": 63,
+      "locations": 28
+    },
+    {
+      "id": "2-kings",
+      "units": 719,
+      "sections": 127,
+      "characters": 81,
+      "locations": 24
+    },
+    {
+      "id": "1-chronicles",
+      "units": 942,
+      "sections": 31,
+      "characters": 30,
+      "locations": 9
+    },
+    {
+      "id": "2-chronicles",
+      "units": 822,
+      "sections": 50,
+      "characters": 56,
+      "locations": 10
+    },
+    {
+      "id": "ezra",
+      "units": 280,
+      "sections": 10,
+      "characters": 26,
+      "locations": 7
+    },
+    {
+      "id": "nehemiah",
+      "units": 406,
+      "sections": 29,
+      "characters": 18,
+      "locations": 8
+    },
+    {
+      "id": "esther",
+      "units": 167,
+      "sections": 20,
+      "characters": 17,
+      "locations": 6
+    },
+    {
+      "id": "job",
+      "units": 1070,
+      "sections": 47,
+      "characters": 14,
+      "locations": 5
+    },
+    {
+      "id": "psalms",
+      "units": 2461,
+      "sections": 159,
+      "characters": 20,
+      "locations": 8
+    },
+    {
+      "id": "proverbs",
+      "units": 915,
+      "sections": 38,
+      "characters": 14,
+      "locations": 5
+    },
+    {
+      "id": "ecclesiastes",
+      "units": 222,
+      "sections": 68,
+      "characters": 12,
+      "locations": 5
+    },
+    {
+      "id": "song-of-solomon",
+      "units": 117,
+      "sections": 37,
+      "characters": 10,
+      "locations": 6
+    },
+    {
+      "id": "isaiah",
+      "units": 1292,
+      "sections": 102,
+      "characters": 12,
+      "locations": 7
+    },
+    {
+      "id": "jeremiah",
+      "units": 1364,
+      "sections": 52,
+      "characters": 34,
+      "locations": 10
+    },
+    {
+      "id": "lamentations",
+      "units": 154,
+      "sections": 5,
+      "characters": 15,
+      "locations": 4
+    },
+    {
+      "id": "ezekiel",
+      "units": 1273,
+      "sections": 65,
+      "characters": 23,
+      "locations": 11
+    },
+    {
+      "id": "daniel",
+      "units": 357,
+      "sections": 45,
+      "characters": 20,
+      "locations": 8
+    },
+    {
+      "id": "hosea",
+      "units": 197,
+      "sections": 15,
+      "characters": 13,
+      "locations": 5
+    },
+    {
+      "id": "joel",
+      "units": 73,
+      "sections": 8,
+      "characters": 11,
+      "locations": 7
+    },
+    {
+      "id": "amos",
+      "units": 146,
+      "sections": 25,
+      "characters": 13,
+      "locations": 16
+    },
+    {
+      "id": "obadiah",
+      "units": 21,
+      "sections": 5,
+      "characters": 5,
+      "locations": 2
+    },
+    {
+      "id": "jonah",
+      "units": 48,
+      "sections": 6,
+      "characters": 8,
+      "locations": 5
+    },
+    {
+      "id": "micah",
+      "units": 105,
+      "sections": 18,
+      "characters": 16,
+      "locations": 11
+    },
+    {
+      "id": "nahum",
+      "units": 47,
+      "sections": 12,
+      "characters": 7,
+      "locations": 3
+    },
+    {
+      "id": "habakkuk",
+      "units": 56,
+      "sections": 6,
+      "characters": 4,
+      "locations": 4
+    },
+    {
+      "id": "zephaniah",
+      "units": 53,
+      "sections": 3,
+      "characters": 16,
+      "locations": 7
+    },
+    {
+      "id": "haggai",
+      "units": 38,
+      "sections": 3,
+      "characters": 7,
+      "locations": 2
+    },
+    {
+      "id": "zechariah",
+      "units": 211,
+      "sections": 23,
+      "characters": 23,
+      "locations": 6
+    },
+    {
+      "id": "malachi",
+      "units": 55,
+      "sections": 7,
+      "characters": 8,
+      "locations": 4
+    },
+    {
+      "id": "matthew",
+      "units": 1071,
+      "sections": 160,
+      "characters": 69,
+      "locations": 26
+    },
+    {
+      "id": "mark",
+      "units": 678,
+      "sections": 115,
+      "characters": 64,
+      "locations": 24
+    },
+    {
+      "id": "luke",
+      "units": 1151,
+      "sections": 154,
+      "characters": 85,
+      "locations": 27
+    },
+    {
+      "id": "john",
+      "units": 879,
+      "sections": 99,
+      "characters": 47,
+      "locations": 21
+    },
+    {
+      "id": "acts",
+      "units": 1007,
+      "sections": 118,
+      "characters": 124,
+      "locations": 46
+    },
+    {
+      "id": "romans",
+      "units": 433,
+      "sections": 36,
+      "characters": 39,
+      "locations": 5
+    },
+    {
+      "id": "1-corinthians",
+      "units": 437,
+      "sections": 34,
+      "characters": 21,
+      "locations": 7
+    },
+    {
+      "id": "2-corinthians",
+      "units": 257,
+      "sections": 29,
+      "characters": 12,
+      "locations": 8
+    },
+    {
+      "id": "galatians",
+      "units": 149,
+      "sections": 18,
+      "characters": 13,
+      "locations": 7
+    },
+    {
+      "id": "ephesians",
+      "units": 155,
+      "sections": 18,
+      "characters": 11,
+      "locations": 2
+    },
+    {
+      "id": "philippians",
+      "units": 104,
+      "sections": 18,
+      "characters": 11,
+      "locations": 2
+    },
+    {
+      "id": "colossians",
+      "units": 95,
+      "sections": 16,
+      "characters": 15,
+      "locations": 4
+    },
+    {
+      "id": "1-thessalonians",
+      "units": 89,
+      "sections": 15,
+      "characters": 8,
+      "locations": 6
+    },
+    {
+      "id": "2-thessalonians",
+      "units": 47,
+      "sections": 9,
+      "characters": 9,
+      "locations": 2
+    },
+    {
+      "id": "1-timothy",
+      "units": 113,
+      "sections": 20,
+      "characters": 10,
+      "locations": 3
+    },
+    {
+      "id": "2-timothy",
+      "units": 83,
+      "sections": 12,
+      "characters": 29,
+      "locations": 6
+    },
+    {
+      "id": "titus",
+      "units": 46,
+      "sections": 3,
+      "characters": 11,
+      "locations": 2
+    },
+    {
+      "id": "philemon",
+      "units": 25,
+      "sections": 5,
+      "characters": 11,
+      "locations": 2
+    },
+    {
+      "id": "hebrews",
+      "units": 303,
+      "sections": 28,
+      "characters": 19,
+      "locations": 7
+    },
+    {
+      "id": "james",
+      "units": 108,
+      "sections": 14,
+      "characters": 14,
+      "locations": 4
+    },
+    {
+      "id": "1-peter",
+      "units": 105,
+      "sections": 15,
+      "characters": 15,
+      "locations": 4
+    },
+    {
+      "id": "2-peter",
+      "units": 61,
+      "sections": 7,
+      "characters": 10,
+      "locations": 4
+    },
+    {
+      "id": "1-john",
+      "units": 105,
+      "sections": 16,
+      "characters": 8,
+      "locations": 1
+    },
+    {
+      "id": "2-john",
+      "units": 13,
+      "sections": 3,
+      "characters": 4,
+      "locations": 1
+    },
+    {
+      "id": "3-john",
+      "units": 14,
+      "sections": 5,
+      "characters": 6,
+      "locations": 2
+    },
+    {
+      "id": "jude",
+      "units": 25,
+      "sections": 5,
+      "characters": 15,
+      "locations": 1
+    },
+    {
+      "id": "revelation",
+      "units": 404,
+      "sections": 78,
+      "characters": 28,
+      "locations": 12
+    }
+  ],
+  "validBooks": 66,
+  "units": 31102,
+  "sections": 2790,
+  "failedBooks": [],
+  "note": "Independent schema, section coverage/order and saved-section equality checks. Reading coverage is not complete canon or readiness. Acts has the separately retained mechanical operator correction."
+}

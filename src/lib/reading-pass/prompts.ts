@@ -63,19 +63,35 @@ export function granularityInstruction(unitCount: number, unitsPerSection: numbe
     "but do split long speeches, lists, sets of instructions and law codes wherever the topic changes.";
 }
 
+const rulingClusterSchema = z.object({
+  name: text, kind: z.enum([...ENTITY_KINDS, "place"]), note: text, members: ids,
+}).strict();
+
 export const rulingOutputSchema = z.object({
   groups: z.array(z.object({
     group: z.number().int(),
-    clusters: z.array(z.object({
-      name: text, kind: z.enum([...ENTITY_KINDS, "place"]), note: text, members: ids,
-    }).strict()),
+    clusters: z.array(rulingClusterSchema),
   }).strict()),
 }).strict();
 export type RulingOutput = z.infer<typeof rulingOutputSchema>;
 
+/** Constrain provider output to each numbered group's own keys, including overlapping groups. */
+export function rulingSchemaForGroups(groups: Array<{ group: number; members: string[] }>) {
+  const options = groups.map(({ group, members }) => {
+    if (!members.length) throw new Error("A ruling group must have members");
+    return z.object({
+      group: z.literal(group),
+      clusters: z.array(rulingClusterSchema.extend({ members: z.array(z.enum(members)) })),
+    }).strict();
+  });
+  if (!options.length) throw new Error("A ruling request must have groups");
+  // Plain unions emit anyOf; Zod's discriminated unions emit oneOf, unsupported by this provider.
+  return z.object({ groups: z.array(z.union(options)) }).strict();
+}
+
 export const RULING_SYSTEM = `You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key ("division:character:id" or "division:location:id"), name, kind, aliases, note, and the sections where each appears. A group may also carry a hint line from a reference index of the work saying how many distinct individuals bear that name in these divisions; use it as evidence, not as an order.
 
-For each group, split its entries into clusters, one cluster per individual (or per place). The divisions are parts of one work, so the same individual or place appearing in several divisions is one cluster: join entries from different divisions whenever their notes, roles, relations and places agree. Keep entries apart only when they are different individuals: never join entries on a shared name alone when their notes describe different people, and two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of the group must appear in exactly one of its clusters.`;
+For each numbered group, split its entries into clusters, one cluster per individual (or per place). Groups may overlap because one entry has several names; rule on every group separately using the exact group number shown, not a new local index. Never copy a member key into a group where it is not listed. The divisions are parts of one work, so the same individual or place appearing in several divisions is one cluster: join entries from different divisions whenever their notes, roles, relations and places agree. A different narrator, title, age or portrayal does not make the same individual a different person. Keep entries apart only when they are different individuals: never join entries on a shared name alone when their notes describe different people, and two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of each group must appear in exactly one of that group's clusters.`;
 
 export const briefOutputSchema = z.object({
   tone: text,

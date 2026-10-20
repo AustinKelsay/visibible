@@ -1,0 +1,1647 @@
+{
+ "run": "release-2026-10-20-baseline",
+ "createdAt": 1792526501321,
+ "reportedAt": 1792526905825,
+ "reproducibility": {
+  "promptVersion": "2026-09-08-canonical",
+  "imageModel": "google/gemini-3.1-flash-lite-image",
+  "plannerModel": "nvidia/nemotron-3-super-120b-a12b:free",
+  "arms": [
+   "planner"
+  ],
+  "repeats": 3,
+  "sampleFloor": 3
+ },
+ "stopped": null,
+ "spentUsd": 3.342066749999999,
+ "arms": {
+  "planner": {
+   "completed": 99,
+   "failed": 0,
+   "notRun": 0,
+   "failureRate": 0,
+   "latencyMs": {
+    "image": {
+     "p50": 3493,
+     "p90": 4500,
+     "max": 19223,
+     "n": 99
+    },
+    "planner": {
+     "p50": 0,
+     "p90": 0,
+     "max": 0,
+     "n": 0
+    },
+    "total": {
+     "p50": 3785,
+     "p90": 4840,
+     "max": 19326,
+     "n": 99
+    }
+   },
+   "spendUsd": {
+    "image": 3.342066749999999,
+    "planner": 0,
+    "total": 3.342066749999999
+   },
+   "usageMissing": 0,
+   "plannerOutcomes": {
+    "failed": 99
+   },
+   "failuresByStage": {}
+  }
+ },
+ "cases": [
+  {
+   "id": "genesis-1-3-light",
+   "reference": "Genesis 1:3",
+   "genre": "narrative",
+   "expected": "Light breaking over formless dark waters; no human figure for God; no text.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/genesis-1-3-light/planner-1.jpg",
+      "outputs/genesis-1-3-light/planner-2.jpg",
+      "outputs/genesis-1-3-light/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/genesis-1-3-light/planner-1.jpg",
+       "costUsd": 0.03376275,
+       "latencyMs": 4527,
+       "promptChars": 2800,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/genesis-1-3-light/planner-2.jpg",
+       "costUsd": 0.03376275,
+       "latencyMs": 3915,
+       "promptChars": 2800,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/genesis-1-3-light/planner-3.jpg",
+       "costUsd": 0.03376275,
+       "latencyMs": 3287,
+       "promptChars": 2800,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "genesis-5-5-adam-days",
+   "reference": "Genesis 5:5",
+   "genre": "genealogy",
+   "expected": "An aged patriarch at the end of a long life; no numerals or inscriptions.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/genesis-5-5-adam-days/planner-1.jpg",
+      "outputs/genesis-5-5-adam-days/planner-2.jpg",
+      "outputs/genesis-5-5-adam-days/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/genesis-5-5-adam-days/planner-1.jpg",
+       "costUsd": 0.0337475,
+       "latencyMs": 4619,
+       "promptChars": 2530,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/genesis-5-5-adam-days/planner-2.jpg",
+       "costUsd": 0.03375375,
+       "latencyMs": 5484,
+       "promptChars": 2647,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/genesis-5-5-adam-days/planner-3.jpg",
+       "costUsd": 0.03375375,
+       "latencyMs": 3984,
+       "promptChars": 2647,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "genesis-19-24-sodom",
+   "reference": "Genesis 19:24",
+   "genre": "difficult",
+   "expected": "Fire and sulfur falling on a city from a distance; no gratuitous gore; nothing modern.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/genesis-19-24-sodom/planner-1.jpg",
+      "outputs/genesis-19-24-sodom/planner-2.jpg",
+      "outputs/genesis-19-24-sodom/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/genesis-19-24-sodom/planner-1.jpg",
+       "costUsd": 0.03374975,
+       "latencyMs": 10257,
+       "promptChars": 2513,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/genesis-19-24-sodom/planner-2.jpg",
+       "costUsd": 0.033756,
+       "latencyMs": 3214,
+       "promptChars": 2630,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/genesis-19-24-sodom/planner-3.jpg",
+       "costUsd": 0.033756,
+       "latencyMs": 3408,
+       "promptChars": 2630,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "genesis-22-10-abraham-knife",
+   "reference": "Genesis 22:10",
+   "genre": "narrative",
+   "expected": "Abraham with the knife raised over the altar, Isaac bound; tension without blood.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/genesis-22-10-abraham-knife/planner-1.jpg",
+      "outputs/genesis-22-10-abraham-knife/planner-2.jpg",
+      "outputs/genesis-22-10-abraham-knife/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/genesis-22-10-abraham-knife/planner-1.jpg",
+       "costUsd": 0.0337545,
+       "latencyMs": 4305,
+       "promptChars": 2584,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/genesis-22-10-abraham-knife/planner-2.jpg",
+       "costUsd": 0.03376075,
+       "latencyMs": 3520,
+       "promptChars": 2701,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/genesis-22-10-abraham-knife/planner-3.jpg",
+       "costUsd": 0.03376075,
+       "latencyMs": 3811,
+       "promptChars": 2701,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "exodus-14-21-sea-parts",
+   "reference": "Exodus 14:21",
+   "genre": "narrative",
+   "expected": "Moses' hand stretched out, a strong east wind, the sea dividing with a dry seabed; night.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/exodus-14-21-sea-parts/planner-1.jpg",
+      "outputs/exodus-14-21-sea-parts/planner-2.jpg",
+      "outputs/exodus-14-21-sea-parts/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/exodus-14-21-sea-parts/planner-1.jpg",
+       "costUsd": 0.033762,
+       "latencyMs": 3912,
+       "promptChars": 2737,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/exodus-14-21-sea-parts/planner-2.jpg",
+       "costUsd": 0.033762,
+       "latencyMs": 3785,
+       "promptChars": 2737,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/exodus-14-21-sea-parts/planner-3.jpg",
+       "costUsd": 0.033762,
+       "latencyMs": 3698,
+       "promptChars": 2737,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "exodus-14-22-sea-walls",
+   "reference": "Exodus 14:22",
+   "genre": "narrative",
+   "expected": "Israel walking between two walls of water on dry ground; same sea, same night as the previous verse.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/exodus-14-22-sea-walls/planner-1.jpg",
+      "outputs/exodus-14-22-sea-walls/planner-2.jpg",
+      "outputs/exodus-14-22-sea-walls/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/exodus-14-22-sea-walls/planner-1.jpg",
+       "costUsd": 0.03376,
+       "latencyMs": 5263,
+       "promptChars": 2699,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/exodus-14-22-sea-walls/planner-2.jpg",
+       "costUsd": 0.03376,
+       "latencyMs": 3306,
+       "promptChars": 2699,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/exodus-14-22-sea-walls/planner-3.jpg",
+       "costUsd": 0.03376,
+       "latencyMs": 4080,
+       "promptChars": 2699,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "leviticus-11-7-pig",
+   "reference": "Leviticus 11:7",
+   "genre": "law",
+   "expected": "A pig with cloven hooves in an ancient Near Eastern setting; no text; no modern farm.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/leviticus-11-7-pig/planner-1.jpg",
+      "outputs/leviticus-11-7-pig/planner-2.jpg",
+      "outputs/leviticus-11-7-pig/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/leviticus-11-7-pig/planner-1.jpg",
+       "costUsd": 0.0337525,
+       "latencyMs": 3716,
+       "promptChars": 2551,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/leviticus-11-7-pig/planner-2.jpg",
+       "costUsd": 0.03375875,
+       "latencyMs": 19326,
+       "promptChars": 2668,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/leviticus-11-7-pig/planner-3.jpg",
+       "costUsd": 0.03375875,
+       "latencyMs": 3546,
+       "promptChars": 2668,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "joshua-6-20-jericho",
+   "reference": "Joshua 6:20",
+   "genre": "narrative",
+   "expected": "Trumpets, a shout, city walls collapsing; soldiers in Bronze Age dress.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/joshua-6-20-jericho/planner-1.jpg",
+      "outputs/joshua-6-20-jericho/planner-2.jpg",
+      "outputs/joshua-6-20-jericho/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/joshua-6-20-jericho/planner-1.jpg",
+       "costUsd": 0.03376525,
+       "latencyMs": 3848,
+       "promptChars": 2794,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/joshua-6-20-jericho/planner-2.jpg",
+       "costUsd": 0.03376525,
+       "latencyMs": 7194,
+       "promptChars": 2794,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/joshua-6-20-jericho/planner-3.jpg",
+       "costUsd": 0.03376525,
+       "latencyMs": 3344,
+       "promptChars": 2794,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "judges-19-29-concubine",
+   "reference": "Judges 19:29",
+   "genre": "difficult",
+   "expected": "The horror conveyed by composition and restraint, not by gore; nothing explicit.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/judges-19-29-concubine/planner-1.jpg",
+      "outputs/judges-19-29-concubine/planner-2.jpg",
+      "outputs/judges-19-29-concubine/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/judges-19-29-concubine/planner-1.jpg",
+       "costUsd": 0.033765,
+       "latencyMs": 5172,
+       "promptChars": 2744,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/judges-19-29-concubine/planner-2.jpg",
+       "costUsd": 0.033765,
+       "latencyMs": 3114,
+       "promptChars": 2744,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/judges-19-29-concubine/planner-3.jpg",
+       "costUsd": 0.033765,
+       "latencyMs": 3171,
+       "promptChars": 2744,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "ruth-4-22-genealogy",
+   "reference": "Ruth 4:22",
+   "genre": "genealogy",
+   "expected": "Three generations of a family line in Bethlehem; no name labels.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/ruth-4-22-genealogy/planner-1.jpg",
+      "outputs/ruth-4-22-genealogy/planner-2.jpg",
+      "outputs/ruth-4-22-genealogy/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/ruth-4-22-genealogy/planner-1.jpg",
+       "costUsd": 0.033754,
+       "latencyMs": 4741,
+       "promptChars": 2564,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/ruth-4-22-genealogy/planner-2.jpg",
+       "costUsd": 0.03376025,
+       "latencyMs": 3822,
+       "promptChars": 2681,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/ruth-4-22-genealogy/planner-3.jpg",
+       "costUsd": 0.03376025,
+       "latencyMs": 3711,
+       "promptChars": 2681,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "1-samuel-17-49-sling",
+   "reference": "1 Samuel 17:49",
+   "genre": "narrative",
+   "expected": "A young shepherd's sling stone striking a giant warrior's forehead; valley battlefield.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/1-samuel-17-49-sling/planner-1.jpg",
+      "outputs/1-samuel-17-49-sling/planner-2.jpg",
+      "outputs/1-samuel-17-49-sling/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/1-samuel-17-49-sling/planner-1.jpg",
+       "costUsd": 0.03376275,
+       "latencyMs": 4840,
+       "promptChars": 2722,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/1-samuel-17-49-sling/planner-2.jpg",
+       "costUsd": 0.03376275,
+       "latencyMs": 4174,
+       "promptChars": 2722,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/1-samuel-17-49-sling/planner-3.jpg",
+       "costUsd": 0.03376275,
+       "latencyMs": 3432,
+       "promptChars": 2722,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "2-kings-2-23-bears",
+   "reference": "2 Kings 2:23",
+   "genre": "difficult",
+   "expected": "Youths mocking a bald prophet on the road up to Bethel; the bears not yet shown as a bloodbath.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/2-kings-2-23-bears/planner-1.jpg",
+      "outputs/2-kings-2-23-bears/planner-2.jpg",
+      "outputs/2-kings-2-23-bears/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/2-kings-2-23-bears/planner-1.jpg",
+       "costUsd": 0.03376125,
+       "latencyMs": 3976,
+       "promptChars": 2660,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/2-kings-2-23-bears/planner-2.jpg",
+       "costUsd": 0.0337675,
+       "latencyMs": 5189,
+       "promptChars": 2777,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/2-kings-2-23-bears/planner-3.jpg",
+       "costUsd": 0.0337675,
+       "latencyMs": 3804,
+       "promptChars": 2777,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "job-38-4-foundations",
+   "reference": "Job 38:4",
+   "genre": "poetry",
+   "expected": "A storm-voice over cosmic foundations being laid; Job small before it; no literal bearded deity.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/job-38-4-foundations/planner-1.jpg",
+      "outputs/job-38-4-foundations/planner-2.jpg",
+      "outputs/job-38-4-foundations/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/job-38-4-foundations/planner-1.jpg",
+       "costUsd": 0.03374675,
+       "latencyMs": 3828,
+       "promptChars": 2493,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/job-38-4-foundations/planner-2.jpg",
+       "costUsd": 0.033753,
+       "latencyMs": 3012,
+       "promptChars": 2610,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/job-38-4-foundations/planner-3.jpg",
+       "costUsd": 0.033753,
+       "latencyMs": 3258,
+       "promptChars": 2610,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "psalms-23-2-pastures",
+   "reference": "Psalms 23:2",
+   "genre": "poetry",
+   "expected": "Green pastures and still waters with sheep and a shepherd; calm.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/psalms-23-2-pastures/planner-1.jpg",
+      "outputs/psalms-23-2-pastures/planner-2.jpg",
+      "outputs/psalms-23-2-pastures/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/psalms-23-2-pastures/planner-1.jpg",
+       "costUsd": 0.033745,
+       "latencyMs": 3476,
+       "promptChars": 2458,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/psalms-23-2-pastures/planner-2.jpg",
+       "costUsd": 0.03375125,
+       "latencyMs": 3525,
+       "promptChars": 2575,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/psalms-23-2-pastures/planner-3.jpg",
+       "costUsd": 0.03375125,
+       "latencyMs": 3115,
+       "promptChars": 2575,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "psalms-137-1-babylon",
+   "reference": "Psalms 137:1",
+   "genre": "poetry",
+   "expected": "Exiles weeping by Babylon's rivers with harps hung on willows.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/psalms-137-1-babylon/planner-1.jpg",
+      "outputs/psalms-137-1-babylon/planner-2.jpg",
+      "outputs/psalms-137-1-babylon/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/psalms-137-1-babylon/planner-1.jpg",
+       "costUsd": 0.033747,
+       "latencyMs": 3722,
+       "promptChars": 2470,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/psalms-137-1-babylon/planner-2.jpg",
+       "costUsd": 0.03375325,
+       "latencyMs": 3826,
+       "promptChars": 2587,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/psalms-137-1-babylon/planner-3.jpg",
+       "costUsd": 0.03375325,
+       "latencyMs": 3846,
+       "promptChars": 2587,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "song-of-solomon-2-1-rose",
+   "reference": "Song of Solomon 2:1",
+   "genre": "poetry",
+   "expected": "A rose of Sharon and a lily of the valleys; tasteful, no nudity.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/song-of-solomon-2-1-rose/planner-1.jpg",
+      "outputs/song-of-solomon-2-1-rose/planner-2.jpg",
+      "outputs/song-of-solomon-2-1-rose/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/song-of-solomon-2-1-rose/planner-1.jpg",
+       "costUsd": 0.03374425,
+       "latencyMs": 3506,
+       "promptChars": 2426,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/song-of-solomon-2-1-rose/planner-2.jpg",
+       "costUsd": 0.0337505,
+       "latencyMs": 4672,
+       "promptChars": 2543,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/song-of-solomon-2-1-rose/planner-3.jpg",
+       "costUsd": 0.0337505,
+       "latencyMs": 3417,
+       "promptChars": 2543,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "isaiah-6-2-seraphim",
+   "reference": "Isaiah 6:2",
+   "genre": "prophecy",
+   "expected": "Six-winged seraphim above a throne, faces and feet covered; temple smoke.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/isaiah-6-2-seraphim/planner-1.jpg",
+      "outputs/isaiah-6-2-seraphim/planner-2.jpg",
+      "outputs/isaiah-6-2-seraphim/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/isaiah-6-2-seraphim/planner-1.jpg",
+       "costUsd": 0.03375675,
+       "latencyMs": 3623,
+       "promptChars": 2622,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/isaiah-6-2-seraphim/planner-2.jpg",
+       "costUsd": 0.033763,
+       "latencyMs": 4435,
+       "promptChars": 2739,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/isaiah-6-2-seraphim/planner-3.jpg",
+       "costUsd": 0.033763,
+       "latencyMs": 3778,
+       "promptChars": 2739,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "isaiah-11-6-wolf-lamb",
+   "reference": "Isaiah 11:6",
+   "genre": "prophecy",
+   "expected": "Wolf and lamb, leopard and kid, calf and lion together, a little child leading them.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/isaiah-11-6-wolf-lamb/planner-1.jpg",
+      "outputs/isaiah-11-6-wolf-lamb/planner-2.jpg",
+      "outputs/isaiah-11-6-wolf-lamb/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/isaiah-11-6-wolf-lamb/planner-1.jpg",
+       "costUsd": 0.0337545,
+       "latencyMs": 4178,
+       "promptChars": 2629,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/isaiah-11-6-wolf-lamb/planner-2.jpg",
+       "costUsd": 0.03376075,
+       "latencyMs": 3865,
+       "promptChars": 2746,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/isaiah-11-6-wolf-lamb/planner-3.jpg",
+       "costUsd": 0.03376075,
+       "latencyMs": 4071,
+       "promptChars": 2746,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "ezekiel-37-4-dry-bones",
+   "reference": "Ezekiel 37:4",
+   "genre": "prophecy",
+   "expected": "A prophet speaking over a valley of dry bones; eerie but not horror.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/ezekiel-37-4-dry-bones/planner-1.jpg",
+      "outputs/ezekiel-37-4-dry-bones/planner-2.jpg",
+      "outputs/ezekiel-37-4-dry-bones/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/ezekiel-37-4-dry-bones/planner-1.jpg",
+       "costUsd": 0.03375425,
+       "latencyMs": 4526,
+       "promptChars": 2553,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/ezekiel-37-4-dry-bones/planner-2.jpg",
+       "costUsd": 0.0337605,
+       "latencyMs": 3357,
+       "promptChars": 2670,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/ezekiel-37-4-dry-bones/planner-3.jpg",
+       "costUsd": 0.0337605,
+       "latencyMs": 3724,
+       "promptChars": 2670,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "daniel-6-22-lions",
+   "reference": "Daniel 6:22",
+   "genre": "narrative",
+   "expected": "Daniel unharmed among lions in a den, an angelic presence; dawn light from above.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/daniel-6-22-lions/planner-1.jpg",
+      "outputs/daniel-6-22-lions/planner-2.jpg",
+      "outputs/daniel-6-22-lions/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/daniel-6-22-lions/planner-1.jpg",
+       "costUsd": 0.03375825,
+       "latencyMs": 4238,
+       "promptChars": 2657,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/daniel-6-22-lions/planner-2.jpg",
+       "costUsd": 0.0337645,
+       "latencyMs": 3956,
+       "promptChars": 2774,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/daniel-6-22-lions/planner-3.jpg",
+       "costUsd": 0.0337645,
+       "latencyMs": 4475,
+       "promptChars": 2774,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "daniel-7-9-ancient-of-days",
+   "reference": "Daniel 7:9",
+   "genre": "symbolic",
+   "expected": "A throne of flames with burning wheels, white garments, hair like wool; visionary, not a portrait.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/daniel-7-9-ancient-of-days/planner-1.jpg",
+      "outputs/daniel-7-9-ancient-of-days/planner-2.jpg",
+      "outputs/daniel-7-9-ancient-of-days/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/daniel-7-9-ancient-of-days/planner-1.jpg",
+       "costUsd": 0.033762,
+       "latencyMs": 3261,
+       "promptChars": 2783,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/daniel-7-9-ancient-of-days/planner-2.jpg",
+       "costUsd": 0.033762,
+       "latencyMs": 3851,
+       "promptChars": 2783,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/daniel-7-9-ancient-of-days/planner-3.jpg",
+       "costUsd": 0.033762,
+       "latencyMs": 2883,
+       "promptChars": 2783,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "jonah-1-17-fish",
+   "reference": "Jonah 1:17",
+   "genre": "narrative",
+   "expected": "A great fish swallowing Jonah in a stormy sea.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/jonah-1-17-fish/planner-1.jpg",
+      "outputs/jonah-1-17-fish/planner-2.jpg",
+      "outputs/jonah-1-17-fish/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/jonah-1-17-fish/planner-1.jpg",
+       "costUsd": 0.03374975,
+       "latencyMs": 3641,
+       "promptChars": 2531,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/jonah-1-17-fish/planner-2.jpg",
+       "costUsd": 0.033756,
+       "latencyMs": 3457,
+       "promptChars": 2648,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/jonah-1-17-fish/planner-3.jpg",
+       "costUsd": 0.033756,
+       "latencyMs": 3259,
+       "promptChars": 2648,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "matthew-1-1-genealogy",
+   "reference": "Matthew 1:1",
+   "genre": "genealogy",
+   "expected": "A scroll or family line from Abraham through David to Jesus, shown without legible writing.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/matthew-1-1-genealogy/planner-1.jpg",
+      "outputs/matthew-1-1-genealogy/planner-2.jpg",
+      "outputs/matthew-1-1-genealogy/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/matthew-1-1-genealogy/planner-1.jpg",
+       "costUsd": 0.033752,
+       "latencyMs": 4102,
+       "promptChars": 2610,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/matthew-1-1-genealogy/planner-2.jpg",
+       "costUsd": 0.03375825,
+       "latencyMs": 3841,
+       "promptChars": 2727,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/matthew-1-1-genealogy/planner-3.jpg",
+       "costUsd": 0.03375825,
+       "latencyMs": 3864,
+       "promptChars": 2727,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "matthew-14-29-peter-water",
+   "reference": "Matthew 14:29",
+   "genre": "narrative",
+   "expected": "Peter stepping out of the boat onto the water toward Jesus at night in a storm.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/matthew-14-29-peter-water/planner-1.jpg",
+      "outputs/matthew-14-29-peter-water/planner-2.jpg",
+      "outputs/matthew-14-29-peter-water/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/matthew-14-29-peter-water/planner-1.jpg",
+       "costUsd": 0.0337535,
+       "latencyMs": 3378,
+       "promptChars": 2564,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/matthew-14-29-peter-water/planner-2.jpg",
+       "costUsd": 0.03375975,
+       "latencyMs": 3043,
+       "promptChars": 2681,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/matthew-14-29-peter-water/planner-3.jpg",
+       "costUsd": 0.03375975,
+       "latencyMs": 3123,
+       "promptChars": 2681,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "john-21-7-peter-sea",
+   "reference": "John 21:7",
+   "genre": "narrative",
+   "expected": "Peter throwing himself into the sea from the boat at dawn, the same fisherman as on the Galilee storm.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/john-21-7-peter-sea/planner-1.jpg",
+      "outputs/john-21-7-peter-sea/planner-2.jpg",
+      "outputs/john-21-7-peter-sea/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/john-21-7-peter-sea/planner-1.jpg",
+       "costUsd": 0.033764,
+       "latencyMs": 3670,
+       "promptChars": 2770,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/john-21-7-peter-sea/planner-2.jpg",
+       "costUsd": 0.033764,
+       "latencyMs": 4011,
+       "promptChars": 2770,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/john-21-7-peter-sea/planner-3.jpg",
+       "costUsd": 0.033764,
+       "latencyMs": 3450,
+       "promptChars": 2770,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "mark-4-39-storm",
+   "reference": "Mark 4:39",
+   "genre": "narrative",
+   "expected": "Jesus standing in a boat rebuking wind and waves, the sea suddenly calm.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/mark-4-39-storm/planner-1.jpg",
+      "outputs/mark-4-39-storm/planner-2.jpg",
+      "outputs/mark-4-39-storm/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/mark-4-39-storm/planner-1.jpg",
+       "costUsd": 0.033756,
+       "latencyMs": 3799,
+       "promptChars": 2581,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/mark-4-39-storm/planner-2.jpg",
+       "costUsd": 0.03376225,
+       "latencyMs": 3379,
+       "promptChars": 2698,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/mark-4-39-storm/planner-3.jpg",
+       "costUsd": 0.03376225,
+       "latencyMs": 3765,
+       "promptChars": 2698,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "luke-15-20-prodigal",
+   "reference": "Luke 15:20",
+   "genre": "parable",
+   "expected": "A father running to embrace a ragged returning son on the road.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/luke-15-20-prodigal/planner-1.jpg",
+      "outputs/luke-15-20-prodigal/planner-2.jpg",
+      "outputs/luke-15-20-prodigal/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/luke-15-20-prodigal/planner-1.jpg",
+       "costUsd": 0.0337575,
+       "latencyMs": 3744,
+       "promptChars": 2630,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/luke-15-20-prodigal/planner-2.jpg",
+       "costUsd": 0.03376375,
+       "latencyMs": 3098,
+       "promptChars": 2747,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/luke-15-20-prodigal/planner-3.jpg",
+       "costUsd": 0.03376375,
+       "latencyMs": 5261,
+       "promptChars": 2747,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "john-11-43-lazarus",
+   "reference": "John 11:43",
+   "genre": "narrative",
+   "expected": "Jesus calling at a tomb's mouth as a wrapped figure emerges; mourners.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/john-11-43-lazarus/planner-1.jpg",
+      "outputs/john-11-43-lazarus/planner-2.jpg",
+      "outputs/john-11-43-lazarus/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/john-11-43-lazarus/planner-1.jpg",
+       "costUsd": 0.0337565,
+       "latencyMs": 3750,
+       "promptChars": 2620,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/john-11-43-lazarus/planner-2.jpg",
+       "costUsd": 0.03376275,
+       "latencyMs": 3536,
+       "promptChars": 2737,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/john-11-43-lazarus/planner-3.jpg",
+       "costUsd": 0.03376275,
+       "latencyMs": 3594,
+       "promptChars": 2737,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "acts-9-3-damascus",
+   "reference": "Acts 9:3",
+   "genre": "narrative",
+   "expected": "A blinding light from heaven around a traveler on the Damascus road.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/acts-9-3-damascus/planner-1.jpg",
+      "outputs/acts-9-3-damascus/planner-2.jpg",
+      "outputs/acts-9-3-damascus/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/acts-9-3-damascus/planner-1.jpg",
+       "costUsd": 0.03375425,
+       "latencyMs": 3764,
+       "promptChars": 2601,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/acts-9-3-damascus/planner-2.jpg",
+       "costUsd": 0.0337605,
+       "latencyMs": 3454,
+       "promptChars": 2718,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/acts-9-3-damascus/planner-3.jpg",
+       "costUsd": 0.0337605,
+       "latencyMs": 3209,
+       "promptChars": 2718,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "romans-8-28-all-things",
+   "reference": "Romans 8:28",
+   "genre": "epistle",
+   "expected": "An abstract-leaning but era-true image of providence; no text of the verse.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/romans-8-28-all-things/planner-1.jpg",
+      "outputs/romans-8-28-all-things/planner-2.jpg",
+      "outputs/romans-8-28-all-things/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/romans-8-28-all-things/planner-1.jpg",
+       "costUsd": 0.03375525,
+       "latencyMs": 4700,
+       "promptChars": 2639,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/romans-8-28-all-things/planner-2.jpg",
+       "costUsd": 0.0337615,
+       "latencyMs": 4127,
+       "promptChars": 2756,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/romans-8-28-all-things/planner-3.jpg",
+       "costUsd": 0.0337615,
+       "latencyMs": 3917,
+       "promptChars": 2756,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "matthew-27-35-crucified",
+   "reference": "Matthew 27:35",
+   "genre": "difficult",
+   "expected": "Soldiers casting lots for garments beneath the cross; the crucifixion treated seriously, no gratuitous gore.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/matthew-27-35-crucified/planner-1.jpg",
+      "outputs/matthew-27-35-crucified/planner-2.jpg",
+      "outputs/matthew-27-35-crucified/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/matthew-27-35-crucified/planner-1.jpg",
+       "costUsd": 0.0337455,
+       "latencyMs": 5123,
+       "promptChars": 2469,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/matthew-27-35-crucified/planner-2.jpg",
+       "costUsd": 0.03375175,
+       "latencyMs": 3375,
+       "promptChars": 2586,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/matthew-27-35-crucified/planner-3.jpg",
+       "costUsd": 0.03375175,
+       "latencyMs": 3418,
+       "promptChars": 2586,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "revelation-4-6-living-creatures",
+   "reference": "Revelation 4:6",
+   "genre": "symbolic",
+   "expected": "A sea of glass before the throne and four living creatures full of eyes.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/revelation-4-6-living-creatures/planner-1.jpg",
+      "outputs/revelation-4-6-living-creatures/planner-2.jpg",
+      "outputs/revelation-4-6-living-creatures/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/revelation-4-6-living-creatures/planner-1.jpg",
+       "costUsd": 0.0337595,
+       "latencyMs": 3847,
+       "promptChars": 2754,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/revelation-4-6-living-creatures/planner-2.jpg",
+       "costUsd": 0.0337595,
+       "latencyMs": 3256,
+       "promptChars": 2754,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/revelation-4-6-living-creatures/planner-3.jpg",
+       "costUsd": 0.0337595,
+       "latencyMs": 3858,
+       "promptChars": 2754,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  },
+  {
+   "id": "revelation-21-1-new-heaven",
+   "reference": "Revelation 21:1",
+   "genre": "symbolic",
+   "expected": "A new heaven and new earth, the sea gone; luminous, vast.",
+   "arms": {
+    "planner": {
+     "completed": 3,
+     "failed": 0,
+     "outputs": [
+      "outputs/revelation-21-1-new-heaven/planner-1.jpg",
+      "outputs/revelation-21-1-new-heaven/planner-2.jpg",
+      "outputs/revelation-21-1-new-heaven/planner-3.jpg"
+     ],
+     "samples": [
+      {
+       "n": 1,
+       "status": "completed",
+       "output": "outputs/revelation-21-1-new-heaven/planner-1.jpg",
+       "costUsd": 0.0337525,
+       "latencyMs": 4318,
+       "promptChars": 2586,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 2,
+       "status": "completed",
+       "output": "outputs/revelation-21-1-new-heaven/planner-2.jpg",
+       "costUsd": 0.03375875,
+       "latencyMs": 4095,
+       "promptChars": 2703,
+       "plannerOutcome": "failed"
+      },
+      {
+       "n": 3,
+       "status": "completed",
+       "output": "outputs/revelation-21-1-new-heaven/planner-3.jpg",
+       "costUsd": 0.03375875,
+       "latencyMs": 3218,
+       "promptChars": 2703,
+       "plannerOutcome": "failed"
+      }
+     ]
+    }
+   },
+   "comparison": "ready",
+   "reason": null
+  }
+ ],
+ "comparisons": {
+  "ready": 33,
+  "inconclusive": 0,
+  "incomplete": 0
+ },
+ "styleMatrix": {}
+}
