@@ -59,6 +59,10 @@ vi.mock("@/context/session-context", () => ({
   useSession: vi.fn(),
 }));
 
+vi.mock("@/context/preferences-context", () => ({
+  usePreferences: vi.fn(() => ({ artStyle: "classical" })),
+}));
+
 vi.mock("@/lib/analytics", () => ({
   trackChapterGalleryItemOpened: vi.fn(),
   trackChapterGalleryLayoutChanged: vi.fn(),

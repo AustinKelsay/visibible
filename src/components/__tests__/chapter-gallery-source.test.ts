@@ -43,6 +43,10 @@ vi.mock("@/context/session-context", () => ({
   useSession: vi.fn(),
 }));
 
+vi.mock("@/context/preferences-context", () => ({
+  usePreferences: vi.fn(() => ({ artStyle: "classical" })),
+}));
+
 const useQueryMock = vi.mocked(useQuery);
 const useConvexEnabledMock = vi.mocked(useConvexEnabled);
 const useVerseViewMock = vi.mocked(useVerseView);
@@ -118,6 +122,7 @@ describe("chapter gallery behavior", () => {
     expect(useQueryMock).toHaveBeenCalledWith(api.verseImages.getChapterGallery, {
       book: "genesis",
       chapter: 1,
+      artStyle: "classical",
     });
     expect(markup).toContain("Chapter Gallery");
     expect(markup).toContain("Gallery layout");
