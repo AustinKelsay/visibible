@@ -816,6 +816,40 @@ describe("Image Generation API Credit Flow", () => {
       expect(imageCalls()).toHaveLength(1);
     });
 
+    it("rehearsal: legacy and generic requests are accepted side by side in owner mode, and a rollback keeps accepted work replayable while new work follows the switch", async () => {
+      process.env.GENERIC_ENGINE_MODE = "owner";
+      await prepareWork();
+      const { POST } = await import("../../generate-image/route");
+      // A guest's Classical request runs on legacy while the owner's Watercolor request runs on generic, at the same time.
+      const guestSession = { ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000 };
+      resetMockState([guestSession]);
+      const guest = POST(createGenerateImageRequest({ ...body, requestId: "rehearsal-guest", style: "classical" }));
+      const guestResponse = await guest;
+      expect(guestResponse.status).toBe(200);
+      expect((await guestResponse.json()).engine).toBe("legacy");
+      resetMockState([{ ...guestSession, tier: "admin" }]);
+      const ownerResponse = await POST(createGenerateImageRequest({ ...body, requestId: "rehearsal-owner" }));
+      expect(ownerResponse.status).toBe(200);
+      expect((await ownerResponse.json()).engine).toBe("generic");
+      const requests = await storedRequests();
+      expect(requests.map((r) => [r.requestId, r.engine, r.status])).toEqual([["rehearsal-guest", "legacy", "succeeded"], ["rehearsal-owner", "generic", "succeeded"]]);
+      expect(imageCalls()).toHaveLength(2);
+      // Rollback: the switch goes back to disabled. The accepted generic request replays unchanged; a new Watercolor request is refused
+      // before any reservation; a new Classical request runs on legacy; saved images of both engines stay readable.
+      process.env.GENERIC_ENGINE_MODE = "disabled";
+      const replay = await POST(createGenerateImageRequest({ ...body, requestId: "rehearsal-owner" }));
+      expect(await replay.json()).toMatchObject({ reused: true, engine: "generic", translationId: "web" });
+      const refused = await POST(createGenerateImageRequest({ ...body, requestId: "rehearsal-after", style: "watercolor" }));
+      expect(refused.status).toBe(503);
+      expect(await refused.json()).toMatchObject({ error: "Art style unavailable", retryable: true });
+      const classical = await POST(createGenerateImageRequest({ ...body, requestId: "rehearsal-classical", style: "classical" }));
+      expect(classical.status).toBe(200);
+      expect((await classical.json()).engine).toBe("legacy");
+      expect(imageCalls()).toHaveLength(3);
+      expect((await requestDb.query(api.verseImages.getImageHistory, { verseId: "genesis-1-1" })).map((i) => i.artStyle).sort()).toEqual(["classical", "classical", "watercolor"]);
+      expect((await requestDb.query(api.verseImages.getImageHistory, { verseId: "genesis-1-1", artStyle: "watercolor" }))[0]).toMatchObject({ engine: "generic", translationId: "web", verseText: webText[1] });
+    });
+
     it("lets the owner generate without a reservation while recording the audit entry", async () => {
       await prepareWork();
       resetMockState([{ ...fixtures.sessions.paidWithCredits, sid: "test-session", credits: 1000, tier: "admin" }]);

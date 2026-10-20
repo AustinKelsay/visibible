@@ -816,6 +816,29 @@ export const getImageHistory = query({
   },
 });
 
+/**
+ * Release and retirement counts (#182): image requests per engine and status. Non-terminal
+ * requests are accepted obligations; a request without an engine is historical legacy work.
+ */
+export const countRequestsByEngine = query({
+  args: { serverSecret: v.string() },
+  handler: async (ctx, args) => {
+    validateServerSecret(args.serverSecret);
+    const counts: Record<string, { queued: number; planning: number; generating: number; succeeded: number; failed: number }> = {};
+    const bucket = (engine: string) => (counts[engine] ??= { queued: 0, planning: 0, generating: 0, succeeded: 0, failed: 0 });
+    for (const status of ["queued", "planning", "generating"] as const) {
+      const requests = await ctx.db.query("imageGenerationRequests").withIndex("by_status_updatedAt", (q) => q.eq("status", status)).collect();
+      for (const request of requests) bucket(request.engine ?? "legacy")[status]++;
+    }
+    // Terminal requests are counted by a bounded recent window so the query stays cheap on a large history.
+    for (const status of ["succeeded", "failed"] as const) {
+      const requests = await ctx.db.query("imageGenerationRequests").withIndex("by_status_updatedAt", (q) => q.eq("status", status)).order("desc").take(1000);
+      for (const request of requests) bucket(request.engine ?? "legacy")[status]++;
+    }
+    return counts;
+  },
+});
+
 /** Everything the owner needs to review one saved image: its source, style, provenance and URL. Server-only. */
 export const getImageProvenance = query({
   args: { serverSecret: v.string(), imageId: v.string() },
