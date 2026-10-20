@@ -24,7 +24,9 @@
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
     "works:import": "tsx scripts/works/import.mts",
-    "works:check": "tsx scripts/works/import.mts --check"
+    "works:check": "tsx scripts/works/import.mts --check",
+    "works:read": "tsx scripts/works/read.mts",
+    "works:bible-hints": "tsx scripts/works/bible-hints.mts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.1",
