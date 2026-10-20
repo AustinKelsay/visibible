@@ -532,11 +532,18 @@ export default defineSchema({
     aspectRatio: v.string(),
     resolution: v.string(),
     translation: v.string(),
+    // Engine and style binding (#178): the art style chosen at creation and the engine the first
+    // admitted item was bound to; neither changes on resume. Jobs without them are legacy Classical.
+    engine: v.optional(v.union(v.literal("legacy"), v.literal("generic"))),
+    artStyleId: v.optional(v.string()),
+    // Why the job is paused when the coordinator did it (engine or style unavailable, limits).
+    pausedReason: v.optional(v.string()),
     createdAt: v.number(),
     updatedAt: v.number(),
     completedAt: v.optional(v.number()),
   })
     .index("by_sid_status", ["sid", "status"])
+    .index("by_status", ["status"])
     .index("by_sid_createdAt", ["sid", "createdAt"]),
 
   // Individual verse entries within a bulk generation job

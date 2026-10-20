@@ -169,6 +169,8 @@ const generateImageSchema = z
     resolution: z.string().optional(),
     translation: z.string().optional(),
     requestId: z.string().regex(/^[a-zA-Z0-9_-]{8,80}$/).optional(),
+    /** A bulk job's bound engine: the request is refused rather than admitted on another engine (#178). */
+    engine: z.enum(["legacy", "generic"]).optional(),
   })
   .passthrough();
 
@@ -426,7 +428,7 @@ export async function POST(request: Request) {
     }
     const saved = admission.savedImage;
     if (saved?.imageUrl) return jsonWithSessionRefresh({
-      requestId: clientRequestId, generationId: admission.generationId,
+      requestId: clientRequestId, generationId: admission.generationId, engine: admission.engine ?? "legacy",
       status: admission.status, reused: true, savedImageId: saved.id,
       imageUrl: saved.imageUrl, reference: saved.reference, translationId: saved.translationId,
       verseText: saved.verseText, promptInputs: saved.promptInputs,
@@ -437,7 +439,7 @@ export async function POST(request: Request) {
         error: admission.error || "The original operation ended without an available saved image", reused: true,
       }, { status: 409 });
     }
-    return jsonWithSessionRefresh({ requestId: clientRequestId, status: admission.status, reused: true }, { status: 202 });
+    return jsonWithSessionRefresh({ requestId: clientRequestId, status: admission.status, reused: true, engine: admission.engine ?? "legacy" }, { status: 202 });
   };
   try {
     const existing = await convex.query(api.verseImages.getGenerationIntent, {
@@ -508,6 +510,11 @@ export async function POST(request: Request) {
   incrementMetricCounter("engine_admission", { mode: engineMode, engine: engineDecision.engine ?? "none" });
   if (engineDecision.engine === null) {
     return jsonWithSessionRefresh({ error: engineDecision.unavailable === "style" ? "Art style unavailable" : "Preparing scene", message: engineDecision.reason, retryable: engineDecision.retryable, style: requestedStyleId ?? null }, { status: 503 });
+  }
+  if (requestBody.engine && requestBody.engine !== engineDecision.engine) {
+    // A bound job never silently continues on another engine; nothing is reserved or recorded.
+    incrementMetricCounter("engine_binding_refused", { expected: requestBody.engine, decided: engineDecision.engine });
+    return jsonWithSessionRefresh({ error: "Engine binding changed", message: `This request is bound to the ${requestBody.engine} engine, which is not admitting new work right now.`, expectedEngine: requestBody.engine, engine: engineDecision.engine, retryable: true }, { status: 409 });
   }
   if (engineDecision.engine === "generic") {
     // A failed lookup is temporary; only a lookup that returned nothing means the session is gone.
@@ -1384,6 +1391,7 @@ export async function POST(request: Request) {
       return jsonWithSessionRefresh(
         {
           requestId: generationRequestId,
+          engine: admittedEngine,
           imageUrl,
           ...(savedImageId ? { savedImageId } : {}),
           model: modelId,

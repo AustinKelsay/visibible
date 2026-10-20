@@ -469,6 +469,23 @@ describe("Image Generation API Credit Flow", () => {
       expect(await unknown.json()).toMatchObject({ error: "Style profile not available" });
     });
 
+    it("refuses a request bound to another engine before any reservation or record, and reports the engine on success and replay", async () => {
+      const { POST } = await import("../../generate-image/route");
+      const bound = await POST(createGenerateImageRequest({ ...body, requestId: "bulk-job-1", engine: "generic" }));
+      expect(bound.status).toBe(409);
+      expect(await bound.json()).toMatchObject({ error: "Engine binding changed", expectedEngine: "generic", engine: "legacy", retryable: true });
+      expect(getCallCount("reserveCredits")).toBe(0);
+      expect(openRouterCalls()).toBe(0);
+      expect(await storedRequest()).toBeUndefined();
+      // The same request id is still usable once the binding matches; success and replay both say which engine ran.
+      const ok = await POST(createGenerateImageRequest({ ...body, requestId: "bulk-job-1", engine: "legacy" }));
+      expect(ok.status).toBe(200);
+      expect((await ok.json()).engine).toBe("legacy");
+      const replay = await POST(createGenerateImageRequest({ ...body, requestId: "bulk-job-1", engine: "legacy" }));
+      expect(await replay.json()).toMatchObject({ reused: true, engine: "legacy" });
+      expect(getCallCount("reserveCredits")).toBe(1);
+    });
+
     it("public mode with an unready work: retryable preparing error, no reservation, no legacy fallback", async () => {
       process.env.GENERIC_ENGINE_MODE = "public";
       const { POST } = await import("../../generate-image/route");
