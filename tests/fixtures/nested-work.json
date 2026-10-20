@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "id": "nested-prose",
+  "title": "The Voyage",
+  "author": "Test Author",
+  "language": "en",
+  "referenceText": {
+    "name": "Fixture edition",
+    "source": "https://example.com/voyage",
+    "credit": "Test fixture",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "levels": [
+    "Story",
+    "Part",
+    "Paragraph"
+  ],
+  "referenceFormats": {
+    "Story": "{Story} ¶{Paragraph}",
+    "Part": "{Story}, Part {Part} ¶{Paragraph}"
+  },
+  "momentMode": "reading-pass",
+  "divisions": [
+    {
+      "key": "voyage",
+      "label": "The Voyage",
+      "level": "Story",
+      "divisions": [
+        {
+          "key": "1",
+          "label": "I",
+          "level": "Part",
+          "units": [
+            {
+              "number": 1,
+              "text": "At dawn, Mira found the boat."
+            },
+            {
+              "number": 2,
+              "text": "She loosened the rope."
+            },
+            {
+              "number": 3,
+              "text": "A storm rose."
+            }
+          ]
+        },
+        {
+          "key": "2",
+          "label": "II",
+          "level": "Part",
+          "units": [
+            {
+              "number": 1,
+              "text": "The clouds cleared."
+            },
+            {
+              "number": 2,
+              "text": "Mira reached the island."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "return",
+      "label": "The Return",
+      "level": "Story",
+      "units": [
+        {
+          "number": 1,
+          "text": "She sailed home."
+        },
+        {
+          "number": 2,
+          "text": "Her family waited on the shore."
+        }
+      ]
+    }
+  ]
+}

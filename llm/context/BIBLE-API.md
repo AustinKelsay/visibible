@@ -13,6 +13,8 @@
 
 [The verse page](../../src/app/[book]/[chapter]/[verse]/page.tsx) assembles text and adjacent context. Preference persistence is documented in [Preferences](PREFERENCES.md).
 
+[Imported reference works](WORK-INPUT.md) now provide a separate offline WEB input for the generic image engine. Its importer preserves the 31,102 navigation IDs, normalizes WEB's Romans doxology placement, and explicitly attributes four readings taken from WEB footnotes where its main text is blank. This input is not yet connected to generation or reader fetching: selected translations and their upstream coverage behavior below remain unchanged.
+
 ## Translation coverage evidence
 
 The [coverage snapshot](../../tests/fixtures/scripture-coverage.json) records the provider book listings and Genesis 1 / Revelation 22 responses for all 16 selectable translations, sampled on 2026-09-08 UTC. All returned Revelation 22. Genesis 1 returned 404 for Cherokee, YLT, OEB-CW and OEB-US. Cherokee listed 27 books; the others listed 66, which demonstrates that a book listing alone cannot establish chapter coverage. The [provider documentation](https://bible-api.com/) also describes YLT as NT only.

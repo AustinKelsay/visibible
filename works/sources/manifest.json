@@ -1,0 +1,17 @@
+{
+  "web": {
+    "file": "eng-web_vpl.txt.gz",
+    "url": "https://ebible.org/Scriptures/eng-web_vpl.zip",
+    "retrieved": "2026-10-19",
+    "sha256": "52b92dc6db45070408ea45e4af0957d02b0f2263319a9ea10de7c8cf9e2cd8c4",
+    "bytes": 5309588,
+    "archiveSha256": "9698c6849d0376539126c12535ec6ae629031d06156e89131b12bda9dae5d265"
+  },
+  "holmes": {
+    "file": "pg1661.txt.gz",
+    "url": "https://www.gutenberg.org/cache/epub/1661/pg1661.txt",
+    "retrieved": "2026-10-19",
+    "sha256": "922e2a12ccb43a4c9544c260b2166c6ad2097aeb5957faeee113f173bb857cd0",
+    "bytes": 607606
+  }
+}
