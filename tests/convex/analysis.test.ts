@@ -2,12 +2,14 @@
  * Analysis storage lifecycle (#168): candidate generations, activation, owner versions,
  * stale dependents, references and attention, exercised through the Convex handlers.
  */
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import { convexTest } from "convex-test";
 import type { FunctionArgs } from "convex/server";
 import schema from "../../convex/schema";
 import { api } from "../../convex/_generated/api";
 import { modules } from "./modules";
+import { listAnalysisRecords } from "../../src/lib/engine/analysis-records";
+import { activateCandidate } from "../../convex/analysis";
 
 const SECRET = "test-server-secret-with-at-least-32-chars";
 process.env.CONVEX_SERVER_SECRET = SECRET;
@@ -77,10 +79,10 @@ describe("analysis generations", () => {
 
     const { generation: reread } = await t.mutation(api.analysis.stageGeneration, { serverSecret: SECRET, workId: WORK, workVersion: WORK_V1, briefVersion: BRIEF_V1 });
     // A moment pointing at a section that does not exist in the candidate.
-    await t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation: reread, records: [
+    await expect(t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation: reread, records: [
       entry("sherlock_holmes", "Sherlock Holmes"),
       moment("a-scandal-in-bohemia-1", "a-scandal-in-bohemia-2", "a-scandal-in-bohemia-99"),
-    ] });
+    ] })).rejects.toThrow(/unknown section/);
     await expect(t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: reread })).rejects.toThrow(/unknown section|no story sections/);
 
     const status = await t.query(api.analysis.getWorkStatus, { workId: WORK });
@@ -269,4 +271,97 @@ describe("analysis generations", () => {
     expect(status.candidateGeneration).toBe(reread);
     expect(await t.query(api.analysis.listAttention, { workId: WORK })).toEqual([]);
   });
+
+  it("validates moments while staging, counts rewrites once, and still checks legacy candidates", async () => {
+    await t.mutation(api.analysis.registerWork, { serverSecret: SECRET, workId: WORK, workVersion: WORK_V1, briefVersion: BRIEF_V1 });
+    const { generation } = await t.mutation(api.analysis.stageGeneration, { serverSecret: SECRET, workId: WORK, workVersion: WORK_V1, briefVersion: BRIEF_V1 });
+    const put = (records: RecordInput[]) => t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation, records });
+    await expect(put([moment("wrong-id", "end", "missing")])).rejects.toThrow(/unknown section/);
+    await expect(put([{ ...moment("first", "end", "section"), recordId: "wrong" }])).rejects.toThrow(/first unit/);
+    // The section may follow the moment within the same atomic batch.
+    await put([moment("first", "end", "section"), section("section", "end"), entry("holmes", "Holmes")]);
+    await put([moment("first", "other-end", "section")]);
+    expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation }))?.counts).toEqual({ moment: 1, section: 1, entry: 1 });
+    await t.run(async (ctx) => {
+      const row = await ctx.db.query("analysisGenerations").first();
+      await ctx.db.patch(row!._id, { recordCounts: undefined });
+    });
+    await put([moment("broken", "end", "missing")]);
+    await expect(t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation })).rejects.toThrow(/unknown section missing/);
+  });
+
+  it("activates and serves a 31,102-moment work, then retires it without losing an owner edit", async () => {
+    vi.useFakeTimers();
+    try {
+      const first = await prepare();
+      // Seed the scale fixture directly: the separate staging test exercises write validation.
+      // 31,102 moments + 2,790 sections exceed a single Convex transaction's scan limit.
+      await t.run(async (ctx) => {
+        for (let i = 1; i < 2790; i++) {
+          const record = section(`section-${i}`, `end-${i}`);
+          await ctx.db.insert("analysisRecords", { ...record, workId: WORK, generation: first, version: "fixture", source: "generated", inputs: [], status: "current", createdAt: 1 });
+        }
+        for (let i = 1; i < 31102; i++) {
+          const record = moment(`unit-${i}`, `unit-${i}`, "a-scandal-in-bohemia-1");
+          await ctx.db.insert("analysisRecords", { ...record, workId: WORK, generation: first, version: "fixture", source: "generated", inputs: [], status: "current", createdAt: 1 });
+        }
+        const row = await ctx.db.query("analysisGenerations").first();
+        await ctx.db.patch(row!._id, { recordCounts: { moment: 31102, section: 2790, entry: 1 } });
+      });
+      // convex-test does not enforce production scan limits. Apply a read budget to the real
+      // activation handler so the old full-generation collect fails this regression.
+      let scanned = 0;
+      const bounded = <T extends object>(target: T): T => new Proxy(target, {
+        get(object, property) {
+          const value = Reflect.get(object, property);
+          if (typeof value !== "function") return value;
+          return (...args: unknown[]) => {
+            const result = Reflect.apply(value, object, args);
+            if (["query", "withIndex", "filter", "order"].includes(String(property))) return bounded(result);
+            if (["collect", "take", "unique", "first", "get"].includes(String(property))) return Promise.resolve(result).then((rows) => {
+              scanned += Array.isArray(rows) ? rows.length : rows ? 1 : 0;
+              if (scanned > 32000) throw new Error("Transaction scanned more than 32,000 documents");
+              return rows;
+            });
+            return result;
+          };
+        },
+      });
+      const setProtocol = (enabled: boolean) => t.run(async (ctx) => {
+        const row = await ctx.db.query("analysisGenerations").first();
+        await ctx.db.patch(row!._id, { recordCounts: enabled ? { moment: 31102, section: 2790, entry: 1 } : undefined });
+      });
+      await setProtocol(false);
+      await expect(t.run((ctx) => activateCandidate({ ...ctx, db: bounded(ctx.db) }, { serverSecret: SECRET, workId: WORK, generation: first }))).rejects.toThrow(/32,000 documents/);
+      expect((await t.query(api.analysis.getWorkStatus, { workId: WORK })).activeGeneration).toBeNull();
+      await setProtocol(true);
+      scanned = 0;
+      await t.run((ctx) => activateCandidate({ ...ctx, db: bounded(ctx.db) }, { serverSecret: SECRET, workId: WORK, generation: first }));
+      expect(scanned).toBeLessThan(5000);
+      expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation: first }))?.counts).toEqual({ moment: 31102, section: 2790, entry: 1 });
+      expect(await t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry" })).toHaveLength(1);
+      const list = await listAnalysisRecords(t, WORK, first, "moment");
+      expect(list).toHaveLength(31102);
+      expect(new Set(list.map((r) => r.recordId)).size).toBe(31102);
+      await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "unit-31101", payload: { kind: "plan", momentId: "unit-31101", entries: [{ entryId: "sherlock_holmes", stageId: "main" }], plan: { primarySubject: "Holmes", action: "reads", setting: "room" } }, inputs: [] });
+      expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation: first }))?.counts.plan).toBe(1);
+      await t.mutation(api.analysis.clearRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "unit-31101" });
+      expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation: first }))?.counts.plan).toBe(0);
+      const correction = await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "moment", recordId: "a-scandal-in-bohemia-1", payload: { kind: "moment", sectionId: "a-scandal-in-bohemia-1", firstUnit: "a-scandal-in-bohemia-1", lastUnit: "owner-end" } });
+      const second = await prepare();
+      const result = await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: second });
+      expect(result.carriedOwnerVersions).toEqual(["moment/a-scandal-in-bohemia-1"]);
+      expect((await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "moment", recordId: "a-scandal-in-bohemia-1" }))?.version).toBe(correction.version);
+      await expect(t.query(api.analysis.listActiveRecordsPage, { workId: WORK, generation: first, kind: "moment", cursor: null })).rejects.toThrow(/generation changed/);
+      for (let page = 0; page < 150 && vi.getTimerCount() > 0; page++) {
+        vi.runAllTimers();
+        await t.finishInProgressScheduledFunctions();
+      }
+      expect(vi.getTimerCount()).toBe(0);
+      expect((await t.query(api.analysis.listRecordHistory, { workId: WORK, kind: "moment", recordId: "unit-31101" }))[0].status).toBe("retired");
+      expect(await t.query(api.analysis.getRecordVersion, { workId: WORK, generation: first, kind: "moment", recordId: "unit-31101", version: "fixture" })).not.toBeNull();
+    } finally {
+      vi.useRealTimers();
+    }
+  }, 90000);
 });

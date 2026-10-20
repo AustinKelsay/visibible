@@ -599,6 +599,9 @@ export default defineSchema({
     createdAt: v.number(),
     activatedAt: v.optional(v.number()),
     endedAt: v.optional(v.number()),
+    // New generations validate moment anchors/section links while staging, and maintain counts
+    // without rescanning every fixed unit. Absence preserves validation of older candidates.
+    recordCounts: v.optional(v.record(v.string(), v.number())),
   })
     .index("by_work_generation", ["workId", "generation"])
     .index("by_work_status", ["workId", "status"]),
@@ -619,6 +622,8 @@ export default defineSchema({
   })
     .index("by_work_generation_kind_recordId", ["workId", "generation", "kind", "recordId"])
     .index("by_work_generation_status", ["workId", "generation", "status"])
+    .index("by_work_generation_kind_status", ["workId", "generation", "kind", "status"])
+    .index("by_work_generation_source_status", ["workId", "generation", "source", "status"])
     .index("by_work_kind_recordId", ["workId", "kind", "recordId"]),
 
   referenceImages: defineTable({

@@ -11,7 +11,8 @@
  * Writes are server-secret protected (the same boundary as saveImage); reads are public.
  */
 import { v } from "convex/values";
-import { action, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
+import { action, internalMutation, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
+import { internal } from "./_generated/api";
 import type { Doc } from "./_generated/dataModel";
 import { validateServerSecret } from "./_helpers/auth";
 import { contentVersion } from "./_helpers/contentVersion";
@@ -49,6 +50,28 @@ async function currentRecords(ctx: Ctx, workId: string, generation: number) {
     .query("analysisRecords")
     .withIndex("by_work_generation_status", (q) => q.eq("workId", workId).eq("generation", generation).eq("status", "current"))
     .collect();
+}
+
+async function currentKind(ctx: Ctx, workId: string, generation: number, kind: AnalysisKind) {
+  return ctx.db.query("analysisRecords").withIndex("by_work_generation_kind_status", (q) =>
+    q.eq("workId", workId).eq("generation", generation).eq("kind", kind).eq("status", "current"),
+  ).collect();
+}
+
+/** Only the records needed to validate this payload, rather than every moment in the work. */
+async function dependencies(ctx: Ctx, workId: string, generation: number, payload: Payload) {
+  const refs: Array<[AnalysisKind, string]> = [];
+  if (payload.kind === "moment" || payload.kind === "look") refs.push(["section", payload.sectionId]);
+  if (payload.kind === "plan") {
+    refs.push(["moment", payload.momentId]);
+    refs.push(...payload.entries.map((e): [AnalysisKind, string] => ["entry", e.entryId]));
+  }
+  const records: Doc<"analysisRecords">[] = [];
+  for (const [kind, recordId] of refs) {
+    const record = await findCurrentRecord(ctx, workId, generation, kind, recordId);
+    if (record) records.push(record);
+  }
+  return records;
 }
 
 async function findCurrentRecord(ctx: Ctx, workId: string, generation: number, kind: AnalysisKind, recordId: string) {
@@ -197,6 +220,7 @@ export const stageGeneration = mutation({
     await ctx.db.insert("analysisGenerations", {
       workId: args.workId, generation, status: "candidate", workVersion: args.workVersion, briefVersion: args.briefVersion,
       note: args.note, createdAt: now,
+      recordCounts: {},
     });
     await ctx.db.patch(work._id, { candidateGeneration: generation, nextGeneration: generation + 1, updatedAt: now });
     return { generation };
@@ -223,8 +247,18 @@ export const putRecords = mutation({
       throw new Error(`Generation ${args.generation} of ${args.workId} is not an open candidate`);
     }
     const versions: Array<{ kind: AnalysisKind; recordId: string; version: string }> = [];
+    const counts = generation.recordCounts && { ...generation.recordCounts };
+    const batchSections = new Set(args.records.filter((r) => r.kind === "section").map((r) => r.recordId));
     for (const record of args.records) {
       requirePayloadKind(record.kind, record.payload);
+      // Sections are staged before their moments (or in the same atomic batch). There is no
+      // candidate delete operation, so this proof survives later writes and activation.
+      if (counts && record.payload.kind === "moment") {
+        if (record.recordId !== record.payload.firstUnit) throw new Error(`moment ${record.recordId}: id must be its first unit ${record.payload.firstUnit}`);
+        if (!batchSections.has(record.payload.sectionId) && !await findCurrentRecord(ctx, args.workId, args.generation, "section", record.payload.sectionId)) {
+          throw new Error(`moment ${record.recordId}: unknown section ${record.payload.sectionId}; stage sections before moments`);
+        }
+      }
       const existing = await findCurrentRecord(ctx, args.workId, args.generation, record.kind, record.recordId);
       const version = contentVersion(record.payload);
       await writeVersion(ctx, existing, {
@@ -232,7 +266,9 @@ export const putRecords = mutation({
         source: "generated", inputs: record.inputs ?? [], payload: record.payload,
       });
       versions.push({ kind: record.kind, recordId: record.recordId, version });
+      if (counts && !existing) counts[record.kind] = (counts[record.kind] ?? 0) + 1;
     }
+    if (counts) await ctx.db.patch(generation._id, { recordCounts: counts });
     return { versions };
   },
 });
@@ -244,63 +280,102 @@ export const putRecords = mutation({
  * list. The previous generation is retired. On any failure nothing changes and the current active
  * generation keeps serving.
  */
+export async function activateCandidate(ctx: MutationCtx, args: { serverSecret: string; workId: string; generation: number }) {
+  validateServerSecret(args.serverSecret);
+  const work = await requireWork(ctx, args.workId);
+  const candidate = await findGeneration(ctx, args.workId, args.generation);
+  if (!candidate || candidate.status !== "candidate" || work.candidateGeneration !== args.generation) {
+    throw new Error(`Generation ${args.generation} of ${args.workId} is not the open candidate`);
+  }
+  if (candidate.workVersion !== work.workVersion || candidate.briefVersion !== work.briefVersion) {
+    throw new Error(
+      `Generation ${args.generation} was read against work ${candidate.workVersion} / brief ${candidate.briefVersion}, ` +
+      `but the deployed versions are ${work.workVersion} / ${work.briefVersion}`,
+    );
+  }
+  const records = candidate.recordCounts === undefined
+    ? await currentRecords(ctx, args.workId, args.generation)
+    : (await Promise.all((["entry", "section", "look", "plan"] as const).map((kind) => currentKind(ctx, args.workId, args.generation, kind)))).flat();
+  const candidateByKey: RecordMap = new Map(records.map((r) => [key(r.kind, r.recordId), r]));
+  // Decide first what would actually serve: candidate records, with owner versions carried in
+  // wherever their record id survived the reread. Only that set is checked for structure.
+  const ownerSource = work.activeGeneration ?? work.ownerVersionsFrom;
+  const previous = ownerSource === undefined ? [] : await ctx.db.query("analysisRecords")
+    .withIndex("by_work_generation_source_status", (q) => q.eq("workId", args.workId).eq("generation", ownerSource).eq("source", "owner").eq("status", "current")).collect();
+  for (const owner of previous) {
+    if (owner.kind !== "moment" || candidateByKey.has(key(owner.kind, owner.recordId))) continue;
+    const moment = await findCurrentRecord(ctx, args.workId, args.generation, "moment", owner.recordId);
+    if (moment) candidateByKey.set(key("moment", owner.recordId), moment);
+  }
+  const carriedOwners = previous.filter((r) => candidateByKey.has(key(r.kind, r.recordId)));
+  const unmatchedOwners = previous.filter((r) => !candidateByKey.has(key(r.kind, r.recordId)));
+  const effective = new Map(candidateByKey);
+  for (const owner of carriedOwners) effective.set(key(owner.kind, owner.recordId), owner);
+  // Plans may name moments omitted from the bulk scan. Validate their exact dependencies;
+  // owner moment replacements themselves are also checked against the effective sections.
+  for (const record of [...effective.values()]) {
+    if (record.payload.kind !== "plan") continue;
+    const id = key("moment", record.payload.momentId);
+    if (!effective.has(id)) {
+      const moment = await findCurrentRecord(ctx, args.workId, args.generation, "moment", record.payload.momentId);
+      if (moment) effective.set(id, moment);
+    }
+  }
+  const problems = structuralProblems([...effective.values()]);
+  if (problems.length) throw new Error(`Generation ${args.generation} is not structurally valid: ${problems.join("; ")}`);
+
+  const now = Date.now();
+  const carried: string[] = [];
+  const unmatched: string[] = [];
+  for (const owner of carriedOwners) {
+    await writeVersion(ctx, candidateByKey.get(key(owner.kind, owner.recordId)) ?? null, {
+      workId: args.workId, generation: args.generation, kind: owner.kind, recordId: owner.recordId, version: owner.version,
+      source: "owner", inputs: owner.inputs, payload: owner.payload,
+    });
+    carried.push(key(owner.kind, owner.recordId));
+  }
+  for (const owner of unmatchedOwners) {
+    await openAttention(ctx, {
+      workId: args.workId, reason: "unmatched_owner_edit", kind: owner.kind, recordId: owner.recordId, generation: work.activeGeneration,
+      detail: `Owner version ${owner.version} of ${owner.kind} ${owner.recordId} has no record in generation ${args.generation}`,
+    });
+    unmatched.push(key(owner.kind, owner.recordId));
+  }
+  if (ownerSource !== undefined) {
+    for (const r of previous) await ctx.db.patch(r._id, { status: "retired" });
+    const previousGeneration = await findGeneration(ctx, args.workId, ownerSource);
+    if (previousGeneration && previousGeneration.status !== "retired") await ctx.db.patch(previousGeneration._id, { status: "retired", endedAt: now });
+    await retireBatch(ctx, args.workId, ownerSource);
+  }
+  await ctx.db.patch(candidate._id, { status: "active", activatedAt: now });
+  await ctx.db.patch(work._id, { activeGeneration: args.generation, candidateGeneration: undefined, ownerVersionsFrom: undefined, updatedAt: now });
+  return { generation: args.generation, carriedOwnerVersions: carried, unmatchedOwnerVersions: unmatched, retiredGeneration: work.activeGeneration ?? null };
+}
+
 export const activateGeneration = mutation({
   args: {
     serverSecret: v.string(),
     workId: v.string(),
     generation: v.number(),
   },
-  handler: async (ctx, args) => {
-    validateServerSecret(args.serverSecret);
-    const work = await requireWork(ctx, args.workId);
-    const candidate = await findGeneration(ctx, args.workId, args.generation);
-    if (!candidate || candidate.status !== "candidate" || work.candidateGeneration !== args.generation) {
-      throw new Error(`Generation ${args.generation} of ${args.workId} is not the open candidate`);
-    }
-    if (candidate.workVersion !== work.workVersion || candidate.briefVersion !== work.briefVersion) {
-      throw new Error(
-        `Generation ${args.generation} was read against work ${candidate.workVersion} / brief ${candidate.briefVersion}, ` +
-        `but the deployed versions are ${work.workVersion} / ${work.briefVersion}`,
-      );
-    }
-    const records = await currentRecords(ctx, args.workId, args.generation);
-    const candidateByKey: RecordMap = new Map(records.map((r) => [key(r.kind, r.recordId), r]));
-    // Decide first what would actually serve: candidate records, with owner versions carried in
-    // wherever their record id survived the reread. Only that set is checked for structure.
-    const ownerSource = work.activeGeneration ?? work.ownerVersionsFrom;
-    const previous = ownerSource === undefined ? [] : await currentRecords(ctx, args.workId, ownerSource);
-    const carriedOwners = previous.filter((r) => r.source === "owner" && candidateByKey.has(key(r.kind, r.recordId)));
-    const unmatchedOwners = previous.filter((r) => r.source === "owner" && !candidateByKey.has(key(r.kind, r.recordId)));
-    const effective = new Map(candidateByKey);
-    for (const owner of carriedOwners) effective.set(key(owner.kind, owner.recordId), owner);
-    const problems = structuralProblems([...effective.values()]);
-    if (problems.length) throw new Error(`Generation ${args.generation} is not structurally valid: ${problems.join("; ")}`);
+  handler: activateCandidate,
+});
 
-    const now = Date.now();
-    const carried: string[] = [];
-    const unmatched: string[] = [];
-    for (const owner of carriedOwners) {
-      await writeVersion(ctx, candidateByKey.get(key(owner.kind, owner.recordId)) ?? null, {
-        workId: args.workId, generation: args.generation, kind: owner.kind, recordId: owner.recordId, version: owner.version,
-        source: "owner", inputs: owner.inputs, payload: owner.payload,
-      });
-      carried.push(key(owner.kind, owner.recordId));
-    }
-    for (const owner of unmatchedOwners) {
-      await openAttention(ctx, {
-        workId: args.workId, reason: "unmatched_owner_edit", kind: owner.kind, recordId: owner.recordId, generation: work.activeGeneration,
-        detail: `Owner version ${owner.version} of ${owner.kind} ${owner.recordId} has no record in generation ${args.generation}`,
-      });
-      unmatched.push(key(owner.kind, owner.recordId));
-    }
-    if (ownerSource !== undefined) {
-      for (const r of previous) await ctx.db.patch(r._id, { status: "retired" });
-      const previousGeneration = await findGeneration(ctx, args.workId, ownerSource);
-      if (previousGeneration && previousGeneration.status !== "retired") await ctx.db.patch(previousGeneration._id, { status: "retired", endedAt: now });
-    }
-    await ctx.db.patch(candidate._id, { status: "active", activatedAt: now });
-    await ctx.db.patch(work._id, { activeGeneration: args.generation, candidateGeneration: undefined, ownerVersionsFrom: undefined, updatedAt: now });
-    return { generation: args.generation, carriedOwnerVersions: carried, unmatchedOwnerVersions: unmatched, retiredGeneration: work.activeGeneration ?? null };
+/** Retirement changes the serving pointer atomically; historical row statuses catch up in batches. */
+async function retireBatch(ctx: MutationCtx, workId: string, generation: number) {
+  const records = await ctx.db.query("analysisRecords").withIndex("by_work_generation_status", (q) =>
+    q.eq("workId", workId).eq("generation", generation).eq("status", "current"),
+  ).take(250);
+  for (const record of records) await ctx.db.patch(record._id, { status: "retired" });
+  if (records.length === 250) await ctx.scheduler.runAfter(0, internal.analysis.retireRecords, { workId, generation });
+}
+
+export const retireRecords = internalMutation({
+  args: { workId: v.string(), generation: v.number() },
+  handler: async (ctx, args) => {
+    const generation = await findGeneration(ctx, args.workId, args.generation);
+    if (generation?.status !== "retired") return;
+    await retireBatch(ctx, args.workId, args.generation);
   },
 });
 
@@ -366,6 +441,8 @@ export const clearRecord = mutation({
     const current = await findCurrentRecord(ctx, args.workId, work.activeGeneration, args.kind, args.recordId);
     if (!current) return { cleared: false };
     await ctx.db.patch(current._id, { status: "superseded" });
+    const generation = await findGeneration(ctx, args.workId, work.activeGeneration);
+    if (generation?.recordCounts) await ctx.db.patch(generation._id, { recordCounts: { ...generation.recordCounts, [args.kind]: (generation.recordCounts[args.kind] ?? 1) - 1 } });
     return { cleared: true };
   },
 });
@@ -385,8 +462,8 @@ export const putDerivedRecord = mutation({
     const work = await requireWork(ctx, args.workId);
     if (work.activeGeneration === undefined) throw new Error(`Work ${args.workId} has no active generation`);
     requirePayloadKind(args.kind, args.payload);
-    const records = await currentRecords(ctx, args.workId, work.activeGeneration);
-    const problems = structuralProblems([...records.filter((r) => !(r.kind === args.kind && r.recordId === args.recordId)), { kind: args.kind, recordId: args.recordId, payload: args.payload }]);
+    const records = await dependencies(ctx, args.workId, work.activeGeneration, args.payload);
+    const problems = structuralProblems([...records, { kind: args.kind, recordId: args.recordId, payload: args.payload }]);
     const own = problems.filter((p) => p.startsWith(`${args.kind} ${args.recordId}:`));
     if (own.length) throw new Error(own.join("; "));
     const existing = await findCurrentRecord(ctx, args.workId, work.activeGeneration, args.kind, args.recordId);
@@ -395,6 +472,8 @@ export const putDerivedRecord = mutation({
       workId: args.workId, generation: work.activeGeneration, kind: args.kind, recordId: args.recordId, version,
       source: "generated", inputs: args.inputs, payload: args.payload,
     });
+    const generation = await findGeneration(ctx, args.workId, work.activeGeneration);
+    if (!existing && generation?.recordCounts) await ctx.db.patch(generation._id, { recordCounts: { ...generation.recordCounts, [args.kind]: (generation.recordCounts[args.kind] ?? 0) + 1 } });
     return { version, generation: work.activeGeneration };
   },
 });
@@ -708,9 +787,10 @@ export const getGeneration = query({
   handler: async (ctx, args) => {
     const generation = await findGeneration(ctx, args.workId, args.generation);
     if (!generation) return null;
-    const records = await currentRecords(ctx, args.workId, args.generation);
-    const counts: Record<string, number> = {};
-    for (const r of records) counts[r.kind] = (counts[r.kind] ?? 0) + 1;
+    const counts: Record<string, number> = { ...generation.recordCounts };
+    if (generation.recordCounts === undefined) {
+      for (const r of await currentRecords(ctx, args.workId, args.generation)) counts[r.kind] = (counts[r.kind] ?? 0) + 1;
+    }
     return { ...withoutInternals(generation), counts };
   },
 });
@@ -731,8 +811,20 @@ export const listActiveRecords = query({
   handler: async (ctx, args) => {
     const work = await findWork(ctx, args.workId);
     if (!work || work.activeGeneration === undefined) return [];
-    const records = await currentRecords(ctx, args.workId, work.activeGeneration);
-    return records.filter((r) => r.kind === args.kind).map(publicRecord);
+    return (await currentKind(ctx, args.workId, work.activeGeneration, args.kind)).map(publicRecord);
+  },
+});
+
+/** Bounded enumeration, pinned to the generation the caller admitted. */
+export const listActiveRecordsPage = query({
+  args: { workId: v.string(), generation: v.number(), kind: analysisValidators.kind, cursor: v.union(v.string(), v.null()) },
+  handler: async (ctx, args) => {
+    const work = await requireWork(ctx, args.workId);
+    if (work.activeGeneration !== args.generation) throw new Error("Analysis generation changed during enumeration; retry admission");
+    const page = await ctx.db.query("analysisRecords").withIndex("by_work_generation_kind_status", (q) =>
+      q.eq("workId", args.workId).eq("generation", args.generation).eq("kind", args.kind).eq("status", "current"),
+    ).paginate({ cursor: args.cursor, numItems: 500 });
+    return { records: page.page.map(publicRecord), nextCursor: page.isDone ? null : page.continueCursor };
   },
 });
 
