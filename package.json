@@ -29,7 +29,8 @@
     "works:canon": "tsx scripts/works/canon.mts",
     "works:references": "tsx scripts/works/references.mts",
     "works:correct": "tsx scripts/works/correct.mts",
-    "works:bible-hints": "tsx scripts/works/bible-hints.mts"
+    "works:bible-hints": "tsx scripts/works/bible-hints.mts",
+    "evals:images": "tsx scripts/evals/images.mts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.1",
