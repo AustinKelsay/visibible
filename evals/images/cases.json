@@ -314,7 +314,7 @@
     },
     {
       "id": "holmes-scandal-the-woman",
-      "reference": "A Scandal in Bohemia ¶1",
+      "reference": "A Scandal in Bohemia, Part I ¶1",
       "genre": "narrative",
       "work": "holmes-adventures",
       "unitId": "a-scandal-in-bohemia-1-1",
@@ -326,10 +326,10 @@
     },
     {
       "id": "holmes-scandal-king-arrives",
-      "reference": "A Scandal in Bohemia ¶20",
+      "reference": "A Scandal in Bohemia, Part I ¶42",
       "genre": "narrative",
       "work": "holmes-adventures",
-      "unitId": "a-scandal-in-bohemia-1-20",
+      "unitId": "a-scandal-in-bohemia-1-42",
       "expected": "A masked, richly dressed visitor in the Baker Street sitting room; Holmes and Watson recognisable from the first case.",
       "tags": [
         "holmes",
@@ -341,7 +341,7 @@
       "reference": "The Red-Headed League ¶1",
       "genre": "narrative",
       "work": "holmes-adventures",
-      "unitId": "the-red-headed-league-1-1",
+      "unitId": "the-red-headed-league-1",
       "expected": "A stout, florid, red-haired client with Holmes and Watson; the detective and doctor unchanged across stories.",
       "tags": [
         "holmes",
