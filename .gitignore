@@ -51,3 +51,6 @@ next-env.d.ts
 # Convex function metadata / specs (generated)
 function_spec.json
 *function_spec*.json
+
+# Rebuilt offline from checked source snapshots (npm run works:import)
+/works/*/work.json
