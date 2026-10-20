@@ -9,8 +9,8 @@
  */
 
 import type * as _helpers_auth from "../_helpers/auth.js";
-import type * as _helpers_guestKeys from "../_helpers/guestKeys.js";
 import type * as _helpers_contentVersion from "../_helpers/contentVersion.js";
+import type * as _helpers_guestKeys from "../_helpers/guestKeys.js";
 import type * as _helpers_pendingHolds from "../_helpers/pendingHolds.js";
 import type * as analysis from "../analysis.js";
 import type * as bulkGenerations from "../bulkGenerations.js";
@@ -39,8 +39,8 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   "_helpers/auth": typeof _helpers_auth;
-  "_helpers/guestKeys": typeof _helpers_guestKeys;
   "_helpers/contentVersion": typeof _helpers_contentVersion;
+  "_helpers/guestKeys": typeof _helpers_guestKeys;
   "_helpers/pendingHolds": typeof _helpers_pendingHolds;
   analysis: typeof analysis;
   bulkGenerations: typeof bulkGenerations;

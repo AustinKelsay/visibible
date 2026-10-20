@@ -5,9 +5,9 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { convexTest } from "convex-test";
 import type { FunctionArgs } from "convex/server";
-import schema from "../schema";
-import { api } from "../_generated/api";
-import { modules } from "../../tests/convex/modules";
+import schema from "../../convex/schema";
+import { api } from "../../convex/_generated/api";
+import { modules } from "./modules";
 
 const SECRET = "test-server-secret-with-at-least-32-chars";
 process.env.CONVEX_SERVER_SECRET = SECRET;
@@ -64,6 +64,7 @@ describe("analysis generations", () => {
     expect(record?.source).toBe("generated");
     expect(record?.version).toMatch(/^[0-9a-f]{32}$/);
     expect(record?.generation).toBe(generation);
+    expect((await t.query(api.analysis.listActiveRecords, { workId: WORK, kind: "entry" })).map((r) => r.recordId)).toEqual(["sherlock_holmes"]);
   });
 
   it("rejects an unauthenticated preparation write", async () => {
@@ -95,6 +96,13 @@ describe("analysis generations", () => {
     await t.mutation(api.analysis.registerWork, { serverSecret: SECRET, workId: WORK, workVersion: WORK_V1, briefVersion: BRIEF_V1 });
     await expect(t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation })).rejects.toThrow(/brief brief-v0/);
     expect((await t.query(api.analysis.getWorkStatus, { workId: WORK })).ready).toBe(false);
+
+    const { generation: again } = await t.mutation(api.analysis.stageGeneration, { serverSecret: SECRET, workId: WORK, workVersion: "work-v0", briefVersion: BRIEF_V1 });
+    await t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation: again, records: minimalRecords() });
+    await expect(t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: again })).rejects.toThrow(/work work-v0/);
+    await t.mutation(api.analysis.abandonGeneration, { serverSecret: SECRET, workId: WORK, generation: again, note: "read against a stale work file" });
+    expect((await t.query(api.analysis.getWorkStatus, { workId: WORK })).candidateGeneration).toBeNull();
+    expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation: again }))?.status).toBe("abandoned");
   });
 
   it("marks a work not ready when the deployed brief changes after activation", async () => {
@@ -156,6 +164,8 @@ describe("analysis generations", () => {
     const old = await t.query(api.analysis.getRecordVersion, { workId: WORK, generation: first, kind: "entry", recordId: "dr_watson", version: attention[0].detail!.match(/version ([0-9a-f]+)/)![1] });
     expect(old?.payload).toMatchObject({ name: "Dr. Watson" });
     expect((await t.query(api.analysis.getGeneration, { workId: WORK, generation: first }))?.status).toBe("retired");
+    const history = await t.query(api.analysis.listRecordHistory, { workId: WORK, kind: "entry", recordId: "dr_watson" });
+    expect(history.map((h) => [h.generation, h.source, h.status])).toEqual([[first, "owner", "retired"], [first, "generated", "superseded"]]);
   });
 
   it("finds dependents that named an older input version after an owner edit", async () => {
@@ -177,6 +187,31 @@ describe("analysis generations", () => {
 
     await t.mutation(api.analysis.clearRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "a-scandal-in-bohemia-1" });
     expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "a-scandal-in-bohemia-1" })).toBeNull();
+
+    // A sheet made from the old canon version shows up as stale too, with its pin state.
+    const storageId = await t.run(async (ctx) => ctx.storage.store(new Blob(["jpeg"], { type: "image/jpeg" })));
+    const holmes = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "entry", recordId: "sherlock_holmes" });
+    await t.mutation(api.analysis.putReference, { serverSecret: SECRET, workId: WORK, kind: "sheet", recordId: "sherlock_holmes:main", storageId,
+      inputs: [{ kind: "entry", recordId: "sherlock_holmes", version: holmes!.version }] });
+    expect(await t.query(api.analysis.listStaleDependents, { workId: WORK, kind: "entry", recordId: "sherlock_holmes" })).toEqual([]);
+    await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "sherlock_holmes",
+      payload: { kind: "entry", name: "Sherlock Holmes", entryKind: "character", hasForm: true, stages: [{ id: "main", text: "Sherlock Holmes: corrected." }] } });
+    expect(await t.query(api.analysis.listStaleDependents, { workId: WORK, kind: "entry", recordId: "sherlock_holmes" })).toEqual([
+      expect.objectContaining({ kind: "sheet", recordId: "sherlock_holmes:main", usedVersion: holmes!.version, pinned: false }),
+    ]);
+  });
+
+  it("never touches saved image records when analysis changes", async () => {
+    const imageId = await t.run(async (ctx) => ctx.db.insert("verseImages", { verseId: "luke-5-8", model: "legacy", createdAt: 1, imageUrl: "https://example.test/old.jpg" }));
+    const before = await t.run(async (ctx) => ctx.db.get(imageId));
+    const first = await prepare();
+    await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: first });
+    await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "sherlock_holmes",
+      payload: { kind: "entry", name: "Sherlock Holmes", entryKind: "character", hasForm: true, stages: [{ id: "main", text: "edited" }] } });
+    const { generation: reread } = await t.mutation(api.analysis.stageGeneration, { serverSecret: SECRET, workId: WORK, workVersion: WORK_V1, briefVersion: BRIEF_V1 });
+    await t.mutation(api.analysis.putRecords, { serverSecret: SECRET, workId: WORK, generation: reread, records: minimalRecords() });
+    await t.mutation(api.analysis.activateGeneration, { serverSecret: SECRET, workId: WORK, generation: reread });
+    expect(await t.run(async (ctx) => ctx.db.get(imageId))).toEqual(before);
   });
 
   it("records references with their inputs and lets a pin override staleness", async () => {

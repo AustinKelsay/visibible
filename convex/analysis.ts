@@ -23,7 +23,6 @@ type Payload = Doc<"analysisRecords">["payload"];
 type InputRef = Doc<"analysisRecords">["inputs"][number];
 
 const MAX_CHARACTER_STAGES = 3;
-export const SHEET_RECORD_SEPARATOR = ":";
 
 // ---------------------------------------------------------------- lookups
 
@@ -61,11 +60,30 @@ async function findCurrentRecord(ctx: Ctx, workId: string, generation: number, k
   return matches.find((r) => r.status === "current") ?? null;
 }
 
-function publicRecord(record: Doc<"analysisRecords">) {
-  const { _id, _creationTime, ...rest } = record;
+/** Strip Convex's internal fields; the record id is exposed as `id` only where a caller needs it. */
+function withoutInternals<T extends { _id: unknown; _creationTime: number }>(doc: T): Omit<T, "_id" | "_creationTime"> {
+  const { _id, _creationTime, ...rest } = doc;
   void _id;
   void _creationTime;
   return rest;
+}
+
+function publicRecord(record: Doc<"analysisRecords">) {
+  return withoutInternals(record);
+}
+
+function requirePayloadKind(kind: string, payload: Payload) {
+  if (payload.kind !== kind) throw new Error(`Payload kind ${payload.kind} is not ${kind}`);
+}
+
+/** Supersede the current version of a record, if any, and insert the new one. */
+async function writeVersion(
+  ctx: MutationCtx,
+  current: Doc<"analysisRecords"> | null,
+  record: Omit<Doc<"analysisRecords">, "_id" | "_creationTime" | "status" | "createdAt">,
+) {
+  if (current) await ctx.db.patch(current._id, { status: "superseded" });
+  await ctx.db.insert("analysisRecords", { ...record, status: "current", createdAt: Date.now() });
 }
 
 // ---------------------------------------------------------------- structural validity
@@ -219,16 +237,14 @@ export const putRecords = mutation({
     if (!generation || generation.status !== "candidate") {
       throw new Error(`Generation ${args.generation} of ${args.workId} is not an open candidate`);
     }
-    const now = Date.now();
     const versions: Array<{ kind: AnalysisKind; recordId: string; version: string }> = [];
     for (const record of args.records) {
-      if (record.payload.kind !== record.kind) throw new Error(`Record ${record.recordId}: payload kind ${record.payload.kind} is not ${record.kind}`);
+      requirePayloadKind(record.kind, record.payload);
       const existing = await findCurrentRecord(ctx, args.workId, args.generation, record.kind, record.recordId);
-      if (existing) await ctx.db.patch(existing._id, { status: "superseded" });
       const version = contentVersion(record.payload);
-      await ctx.db.insert("analysisRecords", {
+      await writeVersion(ctx, existing, {
         workId: args.workId, generation: args.generation, kind: record.kind, recordId: record.recordId, version,
-        source: "generated", inputs: record.inputs ?? [], payload: record.payload, status: "current", createdAt: now,
+        source: "generated", inputs: record.inputs ?? [], payload: record.payload,
       });
       versions.push({ kind: record.kind, recordId: record.recordId, version });
     }
@@ -278,10 +294,9 @@ export const activateGeneration = mutation({
     const carried: string[] = [];
     const unmatched: string[] = [];
     for (const owner of carriedOwners) {
-      await ctx.db.patch(candidateByKey.get(key(owner.kind, owner.recordId))!._id, { status: "superseded" });
-      await ctx.db.insert("analysisRecords", {
+      await writeVersion(ctx, candidateByKey.get(key(owner.kind, owner.recordId)) ?? null, {
         workId: args.workId, generation: args.generation, kind: owner.kind, recordId: owner.recordId, version: owner.version,
-        source: "owner", inputs: owner.inputs, payload: owner.payload, status: "current", createdAt: now,
+        source: "owner", inputs: owner.inputs, payload: owner.payload,
       });
       carried.push(key(owner.kind, owner.recordId));
     }
@@ -336,15 +351,14 @@ export const correctRecord = mutation({
     validateServerSecret(args.serverSecret);
     const work = await requireWork(ctx, args.workId);
     if (work.activeGeneration === undefined) throw new Error(`Work ${args.workId} has no active generation to correct`);
-    if (args.payload.kind !== args.kind) throw new Error(`Payload kind ${args.payload.kind} is not ${args.kind}`);
+    requirePayloadKind(args.kind, args.payload);
     const current = await findCurrentRecord(ctx, args.workId, work.activeGeneration, args.kind, args.recordId);
     if (!current) throw new Error(`No current ${args.kind} ${args.recordId} in generation ${work.activeGeneration}`);
     const version = contentVersion(args.payload);
     if (version === current.version && current.source === "owner") return { version, changed: false };
-    await ctx.db.patch(current._id, { status: "superseded" });
-    await ctx.db.insert("analysisRecords", {
+    await writeVersion(ctx, current, {
       workId: args.workId, generation: work.activeGeneration, kind: args.kind, recordId: args.recordId, version,
-      source: "owner", inputs: current.inputs, payload: args.payload, status: "current", createdAt: Date.now(),
+      source: "owner", inputs: current.inputs, payload: args.payload,
     });
     return { version, changed: true, previousVersion: current.version };
   },
@@ -352,7 +366,7 @@ export const correctRecord = mutation({
 
 /** Remove a derived record (a plan or look) from the active generation so it is remade lazily. */
 export const clearRecord = mutation({
-  args: { serverSecret: v.string(), workId: v.string(), kind: v.union(v.literal("look"), v.literal("plan")), recordId: v.string() },
+  args: { serverSecret: v.string(), workId: v.string(), kind: analysisValidators.derivedKind, recordId: v.string() },
   handler: async (ctx, args) => {
     validateServerSecret(args.serverSecret);
     const work = await requireWork(ctx, args.workId);
@@ -369,7 +383,7 @@ export const putDerivedRecord = mutation({
   args: {
     serverSecret: v.string(),
     workId: v.string(),
-    kind: v.union(v.literal("look"), v.literal("plan")),
+    kind: analysisValidators.derivedKind,
     recordId: v.string(),
     payload: analysisValidators.payload,
     inputs: v.array(analysisValidators.input),
@@ -378,17 +392,16 @@ export const putDerivedRecord = mutation({
     validateServerSecret(args.serverSecret);
     const work = await requireWork(ctx, args.workId);
     if (work.activeGeneration === undefined) throw new Error(`Work ${args.workId} has no active generation`);
-    if (args.payload.kind !== args.kind) throw new Error(`Payload kind ${args.payload.kind} is not ${args.kind}`);
+    requirePayloadKind(args.kind, args.payload);
     const records = await currentRecords(ctx, args.workId, work.activeGeneration);
     const problems = structuralProblems([...records.filter((r) => !(r.kind === args.kind && r.recordId === args.recordId)), { kind: args.kind, recordId: args.recordId, payload: args.payload }]);
     const own = problems.filter((p) => p.startsWith(`${args.kind} ${args.recordId}:`));
     if (own.length) throw new Error(own.join("; "));
     const existing = await findCurrentRecord(ctx, args.workId, work.activeGeneration, args.kind, args.recordId);
-    if (existing) await ctx.db.patch(existing._id, { status: "superseded" });
     const version = contentVersion(args.payload);
-    await ctx.db.insert("analysisRecords", {
+    await writeVersion(ctx, existing, {
       workId: args.workId, generation: work.activeGeneration, kind: args.kind, recordId: args.recordId, version,
-      source: "generated", inputs: args.inputs, payload: args.payload, status: "current", createdAt: Date.now(),
+      source: "generated", inputs: args.inputs, payload: args.payload,
     });
     return { version, generation: work.activeGeneration };
   },
@@ -401,7 +414,7 @@ export const putReference = mutation({
   args: {
     serverSecret: v.string(),
     workId: v.string(),
-    kind: v.union(v.literal("sheet"), v.literal("styleReference")),
+    kind: analysisValidators.referenceKind,
     recordId: v.string(),
     storageId: v.id("_storage"),
     inputs: v.array(analysisValidators.input),
@@ -414,7 +427,7 @@ export const putReference = mutation({
     const existing = await findReference(ctx, args.workId, args.kind, args.recordId);
     if (existing?.pinned) throw new Error(`${args.kind} ${args.recordId} is pinned; unpin it before replacing`);
     if (existing) await ctx.db.patch(existing._id, { status: "superseded" });
-    const fingerprint = contentVersion(args.inputs.map((i) => [i.kind, i.recordId, i.version]));
+    const fingerprint = referenceFingerprint(args.inputs);
     const id = await ctx.db.insert("referenceImages", {
       workId: args.workId, kind: args.kind, recordId: args.recordId, storageId: args.storageId, inputs: args.inputs, fingerprint,
       verdict: args.verdict, notes: args.notes, pinned: false, status: "current", createdAt: Date.now(),
@@ -425,7 +438,7 @@ export const putReference = mutation({
 
 /** Pin or unpin the current reference; a pinned reference ignores staleness until unpinned. */
 export const pinReference = mutation({
-  args: { serverSecret: v.string(), workId: v.string(), kind: v.union(v.literal("sheet"), v.literal("styleReference")), recordId: v.string(), pinned: v.boolean() },
+  args: { serverSecret: v.string(), workId: v.string(), kind: analysisValidators.referenceKind, recordId: v.string(), pinned: v.boolean() },
   handler: async (ctx, args) => {
     validateServerSecret(args.serverSecret);
     const existing = await findReference(ctx, args.workId, args.kind, args.recordId);
@@ -434,6 +447,10 @@ export const pinReference = mutation({
     return { pinned: args.pinned };
   },
 });
+
+function referenceFingerprint(inputs: ReadonlyArray<InputRef>) {
+  return contentVersion(inputs.map((i) => [i.kind, i.recordId, i.version]));
+}
 
 async function findReference(ctx: Ctx, workId: string, kind: "sheet" | "styleReference", recordId: string) {
   const matches = await ctx.db
@@ -507,13 +524,10 @@ export const getGeneration = query({
   handler: async (ctx, args) => {
     const generation = await findGeneration(ctx, args.workId, args.generation);
     if (!generation) return null;
-    const { _id, _creationTime, ...rest } = generation;
-    void _id;
-    void _creationTime;
     const records = await currentRecords(ctx, args.workId, args.generation);
     const counts: Record<string, number> = {};
     for (const r of records) counts[r.kind] = (counts[r.kind] ?? 0) + 1;
-    return { ...rest, counts };
+    return { ...withoutInternals(generation), counts };
   },
 });
 
@@ -553,9 +567,24 @@ export const getRecordVersion = query({
   },
 });
 
+/** Every stored version of a record across generations, newest first: retired ids stay readable by id alone. */
+export const listRecordHistory = query({
+  args: { workId: v.string(), kind: analysisValidators.kind, recordId: v.string() },
+  handler: async (ctx, args) => {
+    const matches = await ctx.db
+      .query("analysisRecords")
+      .withIndex("by_work_kind_recordId", (q) => q.eq("workId", args.workId).eq("kind", args.kind).eq("recordId", args.recordId))
+      .collect();
+    return matches
+      .sort((a, b) => b.generation - a.generation || b._creationTime - a._creationTime)
+      .map((r) => ({ generation: r.generation, version: r.version, source: r.source, status: r.status, createdAt: r.createdAt }));
+  },
+});
+
 /**
- * Current records of the active generation whose inputs name an older version of the given
- * record. Detection only: nothing is remade and saved images are never touched.
+ * Current records of the active generation, and current reference images, whose inputs name an
+ * older version of the given record. Detection only: nothing is remade and saved images are
+ * never touched. A pinned reference is listed with its pin so callers can leave it alone.
  */
 export const listStaleDependents = query({
   args: { workId: v.string(), kind: analysisValidators.kind, recordId: v.string() },
@@ -564,10 +593,20 @@ export const listStaleDependents = query({
     if (!work || work.activeGeneration === undefined) return [];
     const current = await findCurrentRecord(ctx, args.workId, work.activeGeneration, args.kind, args.recordId);
     const records = await currentRecords(ctx, args.workId, work.activeGeneration);
-    const stale: Array<{ kind: AnalysisKind; recordId: string; version: string; usedVersion: string }> = [];
+    // Only current references can be stale; superseded ones are history.
+    const references = await ctx.db
+      .query("referenceImages")
+      .withIndex("by_work_status", (q) => q.eq("workId", args.workId).eq("status", "current"))
+      .collect();
+    const stale: Array<{ kind: AnalysisKind | "sheet" | "styleReference"; recordId: string; version: string; usedVersion: string; pinned?: boolean }> = [];
+    const olderThanCurrent = (used: InputRef | undefined) => used !== undefined && (!current || used.version !== current.version);
     for (const r of records) {
       const used = r.inputs.find((i: InputRef) => i.kind === args.kind && i.recordId === args.recordId);
-      if (used && (!current || used.version !== current.version)) stale.push({ kind: r.kind, recordId: r.recordId, version: r.version, usedVersion: used.version });
+      if (olderThanCurrent(used)) stale.push({ kind: r.kind, recordId: r.recordId, version: r.version, usedVersion: used!.version });
+    }
+    for (const r of references) {
+      const used = r.inputs.find((i: InputRef) => i.kind === args.kind && i.recordId === args.recordId);
+      if (olderThanCurrent(used)) stale.push({ kind: r.kind, recordId: r.recordId, version: r.fingerprint, usedVersion: used!.version, pinned: r.pinned });
     }
     return stale;
   },
@@ -576,17 +615,15 @@ export const listStaleDependents = query({
 /** The current reference and whether it is stale against the inputs it should have been made from. */
 export const getReference = query({
   args: {
-    workId: v.string(), kind: v.union(v.literal("sheet"), v.literal("styleReference")), recordId: v.string(),
+    workId: v.string(), kind: analysisValidators.referenceKind, recordId: v.string(),
     expectedInputs: v.optional(v.array(analysisValidators.input)),
   },
   handler: async (ctx, args) => {
     const reference = await findReference(ctx, args.workId, args.kind, args.recordId);
     if (!reference) return null;
-    const { _id, _creationTime, ...rest } = reference;
-    void _creationTime;
-    const expected = args.expectedInputs ? contentVersion(args.expectedInputs.map((i) => [i.kind, i.recordId, i.version])) : null;
+    const expected = args.expectedInputs ? referenceFingerprint(args.expectedInputs) : null;
     const stale = !reference.pinned && expected !== null && expected !== reference.fingerprint;
-    return { id: _id, ...rest, stale };
+    return { id: reference._id, ...withoutInternals(reference), stale };
   },
 });
 
@@ -597,11 +634,7 @@ export const listAttention = query({
       .query("attentionItems")
       .withIndex("by_work_status", (q) => q.eq("workId", args.workId).eq("status", args.status ?? "open"))
       .collect();
-    return items.map(({ _id, _creationTime, ...rest }) => {
-      void _creationTime;
-      return { id: _id, ...rest };
-    });
+    return items.map((item) => ({ id: item._id, ...withoutInternals(item) }));
   },
 });
 
-export type { Payload as AnalysisPayload };

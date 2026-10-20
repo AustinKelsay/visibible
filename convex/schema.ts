@@ -151,9 +151,13 @@ const planPayloadValidator = v.object({
 export const analysisPayloadValidator = v.union(
   sectionPayloadValidator, momentPayloadValidator, entryPayloadValidator, lookPayloadValidator, planPayloadValidator,
 );
+const referenceKindValidator = v.union(v.literal("sheet"), v.literal("styleReference"));
+const derivedKindValidator = v.union(v.literal("look"), v.literal("plan"));
 export const analysisValidators = {
   source: analysisSourceValidator,
   kind: analysisKindValidator,
+  derivedKind: derivedKindValidator,
+  referenceKind: referenceKindValidator,
   input: analysisInputValidator,
   payload: analysisPayloadValidator,
 };
@@ -524,11 +528,12 @@ export default defineSchema({
     createdAt: v.number(),
   })
     .index("by_work_generation_kind_recordId", ["workId", "generation", "kind", "recordId"])
-    .index("by_work_generation_status", ["workId", "generation", "status"]),
+    .index("by_work_generation_status", ["workId", "generation", "status"])
+    .index("by_work_kind_recordId", ["workId", "kind", "recordId"]),
 
   referenceImages: defineTable({
     workId: v.string(),
-    kind: v.union(v.literal("sheet"), v.literal("styleReference")),
+    kind: referenceKindValidator,
     // Sheets: "<entryId>:<stageId>"; style references: the style id.
     recordId: v.string(),
     storageId: v.id("_storage"),
@@ -539,7 +544,9 @@ export default defineSchema({
     pinned: v.boolean(),
     status: v.union(v.literal("current"), v.literal("superseded")),
     createdAt: v.number(),
-  }).index("by_work_kind_recordId", ["workId", "kind", "recordId"]),
+  })
+    .index("by_work_kind_recordId", ["workId", "kind", "recordId"])
+    .index("by_work_status", ["workId", "status"]),
 
   attentionItems: defineTable({
     workId: v.string(),
