@@ -15,3 +15,5 @@ Verse IDs group history by reference (for example `genesis-1-1`), without transl
 [convex/http.ts](../../convex/http.ts) serves stored bytes at `/image/:storageId`. Image link construction uses `NOSTR_IMAGE_BASE_URL`, then `CONVEX_SITE_URL`, then `CONVEX_CLOUD_URL`; configure a base that actually serves that HTTP route. Storage rows can be reused across browser sessions within the same deployment.
 
 [Public API](PUBLIC-IMAGE-API.md) describes the reduced external response, which intentionally omits prompts and cost details. [Nostr](NOSTR.md) describes scheduled sharing.
+
+The engine's analysis (canon, looks, plans, references) lives in separate tables described in [Analysis storage](ANALYSIS-STORAGE.md); saved image records are not changed by analysis activations or owner corrections.
