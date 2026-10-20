@@ -18,6 +18,10 @@ This records the compatibility deployment for [#183](https://github.com/AustinKe
 
 The Vercel Git build deployed compatible Convex functions before building the frontend. No admission environment variable was changed. The production work status at `2026-10-20T20:05:38.457Z` was not ready (`work is not registered`), as expected before production preparation.
 
+The compatible follow-up [PR #208](https://github.com/AustinKelsay/visibible/pull/208) subsequently deployed production commit `59d32799c0ea5b8e94514f9bd35238f8139a7fe7` as READY deployment `dpl_6i2EreuRkmYZC5vRoo1cyBf6Fdv4` (`visibible-rn5ah7hs8-austin-kelsays-projects.vercel.app`). It includes both approved briefs, qualified source copy and reference-input pricing. The public model API still reports Classical available, Watercolor/Icon unavailable and the Lite 1K quote at five credits. No image call or public admission switch was made. The refreshed production source capture below explicitly qualifies missing historical metadata.
+
+![Qualified production source credits after PR #208](source-credits.png)
+
 ## Checks
 
 - The [integrated CI run](https://github.com/AustinKelsay/visibible/actions/runs/39488476057) passed lint, typecheck, coverage thresholds, the production dependency audit and the production build. Local verification passed 86 test files and 790 tests. A separate fresh-checkout build traced both generated work JSON files and all three style files into the image route.
@@ -42,7 +46,7 @@ Austin Kelsay is the human release owner. The authorized release cap is **$60**,
 
 The fixed evaluation plan retains all 33 Bible cases and three Holmes cases, all three generic styles and three repeats (324 candidate samples). Its dry run estimated $11.66 under a $12 cap. The Bible baseline retains the same 33 Bible cases and settings, three repeats and the production planner configuration (99 samples, estimated $3.47 under a $4 cap). Actual spend and scored output belong in the later evaluation record; these estimates are not completed evidence.
 
-Before public admission, finish complete production Bible analysis and canon, merge the separate one-file approved brief PR, verify readiness/source credits, review the baseline/candidate images, measure full-request prepared/cold p90 and real reservation/settlement, and record the release acceptance. No test fixture or partial reading is an approved production brief.
+The separate production briefs subsequently merged as [Holmes #206](https://github.com/AustinKelsay/visibible/pull/206) and [Bible #212](https://github.com/AustinKelsay/visibible/pull/212). The [initial evaluation record](../2026-10-20-engine-evaluation/README.md) retains actual spend, provisional scores and observed failures. Before public admission, finish complete production Bible analysis and canon, verify readiness/source credits, complete and review the fixed baseline/candidate matrix, measure full-request prepared/cold p90 and real reservation/settlement, and record the release acceptance. No test fixture or partial reading establishes readiness.
 
 ## Rollback and follow-up
 
