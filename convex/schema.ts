@@ -97,6 +97,67 @@ const modelCostScopeTypeValidator = v.union(
   v.literal("global")
 );
 
+// Analysis storage (#168): everything the engine makes for a work, per deployment.
+const analysisSourceValidator = v.union(v.literal("generated"), v.literal("owner"));
+const analysisKindValidator = v.union(
+  v.literal("section"), v.literal("moment"), v.literal("entry"), v.literal("look"), v.literal("plan"),
+);
+const analysisInputValidator = v.object({
+  kind: v.string(),
+  recordId: v.string(),
+  version: v.string(),
+});
+const sectionPayloadValidator = v.object({
+  kind: v.literal("section"),
+  title: v.string(),
+  firstUnit: v.string(),
+  lastUnit: v.string(),
+  era: v.optional(v.string()),
+  cast: v.array(v.object({ entryId: v.string(), stageId: v.string() })),
+});
+const momentPayloadValidator = v.object({
+  kind: v.literal("moment"),
+  sectionId: v.string(),
+  firstUnit: v.string(),
+  lastUnit: v.string(),
+});
+const entryPayloadValidator = v.object({
+  kind: v.literal("entry"),
+  name: v.string(),
+  entryKind: v.union(v.literal("character"), v.literal("location"), v.literal("object")),
+  hasForm: v.optional(v.boolean()),
+  stages: v.array(v.object({
+    id: v.string(),
+    text: v.string(),
+    label: v.optional(v.string()),
+    quotes: v.optional(v.array(v.object({ unit: v.string(), quote: v.string() }))),
+  })),
+});
+const lookPayloadValidator = v.object({
+  kind: v.literal("look"),
+  sectionId: v.string(),
+  place: v.string(),
+  timeOfDay: v.string(),
+  weather: v.string(),
+  light: v.string(),
+  clothing: v.string(),
+});
+const planPayloadValidator = v.object({
+  kind: v.literal("plan"),
+  momentId: v.string(),
+  entries: v.array(v.object({ entryId: v.string(), stageId: v.string() })),
+  plan: scenePlanValidator,
+});
+export const analysisPayloadValidator = v.union(
+  sectionPayloadValidator, momentPayloadValidator, entryPayloadValidator, lookPayloadValidator, planPayloadValidator,
+);
+export const analysisValidators = {
+  source: analysisSourceValidator,
+  kind: analysisKindValidator,
+  input: analysisInputValidator,
+  payload: analysisPayloadValidator,
+};
+
 export default defineSchema({
   maintenanceState: defineTable({
     key: v.string(),
@@ -420,4 +481,80 @@ export default defineSchema({
   })
     .index("by_sid", ["sid", "createdAt"])
     .index("by_createdAt", ["createdAt"]),
+
+  // Analysis storage (#168). Owner-authored inputs (work file, brief, styles) are repo files; these
+  // tables hold what the engine makes for a work in this deployment, versioned by content hash.
+  works: defineTable({
+    workId: v.string(),
+    // Content versions of the deployed repo inputs, registered by the server.
+    workVersion: v.optional(v.string()),
+    briefVersion: v.optional(v.string()),
+    activeGeneration: v.optional(v.number()),
+    candidateGeneration: v.optional(v.number()),
+    nextGeneration: v.number(),
+    updatedAt: v.number(),
+  }).index("by_workId", ["workId"]),
+
+  analysisGenerations: defineTable({
+    workId: v.string(),
+    generation: v.number(),
+    status: v.union(v.literal("candidate"), v.literal("active"), v.literal("retired"), v.literal("abandoned")),
+    workVersion: v.string(),
+    briefVersion: v.string(),
+    note: v.optional(v.string()),
+    createdAt: v.number(),
+    activatedAt: v.optional(v.number()),
+    endedAt: v.optional(v.number()),
+  })
+    .index("by_work_generation", ["workId", "generation"])
+    .index("by_work_status", ["workId", "status"]),
+
+  analysisRecords: defineTable({
+    workId: v.string(),
+    generation: v.number(),
+    kind: analysisKindValidator,
+    // Stable id: entries by slug, sections and moments by their first unit, looks by section, plans by moment.
+    recordId: v.string(),
+    version: v.string(),
+    source: analysisSourceValidator,
+    // The exact input versions this record was made from.
+    inputs: v.array(analysisInputValidator),
+    payload: analysisPayloadValidator,
+    status: v.union(v.literal("current"), v.literal("superseded"), v.literal("retired")),
+    createdAt: v.number(),
+  })
+    .index("by_work_generation_kind_recordId", ["workId", "generation", "kind", "recordId"])
+    .index("by_work_generation_status", ["workId", "generation", "status"]),
+
+  referenceImages: defineTable({
+    workId: v.string(),
+    kind: v.union(v.literal("sheet"), v.literal("styleReference")),
+    // Sheets: "<entryId>:<stageId>"; style references: the style id.
+    recordId: v.string(),
+    storageId: v.id("_storage"),
+    inputs: v.array(analysisInputValidator),
+    fingerprint: v.string(),
+    verdict: v.optional(v.string()),
+    notes: v.optional(v.array(v.string())),
+    pinned: v.boolean(),
+    status: v.union(v.literal("current"), v.literal("superseded")),
+    createdAt: v.number(),
+  }).index("by_work_kind_recordId", ["workId", "kind", "recordId"]),
+
+  attentionItems: defineTable({
+    workId: v.string(),
+    reason: v.string(),
+    kind: v.optional(v.string()),
+    recordId: v.optional(v.string()),
+    generation: v.optional(v.number()),
+    detail: v.optional(v.string()),
+    status: v.union(v.literal("open"), v.literal("closed")),
+    disposition: v.optional(v.string()),
+    count: v.number(),
+    createdAt: v.number(),
+    lastActivityAt: v.number(),
+    closedAt: v.optional(v.number()),
+  })
+    .index("by_work_status", ["workId", "status"])
+    .index("by_work_reason_kind_recordId", ["workId", "reason", "kind", "recordId"]),
 });
