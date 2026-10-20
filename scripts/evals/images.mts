@@ -40,6 +40,7 @@ import { createStyleLibrary, SHARED_STYLES, type ArtStyle } from "@/lib/work-pre
 import { loadWorkInputs } from "@/lib/engine/work-inputs";
 import { createConvexPreparationStore } from "@/lib/engine/preparation";
 import { createMemoryPreparationStore } from "@/lib/engine/memory-store";
+import { listAnalysisRecords } from "@/lib/engine/analysis-records";
 import { analysisRecords, type ReadingPassState } from "@/lib/reading-pass/run";
 import { canonRecords, type CanonState } from "@/lib/reading-pass/canon-run";
 import type { ReferenceRecord } from "@/lib/engine/assemble";
@@ -155,7 +156,7 @@ async function createGenericProvider(): Promise<GenericEvalProvider | null> {
           return {
             inputs,
             store: createConvexPreparationStore({ query: (ref, args) => client.query(ref as never, args as never), mutation: (ref, args) => client.mutation(ref as never, args as never) }, api.analysis as unknown as Record<string, unknown>, workId, secret),
-            listMoments: async () => (await client.query(api.analysis.listActiveRecords, { workId, kind: "moment" })).map((r) => ({ id: r.recordId, firstUnit: String((r.payload as { firstUnit: string }).firstUnit), lastUnit: String((r.payload as { lastUnit: string }).lastUnit) })),
+            listMoments: async () => (await listAnalysisRecords(client, workId, status.activeGeneration!, "moment")).map((r) => ({ id: r.recordId, firstUnit: String((r.payload as { firstUnit: string }).firstUnit), lastUnit: String((r.payload as { lastUnit: string }).lastUnit) })),
             getReference: (kind, recordId) => client.query(api.analysis.getReference, { workId, kind, recordId }) as Promise<ReferenceRecord | null>,
             loadReference: async (storageId) => {
               const located = await client.query(api.analysis.getReferenceBlobUrl, { serverSecret: secret, storageId: storageId as never });

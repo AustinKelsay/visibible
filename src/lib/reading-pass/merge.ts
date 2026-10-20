@@ -35,6 +35,8 @@ export type MergeResult = {
   entries: MergedEntry[];
   sections: MergedSection[];
   groups: Array<{ pool: "characters" | "locations"; members: string[]; clusters: Array<{ name: string; members: string[] }> }>;
+  /** Complete model partitions that supersede contradictory partial rulings inside a component. */
+  reconciliations?: Array<{ members: string[]; clusters: RulingOutput["groups"][number]["clusters"] }>;
   unplaced: string[];
   calls: number;
 };
@@ -104,7 +106,7 @@ export async function mergeCasts(options: {
   sameNameHints?: SameNameHints;
   groupsPerCall?: number;
   beforeCall?: (request: { system: string; user: string; expectedCompletionTokens: number }) => Promise<void>;
-  /** Cache accepted batches by their initial request; null invalidates conflicting batches. */
+  /** Cache accepted initial and reconciliation batches by their exact initial request. */
   onRuling?: (request: TextModelRequest, result: TextModelResult | null) => Promise<void>;
 }): Promise<MergeResult> {
   const { readings, model } = options;
@@ -147,11 +149,49 @@ export async function mergeCasts(options: {
     return hints.length ? `  hint: ${hints.join("; ")}` : null;
   };
 
-  const perCall = options.groupsPerCall ?? 25;
+  // One group avoids a large union of per-group member enums in the provider grammar.
+  const perCall = options.groupsPerCall ?? 1;
   if (!Number.isSafeInteger(perCall) || perCall < 1) throw new Error("groupsPerCall must be a positive integer");
   const rulings = new Map<number, RulingOutput["groups"][number]["clusters"]>();
-  const rulingRequests = new Map<number, TextModelRequest>();
   let calls = 0;
+  const askRuling = async (initialRequest: TextModelRequest, expectedGroups: Array<{ group: number; members: string[] }>): Promise<RulingOutput> => {
+    let feedback = "";
+    for (let attempt = 1; attempt <= MAX_RULING_ATTEMPTS; attempt++) {
+      const request = { ...initialRequest, label: attempt === 1 ? initialRequest.label : `${initialRequest.label}:${attempt}`, user: initialRequest.user + feedback };
+      await options.beforeCall?.(request);
+      calls++;
+      const result = await model.complete(request);
+      const parsed = parseModelJson(rulingOutputSchema, result.content);
+      const problems: string[] = [];
+      const expectedByGroup = new Map(expectedGroups.map((g) => [g.group, g.members]));
+      const seenGroups = new Set<number>();
+      if ("error" in parsed) problems.push(parsed.error);
+      else for (const group of parsed.value.groups) {
+        const members = expectedByGroup.get(group.group);
+        if (!members || seenGroups.has(group.group)) { problems.push(`unknown or repeated group ${group.group}`); continue; }
+        seenGroups.add(group.group);
+        const expected = new Set(members);
+        const seen = new Set<string>();
+        for (const cluster of group.clusters) {
+          if (!cluster.members.length) problems.push(`group ${group.group}: empty cluster`);
+          for (const member of cluster.members) {
+            if (!expected.has(member) || seen.has(member)) problems.push(`group ${group.group}: unknown or repeated member ${member}`);
+            seen.add(member);
+          }
+        }
+        for (const member of expected) if (!seen.has(member)) problems.push(`group ${group.group}: missing member ${member}`);
+      }
+      for (const group of expectedGroups) if (!seenGroups.has(group.group)) problems.push(`missing group ${group.group}`);
+      if (!problems.length && "value" in parsed) {
+        await options.onRuling?.(initialRequest, result);
+        return parsed.value;
+      }
+      if (attempt === MAX_RULING_ATTEMPTS) throw new Error(`Merge ruling failed after ${attempt} attempts: ${problems.join("; ")}`);
+      feedback = `\n\nPrevious answer:\n${result.content}\n\nThe previous answer was rejected: ${problems.join("; ")}\nReturn the FULL ruling for every numbered group above, using each exact member key once within its group. Do not add keys from any other group.`;
+    }
+    throw new Error("No complete merge ruling");
+  };
+
   for (let start = 0; start < groups.length;) {
     let end = start;
     let members = 0;
@@ -168,43 +208,8 @@ export async function mergeCasts(options: {
     const expectedCompletionTokens = 60 * batch.reduce((n, g) => n + g.members.length, 0) + 200;
     const schema = rulingSchemaForGroups(batch.map((group, i) => ({ group: start + i, members: group.members })));
     const initialRequest = { label: `merge:${start}`, system: RULING_SYSTEM, user, schemaName: "merge_groups", schema, maxTokens: 30000, expectedCompletionTokens };
-    let feedback = "";
-    for (let attempt = 1; attempt <= MAX_RULING_ATTEMPTS; attempt++) {
-      const requestUser = user + feedback;
-      await options.beforeCall?.({ system: RULING_SYSTEM, user: requestUser, expectedCompletionTokens });
-      calls++;
-      const request = { ...initialRequest, label: attempt === 1 ? initialRequest.label : `merge:${start}:${attempt}`, user: requestUser };
-      const result = await model.complete(request);
-      const parsed = parseModelJson(rulingOutputSchema, result.content);
-      const problems: string[] = [];
-      const seenGroups = new Set<number>();
-      if ("error" in parsed) problems.push(parsed.error);
-      else for (const group of parsed.value.groups) {
-        if (group.group < start || group.group >= end || seenGroups.has(group.group)) { problems.push(`unknown or repeated group ${group.group}`); continue; }
-        seenGroups.add(group.group);
-        const expected = new Set(groups[group.group].members);
-        const seen = new Set<string>();
-        for (const cluster of group.clusters) {
-          if (!cluster.members.length) problems.push(`group ${group.group}: empty cluster`);
-          for (const member of cluster.members) {
-            if (!expected.has(member) || seen.has(member)) problems.push(`group ${group.group}: unknown or repeated member ${member}`);
-            seen.add(member);
-          }
-        }
-        for (const member of expected) if (!seen.has(member)) problems.push(`group ${group.group}: missing member ${member}`);
-      }
-      for (let index = start; index < end; index++) if (!seenGroups.has(index)) problems.push(`missing group ${index}`);
-      if (!problems.length && "value" in parsed) {
-        for (const group of parsed.value.groups) {
-          rulings.set(group.group, group.clusters);
-          rulingRequests.set(group.group, initialRequest);
-        }
-        await options.onRuling?.(initialRequest, result);
-        break;
-      }
-      if (attempt === MAX_RULING_ATTEMPTS) throw new Error(`Merge ruling failed after ${attempt} attempts: ${problems.join("; ")}`);
-      feedback = `\n\nPrevious answer:\n${result.content}\n\nThe previous answer was rejected: ${problems.join("; ")}\nReturn the FULL ruling for every numbered group above, using each exact member key once within its group. Do not add keys from any other group.`;
-    }
+    const answer = await askRuling(initialRequest, batch.map((group, i) => ({ group: start + i, members: group.members })));
+    for (const group of answer.groups) rulings.set(group.group, group.clusters);
     start = end;
   }
 
@@ -252,16 +257,43 @@ export async function mergeCasts(options: {
     }
     groupReport.push({ pool: group.pool, members: group.members, clusters });
   });
-  for (const [index, clusters] of rulings) {
+  const conflictingRoots = new Set<string>();
+  for (const clusters of rulings.values()) {
     const separated = new Set<string>();
     for (const cluster of clusters) {
       const root = find(cluster.members[0]);
-      if (separated.has(root)) {
-        const implicated = new Set([...rulings].filter(([, candidates]) => candidates.some((candidate) => candidate.members.some((member) => find(member) === root))).map(([group]) => rulingRequests.get(group)!));
-        for (const request of implicated) await options.onRuling?.(request, null);
-        throw new Error(`Conflicting identity rulings in group ${index}: ${cluster.members[0]} was both joined and separated; inspect retained merge attempts`);
-      }
+      if (separated.has(root)) conflictingRoots.add(root);
       separated.add(root);
+    }
+  }
+  const components = new Map<string, string[]>();
+  for (const key of lookup.keys()) {
+    const root = find(key);
+    if (conflictingRoots.has(root)) components.set(root, [...(components.get(root) ?? []), key]);
+  }
+  // Validate all component bounds before paying for any reconciliation.
+  for (const members of components.values()) {
+    if (members.length > MAX_MERGE_MEMBERS_PER_CALL) throw new Error(`Conflicting identity component has ${members.length} members, above the ${MAX_MERGE_MEMBERS_PER_CALL}-member reconciliation limit; refine cast aliases before retrying`);
+  }
+  const reconciliations: NonNullable<MergeResult["reconciliations"]> = [];
+  for (const members of components.values()) {
+    const pool = lookup.get(members[0])!.pool;
+    const user = [
+      `Work: ${options.workTitle} (${options.workAuthor})`,
+      "Earlier partial alias rulings both joined and separated entries in this linked component. Reconsider the full component from its entry evidence and return one final identity partition that supersedes those partial rulings. A shared name alone is not identity. A different source division, genre, narrator, age, title, remembered appearance or resurrection does not create a new individual; appearance stages are drafted later. Split only genuinely different individuals or places. Do not preserve a previous split merely because the entries come from different divisions.",
+      `## Group 0 (${pool === "locations" ? "places" : "characters"})`,
+      ...(hintLine(members) ? [hintLine(members)!] : []),
+      ...members.map(line),
+    ].join("\n");
+    const answer = await askRuling({ label: `merge:reconcile:${members[0]}`, system: RULING_SYSTEM, user, schemaName: "merge_reconciliation", schema: rulingSchemaForGroups([{ group: 0, members }]), maxTokens: 30000, expectedCompletionTokens: 60 * members.length + 200 }, [{ group: 0, members }]);
+    const clusters = answer.groups[0].clusters;
+    reconciliations.push({ members, clusters });
+    // The complete partition is authoritative only inside this component. It cannot join
+    // another component, and the complete-key check prevents omitted or repeated members.
+    for (const member of members) parent.set(member, member);
+    for (const cluster of clusters) for (const member of cluster.members) {
+      parent.set(find(member), find(cluster.members[0]));
+      descriptions.set(member, cluster);
     }
   }
   const identities = new Map<string, string[]>();
@@ -292,5 +324,5 @@ export async function mergeCasts(options: {
       });
     }
   }
-  return { entries, sections, groups: groupReport, unplaced, calls };
+  return { entries, sections, groups: groupReport, reconciliations, unplaced, calls };
 }

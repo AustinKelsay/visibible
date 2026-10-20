@@ -107,9 +107,23 @@ describe("bounded identity rulings", () => {
       expect(request.schema.safeParse(wrongGroup).success).toBe(false);
       return answer;
     } });
-    const result = await mergeCasts({ workTitle: "Ada and Bea", workAuthor: "Fixture", readings: [castReading("alpha", characters), castReading("beta", characters)], model });
+    const result = await mergeCasts({ workTitle: "Ada and Bea", workAuthor: "Fixture", readings: [castReading("alpha", characters), castReading("beta", characters)], model, groupsPerCall: 2 });
     expect(result.entries).toHaveLength(2);
     expect(model.calls).toHaveLength(1);
+  });
+
+  it("uses one constrained group per request by default, without a union grammar", async () => {
+    const characters = ["ada", "bea"].map((id) => ({ id, name: id, aliases: [], kind: "person" as const, note: "Same person across books.", same_person_as: "" }));
+    const model = scriptedModel({ "merge:": (request) => {
+      const answer = exactRuling(request);
+      expect(answer.groups).toHaveLength(1);
+      expect(request.schema.safeParse(answer).success).toBe(true);
+      expect(JSON.stringify(responseSchema(request.schema))).not.toMatch(/"(?:anyOf|oneOf)"/);
+      return answer;
+    } });
+    const result = await mergeCasts({ workTitle: "Ada and Bea", workAuthor: "Fixture", readings: [castReading("alpha", characters), castReading("beta", characters)], model });
+    expect(result.entries).toHaveLength(2);
+    expect(model.calls.map((call) => call.label)).toEqual(["merge:0", "merge:1"]);
   });
 
   it("keeps overlapping aliases separate until ruled, and bounds long alias chains by member count", async () => {
@@ -162,20 +176,35 @@ describe("bounded identity rulings", () => {
     expect(model.calls).toHaveLength(0);
   });
 
-  it("rejects contradictory joins across overlapping name groups", async () => {
+  it("resolves contradictory partial joins with a complete partition that can split the old component", async () => {
     const characters = [
       { id: "ada", name: "Ada", aliases: ["left", "right"] },
       { id: "bea", name: "Bea", aliases: ["left", "middle"] },
       { id: "cara", name: "Cara", aliases: ["right", "middle"] },
     ].map((c) => ({ ...c, kind: "person" as const, note: "Distinct individuals.", same_person_as: "" }));
     const model = scriptedModel({ "merge:": (request) => {
-      const answer = exactRuling(request);
+      const answer = exactRuling(request, request.label.startsWith("merge:reconcile:"));
+      if (request.label.startsWith("merge:reconcile:")) expect(request.user).toContain("appearance stages are drafted later");
       const first = answer.groups[0].clusters[0];
-      answer.groups[0].clusters = first.members.map((member) => ({ ...first, members: [member] }));
+      if (request.label === "merge:0") answer.groups[0].clusters = first.members.map((member) => ({ ...first, members: [member] }));
       return answer;
     } });
-    await expect(mergeCasts({ workTitle: "Conflicting aliases", workAuthor: "Fixture", readings: [castReading("alpha", characters)], model })).rejects.toThrow(/Conflicting identity rulings/);
+    const result = await mergeCasts({ workTitle: "Conflicting aliases", workAuthor: "Fixture", readings: [castReading("alpha", characters)], model });
+    expect(result.entries).toHaveLength(3);
+    expect(result.entries.every((entry) => entry.members.length === 1)).toBe(true);
+    expect(result.reconciliations).toHaveLength(1);
+    expect(result.reconciliations![0].members).toHaveLength(3);
+    expect(result.groups).toHaveLength(3); // Original partial decisions remain audit evidence.
+    expect(model.calls.filter((call) => call.label.startsWith("merge:reconcile:"))).toHaveLength(1);
   });
+
+  it("stops an oversized conflicting component before any reconciliation call", async () => {
+    const characters = Array.from({ length: 151 }, (_, i) => ({ id: `p${i}`, name: `P${i}`, aliases: [`link${i}`, `link${i + 1}`, ...(i === 0 || i === 150 ? ["ends"] : [])], kind: "person" as const, note: "Different people.", same_person_as: "" }));
+    const model = scriptedModel({ "merge:": (request) => exactRuling(request, request.user.includes("alpha:character:p0 |") && request.user.includes("alpha:character:p150 |")) });
+    await expect(mergeCasts({ workTitle: "Large conflict", workAuthor: "Fixture", readings: [castReading("alpha", characters)], model })).rejects.toThrow(/Conflicting identity component has 151 members.*150-member reconciliation limit/);
+    expect(model.calls.some((call) => call.label.startsWith("merge:reconcile:"))).toBe(false);
+  });
+
 });
 const briefAnswer = {
   tone: "Quiet, clear and sunlit.",
@@ -199,7 +228,7 @@ describe("reading pass", () => {
     expect(model.calls[0].system).toContain("Aim for roughly 2 sections");
     expect(model.calls[0].user).toContain("[1-1] Jonah the fisherman");
     // The merge prompt carried the same-name hint and the ruling kept the kings apart.
-    const mergeCall = model.calls.find((c) => c.label.startsWith("merge:"))!;
+    const mergeCall = model.calls.find((c) => c.label.startsWith("merge:") && c.user.includes("hint:"))!;
     expect(mergeCall.user).toMatch(/hint: the reference index lists 2 distinct individuals named "the king"/);
     const names = state.merge!.entries.map((e) => e.name).sort();
     expect(names).toEqual(["Amos", "Jonah", "the crowd", "the king of the city", "the lake", "the messenger", "the new king", "the palace"]);
@@ -222,7 +251,7 @@ describe("reading pass", () => {
     expect(state.brief!.sectionEras).toEqual({ "alpha-1-1": "lakeside-kingdom", "alpha-1-4": "lakeside-kingdom", "beta-1-1": "lakeside-kingdom" });
     expect(state.brief!.validationErrors).toEqual([]);
     // Spend recorded; state saved after every call.
-    expect(state.ledger).toHaveLength(4);
+    expect(state.ledger).toHaveLength(6);
     expect(saves.length).toBeGreaterThanOrEqual(4);
     // Staged into the store with stage-less entries.
     expect(state.staged).toEqual({ generation: 1, records: 8 + 3 + 9 });
@@ -279,7 +308,7 @@ describe("reading pass", () => {
     expect(plan.remainingCalls).toBe(3);
 
     const state = await runReadingPass({ workFile: twoBooks, workVersion: "wv1", model, store: memory.store, state: resumed, saveState, budgetUsd: 1 });
-    expect(model.calls.map((c) => c.label)).toEqual(["read:alpha:1", "read:beta:1", "merge:0", "brief"]);
+    expect(model.calls.map((c) => c.label)).toEqual(["read:alpha:1", "read:beta:1", "merge:0", "merge:1", "merge:2", "brief"]);
     expect(state.staged?.generation).toBe(1);
     await expect(runReadingPass({ workFile: twoBooks, workVersion: "wv2", model, store: memory.store, state, saveState, budgetUsd: 1 })).rejects.toThrow(/Start a new run/);
   });
@@ -290,7 +319,7 @@ describe("reading pass", () => {
     const model = scriptedModel({
       "read:alpha": () => reading(alphaReading), "read:beta": () => reading(betaReading),
       "merge:": (request) => {
-        if (request.label === "merge:25") throw new Error("connection lost");
+        if (request.label === "merge:1") throw new Error("connection lost");
         const answer = exactRuling(request);
         if (request.label === "merge:0") answer.groups[0].clusters[0].members.pop();
         return answer;
@@ -304,7 +333,7 @@ describe("reading pass", () => {
     expect(state.ledger.map((entry) => entry.label)).toEqual(["read:alpha:1", "read:beta:1", "merge:0", "merge:0:2"]);
     const resumed = scriptedModel({ "merge:": (request) => exactRuling(request), brief: () => briefAnswer });
     const result = await runReadingPass({ ...options, state: JSON.parse(JSON.stringify(state)), model: resumed });
-    expect(resumed.calls.map((request) => request.label)).toEqual(["merge:25", "brief"]);
+    expect(resumed.calls.map((request) => request.label)).toEqual([...Array.from({ length: 29 }, (_, i) => `merge:${i + 1}`), "brief"]);
     expect(result.merge?.entries).toHaveLength(30);
   });
 
@@ -318,13 +347,13 @@ describe("reading pass", () => {
     expect(state.merge).toBeNull();
     const resumed = scriptedModel({ "merge:": ruling, brief: () => briefAnswer });
     const result = await runReadingPass({ ...options, state: JSON.parse(JSON.stringify(state)), model: resumed });
-    expect(resumed.calls.map((request) => request.label)).toEqual(["merge:0", "brief"]);
+    expect(resumed.calls.map((request) => request.label)).toEqual(["merge:0", "merge:1", "merge:2", "brief"]);
     expect(result.merge?.unplaced).toEqual([]);
-    expect(result.mergeAttempts).toHaveLength(4);
-    expect(result.ledger.filter((entry) => entry.label.startsWith("merge:"))).toHaveLength(4);
+    expect(result.mergeAttempts).toHaveLength(6);
+    expect(result.ledger.filter((entry) => entry.label.startsWith("merge:"))).toHaveLength(6);
   });
 
-  it("invalidates conflicting batches on resume while retaining unrelated accepted batches", async () => {
+  it("retains initial batches when reconciliation fails, then resumes only the complete reconciliation", async () => {
     const common: DivisionReading["characters"] = Array.from({ length: 30 }, (_, i) => ({ id: `p${i}`, name: `Person${i}`, aliases: [], kind: "person", note: `Same person ${i} in both books.`, same_person_as: "" }));
     const conflicting = [
       { id: "ada", name: "Ada", aliases: ["left", "right"] },
@@ -335,6 +364,7 @@ describe("reading pass", () => {
     const model = scriptedModel({
       "read:alpha": () => reading(alphaReading, [...conflicting, ...common]), "read:beta": () => reading(betaReading, common),
       "merge:": (request) => {
+        if (request.label.startsWith("merge:reconcile:")) return { groups: [] };
         const answer = exactRuling(request);
         if (request.label === "merge:0") {
           const cluster = answer.groups[0].clusters[0];
@@ -345,14 +375,44 @@ describe("reading pass", () => {
     });
     const state = emptyState("two-books", "v1");
     const options = { workFile: twoBooks, workVersion: "v1", store: null, state, saveState: async () => {}, budgetUsd: 1 };
-    await expect(runReadingPass({ ...options, model })).rejects.toThrow(/Conflicting identity rulings/);
-    expect(state.mergeAttempts).toHaveLength(2);
-    expect(Object.keys(state.mergeResponses ?? {})).toHaveLength(1);
+    await expect(runReadingPass({ ...options, model })).rejects.toThrow(/Merge ruling failed after 3 attempts/);
+    expect(state.merge).toBeNull();
+    expect(state.mergeAttempts).toHaveLength(36);
+    expect(Object.keys(state.mergeResponses ?? {})).toHaveLength(33);
     const resumed = scriptedModel({ "merge:": (request) => exactRuling(request, true), brief: () => briefAnswer });
     const result = await runReadingPass({ ...options, state: JSON.parse(JSON.stringify(state)), model: resumed });
-    expect(resumed.calls.map((request) => request.label)).toEqual(["merge:0", "brief"]);
-    expect(result.mergeAttempts).toHaveLength(3);
-    expect(result.merge?.entries).toHaveLength(55); // 22 split common pairs, eight reused joins, three distinct aliases.
+    expect(resumed.calls.map((request) => request.label)).toEqual(["merge:reconcile:alpha:character:ada", "brief"]);
+    expect(result.mergeAttempts).toHaveLength(37);
+    expect(result.merge?.entries).toHaveLength(33); // Thirty cached common joins and three distinct aliases.
+    expect(result.merge?.reconciliations).toHaveLength(1);
+  });
+
+  it("reuses a completed reconciliation after a later component loses its connection", async () => {
+    const characters = ["a", "b"].flatMap((prefix) => [
+      { id: `${prefix}_ada`, name: `${prefix}ada`, aliases: [`${prefix}_left`, `${prefix}_right`] },
+      { id: `${prefix}_bea`, name: `${prefix}bea`, aliases: [`${prefix}_left`, `${prefix}_middle`] },
+      { id: `${prefix}_cara`, name: `${prefix}cara`, aliases: [`${prefix}_right`, `${prefix}_middle`] },
+    ].map((entry) => ({ ...entry, kind: "person" as const, note: "Different individuals.", same_person_as: "" })));
+    const read = (source: typeof alphaReading | typeof betaReading, alpha: boolean) => ({ ...source, characters: alpha ? characters : [], locations: [], sections: source.sections.map((section) => ({ ...section, setting: [], on_stage: alpha ? ["a_ada"] : [], mentioned_only: [] })) });
+    const model = scriptedModel({
+      "read:alpha": () => read(alphaReading, true), "read:beta": () => read(betaReading, false),
+      "merge:": (request) => {
+        if (request.label === "merge:reconcile:alpha:character:b_ada") throw new Error("connection lost");
+        return exactRuling(request, request.label === "merge:0" || request.label === "merge:3" || request.label.startsWith("merge:reconcile:"));
+      },
+    });
+    const state = emptyState("two-books", "v1");
+    const options = { workFile: twoBooks, workVersion: "v1", store: null, state, saveState: async () => {}, budgetUsd: 1 };
+    await expect(runReadingPass({ ...options, model })).rejects.toThrow("connection lost");
+    expect(state.merge).toBeNull();
+    expect(state.mergeAttempts).toHaveLength(7);
+    expect(Object.keys(state.mergeResponses ?? {})).toHaveLength(7);
+    const resumed = scriptedModel({ "merge:": (request) => exactRuling(request, true), brief: () => briefAnswer });
+    const result = await runReadingPass({ ...options, state: JSON.parse(JSON.stringify(state)), model: resumed });
+    expect(resumed.calls.map((request) => request.label)).toEqual(["merge:reconcile:alpha:character:b_ada", "brief"]);
+    expect(result.mergeAttempts).toHaveLength(8);
+    expect(result.merge?.entries).toHaveLength(6);
+    expect(result.merge?.reconciliations).toHaveLength(2);
   });
 
   it("carries the rejected answer into cast repairs and still rejects partial replacement sections", async () => {
