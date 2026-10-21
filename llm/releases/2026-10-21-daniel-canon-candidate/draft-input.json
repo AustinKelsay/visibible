@@ -1,0 +1,54 @@
+{
+  "entry": {
+    "id": "the_ancient_of_days",
+    "kind": "character",
+    "readingKind": "divine",
+    "name": "The Ancient of Days",
+    "aliases": [
+      "the Ancient of Days",
+      "the Most High"
+    ],
+    "note": "The divine figure on a fiery throne in Daniel's vision of the beasts; a distinct visionary figure, seen only in Daniel's dream-vision.",
+    "members": [
+      "daniel:character:ancient_of_days"
+    ]
+  },
+  "sections": [
+    {
+      "firstUnitId": "daniel-7-9",
+      "lastUnitId": "daniel-7-14",
+      "title": "The Ancient of Days and the son of man",
+      "setting": [
+        "babylon"
+      ],
+      "onStage": [
+        {
+          "id": "daniel_prophet_of_babylon",
+          "named": false
+        },
+        {
+          "id": "the_ancient_of_days",
+          "named": true
+        },
+        {
+          "id": "one_like_a_son_of_man",
+          "named": true
+        }
+      ],
+      "mentionedOnly": [],
+      "divisionId": "daniel"
+    }
+  ],
+  "sectionEras": {
+    "daniel-7-9": "monarchy-of-israel-and-judah"
+  },
+  "hints": [],
+  "request": {
+    "user": "WORK: The Holy Bible (Various)\nTONE: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDEPICTION RULES (unconditional; style-specific rules are reserved for final rendering):\n- God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\n- Treat battles, death and crucifixion seriously; avoid lingering gore.\n- No sexually explicit content; non-sexual nudity may follow the text.\n- Show all peoples with dignity, without ethnic or religious caricature.\n- Visionary creatures follow the text, strange and fearsome rather than comic.\nERAS THIS ENTRY APPEARS IN:\n- Kingdoms, exile and return: people: Israelites and neighboring Levantine, Mesopotamian and Persian peoples. Dress: Tunics, cloaks, court robes, priestly linen and period armor. Buildings and objects: Villages, palaces, temples, city gates and exile settlements.\nHINTS FROM THE OWNER'S BRIEF REVIEW (lines moved out of the brief because they concern this entry alone; use them):\n- none\n\nENTRY\nid: the_ancient_of_days\nkind: character (divine)\nname: The Ancient of Days\naliases: the Ancient of Days, the Most High\nreading-pass note: The divine figure on a fiery throne in Daniel's vision of the beasts; a distinct visionary figure, seen only in Daniel's dream-vision.\non stage in 1 story sections (id: title):\n- daniel-7-9: The Ancient of Days and the son of man\n\nUNITS OF THE TEXT THAT NAME THIS ENTRY (unit id in brackets; quote only from these):\n[daniel-3-26] Then Nebuchadnezzar came near to the mouth of the burning fiery furnace. He spoke and said, “Shadrach, Meshach, and Abednego, you servants of the Most High God, come out, and come here!” Then Shadrach, Meshach, and Abednego came out of the middle of the fire.\n[daniel-4-2] It has seemed good to me to show the signs and wonders that the Most High God has worked toward me.\n[daniel-4-17] “‘The sentence is by the decree of the watchers and the demand by the word of the holy ones, to the intent that the living may know that the Most High rules in the kingdom of men, and gives it to whomever he will, and sets up over it the lowest of men.’\n[daniel-4-24] “This is the interpretation, O king, and it is the decree of the Most High, which has come on my lord the king:\n[daniel-4-25] You will be driven from men and your dwelling shall be with the animals of the field. You will be made to eat grass as oxen, and will be wet with the dew of the sky, and seven times shall pass over you, until you know that the Most High rules in the kingdom of men, and gives it to whomever he will.\n[daniel-4-32] You shall be driven from men, and your dwelling shall be with the animals of the field. You shall be made to eat grass like oxen. Seven times shall pass over you, until you know that the Most High rules in the kingdom of men, and gives it to whomever he will.’”\n[daniel-4-34] At the end of the days I, Nebuchadnezzar, lifted up my eyes to heaven, and my understanding returned to me; and I blessed the Most High, and I praised and honored him who lives forever, for his dominion is an everlasting dominion, and his kingdom from generation to generation.\n[daniel-5-18] “To you, king, the Most High God gave Nebuchadnezzar your father the kingdom, and greatness, and glory, and majesty.\n[daniel-5-21] He was driven from the sons of men, and his heart was made like the animals’, and his dwelling was with the wild donkeys. He was fed with grass like oxen, and his body was wet with the dew of the sky, until he knew that the Most High God rules in the kingdom of men, and that he sets up over it whomever he will.\n[daniel-7-13] “I saw in the night visions, and behold, there came with the clouds of the sky one like a son of man, and he came even to the Ancient of Days, and they brought him near before him.\n[daniel-7-18] But the saints of the Most High will receive the kingdom, and possess the kingdom forever, even forever and ever.’\n[daniel-7-22] until the Ancient of Days came, and judgment was given to the saints of the Most High, and the time came that the saints possessed the kingdom.\n[daniel-7-25] He will speak words against the Most High, and will wear out the saints of the Most High. He will plan to change the times and the law; and they will be given into his hand until a time and times and half a time.\n[daniel-7-27] The kingdom and the dominion, and the greatness of the kingdoms under the whole sky, will be given to the people of the saints of the Most High. His kingdom is an everlasting kingdom, and all dominions will serve and obey him.’",
+    "sectionIds": [
+      "daniel-7-9"
+    ]
+  },
+  "recoveredReadingStateSha256": "59f07939b472aeadee90a03edb56bcc322b6358cf16bed3aad606a6752279171",
+  "estimatedUsd": 0.000885111111111111
+}
