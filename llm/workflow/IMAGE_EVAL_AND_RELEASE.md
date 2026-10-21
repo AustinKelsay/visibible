@@ -9,6 +9,7 @@ Apply this process when changing the image prompt builders in [image-prompts.ts]
 - `--dry-run` writes a costed manifest and makes no call. `--budget` is a hard provider-spend limit checked before every paid call; the run stops at it and marks the remaining samples not run. Missing provider usage is recorded as such and charged to the budget at the per-call estimate, never as zero.
 - `--repeats` (default 3) samples each case and arm repeatedly; a case is **inconclusive** when an arm has fewer than three completed samples and **incomplete** when the run stopped before every repeat. Both retain the baseline.
 - Runs are resumable: `evals/images/runs/<run>/state.json` keeps every sample, and a rerun with the same `--run` never repeats a completed one. A different image or planner model needs a new run name.
+- An HTTP 402 from the image or legacy planner adapter stops the run with `stopped.reason: "provider_funding"`. The failed sample and any paid preparation or planner work are saved together; later samples stay not run. Resolve the provider's funding requirement before explicitly resuming the same run. There is no automatic retry or planner-to-image fallback for a funding rejection; ordinary sample errors retain partial results and continue as before.
 - Outputs are kept under `evals/images/runs/<run>/outputs/` and cited by stable path in `report.json`, `contact-sheet.html` (every sample of every case, failures included) and `scores.json`, the template a reviewer fills in. The runs directory is not committed.
 
 ## Generic engine arms

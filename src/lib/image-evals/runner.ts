@@ -27,6 +27,13 @@ export interface EvalPlannerProvider {
   readonly id: string;
   plan(request: { label: string; prompt: string }): Promise<{ content: string | null; costUsd: number | null; elapsedMs: number }>;
 }
+/** Keep the HTTP status so funding failures never depend on matching provider error text. */
+export class EvalProviderError extends Error {
+  constructor(readonly status: number, message: string) {
+    super(message);
+    this.name = "EvalProviderError";
+  }
+}
 export interface EvalOutputSink {
   /** Store the bytes and return the stable reference (a path or URL) the report will cite. */
   save(key: string, bytes: Uint8Array, mimeType: string): Promise<string>;
@@ -91,7 +98,7 @@ export type EvalRunState = {
   promptVersion: string;
   samples: Record<string, EvalSample>;
   spentUsd: number;
-  stopped?: { reason: "budget_exhausted" | "cancelled"; at: number; detail: string };
+  stopped?: { reason: "budget_exhausted" | "provider_funding" | "cancelled"; at: number; detail: string };
 };
 
 export type EvalManifestEntry = { key: string; caseId: string; reference: string; arm: EvalArm; n: number; estimatedUsd: number; status: "planned" | "done" };
@@ -152,6 +159,13 @@ export async function runImageEval(options: RunImageEvalOptions): Promise<{ stat
   const state = options.state;
   delete state.stopped;
   const passages = new Map<string, EvalPassage | null>();
+  // Persist the stop with the failed sample and its paid work via finish(), before leaving the run.
+  const stopForFunding = (error: unknown) => {
+    if (!(error instanceof EvalProviderError) || error.status !== 402) return false;
+    state.stopped = { reason: "provider_funding", at: now(), detail: message(error) };
+    log(`Stopping: ${state.stopped.detail}`);
+    return true;
+  };
 
   for (const entry of manifest.entries) {
     if (entry.status === "done") continue;
@@ -213,7 +227,9 @@ export async function runImageEval(options: RunImageEvalOptions): Promise<{ stat
       try {
         image = await providers.image.generate({ label: entry.key, prompt: assembled.prompt, model, aspectRatio, resolution, references: assembled.sentReferences.map((r) => ({ bytes: r.bytes, mimeType: "image/jpeg" })) });
       } catch (error) {
+        const funding = stopForFunding(error);
         await finish({ status: "failed", stage: "image", error: message(error) });
+        if (funding) break;
         continue;
       }
       sample.latencyMs.image = image.elapsedMs;
@@ -239,7 +255,7 @@ export async function runImageEval(options: RunImageEvalOptions): Promise<{ stat
     }
     if (!passage) { await finish({ status: "failed", stage: "passage", error: sample.error ?? `No single verse for ${c.reference} in ${translation}` }); continue; }
 
-    // 2. The planner arm: one planner call, parsed like the route parses it; a failure continues without a plan, recorded.
+    // 2. The planner arm: ordinary failures continue without a plan; funding rejection stops the run.
     let scenePlan: ScenePlan | null = null;
     let plannerOutcome: EvalSample["plannerOutcome"] = "not_used";
     if (entry.arm === "planner" && providers.planner) {
@@ -258,6 +274,10 @@ export async function runImageEval(options: RunImageEvalOptions): Promise<{ stat
       } catch (error) {
         plannerOutcome = "failed";
         sample.error = `planner: ${message(error)}`;
+        if (stopForFunding(error)) {
+          await finish({ status: "failed", stage: "planner", plannerOutcome });
+          break;
+        }
       }
     }
 
@@ -273,7 +293,9 @@ export async function runImageEval(options: RunImageEvalOptions): Promise<{ stat
     try {
       image = await providers.image.generate({ label: entry.key, prompt, model, aspectRatio, resolution });
     } catch (error) {
+      const funding = stopForFunding(error);
       await finish({ status: "failed", stage: "image", error: message(error) });
+      if (funding) break;
       continue;
     }
     sample.latencyMs.image = image.elapsedMs;

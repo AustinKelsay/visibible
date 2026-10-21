@@ -5,7 +5,7 @@
  */
 import { extractOpenRouterUsageUsd, findResponseImageUrl } from "../image-response";
 import { supportsResolution } from "../image-models";
-import type { EvalImageProvider, EvalPlannerProvider } from "./runner";
+import { EvalProviderError, type EvalImageProvider, type EvalPlannerProvider } from "./runner";
 
 type FetchLike = (input: string, init: RequestInit) => Promise<Response>;
 
@@ -39,7 +39,7 @@ export function createOpenRouterEvalImageProvider(options: { apiKey: string; fet
         modalities: ["image", "text"],
         image_config: { aspect_ratio: request.aspectRatio, ...(supportsResolution(request.model) ? { image_size: request.resolution } : {}) }, usage: { include: true },
       }, options.timeoutMs ?? 120_000);
-      if (!response.ok) throw new Error(`OpenRouter ${response.status}: ${JSON.stringify(payload.error ?? payload).slice(0, 300)}`);
+      if (!response.ok) throw new EvalProviderError(response.status, `OpenRouter ${response.status}: ${JSON.stringify(payload.error ?? payload).slice(0, 300)}`);
       const choices = Array.isArray(payload.choices) ? payload.choices : [];
       const url = findResponseImageUrl(choices[0] && typeof choices[0] === "object" ? (choices[0] as { message?: unknown }).message : undefined) ?? "";
       const match = url.match(/^data:(image\/[a-z]+);base64,([A-Za-z0-9+/=]+)$/);
@@ -58,7 +58,7 @@ export function createOpenRouterEvalPlannerProvider(options: { apiKey: string; m
       const { response, payload } = await postJson(fetchImpl, options.apiKey, {
         model: options.model, messages: [{ role: "user", content: request.prompt }], temperature: 0.2, max_tokens: 220, reasoning: { enabled: false }, usage: { include: true },
       }, options.timeoutMs ?? 20_000);
-      if (!response.ok) throw new Error(`OpenRouter ${response.status}: ${JSON.stringify(payload.error ?? payload).slice(0, 300)}`);
+      if (!response.ok) throw new EvalProviderError(response.status, `OpenRouter ${response.status}: ${JSON.stringify(payload.error ?? payload).slice(0, 300)}`);
       const choices = Array.isArray(payload.choices) ? payload.choices : [];
       const message = choices[0] && typeof choices[0] === "object" ? (choices[0] as { message?: { content?: unknown } }).message : undefined;
       const content = typeof message?.content === "string" ? message.content : Array.isArray(message?.content) ? message.content.map((p: { text?: string }) => p.text ?? "").join("") : null;
