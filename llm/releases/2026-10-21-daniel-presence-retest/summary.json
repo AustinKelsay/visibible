@@ -1,0 +1,61 @@
+{
+  "at": "2026-10-21T18:23:40.877756+00:00",
+  "baseCommit": "93227e8",
+  "promptVersion": "2026-10-21-generic-v3",
+  "planPromptVersion": "2026-10-21-formless-presence-v1",
+  "imageRun": "release-2026-10-21-v3-daniel-presence-images",
+  "completed": 9,
+  "imageCalls": 9,
+  "preparationCalls": 1,
+  "newMeasuredUsd": 0.30777395,
+  "imageMeasuredUsd": 0.30743025,
+  "preparationMeasuredUsdChargedOnlyToEvaluation": 0.0003437,
+  "subcapUsd": 0.4,
+  "newUncertaintyUsd": 0,
+  "formlessContractCoverage": 9,
+  "formlessDepiction": {
+    "pass": 3,
+    "fail": 5,
+    "review": 1
+  },
+  "watercolorMargins": {
+    "pass": 1,
+    "fail": 2
+  },
+  "fullResolutionInspected": 9,
+  "caseVerdicts": {
+    "classical": {
+      "fail": 1
+    },
+    "watercolor": {
+      "fail": 1
+    },
+    "icon": {
+      "fail": 1
+    }
+  },
+  "budgets": {
+    "evaluationAuthorizedUsd": 16,
+    "evaluationMeasuredUsd": 15.78524565,
+    "evaluationUncertaintyUsd": 0.045,
+    "evaluationRemainingUsd": 0.16975435,
+    "preparationAuthorizedUsd": 43,
+    "preparationMeasuredUsd": 3.6351192,
+    "preparationUncertaintyUsd": 0.03,
+    "preparationRemainingUsd": 39.3348808,
+    "smokeAuthorizedUsd": 1,
+    "smokeMeasuredUsd": 0.0685215,
+    "smokeRemainingUsd": 0.9314785
+  },
+  "publicActivation": false,
+  "humanAccepted": false,
+  "releaseDecision": "Retain baseline, keep public admission disabled, leave #183 open. The planner selected the missing no-form subject, but all three style rows still fail.",
+  "matrixDecision": "Original v2 matrix remains 236/324. These nine targeted v3 images do not fill its 88 missing slots.",
+  "notes": [
+    "Initial local guard rejected all nine image attempts before provider calls because fixed-1K Lite omits image_size; exact state, trace and wrapper retained. Image-only continuation reused the plan, with zero text calls and the remaining subcap.",
+    "Plan normally regenerated once; no semantic replan, hand edit, image retry, reference generation, reading pass, deployment, public activation, purchase, model substitution or legacy retirement.",
+    "All ten provider responses returned measured usage. Preparation is charged once in evaluation, not again in the separate preparation bucket.",
+    "New planner wording and selected canon changed together; nine samples provide targeted evidence, not isolated causal attribution or representative release acceptance.",
+    "CLI image latency is not actual-app full-request p90. Human visual/likeness, compatibility/accounting, latency and first-24-hour release gates remain."
+  ]
+}

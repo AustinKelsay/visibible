@@ -1,0 +1,632 @@
+{
+  "at": "2026-10-21T18:17:29.222Z",
+  "phase": "before",
+  "publicMode": "disabled",
+  "status": {
+    "activeGeneration": 1,
+    "activeVersions": {
+      "activatedAt": 1792538171849,
+      "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+    },
+    "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "candidateGeneration": null,
+    "exists": true,
+    "ready": true,
+    "reasons": [],
+    "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+  },
+  "balanceUsd": 1.7206868920000034,
+  "records": [
+    {
+      "createdAt": 1792538123265,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "daniel-7-9",
+        "kind": "moment",
+        "lastUnit": "daniel-7-9",
+        "sectionId": "daniel-7-9"
+      },
+      "recordId": "daniel-7-9",
+      "source": "generated",
+      "status": "current",
+      "version": "42811b767e7aea912528509ebeae351a",
+      "workId": "bible-web"
+    },
+    {
+      "createdAt": 1792535239756,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "daniel_prophet_of_babylon",
+            "named": false,
+            "stageId": "daniel_main"
+          },
+          {
+            "entryId": "the_ancient_of_days",
+            "named": true,
+            "stageId": "ancient-of-days-light"
+          },
+          {
+            "entryId": "one_like_a_son_of_man",
+            "named": true,
+            "stageId": "one_like_a_son_of_man"
+          },
+          {
+            "entryId": "babylon",
+            "stageId": "babylon"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "daniel-7-9",
+        "kind": "section",
+        "lastUnit": "daniel-7-14",
+        "mentionedOnly": [],
+        "title": "The Ancient of Days and the son of man"
+      },
+      "recordId": "daniel-7-9",
+      "source": "generated",
+      "status": "current",
+      "version": "9bfed655c64bcc10b8f74b1d436fb659",
+      "workId": "bible-web"
+    },
+    {
+      "createdAt": 1792601845825,
+      "generation": 1,
+      "inputs": [
+        {
+          "kind": "section",
+          "recordId": "daniel-7-9",
+          "version": "9bfed655c64bcc10b8f74b1d436fb659"
+        },
+        {
+          "kind": "brief",
+          "recordId": "bible-web",
+          "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+        },
+        {
+          "kind": "entry",
+          "recordId": "daniel_prophet_of_babylon",
+          "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+        },
+        {
+          "kind": "entry",
+          "recordId": "the_ancient_of_days",
+          "version": "ae42fd28206e5e83b5529fd0ebf9112c"
+        },
+        {
+          "kind": "entry",
+          "recordId": "one_like_a_son_of_man",
+          "version": "f0a2429d0ca6ac9657801f25e0921699"
+        },
+        {
+          "kind": "entry",
+          "recordId": "babylon",
+          "version": "de8721810ea07cf6cc361bc90ea0502d"
+        }
+      ],
+      "kind": "look",
+      "payload": {
+        "clothing": "Daniel in a simple Babylonian-era tunic and cloak; court attendants in plain robes. The formless divine presence has no body, hair or garments.",
+        "kind": "look",
+        "light": "Radiant fiery glow from the throne and wheels, no visible sun",
+        "place": "Heavenly court above Babylon, vast open expanse of cloud and radiant fire",
+        "sectionId": "daniel-7-9",
+        "timeOfDay": "Night vision, sky of unbroken darkness",
+        "weather": "Stormy air with drifting clouds and fire"
+      },
+      "recordId": "daniel-7-9",
+      "source": "owner",
+      "status": "current",
+      "version": "1469b2542a3afbf77ed9921c8f727f20",
+      "workId": "bible-web"
+    },
+    {
+      "createdAt": 1792602229948,
+      "generation": 1,
+      "inputs": [
+        {
+          "kind": "moment",
+          "recordId": "daniel-7-9",
+          "version": "42811b767e7aea912528509ebeae351a"
+        },
+        {
+          "kind": "look",
+          "recordId": "daniel-7-9",
+          "version": "1469b2542a3afbf77ed9921c8f727f20"
+        },
+        {
+          "kind": "brief",
+          "recordId": "bible-web",
+          "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+        },
+        {
+          "kind": "entry",
+          "recordId": "daniel_prophet_of_babylon",
+          "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+        },
+        {
+          "kind": "entry",
+          "recordId": "the_ancient_of_days",
+          "version": "ae42fd28206e5e83b5529fd0ebf9112c"
+        },
+        {
+          "kind": "entry",
+          "recordId": "one_like_a_son_of_man",
+          "version": "f0a2429d0ca6ac9657801f25e0921699"
+        },
+        {
+          "kind": "entry",
+          "recordId": "babylon",
+          "version": "de8721810ea07cf6cc361bc90ea0502d"
+        }
+      ],
+      "kind": "plan",
+      "payload": {
+        "entries": [
+          {
+            "entryId": "daniel_prophet_of_babylon",
+            "stageId": "daniel_main"
+          }
+        ],
+        "kind": "plan",
+        "momentId": "daniel-7-9",
+        "plan": {
+          "action": "Thrones are being placed while the seated presence is revealed on a throne of fire, with burning wheels beneath it; Daniel stands watching at a distance",
+          "composition": "Wide vertical view with the throne centered high, wheels of fire at its base, and Daniel small in the lower foreground gazing upward",
+          "mood": "Reverent, awe-filled, grounded and solemn",
+          "primarySubject": "Thrones set in a vast heavenly court, with the formless divine presence seated as radiant light and cloud, no body or face visible",
+          "secondaryElements": "Sheets of fire flowing beneath the throne; drifting clouds; the city of Babylon far below, faintly seen; white radiance like snow and pure wool suggested through light alone",
+          "setting": "Heavenly court above Babylon, open expanse of cloud and radiant fire under an unbroken dark sky",
+          "timeOfDay": "Night vision, unbroken darkness lit only by the fiery glow"
+        }
+      },
+      "recordId": "daniel-7-9",
+      "source": "generated",
+      "status": "current",
+      "version": "dcf9ed4a77ff18ad1f9c3132b0f3641e",
+      "workId": "bible-web"
+    },
+    {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the Ancient of Days",
+          "the Most High"
+        ],
+        "entryKind": "character",
+        "hasForm": false,
+        "kind": "entry",
+        "members": [
+          "daniel:character:ancient_of_days"
+        ],
+        "name": "The Ancient of Days",
+        "note": "The divine figure on a fiery throne in Daniel's vision of the beasts; a distinct visionary figure, seen only in Daniel's dream-vision.",
+        "stages": [
+          {
+            "id": "ancient-of-days-light",
+            "label": "The Ancient of Days (radiant presence)",
+            "quotes": [
+              {
+                "quote": "he came even to the Ancient of Days, and they brought him near before him.",
+                "unit": "daniel-7-13"
+              },
+              {
+                "quote": "until the Ancient of Days came, and judgment was given to the saints of the Most High",
+                "unit": "daniel-7-22"
+              }
+            ],
+            "text": "The Ancient of Days: no human face or body; a presence of white radiance and cloud over a throne of fiery flame, the light pure and unbroken, the glow like white wool and burning fire rising in streams from before him, the seat of judgment set in brilliant cloud under the open sky."
+          }
+        ]
+      },
+      "recordId": "the_ancient_of_days",
+      "source": "generated",
+      "status": "current",
+      "version": "ae42fd28206e5e83b5529fd0ebf9112c",
+      "workId": "bible-web"
+    },
+    {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Daniel",
+          "Belteshazzar"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "daniel:character:daniel"
+        ],
+        "name": "Daniel (prophet of Babylon)",
+        "note": "The Jewish youth taken captive to Babylon, renamed Belteshazzar, who interprets dreams and receives visions; the main entry with many sections in Daniel, distinguished from the prophet named only in Matthew's citation.",
+        "stages": [
+          {
+            "id": "daniel_main",
+            "label": "Daniel (Belteshazzar), prophet of Babylon",
+            "quotes": [
+              {
+                "quote": "Now among these of the children of Judah were Daniel, Hananiah, Mishael, and Azariah.",
+                "unit": "daniel-1-6"
+              },
+              {
+                "quote": "to Daniel he gave the name Belteshazzar",
+                "unit": "daniel-1-7"
+              },
+              {
+                "quote": "he went into his house (now his windows were open in his room toward Jerusalem)",
+                "unit": "daniel-6-10"
+              }
+            ],
+            "text": "Daniel: a lean, dignified Judean man in his youth grown to a grave, graying elder; olive-brown skin; dark hair cropped close and a short trimmed beard flecked with grey; deep-set, steady eyes and a calm, thoughtful face. Signature outfit: a long undyed linen tunic under a plain indigo wool cloak with a blue fringed hem. Props: a small leather scroll case slung at the hip."
+          }
+        ]
+      },
+      "recordId": "daniel_prophet_of_babylon",
+      "source": "generated",
+      "status": "current",
+      "version": "37b250d39c2e45865e8b4dfbc12bf60f",
+      "workId": "bible-web"
+    },
+    {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "one like a son of man",
+          "the son of man"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "daniel:character:one_like_son_of_man"
+        ],
+        "name": "One like a son of man",
+        "note": "The figure coming with the clouds of heaven to receive dominion in Daniel's vision; not the Gospel Jesus, but a distinct heavenly figure in Daniel.",
+        "stages": [
+          {
+            "id": "one_like_a_son_of_man",
+            "label": "One like a son of man",
+            "quotes": [
+              {
+                "quote": "there came with the clouds of the sky one like a son of man, and he came even to the Ancient of Days",
+                "unit": "daniel-7-13"
+              }
+            ],
+            "text": "One like a son of man: a man in his prime, early thirties, of athletic but dignified build; skin warm olive-brown; short dark hair and a close-cut beard; calm, steady features with a grave, luminous gaze. He wears a long white linen tunic with a deep blue-purple cloak falling from the shoulders, edged with gold thread. He carries no props."
+          }
+        ]
+      },
+      "recordId": "one_like_a_son_of_man",
+      "source": "generated",
+      "status": "current",
+      "version": "f0a2429d0ca6ac9657801f25e0921699",
+      "workId": "bible-web"
+    },
+    {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Babylonia",
+          "the province of Babylon",
+          "the rivers of Babylon",
+          "the land of the Chaldeans",
+          "land of the Chaldeans",
+          "the land of Shinar",
+          "Great Babylon"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "2-chronicles:location:babylon",
+          "ezra:location:babylon",
+          "psalms:location:babylon",
+          "isaiah:location:babylon",
+          "jeremiah:location:babylon",
+          "daniel:location:babylon",
+          "micah:location:babylon"
+        ],
+        "name": "Babylon",
+        "note": "The city and empire of exile and captivity across the prophets, histories and psalms, also called Babylonia, Shinar and the land of the Chaldeans; the same place in every division.",
+        "stages": [
+          {
+            "id": "babylon",
+            "label": "Babylon",
+            "quotes": [
+              {
+                "quote": "The wide walls of Babylon will be utterly overthrown. Her high gates will be burned with fire.",
+                "unit": "jeremiah-51-58"
+              },
+              {
+                "quote": "I will execute judgment on Bel in Babylon, and I will bring out of his mouth that which he has swallowed up.",
+                "unit": "jeremiah-51-44"
+              },
+              {
+                "quote": "He brought the vessels into the treasure house of his god.",
+                "unit": "daniel-1-2"
+              },
+              {
+                "quote": "I will record Rahab and Babylon among those who acknowledge me.",
+                "unit": "psalms-87-4"
+              }
+            ],
+            "text": "Babylon: a vast walled city of baked brick on a flat plain watered by broad canals and rivers, its wide walls rising high and its great gates of bronze-banded cedar. Date palms and reed beds line the riverbanks, and ziggurat towers and palace roofs of brick rise above the flat skyline, with the temple of Bel among them."
+          }
+        ]
+      },
+      "recordId": "babylon",
+      "source": "generated",
+      "status": "current",
+      "version": "de8721810ea07cf6cc361bc90ea0502d",
+      "workId": "bible-web"
+    },
+    {
+      "createdAt": 1792601845391,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Elisha",
+          "Elisha the son of Shaphat",
+          "the man of God",
+          "the prophet",
+          "my father (Joash's cry)",
+          "the prophet Elisha"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "1-kings:character:elisha",
+          "2-kings:character:elisha",
+          "luke:character:elisha"
+        ],
+        "name": "Elisha son of Shaphat",
+        "note": "Prophet, Elijah's successor, who first appears as a farmer plowing with twelve yoke of oxen in 1 Kings and is later named in 2 Kings and Luke; the same prophet in all three entries.",
+        "stages": [
+          {
+            "id": "elisha_main",
+            "label": "Elisha son of Shaphat",
+            "quotes": [
+              {
+                "quote": "found Elisha the son of Shaphat, who was plowing with twelve yoke of oxen before him",
+                "unit": "1-kings-19-19"
+              },
+              {
+                "quote": "Elijah went over to him and put his mantle on him.",
+                "unit": "1-kings-19-19"
+              },
+              {
+                "quote": "He took Elijah’s mantle that fell from him",
+                "unit": "2-kings-2-14"
+              },
+              {
+                "quote": "He went up from there to Bethel. As he was going up by the way, some youths came out of the city and mocked him, and said to him, “Go up, you baldy! Go up, you baldy!”",
+                "unit": "2-kings-2-23"
+              }
+            ],
+            "text": "Elisha son of Shaphat: a man in his middle years, broad-shouldered and sun-browned from working the fields, lean and steady in build. Dark skin, a bald head, and a close-cut beard with some grey at the chin. Calm, weathered face with deep-set eyes. Signature outfit: a plain undyed linen tunic belted at the waist with a cloak of rough brown wool. Signature prop: Elijah's mantle, a dark sheepskin cloak he wears over his shoulders."
+          }
+        ]
+      },
+      "recordId": "elisha_son_of_shaphat",
+      "source": "owner",
+      "status": "current",
+      "version": "55d396a737e0eb4a8072cb8f3e3807fb",
+      "workId": "bible-web"
+    }
+  ],
+  "planHistory": [
+    {
+      "createdAt": 1792602229948,
+      "generation": 1,
+      "source": "generated",
+      "status": "current",
+      "version": "dcf9ed4a77ff18ad1f9c3132b0f3641e"
+    },
+    {
+      "createdAt": 1792538591070,
+      "generation": 1,
+      "source": "generated",
+      "status": "superseded",
+      "version": "25f7cd6a45d77ee5b6b94e72718cce36"
+    }
+  ],
+  "publicCatalog": {
+    "models": [
+      {
+        "id": "google/gemini-2.5-flash-image",
+        "name": "Google: Nano Banana (Gemini 2.5 Flash Image)",
+        "provider": "Google",
+        "billing": {
+          "version": "google-input-output-tokens-2026-10-20",
+          "source": "https://openrouter.ai/api/v1/models",
+          "observedAt": 1792606649007,
+          "unit": "token",
+          "textInputUsd": "0.0000003",
+          "textOutputUsd": "0.0000025",
+          "imageOutputUsd": "0.00003",
+          "imageInputUsd": "0.0000003",
+          "estimatedTextInputTokens": 1000,
+          "estimatedTextOutputTokens": 1000
+        },
+        "capabilities": {
+          "resolutions": [
+            "1K"
+          ],
+          "aspectRatios": [
+            "16:9",
+            "21:9",
+            "3:2"
+          ],
+          "outputTokens": {
+            "1K": 1290
+          },
+          "source": "https://ai.google.dev/gemini-api/docs/image-generation",
+          "pricingSource": "https://ai.google.dev/gemini-api/docs/pricing"
+        },
+        "availability": "available",
+        "creditsCost": 6,
+        "reservationCreditsCost": 12,
+        "etaSeconds": 11,
+        "estimatedCreditsByResolution": {
+          "1K": 6
+        }
+      },
+      {
+        "id": "google/gemini-3.1-flash-image",
+        "name": "Google: Nano Banana 2 (Gemini 3.1 Flash Image)",
+        "provider": "Google",
+        "billing": {
+          "version": "google-input-output-tokens-2026-10-20",
+          "source": "https://openrouter.ai/api/v1/models",
+          "observedAt": 1792606649007,
+          "unit": "token",
+          "textInputUsd": "0.0000005",
+          "textOutputUsd": "0.000003",
+          "imageOutputUsd": "0.00006",
+          "imageInputTokens": {
+            "usdPerToken": "0.0000005",
+            "perImage": 1120
+          },
+          "estimatedTextInputTokens": 1000,
+          "estimatedTextOutputTokens": 1000
+        },
+        "capabilities": {
+          "resolutions": [
+            "1K",
+            "2K",
+            "4K"
+          ],
+          "aspectRatios": [
+            "16:9",
+            "21:9",
+            "3:2"
+          ],
+          "outputTokens": {
+            "1K": 1120,
+            "2K": 1680,
+            "4K": 2520
+          },
+          "source": "https://ai.google.dev/gemini-api/docs/image-generation",
+          "pricingSource": "https://ai.google.dev/gemini-api/docs/pricing"
+        },
+        "availability": "available",
+        "creditsCost": 9,
+        "reservationCreditsCost": 18,
+        "etaSeconds": 12,
+        "estimatedCreditsByResolution": {
+          "1K": 9,
+          "2K": 14,
+          "4K": 20
+        }
+      },
+      {
+        "id": "google/gemini-3.1-flash-lite-image",
+        "name": "Google: Nano Banana 2 Lite (Gemini 3.1 Flash Lite Image)",
+        "provider": "Google",
+        "billing": {
+          "version": "google-input-output-tokens-2026-10-20",
+          "source": "https://openrouter.ai/api/v1/models",
+          "observedAt": 1792606649007,
+          "unit": "token",
+          "textInputUsd": "0.00000025",
+          "textOutputUsd": "0.0000015",
+          "imageOutputUsd": "0.00003",
+          "imageInputTokens": {
+            "usdPerToken": "0.00000025",
+            "perImage": 1120
+          },
+          "estimatedTextInputTokens": 1000,
+          "estimatedTextOutputTokens": 1000
+        },
+        "capabilities": {
+          "resolutions": [
+            "1K"
+          ],
+          "aspectRatios": [
+            "16:9",
+            "21:9",
+            "3:2"
+          ],
+          "outputTokens": {
+            "1K": 1120
+          },
+          "source": "https://ai.google.dev/gemini-api/docs/image-generation",
+          "pricingSource": "https://ai.google.dev/gemini-api/docs/pricing"
+        },
+        "availability": "available",
+        "creditsCost": 5,
+        "reservationCreditsCost": 10,
+        "etaSeconds": 5,
+        "estimatedCreditsByResolution": {
+          "1K": 5
+        }
+      }
+    ],
+    "artStyles": [
+      {
+        "id": "classical",
+        "label": "Classical",
+        "description": "Expansive painterly scenes with dramatic light and restrained color; suited to epic narratives.",
+        "available": true,
+        "reason": null
+      },
+      {
+        "id": "watercolor",
+        "label": "Ink & Watercolor",
+        "description": "Expressive ink lines and transparent washes; suited to atmospheric journeys and intimate observation.",
+        "available": false,
+        "reason": "The watercolor art style is temporarily unavailable"
+      },
+      {
+        "id": "icon",
+        "label": "Byzantine Icon",
+        "description": "Flat gold-ground painting with inverse perspective and stylized figures; suited to sacred and symbolic narratives.",
+        "available": false,
+        "reason": "The icon art style is temporarily unavailable"
+      }
+    ],
+    "scenePlannerCreditsCost": 0,
+    "creditRange": {
+      "min": 5,
+      "max": 20
+    }
+  },
+  "sourceFiles": {
+    "src/lib/engine/preparation.ts": "71c622bfb6aaa0a521df76daacde75557b16b259a75177e4ead4647c117da2fd",
+    "src/lib/engine/prompt.ts": "1e6904d6762715016e567691ead5a152ffa6f7716d2eed91c44ec61ad48968f8",
+    "src/lib/engine/assemble.ts": "277ec9b38fe09986fcbdb4f39e7f768482e85bcc95c252f76e44931d9e665ca6",
+    "src/lib/reading-pass/model.ts": "41d3568059fd5d4e43d321bc19c418dc27c45a094fd139493ea29295bf12aabd",
+    "src/lib/image-evals/runner.ts": "d767c6cf774be9f5b06f179edd0bcebb932cf8e3b7df1f061fafa6918050d5f8",
+    "src/lib/image-evals/adapters.ts": "22c81fce1c9133a810ca445d2afe646ab574f6b52117146a5535debb67f2a379",
+    "scripts/evals/images.mts": "8744862b041f53cf8f47cb94e4ae9ef52bdb4971a273cf12afc632d9eeaa3072",
+    "styles/classical.json": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+    "styles/watercolor.json": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+    "styles/icon.json": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "works/bible-web/brief.json": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+  },
+  "paidCalls": 0,
+  "mutations": 0
+}
