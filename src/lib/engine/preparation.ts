@@ -19,6 +19,10 @@ export const lookOutputSchema = z.object({ place: z.string(), timeOfDay: z.strin
 
 export const PLAN_SYSTEM = `You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the cast on stage in the section. Plan one single scene that depicts this moment. Return only JSON.
 Rules: single scene, no collage. Choose which of the listed cast are present in this moment and name them in \`present\` by their ids; leave out cast who are elsewhere in the section. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that) and do not name an art style or rendering technique; describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.`;
+/** Bump for changes to this no-form planning contract or its cast format; only affected plans use it. */
+export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-21-formless-presence-v1";
+const FORMLESS_PLAN_SYSTEM = `${PLAN_SYSTEM}
+Presence does not require a physical body. A cast entry marked hasForm: false still belongs in the moment when represented through the non-figurative presence allowed by the brief. If you describe that entry's presence or action in any scene field, include its id in \`present\` so its canon constraints reach the image model. Do not omit it because it has no body, and do not turn bodily source metaphors into a physical form. Select presence for this moment only; do not add cast who are absent or merely mentioned.`;
 export const planOutputSchema = z.object({
   present: z.array(z.string()),
   primarySubject: z.string(), action: z.string(), setting: z.string(), secondaryElements: z.string(), mood: z.string(), timeOfDay: z.string(), composition: z.string(),
@@ -157,14 +161,14 @@ export async function prepareMoment(options: {
   if (!section || section.payload.kind !== "section") throw new PreparationUnavailableError("look", `unknown section ${sectionId}`);
   const sectionPayload = section.payload as unknown as { title: string; era?: string; cast: Array<{ entryId: string; stageId: string; named?: boolean }> };
   const era = brief.eras.find((e) => e.id === sectionPayload.era) ?? brief.eras[0];
-  const cast: Array<{ entryId: string; stageId: string; name: string; version: string; text: string }> = [];
+  const cast: Array<{ entryId: string; stageId: string; name: string; version: string; text: string; hasForm: boolean }> = [];
   for (const member of sectionPayload.cast) {
     const entry = await store.getActiveRecord("entry", member.entryId);
     if (!entry || entry.payload.kind !== "entry") continue;
     const stages = entry.payload.stages as Array<{ id: string; text: string }>;
     const stage = stages.find((s) => s.id === member.stageId) ?? stages[0];
     if (!stage) continue;
-    cast.push({ entryId: member.entryId, stageId: stage.id, name: String(entry.payload.name), version: entry.version, text: stage.text });
+    cast.push({ entryId: member.entryId, stageId: stage.id, name: String(entry.payload.name), version: entry.version, text: stage.text, hasForm: entry.payload.hasForm !== false });
   }
   const rules = brief.depictionRules.map((r) => `- ${r.text}`).join("\n") || "- none";
 
@@ -177,13 +181,16 @@ export async function prepareMoment(options: {
     return { kind: "look" as const, sectionId, ...value };
   }, timing);
 
+  // Only affected sections change planning inputs; looks and all-formed plans remain reusable.
+  const hasFormlessCast = cast.some((c) => !c.hasForm);
   // The plan depends on the moment, the look, the brief and the cast's canon; never on a style or translation.
   const planInputs: InputRef[] = [{ kind: "moment", recordId: options.momentId, version: moment.version }, { kind: "look", recordId: sectionId, version: look.version },
-    { kind: "brief", recordId: options.workId, version: options.briefVersion }, ...cast.map((c) => ({ kind: "entry", recordId: c.entryId, version: c.version }))];
+    { kind: "brief", recordId: options.workId, version: options.briefVersion }, ...cast.map((c) => ({ kind: "entry", recordId: c.entryId, version: c.version })),
+    ...(hasFormlessCast ? [{ kind: "prompt", recordId: "scene_plan_formless_presence", version: FORMLESS_PLAN_PROMPT_VERSION }] : [])];
   const plan = await ensureRecord(store, options.workId, "plan", options.momentId, planInputs, async () => {
     const lookPayload = look.payload as Record<string, string>;
-    const user = `WORK BRIEF\nTone: ${brief.tone}\nDepiction rules:\n${rules}\nEra: ${era.label}. People: ${era.people} Dress: ${era.dress} Technology: ${era.technology}\nSTORY SECTION: ${sectionPayload.title}\nSECTION LOOK: place: ${lookPayload.place}; time: ${lookPayload.timeOfDay}; weather: ${lookPayload.weather}; light: ${lookPayload.light}; clothing: ${lookPayload.clothing}\nCAST ON STAGE IN THIS SECTION (id: name):\n${cast.map((c) => `- ${c.entryId}: ${c.name}`).join("\n") || "- (no one listed)"}\n\nMOMENT (${options.context.moment.reference}): ${options.context.moment.text}\nPREVIOUS: ${options.context.previous?.text.slice(0, 400) ?? "(section starts here)"}\nNEXT: ${options.context.next?.text.slice(0, 400) ?? "(section ends here)"}`;
-    const value = await askOnce(model, store, "plan", options.momentId, planOutputSchema, PLAN_SYSTEM, user);
+    const user = `WORK BRIEF\nTone: ${brief.tone}\nDepiction rules:\n${rules}\nEra: ${era.label}. People: ${era.people} Dress: ${era.dress} Technology: ${era.technology}\nSTORY SECTION: ${sectionPayload.title}\nSECTION LOOK: place: ${lookPayload.place}; time: ${lookPayload.timeOfDay}; weather: ${lookPayload.weather}; light: ${lookPayload.light}; clothing: ${lookPayload.clothing}\nCAST ON STAGE IN THIS SECTION (id: name):\n${cast.map((c) => `- ${c.entryId}: ${c.name}${hasFormlessCast ? ` (hasForm: ${c.hasForm})` : ""}`).join("\n") || "- (no one listed)"}\n\nMOMENT (${options.context.moment.reference}): ${options.context.moment.text}\nPREVIOUS: ${options.context.previous?.text.slice(0, 400) ?? "(section starts here)"}\nNEXT: ${options.context.next?.text.slice(0, 400) ?? "(section ends here)"}`;
+    const value = await askOnce(model, store, "plan", options.momentId, planOutputSchema, hasFormlessCast ? FORMLESS_PLAN_SYSTEM : PLAN_SYSTEM, user);
     const known = new Set(cast.map((c) => c.entryId));
     const present = value.present.filter((id) => known.has(id));
     const { present: _ignored, ...fields } = value;
