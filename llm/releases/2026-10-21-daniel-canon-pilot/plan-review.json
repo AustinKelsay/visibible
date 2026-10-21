@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-21T19:12:09.225507+00:00",
+  "planVersion": "575c1a3d622656802a52fa15001b77d9",
+  "preparedPlanSha256": "1a7ed7afefe8fa46859fd5f2b53758c70a5b9a3b4c6c3573a787ddca1de1e3fe",
+  "reviewer": "agent",
+  "acceptedForPilot": false,
+  "humanAccepted": false,
+  "presentSelection": "pass",
+  "assignedCanonAndProtectedBlock": "pass",
+  "sceneLanguageVerdict": "fail",
+  "observations": [
+    {
+      "field": "primarySubject",
+      "text": "The Ancient of Days: a white radiance and cloud enthroned over a seat of fiery flame, with no human face or body",
+      "issue": "Repeats prohibited face/body features as denials, despite the v2 instruction to avoid those denials in scene fields."
+    },
+    {
+      "field": "primarySubject",
+      "text": "white radiance and cloud enthroned over a seat of fiery flame",
+      "issue": "Leaves the throne occupancy ambiguous; does not describe the unoccupied seat required when interpreting this seated source metaphor."
+    },
+    {
+      "field": "primarySubject",
+      "issue": "Restates much of the fixed no-form canon rather than using it solely as planning constraints."
+    }
+  ],
+  "decision": "Stop before every image call. Preserve the valid returned plan, do not edit or selectively regenerate it. No image-model compliance conclusion is possible.",
+  "limitations": [
+    "One text response is not a frequency estimate.",
+    "The response does not explicitly give the subject a human body; the rejection concerns planner instruction compliance and ambiguous wording.",
+    "This is an agent pre-image gate decision, not human visual acceptance."
+  ]
+}
