@@ -1,0 +1,1106 @@
+{
+  "at": "2026-10-21T17:11:50.288405+00:00",
+  "reviewer": "agent; provisional visual assessment, not human release acceptance",
+  "method": "All72 originals on six uncropped contact sheets; flagged originals and all Elisha/Isaiah/Daniel/Revelation outputs inspected at full resolution. A pass is limited to the named visual criterion, not a guarantee or likeness acceptance.",
+  "humanAccepted": false,
+  "images": [
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "classical",
+      "n": 1,
+      "output": "outputs/genesis-1-3-light/generic-classical-1.jpg",
+      "contactSheet": "contacts/classical-1.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire."
+      ]
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "classical",
+      "n": 2,
+      "output": "outputs/genesis-1-3-light/generic-classical-2.jpg",
+      "contactSheet": "contacts/classical-1.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire."
+      ]
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "classical",
+      "n": 3,
+      "output": "outputs/genesis-1-3-light/generic-classical-3.jpg",
+      "contactSheet": "contacts/classical-1.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire."
+      ]
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "watercolor",
+      "n": 1,
+      "output": "outputs/genesis-1-3-light/generic-watercolor-1.jpg",
+      "contactSheet": "contacts/watercolor-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Exposed paper or unpainted presentation margins remain."
+      ]
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "watercolor",
+      "n": 2,
+      "output": "outputs/genesis-1-3-light/generic-watercolor-2.jpg",
+      "contactSheet": "contacts/watercolor-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Exposed paper or unpainted presentation margins remain."
+      ]
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "watercolor",
+      "n": 3,
+      "output": "outputs/genesis-1-3-light/generic-watercolor-3.jpg",
+      "contactSheet": "contacts/watercolor-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Exposed paper or unpainted presentation margins remain."
+      ]
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "icon",
+      "n": 1,
+      "output": "outputs/genesis-1-3-light/generic-icon-1.jpg",
+      "contactSheet": "contacts/icon-1.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire."
+      ]
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "icon",
+      "n": 2,
+      "output": "outputs/genesis-1-3-light/generic-icon-2.jpg",
+      "contactSheet": "contacts/icon-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "borderVerdict": "accepted limitation",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Known Icon gold-border limitation retained explicitly."
+      ]
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "icon",
+      "n": 3,
+      "output": "outputs/genesis-1-3-light/generic-icon-3.jpg",
+      "contactSheet": "contacts/icon-1.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire."
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "classical",
+      "n": 1,
+      "output": "outputs/exodus-14-22-sea-walls/generic-classical-1.jpg",
+      "contactSheet": "contacts/classical-1.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "notes": [
+        "Two water walls, crossing group and firelight retained; actual multi-verse continuity acceptance remains human-owned."
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "classical",
+      "n": 2,
+      "output": "outputs/exodus-14-22-sea-walls/generic-classical-2.jpg",
+      "contactSheet": "contacts/classical-1.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "notes": [
+        "Two water walls, crossing group and firelight retained; actual multi-verse continuity acceptance remains human-owned."
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "classical",
+      "n": 3,
+      "output": "outputs/exodus-14-22-sea-walls/generic-classical-3.jpg",
+      "contactSheet": "contacts/classical-1.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "notes": [
+        "Two water walls, crossing group and firelight retained; actual multi-verse continuity acceptance remains human-owned."
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "watercolor",
+      "n": 1,
+      "output": "outputs/exodus-14-22-sea-walls/generic-watercolor-1.jpg",
+      "contactSheet": "contacts/watercolor-1.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "Exposed paper or unpainted presentation margins remain.",
+        "Two water walls, crossing group and firelight retained; actual multi-verse continuity acceptance remains human-owned."
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "watercolor",
+      "n": 2,
+      "output": "outputs/exodus-14-22-sea-walls/generic-watercolor-2.jpg",
+      "contactSheet": "contacts/watercolor-1.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "Exposed paper or unpainted presentation margins remain.",
+        "Two water walls, crossing group and firelight retained; actual multi-verse continuity acceptance remains human-owned."
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "watercolor",
+      "n": 3,
+      "output": "outputs/exodus-14-22-sea-walls/generic-watercolor-3.jpg",
+      "contactSheet": "contacts/watercolor-1.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "Exposed paper or unpainted presentation margins remain.",
+        "Two water walls, crossing group and firelight retained; actual multi-verse continuity acceptance remains human-owned."
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "icon",
+      "n": 1,
+      "output": "outputs/exodus-14-22-sea-walls/generic-icon-1.jpg",
+      "contactSheet": "contacts/icon-1.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "notes": [
+        "Two water walls, crossing group and firelight retained; actual multi-verse continuity acceptance remains human-owned."
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "icon",
+      "n": 2,
+      "output": "outputs/exodus-14-22-sea-walls/generic-icon-2.jpg",
+      "contactSheet": "contacts/icon-1.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "notes": [
+        "Two water walls, crossing group and firelight retained; actual multi-verse continuity acceptance remains human-owned."
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "icon",
+      "n": 3,
+      "output": "outputs/exodus-14-22-sea-walls/generic-icon-3.jpg",
+      "contactSheet": "contacts/icon-1.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "notes": [
+        "Two water walls, crossing group and firelight retained; actual multi-verse continuity acceptance remains human-owned."
+      ]
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "classical",
+      "n": 1,
+      "output": "outputs/2-kings-2-23-bears/generic-classical-1.jpg",
+      "contactSheet": "contacts/classical-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "baldnessVerdict": "pass",
+      "notes": [
+        "Bald head visible; mocking youths and road retained."
+      ]
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "classical",
+      "n": 2,
+      "output": "outputs/2-kings-2-23-bears/generic-classical-2.jpg",
+      "contactSheet": "contacts/classical-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "baldnessVerdict": "pass",
+      "notes": [
+        "Bald head visible; mocking youths and road retained."
+      ]
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "classical",
+      "n": 3,
+      "output": "outputs/2-kings-2-23-bears/generic-classical-3.jpg",
+      "contactSheet": "contacts/classical-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "baldnessVerdict": "pass",
+      "notes": [
+        "Bald head visible; mocking youths and road retained."
+      ]
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "watercolor",
+      "n": 1,
+      "output": "outputs/2-kings-2-23-bears/generic-watercolor-1.jpg",
+      "contactSheet": "contacts/watercolor-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "baldnessVerdict": "pass",
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "Bald head visible; mocking youths and road retained.",
+        "Exposed paper or unpainted presentation margins remain."
+      ]
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "watercolor",
+      "n": 2,
+      "output": "outputs/2-kings-2-23-bears/generic-watercolor-2.jpg",
+      "contactSheet": "contacts/watercolor-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "baldnessVerdict": "pass",
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "Bald head visible; mocking youths and road retained.",
+        "Exposed paper or unpainted presentation margins remain."
+      ]
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "watercolor",
+      "n": 3,
+      "output": "outputs/2-kings-2-23-bears/generic-watercolor-3.jpg",
+      "contactSheet": "contacts/watercolor-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "baldnessVerdict": "pass",
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "Bald head visible; mocking youths and road retained.",
+        "Exposed paper or unpainted presentation margins remain."
+      ]
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "icon",
+      "n": 1,
+      "output": "outputs/2-kings-2-23-bears/generic-icon-1.jpg",
+      "contactSheet": "contacts/icon-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "baldnessVerdict": "pass",
+      "eraVerdict": "fail",
+      "notes": [
+        "Bald head visible; mocking youths and road retained.",
+        "Cross-topped domed churches in ancient Bethel conflict with the work era."
+      ]
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "icon",
+      "n": 2,
+      "output": "outputs/2-kings-2-23-bears/generic-icon-2.jpg",
+      "contactSheet": "contacts/icon-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "baldnessVerdict": "pass",
+      "notes": [
+        "Bald head visible; mocking youths and road retained."
+      ]
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "icon",
+      "n": 3,
+      "output": "outputs/2-kings-2-23-bears/generic-icon-3.jpg",
+      "contactSheet": "contacts/icon-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "baldnessVerdict": "pass",
+      "eraVerdict": "fail",
+      "notes": [
+        "Bald head visible; mocking youths and road retained.",
+        "Cross-topped domed churches in ancient Bethel conflict with the work era."
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "classical",
+      "n": 1,
+      "output": "outputs/isaiah-6-2-seraphim/generic-classical-1.jpg",
+      "contactSheet": "contacts/classical-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "seraphimFidelity": "fail",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Six wings with separate face/feet coverings are not reliably rendered; visible faces and/or feet remain."
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "classical",
+      "n": 2,
+      "output": "outputs/isaiah-6-2-seraphim/generic-classical-2.jpg",
+      "contactSheet": "contacts/classical-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "seraphimFidelity": "fail",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Six wings with separate face/feet coverings are not reliably rendered; visible faces and/or feet remain."
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "classical",
+      "n": 3,
+      "output": "outputs/isaiah-6-2-seraphim/generic-classical-3.jpg",
+      "contactSheet": "contacts/classical-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "seraphimFidelity": "fail",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Six wings with separate face/feet coverings are not reliably rendered; visible faces and/or feet remain."
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "watercolor",
+      "n": 1,
+      "output": "outputs/isaiah-6-2-seraphim/generic-watercolor-1.jpg",
+      "contactSheet": "contacts/watercolor-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "seraphimFidelity": "fail",
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Six wings with separate face/feet coverings are not reliably rendered; visible faces and/or feet remain.",
+        "Exposed paper or unpainted presentation margins remain."
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "watercolor",
+      "n": 2,
+      "output": "outputs/isaiah-6-2-seraphim/generic-watercolor-2.jpg",
+      "contactSheet": "contacts/watercolor-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "seraphimFidelity": "fail",
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Six wings with separate face/feet coverings are not reliably rendered; visible faces and/or feet remain.",
+        "Exposed paper or unpainted presentation margins remain."
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "watercolor",
+      "n": 3,
+      "output": "outputs/isaiah-6-2-seraphim/generic-watercolor-3.jpg",
+      "contactSheet": "contacts/watercolor-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "seraphimFidelity": "fail",
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Six wings with separate face/feet coverings are not reliably rendered; visible faces and/or feet remain.",
+        "Exposed paper or unpainted presentation margins remain."
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "icon",
+      "n": 1,
+      "output": "outputs/isaiah-6-2-seraphim/generic-icon-1.jpg",
+      "contactSheet": "contacts/icon-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "seraphimFidelity": "fail",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Six wings with separate face/feet coverings are not reliably rendered; visible faces and/or feet remain."
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "icon",
+      "n": 2,
+      "output": "outputs/isaiah-6-2-seraphim/generic-icon-2.jpg",
+      "contactSheet": "contacts/icon-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "seraphimFidelity": "fail",
+      "borderVerdict": "accepted limitation",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Six wings with separate face/feet coverings are not reliably rendered; visible faces and/or feet remain.",
+        "Known Icon gold-border limitation retained explicitly."
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "icon",
+      "n": 3,
+      "output": "outputs/isaiah-6-2-seraphim/generic-icon-3.jpg",
+      "contactSheet": "contacts/icon-1.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "seraphimFidelity": "fail",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Six wings with separate face/feet coverings are not reliably rendered; visible faces and/or feet remain."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "classical",
+      "n": 1,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-classical-1.jpg",
+      "contactSheet": "contacts/classical-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "notes": [
+        "Seated garment-shaped human body remains, even where the face is glare.",
+        "Regenerated plan omits Ancient of Days from present; new canon-derived block is absent. Brief/look no-body constraints remain; not a direct test of the new block."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "classical",
+      "n": 2,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-classical-2.jpg",
+      "contactSheet": "contacts/classical-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "notes": [
+        "Seated garment-shaped human body remains, even where the face is glare.",
+        "Regenerated plan omits Ancient of Days from present; new canon-derived block is absent. Brief/look no-body constraints remain; not a direct test of the new block."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "classical",
+      "n": 3,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-classical-3.jpg",
+      "contactSheet": "contacts/classical-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "notes": [
+        "Seated garment-shaped human body remains, even where the face is glare.",
+        "Regenerated plan omits Ancient of Days from present; new canon-derived block is absent. Brief/look no-body constraints remain; not a direct test of the new block."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "watercolor",
+      "n": 1,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-watercolor-1.jpg",
+      "contactSheet": "contacts/watercolor-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "paperMarginVerdict": "review",
+      "notes": [
+        "Seated garment-shaped human body remains, even where the face is glare.",
+        "Near-full-frame edge is ambiguous between wash/cloud/foam and exposed paper; not counted as a margin pass.",
+        "Regenerated plan omits Ancient of Days from present; new canon-derived block is absent. Brief/look no-body constraints remain; not a direct test of the new block."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "watercolor",
+      "n": 2,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-watercolor-2.jpg",
+      "contactSheet": "contacts/watercolor-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Exposed paper or unpainted presentation margins remain.",
+        "Regenerated plan omits Ancient of Days from present; new canon-derived block is absent. Brief/look no-body constraints remain; not a direct test of the new block."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "watercolor",
+      "n": 3,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-watercolor-3.jpg",
+      "contactSheet": "contacts/watercolor-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "Seated garment-shaped human body remains, even where the face is glare.",
+        "Exposed paper or unpainted presentation margins remain.",
+        "Regenerated plan omits Ancient of Days from present; new canon-derived block is absent. Brief/look no-body constraints remain; not a direct test of the new block."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "icon",
+      "n": 1,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-icon-1.jpg",
+      "contactSheet": "contacts/icon-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "continuousSceneVerdict": "fail",
+      "notes": [
+        "Seated garment-shaped human body remains, even where the face is glare.",
+        "Sharp central panel has duplicated side strips; not a single continuous scene.",
+        "Regenerated plan omits Ancient of Days from present; new canon-derived block is absent. Brief/look no-body constraints remain; not a direct test of the new block."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "icon",
+      "n": 2,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-icon-2.jpg",
+      "contactSheet": "contacts/icon-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "textVerdict": "review",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Possible signature-like marks near lower ground require human inspection.",
+        "Regenerated plan omits Ancient of Days from present; new canon-derived block is absent. Brief/look no-body constraints remain; not a direct test of the new block."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "icon",
+      "n": 3,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-icon-3.jpg",
+      "contactSheet": "contacts/icon-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "notes": [
+        "Seated garment-shaped human body remains, even where the face is glare.",
+        "Regenerated plan omits Ancient of Days from present; new canon-derived block is absent. Brief/look no-body constraints remain; not a direct test of the new block."
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "classical",
+      "n": 1,
+      "output": "outputs/matthew-14-29-peter-water/generic-classical-1.jpg",
+      "contactSheet": "contacts/classical-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "notes": [
+        "Jesus and Peter retain human bodies/faces. Peter is still stepping over the gunwale in this frozen moment; sustained walking is not demonstrated."
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "classical",
+      "n": 2,
+      "output": "outputs/matthew-14-29-peter-water/generic-classical-2.jpg",
+      "contactSheet": "contacts/classical-2.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "notes": [
+        "Jesus and Peter retain human bodies/faces. Peter is still stepping over the gunwale in this frozen moment; sustained walking is not demonstrated."
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "classical",
+      "n": 3,
+      "output": "outputs/matthew-14-29-peter-water/generic-classical-3.jpg",
+      "contactSheet": "contacts/classical-2.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "notes": [
+        "Jesus and Peter retain human bodies/faces. Peter is still stepping over the gunwale in this frozen moment; sustained walking is not demonstrated."
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "watercolor",
+      "n": 1,
+      "output": "outputs/matthew-14-29-peter-water/generic-watercolor-1.jpg",
+      "contactSheet": "contacts/watercolor-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "Exposed paper or unpainted presentation margins remain.",
+        "Jesus and Peter retain human bodies/faces. Peter is still stepping over the gunwale in this frozen moment; sustained walking is not demonstrated."
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "watercolor",
+      "n": 2,
+      "output": "outputs/matthew-14-29-peter-water/generic-watercolor-2.jpg",
+      "contactSheet": "contacts/watercolor-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "paperMarginVerdict": "review",
+      "notes": [
+        "Near-full-frame edge is ambiguous between wash/cloud/foam and exposed paper; not counted as a margin pass.",
+        "Jesus and Peter retain human bodies/faces. Peter is still stepping over the gunwale in this frozen moment; sustained walking is not demonstrated."
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "watercolor",
+      "n": 3,
+      "output": "outputs/matthew-14-29-peter-water/generic-watercolor-3.jpg",
+      "contactSheet": "contacts/watercolor-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "Exposed paper or unpainted presentation margins remain.",
+        "Jesus and Peter retain human bodies/faces. Peter is still stepping over the gunwale in this frozen moment; sustained walking is not demonstrated."
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "icon",
+      "n": 1,
+      "output": "outputs/matthew-14-29-peter-water/generic-icon-1.jpg",
+      "contactSheet": "contacts/icon-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "notes": [
+        "Jesus and Peter retain human bodies/faces. Peter is still stepping over the gunwale in this frozen moment; sustained walking is not demonstrated."
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "icon",
+      "n": 2,
+      "output": "outputs/matthew-14-29-peter-water/generic-icon-2.jpg",
+      "contactSheet": "contacts/icon-2.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "notes": [
+        "Jesus and Peter retain human bodies/faces. Peter is still stepping over the gunwale in this frozen moment; sustained walking is not demonstrated."
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "icon",
+      "n": 3,
+      "output": "outputs/matthew-14-29-peter-water/generic-icon-3.jpg",
+      "contactSheet": "contacts/icon-2.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "notes": [
+        "Jesus and Peter retain human bodies/faces. Peter is still stepping over the gunwale in this frozen moment; sustained walking is not demonstrated."
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "classical",
+      "n": 1,
+      "output": "outputs/revelation-4-6-living-creatures/generic-classical-1.jpg",
+      "contactSheet": "contacts/classical-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "creatureFidelity": "review",
+      "notes": [
+        "Seated garment-shaped human body remains, even where the face is glare.",
+        "Four creature types and eye motifs appear, but six wings and body/inner eye coverage do not clearly match every creature; not an unqualified canon pass."
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "classical",
+      "n": 2,
+      "output": "outputs/revelation-4-6-living-creatures/generic-classical-2.jpg",
+      "contactSheet": "contacts/classical-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "creatureFidelity": "review",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Four creature types and eye motifs appear, but six wings and body/inner eye coverage do not clearly match every creature; not an unqualified canon pass."
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "classical",
+      "n": 3,
+      "output": "outputs/revelation-4-6-living-creatures/generic-classical-3.jpg",
+      "contactSheet": "contacts/classical-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "creatureFidelity": "review",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Four creature types and eye motifs appear, but six wings and body/inner eye coverage do not clearly match every creature; not an unqualified canon pass."
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "watercolor",
+      "n": 1,
+      "output": "outputs/revelation-4-6-living-creatures/generic-watercolor-1.jpg",
+      "contactSheet": "contacts/watercolor-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "creatureFidelity": "review",
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "Seated garment-shaped human body remains, even where the face is glare.",
+        "Four creature types and eye motifs appear, but six wings and body/inner eye coverage do not clearly match every creature; not an unqualified canon pass.",
+        "Exposed paper or unpainted presentation margins remain."
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "watercolor",
+      "n": 2,
+      "output": "outputs/revelation-4-6-living-creatures/generic-watercolor-2.jpg",
+      "contactSheet": "contacts/watercolor-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "creatureFidelity": "review",
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "Seated garment-shaped human body remains, even where the face is glare.",
+        "Four creature types and eye motifs appear, but six wings and body/inner eye coverage do not clearly match every creature; not an unqualified canon pass.",
+        "Exposed paper or unpainted presentation margins remain."
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "watercolor",
+      "n": 3,
+      "output": "outputs/revelation-4-6-living-creatures/generic-watercolor-3.jpg",
+      "contactSheet": "contacts/watercolor-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "review",
+      "creatureFidelity": "review",
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "Central pale radiance/drapery is ambiguous; human no-body review required.",
+        "Four creature types and eye motifs appear, but six wings and body/inner eye coverage do not clearly match every creature; not an unqualified canon pass.",
+        "Exposed paper or unpainted presentation margins remain."
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "icon",
+      "n": 1,
+      "output": "outputs/revelation-4-6-living-creatures/generic-icon-1.jpg",
+      "contactSheet": "contacts/icon-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "creatureFidelity": "review",
+      "notes": [
+        "Seated garment-shaped human body remains, even where the face is glare.",
+        "Four creature types and eye motifs appear, but six wings and body/inner eye coverage do not clearly match every creature; not an unqualified canon pass."
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "icon",
+      "n": 2,
+      "output": "outputs/revelation-4-6-living-creatures/generic-icon-2.jpg",
+      "contactSheet": "contacts/icon-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "creatureFidelity": "review",
+      "notes": [
+        "No visible human-form divine subject; non-figurative radiance/fire.",
+        "Four creature types and eye motifs appear, but six wings and body/inner eye coverage do not clearly match every creature; not an unqualified canon pass."
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "icon",
+      "n": 3,
+      "output": "outputs/revelation-4-6-living-creatures/generic-icon-3.jpg",
+      "contactSheet": "contacts/icon-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "fail",
+      "creatureFidelity": "review",
+      "notes": [
+        "Seated garment-shaped human body remains, even where the face is glare.",
+        "Four creature types and eye motifs appear, but six wings and body/inner eye coverage do not clearly match every creature; not an unqualified canon pass."
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "classical",
+      "n": 1,
+      "output": "outputs/holmes-scandal-the-woman/generic-classical-1.jpg",
+      "contactSheet": "contacts/classical-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "notes": [
+        "Victorian setting and two distinct characters retained; indirect narration and likeness require human acceptance."
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "classical",
+      "n": 2,
+      "output": "outputs/holmes-scandal-the-woman/generic-classical-2.jpg",
+      "contactSheet": "contacts/classical-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "notes": [
+        "Victorian setting and two distinct characters retained; indirect narration and likeness require human acceptance."
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "classical",
+      "n": 3,
+      "output": "outputs/holmes-scandal-the-woman/generic-classical-3.jpg",
+      "contactSheet": "contacts/classical-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "textVerdict": "fail",
+      "notes": [
+        "Apparent rows of pseudo-writing on papers; conservatively fails the no-text rule. No person is identified; human likeness acceptance remains pending.",
+        "Victorian setting and two distinct characters retained; indirect narration and likeness require human acceptance."
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "watercolor",
+      "n": 1,
+      "output": "outputs/holmes-scandal-the-woman/generic-watercolor-1.jpg",
+      "contactSheet": "contacts/watercolor-2.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "Exposed paper or unpainted presentation margins remain.",
+        "Victorian setting and two distinct characters retained; indirect narration and likeness require human acceptance."
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "watercolor",
+      "n": 2,
+      "output": "outputs/holmes-scandal-the-woman/generic-watercolor-2.jpg",
+      "contactSheet": "contacts/watercolor-2.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "paperMarginVerdict": "fail",
+      "notes": [
+        "Exposed paper or unpainted presentation margins remain.",
+        "Victorian setting and two distinct characters retained; indirect narration and likeness require human acceptance."
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "watercolor",
+      "n": 3,
+      "output": "outputs/holmes-scandal-the-woman/generic-watercolor-3.jpg",
+      "contactSheet": "contacts/watercolor-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "paperMarginVerdict": "fail",
+      "textVerdict": "fail",
+      "notes": [
+        "Exposed paper or unpainted presentation margins remain.",
+        "Apparent rows of pseudo-writing on papers; conservatively fails the no-text rule. No person is identified; human likeness acceptance remains pending.",
+        "Victorian setting and two distinct characters retained; indirect narration and likeness require human acceptance."
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "icon",
+      "n": 1,
+      "output": "outputs/holmes-scandal-the-woman/generic-icon-1.jpg",
+      "contactSheet": "contacts/icon-2.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "borderVerdict": "accepted limitation",
+      "notes": [
+        "Known Icon gold-border limitation retained explicitly.",
+        "Victorian setting and two distinct characters retained; indirect narration and likeness require human acceptance."
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "icon",
+      "n": 2,
+      "output": "outputs/holmes-scandal-the-woman/generic-icon-2.jpg",
+      "contactSheet": "contacts/icon-2.jpg",
+      "fullResolutionInspected": false,
+      "inspection": "uncropped contact sheet",
+      "humanLikenessAccepted": false,
+      "borderVerdict": "accepted limitation",
+      "notes": [
+        "Known Icon gold-border limitation retained explicitly.",
+        "Victorian setting and two distinct characters retained; indirect narration and likeness require human acceptance."
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "icon",
+      "n": 3,
+      "output": "outputs/holmes-scandal-the-woman/generic-icon-3.jpg",
+      "contactSheet": "contacts/icon-2.jpg",
+      "fullResolutionInspected": true,
+      "inspection": "uncropped contact sheet; full-resolution original",
+      "humanLikenessAccepted": false,
+      "borderVerdict": "accepted limitation",
+      "textVerdict": "fail",
+      "notes": [
+        "Known Icon gold-border limitation retained explicitly.",
+        "Apparent rows of pseudo-writing on papers; conservatively fails the no-text rule. No person is identified; human likeness acceptance remains pending.",
+        "Victorian setting and two distinct characters retained; indirect narration and likeness require human acceptance."
+      ]
+    }
+  ]
+}

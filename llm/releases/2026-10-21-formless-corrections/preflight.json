@@ -1,0 +1,4215 @@
+{
+  "at": "2026-10-21T16:57:59.181Z",
+  "status": "read-only v3 targeted actual-packet assembly",
+  "paidCalls": 0,
+  "actualMutations": 0,
+  "blockedPreparationOperations": 18,
+  "quotedProviderUsd": 1.8686387499999988,
+  "packets": [
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "classical",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03410075,
+        "credits": 5,
+        "promptTokens": 1403,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "37ef1b234c453455cb7548427b3c753396dee51bd2d7e74d0a4df3fb8ccacf7e",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "genesis-1-3",
+        "sectionId": "genesis-1-1",
+        "eraId": "primeval-and-patriarchal-ancient-near-east",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "b1a4744d5b68afe473bf0e9550a8b459",
+        "planVersion": "4a38b2a4bcd49ef107465dacd3821e28",
+        "canon": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 5612
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": []
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "classical",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03410825,
+        "credits": 5,
+        "promptTokens": 1433,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "ff0248abda7a1fc76b616d241fffa67332b311c2d5582441ec0e9493adf67200",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "genesis-1-3",
+        "sectionId": "genesis-1-1",
+        "eraId": "primeval-and-patriarchal-ancient-near-east",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "b1a4744d5b68afe473bf0e9550a8b459",
+        "planVersion": "4a38b2a4bcd49ef107465dacd3821e28",
+        "canon": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 5730
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": []
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "classical",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03410825,
+        "credits": 5,
+        "promptTokens": 1433,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "33fdacacd27ee29afebcb541455d5cd0ef11d16d6e51b73a2cf7286c9cf7e025",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "genesis-1-3",
+        "sectionId": "genesis-1-1",
+        "eraId": "primeval-and-patriarchal-ancient-near-east",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "b1a4744d5b68afe473bf0e9550a8b459",
+        "planVersion": "4a38b2a4bcd49ef107465dacd3821e28",
+        "canon": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 5730
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": []
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "watercolor",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0344045,
+        "credits": 5,
+        "promptTokens": 1498,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "656caa247f70932136581db73d87eaab4f3cabce2bdd2b42a520f0e64e7c905c",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "genesis-1-3",
+        "sectionId": "genesis-1-1",
+        "eraId": "primeval-and-patriarchal-ancient-near-east",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "b1a4744d5b68afe473bf0e9550a8b459",
+        "planVersion": "4a38b2a4bcd49ef107465dacd3821e28",
+        "canon": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 5990
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        }
+      ]
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "watercolor",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03441175,
+        "credits": 5,
+        "promptTokens": 1527,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "eda093e096f01af14b516921eaf512f7079b4a59c2a2d2412e7748458ddf86ff",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "genesis-1-3",
+        "sectionId": "genesis-1-1",
+        "eraId": "primeval-and-patriarchal-ancient-near-east",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "b1a4744d5b68afe473bf0e9550a8b459",
+        "planVersion": "4a38b2a4bcd49ef107465dacd3821e28",
+        "canon": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6108
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        }
+      ]
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "watercolor",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03441175,
+        "credits": 5,
+        "promptTokens": 1527,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "65f2658a2f34aae292c8ba43ed03df1a9c209197c5df6848bfff01837c408bd2",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "genesis-1-3",
+        "sectionId": "genesis-1-1",
+        "eraId": "primeval-and-patriarchal-ancient-near-east",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "b1a4744d5b68afe473bf0e9550a8b459",
+        "planVersion": "4a38b2a4bcd49ef107465dacd3821e28",
+        "canon": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6108
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        }
+      ]
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "icon",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03440125,
+        "credits": 5,
+        "promptTokens": 1485,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "daf7b49f71c77bd002a6d00e28ed50c52900cb2ed40342d7055d81989f1e63e6",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "genesis-1-3",
+        "sectionId": "genesis-1-1",
+        "eraId": "primeval-and-patriarchal-ancient-near-east",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "b1a4744d5b68afe473bf0e9550a8b459",
+        "planVersion": "4a38b2a4bcd49ef107465dacd3821e28",
+        "canon": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 5937
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        }
+      ]
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "icon",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0344085,
+        "credits": 5,
+        "promptTokens": 1514,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "bef662850f0ad33c472b3ba18dd5a4f2ace62da3423bfcbdb823ca5c76249c05",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "genesis-1-3",
+        "sectionId": "genesis-1-1",
+        "eraId": "primeval-and-patriarchal-ancient-near-east",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "b1a4744d5b68afe473bf0e9550a8b459",
+        "planVersion": "4a38b2a4bcd49ef107465dacd3821e28",
+        "canon": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6055
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        }
+      ]
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "styleId": "icon",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0344085,
+        "credits": 5,
+        "promptTokens": 1514,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "aacc1390158fc7430b2166707b1fbe1e63fd7387d3ec36fd6c2f65a570ff9530",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "genesis-1-3",
+        "sectionId": "genesis-1-1",
+        "eraId": "primeval-and-patriarchal-ancient-near-east",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "b1a4744d5b68afe473bf0e9550a8b459",
+        "planVersion": "4a38b2a4bcd49ef107465dacd3821e28",
+        "canon": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6055
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        }
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "classical",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03444125,
+        "credits": 5,
+        "promptTokens": 1645,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "c78488e5bb46bc0802753a5d2925fc9cd7e9626787a80ee71a8d255d040e9896",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "exodus-14-22",
+        "sectionId": "exodus-14-21",
+        "eraId": "exodus-wilderness-and-conquest-of-canaan",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "ab853513a489ea9cc74cb57bc6cd3667",
+        "planVersion": "e8a722e3af0b06fa393e4aab3a05538f",
+        "canon": [
+          {
+            "entryId": "the_israelite_people_the_children_of_israel",
+            "stageId": "the_israelite_people_the_children_of_israel_s1",
+            "version": "c5143c0542fab9242236871d516c6461"
+          },
+          {
+            "entryId": "moses",
+            "stageId": "moses-elder",
+            "version": "ed16bff281e7750b58b56b3a367a2146"
+          }
+        ],
+        "references": [
+          {
+            "kind": "sheet",
+            "id": "moses:moses-elder",
+            "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+            "version": "7d323628f0bdc65959ff550032a27b04",
+            "caption": "Image 1: Moses's reference sheet (one figure shown in three views). Match its identity exactly for Moses only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6578
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+          "bytes": 104949,
+          "sha256": "c36a3a74ba2a6869541796f818d48cf54884b6469f7b1a2899fa7ed77a101e17"
+        }
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "classical",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0344485,
+        "credits": 5,
+        "promptTokens": 1674,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "b416e88b856c19d0e51ccdc2054afdfe154a5d5e0b7bd41066ec916762d23ccd",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "exodus-14-22",
+        "sectionId": "exodus-14-21",
+        "eraId": "exodus-wilderness-and-conquest-of-canaan",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "ab853513a489ea9cc74cb57bc6cd3667",
+        "planVersion": "e8a722e3af0b06fa393e4aab3a05538f",
+        "canon": [
+          {
+            "entryId": "the_israelite_people_the_children_of_israel",
+            "stageId": "the_israelite_people_the_children_of_israel_s1",
+            "version": "c5143c0542fab9242236871d516c6461"
+          },
+          {
+            "entryId": "moses",
+            "stageId": "moses-elder",
+            "version": "ed16bff281e7750b58b56b3a367a2146"
+          }
+        ],
+        "references": [
+          {
+            "kind": "sheet",
+            "id": "moses:moses-elder",
+            "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+            "version": "7d323628f0bdc65959ff550032a27b04",
+            "caption": "Image 1: Moses's reference sheet (one figure shown in three views). Match its identity exactly for Moses only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6696
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+          "bytes": 104949,
+          "sha256": "c36a3a74ba2a6869541796f818d48cf54884b6469f7b1a2899fa7ed77a101e17"
+        }
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "classical",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0344485,
+        "credits": 5,
+        "promptTokens": 1674,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "3879276a3f444f4d765dae613cd054b2754b892bb2e48b8ad5956511e5fb91c4",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "exodus-14-22",
+        "sectionId": "exodus-14-21",
+        "eraId": "exodus-wilderness-and-conquest-of-canaan",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "ab853513a489ea9cc74cb57bc6cd3667",
+        "planVersion": "e8a722e3af0b06fa393e4aab3a05538f",
+        "canon": [
+          {
+            "entryId": "the_israelite_people_the_children_of_israel",
+            "stageId": "the_israelite_people_the_children_of_israel_s1",
+            "version": "c5143c0542fab9242236871d516c6461"
+          },
+          {
+            "entryId": "moses",
+            "stageId": "moses-elder",
+            "version": "ed16bff281e7750b58b56b3a367a2146"
+          }
+        ],
+        "references": [
+          {
+            "kind": "sheet",
+            "id": "moses:moses-elder",
+            "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+            "version": "7d323628f0bdc65959ff550032a27b04",
+            "caption": "Image 1: Moses's reference sheet (one figure shown in three views). Match its identity exactly for Moses only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6696
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+          "bytes": 104949,
+          "sha256": "c36a3a74ba2a6869541796f818d48cf54884b6469f7b1a2899fa7ed77a101e17"
+        }
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "watercolor",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.034732,
+        "credits": 5,
+        "promptTokens": 1688,
+        "referenceImages": 2,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "3694a75fd2ae0ab500818e1c5f574e1ee2e1eef2bc8ec0b52e20189d193ff4db",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "exodus-14-22",
+        "sectionId": "exodus-14-21",
+        "eraId": "exodus-wilderness-and-conquest-of-canaan",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "ab853513a489ea9cc74cb57bc6cd3667",
+        "planVersion": "e8a722e3af0b06fa393e4aab3a05538f",
+        "canon": [
+          {
+            "entryId": "the_israelite_people_the_children_of_israel",
+            "stageId": "the_israelite_people_the_children_of_israel_s1",
+            "version": "c5143c0542fab9242236871d516c6461"
+          },
+          {
+            "entryId": "moses",
+            "stageId": "moses-elder",
+            "version": "ed16bff281e7750b58b56b3a367a2146"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "moses:moses-elder",
+            "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+            "version": "7d323628f0bdc65959ff550032a27b04",
+            "caption": "Image 2: Moses's reference sheet (one figure shown in three views). Match its identity exactly for Moses only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6749
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        },
+        {
+          "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+          "bytes": 104949,
+          "sha256": "c36a3a74ba2a6869541796f818d48cf54884b6469f7b1a2899fa7ed77a101e17"
+        }
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "watercolor",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03473925,
+        "credits": 5,
+        "promptTokens": 1717,
+        "referenceImages": 2,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "fef7fb082a31df18335f4b465d659c73149007139fe23f2cff8aec91956a609f",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "exodus-14-22",
+        "sectionId": "exodus-14-21",
+        "eraId": "exodus-wilderness-and-conquest-of-canaan",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "ab853513a489ea9cc74cb57bc6cd3667",
+        "planVersion": "e8a722e3af0b06fa393e4aab3a05538f",
+        "canon": [
+          {
+            "entryId": "the_israelite_people_the_children_of_israel",
+            "stageId": "the_israelite_people_the_children_of_israel_s1",
+            "version": "c5143c0542fab9242236871d516c6461"
+          },
+          {
+            "entryId": "moses",
+            "stageId": "moses-elder",
+            "version": "ed16bff281e7750b58b56b3a367a2146"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "moses:moses-elder",
+            "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+            "version": "7d323628f0bdc65959ff550032a27b04",
+            "caption": "Image 2: Moses's reference sheet (one figure shown in three views). Match its identity exactly for Moses only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6867
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        },
+        {
+          "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+          "bytes": 104949,
+          "sha256": "c36a3a74ba2a6869541796f818d48cf54884b6469f7b1a2899fa7ed77a101e17"
+        }
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "watercolor",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03473925,
+        "credits": 5,
+        "promptTokens": 1717,
+        "referenceImages": 2,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "f9e708aa724b782be3a7e13137ed32fd08f32f7cbbcec37e5c798ebfbd835194",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "exodus-14-22",
+        "sectionId": "exodus-14-21",
+        "eraId": "exodus-wilderness-and-conquest-of-canaan",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "ab853513a489ea9cc74cb57bc6cd3667",
+        "planVersion": "e8a722e3af0b06fa393e4aab3a05538f",
+        "canon": [
+          {
+            "entryId": "the_israelite_people_the_children_of_israel",
+            "stageId": "the_israelite_people_the_children_of_israel_s1",
+            "version": "c5143c0542fab9242236871d516c6461"
+          },
+          {
+            "entryId": "moses",
+            "stageId": "moses-elder",
+            "version": "ed16bff281e7750b58b56b3a367a2146"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "moses:moses-elder",
+            "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+            "version": "7d323628f0bdc65959ff550032a27b04",
+            "caption": "Image 2: Moses's reference sheet (one figure shown in three views). Match its identity exactly for Moses only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6867
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        },
+        {
+          "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+          "bytes": 104949,
+          "sha256": "c36a3a74ba2a6869541796f818d48cf54884b6469f7b1a2899fa7ed77a101e17"
+        }
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "icon",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0347285,
+        "credits": 5,
+        "promptTokens": 1674,
+        "referenceImages": 2,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "4986978fe8a7ffa8cb09e13162b9fc0a8dc67b42df782feaf7b359f98a1f576f",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "exodus-14-22",
+        "sectionId": "exodus-14-21",
+        "eraId": "exodus-wilderness-and-conquest-of-canaan",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "ab853513a489ea9cc74cb57bc6cd3667",
+        "planVersion": "e8a722e3af0b06fa393e4aab3a05538f",
+        "canon": [
+          {
+            "entryId": "the_israelite_people_the_children_of_israel",
+            "stageId": "the_israelite_people_the_children_of_israel_s1",
+            "version": "c5143c0542fab9242236871d516c6461"
+          },
+          {
+            "entryId": "moses",
+            "stageId": "moses-elder",
+            "version": "ed16bff281e7750b58b56b3a367a2146"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "moses:moses-elder",
+            "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+            "version": "7d323628f0bdc65959ff550032a27b04",
+            "caption": "Image 2: Moses's reference sheet (one figure shown in three views). Match its identity exactly for Moses only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6696
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        },
+        {
+          "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+          "bytes": 104949,
+          "sha256": "c36a3a74ba2a6869541796f818d48cf54884b6469f7b1a2899fa7ed77a101e17"
+        }
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "icon",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.034736,
+        "credits": 5,
+        "promptTokens": 1704,
+        "referenceImages": 2,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "bd38f72e06301eaaf156c548735e96c0efdd3701a96cb7e7772ba454b6013601",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "exodus-14-22",
+        "sectionId": "exodus-14-21",
+        "eraId": "exodus-wilderness-and-conquest-of-canaan",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "ab853513a489ea9cc74cb57bc6cd3667",
+        "planVersion": "e8a722e3af0b06fa393e4aab3a05538f",
+        "canon": [
+          {
+            "entryId": "the_israelite_people_the_children_of_israel",
+            "stageId": "the_israelite_people_the_children_of_israel_s1",
+            "version": "c5143c0542fab9242236871d516c6461"
+          },
+          {
+            "entryId": "moses",
+            "stageId": "moses-elder",
+            "version": "ed16bff281e7750b58b56b3a367a2146"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "moses:moses-elder",
+            "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+            "version": "7d323628f0bdc65959ff550032a27b04",
+            "caption": "Image 2: Moses's reference sheet (one figure shown in three views). Match its identity exactly for Moses only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6814
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        },
+        {
+          "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+          "bytes": 104949,
+          "sha256": "c36a3a74ba2a6869541796f818d48cf54884b6469f7b1a2899fa7ed77a101e17"
+        }
+      ]
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "styleId": "icon",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.034736,
+        "credits": 5,
+        "promptTokens": 1704,
+        "referenceImages": 2,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "98728cbcf65a2a5fbc02bf1b92af46f4ea17c65e3a3c835168e373bd0d26d871",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "exodus-14-22",
+        "sectionId": "exodus-14-21",
+        "eraId": "exodus-wilderness-and-conquest-of-canaan",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "ab853513a489ea9cc74cb57bc6cd3667",
+        "planVersion": "e8a722e3af0b06fa393e4aab3a05538f",
+        "canon": [
+          {
+            "entryId": "the_israelite_people_the_children_of_israel",
+            "stageId": "the_israelite_people_the_children_of_israel_s1",
+            "version": "c5143c0542fab9242236871d516c6461"
+          },
+          {
+            "entryId": "moses",
+            "stageId": "moses-elder",
+            "version": "ed16bff281e7750b58b56b3a367a2146"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "moses:moses-elder",
+            "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+            "version": "7d323628f0bdc65959ff550032a27b04",
+            "caption": "Image 2: Moses's reference sheet (one figure shown in three views). Match its identity exactly for Moses only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6814
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        },
+        {
+          "storageId": "kg241s05kh7nzbkaeb0ccp5jm18gma4s",
+          "bytes": 104949,
+          "sha256": "c36a3a74ba2a6869541796f818d48cf54884b6469f7b1a2899fa7ed77a101e17"
+        }
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "classical",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.034177,
+        "credits": 5,
+        "promptTokens": 1708,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "faef7464d89c2c1d4a759c6123a9083c27476a6f788e5fd24636d952638fc8b8",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "isaiah-6-2",
+        "sectionId": "isaiah-6-1",
+        "eraId": "monarchy-of-israel-and-judah",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "d1845d7362fae7b6ee3c076b6747e917",
+        "planVersion": "7c18e7f977452082e97d19019c2f0725",
+        "canon": [
+          {
+            "entryId": "isaiah_son_of_amoz",
+            "stageId": "isaiah_son_of_amoz-1",
+            "version": "2968951d41e33bd4d20e4d15071e24e1"
+          },
+          {
+            "entryId": "seraphim",
+            "stageId": "seraphim-main",
+            "version": "df6b23fbd590939e0920f1f32e9d6a07"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6829
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": []
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "classical",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03418425,
+        "credits": 5,
+        "promptTokens": 1737,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "ca0dc96d3cdbd1a8dec727b9f467b133a6e4e8e2962df4eda6f5727f0f11fae3",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "isaiah-6-2",
+        "sectionId": "isaiah-6-1",
+        "eraId": "monarchy-of-israel-and-judah",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "d1845d7362fae7b6ee3c076b6747e917",
+        "planVersion": "7c18e7f977452082e97d19019c2f0725",
+        "canon": [
+          {
+            "entryId": "isaiah_son_of_amoz",
+            "stageId": "isaiah_son_of_amoz-1",
+            "version": "2968951d41e33bd4d20e4d15071e24e1"
+          },
+          {
+            "entryId": "seraphim",
+            "stageId": "seraphim-main",
+            "version": "df6b23fbd590939e0920f1f32e9d6a07"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6947
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": []
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "classical",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03418425,
+        "credits": 5,
+        "promptTokens": 1737,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "aa1c2e6f03c4c9dfe3483f4bda46193e80a7dae872719dfb750338cebf996f4b",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "isaiah-6-2",
+        "sectionId": "isaiah-6-1",
+        "eraId": "monarchy-of-israel-and-judah",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "d1845d7362fae7b6ee3c076b6747e917",
+        "planVersion": "7c18e7f977452082e97d19019c2f0725",
+        "canon": [
+          {
+            "entryId": "isaiah_son_of_amoz",
+            "stageId": "isaiah_son_of_amoz-1",
+            "version": "2968951d41e33bd4d20e4d15071e24e1"
+          },
+          {
+            "entryId": "seraphim",
+            "stageId": "seraphim-main",
+            "version": "df6b23fbd590939e0920f1f32e9d6a07"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6947
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": []
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "watercolor",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0344805,
+        "credits": 5,
+        "promptTokens": 1802,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "c346fa3c3bea059e7da0da1c5f7867f20a806e38d9b0323cf6a87a69b51c13c8",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "isaiah-6-2",
+        "sectionId": "isaiah-6-1",
+        "eraId": "monarchy-of-israel-and-judah",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "d1845d7362fae7b6ee3c076b6747e917",
+        "planVersion": "7c18e7f977452082e97d19019c2f0725",
+        "canon": [
+          {
+            "entryId": "isaiah_son_of_amoz",
+            "stageId": "isaiah_son_of_amoz-1",
+            "version": "2968951d41e33bd4d20e4d15071e24e1"
+          },
+          {
+            "entryId": "seraphim",
+            "stageId": "seraphim-main",
+            "version": "df6b23fbd590939e0920f1f32e9d6a07"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7207
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        }
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "watercolor",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.034488,
+        "credits": 5,
+        "promptTokens": 1832,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "8051b9c7479e375234f5ff631e04e433875faaacf482f09f8960553169af21f5",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "isaiah-6-2",
+        "sectionId": "isaiah-6-1",
+        "eraId": "monarchy-of-israel-and-judah",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "d1845d7362fae7b6ee3c076b6747e917",
+        "planVersion": "7c18e7f977452082e97d19019c2f0725",
+        "canon": [
+          {
+            "entryId": "isaiah_son_of_amoz",
+            "stageId": "isaiah_son_of_amoz-1",
+            "version": "2968951d41e33bd4d20e4d15071e24e1"
+          },
+          {
+            "entryId": "seraphim",
+            "stageId": "seraphim-main",
+            "version": "df6b23fbd590939e0920f1f32e9d6a07"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7325
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        }
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "watercolor",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.034488,
+        "credits": 5,
+        "promptTokens": 1832,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "de2af33fd8d3d9f89ea6d5ee9cc780df245072e15b59dce17d9263a2c10827fc",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "isaiah-6-2",
+        "sectionId": "isaiah-6-1",
+        "eraId": "monarchy-of-israel-and-judah",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "d1845d7362fae7b6ee3c076b6747e917",
+        "planVersion": "7c18e7f977452082e97d19019c2f0725",
+        "canon": [
+          {
+            "entryId": "isaiah_son_of_amoz",
+            "stageId": "isaiah_son_of_amoz-1",
+            "version": "2968951d41e33bd4d20e4d15071e24e1"
+          },
+          {
+            "entryId": "seraphim",
+            "stageId": "seraphim-main",
+            "version": "df6b23fbd590939e0920f1f32e9d6a07"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7325
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        }
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "icon",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03447725,
+        "credits": 5,
+        "promptTokens": 1789,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "85a5455e0a62e58d6de24319c6f16a8746f8e69769fe343eb4265568a42b03e5",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "isaiah-6-2",
+        "sectionId": "isaiah-6-1",
+        "eraId": "monarchy-of-israel-and-judah",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "d1845d7362fae7b6ee3c076b6747e917",
+        "planVersion": "7c18e7f977452082e97d19019c2f0725",
+        "canon": [
+          {
+            "entryId": "isaiah_son_of_amoz",
+            "stageId": "isaiah_son_of_amoz-1",
+            "version": "2968951d41e33bd4d20e4d15071e24e1"
+          },
+          {
+            "entryId": "seraphim",
+            "stageId": "seraphim-main",
+            "version": "df6b23fbd590939e0920f1f32e9d6a07"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7154
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        }
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "icon",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0344845,
+        "credits": 5,
+        "promptTokens": 1818,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "28f00176473e4a68f228ebcb3c26ad774ec52e53ae8396fc2d3828164eb032a6",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "isaiah-6-2",
+        "sectionId": "isaiah-6-1",
+        "eraId": "monarchy-of-israel-and-judah",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "d1845d7362fae7b6ee3c076b6747e917",
+        "planVersion": "7c18e7f977452082e97d19019c2f0725",
+        "canon": [
+          {
+            "entryId": "isaiah_son_of_amoz",
+            "stageId": "isaiah_son_of_amoz-1",
+            "version": "2968951d41e33bd4d20e4d15071e24e1"
+          },
+          {
+            "entryId": "seraphim",
+            "stageId": "seraphim-main",
+            "version": "df6b23fbd590939e0920f1f32e9d6a07"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7272
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        }
+      ]
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "styleId": "icon",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0344845,
+        "credits": 5,
+        "promptTokens": 1818,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "4afd280ebd95a30f261190279cc2a0df1e204de2f115dc25c164ceedca7fb818",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "isaiah-6-2",
+        "sectionId": "isaiah-6-1",
+        "eraId": "monarchy-of-israel-and-judah",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "d1845d7362fae7b6ee3c076b6747e917",
+        "planVersion": "7c18e7f977452082e97d19019c2f0725",
+        "canon": [
+          {
+            "entryId": "isaiah_son_of_amoz",
+            "stageId": "isaiah_son_of_amoz-1",
+            "version": "2968951d41e33bd4d20e4d15071e24e1"
+          },
+          {
+            "entryId": "seraphim",
+            "stageId": "seraphim-main",
+            "version": "df6b23fbd590939e0920f1f32e9d6a07"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7272
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        }
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "classical",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.034764,
+        "credits": 5,
+        "promptTokens": 1816,
+        "referenceImages": 2,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "39723079e312a2821cbb632e2b8868601ae5bb212ed3821e944afb9391dbd34b",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "matthew-14-29",
+        "sectionId": "matthew-14-28",
+        "eraId": "roman-era-judea-galilee-and-the-early-church",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "aa8c61415035ccfef89fc5190fb2c505",
+        "planVersion": "c6697eab50aed24ce1f15643014292f7",
+        "canon": [
+          {
+            "entryId": "jesus_christ_the_son_of_god_and_lord",
+            "stageId": "adult",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "entryId": "simon_peter",
+            "stageId": "simon_peter",
+            "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+          },
+          {
+            "entryId": "the_twelve_disciples_collective",
+            "stageId": "the_twelve_disciples_collective_main",
+            "version": "e11e1543bc474368c11b38cbcb38fb87"
+          },
+          {
+            "entryId": "the_boat_matthew_s_sea_boat",
+            "stageId": "the_boat_matthew_s_sea_boat_main",
+            "version": "032a15679fdafc40c8ce25af0dde4c0b"
+          }
+        ],
+        "references": [
+          {
+            "kind": "sheet",
+            "id": "jesus_christ_the_son_of_god_and_lord:adult",
+            "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+            "version": "faeacb4c217a32a73a86082443a41d40",
+            "caption": "Image 1: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "simon_peter:simon_peter",
+            "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+            "version": "1e80e44fb6e82ece65cc6bd7f732a363",
+            "caption": "Image 2: Simon Peter's reference sheet (one figure shown in three views). Match its identity exactly for Simon Peter only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7264
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+          "bytes": 97907,
+          "sha256": "a3646205a13fb510d6aaf5d0800e2f61fccedcddccd9663b4d76e51c669475ce"
+        },
+        {
+          "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+          "bytes": 117900,
+          "sha256": "bb6f319514794761c473829772aa8690f025f5619acef098c6c934c5eaee0f33"
+        }
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "classical",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0347715,
+        "credits": 5,
+        "promptTokens": 1846,
+        "referenceImages": 2,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "01dd6c43221b1655023253e5b2333e1b8c6b11b0cdbec7ba30470317620b6270",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "matthew-14-29",
+        "sectionId": "matthew-14-28",
+        "eraId": "roman-era-judea-galilee-and-the-early-church",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "aa8c61415035ccfef89fc5190fb2c505",
+        "planVersion": "c6697eab50aed24ce1f15643014292f7",
+        "canon": [
+          {
+            "entryId": "jesus_christ_the_son_of_god_and_lord",
+            "stageId": "adult",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "entryId": "simon_peter",
+            "stageId": "simon_peter",
+            "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+          },
+          {
+            "entryId": "the_twelve_disciples_collective",
+            "stageId": "the_twelve_disciples_collective_main",
+            "version": "e11e1543bc474368c11b38cbcb38fb87"
+          },
+          {
+            "entryId": "the_boat_matthew_s_sea_boat",
+            "stageId": "the_boat_matthew_s_sea_boat_main",
+            "version": "032a15679fdafc40c8ce25af0dde4c0b"
+          }
+        ],
+        "references": [
+          {
+            "kind": "sheet",
+            "id": "jesus_christ_the_son_of_god_and_lord:adult",
+            "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+            "version": "faeacb4c217a32a73a86082443a41d40",
+            "caption": "Image 1: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "simon_peter:simon_peter",
+            "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+            "version": "1e80e44fb6e82ece65cc6bd7f732a363",
+            "caption": "Image 2: Simon Peter's reference sheet (one figure shown in three views). Match its identity exactly for Simon Peter only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7382
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+          "bytes": 97907,
+          "sha256": "a3646205a13fb510d6aaf5d0800e2f61fccedcddccd9663b4d76e51c669475ce"
+        },
+        {
+          "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+          "bytes": 117900,
+          "sha256": "bb6f319514794761c473829772aa8690f025f5619acef098c6c934c5eaee0f33"
+        }
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "classical",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0347715,
+        "credits": 5,
+        "promptTokens": 1846,
+        "referenceImages": 2,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "3f54385eb4cb92300d029f971ae59f3acf83ba354642d0acfa231988f031b9b1",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "matthew-14-29",
+        "sectionId": "matthew-14-28",
+        "eraId": "roman-era-judea-galilee-and-the-early-church",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "aa8c61415035ccfef89fc5190fb2c505",
+        "planVersion": "c6697eab50aed24ce1f15643014292f7",
+        "canon": [
+          {
+            "entryId": "jesus_christ_the_son_of_god_and_lord",
+            "stageId": "adult",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "entryId": "simon_peter",
+            "stageId": "simon_peter",
+            "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+          },
+          {
+            "entryId": "the_twelve_disciples_collective",
+            "stageId": "the_twelve_disciples_collective_main",
+            "version": "e11e1543bc474368c11b38cbcb38fb87"
+          },
+          {
+            "entryId": "the_boat_matthew_s_sea_boat",
+            "stageId": "the_boat_matthew_s_sea_boat_main",
+            "version": "032a15679fdafc40c8ce25af0dde4c0b"
+          }
+        ],
+        "references": [
+          {
+            "kind": "sheet",
+            "id": "jesus_christ_the_son_of_god_and_lord:adult",
+            "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+            "version": "faeacb4c217a32a73a86082443a41d40",
+            "caption": "Image 1: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "simon_peter:simon_peter",
+            "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+            "version": "1e80e44fb6e82ece65cc6bd7f732a363",
+            "caption": "Image 2: Simon Peter's reference sheet (one figure shown in three views). Match its identity exactly for Simon Peter only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7382
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+          "bytes": 97907,
+          "sha256": "a3646205a13fb510d6aaf5d0800e2f61fccedcddccd9663b4d76e51c669475ce"
+        },
+        {
+          "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+          "bytes": 117900,
+          "sha256": "bb6f319514794761c473829772aa8690f025f5619acef098c6c934c5eaee0f33"
+        }
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "watercolor",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03505475,
+        "credits": 5,
+        "promptTokens": 1859,
+        "referenceImages": 3,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "96ad7b03a7febee5ba494e9b35f99790cb42d5fd370e435b0ea2aff5372c283d",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "matthew-14-29",
+        "sectionId": "matthew-14-28",
+        "eraId": "roman-era-judea-galilee-and-the-early-church",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "aa8c61415035ccfef89fc5190fb2c505",
+        "planVersion": "c6697eab50aed24ce1f15643014292f7",
+        "canon": [
+          {
+            "entryId": "jesus_christ_the_son_of_god_and_lord",
+            "stageId": "adult",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "entryId": "simon_peter",
+            "stageId": "simon_peter",
+            "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+          },
+          {
+            "entryId": "the_twelve_disciples_collective",
+            "stageId": "the_twelve_disciples_collective_main",
+            "version": "e11e1543bc474368c11b38cbcb38fb87"
+          },
+          {
+            "entryId": "the_boat_matthew_s_sea_boat",
+            "stageId": "the_boat_matthew_s_sea_boat_main",
+            "version": "032a15679fdafc40c8ce25af0dde4c0b"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "jesus_christ_the_son_of_god_and_lord:adult",
+            "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+            "version": "faeacb4c217a32a73a86082443a41d40",
+            "caption": "Image 2: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "simon_peter:simon_peter",
+            "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+            "version": "1e80e44fb6e82ece65cc6bd7f732a363",
+            "caption": "Image 3: Simon Peter's reference sheet (one figure shown in three views). Match its identity exactly for Simon Peter only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7435
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        },
+        {
+          "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+          "bytes": 97907,
+          "sha256": "a3646205a13fb510d6aaf5d0800e2f61fccedcddccd9663b4d76e51c669475ce"
+        },
+        {
+          "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+          "bytes": 117900,
+          "sha256": "bb6f319514794761c473829772aa8690f025f5619acef098c6c934c5eaee0f33"
+        }
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "watercolor",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03506225,
+        "credits": 5,
+        "promptTokens": 1889,
+        "referenceImages": 3,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "b8b5993faa4d8c90f099eb86a37d00ea13bce500c94f1b200135bb29a81626bb",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "matthew-14-29",
+        "sectionId": "matthew-14-28",
+        "eraId": "roman-era-judea-galilee-and-the-early-church",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "aa8c61415035ccfef89fc5190fb2c505",
+        "planVersion": "c6697eab50aed24ce1f15643014292f7",
+        "canon": [
+          {
+            "entryId": "jesus_christ_the_son_of_god_and_lord",
+            "stageId": "adult",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "entryId": "simon_peter",
+            "stageId": "simon_peter",
+            "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+          },
+          {
+            "entryId": "the_twelve_disciples_collective",
+            "stageId": "the_twelve_disciples_collective_main",
+            "version": "e11e1543bc474368c11b38cbcb38fb87"
+          },
+          {
+            "entryId": "the_boat_matthew_s_sea_boat",
+            "stageId": "the_boat_matthew_s_sea_boat_main",
+            "version": "032a15679fdafc40c8ce25af0dde4c0b"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "jesus_christ_the_son_of_god_and_lord:adult",
+            "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+            "version": "faeacb4c217a32a73a86082443a41d40",
+            "caption": "Image 2: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "simon_peter:simon_peter",
+            "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+            "version": "1e80e44fb6e82ece65cc6bd7f732a363",
+            "caption": "Image 3: Simon Peter's reference sheet (one figure shown in three views). Match its identity exactly for Simon Peter only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7553
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        },
+        {
+          "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+          "bytes": 97907,
+          "sha256": "a3646205a13fb510d6aaf5d0800e2f61fccedcddccd9663b4d76e51c669475ce"
+        },
+        {
+          "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+          "bytes": 117900,
+          "sha256": "bb6f319514794761c473829772aa8690f025f5619acef098c6c934c5eaee0f33"
+        }
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "watercolor",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03506225,
+        "credits": 5,
+        "promptTokens": 1889,
+        "referenceImages": 3,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "0bad1f92ae77c6529d5e1042b01d7016de19e82f2d2a05cd36c478e77e9850e0",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "matthew-14-29",
+        "sectionId": "matthew-14-28",
+        "eraId": "roman-era-judea-galilee-and-the-early-church",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "aa8c61415035ccfef89fc5190fb2c505",
+        "planVersion": "c6697eab50aed24ce1f15643014292f7",
+        "canon": [
+          {
+            "entryId": "jesus_christ_the_son_of_god_and_lord",
+            "stageId": "adult",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "entryId": "simon_peter",
+            "stageId": "simon_peter",
+            "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+          },
+          {
+            "entryId": "the_twelve_disciples_collective",
+            "stageId": "the_twelve_disciples_collective_main",
+            "version": "e11e1543bc474368c11b38cbcb38fb87"
+          },
+          {
+            "entryId": "the_boat_matthew_s_sea_boat",
+            "stageId": "the_boat_matthew_s_sea_boat_main",
+            "version": "032a15679fdafc40c8ce25af0dde4c0b"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "jesus_christ_the_son_of_god_and_lord:adult",
+            "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+            "version": "faeacb4c217a32a73a86082443a41d40",
+            "caption": "Image 2: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "simon_peter:simon_peter",
+            "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+            "version": "1e80e44fb6e82ece65cc6bd7f732a363",
+            "caption": "Image 3: Simon Peter's reference sheet (one figure shown in three views). Match its identity exactly for Simon Peter only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7553
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        },
+        {
+          "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+          "bytes": 97907,
+          "sha256": "a3646205a13fb510d6aaf5d0800e2f61fccedcddccd9663b4d76e51c669475ce"
+        },
+        {
+          "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+          "bytes": 117900,
+          "sha256": "bb6f319514794761c473829772aa8690f025f5619acef098c6c934c5eaee0f33"
+        }
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "icon",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0350515,
+        "credits": 5,
+        "promptTokens": 1846,
+        "referenceImages": 3,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "edbeeb081f34b3d3c39e4a168208d4b8f192b6cff2a342bca5fa82a19bf307d9",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "matthew-14-29",
+        "sectionId": "matthew-14-28",
+        "eraId": "roman-era-judea-galilee-and-the-early-church",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "aa8c61415035ccfef89fc5190fb2c505",
+        "planVersion": "c6697eab50aed24ce1f15643014292f7",
+        "canon": [
+          {
+            "entryId": "jesus_christ_the_son_of_god_and_lord",
+            "stageId": "adult",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "entryId": "simon_peter",
+            "stageId": "simon_peter",
+            "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+          },
+          {
+            "entryId": "the_twelve_disciples_collective",
+            "stageId": "the_twelve_disciples_collective_main",
+            "version": "e11e1543bc474368c11b38cbcb38fb87"
+          },
+          {
+            "entryId": "the_boat_matthew_s_sea_boat",
+            "stageId": "the_boat_matthew_s_sea_boat_main",
+            "version": "032a15679fdafc40c8ce25af0dde4c0b"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "jesus_christ_the_son_of_god_and_lord:adult",
+            "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+            "version": "faeacb4c217a32a73a86082443a41d40",
+            "caption": "Image 2: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "simon_peter:simon_peter",
+            "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+            "version": "1e80e44fb6e82ece65cc6bd7f732a363",
+            "caption": "Image 3: Simon Peter's reference sheet (one figure shown in three views). Match its identity exactly for Simon Peter only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7382
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        },
+        {
+          "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+          "bytes": 97907,
+          "sha256": "a3646205a13fb510d6aaf5d0800e2f61fccedcddccd9663b4d76e51c669475ce"
+        },
+        {
+          "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+          "bytes": 117900,
+          "sha256": "bb6f319514794761c473829772aa8690f025f5619acef098c6c934c5eaee0f33"
+        }
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "icon",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03505875,
+        "credits": 5,
+        "promptTokens": 1875,
+        "referenceImages": 3,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "33012d49557a1029bd98808ca9f7fd36baf8b8b466f84f869f1c7f6d01c011a9",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "matthew-14-29",
+        "sectionId": "matthew-14-28",
+        "eraId": "roman-era-judea-galilee-and-the-early-church",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "aa8c61415035ccfef89fc5190fb2c505",
+        "planVersion": "c6697eab50aed24ce1f15643014292f7",
+        "canon": [
+          {
+            "entryId": "jesus_christ_the_son_of_god_and_lord",
+            "stageId": "adult",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "entryId": "simon_peter",
+            "stageId": "simon_peter",
+            "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+          },
+          {
+            "entryId": "the_twelve_disciples_collective",
+            "stageId": "the_twelve_disciples_collective_main",
+            "version": "e11e1543bc474368c11b38cbcb38fb87"
+          },
+          {
+            "entryId": "the_boat_matthew_s_sea_boat",
+            "stageId": "the_boat_matthew_s_sea_boat_main",
+            "version": "032a15679fdafc40c8ce25af0dde4c0b"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "jesus_christ_the_son_of_god_and_lord:adult",
+            "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+            "version": "faeacb4c217a32a73a86082443a41d40",
+            "caption": "Image 2: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "simon_peter:simon_peter",
+            "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+            "version": "1e80e44fb6e82ece65cc6bd7f732a363",
+            "caption": "Image 3: Simon Peter's reference sheet (one figure shown in three views). Match its identity exactly for Simon Peter only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7500
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        },
+        {
+          "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+          "bytes": 97907,
+          "sha256": "a3646205a13fb510d6aaf5d0800e2f61fccedcddccd9663b4d76e51c669475ce"
+        },
+        {
+          "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+          "bytes": 117900,
+          "sha256": "bb6f319514794761c473829772aa8690f025f5619acef098c6c934c5eaee0f33"
+        }
+      ]
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "styleId": "icon",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03505875,
+        "credits": 5,
+        "promptTokens": 1875,
+        "referenceImages": 3,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "e8431fff4c98c82db58544ef6a7c564a506a83ab1885b75328e4ce168f8ac302",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "matthew-14-29",
+        "sectionId": "matthew-14-28",
+        "eraId": "roman-era-judea-galilee-and-the-early-church",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "aa8c61415035ccfef89fc5190fb2c505",
+        "planVersion": "c6697eab50aed24ce1f15643014292f7",
+        "canon": [
+          {
+            "entryId": "jesus_christ_the_son_of_god_and_lord",
+            "stageId": "adult",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "entryId": "simon_peter",
+            "stageId": "simon_peter",
+            "version": "7c0c7ec43aa2e635d9cddd2ccae8e200"
+          },
+          {
+            "entryId": "the_twelve_disciples_collective",
+            "stageId": "the_twelve_disciples_collective_main",
+            "version": "e11e1543bc474368c11b38cbcb38fb87"
+          },
+          {
+            "entryId": "the_boat_matthew_s_sea_boat",
+            "stageId": "the_boat_matthew_s_sea_boat_main",
+            "version": "032a15679fdafc40c8ce25af0dde4c0b"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "jesus_christ_the_son_of_god_and_lord:adult",
+            "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+            "version": "faeacb4c217a32a73a86082443a41d40",
+            "caption": "Image 2: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "simon_peter:simon_peter",
+            "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+            "version": "1e80e44fb6e82ece65cc6bd7f732a363",
+            "caption": "Image 3: Simon Peter's reference sheet (one figure shown in three views). Match its identity exactly for Simon Peter only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7500
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        },
+        {
+          "storageId": "kg2b2q038x8b4tnhms5vwcg2x18gmejf",
+          "bytes": 97907,
+          "sha256": "a3646205a13fb510d6aaf5d0800e2f61fccedcddccd9663b4d76e51c669475ce"
+        },
+        {
+          "storageId": "kg22ctymxw84pb0aydkzn092f58gmm0g",
+          "bytes": 117900,
+          "sha256": "bb6f319514794761c473829772aa8690f025f5619acef098c6c934c5eaee0f33"
+        }
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "classical",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03416325,
+        "credits": 5,
+        "promptTokens": 1653,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "28502c71a150f2d73c9ce0ee0f3c09ba39e60522837c416e7a9005f113af4a33",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "revelation-4-6",
+        "sectionId": "revelation-4-6",
+        "eraId": "visionary-heaven-and-the-end-of-days",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "8d624cfc1cc148978c1e8f24a71510a8",
+        "planVersion": "802499ef3b04d1827339e0474d75d8ab",
+        "canon": [
+          {
+            "entryId": "john_the_seer_revelation",
+            "stageId": "john-seer",
+            "version": "0ee871475aa1ac1825d1ea2f0a30165b"
+          },
+          {
+            "entryId": "four_living_creatures_revelation",
+            "stageId": "four-living-creatures-revelation-main",
+            "version": "30fd780ba494602442640a9325096e9f"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6612
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": []
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "classical",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03417075,
+        "credits": 5,
+        "promptTokens": 1683,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "148238966b3d4629ea1f56f44d3e32590766d880b237e26723904af44981e018",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "revelation-4-6",
+        "sectionId": "revelation-4-6",
+        "eraId": "visionary-heaven-and-the-end-of-days",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "8d624cfc1cc148978c1e8f24a71510a8",
+        "planVersion": "802499ef3b04d1827339e0474d75d8ab",
+        "canon": [
+          {
+            "entryId": "john_the_seer_revelation",
+            "stageId": "john-seer",
+            "version": "0ee871475aa1ac1825d1ea2f0a30165b"
+          },
+          {
+            "entryId": "four_living_creatures_revelation",
+            "stageId": "four-living-creatures-revelation-main",
+            "version": "30fd780ba494602442640a9325096e9f"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6730
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": []
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "classical",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03417075,
+        "credits": 5,
+        "promptTokens": 1683,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "2e14c90c568d3f86661c6329621a4c754f008e3f369a477e7472c2307eba23ea",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "revelation-4-6",
+        "sectionId": "revelation-4-6",
+        "eraId": "visionary-heaven-and-the-end-of-days",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "8d624cfc1cc148978c1e8f24a71510a8",
+        "planVersion": "802499ef3b04d1827339e0474d75d8ab",
+        "canon": [
+          {
+            "entryId": "john_the_seer_revelation",
+            "stageId": "john-seer",
+            "version": "0ee871475aa1ac1825d1ea2f0a30165b"
+          },
+          {
+            "entryId": "four_living_creatures_revelation",
+            "stageId": "four-living-creatures-revelation-main",
+            "version": "30fd780ba494602442640a9325096e9f"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6730
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": []
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "watercolor",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.034467,
+        "credits": 5,
+        "promptTokens": 1748,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "e4cd033e1cb01cfc057a5abb49e3fca940492489a7e0effe567d9d3a3b4c9109",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "revelation-4-6",
+        "sectionId": "revelation-4-6",
+        "eraId": "visionary-heaven-and-the-end-of-days",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "8d624cfc1cc148978c1e8f24a71510a8",
+        "planVersion": "802499ef3b04d1827339e0474d75d8ab",
+        "canon": [
+          {
+            "entryId": "john_the_seer_revelation",
+            "stageId": "john-seer",
+            "version": "0ee871475aa1ac1825d1ea2f0a30165b"
+          },
+          {
+            "entryId": "four_living_creatures_revelation",
+            "stageId": "four-living-creatures-revelation-main",
+            "version": "30fd780ba494602442640a9325096e9f"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6990
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        }
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "watercolor",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03447425,
+        "credits": 5,
+        "promptTokens": 1777,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "b2e4c06bbe4097383b314b593a01a4024e691454ed89db1dc9de464610e69fc9",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "revelation-4-6",
+        "sectionId": "revelation-4-6",
+        "eraId": "visionary-heaven-and-the-end-of-days",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "8d624cfc1cc148978c1e8f24a71510a8",
+        "planVersion": "802499ef3b04d1827339e0474d75d8ab",
+        "canon": [
+          {
+            "entryId": "john_the_seer_revelation",
+            "stageId": "john-seer",
+            "version": "0ee871475aa1ac1825d1ea2f0a30165b"
+          },
+          {
+            "entryId": "four_living_creatures_revelation",
+            "stageId": "four-living-creatures-revelation-main",
+            "version": "30fd780ba494602442640a9325096e9f"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7108
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        }
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "watercolor",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03447425,
+        "credits": 5,
+        "promptTokens": 1777,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "635a43d6d51b7c582fd2cc4d9fa327ac85a3ce4d145a2ecee9c0c47697590a6f",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "revelation-4-6",
+        "sectionId": "revelation-4-6",
+        "eraId": "visionary-heaven-and-the-end-of-days",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "8d624cfc1cc148978c1e8f24a71510a8",
+        "planVersion": "802499ef3b04d1827339e0474d75d8ab",
+        "canon": [
+          {
+            "entryId": "john_the_seer_revelation",
+            "stageId": "john-seer",
+            "version": "0ee871475aa1ac1825d1ea2f0a30165b"
+          },
+          {
+            "entryId": "four_living_creatures_revelation",
+            "stageId": "four-living-creatures-revelation-main",
+            "version": "30fd780ba494602442640a9325096e9f"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7108
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        }
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "icon",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03446375,
+        "credits": 5,
+        "promptTokens": 1735,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "66f7fa232352753b059e9e08bf21ab1302dbe598e1c6a618fe670c447ed77883",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "revelation-4-6",
+        "sectionId": "revelation-4-6",
+        "eraId": "visionary-heaven-and-the-end-of-days",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "8d624cfc1cc148978c1e8f24a71510a8",
+        "planVersion": "802499ef3b04d1827339e0474d75d8ab",
+        "canon": [
+          {
+            "entryId": "john_the_seer_revelation",
+            "stageId": "john-seer",
+            "version": "0ee871475aa1ac1825d1ea2f0a30165b"
+          },
+          {
+            "entryId": "four_living_creatures_revelation",
+            "stageId": "four-living-creatures-revelation-main",
+            "version": "30fd780ba494602442640a9325096e9f"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6937
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        }
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "icon",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.034471,
+        "credits": 5,
+        "promptTokens": 1764,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "5e1db34e977af90c248a214da7670701d269d157c30812244182fd90531db1e5",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "revelation-4-6",
+        "sectionId": "revelation-4-6",
+        "eraId": "visionary-heaven-and-the-end-of-days",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "8d624cfc1cc148978c1e8f24a71510a8",
+        "planVersion": "802499ef3b04d1827339e0474d75d8ab",
+        "canon": [
+          {
+            "entryId": "john_the_seer_revelation",
+            "stageId": "john-seer",
+            "version": "0ee871475aa1ac1825d1ea2f0a30165b"
+          },
+          {
+            "entryId": "four_living_creatures_revelation",
+            "stageId": "four-living-creatures-revelation-main",
+            "version": "30fd780ba494602442640a9325096e9f"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7055
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        }
+      ]
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "styleId": "icon",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.034471,
+        "credits": 5,
+        "promptTokens": 1764,
+        "referenceImages": 1,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "3c37e83927fc757a031a9062b6c98190809a3a8cd4575f5738f1bade0befb34c",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "bible-web",
+        "momentId": "revelation-4-6",
+        "sectionId": "revelation-4-6",
+        "eraId": "visionary-heaven-and-the-end-of-days",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "8d624cfc1cc148978c1e8f24a71510a8",
+        "planVersion": "802499ef3b04d1827339e0474d75d8ab",
+        "canon": [
+          {
+            "entryId": "john_the_seer_revelation",
+            "stageId": "john-seer",
+            "version": "0ee871475aa1ac1825d1ea2f0a30165b"
+          },
+          {
+            "entryId": "four_living_creatures_revelation",
+            "stageId": "four-living-creatures-revelation-main",
+            "version": "30fd780ba494602442640a9325096e9f"
+          },
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7055
+        }
+      },
+      "formless": [
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "references": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        }
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "classical",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03476875,
+        "credits": 5,
+        "promptTokens": 1835,
+        "referenceImages": 2,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "4174befacd6210595714556f3254202763c6b682e7f15a0ee783a308ce86506d",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+        "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+        "canon": [
+          {
+            "entryId": "sherlock_holmes",
+            "stageId": "sherlock_holmes",
+            "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+          },
+          {
+            "entryId": "dr_watson",
+            "stageId": "dr_watson",
+            "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+          }
+        ],
+        "references": [
+          {
+            "kind": "sheet",
+            "id": "sherlock_holmes:sherlock_holmes",
+            "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+            "version": "5deeca4df0bf88ae15936ba5c803cb79",
+            "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "dr_watson:dr_watson",
+            "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+            "version": "c774094a856ccc250f32181234dacd76",
+            "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7337
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+          "bytes": 102167,
+          "sha256": "907ca40168fb8b786dd92b35658aac0fadc449ab7c5edce9a7e68bbfddd83669"
+        },
+        {
+          "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+          "bytes": 101881,
+          "sha256": "1704848f713dc15928c64dff0283e33b378ef6aadc92c81bc9999cf26a514640"
+        }
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "classical",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.034776,
+        "credits": 5,
+        "promptTokens": 1864,
+        "referenceImages": 2,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "f52033d92593f56367bd842bcd135466a704cd071e7f4a5ed96b9dc117a1fd5c",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+        "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+        "canon": [
+          {
+            "entryId": "sherlock_holmes",
+            "stageId": "sherlock_holmes",
+            "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+          },
+          {
+            "entryId": "dr_watson",
+            "stageId": "dr_watson",
+            "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+          }
+        ],
+        "references": [
+          {
+            "kind": "sheet",
+            "id": "sherlock_holmes:sherlock_holmes",
+            "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+            "version": "5deeca4df0bf88ae15936ba5c803cb79",
+            "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "dr_watson:dr_watson",
+            "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+            "version": "c774094a856ccc250f32181234dacd76",
+            "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7455
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+          "bytes": 102167,
+          "sha256": "907ca40168fb8b786dd92b35658aac0fadc449ab7c5edce9a7e68bbfddd83669"
+        },
+        {
+          "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+          "bytes": 101881,
+          "sha256": "1704848f713dc15928c64dff0283e33b378ef6aadc92c81bc9999cf26a514640"
+        }
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "classical",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.034776,
+        "credits": 5,
+        "promptTokens": 1864,
+        "referenceImages": 2,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "3ea798bfe0588bf86e5811d86fffb0077dcb93769bc397da1759109e0d4e98e6",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+        "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+        "canon": [
+          {
+            "entryId": "sherlock_holmes",
+            "stageId": "sherlock_holmes",
+            "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+          },
+          {
+            "entryId": "dr_watson",
+            "stageId": "dr_watson",
+            "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+          }
+        ],
+        "references": [
+          {
+            "kind": "sheet",
+            "id": "sherlock_holmes:sherlock_holmes",
+            "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+            "version": "5deeca4df0bf88ae15936ba5c803cb79",
+            "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "dr_watson:dr_watson",
+            "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+            "version": "c774094a856ccc250f32181234dacd76",
+            "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7455
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+          "bytes": 102167,
+          "sha256": "907ca40168fb8b786dd92b35658aac0fadc449ab7c5edce9a7e68bbfddd83669"
+        },
+        {
+          "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+          "bytes": 101881,
+          "sha256": "1704848f713dc15928c64dff0283e33b378ef6aadc92c81bc9999cf26a514640"
+        }
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "watercolor",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03505925,
+        "credits": 5,
+        "promptTokens": 1877,
+        "referenceImages": 3,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "6e782d7d25bf84ca6c3f5aa6df37052431e4d8a307601f49dc0ba2bae3841a3a",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+        "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+        "canon": [
+          {
+            "entryId": "sherlock_holmes",
+            "stageId": "sherlock_holmes",
+            "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+          },
+          {
+            "entryId": "dr_watson",
+            "stageId": "dr_watson",
+            "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg20paet0rmgsjt0y7ar3wrd398gnc3s",
+            "version": "3eda749bc6991072eba06b73136d75af",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "sherlock_holmes:sherlock_holmes",
+            "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+            "version": "5deeca4df0bf88ae15936ba5c803cb79",
+            "caption": "Image 2: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "dr_watson:dr_watson",
+            "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+            "version": "c774094a856ccc250f32181234dacd76",
+            "caption": "Image 3: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7508
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg20paet0rmgsjt0y7ar3wrd398gnc3s",
+          "bytes": 359561,
+          "sha256": "cff7298326fdde848d3b3e0c24e368d2b9710aa4c00866206aa32c3e4cfeae5b"
+        },
+        {
+          "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+          "bytes": 102167,
+          "sha256": "907ca40168fb8b786dd92b35658aac0fadc449ab7c5edce9a7e68bbfddd83669"
+        },
+        {
+          "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+          "bytes": 101881,
+          "sha256": "1704848f713dc15928c64dff0283e33b378ef6aadc92c81bc9999cf26a514640"
+        }
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "watercolor",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03506675,
+        "credits": 5,
+        "promptTokens": 1907,
+        "referenceImages": 3,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "ff49aabccb2977d61d87c83fb52a9022ef51880a1d7c28b51938c6c93cdd4ebf",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+        "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+        "canon": [
+          {
+            "entryId": "sherlock_holmes",
+            "stageId": "sherlock_holmes",
+            "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+          },
+          {
+            "entryId": "dr_watson",
+            "stageId": "dr_watson",
+            "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg20paet0rmgsjt0y7ar3wrd398gnc3s",
+            "version": "3eda749bc6991072eba06b73136d75af",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "sherlock_holmes:sherlock_holmes",
+            "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+            "version": "5deeca4df0bf88ae15936ba5c803cb79",
+            "caption": "Image 2: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "dr_watson:dr_watson",
+            "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+            "version": "c774094a856ccc250f32181234dacd76",
+            "caption": "Image 3: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7626
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg20paet0rmgsjt0y7ar3wrd398gnc3s",
+          "bytes": 359561,
+          "sha256": "cff7298326fdde848d3b3e0c24e368d2b9710aa4c00866206aa32c3e4cfeae5b"
+        },
+        {
+          "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+          "bytes": 102167,
+          "sha256": "907ca40168fb8b786dd92b35658aac0fadc449ab7c5edce9a7e68bbfddd83669"
+        },
+        {
+          "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+          "bytes": 101881,
+          "sha256": "1704848f713dc15928c64dff0283e33b378ef6aadc92c81bc9999cf26a514640"
+        }
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "watercolor",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03506675,
+        "credits": 5,
+        "promptTokens": 1907,
+        "referenceImages": 3,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "bb6c9fa2af92fb9703f5c0e445319186701c57a053adfcac470af95d1b64ba08",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+        "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+        "canon": [
+          {
+            "entryId": "sherlock_holmes",
+            "stageId": "sherlock_holmes",
+            "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+          },
+          {
+            "entryId": "dr_watson",
+            "stageId": "dr_watson",
+            "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg20paet0rmgsjt0y7ar3wrd398gnc3s",
+            "version": "3eda749bc6991072eba06b73136d75af",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "sherlock_holmes:sherlock_holmes",
+            "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+            "version": "5deeca4df0bf88ae15936ba5c803cb79",
+            "caption": "Image 2: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "dr_watson:dr_watson",
+            "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+            "version": "c774094a856ccc250f32181234dacd76",
+            "caption": "Image 3: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7626
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg20paet0rmgsjt0y7ar3wrd398gnc3s",
+          "bytes": 359561,
+          "sha256": "cff7298326fdde848d3b3e0c24e368d2b9710aa4c00866206aa32c3e4cfeae5b"
+        },
+        {
+          "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+          "bytes": 102167,
+          "sha256": "907ca40168fb8b786dd92b35658aac0fadc449ab7c5edce9a7e68bbfddd83669"
+        },
+        {
+          "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+          "bytes": 101881,
+          "sha256": "1704848f713dc15928c64dff0283e33b378ef6aadc92c81bc9999cf26a514640"
+        }
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "icon",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.035056,
+        "credits": 5,
+        "promptTokens": 1864,
+        "referenceImages": 3,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "b85af3ab2fbf7a225251ffd4a9534f3811788bd7b368bd013db0bcfe1b23f5e0",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+        "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+        "canon": [
+          {
+            "entryId": "sherlock_holmes",
+            "stageId": "sherlock_holmes",
+            "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+          },
+          {
+            "entryId": "dr_watson",
+            "stageId": "dr_watson",
+            "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg23gn6ajrvv99payt346tcjks8gn6qz",
+            "version": "ca4b97b994ea1284b4b34731122c8965",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "sherlock_holmes:sherlock_holmes",
+            "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+            "version": "5deeca4df0bf88ae15936ba5c803cb79",
+            "caption": "Image 2: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "dr_watson:dr_watson",
+            "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+            "version": "c774094a856ccc250f32181234dacd76",
+            "caption": "Image 3: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7455
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg23gn6ajrvv99payt346tcjks8gn6qz",
+          "bytes": 318681,
+          "sha256": "1d3c6646faea2a8f657a5534f43d0990b0dfc914760eae820f55182259c320bf"
+        },
+        {
+          "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+          "bytes": 102167,
+          "sha256": "907ca40168fb8b786dd92b35658aac0fadc449ab7c5edce9a7e68bbfddd83669"
+        },
+        {
+          "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+          "bytes": 101881,
+          "sha256": "1704848f713dc15928c64dff0283e33b378ef6aadc92c81bc9999cf26a514640"
+        }
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "icon",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0350635,
+        "credits": 5,
+        "promptTokens": 1894,
+        "referenceImages": 3,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "901287d5fc7c5457fb70a56cc606820f62827a77fd8ec3f8f665028e3b8b5a47",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+        "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+        "canon": [
+          {
+            "entryId": "sherlock_holmes",
+            "stageId": "sherlock_holmes",
+            "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+          },
+          {
+            "entryId": "dr_watson",
+            "stageId": "dr_watson",
+            "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg23gn6ajrvv99payt346tcjks8gn6qz",
+            "version": "ca4b97b994ea1284b4b34731122c8965",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "sherlock_holmes:sherlock_holmes",
+            "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+            "version": "5deeca4df0bf88ae15936ba5c803cb79",
+            "caption": "Image 2: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "dr_watson:dr_watson",
+            "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+            "version": "c774094a856ccc250f32181234dacd76",
+            "caption": "Image 3: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7573
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg23gn6ajrvv99payt346tcjks8gn6qz",
+          "bytes": 318681,
+          "sha256": "1d3c6646faea2a8f657a5534f43d0990b0dfc914760eae820f55182259c320bf"
+        },
+        {
+          "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+          "bytes": 102167,
+          "sha256": "907ca40168fb8b786dd92b35658aac0fadc449ab7c5edce9a7e68bbfddd83669"
+        },
+        {
+          "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+          "bytes": 101881,
+          "sha256": "1704848f713dc15928c64dff0283e33b378ef6aadc92c81bc9999cf26a514640"
+        }
+      ]
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "styleId": "icon",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0350635,
+        "credits": 5,
+        "promptTokens": 1894,
+        "referenceImages": 3,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "32fdbf7a56835abfb5a3d8a265e768d7a8ed3a97e50a0fc723919374bb815d0e",
+      "packet": {
+        "promptVersion": "2026-10-21-generic-v3",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+        "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+        "canon": [
+          {
+            "entryId": "sherlock_holmes",
+            "stageId": "sherlock_holmes",
+            "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+          },
+          {
+            "entryId": "dr_watson",
+            "stageId": "dr_watson",
+            "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg23gn6ajrvv99payt346tcjks8gn6qz",
+            "version": "ca4b97b994ea1284b4b34731122c8965",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          },
+          {
+            "kind": "sheet",
+            "id": "sherlock_holmes:sherlock_holmes",
+            "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+            "version": "5deeca4df0bf88ae15936ba5c803cb79",
+            "caption": "Image 2: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "dr_watson:dr_watson",
+            "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+            "version": "c774094a856ccc250f32181234dacd76",
+            "caption": "Image 3: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7573
+        }
+      },
+      "formless": [],
+      "references": [
+        {
+          "storageId": "kg23gn6ajrvv99payt346tcjks8gn6qz",
+          "bytes": 318681,
+          "sha256": "1d3c6646faea2a8f657a5534f43d0990b0dfc914760eae820f55182259c320bf"
+        },
+        {
+          "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+          "bytes": 102167,
+          "sha256": "907ca40168fb8b786dd92b35658aac0fadc449ab7c5edce9a7e68bbfddd83669"
+        },
+        {
+          "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+          "bytes": 101881,
+          "sha256": "1704848f713dc15928c64dff0283e33b378ef6aadc92c81bc9999cf26a514640"
+        }
+      ]
+    }
+  ],
+  "failures": [
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "classical",
+      "n": 1,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "classical",
+      "n": 2,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "classical",
+      "n": 3,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "watercolor",
+      "n": 1,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "watercolor",
+      "n": 2,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "watercolor",
+      "n": 3,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "icon",
+      "n": 1,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "icon",
+      "n": 2,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "styleId": "icon",
+      "n": 3,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "classical",
+      "n": 1,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "classical",
+      "n": 2,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "classical",
+      "n": 3,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "watercolor",
+      "n": 1,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "watercolor",
+      "n": 2,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "watercolor",
+      "n": 3,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "icon",
+      "n": 1,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "icon",
+      "n": 2,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "icon",
+      "n": 3,
+      "reason": "preparation",
+      "message": "Scene preparation failed.",
+      "error": "Error: Read-only preflight forbids preparation writes"
+    }
+  ]
+}
