@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "defaults": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K",
+    "translation": "web"
+  },
+  "cases": [
+    {
+      "id": "daniel-7-9-ancient-of-days",
+      "reference": "Daniel 7:9",
+      "genre": "symbolic",
+      "expected": "A throne of flames with burning wheels, white garments, hair like wool; visionary, not a portrait.",
+      "tags": [
+        "symbolic"
+      ]
+    }
+  ]
+}

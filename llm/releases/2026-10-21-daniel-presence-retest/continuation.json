@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-21T18:20:17.314269+00:00",
+  "reason": "Local guard required explicit image_size, but the production adapter omits it for fixed-1K Lite. All nine attempts were rejected locally before any image call. Continue once with cached plan and default-1K guard; no image rerender or semantic replan.",
+  "initialRun": "release-2026-10-21-v3-daniel-presence",
+  "run": "release-2026-10-21-v3-daniel-presence-images",
+  "maximumImageCalls": 9,
+  "maximumPreparationCalls": 0,
+  "alreadyMeasuredUsd": 0.0003437,
+  "remainingSubcapUsd": 0.3996563,
+  "noNewAuthorization": true,
+  "sourceFiles": {
+    "llm/releases/2026-10-21-daniel-presence-retest/resume-images.mts": "ba9d4c223f1391808c5e5c5c314a2227ac6bf3c40434a1559dce137c9c0fc8e6"
+  }
+}
