@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-21T00:36:08.931Z",
+  "completed": 15,
+  "failed": 1,
+  "correct": 15,
+  "incorrect": 0,
+  "imageGenerationCalls": 0,
+  "measuredCalibrationUsd": 0.003912,
+  "reservedCalibrationUncertaintyUsd": 0.005,
+  "preparationMeasuredUsd": 3.6351192,
+  "smokeMeasuredUsd": 0.0685215,
+  "evaluationPreviouslyMeasuredUsd": 6.46915215,
+  "evaluationMeasuredUsd": 6.47306415,
+  "evaluationAuthorizedUsd": 16,
+  "evaluationUncertaintyUsd": 0.045,
+  "evaluationRemainingAfterUncertaintyUsd": 9.481935850000001,
+  "renderingTrial": {
+    "status": "unexecuted",
+    "images": 9,
+    "estimatedUsd": 0.324,
+    "subcapUsd": 0.35,
+    "styleFile": "evals/images/style-trials/watercolor-full-frame.json",
+    "styleSha256": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+    "registeredStyleSha256": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65"
+  },
+  "note": "Five retained images, three completed vision checks each; one rejected MIME request retained separately. The additional $0.005 reserve is conservative, not measured usage. No account purchase, reference mutation, image generation or public activation. Original production budget summary is retained unchanged."
+}
