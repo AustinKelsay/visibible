@@ -20,7 +20,7 @@ export const lookOutputSchema = z.object({ place: z.string(), timeOfDay: z.strin
 export const PLAN_SYSTEM = `You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the cast on stage in the section. Plan one single scene that depicts this moment. Return only JSON.
 Rules: single scene, no collage. Choose which of the listed cast are present in this moment and name them in \`present\` by their ids; leave out cast who are elsewhere in the section. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that) and do not name an art style or rendering technique; describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.`;
 /** Bump for changes to this no-form planning contract or its cast format; only affected plans use it. */
-export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-21-formless-presence-v2";
+export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-21-formless-presence-v3";
 const FORMLESS_PLAN_SYSTEM = `${PLAN_SYSTEM}
 Presence does not require a physical body. A cast entry marked hasForm: false still belongs in the moment when represented through the non-figurative presence allowed by the brief and its supplied canon constraints. If you describe that entry's presence or action in any scene field, include its id in \`present\` so its canon constraints reach the image model. Select presence for this moment only; do not add cast who are absent or merely mentioned.
 For each no-form subject, use its assigned canon to choose the permitted visible effects and their placement in the setting. Bodily wording about that subject in the source is a metaphor, not permission to give it a physical form. In every scene field, describe the permitted effects rather than bodily poses, anatomy, clothing, human silhouettes or figures made of light. Do not repeat prohibited features as denials or substitutes, such as a faceless figure or radiance suggesting garments. When the source describes a no-form subject as seated, describe the unoccupied seat and the permitted surrounding effects rather than a seated presence. Keep formed characters' own poses, clothing and actions; never transfer a no-form subject's bodily metaphors to them. Use the canon as constraints, without copying its fixed description into the plan.`;
@@ -28,6 +28,23 @@ export const planOutputSchema = z.object({
   present: z.array(z.string()),
   primarySubject: z.string(), action: z.string(), setting: z.string(), secondaryElements: z.string(), mood: z.string(), timeOfDay: z.string(), composition: z.string(),
 }).strict();
+
+/** Structure is validated; the field descriptions guide the model but cannot validate depiction semantics. */
+function formlessPlanOutputSchema(entryIds: string[]) {
+  // Anthropic rejects maxLength in a raw output schema. Keep the limit in descriptions and
+  // local validation; Zod refinements are not emitted by responseSchema's JSON conversion.
+  const field = (description: string) => z.string().refine((text) => text.length <= 220, "Must be at most 220 characters").describe(`${description} At most 220 characters.`);
+  return z.object({
+    present: z.array(z.enum(entryIds)).describe("IDs of section cast present in this moment, including no-form subjects represented through their permitted effects. Leave out cast who are elsewhere or merely mentioned."),
+    primarySubject: field("The main subject's visible effect and placement, or a formed character's situational pose. For a seated no-form metaphor, describe an unoccupied seat with permitted effects around it. Example: light spreading above an unoccupied seat; the witness looks up. Use canon as constraints rather than restating fixed appearance."),
+    action: field("What formed characters do and how permitted environmental effects move or change in this moment. Keep formed characters' own actions and any situational clothing attached to them."),
+    setting: field("The physical place, surfaces and surroundings of this single scene, consistent with the section look and era."),
+    secondaryElements: field("Supporting people, props and permitted environmental effects with their placement. Describe effects directly rather than using bodily or garment substitutes for a no-form subject."),
+    mood: field("The emotional atmosphere of this moment, conveyed through the setting and formed characters' reactions."),
+    timeOfDay: field("This moment's time of day and situational illumination, consistent with the section look."),
+    composition: field("Viewpoint, framing and relative placement of formed subjects, objects and permitted effects in one scene. Keep this independent of art style and rendering technique."),
+  }).strict();
+}
 
 export type AnalysisRecord = { kind: string; recordId: string; version: string; inputs: Array<{ kind: string; recordId: string; version: string }>; payload: Record<string, unknown> & { kind: string } };
 export type InputRef = { kind: string; recordId: string; version: string };
@@ -194,7 +211,8 @@ export async function prepareMoment(options: {
       ? `\n\nNO-FORM CANON CONSTRAINTS (planning context; fixed descriptions are not scene-plan fields):\n${cast.filter((c) => !c.hasForm).map((c) => `- ${c.entryId} (stage: ${c.stageId}): ${c.text}`).join("\n")}`
       : "";
     const user = `WORK BRIEF\nTone: ${brief.tone}\nDepiction rules:\n${rules}\nEra: ${era.label}. People: ${era.people} Dress: ${era.dress} Technology: ${era.technology}\nSTORY SECTION: ${sectionPayload.title}\nSECTION LOOK: place: ${lookPayload.place}; time: ${lookPayload.timeOfDay}; weather: ${lookPayload.weather}; light: ${lookPayload.light}; clothing: ${lookPayload.clothing}\nCAST ON STAGE IN THIS SECTION (id: name):\n${cast.map((c) => `- ${c.entryId}: ${c.name}${hasFormlessCast ? ` (hasForm: ${c.hasForm})` : ""}`).join("\n") || "- (no one listed)"}${formlessCanon}\n\nMOMENT (${options.context.moment.reference}): ${options.context.moment.text}\nPREVIOUS: ${options.context.previous?.text.slice(0, 400) ?? "(section starts here)"}\nNEXT: ${options.context.next?.text.slice(0, 400) ?? "(section ends here)"}`;
-    const value = await askOnce(model, store, "plan", options.momentId, planOutputSchema, hasFormlessCast ? FORMLESS_PLAN_SYSTEM : PLAN_SYSTEM, user);
+    const schema = hasFormlessCast ? formlessPlanOutputSchema(cast.map((c) => c.entryId)) : planOutputSchema;
+    const value = await askOnce(model, store, "plan", options.momentId, schema, hasFormlessCast ? FORMLESS_PLAN_SYSTEM : PLAN_SYSTEM, user);
     const known = new Set(cast.map((c) => c.entryId));
     const present = value.present.filter((id) => known.has(id));
     const { present: _ignored, ...fields } = value;
