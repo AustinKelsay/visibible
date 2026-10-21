@@ -1,0 +1,497 @@
+{
+  "at": "2026-10-21T01:07:56.894Z",
+  "status": "read-only assembly; no images rendered",
+  "paidCalls": 0,
+  "mutations": 0,
+  "trialVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+  "quotedProviderUsd": 0.30917775,
+  "targetedCapUsd": 0.35,
+  "packets": [
+    {
+      "caseId": "genesis-1-3-light",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.034102,
+        "credits": 5,
+        "promptTokens": 1408,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "d783cc6fa74bdeb2355ebc0a8b903636b083cf92a6259bba9e6076ec670cd62d",
+      "packet": {
+        "promptVersion": "2026-10-20-generic-v2",
+        "workId": "bible-web",
+        "momentId": "genesis-1-3",
+        "sectionId": "genesis-1-1",
+        "eraId": "primeval-and-patriarchal-ancient-near-east",
+        "styleId": "watercolor",
+        "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "b1a4744d5b68afe473bf0e9550a8b459",
+        "planVersion": "4a38b2a4bcd49ef107465dacd3821e28",
+        "canon": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 5631
+        }
+      }
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0341095,
+        "credits": 5,
+        "promptTokens": 1438,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "4bb36042b1fc2d8c4d0ba79745363074fbe9fa444d97181c5ba9b304f38d5b9f",
+      "packet": {
+        "promptVersion": "2026-10-20-generic-v2",
+        "workId": "bible-web",
+        "momentId": "genesis-1-3",
+        "sectionId": "genesis-1-1",
+        "eraId": "primeval-and-patriarchal-ancient-near-east",
+        "styleId": "watercolor",
+        "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "b1a4744d5b68afe473bf0e9550a8b459",
+        "planVersion": "4a38b2a4bcd49ef107465dacd3821e28",
+        "canon": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 5749
+        }
+      }
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0341095,
+        "credits": 5,
+        "promptTokens": 1438,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "6e7aa58064be2ba2aeb88da016214a87858bab487c87370bfdc9ee119c75215d",
+      "packet": {
+        "promptVersion": "2026-10-20-generic-v2",
+        "workId": "bible-web",
+        "momentId": "genesis-1-3",
+        "sectionId": "genesis-1-1",
+        "eraId": "primeval-and-patriarchal-ancient-near-east",
+        "styleId": "watercolor",
+        "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "b1a4744d5b68afe473bf0e9550a8b459",
+        "planVersion": "4a38b2a4bcd49ef107465dacd3821e28",
+        "canon": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 5749
+        }
+      }
+    },
+    {
+      "caseId": "job-38-4-foundations",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03414975,
+        "credits": 5,
+        "promptTokens": 1599,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "b2b584a676e548e0e9f08eff1b601b74b5eb0dfe24ebd71a7f824823dccca98d",
+      "packet": {
+        "promptVersion": "2026-10-20-generic-v2",
+        "workId": "bible-web",
+        "momentId": "job-38-4",
+        "sectionId": "job-38-1",
+        "eraId": "monarchy-of-israel-and-judah",
+        "styleId": "watercolor",
+        "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "340b060d6fa52782261325a5b368df19",
+        "planVersion": "df160f3865081f5b2b018c702a8005b4",
+        "canon": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          },
+          {
+            "entryId": "job",
+            "stageId": "job-main",
+            "version": "99bfbafebcaa299dfe95e056b07ff992"
+          },
+          {
+            "entryId": "the_whirlwind",
+            "stageId": "the_whirlwind",
+            "version": "921b66091c54ad4e5debe6b1b6b5e9cd"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6395
+        }
+      }
+    },
+    {
+      "caseId": "job-38-4-foundations",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03415725,
+        "credits": 5,
+        "promptTokens": 1629,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "5a4ec7bdcc98ebf0d6be474a06a7672c499df1c2a0d03b20ba65c2274221a5d6",
+      "packet": {
+        "promptVersion": "2026-10-20-generic-v2",
+        "workId": "bible-web",
+        "momentId": "job-38-4",
+        "sectionId": "job-38-1",
+        "eraId": "monarchy-of-israel-and-judah",
+        "styleId": "watercolor",
+        "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "340b060d6fa52782261325a5b368df19",
+        "planVersion": "df160f3865081f5b2b018c702a8005b4",
+        "canon": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          },
+          {
+            "entryId": "job",
+            "stageId": "job-main",
+            "version": "99bfbafebcaa299dfe95e056b07ff992"
+          },
+          {
+            "entryId": "the_whirlwind",
+            "stageId": "the_whirlwind",
+            "version": "921b66091c54ad4e5debe6b1b6b5e9cd"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6513
+        }
+      }
+    },
+    {
+      "caseId": "job-38-4-foundations",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.03415725,
+        "credits": 5,
+        "promptTokens": 1629,
+        "referenceImages": 0,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "369ea7935e0a689ec760ea0adc339ea915f5ee3c0a3208466968989bac19e2bc",
+      "packet": {
+        "promptVersion": "2026-10-20-generic-v2",
+        "workId": "bible-web",
+        "momentId": "job-38-4",
+        "sectionId": "job-38-1",
+        "eraId": "monarchy-of-israel-and-judah",
+        "styleId": "watercolor",
+        "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "340b060d6fa52782261325a5b368df19",
+        "planVersion": "df160f3865081f5b2b018c702a8005b4",
+        "canon": [
+          {
+            "entryId": "god_yahweh_the_father_and_god_of_israel",
+            "stageId": "god_yahweh_the_father_stage_1",
+            "version": "0f49ada61c15185ddb3913aecc959f8a"
+          },
+          {
+            "entryId": "job",
+            "stageId": "job-main",
+            "version": "99bfbafebcaa299dfe95e056b07ff992"
+          },
+          {
+            "entryId": "the_whirlwind",
+            "stageId": "the_whirlwind",
+            "version": "921b66091c54ad4e5debe6b1b6b5e9cd"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6513
+        }
+      }
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "n": 1,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0347925,
+        "credits": 5,
+        "promptTokens": 1930,
+        "referenceImages": 2,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "0bd527e35814c4eb368457393d1f9453f25f80b953f2beb91adf746fcd51a56c",
+      "packet": {
+        "promptVersion": "2026-10-20-generic-v2",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+        "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+        "canon": [
+          {
+            "entryId": "sherlock_holmes",
+            "stageId": "sherlock_holmes",
+            "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+          },
+          {
+            "entryId": "dr_watson",
+            "stageId": "dr_watson",
+            "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+          }
+        ],
+        "references": [
+          {
+            "kind": "sheet",
+            "id": "sherlock_holmes:sherlock_holmes",
+            "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+            "version": "5deeca4df0bf88ae15936ba5c803cb79",
+            "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "dr_watson:dr_watson",
+            "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+            "version": "c774094a856ccc250f32181234dacd76",
+            "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7719
+        }
+      }
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "n": 2,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0348,
+        "credits": 5,
+        "promptTokens": 1960,
+        "referenceImages": 2,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "d9c5d47cccdc7473970680ca6ca3528273c6187739420851f69755179187d108",
+      "packet": {
+        "promptVersion": "2026-10-20-generic-v2",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+        "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+        "canon": [
+          {
+            "entryId": "sherlock_holmes",
+            "stageId": "sherlock_holmes",
+            "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+          },
+          {
+            "entryId": "dr_watson",
+            "stageId": "dr_watson",
+            "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+          }
+        ],
+        "references": [
+          {
+            "kind": "sheet",
+            "id": "sherlock_holmes:sherlock_holmes",
+            "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+            "version": "5deeca4df0bf88ae15936ba5c803cb79",
+            "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "dr_watson:dr_watson",
+            "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+            "version": "c774094a856ccc250f32181234dacd76",
+            "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7837
+        }
+      }
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "n": 3,
+      "preparationCalls": 0,
+      "quote": {
+        "providerUsd": 0.0348,
+        "credits": 5,
+        "promptTokens": 1960,
+        "referenceImages": 2,
+        "outputTokens": 1120,
+        "withinEnvelope": true
+      },
+      "promptSha256": "3146bad12c1baef1327c130b40172c48fd0ec2620856d430264076e41893f949",
+      "packet": {
+        "promptVersion": "2026-10-20-generic-v2",
+        "workId": "holmes-adventures",
+        "momentId": "a-scandal-in-bohemia-1-1",
+        "sectionId": "a-scandal-in-bohemia-1-1",
+        "eraId": "late-victorian-england-1880s-to-1890s",
+        "styleId": "watercolor",
+        "styleVersion": "27d726fe9919b5f6b987de21368bc64889068468bd86f1fe1a0b4e57067425a5",
+        "briefVersion": "0629cbbfdeab31372b70d95533e464d7547c346114e2257373cd9018f56f1f71",
+        "lookVersion": "2ca4eeb8164fad73b7ac81d06437422c",
+        "planVersion": "ec880fe3f092a1a473d1297bffdbd30f",
+        "canon": [
+          {
+            "entryId": "sherlock_holmes",
+            "stageId": "sherlock_holmes",
+            "version": "de6edd15d8ff5a046e79717d7ee0a1c1"
+          },
+          {
+            "entryId": "dr_watson",
+            "stageId": "dr_watson",
+            "version": "da3d001dd7aaf684b8cefcc596ca15c9"
+          }
+        ],
+        "references": [
+          {
+            "kind": "sheet",
+            "id": "sherlock_holmes:sherlock_holmes",
+            "storageId": "kg29nxwpan975fg6h4jtttedhd8gm6s1",
+            "version": "5deeca4df0bf88ae15936ba5c803cb79",
+            "caption": "Image 1: Sherlock Holmes's reference sheet (one figure shown in three views). Match its identity exactly for Sherlock Holmes only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          },
+          {
+            "kind": "sheet",
+            "id": "dr_watson:dr_watson",
+            "storageId": "kg27nfwyq2ym82kn5h7s2yz6hs8gm1cp",
+            "version": "c774094a856ccc250f32181234dacd76",
+            "caption": "Image 2: Dr. Watson's reference sheet (one figure shown in three views). Match its identity exactly for Dr. Watson only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing."
+          }
+        ],
+        "flags": {
+          "variationIncluded": true,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7837
+        }
+      }
+    }
+  ]
+}

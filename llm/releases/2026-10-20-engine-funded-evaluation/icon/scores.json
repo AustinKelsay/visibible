@@ -1,0 +1,604 @@
+{
+  "run": "release-2026-10-20-v2-icon",
+  "dimensions": {
+    "legacy": [
+      "relevance",
+      "clarity",
+      "artifacts_style"
+    ],
+    "generic": [
+      "relevance",
+      "identity",
+      "continuity",
+      "style",
+      "artifacts"
+    ]
+  },
+  "scale": "0 materially fails, 1 incomplete or mildly off, 2 meets",
+  "verdicts": [
+    "pass",
+    "accepted limitation",
+    "fail"
+  ],
+  "rules": "An observed depiction-rule or prohibited-likeness violation is a fail whatever the scores. A known Icon border may be recorded as an accepted limitation, never averaged away.",
+  "rows": [
+    {
+      "caseId": "genesis-1-3-light",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/genesis-1-3-light/generic-icon-1.jpg",
+        "outputs/genesis-1-3-light/generic-icon-2.jpg",
+        "outputs/genesis-1-3-light/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Light over dark waters; no unambiguous human deity observed at contact-sheet scale."
+    },
+    {
+      "caseId": "genesis-5-5-adam-days",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/genesis-5-5-adam-days/generic-icon-1.jpg",
+        "outputs/genesis-5-5-adam-days/generic-icon-2.jpg",
+        "outputs/genesis-5-5-adam-days/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Elderly Adam and family grief; restrained death scene."
+    },
+    {
+      "caseId": "genesis-19-24-sodom",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/genesis-19-24-sodom/generic-icon-1.jpg",
+        "outputs/genesis-19-24-sodom/generic-icon-2.jpg",
+        "outputs/genesis-19-24-sodom/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Burning cities and fleeing figures; no literal human deity observed."
+    },
+    {
+      "caseId": "genesis-22-10-abraham-knife",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/genesis-22-10-abraham-knife/generic-icon-1.jpg",
+        "outputs/genesis-22-10-abraham-knife/generic-icon-2.jpg",
+        "outputs/genesis-22-10-abraham-knife/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 1,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "accepted limitation",
+      "notes": "Knife/altar moment is clear. Isaac age presentation differs between styles; human identity/age acceptance remains pending."
+    },
+    {
+      "caseId": "exodus-14-21-sea-parts",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/exodus-14-21-sea-parts/generic-icon-1.jpg",
+        "outputs/exodus-14-21-sea-parts/generic-icon-2.jpg",
+        "outputs/exodus-14-21-sea-parts/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Moses, staff and parted sea retain recognizable identities and setting."
+    },
+    {
+      "caseId": "exodus-14-22-sea-walls",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/exodus-14-22-sea-walls/generic-icon-1.jpg",
+        "outputs/exodus-14-22-sea-walls/generic-icon-2.jpg",
+        "outputs/exodus-14-22-sea-walls/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "People pass between walls of water; adjacent sea scene remains coherent."
+    },
+    {
+      "caseId": "leviticus-11-7-pig",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/leviticus-11-7-pig/generic-icon-1.jpg",
+        "outputs/leviticus-11-7-pig/generic-icon-2.jpg",
+        "outputs/leviticus-11-7-pig/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Pig and ancient setting illustrate the dietary subject without labels."
+    },
+    {
+      "caseId": "joshua-6-20-jericho",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/joshua-6-20-jericho/generic-icon-1.jpg",
+        "outputs/joshua-6-20-jericho/generic-icon-2.jpg",
+        "outputs/joshua-6-20-jericho/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Falling walls, procession and trumpets read clearly."
+    },
+    {
+      "caseId": "judges-19-29-concubine",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/judges-19-29-concubine/generic-icon-1.jpg",
+        "outputs/judges-19-29-concubine/generic-icon-2.jpg",
+        "outputs/judges-19-29-concubine/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Covered body and restrained scene; no explicit dismemberment observed on contact sheets."
+    },
+    {
+      "caseId": "ruth-4-22-genealogy",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/ruth-4-22-genealogy/generic-icon-1.jpg",
+        "outputs/ruth-4-22-genealogy/generic-icon-2.jpg",
+        "outputs/ruth-4-22-genealogy/generic-icon-3.jpg"
+      ],
+      "relevance": 1,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "accepted limitation",
+      "notes": "Family-line illustration is indirect; named genealogical relationship is not independently recoverable from the image."
+    },
+    {
+      "caseId": "1-samuel-17-49-sling",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/1-samuel-17-49-sling/generic-icon-1.jpg",
+        "outputs/1-samuel-17-49-sling/generic-icon-2.jpg",
+        "outputs/1-samuel-17-49-sling/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 1,
+      "verdict": "accepted limitation",
+      "notes": "Young shepherd David faces armored Goliath; prior stage fix is visible. Visible gold rectangular border is recorded as the specification's known Icon limitation, not averaged away."
+    },
+    {
+      "caseId": "2-kings-2-23-bears",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/2-kings-2-23-bears/generic-icon-1.jpg",
+        "outputs/2-kings-2-23-bears/generic-icon-2.jpg",
+        "outputs/2-kings-2-23-bears/generic-icon-3.jpg"
+      ],
+      "relevance": 0,
+      "identity": 0,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "fail",
+      "notes": "All repeats depict short-haired Elisha. Exact canon says short dark hair, conflicting with WEB baldness and fixed-case expectation. Source/canon failure retained without mid-run edits."
+    },
+    {
+      "caseId": "job-38-4-foundations",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/job-38-4-foundations/generic-icon-1.jpg",
+        "outputs/job-38-4-foundations/generic-icon-2.jpg",
+        "outputs/job-38-4-foundations/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Small human beneath vast storm/light; no unambiguous human deity observed at contact-sheet scale."
+    },
+    {
+      "caseId": "psalms-23-2-pastures",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/psalms-23-2-pastures/generic-icon-1.jpg",
+        "outputs/psalms-23-2-pastures/generic-icon-2.jpg",
+        "outputs/psalms-23-2-pastures/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Shepherd, sheep and green waterside pasture are coherent."
+    },
+    {
+      "caseId": "psalms-137-1-babylon",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/psalms-137-1-babylon/generic-icon-1.jpg",
+        "outputs/psalms-137-1-babylon/generic-icon-2.jpg",
+        "outputs/psalms-137-1-babylon/generic-icon-3.jpg"
+      ],
+      "relevance": 1,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "accepted limitation",
+      "notes": "Grieving exiles beside water and trees read clearly; harps are not clearly visible on contact sheets."
+    },
+    {
+      "caseId": "song-of-solomon-2-1-rose",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/song-of-solomon-2-1-rose/generic-icon-1.jpg",
+        "outputs/song-of-solomon-2-1-rose/generic-icon-2.jpg",
+        "outputs/song-of-solomon-2-1-rose/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Clothed woman amid flowers; poetic subject is represented without explicit imagery."
+    },
+    {
+      "caseId": "isaiah-6-2-seraphim",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/isaiah-6-2-seraphim/generic-icon-1.jpg",
+        "outputs/isaiah-6-2-seraphim/generic-icon-2.jpg",
+        "outputs/isaiah-6-2-seraphim/generic-icon-3.jpg"
+      ],
+      "relevance": 0,
+      "identity": 1,
+      "continuity": 1,
+      "style": 2,
+      "artifacts": 0,
+      "verdict": "fail",
+      "notes": "Seraphim covering/wings are not reliably text-faithful. See full-resolution exhibits and hard-failure notes. Repeat 1 full-resolution has exposed faces/feet and a white-robed human body in the upper radiance, violating the depiction rule even though its face is hidden."
+    },
+    {
+      "caseId": "isaiah-11-6-wolf-lamb",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/isaiah-11-6-wolf-lamb/generic-icon-1.jpg",
+        "outputs/isaiah-11-6-wolf-lamb/generic-icon-2.jpg",
+        "outputs/isaiah-11-6-wolf-lamb/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Peaceful mixed animals and child/prophet setting are coherent."
+    },
+    {
+      "caseId": "ezekiel-37-4-dry-bones",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/ezekiel-37-4-dry-bones/generic-icon-1.jpg",
+        "outputs/ezekiel-37-4-dry-bones/generic-icon-2.jpg",
+        "outputs/ezekiel-37-4-dry-bones/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Prophet addresses dry skeletons across a valley; no gore observed."
+    },
+    {
+      "caseId": "daniel-6-22-lions",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/daniel-6-22-lions/generic-icon-1.jpg",
+        "outputs/daniel-6-22-lions/generic-icon-2.jpg",
+        "outputs/daniel-6-22-lions/generic-icon-3.jpg"
+      ],
+      "relevance": 1,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "accepted limitation",
+      "notes": "Daniel is unharmed among lions with king above; the angelic intervention is not clearly visible."
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/daniel-7-9-ancient-of-days/generic-icon-1.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-icon-2.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-icon-3.jpg"
+      ],
+      "relevance": 0,
+      "identity": 0,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 0,
+      "verdict": "fail",
+      "notes": "All three repeats put a white-robed human body on the fiery throne, violating the explicit no-human-face/body rule. Classical adds a clear bearded face; Icon masking the face does not cure the body violation."
+    },
+    {
+      "caseId": "jonah-1-17-fish",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/jonah-1-17-fish/generic-icon-1.jpg",
+        "outputs/jonah-1-17-fish/generic-icon-2.jpg",
+        "outputs/jonah-1-17-fish/generic-icon-3.jpg"
+      ],
+      "relevance": 1,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "accepted limitation",
+      "notes": "Jonah is already inside the fish rather than shown being swallowed in a storm. This fits the verse continuation but misses the fixed case visual expectation."
+    },
+    {
+      "caseId": "matthew-1-1-genealogy",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/matthew-1-1-genealogy/generic-icon-1.jpg",
+        "outputs/matthew-1-1-genealogy/generic-icon-2.jpg",
+        "outputs/matthew-1-1-genealogy/generic-icon-3.jpg"
+      ],
+      "relevance": 1,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "accepted limitation",
+      "notes": "Writer/ancient-town scene is an indirect genealogy illustration; inspect text prohibition separately."
+    },
+    {
+      "caseId": "matthew-14-29-peter-water",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/matthew-14-29-peter-water/generic-icon-1.jpg",
+        "outputs/matthew-14-29-peter-water/generic-icon-2.jpg",
+        "outputs/matthew-14-29-peter-water/generic-icon-3.jpg"
+      ],
+      "relevance": 1,
+      "identity": 2,
+      "continuity": 1,
+      "style": 2,
+      "artifacts": 1,
+      "verdict": "accepted limitation",
+      "notes": "Peter is variously stepping from the boat or poised at its edge; the walking action is not equally clear in every repeat. Visible gold rectangular border is recorded as the specification's known Icon limitation, not averaged away."
+    },
+    {
+      "caseId": "john-21-7-peter-sea",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/john-21-7-peter-sea/generic-icon-1.jpg",
+        "outputs/john-21-7-peter-sea/generic-icon-2.jpg",
+        "outputs/john-21-7-peter-sea/generic-icon-3.jpg"
+      ],
+      "relevance": 1,
+      "identity": 2,
+      "continuity": 1,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "accepted limitation",
+      "notes": "Boat-to-shore recognition is coherent, but some repeats show Peter still poised on the gunwale rather than already in the sea."
+    },
+    {
+      "caseId": "mark-4-39-storm",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/mark-4-39-storm/generic-icon-1.jpg",
+        "outputs/mark-4-39-storm/generic-icon-2.jpg",
+        "outputs/mark-4-39-storm/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Jesus addresses the storm from the boat; wind/waves and disciples are coherent."
+    },
+    {
+      "caseId": "luke-15-20-prodigal",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/luke-15-20-prodigal/generic-icon-1.jpg",
+        "outputs/luke-15-20-prodigal/generic-icon-2.jpg",
+        "outputs/luke-15-20-prodigal/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Father embraces returning son in all repeats."
+    },
+    {
+      "caseId": "john-11-43-lazarus",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/john-11-43-lazarus/generic-icon-1.jpg",
+        "outputs/john-11-43-lazarus/generic-icon-2.jpg",
+        "outputs/john-11-43-lazarus/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Jesus calls toward Lazarus at the tomb with witnesses; restrained wrapped body."
+    },
+    {
+      "caseId": "acts-9-3-damascus",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/acts-9-3-damascus/generic-icon-1.jpg",
+        "outputs/acts-9-3-damascus/generic-icon-2.jpg",
+        "outputs/acts-9-3-damascus/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "pass",
+      "notes": "Saul reacts to heavenly light on the road; companions and journey setting remain coherent."
+    },
+    {
+      "caseId": "romans-8-28-all-things",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/romans-8-28-all-things/generic-icon-1.jpg",
+        "outputs/romans-8-28-all-things/generic-icon-2.jpg",
+        "outputs/romans-8-28-all-things/generic-icon-3.jpg"
+      ],
+      "relevance": 1,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "accepted limitation",
+      "notes": "Paul/ancient-town vignette is indirect for an abstract teaching; it does not visually establish all things working for good."
+    },
+    {
+      "caseId": "matthew-27-35-crucified",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/matthew-27-35-crucified/generic-icon-1.jpg",
+        "outputs/matthew-27-35-crucified/generic-icon-2.jpg",
+        "outputs/matthew-27-35-crucified/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 0,
+      "verdict": "fail",
+      "notes": "Repeat 1 full-resolution uses a sharp central panel with blurred duplicate side extensions, violating the single continuous full-frame scene requirement. This is distinct from the permitted known Icon border limitation."
+    },
+    {
+      "caseId": "revelation-4-6-living-creatures",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/revelation-4-6-living-creatures/generic-icon-1.jpg",
+        "outputs/revelation-4-6-living-creatures/generic-icon-2.jpg",
+        "outputs/revelation-4-6-living-creatures/generic-icon-3.jpg"
+      ],
+      "relevance": 1,
+      "identity": 1,
+      "continuity": 1,
+      "style": 2,
+      "artifacts": 1,
+      "verdict": "accepted limitation",
+      "notes": "Four creatures and glassy sea read clearly; six-wing/eyes coverage is not confidently passed. Human-form throne radiance requires separate depiction review."
+    },
+    {
+      "caseId": "revelation-21-1-new-heaven",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/revelation-21-1-new-heaven/generic-icon-1.jpg",
+        "outputs/revelation-21-1-new-heaven/generic-icon-2.jpg",
+        "outputs/revelation-21-1-new-heaven/generic-icon-3.jpg"
+      ],
+      "relevance": 1,
+      "identity": 2,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "accepted limitation",
+      "notes": "Luminous renewed landscape/city; symbolic specificity and absence of sea remain a human interpretation gate."
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/holmes-scandal-the-woman/generic-icon-1.jpg",
+        "outputs/holmes-scandal-the-woman/generic-icon-2.jpg",
+        "outputs/holmes-scandal-the-woman/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 1,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "accepted limitation",
+      "notes": "Victorian sitting room and recurring investigators are coherent. Prohibited actor/public-figure likeness acceptance remains a human gate; no person identification is claimed."
+    },
+    {
+      "caseId": "holmes-scandal-king-arrives",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/holmes-scandal-king-arrives/generic-icon-1.jpg",
+        "outputs/holmes-scandal-king-arrives/generic-icon-2.jpg",
+        "outputs/holmes-scandal-king-arrives/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 1,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "accepted limitation",
+      "notes": "Masked visitor and recurring investigators in Victorian room. Prohibited-likeness acceptance remains a human gate; no person identification is claimed."
+    },
+    {
+      "caseId": "holmes-red-headed-league",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/holmes-red-headed-league/generic-icon-1.jpg",
+        "outputs/holmes-red-headed-league/generic-icon-2.jpg",
+        "outputs/holmes-red-headed-league/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 1,
+      "continuity": 2,
+      "style": 2,
+      "artifacts": 2,
+      "verdict": "accepted limitation",
+      "notes": "Red-haired visitor and recurring investigators read clearly. Prohibited-likeness acceptance remains a human gate; no person identification is claimed."
+    }
+  ],
+  "reviewer": "Agent contact-sheet review of all outputs; flagged originals inspected. Provisional, not human release acceptance.",
+  "sourceTemplate": "scores.template.json is retained unchanged; its output lists were initialized before resume and are stale. Scored output lists below are rebuilt from the completed state."
+}

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "defaults": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K",
+    "translation": "web"
+  },
+  "cases": [
+    {
+      "id": "genesis-1-3-light",
+      "reference": "Genesis 1:3",
+      "genre": "narrative",
+      "expected": "Light breaking over formless dark waters; no human figure for God; no text.",
+      "tags": [
+        "genesis",
+        "continuity"
+      ]
+    },
+    {
+      "id": "job-38-4-foundations",
+      "reference": "Job 38:4",
+      "genre": "poetry",
+      "expected": "A storm-voice over cosmic foundations being laid; Job small before it; no literal bearded deity.",
+      "tags": [
+        "poetry",
+        "symbolic"
+      ]
+    },
+    {
+      "id": "holmes-scandal-the-woman",
+      "reference": "A Scandal in Bohemia, Part I \u00b61",
+      "genre": "narrative",
+      "work": "holmes-adventures",
+      "unitId": "a-scandal-in-bohemia-1-1",
+      "expected": "Holmes in his Baker Street rooms, late Victorian; the same lean, hawk-faced figure as in every other Holmes case; no deerstalker clich\u00e9 unless the text has it.",
+      "tags": [
+        "holmes",
+        "continuity"
+      ]
+    }
+  ]
+}

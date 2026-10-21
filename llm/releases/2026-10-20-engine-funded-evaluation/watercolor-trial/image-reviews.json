@@ -1,0 +1,87 @@
+{
+  "reviewer": "agent visual inspection",
+  "humanAcceptance": "pending",
+  "images": [
+    {
+      "caseId": "genesis-1-3-light",
+      "repeat": 1,
+      "output": "outputs/genesis-1-3-light/generic-watercolor-1.jpg",
+      "sha256": "be2fd275b2277575e34c25f7741e61e4348a6edbba012725d5de610c658d9beb",
+      "marginVerdict": "fail",
+      "notes": "Bare paper remains along the lower-left/lower perimeter. The central light also has an ambiguous robed silhouette that requires human depiction-rule review.",
+      "fullResolutionInspected": true
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "repeat": 2,
+      "output": "outputs/genesis-1-3-light/generic-watercolor-2.jpg",
+      "sha256": "7abbe37bf89e19e8291735b0606d50f3826f0682f2073d5e0767af77da16cec3",
+      "marginVerdict": "fail",
+      "notes": "Unpainted pale paper remains at the lower corners/perimeter despite the continuous-underwash wording.",
+      "fullResolutionInspected": true
+    },
+    {
+      "caseId": "genesis-1-3-light",
+      "repeat": 3,
+      "output": "outputs/genesis-1-3-light/generic-watercolor-3.jpg",
+      "sha256": "6185273f924d7b084a8ee6d464aa2e40eb88339cb73c11214708b7ba716c68f5",
+      "marginVerdict": "fail",
+      "notes": "Clear bare-paper patches remain at the lower-left edge/corner and parts of the lower perimeter.",
+      "fullResolutionInspected": true
+    },
+    {
+      "caseId": "job-38-4-foundations",
+      "repeat": 1,
+      "output": "outputs/job-38-4-foundations/generic-watercolor-1.jpg",
+      "sha256": "7a7c6488c8760a02a7ebd72a9db92fa314027086547642e35c266cb84e4cbadf",
+      "marginVerdict": "fail",
+      "notes": "Scenery fades into exposed paper along side edges and lower corners; this is not only pale storm clouds within a continuous scene.",
+      "fullResolutionInspected": true
+    },
+    {
+      "caseId": "job-38-4-foundations",
+      "repeat": 2,
+      "output": "outputs/job-38-4-foundations/generic-watercolor-2.jpg",
+      "sha256": "ee2f621c1b7bf1a64a12ebb26ad5ee8b2e716c7bb4cf36bf3fc2502301fa7b62",
+      "marginVerdict": "fail",
+      "notes": "Broad exposed-paper strips remain at the side edges, with unpainted peripheral gaps.",
+      "fullResolutionInspected": true
+    },
+    {
+      "caseId": "job-38-4-foundations",
+      "repeat": 3,
+      "output": "outputs/job-38-4-foundations/generic-watercolor-3.jpg",
+      "sha256": "78d77e68f750f24628d14dac28a6280552ace469118d1c22dda06d092aaf43c0",
+      "marginVerdict": "fail",
+      "notes": "Exposed paper remains around the lower-left corner, lower edge and portions of the sides.",
+      "fullResolutionInspected": true
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "repeat": 1,
+      "output": "outputs/holmes-scandal-the-woman/generic-watercolor-1.jpg",
+      "sha256": "4393bd4ff0dfeae452fb0fad85204a3fba0040a12b2c2fdee8c51bfec03f13d1",
+      "marginVerdict": "review",
+      "notes": "Nearly filled frame; the upper-left pale/wash boundary is ambiguous. Full-bleed is not confidently passed. Actor-likeness acceptance remains a human gate.",
+      "fullResolutionInspected": true
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "repeat": 2,
+      "output": "outputs/holmes-scandal-the-woman/generic-watercolor-2.jpg",
+      "sha256": "811a7be7fe3431a62c2cc58f2e922d58b9c94e1ee54cb8f72e71a318d8f7d23d",
+      "marginVerdict": "fail",
+      "notes": "Broad irregular bare-paper margins remain down both side edges. Actor-likeness acceptance remains a human gate.",
+      "fullResolutionInspected": true
+    },
+    {
+      "caseId": "holmes-scandal-the-woman",
+      "repeat": 3,
+      "output": "outputs/holmes-scandal-the-woman/generic-watercolor-3.jpg",
+      "sha256": "db707b10b6bda3524ea01575d3a5f9961b93761b11dd33d2e8f53829a442c22f",
+      "marginVerdict": "fail",
+      "notes": "An irregular exposed-paper margin remains down the left edge and around the lower-left corner. Actor-likeness acceptance remains a human gate.",
+      "fullResolutionInspected": true
+    }
+  ]
+}
