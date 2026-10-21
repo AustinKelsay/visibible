@@ -1,0 +1,58 @@
+{
+  "at": "2026-10-21T20:50:48.369563+00:00",
+  "issue": 183,
+  "baseCommit": "20f459565f2c1389346bcb87c7d3535c7e3cecaa",
+  "publicActivation": false,
+  "humanAccepted": false,
+  "authorization": "Owner explicitly approved an additional $0.50 evaluation allowance in this thread on 2026-10-21, raising the total from $16 to $16.50 and permitting only this 12-image comparison under a combined $0.50 cap. No public activation.",
+  "evaluationAuthorizedUsd": 16.5,
+  "evaluationMeasuredBeforeUsd": 15.8885884,
+  "evaluationUncertaintyBeforeUsd": 0.045,
+  "evaluationRemainingBeforeUsd": 0.5664116,
+  "combinedCapUsd": 0.5,
+  "imageReserveUsd": 0.05,
+  "estimatedUsd": 0.432,
+  "maximumImageCalls": 12,
+  "maximumPreparationCalls": 0,
+  "imageModel": "google/gemini-3.1-flash-lite-image",
+  "aspectRatio": "16:9",
+  "resolution": "1K",
+  "repeats": 3,
+  "styles": [
+    "watercolor",
+    "icon"
+  ],
+  "caseIds": [
+    "daniel-7-9-ancient-of-days"
+  ],
+  "runs": {
+    "normal": "release-2026-10-21-reference-comparison-normal",
+    "omitted": "release-2026-10-21-reference-comparison-omitted"
+  },
+  "executionOrder": "Six normal-reference samples, then six omission samples, using the ordinary harness order (Watercolor repeats 1\u20133, Icon repeats 1\u20133). Matched variations, not identical seeds or randomized order.",
+  "fixedInputs": {
+    "planVersion": "8cd89ee4aad16a597882ff9ccf05f0f0",
+    "lookVersion": "1469b2542a3afbf77ed9921c8f727f20",
+    "styles": "Registered styles unchanged; no --style-file. Source, brief, canon, look and plan held fixed; no sheet backfill or restored trim context."
+  },
+  "stopConditions": [
+    "No preparation, mutations, model substitutions, image retry or automatic resume.",
+    "Any missing usage, transport uncertainty or provider failure blocks all further paid calls.",
+    "Admit each image only if measured usage plus its $0.05 reserve fits the shared $0.50 cap and the $16.50 allowance after prior uncertainty. A reserve is an admission guard, not a provider billing guarantee.",
+    "Every outgoing prompt, model, image settings and attachment hash must match one unused preflight packet.",
+    "Retain every completed and failed attempt. Ambiguous silhouettes remain review, never a confident no-body pass."
+  ],
+  "separateBucketsUnchanged": {
+    "preparation": {
+      "authorizedUsd": 43,
+      "measuredUsd": 3.6351192,
+      "uncertaintyUsd": 0.03
+    },
+    "smoke": {
+      "authorizedUsd": 1,
+      "measuredUsd": 0.0685215,
+      "uncertaintyUsd": 0
+    }
+  },
+  "purpose": "Isolate style-reference image and caption influence for Daniel 7:9 in Watercolor and Icon; diagnostic evidence, not a default change or release acceptance."
+}

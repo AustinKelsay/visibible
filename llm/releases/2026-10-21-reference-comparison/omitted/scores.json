@@ -1,0 +1,60 @@
+{
+  "run": "release-2026-10-21-reference-comparison-omitted",
+  "dimensions": {
+    "legacy": [
+      "relevance",
+      "clarity",
+      "artifacts_style"
+    ],
+    "generic": [
+      "relevance",
+      "identity",
+      "continuity",
+      "style",
+      "artifacts"
+    ]
+  },
+  "scale": "0 materially fails, 1 incomplete or mildly off, 2 meets",
+  "verdicts": [
+    "pass",
+    "accepted limitation",
+    "fail"
+  ],
+  "rules": "An observed depiction-rule or prohibited-likeness violation is a fail whatever the scores. A known Icon border may be recorded as an accepted limitation, never averaged away.",
+  "rows": [
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "arm": "generic:watercolor",
+      "outputs": [
+        "outputs/daniel-7-9-ancient-of-days/generic-watercolor-1.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-watercolor-2.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-watercolor-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 1,
+      "continuity": null,
+      "style": 1,
+      "artifacts": 0,
+      "verdict": "fail",
+      "notes": "Repeat 1: The throne is visibly empty beneath broad amorphous radiance; no human-form divine occupant is visible. A small irregular white paper corner is exposed at the lower left, outside the painted wash. Removing the style reference did not eliminate all exposed paper.; Repeat 2: The empty chair is crossed by continuous streaming light without a head, torso or limbs. Irregular white paper is exposed along the lower corners, most visibly at the lower right beyond the painted wash.; Repeat 3: Radiance and long ribbon-like streams rise above the fiery seat without a human-form occupant. No head, torso or limbs are visible; a nonfigurative light stream alone is not called a body. The cloud scene fills the frame and includes small robed court onlookers. No exposed paper margin or repeated panel is visible. Human likeness and release acceptance remain pending."
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "arm": "generic:icon",
+      "outputs": [
+        "outputs/daniel-7-9-ancient-of-days/generic-icon-1.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-icon-2.jpg",
+        "outputs/daniel-7-9-ancient-of-days/generic-icon-3.jpg"
+      ],
+      "relevance": 2,
+      "identity": 0,
+      "continuity": null,
+      "style": 2,
+      "artifacts": 0,
+      "verdict": "fail",
+      "notes": "Repeat 1: White radiance forms a faceless seated person with a head, torso, arms and draped legs. This is a clear no-form depiction violation despite the absent face. Vertical gold edge bands frame the image. The border is separately noted; no repeated scene panels appear, and the body violation alone fails the case.; Repeat 2: The fiery chair is empty beneath a broad nonfigurative column of radiance, without a visible head, torso or limbs. Angelic court figures surround the scene. A brighter rectangular gold field behind them is visible, but the scene is continuous with no repeated panels or distinct outer frame. Human likeness and release acceptance remain pending.; Repeat 3: An empty fiery throne is surrounded by clouds and branching light streams. No human-form divine occupant is visible. The image fills the frame as one continuous scene. The cloud rendering is more shaded than the other Icon samples; this diagnostic sample does not establish a style or likeness release decision."
+    }
+  ],
+  "reviewer": "agent; provisional visual assessment, not human release acceptance",
+  "humanAccepted": false
+}
