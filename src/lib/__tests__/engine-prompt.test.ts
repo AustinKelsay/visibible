@@ -54,7 +54,7 @@ describe("rendering packet", () => {
       expect(result.prompt.includes("fog becomes a flat grey ground")).toBe(styleId === "icon");
       expect(result.prompt).toContain("- Sherlock Holmes: lean, hawk-nosed");
       expect(result.prompt).toContain("- The voice: never a face or body");
-      expect(result.prompt).toContain("Only Sherlock Holmes, 221B Baker Street, Dr. Watson, the voice have this canon look");
+      expect(result.prompt).toContain("Only Sherlock Holmes, 221B Baker Street, Dr. Watson have this canon look");
       expect(result.prompt).toContain("Primary subject: Holmes by the fire");
       expect(result.prompt).toContain(`ART STYLE: ${SHARED_STYLES.get(styleId).label}\nRendering: ${SHARED_STYLES.get(styleId).rendering}`);
       expect(result.prompt).toContain("Place: Baker Street sitting-room");
@@ -68,11 +68,36 @@ describe("rendering packet", () => {
       expect(result.references.map((r) => r.caption)).toEqual(result.packet.references.map((r) => r.caption));
       expect(result.references[result.references.length - 1].caption).toMatch(/^Image 3: /);
       expect(result.prompt).toContain(result.references[0].caption);
-      expect(result.packet).toMatchObject({ promptVersion: "2026-10-20-generic-v2", styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
+      expect(result.packet).toMatchObject({ promptVersion: "2026-10-21-generic-v3", styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
         canon: [{ entryId: "sherlock_holmes", stageId: "main", version: "h1" }, expect.anything(), expect.anything(), expect.anything()],
         flags: { variationIncluded: true, neighborsIncluded: true, styleDetailIncluded: true, lookDetailIncluded: true } });
       expect(result.packet.budget.finalChars).toBe(result.prompt.length);
     }
+  });
+
+  it("makes no-form constraints explicit across styles without erasing source text or other characters' forms", () => {
+    for (const styleId of ["classical", "watercolor", "icon"]) {
+      const input = base(styleId);
+      input.moment.text = "The voice sat beside Holmes, clothed in light.";
+      const result = buildRenderingPacket(input);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      expect(result.prompt).toContain(input.moment.text);
+      expect(result.prompt).toContain("- The voice: never a face or body; light only.");
+      expect(result.prompt).toContain("FORMLESS SUBJECTS (binding depiction constraints, including when the source uses bodily metaphors)");
+      expect(result.prompt).toContain("- the voice: represent only through the non-figurative presence");
+      expect(result.prompt).toContain("No head, face, torso, limbs, hands, human silhouette or garment-shaped body, even faceless or made of light");
+      expect(result.prompt).toContain("Do not represent this subject as a figure occupying a seat.");
+      expect(result.prompt).toContain("other characters retain their own canon forms");
+      expect(result.prompt).not.toContain("- Sherlock Holmes: represent only through");
+      expect(result.prompt.indexOf("FORMLESS SUBJECTS")).toBeLessThan(result.prompt.indexOf("CANON ("));
+      expect(result.references.some((r) => r.kind === "sheet" && r.entryId === "the_voice")).toBe(false);
+    }
+    const formed = buildRenderingPacket(base("classical", { canon: canon.filter((c) => c.hasForm) }));
+    expect(formed.ok && formed.prompt).not.toContain("FORMLESS SUBJECTS");
+    const onlyFormless = buildRenderingPacket(base("classical", { canon: canon.filter((c) => !c.hasForm) }));
+    expect(onlyFormless.ok && onlyFormless.prompt).toContain("- the voice: represent only through");
+    expect(onlyFormless.ok && onlyFormless.prompt).not.toContain("this canon look");
   });
 
   it("works with zero references and keeps full canon, and a stage-specific sheet only matches its stage", () => {
@@ -105,7 +130,7 @@ describe("rendering packet", () => {
     expect(slight.ok && slight.packet.flags).toEqual({ variationIncluded: false, neighborsIncluded: true, styleDetailIncluded: true, lookDetailIncluded: true });
     expect(trimmed.prompt.length).toBeLessThanOrEqual(GENERIC_PROMPT_MAX_CHARS);
     // Never-trimmed content survives every cut.
-    for (const must of ["PRIORITY RULES:", "Tone: Brisk", "Depiction: Violence", "Technology: Railways", "- Sherlock Holmes: lean", "Primary subject: Holmes by the fire",
+    for (const must of ["PRIORITY RULES:", "Tone: Brisk", "Depiction: Violence", "Technology: Railways", "FORMLESS SUBJECTS", "- the voice: represent only through", "even faceless or made of light", "- Sherlock Holmes: lean", "Primary subject: Holmes by the fire",
       `Rendering: ${SHARED_STYLES.get("classical").rendering}`, "Image 1: Sherlock Holmes's reference sheet", "Image 3: Dr. Watson's reference sheet", "Place: Baker Street"]) {
       expect(trimmed.prompt).toContain(must);
     }

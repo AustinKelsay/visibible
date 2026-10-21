@@ -45,6 +45,7 @@ These guides describe the repository's current behavior. Source links identify t
 - [Complete production Bible preparation, partial evaluation and disabled rollback evidence](releases/2026-10-20-engine-production/README.md)
 - [Watercolor reference edge-check calibration and unexecuted rendering trial](releases/2026-10-20-watercolor-edge-check/README.md)
 - [Funded Classical/Icon evaluation, rejected Watercolor trial and retained release blockers](releases/2026-10-20-engine-funded-evaluation/README.md)
+- [Targeted no-form and Elisha corrections, retained visual failures and evaluation accounting](releases/2026-10-21-formless-corrections/README.md)
 
 Exact dependencies and commands: [package.json](../package.json). Environment templates: [.env.example](../.env.example), [.env.convex.dev.example](../.env.convex.dev.example), [.env.convex.prod.example](../.env.convex.prod.example), [.env.vercel.preview.example](../.env.vercel.preview.example), [.env.vercel.prod.example](../.env.vercel.prod.example). Tables and scheduled jobs: [schema](../convex/schema.ts), [crons](../convex/crons.ts).
 

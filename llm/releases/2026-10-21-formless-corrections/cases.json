@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "defaults": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K",
+    "translation": "web"
+  },
+  "cases": [
+    {
+      "id": "genesis-1-3-light",
+      "reference": "Genesis 1:3",
+      "genre": "narrative",
+      "expected": "Light breaking over formless dark waters; no human figure for God; no text.",
+      "tags": [
+        "genesis",
+        "continuity"
+      ]
+    },
+    {
+      "id": "exodus-14-22-sea-walls",
+      "reference": "Exodus 14:22",
+      "genre": "narrative",
+      "expected": "Israel walking between two walls of water on dry ground; same sea, same night as the previous verse.",
+      "tags": [
+        "red-sea",
+        "continuity"
+      ]
+    },
+    {
+      "id": "2-kings-2-23-bears",
+      "reference": "2 Kings 2:23",
+      "genre": "difficult",
+      "expected": "Youths mocking a bald prophet on the road up to Bethel; the bears not yet shown as a bloodbath.",
+      "tags": [
+        "difficult"
+      ]
+    },
+    {
+      "id": "isaiah-6-2-seraphim",
+      "reference": "Isaiah 6:2",
+      "genre": "prophecy",
+      "expected": "Six-winged seraphim above a throne, faces and feet covered; temple smoke.",
+      "tags": [
+        "prophecy",
+        "symbolic"
+      ]
+    },
+    {
+      "id": "daniel-7-9-ancient-of-days",
+      "reference": "Daniel 7:9",
+      "genre": "symbolic",
+      "expected": "A throne of flames with burning wheels, white garments, hair like wool; visionary, not a portrait.",
+      "tags": [
+        "symbolic"
+      ]
+    },
+    {
+      "id": "matthew-14-29-peter-water",
+      "reference": "Matthew 14:29",
+      "genre": "narrative",
+      "expected": "Peter stepping out of the boat onto the water toward Jesus at night in a storm.",
+      "tags": [
+        "peter",
+        "continuity"
+      ]
+    },
+    {
+      "id": "revelation-4-6-living-creatures",
+      "reference": "Revelation 4:6",
+      "genre": "symbolic",
+      "expected": "A sea of glass before the throne and four living creatures full of eyes.",
+      "tags": [
+        "symbolic"
+      ]
+    },
+    {
+      "id": "holmes-scandal-the-woman",
+      "reference": "A Scandal in Bohemia, Part I \u00b61",
+      "genre": "narrative",
+      "work": "holmes-adventures",
+      "unitId": "a-scandal-in-bohemia-1-1",
+      "expected": "Holmes in his Baker Street rooms, late Victorian; the same lean, hawk-faced figure as in every other Holmes case; no deerstalker clich\u00e9 unless the text has it.",
+      "tags": [
+        "holmes",
+        "continuity"
+      ]
+    }
+  ]
+}

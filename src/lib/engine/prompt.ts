@@ -11,7 +11,7 @@ import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
 
 /** Structure and wording of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. */
-export const GENERIC_PROMPT_VERSION = "2026-10-20-generic-v2";
+export const GENERIC_PROMPT_VERSION = "2026-10-21-generic-v3";
 export const GENERIC_PROMPT_MAX_CHARS = 8000;
 export const MAX_REFERENCE_IMAGES = 3;
 const MOMENT_TEXT_MAX_CHARS = 1200;
@@ -124,11 +124,17 @@ export function selectReferences(canon: SelectedCanon[], available: AvailableRef
 export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   const { brief, style, look, plan } = input;
   const references = selectReferences(input.canon, input.references ?? [], style.id);
-  const names = input.canon.map((c) => c.name);
+  const names = input.canon.filter((c) => c.hasForm).map((c) => c.name);
+  const formless = input.canon.filter((c) => !c.hasForm);
+  const formlessBlock = formless.length
+    ? ["FORMLESS SUBJECTS (binding depiction constraints, including when the source uses bodily metaphors):",
+      ...formless.map((c) => `- ${c.name}: represent only through the non-figurative presence allowed by its canon and the work brief. No head, face, torso, limbs, hands, human silhouette or garment-shaped body, even faceless or made of light. Do not represent this subject as a figure occupying a seat.`),
+      "These constraints apply only to the named subjects; other characters retain their own canon forms."].join("\n")
+    : "";
   const canonBlock = input.canon.length
     ? ["CANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):",
       ...input.canon.map((c) => `- ${c.text}`),
-      `- Only ${names.join(", ")} ${names.length > 1 ? "have" : "has"} this canon look; any other people get clearly different faces, hair and clothing colours.`].join("\n")
+      ...(names.length ? [`- Only ${names.join(", ")} ${names.length > 1 ? "have" : "has"} this canon look; any other people get clearly different faces, hair and clothing colours.`] : [])].join("\n")
     : "";
   const planBlock = ["SCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):",
     `Primary subject: ${plan.primarySubject}`, `Action: ${plan.action}`, `Setting: ${plan.setting}`, `Secondary elements: ${plan.secondaryElements}`,
@@ -155,6 +161,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     `PRIORITY RULES:\n${ENGINE_RULES.map((rule, i) => `${i + 1}) ${rule}`).join("\n")}\n${PRECEDENCE_LINE}`,
     `SCENE: one moment of ${input.work.title}, ${input.moment.reference}: "${clip(input.moment.text, MOMENT_TEXT_MAX_CHARS)}"`,
     briefBlock(brief, input.eraId, style.id),
+    formlessBlock,
     canonBlock,
     flags.lookDetailIncluded ? `${lookMain}\n${lookDetail}` : lookMain,
     planBlock,

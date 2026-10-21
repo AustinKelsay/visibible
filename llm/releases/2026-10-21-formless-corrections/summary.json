@@ -1,0 +1,76 @@
+{
+  "at": "2026-10-21T17:11:50.292236+00:00",
+  "baseCommit": "7e2ef9b3a977adf82b69c13d13a7236d389cfba5",
+  "promptVersion": "2026-10-21-generic-v3",
+  "completed": 72,
+  "imageCalls": 72,
+  "preparationCalls": 3,
+  "newMeasuredUsd": 2.4732229,
+  "imageMeasuredUsd": 2.4724425,
+  "preparationMeasuredUsdChargedOnlyToEvaluation": 0.0007804,
+  "subcapUsd": 2.7,
+  "newUncertaintyUsd": 0,
+  "baldness": {
+    "pass": 9,
+    "fail": 0
+  },
+  "formlessDepiction": {
+    "pass": 23,
+    "fail": 12,
+    "review": 1
+  },
+  "watercolorMargins": {
+    "fail": 22,
+    "review": 2
+  },
+  "fullResolutionInspected": 50,
+  "caseVerdicts": {
+    "classical": {
+      "pass": 3,
+      "fail": 4,
+      "accepted limitation": 1
+    },
+    "watercolor": {
+      "fail": 8
+    },
+    "icon": {
+      "accepted limitation": 3,
+      "fail": 5
+    }
+  },
+  "budgets": {
+    "evaluationAuthorizedUsd": 16,
+    "evaluationMeasuredUsd": 15.477471699999999,
+    "evaluationUncertaintyUsd": 0.045,
+    "evaluationRemainingUsd": 0.47752830000000074,
+    "preparationAuthorizedUsd": 43,
+    "preparationMeasuredUsd": 3.6351192,
+    "preparationUncertaintyUsd": 0.03,
+    "preparationRemainingUsd": 39.3348808,
+    "smokeAuthorizedUsd": 1,
+    "smokeMeasuredUsd": 0.0685215,
+    "smokeRemainingUsd": 0.9314785
+  },
+  "publicActivation": false,
+  "humanAccepted": false,
+  "releaseDecision": "Retain baseline, keep public admission disabled, leave #183 open. v3 is an explicit contract correction with a failed targeted visual study; it is not a promoted prompt release.",
+  "matrixDecision": "The original v2 matrix remains 236/324; these 72 differently versioned targeted images and the prior nine style-trial images cannot fill its 88 missing slots.",
+  "notes": [
+    "Elisha canon and Daniel look edits are explicit owner versions, preserved alongside original generated history. Plans regenerated normally, never hand-edited.",
+    "All 75 provider responses returned usage; no new uncertainty. New preparation usage is included once in evaluation, not added to the separate $43 preparation bucket.",
+    "Public production stayed disabled; no deployment, reference generation, reading pass, model substitution, account purchase or legacy retirement.",
+    "No causal attribution between prompt wording and Daniel look correction: this jointly changed candidate is a small targeted study, not a complete baseline/candidate comparison.",
+    "Agent criterion passes and 2-point scores do not supply human visual/likeness, compatibility, accounting, actual-app latency or first 24-hour acceptance.",
+    "Offline verification exposed the Daniel present-list omission. Retained as a preparation/selection failure, separate from Revelation body failures where the new block is present. No corrective rerender or plan edit was made."
+  ],
+  "formlessContractCoverage": {
+    "blockPresent": 27,
+    "plannerOmitted": 9,
+    "note": "Daniel regenerated plan describes the divine presence but lists only Daniel in present. Its nine prompts lack the new canon-derived block and are not direct tests of that block. Brief/look constraints remain."
+  },
+  "blockPresentDepiction": {
+    "pass": 21,
+    "fail": 5,
+    "review": 1
+  }
+}
