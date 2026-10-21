@@ -131,7 +131,7 @@ export function buildReport(state: EvalRunState, cases: readonly EvalCase[], opt
     const incomplete = attempted.some((n) => n < options.repeats);
     const undersampled = caseArms.some((arm) => perArm[arm].completed < floor);
     const comparison = incomplete ? "incomplete" : undersampled ? "inconclusive" : "ready";
-    const reason = comparison === "incomplete" ? "not every arm ran its repeats (budget stop or interrupted run); retain the baseline"
+    const reason = comparison === "incomplete" ? "not every arm ran its repeats (stopped or interrupted run); retain the baseline"
       : comparison === "inconclusive" ? `fewer than ${floor} completed samples in an arm; retain the baseline` : null;
     return { id: c.id, reference: c.reference, genre: c.genre, expected: c.expected, arms: perArm, comparison, reason };
   });

@@ -12,6 +12,7 @@ import { normalizeImageBilling } from "../image-catalog";
 import { createMemoryPreparationStore } from "../engine/memory-store";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { loadEvalCases } from "../image-evals/cases";
+import { createOpenRouterEvalImageProvider } from "../image-evals/adapters";
 import { emptyEvalState, runImageEval, type EvalProviders, type EvalRunState } from "../image-evals/runner";
 import { buildReport, buildScoreTemplate, renderComparisonSheet, renderContactSheet } from "../image-evals/report";
 import type { GenericEvalProvider } from "../image-evals/generic";
@@ -162,6 +163,41 @@ describe("generic evaluation arms", () => {
     await run(providers, { arms: ["generic:watercolor"] });
     expect(imageCalls[0].prompt).toContain("trial rendering");
     expect(imageCalls.every((c) => c.prompt.includes("trial rendering"))).toBe(true);
+  });
+
+  it("preserves paid preparation on a funding stop and resumes unfinished samples without preparing later moments early", async () => {
+    const { providers, model } = setup();
+    let requests = 0;
+    providers.image = createOpenRouterEvalImageProvider({ apiKey: "fake", fetch: async () => {
+      requests++;
+      return requests === 3
+        ? Response.json({ error: { message: "Insufficient credits" } }, { status: 402 })
+        : Response.json({ id: `gen-${requests}`, choices: [{ message: { images: [{ image_url: { url: "data:image/png;base64,AQID" } }] } }], usage: { cost: 0.03 } });
+    } });
+    const saved: EvalRunState[] = [];
+    const first = await run(providers, { saveState: async (state) => { saved.push(structuredClone(state)); } });
+    expect(requests).toBe(3);
+    expect(model.calls).toHaveLength(3); // alpha-one look + plan, alpha-two plan; no prose preparation yet
+    expect(first.state.stopped?.reason).toBe("provider_funding");
+    expect(first.state.samples["alpha-two/generic:classical/1"]).toMatchObject({ status: "failed", stage: "image", preparationCalls: 1, preparationCostUsd: 0.0004, imageCostUsd: 0 });
+    expect(first.state.spentUsd).toBeCloseTo(0.0612, 6);
+    expect(saved).toHaveLength(3);
+    expect(saved[2]).toEqual(first.state);
+    const options = { arms: ["generic:classical", "generic:watercolor"] as const, repeats: 1, sampleFloor: 1 };
+    const report = buildReport(first.state, cases, options);
+    expect(report.arms["generic:classical"]).toMatchObject({ completed: 1, failed: 1, notRun: 1 });
+    expect(report.arms["generic:watercolor"]).toMatchObject({ completed: 1, notRun: 1 });
+    expect(report.cases.find((c) => c.id === "lamp-second")?.comparison).toBe("incomplete");
+    const resumed = await run(providers, { state: first.state });
+    expect(requests).toBe(6); // five completed images and one rejected attempt
+    expect(model.calls).toHaveLength(5); // the failed image reuses its prepared plan
+    expect(resumed.state.stopped).toBeUndefined();
+    expect(resumed.state.samples["alpha-one/generic:classical/1"].providerRequestId).toBe("gen-1");
+    expect(resumed.state.samples["alpha-two/generic:classical/1"]).toMatchObject({ status: "completed", preparationCalls: 0, priorPreparationCostUsd: 0.0004 });
+    expect(resumed.state.spentUsd).toBeCloseTo(0.152, 6);
+    const recovered = buildReport(resumed.state, cases, options);
+    expect(recovered.comparisons).toEqual({ ready: 3, inconclusive: 0, incomplete: 0 });
+    expect(Object.values(recovered.arms).reduce((sum, arm) => sum + arm.spendUsd.total + (arm.preparation?.spendUsd ?? 0), 0)).toBeCloseTo(resumed.state.spentUsd, 6);
   });
 
   it("compares a baseline and a candidate run, flagging candidate fails and worsening and retaining the baseline otherwise", async () => {
