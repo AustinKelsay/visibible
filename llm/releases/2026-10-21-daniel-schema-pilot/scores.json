@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "run": "release-2026-10-21-v3-daniel-schema-pilot",
+  "reviewer": "agent; provisional visual assessment, not human release acceptance",
+  "humanAccepted": false,
+  "scale": "0 materially fails, 1 incomplete or mildly off, 2 meets; continuity is unscored with one moment and one sample per style",
+  "rows": [
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "arm": "generic:classical",
+      "outputs": ["outputs/daniel-7-9-ancient-of-days/generic-classical-1.jpg"],
+      "relevance": 2,
+      "identity": 1,
+      "continuity": null,
+      "style": 2,
+      "artifacts": 1,
+      "verdict": "fail",
+      "notes": "Cloth-like light around the seat is ambiguous; the no-body release gate remains unresolved. No confident bodily violation is asserted."
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "arm": "generic:watercolor",
+      "outputs": ["outputs/daniel-7-9-ancient-of-days/generic-watercolor-1.jpg"],
+      "relevance": 2,
+      "identity": 1,
+      "continuity": null,
+      "style": 1,
+      "artifacts": 0,
+      "verdict": "fail",
+      "notes": "Draped light around the seat remains ambiguous. Exposed paper edges independently fail full-frame presentation."
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "arm": "generic:icon",
+      "outputs": ["outputs/daniel-7-9-ancient-of-days/generic-icon-1.jpg"],
+      "relevance": 1,
+      "identity": 2,
+      "continuity": null,
+      "style": 2,
+      "artifacts": 0,
+      "verdict": "fail",
+      "notes": "Passes the narrow no-body criterion, but duplicates the scene in three panels. A narrow pass does not override the single-scene failure."
+    }
+  ]
+}
