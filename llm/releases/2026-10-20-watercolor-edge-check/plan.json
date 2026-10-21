@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "model": "anthropic/claude-haiku-5.5",
+  "repeats": 3,
+  "maximumCalls": 15,
+  "capUsd": 0.1,
+  "reservePerCheckUsd": 0.005,
+  "evaluationAuthorizedTotalUsd": 16,
+  "evaluationPreviouslyMeasuredUsd": 6.46915215,
+  "evaluationUncertaintyUsd": 0.04,
+  "fixtures": [
+    {
+      "file": "fixtures/bible-watercolor-1.jpg",
+      "expected": "fail",
+      "sha256": "2db954e7a948a11ad6baeb8e6f0cf46bedf11e0824fa5afdd12f492fddef1e7c"
+    },
+    {
+      "file": "fixtures/bible-watercolor-2.jpg",
+      "expected": "fail",
+      "sha256": "ed284164c39e4c969cb2f64a1c3e7ee43fc1bc42bc1f94b335f2a2d06d171dd3"
+    },
+    {
+      "file": "fixtures/bible-watercolor-3.jpg",
+      "expected": "fail",
+      "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+    },
+    {
+      "file": "fixtures/holmes-watercolor.png",
+      "expected": "fail",
+      "sha256": "cff7298326fdde848d3b3e0c24e368d2b9710aa4c00866206aa32c3e4cfeae5b"
+    },
+    {
+      "file": "fixtures/bible-icon-control.jpg",
+      "expected": "pass",
+      "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+    }
+  ],
+  "note": "Only vision checks of retained reference images; no image generation or production mutations. Expected verdicts are the agent visual assessment, not human release acceptance. Previous raw model verdicts stay retained in the production evidence bundle."
+}

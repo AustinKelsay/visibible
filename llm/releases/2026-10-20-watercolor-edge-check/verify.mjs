@@ -1,0 +1,106 @@
+/** Offline integrity and accounting check. No provider or deployment access. */
+import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { readFile, readdir } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+
+const dir = fileURLToPath(new URL("./", import.meta.url));
+const root = path.resolve(dir, "../../..");
+const read = (file) => readFile(path.join(dir, file), "utf8");
+const json = async (file) => JSON.parse(await read(file));
+const hash = (text) => createHash("sha256").update(text).digest("hex");
+const close = (actual, expected) => assert.ok(Math.abs(actual - expected) < 1e-10, `${actual} != ${expected}`);
+const files = async (folder) => (await Promise.all((await readdir(path.join(dir, folder), { withFileTypes: true })).map(async (entry) => {
+  const name = path.join(folder, entry.name);
+  return entry.isDirectory() ? files(name) : [name];
+}))).flat();
+const hashes = await json("sha256.json");
+assert.deepEqual(Object.keys(hashes).sort(), (await files("")).filter((f) => f !== "sha256.json").sort());
+for (const [file, expected] of Object.entries(hashes)) assert.equal(hash(await readFile(path.join(dir, file))), expected, file);
+const plan = await json("plan.json");
+const followup = await json("followup-plan.json");
+const source = await readFile(path.join(root, "src/lib/engine/references.ts"), "utf8");
+const question = source.match(/export const STYLE_CHECK_QUESTION = `([\s\S]*?)`;/)?.[1];
+assert.ok(question);
+for (const [planFile, manifestFile] of [["plan.json", "manifest.json"], ["followup-plan.json", "followup-manifest.json"]]) {
+  const p = await json(planFile);
+  const manifest = await json(manifestFile);
+  assert.equal(manifest.question, question);
+  assert.equal(manifest.questionSha256, hash(question));
+  assert.equal(manifest.planSha256, hash(await read(planFile)));
+  assert.equal(p.model, "anthropic/claude-haiku-5.5");
+  assert.equal(manifest.model, p.model);
+  assert.equal(p.maximumCalls, p.fixtures.length * p.repeats);
+  assert.ok(p.reservePerCheckUsd * p.maximumCalls <= p.capUsd);
+  assert.ok(p.evaluationPreviouslyMeasuredUsd + p.evaluationUncertaintyUsd + p.capUsd <= p.evaluationAuthorizedTotalUsd);
+  for (const f of p.fixtures) assert.equal(hash(await readFile(path.join(dir, f.file))), f.sha256);
+}
+const rows = (await Promise.all(["attempts.ndjson", "followup-attempts.ndjson"].map(async (f) => (await read(f)).trim().split("\n").map(JSON.parse)))).flat();
+const complete = rows.filter((r) => r.result);
+const failed = rows.filter((r) => r.error);
+assert.equal(complete.length, 15);
+assert.equal(failed.length, 1);
+assert.equal(new Set(complete.map((r) => `${r.file}/${r.repeat}`)).size, 15);
+assert.match(failed[0].error, /OpenRouter 400/);
+assert.match(failed[0].rawResponse.error.metadata.raw, /image\/png media type.*image\/jpeg/);
+close(failed[0].reservedUncertainUsd, 0.005);
+for (const fixture of plan.fixtures) {
+  const matches = complete.filter((r) => r.file === fixture.file);
+  assert.deepEqual(matches.map((r) => r.repeat).sort(), [1, 2, 3]);
+  for (const r of matches) {
+    assert.equal(r.imageSha256, fixture.sha256);
+    assert.equal(r.expected, fixture.expected);
+    assert.equal(r.result.value.verdict, fixture.expected);
+    assert.deepEqual(JSON.parse(r.rawResponse.choices[0].message.content), r.result.value);
+    close(r.rawResponse.usage.cost, r.result.costUsd);
+    assert.ok(r.result.costUsd >= 0);
+    assert.equal(r.rawResponse.model, plan.model);
+  }
+}
+const measured = complete.reduce((sum, r) => sum + r.result.costUsd, 0);
+const initialMeasured = complete.filter((r) => r.file.startsWith("fixtures/bible-watercolor-")).reduce((sum, r) => sum + r.result.costUsd, 0);
+close(followup.evaluationPreviouslyMeasuredUsd, plan.evaluationPreviouslyMeasuredUsd + initialMeasured);
+close(followup.evaluationUncertaintyUsd, plan.evaluationUncertaintyUsd + failed[0].reservedUncertainUsd);
+assert.ok(initialMeasured + failed[0].reservedUncertainUsd + followup.capUsd <= plan.capUsd);
+assert.ok(measured + failed[0].reservedUncertainUsd <= plan.capUsd);
+const summary = await json("summary.json");
+const previousBudget = JSON.parse(await readFile(path.join(root, "llm/releases/2026-10-20-engine-production/budget-summary.json"), "utf8"));
+close(summary.evaluationPreviouslyMeasuredUsd, previousBudget.measuredUsd.allEvaluation);
+close(summary.evaluationAuthorizedUsd, previousBudget.authorizedUsd.allEvaluation);
+close(summary.preparationMeasuredUsd, previousBudget.measuredUsd.preparation);
+close(summary.smokeMeasuredUsd, previousBudget.measuredUsd.ownerSmoke);
+close(plan.evaluationUncertaintyUsd, previousBudget.uncertaintyAllowancesUsd.allEvaluation);
+assert.equal(summary.correct, 15);
+assert.equal(summary.incorrect, 0);
+assert.equal(summary.completed, complete.length);
+assert.equal(summary.failed, failed.length);
+assert.equal(summary.imageGenerationCalls, 0);
+close(summary.measuredCalibrationUsd, measured);
+close(summary.evaluationMeasuredUsd, summary.evaluationPreviouslyMeasuredUsd + measured);
+close(summary.evaluationUncertaintyUsd, plan.evaluationUncertaintyUsd + summary.reservedCalibrationUncertaintyUsd);
+close(summary.evaluationRemainingAfterUncertaintyUsd, summary.evaluationAuthorizedUsd - summary.evaluationMeasuredUsd - summary.evaluationUncertaintyUsd);
+const report = await json("followup-report.json");
+assert.equal(report.completed, 6);
+assert.deepEqual(report.disagreements, []);
+close(report.evaluationTotalMeasuredUsd, summary.evaluationMeasuredUsd);
+close(report.evaluationRemainingAfterUncertaintyUsd, summary.evaluationRemainingAfterUncertaintyUsd);
+const trial = await json("style-trial-manifest.json");
+assert.equal(hash(await readFile(path.join(root, summary.renderingTrial.styleFile))), summary.renderingTrial.styleSha256);
+assert.equal(hash(await readFile(path.join(root, "styles/watercolor.json"))), summary.renderingTrial.registeredStyleSha256);
+assert.notEqual(summary.renderingTrial.styleSha256, summary.renderingTrial.registeredStyleSha256);
+assert.equal(trial.plannedCalls, 9);
+assert.equal(trial.doneCalls, 0);
+assert.equal(trial.entries.length, 9);
+assert.equal(new Set(trial.entries.map((r) => r.key)).size, 9);
+assert.ok(trial.entries.every((r) => r.status === "planned" && r.arm === "generic:watercolor"));
+close(trial.estimatedUsd, summary.renderingTrial.estimatedUsd);
+close(trial.budgetUsd, summary.renderingTrial.subcapUsd);
+assert.ok(trial.estimatedUsd <= trial.budgetUsd && trial.budgetUsd <= summary.evaluationRemainingAfterUncertaintyUsd);
+const attention = await json("attention-proof.json");
+assert.equal(attention.modelCalls, 0);
+assert.equal(attention.referenceMutations, 0);
+assert.deepEqual(attention.rows.map((r) => r.workId).sort(), ["bible-web", "holmes-adventures"]);
+assert.ok(attention.rows.every((r) => !r.pinned && r.noted.id));
+assert.equal((await json("provider-balance.json")).canStartImageOutput, false);
+console.log(`Verified ${Object.keys(hashes).length} artifact hashes, 15 unique vision-check completions, one retained MIME error, two attention items and the unexecuted nine-image trial; measured evaluation $${summary.evaluationMeasuredUsd.toFixed(8)}, remaining after uncertainty $${summary.evaluationRemainingAfterUncertaintyUsd.toFixed(8)}.`);

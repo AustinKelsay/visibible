@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "model": "anthropic/claude-haiku-5.5",
+  "repeats": 3,
+  "maximumCalls": 6,
+  "capUsd": 0.03,
+  "reservePerCheckUsd": 0.005,
+  "evaluationAuthorizedTotalUsd": 16,
+  "evaluationPreviouslyMeasuredUsd": 6.47157685,
+  "evaluationUncertaintyUsd": 0.045,
+  "fixtures": [
+    {
+      "file": "fixtures/holmes-watercolor.png",
+      "expected": "fail",
+      "sha256": "cff7298326fdde848d3b3e0c24e368d2b9710aa4c00866206aa32c3e4cfeae5b"
+    },
+    {
+      "file": "fixtures/bible-icon-control.jpg",
+      "expected": "pass",
+      "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+    }
+  ],
+  "note": "Only the two remaining fixtures after the initial round completed all nine Bible Watercolor checks. One Holmes request used a PNG MIME label for JPEG bytes and was rejected with HTTP 400; preserve that attempt and a $0.005 uncertainty reserve. The corrected run detects image type from bytes. No completed check is repeated."
+}

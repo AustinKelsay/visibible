@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-21T00:33:36.346Z",
+  "model": "anthropic/claude-haiku-5.5",
+  "question": "You look-check a style reference image before an illustration engine uses it. Judge strictly from the image. Return only JSON.\nInspect the entire perimeter, including all four corners, before deciding full_bleed. The depicted scene must continue to every edge. A mostly painted image still fails if scenery or pigment fades into bare white or cream paper at any edge or corner; irregular washed-out edges and partial paper margins count as a vignette/frame, even without a straight border. Set full_bleed=false and frame_present=true for those faults. Pale sky, clouds or a light-coloured object within a continuous scene are not by themselves paper margins.\nFail if there are any people, any text, any frame/border/margin/vignette, or full_bleed is false. A window within the depicted scene is not itself a frame around the image. Pass only when all four conditions are satisfied. Give only observed faults in reasons on a fail; do not ask the generator to fix absent people or absent text.",
+  "questionSha256": "f3e3f73e0911b5fcad7dc4ba65c18ecebed446a1e48a0d8dd9667c612140c22f",
+  "planSha256": "85a2ec0f7c66cd3f83785dbdedde53cbad8644b57f2e4c35a2904a06c628930b",
+  "maximumCalls": 6,
+  "capUsd": 0.03,
+  "completed": 6,
+  "spentUsd": 0.0014872999999999998,
+  "reservedUncertainUsd": 0,
+  "evaluationTotalMeasuredUsd": 6.47306415,
+  "evaluationRemainingAfterUncertaintyUsd": 9.48193585,
+  "disagreements": [],
+  "note": "Vision-check calibration only; no image generated or production reference changed. The fixture labels are an agent assessment, not human release acceptance."
+}
