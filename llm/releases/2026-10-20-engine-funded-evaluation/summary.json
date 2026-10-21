@@ -1,0 +1,87 @@
+{
+  "at": "2026-10-21T01:26:34.003368+00:00",
+  "baseCommit": "f1d244eed0c9edf5a7316e9cbb3d1b1bcd15b20d",
+  "newMeasuredUsd": 6.53118465,
+  "trial": {
+    "measuredUsd": 0.30738975,
+    "capUsd": 0.35,
+    "marginFailures": 8,
+    "ambiguousMargins": 1,
+    "decision": "rejected; registered style unchanged"
+  },
+  "runs": {
+    "watercolor-trial": {
+      "completed": 9,
+      "newImageCalls": 9,
+      "newPreparationCalls": 0,
+      "newMeasuredUsd": 0.30738975,
+      "cumulativeRunMeasuredUsd": 0.30738975,
+      "newPreparationMeasuredUsd": 0,
+      "scoreVerdicts": {
+        "pass": 0,
+        "accepted limitation": 0,
+        "fail": 3
+      }
+    },
+    "classical": {
+      "completed": 108,
+      "newImageCalls": 87,
+      "newPreparationCalls": 2,
+      "newMeasuredUsd": 2.96257065,
+      "cumulativeRunMeasuredUsd": 3.6952577999999994,
+      "newPreparationMeasuredUsd": 0.0004948999999999999,
+      "scoreVerdicts": {
+        "pass": 19,
+        "accepted limitation": 12,
+        "fail": 5
+      }
+    },
+    "icon": {
+      "completed": 108,
+      "newImageCalls": 95,
+      "newPreparationCalls": 0,
+      "newMeasuredUsd": 3.26122425,
+      "cumulativeRunMeasuredUsd": 3.712842750000001,
+      "newPreparationMeasuredUsd": 0,
+      "scoreVerdicts": {
+        "pass": 17,
+        "accepted limitation": 15,
+        "fail": 4
+      }
+    }
+  },
+  "matrix": {
+    "fixedCases": 36,
+    "styles": 3,
+    "repeats": 3,
+    "required": 324,
+    "completed": 236,
+    "incomplete": 88,
+    "classical": 108,
+    "icon": 108,
+    "originalWatercolor": 20,
+    "separateTrialExcluded": 9,
+    "qualityPass": false
+  },
+  "budgets": {
+    "evaluationAuthorizedUsd": 16,
+    "evaluationPreviouslyMeasuredUsd": 6.47306415,
+    "evaluationMeasuredUsd": 13.0042488,
+    "evaluationUncertaintyUsd": 0.045,
+    "evaluationRemainingUsd": 2.950751200000001,
+    "preparationAuthorizedUsd": 43,
+    "preparationMeasuredUsd": 3.6351192,
+    "preparationUncertaintyUsd": 0.03,
+    "preparationRemainingUsd": 39.3348808,
+    "smokeAuthorizedUsd": 1,
+    "smokeMeasuredUsd": 0.0685215,
+    "smokeRemainingUsd": 0.9314785
+  },
+  "publicReleaseDecision": "retain baseline; disabled; Watercolor correction failed and human gates remain pending",
+  "notes": [
+    "All new trace usage, including two Elisha preparation calls, belongs to the evaluation bucket; it is not counted again in preparation.",
+    "Prior completed samples are retained exactly and their costs are already included in the previous evaluation total.",
+    "No account purchase, model substitution, production deployment, public switch, owner admission or reading pass.",
+    "Human visual/likeness, compatibility, accounting and actual-app latency acceptance plus named first-24-hour follow-up owner/outcome remain pending."
+  ]
+}
