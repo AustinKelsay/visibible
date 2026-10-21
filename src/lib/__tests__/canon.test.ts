@@ -12,9 +12,10 @@ import { createWorkReader } from "../work-input";
 import type { TextModel, TextModelRequest, TextModelResult } from "../reading-pass/model";
 import { runReadingPass, emptyState } from "../reading-pass/run";
 import { runCanon, emptyCanonState, canonRecords } from "../reading-pass/canon-run";
-import { entriesNeedingCanon, checkCanon, mentionUnits } from "../reading-pass/canon";
+import { CANON_PROMPT_VERSION, draftCanonEntry, entriesNeedingCanon, checkCanon, mentionUnits } from "../reading-pass/canon";
 import { createMemoryAnalysisStore, createConvexAnalysisStore } from "../reading-pass/store";
 import { BudgetExceededError } from "../reading-pass/model";
+import { applicableRules } from "../engine/prompt";
 
 const twoBooks = JSON.parse(readFileSync(new URL("../../../tests/fixtures/works/two-books.json", import.meta.url), "utf8"));
 
@@ -99,6 +100,62 @@ const canonFor = (entryId: string, request: TextModelRequest) => {
 };
 
 describe("canon", () => {
+  it("separates no-form rendering instructions from unchanged bodily source evidence", async () => {
+    const reading = await readFixture();
+    const workFile = structuredClone(twoBooks);
+    const source = "The voice from the sky sat in white clothing, with hair like pure wool.";
+    workFile.divisions[0].divisions[0].units[0].text = source;
+    const work = createWorkReader(workFile);
+    const entry = reading.merge!.entries.find((e) => e.id === "the_voice_from_the_sky")!;
+    const rule = "Beings heard only as voices are never given a face or body.";
+    const brief = { ...reading.brief!.brief, depictionRules: [{ text: rule }] };
+    const text = "The voice from the sky: a presence of pure white radiance and cloud.";
+    const model = scriptedModel({ "canon:": (request) => {
+      expect(request.system).toContain("Depiction rules govern the rendered appearance");
+      expect(request.system).toContain("appearance fields below apply only when has_form is true");
+      expect(request.system).toContain("not physical anatomy, clothing, pose or material cues");
+      expect(request.system).toContain("Keep the exact source wording in supporting quotes");
+      expect(request.user).toContain(rule);
+      expect(request.user).toContain(`[alpha-1-1] ${source}`);
+      return { kind: "character", has_form: false, appearance_from_text: source, section_stages: [{ section: "alpha-1-1", stage: "main" }],
+        stages: [stage("main", text, [{ unit: "alpha-1-1", quote: source }])] };
+    } });
+    const result = await draftCanonEntry({ work, entry, brief, sections: reading.merge!.sections,
+      sectionEras: reading.brief!.sectionEras, hints: [], model });
+    expect(model.calls).toHaveLength(1);
+    expect(result).toMatchObject({ hasForm: false, promptVersion: CANON_PROMPT_VERSION, appearanceFromText: source,
+      stages: [{ text, quotes: [{ unit: "alpha-1-1", quote: source }] }], problems: [], attempts: 1 });
+    expect(work.getUnit("alpha-1-1").text).toBe(source);
+  });
+
+  it("reserves style-conditional restrictions for rendering rather than shared canon", async () => {
+    const reading = await readFixture();
+    const shared = "Clothing fits the work's era.";
+    const conditional = "People are represented only by light, without faces or bodies.";
+    const brief = { ...reading.brief!.brief, styleIds: ["classical", "icon"],
+      depictionRules: [{ text: shared }, { text: conditional, styleIds: ["icon"] }] };
+    const hints = [{ entryId: "jonah", kind: "character" as const, sourcePath: "depictionRules.2", text: "Jonah appears only as cloud.", styleIds: ["icon"] },
+      { entryId: "jonah", kind: "character" as const, sourcePath: "depictionRules.3", text: "Jonah always carries a net." }];
+    const before = structuredClone(brief);
+    const hintsBefore = structuredClone(hints);
+    const model = scriptedModel({ "canon:": (request) => {
+      expect(request.user).toContain(shared);
+      expect(request.user).not.toContain(conditional);
+      expect(request.user).not.toContain(hints[0].text);
+      expect(request.user).toContain(hints[1].text);
+      expect(request.system).toContain("Apply only the brief's unconditional rules to this shared canon");
+      return { kind: "character", has_form: true, appearance_from_text: "His look is supplied.", section_stages: [],
+        stages: [stage("main", "Jonah: a young fisherman, lean, sun-browned, in a grey wool tunic.")] };
+    } });
+    const result = await draftCanonEntry({ work: createWorkReader(twoBooks), entry: reading.merge!.entries.find((e) => e.id === "jonah")!,
+      brief, sections: reading.merge!.sections, sectionEras: reading.brief!.sectionEras, hints, model });
+    expect(result.hasForm).toBe(true);
+    expect(applicableRules(brief, "classical")).toEqual([shared]);
+    expect(applicableRules(brief, "icon")).toEqual([shared, conditional]);
+    expect(brief).toEqual(before);
+    expect(hints).toEqual(hintsBefore);
+  });
+
   it("drafts every on-stage entry, keeps the rules in code, and stages a generation that activates", async () => {
     const reading = await readFixture();
     const work = createWorkReader(twoBooks);
@@ -140,6 +197,7 @@ describe("canon", () => {
     expect(section.payload).toMatchObject({ cast: expect.arrayContaining([{ entryId: "jonah", stageId: "weathered", named: true }, { entryId: "the_lake", stageId: "main" }]) });
     const voice = records.find((r) => r.kind === "entry" && r.recordId === "the_voice_from_the_sky")!;
     expect(voice.payload).toMatchObject({ hasForm: false, stages: [expect.objectContaining({ id: "main" })] });
+    expect(voice.inputs).toEqual([{ kind: "prompt", recordId: "canon", version: CANON_PROMPT_VERSION }]);
 
     // In the real store the generation is structurally valid and becomes active and ready.
     const t = convexTest(schema, modules);
@@ -151,6 +209,7 @@ describe("canon", () => {
     await convexStore.putRecords({ workId: "two-books", generation, records });
     await convexStore.activateGeneration({ workId: "two-books", generation });
     expect((await t.query(api.analysis.getWorkStatus, { workId: "two-books" })).ready).toBe(true);
+    expect((await t.query(api.analysis.getActiveRecord, { workId: "two-books", kind: "entry", recordId: "the_voice_from_the_sky" }))?.inputs).toEqual(voice.inputs);
     // An owner edit survives a redraft: the next candidate carries the owner version forward.
     await t.mutation(api.analysis.correctRecord, { serverSecret: "s".repeat(40), workId: "two-books", kind: "entry", recordId: "amos",
       payload: { kind: "entry", name: "Amos", entryKind: "character", hasForm: true, stages: [{ id: "main", text: "Amos: owner-edited look." }] } });
@@ -181,11 +240,17 @@ describe("canon", () => {
       state: emptyCanonState("two-books", "wv1", "bv1"), saveState: async (s) => { saved.push(Object.keys(s.entries).join(",")); }, budgetUsd: 1, parallel: 1 });
     expect(state.entries.amos.attempts).toBe(2);
     expect(state.entries.amos.stages[0].text).toBe("Amos: short.");
+    // Historical state has no prompt version. Resuming must not stamp or redraft it.
+    delete state.entries.amos.promptVersion;
+    const legacy = structuredClone(state.entries.amos);
     const before = model.calls.length;
     await runCanon({ workFile: twoBooks, workVersion: "wv1", brief, briefVersion: "bv1", reading, hints: [], model, store: null, state, saveState: async () => {}, budgetUsd: 1 });
     expect(model.calls.length).toBe(before);
+    expect(state.entries.amos).toEqual(legacy);
+    expect(canonRecords(reading, state).find((r) => r.kind === "entry" && r.recordId === "amos")?.inputs).toBeUndefined();
     await runCanon({ workFile: twoBooks, workVersion: "wv1", brief, briefVersion: "bv1", reading, hints: [], model, store: null, state, saveState: async () => {}, budgetUsd: 1, redraft: ["jonah"] });
     expect(model.calls.length).toBe(before + 1);
+    expect(state.entries.jonah.promptVersion).toBe(CANON_PROMPT_VERSION);
 
     // A redraft after staging reaches the store as a new candidate, even when the old one was activated.
     const memory = createMemoryAnalysisStore();
@@ -194,6 +259,7 @@ describe("canon", () => {
     await runCanon({ workFile: twoBooks, workVersion: "wv1", brief, briefVersion: "bv1", reading, hints: [], model, store: memory.store, state, saveState: async () => {}, budgetUsd: 1, redraft: ["amos"] });
     expect(state.staged).toEqual({ generation: 2, records: expect.any(Number), activated: false });
     expect(memory.generations[1].records.find((r) => r.kind === "entry" && r.recordId === "amos")!.payload).toMatchObject({ stages: [{ text: "Amos: short." }] });
+    expect(state.entries.amos.promptVersion).toBe(CANON_PROMPT_VERSION);
     expect(memory.activated).toEqual([1]);
 
     // Four parallel calls each estimated at about $0.0007: a budget of $0.002 admits two, then stops before the third.
