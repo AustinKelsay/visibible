@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-21T19:47:42.795Z",
+  "planVersion": "8cd89ee4aad16a597882ff9ccf05f0f0",
+  "preparedPlanSha256": "de44f630e034709ec15e9eec0c0b3e6d48bc9979f05e0e232b674f67ca7fe9b7",
+  "reviewer": "agent",
+  "acceptedForPilot": true,
+  "humanAccepted": false,
+  "presentSelection": "pass",
+  "assignedCanonAndProtectedBlock": "pass",
+  "sceneLanguageVerdict": "pass-for-single-pilot",
+  "observations": [
+    {
+      "field": "primarySubject",
+      "text": "Pure white radiance and cloud gathered over an unoccupied seat of fiery flame, the seat of judgment, with wheels of burning fire beneath it; Daniel stands at a distance below, gazing upward.",
+      "assessment": "Describes permitted radiance/cloud, explicitly makes the seat unoccupied and places Daniel as the formed witness. It uses canon effects in situational placement rather than repeating the earlier bodily denial or enthroned presence."
+    },
+    {
+      "field": "action",
+      "text": "Thrones are being set in place as the seat of judgment settles under the open sky; flames curl slowly outward from the seat while Daniel lifts his eyes and stands still in awe.",
+      "assessment": "Gives the setting movement and Daniel his own action; does not assign a bodily pose to the no-form subject."
+    },
+    {
+      "field": "secondaryElements",
+      "text": "Wheels of burning fire rolling beneath the fiery seat; streams of white radiance pouring like wool across the cloud; Daniel in a simple Babylonian tunic and cloak at the lower edge.",
+      "assessment": "The wool simile describes streams of radiance across cloud, consistent with the supplied canon effect. It is not assigned as hair or clothing, but remains a visual ambiguity to inspect in every image."
+    },
+    {
+      "field": "all",
+      "assessment": "No scene field assigns anatomy, a human silhouette, a garment-shaped substitute or a prohibited-feature denial to the no-form subject. Other fields describe setting, time, mood and placement; all remain within 220 characters."
+    }
+  ],
+  "decision": "Allow exactly the prevalidated three-image pilot: one original per style with no retry, manual text edit or cherry-picking. Preserve all results. This is a pre-image agent gate, not a human release decision.",
+  "limitations": [
+    "One text response is not a compliance-frequency estimate.",
+    "Visible effects necessarily share terms with canon; the accepted difference is explicit unoccupied-seat placement and situational action rather than wholesale fixed-description restatement.",
+    "The wool simile may still influence image texture or form; inspect the actual outputs.",
+    "Human visual and likeness acceptance and release gates remain pending."
+  ]
+}

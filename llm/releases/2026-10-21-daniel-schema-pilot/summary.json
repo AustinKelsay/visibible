@@ -1,0 +1,51 @@
+{
+  "at": "2026-10-21T19:51:58.972180+00:00",
+  "issue": 183,
+  "outcome": "text-gate-passed-image-release-gates-failed",
+  "publicActivation": false,
+  "humanAccepted": false,
+  "plannedImages": 3,
+  "imageCalls": 3,
+  "preparationCalls": 1,
+  "newMeasuredUsd": 0.10295855,
+  "newImageMeasuredUsd": 0.10248925,
+  "newPreparationMeasuredUsd": 0.0004693,
+  "newUncertaintyUsd": 0,
+  "oldPlanVersion": "575c1a3d622656802a52fa15001b77d9",
+  "newPlanVersion": "8cd89ee4aad16a597882ff9ccf05f0f0",
+  "planPromptVersion": "2026-10-21-formless-presence-v3",
+  "imageModel": "google/gemini-3.1-flash-lite-image",
+  "textModel": "anthropic/claude-haiku-5.5",
+  "originalMatrixCompleted": 236,
+  "originalMatrixPlanned": 324,
+  "narrowNoBodyVerdicts": {
+    "pass": 1,
+    "review": 2,
+    "fail": 0
+  },
+  "wholeCaseVerdicts": {
+    "pass": 0,
+    "fail": 3
+  },
+  "budgets": {
+    "evaluationAuthorizedUsd": 16,
+    "evaluationMeasuredUsd": 15.8885884,
+    "evaluationUncertaintyUsd": 0.045,
+    "evaluationRemainingUsd": 0.0664116,
+    "preparationAuthorizedUsd": 43,
+    "preparationMeasuredUsd": 3.6351192,
+    "preparationUncertaintyUsd": 0.03,
+    "preparationRemainingUsd": 39.3348808,
+    "smokeAuthorizedUsd": 1,
+    "smokeMeasuredUsd": 0.0685215,
+    "smokeRemainingUsd": 0.9314785
+  },
+  "account": {
+    "beforeUsd": 11.412528742000006,
+    "immediateAfterUsd": 11.343830692000012,
+    "settledAfterUsd": 11.309570191999995,
+    "accountBalanceIsNotSpendingAuthorization": true,
+    "note": "The immediate snapshot lagged the final image charge; the later read-only balance reconciles all four measured responses."
+  },
+  "next": "Keep public admission disabled. Preserve this single-sample pilot and prior failures; address remaining semantic ambiguity and presentation failures offline before funding another live run. No further paid calls in this run."
+}

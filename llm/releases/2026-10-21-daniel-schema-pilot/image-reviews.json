@@ -1,0 +1,58 @@
+{
+  "at": "2026-10-21T19:51:00.882Z",
+  "reviewer": "agent; provisional visual assessment, not human release acceptance",
+  "method": "All three unchanged 1376x768 originals inspected uncropped at full resolution. Apply the prior retest's conservative rule: ambiguous cloth-like silhouettes remain review and never become a no-body pass. Whole-case fail means the release gate is not met; it does not turn an ambiguity into a confirmed bodily depiction.",
+  "humanAccepted": false,
+  "images": [
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "classical",
+      "n": 1,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-classical-1.jpg",
+      "fullResolutionInspected": true,
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "review",
+      "noTextVerdict": "pass",
+      "fullFrameVerdict": "pass",
+      "wholeCaseVerdict": "fail",
+      "notes": [
+        "A fiery throne and wheels sit beneath long white streams. The bright streams sweep across the seat in cloth-like folds; no distinct head, face or limbs are resolved, but the robe-like mass around the seat remains ambiguous. This is not a confident no-body pass or a confirmed human-body failure.",
+        "The scene fills the frame and no obvious signature or inscription is visible. These narrow observations do not establish human likeness or release acceptance."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "watercolor",
+      "n": 1,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-watercolor-1.jpg",
+      "fullResolutionInspected": true,
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "review",
+      "noTextVerdict": "pass",
+      "fullFrameVerdict": "fail",
+      "paperMarginVerdict": "fail",
+      "wholeCaseVerdict": "fail",
+      "notes": [
+        "Bright white radiance spreads over and across the chair with draped, robe-like folds on the seat. A face or distinct limbs are not resolved; the occupied-looking light mass remains ambiguous rather than a no-body pass.",
+        "Unpainted white paper margins remain at the lower and side edges. This is a full-frame presentation failure independent of the no-form ambiguity."
+      ]
+    },
+    {
+      "caseId": "daniel-7-9-ancient-of-days",
+      "styleId": "icon",
+      "n": 1,
+      "output": "outputs/daniel-7-9-ancient-of-days/generic-icon-1.jpg",
+      "fullResolutionInspected": true,
+      "humanLikenessAccepted": false,
+      "formlessDepictionVerdict": "pass",
+      "noTextVerdict": "pass",
+      "fullFrameVerdict": "fail",
+      "singleSceneVerdict": "fail",
+      "wholeCaseVerdict": "fail",
+      "notes": [
+        "Columns of light over fiery wheels and thrones show no visible human-form divine occupant; Daniel retains ordinary human form. This passes only the narrow no-body criterion.",
+        "The output repeats the scene in three vertical panels, with borders around the central panel and duplicated side scenes. This is a collage/presentation failure, not merely an optional Icon border limitation."
+      ]
+    }
+  ]
+}

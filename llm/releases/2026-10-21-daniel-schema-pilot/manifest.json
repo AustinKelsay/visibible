@@ -1,0 +1,36 @@
+{
+ "entries": [
+  {
+   "key": "daniel-7-9-ancient-of-days/generic:classical/1",
+   "caseId": "daniel-7-9-ancient-of-days",
+   "reference": "Daniel 7:9",
+   "arm": "generic:classical",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "daniel-7-9-ancient-of-days/generic:watercolor/1",
+   "caseId": "daniel-7-9-ancient-of-days",
+   "reference": "Daniel 7:9",
+   "arm": "generic:watercolor",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "daniel-7-9-ancient-of-days/generic:icon/1",
+   "caseId": "daniel-7-9-ancient-of-days",
+   "reference": "Daniel 7:9",
+   "arm": "generic:icon",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  }
+ ],
+ "plannedCalls": 3,
+ "doneCalls": 0,
+ "estimatedUsd": 0.10800000000000001,
+ "budgetUsd": 0.16,
+ "withinBudget": true
+}
