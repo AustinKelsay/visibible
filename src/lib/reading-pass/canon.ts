@@ -27,18 +27,22 @@ export const canonOutputSchema = z.object({
 }).strict();
 export type CanonOutput = z.infer<typeof canonOutputSchema>;
 
+/** Wording of new canon drafts; saved entries are reused until explicitly redrafted. */
+export const CANON_PROMPT_VERSION = "2026-10-21-canon-depiction-v1";
+
 export const CANON_SYSTEM = `You write CANON ENTRIES for an illustrated edition of a work of literature. A canon entry fixes the identity of one character, location or object so that independently generated images agree with each other. Return only JSON matching the schema.
 
 Rules:
-- The work's text is binding: anything it says about appearance must be in the entry.
-- Where the text is silent, follow the work's own illustrative tradition if one exists (the way the work itself has been drawn and painted), never film or television adaptations; otherwise invent a look that fits the era and the work brief. Never give anyone the likeness of a real actor or public figure. Never contradict the text.
+- Depiction rules govern the rendered appearance, including when the source uses bodily imagery. Apply only the brief's unconditional rules to this shared canon; style-specific rules belong to final rendering. If an unconditional rule forbids giving this entry a body or face, set has_form to false; otherwise has_form is true.
+- Within those depiction limits, the work's text is binding: preserve what it fixes about appearance. Where the text is silent, follow the work's own illustrative tradition if one exists (the way the work itself has been drawn and painted), never film or television adaptations; otherwise invent a look that fits the era and the work brief. Never give anyone the likeness of a real actor or public figure.
 - Each stage's \`text\` is one prompt-ready paragraph of at most 500 characters, starting with the name and a colon.
+- The appearance fields below apply only when has_form is true:
   - character (people, beings, animals, groups): age range; build; skin; hair and beard; facial notes; one signature outfit (the one worn most often) and its colours; signature props the figure carries alone. For a group, describe a typical member.
   - location: terrain; architecture; vegetation; landmarks. No people.
   - object: form; material; colour.
+- When has_form is false, write only the permitted showing (light, cloud, fire, a voice, an effect). Render source metaphors as permitted qualities such as colour, brightness or atmosphere, not physical anatomy, clothing, pose or material cues. Do not repeat prohibited features as denials, similes or substitute shapes in stage text. Keep the exact source wording in supporting quotes for audit; \`appearance_from_text\` may explain the source imagery and its constrained interpretation.
 - Fix only identity. Leave out poses, expressions, actions, weather, time of day, other people (attendants, companions, crowds) and anything that compares the figure with someone else or depends on another person.
 - STAGES: almost every entry has exactly ONE stage. A character gets another stage only when the text itself says they have aged from child to adult or adult to elder across the work; a location only when the text says it was built, destroyed or rebuilt. Different scenes, days, rooms, moods or events are NOT stages. At most three. Objects always have exactly one stage. Each stage is a complete entry on its own.
-- Obey the work brief's depiction rules. If a rule forbids giving this entry a body or face, set has_form to false and write only the permitted showing (light, cloud, fire, a voice, an effect); otherwise has_form is true.
 - \`quotes\`: short passages (under 120 characters, copied exactly) the stage relied on, each with the id of the unit it comes from. Only quote units you were given; give none if nothing in the text describes appearance.
 - \`section_stages\`: for every story section listed, the id of the stage present in it. With one stage, every section uses it.
 - \`source\`: text, tradition, invention, or mixed. \`appearance_from_text\`: one sentence saying what the text fixes and what you supplied.`;
@@ -50,6 +54,8 @@ const MENTION_CAP_CHARS = 14_000;
 
 export type CanonStage = { id: string; label: string; when: string; text: string; source: string; quotes: Array<{ unit: string; quote: string }> };
 export type CanonEntryResult = {
+  /** Absent on historical drafts; never infer the current version for saved results. */
+  promptVersion?: string;
   entryId: string;
   kind: MergedEntry["kind"];
   hasForm: boolean;
@@ -91,11 +97,11 @@ export function canonUserPrompt(options: {
   const eraIds = new Set(onStage.map((s) => options.sectionEras[s.firstUnitId]).filter(Boolean));
   const eras = brief.eras.filter((e) => eraIds.has(e.id));
   const units = mentionUnits(work, entry);
-  const hints = options.hints.filter((h) => h.entryId === entry.id);
+  const hints = options.hints.filter((h) => h.entryId === entry.id && !h.styleIds);
   const user = `WORK: ${work.work.title} (${work.work.author})
 TONE: ${brief.tone}
-DEPICTION RULES:
-${brief.depictionRules.map((r) => `- ${r.text}${r.styleIds ? ` [styles: ${r.styleIds.join(", ")}]` : ""}`).join("\n") || "- none"}
+DEPICTION RULES (unconditional; style-specific rules are reserved for final rendering):
+${brief.depictionRules.filter((r) => !r.styleIds).map((r) => `- ${r.text}`).join("\n") || "- none"}
 ERAS THIS ENTRY APPEARS IN:
 ${(eras.length ? eras : brief.eras.slice(0, 1)).map((e) => `- ${e.label}: people: ${e.people} Dress: ${e.dress} Buildings and objects: ${e.buildingsAndObjects}`).join("\n")}
 HINTS FROM THE OWNER'S BRIEF REVIEW (lines moved out of the brief because they concern this entry alone; use them):
@@ -162,10 +168,10 @@ export async function draftCanonEntry(options: {
     if ("error" in parsed) { feedback = `\n\nThe previous answer was not valid JSON for the schema (${parsed.error}). Return a corrected answer.`; continue; }
     last = checkCanon(options.work, options.entry, parsed.value, sectionIds);
     const overCap = last.problems.filter((p) => p.includes("characters (cap"));
-    if (!overCap.length || attempt === 2) return { ...last, attempts: attempt };
+    if (!overCap.length || attempt === 2) return { ...last, promptVersion: CANON_PROMPT_VERSION, attempts: attempt };
     feedback = `\n\nThe previous answer was rejected: ${overCap.join("; ")}. Shorten every stage text to at most ${CANON_TEXT_CAP} characters and return the corrected answer.`;
   }
-  if (last) return { ...last, attempts: 2 };
+  if (last) return { ...last, promptVersion: CANON_PROMPT_VERSION, attempts: 2 };
   throw new Error(`Canon for ${options.entry.id} could not be drafted`);
 }
 
