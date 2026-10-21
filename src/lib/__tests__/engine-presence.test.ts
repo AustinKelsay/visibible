@@ -5,7 +5,7 @@ import schema from "../../../convex/schema";
 import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
 import { assembleRendering } from "../engine/assemble";
-import { createConvexPreparationStore } from "../engine/preparation";
+import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, PLAN_SYSTEM } from "../engine/preparation";
 import type { WorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { createWorkReader } from "../work-input";
@@ -43,7 +43,7 @@ const fields = { primarySubject: "The voice present as radiance above an empty t
 describe("no-form presence selection", () => {
   beforeEach(() => { process.env.CONVEX_SERVER_SECRET = SECRET; });
 
-  async function setup(formless = true) {
+  async function setup(formless = true, { planFields = fields } = {}) {
     const t = convexTest(schema, modules);
     const selectedEntries = formless ? entries : entries.filter((e) => e.recordId === "watcher");
     await t.mutation(api.analysis.registerWork, { serverSecret: SECRET, workId: WORK, workVersion: "wv", briefVersion: "bv" });
@@ -63,7 +63,7 @@ describe("no-form presence selection", () => {
       const alone = request.user.includes("MOMENT (The Court 2)");
       const value = request.schemaName === "section_look" ? lookAnswer : {
         present: alone ? ["watcher"] : ["watcher", "voice", "unknown_entry"],
-        ...fields, ...(alone ? { primarySubject: "The watcher alone", action: "waits" } : {}),
+        ...planFields, ...(alone ? { primarySubject: "The watcher alone", action: "waits" } : {}),
       };
       return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd: 0 }, elapsedMs: 1 };
     } };
@@ -93,9 +93,17 @@ describe("no-form presence selection", () => {
     const plan = calls.find((r) => r.schemaName === "scene_plan")!;
     expect(plan.user).toContain("- watcher: The watcher (hasForm: true)");
     expect(plan.user).toContain("- voice: The voice (hasForm: false)");
+    expect(plan.user).toContain(`- voice (stage: revealed): ${voiceCanon}`);
+    expect(plan.user).not.toContain(entries[1].payload.stages[0].text);
+    expect(plan.user).not.toContain(entries[0].payload.stages[0].text);
+    expect(plan.user).toContain(`MOMENT (The Court 1): ${work.getUnit("court-1").text}`);
     expect(plan.system).toContain("Presence does not require a physical body");
     expect(plan.system).toContain("include its id in `present`");
     expect(plan.system).toContain("do not add cast who are absent or merely mentioned");
+    expect(plan.system).toContain("use its assigned canon to choose the permitted visible effects");
+    expect(plan.system).toContain("describe the unoccupied seat and the permitted surrounding effects rather than a seated presence");
+    expect(plan.system).toContain("Do not repeat prohibited features as denials or substitutes");
+    expect(plan.system).toContain("Keep formed characters' own poses, clothing and actions");
     expect(getReference.mock.calls.filter(([kind]) => kind === "sheet").map(([, id]) => id)).toEqual(["watcher:main", "watcher:main", "watcher:main"]);
   });
 
@@ -109,20 +117,56 @@ describe("no-form presence selection", () => {
     expect(alone.prepared.calls).toBe(1);
     expect(alone.packet.canon.map((c) => c.entryId)).toEqual(["watcher"]);
     expect(alone.prompt).not.toContain("FORMLESS SUBJECTS");
+    expect(calls[2].user).toContain(voiceCanon); // Section context does not force moment presence.
+    expect(alone.prompt).not.toContain(voiceCanon);
     expect(calls).toHaveLength(3);
   });
 
-  it.each(["missing", "older"])("replans a cached omission when the presence-prompt version is %s and preserves its history", async (version) => {
+  it("uses the same first-stage fallback for no-form planning constraints and rendering", async () => {
+    const { t, render, calls } = await setup();
+    // An owner correction can remove a stage after the generation passes activation checks.
+    await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "voice",
+      payload: { ...entries[1].payload, stages: [entries[1].payload.stages[0]] } });
+    const result = await render();
+    if (!result.ok) throw new Error(result.message);
+    const fallbackCanon = entries[1].payload.stages[0].text;
+    const request = calls.find((r) => r.schemaName === "scene_plan")!;
+    expect(request.user).toContain(`- voice (stage: early): ${fallbackCanon}`);
+    expect(request.user).not.toContain(voiceCanon);
+    expect(result.packet.canon).toContainEqual(expect.objectContaining({ entryId: "voice", stageId: "early" }));
+    expect(result.prompt).toContain(fallbackCanon);
+  });
+
+  it("does not silently rewrite or retry a schema-valid contradictory reply", async () => {
+    const contradictory = { ...fields, primarySubject: "The voice seated as a figure of light", action: "The watcher kneels in his blue cloak", secondaryElements: "Radiance suggesting white garments" };
+    const { t, render, calls } = await setup(true, { planFields: contradictory });
+    const result = await render();
+    if (!result.ok) throw new Error(result.message);
+    expect(calls.filter((r) => r.schemaName === "scene_plan")).toHaveLength(1);
+    const stored = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
+    if (stored?.payload.kind !== "plan") throw new Error("No prepared plan");
+    expect(stored.payload.plan).toEqual(contradictory);
+    expect(result.prompt).toContain(contradictory.primarySubject);
+    expect(result.prompt).toContain(contradictory.action);
+    expect(result.prompt).toContain("FORMLESS SUBJECTS");
+    // This contract improves model input; live compliance remains an explicit evaluation gate.
+    expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK })).calls).toBe(2);
+  });
+
+  it.each(["missing", "older", "2026-10-21-formless-presence-v1"])("refreshes a cached no-form plan when the prompt version is %s and preserves its history", async (version) => {
     const { t, render, calls } = await setup();
     const first = await render();
     if (!first.ok) throw new Error(first.message);
     const current = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
     if (!current) throw new Error("No prepared plan");
     const oldInputs = version === "missing" ? current.inputs.filter((i) => i.kind !== "prompt")
-      : current.inputs.map((i) => i.kind === "prompt" ? { ...i, version: "older-presence-prompt" } : i);
-    // Like the retained Daniel failure: prose describes a presence but its entry is omitted.
+      : current.inputs.map((i) => i.kind === "prompt" ? { ...i, version } : i);
+    // Retain both failures: omitted presence and v1's selected but bodily description.
+    const oldPayload = { kind: "plan" as const, momentId: "court-1",
+      entries: version.endsWith("-v1") ? [{ entryId: "watcher", stageId: "main" }, { entryId: "voice", stageId: "revealed" }] : [{ entryId: "watcher", stageId: "main" }],
+      plan: version.endsWith("-v1") ? { ...fields, primarySubject: "The voice seated as a figure of light" } : fields };
     const old = await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "court-1",
-      payload: { kind: "plan", momentId: "court-1", entries: [{ entryId: "watcher", stageId: "main" }], plan: fields }, inputs: oldInputs });
+      payload: oldPayload, inputs: oldInputs });
     calls.length = 0;
     const refreshed = await render();
     if (!refreshed.ok) throw new Error(refreshed.message);
@@ -130,9 +174,11 @@ describe("no-form presence selection", () => {
     expect(refreshed.packet.lookVersion).toBe(first.packet.lookVersion);
     expect(refreshed.packet.canon.map((c) => c.entryId)).toEqual(["watcher", "voice"]);
     const saved = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
-    expect(saved?.inputs).toContainEqual({ kind: "prompt", recordId: "scene_plan_formless_presence", version: expect.any(String) });
+    if (saved?.payload.kind !== "plan") throw new Error("No refreshed plan");
+    expect(saved.payload.plan).toEqual(fields);
+    expect(saved?.inputs).toContainEqual({ kind: "prompt", recordId: "scene_plan_formless_presence", version: FORMLESS_PLAN_PROMPT_VERSION });
     const history = await t.run(async (ctx) => (await ctx.db.query("analysisRecords").collect()).filter((r) => r.kind === "plan"));
-    expect(history).toContainEqual(expect.objectContaining({ version: old.version, status: "superseded", payload: { kind: "plan", momentId: "court-1", entries: [{ entryId: "watcher", stageId: "main" }], plan: fields } }));
+    expect(history).toContainEqual(expect.objectContaining({ version: old.version, status: "superseded", payload: oldPayload }));
     calls.length = 0;
     await render("court-1", "icon");
     expect(calls).toHaveLength(0);
@@ -144,8 +190,10 @@ describe("no-form presence selection", () => {
     if (!first.ok) throw new Error(first.message);
     const plan = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
     expect(plan?.inputs.some((i) => i.kind === "prompt")).toBe(false);
+    expect(calls[1].system).toBe(PLAN_SYSTEM);
     expect(calls[1].user).toContain("- watcher: The watcher\n");
     expect(calls[1].user).not.toContain("hasForm:");
+    expect(calls[1].user).not.toContain("NO-FORM CANON CONSTRAINTS");
     calls.length = 0;
     const again = await render();
     if (!again.ok) throw new Error(again.message);
