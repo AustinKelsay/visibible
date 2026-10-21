@@ -12,9 +12,11 @@ Retained evidence for [#183](https://github.com/AustinKelsay/visibible/issues/18
 
 Total evaluation spend in this snapshot is **$4.59436770**. Both the primary candidate run and its failed correction count toward the separate $12 candidate allowance inside the authorized $16 evaluation cap. The baseline has a $4 cap. Full Bible preparation uses the separate $43 preparation allowance; guest credits were not reserved by the evaluation harness.
 
+The $4 baseline/$12 candidate split above was the agent’s initial allocation inside the single authorized $16 evaluation cap. Subsequent prompt-v2 work reallocates unused baseline headroom within that same $16 cap, counts every earlier run and failed trial, and reserves an explicit $0.04 interruption allowance. See the [later production evidence](../2026-10-20-engine-production/README.md) for the current accounting. The historical manifests and prompts below remain unchanged.
+
 The baseline's configured Nvidia planner returned 404 on all 99 attempts. Every image used the existing legacy fallback prompt. [The retained diagnostic](baseline-planner-diagnostic.json), prompts and `plannerOutcome` fields disclose this; this is the observed configured baseline, not successful planner output. All 99 image calls completed and supplied usage.
 
-The Holmes manifest retains the complete 324-sample candidate plan, while its state and report contain only the 27 completed Holmes samples at this point. The 297 Bible candidate samples remain outstanding. No case, style, setting or required repeat was removed to improve the scores. [The corrected source references](https://github.com/AustinKelsay/visibible/pull/209) match the imported Holmes text.
+The Holmes manifest retains the complete 324-sample candidate plan, while its state and report contain only the 27 completed Holmes samples at this point. This original planning manifest predates #209: two Holmes labels still say `¶1` and `¶20`; the corrected case file, actual sample state and report use A Scandal in Bohemia Part I `¶1` and `¶42`. The original 324-call plan and its hash are retained as historical inputs, not represented as text sent to the provider. The 297 Bible candidate samples remain outstanding at this snapshot. No case, style, setting or required repeat was removed to improve the scores. [The corrected source references](https://github.com/AustinKelsay/visibible/pull/209) match the imported Holmes text.
 
 ## Visual failures and limits
 

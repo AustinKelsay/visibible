@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-20T23:17:43.037704+00:00",
+  "change": "disabled \u2192 owner for one funded guest session only",
+  "publicAdmission": "unchanged; Classical legacy, Watercolor/Icon unavailable",
+  "releaseCommit": "576f1d2c51a4964c7e02c346af1fd25b9cb10b0d",
+  "sessionSha256": "c032800339ce38c2f0377aff01520d7471a18c80f643d154f06bb1f9856375b4",
+  "configuration": {
+    "GENERIC_ENGINE_MODE": "owner",
+    "GENERIC_ENGINE_OWNER_CHECK_SESSION_SHA256": "c032800339ce38c2f0377aff01520d7471a18c80f643d154f06bb1f9856375b4"
+  },
+  "afterCheck": "Remove the session digest, restore GENERIC_ENGINE_MODE=disabled and redeploy. Public activation requires separate explicit human acceptance."
+}

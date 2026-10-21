@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-20T21:35:27.423839+00:00",
+  "reason": "Active processes interrupted at 2026-10-20T21:33:56Z; all completed recorded calls retained. One merge call and one evaluation image may have been in flight without a saved response. Do not count the allowances as measured usage.",
+  "preparationAllowanceUsd": 0.02,
+  "evaluationAllowanceUsd": 0.04,
+  "evaluationRecordedBeforeInterruptionUsd": 4.9418807,
+  "evaluationRemainingHardCapUsd": 11.0181193,
+  "v2RunHardCapUsd": 11.36,
+  "note": "v2 hard cap 11.36 includes the already recorded v2 $0.347513; initial runs total $4.5943677 plus interruption allowance $0.04 leaves $11.3656323 for all v2 calls.",
+  "additionalPreparationStop": {
+    "at": "2026-10-20T21:41:40.894443+00:00",
+    "reason": "Stopped the sequential owner merge before switching the independent provider requests to a bounded six-call batch. At most one response was in flight; reserve a second $0.01 uncertainty allowance. Completed responses remain intact."
+  }
+}

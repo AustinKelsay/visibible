@@ -1,0 +1,159 @@
+{
+  "at": "2026-10-20T22:28:41.587861+00:00",
+  "authorizedCapUsd": 1,
+  "uniqueImageRequests": 20,
+  "fundedTestCredits": 100,
+  "configuration": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "resolution": "1K",
+    "aspectRatio": "16:9",
+    "readerTranslation": "kjv",
+    "referenceTranslation": "web",
+    "minRequestStartIntervalMs": 13500
+  },
+  "cold": [
+    {
+      "unitId": "ruth-1-16",
+      "reference": "Ruth 1:16",
+      "style": "icon",
+      "cohort": "cold-bulk",
+      "sectionId": "ruth-1-8"
+    },
+    {
+      "unitId": "ruth-2-8",
+      "reference": "Ruth 2:8",
+      "style": "icon",
+      "cohort": "cold-bulk",
+      "sectionId": "ruth-2-8"
+    },
+    {
+      "unitId": "genesis-12-2",
+      "reference": "Genesis 12:2",
+      "style": "classical",
+      "cohort": "cold-direct",
+      "sectionId": "genesis-12-1"
+    },
+    {
+      "unitId": "exodus-16-15",
+      "reference": "Exodus 16:15",
+      "style": "classical",
+      "cohort": "cold-direct",
+      "sectionId": "exodus-16-13"
+    },
+    {
+      "unitId": "1-kings-17-6",
+      "reference": "1 Kings 17:6",
+      "style": "classical",
+      "cohort": "cold-direct",
+      "sectionId": "1-kings-17-1"
+    },
+    {
+      "unitId": "mark-10-14",
+      "reference": "Mark 10:14",
+      "style": "classical",
+      "cohort": "cold-direct",
+      "sectionId": "mark-10-13"
+    },
+    {
+      "unitId": "luke-10-33",
+      "reference": "Luke 10:33",
+      "style": "watercolor",
+      "cohort": "cold-direct",
+      "sectionId": "luke-10-25"
+    },
+    {
+      "unitId": "john-4-7",
+      "reference": "John 4:7",
+      "style": "watercolor",
+      "cohort": "cold-direct",
+      "sectionId": "john-4-7"
+    },
+    {
+      "unitId": "acts-16-25",
+      "reference": "Acts 16:25",
+      "style": "watercolor",
+      "cohort": "cold-direct",
+      "sectionId": "acts-16-25"
+    },
+    {
+      "unitId": "ruth-2-3",
+      "reference": "Ruth 2:3",
+      "style": "watercolor",
+      "cohort": "cold-ui",
+      "sectionId": "ruth-2-1"
+    }
+  ],
+  "warm": [
+    {
+      "unitId": "ruth-1-16",
+      "reference": "Ruth 1:16",
+      "style": "icon",
+      "cohort": "prepared",
+      "sectionId": "ruth-1-8"
+    },
+    {
+      "unitId": "ruth-2-8",
+      "reference": "Ruth 2:8",
+      "style": "icon",
+      "cohort": "prepared",
+      "sectionId": "ruth-2-8"
+    },
+    {
+      "unitId": "genesis-12-2",
+      "reference": "Genesis 12:2",
+      "style": "classical",
+      "cohort": "prepared",
+      "sectionId": "genesis-12-1"
+    },
+    {
+      "unitId": "exodus-16-15",
+      "reference": "Exodus 16:15",
+      "style": "classical",
+      "cohort": "prepared",
+      "sectionId": "exodus-16-13"
+    },
+    {
+      "unitId": "1-kings-17-6",
+      "reference": "1 Kings 17:6",
+      "style": "classical",
+      "cohort": "prepared",
+      "sectionId": "1-kings-17-1"
+    },
+    {
+      "unitId": "mark-10-14",
+      "reference": "Mark 10:14",
+      "style": "classical",
+      "cohort": "prepared",
+      "sectionId": "mark-10-13"
+    },
+    {
+      "unitId": "luke-10-33",
+      "reference": "Luke 10:33",
+      "style": "watercolor",
+      "cohort": "prepared",
+      "sectionId": "luke-10-25"
+    },
+    {
+      "unitId": "john-4-7",
+      "reference": "John 4:7",
+      "style": "watercolor",
+      "cohort": "prepared",
+      "sectionId": "john-4-7"
+    },
+    {
+      "unitId": "acts-16-25",
+      "reference": "Acts 16:25",
+      "style": "watercolor",
+      "cohort": "prepared",
+      "sectionId": "acts-16-25"
+    },
+    {
+      "unitId": "genesis-12-2",
+      "reference": "Genesis 12:2",
+      "style": "classical",
+      "cohort": "prepared",
+      "sectionId": "genesis-12-1"
+    }
+  ],
+  "note": "Actual browser HTTP fetch through response JSON. Ten distinct cold sections must have both look and plan missing before their calls; prepared calls follow completed preparation. The two bulk items count among the ten cold requests. The UI request is last; use a saved unavailable model to prevent uninstrumented automatic generation during navigation, then choose Lite in the UI."
+}

@@ -1,0 +1,50 @@
+{
+  "at": "2026-10-20T23:20:16.107Z",
+  "job": {
+    "_creationTime": 1792538379305.8267,
+    "_id": "m17d4v4w826yw59m7fam49c92d8gmegz",
+    "artStyleId": "icon",
+    "aspectRatio": "16:9",
+    "completedAt": 1792538403952,
+    "completedCount": 2,
+    "createdAt": 1792538379305,
+    "engine": "generic",
+    "estimatedTotalCredits": 10,
+    "failedCount": 0,
+    "modelId": "google/gemini-3.1-flash-lite-image",
+    "resolution": "1K",
+    "scopeLabel": "Owner release check — two verses",
+    "scopeType": "verses",
+    "skippedCount": 0,
+    "startVerseId": "ruth-1-16",
+    "status": "completed",
+    "totalCreditsUsed": 10,
+    "totalVerses": 2,
+    "translation": "kjv",
+    "updatedAt": 1792538403952
+  },
+  "verses": [
+    {
+      "_creationTime": 1792538379305.827,
+      "_id": "kx71m7ztqsf99149y4k4hgtex18gn449",
+      "bulkGenerationId": "m17d4v4w826yw59m7fam49c92d8gmegz",
+      "creditsCost": 5,
+      "order": 0,
+      "reference": "Ruth 1:16",
+      "status": "completed",
+      "updatedAt": 1792538392919,
+      "verseId": "ruth-1-16"
+    },
+    {
+      "_creationTime": 1792538379305.8271,
+      "_id": "kx7d798sagg9n11k1tjmzvgj658gnmf4",
+      "bulkGenerationId": "m17d4v4w826yw59m7fam49c92d8gmegz",
+      "creditsCost": 5,
+      "order": 1,
+      "reference": "Ruth 2:8",
+      "status": "completed",
+      "updatedAt": 1792538403864,
+      "verseId": "ruth-2-8"
+    }
+  ]
+}

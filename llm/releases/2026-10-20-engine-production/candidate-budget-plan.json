@@ -1,0 +1,38 @@
+{
+  "at": "2026-10-20T22:11:48.461722+00:00",
+  "mode": "bounded independent style runs; three processes, not subagents",
+  "seedRun": "release-2026-10-20-generic-v2",
+  "seedSamples": 27,
+  "seedSpendUsd": 0.9391544999999998,
+  "newBudgetPerStyleUsd": 3.47,
+  "hardCapV2TotalUsd": 11.36,
+  "plannedV2TotalCapsUsd": 11.3491545,
+  "evaluationPreviousRunsUsd": 4.5943677,
+  "interruptionAllowanceUsd": 0.04,
+  "evaluationAuthorizedTotalUsd": 16,
+  "maximumAllCapsPlusAllowanceUsd": 15.9835222,
+  "styles": [
+    {
+      "style": "classical",
+      "seedSamples": 9,
+      "seedSpendUsd": 0.31135925000000003,
+      "commandRunCapUsd": 3.7813592500000004,
+      "bibleSamplesOwed": 99
+    },
+    {
+      "style": "watercolor",
+      "seedSamples": 9,
+      "seedSpendUsd": 0.313919,
+      "commandRunCapUsd": 3.783919,
+      "bibleSamplesOwed": 99
+    },
+    {
+      "style": "icon",
+      "seedSamples": 9,
+      "seedSpendUsd": 0.31387624999999997,
+      "commandRunCapUsd": 3.78387625,
+      "bibleSamplesOwed": 99
+    }
+  ],
+  "note": "Each style run retains its exact nine completed Holmes samples, then owes all 33 Bible cases with all three repeats. Original v2 state/prompts remain immutable. Caps sum below the remaining global allowance; do not retry after interruption until uncertain calls are accounted. No provider calls in this plan."
+}

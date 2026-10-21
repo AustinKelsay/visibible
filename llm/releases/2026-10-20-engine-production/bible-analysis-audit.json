@@ -1,0 +1,236 @@
+{
+  "at": "2026-10-20T22:19:03.105Z",
+  "run": "release-2026-10-20",
+  "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+  "books": 66,
+  "units": 31102,
+  "sections": 2790,
+  "moments": 31102,
+  "entries": 1569,
+  "sourceCastMembers": 2362,
+  "placedCastMembers": 2362,
+  "reconciliations": 54,
+  "canonNeeded": 1351,
+  "canonComplete": 1351,
+  "canonMissing": [],
+  "identityChecks": {
+    "god": "god_yahweh_the_father_and_god_of_israel",
+    "jesus": "jesus_christ_the_son_of_god_and_lord",
+    "moses": "moses",
+    "peter": "simon_peter",
+    "distinctFatherAndJesus": true
+  },
+  "problems": [],
+  "warnings": [
+    {
+      "entryId": "enoch_son_of_jared",
+      "problem": "stage enoch_main: quote not found in hebrews-11-5: \"he was well pleasing to God\""
+    },
+    {
+      "entryId": "er",
+      "problem": "stage er-1: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "the_nile",
+      "problem": "stage the_nile: quote not found in exodus-2-3: \"she laid it in the reeds by the river’s bank\""
+    },
+    {
+      "entryId": "marah_and_elim",
+      "problem": "stage marah_elim_main: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "og",
+      "problem": "stage og-main: quote not found in deuteronomy-3-11: \"his bedstead was a bedstead of iron. Nine cubits was its len\""
+    },
+    {
+      "entryId": "mount_ebal_and_mount_gerizim",
+      "problem": "stage mount_ebal_and_mount_gerizim-main: quote not found in deuteronomy-27-4: \"you shall set up these stones... on Mount Ebal, and you shal\""
+    },
+    {
+      "entryId": "joshua_s_heavenly_commander",
+      "problem": "stage joshua_s_heavenly_commander: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "the_jordan_river",
+      "problem": "stage the_jordan_river_main: quote not found in joshua-2-7: \"they went out to the fords of the Jordan River\""
+    },
+    {
+      "entryId": "tribe_of_benjamin",
+      "problem": "stage tribe_of_benjamin_main: quote not found in judges-20-16: \"Among all this people there were seven hundred chosen men wh\""
+    },
+    {
+      "entryId": "jerusalem",
+      "problem": "stage jerusalem: quote not found in 2-samuel-5-6: \"Capture of Jerusalem and David's family\""
+    },
+    {
+      "entryId": "boaz_s_servant",
+      "problem": "stage boaz_s_servant_main: quote cites unknown unit none"
+    },
+    {
+      "entryId": "the_benjamite_runner",
+      "problem": "stage the_benjamite_runner: quote not found in 1-samuel-4-12: \"the man who fled from the army\""
+    },
+    {
+      "entryId": "saul",
+      "problem": "stage saul: quote not found in 1-samuel-18-10: \"Saul's jealousy and spear\""
+    },
+    {
+      "entryId": "adullam_cave",
+      "problem": "stage adullam_cave: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "gibeon_2",
+      "problem": "stage gibeon_2-s1: quote not found in 2-samuel-2-13: \"they met them by the pool of Gibeon\""
+    },
+    {
+      "entryId": "bethel_northern_golden_calf_shrine_of_jeroboam",
+      "problem": "stage bethel_shrine: quote not found in 1-kings-12-32: \"He went up to the altar, and he went up to the altar which h\""
+    },
+    {
+      "entryId": "ramoth_gilead_battle_site_ahab_s_death",
+      "problem": "stage ramoth_gilead_main: quote not found in 1-kings-4-13: \"Ramoth Gilead, in the towns of Jair the son of Manasseh, whi\""
+    },
+    {
+      "entryId": "the_widow_of_a_son_of_the_prophets",
+      "problem": "stage the_widow_of_a_son_of_the_prophets: quote cites unknown unit none"
+    },
+    {
+      "entryId": "the_little_girl_from_israel",
+      "problem": "stage the_little_girl_from_israel_1: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "jehoiachin",
+      "problem": "stage jehoiachin: quote not found in jeremiah-52-11: \"he put in prison until the day of his death.\""
+    },
+    {
+      "entryId": "unnamed_messenger_reporting_the_great_wind",
+      "problem": "stage main: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "the_old_foolish_king",
+      "problem": "stage the_old_foolish_king: quote not found in ecclesiastes-4-13: \"an old and foolish king who will no more be admonished\""
+    },
+    {
+      "entryId": "the_shulammite",
+      "problem": "stage the_shulammite-main: quote not found in song-of-solomon-1-5: \"Dark but lovely\""
+    },
+    {
+      "entryId": "seraiah_son_of_neriah",
+      "problem": "stage seraiah_son_of_neriah-main: quote not found in jeremiah-51-1: \"Seraiah son of Neriah\""
+    },
+    {
+      "entryId": "the_potter_s_house",
+      "problem": "stage the_potter_s_house-1: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "valley_of_dry_bones",
+      "problem": "stage valley_of_dry_bones: quote not found in ezekiel-37-1: \"valley full of bones\""
+    },
+    {
+      "entryId": "river_from_the_temple",
+      "problem": "stage river_from_the_temple_s1: quote not found in ezekiel-47-1: \"waters issuing out from under the threshold of the house eas\""
+    },
+    {
+      "entryId": "royal_palace_of_babylon",
+      "problem": "stage royal_palace_of_babylon-main: quote not found in daniel-5-10: \"the queen came into the banquet house\""
+    },
+    {
+      "entryId": "the_worm",
+      "problem": "stage the_worm: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "moab_and_ammon_border",
+      "problem": "stage moab_and_ammon_border-main: quote not found in zephaniah-2-8: \"the border\""
+    },
+    {
+      "entryId": "john_the_apostle_son_of_zebedee",
+      "problem": "stage john_apostle_main: quote not found in acts-4-13: \"they had been unlearned and ignorant men\""
+    },
+    {
+      "entryId": "the_two_demon_possessed_men",
+      "problem": "stage the_two_demon_possessed_men: quote not found in matthew-8-28: \"there met him two possessed with devils, coming out of the t\""
+    },
+    {
+      "entryId": "the_armed_crowd_of_the_arrest_matthew",
+      "problem": "stage the_armed_crowd_of_the_arrest_matthew_main: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "deaf_man_with_a_speech_impediment",
+      "problem": "stage deaf_man_main: quote cites unknown unit "
+    },
+    {
+      "entryId": "blind_man_of_bethsaida",
+      "problem": "stage blind_man_of_bethsaida_base: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "young_man_in_white",
+      "problem": "stage young_man_in_white: quote cites unknown unit none"
+    },
+    {
+      "entryId": "the_synagogue_mark",
+      "problem": "stage the_synagogue_mark: quote not found in mark-6-1: \"When the Sabbath had come, he began to teach in the synagogu\""
+    },
+    {
+      "entryId": "the_sinful_woman",
+      "problem": "stage the_sinful_woman: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "the_woman_with_the_flow_of_blood",
+      "problem": "stage the_woman_with_the_flow_of_blood-main: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "blind_beggar_of_jericho",
+      "problem": "stage blind_beggar_of_jericho_main: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "the_shore_near_gadara",
+      "problem": "stage the_shore_near_gadara: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "the_lame_man_of_lystra",
+      "problem": "stage the_lame_man_of_lystra: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "the_slave_girl_with_a_spirit_of_divination",
+      "problem": "stage the_slave_girl_with_a_spirit_of_divination_s1: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "the_men_with_saul",
+      "problem": "stage the_men_with_saul-1: quote cites unknown unit none"
+    },
+    {
+      "entryId": "ephesus",
+      "problem": "stage ephesus-main: quote not found in acts-19-23: \"The silversmiths riot in the theater\""
+    },
+    {
+      "entryId": "herod_s_palace",
+      "problem": "stage herods_palace_caesarea: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "the_tentmakers_workshop",
+      "problem": "stage tentmakers_workshop_main: quote not found in acts-18-1: \"he found a certain Jew named Aquila ... and because he was o\""
+    },
+    {
+      "entryId": "the_angel_standing_in_the_sun",
+      "problem": "stage the_angel_standing_in_the_sun: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "the_woman_clothed_with_the_sun",
+      "problem": "stage the_woman_clothed_with_the_sun: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "the_beast_from_the_sea",
+      "problem": "stage the_beast_from_the_sea: quote cites unknown unit (none)"
+    },
+    {
+      "entryId": "the_angel_with_the_key_and_great_chain",
+      "problem": "stage the_angel_with_the_key_and_great_chain: quote cites unknown unit Revelation 20:1"
+    },
+    {
+      "entryId": "heavenly_throne_room",
+      "problem": "stage heavenly_throne_room: quote not found in revelation-4-1: \"I saw a door opened in heaven\""
+    }
+  ],
+  "readyForStaging": true,
+  "note": "Independent source-unit, moment-span, complete cast-key, major-identity continuity and structural checks. Model canon warnings retained; this is not visual or human release acceptance."
+}

@@ -1,0 +1,63 @@
+{
+ "schemaVersion": 1,
+ "workId": "bible-web",
+ "done": {
+  "sheet:moses:moses-elder": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340914,
+   "at": "2026-10-20T23:17:27.555Z",
+   "fingerprint": "7d323628f0bdc65959ff550032a27b04"
+  },
+  "sheet:david_son_of_jesse_king_of_israel:david_youth": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340395,
+   "at": "2026-10-20T23:17:38.413Z",
+   "fingerprint": "983fadd660f7445fbbeebb1e704b49a2"
+  },
+  "sheet:jesus_christ_the_son_of_god_and_lord:infant": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340091,
+   "at": "2026-10-20T23:17:48.026Z",
+   "fingerprint": "e7765e21f925b7ea35ce1039f8fbe385"
+  },
+  "sheet:jesus_christ_the_son_of_god_and_lord:adult": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340685,
+   "at": "2026-10-20T23:17:54.689Z",
+   "fingerprint": "faeacb4c217a32a73a86082443a41d40"
+  },
+  "sheet:simon_peter:simon_peter": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.0340503,
+   "at": "2026-10-20T23:18:03.133Z",
+   "fingerprint": "1e80e44fb6e82ece65cc6bd7f732a363"
+  },
+  "sheet:jesus_christ_the_son_of_god_and_lord:child": {
+   "ok": true,
+   "attempts": 1,
+   "costUsd": 0.034054400000000005,
+   "at": "2026-10-20T23:18:10.020Z",
+   "fingerprint": "916dc2896d552f483867228148c14695"
+  },
+  "styleReference:icon": {
+   "ok": true,
+   "attempts": 2,
+   "costUsd": 0.0678761,
+   "at": "2026-10-20T23:18:28.270Z",
+   "fingerprint": "1cc16e5294b9e8b1744d73aa01f936e6"
+  },
+  "styleReference:watercolor": {
+   "ok": true,
+   "attempts": 3,
+   "costUsd": 0.10184715000000001,
+   "at": "2026-10-20T23:18:58.612Z",
+   "fingerprint": "fa549f4888d199a3c3fd94209103e214"
+  }
+ },
+ "spentUsd": 0.37403645
+}

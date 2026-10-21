@@ -1,0 +1,626 @@
+{
+  "at": "2026-10-21T00:00:07.317Z",
+  "workId": "bible-web",
+  "generation": 1,
+  "source": "owner",
+  "paidCalls": 0,
+  "note": "Follow-up to CodeRabbit's source-age review. Preserve the first 165 corrections and their proof unchanged. Ten existing owner section records receive a later version; 165 distinct records remain corrected.",
+  "sources": [
+    {
+      "unit": "1-chronicles-22-5",
+      "quote": "David said, “Solomon my son is young and tender, and the house that is to be built for Yahweh must be exceedingly magnificent, of fame and of glory throughout all countries. I will therefore make preparation for it.” So David prepared abundantly before his death."
+    },
+    {
+      "unit": "1-chronicles-23-1",
+      "quote": "Now David was old and full of days; and he made Solomon his son king over Israel."
+    },
+    {
+      "unit": "1-chronicles-29-28",
+      "quote": "He died at a good old age, full of days, riches, and honor; and Solomon his son reigned in his place."
+    },
+    {
+      "unit": "psalms-37-25",
+      "quote": "I have been young, and now am old, yet I have not seen the righteous forsaken, nor his children begging for bread."
+    },
+    {
+      "unit": "psalms-71-9",
+      "quote": "Don’t reject me in my old age. Don’t forsake me when my strength fails."
+    },
+    {
+      "unit": "psalms-71-18",
+      "quote": "Yes, even when I am old and gray-haired, God, don’t forsake me, until I have declared your strength to the next generation, your might to everyone who is to come."
+    }
+  ],
+  "corrections": [
+    {
+      "kind": "section",
+      "recordId": "1-chronicles-22-1",
+      "beforeVersion": "3bc00b12152aa6359693904a90d1bcc6",
+      "before": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_king"
+          },
+          {
+            "entryId": "solomon",
+            "named": true,
+            "stageId": "solomon-main"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-22-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-22-19",
+        "mentionedOnly": [
+          "hiram_of_tyre"
+        ],
+        "title": "David's preparations and charge to Solomon"
+      },
+      "payload": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_elder"
+          },
+          {
+            "entryId": "solomon",
+            "named": true,
+            "stageId": "solomon-main"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-22-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-22-19",
+        "mentionedOnly": [
+          "hiram_of_tyre"
+        ],
+        "title": "David's preparations and charge to Solomon"
+      },
+      "reason": "Late-reign preparations and assembly: 1 Chronicles 22:5 says before his death, 23:1 calls David old and full of days, 29:28 records his death in old age."
+    },
+    {
+      "kind": "section",
+      "recordId": "1-chronicles-23-1",
+      "beforeVersion": "5394f426d8b955bf7ac3093eb45639fa",
+      "before": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_king"
+          },
+          {
+            "entryId": "solomon",
+            "named": true,
+            "stageId": "solomon-main"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-23-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-23-32",
+        "mentionedOnly": [],
+        "title": "Assembly of Levites and their duties"
+      },
+      "payload": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_elder"
+          },
+          {
+            "entryId": "solomon",
+            "named": true,
+            "stageId": "solomon-main"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-23-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-23-32",
+        "mentionedOnly": [],
+        "title": "Assembly of Levites and their duties"
+      },
+      "reason": "Late-reign preparations and assembly: 1 Chronicles 22:5 says before his death, 23:1 calls David old and full of days, 29:28 records his death in old age."
+    },
+    {
+      "kind": "section",
+      "recordId": "1-chronicles-24-1",
+      "beforeVersion": "abab4ea7a550fc824d57498f8b939ae3",
+      "before": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_king"
+          },
+          {
+            "entryId": "zadok_the_priest_anointer_of_solomon",
+            "named": true,
+            "stageId": "zadok_the_priest_anointer_of_solomon_main"
+          },
+          {
+            "entryId": "ahimelech_son_of_abiathar",
+            "named": true,
+            "stageId": "ahimelech_son_of_abiathar_main"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-24-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-24-31",
+        "mentionedOnly": [
+          "abiathar"
+        ],
+        "title": "Divisions of the priests cast by lot"
+      },
+      "payload": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_elder"
+          },
+          {
+            "entryId": "zadok_the_priest_anointer_of_solomon",
+            "named": true,
+            "stageId": "zadok_the_priest_anointer_of_solomon_main"
+          },
+          {
+            "entryId": "ahimelech_son_of_abiathar",
+            "named": true,
+            "stageId": "ahimelech_son_of_abiathar_main"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-24-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-24-31",
+        "mentionedOnly": [
+          "abiathar"
+        ],
+        "title": "Divisions of the priests cast by lot"
+      },
+      "reason": "Late-reign preparations and assembly: 1 Chronicles 22:5 says before his death, 23:1 calls David old and full of days, 29:28 records his death in old age."
+    },
+    {
+      "kind": "section",
+      "recordId": "1-chronicles-25-1",
+      "beforeVersion": "fbac247938557950c10bd181ee3b2a35",
+      "before": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_king"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-25-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-25-31",
+        "mentionedOnly": [],
+        "title": "Musicians divided by lot"
+      },
+      "payload": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_elder"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-25-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-25-31",
+        "mentionedOnly": [],
+        "title": "Musicians divided by lot"
+      },
+      "reason": "Late-reign preparations and assembly: 1 Chronicles 22:5 says before his death, 23:1 calls David old and full of days, 29:28 records his death in old age."
+    },
+    {
+      "kind": "section",
+      "recordId": "1-chronicles-26-1",
+      "beforeVersion": "39a01f78f9350743f99bbb4021c7f7cc",
+      "before": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_king"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-26-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-26-32",
+        "mentionedOnly": [
+          "samuel",
+          "saul"
+        ],
+        "title": "Gatekeepers and treasurers"
+      },
+      "payload": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_elder"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-26-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-26-32",
+        "mentionedOnly": [
+          "samuel",
+          "saul"
+        ],
+        "title": "Gatekeepers and treasurers"
+      },
+      "reason": "Late-reign preparations and assembly: 1 Chronicles 22:5 says before his death, 23:1 calls David old and full of days, 29:28 records his death in old age."
+    },
+    {
+      "kind": "section",
+      "recordId": "1-chronicles-27-1",
+      "beforeVersion": "c65f5b4cb7e2aca301d221f44498c818",
+      "before": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_king"
+          },
+          {
+            "entryId": "joab",
+            "named": true,
+            "stageId": "joab-main"
+          },
+          {
+            "entryId": "benaiah_son_of_jehoiada_kings",
+            "named": true,
+            "stageId": "benaiah_main"
+          },
+          {
+            "entryId": "ahithophel",
+            "named": true,
+            "stageId": "ahithophel"
+          },
+          {
+            "entryId": "hushai_the_archite",
+            "named": true,
+            "stageId": "hushai_the_archite"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-27-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-27-34",
+        "mentionedOnly": [],
+        "title": "Monthly divisions, tribal captains and royal officers"
+      },
+      "payload": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_elder"
+          },
+          {
+            "entryId": "joab",
+            "named": true,
+            "stageId": "joab-main"
+          },
+          {
+            "entryId": "benaiah_son_of_jehoiada_kings",
+            "named": true,
+            "stageId": "benaiah_main"
+          },
+          {
+            "entryId": "ahithophel",
+            "named": true,
+            "stageId": "ahithophel"
+          },
+          {
+            "entryId": "hushai_the_archite",
+            "named": true,
+            "stageId": "hushai_the_archite"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-27-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-27-34",
+        "mentionedOnly": [],
+        "title": "Monthly divisions, tribal captains and royal officers"
+      },
+      "reason": "Late-reign preparations and assembly: 1 Chronicles 22:5 says before his death, 23:1 calls David old and full of days, 29:28 records his death in old age."
+    },
+    {
+      "kind": "section",
+      "recordId": "1-chronicles-28-1",
+      "beforeVersion": "5bacf3aa8ae22cb151ce2f3271ec3ce6",
+      "before": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_king"
+          },
+          {
+            "entryId": "solomon",
+            "named": true,
+            "stageId": "solomon-main"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-28-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-28-21",
+        "mentionedOnly": [],
+        "title": "David's charge to the assembly and plans for the temple"
+      },
+      "payload": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_elder"
+          },
+          {
+            "entryId": "solomon",
+            "named": true,
+            "stageId": "solomon-main"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-28-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-28-21",
+        "mentionedOnly": [],
+        "title": "David's charge to the assembly and plans for the temple"
+      },
+      "reason": "Late-reign preparations and assembly: 1 Chronicles 22:5 says before his death, 23:1 calls David old and full of days, 29:28 records his death in old age."
+    },
+    {
+      "kind": "section",
+      "recordId": "1-chronicles-29-1",
+      "beforeVersion": "60f4ab0bdbedd63cad04ff13b15b925f",
+      "before": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_king"
+          },
+          {
+            "entryId": "solomon",
+            "named": true,
+            "stageId": "solomon-main"
+          },
+          {
+            "entryId": "zadok_the_priest_anointer_of_solomon",
+            "named": true,
+            "stageId": "zadok_the_priest_anointer_of_solomon_main"
+          },
+          {
+            "entryId": "gad_the_prophet",
+            "named": true,
+            "stageId": "gad_the_prophet"
+          },
+          {
+            "entryId": "nathan_the_prophet_david_s_court",
+            "named": true,
+            "stageId": "nathan_the_prophet_david_s_court-main"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-29-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-29-30",
+        "mentionedOnly": [],
+        "title": "Offerings for the temple, David's prayer and death"
+      },
+      "payload": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_elder"
+          },
+          {
+            "entryId": "solomon",
+            "named": true,
+            "stageId": "solomon-main"
+          },
+          {
+            "entryId": "zadok_the_priest_anointer_of_solomon",
+            "named": true,
+            "stageId": "zadok_the_priest_anointer_of_solomon_main"
+          },
+          {
+            "entryId": "gad_the_prophet",
+            "named": true,
+            "stageId": "gad_the_prophet"
+          },
+          {
+            "entryId": "nathan_the_prophet_david_s_court",
+            "named": true,
+            "stageId": "nathan_the_prophet_david_s_court-main"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "1-chronicles-29-1",
+        "kind": "section",
+        "lastUnit": "1-chronicles-29-30",
+        "mentionedOnly": [],
+        "title": "Offerings for the temple, David's prayer and death"
+      },
+      "reason": "Late-reign preparations and assembly: 1 Chronicles 22:5 says before his death, 23:1 calls David old and full of days, 29:28 records his death in old age."
+    },
+    {
+      "kind": "section",
+      "recordId": "psalms-37-1",
+      "beforeVersion": "ca7c6d9535154fc097484bcd4b00a2d1",
+      "before": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_king"
+          },
+          {
+            "entryId": "the_righteous_psalms",
+            "named": true,
+            "stageId": "the_righteous_psalms_s1"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "psalms-37-1",
+        "kind": "section",
+        "lastUnit": "psalms-37-40",
+        "mentionedOnly": [
+          "the_wicked_and_enemies",
+          "god_yahweh_the_father_and_god_of_israel"
+        ],
+        "title": "Wisdom on the fate of the wicked and righteous"
+      },
+      "payload": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": true,
+            "stageId": "david_elder"
+          },
+          {
+            "entryId": "the_righteous_psalms",
+            "named": true,
+            "stageId": "the_righteous_psalms_s1"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "psalms-37-1",
+        "kind": "section",
+        "lastUnit": "psalms-37-40",
+        "mentionedOnly": [
+          "the_wicked_and_enemies",
+          "god_yahweh_the_father_and_god_of_israel"
+        ],
+        "title": "Wisdom on the fate of the wicked and righteous"
+      },
+      "reason": "The section's speaker explicitly describes old age. This changes the existing cast member's stage, not the reading pass's attribution."
+    },
+    {
+      "kind": "section",
+      "recordId": "psalms-71-1",
+      "beforeVersion": "196f52afa7d285feac727ab7ed17700b",
+      "before": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": false,
+            "stageId": "david_king"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "psalms-71-1",
+        "kind": "section",
+        "lastUnit": "psalms-71-24",
+        "mentionedOnly": [
+          "the_wicked_and_enemies",
+          "god_yahweh_the_father_and_god_of_israel"
+        ],
+        "title": "Old age and continued trust"
+      },
+      "payload": {
+        "cast": [
+          {
+            "entryId": "david_son_of_jesse_king_of_israel",
+            "named": false,
+            "stageId": "david_elder"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "psalms-71-1",
+        "kind": "section",
+        "lastUnit": "psalms-71-24",
+        "mentionedOnly": [
+          "the_wicked_and_enemies",
+          "god_yahweh_the_father_and_god_of_israel"
+        ],
+        "title": "Old age and continued trust"
+      },
+      "reason": "The section's speaker explicitly describes old age. This changes the existing cast member's stage, not the reading pass's attribution."
+    }
+  ]
+}

@@ -1,0 +1,328 @@
+{
+  "state": {
+    "bulk": {
+      "bulkId": "m17d4v4w826yw59m7fam49c92d8gmegz",
+      "completedCount": 0,
+      "created": true,
+      "failedCount": 0,
+      "skippedCount": 0,
+      "status": "active",
+      "totalCreditsUsed": 0,
+      "totalVerses": 2
+    },
+    "bulkProof": {
+      "at": "2026-10-20T23:20:16.107Z",
+      "job": {
+        "_creationTime": 1792538379305.8267,
+        "_id": "m17d4v4w826yw59m7fam49c92d8gmegz",
+        "artStyleId": "icon",
+        "aspectRatio": "16:9",
+        "completedAt": 1792538403952,
+        "completedCount": 2,
+        "createdAt": 1792538379305,
+        "engine": "generic",
+        "estimatedTotalCredits": 10,
+        "failedCount": 0,
+        "modelId": "google/gemini-3.1-flash-lite-image",
+        "resolution": "1K",
+        "scopeLabel": "Owner release check — two verses",
+        "scopeType": "verses",
+        "skippedCount": 0,
+        "startVerseId": "ruth-1-16",
+        "status": "completed",
+        "totalCreditsUsed": 10,
+        "totalVerses": 2,
+        "translation": "kjv",
+        "updatedAt": 1792538403952
+      },
+      "verses": [
+        {
+          "_creationTime": 1792538379305.827,
+          "_id": "kx71m7ztqsf99149y4k4hgtex18gn449",
+          "bulkGenerationId": "m17d4v4w826yw59m7fam49c92d8gmegz",
+          "creditsCost": 5,
+          "order": 0,
+          "reference": "Ruth 1:16",
+          "status": "completed",
+          "updatedAt": 1792538392919,
+          "verseId": "ruth-1-16"
+        },
+        {
+          "_creationTime": 1792538379305.8271,
+          "_id": "kx7d798sagg9n11k1tjmzvgj658gnmf4",
+          "bulkGenerationId": "m17d4v4w826yw59m7fam49c92d8gmegz",
+          "creditsCost": 5,
+          "order": 1,
+          "reference": "Ruth 2:8",
+          "status": "completed",
+          "updatedAt": 1792538403864,
+          "verseId": "ruth-2-8"
+        }
+      ]
+    },
+    "capUsd": 1,
+    "error": "Error: Owner check stopped: 500 {\"error\":\"Failed to generate image\",\"message\":\"OpenRouter API error: 402\",\"requestId\":\"release-smoke-8ca37a34-1a5b-4e53-9300-abd1edab6cbd\"}",
+    "labels": {
+      "release-smoke-8ca37a34-1a5b-4e53-9300-abd1edab6cbd": "cold-direct"
+    },
+    "lastStartedAt": 1792539577641,
+    "maxUniqueRequests": 20,
+    "minStartIntervalMs": 13500,
+    "rows": [
+      {
+        "at": "2026-10-20T23:19:39.529Z",
+        "cohort": "cold-bulk",
+        "elapsedMs": 13175.700000047684,
+        "request": {
+          "aspectRatio": "16:9",
+          "model": "google/gemini-3.1-flash-lite-image",
+          "reference": "Ruth 1:16",
+          "requestId": "bulk-m17d4v4w826yw59m7fam49c92d8gmegz-0",
+          "resolution": "1K",
+          "style": "icon",
+          "translation": "kjv"
+        },
+        "response": {
+          "aspectRatio": "16:9",
+          "billingVersion": "google-input-output-tokens-2026-10-20",
+          "catalogEstimatedProviderUsd": 0.03443375,
+          "costUsd": 0.04281344,
+          "credits": 95,
+          "creditsCost": 5,
+          "durationMs": 4899,
+          "engine": "generic",
+          "estimatedCostUsd": 0.05,
+          "estimatedCreditsCost": 5,
+          "generationId": "9d6d5c08-083f-4f9f-942b-837f90f4e82a",
+          "imageCostUsd": 0.04281344,
+          "imageCreditsCost": 5,
+          "imageUrl": "[inline image omitted]",
+          "model": "google/gemini-3.1-flash-lite-image",
+          "neutralCostUsedForActual": true,
+          "openRouterUsageUsd": 0.03425075,
+          "preparation": {
+            "calls": 2,
+            "promptChars": 6457,
+            "referencesSent": 1
+          },
+          "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Ruth 1:16: \"Ruth said, “Don’t urge me to leave you, and to return from following you, for where you go, I will go; and where you stay, I will stay. Your people will be my people, and your God my God.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return\nPeople: Israelites and neighboring Levantine, Mesopotamian and Persian peoples.\nDress: Tunics, cloaks, court robes, priestly linen and period armor.\nBuildings and objects: Villages, palaces, temples, city gates and exile settlements.\nTechnology: Iron and bronze tools, chariots, siege works and scrolls; no modern objects.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Naomi: woman of middle years, mature and weathered by grief; lean, upright build; olive skin with sun-darkened forearms; dark hair covered by a plain linen veil, with grey threads showing at the temples; lined face, dignified and steady; wears an undyed brown woollen tunic with a long dull-ochre cloak over it, belted at the waist; carries a small water skin or walking staff alone.\n- Ruth: a young woman in her twenties; slender, sturdy build from field labour; warm olive-brown skin; dark hair worn covered with a linen head-veil in the fields and bound back at home; calm, steady face with dark eyes. Signature outfit: a plain undyed linen tunic with a rust-red wool cloak over the shoulders, belted with a cord. Carries a simple woven gleaner's basket on one arm.\n- Orpah: a young woman of about twenty, slender and upright in build, with olive-brown skin. Dark hair worn long and gathered at the nape beneath a plain linen head-cloth. Clear, grave eyes and a calm, open face. Her signature outfit is a long undyed linen tunic in ochre with a deep blue woollen wrap over the shoulders.\n- Only Naomi, Ruth, Orpah have this canon look; any other people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Dusty road on the borders of Moab, with low hills and a rough track leading toward Bethlehem\nTime of day: Late afternoon, sun low toward the hills\nWeather: Dry, still air with a faint dust haze\nLight: Warm, slanting golden light with long soft shadows\nClothing: Plain travel tunics and cloaks in earth tones, head coverings against the dust, a few bundled belongings\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Ruth, standing close and facing Naomi with a resolute, tender posture\nAction: Ruth grasps Naomi's arm or hand while Orpah stands a few paces back, half-turned toward the Moab hills\nSetting: Dusty road on the borders of Moab, low hills and a rough track leading toward Bethlehem ahead\nSecondary elements: Bundled belongings at their feet, dust haze hanging in still air, long shadows stretching across the track\nMood: Reverent, grounded, quietly resolute, grief tinged with hope\nTime of day: Late afternoon, sun low toward the hills\nComposition: Medium shot, Ruth and Naomi centered in foreground with Orpah slightly behind to one side, track receding to the hills\n\nART STYLE: Byzantine Icon\nRendering: Byzantine icon painting: flat, frontal, stylized figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.\nNegatives: Never show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Avoid photorealism and modern illustration. The gold sky and stylized landscape fill the image edge-to-edge.\nPalette: Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.\nLighting: No cast shadows; inner light shown through layered highlights and gold glow.\nMaterials and texture: Egg tempera and gold-leaf texture within the scene.\nComposition: Hieratic, balanced staging; the key subject largest and central; stylized rocks, buildings and trees.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- Before: She said, “Behold, your sister-in-law has gone back to her people and to her god. Follow your sister-in-law.”\n- After: Where you die, I will die, and there I will be buried. May Yahweh do so to me, and more also, if anything but death parts you and me.”\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+          "promptVersion": "2026-10-20-generic-v2",
+          "provenance": {
+            "analysisGeneration": 1,
+            "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+            "canon": [
+              {
+                "entryId": "naomi",
+                "stageId": "naomi-main",
+                "version": "0987334045de523d6fb26288dbcc9834"
+              },
+              {
+                "entryId": "ruth",
+                "stageId": "ruth",
+                "version": "7116dd65e58db1d2adb6515ddb181821"
+              },
+              {
+                "entryId": "orpah",
+                "stageId": "orpah-main",
+                "version": "d6ef54ccf78dda7538579ad4b4f68048"
+              }
+            ],
+            "eraId": "monarchy-of-israel-and-judah",
+            "lookVersion": "19595b0c8624c11b0fce4e94004f3530",
+            "momentId": "ruth-1-16",
+            "planVersion": "4459b3b0f6d13013335b92e833ae9524",
+            "promptVersion": "2026-10-20-generic-v2",
+            "references": [
+              {
+                "id": "icon",
+                "kind": "styleReference",
+                "version": "1cc16e5294b9e8b1744d73aa01f936e6"
+              }
+            ],
+            "requestTranslationId": "kjv",
+            "sectionId": "ruth-1-8",
+            "styleId": "icon",
+            "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+            "workId": "bible-web"
+          },
+          "provider": "Google",
+          "providerRequestId": "gen-1792538386-QXfWNsM8JDbfStOm7Yl4",
+          "reference": "Ruth 1:16",
+          "requestId": "bulk-m17d4v4w826yw59m7fam49c92d8gmegz-0",
+          "requestTranslationId": "kjv",
+          "resolution": "1K",
+          "resolutionSupported": false,
+          "savedImageId": "kh7fwecgw3a9430s6ha8zra37x8gnwac",
+          "scenePlanFromCache": false,
+          "scenePlannerCostUsd": 0,
+          "scenePlannerCredits": 0,
+          "scenePlannerUsed": false,
+          "style": "icon",
+          "translationId": "web",
+          "usedActualCost": true,
+          "usedFallbackEstimate": false,
+          "verseText": "Ruth said, “Don’t urge me to leave you, and to return from following you, for where you go, I will go; and where you stay, I will stay. Your people will be my people, and your God my God."
+        },
+        "status": 200
+      },
+      {
+        "at": "2026-10-20T23:19:53.195Z",
+        "cohort": "cold-bulk",
+        "elapsedMs": 10592.100000023842,
+        "request": {
+          "aspectRatio": "16:9",
+          "engine": "generic",
+          "model": "google/gemini-3.1-flash-lite-image",
+          "reference": "Ruth 2:8",
+          "requestId": "bulk-m17d4v4w826yw59m7fam49c92d8gmegz-1",
+          "resolution": "1K",
+          "style": "icon",
+          "translation": "kjv"
+        },
+        "response": {
+          "aspectRatio": "16:9",
+          "billingVersion": "google-input-output-tokens-2026-10-20",
+          "catalogEstimatedProviderUsd": 0.034457,
+          "costUsd": 0.04283844,
+          "credits": 90,
+          "creditsCost": 5,
+          "durationMs": 3301,
+          "engine": "generic",
+          "estimatedCostUsd": 0.05,
+          "estimatedCreditsCost": 5,
+          "generationId": "fc1cd4dc-a218-40c7-a438-4d9a63a959d1",
+          "imageCostUsd": 0.04283844,
+          "imageCreditsCost": 5,
+          "imageUrl": "[inline image omitted]",
+          "model": "google/gemini-3.1-flash-lite-image",
+          "neutralCostUsedForActual": true,
+          "openRouterUsageUsd": 0.03427075,
+          "preparation": {
+            "calls": 2,
+            "promptChars": 6829,
+            "referencesSent": 1
+          },
+          "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Ruth 2:8: \"Then Boaz said to Ruth, “Listen, my daughter. Don’t go to glean in another field, and don’t go from here, but stay here close to my maidens.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return\nPeople: Israelites and neighboring Levantine, Mesopotamian and Persian peoples.\nDress: Tunics, cloaks, court robes, priestly linen and period armor.\nBuildings and objects: Villages, palaces, temples, city gates and exile settlements.\nTechnology: Iron and bronze tools, chariots, siege works and scrolls; no modern objects.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Boaz: a mature man in his middle years, broad-shouldered and sturdy, of a prosperous landholder. Olive-brown skin weathered by the fields. Dark hair and a short, neatly trimmed beard with some grey at the temples. Calm, dignified face with deep-set eyes. Signature outfit: a long undertunic of undyed linen under a cloak of deep blue wool with a woven band at the hem. Carries a shepherd's staff of olive wood.\n- Ruth: a young woman in her twenties; slender, sturdy build from field labour; warm olive-brown skin; dark hair worn covered with a linen head-veil in the fields and bound back at home; calm, steady face with dark eyes. Signature outfit: a plain undyed linen tunic with a rust-red wool cloak over the shoulders, belted with a cord. Carries a simple woven gleaner's basket on one arm.\n- Reapers of Boaz's field: young men and maidens in their late teens to twenties; lean, sun-browned, strong-handed workers of Israelite stock; olive to deep brown skin; dark hair tied back under a cloth, young men with short cropped hair and light stubble; open, calm faces. Signature outfit: undyed linen tunic belted at the waist with a plain cloth girdle, sleeves pushed up, in earth brown and ochre. Props: a sickle of bronze or flint-set wood carried at the belt.\n- Only Boaz, Ruth, Reapers of Boaz's field have this canon look; any other people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Boaz's barley field at the edge of Bethlehem, with sheaves stacked among stubble and a stone well nearby, and Naomi's house visible in the village beyond\nTime of day: Late afternoon harvest, shifting toward evening over the section\nWeather: Clear, dry, warm summer air with a light breeze\nLight: Warm golden sunlight low in the sky, long soft shadows across the field\nClothing: Harvest tunics, head cloths and shawls for the workers and women, Boaz in a plain cloak; no props beyond sickles, baskets and grain\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Boaz standing in the barley field speaking earnestly to Ruth, his hand gesturing gently toward the reapers\nAction: Boaz turns toward Ruth with an open, reassuring gesture, bidding her to stay within the field near the workers rather than wander to others\nSetting: Boaz's barley field at the edge of Bethlehem, sheaves stacked among stubble near a stone well\nSecondary elements: Reapers bending with sickles in the grain behind them; baskets of gleaned grain; Naomi's house faintly visible in the village beyond\nMood: Reverent, protective and warm, with quiet dignity and hope\nTime of day: Late afternoon, golden light low in the sky\nComposition: Boaz and Ruth in the midground facing each other, reapers receding across the field, long soft shadows stretching toward the village on the horizon\n\nART STYLE: Byzantine Icon\nRendering: Byzantine icon painting: flat, frontal, stylized figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.\nNegatives: Never show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Avoid photorealism and modern illustration. The gold sky and stylized landscape fill the image edge-to-edge.\nPalette: Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.\nLighting: No cast shadows; inner light shown through layered highlights and gold glow.\nMaterials and texture: Egg tempera and gold-leaf texture within the scene.\nComposition: Hieratic, balanced staging; the key subject largest and central; stylized rocks, buildings and trees.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: Let your eyes be on the field that they reap, and go after them. Haven’t I commanded the young men not to touch you? When you are thirsty, go to the vessels, and drink from that which the young men have drawn.”\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+          "promptVersion": "2026-10-20-generic-v2",
+          "provenance": {
+            "analysisGeneration": 1,
+            "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+            "canon": [
+              {
+                "entryId": "boaz",
+                "stageId": "boaz",
+                "version": "b9de7cdb1e5eaa38d6f8dd43e91c5c77"
+              },
+              {
+                "entryId": "ruth",
+                "stageId": "ruth",
+                "version": "7116dd65e58db1d2adb6515ddb181821"
+              },
+              {
+                "entryId": "reapers_of_boaz_s_field",
+                "stageId": "reapers_of_boaz_s_field-s1",
+                "version": "034070b948f1e47c00550b411b7c376d"
+              }
+            ],
+            "eraId": "monarchy-of-israel-and-judah",
+            "lookVersion": "8cc5465fbeedea6a08d978c72475073b",
+            "momentId": "ruth-2-8",
+            "planVersion": "7122786d5d556202825e6e55569e39d1",
+            "promptVersion": "2026-10-20-generic-v2",
+            "references": [
+              {
+                "id": "icon",
+                "kind": "styleReference",
+                "version": "1cc16e5294b9e8b1744d73aa01f936e6"
+              }
+            ],
+            "requestTranslationId": "kjv",
+            "sectionId": "ruth-2-8",
+            "styleId": "icon",
+            "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+            "workId": "bible-web"
+          },
+          "provider": "Google",
+          "providerRequestId": "gen-1792538399-kR2qs5hM8MYiZjFiEjAj",
+          "reference": "Ruth 2:8",
+          "requestId": "bulk-m17d4v4w826yw59m7fam49c92d8gmegz-1",
+          "requestTranslationId": "kjv",
+          "resolution": "1K",
+          "resolutionSupported": false,
+          "savedImageId": "kh74hm6jkafrg8f16rhkmyh25n8gmkp1",
+          "scenePlanFromCache": false,
+          "scenePlannerCostUsd": 0,
+          "scenePlannerCredits": 0,
+          "scenePlannerUsed": false,
+          "style": "icon",
+          "translationId": "web",
+          "usedActualCost": true,
+          "usedFallbackEstimate": false,
+          "verseText": "Then Boaz said to Ruth, “Listen, my daughter. Don’t go to glean in another field, and don’t go from here, but stay here close to my maidens."
+        },
+        "status": 200
+      },
+      {
+        "at": "2026-10-20T23:20:25.201Z",
+        "cohort": "cold-direct",
+        "elapsedMs": 7259.399999976158,
+        "request": {
+          "aspectRatio": "16:9",
+          "model": "google/gemini-3.1-flash-lite-image",
+          "reference": "Genesis 12:2",
+          "requestId": "release-smoke-8ca37a34-1a5b-4e53-9300-abd1edab6cbd",
+          "resolution": "1K",
+          "style": "classical",
+          "translation": "kjv"
+        },
+        "response": {
+          "error": "Failed to generate image",
+          "message": "OpenRouter API error: 402",
+          "requestId": "release-smoke-8ca37a34-1a5b-4e53-9300-abd1edab6cbd"
+        },
+        "status": 500
+      },
+      {
+        "at": "2026-10-20T23:39:37.641Z",
+        "cohort": "cold-ui",
+        "elapsedMs": 7455.100000023842,
+        "request": {
+          "aspectRatio": "16:9",
+          "model": "google/gemini-3.1-flash-lite-image",
+          "nextVerse": {
+            "number": 4,
+            "reference": "Ruth 2:4",
+            "text": "And behold, Boaz came from Bethlehem, and said unto the reapers, The LORD\nbe with you. And they answered him, The LORD bless thee."
+          },
+          "prevVerse": {
+            "number": 2,
+            "reference": "Ruth 2:2",
+            "text": "And Ruth the Moabitess said unto Naomi, Let me now go to the field, and glean ears of corn after\nhim in whose sight I shall find grace. And she said unto her, Go, my daughter."
+          },
+          "reference": "Ruth 2:3",
+          "requestId": "7991508c-93f2-455d-9e33-688d64997fed",
+          "resolution": "1K",
+          "style": "watercolor",
+          "text": "And she went, and came, and gleaned in the field after the reapers: and her hap was to light on a part of the field\nbelonging unto Boaz, who\nwas of the kindred of Elimelech.",
+          "translation": "kjv"
+        },
+        "response": {
+          "error": "Failed to generate image",
+          "message": "OpenRouter API error: 402",
+          "requestId": "7991508c-93f2-455d-9e33-688d64997fed"
+        },
+        "status": 500
+      }
+    ],
+    "run": "release-2026-10-20",
+    "running": false,
+    "ui": [
+      {
+        "at": "2026-10-20T23:39:37.647Z",
+        "event": "Preparing scene...",
+        "url": "/ruth/2/3"
+      }
+    ]
+  },
+  "text": "elect Passage\nTranslation — KJV\nOld Testament\n39 books\nGenesis\n50 ch\nExodus\n40 ch\nLeviticus\n27 ch\nNumbers\n36 ch\nDeuteronomy\n34 ch\nJoshua\n24 ch\nJudges\n21 ch\nRuth\n4 ch\n1 Samuel\n31 ch\n2 Samuel\n24 ch\n1 Kings\n22 ch\n2 Kings\n25 ch\n1 Chronicles\n29 ch\n2 Chronicles\n36 ch\nEzra\n10 ch\nNehemiah\n13 ch\nEsther\n10 ch\nJob\n42 ch\nPsalms\n150 ch\nProverbs\n31 ch\nEcclesiastes\n12 ch\nSong of Solomon\n8 ch\nIsaiah\n66 ch\nJeremiah\n52 ch\nLamentations\n5 ch\nEzekiel\n48 ch\nDaniel\n12 ch\nHosea\n14 ch\nJoel\n3 ch\nAmos\n9 ch\nObadiah\n1 ch\nJonah\n4 ch\nMicah\n7 ch\nNahum\n3 ch\nHabakkuk\n3 ch\nZephaniah\n3 ch\nHaggai\n2 ch\nZechariah\n14 ch\nMalachi\n4 ch\nNew Testament\n27 books\nChat\nChat\nFeedback\nAsk a question about this passage\ngpt-oss-120b\n90 credits"
+}
