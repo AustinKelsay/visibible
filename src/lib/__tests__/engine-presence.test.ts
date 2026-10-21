@@ -5,9 +5,10 @@ import schema from "../../../convex/schema";
 import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
 import { assembleRendering } from "../engine/assemble";
-import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, PLAN_SYSTEM } from "../engine/preparation";
+import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, PLAN_SYSTEM, planOutputSchema } from "../engine/preparation";
 import type { WorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
+import { responseSchema } from "../reading-pass/prompts";
 import { createWorkReader } from "../work-input";
 import { SHARED_STYLES, type WorkBrief } from "../work-preparation";
 
@@ -43,7 +44,7 @@ const fields = { primarySubject: "The voice present as radiance above an empty t
 describe("no-form presence selection", () => {
   beforeEach(() => { process.env.CONVEX_SERVER_SECRET = SECRET; });
 
-  async function setup(formless = true, { planFields = fields } = {}) {
+  async function setup(formless = true, { planFields = fields, planReplies }: { planFields?: typeof fields; planReplies?: Array<Record<string, unknown>> } = {}) {
     const t = convexTest(schema, modules);
     const selectedEntries = formless ? entries : entries.filter((e) => e.recordId === "watcher");
     await t.mutation(api.analysis.registerWork, { serverSecret: SECRET, workId: WORK, workVersion: "wv", briefVersion: "bv" });
@@ -58,11 +59,12 @@ describe("no-form presence selection", () => {
     const client = { query: (ref: unknown, args: unknown) => t.query(ref as never, args as never), mutation: (ref: unknown, args: unknown) => t.mutation(ref as never, args as never) };
     const store = createConvexPreparationStore(client, api.analysis as unknown as Record<string, unknown>, WORK, SECRET);
     const calls: TextModelRequest[] = [];
+    let planAttempt = 0;
     const model: TextModel = { id: "scripted", async complete(request) {
       calls.push(request);
       const alone = request.user.includes("MOMENT (The Court 2)");
-      const value = request.schemaName === "section_look" ? lookAnswer : {
-        present: alone ? ["watcher"] : ["watcher", "voice", "unknown_entry"],
+      const value = request.schemaName === "section_look" ? lookAnswer : planReplies?.[planAttempt++] ?? {
+        present: alone ? ["watcher"] : formless ? ["watcher", "voice"] : ["watcher", "unknown_entry"],
         ...planFields, ...(alone ? { primarySubject: "The watcher alone", action: "waits" } : {}),
       };
       return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd: 0 }, elapsedMs: 1 };
@@ -107,6 +109,57 @@ describe("no-form presence selection", () => {
     expect(getReference.mock.calls.filter(([kind]) => kind === "sheet").map(([, id]) => id)).toEqual(["watcher:main", "watcher:main", "watcher:main"]);
   });
 
+  it("sends a strict provider schema with known cast IDs and guidance, and validates field lengths locally", async () => {
+    const { calls, render } = await setup();
+    const result = await render();
+    if (!result.ok) throw new Error(result.message);
+    const request = calls.find((r) => r.schemaName === "scene_plan")!;
+    expect(responseSchema(request.schema)).toEqual({
+      type: "object", additionalProperties: false,
+      required: ["present", ...Object.keys(fields)],
+      properties: {
+        present: { type: "array", items: { type: "string", enum: entries.map((e) => e.recordId) }, description: expect.any(String) },
+        // Anthropic does not support maxLength in output schemas; local validation still rejects it.
+        ...Object.fromEntries(Object.keys(fields).map((key) => [key, { type: "string", description: expect.stringContaining("At most 220 characters.") }])),
+      },
+    });
+    expect(request.schema.safeParse({ present: [], ...fields }).success).toBe(true);
+    for (const key of Object.keys(fields)) {
+      expect(request.schema.safeParse({ present: [], ...fields, [key]: "x".repeat(220) }).success).toBe(true);
+      expect(request.schema.safeParse({ present: [], ...fields, [key]: "x".repeat(221) }).success).toBe(false);
+    }
+  });
+
+  it.each([
+    ["an unknown cast ID", { present: ["watcher", "unknown_entry"], ...fields }],
+    ["an oversized field", { present: ["watcher", "voice"], ...fields, action: "x".repeat(221) }],
+  ])("rejects %s after the existing single retry without storing or truncating a plan", async (_label, invalid) => {
+    const { t, calls, render, getReference } = await setup(true, { planReplies: [invalid, invalid] });
+    const result = await render();
+    expect(result).toMatchObject({ ok: false, reason: "preparation", stage: "plan", retryable: true });
+    expect(calls.map((r) => r.schemaName)).toEqual(["section_look", "scene_plan", "scene_plan"]);
+    expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" })).toBeNull();
+    expect(getReference).not.toHaveBeenCalled();
+    const spend = await t.query(api.analysis.getPreparationSpend, { workId: WORK });
+    expect(spend.calls).toBe(3);
+    expect(await t.run(async (ctx) => (await ctx.db.query("preparationLedger").collect()).map((entry) => entry.outcome))).toEqual(["ok", "invalid", "invalid"]);
+  });
+
+  it("stores a valid second reply and reuses it across styles without another look or plan call", async () => {
+    const valid = { present: ["watcher", "voice"], ...fields, action: "x".repeat(220) };
+    const { t, calls, render } = await setup(true, { planReplies: [{ ...valid, present: ["unknown_entry"] }, valid] });
+    const first = await render();
+    if (!first.ok) throw new Error(first.message);
+    expect(first.prepared.calls).toBe(3);
+    expect(first.prepared.plan.payload).toEqual(valid);
+    expect(await t.run(async (ctx) => (await ctx.db.query("preparationLedger").collect()).map((entry) => entry.outcome))).toEqual(["ok", "invalid", "ok"]);
+    calls.length = 0;
+    const second = await render("court-1", "watercolor");
+    if (!second.ok) throw new Error(second.message);
+    expect(second.packet.planVersion).toBe(first.packet.planVersion);
+    expect(calls).toHaveLength(0);
+  });
+
   it("leaves absent no-form cast out of a later moment while sharing the section look", async () => {
     const { render, calls } = await setup();
     const first = await render();
@@ -137,8 +190,12 @@ describe("no-form presence selection", () => {
     expect(result.prompt).toContain(fallbackCanon);
   });
 
-  it("does not silently rewrite or retry a schema-valid contradictory reply", async () => {
-    const contradictory = { ...fields, primarySubject: "The voice seated as a figure of light", action: "The watcher kneels in his blue cloak", secondaryElements: "Radiance suggesting white garments" };
+  it.each([
+    ["a bodily substitute", "The voice seated as a figure of light"],
+    // Retained v2 Daniel pilot wording, adapted only to this fixture's subject name.
+    ["a prohibited-feature denial", "The voice: a white radiance and cloud enthroned over a seat of fiery flame, with no human face or body"],
+  ])("does not silently rewrite or retry a schema-valid reply containing %s", async (_label, primarySubject) => {
+    const contradictory = { ...fields, primarySubject, action: "The watcher kneels in his blue cloak", secondaryElements: "Radiance suggesting white garments" };
     const { t, render, calls } = await setup(true, { planFields: contradictory });
     const result = await render();
     if (!result.ok) throw new Error(result.message);
@@ -153,7 +210,7 @@ describe("no-form presence selection", () => {
     expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK })).calls).toBe(2);
   });
 
-  it.each(["missing", "older", "2026-10-21-formless-presence-v1"])("refreshes a cached no-form plan when the prompt version is %s and preserves its history", async (version) => {
+  it.each(["missing", "older", "2026-10-21-formless-presence-v1", "2026-10-21-formless-presence-v2"])("refreshes a cached no-form plan when the prompt version is %s and preserves its history", async (version) => {
     const { t, render, calls } = await setup();
     const first = await render();
     if (!first.ok) throw new Error(first.message);
@@ -161,10 +218,11 @@ describe("no-form presence selection", () => {
     if (!current) throw new Error("No prepared plan");
     const oldInputs = version === "missing" ? current.inputs.filter((i) => i.kind !== "prompt")
       : current.inputs.map((i) => i.kind === "prompt" ? { ...i, version } : i);
-    // Retain both failures: omitted presence and v1's selected but bodily description.
+    // Retain earlier failures, including selected presence with bodily wording or denials.
+    const selected = version.endsWith("-v1") || version.endsWith("-v2");
     const oldPayload = { kind: "plan" as const, momentId: "court-1",
-      entries: version.endsWith("-v1") ? [{ entryId: "watcher", stageId: "main" }, { entryId: "voice", stageId: "revealed" }] : [{ entryId: "watcher", stageId: "main" }],
-      plan: version.endsWith("-v1") ? { ...fields, primarySubject: "The voice seated as a figure of light" } : fields };
+      entries: selected ? [{ entryId: "watcher", stageId: "main" }, { entryId: "voice", stageId: "revealed" }] : [{ entryId: "watcher", stageId: "main" }],
+      plan: selected ? { ...fields, primarySubject: version.endsWith("-v1") ? "The voice seated as a figure of light" : "The voice: radiance enthroned over a seat, with no human face or body" } : fields };
     const old = await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "court-1",
       payload: oldPayload, inputs: oldInputs });
     calls.length = 0;
@@ -191,6 +249,8 @@ describe("no-form presence selection", () => {
     const plan = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
     expect(plan?.inputs.some((i) => i.kind === "prompt")).toBe(false);
     expect(calls[1].system).toBe(PLAN_SYSTEM);
+    expect(calls[1].schema).toBe(planOutputSchema);
+    expect(first.prepared.plan.payload.present).toEqual(["watcher"]); // Legacy unknown-ID filtering stays unchanged.
     expect(calls[1].user).toContain("- watcher: The watcher\n");
     expect(calls[1].user).not.toContain("hasForm:");
     expect(calls[1].user).not.toContain("NO-FORM CANON CONSTRAINTS");
