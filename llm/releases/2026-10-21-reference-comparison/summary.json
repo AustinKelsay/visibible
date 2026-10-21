@@ -1,0 +1,116 @@
+{
+  "at": "2026-10-21T20:55:41.599995+00:00",
+  "publicActivation": false,
+  "humanAccepted": false,
+  "completed": 12,
+  "failed": 0,
+  "preparationCalls": 0,
+  "imageCalls": 12,
+  "measuredUsd": 0.40941849999999996,
+  "uncertainUsd": 0,
+  "combinedCapUsd": 0.5,
+  "estimatedUsd": 0.432,
+  "remainingSubcapUsd": 0.0905815,
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "previousMeasuredUsd": 15.8885884,
+    "measuredUsd": 16.2980069,
+    "uncertaintyUsd": 0.045,
+    "remainingAfterReserveUsd": 0.1569931
+  },
+  "separateBucketsUnchanged": {
+    "preparation": {
+      "authorizedUsd": 43,
+      "measuredUsd": 3.6351192,
+      "uncertaintyUsd": 0.03
+    },
+    "smoke": {
+      "authorizedUsd": 1,
+      "measuredUsd": 0.0685215,
+      "uncertaintyUsd": 0
+    }
+  },
+  "originalMatrix": {
+    "completed": 236,
+    "planned": 324,
+    "missing": 88,
+    "theseTargetedImagesFillOriginalSlots": false
+  },
+  "groups": [
+    {
+      "mode": "normal",
+      "styleId": "watercolor",
+      "completed": 3,
+      "formless": {
+        "pass": 2,
+        "review": 1,
+        "fail": 0
+      },
+      "paperMarginFailures": 1,
+      "singleSceneFailures": 0,
+      "fullFrameFailures": 1,
+      "eraFailures": 0,
+      "wholeCaseFailures": 2,
+      "groupVerdict": "fail"
+    },
+    {
+      "mode": "normal",
+      "styleId": "icon",
+      "completed": 3,
+      "formless": {
+        "pass": 2,
+        "review": 0,
+        "fail": 1
+      },
+      "paperMarginFailures": 0,
+      "singleSceneFailures": 0,
+      "fullFrameFailures": 0,
+      "eraFailures": 1,
+      "wholeCaseFailures": 2,
+      "groupVerdict": "fail"
+    },
+    {
+      "mode": "omitted",
+      "styleId": "watercolor",
+      "completed": 3,
+      "formless": {
+        "pass": 3,
+        "review": 0,
+        "fail": 0
+      },
+      "paperMarginFailures": 2,
+      "singleSceneFailures": 0,
+      "fullFrameFailures": 2,
+      "eraFailures": 0,
+      "wholeCaseFailures": 2,
+      "groupVerdict": "fail"
+    },
+    {
+      "mode": "omitted",
+      "styleId": "icon",
+      "completed": 3,
+      "formless": {
+        "pass": 2,
+        "review": 0,
+        "fail": 1
+      },
+      "paperMarginFailures": 0,
+      "singleSceneFailures": 0,
+      "fullFrameFailures": 1,
+      "eraFailures": 0,
+      "wholeCaseFailures": 1,
+      "groupVerdict": "fail"
+    }
+  ],
+  "conclusion": "Omitting the selected style reference alone is not sufficient: both Icon modes contain a clear no-form violation; both Watercolor modes retain exposed paper corners. No triptych appears in either mode, so this run does not establish that omission fixes the earlier triptych. All four style/mode groups fail the assessed visual gate; retain baseline, no default change or release acceptance.",
+  "limits": [
+    "One moment and three variations per mode/style; no matched seeds, randomization, population failure rates or across-moment continuity claim.",
+    "Style reference and its caption are removed together, so their separate causal effects are not isolated.",
+    "Agent inspection is provisional; human visual/likeness acceptance and actual-app accounting/latency gates remain pending."
+  ],
+  "balanceReconciliation": {
+    "beforeUsd": 11.309570191999995,
+    "afterUsd": 10.900151692000009,
+    "deltaUsd": 0.4094184999999868
+  }
+}
