@@ -1,0 +1,184 @@
+{
+  "at": "2026-10-20T23:44:15.887Z",
+  "models": {
+    "artStyles": [
+      {
+        "available": true,
+        "description": "Expansive painterly scenes with dramatic light and restrained color; suited to epic narratives.",
+        "id": "classical",
+        "label": "Classical",
+        "reason": null
+      },
+      {
+        "available": false,
+        "description": "Expressive ink lines and transparent washes; suited to atmospheric journeys and intimate observation.",
+        "id": "watercolor",
+        "label": "Ink & Watercolor",
+        "reason": "The watercolor art style is temporarily unavailable"
+      },
+      {
+        "available": false,
+        "description": "Flat gold-ground painting with inverse perspective and stylized figures; suited to sacred and symbolic narratives.",
+        "id": "icon",
+        "label": "Byzantine Icon",
+        "reason": "The icon art style is temporarily unavailable"
+      }
+    ],
+    "creditRange": {
+      "max": 20,
+      "min": 5
+    },
+    "models": [
+      {
+        "availability": "available",
+        "billing": {
+          "estimatedTextInputTokens": 1000,
+          "estimatedTextOutputTokens": 1000,
+          "imageInputUsd": "0.0000003",
+          "imageOutputUsd": "0.00003",
+          "observedAt": 1792539855537,
+          "source": "https://openrouter.ai/api/v1/models",
+          "textInputUsd": "0.0000003",
+          "textOutputUsd": "0.0000025",
+          "unit": "token",
+          "version": "google-input-output-tokens-2026-10-20"
+        },
+        "capabilities": {
+          "aspectRatios": [
+            "16:9",
+            "21:9",
+            "3:2"
+          ],
+          "outputTokens": {
+            "1K": 1290
+          },
+          "pricingSource": "https://ai.google.dev/gemini-api/docs/pricing",
+          "resolutions": [
+            "1K"
+          ],
+          "source": "https://ai.google.dev/gemini-api/docs/image-generation"
+        },
+        "creditsCost": 6,
+        "estimatedCreditsByResolution": {
+          "1K": 6
+        },
+        "etaSeconds": 11,
+        "id": "google/gemini-2.5-flash-image",
+        "name": "Google: Nano Banana (Gemini 2.5 Flash Image)",
+        "provider": "Google",
+        "reservationCreditsCost": 12
+      },
+      {
+        "availability": "available",
+        "billing": {
+          "estimatedTextInputTokens": 1000,
+          "estimatedTextOutputTokens": 1000,
+          "imageInputTokens": {
+            "perImage": 1120,
+            "usdPerToken": "0.0000005"
+          },
+          "imageOutputUsd": "0.00006",
+          "observedAt": 1792539855537,
+          "source": "https://openrouter.ai/api/v1/models",
+          "textInputUsd": "0.0000005",
+          "textOutputUsd": "0.000003",
+          "unit": "token",
+          "version": "google-input-output-tokens-2026-10-20"
+        },
+        "capabilities": {
+          "aspectRatios": [
+            "16:9",
+            "21:9",
+            "3:2"
+          ],
+          "outputTokens": {
+            "1K": 1120,
+            "2K": 1680,
+            "4K": 2520
+          },
+          "pricingSource": "https://ai.google.dev/gemini-api/docs/pricing",
+          "resolutions": [
+            "1K",
+            "2K",
+            "4K"
+          ],
+          "source": "https://ai.google.dev/gemini-api/docs/image-generation"
+        },
+        "creditsCost": 9,
+        "estimatedCreditsByResolution": {
+          "1K": 9,
+          "2K": 14,
+          "4K": 20
+        },
+        "etaSeconds": 12,
+        "id": "google/gemini-3.1-flash-image",
+        "name": "Google: Nano Banana 2 (Gemini 3.1 Flash Image)",
+        "provider": "Google",
+        "reservationCreditsCost": 18
+      },
+      {
+        "availability": "available",
+        "billing": {
+          "estimatedTextInputTokens": 1000,
+          "estimatedTextOutputTokens": 1000,
+          "imageInputTokens": {
+            "perImage": 1120,
+            "usdPerToken": "0.00000025"
+          },
+          "imageOutputUsd": "0.00003",
+          "observedAt": 1792539855536,
+          "source": "https://openrouter.ai/api/v1/models",
+          "textInputUsd": "0.00000025",
+          "textOutputUsd": "0.0000015",
+          "unit": "token",
+          "version": "google-input-output-tokens-2026-10-20"
+        },
+        "capabilities": {
+          "aspectRatios": [
+            "16:9",
+            "21:9",
+            "3:2"
+          ],
+          "outputTokens": {
+            "1K": 1120
+          },
+          "pricingSource": "https://ai.google.dev/gemini-api/docs/pricing",
+          "resolutions": [
+            "1K"
+          ],
+          "source": "https://ai.google.dev/gemini-api/docs/image-generation"
+        },
+        "creditsCost": 5,
+        "estimatedCreditsByResolution": {
+          "1K": 5
+        },
+        "etaSeconds": 5,
+        "id": "google/gemini-3.1-flash-lite-image",
+        "name": "Google: Nano Banana 2 Lite (Gemini 3.1 Flash Lite Image)",
+        "provider": "Google",
+        "reservationCreditsCost": 10
+      }
+    ],
+    "scenePlannerCreditsCost": 0
+  },
+  "replay": {
+    "elapsedMs": 226.30000007152557,
+    "request": {
+      "aspectRatio": "16:9",
+      "model": "google/gemini-3.1-flash-lite-image",
+      "reference": "Ruth 1:16",
+      "requestId": "bulk-m17d4v4w826yw59m7fam49c92d8gmegz-0",
+      "resolution": "1K",
+      "style": "icon",
+      "translation": "kjv"
+    },
+    "response": {
+      "error": "Invalid request",
+      "message": "CSRF validation failed"
+    },
+    "sameEngine": false,
+    "sameImage": false,
+    "status": 403
+  },
+  "url": "https://visibible.com/about"
+}

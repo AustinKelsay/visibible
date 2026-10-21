@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-21T00:10:29.672Z",
+  "generation": 1,
+  "deployment": "unique-impala-244",
+  "planSha256": "3afce4bda0bc376229ea8553fbd20b0001f04ab445e85fb9f7f664116f8f49ec",
+  "results": [
+    {
+      "kind": "entry",
+      "recordId": "samaria_city",
+      "changed": true,
+      "previousVersion": "ce5ec6faea3d0df713fe12d2c39e17be",
+      "version": "795ced7e41804a4939bc5b16dfda8b5a"
+    },
+    {
+      "kind": "entry",
+      "recordId": "samaria_region",
+      "changed": true,
+      "previousVersion": "d619ba0d292d6e1c84c94b9578340bb1",
+      "version": "8c7869bd5ae6099475b9e1657dcc1e69"
+    },
+    {
+      "kind": "section",
+      "recordId": "ezra-4-1",
+      "changed": true,
+      "previousVersion": "cf99d29be81ea8363737b043c6da2d9f",
+      "version": "9e70285ddf7088d6d43785a530d77191"
+    }
+  ]
+}

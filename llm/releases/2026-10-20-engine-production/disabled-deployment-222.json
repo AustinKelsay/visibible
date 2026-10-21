@@ -1,0 +1,95 @@
+{
+  "at": "2026-10-20T22:27:00.174855+00:00",
+  "release": {
+    "pr": 222,
+    "commit": "576f1d2c51a4964c7e02c346af1fd25b9cb10b0d"
+  },
+  "deployment": {
+    "id": "dpl_BrcEE5UX8Mp9qvFGGh4f9uUGAy78",
+    "url": "visibible-ce5zeomxr-austin-kelsays-projects.vercel.app",
+    "readyState": "READY",
+    "target": "production"
+  },
+  "alias": "https://visibible.com",
+  "mode": "disabled",
+  "publicStyles": [
+    {
+      "id": "classical",
+      "label": "Classical",
+      "description": "Expansive painterly scenes with dramatic light and restrained color; suited to epic narratives.",
+      "available": true,
+      "reason": null
+    },
+    {
+      "id": "watercolor",
+      "label": "Ink & Watercolor",
+      "description": "Expressive ink lines and transparent washes; suited to atmospheric journeys and intimate observation.",
+      "available": false,
+      "reason": "The watercolor art style is temporarily unavailable"
+    },
+    {
+      "id": "icon",
+      "label": "Byzantine Icon",
+      "description": "Flat gold-ground painting with inverse perspective and stylized figures; suited to sacred and symbolic narratives.",
+      "available": false,
+      "reason": "The icon art style is temporarily unavailable"
+    }
+  ],
+  "inventory": {
+    "at": "2026-10-20T22:26:59.275Z",
+    "deployment": "unique-impala-244",
+    "app": "https://visibible.com",
+    "mode": "disabled",
+    "bound": {
+      "bound": 0,
+      "jobs": 0
+    },
+    "readiness": {
+      "activeGeneration": null,
+      "activeVersions": null,
+      "briefVersion": null,
+      "candidateGeneration": null,
+      "exists": false,
+      "ready": false,
+      "reasons": [
+        "work is not registered"
+      ],
+      "workVersion": null
+    },
+    "requests": {
+      "legacy": {
+        "failed": 16,
+        "generating": 0,
+        "planning": 0,
+        "queued": 0,
+        "succeeded": 166
+      }
+    },
+    "bulk": {
+      "byEngine": {
+        "generic": {
+          "accepted": 0,
+          "failed": 0,
+          "jobs": 0,
+          "succeeded": 0,
+          "unstarted": 0
+        },
+        "legacy": {
+          "accepted": 0,
+          "failed": 0,
+          "jobs": 0,
+          "succeeded": 0,
+          "unstarted": 0
+        },
+        "unbound": {
+          "accepted": 0,
+          "failed": 0,
+          "jobs": 0,
+          "succeeded": 0,
+          "unstarted": 0
+        }
+      },
+      "pausedForEngine": 0
+    }
+  }
+}

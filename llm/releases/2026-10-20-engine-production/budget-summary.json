@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-21T00:00:07.630754+00:00",
+  "authorizedUsd": {
+    "preparation": 43,
+    "allEvaluation": 16,
+    "ownerSmoke": 1
+  },
+  "measuredUsd": {
+    "preparation": 3.635119200000001,
+    "allEvaluation": 6.46915215,
+    "ownerSmoke": 0.06852150000000001
+  },
+  "preparationPartsUsd": {
+    "bible-web:state": 1.9055259000000029,
+    "bible-web:canon": 0.7711229999999981,
+    "bible-web:references": 0.37403645,
+    "holmes-adventures:state": 0.12316190000000002,
+    "holmes-adventures:canon": 0.08501930000000008,
+    "holmes-adventures:references": 0.37431965,
+    "owner-route-looks-and-plans": 0.0019330000000000076
+  },
+  "evaluationPartsUsd": {
+    "earlierRuns": 4.5943677,
+    "promptV2Including27HolmesSeedsOnce": 1.87478445,
+    "scenePreparationIncludedInV2": 0.015593199999999998
+  },
+  "uncertaintyAllowancesUsd": {
+    "preparation": 0.03,
+    "allEvaluation": 0.04,
+    "ownerSmoke": 0
+  },
+  "remainingAfterAllowancesUsd": {
+    "preparation": 39.3348808,
+    "allEvaluation": 9.490847850000002,
+    "ownerSmoke": 0.9314785
+  },
+  "deduplication": "The 27 Holmes prompt-v2 seed samples occur in the three style states exactly once. Their source run is retained as lineage, not added again. Bible evaluation look/plan usage is inside the $16 cap and subtracted from the backend preparation total before charging owner-route preparation to $43. HTTP replay returned no new usage and is not charged again.",
+  "uncertainty": "Retain $0.02 initial preparation allowance plus $0.01 for the additional stopped merge, and $0.04 evaluation allowance. These are not measured usage. No allowance is silently released."
+}

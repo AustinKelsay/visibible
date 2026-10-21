@@ -1,0 +1,162 @@
+{
+  "at": "2026-10-21T00:10:43.971Z",
+  "deployment": "unique-impala-244",
+  "status": {
+    "activeGeneration": 1,
+    "activeVersions": {
+      "activatedAt": 1792538171849,
+      "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+    },
+    "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "candidateGeneration": null,
+    "exists": true,
+    "ready": true,
+    "reasons": [],
+    "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+  },
+  "entries": 1569,
+  "sections": 2790,
+  "moments": 31102,
+  "requiredUnitIds": 31102,
+  "allIdsPresent": true,
+  "ownerCorrections": 168,
+  "ownerCorrectionOperations": 178,
+  "followupCorrections": 13,
+  "ownerVersions": 168,
+  "godHasForm": false,
+  "problems": [],
+  "coldStatus": [
+    {
+      "unitId": "ruth-1-16",
+      "reference": "Ruth 1:16",
+      "style": "icon",
+      "cohort": "cold-bulk",
+      "sectionId": "ruth-1-8",
+      "preparation": {
+        "look": "ready",
+        "plan": "ready",
+        "ready": true,
+        "sectionId": "ruth-1-8"
+      }
+    },
+    {
+      "unitId": "ruth-2-8",
+      "reference": "Ruth 2:8",
+      "style": "icon",
+      "cohort": "cold-bulk",
+      "sectionId": "ruth-2-8",
+      "preparation": {
+        "look": "ready",
+        "plan": "ready",
+        "ready": true,
+        "sectionId": "ruth-2-8"
+      }
+    },
+    {
+      "unitId": "genesis-12-2",
+      "reference": "Genesis 12:2",
+      "style": "classical",
+      "cohort": "cold-direct",
+      "sectionId": "genesis-12-1",
+      "preparation": {
+        "look": "ready",
+        "plan": "ready",
+        "ready": true,
+        "sectionId": "genesis-12-1"
+      }
+    },
+    {
+      "unitId": "exodus-16-15",
+      "reference": "Exodus 16:15",
+      "style": "classical",
+      "cohort": "cold-direct",
+      "sectionId": "exodus-16-13",
+      "preparation": {
+        "look": "missing",
+        "plan": "missing",
+        "ready": false,
+        "sectionId": "exodus-16-13"
+      }
+    },
+    {
+      "unitId": "1-kings-17-6",
+      "reference": "1 Kings 17:6",
+      "style": "classical",
+      "cohort": "cold-direct",
+      "sectionId": "1-kings-17-1",
+      "preparation": {
+        "look": "missing",
+        "plan": "missing",
+        "ready": false,
+        "sectionId": "1-kings-17-1"
+      }
+    },
+    {
+      "unitId": "mark-10-14",
+      "reference": "Mark 10:14",
+      "style": "classical",
+      "cohort": "cold-direct",
+      "sectionId": "mark-10-13",
+      "preparation": {
+        "look": "missing",
+        "plan": "missing",
+        "ready": false,
+        "sectionId": "mark-10-13"
+      }
+    },
+    {
+      "unitId": "luke-10-33",
+      "reference": "Luke 10:33",
+      "style": "watercolor",
+      "cohort": "cold-direct",
+      "sectionId": "luke-10-25",
+      "preparation": {
+        "look": "missing",
+        "plan": "missing",
+        "ready": false,
+        "sectionId": "luke-10-25"
+      }
+    },
+    {
+      "unitId": "john-4-7",
+      "reference": "John 4:7",
+      "style": "watercolor",
+      "cohort": "cold-direct",
+      "sectionId": "john-4-7",
+      "preparation": {
+        "look": "missing",
+        "plan": "missing",
+        "ready": false,
+        "sectionId": "john-4-7"
+      }
+    },
+    {
+      "unitId": "acts-16-25",
+      "reference": "Acts 16:25",
+      "style": "watercolor",
+      "cohort": "cold-direct",
+      "sectionId": "acts-16-25",
+      "preparation": {
+        "look": "missing",
+        "plan": "missing",
+        "ready": false,
+        "sectionId": "acts-16-25"
+      }
+    },
+    {
+      "unitId": "ruth-2-3",
+      "reference": "Ruth 2:3",
+      "style": "watercolor",
+      "cohort": "cold-ui",
+      "sectionId": "ruth-2-1",
+      "preparation": {
+        "look": "ready",
+        "plan": "ready",
+        "ready": true,
+        "sectionId": "ruth-2-1"
+      }
+    }
+  ],
+  "note": "Live paged moment enumeration, fixed-unit/same-section validation, exact owner-payload checks and source-unit parity; no model calls. Public admission remains disabled. No human visual acceptance inferred."
+}

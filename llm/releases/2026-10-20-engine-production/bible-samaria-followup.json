@@ -1,0 +1,315 @@
+{
+  "at": "2026-10-21T00:10:29.669Z",
+  "workId": "bible-web",
+  "generation": 1,
+  "source": "owner",
+  "paidCalls": 0,
+  "note": "Follow-up to CodeRabbit's source-identity review. Preserve the accepted model reconciliation response unchanged; this is an explicit owner correction to the active data.",
+  "sources": [
+    {
+      "unit": "ezra-4-10",
+      "quote": "and the rest of the nations whom the great and noble Osnappar brought over and settled in the city of Samaria, and in the rest of the country beyond the River, and so forth, wrote."
+    }
+  ],
+  "corrections": [
+    {
+      "kind": "entry",
+      "recordId": "samaria_city",
+      "beforeVersion": "ce5ec6faea3d0df713fe12d2c39e17be",
+      "before": {
+        "aliases": [
+          "Samaria",
+          "the hill of Samaria",
+          "the city of Samaria",
+          "Samaria city",
+          "the mountain of Samaria",
+          "Israel's capital",
+          "Jacob's disobedience"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "1-kings:location:samaria",
+          "2-kings:location:samaria",
+          "2-chronicles:location:samaria",
+          "amos:location:samaria",
+          "micah:location:samaria",
+          "acts:location:samaria"
+        ],
+        "name": "Samaria (city)",
+        "note": "The northern kingdom's capital city, the hill of Samaria founded by Omri, besieged and fallen as described in Kings, Chronicles, Amos and Micah, and the city where Philip preaches in Acts; distinct from the wider region and from Sychar.",
+        "stages": [
+          {
+            "id": "samaria_hill_city",
+            "label": "Samaria, hill capital",
+            "quotes": [
+              {
+                "quote": "He bought the hill Samaria of Shemer for two talents of silver; and he built on the hill",
+                "unit": "1-kings-16-24"
+              },
+              {
+                "quote": "He raised up an altar for Baal in the house of Baal, which he had built in Samaria.",
+                "unit": "1-kings-16-32"
+              },
+              {
+                "quote": "in an open place at the entrance of the gate of Samaria",
+                "unit": "1-kings-22-10"
+              },
+              {
+                "quote": "They washed the chariot by the pool of Samaria",
+                "unit": "1-kings-22-38"
+              }
+            ],
+            "text": "Samaria: a broad, steep hill rising alone out of the central hill country, its slopes terraced with olive and vine. Walls of dressed limestone ring the crown, with a gate opening onto an open place by the entrance. Within stand a royal palace of cut stone and cedar beams, a house of Baal with an altar, and a pool at the foot of the hill."
+          }
+        ]
+      },
+      "payload": {
+        "aliases": [
+          "Samaria",
+          "the hill of Samaria",
+          "the city of Samaria",
+          "Samaria city",
+          "the mountain of Samaria",
+          "Israel's capital",
+          "Jacob's disobedience"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "1-kings:location:samaria",
+          "2-kings:location:samaria",
+          "2-chronicles:location:samaria",
+          "ezra:location:samaria",
+          "amos:location:samaria",
+          "micah:location:samaria",
+          "acts:location:samaria"
+        ],
+        "name": "Samaria (city)",
+        "note": "The northern kingdom's capital city, the hill of Samaria founded by Omri, besieged and fallen as described in Kings, Chronicles, Amos and Micah; foreign peoples are settled in the city in Ezra 4:10, and Philip preaches in the city in Acts. Distinct from the wider region and from Sychar.",
+        "stages": [
+          {
+            "id": "samaria_hill_city",
+            "label": "Samaria, hill capital",
+            "quotes": [
+              {
+                "quote": "He bought the hill Samaria of Shemer for two talents of silver; and he built on the hill",
+                "unit": "1-kings-16-24"
+              },
+              {
+                "quote": "He raised up an altar for Baal in the house of Baal, which he had built in Samaria.",
+                "unit": "1-kings-16-32"
+              },
+              {
+                "quote": "in an open place at the entrance of the gate of Samaria",
+                "unit": "1-kings-22-10"
+              },
+              {
+                "quote": "They washed the chariot by the pool of Samaria",
+                "unit": "1-kings-22-38"
+              },
+              {
+                "quote": "the city of Samaria, and in the rest of the country beyond the River",
+                "unit": "ezra-4-10"
+              }
+            ],
+            "text": "Samaria: a broad, steep hill rising alone out of the central hill country, its slopes terraced with olive and vine. Walls of dressed limestone ring the crown, with a gate opening onto an open place by the entrance. Within stand a royal palace of cut stone and cedar beams, a house of Baal with an altar, and a pool at the foot of the hill."
+          }
+        ]
+      },
+      "reason": "Ezra 4:10 explicitly identifies the city. Move the source member, canon quotation and Ezra section cast from the region to the existing city identity/stage; keep Acts in the city and Luke in the region."
+    },
+    {
+      "kind": "entry",
+      "recordId": "samaria_region",
+      "beforeVersion": "d619ba0d292d6e1c84c94b9578340bb1",
+      "before": {
+        "aliases": [
+          "Samaria",
+          "the city of Samaria",
+          "the village of the Samaritans",
+          "the borders of Samaria"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "ezra:location:samaria",
+          "luke:location:samaria"
+        ],
+        "name": "Samaria (region)",
+        "note": "The wider region and its villages of the Samaritans, passed through on the road to Jerusalem in Luke and the territory mentioned in Ezra; distinct from the city of Samaria and from the town of Sychar.",
+        "stages": [
+          {
+            "id": "samaria_region",
+            "label": "Samaria (region)",
+            "quotes": [
+              {
+                "quote": "the city of Samaria, and in the rest of the country beyond the River",
+                "unit": "ezra-4-10"
+              },
+              {
+                "quote": "he was passing along the borders of Samaria and Galilee",
+                "unit": "luke-17-11"
+              }
+            ],
+            "text": "Samaria: a region of central hill country with rounded limestone ridges and terraced olive groves on the slopes, dry grass between stony fields, and valleys of terebinth and fig. Villages of plastered mud-brick and rough fieldstone houses with flat roofs cluster near springs and wells; a walled city stands on a hill with a stone gate and watchtowers, and a road runs through the valleys toward Galilee and Jerusalem."
+          }
+        ]
+      },
+      "payload": {
+        "aliases": [
+          "Samaria",
+          "the village of the Samaritans",
+          "the borders of Samaria"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "luke:location:samaria"
+        ],
+        "name": "Samaria (region)",
+        "note": "The wider region and its villages of the Samaritans, passed through on the road to Jerusalem and along its borders in Luke; distinct from the city of Samaria and from the town of Sychar.",
+        "stages": [
+          {
+            "id": "samaria_region",
+            "label": "Samaria (region)",
+            "quotes": [
+              {
+                "quote": "he was passing along the borders of Samaria and Galilee",
+                "unit": "luke-17-11"
+              }
+            ],
+            "text": "Samaria: a region of central hill country with rounded limestone ridges and terraced olive groves on the slopes, dry grass between stony fields, and valleys of terebinth and fig. Villages of plastered mud-brick and rough fieldstone houses with flat roofs cluster near springs and wells; a walled city stands on a hill with a stone gate and watchtowers, and a road runs through the valleys toward Galilee and Jerusalem."
+          }
+        ]
+      },
+      "reason": "Ezra 4:10 explicitly identifies the city. Move the source member, canon quotation and Ezra section cast from the region to the existing city identity/stage; keep Acts in the city and Luke in the region."
+    },
+    {
+      "kind": "section",
+      "recordId": "ezra-4-1",
+      "beforeVersion": "cf99d29be81ea8363737b043c6da2d9f",
+      "before": {
+        "cast": [
+          {
+            "entryId": "zerubbabel_son_of_shealtiel",
+            "named": true,
+            "stageId": "zerubbabel_son_of_shealtiel_main"
+          },
+          {
+            "entryId": "jeshua_son_of_jozadak_high_priest_builder_of_the_altar",
+            "named": true,
+            "stageId": "jeshua_priest_main"
+          },
+          {
+            "entryId": "neighbouring_peoples_of_the_land",
+            "named": true,
+            "stageId": "neighbouring_peoples_of_the_land-main"
+          },
+          {
+            "entryId": "rehum",
+            "named": true,
+            "stageId": "rehum-main"
+          },
+          {
+            "entryId": "shimshai",
+            "named": true,
+            "stageId": "shimshai-main"
+          },
+          {
+            "entryId": "artaxerxes_of_ezra",
+            "named": true,
+            "stageId": "artaxerxes_of_ezra-main"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          },
+          {
+            "entryId": "beyond_the_river",
+            "stageId": "beyond_the_river_base"
+          },
+          {
+            "entryId": "samaria_region",
+            "stageId": "samaria_region"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "ezra-4-1",
+        "kind": "section",
+        "lastUnit": "ezra-4-24",
+        "mentionedOnly": [
+          "osnappar",
+          "ahasuerus_king_of_persia_ezra",
+          "bishlam",
+          "tabeel",
+          "darius_the_persian"
+        ],
+        "title": "Opposition and letters to Artaxerxes"
+      },
+      "payload": {
+        "cast": [
+          {
+            "entryId": "zerubbabel_son_of_shealtiel",
+            "named": true,
+            "stageId": "zerubbabel_son_of_shealtiel_main"
+          },
+          {
+            "entryId": "jeshua_son_of_jozadak_high_priest_builder_of_the_altar",
+            "named": true,
+            "stageId": "jeshua_priest_main"
+          },
+          {
+            "entryId": "neighbouring_peoples_of_the_land",
+            "named": true,
+            "stageId": "neighbouring_peoples_of_the_land-main"
+          },
+          {
+            "entryId": "rehum",
+            "named": true,
+            "stageId": "rehum-main"
+          },
+          {
+            "entryId": "shimshai",
+            "named": true,
+            "stageId": "shimshai-main"
+          },
+          {
+            "entryId": "artaxerxes_of_ezra",
+            "named": true,
+            "stageId": "artaxerxes_of_ezra-main"
+          },
+          {
+            "entryId": "jerusalem",
+            "stageId": "jerusalem"
+          },
+          {
+            "entryId": "beyond_the_river",
+            "stageId": "beyond_the_river_base"
+          },
+          {
+            "entryId": "samaria_city",
+            "stageId": "samaria_hill_city"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "ezra-4-1",
+        "kind": "section",
+        "lastUnit": "ezra-4-24",
+        "mentionedOnly": [
+          "osnappar",
+          "ahasuerus_king_of_persia_ezra",
+          "bishlam",
+          "tabeel",
+          "darius_the_persian"
+        ],
+        "title": "Opposition and letters to Artaxerxes"
+      },
+      "reason": "Ezra 4:10 explicitly identifies the city. Move the source member, canon quotation and Ezra section cast from the region to the existing city identity/stage; keep Acts in the city and Luke in the region."
+    }
+  ]
+}

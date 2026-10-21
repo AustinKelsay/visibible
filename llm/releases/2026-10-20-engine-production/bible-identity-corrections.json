@@ -1,0 +1,878 @@
+{
+  "at": "2026-10-20T21:59:26.190Z",
+  "method": "Owner content corrections of contradictory identity explanations. Exact prompts, original responses and real provider answers retained; no product Bible special cases or fabricated partitions.",
+  "repairs": [
+    {
+      "index": 0,
+      "initialKey": "5a77ffe63b96f7df10613bde0e970f12",
+      "repairKey": "a8060b604dad8e5738f2a708a95fa194",
+      "request": {
+        "label": "merge:reconcile:genesis:character:god:owner-semantic-review",
+        "system": "You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key (\"division:character:id\" or \"division:location:id\"), name, kind, aliases, note, and the sections where each appears. A group may also carry a hint line from a reference index of the work saying how many distinct individuals bear that name in these divisions; use it as evidence, not as an order.\n\nFor each numbered group, split its entries into clusters, one cluster per individual (or per place). Groups may overlap because one entry has several names; rule on every group separately using the exact group number shown, not a new local index. Never copy a member key into a group where it is not listed. The divisions are parts of one work, so the same individual or place appearing in several divisions is one cluster: join entries from different divisions whenever their notes, roles, relations and places agree. A different narrator, title, age or portrayal does not make the same individual a different person. Keep entries apart only when they are different individuals: never join entries on a shared name alone when their notes describe different people, and two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of each group must appear in exactly one of that group's clusters.",
+        "user": "Work: The Holy Bible (Various)\nEarlier partial alias rulings both joined and separated entries in this linked component. Reconsider the full component from its entry evidence and return one final identity partition that supersedes those partial rulings. A shared name alone is not identity. A different source division, genre, narrator, age, title, remembered appearance or resurrection does not create a new individual; appearance stages are drafted later. Split only genuinely different individuals or places. Do not preserve a previous split merely because the entries come from different divisions.\n## Group 0 (characters)\n  hint: the reference index lists 4 distinct individuals named \"jesus\" in the work, up to 2 within one of these divisions\n- genesis:character:god | God (divine) | aliases: Yahweh, Yahweh God, God Almighty, Lord, God Most High, the angel of God, Yahweh's angel, God's sons | Creator and principal deity of Genesis; speaks, blesses, judges and makes covenants, and appears in human form or through angels. | sections: Creation of the world and of humankind; The seventh day and rest; Man formed in Eden and the command; The woman made from the rib; Eyes opened and God's questioning; Curses and expulsion from the garden\n- exodus:character:god | God (Yahweh) (divine) | aliases: Yahweh, I AM, the Lord, God Almighty, the angel of God | The God of Israel who speaks from the burning bush, sends plagues, leads by cloud and fire, and gives the law; appears in visible forms (fire, cloud, glory) as well as through voice and angel. | sections: Israel groans; God speaks from the burning bush and sends Moses; God's name revealed and promise of plunder; Moses' signs: the rod, the hand, and water to blood; Moses returns to Egypt; Zipporah circumcises her son; Taskmasters beat the officers; Moses complains to God; God reaffirms the promise and commissions Moses and Aaron\n- leviticus:character:yahweh | Yahweh (divine) | aliases: the Lord, God, I am Yahweh your God | The God of Israel who speaks the laws to Moses and Aaron throughout Leviticus. | sections: Laws of the burnt offering; Laws of the meal offering; Laws of the peace offering; Sin offering of the anointed priest; Sin offering of the whole congregation; Sin offering of a ruler\n- numbers:character:yahweh | Yahweh (divine) | aliases: the Lord, God, my name | God of Israel who speaks to Moses and Aaron throughout Numbers, giving commands, counts and judgments. | sections: Census of the tribes at Sinai; Levites exempt from the census; Order of the camps by standards; Sons of Aaron and the Levites given to Aaron; Count of the Levite families; Firstborn redeemed by Levites\n- deuteronomy:character:yahweh | Yahweh (divine) | aliases: God, the Lord, the Most High, the Rock | The God of Israel who speaks from the fire at Horeb, leads the people, and gives the law; appears as a voice, a pillar of cloud, and in fire. | sections: Recollection of Horeb and the failed spy mission; Journey around Seir and defeat of Sihon; Defeat of Og and allotment east of Jordan; Exhortation to keep the statutes and the cities of refuge; The covenant at Horeb and the ten commandments; Command to destroy the nations and avoid idols\n- joshua:character:yahweh | Yahweh (divine) | aliases: the Lord, God, the God of Israel | The God of Israel, who speaks to Joshua and fights for Israel. | sections: Yahweh commissions Joshua and the eastern tribes pledge support; Crossing the Jordan; Remaining land and charge to divide it\n- judges:character:yahweh | Yahweh (divine) | aliases: God, the Lord, Yahweh's angel, the angel of God, the Lord Yahweh | God of Israel, who speaks through angels, prophets and dreams and raises up judges; appears throughout Judges. | sections: Judah and Simeon against the Canaanites; Adoni-Bezek; Yahweh's angel rebukes Israel at Bochim; Joshua dies; A new generation forsakes Yahweh; Nations left to test Israel; Othniel defeats Cushan Rishathaim; Midian oppresses Israel; Yahweh's angel calls Gideon; Gideon's offering and the fleece\n- job:character:yahweh | Yahweh (divine) | aliases: the Almighty, God, the Lord, the Holy One | God, who speaks with Satan in the prologue, answers Job out of the whirlwind in chapters 38 to 41, and rebukes the three friends. | sections: The heavenly wager; Second wager in the heavenly court; Yahweh speaks from the whirlwind; Yahweh on the wild animals; Job's submission and Yahweh's challenge; Yahweh describes Leviathan\n- psalms:character:yahweh | Yahweh (divine) | aliases: the Lord, God, the Most High, the Almighty, Yah, the Holy One of Israel, the God of Jacob, the Shepherd of Israel | The God of Israel, the speaker and addressee of most psalms; present in heaven and temple, acting in creation and deliverance. | sections: Kings rage against Yahweh's anointed; Majesty of Yahweh and the dignity of man; The fool who denies God; Yahweh's deliverance by storm and power; Entrance of the King of glory; God reigns over the nations\n- proverbs:character:yahweh | Yahweh (divine) | aliases: the LORD, God, the Holy One, his Maker | The God of Israel; speaks and acts throughout as the source of wisdom, judge of hearts and keeper of the righteous. | sections: Wisdom's origin before creation\n- ecclesiastes:character:god | God (divine) | aliases: the Creator, the Most High | The deity who gives, judges and sets the times; present as an authority spoken of throughout, not as a physical figure. | sections: none\n- isaiah:character:yahweh | Yahweh (divine) | aliases: the Lord, the Lord Yahweh, Yahweh of Armies, the Holy One of Israel, God, the Almighty | The God of Israel, speaking and acting throughout; seated on a throne in the temple in chapter 6. | sections: Rejection of sacrifices and call to repentance; Corrupt city and promise of redemption; Removal of leaders and judgment of the elders; Judgment on the daughters of Zion; Isaiah's vision of Yahweh in the temple; Commission to a hardened people\n- jeremiah:character:yahweh | Yahweh (divine) | aliases: the Lord, the Lord Yahweh, Yahweh of Armies, God of Israel, the Holy One of Israel | The God who speaks to Jeremiah and through whom the prophecies come; appears as a voice and in visions, not as a physical figure. | sections: Call of Jeremiah; Israel's unfaithfulness; Return of backsliding Israel; Call to repentance and coming disaster; Judgment on a corrupt people; Siege from the north\n- lamentations:character:yahweh | Yahweh (divine) | aliases: the Lord, the Most High, God | God of Israel, acting in wrath, judgment and compassion throughout the poems; never on stage in bodily form. | sections: Jerusalem widowed and mourning, her plea to Yahweh; Yahweh's wrath destroys the city and its people; The sufferer's affliction, hope and prayer for vengeance; The city's ruin, the priests' guilt and Edom's doom; Communal prayer for remembrance and restoration\n- ezekiel:character:yahweh | Yahweh (divine) | aliases: the Lord Yahweh, God of Israel, the Almighty, the man in linen's master | God of Israel, who speaks to Ezekiel and appears in visions of glory. | sections: The vision of the four living creatures and the glory of Yahweh; Ezekiel's call and the scroll he eats; Ezekiel sent to Israel and carried to the exiles; The watchman commission and Ezekiel silenced; Siege of Jerusalem enacted and the bread of defilement; The hair shaved and divided as sign of judgment\n- hosea:character:yahweh | Yahweh (divine) | aliases: God, the Most High, the Holy One, God of Armies, my husband, my master | The speaker of the oracles, who commands Hosea and addresses Israel and Judah as his wife and children; present as a voice rather than a figure on stage. | sections: Hosea's marriage and the naming of his children; Yahweh's indictment and promise of restoration for the wife; Hosea buys back the adulterous wife; Indictment of the land and the priests; Idolatry, prostitution and warning to Judah; Judgment on priests, princes and Ephraim's turn to Assyria\n- joel:character:yahweh | Yahweh (divine) | aliases: the Lord, the Almighty | The God of Israel who speaks through Joel, sends the locust plague and the northern army, and later pours out his Spirit and judges the nations. | sections: Call to repentance and priestly intercession; Yahweh's answer: restoration and removal of the army; The outpouring of the Spirit and deliverance; Judgment of the nations in the valley of Jehoshaphat\n- amos:character:yahweh | Yahweh (divine) | aliases: the Lord Yahweh, the Lord, the God of Armies | The God who speaks through Amos, roars from Zion, shows visions and gives the judgments. | sections: Superscription and opening roar; Oracle against Damascus; Oracle against Gaza; Oracle against Tyre; Oracle against Edom; Oracle against Ammon\n- obadiah:character:yahweh | Yahweh (divine) | aliases: the Lord, the Lord Yahweh | The Lord whose word is delivered in the oracle; speaks in the first person throughout and sends the ambassador against Edom. | sections: Vision of Edom's pride and fall; Thieves and betrayal of Edom's allies; Edom's wise men destroyed for violence against Jacob; Warning against gloating over Judah's ruin; Deliverance on Mount Zion and the kingdom of Yahweh\n- jonah:character:yahweh | Yahweh (divine) | aliases: God, the God of heaven | The God of Israel who speaks to Jonah, sends the storm, the fish, the worm and the east wind, and relents toward Nineveh. | sections: Call to Nineveh and flight to Tarshish; Jonah cast into the sea and swallowed; Jonah's prayer from the fish; Preaching in Nineveh and the king's fast; Jonah's anger and the vine\n- micah:character:yahweh | Yahweh (divine) | aliases: the Lord, the Lord Yahweh, Yahweh of Armies, the God of Jacob | The God who speaks, comes down in judgment, and sues his people; appears as a voice and presence, not a body. | sections: Superscription and Yahweh's coming in judgment on Samaria; Woe to those who plan oppression and seize land; Promise to gather the remnant; The mountain of Yahweh's house and the nations' pilgrimage; Restoration of the lame and the daughter of Zion's exile and threshing; The remnant among the nations and the purging of idols\n- nahum:character:yahweh | Yahweh (divine) | aliases: God, Yahweh of Armies, the Lord | The God of Israel who speaks in the oracle, avenges and punishes Nineveh; speaks in first person in 1:12-14, 2:13, 3:5-7. | sections: Superscription and Yahweh's wrath; Yahweh is a refuge and will consume the enemy; Yahweh speaks of afflicting and freeing Judah; Yahweh's decree against Nineveh's idols; The lion's den and Yahweh's declaration; Yahweh exposes Nineveh's shame\n- habakkuk:character:yahweh | Yahweh (divine) | aliases: Yahweh of Armies, the Lord, my God, my Holy One, the Rock, God, the Holy One | The God who answers Habakkuk, announces the Chaldean invasion, and appears in theophany in the prayer of chapter 3. | sections: Yahweh announces the Chaldean invasion; Habakkuk questions Yahweh's use of the wicked; The vision written down; the plunderer will be plundered; Woes against greed, violence and idolatry; Yahweh in his temple; Habakkuk's prayer and theophany\n- zephaniah:character:yahweh | Yahweh (divine) | aliases: the Lord Yahweh, Yahweh of Armies, the God of Israel | The God who speaks the oracles, judges the nations and restores Zion; appears as a voice and presence rather than a visible figure. | sections: The day of Yahweh's judgment on Judah and Jerusalem; Call to seek Yahweh and judgment on the nations; Judgment on Jerusalem and the promise of restoration\n- haggai:character:yahweh | Yahweh (divine) | aliases: Yahweh of Armies, God | The God of Israel who speaks through Haggai and commands the rebuilding of the temple; appears only as speaker of the oracles. | sections: Haggai rebukes the people and they begin the temple work; Encouragement and the promise of greater glory; The priestly law on holiness and the promise to Zerubbabel\n- zechariah:character:yahweh | Yahweh (divine) | aliases: Yahweh of Armies, the Lord, the Lord Yahweh, God | The God who speaks throughout the book; appears as voice rather than figure. | sections: Call to return; The day of Yahweh and the splitting of the Mount of Olives\n- malachi:character:yahweh | Yahweh (divine) | aliases: Yahweh of Armies, the Lord, God, the God of Israel, my name | The God of Israel who speaks throughout Malachi, addressing Israel and its priests. | sections: Yahweh's love for Jacob and the hatred of Esau; Priests who despise Yahweh's name and offer defective sacrifices; Warning to the priests and the covenant of Levi; Treachery in Judah and divorce of the wife of youth; The coming messenger and the refining of Levi; Words against Yahweh and the book of remembrance\n- matthew:character:jesus | Jesus (person) | aliases: Jesus Christ, the Christ, Son of Man, Son of David, Son of God, Rabbi, Teacher, Lord, the Nazarene | Central figure of the Gospel; born in Bethlehem, raised in Nazareth, teaches and heals across Galilee and Judea, crucified and raised. | sections: Flight into Egypt; Return to Nazareth; Baptism of Jesus; Temptation in the wilderness; Jesus moves to Capernaum; Calling of the first four disciples\n- mark:character:jesus | Jesus (divine) | aliases: the Son of Man, the Nazarene, Rabbi, Teacher, the Christ, Son of God, the Lord, the carpenter | Central figure of Mark, a teacher and healer from Nazareth in Galilee who is baptized by John, calls disciples, and is crucified in Jerusalem. | sections: Baptism of Jesus; Temptation in the wilderness; Proclamation in Galilee; Calling the first disciples; Exorcism in the Capernaum synagogue; Healing of Simon's mother-in-law and evening healings\n- luke:character:jesus | Jesus (person) | aliases: Jesus of Nazareth, the Son of Man, the Christ, the Lord, the Son of God, the teacher, Master, the boy Jesus | Central figure of the Gospel, born in Bethlehem, raised in Nazareth, teaching and healing across Galilee and Judea, crucified and risen. | sections: Circumcision and purification; Simeon's blessing; Boy Jesus in the temple; Baptism of Jesus; Temptation in the wilderness; Teaching in Galilee\n- john:character:jesus | Jesus (person) | aliases: Jesus of Nazareth, the Word, the Lord, the Teacher, Rabbi, the Son of Man, the Christ, the Lamb of God, the Son of God | The central figure, a teacher from Nazareth who performs signs and is crucified and raised; appears in every section except those where he is only mentioned. | sections: The Word and the light come into the world; Behold the Lamb of God; The first two disciples follow Jesus; Andrew brings Simon Peter; Philip and Nathanael; The wedding at Cana\n- acts:character:jesus | Jesus (divine) | aliases: Jesus of Nazareth, the Lord, the Christ, the Son of Man, the Prince of life | Risen teacher whose ascension opens Acts; the central figure preached by the apostles, appearing in visions to Saul and Ananias. | sections: Jesus' final words and ascension; Saul's vision on the road to Damascus; Ananias restores Saul's sight; Paul's preaching in Corinth and the vision\n- acts:character:god_father | God (divine) | aliases: the Lord God, the Most High, the Holy Spirit | The divine presence who speaks through angels, visions and the Spirit throughout Acts; appears as speaker in several scenes. | sections: Peter's vision of the sheet; Antioch prophets set apart Barnabas and Saul\n- 1-corinthians:character:jesus | Jesus Christ (divine) | aliases: Christ, the Lord Jesus, the Lord, Christ Jesus, the last Adam | Central figure of the letter; crucified, buried, raised, and appears to witnesses; in the Lord's supper narrative he speaks at the last supper; appears only in memory, visions and speech. | sections: none\n- 1-corinthians:character:god | God (divine) | aliases: God the Father, the Father | Creator and Father; the letter's supreme authority; does not appear on stage. | sections: none\n- galatians:character:jesus_christ | Jesus Christ (divine) | aliases: Christ, the Lord Jesus, the Son of God | The Son of God who gave himself for sins, was crucified, and lives in Paul; spoken of, appears only in the figure of the crucified. | sections: none\n- galatians:character:god_the_father | God (divine) | aliases: God the Father, our God and Father | The Father who raised Jesus and sent the Spirit of his Son; spoken of, not on stage. | sections: none\n- ephesians:character:christ_jesus | Christ Jesus (divine) | aliases: the Lord Jesus, the Lord, Christ, the Beloved, the Son of God, the Savior | Central figure of the letter, risen and seated at God's right hand; referred to throughout rather than acting on stage in a scene. | sections: none\n- ephesians:character:god_the_father | God the Father (divine) | aliases: God, the Father of glory, the God of our Lord Jesus Christ | God, the Father of Christ, who chooses, adopts, raises and gives grace; referred to throughout the letter. | sections: none\n- philippians:character:god_the_father | God the Father (divine) | aliases: God, my God, the God of peace | The God to whom Paul prays and who supplies needs; distinct from Jesus, though both are addressed together. | sections: Greeting; Thanksgiving and prayer for the Philippians; The hymn of Christ's humility and exaltation\n- philippians:character:jesus_christ | Jesus Christ (divine) | aliases: the Lord Jesus, the Lord, Christ, the Savior, Jesus | The Lord to whom the letter is addressed; in the hymn of 2:6-11 he empties himself and is exalted. | sections: Greeting; The hymn of Christ's humility and exaltation\n- colossians:character:god_the_father | God the Father (divine) | aliases: God, the Father, the Creator | God, Father of Christ, who reconciles, delivers and gives inheritance; present by reference throughout. | sections: none\n- colossians:character:christ | Christ Jesus (divine) | aliases: the Lord Jesus, the Son of his love, the Head, the firstborn of all creation, the Lord | The Son, through whom all things were created and in whom all things hold together; seated at God's right hand; present by reference throughout. | sections: Christ as image of God and head of creation; Warning against philosophy; baptism and triumph over powers\n- 1-thessalonians:character:the_lord_jesus | Jesus (divine) | aliases: the Lord Jesus, the Lord Jesus Christ, the Son, Christ, the Lord | The Lord Jesus Christ, risen Son of God who will return from heaven; he is referred to throughout but not present on stage in the narrative. | sections: none\n- 1-thessalonians:character:god_the_father | God (divine) | aliases: God the Father, our God and Father, the God of peace | God the Father, addressed in thanksgiving and prayer; referred to but not present on stage. | sections: none\n- 2-thessalonians:character:the_lord_jesus | the Lord Jesus (divine) | aliases: Jesus Christ, the Lord, the Lord Jesus Christ | Lord who will be revealed from heaven with his angels in flaming fire to judge; a divine figure, not a stage character in these verses. | sections: none\n- 2-thessalonians:character:god_the_father | God our Father (divine) | aliases: God, the Lord of peace | God the Father, source of grace, judge, and giver of comfort; a divine figure referred to but not acting on stage. | sections: none\n- 1-timothy:character:jesus_christ | Jesus Christ (divine) | aliases: Christ Jesus, the Lord Jesus, the man Christ Jesus, the Savior, the Lord | The Lord, mediator between God and men, who came to save sinners; referred to throughout, appearing only in testimony and promise, not as an active figure on stage. | sections: none\n- 1-timothy:character:god | God (divine) | aliases: God our Savior, the Father, the living God, the King eternal | The one God, Father and Savior, addressed and invoked throughout; never a figure on stage. | sections: none\n- 2-timothy:character:the_lord | the Lord Jesus Christ (divine) | aliases: the Lord, Christ Jesus, the Lord's servant, the Lord, the righteous judge | Christ, who stands by Paul in prison and will judge the living and the dead; appears in spirit and in speech rather than as a physical figure. | sections: none\n- 2-timothy:character:god | God (divine) | aliases: God the Father | The Father, source of grace, power and calling; spoken of, not shown. | sections: none\n- titus:character:jesus_christ | Jesus Christ (divine) | aliases: the Lord Jesus Christ, our Savior, the great God and Savior | Lord and Savior who gave himself to redeem a people; referred to, not on stage. | sections: none\n- titus:character:god | God (divine) | aliases: God the Father, God our Savior | God who promised eternal life and revealed his word; referred to, not on stage. | sections: none\n- hebrews:character:god | God (divine) | aliases: the Lord, the Father, God Most High, the Majesty on high, the God of peace, the Judge of all | The creator and speaker of the whole epistle, who speaks through the prophets and his Son and swears oaths to Abraham; not a stage figure in any narrative episode here. | sections: God speaks through his Son; The Son superior to the angels; God's oath to Abraham and the anchor of hope; Closing prayer and greetings\n- hebrews:character:jesus | Jesus (divine) | aliases: Christ, the Son, the Son of God, the firstborn, the apostle and high priest of our confession, the great shepherd of the sheep, the author and perfecter of faith, the mediator of a new covenant | The Son of God, high priest and mediator, who suffered death on the cross outside the gate and now sits at God's right hand; the central figure of the argument. | sections: God speaks through his Son; The Son superior to the angels; Humanity crowned with glory through Jesus; Jesus made like his brothers to be a merciful high priest; Christ over God's house greater than Moses; The living word and the high priest who sympathizes\n- james:character:the_lord | the Lord (divine) | aliases: the Lord Jesus Christ, God, the Father of lights, the Lord of Armies, the judge | God, the Father and judge, referred to in many titles; not shown on stage. | sections: none\n- 1-peter:character:jesus_christ | Jesus Christ (divine) | aliases: Christ, the Lord, Jesus, the Lord Jesus, the chief Shepherd, the cornerstone, the Lamb without blemish | Son of God, crucified and risen; central figure of the letter's teaching, mostly referred to rather than shown acting. | sections: Servants and the example of Christ; Christ preached to the spirits in prison\n- 1-peter:character:god_the_father | God the Father (divine) | aliases: God, the Lord, the Creator, the Father | God, Father of Jesus Christ; appears throughout as the one who judges, raises, and cares for believers. | sections: none\n- 2-peter:character:jesus | Jesus Christ (divine) | aliases: Jesus, Jesus Christ, Lord, Master, Lord and Savior, Son | The Lord and Savior, called the beloved Son whom the Father honors at the transfiguration on the holy mountain; he appears in the text only through reference and voice. | sections: none\n- 2-peter:character:god_the_father | God the Father (divine) | aliases: God, the Majestic Glory, the Father | The God who speaks from the Majestic Glory and grants honor, glory and promises; present only through his voice and description. | sections: none\n- 1-john:character:jesus_christ | Jesus Christ (divine) | aliases: Jesus, the Son, the Son of God, the Christ, the Word of life, the Counselor, the righteous one, the Son of the Father, his only born Son | The Son of God who came in the flesh, was revealed to take away sins, and is the atoning sacrifice; appears only as referred to, not as a figure on stage. | sections: none\n- 1-john:character:god_the_father | God the Father (divine) | aliases: the Father, God, him, the Holy One, the true God | God, described as light and love; referred to throughout and never shown on stage. | sections: none\n- jude:character:the_lord | the Lord (divine) | aliases: Jesus Christ, God, our Master | God and Lord Jesus Christ, who saved Israel from Egypt, judges the ungodly and comes with his holy ones. | sections: none\n- revelation:character:jesus_christ | Jesus Christ (divine) | aliases: the Lamb, the Lion of the tribe of Judah, the Root of David, the Son of Man, the Word of God, the faithful witness, the Alpha and the Omega, the first and the last, the Living one, the Bright and Morning Star, the Amen, the rider called Faithful and True, KING OF KINGS AND LORD OF LORDS | The central figure of the vision, appearing as a glorified son of man among the lampstands, as the Lamb who takes the book, and as the rider on the white horse leading heaven's armies. | sections: Vision of the son of man among the lampstands; Christ's words and the mystery of the stars; Letter to Ephesus; Letter to Smyrna; Letter to Pergamum; Letter to Thyatira\n- revelation:character:god | God (divine) | aliases: the Lord God, the Almighty, him who sits on the throne, the Holy One, the Father | Enthroned in heaven, seen as one seated on a throne with a rainbow; not given a visible human form. | sections: Door opens and the throne in heaven; Living creatures and the elders worship; The sealed book and the search for worthy one; The Lamb takes the book; Angelic chorus and worship; Fifth seal: souls under the altar\n\nPrevious answer:\n{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"God / Yahweh, the Father and God of Israel\",\"kind\":\"divine\",\"note\":\"The one God, creator and speaker of the Old Testament books and the Father in the New Testament; distinct from Jesus Christ in the Gospel and epistle narratives.\",\"members\":[\"genesis:character:god\",\"exodus:character:god\",\"leviticus:character:yahweh\",\"numbers:character:yahweh\",\"deuteronomy:character:yahweh\",\"joshua:character:yahweh\",\"judges:character:yahweh\",\"job:character:yahweh\",\"psalms:character:yahweh\",\"proverbs:character:yahweh\",\"ecclesiastes:character:god\",\"isaiah:character:yahweh\",\"jeremiah:character:yahweh\",\"lamentations:character:yahweh\",\"ezekiel:character:yahweh\",\"hosea:character:yahweh\",\"joel:character:yahweh\",\"amos:character:yahweh\",\"obadiah:character:yahweh\",\"jonah:character:yahweh\",\"micah:character:yahweh\",\"nahum:character:yahweh\",\"habakkuk:character:yahweh\",\"zephaniah:character:yahweh\",\"haggai:character:yahweh\",\"zechariah:character:yahweh\",\"malachi:character:yahweh\",\"acts:character:god_father\",\"1-corinthians:character:god\",\"galatians:character:god_the_father\",\"ephesians:character:god_the_father\",\"philippians:character:god_the_father\",\"colossians:character:god_the_father\",\"1-thessalonians:character:god_the_father\",\"2-thessalonians:character:god_the_father\",\"1-timothy:character:god\",\"2-timothy:character:god\",\"titus:character:god\",\"hebrews:character:god\",\"1-peter:character:god_the_father\",\"2-peter:character:god_the_father\",\"1-john:character:god_the_father\",\"revelation:character:god\",\"james:character:the_lord\",\"jude:character:the_lord\"]},{\"name\":\"Jesus, the Gospel and Acts teacher\",\"kind\":\"person\",\"note\":\"The earthly teacher from Nazareth who teaches, heals, is crucified and raised, as portrayed in the Gospels and the risen Jesus of Acts; told apart from the exalted Christ of the epistles by his narrated life.\",\"members\":[\"matthew:character:jesus\",\"mark:character:jesus\",\"luke:character:jesus\",\"john:character:jesus\",\"acts:character:jesus\"]},{\"name\":\"Jesus Christ, the exalted Lord and Son of the epistles and Revelation\",\"kind\":\"divine\",\"note\":\"The pre-existent, exalted Son and risen Lord addressed in the letters and Revelation; referred to by title rather than acting on stage, and distinct from the Gospel teacher in narrative role.\",\"members\":[\"1-corinthians:character:jesus\",\"galatians:character:jesus_christ\",\"ephesians:character:christ_jesus\",\"philippians:character:jesus_christ\",\"colossians:character:christ\",\"1-thessalonians:character:the_lord_jesus\",\"2-thessalonians:character:the_lord_jesus\",\"1-timothy:character:jesus_christ\",\"2-timothy:character:the_lord\",\"titus:character:jesus_christ\",\"hebrews:character:jesus\",\"1-peter:character:jesus_christ\",\"2-peter:character:jesus\",\"1-john:character:jesus_christ\",\"revelation:character:jesus_christ\"]}]}]}\n\nOwner content review rejected this partition: Keep exactly two identities here: God/Yahweh/the Father and Jesus Christ. The Gospel and Acts Jesus and the risen/exalted Christ of the epistles and Revelation are the same Jesus, not separate individuals. The previous answer explicitly split one Jesus because of narrative role and source genre; that is invalid. Death, resurrection, ascension and a change in portrayal do not create a new individual; canon stages represent changes in appearance later.\nReturn the FULL corrected group, preserving every exact member key once and all required fields.",
+        "schemaName": "merge_reconciliation",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "type": "number",
+                    "const": 0
+                  },
+                  "clusters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "person",
+                            "group",
+                            "divine",
+                            "animal",
+                            "other",
+                            "place"
+                          ]
+                        },
+                        "note": {
+                          "type": "string"
+                        },
+                        "members": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "genesis:character:god",
+                              "exodus:character:god",
+                              "leviticus:character:yahweh",
+                              "numbers:character:yahweh",
+                              "deuteronomy:character:yahweh",
+                              "joshua:character:yahweh",
+                              "judges:character:yahweh",
+                              "job:character:yahweh",
+                              "psalms:character:yahweh",
+                              "proverbs:character:yahweh",
+                              "ecclesiastes:character:god",
+                              "isaiah:character:yahweh",
+                              "jeremiah:character:yahweh",
+                              "lamentations:character:yahweh",
+                              "ezekiel:character:yahweh",
+                              "hosea:character:yahweh",
+                              "joel:character:yahweh",
+                              "amos:character:yahweh",
+                              "obadiah:character:yahweh",
+                              "jonah:character:yahweh",
+                              "micah:character:yahweh",
+                              "nahum:character:yahweh",
+                              "habakkuk:character:yahweh",
+                              "zephaniah:character:yahweh",
+                              "haggai:character:yahweh",
+                              "zechariah:character:yahweh",
+                              "malachi:character:yahweh",
+                              "matthew:character:jesus",
+                              "mark:character:jesus",
+                              "luke:character:jesus",
+                              "john:character:jesus",
+                              "acts:character:jesus",
+                              "acts:character:god_father",
+                              "1-corinthians:character:jesus",
+                              "1-corinthians:character:god",
+                              "galatians:character:jesus_christ",
+                              "galatians:character:god_the_father",
+                              "ephesians:character:christ_jesus",
+                              "ephesians:character:god_the_father",
+                              "philippians:character:god_the_father",
+                              "philippians:character:jesus_christ",
+                              "colossians:character:god_the_father",
+                              "colossians:character:christ",
+                              "1-thessalonians:character:the_lord_jesus",
+                              "1-thessalonians:character:god_the_father",
+                              "2-thessalonians:character:the_lord_jesus",
+                              "2-thessalonians:character:god_the_father",
+                              "1-timothy:character:jesus_christ",
+                              "1-timothy:character:god",
+                              "2-timothy:character:the_lord",
+                              "2-timothy:character:god",
+                              "titus:character:jesus_christ",
+                              "titus:character:god",
+                              "hebrews:character:god",
+                              "hebrews:character:jesus",
+                              "james:character:the_lord",
+                              "1-peter:character:jesus_christ",
+                              "1-peter:character:god_the_father",
+                              "2-peter:character:jesus",
+                              "2-peter:character:god_the_father",
+                              "1-john:character:jesus_christ",
+                              "1-john:character:god_the_father",
+                              "jude:character:the_lord",
+                              "revelation:character:jesus_christ",
+                              "revelation:character:god"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "kind",
+                        "note",
+                        "members"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "group",
+                  "clusters"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "groups"
+          ],
+          "additionalProperties": false
+        },
+        "maxTokens": 30000,
+        "expectedCompletionTokens": 4100
+      },
+      "original": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"God / Yahweh, the Father and God of Israel\",\"kind\":\"divine\",\"note\":\"The one God, creator and speaker of the Old Testament books and the Father in the New Testament; distinct from Jesus Christ in the Gospel and epistle narratives.\",\"members\":[\"genesis:character:god\",\"exodus:character:god\",\"leviticus:character:yahweh\",\"numbers:character:yahweh\",\"deuteronomy:character:yahweh\",\"joshua:character:yahweh\",\"judges:character:yahweh\",\"job:character:yahweh\",\"psalms:character:yahweh\",\"proverbs:character:yahweh\",\"ecclesiastes:character:god\",\"isaiah:character:yahweh\",\"jeremiah:character:yahweh\",\"lamentations:character:yahweh\",\"ezekiel:character:yahweh\",\"hosea:character:yahweh\",\"joel:character:yahweh\",\"amos:character:yahweh\",\"obadiah:character:yahweh\",\"jonah:character:yahweh\",\"micah:character:yahweh\",\"nahum:character:yahweh\",\"habakkuk:character:yahweh\",\"zephaniah:character:yahweh\",\"haggai:character:yahweh\",\"zechariah:character:yahweh\",\"malachi:character:yahweh\",\"acts:character:god_father\",\"1-corinthians:character:god\",\"galatians:character:god_the_father\",\"ephesians:character:god_the_father\",\"philippians:character:god_the_father\",\"colossians:character:god_the_father\",\"1-thessalonians:character:god_the_father\",\"2-thessalonians:character:god_the_father\",\"1-timothy:character:god\",\"2-timothy:character:god\",\"titus:character:god\",\"hebrews:character:god\",\"1-peter:character:god_the_father\",\"2-peter:character:god_the_father\",\"1-john:character:god_the_father\",\"revelation:character:god\",\"james:character:the_lord\",\"jude:character:the_lord\"]},{\"name\":\"Jesus, the Gospel and Acts teacher\",\"kind\":\"person\",\"note\":\"The earthly teacher from Nazareth who teaches, heals, is crucified and raised, as portrayed in the Gospels and the risen Jesus of Acts; told apart from the exalted Christ of the epistles by his narrated life.\",\"members\":[\"matthew:character:jesus\",\"mark:character:jesus\",\"luke:character:jesus\",\"john:character:jesus\",\"acts:character:jesus\"]},{\"name\":\"Jesus Christ, the exalted Lord and Son of the epistles and Revelation\",\"kind\":\"divine\",\"note\":\"The pre-existent, exalted Son and risen Lord addressed in the letters and Revelation; referred to by title rather than acting on stage, and distinct from the Gospel teacher in narrative role.\",\"members\":[\"1-corinthians:character:jesus\",\"galatians:character:jesus_christ\",\"ephesians:character:christ_jesus\",\"philippians:character:jesus_christ\",\"colossians:character:christ\",\"1-thessalonians:character:the_lord_jesus\",\"2-thessalonians:character:the_lord_jesus\",\"1-timothy:character:jesus_christ\",\"2-timothy:character:the_lord\",\"titus:character:jesus_christ\",\"hebrews:character:jesus\",\"1-peter:character:jesus_christ\",\"2-peter:character:jesus\",\"1-john:character:jesus_christ\",\"revelation:character:jesus_christ\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792533333-J6S2xIj84W9s7fKbQ5hd",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 12829,
+          "completionTokens": 1096,
+          "costUsd": 0.0018309
+        },
+        "elapsedMs": 4821
+      },
+      "result": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"God / Yahweh, the Father and God of Israel\",\"kind\":\"divine\",\"note\":\"The one God, creator and speaker of the Old Testament and the Father of Jesus Christ in the New Testament; distinct from Jesus in every entry.\",\"members\":[\"genesis:character:god\",\"exodus:character:god\",\"leviticus:character:yahweh\",\"numbers:character:yahweh\",\"deuteronomy:character:yahweh\",\"joshua:character:yahweh\",\"judges:character:yahweh\",\"job:character:yahweh\",\"psalms:character:yahweh\",\"proverbs:character:yahweh\",\"ecclesiastes:character:god\",\"isaiah:character:yahweh\",\"jeremiah:character:yahweh\",\"lamentations:character:yahweh\",\"ezekiel:character:yahweh\",\"hosea:character:yahweh\",\"joel:character:yahweh\",\"amos:character:yahweh\",\"obadiah:character:yahweh\",\"jonah:character:yahweh\",\"micah:character:yahweh\",\"nahum:character:yahweh\",\"habakkuk:character:yahweh\",\"zephaniah:character:yahweh\",\"haggai:character:yahweh\",\"zechariah:character:yahweh\",\"malachi:character:yahweh\",\"acts:character:god_father\",\"1-corinthians:character:god\",\"galatians:character:god_the_father\",\"ephesians:character:god_the_father\",\"philippians:character:god_the_father\",\"colossians:character:god_the_father\",\"1-thessalonians:character:god_the_father\",\"2-thessalonians:character:god_the_father\",\"1-timothy:character:god\",\"2-timothy:character:god\",\"titus:character:god\",\"hebrews:character:god\",\"1-peter:character:god_the_father\",\"2-peter:character:god_the_father\",\"1-john:character:god_the_father\",\"revelation:character:god\",\"james:character:the_lord\",\"jude:character:the_lord\"]},{\"name\":\"Jesus Christ, the Son of God and Lord\",\"kind\":\"person\",\"note\":\"The one Jesus: the teacher from Nazareth of the Gospels and Acts, and the risen, exalted Christ and Lord of the epistles and Revelation; the same individual across all divisions, with death, resurrection and changed portrayal not creating new individuals.\",\"members\":[\"matthew:character:jesus\",\"mark:character:jesus\",\"luke:character:jesus\",\"john:character:jesus\",\"acts:character:jesus\",\"1-corinthians:character:jesus\",\"galatians:character:jesus_christ\",\"ephesians:character:christ_jesus\",\"philippians:character:jesus_christ\",\"colossians:character:christ\",\"1-thessalonians:character:the_lord_jesus\",\"2-thessalonians:character:the_lord_jesus\",\"1-timothy:character:jesus_christ\",\"2-timothy:character:the_lord\",\"titus:character:jesus_christ\",\"hebrews:character:jesus\",\"1-peter:character:jesus_christ\",\"2-peter:character:jesus\",\"1-john:character:jesus_christ\",\"revelation:character:jesus_christ\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792533566-gG10u9k4b5Vv1eLID9nG",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 12873,
+          "completionTokens": 987,
+          "costUsd": 0.0017808
+        },
+        "elapsedMs": 4767
+      },
+      "accepted": true
+    },
+    {
+      "index": 5,
+      "initialKey": "1d81779acc1fff673ea5c962984e2276",
+      "repairKey": "12f527de0b69f7adfd336c86d30caa82",
+      "request": {
+        "label": "merge:reconcile:exodus:character:joshua:owner-semantic-review",
+        "system": "You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key (\"division:character:id\" or \"division:location:id\"), name, kind, aliases, note, and the sections where each appears. A group may also carry a hint line from a reference index of the work saying how many distinct individuals bear that name in these divisions; use it as evidence, not as an order.\n\nFor each numbered group, split its entries into clusters, one cluster per individual (or per place). Groups may overlap because one entry has several names; rule on every group separately using the exact group number shown, not a new local index. Never copy a member key into a group where it is not listed. The divisions are parts of one work, so the same individual or place appearing in several divisions is one cluster: join entries from different divisions whenever their notes, roles, relations and places agree. A different narrator, title, age or portrayal does not make the same individual a different person. Keep entries apart only when they are different individuals: never join entries on a shared name alone when their notes describe different people, and two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of each group must appear in exactly one of that group's clusters.",
+        "user": "Work: The Holy Bible (Various)\nEarlier partial alias rulings both joined and separated entries in this linked component. Reconsider the full component from its entry evidence and return one final identity partition that supersedes those partial rulings. A shared name alone is not identity. A different source division, genre, narrator, age, title, remembered appearance or resurrection does not create a new individual; appearance stages are drafted later. Split only genuinely different individuals or places. Do not preserve a previous split merely because the entries come from different divisions.\n## Group 0 (characters)\n- exodus:character:joshua | Joshua (person) | aliases: Hoshea, Moses' servant, son of Nun | Young aide of Moses who fights Amalek and stays at the Tent; not the later conqueror, but the same figure in this division. | sections: Battle with Amalek; Moses' hands raised; Moses climbs the mountain into the cloud; Moses descends, breaks the tablets, destroys the calf; The tent of meeting outside the camp\n- numbers:character:joshua | Joshua (person) | aliases: Hoshea the son of Nun, the servant of Moses | Son of Nun of Ephraim, one of the twelve spies; appointed by Moses as successor and commissioned before Eleazar. | sections: Sending of the twelve spies; Rebellion; Joshua and Caleb urge entry; Land division and the Levite count; Moses told to view the land; Joshua commissioned; Named leaders to divide the land\n- deuteronomy:character:joshua | Joshua (person) | aliases: Joshua the son of Nun | Son of Nun, one of the spies, and Moses' chosen successor who leads Israel into the land; commissioned in the Tent of Meeting. | sections: Recollection of Horeb and the failed spy mission; Defeat of Og and allotment east of Jordan; Commissioning of Joshua, the Song, and the sentence on Moses; Blessing of the tribes and the death of Moses\n- joshua:character:joshua | Joshua (person) | aliases: Joshua the son of Nun, Moses' servant | Son of Nun, Moses' successor and leader of Israel; leads the conquest of Canaan. Not to be confused with any other Joshua. | sections: Yahweh commissions Joshua and the eastern tribes pledge support; The spies and Rahab; Crossing the Jordan; Twelve memorial stones; Circumcision at Gilgal and the commander of the army; The fall of Jericho\n- judges:character:joshua | Joshua (person) | aliases: the son of Nun | Dead at the start of Judges; his death and burial are recounted in chapter 2. | sections: none\n- hebrews:character:joshua | Joshua (person) | aliases: none | Leader who would have given the people rest had he brought them into Canaan, which the author says he did not. | sections: Entering God's rest\n\nPrevious answer:\n{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Joshua son of Nun\",\"kind\":\"person\",\"note\":\"Son of Nun of Ephraim, Moses' aide and later successor who leads Israel into Canaan; the same figure across Exodus, Numbers, Deuteronomy, Joshua and Hebrews, distinguished from no other Joshua in this group.\",\"members\":[\"exodus:character:joshua\",\"numbers:character:joshua\",\"deuteronomy:character:joshua\",\"joshua:character:joshua\",\"hebrews:character:joshua\"]},{\"name\":\"Joshua (dead, Judges reference)\",\"kind\":\"person\",\"note\":\"Mentioned only in Judges as already dead and buried, referring back to the same son of Nun; no independent portrayal to separate him from the cluster above.\",\"members\":[\"judges:character:joshua\"]}]}]}\n\nOwner content review rejected this partition: Joshua son of Nun mentioned after his death in Judges is the same Joshua son of Nun who succeeds Moses. Your previous note itself says this is the same person. Recollection or lack of on-stage portrayal does not make a second identity. Use one cluster.\nReturn the FULL corrected group, preserving every exact member key once and all required fields.",
+        "schemaName": "merge_reconciliation",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "type": "number",
+                    "const": 0
+                  },
+                  "clusters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "person",
+                            "group",
+                            "divine",
+                            "animal",
+                            "other",
+                            "place"
+                          ]
+                        },
+                        "note": {
+                          "type": "string"
+                        },
+                        "members": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "exodus:character:joshua",
+                              "numbers:character:joshua",
+                              "deuteronomy:character:joshua",
+                              "joshua:character:joshua",
+                              "judges:character:joshua",
+                              "hebrews:character:joshua"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "kind",
+                        "note",
+                        "members"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "group",
+                  "clusters"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "groups"
+          ],
+          "additionalProperties": false
+        },
+        "maxTokens": 30000,
+        "expectedCompletionTokens": 560
+      },
+      "original": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Joshua son of Nun\",\"kind\":\"person\",\"note\":\"Son of Nun of Ephraim, Moses' aide and later successor who leads Israel into Canaan; the same figure across Exodus, Numbers, Deuteronomy, Joshua and Hebrews, distinguished from no other Joshua in this group.\",\"members\":[\"exodus:character:joshua\",\"numbers:character:joshua\",\"deuteronomy:character:joshua\",\"joshua:character:joshua\",\"hebrews:character:joshua\"]},{\"name\":\"Joshua (dead, Judges reference)\",\"kind\":\"person\",\"note\":\"Mentioned only in Judges as already dead and buried, referring back to the same son of Nun; no independent portrayal to separate him from the cluster above.\",\"members\":[\"judges:character:joshua\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792533328-N4L1nnsWhns8ZeQhP5R6",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 2043,
+          "completionTokens": 283,
+          "costUsd": 0.0003458
+        },
+        "elapsedMs": 3289
+      },
+      "result": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Joshua son of Nun\",\"kind\":\"person\",\"note\":\"Son of Nun of Ephraim, Moses' aide and successor who leads Israel into Canaan; the same individual across Exodus, Numbers, Deuteronomy, Joshua, Judges (as the deceased) and Hebrews, so no other Joshua is separated from him in this group.\",\"members\":[\"exodus:character:joshua\",\"numbers:character:joshua\",\"deuteronomy:character:joshua\",\"joshua:character:joshua\",\"judges:character:joshua\",\"hebrews:character:joshua\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792533571-gVAbkBAsULrTGI6jNwuk",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 2459,
+          "completionTokens": 211,
+          "costUsd": 0.0003514
+        },
+        "elapsedMs": 2181
+      },
+      "accepted": true
+    },
+    {
+      "index": 17,
+      "initialKey": "c38635021d375d4bde4854ca064a540e",
+      "repairKey": "f206aecc770cd9ef8845fa1450020718",
+      "request": {
+        "label": "merge:reconcile:judges:location:jerusalem:owner-semantic-review",
+        "system": "You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key (\"division:character:id\" or \"division:location:id\"), name, kind, aliases, note, and the sections where each appears. A group may also carry a hint line from a reference index of the work saying how many distinct individuals bear that name in these divisions; use it as evidence, not as an order.\n\nFor each numbered group, split its entries into clusters, one cluster per individual (or per place). Groups may overlap because one entry has several names; rule on every group separately using the exact group number shown, not a new local index. Never copy a member key into a group where it is not listed. The divisions are parts of one work, so the same individual or place appearing in several divisions is one cluster: join entries from different divisions whenever their notes, roles, relations and places agree. A different narrator, title, age or portrayal does not make the same individual a different person. Keep entries apart only when they are different individuals: never join entries on a shared name alone when their notes describe different people, and two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of each group must appear in exactly one of that group's clusters.",
+        "user": "Work: The Holy Bible (Various)\nEarlier partial alias rulings both joined and separated entries in this linked component. Reconsider the full component from its entry evidence and return one final identity partition that supersedes those partial rulings. A shared name alone is not identity. A different source division, genre, narrator, age, title, remembered appearance or resurrection does not create a new individual; appearance stages are drafted later. Split only genuinely different individuals or places. Do not preserve a previous split merely because the entries come from different divisions.\n## Group 0 (places)\n  hint: the reference index lists 8 distinct individuals named \"judah\" in the work, up to 6 within one of these divisions\n- judges:location:jerusalem | Jerusalem | aliases: Jebus, Jebusites' city | City taken by Judah, later held by the Jebusites; Benjamin fails to drive them out. | sections: Jerusalem, Hebron and Debir; Caleb and Othniel; Tribes fail to drive out the Canaanites\n- 2-samuel:location:jerusalem | Jerusalem | aliases: David's city, the stronghold of Zion | Capital taken from the Jebusites; site of David's house and the palace. | sections: Capture of Jerusalem and David's family; Battles with the Philistines; Uzzah dies moving the ark; Ark carried to David's city with dancing; Michal rebukes David; Nathan's prophecy of David's house\n- 1-kings:location:jerusalem | Jerusalem | aliases: David's city, Zion | Capital of Judah and seat of David and Solomon's court and temple. | sections: David's old age and Abishag; Nathan and Bathsheba plead with David; Nathan reports to David; David's oath and command; David's charge to Solomon; Death of David\n- 2-kings:location:jerusalem | Jerusalem | aliases: David's city, the city | Capital of Judah and site of the temple, besieged by Assyria and Babylon. | sections: Jehoram of Judah's reign begins; Edom revolts and Joram dies; Ahaziah of Judah is killed; Athaliah's massacre and Joash's hiding; Covenant and destruction of Baal's house; Joash's reign begins\n- 1-chronicles:location:jerusalem | Jerusalem | aliases: Jebus, David's city, Zion | Capital city taken by David and later site of the temple. | sections: Sons of David and the royal line after him; Benjamin's line, Saul's ancestry; Returnees to Jerusalem; gatekeepers and temple servants; David anointed king at Hebron and takes Jerusalem; Bringing the ark from Kiriath Jearim; Uzza struck; Ark brought up to Jerusalem by Levites with music\n- 2-chronicles:location:jerusalem | Jerusalem | aliases: David's city, Zion | Capital of Judah where the temple stands and most kings reign.\n | sections: Solomon's reign and wealth; Solomon's letters to Huram and temple workers; Ark brought into the temple; Solomon's building projects and ships; Visit of the queen of Sheba; Solomon's wealth and death\n- ezra:location:jerusalem | Jerusalem | aliases: the city | Capital city in Judah where the temple is rebuilt and the assembly gathers. | sections: Cyrus's decree and return of the vessels; The list of returnees; Altar built and foundation laid; Opposition and letters to Artaxerxes; Haggai, Zechariah and Tattenai's letter; Darius confirms the decree and the dedication\n- nehemiah:location:jerusalem | Jerusalem | aliases: the holy city, the city of my fathers' tombs | Ruined city whose wall and gates are rebuilt; scene of the assembly, the law reading and the dedication. | sections: Nehemiah's night ride and call to rebuild; The builders assign the gates and sections; Further repairs along the wall; Sanballat mocks and the builders pray; Builders stand armed through the night; Nehemiah rebukes usury and the nobles\n- psalms:location:zion | Zion | aliases: Mount Zion, the holy hill, the daughter of Zion, Jerusalem | Holy hill and city where Yahweh dwells and where his temple stands. | sections: Kings rage against Yahweh's anointed; Thanksgiving for judgment on the nations; The fool who denies God; Entrance of the King of glory; God our refuge in the city; Zion's beauty and God's protection\n- psalms:location:jerusalem | Jerusalem | aliases: Salem, the city of our God | City of the temple, central to the psalms of ascent and lament. | sections: Lament over the ruined sanctuary; God's victory over the warriors at Salem; Lament over the ruin of Jerusalem; Pilgrimage to Jerusalem; Praise for Yahweh's care of Jerusalem and creation\n- ecclesiastes:location:jerusalem | Jerusalem | aliases: the city of Jerusalem | The city where the Preacher reigns as king and where he builds, gathers and tests his wisdom. | sections: The Preacher as king; the burden of seeking; Great wisdom brings grief; Testing mirth and wine; Great works, gardens and servants; Silver, gold and delights; Wisdom excels folly\n- song-of-solomon:location:jerusalem | Jerusalem | aliases: daughters of Jerusalem, city | The city where the daughters and watchmen dwell and where the lover searches the streets.` | sections: Night search in the city; Description of the carriage and crowning; Lover gone; watchmen beat her; Adjuration and the daughters' question\n- isaiah:location:jerusalem | Jerusalem | aliases: Zion, daughter of Zion, the holy city, David's city | Capital of Judah where the main events of the court and the siege take place. | sections: Vision of Isaiah and the rebellious nation; Rejection of sacrifices and call to repentance; Corrupt city and promise of redemption; Latter days: mountain of Yahweh's house; Day of Yahweh against pride and idols; Removal of leaders and judgment of the elders\n- jeremiah:location:jerusalem | Jerusalem | aliases: Zion, the city, daughter of Zion | Capital of Judah, centre of the temple and the royal palace; besieged and burned by Babylon. | sections: Israel's unfaithfulness; Return of backsliding Israel; Call to repentance and coming disaster; Judgment on a corrupt people; Siege from the north; Dead bones and lament\n- lamentations:location:jerusalem | Jerusalem | aliases: Zion, the city, daughter of Zion, Judah | The ruined city, its gates, walls, palaces and sanctuary, the setting of nearly all the laments. | sections: Jerusalem widowed and mourning, her plea to Yahweh; Yahweh's wrath destroys the city and its people; The city's ruin, the priests' guilt and Edom's doom; Communal prayer for remembrance and restoration\n- ezekiel:location:jerusalem | Jerusalem | aliases: the bloody city, Oholibah, the holy city | Capital of Judah; site of the temple, sieges, and sins. | sections: Siege of Jerusalem enacted and the bread of defilement; The hair shaved and divided as sign of judgment; Vision of abominations in the temple; The mark on the faithful and the slaughter in the city; The exile sign of packing baggage; Sign of trembling bread and the end of false proverbs\n- daniel:location:jerusalem | Jerusalem | aliases: the holy city, the temple in Jerusalem | City besieged and captured by Nebuchadnezzar; its temple vessels are carried to Babylon. | sections: Siege of Jerusalem and the king's selection of youths\n- joel:location:zion | Zion | aliases: my holy mountain, Mount Zion | The holy mountain where the trumpet is blown and where Yahweh roars and dwells. | sections: The day of Yahweh and the advancing army; Call to repentance and priestly intercession; The outpouring of the Spirit and deliverance; Judgment of the nations in the valley of Jehoshaphat\n- joel:location:jerusalem | Jerusalem | aliases: the city | The holy city, the place of assembly and refuge, and the site of Yahweh's house. | sections: The day of Yahweh and the advancing army; The outpouring of the Spirit and deliverance; Judgment of the nations in the valley of Jehoshaphat\n- amos:location:zion | Zion | aliases: Jerusalem | Where Yahweh roars and Judah's palaces stand; named in 1-2 and 2-5.       | sections: Superscription and opening roar; Oracle against Judah; Woe to the complacent of Zion and Samaria; Restoration of David's tent and the fruitful land\n- obadiah:location:jerusalem | Jerusalem | aliases: Mount Zion, my holy mountain, the gate of my people | The holy city and mountain of Judah, plundered by strangers and promised deliverance. | sections: Edom's wise men destroyed for violence against Jacob; Warning against gloating over Judah's ruin; Deliverance on Mount Zion and the kingdom of Yahweh\n- micah:location:jerusalem | Jerusalem | aliases: Zion, daughter of Zion, city, the high places of Judah | Southern capital, the city of the temple mount, threatened and to be ploughed like a field. | sections: Micah's lament over the towns of Judah; Woe to those who plan oppression and seize land; Dispute with the false prophets; Rebuke of the rulers of Jacob; Judgment on the false prophets; Judgment on Zion and Jerusalem's leaders\n- micah:location:mount_zion | Mount Zion | aliases: Zion, mountain of Yahweh's temple, the temple mount | Temple mountain, to be established above the hills and the place from which Yahweh reigns. | sections: Judgment on Zion and Jerusalem's leaders; The mountain of Yahweh's house and the nations' pilgrimage; Restoration of the lame and the daughter of Zion's exile and threshing\n- zephaniah:location:jerusalem | Jerusalem | aliases: Zion, this place, the holy mountain | The city of Judah where the sins are searched out with lamps and where the restoration is promised. | sections: The day of Yahweh's judgment on Judah and Jerusalem; Judgment on Jerusalem and the promise of restoration\n- zechariah:location:jerusalem | Jerusalem | aliases: Zion, the city of truth, daughter of Zion | Holy city to be rebuilt and restored; the setting of most oracles.' | sections: Vision of the measuring line; Question about fasting; Call to justice and return to Zion; Blessing and nations seeking Yahweh; Oracle against the nations; The coming king and the victory of Zion\n- malachi:location:jerusalem | Jerusalem | aliases: Zion | City where the temple and altar stand, named as the place of Judah's abomination and the altar problems.[2-11] | sections: Treachery in Judah and divorce of the wife of youth\n- matthew:location:jerusalem | Jerusalem | aliases: the holy city | Holy city with the temple, the setting of many confrontations and the trial and crucifixion. | sections: Wise men ask Herod; Third passion prediction; Request of the sons of Zebedee; Triumphal entry; Parable of the wedding feast; Lament over Jerusalem\n- mark:location:jerusalem | Jerusalem | aliases: the holy city | Center of the temple, where Jesus teaches, is tried and crucified. | sections: Third passion prediction on the road; Triumphal entry; Plot against Jesus; Judas agrees to betray; Preparing the Passover; Announcement of betrayal at supper\n- luke:location:jerusalem | Jerusalem | aliases: the holy city, David's city Jerusalem | Holy city with the temple, site of the feasts, the trial, and the crucifixion (chs. 2, 13, 19, 22-24). | sections: Circumcision and purification; Boy Jesus in the temple; Jerusalem surrounded; flight; Cosmic signs and the Son of Man; Plot against Jesus; Judas agrees; Preparing the Passover\n- john:location:jerusalem | Jerusalem | aliases: the holy city, the city | Center of Jewish worship; the temple and feasts take place here. | sections: Many believe; Jesus knows the heart; Nicodemus comes by night; The Son's authority and judgment; Witnesses to the Son; Debate over where the Christ comes from; Healing of the man born blind\n- acts:location:jerusalem_city | Jerusalem | aliases: the holy city | Main city of the early Jerusalem assembly; site of the upper room, the temple and the council. | sections: Return to Jerusalem and the upper room; Peter's first sermon: the prophecy of Joel; Peter on Jesus and David; Conversions and life of the believers; Arrest and examination before the council; The council releases the apostles\n- romans:location:jerusalem | Jerusalem | aliases: none | City where Paul is going to deliver a collection for the poor saints (15:25-26). | sections: Paul's travel plans and request for prayer\n- 1-corinthians:location:jerusalem | Jerusalem | aliases: none | City to which the Corinthians' collection for the saints is to be carried. | sections: The collection; Paul's travel plans; Timothy and Apollos\n- galatians:location:jerusalem | Jerusalem | aliases: none | City where Paul meets the apostles and leaders of the assembly. | sections: First visit to Jerusalem and Judea; Council in Jerusalem; Allegory of Hagar and Sarah\n- 1-peter:location:zion | Zion | aliases: Mount Zion | Place where God lays the chief cornerstone, referenced from scripture. | sections: none\n- revelation:location:mount_zion | Mount Zion | aliases: none | The mountain where the Lamb stands with the one hundred forty-four thousand. | sections: The Lamb on Mount Zion with the 144,000\n\nPrevious answer:\n{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Jerusalem\",\"kind\":\"place\",\"note\":\"The capital city of Judah (also called Jebus, David's city, Zion, the holy city) across the Old and New Testament references; one place, not distinguished by book or period.\",\"members\":[\"judges:location:jerusalem\",\"2-samuel:location:jerusalem\",\"1-kings:location:jerusalem\",\"2-kings:location:jerusalem\",\"1-chronicles:location:jerusalem\",\"2-chronicles:location:jerusalem\",\"ezra:location:jerusalem\",\"nehemiah:location:jerusalem\",\"psalms:location:jerusalem\",\"ecclesiastes:location:jerusalem\",\"song-of-solomon:location:jerusalem\",\"isaiah:location:jerusalem\",\"jeremiah:location:jerusalem\",\"lamentations:location:jerusalem\",\"ezekiel:location:jerusalem\",\"daniel:location:jerusalem\",\"joel:location:jerusalem\",\"obadiah:location:jerusalem\",\"micah:location:jerusalem\",\"zephaniah:location:jerusalem\",\"zechariah:location:jerusalem\",\"malachi:location:jerusalem\",\"matthew:location:jerusalem\",\"mark:location:jerusalem\",\"luke:location:jerusalem\",\"john:location:jerusalem\",\"acts:location:jerusalem_city\",\"romans:location:jerusalem\",\"1-corinthians:location:jerusalem\",\"galatians:location:jerusalem\"]},{\"name\":\"Zion\",\"kind\":\"place\",\"note\":\"The holy hill or mount of Yahweh's dwelling and temple, distinct from the city of Jerusalem as a place name; used in psalms, joel, amos, micah (mount), 1-peter and revelation.\",\"members\":[\"psalms:location:zion\",\"joel:location:zion\",\"amos:location:zion\",\"1-peter:location:zion\"]},{\"name\":\"Mount Zion (temple mountain)\",\"kind\":\"place\",\"note\":\"The temple mountain where Yahweh reigns and gathers the nations, named as a mountain rather than the city; the same holy hill as Zion, appearing in micah and revelation.\",\"members\":[\"micah:location:mount_zion\",\"revelation:location:mount_zion\"]}]}]}\n\nOwner content review rejected this partition: Keep the city of Jerusalem distinct from the hill/mountain where the evidence distinguishes those places. But the clusters named Zion and Mount Zion (temple mountain) both explicitly describe the same holy hill in your own notes and must form one hill identity, not two because different source divisions use different phrasing.\nReturn the FULL corrected group, preserving every exact member key once and all required fields.",
+        "schemaName": "merge_reconciliation",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "type": "number",
+                    "const": 0
+                  },
+                  "clusters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "person",
+                            "group",
+                            "divine",
+                            "animal",
+                            "other",
+                            "place"
+                          ]
+                        },
+                        "note": {
+                          "type": "string"
+                        },
+                        "members": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "judges:location:jerusalem",
+                              "2-samuel:location:jerusalem",
+                              "1-kings:location:jerusalem",
+                              "2-kings:location:jerusalem",
+                              "1-chronicles:location:jerusalem",
+                              "2-chronicles:location:jerusalem",
+                              "ezra:location:jerusalem",
+                              "nehemiah:location:jerusalem",
+                              "psalms:location:zion",
+                              "psalms:location:jerusalem",
+                              "ecclesiastes:location:jerusalem",
+                              "song-of-solomon:location:jerusalem",
+                              "isaiah:location:jerusalem",
+                              "jeremiah:location:jerusalem",
+                              "lamentations:location:jerusalem",
+                              "ezekiel:location:jerusalem",
+                              "daniel:location:jerusalem",
+                              "joel:location:zion",
+                              "joel:location:jerusalem",
+                              "amos:location:zion",
+                              "obadiah:location:jerusalem",
+                              "micah:location:jerusalem",
+                              "micah:location:mount_zion",
+                              "zephaniah:location:jerusalem",
+                              "zechariah:location:jerusalem",
+                              "malachi:location:jerusalem",
+                              "matthew:location:jerusalem",
+                              "mark:location:jerusalem",
+                              "luke:location:jerusalem",
+                              "john:location:jerusalem",
+                              "acts:location:jerusalem_city",
+                              "romans:location:jerusalem",
+                              "1-corinthians:location:jerusalem",
+                              "galatians:location:jerusalem",
+                              "1-peter:location:zion",
+                              "revelation:location:mount_zion"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "kind",
+                        "note",
+                        "members"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "group",
+                  "clusters"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "groups"
+          ],
+          "additionalProperties": false
+        },
+        "maxTokens": 30000,
+        "expectedCompletionTokens": 2360
+      },
+      "original": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Jerusalem\",\"kind\":\"place\",\"note\":\"The capital city of Judah (also called Jebus, David's city, Zion, the holy city) across the Old and New Testament references; one place, not distinguished by book or period.\",\"members\":[\"judges:location:jerusalem\",\"2-samuel:location:jerusalem\",\"1-kings:location:jerusalem\",\"2-kings:location:jerusalem\",\"1-chronicles:location:jerusalem\",\"2-chronicles:location:jerusalem\",\"ezra:location:jerusalem\",\"nehemiah:location:jerusalem\",\"psalms:location:jerusalem\",\"ecclesiastes:location:jerusalem\",\"song-of-solomon:location:jerusalem\",\"isaiah:location:jerusalem\",\"jeremiah:location:jerusalem\",\"lamentations:location:jerusalem\",\"ezekiel:location:jerusalem\",\"daniel:location:jerusalem\",\"joel:location:jerusalem\",\"obadiah:location:jerusalem\",\"micah:location:jerusalem\",\"zephaniah:location:jerusalem\",\"zechariah:location:jerusalem\",\"malachi:location:jerusalem\",\"matthew:location:jerusalem\",\"mark:location:jerusalem\",\"luke:location:jerusalem\",\"john:location:jerusalem\",\"acts:location:jerusalem_city\",\"romans:location:jerusalem\",\"1-corinthians:location:jerusalem\",\"galatians:location:jerusalem\"]},{\"name\":\"Zion\",\"kind\":\"place\",\"note\":\"The holy hill or mount of Yahweh's dwelling and temple, distinct from the city of Jerusalem as a place name; used in psalms, joel, amos, micah (mount), 1-peter and revelation.\",\"members\":[\"psalms:location:zion\",\"joel:location:zion\",\"amos:location:zion\",\"1-peter:location:zion\"]},{\"name\":\"Mount Zion (temple mountain)\",\"kind\":\"place\",\"note\":\"The temple mountain where Yahweh reigns and gathers the nations, named as a mountain rather than the city; the same holy hill as Zion, appearing in micah and revelation.\",\"members\":[\"micah:location:mount_zion\",\"revelation:location:mount_zion\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792533336-2vTDwyd2rETemd25egBl",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 6428,
+          "completionTokens": 731,
+          "costUsd": 0.0010083
+        },
+        "elapsedMs": 4397
+      },
+      "result": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Jerusalem\",\"kind\":\"place\",\"note\":\"The capital city of Judah (also called Jebus, David's city, the holy city, Zion as city in some books); the city itself, distinct from the hill/mountain of Zion as a place of Yahweh's dwelling.\",\"members\":[\"judges:location:jerusalem\",\"2-samuel:location:jerusalem\",\"1-kings:location:jerusalem\",\"2-kings:location:jerusalem\",\"1-chronicles:location:jerusalem\",\"2-chronicles:location:jerusalem\",\"ezra:location:jerusalem\",\"nehemiah:location:jerusalem\",\"psalms:location:jerusalem\",\"ecclesiastes:location:jerusalem\",\"song-of-solomon:location:jerusalem\",\"isaiah:location:jerusalem\",\"jeremiah:location:jerusalem\",\"lamentations:location:jerusalem\",\"ezekiel:location:jerusalem\",\"daniel:location:jerusalem\",\"joel:location:jerusalem\",\"obadiah:location:jerusalem\",\"micah:location:jerusalem\",\"zephaniah:location:jerusalem\",\"zechariah:location:jerusalem\",\"malachi:location:jerusalem\",\"matthew:location:jerusalem\",\"mark:location:jerusalem\",\"luke:location:jerusalem\",\"john:location:jerusalem\",\"acts:location:jerusalem_city\",\"romans:location:jerusalem\",\"1-corinthians:location:jerusalem\",\"galatians:location:jerusalem\"]},{\"name\":\"Zion (holy hill / Mount Zion)\",\"kind\":\"place\",\"note\":\"The holy hill or temple mountain where Yahweh dwells and reigns, referred to as Zion, Mount Zion, or my holy mountain across psalms, joel, amos, micah, 1-peter and revelation; one hill identity, distinct from the city of Jerusalem.\",\"members\":[\"psalms:location:zion\",\"joel:location:zion\",\"amos:location:zion\",\"1-peter:location:zion\",\"micah:location:mount_zion\",\"revelation:location:mount_zion\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792533573-p0yCq97POtjI6faGiPDM",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 7307,
+          "completionTokens": 691,
+          "costUsd": 0.0010762
+        },
+        "elapsedMs": 3324
+      },
+      "accepted": true
+    },
+    {
+      "index": 22,
+      "initialKey": "e89d8f61184e4f4e2b3765597fda80dd",
+      "repairKey": "aad7cc87ed9ed55c9b178f0f6e207fab",
+      "request": {
+        "label": "merge:reconcile:1-kings:location:temple:owner-semantic-review",
+        "system": "You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key (\"division:character:id\" or \"division:location:id\"), name, kind, aliases, note, and the sections where each appears. A group may also carry a hint line from a reference index of the work saying how many distinct individuals bear that name in these divisions; use it as evidence, not as an order.\n\nFor each numbered group, split its entries into clusters, one cluster per individual (or per place). Groups may overlap because one entry has several names; rule on every group separately using the exact group number shown, not a new local index. Never copy a member key into a group where it is not listed. The divisions are parts of one work, so the same individual or place appearing in several divisions is one cluster: join entries from different divisions whenever their notes, roles, relations and places agree. A different narrator, title, age or portrayal does not make the same individual a different person. Keep entries apart only when they are different individuals: never join entries on a shared name alone when their notes describe different people, and two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of each group must appear in exactly one of that group's clusters.",
+        "user": "Work: The Holy Bible (Various)\nEarlier partial alias rulings both joined and separated entries in this linked component. Reconsider the full component from its entry evidence and return one final identity partition that supersedes those partial rulings. A shared name alone is not identity. A different source division, genre, narrator, age, title, remembered appearance or resurrection does not create a new individual; appearance stages are drafted later. Split only genuinely different individuals or places. Do not preserve a previous split merely because the entries come from different divisions.\n## Group 0 (places)\n- 1-kings:location:temple | Yahweh's house | aliases: the temple, the house of Yahweh | Solomon's temple in Jerusalem with inner sanctuary and bronze pillars. | sections: Adonijah seizes the altar; Joab slain at the altar; Construction of the temple begins; Yahweh's promise to Solomon; Interior of the temple; Cherubim and doors; temple completed\n- 2-kings:location:temple | Yahweh's house | aliases: the temple, the house of Yahweh | Temple in Jerusalem, repaired by Joash, plundered by Assyria and Babylon. | sections: Athaliah's massacre and Joash's hiding; Jehoiada plans the coup; Joash is crowned; Athaliah is seized and slain; Temple repair dispute; The chest for temple money\n- 2-chronicles:location:temple | Yahweh's house | aliases: the temple, the house of God | Temple built by Solomon on Mount Moriah in Jerusalem, with inner sanctuary and courts.\n | sections: Construction of the temple and pillars; Bronze altar, sea and temple vessels; Ark brought into the temple; Solomon's dedication prayer; Fire from heaven and God's promise; Joash crowned and Athaliah killed\n- ezra:location:temple_site | Temple of Yahweh at Jerusalem | aliases: God's house, the house of Yahweh | The temple being rebuilt in Jerusalem. | sections: Altar built and foundation laid; Darius confirms the decree and the dedication; Ezra's prayer of confession; The assembly and the covenant to put away foreign wives\n- nehemiah:location:temple | the house of God | aliases: the temple | Temple in Jerusalem, site of storerooms, Tobiah's room, and the wall dedication. | sections: Further repairs along the wall; The plots to lure and frighten Nehemiah; The terms of the covenant and the offerings; Settling Jerusalem and listing its residents; Dedication of the wall with two processions; Expulsion of Tobiah and cleansing of the temple rooms\n- psalms:location:temple | The temple | aliases: Yahweh's house, the sanctuary, the holy temple, the courts | Yahweh's sanctuary, where the psalmist worships and where Yahweh answers from heaven. | sections: Morning prayer against the wicked; Who may dwell on the holy hill; Yahweh's deliverance by storm and power; Prayer for the king in battle; Praise in the great assembly; Protestation of integrity\n- isaiah:location:temple_in_jerusalem | The temple | aliases: Yahweh's house, the house | Yahweh's house in Jerusalem where the vision of chapter 6 occurs and where Hezekiah prays. | sections: Latter days: mountain of Yahweh's house; Isaiah's vision of Yahweh in the temple; Commission to a hardened people; Hezekiah sends to Isaiah; Sennacherib's letter and Hezekiah's prayer\n- jeremiah:location:yahwehs_house | Yahweh's house | aliases: the temple, the house which is called by my name | Temple in Jerusalem where Jeremiah preaches, is seized, and where the bronze pillars stand. | sections: Temple sermon; Pashhur and Jeremiah's lament; Vision of two baskets of figs; Temple trial and Uriah; Hananiah breaks the yoke; Rechabites tested\n- lamentations:location:temple_sanctuary | The sanctuary | aliases: Yahweh's house, the altar, the tent of the daughter of Zion | Temple of Jerusalem where enemies have entered and the altar has been cast off. | sections: Yahweh's wrath destroys the city and its people; The city's ruin, the priests' guilt and Edom's doom\n- joel:location:yahweh_house | Yahweh's house | aliases: the house of our God | The temple, where meal and drink offerings are cut off and from which a fountain flows. | sections: Summons to fasting, priests, and cry to Yahweh; Call to repentance and priestly intercession\n- haggai:location:jerusalem_temple_site | the house of Yahweh | aliases: Yahweh's temple, this house, the temple, the house of Yahweh of Armies | The ruined temple in Jerusalem being rebuilt; the central location of the oracles. | sections: Haggai rebukes the people and they begin the temple work; Encouragement and the promise of greater glory; The priestly law on holiness and the promise to Zerubbabel\n- zechariah:location:the_temple | the house of Yahweh | aliases: the temple, Yahweh's house | Temple being rebuilt in Jerusalem; setting for the lamp stand vision and the crowns. | sections: Vision of the golden lamp stand; Zerubbabel and the two anointed ones; Crowns for Joshua and the Branch\n- malachi:location:temple | the temple | aliases: Yahweh's house, my house, the storehouse, Yahweh's altar, altar | The temple and its altar where offerings are polluted and tithes are brought. | sections: Priests who despise Yahweh's name and offer defective sacrifices; Treachery in Judah and divorce of the wife of youth; The coming messenger and the refining of Levi\n\nPrevious answer:\n{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Solomon's temple in Jerusalem (Yahweh's house)\",\"kind\":\"place\",\"note\":\"The temple built by Solomon on Mount Moriah in Jerusalem, with its inner sanctuary, bronze pillars and courts; the same building across all references, though later rebuilt or repaired in other periods.\",\"members\":[\"1-kings:location:temple\",\"2-kings:location:temple\",\"2-chronicles:location:temple\"]},{\"name\":\"Second temple at Jerusalem (rebuilt after exile)\",\"kind\":\"place\",\"note\":\"The temple being rebuilt in Jerusalem after the return from exile, distinct from Solomon's temple in time and setting.\",\"members\":[\"ezra:location:temple_site\",\"haggai:location:jerusalem_temple_site\",\"zechariah:location:the_temple\",\"nehemiah:location:temple\"]},{\"name\":\"Temple as sanctuary of worship in Psalms\",\"kind\":\"place\",\"note\":\"Yahweh's sanctuary in the psalms, the holy hill where worship and divine answer occur; a poetic depiction of the temple, not a separate building.\",\"members\":[\"psalms:location:temple\"]},{\"name\":\"Temple in Jerusalem as seen by Isaiah\",\"kind\":\"place\",\"note\":\"Yahweh's house in Jerusalem where Isaiah's vision and Hezekiah's prayer take place, the same temple as the Jerusalem house of Yahweh.\",\"members\":[\"isaiah:location:temple_in_jerusalem\"]},{\"name\":\"Temple of Jeremiah's sermons\",\"kind\":\"place\",\"note\":\"Yahweh's house where Jeremiah preaches and is seized, the Jerusalem temple of the pre-exilic period.\",\"members\":[\"jeremiah:location:yahwehs_house\"]},{\"name\":\"Sanctuary destroyed in Lamentations\",\"kind\":\"place\",\"note\":\"The Jerusalem sanctuary after enemies have entered it and the altar has been cast off, depicted in the aftermath of ruin.\",\"members\":[\"lamentations:location:temple_sanctuary\"]},{\"name\":\"Temple in Joel\",\"kind\":\"place\",\"note\":\"Yahweh's house where offerings are cut off and a fountain flows, the Jerusalem temple in the prophecy of Joel.\",\"members\":[\"joel:location:yahweh_house\"]},{\"name\":\"Temple and altar in Malachi\",\"kind\":\"place\",\"note\":\"The temple and its altar where defective offerings are brought and tithes are paid, in the post-exilic period of Malachi.\",\"members\":[\"malachi:location:temple\"]}]}]}\n\nOwner content review rejected this partition: The previous answer creates separate identities for the same Jerusalem sanctuary because of source books, poetry, destruction and rebuilding. The notes identify the same temple site and sanctuary through its history. Use one Jerusalem temple identity for all supplied keys; construction, destruction and rebuilding are location appearance stages drafted later, not separate identities by source book or genre.\nReturn the FULL corrected group, preserving every exact member key once and all required fields.",
+        "schemaName": "merge_reconciliation",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "type": "number",
+                    "const": 0
+                  },
+                  "clusters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "person",
+                            "group",
+                            "divine",
+                            "animal",
+                            "other",
+                            "place"
+                          ]
+                        },
+                        "note": {
+                          "type": "string"
+                        },
+                        "members": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "1-kings:location:temple",
+                              "2-kings:location:temple",
+                              "2-chronicles:location:temple",
+                              "ezra:location:temple_site",
+                              "nehemiah:location:temple",
+                              "psalms:location:temple",
+                              "isaiah:location:temple_in_jerusalem",
+                              "jeremiah:location:yahwehs_house",
+                              "lamentations:location:temple_sanctuary",
+                              "joel:location:yahweh_house",
+                              "haggai:location:jerusalem_temple_site",
+                              "zechariah:location:the_temple",
+                              "malachi:location:temple"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "kind",
+                        "note",
+                        "members"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "group",
+                  "clusters"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "groups"
+          ],
+          "additionalProperties": false
+        },
+        "maxTokens": 30000,
+        "expectedCompletionTokens": 980
+      },
+      "original": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Solomon's temple in Jerusalem (Yahweh's house)\",\"kind\":\"place\",\"note\":\"The temple built by Solomon on Mount Moriah in Jerusalem, with its inner sanctuary, bronze pillars and courts; the same building across all references, though later rebuilt or repaired in other periods.\",\"members\":[\"1-kings:location:temple\",\"2-kings:location:temple\",\"2-chronicles:location:temple\"]},{\"name\":\"Second temple at Jerusalem (rebuilt after exile)\",\"kind\":\"place\",\"note\":\"The temple being rebuilt in Jerusalem after the return from exile, distinct from Solomon's temple in time and setting.\",\"members\":[\"ezra:location:temple_site\",\"haggai:location:jerusalem_temple_site\",\"zechariah:location:the_temple\",\"nehemiah:location:temple\"]},{\"name\":\"Temple as sanctuary of worship in Psalms\",\"kind\":\"place\",\"note\":\"Yahweh's sanctuary in the psalms, the holy hill where worship and divine answer occur; a poetic depiction of the temple, not a separate building.\",\"members\":[\"psalms:location:temple\"]},{\"name\":\"Temple in Jerusalem as seen by Isaiah\",\"kind\":\"place\",\"note\":\"Yahweh's house in Jerusalem where Isaiah's vision and Hezekiah's prayer take place, the same temple as the Jerusalem house of Yahweh.\",\"members\":[\"isaiah:location:temple_in_jerusalem\"]},{\"name\":\"Temple of Jeremiah's sermons\",\"kind\":\"place\",\"note\":\"Yahweh's house where Jeremiah preaches and is seized, the Jerusalem temple of the pre-exilic period.\",\"members\":[\"jeremiah:location:yahwehs_house\"]},{\"name\":\"Sanctuary destroyed in Lamentations\",\"kind\":\"place\",\"note\":\"The Jerusalem sanctuary after enemies have entered it and the altar has been cast off, depicted in the aftermath of ruin.\",\"members\":[\"lamentations:location:temple_sanctuary\"]},{\"name\":\"Temple in Joel\",\"kind\":\"place\",\"note\":\"Yahweh's house where offerings are cut off and a fountain flows, the Jerusalem temple in the prophecy of Joel.\",\"members\":[\"joel:location:yahweh_house\"]},{\"name\":\"Temple and altar in Malachi\",\"kind\":\"place\",\"note\":\"The temple and its altar where defective offerings are brought and tithes are paid, in the post-exilic period of Malachi.\",\"members\":[\"malachi:location:temple\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792533338-b6YdrLLE3dougDpOksru",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 3187,
+          "completionTokens": 864,
+          "costUsd": 0.0007507
+        },
+        "elapsedMs": 5078
+      },
+      "result": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Yahweh's house in Jerusalem (the temple)\",\"kind\":\"place\",\"note\":\"The one Jerusalem temple (Yahweh's house, the sanctuary on Mount Moriah) across all references, from Solomon's building through repair, destruction and rebuilding; construction and ruin are later appearance stages, not separate places.\",\"members\":[\"1-kings:location:temple\",\"2-kings:location:temple\",\"2-chronicles:location:temple\",\"ezra:location:temple_site\",\"nehemiah:location:temple\",\"psalms:location:temple\",\"isaiah:location:temple_in_jerusalem\",\"jeremiah:location:yahwehs_house\",\"lamentations:location:temple_sanctuary\",\"joel:location:yahweh_house\",\"haggai:location:jerusalem_temple_site\",\"zechariah:location:the_temple\",\"malachi:location:temple\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792533576-q8ZRsj3S7UEKazr0gop3",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 4219,
+          "completionTokens": 304,
+          "costUsd": 0.0005739
+        },
+        "elapsedMs": 2023
+      },
+      "accepted": true
+    },
+    {
+      "index": 23,
+      "initialKey": "e2dd95b6e895eebb813a79aec1562c22",
+      "repairKey": "bfb9ceb4f339608ff1f88b4c20b4ccc8",
+      "request": {
+        "label": "merge:reconcile:1-kings:location:samaria:owner-semantic-review",
+        "system": "You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key (\"division:character:id\" or \"division:location:id\"), name, kind, aliases, note, and the sections where each appears. A group may also carry a hint line from a reference index of the work saying how many distinct individuals bear that name in these divisions; use it as evidence, not as an order.\n\nFor each numbered group, split its entries into clusters, one cluster per individual (or per place). Groups may overlap because one entry has several names; rule on every group separately using the exact group number shown, not a new local index. Never copy a member key into a group where it is not listed. The divisions are parts of one work, so the same individual or place appearing in several divisions is one cluster: join entries from different divisions whenever their notes, roles, relations and places agree. A different narrator, title, age or portrayal does not make the same individual a different person. Keep entries apart only when they are different individuals: never join entries on a shared name alone when their notes describe different people, and two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of each group must appear in exactly one of that group's clusters.",
+        "user": "Work: The Holy Bible (Various)\nEarlier partial alias rulings both joined and separated entries in this linked component. Reconsider the full component from its entry evidence and return one final identity partition that supersedes those partial rulings. A shared name alone is not identity. A different source division, genre, narrator, age, title, remembered appearance or resurrection does not create a new individual; appearance stages are drafted later. Split only genuinely different individuals or places. Do not preserve a previous split merely because the entries come from different divisions.\n## Group 0 (places)\n- 1-kings:location:samaria | Samaria | aliases: the hill of Samaria | Capital of Israel founded by Omri; besieged by Ben Hadad. | sections: Omri takes Israel and founds Samaria; Ahab and Jezebel; Obadiah meets Elijah; Obadiah reports to Ahab; Ben Hadad's demands on Ahab; Victory over Ben Hadad\n- 2-kings:location:samaria | Samaria | aliases: the city of Samaria | Capital of the northern kingdom of Israel, besieged by Syria and later taken by Assyria. | sections: Ahaziah's sickness and the message to Baal Zebub; Elijah calls down fire and Ahaziah dies; Closing formula for Ahaziah; Youths mock Elisha at Bethel; Jehoram's reign in Samaria; Moab rebels and Jehoram calls allies\n- 2-chronicles:location:samaria | Samaria | aliases: Samaria city | Capital of northern Israel.\n | sections: Jehoshaphat joins Ahab at Ramoth Gilead; Ahaziah's death at Jehu's hands; Ahaz's idolatry and Pekah's war\n- ezra:location:samaria | Samaria | aliases: the city of Samaria | City where foreign peoples were settled; mentioned only. | sections: Opposition and letters to Artaxerxes\n- amos:location:samaria | Samaria | aliases: the mountain of Samaria | Capital of Israel, its mountain and palaces of ivory; central to chapters 3 to 6. | sections: Oracle against Israel and the Exodus recalled; Chosen people and the lion's roar; Summons to Ashdod and Samaria; altars of Bethel; Cows of Bashan and mock worship at Bethel and Gilgal; Unheeded plagues and call to meet God; Lament for the virgin of Israel and call to seek Yahweh\n- micah:location:samaria | Samaria | aliases: Israel's capital, Jacob's disobedience | Northern capital, to be made a rubble heap as judgment for idolatry. | sections: Superscription and Yahweh's coming in judgment on Samaria\n- luke:location:samaria | Samaria | aliases: the village of the Samaritans, the borders of Samaria | Region and villages of the Samaritans, passed through on the road to Jerusalem (chs. 9, 10, 17). | sections: Samaritan village refuses Jesus; Three would-be followers; Warnings about stumbling and forgiveness; Faith like a mustard seed; unworthy servants; Ten lepers healed; Kingdom within you\n- john:location:samaria_sychar | Sychar in Samaria | aliases: Samaria, Jacob's well | Samaritan town by Jacob's well where Jesus speaks with the woman. | sections: Departure into Galilee by Samaria; Jesus and the Samaritan woman at the well; Disciples return; the harvest saying; Many Samaritans believe\n- acts:location:samaria | Samaria | aliases: the city of Samaria | Region and city where Philip preaches and Peter and John come to lay hands. | sections: Philip preaches in Samaria; Simon the sorcerer believes; Peter and John rebuke Simon\n\nPrevious answer:\n{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Samaria\",\"kind\":\"place\",\"note\":\"The northern kingdom's capital (hill of Samaria, founded by Omri) as found in Kings, Chronicles, Amos and Micah, and the same city where Philip preaches in Acts; the Samaria region and its villages as in Luke, and the town Sychar by Jacob's well in John, identified as the Samaritan territory and its people.\",\"members\":[\"1-kings:location:samaria\",\"2-kings:location:samaria\",\"2-chronicles:location:samaria\",\"ezra:location:samaria\",\"amos:location:samaria\",\"micah:location:samaria\",\"luke:location:samaria\",\"john:location:samaria_sychar\",\"acts:location:samaria\"]}]}]}\n\nOwner content review rejected this partition: The previous answer joined the city of Samaria, the wider geographical region of Samaria, and the town of Sychar. A town and the region containing it are distinct places. Partition the exact keys from their supplied notes, keeping Sychar distinct from Samaria city and from the wider Samaria region. A shared regional adjective does not establish the same place.\nReturn the FULL corrected group, preserving every exact member key once and all required fields.",
+        "schemaName": "merge_reconciliation",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "type": "number",
+                    "const": 0
+                  },
+                  "clusters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "person",
+                            "group",
+                            "divine",
+                            "animal",
+                            "other",
+                            "place"
+                          ]
+                        },
+                        "note": {
+                          "type": "string"
+                        },
+                        "members": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "1-kings:location:samaria",
+                              "2-kings:location:samaria",
+                              "2-chronicles:location:samaria",
+                              "ezra:location:samaria",
+                              "amos:location:samaria",
+                              "micah:location:samaria",
+                              "luke:location:samaria",
+                              "john:location:samaria_sychar",
+                              "acts:location:samaria"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "kind",
+                        "note",
+                        "members"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "group",
+                  "clusters"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "groups"
+          ],
+          "additionalProperties": false
+        },
+        "maxTokens": 30000,
+        "expectedCompletionTokens": 740
+      },
+      "original": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Samaria\",\"kind\":\"place\",\"note\":\"The northern kingdom's capital (hill of Samaria, founded by Omri) as found in Kings, Chronicles, Amos and Micah, and the same city where Philip preaches in Acts; the Samaria region and its villages as in Luke, and the town Sychar by Jacob's well in John, identified as the Samaritan territory and its people.\",\"members\":[\"1-kings:location:samaria\",\"2-kings:location:samaria\",\"2-chronicles:location:samaria\",\"ezra:location:samaria\",\"amos:location:samaria\",\"micah:location:samaria\",\"luke:location:samaria\",\"john:location:samaria_sychar\",\"acts:location:samaria\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792533339-YqXy2UfRz1IZb34lI5Zf",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 2417,
+          "completionTokens": 252,
+          "costUsd": 0.0003677
+        },
+        "elapsedMs": 3271
+      },
+      "result": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Samaria (city)\",\"kind\":\"place\",\"note\":\"The northern kingdom's capital city, the hill of Samaria founded by Omri, besieged and fallen as described in Kings, Chronicles, Amos and Micah, and the city where Philip preaches in Acts; distinct from the wider region and from Sychar.\",\"members\":[\"1-kings:location:samaria\",\"2-kings:location:samaria\",\"2-chronicles:location:samaria\",\"amos:location:samaria\",\"micah:location:samaria\",\"acts:location:samaria\"]},{\"name\":\"Samaria (region)\",\"kind\":\"place\",\"note\":\"The wider region and its villages of the Samaritans, passed through on the road to Jerusalem in Luke and the territory mentioned in Ezra; distinct from the city of Samaria and from the town of Sychar.\",\"members\":[\"ezra:location:samaria\",\"luke:location:samaria\"]},{\"name\":\"Sychar\",\"kind\":\"place\",\"note\":\"The Samaritan town by Jacob's well where Jesus speaks with the woman in John; a town, not the capital city or the wider region of Samaria.\",\"members\":[\"john:location:samaria_sychar\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792533578-U0Au5RhPgG1fddozafji",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 2826,
+          "completionTokens": 398,
+          "costUsd": 0.0004816
+        },
+        "elapsedMs": 2472
+      },
+      "accepted": true
+    },
+    {
+      "index": 28,
+      "initialKey": "1e769147f7fb55fa37eb75cf9e4dff43",
+      "repairKey": "7a7e97c90a530ff82749acb10f913b2d",
+      "request": {
+        "label": "merge:reconcile:ezra:character:zechariah_prophet:owner-semantic-review",
+        "system": "You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key (\"division:character:id\" or \"division:location:id\"), name, kind, aliases, note, and the sections where each appears. A group may also carry a hint line from a reference index of the work saying how many distinct individuals bear that name in these divisions; use it as evidence, not as an order.\n\nFor each numbered group, split its entries into clusters, one cluster per individual (or per place). Groups may overlap because one entry has several names; rule on every group separately using the exact group number shown, not a new local index. Never copy a member key into a group where it is not listed. The divisions are parts of one work, so the same individual or place appearing in several divisions is one cluster: join entries from different divisions whenever their notes, roles, relations and places agree. A different narrator, title, age or portrayal does not make the same individual a different person. Keep entries apart only when they are different individuals: never join entries on a shared name alone when their notes describe different people, and two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of each group must appear in exactly one of that group's clusters.",
+        "user": "Work: The Holy Bible (Various)\nEarlier partial alias rulings both joined and separated entries in this linked component. Reconsider the full component from its entry evidence and return one final identity partition that supersedes those partial rulings. A shared name alone is not identity. A different source division, genre, narrator, age, title, remembered appearance or resurrection does not create a new individual; appearance stages are drafted later. Split only genuinely different individuals or places. Do not preserve a previous split merely because the entries come from different divisions.\n## Group 0 (characters)\n  hint: the reference index lists 30 distinct individuals named \"zechariah\" in the work, up to 5 within one of these divisions\n- ezra:character:zechariah_prophet | Zechariah (person) | aliases: Zechariah the son of Iddo, the prophet | Prophet, son of Iddo, who prophesies alongside Haggai; distinct from the Zechariah who returns with Ezra. | sections: Haggai, Zechariah and Tattenai's letter\n- zechariah:character:zechariah | Zechariah (person) | aliases: the prophet, the son of Berechiah, the son of Iddo | Prophet, son of Berechiah, grandson of Iddo; receives the visions and speaks Yahweh's messages in chapters 1-8 and the oracles of 9-14; the 'I' of the visions. | sections: Call to return; Vision of the riders among the myrtle trees; Vision of the four horns and craftsmen; Vision of the measuring line; Joshua cleansed before the angel; Vision of the golden lamp stand\n\nPrevious answer:\n{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Zechariah son of Iddo\",\"kind\":\"person\",\"note\":\"Prophet Zechariah son of Iddo who prophesies alongside Haggai and appears in Ezra and in Tattenai's letter; distinguished by Iddo parentage and co-prophesying with Haggai.\",\"members\":[\"ezra:character:zechariah_prophet\"]},{\"name\":\"Zechariah son of Berechiah\",\"kind\":\"person\",\"note\":\"Prophet Zechariah son of Berechiah, grandson of Iddo, who receives the night visions and oracles of the book bearing his name; distinguished by Berechiah parentage and the visionary 'I' voice.\",\"members\":[\"zechariah:character:zechariah\"]}]}]}\n\nOwner content review rejected this partition: The supplied Zechariah descriptions identify the same post-exilic prophet connected with Iddo and prophesying with Haggai. One description gives his father Berechiah and grandfather Iddo; the shorter ancestral description does not establish a second prophet. The first-person visionary voice and source book do not create another individual. Use one cluster.\nReturn the FULL corrected group, preserving every exact member key once and all required fields.",
+        "schemaName": "merge_reconciliation",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "type": "number",
+                    "const": 0
+                  },
+                  "clusters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "person",
+                            "group",
+                            "divine",
+                            "animal",
+                            "other",
+                            "place"
+                          ]
+                        },
+                        "note": {
+                          "type": "string"
+                        },
+                        "members": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "ezra:character:zechariah_prophet",
+                              "zechariah:character:zechariah"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "kind",
+                        "note",
+                        "members"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "group",
+                  "clusters"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "groups"
+          ],
+          "additionalProperties": false
+        },
+        "maxTokens": 30000,
+        "expectedCompletionTokens": 320
+      },
+      "original": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Zechariah son of Iddo\",\"kind\":\"person\",\"note\":\"Prophet Zechariah son of Iddo who prophesies alongside Haggai and appears in Ezra and in Tattenai's letter; distinguished by Iddo parentage and co-prophesying with Haggai.\",\"members\":[\"ezra:character:zechariah_prophet\"]},{\"name\":\"Zechariah son of Berechiah\",\"kind\":\"person\",\"note\":\"Prophet Zechariah son of Berechiah, grandson of Iddo, who receives the night visions and oracles of the book bearing his name; distinguished by Berechiah parentage and the visionary 'I' voice.\",\"members\":[\"zechariah:character:zechariah\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792533342-BkdfcWuVJNYRuDp8Gtqb",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 1555,
+          "completionTokens": 257,
+          "costUsd": 0.000284
+        },
+        "elapsedMs": 2701
+      },
+      "result": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Zechariah son of Berechiah\",\"kind\":\"person\",\"note\":\"The post-exilic prophet Zechariah, son of Berechiah and grandson of Iddo, who prophesies alongside Haggai, receives the visions and oracles of the book bearing his name, and appears in Ezra and Tattenai's letter; one individual across all divisions.\",\"members\":[\"ezra:character:zechariah_prophet\",\"zechariah:character:zechariah\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792533581-P2DTVaNglgAYDwTWkEyR",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 1968,
+          "completionTokens": 173,
+          "costUsd": 0.0002833
+        },
+        "elapsedMs": 1958
+      },
+      "accepted": true
+    },
+    {
+      "index": 30,
+      "initialKey": "0a3f737db8d8f8bc7bca4245df63feb9",
+      "repairKey": "7a6a935bd8feb4ac9c1fc3e3f09fa0ef",
+      "request": {
+        "label": "merge:reconcile:job:character:satan:owner-semantic-review",
+        "system": "You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key (\"division:character:id\" or \"division:location:id\"), name, kind, aliases, note, and the sections where each appears. A group may also carry a hint line from a reference index of the work saying how many distinct individuals bear that name in these divisions; use it as evidence, not as an order.\n\nFor each numbered group, split its entries into clusters, one cluster per individual (or per place). Groups may overlap because one entry has several names; rule on every group separately using the exact group number shown, not a new local index. Never copy a member key into a group where it is not listed. The divisions are parts of one work, so the same individual or place appearing in several divisions is one cluster: join entries from different divisions whenever their notes, roles, relations and places agree. A different narrator, title, age or portrayal does not make the same individual a different person. Keep entries apart only when they are different individuals: never join entries on a shared name alone when their notes describe different people, and two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of each group must appear in exactly one of that group's clusters.",
+        "user": "Work: The Holy Bible (Various)\nEarlier partial alias rulings both joined and separated entries in this linked component. Reconsider the full component from its entry evidence and return one final identity partition that supersedes those partial rulings. A shared name alone is not identity. A different source division, genre, narrator, age, title, remembered appearance or resurrection does not create a new individual; appearance stages are drafted later. Split only genuinely different individuals or places. Do not preserve a previous split merely because the entries come from different divisions.\n## Group 0 (characters)\n- job:character:satan | Satan (divine) | aliases: the adversary | Heavenly accuser among God's sons who tests Job in the prologue; he is one of the presenters before Yahweh, not a human enemy. | sections: The heavenly wager; Second wager in the heavenly court\n- zechariah:character:satan | Satan (divine) | aliases: the adversary | Accuser standing at Joshua's right hand in chapter 3. | sections: Joshua cleansed before the angel\n- matthew:character:satan_the_tempter | the devil (divine) | aliases: Satan, the tempter, the evil one, Beelzebul, prince of the demons | Tempts Jesus in the wilderness and is the adversary behind demons and the enemy who sows weeds. | sections: Temptation in the wilderness\n- luke:character:satan | Satan (divine) | aliases: the devil, the tempter, the enemy | Adversary who tempts Jesus in the wilderness and is seen falling from heaven (chs. 4, 10, 11, 22). | sections: Temptation in the wilderness\n- romans:character:satan | Satan (divine) | aliases: the god of peace's adversary | Adversary referenced in 16:20 to be crushed under believers' feet. | sections: none\n- 2-corinthians:character:satan | Satan (divine) | aliases: the adversary, the tempter | Adversary who schemes against believers and sends a messenger to torment Paul (2:11, 11:14, 12:7). | sections: none\n- ephesians:character:the_devil | the devil (divine) | aliases: the evil one, the prince of the power of the air, the spirit who works in the children of disobedience | Spiritual adversary against whom believers must stand; referred to in 2:2, 4:27 and 6:11-16, not an acting figure. | sections: none\n- 1-thessalonians:character:satan | Satan (divine) | aliases: the tempter | The adversary who hindered Paul's visit to Thessalonica; mentioned only. | sections: none\n- 1-timothy:character:satan | Satan (divine) | aliases: the devil, the adversary | The adversary to whom sinners are handed over and whose snare believers must avoid; referred to only. | sections: none\n- 1-peter:character:the_devil | the devil (other) | aliases: the adversary, Satan | Adversary who walks around like a roaring lion seeking to devour; referred to only. | sections: none\n- 1-john:character:the_evil_one | the evil one (other) | aliases: the devil, the one in the world | The devil, source of sin and the power over the world; referred to only, not shown on stage. | sections: none\n- jude:character:the_devil | the devil (divine) | aliases: the accuser | Adversary contended with by Michael over the body of Moses. | sections: none\n- revelation:character:the_dragon | the great red dragon (other) | aliases: the old serpent, the devil, Satan, the deceiver of the whole world, the serpent | The seven-headed, ten-horned dragon who stands before the woman and is cast down from heaven to the earth. | sections: The woman clothed with the sun and the dragon; War in heaven and the dragon's fall; Dragon pursues the woman; The beast from the sea; Release and final defeat of Satan\n\nPrevious answer:\n{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Satan\",\"kind\":\"divine\",\"note\":\"The adversary across Job, Zechariah, Matthew, Luke, Romans, 2 Corinthians, 1 Thessalonians, 1 Timothy, Jude-attested mentions and Revelation's serpent-dragon identity; one figure, the accuser and tempter, distinguished from other divine enemies by being named Satan or the adversary.\",\"members\":[\"job:character:satan\",\"zechariah:character:satan\",\"matthew:character:satan_the_tempter\",\"luke:character:satan\",\"romans:character:satan\",\"2-corinthians:character:satan\",\"1-thessalonians:character:satan\",\"1-timothy:character:satan\",\"jude:character:the_devil\",\"revelation:character:the_dragon\"]},{\"name\":\"the devil\",\"kind\":\"divine\",\"note\":\"The spiritual adversary and source of sin named as the devil or evil one in Ephesians and as the roaring lion in 1 Peter; the same devil as Satan above, but these entries describe him only by title and role and are kept as an unnamed-by-Satan reference cluster for the epistles.\",\"members\":[\"ephesians:character:the_devil\",\"1-peter:character:the_devil\",\"1-john:character:the_evil_one\"]}]}]}\n\nOwner content review rejected this partition: Your previous answer explicitly calls the devil the same devil as Satan, then separates by title and role. Titles, epistles, literary portrayal and a missing name do not create a different individual. All supplied Satan/devil adversary keys here are one identity. Use one cluster.\nReturn the FULL corrected group, preserving every exact member key once and all required fields.",
+        "schemaName": "merge_reconciliation",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "type": "number",
+                    "const": 0
+                  },
+                  "clusters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "person",
+                            "group",
+                            "divine",
+                            "animal",
+                            "other",
+                            "place"
+                          ]
+                        },
+                        "note": {
+                          "type": "string"
+                        },
+                        "members": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "job:character:satan",
+                              "zechariah:character:satan",
+                              "matthew:character:satan_the_tempter",
+                              "luke:character:satan",
+                              "romans:character:satan",
+                              "2-corinthians:character:satan",
+                              "ephesians:character:the_devil",
+                              "1-thessalonians:character:satan",
+                              "1-timothy:character:satan",
+                              "1-peter:character:the_devil",
+                              "1-john:character:the_evil_one",
+                              "jude:character:the_devil",
+                              "revelation:character:the_dragon"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "kind",
+                        "note",
+                        "members"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "group",
+                  "clusters"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "groups"
+          ],
+          "additionalProperties": false
+        },
+        "maxTokens": 30000,
+        "expectedCompletionTokens": 980
+      },
+      "original": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Satan\",\"kind\":\"divine\",\"note\":\"The adversary across Job, Zechariah, Matthew, Luke, Romans, 2 Corinthians, 1 Thessalonians, 1 Timothy, Jude-attested mentions and Revelation's serpent-dragon identity; one figure, the accuser and tempter, distinguished from other divine enemies by being named Satan or the adversary.\",\"members\":[\"job:character:satan\",\"zechariah:character:satan\",\"matthew:character:satan_the_tempter\",\"luke:character:satan\",\"romans:character:satan\",\"2-corinthians:character:satan\",\"1-thessalonians:character:satan\",\"1-timothy:character:satan\",\"jude:character:the_devil\",\"revelation:character:the_dragon\"]},{\"name\":\"the devil\",\"kind\":\"divine\",\"note\":\"The spiritual adversary and source of sin named as the devil or evil one in Ephesians and as the roaring lion in 1 Peter; the same devil as Satan above, but these entries describe him only by title and role and are kept as an unnamed-by-Satan reference cluster for the epistles.\",\"members\":[\"ephesians:character:the_devil\",\"1-peter:character:the_devil\",\"1-john:character:the_evil_one\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792533342-rG2PTNgAG01O0TkUSHQ9",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 2462,
+          "completionTokens": 424,
+          "costUsd": 0.0004582
+        },
+        "elapsedMs": 3357
+      },
+      "result": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"Satan\",\"kind\":\"divine\",\"note\":\"The one adversary figure (Satan, the devil, the tempter, the evil one, the dragon) across all supplied entries; distinguished from other figures only by being the accuser and tempter of humankind.\",\"members\":[\"job:character:satan\",\"zechariah:character:satan\",\"matthew:character:satan_the_tempter\",\"luke:character:satan\",\"romans:character:satan\",\"2-corinthians:character:satan\",\"ephesians:character:the_devil\",\"1-thessalonians:character:satan\",\"1-timothy:character:satan\",\"1-peter:character:the_devil\",\"1-john:character:the_evil_one\",\"jude:character:the_devil\",\"revelation:character:the_dragon\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792533583-qfoL0u4hZfh6iNKt6Gvu",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 3020,
+          "completionTokens": 254,
+          "costUsd": 0.000429
+        },
+        "elapsedMs": 2318
+      },
+      "accepted": true
+    }
+  ]
+}

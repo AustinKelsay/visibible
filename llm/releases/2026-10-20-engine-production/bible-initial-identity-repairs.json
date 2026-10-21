@@ -1,0 +1,532 @@
+{
+  "at": "2026-10-20T21:36:38.298Z",
+  "method": "Targeted owner content correction of model identity partitions; no generic-engine Bible special cases, no changed model, no fabricated model answer. Original paid answers remain in mergeAttempts. Exact repair prompts and provider usage retained here.",
+  "repairs": [
+    {
+      "group": 0,
+      "initialKey": "35a3e88d50fa8b5a0606b8e5cea5ec01",
+      "repairKey": "25d33972e6e1cb47d047116a3e0db666",
+      "request": {
+        "label": "merge:0:semantic-repair:1",
+        "system": "You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key (\"division:character:id\" or \"division:location:id\"), name, kind, aliases, note, and the sections where each appears. A group may also carry a hint line from a reference index of the work saying how many distinct individuals bear that name in these divisions; use it as evidence, not as an order.\n\nFor each numbered group, split its entries into clusters, one cluster per individual (or per place). Groups may overlap because one entry has several names; rule on every group separately using the exact group number shown, not a new local index. Never copy a member key into a group where it is not listed. The divisions are parts of one work, so the same individual or place appearing in several divisions is one cluster: join entries from different divisions whenever their notes, roles, relations and places agree. A different narrator, title, age or portrayal does not make the same individual a different person. Keep entries apart only when they are different individuals: never join entries on a shared name alone when their notes describe different people, and two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of each group must appear in exactly one of that group's clusters.",
+        "user": "Work: The Holy Bible (Various)\n\n## Group 0 (characters)\n- genesis:character:god | God (divine) | aliases: Yahweh, Yahweh God, God Almighty, Lord, God Most High, the angel of God, Yahweh's angel, God's sons | Creator and principal deity of Genesis; speaks, blesses, judges and makes covenants, and appears in human form or through angels. | sections: Creation of the world and of humankind; The seventh day and rest; Man formed in Eden and the command; The woman made from the rib; Eyes opened and God's questioning; Curses and expulsion from the garden\n- exodus:character:god | God (Yahweh) (divine) | aliases: Yahweh, I AM, the Lord, God Almighty, the angel of God | The God of Israel who speaks from the burning bush, sends plagues, leads by cloud and fire, and gives the law; appears in visible forms (fire, cloud, glory) as well as through voice and angel. | sections: Israel groans; God speaks from the burning bush and sends Moses; God's name revealed and promise of plunder; Moses' signs: the rod, the hand, and water to blood; Moses returns to Egypt; Zipporah circumcises her son; Taskmasters beat the officers; Moses complains to God; God reaffirms the promise and commissions Moses and Aaron\n- leviticus:character:yahweh | Yahweh (divine) | aliases: the Lord, God, I am Yahweh your God | The God of Israel who speaks the laws to Moses and Aaron throughout Leviticus. | sections: Laws of the burnt offering; Laws of the meal offering; Laws of the peace offering; Sin offering of the anointed priest; Sin offering of the whole congregation; Sin offering of a ruler\n- numbers:character:yahweh | Yahweh (divine) | aliases: the Lord, God, my name | God of Israel who speaks to Moses and Aaron throughout Numbers, giving commands, counts and judgments. | sections: Census of the tribes at Sinai; Levites exempt from the census; Order of the camps by standards; Sons of Aaron and the Levites given to Aaron; Count of the Levite families; Firstborn redeemed by Levites\n- deuteronomy:character:yahweh | Yahweh (divine) | aliases: God, the Lord, the Most High, the Rock | The God of Israel who speaks from the fire at Horeb, leads the people, and gives the law; appears as a voice, a pillar of cloud, and in fire. | sections: Recollection of Horeb and the failed spy mission; Journey around Seir and defeat of Sihon; Defeat of Og and allotment east of Jordan; Exhortation to keep the statutes and the cities of refuge; The covenant at Horeb and the ten commandments; Command to destroy the nations and avoid idols\n- joshua:character:yahweh | Yahweh (divine) | aliases: the Lord, God, the God of Israel | The God of Israel, who speaks to Joshua and fights for Israel. | sections: Yahweh commissions Joshua and the eastern tribes pledge support; Crossing the Jordan; Remaining land and charge to divide it\n- judges:character:yahweh | Yahweh (divine) | aliases: God, the Lord, Yahweh's angel, the angel of God, the Lord Yahweh | God of Israel, who speaks through angels, prophets and dreams and raises up judges; appears throughout Judges. | sections: Judah and Simeon against the Canaanites; Adoni-Bezek; Yahweh's angel rebukes Israel at Bochim; Joshua dies; A new generation forsakes Yahweh; Nations left to test Israel; Othniel defeats Cushan Rishathaim; Midian oppresses Israel; Yahweh's angel calls Gideon; Gideon's offering and the fleece\n- job:character:yahweh | Yahweh (divine) | aliases: the Almighty, God, the Lord, the Holy One | God, who speaks with Satan in the prologue, answers Job out of the whirlwind in chapters 38 to 41, and rebukes the three friends. | sections: The heavenly wager; Second wager in the heavenly court; Yahweh speaks from the whirlwind; Yahweh on the wild animals; Job's submission and Yahweh's challenge; Yahweh describes Leviathan\n- psalms:character:yahweh | Yahweh (divine) | aliases: the Lord, God, the Most High, the Almighty, Yah, the Holy One of Israel, the God of Jacob, the Shepherd of Israel | The God of Israel, the speaker and addressee of most psalms; present in heaven and temple, acting in creation and deliverance. | sections: Kings rage against Yahweh's anointed; Majesty of Yahweh and the dignity of man; The fool who denies God; Yahweh's deliverance by storm and power; Entrance of the King of glory; God reigns over the nations\n- proverbs:character:yahweh | Yahweh (divine) | aliases: the LORD, God, the Holy One, his Maker | The God of Israel; speaks and acts throughout as the source of wisdom, judge of hearts and keeper of the righteous. | sections: Wisdom's origin before creation\n- ecclesiastes:character:god | God (divine) | aliases: the Creator, the Most High | The deity who gives, judges and sets the times; present as an authority spoken of throughout, not as a physical figure. | sections: none\n- isaiah:character:yahweh | Yahweh (divine) | aliases: the Lord, the Lord Yahweh, Yahweh of Armies, the Holy One of Israel, God, the Almighty | The God of Israel, speaking and acting throughout; seated on a throne in the temple in chapter 6. | sections: Rejection of sacrifices and call to repentance; Corrupt city and promise of redemption; Removal of leaders and judgment of the elders; Judgment on the daughters of Zion; Isaiah's vision of Yahweh in the temple; Commission to a hardened people\n- jeremiah:character:yahweh | Yahweh (divine) | aliases: the Lord, the Lord Yahweh, Yahweh of Armies, God of Israel, the Holy One of Israel | The God who speaks to Jeremiah and through whom the prophecies come; appears as a voice and in visions, not as a physical figure. | sections: Call of Jeremiah; Israel's unfaithfulness; Return of backsliding Israel; Call to repentance and coming disaster; Judgment on a corrupt people; Siege from the north\n- lamentations:character:yahweh | Yahweh (divine) | aliases: the Lord, the Most High, God | God of Israel, acting in wrath, judgment and compassion throughout the poems; never on stage in bodily form. | sections: Jerusalem widowed and mourning, her plea to Yahweh; Yahweh's wrath destroys the city and its people; The sufferer's affliction, hope and prayer for vengeance; The city's ruin, the priests' guilt and Edom's doom; Communal prayer for remembrance and restoration\n- ezekiel:character:yahweh | Yahweh (divine) | aliases: the Lord Yahweh, God of Israel, the Almighty, the man in linen's master | God of Israel, who speaks to Ezekiel and appears in visions of glory. | sections: The vision of the four living creatures and the glory of Yahweh; Ezekiel's call and the scroll he eats; Ezekiel sent to Israel and carried to the exiles; The watchman commission and Ezekiel silenced; Siege of Jerusalem enacted and the bread of defilement; The hair shaved and divided as sign of judgment\n- hosea:character:yahweh | Yahweh (divine) | aliases: God, the Most High, the Holy One, God of Armies, my husband, my master | The speaker of the oracles, who commands Hosea and addresses Israel and Judah as his wife and children; present as a voice rather than a figure on stage. | sections: Hosea's marriage and the naming of his children; Yahweh's indictment and promise of restoration for the wife; Hosea buys back the adulterous wife; Indictment of the land and the priests; Idolatry, prostitution and warning to Judah; Judgment on priests, princes and Ephraim's turn to Assyria\n- jonah:character:yahweh | Yahweh (divine) | aliases: God, the God of heaven | The God of Israel who speaks to Jonah, sends the storm, the fish, the worm and the east wind, and relents toward Nineveh. | sections: Call to Nineveh and flight to Tarshish; Jonah cast into the sea and swallowed; Jonah's prayer from the fish; Preaching in Nineveh and the king's fast; Jonah's anger and the vine\n- nahum:character:yahweh | Yahweh (divine) | aliases: God, Yahweh of Armies, the Lord | The God of Israel who speaks in the oracle, avenges and punishes Nineveh; speaks in first person in 1:12-14, 2:13, 3:5-7. | sections: Superscription and Yahweh's wrath; Yahweh is a refuge and will consume the enemy; Yahweh speaks of afflicting and freeing Judah; Yahweh's decree against Nineveh's idols; The lion's den and Yahweh's declaration; Yahweh exposes Nineveh's shame\n- habakkuk:character:yahweh | Yahweh (divine) | aliases: Yahweh of Armies, the Lord, my God, my Holy One, the Rock, God, the Holy One | The God who answers Habakkuk, announces the Chaldean invasion, and appears in theophany in the prayer of chapter 3. | sections: Yahweh announces the Chaldean invasion; Habakkuk questions Yahweh's use of the wicked; The vision written down; the plunderer will be plundered; Woes against greed, violence and idolatry; Yahweh in his temple; Habakkuk's prayer and theophany\n- haggai:character:yahweh | Yahweh (divine) | aliases: Yahweh of Armies, God | The God of Israel who speaks through Haggai and commands the rebuilding of the temple; appears only as speaker of the oracles. | sections: Haggai rebukes the people and they begin the temple work; Encouragement and the promise of greater glory; The priestly law on holiness and the promise to Zerubbabel\n- zechariah:character:yahweh | Yahweh (divine) | aliases: Yahweh of Armies, the Lord, the Lord Yahweh, God | The God who speaks throughout the book; appears as voice rather than figure. | sections: Call to return; The day of Yahweh and the splitting of the Mount of Olives\n- malachi:character:yahweh | Yahweh (divine) | aliases: Yahweh of Armies, the Lord, God, the God of Israel, my name | The God of Israel who speaks throughout Malachi, addressing Israel and its priests. | sections: Yahweh's love for Jacob and the hatred of Esau; Priests who despise Yahweh's name and offer defective sacrifices; Warning to the priests and the covenant of Levi; Treachery in Judah and divorce of the wife of youth; The coming messenger and the refining of Levi; Words against Yahweh and the book of remembrance\n- acts:character:god_father | God (divine) | aliases: the Lord God, the Most High, the Holy Spirit | The divine presence who speaks through angels, visions and the Spirit throughout Acts; appears as speaker in several scenes. | sections: Peter's vision of the sheet; Antioch prophets set apart Barnabas and Saul\n- 1-corinthians:character:god | God (divine) | aliases: God the Father, the Father | Creator and Father; the letter's supreme authority; does not appear on stage. | sections: none\n- galatians:character:god_the_father | God (divine) | aliases: God the Father, our God and Father | The Father who raised Jesus and sent the Spirit of his Son; spoken of, not on stage. | sections: none\n- ephesians:character:god_the_father | God the Father (divine) | aliases: God, the Father of glory, the God of our Lord Jesus Christ | God, the Father of Christ, who chooses, adopts, raises and gives grace; referred to throughout the letter. | sections: none\n- philippians:character:god_the_father | God the Father (divine) | aliases: God, my God, the God of peace | The God to whom Paul prays and who supplies needs; distinct from Jesus, though both are addressed together. | sections: Greeting; Thanksgiving and prayer for the Philippians; The hymn of Christ's humility and exaltation\n- colossians:character:god_the_father | God the Father (divine) | aliases: God, the Father, the Creator | God, Father of Christ, who reconciles, delivers and gives inheritance; present by reference throughout. | sections: none\n- 1-thessalonians:character:god_the_father | God (divine) | aliases: God the Father, our God and Father, the God of peace | God the Father, addressed in thanksgiving and prayer; referred to but not present on stage. | sections: none\n- 2-thessalonians:character:god_the_father | God our Father (divine) | aliases: God, the Lord of peace | God the Father, source of grace, judge, and giver of comfort; a divine figure referred to but not acting on stage. | sections: none\n- 1-timothy:character:god | God (divine) | aliases: God our Savior, the Father, the living God, the King eternal | The one God, Father and Savior, addressed and invoked throughout; never a figure on stage. | sections: none\n- 2-timothy:character:god | God (divine) | aliases: God the Father | The Father, source of grace, power and calling; spoken of, not shown. | sections: none\n- titus:character:god | God (divine) | aliases: God the Father, God our Savior | God who promised eternal life and revealed his word; referred to, not on stage. | sections: none\n- hebrews:character:god | God (divine) | aliases: the Lord, the Father, God Most High, the Majesty on high, the God of peace, the Judge of all | The creator and speaker of the whole epistle, who speaks through the prophets and his Son and swears oaths to Abraham; not a stage figure in any narrative episode here. | sections: God speaks through his Son; The Son superior to the angels; God's oath to Abraham and the anchor of hope; Closing prayer and greetings\n- james:character:the_lord | the Lord (divine) | aliases: the Lord Jesus Christ, God, the Father of lights, the Lord of Armies, the judge | God, the Father and judge, referred to in many titles; not shown on stage. | sections: none\n- 1-peter:character:god_the_father | God the Father (divine) | aliases: God, the Lord, the Creator, the Father | God, Father of Jesus Christ; appears throughout as the one who judges, raises, and cares for believers. | sections: none\n- 2-peter:character:god_the_father | God the Father (divine) | aliases: God, the Majestic Glory, the Father | The God who speaks from the Majestic Glory and grants honor, glory and promises; present only through his voice and description. | sections: none\n- 1-john:character:god_the_father | God the Father (divine) | aliases: the Father, God, him, the Holy One, the true God | God, described as light and love; referred to throughout and never shown on stage. | sections: none\n- jude:character:the_lord | the Lord (divine) | aliases: Jesus Christ, God, our Master | God and Lord Jesus Christ, who saved Israel from Egypt, judges the ungodly and comes with his holy ones. | sections: none\n- revelation:character:god | God (divine) | aliases: the Lord God, the Almighty, him who sits on the throne, the Holy One, the Father | Enthroned in heaven, seen as one seated on a throne with a rainbow; not given a visible human form. | sections: Door opens and the throne in heaven; Living creatures and the elders worship; The sealed book and the search for worthy one; The Lamb takes the book; Angelic chorus and worship; Fifth seal: souls under the altar\n\nPrevious answer:\n{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"God (Creator, Yahweh of Genesis)\",\"kind\":\"divine\",\"note\":\"The principal deity of Genesis, Creator who speaks, blesses and makes covenants; the same figure as the God of Exodus, though the Genesis entry is distinct by name only.\",\"members\":[\"genesis:character:god\",\"exodus:character:god\"]},{\"name\":\"Yahweh, God of Israel (Pentateuch and historical books)\",\"kind\":\"divine\",\"note\":\"The God of Israel who speaks to Moses, Joshua and the judges, giving laws, commands and judgments; the Yahweh of Leviticus, Numbers, Deuteronomy, Joshua and Judges.\",\"members\":[\"leviticus:character:yahweh\",\"numbers:character:yahweh\",\"deuteronomy:character:yahweh\",\"joshua:character:yahweh\",\"judges:character:yahweh\"]},{\"name\":\"Yahweh in wisdom and poetic books\",\"kind\":\"divine\",\"note\":\"The God who speaks from the whirlwind in Job, is addressed in the Psalms and is the source of wisdom in Proverbs; the poetic-wisdom Yahweh.\",\"members\":[\"job:character:yahweh\",\"psalms:character:yahweh\",\"proverbs:character:yahweh\"]},{\"name\":\"God, the Creator of Ecclesiastes\",\"kind\":\"divine\",\"note\":\"The deity who gives, judges and sets the times in Ecclesiastes, present only as an authority spoken of.\",\"members\":[\"ecclesiastes:character:god\"]},{\"name\":\"Yahweh of the prophets (Isaiah to Malachi)\",\"kind\":\"divine\",\"note\":\"The God who speaks through the prophets from Isaiah through Malachi, calling for repentance and promising restoration; the prophetic Yahweh.\",\"members\":[\"isaiah:character:yahweh\",\"jeremiah:character:yahweh\",\"lamentations:character:yahweh\",\"ezekiel:character:yahweh\",\"hosea:character:yahweh\",\"jonah:character:yahweh\",\"nahum:character:yahweh\",\"habakkuk:character:yahweh\",\"haggai:character:yahweh\",\"zechariah:character:yahweh\",\"malachi:character:yahweh\"]},{\"name\":\"God the Father of the New Testament epistles\",\"kind\":\"divine\",\"note\":\"The Father of Christ, referred to throughout Paul's and the general letters and never shown on stage; distinct from the Old Testament Yahweh by his New Testament role as Father.\",\"members\":[\"acts:character:god_father\",\"1-corinthians:character:god\",\"galatians:character:god_the_father\",\"ephesians:character:god_the_father\",\"philippians:character:god_the_father\",\"colossians:character:god_the_father\",\"1-thessalonians:character:god_the_father\",\"2-thessalonians:character:god_the_father\",\"1-timothy:character:god\",\"2-timothy:character:god\",\"titus:character:god\",\"hebrews:character:god\",\"james:character:the_lord\",\"1-peter:character:god_the_father\",\"2-peter:character:god_the_father\",\"1-john:character:god_the_father\",\"jude:character:the_lord\"]},{\"name\":\"God enthroned in Revelation\",\"kind\":\"divine\",\"note\":\"The one seated on the throne in heaven in Revelation, who is the Lord God Almighty; a visionary figure rather than a speaking character.\",\"members\":[\"revelation:character:god\"]}]}]}\n\nOwner content review rejected the identity partition: Every listed entry in this group describes the same God, Yahweh, the Creator/God of Israel and God the Father. Different source books, genres, narrative roles and names do not create separate individuals. The existing notes explicitly identify this continuity. Return one identity cluster containing all listed keys. Do not create a separate God for Genesis, Exodus, wisdom, prophets, epistles or Revelation.\nReturn the FULL corrected ruling using every exact listed key once. Preserve all keys and group numbers.",
+        "schemaName": "merge_groups",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "type": "number",
+                    "const": 0
+                  },
+                  "clusters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "person",
+                            "group",
+                            "divine",
+                            "animal",
+                            "other",
+                            "place"
+                          ]
+                        },
+                        "note": {
+                          "type": "string"
+                        },
+                        "members": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "genesis:character:god",
+                              "exodus:character:god",
+                              "leviticus:character:yahweh",
+                              "numbers:character:yahweh",
+                              "deuteronomy:character:yahweh",
+                              "joshua:character:yahweh",
+                              "judges:character:yahweh",
+                              "job:character:yahweh",
+                              "psalms:character:yahweh",
+                              "proverbs:character:yahweh",
+                              "ecclesiastes:character:god",
+                              "isaiah:character:yahweh",
+                              "jeremiah:character:yahweh",
+                              "lamentations:character:yahweh",
+                              "ezekiel:character:yahweh",
+                              "hosea:character:yahweh",
+                              "jonah:character:yahweh",
+                              "nahum:character:yahweh",
+                              "habakkuk:character:yahweh",
+                              "haggai:character:yahweh",
+                              "zechariah:character:yahweh",
+                              "malachi:character:yahweh",
+                              "acts:character:god_father",
+                              "1-corinthians:character:god",
+                              "galatians:character:god_the_father",
+                              "ephesians:character:god_the_father",
+                              "philippians:character:god_the_father",
+                              "colossians:character:god_the_father",
+                              "1-thessalonians:character:god_the_father",
+                              "2-thessalonians:character:god_the_father",
+                              "1-timothy:character:god",
+                              "2-timothy:character:god",
+                              "titus:character:god",
+                              "hebrews:character:god",
+                              "james:character:the_lord",
+                              "1-peter:character:god_the_father",
+                              "2-peter:character:god_the_father",
+                              "1-john:character:god_the_father",
+                              "jude:character:the_lord",
+                              "revelation:character:god"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "kind",
+                        "note",
+                        "members"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "group",
+                  "clusters"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "groups"
+          ],
+          "additionalProperties": false
+        },
+        "maxTokens": 30000,
+        "expectedCompletionTokens": 2600
+      },
+      "original": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"God (Creator, Yahweh of Genesis)\",\"kind\":\"divine\",\"note\":\"The principal deity of Genesis, Creator who speaks, blesses and makes covenants; the same figure as the God of Exodus, though the Genesis entry is distinct by name only.\",\"members\":[\"genesis:character:god\",\"exodus:character:god\"]},{\"name\":\"Yahweh, God of Israel (Pentateuch and historical books)\",\"kind\":\"divine\",\"note\":\"The God of Israel who speaks to Moses, Joshua and the judges, giving laws, commands and judgments; the Yahweh of Leviticus, Numbers, Deuteronomy, Joshua and Judges.\",\"members\":[\"leviticus:character:yahweh\",\"numbers:character:yahweh\",\"deuteronomy:character:yahweh\",\"joshua:character:yahweh\",\"judges:character:yahweh\"]},{\"name\":\"Yahweh in wisdom and poetic books\",\"kind\":\"divine\",\"note\":\"The God who speaks from the whirlwind in Job, is addressed in the Psalms and is the source of wisdom in Proverbs; the poetic-wisdom Yahweh.\",\"members\":[\"job:character:yahweh\",\"psalms:character:yahweh\",\"proverbs:character:yahweh\"]},{\"name\":\"God, the Creator of Ecclesiastes\",\"kind\":\"divine\",\"note\":\"The deity who gives, judges and sets the times in Ecclesiastes, present only as an authority spoken of.\",\"members\":[\"ecclesiastes:character:god\"]},{\"name\":\"Yahweh of the prophets (Isaiah to Malachi)\",\"kind\":\"divine\",\"note\":\"The God who speaks through the prophets from Isaiah through Malachi, calling for repentance and promising restoration; the prophetic Yahweh.\",\"members\":[\"isaiah:character:yahweh\",\"jeremiah:character:yahweh\",\"lamentations:character:yahweh\",\"ezekiel:character:yahweh\",\"hosea:character:yahweh\",\"jonah:character:yahweh\",\"nahum:character:yahweh\",\"habakkuk:character:yahweh\",\"haggai:character:yahweh\",\"zechariah:character:yahweh\",\"malachi:character:yahweh\"]},{\"name\":\"God the Father of the New Testament epistles\",\"kind\":\"divine\",\"note\":\"The Father of Christ, referred to throughout Paul's and the general letters and never shown on stage; distinct from the Old Testament Yahweh by his New Testament role as Father.\",\"members\":[\"acts:character:god_father\",\"1-corinthians:character:god\",\"galatians:character:god_the_father\",\"ephesians:character:god_the_father\",\"philippians:character:god_the_father\",\"colossians:character:god_the_father\",\"1-thessalonians:character:god_the_father\",\"2-thessalonians:character:god_the_father\",\"1-timothy:character:god\",\"2-timothy:character:god\",\"titus:character:god\",\"hebrews:character:god\",\"james:character:the_lord\",\"1-peter:character:god_the_father\",\"2-peter:character:god_the_father\",\"1-john:character:god_the_father\",\"jude:character:the_lord\"]},{\"name\":\"God enthroned in Revelation\",\"kind\":\"divine\",\"note\":\"The one seated on the throne in heaven in Revelation, who is the Lord God Almighty; a visionary figure rather than a speaking character.\",\"members\":[\"revelation:character:god\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792531906-7Swha06jwVh6MKgBxMPe",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 7103,
+          "completionTokens": 1113,
+          "costUsd": 0.0012668
+        },
+        "elapsedMs": 8566
+      },
+      "result": {
+        "content": "{\"groups\":[{\"group\":0,\"clusters\":[{\"name\":\"God (Yahweh, Creator, God of Israel and God the Father)\",\"kind\":\"divine\",\"note\":\"The single God who creates, speaks, judges, makes covenants and is called Yahweh, the Lord, God the Father and God Almighty across Genesis through Revelation; all entries describe this one deity, so they are kept together as one identity.\",\"members\":[\"genesis:character:god\",\"exodus:character:god\",\"leviticus:character:yahweh\",\"numbers:character:yahweh\",\"deuteronomy:character:yahweh\",\"joshua:character:yahweh\",\"judges:character:yahweh\",\"job:character:yahweh\",\"psalms:character:yahweh\",\"proverbs:character:yahweh\",\"ecclesiastes:character:god\",\"isaiah:character:yahweh\",\"jeremiah:character:yahweh\",\"lamentations:character:yahweh\",\"ezekiel:character:yahweh\",\"hosea:character:yahweh\",\"jonah:character:yahweh\",\"nahum:character:yahweh\",\"habakkuk:character:yahweh\",\"haggai:character:yahweh\",\"zechariah:character:yahweh\",\"malachi:character:yahweh\",\"acts:character:god_father\",\"1-corinthians:character:god\",\"galatians:character:god_the_father\",\"ephesians:character:god_the_father\",\"philippians:character:god_the_father\",\"colossians:character:god_the_father\",\"1-thessalonians:character:god_the_father\",\"2-thessalonians:character:god_the_father\",\"1-timothy:character:god\",\"2-timothy:character:god\",\"titus:character:god\",\"hebrews:character:god\",\"james:character:the_lord\",\"1-peter:character:god_the_father\",\"2-peter:character:god_the_father\",\"1-john:character:god_the_father\",\"jude:character:the_lord\",\"revelation:character:god\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792532198-k7jnUwwjLgnI7uipekLq",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 8403,
+          "completionTokens": 593,
+          "costUsd": 0.0011368
+        },
+        "elapsedMs": 3835
+      },
+      "accepted": true
+    },
+    {
+      "group": 1,
+      "initialKey": "f12ddeea78fb43dba07c4d02483779ae",
+      "repairKey": "b7178195dc04b64ad0c8e3adeb61b0f1",
+      "request": {
+        "label": "merge:1:semantic-repair:1",
+        "system": "You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key (\"division:character:id\" or \"division:location:id\"), name, kind, aliases, note, and the sections where each appears. A group may also carry a hint line from a reference index of the work saying how many distinct individuals bear that name in these divisions; use it as evidence, not as an order.\n\nFor each numbered group, split its entries into clusters, one cluster per individual (or per place). Groups may overlap because one entry has several names; rule on every group separately using the exact group number shown, not a new local index. Never copy a member key into a group where it is not listed. The divisions are parts of one work, so the same individual or place appearing in several divisions is one cluster: join entries from different divisions whenever their notes, roles, relations and places agree. A different narrator, title, age or portrayal does not make the same individual a different person. Keep entries apart only when they are different individuals: never join entries on a shared name alone when their notes describe different people, and two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of each group must appear in exactly one of that group's clusters.",
+        "user": "Work: The Holy Bible (Various)\n\n## Group 1 (characters)\n- genesis:character:god | God (divine) | aliases: Yahweh, Yahweh God, God Almighty, Lord, God Most High, the angel of God, Yahweh's angel, God's sons | Creator and principal deity of Genesis; speaks, blesses, judges and makes covenants, and appears in human form or through angels. | sections: Creation of the world and of humankind; The seventh day and rest; Man formed in Eden and the command; The woman made from the rib; Eyes opened and God's questioning; Curses and expulsion from the garden\n- exodus:character:god | God (Yahweh) (divine) | aliases: Yahweh, I AM, the Lord, God Almighty, the angel of God | The God of Israel who speaks from the burning bush, sends plagues, leads by cloud and fire, and gives the law; appears in visible forms (fire, cloud, glory) as well as through voice and angel. | sections: Israel groans; God speaks from the burning bush and sends Moses; God's name revealed and promise of plunder; Moses' signs: the rod, the hand, and water to blood; Moses returns to Egypt; Zipporah circumcises her son; Taskmasters beat the officers; Moses complains to God; God reaffirms the promise and commissions Moses and Aaron\n- leviticus:character:yahweh | Yahweh (divine) | aliases: the Lord, God, I am Yahweh your God | The God of Israel who speaks the laws to Moses and Aaron throughout Leviticus. | sections: Laws of the burnt offering; Laws of the meal offering; Laws of the peace offering; Sin offering of the anointed priest; Sin offering of the whole congregation; Sin offering of a ruler\n- numbers:character:yahweh | Yahweh (divine) | aliases: the Lord, God, my name | God of Israel who speaks to Moses and Aaron throughout Numbers, giving commands, counts and judgments. | sections: Census of the tribes at Sinai; Levites exempt from the census; Order of the camps by standards; Sons of Aaron and the Levites given to Aaron; Count of the Levite families; Firstborn redeemed by Levites\n- deuteronomy:character:yahweh | Yahweh (divine) | aliases: God, the Lord, the Most High, the Rock | The God of Israel who speaks from the fire at Horeb, leads the people, and gives the law; appears as a voice, a pillar of cloud, and in fire. | sections: Recollection of Horeb and the failed spy mission; Journey around Seir and defeat of Sihon; Defeat of Og and allotment east of Jordan; Exhortation to keep the statutes and the cities of refuge; The covenant at Horeb and the ten commandments; Command to destroy the nations and avoid idols\n- joshua:character:yahweh | Yahweh (divine) | aliases: the Lord, God, the God of Israel | The God of Israel, who speaks to Joshua and fights for Israel. | sections: Yahweh commissions Joshua and the eastern tribes pledge support; Crossing the Jordan; Remaining land and charge to divide it\n- judges:character:yahweh | Yahweh (divine) | aliases: God, the Lord, Yahweh's angel, the angel of God, the Lord Yahweh | God of Israel, who speaks through angels, prophets and dreams and raises up judges; appears throughout Judges. | sections: Judah and Simeon against the Canaanites; Adoni-Bezek; Yahweh's angel rebukes Israel at Bochim; Joshua dies; A new generation forsakes Yahweh; Nations left to test Israel; Othniel defeats Cushan Rishathaim; Midian oppresses Israel; Yahweh's angel calls Gideon; Gideon's offering and the fleece\n- job:character:yahweh | Yahweh (divine) | aliases: the Almighty, God, the Lord, the Holy One | God, who speaks with Satan in the prologue, answers Job out of the whirlwind in chapters 38 to 41, and rebukes the three friends. | sections: The heavenly wager; Second wager in the heavenly court; Yahweh speaks from the whirlwind; Yahweh on the wild animals; Job's submission and Yahweh's challenge; Yahweh describes Leviathan\n- psalms:character:yahweh | Yahweh (divine) | aliases: the Lord, God, the Most High, the Almighty, Yah, the Holy One of Israel, the God of Jacob, the Shepherd of Israel | The God of Israel, the speaker and addressee of most psalms; present in heaven and temple, acting in creation and deliverance. | sections: Kings rage against Yahweh's anointed; Majesty of Yahweh and the dignity of man; The fool who denies God; Yahweh's deliverance by storm and power; Entrance of the King of glory; God reigns over the nations\n- proverbs:character:yahweh | Yahweh (divine) | aliases: the LORD, God, the Holy One, his Maker | The God of Israel; speaks and acts throughout as the source of wisdom, judge of hearts and keeper of the righteous. | sections: Wisdom's origin before creation\n- isaiah:character:yahweh | Yahweh (divine) | aliases: the Lord, the Lord Yahweh, Yahweh of Armies, the Holy One of Israel, God, the Almighty | The God of Israel, speaking and acting throughout; seated on a throne in the temple in chapter 6. | sections: Rejection of sacrifices and call to repentance; Corrupt city and promise of redemption; Removal of leaders and judgment of the elders; Judgment on the daughters of Zion; Isaiah's vision of Yahweh in the temple; Commission to a hardened people\n- jeremiah:character:yahweh | Yahweh (divine) | aliases: the Lord, the Lord Yahweh, Yahweh of Armies, God of Israel, the Holy One of Israel | The God who speaks to Jeremiah and through whom the prophecies come; appears as a voice and in visions, not as a physical figure. | sections: Call of Jeremiah; Israel's unfaithfulness; Return of backsliding Israel; Call to repentance and coming disaster; Judgment on a corrupt people; Siege from the north\n- lamentations:character:yahweh | Yahweh (divine) | aliases: the Lord, the Most High, God | God of Israel, acting in wrath, judgment and compassion throughout the poems; never on stage in bodily form. | sections: Jerusalem widowed and mourning, her plea to Yahweh; Yahweh's wrath destroys the city and its people; The sufferer's affliction, hope and prayer for vengeance; The city's ruin, the priests' guilt and Edom's doom; Communal prayer for remembrance and restoration\n- ezekiel:character:yahweh | Yahweh (divine) | aliases: the Lord Yahweh, God of Israel, the Almighty, the man in linen's master | God of Israel, who speaks to Ezekiel and appears in visions of glory. | sections: The vision of the four living creatures and the glory of Yahweh; Ezekiel's call and the scroll he eats; Ezekiel sent to Israel and carried to the exiles; The watchman commission and Ezekiel silenced; Siege of Jerusalem enacted and the bread of defilement; The hair shaved and divided as sign of judgment\n- hosea:character:yahweh | Yahweh (divine) | aliases: God, the Most High, the Holy One, God of Armies, my husband, my master | The speaker of the oracles, who commands Hosea and addresses Israel and Judah as his wife and children; present as a voice rather than a figure on stage. | sections: Hosea's marriage and the naming of his children; Yahweh's indictment and promise of restoration for the wife; Hosea buys back the adulterous wife; Indictment of the land and the priests; Idolatry, prostitution and warning to Judah; Judgment on priests, princes and Ephraim's turn to Assyria\n- joel:character:yahweh | Yahweh (divine) | aliases: the Lord, the Almighty | The God of Israel who speaks through Joel, sends the locust plague and the northern army, and later pours out his Spirit and judges the nations. | sections: Call to repentance and priestly intercession; Yahweh's answer: restoration and removal of the army; The outpouring of the Spirit and deliverance; Judgment of the nations in the valley of Jehoshaphat\n- amos:character:yahweh | Yahweh (divine) | aliases: the Lord Yahweh, the Lord, the God of Armies | The God who speaks through Amos, roars from Zion, shows visions and gives the judgments. | sections: Superscription and opening roar; Oracle against Damascus; Oracle against Gaza; Oracle against Tyre; Oracle against Edom; Oracle against Ammon\n- obadiah:character:yahweh | Yahweh (divine) | aliases: the Lord, the Lord Yahweh | The Lord whose word is delivered in the oracle; speaks in the first person throughout and sends the ambassador against Edom. | sections: Vision of Edom's pride and fall; Thieves and betrayal of Edom's allies; Edom's wise men destroyed for violence against Jacob; Warning against gloating over Judah's ruin; Deliverance on Mount Zion and the kingdom of Yahweh\n- jonah:character:yahweh | Yahweh (divine) | aliases: God, the God of heaven | The God of Israel who speaks to Jonah, sends the storm, the fish, the worm and the east wind, and relents toward Nineveh. | sections: Call to Nineveh and flight to Tarshish; Jonah cast into the sea and swallowed; Jonah's prayer from the fish; Preaching in Nineveh and the king's fast; Jonah's anger and the vine\n- micah:character:yahweh | Yahweh (divine) | aliases: the Lord, the Lord Yahweh, Yahweh of Armies, the God of Jacob | The God who speaks, comes down in judgment, and sues his people; appears as a voice and presence, not a body. | sections: Superscription and Yahweh's coming in judgment on Samaria; Woe to those who plan oppression and seize land; Promise to gather the remnant; The mountain of Yahweh's house and the nations' pilgrimage; Restoration of the lame and the daughter of Zion's exile and threshing; The remnant among the nations and the purging of idols\n- nahum:character:yahweh | Yahweh (divine) | aliases: God, Yahweh of Armies, the Lord | The God of Israel who speaks in the oracle, avenges and punishes Nineveh; speaks in first person in 1:12-14, 2:13, 3:5-7. | sections: Superscription and Yahweh's wrath; Yahweh is a refuge and will consume the enemy; Yahweh speaks of afflicting and freeing Judah; Yahweh's decree against Nineveh's idols; The lion's den and Yahweh's declaration; Yahweh exposes Nineveh's shame\n- habakkuk:character:yahweh | Yahweh (divine) | aliases: Yahweh of Armies, the Lord, my God, my Holy One, the Rock, God, the Holy One | The God who answers Habakkuk, announces the Chaldean invasion, and appears in theophany in the prayer of chapter 3. | sections: Yahweh announces the Chaldean invasion; Habakkuk questions Yahweh's use of the wicked; The vision written down; the plunderer will be plundered; Woes against greed, violence and idolatry; Yahweh in his temple; Habakkuk's prayer and theophany\n- zephaniah:character:yahweh | Yahweh (divine) | aliases: the Lord Yahweh, Yahweh of Armies, the God of Israel | The God who speaks the oracles, judges the nations and restores Zion; appears as a voice and presence rather than a visible figure. | sections: The day of Yahweh's judgment on Judah and Jerusalem; Call to seek Yahweh and judgment on the nations; Judgment on Jerusalem and the promise of restoration\n- haggai:character:yahweh | Yahweh (divine) | aliases: Yahweh of Armies, God | The God of Israel who speaks through Haggai and commands the rebuilding of the temple; appears only as speaker of the oracles. | sections: Haggai rebukes the people and they begin the temple work; Encouragement and the promise of greater glory; The priestly law on holiness and the promise to Zerubbabel\n- zechariah:character:yahweh | Yahweh (divine) | aliases: Yahweh of Armies, the Lord, the Lord Yahweh, God | The God who speaks throughout the book; appears as voice rather than figure. | sections: Call to return; The day of Yahweh and the splitting of the Mount of Olives\n- malachi:character:yahweh | Yahweh (divine) | aliases: Yahweh of Armies, the Lord, God, the God of Israel, my name | The God of Israel who speaks throughout Malachi, addressing Israel and its priests. | sections: Yahweh's love for Jacob and the hatred of Esau; Priests who despise Yahweh's name and offer defective sacrifices; Warning to the priests and the covenant of Levi; Treachery in Judah and divorce of the wife of youth; The coming messenger and the refining of Levi; Words against Yahweh and the book of remembrance\n\nPrevious answer:\n{\"groups\":[{\"group\":1,\"clusters\":[{\"name\":\"God (Creator, Genesis)\",\"kind\":\"divine\",\"note\":\"The creator and principal deity of Genesis, who blesses, judges and makes covenants; the Genesis cluster alone, distinct from the Exodus and later Yahweh entries because it is the Creator-God of primeval history.\",\"members\":[\"genesis:character:god\"]},{\"name\":\"God (Yahweh, Exodus)\",\"kind\":\"divine\",\"note\":\"The God of Israel who speaks from the burning bush, sends plagues and gives the law in Exodus; the same God as the later Yahweh figures and joined with them as one deity.\",\"members\":[\"exodus:character:god\"]},{\"name\":\"Yahweh\",\"kind\":\"divine\",\"note\":\"The God of Israel, the single deity who speaks and acts across the entire Old Testament canon, from Leviticus through Malachi; all of these entries are one God.\",\"members\":[\"leviticus:character:yahweh\",\"numbers:character:yahweh\",\"deuteronomy:character:yahweh\",\"joshua:character:yahweh\",\"judges:character:yahweh\",\"job:character:yahweh\",\"psalms:character:yahweh\",\"proverbs:character:yahweh\",\"isaiah:character:yahweh\",\"jeremiah:character:yahweh\",\"lamentations:character:yahweh\",\"ezekiel:character:yahweh\",\"hosea:character:yahweh\",\"joel:character:yahweh\",\"amos:character:yahweh\",\"obadiah:character:yahweh\",\"jonah:character:yahweh\",\"micah:character:yahweh\",\"nahum:character:yahweh\",\"habakkuk:character:yahweh\",\"zephaniah:character:yahweh\",\"haggai:character:yahweh\",\"zechariah:character:yahweh\",\"malachi:character:yahweh\"]}]}]}\n\nOwner content review rejected the identity partition: Every listed entry in this group describes the same God, Yahweh, the Creator/God of Israel and God the Father. Different source books, genres, narrative roles and names do not create separate individuals. The existing notes explicitly identify this continuity. Return one identity cluster containing all listed keys. Do not create a separate God for Genesis, Exodus, wisdom, prophets, epistles or Revelation.\nReturn the FULL corrected ruling using every exact listed key once. Preserve all keys and group numbers.",
+        "schemaName": "merge_groups",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "type": "number",
+                    "const": 1
+                  },
+                  "clusters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "person",
+                            "group",
+                            "divine",
+                            "animal",
+                            "other",
+                            "place"
+                          ]
+                        },
+                        "note": {
+                          "type": "string"
+                        },
+                        "members": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "genesis:character:god",
+                              "exodus:character:god",
+                              "leviticus:character:yahweh",
+                              "numbers:character:yahweh",
+                              "deuteronomy:character:yahweh",
+                              "joshua:character:yahweh",
+                              "judges:character:yahweh",
+                              "job:character:yahweh",
+                              "psalms:character:yahweh",
+                              "proverbs:character:yahweh",
+                              "isaiah:character:yahweh",
+                              "jeremiah:character:yahweh",
+                              "lamentations:character:yahweh",
+                              "ezekiel:character:yahweh",
+                              "hosea:character:yahweh",
+                              "joel:character:yahweh",
+                              "amos:character:yahweh",
+                              "obadiah:character:yahweh",
+                              "jonah:character:yahweh",
+                              "micah:character:yahweh",
+                              "nahum:character:yahweh",
+                              "habakkuk:character:yahweh",
+                              "zephaniah:character:yahweh",
+                              "haggai:character:yahweh",
+                              "zechariah:character:yahweh",
+                              "malachi:character:yahweh"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "kind",
+                        "note",
+                        "members"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "group",
+                  "clusters"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "groups"
+          ],
+          "additionalProperties": false
+        },
+        "maxTokens": 30000,
+        "expectedCompletionTokens": 1760
+      },
+      "original": {
+        "content": "{\"groups\":[{\"group\":1,\"clusters\":[{\"name\":\"God (Creator, Genesis)\",\"kind\":\"divine\",\"note\":\"The creator and principal deity of Genesis, who blesses, judges and makes covenants; the Genesis cluster alone, distinct from the Exodus and later Yahweh entries because it is the Creator-God of primeval history.\",\"members\":[\"genesis:character:god\"]},{\"name\":\"God (Yahweh, Exodus)\",\"kind\":\"divine\",\"note\":\"The God of Israel who speaks from the burning bush, sends plagues and gives the law in Exodus; the same God as the later Yahweh figures and joined with them as one deity.\",\"members\":[\"exodus:character:god\"]},{\"name\":\"Yahweh\",\"kind\":\"divine\",\"note\":\"The God of Israel, the single deity who speaks and acts across the entire Old Testament canon, from Leviticus through Malachi; all of these entries are one God.\",\"members\":[\"leviticus:character:yahweh\",\"numbers:character:yahweh\",\"deuteronomy:character:yahweh\",\"joshua:character:yahweh\",\"judges:character:yahweh\",\"job:character:yahweh\",\"psalms:character:yahweh\",\"proverbs:character:yahweh\",\"isaiah:character:yahweh\",\"jeremiah:character:yahweh\",\"lamentations:character:yahweh\",\"ezekiel:character:yahweh\",\"hosea:character:yahweh\",\"joel:character:yahweh\",\"amos:character:yahweh\",\"obadiah:character:yahweh\",\"jonah:character:yahweh\",\"micah:character:yahweh\",\"nahum:character:yahweh\",\"habakkuk:character:yahweh\",\"zephaniah:character:yahweh\",\"haggai:character:yahweh\",\"zechariah:character:yahweh\",\"malachi:character:yahweh\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792531915-Otqt726A0h6p3Yxvqwrv",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 6025,
+          "completionTokens": 588,
+          "costUsd": 0.0008965
+        },
+        "elapsedMs": 4284
+      },
+      "result": {
+        "content": "{\"groups\":[{\"group\":1,\"clusters\":[{\"name\":\"God (Yahweh)\",\"kind\":\"divine\",\"note\":\"The one God of Israel and Creator who speaks and acts across Genesis through Malachi, appearing under many names and forms; all entries in this group are this same deity.\",\"members\":[\"genesis:character:god\",\"exodus:character:god\",\"leviticus:character:yahweh\",\"numbers:character:yahweh\",\"deuteronomy:character:yahweh\",\"joshua:character:yahweh\",\"judges:character:yahweh\",\"job:character:yahweh\",\"psalms:character:yahweh\",\"proverbs:character:yahweh\",\"isaiah:character:yahweh\",\"jeremiah:character:yahweh\",\"lamentations:character:yahweh\",\"ezekiel:character:yahweh\",\"hosea:character:yahweh\",\"joel:character:yahweh\",\"amos:character:yahweh\",\"obadiah:character:yahweh\",\"jonah:character:yahweh\",\"micah:character:yahweh\",\"nahum:character:yahweh\",\"habakkuk:character:yahweh\",\"zephaniah:character:yahweh\",\"haggai:character:yahweh\",\"zechariah:character:yahweh\",\"malachi:character:yahweh\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792532202-TKQqTcOQMgCou3tUIHzj",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 6800,
+          "completionTokens": 395,
+          "costUsd": 0.0008775
+        },
+        "elapsedMs": 2156
+      },
+      "accepted": true
+    },
+    {
+      "group": 3,
+      "initialKey": "9e58129b68860c8e2bd52f03d2cd24a7",
+      "repairKey": "79262ce7927760267e5ad9af955bfbb3",
+      "request": {
+        "label": "merge:3:semantic-repair:1",
+        "system": "You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key (\"division:character:id\" or \"division:location:id\"), name, kind, aliases, note, and the sections where each appears. A group may also carry a hint line from a reference index of the work saying how many distinct individuals bear that name in these divisions; use it as evidence, not as an order.\n\nFor each numbered group, split its entries into clusters, one cluster per individual (or per place). Groups may overlap because one entry has several names; rule on every group separately using the exact group number shown, not a new local index. Never copy a member key into a group where it is not listed. The divisions are parts of one work, so the same individual or place appearing in several divisions is one cluster: join entries from different divisions whenever their notes, roles, relations and places agree. A different narrator, title, age or portrayal does not make the same individual a different person. Keep entries apart only when they are different individuals: never join entries on a shared name alone when their notes describe different people, and two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of each group must appear in exactly one of that group's clusters.",
+        "user": "Work: The Holy Bible (Various)\n\n## Group 3 (characters)\n  hint: the reference index lists 4 distinct individuals named \"jesus\" in the work, up to 2 within one of these divisions\n- genesis:character:god | God (divine) | aliases: Yahweh, Yahweh God, God Almighty, Lord, God Most High, the angel of God, Yahweh's angel, God's sons | Creator and principal deity of Genesis; speaks, blesses, judges and makes covenants, and appears in human form or through angels. | sections: Creation of the world and of humankind; The seventh day and rest; Man formed in Eden and the command; The woman made from the rib; Eyes opened and God's questioning; Curses and expulsion from the garden\n- exodus:character:god | God (Yahweh) (divine) | aliases: Yahweh, I AM, the Lord, God Almighty, the angel of God | The God of Israel who speaks from the burning bush, sends plagues, leads by cloud and fire, and gives the law; appears in visible forms (fire, cloud, glory) as well as through voice and angel. | sections: Israel groans; God speaks from the burning bush and sends Moses; God's name revealed and promise of plunder; Moses' signs: the rod, the hand, and water to blood; Moses returns to Egypt; Zipporah circumcises her son; Taskmasters beat the officers; Moses complains to God; God reaffirms the promise and commissions Moses and Aaron\n- leviticus:character:yahweh | Yahweh (divine) | aliases: the Lord, God, I am Yahweh your God | The God of Israel who speaks the laws to Moses and Aaron throughout Leviticus. | sections: Laws of the burnt offering; Laws of the meal offering; Laws of the peace offering; Sin offering of the anointed priest; Sin offering of the whole congregation; Sin offering of a ruler\n- numbers:character:yahweh | Yahweh (divine) | aliases: the Lord, God, my name | God of Israel who speaks to Moses and Aaron throughout Numbers, giving commands, counts and judgments. | sections: Census of the tribes at Sinai; Levites exempt from the census; Order of the camps by standards; Sons of Aaron and the Levites given to Aaron; Count of the Levite families; Firstborn redeemed by Levites\n- deuteronomy:character:yahweh | Yahweh (divine) | aliases: God, the Lord, the Most High, the Rock | The God of Israel who speaks from the fire at Horeb, leads the people, and gives the law; appears as a voice, a pillar of cloud, and in fire. | sections: Recollection of Horeb and the failed spy mission; Journey around Seir and defeat of Sihon; Defeat of Og and allotment east of Jordan; Exhortation to keep the statutes and the cities of refuge; The covenant at Horeb and the ten commandments; Command to destroy the nations and avoid idols\n- joshua:character:yahweh | Yahweh (divine) | aliases: the Lord, God, the God of Israel | The God of Israel, who speaks to Joshua and fights for Israel. | sections: Yahweh commissions Joshua and the eastern tribes pledge support; Crossing the Jordan; Remaining land and charge to divide it\n- judges:character:yahweh | Yahweh (divine) | aliases: God, the Lord, Yahweh's angel, the angel of God, the Lord Yahweh | God of Israel, who speaks through angels, prophets and dreams and raises up judges; appears throughout Judges. | sections: Judah and Simeon against the Canaanites; Adoni-Bezek; Yahweh's angel rebukes Israel at Bochim; Joshua dies; A new generation forsakes Yahweh; Nations left to test Israel; Othniel defeats Cushan Rishathaim; Midian oppresses Israel; Yahweh's angel calls Gideon; Gideon's offering and the fleece\n- job:character:yahweh | Yahweh (divine) | aliases: the Almighty, God, the Lord, the Holy One | God, who speaks with Satan in the prologue, answers Job out of the whirlwind in chapters 38 to 41, and rebukes the three friends. | sections: The heavenly wager; Second wager in the heavenly court; Yahweh speaks from the whirlwind; Yahweh on the wild animals; Job's submission and Yahweh's challenge; Yahweh describes Leviathan\n- psalms:character:yahweh | Yahweh (divine) | aliases: the Lord, God, the Most High, the Almighty, Yah, the Holy One of Israel, the God of Jacob, the Shepherd of Israel | The God of Israel, the speaker and addressee of most psalms; present in heaven and temple, acting in creation and deliverance. | sections: Kings rage against Yahweh's anointed; Majesty of Yahweh and the dignity of man; The fool who denies God; Yahweh's deliverance by storm and power; Entrance of the King of glory; God reigns over the nations\n- proverbs:character:yahweh | Yahweh (divine) | aliases: the LORD, God, the Holy One, his Maker | The God of Israel; speaks and acts throughout as the source of wisdom, judge of hearts and keeper of the righteous. | sections: Wisdom's origin before creation\n- isaiah:character:yahweh | Yahweh (divine) | aliases: the Lord, the Lord Yahweh, Yahweh of Armies, the Holy One of Israel, God, the Almighty | The God of Israel, speaking and acting throughout; seated on a throne in the temple in chapter 6. | sections: Rejection of sacrifices and call to repentance; Corrupt city and promise of redemption; Removal of leaders and judgment of the elders; Judgment on the daughters of Zion; Isaiah's vision of Yahweh in the temple; Commission to a hardened people\n- jeremiah:character:yahweh | Yahweh (divine) | aliases: the Lord, the Lord Yahweh, Yahweh of Armies, God of Israel, the Holy One of Israel | The God who speaks to Jeremiah and through whom the prophecies come; appears as a voice and in visions, not as a physical figure. | sections: Call of Jeremiah; Israel's unfaithfulness; Return of backsliding Israel; Call to repentance and coming disaster; Judgment on a corrupt people; Siege from the north\n- lamentations:character:yahweh | Yahweh (divine) | aliases: the Lord, the Most High, God | God of Israel, acting in wrath, judgment and compassion throughout the poems; never on stage in bodily form. | sections: Jerusalem widowed and mourning, her plea to Yahweh; Yahweh's wrath destroys the city and its people; The sufferer's affliction, hope and prayer for vengeance; The city's ruin, the priests' guilt and Edom's doom; Communal prayer for remembrance and restoration\n- joel:character:yahweh | Yahweh (divine) | aliases: the Lord, the Almighty | The God of Israel who speaks through Joel, sends the locust plague and the northern army, and later pours out his Spirit and judges the nations. | sections: Call to repentance and priestly intercession; Yahweh's answer: restoration and removal of the army; The outpouring of the Spirit and deliverance; Judgment of the nations in the valley of Jehoshaphat\n- amos:character:yahweh | Yahweh (divine) | aliases: the Lord Yahweh, the Lord, the God of Armies | The God who speaks through Amos, roars from Zion, shows visions and gives the judgments. | sections: Superscription and opening roar; Oracle against Damascus; Oracle against Gaza; Oracle against Tyre; Oracle against Edom; Oracle against Ammon\n- obadiah:character:yahweh | Yahweh (divine) | aliases: the Lord, the Lord Yahweh | The Lord whose word is delivered in the oracle; speaks in the first person throughout and sends the ambassador against Edom. | sections: Vision of Edom's pride and fall; Thieves and betrayal of Edom's allies; Edom's wise men destroyed for violence against Jacob; Warning against gloating over Judah's ruin; Deliverance on Mount Zion and the kingdom of Yahweh\n- micah:character:yahweh | Yahweh (divine) | aliases: the Lord, the Lord Yahweh, Yahweh of Armies, the God of Jacob | The God who speaks, comes down in judgment, and sues his people; appears as a voice and presence, not a body. | sections: Superscription and Yahweh's coming in judgment on Samaria; Woe to those who plan oppression and seize land; Promise to gather the remnant; The mountain of Yahweh's house and the nations' pilgrimage; Restoration of the lame and the daughter of Zion's exile and threshing; The remnant among the nations and the purging of idols\n- nahum:character:yahweh | Yahweh (divine) | aliases: God, Yahweh of Armies, the Lord | The God of Israel who speaks in the oracle, avenges and punishes Nineveh; speaks in first person in 1:12-14, 2:13, 3:5-7. | sections: Superscription and Yahweh's wrath; Yahweh is a refuge and will consume the enemy; Yahweh speaks of afflicting and freeing Judah; Yahweh's decree against Nineveh's idols; The lion's den and Yahweh's declaration; Yahweh exposes Nineveh's shame\n- habakkuk:character:yahweh | Yahweh (divine) | aliases: Yahweh of Armies, the Lord, my God, my Holy One, the Rock, God, the Holy One | The God who answers Habakkuk, announces the Chaldean invasion, and appears in theophany in the prayer of chapter 3. | sections: Yahweh announces the Chaldean invasion; Habakkuk questions Yahweh's use of the wicked; The vision written down; the plunderer will be plundered; Woes against greed, violence and idolatry; Yahweh in his temple; Habakkuk's prayer and theophany\n- zechariah:character:yahweh | Yahweh (divine) | aliases: Yahweh of Armies, the Lord, the Lord Yahweh, God | The God who speaks throughout the book; appears as voice rather than figure. | sections: Call to return; The day of Yahweh and the splitting of the Mount of Olives\n- malachi:character:yahweh | Yahweh (divine) | aliases: Yahweh of Armies, the Lord, God, the God of Israel, my name | The God of Israel who speaks throughout Malachi, addressing Israel and its priests. | sections: Yahweh's love for Jacob and the hatred of Esau; Priests who despise Yahweh's name and offer defective sacrifices; Warning to the priests and the covenant of Levi; Treachery in Judah and divorce of the wife of youth; The coming messenger and the refining of Levi; Words against Yahweh and the book of remembrance\n- matthew:character:jesus | Jesus (person) | aliases: Jesus Christ, the Christ, Son of Man, Son of David, Son of God, Rabbi, Teacher, Lord, the Nazarene | Central figure of the Gospel; born in Bethlehem, raised in Nazareth, teaches and heals across Galilee and Judea, crucified and raised. | sections: Flight into Egypt; Return to Nazareth; Baptism of Jesus; Temptation in the wilderness; Jesus moves to Capernaum; Calling of the first four disciples\n- mark:character:jesus | Jesus (divine) | aliases: the Son of Man, the Nazarene, Rabbi, Teacher, the Christ, Son of God, the Lord, the carpenter | Central figure of Mark, a teacher and healer from Nazareth in Galilee who is baptized by John, calls disciples, and is crucified in Jerusalem. | sections: Baptism of Jesus; Temptation in the wilderness; Proclamation in Galilee; Calling the first disciples; Exorcism in the Capernaum synagogue; Healing of Simon's mother-in-law and evening healings\n- luke:character:jesus | Jesus (person) | aliases: Jesus of Nazareth, the Son of Man, the Christ, the Lord, the Son of God, the teacher, Master, the boy Jesus | Central figure of the Gospel, born in Bethlehem, raised in Nazareth, teaching and healing across Galilee and Judea, crucified and risen. | sections: Circumcision and purification; Simeon's blessing; Boy Jesus in the temple; Baptism of Jesus; Temptation in the wilderness; Teaching in Galilee\n- john:character:jesus | Jesus (person) | aliases: Jesus of Nazareth, the Word, the Lord, the Teacher, Rabbi, the Son of Man, the Christ, the Lamb of God, the Son of God | The central figure, a teacher from Nazareth who performs signs and is crucified and raised; appears in every section except those where he is only mentioned. | sections: The Word and the light come into the world; Behold the Lamb of God; The first two disciples follow Jesus; Andrew brings Simon Peter; Philip and Nathanael; The wedding at Cana\n- acts:character:jesus | Jesus (divine) | aliases: Jesus of Nazareth, the Lord, the Christ, the Son of Man, the Prince of life | Risen teacher whose ascension opens Acts; the central figure preached by the apostles, appearing in visions to Saul and Ananias. | sections: Jesus' final words and ascension; Saul's vision on the road to Damascus; Ananias restores Saul's sight; Paul's preaching in Corinth and the vision\n- 1-corinthians:character:jesus | Jesus Christ (divine) | aliases: Christ, the Lord Jesus, the Lord, Christ Jesus, the last Adam | Central figure of the letter; crucified, buried, raised, and appears to witnesses; in the Lord's supper narrative he speaks at the last supper; appears only in memory, visions and speech. | sections: none\n- ephesians:character:christ_jesus | Christ Jesus (divine) | aliases: the Lord Jesus, the Lord, Christ, the Beloved, the Son of God, the Savior | Central figure of the letter, risen and seated at God's right hand; referred to throughout rather than acting on stage in a scene. | sections: none\n- philippians:character:jesus_christ | Jesus Christ (divine) | aliases: the Lord Jesus, the Lord, Christ, the Savior, Jesus | The Lord to whom the letter is addressed; in the hymn of 2:6-11 he empties himself and is exalted. | sections: Greeting; The hymn of Christ's humility and exaltation\n- colossians:character:christ | Christ Jesus (divine) | aliases: the Lord Jesus, the Son of his love, the Head, the firstborn of all creation, the Lord | The Son, through whom all things were created and in whom all things hold together; seated at God's right hand; present by reference throughout. | sections: Christ as image of God and head of creation; Warning against philosophy; baptism and triumph over powers\n- 1-thessalonians:character:the_lord_jesus | Jesus (divine) | aliases: the Lord Jesus, the Lord Jesus Christ, the Son, Christ, the Lord | The Lord Jesus Christ, risen Son of God who will return from heaven; he is referred to throughout but not present on stage in the narrative. | sections: none\n- 2-thessalonians:character:the_lord_jesus | the Lord Jesus (divine) | aliases: Jesus Christ, the Lord, the Lord Jesus Christ | Lord who will be revealed from heaven with his angels in flaming fire to judge; a divine figure, not a stage character in these verses. | sections: none\n- 1-timothy:character:jesus_christ | Jesus Christ (divine) | aliases: Christ Jesus, the Lord Jesus, the man Christ Jesus, the Savior, the Lord | The Lord, mediator between God and men, who came to save sinners; referred to throughout, appearing only in testimony and promise, not as an active figure on stage. | sections: none\n- 2-timothy:character:the_lord | the Lord Jesus Christ (divine) | aliases: the Lord, Christ Jesus, the Lord's servant, the Lord, the righteous judge | Christ, who stands by Paul in prison and will judge the living and the dead; appears in spirit and in speech rather than as a physical figure. | sections: none\n- hebrews:character:god | God (divine) | aliases: the Lord, the Father, God Most High, the Majesty on high, the God of peace, the Judge of all | The creator and speaker of the whole epistle, who speaks through the prophets and his Son and swears oaths to Abraham; not a stage figure in any narrative episode here. | sections: God speaks through his Son; The Son superior to the angels; God's oath to Abraham and the anchor of hope; Closing prayer and greetings\n- james:character:the_lord | the Lord (divine) | aliases: the Lord Jesus Christ, God, the Father of lights, the Lord of Armies, the judge | God, the Father and judge, referred to in many titles; not shown on stage. | sections: none\n- 1-peter:character:jesus_christ | Jesus Christ (divine) | aliases: Christ, the Lord, Jesus, the Lord Jesus, the chief Shepherd, the cornerstone, the Lamb without blemish | Son of God, crucified and risen; central figure of the letter's teaching, mostly referred to rather than shown acting. | sections: Servants and the example of Christ; Christ preached to the spirits in prison\n- 1-peter:character:god_the_father | God the Father (divine) | aliases: God, the Lord, the Creator, the Father | God, Father of Jesus Christ; appears throughout as the one who judges, raises, and cares for believers. | sections: none\n- 2-peter:character:jesus | Jesus Christ (divine) | aliases: Jesus, Jesus Christ, Lord, Master, Lord and Savior, Son | The Lord and Savior, called the beloved Son whom the Father honors at the transfiguration on the holy mountain; he appears in the text only through reference and voice. | sections: none\n- jude:character:the_lord | the Lord (divine) | aliases: Jesus Christ, God, our Master | God and Lord Jesus Christ, who saved Israel from Egypt, judges the ungodly and comes with his holy ones. | sections: none\n\nPrevious answer:\n{\"groups\":[{\"group\":3,\"clusters\":[{\"name\":\"God (Yahweh, Creator of Genesis)\",\"kind\":\"divine\",\"note\":\"The creator deity of Genesis who blesses, judges and makes covenants; use the Genesis entry, which is the only one using the 'God' name without the Yahweh label.\",\"members\":[\"genesis:character:god\",\"exodus:character:god\",\"hebrews:character:god\",\"1-peter:character:god_the_father\",\"jude:character:the_lord\",\"james:character:the_lord\"]},{\"name\":\"Yahweh (God of Israel)\",\"kind\":\"divine\",\"note\":\"The God of Israel who speaks through prophets, lawgivers and psalmists across the Old Testament books; one continuous divine speaker.\",\"members\":[\"leviticus:character:yahweh\",\"numbers:character:yahweh\",\"deuteronomy:character:yahweh\",\"joshua:character:yahweh\",\"judges:character:yahweh\",\"job:character:yahweh\",\"psalms:character:yahweh\",\"proverbs:character:yahweh\",\"isaiah:character:yahweh\",\"jeremiah:character:yahweh\",\"lamentations:character:yahweh\",\"joel:character:yahweh\",\"amos:character:yahweh\",\"obadiah:character:yahweh\",\"micah:character:yahweh\",\"nahum:character:yahweh\",\"habakkuk:character:yahweh\",\"zechariah:character:yahweh\",\"malachi:character:yahweh\"]},{\"name\":\"Jesus (Gospel of Matthew, Mark, Luke, John)\",\"kind\":\"person\",\"note\":\"The earthly teacher and healer from Nazareth, crucified and raised, who is the central figure of the four Gospels.\",\"members\":[\"matthew:character:jesus\",\"mark:character:jesus\",\"luke:character:jesus\",\"john:character:jesus\"]},{\"name\":\"Jesus (risen Lord in Acts)\",\"kind\":\"divine\",\"note\":\"The risen and ascended teacher preached by the apostles, appearing in visions in Acts; distinct from the earthly Gospel figure by his post-resurrection role.\",\"members\":[\"acts:character:jesus\"]},{\"name\":\"Christ Jesus (risen Lord in the Epistles)\",\"kind\":\"divine\",\"note\":\"The risen Son referred to throughout the Pauline and general epistles as Lord, Christ and Savior, not acting on stage in a narrative.\",\"members\":[\"1-corinthians:character:jesus\",\"ephesians:character:christ_jesus\",\"philippians:character:jesus_christ\",\"colossians:character:christ\",\"1-thessalonians:character:the_lord_jesus\",\"2-thessalonians:character:the_lord_jesus\",\"1-timothy:character:jesus_christ\",\"2-timothy:character:the_lord\",\"1-peter:character:jesus_christ\",\"2-peter:character:jesus\"]}]}]}\n\nOwner content review rejected the identity partition: This group uses Lord for two identities. All listed God/Yahweh/Father entries are one God identity; all listed Jesus/Christ/risen Lord entries are the same Jesus identity. Resurrection, ascension, a later reference in an epistle, narrator or source book does not create a second Jesus. Appearance stages are drafted later, separately from identity. Keep God/Father and Jesus distinct in this cast partition; do not split either by book or role.\nReturn the FULL corrected ruling using every exact listed key once. Preserve all keys and group numbers.",
+        "schemaName": "merge_groups",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "type": "number",
+                    "const": 3
+                  },
+                  "clusters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "person",
+                            "group",
+                            "divine",
+                            "animal",
+                            "other",
+                            "place"
+                          ]
+                        },
+                        "note": {
+                          "type": "string"
+                        },
+                        "members": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "genesis:character:god",
+                              "exodus:character:god",
+                              "leviticus:character:yahweh",
+                              "numbers:character:yahweh",
+                              "deuteronomy:character:yahweh",
+                              "joshua:character:yahweh",
+                              "judges:character:yahweh",
+                              "job:character:yahweh",
+                              "psalms:character:yahweh",
+                              "proverbs:character:yahweh",
+                              "isaiah:character:yahweh",
+                              "jeremiah:character:yahweh",
+                              "lamentations:character:yahweh",
+                              "joel:character:yahweh",
+                              "amos:character:yahweh",
+                              "obadiah:character:yahweh",
+                              "micah:character:yahweh",
+                              "nahum:character:yahweh",
+                              "habakkuk:character:yahweh",
+                              "zechariah:character:yahweh",
+                              "malachi:character:yahweh",
+                              "matthew:character:jesus",
+                              "mark:character:jesus",
+                              "luke:character:jesus",
+                              "john:character:jesus",
+                              "acts:character:jesus",
+                              "1-corinthians:character:jesus",
+                              "ephesians:character:christ_jesus",
+                              "philippians:character:jesus_christ",
+                              "colossians:character:christ",
+                              "1-thessalonians:character:the_lord_jesus",
+                              "2-thessalonians:character:the_lord_jesus",
+                              "1-timothy:character:jesus_christ",
+                              "2-timothy:character:the_lord",
+                              "hebrews:character:god",
+                              "james:character:the_lord",
+                              "1-peter:character:jesus_christ",
+                              "1-peter:character:god_the_father",
+                              "2-peter:character:jesus",
+                              "jude:character:the_lord"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "kind",
+                        "note",
+                        "members"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "group",
+                  "clusters"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "groups"
+          ],
+          "additionalProperties": false
+        },
+        "maxTokens": 30000,
+        "expectedCompletionTokens": 2600
+      },
+      "original": {
+        "content": "{\"groups\":[{\"group\":3,\"clusters\":[{\"name\":\"God (Yahweh, Creator of Genesis)\",\"kind\":\"divine\",\"note\":\"The creator deity of Genesis who blesses, judges and makes covenants; use the Genesis entry, which is the only one using the 'God' name without the Yahweh label.\",\"members\":[\"genesis:character:god\",\"exodus:character:god\",\"hebrews:character:god\",\"1-peter:character:god_the_father\",\"jude:character:the_lord\",\"james:character:the_lord\"]},{\"name\":\"Yahweh (God of Israel)\",\"kind\":\"divine\",\"note\":\"The God of Israel who speaks through prophets, lawgivers and psalmists across the Old Testament books; one continuous divine speaker.\",\"members\":[\"leviticus:character:yahweh\",\"numbers:character:yahweh\",\"deuteronomy:character:yahweh\",\"joshua:character:yahweh\",\"judges:character:yahweh\",\"job:character:yahweh\",\"psalms:character:yahweh\",\"proverbs:character:yahweh\",\"isaiah:character:yahweh\",\"jeremiah:character:yahweh\",\"lamentations:character:yahweh\",\"joel:character:yahweh\",\"amos:character:yahweh\",\"obadiah:character:yahweh\",\"micah:character:yahweh\",\"nahum:character:yahweh\",\"habakkuk:character:yahweh\",\"zechariah:character:yahweh\",\"malachi:character:yahweh\"]},{\"name\":\"Jesus (Gospel of Matthew, Mark, Luke, John)\",\"kind\":\"person\",\"note\":\"The earthly teacher and healer from Nazareth, crucified and raised, who is the central figure of the four Gospels.\",\"members\":[\"matthew:character:jesus\",\"mark:character:jesus\",\"luke:character:jesus\",\"john:character:jesus\"]},{\"name\":\"Jesus (risen Lord in Acts)\",\"kind\":\"divine\",\"note\":\"The risen and ascended teacher preached by the apostles, appearing in visions in Acts; distinct from the earthly Gospel figure by his post-resurrection role.\",\"members\":[\"acts:character:jesus\"]},{\"name\":\"Christ Jesus (risen Lord in the Epistles)\",\"kind\":\"divine\",\"note\":\"The risen Son referred to throughout the Pauline and general epistles as Lord, Christ and Savior, not acting on stage in a narrative.\",\"members\":[\"1-corinthians:character:jesus\",\"ephesians:character:christ_jesus\",\"philippians:character:jesus_christ\",\"colossians:character:christ\",\"1-thessalonians:character:the_lord_jesus\",\"2-thessalonians:character:the_lord_jesus\",\"1-timothy:character:jesus_christ\",\"2-timothy:character:the_lord\",\"1-peter:character:jesus_christ\",\"2-peter:character:jesus\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792531923-qcoQVXxwFY1r6Ytq9f0Q",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 8020,
+          "completionTokens": 914,
+          "costUsd": 0.001259
+        },
+        "elapsedMs": 4931
+      },
+      "result": {
+        "content": "{\"groups\":[{\"group\":3,\"clusters\":[{\"name\":\"God (Yahweh, Father, the Lord)\",\"kind\":\"divine\",\"note\":\"The one God and Father across both testaments, Creator, speaker and judge, including Yahweh of Israel, God the Father of Jesus Christ, and the Lord who judges; all keys here are this single divine identity.\",\"members\":[\"genesis:character:god\",\"exodus:character:god\",\"leviticus:character:yahweh\",\"numbers:character:yahweh\",\"deuteronomy:character:yahweh\",\"joshua:character:yahweh\",\"judges:character:yahweh\",\"job:character:yahweh\",\"psalms:character:yahweh\",\"proverbs:character:yahweh\",\"isaiah:character:yahweh\",\"jeremiah:character:yahweh\",\"lamentations:character:yahweh\",\"joel:character:yahweh\",\"amos:character:yahweh\",\"obadiah:character:yahweh\",\"micah:character:yahweh\",\"nahum:character:yahweh\",\"habakkuk:character:yahweh\",\"zechariah:character:yahweh\",\"malachi:character:yahweh\",\"hebrews:character:god\",\"james:character:the_lord\",\"1-peter:character:god_the_father\",\"jude:character:the_lord\"]},{\"name\":\"Jesus Christ (the Lord Jesus, Son of God)\",\"kind\":\"divine\",\"note\":\"The one Jesus identity: earthly teacher in the Gospels, risen and ascended Lord in Acts and the epistles, and the Son referred to as Christ, Lord and Savior; all keys here are this single identity, not separated by book or role.\",\"members\":[\"matthew:character:jesus\",\"mark:character:jesus\",\"luke:character:jesus\",\"john:character:jesus\",\"acts:character:jesus\",\"1-corinthians:character:jesus\",\"ephesians:character:christ_jesus\",\"philippians:character:jesus_christ\",\"colossians:character:christ\",\"1-thessalonians:character:the_lord_jesus\",\"2-thessalonians:character:the_lord_jesus\",\"1-timothy:character:jesus_christ\",\"2-timothy:character:the_lord\",\"1-peter:character:jesus_christ\",\"2-peter:character:jesus\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792532204-CFZt7blyW8ERt5A9UESS",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 9138,
+          "completionTokens": 710,
+          "costUsd": 0.0012688
+        },
+        "elapsedMs": 3623
+      },
+      "accepted": true
+    },
+    {
+      "group": 7,
+      "initialKey": "380956e8737fe787f496f130a9f627fc",
+      "repairKey": "03364052765a82b13adeb54aee8329d6",
+      "request": {
+        "label": "merge:7:semantic-repair:1",
+        "system": "You rule on candidate groups of cast entries from the reading pass of one work. Code has grouped entries from the work's divisions that share a name, a title or an alias. For each group you get its entries: a member key (\"division:character:id\" or \"division:location:id\"), name, kind, aliases, note, and the sections where each appears. A group may also carry a hint line from a reference index of the work saying how many distinct individuals bear that name in these divisions; use it as evidence, not as an order.\n\nFor each numbered group, split its entries into clusters, one cluster per individual (or per place). Groups may overlap because one entry has several names; rule on every group separately using the exact group number shown, not a new local index. Never copy a member key into a group where it is not listed. The divisions are parts of one work, so the same individual or place appearing in several divisions is one cluster: join entries from different divisions whenever their notes, roles, relations and places agree. A different narrator, title, age or portrayal does not make the same individual a different person. Keep entries apart only when they are different individuals: never join entries on a shared name alone when their notes describe different people, and two holders of the same title in different times are different individuals. A disguise, an assumed name or a description that the notes say belongs to a named individual joins that individual's cluster. Give each cluster a name, a kind, and a one-line note saying who this is and how to tell them apart from the others in the group. Every member key of each group must appear in exactly one of that group's clusters.",
+        "user": "Work: The Holy Bible (Various)\n\n## Group 7 (characters)\n- genesis:character:god | God (divine) | aliases: Yahweh, Yahweh God, God Almighty, Lord, God Most High, the angel of God, Yahweh's angel, God's sons | Creator and principal deity of Genesis; speaks, blesses, judges and makes covenants, and appears in human form or through angels. | sections: Creation of the world and of humankind; The seventh day and rest; Man formed in Eden and the command; The woman made from the rib; Eyes opened and God's questioning; Curses and expulsion from the garden\n- judges:character:yahweh | Yahweh (divine) | aliases: God, the Lord, Yahweh's angel, the angel of God, the Lord Yahweh | God of Israel, who speaks through angels, prophets and dreams and raises up judges; appears throughout Judges. | sections: Judah and Simeon against the Canaanites; Adoni-Bezek; Yahweh's angel rebukes Israel at Bochim; Joshua dies; A new generation forsakes Yahweh; Nations left to test Israel; Othniel defeats Cushan Rishathaim; Midian oppresses Israel; Yahweh's angel calls Gideon; Gideon's offering and the fleece\n- zechariah:character:the_angel_who_talks | the angel who talked with me (divine) | aliases: the angel, Yahweh's angel, the man among the myrtle trees | Interpreting angel who explains visions to Zechariah in chapters 1-6; distinct from the angel of Yahweh standing among the myrtle trees. | sections: Vision of the riders among the myrtle trees; Vision of the four horns and craftsmen; Vision of the measuring line; Vision of the golden lamp stand; Zerubbabel and the two anointed ones; Vision of the flying scroll\n- zechariah:character:angel_of_yahweh | Yahweh's angel (divine) | aliases: the angel who stood among the myrtle trees, the man on the red horse | The rider among myrtle trees who reports to Yahweh's angel about the patrolling horses in chapter 1. | sections: Vision of the riders among the myrtle trees; Joshua cleansed before the angel; Charge to Joshua and the Branch\n\nPrevious answer:\n{\"groups\":[{\"group\":7,\"clusters\":[{\"name\":\"God (Yahweh) of Genesis\",\"kind\":\"divine\",\"note\":\"Creator and principal deity of Genesis, speaking and judging directly and through angels; the Genesis narrative figure, not the later Judges or Zechariah figures.\",\"members\":[\"genesis:character:god\"]},{\"name\":\"Yahweh, God of Israel in Judges\",\"kind\":\"divine\",\"note\":\"The God of Israel in Judges who speaks through angels, prophets and dreams and raises up judges; the same deity named Yahweh but identified through the Judges sections and their aliases.\",\"members\":[\"judges:character:yahweh\"]},{\"name\":\"The interpreting angel who talks with Zechariah\",\"kind\":\"divine\",\"note\":\"The angel who explains the visions to Zechariah in chapters 1-6; distinct from the rider among the myrtle trees who reports to Yahweh's angel.\",\"members\":[\"zechariah:character:the_angel_who_talks\"]},{\"name\":\"Yahweh's angel among the myrtle trees\",\"kind\":\"divine\",\"note\":\"The rider among the myrtle trees in chapter 1 who reports on the patrolling horses to Yahweh's angel; distinct from the interpreting angel who talks with Zechariah.\",\"members\":[\"zechariah:character:angel_of_yahweh\"]}]}]}\n\nOwner content review rejected the identity partition: Genesis's God and Judges' Yahweh are the same God identity, not different individuals because they appear in different books. Preserve the distinction between the interpreting angel who talks with Zechariah and the angel of Yahweh in the supplied reading; do not join either to God merely because of an alias.\nReturn the FULL corrected ruling using every exact listed key once. Preserve all keys and group numbers.",
+        "schemaName": "merge_groups",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "type": "number",
+                    "const": 7
+                  },
+                  "clusters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "person",
+                            "group",
+                            "divine",
+                            "animal",
+                            "other",
+                            "place"
+                          ]
+                        },
+                        "note": {
+                          "type": "string"
+                        },
+                        "members": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "genesis:character:god",
+                              "judges:character:yahweh",
+                              "zechariah:character:the_angel_who_talks",
+                              "zechariah:character:angel_of_yahweh"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "kind",
+                        "note",
+                        "members"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "group",
+                  "clusters"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "groups"
+          ],
+          "additionalProperties": false
+        },
+        "maxTokens": 30000,
+        "expectedCompletionTokens": 440
+      },
+      "original": {
+        "content": "{\"groups\":[{\"group\":7,\"clusters\":[{\"name\":\"God (Yahweh) of Genesis\",\"kind\":\"divine\",\"note\":\"Creator and principal deity of Genesis, speaking and judging directly and through angels; the Genesis narrative figure, not the later Judges or Zechariah figures.\",\"members\":[\"genesis:character:god\"]},{\"name\":\"Yahweh, God of Israel in Judges\",\"kind\":\"divine\",\"note\":\"The God of Israel in Judges who speaks through angels, prophets and dreams and raises up judges; the same deity named Yahweh but identified through the Judges sections and their aliases.\",\"members\":[\"judges:character:yahweh\"]},{\"name\":\"The interpreting angel who talks with Zechariah\",\"kind\":\"divine\",\"note\":\"The angel who explains the visions to Zechariah in chapters 1-6; distinct from the rider among the myrtle trees who reports to Yahweh's angel.\",\"members\":[\"zechariah:character:the_angel_who_talks\"]},{\"name\":\"Yahweh's angel among the myrtle trees\",\"kind\":\"divine\",\"note\":\"The rider among the myrtle trees in chapter 1 who reports on the patrolling horses to Yahweh's angel; distinct from the interpreting angel who talks with Zechariah.\",\"members\":[\"zechariah:character:angel_of_yahweh\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792531938-Z3Yvc97ZiiubD1xmp6XS",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 1833,
+          "completionTokens": 446,
+          "costUsd": 0.0004063
+        },
+        "elapsedMs": 3693
+      },
+      "result": {
+        "content": "{\"groups\":[{\"group\":7,\"clusters\":[{\"name\":\"God (Yahweh) of Genesis and Judges\",\"kind\":\"divine\",\"note\":\"The creator and principal deity who speaks, judges and makes covenants, and is named Yahweh in Judges; the same God identity across both books, distinct from the two Zechariah angels.\",\"members\":[\"genesis:character:god\",\"judges:character:yahweh\"]},{\"name\":\"The interpreting angel who talks with Zechariah\",\"kind\":\"divine\",\"note\":\"The angel who explains the visions to Zechariah in chapters 1-6; distinct from the rider among the myrtle trees who reports to Yahweh's angel.\",\"members\":[\"zechariah:character:the_angel_who_talks\"]},{\"name\":\"Yahweh's angel among the myrtle trees\",\"kind\":\"divine\",\"note\":\"The rider among the myrtle trees in chapter 1 who reports on the patrolling horses to Yahweh's angel; distinct from the interpreting angel who talks with Zechariah.\",\"members\":[\"zechariah:character:angel_of_yahweh\"]}]}]}",
+        "model": "anthropic/claude-haiku-5.5",
+        "providerRequestId": "gen-1792532208-mW8HxxfA4epZKK2Q93Kt",
+        "finishReason": "stop",
+        "usage": {
+          "promptTokens": 2429,
+          "completionTokens": 360,
+          "costUsd": 0.0004229
+        },
+        "elapsedMs": 2410
+      },
+      "accepted": true
+    }
+  ]
+}

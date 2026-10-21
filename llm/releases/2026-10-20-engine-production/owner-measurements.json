@@ -1,0 +1,54 @@
+{
+  "samplePlan": "owner-check-plan.original.json",
+  "configuration": {
+    "imageModel": "google/gemini-3.1-flash-lite-image",
+    "resolution": "1K",
+    "aspectRatio": "16:9",
+    "guestTier": "paid",
+    "requestTranslation": "kjv",
+    "savedTranslation": "web"
+  },
+  "measurement": "browser performance.now immediately before fetch through response.clone().json; rate-limit waiting excluded; includes network, route, preparation, provider, save and settlement",
+  "cold": {
+    "completed": 2,
+    "valuesMs": [
+      13175.700000047684,
+      10592.100000023842
+    ],
+    "meanMs": 11883.900000035763,
+    "nearestRankP90Ms": 13175.700000047684,
+    "styles": [
+      "icon",
+      "icon"
+    ]
+  },
+  "prepared": {
+    "completed": 0,
+    "p90Ms": null
+  },
+  "failedColdRequests": [
+    {
+      "reference": "Genesis 12:2",
+      "style": "classical",
+      "status": 500,
+      "elapsedMs": 7259.399999976158,
+      "error": {
+        "error": "Failed to generate image",
+        "message": "OpenRouter API error: 402",
+        "requestId": "release-smoke-8ca37a34-1a5b-4e53-9300-abd1edab6cbd"
+      }
+    },
+    {
+      "reference": "Ruth 2:3",
+      "style": "watercolor",
+      "status": 500,
+      "elapsedMs": 7455.100000023842,
+      "error": {
+        "error": "Failed to generate image",
+        "message": "OpenRouter API error: 402",
+        "requestId": "7991508c-93f2-455d-9e33-688d64997fed"
+      }
+    }
+  ],
+  "conclusion": "Incomplete: two successful cold Icon requests only; zero prepared successes and no successful production Classical/Watercolor requests. This does not establish the planned 10 cold + 10 prepared sample gate or all-style accounting. Failed request latency is not a successful render latency. Replay is excluded."
+}

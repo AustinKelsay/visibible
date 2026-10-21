@@ -1,0 +1,31 @@
+{
+  "review": "CodeRabbit CLI uncommitted review; five minor issues",
+  "issues": [
+    {
+      "topic": "David old-age sections",
+      "resolution": "Verified WEB source verses; applied ten version-checked owner section follow-ups. Original 165-change plan/proof retained; final live audit checks all latest payloads."
+    },
+    {
+      "topic": "Incomplete rows labeled pass",
+      "resolution": "Set verdict to null for incomplete rows with no observed failure; retain observedImageVerdict separately. Incomplete Watercolor failures remain fail because an observed violation cannot pass."
+    },
+    {
+      "topic": "Raw report prompt header",
+      "resolution": "Retain exact native reports as report.raw.json; derive report.json with the actual generic-v2 reproducibility version from every packet, recording the original header and the sole metadata change. candidate/reproducibility.json agrees. No historical prompt or measured output is rewritten."
+    },
+    {
+      "topic": "Comparison style ID overwritten by score",
+      "resolution": "Add explicit string style ID and separate numeric candidateStyleScore. Every case/style pair is unique."
+    },
+    {
+      "topic": "Duplicate warm item in original owner plan",
+      "resolution": "Retain owner-check-plan.original.json as the historical input; add owner-check-plan.corrected.json with one prepared counterpart per cold unit, labeled unexecuted. No prepared success is claimed; a future run requires a fresh cold-status audit."
+    }
+  ],
+  "followupReview": {
+    "issues": 1,
+    "severity": "minor",
+    "topic": "Ezra Samaria city/region identity",
+    "resolution": "Verified Ezra 4:10; applied three expectedVersion owner corrections to both membership records/quotes and the Ezra section cast. Acts city and Luke region are unchanged. Repeated live audit passes all moment IDs and latest owner payloads; no model calls."
+  }
+}
