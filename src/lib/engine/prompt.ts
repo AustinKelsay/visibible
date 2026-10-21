@@ -37,6 +37,8 @@ export type RenderingInput = {
   /** The entries the plan marked present, with the stage the section assigns them. */
   canon: SelectedCanon[];
   references?: AvailableReference[];
+  /** Evaluation control: remove only the selected style reference, preserving sheets and trim decisions. */
+  omitStyleReference?: boolean;
   variationNumber?: number | null;
   aspectRatio: "16:9" | "21:9" | "3:2";
 };
@@ -54,7 +56,7 @@ export type RenderingPacket = {
   planVersion: string;
   canon: Array<{ entryId: string; stageId: string; version: string }>;
   references: Array<{ kind: AvailableReference["kind"]; id: string; storageId: string; version: string; caption: string }>;
-  flags: { variationIncluded: boolean; neighborsIncluded: boolean; styleDetailIncluded: boolean; lookDetailIncluded: boolean };
+  flags: { variationIncluded: boolean; neighborsIncluded: boolean; styleDetailIncluded: boolean; lookDetailIncluded: boolean; omitStyleReference?: true };
   budget: { maxChars: number; finalChars: number };
 };
 
@@ -123,7 +125,7 @@ export function selectReferences(canon: SelectedCanon[], available: AvailableRef
 
 export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   const { brief, style, look, plan } = input;
-  const references = selectReferences(input.canon, input.references ?? [], style.id);
+  let references = selectReferences(input.canon, input.references ?? [], style.id);
   const names = input.canon.filter((c) => c.hasForm).map((c) => c.name);
   const formless = input.canon.filter((c) => !c.hasForm);
   const formlessBlock = formless.length
@@ -139,7 +141,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   const planBlock = ["SCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):",
     `Primary subject: ${plan.primarySubject}`, `Action: ${plan.action}`, `Setting: ${plan.setting}`, `Secondary elements: ${plan.secondaryElements}`,
     `Mood: ${plan.mood}`, `Time of day: ${plan.timeOfDay}`, `Composition: ${plan.composition}`].join("\n");
-  const referenceBlock = references.length
+  const referenceBlock = () => references.length
     ? ["REFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):", ...references.map((r) => `- ${r.caption}`),
       "Render everything in the ART STYLE above, even where a reference is painted in another style."].join("\n")
     : "";
@@ -166,7 +168,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     flags.lookDetailIncluded ? `${lookMain}\n${lookDetail}` : lookMain,
     planBlock,
     flags.styleDetailIncluded ? `${styleMain}\n${styleDetail}` : styleMain,
-    referenceBlock,
+    referenceBlock(),
     flags.neighborsIncluded ? neighborBlock : "",
     flags.variationIncluded ? variationBlock : "",
     `SCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: ${input.aspectRatio} (${aspect} landscape).`,
@@ -184,6 +186,11 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   if (prompt.length > GENERIC_PROMPT_MAX_CHARS) {
     return { ok: false, error: `Rendering prompt is ${prompt.length} characters after every allowed trim; the cap is ${GENERIC_PROMPT_MAX_CHARS}. Shorten the brief, canon or plan.`, finalChars: prompt.length };
   }
+  if (input.omitStyleReference) {
+    // Select and trim the control first. Do not backfill a freed slot or restore trimmed details.
+    references = selectReferences(input.canon, references.filter((r) => r.kind !== "styleReference"), style.id);
+    prompt = assemble(flags);
+  }
   return {
     ok: true, prompt, references,
     packet: {
@@ -191,7 +198,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
       styleId: style.id, styleVersion: input.styleVersion, briefVersion: input.briefVersion, lookVersion: look.version, planVersion: plan.version,
       canon: input.canon.map((c) => ({ entryId: c.entryId, stageId: c.stageId, version: c.version })),
       references: references.map((r) => ({ kind: r.kind, id: r.kind === "sheet" ? `${r.entryId}:${r.stageId}` : r.styleId, storageId: r.storageId, version: r.version, caption: r.caption })),
-      flags, budget: { maxChars: GENERIC_PROMPT_MAX_CHARS, finalChars: prompt.length },
+      flags: { ...flags, ...(input.omitStyleReference ? { omitStyleReference: true as const } : {}) }, budget: { maxChars: GENERIC_PROMPT_MAX_CHARS, finalChars: prompt.length },
     },
   };
 }

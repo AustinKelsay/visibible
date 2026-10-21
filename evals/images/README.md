@@ -4,4 +4,6 @@
 
 Keep the Peter, Red Sea, Genesis and Holmes continuity cases; add cases rather than replacing them so baseline and candidate runs stay comparable.
 
-`style-trials/watercolor-full-frame.json` is an unapproved rendering trial for the observed Watercolor paper margins, separate from the shared library. It specifies a continuous coloured underwash instead of a field-study/sketch presentation. The [edge-check evidence](../../llm/releases/2026-10-20-watercolor-edge-check/README.md) includes its nine-image dry-run manifest and the required follow-up; no generated output or style acceptance is claimed for this trial.
+`style-trials/watercolor-full-frame.json` is an unapproved rendering trial for the observed Watercolor paper margins, separate from the shared library. It specifies a continuous coloured underwash instead of a field-study/sketch presentation. Its [nine-image follow-up](../../llm/releases/2026-10-20-engine-funded-evaluation/README.md#watercolor-correction-rejected) failed: eight clear margin failures and one ambiguous result; the style was not promoted.
+
+`--omit-style-reference` offers a separate generic evaluation control with unchanged style wording, selected sheets and trim decisions. Use a new run name and preflight fixed inputs before any funded comparison; the mode is recorded and cannot switch on resume, including after a saved dry run. See the [retained reference-input audit](../../llm/releases/2026-10-21-reference-input-audit/README.md) for exact input evidence and limits. No paid result is claimed for this control.

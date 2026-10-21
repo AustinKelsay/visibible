@@ -35,6 +35,8 @@ export type AssembleDeps = {
   onReferenceUnavailable?: (kind: string, id: string, error: unknown) => void;
   /** An owner-authored style trial: used instead of the brief's style entry of that id (#181). */
   styleOverride?: { style: ArtStyle; version: string };
+  /** Evaluation-only omission after normal reference selection and prompt trimming. */
+  omitStyleReference?: boolean;
 };
 
 export type AssembleInput = { workId: string; unitId: string; styleId: string; variationNumber: number | null; aspectRatio: "16:9" | "21:9" | "3:2" };
@@ -156,7 +158,7 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
     style: styleEntry.style, styleVersion: styleEntry.version,
     look: { version: prepared.look.version, ...prepared.look.payload },
     plan: { version: prepared.plan.version, primarySubject: prepared.plan.payload.primarySubject, action: prepared.plan.payload.action, setting: prepared.plan.payload.setting, secondaryElements: prepared.plan.payload.secondaryElements, mood: prepared.plan.payload.mood, timeOfDay: prepared.plan.payload.timeOfDay, composition: prepared.plan.payload.composition },
-    canon, references: available, variationNumber: input.variationNumber, aspectRatio: input.aspectRatio,
+    canon, references: available, omitStyleReference: deps.omitStyleReference, variationNumber: input.variationNumber, aspectRatio: input.aspectRatio,
   });
   if (!rendering.ok) return { ok: false, reason: "packet", message: rendering.error, finalChars: rendering.finalChars, momentId };
   return {

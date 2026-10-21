@@ -46,7 +46,7 @@ export type GenericAssembly = {
 };
 
 /** Assemble one moment for one style, counting the preparation calls this sample caused. */
-export async function assembleForEval(provider: GenericEvalProvider, ctx: GenericEvalContext, input: { workId: string; unitId: string; styleId: string; variationNumber: number | null; aspectRatio: "16:9" | "21:9" | "3:2"; modelId: string; resolution: "1K" | "2K" | "4K"; preparationEstimateUsd: number; now?: () => number }): Promise<GenericAssembly> {
+export async function assembleForEval(provider: GenericEvalProvider, ctx: GenericEvalContext, input: { workId: string; unitId: string; styleId: string; variationNumber: number | null; aspectRatio: "16:9" | "21:9" | "3:2"; modelId: string; resolution: "1K" | "2K" | "4K"; preparationEstimateUsd: number; omitStyleReference?: boolean; now?: () => number }): Promise<GenericAssembly> {
   let preparationCalls = 0;
   let preparationCostUsd = 0;
   let preparationUsageMissing = false;
@@ -66,6 +66,7 @@ export async function assembleForEval(provider: GenericEvalProvider, ctx: Generi
   const result = await assembleRendering({
     inputs: ctx.inputs, store, listMoments: ctx.listMoments, getReference: ctx.getReference, loadReference: ctx.loadReference, model: provider.model, now: input.now,
     styleOverride: provider.styleTrials?.[input.styleId],
+    omitStyleReference: input.omitStyleReference,
   }, { workId: input.workId, unitId: input.unitId, styleId: input.styleId, variationNumber: input.variationNumber, aspectRatio: input.aspectRatio });
   const quote = result.ok ? quoteGenericImage({ modelId: input.modelId, billing: provider.billing(input.modelId), resolution: input.resolution, promptChars: result.prompt.length, referenceImages: result.sentReferences.length }) : null;
   return { result, preparationCalls, preparationCostUsd, preparationUsageMissing, quote };

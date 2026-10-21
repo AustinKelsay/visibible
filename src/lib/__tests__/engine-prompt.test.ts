@@ -111,6 +111,37 @@ describe("rendering packet", () => {
     expect(one.ok && one.references.map((r) => r.caption)).toEqual([expect.stringMatching(/^Image 1: Sherlock Holmes's reference sheet \(one figure shown in three views\)/)]);
   });
 
+  it("removes a style reference only after selection and trimming, without backfilling sheets or restoring context", () => {
+    for (const styleId of ["classical", "watercolor", "icon"]) {
+      const normal = buildRenderingPacket(base(styleId));
+      expect(normal.ok).toBe(true);
+      if (!normal.ok) throw new Error("Control packet must fit");
+      // Push just over the cap so the control trims the variation note. Removing the reference
+      // would free enough room for it, but the trial must keep the same non-reference text.
+      const room = GENERIC_PROMPT_MAX_CHARS - normal.prompt.length;
+      const input = base(styleId, { canon: canon.map((c, i) => i === 0 ? { ...c, text: c.text + "x".repeat(room + 1) } : c) });
+      const control = buildRenderingPacket(input);
+      const trial = buildRenderingPacket({ ...input, omitStyleReference: true });
+      expect(control.ok && trial.ok).toBe(true);
+      if (!control.ok || !trial.ok) throw new Error("Trimmed packets must fit");
+      expect(control.packet.flags.variationIncluded).toBe(false);
+      expect(trial.packet.flags).toEqual({ ...control.packet.flags, omitStyleReference: true });
+      expect(trial.references.map((r) => r.storageId)).toEqual(control.references.filter((r) => r.kind !== "styleReference").map((r) => r.storageId));
+      expect(trial.references.map((r) => r.index)).toEqual(trial.references.map((_, i) => i));
+      expect(trial.references.every((r, i) => r.caption.startsWith(`Image ${i + 1}:`))).toBe(true);
+      expect(trial.packet.references.map((r) => r.caption)).toEqual(trial.references.map((r) => r.caption));
+      expect(trial.prompt).not.toContain("Variation note:");
+      if (styleId === "classical") expect(trial.prompt).toBe(control.prompt);
+      else expect(trial.references).toHaveLength(2); // Watson never fills the removed style slot.
+    }
+    const onlyStyle = buildRenderingPacket(base("watercolor", { references: references.filter((r) => r.kind === "styleReference"), omitStyleReference: true }));
+    expect(onlyStyle.ok && onlyStyle.references).toEqual([]);
+    expect(onlyStyle.ok && onlyStyle.prompt).not.toContain("REFERENCE IMAGES");
+    const noStyle = buildRenderingPacket(base("watercolor", { references: references.filter((r) => r.kind !== "styleReference") }));
+    const noStyleTrial = buildRenderingPacket(base("watercolor", { references: references.filter((r) => r.kind !== "styleReference"), omitStyleReference: true }));
+    expect(noStyle.ok && noStyleTrial.ok && noStyleTrial.prompt).toBe(noStyle.ok && noStyle.prompt);
+  });
+
   it("trims only the variation note, neighbour hints, style detail and look detail, in that order, and rejects what still does not fit", () => {
     const big = (n: number) => "lorem ".repeat(n);
     const oversized = base("classical", {

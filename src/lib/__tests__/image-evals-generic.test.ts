@@ -63,22 +63,24 @@ const cases = loadEvalCases({ schemaVersion: 1, defaults: { translation: "web" }
   { id: "lamp-second", reference: "The Lamp ¶2", genre: "narrative", expected: "The lamplighter in the second paragraph.", work: PROSE, unitId: "lamp-2" },
 ] });
 
-function setup(options: { imageCost?: number | null; failStore?: boolean; trial?: GenericEvalProvider["styleTrials"]; preparationCost?: number | null } = {}) {
+function setup(options: { imageCost?: number | null; failStore?: boolean; trial?: GenericEvalProvider["styleTrials"]; preparationCost?: number | null; references?: boolean } = {}) {
   const memory = createMemoryPreparationStore(records);
   const proseMemory = createMemoryPreparationStore(proseRecords);
   const model = scriptedModel(options.preparationCost === undefined ? 0.0004 : options.preparationCost);
-  const imageCalls: Array<{ label: string; references: number; prompt: string }> = [];
+  const imageCalls: Array<{ label: string; references: number; referenceBytes: number[][]; prompt: string }> = [];
   const providers: EvalProviders = {
     resolvePassage: async () => null,
     image: { id: "fake", async generate(request) {
-      imageCalls.push({ label: request.label, references: request.references?.length ?? 0, prompt: request.prompt });
+      imageCalls.push({ label: request.label, references: request.references?.length ?? 0, referenceBytes: (request.references ?? []).map((r) => [...r.bytes]), prompt: request.prompt });
       return { bytes: new Uint8Array([9]), mimeType: "image/png", costUsd: options.imageCost === undefined ? 0.03 : options.imageCost, elapsedMs: 1500, providerRequestId: `gen-${imageCalls.length}` };
     } },
     planner: null,
     generic: {
       context: async (workId) => workId === PROSE
         ? { inputs: inputsFor(prose, PROSE), store: proseMemory.store, listMoments: proseMemory.listMoments, getReference: async () => null, loadReference: async () => { throw new Error("none"); } }
-        : { inputs: inputsFor(work, WORK), store: memory.store, listMoments: memory.listMoments, getReference: async () => null, loadReference: async () => { throw new Error("none"); } },
+        : { inputs: inputsFor(work, WORK), store: memory.store, listMoments: memory.listMoments,
+          getReference: async (kind, recordId) => options.references ? { storageId: `${kind}:${recordId}`, inputs: [], fingerprint: `ref-${recordId}`, pinned: true } : null,
+          loadReference: async (id) => new Uint8Array(id.startsWith("styleReference:") ? [1, 2] : [3, 4]) },
       model, billing: () => billing, styleTrials: options.trial,
     },
     sink: { save: async (key) => { if (options.failStore) throw new Error("disk full"); return `outputs/${key}.png`; } },
@@ -163,6 +165,53 @@ describe("generic evaluation arms", () => {
     await run(providers, { arms: ["generic:watercolor"] });
     expect(imageCalls[0].prompt).toContain("trial rendering");
     expect(imageCalls.every((c) => c.prompt.includes("trial rendering"))).toBe(true);
+  });
+
+  it("omits only the style reference in a labelled trial, keeping cached preparation, canon, sheets and registered style", async () => {
+    const { providers, imageCalls, model } = setup({ references: true });
+    const scope = { cases: [cases[0]], arms: ["generic:watercolor"] as const };
+    const baseline = await run(providers, scope);
+    const trial = await run(providers, { ...scope, omitStyleReference: true, state: emptyEvalState("no-style-reference", "google/gemini-3.1-flash-lite-image", null) });
+    expect(model.calls).toHaveLength(2); // One shared look and plan, unchanged for the trial.
+    expect(imageCalls.map((c) => c.referenceBytes)).toEqual([[[1, 2], [3, 4]], [[3, 4]]]);
+    const normal = baseline.state.samples["alpha-one/generic:watercolor/1"];
+    const omitted = trial.state.samples["alpha-one/generic:watercolor/1"];
+    expect(normal.packet?.references.map((r) => r.id)).toEqual(["watercolor", "jonah:old"]);
+    expect(omitted.packet?.references).toEqual([{ ...normal.packet!.references[1], caption: normal.packet!.references[1].caption.replace("Image 2:", "Image 1:") }]);
+    const withoutCaptions = (prompt: string) => prompt.replace(/\n\nREFERENCE IMAGES[\s\S]*?(?=\n\n)/, "");
+    expect(withoutCaptions(omitted.prompt!)).toBe(withoutCaptions(normal.prompt!));
+    expect(omitted.packet).toMatchObject({ styleVersion: normal.packet!.styleVersion, briefVersion: normal.packet!.briefVersion, lookVersion: normal.packet!.lookVersion, planVersion: normal.packet!.planVersion, canon: normal.packet!.canon, flags: { ...normal.packet!.flags, omitStyleReference: true } });
+    expect(omitted).toMatchObject({ omitStyleReference: true, preparationCalls: 0, referencesSent: 1, quote: { referenceImages: 1 } });
+    expect(omitted.quote!.providerUsd).toBeLessThan(normal.quote!.providerUsd);
+    expect(trial.manifest.omitStyleReference).toBe(true);
+    const report = buildReport(trial.state, scope.cases, { arms: scope.arms, repeats: 1 });
+    expect(report.reproducibility.omitStyleReference).toBe(true);
+    expect(renderContactSheet(report)).toContain("style reference omitted by evaluation control");
+    expect(renderComparisonSheet(buildReport(baseline.state, scope.cases, { arms: scope.arms, repeats: 1 }), report)).toContain("style reference omitted by evaluation control");
+    await run(providers, { ...scope, omitStyleReference: true, state: trial.state });
+    expect(imageCalls).toHaveLength(2); // A same-mode resume replays completed samples without calls.
+    expect(model.calls).toHaveLength(2);
+  });
+
+  it("locks the control for dry runs and failed or completed samples, including historical normal-reference states", async () => {
+    const { providers, imageCalls, model } = setup();
+    const dry = await run(providers, { dryRun: true, omitStyleReference: true });
+    expect(dry.manifest.omitStyleReference).toBe(true);
+    expect(imageCalls).toHaveLength(0);
+    expect(model.calls).toHaveLength(0);
+    const snapshot = structuredClone(dry.state);
+    await expect(run(providers, { dryRun: true, state: dry.state })).rejects.toThrow("use a new --run");
+    expect(dry.state).toEqual(snapshot);
+    await run(providers, { dryRun: true, omitStyleReference: true, state: dry.state });
+    const normal = await run(providers, { cases: [cases[0]], arms: ["generic:classical"] });
+    delete normal.state.omitStyleReference; // Historical records predate the flag.
+    const calls = imageCalls.length;
+    await expect(run(providers, { state: normal.state, omitStyleReference: true })).rejects.toThrow("use a new --run");
+    expect(imageCalls).toHaveLength(calls);
+    const failed = await run(setup({ failStore: true }).providers, { cases: [cases[0]], arms: ["generic:watercolor"] });
+    expect(Object.values(failed.state.samples)[0].status).toBe("failed");
+    await expect(run(providers, { state: failed.state, omitStyleReference: true })).rejects.toThrow("use a new --run");
+    await expect(run(providers, { dryRun: true, omitStyleReference: true, arms: ["direct"] })).rejects.toThrow("requires a generic arm");
   });
 
   it("preserves paid preparation on a funding stop and resumes unfinished samples without preparing later moments early", async () => {
