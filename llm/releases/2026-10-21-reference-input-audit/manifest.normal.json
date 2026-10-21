@@ -1,0 +1,64 @@
+{
+ "entries": [
+  {
+   "key": "daniel-7-9-ancient-of-days/generic:watercolor/1",
+   "caseId": "daniel-7-9-ancient-of-days",
+   "reference": "Daniel 7:9",
+   "arm": "generic:watercolor",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "daniel-7-9-ancient-of-days/generic:watercolor/2",
+   "caseId": "daniel-7-9-ancient-of-days",
+   "reference": "Daniel 7:9",
+   "arm": "generic:watercolor",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "daniel-7-9-ancient-of-days/generic:watercolor/3",
+   "caseId": "daniel-7-9-ancient-of-days",
+   "reference": "Daniel 7:9",
+   "arm": "generic:watercolor",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "daniel-7-9-ancient-of-days/generic:icon/1",
+   "caseId": "daniel-7-9-ancient-of-days",
+   "reference": "Daniel 7:9",
+   "arm": "generic:icon",
+   "n": 1,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "daniel-7-9-ancient-of-days/generic:icon/2",
+   "caseId": "daniel-7-9-ancient-of-days",
+   "reference": "Daniel 7:9",
+   "arm": "generic:icon",
+   "n": 2,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  },
+  {
+   "key": "daniel-7-9-ancient-of-days/generic:icon/3",
+   "caseId": "daniel-7-9-ancient-of-days",
+   "reference": "Daniel 7:9",
+   "arm": "generic:icon",
+   "n": 3,
+   "estimatedUsd": 0.036000000000000004,
+   "status": "planned"
+  }
+ ],
+ "plannedCalls": 6,
+ "doneCalls": 0,
+ "estimatedUsd": 0.21600000000000003,
+ "budgetUsd": 0.0664116,
+ "withinBudget": false,
+ "omitStyleReference": false
+}
