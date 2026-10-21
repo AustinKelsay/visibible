@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-21T21:57:57.231Z",
+  "result": {
+    "entryId": "the_ancient_of_days",
+    "kind": "character",
+    "hasForm": false,
+    "appearanceFromText": "Daniel 7:9 describes the Ancient of Days in visionary imagery of white garments, hair like pure wool and a fiery throne with wheels; per the brief, God the Father has no human face or body, so the figure is rendered only as radiance, light, cloud and fire, with the throne and whiteness kept as permitted quality.",
+    "stages": [
+      {
+        "id": "the_ancient_of_days_main",
+        "label": "The Ancient of Days",
+        "when": "Daniel's night vision, the throne-scene of judgment",
+        "text": "The Ancient of Days: no human face or body; a presence of radiant white light and brilliant cloud, the brightness of pure white garments and white wool-like radiance, enthroned within a fiery flame that flows out in a river of fire, with bright glowing wheels of fire beneath the throne. Pure white, gold-tinged light and flame; no form is shown.",
+        "source": "mixed",
+        "quotes": [
+          {
+            "unit": "daniel-7-13",
+            "quote": "one like a son of man, and he came even to the Ancient of Days"
+          },
+          {
+            "unit": "daniel-7-22",
+            "quote": "until the Ancient of Days came, and judgment was given to the saints of the Most High"
+          }
+        ]
+      }
+    ],
+    "sectionStages": {
+      "daniel-7-9": "the_ancient_of_days_main"
+    },
+    "problems": [],
+    "promptVersion": "2026-10-21-canon-depiction-v1",
+    "attempts": 1
+  },
+  "scriptSha256": "be5054a6f16061feec9cf139b3f51c31efd6c42d2fe4d209520ed107ab7abffd",
+  "instructionsSha256": "a0a3455f017fc477ba43750f1a43efd71cb12c7d22578db613b130256e86c110",
+  "productionMutations": 0
+}

@@ -1,0 +1,27 @@
+{
+  "issue": 183,
+  "baseCommit": "458885357fe01f570827634804ef43101d9a6119",
+  "purpose": "Inspect a separately drafted Ancient of Days canon, then a separate Daniel 7:9 plan with the owner look frozen. Render one image per registered style only after both exact outputs pass agent inspection. No production writes or public activation.",
+  "authorization": "Continuation under the owner's existing $43 preparation and $16.50 evaluation allowances; these artifacts are not authorization to replay.",
+  "publicActivation": false,
+  "humanAccepted": false,
+  "textModel": "anthropic/claude-haiku-5.5",
+  "imageModel": "google/gemini-3.1-flash-lite-image",
+  "canonPromptVersion": "2026-10-21-canon-depiction-v1",
+  "planPromptVersion": "2026-10-21-formless-presence-v3",
+  "renderingPromptVersion": "2026-10-21-generic-v3",
+  "unitId": "daniel-7-9",
+  "styles": ["classical", "watercolor", "icon"],
+  "repeats": 1,
+  "preparation": { "authorizedUsd": 43, "measuredBeforeUsd": 3.6351192, "uncertaintyBeforeUsd": 0.03, "capUsd": 0.02, "reservePerCallUsd": 0.005, "maximumCalls": 4, "maximumCanonCalls": 2, "maximumPlanCalls": 2 },
+  "evaluation": { "authorizedUsd": 16.5, "measuredBeforeUsd": 16.2980069, "uncertaintyBeforeUsd": 0.045, "remainingAfterReserveBeforeUsd": 0.1569931, "capUsd": 0.15, "reservePerCallUsd": 0.05, "maximumCalls": 3, "estimatedUsd": 0.105 },
+  "smoke": { "authorizedUsd": 1, "measuredUsd": 0.0685215, "unchanged": true },
+  "stopConditions": [
+    "At most two calls for the one canon and two for the one plan, using only normal structural/error retries; never retry a structurally valid semantic failure.",
+    "Missing usage, unknown outcome, provider failure or exhausted reserve blocks every subsequent paid call in that phase; retain all results.",
+    "No plan until the exact canon passes agent inspection; no images until the exact plan and all three quoted rendering packets pass inspection.",
+    "Preserve the owner look payload and version. The isolated look inputs may be explicitly rebound to the candidate canon/section versions only to freeze that experimental control; this is not a live correction or evidence of deployed cache behavior.",
+    "One unchanged original per style, normal references, no image retries or selection of favorable outputs. One sample cannot establish repeatability.",
+    "No reading pass, vision checker, reference generation, model substitution, production mutation, source rewrite or public activation."
+  ]
+}
