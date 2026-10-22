@@ -567,15 +567,16 @@ describe("Image Generation API Credit Flow", () => {
       styles: Object.fromEntries(SHARED_STYLES.styles.map((style) => [style.id, { style, version: `sv-${style.id}` }])),
     });
     const lookAnswer = { place: "A river garden", timeOfDay: "morning", weather: "clear", light: "soft first light", clothing: "plain wraps" };
-    const planAnswer = { present: ["adam", "eden", "god"], primarySubject: "Adam standing by the river", action: "looks up at the new light", setting: "garden", secondaryElements: "cedars, water", mood: "wonder", timeOfDay: "morning", composition: "wide" };
+    const planAnswer = { missingCast: [], present: ["adam", "eden", "god"], primarySubject: "Adam standing by the river", action: "looks up at the new light", setting: "garden", secondaryElements: "cedars, water", mood: "wonder", timeOfDay: "morning", composition: "wide" };
     let modelCalls: string[] = [];
     let modelFailure: Error | null = null;
+    let missingCast: string[] = [];
     const textModel: TextModel = {
       id: "scripted",
       async complete(request) {
         modelCalls.push(request.label);
         if (modelFailure) throw modelFailure;
-        return { content: JSON.stringify(request.schemaName === "section_look" ? lookAnswer : planAnswer), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd: 0.0004 }, elapsedMs: 1 };
+        return { content: JSON.stringify(request.schemaName === "section_look" ? lookAnswer : { ...planAnswer, missingCast }), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd: 0.0004 }, elapsedMs: 1 };
       },
     };
     let blobFailures = new Set<string>();
@@ -618,7 +619,7 @@ describe("Image Generation API Credit Flow", () => {
 
     beforeEach(async () => {
       process.env.GENERIC_ENGINE_MODE = "public";
-      modelCalls = []; modelFailure = null; blobFailures = new Set(); loadedBlobs = []; tone = brief.tone;
+      modelCalls = []; modelFailure = null; missingCast = []; blobFailures = new Set(); loadedBlobs = []; tone = brief.tone;
       fetchImageModelsMock.mockResolvedValue({ models: [genericModel] });
       // Imported here, after the module mocks above are installed.
       const { createGenericEngine } = await import("@/lib/engine/generation");
@@ -713,6 +714,23 @@ describe("Image Generation API Credit Flow", () => {
       expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
       // The owner's failed attempts are still recorded as preparation spend, never as a guest charge.
       expect((await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((e) => e.outcome.startsWith("error"))).toEqual([true, true]);
+    });
+
+    it("stops on one missing-cast reply before a guest reservation, request record or image call", async () => {
+      await prepareWork();
+      missingCast = ["required source actor"];
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest(body));
+      expect(response.status).toBe(503);
+      expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true,
+        message: expect.stringContaining("required canon unavailable: required source actor") });
+      expect(modelCalls).toHaveLength(2); // One look and one plan; no semantic retry.
+      expect((await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((entry) => entry.outcome)).toEqual(["ok", "unavailable"]);
+      expect(getCallCount("reserveCredits")).toBe(0);
+      expect(imageCalls()).toHaveLength(0);
+      expect(await storedRequests()).toHaveLength(0);
+      expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
+      expect(await requestDb.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "genesis-1-1" })).toBeNull();
     });
 
     it("omits a reference whose blob cannot be loaded or whose inputs changed, and the packet reflects what was actually sent", async () => {

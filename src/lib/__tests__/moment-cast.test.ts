@@ -7,7 +7,7 @@ import schema from "../../../convex/schema";
 import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
 import { assembleRendering, type AssembleDeps } from "../engine/assemble";
-import { createConvexPreparationStore, type AnalysisRecord } from "../engine/preparation";
+import { createConvexPreparationStore, MOMENT_CAST_PROMPT_VERSION, type AnalysisRecord } from "../engine/preparation";
 import { readWorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 
@@ -52,7 +52,7 @@ describe("moment cast over shared section context", () => {
       const old = retained.find((record) => record.kind === "plan" && request.label.startsWith(`plan:${record.recordId}:`));
       if (!old) throw new Error("Unexpected moment");
       const payload = old.payload as unknown as { entries: Array<{ entryId: string }>; plan: Record<string, unknown> };
-      return { content: JSON.stringify({ ...payload.plan, present: payload.entries.map((entry) => entry.entryId) }),
+      return { content: JSON.stringify({ ...payload.plan, missingCast: [], present: payload.entries.map((entry) => entry.entryId) }),
         model: "retained-reply", providerRequestId: null, finishReason: "stop", elapsedMs: 0,
         usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 } };
     } };
@@ -94,7 +94,7 @@ describe("moment cast over shared section context", () => {
     const look = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: SECTION });
     expect(look).toMatchObject({ source: ownerLook ? "owner" : "generated", payload: oldLook.payload, inputs: oldLook.inputs });
     const plan = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "daniel-7-10" });
-    expect(plan?.inputs).toContainEqual({ kind: "prompt", recordId: "scene_plan_moment_cast", version: "2026-10-22-moment-cast-v1" });
+    expect(plan?.inputs).toContainEqual({ kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION });
   });
 
   it("retains the disputed assembly selection verbatim rather than treating instructions as a semantic validator", async () => {

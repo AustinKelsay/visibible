@@ -36,9 +36,11 @@ const formlessLookOutputSchema = (() => {
 
 export const PLAN_SYSTEM = `You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the cast on stage in the section. Plan one single scene that depicts this moment. Return only JSON.
 Rules: single scene, no collage. Choose which of the listed cast are present in this moment and name them in \`present\` by their ids; leave out cast who are elsewhere in the section. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that) and do not name an art style or rendering technique; describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.
-Establish presence from the scene being illustrated. A shared wardrobe, a narrator's viewpoint or a neighboring mention alone does not establish presence. Neighbors may resolve identity and continuity in the current scene; do not import cast from a separate adjacent event. The section cast and look cover multiple moments, not a roster to depict in every image. Apply shared clothing and props only to selected entries. Every character or group described in any scene field must be selected in \`present\`; omit unselected figures rather than describing them as background.`;
+Establish presence from the scene being illustrated. A shared wardrobe, a narrator's viewpoint or a neighboring mention alone does not establish presence. Neighbors may resolve identity and continuity in the current scene; do not import cast from a separate adjacent event. The section cast and look cover multiple moments, not a roster to depict in every image. Apply shared clothing and props only to selected entries. Every character or group described in any scene field must be selected in \`present\`; omit unselected figures rather than describing them as background.
+Identify the action the moment depicts before selecting cast. If it is inside a narrated story, parable, dream, vision or recollection, depict that scene's actors and setting. Do not place its framing speaker, listener or narrator inside it unless the text establishes their participation there. Reporting "I saw" supplies a viewpoint, not a visible observer. Shared look details from the framing scene do not establish the inner scene's cast or place.
+If depicting this moment requires an actor or group absent from the available section cast, report it by name or role in \`missingCast\`. Do not replace it with a framing figure, invent an unselected subject, or omit the moment's main actor to fit the list. When \`missingCast\` is nonempty, return empty \`present\` and empty scene fields; preparation will stop for a source correction. Otherwise return an empty \`missingCast\` list. This is a report of missing required canon, not a request to create it.`;
 /** All plans use the selected-cast contract; a change refreshes plans lazily, without remaking looks. */
-export const MOMENT_CAST_PROMPT_VERSION = "2026-10-22-moment-cast-v1";
+export const MOMENT_CAST_PROMPT_VERSION = "2026-10-22-moment-cast-v2";
 /** Bump for changes to this no-form planning contract or its cast format; only affected plans use it. */
 export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-22-formless-effects-v5";
 const FORMLESS_PLAN_SYSTEM = `${PLAN_SYSTEM}
@@ -65,6 +67,19 @@ function formlessPlanOutputSchema(entryIds: string[]) {
     timeOfDay: field("This moment's time of day and situational illumination, consistent with the section look. Leave the no-form subject's fixed appearance in canon."),
     composition: field("Viewpoint, framing and relative placement of formed subjects, objects and permitted effects in one scene. Keep this independent of art style and rendering technique."),
   }).strict();
+}
+
+/** All plans report missing required canon and reject unknown or duplicate selections locally. */
+function planningResponseSchema(entryIds: string[], hasFormlessCast: boolean) {
+  const base = hasFormlessCast ? formlessPlanOutputSchema(entryIds) : planOutputSchema;
+  // An empty enum is not a useful provider schema. Refinement still rejects every ID locally.
+  const id = entryIds.length ? z.enum(entryIds) : z.string().refine(() => false, "No section cast is available");
+  return base.extend({
+    present: z.array(id).refine((ids) => new Set(ids).size === ids.length, "Cast IDs must be distinct")
+      .describe("Distinct IDs of available section cast present in the depicted scene, including permitted no-form effects. Empty when no cast is needed or required canon is missing."),
+    missingCast: z.array(z.string().refine((name) => name.trim().length > 0, "A missing subject needs a name or role"))
+      .describe("Names or roles required by this moment but absent from the available section cast. Include actors inside embedded stories or visions. Empty when all required canon is available; never invent canon or substitute framing figures."),
+  });
 }
 
 export type AnalysisRecord = { kind: string; recordId: string; version: string; inputs: Array<{ kind: string; recordId: string; version: string }>; payload: Record<string, unknown> & { kind: string } };
@@ -163,7 +178,7 @@ async function ensureRecord(
   return task;
 }
 
-async function askOnce<T>(model: TextModel, store: PreparationStore, kind: "look" | "plan", recordId: string, schema: z.ZodType<T>, system: string, user: string): Promise<T> {
+async function askOnce<T>(model: TextModel, store: PreparationStore, kind: "look" | "plan", recordId: string, schema: z.ZodType<T>, system: string, user: string, unavailable?: (value: T) => string | null): Promise<T> {
   let lastError = "";
   for (let attempt = 1; attempt <= 2; attempt++) {
     let result;
@@ -175,8 +190,10 @@ async function askOnce<T>(model: TextModel, store: PreparationStore, kind: "look
       continue;
     }
     const parsed = parseModelJson(schema, result.content);
-    await store.recordSpend({ kind, recordId, model: result.model, outcome: "error" in parsed ? "invalid" : "ok", costUsd: result.usage.costUsd, promptTokens: result.usage.promptTokens, completionTokens: result.usage.completionTokens, elapsedMs: result.elapsedMs });
+    const reason = "error" in parsed ? null : unavailable?.(parsed.value);
+    await store.recordSpend({ kind, recordId, model: result.model, outcome: "error" in parsed ? "invalid" : reason ? "unavailable" : "ok", costUsd: result.usage.costUsd, promptTokens: result.usage.promptTokens, completionTokens: result.usage.completionTokens, elapsedMs: result.elapsedMs });
     if ("error" in parsed) { lastError = parsed.error; continue; }
+    if (reason) throw new PreparationUnavailableError(kind, reason);
     return parsed.value;
   }
   throw new PreparationUnavailableError(kind, lastError);
@@ -211,10 +228,10 @@ export async function prepareMoment(options: {
   const cast: Array<{ entryId: string; stageId: string; name: string; version: string; constraint: string; hasForm: boolean }> = [];
   for (const member of sectionPayload.cast) {
     const entry = await store.getActiveRecord("entry", member.entryId);
-    if (!entry || entry.payload.kind !== "entry") continue;
+    if (!entry || entry.payload.kind !== "entry") throw new PreparationUnavailableError("plan", `missing canon entry ${member.entryId}`);
     const stages = entry.payload.stages as Array<{ id: string; text: string; showing?: unknown }>;
-    const stage = stages.find((s) => s.id === member.stageId) ?? stages[0];
-    if (!stage) continue;
+    const stage = stages.find((s) => s.id === member.stageId);
+    if (!stage || !stage.text.trim()) throw new PreparationUnavailableError("plan", `missing canon stage ${member.entryId}:${member.stageId}`);
     const name = String(entry.payload.name);
     cast.push({ entryId: member.entryId, stageId: stage.id, name, version: entry.version,
       constraint: planningConstraint(name, stage), hasForm: entry.payload.hasForm !== false });
@@ -236,8 +253,10 @@ export async function prepareMoment(options: {
     return { kind: "look" as const, sectionId, ...value };
   }, timing);
 
-  // The plan depends on the moment, the look, the brief and the cast's canon; never on a style or translation.
-  const planInputs: InputRef[] = [{ kind: "moment", recordId: options.momentId, version: moment.version }, { kind: "look", recordId: sectionId, version: look.version },
+  // Include the section directly: a stage reassignment can leave the regenerated look's content hash unchanged.
+  // The plan never depends on a style or translation.
+  const planInputs: InputRef[] = [{ kind: "moment", recordId: options.momentId, version: moment.version }, { kind: "section", recordId: sectionId, version: section.version },
+    { kind: "look", recordId: sectionId, version: look.version },
     { kind: "brief", recordId: options.workId, version: options.briefVersion }, ...cast.map((c) => ({ kind: "entry", recordId: c.entryId, version: c.version })),
     { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION },
     ...(hasFormlessCast ? [{ kind: "prompt", recordId: "scene_plan_formless_presence", version: FORMLESS_PLAN_PROMPT_VERSION }] : [])];
@@ -247,11 +266,11 @@ export async function prepareMoment(options: {
       ? `\n\nNO-FORM CANON CONSTRAINTS (planning context; fixed descriptions are not scene-plan fields):\n${formlessConstraints}`
       : "";
     const user = `WORK BRIEF\nTone: ${brief.tone}\nDepiction rules:\n${rules}\nEra: ${era.label}. People: ${era.people} Dress: ${era.dress} Technology: ${era.technology}\nSTORY SECTION: ${sectionPayload.title}\nSECTION LOOK: place: ${lookPayload.place}; time: ${lookPayload.timeOfDay}; weather: ${lookPayload.weather}; light: ${lookPayload.light}; clothing: ${lookPayload.clothing}\nCAST ON STAGE IN THIS SECTION (id: name):\n${cast.map((c) => `- ${c.entryId}: ${c.name}${hasFormlessCast ? ` (hasForm: ${c.hasForm})` : ""}`).join("\n") || "- (no one listed)"}${formlessCanon}\n\nMOMENT (${options.context.moment.reference}): ${options.context.moment.text}\nPREVIOUS: ${options.context.previous?.text.slice(0, 400) ?? "(section starts here)"}\nNEXT: ${options.context.next?.text.slice(0, 400) ?? "(section ends here)"}`;
-    const schema = hasFormlessCast ? formlessPlanOutputSchema(cast.map((c) => c.entryId)) : planOutputSchema;
-    const value = await askOnce(model, store, "plan", options.momentId, schema, hasFormlessCast ? FORMLESS_PLAN_SYSTEM : PLAN_SYSTEM, user);
-    const known = new Set(cast.map((c) => c.entryId));
-    const present = value.present.filter((id) => known.has(id));
-    const { present: _ignored, ...fields } = value;
+    const schema = planningResponseSchema(cast.map((c) => c.entryId), hasFormlessCast);
+    // A schema-valid source gap is not a malformed reply to retry until it disappears.
+    const value = await askOnce(model, store, "plan", options.momentId, schema, hasFormlessCast ? FORMLESS_PLAN_SYSTEM : PLAN_SYSTEM, user,
+      (reply) => reply.missingCast.length ? `required canon unavailable: ${reply.missingCast.join(", ")}` : null);
+    const { present, missingCast: _ignored, ...fields } = value;
     void _ignored;
     return { kind: "plan" as const, momentId: options.momentId, entries: present.map((id) => ({ entryId: id, stageId: cast.find((c) => c.entryId === id)!.stageId })), plan: fields };
   }, timing);

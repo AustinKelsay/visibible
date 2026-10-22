@@ -30,7 +30,7 @@ type RecordInput = FunctionArgs<typeof api.analysis.putRecords>["records"][numbe
 describe("no-form section look and canon separation", () => {
   beforeEach(() => { process.env.CONVEX_SERVER_SECRET = SECRET; });
 
-  async function setup({ lookReplies = [situationalLook], marker, currentPlanCast = false }: { lookReplies?: Array<Record<string, unknown>>; marker?: string; currentPlanCast?: boolean } = {}) {
+  async function setup({ lookReplies = [situationalLook], marker, currentPlanInputs = false }: { lookReplies?: Array<Record<string, unknown>>; marker?: string; currentPlanInputs?: boolean } = {}) {
     const t = convexTest(schema, modules);
     const inputs = await readWorkInputs(WORK);
     const versions = { workVersion: inputs.workVersion, briefVersion: inputs.briefVersion };
@@ -44,8 +44,12 @@ describe("no-form section look and canon separation", () => {
     for (const kind of ["look", "plan"] as const) {
       const old = snapshot.records.find(({ record }) => record?.kind === kind)!.record!;
       const refs = [...old.inputs, ...(kind === "look" && marker ? [{ kind: "prompt", recordId: "section_look_formless_presence", version: marker }] : [])];
-      // Isolate content-hash reuse from the separate selected-cast prompt migration in this case.
-      if (kind === "plan" && currentPlanCast) refs.push({ kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION });
+      // Isolate content-hash reuse by adapting this fixture's dependencies; retained artifacts stay unchanged.
+      if (kind === "plan" && currentPlanInputs) {
+        const section = snapshot.records.find(({ record }) => record?.kind === "section")!.record!;
+        refs.push({ kind: "section", recordId: section.recordId, version: section.version },
+          { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION });
+      }
       const saved = await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind, recordId: ID,
         payload: old.payload as FunctionArgs<typeof api.analysis.putDerivedRecord>["payload"], inputs: refs });
       expect(saved.version).toBe(old.version);
@@ -56,7 +60,7 @@ describe("no-form section look and canon separation", () => {
     let lookAttempt = 0;
     const model: TextModel = { id: "scripted", complete: async (request) => {
       requests.push(request);
-      const value = request.schemaName === "section_look" ? lookReplies[lookAttempt++] : retainedPlan;
+      const value = request.schemaName === "section_look" ? lookReplies[lookAttempt++] : { ...retainedPlan, missingCast: [] };
       if (!value) throw new Error("Unexpected scripted call");
       return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop",
         usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 }, elapsedMs: 0 };
@@ -116,7 +120,7 @@ describe("no-form section look and canon separation", () => {
   });
 
   it("retains the exact schema-valid live failure without semantic retry and reuses an unchanged plan", async () => {
-    const { t, requests, render, record } = await setup({ lookReplies: [retainedLook], currentPlanCast: true });
+    const { t, requests, render, record } = await setup({ lookReplies: [retainedLook], currentPlanInputs: true });
     const result = await render();
     if (!result.ok) throw new Error(result.message);
     expect(requests.map((r) => r.schemaName)).toEqual(["section_look"]);

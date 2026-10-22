@@ -18,7 +18,8 @@ const canon = JSON.parse(readFileSync(new URL("canon.json", evidence), "utf8")).
 async function plan(content = retainedContent, showing?: unknown) {
   const inputs = await readWorkInputs("bible-web");
   const records: AnalysisRecord[] = structuredClone(input.records);
-  // Isolate the unchanged PLAN contract with a current look. The separate look regressions
+  // Adapt the historical reply with an empty missingCast report; keep every retained scene field unchanged.
+  // Isolate the plan from a look refresh. The separate look regressions
   // replay historical inputs without this marker and exercise ordinary refresh behavior.
   records.find((r) => r.kind === "look")!.inputs.push({ kind: "prompt", recordId: "section_look_formless_presence", version: FORMLESS_LOOK_PROMPT_VERSION });
   if (showing !== undefined) {
@@ -45,7 +46,7 @@ async function plan(content = retainedContent, showing?: unknown) {
   const model: TextModel = { id: "scripted", complete: async (request) => {
     requests.push(request);
     const answer = request.schemaName === "section_look" ? JSON.stringify({ place: frozenLook.place, timeOfDay: frozenLook.timeOfDay,
-      weather: frozenLook.weather, light: frozenLook.light, clothing: frozenLook.clothing }) : content;
+      weather: frozenLook.weather, light: frozenLook.light, clothing: frozenLook.clothing }) : JSON.stringify({ ...JSON.parse(content), missingCast: [] });
     return { content: answer, model: "scripted", providerRequestId: null, finishReason: "stop",
       usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 }, elapsedMs: 0 };
   } };
@@ -83,7 +84,7 @@ describe("no-form plan and canon separation", () => {
     const { result, requests, write, spend } = await plan(retainedContent, showing);
     const plans = requests.filter((r) => r.schemaName === "scene_plan");
     expect(plans).toHaveLength(1);
-    expect(plans[0].schema.safeParse(retainedPlan).success).toBe(true);
+    expect(plans[0].schema.safeParse({ ...retainedPlan, missingCast: [] }).success).toBe(true);
     expect(result.plan.payload).toEqual(retainedPlan);
     expect(result.plan.payload.primarySubject).toBe("Radiance above an unoccupied fiery throne; Daniel stands below, gazing upward.");
     expect(result.plan.payload.secondaryElements).toContain("soft white cloud");

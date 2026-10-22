@@ -34,8 +34,8 @@ function scriptedModel(answer: (request: TextModelRequest) => unknown, costUsd =
   return model;
 }
 const lookAnswer = { place: "Lakeshore with two boats", timeOfDay: "dawn", weather: "calm", light: "low sun", clothing: "wool tunics" };
-const planAnswer = (present: string[]) => ({ present, primarySubject: "Jonah kneeling", action: "mends nets", setting: "shore", secondaryElements: "boats", mood: "quiet", timeOfDay: "dawn", composition: "wide" });
-const defaultAnswer = (request: TextModelRequest) => request.label.startsWith("look:") ? lookAnswer : planAnswer(["jonah", "ghost"]);
+const planAnswer = (present: string[]) => ({ present, missingCast: [], primarySubject: "Jonah kneeling", action: "mends nets", setting: "shore", secondaryElements: "boats", mood: "quiet", timeOfDay: "dawn", composition: "wide" });
+const defaultAnswer = (request: TextModelRequest) => request.label.startsWith("look:") ? lookAnswer : planAnswer(["jonah"]);
 
 const records = [
   { kind: "entry" as const, recordId: "jonah", payload: { kind: "entry" as const, name: "Jonah", entryKind: "character" as const, hasForm: true, stages: [{ id: "young", text: "Jonah: young fisherman." }, { id: "old", text: "Jonah: weathered sailor." }] } },
@@ -89,6 +89,21 @@ describe("lazy looks and plans", () => {
     const spend = await t.query(api.analysis.getPreparationSpend, { workId: WORK });
     expect(spend.calls).toBe(5);
     expect(spend.costUsd).toBeCloseTo(0.0025, 6);
+  });
+
+  it("uses a reassigned canon stage even when the refreshed look has identical content", async () => {
+    const model = scriptedModel(defaultAnswer);
+    const options = { workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast };
+    const first = await prepareMoment(options);
+    const section = records.find((record) => record.kind === "section" && record.recordId === "alpha-1-1")!;
+    if (section.payload.kind !== "section") throw new Error("Missing section fixture");
+    await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "section", recordId: section.recordId,
+      payload: { ...section.payload, cast: [{ entryId: "jonah", stageId: "young" }, { entryId: "amos", stageId: "main" }] } });
+    const changed = await prepareMoment(options);
+    expect(changed.look.version).toBe(first.look.version);
+    expect(changed.present).toEqual([{ entryId: "jonah", stageId: "young", version: expect.any(String) }]);
+    expect(changed.calls).toBe(2);
+    expect(model.calls.map((call) => call.schemaName)).toEqual(["section_look", "scene_plan", "section_look", "scene_plan"]);
   });
 
   it("remakes only what an owner edit or a cleared plan invalidates", async () => {

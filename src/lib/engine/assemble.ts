@@ -104,14 +104,26 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
     return { ok: false, reason: "preparation", message: "Scene preparation failed.", retryable: true, stage: null, error };
   }
 
+  // A concurrent section correction can reassign a stage without changing its entry's version.
+  const activeSection = await store.getActiveRecord("section", sectionId);
+  const assignments = activeSection?.payload.cast as Array<{ entryId: string; stageId: string }> | undefined;
+  if (!activeSection || activeSection.payload.kind !== "section" || activeSection.version !== section.version || prepared.sectionId !== sectionId ||
+    !assignments || prepared.present.some((present) => !assignments.some((member) => member.entryId === present.entryId && member.stageId === present.stageId))) {
+    return { ok: false, reason: "preparation", message: "Preparing scene: section cast changed.", retryable: true, stage: "plan", error: null };
+  }
+
   // The canon stages of the entries the plan marked present.
   const canon: SelectedCanon[] = [];
   for (const present of prepared.present) {
     const entry = await store.getActiveRecord("entry", present.entryId);
-    if (!entry || entry.payload.kind !== "entry") continue;
+    if (!entry || entry.payload.kind !== "entry" || entry.version !== present.version) {
+      return { ok: false, reason: "preparation", message: `Preparing scene: canon changed for ${present.entryId}.`, retryable: true, stage: "plan", error: null };
+    }
     const payload = entry.payload as unknown as { name: string; entryKind: SelectedCanon["kind"]; hasForm?: boolean; stages: Array<{ id: string; text: string }> };
-    const stage = payload.stages.find((s) => s.id === present.stageId) ?? payload.stages[0];
-    if (!stage) continue;
+    const stage = payload.stages.find((s) => s.id === present.stageId);
+    if (!stage || !stage.text.trim()) {
+      return { ok: false, reason: "preparation", message: `Preparing scene: missing canon stage ${present.entryId}:${present.stageId}.`, retryable: true, stage: "plan", error: null };
+    }
     canon.push({ entryId: present.entryId, stageId: stage.id, kind: payload.entryKind, name: payload.name, text: stage.text, hasForm: payload.hasForm !== false, version: entry.version });
   }
 
