@@ -1,0 +1,76 @@
+{
+  "at": "2026-10-22T19:49:08.049622+00:00",
+  "verdict": "hold-for-moment-selection",
+  "reviewedCodeCommit": "230c6c8a4f16c9f3cba39342e548c4ea5c1aca9a",
+  "execution": "Run the reviewed merged preparation code locally against existing production Convex analysis and functions. No app deployment, cache overlay or canon correction.",
+  "publicActivation": false,
+  "humanAccepted": false,
+  "admission": "disabled",
+  "ownerSessionConfigured": false,
+  "appDeployments": 0,
+  "ownerCorrections": 0,
+  "readingPassCalls": 0,
+  "canonCalls": 0,
+  "referenceCalls": 0,
+  "textCalls": 3,
+  "imageCalls": 0,
+  "semanticRetries": 0,
+  "momentsCompleted": [
+    "daniel-7-9",
+    "daniel-7-10"
+  ],
+  "lookVersion": "219208bab707a1b98f813e02b220d45e",
+  "packetAssemblies": 6,
+  "livePreparationLedgerDelta": {
+    "calls": 3,
+    "measuredUsd": 0.0012892000000000008
+  },
+  "openRouterBalanceDeltaUsd": 0.0012892000000022108,
+  "accountingSource": "Explicit provider usage reconciled with Convex preparation spend; credits balance is supporting evidence.",
+  "preparation": {
+    "authorizedUsd": 43,
+    "measuredUsd": 3.6403196,
+    "uncertaintyReserveUsd": 0.03,
+    "remainingAfterReserveUsd": 39.3296804,
+    "runCapUsd": 0.03,
+    "runMeasuredUsd": 0.0012892,
+    "runUncertainUsd": 0
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredUsd": 16.2980069,
+    "uncertaintyReserveUsd": 0.045,
+    "remainingAfterReserveUsd": 0.1569931,
+    "unchanged": true
+  },
+  "smoke": {
+    "authorizedUsd": 1,
+    "measuredUsd": 0.0685215,
+    "remainingUsd": 0.9314785,
+    "unchanged": true
+  },
+  "matrix": {
+    "complete": 236,
+    "total": 324,
+    "missing": 88,
+    "unchanged": true
+  },
+  "textPreparationElapsedMs": {
+    "9": 8918.462667,
+    "10": 4742.436291
+  },
+  "releaseGatesStillOpen": [
+    "moment-specific cast selection and unselected cast in shared look",
+    "repeatability and broader source/cast behavior",
+    "visual quality and human acceptance",
+    "deploy current app code and verify actual app behavior",
+    "full-request latency",
+    "compatibility and accounting release evidence",
+    "explicit public activation",
+    "named 24-hour follow-up"
+  ],
+  "narrowNoFormText": "pass-observed-in-two-moments",
+  "wholeTextAccepted": false,
+  "currentReview": "review-followup.json",
+  "originalReview9AcceptedBeforeCall10": true
+}

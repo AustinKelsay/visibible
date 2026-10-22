@@ -1,0 +1,63 @@
+{
+  "at": "2026-10-22T19:57:41.183547+00:00",
+  "reviewer": "agent reassessment after CodeRabbit CLI review",
+  "verdict": "hold-for-moment-selection",
+  "narrowNoFormText": "pass-observed-in-two-moments",
+  "humanAccepted": false,
+  "publicActivation": false,
+  "supersedes": [
+    "review-9.json",
+    "review-10.json"
+  ],
+  "historicalReviewHashes": {
+    "review-9.json": "4ea77a4f5eef7d24f8bfd555a9cf5307e2b168dc880eaf68e3f2f37ed3bc23f3",
+    "review-10.json": "65c26caa2445b81791239c3b5f352a554dad5eaa1bc965f54b135c102b3d219e"
+  },
+  "initialCodeRabbitIssues": 2,
+  "findings": [
+    {
+      "severity": "major",
+      "criterion": "Positive evidence for cast present in the current moment",
+      "result": "not-established-for-7:9",
+      "sourceMoment": "daniel-7-9",
+      "selectedEntry": "ministering_assembly_in_daniels_vision",
+      "evidence": "The assembly is described in the Daniel 7:10 neighbor, not in the quoted 7:9 unit. The first inspection used that neighbor to accept the assembly in 7:9.",
+      "reassessment": "The matching canon repairs the former unlisted-cast gap, but neither a shared section nor neighboring mention alone establishes presence in this particular moment. Continuity is a possible interpretation, not sufficient evidence for a selection pass here. The parent allows neighbor context; this audit does not add an exclusive-unit-only rule or assert the source categorically excludes the assembly.",
+      "decision": "Withdraw the original moment-selection pass and hold the whole check for source/presence review. Retain the plan and original decision unchanged."
+    },
+    {
+      "severity": "minor",
+      "criterion": "Selected cast versus rendering input",
+      "result": "unselected-character-name-remains-in-shared-look",
+      "sourceMoment": "daniel-7-10",
+      "selectedCast": [
+        "the_ancient_of_days",
+        "ministering_assembly_in_daniels_vision"
+      ],
+      "exactSharedClothing": "Formed attendants wear priestly linen or white court robes; Daniel in his ordinary tunic and cloak, no added props",
+      "evidence": "All three 7:10 rendering prompts contain the shared clothing sentence naming Daniel, while their selected canon omits him.",
+      "reassessment": "The selection and canon differ between moments. The packet does not establish that an eventual image will omit Daniel. The shared look can carry an unselected character into rendering context.",
+      "decision": "Keep depiction absence unproven; resolve the shared-look/presence boundary and verify any later targeted image for unexpected Daniel or other unselected figures."
+    }
+  ],
+  "historicalExecution": {
+    "originalReview9": "accept-for-next-text-check",
+    "nextMomentWasRun": true,
+    "nextMomentMeasuredUsd": 0.0004861,
+    "explanation": "The original acceptance was used before the 7:10 call. This reassessment does not retroactively change that decision, the first-valid responses or the paid-call history. The second call is retained as exploratory evidence, not confirmation of a passed first-moment gate.",
+    "furtherPaidCalls": 0
+  },
+  "decision": {
+    "wholeTextAccepted": false,
+    "imageCalls": 0,
+    "semanticRetries": 0,
+    "canonEdits": 0,
+    "deployment": false,
+    "publicActivation": false
+  },
+  "limits": [
+    "The no-form look/plan wording has improved in this small sample; no visual or repeatability acceptance follows.",
+    "Matching selected canon and an absence from present do not independently prove an image will include or omit a figure.",
+    "No cached payload, provider response, source, canon or historical review was edited to make this check pass."
+  ]
+}

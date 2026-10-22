@@ -1,0 +1,46 @@
+{
+  "at": "2026-10-22T19:43:20.109Z",
+  "label": "look:daniel-7-9:1",
+  "request": {
+    "system": "You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.\nRules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments, and do not restate anyone's fixed appearance; canon does that. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.\nCast marked hasForm: false have no physical body. Use their assigned canon constraints to choose permitted effects for the shared setting. Bodily wording about those subjects in the source is a metaphor, not permission to describe anatomy, hair, clothing, silhouettes or figures made of light in any look field. Do not repeat prohibited features as denials or substitutes, such as a faceless figure or radiance suggesting garments. A seated metaphor permits an unoccupied seat and surrounding effects, not a seated presence. Keep formed characters' own situational clothing and props attached to them; never transfer a no-form subject's bodily metaphors to them.\nThe complete canon is supplied separately to rendering. Where constraints list effect names for placement, choose only from those effects and leave their fixed colour, brightness and texture to canon. Historical prose constraints may still include the full description. Describe only the effects needed for the section's shared setting or illumination, without enumerating all effects or copying fixed appearance into the look. Situational illumination and formed characters' clothing remain valid look details. The cast list covers the whole section; do not force every cast member into the shared setting or add individual poses, actions or moments.",
+    "user": "WORK BRIEF\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction rules:\n- God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\n- Treat battles, death and crucifixion seriously; avoid lingering gore.\n- No sexually explicit content; non-sexual nudity may follow the text.\n- Show all peoples with dignity, without ethnic or religious caricature.\n- Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return. People: Israelites and neighboring Levantine, Mesopotamian and Persian peoples. Dress: Tunics, cloaks, court robes, priestly linen and period armor. Buildings and objects: Villages, palaces, temples, city gates and exile settlements.\n\nSTORY SECTION: The Ancient of Days and the son of man\nCAST ON STAGE IN THIS SECTION (id: name):\n- daniel_prophet_of_babylon: Daniel (prophet of Babylon) (hasForm: true)\n- the_ancient_of_days: The Ancient of Days (hasForm: false)\n- one_like_a_son_of_man: One like a son of man (hasForm: true)\n- babylon: Babylon (hasForm: true)\n- ministering_assembly_in_daniels_vision: Ministering assembly in Daniel's vision (hasForm: true)\n\nNO-FORM CANON CONSTRAINTS (setting context; fixed descriptions are not section-look fields):\n- the_ancient_of_days (stage: ancient-of-days-light): effect names for placement: radiance, fire, cloud, light\nTEXT OF THE SECTION'S FIRST MOMENT (the look covers the whole section):\n“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+    "schemaName": "section_look",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "place": {
+          "description": "The shared physical place and surroundings. For a no-form subject's seated metaphor, describe an unoccupied seat and permitted surrounding effects, without bodily substitutes or fixed canon appearance. At most 200 characters.",
+          "type": "string"
+        },
+        "timeOfDay": {
+          "description": "The time of day or change in time across the section, without a subject's fixed appearance. At most 200 characters.",
+          "type": "string"
+        },
+        "weather": {
+          "description": "Shared environmental conditions, without bodily metaphors or fixed canon appearance. At most 200 characters.",
+          "type": "string"
+        },
+        "light": {
+          "description": "Situational illumination shared by the section. Name a permitted no-form effect only where needed for the setting, leaving its fixed colour, brightness and texture to canon. Do not repeat prohibited features as denials. At most 200 characters.",
+          "type": "string"
+        },
+        "clothing": {
+          "description": "Only formed characters' situational clothing and shared props. Do not describe a no-form subject's clothing, hair, anatomy or garment substitutes, even as a denial. Leave fixed appearance to canon. At most 200 characters.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "place",
+        "timeOfDay",
+        "weather",
+        "light",
+        "clothing"
+      ],
+      "additionalProperties": false
+    },
+    "maxTokens": 900,
+    "expectedCompletionTokens": 350
+  },
+  "estimatedUsd": 0.0003124074074074074,
+  "maximumCompletionEstimatedUsd": 0.0005874074074074074
+}
