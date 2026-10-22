@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-22T20:31:37.530868+00:00",
+  "commit": "ecd58e06537e2a09b97260fee7612c35f0feb879",
+  "command": "npm run rehearse",
+  "passed": true,
+  "tests": 146,
+  "passedTests": 146,
+  "failedTests": 0,
+  "files": 15,
+  "scope": "Controlled-provider compatibility rehearsal; not live browser, visual or latency acceptance.",
+  "rawReport": "rehearsal.json.gz"
+}
