@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-22T18:03:01.928Z",
+  "label": "look:daniel-7-9:1",
+  "request": {
+    "system": "You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.\nRules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments, and do not restate anyone's fixed appearance; canon does that. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.",
+    "user": "WORK BRIEF\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction rules:\n- God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\n- Treat battles, death and crucifixion seriously; avoid lingering gore.\n- No sexually explicit content; non-sexual nudity may follow the text.\n- Show all peoples with dignity, without ethnic or religious caricature.\n- Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return. People: Israelites and neighboring Levantine, Mesopotamian and Persian peoples. Dress: Tunics, cloaks, court robes, priestly linen and period armor. Buildings and objects: Villages, palaces, temples, city gates and exile settlements.\n\nSTORY SECTION: The Ancient of Days and the son of man\nON STAGE: Daniel (prophet of Babylon), The Ancient of Days, One like a son of man, Babylon, Ministering assembly in Daniel's vision\nTEXT OF THE SECTION'S FIRST MOMENT (the look covers the whole section):\n“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+    "schemaName": "section_look",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "place": {
+          "type": "string"
+        },
+        "timeOfDay": {
+          "type": "string"
+        },
+        "weather": {
+          "type": "string"
+        },
+        "light": {
+          "type": "string"
+        },
+        "clothing": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "place",
+        "timeOfDay",
+        "weather",
+        "light",
+        "clothing"
+      ],
+      "additionalProperties": false
+    },
+    "maxTokens": 900,
+    "expectedCompletionTokens": 350
+  },
+  "estimatedUsd": 0.00024725925925925924,
+  "maximumCompletionEstimatedUsd": 0.0005222592592592592
+}

@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-22T18:05:53.691Z",
+  "verdict": "hold-for-formless-section-look",
+  "artifactSha256": "f072fb7c80f0e8a91fafef2d27c6b2a096b43208942e41feadc7efa69fbadee3",
+  "reviewer": "agent",
+  "humanAccepted": false,
+  "findings": [
+    {
+      "severity": "release-blocker",
+      "field": "look.clothing",
+      "exact": "Ancient of Days in white robes like snow and wool-white hair, unseen as human form; attendants in white linen",
+      "reason": "Assigns robes and wool-white hair to a no-form subject, contradicting the brief and contaminating shared rendering input."
+    },
+    {
+      "severity": "concern",
+      "field": "look.light",
+      "exact": "Radiant white and blazing fire-orange glow, no human face in the light",
+      "reason": "Repeats a prohibited bodily feature as a denial and copies fixed colour/brightness into the shared look."
+    }
+  ],
+  "castCheck": {
+    "assemblySelected": true,
+    "assemblyCanonAvailableAcrossStyles": true,
+    "absenceAt79Proved": false,
+    "reason": "The plan selects the assembly from same-section context. This is not evidence that it omits section cast absent from a different moment."
+  },
+  "planCheck": {
+    "unoccupiedThrone": true,
+    "noFormSelected": true,
+    "qualifierSeparationAccepted": false,
+    "reason": "The plan time-of-day copies fire-orange glow and radiant white light from the regenerated look. Upstream look semantics fail; the complete fresh path is held."
+  },
+  "stopped": {
+    "secondMoment": true,
+    "images": true,
+    "semanticRetries": 0
+  },
+  "next": "Give no-form section looks explicit form/effect context and depiction guidance with affected-look cache versioning; review before a new ordinary fresh text check."
+}
