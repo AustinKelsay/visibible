@@ -5,7 +5,7 @@ import schema from "../../../convex/schema";
 import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
 import { assembleRendering } from "../engine/assemble";
-import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, PLAN_SYSTEM, planOutputSchema } from "../engine/preparation";
+import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, LOOK_SYSTEM, lookOutputSchema, PLAN_SYSTEM, planOutputSchema } from "../engine/preparation";
 import type { WorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { responseSchema } from "../reading-pass/prompts";
@@ -186,6 +186,8 @@ describe("no-form presence selection", () => {
     const request = calls.find((r) => r.schemaName === "scene_plan")!;
     expect(request.user).toContain(`- voice (stage: early): ${fallbackCanon}`);
     expect(request.user).not.toContain(voiceCanon);
+    expect(calls[0].user).toContain(`- voice (stage: early): ${fallbackCanon}`);
+    expect(calls[0].user).not.toContain(voiceCanon);
     expect(result.packet.canon).toContainEqual(expect.objectContaining({ entryId: "voice", stageId: "early" }));
     expect(result.prompt).toContain(fallbackCanon);
   });
@@ -252,6 +254,11 @@ describe("no-form presence selection", () => {
     if (!first.ok) throw new Error(first.message);
     const plan = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
     expect(plan?.inputs.some((i) => i.kind === "prompt")).toBe(false);
+    const look = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "court-1" });
+    expect(look?.inputs.some((i) => i.kind === "prompt")).toBe(false);
+    expect(calls[0].system).toBe(LOOK_SYSTEM);
+    expect(calls[0].schema).toBe(lookOutputSchema);
+    expect(calls[0].user).toBe(`WORK BRIEF\nTone: Quiet.\nDepiction rules:\n- The voice has no body; show its presence only as light.\nEra: Ancient court. People: Courtiers. Dress: Tunics. Buildings and objects: Stone throne.\n\nSTORY SECTION: The court\nON STAGE: The watcher\nTEXT OF THE SECTION'S FIRST MOMENT (the look covers the whole section):\n${work.getUnit("court-1").text}`);
     expect(calls[1].system).toBe(PLAN_SYSTEM);
     expect(calls[1].schema).toBe(planOutputSchema);
     expect(first.prepared.plan.payload.present).toEqual(["watcher"]); // Legacy unknown-ID filtering stays unchanged.

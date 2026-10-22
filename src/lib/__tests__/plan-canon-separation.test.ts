@@ -2,7 +2,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
-import { prepareMoment, type AnalysisRecord, type PreparationStore } from "../engine/preparation";
+import { FORMLESS_LOOK_PROMPT_VERSION, prepareMoment, type AnalysisRecord, type PreparationStore } from "../engine/preparation";
 import { assembleRendering, type AssembleDeps } from "../engine/assemble";
 import { readWorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
@@ -18,6 +18,9 @@ const canon = JSON.parse(readFileSync(new URL("canon.json", evidence), "utf8")).
 async function plan(content = retainedContent, showing?: unknown) {
   const inputs = await readWorkInputs("bible-web");
   const records: AnalysisRecord[] = structuredClone(input.records);
+  // Isolate the unchanged PLAN contract with a current look. The separate look regressions
+  // replay historical inputs without this marker and exercise ordinary refresh behavior.
+  records.find((r) => r.kind === "look")!.inputs.push({ kind: "prompt", recordId: "section_look_formless_presence", version: FORMLESS_LOOK_PROMPT_VERSION });
   if (showing !== undefined) {
     const entry = records.find((r) => r.kind === "entry" && r.recordId === canon.entryId)!;
     entry.payload.stages = (entry.payload.stages as Array<{ id: string }>).map((stage) =>
@@ -98,10 +101,12 @@ describe("no-form plan and canon separation", () => {
     expect(write).toHaveBeenCalledTimes(2); // New canon metadata invalidates the old look through ordinary inputs.
     expect(result.look.payload).toEqual(Object.fromEntries(["place", "timeOfDay", "weather", "light", "clothing"].map((key) =>
       [key, input.records.find((r: AnalysisRecord) => r.kind === "look").payload[key]])));
+    expect(requests[0].user).toContain(`- ${canon.entryId} (stage: ${canon.stages[0].id}): effect names for placement: radiance, fire, cloud, light`);
     const request = requests[1];
     expect(request.user).toContain(`- ${canon.entryId} (stage: ${canon.stages[0].id}): effect names for placement: radiance, fire, cloud, light`);
     for (const phrase of [canon.stages[0].text, "brilliant white radiance", "bright orange fire", "soft white cloud", "brilliant white light"]) {
       expect(request.user).not.toContain(phrase);
+      expect(requests[0].user).not.toContain(phrase);
     }
     expect(request.user).toContain(input.context.moment.text);
     const versions = [];
@@ -128,6 +133,8 @@ describe("no-form plan and canon separation", () => {
     const { requests } = await plan(retainedContent, showing);
     expect(requests[1].user).toContain(`- ${canon.entryId} (stage: ${canon.stages[0].id}): ${canon.stages[0].text}`);
     expect(requests[1].user).not.toContain("effect names for placement");
+    expect(requests[0].user).toContain(`- ${canon.entryId} (stage: ${canon.stages[0].id}): ${canon.stages[0].text}`);
+    expect(requests[0].user).not.toContain("effect names for placement");
   });
 
   it("keeps situational colors and lighting and formed characters' clothing without a word filter", async () => {
