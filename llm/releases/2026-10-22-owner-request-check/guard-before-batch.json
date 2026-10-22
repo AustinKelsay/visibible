@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-22T20:45:12.190Z",
+  "guardInstalled": true,
+  "path": "/about",
+  "state": {
+    "baseCommit": "ecd58e06537e2a09b97260fee7612c35f0feb879",
+    "blocked": null,
+    "labels": {},
+    "lastStart": 0,
+    "maxUnique": 17,
+    "minIntervalMs": 13500,
+    "operationCapUsd": 0.9,
+    "priorOperationUsd": 0.034319,
+    "priorSmokeUsd": 0.0685215,
+    "reserveUsd": 0.05,
+    "rows": [],
+    "run": "2026-10-22-current-prompt",
+    "running": false,
+    "totalCapUsd": 1,
+    "ui": []
+  }
+}

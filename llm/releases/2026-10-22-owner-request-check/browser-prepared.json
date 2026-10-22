@@ -1,0 +1,1625 @@
+{
+  "baseCommit": "ecd58e06537e2a09b97260fee7612c35f0feb879",
+  "blocked": null,
+  "completed": 17,
+  "labels": {
+    "release-current-0459b74a-1bda-47cd-8c2a-8130bc5d3415": "cold-browser-http",
+    "release-current-1054f211-4bf5-4912-aa67-ae923279e312": "cold-browser-http",
+    "release-current-141a5bbb-2f33-4711-b3d3-a53b763d91d9": "cold-browser-http",
+    "release-current-35b7b8df-7486-48a7-9b30-8879871ab86f": "prepared-browser-http",
+    "release-current-39a58639-0aa4-43f7-b209-067880145f70": "prepared-browser-http",
+    "release-current-3efaef73-66b2-4c95-92f5-16e623623f38": "prepared-browser-http",
+    "release-current-48b52a0a-21d5-413d-b2bc-b461700c8c61": "prepared-browser-http",
+    "release-current-4da21289-56bd-4aad-af73-bfd98fa177df": "prepared-browser-http",
+    "release-current-4e72ca7a-e5fc-44bf-8512-4f9ff1caacb8": "cold-browser-http",
+    "release-current-54147eb4-bace-4f12-9018-07ca9144fca1": "prepared-browser-http",
+    "release-current-6867f1bf-b833-492e-baef-1e06393ba9f7": "cold-browser-http",
+    "release-current-81d98275-6124-49db-b678-7326bb2e14f9": "cold-browser-http",
+    "release-current-88b35597-f0bc-494b-8266-b4c628f7b9e6": "prepared-browser-http",
+    "release-current-a0907ee9-797e-4c92-b7ad-9de7d76c8dad": "cold-browser-http",
+    "release-current-da628daf-93e0-4076-bf1f-1a7b8317531b": "prepared-browser-http",
+    "release-current-dc2babfe-937c-42f3-bebd-42886117d6e0": "prepared-browser-http",
+    "release-current-eda5fdec-71a9-47b2-b1e8-ef5367d559b2": "cold-browser-http"
+  },
+  "lastStart": 1792702183472,
+  "maxUnique": 17,
+  "minIntervalMs": 13500,
+  "numberRows": 17,
+  "operationCapUsd": 0.9,
+  "priorOperationUsd": 0.034319,
+  "priorSmokeUsd": 0.0685215,
+  "reserveUsd": 0.05,
+  "run": "2026-10-22-current-prompt",
+  "running": false,
+  "totalCapUsd": 1,
+  "ui": [],
+  "rows": [
+    {
+      "at": "2026-10-22T20:45:12.585Z",
+      "cohort": "cold-browser-http",
+      "elapsedMs": 16649.600000023842,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "1 Kings 17:6",
+        "requestId": "release-current-eda5fdec-71a9-47b2-b1e8-ef5367d559b2",
+        "resolution": "1K",
+        "style": "classical",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.0341065,
+        "costUsd": 0.04240719,
+        "credits": 80,
+        "creditsCost": 5,
+        "durationMs": 4257,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "5a71628c-a4b1-408e-b0af-5c9999077841",
+        "imageCostUsd": 0.04240719,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.03392575,
+        "preparation": {
+          "calls": 2,
+          "promptChars": 5704,
+          "referencesSent": 0
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, 1 Kings 17:6: \"The ravens brought him bread and meat in the morning, and bread and meat in the evening; and he drank from the brook.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return\nPeople: Israelites and neighboring Levantine, Mesopotamian and Persian peoples.\nDress: Tunics, cloaks, court robes, priestly linen and period armor.\nBuildings and objects: Villages, palaces, temples, city gates and exile settlements.\nTechnology: Iron and bronze tools, chariots, siege works and scrolls; no modern objects.\n\nSELECTED CHARACTERS: Elijah\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Elijah: a lean, weathered man of middle years; sinewy build, tall and spare; sun-darkened skin; long, unkempt hair and a full wild beard; deep-set, unflinching eyes. Signature outfit in dark brown sheepskin mantle over a rough undertunic, girded with a plain leather belt; colours of earth, umber and ash. Carries only his mantle, which he rolls and strikes with.\n- Only Elijah has this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Wadi Cherith, a rocky desert ravine beside a narrow brook, with dry stone banks and scrubby brush\nTime of day: Morning into evening, spanning one day\nWeather: Clear, dry and still, with no rain\nLight: Bright desert sun in the morning, softening to warm amber dusk light by evening\nClothing: Simple tunic and cloak of rough wool suited to the desert; no props beyond a plain cloak and sandals\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Elijah, a lone prophet in a plain rough wool tunic and cloak, kneeling at the edge of a narrow brook\nAction: He bends to drink from the running water while a raven, wings partly spread, lands on a dry stone bank holding bread and meat in its beak\nSetting: Wadi Cherith, a rocky desert ravine with dry stone banks, scrubby brush and a narrow brook threading through the stones\nSecondary elements: Clear still air, no rain; sparse scrub clinging to the banks; a second raven distant on a ledge; bread and meat in the bird's beak\nMood: Quiet, reverent and sustained; provision in solitude, grounded and human\nTime of day: Morning, bright desert sun with sharp shadows on the stones\nComposition: Medium-wide shot from the low bank, Elijah in the lower left near the water, the raven centered on the stone above, ravine walls receding to the right\n\nART STYLE: Classical\nRendering: Stylized, painterly, mysterious and expansive. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.\nNegatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, fresco, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nPalette: Mature, grounded color; rich but restrained contrast.\nLighting: Luminous, dramatic lighting.\nMaterials and texture: Gritty, raw texture; avoid polished digital smoothness.\nComposition: Cinematic, immersive viewpoint; heroic but grounded.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- Before: So he went and did according to Yahweh’s word, for he went and lived by the brook Cherith that is before the Jordan.\n- After: After a while, the brook dried up, because there was no rain in the land.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "elijah",
+              "stageId": "elijah-main",
+              "version": "194e2b17d9314af2dcda7e8fa6320b93"
+            }
+          ],
+          "eraId": "monarchy-of-israel-and-judah",
+          "lookVersion": "261ff0321ed702a7ef3cd8fa140cd826",
+          "momentId": "1-kings-17-6",
+          "planVersion": "7eeb41ef9d949ffec87880d760b611db",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [],
+          "requestTranslationId": "kjv",
+          "sectionId": "1-kings-17-1",
+          "styleId": "classical",
+          "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792701923-kDrd6oRenHF7Z6ELwiXn",
+        "reference": "1 Kings 17:6",
+        "requestId": "release-current-eda5fdec-71a9-47b2-b1e8-ef5367d559b2",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh791qhq17zf9gyavs42sybgc18gs3rp",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "classical",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "The ravens brought him bread and meat in the morning, and bread and meat in the evening; and he drank from the brook."
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:45:29.237Z",
+      "cohort": "cold-browser-http",
+      "elapsedMs": 17748.699999928474,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "Mark 10:14",
+        "requestId": "release-current-0459b74a-1bda-47cd-8c2a-8130bc5d3415",
+        "resolution": "1K",
+        "style": "classical",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.0344645,
+        "costUsd": 0.04283125,
+        "credits": 75,
+        "creditsCost": 5,
+        "durationMs": 5351,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "d2d24567-2b7a-4899-ba02-3645a50e9db2",
+        "imageCostUsd": 0.04283125,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.034265,
+        "preparation": {
+          "calls": 2,
+          "promptChars": 6951,
+          "referencesSent": 1
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Mark 10:14: \"But when Jesus saw it, he was moved with indignation and said to them, “Allow the little children to come to me! Don’t forbid them, for God’s Kingdom belongs to such as these.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Roman Judea and the early church\nPeople: Jewish and Gentile Mediterranean communities under Roman rule.\nDress: Tunics, cloaks, priestly robes and Roman military clothing.\nBuildings and objects: Stone villages, synagogues, temple, fishing boats and Roman cities.\nTechnology: Oil lamps, sail and oar, roads, coins and papyrus; no modern objects.\n\nSELECTED CHARACTERS: Jesus Christ, the Son of God and Lord; The Twelve Disciples (collective)\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Jesus: man of about thirty, lean and strong from carpentry and walking; olive-brown skin; dark brown shoulder-length hair parted at centre; short dark beard; calm dark eyes; wears a plain undyed tunic of natural linen with a dark blue-grey cloak and sandals; carries no props except a shepherd's staff when a scene calls for one.\n- The Twelve Disciples: men of about twenty to forty years; sun-browned, lean and sturdy from fishing and walking; olive to weathered brown skin; short or shoulder-length dark hair and close-trimmed beards; plain, earnest faces. Signature outfit: a undyed linen tunic and a rough brown wool cloak with fringed hem. Signature props: a fishing net coiled over one shoulder for Peter and Andrew; a walking staff for travelers.\n- Only Jesus Christ, the Son of God and Lord, The Twelve Disciples (collective) have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Stone village road and open ground in rural Judea, near Jerusalem, with simple stone houses and a synagogue wall\nTime of day: Midday, same day throughout\nWeather: Clear, dry, warm afternoon with a few scattered clouds\nLight: Bright natural sunlight from overhead, soft shadows on dusty ground\nClothing: Everyday tunics and cloaks in earth tones for villagers and disciples; no props beyond simple walking staves\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Jesus Christ, turned toward the approaching crowd of mothers and children with an open, earnest expression\nAction: Jesus raises a hand in a gesture of welcome toward children coming to him, while several disciples in earth-toned tunics hold back, palms out, near the stone village road\nSetting: Stone village road and open ground in rural Judea near Jerusalem, simple stone houses and a synagogue wall in the background\nSecondary elements: Villagers in everyday tunics and cloaks, dusty ground with soft shadows, simple walking staves leaning against a wall, a few scattered clouds\nMood: Reverent, grounded and warm, with a tension of rebuke softening into welcome\nTime of day: Midday, bright natural overhead sunlight, clear dry warm afternoon\nComposition: Jesus centered and slightly elevated in the middle distance, children and parents streaming in from the left, disciples gathered on the right, the stone houses framing the horizon\n\nART STYLE: Classical\nRendering: Stylized, painterly, mysterious and expansive. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.\nNegatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, fresco, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nPalette: Mature, grounded color; rich but restrained contrast.\nLighting: Luminous, dramatic lighting.\nMaterials and texture: Gritty, raw texture; avoid polished digital smoothness.\nComposition: Cinematic, immersive viewpoint; heroic but grounded.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- Before: They were bringing to him little children, that he should touch them, but the disciples rebuked those who were bringing them.\n- After: Most certainly I tell you, whoever will not receive God’s Kingdom like a little child, he will in no way enter into it.”\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "jesus_christ_the_son_of_god_and_lord",
+              "stageId": "adult",
+              "version": "0610430f0f21f266bc5852671492395b"
+            },
+            {
+              "entryId": "the_twelve_disciples_collective",
+              "stageId": "the_twelve_disciples_collective_main",
+              "version": "e11e1543bc474368c11b38cbcb38fb87"
+            }
+          ],
+          "eraId": "roman-era-judea-galilee-and-the-early-church",
+          "lookVersion": "ac5109ffb8698e525e49cc8709bce45b",
+          "momentId": "mark-10-14",
+          "planVersion": "757d8680444744f990e122285d898ee4",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [
+            {
+              "id": "jesus_christ_the_son_of_god_and_lord:adult",
+              "kind": "sheet",
+              "version": "faeacb4c217a32a73a86082443a41d40"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "mark-10-13",
+          "styleId": "classical",
+          "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792701939-x4IjqeaVWzHv5PX2tscO",
+        "reference": "Mark 10:14",
+        "requestId": "release-current-0459b74a-1bda-47cd-8c2a-8130bc5d3415",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh7bktyqnhdtem2vrjtyaz9dsd8gsvk2",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "classical",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "But when Jesus saw it, he was moved with indignation and said to them, “Allow the little children to come to me! Don’t forbid them, for God’s Kingdom belongs to such as these."
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:45:46.988Z",
+      "cohort": "cold-browser-http",
+      "elapsedMs": 13997.799999952316,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "Luke 10:33",
+        "requestId": "release-current-4e72ca7a-e5fc-44bf-8512-4f9ff1caacb8",
+        "resolution": "1K",
+        "style": "watercolor",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.03474025,
+        "costUsd": 0.04318281,
+        "credits": 70,
+        "creditsCost": 5,
+        "durationMs": 4342,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "65d5ade1-3a3b-4ef9-b28e-4a7a65f62981",
+        "imageCostUsd": 0.04318281,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.03454625,
+        "preparation": {
+          "calls": 2,
+          "promptChars": 6884,
+          "referencesSent": 2
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Luke 10:33: \"But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Roman Judea and the early church\nPeople: Jewish and Gentile Mediterranean communities under Roman rule.\nDress: Tunics, cloaks, priestly robes and Roman military clothing.\nBuildings and objects: Stone villages, synagogues, temple, fishing boats and Roman cities.\nTechnology: Oil lamps, sail and oar, roads, coins and papyrus; no modern objects.\n\nSELECTED CHARACTERS: Jesus Christ, the Son of God and Lord; Lawyer who tests Jesus (Luke 10)\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Jesus: man of about thirty, lean and strong from carpentry and walking; olive-brown skin; dark brown shoulder-length hair parted at centre; short dark beard; calm dark eyes; wears a plain undyed tunic of natural linen with a dark blue-grey cloak and sandals; carries no props except a shepherd's staff when a scene calls for one.\n- Lawyer who tests Jesus: man in his middle years, lean and watchful; olive skin, weathered by sun; close-cropped dark hair and a short trimmed beard streaked with grey; lined brow and keen, searching dark eyes. Signature outfit: a long undertunic of deep blue with a fringed tallit-style prayer shawl of white and blue over the shoulders. Carries a small leather scroll case at his belt, nothing else.\n- Only Jesus Christ, the Son of God and Lord, Lawyer who tests Jesus (Luke 10) have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Dusty road descending from Jerusalem to Jericho in Judea, rocky hills and scattered stone outcrops\nTime of day: Midday heat easing toward afternoon\nWeather: Clear sky, dry and hot\nLight: Strong warm sunlight casting short shadows on pale limestone and dust\nClothing: Travelers in tunics and cloaks, wayside dust on garments; no Roman military dress in this scene\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: A Samaritan traveler kneeling beside a wounded man on the dusty road, moved with compassion\nAction: The Samaritan halts mid-stride, turning toward the injured man lying at the roadside, his face softened with pity; Jesus and the lawyer stand nearby watching\nSetting: Dusty road descending from Jerusalem toward Jericho, rocky hills and pale limestone outcrops around\nSecondary elements: Scattered stones and dust on the path, a donkey standing patiently at the roadside, a folded cloak over the wounded man's body\nMood: Reverent, compassionate, grounded, quiet dignity in the face of suffering\nTime of day: Midday heat easing toward afternoon\nComposition: Wide view along the road with the Samaritan and wounded man in the foreground, Jesus and the lawyer slightly behind and to one side, strong warm sunlight casting short shadows on the pale ground\n\nART STYLE: Ink & Watercolor\nRendering: Loose pen-and-ink drawing with transparent watercolor washes; expressive and airy, like a travelling artist's field study of the work's world.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy light; shadows as cool layered washes.\nMaterials and texture: Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.\nComposition: Sketch-like economy; detail concentrated on key subjects, softer surroundings.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\n- Image 2: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- Before: In the same way a Levite also, when he came to the place and saw him, passed by on the other side.\n- After: came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "jesus_christ_the_son_of_god_and_lord",
+              "stageId": "adult",
+              "version": "0610430f0f21f266bc5852671492395b"
+            },
+            {
+              "entryId": "lawyer_who_tests_jesus_luke_10",
+              "stageId": "lawyer_who_tests_jesus_luke_10-s1",
+              "version": "432a31ff7a59cb7aa1ae2e37bf87adbb"
+            }
+          ],
+          "eraId": "roman-era-judea-galilee-and-the-early-church",
+          "lookVersion": "7e68160298b17509065d1cead1a4a166",
+          "momentId": "luke-10-33",
+          "planVersion": "35d050d1416f962e3c2cecd93e7a832d",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [
+            {
+              "id": "watercolor",
+              "kind": "styleReference",
+              "version": "fa549f4888d199a3c3fd94209103e214"
+            },
+            {
+              "id": "jesus_christ_the_son_of_god_and_lord:adult",
+              "kind": "sheet",
+              "version": "faeacb4c217a32a73a86082443a41d40"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "luke-10-25",
+          "styleId": "watercolor",
+          "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792701955-QEpOi3dET9D9YFdzEvxE",
+        "reference": "Luke 10:33",
+        "requestId": "release-current-4e72ca7a-e5fc-44bf-8512-4f9ff1caacb8",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh7dsvkbc1d6kyxjqg2w38d2ts8gssy3",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "watercolor",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,"
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:46:00.988Z",
+      "cohort": "cold-browser-http",
+      "elapsedMs": 14644.399999976158,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "John 4:7",
+        "requestId": "release-current-141a5bbb-2f33-4711-b3d3-a53b763d91d9",
+        "resolution": "1K",
+        "style": "watercolor",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.034736,
+        "costUsd": 0.0431825,
+        "credits": 65,
+        "creditsCost": 5,
+        "durationMs": 5069,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "8b6dc069-47a8-4295-a712-88885b88b437",
+        "imageCostUsd": 0.0431825,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.034546,
+        "preparation": {
+          "calls": 2,
+          "promptChars": 6815,
+          "referencesSent": 2
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, John 4:7: \"A woman of Samaria came to draw water. Jesus said to her, “Give me a drink.”\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Roman Judea and the early church\nPeople: Jewish and Gentile Mediterranean communities under Roman rule.\nDress: Tunics, cloaks, priestly robes and Roman military clothing.\nBuildings and objects: Stone villages, synagogues, temple, fishing boats and Roman cities.\nTechnology: Oil lamps, sail and oar, roads, coins and papyrus; no modern objects.\n\nSELECTED CHARACTERS: Jesus Christ, the Son of God and Lord; The Samaritan woman at the well\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Jesus: man of about thirty, lean and strong from carpentry and walking; olive-brown skin; dark brown shoulder-length hair parted at centre; short dark beard; calm dark eyes; wears a plain undyed tunic of natural linen with a dark blue-grey cloak and sandals; carries no props except a shepherd's staff when a scene calls for one.\n- The Samaritan woman at the well: a woman of about thirty, of slender, steady build, with warm olive-brown skin weathered by sun and daily labour. Her dark hair is pulled back under a plain linen head covering in faded ochre. Her face is calm and perceptive, with dark eyes and a firm, serious mouth. Her signature outfit is a long undyed linen tunic in earth brown under a dusty blue-grey wool cloak. She carries a clay water jar on her shoulder.\n- Only Jesus Christ, the Son of God and Lord, The Samaritan woman at the well have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Stone well at the edge of Sychar, a Samaritan town in rolling hill country near Jacob's well, with dry scrub and olive trees\nTime of day: Midday, the hot hour when the sun stands high\nWeather: Clear, dry and still, with pale sky and no rain\nLight: Strong direct sunlight from overhead casting short shadows, warm and bright\nClothing: Plain tunics and cloaks in earth tones for travelers and villagers, with a water jar and a leather bucket on a rope\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Jesus seated weary on the stone rim of Jacob's well, turning toward a Samaritan woman who has come to draw water\nAction: The woman lowers a leather bucket on a rope into the well while Jesus, resting, looks up and speaks, his hand open in a request for water\nSetting: A stone well at the edge of Sychar in dry hill country, with scrub and olive trees beyond and a clay water jar set on the ground\nSecondary elements: Plain earth-toned tunics and cloaks, a leather bucket and rope, pale dry hillside, short shadows cast beneath the midday sun\nMood: Quiet, reverent and grounded, with a sense of weariness and an unexpected openness between two people\nTime of day: Midday, the hot hour with the sun high overhead\nComposition: Medium shot with the well stone in the lower foreground, the two figures facing each other across the rim, the open landscape receding behind them\n\nART STYLE: Ink & Watercolor\nRendering: Loose pen-and-ink drawing with transparent watercolor washes; expressive and airy, like a travelling artist's field study of the work's world.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy light; shadows as cool layered washes.\nMaterials and texture: Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.\nComposition: Sketch-like economy; detail concentrated on key subjects, softer surroundings.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\n- Image 2: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: For his disciples had gone away into the city to buy food.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "jesus_christ_the_son_of_god_and_lord",
+              "stageId": "adult",
+              "version": "0610430f0f21f266bc5852671492395b"
+            },
+            {
+              "entryId": "the_samaritan_woman_at_the_well",
+              "stageId": "the_samaritan_woman_at_the_well",
+              "version": "c05a77205d1dd1bf22a3704819c9fee4"
+            }
+          ],
+          "eraId": "roman-era-judea-galilee-and-the-early-church",
+          "lookVersion": "b02bad990de04b78a6ad498122356b95",
+          "momentId": "john-4-7",
+          "planVersion": "7e3d4b037a33199a9730b73bdf72e29f",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [
+            {
+              "id": "watercolor",
+              "kind": "styleReference",
+              "version": "fa549f4888d199a3c3fd94209103e214"
+            },
+            {
+              "id": "jesus_christ_the_son_of_god_and_lord:adult",
+              "kind": "sheet",
+              "version": "faeacb4c217a32a73a86082443a41d40"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "john-4-7",
+          "styleId": "watercolor",
+          "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792701969-1WqXvHLvvQr0ld6rYi3q",
+        "reference": "John 4:7",
+        "requestId": "release-current-141a5bbb-2f33-4711-b3d3-a53b763d91d9",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh75p3njfxcn4tfm7k9z95mr558grgrb",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "watercolor",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "A woman of Samaria came to draw water. Jesus said to her, “Give me a drink.”"
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:46:15.636Z",
+      "cohort": "cold-browser-http",
+      "elapsedMs": 13863.300000071526,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "Acts 16:25",
+        "requestId": "release-current-a0907ee9-797e-4c92-b7ad-9de7d76c8dad",
+        "resolution": "1K",
+        "style": "watercolor",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.0344545,
+        "costUsd": 0.04282406,
+        "credits": 60,
+        "creditsCost": 5,
+        "durationMs": 4136,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "7e148406-111e-47eb-90fa-ce61e35ec35d",
+        "imageCostUsd": 0.04282406,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.03425925,
+        "preparation": {
+          "calls": 2,
+          "promptChars": 6791,
+          "referencesSent": 1
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Acts 16:25: \"But about midnight Paul and Silas were praying and singing hymns to God, and the prisoners were listening to them.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Roman Judea and the early church\nPeople: Jewish and Gentile Mediterranean communities under Roman rule.\nDress: Tunics, cloaks, priestly robes and Roman military clothing.\nBuildings and objects: Stone villages, synagogues, temple, fishing boats and Roman cities.\nTechnology: Oil lamps, sail and oar, roads, coins and papyrus; no modern objects.\n\nSELECTED CHARACTERS: Saul of Tarsus (Paul); Silas (Silvanus)\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Saul/Paul: man in his thirties to fifties, middle height and spare, wiry build worn by travel and hardship. Olive-brown skin, dark hair cropped short, close-trimmed dark beard with grey beginning at the chin. Lined forehead, deep-set dark eyes, strong nose. Signature outfit: plain undyed wool tunic in ochre-brown under a dark brown travelling cloak with a fringed hem. Signature prop: a worn leather writing satchel and a plain wooden walking staff.\n- Silas (Silvanus): a man in his thirties, of medium height and sturdy build from travel. Olive skin, dark curly hair cropped short above the ears, a close-cut beard. Calm, steady eyes and a weathered, earnest face. Wears a plain undyed linen tunic with a dark brown woollen cloak thrown over the shoulders. Carries a traveller's leather satchel and a wooden staff.\n- Only Saul of Tarsus (Paul), Silas (Silvanus) have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Stone prison cells in a Roman city of Philippi, with heavy wooden doors and iron-barred stocks in an inner chamber\nTime of day: Deep night, around midnight, shifting to pre-dawn dimness after the earthquake\nWeather: Still, cool night air; the earthquake later shakes the building\nLight: Dim lamplight and flickering torch glow from the jailer's post, faint moonlight through high barred openings\nClothing: Plain Jewish tunics and cloaks for the prisoners; Roman military tunics and belts for the jailer and guards\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Paul and Silas seated together on the stone floor of an inner prison cell, heads lifted in prayer, faces turned upward toward faint moonlight through a high barred opening\nAction: Praying and singing hymns at midnight while their feet are fastened in iron-barred stocks; their posture is calm and open, hands raised or clasped\nSetting: Inner stone prison chamber in Philippi with heavy wooden doors and iron stocks on the floor, damp stone walls, a high barred window\nSecondary elements: Other prisoners in plain Jewish tunics and cloaks sit against the walls in the shadows, listening attentively; a single oil lamp rests on the floor nearby\nMood: Reverent, steady and hopeful amid confinement; quiet dignity and faith\nTime of day: Deep night around midnight\nComposition: Medium shot from the cell doorway, the two men centered in lamplight with the listening prisoners arranged around them in the dim edges of the frame, moonlight falling from above\n\nART STYLE: Ink & Watercolor\nRendering: Loose pen-and-ink drawing with transparent watercolor washes; expressive and airy, like a travelling artist's field study of the work's world.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy light; shadows as cool layered washes.\nMaterials and texture: Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.\nComposition: Sketch-like economy; detail concentrated on key subjects, softer surroundings.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: Suddenly there was a great earthquake, so that the foundations of the prison were shaken; and immediately all the doors were opened, and everyone’s bonds were loosened.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "saul_of_tarsus_paul",
+              "stageId": "saul-main",
+              "version": "d41b002c080d3479aaffe9c445fe83b8"
+            },
+            {
+              "entryId": "silas_silvanus",
+              "stageId": "silas_silvanus-main",
+              "version": "5528fe84a5eb8ad1155fa4dc681f9108"
+            }
+          ],
+          "eraId": "roman-era-judea-galilee-and-the-early-church",
+          "lookVersion": "f19d38eb5d6d5f96f64abe93e8255a2f",
+          "momentId": "acts-16-25",
+          "planVersion": "9ae2dfb38e389d9463032d3b21f8f937",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [
+            {
+              "id": "watercolor",
+              "kind": "styleReference",
+              "version": "fa549f4888d199a3c3fd94209103e214"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "acts-16-25",
+          "styleId": "watercolor",
+          "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792701984-dMH3hHPd9St5NNDgmKpg",
+        "reference": "Acts 16:25",
+        "requestId": "release-current-a0907ee9-797e-4c92-b7ad-9de7d76c8dad",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh7635keypcve4j6cjcbs16tts8grdc4",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "watercolor",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "But about midnight Paul and Silas were praying and singing hymns to God, and the prisoners were listening to them."
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:46:29.502Z",
+      "cohort": "cold-browser-http",
+      "elapsedMs": 13063.100000023842,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "Ruth 3:10",
+        "requestId": "release-current-1054f211-4bf5-4912-aa67-ae923279e312",
+        "resolution": "1K",
+        "style": "icon",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.0344435,
+        "costUsd": 0.04282094,
+        "credits": 55,
+        "creditsCost": 5,
+        "durationMs": 4806,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "7e06d829-34cf-4737-933c-6940e743b26d",
+        "imageCostUsd": 0.04282094,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.03425675,
+        "preparation": {
+          "calls": 2,
+          "promptChars": 6615,
+          "referencesSent": 1
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Ruth 3:10: \"He said, “You are blessed by Yahweh, my daughter. You have shown more kindness in the latter end than at the beginning, because you didn’t follow young men, whether poor or rich.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return\nPeople: Israelites and neighboring Levantine, Mesopotamian and Persian peoples.\nDress: Tunics, cloaks, court robes, priestly linen and period armor.\nBuildings and objects: Villages, palaces, temples, city gates and exile settlements.\nTechnology: Iron and bronze tools, chariots, siege works and scrolls; no modern objects.\n\nSELECTED CHARACTERS: Boaz; Ruth\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Boaz: a mature man in his middle years, broad-shouldered and sturdy, of a prosperous landholder. Olive-brown skin weathered by the fields. Dark hair and a short, neatly trimmed beard with some grey at the temples. Calm, dignified face with deep-set eyes. Signature outfit: a long undertunic of undyed linen under a cloak of deep blue wool with a woven band at the hem. Carries a shepherd's staff of olive wood.\n- Ruth: a young woman in her twenties; slender, sturdy build from field labour; warm olive-brown skin; dark hair worn covered with a linen head-veil in the fields and bound back at home; calm, steady face with dark eyes. Signature outfit: a plain undyed linen tunic with a rust-red wool cloak over the shoulders, belted with a cord. Carries a simple woven gleaner's basket on one arm.\n- Only Boaz, Ruth have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Threshing floor outside Bethlehem, open ground with a stone-walled edge, sheaves of barley piled nearby\nTime of day: Late night, after the harvest meal, moving toward dawn\nWeather: Clear, still night air with a cool breeze\nLight: Dim moonlight and low glow of a banked fire, soft shadows on grain and earth\nClothing: Simple tunics and cloaks of undyed wool, women with head veils, a dusty working look\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Boaz, an older Israelite landowner, seated and turned toward Ruth with a gentle, blessing gesture\nAction: Boaz speaks a blessing while Ruth kneels low before him at the edge of the grain, her head veil lowered in humility\nSetting: Open threshing floor outside Bethlehem with a stone-walled edge and sheaves of barley piled nearby\nSecondary elements: Banked fire glowing low on the ground, a winnowing fork leaning against a sheaf, scattered grain on the earth, a cloak spread across the ground between them\nMood: Reverent, tender and quietly hopeful, with dignity and trust between the two figures\nTime of day: Late night moving toward dawn, under dim moonlight\nComposition: Medium two-figure framing with Boaz on the left seated, Ruth kneeling on the right, the fire and stone wall receding behind them into soft shadow\n\nART STYLE: Byzantine Icon\nRendering: Byzantine icon painting: flat, frontal, stylized figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.\nNegatives: Never show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Avoid photorealism and modern illustration. The gold sky and stylized landscape fill the image edge-to-edge.\nPalette: Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.\nLighting: No cast shadows; inner light shown through layered highlights and gold glow.\nMaterials and texture: Egg tempera and gold-leaf texture within the scene.\nComposition: Hieratic, balanced staging; the key subject largest and central; stylized rocks, buildings and trees.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- Before: He said, “Who are you?” She answered, “I am Ruth your servant. Therefore spread the corner of your garment over your servant; for you are a near kinsman.”\n- After: Now, my daughter, don’t be afraid. I will do to you all that you say; for all the city of my people knows that you are a worthy woman.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "boaz",
+              "stageId": "boaz",
+              "version": "b9de7cdb1e5eaa38d6f8dd43e91c5c77"
+            },
+            {
+              "entryId": "ruth",
+              "stageId": "ruth",
+              "version": "7116dd65e58db1d2adb6515ddb181821"
+            }
+          ],
+          "eraId": "monarchy-of-israel-and-judah",
+          "lookVersion": "21dfd7e123292a6c35505ed9fa6186d5",
+          "momentId": "ruth-3-10",
+          "planVersion": "ffbc2a2f19a07e4a2ca90fa75d486ce3",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [
+            {
+              "id": "icon",
+              "kind": "styleReference",
+              "version": "1cc16e5294b9e8b1744d73aa01f936e6"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "ruth-3-1",
+          "styleId": "icon",
+          "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792701996-EfMrxopwrr7ZXlXd5ezS",
+        "reference": "Ruth 3:10",
+        "requestId": "release-current-1054f211-4bf5-4912-aa67-ae923279e312",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh7drpm5n3h3q769hy1w1780998gssbe",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "icon",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "He said, “You are blessed by Yahweh, my daughter. You have shown more kindness in the latter end than at the beginning, because you didn’t follow young men, whether poor or rich."
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:46:43.004Z",
+      "cohort": "cold-browser-http",
+      "elapsedMs": 13522.200000047684,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "Ruth 4:1",
+        "requestId": "release-current-6867f1bf-b833-492e-baef-1e06393ba9f7",
+        "resolution": "1K",
+        "style": "icon",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.03444725,
+        "costUsd": 0.04283063,
+        "credits": 50,
+        "creditsCost": 5,
+        "durationMs": 5128,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "d8ab017c-1b29-4e87-8907-ecb54747e7b0",
+        "imageCostUsd": 0.04283063,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.0342645,
+        "preparation": {
+          "calls": 2,
+          "promptChars": 6676,
+          "referencesSent": 1
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Ruth 4:1: \"Now Boaz went up to the gate and sat down there. Behold, the near kinsman of whom Boaz spoke came by. Boaz said to him, “Come over here, friend, and sit down!” He came over, and sat down.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return\nPeople: Israelites and neighboring Levantine, Mesopotamian and Persian peoples.\nDress: Tunics, cloaks, court robes, priestly linen and period armor.\nBuildings and objects: Villages, palaces, temples, city gates and exile settlements.\nTechnology: Iron and bronze tools, chariots, siege works and scrolls; no modern objects.\n\nSELECTED CHARACTERS: Boaz; Near kinsman; Elders of Bethlehem at the gate\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Boaz: a mature man in his middle years, broad-shouldered and sturdy, of a prosperous landholder. Olive-brown skin weathered by the fields. Dark hair and a short, neatly trimmed beard with some grey at the temples. Calm, dignified face with deep-set eyes. Signature outfit: a long undertunic of undyed linen under a cloak of deep blue wool with a woven band at the hem. Carries a shepherd's staff of olive wood.\n- Near kinsman: man in his fifties, lean and weathered, of an Israelite farming family; olive-brown skin; short grey-streaked beard and close-cropped dark hair; deep-set, serious eyes and lined brow. Signature outfit: a plain undyed linen tunic with a dusty ochre woollen cloak. Carries no props alone.\n- Elders of Bethlehem: men of mature age, around fifty to seventy; lean to medium build; olive-brown skin; full grey-streaked beards and hair kept short under a head cloth; weathered, dignified faces. Signature outfit: a long undyed linen tunic with a deep indigo-blue cloak over it, and a plain woven sash. Props: a simple wooden staff carried by each man alone.\n- Only Boaz, Near kinsman, Elders of Bethlehem at the gate have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Bethlehem city gate, open stone archway with a bench of stone seats and elders gathered in the gateway\nTime of day: Morning, mid-day approaching\nWeather: Clear, dry, warm, pale sky with light haze\nLight: Soft warm sunlight entering through the gate, long shadows on the stone paving\nClothing: Tunics, cloaks and head coverings of the period; elders in fringed outer robes\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Boaz seated on the stone bench in the gateway, turning toward a newly arrived near kinsman\nAction: The near kinsman arrives along the street and pauses at the archway as Boaz gestures him to come over and sit down on the stone seat\nSetting: Bethlehem city gate, open stone archway with a bench of stone seats and long shadows across the stone paving\nSecondary elements: Several elders of the city in fringed outer robes gathered in the gateway, watching quietly; a traveler's cloak and a staff on the kinsman\nMood: Reverent, grounded, expectant and dignified\nTime of day: Morning, mid-day approaching\nComposition: Wide view through the gate arch, Boaz seated at center-left, the kinsman entering from the right, elders grouped behind in the gateway\n\nART STYLE: Byzantine Icon\nRendering: Byzantine icon painting: flat, frontal, stylized figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.\nNegatives: Never show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Avoid photorealism and modern illustration. The gold sky and stylized landscape fill the image edge-to-edge.\nPalette: Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.\nLighting: No cast shadows; inner light shown through layered highlights and gold glow.\nMaterials and texture: Egg tempera and gold-leaf texture within the scene.\nComposition: Hieratic, balanced staging; the key subject largest and central; stylized rocks, buildings and trees.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: Boaz took ten men of the elders of the city, and said, “Sit down here,” and they sat down.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "boaz",
+              "stageId": "boaz",
+              "version": "b9de7cdb1e5eaa38d6f8dd43e91c5c77"
+            },
+            {
+              "entryId": "near_kinsman",
+              "stageId": "near_kinsman",
+              "version": "2365f3474a34491a1cb0a78f0fccf313"
+            },
+            {
+              "entryId": "elders_of_bethlehem_at_the_gate",
+              "stageId": "elders_of_bethlehem_at_the_gate-s1",
+              "version": "5158e6a27390c8a7ab72175a29f3813e"
+            }
+          ],
+          "eraId": "monarchy-of-israel-and-judah",
+          "lookVersion": "054da0c3a1f8480266bd7f2bb27d3acf",
+          "momentId": "ruth-4-1",
+          "planVersion": "0f424bd09c802f399879bfa83989635c",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [
+            {
+              "id": "icon",
+              "kind": "styleReference",
+              "version": "1cc16e5294b9e8b1744d73aa01f936e6"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "ruth-4-1",
+          "styleId": "icon",
+          "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792702010-HxP3wweUQiiw8WNxhGfr",
+        "reference": "Ruth 4:1",
+        "requestId": "release-current-6867f1bf-b833-492e-baef-1e06393ba9f7",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh7efvr7k3k2hbw0sdas001ed18grfsg",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "icon",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "Now Boaz went up to the gate and sat down there. Behold, the near kinsman of whom Boaz spoke came by. Boaz said to him, “Come over here, friend, and sit down!” He came over, and sat down."
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:46:56.531Z",
+      "cohort": "cold-browser-http",
+      "elapsedMs": 15295.700000047684,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "Esther 5:1",
+        "requestId": "release-current-81d98275-6124-49db-b678-7326bb2e14f9",
+        "resolution": "1K",
+        "style": "icon",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.03444525,
+        "costUsd": 0.04281781,
+        "credits": 45,
+        "creditsCost": 5,
+        "durationMs": 8029,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "0000e8b7-81f2-41fe-8e8e-e82d69b063bd",
+        "imageCostUsd": 0.04281781,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.03425425,
+        "preparation": {
+          "calls": 2,
+          "promptChars": 6644,
+          "referencesSent": 1
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Esther 5:1: \"Now on the third day, Esther put on her royal clothing and stood in the inner court of the king’s house, next to the king’s house. The king sat on his royal throne in the royal house, next to the entrance of the house.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return\nPeople: Israelites and neighboring Levantine, Mesopotamian and Persian peoples.\nDress: Tunics, cloaks, court robes, priestly linen and period armor.\nBuildings and objects: Villages, palaces, temples, city gates and exile settlements.\nTechnology: Iron and bronze tools, chariots, siege works and scrolls; no modern objects.\n\nSELECTED CHARACTERS: Esther; Ahasuerus\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Esther: a young woman of about twenty, slender and graceful in build, with warm olive-brown skin and dark hair braided and bound up beneath a fine veil. Her face is gentle and dignified, with large dark eyes and a calm, grave bearing. Her signature outfit is a long court robe of deep crimson silk with a gold-embroidered border, a gold belt, and gold bangles at the wrists. When received before the king she wears the royal crown of gold. She alone carries the king's golden scepter.\n- Ahasuerus: man in his middle years, broad-shouldered and upright; dark, neatly curled beard and hair under a royal crown of gold; olive-brown skin; calm, heavy-lidded, dignified face. Signature outfit: long layered royal robe of deep purple and gold-embroidered blue over a white tunic. Signature props: a gold signet ring and a golden scepter.\n- Only Esther, Ahasuerus have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Palace at Susa, inner court and royal hall of the king's house, with a banquet hall of the palace of Esther nearby\nTime of day: Midday on the third day, continuing into afternoon\nWeather: Clear, warm, still air\nLight: Bright daylight filtering through tall columns and high windows, warm golden tones\nClothing: Royal court robes of rich fabric for Esther and the king, tunics and cloaks for courtiers, period palace attire\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Esther standing in the inner court in royal robes, poised and composed\nAction: Esther stands at the threshold of the inner court while the king sits on his throne in the royal hall just beyond the entrance, both still and attentive\nSetting: Inner court of the king's house at Susa, the royal hall visible beyond a row of tall columns, the throne raised on a dais\nSecondary elements: Courtiers and attendants stand discreetly at the edges, tall columns and high windows admit bright golden daylight, stone floor warm underfoot\nMood: Tense, reverent and dignified, with quiet hope and courage\nTime of day: Midday on the third day, bright and warm\nComposition: Wide view down the central axis from the court toward the throne, Esther in the foreground near the columns and the king seated in the distance within the hall\n\nART STYLE: Byzantine Icon\nRendering: Byzantine icon painting: flat, frontal, stylized figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.\nNegatives: Never show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Avoid photorealism and modern illustration. The gold sky and stylized landscape fill the image edge-to-edge.\nPalette: Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.\nLighting: No cast shadows; inner light shown through layered highlights and gold glow.\nMaterials and texture: Egg tempera and gold-leaf texture within the scene.\nComposition: Hieratic, balanced staging; the key subject largest and central; stylized rocks, buildings and trees.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: When the king saw Esther the queen standing in the court, she obtained favor in his sight; and the king held out to Esther the golden scepter that was in his hand. So Esther came near and touched the top of the scepter.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "esther",
+              "stageId": "esther",
+              "version": "9f986f411760fa0e9f4a555922d422b5"
+            },
+            {
+              "entryId": "ahasuerus",
+              "stageId": "ahasuerus-main",
+              "version": "b0de6e754ec6fda6f9397ffd028b0d39"
+            }
+          ],
+          "eraId": "monarchy-of-israel-and-judah",
+          "lookVersion": "53c148b92c30868e19d255e184b6f3ed",
+          "momentId": "esther-5-1",
+          "planVersion": "05f32b78d00625276657ebb052427a34",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [
+            {
+              "id": "icon",
+              "kind": "styleReference",
+              "version": "1cc16e5294b9e8b1744d73aa01f936e6"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "esther-5-1",
+          "styleId": "icon",
+          "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792702022-4jl65796NbOSyLyvYhwj",
+        "reference": "Esther 5:1",
+        "requestId": "release-current-81d98275-6124-49db-b678-7326bb2e14f9",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh7fgedgwmpzsek6n1btqkdb158gs091",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "icon",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "Now on the third day, Esther put on her royal clothing and stood in the inner court of the king’s house, next to the king’s house. The king sat on his royal throne in the royal house, next to the entrance of the house."
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:47:55.461Z",
+      "cohort": "prepared-browser-http",
+      "elapsedMs": 7216.800000071526,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "Exodus 16:15",
+        "requestId": "release-current-4da21289-56bd-4aad-af73-bfd98fa177df",
+        "resolution": "1K",
+        "style": "classical",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.034522,
+        "costUsd": 0.04289875,
+        "credits": 40,
+        "creditsCost": 5,
+        "durationMs": 4595,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "527e9e12-ad8d-4c9e-b904-e05862640f3a",
+        "imageCostUsd": 0.04289875,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.034319,
+        "preparation": {
+          "calls": 0,
+          "promptChars": 7869,
+          "referencesSent": 1
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Exodus 16:15: \"When the children of Israel saw it, they said to one another, “What is it?” For they didn’t know what it was. Moses said to them, “It is the bread which Yahweh has given you to eat.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Egypt, wilderness and settlement\nPeople: Israelites, Egyptians and neighboring ancient peoples.\nDress: Woven tunics, cloaks, Egyptian linen and priestly garments.\nBuildings and objects: Tents, tabernacle, Egyptian palaces and fortified towns.\nTechnology: Bronze tools, chariots and early iron; no modern objects.\n\nSELECTED CHARACTERS: Moses; The Israelite people (the children of Israel); God / Yahweh, the Father and God of Israel\n\nFORMLESS SUBJECTS (binding depiction constraints, including when the source uses bodily metaphors):\n- God / Yahweh, the Father and God of Israel: represent only through the non-figurative presence allowed by its canon and the work brief. No head, face, torso, limbs, hands, human silhouette or garment-shaped body, even faceless or made of light. Do not represent this subject as a figure occupying a seat.\nThese constraints apply only to the named subjects; other characters retain their own canon forms.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Moses: an old man of about eighty; lean, weathered build; brown skin darkened by desert sun; white hair and a long white beard; deep-set, steady eyes and lined brow; a plain undyed linen tunic belted at the waist with a long dark-brown wool cloak; he carries a wooden shepherd's staff of dark acacia wood, and only he bears the rod of God.\n- The Israelite people: a typical member is an adult of mixed age, from youth to middle years, of sturdy and weathered build shaped by desert travel and field labour. Skin is warm olive-brown, hair dark and kept short or tied back, with full beards on men. Faces are calm and steady with dark eyes. Signature outfit: a plain undyed woven linen tunic in ochre or cream with a wool cloak in earth brown.\n- God the Father: no human face or body; presence shown only as radiance, cloud and fire. A brilliant white-gold light without a source, veiled by a dense, slowly moving cloud, with a fire-like glow at its heart. Throne-light and footstool-earth implied at the edges, never a figure seated in it.\n- the camp of Israel: a wide wilderness encampment of dun-coloured tents of woven goat-hair cloth in ordered rows, with a central sanctuary tent and a gate; bare stony desert plain, scattered acacia and tamarisk, distant dark mountain slopes; a pillar of cloud above the camp by day and fire by night; ash-pits and a clean place beyond its edges.\n- The wilderness: a vast arid tableland of pale sand, gravel plains and dark rock outcrops rising to bare mountains, scattered with thorn scrub and sparse grasses in the wadis. Tents and camp-circles mark the encampments; a distant mountain, Sinai, rises above the plain. Dry riverbeds, stone wells and rock fissures suggest hidden water.\n- Only Moses, The Israelite people (the children of Israel), the camp of Israel, The wilderness (Exodus route) have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Open wilderness camp of Israel: scattered tents and the ground around them, pale dust and sand, a dewy plain beyond with the wilderness edge in view.\nTime of day: Early morning as dew lifts into full daylight across the section.\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Moses stands forward among the gathered people, turning toward them with a raised open hand; the people lean in, pointing at the small round flakes on the sand.\nAction: Israelites crouch and touch the pale scattered flakes on the ground, murmuring to one another; Moses speaks, gesturing to the sky; radiance glows softly within the dense cloud above the camp.\nSetting: Open wilderness camp: scattered tents, pale dust and sand, dew lifting from the ground, a dewy plain beyond with the wilderness edge in view.\nSecondary elements: Wooden gathering baskets and jars on the ground; woven tunics, cloaks and linen head-cloths on the people; a dense slowly moving cloud resting over the camp with brilliant white-gold radiance veiled within it.\nMood: Wonder and puzzlement tempered by reverence; a quiet, grounded awe as the people discover an unfamiliar provision.\nTime of day: Early morning as dew lifts into full daylight; cool clear desert air with soft dawn light on the sand.\nComposition: Wide view from ground level among the people, Moses centred in the middle distance, the cloud and its glowing heart arching above, the camp and wilderness edge receding behind.\n\nART STYLE: Classical\nRendering: Stylized, painterly, mysterious and expansive. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.\nNegatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, fresco, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: Moses's reference sheet (one figure shown in three views). Match its identity exactly for Moses only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "moses",
+              "stageId": "moses-elder",
+              "version": "ed16bff281e7750b58b56b3a367a2146"
+            },
+            {
+              "entryId": "the_israelite_people_the_children_of_israel",
+              "stageId": "the_israelite_people_the_children_of_israel_s1",
+              "version": "c5143c0542fab9242236871d516c6461"
+            },
+            {
+              "entryId": "god_yahweh_the_father_and_god_of_israel",
+              "stageId": "god_yahweh_the_father_stage_1",
+              "version": "0f49ada61c15185ddb3913aecc959f8a"
+            },
+            {
+              "entryId": "the_camp_of_israel",
+              "stageId": "the_camp_of_israel",
+              "version": "cb6cb8e82c8c7c1b55b6c3301ba53ef4"
+            },
+            {
+              "entryId": "the_wilderness_exodus_route",
+              "stageId": "the_wilderness_exodus_route-main",
+              "version": "7f6d5378192177e78e4802d0362b2bc4"
+            }
+          ],
+          "eraId": "exodus-wilderness-and-conquest-of-canaan",
+          "lookVersion": "16d20d71841b495265acc9c9f9890b7d",
+          "momentId": "exodus-16-15",
+          "planVersion": "0f2e47141c1e989b292b220c0d099fe0",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [
+            {
+              "id": "moses:moses-elder",
+              "kind": "sheet",
+              "version": "7d323628f0bdc65959ff550032a27b04"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "exodus-16-13",
+          "styleId": "classical",
+          "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792702077-TaaT8Dbmi3wjJ588FtAC",
+        "reference": "Exodus 16:15",
+        "requestId": "release-current-4da21289-56bd-4aad-af73-bfd98fa177df",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh716zcd1b23m4c83m7rct622h8gsxbg",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "classical",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "When the children of Israel saw it, they said to one another, “What is it?” For they didn’t know what it was. Moses said to them, “It is the bread which Yahweh has given you to eat."
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:48:08.962Z",
+      "cohort": "prepared-browser-http",
+      "elapsedMs": 5158.599999904633,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "1 Kings 17:6",
+        "requestId": "release-current-54147eb4-bace-4f12-9018-07ca9144fca1",
+        "resolution": "1K",
+        "style": "classical",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.0341065,
+        "costUsd": 0.04240719,
+        "credits": 35,
+        "creditsCost": 5,
+        "durationMs": 3523,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "ca716a99-b3cf-438f-a8cb-27a39bd7189f",
+        "imageCostUsd": 0.04240719,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.03392575,
+        "preparation": {
+          "calls": 0,
+          "promptChars": 5704,
+          "referencesSent": 0
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, 1 Kings 17:6: \"The ravens brought him bread and meat in the morning, and bread and meat in the evening; and he drank from the brook.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return\nPeople: Israelites and neighboring Levantine, Mesopotamian and Persian peoples.\nDress: Tunics, cloaks, court robes, priestly linen and period armor.\nBuildings and objects: Villages, palaces, temples, city gates and exile settlements.\nTechnology: Iron and bronze tools, chariots, siege works and scrolls; no modern objects.\n\nSELECTED CHARACTERS: Elijah\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Elijah: a lean, weathered man of middle years; sinewy build, tall and spare; sun-darkened skin; long, unkempt hair and a full wild beard; deep-set, unflinching eyes. Signature outfit in dark brown sheepskin mantle over a rough undertunic, girded with a plain leather belt; colours of earth, umber and ash. Carries only his mantle, which he rolls and strikes with.\n- Only Elijah has this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Wadi Cherith, a rocky desert ravine beside a narrow brook, with dry stone banks and scrubby brush\nTime of day: Morning into evening, spanning one day\nWeather: Clear, dry and still, with no rain\nLight: Bright desert sun in the morning, softening to warm amber dusk light by evening\nClothing: Simple tunic and cloak of rough wool suited to the desert; no props beyond a plain cloak and sandals\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Elijah, a lone prophet in a plain rough wool tunic and cloak, kneeling at the edge of a narrow brook\nAction: He bends to drink from the running water while a raven, wings partly spread, lands on a dry stone bank holding bread and meat in its beak\nSetting: Wadi Cherith, a rocky desert ravine with dry stone banks, scrubby brush and a narrow brook threading through the stones\nSecondary elements: Clear still air, no rain; sparse scrub clinging to the banks; a second raven distant on a ledge; bread and meat in the bird's beak\nMood: Quiet, reverent and sustained; provision in solitude, grounded and human\nTime of day: Morning, bright desert sun with sharp shadows on the stones\nComposition: Medium-wide shot from the low bank, Elijah in the lower left near the water, the raven centered on the stone above, ravine walls receding to the right\n\nART STYLE: Classical\nRendering: Stylized, painterly, mysterious and expansive. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.\nNegatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, fresco, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nPalette: Mature, grounded color; rich but restrained contrast.\nLighting: Luminous, dramatic lighting.\nMaterials and texture: Gritty, raw texture; avoid polished digital smoothness.\nComposition: Cinematic, immersive viewpoint; heroic but grounded.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- Before: So he went and did according to Yahweh’s word, for he went and lived by the brook Cherith that is before the Jordan.\n- After: After a while, the brook dried up, because there was no rain in the land.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "elijah",
+              "stageId": "elijah-main",
+              "version": "194e2b17d9314af2dcda7e8fa6320b93"
+            }
+          ],
+          "eraId": "monarchy-of-israel-and-judah",
+          "lookVersion": "261ff0321ed702a7ef3cd8fa140cd826",
+          "momentId": "1-kings-17-6",
+          "planVersion": "7eeb41ef9d949ffec87880d760b611db",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [],
+          "requestTranslationId": "kjv",
+          "sectionId": "1-kings-17-1",
+          "styleId": "classical",
+          "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792702090-9cvydzCXzs2dT1Aevo7F",
+        "reference": "1 Kings 17:6",
+        "requestId": "release-current-54147eb4-bace-4f12-9018-07ca9144fca1",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh70xm3g77acm227byrkcgakrd8grp23",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "classical",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "The ravens brought him bread and meat in the morning, and bread and meat in the evening; and he drank from the brook."
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:48:22.463Z",
+      "cohort": "prepared-browser-http",
+      "elapsedMs": 6175.299999952316,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "Mark 10:14",
+        "requestId": "release-current-39a58639-0aa4-43f7-b209-067880145f70",
+        "resolution": "1K",
+        "style": "classical",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.0344645,
+        "costUsd": 0.04283125,
+        "credits": 30,
+        "creditsCost": 5,
+        "durationMs": 4538,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "2191e6bb-a2ae-4985-9a40-e1a1bde77497",
+        "imageCostUsd": 0.04283125,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.034265,
+        "preparation": {
+          "calls": 0,
+          "promptChars": 6951,
+          "referencesSent": 1
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Mark 10:14: \"But when Jesus saw it, he was moved with indignation and said to them, “Allow the little children to come to me! Don’t forbid them, for God’s Kingdom belongs to such as these.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Roman Judea and the early church\nPeople: Jewish and Gentile Mediterranean communities under Roman rule.\nDress: Tunics, cloaks, priestly robes and Roman military clothing.\nBuildings and objects: Stone villages, synagogues, temple, fishing boats and Roman cities.\nTechnology: Oil lamps, sail and oar, roads, coins and papyrus; no modern objects.\n\nSELECTED CHARACTERS: Jesus Christ, the Son of God and Lord; The Twelve Disciples (collective)\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Jesus: man of about thirty, lean and strong from carpentry and walking; olive-brown skin; dark brown shoulder-length hair parted at centre; short dark beard; calm dark eyes; wears a plain undyed tunic of natural linen with a dark blue-grey cloak and sandals; carries no props except a shepherd's staff when a scene calls for one.\n- The Twelve Disciples: men of about twenty to forty years; sun-browned, lean and sturdy from fishing and walking; olive to weathered brown skin; short or shoulder-length dark hair and close-trimmed beards; plain, earnest faces. Signature outfit: a undyed linen tunic and a rough brown wool cloak with fringed hem. Signature props: a fishing net coiled over one shoulder for Peter and Andrew; a walking staff for travelers.\n- Only Jesus Christ, the Son of God and Lord, The Twelve Disciples (collective) have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Stone village road and open ground in rural Judea, near Jerusalem, with simple stone houses and a synagogue wall\nTime of day: Midday, same day throughout\nWeather: Clear, dry, warm afternoon with a few scattered clouds\nLight: Bright natural sunlight from overhead, soft shadows on dusty ground\nClothing: Everyday tunics and cloaks in earth tones for villagers and disciples; no props beyond simple walking staves\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Jesus Christ, turned toward the approaching crowd of mothers and children with an open, earnest expression\nAction: Jesus raises a hand in a gesture of welcome toward children coming to him, while several disciples in earth-toned tunics hold back, palms out, near the stone village road\nSetting: Stone village road and open ground in rural Judea near Jerusalem, simple stone houses and a synagogue wall in the background\nSecondary elements: Villagers in everyday tunics and cloaks, dusty ground with soft shadows, simple walking staves leaning against a wall, a few scattered clouds\nMood: Reverent, grounded and warm, with a tension of rebuke softening into welcome\nTime of day: Midday, bright natural overhead sunlight, clear dry warm afternoon\nComposition: Jesus centered and slightly elevated in the middle distance, children and parents streaming in from the left, disciples gathered on the right, the stone houses framing the horizon\n\nART STYLE: Classical\nRendering: Stylized, painterly, mysterious and expansive. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.\nNegatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, fresco, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nPalette: Mature, grounded color; rich but restrained contrast.\nLighting: Luminous, dramatic lighting.\nMaterials and texture: Gritty, raw texture; avoid polished digital smoothness.\nComposition: Cinematic, immersive viewpoint; heroic but grounded.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- Before: They were bringing to him little children, that he should touch them, but the disciples rebuked those who were bringing them.\n- After: Most certainly I tell you, whoever will not receive God’s Kingdom like a little child, he will in no way enter into it.”\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "jesus_christ_the_son_of_god_and_lord",
+              "stageId": "adult",
+              "version": "0610430f0f21f266bc5852671492395b"
+            },
+            {
+              "entryId": "the_twelve_disciples_collective",
+              "stageId": "the_twelve_disciples_collective_main",
+              "version": "e11e1543bc474368c11b38cbcb38fb87"
+            }
+          ],
+          "eraId": "roman-era-judea-galilee-and-the-early-church",
+          "lookVersion": "ac5109ffb8698e525e49cc8709bce45b",
+          "momentId": "mark-10-14",
+          "planVersion": "757d8680444744f990e122285d898ee4",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [
+            {
+              "id": "jesus_christ_the_son_of_god_and_lord:adult",
+              "kind": "sheet",
+              "version": "faeacb4c217a32a73a86082443a41d40"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "mark-10-13",
+          "styleId": "classical",
+          "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792702103-pvUZrXgnqxZKOi6yEfiH",
+        "reference": "Mark 10:14",
+        "requestId": "release-current-39a58639-0aa4-43f7-b209-067880145f70",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh7defefk8s653dpc5ab5r08v58gsgzw",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "classical",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "But when Jesus saw it, he was moved with indignation and said to them, “Allow the little children to come to me! Don’t forbid them, for God’s Kingdom belongs to such as these."
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:48:35.964Z",
+      "cohort": "prepared-browser-http",
+      "elapsedMs": 6204.600000023842,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "Luke 10:33",
+        "requestId": "release-current-48b52a0a-21d5-413d-b2bc-b461700c8c61",
+        "resolution": "1K",
+        "style": "watercolor",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.03474025,
+        "costUsd": 0.04318281,
+        "credits": 25,
+        "creditsCost": 5,
+        "durationMs": 4714,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "293591ca-1e32-4cc4-83a4-e35edbe43bd7",
+        "imageCostUsd": 0.04318281,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.03454625,
+        "preparation": {
+          "calls": 0,
+          "promptChars": 6884,
+          "referencesSent": 2
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Luke 10:33: \"But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Roman Judea and the early church\nPeople: Jewish and Gentile Mediterranean communities under Roman rule.\nDress: Tunics, cloaks, priestly robes and Roman military clothing.\nBuildings and objects: Stone villages, synagogues, temple, fishing boats and Roman cities.\nTechnology: Oil lamps, sail and oar, roads, coins and papyrus; no modern objects.\n\nSELECTED CHARACTERS: Jesus Christ, the Son of God and Lord; Lawyer who tests Jesus (Luke 10)\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Jesus: man of about thirty, lean and strong from carpentry and walking; olive-brown skin; dark brown shoulder-length hair parted at centre; short dark beard; calm dark eyes; wears a plain undyed tunic of natural linen with a dark blue-grey cloak and sandals; carries no props except a shepherd's staff when a scene calls for one.\n- Lawyer who tests Jesus: man in his middle years, lean and watchful; olive skin, weathered by sun; close-cropped dark hair and a short trimmed beard streaked with grey; lined brow and keen, searching dark eyes. Signature outfit: a long undertunic of deep blue with a fringed tallit-style prayer shawl of white and blue over the shoulders. Carries a small leather scroll case at his belt, nothing else.\n- Only Jesus Christ, the Son of God and Lord, Lawyer who tests Jesus (Luke 10) have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Dusty road descending from Jerusalem to Jericho in Judea, rocky hills and scattered stone outcrops\nTime of day: Midday heat easing toward afternoon\nWeather: Clear sky, dry and hot\nLight: Strong warm sunlight casting short shadows on pale limestone and dust\nClothing: Travelers in tunics and cloaks, wayside dust on garments; no Roman military dress in this scene\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: A Samaritan traveler kneeling beside a wounded man on the dusty road, moved with compassion\nAction: The Samaritan halts mid-stride, turning toward the injured man lying at the roadside, his face softened with pity; Jesus and the lawyer stand nearby watching\nSetting: Dusty road descending from Jerusalem toward Jericho, rocky hills and pale limestone outcrops around\nSecondary elements: Scattered stones and dust on the path, a donkey standing patiently at the roadside, a folded cloak over the wounded man's body\nMood: Reverent, compassionate, grounded, quiet dignity in the face of suffering\nTime of day: Midday heat easing toward afternoon\nComposition: Wide view along the road with the Samaritan and wounded man in the foreground, Jesus and the lawyer slightly behind and to one side, strong warm sunlight casting short shadows on the pale ground\n\nART STYLE: Ink & Watercolor\nRendering: Loose pen-and-ink drawing with transparent watercolor washes; expressive and airy, like a travelling artist's field study of the work's world.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy light; shadows as cool layered washes.\nMaterials and texture: Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.\nComposition: Sketch-like economy; detail concentrated on key subjects, softer surroundings.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\n- Image 2: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- Before: In the same way a Levite also, when he came to the place and saw him, passed by on the other side.\n- After: came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "jesus_christ_the_son_of_god_and_lord",
+              "stageId": "adult",
+              "version": "0610430f0f21f266bc5852671492395b"
+            },
+            {
+              "entryId": "lawyer_who_tests_jesus_luke_10",
+              "stageId": "lawyer_who_tests_jesus_luke_10-s1",
+              "version": "432a31ff7a59cb7aa1ae2e37bf87adbb"
+            }
+          ],
+          "eraId": "roman-era-judea-galilee-and-the-early-church",
+          "lookVersion": "7e68160298b17509065d1cead1a4a166",
+          "momentId": "luke-10-33",
+          "planVersion": "35d050d1416f962e3c2cecd93e7a832d",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [
+            {
+              "id": "watercolor",
+              "kind": "styleReference",
+              "version": "fa549f4888d199a3c3fd94209103e214"
+            },
+            {
+              "id": "jesus_christ_the_son_of_god_and_lord:adult",
+              "kind": "sheet",
+              "version": "faeacb4c217a32a73a86082443a41d40"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "luke-10-25",
+          "styleId": "watercolor",
+          "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792702116-hBhxejxySLzyYT1fUCaV",
+        "reference": "Luke 10:33",
+        "requestId": "release-current-48b52a0a-21d5-413d-b2bc-b461700c8c61",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh747w4krjv9sxknrgnk5s5xex8gshtd",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "watercolor",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,"
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:48:49.466Z",
+      "cohort": "prepared-browser-http",
+      "elapsedMs": 6777.5,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "John 4:7",
+        "requestId": "release-current-35b7b8df-7486-48a7-9b30-8879871ab86f",
+        "resolution": "1K",
+        "style": "watercolor",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.034736,
+        "costUsd": 0.0431825,
+        "credits": 20,
+        "creditsCost": 5,
+        "durationMs": 5096,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "3553cc82-bb5c-46fa-8f19-f6306e837cc2",
+        "imageCostUsd": 0.0431825,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.034546,
+        "preparation": {
+          "calls": 0,
+          "promptChars": 6815,
+          "referencesSent": 2
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, John 4:7: \"A woman of Samaria came to draw water. Jesus said to her, “Give me a drink.”\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Roman Judea and the early church\nPeople: Jewish and Gentile Mediterranean communities under Roman rule.\nDress: Tunics, cloaks, priestly robes and Roman military clothing.\nBuildings and objects: Stone villages, synagogues, temple, fishing boats and Roman cities.\nTechnology: Oil lamps, sail and oar, roads, coins and papyrus; no modern objects.\n\nSELECTED CHARACTERS: Jesus Christ, the Son of God and Lord; The Samaritan woman at the well\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Jesus: man of about thirty, lean and strong from carpentry and walking; olive-brown skin; dark brown shoulder-length hair parted at centre; short dark beard; calm dark eyes; wears a plain undyed tunic of natural linen with a dark blue-grey cloak and sandals; carries no props except a shepherd's staff when a scene calls for one.\n- The Samaritan woman at the well: a woman of about thirty, of slender, steady build, with warm olive-brown skin weathered by sun and daily labour. Her dark hair is pulled back under a plain linen head covering in faded ochre. Her face is calm and perceptive, with dark eyes and a firm, serious mouth. Her signature outfit is a long undyed linen tunic in earth brown under a dusty blue-grey wool cloak. She carries a clay water jar on her shoulder.\n- Only Jesus Christ, the Son of God and Lord, The Samaritan woman at the well have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Stone well at the edge of Sychar, a Samaritan town in rolling hill country near Jacob's well, with dry scrub and olive trees\nTime of day: Midday, the hot hour when the sun stands high\nWeather: Clear, dry and still, with pale sky and no rain\nLight: Strong direct sunlight from overhead casting short shadows, warm and bright\nClothing: Plain tunics and cloaks in earth tones for travelers and villagers, with a water jar and a leather bucket on a rope\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Jesus seated weary on the stone rim of Jacob's well, turning toward a Samaritan woman who has come to draw water\nAction: The woman lowers a leather bucket on a rope into the well while Jesus, resting, looks up and speaks, his hand open in a request for water\nSetting: A stone well at the edge of Sychar in dry hill country, with scrub and olive trees beyond and a clay water jar set on the ground\nSecondary elements: Plain earth-toned tunics and cloaks, a leather bucket and rope, pale dry hillside, short shadows cast beneath the midday sun\nMood: Quiet, reverent and grounded, with a sense of weariness and an unexpected openness between two people\nTime of day: Midday, the hot hour with the sun high overhead\nComposition: Medium shot with the well stone in the lower foreground, the two figures facing each other across the rim, the open landscape receding behind them\n\nART STYLE: Ink & Watercolor\nRendering: Loose pen-and-ink drawing with transparent watercolor washes; expressive and airy, like a travelling artist's field study of the work's world.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy light; shadows as cool layered washes.\nMaterials and texture: Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.\nComposition: Sketch-like economy; detail concentrated on key subjects, softer surroundings.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\n- Image 2: Jesus Christ, the Son of God and Lord's reference sheet (one figure shown in three views). Match its identity exactly for Jesus Christ, the Son of God and Lord only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: For his disciples had gone away into the city to buy food.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "jesus_christ_the_son_of_god_and_lord",
+              "stageId": "adult",
+              "version": "0610430f0f21f266bc5852671492395b"
+            },
+            {
+              "entryId": "the_samaritan_woman_at_the_well",
+              "stageId": "the_samaritan_woman_at_the_well",
+              "version": "c05a77205d1dd1bf22a3704819c9fee4"
+            }
+          ],
+          "eraId": "roman-era-judea-galilee-and-the-early-church",
+          "lookVersion": "b02bad990de04b78a6ad498122356b95",
+          "momentId": "john-4-7",
+          "planVersion": "7e3d4b037a33199a9730b73bdf72e29f",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [
+            {
+              "id": "watercolor",
+              "kind": "styleReference",
+              "version": "fa549f4888d199a3c3fd94209103e214"
+            },
+            {
+              "id": "jesus_christ_the_son_of_god_and_lord:adult",
+              "kind": "sheet",
+              "version": "faeacb4c217a32a73a86082443a41d40"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "john-4-7",
+          "styleId": "watercolor",
+          "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792702130-gCzvf8696UEYBFnFqqdw",
+        "reference": "John 4:7",
+        "requestId": "release-current-35b7b8df-7486-48a7-9b30-8879871ab86f",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh7ccetkztgw665fyc6qrwqqd18gr4a6",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "watercolor",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "A woman of Samaria came to draw water. Jesus said to her, “Give me a drink.”"
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:49:02.968Z",
+      "cohort": "prepared-browser-http",
+      "elapsedMs": 6205.600000023842,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "Acts 16:25",
+        "requestId": "release-current-da628daf-93e0-4076-bf1f-1a7b8317531b",
+        "resolution": "1K",
+        "style": "watercolor",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.0344545,
+        "costUsd": 0.04282406,
+        "credits": 15,
+        "creditsCost": 5,
+        "durationMs": 4085,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "3050164c-2eb5-4469-85d7-d5f92798676b",
+        "imageCostUsd": 0.04282406,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.03425925,
+        "preparation": {
+          "calls": 0,
+          "promptChars": 6791,
+          "referencesSent": 1
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Acts 16:25: \"But about midnight Paul and Silas were praying and singing hymns to God, and the prisoners were listening to them.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Roman Judea and the early church\nPeople: Jewish and Gentile Mediterranean communities under Roman rule.\nDress: Tunics, cloaks, priestly robes and Roman military clothing.\nBuildings and objects: Stone villages, synagogues, temple, fishing boats and Roman cities.\nTechnology: Oil lamps, sail and oar, roads, coins and papyrus; no modern objects.\n\nSELECTED CHARACTERS: Saul of Tarsus (Paul); Silas (Silvanus)\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Saul/Paul: man in his thirties to fifties, middle height and spare, wiry build worn by travel and hardship. Olive-brown skin, dark hair cropped short, close-trimmed dark beard with grey beginning at the chin. Lined forehead, deep-set dark eyes, strong nose. Signature outfit: plain undyed wool tunic in ochre-brown under a dark brown travelling cloak with a fringed hem. Signature prop: a worn leather writing satchel and a plain wooden walking staff.\n- Silas (Silvanus): a man in his thirties, of medium height and sturdy build from travel. Olive skin, dark curly hair cropped short above the ears, a close-cut beard. Calm, steady eyes and a weathered, earnest face. Wears a plain undyed linen tunic with a dark brown woollen cloak thrown over the shoulders. Carries a traveller's leather satchel and a wooden staff.\n- Only Saul of Tarsus (Paul), Silas (Silvanus) have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Stone prison cells in a Roman city of Philippi, with heavy wooden doors and iron-barred stocks in an inner chamber\nTime of day: Deep night, around midnight, shifting to pre-dawn dimness after the earthquake\nWeather: Still, cool night air; the earthquake later shakes the building\nLight: Dim lamplight and flickering torch glow from the jailer's post, faint moonlight through high barred openings\nClothing: Plain Jewish tunics and cloaks for the prisoners; Roman military tunics and belts for the jailer and guards\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Paul and Silas seated together on the stone floor of an inner prison cell, heads lifted in prayer, faces turned upward toward faint moonlight through a high barred opening\nAction: Praying and singing hymns at midnight while their feet are fastened in iron-barred stocks; their posture is calm and open, hands raised or clasped\nSetting: Inner stone prison chamber in Philippi with heavy wooden doors and iron stocks on the floor, damp stone walls, a high barred window\nSecondary elements: Other prisoners in plain Jewish tunics and cloaks sit against the walls in the shadows, listening attentively; a single oil lamp rests on the floor nearby\nMood: Reverent, steady and hopeful amid confinement; quiet dignity and faith\nTime of day: Deep night around midnight\nComposition: Medium shot from the cell doorway, the two men centered in lamplight with the listening prisoners arranged around them in the dim edges of the frame, moonlight falling from above\n\nART STYLE: Ink & Watercolor\nRendering: Loose pen-and-ink drawing with transparent watercolor washes; expressive and airy, like a travelling artist's field study of the work's world.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy light; shadows as cool layered washes.\nMaterials and texture: Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.\nComposition: Sketch-like economy; detail concentrated on key subjects, softer surroundings.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: Suddenly there was a great earthquake, so that the foundations of the prison were shaken; and immediately all the doors were opened, and everyone’s bonds were loosened.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "saul_of_tarsus_paul",
+              "stageId": "saul-main",
+              "version": "d41b002c080d3479aaffe9c445fe83b8"
+            },
+            {
+              "entryId": "silas_silvanus",
+              "stageId": "silas_silvanus-main",
+              "version": "5528fe84a5eb8ad1155fa4dc681f9108"
+            }
+          ],
+          "eraId": "roman-era-judea-galilee-and-the-early-church",
+          "lookVersion": "f19d38eb5d6d5f96f64abe93e8255a2f",
+          "momentId": "acts-16-25",
+          "planVersion": "9ae2dfb38e389d9463032d3b21f8f937",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [
+            {
+              "id": "watercolor",
+              "kind": "styleReference",
+              "version": "fa549f4888d199a3c3fd94209103e214"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "acts-16-25",
+          "styleId": "watercolor",
+          "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792702143-c1MVkRg7TtWJqVDScdMl",
+        "reference": "Acts 16:25",
+        "requestId": "release-current-da628daf-93e0-4076-bf1f-1a7b8317531b",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh702eb44pjayrx7zvav4hfdfh8gs6qp",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "watercolor",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "But about midnight Paul and Silas were praying and singing hymns to God, and the prisoners were listening to them."
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:49:16.470Z",
+      "cohort": "prepared-browser-http",
+      "elapsedMs": 5446.899999976158,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "Ruth 3:10",
+        "requestId": "release-current-dc2babfe-937c-42f3-bebd-42886117d6e0",
+        "resolution": "1K",
+        "style": "icon",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.0344435,
+        "costUsd": 0.04282094,
+        "credits": 10,
+        "creditsCost": 5,
+        "durationMs": 4001,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "c2d37062-312f-4320-b70f-d0463886cda0",
+        "imageCostUsd": 0.04282094,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.03425675,
+        "preparation": {
+          "calls": 0,
+          "promptChars": 6615,
+          "referencesSent": 1
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Ruth 3:10: \"He said, “You are blessed by Yahweh, my daughter. You have shown more kindness in the latter end than at the beginning, because you didn’t follow young men, whether poor or rich.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return\nPeople: Israelites and neighboring Levantine, Mesopotamian and Persian peoples.\nDress: Tunics, cloaks, court robes, priestly linen and period armor.\nBuildings and objects: Villages, palaces, temples, city gates and exile settlements.\nTechnology: Iron and bronze tools, chariots, siege works and scrolls; no modern objects.\n\nSELECTED CHARACTERS: Boaz; Ruth\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Boaz: a mature man in his middle years, broad-shouldered and sturdy, of a prosperous landholder. Olive-brown skin weathered by the fields. Dark hair and a short, neatly trimmed beard with some grey at the temples. Calm, dignified face with deep-set eyes. Signature outfit: a long undertunic of undyed linen under a cloak of deep blue wool with a woven band at the hem. Carries a shepherd's staff of olive wood.\n- Ruth: a young woman in her twenties; slender, sturdy build from field labour; warm olive-brown skin; dark hair worn covered with a linen head-veil in the fields and bound back at home; calm, steady face with dark eyes. Signature outfit: a plain undyed linen tunic with a rust-red wool cloak over the shoulders, belted with a cord. Carries a simple woven gleaner's basket on one arm.\n- Only Boaz, Ruth have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Threshing floor outside Bethlehem, open ground with a stone-walled edge, sheaves of barley piled nearby\nTime of day: Late night, after the harvest meal, moving toward dawn\nWeather: Clear, still night air with a cool breeze\nLight: Dim moonlight and low glow of a banked fire, soft shadows on grain and earth\nClothing: Simple tunics and cloaks of undyed wool, women with head veils, a dusty working look\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Boaz, an older Israelite landowner, seated and turned toward Ruth with a gentle, blessing gesture\nAction: Boaz speaks a blessing while Ruth kneels low before him at the edge of the grain, her head veil lowered in humility\nSetting: Open threshing floor outside Bethlehem with a stone-walled edge and sheaves of barley piled nearby\nSecondary elements: Banked fire glowing low on the ground, a winnowing fork leaning against a sheaf, scattered grain on the earth, a cloak spread across the ground between them\nMood: Reverent, tender and quietly hopeful, with dignity and trust between the two figures\nTime of day: Late night moving toward dawn, under dim moonlight\nComposition: Medium two-figure framing with Boaz on the left seated, Ruth kneeling on the right, the fire and stone wall receding behind them into soft shadow\n\nART STYLE: Byzantine Icon\nRendering: Byzantine icon painting: flat, frontal, stylized figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.\nNegatives: Never show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Avoid photorealism and modern illustration. The gold sky and stylized landscape fill the image edge-to-edge.\nPalette: Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.\nLighting: No cast shadows; inner light shown through layered highlights and gold glow.\nMaterials and texture: Egg tempera and gold-leaf texture within the scene.\nComposition: Hieratic, balanced staging; the key subject largest and central; stylized rocks, buildings and trees.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- Before: He said, “Who are you?” She answered, “I am Ruth your servant. Therefore spread the corner of your garment over your servant; for you are a near kinsman.”\n- After: Now, my daughter, don’t be afraid. I will do to you all that you say; for all the city of my people knows that you are a worthy woman.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "boaz",
+              "stageId": "boaz",
+              "version": "b9de7cdb1e5eaa38d6f8dd43e91c5c77"
+            },
+            {
+              "entryId": "ruth",
+              "stageId": "ruth",
+              "version": "7116dd65e58db1d2adb6515ddb181821"
+            }
+          ],
+          "eraId": "monarchy-of-israel-and-judah",
+          "lookVersion": "21dfd7e123292a6c35505ed9fa6186d5",
+          "momentId": "ruth-3-10",
+          "planVersion": "ffbc2a2f19a07e4a2ca90fa75d486ce3",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [
+            {
+              "id": "icon",
+              "kind": "styleReference",
+              "version": "1cc16e5294b9e8b1744d73aa01f936e6"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "ruth-3-1",
+          "styleId": "icon",
+          "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792702157-0yZ1qfTefI1LUn6IRtgg",
+        "reference": "Ruth 3:10",
+        "requestId": "release-current-dc2babfe-937c-42f3-bebd-42886117d6e0",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh7edsd3mb16h4wj9aasw0rm3d8grnft",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "icon",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "He said, “You are blessed by Yahweh, my daughter. You have shown more kindness in the latter end than at the beginning, because you didn’t follow young men, whether poor or rich."
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:49:29.972Z",
+      "cohort": "prepared-browser-http",
+      "elapsedMs": 4892.800000071526,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "Ruth 4:1",
+        "requestId": "release-current-88b35597-f0bc-494b-8266-b4c628f7b9e6",
+        "resolution": "1K",
+        "style": "icon",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.03444725,
+        "costUsd": 0.04283063,
+        "credits": 5,
+        "creditsCost": 5,
+        "durationMs": 3397,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "00d14927-1621-4f62-b2c4-489b6678b4b9",
+        "imageCostUsd": 0.04283063,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.0342645,
+        "preparation": {
+          "calls": 0,
+          "promptChars": 6676,
+          "referencesSent": 1
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Ruth 4:1: \"Now Boaz went up to the gate and sat down there. Behold, the near kinsman of whom Boaz spoke came by. Boaz said to him, “Come over here, friend, and sit down!” He came over, and sat down.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return\nPeople: Israelites and neighboring Levantine, Mesopotamian and Persian peoples.\nDress: Tunics, cloaks, court robes, priestly linen and period armor.\nBuildings and objects: Villages, palaces, temples, city gates and exile settlements.\nTechnology: Iron and bronze tools, chariots, siege works and scrolls; no modern objects.\n\nSELECTED CHARACTERS: Boaz; Near kinsman; Elders of Bethlehem at the gate\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Boaz: a mature man in his middle years, broad-shouldered and sturdy, of a prosperous landholder. Olive-brown skin weathered by the fields. Dark hair and a short, neatly trimmed beard with some grey at the temples. Calm, dignified face with deep-set eyes. Signature outfit: a long undertunic of undyed linen under a cloak of deep blue wool with a woven band at the hem. Carries a shepherd's staff of olive wood.\n- Near kinsman: man in his fifties, lean and weathered, of an Israelite farming family; olive-brown skin; short grey-streaked beard and close-cropped dark hair; deep-set, serious eyes and lined brow. Signature outfit: a plain undyed linen tunic with a dusty ochre woollen cloak. Carries no props alone.\n- Elders of Bethlehem: men of mature age, around fifty to seventy; lean to medium build; olive-brown skin; full grey-streaked beards and hair kept short under a head cloth; weathered, dignified faces. Signature outfit: a long undyed linen tunic with a deep indigo-blue cloak over it, and a plain woven sash. Props: a simple wooden staff carried by each man alone.\n- Only Boaz, Near kinsman, Elders of Bethlehem at the gate have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Bethlehem city gate, open stone archway with a bench of stone seats and elders gathered in the gateway\nTime of day: Morning, mid-day approaching\nWeather: Clear, dry, warm, pale sky with light haze\nLight: Soft warm sunlight entering through the gate, long shadows on the stone paving\nClothing: Tunics, cloaks and head coverings of the period; elders in fringed outer robes\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Boaz seated on the stone bench in the gateway, turning toward a newly arrived near kinsman\nAction: The near kinsman arrives along the street and pauses at the archway as Boaz gestures him to come over and sit down on the stone seat\nSetting: Bethlehem city gate, open stone archway with a bench of stone seats and long shadows across the stone paving\nSecondary elements: Several elders of the city in fringed outer robes gathered in the gateway, watching quietly; a traveler's cloak and a staff on the kinsman\nMood: Reverent, grounded, expectant and dignified\nTime of day: Morning, mid-day approaching\nComposition: Wide view through the gate arch, Boaz seated at center-left, the kinsman entering from the right, elders grouped behind in the gateway\n\nART STYLE: Byzantine Icon\nRendering: Byzantine icon painting: flat, frontal, stylized figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.\nNegatives: Never show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Avoid photorealism and modern illustration. The gold sky and stylized landscape fill the image edge-to-edge.\nPalette: Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.\nLighting: No cast shadows; inner light shown through layered highlights and gold glow.\nMaterials and texture: Egg tempera and gold-leaf texture within the scene.\nComposition: Hieratic, balanced staging; the key subject largest and central; stylized rocks, buildings and trees.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: Boaz took ten men of the elders of the city, and said, “Sit down here,” and they sat down.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "boaz",
+              "stageId": "boaz",
+              "version": "b9de7cdb1e5eaa38d6f8dd43e91c5c77"
+            },
+            {
+              "entryId": "near_kinsman",
+              "stageId": "near_kinsman",
+              "version": "2365f3474a34491a1cb0a78f0fccf313"
+            },
+            {
+              "entryId": "elders_of_bethlehem_at_the_gate",
+              "stageId": "elders_of_bethlehem_at_the_gate-s1",
+              "version": "5158e6a27390c8a7ab72175a29f3813e"
+            }
+          ],
+          "eraId": "monarchy-of-israel-and-judah",
+          "lookVersion": "054da0c3a1f8480266bd7f2bb27d3acf",
+          "momentId": "ruth-4-1",
+          "planVersion": "0f424bd09c802f399879bfa83989635c",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [
+            {
+              "id": "icon",
+              "kind": "styleReference",
+              "version": "1cc16e5294b9e8b1744d73aa01f936e6"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "ruth-4-1",
+          "styleId": "icon",
+          "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792702170-c0SrxDBFy9wk7eM4B9b3",
+        "reference": "Ruth 4:1",
+        "requestId": "release-current-88b35597-f0bc-494b-8266-b4c628f7b9e6",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh793148trhe994fk7bh8nfpk58grpse",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "icon",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "Now Boaz went up to the gate and sat down there. Behold, the near kinsman of whom Boaz spoke came by. Boaz said to him, “Come over here, friend, and sit down!” He came over, and sat down."
+      },
+      "status": 200
+    },
+    {
+      "at": "2026-10-22T20:49:43.473Z",
+      "cohort": "prepared-browser-http",
+      "elapsedMs": 5225,
+      "replay": false,
+      "request": {
+        "aspectRatio": "16:9",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "reference": "Esther 5:1",
+        "requestId": "release-current-3efaef73-66b2-4c95-92f5-16e623623f38",
+        "resolution": "1K",
+        "style": "icon",
+        "translation": "kjv"
+      },
+      "response": {
+        "aspectRatio": "16:9",
+        "billingVersion": "google-input-output-tokens-2026-10-20",
+        "catalogEstimatedProviderUsd": 0.03444525,
+        "costUsd": 0.04281781,
+        "credits": 0,
+        "creditsCost": 5,
+        "durationMs": 3776,
+        "engine": "generic",
+        "estimatedCostUsd": 0.05,
+        "estimatedCreditsCost": 5,
+        "generationId": "75daf686-ae58-48e4-b4e2-12f6416cbff2",
+        "imageCostUsd": 0.04281781,
+        "imageCreditsCost": 5,
+        "imageUrl": "[inline image omitted]",
+        "model": "google/gemini-3.1-flash-lite-image",
+        "neutralCostUsedForActual": true,
+        "openRouterUsageUsd": 0.03425425,
+        "preparation": {
+          "calls": 0,
+          "promptChars": 6644,
+          "referencesSent": 1
+        },
+        "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Esther 5:1: \"Now on the third day, Esther put on her royal clothing and stood in the inner court of the king’s house, next to the king’s house. The king sat on his royal throne in the royal house, next to the entrance of the house.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return\nPeople: Israelites and neighboring Levantine, Mesopotamian and Persian peoples.\nDress: Tunics, cloaks, court robes, priestly linen and period armor.\nBuildings and objects: Villages, palaces, temples, city gates and exile settlements.\nTechnology: Iron and bronze tools, chariots, siege works and scrolls; no modern objects.\n\nSELECTED CHARACTERS: Esther; Ahasuerus\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- Esther: a young woman of about twenty, slender and graceful in build, with warm olive-brown skin and dark hair braided and bound up beneath a fine veil. Her face is gentle and dignified, with large dark eyes and a calm, grave bearing. Her signature outfit is a long court robe of deep crimson silk with a gold-embroidered border, a gold belt, and gold bangles at the wrists. When received before the king she wears the royal crown of gold. She alone carries the king's golden scepter.\n- Ahasuerus: man in his middle years, broad-shouldered and upright; dark, neatly curled beard and hair under a royal crown of gold; olive-brown skin; calm, heavy-lidded, dignified face. Signature outfit: long layered royal robe of deep purple and gold-embroidered blue over a white tunic. Signature props: a gold signet ring and a golden scepter.\n- Only Esther, Ahasuerus have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Palace at Susa, inner court and royal hall of the king's house, with a banquet hall of the palace of Esther nearby\nTime of day: Midday on the third day, continuing into afternoon\nWeather: Clear, warm, still air\nLight: Bright daylight filtering through tall columns and high windows, warm golden tones\nClothing: Royal court robes of rich fabric for Esther and the king, tunics and cloaks for courtiers, period palace attire\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Esther standing in the inner court in royal robes, poised and composed\nAction: Esther stands at the threshold of the inner court while the king sits on his throne in the royal hall just beyond the entrance, both still and attentive\nSetting: Inner court of the king's house at Susa, the royal hall visible beyond a row of tall columns, the throne raised on a dais\nSecondary elements: Courtiers and attendants stand discreetly at the edges, tall columns and high windows admit bright golden daylight, stone floor warm underfoot\nMood: Tense, reverent and dignified, with quiet hope and courage\nTime of day: Midday on the third day, bright and warm\nComposition: Wide view down the central axis from the court toward the throne, Esther in the foreground near the columns and the king seated in the distance within the hall\n\nART STYLE: Byzantine Icon\nRendering: Byzantine icon painting: flat, frontal, stylized figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.\nNegatives: Never show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Avoid photorealism and modern illustration. The gold sky and stylized landscape fill the image edge-to-edge.\nPalette: Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.\nLighting: No cast shadows; inner light shown through layered highlights and gold glow.\nMaterials and texture: Egg tempera and gold-leaf texture within the scene.\nComposition: Hieratic, balanced staging; the key subject largest and central; stylized rocks, buildings and trees.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: When the king saw Esther the queen standing in the court, she obtained favor in his sight; and the king held out to Esther the golden scepter that was in his hand. So Esther came near and touched the top of the scepter.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+        "promptVersion": "2026-10-22-generic-v4",
+        "provenance": {
+          "analysisGeneration": 1,
+          "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+          "canon": [
+            {
+              "entryId": "esther",
+              "stageId": "esther",
+              "version": "9f986f411760fa0e9f4a555922d422b5"
+            },
+            {
+              "entryId": "ahasuerus",
+              "stageId": "ahasuerus-main",
+              "version": "b0de6e754ec6fda6f9397ffd028b0d39"
+            }
+          ],
+          "eraId": "monarchy-of-israel-and-judah",
+          "lookVersion": "53c148b92c30868e19d255e184b6f3ed",
+          "momentId": "esther-5-1",
+          "planVersion": "05f32b78d00625276657ebb052427a34",
+          "promptVersion": "2026-10-22-generic-v4",
+          "references": [
+            {
+              "id": "icon",
+              "kind": "styleReference",
+              "version": "1cc16e5294b9e8b1744d73aa01f936e6"
+            }
+          ],
+          "requestTranslationId": "kjv",
+          "sectionId": "esther-5-1",
+          "styleId": "icon",
+          "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+          "workId": "bible-web"
+        },
+        "provider": "Google",
+        "providerRequestId": "gen-1792702184-Zt3kx2y51dWXE8RwTZVB",
+        "reference": "Esther 5:1",
+        "requestId": "release-current-3efaef73-66b2-4c95-92f5-16e623623f38",
+        "requestTranslationId": "kjv",
+        "resolution": "1K",
+        "resolutionSupported": false,
+        "savedImageId": "kh7drfmax4mmqc9b8jtgp27swh8gr39p",
+        "scenePlanFromCache": false,
+        "scenePlannerCostUsd": 0,
+        "scenePlannerCredits": 0,
+        "scenePlannerUsed": false,
+        "style": "icon",
+        "translationId": "web",
+        "usedActualCost": true,
+        "usedFallbackEstimate": false,
+        "verseText": "Now on the third day, Esther put on her royal clothing and stood in the inner court of the king’s house, next to the king’s house. The king sat on his royal throne in the royal house, next to the entrance of the house."
+      },
+      "status": 200
+    }
+  ]
+}

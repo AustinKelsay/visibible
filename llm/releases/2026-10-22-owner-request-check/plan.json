@@ -1,0 +1,117 @@
+{
+  "at": "2026-10-22T20:35:18.326460+00:00",
+  "issue": 183,
+  "baseCommit": "ecd58e06537e2a09b97260fee7612c35f0feb879",
+  "purpose": "Independent actual-app compatibility, accounting and full-request latency; does not accept Daniel presence or visual release.",
+  "authorization": "Continue the already authorized production owner check using the remaining separate $1 smoke allowance and $43 preparation allowance. No additional grant, purchase or public activation.",
+  "production": {
+    "team": "austin-kelsays-projects",
+    "project": "prj_G5cIczHFaLa1KentxzwAytQ8jXdx",
+    "convex": "unique-impala-244",
+    "initialMode": "disabled",
+    "checkMode": "owner",
+    "sessionDigest": "c032800339ce38c2f0377aff01520d7471a18c80f643d154f06bb1f9856375b4",
+    "sessionTier": "paid",
+    "initialCredits": 90,
+    "finalMode": "disabled",
+    "ownerDigestRemovedAtEnd": true
+  },
+  "smoke": {
+    "authorizedUsd": 1,
+    "measuredBeforeUsd": 0.0685215,
+    "operationCapUsd": 0.9,
+    "reservePerAttemptUsd": 0.05,
+    "maximumUniqueRequests": 18,
+    "maximumPaidProviderAttempts": 18,
+    "automaticRetries": 0
+  },
+  "preparation": {
+    "authorizedUsd": 43,
+    "measuredBeforeUsd": 3.6408405,
+    "uncertaintyBeforeUsd": 0.03,
+    "operationCapUsd": 0.18,
+    "maximumCalls": 36,
+    "reservePerCallUsd": 0.005,
+    "explanation": "Nine cold moments, two required preparations, at most two structural attempts each. Warm calls must reuse both."
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredBeforeUsd": 16.2980069,
+    "uncertaintyBeforeUsd": 0.045,
+    "maximumCalls": 0
+  },
+  "sampleDesign": {
+    "coldRequests": 9,
+    "preparedRequests": 9,
+    "stylesPerCohort": {
+      "classical": 3,
+      "watercolor": 3,
+      "icon": 3
+    },
+    "rationale": "The valid funded session has 90 remaining credits, enough for 18 five-credit Lite requests. This is a new paired cohort, not completion of the historical ten-plus-ten plan. Do not pool historical timings from different code.",
+    "quantile": "nearest-rank p90, reported with n, per-style n and failed requests; these small samples do not establish repeatability or human acceptance.",
+    "targetsMs": {
+      "coldP90": 20000,
+      "preparedP90": 10000
+    }
+  },
+  "cold": [
+    {
+      "unitId": "exodus-16-15",
+      "styleId": "classical"
+    },
+    {
+      "unitId": "1-kings-17-6",
+      "styleId": "classical"
+    },
+    {
+      "unitId": "mark-10-14",
+      "styleId": "classical"
+    },
+    {
+      "unitId": "luke-10-33",
+      "styleId": "watercolor"
+    },
+    {
+      "unitId": "john-4-7",
+      "styleId": "watercolor"
+    },
+    {
+      "unitId": "acts-16-25",
+      "styleId": "watercolor"
+    },
+    {
+      "unitId": "ruth-3-10",
+      "styleId": "icon"
+    },
+    {
+      "unitId": "ruth-4-1",
+      "styleId": "icon"
+    },
+    {
+      "unitId": "esther-5-1",
+      "styleId": "icon"
+    }
+  ],
+  "prepared": "Same ordered units/styles after read-back and a zero-paid-call cache audit using the actual merged preparation code.",
+  "request": {
+    "route": "POST /api/generate-image",
+    "translation": "kjv",
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K",
+    "expectedQuoteCredits": 5,
+    "expectedReservationCredits": 10
+  },
+  "stops": [
+    "Retain every first attempt, success or failure. No semantic retries, image retries, alternate models, overlays, source/canon/section edits, new reading, reference generation or replacement samples.",
+    "Before any paid request confirm exact deployment, owner admission, matching work/brief readiness, valid controlled non-admin session, source version, fresh input status and sufficient independent reserves.",
+    "At most 18 unique requests. Before each request require prior measured plus $0.05 image reserve within $0.90 operation cap and $1 cumulative cap. Stop on missing usage, provider error, unexpected accounting, uncertain outcome or cache/input drift; audit before any continuation.",
+    "Cold inputs must have neither look nor plan; prepared inputs must demonstrate zero model calls with the same input versions. A stale plan is not a prepared sample.",
+    "Replaying a completed request uses its same request ID and must not pay or debit twice. Compare saved WEB text/provenance, KJV request context, credit reservations/refunds/debits and backend preparation spend.",
+    "Only the exact controlled session receives owner admission; public Classical stays legacy and other public styles unavailable. Do not set public mode. Stage reviewed code, retain exact rollback target, restore disabled admission and no configured owner digest on completion/error.",
+    "This independent request measurement does not continue the stopped Daniel operation or cure its failed presence result. Do not treat smoke outputs as the fixed visual matrix or human acceptance."
+  ],
+  "humanAccepted": false,
+  "publicActivation": false
+}

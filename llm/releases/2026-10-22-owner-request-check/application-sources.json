@@ -1,0 +1,23 @@
+{
+  "src/app/api/generate-image/route.ts": "d45af581484f02b2e038a965f47a2d3460dc5c0587525172c9bf3b4216fc066d",
+  "src/app/api/image-models/route.ts": "fdcc32c951ceedd53628344fab8529a88183841e5cc9f8ac20b50075c89c8b5a",
+  "src/lib/engine/dispatch.ts": "7375ecd4d929f8d639bc10608cc8c84e287323a43ea37baffc599e0bc96080c4",
+  "src/lib/engine/preparation.ts": "53f72982c5e565e6ebfc5b5c2a5a94276eabd37df6ee61ae6aac07f2f21dcb8e",
+  "src/lib/engine/prompt.ts": "abcb35198467e58ba8ecbb406235e8866f3e444a48096a1e4b52a56a2bad95fa",
+  "src/lib/engine/assemble.ts": "a702d79e8b3f179db6d9ebdf2931f209c766718d18caf1736e03b015969f1ea0",
+  "src/lib/engine/owner-check.ts": "e052c120bb99b562efe19e7ef4ee4075f045bd01baf12ef0998fd23af4599c92",
+  "src/lib/engine/admission.ts": "6a09edd66c6586504c333eb4f17062f17915a6955e9a731b25bd634452e38097",
+  "src/lib/engine/work-inputs.ts": "e449de93ef5b76c26b97bb40c725e11aeea9202cc9d14d7bd744aecbaa2c2cb3",
+  "src/lib/work-input.ts": "e43bddfa5b9a1e2f8065c42f6f99baba98d359f3a996efaca3d30aafb1d13590",
+  "src/data/bible-structure.ts": "d6ca63a7dcd669c7669b3f13ac8ee4fde2f3aa90cd4ea0893b7bff32ef7becea",
+  "convex/analysis.ts": "b48c562a90ad56a0eed4e386f47d1fa4d1f68008a5102f0e59a3e198d98b466c",
+  "convex/verseImages.ts": "656796ddeb4513627012e9356b5cd346e1be64360ac927cacb10f1a9f60055d5",
+  "convex/sessions.ts": "f84bcb7e9cea5facfd4b0c27d50c1fe499c9b668732cad801d97523265e2bdd5",
+  "convex/_helpers/contentVersion.ts": "c34546acd74b8f3081a3f73a2e922ba30732ed21f26f6e75688a3b8ac3ed2a32",
+  "works/bible-web/brief.json": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+  "styles/classical.json": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+  "styles/watercolor.json": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+  "styles/icon.json": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+  "scripts/works/import.mts": "3b9507367ea8df9a76c92b09dfc80140e0a9e7db468f9f1d68ab931956e43b78",
+  "works/sources/manifest.json": "1e3e243174b1f2df0818ce1cf2f069efcf45e8214ae7c340fb0e54af3ff67ffd"
+}

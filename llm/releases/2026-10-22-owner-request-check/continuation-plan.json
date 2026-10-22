@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-22T20:43:15.710451+00:00",
+  "reason": "Reader auto-generates an empty selected style on navigation. The one resulting image is retained and charged to the same smoke operation; no client full-request timing was captured.",
+  "predecessor": "plan.json",
+  "unplannedRequest": "unexpected-navigation.json",
+  "modeDuringAudit": "disabled",
+  "noReplacementSample": true,
+  "continuation": {
+    "entryPage": "/about",
+    "navigationDuringPaidBatch": false,
+    "guardInstalledBeforeOwnerAdmission": true,
+    "newColdRequests": 8,
+    "newPreparedRequests": 9,
+    "unmeasuredColdRequests": 1,
+    "remainingUniqueRequestLimit": 17,
+    "expectedCreditsRequired": 85,
+    "existingSessionCredits": 85,
+    "maximumOperationRequestsIncludingUnplanned": 18,
+    "priorOperationImageUsd": 0.034319,
+    "priorOperationPreparationUsd": 0.0008922,
+    "unchangedOperationImageCapUsd": 0.9,
+    "unchangedOperationPreparationCapUsd": 0.18,
+    "unchangedTotalSmokeAllowanceUsd": 1,
+    "coldCaseOmittedFromTiming": "exodus-16-15",
+    "preparedOnlyCase": "exodus-16-15"
+  },
+  "stops": "All original error, usage, accounting, cache and budget stops remain. No further reader navigation while owner admission is open.",
+  "publicActivation": false,
+  "humanAccepted": false
+}

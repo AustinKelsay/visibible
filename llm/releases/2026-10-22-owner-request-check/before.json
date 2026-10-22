@@ -1,0 +1,601 @@
+{
+  "at": "2026-10-22T20:32:16.444Z",
+  "status": {
+    "activeGeneration": 1,
+    "activeVersions": {
+      "activatedAt": 1792538171849,
+      "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+    },
+    "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "candidateGeneration": null,
+    "exists": true,
+    "ready": true,
+    "reasons": [],
+    "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+  },
+  "spend": {
+    "byKind": {
+      "look": 0.007284100000000001,
+      "plan": 0.0151697
+    },
+    "calls": 87,
+    "costUsd": 0.02245380000000001
+  },
+  "rows": [
+    {
+      "unitId": "exodus-16-15",
+      "styleId": "classical",
+      "moment": {
+        "createdAt": 1792535256302,
+        "generation": 1,
+        "inputs": [],
+        "kind": "moment",
+        "payload": {
+          "firstUnit": "exodus-16-15",
+          "kind": "moment",
+          "lastUnit": "exodus-16-15",
+          "sectionId": "exodus-16-13"
+        },
+        "recordId": "exodus-16-15",
+        "source": "generated",
+        "status": "current",
+        "version": "40001732996d89510f9876da529c4fe6",
+        "workId": "bible-web"
+      },
+      "section": {
+        "createdAt": 1792535231240,
+        "generation": 1,
+        "inputs": [],
+        "kind": "section",
+        "payload": {
+          "cast": [
+            {
+              "entryId": "moses",
+              "named": true,
+              "stageId": "moses-elder"
+            },
+            {
+              "entryId": "aaron_brother_of_moses",
+              "named": false,
+              "stageId": "aaron"
+            },
+            {
+              "entryId": "the_israelite_people_the_children_of_israel",
+              "named": true,
+              "stageId": "the_israelite_people_the_children_of_israel_s1"
+            },
+            {
+              "entryId": "god_yahweh_the_father_and_god_of_israel",
+              "named": true,
+              "stageId": "god_yahweh_the_father_stage_1"
+            },
+            {
+              "entryId": "the_wilderness_exodus_route",
+              "stageId": "the_wilderness_exodus_route-main"
+            },
+            {
+              "entryId": "the_camp_of_israel",
+              "stageId": "the_camp_of_israel"
+            }
+          ],
+          "era": "exodus-wilderness-and-conquest-of-canaan",
+          "firstUnit": "exodus-16-13",
+          "kind": "section",
+          "lastUnit": "exodus-16-21",
+          "mentionedOnly": [],
+          "title": "Quail and manna appear; rules for gathering"
+        },
+        "recordId": "exodus-16-13",
+        "source": "generated",
+        "status": "current",
+        "version": "558d0330eabaa67978d0afe87eb3cd04",
+        "workId": "bible-web"
+      },
+      "look": null,
+      "plan": null
+    },
+    {
+      "unitId": "1-kings-17-6",
+      "styleId": "classical",
+      "moment": {
+        "createdAt": 1792535297341,
+        "generation": 1,
+        "inputs": [],
+        "kind": "moment",
+        "payload": {
+          "firstUnit": "1-kings-17-6",
+          "kind": "moment",
+          "lastUnit": "1-kings-17-6",
+          "sectionId": "1-kings-17-1"
+        },
+        "recordId": "1-kings-17-6",
+        "source": "generated",
+        "status": "current",
+        "version": "b23bd0b4b9e3bb8f77d75b7cc610be60",
+        "workId": "bible-web"
+      },
+      "section": {
+        "createdAt": 1792535234262,
+        "generation": 1,
+        "inputs": [],
+        "kind": "section",
+        "payload": {
+          "cast": [
+            {
+              "entryId": "elijah",
+              "named": true,
+              "stageId": "elijah-main"
+            },
+            {
+              "entryId": "cherith",
+              "stageId": "cherith-main"
+            }
+          ],
+          "era": "monarchy-of-israel-and-judah",
+          "firstUnit": "1-kings-17-1",
+          "kind": "section",
+          "lastUnit": "1-kings-17-7",
+          "mentionedOnly": [
+            "ahab_king_of_israel_son_of_omri"
+          ],
+          "title": "Elijah and the ravens"
+        },
+        "recordId": "1-kings-17-1",
+        "source": "generated",
+        "status": "current",
+        "version": "e2360b9a44b77e531ce8dbd2ad833836",
+        "workId": "bible-web"
+      },
+      "look": null,
+      "plan": null
+    },
+    {
+      "unitId": "mark-10-14",
+      "styleId": "classical",
+      "moment": {
+        "createdAt": 1792538137472,
+        "generation": 1,
+        "inputs": [],
+        "kind": "moment",
+        "payload": {
+          "firstUnit": "mark-10-14",
+          "kind": "moment",
+          "lastUnit": "mark-10-14",
+          "sectionId": "mark-10-13"
+        },
+        "recordId": "mark-10-14",
+        "source": "generated",
+        "status": "current",
+        "version": "76205657776d8d548e9f3c1fe2b2738b",
+        "workId": "bible-web"
+      },
+      "section": {
+        "createdAt": 1792535242233,
+        "generation": 1,
+        "inputs": [],
+        "kind": "section",
+        "payload": {
+          "cast": [
+            {
+              "entryId": "jesus_christ_the_son_of_god_and_lord",
+              "named": true,
+              "stageId": "adult"
+            },
+            {
+              "entryId": "the_twelve_disciples_collective",
+              "named": true,
+              "stageId": "the_twelve_disciples_collective_main"
+            },
+            {
+              "entryId": "judea_gospel_region_around_jerusalem",
+              "stageId": "judea_main"
+            }
+          ],
+          "era": "roman-era-judea-galilee-and-the-early-church",
+          "firstUnit": "mark-10-13",
+          "kind": "section",
+          "lastUnit": "mark-10-16",
+          "mentionedOnly": [],
+          "title": "Blessing little children"
+        },
+        "recordId": "mark-10-13",
+        "source": "generated",
+        "status": "current",
+        "version": "4ae8eee45d6dc7abcf35bdec467d4d90",
+        "workId": "bible-web"
+      },
+      "look": null,
+      "plan": null
+    },
+    {
+      "unitId": "luke-10-33",
+      "styleId": "watercolor",
+      "moment": {
+        "createdAt": 1792538142065,
+        "generation": 1,
+        "inputs": [],
+        "kind": "moment",
+        "payload": {
+          "firstUnit": "luke-10-33",
+          "kind": "moment",
+          "lastUnit": "luke-10-33",
+          "sectionId": "luke-10-25"
+        },
+        "recordId": "luke-10-33",
+        "source": "generated",
+        "status": "current",
+        "version": "06c6fc10b9d746536f8f23b8020bf41c",
+        "workId": "bible-web"
+      },
+      "section": {
+        "createdAt": 1792535242233,
+        "generation": 1,
+        "inputs": [],
+        "kind": "section",
+        "payload": {
+          "cast": [
+            {
+              "entryId": "lawyer_who_tests_jesus_luke_10",
+              "named": true,
+              "stageId": "lawyer_who_tests_jesus_luke_10-s1"
+            },
+            {
+              "entryId": "jesus_christ_the_son_of_god_and_lord",
+              "named": true,
+              "stageId": "adult"
+            },
+            {
+              "entryId": "judea_gospel_region_around_jerusalem",
+              "stageId": "judea_main"
+            }
+          ],
+          "era": "roman-era-judea-galilee-and-the-early-church",
+          "firstUnit": "luke-10-25",
+          "kind": "section",
+          "lastUnit": "luke-10-37",
+          "mentionedOnly": [
+            "the_samaritan"
+          ],
+          "title": "Good Samaritan"
+        },
+        "recordId": "luke-10-25",
+        "source": "generated",
+        "status": "current",
+        "version": "1a197b2c234bf5c529730b34033b9c08",
+        "workId": "bible-web"
+      },
+      "look": null,
+      "plan": null
+    },
+    {
+      "unitId": "john-4-7",
+      "styleId": "watercolor",
+      "moment": {
+        "createdAt": 1792538147308,
+        "generation": 1,
+        "inputs": [],
+        "kind": "moment",
+        "payload": {
+          "firstUnit": "john-4-7",
+          "kind": "moment",
+          "lastUnit": "john-4-7",
+          "sectionId": "john-4-7"
+        },
+        "recordId": "john-4-7",
+        "source": "generated",
+        "status": "current",
+        "version": "b6399583f431a5bcb72c5a6b808f02ff",
+        "workId": "bible-web"
+      },
+      "section": {
+        "createdAt": 1792535242233,
+        "generation": 1,
+        "inputs": [],
+        "kind": "section",
+        "payload": {
+          "cast": [
+            {
+              "entryId": "jesus_christ_the_son_of_god_and_lord",
+              "named": true,
+              "stageId": "adult"
+            },
+            {
+              "entryId": "the_samaritan_woman_at_the_well",
+              "named": true,
+              "stageId": "the_samaritan_woman_at_the_well"
+            },
+            {
+              "entryId": "sychar",
+              "stageId": "sychar"
+            }
+          ],
+          "era": "roman-era-judea-galilee-and-the-early-church",
+          "firstUnit": "john-4-7",
+          "kind": "section",
+          "lastUnit": "john-4-26",
+          "mentionedOnly": [],
+          "title": "Jesus and the Samaritan woman at the well"
+        },
+        "recordId": "john-4-7",
+        "source": "generated",
+        "status": "current",
+        "version": "b5d554214c37fa30c8aa2b59c2c3879d",
+        "workId": "bible-web"
+      },
+      "look": null,
+      "plan": null
+    },
+    {
+      "unitId": "acts-16-25",
+      "styleId": "watercolor",
+      "moment": {
+        "createdAt": 1792538152206,
+        "generation": 1,
+        "inputs": [],
+        "kind": "moment",
+        "payload": {
+          "firstUnit": "acts-16-25",
+          "kind": "moment",
+          "lastUnit": "acts-16-25",
+          "sectionId": "acts-16-25"
+        },
+        "recordId": "acts-16-25",
+        "source": "generated",
+        "status": "current",
+        "version": "25765c486fce46cb96f8763038ead0cc",
+        "workId": "bible-web"
+      },
+      "section": {
+        "createdAt": 1792535242233,
+        "generation": 1,
+        "inputs": [],
+        "kind": "section",
+        "payload": {
+          "cast": [
+            {
+              "entryId": "saul_of_tarsus_paul",
+              "named": true,
+              "stageId": "saul-main"
+            },
+            {
+              "entryId": "silas_silvanus",
+              "named": true,
+              "stageId": "silas_silvanus-main"
+            },
+            {
+              "entryId": "the_philippian_jailer",
+              "named": true,
+              "stageId": "the_philippian_jailer"
+            },
+            {
+              "entryId": "philippi",
+              "stageId": "philippi"
+            }
+          ],
+          "era": "roman-era-judea-galilee-and-the-early-church",
+          "firstUnit": "acts-16-25",
+          "kind": "section",
+          "lastUnit": "acts-16-34",
+          "mentionedOnly": [],
+          "title": "Earthquake and the jailer's conversion"
+        },
+        "recordId": "acts-16-25",
+        "source": "generated",
+        "status": "current",
+        "version": "ba87868368a1e5c0c253a46b319aed4f",
+        "workId": "bible-web"
+      },
+      "look": null,
+      "plan": null
+    },
+    {
+      "unitId": "ruth-3-10",
+      "styleId": "icon",
+      "moment": {
+        "createdAt": 1792535286762,
+        "generation": 1,
+        "inputs": [],
+        "kind": "moment",
+        "payload": {
+          "firstUnit": "ruth-3-10",
+          "kind": "moment",
+          "lastUnit": "ruth-3-10",
+          "sectionId": "ruth-3-1"
+        },
+        "recordId": "ruth-3-10",
+        "source": "generated",
+        "status": "current",
+        "version": "88aff33621d66b911b05abae1da6f212",
+        "workId": "bible-web"
+      },
+      "section": {
+        "createdAt": 1792535234262,
+        "generation": 1,
+        "inputs": [],
+        "kind": "section",
+        "payload": {
+          "cast": [
+            {
+              "entryId": "ruth",
+              "named": true,
+              "stageId": "ruth"
+            },
+            {
+              "entryId": "boaz",
+              "named": true,
+              "stageId": "boaz"
+            },
+            {
+              "entryId": "naomi",
+              "named": true,
+              "stageId": "naomi-main"
+            },
+            {
+              "entryId": "threshing_floor_of_boaz_ruth",
+              "stageId": "threshing_floor_of_boaz_ruth"
+            },
+            {
+              "entryId": "naomi_s_house_in_bethlehem",
+              "stageId": "naomi_house_bethlehem"
+            }
+          ],
+          "era": "monarchy-of-israel-and-judah",
+          "firstUnit": "ruth-3-1",
+          "kind": "section",
+          "lastUnit": "ruth-3-18",
+          "mentionedOnly": [
+            "near_kinsman"
+          ],
+          "title": "Ruth at the threshing floor"
+        },
+        "recordId": "ruth-3-1",
+        "source": "generated",
+        "status": "current",
+        "version": "1731de6d2a193cd4a4deed356314d3c9",
+        "workId": "bible-web"
+      },
+      "look": null,
+      "plan": null
+    },
+    {
+      "unitId": "ruth-4-1",
+      "styleId": "icon",
+      "moment": {
+        "createdAt": 1792535286762,
+        "generation": 1,
+        "inputs": [],
+        "kind": "moment",
+        "payload": {
+          "firstUnit": "ruth-4-1",
+          "kind": "moment",
+          "lastUnit": "ruth-4-1",
+          "sectionId": "ruth-4-1"
+        },
+        "recordId": "ruth-4-1",
+        "source": "generated",
+        "status": "current",
+        "version": "0b5ed4c5a3d9e0a6abe4e03d9ca8d7d9",
+        "workId": "bible-web"
+      },
+      "section": {
+        "createdAt": 1792535234262,
+        "generation": 1,
+        "inputs": [],
+        "kind": "section",
+        "payload": {
+          "cast": [
+            {
+              "entryId": "boaz",
+              "named": true,
+              "stageId": "boaz"
+            },
+            {
+              "entryId": "near_kinsman",
+              "named": true,
+              "stageId": "near_kinsman"
+            },
+            {
+              "entryId": "elders_of_bethlehem_at_the_gate",
+              "named": true,
+              "stageId": "elders_of_bethlehem_at_the_gate-s1"
+            },
+            {
+              "entryId": "bethlehem_city_gate",
+              "stageId": "bethlehem_city_gate_main"
+            }
+          ],
+          "era": "monarchy-of-israel-and-judah",
+          "firstUnit": "ruth-4-1",
+          "kind": "section",
+          "lastUnit": "ruth-4-12",
+          "mentionedOnly": [
+            "naomi",
+            "ruth",
+            "elimelech"
+          ],
+          "title": "Redemption at the city gate"
+        },
+        "recordId": "ruth-4-1",
+        "source": "generated",
+        "status": "current",
+        "version": "9cb04cfdaec796686b66f97540552101",
+        "workId": "bible-web"
+      },
+      "look": null,
+      "plan": null
+    },
+    {
+      "unitId": "esther-5-1",
+      "styleId": "icon",
+      "moment": {
+        "createdAt": 1792535316090,
+        "generation": 1,
+        "inputs": [],
+        "kind": "moment",
+        "payload": {
+          "firstUnit": "esther-5-1",
+          "kind": "moment",
+          "lastUnit": "esther-5-1",
+          "sectionId": "esther-5-1"
+        },
+        "recordId": "esther-5-1",
+        "source": "generated",
+        "status": "current",
+        "version": "01947194394210ef39ee99ccd21eb510",
+        "workId": "bible-web"
+      },
+      "section": {
+        "createdAt": 1792535237008,
+        "generation": 1,
+        "inputs": [],
+        "kind": "section",
+        "payload": {
+          "cast": [
+            {
+              "entryId": "esther",
+              "named": true,
+              "stageId": "esther"
+            },
+            {
+              "entryId": "ahasuerus",
+              "named": true,
+              "stageId": "ahasuerus-main"
+            },
+            {
+              "entryId": "haman",
+              "named": true,
+              "stageId": "haman-main"
+            },
+            {
+              "entryId": "palace_at_susa",
+              "stageId": "palace_at_susa-main"
+            },
+            {
+              "entryId": "the_banquet_hall_in_the_palace_of_esther",
+              "stageId": "banquet_hall_main"
+            }
+          ],
+          "era": "monarchy-of-israel-and-judah",
+          "firstUnit": "esther-5-1",
+          "kind": "section",
+          "lastUnit": "esther-5-8",
+          "mentionedOnly": [],
+          "title": "Esther approaches the king"
+        },
+        "recordId": "esther-5-1",
+        "source": "generated",
+        "status": "current",
+        "version": "b37f4f8d807c0330da9c169523a30819",
+        "workId": "bible-web"
+      },
+      "look": null,
+      "plan": null
+    }
+  ],
+  "session": {
+    "sidSha256": "c032800339ce38c2f0377aff01520d7471a18c80f643d154f06bb1f9856375b4",
+    "tier": "paid",
+    "credits": 90
+  }
+}
