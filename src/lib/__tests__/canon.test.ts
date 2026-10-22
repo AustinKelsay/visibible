@@ -80,6 +80,8 @@ async function readFixture() {
 }
 
 const stage = (id: string, text: string, quotes: Array<{ unit: string; quote: string }> = []) => ({ id, label: id, when: "all", text, source: "mixed" as const, quotes });
+const showingStage = (id: string, quotes: Array<{ unit: string; quote: string }> = []) => ({ id, label: id, when: "all", source: "mixed" as const, quotes,
+  showing: [{ effect: "radiance", colour: "white", brightness: "brilliant" }, { effect: "cloud", colour: "unspecified", brightness: "unspecified" }] });
 const canonFor = (entryId: string, request: TextModelRequest) => {
   const sections = [...request.user.matchAll(/^- ([a-z]+-\d+-\d+): /gm)].map((m) => m[1]);
   const assign = (stageId: string) => sections.map((s) => ({ section: s, stage: stageId }));
@@ -89,7 +91,7 @@ const canonFor = (entryId: string, request: TextModelRequest) => {
         stages: [stage("young", "Jonah: a young fisherman, lean, sun-browned, in a grey wool tunic.", [{ unit: "alpha-1-1", quote: "Jonah the fisherman mended his nets" }, { unit: "alpha-1-1", quote: "this is not in the text" }]),
                  stage("weathered", "Jonah: the same man years on, weathered, grey at the temples, in a sailor's blue coat.", [{ unit: "beta-1-2", quote: "Jonah’s ship came home" }])] };
     case "the_voice_from_the_sky":
-      return { kind: "character", has_form: false, appearance_from_text: "Only a voice.", section_stages: assign("main"), stages: [stage("main", "The voice from the sky: never a face or body; shown only as light breaking through cloud.")] };
+      return { kind: "character", has_form: false, appearance_from_text: "Only a voice.", section_stages: assign("main"), stages: [showingStage("main")] };
     case "jonah_s_ship":
       return { kind: "object", has_form: true, appearance_from_text: "A ship.", section_stages: assign("a"), stages: [stage("a", "Jonah's ship: a single-masted wooden ship with a red sail."), stage("b", "Jonah's ship: a second form that should be dropped.")] };
     case "the_crowd":
@@ -109,16 +111,17 @@ describe("canon", () => {
     const entry = reading.merge!.entries.find((e) => e.id === "the_voice_from_the_sky")!;
     const rule = "Beings heard only as voices are never given a face or body.";
     const brief = { ...reading.brief!.brief, depictionRules: [{ text: rule }] };
-    const text = "The voice from the sky: a presence of pure white radiance and cloud.";
+    const text = "the voice from the sky: brilliant white radiance; cloud.";
     const model = scriptedModel({ "canon:": (request) => {
       expect(request.system).toContain("Depiction rules govern the rendered appearance");
       expect(request.system).toContain("appearance fields below apply only when has_form is true");
       expect(request.system).toContain("not physical anatomy, clothing, pose or material cues");
+      expect(request.system).toContain("there is no free-prose stage field");
       expect(request.system).toContain("Keep the exact source wording in supporting quotes");
       expect(request.user).toContain(rule);
       expect(request.user).toContain(`[alpha-1-1] ${source}`);
       return { kind: "character", has_form: false, appearance_from_text: source, section_stages: [{ section: "alpha-1-1", stage: "main" }],
-        stages: [stage("main", text, [{ unit: "alpha-1-1", quote: source }])] };
+        stages: [showingStage("main", [{ unit: "alpha-1-1", quote: source }])] };
     } });
     const result = await draftCanonEntry({ work, entry, brief, sections: reading.merge!.sections,
       sectionEras: reading.brief!.sectionEras, hints: [], model });
@@ -277,6 +280,38 @@ describe("canon", () => {
       .rejects.toThrow(BudgetExceededError);
     expect(parallelModel.calls.length).toBeLessThanOrEqual(2);
     await expect(runCanon({ workFile: twoBooks, workVersion: "wv1", brief, briefVersion: "other", reading, hints: [], model, store: null, state, saveState: async () => {}, budgetUsd: 1 })).rejects.toThrow(/Start a new run/);
+  });
+
+  it("resumes saved no-form prose unchanged and applies the structured representation only on explicit redraft", async () => {
+    const reading = await readFixture();
+    const brief = reading.brief!.brief;
+    const model = scriptedModel({ "canon:": (request) => canonFor(request.label.split(":")[1], request) });
+    const state = await runCanon({ workFile: twoBooks, workVersion: "wv1", brief, briefVersion: "bv1", reading, hints: [],
+      model, store: null, state: emptyCanonState("two-books", "wv1", "bv1"), saveState: async () => {}, budgetUsd: 1 });
+    const id = "the_voice_from_the_sky";
+    state.entries[id].promptVersion = "2026-10-21-canon-context-v2";
+    state.entries[id].stages[0].text = "The voice from the sky: no face or body; white wool-like light.";
+    delete state.entries[id].stages[0].showing;
+    const legacy = structuredClone(state.entries[id]);
+    const calls = model.calls.length;
+    await runCanon({ workFile: twoBooks, workVersion: "wv1", brief, briefVersion: "bv1", reading, hints: [],
+      model, store: null, state, saveState: async () => {}, budgetUsd: 1 });
+    expect(model.calls).toHaveLength(calls);
+    expect(state.entries[id]).toEqual(legacy);
+    const oldRecord = canonRecords(reading, state).find((r) => r.recordId === id)!;
+    expect(oldRecord.inputs).toEqual([{ kind: "prompt", recordId: "canon", version: "2026-10-21-canon-context-v2" }]);
+    expect(oldRecord.payload).toMatchObject({ hasForm: false, stages: [{ text: legacy.stages[0].text }] });
+
+    await runCanon({ workFile: twoBooks, workVersion: "wv1", brief, briefVersion: "bv1", reading, hints: [],
+      model, store: null, state, saveState: async () => {}, budgetUsd: 1, redraft: [id] });
+    expect(model.calls).toHaveLength(calls + 1);
+    expect(state.entries[id]).toMatchObject({ hasForm: false, promptVersion: CANON_PROMPT_VERSION, attempts: 1 });
+    expect(state.entries[id].stages[0].text).toBe("the voice from the sky: brilliant white radiance; cloud.");
+    expect(state.entries[id].stages[0].showing).toHaveLength(2);
+    const next = canonRecords(reading, state).find((r) => r.recordId === id)!;
+    if (next.payload.kind !== "entry") throw new Error("Expected a canon entry record");
+    expect(next.payload.hasForm).toBe(false);
+    expect(next.payload.stages).toEqual([{ id: "main", label: "main", text: state.entries[id].stages[0].text, quotes: [] }]);
   });
 
   it("checks quotes against the exact unit text, ignoring case, spacing and quote marks", () => {
