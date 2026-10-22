@@ -50,6 +50,7 @@ These guides describe the repository's current behavior. Source links identify t
 - [Exact style-reference input audit and omission control](releases/2026-10-21-reference-input-audit/README.md)
 - [Controlled 12-image reference comparison: retained failures and $16.50 evaluation accounting](releases/2026-10-21-reference-comparison/README.md)
 - [Rejected Daniel canon candidate: exact drafting failure, source-context gap and unchanged image allowance](releases/2026-10-21-daniel-canon-candidate/README.md)
+- [Daniel canon with section context: exact source quotes, retained drafting failure and text-only spend](releases/2026-10-22-daniel-context-candidate/README.md)
 
 Exact dependencies and commands: [package.json](../package.json). Environment templates: [.env.example](../.env.example), [.env.convex.dev.example](../.env.convex.dev.example), [.env.convex.prod.example](../.env.convex.prod.example), [.env.vercel.preview.example](../.env.vercel.preview.example), [.env.vercel.prod.example](../.env.vercel.prod.example). Tables and scheduled jobs: [schema](../convex/schema.ts), [crons](../convex/crons.ts).
 
