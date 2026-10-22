@@ -35,7 +35,10 @@ const formlessLookOutputSchema = (() => {
 })();
 
 export const PLAN_SYSTEM = `You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the cast on stage in the section. Plan one single scene that depicts this moment. Return only JSON.
-Rules: single scene, no collage. Choose which of the listed cast are present in this moment and name them in \`present\` by their ids; leave out cast who are elsewhere in the section. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that) and do not name an art style or rendering technique; describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.`;
+Rules: single scene, no collage. Choose which of the listed cast are present in this moment and name them in \`present\` by their ids; leave out cast who are elsewhere in the section. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that) and do not name an art style or rendering technique; describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.
+Establish presence from the scene being illustrated. A shared wardrobe, a narrator's viewpoint or a neighboring mention alone does not establish presence. Neighbors may resolve identity and continuity in the current scene; do not import cast from a separate adjacent event. The section cast and look cover multiple moments, not a roster to depict in every image. Apply shared clothing and props only to selected entries. Every character or group described in any scene field must be selected in \`present\`; omit unselected figures rather than describing them as background.`;
+/** All plans use the selected-cast contract; a change refreshes plans lazily, without remaking looks. */
+export const MOMENT_CAST_PROMPT_VERSION = "2026-10-22-moment-cast-v1";
 /** Bump for changes to this no-form planning contract or its cast format; only affected plans use it. */
 export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-22-formless-effects-v5";
 const FORMLESS_PLAN_SYSTEM = `${PLAN_SYSTEM}
@@ -236,6 +239,7 @@ export async function prepareMoment(options: {
   // The plan depends on the moment, the look, the brief and the cast's canon; never on a style or translation.
   const planInputs: InputRef[] = [{ kind: "moment", recordId: options.momentId, version: moment.version }, { kind: "look", recordId: sectionId, version: look.version },
     { kind: "brief", recordId: options.workId, version: options.briefVersion }, ...cast.map((c) => ({ kind: "entry", recordId: c.entryId, version: c.version })),
+    { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION },
     ...(hasFormlessCast ? [{ kind: "prompt", recordId: "scene_plan_formless_presence", version: FORMLESS_PLAN_PROMPT_VERSION }] : [])];
   const plan = await ensureRecord(store, options.workId, "plan", options.momentId, planInputs, async () => {
     const lookPayload = look.payload as Record<string, string>;
