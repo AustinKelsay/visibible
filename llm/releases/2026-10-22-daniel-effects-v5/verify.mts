@@ -1,0 +1,156 @@
+/** Offline evidence replay. It binds exact agent verdicts, not visual truth or model reliability. */
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+import { contentVersion } from "../../../convex/_helpers/contentVersion";
+import { prepareMoment, FORMLESS_PLAN_PROMPT_VERSION } from "../../../src/lib/engine/preparation";
+import { estimateRequestCostUsd, READING_PASS_MODEL, type TextModelRequest } from "../../../src/lib/reading-pass/model";
+import { responseSchema } from "../../../src/lib/reading-pass/prompts";
+import { overlay, planSources } from "./overlay.mjs";
+import { dir, hash, json, sources } from "./experiment.mjs";
+
+globalThis.fetch = async () => { throw new Error("Offline verification forbids network"); };
+const near = (a: number, b: number) => assert.ok(Number.isFinite(a) && Number.isFinite(b) && Math.abs(a - b) < 1e-10, `${a} != ${b}`);
+const previousDir = path.join(dir, "../2026-10-22-daniel-placement-v4");
+const previous = (file: string) => JSON.parse(fs.readFileSync(path.join(previousDir, file), "utf8"));
+const plan = json("plan.json"), before = json("before.json"), after = json("after.json"), input = json("plan-input.json");
+const dry = json("dry-run.json"), scene = json("scene.json"), review = json("scene-review.json"), ledger = json("preparation-ledger.json");
+const execution = json("plan-execution.json"), summary = json("summary.json"), priorSummary = previous("summary.json");
+assert.equal(plan.baseCommit, "07cbdc7c6e0592017ae436ead3fabfc92e10b688");
+assert.equal(plan.planPromptVersion, FORMLESS_PLAN_PROMPT_VERSION); assert.equal(plan.textModel, READING_PASS_MODEL);
+assert.equal(plan.publicActivation, false); assert.equal(plan.humanAccepted, false);
+near(plan.preparation.measuredBeforeUsd, priorSummary.preparation.measuredUsd);
+near(plan.preparation.uncertaintyBeforeUsd, priorSummary.preparation.uncertaintyUsd);
+assert.equal(plan.preparation.authorizedUsd, 43); assert.equal(priorSummary.preparation.authorizedUsd, 43);
+assert.equal(plan.preparation.maximumCanonCalls, 0); assert.equal(plan.preparation.maximumPlanCalls, 2); assert.equal(plan.preparation.maximumCalls, 2);
+near(plan.preparation.capUsd, 0.01); near(plan.preparation.reservePerCallUsd, 0.005);
+assert.ok(plan.preparation.measuredBeforeUsd + plan.preparation.uncertaintyBeforeUsd + plan.preparation.capUsd <= 43);
+assert.equal(plan.evaluation.maximumCalls, 0); assert.equal(plan.evaluation.capUsd, 0);
+assert.equal(plan.evaluation.authorizedUsd, priorSummary.evaluation.authorizedUsd);
+near(plan.evaluation.measuredBeforeUsd, priorSummary.evaluation.measuredUsd);
+near(plan.evaluation.uncertaintyBeforeUsd, priorSummary.evaluation.uncertaintyUsd);
+near(plan.evaluation.remainingAfterReserveBeforeUsd, priorSummary.evaluation.remainingAfterReserveUsd);
+assert.equal(plan.smoke.authorizedUsd, priorSummary.smoke.authorizedUsd); near(plan.smoke.measuredUsd, priorSummary.smoke.measuredUsd);
+assert.deepEqual(summary.evaluation, priorSummary.evaluation); assert.deepEqual(summary.smoke, priorSummary.smoke);
+assert.deepEqual(summary.originalMatrix, priorSummary.originalMatrix);
+assert.deepEqual(before.records, previous("after.json").records); assert.deepEqual(after.records, before.records);
+assert.deepEqual(before.sourceFiles, sources(), "Use this revision to verify historical source hashes"); assert.deepEqual(after.sourceFiles, before.sourceFiles);
+for (const snapshot of [before, after]) {
+  assert.equal(snapshot.records.length, 9); assert.equal(snapshot.status.ready, true); assert.equal(snapshot.status.activeGeneration, 1);
+  assert.equal(snapshot.paidCalls, 0); assert.equal(snapshot.productionMutations, 0); assert.equal(snapshot.publicActivation, false);
+  assert.equal(snapshot.livePlanPromptVersion, "2026-10-21-formless-presence-v3");
+  assert.equal(snapshot.localPlanPromptVersion, FORMLESS_PLAN_PROMPT_VERSION);
+  assert.ok(snapshot.packetAssemblySkipped); assert.ok(!("packets" in snapshot));
+  assert.equal(snapshot.retainedBaseline.assembledThisRun, false); assert.equal(snapshot.retainedBaseline.packets, 3);
+  assert.equal(snapshot.retainedBaseline.sha256, hash(fs.readFileSync(path.resolve(dir, snapshot.retainedBaseline.file))));
+  assert.ok(snapshot.publicCatalog.artStyles.every((s: { id: string; available: boolean }) => s.id === "classical" || !s.available));
+}
+const canonBytes = fs.readFileSync(path.join(dir, "canon.json"));
+assert.deepEqual(canonBytes, fs.readFileSync(path.join(previousDir, "canon.json")));
+assert.equal(plan.reusedCanon.artifactSha256, hash(canonBytes)); assert.equal(plan.reusedCanon.newCalls, 0);
+const canonReview = json("canon-review.json"), canon = json("canon.json").result;
+assert.equal(canonReview.canonArtifactSha256, hash(canonBytes)); assert.equal(canonReview.verdict, "accept-for-isolated-plan");
+assert.equal(canonReview.priorReviewSha256, hash(fs.readFileSync(path.join(previousDir, "canon-review.json"))));
+assert.equal(canonReview.stageTextSha256, hash(canon.stages[0].text)); assert.equal(canonReview.reviewer, "agent"); assert.equal(canonReview.humanAccepted, false);
+assert.equal(canon.hasForm, false); assert.deepEqual(canon.problems, []);
+const local = await overlay();
+assert.deepEqual(input.overlay, local.audit); assert.deepEqual(input.overlay.sourceFiles, planSources());
+assert.deepEqual(input.records, local.records);
+const priorInput = previous("plan-input.json");
+const expectedRecords = structuredClone(priorInput.records);
+for (const record of expectedRecords) {
+  if (record.kind === "entry" && record.recordId === canon.entryId) {
+    record.payload.stages[0].showing = canon.stages[0].showing;
+    record.version = contentVersion(record.payload);
+    assert.equal(record.version, input.overlay.localEntryVersion);
+  }
+  if (record.kind === "look") for (const ref of record.inputs) {
+    if (ref.kind === "entry" && ref.recordId === canon.entryId) ref.version = input.overlay.localEntryVersion;
+  }
+}
+assert.deepEqual(input.records, expectedRecords); assert.equal(input.overlay.structuredShowingRetained, true);
+assert.deepEqual(input.context, local.context); assert.deepEqual(input.context, previous("plan-input.json").context);
+assert.equal(local.inputs.workVersion, before.status.workVersion); assert.equal(local.inputs.briefVersion, before.status.briefVersion);
+assert.equal(input.context.previous, null); assert.equal(input.context.next.text, local.inputs.work.getUnit("daniel-7-10").text);
+const oldConstraint = `- ${canon.entryId} (stage: ${canon.stages[0].id}): ${canon.stages[0].text}`;
+const effectConstraint = `- ${canon.entryId} (stage: ${canon.stages[0].id}): effect names for placement: radiance, fire, cloud, light`;
+assert.equal(priorInput.request.user.split(oldConstraint).length, 2);
+assert.equal(input.request.user, priorInput.request.user.replace(oldConstraint, effectConstraint));
+assert.ok(!input.request.user.includes(canon.stages[0].text));
+assert.notEqual(input.request.system, previous("plan-input.json").request.system);
+assert.deepEqual(input.request.schema, previous("plan-input.json").request.schema);
+const oldLook = before.records.find((r: { kind: string }) => r.kind === "look");
+const localLook = input.records.find((r: { kind: string }) => r.kind === "look");
+assert.deepEqual(localLook.payload, oldLook.payload); assert.equal(localLook.version, "1469b2542a3afbf77ed9921c8f727f20");
+assert.equal(localLook.version, oldLook.version); assert.notDeepEqual(localLook.inputs, oldLook.inputs);
+for (const q of canon.stages[0].quotes) assert.ok(local.inputs.work.getUnit(q.unit).text.includes(q.quote));
+assert.equal(input.captureAttempts, 2); assert.equal(input.paidCalls, 0); assert.equal(input.productionMutations, 0); assert.equal(input.syntheticPlanProduced, false);
+assert.equal(dry.requestArtifactSha256, hash(fs.readFileSync(path.join(dir, "plan-input.json"))));
+assert.equal(dry.planPromptVersion, FORMLESS_PLAN_PROMPT_VERSION); assert.equal(dry.textModel, READING_PASS_MODEL);
+assert.deepEqual(dry.livePricing, before.textModel.pricing); near(Number(dry.livePricing.prompt), 0.1e-6); near(Number(dry.livePricing.completion), 0.5e-6);
+near(input.estimatedUsd, estimateRequestCostUsd(input.request)); near(dry.estimatedUsd, input.estimatedUsd);
+near(input.maximumCompletionEstimatedUsd, input.estimatedUsd + (900 - 350) * Number(dry.livePricing.completion));
+near(dry.maximumCompletionEstimatedUsd, input.maximumCompletionEstimatedUsd); assert.ok(dry.maximumCompletionEstimatedUsd < plan.preparation.reservePerCallUsd);
+assert.equal(dry.sameSourceCanonAndLookAsV4, true); assert.equal(dry.sameUserInputAndLocalRecordsAsV4, false); assert.equal(dry.maximumPreparationCalls, 2); assert.equal(dry.maximumCanonCalls, 0); assert.equal(dry.maximumPlanCalls, 2);
+assert.equal(dry.paidCalls, 0); assert.equal(dry.productionMutations, 0); assert.equal(dry.imageCalls, 0); assert.equal(dry.imagesPermitted, false);
+near(dry.preparationCapUsd, plan.preparation.capUsd); near(dry.reservePerCallUsd, plan.preparation.reservePerCallUsd);
+const trace = fs.readFileSync(path.join(dir, "text-provider.ndjson"), "utf8").trim().split("\n").map((line) => JSON.parse(line));
+assert.equal(trace.length, 1); const row = trace[0], request = row.request, response = row.response;
+assert.equal(row.phase, "plan"); assert.equal(row.status, 200); assert.equal(request.model, READING_PASS_MODEL); assert.equal(response.model, READING_PASS_MODEL);
+assert.deepEqual(request.provider, { require_parameters: true, order: ["anthropic"], allow_fallbacks: false });
+assert.deepEqual(request.reasoning, { effort: "none" }); assert.deepEqual(request.usage, { include: true });
+assert.deepEqual(request.messages, [{ role: "system", content: input.request.system }, { role: "user", content: input.request.user }]);
+assert.deepEqual(request.response_format, { type: "json_schema", json_schema: { name: "scene_plan", strict: true, schema: input.request.schema } });
+assert.equal(request.max_tokens, 900);
+let replayCalls = 0;
+const replay = await prepareMoment({ workId: "bible-web", momentId: "daniel-7-9", store: local.store,
+  brief: local.inputs.brief, briefVersion: local.inputs.briefVersion, context: local.context, holder: "offline-v5-replay",
+  model: { id: READING_PASS_MODEL, complete: async (r: TextModelRequest) => {
+    replayCalls++; assert.equal(r.system, input.request.system); assert.equal(r.user, input.request.user); assert.equal(r.maxTokens, 900);
+    assert.equal(r.schemaName, "scene_plan"); assert.deepEqual(responseSchema(r.schema), input.request.schema);
+    return { content: response.choices[0].message.content, model: response.model, providerRequestId: response.id, finishReason: response.choices[0].finish_reason,
+      usage: { promptTokens: response.usage.prompt_tokens, completionTokens: response.usage.completion_tokens, costUsd: response.usage.cost }, elapsedMs: 0 };
+  } } });
+assert.equal(replayCalls, 1); assert.deepEqual(replay, scene.result); assert.deepEqual(local.writes, scene.localWrites); assert.deepEqual(local.records, scene.records);
+assert.equal(local.writes.length, 1); assert.equal(scene.localSpends.length, 1);
+assert.deepEqual({ ...local.spends[0] as object, elapsedMs: 0 }, { ...scene.localSpends[0], elapsedMs: 0 });
+const storedPlan = scene.records.find((r: { kind: string }) => r.kind === "plan"); assert.equal(storedPlan.version, contentVersion(storedPlan.payload));
+assert.ok(storedPlan.inputs.some((i: { kind: string; version: string }) => i.kind === "prompt" && i.version === FORMLESS_PLAN_PROMPT_VERSION));
+assert.deepEqual(ledger.calls.map((c: { phase: string; status: string }) => [c.phase, c.status]), [["plan", "200"]]);
+assert.equal(ledger.calls[0].startedAt, row.startedAt); assert.equal(ledger.uncertainUsd, 0); assert.equal(ledger.blocked, null);
+assert.deepEqual(execution.ledger, ledger); assert.equal(execution.status, "completed"); assert.equal(execution.productionMutations, 0); assert.equal(scene.productionMutations, 0);
+near(row.measuredUsageUsd, response.usage.cost); near(ledger.measuredUsd, response.usage.cost); near(ledger.calls[0].measuredUsd, response.usage.cost);
+near(ledger.measuredUsd, 0.0004794); assert.ok(ledger.measuredUsd < plan.preparation.reservePerCallUsd);
+assert.equal(review.sceneArtifactSha256, hash(fs.readFileSync(path.join(dir, "scene.json"))));
+assert.equal(review.verdict, "hold-unlisted-attendants"); assert.equal(review.reviewer, "agent"); assert.equal(review.humanAccepted, false);
+assert.equal(review.checks.fixedAppearanceSeparation, "pass-agent-inspection");
+assert.equal(review.checks.castCompleteness, "concern-unlisted-attendants"); assert.equal(review.checks.noFormTextDepiction, "pass-agent-inspection");
+assert.deepEqual(review.present, ["daniel_prophet_of_babylon", "the_ancient_of_days"]); assert.deepEqual(review.present, scene.result.plan.payload.present);
+for (const reason of review.reasons) assert.ok(scene.result.plan.payload[reason.field].includes(reason.exactText));
+const section = input.records.find((r: { kind: string }) => r.kind === "section");
+assert.deepEqual(review.sectionCast, section.payload.cast.map((c: { entryId: string }) => c.entryId));
+assert.deepEqual(review.sectionCast, ["daniel_prophet_of_babylon", "the_ancient_of_days", "one_like_a_son_of_man", "babylon"]);
+assert.equal(review.relatedLookText, oldLook.payload.clothing); assert.ok(review.relatedLookText.includes("court attendants in plain robes"));
+assert.equal(review.relatedNextUnitText, input.context.next.text); assert.ok(review.relatedNextUnitText.includes("Thousands of thousands ministered to him."));
+const planText = Object.values(scene.result.plan.payload).filter((value) => typeof value === "string").join(" ").toLowerCase();
+for (const phrase of ["brilliant white radiance", "bright orange fire", "soft white cloud", "brilliant white light"]) assert.ok(!planText.includes(phrase));
+assert.ok(scene.result.plan.payload.primarySubject.includes("unoccupied throne"));
+assert.equal(review.decision.retryPlan, false);
+for (const decision of [review.decision, canonReview.decision]) { assert.equal(decision.imageCalls, 0); assert.equal(decision.productionMutations, 0); assert.equal(decision.publicActivation, false); }
+assert.ok(Date.parse(canonReview.at) < Date.parse(input.at)); assert.ok(Date.parse(before.at) < Date.parse(dry.at));
+assert.ok(Date.parse(input.at) < Date.parse(dry.at)); assert.ok(Date.parse(dry.at) < Date.parse(row.startedAt));
+assert.ok(Date.parse(row.startedAt) - Date.parse(before.at) < 30 * 60_000); assert.ok(Date.parse(execution.at) < Date.parse(after.at));
+near(summary.preparation.previousMeasuredUsd, plan.preparation.measuredBeforeUsd); near(summary.preparation.measuredThisRunUsd, ledger.measuredUsd);
+near(summary.preparation.measuredUsd, plan.preparation.measuredBeforeUsd + ledger.measuredUsd); near(summary.preparation.uncertaintyUsd, plan.preparation.uncertaintyBeforeUsd);
+near(summary.preparation.remainingAfterReserveUsd, 43 - summary.preparation.measuredUsd - summary.preparation.uncertaintyUsd);
+near(summary.preparation.subcapUsd, plan.preparation.capUsd); near(summary.preparation.unusedSubcapUsd, plan.preparation.capUsd - ledger.measuredUsd);
+assert.equal(summary.preparation.authorizedUsd, 43); assert.equal(summary.outcome, "v5-no-form-text-improvement-held-for-cast-review"); assert.equal(summary.planCalls, 1);
+for (const key of ["canonCalls", "imageCalls", "productionMutations", "semanticRetries"]) assert.equal(summary[key], 0);
+assert.equal(summary.publicActivation, false); assert.equal(summary.humanAccepted, false);
+near(summary.balanceObservation.beforeUsd, before.balanceUsd); near(summary.balanceObservation.afterUsd, after.balanceUsd);
+near(summary.balanceObservation.observedDeltaUsd, before.balanceUsd - after.balanceUsd); assert.equal(summary.balanceObservation.reconciledToThisRun, false);
+assert.ok(!fs.existsSync(path.join(dir, "canon-execution.json")));
+const artifacts = Object.fromEntries(fs.readdirSync(dir).sort().filter((f) => f !== "sha256.json").map((f) => [f, hash(fs.readFileSync(path.join(dir, f)))]));
+if (process.argv.includes("--write")) fs.writeFileSync(path.join(dir, "sha256.json"), JSON.stringify(artifacts, null, 2) + "\n");
+else assert.deepEqual(json("sha256.json"), artifacts);
+console.log(`Verified ${Object.keys(artifacts).length} artifact hashes, exact v5 request and offline preparation replay, reused canon/frozen look, scoped live invariants and $${ledger.measuredUsd.toFixed(7)} preparation usage; 0 new calls.`);

@@ -1,0 +1,63 @@
+{
+  "at": "2026-10-22T14:52:25.756Z",
+  "result": {
+    "entryId": "the_ancient_of_days",
+    "kind": "character",
+    "hasForm": false,
+    "appearanceFromText": "The text describes the Ancient of Days through white clothing, white hair and a fiery throne, which the brief's rule on God the Father allows as light, cloud, fire or radiance; no human face or body is given.",
+    "stages": [
+      {
+        "id": "the_ancient_of_days-showing",
+        "label": "The Ancient of Days",
+        "when": "Daniel's night vision of the thrones set in place, the judgment seated and the books opened",
+        "source": "mixed",
+        "quotes": [
+          {
+            "unit": "daniel-7-9",
+            "quote": "His clothing was white as snow, and the hair of his head like pure wool."
+          },
+          {
+            "unit": "daniel-7-9",
+            "quote": "His throne was fiery flames, and its wheels burning fire."
+          },
+          {
+            "unit": "daniel-7-10",
+            "quote": "A fiery stream issued and came out from before him."
+          }
+        ],
+        "showing": [
+          {
+            "effect": "radiance",
+            "colour": "white",
+            "brightness": "brilliant"
+          },
+          {
+            "effect": "fire",
+            "colour": "orange",
+            "brightness": "bright"
+          },
+          {
+            "effect": "cloud",
+            "colour": "white",
+            "brightness": "soft"
+          },
+          {
+            "effect": "light",
+            "colour": "white",
+            "brightness": "brilliant"
+          }
+        ],
+        "text": "The Ancient of Days: brilliant white radiance; bright orange fire; soft white cloud; brilliant white light."
+      }
+    ],
+    "sectionStages": {
+      "daniel-7-9": "the_ancient_of_days-showing"
+    },
+    "problems": [],
+    "promptVersion": "2026-10-22-canon-showing-v3",
+    "attempts": 1
+  },
+  "scriptSha256": "64ef79e7631b6946f803bb43070888dade4e7bf4a3ca29803d7a7c3c77a15450",
+  "instructionsSha256": "ff14a4a466b8ce668e55fea805523abce3e9d527d32a75ec1561615354806d9c",
+  "productionMutations": 0
+}

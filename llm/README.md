@@ -53,6 +53,7 @@ These guides describe the repository's current behavior. Source links identify t
 - [Daniel canon with section context: exact source quotes, retained drafting failure and text-only spend](releases/2026-10-22-daniel-context-candidate/README.md)
 - [Structured Daniel canon and isolated plan: text improvement, retained canon-restatement failure and separate spend](releases/2026-10-22-daniel-structured-candidate/README.md)
 - [Daniel v4 placement evaluation: cleaner subject, retained appearance copying in secondary elements](releases/2026-10-22-daniel-placement-v4/README.md)
+- [Daniel v5 effect-input evaluation: no copied canon qualifiers, images held for unlisted attendants](releases/2026-10-22-daniel-effects-v5/README.md)
 
 Exact dependencies and commands: [package.json](../package.json). Environment templates: [.env.example](../.env.example), [.env.convex.dev.example](../.env.convex.dev.example), [.env.convex.prod.example](../.env.convex.prod.example), [.env.vercel.preview.example](../.env.vercel.preview.example), [.env.vercel.prod.example](../.env.vercel.prod.example). Tables and scheduled jobs: [schema](../convex/schema.ts), [crons](../convex/crons.ts).
 
