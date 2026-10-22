@@ -6,6 +6,7 @@
 | --- | --- |
 | `attention [--closed]` | Lists open (or closed) attention items with reason, source (`checker` or `reader`), record, count, latest activity, detail and the image URL for sheets and style references. Checker reasons: `sheet_failed`, `style_reference_failed`, `canon_note`, `canon_check`, `quote_check_failed`, `unmatched_owner_edit`. Reader reports (`reader_report`) are listed apart and are never closed by an input change. |
 | `inspect <entryId>` | The entry's current version and payload, its version history across generations, the sheet per stage with its pin state and URL, records that are stale against it, and its open attention. |
+| `add-cast --file <correction.json>` | Adds one missing canon entry and its stage assignment to one existing section atomically. Verifies source quotes locally and refuses changed work/generation/section inputs, existing identities or incomplete stages. Makes no model call and closes no attention items. Exact retries are harmless. |
 | `edit-stage <entryId> <stageId> --text "…" [--expect <version>]` | Writes an owner version of the entry with that stage's text replaced. The command names the version it saw (`--expect`, defaulting to the current one at read time); a newer current version makes it refuse as stale, while a retry of the same edit is harmless. Closes the entry's checker items as "source corrected" and prints the dependents (sheets, looks, plans) now stale. |
 | `edit-look <sectionId> [--place …] [--time …] [--weather …] [--light …] [--clothing …] [--expect <version>]` | Writes an owner version of the section look; dependent plans show as stale and replan lazily. |
 | `pin sheet\|style <recordId>`, `unpin …` | A pinned reference ignores staleness and cannot be replaced; unpinning restores the dependency check. |
@@ -21,6 +22,14 @@
 An input edit, redo or redraft never closes a reader report, regenerates the reported image or alters its provenance; the owner decides with `resolve` after checking the correction. Counts and warnings never change canon, references, styles or images by themselves.
 
 Corrections invalidate only actual dependents: a changed canon stage makes that entry's sheets, its sections' looks and their plans stale, and nothing else; nothing is regenerated until it is next needed or the owner reruns a preparation command. The analysis keeps every version, so the inputs behind a saved image stay inspectable after any correction ([Analysis storage](../context/ANALYSIS-STORAGE.md)).
+
+## Adding a missing cast entry
+
+Use `add-cast` after source review establishes a missing identity, rather than reusing an unrelated entry or hiding supported figures. Its JSON file contains `workVersion` (the imported file's SHA-256), `expectedGeneration`, `sectionId`, `expectedSectionVersion`, `entryId`, `stageId`, optional `named` (default false), and a complete `entry` payload (`kind: "entry"`, `name`, `entryKind`, optional `hasForm`, and `stages`). Every stage needs a unique ID, complete nonblank canon text up to 500 characters and supporting `{ unit, quote }` pairs. Character/location entries allow at most three stages, objects one. Groups use `entryKind: "character"` and describe a typical member.
+
+The command checks every quote verbatim against the imported work and requires at least one quote for the assigned stage inside the current section. Appearance invented where the text is silent remains an owner illustrative choice; quote validity does not prove those choices or group identity. [Daniel's ministering assembly](../releases/2026-10-22-daniel-cast-correction/README.md) is a complete, source-checked example, retained as unapplied data.
+
+The server verifies the owner secret, work version, active generation and expected section version before atomically inserting the owner entry and appending its section assignment. Existing cast members keep their stages. An existing entry ID refuses a conflicting addition; a retry whose exact entry and assignment already stand returns unchanged. No plan is edited, no look is frozen, no references are generated and no report is closed. A future full reread must retain the added entry's ID before carrying this owner section forward, or structural activation refuses the missing dependency.
 
 ## Targeted check after a correction
 
