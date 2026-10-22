@@ -1,0 +1,116 @@
+{
+  "at": "2026-10-22T20:51:00.264322+00:00",
+  "applicationCommit": "ecd58e06537e2a09b97260fee7612c35f0feb879",
+  "verdict": "measured-targets-met-release-held-for-visuals",
+  "humanAccepted": false,
+  "publicActivation": false,
+  "newImageRequests": 18,
+  "timedRequests": 17,
+  "untimedRequests": 1,
+  "failedImageRequests": 0,
+  "semanticRetries": 0,
+  "operationImageUsageUsd": 0.6172735,
+  "operationPreparationUsageUsd": 0.0049171,
+  "operationPreparationCalls": 18,
+  "latency": {
+    "cold-browser-http": {
+      "n": 8,
+      "meanMs": 14848.10000000894,
+      "p90Ms": 17748.699999928474,
+      "minMs": 13063.100000023842,
+      "maxMs": 17748.699999928474,
+      "byStyle": {
+        "classical": {
+          "n": 2,
+          "timesMs": [
+            16649.600000023842,
+            17748.699999928474
+          ]
+        },
+        "watercolor": {
+          "n": 3,
+          "timesMs": [
+            13997.799999952316,
+            14644.399999976158,
+            13863.300000071526
+          ]
+        },
+        "icon": {
+          "n": 3,
+          "timesMs": [
+            13063.100000023842,
+            13522.200000047684,
+            15295.700000047684
+          ]
+        }
+      }
+    },
+    "prepared-browser-http": {
+      "n": 9,
+      "meanMs": 5922.566666669316,
+      "p90Ms": 7216.800000071526,
+      "minMs": 4892.800000071526,
+      "maxMs": 7216.800000071526,
+      "byStyle": {
+        "classical": {
+          "n": 3,
+          "timesMs": [
+            7216.800000071526,
+            5158.599999904633,
+            6175.299999952316
+          ]
+        },
+        "watercolor": {
+          "n": 3,
+          "timesMs": [
+            6204.600000023842,
+            6777.5,
+            6205.600000023842
+          ]
+        },
+        "icon": {
+          "n": 3,
+          "timesMs": [
+            5446.899999976158,
+            4892.800000071526,
+            5225
+          ]
+        }
+      }
+    }
+  },
+  "quantile": "nearest-rank p90; small, descriptive cohorts; old timings not pooled",
+  "credits": {
+    "before": 90,
+    "after": 0,
+    "debited": 90,
+    "perImage": 5,
+    "grantOrPurchase": false
+  },
+  "preparation": {
+    "authorizedUsd": 43,
+    "measuredUsd": 3.6457576,
+    "uncertaintyUsd": 0.03,
+    "remainingAfterReserveUsd": 39.3242424
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredUsd": 16.2980069,
+    "uncertaintyUsd": 0.045,
+    "remainingAfterReserveUsd": 0.1569931
+  },
+  "smoke": {
+    "authorizedUsd": 1,
+    "measuredBeforeUsd": 0.0685215,
+    "measuredUsd": 0.685795,
+    "uncertaintyUsd": 0,
+    "remainingUsd": 0.314205
+  },
+  "preparedCallsMadeNewPreparations": false,
+  "limits": [
+    "One automatic cold image lacks retained full client timing; excluded from cold latency.",
+    "Eight cold and nine prepared samples, with 2/3/3 and 3/3/3 style counts; not the historical ten-plus-ten plan.",
+    "HTTP calls used the real funded browser session and endpoint; they did not exercise every reader control or bulk state.",
+    "No fixed visual-matrix slot, human acceptance, public activation or post-activation 24-hour outcome is supplied by this smoke check."
+  ]
+}

@@ -1,0 +1,39 @@
+(() => {
+  if (window.__ownerCurrent) return { installed: true, reused: true };
+  const key = 'visibible-release-2026-10-22-owner';
+  const previous = JSON.parse(localStorage.getItem(key) || 'null');
+  const state = previous || { run: '2026-10-22-current-prompt', baseCommit:'ecd58e06537e2a09b97260fee7612c35f0feb879', operationCapUsd: .9, priorOperationUsd:.034319, priorSmokeUsd:.0685215, totalCapUsd:1, reserveUsd:.05, maxUnique:17, minIntervalMs:13500, rows:[], labels:{}, ui:[], lastStart:0, blocked:null, running:false };
+  const persist=()=>localStorage.setItem(key,JSON.stringify(state));
+  const original=window.fetch.bind(window);let serial=Promise.resolve();
+  const spend=()=>state.priorOperationUsd+state.rows.filter(r=>!r.replay).reduce((s,r)=>s+(r.response?.openRouterUsageUsd||0),0);
+  const csrf=()=>document.cookie.split('; ').find(r=>r.startsWith('visibible_csrf='))?.split('=').slice(1).join('=');
+  window.fetch=async(input,init)=>{
+    const url=typeof input==='string'?input:input instanceof URL?input.href:input.url;
+    if(!url.includes('/api/generate-image')||(init?.method||'GET').toUpperCase()!=='POST')return original(input,init);
+    const body=JSON.parse(init.body);const old=state.rows.find(r=>r.request.requestId===body.requestId);const replay=Boolean(old);
+    if(state.blocked)throw Error('Audit required: '+state.blocked);
+    if(!replay){
+      if(new Set(state.rows.map(r=>r.request.requestId)).size>=state.maxUnique)throw Error('Request cap');
+      if(spend()+state.reserveUsd>state.operationCapUsd||spend()+state.priorSmokeUsd+state.reserveUsd>state.totalCapUsd)throw Error('Budget cap');
+      if(state.rows.some(r=>!r.replay&&(!r.response||typeof r.response.openRouterUsageUsd!=='number')))throw Error('Unsettled prior request');
+    }
+    if(body.translation!=='kjv'||body.model!=='google/gemini-3.1-flash-lite-image'||body.resolution!=='1K'||body.aspectRatio!=='16:9')throw Error('Unexpected request configuration');
+    const turn=serial.then(async()=>{const ms=Math.max(0,state.lastStart+state.minIntervalMs-Date.now());if(ms)await new Promise(r=>setTimeout(r,ms));state.lastStart=Date.now();persist();});serial=turn.catch(()=>{});await turn;
+    const row={at:new Date().toISOString(),request:body,cohort:state.labels[body.requestId]||'cold-ui',replay,status:null,elapsedMs:null,response:null};state.rows.push(row);persist();const start=performance.now();
+    try{
+      const r=await original(input,init),d=await r.clone().json();row.elapsedMs=performance.now()-start;row.status=r.status;row.response={...d,...(typeof d.imageUrl==='string'&&d.imageUrl.startsWith('data:')?{imageUrl:'[inline image omitted]'}:{})};
+      if(r.status!==200||!d.savedImageId||d.engine!=='generic')state.blocked='Non-success: '+r.status;
+      if(!replay&&(typeof d.openRouterUsageUsd!=='number'||d.openRouterUsageUsd<0||d.creditsCost!==5||d.estimatedCreditsCost!==5||spend()>state.operationCapUsd))state.blocked='Unexpected usage or quote/settlement';
+      if(replay&&(!d.reused||d.savedImageId!==old.response.savedImageId))state.blocked='Replay mismatch';
+      persist();return r;
+    }catch(e){row.elapsedMs=performance.now()-start;row.error=String(e);state.blocked='Uncertain outcome';persist();throw e;}
+  };
+  const request=async(item,requestId)=>{
+    const token=csrf();if(!token)throw Error('Missing CSRF');const id=requestId||`release-current-${crypto.randomUUID()}`;state.labels[id]=item.cohort;persist();
+    const r=await fetch('/api/generate-image',{method:'POST',headers:{'Content-Type':'application/json','x-csrf-token':token},body:JSON.stringify({reference:item.reference,style:item.styleId,translation:'kjv',model:'google/gemini-3.1-flash-lite-image',aspectRatio:'16:9',resolution:'1K',requestId:id})});
+    const d=await r.json();if(state.blocked)throw Error(state.blocked);return d;
+  };
+  window.__ownerCurrent={state,persist,spend,request,run(items){if(state.running||state.blocked)throw Error('Batch blocked/running');state.running=true;persist();(async()=>{try{for(const i of items)await request(i);}catch(e){state.error=String(e);}finally{state.running=false;persist();}})();return {started:true,requests:items.length};}};
+  let visible=false;new MutationObserver(()=>{const now=document.body.innerText.includes('Preparing scene...');if(now&&!visible){state.ui.push({at:new Date().toISOString(),event:'Preparing scene...',path:location.pathname});persist();}visible=now;}).observe(document.body,{subtree:true,childList:true,characterData:true});
+  persist();return {installed:true,reused:false,rows:state.rows.length,measuredUsd:spend()};
+})()

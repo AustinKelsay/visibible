@@ -1,0 +1,31 @@
+{
+  "at": "2026-10-22T20:51:18.705Z",
+  "cohort": "replay-disabled",
+  "elapsedMs": 476.6999999284744,
+  "replay": true,
+  "request": {
+    "aspectRatio": "16:9",
+    "model": "google/gemini-3.1-flash-lite-image",
+    "reference": "1 Kings 17:6",
+    "requestId": "release-current-eda5fdec-71a9-47b2-b1e8-ef5367d559b2",
+    "resolution": "1K",
+    "style": "classical",
+    "translation": "kjv"
+  },
+  "response": {
+    "creditsCost": 5,
+    "durationMs": 4257,
+    "engine": "generic",
+    "generationId": "5a71628c-a4b1-408e-b0af-5c9999077841",
+    "imageUrl": "https://unique-impala-244.convex.cloud/api/storage/3c16d627-b2b4-4c3f-b247-832797fa4703",
+    "model": "google/gemini-3.1-flash-lite-image",
+    "reference": "1 Kings 17:6",
+    "requestId": "release-current-eda5fdec-71a9-47b2-b1e8-ef5367d559b2",
+    "reused": true,
+    "savedImageId": "kh791qhq17zf9gyavs42sybgc18gs3rp",
+    "status": "succeeded",
+    "translationId": "web",
+    "verseText": "The ravens brought him bread and meat in the morning, and bread and meat in the evening; and he drank from the brook."
+  },
+  "status": 200
+}

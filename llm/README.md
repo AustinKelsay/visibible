@@ -41,6 +41,7 @@ These guides describe the repository's current behavior. Source links identify t
 - [Chat eval and release requirements](workflow/CHAT_EVAL_AND_RELEASE.md)
 - [Image eval and release requirements](workflow/IMAGE_EVAL_AND_RELEASE.md)
 - [Generic engine release, rollback and retirement runbook](workflow/ENGINE_RELEASE.md)
+- [Current generic-engine release status, remaining allowances and ordered gates](releases/STATUS.md)
 - [Initial generic-engine release evaluation and retained failures](releases/2026-10-20-engine-evaluation/README.md)
 - [Complete production Bible preparation, partial evaluation and disabled rollback evidence](releases/2026-10-20-engine-production/README.md)
 - [Watercolor reference edge-check calibration and unexecuted rendering trial](releases/2026-10-20-watercolor-edge-check/README.md)
@@ -58,6 +59,7 @@ These guides describe the repository's current behavior. Source links identify t
 - [Applied Daniel cast repair: disabled deployment, ordinary regeneration and retained section-look failure](releases/2026-10-22-daniel-cast-repair/README.md)
 - [Fresh no-form look and Daniel plans: improved wording, held cast selection and separate accounting](releases/2026-10-22-formless-look-evaluation/README.md)
 - [Selected-cast text check: retained presence failure, stopped sequence and 146-test compatibility rehearsal](releases/2026-10-22-moment-cast-evaluation/README.md)
+- [Actual production request timings, guest billing, rollback replay and retained visual failures](releases/2026-10-22-owner-request-check/README.md)
 
 Exact dependencies and commands: [package.json](../package.json). Environment templates: [.env.example](../.env.example), [.env.convex.dev.example](../.env.convex.dev.example), [.env.convex.prod.example](../.env.convex.prod.example), [.env.vercel.preview.example](../.env.vercel.preview.example), [.env.vercel.prod.example](../.env.vercel.prod.example). Tables and scheduled jobs: [schema](../convex/schema.ts), [crons](../convex/crons.ts).
 

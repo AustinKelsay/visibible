@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-22T20:59:37.846782+00:00",
+  "team": "austin-kelsays-projects",
+  "project": "prj_G5cIczHFaLa1KentxzwAytQ8jXdx",
+  "source": "git archive ecd58e06537e2a09b97260fee7612c35f0feb879 exported to a private directory; no uncommitted evidence or environment files uploaded. Remote npm build regenerates checked imported work.",
+  "applicationCommit": "ecd58e06537e2a09b97260fee7612c35f0feb879",
+  "cli": "Vercel CLI 65.1.0",
+  "transport": "CLI fallback after Vercel MCP returned UNAUTHORIZED, requiring app reauthentication.",
+  "disabledDeployment": {
+    "id": "dpl_4FE7JeXKq853nCxsrN2NYZYFdYjj",
+    "url": "visibible-82370erti-austin-kelsays-projects.vercel.app",
+    "target": "production",
+    "state": "READY",
+    "mode": "disabled",
+    "ownerDigestConfigured": false
+  },
+  "ownerDeployment": {
+    "id": "dpl_A3gKW8HMQ4LyKUwvuAaXzBjHStsY",
+    "url": "visibible-8xkswv5ai-austin-kelsays-projects.vercel.app",
+    "target": "production",
+    "state": "READY",
+    "mode": "owner",
+    "admissionDigest": "c032800339ce38c2f0377aff01520d7471a18c80f643d154f06bb1f9856375b4",
+    "environmentOverride": "Per-deployment runtime flags only; persistent production mode stayed disabled with no owner digest."
+  },
+  "sequence": [
+    "Stage disabled reviewed build; verify unauthenticated catalog.",
+    "Stage identical owner build with one admission digest; verify unauthenticated catalog.",
+    "Promote disabled, verify domain, then owner for bounded check.",
+    "Reader auto-generation boundary: restore disabled and audit.",
+    "Reopen owner on About for guarded requests.",
+    "Restore the same disabled deployment, verify domain/catalog/persistent environment and free completed replay."
+  ],
+  "publicActivation": false,
+  "backendDeployNeeded": false
+}

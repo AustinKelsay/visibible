@@ -1,0 +1,97 @@
+{
+  "at": "2026-10-22T20:54:38.671Z",
+  "rows": [
+    {
+      "url": "https://visibible.com/api/public/images/verses/1-kings/17/6?style=classical",
+      "status": 200,
+      "data": {
+        "verse": {
+          "book": "1-kings",
+          "bookName": "1 Kings",
+          "chapter": 17,
+          "verse": 6,
+          "reference": "1 Kings 17:6",
+          "pageUrl": "https://visibible.com/1-kings/17/6",
+          "historyUrl": "https://visibible.com/api/public/images/verses/1-kings/17/6/images"
+        },
+        "artStyle": "classical",
+        "image": {
+          "id": "kh70xm3g77acm227byrkcgakrd8grp23",
+          "imageUrl": "https://unique-impala-244.convex.site/image/kg2d1sp3a5t2fzsmfy19rncv7x8grr8j",
+          "pageUrl": "https://visibible.com/1-kings/17/6",
+          "artStyle": "classical",
+          "reference": "1 Kings 17:6",
+          "model": "google/gemini-3.1-flash-lite-image",
+          "translationId": "web",
+          "aspectRatio": "16:9",
+          "imageMimeType": "image/jpeg",
+          "imageWidth": 1376,
+          "imageHeight": 768,
+          "createdAt": 1792702093938
+        }
+      }
+    },
+    {
+      "url": "https://visibible.com/api/public/images/verses/luke/10/33?style=watercolor",
+      "status": 200,
+      "data": {
+        "verse": {
+          "book": "luke",
+          "bookName": "Luke",
+          "chapter": 10,
+          "verse": 33,
+          "reference": "Luke 10:33",
+          "pageUrl": "https://visibible.com/luke/10/33",
+          "historyUrl": "https://visibible.com/api/public/images/verses/luke/10/33/images"
+        },
+        "artStyle": "watercolor",
+        "image": {
+          "id": "kh747w4krjv9sxknrgnk5s5xex8gshtd",
+          "imageUrl": "https://unique-impala-244.convex.site/image/kg232qq50mcahz8j8s926rdbr98gskhp",
+          "pageUrl": "https://visibible.com/luke/10/33",
+          "artStyle": "watercolor",
+          "reference": "Luke 10:33",
+          "model": "google/gemini-3.1-flash-lite-image",
+          "translationId": "web",
+          "aspectRatio": "16:9",
+          "imageMimeType": "image/jpeg",
+          "imageWidth": 1376,
+          "imageHeight": 768,
+          "createdAt": 1792702122092
+        }
+      }
+    },
+    {
+      "url": "https://visibible.com/api/public/images/verses/ruth/3/10?style=icon",
+      "status": 200,
+      "data": {
+        "verse": {
+          "book": "ruth",
+          "bookName": "Ruth",
+          "chapter": 3,
+          "verse": 10,
+          "reference": "Ruth 3:10",
+          "pageUrl": "https://visibible.com/ruth/3/10",
+          "historyUrl": "https://visibible.com/api/public/images/verses/ruth/3/10/images"
+        },
+        "artStyle": "icon",
+        "image": {
+          "id": "kh7edsd3mb16h4wj9aasw0rm3d8grnft",
+          "imageUrl": "https://unique-impala-244.convex.site/image/kg2dmj677d302hd7tx56mpmeq18grzz3",
+          "pageUrl": "https://visibible.com/ruth/3/10",
+          "artStyle": "icon",
+          "reference": "Ruth 3:10",
+          "model": "google/gemini-3.1-flash-lite-image",
+          "translationId": "web",
+          "aspectRatio": "16:9",
+          "imageMimeType": "image/jpeg",
+          "imageWidth": 1376,
+          "imageHeight": 768,
+          "createdAt": 1792702161865
+        }
+      }
+    }
+  ],
+  "paidCalls": 0,
+  "contract": "Public API wraps payload in data and exposes style/translation, not internal engine metadata; engine provenance is independently verified in Convex."
+}
