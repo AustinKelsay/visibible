@@ -240,10 +240,18 @@ describe("canon", () => {
       state: emptyCanonState("two-books", "wv1", "bv1"), saveState: async (s) => { saved.push(Object.keys(s.entries).join(",")); }, budgetUsd: 1, parallel: 1 });
     expect(state.entries.amos.attempts).toBe(2);
     expect(state.entries.amos.stages[0].text).toBe("Amos: short.");
+    // A known earlier drafting version is also reused until an explicit redraft.
+    state.entries.amos.promptVersion = "2026-10-21-canon-depiction-v1";
+    const previous = structuredClone(state.entries.amos);
+    const before = model.calls.length;
+    await runCanon({ workFile: twoBooks, workVersion: "wv1", brief, briefVersion: "bv1", reading, hints: [], model, store: null, state, saveState: async () => {}, budgetUsd: 1 });
+    expect(model.calls.length).toBe(before);
+    expect(state.entries.amos).toEqual(previous);
+    expect(canonRecords(reading, state).find((r) => r.kind === "entry" && r.recordId === "amos")?.inputs)
+      .toEqual([{ kind: "prompt", recordId: "canon", version: "2026-10-21-canon-depiction-v1" }]);
     // Historical state has no prompt version. Resuming must not stamp or redraft it.
     delete state.entries.amos.promptVersion;
     const legacy = structuredClone(state.entries.amos);
-    const before = model.calls.length;
     await runCanon({ workFile: twoBooks, workVersion: "wv1", brief, briefVersion: "bv1", reading, hints: [], model, store: null, state, saveState: async () => {}, budgetUsd: 1 });
     expect(model.calls.length).toBe(before);
     expect(state.entries.amos).toEqual(legacy);
