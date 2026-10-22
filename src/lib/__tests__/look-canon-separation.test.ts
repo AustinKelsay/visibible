@@ -7,7 +7,7 @@ import schema from "../../../convex/schema";
 import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
 import { assembleRendering, type AssembleDeps } from "../engine/assemble";
-import { createConvexPreparationStore, FORMLESS_LOOK_PROMPT_VERSION, FORMLESS_PLAN_PROMPT_VERSION, type AnalysisRecord } from "../engine/preparation";
+import { createConvexPreparationStore, FORMLESS_LOOK_PROMPT_VERSION, FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION, type AnalysisRecord } from "../engine/preparation";
 import { readWorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { responseSchema } from "../reading-pass/prompts";
@@ -30,7 +30,7 @@ type RecordInput = FunctionArgs<typeof api.analysis.putRecords>["records"][numbe
 describe("no-form section look and canon separation", () => {
   beforeEach(() => { process.env.CONVEX_SERVER_SECRET = SECRET; });
 
-  async function setup({ lookReplies = [situationalLook], marker }: { lookReplies?: Array<Record<string, unknown>>; marker?: string } = {}) {
+  async function setup({ lookReplies = [situationalLook], marker, currentPlanCast = false }: { lookReplies?: Array<Record<string, unknown>>; marker?: string; currentPlanCast?: boolean } = {}) {
     const t = convexTest(schema, modules);
     const inputs = await readWorkInputs(WORK);
     const versions = { workVersion: inputs.workVersion, briefVersion: inputs.briefVersion };
@@ -44,6 +44,8 @@ describe("no-form section look and canon separation", () => {
     for (const kind of ["look", "plan"] as const) {
       const old = snapshot.records.find(({ record }) => record?.kind === kind)!.record!;
       const refs = [...old.inputs, ...(kind === "look" && marker ? [{ kind: "prompt", recordId: "section_look_formless_presence", version: marker }] : [])];
+      // Isolate content-hash reuse from the separate selected-cast prompt migration in this case.
+      if (kind === "plan" && currentPlanCast) refs.push({ kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION });
       const saved = await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind, recordId: ID,
         payload: old.payload as FunctionArgs<typeof api.analysis.putDerivedRecord>["payload"], inputs: refs });
       expect(saved.version).toBe(old.version);
@@ -114,7 +116,7 @@ describe("no-form section look and canon separation", () => {
   });
 
   it("retains the exact schema-valid live failure without semantic retry and reuses an unchanged plan", async () => {
-    const { t, requests, render, record } = await setup({ lookReplies: [retainedLook] });
+    const { t, requests, render, record } = await setup({ lookReplies: [retainedLook], currentPlanCast: true });
     const result = await render();
     if (!result.ok) throw new Error(result.message);
     expect(requests.map((r) => r.schemaName)).toEqual(["section_look"]);

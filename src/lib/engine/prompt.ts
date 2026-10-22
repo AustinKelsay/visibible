@@ -11,7 +11,7 @@ import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
 
 /** Structure and wording of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. */
-export const GENERIC_PROMPT_VERSION = "2026-10-21-generic-v3";
+export const GENERIC_PROMPT_VERSION = "2026-10-22-generic-v4";
 export const GENERIC_PROMPT_MAX_CHARS = 8000;
 export const MAX_REFERENCE_IMAGES = 3;
 const MOMENT_TEXT_MAX_CHARS = 1200;
@@ -72,6 +72,7 @@ export const ENGINE_RULES = [
   "No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).",
   `${COMMON_CONTENT_FLOOR.prohibited.join(" and ").toLowerCase()} are never shown; ${COMMON_CONTENT_FLOOR.permitted.join(" and ").toLowerCase()} may be, treated seriously.`,
   "No likeness of any real actor, performer or public figure.",
+  "Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.",
 ];
 export const PRECEDENCE_LINE = "If instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.";
 
@@ -119,7 +120,7 @@ export function selectReferences(canon: SelectedCanon[], available: AvailableRef
     }
     const entry = canon.find((c) => c.entryId === reference.entryId)!;
     const views = entry.kind === "character" ? "one figure shown in three views" : "two views of the same place or thing";
-    return { ...reference, index, caption: `${n}: ${entry.name}'s reference sheet (${views}). Match its identity exactly for ${entry.name} only; do not copy its poses, layout or plain grey background, and give every other figure a different face and clothing.` };
+    return { ...reference, index, caption: `${n}: ${entry.name}'s reference sheet (${views}). Match its identity exactly for ${entry.name} only; do not copy its poses, layout or plain grey background, and give other selected figures a different face and clothing.` };
   });
 }
 
@@ -128,6 +129,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   let references = selectReferences(input.canon, input.references ?? [], style.id);
   const names = input.canon.filter((c) => c.hasForm).map((c) => c.name);
   const formless = input.canon.filter((c) => !c.hasForm);
+  const selectedCharacters = `SELECTED CHARACTERS: ${input.canon.filter((c) => c.kind === "character").map((c) => c.name).join("; ") || "(none; no people, beings, animals or groups)"}`;
   const formlessBlock = formless.length
     ? ["FORMLESS SUBJECTS (binding depiction constraints, including when the source uses bodily metaphors):",
       ...formless.map((c) => `- ${c.name}: represent only through the non-figurative presence allowed by its canon and the work brief. No head, face, torso, limbs, hands, human silhouette or garment-shaped body, even faceless or made of light. Do not represent this subject as a figure occupying a seat.`),
@@ -136,7 +138,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   const canonBlock = input.canon.length
     ? ["CANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):",
       ...input.canon.map((c) => `- ${c.text}`),
-      ...(names.length ? [`- Only ${names.join(", ")} ${names.length > 1 ? "have" : "has"} this canon look; any other people get clearly different faces, hair and clothing colours.`] : [])].join("\n")
+      ...(names.length ? [`- Only ${names.join(", ")} ${names.length > 1 ? "have" : "has"} this canon look; other selected people get clearly different faces, hair and clothing colours.`] : [])].join("\n")
     : "";
   const planBlock = ["SCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):",
     `Primary subject: ${plan.primarySubject}`, `Action: ${plan.action}`, `Setting: ${plan.setting}`, `Secondary elements: ${plan.secondaryElements}`,
@@ -163,6 +165,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     `PRIORITY RULES:\n${ENGINE_RULES.map((rule, i) => `${i + 1}) ${rule}`).join("\n")}\n${PRECEDENCE_LINE}`,
     `SCENE: one moment of ${input.work.title}, ${input.moment.reference}: "${clip(input.moment.text, MOMENT_TEXT_MAX_CHARS)}"`,
     briefBlock(brief, input.eraId, style.id),
+    selectedCharacters,
     formlessBlock,
     canonBlock,
     flags.lookDetailIncluded ? `${lookMain}\n${lookDetail}` : lookMain,

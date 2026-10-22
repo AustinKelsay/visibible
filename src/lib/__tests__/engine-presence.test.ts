@@ -5,7 +5,7 @@ import schema from "../../../convex/schema";
 import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
 import { assembleRendering } from "../engine/assemble";
-import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, LOOK_SYSTEM, lookOutputSchema, PLAN_SYSTEM, planOutputSchema } from "../engine/preparation";
+import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION, LOOK_SYSTEM, lookOutputSchema, PLAN_SYSTEM, planOutputSchema } from "../engine/preparation";
 import type { WorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { responseSchema } from "../reading-pass/prompts";
@@ -248,12 +248,38 @@ describe("no-form presence selection", () => {
     expect(calls).toHaveLength(0);
   });
 
-  it("keeps existing plans for cast with form, including legacy entries without the flag", async () => {
+  it.each([true, false])("refreshes only the plan for a stale selected-cast contract (no-form cast: %s)", async (formless) => {
+    const { t, render, calls } = await setup(formless);
+    const first = await render();
+    if (!first.ok) throw new Error(first.message);
+    const current = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
+    if (!current || current.payload.kind !== "plan") throw new Error("Missing plan");
+    for (const marker of [undefined, "older"]) {
+      const inputs = current.inputs.filter((input) => input.recordId !== "scene_plan_moment_cast");
+      if (marker) inputs.push({ kind: "prompt", recordId: "scene_plan_moment_cast", version: marker });
+      // Other inputs, including the no-form prompt contract where applicable, stay current.
+      const payload = { ...current.payload, plan: { ...current.payload.plan, primarySubject: `Old selection ${marker}` } };
+      const old = await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "court-1", payload, inputs });
+      calls.length = 0;
+      const refreshed = await render();
+      if (!refreshed.ok) throw new Error(refreshed.message);
+      expect(calls.map((request) => request.schemaName)).toEqual(["scene_plan"]);
+      expect(refreshed.packet.lookVersion).toBe(first.packet.lookVersion);
+      expect(refreshed.packet.planVersion).toBe(first.packet.planVersion);
+      const history = await t.query(api.analysis.listRecordHistory, { workId: WORK, kind: "plan", recordId: "court-1" });
+      expect(history).toContainEqual(expect.objectContaining({ version: old.version, status: "superseded" }));
+      calls.length = 0;
+      await render("court-1", "watercolor");
+      expect(calls).toHaveLength(0);
+    }
+  });
+
+  it("keeps formed schemas and look requests, including legacy entries without the flag", async () => {
     const { t, render, calls } = await setup(false);
     const first = await render();
     if (!first.ok) throw new Error(first.message);
     const plan = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
-    expect(plan?.inputs.some((i) => i.kind === "prompt")).toBe(false);
+    expect(plan?.inputs.filter((i) => i.kind === "prompt")).toEqual([{ kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION }]);
     const look = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "court-1" });
     expect(look?.inputs.some((i) => i.kind === "prompt")).toBe(false);
     expect(calls[0].system).toBe(LOOK_SYSTEM);

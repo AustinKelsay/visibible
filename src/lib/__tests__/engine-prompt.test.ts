@@ -68,11 +68,27 @@ describe("rendering packet", () => {
       expect(result.references.map((r) => r.caption)).toEqual(result.packet.references.map((r) => r.caption));
       expect(result.references[result.references.length - 1].caption).toMatch(/^Image 3: /);
       expect(result.prompt).toContain(result.references[0].caption);
-      expect(result.packet).toMatchObject({ promptVersion: "2026-10-21-generic-v3", styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
+      expect(result.packet).toMatchObject({ promptVersion: "2026-10-22-generic-v4", styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
         canon: [{ entryId: "sherlock_holmes", stageId: "main", version: "h1" }, expect.anything(), expect.anything(), expect.anything()],
         flags: { variationIncluded: true, neighborsIncluded: true, styleDetailIncluded: true, lookDetailIncluded: true } });
       expect(result.packet.budget.finalChars).toBe(result.prompt.length);
     }
+  });
+
+  it.each([
+    ["formed character", [canon[0]], "Sherlock Holmes"],
+    ["no-form subject", [canon[3]], "the voice"],
+    ["location only", [canon[1]], "(none; no people, beings, animals or groups)"],
+    ["empty cast", [], "(none; no people, beings, animals or groups)"],
+    ["group", [{ ...canon[0], name: "Court attendants" }], "Court attendants"],
+  ] as const)("names only selected characters for %s without rewriting shared context", (_label, selected, expected) => {
+    const input = base("classical", { canon: [...selected] });
+    const result = buildRenderingPacket(input);
+    if (!result.ok) throw new Error(result.error);
+    expect(result.prompt).toContain(`SELECTED CHARACTERS: ${expected}\n`);
+    expect(result.prompt).toContain(input.look.clothing);
+    expect(result.prompt).toContain("The shared look, source narrators and neighbors do not add cast");
+    expect(result.packet.canon.map((entry) => entry.entryId)).toEqual(selected.map((entry) => entry.entryId));
   });
 
   it("makes no-form constraints explicit across styles without erasing source text or other characters' forms", () => {
@@ -161,7 +177,7 @@ describe("rendering packet", () => {
     expect(slight.ok && slight.packet.flags).toEqual({ variationIncluded: false, neighborsIncluded: true, styleDetailIncluded: true, lookDetailIncluded: true });
     expect(trimmed.prompt.length).toBeLessThanOrEqual(GENERIC_PROMPT_MAX_CHARS);
     // Never-trimmed content survives every cut.
-    for (const must of ["PRIORITY RULES:", "Tone: Brisk", "Depiction: Violence", "Technology: Railways", "FORMLESS SUBJECTS", "- the voice: represent only through", "even faceless or made of light", "- Sherlock Holmes: lean", "Primary subject: Holmes by the fire",
+    for (const must of ["PRIORITY RULES:", "SELECTED CHARACTERS: Sherlock Holmes; Dr. Watson; the voice", "apply shared clothing only to selected characters", "Tone: Brisk", "Depiction: Violence", "Technology: Railways", "FORMLESS SUBJECTS", "- the voice: represent only through", "even faceless or made of light", "- Sherlock Holmes: lean", "Primary subject: Holmes by the fire",
       `Rendering: ${SHARED_STYLES.get("classical").rendering}`, "Image 1: Sherlock Holmes's reference sheet", "Image 3: Dr. Watson's reference sheet", "Place: Baker Street"]) {
       expect(trimmed.prompt).toContain(must);
     }
