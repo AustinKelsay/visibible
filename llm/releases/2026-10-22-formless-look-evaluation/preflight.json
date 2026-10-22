@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-22T19:43:05.199592+00:00",
+  "baseCommit": "230c6c8a4f16c9f3cba39342e548c4ea5c1aca9a",
+  "coreFilesMatchMergedCommit": true,
+  "operationSources": {
+    "run.mts": "a3ebfdef851d18dd3dec252ccad89773e125d536c3b9ddbf411272aa3dc11978",
+    "plan.json": "95dcd1c0492ec1b53eb517576bd2ed6fa97ddbdef7c00cee4219f4beaf7ddbab"
+  },
+  "paidCalls": 0,
+  "productionMutations": 0,
+  "dryRunEstimatedUsd": 0.0003124074074074074,
+  "runCapUsd": 0.03
+}

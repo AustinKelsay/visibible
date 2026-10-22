@@ -1,0 +1,64 @@
+{
+  "at": "2026-10-22T19:43:27.905Z",
+  "context": {
+    "moment": {
+      "id": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "text": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire."
+    },
+    "previous": null,
+    "next": {
+      "text": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened."
+    }
+  },
+  "result": {
+    "sectionId": "daniel-7-9",
+    "era": "monarchy-of-israel-and-judah",
+    "look": {
+      "version": "219208bab707a1b98f813e02b220d45e",
+      "payload": {
+        "place": "Vision-space of a throne hall in heaven, open to a vast dark expanse; an unoccupied seat of fire and cloud with a river of fire flowing before it, surrounded by thrones set in ranks",
+        "timeOfDay": "Night vision, unchanging, no dawn or dusk across the section",
+        "weather": "Still air over a dark heavenly expanse, with drifting cloud banks and rising mist",
+        "light": "Radiance and fire placed around the central seat as the light source, with cloud diffusing the glow across the hall",
+        "clothing": "Formed attendants wear priestly linen or white court robes; Daniel in his ordinary tunic and cloak, no added props"
+      }
+    },
+    "plan": {
+      "version": "22ff3b0727462dd0b05ab27f80b420cb",
+      "payload": {
+        "primarySubject": "Radiance and fire gathered around an unoccupied central seat of cloud and flame; Daniel stands at the edge of the hall, looking up toward it.",
+        "action": "Thrones are being set into ranks while the unoccupied seat is wreathed in fire and radiance; attendants in white linen bow and shift aside; Daniel lifts his gaze, his hands loose at his sides.",
+        "setting": "Vast throne hall in heaven opening onto a dark expanse, with drifting cloud banks and rising mist; a river of fire flows before the central seat.",
+        "secondaryElements": "Ranks of empty thrones set in tiers; attendants in white court robes and priestly linen; cloud diffusing fire-glow across the floor; radiance rising from the seat's base.",
+        "mood": "Solemn, awestruck and still, with reverent expectation and quiet dignity.",
+        "timeOfDay": "Unchanging night vision; radiance and fire serve as the only light source.",
+        "composition": "Wide view from below the tiers, the central seat high and framed by cloud and fire, with Daniel small in the lower foreground and the attendant ranks receding into the dark.",
+        "present": [
+          "daniel_prophet_of_babylon",
+          "the_ancient_of_days",
+          "ministering_assembly_in_daniels_vision"
+        ]
+      }
+    },
+    "present": [
+      {
+        "entryId": "daniel_prophet_of_babylon",
+        "stageId": "daniel_main",
+        "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+      },
+      {
+        "entryId": "the_ancient_of_days",
+        "stageId": "ancient-of-days-light",
+        "version": "2580946090305beb790717b8920e11ec"
+      },
+      {
+        "entryId": "ministering_assembly_in_daniels_vision",
+        "stageId": "ministering_assembly-main",
+        "version": "4abdbb32cfcaa06d3bc748ea6b88a23e"
+      }
+    ],
+    "calls": 2
+  },
+  "preparationElapsedMs": 8918.462667
+}

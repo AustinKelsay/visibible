@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-22T19:46:08.118740+00:00",
+  "artifact": "scene-10.json",
+  "artifactSha256": "4ade6eac26036301c1f16667bf9f580efaffd02de113e131bd39ae4e54d5a07b",
+  "reviewer": "agent text inspection",
+  "verdict": "pass-narrow-text-hold-for-visual-evidence",
+  "humanAccepted": false,
+  "publicActivation": false,
+  "findings": [
+    {
+      "criterion": "Shared look and no-form plan",
+      "result": "pass-narrow-text",
+      "evidence": [
+        "The second moment reuses look 219208bab707a1b98f813e02b220d45e without another look call.",
+        "The plan places radiance, fire and cloud at an unoccupied seat, without no-form anatomy, hair, garments, silhouettes or prohibited-feature denials.",
+        "No assigned fixed no-form canon phrase is copied. Formed attendants retain their own situational clothing."
+      ]
+    },
+    {
+      "criterion": "Moment-specific selection",
+      "result": "pass-narrow-text",
+      "evidence": [
+        "Ancient of Days and the ministering assembly are selected, with matching existing assigned canon.",
+        "Daniel is omitted here after being selected in 7:9; the son of man and Babylon remain unselected.",
+        "The fiery stream, ministering ranks and opened records are supported by the source. The source and same-section neighbors are unchanged."
+      ]
+    }
+  ],
+  "decision": {
+    "retryMoment": false,
+    "furtherPaidCalls": 0,
+    "imageCalls": 0,
+    "canonEdits": 0
+  },
+  "limits": [
+    "Only two adjacent moments and one shared look were inspected. This does not establish repeatability, omission accuracy across the work, visual/likeness compliance or human acceptance.",
+    "Open scrolls are situational props for the source books; their eventual rendering still needs inspection for unwanted writing. Neither these props nor the priestly clothing wording are additional source claims or canon edits.",
+    "No images were requested. Full-request latency, deployed app behavior, release compatibility and public activation remain open."
+  ]
+}
