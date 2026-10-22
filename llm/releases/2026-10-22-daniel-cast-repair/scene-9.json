@@ -1,0 +1,63 @@
+{
+  "at": "2026-10-22T18:03:11.669Z",
+  "context": {
+    "moment": {
+      "id": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "text": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire."
+    },
+    "previous": null,
+    "next": {
+      "text": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened."
+    }
+  },
+  "result": {
+    "sectionId": "daniel-7-9",
+    "era": "monarchy-of-israel-and-judah",
+    "look": {
+      "version": "d004a4b04921ce39ce1b978879c6cedc",
+      "payload": {
+        "place": "Visionary heavenly court above a Babylonian setting; fiery throne-room of cloud and flame",
+        "timeOfDay": "Night vision, unchanging",
+        "weather": "Stormy cloud and fire-lit haze",
+        "light": "Radiant white and blazing fire-orange glow, no human face in the light",
+        "clothing": "Ancient of Days in white robes like snow and wool-white hair, unseen as human form; attendants in white linen"
+      }
+    },
+    "plan": {
+      "version": "932f8da75d1a121ed0a9e14f92cd47eb",
+      "payload": {
+        "primarySubject": "Radiance and fire rising above an unoccupied fiery throne of flame; the witness Daniel stands below, gazing upward",
+        "action": "Thrones are being set in place around the central fiery seat; Daniel looks up in awe while attendants in white linen stand ready, the fire of the wheels burning beside the seat",
+        "setting": "A vast visionary heavenly court of cloud and flame above a Babylonian city, with fiery throne-room architecture of billowing cloud",
+        "secondaryElements": "Radiance and light effects around the throne; burning wheels of fire at the throne's base; attendants in white linen at the edges; Daniel in tunic and cloak",
+        "mood": "Awe, stillness and reverent expectancy in an unchanging night vision",
+        "timeOfDay": "Night, lit only by fire-orange glow and radiant white light",
+        "composition": "Low viewpoint from Daniel's position looking up toward the throne; throne centered high, attendants arranged at the edges, fire and light spreading across the upper frame",
+        "present": [
+          "daniel_prophet_of_babylon",
+          "the_ancient_of_days",
+          "ministering_assembly_in_daniels_vision"
+        ]
+      }
+    },
+    "present": [
+      {
+        "entryId": "daniel_prophet_of_babylon",
+        "stageId": "daniel_main",
+        "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+      },
+      {
+        "entryId": "the_ancient_of_days",
+        "stageId": "ancient-of-days-light",
+        "version": "2580946090305beb790717b8920e11ec"
+      },
+      {
+        "entryId": "ministering_assembly_in_daniels_vision",
+        "stageId": "ministering_assembly-main",
+        "version": "4abdbb32cfcaa06d3bc748ea6b88a23e"
+      }
+    ],
+    "calls": 2
+  }
+}

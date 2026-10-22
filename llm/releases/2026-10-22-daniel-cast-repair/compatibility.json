@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-22T18:08:50.333Z",
+  "path": "/api/public/images/verses/ruth/1/16/images",
+  "oldDeployment": "dpl_7dptNRxV87AT1JsmCwyEUkBvY2cM",
+  "currentDeployment": "dpl_4VVFjU7iroz2pGjULfoN2XvWDc47",
+  "imageRecordsEqual": true,
+  "savedImages": [
+    {
+      "id": "kh7fwecgw3a9430s6ha8zra37x8gnwac",
+      "imageUrl": "https://unique-impala-244.convex.site/image/kg2dexc6xt7a53t74bhf3msn118gnhhz",
+      "pageUrl": "https://visibible.com/ruth/1/16",
+      "artStyle": "icon",
+      "reference": "Ruth 1:16",
+      "model": "google/gemini-3.1-flash-lite-image",
+      "translationId": "web",
+      "aspectRatio": "16:9",
+      "imageMimeType": "image/jpeg",
+      "imageWidth": 1376,
+      "imageHeight": 768,
+      "createdAt": 1792538392529
+    }
+  ],
+  "scope": "Read-only API response parity for one existing verse; not a full compatibility rehearsal or paid-request replay."
+}

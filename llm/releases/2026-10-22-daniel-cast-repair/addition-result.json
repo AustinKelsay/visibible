@@ -1,0 +1,88 @@
+{
+  "at": "2026-10-22T18:02:22.696Z",
+  "result": {
+    "changed": true,
+    "entryVersion": "4abdbb32cfcaa06d3bc748ea6b88a23e",
+    "sectionVersion": "8573512b6683f0d87a6a3553c7a6b9ef"
+  },
+  "readBack": {
+    "createdAt": 1792692142607,
+    "generation": 1,
+    "inputs": [],
+    "kind": "entry",
+    "payload": {
+      "aliases": [
+        "thousands of thousands",
+        "ten thousand times ten thousand"
+      ],
+      "entryKind": "character",
+      "hasForm": true,
+      "kind": "entry",
+      "name": "Ministering assembly in Daniel's vision",
+      "note": "The unidentified assembly ministering before the Ancient of Days in Daniel 7:10; distinct from earthly Babylonian royal attendants. A group whose canon describes a typical member.",
+      "stages": [
+        {
+          "id": "ministering_assembly-main",
+          "label": "Ministering assembly",
+          "quotes": [
+            {
+              "quote": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+              "unit": "daniel-7-10"
+            }
+          ],
+          "text": "Ministering assembly in Daniel's vision: a typical member is an adult of medium height and slim build, with warm brown skin, dark curly hair and a short dark beard, wearing an undyed linen robe, a narrow woven belt and plain sandals."
+        }
+      ]
+    },
+    "recordId": "ministering_assembly_in_daniels_vision",
+    "source": "owner",
+    "status": "current",
+    "version": "4abdbb32cfcaa06d3bc748ea6b88a23e",
+    "workId": "bible-web"
+  },
+  "section": {
+    "createdAt": 1792692142607,
+    "generation": 1,
+    "inputs": [],
+    "kind": "section",
+    "payload": {
+      "cast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "named": false,
+          "stageId": "daniel_main"
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "named": true,
+          "stageId": "ancient-of-days-light"
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "named": true,
+          "stageId": "one_like_a_son_of_man"
+        },
+        {
+          "entryId": "babylon",
+          "stageId": "babylon"
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "named": false,
+          "stageId": "ministering_assembly-main"
+        }
+      ],
+      "era": "monarchy-of-israel-and-judah",
+      "firstUnit": "daniel-7-9",
+      "kind": "section",
+      "lastUnit": "daniel-7-14",
+      "mentionedOnly": [],
+      "title": "The Ancient of Days and the son of man"
+    },
+    "recordId": "daniel-7-9",
+    "source": "owner",
+    "status": "current",
+    "version": "8573512b6683f0d87a6a3553c7a6b9ef",
+    "workId": "bible-web"
+  }
+}

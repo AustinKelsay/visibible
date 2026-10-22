@@ -1,5 +1,7 @@
 # Daniel's missing ministering assembly — 2026-10-22
 
+Follow-up: the [applied correction and fresh preparation evidence](../2026-10-22-daniel-cast-repair/README.md) records deployment and application of this exact addition, followed by a retained section-look failure. The remainder of this document describes the original unapplied correction PR.
+
 The [first v5 plan](../2026-10-22-daniel-effects-v5/README.md) described attendants without a matching section cast entry. Source review finds an assembly ministering before the Ancient of Days in WEB Daniel 7:10, inside the same Daniel 7:9–14 story section. The section's four entries omit that group. The shared owner look already mentions court attendants; removing that phrase alone would not give the source-supported assembly canon when planning 7:10.
 
 A read-only inspection of the active generation enumerated 1,569 analysis entries in four bounded pages. No matching Daniel group was found. The heavenly court entry belongs to Job and is a location; Luke's heavenly host is explicitly the nativity group. Neither is substituted for this assembly. This is an agent source/cast judgment, not a claim that a semantic validator proves identity or depiction.

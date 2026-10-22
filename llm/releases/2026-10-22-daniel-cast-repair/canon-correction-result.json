@@ -1,0 +1,76 @@
+{
+  "at": "2026-10-22T18:02:23.153Z",
+  "result": {
+    "changed": true,
+    "previousVersion": "ae42fd28206e5e83b5529fd0ebf9112c",
+    "version": "2580946090305beb790717b8920e11ec"
+  },
+  "readBack": {
+    "createdAt": 1792692143097,
+    "generation": 1,
+    "inputs": [],
+    "kind": "entry",
+    "payload": {
+      "aliases": [
+        "the Ancient of Days",
+        "the Most High"
+      ],
+      "entryKind": "character",
+      "hasForm": false,
+      "kind": "entry",
+      "members": [
+        "daniel:character:ancient_of_days"
+      ],
+      "name": "The Ancient of Days",
+      "note": "The divine figure on a fiery throne in Daniel's vision of the beasts; a distinct visionary figure, seen only in Daniel's dream-vision.",
+      "stages": [
+        {
+          "id": "ancient-of-days-light",
+          "label": "The Ancient of Days",
+          "quotes": [
+            {
+              "quote": "His clothing was white as snow, and the hair of his head like pure wool.",
+              "unit": "daniel-7-9"
+            },
+            {
+              "quote": "His throne was fiery flames, and its wheels burning fire.",
+              "unit": "daniel-7-9"
+            },
+            {
+              "quote": "A fiery stream issued and came out from before him.",
+              "unit": "daniel-7-10"
+            }
+          ],
+          "showing": [
+            {
+              "brightness": "brilliant",
+              "colour": "white",
+              "effect": "radiance"
+            },
+            {
+              "brightness": "bright",
+              "colour": "orange",
+              "effect": "fire"
+            },
+            {
+              "brightness": "soft",
+              "colour": "white",
+              "effect": "cloud"
+            },
+            {
+              "brightness": "brilliant",
+              "colour": "white",
+              "effect": "light"
+            }
+          ],
+          "text": "The Ancient of Days: brilliant white radiance; bright orange fire; soft white cloud; brilliant white light."
+        }
+      ]
+    },
+    "recordId": "the_ancient_of_days",
+    "source": "owner",
+    "status": "current",
+    "version": "2580946090305beb790717b8920e11ec",
+    "workId": "bible-web"
+  }
+}
