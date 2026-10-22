@@ -1,0 +1,38 @@
+{
+  "at": "2026-10-22T16:29:08.233529+00:00",
+  "textModel": "anthropic/claude-haiku-5.5",
+  "planPromptVersion": "2026-10-22-formless-effects-v5",
+  "requestArtifactSha256": "a7057ed374c56e1e7350dabfcab2a40ffb57900752ced0c592b3f60589930c95",
+  "estimatedUsd": 0.000365037037037037,
+  "maximumCompletionEstimatedUsd": 0.0006400370370370369,
+  "livePricing": {
+    "prompt": "0.0000001",
+    "completion": "0.0000005",
+    "web_search": "0.01",
+    "input_cache_read": "0.00000001",
+    "input_cache_write": "0.000000125",
+    "input_cache_write_1h": "0.0000002",
+    "overrides": [
+      {
+        "min_prompt_tokens": 100000,
+        "prompt": "0.0000005",
+        "completion": "0.0000025",
+        "input_cache_read": "0.00000005",
+        "input_cache_write": "0.000000625",
+        "input_cache_write_1h": "0.000001"
+      }
+    ]
+  },
+  "sameSourceCanonAndLookAsV4": true,
+  "sameUserInputAndLocalRecordsAsV4": false,
+  "maximumPreparationCalls": 2,
+  "maximumCanonCalls": 0,
+  "maximumPlanCalls": 2,
+  "preparationCapUsd": 0.01,
+  "reservePerCallUsd": 0.005,
+  "paidCalls": 0,
+  "productionMutations": 0,
+  "imageCalls": 0,
+  "imagesPermitted": false,
+  "note": "Exact v5 capture through ordinary preparation. Relative to v4, only no-form constraint text, system guidance, retained showing metadata and its entry/look dependency versions change. Complete canon, look payload/version, source context, brief and schema are unchanged. Estimates/reserves are not billing guarantees."
+}

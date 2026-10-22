@@ -1,0 +1,51 @@
+{
+  "at": "2026-10-22T16:31:33.643733+00:00",
+  "reviewer": "agent",
+  "humanAccepted": false,
+  "sceneArtifactSha256": "3eb70199b9771a043d576a5183a4b0a27f720a0c5b6c06c79c5aeb8070fe8ad5",
+  "verdict": "hold-unlisted-attendants",
+  "checks": {
+    "structureAndFieldLengths": "pass",
+    "expectedNamedMomentPresence": "pass",
+    "noFormTextDepiction": "pass-agent-inspection",
+    "styleNeutrality": "pass-agent-inspection",
+    "fixedAppearanceSeparation": "pass-agent-inspection",
+    "castCompleteness": "concern-unlisted-attendants"
+  },
+  "present": [
+    "daniel_prophet_of_babylon",
+    "the_ancient_of_days"
+  ],
+  "sectionCast": [
+    "daniel_prophet_of_babylon",
+    "the_ancient_of_days",
+    "one_like_a_son_of_man",
+    "babylon"
+  ],
+  "positiveObservations": [
+    "The plan describes radiance and fire above an explicitly unoccupied throne, while Daniel watches. No bodily, garment-substitute, wool-simile or prohibited-feature denial for the no-form subject was found.",
+    "None of the four fixed canon effect phrases is copied into any plan field. The response uses permitted effect names for placement and movement, without those fixed color/brightness qualifiers.",
+    "Daniel and the Ancient of Days remain selected with the correct stages. This is one agent-inspected text result, not established reliability or visual acceptance."
+  ],
+  "reasons": [
+    {
+      "field": "secondaryElements",
+      "exactText": "plain-robed attendants faint at the margins.",
+      "reason": "Visible attendants have no corresponding entry in the supplied section cast or selected present IDs, so no canon can be supplied for them. They occur in the unchanged shared look, and the next verse describes a ministering crowd; the current unit does not name them. Hold whole-plan/image acceptance for source/cast review rather than infer a new canonical group or silently remove them."
+    }
+  ],
+  "relatedLookText": "Daniel in a simple Babylonian-era tunic and cloak; court attendants in plain robes. The formless divine presence has no body, hair or garments.",
+  "relatedNextUnitText": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+  "decision": {
+    "retryPlan": false,
+    "imageCalls": 0,
+    "productionMutations": 0,
+    "publicActivation": false
+  },
+  "limits": [
+    "One fresh plan with a deliberately frozen look, not a repeatability study, randomized paired comparison or visual/likeness acceptance.",
+    "System guidance, no-form constraint projection and local entry/look dependency records differ from v4. The source, brief, canon wording/choices, owner look payload/version, context and response schema are unchanged.",
+    "The source and look still include bodily wording/denials. This run does not establish the cause of prior image failures.",
+    "The attendants are visible in the plan and unrepresented in the cast; their appearance in the look/next unit is context, not a complete canon assignment. No new manual approval requirement is introduced."
+  ]
+}

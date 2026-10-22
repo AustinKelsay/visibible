@@ -1,0 +1,57 @@
+{
+  "issue": 183,
+  "baseCommit": "07cbdc7c6e0592017ae436ead3fabfc92e10b688",
+  "purpose": "Inspect one ordinary v5 Daniel 7:9 plan using the exact retained canon choices in the new staged shape and the same frozen owner look. Only the local no-form constraint projection and system guidance change; no canon redraft, images, production writes or activation.",
+  "authorization": "Continuation under the owner's existing $43 preparation and $16.50 evaluation allowances; these artifacts are not authorization to replay.",
+  "publicActivation": false,
+  "humanAccepted": false,
+  "textModel": "anthropic/claude-haiku-5.5",
+  "canonPromptVersion": "2026-10-22-canon-showing-v3",
+  "planPromptVersion": "2026-10-22-formless-effects-v5",
+  "renderingPromptVersion": "2026-10-21-generic-v3",
+  "unitId": "daniel-7-9",
+  "styles": [
+    "classical",
+    "watercolor",
+    "icon"
+  ],
+  "preparation": {
+    "authorizedUsd": 43,
+    "measuredBeforeUsd": 3.637906,
+    "uncertaintyBeforeUsd": 0.03,
+    "capUsd": 0.01,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 2,
+    "maximumCanonCalls": 0,
+    "maximumPlanCalls": 2
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredBeforeUsd": 16.2980069,
+    "uncertaintyBeforeUsd": 0.045,
+    "remainingAfterReserveBeforeUsd": 0.1569931,
+    "capUsd": 0,
+    "reservePerCallUsd": 0.05,
+    "maximumCalls": 0,
+    "estimatedUsd": 0
+  },
+  "smoke": {
+    "authorizedUsd": 1,
+    "measuredUsd": 0.0685215,
+    "unchanged": true
+  },
+  "stopConditions": [
+    "At most two normal structural attempts for one scene plan. Retain the first structurally valid result, including any semantic failure; no favorable retry.",
+    "No new canon, images, references, checker, reading pass, provider substitution, source rewrite, production mutation or public activation.",
+    "Missing usage, uncertain outcome, provider error or an exhausted reserve blocks every further paid call.",
+    "Freeze the exact owner look payload/version through an explicit local dependency rebind. This bypasses normal invalidation solely for this experimental control.",
+    "Retain the exact request/schema and live-pricing estimates before execution; use the existing separate authorizations without transfers.",
+    "Retain the exact showing choices in the new local entry payload. Do not claim the complete user input or local entry/look dependency records are unchanged from v4; verify the precise projection change."
+  ],
+  "reusedCanon": {
+    "directory": "../2026-10-22-daniel-placement-v4",
+    "artifactSha256": "e6ce282e2de64edc86f17452ef65df51fd13d70381c1162b6aa5f7f14dffbb53",
+    "newCalls": 0
+  },
+  "at": "2026-10-22T16:28:28.583332+00:00"
+}
