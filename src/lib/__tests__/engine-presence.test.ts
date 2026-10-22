@@ -210,7 +210,7 @@ describe("no-form presence selection", () => {
     expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK })).calls).toBe(2);
   });
 
-  it.each(["missing", "older", "2026-10-21-formless-presence-v1", "2026-10-21-formless-presence-v2", "2026-10-21-formless-presence-v3"])("refreshes a cached no-form plan when the prompt version is %s and preserves its history", async (version) => {
+  it.each(["missing", "older", "2026-10-21-formless-presence-v1", "2026-10-21-formless-presence-v2", "2026-10-21-formless-presence-v3", "2026-10-22-formless-placement-v4"])("refreshes a cached no-form plan when the prompt version is %s and preserves its history", async (version) => {
     const { t, render, calls } = await setup();
     const first = await render();
     if (!first.ok) throw new Error(first.message);
@@ -219,12 +219,14 @@ describe("no-form presence selection", () => {
     const oldInputs = version === "missing" ? current.inputs.filter((i) => i.kind !== "prompt")
       : current.inputs.map((i) => i.kind === "prompt" ? { ...i, version } : i);
     // Retain earlier failures, including selected presence with bodily wording or denials.
-    const selected = version.endsWith("-v1") || version.endsWith("-v2") || version.endsWith("-v3");
+    const selected = version.endsWith("-v1") || version.endsWith("-v2") || version.endsWith("-v3") || version.endsWith("-v4");
     const oldPayload = { kind: "plan" as const, momentId: "court-1",
       entries: selected ? [{ entryId: "watcher", stageId: "main" }, { entryId: "voice", stageId: "revealed" }] : [{ entryId: "watcher", stageId: "main" }],
       plan: selected ? { ...fields, primarySubject: version.endsWith("-v1") ? "The voice seated as a figure of light"
+        : version.endsWith("-v4") ? "Radiance above an unoccupied seat"
         : version.endsWith("-v3") ? "Brilliant white radiance above an unoccupied seat, with bright orange fire and soft white cloud"
-          : "The voice: radiance enthroned over a seat, with no human face or body" } : fields };
+          : "The voice: radiance enthroned over a seat, with no human face or body",
+      ...(version.endsWith("-v4") ? { secondaryElements: "soft white cloud drifting around the throne; brilliant white light radiating outward" } : {}) } : fields };
     const old = await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "court-1",
       payload: oldPayload, inputs: oldInputs });
     calls.length = 0;

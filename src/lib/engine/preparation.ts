@@ -11,6 +11,7 @@
 import { z } from "zod";
 import type { TextModel } from "../reading-pass/model";
 import { parseModelJson } from "../reading-pass/model";
+import { canonShowingSchema, compileCanonShowing } from "../canon-showing";
 import type { WorkBrief } from "../work-preparation";
 
 export const LOOK_SYSTEM = `You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.
@@ -20,11 +21,11 @@ export const lookOutputSchema = z.object({ place: z.string(), timeOfDay: z.strin
 export const PLAN_SYSTEM = `You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the cast on stage in the section. Plan one single scene that depicts this moment. Return only JSON.
 Rules: single scene, no collage. Choose which of the listed cast are present in this moment and name them in \`present\` by their ids; leave out cast who are elsewhere in the section. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that) and do not name an art style or rendering technique; describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.`;
 /** Bump for changes to this no-form planning contract or its cast format; only affected plans use it. */
-export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-22-formless-placement-v4";
+export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-22-formless-effects-v5";
 const FORMLESS_PLAN_SYSTEM = `${PLAN_SYSTEM}
 Presence does not require a physical body. A cast entry marked hasForm: false still belongs in the moment when represented through the non-figurative presence allowed by the brief and its supplied canon constraints. If you describe that entry's presence or action in any scene field, include its id in \`present\` so its canon constraints reach the image model. Select presence for this moment only; do not add cast who are absent or merely mentioned.
 For each no-form subject, use its assigned canon to choose the permitted visible effects and their placement in the setting. Bodily wording about that subject in the source is a metaphor, not permission to give it a physical form. In every scene field, describe the permitted effects rather than bodily poses, anatomy, clothing, human silhouettes or figures made of light. Do not repeat prohibited features as denials or substitutes, such as a faceless figure or radiance suggesting garments. When the source describes a no-form subject as seated, describe the unoccupied seat and the permitted surrounding effects rather than a seated presence. Keep formed characters' own poses, clothing and actions; never transfer a no-form subject's bodily metaphors to them.
-Canon is supplied separately to rendering in full. Name only the permitted effect needed for this moment's placement or movement; leave its fixed colour, brightness and texture to canon. Do not enumerate all effects or copy the canon's descriptive qualifiers into any scene field. For example, given canon "The presence: brilliant gold radiance", plan "radiance spreading above the arch; the witness approaches". The plan contributes where the effect appears and what happens around it. Situational illumination and formed characters' clothing still belong in the plan when the moment or look requires them; these are separate from the no-form subject's fixed appearance.`;
+Canon is supplied separately to rendering in full. When the constraints list effect names for placement, choose only from those effects; their fixed appearance is deliberately omitted from this planning input. Historical prose constraints may still include the full description. Name only the permitted effect needed for this moment's placement or movement; leave its fixed colour, brightness and texture to canon. Do not enumerate all effects or copy the canon's descriptive qualifiers into any scene field. For example, given canon "The presence: brilliant gold radiance", plan "radiance spreading above the arch; the witness approaches". The plan contributes where the effect appears and what happens around it. Situational illumination and formed characters' clothing still belong in the plan when the moment or look requires them; these are separate from the no-form subject's fixed appearance.`;
 export const planOutputSchema = z.object({
   present: z.array(z.string()),
   primarySubject: z.string(), action: z.string(), setting: z.string(), secondaryElements: z.string(), mood: z.string(), timeOfDay: z.string(), composition: z.string(),
@@ -85,6 +86,14 @@ export type PreparedMoment = {
 
 const CLAIM_TTL_MS = 60_000;
 const WAIT_MS = 45_000;
+
+/** Project only compiler-verified structured stages; never infer effects from historical prose. */
+function planningConstraint(name: string, stage: { text: string; showing?: unknown }): string {
+  const parsed = canonShowingSchema.safeParse(stage.showing);
+  // Owner prose edits can leave old metadata behind. Text stays authoritative in that case.
+  if (!parsed.success || compileCanonShowing(name, parsed.data) !== stage.text) return stage.text;
+  return `effect names for placement: ${[...new Set(parsed.data.map((part) => part.effect))].join(", ")}`;
+}
 
 function sameInputs(record: AnalysisRecord, expected: InputRef[]) {
   if (record.inputs.length !== expected.length) return false;
@@ -180,14 +189,16 @@ export async function prepareMoment(options: {
   if (!section || section.payload.kind !== "section") throw new PreparationUnavailableError("look", `unknown section ${sectionId}`);
   const sectionPayload = section.payload as unknown as { title: string; era?: string; cast: Array<{ entryId: string; stageId: string; named?: boolean }> };
   const era = brief.eras.find((e) => e.id === sectionPayload.era) ?? brief.eras[0];
-  const cast: Array<{ entryId: string; stageId: string; name: string; version: string; text: string; hasForm: boolean }> = [];
+  const cast: Array<{ entryId: string; stageId: string; name: string; version: string; constraint: string; hasForm: boolean }> = [];
   for (const member of sectionPayload.cast) {
     const entry = await store.getActiveRecord("entry", member.entryId);
     if (!entry || entry.payload.kind !== "entry") continue;
-    const stages = entry.payload.stages as Array<{ id: string; text: string }>;
+    const stages = entry.payload.stages as Array<{ id: string; text: string; showing?: unknown }>;
     const stage = stages.find((s) => s.id === member.stageId) ?? stages[0];
     if (!stage) continue;
-    cast.push({ entryId: member.entryId, stageId: stage.id, name: String(entry.payload.name), version: entry.version, text: stage.text, hasForm: entry.payload.hasForm !== false });
+    const name = String(entry.payload.name);
+    cast.push({ entryId: member.entryId, stageId: stage.id, name, version: entry.version,
+      constraint: planningConstraint(name, stage), hasForm: entry.payload.hasForm !== false });
   }
   const rules = brief.depictionRules.map((r) => `- ${r.text}`).join("\n") || "- none";
 
@@ -209,7 +220,7 @@ export async function prepareMoment(options: {
   const plan = await ensureRecord(store, options.workId, "plan", options.momentId, planInputs, async () => {
     const lookPayload = look.payload as Record<string, string>;
     const formlessCanon = hasFormlessCast
-      ? `\n\nNO-FORM CANON CONSTRAINTS (planning context; fixed descriptions are not scene-plan fields):\n${cast.filter((c) => !c.hasForm).map((c) => `- ${c.entryId} (stage: ${c.stageId}): ${c.text}`).join("\n")}`
+      ? `\n\nNO-FORM CANON CONSTRAINTS (planning context; fixed descriptions are not scene-plan fields):\n${cast.filter((c) => !c.hasForm).map((c) => `- ${c.entryId} (stage: ${c.stageId}): ${c.constraint}`).join("\n")}`
       : "";
     const user = `WORK BRIEF\nTone: ${brief.tone}\nDepiction rules:\n${rules}\nEra: ${era.label}. People: ${era.people} Dress: ${era.dress} Technology: ${era.technology}\nSTORY SECTION: ${sectionPayload.title}\nSECTION LOOK: place: ${lookPayload.place}; time: ${lookPayload.timeOfDay}; weather: ${lookPayload.weather}; light: ${lookPayload.light}; clothing: ${lookPayload.clothing}\nCAST ON STAGE IN THIS SECTION (id: name):\n${cast.map((c) => `- ${c.entryId}: ${c.name}${hasFormlessCast ? ` (hasForm: ${c.hasForm})` : ""}`).join("\n") || "- (no one listed)"}${formlessCanon}\n\nMOMENT (${options.context.moment.reference}): ${options.context.moment.text}\nPREVIOUS: ${options.context.previous?.text.slice(0, 400) ?? "(section starts here)"}\nNEXT: ${options.context.next?.text.slice(0, 400) ?? "(section ends here)"}`;
     const schema = hasFormlessCast ? formlessPlanOutputSchema(cast.map((c) => c.entryId)) : planOutputSchema;
