@@ -218,6 +218,7 @@ export const analysisValidators = {
   referenceKind: referenceKindValidator,
   input: analysisInputValidator,
   payload: analysisPayloadValidator,
+  entry: entryPayloadValidator,
 };
 
 export default defineSchema({

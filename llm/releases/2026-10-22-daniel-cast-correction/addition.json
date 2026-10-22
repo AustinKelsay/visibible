@@ -1,0 +1,33 @@
+{
+  "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+  "expectedGeneration": 1,
+  "sectionId": "daniel-7-9",
+  "expectedSectionVersion": "9bfed655c64bcc10b8f74b1d436fb659",
+  "entryId": "ministering_assembly_in_daniels_vision",
+  "stageId": "ministering_assembly-main",
+  "named": false,
+  "entry": {
+    "kind": "entry",
+    "name": "Ministering assembly in Daniel's vision",
+    "entryKind": "character",
+    "hasForm": true,
+    "aliases": [
+      "thousands of thousands",
+      "ten thousand times ten thousand"
+    ],
+    "note": "The unidentified assembly ministering before the Ancient of Days in Daniel 7:10; distinct from earthly Babylonian royal attendants. A group whose canon describes a typical member.",
+    "stages": [
+      {
+        "id": "ministering_assembly-main",
+        "label": "Ministering assembly",
+        "text": "Ministering assembly in Daniel's vision: a typical member is an adult of medium height and slim build, with warm brown skin, dark curly hair and a short dark beard, wearing an undyed linen robe, a narrow woven belt and plain sandals.",
+        "quotes": [
+          {
+            "unit": "daniel-7-10",
+            "quote": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened."
+          }
+        ]
+      }
+    ]
+  }
+}
