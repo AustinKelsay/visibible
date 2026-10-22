@@ -46,7 +46,7 @@ const proseRecords = [
   { kind: "moment", recordId: "lamp-3", payload: { kind: "moment", sectionId: "lamp-1", firstUnit: "lamp-3", lastUnit: "lamp-4" } },
 ];
 const lookAnswer = { place: "Lakeshore", timeOfDay: "dawn", weather: "calm", light: "low sun", clothing: "wool" };
-const planAnswer = (present: string[]) => ({ present, primarySubject: "Jonah by the boats", action: "mends nets", setting: "shore", secondaryElements: "boats", mood: "quiet", timeOfDay: "dawn", composition: "wide" });
+const planAnswer = (present: string[]) => ({ present, missingCast: [], primarySubject: "Jonah by the boats", action: "mends nets", setting: "shore", secondaryElements: "boats", mood: "quiet", timeOfDay: "dawn", composition: "wide" });
 function scriptedModel(costUsd: number | null = 0.0004) {
   const calls: TextModelRequest[] = [];
   const model: TextModel & { calls: TextModelRequest[] } = { id: "scripted", calls, async complete(request) {

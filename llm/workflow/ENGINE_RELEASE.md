@@ -17,7 +17,7 @@ How the generic image engine ([spec #165](https://github.com/AustinKelsay/visibi
 | Legacy and generic accepted side by side; rollback replays accepted generic work, refuses new Watercolor/Icon, admits Classical on legacy, keeps images | `credit-flow.test.ts` › "rehearsal: legacy and generic…" |
 | Duplicate and concurrent delivery, uncertain provider outcomes, interrupted save, thrown settlement: one paid attempt, one settlement, replay | `credit-flow.test.ts` › generic engine generation, `tests/convex/generation-intent.test.ts` |
 | Bulk jobs bound to style and engine; interrupted items reconciled; rollback pauses generic jobs; legacy backfill; release counts | `tests/convex/bulk-binding.test.ts` |
-| Looks and plans made once, shared, invalidated by their inputs, failing without fallback | `src/lib/__tests__/preparation.test.ts` |
+| Looks and plans made once, shared, invalidated by their inputs; missing cast, unknown selections or changed canon fail before guest reservation/image calls | `src/lib/__tests__/preparation.test.ts`, `src/lib/__tests__/moment-cast-contract.test.ts`, `credit-flow.test.ts` › missing-cast reply |
 | Retirement dry run classifies accepted obligations and cancellation candidates without touching data | `tests/convex/rehearsal.test.ts` › retirement inventory |
 | Evaluation harness renders through the engine's own assembly | `src/lib/__tests__/image-evals-generic.test.ts` |
 

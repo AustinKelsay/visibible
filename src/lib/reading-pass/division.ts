@@ -116,6 +116,9 @@ export function validateSections(output: DivisionOutput, units: readonly Referen
           : `section ${index + 1} names unknown character id ${id}`);
       }
     }
+    for (const id of section.on_stage) {
+      if (section.mentioned_only.includes(id)) problems.push(`section ${index + 1} assigns ${id} to both on_stage and mentioned_only`);
+    }
     const text = units.slice(start, end + 1).map((u) => u.text).join(" ");
     sections.push({
       firstUnitId: units[start].id, lastUnitId: units[Math.max(start, end)].id, title: section.title, setting: section.setting,

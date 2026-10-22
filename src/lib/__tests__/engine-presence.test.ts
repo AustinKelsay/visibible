@@ -5,7 +5,7 @@ import schema from "../../../convex/schema";
 import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
 import { assembleRendering } from "../engine/assemble";
-import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION, LOOK_SYSTEM, lookOutputSchema, PLAN_SYSTEM, planOutputSchema } from "../engine/preparation";
+import { createConvexPreparationStore, FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION, LOOK_SYSTEM, lookOutputSchema, PLAN_SYSTEM } from "../engine/preparation";
 import type { WorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { responseSchema } from "../reading-pass/prompts";
@@ -64,10 +64,10 @@ describe("no-form presence selection", () => {
       calls.push(request);
       const alone = request.user.includes("MOMENT (The Court 2)");
       const value = request.schemaName === "section_look" ? lookAnswer : planReplies?.[planAttempt++] ?? {
-        present: alone ? ["watcher"] : formless ? ["watcher", "voice"] : ["watcher", "unknown_entry"],
+        present: alone ? ["watcher"] : formless ? ["watcher", "voice"] : ["watcher"],
         ...planFields, ...(alone ? { primarySubject: "The watcher alone", action: "waits" } : {}),
       };
-      return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd: 0 }, elapsedMs: 1 };
+      return { content: JSON.stringify(request.schemaName === "scene_plan" ? { missingCast: [], ...value } : value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd: 0 }, elapsedMs: 1 };
     } };
     const getReference = vi.fn(async (kind: "sheet" | "styleReference", id: string) => ({ storageId: `${kind}-${id}`, inputs: [], fingerprint: `ref-${id}`, pinned: true }));
     const render = (unitId = "court-1", styleId = "classical") => assembleRendering({ inputs, store, model, listMoments: async () => [], getReference, loadReference: async () => new Uint8Array([1]) },
@@ -116,17 +116,18 @@ describe("no-form presence selection", () => {
     const request = calls.find((r) => r.schemaName === "scene_plan")!;
     expect(responseSchema(request.schema)).toEqual({
       type: "object", additionalProperties: false,
-      required: ["present", ...Object.keys(fields)],
+      required: ["present", ...Object.keys(fields), "missingCast"],
       properties: {
         present: { type: "array", items: { type: "string", enum: entries.map((e) => e.recordId) }, description: expect.any(String) },
+        missingCast: { type: "array", items: { type: "string" }, description: expect.any(String) },
         // Anthropic does not support maxLength in output schemas; local validation still rejects it.
         ...Object.fromEntries(Object.keys(fields).map((key) => [key, { type: "string", description: expect.stringContaining("At most 220 characters.") }])),
       },
     });
-    expect(request.schema.safeParse({ present: [], ...fields }).success).toBe(true);
+    expect(request.schema.safeParse({ missingCast: [], present: [], ...fields }).success).toBe(true);
     for (const key of Object.keys(fields)) {
-      expect(request.schema.safeParse({ present: [], ...fields, [key]: "x".repeat(220) }).success).toBe(true);
-      expect(request.schema.safeParse({ present: [], ...fields, [key]: "x".repeat(221) }).success).toBe(false);
+      expect(request.schema.safeParse({ missingCast: [], present: [], ...fields, [key]: "x".repeat(220) }).success).toBe(true);
+      expect(request.schema.safeParse({ missingCast: [], present: [], ...fields, [key]: "x".repeat(221) }).success).toBe(false);
     }
   });
 
@@ -175,21 +176,15 @@ describe("no-form presence selection", () => {
     expect(calls).toHaveLength(3);
   });
 
-  it("uses the same first-stage fallback for no-form planning constraints and rendering", async () => {
-    const { t, render, calls } = await setup();
-    // An owner correction can remove a stage after the generation passes activation checks.
+  it("refuses a removed section-assigned canon stage without a model call or references", async () => {
+    const { t, render, calls, getReference } = await setup();
     await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "voice",
       payload: { ...entries[1].payload, stages: [entries[1].payload.stages[0]] } });
-    const result = await render();
-    if (!result.ok) throw new Error(result.message);
-    const fallbackCanon = entries[1].payload.stages[0].text;
-    const request = calls.find((r) => r.schemaName === "scene_plan")!;
-    expect(request.user).toContain(`- voice (stage: early): ${fallbackCanon}`);
-    expect(request.user).not.toContain(voiceCanon);
-    expect(calls[0].user).toContain(`- voice (stage: early): ${fallbackCanon}`);
-    expect(calls[0].user).not.toContain(voiceCanon);
-    expect(result.packet.canon).toContainEqual(expect.objectContaining({ entryId: "voice", stageId: "early" }));
-    expect(result.prompt).toContain(fallbackCanon);
+    expect(await render()).toMatchObject({ ok: false, reason: "preparation", stage: "plan", retryable: true,
+      message: expect.stringContaining("missing canon stage voice:revealed") });
+    expect(calls).toHaveLength(0);
+    expect(getReference).not.toHaveBeenCalled();
+    expect(await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" })).toBeNull();
   });
 
   it.each([
@@ -274,7 +269,7 @@ describe("no-form presence selection", () => {
     }
   });
 
-  it("keeps formed schemas and look requests, including legacy entries without the flag", async () => {
+  it("keeps formed look requests and legacy form flags while enforcing selected IDs", async () => {
     const { t, render, calls } = await setup(false);
     const first = await render();
     if (!first.ok) throw new Error(first.message);
@@ -286,8 +281,8 @@ describe("no-form presence selection", () => {
     expect(calls[0].schema).toBe(lookOutputSchema);
     expect(calls[0].user).toBe(`WORK BRIEF\nTone: Quiet.\nDepiction rules:\n- The voice has no body; show its presence only as light.\nEra: Ancient court. People: Courtiers. Dress: Tunics. Buildings and objects: Stone throne.\n\nSTORY SECTION: The court\nON STAGE: The watcher\nTEXT OF THE SECTION'S FIRST MOMENT (the look covers the whole section):\n${work.getUnit("court-1").text}`);
     expect(calls[1].system).toBe(PLAN_SYSTEM);
-    expect(calls[1].schema).toBe(planOutputSchema);
-    expect(first.prepared.plan.payload.present).toEqual(["watcher"]); // Legacy unknown-ID filtering stays unchanged.
+    expect(calls[1].schema.safeParse({ missingCast: [], present: ["unknown_entry"], ...fields }).success).toBe(false);
+    expect(first.prepared.plan.payload.present).toEqual(["watcher"]);
     expect(calls[1].user).toContain("- watcher: The watcher\n");
     expect(calls[1].user).not.toContain("hasForm:");
     expect(calls[1].user).not.toContain("NO-FORM CANON CONSTRAINTS");
