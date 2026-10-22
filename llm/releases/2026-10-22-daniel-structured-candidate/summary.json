@@ -1,0 +1,56 @@
+{
+  "at": "2026-10-22T14:55:28.906741+00:00",
+  "outcome": "canon-accepted-plan-rejected-for-restatement",
+  "publicActivation": false,
+  "humanAccepted": false,
+  "canonCalls": 1,
+  "planCalls": 1,
+  "imageCalls": 0,
+  "productionMutations": 0,
+  "semanticRetries": 0,
+  "preparation": {
+    "authorizedUsd": 43,
+    "previousMeasuredUsd": 3.6362951,
+    "measuredThisRunUsd": 0.0011572,
+    "measuredUsd": 3.6374523,
+    "uncertaintyUsd": 0.03,
+    "remainingAfterReserveUsd": 39.3325477,
+    "subcapUsd": 0.02,
+    "unusedSubcapUsd": 0.0188428
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredUsd": 16.2980069,
+    "uncertaintyUsd": 0.045,
+    "remainingAfterReserveUsd": 0.1569931,
+    "unchanged": true
+  },
+  "smoke": {
+    "authorizedUsd": 1,
+    "measuredUsd": 0.0685215,
+    "uncertaintyUsd": 0,
+    "remainingAfterReserveUsd": 0.9314785,
+    "unchanged": true
+  },
+  "originalMatrix": {
+    "completed": 236,
+    "planned": 324,
+    "missing": 88,
+    "unchanged": true
+  },
+  "balanceObservation": {
+    "beforeUsd": 10.898975791999987,
+    "afterUsd": 10.898270491999995,
+    "observedDeltaUsd": 0.0007052999999928034,
+    "reconciledToThisRun": false,
+    "note": "Snapshots can lag individual calls; use explicit provider response usage for this run. No per-call credit reconciliation is claimed."
+  },
+  "conclusion": "The first live structured no-form canon passes this bounded text inspection and the subsequent normal plan preserves the no-form presence without bodily/wool substitutes. The plan repeats fixed canon appearance, so retain it as a semantic failure without a favorable retry. No production correction, image evidence or release acceptance follows.",
+  "limits": [
+    "This is agent text inspection of one canon and one plan, not a human visual or likeness acceptance.",
+    "Source verse and frozen owner look still carry bodily wording/denials; this experiment does not isolate the cause of any image-model failure.",
+    "Closed-vocabulary canon construction removes free-prose stage cues; it does not guarantee a permitted interpretation or compliant rendering.",
+    "One uncontrolled fresh canon/plan chain with a deliberately frozen look, not a causal or repeatability experiment.",
+    "Human visual/likeness acceptance, original matrix completion and actual-app accounting/latency release gates remain open."
+  ]
+}

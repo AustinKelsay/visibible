@@ -1,0 +1,57 @@
+{
+  "at": "2026-10-22T14:52:19.253889+00:00",
+  "textModel": "anthropic/claude-haiku-5.5",
+  "canonPromptVersion": "2026-10-22-canon-showing-v3",
+  "canonEstimatedUsd": 0.000956148148148148,
+  "canonAtMaximumCompletionEstimatedUsd": 0.002356148148148148,
+  "livePricing": {
+    "prompt": "0.0000001",
+    "completion": "0.0000005",
+    "web_search": "0.01",
+    "input_cache_read": "0.00000001",
+    "input_cache_write": "0.000000125",
+    "input_cache_write_1h": "0.0000002",
+    "overrides": [
+      {
+        "min_prompt_tokens": 100000,
+        "prompt": "0.0000005",
+        "completion": "0.0000025",
+        "input_cache_read": "0.00000005",
+        "input_cache_write": "0.000000625",
+        "input_cache_write_1h": "0.000001"
+      }
+    ]
+  },
+  "selectedUnitIds": [
+    "daniel-3-26",
+    "daniel-4-2",
+    "daniel-4-17",
+    "daniel-4-24",
+    "daniel-4-25",
+    "daniel-4-32",
+    "daniel-4-34",
+    "daniel-5-18",
+    "daniel-5-21",
+    "daniel-7-9",
+    "daniel-7-10",
+    "daniel-7-11",
+    "daniel-7-12",
+    "daniel-7-13",
+    "daniel-7-14",
+    "daniel-7-18",
+    "daniel-7-22",
+    "daniel-7-25",
+    "daniel-7-27"
+  ],
+  "sourceChars": 4079,
+  "sourceCapChars": 14000,
+  "preparationCapUsd": 0.02,
+  "maximumPreparationCalls": 4,
+  "maximumCanonCalls": 2,
+  "maximumPlanCalls": 2,
+  "paidCalls": 0,
+  "productionMutations": 0,
+  "imageCalls": 0,
+  "imagesPermitted": false,
+  "note": "Plan requires exact canon agent acceptance and its own captured-request dry run before execution. Estimates and admission reserves do not guarantee provider billing."
+}
