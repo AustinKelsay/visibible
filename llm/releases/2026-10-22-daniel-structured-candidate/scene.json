@@ -1,0 +1,563 @@
+{
+  "at": "2026-10-22T14:54:25.501Z",
+  "result": {
+    "sectionId": "daniel-7-9",
+    "era": "monarchy-of-israel-and-judah",
+    "look": {
+      "version": "1469b2542a3afbf77ed9921c8f727f20",
+      "payload": {
+        "place": "Heavenly court above Babylon, vast open expanse of cloud and radiant fire",
+        "timeOfDay": "Night vision, sky of unbroken darkness",
+        "weather": "Stormy air with drifting clouds and fire",
+        "light": "Radiant fiery glow from the throne and wheels, no visible sun",
+        "clothing": "Daniel in a simple Babylonian-era tunic and cloak; court attendants in plain robes. The formless divine presence has no body, hair or garments."
+      }
+    },
+    "plan": {
+      "version": "b9140439a7b4beb21ade3f416eb66895",
+      "payload": {
+        "primarySubject": "Brilliant white radiance gathered into an unoccupied throne of bright orange fire, with soft white cloud and light spreading above it; Daniel stands at a distance, gazing upward.",
+        "action": "Thrones are being set in place as the fiery seat takes shape; wheels of burning fire turn slowly beneath it while the radiance pulses gently; Daniel lifts his eyes in awe.",
+        "setting": "Vast open expanse of heavenly cloud and radiant fire above Babylon, with no ground visible beyond a distant, darkened horizon.",
+        "secondaryElements": "Drifting clouds and streams of fire around the throne; wheels of burning fire at its base; Daniel in a simple Babylonian-era tunic and cloak, small against the expanse.",
+        "mood": "Reverent awe, solemn and majestic, with quiet anticipation.",
+        "timeOfDay": "Night vision under an unbroken sky of darkness, lit only by the fiery glow of the throne and wheels.",
+        "composition": "Wide view from below, the throne centered high in the frame with Daniel small at lower left, the expanse opening outward around them.",
+        "present": [
+          "daniel_prophet_of_babylon",
+          "the_ancient_of_days"
+        ]
+      }
+    },
+    "present": [
+      {
+        "entryId": "daniel_prophet_of_babylon",
+        "stageId": "daniel_main",
+        "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+      },
+      {
+        "entryId": "the_ancient_of_days",
+        "stageId": "the_ancient_of_days-showing",
+        "version": "d9742a2905fbf4d88e04d3612cd08935"
+      }
+    ],
+    "calls": 1
+  },
+  "localWrites": [
+    {
+      "kind": "plan",
+      "recordId": "daniel-7-9",
+      "payload": {
+        "kind": "plan",
+        "momentId": "daniel-7-9",
+        "entries": [
+          {
+            "entryId": "daniel_prophet_of_babylon",
+            "stageId": "daniel_main"
+          },
+          {
+            "entryId": "the_ancient_of_days",
+            "stageId": "the_ancient_of_days-showing"
+          }
+        ],
+        "plan": {
+          "primarySubject": "Brilliant white radiance gathered into an unoccupied throne of bright orange fire, with soft white cloud and light spreading above it; Daniel stands at a distance, gazing upward.",
+          "action": "Thrones are being set in place as the fiery seat takes shape; wheels of burning fire turn slowly beneath it while the radiance pulses gently; Daniel lifts his eyes in awe.",
+          "setting": "Vast open expanse of heavenly cloud and radiant fire above Babylon, with no ground visible beyond a distant, darkened horizon.",
+          "secondaryElements": "Drifting clouds and streams of fire around the throne; wheels of burning fire at its base; Daniel in a simple Babylonian-era tunic and cloak, small against the expanse.",
+          "mood": "Reverent awe, solemn and majestic, with quiet anticipation.",
+          "timeOfDay": "Night vision under an unbroken sky of darkness, lit only by the fiery glow of the throne and wheels.",
+          "composition": "Wide view from below, the throne centered high in the frame with Daniel small at lower left, the expanse opening outward around them."
+        }
+      },
+      "inputs": [
+        {
+          "kind": "moment",
+          "recordId": "daniel-7-9",
+          "version": "42811b767e7aea912528509ebeae351a"
+        },
+        {
+          "kind": "look",
+          "recordId": "daniel-7-9",
+          "version": "1469b2542a3afbf77ed9921c8f727f20"
+        },
+        {
+          "kind": "brief",
+          "recordId": "bible-web",
+          "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+        },
+        {
+          "kind": "entry",
+          "recordId": "daniel_prophet_of_babylon",
+          "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+        },
+        {
+          "kind": "entry",
+          "recordId": "the_ancient_of_days",
+          "version": "d9742a2905fbf4d88e04d3612cd08935"
+        },
+        {
+          "kind": "entry",
+          "recordId": "one_like_a_son_of_man",
+          "version": "f0a2429d0ca6ac9657801f25e0921699"
+        },
+        {
+          "kind": "entry",
+          "recordId": "babylon",
+          "version": "de8721810ea07cf6cc361bc90ea0502d"
+        },
+        {
+          "kind": "prompt",
+          "recordId": "scene_plan_formless_presence",
+          "version": "2026-10-21-formless-presence-v3"
+        }
+      ]
+    }
+  ],
+  "localSpends": [
+    {
+      "kind": "plan",
+      "recordId": "daniel-7-9",
+      "model": "anthropic/claude-haiku-5.5",
+      "outcome": "ok",
+      "costUsd": 0.0004519,
+      "promptTokens": 2479,
+      "completionTokens": 408,
+      "elapsedMs": 3020
+    }
+  ],
+  "records": [
+    {
+      "createdAt": 1792538123265,
+      "generation": 1,
+      "inputs": [],
+      "kind": "moment",
+      "payload": {
+        "firstUnit": "daniel-7-9",
+        "kind": "moment",
+        "lastUnit": "daniel-7-9",
+        "sectionId": "daniel-7-9"
+      },
+      "recordId": "daniel-7-9",
+      "source": "generated",
+      "status": "current",
+      "version": "42811b767e7aea912528509ebeae351a",
+      "workId": "bible-web"
+    },
+    {
+      "createdAt": 1792535239756,
+      "generation": 1,
+      "inputs": [],
+      "kind": "section",
+      "payload": {
+        "cast": [
+          {
+            "entryId": "daniel_prophet_of_babylon",
+            "named": false,
+            "stageId": "daniel_main"
+          },
+          {
+            "entryId": "the_ancient_of_days",
+            "named": true,
+            "stageId": "the_ancient_of_days-showing"
+          },
+          {
+            "entryId": "one_like_a_son_of_man",
+            "named": true,
+            "stageId": "one_like_a_son_of_man"
+          },
+          {
+            "entryId": "babylon",
+            "stageId": "babylon"
+          }
+        ],
+        "era": "monarchy-of-israel-and-judah",
+        "firstUnit": "daniel-7-9",
+        "kind": "section",
+        "lastUnit": "daniel-7-14",
+        "mentionedOnly": [],
+        "title": "The Ancient of Days and the son of man"
+      },
+      "recordId": "daniel-7-9",
+      "source": "generated",
+      "status": "current",
+      "version": "a92ee9500d5cfb919285dcc88b334104",
+      "workId": "bible-web"
+    },
+    {
+      "createdAt": 1792601845825,
+      "generation": 1,
+      "inputs": [
+        {
+          "kind": "section",
+          "recordId": "daniel-7-9",
+          "version": "a92ee9500d5cfb919285dcc88b334104"
+        },
+        {
+          "kind": "brief",
+          "recordId": "bible-web",
+          "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+        },
+        {
+          "kind": "entry",
+          "recordId": "daniel_prophet_of_babylon",
+          "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+        },
+        {
+          "kind": "entry",
+          "recordId": "the_ancient_of_days",
+          "version": "d9742a2905fbf4d88e04d3612cd08935"
+        },
+        {
+          "kind": "entry",
+          "recordId": "one_like_a_son_of_man",
+          "version": "f0a2429d0ca6ac9657801f25e0921699"
+        },
+        {
+          "kind": "entry",
+          "recordId": "babylon",
+          "version": "de8721810ea07cf6cc361bc90ea0502d"
+        }
+      ],
+      "kind": "look",
+      "payload": {
+        "clothing": "Daniel in a simple Babylonian-era tunic and cloak; court attendants in plain robes. The formless divine presence has no body, hair or garments.",
+        "kind": "look",
+        "light": "Radiant fiery glow from the throne and wheels, no visible sun",
+        "place": "Heavenly court above Babylon, vast open expanse of cloud and radiant fire",
+        "sectionId": "daniel-7-9",
+        "timeOfDay": "Night vision, sky of unbroken darkness",
+        "weather": "Stormy air with drifting clouds and fire"
+      },
+      "recordId": "daniel-7-9",
+      "source": "owner",
+      "status": "current",
+      "version": "1469b2542a3afbf77ed9921c8f727f20",
+      "workId": "bible-web"
+    },
+    {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [
+        {
+          "kind": "prompt",
+          "recordId": "canon",
+          "version": "2026-10-22-canon-showing-v3"
+        }
+      ],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "the Ancient of Days",
+          "the Most High"
+        ],
+        "entryKind": "character",
+        "hasForm": false,
+        "kind": "entry",
+        "members": [
+          "daniel:character:ancient_of_days"
+        ],
+        "name": "The Ancient of Days",
+        "note": "The divine figure on a fiery throne in Daniel's vision of the beasts; a distinct visionary figure, seen only in Daniel's dream-vision.",
+        "stages": [
+          {
+            "id": "the_ancient_of_days-showing",
+            "label": "The Ancient of Days",
+            "text": "The Ancient of Days: brilliant white radiance; bright orange fire; soft white cloud; brilliant white light.",
+            "quotes": [
+              {
+                "unit": "daniel-7-9",
+                "quote": "His clothing was white as snow, and the hair of his head like pure wool."
+              },
+              {
+                "unit": "daniel-7-9",
+                "quote": "His throne was fiery flames, and its wheels burning fire."
+              },
+              {
+                "unit": "daniel-7-10",
+                "quote": "A fiery stream issued and came out from before him."
+              }
+            ]
+          }
+        ]
+      },
+      "recordId": "the_ancient_of_days",
+      "source": "generated",
+      "status": "current",
+      "version": "d9742a2905fbf4d88e04d3612cd08935",
+      "workId": "bible-web"
+    },
+    {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Daniel",
+          "Belteshazzar"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "daniel:character:daniel"
+        ],
+        "name": "Daniel (prophet of Babylon)",
+        "note": "The Jewish youth taken captive to Babylon, renamed Belteshazzar, who interprets dreams and receives visions; the main entry with many sections in Daniel, distinguished from the prophet named only in Matthew's citation.",
+        "stages": [
+          {
+            "id": "daniel_main",
+            "label": "Daniel (Belteshazzar), prophet of Babylon",
+            "quotes": [
+              {
+                "quote": "Now among these of the children of Judah were Daniel, Hananiah, Mishael, and Azariah.",
+                "unit": "daniel-1-6"
+              },
+              {
+                "quote": "to Daniel he gave the name Belteshazzar",
+                "unit": "daniel-1-7"
+              },
+              {
+                "quote": "he went into his house (now his windows were open in his room toward Jerusalem)",
+                "unit": "daniel-6-10"
+              }
+            ],
+            "text": "Daniel: a lean, dignified Judean man in his youth grown to a grave, graying elder; olive-brown skin; dark hair cropped close and a short trimmed beard flecked with grey; deep-set, steady eyes and a calm, thoughtful face. Signature outfit: a long undyed linen tunic under a plain indigo wool cloak with a blue fringed hem. Props: a small leather scroll case slung at the hip."
+          }
+        ]
+      },
+      "recordId": "daniel_prophet_of_babylon",
+      "source": "generated",
+      "status": "current",
+      "version": "37b250d39c2e45865e8b4dfbc12bf60f",
+      "workId": "bible-web"
+    },
+    {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "one like a son of man",
+          "the son of man"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "daniel:character:one_like_son_of_man"
+        ],
+        "name": "One like a son of man",
+        "note": "The figure coming with the clouds of heaven to receive dominion in Daniel's vision; not the Gospel Jesus, but a distinct heavenly figure in Daniel.",
+        "stages": [
+          {
+            "id": "one_like_a_son_of_man",
+            "label": "One like a son of man",
+            "quotes": [
+              {
+                "quote": "there came with the clouds of the sky one like a son of man, and he came even to the Ancient of Days",
+                "unit": "daniel-7-13"
+              }
+            ],
+            "text": "One like a son of man: a man in his prime, early thirties, of athletic but dignified build; skin warm olive-brown; short dark hair and a close-cut beard; calm, steady features with a grave, luminous gaze. He wears a long white linen tunic with a deep blue-purple cloak falling from the shoulders, edged with gold thread. He carries no props."
+          }
+        ]
+      },
+      "recordId": "one_like_a_son_of_man",
+      "source": "generated",
+      "status": "current",
+      "version": "f0a2429d0ca6ac9657801f25e0921699",
+      "workId": "bible-web"
+    },
+    {
+      "createdAt": 1792535226262,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Babylonia",
+          "the province of Babylon",
+          "the rivers of Babylon",
+          "the land of the Chaldeans",
+          "land of the Chaldeans",
+          "the land of Shinar",
+          "Great Babylon"
+        ],
+        "entryKind": "location",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "2-chronicles:location:babylon",
+          "ezra:location:babylon",
+          "psalms:location:babylon",
+          "isaiah:location:babylon",
+          "jeremiah:location:babylon",
+          "daniel:location:babylon",
+          "micah:location:babylon"
+        ],
+        "name": "Babylon",
+        "note": "The city and empire of exile and captivity across the prophets, histories and psalms, also called Babylonia, Shinar and the land of the Chaldeans; the same place in every division.",
+        "stages": [
+          {
+            "id": "babylon",
+            "label": "Babylon",
+            "quotes": [
+              {
+                "quote": "The wide walls of Babylon will be utterly overthrown. Her high gates will be burned with fire.",
+                "unit": "jeremiah-51-58"
+              },
+              {
+                "quote": "I will execute judgment on Bel in Babylon, and I will bring out of his mouth that which he has swallowed up.",
+                "unit": "jeremiah-51-44"
+              },
+              {
+                "quote": "He brought the vessels into the treasure house of his god.",
+                "unit": "daniel-1-2"
+              },
+              {
+                "quote": "I will record Rahab and Babylon among those who acknowledge me.",
+                "unit": "psalms-87-4"
+              }
+            ],
+            "text": "Babylon: a vast walled city of baked brick on a flat plain watered by broad canals and rivers, its wide walls rising high and its great gates of bronze-banded cedar. Date palms and reed beds line the riverbanks, and ziggurat towers and palace roofs of brick rise above the flat skyline, with the temple of Bel among them."
+          }
+        ]
+      },
+      "recordId": "babylon",
+      "source": "generated",
+      "status": "current",
+      "version": "de8721810ea07cf6cc361bc90ea0502d",
+      "workId": "bible-web"
+    },
+    {
+      "createdAt": 1792601845391,
+      "generation": 1,
+      "inputs": [],
+      "kind": "entry",
+      "payload": {
+        "aliases": [
+          "Elisha",
+          "Elisha the son of Shaphat",
+          "the man of God",
+          "the prophet",
+          "my father (Joash's cry)",
+          "the prophet Elisha"
+        ],
+        "entryKind": "character",
+        "hasForm": true,
+        "kind": "entry",
+        "members": [
+          "1-kings:character:elisha",
+          "2-kings:character:elisha",
+          "luke:character:elisha"
+        ],
+        "name": "Elisha son of Shaphat",
+        "note": "Prophet, Elijah's successor, who first appears as a farmer plowing with twelve yoke of oxen in 1 Kings and is later named in 2 Kings and Luke; the same prophet in all three entries.",
+        "stages": [
+          {
+            "id": "elisha_main",
+            "label": "Elisha son of Shaphat",
+            "quotes": [
+              {
+                "quote": "found Elisha the son of Shaphat, who was plowing with twelve yoke of oxen before him",
+                "unit": "1-kings-19-19"
+              },
+              {
+                "quote": "Elijah went over to him and put his mantle on him.",
+                "unit": "1-kings-19-19"
+              },
+              {
+                "quote": "He took Elijah’s mantle that fell from him",
+                "unit": "2-kings-2-14"
+              },
+              {
+                "quote": "He went up from there to Bethel. As he was going up by the way, some youths came out of the city and mocked him, and said to him, “Go up, you baldy! Go up, you baldy!”",
+                "unit": "2-kings-2-23"
+              }
+            ],
+            "text": "Elisha son of Shaphat: a man in his middle years, broad-shouldered and sun-browned from working the fields, lean and steady in build. Dark skin, a bald head, and a close-cut beard with some grey at the chin. Calm, weathered face with deep-set eyes. Signature outfit: a plain undyed linen tunic belted at the waist with a cloak of rough brown wool. Signature prop: Elijah's mantle, a dark sheepskin cloak he wears over his shoulders."
+          }
+        ]
+      },
+      "recordId": "elisha_son_of_shaphat",
+      "source": "owner",
+      "status": "current",
+      "version": "55d396a737e0eb4a8072cb8f3e3807fb",
+      "workId": "bible-web"
+    },
+    {
+      "kind": "plan",
+      "recordId": "daniel-7-9",
+      "payload": {
+        "kind": "plan",
+        "momentId": "daniel-7-9",
+        "entries": [
+          {
+            "entryId": "daniel_prophet_of_babylon",
+            "stageId": "daniel_main"
+          },
+          {
+            "entryId": "the_ancient_of_days",
+            "stageId": "the_ancient_of_days-showing"
+          }
+        ],
+        "plan": {
+          "primarySubject": "Brilliant white radiance gathered into an unoccupied throne of bright orange fire, with soft white cloud and light spreading above it; Daniel stands at a distance, gazing upward.",
+          "action": "Thrones are being set in place as the fiery seat takes shape; wheels of burning fire turn slowly beneath it while the radiance pulses gently; Daniel lifts his eyes in awe.",
+          "setting": "Vast open expanse of heavenly cloud and radiant fire above Babylon, with no ground visible beyond a distant, darkened horizon.",
+          "secondaryElements": "Drifting clouds and streams of fire around the throne; wheels of burning fire at its base; Daniel in a simple Babylonian-era tunic and cloak, small against the expanse.",
+          "mood": "Reverent awe, solemn and majestic, with quiet anticipation.",
+          "timeOfDay": "Night vision under an unbroken sky of darkness, lit only by the fiery glow of the throne and wheels.",
+          "composition": "Wide view from below, the throne centered high in the frame with Daniel small at lower left, the expanse opening outward around them."
+        }
+      },
+      "inputs": [
+        {
+          "kind": "moment",
+          "recordId": "daniel-7-9",
+          "version": "42811b767e7aea912528509ebeae351a"
+        },
+        {
+          "kind": "look",
+          "recordId": "daniel-7-9",
+          "version": "1469b2542a3afbf77ed9921c8f727f20"
+        },
+        {
+          "kind": "brief",
+          "recordId": "bible-web",
+          "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+        },
+        {
+          "kind": "entry",
+          "recordId": "daniel_prophet_of_babylon",
+          "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+        },
+        {
+          "kind": "entry",
+          "recordId": "the_ancient_of_days",
+          "version": "d9742a2905fbf4d88e04d3612cd08935"
+        },
+        {
+          "kind": "entry",
+          "recordId": "one_like_a_son_of_man",
+          "version": "f0a2429d0ca6ac9657801f25e0921699"
+        },
+        {
+          "kind": "entry",
+          "recordId": "babylon",
+          "version": "de8721810ea07cf6cc361bc90ea0502d"
+        },
+        {
+          "kind": "prompt",
+          "recordId": "scene_plan_formless_presence",
+          "version": "2026-10-21-formless-presence-v3"
+        }
+      ],
+      "version": "b9140439a7b4beb21ade3f416eb66895"
+    }
+  ],
+  "productionMutations": 0
+}
