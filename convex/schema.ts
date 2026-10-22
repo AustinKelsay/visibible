@@ -163,6 +163,14 @@ const momentPayloadValidator = v.object({
   firstUnit: v.string(),
   lastUnit: v.string(),
 });
+const canonShowingValidator = v.union(
+  v.object({
+    effect: v.union(v.literal("light"), v.literal("radiance"), v.literal("cloud"), v.literal("mist"), v.literal("fire")),
+    colour: v.union(v.literal("unspecified"), v.literal("white"), v.literal("gold"), v.literal("silver"), v.literal("red"), v.literal("orange"), v.literal("yellow"), v.literal("green"), v.literal("blue"), v.literal("violet"), v.literal("black"), v.literal("multicoloured")),
+    brightness: v.union(v.literal("unspecified"), v.literal("faint"), v.literal("soft"), v.literal("bright"), v.literal("brilliant")),
+  }),
+  v.object({ effect: v.union(v.literal("wind"), v.literal("voice"), v.literal("unseen presence")) }),
+);
 const entryPayloadValidator = v.object({
   kind: v.literal("entry"),
   name: v.string(),
@@ -179,6 +187,8 @@ const entryPayloadValidator = v.object({
     text: v.string(),
     label: v.optional(v.string()),
     quotes: v.optional(v.array(v.object({ unit: v.string(), quote: v.string() }))),
+    // Optional on historical/owner prose stages; full text remains the rendering canon.
+    showing: v.optional(v.array(canonShowingValidator)),
   })),
 });
 const lookPayloadValidator = v.object({

@@ -3,23 +3,35 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
 import { prepareMoment, type AnalysisRecord, type PreparationStore } from "../engine/preparation";
+import { assembleRendering, type AssembleDeps } from "../engine/assemble";
 import { readWorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { responseSchema } from "../reading-pass/prompts";
 
-const evidence = new URL("../../../llm/releases/2026-10-22-daniel-structured-candidate/", import.meta.url);
+const evidence = new URL("../../../llm/releases/2026-10-22-daniel-placement-v4/", import.meta.url);
 const input = JSON.parse(readFileSync(new URL("plan-input.json", evidence), "utf8"));
 const trace = readFileSync(new URL("text-provider.ndjson", evidence), "utf8").trim().split("\n").map((line) => JSON.parse(line));
 const retainedContent: string = trace.find((row) => row.phase === "plan").response.choices[0].message.content;
 const retainedPlan = JSON.parse(retainedContent);
+const canon = JSON.parse(readFileSync(new URL("canon.json", evidence), "utf8")).result;
 
-async function plan(content = retainedContent) {
+async function plan(content = retainedContent, showing?: unknown) {
   const inputs = await readWorkInputs("bible-web");
   const records: AnalysisRecord[] = structuredClone(input.records);
+  if (showing !== undefined) {
+    const entry = records.find((r) => r.kind === "entry" && r.recordId === canon.entryId)!;
+    entry.payload.stages = (entry.payload.stages as Array<{ id: string }>).map((stage) =>
+      stage.id === canon.stages[0].id ? { ...stage, showing } : stage);
+    entry.version = contentVersion(entry.payload);
+    // Leave the old look's dependency refs alone: ordinary preparation must remake it.
+  }
+  const frozenLook = records.find((r) => r.kind === "look")!.payload;
   const requests: TextModelRequest[] = [];
   const write = vi.fn<PreparationStore["putDerivedRecord"]>(async (args) => {
     const version = contentVersion(args.payload);
-    records.push({ ...args, version });
+    const index = records.findIndex((r) => r.kind === args.kind && r.recordId === args.recordId);
+    const record = { ...args, version };
+    if (index === -1) records.push(record); else records[index] = record;
     return { version };
   });
   const spend = vi.fn<PreparationStore["recordSpend"]>(async () => {});
@@ -29,16 +41,22 @@ async function plan(content = retainedContent) {
   };
   const model: TextModel = { id: "scripted", complete: async (request) => {
     requests.push(request);
-    return { content, model: "scripted", providerRequestId: null, finishReason: "stop",
+    const answer = request.schemaName === "section_look" ? JSON.stringify({ place: frozenLook.place, timeOfDay: frozenLook.timeOfDay,
+      weather: frozenLook.weather, light: frozenLook.light, clothing: frozenLook.clothing }) : content;
+    return { content: answer, model: "scripted", providerRequestId: null, finishReason: "stop",
       usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 }, elapsedMs: 0 };
   } };
   const result = await prepareMoment({ workId: "bible-web", momentId: "daniel-7-9", store, model,
     brief: inputs.brief, briefVersion: inputs.briefVersion, context: input.context, holder: "canon-separation-test" });
-  return { result, requests, write, spend };
+  const getReference = vi.fn<AssembleDeps["getReference"]>(async () => null);
+  const render = (styleId: string) => assembleRendering({ inputs, store, model, listMoments: async () => [], getReference,
+    loadReference: async () => { throw new Error("No test reference should load"); } },
+  { workId: "bible-web", unitId: "daniel-7-9", styleId, variationNumber: 1, aspectRatio: "16:9" });
+  return { result, requests, write, spend, render, getReference };
 }
 
 describe("no-form plan and canon separation", () => {
-  it("adds explicit placement-only guidance while preserving the exact canon, owner look and source context", async () => {
+  it("keeps historical prose canon, the owner look and source context available without inferring effect metadata", async () => {
     const { result, requests } = await plan();
     expect(requests).toHaveLength(1);
     const request = requests[0];
@@ -48,7 +66,8 @@ describe("no-form plan and canon separation", () => {
     expect(request.system).toContain("Name only the permitted effect needed for this moment's placement or movement");
     expect(request.system).toContain("radiance spreading above the arch");
     expect(request.system).toContain("Situational illumination and formed characters' clothing still belong in the plan when the moment or look requires them");
-    expect(input.request.system).not.toContain("leave its fixed colour, brightness and texture to canon");
+    expect(request.system).toContain("Historical prose constraints may still include the full description");
+    expect(input.request.system).not.toContain("effect names for placement");
     const serialized = responseSchema(request.schema);
     const properties = serialized.properties as Record<string, { description: string }>;
     for (const field of ["primarySubject", "action", "secondaryElements"]) {
@@ -57,17 +76,58 @@ describe("no-form plan and canon separation", () => {
     expect(properties.timeOfDay.description).toContain("situational illumination");
   });
 
-  it("retains the exact schema-valid live restatement without silent rewriting or a semantic retry", async () => {
-    const { result, requests, write, spend } = await plan();
-    expect(requests).toHaveLength(1);
-    expect(requests[0].schema.safeParse(retainedPlan).success).toBe(true);
+  it.each([["historical", undefined], ["structured", canon.stages[0].showing]])("retains the exact schema-valid live restatement with %s canon without silently rewriting or retrying it", async (_label, showing) => {
+    const { result, requests, write, spend } = await plan(retainedContent, showing);
+    const plans = requests.filter((r) => r.schemaName === "scene_plan");
+    expect(plans).toHaveLength(1);
+    expect(plans[0].schema.safeParse(retainedPlan).success).toBe(true);
     expect(result.plan.payload).toEqual(retainedPlan);
-    expect(result.plan.payload.primarySubject).toContain("Brilliant white radiance");
-    expect(result.plan.payload.primarySubject).toContain("bright orange fire");
+    expect(result.plan.payload.primarySubject).toBe("Radiance above an unoccupied fiery throne; Daniel stands below, gazing upward.");
+    expect(result.plan.payload.secondaryElements).toContain("soft white cloud");
+    expect(result.plan.payload.secondaryElements).toContain("brilliant white light");
     expect(result.present.map((p) => p.entryId)).toEqual(retainedPlan.present);
-    expect(write).toHaveBeenCalledTimes(1);
-    expect(spend).toHaveBeenCalledTimes(1);
+    expect(write.mock.calls.filter(([args]) => args.kind === "plan")).toHaveLength(1);
+    expect(spend.mock.calls.filter(([args]) => args.kind === "plan")).toHaveLength(1);
     expect(spend).toHaveBeenCalledWith(expect.objectContaining({ outcome: "ok", costUsd: 0 }));
+  });
+
+  it("projects the exact carried structured canon into effect names while rendering still receives its complete appearance", async () => {
+    const situational = { ...retainedPlan, secondaryElements: "Burning wheels at the throne; Daniel's cloak catches the firelight." };
+    const { result, requests, write, render, getReference } = await plan(JSON.stringify(situational), canon.stages[0].showing);
+    expect(requests.map((r) => r.schemaName)).toEqual(["section_look", "scene_plan"]);
+    expect(write).toHaveBeenCalledTimes(2); // New canon metadata invalidates the old look through ordinary inputs.
+    expect(result.look.payload).toEqual(Object.fromEntries(["place", "timeOfDay", "weather", "light", "clothing"].map((key) =>
+      [key, input.records.find((r: AnalysisRecord) => r.kind === "look").payload[key]])));
+    const request = requests[1];
+    expect(request.user).toContain(`- ${canon.entryId} (stage: ${canon.stages[0].id}): effect names for placement: radiance, fire, cloud, light`);
+    for (const phrase of [canon.stages[0].text, "brilliant white radiance", "bright orange fire", "soft white cloud", "brilliant white light"]) {
+      expect(request.user).not.toContain(phrase);
+    }
+    expect(request.user).toContain(input.context.moment.text);
+    const versions = [];
+    for (const styleId of ["classical", "watercolor", "icon"]) {
+      const rendered = await render(styleId);
+      if (!rendered.ok) throw new Error(rendered.message);
+      versions.push(rendered.packet.planVersion);
+      expect(rendered.canon).toContainEqual(expect.objectContaining({ entryId: canon.entryId, stageId: canon.stages[0].id, text: canon.stages[0].text, hasForm: false }));
+      expect(rendered.prompt).toContain(canon.stages[0].text);
+      expect(rendered.prepared.plan.payload).toEqual(situational);
+      expect(rendered.context).toEqual(input.context);
+      expect(rendered.prompt).not.toContain("effect names for placement");
+    }
+    expect(new Set(versions).size).toBe(1);
+    expect(requests).toHaveLength(2);
+    expect(getReference.mock.calls.filter(([kind]) => kind === "sheet").map(([, id]) => id)).not.toContain(`${canon.entryId}:${canon.stages[0].id}`);
+  });
+
+  it.each([
+    ["empty", []],
+    ["malformed", [{ effect: "a figure of light" }]],
+    ["stale after a prose edit", [{ effect: "radiance", colour: "gold", brightness: "bright" }]],
+  ])("uses authoritative stage text when showing is %s", async (_label, showing) => {
+    const { requests } = await plan(retainedContent, showing);
+    expect(requests[1].user).toContain(`- ${canon.entryId} (stage: ${canon.stages[0].id}): ${canon.stages[0].text}`);
+    expect(requests[1].user).not.toContain("effect names for placement");
   });
 
   it("keeps situational colors and lighting and formed characters' clothing without a word filter", async () => {

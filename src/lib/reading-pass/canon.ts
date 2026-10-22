@@ -9,6 +9,7 @@
  * them while their constrained canon stays.
  */
 import { z } from "zod";
+import { canonShowingSchema, compileCanonShowing, type CanonShowing } from "../canon-showing";
 import type { ReferenceUnit, WorkReader } from "../work-input";
 import type { WorkBrief, CanonHint } from "../work-preparation";
 import type { MergedEntry, MergedSection } from "./merge";
@@ -19,23 +20,13 @@ const stageFields = {
   id: text, label: text, when: text, source: z.enum(["text", "tradition", "invention", "mixed"]),
   quotes: z.array(z.object({ unit: text, quote: text }).strict()),
 };
-/** Positive effects only; free prose stays in appearance_from_text and supporting quotes. */
-const showingSchema = z.union([
-  z.object({
-    effect: z.enum(["light", "radiance", "cloud", "mist", "fire"]),
-    colour: z.enum(["unspecified", "white", "gold", "silver", "red", "orange", "yellow", "green", "blue", "violet", "black", "multicoloured"]),
-    brightness: z.enum(["unspecified", "faint", "soft", "bright", "brilliant"]),
-  }).strict(),
-  z.object({ effect: z.enum(["wind", "voice", "unseen presence"]) }).strict(),
-]);
-type Showing = z.infer<typeof showingSchema>;
 export const canonOutputSchema = z.object({
   kind: z.enum(["character", "location", "object"]),
   has_form: z.boolean(),
   appearance_from_text: text,
   stages: z.array(z.union([
     z.object({ ...stageFields, text }).strict(),
-    z.object({ ...stageFields, showing: z.array(showingSchema).min(1).max(5) }).strict(),
+    z.object({ ...stageFields, showing: canonShowingSchema }).strict(),
   ])),
   section_stages: z.array(z.object({ section: text, stage: text }).strict()),
 }).strict().superRefine((output, context) => {
@@ -74,7 +65,7 @@ const CANON_TEXT_TOLERANCE = 560;
 const MAX_STAGES = { character: 3, location: 3, object: 1 } as const;
 const MENTION_CAP_CHARS = 14_000;
 
-export type CanonStage = { id: string; label: string; when: string; text: string; source: string; quotes: Array<{ unit: string; quote: string }>; showing?: Showing[] };
+export type CanonStage = { id: string; label: string; when: string; text: string; source: string; quotes: Array<{ unit: string; quote: string }>; showing?: CanonShowing };
 export type CanonEntryResult = {
   /** Absent on historical drafts; never infer the current version for saved results. */
   promptVersion?: string;
@@ -91,12 +82,6 @@ export type CanonEntryResult = {
 
 export function normalizeQuote(value: string): string {
   return value.normalize("NFKC").replace(/[‘’“”"']/g, "").replace(/\s+/g, " ").trim().toLowerCase();
-}
-
-function showingText(name: string, showing: Showing[]): string {
-  return `${name}: ${showing.map((part) => "colour" in part
-    ? [part.brightness, part.colour, part.effect].filter((word) => word !== "unspecified").join(" ")
-    : part.effect).join("; ")}.`;
 }
 
 /** Units in the entry's divisions whose text names the entry or an alias, spread evenly under a size cap. */
@@ -204,7 +189,7 @@ export function checkCanon(work: WorkReader, entry: MergedEntry, output: CanonOu
   // Enforce the representation even for direct callers; old saved canon never passes here.
   output = canonOutputSchema.parse(output);
   const problems: string[] = [];
-  let stages: CanonStage[] = output.stages.map((s) => ({ ...s, text: "text" in s ? s.text : showingText(entry.name, s.showing) }));
+  let stages: CanonStage[] = output.stages.map((s) => ({ ...s, text: "text" in s ? s.text : compileCanonShowing(entry.name, s.showing) }));
   const cap = MAX_STAGES[entry.kind];
   if (stages.length === 0) problems.push("no stages drafted");
   if (stages.length > cap) {

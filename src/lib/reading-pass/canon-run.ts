@@ -141,7 +141,8 @@ export function canonRecords(reading: ReadingPassState, state: CanonState): Anal
       payload: {
         kind: "entry", name: e.name, entryKind: e.kind, aliases: e.aliases, note: e.note, members: e.members,
         ...(canon ? { hasForm: canon.hasForm } : {}),
-        stages: canon ? canon.stages.map((s) => ({ id: s.id, label: s.label, text: s.text, quotes: s.quotes })) : [],
+        stages: canon ? canon.stages.map((s) => ({ id: s.id, label: s.label, text: s.text, quotes: s.quotes,
+          ...(!canon.hasForm && s.showing ? { showing: s.showing } : {}) })) : [],
       } });
   }
   const stageFor = (entryId: string, sectionId: string) => state.entries[entryId]?.sectionStages[sectionId] ?? state.entries[entryId]?.stages[0]?.id ?? "main";

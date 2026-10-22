@@ -212,7 +212,11 @@ describe("canon", () => {
     await convexStore.putRecords({ workId: "two-books", generation, records });
     await convexStore.activateGeneration({ workId: "two-books", generation });
     expect((await t.query(api.analysis.getWorkStatus, { workId: "two-books" })).ready).toBe(true);
-    expect((await t.query(api.analysis.getActiveRecord, { workId: "two-books", kind: "entry", recordId: "the_voice_from_the_sky" }))?.inputs).toEqual(voice.inputs);
+    const savedVoice = await t.query(api.analysis.getActiveRecord, { workId: "two-books", kind: "entry", recordId: "the_voice_from_the_sky" });
+    expect(savedVoice?.inputs).toEqual(voice.inputs);
+    expect(savedVoice?.payload).toEqual(voice.payload);
+    expect(savedVoice?.payload).toMatchObject({ stages: [{ text: state.entries.the_voice_from_the_sky.stages[0].text,
+      showing: state.entries.the_voice_from_the_sky.stages[0].showing }] });
     // An owner edit survives a redraft: the next candidate carries the owner version forward.
     await t.mutation(api.analysis.correctRecord, { serverSecret: "s".repeat(40), workId: "two-books", kind: "entry", recordId: "amos",
       payload: { kind: "entry", name: "Amos", entryKind: "character", hasForm: true, stages: [{ id: "main", text: "Amos: owner-edited look." }] } });
@@ -301,6 +305,8 @@ describe("canon", () => {
     const oldRecord = canonRecords(reading, state).find((r) => r.recordId === id)!;
     expect(oldRecord.inputs).toEqual([{ kind: "prompt", recordId: "canon", version: "2026-10-21-canon-context-v2" }]);
     expect(oldRecord.payload).toMatchObject({ hasForm: false, stages: [{ text: legacy.stages[0].text }] });
+    if (oldRecord.payload.kind !== "entry") throw new Error("Expected a historical canon entry record");
+    expect(oldRecord.payload.stages[0]).not.toHaveProperty("showing");
 
     await runCanon({ workFile: twoBooks, workVersion: "wv1", brief, briefVersion: "bv1", reading, hints: [],
       model, store: null, state, saveState: async () => {}, budgetUsd: 1, redraft: [id] });
@@ -311,7 +317,8 @@ describe("canon", () => {
     const next = canonRecords(reading, state).find((r) => r.recordId === id)!;
     if (next.payload.kind !== "entry") throw new Error("Expected a canon entry record");
     expect(next.payload.hasForm).toBe(false);
-    expect(next.payload.stages).toEqual([{ id: "main", label: "main", text: state.entries[id].stages[0].text, quotes: [] }]);
+    expect(next.payload.stages).toEqual([{ id: "main", label: "main", text: state.entries[id].stages[0].text, quotes: [],
+      showing: state.entries[id].stages[0].showing }]);
   });
 
   it("checks quotes against the exact unit text, ignoring case, spacing and quote marks", () => {
