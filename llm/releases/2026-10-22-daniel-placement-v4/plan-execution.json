@@ -1,0 +1,19 @@
+{
+  "at": "2026-10-22T15:40:44.014Z",
+  "phase": "plan",
+  "status": "completed",
+  "productionMutations": 0,
+  "ledger": {
+    "calls": [
+      {
+        "phase": "plan",
+        "startedAt": "2026-10-22T15:40:41.281Z",
+        "measuredUsd": 0.0004537,
+        "status": "200"
+      }
+    ],
+    "measuredUsd": 0.0004537,
+    "uncertainUsd": 0,
+    "blocked": null
+  }
+}

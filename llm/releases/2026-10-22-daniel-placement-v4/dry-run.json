@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-22T15:40:40.690635+00:00",
+  "textModel": "anthropic/claude-haiku-5.5",
+  "planPromptVersion": "2026-10-22-formless-placement-v4",
+  "requestArtifactSha256": "b4cdb5e46414b67e1e6f39725cde3f8bf7373e75764440f801991b18f07342aa",
+  "estimatedUsd": 0.00035848148148148143,
+  "maximumCompletionEstimatedUsd": 0.0006334814814814814,
+  "livePricing": {
+    "prompt": "0.0000001",
+    "completion": "0.0000005",
+    "web_search": "0.01",
+    "input_cache_read": "0.00000001",
+    "input_cache_write": "0.000000125",
+    "input_cache_write_1h": "0.0000002",
+    "overrides": [
+      {
+        "min_prompt_tokens": 100000,
+        "prompt": "0.0000005",
+        "completion": "0.0000025",
+        "input_cache_read": "0.00000005",
+        "input_cache_write": "0.000000625",
+        "input_cache_write_1h": "0.000001"
+      }
+    ]
+  },
+  "sameUserInputAndLocalRecordsAsV3": true,
+  "maximumPreparationCalls": 2,
+  "maximumCanonCalls": 0,
+  "maximumPlanCalls": 2,
+  "preparationCapUsd": 0.01,
+  "reservePerCallUsd": 0.005,
+  "paidCalls": 0,
+  "productionMutations": 0,
+  "imageCalls": 0,
+  "imagesPermitted": false,
+  "note": "Exact v4 system/schema captured through ordinary preparation; the previous user input, canon and frozen look are unchanged. Admission estimates/reserves do not guarantee provider billing."
+}

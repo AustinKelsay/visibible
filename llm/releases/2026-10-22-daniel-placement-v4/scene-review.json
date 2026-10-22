@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-22T15:41:58.927092+00:00",
+  "reviewer": "agent",
+  "humanAccepted": false,
+  "sceneArtifactSha256": "4047437487c5a7f228d404922413db191de4839efedb0df8e97418d96d12640b",
+  "verdict": "reject-canon-restatement",
+  "checks": {
+    "structureAndFieldLengths": "pass",
+    "expectedMomentPresence": "pass",
+    "noFormTextDepiction": "pass-agent-inspection",
+    "styleNeutrality": "pass-agent-inspection",
+    "fixedAppearanceSeparation": "fail"
+  },
+  "present": [
+    "daniel_prophet_of_babylon",
+    "the_ancient_of_days"
+  ],
+  "positiveObservations": [
+    "The primary subject uses an unoccupied fiery throne and radiance placement without copying fixed canon colors.",
+    "The Ancient of Days remains selected with the exact retained no-form canon stage, alongside Daniel. No bodily, garment-substitute, wool-simile or denial cue for the no-form subject was found in this plan.",
+    "The owner look payload/version and complete user input remain unchanged in the isolated overlay."
+  ],
+  "reasons": [
+    {
+      "field": "secondaryElements",
+      "exactText": "soft white cloud drifting around the throne",
+      "canonExactText": "soft white cloud",
+      "reason": "Repeats the canon's fixed brightness and color in a different plan field despite the v4 separation guidance."
+    },
+    {
+      "field": "secondaryElements",
+      "exactText": "brilliant white light radiating outward",
+      "canonExactText": "brilliant white light",
+      "reason": "Copies another complete canon effect with its fixed qualifiers; improved primary-subject wording does not satisfy the whole-plan instruction."
+    }
+  ],
+  "decision": {
+    "retryPlan": false,
+    "imageCalls": 0,
+    "productionMutations": 0,
+    "publicActivation": false
+  },
+  "limits": [
+    "Agent inspection of one fresh text response, not visual or likeness acceptance or a repeatability test.",
+    "The previous v3 response is a retained comparison, not a newly randomized paired control. Exact user inputs are held fixed while system/schema guidance changes.",
+    "The frozen owner look and WEB source still contain bodily wording/denials. This result does not establish the cause of prior image failures.",
+    "Prompt guidance was insufficient for this response; no heuristic cleanup, extra semantic retry or accepted rendering candidate follows."
+  ]
+}

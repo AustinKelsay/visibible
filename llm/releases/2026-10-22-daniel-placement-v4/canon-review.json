@@ -1,0 +1,19 @@
+{
+  "at": "2026-10-22T15:40:06.719195+00:00",
+  "reviewer": "agent",
+  "humanAccepted": false,
+  "verdict": "accept-for-isolated-plan",
+  "canonArtifactSha256": "e6ce282e2de64edc86f17452ef65df51fd13d70381c1162b6aa5f7f14dffbb53",
+  "stageTextSha256": "208992c48d165c625af0e1ca0bc09f888a89b91bae0ab84d662c2103d6159ed0",
+  "reusedFrom": "../2026-10-22-daniel-structured-candidate/canon.json",
+  "priorReviewSha256": "56b775539a979be0ec64573bbe00ad6fd931c738c39698b0e37165b360c7596c",
+  "reason": "The exact prior structured canon still expresses only effects permitted by the unchanged brief. Reuse it without redrafting or editing for this separately capped v4 plan inspection. This is agent text acceptance only, not visual or release acceptance.",
+  "decision": {
+    "canonCalls": 0,
+    "maximumPlanCalls": 2,
+    "semanticRetries": 0,
+    "imageCalls": 0,
+    "productionMutations": 0,
+    "publicActivation": false
+  }
+}
