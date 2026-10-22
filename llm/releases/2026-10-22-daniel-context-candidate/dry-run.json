@@ -1,0 +1,60 @@
+{
+  "at": "2026-10-22T02:05:38.434027+00:00",
+  "canonEstimatedUsd": 0.0009341481481481481,
+  "canonAtMaximumCompletionEstimatedUsd": 0.002334148148148148,
+  "textModel": "anthropic/claude-haiku-5.5",
+  "livePricing": {
+    "prompt": "0.0000001",
+    "completion": "0.0000005",
+    "web_search": "0.01",
+    "input_cache_read": "0.00000001",
+    "input_cache_write": "0.000000125",
+    "input_cache_write_1h": "0.0000002",
+    "overrides": [
+      {
+        "min_prompt_tokens": 100000,
+        "prompt": "0.0000005",
+        "completion": "0.0000025",
+        "input_cache_read": "0.00000005",
+        "input_cache_write": "0.000000625",
+        "input_cache_write_1h": "0.000001"
+      }
+    ]
+  },
+  "selectedUnitIds": [
+    "daniel-3-26",
+    "daniel-4-2",
+    "daniel-4-17",
+    "daniel-4-24",
+    "daniel-4-25",
+    "daniel-4-32",
+    "daniel-4-34",
+    "daniel-5-18",
+    "daniel-5-21",
+    "daniel-7-9",
+    "daniel-7-10",
+    "daniel-7-11",
+    "daniel-7-12",
+    "daniel-7-13",
+    "daniel-7-14",
+    "daniel-7-18",
+    "daniel-7-22",
+    "daniel-7-25",
+    "daniel-7-27"
+  ],
+  "sourceChars": 4079,
+  "sourceCapChars": 14000,
+  "addedUnitsSincePrevious": [
+    "daniel-7-9",
+    "daniel-7-10",
+    "daniel-7-11",
+    "daniel-7-12",
+    "daniel-7-14"
+  ],
+  "maximumPreparationCalls": 4,
+  "preparationCapUsd": 0.02,
+  "paidCalls": 0,
+  "productionMutations": 0,
+  "imageCalls": 0,
+  "imagesPermitted": false
+}

@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-22T02:05:50.779Z",
+  "result": {
+    "entryId": "the_ancient_of_days",
+    "kind": "character",
+    "hasForm": false,
+    "appearanceFromText": "Daniel 7:9 describes the Ancient of Days through white garments, white hair and a fiery throne; because the depiction rules forbid a human face or body for God the Father, only light, cloud, fire and radiance are permitted, so white radiance, fire and brightness stand in for the figure and his clothing and hair are rendered as luminous white light.",
+    "stages": [
+      {
+        "id": "the_ancient_of_days",
+        "label": "The Ancient of Days",
+        "when": "Daniel's night vision of the beasts and the throne-scene of judgment",
+        "text": "The Ancient of Days: a presence of pure white radiance, luminous as snow and wool, enthroned within a vast seat of fierce flame whose wheels burn with fire, with a fiery stream issuing forth before him. No human face or body; only light, cloud and fire.",
+        "source": "mixed",
+        "quotes": [
+          {
+            "unit": "daniel-7-9",
+            "quote": "His clothing was white as snow, and the hair of his head like pure wool."
+          },
+          {
+            "unit": "daniel-7-9",
+            "quote": "His throne was fiery flames, and its wheels burning fire."
+          },
+          {
+            "unit": "daniel-7-10",
+            "quote": "A fiery stream issued and came out from before him."
+          }
+        ]
+      }
+    ],
+    "sectionStages": {
+      "daniel-7-9": "the_ancient_of_days"
+    },
+    "problems": [],
+    "promptVersion": "2026-10-21-canon-context-v2",
+    "attempts": 1
+  },
+  "scriptSha256": "64ef79e7631b6946f803bb43070888dade4e7bf4a3ca29803d7a7c3c77a15450",
+  "instructionsSha256": "a0a3455f017fc477ba43750f1a43efd71cb12c7d22578db613b130256e86c110",
+  "productionMutations": 0
+}
