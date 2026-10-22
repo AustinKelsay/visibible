@@ -9,7 +9,7 @@
  * them while their constrained canon stays.
  */
 import { z } from "zod";
-import type { WorkReader } from "../work-input";
+import type { ReferenceUnit, WorkReader } from "../work-input";
 import type { WorkBrief, CanonHint } from "../work-preparation";
 import type { MergedEntry, MergedSection } from "./merge";
 import { parseModelJson, type TextModel } from "./model";
@@ -28,7 +28,7 @@ export const canonOutputSchema = z.object({
 export type CanonOutput = z.infer<typeof canonOutputSchema>;
 
 /** Wording of new canon drafts; saved entries are reused until explicitly redrafted. */
-export const CANON_PROMPT_VERSION = "2026-10-21-canon-depiction-v1";
+export const CANON_PROMPT_VERSION = "2026-10-21-canon-context-v2";
 
 export const CANON_SYSTEM = `You write CANON ENTRIES for an illustrated edition of a work of literature. A canon entry fixes the identity of one character, location or object so that independently generated images agree with each other. Return only JSON matching the schema.
 
@@ -89,6 +89,55 @@ export function mentionUnits(work: WorkReader, entry: MergedEntry, capChars = ME
   return kept;
 }
 
+/** Visit the ends, then bisect the remaining intervals so a capped selection spans the work. */
+function* spreadUnits(units: readonly ReferenceUnit[]) {
+  if (!units.length) return;
+  yield units[0];
+  if (units.length > 1) yield units[units.length - 1];
+  const ranges = [[1, units.length - 2]];
+  for (let i = 0; i < ranges.length; i++) {
+    const [first, last] = ranges[i];
+    if (first > last) continue;
+    const middle = Math.floor((first + last) / 2);
+    yield units[middle];
+    ranges.push([first, middle - 1], [middle + 1, last]);
+  }
+}
+
+const sourceLine = (unit: ReferenceUnit) => `[${unit.id}] ${unit.text.replace(/\s+/g, " ").trim()}`;
+
+/** Whole source units, alternating on-stage context and name matches under one formatted-text cap. */
+export function canonSourceUnits(work: WorkReader, entry: MergedEntry, sections: MergedSection[], capChars = MENTION_CAP_CHARS): ReferenceUnit[] {
+  const context = new Map<string, ReferenceUnit>();
+  for (const section of sections) {
+    if (!(entry.kind === "location" ? section.setting.includes(entry.id) : section.onStage.some((o) => o.id === entry.id))) continue;
+    const first = work.getUnit(section.firstUnitId), last = work.getUnit(section.lastUnitId);
+    if (first.position > last.position || first.rootDivisionId !== section.divisionId || last.rootDivisionId !== section.divisionId) {
+      throw new Error(`Invalid canon source section: ${section.firstUnitId}–${section.lastUnitId}`);
+    }
+    for (const unit of work.units.slice(first.position, last.position + 1)) context.set(unit.id, unit);
+  }
+  const lanes = [spreadUnits([...context.values()].sort((a, b) => a.position - b.position)), spreadUnits(mentionUnits(work, entry, Infinity))];
+  const selected = new Map<string, ReferenceUnit>();
+  let used = 0;
+  let pending = true;
+  while (pending) {
+    pending = false;
+    for (const lane of lanes) {
+      const next = lane.next();
+      if (next.done) continue;
+      pending = true;
+      const unit = next.value;
+      const cost = sourceLine(unit).length + (selected.size ? 1 : 0);
+      if (!selected.has(unit.id) && used + cost <= capChars) {
+        selected.set(unit.id, unit);
+        used += cost;
+      }
+    }
+  }
+  return [...selected.values()].sort((a, b) => a.position - b.position);
+}
+
 export function canonUserPrompt(options: {
   work: WorkReader; entry: MergedEntry; brief: WorkBrief; sections: MergedSection[]; sectionEras: Record<string, string>; hints: CanonHint[];
 }): { user: string; sectionIds: string[] } {
@@ -96,7 +145,7 @@ export function canonUserPrompt(options: {
   const onStage = options.sections.filter((s) => entry.kind === "location" ? s.setting.includes(entry.id) : s.onStage.some((o) => o.id === entry.id));
   const eraIds = new Set(onStage.map((s) => options.sectionEras[s.firstUnitId]).filter(Boolean));
   const eras = brief.eras.filter((e) => eraIds.has(e.id));
-  const units = mentionUnits(work, entry);
+  const units = canonSourceUnits(work, entry, onStage);
   const hints = options.hints.filter((h) => h.entryId === entry.id && !h.styleIds);
   const user = `WORK: ${work.work.title} (${work.work.author})
 TONE: ${brief.tone}
@@ -116,8 +165,9 @@ reading-pass note: ${entry.note}
 on stage in ${onStage.length} story sections (id: title):
 ${onStage.slice(0, 40).map((s) => `- ${s.firstUnitId}: ${s.title}`).join("\n")}${onStage.length > 40 ? `\n- … and ${onStage.length - 40} more` : ""}
 
-UNITS OF THE TEXT THAT NAME THIS ENTRY (unit id in brackets; quote only from these):
-${units.map((u) => `[${u.id}] ${u.text.replace(/\s+/g, " ").trim()}`).join("\n") || "(none found)"}`;
+SELECTED SOURCE UNITS (name matches and on-stage section context; unit id in brackets; quote only from these):
+Context may describe other subjects. Attribute appearance only to this entry when supported by the passage; section membership alone does not identify who a description belongs to. Whole units are sampled under a 14,000-character source limit; omitted passages are not evidence of absence.
+${units.map(sourceLine).join("\n") || "(no whole source unit fits the selection limit)"}`;
   return { user, sectionIds: onStage.map((s) => s.firstUnitId) };
 }
 
