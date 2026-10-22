@@ -1,0 +1,46 @@
+{
+  "issue": 183,
+  "baseCommit": "ecd58e06537e2a09b97260fee7612c35f0feb879",
+  "implementationPR": "https://github.com/AustinKelsay/visibible/pull/250",
+  "purpose": "Inspect first ordinary Daniel 7:9 plan with the selected-cast contract; inspect 7:10 only after retained acceptance of 7:9. Reuse the actual unchanged shared look.",
+  "execution": "Reviewed merged preparation code runs locally against existing production Convex functions and active analysis; no frontend deployment or cache overlay.",
+  "authorization": "User requested systematic end-to-end follow-through within existing separate allowances. This text operation uses the existing $43 preparation allowance. No increase or transfer is inferred.",
+  "production": {
+    "team": "austin-kelsays-projects",
+    "project": "prj_G5cIczHFaLa1KentxzwAytQ8jXdx",
+    "convex": "unique-impala-244",
+    "admission": "disabled",
+    "ownerSessionConfigured": false
+  },
+  "publicActivation": false,
+  "humanAccepted": false,
+  "textModel": "anthropic/claude-haiku-5.5",
+  "preparation": {
+    "authorizedUsd": 43,
+    "measuredBeforeUsd": 3.6403196,
+    "uncertaintyBeforeUsd": 0.03,
+    "capUsd": 0.02,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 4
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredBeforeUsd": 16.2980069,
+    "uncertaintyBeforeUsd": 0.045,
+    "maximumCalls": 0
+  },
+  "smoke": {
+    "authorizedUsd": 1,
+    "measuredUsd": 0.0685215,
+    "maximumCalls": 0
+  },
+  "stopConditions": [
+    "At most two ordinary structural attempts per moment plan. Retain the first structurally valid reply without semantic retry, editing, filtering, cache rebinding or selective replacement.",
+    "The current look must be reused unchanged. Only the new scene_plan_moment_cast prompt marker may cause the initial plan miss; existing look, formless marker, canon, section and moments must match the previous final snapshot.",
+    "Stop after 7:9 for inspection. A 7:10 call requires a retained acceptance of the exact 7:9 artifact. Do not accept assembly presence from shared wardrobe or neighboring mention alone, or visual narrator presence from viewpoint alone. Neighbor context may establish identity/continuity; this is not an exclusive-unit-only source rule.",
+    "Reject no-form anatomy, bodily substitutes, prohibited-feature denials and fixed canon restatement. All described characters/groups must be selected and have matching canon. Assess source relevance, current-moment presence and composition separately from narrow depiction wording.",
+    "Provider errors, missing usage, uncertain outcome, unexpected input drift or exhausted reserve block every later paid call. Inspect state after ambiguous work; never blindly rerun.",
+    "Only ordinary plan claims, derived records and preparation spend may be written. No source/canon/section edits, plan clears, look writes, reading pass, reference generation, images, deployment or admission change.",
+    "The rendering roster scopes shared prose but cannot prove depicted absence. No text inspection constitutes visual/human acceptance, repeatability, full-request latency or public activation."
+  ]
+}

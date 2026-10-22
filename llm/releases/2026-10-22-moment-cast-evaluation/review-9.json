@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-22T20:31:37.530868+00:00",
+  "artifactSha256": "3253685f20403014f0057f803b770cfb5af71e095e441ac82f1b719371058b7e",
+  "verdict": "hold-for-moment-presence",
+  "wholeTextAccepted": false,
+  "humanAccepted": false,
+  "publicActivation": false,
+  "observations": [
+    {
+      "severity": "blocker",
+      "topic": "Narrator presence",
+      "evidence": "Daniel stands at the edge of the ranks, looking up.",
+      "assessment": "The moment establishes Daniel as the narrator who watches; this plan places him bodily inside the vision without other current-scene support. Shared wardrobe and narrator viewpoint alone fail the declared presence criterion."
+    },
+    {
+      "severity": "blocker",
+      "topic": "Assembly presence",
+      "evidence": "attendants in white linen stand in ordered rows",
+      "assessment": "The assembly is supported by the next unit (7:10) and shared look, but the reply does not establish its presence in 7:9 beyond that adjacent mention. A continuous-vision reading is possible; this artifact cannot be declared accepted under the operation's stated criterion."
+    },
+    {
+      "severity": "ambiguity",
+      "topic": "Unoccupied seat",
+      "evidence": "the seat is occupied only by radiance and fire",
+      "assessment": "Not explicit anatomy, but ambiguous against the instruction to describe an unoccupied seat with surrounding effects."
+    },
+    {
+      "severity": "narrow-improvement",
+      "topic": "Fixed no-form appearance",
+      "assessment": "The plan does not copy the canon's fixed colour/brightness phrases or describe explicit anatomy for the Ancient of Days. This does not waive source/cast presence failures."
+    }
+  ],
+  "decision": {
+    "nextTextCheckAllowed": false,
+    "imageCallsAllowed": false,
+    "semanticRetryAllowed": false,
+    "responseEditingAllowed": false,
+    "wholeTextAccepted": false
+  },
+  "limits": [
+    "Text inspection cannot establish depicted absence, visual quality, repeatability or full-request latency.",
+    "The selected rendering roster includes the same disputed selections; it cannot correct their source grounding."
+  ]
+}
