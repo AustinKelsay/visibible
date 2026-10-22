@@ -32,7 +32,7 @@ describe("canon source context", () => {
       expect(request.user).toContain(`[daniel-7-9] ${source.replace(/\s+/g, " ").trim()}`);
       expect(request.user).toContain("section membership alone does not identify who a description belongs to");
       return { content: JSON.stringify({ kind: "character", has_form: false, appearance_from_text: "The source's bodily imagery is constrained by the brief.",
-        stages: [{ id: "main", label: "Main", when: "Always", text: "The Ancient of Days: pure white radiance and cloud.", source: "mixed", quotes: [{ unit: "daniel-7-9", quote }] }],
+        stages: [{ id: "main", label: "Main", when: "Always", showing: [{ effect: "radiance", colour: "white", brightness: "brilliant" }, { effect: "cloud", colour: "unspecified", brightness: "unspecified" }], source: "mixed", quotes: [{ unit: "daniel-7-9", quote }] }],
         section_stages: [{ section: "daniel-7-9", stage: "main" }] }), model: "scripted", providerRequestId: null, finishReason: "stop",
         usage: { costUsd: 0, promptTokens: 0, completionTokens: 0 }, elapsedMs: 0 };
     } };
