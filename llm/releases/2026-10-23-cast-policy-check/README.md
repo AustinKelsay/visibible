@@ -49,7 +49,7 @@ By book group:
 
 ### Scoring drift
 
-37 of the 40 calibration replies got the same pass or fail as in the baseline. All three differences went from flawed then to clean now:
+37 of the 40 calibration replies got the same pass or fail as in the baseline. One of those 37, a scene of guards at their posts, was a scorer disagreement that the operator settled to match the baseline's decision. Counting only replies the two scorers agreed on themselves, 36 of 39 match. All three differences went from flawed then to clean now:
 
 - Two describe God's radiance while God's no-form entry is unselected. The baseline scorers counted these as an unselected figure; this round's treated the radiance as light.
 - One sets a law scene at Sinai.
