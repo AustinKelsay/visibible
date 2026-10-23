@@ -1,0 +1,33 @@
+{
+  "issue": 183,
+  "purpose": "Held-out test of the reviewed planning pipeline (plan, review, at most one re-plan) on the four retained moments, before any image. No images, no production writes.",
+  "authorization": "Owner approved option (b) on 2026-10-23; this measures it on fresh replies. Charged to the existing evaluation allowance.",
+  "pipeline": { "commit": "144b79ad90864dc03920df0d164b472f196068cc", "planPromptVersion": "2026-10-23-moment-cast-v5", "reviewPromptVersion": "2026-10-23-plan-review-v2", "review": "Claude Haiku 5.5, reasoning low, 4,000-token ceiling; planning reasoning off" },
+  "baselines": { "source": "../2026-10-23-grounding-rate-check/tally.json", "v3": "10/20", "v4": "8/20", "perMoment": { "luke-10-33": { "v3": 2, "v4": 2 }, "luke-10-34": { "v3": 1, "v4": 1 }, "daniel-7-9": { "v3": 4, "v4": 1 }, "daniel-7-10": { "v3": 3, "v4": 4 } } },
+  "execution": "This repository's prepareMoment at the pipeline commit runs locally over a fresh in-memory store per sample, seeded from one read-only snapshot of production generation 1 with the four moments' plan records removed. Looks, sections, entries and moments are stored production records. Production is read once; nothing is written there. Production adapter, routing and default sampling.",
+  "samples": { "perMoment": 5, "moments": ["luke-10-33", "luke-10-34", "daniel-7-9", "daniel-7-10"], "order": "Round r = 1..5, each moment in listed order.", "total": 20 },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredBeforeUsd": 16.3808688,
+    "uncertaintyBeforeUsd": 0.045,
+    "capUsd": 0.06,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 120
+  },
+  "retryPolicy": "Each sample is one ordinary prepareMoment: its own malformed-reply retries, one review per plan, and at most one re-plan. No other rerun, response edit or replacement sample. A provider error, missing usage, uncertain outcome, unexpected look request or exhausted reserve stops the run; untaken samples are reported missing.",
+  "rubric": {
+    "source": "Identical to ../2026-10-23-grounding-rate-check/plan.json rubric (U, X, I, F blockers; N note).",
+    "scoredText": "For a stored sample, the stored plan's scene fields and present ids (what reaches rendering). For a refused sample, the last plan reply's fields, for diagnosis only. The outcome, number of rounds, review problems and grounding audit are withheld.",
+    "pass": "The sample stored a plan and that plan has none of U, X, I or F.",
+    "scorers": "A fresh subagent and the operator, each scoring all 20 blind before the key is read. Disagreements resolved by the operator with a recorded rationale before unblinding."
+  },
+  "interpretation": {
+    "note": "n=5 per moment; differences of one or two passes are within ordinary variation.",
+    "converging": "At least 4 of 5 passes on every moment: recommend the visual step, which needs an evaluation budget increase.",
+    "notConverging": "At most 2 of 5 on some moment: the reviewed pipeline still cannot plan that moment reliably; report for the owner.",
+    "mixed": "Anything else: report per moment for the owner's decision."
+  },
+  "alsoReported": "Re-plan and refusal rates, how often the review flagged a plan, review problem kinds, per-sample preparation latency and cost. These describe the pipeline; they do not change the pass rule.",
+  "publicActivation": false,
+  "humanAccepted": false
+}

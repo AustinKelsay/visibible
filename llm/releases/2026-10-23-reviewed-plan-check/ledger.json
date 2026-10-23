@@ -1,0 +1,355 @@
+{
+  "calls": [
+    {
+      "phase": "luke-10-33-r1",
+      "startedAt": "2026-10-23T17:33:45.141Z",
+      "status": "200",
+      "measuredUsd": 0.0008193
+    },
+    {
+      "phase": "luke-10-33-r1",
+      "startedAt": "2026-10-23T17:33:49.245Z",
+      "status": "200",
+      "measuredUsd": 0.0008144
+    },
+    {
+      "phase": "luke-10-33-r1",
+      "startedAt": "2026-10-23T17:33:53.082Z",
+      "status": "200",
+      "measuredUsd": 0.000461
+    },
+    {
+      "phase": "luke-10-34-r1",
+      "startedAt": "2026-10-23T17:33:56.747Z",
+      "status": "200",
+      "measuredUsd": 0.000873
+    },
+    {
+      "phase": "luke-10-34-r1",
+      "startedAt": "2026-10-23T17:34:00.785Z",
+      "status": "200",
+      "measuredUsd": 0.000927
+    },
+    {
+      "phase": "luke-10-34-r1",
+      "startedAt": "2026-10-23T17:34:05.480Z",
+      "status": "200",
+      "measuredUsd": 0.0006861
+    },
+    {
+      "phase": "daniel-7-9-r1",
+      "startedAt": "2026-10-23T17:34:13.281Z",
+      "status": "200",
+      "measuredUsd": 0.000787
+    },
+    {
+      "phase": "daniel-7-9-r1",
+      "startedAt": "2026-10-23T17:34:17.099Z",
+      "status": "200",
+      "measuredUsd": 0.0008672
+    },
+    {
+      "phase": "daniel-7-9-r1",
+      "startedAt": "2026-10-23T17:34:20.936Z",
+      "status": "200",
+      "measuredUsd": 0.0007515
+    },
+    {
+      "phase": "daniel-7-10-r1",
+      "startedAt": "2026-10-23T17:34:28.705Z",
+      "status": "200",
+      "measuredUsd": 0.0008198
+    },
+    {
+      "phase": "daniel-7-10-r1",
+      "startedAt": "2026-10-23T17:34:31.842Z",
+      "status": "200",
+      "measuredUsd": 0.0003995
+    },
+    {
+      "phase": "luke-10-33-r2",
+      "startedAt": "2026-10-23T17:34:36.375Z",
+      "status": "200",
+      "measuredUsd": 0.0008378
+    },
+    {
+      "phase": "luke-10-33-r2",
+      "startedAt": "2026-10-23T17:34:40.614Z",
+      "status": "200",
+      "measuredUsd": 0.0008416
+    },
+    {
+      "phase": "luke-10-33-r2",
+      "startedAt": "2026-10-23T17:34:45.235Z",
+      "status": "200",
+      "measuredUsd": 0.0004648
+    },
+    {
+      "phase": "luke-10-34-r2",
+      "startedAt": "2026-10-23T17:34:49.529Z",
+      "status": "200",
+      "measuredUsd": 0.000885
+    },
+    {
+      "phase": "luke-10-34-r2",
+      "startedAt": "2026-10-23T17:34:53.218Z",
+      "status": "200",
+      "measuredUsd": 0.0009204
+    },
+    {
+      "phase": "luke-10-34-r2",
+      "startedAt": "2026-10-23T17:34:57.128Z",
+      "status": "200",
+      "measuredUsd": 0.000417
+    },
+    {
+      "phase": "daniel-7-9-r2",
+      "startedAt": "2026-10-23T17:35:00.980Z",
+      "status": "200",
+      "measuredUsd": 0.0008235
+    },
+    {
+      "phase": "daniel-7-9-r2",
+      "startedAt": "2026-10-23T17:35:04.443Z",
+      "status": "200",
+      "measuredUsd": 0.0005877
+    },
+    {
+      "phase": "daniel-7-9-r2",
+      "startedAt": "2026-10-23T17:35:09.487Z",
+      "status": "200",
+      "measuredUsd": 0.0008033
+    },
+    {
+      "phase": "daniel-7-9-r2",
+      "startedAt": "2026-10-23T17:35:12.267Z",
+      "status": "200",
+      "measuredUsd": 0.0004435
+    },
+    {
+      "phase": "daniel-7-10-r2",
+      "startedAt": "2026-10-23T17:35:16.064Z",
+      "status": "200",
+      "measuredUsd": 0.0008468
+    },
+    {
+      "phase": "daniel-7-10-r2",
+      "startedAt": "2026-10-23T17:35:19.493Z",
+      "status": "200",
+      "measuredUsd": 0.0003553
+    },
+    {
+      "phase": "luke-10-33-r3",
+      "startedAt": "2026-10-23T17:35:24.803Z",
+      "status": "200",
+      "measuredUsd": 0.0008453
+    },
+    {
+      "phase": "luke-10-33-r3",
+      "startedAt": "2026-10-23T17:35:28.826Z",
+      "status": "200",
+      "measuredUsd": 0.0004449
+    },
+    {
+      "phase": "luke-10-34-r3",
+      "startedAt": "2026-10-23T17:35:33.150Z",
+      "status": "200",
+      "measuredUsd": 0.0008745
+    },
+    {
+      "phase": "luke-10-34-r3",
+      "startedAt": "2026-10-23T17:35:36.820Z",
+      "status": "200",
+      "measuredUsd": 0.0006093
+    },
+    {
+      "phase": "luke-10-34-r3",
+      "startedAt": "2026-10-23T17:35:42.218Z",
+      "status": "200",
+      "measuredUsd": 0.0008948
+    },
+    {
+      "phase": "luke-10-34-r3",
+      "startedAt": "2026-10-23T17:35:46.284Z",
+      "status": "200",
+      "measuredUsd": 0.0005641
+    },
+    {
+      "phase": "daniel-7-9-r3",
+      "startedAt": "2026-10-23T17:35:51.132Z",
+      "status": "200",
+      "measuredUsd": 0.0008145
+    },
+    {
+      "phase": "daniel-7-9-r3",
+      "startedAt": "2026-10-23T17:35:54.397Z",
+      "status": "200",
+      "measuredUsd": 0.0006395
+    },
+    {
+      "phase": "daniel-7-9-r3",
+      "startedAt": "2026-10-23T17:36:00.162Z",
+      "status": "200",
+      "measuredUsd": 0.0008676
+    },
+    {
+      "phase": "daniel-7-10-r3",
+      "startedAt": "2026-10-23T17:36:03.715Z",
+      "status": "200",
+      "measuredUsd": 0.0008373
+    },
+    {
+      "phase": "daniel-7-10-r3",
+      "startedAt": "2026-10-23T17:36:06.998Z",
+      "status": "200",
+      "measuredUsd": 0.0004198
+    },
+    {
+      "phase": "luke-10-33-r4",
+      "startedAt": "2026-10-23T17:36:11.919Z",
+      "status": "200",
+      "measuredUsd": 0.0008523
+    },
+    {
+      "phase": "luke-10-33-r4",
+      "startedAt": "2026-10-23T17:36:15.685Z",
+      "status": "200",
+      "measuredUsd": 0.0007597
+    },
+    {
+      "phase": "luke-10-33-r4",
+      "startedAt": "2026-10-23T17:36:22.995Z",
+      "status": "200",
+      "measuredUsd": 0.0008776
+    },
+    {
+      "phase": "luke-10-33-r4",
+      "startedAt": "2026-10-23T17:36:28.554Z",
+      "status": "200",
+      "measuredUsd": 0.0003582
+    },
+    {
+      "phase": "luke-10-34-r4",
+      "startedAt": "2026-10-23T17:36:33.279Z",
+      "status": "200",
+      "measuredUsd": 0.000872
+    },
+    {
+      "phase": "luke-10-34-r4",
+      "startedAt": "2026-10-23T17:36:37.097Z",
+      "status": "200",
+      "measuredUsd": 0.0005899
+    },
+    {
+      "phase": "luke-10-34-r4",
+      "startedAt": "2026-10-23T17:36:43.085Z",
+      "status": "200",
+      "measuredUsd": 0.0008525
+    },
+    {
+      "phase": "luke-10-34-r4",
+      "startedAt": "2026-10-23T17:36:47.216Z",
+      "status": "200",
+      "measuredUsd": 0.0005316
+    },
+    {
+      "phase": "daniel-7-9-r4",
+      "startedAt": "2026-10-23T17:36:51.780Z",
+      "status": "200",
+      "measuredUsd": 0.000788
+    },
+    {
+      "phase": "daniel-7-9-r4",
+      "startedAt": "2026-10-23T17:36:54.654Z",
+      "status": "200",
+      "measuredUsd": 0.0005019
+    },
+    {
+      "phase": "daniel-7-9-r4",
+      "startedAt": "2026-10-23T17:36:58.811Z",
+      "status": "200",
+      "measuredUsd": 0.0008372
+    },
+    {
+      "phase": "daniel-7-10-r4",
+      "startedAt": "2026-10-23T17:37:01.798Z",
+      "status": "200",
+      "measuredUsd": 0.0008773
+    },
+    {
+      "phase": "daniel-7-10-r4",
+      "startedAt": "2026-10-23T17:37:05.423Z",
+      "status": "200",
+      "measuredUsd": 0.0003394
+    },
+    {
+      "phase": "luke-10-33-r5",
+      "startedAt": "2026-10-23T17:37:10.109Z",
+      "status": "200",
+      "measuredUsd": 0.0008888
+    },
+    {
+      "phase": "luke-10-33-r5",
+      "startedAt": "2026-10-23T17:37:14.172Z",
+      "status": "200",
+      "measuredUsd": 0.0005567
+    },
+    {
+      "phase": "luke-10-33-r5",
+      "startedAt": "2026-10-23T17:37:19.265Z",
+      "status": "200",
+      "measuredUsd": 0.0009065
+    },
+    {
+      "phase": "luke-10-33-r5",
+      "startedAt": "2026-10-23T17:37:23.857Z",
+      "status": "200",
+      "measuredUsd": 0.0003703
+    },
+    {
+      "phase": "luke-10-34-r5",
+      "startedAt": "2026-10-23T17:37:28.964Z",
+      "status": "200",
+      "measuredUsd": 0.000848
+    },
+    {
+      "phase": "luke-10-34-r5",
+      "startedAt": "2026-10-23T17:37:32.443Z",
+      "status": "200",
+      "measuredUsd": 0.0004675
+    },
+    {
+      "phase": "daniel-7-9-r5",
+      "startedAt": "2026-10-23T17:37:37.787Z",
+      "status": "200",
+      "measuredUsd": 0.000794
+    },
+    {
+      "phase": "daniel-7-9-r5",
+      "startedAt": "2026-10-23T17:37:40.974Z",
+      "status": "200",
+      "measuredUsd": 0.0005011
+    },
+    {
+      "phase": "daniel-7-9-r5",
+      "startedAt": "2026-10-23T17:37:45.837Z",
+      "status": "200",
+      "measuredUsd": 0.0008239
+    },
+    {
+      "phase": "daniel-7-10-r5",
+      "startedAt": "2026-10-23T17:37:49.898Z",
+      "status": "200",
+      "measuredUsd": 0.0008578
+    },
+    {
+      "phase": "daniel-7-10-r5",
+      "startedAt": "2026-10-23T17:37:53.272Z",
+      "status": "200",
+      "measuredUsd": 0.0003937
+    }
+  ],
+  "measuredUsd": 0.04069,
+  "uncertainUsd": 0,
+  "blocked": null
+}
