@@ -1,0 +1,173 @@
+{
+  "at": "2026-10-23T15:43:49.788Z",
+  "snapshot": "pre-luke-10-33",
+  "request": {
+    "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the cast on stage in the section. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Choose which of the listed cast are present in this moment and name them in `present` by their ids; leave out cast who are elsewhere in the section. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that) and do not name an art style or rendering technique; describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.\nEstablish presence from the scene being illustrated. A shared wardrobe, a narrator's viewpoint or a neighboring mention alone does not establish presence. Neighbors may resolve identity and continuity in the current scene; do not import cast from a separate adjacent event. The section cast and look cover multiple moments, not a roster to depict in every image. Apply shared clothing and props only to selected entries. Every character or group described in any scene field must be selected in `present`; omit unselected figures rather than describing them as background.\nIdentify the action the moment depicts before selecting cast. If it is inside a narrated story, parable, dream, vision or recollection, depict that scene's actors and setting. Do not place its framing speaker, listener or narrator inside it unless the text establishes their participation there. Reporting \"I saw\" supplies a viewpoint, not a visible observer. Shared look details from the framing scene do not establish the inner scene's cast or place.\nChoose the scene before applying the shared look. In `grounding.focusQuote`, copy a short exact clause from MOMENT for the action or state to illustrate. If the moment recounts multiple actions, choose one representative instant; do not illustrate all steps. A character cannot occupy successive poses or places at once. After the cast evidence, state that instant once in `grounding.instant`: where each selected formed character is and their one pose or movement, and the state or placement of selected places, objects and no-form effects (an effect's placement, never a bodily pose, seated presence or denied figure). Then write every scene field from that sentence, repeating its poses and places and adding no earlier or later step; for example, someone still walking toward a door cannot also be seated at the table. Set `grounding.singleInstant` false if the fields cannot match it.\nFor each selected `present` ID, provide one `grounding.cast` record in matching order, with exact words from MOMENT anchoring its participation at that instant. Every quote copies its source exactly; to skip words, give exact fragments in source order separated by an ellipsis (…), never paraphrased or reordered. Classify participation honestly: in_scene, framing, mentioned, separate_event or uncertain. Only in_scene may be rendered; a nonparticipating or uncertain selection will stop preparation rather than be silently removed. A first-person report of seeing or telling is framing evidence, not evidence of visible participation. Cast introduced in a later event remain absent from the chosen instant even if the shared look describes their clothes. A neighbor may resolve a current pronoun, ownership or continuing location, but cannot supply presence missing from MOMENT. Copy any needed neighbor evidence separately, with contextSource previous or next; otherwise use none and an empty contextQuote. Include locations, objects and permitted no-form presences in this evidence, not only people. These evidence quotes are audit data, never scene prose. Apply the section look only after choosing this instant and its participants.\nIf depicting this moment requires an actor or group absent from the available section cast, report it by name or role in `missingCast`. Do not replace it with a framing figure, invent an unselected subject, or omit the moment's main actor to fit the list. When `missingCast` is nonempty, return empty `present`, empty `grounding.focusQuote`, `grounding.cast` and `grounding.instant`, and empty scene fields; preparation will stop for a source correction. Otherwise return an empty `missingCast` list. This is a report of missing required canon, not a request to create it.",
+    "user": "WORK BRIEF\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction rules:\n- God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\n- Treat battles, death and crucifixion seriously; avoid lingering gore.\n- No sexually explicit content; non-sexual nudity may follow the text.\n- Show all peoples with dignity, without ethnic or religious caricature.\n- Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Roman Judea and the early church. People: Jewish and Gentile Mediterranean communities under Roman rule. Dress: Tunics, cloaks, priestly robes and Roman military clothing. Technology: Oil lamps, sail and oar, roads, coins and papyrus; no modern objects.\nSTORY SECTION: Good Samaritan\n\nMOMENT (Luke 10:33): But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,\nPREVIOUS: In the same way a Levite also, when he came to the place and saw him, passed by on the other side.\nNEXT: came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.\n\nCAST ON STAGE IN THIS SECTION (id: name):\n- lawyer_who_tests_jesus_luke_10: Lawyer who tests Jesus (Luke 10)\n- jesus_christ_the_son_of_god_and_lord: Jesus Christ, the Son of God and Lord\n- judea_gospel_region_around_jerusalem: Judea (Gospel region around Jerusalem)\n- wounded_traveler_in_samaritan_parable: Wounded traveler in the Samaritan parable\n- robbers_in_samaritan_parable: Robbers in the Samaritan parable\n- priest_in_samaritan_parable: Priest in the Samaritan parable\n- levite_in_samaritan_parable: Levite in the Samaritan parable\n- innkeeper_in_samaritan_parable: Innkeeper in the Samaritan parable\n- samaritans_mount_in_parable: Samaritan’s mount in the parable\n- jerusalem_to_jericho_road: Jerusalem–Jericho road in the Samaritan parable\n- inn_in_samaritan_parable: Inn in the Samaritan parable\n- the_samaritan: the Samaritan\n\nSECTION LOOK (shared conditions; not evidence of moment presence): place: Rocky, dusty Jerusalem–Jericho road in Judea, with stony hills and scattered thorn scrub, leading toward a roadside inn; time: Midday heat, shifting to late afternoon and evening at the inn; weather: Clear, dry, hot sky with no rain; light: Harsh, bright sunlight on the road, softening to warm golden evening light at the inn; clothing: Travelers in plain tunics and cloaks suited to dusty desert roads; the Samaritan wears a practical traveling cloak and carries oil and wine",
+    "schemaName": "scene_plan",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "grounding": {
+          "type": "object",
+          "properties": {
+            "focusQuote": {
+              "description": "A short exact quote from MOMENT identifying the one action or state chosen for this image, not a summary of the whole sequence. Empty only when required canon is missing.",
+              "type": "string"
+            },
+            "cast": {
+              "description": "One evidence record per selected present ID, in the same order. Include locations, objects, groups and no-form subjects as well as formed characters.",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "entryId": {
+                    "type": "string"
+                  },
+                  "momentQuote": {
+                    "description": "Exact words from MOMENT establishing this entry's participation or physical presence at the chosen instant. A pronoun or continuing setting is valid with context support; a narrator's report alone is not participation.",
+                    "type": "string"
+                  },
+                  "contextSource": {
+                    "description": "Use a neighbor only to resolve the identity or continuity of participation already anchored in momentQuote, never to add another event's participants.",
+                    "type": "string",
+                    "enum": [
+                      "none",
+                      "previous",
+                      "next"
+                    ]
+                  },
+                  "contextQuote": {
+                    "description": "Exact words from the named neighbor supporting identity or continuity; empty when contextSource is none.",
+                    "type": "string"
+                  },
+                  "participation": {
+                    "description": "Classify the entry's relationship to the chosen instant. Only in_scene can be rendered. Reporting a vision or telling a story is framing unless the source also places the reporter inside its depicted action.",
+                    "type": "string",
+                    "enum": [
+                      "in_scene",
+                      "framing",
+                      "mentioned",
+                      "separate_event",
+                      "uncertain"
+                    ]
+                  }
+                },
+                "required": [
+                  "entryId",
+                  "momentQuote",
+                  "contextSource",
+                  "contextQuote",
+                  "participation"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "instant": {
+              "description": "One sentence fixing the chosen instant before any scene field: where each selected formed character is and their single pose or movement, and the state or placement of selected places, objects and no-form effects. Every scene field must match it. Empty only when required canon is missing.",
+              "type": "string"
+            },
+            "singleInstant": {
+              "description": "True only when every scene field can be depicted simultaneously in one instant. False if the plan requires successive poses, locations or stages of an action; do not hide a sequence inside one field.",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "focusQuote",
+            "cast",
+            "instant",
+            "singleInstant"
+          ],
+          "additionalProperties": false
+        },
+        "present": {
+          "description": "Distinct IDs of available section cast present in the depicted scene, including permitted no-form effects. Empty when no cast is needed or required canon is missing.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "lawyer_who_tests_jesus_luke_10",
+              "jesus_christ_the_son_of_god_and_lord",
+              "judea_gospel_region_around_jerusalem",
+              "wounded_traveler_in_samaritan_parable",
+              "robbers_in_samaritan_parable",
+              "priest_in_samaritan_parable",
+              "levite_in_samaritan_parable",
+              "innkeeper_in_samaritan_parable",
+              "samaritans_mount_in_parable",
+              "jerusalem_to_jericho_road",
+              "inn_in_samaritan_parable",
+              "the_samaritan"
+            ]
+          }
+        },
+        "primarySubject": {
+          "description": "The main subject at the chosen instant, in the pose and place stated in grounding.instant.",
+          "type": "string"
+        },
+        "action": {
+          "description": "What happens at that one instant, matching grounding.instant; no earlier or later step.",
+          "type": "string"
+        },
+        "setting": {
+          "description": "The physical place and surroundings of this single scene, consistent with the section look and era.",
+          "type": "string"
+        },
+        "secondaryElements": {
+          "description": "Supporting selected cast, props and details with their placement at the same instant.",
+          "type": "string"
+        },
+        "mood": {
+          "description": "The emotional atmosphere of this moment.",
+          "type": "string"
+        },
+        "timeOfDay": {
+          "description": "This moment's time of day and situational illumination, consistent with the section look.",
+          "type": "string"
+        },
+        "composition": {
+          "description": "Viewpoint, framing and relative placement of that same instant, introducing no other pose. Independent of art style and rendering technique.",
+          "type": "string"
+        },
+        "missingCast": {
+          "description": "Names or roles required by this moment but absent from the available section cast. Include actors inside embedded stories or visions. Empty when all required canon is available; never invent canon or substitute framing figures.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "grounding",
+        "present",
+        "primarySubject",
+        "action",
+        "setting",
+        "secondaryElements",
+        "mood",
+        "timeOfDay",
+        "composition",
+        "missingCast"
+      ],
+      "additionalProperties": false
+    },
+    "maxTokens": 2400,
+    "expectedCompletionTokens": 900
+  },
+  "estimatedUsd": 0.000714,
+  "context": {
+    "moment": {
+      "id": "luke-10-33",
+      "reference": "Luke 10:33",
+      "text": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,"
+    },
+    "previous": {
+      "text": "In the same way a Levite also, when he came to the place and saw him, passed by on the other side."
+    },
+    "next": {
+      "text": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him."
+    }
+  },
+  "paidCalls": 0,
+  "productionMutations": 0
+}

@@ -1,0 +1,36 @@
+{
+  "issue": 183,
+  "baseCommit": "3b8de2709a94dcb8c71fe0a748e6e4710f8d3332",
+  "implementationPR": "https://github.com/AustinKelsay/visibible/pull/257",
+  "priorCheck": "../2026-10-23-grounded-plan-check/README.md",
+  "purpose": "Inspect the first ordinary v4 stated-instant plans for the retained Luke 10:33/34 and Daniel 7:9/10 cases before any image. No images.",
+  "authorization": "Continuation within the existing separate $43 preparation allowance; no increase, transfer, public activation or whole-work reading.",
+  "execution": "Reviewed merged engine code runs locally against active production generation 1, after the optional grounding.instant field is deployed to production Convex (deployment.json). Ordinary claims, derived records and spend only. No frontend deployment, canon/section edit, look overlay or cache rebinding.",
+  "preparation": {
+    "authorizedUsd": 43,
+    "measuredBeforeUsd": 3.6551635,
+    "uncertaintyBeforeUsd": 0.03,
+    "capUsd": 0.05,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 8
+  },
+  "evaluation": { "authorizedUsd": 16.5, "measuredBeforeUsd": 16.2980069, "uncertaintyBeforeUsd": 0.045, "maximumCalls": 0 },
+  "smoke": { "authorizedUsd": 1, "measuredBeforeUsd": 0.685795, "maximumCalls": 0 },
+  "textOrder": ["luke-10-33", "luke-10-34", "daniel-7-9", "daniel-7-10"],
+  "expectedRequests": "Plan refresh only: stored plans carry moment-cast v2 or v3, so the v4 marker invalidates them while both section looks stay current. Any look request is unexpected drift and stops the operation.",
+  "publicActivation": false,
+  "humanAccepted": false,
+  "criteria": {
+    "luke-10-33": "Inner parable instant only: the Samaritan and the wounded traveler at the roadside. No Jesus, lawyer, departed priest/Levite, robbers or innkeeper selected or described. Every described actor selected. Subject, action and composition give each character one pose and place, consistent with grounding.instant; successive poses (for example arriving and kneeling) fail. Grounding quotes anchor each selected entry in 10:33 itself.",
+    "luke-10-34": "Allowed only after accepting the exact 10:33 artifact. One representative instant from the multi-action verse (for example treating wounds, lifting onto the animal, or arriving at the inn), never two successive poses. No innkeeper: the host first appears in 10:35. The inn may appear only if the chosen instant is at the inn. Every described actor selected.",
+    "daniel-7-9": "Independent of the Luke verdict once the Luke case is recorded. Narrator Daniel is not depicted inside the vision from 'I watched'. No ministering assembly or attendants imported from the shared look or 7:10's 'thousands'. The no-form subject stays effects-based with no body, face, hair or clothing, and the seat is unoccupied with effects around it: describing the presence as seated or occupying the seat is a blocker. Naming a prohibited figure only to deny it is recorded as an instruction gap, not a blocker.",
+    "daniel-7-10": "Allowed only after accepting the exact 7:9 artifact. The ministering assembly may appear because 7:10 names it; no narrator; the same no-form and seated-presence rules hold; one instant (court seated and books opened, or the fiery stream with the assembly), not both as successive stages.",
+    "refusal": "A code refusal (unavailable) writes no plan and is retained as a held case: the guard worked, but the moment cannot yet be illustrated."
+  },
+  "stopConditions": [
+    "At most four plan refreshes, two structural attempts each, within 8 calls and a combined $0.05 cap. Every actual call reserves $0.005 before sending. Provider error, missing usage, uncertain outcome, source/state drift, unexpected look request or exhausted reserve blocks later paid calls.",
+    "Each moment runs only after its dry run, from a snapshot under 30 minutes old, with every scoped production record matching that snapshot.",
+    "Retain every first structurally valid plan or refusal, including failures. No plan clears, semantic retries, response editing, look overlays or cache rebinding. A held case prevents its conditional follow-up; it does not justify manufacturing a pass.",
+    "Only ordinary preparation claims, derived plan records and spend are written. No canon/section edits, reference generation, images, guest grants, frontend deployment, admission change, human acceptance or public activation."
+  ]
+}

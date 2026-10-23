@@ -1,0 +1,91 @@
+{
+  "attempted": [
+    "luke-10-33",
+    "daniel-7-9"
+  ],
+  "notAttempted": {
+    "luke-10-34": "Conditional on accepting the exact first Luke 10:33 artifact, which was held.",
+    "daniel-7-10": "Conditional on accepting the exact first Daniel 7:9 artifact, which was held."
+  },
+  "outcomes": {
+    "luke-10-33": {
+      "stored": true,
+      "verdict": "hold-for-unselected-cast"
+    },
+    "daniel-7-9": {
+      "stored": true,
+      "verdict": "hold-for-moment-presence"
+    }
+  },
+  "spendOutcomes": [
+    "ok",
+    "ok"
+  ],
+  "operation": {
+    "capUsd": 0.05,
+    "calls": 2,
+    "measuredUsd": 0.0016397,
+    "uncertainUsd": 0,
+    "blocked": null,
+    "callDetails": [
+      {
+        "phase": "prepare:luke-10-33",
+        "promptTokens": 4380,
+        "completionTokens": 695,
+        "measuredUsd": 0.0007855,
+        "providerRoundTripMs": 5990
+      },
+      {
+        "phase": "prepare:daniel-7-9",
+        "promptTokens": 5052,
+        "completionTokens": 698,
+        "measuredUsd": 0.0008542,
+        "providerRoundTripMs": 6864
+      }
+    ],
+    "prepareMomentElapsedMs": {
+      "luke-10-33": 8477,
+      "daniel-7-9": 10797
+    },
+    "latencyNote": "Local script to production Convex and OpenRouter; descriptive only, not the full-request app p90."
+  },
+  "preparation": {
+    "authorizedUsd": 43,
+    "measuredUsd": 3.6568032,
+    "retainedUncertaintyUsd": 0.03,
+    "remainingAfterReserveUsd": 39.3131968
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredUsd": 16.2980069,
+    "retainedUncertaintyUsd": 0.045,
+    "remainingAfterReserveUsd": 0.1569931
+  },
+  "smoke": {
+    "authorizedUsd": 1,
+    "measuredUsd": 0.685795,
+    "remainingUsd": 0.314205
+  },
+  "productionPreparationLedger": {
+    "callsBefore": 112,
+    "callsAfter": 114,
+    "costDeltaUsd": 0.0016397
+  },
+  "accountBalance": {
+    "beforeUsd": 10.147626511999988,
+    "afterUsd": 10.129871065999993,
+    "deltaUsd": 0.017755445999995345,
+    "matchesReturnedUsage": false,
+    "otherAccountUsageUsd": 0.016115746,
+    "note": "Usage outside this operation also lowered the balance, most likely live production traffic on the shared key (public Classical generation still runs on the legacy path). The preparation ledger and returned usage are authoritative for this operation."
+  },
+  "changedRecords": [
+    "plan:luke-10-33",
+    "plan:daniel-7-9"
+  ],
+  "deployment": "deployment.json",
+  "imageCalls": 0,
+  "semanticRetries": 0,
+  "publicActivation": false,
+  "humanAccepted": false
+}

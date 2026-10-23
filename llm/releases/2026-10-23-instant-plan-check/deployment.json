@@ -1,0 +1,60 @@
+{
+  "at": "2026-10-23T15:36:21.000Z",
+  "purpose": "Deploy the optional plan grounding.instant audit field (moment-cast v4) before any server stores it. Backend only; no frontend build, promotion or admission change.",
+  "sourceCommit": "3b8de2709a94dcb8c71fe0a748e6e4710f8d3332",
+  "sourceTree": "Clean worktree whose convex/ equals 3b8de27; no untracked or ignored files under convex/.",
+  "convexTarget": "unique-impala-244",
+  "previousBackendCommit": "296df4219e61da29d31052d7d9b348e4c75fd0fd",
+  "previousBackendEvidence": "../2026-10-23-grounded-plan-check/deployment.json",
+  "convexDiffFromPrevious": {
+    "convex/schema.ts": "+2 lines: optional planPayload.grounding.instant string"
+  },
+  "command": "convex deploy -y --codegen disable --typecheck enable (CLI 1.31.2, production deploy key from the production Vercel environment; key not retained)",
+  "dryRun": {
+    "typecheck": "passed",
+    "schemaValidation": "complete",
+    "indexesDeleted": false,
+    "authDiff": {
+      "added": [],
+      "removed": []
+    },
+    "definitionDiffs": {},
+    "componentDiffs": {},
+    "componentPath": "../node_modules/neutral-cost/dist/component",
+    "newFieldPresent": true,
+    "nodeVersionMessage": "Same blank Node.js actions version line as earlier dry runs."
+  },
+  "deployStartedAt": "2026-10-23T15:36:11.000Z",
+  "deployFinishedAt": "2026-10-23T15:36:21.000Z",
+  "result": "Deployed Convex functions; no indexes deleted; schema validation complete.",
+  "frontend": {
+    "alias": "visibible.com",
+    "deployment": "dpl_4FE7JeXKq853nCxsrN2NYZYFdYjj",
+    "readyState": "READY",
+    "changed": false
+  },
+  "readiness": {
+    "before": "ready 2026-10-23T15:36:11.724Z",
+    "after": "ready 2026-10-23T15:36:21.476Z"
+  },
+  "transientError": {
+    "at": "2026-10-23T15:40:29Z",
+    "what": "The first after-deploy snapshot received one Cloudflare 520 from api.visibible.com during a getActiveRecord query and wrote nothing.",
+    "followUp": "Readiness, both version endpoints and eight timed queries through both api.visibible.com and unique-impala-244.convex.cloud succeeded within two minutes (145-838 ms). The 200 most recent production executions (14:05-15:42 UTC) contain no function errors. Cause unknown; the snapshot was retaken."
+  },
+  "snapshots": {
+    "before": "before-deploy.json",
+    "after": "after-deploy.json",
+    "identical": [
+      "sources",
+      "status",
+      "records",
+      "spend",
+      "catalog.artStyles"
+    ]
+  },
+  "admission": "disabled",
+  "ownerSessionConfigured": false,
+  "publicActivation": false,
+  "rollback": "Redeploy convex/ from 296df42 only while no stored plan carries grounding.instant; afterwards those fields must be removed first."
+}
