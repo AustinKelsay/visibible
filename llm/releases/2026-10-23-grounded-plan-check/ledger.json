@@ -1,0 +1,28 @@
+{
+  "calls": [
+    {
+      "phase": "prepare:luke-10-33",
+      "label": "scene_plan",
+      "startedAt": "2026-10-23T13:58:36.467Z",
+      "status": "200",
+      "measuredUsd": 0.0006972
+    },
+    {
+      "phase": "prepare:daniel-7-9",
+      "label": "scene_plan",
+      "startedAt": "2026-10-23T13:59:33.891Z",
+      "status": "200",
+      "measuredUsd": 0.0007136
+    },
+    {
+      "phase": "prepare:daniel-7-10",
+      "label": "scene_plan",
+      "startedAt": "2026-10-23T14:00:26.987Z",
+      "status": "200",
+      "measuredUsd": 0.0007674
+    }
+  ],
+  "measuredUsd": 0.0021782,
+  "uncertainUsd": 0,
+  "blocked": null
+}

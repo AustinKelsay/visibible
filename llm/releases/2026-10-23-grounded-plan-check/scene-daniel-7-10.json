@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-23T14:00:31.123Z",
+  "elapsedMs": 5021,
+  "snapshot": "pre-daniel-7-10",
+  "context": {
+    "moment": {
+      "id": "daniel-7-10",
+      "reference": "Daniel 7:10",
+      "text": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened."
+    },
+    "previous": {
+      "text": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire."
+    },
+    "next": {
+      "text": "“I watched at that time because of the voice of the arrogant words which the horn spoke. I watched even until the animal was slain, and its body destroyed, and it was given to be burned with fire."
+    }
+  },
+  "error": {
+    "name": "Error",
+    "message": "Error: Preparing scene: plan unavailable: cast the_ancient_of_days has invalid previous evidence"
+  }
+}
