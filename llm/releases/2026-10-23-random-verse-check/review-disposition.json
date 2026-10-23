@@ -22,6 +22,22 @@
           "disposition": "Accepted for s056: Jeremiah is in the section cast. s077 stays named-not-in-cast: the parable's lord has no cast entry."
         }
       ]
+    },
+    {
+      "review": "coderabbit-round-3.ndjson",
+      "unreviewedFiles": 1,
+      "findings": [
+        {
+          "severity": "minor",
+          "title": "Mark the Colossae setting (s003) as a grounding error",
+          "disposition": "Declined as a score change: blind scores are independent judgments under the pre-declared rubric, which does not score unselected settings. Recorded as a rubric limit in the README."
+        },
+        {
+          "severity": "minor",
+          "title": "Score the uncast figure in s095 / track it as a contract failure (two findings)",
+          "disposition": "Declined as a score change: U requires a cast entry. Recorded in the README as a rubric limit and as evidence that the planner already depicts uncast generic figures in stored plans."
+        }
+      ]
     }
   ]
 }

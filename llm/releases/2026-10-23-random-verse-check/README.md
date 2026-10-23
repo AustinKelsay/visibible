@@ -75,6 +75,15 @@ The six stored flaws, by kind:
 
 The two embodied no-form plans (Satan as a serpent) were the first plan and re-plan of one verse, Revelation 20:10. The evidence checks refused the first and the review rejected the re-plan, so nothing was stored.
 
+### Limits of the rubric
+
+The rubric does not score two kinds of error, so the acceptance rate is an upper bound on them:
+
+- **Unselected settings.** A wrong setting that is not a selected place entry is not scored. For example, s003 sets Paul's letter in an assembly room in Colossae, the recipients' city; both scorers noted similar scenery-only errors without flagging them.
+- **Figures without a cast entry.** U requires a cast entry, so generic figures with none are not scored. For example, s095 (Luke 6:9) describes the man with the withered hand, who has no cast entry. The planner thus already depicts uncast generic figures in some stored plans while refusing other verses as missing cast; that inconsistency supports the missing-cast policy question in [release status](../STATUS.md).
+
+These observations came from code review after unblinding. The blind scores are unchanged.
+
 ## Cost and latency
 
 | Measure | Value |
