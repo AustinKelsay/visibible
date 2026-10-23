@@ -291,7 +291,9 @@ describe("moment-cast v6 evidence rules", () => {
     expect(sceneGroundingProblem(g, ["priest", "megiddo"], verse, ["priest", "megiddo"], ["megiddo"])).toBeNull();
     // The same record for an entry not marked as a location or object still needs words from the moment.
     expect(sceneGroundingProblem(g, ["priest", "megiddo"], verse, ["priest", "megiddo"], [])).toBe("cast megiddo lacks current-moment evidence");
-    // A continuing location still needs a real neighbor quote.
+    // Any moment quote it does give must be real, and a continuing location still needs a real neighbor quote.
+    const falseMoment = { ...g, cast: [g.cast[0], record("megiddo", "the camp at Megiddo", "previous", "at Megiddo, where the camp stood")] };
+    expect(sceneGroundingProblem(falseMoment, ["priest", "megiddo"], verse, ["priest", "megiddo"], ["megiddo"])).toBe("cast megiddo lacks current-moment evidence");
     const invented = { ...g, cast: [g.cast[0], record("megiddo", "", "previous", "at Megiddo by the river")] };
     expect(sceneGroundingProblem(invented, ["priest", "megiddo"], verse, ["priest", "megiddo"], ["megiddo"])).toBe("cast megiddo lacks current-moment evidence");
   });

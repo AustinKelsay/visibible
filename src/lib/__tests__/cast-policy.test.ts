@@ -16,7 +16,8 @@ describe("moment-cast v6 cast policy", () => {
     expect(PLAN_SYSTEM).toContain("People, crowds, roles and animals with no cast entry may be described by role and situation");
     expect(PLAN_SYSTEM).toContain("Report `missingCast` when the moment requires a named character or group whom the story follows beyond this moment");
     expect(PLAN_SYSTEM).toContain("this applies to secondary characters as well as the main actor");
-    expect(PLAN_SYSTEM).toContain("Never report a role, crowd or animal, a person named only in passing");
+    expect(PLAN_SYSTEM).toContain("Never report a role, a generic crowd or an animal, a person named only in passing");
+    expect(PLAN_SYSTEM).toContain("A recurring named group is not a generic crowd, even when it appears as one.");
     expect(PLAN_SYSTEM).toContain("If an available cast member's presence is uncertain, choose an instant the text establishes rather than reporting it missing.");
     expect(PLAN_SYSTEM).toContain("A moment without an event (a list, law, saying or greeting) still gets a scene");
   });

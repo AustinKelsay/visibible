@@ -85,9 +85,10 @@ export function sceneGroundingProblem(grounding: SceneGrounding, present: string
   const neighbors = planningNeighbors(context);
   for (const entry of grounding.cast.filter((e) => present.includes(e.entryId))) {
     if (entry.participation !== "in_scene") return `cast ${entry.entryId} is ${entry.participation}, not participating in the chosen instant`;
-    // A location or object may continue from a neighbor; characters and groups need words from the moment.
+    // A location or object may continue from a neighbor with an empty moment quote; characters and groups need
+    // words from the moment, and any moment quote that is given must be real.
     const continuing = continuingIds.includes(entry.entryId) && entry.contextSource !== "none" && containsQuote(neighbors[entry.contextSource], entry.contextQuote);
-    if (!continuing && !containsQuote(context.moment.text, entry.momentQuote)) return `cast ${entry.entryId} lacks current-moment evidence`;
+    if (entry.momentQuote.trim() ? !containsQuote(context.moment.text, entry.momentQuote) : !continuing) return `cast ${entry.entryId} lacks current-moment evidence`;
     if (entry.contextSource === "none") {
       if (entry.contextQuote.trim()) return `cast ${entry.entryId} has context evidence without a source`;
     } else if (!containsQuote(neighbors[entry.contextSource], entry.contextQuote)) {
