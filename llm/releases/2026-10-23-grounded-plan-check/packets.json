@@ -1,0 +1,1141 @@
+{
+  "at": "2026-10-23T14:01:36.519Z",
+  "packets": [
+    {
+      "unitId": "luke-10-33",
+      "styleId": "classical",
+      "textVerdict": "hold-for-single-instant",
+      "ok": true,
+      "momentId": "luke-10-33",
+      "sectionId": "luke-10-25",
+      "context": {
+        "moment": {
+          "id": "luke-10-33",
+          "reference": "Luke 10:33",
+          "text": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,"
+        },
+        "previous": {
+          "text": "In the same way a Levite also, when he came to the place and saw him, passed by on the other side."
+        },
+        "next": {
+          "text": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him."
+        }
+      },
+      "prepared": {
+        "sectionId": "luke-10-25",
+        "era": "roman-era-judea-galilee-and-the-early-church",
+        "look": {
+          "version": "9cb58359fa22fb6e3931fff1bf133a1d",
+          "payload": {
+            "place": "Rocky, dusty Jerusalem\u2013Jericho road in Judea, with stony hills and scattered thorn scrub, leading toward a roadside inn",
+            "timeOfDay": "Midday heat, shifting to late afternoon and evening at the inn",
+            "weather": "Clear, dry, hot sky with no rain",
+            "light": "Harsh, bright sunlight on the road, softening to warm golden evening light at the inn",
+            "clothing": "Travelers in plain tunics and cloaks suited to dusty desert roads; the Samaritan wears a practical traveling cloak and carries oil and wine"
+          }
+        },
+        "plan": {
+          "version": "18abe10280cdb5296d66454a11af7c06",
+          "payload": {
+            "action": "The Samaritan has just come upon the wounded traveler, halting his steps and turning toward him with a moved, compassionate gaze",
+            "composition": "Low, intimate framing with the two figures close together on the road, the Samaritan's face and outstretched attention central",
+            "mood": "Reverent, compassionate, grave, quiet",
+            "primarySubject": "A Samaritan traveler in a practical cloak kneeling beside a wounded man on the road, his face softened with compassion as he looks down at him",
+            "secondaryElements": "Dust on the road, the Samaritan's traveling cloak, the wounded man lying partly on the stony ground, thorn scrub at the roadside",
+            "setting": "Rocky, dusty Jerusalem\u2013Jericho road in Judea with stony hills and scattered thorn scrub",
+            "timeOfDay": "Midday heat on the road",
+            "present": [
+              "the_samaritan",
+              "wounded_traveler_in_samaritan_parable",
+              "jerusalem_to_jericho_road"
+            ]
+          }
+        },
+        "present": [
+          {
+            "entryId": "the_samaritan",
+            "stageId": "the_samaritan-main",
+            "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+          },
+          {
+            "entryId": "wounded_traveler_in_samaritan_parable",
+            "stageId": "wounded_traveler_main",
+            "version": "4d9d8a0161d3304a3b11c8b914159215"
+          },
+          {
+            "entryId": "jerusalem_to_jericho_road",
+            "stageId": "jerusalem_to_jericho_road_main",
+            "version": "29f520702292f19b67186f38b0bdca4c"
+          }
+        ],
+        "calls": 0
+      },
+      "canon": [
+        {
+          "entryId": "the_samaritan",
+          "stageId": "the_samaritan-main",
+          "kind": "character",
+          "name": "the Samaritan",
+          "text": "the Samaritan: adult man of middle age, sturdy and weathered build, olive-brown skin, short dark hair and a close-cropped beard, plain lined face with steady eyes. Signature outfit worn on the road: undyed linen tunic in earth tones of ochre and brown with a dusty woollen cloak in deep blue-grey, sandals and a leather belt bearing a small pouch of coins. Carries alone a water skin and a folded cloth for binding wounds.",
+          "hasForm": true,
+          "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "stageId": "wounded_traveler_main",
+          "kind": "character",
+          "name": "Wounded traveler in the Samaritan parable",
+          "text": "Wounded traveler: a man of about 30 to 45 years, of average build with a lean, weathered frame, olive skin, short dark hair and a close-cut beard. Facial features are plain and worn, marked with dust and bruising. Stripped to a simple loincloth of undyed linen, he has no cloak or sandals. Signature props: none.",
+          "hasForm": true,
+          "version": "4d9d8a0161d3304a3b11c8b914159215"
+        },
+        {
+          "entryId": "jerusalem_to_jericho_road",
+          "stageId": "jerusalem_to_jericho_road_main",
+          "kind": "location",
+          "name": "Jerusalem\u2013Jericho road in the Samaritan parable",
+          "text": "Jerusalem\u2013Jericho road: a steep, stony track descending through the arid Judean wilderness from the hill city toward the low Jordan valley. Rocky limestone ridges and gullies line the way, with dry scrub, scattered acacia and thorn, and patches of wild grass. Rough boulders and cairns mark the path, and distant terraced hills and the faint outline of a walled town lie ahead in the desert haze.",
+          "hasForm": true,
+          "version": "29f520702292f19b67186f38b0bdca4c"
+        }
+      ],
+      "styleEntry": {
+        "style": {
+          "id": "classical",
+          "label": "Classical",
+          "description": "Expansive painterly scenes with dramatic light and restrained color; suited to epic narratives.",
+          "rendering": "Stylized, painterly, mysterious and expansive. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.",
+          "palette": "Mature, grounded color; rich but restrained contrast.",
+          "lighting": "Luminous, dramatic lighting.",
+          "materials": "Gritty, raw texture; avoid polished digital smoothness.",
+          "composition": "Cinematic, immersive viewpoint; heroic but grounded.",
+          "negatives": "Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, fresco, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge."
+        },
+        "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Luke 10:33: \"But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Roman Judea and the early church\nPeople: Jewish and Gentile Mediterranean communities under Roman rule.\nDress: Tunics, cloaks, priestly robes and Roman military clothing.\nBuildings and objects: Stone villages, synagogues, temple, fishing boats and Roman cities.\nTechnology: Oil lamps, sail and oar, roads, coins and papyrus; no modern objects.\n\nSELECTED CHARACTERS: the Samaritan; Wounded traveler in the Samaritan parable\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- the Samaritan: adult man of middle age, sturdy and weathered build, olive-brown skin, short dark hair and a close-cropped beard, plain lined face with steady eyes. Signature outfit worn on the road: undyed linen tunic in earth tones of ochre and brown with a dusty woollen cloak in deep blue-grey, sandals and a leather belt bearing a small pouch of coins. Carries alone a water skin and a folded cloth for binding wounds.\n- Wounded traveler: a man of about 30 to 45 years, of average build with a lean, weathered frame, olive skin, short dark hair and a close-cut beard. Facial features are plain and worn, marked with dust and bruising. Stripped to a simple loincloth of undyed linen, he has no cloak or sandals. Signature props: none.\n- Jerusalem\u2013Jericho road: a steep, stony track descending through the arid Judean wilderness from the hill city toward the low Jordan valley. Rocky limestone ridges and gullies line the way, with dry scrub, scattered acacia and thorn, and patches of wild grass. Rough boulders and cairns mark the path, and distant terraced hills and the faint outline of a walled town lie ahead in the desert haze.\n- Only the Samaritan, Wounded traveler in the Samaritan parable, Jerusalem\u2013Jericho road in the Samaritan parable have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Rocky, dusty Jerusalem\u2013Jericho road in Judea, with stony hills and scattered thorn scrub, leading toward a roadside inn\nTime of day: Midday heat, shifting to late afternoon and evening at the inn\nWeather: Clear, dry, hot sky with no rain\nLight: Harsh, bright sunlight on the road, softening to warm golden evening light at the inn\nClothing: Travelers in plain tunics and cloaks suited to dusty desert roads; the Samaritan wears a practical traveling cloak and carries oil and wine\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: A Samaritan traveler in a practical cloak kneeling beside a wounded man on the road, his face softened with compassion as he looks down at him\nAction: The Samaritan has just come upon the wounded traveler, halting his steps and turning toward him with a moved, compassionate gaze\nSetting: Rocky, dusty Jerusalem\u2013Jericho road in Judea with stony hills and scattered thorn scrub\nSecondary elements: Dust on the road, the Samaritan's traveling cloak, the wounded man lying partly on the stony ground, thorn scrub at the roadside\nMood: Reverent, compassionate, grave, quiet\nTime of day: Midday heat on the road\nComposition: Low, intimate framing with the two figures close together on the road, the Samaritan's face and outstretched attention central\n\nART STYLE: Classical\nRendering: Stylized, painterly, mysterious and expansive. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.\nNegatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, fresco, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nPalette: Mature, grounded color; rich but restrained contrast.\nLighting: Luminous, dramatic lighting.\nMaterials and texture: Gritty, raw texture; avoid polished digital smoothness.\nComposition: Cinematic, immersive viewpoint; heroic but grounded.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- Before: In the same way a Levite also, when he came to the place and saw him, passed by on the other side.\n- After: came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "packet": {
+        "promptVersion": "2026-10-22-generic-v4",
+        "workId": "bible-web",
+        "momentId": "luke-10-33",
+        "sectionId": "luke-10-25",
+        "eraId": "roman-era-judea-galilee-and-the-early-church",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "9cb58359fa22fb6e3931fff1bf133a1d",
+        "planVersion": "18abe10280cdb5296d66454a11af7c06",
+        "canon": [
+          {
+            "entryId": "the_samaritan",
+            "stageId": "the_samaritan-main",
+            "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+          },
+          {
+            "entryId": "wounded_traveler_in_samaritan_parable",
+            "stageId": "wounded_traveler_main",
+            "version": "4d9d8a0161d3304a3b11c8b914159215"
+          },
+          {
+            "entryId": "jerusalem_to_jericho_road",
+            "stageId": "jerusalem_to_jericho_road_main",
+            "version": "29f520702292f19b67186f38b0bdca4c"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6647
+        }
+      },
+      "references": [],
+      "sentReferences": [],
+      "skipped": [
+        {
+          "kind": "sheet",
+          "id": "the_samaritan:the_samaritan-main",
+          "reason": "missing"
+        },
+        {
+          "kind": "sheet",
+          "id": "jerusalem_to_jericho_road:jerusalem_to_jericho_road_main",
+          "reason": "missing"
+        },
+        {
+          "kind": "sheet",
+          "id": "wounded_traveler_in_samaritan_parable:wounded_traveler_main",
+          "reason": "missing"
+        }
+      ],
+      "unavailable": []
+    },
+    {
+      "unitId": "luke-10-33",
+      "styleId": "watercolor",
+      "textVerdict": "hold-for-single-instant",
+      "ok": true,
+      "momentId": "luke-10-33",
+      "sectionId": "luke-10-25",
+      "context": {
+        "moment": {
+          "id": "luke-10-33",
+          "reference": "Luke 10:33",
+          "text": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,"
+        },
+        "previous": {
+          "text": "In the same way a Levite also, when he came to the place and saw him, passed by on the other side."
+        },
+        "next": {
+          "text": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him."
+        }
+      },
+      "prepared": {
+        "sectionId": "luke-10-25",
+        "era": "roman-era-judea-galilee-and-the-early-church",
+        "look": {
+          "version": "9cb58359fa22fb6e3931fff1bf133a1d",
+          "payload": {
+            "place": "Rocky, dusty Jerusalem\u2013Jericho road in Judea, with stony hills and scattered thorn scrub, leading toward a roadside inn",
+            "timeOfDay": "Midday heat, shifting to late afternoon and evening at the inn",
+            "weather": "Clear, dry, hot sky with no rain",
+            "light": "Harsh, bright sunlight on the road, softening to warm golden evening light at the inn",
+            "clothing": "Travelers in plain tunics and cloaks suited to dusty desert roads; the Samaritan wears a practical traveling cloak and carries oil and wine"
+          }
+        },
+        "plan": {
+          "version": "18abe10280cdb5296d66454a11af7c06",
+          "payload": {
+            "action": "The Samaritan has just come upon the wounded traveler, halting his steps and turning toward him with a moved, compassionate gaze",
+            "composition": "Low, intimate framing with the two figures close together on the road, the Samaritan's face and outstretched attention central",
+            "mood": "Reverent, compassionate, grave, quiet",
+            "primarySubject": "A Samaritan traveler in a practical cloak kneeling beside a wounded man on the road, his face softened with compassion as he looks down at him",
+            "secondaryElements": "Dust on the road, the Samaritan's traveling cloak, the wounded man lying partly on the stony ground, thorn scrub at the roadside",
+            "setting": "Rocky, dusty Jerusalem\u2013Jericho road in Judea with stony hills and scattered thorn scrub",
+            "timeOfDay": "Midday heat on the road",
+            "present": [
+              "the_samaritan",
+              "wounded_traveler_in_samaritan_parable",
+              "jerusalem_to_jericho_road"
+            ]
+          }
+        },
+        "present": [
+          {
+            "entryId": "the_samaritan",
+            "stageId": "the_samaritan-main",
+            "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+          },
+          {
+            "entryId": "wounded_traveler_in_samaritan_parable",
+            "stageId": "wounded_traveler_main",
+            "version": "4d9d8a0161d3304a3b11c8b914159215"
+          },
+          {
+            "entryId": "jerusalem_to_jericho_road",
+            "stageId": "jerusalem_to_jericho_road_main",
+            "version": "29f520702292f19b67186f38b0bdca4c"
+          }
+        ],
+        "calls": 0
+      },
+      "canon": [
+        {
+          "entryId": "the_samaritan",
+          "stageId": "the_samaritan-main",
+          "kind": "character",
+          "name": "the Samaritan",
+          "text": "the Samaritan: adult man of middle age, sturdy and weathered build, olive-brown skin, short dark hair and a close-cropped beard, plain lined face with steady eyes. Signature outfit worn on the road: undyed linen tunic in earth tones of ochre and brown with a dusty woollen cloak in deep blue-grey, sandals and a leather belt bearing a small pouch of coins. Carries alone a water skin and a folded cloth for binding wounds.",
+          "hasForm": true,
+          "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "stageId": "wounded_traveler_main",
+          "kind": "character",
+          "name": "Wounded traveler in the Samaritan parable",
+          "text": "Wounded traveler: a man of about 30 to 45 years, of average build with a lean, weathered frame, olive skin, short dark hair and a close-cut beard. Facial features are plain and worn, marked with dust and bruising. Stripped to a simple loincloth of undyed linen, he has no cloak or sandals. Signature props: none.",
+          "hasForm": true,
+          "version": "4d9d8a0161d3304a3b11c8b914159215"
+        },
+        {
+          "entryId": "jerusalem_to_jericho_road",
+          "stageId": "jerusalem_to_jericho_road_main",
+          "kind": "location",
+          "name": "Jerusalem\u2013Jericho road in the Samaritan parable",
+          "text": "Jerusalem\u2013Jericho road: a steep, stony track descending through the arid Judean wilderness from the hill city toward the low Jordan valley. Rocky limestone ridges and gullies line the way, with dry scrub, scattered acacia and thorn, and patches of wild grass. Rough boulders and cairns mark the path, and distant terraced hills and the faint outline of a walled town lie ahead in the desert haze.",
+          "hasForm": true,
+          "version": "29f520702292f19b67186f38b0bdca4c"
+        }
+      ],
+      "styleEntry": {
+        "style": {
+          "id": "watercolor",
+          "label": "Ink & Watercolor",
+          "description": "Expressive ink lines and transparent washes; suited to atmospheric journeys and intimate observation.",
+          "rendering": "Loose pen-and-ink drawing with transparent watercolor washes; expressive and airy, like a travelling artist's field study of the work's world.",
+          "palette": "Transparent washes of ochre, sienna, indigo and sage; luminous lights.",
+          "lighting": "Bright, airy light; shadows as cool layered washes.",
+          "materials": "Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.",
+          "composition": "Sketch-like economy; detail concentrated on key subjects, softer surroundings.",
+          "negatives": "Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature."
+        },
+        "version": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Luke 10:33: \"But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Roman Judea and the early church\nPeople: Jewish and Gentile Mediterranean communities under Roman rule.\nDress: Tunics, cloaks, priestly robes and Roman military clothing.\nBuildings and objects: Stone villages, synagogues, temple, fishing boats and Roman cities.\nTechnology: Oil lamps, sail and oar, roads, coins and papyrus; no modern objects.\n\nSELECTED CHARACTERS: the Samaritan; Wounded traveler in the Samaritan parable\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- the Samaritan: adult man of middle age, sturdy and weathered build, olive-brown skin, short dark hair and a close-cropped beard, plain lined face with steady eyes. Signature outfit worn on the road: undyed linen tunic in earth tones of ochre and brown with a dusty woollen cloak in deep blue-grey, sandals and a leather belt bearing a small pouch of coins. Carries alone a water skin and a folded cloth for binding wounds.\n- Wounded traveler: a man of about 30 to 45 years, of average build with a lean, weathered frame, olive skin, short dark hair and a close-cut beard. Facial features are plain and worn, marked with dust and bruising. Stripped to a simple loincloth of undyed linen, he has no cloak or sandals. Signature props: none.\n- Jerusalem\u2013Jericho road: a steep, stony track descending through the arid Judean wilderness from the hill city toward the low Jordan valley. Rocky limestone ridges and gullies line the way, with dry scrub, scattered acacia and thorn, and patches of wild grass. Rough boulders and cairns mark the path, and distant terraced hills and the faint outline of a walled town lie ahead in the desert haze.\n- Only the Samaritan, Wounded traveler in the Samaritan parable, Jerusalem\u2013Jericho road in the Samaritan parable have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Rocky, dusty Jerusalem\u2013Jericho road in Judea, with stony hills and scattered thorn scrub, leading toward a roadside inn\nTime of day: Midday heat, shifting to late afternoon and evening at the inn\nWeather: Clear, dry, hot sky with no rain\nLight: Harsh, bright sunlight on the road, softening to warm golden evening light at the inn\nClothing: Travelers in plain tunics and cloaks suited to dusty desert roads; the Samaritan wears a practical traveling cloak and carries oil and wine\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: A Samaritan traveler in a practical cloak kneeling beside a wounded man on the road, his face softened with compassion as he looks down at him\nAction: The Samaritan has just come upon the wounded traveler, halting his steps and turning toward him with a moved, compassionate gaze\nSetting: Rocky, dusty Jerusalem\u2013Jericho road in Judea with stony hills and scattered thorn scrub\nSecondary elements: Dust on the road, the Samaritan's traveling cloak, the wounded man lying partly on the stony ground, thorn scrub at the roadside\nMood: Reverent, compassionate, grave, quiet\nTime of day: Midday heat on the road\nComposition: Low, intimate framing with the two figures close together on the road, the Samaritan's face and outstretched attention central\n\nART STYLE: Ink & Watercolor\nRendering: Loose pen-and-ink drawing with transparent watercolor washes; expressive and airy, like a travelling artist's field study of the work's world.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy light; shadows as cool layered washes.\nMaterials and texture: Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.\nComposition: Sketch-like economy; detail concentrated on key subjects, softer surroundings.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- Before: In the same way a Levite also, when he came to the place and saw him, passed by on the other side.\n- After: came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "packet": {
+        "promptVersion": "2026-10-22-generic-v4",
+        "workId": "bible-web",
+        "momentId": "luke-10-33",
+        "sectionId": "luke-10-25",
+        "eraId": "roman-era-judea-galilee-and-the-early-church",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "9cb58359fa22fb6e3931fff1bf133a1d",
+        "planVersion": "18abe10280cdb5296d66454a11af7c06",
+        "canon": [
+          {
+            "entryId": "the_samaritan",
+            "stageId": "the_samaritan-main",
+            "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+          },
+          {
+            "entryId": "wounded_traveler_in_samaritan_parable",
+            "stageId": "wounded_traveler_main",
+            "version": "4d9d8a0161d3304a3b11c8b914159215"
+          },
+          {
+            "entryId": "jerusalem_to_jericho_road",
+            "stageId": "jerusalem_to_jericho_road_main",
+            "version": "29f520702292f19b67186f38b0bdca4c"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 7025
+        }
+      },
+      "references": [
+        {
+          "kind": "styleReference",
+          "styleId": "watercolor",
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "version": "fa549f4888d199a3c3fd94209103e214",
+          "index": 0,
+          "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+        }
+      ],
+      "sentReferences": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        }
+      ],
+      "skipped": [
+        {
+          "kind": "sheet",
+          "id": "the_samaritan:the_samaritan-main",
+          "reason": "missing"
+        },
+        {
+          "kind": "sheet",
+          "id": "jerusalem_to_jericho_road:jerusalem_to_jericho_road_main",
+          "reason": "missing"
+        },
+        {
+          "kind": "sheet",
+          "id": "wounded_traveler_in_samaritan_parable:wounded_traveler_main",
+          "reason": "missing"
+        }
+      ],
+      "unavailable": []
+    },
+    {
+      "unitId": "luke-10-33",
+      "styleId": "icon",
+      "textVerdict": "hold-for-single-instant",
+      "ok": true,
+      "momentId": "luke-10-33",
+      "sectionId": "luke-10-25",
+      "context": {
+        "moment": {
+          "id": "luke-10-33",
+          "reference": "Luke 10:33",
+          "text": "But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,"
+        },
+        "previous": {
+          "text": "In the same way a Levite also, when he came to the place and saw him, passed by on the other side."
+        },
+        "next": {
+          "text": "came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him."
+        }
+      },
+      "prepared": {
+        "sectionId": "luke-10-25",
+        "era": "roman-era-judea-galilee-and-the-early-church",
+        "look": {
+          "version": "9cb58359fa22fb6e3931fff1bf133a1d",
+          "payload": {
+            "place": "Rocky, dusty Jerusalem\u2013Jericho road in Judea, with stony hills and scattered thorn scrub, leading toward a roadside inn",
+            "timeOfDay": "Midday heat, shifting to late afternoon and evening at the inn",
+            "weather": "Clear, dry, hot sky with no rain",
+            "light": "Harsh, bright sunlight on the road, softening to warm golden evening light at the inn",
+            "clothing": "Travelers in plain tunics and cloaks suited to dusty desert roads; the Samaritan wears a practical traveling cloak and carries oil and wine"
+          }
+        },
+        "plan": {
+          "version": "18abe10280cdb5296d66454a11af7c06",
+          "payload": {
+            "action": "The Samaritan has just come upon the wounded traveler, halting his steps and turning toward him with a moved, compassionate gaze",
+            "composition": "Low, intimate framing with the two figures close together on the road, the Samaritan's face and outstretched attention central",
+            "mood": "Reverent, compassionate, grave, quiet",
+            "primarySubject": "A Samaritan traveler in a practical cloak kneeling beside a wounded man on the road, his face softened with compassion as he looks down at him",
+            "secondaryElements": "Dust on the road, the Samaritan's traveling cloak, the wounded man lying partly on the stony ground, thorn scrub at the roadside",
+            "setting": "Rocky, dusty Jerusalem\u2013Jericho road in Judea with stony hills and scattered thorn scrub",
+            "timeOfDay": "Midday heat on the road",
+            "present": [
+              "the_samaritan",
+              "wounded_traveler_in_samaritan_parable",
+              "jerusalem_to_jericho_road"
+            ]
+          }
+        },
+        "present": [
+          {
+            "entryId": "the_samaritan",
+            "stageId": "the_samaritan-main",
+            "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+          },
+          {
+            "entryId": "wounded_traveler_in_samaritan_parable",
+            "stageId": "wounded_traveler_main",
+            "version": "4d9d8a0161d3304a3b11c8b914159215"
+          },
+          {
+            "entryId": "jerusalem_to_jericho_road",
+            "stageId": "jerusalem_to_jericho_road_main",
+            "version": "29f520702292f19b67186f38b0bdca4c"
+          }
+        ],
+        "calls": 0
+      },
+      "canon": [
+        {
+          "entryId": "the_samaritan",
+          "stageId": "the_samaritan-main",
+          "kind": "character",
+          "name": "the Samaritan",
+          "text": "the Samaritan: adult man of middle age, sturdy and weathered build, olive-brown skin, short dark hair and a close-cropped beard, plain lined face with steady eyes. Signature outfit worn on the road: undyed linen tunic in earth tones of ochre and brown with a dusty woollen cloak in deep blue-grey, sandals and a leather belt bearing a small pouch of coins. Carries alone a water skin and a folded cloth for binding wounds.",
+          "hasForm": true,
+          "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "stageId": "wounded_traveler_main",
+          "kind": "character",
+          "name": "Wounded traveler in the Samaritan parable",
+          "text": "Wounded traveler: a man of about 30 to 45 years, of average build with a lean, weathered frame, olive skin, short dark hair and a close-cut beard. Facial features are plain and worn, marked with dust and bruising. Stripped to a simple loincloth of undyed linen, he has no cloak or sandals. Signature props: none.",
+          "hasForm": true,
+          "version": "4d9d8a0161d3304a3b11c8b914159215"
+        },
+        {
+          "entryId": "jerusalem_to_jericho_road",
+          "stageId": "jerusalem_to_jericho_road_main",
+          "kind": "location",
+          "name": "Jerusalem\u2013Jericho road in the Samaritan parable",
+          "text": "Jerusalem\u2013Jericho road: a steep, stony track descending through the arid Judean wilderness from the hill city toward the low Jordan valley. Rocky limestone ridges and gullies line the way, with dry scrub, scattered acacia and thorn, and patches of wild grass. Rough boulders and cairns mark the path, and distant terraced hills and the faint outline of a walled town lie ahead in the desert haze.",
+          "hasForm": true,
+          "version": "29f520702292f19b67186f38b0bdca4c"
+        }
+      ],
+      "styleEntry": {
+        "style": {
+          "id": "icon",
+          "label": "Byzantine Icon",
+          "description": "Flat gold-ground painting with inverse perspective and stylized figures; suited to sacred and symbolic narratives.",
+          "rendering": "Byzantine icon painting: flat, frontal, stylized figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.",
+          "palette": "Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.",
+          "lighting": "No cast shadows; inner light shown through layered highlights and gold glow.",
+          "materials": "Egg tempera and gold-leaf texture within the scene.",
+          "composition": "Hieratic, balanced staging; the key subject largest and central; stylized rocks, buildings and trees.",
+          "negatives": "Never show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Avoid photorealism and modern illustration. The gold sky and stylized landscape fill the image edge-to-edge."
+        },
+        "version": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Luke 10:33: \"But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Roman Judea and the early church\nPeople: Jewish and Gentile Mediterranean communities under Roman rule.\nDress: Tunics, cloaks, priestly robes and Roman military clothing.\nBuildings and objects: Stone villages, synagogues, temple, fishing boats and Roman cities.\nTechnology: Oil lamps, sail and oar, roads, coins and papyrus; no modern objects.\n\nSELECTED CHARACTERS: the Samaritan; Wounded traveler in the Samaritan parable\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- the Samaritan: adult man of middle age, sturdy and weathered build, olive-brown skin, short dark hair and a close-cropped beard, plain lined face with steady eyes. Signature outfit worn on the road: undyed linen tunic in earth tones of ochre and brown with a dusty woollen cloak in deep blue-grey, sandals and a leather belt bearing a small pouch of coins. Carries alone a water skin and a folded cloth for binding wounds.\n- Wounded traveler: a man of about 30 to 45 years, of average build with a lean, weathered frame, olive skin, short dark hair and a close-cut beard. Facial features are plain and worn, marked with dust and bruising. Stripped to a simple loincloth of undyed linen, he has no cloak or sandals. Signature props: none.\n- Jerusalem\u2013Jericho road: a steep, stony track descending through the arid Judean wilderness from the hill city toward the low Jordan valley. Rocky limestone ridges and gullies line the way, with dry scrub, scattered acacia and thorn, and patches of wild grass. Rough boulders and cairns mark the path, and distant terraced hills and the faint outline of a walled town lie ahead in the desert haze.\n- Only the Samaritan, Wounded traveler in the Samaritan parable, Jerusalem\u2013Jericho road in the Samaritan parable have this canon look; other selected people get clearly different faces, hair and clothing colours.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Rocky, dusty Jerusalem\u2013Jericho road in Judea, with stony hills and scattered thorn scrub, leading toward a roadside inn\nTime of day: Midday heat, shifting to late afternoon and evening at the inn\nWeather: Clear, dry, hot sky with no rain\nLight: Harsh, bright sunlight on the road, softening to warm golden evening light at the inn\nClothing: Travelers in plain tunics and cloaks suited to dusty desert roads; the Samaritan wears a practical traveling cloak and carries oil and wine\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: A Samaritan traveler in a practical cloak kneeling beside a wounded man on the road, his face softened with compassion as he looks down at him\nAction: The Samaritan has just come upon the wounded traveler, halting his steps and turning toward him with a moved, compassionate gaze\nSetting: Rocky, dusty Jerusalem\u2013Jericho road in Judea with stony hills and scattered thorn scrub\nSecondary elements: Dust on the road, the Samaritan's traveling cloak, the wounded man lying partly on the stony ground, thorn scrub at the roadside\nMood: Reverent, compassionate, grave, quiet\nTime of day: Midday heat on the road\nComposition: Low, intimate framing with the two figures close together on the road, the Samaritan's face and outstretched attention central\n\nART STYLE: Byzantine Icon\nRendering: Byzantine icon painting: flat, frontal, stylized figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.\nNegatives: Never show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Avoid photorealism and modern illustration. The gold sky and stylized landscape fill the image edge-to-edge.\nPalette: Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.\nLighting: No cast shadows; inner light shown through layered highlights and gold glow.\nMaterials and texture: Egg tempera and gold-leaf texture within the scene.\nComposition: Hieratic, balanced staging; the key subject largest and central; stylized rocks, buildings and trees.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- Before: In the same way a Levite also, when he came to the place and saw him, passed by on the other side.\n- After: came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "packet": {
+        "promptVersion": "2026-10-22-generic-v4",
+        "workId": "bible-web",
+        "momentId": "luke-10-33",
+        "sectionId": "luke-10-25",
+        "eraId": "roman-era-judea-galilee-and-the-early-church",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "9cb58359fa22fb6e3931fff1bf133a1d",
+        "planVersion": "18abe10280cdb5296d66454a11af7c06",
+        "canon": [
+          {
+            "entryId": "the_samaritan",
+            "stageId": "the_samaritan-main",
+            "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+          },
+          {
+            "entryId": "wounded_traveler_in_samaritan_parable",
+            "stageId": "wounded_traveler_main",
+            "version": "4d9d8a0161d3304a3b11c8b914159215"
+          },
+          {
+            "entryId": "jerusalem_to_jericho_road",
+            "stageId": "jerusalem_to_jericho_road_main",
+            "version": "29f520702292f19b67186f38b0bdca4c"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6972
+        }
+      },
+      "references": [
+        {
+          "kind": "styleReference",
+          "styleId": "icon",
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+          "index": 0,
+          "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+        }
+      ],
+      "sentReferences": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        }
+      ],
+      "skipped": [
+        {
+          "kind": "sheet",
+          "id": "the_samaritan:the_samaritan-main",
+          "reason": "missing"
+        },
+        {
+          "kind": "sheet",
+          "id": "jerusalem_to_jericho_road:jerusalem_to_jericho_road_main",
+          "reason": "missing"
+        },
+        {
+          "kind": "sheet",
+          "id": "wounded_traveler_in_samaritan_parable:wounded_traveler_main",
+          "reason": "missing"
+        }
+      ],
+      "unavailable": []
+    },
+    {
+      "unitId": "daniel-7-9",
+      "styleId": "classical",
+      "textVerdict": "hold-for-no-form-wording",
+      "ok": true,
+      "momentId": "daniel-7-9",
+      "sectionId": "daniel-7-9",
+      "context": {
+        "moment": {
+          "id": "daniel-7-9",
+          "reference": "Daniel 7:9",
+          "text": "\u201cI watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire."
+        },
+        "previous": null,
+        "next": {
+          "text": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened."
+        }
+      },
+      "prepared": {
+        "sectionId": "daniel-7-9",
+        "era": "monarchy-of-israel-and-judah",
+        "look": {
+          "version": "219208bab707a1b98f813e02b220d45e",
+          "payload": {
+            "place": "Vision-space of a throne hall in heaven, open to a vast dark expanse; an unoccupied seat of fire and cloud with a river of fire flowing before it, surrounded by thrones set in ranks",
+            "timeOfDay": "Night vision, unchanging, no dawn or dusk across the section",
+            "weather": "Still air over a dark heavenly expanse, with drifting cloud banks and rising mist",
+            "light": "Radiance and fire placed around the central seat as the light source, with cloud diffusing the glow across the hall",
+            "clothing": "Formed attendants wear priestly linen or white court robes; Daniel in his ordinary tunic and cloak, no added props"
+          }
+        },
+        "plan": {
+          "version": "13743e04664ff42535a3484cea0682e0",
+          "payload": {
+            "action": "Thrones are being set in ranks around the seat; fire and radiance rise from the seat and its wheels of burning fire, while cloud drifts slowly across the hall",
+            "composition": "Wide view across the hall with the central seat large and luminous at the centre, thrones receding in ranks on either side, the dark expanse beyond",
+            "mood": "Awe and solemn stillness, reverent and grounded rather than spectacular",
+            "primarySubject": "Radiance and fire gathered into an unoccupied central seat, the presence seated there by its placement; the seat is empty of any figure",
+            "secondaryElements": "Empty thrones arranged in ranks, drifting cloud banks, rising mist, flames rolling along the wheels beneath the seat",
+            "setting": "Vision-space of a heavenly throne hall open to a vast dark expanse; central seat of fire and cloud, with a river of fire flowing before it and thrones set in ranks",
+            "timeOfDay": "Unchanging night vision, lit only by the radiance and fire of the central seat",
+            "present": [
+              "the_ancient_of_days"
+            ]
+          }
+        },
+        "present": [
+          {
+            "entryId": "the_ancient_of_days",
+            "stageId": "ancient-of-days-light",
+            "version": "2580946090305beb790717b8920e11ec"
+          }
+        ],
+        "calls": 0
+      },
+      "canon": [
+        {
+          "entryId": "the_ancient_of_days",
+          "stageId": "ancient-of-days-light",
+          "kind": "character",
+          "name": "The Ancient of Days",
+          "text": "The Ancient of Days: brilliant white radiance; bright orange fire; soft white cloud; brilliant white light.",
+          "hasForm": false,
+          "version": "2580946090305beb790717b8920e11ec"
+        }
+      ],
+      "styleEntry": {
+        "style": {
+          "id": "classical",
+          "label": "Classical",
+          "description": "Expansive painterly scenes with dramatic light and restrained color; suited to epic narratives.",
+          "rendering": "Stylized, painterly, mysterious and expansive. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.",
+          "palette": "Mature, grounded color; rich but restrained contrast.",
+          "lighting": "Luminous, dramatic lighting.",
+          "materials": "Gritty, raw texture; avoid polished digital smoothness.",
+          "composition": "Cinematic, immersive viewpoint; heroic but grounded.",
+          "negatives": "Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, fresco, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge."
+        },
+        "version": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Daniel 7:9: \"\u201cI watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return\nPeople: Israelites and neighboring Levantine, Mesopotamian and Persian peoples.\nDress: Tunics, cloaks, court robes, priestly linen and period armor.\nBuildings and objects: Villages, palaces, temples, city gates and exile settlements.\nTechnology: Iron and bronze tools, chariots, siege works and scrolls; no modern objects.\n\nSELECTED CHARACTERS: The Ancient of Days\n\nFORMLESS SUBJECTS (binding depiction constraints, including when the source uses bodily metaphors):\n- The Ancient of Days: represent only through the non-figurative presence allowed by its canon and the work brief. No head, face, torso, limbs, hands, human silhouette or garment-shaped body, even faceless or made of light. Do not represent this subject as a figure occupying a seat.\nThese constraints apply only to the named subjects; other characters retain their own canon forms.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- The Ancient of Days: brilliant white radiance; bright orange fire; soft white cloud; brilliant white light.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Vision-space of a throne hall in heaven, open to a vast dark expanse; an unoccupied seat of fire and cloud with a river of fire flowing before it, surrounded by thrones set in ranks\nTime of day: Night vision, unchanging, no dawn or dusk across the section\nWeather: Still air over a dark heavenly expanse, with drifting cloud banks and rising mist\nLight: Radiance and fire placed around the central seat as the light source, with cloud diffusing the glow across the hall\nClothing: Formed attendants wear priestly linen or white court robes; Daniel in his ordinary tunic and cloak, no added props\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Radiance and fire gathered into an unoccupied central seat, the presence seated there by its placement; the seat is empty of any figure\nAction: Thrones are being set in ranks around the seat; fire and radiance rise from the seat and its wheels of burning fire, while cloud drifts slowly across the hall\nSetting: Vision-space of a heavenly throne hall open to a vast dark expanse; central seat of fire and cloud, with a river of fire flowing before it and thrones set in ranks\nSecondary elements: Empty thrones arranged in ranks, drifting cloud banks, rising mist, flames rolling along the wheels beneath the seat\nMood: Awe and solemn stillness, reverent and grounded rather than spectacular\nTime of day: Unchanging night vision, lit only by the radiance and fire of the central seat\nComposition: Wide view across the hall with the central seat large and luminous at the centre, thrones receding in ranks on either side, the dark expanse beyond\n\nART STYLE: Classical\nRendering: Stylized, painterly, mysterious and expansive. The painterly treatment belongs to the depicted world itself, not to a photographed physical artwork.\nNegatives: Avoid photorealism or a photographic look. Avoid childish/cartoonish styling. Never present the scene as a painting on a wall, gallery piece, framed artwork, fresco, mural, poster, manuscript page, or printed illustration. Do not show canvas texture, paper edges, matting, border, mockup, or surrounding room. The depicted world must fill the image edge-to-edge.\nPalette: Mature, grounded color; rich but restrained contrast.\nLighting: Luminous, dramatic lighting.\nMaterials and texture: Gritty, raw texture; avoid polished digital smoothness.\nComposition: Cinematic, immersive viewpoint; heroic but grounded.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "packet": {
+        "promptVersion": "2026-10-22-generic-v4",
+        "workId": "bible-web",
+        "momentId": "daniel-7-9",
+        "sectionId": "daniel-7-9",
+        "eraId": "monarchy-of-israel-and-judah",
+        "styleId": "classical",
+        "styleVersion": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "219208bab707a1b98f813e02b220d45e",
+        "planVersion": "13743e04664ff42535a3484cea0682e0",
+        "canon": [
+          {
+            "entryId": "the_ancient_of_days",
+            "stageId": "ancient-of-days-light",
+            "version": "2580946090305beb790717b8920e11ec"
+          }
+        ],
+        "references": [],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6210
+        }
+      },
+      "references": [],
+      "sentReferences": [],
+      "skipped": [],
+      "unavailable": [],
+      "textVerdictSource": "review-daniel-7-9-addendum.json"
+    },
+    {
+      "unitId": "daniel-7-9",
+      "styleId": "watercolor",
+      "textVerdict": "hold-for-no-form-wording",
+      "ok": true,
+      "momentId": "daniel-7-9",
+      "sectionId": "daniel-7-9",
+      "context": {
+        "moment": {
+          "id": "daniel-7-9",
+          "reference": "Daniel 7:9",
+          "text": "\u201cI watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire."
+        },
+        "previous": null,
+        "next": {
+          "text": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened."
+        }
+      },
+      "prepared": {
+        "sectionId": "daniel-7-9",
+        "era": "monarchy-of-israel-and-judah",
+        "look": {
+          "version": "219208bab707a1b98f813e02b220d45e",
+          "payload": {
+            "place": "Vision-space of a throne hall in heaven, open to a vast dark expanse; an unoccupied seat of fire and cloud with a river of fire flowing before it, surrounded by thrones set in ranks",
+            "timeOfDay": "Night vision, unchanging, no dawn or dusk across the section",
+            "weather": "Still air over a dark heavenly expanse, with drifting cloud banks and rising mist",
+            "light": "Radiance and fire placed around the central seat as the light source, with cloud diffusing the glow across the hall",
+            "clothing": "Formed attendants wear priestly linen or white court robes; Daniel in his ordinary tunic and cloak, no added props"
+          }
+        },
+        "plan": {
+          "version": "13743e04664ff42535a3484cea0682e0",
+          "payload": {
+            "action": "Thrones are being set in ranks around the seat; fire and radiance rise from the seat and its wheels of burning fire, while cloud drifts slowly across the hall",
+            "composition": "Wide view across the hall with the central seat large and luminous at the centre, thrones receding in ranks on either side, the dark expanse beyond",
+            "mood": "Awe and solemn stillness, reverent and grounded rather than spectacular",
+            "primarySubject": "Radiance and fire gathered into an unoccupied central seat, the presence seated there by its placement; the seat is empty of any figure",
+            "secondaryElements": "Empty thrones arranged in ranks, drifting cloud banks, rising mist, flames rolling along the wheels beneath the seat",
+            "setting": "Vision-space of a heavenly throne hall open to a vast dark expanse; central seat of fire and cloud, with a river of fire flowing before it and thrones set in ranks",
+            "timeOfDay": "Unchanging night vision, lit only by the radiance and fire of the central seat",
+            "present": [
+              "the_ancient_of_days"
+            ]
+          }
+        },
+        "present": [
+          {
+            "entryId": "the_ancient_of_days",
+            "stageId": "ancient-of-days-light",
+            "version": "2580946090305beb790717b8920e11ec"
+          }
+        ],
+        "calls": 0
+      },
+      "canon": [
+        {
+          "entryId": "the_ancient_of_days",
+          "stageId": "ancient-of-days-light",
+          "kind": "character",
+          "name": "The Ancient of Days",
+          "text": "The Ancient of Days: brilliant white radiance; bright orange fire; soft white cloud; brilliant white light.",
+          "hasForm": false,
+          "version": "2580946090305beb790717b8920e11ec"
+        }
+      ],
+      "styleEntry": {
+        "style": {
+          "id": "watercolor",
+          "label": "Ink & Watercolor",
+          "description": "Expressive ink lines and transparent washes; suited to atmospheric journeys and intimate observation.",
+          "rendering": "Loose pen-and-ink drawing with transparent watercolor washes; expressive and airy, like a travelling artist's field study of the work's world.",
+          "palette": "Transparent washes of ochre, sienna, indigo and sage; luminous lights.",
+          "lighting": "Bright, airy light; shadows as cool layered washes.",
+          "materials": "Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.",
+          "composition": "Sketch-like economy; detail concentrated on key subjects, softer surroundings.",
+          "negatives": "Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature."
+        },
+        "version": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Daniel 7:9: \"\u201cI watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return\nPeople: Israelites and neighboring Levantine, Mesopotamian and Persian peoples.\nDress: Tunics, cloaks, court robes, priestly linen and period armor.\nBuildings and objects: Villages, palaces, temples, city gates and exile settlements.\nTechnology: Iron and bronze tools, chariots, siege works and scrolls; no modern objects.\n\nSELECTED CHARACTERS: The Ancient of Days\n\nFORMLESS SUBJECTS (binding depiction constraints, including when the source uses bodily metaphors):\n- The Ancient of Days: represent only through the non-figurative presence allowed by its canon and the work brief. No head, face, torso, limbs, hands, human silhouette or garment-shaped body, even faceless or made of light. Do not represent this subject as a figure occupying a seat.\nThese constraints apply only to the named subjects; other characters retain their own canon forms.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- The Ancient of Days: brilliant white radiance; bright orange fire; soft white cloud; brilliant white light.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Vision-space of a throne hall in heaven, open to a vast dark expanse; an unoccupied seat of fire and cloud with a river of fire flowing before it, surrounded by thrones set in ranks\nTime of day: Night vision, unchanging, no dawn or dusk across the section\nWeather: Still air over a dark heavenly expanse, with drifting cloud banks and rising mist\nLight: Radiance and fire placed around the central seat as the light source, with cloud diffusing the glow across the hall\nClothing: Formed attendants wear priestly linen or white court robes; Daniel in his ordinary tunic and cloak, no added props\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Radiance and fire gathered into an unoccupied central seat, the presence seated there by its placement; the seat is empty of any figure\nAction: Thrones are being set in ranks around the seat; fire and radiance rise from the seat and its wheels of burning fire, while cloud drifts slowly across the hall\nSetting: Vision-space of a heavenly throne hall open to a vast dark expanse; central seat of fire and cloud, with a river of fire flowing before it and thrones set in ranks\nSecondary elements: Empty thrones arranged in ranks, drifting cloud banks, rising mist, flames rolling along the wheels beneath the seat\nMood: Awe and solemn stillness, reverent and grounded rather than spectacular\nTime of day: Unchanging night vision, lit only by the radiance and fire of the central seat\nComposition: Wide view across the hall with the central seat large and luminous at the centre, thrones receding in ranks on either side, the dark expanse beyond\n\nART STYLE: Ink & Watercolor\nRendering: Loose pen-and-ink drawing with transparent watercolor washes; expressive and airy, like a travelling artist's field study of the work's world.\nNegatives: Washes, pigment and scenery must reach every edge. No white or cream paper margins, unpainted corners, paper edges, sketchbook, tape, border or vignette. Do not present the scene on a sheet of paper or against a blank backdrop. Avoid photorealism, digital airbrush smoothness and cartoon caricature.\nPalette: Transparent washes of ochre, sienna, indigo and sage; luminous lights.\nLighting: Bright, airy light; shadows as cool layered washes.\nMaterials and texture: Confident ink linework, wet-in-wet blooms and granulating pigment within the depicted world.\nComposition: Sketch-like economy; detail concentrated on key subjects, softer surroundings.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "packet": {
+        "promptVersion": "2026-10-22-generic-v4",
+        "workId": "bible-web",
+        "momentId": "daniel-7-9",
+        "sectionId": "daniel-7-9",
+        "eraId": "monarchy-of-israel-and-judah",
+        "styleId": "watercolor",
+        "styleVersion": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "219208bab707a1b98f813e02b220d45e",
+        "planVersion": "13743e04664ff42535a3484cea0682e0",
+        "canon": [
+          {
+            "entryId": "the_ancient_of_days",
+            "stageId": "ancient-of-days-light",
+            "version": "2580946090305beb790717b8920e11ec"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "watercolor",
+            "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+            "version": "fa549f4888d199a3c3fd94209103e214",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6588
+        }
+      },
+      "references": [
+        {
+          "kind": "styleReference",
+          "styleId": "watercolor",
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "version": "fa549f4888d199a3c3fd94209103e214",
+          "index": 0,
+          "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+        }
+      ],
+      "sentReferences": [
+        {
+          "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+          "bytes": 372434,
+          "sha256": "bd694c1e7b5d330cee6161a8bc3013f54b79f984c335d4e44e295aa8e002ebf5"
+        }
+      ],
+      "skipped": [],
+      "unavailable": [],
+      "textVerdictSource": "review-daniel-7-9-addendum.json"
+    },
+    {
+      "unitId": "daniel-7-9",
+      "styleId": "icon",
+      "textVerdict": "hold-for-no-form-wording",
+      "ok": true,
+      "momentId": "daniel-7-9",
+      "sectionId": "daniel-7-9",
+      "context": {
+        "moment": {
+          "id": "daniel-7-9",
+          "reference": "Daniel 7:9",
+          "text": "\u201cI watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire."
+        },
+        "previous": null,
+        "next": {
+          "text": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened."
+        }
+      },
+      "prepared": {
+        "sectionId": "daniel-7-9",
+        "era": "monarchy-of-israel-and-judah",
+        "look": {
+          "version": "219208bab707a1b98f813e02b220d45e",
+          "payload": {
+            "place": "Vision-space of a throne hall in heaven, open to a vast dark expanse; an unoccupied seat of fire and cloud with a river of fire flowing before it, surrounded by thrones set in ranks",
+            "timeOfDay": "Night vision, unchanging, no dawn or dusk across the section",
+            "weather": "Still air over a dark heavenly expanse, with drifting cloud banks and rising mist",
+            "light": "Radiance and fire placed around the central seat as the light source, with cloud diffusing the glow across the hall",
+            "clothing": "Formed attendants wear priestly linen or white court robes; Daniel in his ordinary tunic and cloak, no added props"
+          }
+        },
+        "plan": {
+          "version": "13743e04664ff42535a3484cea0682e0",
+          "payload": {
+            "action": "Thrones are being set in ranks around the seat; fire and radiance rise from the seat and its wheels of burning fire, while cloud drifts slowly across the hall",
+            "composition": "Wide view across the hall with the central seat large and luminous at the centre, thrones receding in ranks on either side, the dark expanse beyond",
+            "mood": "Awe and solemn stillness, reverent and grounded rather than spectacular",
+            "primarySubject": "Radiance and fire gathered into an unoccupied central seat, the presence seated there by its placement; the seat is empty of any figure",
+            "secondaryElements": "Empty thrones arranged in ranks, drifting cloud banks, rising mist, flames rolling along the wheels beneath the seat",
+            "setting": "Vision-space of a heavenly throne hall open to a vast dark expanse; central seat of fire and cloud, with a river of fire flowing before it and thrones set in ranks",
+            "timeOfDay": "Unchanging night vision, lit only by the radiance and fire of the central seat",
+            "present": [
+              "the_ancient_of_days"
+            ]
+          }
+        },
+        "present": [
+          {
+            "entryId": "the_ancient_of_days",
+            "stageId": "ancient-of-days-light",
+            "version": "2580946090305beb790717b8920e11ec"
+          }
+        ],
+        "calls": 0
+      },
+      "canon": [
+        {
+          "entryId": "the_ancient_of_days",
+          "stageId": "ancient-of-days-light",
+          "kind": "character",
+          "name": "The Ancient of Days",
+          "text": "The Ancient of Days: brilliant white radiance; bright orange fire; soft white cloud; brilliant white light.",
+          "hasForm": false,
+          "version": "2580946090305beb790717b8920e11ec"
+        }
+      ],
+      "styleEntry": {
+        "style": {
+          "id": "icon",
+          "label": "Byzantine Icon",
+          "description": "Flat gold-ground painting with inverse perspective and stylized figures; suited to sacred and symbolic narratives.",
+          "rendering": "Byzantine icon painting: flat, frontal, stylized figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.",
+          "palette": "Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.",
+          "lighting": "No cast shadows; inner light shown through layered highlights and gold glow.",
+          "materials": "Egg tempera and gold-leaf texture within the scene.",
+          "composition": "Hieratic, balanced staging; the key subject largest and central; stylized rocks, buildings and trees.",
+          "negatives": "Never show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Avoid photorealism and modern illustration. The gold sky and stylized landscape fill the image edge-to-edge."
+        },
+        "version": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760"
+      },
+      "prompt": "PRIORITY RULES:\n1) No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).\n2) One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.\n3) The image is the scene itself, never a photographed painting, print, mural or gallery piece.\n4) Nothing from outside the moment's era: no later technology, clothing, materials or buildings.\n5) No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).\n6) sexually explicit content and lingering gore are never shown; serious depictions of battles, blood, death and crucifixion and non-sexual nudity may be, treated seriously.\n7) No likeness of any real actor, performer or public figure.\n8) Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.\nIf instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.\n\nSCENE: one moment of The Holy Bible, Daniel 7:9: \"\u201cI watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.\"\n\nWORK BRIEF (bible-web; what may be shown; it outranks the style, the look and the plan):\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction: God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\nDepiction: Treat battles, death and crucifixion seriously; avoid lingering gore.\nDepiction: No sexually explicit content; non-sexual nudity may follow the text.\nDepiction: Show all peoples with dignity, without ethnic or religious caricature.\nDepiction: Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return\nPeople: Israelites and neighboring Levantine, Mesopotamian and Persian peoples.\nDress: Tunics, cloaks, court robes, priestly linen and period armor.\nBuildings and objects: Villages, palaces, temples, city gates and exile settlements.\nTechnology: Iron and bronze tools, chariots, siege works and scrolls; no modern objects.\n\nSELECTED CHARACTERS: The Ancient of Days\n\nFORMLESS SUBJECTS (binding depiction constraints, including when the source uses bodily metaphors):\n- The Ancient of Days: represent only through the non-figurative presence allowed by its canon and the work brief. No head, face, torso, limbs, hands, human silhouette or garment-shaped body, even faceless or made of light. Do not represent this subject as a figure occupying a seat.\nThese constraints apply only to the named subjects; other characters retain their own canon forms.\n\nCANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):\n- The Ancient of Days: brilliant white radiance; bright orange fire; soft white cloud; brilliant white light.\n\nSECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: Vision-space of a throne hall in heaven, open to a vast dark expanse; an unoccupied seat of fire and cloud with a river of fire flowing before it, surrounded by thrones set in ranks\nTime of day: Night vision, unchanging, no dawn or dusk across the section\nWeather: Still air over a dark heavenly expanse, with drifting cloud banks and rising mist\nLight: Radiance and fire placed around the central seat as the light source, with cloud diffusing the glow across the hall\nClothing: Formed attendants wear priestly linen or white court robes; Daniel in his ordinary tunic and cloak, no added props\n\nSCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):\nPrimary subject: Radiance and fire gathered into an unoccupied central seat, the presence seated there by its placement; the seat is empty of any figure\nAction: Thrones are being set in ranks around the seat; fire and radiance rise from the seat and its wheels of burning fire, while cloud drifts slowly across the hall\nSetting: Vision-space of a heavenly throne hall open to a vast dark expanse; central seat of fire and cloud, with a river of fire flowing before it and thrones set in ranks\nSecondary elements: Empty thrones arranged in ranks, drifting cloud banks, rising mist, flames rolling along the wheels beneath the seat\nMood: Awe and solemn stillness, reverent and grounded rather than spectacular\nTime of day: Unchanging night vision, lit only by the radiance and fire of the central seat\nComposition: Wide view across the hall with the central seat large and luminous at the centre, thrones receding in ranks on either side, the dark expanse beyond\n\nART STYLE: Byzantine Icon\nRendering: Byzantine icon painting: flat, frontal, stylized figures with elongated proportions, solemn timeless expressions, inverse perspective and symbolic rather than naturalistic space.\nNegatives: Never show a wooden panel, panel edges, frame, border, wall or the icon as a physical object. Avoid photorealism and modern illustration. The gold sky and stylized landscape fill the image edge-to-edge.\nPalette: Burnished gold-leaf sky, deep reds, ultramarine, ochres and earth greens.\nLighting: No cast shadows; inner light shown through layered highlights and gold glow.\nMaterials and texture: Egg tempera and gold-leaf texture within the scene.\nComposition: Hieratic, balanced staging; the key subject largest and central; stylized rocks, buildings and trees.\n\nREFERENCE IMAGES (attached after this text, in this order; identity and rendering only, never the composition):\n- Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout.\nRender everything in the ART STYLE above, even where a reference is painted in another style.\n\nNARRATIVE CONTINUITY (cues only; compose the current moment):\n- After: A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.\n\nSCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: 16:9 (WIDESCREEN landscape).",
+      "packet": {
+        "promptVersion": "2026-10-22-generic-v4",
+        "workId": "bible-web",
+        "momentId": "daniel-7-9",
+        "sectionId": "daniel-7-9",
+        "eraId": "monarchy-of-israel-and-judah",
+        "styleId": "icon",
+        "styleVersion": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+        "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+        "lookVersion": "219208bab707a1b98f813e02b220d45e",
+        "planVersion": "13743e04664ff42535a3484cea0682e0",
+        "canon": [
+          {
+            "entryId": "the_ancient_of_days",
+            "stageId": "ancient-of-days-light",
+            "version": "2580946090305beb790717b8920e11ec"
+          }
+        ],
+        "references": [
+          {
+            "kind": "styleReference",
+            "id": "icon",
+            "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+            "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+            "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+          }
+        ],
+        "flags": {
+          "variationIncluded": false,
+          "neighborsIncluded": true,
+          "styleDetailIncluded": true,
+          "lookDetailIncluded": true
+        },
+        "budget": {
+          "maxChars": 8000,
+          "finalChars": 6535
+        }
+      },
+      "references": [
+        {
+          "kind": "styleReference",
+          "styleId": "icon",
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "version": "1cc16e5294b9e8b1744d73aa01f936e6",
+          "index": 0,
+          "caption": "Image 1: art-style reference. Copy only its rendering technique, palette and texture; ignore its subject, landscape and layout."
+        }
+      ],
+      "sentReferences": [
+        {
+          "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+          "bytes": 340385,
+          "sha256": "fcb4bd5a1ff161d3ebe90a40712c3e13407846d5526508e0bbb449445dd17948"
+        }
+      ],
+      "skipped": [],
+      "unavailable": [],
+      "textVerdictSource": "review-daniel-7-9-addendum.json"
+    }
+  ],
+  "referenceReads": [
+    {
+      "kind": "sheet",
+      "recordId": "the_samaritan:the_samaritan-main",
+      "record": null
+    },
+    {
+      "kind": "sheet",
+      "recordId": "jerusalem_to_jericho_road:jerusalem_to_jericho_road_main",
+      "record": null
+    },
+    {
+      "kind": "sheet",
+      "recordId": "wounded_traveler_in_samaritan_parable:wounded_traveler_main",
+      "record": null
+    },
+    {
+      "kind": "styleReference",
+      "recordId": "watercolor",
+      "record": {
+        "createdAt": 1792538338583,
+        "fingerprint": "fa549f4888d199a3c3fd94209103e214",
+        "id": "mx707m2ep4xnbywxw0z0441c9h8gnwms",
+        "inputs": [
+          {
+            "kind": "style",
+            "recordId": "watercolor",
+            "version": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65"
+          },
+          {
+            "kind": "era",
+            "recordId": "monarchy-of-israel-and-judah",
+            "version": "be88bfa2cb7f7a9d0eeb899a63a308be"
+          }
+        ],
+        "kind": "styleReference",
+        "notes": [],
+        "pinned": false,
+        "recordId": "watercolor",
+        "stale": false,
+        "status": "current",
+        "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+        "verdict": "pass",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "sheet",
+      "recordId": "the_samaritan:the_samaritan-main",
+      "record": null
+    },
+    {
+      "kind": "sheet",
+      "recordId": "jerusalem_to_jericho_road:jerusalem_to_jericho_road_main",
+      "record": null
+    },
+    {
+      "kind": "sheet",
+      "recordId": "wounded_traveler_in_samaritan_parable:wounded_traveler_main",
+      "record": null
+    },
+    {
+      "kind": "styleReference",
+      "recordId": "icon",
+      "record": {
+        "createdAt": 1792538308239,
+        "fingerprint": "1cc16e5294b9e8b1744d73aa01f936e6",
+        "id": "mx7a2jrtajfmc5v35e8p6t84gh8gm6ey",
+        "inputs": [
+          {
+            "kind": "style",
+            "recordId": "icon",
+            "version": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760"
+          },
+          {
+            "kind": "era",
+            "recordId": "monarchy-of-israel-and-judah",
+            "version": "be88bfa2cb7f7a9d0eeb899a63a308be"
+          }
+        ],
+        "kind": "styleReference",
+        "notes": [],
+        "pinned": false,
+        "recordId": "icon",
+        "stale": false,
+        "status": "current",
+        "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+        "verdict": "pass",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "sheet",
+      "recordId": "the_samaritan:the_samaritan-main",
+      "record": null
+    },
+    {
+      "kind": "sheet",
+      "recordId": "jerusalem_to_jericho_road:jerusalem_to_jericho_road_main",
+      "record": null
+    },
+    {
+      "kind": "sheet",
+      "recordId": "wounded_traveler_in_samaritan_parable:wounded_traveler_main",
+      "record": null
+    },
+    {
+      "kind": "styleReference",
+      "recordId": "watercolor",
+      "record": {
+        "createdAt": 1792538338583,
+        "fingerprint": "fa549f4888d199a3c3fd94209103e214",
+        "id": "mx707m2ep4xnbywxw0z0441c9h8gnwms",
+        "inputs": [
+          {
+            "kind": "style",
+            "recordId": "watercolor",
+            "version": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65"
+          },
+          {
+            "kind": "era",
+            "recordId": "monarchy-of-israel-and-judah",
+            "version": "be88bfa2cb7f7a9d0eeb899a63a308be"
+          }
+        ],
+        "kind": "styleReference",
+        "notes": [],
+        "pinned": false,
+        "recordId": "watercolor",
+        "stale": false,
+        "status": "current",
+        "storageId": "kg28wgdj214z31d65smtrt44ps8gnnm3",
+        "verdict": "pass",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "styleReference",
+      "recordId": "icon",
+      "record": {
+        "createdAt": 1792538308239,
+        "fingerprint": "1cc16e5294b9e8b1744d73aa01f936e6",
+        "id": "mx7a2jrtajfmc5v35e8p6t84gh8gm6ey",
+        "inputs": [
+          {
+            "kind": "style",
+            "recordId": "icon",
+            "version": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760"
+          },
+          {
+            "kind": "era",
+            "recordId": "monarchy-of-israel-and-judah",
+            "version": "be88bfa2cb7f7a9d0eeb899a63a308be"
+          }
+        ],
+        "kind": "styleReference",
+        "notes": [],
+        "pinned": false,
+        "recordId": "icon",
+        "stale": false,
+        "status": "current",
+        "storageId": "kg25vgb1rqs6mh3w0vce41caxh8gn5n9",
+        "verdict": "pass",
+        "workId": "bible-web"
+      }
+    }
+  ],
+  "paidCalls": 0,
+  "productionMutations": 0,
+  "imagesGenerated": 0,
+  "releaseAccepted": false
+}

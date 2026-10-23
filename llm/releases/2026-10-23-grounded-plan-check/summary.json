@@ -1,0 +1,101 @@
+{
+  "attempted": [
+    "luke-10-33",
+    "daniel-7-9",
+    "daniel-7-10"
+  ],
+  "notAttempted": {
+    "luke-10-34": "Conditional on accepting the exact first Luke 10:33 artifact, which was held."
+  },
+  "outcomes": {
+    "luke-10-33": {
+      "stored": true,
+      "verdict": "hold-for-single-instant"
+    },
+    "daniel-7-9": {
+      "stored": true,
+      "verdict": "accept-for-next-text-check",
+      "revisedVerdict": "hold-for-no-form-wording",
+      "addendum": "review-daniel-7-9-addendum.json"
+    },
+    "daniel-7-10": {
+      "stored": false,
+      "verdict": "refused-by-grounding-check",
+      "reason": "Error: Preparing scene: plan unavailable: cast the_ancient_of_days has invalid previous evidence",
+      "refusedFieldsNote": "The refused reply also described \"Radiance and fire seated above an unoccupied throne\"; no review of it is retained because it was never stored."
+    }
+  },
+  "operation": {
+    "capUsd": 0.05,
+    "calls": 3,
+    "measuredUsd": 0.0021782,
+    "uncertainUsd": 0,
+    "blocked": null,
+    "prepareMomentElapsedMs": {
+      "luke-10-33": 8039,
+      "daniel-7-9": 7548,
+      "daniel-7-10": 5021
+    },
+    "latencyNote": "Local script to production Convex and OpenRouter; descriptive only, not the full-request app p90.",
+    "callDetails": [
+      {
+        "phase": "prepare:luke-10-33",
+        "promptTokens": 3867,
+        "completionTokens": 621,
+        "measuredUsd": 0.0006972,
+        "providerRoundTripMs": 6480
+      },
+      {
+        "phase": "prepare:daniel-7-9",
+        "promptTokens": 4766,
+        "completionTokens": 474,
+        "measuredUsd": 0.0007136,
+        "providerRoundTripMs": 6204
+      },
+      {
+        "phase": "prepare:daniel-7-10",
+        "promptTokens": 4819,
+        "completionTokens": 571,
+        "measuredUsd": 0.0007674,
+        "providerRoundTripMs": 3978
+      }
+    ]
+  },
+  "preparation": {
+    "authorizedUsd": 43,
+    "measuredUsd": 3.6551635,
+    "retainedUncertaintyUsd": 0.03,
+    "remainingAfterReserveUsd": 39.3148365
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredUsd": 16.2980069,
+    "retainedUncertaintyUsd": 0.045,
+    "remainingAfterReserveUsd": 0.1569931
+  },
+  "smoke": {
+    "authorizedUsd": 1,
+    "measuredUsd": 0.685795,
+    "remainingUsd": 0.314205
+  },
+  "productionPreparationLedger": {
+    "callsBefore": 109,
+    "callsAfter": 112,
+    "costDeltaUsd": 0.0021782
+  },
+  "accountBalance": {
+    "beforeUsd": 10.265012092000006,
+    "afterUsd": 10.262833892000003,
+    "deltaUsd": 0.0021782000000030166,
+    "matchesReturnedUsage": true
+  },
+  "changedRecords": [
+    "plan:luke-10-33",
+    "plan:daniel-7-9"
+  ],
+  "deployment": "deployment.json",
+  "imageCalls": 0,
+  "semanticRetries": 0,
+  "publicActivation": false,
+  "humanAccepted": false
+}

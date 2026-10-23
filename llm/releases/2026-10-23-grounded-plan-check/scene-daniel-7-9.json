@@ -1,0 +1,152 @@
+{
+  "at": "2026-10-23T13:59:40.619Z",
+  "elapsedMs": 7548,
+  "snapshot": "pre-daniel-7-9",
+  "context": {
+    "moment": {
+      "id": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "text": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire."
+    },
+    "previous": null,
+    "next": {
+      "text": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened."
+    }
+  },
+  "result": {
+    "sectionId": "daniel-7-9",
+    "era": "monarchy-of-israel-and-judah",
+    "look": {
+      "version": "219208bab707a1b98f813e02b220d45e",
+      "payload": {
+        "place": "Vision-space of a throne hall in heaven, open to a vast dark expanse; an unoccupied seat of fire and cloud with a river of fire flowing before it, surrounded by thrones set in ranks",
+        "timeOfDay": "Night vision, unchanging, no dawn or dusk across the section",
+        "weather": "Still air over a dark heavenly expanse, with drifting cloud banks and rising mist",
+        "light": "Radiance and fire placed around the central seat as the light source, with cloud diffusing the glow across the hall",
+        "clothing": "Formed attendants wear priestly linen or white court robes; Daniel in his ordinary tunic and cloak, no added props"
+      }
+    },
+    "plan": {
+      "version": "13743e04664ff42535a3484cea0682e0",
+      "payload": {
+        "primarySubject": "Radiance and fire gathered into an unoccupied central seat, the presence seated there by its placement; the seat is empty of any figure",
+        "action": "Thrones are being set in ranks around the seat; fire and radiance rise from the seat and its wheels of burning fire, while cloud drifts slowly across the hall",
+        "setting": "Vision-space of a heavenly throne hall open to a vast dark expanse; central seat of fire and cloud, with a river of fire flowing before it and thrones set in ranks",
+        "secondaryElements": "Empty thrones arranged in ranks, drifting cloud banks, rising mist, flames rolling along the wheels beneath the seat",
+        "mood": "Awe and solemn stillness, reverent and grounded rather than spectacular",
+        "timeOfDay": "Unchanging night vision, lit only by the radiance and fire of the central seat",
+        "composition": "Wide view across the hall with the central seat large and luminous at the centre, thrones receding in ranks on either side, the dark expanse beyond",
+        "present": [
+          "the_ancient_of_days"
+        ]
+      }
+    },
+    "present": [
+      {
+        "entryId": "the_ancient_of_days",
+        "stageId": "ancient-of-days-light",
+        "version": "2580946090305beb790717b8920e11ec"
+      }
+    ],
+    "calls": 1
+  },
+  "stored": {
+    "createdAt": 1792763980434,
+    "generation": 1,
+    "inputs": [
+      {
+        "kind": "moment",
+        "recordId": "daniel-7-9",
+        "version": "42811b767e7aea912528509ebeae351a"
+      },
+      {
+        "kind": "section",
+        "recordId": "daniel-7-9",
+        "version": "8573512b6683f0d87a6a3553c7a6b9ef"
+      },
+      {
+        "kind": "look",
+        "recordId": "daniel-7-9",
+        "version": "219208bab707a1b98f813e02b220d45e"
+      },
+      {
+        "kind": "brief",
+        "recordId": "bible-web",
+        "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+      },
+      {
+        "kind": "entry",
+        "recordId": "daniel_prophet_of_babylon",
+        "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+      },
+      {
+        "kind": "entry",
+        "recordId": "the_ancient_of_days",
+        "version": "2580946090305beb790717b8920e11ec"
+      },
+      {
+        "kind": "entry",
+        "recordId": "one_like_a_son_of_man",
+        "version": "f0a2429d0ca6ac9657801f25e0921699"
+      },
+      {
+        "kind": "entry",
+        "recordId": "babylon",
+        "version": "de8721810ea07cf6cc361bc90ea0502d"
+      },
+      {
+        "kind": "entry",
+        "recordId": "ministering_assembly_in_daniels_vision",
+        "version": "4abdbb32cfcaa06d3bc748ea6b88a23e"
+      },
+      {
+        "kind": "prompt",
+        "recordId": "scene_plan_moment_cast",
+        "version": "2026-10-22-moment-cast-v3"
+      },
+      {
+        "kind": "prompt",
+        "recordId": "scene_plan_formless_presence",
+        "version": "2026-10-22-formless-effects-v5"
+      }
+    ],
+    "kind": "plan",
+    "payload": {
+      "entries": [
+        {
+          "entryId": "the_ancient_of_days",
+          "stageId": "ancient-of-days-light"
+        }
+      ],
+      "grounding": {
+        "cast": [
+          {
+            "contextQuote": "",
+            "contextSource": "none",
+            "entryId": "the_ancient_of_days",
+            "momentQuote": "one who was Ancient of Days sat",
+            "participation": "in_scene"
+          }
+        ],
+        "focusQuote": "thrones were placed, and one who was Ancient of Days sat",
+        "singleInstant": true
+      },
+      "kind": "plan",
+      "momentId": "daniel-7-9",
+      "plan": {
+        "action": "Thrones are being set in ranks around the seat; fire and radiance rise from the seat and its wheels of burning fire, while cloud drifts slowly across the hall",
+        "composition": "Wide view across the hall with the central seat large and luminous at the centre, thrones receding in ranks on either side, the dark expanse beyond",
+        "mood": "Awe and solemn stillness, reverent and grounded rather than spectacular",
+        "primarySubject": "Radiance and fire gathered into an unoccupied central seat, the presence seated there by its placement; the seat is empty of any figure",
+        "secondaryElements": "Empty thrones arranged in ranks, drifting cloud banks, rising mist, flames rolling along the wheels beneath the seat",
+        "setting": "Vision-space of a heavenly throne hall open to a vast dark expanse; central seat of fire and cloud, with a river of fire flowing before it and thrones set in ranks",
+        "timeOfDay": "Unchanging night vision, lit only by the radiance and fire of the central seat"
+      }
+    },
+    "recordId": "daniel-7-9",
+    "source": "generated",
+    "status": "current",
+    "version": "13743e04664ff42535a3484cea0682e0",
+    "workId": "bible-web"
+  }
+}

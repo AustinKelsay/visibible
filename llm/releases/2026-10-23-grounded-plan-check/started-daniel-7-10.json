@@ -1,0 +1,6 @@
+{
+  "at": "2026-10-23T14:00:26.095Z",
+  "unit": "daniel-7-10",
+  "snapshot": "pre-daniel-7-10",
+  "retryPolicy": "Retain first ordinary outcome; do not rerun after an ambiguous result."
+}
