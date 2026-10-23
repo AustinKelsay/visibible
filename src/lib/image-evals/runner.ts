@@ -11,6 +11,9 @@ import { armsFor, caseUnitId, caseWork, type EvalArm, type EvalCase } from "./ca
 import { assembleForEval, genericStyleOf, isGenericArm, type GenericEvalProvider } from "./generic";
 import type { RenderingPacket } from "../engine/prompt";
 
+/** A cold generic moment makes a look, a plan and its review; a re-plan adds two calls, settled from actual usage. */
+export const COLD_PREPARATION_CALLS = 3;
+
 export type EvalPassage = {
   reference: string;
   verseText: string;
@@ -151,7 +154,7 @@ export function buildManifest(options: Pick<RunImageEvalOptions, "cases" | "arms
         // Only a completed sample is done; a rerun retries failed ones (transient provider, passage or store errors).
         const done = options.state.samples[key]?.status === "completed";
         // A generic sample may have to prepare its look and plan (two owner-funded calls) before the image.
-        const estimatedUsd = options.estimateUsd.image + (arm === "planner" ? options.estimateUsd.planner : 0) + (arm.startsWith("generic:") ? 2 * (options.estimateUsd.preparation ?? 0) : 0);
+        const estimatedUsd = options.estimateUsd.image + (arm === "planner" ? options.estimateUsd.planner : 0) + (arm.startsWith("generic:") ? COLD_PREPARATION_CALLS * (options.estimateUsd.preparation ?? 0) : 0);
         entries.push({ key, caseId: c.id, reference: c.reference, arm, n, estimatedUsd: done ? 0 : estimatedUsd, status: done ? "done" : "planned" });
       }
     }
@@ -189,7 +192,7 @@ export async function runImageEval(options: RunImageEvalOptions): Promise<{ stat
     const style = STYLE_PROFILES[c.style ?? "classical"] ?? STYLE_PROFILES.classical;
     const { model, aspectRatio, resolution, translation } = c.resolvedSettings;
     const generic = isGenericArm(entry.arm);
-    const estimate = estimateUsd.image + (entry.arm === "planner" && providers.planner ? estimateUsd.planner : 0) + (generic ? 2 * (estimateUsd.preparation ?? 0) : 0);
+    const estimate = estimateUsd.image + (entry.arm === "planner" && providers.planner ? estimateUsd.planner : 0) + (generic ? COLD_PREPARATION_CALLS * (estimateUsd.preparation ?? 0) : 0);
     if (state.spentUsd + estimate > options.budgetUsd) {
       state.stopped = { reason: "budget_exhausted", at: now(), detail: `spent $${state.spentUsd.toFixed(4)}, next call about $${estimate.toFixed(4)}, budget $${options.budgetUsd.toFixed(2)}` };
       log(`Stopping: ${state.stopped.detail}`);

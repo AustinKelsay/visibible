@@ -1,4 +1,5 @@
 /** Retained shared-look/presence conflict through real storage and assembly; no model obedience claimed. */
+import { withCleanReview } from "../../../tests/fixtures/plan-review";
 import { readFileSync } from "node:fs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { convexTest } from "convex-test";
@@ -47,7 +48,7 @@ describe("moment cast over shared section context", () => {
     const client = { query: (ref: unknown, args: unknown) => t.query(ref as never, args as never), mutation: (ref: unknown, args: unknown) => t.mutation(ref as never, args as never) };
     const store = createConvexPreparationStore(client, api.analysis as unknown as Record<string, unknown>, WORK, SECRET);
     const requests: TextModelRequest[] = [];
-    const model: TextModel = { id: "retained-reply", complete: async (request) => {
+    const model: TextModel = withCleanReview({ id: "retained-reply", complete: async (request) => {
       requests.push(request);
       if (request.schemaName !== "scene_plan") throw new Error("Current shared look must be reused");
       const old = retained.find((record) => record.kind === "plan" && request.label.startsWith(`plan:${record.recordId}:`));
@@ -58,7 +59,7 @@ describe("moment cast over shared section context", () => {
       return { content: JSON.stringify(reply),
         model: "retained-reply", providerRequestId: null, finishReason: "stop", elapsedMs: 0,
         usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 } };
-    } };
+    } });
     const getReference = vi.fn<AssembleDeps["getReference"]>(async (kind, id) => ({
       storageId: `${kind}:${id}`, inputs: [], fingerprint: `ref:${id}`, pinned: true,
     }));
@@ -75,7 +76,7 @@ describe("moment cast over shared section context", () => {
     for (const styleId of ["classical", "watercolor", "icon"]) {
       const result = await render("daniel-7-10", styleId);
       if (!result.ok) throw new Error(result.message);
-      expect(result.prepared.calls).toBe(styleId === "classical" ? 1 : 0);
+      expect(result.prepared.calls).toBe(styleId === "classical" ? 2 : 0); // plan and its review, once
       expect(result.packet.lookVersion).toBe(oldLook.version);
       expect(result.packet.planVersion).not.toBe(oldPlan.version); // Same scene prose, new grounding audit.
       expect(result.prepared.look.payload.clothing).toContain("Daniel in his ordinary tunic and cloak");

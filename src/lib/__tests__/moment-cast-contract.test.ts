@@ -1,4 +1,5 @@
 /** Structural safeguards over retained failed Luke inputs; scripted replies prove no live model compliance. */
+import { withCleanReview } from "../../../tests/fixtures/plan-review";
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
@@ -48,12 +49,12 @@ async function setup(reply: unknown, correctSource = false) {
     putDerivedRecord: write, recordSpend: spend, claim: async () => ({ held: true }), release: async () => {},
   };
   const calls: TextModelRequest[] = [];
-  const model: TextModel = { id: "scripted", complete: async (request) => {
+  const model: TextModel = withCleanReview({ id: "scripted", complete: async (request) => {
     calls.push(request);
     const value = request.schemaName === "section_look" ? retained.prepared.look.payload : reply;
     return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop",
       usage: { promptTokens: 100, completionTokens: 50, costUsd: 0.0004 }, elapsedMs: 1 };
-  } };
+  } });
   const getReference = vi.fn<AssembleDeps["getReference"]>(async () => null);
   const deps: AssembleDeps = { inputs, store, model, getReference, listMoments: async () => [], loadReference: async () => { throw new Error("No reference should load"); } };
   const render = (styleId = "classical") => assembleRendering(deps, { workId: "bible-web", unitId: "luke-10-33", styleId, variationNumber: 1, aspectRatio: "16:9" });
@@ -155,11 +156,11 @@ describe("required moment cast", () => {
       { kind: "section", recordId: "sky-1", payload: { kind: "section", firstUnit: "sky-1", lastUnit: "sky-1", title: "Clouds", cast: [] } },
       { kind: "moment", recordId: "sky-1", payload: { kind: "moment", firstUnit: "sky-1", lastUnit: "sky-1", sectionId: "sky-1" } },
     ]);
-    const model: TextModel = { id: "scripted", complete: async (request) => {
+    const model: TextModel = withCleanReview({ id: "scripted", complete: async (request) => {
       const value = request.schemaName === "section_look" ? { place: "field", timeOfDay: "day", weather: "cloudy", light: "diffuse", clothing: "" } : withGrounding({ missingCast: [], present: [], ...fields, primarySubject: "Clouds", action: "drift" }, "Clouds drift above a still field.");
       if (request.schemaName === "scene_plan") expect(request.schema.safeParse({ ...value, present: ["invented"] }).success).toBe(false);
       return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 }, elapsedMs: 0 };
-    } };
+    } });
     const result = await assembleRendering({ inputs, store: memory.store, model, listMoments: memory.listMoments, getReference: async () => null, loadReference: async () => new Uint8Array() },
       { workId: "sky", unitId: "sky-1", styleId: "classical", variationNumber: 1, aspectRatio: "16:9" });
     expect(result.ok).toBe(true);

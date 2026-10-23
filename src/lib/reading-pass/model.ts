@@ -53,7 +53,9 @@ export function estimateRequestCostUsd(request: Pick<TextModelRequest, "system" 
 
 type FetchLike = (input: string, init: RequestInit) => Promise<Response>;
 
-export function createOpenRouterTextModel(options: { apiKey: string; model?: string; fetch?: FetchLike; timeoutMs?: number }): TextModel {
+/** Reasoning stays off unless a caller opts in; Anthropic then needs max_tokens above a 1,024-token thinking budget. */
+export type ReasoningEffort = "none" | "low" | "medium" | "high";
+export function createOpenRouterTextModel(options: { apiKey: string; model?: string; fetch?: FetchLike; timeoutMs?: number; reasoningEffort?: ReasoningEffort }): TextModel {
   const model = options.model ?? READING_PASS_MODEL;
   const fetchImpl = options.fetch ?? ((input, init) => fetch(input, init));
   return {
@@ -76,7 +78,7 @@ export function createOpenRouterTextModel(options: { apiKey: string; model?: str
             messages: [{ role: "system", content: request.system }, { role: "user", content: request.user }],
             response_format: { type: "json_schema", json_schema: { name: request.schemaName, strict: true, schema: responseSchema(request.schema) } },
             provider: { require_parameters: true, order: ["anthropic"], allow_fallbacks: false },
-            reasoning: { effort: "none" },
+            reasoning: { effort: options.reasoningEffort ?? "none" },
             max_tokens: request.maxTokens,
             usage: { include: true },
           }),

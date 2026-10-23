@@ -1,0 +1,70 @@
+{
+  "issue": 183,
+  "purpose": "Measure whether the plan-review checker (option b) flags the defective replies and passes the clean ones, before wiring it into preparation. No production writes, no images.",
+  "authorization": "Owner approved option (b) on 2026-10-23: a semantic check of each plan before storage with a bounded re-plan, plus relaxing the exact evidence-list rule. This measurement is charged to the existing evaluation allowance.",
+  "checker": {
+    "module": "src/lib/engine/plan-review.ts",
+    "promptVersion": "2026-10-23-plan-review-v2",
+    "model": "anthropic/claude-haiku-5.5",
+    "reasoning": "none"
+  },
+  "benchmark": {
+    "replies": "The 40 replies in ../2026-10-23-grounding-rate-check/blind-replies.json, reviewed in that blind order.",
+    "truth": "The agreed blind blocker flags (U, X, I, F) from ../2026-10-23-grounding-rate-check/scores-operator.json, identical to the subagent's on all 40. 15 replies have a blocker; 25 are clean.",
+    "inputs": "Each review receives the same rendering-bound text the scorers saw (scene fields and present ids), the moment and same-section neighbor excerpts, the section cast with hasForm, and the brief's depiction rules. No grounding audit, contract or outcome."
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredBeforeUsd": 16.3291794,
+    "uncertaintyBeforeUsd": 0.045,
+    "capUsd": 0.04,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 80
+  },
+  "retryPolicy": "One review per reply, with reviewPlan's own single retry for a malformed or invalid report. No other rerun. A provider error, missing usage, uncertain outcome or exhausted reserve stops the run.",
+  "targets": {
+    "recall": "At least 13 of the 15 defective replies are reported with at least one problem.",
+    "falseAlarms": "At most 3 of the 25 clean replies are reported with any problem.",
+    "unavailable": "At most 2 of 40 reviews end unavailable (two invalid reports).",
+    "decision": "Meeting all three: wire this checker into preparation as specified. Missing any: do not wire it; report per-kind results for the owner."
+  },
+  "perKind": "Reported for information: agreement of checker kinds with the scorer flags (unselected_figure=U, outside_instant=X, not_one_instant=I, embodied_formless=F). Kind mismatches do not affect the targets, which are reply-level, because a re-plan acts on any reported problem.",
+  "publicActivation": false,
+  "humanAccepted": false,
+  "arms": {
+    "haiku-none": {
+      "status": "run first; results.json",
+      "reasoningEffort": "none",
+      "maxTokens": 900,
+      "outputDir": ".",
+      "promptVersion": "2026-10-23-plan-review-v1",
+      "systemText": "system-v1.txt"
+    },
+    "haiku-low": {
+      "declaredAfter": "haiku-none missed the false-alarm target (25/25 clean replies flagged).",
+      "change": "Same model, prompt, schema, validation and benchmark; only reasoning effort 'low' and maxTokens 4000 (Anthropic requires a thinking budget of at least 1,024 tokens below max_tokens).",
+      "reasoningEffort": "low",
+      "maxTokens": 4000,
+      "outputDir": "haiku-low",
+      "evaluationCapUsd": 0.05,
+      "evaluationMeasuredBeforeUsd": 16.3428687,
+      "targets": "Same three targets and decision rule as targets above.",
+      "ifMissed": "Do not wire any checker. Report both arms; a stronger model or option (c) needs the owner's decision and budget.",
+      "promptVersion": "2026-10-23-plan-review-v1",
+      "systemText": "system-v1.txt"
+    },
+    "haiku-low-v2": {
+      "declaredAfter": "haiku-low missed recall (12/15) and false alarms (7/25). Six of its seven false alarms flagged next-verse scenery (the river of fire) that the scoring rubric excludes, and that a re-plan could not remove because it comes from the shared section look.",
+      "change": "Prompt v2 aligns the checker's scope with the rubric, without moment-specific names: outside_instant covers figures and selected place entries, not scenery or effects; not_one_instant and embodied_formless gain generic examples (successive steps, effects called seated). Model, reasoning low, maxTokens 4000, schema, validation and benchmark unchanged.",
+      "promptVersion": "2026-10-23-plan-review-v2",
+      "reasoningEffort": "low",
+      "maxTokens": 4000,
+      "outputDir": "haiku-low-v2",
+      "evaluationCapUsd": 0.04,
+      "evaluationMeasuredBeforeUsd": 16.3619505,
+      "overfitting": "This arm is tuned on the 40-reply benchmark, so its result there is optimistic. If wired, the fresh blind-scored repeated-sample run afterwards is the held-out test of the whole plan-and-review pipeline.",
+      "targets": "Same three targets and decision rule.",
+      "ifMissed": "Do not wire any checker. Report all arms for the owner."
+    }
+  }
+}

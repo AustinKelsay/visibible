@@ -218,6 +218,15 @@ const planPayloadValidator = v.object({
     instant: v.optional(v.string()),
     singleInstant: v.boolean(),
   })),
+  // Audit-only plan review (plan-review v2): 1 or 2 rounds, and why a first plan was rejected.
+  review: v.optional(v.object({
+    rounds: v.number(),
+    evidence: v.optional(v.string()),
+    problems: v.optional(v.array(v.object({
+      kind: v.union(v.literal("unselected_figure"), v.literal("outside_instant"), v.literal("not_one_instant"), v.literal("embodied_formless")),
+      entryId: v.string(), planQuote: v.string(), reason: v.string(),
+    }))),
+  })),
 });
 export const analysisPayloadValidator = v.union(
   sectionPayloadValidator, momentPayloadValidator, entryPayloadValidator, lookPayloadValidator, planPayloadValidator,

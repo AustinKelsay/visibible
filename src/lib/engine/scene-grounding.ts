@@ -13,7 +13,7 @@ export const sceneGroundingSchema = z.object({
     contextQuote: z.string().describe("Exact words from the named neighbor supporting identity or continuity; empty when contextSource is none."),
     participation: z.enum(["in_scene", "framing", "mentioned", "separate_event", "uncertain"])
       .describe("Classify the entry's relationship to the chosen instant. Only in_scene can be rendered. Reporting a vision or telling a story is framing unless the source also places the reporter inside its depicted action."),
-  }).strict()).describe("One evidence record per selected present ID, in the same order. Include locations, objects, groups and no-form subjects as well as formed characters."),
+  }).strict()).describe("One evidence record per selected present ID, in any order. Include locations, objects, groups and no-form subjects as well as formed characters. Records for section cast considered and left out are allowed when classified as not in_scene."),
   instant: z.string().describe("One sentence fixing the chosen instant before any scene field: where each selected formed character is and their single pose or movement, and the state or placement of selected places, objects and no-form effects. Every scene field must match it. Empty only when required canon is missing."),
   singleInstant: z.boolean().describe("True only when every scene field can be depicted simultaneously in one instant. False if the plan requires successive poses, locations or stages of an action; do not hide a sequence inside one field."),
 }).strict();
@@ -63,17 +63,26 @@ export function containsQuote(text: string | null, quote: string) {
 /**
  * Deterministic evidence checks. A real quote can still be irrelevant or misclassified by the
  * model: these checks neither infer participants from prose nor prove simultaneous action.
- * A source/evidence failure is unavailable on the first reply, never a semantic reroll.
+ * Records for excluded cast are not quote-checked; they explain a choice and select no one.
+ * Preparation re-plans once after a failure here or in the plan review.
  */
-export function sceneGroundingProblem(grounding: SceneGrounding, present: string[], context: MomentContext): string | null {
+export function sceneGroundingProblem(grounding: SceneGrounding, present: string[], context: MomentContext, castIds: readonly string[]): string | null {
   if (!grounding.singleInstant) return "scene requires successive instants";
   if (!grounding.instant.trim()) return "scene instant is not stated";
   if (!containsQuote(context.moment.text, grounding.focusQuote)) return "scene focus is not quoted from the current moment";
-  if (grounding.cast.length !== present.length || grounding.cast.some((entry, index) => entry.entryId !== present[index])) {
-    return "scene evidence must match the selected cast exactly";
-  }
+  // Order is free. A record for cast the planner considered and left out documents the exclusion,
+  // so it is allowed unless it claims in_scene participation for someone who was not selected.
+  const ids = grounding.cast.map((entry) => entry.entryId);
+  if (new Set(ids).size !== ids.length) return "scene evidence repeats a cast entry";
+  const unknown = ids.find((id) => !castIds.includes(id));
+  if (unknown) return `scene evidence names unknown cast ${unknown}`;
+  const missing = present.find((id) => !ids.includes(id));
+  if (missing) return `cast ${missing} has no scene evidence`;
+  const excluded = grounding.cast.filter((entry) => !present.includes(entry.entryId));
+  const claimed = excluded.find((entry) => entry.participation === "in_scene");
+  if (claimed) return `cast ${claimed.entryId} is in_scene but not selected`;
   const neighbors = planningNeighbors(context);
-  for (const entry of grounding.cast) {
+  for (const entry of grounding.cast.filter((e) => present.includes(e.entryId))) {
     if (entry.participation !== "in_scene") return `cast ${entry.entryId} is ${entry.participation}, not participating in the chosen instant`;
     if (!containsQuote(context.moment.text, entry.momentQuote)) return `cast ${entry.entryId} lacks current-moment evidence`;
     if (entry.contextSource === "none") {

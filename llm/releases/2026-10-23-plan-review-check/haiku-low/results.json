@@ -1,0 +1,42 @@
+{
+  "at": "2026-10-23T16:47:06.536Z",
+  "arm": "haiku-low",
+  "counts": {
+    "defective": 15,
+    "caught": 12,
+    "missed": 3,
+    "clean": 25,
+    "falseAlarms": 7,
+    "unavailable": 0,
+    "unavailableDefective": 0
+  },
+  "perKind": {
+    "U": {
+      "agree": 5,
+      "missed": 0,
+      "extra": 0
+    },
+    "X": {
+      "agree": 3,
+      "missed": 1,
+      "extra": 8
+    },
+    "I": {
+      "agree": 0,
+      "missed": 5,
+      "extra": 1
+    },
+    "F": {
+      "agree": 3,
+      "missed": 2,
+      "extra": 0
+    }
+  },
+  "targetsMet": {
+    "recall": false,
+    "falseAlarms": false,
+    "unavailable": true
+  },
+  "decision": "do not wire",
+  "note": "Unavailable reviews are excluded from recall and false-alarm counts and reported separately."
+}

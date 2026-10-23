@@ -1,4 +1,5 @@
 /** Exact retained look failure through normal storage/assembly; scripted replies prove no model obedience. */
+import { withCleanReview } from "../../../tests/fixtures/plan-review";
 import { readFileSync } from "node:fs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { convexTest } from "convex-test";
@@ -8,6 +9,7 @@ import { api } from "../../../convex/_generated/api";
 import { modules } from "../../../tests/convex/modules";
 import { assembleRendering, type AssembleDeps } from "../engine/assemble";
 import { createConvexPreparationStore, FORMLESS_LOOK_PROMPT_VERSION, FORMLESS_PLAN_PROMPT_VERSION, MOMENT_CAST_PROMPT_VERSION, type AnalysisRecord } from "../engine/preparation";
+import { PLAN_REVIEW_PROMPT_VERSION } from "../engine/plan-review";
 import { readWorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { responseSchema } from "../reading-pass/prompts";
@@ -49,7 +51,8 @@ describe("no-form section look and canon separation", () => {
       if (kind === "plan" && currentPlanInputs) {
         const section = snapshot.records.find(({ record }) => record?.kind === "section")!.record!;
         refs.push({ kind: "section", recordId: section.recordId, version: section.version },
-          { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION });
+          { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION },
+          { kind: "prompt", recordId: "scene_plan_review", version: PLAN_REVIEW_PROMPT_VERSION });
       }
       const saved = await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind, recordId: ID,
         payload: old.payload as FunctionArgs<typeof api.analysis.putDerivedRecord>["payload"], inputs: refs });
@@ -59,14 +62,14 @@ describe("no-form section look and canon separation", () => {
     const store = createConvexPreparationStore(client, api.analysis as unknown as Record<string, unknown>, WORK, SECRET);
     const requests: TextModelRequest[] = [];
     let lookAttempt = 0;
-    const model: TextModel = { id: "scripted", complete: async (request) => {
+    const model: TextModel = withCleanReview({ id: "scripted", complete: async (request) => {
       requests.push(request);
       // Synthetic evidence assertions do not endorse the historical plan's scene or cast.
       const value = request.schemaName === "section_look" ? lookReplies[lookAttempt++] : withGrounding({ ...retainedPlan, missingCast: [] }, scene.context.moment.text);
       if (!value) throw new Error("Unexpected scripted call");
       return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop",
         usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 }, elapsedMs: 0 };
-    } };
+    } });
     const getReference = vi.fn<AssembleDeps["getReference"]>(async () => null);
     const render = (styleId = "classical", unitId = ID) => assembleRendering({ inputs, store, model, listMoments: async () => [], getReference,
       loadReference: async () => { throw new Error("No test reference should load"); } },
@@ -172,7 +175,7 @@ describe("no-form section look and canon separation", () => {
     if (!result.ok) throw new Error(result.message);
     expect(result.prepared.look.payload).toEqual(situationalLook);
     expect(requests.map((r) => r.schemaName)).toEqual(["section_look", "section_look", "scene_plan"]);
-    expect(await t.run(async (ctx) => (await ctx.db.query("preparationLedger").collect()).map((entry) => entry.outcome))).toEqual(["invalid", "ok", "ok"]);
+    expect(await t.run(async (ctx) => (await ctx.db.query("preparationLedger").collect()).map((entry) => entry.outcome))).toEqual(["invalid", "ok", "ok", "review ok"]);
     await render("icon");
     expect(requests).toHaveLength(3);
   });

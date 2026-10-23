@@ -5,6 +5,7 @@
  * matrix, prose moments found from a unit, owner style trials, assembly failures as partial
  * results, the dry-run manifest, and the baseline-versus-candidate sheet.
  */
+import { REVIEW_USAGE, withCleanReview } from "../../../tests/fixtures/plan-review";
 import { describe, it, expect } from "vitest";
 import { createWorkReader } from "../work-input";
 import { SHARED_STYLES, type WorkBrief } from "../work-preparation";
@@ -13,7 +14,7 @@ import { createMemoryPreparationStore } from "../engine/memory-store";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { loadEvalCases } from "../image-evals/cases";
 import { createOpenRouterEvalImageProvider } from "../image-evals/adapters";
-import { emptyEvalState, runImageEval, type EvalProviders, type EvalRunState } from "../image-evals/runner";
+import { COLD_PREPARATION_CALLS, emptyEvalState, runImageEval, type EvalProviders, type EvalRunState } from "../image-evals/runner";
 import { buildReport, buildScoreTemplate, renderComparisonSheet, renderContactSheet } from "../image-evals/report";
 import type { GenericEvalProvider } from "../image-evals/generic";
 import type { WorkInputs } from "../engine/work-inputs";
@@ -50,13 +51,13 @@ const lookAnswer = { place: "Lakeshore", timeOfDay: "dawn", weather: "calm", lig
 const planAnswer = (present: string[]) => ({ present, missingCast: [], primarySubject: "Jonah by the boats", action: "mends nets", setting: "shore", secondaryElements: "boats", mood: "quiet", timeOfDay: "dawn", composition: "wide" });
 function scriptedModel(costUsd: number | null = 0.0004) {
   const calls: TextModelRequest[] = [];
-  const model: TextModel & { calls: TextModelRequest[] } = { id: "scripted", calls, async complete(request) {
+  const model: TextModel & { calls: TextModelRequest[] } = withCleanReview({ id: "scripted", calls, async complete(request) {
     calls.push(request);
     const id = request.label.split(":")[1];
     const reader = request.user.includes("lamplighter") ? prose : work;
     const value = request.schemaName === "section_look" ? lookAnswer : withGrounding(planAnswer(reader === prose ? ["lamplighter"] : ["jonah"]), reader.getUnit(id).text);
     return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd }, elapsedMs: 250 };
-  } };
+  } });
   return model;
 }
 const billing = normalizeImageBilling("google/gemini-3.1-flash-lite-image", { prompt: "0.0000001", completion: "0.0000004", image_output: "0.00001", image: "0.001" }, 1);
@@ -103,7 +104,7 @@ describe("generic evaluation arms", () => {
     expect(manifest.entries.map((e) => e.key)).toEqual(["alpha-one/generic:classical/1", "alpha-one/generic:watercolor/1", "alpha-two/generic:classical/1", "lamp-second/generic:classical/1", "lamp-second/generic:watercolor/1"]);
     expect(imageCalls).toHaveLength(5);
     const cold = state.samples["alpha-one/generic:classical/1"];
-    expect(cold).toMatchObject({ status: "completed", engine: "generic", prepared: false, preparationCalls: 2, preparationCostUsd: 0.0008, momentId: "alpha-1-1", referencesSent: 0, imageCostUsd: 0.03, usageMissing: false });
+    expect(cold).toMatchObject({ status: "completed", engine: "generic", prepared: false, preparationCalls: 3, preparationCostUsd: expect.closeTo(0.0008 + REVIEW_USAGE.costUsd, 9), momentId: "alpha-1-1", referencesSent: 0, imageCostUsd: 0.03, usageMissing: false });
     expect(cold.prompt).toContain("Jonah: a weathered sailor");
     expect(cold.packet).toMatchObject({ styleId: "classical", briefVersion: "bv", canon: [{ entryId: "jonah", stageId: "old" }] });
     expect(cold.quote?.credits).toBeGreaterThan(0);
@@ -116,11 +117,11 @@ describe("generic evaluation arms", () => {
     // The prose moment holding the unit was found from the moment list.
     expect(state.samples["lamp-second/generic:classical/1"]).toMatchObject({ momentId: "lamp-1", status: "completed" });
     expect(state.samples["lamp-second/generic:classical/1"].prompt).toContain("Paragraph 1 of the lamp story. Paragraph 2");
-    // Preparation: alpha-1-1 look + plan, alpha-1-2 plan only (the section look exists), lamp-1 look + plan.
-    expect(state.samples["alpha-two/generic:classical/1"]).toMatchObject({ prepared: false, preparationCalls: 1 });
-    expect(state.spentUsd).toBeCloseTo(5 * 0.03 + 5 * 0.0004, 6);
+    // Preparation: alpha-1-1 look + plan, alpha-1-2 plan only (the section look exists), lamp-1 look + plan; each plan is reviewed.
+    expect(state.samples["alpha-two/generic:classical/1"]).toMatchObject({ prepared: false, preparationCalls: 2 });
+    expect(state.spentUsd).toBeCloseTo(5 * 0.03 + 5 * 0.0004 + 3 * REVIEW_USAGE.costUsd, 6); // two looks, three plans, three reviews
     const report = buildReport(state, cases, { arms: ["generic:classical", "generic:watercolor"], repeats: 1, sampleFloor: 1 });
-    expect(report.arms["generic:classical"].preparation).toMatchObject({ prepared: 0, cold: 3, calls: 5, spendUsd: expect.closeTo(0.002, 6), usageMissing: 0 });
+    expect(report.arms["generic:classical"].preparation).toMatchObject({ prepared: 0, cold: 3, calls: 8, spendUsd: expect.closeTo(0.002 + 3 * REVIEW_USAGE.costUsd, 6), usageMissing: 0 }); // five look/plan calls and three reviews
     expect(report.arms["generic:watercolor"].preparation).toMatchObject({ prepared: 2, cold: 0, calls: 0 });
     expect(report.arms["generic:classical"].quoteVariance).toMatchObject({ samples: 3, unpriced: 0, withinLiteTarget: true });
     expect(report.styleMatrix).toEqual({ classical: { cases: 3, completed: 3, failed: 0, notRun: 0, complete: true }, watercolor: { cases: 2, completed: 2, failed: 0, notRun: 0, complete: true } });
@@ -136,11 +137,11 @@ describe("generic evaluation arms", () => {
 
   it("prices generic samples with preparation in the manifest, charges missing usage at the quote, and records assembly failures as partial results", async () => {
     const dry = await run(setup().providers, { dryRun: true });
-    expect(dry.manifest.estimatedUsd).toBeCloseTo(5 * (0.035 + 2 * 0.0005), 6);
+    expect(dry.manifest.estimatedUsd).toBeCloseTo(5 * (0.035 + COLD_PREPARATION_CALLS * 0.0005), 6);
     const missing = setup({ imageCost: null, preparationCost: null });
     const { state } = await run(missing.providers, { arms: ["generic:classical"] });
     const s = state.samples["alpha-one/generic:classical/1"];
-    expect(s).toMatchObject({ usageMissing: true, preparationUsageMissing: true, preparationCostUsd: 0.001 });
+    expect(s).toMatchObject({ usageMissing: true, preparationUsageMissing: true, preparationCostUsd: expect.closeTo(0.001 + REVIEW_USAGE.costUsd, 9) }); // two missing at the estimate; the scripted review reports usage
     expect(s.imageCostUsd).toBeCloseTo(s.quote!.providerUsd, 9);
     expect(s.varianceUsd).toBeUndefined();
     // A style the brief does not offer fails at assembly; other samples still run.
@@ -154,10 +155,10 @@ describe("generic evaluation arms", () => {
     expect(report.arms["generic:icon"].failuresByStage).toEqual({ assemble: 2 });
     // A lost store keeps the image on the ledger.
     const lost = await run(setup({ failStore: true }).providers, { arms: ["generic:classical"] });
-    expect(lost.state.samples["alpha-one/generic:classical/1"]).toMatchObject({ status: "failed", stage: "store", imageCostUsd: 0.03, preparationCostUsd: 0.0008 });
+    expect(lost.state.samples["alpha-one/generic:classical/1"]).toMatchObject({ status: "failed", stage: "store", imageCostUsd: 0.03, preparationCostUsd: expect.closeTo(0.0008 + REVIEW_USAGE.costUsd, 9) });
     // A retry keeps the failed attempt's preparation spend in the breakdown, so it still matches the ledger.
     const retried = await run(setup().providers, { arms: ["generic:classical"], state: lost.state });
-    expect(retried.state.samples["alpha-one/generic:classical/1"]).toMatchObject({ status: "completed", priorPreparationCostUsd: 0.0008, priorCostUsd: 0.03 });
+    expect(retried.state.samples["alpha-one/generic:classical/1"]).toMatchObject({ status: "completed", priorPreparationCostUsd: expect.closeTo(0.0008 + REVIEW_USAGE.costUsd, 9), priorCostUsd: 0.03 });
     const retriedReport = buildReport(retried.state, cases, { arms: ["generic:classical"], repeats: 1, sampleFloor: 1 });
     expect(retriedReport.arms["generic:classical"].preparation!.spendUsd + retriedReport.arms["generic:classical"].spendUsd.total).toBeCloseTo(retried.state.spentUsd, 6);
   });
@@ -231,8 +232,8 @@ describe("generic evaluation arms", () => {
     expect(requests).toBe(3);
     expect(model.calls).toHaveLength(3); // alpha-one look + plan, alpha-two plan; no prose preparation yet
     expect(first.state.stopped?.reason).toBe("provider_funding");
-    expect(first.state.samples["alpha-two/generic:classical/1"]).toMatchObject({ status: "failed", stage: "image", preparationCalls: 1, preparationCostUsd: 0.0004, imageCostUsd: 0 });
-    expect(first.state.spentUsd).toBeCloseTo(0.0612, 6);
+    expect(first.state.samples["alpha-two/generic:classical/1"]).toMatchObject({ status: "failed", stage: "image", preparationCalls: 2, preparationCostUsd: expect.closeTo(0.0004 + REVIEW_USAGE.costUsd, 9), imageCostUsd: 0 });
+    expect(first.state.spentUsd).toBeCloseTo(0.0612 + 2 * REVIEW_USAGE.costUsd, 6); // plus the two plan reviews
     expect(saved).toHaveLength(3);
     expect(saved[2]).toEqual(first.state);
     const options = { arms: ["generic:classical", "generic:watercolor"] as const, repeats: 1, sampleFloor: 1 };
@@ -245,8 +246,8 @@ describe("generic evaluation arms", () => {
     expect(model.calls).toHaveLength(5); // the failed image reuses its prepared plan
     expect(resumed.state.stopped).toBeUndefined();
     expect(resumed.state.samples["alpha-one/generic:classical/1"].providerRequestId).toBe("gen-1");
-    expect(resumed.state.samples["alpha-two/generic:classical/1"]).toMatchObject({ status: "completed", preparationCalls: 0, priorPreparationCostUsd: 0.0004 });
-    expect(resumed.state.spentUsd).toBeCloseTo(0.152, 6);
+    expect(resumed.state.samples["alpha-two/generic:classical/1"]).toMatchObject({ status: "completed", preparationCalls: 0, priorPreparationCostUsd: expect.closeTo(0.0004 + REVIEW_USAGE.costUsd, 9) });
+    expect(resumed.state.spentUsd).toBeCloseTo(0.152 + 3 * REVIEW_USAGE.costUsd, 6); // three plan reviews across both runs
     const recovered = buildReport(resumed.state, cases, options);
     expect(recovered.comparisons).toEqual({ ready: 3, inconclusive: 0, incomplete: 0 });
     expect(Object.values(recovered.arms).reduce((sum, arm) => sum + arm.spendUsd.total + (arm.preparation?.spendUsd ?? 0), 0)).toBeCloseTo(resumed.state.spentUsd, 6);
