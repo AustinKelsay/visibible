@@ -40,7 +40,7 @@ for (const [arm, config] of Object.entries(plan.arms) as Array<[string, { output
       assert.deepEqual(trace.request.reasoning, { effort: config.reasoningEffort }); assert.equal(trace.request.max_tokens, config.maxTokens);
       return { content: trace.response.choices[0].message.content, model: trace.response.model, providerRequestId: null, finishReason: "stop",
         usage: { promptTokens: trace.response.usage.prompt_tokens, completionTokens: trace.response.usage.completion_tokens, costUsd: trace.measuredUsageUsd }, elapsedMs: 0 };
-    } }, async () => {}, reply.moment, input, { maxTokens: config.maxTokens });
+    } }, async () => {}, reply.moment, input, { maxTokens: config.maxTokens, reasoningEffort: config.reasoningEffort as "none" | "low" });
     assert.deepEqual(replay, r.result);
   }
   assert.equal(cursor, traces.length);

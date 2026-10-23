@@ -57,6 +57,9 @@ describe("plan review before storage", () => {
     const { run, calls, writes, spend } = await setup([plan()], [[]]);
     const result = await run();
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review"]);
+    // The benchmarked review configuration travels with the request; planning keeps reasoning off.
+    expect(calls[1]).toMatchObject({ reasoningEffort: "low", maxTokens: 4000 });
+    expect(calls[0].reasoningEffort).toBeUndefined();
     expect(result.calls).toBe(2);
     expect(writes).toHaveLength(1);
     expect(writes[0].payload).toMatchObject({ plan: fields, review: { rounds: 1 } });

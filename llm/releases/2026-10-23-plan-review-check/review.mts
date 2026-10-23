@@ -49,7 +49,8 @@ if (command === "dry-run") {
     const spend: Array<{ outcome: string }> = [];
     const model = forSample(reply.blindId, (request) => { assert.equal(request.schemaName, "plan_review"); assert.equal(request.system, PLAN_REVIEW_SYSTEM); assert.equal(request.maxTokens, armConfig().maxTokens); });
     const startedAt = Date.now();
-    const result = await reviewPlan(model, async (entry) => { spend.push(entry); }, reply.moment, input, { maxTokens: armConfig().maxTokens });
+    // Each arm sends its own reasoning on the request, matching the bodies it originally sent.
+    const result = await reviewPlan(model, async (entry) => { spend.push(entry); }, reply.moment, input, { maxTokens: armConfig().maxTokens, reasoningEffort: armConfig().reasoningEffort });
     fs.appendFileSync(path.join(out, "reviews.ndjson"), JSON.stringify({ blindId: reply.blindId, moment: reply.moment, at: new Date().toISOString(), elapsedMs: Date.now() - startedAt, spendOutcomes: spend.map((s) => s.outcome), result }) + "\n");
     console.log(JSON.stringify({ blindId: reply.blindId, outcome: "unavailable" in result ? "unavailable" : result.problems.length ? "problems" : "ok" }));
   }

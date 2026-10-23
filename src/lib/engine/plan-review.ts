@@ -5,12 +5,15 @@
  * preparation re-plans once; it is never shown to the image model.
  */
 import { z } from "zod";
-import { parseModelJson, type TextModel } from "../reading-pass/model";
+import { parseModelJson, type ReasoningEffort, type TextModel } from "../reading-pass/model";
 import type { MomentContext } from "./preparation";
 import { planningNeighbors } from "./scene-grounding";
 
 /** Bump for changes to the review instructions, schema or acceptance rules; plans refresh lazily. */
 export const PLAN_REVIEW_PROMPT_VERSION = "2026-10-23-plan-review-v2";
+/** The benchmarked configuration: reasoning off flagged every clean plan. Thinking needs room above 1,024 tokens. */
+export const PLAN_REVIEW_REASONING: ReasoningEffort = "low";
+export const PLAN_REVIEW_MAX_TOKENS = 4000;
 
 export const PLAN_REVIEW_SYSTEM = `You review one scene plan for an illustration engine before it is used. You get the moment's text with its neighbours inside the same story section, the work's depiction rules, the section cast (id, name, hasForm) and the plan: the selected cast ids (\`present\`) and seven scene fields an image model will receive. Only selected cast receive their fixed appearance in the image prompt. Report every problem of the kinds below; return an empty list when there are none. Return only JSON.
 - unselected_figure: a person, group or animal that has a section cast entry is described in a scene field, but its id is not in present. Use that entry's id. Places and objects do not count.
@@ -67,13 +70,14 @@ export function invalidReview(problems: PlanReviewProblem[], input: ReviewInput)
  * makes the review unavailable rather than passing an unchecked plan.
  */
 export async function reviewPlan(model: TextModel, recordSpend: (entry: { outcome: string; model: string; costUsd: number | null; promptTokens: number | null; completionTokens: number | null; elapsedMs: number }) => Promise<void>,
-  recordId: string, input: ReviewInput, options: { maxTokens?: number } = {}): Promise<{ problems: PlanReviewProblem[] } | { unavailable: string }> {
+  recordId: string, input: ReviewInput, options: { maxTokens?: number; reasoningEffort?: ReasoningEffort } = {}): Promise<{ problems: PlanReviewProblem[] } | { unavailable: string }> {
   const user = planReviewUser(input);
   let lastError = "";
   for (let attempt = 1; attempt <= 2; attempt++) {
     let result;
     try {
-      result = await model.complete({ label: `review:${recordId}:${attempt}`, system: PLAN_REVIEW_SYSTEM, user, schemaName: "plan_review", schema: planReviewSchema, maxTokens: options.maxTokens ?? 900, expectedCompletionTokens: 200 });
+      result = await model.complete({ label: `review:${recordId}:${attempt}`, system: PLAN_REVIEW_SYSTEM, user, schemaName: "plan_review", schema: planReviewSchema,
+        maxTokens: options.maxTokens ?? PLAN_REVIEW_MAX_TOKENS, expectedCompletionTokens: 500, reasoningEffort: options.reasoningEffort ?? PLAN_REVIEW_REASONING });
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
       await recordSpend({ outcome: `review error: ${lastError.slice(0, 110)}`, model: model.id, costUsd: null, promptTokens: null, completionTokens: null, elapsedMs: 0 });

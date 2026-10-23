@@ -13,6 +13,9 @@ export const READING_PASS_MODEL = "anthropic/claude-haiku-5.5";
 export const READING_PASS_PRICES = Object.freeze({ promptPerToken: 0.1e-6, completionPerToken: 0.5e-6, longPromptTokens: 100_000, longPromptMultiplier: 5 });
 const CHARS_PER_TOKEN = 2.7;
 
+/** Reasoning stays off unless a caller opts in; Anthropic then needs max_tokens above a 1,024-token thinking budget. */
+export type ReasoningEffort = "none" | "low" | "medium" | "high";
+
 export type TextModelRequest = {
   label: string;
   system: string;
@@ -22,6 +25,8 @@ export type TextModelRequest = {
   maxTokens: number;
   /** Expected completion tokens, for the spend reservation. */
   expectedCompletionTokens: number;
+  /** Per-request reasoning, overriding the adapter's setting (off by default). */
+  reasoningEffort?: ReasoningEffort;
 };
 
 export type TextModelResult = {
@@ -53,8 +58,6 @@ export function estimateRequestCostUsd(request: Pick<TextModelRequest, "system" 
 
 type FetchLike = (input: string, init: RequestInit) => Promise<Response>;
 
-/** Reasoning stays off unless a caller opts in; Anthropic then needs max_tokens above a 1,024-token thinking budget. */
-export type ReasoningEffort = "none" | "low" | "medium" | "high";
 export function createOpenRouterTextModel(options: { apiKey: string; model?: string; fetch?: FetchLike; timeoutMs?: number; reasoningEffort?: ReasoningEffort }): TextModel {
   const model = options.model ?? READING_PASS_MODEL;
   const fetchImpl = options.fetch ?? ((input, init) => fetch(input, init));
@@ -78,7 +81,7 @@ export function createOpenRouterTextModel(options: { apiKey: string; model?: str
             messages: [{ role: "system", content: request.system }, { role: "user", content: request.user }],
             response_format: { type: "json_schema", json_schema: { name: request.schemaName, strict: true, schema: responseSchema(request.schema) } },
             provider: { require_parameters: true, order: ["anthropic"], allow_fallbacks: false },
-            reasoning: { effort: options.reasoningEffort ?? "none" },
+            reasoning: { effort: request.reasoningEffort ?? options.reasoningEffort ?? "none" },
             max_tokens: request.maxTokens,
             usage: { include: true },
           }),
