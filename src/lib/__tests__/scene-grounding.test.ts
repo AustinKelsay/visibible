@@ -8,6 +8,7 @@ import { assembleRendering, type AssembleDeps } from "../engine/assemble";
 import type { AnalysisRecord, MomentContext, PreparationStore } from "../engine/preparation";
 import { readWorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
+import { responseSchema } from "../reading-pass/prompts";
 
 const evidence = new URL("../../../llm/releases/2026-10-22-luke-cast-repair/", import.meta.url);
 const read = <T>(name: string): T => JSON.parse(readFileSync(new URL(name, evidence), "utf8"));
@@ -161,7 +162,7 @@ describe("scene source grounding", () => {
   it("accepts whitespace differences but not invented punctuation, and needs no cast for a landscape", () => {
     const g = structuredClone(choice); g.focusQuote = "She\nknelt beside  the broken lantern.";
     expect(sceneGroundingProblem(g, ["mara", "lantern"], prose)).toBeNull();
-    expect(sceneGroundingProblem({ focusQuote: "Clouds drift.", singleInstant: true, cast: [] }, [],
+    expect(sceneGroundingProblem({ focusQuote: "Clouds drift.", singleInstant: true, cast: [], instant: "Clouds drift across an empty sky." }, [],
       { moment: { id: "sky-1", reference: "Sky 1", text: "Clouds drift." }, previous: null, next: null })).toBeNull();
     expect(sceneGroundingSchema.safeParse({ ...g, extra: "untrusted" }).success).toBe(false);
   });
@@ -170,5 +171,94 @@ describe("scene source grounding", () => {
     const asserted = withGrounding({ present: ["narrator"] }, "I watched").grounding;
     expect(sceneGroundingProblem(asserted, ["narrator"], daniel.context)).toBeNull();
     // This intentional limit keeps scripted success separate from live text and visual acceptance.
+  });
+});
+
+const live = new URL("../../../llm/releases/2026-10-23-grounded-plan-check/", import.meta.url);
+const readLive = <T>(name: string): T => JSON.parse(readFileSync(new URL(name, live), "utf8"));
+type LiveReply = { present: string[]; grounding: Omit<SceneGrounding, "instant"> } & Record<string, unknown>;
+const liveReplies = readFileSync(new URL("provider.ndjson", live), "utf8").trim().split("\n")
+  .map((line) => JSON.parse(line) as { phase: string; response: { choices: Array<{ message: { content: string } }> } })
+  .map((trace) => ({ phase: trace.phase, reply: JSON.parse(trace.response.choices[0].message.content) as LiveReply }));
+const liveReply = (unit: string) => liveReplies.find((trace) => trace.phase === `prepare:${unit}`)!.reply;
+
+describe("moment-cast v4 stated instant and quote fragments", () => {
+  it("still refuses the retained Daniel 7:10 v3 neighbor quote joined without a mark, and accepts it with an ellipsis", () => {
+    const scene = readLive<{ context: MomentContext; error: { message: string } }>("scene-daniel-7-10.json");
+    expect(scene.error.message).toContain("the_ancient_of_days has invalid previous evidence");
+    const reply = liveReply("daniel-7-10");
+    expect(reply.grounding.cast[0].contextQuote).toBe("one who was Ancient of Days sat. His throne was fiery flames, and its wheels burning fire.");
+    const grounding = { ...reply.grounding, instant: "The fiery stream flows from before the seat; the assembly stands in ranks." };
+    expect(sceneGroundingProblem(grounding, reply.present, scene.context)).toBe("cast the_ancient_of_days has invalid previous evidence");
+    const marked = structuredClone(grounding);
+    marked.cast[0].contextQuote = "one who was Ancient of Days sat. … His throne was fiery flames, and its wheels burning fire.";
+    expect(sceneGroundingProblem(marked, reply.present, scene.context)).toBeNull();
+  });
+
+  const tale: MomentContext = { moment: { id: "tale-4", reference: "The Tale ¶4", text: "She knelt beside the broken lantern. It was quiet. Then she stood and carried it outside." },
+    previous: null, next: { text: "At dawn the merchant arrived at the inn." } };
+  const focus = (focusQuote: string): SceneGrounding => ({ focusQuote, cast: [], instant: "She kneels beside the lantern.", singleInstant: true });
+
+  it.each([
+    ["an ellipsis", "She knelt … carried it outside.", true],
+    ["three periods", "She knelt beside...lantern.", true],
+    ["a skipped sentence marked by an ellipsis", "She knelt beside the broken lantern. … Then she stood", true],
+    ["an unmarked skipped sentence", "She knelt beside the broken lantern. Then she stood", false],
+    ["reordered fragments", "Then she stood. She knelt beside the broken lantern.", false],
+    ["an invented fragment", "She knelt … and smiled.", false],
+    ["a fragment from the next unit", "She knelt … the merchant arrived", false],
+    ["only an ellipsis", " … ", false],
+    ["a changed word inside a fragment", "She knelt beside the lantern. … Then she stood", false],
+    ["a fragment ending inside a word", "She knelt beside the brok … lantern.", false],
+    ["a fragment starting inside a word", "She knelt … roken lantern.", false],
+  ])("checks a quote joined at %s", (_label, quote, valid) => {
+    expect(sceneGroundingProblem(focus(quote), [], tale) === null).toBe(valid);
+  });
+
+  it("matches whole words only, skipping a partial-word occurrence to find a later whole one", () => {
+    const manor: MomentContext = { moment: { id: "tale-6", reference: "The Tale ¶6", text: "Manor lantern. A man held the lantern." }, previous: null, next: null };
+    expect(sceneGroundingProblem(focus("Man … lantern."), [], manor)).toBe("scene focus is not quoted from the current moment");
+    expect(sceneGroundingProblem(focus("anor lantern."), [], manor)).toBe("scene focus is not quoted from the current moment");
+    expect(sceneGroundingProblem(focus("man … the lantern."), [], manor)).toBeNull();
+  });
+
+  it("keeps contractions whole while allowing a possessive's stem", () => {
+    const refusal: MomentContext = { moment: { id: "tale-7", reference: "The Tale ¶7", text: "He can’t go. The Samaritan's animal waited." }, previous: null, next: null };
+    expect(sceneGroundingProblem(focus("He can … go."), [], refusal)).toBe("scene focus is not quoted from the current moment");
+    expect(sceneGroundingProblem(focus("t go."), [], refusal)).toBe("scene focus is not quoted from the current moment");
+    expect(sceneGroundingProblem(focus("He can’t go."), [], refusal)).toBeNull();
+    expect(sceneGroundingProblem(focus("The Samaritan … waited."), [], refusal)).toBeNull();
+  });
+
+  it("never treats an abbreviation as an implicit elision point", () => {
+    const doctor: MomentContext = { moment: { id: "tale-5", reference: "The Tale ¶5", text: "Dr. Mary said John arrived." }, previous: null, next: null };
+    expect(sceneGroundingProblem(focus("Dr. John arrived."), [], doctor)).toBe("scene focus is not quoted from the current moment");
+    expect(sceneGroundingProblem(focus("Dr. Mary said John arrived."), [], doctor)).toBeNull();
+  });
+
+  it("refuses a blank stated instant on the first reply", () => {
+    expect(sceneGroundingProblem({ ...focus("She knelt"), instant: "  " }, [], tale)).toBe("scene instant is not stated");
+  });
+
+  it("cannot detect the retained Luke 10:33 pose contradiction: a stated instant is guidance, not validation", () => {
+    const scene = readLive<{ context: MomentContext; stored: { payload: { plan: Record<string, string> } } }>("scene-luke-10-33.json");
+    const reply = liveReply("luke-10-33");
+    expect(scene.stored.payload.plan.primarySubject).toContain("kneeling beside");
+    expect(scene.stored.payload.plan.action).toContain("halting his steps");
+    const grounding = { ...reply.grounding, instant: "The Samaritan halts on the road, turning toward the wounded man." };
+    expect(sceneGroundingProblem(grounding, reply.present, scene.context)).toBeNull();
+  });
+
+  it("asks for the stated instant after cast evidence, before scene prose, and ties formed fields to it", async () => {
+    const { render, calls } = await setup("luke-10-34", binding);
+    const result = await render();
+    if (!result.ok) throw new Error(result.message);
+    const schema = responseSchema(calls[0].schema) as { required: string[]; properties: Record<string, { required?: string[]; description?: string }> };
+    expect(schema.required[0]).toBe("grounding");
+    expect(schema.properties.grounding.required).toEqual(["focusQuote", "cast", "instant", "singleInstant"]);
+    for (const key of ["primarySubject", "action", "composition"]) expect(schema.properties[key].description).toMatch(/grounding\.instant|same instant/);
+    expect(calls[0].system).toContain("state that instant once in `grounding.instant`");
+    expect(calls[0].system).toContain("separated by an ellipsis (…)");
+    expect(result.prompt).not.toContain(binding.grounding.instant);
   });
 });

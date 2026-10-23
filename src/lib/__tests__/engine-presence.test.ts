@@ -120,7 +120,7 @@ describe("no-form presence selection", () => {
       type: "object", additionalProperties: false,
       required: ["grounding", "present", ...Object.keys(fields), "missingCast"],
       properties: {
-        grounding: expect.objectContaining({ type: "object", additionalProperties: false, required: ["focusQuote", "cast", "singleInstant"] }),
+        grounding: expect.objectContaining({ type: "object", additionalProperties: false, required: ["focusQuote", "cast", "instant", "singleInstant"] }),
         present: { type: "array", items: { type: "string", enum: entries.map((e) => e.recordId) }, description: expect.any(String) },
         missingCast: { type: "array", items: { type: "string" }, description: expect.any(String) },
         // Anthropic does not support maxLength in output schemas; local validation still rejects it.
@@ -253,11 +253,15 @@ describe("no-form presence selection", () => {
     if (!first.ok) throw new Error(first.message);
     const current = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
     if (!current || current.payload.kind !== "plan") throw new Error("Missing plan");
-    for (const marker of [undefined, "older", "2026-10-22-moment-cast-v2"]) {
+    for (const marker of [undefined, "older", "2026-10-22-moment-cast-v2", "2026-10-22-moment-cast-v3"]) {
       const inputs = current.inputs.filter((input) => input.recordId !== "scene_plan_moment_cast");
       if (marker) inputs.push({ kind: "prompt", recordId: "scene_plan_moment_cast", version: marker });
       // Other inputs, including the no-form prompt contract where applicable, stay current.
       const payload = { ...current.payload, plan: { ...current.payload.plan, primarySubject: `Old selection ${marker}` } };
+      if (marker === "2026-10-22-moment-cast-v3" && payload.grounding) {
+        // Stored v3 audits have no stated instant and must remain valid storage records.
+        const { instant: _instant, ...v3 } = payload.grounding; void _instant; payload.grounding = v3;
+      }
       const old = await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "court-1", payload, inputs });
       calls.length = 0;
       const refreshed = await render();

@@ -9,6 +9,7 @@ export function withGrounding<T extends { present: string[] }>(plan: T, focusQuo
   const grounding: SceneGrounding = { focusQuote, singleInstant: true,
     cast: plan.present.map((entryId) => ({ entryId, momentQuote: quotes[entryId] ?? focusQuote,
       contextSource: "none", contextQuote: "", participation: "in_scene" })),
+    instant: `The single chosen instant: ${focusQuote}`,
   };
   return { ...plan, grounding };
 }
