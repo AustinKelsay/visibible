@@ -11,7 +11,7 @@ import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
 
 /** Structure and wording of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. */
-export const GENERIC_PROMPT_VERSION = "2026-10-23-generic-v5";
+export const GENERIC_PROMPT_VERSION = "2026-10-23-generic-v6";
 export const GENERIC_PROMPT_MAX_CHARS = 8000;
 export const MAX_REFERENCE_IMAGES = 3;
 const MOMENT_TEXT_MAX_CHARS = 1200;
@@ -73,6 +73,7 @@ export const ENGINE_RULES = [
   `${COMMON_CONTENT_FLOOR.prohibited.join(" and ").toLowerCase()} are never shown; ${COMMON_CONTENT_FLOOR.permitted.join(" and ").toLowerCase()} may be, treated seriously.`,
   "No likeness of any real actor, performer or public figure.",
   "Depict the SELECTED CHARACTERS, including groups and no-form subjects, with their canon. Other people, crowds or animals appear only where the scene plan describes them, as unnamed incidental figures without fixed appearance. The shared look, source narrators and neighbors do not add figures; apply shared clothing only to selected characters.",
+  "No-form effects representing a subject, such as divine radiance, appear only when that subject is in SELECTED CHARACTERS and the scene plan describes its presence. Omit such effects from the shared look when that subject is unselected or absent from the plan, even if the look calls them light, weather or background. Ordinary sunlight, lamplight, embers and weather remain setting details.",
 ];
 export const PRECEDENCE_LINE = "If instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.";
 

@@ -1,0 +1,239 @@
+{
+  "scorer": "Operator, not blind; all 21 first outcomes retained. No independent scoring agents used.",
+  "rubric": "Pre-declared strict gate in plan.json: source-supported no-form presence, no unselected no-form effects or embodied formless subject, acceptable single scene. Use baseline U/X/I/F/R/M definitions for other flaws, except X now also covers unsupported no-form manifestations. Denials are notes only; grounding audit is not rendering-bound text.",
+  "rows": [
+    {
+      "id": "pipeline-s001-1",
+      "stored": true,
+      "noFormCanonGap": false,
+      "unsupportedNoForm": true,
+      "otherFlaws": [],
+      "planQuotes": [
+        "veiled radiance above the tabernacle"
+      ],
+      "sourceQuote": "at the commandment of Yahweh",
+      "notes": "God is selected, so canon delivery is repaired, but the commandment does not establish a visible manifestation during the census. Strict source gate fails."
+    },
+    {
+      "id": "pipeline-s027-1",
+      "stored": true,
+      "noFormCanonGap": false,
+      "unsupportedNoForm": false,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "No no-form presence in rendering-bound scene fields; ordinary scene illustrates the verse."
+    },
+    {
+      "id": "pipeline-s034-1",
+      "stored": false,
+      "noFormCanonGap": null,
+      "unsupportedNoForm": null,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "Error: Preparing scene: plan unavailable: cast children_of_zion_lamentations is framing, not participating in the chosen instant"
+    },
+    {
+      "id": "pipeline-s035-1",
+      "stored": false,
+      "noFormCanonGap": null,
+      "unsupportedNoForm": null,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "Error: Preparing scene: look unavailable: schema: place: Must be at most 200 characters"
+    },
+    {
+      "id": "pipeline-s059-1",
+      "stored": true,
+      "noFormCanonGap": false,
+      "unsupportedNoForm": false,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "No no-form presence in rendering-bound scene fields; ordinary scene illustrates the verse."
+    },
+    {
+      "id": "pipeline-s067-1",
+      "stored": false,
+      "noFormCanonGap": null,
+      "unsupportedNoForm": null,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "Error: Preparing scene: plan unavailable: plan review: unselected_figure the_israelite_people_the_children_of_israel"
+    },
+    {
+      "id": "pipeline-s074-1",
+      "stored": true,
+      "noFormCanonGap": false,
+      "unsupportedNoForm": false,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "No no-form presence in rendering-bound scene fields; ordinary scene illustrates the verse."
+    },
+    {
+      "id": "pipeline-s001-2",
+      "stored": true,
+      "noFormCanonGap": false,
+      "unsupportedNoForm": false,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "The re-plan removed the divine effect from rendering-bound fields and denies a visible presence there. The audit instant still mentions an unrendered effect; it is not sent to rendering."
+    },
+    {
+      "id": "pipeline-s027-2",
+      "stored": true,
+      "noFormCanonGap": false,
+      "unsupportedNoForm": false,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "No no-form presence in rendering-bound scene fields; ordinary scene illustrates the verse."
+    },
+    {
+      "id": "pipeline-s034-2",
+      "stored": false,
+      "noFormCanonGap": null,
+      "unsupportedNoForm": null,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "Error: Preparing scene: plan unavailable: plan review: unselected_figure god_yahweh_the_father_and_god_of_israel"
+    },
+    {
+      "id": "pipeline-s035-2",
+      "stored": true,
+      "noFormCanonGap": false,
+      "unsupportedNoForm": false,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "Flight is one instant. Denials of soldiers, gate and radiance add none of them."
+    },
+    {
+      "id": "pipeline-s059-2",
+      "stored": true,
+      "noFormCanonGap": false,
+      "unsupportedNoForm": false,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "Measurement is one instant with God unselected; the denial of radiance/cloud adds no presence."
+    },
+    {
+      "id": "pipeline-s067-2",
+      "stored": false,
+      "noFormCanonGap": null,
+      "unsupportedNoForm": null,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "Error: Preparing scene: plan unavailable: plan review: unselected_figure god_yahweh_the_father_and_god_of_israel"
+    },
+    {
+      "id": "pipeline-s074-2",
+      "stored": true,
+      "noFormCanonGap": false,
+      "unsupportedNoForm": false,
+      "otherFlaws": [
+        "I"
+      ],
+      "planQuotes": [
+        "idol held in his hands",
+        "he lets it rest on the bench"
+      ],
+      "sourceQuote": "Every goldsmith is disappointed by his engraved image",
+      "notes": "The primary subject holds the idol while the action also puts it down on the bench: successive poses in the same image. No no-form effect."
+    },
+    {
+      "id": "pipeline-s001-3",
+      "stored": false,
+      "noFormCanonGap": null,
+      "unsupportedNoForm": null,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "Error: Preparing scene: plan unavailable: plan review: unselected_figure god_yahweh_the_father_and_god_of_israel"
+    },
+    {
+      "id": "pipeline-s027-3",
+      "stored": true,
+      "noFormCanonGap": false,
+      "unsupportedNoForm": false,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "No no-form presence in rendering-bound scene fields; ordinary scene illustrates the verse."
+    },
+    {
+      "id": "pipeline-s034-3",
+      "stored": true,
+      "noFormCanonGap": false,
+      "unsupportedNoForm": false,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "A poetic illustration contrasting noble purity with ruined Zion, consistent with the baseline rubric allowing reasonable illustrations of poetry; no divine effects. Not treated as a literal extra event."
+    },
+    {
+      "id": "pipeline-s035-3",
+      "stored": true,
+      "noFormCanonGap": false,
+      "unsupportedNoForm": false,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "No no-form presence in rendering-bound scene fields; ordinary scene illustrates the verse."
+    },
+    {
+      "id": "pipeline-s059-3",
+      "stored": true,
+      "noFormCanonGap": false,
+      "unsupportedNoForm": false,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "No no-form presence in rendering-bound scene fields; ordinary scene illustrates the verse."
+    },
+    {
+      "id": "pipeline-s067-3",
+      "stored": true,
+      "noFormCanonGap": false,
+      "unsupportedNoForm": true,
+      "otherFlaws": [
+        "X"
+      ],
+      "planQuotes": [
+        "veiled cloud hovers above the tabernacle",
+        "Moses stands close, still and watchful"
+      ],
+      "sourceQuote": "He shall make the woman drink the water of bitterness that causes the curse",
+      "notes": "God is selected, so its canon is delivered, but no divine manifestation is established by this instruction. Moses is also placed inside the demonstrated ritual instead of only delivering its framing law."
+    },
+    {
+      "id": "pipeline-s074-3",
+      "stored": true,
+      "noFormCanonGap": false,
+      "unsupportedNoForm": false,
+      "otherFlaws": [],
+      "planQuotes": [],
+      "sourceQuote": "",
+      "notes": "No no-form presence in rendering-bound scene fields; ordinary scene illustrates the verse."
+    }
+  ],
+  "summary": {
+    "pipelines": 21,
+    "stored": 15,
+    "refused": 6,
+    "unselectedNoFormStored": 0,
+    "unsupportedNoFormStored": 2,
+    "otherFlawedStored": 2,
+    "acceptableStored": 12
+  },
+  "reviewGatePassed": true,
+  "fullPipelineGatePassed": false
+}

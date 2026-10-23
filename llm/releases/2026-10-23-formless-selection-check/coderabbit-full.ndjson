@@ -1,0 +1,3 @@
+{"type":"review_context","reviewType":"committed","currentBranch":"fix/no-form-cast-selection","baseBranch":"origin/dev","baseCommit":"8cbf1938d33490aa890bbb84ca4b76069a81ba51","workingDirectory":"/Users/plebdev/.t3/worktrees/visibible/feat-work-reference-imports","expectedDuration":"Reviews usually take 2-6 minutes and can take up to 15. Keep this command running for at least 15 minutes or run it in the background; stopping it early discards the review."}
+{"type":"action_required","status":"awaiting_confirmation","action":"rerun_with_use_credits","command":"coderabbit review --use-credits","billableFilesCount":14,"maximumCostCents":350,"confirmationHeadCommitId":"ed25901e7c767903dabcf1534a27b4faf6458968"}
+Error: An unexpected error occurred.

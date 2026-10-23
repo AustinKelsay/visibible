@@ -1,0 +1,20 @@
+{
+  "productionDiff": {
+    "issues": 0,
+    "reviewedFiles": [
+      "src/lib/engine/preparation.ts",
+      "src/lib/engine/plan-review.ts",
+      "src/lib/__tests__/look-canon-separation.test.ts"
+    ]
+  },
+  "broaderReview": {
+    "outcome": "Paid confirmation required; not executed with credits.",
+    "maximumCostUsd": 3.5
+  },
+  "renderingFollowup": {
+    "outcome": "Paid confirmation required; not executed with credits.",
+    "maximumCostUsd": 1.25
+  },
+  "paidCodeRabbitCalls": 0,
+  "note": "The model-facing evaluation code and prompts stayed frozen at ed25901 before and throughout paid text calls. The supplemental artifact audit and generic-v6 rendering rule were added separately; no image-model compliance is claimed."
+}
