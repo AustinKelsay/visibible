@@ -1,0 +1,3199 @@
+{
+  "at": "2026-10-23T21:29:41.478Z",
+  "samplesTaken": 98,
+  "target": 100,
+  "scorerAgreement": {
+    "replies": 168,
+    "agreedAllFlags": 164,
+    "agreedBlockers": 164,
+    "decisions": 4
+  },
+  "overall": {
+    "n": 98,
+    "accepted": {
+      "k": 74,
+      "n": 98,
+      "rate": 0.7551020408163265,
+      "low": 0.6614070439739144,
+      "high": 0.8295514641406478
+    },
+    "flawedStored": {
+      "k": 6,
+      "n": 98,
+      "rate": 0.061224489795918366,
+      "low": 0.028358937185437583,
+      "high": 0.1271924288575154
+    },
+    "refused": {
+      "k": 18,
+      "n": 98,
+      "rate": 0.1836734693877551,
+      "low": 0.11945967624196774,
+      "high": 0.2717517736959752
+    },
+    "refusedBy": {
+      "missingCast": 1,
+      "evidence": 16,
+      "review": 1
+    },
+    "falseRefusal": {
+      "k": 10,
+      "n": 98,
+      "rate": 0.10204081632653061,
+      "low": 0.056375395628467516,
+      "high": 0.17772933171281544
+    },
+    "replanned": {
+      "k": 37,
+      "n": 98,
+      "rate": 0.37755102040816324,
+      "low": 0.2879039439886928,
+      "high": 0.4764359721163174
+    },
+    "withoutReview": {
+      "accepted": {
+        "k": 67,
+        "n": 98,
+        "rate": 0.6836734693877551,
+        "low": 0.58615936103073,
+        "high": 0.7673307648117548
+      },
+      "flawedStored": {
+        "k": 9,
+        "n": 98,
+        "rate": 0.09183673469387756,
+        "low": 0.04906865909068409,
+        "high": 0.16539772792601637
+      },
+      "refused": {
+        "k": 22,
+        "n": 98,
+        "rate": 0.22448979591836735,
+        "low": 0.15318132030764547,
+        "high": 0.31658349092862736
+      }
+    }
+  },
+  "byGroup": {
+    "Law": {
+      "n": 19,
+      "accepted": {
+        "k": 14,
+        "n": 19,
+        "rate": 0.7368421052631579,
+        "low": 0.5120803155892935,
+        "high": 0.8819376166045982
+      },
+      "flawedStored": {
+        "k": 1,
+        "n": 19,
+        "rate": 0.05263157894736842,
+        "low": 0.009351752490529969,
+        "high": 0.2463921533654521
+      },
+      "refused": {
+        "k": 4,
+        "n": 19,
+        "rate": 0.21052631578947367,
+        "low": 0.08507538491591576,
+        "high": 0.43334714240266087
+      },
+      "refusedBy": {
+        "missingCast": 0,
+        "evidence": 3,
+        "review": 1
+      },
+      "falseRefusal": {
+        "k": 3,
+        "n": 19,
+        "rate": 0.15789473684210525,
+        "low": 0.055203710399278266,
+        "high": 0.3756592764317668
+      },
+      "replanned": {
+        "k": 5,
+        "n": 19,
+        "rate": 0.2631578947368421,
+        "low": 0.11806238339540162,
+        "high": 0.48791968441070643
+      },
+      "withoutReview": {
+        "accepted": {
+          "k": 13,
+          "n": 19,
+          "rate": 0.6842105263157895,
+          "low": 0.4601001017506463,
+          "high": 0.846358289955714
+        },
+        "flawedStored": {
+          "k": 3,
+          "n": 19,
+          "rate": 0.15789473684210525,
+          "low": 0.055203710399278266,
+          "high": 0.3756592764317668
+        },
+        "refused": {
+          "k": 3,
+          "n": 19,
+          "rate": 0.15789473684210525,
+          "low": 0.055203710399278266,
+          "high": 0.3756592764317668
+        }
+      }
+    },
+    "History": {
+      "n": 23,
+      "accepted": {
+        "k": 20,
+        "n": 23,
+        "rate": 0.8695652173913043,
+        "low": 0.678721020269818,
+        "high": 0.954624234856553
+      },
+      "flawedStored": {
+        "k": 2,
+        "n": 23,
+        "rate": 0.08695652173913043,
+        "low": 0.02417949540723341,
+        "high": 0.2679640429809402
+      },
+      "refused": {
+        "k": 1,
+        "n": 23,
+        "rate": 0.043478260869565216,
+        "low": 0.0077164669621267445,
+        "high": 0.20991586494059142
+      },
+      "refusedBy": {
+        "missingCast": 0,
+        "evidence": 1,
+        "review": 0
+      },
+      "falseRefusal": {
+        "k": 1,
+        "n": 23,
+        "rate": 0.043478260869565216,
+        "low": 0.0077164669621267445,
+        "high": 0.20991586494059142
+      },
+      "replanned": {
+        "k": 10,
+        "n": 23,
+        "rate": 0.43478260869565216,
+        "low": 0.25634368332198654,
+        "high": 0.6318895069498304
+      },
+      "withoutReview": {
+        "accepted": {
+          "k": 19,
+          "n": 23,
+          "rate": 0.8260869565217391,
+          "low": 0.6286194521470433,
+          "high": 0.9302145964938723
+        },
+        "flawedStored": {
+          "k": 0,
+          "n": 23,
+          "rate": 0,
+          "low": 0,
+          "high": 0.14312112541726274
+        },
+        "refused": {
+          "k": 4,
+          "n": 23,
+          "rate": 0.17391304347826086,
+          "low": 0.06978540350612772,
+          "high": 0.37138054785295666
+        }
+      }
+    },
+    "Wisdom": {
+      "n": 13,
+      "accepted": {
+        "k": 8,
+        "n": 13,
+        "rate": 0.6153846153846154,
+        "low": 0.35522480972268555,
+        "high": 0.8229055341876319
+      },
+      "flawedStored": {
+        "k": 2,
+        "n": 13,
+        "rate": 0.15384615384615385,
+        "low": 0.04325726318273798,
+        "high": 0.4223517050863101
+      },
+      "refused": {
+        "k": 3,
+        "n": 13,
+        "rate": 0.23076923076923078,
+        "low": 0.08179379092465713,
+        "high": 0.5025687399512693
+      },
+      "refusedBy": {
+        "missingCast": 0,
+        "evidence": 3,
+        "review": 0
+      },
+      "falseRefusal": {
+        "k": 2,
+        "n": 13,
+        "rate": 0.15384615384615385,
+        "low": 0.04325726318273798,
+        "high": 0.4223517050863101
+      },
+      "replanned": {
+        "k": 6,
+        "n": 13,
+        "rate": 0.46153846153846156,
+        "low": 0.2320575430148814,
+        "high": 0.7085656756816796
+      },
+      "withoutReview": {
+        "accepted": {
+          "k": 8,
+          "n": 13,
+          "rate": 0.6153846153846154,
+          "low": 0.35522480972268555,
+          "high": 0.8229055341876319
+        },
+        "flawedStored": {
+          "k": 1,
+          "n": 13,
+          "rate": 0.07692307692307693,
+          "low": 0.013710066379696323,
+          "high": 0.3331453392824736
+        },
+        "refused": {
+          "k": 4,
+          "n": 13,
+          "rate": 0.3076923076923077,
+          "low": 0.12680497161618087,
+          "high": 0.5763111218666236
+        }
+      }
+    },
+    "Prophets": {
+      "n": 21,
+      "accepted": {
+        "k": 18,
+        "n": 21,
+        "rate": 0.8571428571428571,
+        "low": 0.6536350585077049,
+        "high": 0.950190782017865
+      },
+      "flawedStored": {
+        "k": 1,
+        "n": 21,
+        "rate": 0.047619047619047616,
+        "low": 0.008455769471923294,
+        "high": 0.22669816586235464
+      },
+      "refused": {
+        "k": 2,
+        "n": 21,
+        "rate": 0.09523809523809523,
+        "low": 0.026518208796947246,
+        "high": 0.2891458386074067
+      },
+      "refusedBy": {
+        "missingCast": 1,
+        "evidence": 1,
+        "review": 0
+      },
+      "falseRefusal": {
+        "k": 1,
+        "n": 21,
+        "rate": 0.047619047619047616,
+        "low": 0.008455769471923294,
+        "high": 0.22669816586235464
+      },
+      "replanned": {
+        "k": 2,
+        "n": 21,
+        "rate": 0.09523809523809523,
+        "low": 0.026518208796947246,
+        "high": 0.2891458386074067
+      },
+      "withoutReview": {
+        "accepted": {
+          "k": 18,
+          "n": 21,
+          "rate": 0.8571428571428571,
+          "low": 0.6536350585077049,
+          "high": 0.950190782017865
+        },
+        "flawedStored": {
+          "k": 0,
+          "n": 21,
+          "rate": 0,
+          "low": 0,
+          "high": 0.15464382326420195
+        },
+        "refused": {
+          "k": 3,
+          "n": 21,
+          "rate": 0.14285714285714285,
+          "low": 0.04980921798213492,
+          "high": 0.346364941492295
+        }
+      }
+    },
+    "Gospels and Acts": {
+      "n": 10,
+      "accepted": {
+        "k": 6,
+        "n": 10,
+        "rate": 0.6,
+        "low": 0.3126695474501864,
+        "high": 0.8318224187964902
+      },
+      "flawedStored": {
+        "k": 0,
+        "n": 10,
+        "rate": 0,
+        "low": 0,
+        "high": 0.2775401687666166
+      },
+      "refused": {
+        "k": 4,
+        "n": 10,
+        "rate": 0.4,
+        "low": 0.16817758120350967,
+        "high": 0.6873304525498135
+      },
+      "refusedBy": {
+        "missingCast": 0,
+        "evidence": 4,
+        "review": 0
+      },
+      "falseRefusal": {
+        "k": 2,
+        "n": 10,
+        "rate": 0.2,
+        "low": 0.056680947980693314,
+        "high": 0.5098431532792765
+      },
+      "replanned": {
+        "k": 6,
+        "n": 10,
+        "rate": 0.6,
+        "low": 0.3126695474501864,
+        "high": 0.8318224187964902
+      },
+      "withoutReview": {
+        "accepted": {
+          "k": 4,
+          "n": 10,
+          "rate": 0.4,
+          "low": 0.16817758120350967,
+          "high": 0.6873304525498135
+        },
+        "flawedStored": {
+          "k": 2,
+          "n": 10,
+          "rate": 0.2,
+          "low": 0.056680947980693314,
+          "high": 0.5098431532792765
+        },
+        "refused": {
+          "k": 4,
+          "n": 10,
+          "rate": 0.4,
+          "low": 0.16817758120350967,
+          "high": 0.6873304525498135
+        }
+      }
+    },
+    "Letters and Revelation": {
+      "n": 12,
+      "accepted": {
+        "k": 8,
+        "n": 12,
+        "rate": 0.6666666666666666,
+        "low": 0.3906175873976139,
+        "high": 0.8618821601026385
+      },
+      "flawedStored": {
+        "k": 0,
+        "n": 12,
+        "rate": 0,
+        "low": 0,
+        "high": 0.2425007574992425
+      },
+      "refused": {
+        "k": 4,
+        "n": 12,
+        "rate": 0.3333333333333333,
+        "low": 0.13811783989736134,
+        "high": 0.609382412602386
+      },
+      "refusedBy": {
+        "missingCast": 0,
+        "evidence": 4,
+        "review": 0
+      },
+      "falseRefusal": {
+        "k": 1,
+        "n": 12,
+        "rate": 0.08333333333333333,
+        "low": 0.014864709450773478,
+        "high": 0.35388592179859524
+      },
+      "replanned": {
+        "k": 8,
+        "n": 12,
+        "rate": 0.6666666666666666,
+        "low": 0.3906175873976139,
+        "high": 0.8618821601026385
+      },
+      "withoutReview": {
+        "accepted": {
+          "k": 5,
+          "n": 12,
+          "rate": 0.4166666666666667,
+          "low": 0.19325746190524656,
+          "high": 0.6804926643446272
+        },
+        "flawedStored": {
+          "k": 3,
+          "n": 12,
+          "rate": 0.25,
+          "low": 0.08894003962896138,
+          "high": 0.53231033912066
+        },
+        "refused": {
+          "k": 4,
+          "n": 12,
+          "rate": 0.3333333333333333,
+          "low": 0.13811783989736134,
+          "high": 0.609382412602386
+        }
+      }
+    }
+  },
+  "flagCounts": {
+    "U": 2,
+    "X": 4,
+    "I": 0,
+    "F": 0,
+    "R": 0,
+    "M": 2
+  },
+  "latencyMs": {
+    "median": 11320,
+    "p90": 19026,
+    "max": 23565,
+    "withLook": 96
+  },
+  "costUsd": {
+    "total": 0.16311220000000007,
+    "medianPerSample": 0.0014856000000000001,
+    "maxPerSample": 0.0030448
+  },
+  "rows": [
+    {
+      "id": "s001",
+      "book": "numbers",
+      "group": "Law",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 13177,
+      "costUsd": 0.0017264,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s002",
+      "book": "luke",
+      "group": "Gospels and Acts",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 16897,
+      "costUsd": 0.0023935999999999996,
+      "withoutReview": {
+        "stored": true,
+        "accepted": false,
+        "flawedStored": true
+      },
+      "flags": {
+        "U": true,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s003",
+      "book": "colossians",
+      "group": "Letters and Revelation",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 9155,
+      "costUsd": 0.0012184000000000001,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s004",
+      "book": "genesis",
+      "group": "Law",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 7668,
+      "costUsd": 0.0011429,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s005",
+      "book": "psalms",
+      "group": "Wisdom",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 10030,
+      "costUsd": 0.0011386,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s006",
+      "book": "jeremiah",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 11450,
+      "costUsd": 0.0017036,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s007",
+      "book": "judges",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 20351,
+      "costUsd": 0.00266,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s008",
+      "book": "2-chronicles",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 12519,
+      "costUsd": 0.0012664999999999998,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s009",
+      "book": "psalms",
+      "group": "Wisdom",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": true,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 8473,
+      "costUsd": 0.0014135,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s010",
+      "book": "luke",
+      "group": "Gospels and Acts",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 19956,
+      "costUsd": 0.0024263,
+      "withoutReview": {
+        "stored": true,
+        "accepted": false,
+        "flawedStored": true
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s011",
+      "book": "1-samuel",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 10226,
+      "costUsd": 0.0012558,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s012",
+      "book": "psalms",
+      "group": "Wisdom",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 16829,
+      "costUsd": 0.0024252999999999996,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s013",
+      "book": "numbers",
+      "group": "Law",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 12348,
+      "costUsd": 0.0012965000000000001,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s014",
+      "book": "2-kings",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 9857,
+      "costUsd": 0.0012674000000000001,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s015",
+      "book": "psalms",
+      "group": "Wisdom",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 11910,
+      "costUsd": 0.0013977999999999998,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s016",
+      "book": "psalms",
+      "group": "Wisdom",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 5010,
+      "costUsd": 0.0010033000000000002,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s017",
+      "book": "romans",
+      "group": "Letters and Revelation",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 6178,
+      "costUsd": 0.0013879,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s018",
+      "book": "zechariah",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 6444,
+      "costUsd": 0.0012263999999999999,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s019",
+      "book": "ezekiel",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 10055,
+      "costUsd": 0.0017303000000000002,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s020",
+      "book": "joshua",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 6018,
+      "costUsd": 0.0009843999999999999,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s021",
+      "book": "ezekiel",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 13722,
+      "costUsd": 0.0018446,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s022",
+      "book": "ezekiel",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 11121,
+      "costUsd": 0.0017295000000000001,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s023",
+      "book": "proverbs",
+      "group": "Wisdom",
+      "stored": true,
+      "cause": null,
+      "accepted": false,
+      "flawedStored": true,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 7123,
+      "costUsd": 0.0014169999999999999,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s024",
+      "book": "1-kings",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 21067,
+      "costUsd": 0.0026238000000000004,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s025",
+      "book": "colossians",
+      "group": "Letters and Revelation",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 8456,
+      "costUsd": 0.0012416,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s026",
+      "book": "romans",
+      "group": "Letters and Revelation",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 17729,
+      "costUsd": 0.0021784,
+      "withoutReview": {
+        "stored": true,
+        "accepted": false,
+        "flawedStored": true
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s027",
+      "book": "exodus",
+      "group": "Law",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 16197,
+      "costUsd": 0.0019003,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s028",
+      "book": "acts",
+      "group": "Gospels and Acts",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 18346,
+      "costUsd": 0.0021822,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s029",
+      "book": "john",
+      "group": "Gospels and Acts",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 10487,
+      "costUsd": 0.0012789,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s030",
+      "book": "jeremiah",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 11178,
+      "costUsd": 0.0016616,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s031",
+      "book": "isaiah",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 9715,
+      "costUsd": 0.0015468,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s032",
+      "book": "nehemiah",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 23565,
+      "costUsd": 0.0030448,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s033",
+      "book": "1-samuel",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 11264,
+      "costUsd": 0.001336,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s034",
+      "book": "lamentations",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 13140,
+      "costUsd": 0.0016819,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s035",
+      "book": "isaiah",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 12250,
+      "costUsd": 0.0014616000000000002,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s036",
+      "book": "2-kings",
+      "group": "History",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": true,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 11512,
+      "costUsd": 0.0018941000000000001,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s037",
+      "book": "leviticus",
+      "group": "Law",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 13689,
+      "costUsd": 0.0016483000000000001,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s038",
+      "book": "ezra",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 13107,
+      "costUsd": 0.001381,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s039",
+      "book": "acts",
+      "group": "Gospels and Acts",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 10463,
+      "costUsd": 0.0014483,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s040",
+      "book": "psalms",
+      "group": "Wisdom",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 6331,
+      "costUsd": 0.0010283,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s041",
+      "book": "isaiah",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": false,
+      "flawedStored": true,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 9140,
+      "costUsd": 0.0014856000000000001,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s042",
+      "book": "psalms",
+      "group": "Wisdom",
+      "stored": true,
+      "cause": null,
+      "accepted": false,
+      "flawedStored": true,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 6745,
+      "costUsd": 0.0009056,
+      "withoutReview": {
+        "stored": true,
+        "accepted": false,
+        "flawedStored": true
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s043",
+      "book": "john",
+      "group": "Gospels and Acts",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": true,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 10311,
+      "costUsd": 0.0017197,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s044",
+      "book": "exodus",
+      "group": "Law",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 15772,
+      "costUsd": 0.0012208000000000002,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s045",
+      "book": "genesis",
+      "group": "Law",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 20712,
+      "costUsd": 0.0027368,
+      "withoutReview": {
+        "stored": true,
+        "accepted": false,
+        "flawedStored": true
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s046",
+      "book": "1-peter",
+      "group": "Letters and Revelation",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 7760,
+      "costUsd": 0.0014287000000000002,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s047",
+      "book": "psalms",
+      "group": "Wisdom",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 5425,
+      "costUsd": 0.0009743,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s048",
+      "book": "genesis",
+      "group": "Law",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 10579,
+      "costUsd": 0.0011955,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s049",
+      "book": "hebrews",
+      "group": "Letters and Revelation",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 12951,
+      "costUsd": 0.0018830000000000001,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s050",
+      "book": "romans",
+      "group": "Letters and Revelation",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 9718,
+      "costUsd": 0.0011224,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s051",
+      "book": "exodus",
+      "group": "Law",
+      "stored": false,
+      "cause": "review",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 19026,
+      "costUsd": 0.0028438,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": true
+      }
+    },
+    {
+      "id": "s052",
+      "book": "joshua",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 12148,
+      "costUsd": 0.0014128,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s053",
+      "book": "2-kings",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 17116,
+      "costUsd": 0.0022181,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s054",
+      "book": "jeremiah",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 11864,
+      "costUsd": 0.0016575000000000001,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s055",
+      "book": "2-chronicles",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": false,
+      "flawedStored": true,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 13928,
+      "costUsd": 0.0022075000000000003,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": true,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s056",
+      "book": "jeremiah",
+      "group": "Prophets",
+      "stored": false,
+      "cause": "missingCast",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 4826,
+      "costUsd": 0.0010461,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s057",
+      "book": "proverbs",
+      "group": "Wisdom",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": true,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 14940,
+      "costUsd": 0.0019344,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s058",
+      "book": "nehemiah",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 20862,
+      "costUsd": 0.0025053999999999996,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s059",
+      "book": "ezekiel",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 10322,
+      "costUsd": 0.0015439,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s060",
+      "book": "exodus",
+      "group": "Law",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 12404,
+      "costUsd": 0.0012925,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s061",
+      "book": "revelation",
+      "group": "Letters and Revelation",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 22464,
+      "costUsd": 0.0028431,
+      "withoutReview": {
+        "stored": true,
+        "accepted": false,
+        "flawedStored": true
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s062",
+      "book": "psalms",
+      "group": "Wisdom",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 9542,
+      "costUsd": 0.0011987,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s063",
+      "book": "2-timothy",
+      "group": "Letters and Revelation",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": true,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 14464,
+      "costUsd": 0.0021502,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s064",
+      "book": "mark",
+      "group": "Gospels and Acts",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": true,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 10129,
+      "costUsd": 0.0018095,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s065",
+      "book": "deuteronomy",
+      "group": "Law",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": true,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 10960,
+      "costUsd": 0.0022279,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s066",
+      "book": "job",
+      "group": "Wisdom",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 6157,
+      "costUsd": 0.0016546999999999998,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s067",
+      "book": "numbers",
+      "group": "Law",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 12453,
+      "costUsd": 0.001801,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s068",
+      "book": "daniel",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 8781,
+      "costUsd": 0.0011192,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s069",
+      "book": "hebrews",
+      "group": "Letters and Revelation",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 19232,
+      "costUsd": 0.0024021,
+      "withoutReview": {
+        "stored": true,
+        "accepted": false,
+        "flawedStored": true
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s070",
+      "book": "deuteronomy",
+      "group": "Law",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": true,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 16387,
+      "costUsd": 0.0028783000000000003,
+      "withoutReview": {
+        "stored": true,
+        "accepted": false,
+        "flawedStored": true
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s071",
+      "book": "deuteronomy",
+      "group": "Law",
+      "stored": true,
+      "cause": null,
+      "accepted": false,
+      "flawedStored": true,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 9924,
+      "costUsd": 0.0013304,
+      "withoutReview": {
+        "stored": true,
+        "accepted": false,
+        "flawedStored": true
+      },
+      "flags": {
+        "U": false,
+        "X": true,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s072",
+      "book": "1-chronicles",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 11197,
+      "costUsd": 0.0012637,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s073",
+      "book": "ephesians",
+      "group": "Letters and Revelation",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 9465,
+      "costUsd": 0.0011622,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s074",
+      "book": "jeremiah",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 12883,
+      "costUsd": 0.0016878,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s075",
+      "book": "2-kings",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 13084,
+      "costUsd": 0.0019694,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s076",
+      "book": "genesis",
+      "group": "Law",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 10220,
+      "costUsd": 0.0016844999999999998,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s077",
+      "book": "matthew",
+      "group": "Gospels and Acts",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 13719,
+      "costUsd": 0.0014459,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s078",
+      "book": "1-chronicles",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 6333,
+      "costUsd": 0.0010195,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s079",
+      "book": "revelation",
+      "group": "Letters and Revelation",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 12290,
+      "costUsd": 0.0019125000000000001,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": true,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s080",
+      "book": "psalms",
+      "group": "Wisdom",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 12164,
+      "costUsd": 0.0018251,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s081",
+      "book": "leviticus",
+      "group": "Law",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 12545,
+      "costUsd": 0.0013941000000000001,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s082",
+      "book": "1-chronicles",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 13649,
+      "costUsd": 0.0012984,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s083",
+      "book": "nehemiah",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 9651,
+      "costUsd": 0.0011408,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s084",
+      "book": "genesis",
+      "group": "Law",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 10471,
+      "costUsd": 0.0015744,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s085",
+      "book": "isaiah",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 7695,
+      "costUsd": 0.0013652000000000002,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s086",
+      "book": "jeremiah",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 10425,
+      "costUsd": 0.0012954,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s087",
+      "book": "acts",
+      "group": "Gospels and Acts",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 11547,
+      "costUsd": 0.0018382,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": true
+      }
+    },
+    {
+      "id": "s088",
+      "book": "ezekiel",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 11588,
+      "costUsd": 0.0015751,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s089",
+      "book": "isaiah",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 9986,
+      "costUsd": 0.0011879,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s090",
+      "book": "deuteronomy",
+      "group": "Law",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": true,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 13256,
+      "costUsd": 0.0026098,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s091",
+      "book": "judges",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": false,
+      "elapsedMs": 17015,
+      "costUsd": 0.0025395,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s092",
+      "book": "judges",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": false,
+      "flawedStored": true,
+      "falseRefusal": false,
+      "replanned": true,
+      "lookPrepared": false,
+      "elapsedMs": 19221,
+      "costUsd": 0.0023906,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": true,
+        "X": true,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s093",
+      "book": "1-samuel",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 10212,
+      "costUsd": 0.0013767,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s094",
+      "book": "jeremiah",
+      "group": "Prophets",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 11320,
+      "costUsd": 0.0012587,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s095",
+      "book": "luke",
+      "group": "Gospels and Acts",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 13204,
+      "costUsd": 0.0014113,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s096",
+      "book": "isaiah",
+      "group": "Prophets",
+      "stored": false,
+      "cause": "evidence",
+      "accepted": false,
+      "flawedStored": false,
+      "falseRefusal": true,
+      "replanned": true,
+      "lookPrepared": true,
+      "elapsedMs": 10429,
+      "costUsd": 0.0021693,
+      "withoutReview": {
+        "stored": false,
+        "accepted": false,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s097",
+      "book": "numbers",
+      "group": "Law",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 7630,
+      "costUsd": 0.0010643,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    },
+    {
+      "id": "s098",
+      "book": "ezra",
+      "group": "History",
+      "stored": true,
+      "cause": null,
+      "accepted": true,
+      "flawedStored": false,
+      "falseRefusal": false,
+      "replanned": false,
+      "lookPrepared": true,
+      "elapsedMs": 10400,
+      "costUsd": 0.0013085000000000002,
+      "withoutReview": {
+        "stored": true,
+        "accepted": true,
+        "flawedStored": false
+      },
+      "flags": {
+        "U": false,
+        "X": false,
+        "I": false,
+        "F": false,
+        "R": false,
+        "M": false
+      }
+    }
+  ],
+  "paired": {
+    "verses": 98,
+    "baselineAccepted": 52,
+    "accepted": 74,
+    "improved": 30,
+    "regressed": 8,
+    "mcnemarExactP": 0.0004719867429230362,
+    "improvedIds": [
+      "s001",
+      "s014",
+      "s018",
+      "s020",
+      "s021",
+      "s025",
+      "s029",
+      "s034",
+      "s037",
+      "s038",
+      "s039",
+      "s040",
+      "s049",
+      "s050",
+      "s052",
+      "s054",
+      "s058",
+      "s060",
+      "s061",
+      "s062",
+      "s067",
+      "s068",
+      "s073",
+      "s074",
+      "s076",
+      "s077",
+      "s080",
+      "s083",
+      "s086",
+      "s088"
+    ],
+    "regressedIds": [
+      "s002",
+      "s009",
+      "s036",
+      "s043",
+      "s051",
+      "s063",
+      "s090",
+      "s096"
+    ],
+    "baselineFlawedStored": 6,
+    "flawedStored": 6
+  },
+  "calibration": {
+    "replies": 40,
+    "samePassFail": 37,
+    "sameBlockers": 37
+  }
+}
