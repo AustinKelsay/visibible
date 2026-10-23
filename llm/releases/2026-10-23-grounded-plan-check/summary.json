@@ -14,12 +14,15 @@
     },
     "daniel-7-9": {
       "stored": true,
-      "verdict": "accept-for-next-text-check"
+      "verdict": "accept-for-next-text-check",
+      "revisedVerdict": "hold-for-no-form-wording",
+      "addendum": "review-daniel-7-9-addendum.json"
     },
     "daniel-7-10": {
       "stored": false,
       "verdict": "refused-by-grounding-check",
-      "reason": "Error: Preparing scene: plan unavailable: cast the_ancient_of_days has invalid previous evidence"
+      "reason": "Error: Preparing scene: plan unavailable: cast the_ancient_of_days has invalid previous evidence",
+      "refusedFieldsNote": "The refused reply also described \"Radiance and fire seated above an unoccupied throne\"; no review of it is retained because it was never stored."
     }
   },
   "operation": {

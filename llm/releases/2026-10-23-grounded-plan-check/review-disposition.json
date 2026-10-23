@@ -1,0 +1,18 @@
+{
+  "at": "2026-10-23T14:19:38.461232+00:00",
+  "review": "coderabbit-round-1.ndjson",
+  "findings": [
+    {
+      "severity": "minor",
+      "file": "llm/releases/STATUS.md",
+      "title": "Reword \"a sound plan refused\"",
+      "disposition": "Accepted. Reworded; the refused 7:10 fields repeat seated-presence wording and were never reviewed. Rereading found the same wording in the accepted 7:9 plan, now held by review-daniel-7-9-addendum.json; README, STATUS, guide and index updated."
+    },
+    {
+      "severity": "minor",
+      "file": "llm/releases/2026-10-23-grounded-plan-check/verify.mts",
+      "title": "Document the pinned base worktree and generated manifest input",
+      "disposition": "Accepted. README gives worktree-at-296df42 overlay, npm ci and works:import steps before the audit."
+    }
+  ]
+}

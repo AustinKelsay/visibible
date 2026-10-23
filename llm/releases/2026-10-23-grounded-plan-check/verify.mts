@@ -85,6 +85,13 @@ for (const [first, next] of [["luke-10-33", "luke-10-34"], ["daniel-7-9", "danie
   assert.equal(attempted.includes(next), review.verdict === "accept-for-next-text-check");
 }
 assert.ok(Date.parse(json("review-luke-10-33.json").at) < Date.parse(json("started-daniel-7-9.json").at));
+// The later re-inspection holds 7:9 without rewriting the review that gated 7:10.
+const addendum = json("review-daniel-7-9-addendum.json");
+assert.equal(addendum.reviewSha256, hash(fs.readFileSync(path.join(dir, "review-daniel-7-9.json"))));
+assert.equal(addendum.artifactSha256, hash(fs.readFileSync(path.join(dir, "scene-daniel-7-9.json"))));
+assert.ok(Date.parse(addendum.at) > Date.parse(json("scene-daniel-7-10.json").at));
+assert.equal(addendum.originalVerdict, json("review-daniel-7-9.json").verdict);
+assert.equal(json("summary.json").outcomes["daniel-7-9"].revisedVerdict, addendum.revisedVerdict);
 
 // Separate allowances, ledger and account arithmetic.
 const ledger = json("ledger.json");
