@@ -64,21 +64,23 @@ if (command === "dry-run") {
   for (const name of ["run-started.json", "samples.ndjson", "ledger.json"]) assert.ok(!fs.existsSync(path.join(dir, name)), `${name} exists; this run already started`);
   save("run-started.json", { at: new Date().toISOString(), snapshot: phase, retryPolicy: plan.retryPolicy });
   const { ledger, forSample } = evaluationModel(snapshot);
+  // An unexpected request (for example a look) stops the whole run after its sample is recorded.
+  let unexpected: string | null = null;
   for (const sample of order) {
-    if (ledger.blocked) break;
+    if (ledger.blocked || unexpected) break;
     const { store, writes, spend } = memoryStore();
     const model = forSample(sample.id, (request, first) => {
-      checkRequest(request, sample.unit);
-      if (first) assert.deepEqual(plain(request), dry.requests[sample.unit]);
+      try { checkRequest(request, sample.unit); if (first) assert.deepEqual(plain(request), dry.requests[sample.unit]); }
+      catch (error) { unexpected = `${sample.id}: ${String(error).slice(0, 200)}`; throw error; }
     });
     const startedAt = Date.now(), callsBefore = ledger.calls.length;
     let outcome: string, error: string | null = null;
     try { await prepareMoment({ ...options(sample.unit, store), model }); outcome = "stored"; }
-    catch (e) { error = String(e); outcome = ledger.blocked ? "blocked" : spend.some((s) => s.outcome === "unavailable" || s.outcome === "review problems" || s.outcome === "review invalid") ? "refused" : "invalid"; }
+    catch (e) { error = String(e); outcome = unexpected ? "stopped" : ledger.blocked ? "blocked" : spend.some((s) => s.outcome === "unavailable" || s.outcome === "review problems" || s.outcome === "review invalid") ? "refused" : "invalid"; }
     const stored = writes.find((w) => w.kind === "plan") ?? null;
     fs.appendFileSync(path.join(dir, "samples.ndjson"), JSON.stringify({ ...sample, at: new Date().toISOString(), elapsedMs: Date.now() - startedAt,
       calls: ledger.calls.length - callsBefore, outcome, error, spendOutcomes: spend.map((s) => s.outcome), stored: stored ? { version: stored.version, payload: stored.payload } : null }) + "\n");
     console.log(JSON.stringify({ id: sample.id, outcome, calls: ledger.calls.length - callsBefore, measuredUsd: ledger.measuredUsd }));
   }
-  save("run-finished.json", { at: new Date().toISOString(), samplesTaken: fs.readFileSync(path.join(dir, "samples.ndjson"), "utf8").trim().split("\n").length, ledgerBlocked: ledger.blocked, measuredUsd: ledger.measuredUsd, productionMutations: 0 });
+  save("run-finished.json", { at: new Date().toISOString(), samplesTaken: fs.readFileSync(path.join(dir, "samples.ndjson"), "utf8").trim().split("\n").length, ledgerBlocked: ledger.blocked, unexpectedRequest: unexpected, measuredUsd: ledger.measuredUsd, productionMutations: 0 });
 }
