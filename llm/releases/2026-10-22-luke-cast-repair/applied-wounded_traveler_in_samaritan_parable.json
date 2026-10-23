@@ -1,0 +1,90 @@
+{
+  "at": "2026-10-23T00:45:18.745Z",
+  "result": {
+    "changed": true,
+    "entryVersion": "4d9d8a0161d3304a3b11c8b914159215",
+    "sectionVersion": "5f64e2a95e9d8a901571d011685c8ded"
+  },
+  "readBack": {
+    "createdAt": 1792716318533,
+    "generation": 1,
+    "inputs": [],
+    "kind": "entry",
+    "payload": {
+      "aliases": [
+        "the wounded man",
+        "robbery victim"
+      ],
+      "entryKind": "character",
+      "hasForm": true,
+      "kind": "entry",
+      "members": [],
+      "name": "Wounded traveler in the Samaritan parable",
+      "note": "Unnamed man inside the story Jesus tells in Luke 10:30–35, traveling from Jerusalem to Jericho, stripped, beaten and left half dead. Distinct from the framing lawyer and from the Samaritan who helps him. Injuries and lost clothing are situational, not a separate life stage.",
+      "stages": [
+        {
+          "id": "wounded_traveler_main",
+          "label": "Wounded traveler",
+          "quotes": [
+            {
+              "quote": "A certain man was going down from Jerusalem to Jericho, and he fell among robbers, who both stripped him and beat him",
+              "unit": "luke-10-30"
+            },
+            {
+              "quote": "leaving him half dead.",
+              "unit": "luke-10-30"
+            }
+          ],
+          "text": "Wounded traveler: a man of about 30 to 45 years, of average build with a lean, weathered frame, olive skin, short dark hair and a close-cut beard. Facial features are plain and worn, marked with dust and bruising. Stripped to a simple loincloth of undyed linen, he has no cloak or sandals. Signature props: none."
+        }
+      ]
+    },
+    "recordId": "wounded_traveler_in_samaritan_parable",
+    "source": "owner",
+    "status": "current",
+    "version": "4d9d8a0161d3304a3b11c8b914159215",
+    "workId": "bible-web"
+  },
+  "section": {
+    "createdAt": 1792716318533,
+    "generation": 1,
+    "inputs": [],
+    "kind": "section",
+    "payload": {
+      "cast": [
+        {
+          "entryId": "lawyer_who_tests_jesus_luke_10",
+          "named": true,
+          "stageId": "lawyer_who_tests_jesus_luke_10-s1"
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "named": true,
+          "stageId": "adult"
+        },
+        {
+          "entryId": "judea_gospel_region_around_jerusalem",
+          "stageId": "judea_main"
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "named": false,
+          "stageId": "wounded_traveler_main"
+        }
+      ],
+      "era": "roman-era-judea-galilee-and-the-early-church",
+      "firstUnit": "luke-10-25",
+      "kind": "section",
+      "lastUnit": "luke-10-37",
+      "mentionedOnly": [
+        "the_samaritan"
+      ],
+      "title": "Good Samaritan"
+    },
+    "recordId": "luke-10-25",
+    "source": "owner",
+    "status": "current",
+    "version": "5f64e2a95e9d8a901571d011685c8ded",
+    "workId": "bible-web"
+  }
+}

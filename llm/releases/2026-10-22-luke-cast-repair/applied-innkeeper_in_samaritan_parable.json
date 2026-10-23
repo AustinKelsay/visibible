@@ -1,0 +1,105 @@
+{
+  "at": "2026-10-23T00:45:20.014Z",
+  "result": {
+    "changed": true,
+    "entryVersion": "6682f845b5861d549bb8840dde1ad7e9",
+    "sectionVersion": "5381fbb637f11dc5ffdb19aeb86997d2"
+  },
+  "readBack": {
+    "createdAt": 1792716319854,
+    "generation": 1,
+    "inputs": [],
+    "kind": "entry",
+    "payload": {
+      "aliases": [
+        "the host"
+      ],
+      "entryKind": "character",
+      "hasForm": true,
+      "kind": "entry",
+      "members": [],
+      "name": "Innkeeper in the Samaritan parable",
+      "note": "Unnamed host of the inn inside the story in Luke 10:35, entrusted with the injured traveler’s care and given two denarii. Distinct from the Samaritan, injured traveler and framing speakers.",
+      "stages": [
+        {
+          "id": "innkeeper_main",
+          "label": "Innkeeper",
+          "quotes": [
+            {
+              "quote": "he took out two denarii, gave them to the host, and said to him",
+              "unit": "luke-10-35"
+            }
+          ],
+          "text": "Innkeeper: a man of middle years, forties, sturdy and weathered from the roadside trade; medium build with broad, work-worn hands; olive skin, dark hair cropped short with a close-trimmed beard shot with grey; lined, steady face. Signature outfit: a plain undyed linen tunic belted at the waist with a dull brown wool cloak; earth-brown and ochre tones. Signature prop: a small leather purse at his belt holding coins."
+        }
+      ]
+    },
+    "recordId": "innkeeper_in_samaritan_parable",
+    "source": "owner",
+    "status": "current",
+    "version": "6682f845b5861d549bb8840dde1ad7e9",
+    "workId": "bible-web"
+  },
+  "section": {
+    "createdAt": 1792716319854,
+    "generation": 1,
+    "inputs": [],
+    "kind": "section",
+    "payload": {
+      "cast": [
+        {
+          "entryId": "lawyer_who_tests_jesus_luke_10",
+          "named": true,
+          "stageId": "lawyer_who_tests_jesus_luke_10-s1"
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "named": true,
+          "stageId": "adult"
+        },
+        {
+          "entryId": "judea_gospel_region_around_jerusalem",
+          "stageId": "judea_main"
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "named": false,
+          "stageId": "wounded_traveler_main"
+        },
+        {
+          "entryId": "robbers_in_samaritan_parable",
+          "named": false,
+          "stageId": "robbers_in_samaritan_parable-s1"
+        },
+        {
+          "entryId": "priest_in_samaritan_parable",
+          "named": false,
+          "stageId": "priest_in_samaritan_parable-1"
+        },
+        {
+          "entryId": "levite_in_samaritan_parable",
+          "named": false,
+          "stageId": "levite-main"
+        },
+        {
+          "entryId": "innkeeper_in_samaritan_parable",
+          "named": false,
+          "stageId": "innkeeper_main"
+        }
+      ],
+      "era": "roman-era-judea-galilee-and-the-early-church",
+      "firstUnit": "luke-10-25",
+      "kind": "section",
+      "lastUnit": "luke-10-37",
+      "mentionedOnly": [
+        "the_samaritan"
+      ],
+      "title": "Good Samaritan"
+    },
+    "recordId": "luke-10-25",
+    "source": "owner",
+    "status": "current",
+    "version": "5381fbb637f11dc5ffdb19aeb86997d2",
+    "workId": "bible-web"
+  }
+}

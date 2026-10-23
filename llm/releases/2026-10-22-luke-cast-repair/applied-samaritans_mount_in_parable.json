@@ -1,0 +1,110 @@
+{
+  "at": "2026-10-23T00:45:20.347Z",
+  "result": {
+    "changed": true,
+    "entryVersion": "ee1dd25ba71166387cf6e4c3c393893f",
+    "sectionVersion": "88fa16488deacf7510db93c0a5ac5c0c"
+  },
+  "readBack": {
+    "createdAt": 1792716320167,
+    "generation": 1,
+    "inputs": [],
+    "kind": "entry",
+    "payload": {
+      "aliases": [
+        "his own animal"
+      ],
+      "entryKind": "character",
+      "hasForm": true,
+      "kind": "entry",
+      "members": [],
+      "name": "Samaritan’s mount in the parable",
+      "note": "The Samaritan’s own animal inside the story in Luke 10:34, used to carry the injured man to the inn. The text fixes ownership and use but not species, colour or markings; any chosen species/appearance is illustrative invention or tradition, not a textual claim.",
+      "stages": [
+        {
+          "id": "samaritans_mount_in_parable-main",
+          "label": "The Samaritan's mount",
+          "quotes": [
+            {
+              "quote": "He set him on his own animal, brought him to an inn, and took care of him.",
+              "unit": "luke-10-34"
+            }
+          ],
+          "text": "Samaritan’s mount in the parable: a sturdy donkey of the Judean hill country with a strong back, a plain brown coat, pale muzzle and legs, and a simple worn leather saddle and harness."
+        }
+      ]
+    },
+    "recordId": "samaritans_mount_in_parable",
+    "source": "owner",
+    "status": "current",
+    "version": "ee1dd25ba71166387cf6e4c3c393893f",
+    "workId": "bible-web"
+  },
+  "section": {
+    "createdAt": 1792716320167,
+    "generation": 1,
+    "inputs": [],
+    "kind": "section",
+    "payload": {
+      "cast": [
+        {
+          "entryId": "lawyer_who_tests_jesus_luke_10",
+          "named": true,
+          "stageId": "lawyer_who_tests_jesus_luke_10-s1"
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "named": true,
+          "stageId": "adult"
+        },
+        {
+          "entryId": "judea_gospel_region_around_jerusalem",
+          "stageId": "judea_main"
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "named": false,
+          "stageId": "wounded_traveler_main"
+        },
+        {
+          "entryId": "robbers_in_samaritan_parable",
+          "named": false,
+          "stageId": "robbers_in_samaritan_parable-s1"
+        },
+        {
+          "entryId": "priest_in_samaritan_parable",
+          "named": false,
+          "stageId": "priest_in_samaritan_parable-1"
+        },
+        {
+          "entryId": "levite_in_samaritan_parable",
+          "named": false,
+          "stageId": "levite-main"
+        },
+        {
+          "entryId": "innkeeper_in_samaritan_parable",
+          "named": false,
+          "stageId": "innkeeper_main"
+        },
+        {
+          "entryId": "samaritans_mount_in_parable",
+          "named": false,
+          "stageId": "samaritans_mount_in_parable-main"
+        }
+      ],
+      "era": "roman-era-judea-galilee-and-the-early-church",
+      "firstUnit": "luke-10-25",
+      "kind": "section",
+      "lastUnit": "luke-10-37",
+      "mentionedOnly": [
+        "the_samaritan"
+      ],
+      "title": "Good Samaritan"
+    },
+    "recordId": "luke-10-25",
+    "source": "owner",
+    "status": "current",
+    "version": "88fa16488deacf7510db93c0a5ac5c0c",
+    "workId": "bible-web"
+  }
+}

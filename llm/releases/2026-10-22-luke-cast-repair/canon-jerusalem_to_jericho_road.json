@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-22T22:33:38.693Z",
+  "entry": {
+    "id": "jerusalem_to_jericho_road",
+    "kind": "location",
+    "readingKind": "place",
+    "name": "Jerusalem–Jericho road in the Samaritan parable",
+    "aliases": [
+      "that way",
+      "the roadside in the story"
+    ],
+    "note": "The descending journey from Jerusalem to Jericho inside the narrated story in Luke 10:30–34. It is the inner story’s road, not the location of Jesus’s conversation with the lawyer. The text fixes endpoints and descending travel; specific terrain details follow the era/illustrative tradition.",
+    "members": [],
+    "support": [
+      "luke-10-30"
+    ]
+  },
+  "result": {
+    "entryId": "jerusalem_to_jericho_road",
+    "kind": "location",
+    "hasForm": true,
+    "appearanceFromText": "The text fixes the road as a descent from Jerusalem to Jericho on which travellers pass; terrain, stonework and vegetation are supplied from the era's Judean landscape and illustrative tradition.",
+    "stages": [
+      {
+        "id": "jerusalem_to_jericho_road_main",
+        "label": "Jerusalem–Jericho road",
+        "when": "the narrated journey of the parable",
+        "source": "mixed",
+        "quotes": [
+          {
+            "unit": "luke-10-30",
+            "quote": "A certain man was going down from Jerusalem to Jericho"
+          },
+          {
+            "unit": "luke-10-31",
+            "quote": "a certain priest was going down that way"
+          }
+        ],
+        "text": "Jerusalem–Jericho road: a steep, stony track descending through the arid Judean wilderness from the hill city toward the low Jordan valley. Rocky limestone ridges and gullies line the way, with dry scrub, scattered acacia and thorn, and patches of wild grass. Rough boulders and cairns mark the path, and distant terraced hills and the faint outline of a walled town lie ahead in the desert haze."
+      }
+    ],
+    "sectionStages": {
+      "luke-10-25": "jerusalem_to_jericho_road_main"
+    },
+    "problems": [],
+    "promptVersion": "2026-10-22-canon-showing-v3",
+    "attempts": 1
+  }
+}

@@ -1,0 +1,246 @@
+{
+  "at": "2026-10-22T22:32:05.763Z",
+  "phase": "canon:priest_in_samaritan_parable",
+  "label": "canon:priest_in_samaritan_parable:1",
+  "request": {
+    "system": "You write CANON ENTRIES for an illustrated edition of a work of literature. A canon entry fixes the identity of one character, location or object so that independently generated images agree with each other. Return only JSON matching the schema.\n\nRules:\n- Depiction rules govern the rendered appearance, including when the source uses bodily imagery. Apply only the brief's unconditional rules to this shared canon; style-specific rules belong to final rendering. If an unconditional rule forbids giving this entry a body or face, set has_form to false; otherwise has_form is true.\n- Within those depiction limits, the work's text is binding: preserve what it fixes about appearance. Where the text is silent, follow the work's own illustrative tradition if one exists (the way the work itself has been drawn and painted), never film or television adaptations; otherwise invent a look that fits the era and the work brief. Never give anyone the likeness of a real actor or public figure.\n- When has_form is true, each stage returns `text`: one prompt-ready paragraph of at most 500 characters, starting with the name and a colon. Do not return `showing` for these stages.\n- The appearance fields below apply only when has_form is true:\n  - character (people, beings, animals, groups): age range; build; skin; hair and beard; facial notes; one signature outfit (the one worn most often) and its colours; signature props the figure carries alone. For a group, describe a typical member.\n  - location: terrain; architecture; vegetation; landmarks. No people.\n  - object: form; material; colour.\n- When has_form is false, each stage returns `showing` INSTEAD OF `text`: one to five positive effects selected from the schema. Code builds the prompt-ready description from these selections; there is no free-prose stage field. Select only effects permitted by the unconditional brief and supported by this entry's constrained interpretation. Visual effects (light, radiance, cloud, mist, fire) take a literal colour and brightness, or \"unspecified\"; wind, voice and unseen presence take only an effect. Never invent an effect just to use the vocabulary. For example, white source imagery may become {\"effect\":\"radiance\",\"colour\":\"white\",\"brightness\":\"brilliant\"} when permitted. Render source metaphors as permitted qualities, not physical anatomy, clothing, pose or material cues. Do not repeat prohibited features as denials, similes or substitute shapes. Keep the exact source wording in supporting quotes for audit; `appearance_from_text` may explain the source imagery and its constrained interpretation.\n- Fix only identity. Leave out poses, expressions, actions, weather, time of day, other people (attendants, companions, crowds) and anything that compares the figure with someone else or depends on another person.\n- STAGES: almost every entry has exactly ONE stage. A character gets another stage only when the text itself says they have aged from child to adult or adult to elder across the work; a location only when the text says it was built, destroyed or rebuilt. Different scenes, days, rooms, moods or events are NOT stages. At most three. Objects always have exactly one stage. Each stage is a complete entry on its own.\n- `quotes`: short passages (under 120 characters, copied exactly) the stage relied on, each with the id of the unit it comes from. Only quote units you were given; give none if nothing in the text describes appearance.\n- `section_stages`: for every story section listed, the id of the stage present in it. With one stage, every section uses it.\n- `source`: text, tradition, invention, or mixed. `appearance_from_text`: one sentence saying what the text fixes and what you supplied.",
+    "user": "WORK: The Holy Bible (Various)\nTONE: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDEPICTION RULES (unconditional; style-specific rules are reserved for final rendering):\n- God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\n- Treat battles, death and crucifixion seriously; avoid lingering gore.\n- No sexually explicit content; non-sexual nudity may follow the text.\n- Show all peoples with dignity, without ethnic or religious caricature.\n- Visionary creatures follow the text, strange and fearsome rather than comic.\nERAS THIS ENTRY APPEARS IN:\n- Roman Judea and the early church: people: Jewish and Gentile Mediterranean communities under Roman rule. Dress: Tunics, cloaks, priestly robes and Roman military clothing. Buildings and objects: Stone villages, synagogues, temple, fishing boats and Roman cities.\nHINTS FROM THE OWNER'S BRIEF REVIEW (lines moved out of the brief because they concern this entry alone; use them):\n- none\n\nENTRY\nid: priest_in_samaritan_parable\nkind: character (person)\nname: Priest in the Samaritan parable\naliases: a certain priest\nreading-pass note: Unnamed priest inside the narrated story in Luke 10:31, who sees the traveler and passes on the other side. Distinct from every named priest elsewhere and from the framing speakers.\non stage in 1 story sections (id: title):\n- luke-10-25: Good Samaritan\n\nSELECTED SOURCE UNITS (name matches and on-stage section context; unit id in brackets; quote only from these):\nContext may describe other subjects. Attribute appearance only to this entry when supported by the passage; section membership alone does not identify who a description belongs to. Whole units are sampled under a 14,000-character source limit; omitted passages are not evidence of absence.\n[luke-10-25] Behold, a certain lawyer stood up and tested him, saying, “Teacher, what shall I do to inherit eternal life?”\n[luke-10-26] He said to him, “What is written in the law? How do you read it?”\n[luke-10-27] He answered, “You shall love the Lord your God with all your heart, with all your soul, with all your strength, and with all your mind; and your neighbor as yourself.”\n[luke-10-28] He said to him, “You have answered correctly. Do this, and you will live.”\n[luke-10-29] But he, desiring to justify himself, asked Jesus, “Who is my neighbor?”\n[luke-10-30] Jesus answered, “A certain man was going down from Jerusalem to Jericho, and he fell among robbers, who both stripped him and beat him, and departed, leaving him half dead.\n[luke-10-31] By chance a certain priest was going down that way. When he saw him, he passed by on the other side.\n[luke-10-32] In the same way a Levite also, when he came to the place and saw him, passed by on the other side.\n[luke-10-33] But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,\n[luke-10-34] came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.\n[luke-10-35] On the next day, when he departed, he took out two denarii, gave them to the host, and said to him, ‘Take care of him. Whatever you spend beyond that, I will repay you when I return.’\n[luke-10-36] Now which of these three do you think seemed to be a neighbor to him who fell among the robbers?”\n[luke-10-37] He said, “He who showed mercy on him.” Then Jesus said to him, “Go and do likewise.”",
+    "schemaName": "canon_entry",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "character",
+            "location",
+            "object"
+          ]
+        },
+        "has_form": {
+          "type": "boolean"
+        },
+        "appearance_from_text": {
+          "type": "string"
+        },
+        "stages": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  },
+                  "when": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string",
+                    "enum": [
+                      "text",
+                      "tradition",
+                      "invention",
+                      "mixed"
+                    ]
+                  },
+                  "quotes": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "unit": {
+                          "type": "string"
+                        },
+                        "quote": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "unit",
+                        "quote"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "label",
+                  "when",
+                  "source",
+                  "quotes",
+                  "text"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  },
+                  "when": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string",
+                    "enum": [
+                      "text",
+                      "tradition",
+                      "invention",
+                      "mixed"
+                    ]
+                  },
+                  "quotes": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "unit": {
+                          "type": "string"
+                        },
+                        "quote": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "unit",
+                        "quote"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "showing": {
+                    "minItems": 1,
+                    "maxItems": 5,
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "effect": {
+                              "type": "string",
+                              "enum": [
+                                "light",
+                                "radiance",
+                                "cloud",
+                                "mist",
+                                "fire"
+                              ]
+                            },
+                            "colour": {
+                              "type": "string",
+                              "enum": [
+                                "unspecified",
+                                "white",
+                                "gold",
+                                "silver",
+                                "red",
+                                "orange",
+                                "yellow",
+                                "green",
+                                "blue",
+                                "violet",
+                                "black",
+                                "multicoloured"
+                              ]
+                            },
+                            "brightness": {
+                              "type": "string",
+                              "enum": [
+                                "unspecified",
+                                "faint",
+                                "soft",
+                                "bright",
+                                "brilliant"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "effect",
+                            "colour",
+                            "brightness"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "effect": {
+                              "type": "string",
+                              "enum": [
+                                "wind",
+                                "voice",
+                                "unseen presence"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "effect"
+                          ],
+                          "additionalProperties": false
+                        }
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "label",
+                  "when",
+                  "source",
+                  "quotes",
+                  "showing"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "section_stages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "section": {
+                "type": "string"
+              },
+              "stage": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "section",
+              "stage"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "has_form",
+        "appearance_from_text",
+        "stages",
+        "section_stages"
+      ],
+      "additionalProperties": false
+    },
+    "maxTokens": 4000,
+    "expectedCompletionTokens": 1200
+  },
+  "estimatedUsd": 0.0008669259259259258,
+  "maximumCompletionEstimatedUsd": 0.0022669259259259257
+}

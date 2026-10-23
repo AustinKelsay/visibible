@@ -60,6 +60,7 @@ These guides describe the repository's current behavior. Source links identify t
 - [Fresh no-form look and Daniel plans: improved wording, held cast selection and separate accounting](releases/2026-10-22-formless-look-evaluation/README.md)
 - [Selected-cast text check: retained presence failure, stopped sequence and 146-test compatibility rehearsal](releases/2026-10-22-moment-cast-evaluation/README.md)
 - [Actual production request timings, guest billing, rollback replay and retained visual failures](releases/2026-10-22-owner-request-check/README.md)
+- [Applied Luke cast repair, first v2 Luke/Daniel text outcomes and retained release holds](releases/2026-10-22-luke-cast-repair/README.md)
 
 Exact dependencies and commands: [package.json](../package.json). Environment templates: [.env.example](../.env.example), [.env.convex.dev.example](../.env.convex.dev.example), [.env.convex.prod.example](../.env.convex.prod.example), [.env.vercel.preview.example](../.env.vercel.preview.example), [.env.vercel.prod.example](../.env.vercel.prod.example). Tables and scheduled jobs: [schema](../convex/schema.ts), [crons](../convex/crons.ts).
 

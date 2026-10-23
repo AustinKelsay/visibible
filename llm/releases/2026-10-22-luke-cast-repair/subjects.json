@@ -1,0 +1,136 @@
+[
+  {
+    "id": "the_samaritan",
+    "kind": "character",
+    "readingKind": "person",
+    "name": "the Samaritan",
+    "aliases": [
+      "the good Samaritan"
+    ],
+    "note": "Traveler in the parable who tends a robbery victim (ch. 10).",
+    "members": [
+      "luke:character:good_samaritan"
+    ],
+    "support": [
+      "luke-10-33",
+      "luke-10-34",
+      "luke-10-35"
+    ]
+  },
+  {
+    "id": "wounded_traveler_in_samaritan_parable",
+    "kind": "character",
+    "readingKind": "person",
+    "name": "Wounded traveler in the Samaritan parable",
+    "aliases": [
+      "the wounded man",
+      "robbery victim"
+    ],
+    "note": "Unnamed man inside the story Jesus tells in Luke 10:30–35, traveling from Jerusalem to Jericho, stripped, beaten and left half dead. Distinct from the framing lawyer and from the Samaritan who helps him. Injuries and lost clothing are situational, not a separate life stage.",
+    "members": [],
+    "support": [
+      "luke-10-30",
+      "luke-10-34"
+    ]
+  },
+  {
+    "id": "robbers_in_samaritan_parable",
+    "kind": "character",
+    "readingKind": "group",
+    "name": "Robbers in the Samaritan parable",
+    "aliases": [
+      "the robbers in the story"
+    ],
+    "note": "Unnamed group inside Jesus’s story in Luke 10:30 who attack the traveler and depart. Distinct from the men crucified with Jesus and all other robbery groups. Describe a typical member.",
+    "members": [],
+    "support": [
+      "luke-10-30"
+    ]
+  },
+  {
+    "id": "priest_in_samaritan_parable",
+    "kind": "character",
+    "readingKind": "person",
+    "name": "Priest in the Samaritan parable",
+    "aliases": [
+      "a certain priest"
+    ],
+    "note": "Unnamed priest inside the narrated story in Luke 10:31, who sees the traveler and passes on the other side. Distinct from every named priest elsewhere and from the framing speakers.",
+    "members": [],
+    "support": [
+      "luke-10-31"
+    ]
+  },
+  {
+    "id": "levite_in_samaritan_parable",
+    "kind": "character",
+    "readingKind": "person",
+    "name": "Levite in the Samaritan parable",
+    "aliases": [
+      "a Levite in the story"
+    ],
+    "note": "Unnamed Levite inside the narrated story in Luke 10:32, who sees the traveler and passes on the other side. Distinct from the priest immediately before him and from named Levites elsewhere.",
+    "members": [],
+    "support": [
+      "luke-10-32"
+    ]
+  },
+  {
+    "id": "innkeeper_in_samaritan_parable",
+    "kind": "character",
+    "readingKind": "person",
+    "name": "Innkeeper in the Samaritan parable",
+    "aliases": [
+      "the host"
+    ],
+    "note": "Unnamed host of the inn inside the story in Luke 10:35, entrusted with the injured traveler’s care and given two denarii. Distinct from the Samaritan, injured traveler and framing speakers.",
+    "members": [],
+    "support": [
+      "luke-10-35"
+    ]
+  },
+  {
+    "id": "samaritans_mount_in_parable",
+    "kind": "character",
+    "readingKind": "animal",
+    "name": "Samaritan’s mount in the parable",
+    "aliases": [
+      "his own animal"
+    ],
+    "note": "The Samaritan’s own animal inside the story in Luke 10:34, used to carry the injured man to the inn. The text fixes ownership and use but not species, colour or markings; any chosen species/appearance is illustrative invention or tradition, not a textual claim.",
+    "members": [],
+    "support": [
+      "luke-10-34"
+    ]
+  },
+  {
+    "id": "jerusalem_to_jericho_road",
+    "kind": "location",
+    "readingKind": "place",
+    "name": "Jerusalem–Jericho road in the Samaritan parable",
+    "aliases": [
+      "that way",
+      "the roadside in the story"
+    ],
+    "note": "The descending journey from Jerusalem to Jericho inside the narrated story in Luke 10:30–34. It is the inner story’s road, not the location of Jesus’s conversation with the lawyer. The text fixes endpoints and descending travel; specific terrain details follow the era/illustrative tradition.",
+    "members": [],
+    "support": [
+      "luke-10-30"
+    ]
+  },
+  {
+    "id": "inn_in_samaritan_parable",
+    "kind": "location",
+    "readingKind": "place",
+    "name": "Inn in the Samaritan parable",
+    "aliases": [
+      "an inn in the story"
+    ],
+    "note": "Unnamed inn inside the narrated story in Luke 10:34–35, where the Samaritan brings the injured traveler and pays the host. Distinct from the road and from the framing conversation. The text gives an inn, not a specific architectural description.",
+    "members": [],
+    "support": [
+      "luke-10-34",
+      "luke-10-35"
+    ]
+  }
+]

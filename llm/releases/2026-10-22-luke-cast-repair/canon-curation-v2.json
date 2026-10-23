@@ -1,0 +1,50 @@
+{
+  "at": "2026-10-22T22:36:50.800504+00:00",
+  "reviewer": "Agent acting within the authorized owner-correction task; not human release acceptance",
+  "type": "explicit canon curation; not a model retry or plan edit",
+  "revisions": {
+    "wounded_traveler_in_samaritan_parable": {
+      "reason": "Fixed appearance should not narrate other actors\u2019 actions. Remove the explanatory robbery clause; retain the source-fixed stripped/injured condition.",
+      "textReplace": [
+        "Signature props: none, as robbers took his belongings.",
+        "Signature props: none."
+      ],
+      "originalArtifactSha256": "067b445ab54f815082082590be723c9aa24f9025e054aec52c6fa23153985927"
+    },
+    "robbers_in_samaritan_parable": {
+      "reason": "Give the group a definite typical-member outfit instead of an either/or option. Leather sandals are an explicit illustrative choice, not a textual claim.",
+      "textReplace": [
+        "and sandals or bare feet.",
+        "and leather sandals."
+      ],
+      "originalArtifactSha256": "313dc44703bc1d01c219162544c53e568d778dbfeab0a5c82fbea776544c8455"
+    },
+    "innkeeper_in_samaritan_parable": {
+      "reason": "Retain the direct host quotation in Luke 10:35 and remove the extra 10:34 care quotation about the Samaritan. Remove an invented moral assessment from fixed appearance. The original remains retained after the strict post-draft check stopped.",
+      "keepQuoteUnits": [
+        "luke-10-35"
+      ],
+      "textReplace": [
+        "lined, steady face with an honest, practical bearing.",
+        "lined, steady face."
+      ],
+      "originalArtifactSha256": "2b209e827cad9f81c15b0a81bea354a4b05dea895a6188bc78d4ddb2cc2f97e0"
+    },
+    "samaritans_mount_in_parable": {
+      "reason": "Choose one definite illustrative species (donkey), explicitly not fixed by the text. Remove movement, the wounded man, and a narrated journey from fixed appearance.",
+      "text": "Samaritan\u2019s mount in the parable: a sturdy donkey of the Judean hill country with a strong back, a plain brown coat, pale muzzle and legs, and a simple worn leather saddle and harness.",
+      "originalArtifactSha256": "fca67cf363f522ad4c5f9736732c29bdd85dc46df29d7d209817808785270b2a"
+    },
+    "jerusalem_to_jericho_road": {
+      "reason": "The strict declared-support check stopped on an extra Luke 10:31 quotation. Retain the direct endpoints/descent quotation from 10:30 only; preserve the original failed artifact.",
+      "keepQuoteUnits": [
+        "luke-10-30"
+      ],
+      "originalArtifactSha256": "e7f8e70a5df1174caef8a3de437095a6d1e901be1aa304e1fb96835ecdfeeb0e"
+    }
+  },
+  "productionMutations": 0,
+  "paidRerolls": 0,
+  "innkeeperQuoteStopResolution": "Use the retained direct 10:35 quotation only. Preserve the failed original and apply no source edit before complete candidate validation/review.",
+  "supersedesSha256": "ecdec697fabf288bf95a3f135ddd8a52422f7717e465b81f78e1004cabf074c1"
+}

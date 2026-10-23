@@ -1,0 +1,5 @@
+{
+  "at": "2026-10-23T00:45:18.120Z",
+  "candidateSha256": "15d69aee794c4464794bca92d27a604b1c360661975c0c690dda70afcd5aa27a",
+  "retryPolicy": "Never blindly rerun; inspect durable per-operation read-back and record histories after any ambiguity."
+}

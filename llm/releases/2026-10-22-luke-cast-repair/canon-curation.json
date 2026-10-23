@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-22T22:33:31.599740+00:00",
+  "reviewer": "Agent acting within the authorized owner-correction task; not human release acceptance",
+  "type": "explicit canon curation; not a model retry or plan edit",
+  "revisions": {
+    "wounded_traveler_in_samaritan_parable": {
+      "reason": "Fixed appearance should not narrate other actors’ actions. Remove the explanatory robbery clause; retain the source-fixed stripped/injured condition.",
+      "textReplace": [
+        "Signature props: none, as robbers took his belongings.",
+        "Signature props: none."
+      ],
+      "originalArtifactSha256": "067b445ab54f815082082590be723c9aa24f9025e054aec52c6fa23153985927"
+    },
+    "robbers_in_samaritan_parable": {
+      "reason": "Give the group a definite typical-member outfit instead of an either/or option. Leather sandals are an explicit illustrative choice, not a textual claim.",
+      "textReplace": [
+        "and sandals or bare feet.",
+        "and leather sandals."
+      ],
+      "originalArtifactSha256": "313dc44703bc1d01c219162544c53e568d778dbfeab0a5c82fbea776544c8455"
+    },
+    "innkeeper_in_samaritan_parable": {
+      "reason": "Retain the direct host quotation in Luke 10:35 and remove the extra 10:34 care quotation about the Samaritan. Remove an invented moral assessment from fixed appearance. The original remains retained after the strict post-draft check stopped.",
+      "keepQuoteUnits": [
+        "luke-10-35"
+      ],
+      "textReplace": [
+        "lined, steady face with an honest, practical bearing.",
+        "lined, steady face."
+      ],
+      "originalArtifactSha256": "2b209e827cad9f81c15b0a81bea354a4b05dea895a6188bc78d4ddb2cc2f97e0"
+    }
+  },
+  "productionMutations": 0,
+  "paidRerolls": 0,
+  "innkeeperQuoteStopResolution": "Use the retained direct 10:35 quotation only. Preserve the failed original and apply no source edit before complete candidate validation/review."
+}

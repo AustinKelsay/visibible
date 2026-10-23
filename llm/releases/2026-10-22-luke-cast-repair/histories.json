@@ -1,0 +1,514 @@
+{
+  "at": "2026-10-23T00:48:25.661Z",
+  "histories": [
+    {
+      "kind": "section",
+      "recordId": "luke-10-25",
+      "history": [
+        {
+          "createdAt": 1792716321061,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "30addabc87a1da6195912e64d9fc4038"
+        },
+        {
+          "createdAt": 1792716320821,
+          "generation": 1,
+          "source": "owner",
+          "status": "superseded",
+          "version": "9f1b9d0a7866f02f587421125feef376"
+        },
+        {
+          "createdAt": 1792716320493,
+          "generation": 1,
+          "source": "owner",
+          "status": "superseded",
+          "version": "96ee0fa0eb20a87fe3646a78873f7cac"
+        },
+        {
+          "createdAt": 1792716320167,
+          "generation": 1,
+          "source": "owner",
+          "status": "superseded",
+          "version": "88fa16488deacf7510db93c0a5ac5c0c"
+        },
+        {
+          "createdAt": 1792716319854,
+          "generation": 1,
+          "source": "owner",
+          "status": "superseded",
+          "version": "5381fbb637f11dc5ffdb19aeb86997d2"
+        },
+        {
+          "createdAt": 1792716319535,
+          "generation": 1,
+          "source": "owner",
+          "status": "superseded",
+          "version": "a044fd81b5f5f41a8da8c97972e712a5"
+        },
+        {
+          "createdAt": 1792716319206,
+          "generation": 1,
+          "source": "owner",
+          "status": "superseded",
+          "version": "72e384362a2ba491f76def8e73dad172"
+        },
+        {
+          "createdAt": 1792716318901,
+          "generation": 1,
+          "source": "owner",
+          "status": "superseded",
+          "version": "4aaf2352c2d784796811e8caf18db48e"
+        },
+        {
+          "createdAt": 1792716318533,
+          "generation": 1,
+          "source": "owner",
+          "status": "superseded",
+          "version": "5f64e2a95e9d8a901571d011685c8ded"
+        },
+        {
+          "createdAt": 1792535242233,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "1a197b2c234bf5c529730b34033b9c08"
+        }
+      ]
+    },
+    {
+      "kind": "look",
+      "recordId": "luke-10-25",
+      "history": [
+        {
+          "createdAt": 1792716346129,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "9cb58359fa22fb6e3931fff1bf133a1d"
+        },
+        {
+          "createdAt": 1792701951133,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "7e68160298b17509065d1cead1a4a166"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "the_samaritan",
+      "history": [
+        {
+          "createdAt": 1792716318205,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+        },
+        {
+          "createdAt": 1792535228766,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "58735115867b1dc088d7ab5d9f568a91"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "wounded_traveler_in_samaritan_parable",
+      "history": [
+        {
+          "createdAt": 1792716318533,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "4d9d8a0161d3304a3b11c8b914159215"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "robbers_in_samaritan_parable",
+      "history": [
+        {
+          "createdAt": 1792716318901,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "f28e5c54eaa8f701fba1401ce96b83f0"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "priest_in_samaritan_parable",
+      "history": [
+        {
+          "createdAt": 1792716319206,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "0a03afc2196bfdb1afb6747ad9c73a86"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "levite_in_samaritan_parable",
+      "history": [
+        {
+          "createdAt": 1792716319535,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "f916bafa12d638d3d26d1f42b3b079c6"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "innkeeper_in_samaritan_parable",
+      "history": [
+        {
+          "createdAt": 1792716319854,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "6682f845b5861d549bb8840dde1ad7e9"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "samaritans_mount_in_parable",
+      "history": [
+        {
+          "createdAt": 1792716320167,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "ee1dd25ba71166387cf6e4c3c393893f"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "jerusalem_to_jericho_road",
+      "history": [
+        {
+          "createdAt": 1792716320493,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "29f520702292f19b67186f38b0bdca4c"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "inn_in_samaritan_parable",
+      "history": [
+        {
+          "createdAt": 1792716320821,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "79696bd3b4de4fdc426365cb1368848f"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "jesus_christ_the_son_of_god_and_lord",
+      "history": [
+        {
+          "createdAt": 1792538172786,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "0610430f0f21f266bc5852671492395b"
+        },
+        {
+          "createdAt": 1792535228766,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "0af75fa34e2a0e2641b5d9dbcff70fcf"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "lawyer_who_tests_jesus_luke_10",
+      "history": [
+        {
+          "createdAt": 1792535228766,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "432a31ff7a59cb7aa1ae2e37bf87adbb"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "judea_gospel_region_around_jerusalem",
+      "history": [
+        {
+          "createdAt": 1792535228766,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "5c5ceb023c289235bb1999caa547dfee"
+        }
+      ]
+    },
+    {
+      "kind": "plan",
+      "recordId": "luke-10-33",
+      "history": [
+        {
+          "createdAt": 1792716351928,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "0c517ed7d4b7d752d44aecef8ace7c13"
+        },
+        {
+          "createdAt": 1792701954253,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "35d050d1416f962e3c2cecd93e7a832d"
+        }
+      ]
+    },
+    {
+      "kind": "plan",
+      "recordId": "luke-10-34",
+      "history": [
+        {
+          "createdAt": 1792716404295,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "f1cdc381d9e0b9eea2547b99d1ced975"
+        }
+      ]
+    },
+    {
+      "kind": "plan",
+      "recordId": "daniel-7-9",
+      "history": [
+        {
+          "createdAt": 1792716440160,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "73d1705a63991b63cda6e9f22982d4ee"
+        },
+        {
+          "createdAt": 1792700654127,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "a3ca926f3a9081a212ace327b4a556fb"
+        },
+        {
+          "createdAt": 1792698207436,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "22ff3b0727462dd0b05ab27f80b420cb"
+        },
+        {
+          "createdAt": 1792692191524,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "932f8da75d1a121ed0a9e14f92cd47eb"
+        },
+        {
+          "createdAt": 1792611998723,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "8cd89ee4aad16a597882ff9ccf05f0f0"
+        },
+        {
+          "createdAt": 1792609831603,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "575c1a3d622656802a52fa15001b77d9"
+        },
+        {
+          "createdAt": 1792606742560,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "5951003af8b1ab4f397ac57297b9d786"
+        },
+        {
+          "createdAt": 1792602229948,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "dcf9ed4a77ff18ad1f9c3132b0f3641e"
+        },
+        {
+          "createdAt": 1792538591070,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "25f7cd6a45d77ee5b6b94e72718cce36"
+        }
+      ]
+    },
+    {
+      "kind": "plan",
+      "recordId": "daniel-7-10",
+      "history": [
+        {
+          "createdAt": 1792698296381,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "dc23bd8a8ef507fb011227d2dce6dad6"
+        }
+      ]
+    },
+    {
+      "kind": "section",
+      "recordId": "daniel-7-9",
+      "history": [
+        {
+          "createdAt": 1792692142607,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "8573512b6683f0d87a6a3553c7a6b9ef"
+        },
+        {
+          "createdAt": 1792535239756,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "9bfed655c64bcc10b8f74b1d436fb659"
+        }
+      ]
+    },
+    {
+      "kind": "look",
+      "recordId": "daniel-7-9",
+      "history": [
+        {
+          "createdAt": 1792698202947,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "219208bab707a1b98f813e02b220d45e"
+        },
+        {
+          "createdAt": 1792692186449,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "d004a4b04921ce39ce1b978879c6cedc"
+        },
+        {
+          "createdAt": 1792601845825,
+          "generation": 1,
+          "source": "owner",
+          "status": "superseded",
+          "version": "1469b2542a3afbf77ed9921c8f727f20"
+        },
+        {
+          "createdAt": 1792538588182,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "12d398821f2ecb47f9edf7ea075349b6"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "the_ancient_of_days",
+      "history": [
+        {
+          "createdAt": 1792692143097,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "2580946090305beb790717b8920e11ec"
+        },
+        {
+          "createdAt": 1792535226262,
+          "generation": 1,
+          "source": "generated",
+          "status": "superseded",
+          "version": "ae42fd28206e5e83b5529fd0ebf9112c"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "ministering_assembly_in_daniels_vision",
+      "history": [
+        {
+          "createdAt": 1792692142607,
+          "generation": 1,
+          "source": "owner",
+          "status": "current",
+          "version": "4abdbb32cfcaa06d3bc748ea6b88a23e"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "daniel_prophet_of_babylon",
+      "history": [
+        {
+          "createdAt": 1792535226262,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "one_like_a_son_of_man",
+      "history": [
+        {
+          "createdAt": 1792535226262,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "f0a2429d0ca6ac9657801f25e0921699"
+        }
+      ]
+    },
+    {
+      "kind": "entry",
+      "recordId": "babylon",
+      "history": [
+        {
+          "createdAt": 1792535226262,
+          "generation": 1,
+          "source": "generated",
+          "status": "current",
+          "version": "de8721810ea07cf6cc361bc90ea0502d"
+        }
+      ]
+    }
+  ],
+  "paidCalls": 0,
+  "productionMutations": 0
+}

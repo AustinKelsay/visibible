@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-23T00:49:18.508497+00:00",
+  "issue": 183,
+  "baseCommit": "6f32e2d609d1f57e4da796809f265129dca2e856",
+  "sourceCorrectionApplied": true,
+  "reusedExistingIdentities": 1,
+  "newEntries": 8,
+  "sourceMutations": 10,
+  "sectionVersion": "30addabc87a1da6195912e64d9fc4038",
+  "activeGeneration": 1,
+  "ready": true,
+  "attempted": [
+    "luke-10-33",
+    "luke-10-34",
+    "daniel-7-9"
+  ],
+  "stoppedBefore": [
+    "daniel-7-10"
+  ],
+  "verdicts": {
+    "luke-10-33": "accept-for-next-text-check",
+    "luke-10-34": "hold-for-single-scene-and-moment-presence",
+    "daniel-7-9": "hold-for-moment-presence"
+  },
+  "operation": {
+    "capUsd": 0.15,
+    "measuredUsd": 0.0072277,
+    "canonCalls": 9,
+    "canonMeasuredUsd": 0.005543,
+    "ordinaryPreparationCalls": 4,
+    "ordinaryPreparationMeasuredUsd": 0.0016847,
+    "uncertainUsd": 0
+  },
+  "preparation": {
+    "authorizedUsd": 43,
+    "measuredUsd": 3.6529853,
+    "retainedUncertaintyUsd": 0.03,
+    "remainingAfterReserveUsd": 39.3170147
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredUsd": 16.2980069,
+    "retainedUncertaintyUsd": 0.045,
+    "remainingAfterReserveUsd": 0.1569931
+  },
+  "smoke": {
+    "authorizedUsd": 1,
+    "measuredUsd": 0.685795,
+    "remainingUsd": 0.314205
+  },
+  "accountBalance": {
+    "beforeUsd": 10.272239791999993,
+    "afterUsd": 10.265012092000006,
+    "deltaUsd": 0.0072276999999871805,
+    "matchesReturnedUsage": true,
+    "immediateFinalAfterUsd": 10.26603699200001,
+    "immediateFinalDeltaUsd": 0.006202799999982744,
+    "settledAt": "2026-10-23T00:53:28.342Z"
+  },
+  "imageCalls": 0,
+  "referenceGenerationCalls": 0,
+  "semanticRetries": 0,
+  "planEdits": 0,
+  "lookOverlays": 0,
+  "deployments": 0,
+  "guestGrants": 0,
+  "publicActivation": false,
+  "humanAccepted": false,
+  "limits": [
+    "Three first ordinary plans are text evidence, not visual compliance or repeatability.",
+    "Source correction and the common v2 prompt are both inputs; this is not a causal isolation of either.",
+    "Daniel shared look wording is a plausible influence, not an experimentally isolated cause.",
+    "The whole-work analysis and existing visual failures are not re-evaluated by this bounded operation."
+  ]
+}

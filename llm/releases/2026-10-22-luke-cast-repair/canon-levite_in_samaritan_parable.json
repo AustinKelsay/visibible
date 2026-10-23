@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-22T22:32:12.042Z",
+  "entry": {
+    "id": "levite_in_samaritan_parable",
+    "kind": "character",
+    "readingKind": "person",
+    "name": "Levite in the Samaritan parable",
+    "aliases": [
+      "a Levite in the story"
+    ],
+    "note": "Unnamed Levite inside the narrated story in Luke 10:32, who sees the traveler and passes on the other side. Distinct from the priest immediately before him and from named Levites elsewhere.",
+    "members": [],
+    "support": [
+      "luke-10-32"
+    ]
+  },
+  "result": {
+    "entryId": "levite_in_samaritan_parable",
+    "kind": "character",
+    "hasForm": true,
+    "appearanceFromText": "The text fixes only that the Levite is a Levite who sees the wounded traveler and passes by on the other side; no physical appearance is given, so a typical Levitical man of Roman-era Judea is supplied, dressed plainly in tunic and cloak.",
+    "stages": [
+      {
+        "id": "levite-main",
+        "label": "Levite",
+        "when": "Roman Judea, first century, on the road from Jerusalem to Jericho",
+        "source": "mixed",
+        "quotes": [
+          {
+            "unit": "luke-10-32",
+            "quote": "In the same way a Levite also, when he came to the place and saw him, passed by on the other side."
+          }
+        ],
+        "text": "Levite in the Samaritan parable: an unnamed Jewish man of Levite lineage in his thirties to forties, of lean, moderate build, with olive-brown skin, short dark hair and a close-trimmed beard. He wears a plain undyed linen tunic and a dusty brown woollen cloak with a fringed hem, belted at the waist, and carries a small leather satchel."
+      }
+    ],
+    "sectionStages": {
+      "luke-10-25": "levite-main"
+    },
+    "problems": [],
+    "promptVersion": "2026-10-22-canon-showing-v3",
+    "attempts": 1
+  }
+}

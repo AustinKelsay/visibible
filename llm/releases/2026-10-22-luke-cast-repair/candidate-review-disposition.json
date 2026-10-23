@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-23T00:37:57.997498+00:00",
+  "round": "candidate-1",
+  "issues": 1,
+  "severity": "major",
+  "file": "correction.test.ts",
+  "disposition": "Fixed: opt-in LUKE_CAST_REPAIR_REPLAY=1. Historical source-hash replay must not run in default CI. Enabled replay passes; default invocation skips. No production edit has occurred.",
+  "connectionFailures": "Both prior attempts ended Connection failed: WebSocket closed; retained separately. Fresh review after the T3 restart completed."
+}
