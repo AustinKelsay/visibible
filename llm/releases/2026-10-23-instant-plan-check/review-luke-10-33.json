@@ -1,0 +1,47 @@
+{
+  "at": "2026-10-23T15:44:34.209843+00:00",
+  "artifactSha256": "b9639ac65a9df9cd5d0a8d69dee2a3779ea33ba6c11737608de16cf83979f49c",
+  "reviewer": "Agent text inspection within authorized preparation; not human release acceptance",
+  "verdict": "hold-for-unselected-cast",
+  "humanAccepted": false,
+  "publicActivation": false,
+  "observations": [
+    {
+      "severity": "improvement",
+      "topic": "Single instant",
+      "evidence": "primarySubject: \"standing still on the road, gazing down\"; action: \"halts and looks down\"; composition: \"the Samaritan standing\"",
+      "assessment": "Every field and the stated instant give the Samaritan one pose: stopped and standing, looking down at the traveler. The retained v3 contradiction (kneeling versus still arriving) is absent from this first reply."
+    },
+    {
+      "severity": "blocker",
+      "topic": "Unselected described cast",
+      "evidence": "secondaryElements: \"The Samaritan's donkey stands nearby\"; present: the_samaritan, wounded_traveler_in_samaritan_parable, jerusalem_to_jericho_road",
+      "assessment": "The section has a canon entry for the Samaritan's mount, yet the plan describes the animal without selecting it. Its canon would not reach rendering, so the image model would invent the animal. This fails the declared criterion that every described actor is selected, and the planner rule that every described figure appears in present."
+    },
+    {
+      "severity": "improvement",
+      "topic": "Inner-story cast",
+      "assessment": "No Jesus, lawyer, priest, Levite, robbers, innkeeper or inn is selected or described."
+    },
+    {
+      "severity": "audit-quality",
+      "topic": "Neighbor evidence",
+      "evidence": "wounded traveler contextQuote: \"passed by on the other side\"",
+      "assessment": "The quoted previous clause describes the Levite passing, not the traveler's identity. It passes the exact-quote check; relevance is not validated."
+    },
+    {
+      "severity": "note",
+      "topic": "Continuity props",
+      "evidence": "his oil and wine jars are slung at his side",
+      "assessment": "Carried oil and wine anticipate 10:34 as props, without depicting the pouring; treated as continuity, as in the retained v2 review."
+    }
+  ],
+  "decision": {
+    "nextTextCheckAllowed": false,
+    "independentDanielCheckAllowed": true,
+    "imageCallsAllowed": false,
+    "semanticRetryAllowed": false,
+    "responseEditingAllowed": false,
+    "releaseAccepted": false
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-23T15:45:39.131302+00:00",
+  "artifactSha256": "1c028e7e556b143ac10bdf629f2bf45b585aab241c84ff296a77e656787f3b6a",
+  "reviewer": "Agent text inspection within authorized preparation; not human release acceptance",
+  "verdict": "hold-for-moment-presence",
+  "humanAccepted": false,
+  "publicActivation": false,
+  "observations": [
+    {
+      "severity": "blocker",
+      "topic": "Narrator presence",
+      "evidence": "composition: \"Daniel small at the edge\"; instant: \"Daniel watches from the edge\"",
+      "assessment": "Narrator Daniel is described inside the vision without being selected, from 'I watched' alone. This fails the declared criterion and the rule that every described figure is selected. The retained v3 reply had removed him; this first v4 reply restores him."
+    },
+    {
+      "severity": "blocker",
+      "topic": "Assembly presence",
+      "evidence": "ministering_assembly momentQuote: \"I watched until thrones were placed\"; contextSource next: \"Thousands of thousands ministered to him...\"",
+      "assessment": "The current-verse quote is the narrator's report about thrones, not the assembly's participation; the actual presence evidence is the next verse. The attendants and their shared-look wardrobe are imported into 7:9. The exact-quote check passes because both quotes are real, which is the documented limit that relevance is not validated."
+    },
+    {
+      "severity": "note",
+      "topic": "No-form wording",
+      "evidence": "primarySubject: \"Radiance and fire above an unoccupied seat\"; instant: \"seated in unseen presence on a throne\"",
+      "assessment": "The scene fields keep the seat unoccupied and effects-only, without the v3 'presence seated there' wording. The audit-only instant still calls the presence seated; it never reaches rendering."
+    },
+    {
+      "severity": "note",
+      "topic": "Next-verse scenery",
+      "evidence": "a river of fire flowing before the seat",
+      "assessment": "The fiery stream again reaches 7:9 from the shared look's 7:10 scenery."
+    }
+  ],
+  "decision": {
+    "nextTextCheckAllowed": false,
+    "imageCallsAllowed": false,
+    "semanticRetryAllowed": false,
+    "responseEditingAllowed": false,
+    "releaseAccepted": false
+  }
+}

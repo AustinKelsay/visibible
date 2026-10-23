@@ -1,0 +1,2078 @@
+{
+  "at": "2026-10-23T15:43:34.352Z",
+  "phase": "after-deploy",
+  "sources": {
+    "src/lib/engine/preparation.ts": "ffe31677a41c504bbaa33a4114b8065219899e7763635d7fa7cdf4fa2fb8eafb",
+    "src/lib/engine/scene-grounding.ts": "55ff29ceca0af31e988cb1dd51b4e938235058d6130d13992ba9ec09df9eca40",
+    "src/lib/engine/assemble.ts": "d8722d68d9d7872c33eb3ff1cad518a96c52c8aacfb6a706320b3865b62334c5",
+    "src/lib/engine/corrections.ts": "739ad536c399333c23aa5d7fd68fe4991d09860ba67680fdaeef1eeece1abf1d",
+    "src/lib/engine/prompt.ts": "abcb35198467e58ba8ecbb406235e8866f3e444a48096a1e4b52a56a2bad95fa",
+    "src/lib/engine/work-inputs.ts": "e449de93ef5b76c26b97bb40c725e11aeea9202cc9d14d7bd744aecbaa2c2cb3",
+    "src/lib/reading-pass/canon.ts": "cdaf2f5f3078218539d8c66c88592e9cc88e776b20b915b136c17434b5f6b4c2",
+    "src/lib/reading-pass/model.ts": "41d3568059fd5d4e43d321bc19c418dc27c45a094fd139493ea29295bf12aabd",
+    "src/lib/reading-pass/prompts.ts": "766166e25eaaaef2b6741898b5b0ccc1f330f85e9036af89c7b008cf81713abf",
+    "convex/analysis.ts": "b48c562a90ad56a0eed4e386f47d1fa4d1f68008a5102f0e59a3e198d98b466c",
+    "convex/schema.ts": "da2d40eb38bcf8bb61c9eaab3d9ac45242772245bdc3f4e38713d7a9823e107b",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "works/bible-web/brief.json": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "styles/classical.json": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+    "styles/watercolor.json": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+    "styles/icon.json": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760"
+  },
+  "status": {
+    "activeGeneration": 1,
+    "activeVersions": {
+      "activatedAt": 1792538171849,
+      "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+    },
+    "briefVersion": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "candidateGeneration": null,
+    "exists": true,
+    "ready": true,
+    "reasons": [],
+    "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000"
+  },
+  "records": [
+    {
+      "kind": "section",
+      "recordId": "luke-10-25",
+      "record": {
+        "createdAt": 1792716321061,
+        "generation": 1,
+        "inputs": [],
+        "kind": "section",
+        "payload": {
+          "cast": [
+            {
+              "entryId": "lawyer_who_tests_jesus_luke_10",
+              "named": true,
+              "stageId": "lawyer_who_tests_jesus_luke_10-s1"
+            },
+            {
+              "entryId": "jesus_christ_the_son_of_god_and_lord",
+              "named": true,
+              "stageId": "adult"
+            },
+            {
+              "entryId": "judea_gospel_region_around_jerusalem",
+              "stageId": "judea_main"
+            },
+            {
+              "entryId": "wounded_traveler_in_samaritan_parable",
+              "named": false,
+              "stageId": "wounded_traveler_main"
+            },
+            {
+              "entryId": "robbers_in_samaritan_parable",
+              "named": false,
+              "stageId": "robbers_in_samaritan_parable-s1"
+            },
+            {
+              "entryId": "priest_in_samaritan_parable",
+              "named": false,
+              "stageId": "priest_in_samaritan_parable-1"
+            },
+            {
+              "entryId": "levite_in_samaritan_parable",
+              "named": false,
+              "stageId": "levite-main"
+            },
+            {
+              "entryId": "innkeeper_in_samaritan_parable",
+              "named": false,
+              "stageId": "innkeeper_main"
+            },
+            {
+              "entryId": "samaritans_mount_in_parable",
+              "named": false,
+              "stageId": "samaritans_mount_in_parable-main"
+            },
+            {
+              "entryId": "jerusalem_to_jericho_road",
+              "named": false,
+              "stageId": "jerusalem_to_jericho_road_main"
+            },
+            {
+              "entryId": "inn_in_samaritan_parable",
+              "named": false,
+              "stageId": "inn_stage_1"
+            },
+            {
+              "entryId": "the_samaritan",
+              "named": false,
+              "stageId": "the_samaritan-main"
+            }
+          ],
+          "era": "roman-era-judea-galilee-and-the-early-church",
+          "firstUnit": "luke-10-25",
+          "kind": "section",
+          "lastUnit": "luke-10-37",
+          "mentionedOnly": [],
+          "title": "Good Samaritan"
+        },
+        "recordId": "luke-10-25",
+        "source": "owner",
+        "status": "current",
+        "version": "30addabc87a1da6195912e64d9fc4038",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "look",
+      "recordId": "luke-10-25",
+      "record": {
+        "createdAt": 1792716346129,
+        "generation": 1,
+        "inputs": [
+          {
+            "kind": "section",
+            "recordId": "luke-10-25",
+            "version": "30addabc87a1da6195912e64d9fc4038"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+          },
+          {
+            "kind": "entry",
+            "recordId": "lawyer_who_tests_jesus_luke_10",
+            "version": "432a31ff7a59cb7aa1ae2e37bf87adbb"
+          },
+          {
+            "kind": "entry",
+            "recordId": "jesus_christ_the_son_of_god_and_lord",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "kind": "entry",
+            "recordId": "judea_gospel_region_around_jerusalem",
+            "version": "5c5ceb023c289235bb1999caa547dfee"
+          },
+          {
+            "kind": "entry",
+            "recordId": "wounded_traveler_in_samaritan_parable",
+            "version": "4d9d8a0161d3304a3b11c8b914159215"
+          },
+          {
+            "kind": "entry",
+            "recordId": "robbers_in_samaritan_parable",
+            "version": "f28e5c54eaa8f701fba1401ce96b83f0"
+          },
+          {
+            "kind": "entry",
+            "recordId": "priest_in_samaritan_parable",
+            "version": "0a03afc2196bfdb1afb6747ad9c73a86"
+          },
+          {
+            "kind": "entry",
+            "recordId": "levite_in_samaritan_parable",
+            "version": "f916bafa12d638d3d26d1f42b3b079c6"
+          },
+          {
+            "kind": "entry",
+            "recordId": "innkeeper_in_samaritan_parable",
+            "version": "6682f845b5861d549bb8840dde1ad7e9"
+          },
+          {
+            "kind": "entry",
+            "recordId": "samaritans_mount_in_parable",
+            "version": "ee1dd25ba71166387cf6e4c3c393893f"
+          },
+          {
+            "kind": "entry",
+            "recordId": "jerusalem_to_jericho_road",
+            "version": "29f520702292f19b67186f38b0bdca4c"
+          },
+          {
+            "kind": "entry",
+            "recordId": "inn_in_samaritan_parable",
+            "version": "79696bd3b4de4fdc426365cb1368848f"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_samaritan",
+            "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+          }
+        ],
+        "kind": "look",
+        "payload": {
+          "clothing": "Travelers in plain tunics and cloaks suited to dusty desert roads; the Samaritan wears a practical traveling cloak and carries oil and wine",
+          "kind": "look",
+          "light": "Harsh, bright sunlight on the road, softening to warm golden evening light at the inn",
+          "place": "Rocky, dusty Jerusalem–Jericho road in Judea, with stony hills and scattered thorn scrub, leading toward a roadside inn",
+          "sectionId": "luke-10-25",
+          "timeOfDay": "Midday heat, shifting to late afternoon and evening at the inn",
+          "weather": "Clear, dry, hot sky with no rain"
+        },
+        "recordId": "luke-10-25",
+        "source": "generated",
+        "status": "current",
+        "version": "9cb58359fa22fb6e3931fff1bf133a1d",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "lawyer_who_tests_jesus_luke_10",
+      "record": {
+        "createdAt": 1792535228766,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "the lawyer",
+            "a certain lawyer",
+            "the expert in the law"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [
+            "luke:character:lawyer_tester"
+          ],
+          "name": "Lawyer who tests Jesus (Luke 10)",
+          "note": "The unnamed expert in the law in Luke 10 who asks about inheriting eternal life and who his neighbor is; distinct from Zenas, a separate lawyer named in Titus.",
+          "stages": [
+            {
+              "id": "lawyer_who_tests_jesus_luke_10-s1",
+              "label": "Lawyer who tests Jesus",
+              "quotes": [
+                {
+                  "quote": "a certain lawyer stood up and tested him",
+                  "unit": "luke-10-25"
+                }
+              ],
+              "text": "Lawyer who tests Jesus: man in his middle years, lean and watchful; olive skin, weathered by sun; close-cropped dark hair and a short trimmed beard streaked with grey; lined brow and keen, searching dark eyes. Signature outfit: a long undertunic of deep blue with a fringed tallit-style prayer shawl of white and blue over the shoulders. Carries a small leather scroll case at his belt, nothing else."
+            }
+          ]
+        },
+        "recordId": "lawyer_who_tests_jesus_luke_10",
+        "source": "generated",
+        "status": "current",
+        "version": "432a31ff7a59cb7aa1ae2e37bf87adbb",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "jesus_christ_the_son_of_god_and_lord",
+      "record": {
+        "createdAt": 1792538172786,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "Jesus",
+            "Jesus Christ",
+            "the Christ",
+            "Son of Man",
+            "Son of David",
+            "Son of God",
+            "Rabbi",
+            "Teacher",
+            "Lord",
+            "the Nazarene",
+            "the Son of Man",
+            "the Lord",
+            "the carpenter",
+            "Jesus of Nazareth",
+            "the Son of God",
+            "the teacher",
+            "Master",
+            "the boy Jesus",
+            "the Word",
+            "the Teacher",
+            "the Lamb of God",
+            "the Prince of life",
+            "Christ",
+            "the Lord Jesus",
+            "Christ Jesus",
+            "the last Adam",
+            "the Beloved",
+            "the Savior",
+            "the Son of his love",
+            "the Head",
+            "the firstborn of all creation",
+            "the Lord Jesus Christ",
+            "the Son",
+            "the man Christ Jesus",
+            "the Lord's servant",
+            "the Lord, the righteous judge",
+            "our Savior",
+            "the great God and Savior",
+            "the firstborn",
+            "the apostle and high priest of our confession",
+            "the great shepherd of the sheep",
+            "the author and perfecter of faith",
+            "the mediator of a new covenant",
+            "the chief Shepherd",
+            "the cornerstone",
+            "the Lamb without blemish",
+            "Lord and Savior",
+            "Son",
+            "the Word of life",
+            "the Counselor",
+            "the righteous one",
+            "the Son of the Father",
+            "his only born Son",
+            "the Lamb",
+            "the Lion of the tribe of Judah",
+            "the Root of David",
+            "the Word of God",
+            "the faithful witness",
+            "the Alpha and the Omega",
+            "the first and the last",
+            "the Living one",
+            "the Bright and Morning Star",
+            "the Amen",
+            "the rider called Faithful and True",
+            "KING OF KINGS AND LORD OF LORDS"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [
+            "matthew:character:jesus",
+            "mark:character:jesus",
+            "luke:character:jesus",
+            "john:character:jesus",
+            "acts:character:jesus",
+            "1-corinthians:character:jesus",
+            "galatians:character:jesus_christ",
+            "ephesians:character:christ_jesus",
+            "philippians:character:jesus_christ",
+            "colossians:character:christ",
+            "1-thessalonians:character:the_lord_jesus",
+            "2-thessalonians:character:the_lord_jesus",
+            "1-timothy:character:jesus_christ",
+            "2-timothy:character:the_lord",
+            "titus:character:jesus_christ",
+            "hebrews:character:jesus",
+            "1-peter:character:jesus_christ",
+            "2-peter:character:jesus",
+            "1-john:character:jesus_christ",
+            "revelation:character:jesus_christ"
+          ],
+          "name": "Jesus Christ, the Son of God and Lord",
+          "note": "The one Jesus: the teacher from Nazareth of the Gospels and Acts, and the risen, exalted Christ and Lord of the epistles and Revelation; the same individual across all divisions, with death, resurrection and changed portrayal not creating new individuals.",
+          "stages": [
+            {
+              "id": "adult",
+              "label": "Adult Jesus",
+              "quotes": [
+                {
+                  "quote": "Jesus himself, when he began to teach, was about thirty years old, being the son (as was supposed) of Joseph, the son of Heli,",
+                  "unit": "luke-3-23"
+                }
+              ],
+              "text": "Jesus: man of about thirty, lean and strong from carpentry and walking; olive-brown skin; dark brown shoulder-length hair parted at centre; short dark beard; calm dark eyes; wears a plain undyed tunic of natural linen with a dark blue-grey cloak and sandals; carries no props except a shepherd's staff when a scene calls for one."
+            },
+            {
+              "id": "infant",
+              "label": "Infant Jesus",
+              "quotes": [
+                {
+                  "quote": "She gave birth to her firstborn son. She wrapped him in bands of cloth and laid him in a feeding trough, because there was no room for them in the inn.",
+                  "unit": "luke-2-7"
+                }
+              ],
+              "text": "Jesus: newborn to about two years old; olive-brown skin, a little dark hair and dark eyes; a small infant or toddler's build, no beard. Plain undyed swaddling linen for the newborn; a small plain linen tunic as a toddler. No adult clothing or props."
+            },
+            {
+              "id": "child",
+              "label": "Boy Jesus",
+              "quotes": [
+                {
+                  "quote": "When he was twelve years old, they went up to Jerusalem according to the custom of the feast;",
+                  "unit": "luke-2-42"
+                }
+              ],
+              "text": "Jesus: boy of about twelve, slim and sturdy; olive-brown skin; dark brown hair cut short at the neck; dark eyes; no beard; wears a plain undyed tunic of natural linen with a dark blue-grey cloak; no props."
+            }
+          ]
+        },
+        "recordId": "jesus_christ_the_son_of_god_and_lord",
+        "source": "owner",
+        "status": "current",
+        "version": "0610430f0f21f266bc5852671492395b",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "judea_gospel_region_around_jerusalem",
+      "record": {
+        "createdAt": 1792535228766,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "Judea",
+            "the borders of Judea",
+            "the land of Judea",
+            "the hill country of Judea"
+          ],
+          "entryKind": "location",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [
+            "mark:location:judea",
+            "luke:location:judea"
+          ],
+          "name": "Judea (Gospel region around Jerusalem)",
+          "note": "The southern Jewish region around Jerusalem named in Mark and Luke, where Herod reigns and crowds come to John and Jesus; the Luke entry includes the hill country of Judea and the Roman province.",
+          "stages": [
+            {
+              "id": "judea_main",
+              "label": "Judea, the hill country around Jerusalem",
+              "quotes": [
+                {
+                  "quote": "All the country of Judea and all those of Jerusalem went out to him.",
+                  "unit": "mark-1-5"
+                },
+                {
+                  "quote": "Then let those who are in Judea flee to the mountains.",
+                  "unit": "luke-21-21"
+                },
+                {
+                  "quote": "all these sayings were talked about throughout all the hill country of Judea.",
+                  "unit": "luke-1-65"
+                }
+              ],
+              "text": "Judea: rolling limestone hill country of terraced slopes, dry scrub and olive groves, stone-walled fields and winding dirt roads. Villages of pale cut-stone houses with flat roofs, a few synagogues of dressed stone, and Jerusalem's walls and temple mount rising on the skyline. Stony wilderness and mountains lie east toward the Jordan valley. Olive, fig and terebinth trees, sparse grass."
+            }
+          ]
+        },
+        "recordId": "judea_gospel_region_around_jerusalem",
+        "source": "generated",
+        "status": "current",
+        "version": "5c5ceb023c289235bb1999caa547dfee",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "wounded_traveler_in_samaritan_parable",
+      "record": {
+        "createdAt": 1792716318533,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "the wounded man",
+            "robbery victim"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [],
+          "name": "Wounded traveler in the Samaritan parable",
+          "note": "Unnamed man inside the story Jesus tells in Luke 10:30–35, traveling from Jerusalem to Jericho, stripped, beaten and left half dead. Distinct from the framing lawyer and from the Samaritan who helps him. Injuries and lost clothing are situational, not a separate life stage.",
+          "stages": [
+            {
+              "id": "wounded_traveler_main",
+              "label": "Wounded traveler",
+              "quotes": [
+                {
+                  "quote": "A certain man was going down from Jerusalem to Jericho, and he fell among robbers, who both stripped him and beat him",
+                  "unit": "luke-10-30"
+                },
+                {
+                  "quote": "leaving him half dead.",
+                  "unit": "luke-10-30"
+                }
+              ],
+              "text": "Wounded traveler: a man of about 30 to 45 years, of average build with a lean, weathered frame, olive skin, short dark hair and a close-cut beard. Facial features are plain and worn, marked with dust and bruising. Stripped to a simple loincloth of undyed linen, he has no cloak or sandals. Signature props: none."
+            }
+          ]
+        },
+        "recordId": "wounded_traveler_in_samaritan_parable",
+        "source": "owner",
+        "status": "current",
+        "version": "4d9d8a0161d3304a3b11c8b914159215",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "robbers_in_samaritan_parable",
+      "record": {
+        "createdAt": 1792716318901,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "the robbers in the story"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [],
+          "name": "Robbers in the Samaritan parable",
+          "note": "Unnamed group inside Jesus’s story in Luke 10:30 who attack the traveler and depart. Distinct from the men crucified with Jesus and all other robbery groups. Describe a typical member.",
+          "stages": [
+            {
+              "id": "robbers_in_samaritan_parable-s1",
+              "label": "Robbers (typical member)",
+              "quotes": [
+                {
+                  "quote": "he fell among robbers, who both stripped him and beat him, and departed",
+                  "unit": "luke-10-30"
+                }
+              ],
+              "text": "Robbers: a typical member is a lean adult man, aged late twenties to forties, of wiry build with weathered olive skin, dark hair and short beard. He wears a faded earth-brown tunic belted at the waist with a dusty cloak of undyed wool and leather sandals. Signature props carried alone: a short knife at the belt and a rough wooden cudgel."
+            }
+          ]
+        },
+        "recordId": "robbers_in_samaritan_parable",
+        "source": "owner",
+        "status": "current",
+        "version": "f28e5c54eaa8f701fba1401ce96b83f0",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "priest_in_samaritan_parable",
+      "record": {
+        "createdAt": 1792716319206,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "a certain priest"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [],
+          "name": "Priest in the Samaritan parable",
+          "note": "Unnamed priest inside the narrated story in Luke 10:31, who sees the traveler and passes on the other side. Distinct from every named priest elsewhere and from the framing speakers.",
+          "stages": [
+            {
+              "id": "priest_in_samaritan_parable-1",
+              "label": "Priest in the Samaritan parable",
+              "quotes": [
+                {
+                  "quote": "By chance a certain priest was going down that way.",
+                  "unit": "luke-10-31"
+                }
+              ],
+              "text": "Priest in the Samaritan parable: a man of middle years with a lean, weathered build and dark, short-cropped hair and a close-trimmed beard streaked with grey. Sun-browned skin and a serious, careful face. He wears a long priestly robe of undyed linen with a dark woven sash and a fringed prayer shawl over the shoulders, in muted ochre and off-white. He carries nothing in his hands but a small leather scrip at his side."
+            }
+          ]
+        },
+        "recordId": "priest_in_samaritan_parable",
+        "source": "owner",
+        "status": "current",
+        "version": "0a03afc2196bfdb1afb6747ad9c73a86",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "levite_in_samaritan_parable",
+      "record": {
+        "createdAt": 1792716319535,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "a Levite in the story"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [],
+          "name": "Levite in the Samaritan parable",
+          "note": "Unnamed Levite inside the narrated story in Luke 10:32, who sees the traveler and passes on the other side. Distinct from the priest immediately before him and from named Levites elsewhere.",
+          "stages": [
+            {
+              "id": "levite-main",
+              "label": "Levite",
+              "quotes": [
+                {
+                  "quote": "In the same way a Levite also, when he came to the place and saw him, passed by on the other side.",
+                  "unit": "luke-10-32"
+                }
+              ],
+              "text": "Levite in the Samaritan parable: an unnamed Jewish man of Levite lineage in his thirties to forties, of lean, moderate build, with olive-brown skin, short dark hair and a close-trimmed beard. He wears a plain undyed linen tunic and a dusty brown woollen cloak with a fringed hem, belted at the waist, and carries a small leather satchel."
+            }
+          ]
+        },
+        "recordId": "levite_in_samaritan_parable",
+        "source": "owner",
+        "status": "current",
+        "version": "f916bafa12d638d3d26d1f42b3b079c6",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "innkeeper_in_samaritan_parable",
+      "record": {
+        "createdAt": 1792716319854,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "the host"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [],
+          "name": "Innkeeper in the Samaritan parable",
+          "note": "Unnamed host of the inn inside the story in Luke 10:35, entrusted with the injured traveler’s care and given two denarii. Distinct from the Samaritan, injured traveler and framing speakers.",
+          "stages": [
+            {
+              "id": "innkeeper_main",
+              "label": "Innkeeper",
+              "quotes": [
+                {
+                  "quote": "he took out two denarii, gave them to the host, and said to him",
+                  "unit": "luke-10-35"
+                }
+              ],
+              "text": "Innkeeper: a man of middle years, forties, sturdy and weathered from the roadside trade; medium build with broad, work-worn hands; olive skin, dark hair cropped short with a close-trimmed beard shot with grey; lined, steady face. Signature outfit: a plain undyed linen tunic belted at the waist with a dull brown wool cloak; earth-brown and ochre tones. Signature prop: a small leather purse at his belt holding coins."
+            }
+          ]
+        },
+        "recordId": "innkeeper_in_samaritan_parable",
+        "source": "owner",
+        "status": "current",
+        "version": "6682f845b5861d549bb8840dde1ad7e9",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "samaritans_mount_in_parable",
+      "record": {
+        "createdAt": 1792716320167,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "his own animal"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [],
+          "name": "Samaritan’s mount in the parable",
+          "note": "The Samaritan’s own animal inside the story in Luke 10:34, used to carry the injured man to the inn. The text fixes ownership and use but not species, colour or markings; any chosen species/appearance is illustrative invention or tradition, not a textual claim.",
+          "stages": [
+            {
+              "id": "samaritans_mount_in_parable-main",
+              "label": "The Samaritan's mount",
+              "quotes": [
+                {
+                  "quote": "He set him on his own animal, brought him to an inn, and took care of him.",
+                  "unit": "luke-10-34"
+                }
+              ],
+              "text": "Samaritan’s mount in the parable: a sturdy donkey of the Judean hill country with a strong back, a plain brown coat, pale muzzle and legs, and a simple worn leather saddle and harness."
+            }
+          ]
+        },
+        "recordId": "samaritans_mount_in_parable",
+        "source": "owner",
+        "status": "current",
+        "version": "ee1dd25ba71166387cf6e4c3c393893f",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "jerusalem_to_jericho_road",
+      "record": {
+        "createdAt": 1792716320493,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "that way",
+            "the roadside in the story"
+          ],
+          "entryKind": "location",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [],
+          "name": "Jerusalem–Jericho road in the Samaritan parable",
+          "note": "The descending journey from Jerusalem to Jericho inside the narrated story in Luke 10:30–34. It is the inner story’s road, not the location of Jesus’s conversation with the lawyer. The text fixes endpoints and descending travel; specific terrain details follow the era/illustrative tradition.",
+          "stages": [
+            {
+              "id": "jerusalem_to_jericho_road_main",
+              "label": "Jerusalem–Jericho road",
+              "quotes": [
+                {
+                  "quote": "A certain man was going down from Jerusalem to Jericho",
+                  "unit": "luke-10-30"
+                }
+              ],
+              "text": "Jerusalem–Jericho road: a steep, stony track descending through the arid Judean wilderness from the hill city toward the low Jordan valley. Rocky limestone ridges and gullies line the way, with dry scrub, scattered acacia and thorn, and patches of wild grass. Rough boulders and cairns mark the path, and distant terraced hills and the faint outline of a walled town lie ahead in the desert haze."
+            }
+          ]
+        },
+        "recordId": "jerusalem_to_jericho_road",
+        "source": "owner",
+        "status": "current",
+        "version": "29f520702292f19b67186f38b0bdca4c",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "inn_in_samaritan_parable",
+      "record": {
+        "createdAt": 1792716320821,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "an inn in the story"
+          ],
+          "entryKind": "location",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [],
+          "name": "Inn in the Samaritan parable",
+          "note": "Unnamed inn inside the narrated story in Luke 10:34–35, where the Samaritan brings the injured traveler and pays the host. Distinct from the road and from the framing conversation. The text gives an inn, not a specific architectural description.",
+          "stages": [
+            {
+              "id": "inn_stage_1",
+              "label": "Roadside inn",
+              "quotes": [
+                {
+                  "quote": "brought him to an inn, and took care of him",
+                  "unit": "luke-10-34"
+                },
+                {
+                  "quote": "gave them to the host",
+                  "unit": "luke-10-35"
+                }
+              ],
+              "text": "Roadside inn: a modest two-storey inn of pale limestone blocks on the Jerusalem to Jericho road in Roman Judea, with a flat roof, a low arched gateway wide enough for a laden animal, and an open courtyard with a stone well and a water trough. Scrub and dry terraces of olive and fig stand behind it, and the rough track runs past its gate."
+            }
+          ]
+        },
+        "recordId": "inn_in_samaritan_parable",
+        "source": "owner",
+        "status": "current",
+        "version": "79696bd3b4de4fdc426365cb1368848f",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "the_samaritan",
+      "record": {
+        "createdAt": 1792716318205,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "the good Samaritan"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [
+            "luke:character:good_samaritan"
+          ],
+          "name": "the Samaritan",
+          "note": "Traveler in the parable who tends a robbery victim (ch. 10).",
+          "stages": [
+            {
+              "id": "the_samaritan-main",
+              "label": "the Samaritan",
+              "quotes": [
+                {
+                  "quote": "a certain Samaritan, as he traveled, came where he was",
+                  "unit": "luke-10-33"
+                },
+                {
+                  "quote": "He set him on his own animal, brought him to an inn",
+                  "unit": "luke-10-34"
+                }
+              ],
+              "text": "the Samaritan: adult man of middle age, sturdy and weathered build, olive-brown skin, short dark hair and a close-cropped beard, plain lined face with steady eyes. Signature outfit worn on the road: undyed linen tunic in earth tones of ochre and brown with a dusty woollen cloak in deep blue-grey, sandals and a leather belt bearing a small pouch of coins. Carries alone a water skin and a folded cloth for binding wounds."
+            }
+          ]
+        },
+        "recordId": "the_samaritan",
+        "source": "owner",
+        "status": "current",
+        "version": "cbb241bdc2bacc4c5cee5db55c797e29",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "section",
+      "recordId": "daniel-7-9",
+      "record": {
+        "createdAt": 1792692142607,
+        "generation": 1,
+        "inputs": [],
+        "kind": "section",
+        "payload": {
+          "cast": [
+            {
+              "entryId": "daniel_prophet_of_babylon",
+              "named": false,
+              "stageId": "daniel_main"
+            },
+            {
+              "entryId": "the_ancient_of_days",
+              "named": true,
+              "stageId": "ancient-of-days-light"
+            },
+            {
+              "entryId": "one_like_a_son_of_man",
+              "named": true,
+              "stageId": "one_like_a_son_of_man"
+            },
+            {
+              "entryId": "babylon",
+              "stageId": "babylon"
+            },
+            {
+              "entryId": "ministering_assembly_in_daniels_vision",
+              "named": false,
+              "stageId": "ministering_assembly-main"
+            }
+          ],
+          "era": "monarchy-of-israel-and-judah",
+          "firstUnit": "daniel-7-9",
+          "kind": "section",
+          "lastUnit": "daniel-7-14",
+          "mentionedOnly": [],
+          "title": "The Ancient of Days and the son of man"
+        },
+        "recordId": "daniel-7-9",
+        "source": "owner",
+        "status": "current",
+        "version": "8573512b6683f0d87a6a3553c7a6b9ef",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "look",
+      "recordId": "daniel-7-9",
+      "record": {
+        "createdAt": 1792698202947,
+        "generation": 1,
+        "inputs": [
+          {
+            "kind": "section",
+            "recordId": "daniel-7-9",
+            "version": "8573512b6683f0d87a6a3553c7a6b9ef"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+          },
+          {
+            "kind": "entry",
+            "recordId": "daniel_prophet_of_babylon",
+            "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_ancient_of_days",
+            "version": "2580946090305beb790717b8920e11ec"
+          },
+          {
+            "kind": "entry",
+            "recordId": "one_like_a_son_of_man",
+            "version": "f0a2429d0ca6ac9657801f25e0921699"
+          },
+          {
+            "kind": "entry",
+            "recordId": "babylon",
+            "version": "de8721810ea07cf6cc361bc90ea0502d"
+          },
+          {
+            "kind": "entry",
+            "recordId": "ministering_assembly_in_daniels_vision",
+            "version": "4abdbb32cfcaa06d3bc748ea6b88a23e"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "section_look_formless_presence",
+            "version": "2026-10-22-formless-look-v1"
+          }
+        ],
+        "kind": "look",
+        "payload": {
+          "clothing": "Formed attendants wear priestly linen or white court robes; Daniel in his ordinary tunic and cloak, no added props",
+          "kind": "look",
+          "light": "Radiance and fire placed around the central seat as the light source, with cloud diffusing the glow across the hall",
+          "place": "Vision-space of a throne hall in heaven, open to a vast dark expanse; an unoccupied seat of fire and cloud with a river of fire flowing before it, surrounded by thrones set in ranks",
+          "sectionId": "daniel-7-9",
+          "timeOfDay": "Night vision, unchanging, no dawn or dusk across the section",
+          "weather": "Still air over a dark heavenly expanse, with drifting cloud banks and rising mist"
+        },
+        "recordId": "daniel-7-9",
+        "source": "generated",
+        "status": "current",
+        "version": "219208bab707a1b98f813e02b220d45e",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "daniel_prophet_of_babylon",
+      "record": {
+        "createdAt": 1792535226262,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "Daniel",
+            "Belteshazzar"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [
+            "daniel:character:daniel"
+          ],
+          "name": "Daniel (prophet of Babylon)",
+          "note": "The Jewish youth taken captive to Babylon, renamed Belteshazzar, who interprets dreams and receives visions; the main entry with many sections in Daniel, distinguished from the prophet named only in Matthew's citation.",
+          "stages": [
+            {
+              "id": "daniel_main",
+              "label": "Daniel (Belteshazzar), prophet of Babylon",
+              "quotes": [
+                {
+                  "quote": "Now among these of the children of Judah were Daniel, Hananiah, Mishael, and Azariah.",
+                  "unit": "daniel-1-6"
+                },
+                {
+                  "quote": "to Daniel he gave the name Belteshazzar",
+                  "unit": "daniel-1-7"
+                },
+                {
+                  "quote": "he went into his house (now his windows were open in his room toward Jerusalem)",
+                  "unit": "daniel-6-10"
+                }
+              ],
+              "text": "Daniel: a lean, dignified Judean man in his youth grown to a grave, graying elder; olive-brown skin; dark hair cropped close and a short trimmed beard flecked with grey; deep-set, steady eyes and a calm, thoughtful face. Signature outfit: a long undyed linen tunic under a plain indigo wool cloak with a blue fringed hem. Props: a small leather scroll case slung at the hip."
+            }
+          ]
+        },
+        "recordId": "daniel_prophet_of_babylon",
+        "source": "generated",
+        "status": "current",
+        "version": "37b250d39c2e45865e8b4dfbc12bf60f",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "the_ancient_of_days",
+      "record": {
+        "createdAt": 1792692143097,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "the Ancient of Days",
+            "the Most High"
+          ],
+          "entryKind": "character",
+          "hasForm": false,
+          "kind": "entry",
+          "members": [
+            "daniel:character:ancient_of_days"
+          ],
+          "name": "The Ancient of Days",
+          "note": "The divine figure on a fiery throne in Daniel's vision of the beasts; a distinct visionary figure, seen only in Daniel's dream-vision.",
+          "stages": [
+            {
+              "id": "ancient-of-days-light",
+              "label": "The Ancient of Days",
+              "quotes": [
+                {
+                  "quote": "His clothing was white as snow, and the hair of his head like pure wool.",
+                  "unit": "daniel-7-9"
+                },
+                {
+                  "quote": "His throne was fiery flames, and its wheels burning fire.",
+                  "unit": "daniel-7-9"
+                },
+                {
+                  "quote": "A fiery stream issued and came out from before him.",
+                  "unit": "daniel-7-10"
+                }
+              ],
+              "showing": [
+                {
+                  "brightness": "brilliant",
+                  "colour": "white",
+                  "effect": "radiance"
+                },
+                {
+                  "brightness": "bright",
+                  "colour": "orange",
+                  "effect": "fire"
+                },
+                {
+                  "brightness": "soft",
+                  "colour": "white",
+                  "effect": "cloud"
+                },
+                {
+                  "brightness": "brilliant",
+                  "colour": "white",
+                  "effect": "light"
+                }
+              ],
+              "text": "The Ancient of Days: brilliant white radiance; bright orange fire; soft white cloud; brilliant white light."
+            }
+          ]
+        },
+        "recordId": "the_ancient_of_days",
+        "source": "owner",
+        "status": "current",
+        "version": "2580946090305beb790717b8920e11ec",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "one_like_a_son_of_man",
+      "record": {
+        "createdAt": 1792535226262,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "one like a son of man",
+            "the son of man"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [
+            "daniel:character:one_like_son_of_man"
+          ],
+          "name": "One like a son of man",
+          "note": "The figure coming with the clouds of heaven to receive dominion in Daniel's vision; not the Gospel Jesus, but a distinct heavenly figure in Daniel.",
+          "stages": [
+            {
+              "id": "one_like_a_son_of_man",
+              "label": "One like a son of man",
+              "quotes": [
+                {
+                  "quote": "there came with the clouds of the sky one like a son of man, and he came even to the Ancient of Days",
+                  "unit": "daniel-7-13"
+                }
+              ],
+              "text": "One like a son of man: a man in his prime, early thirties, of athletic but dignified build; skin warm olive-brown; short dark hair and a close-cut beard; calm, steady features with a grave, luminous gaze. He wears a long white linen tunic with a deep blue-purple cloak falling from the shoulders, edged with gold thread. He carries no props."
+            }
+          ]
+        },
+        "recordId": "one_like_a_son_of_man",
+        "source": "generated",
+        "status": "current",
+        "version": "f0a2429d0ca6ac9657801f25e0921699",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "babylon",
+      "record": {
+        "createdAt": 1792535226262,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "Babylonia",
+            "the province of Babylon",
+            "the rivers of Babylon",
+            "the land of the Chaldeans",
+            "land of the Chaldeans",
+            "the land of Shinar",
+            "Great Babylon"
+          ],
+          "entryKind": "location",
+          "hasForm": true,
+          "kind": "entry",
+          "members": [
+            "2-chronicles:location:babylon",
+            "ezra:location:babylon",
+            "psalms:location:babylon",
+            "isaiah:location:babylon",
+            "jeremiah:location:babylon",
+            "daniel:location:babylon",
+            "micah:location:babylon"
+          ],
+          "name": "Babylon",
+          "note": "The city and empire of exile and captivity across the prophets, histories and psalms, also called Babylonia, Shinar and the land of the Chaldeans; the same place in every division.",
+          "stages": [
+            {
+              "id": "babylon",
+              "label": "Babylon",
+              "quotes": [
+                {
+                  "quote": "The wide walls of Babylon will be utterly overthrown. Her high gates will be burned with fire.",
+                  "unit": "jeremiah-51-58"
+                },
+                {
+                  "quote": "I will execute judgment on Bel in Babylon, and I will bring out of his mouth that which he has swallowed up.",
+                  "unit": "jeremiah-51-44"
+                },
+                {
+                  "quote": "He brought the vessels into the treasure house of his god.",
+                  "unit": "daniel-1-2"
+                },
+                {
+                  "quote": "I will record Rahab and Babylon among those who acknowledge me.",
+                  "unit": "psalms-87-4"
+                }
+              ],
+              "text": "Babylon: a vast walled city of baked brick on a flat plain watered by broad canals and rivers, its wide walls rising high and its great gates of bronze-banded cedar. Date palms and reed beds line the riverbanks, and ziggurat towers and palace roofs of brick rise above the flat skyline, with the temple of Bel among them."
+            }
+          ]
+        },
+        "recordId": "babylon",
+        "source": "generated",
+        "status": "current",
+        "version": "de8721810ea07cf6cc361bc90ea0502d",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "entry",
+      "recordId": "ministering_assembly_in_daniels_vision",
+      "record": {
+        "createdAt": 1792692142607,
+        "generation": 1,
+        "inputs": [],
+        "kind": "entry",
+        "payload": {
+          "aliases": [
+            "thousands of thousands",
+            "ten thousand times ten thousand"
+          ],
+          "entryKind": "character",
+          "hasForm": true,
+          "kind": "entry",
+          "name": "Ministering assembly in Daniel's vision",
+          "note": "The unidentified assembly ministering before the Ancient of Days in Daniel 7:10; distinct from earthly Babylonian royal attendants. A group whose canon describes a typical member.",
+          "stages": [
+            {
+              "id": "ministering_assembly-main",
+              "label": "Ministering assembly",
+              "quotes": [
+                {
+                  "quote": "A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+                  "unit": "daniel-7-10"
+                }
+              ],
+              "text": "Ministering assembly in Daniel's vision: a typical member is an adult of medium height and slim build, with warm brown skin, dark curly hair and a short dark beard, wearing an undyed linen robe, a narrow woven belt and plain sandals."
+            }
+          ]
+        },
+        "recordId": "ministering_assembly_in_daniels_vision",
+        "source": "owner",
+        "status": "current",
+        "version": "4abdbb32cfcaa06d3bc748ea6b88a23e",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "moment",
+      "recordId": "luke-10-33",
+      "record": {
+        "createdAt": 1792538142065,
+        "generation": 1,
+        "inputs": [],
+        "kind": "moment",
+        "payload": {
+          "firstUnit": "luke-10-33",
+          "kind": "moment",
+          "lastUnit": "luke-10-33",
+          "sectionId": "luke-10-25"
+        },
+        "recordId": "luke-10-33",
+        "source": "generated",
+        "status": "current",
+        "version": "06c6fc10b9d746536f8f23b8020bf41c",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "plan",
+      "recordId": "luke-10-33",
+      "record": {
+        "createdAt": 1792763923234,
+        "generation": 1,
+        "inputs": [
+          {
+            "kind": "moment",
+            "recordId": "luke-10-33",
+            "version": "06c6fc10b9d746536f8f23b8020bf41c"
+          },
+          {
+            "kind": "section",
+            "recordId": "luke-10-25",
+            "version": "30addabc87a1da6195912e64d9fc4038"
+          },
+          {
+            "kind": "look",
+            "recordId": "luke-10-25",
+            "version": "9cb58359fa22fb6e3931fff1bf133a1d"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+          },
+          {
+            "kind": "entry",
+            "recordId": "lawyer_who_tests_jesus_luke_10",
+            "version": "432a31ff7a59cb7aa1ae2e37bf87adbb"
+          },
+          {
+            "kind": "entry",
+            "recordId": "jesus_christ_the_son_of_god_and_lord",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "kind": "entry",
+            "recordId": "judea_gospel_region_around_jerusalem",
+            "version": "5c5ceb023c289235bb1999caa547dfee"
+          },
+          {
+            "kind": "entry",
+            "recordId": "wounded_traveler_in_samaritan_parable",
+            "version": "4d9d8a0161d3304a3b11c8b914159215"
+          },
+          {
+            "kind": "entry",
+            "recordId": "robbers_in_samaritan_parable",
+            "version": "f28e5c54eaa8f701fba1401ce96b83f0"
+          },
+          {
+            "kind": "entry",
+            "recordId": "priest_in_samaritan_parable",
+            "version": "0a03afc2196bfdb1afb6747ad9c73a86"
+          },
+          {
+            "kind": "entry",
+            "recordId": "levite_in_samaritan_parable",
+            "version": "f916bafa12d638d3d26d1f42b3b079c6"
+          },
+          {
+            "kind": "entry",
+            "recordId": "innkeeper_in_samaritan_parable",
+            "version": "6682f845b5861d549bb8840dde1ad7e9"
+          },
+          {
+            "kind": "entry",
+            "recordId": "samaritans_mount_in_parable",
+            "version": "ee1dd25ba71166387cf6e4c3c393893f"
+          },
+          {
+            "kind": "entry",
+            "recordId": "jerusalem_to_jericho_road",
+            "version": "29f520702292f19b67186f38b0bdca4c"
+          },
+          {
+            "kind": "entry",
+            "recordId": "inn_in_samaritan_parable",
+            "version": "79696bd3b4de4fdc426365cb1368848f"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_samaritan",
+            "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_moment_cast",
+            "version": "2026-10-22-moment-cast-v3"
+          }
+        ],
+        "kind": "plan",
+        "payload": {
+          "entries": [
+            {
+              "entryId": "the_samaritan",
+              "stageId": "the_samaritan-main"
+            },
+            {
+              "entryId": "wounded_traveler_in_samaritan_parable",
+              "stageId": "wounded_traveler_main"
+            },
+            {
+              "entryId": "jerusalem_to_jericho_road",
+              "stageId": "jerusalem_to_jericho_road_main"
+            }
+          ],
+          "grounding": {
+            "cast": [
+              {
+                "contextQuote": "In the same way a Levite also, when he came to the place and saw him, passed by on the other side.",
+                "contextSource": "previous",
+                "entryId": "the_samaritan",
+                "momentQuote": "a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion",
+                "participation": "in_scene"
+              },
+              {
+                "contextQuote": "",
+                "contextSource": "none",
+                "entryId": "wounded_traveler_in_samaritan_parable",
+                "momentQuote": "When he saw him, he was moved with compassion",
+                "participation": "in_scene"
+              },
+              {
+                "contextQuote": "",
+                "contextSource": "none",
+                "entryId": "jerusalem_to_jericho_road",
+                "momentQuote": "as he traveled, came where he was",
+                "participation": "in_scene"
+              }
+            ],
+            "focusQuote": "he was moved with compassion",
+            "singleInstant": true
+          },
+          "kind": "plan",
+          "momentId": "luke-10-33",
+          "plan": {
+            "action": "The Samaritan has just come upon the wounded traveler, halting his steps and turning toward him with a moved, compassionate gaze",
+            "composition": "Low, intimate framing with the two figures close together on the road, the Samaritan's face and outstretched attention central",
+            "mood": "Reverent, compassionate, grave, quiet",
+            "primarySubject": "A Samaritan traveler in a practical cloak kneeling beside a wounded man on the road, his face softened with compassion as he looks down at him",
+            "secondaryElements": "Dust on the road, the Samaritan's traveling cloak, the wounded man lying partly on the stony ground, thorn scrub at the roadside",
+            "setting": "Rocky, dusty Jerusalem–Jericho road in Judea with stony hills and scattered thorn scrub",
+            "timeOfDay": "Midday heat on the road"
+          }
+        },
+        "recordId": "luke-10-33",
+        "source": "generated",
+        "status": "current",
+        "version": "18abe10280cdb5296d66454a11af7c06",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "moment",
+      "recordId": "luke-10-34",
+      "record": {
+        "createdAt": 1792538142065,
+        "generation": 1,
+        "inputs": [],
+        "kind": "moment",
+        "payload": {
+          "firstUnit": "luke-10-34",
+          "kind": "moment",
+          "lastUnit": "luke-10-34",
+          "sectionId": "luke-10-25"
+        },
+        "recordId": "luke-10-34",
+        "source": "generated",
+        "status": "current",
+        "version": "3b1a9a90b0313b938482d378d4c20c2c",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "plan",
+      "recordId": "luke-10-34",
+      "record": {
+        "createdAt": 1792716404295,
+        "generation": 1,
+        "inputs": [
+          {
+            "kind": "moment",
+            "recordId": "luke-10-34",
+            "version": "3b1a9a90b0313b938482d378d4c20c2c"
+          },
+          {
+            "kind": "section",
+            "recordId": "luke-10-25",
+            "version": "30addabc87a1da6195912e64d9fc4038"
+          },
+          {
+            "kind": "look",
+            "recordId": "luke-10-25",
+            "version": "9cb58359fa22fb6e3931fff1bf133a1d"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+          },
+          {
+            "kind": "entry",
+            "recordId": "lawyer_who_tests_jesus_luke_10",
+            "version": "432a31ff7a59cb7aa1ae2e37bf87adbb"
+          },
+          {
+            "kind": "entry",
+            "recordId": "jesus_christ_the_son_of_god_and_lord",
+            "version": "0610430f0f21f266bc5852671492395b"
+          },
+          {
+            "kind": "entry",
+            "recordId": "judea_gospel_region_around_jerusalem",
+            "version": "5c5ceb023c289235bb1999caa547dfee"
+          },
+          {
+            "kind": "entry",
+            "recordId": "wounded_traveler_in_samaritan_parable",
+            "version": "4d9d8a0161d3304a3b11c8b914159215"
+          },
+          {
+            "kind": "entry",
+            "recordId": "robbers_in_samaritan_parable",
+            "version": "f28e5c54eaa8f701fba1401ce96b83f0"
+          },
+          {
+            "kind": "entry",
+            "recordId": "priest_in_samaritan_parable",
+            "version": "0a03afc2196bfdb1afb6747ad9c73a86"
+          },
+          {
+            "kind": "entry",
+            "recordId": "levite_in_samaritan_parable",
+            "version": "f916bafa12d638d3d26d1f42b3b079c6"
+          },
+          {
+            "kind": "entry",
+            "recordId": "innkeeper_in_samaritan_parable",
+            "version": "6682f845b5861d549bb8840dde1ad7e9"
+          },
+          {
+            "kind": "entry",
+            "recordId": "samaritans_mount_in_parable",
+            "version": "ee1dd25ba71166387cf6e4c3c393893f"
+          },
+          {
+            "kind": "entry",
+            "recordId": "jerusalem_to_jericho_road",
+            "version": "29f520702292f19b67186f38b0bdca4c"
+          },
+          {
+            "kind": "entry",
+            "recordId": "inn_in_samaritan_parable",
+            "version": "79696bd3b4de4fdc426365cb1368848f"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_samaritan",
+            "version": "cbb241bdc2bacc4c5cee5db55c797e29"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_moment_cast",
+            "version": "2026-10-22-moment-cast-v2"
+          }
+        ],
+        "kind": "plan",
+        "payload": {
+          "entries": [
+            {
+              "entryId": "the_samaritan",
+              "stageId": "the_samaritan-main"
+            },
+            {
+              "entryId": "wounded_traveler_in_samaritan_parable",
+              "stageId": "wounded_traveler_main"
+            },
+            {
+              "entryId": "samaritans_mount_in_parable",
+              "stageId": "samaritans_mount_in_parable-main"
+            },
+            {
+              "entryId": "inn_in_samaritan_parable",
+              "stageId": "inn_stage_1"
+            },
+            {
+              "entryId": "innkeeper_in_samaritan_parable",
+              "stageId": "innkeeper_main"
+            },
+            {
+              "entryId": "jerusalem_to_jericho_road",
+              "stageId": "jerusalem_to_jericho_road_main"
+            }
+          ],
+          "kind": "plan",
+          "momentId": "luke-10-34",
+          "plan": {
+            "action": "The Samaritan pours oil and wine on the traveler's wounds and wraps them with cloth; then he lifts the injured man onto his own animal",
+            "composition": "Medium-wide view with the kneeling Samaritan and wounded traveler centered, the animal and inn receding along the road toward the horizon",
+            "mood": "Reverent, compassionate, grounded; quiet human dignity and tenderness amid hardship",
+            "primarySubject": "The Samaritan kneeling beside the wounded traveler on the road, binding his wounds",
+            "secondaryElements": "Samaritan's practical traveling cloak, oil flask and wine skin set on the ground, the animal standing patiently nearby, the inn's low walls visible ahead",
+            "setting": "Rocky, dusty Jerusalem–Jericho road with stony hills and thorn scrub, leading toward a roadside inn in the distance",
+            "timeOfDay": "Late afternoon, with warm golden light beginning to soften the harsh midday sun"
+          }
+        },
+        "recordId": "luke-10-34",
+        "source": "generated",
+        "status": "current",
+        "version": "f1cdc381d9e0b9eea2547b99d1ced975",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "moment",
+      "recordId": "daniel-7-9",
+      "record": {
+        "createdAt": 1792538123265,
+        "generation": 1,
+        "inputs": [],
+        "kind": "moment",
+        "payload": {
+          "firstUnit": "daniel-7-9",
+          "kind": "moment",
+          "lastUnit": "daniel-7-9",
+          "sectionId": "daniel-7-9"
+        },
+        "recordId": "daniel-7-9",
+        "source": "generated",
+        "status": "current",
+        "version": "42811b767e7aea912528509ebeae351a",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "plan",
+      "recordId": "daniel-7-9",
+      "record": {
+        "createdAt": 1792763980434,
+        "generation": 1,
+        "inputs": [
+          {
+            "kind": "moment",
+            "recordId": "daniel-7-9",
+            "version": "42811b767e7aea912528509ebeae351a"
+          },
+          {
+            "kind": "section",
+            "recordId": "daniel-7-9",
+            "version": "8573512b6683f0d87a6a3553c7a6b9ef"
+          },
+          {
+            "kind": "look",
+            "recordId": "daniel-7-9",
+            "version": "219208bab707a1b98f813e02b220d45e"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+          },
+          {
+            "kind": "entry",
+            "recordId": "daniel_prophet_of_babylon",
+            "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_ancient_of_days",
+            "version": "2580946090305beb790717b8920e11ec"
+          },
+          {
+            "kind": "entry",
+            "recordId": "one_like_a_son_of_man",
+            "version": "f0a2429d0ca6ac9657801f25e0921699"
+          },
+          {
+            "kind": "entry",
+            "recordId": "babylon",
+            "version": "de8721810ea07cf6cc361bc90ea0502d"
+          },
+          {
+            "kind": "entry",
+            "recordId": "ministering_assembly_in_daniels_vision",
+            "version": "4abdbb32cfcaa06d3bc748ea6b88a23e"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_moment_cast",
+            "version": "2026-10-22-moment-cast-v3"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_formless_presence",
+            "version": "2026-10-22-formless-effects-v5"
+          }
+        ],
+        "kind": "plan",
+        "payload": {
+          "entries": [
+            {
+              "entryId": "the_ancient_of_days",
+              "stageId": "ancient-of-days-light"
+            }
+          ],
+          "grounding": {
+            "cast": [
+              {
+                "contextQuote": "",
+                "contextSource": "none",
+                "entryId": "the_ancient_of_days",
+                "momentQuote": "one who was Ancient of Days sat",
+                "participation": "in_scene"
+              }
+            ],
+            "focusQuote": "thrones were placed, and one who was Ancient of Days sat",
+            "singleInstant": true
+          },
+          "kind": "plan",
+          "momentId": "daniel-7-9",
+          "plan": {
+            "action": "Thrones are being set in ranks around the seat; fire and radiance rise from the seat and its wheels of burning fire, while cloud drifts slowly across the hall",
+            "composition": "Wide view across the hall with the central seat large and luminous at the centre, thrones receding in ranks on either side, the dark expanse beyond",
+            "mood": "Awe and solemn stillness, reverent and grounded rather than spectacular",
+            "primarySubject": "Radiance and fire gathered into an unoccupied central seat, the presence seated there by its placement; the seat is empty of any figure",
+            "secondaryElements": "Empty thrones arranged in ranks, drifting cloud banks, rising mist, flames rolling along the wheels beneath the seat",
+            "setting": "Vision-space of a heavenly throne hall open to a vast dark expanse; central seat of fire and cloud, with a river of fire flowing before it and thrones set in ranks",
+            "timeOfDay": "Unchanging night vision, lit only by the radiance and fire of the central seat"
+          }
+        },
+        "recordId": "daniel-7-9",
+        "source": "generated",
+        "status": "current",
+        "version": "13743e04664ff42535a3484cea0682e0",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "moment",
+      "recordId": "daniel-7-10",
+      "record": {
+        "createdAt": 1792538123265,
+        "generation": 1,
+        "inputs": [],
+        "kind": "moment",
+        "payload": {
+          "firstUnit": "daniel-7-10",
+          "kind": "moment",
+          "lastUnit": "daniel-7-10",
+          "sectionId": "daniel-7-9"
+        },
+        "recordId": "daniel-7-10",
+        "source": "generated",
+        "status": "current",
+        "version": "707e066801e19bb78e34e730ac9fbaec",
+        "workId": "bible-web"
+      }
+    },
+    {
+      "kind": "plan",
+      "recordId": "daniel-7-10",
+      "record": {
+        "createdAt": 1792698296381,
+        "generation": 1,
+        "inputs": [
+          {
+            "kind": "moment",
+            "recordId": "daniel-7-10",
+            "version": "707e066801e19bb78e34e730ac9fbaec"
+          },
+          {
+            "kind": "look",
+            "recordId": "daniel-7-9",
+            "version": "219208bab707a1b98f813e02b220d45e"
+          },
+          {
+            "kind": "brief",
+            "recordId": "bible-web",
+            "version": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75"
+          },
+          {
+            "kind": "entry",
+            "recordId": "daniel_prophet_of_babylon",
+            "version": "37b250d39c2e45865e8b4dfbc12bf60f"
+          },
+          {
+            "kind": "entry",
+            "recordId": "the_ancient_of_days",
+            "version": "2580946090305beb790717b8920e11ec"
+          },
+          {
+            "kind": "entry",
+            "recordId": "one_like_a_son_of_man",
+            "version": "f0a2429d0ca6ac9657801f25e0921699"
+          },
+          {
+            "kind": "entry",
+            "recordId": "babylon",
+            "version": "de8721810ea07cf6cc361bc90ea0502d"
+          },
+          {
+            "kind": "entry",
+            "recordId": "ministering_assembly_in_daniels_vision",
+            "version": "4abdbb32cfcaa06d3bc748ea6b88a23e"
+          },
+          {
+            "kind": "prompt",
+            "recordId": "scene_plan_formless_presence",
+            "version": "2026-10-22-formless-effects-v5"
+          }
+        ],
+        "kind": "plan",
+        "payload": {
+          "entries": [
+            {
+              "entryId": "the_ancient_of_days",
+              "stageId": "ancient-of-days-light"
+            },
+            {
+              "entryId": "ministering_assembly_in_daniels_vision",
+              "stageId": "ministering_assembly-main"
+            }
+          ],
+          "kind": "plan",
+          "momentId": "daniel-7-10",
+          "plan": {
+            "action": "A fiery stream issues outward from before the seat and spreads across the floor; ranks of attendants in white robes stand in vast tiers, turned toward the seat; scrolls lie open before the ranks",
+            "composition": "Wide view from below the ranks, the central seat and fire stream at the center, attendants receding in tiers toward the dark expanse",
+            "mood": "Solemn, awe-filled stillness as judgment is set and the records are opened",
+            "primarySubject": "Radiance and fire pouring forth from the unoccupied central seat of fire and cloud; a river of fire flows out before it across the hall",
+            "secondaryElements": "Ministering assembly in priestly linen or white court robes filling the ranks; open scrolls; cloud diffusing glow across the hall; radiance and fire placed around the central seat",
+            "setting": "Vision-space of a heavenly throne hall open to a vast dark expanse, with thrones set in ranks and drifting cloud banks and rising mist",
+            "timeOfDay": "Unchanging night vision, lit only by the radiance and fire around the central seat"
+          }
+        },
+        "recordId": "daniel-7-10",
+        "source": "generated",
+        "status": "current",
+        "version": "dc23bd8a8ef507fb011227d2dce6dad6",
+        "workId": "bible-web"
+      }
+    }
+  ],
+  "spend": {
+    "byKind": {
+      "look": 0.0092392,
+      "plan": 0.021994599999999996
+    },
+    "calls": 112,
+    "costUsd": 0.031233800000000006
+  },
+  "catalog": {
+    "models": [
+      {
+        "id": "google/gemini-2.5-flash-image",
+        "name": "Google: Nano Banana (Gemini 2.5 Flash Image)",
+        "provider": "Google",
+        "billing": {
+          "version": "google-input-output-tokens-2026-10-20",
+          "source": "https://openrouter.ai/api/v1/models",
+          "observedAt": 1792770214166,
+          "unit": "token",
+          "textInputUsd": "0.0000003",
+          "textOutputUsd": "0.0000025",
+          "imageOutputUsd": "0.00003",
+          "imageInputUsd": "0.0000003",
+          "estimatedTextInputTokens": 1000,
+          "estimatedTextOutputTokens": 1000
+        },
+        "capabilities": {
+          "resolutions": [
+            "1K"
+          ],
+          "aspectRatios": [
+            "16:9",
+            "21:9",
+            "3:2"
+          ],
+          "outputTokens": {
+            "1K": 1290
+          },
+          "source": "https://ai.google.dev/gemini-api/docs/image-generation",
+          "pricingSource": "https://ai.google.dev/gemini-api/docs/pricing"
+        },
+        "availability": "available",
+        "creditsCost": 6,
+        "reservationCreditsCost": 12,
+        "etaSeconds": 11,
+        "estimatedCreditsByResolution": {
+          "1K": 6
+        }
+      },
+      {
+        "id": "google/gemini-3.1-flash-image",
+        "name": "Google: Nano Banana 2 (Gemini 3.1 Flash Image)",
+        "provider": "Google",
+        "billing": {
+          "version": "google-input-output-tokens-2026-10-20",
+          "source": "https://openrouter.ai/api/v1/models",
+          "observedAt": 1792770214166,
+          "unit": "token",
+          "textInputUsd": "0.0000005",
+          "textOutputUsd": "0.000003",
+          "imageOutputUsd": "0.00006",
+          "imageInputTokens": {
+            "usdPerToken": "0.0000005",
+            "perImage": 1120
+          },
+          "estimatedTextInputTokens": 1000,
+          "estimatedTextOutputTokens": 1000
+        },
+        "capabilities": {
+          "resolutions": [
+            "1K",
+            "2K",
+            "4K"
+          ],
+          "aspectRatios": [
+            "16:9",
+            "21:9",
+            "3:2"
+          ],
+          "outputTokens": {
+            "1K": 1120,
+            "2K": 1680,
+            "4K": 2520
+          },
+          "source": "https://ai.google.dev/gemini-api/docs/image-generation",
+          "pricingSource": "https://ai.google.dev/gemini-api/docs/pricing"
+        },
+        "availability": "available",
+        "creditsCost": 9,
+        "reservationCreditsCost": 18,
+        "etaSeconds": 12,
+        "estimatedCreditsByResolution": {
+          "1K": 9,
+          "2K": 14,
+          "4K": 20
+        }
+      },
+      {
+        "id": "google/gemini-3.1-flash-lite-image",
+        "name": "Google: Nano Banana 2 Lite (Gemini 3.1 Flash Lite Image)",
+        "provider": "Google",
+        "billing": {
+          "version": "google-input-output-tokens-2026-10-20",
+          "source": "https://openrouter.ai/api/v1/models",
+          "observedAt": 1792770214166,
+          "unit": "token",
+          "textInputUsd": "0.00000025",
+          "textOutputUsd": "0.0000015",
+          "imageOutputUsd": "0.00003",
+          "imageInputTokens": {
+            "usdPerToken": "0.00000025",
+            "perImage": 1120
+          },
+          "estimatedTextInputTokens": 1000,
+          "estimatedTextOutputTokens": 1000
+        },
+        "capabilities": {
+          "resolutions": [
+            "1K"
+          ],
+          "aspectRatios": [
+            "16:9",
+            "21:9",
+            "3:2"
+          ],
+          "outputTokens": {
+            "1K": 1120
+          },
+          "source": "https://ai.google.dev/gemini-api/docs/image-generation",
+          "pricingSource": "https://ai.google.dev/gemini-api/docs/pricing"
+        },
+        "availability": "available",
+        "creditsCost": 5,
+        "reservationCreditsCost": 10,
+        "etaSeconds": 4,
+        "estimatedCreditsByResolution": {
+          "1K": 5
+        }
+      }
+    ],
+    "artStyles": [
+      {
+        "id": "classical",
+        "label": "Classical",
+        "description": "Expansive painterly scenes with dramatic light and restrained color; suited to epic narratives.",
+        "available": true,
+        "reason": null
+      },
+      {
+        "id": "watercolor",
+        "label": "Ink & Watercolor",
+        "description": "Expressive ink lines and transparent washes; suited to atmospheric journeys and intimate observation.",
+        "available": false,
+        "reason": "The watercolor art style is temporarily unavailable"
+      },
+      {
+        "id": "icon",
+        "label": "Byzantine Icon",
+        "description": "Flat gold-ground painting with inverse perspective and stylized figures; suited to sacred and symbolic narratives.",
+        "available": false,
+        "reason": "The icon art style is temporarily unavailable"
+      }
+    ],
+    "scenePlannerCreditsCost": 0,
+    "creditRange": {
+      "min": 5,
+      "max": 20
+    }
+  },
+  "pricing": {
+    "id": "anthropic/claude-haiku-5.5",
+    "canonical_slug": "anthropic/claude-haiku-5.5-20261007",
+    "hugging_face_id": null,
+    "name": "Anthropic: Claude Haiku 5.5",
+    "created": 1791397883,
+    "description": "Claude Haiku 5.5 is Anthropic's small, fast model for high-volume, cost-sensitive work such as summarization, subagents, and browser use. It succeeds Claude Haiku 4.5 with stronger coding, computer use, and...",
+    "context_length": 1000000,
+    "architecture": {
+      "modality": "text+image+file->text",
+      "input_modalities": [
+        "text",
+        "image",
+        "file"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Claude",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.0000001",
+      "completion": "0.0000005",
+      "web_search": "0.01",
+      "input_cache_read": "0.00000001",
+      "input_cache_write": "0.000000125",
+      "input_cache_write_1h": "0.0000002",
+      "overrides": [
+        {
+          "min_prompt_tokens": 100000,
+          "prompt": "0.0000005",
+          "completion": "0.0000025",
+          "input_cache_read": "0.00000005",
+          "input_cache_write": "0.000000625",
+          "input_cache_write_1h": "0.000001"
+        }
+      ]
+    },
+    "top_provider": {
+      "context_length": 1000000,
+      "max_completion_tokens": 128000,
+      "is_moderated": true
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "include_reasoning",
+      "max_completion_tokens",
+      "max_tokens",
+      "reasoning",
+      "reasoning_effort",
+      "response_format",
+      "stop",
+      "structured_outputs",
+      "tool_choice",
+      "tools",
+      "verbosity"
+    ],
+    "default_parameters": {},
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/anthropic/claude-haiku-5.5-20261007/endpoints"
+    },
+    "benchmarks": {
+      "design_arena": [
+        {
+          "arena": "models",
+          "category": "3d",
+          "elo": 1341,
+          "win_rate": 57.9,
+          "rank": 10
+        },
+        {
+          "arena": "models",
+          "category": "codecategories",
+          "elo": 1277,
+          "win_rate": 50,
+          "rank": 23
+        },
+        {
+          "arena": "models",
+          "category": "dataviz",
+          "elo": 1294,
+          "win_rate": 54.4,
+          "rank": 15
+        },
+        {
+          "arena": "models",
+          "category": "gamedev",
+          "elo": 1314,
+          "win_rate": 53.7,
+          "rank": 15
+        },
+        {
+          "arena": "models",
+          "category": "uicomponent",
+          "elo": 1282,
+          "win_rate": 51.6,
+          "rank": 24
+        },
+        {
+          "arena": "models",
+          "category": "website",
+          "elo": 1262,
+          "win_rate": 48.5,
+          "rank": 36
+        }
+      ],
+      "artificial_analysis": {
+        "intelligence_index": 43.4,
+        "coding_index": null,
+        "agentic_index": null
+      }
+    },
+    "reasoning": {
+      "mandatory": false,
+      "supported_efforts": [
+        "max",
+        "xhigh",
+        "high",
+        "medium",
+        "low",
+        "none"
+      ],
+      "default_effort": "medium"
+    }
+  },
+  "balanceUsd": 10.14528666199999,
+  "environment": {
+    "mode": "disabled",
+    "ownerSessionConfigured": false
+  },
+  "publicActivation": false
+}
