@@ -1,0 +1,20 @@
+{
+  "issue": 183,
+  "purpose": "Paired re-run of moment-cast v6 (incidental figures, narrow missing-cast reports, continuing places, case-insensitive quotes) on the same 100 random verses as the v5 baseline. No images, no production writes.",
+  "authorization": "Owner approved the two rule changes and this paired re-run on 2026-10-23, within the remaining evaluation allowance.",
+  "pipeline": { "commit": "baabd86ba0d3db2fa8c9696741b683920cdc771e", "planPromptVersion": "2026-10-23-moment-cast-v6", "reviewPromptVersion": "2026-10-23-plan-review-v2", "renderPromptVersion": "2026-10-23-generic-v5" },
+  "baseline": { "dir": "../2026-10-23-random-verse-check", "pipelineCommit": "9349d7db081c71e4db588c5ca7ee43ac58ac3510", "accepted": "53/100", "flawedStored": "6/100", "refused": "41/100" },
+  "sampling": { "frame": "Exactly the baseline's 100 verses, in the baseline order (seed 20261023).", "records": "Each verse's moment, section, cast entries and stored look are re-read read-only from production; any record that differs from the baseline sample set is reported.", "target": 100 },
+  "execution": "This repository's prepareMoment at the pipeline commit over a fresh in-memory store per sample, exactly as in the baseline. Production adapter, routing and default sampling.",
+  "evaluation": { "authorizedUsd": 16.8, "measuredBeforeUsd": 16.5746285, "uncertaintyBeforeUsd": 0.045, "capUsd": 0.175, "reservePerCallUsd": 0.005, "maximumCalls": 1000, "stopBeforeSampleHeadroomUsd": 0.012 },
+  "retryPolicy": "As in the baseline: one ordinary prepareMoment per sample, no reruns or edits. A provider error, missing usage, uncertain outcome, unexpected request or exhausted reserve stops the run; a sample is not started unless the cap leaves $0.012 of headroom. Untaken samples are excluded from the paired comparison and reported.",
+  "rubric": "Identical to the baseline rubric (../2026-10-23-random-verse-check/plan.json): U, X, I, F, R, M blockers and N note. U already ignores figures with no cast entry, matching v6.",
+  "scoring": {
+    "scorers": "Two fresh, independent subagents with the baseline's instructions; the operator only resolves disagreements, blind, before unblinding.",
+    "packet": "Each sample's final plan and first plan reply, deduplicated, plus 40 calibration replies drawn from the baseline's blind replies with a mulberry32 generator seeded 20261024, all shuffled together under new random ids with no version, outcome or role.",
+    "calibration": "Agreement between this round's final flags and the baseline's final flags on the 40 calibration replies is reported as a measure of scoring drift between rounds."
+  },
+  "comparison": "Paired by verse: accepted (stored with no blocker) under v6 versus the baseline. Report both totals, verses improved (rejected to accepted) and regressed (accepted to rejected), and McNemar's exact two-sided p-value on the discordant pairs. Also report flawed-stored, refusals by cause and false refusals, and latency and cost per verse.",
+  "publicActivation": false,
+  "humanAccepted": false
+}
