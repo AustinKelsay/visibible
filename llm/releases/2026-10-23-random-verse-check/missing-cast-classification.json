@@ -3,8 +3,8 @@
   "note": "Post-hoc operator classification of the 23 missing-cast refusals; not pre-declared and not part of the pass rule.",
   "groups": {
     "genericRole": 13,
-    "namedNotInCast": 5,
-    "speakerInCastButUncertain": 4,
+    "namedNotInCast": 4,
+    "speakerInCastButUncertain": 5,
     "noScene": 1
   },
   "rows": [
@@ -113,8 +113,13 @@
     {
       "sample": "s056",
       "verse": "jeremiah-22-10",
-      "group": "namedNotInCast",
-      "reported": "Jeremiah son of Hilkiah speaking the lament, and a grieving crowd or Jerusalem's people weeping for Shallum (Jehoahaz) as he leaves the city, none of whom are established as physically present at this instant in the supplied moment text"
+      "group": "speakerInCastButUncertain",
+      "reported": "Jeremiah son of Hilkiah speaking the lament, and a grieving crowd or Jerusalem's people weeping for Shallum (Jehoahaz) as he leaves the city, none of whom are established as physically present at this instant in the supplied moment text",
+      "sectionCast": [
+        "jeremiah_son_of_hilkiah",
+        "god_yahweh_the_father_and_god_of_israel",
+        "jerusalem"
+      ]
     },
     {
       "sample": "s040",
@@ -160,5 +165,6 @@
       "group": "noScene",
       "reported": "Source reference to the list of towns (Kedesh, Hazor, Ithnan) requires no visible action; no scene can be depicted from this moment alone"
     }
-  ]
+  ],
+  "revision": "s056 moved from namedNotInCast to speakerInCastButUncertain after review: Jeremiah is in the section cast."
 }

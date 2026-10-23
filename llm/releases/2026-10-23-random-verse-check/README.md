@@ -57,8 +57,8 @@ Group sizes are small; their intervals overlap.
 | Kind | Count | Examples |
 | --- | ---: | --- |
 | Generic role or group | 13 | "a lender", "goldsmith", "a wise person", "Roman magistrate", "festival-goers", "wild ox" |
-| Named figure not in the section cast | 5 | genealogy names (Maaseiah, Joiada), Sihon and Og, a parable's king, Jeremiah with mourners |
-| Speaker in the cast, reported missing because presence was uncertain | 4 | Isaiah, Jesus (twice), David as psalmist |
+| Named figure not in the section cast | 4 | genealogy names (Maaseiah, Joiada), Sihon and Og, a parable's king |
+| Speaker in the cast, reported missing because presence was uncertain | 5 | Isaiah, Jeremiah (with unlisted mourners), Jesus (twice), David as psalmist |
 | No scene to draw | 1 | a list of town names |
 
 Evidence refusals of acceptable scenes mostly failed "lacks current-moment evidence" for a selected place or group (Megiddo, the tabernacle, the disciples) or classed God or a prison as framing.

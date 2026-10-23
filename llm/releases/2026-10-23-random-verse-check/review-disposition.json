@@ -11,6 +11,17 @@
           "disposition": "Declined for this run. sample.mts is a one-shot script pinned to the sources and records it measured; relaxing those checks would weaken this evidence. A paired re-run is a new operation that reuses sample-set.json's verse list, re-reads current records and pins its own sources. STATUS now says so."
         }
       ]
+    },
+    {
+      "review": "coderabbit-round-2.ndjson",
+      "unreviewedFiles": 1,
+      "findings": [
+        {
+          "severity": "minor",
+          "title": "Reclassify s056 (reported twice; one variant also suggested moving s077)",
+          "disposition": "Accepted for s056: Jeremiah is in the section cast. s077 stays named-not-in-cast: the parable's lord has no cast entry."
+        }
+      ]
     }
   ]
 }
