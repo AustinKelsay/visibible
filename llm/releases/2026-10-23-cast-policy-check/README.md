@@ -95,6 +95,7 @@ The audit forbids network access and checks the [hash manifest](sha256.json) and
 - All 330 retained replies replay through `prepareMoment`, reproducing every plan, refusal, call count, spend outcome and look.
 - The 40 calibration replies are exact baseline packets.
 - The blind packet leaks no outcome or role.
-- The paired counts follow from both tallies.
+- Every sample pairs with exactly one baseline verse, and the paired counts follow from both tallies.
+- The whole [tally](tally.json) recomputes from both score files and the adjudication (`tally.mts --check`).
 
-The manifest excludes the CodeRabbit log and [review disposition](review-disposition.json), which were written after it. Review added one guard: [`tally.mts`](tally.mts) now fails on any operational outcome (stopped, blocked or invalid) instead of counting it as a refusal. The retained run has none, and the regenerated tally matched exactly.
+The manifest excludes the CodeRabbit log and [review disposition](review-disposition.json), which were written after it. Review hardened two scripts without changing any retained result. [`tally.mts`](tally.mts) now fails on any operational outcome (stopped, blocked or invalid) instead of counting it as a refusal; the retained run has none. The audit now recomputes the tally and checks the paired row set; the retained tally matched exactly.

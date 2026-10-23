@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-23T21:40:39.210914+00:00",
+  "at": "2026-10-23T21:46:26.969160+00:00",
   "rounds": [
     {
       "review": "coderabbit-round-1.ndjson",
@@ -14,6 +14,27 @@
           "severity": "minor",
           "title": "Keep operational outcomes out of plan-refusal metrics",
           "disposition": "Accepted as a guard: tally.mts now fails on any outcome other than stored or refused instead of counting it as a refusal. Regenerating the tally with the guard reproduced tally.json exactly apart from its timestamp; the retained tally.json is unchanged and the manifest hash for tally.mts was refreshed."
+        }
+      ]
+    },
+    {
+      "review": "coderabbit-round-2.ndjson",
+      "unreviewedFiles": 1,
+      "findings": [
+        {
+          "severity": "major",
+          "title": "Check the complete paired row set",
+          "disposition": "Accepted. tally.mts --check recomputes the whole tally from both score files, the adjudication and the samples, and requires tally.json exactly apart from its timestamp; verify.mts runs it. Both now require unique row ids, every sample to pair with one baseline row (the baseline's two extra verses stay unpaired) and paired.verses to equal the sample count. A tampered tally fails the check. The retained tally.json is unchanged; manifest hashes for tally.mts and verify.mts were refreshed."
+        },
+        {
+          "severity": "major",
+          "title": "Reconcile the scores with the tally",
+          "disposition": "Accepted. tally.mts --check recomputes the whole tally from both score files, the adjudication and the samples, and requires tally.json exactly apart from its timestamp; verify.mts runs it. Both now require unique row ids, every sample to pair with one baseline row (the baseline's two extra verses stay unpaired) and paired.verses to equal the sample count. A tampered tally fails the check. The retained tally.json is unchanged; manifest hashes for tally.mts and verify.mts were refreshed."
+        },
+        {
+          "severity": "major",
+          "title": "Validate the exact 98-row paired set",
+          "disposition": "Accepted. tally.mts --check recomputes the whole tally from both score files, the adjudication and the samples, and requires tally.json exactly apart from its timestamp; verify.mts runs it. Both now require unique row ids, every sample to pair with one baseline row (the baseline's two extra verses stay unpaired) and paired.verses to equal the sample count. A tampered tally fails the check. The retained tally.json is unchanged; manifest hashes for tally.mts and verify.mts were refreshed."
         }
       ]
     }

@@ -93,8 +93,15 @@ for (const k of key) for (const old of k.calibration) {
 assert.equal(key.reduce((n: number, k: { calibration: string[] }) => n + k.calibration.length, 0), 40);
 assert.ok(Date.parse(json("scores-a.json").at) < Date.parse(tally.at) && Date.parse(json("scores-b.json").at) < Date.parse(tally.at));
 assert.equal(tally.samplesTaken, samples.length);
-// The paired counts follow from both tallies' rows.
+// Every sample has one tally row and one baseline row, and the paired counts follow from both tallies' rows.
+const sampleIds = samples.map((s: { id: string }) => s.id), tallyIds = tally.rows.map((r: { id: string }) => r.id), baseIds = base("tally.json").rows.map((r: { id: string }) => r.id);
+for (const ids of [sampleIds, tallyIds, baseIds]) assert.equal(new Set(ids).size, ids.length);
+assert.deepEqual(tallyIds, sampleIds);
 const baseRows = new Map(base("tally.json").rows.map((r: { id: string; accepted: boolean }) => [r.id, r.accepted]));
+for (const id of sampleIds) assert.ok(baseRows.has(id), id);
+assert.equal(tally.paired.verses, sampleIds.length);
 const improved = tally.rows.filter((r: { id: string; accepted: boolean }) => baseRows.get(r.id) === false && r.accepted).length, regressed = tally.rows.filter((r: { id: string; accepted: boolean }) => baseRows.get(r.id) === true && !r.accepted).length;
 assert.deepEqual([tally.paired.improved, tally.paired.regressed], [improved, regressed]);
+// The whole tally, rates, causes, calibration and paired test included, recomputes from both score files and the adjudication.
+execFileSync(process.execPath, [...process.execArgv, path.join(dir, "tally.mts"), "--check"], { cwd: root, stdio: "inherit" });
 console.log(JSON.stringify({ hashes: Object.keys(manifest).length, samplesReplayed: samples.length, providerReplies: traces.length, measuredUsd: measured, blindReplies: blind.replies.length, accepted: tally.overall.accepted, paired: { improved, regressed }, networkCalls: 0, productionMutations: 0 }));

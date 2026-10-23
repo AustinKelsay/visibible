@@ -1,4 +1,4 @@
-/** Unblinds the paired v6 run: rates with 95% Wilson intervals, the paired comparison with the baseline and calibration drift. No network or model calls. */
+/** Unblinds the paired v6 run: rates with 95% Wilson intervals, the paired comparison with the baseline and calibration drift. No network or model calls. With `--check`, recomputes and requires the retained tally.json instead of writing. */
 import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
@@ -57,6 +57,10 @@ const result = { at: new Date().toISOString(), samplesTaken: rows.length, target
   costUsd: { total: rows.reduce((n, r) => n + r.costUsd, 0), medianPerSample: pct(rows.map((r) => r.costUsd), 0.5), maxPerSample: Math.max(...rows.map((r) => r.costUsd)) }, rows };
 // Paired with the baseline by verse.
 const baseRows = new Map<string, { accepted: boolean; flawedStored: boolean; stored: boolean }>(base("tally.json").rows.map((r: { id: string; accepted: boolean; flawedStored: boolean; stored: boolean }) => [r.id, r]));
+// Every row is a distinct verse that pairs with exactly one baseline row; the baseline's extra verses are simply unpaired.
+const ids = rows.map((r) => r.id), baseIds = [...baseRows.keys()];
+assert.equal(new Set(ids).size, ids.length, "duplicate sample row"); assert.equal(baseIds.length, base("tally.json").rows.length, "duplicate baseline row");
+for (const id of ids) assert.ok(baseRows.has(id), `${id} has no baseline row`);
 const both = rows.filter((r) => baseRows.has(r.id));
 const improved = both.filter((r) => !baseRows.get(r.id)!.accepted && r.accepted).map((r) => r.id), regressed = both.filter((r) => baseRows.get(r.id)!.accepted && !r.accepted).map((r) => r.id);
 const choose = (n: number, k: number) => { let c = 1; for (let i = 1; i <= k; i++) c = c * (n - k + i) / i; return c; };
@@ -71,11 +75,17 @@ const baseFinal = (id: string) => { const x = baseA.get(id)!, y = baseB.get(id)!
 const calib = key.flatMap((k) => k.calibration.map((old) => ({ now: final.get(k.blindId)!, then: baseFinal(old) })));
 const calibration = { replies: calib.length, samePassFail: calib.filter((c) => clean(c.now) === clean(c.then)).length, sameBlockers: calib.filter((c) => blockers.every((f) => c.now[f] === c.then[f])).length };
 Object.assign(result, { paired, calibration });
-save("tally.json", result);
-const o = result.overall;
-const fmt = (w: ReturnType<typeof wilson>) => w ? `${w.k}/${w.n} (${(w.rate * 100).toFixed(0)}%, ${(w.low * 100).toFixed(0)}-${(w.high * 100).toFixed(0)}%)` : "-";
-console.log(`accepted ${fmt(o.accepted)} | flawed stored ${fmt(o.flawedStored)} | refused ${fmt(o.refused)} | false refusals ${fmt(o.falseRefusal)} | re-planned ${fmt(o.replanned)}`);
-console.log(`without review: accepted ${fmt(o.withoutReview.accepted)} | flawed stored ${fmt(o.withoutReview.flawedStored)} | refused ${fmt(o.withoutReview.refused)}`);
-for (const [g, r] of Object.entries(result.byGroup)) console.log(`${g}: n=${r.n} accepted ${fmt(r.accepted)} flawed ${fmt(r.flawedStored)} | without review accepted ${fmt(r.withoutReview.accepted)} flawed ${fmt(r.withoutReview.flawedStored)}`);
-console.log(JSON.stringify({ flags: result.flagCounts, latencyMs: result.latencyMs, costUsd: result.costUsd, agreement: result.scorerAgreement }));
-console.log(JSON.stringify({ paired, calibration }));
+if (process.argv.includes("--check")) {
+  // Audit: the retained tally must follow exactly from the scores, adjudication and samples, apart from its timestamp.
+  const { at: _kept, ...kept } = json("tally.json"), { at: _now, ...now } = result; void _kept; void _now;
+  assert.deepEqual(JSON.parse(JSON.stringify(now)), kept);
+} else {
+  save("tally.json", result);
+  const o = result.overall;
+  const fmt = (w: ReturnType<typeof wilson>) => w ? `${w.k}/${w.n} (${(w.rate * 100).toFixed(0)}%, ${(w.low * 100).toFixed(0)}-${(w.high * 100).toFixed(0)}%)` : "-";
+  console.log(`accepted ${fmt(o.accepted)} | flawed stored ${fmt(o.flawedStored)} | refused ${fmt(o.refused)} | false refusals ${fmt(o.falseRefusal)} | re-planned ${fmt(o.replanned)}`);
+  console.log(`without review: accepted ${fmt(o.withoutReview.accepted)} | flawed stored ${fmt(o.withoutReview.flawedStored)} | refused ${fmt(o.withoutReview.refused)}`);
+  for (const [g, r] of Object.entries(result.byGroup)) console.log(`${g}: n=${r.n} accepted ${fmt(r.accepted)} flawed ${fmt(r.flawedStored)} | without review accepted ${fmt(r.withoutReview.accepted)} flawed ${fmt(r.withoutReview.flawedStored)}`);
+  console.log(JSON.stringify({ flags: result.flagCounts, latencyMs: result.latencyMs, costUsd: result.costUsd, agreement: result.scorerAgreement }));
+  console.log(JSON.stringify({ paired, calibration }));
+}
