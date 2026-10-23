@@ -84,7 +84,7 @@ describe("moment cast over shared section context", () => {
       const selected = result.prompt.split("SELECTED CHARACTERS: ")[1]?.split("\n")[0];
       expect(selected).toBe("The Ancient of Days; Ministering assembly in Daniel's vision");
       expect(selected).not.toContain("Daniel (prophet of Babylon)");
-      expect(result.prompt).toContain("The shared look, source narrators and neighbors do not add cast");
+      expect(result.prompt).toContain("The shared look, source narrators and neighbors do not add figures");
       expect(result.prompt).toContain("apply shared clothing only to selected characters");
       expect(result.packet.canon.map((entry) => entry.entryId)).toEqual(["the_ancient_of_days", "ministering_assembly_in_daniels_vision"]);
       for (const entry of result.canon) expect(result.prompt).toContain(entry.text);

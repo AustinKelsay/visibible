@@ -103,6 +103,18 @@ describe("plan review before storage", () => {
     expect(writes[0].payload).toMatchObject({ review: { rounds: 2, evidence: "scene focus is not quoted from the current moment" } });
   });
 
+  it("stores a plan whose continuing road is anchored only by the previous verse, through the real cast kinds", async () => {
+    const road = "jerusalem_to_jericho_road";
+    const reply = plan({ present: [samaritan, wounded, road] });
+    const entry = reply.grounding.cast.find((e) => e.entryId === road)!;
+    Object.assign(entry, { momentQuote: "", contextSource: "previous", contextQuote: "as he traveled, came where he was" });
+    const { run, calls, writes, context } = await setup([reply], [[]]);
+    expect(context.previous?.text).toContain("as he traveled, came where he was");
+    await run();
+    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review"]);
+    expect(writes[0].payload).toMatchObject({ entries: [{ entryId: samaritan }, { entryId: wounded }, { entryId: road }] });
+  });
+
   it("never re-plans a source gap or a twice-malformed plan", async () => {
     const gap = await setup([plan({ missingCast: ["host"], present: [] })], []);
     await expect(gap.run()).rejects.toThrow(/required canon unavailable: host/);

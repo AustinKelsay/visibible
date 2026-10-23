@@ -226,10 +226,10 @@ describe("moment-cast v4 stated instant and quote fragments", () => {
   });
 
   it("matches whole words only, skipping a partial-word occurrence to find a later whole one", () => {
-    const manor: MomentContext = { moment: { id: "tale-6", reference: "The Tale ¶6", text: "Manor lantern. A man held the lantern." }, previous: null, next: null };
+    const manor: MomentContext = { moment: { id: "tale-6", reference: "The Tale ¶6", text: "Manor lantern. A boy held the lantern." }, previous: null, next: null };
     expect(sceneGroundingProblem(focus("Man … lantern."), [], manor, [])).toBe("scene focus is not quoted from the current moment");
     expect(sceneGroundingProblem(focus("anor lantern."), [], manor, [])).toBe("scene focus is not quoted from the current moment");
-    expect(sceneGroundingProblem(focus("man … the lantern."), [], manor, [])).toBeNull();
+    expect(sceneGroundingProblem(focus("boy … the lantern."), [], manor, [])).toBeNull();
   });
 
   it("keeps contractions whole while allowing a possessive's stem", () => {
@@ -270,5 +270,31 @@ describe("moment-cast v4 stated instant and quote fragments", () => {
     expect(calls[0].system).toContain("state that instant once in `grounding.instant`");
     expect(calls[0].system).toContain("separated by an ellipsis (…)");
     expect(result.prompt).not.toContain(binding.grounding.instant);
+  });
+});
+
+describe("moment-cast v6 evidence rules", () => {
+  const verse: MomentContext = { moment: { id: "law-1", reference: "Law 1", text: "He shall do this with the bull; and the priest shall make atonement." },
+    previous: { text: "Fire came down at Megiddo, where the camp stood." }, next: null };
+  const record = (entryId: string, momentQuote: string, contextSource: "none" | "previous" = "none", contextQuote = "") =>
+    ({ entryId, momentQuote, contextSource, contextQuote, participation: "in_scene" as const });
+
+  it("matches quotes regardless of letter case, as when a clause loses its sentence-initial capital", () => {
+    const g: SceneGrounding = { focusQuote: "he shall do this with the bull", cast: [record("priest", "THE PRIEST shall make atonement")], instant: "The priest stands by the bull.", singleInstant: true };
+    expect(sceneGroundingProblem(g, ["priest"], verse, ["priest"])).toBeNull();
+    expect(sceneGroundingProblem({ ...g, focusQuote: "he shall do this with the goat" }, ["priest"], verse, ["priest"])).toBe("scene focus is not quoted from the current moment");
+  });
+
+  it("lets a selected location or object continue from a neighbor, but never a character or group", () => {
+    const g: SceneGrounding = { focusQuote: "the priest shall make atonement", instant: "The priest at the camp.", singleInstant: true,
+      cast: [record("priest", "the priest"), record("megiddo", "", "previous", "at Megiddo, where the camp stood")] };
+    expect(sceneGroundingProblem(g, ["priest", "megiddo"], verse, ["priest", "megiddo"], ["megiddo"])).toBeNull();
+    // The same record for an entry not marked as a location or object still needs words from the moment.
+    expect(sceneGroundingProblem(g, ["priest", "megiddo"], verse, ["priest", "megiddo"], [])).toBe("cast megiddo lacks current-moment evidence");
+    // Any moment quote it does give must be real, and a continuing location still needs a real neighbor quote.
+    const falseMoment = { ...g, cast: [g.cast[0], record("megiddo", "the camp at Megiddo", "previous", "at Megiddo, where the camp stood")] };
+    expect(sceneGroundingProblem(falseMoment, ["priest", "megiddo"], verse, ["priest", "megiddo"], ["megiddo"])).toBe("cast megiddo lacks current-moment evidence");
+    const invented = { ...g, cast: [g.cast[0], record("megiddo", "", "previous", "at Megiddo by the river")] };
+    expect(sceneGroundingProblem(invented, ["priest", "megiddo"], verse, ["priest", "megiddo"], ["megiddo"])).toBe("cast megiddo lacks current-moment evidence");
   });
 });

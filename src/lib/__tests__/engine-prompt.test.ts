@@ -68,7 +68,7 @@ describe("rendering packet", () => {
       expect(result.references.map((r) => r.caption)).toEqual(result.packet.references.map((r) => r.caption));
       expect(result.references[result.references.length - 1].caption).toMatch(/^Image 3: /);
       expect(result.prompt).toContain(result.references[0].caption);
-      expect(result.packet).toMatchObject({ promptVersion: "2026-10-22-generic-v4", styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
+      expect(result.packet).toMatchObject({ promptVersion: "2026-10-23-generic-v5", styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
         canon: [{ entryId: "sherlock_holmes", stageId: "main", version: "h1" }, expect.anything(), expect.anything(), expect.anything()],
         flags: { variationIncluded: true, neighborsIncluded: true, styleDetailIncluded: true, lookDetailIncluded: true } });
       expect(result.packet.budget.finalChars).toBe(result.prompt.length);
@@ -78,8 +78,8 @@ describe("rendering packet", () => {
   it.each([
     ["formed character", [canon[0]], "Sherlock Holmes"],
     ["no-form subject", [canon[3]], "the voice"],
-    ["location only", [canon[1]], "(none; no people, beings, animals or groups)"],
-    ["empty cast", [], "(none; no people, beings, animals or groups)"],
+    ["location only", [canon[1]], "(none with fixed canon; show only figures the scene plan describes, or none)"],
+    ["empty cast", [], "(none with fixed canon; show only figures the scene plan describes, or none)"],
     ["group", [{ ...canon[0], name: "Court attendants" }], "Court attendants"],
   ] as const)("names only selected characters for %s without rewriting shared context", (_label, selected, expected) => {
     const input = base("classical", { canon: [...selected] });
@@ -87,7 +87,7 @@ describe("rendering packet", () => {
     if (!result.ok) throw new Error(result.error);
     expect(result.prompt).toContain(`SELECTED CHARACTERS: ${expected}\n`);
     expect(result.prompt).toContain(input.look.clothing);
-    expect(result.prompt).toContain("The shared look, source narrators and neighbors do not add cast");
+    expect(result.prompt).toContain("The shared look, source narrators and neighbors do not add figures");
     expect(result.packet.canon.map((entry) => entry.entryId)).toEqual(selected.map((entry) => entry.entryId));
   });
 
