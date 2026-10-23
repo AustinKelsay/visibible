@@ -1,0 +1,124 @@
+{
+  "at": "2026-10-23T00:45:20.975Z",
+  "result": {
+    "changed": true,
+    "entryVersion": "79696bd3b4de4fdc426365cb1368848f",
+    "sectionVersion": "9f1b9d0a7866f02f587421125feef376"
+  },
+  "readBack": {
+    "createdAt": 1792716320821,
+    "generation": 1,
+    "inputs": [],
+    "kind": "entry",
+    "payload": {
+      "aliases": [
+        "an inn in the story"
+      ],
+      "entryKind": "location",
+      "hasForm": true,
+      "kind": "entry",
+      "members": [],
+      "name": "Inn in the Samaritan parable",
+      "note": "Unnamed inn inside the narrated story in Luke 10:34–35, where the Samaritan brings the injured traveler and pays the host. Distinct from the road and from the framing conversation. The text gives an inn, not a specific architectural description.",
+      "stages": [
+        {
+          "id": "inn_stage_1",
+          "label": "Roadside inn",
+          "quotes": [
+            {
+              "quote": "brought him to an inn, and took care of him",
+              "unit": "luke-10-34"
+            },
+            {
+              "quote": "gave them to the host",
+              "unit": "luke-10-35"
+            }
+          ],
+          "text": "Roadside inn: a modest two-storey inn of pale limestone blocks on the Jerusalem to Jericho road in Roman Judea, with a flat roof, a low arched gateway wide enough for a laden animal, and an open courtyard with a stone well and a water trough. Scrub and dry terraces of olive and fig stand behind it, and the rough track runs past its gate."
+        }
+      ]
+    },
+    "recordId": "inn_in_samaritan_parable",
+    "source": "owner",
+    "status": "current",
+    "version": "79696bd3b4de4fdc426365cb1368848f",
+    "workId": "bible-web"
+  },
+  "section": {
+    "createdAt": 1792716320821,
+    "generation": 1,
+    "inputs": [],
+    "kind": "section",
+    "payload": {
+      "cast": [
+        {
+          "entryId": "lawyer_who_tests_jesus_luke_10",
+          "named": true,
+          "stageId": "lawyer_who_tests_jesus_luke_10-s1"
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "named": true,
+          "stageId": "adult"
+        },
+        {
+          "entryId": "judea_gospel_region_around_jerusalem",
+          "stageId": "judea_main"
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "named": false,
+          "stageId": "wounded_traveler_main"
+        },
+        {
+          "entryId": "robbers_in_samaritan_parable",
+          "named": false,
+          "stageId": "robbers_in_samaritan_parable-s1"
+        },
+        {
+          "entryId": "priest_in_samaritan_parable",
+          "named": false,
+          "stageId": "priest_in_samaritan_parable-1"
+        },
+        {
+          "entryId": "levite_in_samaritan_parable",
+          "named": false,
+          "stageId": "levite-main"
+        },
+        {
+          "entryId": "innkeeper_in_samaritan_parable",
+          "named": false,
+          "stageId": "innkeeper_main"
+        },
+        {
+          "entryId": "samaritans_mount_in_parable",
+          "named": false,
+          "stageId": "samaritans_mount_in_parable-main"
+        },
+        {
+          "entryId": "jerusalem_to_jericho_road",
+          "named": false,
+          "stageId": "jerusalem_to_jericho_road_main"
+        },
+        {
+          "entryId": "inn_in_samaritan_parable",
+          "named": false,
+          "stageId": "inn_stage_1"
+        }
+      ],
+      "era": "roman-era-judea-galilee-and-the-early-church",
+      "firstUnit": "luke-10-25",
+      "kind": "section",
+      "lastUnit": "luke-10-37",
+      "mentionedOnly": [
+        "the_samaritan"
+      ],
+      "title": "Good Samaritan"
+    },
+    "recordId": "luke-10-25",
+    "source": "owner",
+    "status": "current",
+    "version": "9f1b9d0a7866f02f587421125feef376",
+    "workId": "bible-web"
+  }
+}

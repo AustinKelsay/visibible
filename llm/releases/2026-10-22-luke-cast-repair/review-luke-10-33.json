@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-23T00:46:30.142052+00:00",
+  "artifactSha256": "4e957d468cc555b3eafdeedd618394f9e9f1ad3cfc5ccb2de256caefa2d95f89",
+  "reviewer": "Agent text inspection within authorized preparation; not human release acceptance",
+  "verdict": "accept-for-next-text-check",
+  "humanAccepted": false,
+  "publicActivation": false,
+  "observations": [
+    {
+      "topic": "Inner-story cast",
+      "assessment": "The selected Samaritan, injured traveler, mount and road match the depicted inner story. Jesus, the lawyer, priest, Levite, robbers and innkeeper are absent from both roster and scene prose. Every described actor has the exact assigned canon."
+    },
+    {
+      "topic": "Current action and continuity",
+      "evidence": "The Samaritan stops his mount and turns toward the wounded man lying by the roadside",
+      "assessment": "The single roadside moment depicts seeing the injured man and compassion in 10:33. The mount is illustrative staging of the Samaritan\u2019s current travel (10:33 as he traveled) resolved by his own animal in 10:34, not an actor imported from a separate event. No binding, loading, journey to the inn or host transaction is depicted. The oil/wine flask is a continuity prop, not a second action. Species remains canon invention, not a WEB claim."
+    },
+    {
+      "topic": "Canon separation and limits",
+      "assessment": "No fixed age, anatomy, hair or canon colour is copied into the plan. Shared travel clothing, location, lighting, action and placement are situational. One ordinary look and one plan were retained, without semantic retries. A single text result does not prove visual compliance or repeatability."
+    }
+  ],
+  "decision": {
+    "nextTextCheckAllowed": true,
+    "imageCallsAllowed": false,
+    "semanticRetryAllowed": false,
+    "responseEditingAllowed": false,
+    "releaseAccepted": false
+  }
+}

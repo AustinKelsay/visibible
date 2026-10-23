@@ -1,0 +1,6 @@
+{"type":"review_context","reviewType":"uncommitted","currentBranch":"eval/luke-cast-repair","baseBranch":"origin/dev","workingDirectory":"/Users/plebdev/.t3/worktrees/visibible/feat-work-reference-imports","expectedDuration":"Reviews usually take 2-6 minutes and can take up to 15. Keep this command running for at least 15 minutes or run it in the background; stopping it early discards the review."}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"error","errorType":"connection","message":"Connection failed: WebSocket closed","recoverable":true,"details":{"cause":{"name":"TRPCWebSocketClosedError"},"name":"TRPCClientError"}}

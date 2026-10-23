@@ -1,0 +1,625 @@
+{
+  "inputHashes": {
+    "plan.json": "59e09e6889113f378f41004fdd5da5f4552bd1cd86c251294b565d03729ced17",
+    "subjects.json": "41064c3f87df0a6cc3fac887dc6c6e34c62091d0b8d606c0dab81cf24af0c034",
+    "canon-curation-v2.json": "1934180c10ab154d9bb3b948728b318b16b7bc9abb8cb4ae5393566bbe3c440c",
+    "canon-the_samaritan.json": "090ed36064bacea8b5d756edee21a2117797b1827ba39857d93f8172d9c4c859",
+    "canon-wounded_traveler_in_samaritan_parable.json": "067b445ab54f815082082590be723c9aa24f9025e054aec52c6fa23153985927",
+    "canon-robbers_in_samaritan_parable.json": "313dc44703bc1d01c219162544c53e568d778dbfeab0a5c82fbea776544c8455",
+    "canon-priest_in_samaritan_parable.json": "352987fb94ecad7a12aa0d71fab6f983a2477afbfed4bbb32f231acc1bdfc2fd",
+    "canon-levite_in_samaritan_parable.json": "afca790b7fcd67af25b0430eb321ffcbb618c6543f93267e7b9593ef8dc5cbb1",
+    "canon-innkeeper_in_samaritan_parable.json": "2b209e827cad9f81c15b0a81bea354a4b05dea895a6188bc78d4ddb2cc2f97e0",
+    "canon-samaritans_mount_in_parable.json": "fca67cf363f522ad4c5f9736732c29bdd85dc46df29d7d209817808785270b2a",
+    "canon-jerusalem_to_jericho_road.json": "e7f8e70a5df1174caef8a3de437095a6d1e901be1aa304e1fb96835ecdfeeb0e",
+    "canon-inn_in_samaritan_parable.json": "912755a0c781d3bfeb39b3bf4b91f0b01f3f29eae3820e5ac2eabb7c762089c7"
+  },
+  "entries": [
+    {
+      "id": "the_samaritan",
+      "payload": {
+        "aliases": [
+          "the good Samaritan"
+        ],
+        "entryKind": "character",
+        "kind": "entry",
+        "members": [
+          "luke:character:good_samaritan"
+        ],
+        "name": "the Samaritan",
+        "note": "Traveler in the parable who tends a robbery victim (ch. 10).",
+        "stages": [
+          {
+            "id": "the_samaritan-main",
+            "label": "the Samaritan",
+            "text": "the Samaritan: adult man of middle age, sturdy and weathered build, olive-brown skin, short dark hair and a close-cropped beard, plain lined face with steady eyes. Signature outfit worn on the road: undyed linen tunic in earth tones of ochre and brown with a dusty woollen cloak in deep blue-grey, sandals and a leather belt bearing a small pouch of coins. Carries alone a water skin and a folded cloth for binding wounds.",
+            "quotes": [
+              {
+                "unit": "luke-10-33",
+                "quote": "a certain Samaritan, as he traveled, came where he was"
+              },
+              {
+                "unit": "luke-10-34",
+                "quote": "He set him on his own animal, brought him to an inn"
+              }
+            ]
+          }
+        ],
+        "hasForm": true
+      }
+    },
+    {
+      "id": "wounded_traveler_in_samaritan_parable",
+      "payload": {
+        "kind": "entry",
+        "entryKind": "character",
+        "name": "Wounded traveler in the Samaritan parable",
+        "aliases": [
+          "the wounded man",
+          "robbery victim"
+        ],
+        "note": "Unnamed man inside the story Jesus tells in Luke 10:30–35, traveling from Jerusalem to Jericho, stripped, beaten and left half dead. Distinct from the framing lawyer and from the Samaritan who helps him. Injuries and lost clothing are situational, not a separate life stage.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "wounded_traveler_main",
+            "label": "Wounded traveler",
+            "text": "Wounded traveler: a man of about 30 to 45 years, of average build with a lean, weathered frame, olive skin, short dark hair and a close-cut beard. Facial features are plain and worn, marked with dust and bruising. Stripped to a simple loincloth of undyed linen, he has no cloak or sandals. Signature props: none.",
+            "quotes": [
+              {
+                "unit": "luke-10-30",
+                "quote": "A certain man was going down from Jerusalem to Jericho, and he fell among robbers, who both stripped him and beat him"
+              },
+              {
+                "unit": "luke-10-30",
+                "quote": "leaving him half dead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "robbers_in_samaritan_parable",
+      "payload": {
+        "kind": "entry",
+        "entryKind": "character",
+        "name": "Robbers in the Samaritan parable",
+        "aliases": [
+          "the robbers in the story"
+        ],
+        "note": "Unnamed group inside Jesus’s story in Luke 10:30 who attack the traveler and depart. Distinct from the men crucified with Jesus and all other robbery groups. Describe a typical member.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "robbers_in_samaritan_parable-s1",
+            "label": "Robbers (typical member)",
+            "text": "Robbers: a typical member is a lean adult man, aged late twenties to forties, of wiry build with weathered olive skin, dark hair and short beard. He wears a faded earth-brown tunic belted at the waist with a dusty cloak of undyed wool and leather sandals. Signature props carried alone: a short knife at the belt and a rough wooden cudgel.",
+            "quotes": [
+              {
+                "unit": "luke-10-30",
+                "quote": "he fell among robbers, who both stripped him and beat him, and departed"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "priest_in_samaritan_parable",
+      "payload": {
+        "kind": "entry",
+        "entryKind": "character",
+        "name": "Priest in the Samaritan parable",
+        "aliases": [
+          "a certain priest"
+        ],
+        "note": "Unnamed priest inside the narrated story in Luke 10:31, who sees the traveler and passes on the other side. Distinct from every named priest elsewhere and from the framing speakers.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "priest_in_samaritan_parable-1",
+            "label": "Priest in the Samaritan parable",
+            "text": "Priest in the Samaritan parable: a man of middle years with a lean, weathered build and dark, short-cropped hair and a close-trimmed beard streaked with grey. Sun-browned skin and a serious, careful face. He wears a long priestly robe of undyed linen with a dark woven sash and a fringed prayer shawl over the shoulders, in muted ochre and off-white. He carries nothing in his hands but a small leather scrip at his side.",
+            "quotes": [
+              {
+                "unit": "luke-10-31",
+                "quote": "By chance a certain priest was going down that way."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "levite_in_samaritan_parable",
+      "payload": {
+        "kind": "entry",
+        "entryKind": "character",
+        "name": "Levite in the Samaritan parable",
+        "aliases": [
+          "a Levite in the story"
+        ],
+        "note": "Unnamed Levite inside the narrated story in Luke 10:32, who sees the traveler and passes on the other side. Distinct from the priest immediately before him and from named Levites elsewhere.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "levite-main",
+            "label": "Levite",
+            "text": "Levite in the Samaritan parable: an unnamed Jewish man of Levite lineage in his thirties to forties, of lean, moderate build, with olive-brown skin, short dark hair and a close-trimmed beard. He wears a plain undyed linen tunic and a dusty brown woollen cloak with a fringed hem, belted at the waist, and carries a small leather satchel.",
+            "quotes": [
+              {
+                "unit": "luke-10-32",
+                "quote": "In the same way a Levite also, when he came to the place and saw him, passed by on the other side."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "innkeeper_in_samaritan_parable",
+      "payload": {
+        "kind": "entry",
+        "entryKind": "character",
+        "name": "Innkeeper in the Samaritan parable",
+        "aliases": [
+          "the host"
+        ],
+        "note": "Unnamed host of the inn inside the story in Luke 10:35, entrusted with the injured traveler’s care and given two denarii. Distinct from the Samaritan, injured traveler and framing speakers.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "innkeeper_main",
+            "label": "Innkeeper",
+            "text": "Innkeeper: a man of middle years, forties, sturdy and weathered from the roadside trade; medium build with broad, work-worn hands; olive skin, dark hair cropped short with a close-trimmed beard shot with grey; lined, steady face. Signature outfit: a plain undyed linen tunic belted at the waist with a dull brown wool cloak; earth-brown and ochre tones. Signature prop: a small leather purse at his belt holding coins.",
+            "quotes": [
+              {
+                "unit": "luke-10-35",
+                "quote": "he took out two denarii, gave them to the host, and said to him"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "samaritans_mount_in_parable",
+      "payload": {
+        "kind": "entry",
+        "entryKind": "character",
+        "name": "Samaritan’s mount in the parable",
+        "aliases": [
+          "his own animal"
+        ],
+        "note": "The Samaritan’s own animal inside the story in Luke 10:34, used to carry the injured man to the inn. The text fixes ownership and use but not species, colour or markings; any chosen species/appearance is illustrative invention or tradition, not a textual claim.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "samaritans_mount_in_parable-main",
+            "label": "The Samaritan's mount",
+            "text": "Samaritan’s mount in the parable: a sturdy donkey of the Judean hill country with a strong back, a plain brown coat, pale muzzle and legs, and a simple worn leather saddle and harness.",
+            "quotes": [
+              {
+                "unit": "luke-10-34",
+                "quote": "He set him on his own animal, brought him to an inn, and took care of him."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "jerusalem_to_jericho_road",
+      "payload": {
+        "kind": "entry",
+        "entryKind": "location",
+        "name": "Jerusalem–Jericho road in the Samaritan parable",
+        "aliases": [
+          "that way",
+          "the roadside in the story"
+        ],
+        "note": "The descending journey from Jerusalem to Jericho inside the narrated story in Luke 10:30–34. It is the inner story’s road, not the location of Jesus’s conversation with the lawyer. The text fixes endpoints and descending travel; specific terrain details follow the era/illustrative tradition.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "jerusalem_to_jericho_road_main",
+            "label": "Jerusalem–Jericho road",
+            "text": "Jerusalem–Jericho road: a steep, stony track descending through the arid Judean wilderness from the hill city toward the low Jordan valley. Rocky limestone ridges and gullies line the way, with dry scrub, scattered acacia and thorn, and patches of wild grass. Rough boulders and cairns mark the path, and distant terraced hills and the faint outline of a walled town lie ahead in the desert haze.",
+            "quotes": [
+              {
+                "unit": "luke-10-30",
+                "quote": "A certain man was going down from Jerusalem to Jericho"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "inn_in_samaritan_parable",
+      "payload": {
+        "kind": "entry",
+        "entryKind": "location",
+        "name": "Inn in the Samaritan parable",
+        "aliases": [
+          "an inn in the story"
+        ],
+        "note": "Unnamed inn inside the narrated story in Luke 10:34–35, where the Samaritan brings the injured traveler and pays the host. Distinct from the road and from the framing conversation. The text gives an inn, not a specific architectural description.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "inn_stage_1",
+            "label": "Roadside inn",
+            "text": "Roadside inn: a modest two-storey inn of pale limestone blocks on the Jerusalem to Jericho road in Roman Judea, with a flat roof, a low arched gateway wide enough for a laden animal, and an open courtyard with a stone well and a water trough. Scrub and dry terraces of olive and fig stand behind it, and the rough track runs past its gate.",
+            "quotes": [
+              {
+                "unit": "luke-10-34",
+                "quote": "brought him to an inn, and took care of him"
+              },
+              {
+                "unit": "luke-10-35",
+                "quote": "gave them to the host"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "samaritanExpectedVersion": "58735115867b1dc088d7ab5d9f568a91",
+  "additions": [
+    {
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+      "expectedGeneration": 1,
+      "sectionId": "luke-10-25",
+      "expectedSectionVersion": "1a197b2c234bf5c529730b34033b9c08",
+      "entryId": "wounded_traveler_in_samaritan_parable",
+      "stageId": "wounded_traveler_main",
+      "named": false,
+      "entry": {
+        "kind": "entry",
+        "entryKind": "character",
+        "name": "Wounded traveler in the Samaritan parable",
+        "aliases": [
+          "the wounded man",
+          "robbery victim"
+        ],
+        "note": "Unnamed man inside the story Jesus tells in Luke 10:30–35, traveling from Jerusalem to Jericho, stripped, beaten and left half dead. Distinct from the framing lawyer and from the Samaritan who helps him. Injuries and lost clothing are situational, not a separate life stage.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "wounded_traveler_main",
+            "label": "Wounded traveler",
+            "text": "Wounded traveler: a man of about 30 to 45 years, of average build with a lean, weathered frame, olive skin, short dark hair and a close-cut beard. Facial features are plain and worn, marked with dust and bruising. Stripped to a simple loincloth of undyed linen, he has no cloak or sandals. Signature props: none.",
+            "quotes": [
+              {
+                "unit": "luke-10-30",
+                "quote": "A certain man was going down from Jerusalem to Jericho, and he fell among robbers, who both stripped him and beat him"
+              },
+              {
+                "unit": "luke-10-30",
+                "quote": "leaving him half dead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+      "expectedGeneration": 1,
+      "sectionId": "luke-10-25",
+      "expectedSectionVersion": "5f64e2a95e9d8a901571d011685c8ded",
+      "entryId": "robbers_in_samaritan_parable",
+      "stageId": "robbers_in_samaritan_parable-s1",
+      "named": false,
+      "entry": {
+        "kind": "entry",
+        "entryKind": "character",
+        "name": "Robbers in the Samaritan parable",
+        "aliases": [
+          "the robbers in the story"
+        ],
+        "note": "Unnamed group inside Jesus’s story in Luke 10:30 who attack the traveler and depart. Distinct from the men crucified with Jesus and all other robbery groups. Describe a typical member.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "robbers_in_samaritan_parable-s1",
+            "label": "Robbers (typical member)",
+            "text": "Robbers: a typical member is a lean adult man, aged late twenties to forties, of wiry build with weathered olive skin, dark hair and short beard. He wears a faded earth-brown tunic belted at the waist with a dusty cloak of undyed wool and leather sandals. Signature props carried alone: a short knife at the belt and a rough wooden cudgel.",
+            "quotes": [
+              {
+                "unit": "luke-10-30",
+                "quote": "he fell among robbers, who both stripped him and beat him, and departed"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+      "expectedGeneration": 1,
+      "sectionId": "luke-10-25",
+      "expectedSectionVersion": "4aaf2352c2d784796811e8caf18db48e",
+      "entryId": "priest_in_samaritan_parable",
+      "stageId": "priest_in_samaritan_parable-1",
+      "named": false,
+      "entry": {
+        "kind": "entry",
+        "entryKind": "character",
+        "name": "Priest in the Samaritan parable",
+        "aliases": [
+          "a certain priest"
+        ],
+        "note": "Unnamed priest inside the narrated story in Luke 10:31, who sees the traveler and passes on the other side. Distinct from every named priest elsewhere and from the framing speakers.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "priest_in_samaritan_parable-1",
+            "label": "Priest in the Samaritan parable",
+            "text": "Priest in the Samaritan parable: a man of middle years with a lean, weathered build and dark, short-cropped hair and a close-trimmed beard streaked with grey. Sun-browned skin and a serious, careful face. He wears a long priestly robe of undyed linen with a dark woven sash and a fringed prayer shawl over the shoulders, in muted ochre and off-white. He carries nothing in his hands but a small leather scrip at his side.",
+            "quotes": [
+              {
+                "unit": "luke-10-31",
+                "quote": "By chance a certain priest was going down that way."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+      "expectedGeneration": 1,
+      "sectionId": "luke-10-25",
+      "expectedSectionVersion": "72e384362a2ba491f76def8e73dad172",
+      "entryId": "levite_in_samaritan_parable",
+      "stageId": "levite-main",
+      "named": false,
+      "entry": {
+        "kind": "entry",
+        "entryKind": "character",
+        "name": "Levite in the Samaritan parable",
+        "aliases": [
+          "a Levite in the story"
+        ],
+        "note": "Unnamed Levite inside the narrated story in Luke 10:32, who sees the traveler and passes on the other side. Distinct from the priest immediately before him and from named Levites elsewhere.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "levite-main",
+            "label": "Levite",
+            "text": "Levite in the Samaritan parable: an unnamed Jewish man of Levite lineage in his thirties to forties, of lean, moderate build, with olive-brown skin, short dark hair and a close-trimmed beard. He wears a plain undyed linen tunic and a dusty brown woollen cloak with a fringed hem, belted at the waist, and carries a small leather satchel.",
+            "quotes": [
+              {
+                "unit": "luke-10-32",
+                "quote": "In the same way a Levite also, when he came to the place and saw him, passed by on the other side."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+      "expectedGeneration": 1,
+      "sectionId": "luke-10-25",
+      "expectedSectionVersion": "a044fd81b5f5f41a8da8c97972e712a5",
+      "entryId": "innkeeper_in_samaritan_parable",
+      "stageId": "innkeeper_main",
+      "named": false,
+      "entry": {
+        "kind": "entry",
+        "entryKind": "character",
+        "name": "Innkeeper in the Samaritan parable",
+        "aliases": [
+          "the host"
+        ],
+        "note": "Unnamed host of the inn inside the story in Luke 10:35, entrusted with the injured traveler’s care and given two denarii. Distinct from the Samaritan, injured traveler and framing speakers.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "innkeeper_main",
+            "label": "Innkeeper",
+            "text": "Innkeeper: a man of middle years, forties, sturdy and weathered from the roadside trade; medium build with broad, work-worn hands; olive skin, dark hair cropped short with a close-trimmed beard shot with grey; lined, steady face. Signature outfit: a plain undyed linen tunic belted at the waist with a dull brown wool cloak; earth-brown and ochre tones. Signature prop: a small leather purse at his belt holding coins.",
+            "quotes": [
+              {
+                "unit": "luke-10-35",
+                "quote": "he took out two denarii, gave them to the host, and said to him"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+      "expectedGeneration": 1,
+      "sectionId": "luke-10-25",
+      "expectedSectionVersion": "5381fbb637f11dc5ffdb19aeb86997d2",
+      "entryId": "samaritans_mount_in_parable",
+      "stageId": "samaritans_mount_in_parable-main",
+      "named": false,
+      "entry": {
+        "kind": "entry",
+        "entryKind": "character",
+        "name": "Samaritan’s mount in the parable",
+        "aliases": [
+          "his own animal"
+        ],
+        "note": "The Samaritan’s own animal inside the story in Luke 10:34, used to carry the injured man to the inn. The text fixes ownership and use but not species, colour or markings; any chosen species/appearance is illustrative invention or tradition, not a textual claim.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "samaritans_mount_in_parable-main",
+            "label": "The Samaritan's mount",
+            "text": "Samaritan’s mount in the parable: a sturdy donkey of the Judean hill country with a strong back, a plain brown coat, pale muzzle and legs, and a simple worn leather saddle and harness.",
+            "quotes": [
+              {
+                "unit": "luke-10-34",
+                "quote": "He set him on his own animal, brought him to an inn, and took care of him."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+      "expectedGeneration": 1,
+      "sectionId": "luke-10-25",
+      "expectedSectionVersion": "88fa16488deacf7510db93c0a5ac5c0c",
+      "entryId": "jerusalem_to_jericho_road",
+      "stageId": "jerusalem_to_jericho_road_main",
+      "named": false,
+      "entry": {
+        "kind": "entry",
+        "entryKind": "location",
+        "name": "Jerusalem–Jericho road in the Samaritan parable",
+        "aliases": [
+          "that way",
+          "the roadside in the story"
+        ],
+        "note": "The descending journey from Jerusalem to Jericho inside the narrated story in Luke 10:30–34. It is the inner story’s road, not the location of Jesus’s conversation with the lawyer. The text fixes endpoints and descending travel; specific terrain details follow the era/illustrative tradition.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "jerusalem_to_jericho_road_main",
+            "label": "Jerusalem–Jericho road",
+            "text": "Jerusalem–Jericho road: a steep, stony track descending through the arid Judean wilderness from the hill city toward the low Jordan valley. Rocky limestone ridges and gullies line the way, with dry scrub, scattered acacia and thorn, and patches of wild grass. Rough boulders and cairns mark the path, and distant terraced hills and the faint outline of a walled town lie ahead in the desert haze.",
+            "quotes": [
+              {
+                "unit": "luke-10-30",
+                "quote": "A certain man was going down from Jerusalem to Jericho"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "workVersion": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+      "expectedGeneration": 1,
+      "sectionId": "luke-10-25",
+      "expectedSectionVersion": "96ee0fa0eb20a87fe3646a78873f7cac",
+      "entryId": "inn_in_samaritan_parable",
+      "stageId": "inn_stage_1",
+      "named": false,
+      "entry": {
+        "kind": "entry",
+        "entryKind": "location",
+        "name": "Inn in the Samaritan parable",
+        "aliases": [
+          "an inn in the story"
+        ],
+        "note": "Unnamed inn inside the narrated story in Luke 10:34–35, where the Samaritan brings the injured traveler and pays the host. Distinct from the road and from the framing conversation. The text gives an inn, not a specific architectural description.",
+        "members": [],
+        "hasForm": true,
+        "stages": [
+          {
+            "id": "inn_stage_1",
+            "label": "Roadside inn",
+            "text": "Roadside inn: a modest two-storey inn of pale limestone blocks on the Jerusalem to Jericho road in Roman Judea, with a flat roof, a low arched gateway wide enough for a laden animal, and an open courtyard with a stone well and a water trough. Scrub and dry terraces of olive and fig stand behind it, and the rough track runs past its gate.",
+            "quotes": [
+              {
+                "unit": "luke-10-34",
+                "quote": "brought him to an inn, and took care of him"
+              },
+              {
+                "unit": "luke-10-35",
+                "quote": "gave them to the host"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "finalSectionExpectedVersion": "9f1b9d0a7866f02f587421125feef376",
+  "finalSection": {
+    "cast": [
+      {
+        "entryId": "lawyer_who_tests_jesus_luke_10",
+        "named": true,
+        "stageId": "lawyer_who_tests_jesus_luke_10-s1"
+      },
+      {
+        "entryId": "jesus_christ_the_son_of_god_and_lord",
+        "named": true,
+        "stageId": "adult"
+      },
+      {
+        "entryId": "judea_gospel_region_around_jerusalem",
+        "stageId": "judea_main"
+      },
+      {
+        "entryId": "wounded_traveler_in_samaritan_parable",
+        "stageId": "wounded_traveler_main",
+        "named": false
+      },
+      {
+        "entryId": "robbers_in_samaritan_parable",
+        "stageId": "robbers_in_samaritan_parable-s1",
+        "named": false
+      },
+      {
+        "entryId": "priest_in_samaritan_parable",
+        "stageId": "priest_in_samaritan_parable-1",
+        "named": false
+      },
+      {
+        "entryId": "levite_in_samaritan_parable",
+        "stageId": "levite-main",
+        "named": false
+      },
+      {
+        "entryId": "innkeeper_in_samaritan_parable",
+        "stageId": "innkeeper_main",
+        "named": false
+      },
+      {
+        "entryId": "samaritans_mount_in_parable",
+        "stageId": "samaritans_mount_in_parable-main",
+        "named": false
+      },
+      {
+        "entryId": "jerusalem_to_jericho_road",
+        "stageId": "jerusalem_to_jericho_road_main",
+        "named": false
+      },
+      {
+        "entryId": "inn_in_samaritan_parable",
+        "stageId": "inn_stage_1",
+        "named": false
+      },
+      {
+        "entryId": "the_samaritan",
+        "stageId": "the_samaritan-main",
+        "named": false
+      }
+    ],
+    "era": "roman-era-judea-galilee-and-the-early-church",
+    "firstUnit": "luke-10-25",
+    "kind": "section",
+    "lastUnit": "luke-10-37",
+    "mentionedOnly": [],
+    "title": "Good Samaritan"
+  },
+  "finalSectionVersion": "30addabc87a1da6195912e64d9fc4038"
+}

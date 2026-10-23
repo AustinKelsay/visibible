@@ -1,0 +1,50 @@
+{
+  "at": "2026-10-22T22:31:37.226Z",
+  "entry": {
+    "id": "wounded_traveler_in_samaritan_parable",
+    "kind": "character",
+    "readingKind": "person",
+    "name": "Wounded traveler in the Samaritan parable",
+    "aliases": [
+      "the wounded man",
+      "robbery victim"
+    ],
+    "note": "Unnamed man inside the story Jesus tells in Luke 10:30–35, traveling from Jerusalem to Jericho, stripped, beaten and left half dead. Distinct from the framing lawyer and from the Samaritan who helps him. Injuries and lost clothing are situational, not a separate life stage.",
+    "members": [],
+    "support": [
+      "luke-10-30",
+      "luke-10-34"
+    ]
+  },
+  "result": {
+    "entryId": "wounded_traveler_in_samaritan_parable",
+    "kind": "character",
+    "hasForm": true,
+    "appearanceFromText": "The text fixes only that he was a traveler stripped of his clothing, beaten and left half dead on the road from Jerusalem to Jericho; his age, build, face and dress are not described, so a typical Judean traveler of the Roman period is supplied, with his injuries kept situational and non-graphic.",
+    "stages": [
+      {
+        "id": "wounded_traveler_main",
+        "label": "Wounded traveler",
+        "when": "Roman Judea, on the road from Jerusalem to Jericho",
+        "source": "mixed",
+        "quotes": [
+          {
+            "unit": "luke-10-30",
+            "quote": "A certain man was going down from Jerusalem to Jericho, and he fell among robbers, who both stripped him and beat him"
+          },
+          {
+            "unit": "luke-10-30",
+            "quote": "leaving him half dead."
+          }
+        ],
+        "text": "Wounded traveler: a man of about 30 to 45 years, of average build with a lean, weathered frame, olive skin, short dark hair and a close-cut beard. Facial features are plain and worn, marked with dust and bruising. Stripped to a simple loincloth of undyed linen, he has no cloak or sandals. Signature props: none, as robbers took his belongings."
+      }
+    ],
+    "sectionStages": {
+      "luke-10-25": "wounded_traveler_main"
+    },
+    "problems": [],
+    "promptVersion": "2026-10-22-canon-showing-v3",
+    "attempts": 1
+  }
+}

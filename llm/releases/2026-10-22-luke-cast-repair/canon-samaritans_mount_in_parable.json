@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-22T22:33:35.311Z",
+  "entry": {
+    "id": "samaritans_mount_in_parable",
+    "kind": "character",
+    "readingKind": "animal",
+    "name": "Samaritan’s mount in the parable",
+    "aliases": [
+      "his own animal"
+    ],
+    "note": "The Samaritan’s own animal inside the story in Luke 10:34, used to carry the injured man to the inn. The text fixes ownership and use but not species, colour or markings; any chosen species/appearance is illustrative invention or tradition, not a textual claim.",
+    "members": [],
+    "support": [
+      "luke-10-34"
+    ]
+  },
+  "result": {
+    "entryId": "samaritans_mount_in_parable",
+    "kind": "character",
+    "hasForm": true,
+    "appearanceFromText": "The text fixes only that the Samaritan's own animal carries the injured man to the inn (Luke 10:34); species, colour and markings are not stated, so a sturdy, gentle riding animal of the region is supplied as illustrative invention.",
+    "stages": [
+      {
+        "id": "samaritans_mount_in_parable-main",
+        "label": "The Samaritan's mount",
+        "when": "Roman Judea, the road from Jerusalem to Jericho",
+        "source": "mixed",
+        "quotes": [
+          {
+            "unit": "luke-10-34",
+            "quote": "He set him on his own animal, brought him to an inn, and took care of him."
+          }
+        ],
+        "text": "The Samaritan's mount: a sturdy, sure-footed beast of burden of the Judean hill country, such as a donkey or mule, with a strong back and steady gait, its coat a plain dusty brown with pale muzzle and legs, its saddle and harness simple worn leather. It is the traveller's own animal, carrying the wounded man with careful, patient steadiness along the stony road to the inn."
+      }
+    ],
+    "sectionStages": {
+      "luke-10-25": "samaritans_mount_in_parable-main"
+    },
+    "problems": [],
+    "promptVersion": "2026-10-22-canon-showing-v3",
+    "attempts": 1
+  }
+}

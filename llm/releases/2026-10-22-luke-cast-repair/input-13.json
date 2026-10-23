@@ -1,0 +1,80 @@
+{
+  "at": "2026-10-23T00:47:15.034Z",
+  "phase": "prepare:daniel-7-9",
+  "label": "plan:daniel-7-9:1",
+  "request": {
+    "system": "You are the scene planner of an illustration engine. You get one moment of a work's text with its neighbours inside the same story section, the work brief's tone and depiction rules, the era, the section look, and the cast on stage in the section. Plan one single scene that depicts this moment. Return only JSON.\nRules: single scene, no collage. Choose which of the listed cast are present in this moment and name them in `present` by their ids; leave out cast who are elsewhere in the section. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that) and do not name an art style or rendering technique; describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.\nEstablish presence from the scene being illustrated. A shared wardrobe, a narrator's viewpoint or a neighboring mention alone does not establish presence. Neighbors may resolve identity and continuity in the current scene; do not import cast from a separate adjacent event. The section cast and look cover multiple moments, not a roster to depict in every image. Apply shared clothing and props only to selected entries. Every character or group described in any scene field must be selected in `present`; omit unselected figures rather than describing them as background.\nIdentify the action the moment depicts before selecting cast. If it is inside a narrated story, parable, dream, vision or recollection, depict that scene's actors and setting. Do not place its framing speaker, listener or narrator inside it unless the text establishes their participation there. Reporting \"I saw\" supplies a viewpoint, not a visible observer. Shared look details from the framing scene do not establish the inner scene's cast or place.\nIf depicting this moment requires an actor or group absent from the available section cast, report it by name or role in `missingCast`. Do not replace it with a framing figure, invent an unselected subject, or omit the moment's main actor to fit the list. When `missingCast` is nonempty, return empty `present` and empty scene fields; preparation will stop for a source correction. Otherwise return an empty `missingCast` list. This is a report of missing required canon, not a request to create it.\nPresence does not require a physical body. A cast entry marked hasForm: false still belongs in the moment when represented through the non-figurative presence allowed by the brief and its supplied canon constraints. If you describe that entry's presence or action in any scene field, include its id in `present` so its canon constraints reach the image model. Select presence for this moment only; do not add cast who are absent or merely mentioned.\nFor each no-form subject, use its assigned canon to choose the permitted visible effects and their placement in the setting. Bodily wording about that subject in the source is a metaphor, not permission to give it a physical form. In every scene field, describe the permitted effects rather than bodily poses, anatomy, clothing, human silhouettes or figures made of light. Do not repeat prohibited features as denials or substitutes, such as a faceless figure or radiance suggesting garments. When the source describes a no-form subject as seated, describe the unoccupied seat and the permitted surrounding effects rather than a seated presence. Keep formed characters' own poses, clothing and actions; never transfer a no-form subject's bodily metaphors to them.\nCanon is supplied separately to rendering in full. When the constraints list effect names for placement, choose only from those effects; their fixed appearance is deliberately omitted from this planning input. Historical prose constraints may still include the full description. Name only the permitted effect needed for this moment's placement or movement; leave its fixed colour, brightness and texture to canon. Do not enumerate all effects or copy the canon's descriptive qualifiers into any scene field. For example, given canon \"The presence: brilliant gold radiance\", plan \"radiance spreading above the arch; the witness approaches\". The plan contributes where the effect appears and what happens around it. Situational illumination and formed characters' clothing still belong in the plan when the moment or look requires them; these are separate from the no-form subject's fixed appearance.",
+    "user": "WORK BRIEF\nTone: Reverent, grounded and epic; grief, hope and human dignity without spectacle.\nDepiction rules:\n- God the Father has no human face or body; use light, cloud, fire or radiance. The Holy Spirit is dove, wind or flame, never human.\n- Treat battles, death and crucifixion seriously; avoid lingering gore.\n- No sexually explicit content; non-sexual nudity may follow the text.\n- Show all peoples with dignity, without ethnic or religious caricature.\n- Visionary creatures follow the text, strange and fearsome rather than comic.\nEra: Kingdoms, exile and return. People: Israelites and neighboring Levantine, Mesopotamian and Persian peoples. Dress: Tunics, cloaks, court robes, priestly linen and period armor. Technology: Iron and bronze tools, chariots, siege works and scrolls; no modern objects.\nSTORY SECTION: The Ancient of Days and the son of man\nSECTION LOOK: place: Vision-space of a throne hall in heaven, open to a vast dark expanse; an unoccupied seat of fire and cloud with a river of fire flowing before it, surrounded by thrones set in ranks; time: Night vision, unchanging, no dawn or dusk across the section; weather: Still air over a dark heavenly expanse, with drifting cloud banks and rising mist; light: Radiance and fire placed around the central seat as the light source, with cloud diffusing the glow across the hall; clothing: Formed attendants wear priestly linen or white court robes; Daniel in his ordinary tunic and cloak, no added props\nCAST ON STAGE IN THIS SECTION (id: name):\n- daniel_prophet_of_babylon: Daniel (prophet of Babylon) (hasForm: true)\n- the_ancient_of_days: The Ancient of Days (hasForm: false)\n- one_like_a_son_of_man: One like a son of man (hasForm: true)\n- babylon: Babylon (hasForm: true)\n- ministering_assembly_in_daniels_vision: Ministering assembly in Daniel's vision (hasForm: true)\n\nNO-FORM CANON CONSTRAINTS (planning context; fixed descriptions are not scene-plan fields):\n- the_ancient_of_days (stage: ancient-of-days-light): effect names for placement: radiance, fire, cloud, light\n\nMOMENT (Daniel 7:9): “I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.\nPREVIOUS: (section starts here)\nNEXT: A fiery stream issued and came out from before him. Thousands of thousands ministered to him. Ten thousand times ten thousand stood before him. The judgment was set. The books were opened.",
+    "schemaName": "scene_plan",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "present": {
+          "description": "Distinct IDs of available section cast present in the depicted scene, including permitted no-form effects. Empty when no cast is needed or required canon is missing.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "daniel_prophet_of_babylon",
+              "the_ancient_of_days",
+              "one_like_a_son_of_man",
+              "babylon",
+              "ministering_assembly_in_daniels_vision"
+            ]
+          }
+        },
+        "primarySubject": {
+          "description": "The main subject's placement or a formed character's situational pose. For a no-form subject, name the permitted effect and its position without its fixed colour, brightness or texture. For a seated metaphor, describe an unoccupied seat with effects around it. Example: radiance above an unoccupied seat; the witness looks up. At most 220 characters.",
+          "type": "string"
+        },
+        "action": {
+          "description": "What formed characters do and how permitted effects move or change in this moment. Name a no-form subject's effect without its fixed colour, brightness or texture. Keep formed characters' own actions and situational clothing attached to them. At most 220 characters.",
+          "type": "string"
+        },
+        "setting": {
+          "description": "The physical place, surfaces and surroundings of this single scene, consistent with the section look and era. At most 220 characters.",
+          "type": "string"
+        },
+        "secondaryElements": {
+          "description": "Supporting people, props and permitted effects with their placement. Name a no-form subject's effect without its fixed colour, brightness or texture; include only effects needed for this moment, without bodily or garment substitutes. At most 220 characters.",
+          "type": "string"
+        },
+        "mood": {
+          "description": "The emotional atmosphere of this moment, conveyed through the setting and formed characters' reactions. At most 220 characters.",
+          "type": "string"
+        },
+        "timeOfDay": {
+          "description": "This moment's time of day and situational illumination, consistent with the section look. Leave the no-form subject's fixed appearance in canon. At most 220 characters.",
+          "type": "string"
+        },
+        "composition": {
+          "description": "Viewpoint, framing and relative placement of formed subjects, objects and permitted effects in one scene. Keep this independent of art style and rendering technique. At most 220 characters.",
+          "type": "string"
+        },
+        "missingCast": {
+          "description": "Names or roles required by this moment but absent from the available section cast. Include actors inside embedded stories or visions. Empty when all required canon is available; never invent canon or substitute framing figures.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "present",
+        "primarySubject",
+        "action",
+        "setting",
+        "secondaryElements",
+        "mood",
+        "timeOfDay",
+        "composition",
+        "missingCast"
+      ],
+      "additionalProperties": false
+    },
+    "maxTokens": 900,
+    "expectedCompletionTokens": 350
+  },
+  "estimatedUsd": 0.0004322222222222222,
+  "maximumCompletionEstimatedUsd": 0.0007072222222222221
+}

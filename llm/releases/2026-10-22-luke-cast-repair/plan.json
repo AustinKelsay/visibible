@@ -1,0 +1,55 @@
+{
+  "issue": 183,
+  "baseCommit": "6f32e2d609d1f57e4da796809f265129dca2e856",
+  "implementationPR": "https://github.com/AustinKelsay/visibible/pull/253",
+  "purpose": "Correct only the incomplete Luke 10:25–37 cast/setting, then inspect first ordinary Luke 10:33/34 and Daniel 7:9/10 preparations. No images.",
+  "authorization": "Continuation within the existing separate $43 preparation allowance; no increase, transfer, public activation or whole-work reading.",
+  "execution": "Reviewed merged engine/canon functions run locally against active production generation 1. Source/canon corrections use existing owner mutations with version preconditions and retained before/read-back/history. No frontend or Convex deployment.",
+  "preparation": {
+    "authorizedUsd": 43,
+    "measuredBeforeUsd": 3.6457576,
+    "uncertaintyBeforeUsd": 0.03,
+    "capUsd": 0.15,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 28
+  },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredBeforeUsd": 16.2980069,
+    "uncertaintyBeforeUsd": 0.045,
+    "maximumCalls": 0
+  },
+  "smoke": {
+    "authorizedUsd": 1,
+    "measuredBeforeUsd": 0.685795,
+    "maximumCalls": 0
+  },
+  "canonSubjects": [
+    "the_samaritan",
+    "wounded_traveler_in_samaritan_parable",
+    "robbers_in_samaritan_parable",
+    "priest_in_samaritan_parable",
+    "levite_in_samaritan_parable",
+    "innkeeper_in_samaritan_parable",
+    "samaritans_mount_in_parable",
+    "jerusalem_to_jericho_road",
+    "inn_in_samaritan_parable"
+  ],
+  "textOrder": [
+    "luke-10-33",
+    "luke-10-34",
+    "daniel-7-9",
+    "daniel-7-10"
+  ],
+  "publicActivation": false,
+  "humanAccepted": false,
+  "stopConditions": [
+    "Draft at most these nine canon entries with ordinary draftCanonEntry: at most two structural/length attempts each. Preserve the first valid result; no semantic reroll. Review all candidates and exact supporting quotes before any source edit. Reject source misattribution, actions/other actors embedded in fixed appearance, unsupported life stages, bodily-rule violations or likeness issues.",
+    "Nine canon drafts (18 maximum attempts), one lazy Luke look and four plans (10 maximum attempts) fit 28 maximum calls and a combined $0.15 cap. Every actual call reserves $0.005 before sending. Provider error, missing usage, uncertain outcome, source/state drift or exhausted reserve blocks later paid calls.",
+    "The existing Samaritan identity is reused and its empty canon corrected with expectedVersion. Eight absent entries are added with exact section-version preconditions. Attach the Samaritan only after its canon exists. Preserve section bounds/era, moments, existing framing cast and every unrelated record. Do not impersonate reading-pass output.",
+    "Luke 10:33 must depict the inner story with Samaritan and injured traveler, never Jesus/lawyer/other departed parable actors as observers. Luke 10:34 requires retained acceptance of the exact 10:33 artifact. One single scene; all described actors have selected canon.",
+    "Daniel 7:9 is an independent case, allowed after the Luke case has been recorded even if Luke is held. Do not depict narrator Daniel solely from I saw. No attendants imported solely from the shared look or following verse; no-form constraints and canon/plan separation remain binding. Daniel 7:10 requires retained acceptance of the exact 7:9 artifact.",
+    "Retain every first structurally valid plan including failures. No plan clears, look overlays, cache rebinding, prose editing or selective retries. A failed case prevents its adjacent follow-up; it does not justify manufacturing a pass.",
+    "Only the declared source corrections, normal preparation claims/derived records/spend, and read-only inspection are allowed. No reference generation, images, guest grants, deployments, admission changes, human acceptance or public activation."
+  ]
+}

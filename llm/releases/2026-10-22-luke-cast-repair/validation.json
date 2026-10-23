@@ -1,0 +1,63 @@
+{
+  "at": "2026-10-23T00:52:59.360842+00:00",
+  "lintExitCode": 0,
+  "typecheckExitCode": 0,
+  "finalCoverageExitCode": 0,
+  "explicitCorrectionReplay": {
+    "environment": "LUKE_CAST_REPAIR_REPLAY=1",
+    "passed": 1,
+    "failed": 0,
+    "defaultSkipped": 1
+  },
+  "reports": {
+    "tests-before-clock-fix.json.gz": {
+      "sha256": "e84a1b282cfe59d5890bab0d7551e657b27c0a2481c369812b29680be1c118b4",
+      "passed": 895,
+      "failed": 1,
+      "skipped": 1,
+      "files": 96,
+      "success": false
+    },
+    "tests-final.json.gz": {
+      "sha256": "1e9c9ada6dc93b9a19c72f100b026c20929dd921b1d0d26d6ab0878b2dc68c59",
+      "passed": 896,
+      "failed": 0,
+      "skipped": 1,
+      "files": 96,
+      "success": true
+    }
+  },
+  "coverage": {
+    "lines": {
+      "total": 8176,
+      "covered": 6699,
+      "skipped": 0,
+      "pct": 81.93
+    },
+    "statements": {
+      "total": 9458,
+      "covered": 7617,
+      "skipped": 0,
+      "pct": 80.53
+    },
+    "functions": {
+      "total": 1762,
+      "covered": 1482,
+      "skipped": 0,
+      "pct": 84.1
+    },
+    "branches": {
+      "total": 6877,
+      "covered": 4881,
+      "skipped": 0,
+      "pct": 70.97
+    },
+    "branchesTrue": {
+      "total": 0,
+      "covered": 0,
+      "skipped": 0,
+      "pct": 100
+    }
+  },
+  "clockFix": "The existing unresolved-reservation test moves createdAt back one hour and expects a same-day daily-spend refund. During the first UTC hour that crosses the spend day; the production code correctly does not reduce today\u2019s spend for a prior-day reservation. Pin only that test\u2019s Date.now to UTC noon and restore with onTestFinished. No production billing code changed."
+}

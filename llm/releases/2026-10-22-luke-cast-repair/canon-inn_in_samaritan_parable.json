@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-22T22:36:54.582Z",
+  "entry": {
+    "id": "inn_in_samaritan_parable",
+    "kind": "location",
+    "readingKind": "place",
+    "name": "Inn in the Samaritan parable",
+    "aliases": [
+      "an inn in the story"
+    ],
+    "note": "Unnamed inn inside the narrated story in Luke 10:34–35, where the Samaritan brings the injured traveler and pays the host. Distinct from the road and from the framing conversation. The text gives an inn, not a specific architectural description.",
+    "members": [],
+    "support": [
+      "luke-10-34",
+      "luke-10-35"
+    ]
+  },
+  "result": {
+    "entryId": "inn_in_samaritan_parable",
+    "kind": "location",
+    "hasForm": true,
+    "appearanceFromText": "The text names only an inn where the Samaritan brings the injured traveler and leaves him in the host's care; no architecture is described, so the stone-village inn of Roman Judea is supplied from the era brief.",
+    "stages": [
+      {
+        "id": "inn_stage_1",
+        "label": "Roadside inn",
+        "when": "Roman Judea, the road between Jerusalem and Jericho",
+        "source": "mixed",
+        "quotes": [
+          {
+            "unit": "luke-10-34",
+            "quote": "brought him to an inn, and took care of him"
+          },
+          {
+            "unit": "luke-10-35",
+            "quote": "gave them to the host"
+          }
+        ],
+        "text": "Roadside inn: a modest two-storey inn of pale limestone blocks on the Jerusalem to Jericho road in Roman Judea, with a flat roof, a low arched gateway wide enough for a laden animal, and an open courtyard with a stone well and a water trough. Scrub and dry terraces of olive and fig stand behind it, and the rough track runs past its gate."
+      }
+    ],
+    "sectionStages": {
+      "luke-10-25": "inn_stage_1"
+    },
+    "problems": [],
+    "promptVersion": "2026-10-22-canon-showing-v3",
+    "attempts": 1
+  }
+}
