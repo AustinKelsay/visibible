@@ -1,6 +1,6 @@
 # Held-out test of the reviewed planning pipeline
 
-**The review makes planning much safer but not more available.** Across 20 fresh samples, only 1 flawed plan was stored, against 7 for v3 and 3 for v4. The pipeline refused 9 samples, all correctly, and refused no clean plan: 6 after a second review and 3 when the re-plan failed the evidence checks. But the pipeline still produced an acceptable stored plan only 10 times out of 20. Daniel 7:9 never succeeded (0/5), and Luke 10:34 succeeded 2/5. Per the [pre-declared rule](plan.json) the verdict is **not converging**. No images, no production writes.
+**The review makes planning much safer but not more available.** Across 20 fresh samples, only 1 flawed plan was stored, against 7 for v3 and 3 for v4. The pipeline refused 9 samples, all correctly, and refused no clean plan: 6 when the review rejected the re-plan and 3 when the re-plan failed the evidence checks. But the pipeline still produced an acceptable stored plan only 10 times out of 20. Daniel 7:9 never succeeded (0/5), and Luke 10:34 succeeded 2/5. Per the [pre-declared rule](plan.json) the verdict is **not converging**. No images, no production writes.
 
 This is the held-out test of option (b) under [#183](https://github.com/AustinKelsay/visibible/issues/183): plan, review, and at most one re-plan, merged in [PR #260](https://github.com/AustinKelsay/visibible/pull/260) and [PR #261](https://github.com/AustinKelsay/visibible/pull/261) (`144b79a`). The [checker benchmark](../2026-10-23-plan-review-check/README.md) tuned the review on earlier replies; these 20 are new.
 
@@ -25,7 +25,7 @@ Scoring used the [same rubric](../2026-10-23-grounding-rate-check/plan.json) as 
 | Outcome | Reviewed | v3 | v4 |
 | --- | ---: | ---: | ---: |
 | Stored with a blocker (would render a defect) | **1** | 7 | 3 |
-| Refused with a blocker (correct refusal; 6 by review, 3 by evidence checks) | 9 | 1 | 4 |
+| Refused with a blocker (correct refusal; re-plan rejected 6 times by review, 3 by evidence checks) | 9 | 1 | 4 |
 | Refused but clean (false refusal) | **0** | 2 | 5 |
 
 The single stored defect is a Luke 10:33 plan whose Samaritan "kneels or leans", an instant conflict; the review is weakest on that kind.
