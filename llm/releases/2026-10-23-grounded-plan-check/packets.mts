@@ -21,6 +21,8 @@ const store: PreparationStore = {
   putDerivedRecord: forbidden, claim: forbidden, release: forbidden, recordSpend: forbidden,
 };
 const inputs = await readWorkInputs("bible-web", root);
+// A later dated addendum supersedes the review that gated the run.
+const effectiveVerdict = (unitId: string) => fs.existsSync(path.join(dir, `review-${unitId}-addendum.json`)) ? json(`review-${unitId}-addendum.json`).revisedVerdict : json(`review-${unitId}.json`).verdict;
 const referenceReads: unknown[] = [], packets = [];
 for (const unitId of json("plan.json").textOrder) {
   if (!fs.existsSync(path.join(dir, `scene-${unitId}.json`))) continue;
@@ -44,7 +46,7 @@ for (const unitId of json("plan.json").textOrder) {
     assert.ok(result.ok, JSON.stringify(result)); assert.equal(result.prepared.calls, 0);
     assert.deepEqual(result.prepared.plan, json(`scene-${unitId}.json`).result.plan);
     const { sentReferences, ...packet } = result;
-    packets.push({ unitId, styleId, textVerdict: json(`review-${unitId}.json`).verdict, ...packet, sentReferences: sentReferences.map(({ storageId, bytes }) => ({ storageId, bytes: bytes.length, sha256: hash(bytes) })), skipped, unavailable });
+    packets.push({ unitId, styleId, textVerdict: effectiveVerdict(unitId), ...packet, sentReferences: sentReferences.map(({ storageId, bytes }) => ({ storageId, bytes: bytes.length, sha256: hash(bytes) })), skipped, unavailable });
   }
 }
 fs.writeFileSync(path.join(dir, "packets.json"), JSON.stringify({ at: new Date().toISOString(), packets, referenceReads, paidCalls: 0, productionMutations: 0, imagesGenerated: 0, releaseAccepted: false }, null, 2) + "\n", { flag: "wx" });

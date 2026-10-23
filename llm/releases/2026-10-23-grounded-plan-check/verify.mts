@@ -117,6 +117,7 @@ assert.equal(packets.packets.length, 6);
 for (const p of packets.packets) {
   const scene = json(`scene-${p.unitId}.json`);
   assert.equal(p.prepared.calls, 0); assert.deepEqual(p.prepared.plan, scene.result.plan); assert.deepEqual(p.context, scene.context);
+  assert.equal(p.textVerdict, json("summary.json").outcomes[p.unitId].revisedVerdict ?? json(`review-${p.unitId}.json`).verdict);
   for (const key of ["focusQuote", "singleInstant", "participation", "momentQuote", "contextQuote"]) assert.ok(!p.prompt.includes(key), key);
   for (const c of p.canon) {
     const entry = row(final, "entry", c.entryId)!;
