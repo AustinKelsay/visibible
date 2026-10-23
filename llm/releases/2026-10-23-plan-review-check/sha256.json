@@ -23,13 +23,13 @@
   "llm/releases/2026-10-23-plan-review-check/plan.json": "5f3dd707b958b3dbcf5693fdf600bea69b4fb78555beb2aefa07ce8cdbbc9b80",
   "llm/releases/2026-10-23-plan-review-check/provider.ndjson": "28c958f9ed6572840bc94c207094c498c57b317ff3263aef527d19cc977d8b2d",
   "llm/releases/2026-10-23-plan-review-check/results.json": "e8a3509a863b5921d0866b5b82cf5b3e587194b3fe930a0891d13a19e504384d",
-  "llm/releases/2026-10-23-plan-review-check/review.mts": "ca515b67be9347c1d302b110e8dc55440c7cc4a7689c1c6763a21859a0eb8cda",
+  "llm/releases/2026-10-23-plan-review-check/review.mts": "db6df908f4b6efb29598c5dac2d08df7d322f75a4362782fe587b65e53a7874d",
   "llm/releases/2026-10-23-plan-review-check/reviews.ndjson": "606a6744207e6c5b5a615bed65cbaf3ac122dbb70ca7d4bf42451aa76576aa5f",
   "llm/releases/2026-10-23-plan-review-check/run-finished.json": "ea1942f7325b66fabbdde09800efc6187ed0161ff46093101e82bf5da780c705",
   "llm/releases/2026-10-23-plan-review-check/run-started.json": "c88e6cf35f2d7702855687faafbf44875b7f1b30e44fb82c328e3e8b36ef1d3d",
   "llm/releases/2026-10-23-plan-review-check/score.mts": "725240c4eaede15bd9aff319dddde3e28dc7055b8a9f098a83555792dceeed4d",
   "llm/releases/2026-10-23-plan-review-check/system-v1.txt": "32ff80c3fb104edcd30646ef297a4939623b44dcd0ccc36f19ddcefbd91f9e72",
-  "llm/releases/2026-10-23-plan-review-check/verify.mts": "627fb12db7be1c994cf9ead1001b39ea3d10d6b9e5cf7dbd7a158e17430f8090",
-  "src/lib/engine/plan-review.ts": "3d515fd6001488dcba9751e3f3d9af0dd462ad2b0fed0f5f50a9f51c302fd819",
-  "src/lib/reading-pass/model.ts": "d8255e65647460c4da01632f6783a858d9912faa495cf655cbbc5c3846c53738"
+  "llm/releases/2026-10-23-plan-review-check/verify.mts": "db43e2bbecd3b66bcb7048270f54195c252f31abeb89c7182f34323d8e0839f0",
+  "src/lib/engine/plan-review.ts": "6c8110c5fc637b7dbe33c497df97ea0d612335d8cccf908f1541c8869922fdb9",
+  "src/lib/reading-pass/model.ts": "da9caabd9a8f02e4fb2d8dd0c33babc7f142ab5ab2de354fff07f6d35eb488ea"
 }
