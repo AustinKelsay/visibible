@@ -83,12 +83,14 @@ const scoreOf = (name: string) => new Map(json(name).scores.map((s: { blindId: s
 const op = scoreOf("scores-operator.json"), sa = scoreOf("scores-subagent.json");
 assert.ok(Date.parse(json("scores-operator.json").at) < Date.parse(tally.at) && Date.parse(json("scores-subagent.json").at) < Date.parse(tally.at));
 const passes: Record<string, number> = {};
+const decisions = new Map(json("adjudication.json").decisions.map((d: { blindId: string; flags: Record<string, boolean> }) => [d.blindId, d.flags]));
 let agreed = 0;
 for (const k of key) {
   const a = op.get(k.blindId) as Record<string, boolean>, b = sa.get(k.blindId) as Record<string, boolean>;
   const same = [...blockers, "N"].every((f) => a[f] === b[f]); if (same) agreed++;
-  assert.ok(same || json("adjudication.json").decisions.some((d: { blindId: string }) => d.blindId === k.blindId));
-  passes[k.unit] = (passes[k.unit] ?? 0) + (k.outcome === "stored" && blockers.every((f) => !a[f]) ? 1 : 0);
+  // Count the same final flags as the tally: agreed scores, or the recorded decision.
+  const flags = (same ? a : decisions.get(k.blindId)) as Record<string, boolean>; assert.ok(flags, `disagreement ${k.blindId} lacks a decision`);
+  passes[k.unit] = (passes[k.unit] ?? 0) + (k.outcome === "stored" && blockers.every((f) => !flags[f]) ? 1 : 0);
 }
 assert.equal(tally.scorerAgreement.agreed, agreed);
 for (const u of units) assert.equal(tally.cells[u].pass, passes[u] ?? 0, u);

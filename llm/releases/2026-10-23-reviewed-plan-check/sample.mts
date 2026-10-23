@@ -60,6 +60,8 @@ if (command === "dry-run") {
   console.log(JSON.stringify({ dryRun: true, samples: order.length, estimatedFirstPlanTotalUsd: order.reduce((s, o) => s + estimateRequestCostUsd(requests[o.unit]), 0) }));
 } else {
   const dry = json("dry-run.json"); assert.equal(dry.snapshot, phase); assert.deepEqual(dry.order, order);
+  // One-shot: an interrupted run is retained as evidence, never resumed by appending samples.
+  for (const name of ["run-started.json", "samples.ndjson", "ledger.json"]) assert.ok(!fs.existsSync(path.join(dir, name)), `${name} exists; this run already started`);
   save("run-started.json", { at: new Date().toISOString(), snapshot: phase, retryPolicy: plan.retryPolicy });
   const { ledger, forSample } = evaluationModel(snapshot);
   for (const sample of order) {
