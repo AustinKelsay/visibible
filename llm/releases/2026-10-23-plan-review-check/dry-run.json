@@ -1,0 +1,337 @@
+{
+  "at": "2026-10-23T16:39:15.949Z",
+  "balanceUsd": 10.036369165999986,
+  "pricing": {
+    "id": "anthropic/claude-haiku-5.5",
+    "canonical_slug": "anthropic/claude-haiku-5.5-20261007",
+    "hugging_face_id": null,
+    "name": "Anthropic: Claude Haiku 5.5",
+    "created": 1791397883,
+    "description": "Claude Haiku 5.5 is Anthropic's small, fast model for high-volume, cost-sensitive work such as summarization, subagents, and browser use. It succeeds Claude Haiku 4.5 with stronger coding, computer use, and...",
+    "context_length": 1000000,
+    "architecture": {
+      "modality": "text+image+file->text",
+      "input_modalities": [
+        "text",
+        "image",
+        "file"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Claude",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.0000001",
+      "completion": "0.0000005",
+      "web_search": "0.01",
+      "input_cache_read": "0.00000001",
+      "input_cache_write": "0.000000125",
+      "input_cache_write_1h": "0.0000002",
+      "overrides": [
+        {
+          "min_prompt_tokens": 100000,
+          "prompt": "0.0000005",
+          "completion": "0.0000025",
+          "input_cache_read": "0.00000005",
+          "input_cache_write": "0.000000625",
+          "input_cache_write_1h": "0.000001"
+        }
+      ]
+    },
+    "top_provider": {
+      "context_length": 1000000,
+      "max_completion_tokens": 128000,
+      "is_moderated": true
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "include_reasoning",
+      "max_completion_tokens",
+      "max_tokens",
+      "reasoning",
+      "reasoning_effort",
+      "response_format",
+      "stop",
+      "structured_outputs",
+      "tool_choice",
+      "tools",
+      "verbosity"
+    ],
+    "default_parameters": {},
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/anthropic/claude-haiku-5.5-20261007/endpoints"
+    },
+    "benchmarks": {
+      "design_arena": [
+        {
+          "arena": "models",
+          "category": "3d",
+          "elo": 1341,
+          "win_rate": 57.9,
+          "rank": 10
+        },
+        {
+          "arena": "models",
+          "category": "codecategories",
+          "elo": 1277,
+          "win_rate": 50,
+          "rank": 23
+        },
+        {
+          "arena": "models",
+          "category": "dataviz",
+          "elo": 1294,
+          "win_rate": 54.4,
+          "rank": 15
+        },
+        {
+          "arena": "models",
+          "category": "gamedev",
+          "elo": 1314,
+          "win_rate": 53.7,
+          "rank": 15
+        },
+        {
+          "arena": "models",
+          "category": "uicomponent",
+          "elo": 1282,
+          "win_rate": 51.6,
+          "rank": 24
+        },
+        {
+          "arena": "models",
+          "category": "website",
+          "elo": 1262,
+          "win_rate": 48.5,
+          "rank": 36
+        }
+      ],
+      "artificial_analysis": {
+        "intelligence_index": 43.4,
+        "coding_index": null,
+        "agentic_index": null
+      }
+    },
+    "reasoning": {
+      "mandatory": false,
+      "supported_efforts": [
+        "max",
+        "xhigh",
+        "high",
+        "medium",
+        "low",
+        "none"
+      ],
+      "default_effort": "medium"
+    }
+  },
+  "systemSha256": "32ff80c3fb104edcd30646ef297a4939623b44dcd0ccc36f19ddcefbd91f9e72",
+  "requests": [
+    {
+      "blindId": "9b18654e",
+      "userSha256": "27b2d966c98be2b2ee02c90ef91899fa27f976a8f4527096a506353e85931f59",
+      "estimatedUsd": 0.00024662962962962963
+    },
+    {
+      "blindId": "4c6b6739",
+      "userSha256": "430b321ce4fbf1e0a95e726857157a1683dd125f2c4bc6386f22e4b840ded7ca",
+      "estimatedUsd": 0.0002679259259259259
+    },
+    {
+      "blindId": "874cc171",
+      "userSha256": "6bc8ab9d368c7f28a8cc2c3fc9f91503e4aebd9e8a896ad009517a17317e8588",
+      "estimatedUsd": 0.00027066666666666667
+    },
+    {
+      "blindId": "f36a21fe",
+      "userSha256": "19d893d41140b09a7f61cbf2dfb5e1ea9ae2ab93fffc87e0c390d61f42ec5dcd",
+      "estimatedUsd": 0.000255
+    },
+    {
+      "blindId": "befa4800",
+      "userSha256": "78afd76fdc71b931c986af8f85ceca5f59686e28d899b9d3373f8b1402a1861a",
+      "estimatedUsd": 0.0002719259259259259
+    },
+    {
+      "blindId": "e2f168d2",
+      "userSha256": "878bb89b67171fab28385932bd33c9e70f37cad97a6d8809e96f6d1665125997",
+      "estimatedUsd": 0.0002701481481481481
+    },
+    {
+      "blindId": "12eecaa7",
+      "userSha256": "d57126b55115a0c1f56eb49d92f781411cfa69eea81150a38c4157b7da5d8815",
+      "estimatedUsd": 0.00025940740740740736
+    },
+    {
+      "blindId": "cf62317b",
+      "userSha256": "2bd2bf715f779e42f11b0ec684966c13ea6a98b8740440aef729d989d7a9701b",
+      "estimatedUsd": 0.0002482592592592592
+    },
+    {
+      "blindId": "76e52d52",
+      "userSha256": "15dcafd173f1e98b06f8f3801bfbc6e045a914611a52c4e76144c6aad0bd1531",
+      "estimatedUsd": 0.0002487037037037037
+    },
+    {
+      "blindId": "dcc13826",
+      "userSha256": "233a9e6b7d62aea75d1ce3eda98d34489ac833ee30e4244a21198556ea77499a",
+      "estimatedUsd": 0.0002684444444444444
+    },
+    {
+      "blindId": "be68d51a",
+      "userSha256": "a757dd1744a4c70f56895a321d0356a6bc6ad967d9f7c8b6f4c367f14826e480",
+      "estimatedUsd": 0.00026777777777777775
+    },
+    {
+      "blindId": "5032a4e2",
+      "userSha256": "50487ab8955b81d0fd23c9f05d46ba0b257ea7fc854ec9399a6e0c36ed17ac4c",
+      "estimatedUsd": 0.0002652222222222222
+    },
+    {
+      "blindId": "bc9293ef",
+      "userSha256": "135b43e8f8a41d4103e1d9c9e0f663302176c0012e4c3cb879b437ec4c9f727e",
+      "estimatedUsd": 0.00025614814814814814
+    },
+    {
+      "blindId": "ded2e76c",
+      "userSha256": "90744de67e584d49dd1cf2621f070c714dd090441d984d1203811c243893b378",
+      "estimatedUsd": 0.00025555555555555553
+    },
+    {
+      "blindId": "676010ec",
+      "userSha256": "07cf741f99f8755cf7db34aae71bd9de84a86a3e9efea4f9fb7973ea39bd74f7",
+      "estimatedUsd": 0.0002575555555555555
+    },
+    {
+      "blindId": "fd15a088",
+      "userSha256": "573966bf6b11a302a55d51ba57fe83aa184502fad9939239411d5a8e9ffe1515",
+      "estimatedUsd": 0.00026955555555555554
+    },
+    {
+      "blindId": "1ba654d6",
+      "userSha256": "45c3d8b3e3974d93ea812c103e856bcadc5c1b8b9f64f6fd9de71567b89921d6",
+      "estimatedUsd": 0.0002675185185185185
+    },
+    {
+      "blindId": "e46aa4fe",
+      "userSha256": "d4f7d2f0316db0d3980a15ebb37659424bd61bda4a960118691e921222dfa708",
+      "estimatedUsd": 0.0002723333333333333
+    },
+    {
+      "blindId": "432a79df",
+      "userSha256": "b359ac9258bc17157e68a68b1d71e011a6d3d56fa69e9d20a67dc5f27a00f4a4",
+      "estimatedUsd": 0.0002721111111111111
+    },
+    {
+      "blindId": "319e038a",
+      "userSha256": "90e8d3e27ee1d41567e1200df29c399ed8bf8f8ba010688ca035a11e898d8898",
+      "estimatedUsd": 0.0002732222222222222
+    },
+    {
+      "blindId": "0b2a5f07",
+      "userSha256": "8e58ab7d3f243ea040a9290d30dee22f6992987d3e324bcf5a43ed99453f8126",
+      "estimatedUsd": 0.0002559259259259259
+    },
+    {
+      "blindId": "98c9ecbc",
+      "userSha256": "0721b6f65658eff8f0f4b87abf70a3b423ce71d4e5b7a60effe47d1906b8597a",
+      "estimatedUsd": 0.000255
+    },
+    {
+      "blindId": "b363e893",
+      "userSha256": "dda6a0ff892e992865beb4d77fa4e5a118f4a7e3bfec62d7d406292ecbeb854c",
+      "estimatedUsd": 0.00027833333333333334
+    },
+    {
+      "blindId": "53d2832a",
+      "userSha256": "aff3ad2d5ab2670764f22bf46828d925035234e5de7bd7753608a2bda8b1d27a",
+      "estimatedUsd": 0.0002641481481481481
+    },
+    {
+      "blindId": "baa1c9e5",
+      "userSha256": "accac29d32e276fd423261d1fa0a2780f53a8ea449e3b2bd1146cba6f92b7b6d",
+      "estimatedUsd": 0.00027025925925925926
+    },
+    {
+      "blindId": "942db876",
+      "userSha256": "9aaa84fe4eb270f7eb5edf2befb677bf44a653d68c0edd3ce4737bcec7e3d57c",
+      "estimatedUsd": 0.00025266666666666666
+    },
+    {
+      "blindId": "52f0309d",
+      "userSha256": "48f8b63b165f9b3494f2f224519176e39b56226d91aa02ac2314c09e143fe77d",
+      "estimatedUsd": 0.00025729629629629627
+    },
+    {
+      "blindId": "48fc2644",
+      "userSha256": "338c381170f6806ff9bd08b05a3bcee86c366654c6190bdaf3842a9051f6bc6c",
+      "estimatedUsd": 0.0002726296296296296
+    },
+    {
+      "blindId": "a098ff93",
+      "userSha256": "0ff5841835c45bea6c22ec3d47721578091859168a5cce04d1691bb82a7febfa",
+      "estimatedUsd": 0.0002668148148148148
+    },
+    {
+      "blindId": "9cd6e801",
+      "userSha256": "37e9c8f698a65e271b1101ded0c633b0e6a434634d70239bd0378aa7e8660963",
+      "estimatedUsd": 0.0002559259259259259
+    },
+    {
+      "blindId": "d41ef7e7",
+      "userSha256": "6926f5534014d494252f54cfc66528e0d46d83155525da15d8c980f9b41a1f3d",
+      "estimatedUsd": 0.00027088888888888887
+    },
+    {
+      "blindId": "944eaddd",
+      "userSha256": "74bf11f7af93fa1c939b918d3001ae6b419e70afa1bc925e9396c8f6f961376f",
+      "estimatedUsd": 0.00026014814814814813
+    },
+    {
+      "blindId": "b63d2f6a",
+      "userSha256": "ce9b5c76bee0e33b6541a022d3cb319af2e0abdefe07425ba24c5749bc361fb4",
+      "estimatedUsd": 0.000276
+    },
+    {
+      "blindId": "50138e61",
+      "userSha256": "203fd10fa2eafca7ac5233161fa3d6419f26d415dd5ecee7d593f49878a27282",
+      "estimatedUsd": 0.00025133333333333333
+    },
+    {
+      "blindId": "62059b78",
+      "userSha256": "3a429b64688329e1fefbf8b59cedd76e6f8821be0a815d6a17e89426414a622e",
+      "estimatedUsd": 0.00024744444444444445
+    },
+    {
+      "blindId": "6af03510",
+      "userSha256": "244f2a7e986b1deef97ecbb0e14eb6663deaf08fb8f2bf52da5db22155adfea1",
+      "estimatedUsd": 0.0002721111111111111
+    },
+    {
+      "blindId": "dbef5a43",
+      "userSha256": "3f6678dc7b5a61a1cc1e1a6ef47c75e3f7f391d3865e1576c466dd2e34f5d040",
+      "estimatedUsd": 0.0002731851851851851
+    },
+    {
+      "blindId": "d5c56029",
+      "userSha256": "72dddae7d307a1d3945de8b8bc4fc79333955c7ee95c30edaf2820bdc9a31b8c",
+      "estimatedUsd": 0.0002456296296296296
+    },
+    {
+      "blindId": "d4e40801",
+      "userSha256": "7933dd37fb0eeadb90ab527ee41db575ef19f1f034ae345baa0e7e30318efb93",
+      "estimatedUsd": 0.00024474074074074074
+    },
+    {
+      "blindId": "37b6d855",
+      "userSha256": "a9a325e669c60ddb7ed16b2b921825f0f4315b06cfec447443f1fba8c619dca9",
+      "estimatedUsd": 0.00024840740740740737
+    }
+  ],
+  "paidCalls": 0
+}
