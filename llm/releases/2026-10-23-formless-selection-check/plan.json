@@ -1,0 +1,44 @@
+{
+  "issue": 183,
+  "purpose": "Focused repair of no-form effects omitted from selected cast. Text only; retained local records, no production reads or writes, no images.",
+  "authorization": "Owner chose option A on 2026-10-23 after a quoted $0.05\u20130.15 evaluation increase. Apply the upper bound $0.15, raising evaluation to $16.95; this operation is capped at $0.12.",
+  "pipeline": {
+    "momentCast": "2026-10-23-moment-cast-v6",
+    "formlessPlan": "2026-10-23-formless-effects-v6",
+    "review": "2026-10-23-plan-review-v3",
+    "baselineReview": "2026-10-23-plan-review-v2"
+  },
+  "baseline": "../2026-10-23-cast-policy-check",
+  "cases": {
+    "defects": [
+      "s001",
+      "s059",
+      "s067",
+      "s074"
+    ],
+    "ordinaryLightControls": [
+      "s027",
+      "s034",
+      "s035"
+    ],
+    "repeats": 3
+  },
+  "method": "Paired v2/v3 reviews of each of the four retained defective final plans, three times each, interleaved baseline then candidate. Candidate-only reviews of three retained ordinary-light plans, three times each. Then one ordinary prepareMoment per verse per repeat over all seven retained verse/section/cast snapshots, each with a fresh memory store. Same production adapter, low reasoning for reviews, default planning sampling; no prompt tuning or reruns after seeing outcomes.",
+  "acceptance": {
+    "review": "Candidate catches God as unselected_figure on all 12 defective reviews and produces no God unselected_figure/outside_instant on the 9 ordinary-light controls. Other problems reported separately. No unavailable reviews.",
+    "pipeline": "All 21 runs must store an acceptable scene without an unselected no-form presence, an unsupported selected presence, or embodied no-form subjects. Refusals and unrelated flaws retained and reported separately; a refusal is not an accepted repair. Operator reads every stored plan against source and cast. No claim about population acceptance or image quality."
+  },
+  "evaluation": {
+    "authorizedUsd": 16.95,
+    "measuredBeforeUsd": 16.7377407,
+    "uncertaintyBeforeUsd": 0.045,
+    "capUsd": 0.12,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 200,
+    "stopBeforeSampleHeadroomUsd": 0.012
+  },
+  "retryPolicy": "One-shot run, ledger created exclusively. Only ordinary malformed-reply retry and one re-plan. Stop on provider failure, unknown cost, unexpected request, review unavailable or reserve limit. Do not start a unit without $0.012 headroom. Retain every call and first outcome.",
+  "audit": "Freeze source hashes, fixture hashes and dry-run request hashes before paid calls. Offline verify replays all provider replies through reviewPlan/prepareMoment and compares outcomes and ledger. Retain operator scoring with exact plan quotes.",
+  "publicActivation": false,
+  "humanAccepted": false
+}

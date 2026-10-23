@@ -23,8 +23,8 @@ describe("moment-cast v6 cast policy", () => {
   });
 
   it("tells rendering that only selected characters have fixed canon, without banning the plan's incidental figures", () => {
-    expect(GENERIC_PROMPT_VERSION).toBe("2026-10-23-generic-v5");
-    const rule = ENGINE_RULES.at(-1)!;
+    expect(GENERIC_PROMPT_VERSION).toBe("2026-10-23-generic-v6");
+    const rule = ENGINE_RULES.join("\n");
     expect(rule).toContain("Depict the SELECTED CHARACTERS, including groups and no-form subjects, with their canon.");
     expect(rule).toContain("as unnamed incidental figures without fixed appearance");
     expect(rule).not.toContain("Depict only the SELECTED CHARACTERS");

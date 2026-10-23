@@ -46,7 +46,8 @@ describe("no-form section look and canon separation", () => {
     // Replay actual persisted refs, not a look whose dependencies have been rewritten to be current.
     for (const kind of ["look", "plan"] as const) {
       const old = snapshot.records.find(({ record }) => record?.kind === kind)!.record!;
-      const refs = [...old.inputs, ...(kind === "look" && marker ? [{ kind: "prompt", recordId: "section_look_formless_presence", version: marker }] : [])];
+      const refs = [...old.inputs.map((input) => kind === "plan" && currentPlanInputs && input.recordId === "scene_plan_formless_presence"
+        ? { ...input, version: FORMLESS_PLAN_PROMPT_VERSION } : input), ...(kind === "look" && marker ? [{ kind: "prompt", recordId: "section_look_formless_presence", version: marker }] : [])];
       // Isolate content-hash reuse by adapting this fixture's dependencies; retained artifacts stay unchanged.
       if (kind === "plan" && currentPlanInputs) {
         const section = snapshot.records.find(({ record }) => record?.kind === "section")!.record!;

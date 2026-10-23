@@ -68,7 +68,7 @@ describe("rendering packet", () => {
       expect(result.references.map((r) => r.caption)).toEqual(result.packet.references.map((r) => r.caption));
       expect(result.references[result.references.length - 1].caption).toMatch(/^Image 3: /);
       expect(result.prompt).toContain(result.references[0].caption);
-      expect(result.packet).toMatchObject({ promptVersion: "2026-10-23-generic-v5", styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
+      expect(result.packet).toMatchObject({ promptVersion: "2026-10-23-generic-v6", styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
         canon: [{ entryId: "sherlock_holmes", stageId: "main", version: "h1" }, expect.anything(), expect.anything(), expect.anything()],
         flags: { variationIncluded: true, neighborsIncluded: true, styleDetailIncluded: true, lookDetailIncluded: true } });
       expect(result.packet.budget.finalChars).toBe(result.prompt.length);
@@ -89,6 +89,26 @@ describe("rendering packet", () => {
     expect(result.prompt).toContain(input.look.clothing);
     expect(result.prompt).toContain("The shared look, source narrators and neighbors do not add figures");
     expect(result.packet.canon.map((entry) => entry.entryId)).toEqual(selected.map((entry) => entry.entryId));
+  });
+
+  it("keeps the no-form selection rule above shared-look effects, even when look details are trimmed", () => {
+    for (const styleId of ["classical", "watercolor", "icon"]) {
+      const input = base(styleId, { canon: [canon[0]], references: [], neighbors: undefined, variationNumber: null });
+      input.look.light = "veiled radiance representing the voice";
+      const full = buildRenderingPacket(input);
+      if (!full.ok) throw new Error(full.error);
+      expect(full.prompt).toContain(input.look.light);
+      const rule = "Omit such effects from the shared look when that subject is unselected or absent from the plan";
+      expect(full.prompt).toContain(rule);
+      expect(full.prompt).toContain("Ordinary sunlight, lamplight, embers and weather remain setting details.");
+      expect(full.prompt.indexOf(rule)).toBeLessThan(full.prompt.indexOf("SECTION LOOK"));
+      expect(full.prompt).not.toContain("FORMLESS SUBJECTS");
+      input.look.light = "radiance ".repeat(1800);
+      const trimmed = buildRenderingPacket(input);
+      if (!trimmed.ok) throw new Error(trimmed.error);
+      expect(trimmed.packet.flags.lookDetailIncluded).toBe(false);
+      expect(trimmed.prompt).toContain(rule);
+    }
   });
 
   it("makes no-form constraints explicit across styles without erasing source text or other characters' forms", () => {
