@@ -2,7 +2,12 @@
   "issue": 183,
   "purpose": "Measure whether the plan-review checker (option b) flags the defective replies and passes the clean ones, before wiring it into preparation. No production writes, no images.",
   "authorization": "Owner approved option (b) on 2026-10-23: a semantic check of each plan before storage with a bounded re-plan, plus relaxing the exact evidence-list rule. This measurement is charged to the existing evaluation allowance.",
-  "checker": { "module": "src/lib/engine/plan-review.ts", "promptVersion": "2026-10-23-plan-review-v1", "model": "anthropic/claude-haiku-5.5", "reasoning": "none" },
+  "checker": {
+    "module": "src/lib/engine/plan-review.ts",
+    "promptVersion": "2026-10-23-plan-review-v1",
+    "model": "anthropic/claude-haiku-5.5",
+    "reasoning": "none"
+  },
   "benchmark": {
     "replies": "The 40 replies in ../2026-10-23-grounding-rate-check/blind-replies.json, reviewed in that blind order.",
     "truth": "The agreed blind blocker flags (U, X, I, F) from ../2026-10-23-grounding-rate-check/scores-operator.json, identical to the subagent's on all 40. 15 replies have a blocker; 25 are clean.",
@@ -25,5 +30,24 @@
   },
   "perKind": "Reported for information: agreement of checker kinds with the scorer flags (unselected_figure=U, outside_instant=X, not_one_instant=I, embodied_formless=F). Kind mismatches do not affect the targets, which are reply-level, because a re-plan acts on any reported problem.",
   "publicActivation": false,
-  "humanAccepted": false
+  "humanAccepted": false,
+  "arms": {
+    "haiku-none": {
+      "status": "run first; results.json",
+      "reasoningEffort": "none",
+      "maxTokens": 900,
+      "outputDir": "."
+    },
+    "haiku-low": {
+      "declaredAfter": "haiku-none missed the false-alarm target (25/25 clean replies flagged).",
+      "change": "Same model, prompt, schema, validation and benchmark; only reasoning effort 'low' and maxTokens 4000 (Anthropic requires a thinking budget of at least 1,024 tokens below max_tokens).",
+      "reasoningEffort": "low",
+      "maxTokens": 4000,
+      "outputDir": "haiku-low",
+      "evaluationCapUsd": 0.05,
+      "evaluationMeasuredBeforeUsd": 16.3428687,
+      "targets": "Same three targets and decision rule as targets above.",
+      "ifMissed": "Do not wire any checker. Report both arms; a stronger model or option (c) needs the owner's decision and budget."
+    }
+  }
 }

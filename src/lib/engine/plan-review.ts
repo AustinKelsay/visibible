@@ -67,13 +67,13 @@ export function invalidReview(problems: PlanReviewProblem[], input: ReviewInput)
  * makes the review unavailable rather than passing an unchecked plan.
  */
 export async function reviewPlan(model: TextModel, recordSpend: (entry: { outcome: string; model: string; costUsd: number | null; promptTokens: number | null; completionTokens: number | null; elapsedMs: number }) => Promise<void>,
-  recordId: string, input: ReviewInput): Promise<{ problems: PlanReviewProblem[] } | { unavailable: string }> {
+  recordId: string, input: ReviewInput, options: { maxTokens?: number } = {}): Promise<{ problems: PlanReviewProblem[] } | { unavailable: string }> {
   const user = planReviewUser(input);
   let lastError = "";
   for (let attempt = 1; attempt <= 2; attempt++) {
     let result;
     try {
-      result = await model.complete({ label: `review:${recordId}:${attempt}`, system: PLAN_REVIEW_SYSTEM, user, schemaName: "plan_review", schema: planReviewSchema, maxTokens: 900, expectedCompletionTokens: 200 });
+      result = await model.complete({ label: `review:${recordId}:${attempt}`, system: PLAN_REVIEW_SYSTEM, user, schemaName: "plan_review", schema: planReviewSchema, maxTokens: options.maxTokens ?? 900, expectedCompletionTokens: 200 });
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
       await recordSpend({ outcome: `review error: ${lastError.slice(0, 110)}`, model: model.id, costUsd: null, promptTokens: null, completionTokens: null, elapsedMs: 0 });

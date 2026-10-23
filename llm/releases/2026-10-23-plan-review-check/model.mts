@@ -5,32 +5,35 @@ import assert from "node:assert/strict";
 import { createOpenRouterTextModel, estimateRequestCostUsd, READING_PASS_MODEL, type TextModelRequest } from "../../../src/lib/reading-pass/model";
 import { responseSchema } from "../../../src/lib/reading-pass/prompts";
 import { extractOpenRouterUsageUsd } from "../../../src/lib/image-response";
-import { dir, environment, hash, json } from "./common.mjs";
+import { environment, hash, json, out, armConfig } from "./common.mjs";
 
 export const plain = (request: TextModelRequest) => ({ system: request.system, user: request.user, schemaName: request.schemaName,
   schema: responseSchema(request.schema), maxTokens: request.maxTokens, expectedCompletionTokens: request.expectedCompletionTokens });
 
 /** Shared across samples: the ledger persists after every call so an interrupted run cannot overspend. */
 export function evaluationModel(snapshot: { at: string; balanceUsd: number; pricing: { pricing: { completion: string } } }) {
-  const plan = json("plan.json"), env = environment(), cap = plan.evaluation;
+  const plan = json("plan.json"), env = environment(), config = armConfig();
+  // Later arms carry their own cap, measured from the allowance left after earlier arms.
+  const cap = { ...plan.evaluation, ...(config.evaluationCapUsd ? { capUsd: config.evaluationCapUsd, measuredBeforeUsd: config.evaluationMeasuredBeforeUsd } : {}) };
   assert.ok(Date.now() - Date.parse(snapshot.at) < 30 * 60_000);
   assert.ok(snapshot.balanceUsd > cap.capUsd);
   assert.ok(cap.measuredBeforeUsd + cap.uncertaintyBeforeUsd + cap.capUsd <= cap.authorizedUsd);
-  const ledgerFile = path.join(dir, "ledger.json");
+  fs.mkdirSync(out, { recursive: true });
+  const ledgerFile = path.join(out, "ledger.json");
   assert.ok(!fs.existsSync(ledgerFile), "One-shot: the ledger already exists");
   const ledger = { calls: [] as Array<{ phase: string; startedAt: string; status: string; measuredUsd: number | null }>, measuredUsd: 0, uncertainUsd: 0, blocked: null as string | null };
   const flush = () => fs.writeFileSync(ledgerFile, JSON.stringify(ledger, null, 2) + "\n");
   flush();
   const nativeFetch = globalThis.fetch;
   let current: ReturnType<typeof plain>, phase = "";
-  const adapter = createOpenRouterTextModel({ apiKey: env.key, timeoutMs: 120_000, fetch: async (url, init) => {
+  const adapter = createOpenRouterTextModel({ apiKey: env.key, timeoutMs: 120_000, reasoningEffort: config.reasoningEffort, fetch: async (url, init) => {
     assert.equal(url, "https://openrouter.ai/api/v1/chat/completions");
     assert.equal(ledger.blocked, null); assert.equal(ledger.uncertainUsd, 0);
     assert.ok(ledger.calls.length < cap.maximumCalls);
     assert.ok(ledger.measuredUsd + cap.reservePerCallUsd <= cap.capUsd);
     const request = JSON.parse(String(init.body));
     assert.equal(request.model, READING_PASS_MODEL);
-    assert.deepEqual(request.reasoning, { effort: "none" });
+    assert.deepEqual(request.reasoning, { effort: config.reasoningEffort });
     assert.deepEqual(request.provider, { require_parameters: true, order: ["anthropic"], allow_fallbacks: false });
     assert.equal(request.temperature, undefined, "Production sampling defaults must be kept");
     assert.deepEqual(request.messages, [{ role: "system", content: current.system }, { role: "user", content: current.user }]);
@@ -43,7 +46,7 @@ export function evaluationModel(snapshot: { at: string; balanceUsd: number; pric
       delete payload.user_id;
       if (payload.choices) for (const choice of payload.choices) if (choice.message?.reasoning_details) choice.message.reasoning_details = choice.message.reasoning_details.filter((item: { type: string }) => item.type !== "reasoning.encrypted");
       const cost = extractOpenRouterUsageUsd(payload);
-      fs.appendFileSync(path.join(dir, "provider.ndjson"), JSON.stringify({ ...call, completedAt: new Date().toISOString(), request, status: response.status, response: payload, measuredUsageUsd: cost }) + "\n");
+      fs.appendFileSync(path.join(out, "provider.ndjson"), JSON.stringify({ ...call, completedAt: new Date().toISOString(), request, status: response.status, response: payload, measuredUsageUsd: cost }) + "\n");
       call.status = String(response.status); call.measuredUsd = cost;
       if (cost === null) ledger.blocked = "Missing provider usage";
       else { ledger.uncertainUsd -= cap.reservePerCallUsd; ledger.measuredUsd += cost; }
@@ -62,7 +65,7 @@ export function evaluationModel(snapshot: { at: string; balanceUsd: number; pric
       const estimatedUsd = estimateRequestCostUsd(current);
       const maximumCompletionEstimatedUsd = estimatedUsd + (current.maxTokens - current.expectedCompletionTokens) * Number(snapshot.pricing.pricing.completion);
       assert.ok(maximumCompletionEstimatedUsd < cap.reservePerCallUsd);
-      fs.appendFileSync(path.join(dir, "inputs.ndjson"), JSON.stringify({ at: new Date().toISOString(), sample, label: request.label, requestSha256: hash(JSON.stringify(current)), estimatedUsd, maximumCompletionEstimatedUsd }) + "\n");
+      fs.appendFileSync(path.join(out, "inputs.ndjson"), JSON.stringify({ at: new Date().toISOString(), sample, label: request.label, requestSha256: hash(JSON.stringify(current)), estimatedUsd, maximumCompletionEstimatedUsd }) + "\n");
       return adapter.complete(request);
     } };
   };
