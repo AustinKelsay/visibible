@@ -66,6 +66,7 @@ These guides describe the repository's current behavior. Source links identify t
 - [Blind-scored repeated v3/v4 plan samples: 10/20 vs 8/20, not converging](releases/2026-10-23-grounding-rate-check/README.md)
 - [Plan-review checker benchmark: three declared arms, third wired (13/15 caught, 3/25 false alarms)](releases/2026-10-23-plan-review-check/README.md)
 - [Held-out reviewed-pipeline samples: 1/20 flawed plans stored, 10/20 acceptable, Daniel 7:9 refused 5/5](releases/2026-10-23-reviewed-plan-check/README.md)
+- [Random-verse sample of the planning pipeline: 53/100 acceptable, 41 refused (23 missing cast), 6 flawed stored](releases/2026-10-23-random-verse-check/README.md)
 
 Exact dependencies and commands: [package.json](../package.json). Environment templates: [.env.example](../.env.example), [.env.convex.dev.example](../.env.convex.dev.example), [.env.convex.prod.example](../.env.convex.prod.example), [.env.vercel.preview.example](../.env.vercel.preview.example), [.env.vercel.prod.example](../.env.vercel.prod.example). Tables and scheduled jobs: [schema](../convex/schema.ts), [crons](../convex/crons.ts).
 
