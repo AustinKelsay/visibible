@@ -49,7 +49,7 @@ const pct = (v: number[], q: number) => { const s = [...v].sort((x, y) => x - y)
 const ms = rows.map((r) => r.elapsedMs);
 const result = { at: new Date().toISOString(), samplesTaken: rows.length, target: plan.sampling.target,
   scorerAgreement: { replies: blind.replies.length, agreedAllFlags: agreed, agreedBlockers: blockerAgreed, decisions: adjudication.decisions.length },
-  overall: rates(rows), byGroup: Object.fromEntries(Object.keys(plan.bookGroups).map((g) => [g, rates(rows.filter((r) => r.group === g))])),
+  overall: rates(rows), byGroup: Object.fromEntries(Object.keys(base("plan.json").bookGroups).map((g) => [g, rates(rows.filter((r) => r.group === g))])),
   flagCounts: Object.fromEntries(blockers.map((f) => [f, rows.filter((r) => r.flags[f]).length])),
   latencyMs: { median: pct(ms, 0.5), p90: pct(ms, 0.9), max: Math.max(...ms), withLook: rows.filter((r) => r.lookPrepared).length },
   costUsd: { total: rows.reduce((n, r) => n + r.costUsd, 0), medianPerSample: pct(rows.map((r) => r.costUsd), 0.5), maxPerSample: Math.max(...rows.map((r) => r.costUsd)) }, rows };
