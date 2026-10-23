@@ -1,0 +1,42 @@
+{
+  "issue": 183,
+  "purpose": "Measure how often v3 and v4 scene-plan contracts produce an acceptable plan for the four retained moments, using repeated independent replies instead of one first reply. No images, no production writes.",
+  "authorization": "Owner chose option (a) from llm/releases/STATUS.md item 1 on 2026-10-23: repeated in-memory samples per contract, charged to the existing evaluation allowance.",
+  "contracts": {
+    "v3": { "commit": "6ab7bb49a1921f86f0aeab7f605796ea2238b32e", "promptVersion": "2026-10-22-moment-cast-v3", "codeRoot": "detached worktree at 6ab7bb4 (dev after #256)" },
+    "v4": { "commit": "06765022f482aaab13b9e925b57558c5a448cac9", "promptVersion": "2026-10-23-moment-cast-v4", "codeRoot": "this repository at 0676502 (dev after #258)" }
+  },
+  "execution": "Both contracts' own prepareMoment runs locally over an in-memory store seeded from one read-only snapshot of active production generation 1, with the four moments' plan records removed so each sample makes one fresh plan request. Section looks, entries, sections and moments are the stored production records. Production is read once; nothing is written there. The OpenRouter adapter, provider routing and default sampling are the production ones.",
+  "samples": { "perCell": 5, "moments": ["luke-10-33", "luke-10-34", "daniel-7-9", "daniel-7-10"], "order": "For round r = 1..5, each moment in listed order, then both contracts: v3 first when r is odd, v4 first when r is even.", "total": 40 },
+  "evaluation": {
+    "authorizedUsd": 16.5,
+    "measuredBeforeUsd": 16.2980069,
+    "uncertaintyBeforeUsd": 0.045,
+    "capUsd": 0.08,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 80
+  },
+  "preparation": { "authorizedUsd": 43, "measuredBeforeUsd": 3.6568032, "maximumCalls": 0 },
+  "smoke": { "authorizedUsd": 1, "measuredBeforeUsd": 0.685795, "maximumCalls": 0 },
+  "retryPolicy": "Each sample keeps prepareMoment's own single malformed-reply retry. No other rerun, response edit or replacement sample. A provider error, missing usage, uncertain outcome, unexpected look request or exhausted reserve stops the whole run; samples not taken are reported as missing.",
+  "rubric": {
+    "scoredText": "Scene fields and present IDs only (what reaches rendering). The grounding audit is withheld so scoring is blind to contract version.",
+    "flags": {
+      "U": "Unselected described figure: a person, group or animal with a section cast entry is described in any scene field while its ID is absent from present.",
+      "X": "Wrong-scene figure, selected or described. Luke 10:33: Jesus, the lawyer, priest, Levite, robbers or innkeeper. Luke 10:34: the same, and the inn unless the chosen instant is at the inn. Daniel 7:9: Daniel, the ministering assembly or any attendants, or one like a son of man. Daniel 7:10: Daniel or one like a son of man.",
+      "I": "Not one instant: a character has two incompatible poses or places, or successive actions are presented together, across the scene fields.",
+      "F": "Daniel only. The no-form Ancient of Days is described as seated, sitting, enthroned or occupying the seat, or with a body, face, hair, clothing, silhouette or figure.",
+      "N": "Note, not a blocker: a prohibited figure is named only to deny it, e.g. 'no figure'."
+    },
+    "pass": "The reply was stored (not refused or invalid) and has none of U, X, I or F.",
+    "scorers": "Two independent blind scorers: a fresh subagent and the operator, each scoring every reply before seeing the contract mapping. Disagreements are resolved by the operator with a recorded rationale before unblinding."
+  },
+  "interpretation": {
+    "note": "n=5 per cell; differences of one or two passes are within ordinary variation and are not reported as a contract effect.",
+    "converging": "A contract passes at least 4 of 5 on every moment: recommend carrying it to the visual step.",
+    "notConverging": "Both contracts pass at most 2 of 5 on some moment: recommend a semantic plan check or accepting stated limits rather than more single-rule prompt changes.",
+    "mixed": "Anything else: report per moment for the owner's decision."
+  },
+  "publicActivation": false,
+  "humanAccepted": false
+}

@@ -1,0 +1,18 @@
+{
+  "at": "2026-10-23T16:16:26.990623+00:00",
+  "review": "coderabbit-round-1.ndjson",
+  "findings": [
+    {
+      "severity": "minor",
+      "file": "llm/releases/STATUS.md",
+      "title": "Update the visual-matrix gate after the repeated evaluation",
+      "disposition": "Accepted. The row now shows $0.12582060 remaining after the $0.0311725 text measurement, and says no visual evaluation ran."
+    },
+    {
+      "severity": "minor",
+      "file": "tally.mts",
+      "title": "Report note agreement separately / adjudicate N-only differences (two findings)",
+      "disposition": "Accepted. Agreement now covers notes too, with blockerAgreed and noteAgreed reported separately; any differing flag requires adjudication. tally.json was regenerated from unchanged scores, adjudication and key (40/40 on both). verify.mts checks both counts."
+    }
+  ]
+}

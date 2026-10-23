@@ -1,0 +1,247 @@
+{
+  "calls": [
+    {
+      "phase": "v3-luke-10-33-r1",
+      "startedAt": "2026-10-23T15:59:56.158Z",
+      "status": "200",
+      "measuredUsd": 0.0006787
+    },
+    {
+      "phase": "v4-luke-10-33-r1",
+      "startedAt": "2026-10-23T16:00:00.111Z",
+      "status": "200",
+      "measuredUsd": 0.000802
+    },
+    {
+      "phase": "v3-luke-10-34-r1",
+      "startedAt": "2026-10-23T16:00:04.392Z",
+      "status": "200",
+      "measuredUsd": 0.0007959
+    },
+    {
+      "phase": "v4-luke-10-34-r1",
+      "startedAt": "2026-10-23T16:00:09.277Z",
+      "status": "200",
+      "measuredUsd": 0.0008772
+    },
+    {
+      "phase": "v3-daniel-7-9-r1",
+      "startedAt": "2026-10-23T16:00:14.071Z",
+      "status": "200",
+      "measuredUsd": 0.0007306
+    },
+    {
+      "phase": "v4-daniel-7-9-r1",
+      "startedAt": "2026-10-23T16:00:17.496Z",
+      "status": "200",
+      "measuredUsd": 0.0008277
+    },
+    {
+      "phase": "v3-daniel-7-10-r1",
+      "startedAt": "2026-10-23T16:00:21.549Z",
+      "status": "200",
+      "measuredUsd": 0.0007439
+    },
+    {
+      "phase": "v4-daniel-7-10-r1",
+      "startedAt": "2026-10-23T16:00:24.451Z",
+      "status": "200",
+      "measuredUsd": 0.0008285
+    },
+    {
+      "phase": "v4-luke-10-33-r2",
+      "startedAt": "2026-10-23T16:00:28.921Z",
+      "status": "200",
+      "measuredUsd": 0.000781
+    },
+    {
+      "phase": "v3-luke-10-33-r2",
+      "startedAt": "2026-10-23T16:00:32.699Z",
+      "status": "200",
+      "measuredUsd": 0.0006822
+    },
+    {
+      "phase": "v4-luke-10-34-r2",
+      "startedAt": "2026-10-23T16:00:36.262Z",
+      "status": "200",
+      "measuredUsd": 0.0008957
+    },
+    {
+      "phase": "v3-luke-10-34-r2",
+      "startedAt": "2026-10-23T16:00:40.480Z",
+      "status": "200",
+      "measuredUsd": 0.0007479
+    },
+    {
+      "phase": "v4-daniel-7-9-r2",
+      "startedAt": "2026-10-23T16:00:43.865Z",
+      "status": "200",
+      "measuredUsd": 0.0007937
+    },
+    {
+      "phase": "v3-daniel-7-9-r2",
+      "startedAt": "2026-10-23T16:00:47.564Z",
+      "status": "200",
+      "measuredUsd": 0.0006826
+    },
+    {
+      "phase": "v4-daniel-7-10-r2",
+      "startedAt": "2026-10-23T16:00:50.155Z",
+      "status": "200",
+      "measuredUsd": 0.000829
+    },
+    {
+      "phase": "v3-daniel-7-10-r2",
+      "startedAt": "2026-10-23T16:00:54.745Z",
+      "status": "200",
+      "measuredUsd": 0.0007864
+    },
+    {
+      "phase": "v3-luke-10-33-r3",
+      "startedAt": "2026-10-23T16:00:57.896Z",
+      "status": "200",
+      "measuredUsd": 0.0006777
+    },
+    {
+      "phase": "v4-luke-10-33-r3",
+      "startedAt": "2026-10-23T16:01:01.718Z",
+      "status": "200",
+      "measuredUsd": 0.0008165
+    },
+    {
+      "phase": "v3-luke-10-34-r3",
+      "startedAt": "2026-10-23T16:01:05.784Z",
+      "status": "200",
+      "measuredUsd": 0.0007764
+    },
+    {
+      "phase": "v4-luke-10-34-r3",
+      "startedAt": "2026-10-23T16:01:09.479Z",
+      "status": "200",
+      "measuredUsd": 0.0008732
+    },
+    {
+      "phase": "v3-daniel-7-9-r3",
+      "startedAt": "2026-10-23T16:01:13.900Z",
+      "status": "200",
+      "measuredUsd": 0.0006941
+    },
+    {
+      "phase": "v4-daniel-7-9-r3",
+      "startedAt": "2026-10-23T16:01:16.477Z",
+      "status": "200",
+      "measuredUsd": 0.0008247
+    },
+    {
+      "phase": "v3-daniel-7-10-r3",
+      "startedAt": "2026-10-23T16:01:21.313Z",
+      "status": "200",
+      "measuredUsd": 0.0007649
+    },
+    {
+      "phase": "v4-daniel-7-10-r3",
+      "startedAt": "2026-10-23T16:01:26.237Z",
+      "status": "200",
+      "measuredUsd": 0.000824
+    },
+    {
+      "phase": "v4-luke-10-33-r4",
+      "startedAt": "2026-10-23T16:01:30.896Z",
+      "status": "200",
+      "measuredUsd": 0.000814
+    },
+    {
+      "phase": "v3-luke-10-33-r4",
+      "startedAt": "2026-10-23T16:01:34.654Z",
+      "status": "200",
+      "measuredUsd": 0.0006892
+    },
+    {
+      "phase": "v4-luke-10-34-r4",
+      "startedAt": "2026-10-23T16:01:38.411Z",
+      "status": "200",
+      "measuredUsd": 0.0008282
+    },
+    {
+      "phase": "v3-luke-10-34-r4",
+      "startedAt": "2026-10-23T16:01:41.908Z",
+      "status": "200",
+      "measuredUsd": 0.0007399
+    },
+    {
+      "phase": "v4-daniel-7-9-r4",
+      "startedAt": "2026-10-23T16:01:45.282Z",
+      "status": "200",
+      "measuredUsd": 0.0007637
+    },
+    {
+      "phase": "v3-daniel-7-9-r4",
+      "startedAt": "2026-10-23T16:01:48.199Z",
+      "status": "200",
+      "measuredUsd": 0.0006931
+    },
+    {
+      "phase": "v4-daniel-7-10-r4",
+      "startedAt": "2026-10-23T16:01:51.464Z",
+      "status": "200",
+      "measuredUsd": 0.0008315
+    },
+    {
+      "phase": "v3-daniel-7-10-r4",
+      "startedAt": "2026-10-23T16:01:55.921Z",
+      "status": "200",
+      "measuredUsd": 0.0007549
+    },
+    {
+      "phase": "v3-luke-10-33-r5",
+      "startedAt": "2026-10-23T16:01:59.000Z",
+      "status": "200",
+      "measuredUsd": 0.0007022
+    },
+    {
+      "phase": "v4-luke-10-33-r5",
+      "startedAt": "2026-10-23T16:02:03.178Z",
+      "status": "200",
+      "measuredUsd": 0.000809
+    },
+    {
+      "phase": "v3-luke-10-34-r5",
+      "startedAt": "2026-10-23T16:02:07.158Z",
+      "status": "200",
+      "measuredUsd": 0.0007689
+    },
+    {
+      "phase": "v4-luke-10-34-r5",
+      "startedAt": "2026-10-23T16:02:10.841Z",
+      "status": "200",
+      "measuredUsd": 0.0009027
+    },
+    {
+      "phase": "v3-daniel-7-9-r5",
+      "startedAt": "2026-10-23T16:02:15.161Z",
+      "status": "200",
+      "measuredUsd": 0.0007081
+    },
+    {
+      "phase": "v4-daniel-7-9-r5",
+      "startedAt": "2026-10-23T16:02:17.894Z",
+      "status": "200",
+      "measuredUsd": 0.0007912
+    },
+    {
+      "phase": "v3-daniel-7-10-r5",
+      "startedAt": "2026-10-23T16:02:21.500Z",
+      "status": "200",
+      "measuredUsd": 0.0007814
+    },
+    {
+      "phase": "v4-daniel-7-10-r5",
+      "startedAt": "2026-10-23T16:02:24.219Z",
+      "status": "200",
+      "measuredUsd": 0.00086
+    }
+  ],
+  "measuredUsd": 0.031172499999999995,
+  "uncertainUsd": 0,
+  "blocked": null
+}
