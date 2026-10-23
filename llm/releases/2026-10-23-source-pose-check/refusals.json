@@ -1,0 +1,62 @@
+{
+  "rows": [
+    {
+      "id": "pipeline-s001-1",
+      "category": "evidence",
+      "selectionEvidenceDisagreement": false,
+      "error": "Error: Preparing scene: plan unavailable: cast the_tabernacle_portable_sanctuary lacks current-moment evidence"
+    },
+    {
+      "id": "pipeline-s067-1",
+      "category": "review",
+      "selectionEvidenceDisagreement": false,
+      "error": "Error: Preparing scene: plan unavailable: plan review: unselected_figure the_israelite_people_the_children_of_israel"
+    },
+    {
+      "id": "pipeline-s001-2",
+      "category": "evidence",
+      "selectionEvidenceDisagreement": true,
+      "error": "Error: Preparing scene: plan unavailable: cast god_yahweh_the_father_and_god_of_israel has no scene evidence"
+    },
+    {
+      "id": "pipeline-s027-2",
+      "category": "evidence",
+      "selectionEvidenceDisagreement": true,
+      "error": "Error: Preparing scene: plan unavailable: cast god_yahweh_the_father_and_god_of_israel is framing, not participating in the chosen instant"
+    },
+    {
+      "id": "pipeline-s034-2",
+      "category": "evidence",
+      "selectionEvidenceDisagreement": true,
+      "error": "Error: Preparing scene: plan unavailable: cast yahweh_s_house_in_jerusalem_the_temple has no scene evidence"
+    },
+    {
+      "id": "pipeline-s001-3",
+      "category": "review",
+      "selectionEvidenceDisagreement": false,
+      "error": "Error: Preparing scene: plan unavailable: plan review: outside_instant god_yahweh_the_father_and_god_of_israel"
+    },
+    {
+      "id": "pipeline-s027-3",
+      "category": "review",
+      "selectionEvidenceDisagreement": false,
+      "error": "Error: Preparing scene: plan unavailable: plan review: not_one_instant pharaoh_of_the_exodus_oppressor_of_israel"
+    },
+    {
+      "id": "pipeline-s034-3",
+      "category": "evidence",
+      "selectionEvidenceDisagreement": true,
+      "error": "Error: Preparing scene: plan unavailable: cast the_priests_of_jerusalem is framing, not participating in the chosen instant"
+    },
+    {
+      "id": "pipeline-s067-3",
+      "category": "review",
+      "selectionEvidenceDisagreement": false,
+      "error": "Error: Preparing scene: plan unavailable: plan review: outside_instant god_yahweh_the_father_and_god_of_israel, not_one_instant"
+    }
+  ],
+  "evidence": 5,
+  "review": 4,
+  "selectionEvidenceDisagreement": 4,
+  "notes": "Four replies select an ID omitted from their evidence or classify a selected ID as framing. These are rejected before semantic review. One other evidence refusal has an invalid quote. Not every refusal would be solved by removing duplicated declarations."
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "defaults": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K",
+    "translation": "web"
+  },
+  "cases": [
+    {
+      "id": "numbers-3-39-census",
+      "reference": "Numbers 3:39",
+      "genre": "narrative",
+      "expected": "Moses and Aaron count the Levites; omit unsupported divine radiance from the section look; no bodily God.",
+      "tags": [
+        "no-form-absent",
+        "shared-look",
+        "cast"
+      ]
+    },
+    {
+      "id": "daniel-7-9-ancient-of-days",
+      "reference": "Daniel 7:9",
+      "genre": "symbolic",
+      "expected": "A visionary throne and permitted no-form effects; God has no face, body, hair, clothing, silhouette or figure; the narrator is not a visible participant merely because he watches.",
+      "tags": [
+        "symbolic"
+      ]
+    },
+    {
+      "id": "exodus-14-22-sea-walls",
+      "reference": "Exodus 14:22",
+      "genre": "narrative",
+      "expected": "Israel walking between two walls of water on dry ground; same sea, same night as the previous verse.",
+      "tags": [
+        "red-sea",
+        "continuity"
+      ]
+    },
+    {
+      "id": "luke-10-34-care",
+      "reference": "Luke 10:34",
+      "genre": "parable",
+      "expected": "One representative instant of caring for the traveler; consistent poses and handled-object states; select available cast, including the mount if depicted.",
+      "tags": [
+        "one-instant",
+        "incidental",
+        "cast"
+      ]
+    }
+  ]
+}

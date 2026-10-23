@@ -16,7 +16,7 @@ const fields = { primarySubject: "The witness stands in the camp", action: "radi
 const reply = (selected: boolean) => withGrounding({ missingCast: [], present: selected ? ["witness", "presence"] : ["witness"], ...fields }, text);
 const problem = { kind: "unselected_figure", entryId: "presence", planQuote: "radiance spreads above the camp", reason: "The radiance represents the unselected no-form Presence." };
 
-async function setup(repair: boolean) {
+async function setup(repair: boolean, reviewOnly = false) {
   const inputs: WorkInputs = {
     work: createWorkReader({ schemaVersion: 1, id: "presence-work", title: "Presence", author: "Fixture", language: "en",
       referenceText: { name: "Fixture", source: "https://example.com", credit: "Test", sha256: "0".repeat(64) },
@@ -40,8 +40,8 @@ async function setup(repair: boolean) {
     model: { id: "scripted", complete: async (r) => r.schemaName === "plan_review" ? reviewReply([]) : completion(r.schemaName === "section_look" ? { place: "camp", timeOfDay: "day", weather: "clear", light: "daylight", clothing: "plain tunic" } : reply(false)) } });
   const old = (await memory.store.getActiveRecord("plan", "m-1"))!;
   await memory.store.putDerivedRecord({ kind: "plan", recordId: "m-1", payload: { ...old.payload, kind: "plan" },
-    inputs: old.inputs.map((input) => input.recordId === "scene_plan_review" ? { ...input, version: "2026-10-23-plan-review-v2" }
-      : input.recordId === "scene_plan_formless_presence" ? { ...input, version: "2026-10-22-formless-effects-v5" } : input) });
+    inputs: old.inputs.map((input) => input.recordId === "scene_plan_review" ? { ...input, version: reviewOnly ? "2026-10-23-plan-review-v3" : "2026-10-23-plan-review-v2" }
+      : input.recordId === "scene_plan_formless_presence" && !reviewOnly ? { ...input, version: "2026-10-22-formless-effects-v5" } : input) });
   const calls: TextModelRequest[] = [];
   let plans = 0, reviews = 0;
   const model: TextModel = { id: "scripted", complete: async (request) => {
@@ -56,8 +56,8 @@ async function setup(repair: boolean) {
 }
 
 describe("no-form cast selection", () => {
-  it("refreshes a cached omitted presence, re-plans once, and delivers its canon and no-form rules to rendering", async () => {
-    const { render, calls, store } = await setup(true);
+  it.each([false, true])("refreshes cached presence after a contract change (review only: %s), re-plans once, and delivers canon to rendering", async (reviewOnly) => {
+    const { render, calls, store } = await setup(true, reviewOnly);
     const result = await render();
     if (!result.ok) throw new Error(result.message);
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review", "scene_plan", "plan_review"]);

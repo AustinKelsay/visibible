@@ -1,0 +1,176 @@
+{
+  "scorer": "Unblinded operator; no independent scorer. All 21 first outcomes retained.",
+  "rubric": "Predeclared gate in plan.json: source/cast support, no unsupported/unselected no-form effects, no embodied no-form subject, one coherent instant. Use the previous U/X/I/F/R/M rubric; permit incidental roles and reasonable illustrations of non-event text. Ambiguities fail the conservative gate and are reported separately from demonstrated flaws.",
+  "scores": [
+    {
+      "id": "pipeline-s001-1",
+      "stored": false,
+      "acceptable": false,
+      "problems": [],
+      "notes": "Error: Preparing scene: plan unavailable: cast the_tabernacle_portable_sanctuary lacks current-moment evidence"
+    },
+    {
+      "id": "pipeline-s027-1",
+      "stored": true,
+      "acceptable": true,
+      "problems": [],
+      "notes": "Pharaoh and his servants receive the report; turning and looking are simultaneous. Ordinary lamplight is not a no-form presence."
+    },
+    {
+      "id": "pipeline-s034-1",
+      "stored": true,
+      "acceptable": true,
+      "problems": [],
+      "notes": "A poetic illustration of the nobles of Zion and the city ruin is allowed by the retained rubric; nobles are treated as incidental roles rather than automatically equated with the broader Children of Zion canon group. That identity mapping is a limitation of this operator judgment."
+    },
+    {
+      "id": "pipeline-s035-1",
+      "stored": true,
+      "acceptable": true,
+      "problems": [],
+      "notes": "Villagers flee as the verse states; ordinary daylight, animals and unnamed roles remain incidental. The distant generic soldier in repeat 3 is an illustrative threat, not given a recurring identity; a stricter reading might reject that addition."
+    },
+    {
+      "id": "pipeline-s059-1",
+      "stored": true,
+      "acceptable": true,
+      "problems": [],
+      "notes": "Measurement at the southern gate; the current verse explicitly brings Ezekiel there, so watching the measurement is participation rather than merely a narrator viewpoint. Denials of radiance are not presence."
+    },
+    {
+      "id": "pipeline-s067-1",
+      "stored": false,
+      "acceptable": false,
+      "problems": [],
+      "notes": "Error: Preparing scene: plan unavailable: plan review: unselected_figure the_israelite_people_the_children_of_israel"
+    },
+    {
+      "id": "pipeline-s074-1",
+      "stored": true,
+      "acceptable": true,
+      "problems": [],
+      "notes": "A reasonable illustration of the goldsmith's disappointment; incidental townsfolk and workshop props are permitted."
+    },
+    {
+      "id": "pipeline-s001-2",
+      "stored": false,
+      "acceptable": false,
+      "problems": [],
+      "notes": "Error: Preparing scene: plan unavailable: cast god_yahweh_the_father_and_god_of_israel has no scene evidence"
+    },
+    {
+      "id": "pipeline-s027-2",
+      "stored": false,
+      "acceptable": false,
+      "problems": [],
+      "notes": "Error: Preparing scene: plan unavailable: cast god_yahweh_the_father_and_god_of_israel is framing, not participating in the chosen instant"
+    },
+    {
+      "id": "pipeline-s034-2",
+      "stored": false,
+      "acceptable": false,
+      "problems": [],
+      "notes": "Error: Preparing scene: plan unavailable: cast yahweh_s_house_in_jerusalem_the_temple has no scene evidence"
+    },
+    {
+      "id": "pipeline-s035-2",
+      "stored": true,
+      "acceptable": true,
+      "problems": [],
+      "notes": "Villagers flee as the verse states; ordinary daylight, animals and unnamed roles remain incidental. The distant generic soldier in repeat 3 is an illustrative threat, not given a recurring identity; a stricter reading might reject that addition."
+    },
+    {
+      "id": "pipeline-s059-2",
+      "stored": true,
+      "acceptable": true,
+      "problems": [],
+      "notes": "Measurement at the southern gate; the current verse explicitly brings Ezekiel there, so watching the measurement is participation rather than merely a narrator viewpoint. Denials of radiance are not presence."
+    },
+    {
+      "id": "pipeline-s067-2",
+      "stored": true,
+      "acceptable": false,
+      "problems": [
+        {
+          "kind": "possible_unselected_no_form",
+          "confidence": "ambiguous",
+          "planQuotes": [
+            "a slowly drifting cloud veil above the sanctuary"
+          ],
+          "sourceQuote": "He shall make the woman drink the water of bitterness that causes the curse",
+          "reason": "This repeats the look's sanctuary cloud. The look also assigns a fire-like glow to that cloud, so it may represent God without selecting him, but the scene itself omits the glow and could be ordinary weather. Conservatively not accepted; it is not a proved divine manifestation."
+        }
+      ],
+      "notes": "Ritual instruction; any divine effect must be source-established, and framing Moses must remain outside the ritual."
+    },
+    {
+      "id": "pipeline-s074-2",
+      "stored": true,
+      "acceptable": true,
+      "problems": [],
+      "notes": "A reasonable illustration of the goldsmith's disappointment; incidental townsfolk and workshop props are permitted."
+    },
+    {
+      "id": "pipeline-s001-3",
+      "stored": false,
+      "acceptable": false,
+      "problems": [],
+      "notes": "Error: Preparing scene: plan unavailable: plan review: outside_instant god_yahweh_the_father_and_god_of_israel"
+    },
+    {
+      "id": "pipeline-s027-3",
+      "stored": false,
+      "acceptable": false,
+      "problems": [],
+      "notes": "Error: Preparing scene: plan unavailable: plan review: not_one_instant pharaoh_of_the_exodus_oppressor_of_israel"
+    },
+    {
+      "id": "pipeline-s034-3",
+      "stored": false,
+      "acceptable": false,
+      "problems": [],
+      "notes": "Error: Preparing scene: plan unavailable: cast the_priests_of_jerusalem is framing, not participating in the chosen instant"
+    },
+    {
+      "id": "pipeline-s035-3",
+      "stored": true,
+      "acceptable": true,
+      "problems": [],
+      "notes": "Villagers flee as the verse states; ordinary daylight, animals and unnamed roles remain incidental. The distant generic soldier in repeat 3 is an illustrative threat, not given a recurring identity; a stricter reading might reject that addition."
+    },
+    {
+      "id": "pipeline-s059-3",
+      "stored": true,
+      "acceptable": true,
+      "problems": [],
+      "notes": "Measurement at the southern gate; the current verse explicitly brings Ezekiel there, so watching the measurement is participation rather than merely a narrator viewpoint. Denials of radiance are not presence."
+    },
+    {
+      "id": "pipeline-s067-3",
+      "stored": false,
+      "acceptable": false,
+      "problems": [],
+      "notes": "Error: Preparing scene: plan unavailable: plan review: outside_instant god_yahweh_the_father_and_god_of_israel, not_one_instant"
+    },
+    {
+      "id": "pipeline-s074-3",
+      "stored": true,
+      "acceptable": false,
+      "problems": [
+        {
+          "kind": "possible_not_one_instant",
+          "confidence": "ambiguous",
+          "planQuotes": [
+            "turning an unfinished metal image in his hands",
+            "an unfinished metal image on the bench",
+            "the image in his hands"
+          ],
+          "sourceQuote": "Every goldsmith is disappointed by his engraved image",
+          "reason": "Primary subject and composition hold the image while setting puts an unfinished image on the bench. The prose does not distinguish a second idol; two different objects would resolve it. Conservatively not accepted; not the exact proved held/put-down contradiction of the retained defect."
+        }
+      ],
+      "notes": "A reasonable illustration of the goldsmith's disappointment; incidental townsfolk and workshop props are permitted."
+    }
+  ],
+  "sensitivity": "The two flagged stored plans are ambiguous, not proven semantic failures. Accepting both would raise acceptable stores from 10 to 12; nine refusals still make the >=15/21 pipeline gate fail. Narrower readings of the incidental noble group or distant soldier can reduce acceptance further; no population claim."
+}
