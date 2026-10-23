@@ -1,0 +1,147 @@
+{
+  "at": "2026-10-23T16:06:58.110Z",
+  "perCell": 5,
+  "scorerAgreement": {
+    "scorable": 40,
+    "agreed": 40,
+    "adjudicated": 0
+  },
+  "cells": {
+    "v4": {
+      "daniel-7-9": {
+        "taken": 5,
+        "stored": 1,
+        "refused": 4,
+        "invalid": 0,
+        "clean": 3,
+        "pass": 1,
+        "flags": {
+          "U": 0,
+          "X": 1,
+          "I": 0,
+          "F": 2,
+          "N": 3
+        }
+      },
+      "luke-10-33": {
+        "taken": 5,
+        "stored": 5,
+        "refused": 0,
+        "invalid": 0,
+        "clean": 2,
+        "pass": 2,
+        "flags": {
+          "U": 3,
+          "X": 0,
+          "I": 1,
+          "F": 0,
+          "N": 0
+        }
+      },
+      "daniel-7-10": {
+        "taken": 5,
+        "stored": 4,
+        "refused": 1,
+        "invalid": 0,
+        "clean": 5,
+        "pass": 4,
+        "flags": {
+          "U": 0,
+          "X": 0,
+          "I": 0,
+          "F": 0,
+          "N": 0
+        }
+      },
+      "luke-10-34": {
+        "taken": 5,
+        "stored": 1,
+        "refused": 4,
+        "invalid": 0,
+        "clean": 3,
+        "pass": 1,
+        "flags": {
+          "U": 0,
+          "X": 2,
+          "I": 0,
+          "F": 0,
+          "N": 0
+        }
+      }
+    },
+    "v3": {
+      "luke-10-33": {
+        "taken": 5,
+        "stored": 5,
+        "refused": 0,
+        "invalid": 0,
+        "clean": 2,
+        "pass": 2,
+        "flags": {
+          "U": 2,
+          "X": 0,
+          "I": 3,
+          "F": 0,
+          "N": 0
+        }
+      },
+      "daniel-7-10": {
+        "taken": 5,
+        "stored": 5,
+        "refused": 0,
+        "invalid": 0,
+        "clean": 3,
+        "pass": 3,
+        "flags": {
+          "U": 0,
+          "X": 0,
+          "I": 0,
+          "F": 2,
+          "N": 0
+        }
+      },
+      "daniel-7-9": {
+        "taken": 5,
+        "stored": 5,
+        "refused": 0,
+        "invalid": 0,
+        "clean": 4,
+        "pass": 4,
+        "flags": {
+          "U": 0,
+          "X": 0,
+          "I": 0,
+          "F": 1,
+          "N": 3
+        }
+      },
+      "luke-10-34": {
+        "taken": 5,
+        "stored": 2,
+        "refused": 3,
+        "invalid": 0,
+        "clean": 3,
+        "pass": 1,
+        "flags": {
+          "U": 0,
+          "X": 1,
+          "I": 1,
+          "F": 0,
+          "N": 0
+        }
+      }
+    }
+  },
+  "totals": {
+    "v4": {
+      "taken": 20,
+      "pass": 8
+    },
+    "v3": {
+      "taken": 20,
+      "pass": 10
+    }
+  },
+  "verdict": "notConverging",
+  "interpretation": "Both contracts pass at most 2 of 5 on some moment: recommend a semantic plan check or accepting stated limits rather than more single-rule prompt changes."
+}

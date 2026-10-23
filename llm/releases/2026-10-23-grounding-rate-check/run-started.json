@@ -1,0 +1,5 @@
+{
+  "at": "2026-10-23T15:59:56.145Z",
+  "snapshot": "snapshot",
+  "retryPolicy": "Each sample keeps prepareMoment's own single malformed-reply retry. No other rerun, response edit or replacement sample. A provider error, missing usage, uncertain outcome, unexpected look request or exhausted reserve stops the whole run; samples not taken are reported as missing."
+}
