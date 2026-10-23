@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-23T21:40:39.210914+00:00",
+  "rounds": [
+    {
+      "review": "coderabbit-round-1.ndjson",
+      "unreviewedFiles": 1,
+      "findings": [
+        {
+          "severity": "major",
+          "title": "Stop on provider errors and keep them out of refusal counts",
+          "disposition": "Declined for sample.mts: it is the one-shot script that ran, committed and hash-pinned before any paid call, so changing it would misdescribe the run. The retained run has no such rows: all 98 outcomes are stored or refused, and run-finished.json records no ledger block and no unexpected request. The refusal-count half is covered by the tally guard below."
+        },
+        {
+          "severity": "minor",
+          "title": "Keep operational outcomes out of plan-refusal metrics",
+          "disposition": "Accepted as a guard: tally.mts now fails on any outcome other than stored or refused instead of counting it as a refusal. Regenerating the tally with the guard reproduced tally.json exactly apart from its timestamp; the retained tally.json is unchanged and the manifest hash for tally.mts was refreshed."
+        }
+      ]
+    }
+  ]
+}

@@ -24,6 +24,8 @@ const blank = new Set<string>(blind.replies.filter((r: { scene: Record<string, s
 const flagsFor = new Map<string, Flags | undefined>();
 for (const k of key) for (const u of k.uses) flagsFor.set(`${u.sample}:${u.role}`, blank.has(k.blindId) ? undefined : final.get(k.blindId)!);
 const samples = fs.readFileSync(path.join(dir, "samples.ndjson"), "utf8").trim().split("\n").map((line) => JSON.parse(line));
+// Only plan outcomes are tallied; a stopped, blocked or invalid row is an operational failure, not a refusal.
+for (const s of samples) assert.ok(["stored", "refused"].includes(s.outcome), `${s.id} has operational outcome ${s.outcome}`);
 const traces = fs.readFileSync(path.join(dir, "provider.ndjson"), "utf8").trim().split("\n").map((line) => JSON.parse(line));
 const firstRound = (s: { spendOutcomes: string[] }) => { const at = s.spendOutcomes.filter((o) => o.startsWith("plan:") && !o.startsWith("plan:review")); const end = at.findIndex((o) => o === "plan:ok" || o === "plan:unavailable"); return end >= 0 && at[end] === "plan:ok"; };
 const clean = (f: Flags | undefined) => !!f && blockers.every((x) => !f[x]);

@@ -96,3 +96,5 @@ The audit forbids network access and checks the [hash manifest](sha256.json) and
 - The 40 calibration replies are exact baseline packets.
 - The blind packet leaks no outcome or role.
 - The paired counts follow from both tallies.
+
+The manifest excludes the CodeRabbit log and [review disposition](review-disposition.json), which were written after it. Review added one guard: [`tally.mts`](tally.mts) now fails on any operational outcome (stopped, blocked or invalid) instead of counting it as a refusal. The retained run has none, and the regenerated tally matched exactly.
