@@ -13,6 +13,7 @@ import type { TextModel } from "../reading-pass/model";
 import { parseModelJson } from "../reading-pass/model";
 import { canonShowingSchema, compileCanonShowing } from "../canon-showing";
 import type { WorkBrief } from "../work-preparation";
+import { planningNeighbors, sceneGroundingSchema, sceneGroundingProblem } from "./scene-grounding";
 
 export const LOOK_SYSTEM = `You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.
 Rules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments, and do not restate anyone's fixed appearance; canon does that. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.`;
@@ -38,9 +39,11 @@ export const PLAN_SYSTEM = `You are the scene planner of an illustration engine.
 Rules: single scene, no collage. Choose which of the listed cast are present in this moment and name them in \`present\` by their ids; leave out cast who are elsewhere in the section. Keep every depiction rule. Do not describe anyone's fixed appearance (canon does that) and do not name an art style or rendering technique; describe pose, action, placement and situational detail. Each field is one or two short phrases, at most 220 characters. No text or written elements in the scene.
 Establish presence from the scene being illustrated. A shared wardrobe, a narrator's viewpoint or a neighboring mention alone does not establish presence. Neighbors may resolve identity and continuity in the current scene; do not import cast from a separate adjacent event. The section cast and look cover multiple moments, not a roster to depict in every image. Apply shared clothing and props only to selected entries. Every character or group described in any scene field must be selected in \`present\`; omit unselected figures rather than describing them as background.
 Identify the action the moment depicts before selecting cast. If it is inside a narrated story, parable, dream, vision or recollection, depict that scene's actors and setting. Do not place its framing speaker, listener or narrator inside it unless the text establishes their participation there. Reporting "I saw" supplies a viewpoint, not a visible observer. Shared look details from the framing scene do not establish the inner scene's cast or place.
-If depicting this moment requires an actor or group absent from the available section cast, report it by name or role in \`missingCast\`. Do not replace it with a framing figure, invent an unselected subject, or omit the moment's main actor to fit the list. When \`missingCast\` is nonempty, return empty \`present\` and empty scene fields; preparation will stop for a source correction. Otherwise return an empty \`missingCast\` list. This is a report of missing required canon, not a request to create it.`;
+Choose the scene before applying the shared look. In \`grounding.focusQuote\`, copy a short exact clause from MOMENT for the action or state to illustrate. If the moment recounts multiple actions, choose one representative instant; do not illustrate all steps. A character cannot occupy successive poses or places at once. Every scene field must describe the same instant, with consistent poses and place; set \`grounding.singleInstant\` false if they cannot coexist.
+For each selected \`present\` ID, provide one \`grounding.cast\` record in matching order, with exact words from MOMENT anchoring its participation at that instant. Classify participation honestly: in_scene, framing, mentioned, separate_event or uncertain. Only in_scene may be rendered; a nonparticipating or uncertain selection will stop preparation rather than be silently removed. A first-person report of seeing or telling is framing evidence, not evidence of visible participation. Cast introduced in a later event remain absent from the chosen instant even if the shared look describes their clothes. A neighbor may resolve a current pronoun, ownership or continuing location, but cannot supply presence missing from MOMENT. Copy any needed neighbor evidence separately, with contextSource previous or next; otherwise use none and an empty contextQuote. Include locations, objects and permitted no-form presences in this evidence, not only people. These evidence quotes are audit data, never scene prose. Apply the section look only after choosing this instant and its participants.
+If depicting this moment requires an actor or group absent from the available section cast, report it by name or role in \`missingCast\`. Do not replace it with a framing figure, invent an unselected subject, or omit the moment's main actor to fit the list. When \`missingCast\` is nonempty, return empty \`present\`, empty \`grounding.focusQuote\` and \`grounding.cast\`, and empty scene fields; preparation will stop for a source correction. Otherwise return an empty \`missingCast\` list. This is a report of missing required canon, not a request to create it.`;
 /** All plans use the selected-cast contract; a change refreshes plans lazily, without remaking looks. */
-export const MOMENT_CAST_PROMPT_VERSION = "2026-10-22-moment-cast-v2";
+export const MOMENT_CAST_PROMPT_VERSION = "2026-10-22-moment-cast-v3";
 /** Bump for changes to this no-form planning contract or its cast format; only affected plans use it. */
 export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-22-formless-effects-v5";
 const FORMLESS_PLAN_SYSTEM = `${PLAN_SYSTEM}
@@ -74,12 +77,13 @@ function planningResponseSchema(entryIds: string[], hasFormlessCast: boolean) {
   const base = hasFormlessCast ? formlessPlanOutputSchema(entryIds) : planOutputSchema;
   // An empty enum is not a useful provider schema. Refinement still rejects every ID locally.
   const id = entryIds.length ? z.enum(entryIds) : z.string().refine(() => false, "No section cast is available");
-  return base.extend({
+  // Put the source choice first in the provider schema, before scene prose and shared styling.
+  return z.object({ grounding: sceneGroundingSchema, ...base.shape,
     present: z.array(id).refine((ids) => new Set(ids).size === ids.length, "Cast IDs must be distinct")
       .describe("Distinct IDs of available section cast present in the depicted scene, including permitted no-form effects. Empty when no cast is needed or required canon is missing."),
     missingCast: z.array(z.string().refine((name) => name.trim().length > 0, "A missing subject needs a name or role"))
       .describe("Names or roles required by this moment but absent from the available section cast. Include actors inside embedded stories or visions. Empty when all required canon is available; never invent canon or substitute framing figures."),
-  });
+  }).strict();
 }
 
 export type AnalysisRecord = { kind: string; recordId: string; version: string; inputs: Array<{ kind: string; recordId: string; version: string }>; payload: Record<string, unknown> & { kind: string } };
@@ -183,7 +187,8 @@ async function askOnce<T>(model: TextModel, store: PreparationStore, kind: "look
   for (let attempt = 1; attempt <= 2; attempt++) {
     let result;
     try {
-      result = await model.complete({ label: `${kind}:${recordId}:${attempt}`, system, user, schemaName: kind === "look" ? "section_look" : "scene_plan", schema, maxTokens: 900, expectedCompletionTokens: 350 });
+      result = await model.complete({ label: `${kind}:${recordId}:${attempt}`, system, user, schemaName: kind === "look" ? "section_look" : "scene_plan", schema,
+        maxTokens: kind === "plan" ? 2400 : 900, expectedCompletionTokens: kind === "plan" ? 900 : 350 });
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
       await store.recordSpend({ kind, recordId, model: model.id, outcome: `error: ${lastError.slice(0, 120)}`, costUsd: null, promptTokens: null, completionTokens: null, elapsedMs: 0 });
@@ -265,14 +270,15 @@ export async function prepareMoment(options: {
     const formlessCanon = hasFormlessCast
       ? `\n\nNO-FORM CANON CONSTRAINTS (planning context; fixed descriptions are not scene-plan fields):\n${formlessConstraints}`
       : "";
-    const user = `WORK BRIEF\nTone: ${brief.tone}\nDepiction rules:\n${rules}\nEra: ${era.label}. People: ${era.people} Dress: ${era.dress} Technology: ${era.technology}\nSTORY SECTION: ${sectionPayload.title}\nSECTION LOOK: place: ${lookPayload.place}; time: ${lookPayload.timeOfDay}; weather: ${lookPayload.weather}; light: ${lookPayload.light}; clothing: ${lookPayload.clothing}\nCAST ON STAGE IN THIS SECTION (id: name):\n${cast.map((c) => `- ${c.entryId}: ${c.name}${hasFormlessCast ? ` (hasForm: ${c.hasForm})` : ""}`).join("\n") || "- (no one listed)"}${formlessCanon}\n\nMOMENT (${options.context.moment.reference}): ${options.context.moment.text}\nPREVIOUS: ${options.context.previous?.text.slice(0, 400) ?? "(section starts here)"}\nNEXT: ${options.context.next?.text.slice(0, 400) ?? "(section ends here)"}`;
+    const neighbors = planningNeighbors(options.context);
+    const user = `WORK BRIEF\nTone: ${brief.tone}\nDepiction rules:\n${rules}\nEra: ${era.label}. People: ${era.people} Dress: ${era.dress} Technology: ${era.technology}\nSTORY SECTION: ${sectionPayload.title}\n\nMOMENT (${options.context.moment.reference}): ${options.context.moment.text}\nPREVIOUS: ${neighbors.previous ?? "(section starts here)"}\nNEXT: ${neighbors.next ?? "(section ends here)"}\n\nCAST ON STAGE IN THIS SECTION (id: name):\n${cast.map((c) => `- ${c.entryId}: ${c.name}${hasFormlessCast ? ` (hasForm: ${c.hasForm})` : ""}`).join("\n") || "- (no one listed)"}${formlessCanon}\n\nSECTION LOOK (shared conditions; not evidence of moment presence): place: ${lookPayload.place}; time: ${lookPayload.timeOfDay}; weather: ${lookPayload.weather}; light: ${lookPayload.light}; clothing: ${lookPayload.clothing}`;
     const schema = planningResponseSchema(cast.map((c) => c.entryId), hasFormlessCast);
     // A schema-valid source gap is not a malformed reply to retry until it disappears.
     const value = await askOnce(model, store, "plan", options.momentId, schema, hasFormlessCast ? FORMLESS_PLAN_SYSTEM : PLAN_SYSTEM, user,
-      (reply) => reply.missingCast.length ? `required canon unavailable: ${reply.missingCast.join(", ")}` : null);
-    const { present, missingCast: _ignored, ...fields } = value;
+      (reply) => reply.missingCast.length ? `required canon unavailable: ${reply.missingCast.join(", ")}` : sceneGroundingProblem(reply.grounding, reply.present, options.context));
+    const { present, grounding, missingCast: _ignored, ...fields } = value;
     void _ignored;
-    return { kind: "plan" as const, momentId: options.momentId, entries: present.map((id) => ({ entryId: id, stageId: cast.find((c) => c.entryId === id)!.stageId })), plan: fields };
+    return { kind: "plan" as const, momentId: options.momentId, entries: present.map((id) => ({ entryId: id, stageId: cast.find((c) => c.entryId === id)!.stageId })), plan: fields, grounding };
   }, timing);
 
   const planPayload = plan.payload as unknown as { entries: Array<{ entryId: string; stageId: string }>; plan: z.infer<typeof planOutputSchema> };

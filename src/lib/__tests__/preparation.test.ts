@@ -11,6 +11,7 @@ import { modules } from "../../../tests/convex/modules";
 import { prepareMoment, createConvexPreparationStore, PreparationUnavailableError, type MomentContext } from "../engine/preparation";
 import type { TextModel, TextModelRequest, TextModelResult } from "../reading-pass/model";
 import type { WorkBrief } from "../work-preparation";
+import { withGrounding } from "../../../tests/fixtures/scene-grounding";
 
 const SECRET = "s".repeat(40);
 process.env.CONVEX_SERVER_SECRET = SECRET;
@@ -35,7 +36,7 @@ function scriptedModel(answer: (request: TextModelRequest) => unknown, costUsd =
 }
 const lookAnswer = { place: "Lakeshore with two boats", timeOfDay: "dawn", weather: "calm", light: "low sun", clothing: "wool tunics" };
 const planAnswer = (present: string[]) => ({ present, missingCast: [], primarySubject: "Jonah kneeling", action: "mends nets", setting: "shore", secondaryElements: "boats", mood: "quiet", timeOfDay: "dawn", composition: "wide" });
-const defaultAnswer = (request: TextModelRequest) => request.label.startsWith("look:") ? lookAnswer : planAnswer(["jonah"]);
+const defaultAnswer = (request: TextModelRequest) => request.label.startsWith("look:") ? lookAnswer : withGrounding(planAnswer(["jonah"]), `Text of ${request.label.split(":")[1]}.`);
 
 const records = [
   { kind: "entry" as const, recordId: "jonah", payload: { kind: "entry" as const, name: "Jonah", entryKind: "character" as const, hasForm: true, stages: [{ id: "young", text: "Jonah: young fisherman." }, { id: "old", text: "Jonah: weathered sailor." }] } },
@@ -70,6 +71,10 @@ describe("lazy looks and plans", () => {
     // The planner chose Jonah only; the stage comes from the section's assignment, not the first stage.
     expect(first.present).toEqual([{ entryId: "jonah", stageId: "old", version: expect.any(String) }]);
     expect(first.plan.payload.present).toEqual(["jonah"]);
+    const saved = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "alpha-1-1" });
+    if (saved?.payload.kind !== "plan") throw new Error("Missing stored plan");
+    expect(saved.payload.grounding).toEqual(withGrounding(planAnswer(["jonah"]), "Text of alpha-1-1.").grounding);
+    expect(saved.payload.plan).not.toHaveProperty("grounding");
     expect(model.calls[1].user).toContain("NEXT: Text of alpha-1-2.");
     expect(model.calls[1].user).toContain("PREVIOUS: (section starts here)");
     expect(model.calls[1].user).not.toMatch(/style|classical/i);

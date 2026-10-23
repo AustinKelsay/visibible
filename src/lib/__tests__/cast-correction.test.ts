@@ -13,6 +13,7 @@ import { createConvexPreparationStore } from "../engine/preparation";
 import { assembleRendering } from "../engine/assemble";
 import { readWorkInputs, type WorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
+import { withGrounding } from "../../../tests/fixtures/scene-grounding";
 
 const SECRET = "s".repeat(40), WORK = "cast-fixture";
 process.env.CONVEX_SERVER_SECRET = SECRET;
@@ -118,7 +119,7 @@ describe("missing cast correction", () => {
       calls.push(request);
       const value = request.schemaName === "section_look" ? { place: "court", timeOfDay: "night", weather: "still", light: "lamps", clothing: "robes" }
         : { missingCast: [], present: corrected && request.user.includes("MOMENT (Court 2)") ? ["watcher", "assembly"] : ["watcher"], primarySubject: "The watcher looks toward the seat", action: "watching", setting: "court", secondaryElements: "lamps", mood: "quiet", timeOfDay: "night", composition: "wide" };
-      return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 1, completionTokens: 1, costUsd: 0 }, elapsedMs: 0 };
+      return { content: JSON.stringify(value.present ? withGrounding({ ...value, present: value.present }, work.getUnit(request.label.split(":")[1]).text) : value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 1, completionTokens: 1, costUsd: 0 }, elapsedMs: 0 };
     } };
     const client = { query: (ref: never, args: never) => t.query(ref, args), mutation: (ref: never, args: never) => t.mutation(ref, args) };
     const store = createConvexPreparationStore(client as never, api.analysis as never, WORK, SECRET);

@@ -15,7 +15,7 @@ These guides describe the repository's current behavior. Source links identify t
 | Saved images, shared history or remote image storage | [Image persistence](context/IMAGE-PERSISTENCE.md) |
 | A work's analysis: generations, canon versions, looks, plans, references and attention | [Analysis storage](context/ANALYSIS-STORAGE.md) |
 | Reading a work into sections, moments, a cast and a draft brief | [Work preparation](context/WORK-PREPARATION.md) |
-| Section looks and scene plans made lazily for the generic engine | [Scene preparation](context/SCENE-PREPARATION.md) |
+| Section looks and scene plans made lazily for the generic engine | [Scene preparation](context/SCENE-PREPARATION.md) (source-grounded scene choice, shared looks and lazy plan caching) |
 | Correcting a work's analysis after the fact, attention items, wiping a work | [Owner corrections runbook](workflow/OWNER-CORRECTIONS.md) |
 | Public image API | [Public API](context/PUBLIC-IMAGE-API.md) |
 | Chat streaming or context | [Chat](context/CHAT.md) |

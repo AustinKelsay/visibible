@@ -11,6 +11,7 @@ import { createConvexPreparationStore, FORMLESS_LOOK_PROMPT_VERSION, FORMLESS_PL
 import { readWorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { responseSchema } from "../reading-pass/prompts";
+import { withGrounding } from "../../../tests/fixtures/scene-grounding";
 
 const evidence = new URL("../../../llm/releases/2026-10-22-daniel-cast-repair/", import.meta.url);
 const snapshot: { records: Array<{ record: AnalysisRecord | null }> } = JSON.parse(readFileSync(new URL("after-9.json", evidence), "utf8"));
@@ -60,7 +61,8 @@ describe("no-form section look and canon separation", () => {
     let lookAttempt = 0;
     const model: TextModel = { id: "scripted", complete: async (request) => {
       requests.push(request);
-      const value = request.schemaName === "section_look" ? lookReplies[lookAttempt++] : { ...retainedPlan, missingCast: [] };
+      // Synthetic evidence assertions do not endorse the historical plan's scene or cast.
+      const value = request.schemaName === "section_look" ? lookReplies[lookAttempt++] : withGrounding({ ...retainedPlan, missingCast: [] }, scene.context.moment.text);
       if (!value) throw new Error("Unexpected scripted call");
       return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop",
         usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 }, elapsedMs: 0 };
