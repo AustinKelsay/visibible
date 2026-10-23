@@ -1,9 +1,13 @@
 {
-  "at": "2026-10-23T16:06:58.110Z",
+  "at": "2026-10-23T16:16:11.507Z",
   "perCell": 5,
   "scorerAgreement": {
+    "scope": "all flags, including notes",
     "scorable": 40,
     "agreed": 40,
+    "blockerAgreed": 40,
+    "noteAgreed": 40,
+    "noteDisagreed": 0,
     "adjudicated": 0
   },
   "cells": {

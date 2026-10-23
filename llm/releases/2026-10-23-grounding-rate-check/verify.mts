@@ -95,15 +95,16 @@ const blockers = ["U", "X", "I", "F"] as const;
 const scoreOf = (name: string) => new Map(json(name).scores.map((s: { blindId: string; flags: Record<string, boolean> }) => [s.blindId, s.flags]));
 const op = scoreOf("scores-operator.json"), sa = scoreOf("scores-subagent.json");
 const adjudicated = new Map(json("adjudication.json").decisions.map((d: { blindId: string; flags: Record<string, boolean> }) => [d.blindId, d.flags]));
-let agreed = 0;
+let agreed = 0, blockerAgreed = 0, noteAgreed = 0;
 const counts: Record<string, Record<string, number>> = {};
 for (const k of key) {
   const a = op.get(k.blindId) as Record<string, boolean>, b = sa.get(k.blindId) as Record<string, boolean>;
-  const same = blockers.every((f) => a[f] === b[f]); if (same) agreed++;
+  const blockersSame = blockers.every((f) => a[f] === b[f]), same = blockersSame && a.N === b.N;
+  if (same) agreed++; if (blockersSame) blockerAgreed++; if (a.N === b.N) noteAgreed++;
   const flags = (same ? a : adjudicated.get(k.blindId)) as Record<string, boolean>; assert.ok(flags);
   const pass = k.outcome === "stored" && blockers.every((f) => !flags[f]);
   (counts[k.contract] ??= {})[k.unit] = (counts[k.contract][k.unit] ?? 0) + (pass ? 1 : 0);
 }
-assert.equal(tally.scorerAgreement.agreed, agreed);
+assert.equal(tally.scorerAgreement.agreed, agreed); assert.equal(tally.scorerAgreement.blockerAgreed, blockerAgreed); assert.equal(tally.scorerAgreement.noteAgreed, noteAgreed);
 for (const c of ["v3", "v4"]) for (const u of units) assert.equal(tally.cells[c][u].pass, counts[c][u] ?? 0, `${c} ${u}`);
 console.log(JSON.stringify({ hashes: Object.keys(manifest).length, samplesReplayed: samples.length, providerReplies: traces.length, measuredUsd: measured, scorerAgreement: agreed, passes: counts, networkCalls: 0, productionMutations: 0 }));

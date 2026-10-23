@@ -12,12 +12,15 @@ assert.ok(Date.parse(adjudication.at) >= Math.max(Date.parse(operator.at), Date.
 const byId = (scores: { scores: Array<{ blindId: string; flags: Flags }> }) => new Map(scores.scores.map((s) => [s.blindId, s.flags]));
 const op = byId(operator), sa = byId(subagent), settled = new Map<string, { flags: Flags; rationale: string }>(adjudication.decisions.map((d: { blindId: string; flags: Flags; rationale: string }) => [d.blindId, d]));
 const scorable = blind.replies.filter((r: { scene: unknown }) => r.scene).map((r: { blindId: string }) => r.blindId);
-let agreed = 0;
+let agreed = 0, blockerAgreed = 0, noteAgreed = 0;
 const finalFlags = new Map<string, Flags>();
 for (const id of scorable) {
   const a = op.get(id)!, b = sa.get(id)!; assert.ok(a && b, `missing score for ${id}`);
-  const same = blockers.every((f) => a[f] === b[f]);
-  if (same) { agreed++; assert.ok(!settled.has(id) || blockers.every((f) => settled.get(id)!.flags[f] === a[f])); finalFlags.set(id, a); }
+  // Notes never block a pass, but any differing flag, note included, needs a recorded decision.
+  const blockersSame = blockers.every((f) => a[f] === b[f]), noteSame = a.N === b.N, same = blockersSame && noteSame;
+  if (blockersSame) blockerAgreed++;
+  if (noteSame) noteAgreed++;
+  if (same) { agreed++; assert.ok(!settled.has(id) || [...blockers, "N" as const].every((f) => settled.get(id)!.flags[f] === a[f])); finalFlags.set(id, a); }
   else { assert.ok(settled.has(id), `disagreement ${id} needs adjudication`); finalFlags.set(id, settled.get(id)!.flags); }
 }
 const cells: Record<string, Record<string, { taken: number; stored: number; refused: number; invalid: number; clean: number; pass: number; flags: Record<string, number> }>> = {};
@@ -36,6 +39,6 @@ const per = plan.samples.perCell;
 const everyMoment = (c: string, test: (pass: number) => boolean) => plan.samples.moments.every((u: string) => test(cells[c][u].pass));
 const verdict = ["v3", "v4"].some((c) => everyMoment(c, (p) => p >= 4)) ? "converging"
   : plan.samples.moments.some((u: string) => ["v3", "v4"].every((c) => cells[c][u].pass <= 2)) ? "notConverging" : "mixed";
-save("tally.json", { at: new Date().toISOString(), perCell: per, scorerAgreement: { scorable: scorable.length, agreed, adjudicated: scorable.length - agreed }, cells, totals, verdict, interpretation: plan.interpretation[verdict] });
-console.log(JSON.stringify({ agreed, scorable: scorable.length, totals, verdict }));
+save("tally.json", { at: new Date().toISOString(), perCell: per, scorerAgreement: { scope: "all flags, including notes", scorable: scorable.length, agreed, blockerAgreed, noteAgreed, noteDisagreed: scorable.length - noteAgreed, adjudicated: scorable.length - agreed }, cells, totals, verdict, interpretation: plan.interpretation[verdict] });
+console.log(JSON.stringify({ agreed, blockerAgreed, noteAgreed, scorable: scorable.length, totals, verdict }));
 for (const c of ["v3", "v4"]) for (const u of plan.samples.moments) console.log(c, u, JSON.stringify(cells[c][u]));
