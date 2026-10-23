@@ -11,7 +11,7 @@ import { evaluationModel } from "./model.mjs";
 const [command] = process.argv.slice(2);
 assert.ok(command === "dry-run" || (command === "run" && process.argv.includes("--execute")));
 const plan = json("plan.json"), snapshot = rate("snapshot.json"), blind = rate("blind-replies.json");
-assert.equal(PLAN_REVIEW_PROMPT_VERSION, plan.checker.promptVersion);
+assert.equal(PLAN_REVIEW_PROMPT_VERSION, plan.arms[process.env.REVIEW_ARM ?? "haiku-none"].promptVersion ?? plan.checker.promptVersion);
 const inputs = await readWorkInputs("bible-web", root);
 assert.equal(inputs.workVersion, snapshot.status.workVersion); assert.equal(inputs.briefVersion, snapshot.status.briefVersion);
 const rules = inputs.brief.depictionRules.map((r) => `- ${r.text}`).join("\n") || "- none";

@@ -4,7 +4,7 @@
   "authorization": "Owner approved option (b) on 2026-10-23: a semantic check of each plan before storage with a bounded re-plan, plus relaxing the exact evidence-list rule. This measurement is charged to the existing evaluation allowance.",
   "checker": {
     "module": "src/lib/engine/plan-review.ts",
-    "promptVersion": "2026-10-23-plan-review-v1",
+    "promptVersion": "2026-10-23-plan-review-v2",
     "model": "anthropic/claude-haiku-5.5",
     "reasoning": "none"
   },
@@ -36,7 +36,9 @@
       "status": "run first; results.json",
       "reasoningEffort": "none",
       "maxTokens": 900,
-      "outputDir": "."
+      "outputDir": ".",
+      "promptVersion": "2026-10-23-plan-review-v1",
+      "systemText": "system-v1.txt"
     },
     "haiku-low": {
       "declaredAfter": "haiku-none missed the false-alarm target (25/25 clean replies flagged).",
@@ -47,7 +49,22 @@
       "evaluationCapUsd": 0.05,
       "evaluationMeasuredBeforeUsd": 16.3428687,
       "targets": "Same three targets and decision rule as targets above.",
-      "ifMissed": "Do not wire any checker. Report both arms; a stronger model or option (c) needs the owner's decision and budget."
+      "ifMissed": "Do not wire any checker. Report both arms; a stronger model or option (c) needs the owner's decision and budget.",
+      "promptVersion": "2026-10-23-plan-review-v1",
+      "systemText": "system-v1.txt"
+    },
+    "haiku-low-v2": {
+      "declaredAfter": "haiku-low missed recall (12/15) and false alarms (7/25). Six of its seven false alarms flagged next-verse scenery (the river of fire) that the scoring rubric excludes, and that a re-plan could not remove because it comes from the shared section look.",
+      "change": "Prompt v2 aligns the checker's scope with the rubric, without moment-specific names: outside_instant covers figures and selected place entries, not scenery or effects; not_one_instant and embodied_formless gain generic examples (successive steps, effects called seated). Model, reasoning low, maxTokens 4000, schema, validation and benchmark unchanged.",
+      "promptVersion": "2026-10-23-plan-review-v2",
+      "reasoningEffort": "low",
+      "maxTokens": 4000,
+      "outputDir": "haiku-low-v2",
+      "evaluationCapUsd": 0.04,
+      "evaluationMeasuredBeforeUsd": 16.3619505,
+      "overfitting": "This arm is tuned on the 40-reply benchmark, so its result there is optimistic. If wired, the fresh blind-scored repeated-sample run afterwards is the held-out test of the whole plan-and-review pipeline.",
+      "targets": "Same three targets and decision rule.",
+      "ifMissed": "Do not wire any checker. Report all arms for the owner."
     }
   }
 }
