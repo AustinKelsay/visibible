@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-23T21:49:54.692478+00:00",
+  "at": "2026-10-23T21:52:45.737863+00:00",
   "rounds": [
     {
       "review": "coderabbit-round-1.ndjson",
@@ -48,6 +48,11 @@
           "disposition": "Accepted. The README's scoring-drift section now says one of the 37 agreements (99a7535b, baseline f3bd238e) was settled by the operator to match the baseline decision, and reports 36 of 39 for replies the scorers agreed on themselves. No score or retained data changed; the three other decisions were on new replies and are already disclosed as matching identical baseline cases."
         }
       ]
+    },
+    {
+      "review": "coderabbit-final.ndjson",
+      "unreviewedFiles": 1,
+      "findings": []
     }
   ]
 }
