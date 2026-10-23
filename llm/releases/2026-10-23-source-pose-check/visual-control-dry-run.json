@@ -1,0 +1,82 @@
+{
+ "entries": [
+  {
+   "key": "numbers-3-39-census/generic:watercolor/1",
+   "caseId": "numbers-3-39-census",
+   "reference": "Numbers 3:39",
+   "arm": "generic:watercolor",
+   "n": 1,
+   "estimatedUsd": 0.051,
+   "status": "planned"
+  },
+  {
+   "key": "numbers-3-39-census/generic:watercolor/2",
+   "caseId": "numbers-3-39-census",
+   "reference": "Numbers 3:39",
+   "arm": "generic:watercolor",
+   "n": 2,
+   "estimatedUsd": 0.051,
+   "status": "planned"
+  },
+  {
+   "key": "daniel-7-9-ancient-of-days/generic:watercolor/1",
+   "caseId": "daniel-7-9-ancient-of-days",
+   "reference": "Daniel 7:9",
+   "arm": "generic:watercolor",
+   "n": 1,
+   "estimatedUsd": 0.051,
+   "status": "planned"
+  },
+  {
+   "key": "daniel-7-9-ancient-of-days/generic:watercolor/2",
+   "caseId": "daniel-7-9-ancient-of-days",
+   "reference": "Daniel 7:9",
+   "arm": "generic:watercolor",
+   "n": 2,
+   "estimatedUsd": 0.051,
+   "status": "planned"
+  },
+  {
+   "key": "exodus-14-22-sea-walls/generic:watercolor/1",
+   "caseId": "exodus-14-22-sea-walls",
+   "reference": "Exodus 14:22",
+   "arm": "generic:watercolor",
+   "n": 1,
+   "estimatedUsd": 0.051,
+   "status": "planned"
+  },
+  {
+   "key": "exodus-14-22-sea-walls/generic:watercolor/2",
+   "caseId": "exodus-14-22-sea-walls",
+   "reference": "Exodus 14:22",
+   "arm": "generic:watercolor",
+   "n": 2,
+   "estimatedUsd": 0.051,
+   "status": "planned"
+  },
+  {
+   "key": "luke-10-34-care/generic:watercolor/1",
+   "caseId": "luke-10-34-care",
+   "reference": "Luke 10:34",
+   "arm": "generic:watercolor",
+   "n": 1,
+   "estimatedUsd": 0.051,
+   "status": "planned"
+  },
+  {
+   "key": "luke-10-34-care/generic:watercolor/2",
+   "caseId": "luke-10-34-care",
+   "reference": "Luke 10:34",
+   "arm": "generic:watercolor",
+   "n": 2,
+   "estimatedUsd": 0.051,
+   "status": "planned"
+  }
+ ],
+ "plannedCalls": 8,
+ "doneCalls": 0,
+ "estimatedUsd": 0.408,
+ "budgetUsd": 2,
+ "withinBudget": true,
+ "omitStyleReference": true
+}

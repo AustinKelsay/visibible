@@ -1,0 +1,46 @@
+{
+  "issue": 183,
+  "purpose": "Focused source-support and single-instant repair. Text only over retained local records; no production access or image generation.",
+  "authorization": "Owner said ok continue after recommending a focused repair and a small image check. This text operation uses only the existing $16.95 evaluation allowance; no increase, image spend, public activation, or advance preparation.",
+  "pipeline": {
+    "momentCast": "2026-10-23-moment-cast-v7",
+    "formlessPlan": "2026-10-23-formless-effects-v7",
+    "review": "2026-10-23-plan-review-v4",
+    "baselineReview": "2026-10-23-plan-review-v3"
+  },
+  "baseline": "../2026-10-23-cast-policy-check",
+  "cases": {
+    "defects": [
+      "s001",
+      "s059",
+      "s067",
+      "s074"
+    ],
+    "ordinaryLightControls": [
+      "s027",
+      "s034",
+      "s035"
+    ],
+    "repeats": 3,
+    "reviewRepeats": 2
+  },
+  "method": "Old/new paired review of three exact previously stored defective plans, three minimally repaired controls, and two synthetic positive controls, twice each (32 review operations). Then 21 candidate prepareMoment operations (same seven retained verses, three times each), fresh memory store and ordinary cold looks. Interleave old then new by case/repeat. No tuning or reruns once frozen. Production model/adapter/default sampling, low reasoning on reviews, ordinary malformed retry and one re-plan only.",
+  "acceptance": {
+    "review": "Every candidate defective review must report every listed expected kind/entryId target (8 targets across 6 reviews). All 10 candidate control reviews must return no problems. No unavailable reviews. Baseline also measured without assuming its old false-clean outcomes repeat.",
+    "pipeline": "At least 15 of 21 must store acceptable scenes, with no flawed stored scene (including unsupported selected or unselected no-form presence, framing figures, embodied no-form, incompatible poses or object states). All first outcomes scored against source/cast. Refusals never count as repairs. Selected diagnostic repeats and operator scoring are not a population or image-quality result.",
+    "release": "No public release acceptance is established. Source/cast semantics, visual matrix, likeness, actual-app latency/accounting and human decision remain release gates."
+  },
+  "evaluation": {
+    "authorizedUsd": 16.95,
+    "measuredBeforeUsd": 16.8029355,
+    "uncertaintyBeforeUsd": 0.045,
+    "capUsd": 0.085,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 160,
+    "stopBeforeSampleHeadroomUsd": 0.012
+  },
+  "retryPolicy": "One-shot ledger. Reserve before each call; stop on unknown cost, provider error, request drift, review unavailable or budget cap. Start no operation without $0.012 of cap headroom. Retain every first reply and failure; no restart or extra paid retries. Stop before the pipeline if the complete candidate direct-review gate fails.",
+  "audit": "Commit protocol, exact case inputs, source/fixture hashes and first-request dry-run hashes before paid calls. Replay every retained request/response offline and check ledger/caps. Operator scores with exact field quotes; no independent or blind scorer.",
+  "publicActivation": false,
+  "humanAccepted": false
+}

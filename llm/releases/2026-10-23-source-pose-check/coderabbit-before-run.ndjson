@@ -1,0 +1,10 @@
+{"type":"review_context","reviewType":"uncommitted","currentBranch":"fix/source-supported-scene-review","baseBranch":"origin/dev","workingDirectory":"/Users/plebdev/.t3/worktrees/visibible/feat-work-reference-imports","expectedDuration":"Reviews usually take 2-6 minutes and can take up to 15. Keep this command running for at least 15 minutes or run it in the background; stopping it early discards the review."}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"complete","status":"review_completed","findings":0,"reviewedFiles":["src/lib/__tests__/cast-policy.test.ts","src/lib/__tests__/formless-selection.test.ts","src/lib/engine/plan-review.ts","src/lib/engine/preparation.ts"],"outcome":"completed","message":"Review completed"}
