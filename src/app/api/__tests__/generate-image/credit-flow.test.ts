@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { withCleanReview } from "../../../../../tests/fixtures/plan-review";
 import { imageModelFixture } from "../shared/image-model-fixtures";
 /**
  * Integration tests for image generation API credit flow.
@@ -573,7 +574,7 @@ describe("Image Generation API Credit Flow", () => {
     let modelFailure: Error | null = null;
     let missingCast: string[] = [];
     let singleInstant = true;
-    const textModel: TextModel = {
+    const textModel: TextModel = withCleanReview({
       id: "scripted",
       async complete(request) {
         modelCalls.push(request.label);
@@ -582,7 +583,7 @@ describe("Image Generation API Credit Flow", () => {
         plan.grounding.singleInstant = singleInstant;
         return { content: JSON.stringify(request.schemaName === "section_look" ? lookAnswer : plan), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd: 0.0004 }, elapsedMs: 1 };
       },
-    };
+    });
     let blobFailures = new Set<string>();
     let loadedBlobs: string[] = [];
     const loadReferenceBytes = async (_runtime: unknown, storageId: string) => {
@@ -644,7 +645,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(getCallCount("reserveCredits")).toBe(1);
       expect(getCallCount("deductCredits")).toBe(1);
       expect(getCallCount("logAdminUsage")).toBe(0);
-      expect(await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).toHaveLength(2);
+      expect(await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).toHaveLength(3); // look, plan and its review
     });
 
     it("renders a cold moment with references and WEB text, then reuses the look and plan for another style", async () => {
@@ -665,13 +666,13 @@ describe("Image Generation API Credit Flow", () => {
       expect(parts[1].image_url!.url).toBe(`data:image/jpeg;base64,${Buffer.from(`jpeg:${styleBlob}`).toString("base64")}`);
       expect(parts[2].image_url!.url).toBe(`data:image/jpeg;base64,${Buffer.from(`jpeg:${sheetBlob}`).toString("base64")}`);
       // Settled from actual usage ($0.01 → 2 credits) after a headroom reservation; the owner paid for the look and plan separately.
-      expect(result).toMatchObject({ engine: "generic", translationId: "web", requestTranslationId: "web", verseText: webText[1], creditsCost: 2, usedActualCost: true, credits: 998, style: "watercolor", preparation: { calls: 2, referencesSent: 2 } });
+      expect(result).toMatchObject({ engine: "generic", translationId: "web", requestTranslationId: "web", verseText: webText[1], creditsCost: 2, usedActualCost: true, credits: 998, style: "watercolor", preparation: { calls: 3, referencesSent: 2 } });
       expect(result.estimatedCreditsCost).toBeGreaterThanOrEqual(2);
       expect(mockState.sessions.get("test-session")!.credits).toBe(998);
       expect(getCallCount("reserveCredits")).toBe(1);
       expect(getCallCount("recordImageCostEvent")).toBe(1);
       expect(mockState.callHistory.find((c) => c.action === "recordImageCostEvent")!.args).toMatchObject({ styleProfileId: "watercolor", scenePlannerUsed: false, actualCreditsCost: 2 });
-      expect(await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).toHaveLength(2);
+      expect(await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).toHaveLength(3);
       // The request record carries the engine, its commitments and the exact packet snapshot.
       const [request] = await storedRequests();
       expect(request).toMatchObject({ engine: "generic", artStyleId: "watercolor", status: "succeeded", engineCommitments: { workId: WORK, momentId: "genesis-1-1", briefVersion: "bv", analysisGeneration: 1 } });
@@ -702,7 +703,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(imageCalls()).toHaveLength(1);
       expect((await storedRequests())[0].engineCommitments?.billingVersion).toBe("google-input-output-tokens-2026-10-20");
       expect(mockState.sessions.get("test-session")!.credits).toBe(998);
-      expect(await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).toHaveLength(2);
+      expect(await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).toHaveLength(3);
     });
 
     it("returns a retryable preparing error with no charge, no request record and no provider call when the look or plan cannot be made", async () => {
@@ -728,7 +729,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(response.status).toBe(503);
       expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true,
         message: expect.stringContaining("required canon unavailable: required source actor") });
-      expect(modelCalls).toHaveLength(2); // One look and one plan; no semantic retry.
+      expect(modelCalls).toHaveLength(2); // One look and one plan; a source gap is never re-planned.
       expect((await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((entry) => entry.outcome)).toEqual(["ok", "unavailable"]);
       expect(getCallCount("reserveCredits")).toBe(0);
       expect(imageCalls()).toHaveLength(0);
@@ -737,7 +738,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(await requestDb.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "genesis-1-1" })).toBeNull();
     });
 
-    it("stops a reported sequence before image reservation, request creation or reference loading without rerolling", async () => {
+    it("re-plans a reported sequence once, then stops before image reservation, request creation or reference loading", async () => {
       await prepareWork();
       singleInstant = false;
       const { POST } = await import("../../generate-image/route");
@@ -745,8 +746,8 @@ describe("Image Generation API Credit Flow", () => {
       expect(response.status).toBe(503);
       expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true,
         message: expect.stringContaining("scene requires successive instants") });
-      expect(modelCalls).toHaveLength(2);
-      expect((await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((entry) => entry.outcome)).toEqual(["ok", "unavailable"]);
+      expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "plan:genesis-1-1:1"]); // The single re-plan repeats the sequence.
+      expect((await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((entry) => entry.outcome)).toEqual(["ok", "unavailable", "unavailable"]);
       expect(getCallCount("reserveCredits")).toBe(0);
       expect(imageCalls()).toHaveLength(0);
       expect(loadedBlobs).toEqual([]);

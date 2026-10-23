@@ -3,6 +3,7 @@
  * reuse across styles and translations, section boundaries, selected cast and stages, targeted
  * invalidation, concurrent misses, failures without fallback, and recorded owner spend.
  */
+import { withCleanReview } from "../../../tests/fixtures/plan-review";
 import { describe, it, expect, beforeEach } from "vitest";
 import { convexTest } from "convex-test";
 import schema from "../../../convex/schema";
@@ -23,7 +24,7 @@ const brief: WorkBrief = {
 
 function scriptedModel(answer: (request: TextModelRequest) => unknown, costUsd = 0.0005) {
   const calls: TextModelRequest[] = [];
-  const model: TextModel & { calls: TextModelRequest[] } = {
+  const model: TextModel & { calls: TextModelRequest[] } = withCleanReview({
     id: "scripted", calls,
     async complete(request): Promise<TextModelResult> {
       calls.push(request);
@@ -31,7 +32,7 @@ function scriptedModel(answer: (request: TextModelRequest) => unknown, costUsd =
       if (value instanceof Error) throw value;
       return { content: typeof value === "string" ? value : JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd }, elapsedMs: 2 };
     },
-  };
+  });
   return model;
 }
 const lookAnswer = { place: "Lakeshore with two boats", timeOfDay: "dawn", weather: "calm", light: "low sun", clothing: "wool tunics" };
@@ -66,7 +67,7 @@ describe("lazy looks and plans", () => {
   it("makes the look once per section and the plan once per moment, shared by every style and translation", async () => {
     const model = scriptedModel(defaultAnswer);
     const first = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, "Text of alpha-1-2."), ...fast });
-    expect(first.calls).toBe(2);
+    expect(first.calls).toBe(3); // look, plan and its review
     expect(first.look.payload).toEqual(lookAnswer);
     // The planner chose Jonah only; the stage comes from the section's assignment, not the first stage.
     expect(first.present).toEqual([{ entryId: "jonah", stageId: "old", version: expect.any(String) }]);
@@ -81,7 +82,7 @@ describe("lazy looks and plans", () => {
 
     // Second moment of the same section: the look is reused, only a plan is made.
     const second = await prepareMoment({ workId: WORK, momentId: "alpha-1-2", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-2", "Text of alpha-1-1.", null), ...fast });
-    expect(second.calls).toBe(1);
+    expect(second.calls).toBe(2); // plan and review
     expect(second.look.version).toBe(first.look.version);
     // Any later request for the first moment, whatever the style or translation, makes no call.
     const again = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
@@ -89,11 +90,11 @@ describe("lazy looks and plans", () => {
     expect(again.plan.version).toBe(first.plan.version);
     // A moment in the next section gets its own look and the section's own stage for Jonah.
     const third = await prepareMoment({ workId: WORK, momentId: "alpha-1-4", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-4", null, null), ...fast });
-    expect(third.calls).toBe(2);
+    expect(third.calls).toBe(3);
     expect(third.present).toEqual([{ entryId: "jonah", stageId: "young", version: expect.any(String) }]);
     const spend = await t.query(api.analysis.getPreparationSpend, { workId: WORK });
-    expect(spend.calls).toBe(5);
-    expect(spend.costUsd).toBeCloseTo(0.0025, 6);
+    expect(spend.calls).toBe(8); // five look/plan calls and three reviews
+    expect(spend.costUsd).toBeCloseTo(0.0025 + 3 * 0.0001, 6);
   });
 
   it("uses a reassigned canon stage even when the refreshed look has identical content", async () => {
@@ -107,7 +108,7 @@ describe("lazy looks and plans", () => {
     const changed = await prepareMoment(options);
     expect(changed.look.version).toBe(first.look.version);
     expect(changed.present).toEqual([{ entryId: "jonah", stageId: "young", version: expect.any(String) }]);
-    expect(changed.calls).toBe(2);
+    expect(changed.calls).toBe(3);
     expect(model.calls.map((call) => call.schemaName)).toEqual(["section_look", "scene_plan", "section_look", "scene_plan"]);
   });
 
@@ -117,7 +118,7 @@ describe("lazy looks and plans", () => {
     // Owner edits the look: the plan named the old look version, so only the plan is remade.
     await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "alpha-1-1", payload: { kind: "look", sectionId: "alpha-1-1", ...lookAnswer, weather: "storm" } });
     const afterLookEdit = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
-    expect(afterLookEdit.calls).toBe(1);
+    expect(afterLookEdit.calls).toBe(2);
     expect(afterLookEdit.look.payload.weather).toBe("storm");
     expect(afterLookEdit.look.version).not.toBe(first.look.version);
     expect(model.calls[model.calls.length - 1].user).toContain("weather: storm");
@@ -127,15 +128,15 @@ describe("lazy looks and plans", () => {
     // A canon edit to Jonah invalidates both the look and the plan of his section.
     await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah", payload: { kind: "entry", name: "Jonah", entryKind: "character", hasForm: true, stages: [{ id: "young", text: "Jonah: edited." }, { id: "old", text: "Jonah: edited, older." }] } });
     const afterCanonEdit = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
-    expect(afterCanonEdit.calls).toBe(2);
+    expect(afterCanonEdit.calls).toBe(3);
     // Clearing the plan creates a future replan and leaves the look alone.
     await t.mutation(api.analysis.clearRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "alpha-1-1" });
     const afterClear = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
-    expect(afterClear.calls).toBe(1);
+    expect(afterClear.calls).toBe(2);
     expect(afterClear.look.version).toBe(afterCanonEdit.look.version);
     // A brief version change invalidates too, and the legacy scene plan cache is untouched throughout.
     const afterBrief = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv2", context: context("alpha-1-1", null, null), ...fast });
-    expect(afterBrief.calls).toBe(2);
+    expect(afterBrief.calls).toBe(3);
     expect(await t.run(async (ctx) => ctx.db.query("scenePlanCache").collect())).toEqual([]);
   });
 
@@ -152,7 +153,7 @@ describe("lazy looks and plans", () => {
     const [ra, rb] = await Promise.all([a, b]);
     expect(model.calls).toHaveLength(2);
     expect(ra.plan.version).toBe(rb.plan.version);
-    expect(ra.calls + rb.calls).toBe(2);
+    expect(ra.calls + rb.calls).toBe(3);
     expect(await t.query(api.analysis.getPreparationStatus, { workId: WORK, momentId: "alpha-1-1" })).toMatchObject({ ready: true, look: "ready", plan: "ready" });
   });
 
@@ -192,7 +193,7 @@ describe("lazy looks and plans", () => {
       }
     } };
     const result = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), holder: "me", ...sleepThenWrite });
-    expect(result.calls).toBe(1); // only the plan
+    expect(result.calls).toBe(2); // only the plan and its review
     expect(result.look.payload).toEqual(lookAnswer);
   });
 
@@ -213,7 +214,7 @@ describe("lazy looks and plans", () => {
       return base.claim(kind, recordId, holder, ttlMs);
     } };
     const result = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: racing, model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
-    expect(result.calls).toBe(1); // the plan only; the look was found after the claim
+    expect(result.calls).toBe(2); // the plan and its review; the look was found after the claim
     expect(model.calls.map((c) => c.label.split(":")[0])).toEqual(["plan"]);
   });
 });

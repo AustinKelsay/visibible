@@ -1,7 +1,7 @@
 ---
 status: accepted
 date: 2026-10-17
-updated: 2026-10-19
+updated: 2026-10-23
 ---
 
 # A generic image engine uses shared canon and optional reference images
@@ -35,3 +35,14 @@ Automatic analysis replaces the earlier proposal to approve every canon entry an
 - Quality remains evidence-driven: the selected proof was accepted, but it was not exhaustive. Icon borders remain a known limitation. Automatic no-form exclusion, actor/public-figure likeness restrictions and coarser retry after empty reading results are approved follow-ups, not demonstrated fixes in that run. Use [How are quality problems noticed and corrected after launch?](https://github.com/AustinKelsay/visibible/issues/163#issuecomment-6275088126) for release evaluation and reader-report handling.
 
 This amendment replaces the earlier manual-approval, repo-sheet and free-planner assumptions in this unmerged ADR. The [archived experiment](https://github.com/AustinKelsay/visibible/blob/82591cf926e2872d789a85f7fbf86e050529e55b/src/lib/engine.prototype/README.md) remains evidence, never production code to merge wholesale.
+
+## Amendment: plan review before storage (23 October 2026)
+
+Single-reply prompt contracts did not make scene plans reliable. [Blind-scored repeated samples](../../llm/releases/2026-10-23-grounding-rate-check/README.md) found 10/20 and 8/20 acceptable plans across two contract versions on the retained Luke and Daniel moments. The owner therefore approved a semantic plan check, replacing the earlier "no semantic validator or retry" rule for plans:
+
+- **Check:** each new plan is reviewed against its moment by a second Claude Haiku 5.5 call with low reasoning. The review sees only rendering-bound plan text, moment context, the cast and depiction rules. Code accepts its report only when each problem quotes the plan and names a fitting cast ID.
+- **Re-plan:** a plan rejected by the evidence checks or the review gets exactly one re-plan with the problems as feedback. A second rejection stops preparation as a retryable error before any image cost. Source gaps (`missingCast`) are never re-planned.
+- **Evidence list:** the planner may document excluded cast; order is free. An unselected entry claimed `in_scene` is still refused.
+- **Cost and latency:** about $0.0005 and 4.7 s median per review. Cold preparation gains one call, two after a re-plan. This likely exceeds the 20 s cold full-request target, which needs re-measurement and an owner decision at release.
+
+The checker configuration was selected on a [pre-declared benchmark](../../llm/releases/2026-10-23-plan-review-check/README.md) (13/15 defective plans caught, 3/25 false alarms after two rejected arms). Its held-out test is a fresh repeated run of the full pipeline. The review is a model judgment, not a guarantee; visual evaluation and human acceptance remain release gates.

@@ -1,4 +1,5 @@
 /** Missing cast repair over real storage and ordinary assembly; scripted plans do not prove model compliance. */
+import { withCleanReview } from "../../../tests/fixtures/plan-review";
 import { readFileSync } from "node:fs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { convexTest } from "convex-test";
@@ -115,12 +116,12 @@ describe("missing cast correction", () => {
     const saved = await t.run(async (ctx) => ctx.db.query("verseImages").collect());
     const calls: TextModelRequest[] = [];
     let corrected = false;
-    const model: TextModel = { id: "scripted", complete: async (request) => {
+    const model: TextModel = withCleanReview({ id: "scripted", complete: async (request) => {
       calls.push(request);
       const value = request.schemaName === "section_look" ? { place: "court", timeOfDay: "night", weather: "still", light: "lamps", clothing: "robes" }
         : { missingCast: [], present: corrected && request.user.includes("MOMENT (Court 2)") ? ["watcher", "assembly"] : ["watcher"], primarySubject: "The watcher looks toward the seat", action: "watching", setting: "court", secondaryElements: "lamps", mood: "quiet", timeOfDay: "night", composition: "wide" };
       return { content: JSON.stringify(value.present ? withGrounding({ ...value, present: value.present }, work.getUnit(request.label.split(":")[1]).text) : value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 1, completionTokens: 1, costUsd: 0 }, elapsedMs: 0 };
-    } };
+    } });
     const client = { query: (ref: never, args: never) => t.query(ref, args), mutation: (ref: never, args: never) => t.mutation(ref, args) };
     const store = createConvexPreparationStore(client as never, api.analysis as never, WORK, SECRET);
     const render = (n: number, styleId = "classical") => assembleRendering({ inputs, store, model, listMoments: async () => [], getReference: async () => null, loadReference: async () => new Uint8Array() },
@@ -131,7 +132,7 @@ describe("missing cast correction", () => {
     calls.length = 0;
     await add(); corrected = true;
     expect(calls).toHaveLength(0);
-    expect(await t.query(api.analysis.getPreparationSpend, { workId: WORK })).toMatchObject({ calls: 5 });
+    expect(await t.query(api.analysis.getPreparationSpend, { workId: WORK })).toMatchObject({ calls: 8 }); // two looks, three plans and their three reviews
     const after = await render(2);
     if (!after.ok) throw new Error(after.message);
     expect(calls.map((r) => r.schemaName)).toEqual(["section_look", "scene_plan"]);

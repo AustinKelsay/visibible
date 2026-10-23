@@ -1,4 +1,5 @@
 /** Retained live failure through ordinary planning; scripted replay is not model-obedience evidence. */
+import { withCleanReview } from "../../../tests/fixtures/plan-review";
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
@@ -45,13 +46,13 @@ async function plan(content = retainedContent, showing?: unknown) {
     getActiveRecord: async (kind, id) => records.find((r) => r.kind === kind && r.recordId === id) ?? null,
     putDerivedRecord: write, claim: async () => ({ held: true }), release: async () => {}, recordSpend: spend,
   };
-  const model: TextModel = { id: "scripted", complete: async (request) => {
+  const model: TextModel = withCleanReview({ id: "scripted", complete: async (request) => {
     requests.push(request);
     const answer = request.schemaName === "section_look" ? JSON.stringify({ place: frozenLook.place, timeOfDay: frozenLook.timeOfDay,
       weather: frozenLook.weather, light: frozenLook.light, clothing: frozenLook.clothing }) : JSON.stringify(withGrounding({ ...JSON.parse(content), missingCast: [] }, input.context.moment.text));
     return { content: answer, model: "scripted", providerRequestId: null, finishReason: "stop",
       usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 }, elapsedMs: 0 };
-  } };
+  } });
   const result = await prepareMoment({ workId: "bible-web", momentId: "daniel-7-9", store, model,
     brief: inputs.brief, briefVersion: inputs.briefVersion, context: input.context, holder: "canon-separation-test" });
   const getReference = vi.fn<AssembleDeps["getReference"]>(async () => null);
@@ -94,7 +95,7 @@ describe("no-form plan and canon separation", () => {
     expect(result.plan.payload.secondaryElements).toContain("brilliant white light");
     expect(result.present.map((p) => p.entryId)).toEqual(retainedPlan.present);
     expect(write.mock.calls.filter(([args]) => args.kind === "plan")).toHaveLength(1);
-    expect(spend.mock.calls.filter(([args]) => args.kind === "plan")).toHaveLength(1);
+    expect(spend.mock.calls.filter(([args]) => args.kind === "plan").map(([args]) => args.outcome)).toEqual(["ok", "review ok"]);
     expect(spend).toHaveBeenCalledWith(expect.objectContaining({ outcome: "ok", costUsd: 0 }));
   });
 
