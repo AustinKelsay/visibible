@@ -25,7 +25,8 @@ export function planningNeighbors(context: MomentContext) {
   return { previous: context.previous?.text.slice(0, PLAN_NEIGHBOR_CHARS) ?? null, next: context.next?.text.slice(0, PLAN_NEIGHBOR_CHARS) ?? null };
 }
 
-const flat = (value: string) => value.replace(/\s+/g, " ").trim();
+// Case is typographic (a quoted clause may lose its sentence-initial capital); words and order still match.
+const flat = (value: string) => value.replace(/\s+/g, " ").trim().toLowerCase();
 const wordStart = /^[\p{L}\p{N}]/u, wordEnd = /[\p{L}\p{N}]$/u;
 // An apostrophe between letters continues a word ("can't"), except a possessive "'s" ending.
 const continuesAfter = /^['\u2019]\p{L}/u, possessiveAfter = /^['\u2019]s(?![\p{L}\p{N}])/u, continuesBefore = /\p{L}['\u2019]$/u;
@@ -42,7 +43,7 @@ function findWhole(source: string, fragment: string, from: number) {
 }
 
 /**
- * Formatting whitespace can differ in a JSON reply; words, case and punctuation must match.
+ * Formatting whitespace and letter case can differ in a JSON reply; words and punctuation must match.
  * A quote may skip words only at an explicit ellipsis: each fragment must then be exact, whole
  * words, and after the previous one. Unmarked joins are refused, since a guessed sentence break
  * (an abbreviation such as "Dr.") could splice words into a quote the source never contains.
@@ -66,7 +67,7 @@ export function containsQuote(text: string | null, quote: string) {
  * Records for excluded cast are not quote-checked; they explain a choice and select no one.
  * Preparation re-plans once after a failure here or in the plan review.
  */
-export function sceneGroundingProblem(grounding: SceneGrounding, present: string[], context: MomentContext, castIds: readonly string[]): string | null {
+export function sceneGroundingProblem(grounding: SceneGrounding, present: string[], context: MomentContext, castIds: readonly string[], continuingIds: readonly string[] = []): string | null {
   if (!grounding.singleInstant) return "scene requires successive instants";
   if (!grounding.instant.trim()) return "scene instant is not stated";
   if (!containsQuote(context.moment.text, grounding.focusQuote)) return "scene focus is not quoted from the current moment";
@@ -84,7 +85,9 @@ export function sceneGroundingProblem(grounding: SceneGrounding, present: string
   const neighbors = planningNeighbors(context);
   for (const entry of grounding.cast.filter((e) => present.includes(e.entryId))) {
     if (entry.participation !== "in_scene") return `cast ${entry.entryId} is ${entry.participation}, not participating in the chosen instant`;
-    if (!containsQuote(context.moment.text, entry.momentQuote)) return `cast ${entry.entryId} lacks current-moment evidence`;
+    // A location or object may continue from a neighbor; characters and groups need words from the moment.
+    const continuing = continuingIds.includes(entry.entryId) && entry.contextSource !== "none" && containsQuote(neighbors[entry.contextSource], entry.contextQuote);
+    if (!continuing && !containsQuote(context.moment.text, entry.momentQuote)) return `cast ${entry.entryId} lacks current-moment evidence`;
     if (entry.contextSource === "none") {
       if (entry.contextQuote.trim()) return `cast ${entry.entryId} has context evidence without a source`;
     } else if (!containsQuote(neighbors[entry.contextSource], entry.contextQuote)) {

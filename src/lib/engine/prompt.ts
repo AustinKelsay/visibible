@@ -11,7 +11,7 @@ import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
 
 /** Structure and wording of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. */
-export const GENERIC_PROMPT_VERSION = "2026-10-22-generic-v4";
+export const GENERIC_PROMPT_VERSION = "2026-10-23-generic-v5";
 export const GENERIC_PROMPT_MAX_CHARS = 8000;
 export const MAX_REFERENCE_IMAGES = 3;
 const MOMENT_TEXT_MAX_CHARS = 1200;
@@ -72,7 +72,7 @@ export const ENGINE_RULES = [
   "No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).",
   `${COMMON_CONTENT_FLOOR.prohibited.join(" and ").toLowerCase()} are never shown; ${COMMON_CONTENT_FLOOR.permitted.join(" and ").toLowerCase()} may be, treated seriously.`,
   "No likeness of any real actor, performer or public figure.",
-  "Depict only the SELECTED CHARACTERS, including groups and no-form subjects. The shared look, source narrators and neighbors do not add cast; apply shared clothing only to selected characters.",
+  "Depict the SELECTED CHARACTERS, including groups and no-form subjects, with their canon. Other people, crowds or animals appear only where the scene plan describes them, as unnamed incidental figures without fixed appearance. The shared look, source narrators and neighbors do not add figures; apply shared clothing only to selected characters.",
 ];
 export const PRECEDENCE_LINE = "If instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.";
 
@@ -129,7 +129,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   let references = selectReferences(input.canon, input.references ?? [], style.id);
   const names = input.canon.filter((c) => c.hasForm).map((c) => c.name);
   const formless = input.canon.filter((c) => !c.hasForm);
-  const selectedCharacters = `SELECTED CHARACTERS: ${input.canon.filter((c) => c.kind === "character").map((c) => c.name).join("; ") || "(none; no people, beings, animals or groups)"}`;
+  const selectedCharacters = `SELECTED CHARACTERS: ${input.canon.filter((c) => c.kind === "character").map((c) => c.name).join("; ") || "(none with fixed canon; show only figures the scene plan describes, or none)"}`;
   const formlessBlock = formless.length
     ? ["FORMLESS SUBJECTS (binding depiction constraints, including when the source uses bodily metaphors):",
       ...formless.map((c) => `- ${c.name}: represent only through the non-figurative presence allowed by its canon and the work brief. No head, face, torso, limbs, hands, human silhouette or garment-shaped body, even faceless or made of light. Do not represent this subject as a figure occupying a seat.`),

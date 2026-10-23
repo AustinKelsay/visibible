@@ -46,3 +46,12 @@ Single-reply prompt contracts did not make scene plans reliable. [Blind-scored r
 - **Cost and latency:** about $0.0005 and 4.7 s median per review call; a plan and its review took 8.3 s median in the held-out run. Cold preparation gains one call, two after a re-plan. This likely exceeds the 20 s cold full-request target, which needs re-measurement and an owner decision at release.
 
 The checker configuration was selected on a [pre-declared benchmark](../../llm/releases/2026-10-23-plan-review-check/README.md) (13/15 defective plans caught, 3/25 false alarms after two rejected arms). The [held-out run](../../llm/releases/2026-10-23-reviewed-plan-check/README.md) of the full pipeline stored 1 flawed plan in 20 and refused no clean plan, but produced 10 acceptable stored plans (Daniel 7:9 refused 5/5): safer, not yet more available, with a pre-declared "not converging" verdict. The review is a model judgment, not a guarantee; visual evaluation and human acceptance remain release gates.
+
+## Amendment: incidental figures and continuing places (23 October 2026)
+
+A [random sample of 100 verses](../../llm/releases/2026-10-23-random-verse-check/README.md) stored acceptable plans for 53. Most refusals were policy, not quality: 23 verses were refused because the planner reported a required figure without a cast entry, usually a generic role. The owner approved two rule changes:
+
+- **Incidental figures:** plans may describe people, crowds, roles and animals with no cast entry as unnamed incidental figures without fixed appearance. `missingCast` is reserved for a named character or group the story follows beyond the moment. Rendering (prompt `generic-v5`) gives fixed canon only to selected characters and no longer forbids the plan's incidental figures.
+- **Continuing places:** a selected location or object may be anchored by an exact quote from a same-section neighbor. Characters and groups keep the current-moment anchor, because groups are stored as characters. Quote matching also ignores letter case.
+
+Consistency still applies to every cast entry. Incidental figures may vary between images, which is acceptable for one-off roles. A paired re-run of the same 100 verses measures the effect.
