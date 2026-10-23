@@ -11,6 +11,7 @@ import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { responseSchema } from "../reading-pass/prompts";
 import { createWorkReader } from "../work-input";
 import { SHARED_STYLES, type WorkBrief } from "../work-preparation";
+import { withGrounding } from "../../../tests/fixtures/scene-grounding";
 
 const SECRET = "p".repeat(40);
 const WORK = "presence-fixture";
@@ -67,7 +68,8 @@ describe("no-form presence selection", () => {
         present: alone ? ["watcher"] : formless ? ["watcher", "voice"] : ["watcher"],
         ...planFields, ...(alone ? { primarySubject: "The watcher alone", action: "waits" } : {}),
       };
-      return { content: JSON.stringify(request.schemaName === "scene_plan" ? { missingCast: [], ...value } : value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd: 0 }, elapsedMs: 1 };
+      const reply = "present" in value ? withGrounding({ missingCast: [], ...value, present: value.present as string[] }, work.getUnit(alone ? "court-2" : "court-1").text) : value;
+      return { content: JSON.stringify(reply), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd: 0 }, elapsedMs: 1 };
     } };
     const getReference = vi.fn(async (kind: "sheet" | "styleReference", id: string) => ({ storageId: `${kind}-${id}`, inputs: [], fingerprint: `ref-${id}`, pinned: true }));
     const render = (unitId = "court-1", styleId = "classical") => assembleRendering({ inputs, store, model, listMoments: async () => [], getReference, loadReference: async () => new Uint8Array([1]) },
@@ -116,18 +118,20 @@ describe("no-form presence selection", () => {
     const request = calls.find((r) => r.schemaName === "scene_plan")!;
     expect(responseSchema(request.schema)).toEqual({
       type: "object", additionalProperties: false,
-      required: ["present", ...Object.keys(fields), "missingCast"],
+      required: ["grounding", "present", ...Object.keys(fields), "missingCast"],
       properties: {
+        grounding: expect.objectContaining({ type: "object", additionalProperties: false, required: ["focusQuote", "cast", "singleInstant"] }),
         present: { type: "array", items: { type: "string", enum: entries.map((e) => e.recordId) }, description: expect.any(String) },
         missingCast: { type: "array", items: { type: "string" }, description: expect.any(String) },
         // Anthropic does not support maxLength in output schemas; local validation still rejects it.
         ...Object.fromEntries(Object.keys(fields).map((key) => [key, { type: "string", description: expect.stringContaining("At most 220 characters.") }])),
       },
     });
-    expect(request.schema.safeParse({ missingCast: [], present: [], ...fields }).success).toBe(true);
+    const reply = withGrounding({ missingCast: [], present: [], ...fields }, work.getUnit("court-1").text);
+    expect(request.schema.safeParse(reply).success).toBe(true);
     for (const key of Object.keys(fields)) {
-      expect(request.schema.safeParse({ missingCast: [], present: [], ...fields, [key]: "x".repeat(220) }).success).toBe(true);
-      expect(request.schema.safeParse({ missingCast: [], present: [], ...fields, [key]: "x".repeat(221) }).success).toBe(false);
+      expect(request.schema.safeParse({ ...reply, [key]: "x".repeat(220) }).success).toBe(true);
+      expect(request.schema.safeParse({ ...reply, [key]: "x".repeat(221) }).success).toBe(false);
     }
   });
 
@@ -249,7 +253,7 @@ describe("no-form presence selection", () => {
     if (!first.ok) throw new Error(first.message);
     const current = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
     if (!current || current.payload.kind !== "plan") throw new Error("Missing plan");
-    for (const marker of [undefined, "older"]) {
+    for (const marker of [undefined, "older", "2026-10-22-moment-cast-v2"]) {
       const inputs = current.inputs.filter((input) => input.recordId !== "scene_plan_moment_cast");
       if (marker) inputs.push({ kind: "prompt", recordId: "scene_plan_moment_cast", version: marker });
       // Other inputs, including the no-form prompt contract where applicable, stay current.

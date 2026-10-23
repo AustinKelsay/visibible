@@ -205,6 +205,17 @@ const planPayloadValidator = v.object({
   momentId: v.string(),
   entries: v.array(v.object({ entryId: v.string(), stageId: v.string() })),
   plan: scenePlanValidator,
+  // Audit-only source choice; historical plans remain readable and saved prompts are unchanged.
+  grounding: v.optional(v.object({
+    focusQuote: v.string(),
+    cast: v.array(v.object({
+      entryId: v.string(), momentQuote: v.string(),
+      contextSource: v.union(v.literal("none"), v.literal("previous"), v.literal("next")),
+      contextQuote: v.string(),
+      participation: v.union(v.literal("in_scene"), v.literal("framing"), v.literal("mentioned"), v.literal("separate_event"), v.literal("uncertain")),
+    })),
+    singleInstant: v.boolean(),
+  })),
 });
 export const analysisPayloadValidator = v.union(
   sectionPayloadValidator, momentPayloadValidator, entryPayloadValidator, lookPayloadValidator, planPayloadValidator,

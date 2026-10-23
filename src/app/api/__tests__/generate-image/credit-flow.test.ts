@@ -25,6 +25,7 @@ import { createWorkReader } from "@/lib/work-input";
 import { SHARED_STYLES, type WorkBrief } from "@/lib/work-preparation";
 import type { TextModel } from "@/lib/reading-pass/model";
 import type { WorkInputs } from "@/lib/engine/work-inputs";
+import { withGrounding } from "../../../../../tests/fixtures/scene-grounding";
 import {
   mockFetchBibleApi,
   resetMockFetchBibleApiBypass,
@@ -571,12 +572,15 @@ describe("Image Generation API Credit Flow", () => {
     let modelCalls: string[] = [];
     let modelFailure: Error | null = null;
     let missingCast: string[] = [];
+    let singleInstant = true;
     const textModel: TextModel = {
       id: "scripted",
       async complete(request) {
         modelCalls.push(request.label);
         if (modelFailure) throw modelFailure;
-        return { content: JSON.stringify(request.schemaName === "section_look" ? lookAnswer : { ...planAnswer, missingCast }), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd: 0.0004 }, elapsedMs: 1 };
+        const plan = withGrounding({ ...planAnswer, missingCast }, webText[Number(request.label.split(":")[1]?.split("-").at(-1))] ?? webText[1]);
+        plan.grounding.singleInstant = singleInstant;
+        return { content: JSON.stringify(request.schemaName === "section_look" ? lookAnswer : plan), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd: 0.0004 }, elapsedMs: 1 };
       },
     };
     let blobFailures = new Set<string>();
@@ -619,7 +623,7 @@ describe("Image Generation API Credit Flow", () => {
 
     beforeEach(async () => {
       process.env.GENERIC_ENGINE_MODE = "public";
-      modelCalls = []; modelFailure = null; missingCast = []; blobFailures = new Set(); loadedBlobs = []; tone = brief.tone;
+      modelCalls = []; modelFailure = null; missingCast = []; singleInstant = true; blobFailures = new Set(); loadedBlobs = []; tone = brief.tone;
       fetchImageModelsMock.mockResolvedValue({ models: [genericModel] });
       // Imported here, after the module mocks above are installed.
       const { createGenericEngine } = await import("@/lib/engine/generation");
@@ -729,6 +733,24 @@ describe("Image Generation API Credit Flow", () => {
       expect(getCallCount("reserveCredits")).toBe(0);
       expect(imageCalls()).toHaveLength(0);
       expect(await storedRequests()).toHaveLength(0);
+      expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
+      expect(await requestDb.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "genesis-1-1" })).toBeNull();
+    });
+
+    it("stops a reported sequence before image reservation, request creation or reference loading without rerolling", async () => {
+      await prepareWork();
+      singleInstant = false;
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest(body));
+      expect(response.status).toBe(503);
+      expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true,
+        message: expect.stringContaining("scene requires successive instants") });
+      expect(modelCalls).toHaveLength(2);
+      expect((await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((entry) => entry.outcome)).toEqual(["ok", "unavailable"]);
+      expect(getCallCount("reserveCredits")).toBe(0);
+      expect(imageCalls()).toHaveLength(0);
+      expect(loadedBlobs).toEqual([]);
+      expect(await storedRequests()).toEqual([]);
       expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
       expect(await requestDb.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "genesis-1-1" })).toBeNull();
     });

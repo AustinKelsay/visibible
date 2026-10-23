@@ -10,6 +10,7 @@ import { assembleRendering, type AssembleDeps } from "../engine/assemble";
 import { createConvexPreparationStore, MOMENT_CAST_PROMPT_VERSION, type AnalysisRecord } from "../engine/preparation";
 import { readWorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
+import { withGrounding } from "../../../tests/fixtures/scene-grounding";
 
 const evidence = new URL("../../../llm/releases/2026-10-22-formless-look-evaluation/", import.meta.url);
 const snapshot: { records: Array<{ record: AnalysisRecord | null }> } = JSON.parse(readFileSync(new URL("after-10.json", evidence), "utf8"));
@@ -52,7 +53,9 @@ describe("moment cast over shared section context", () => {
       const old = retained.find((record) => record.kind === "plan" && request.label.startsWith(`plan:${record.recordId}:`));
       if (!old) throw new Error("Unexpected moment");
       const payload = old.payload as unknown as { entries: Array<{ entryId: string }>; plan: Record<string, unknown> };
-      return { content: JSON.stringify({ ...payload.plan, missingCast: [], present: payload.entries.map((entry) => entry.entryId) }),
+      // Deliberately overclaimed model assertions expose the limit of exact quote checks.
+      const reply = withGrounding({ ...payload.plan, missingCast: [], present: payload.entries.map((entry) => entry.entryId) }, inputs.work.getUnit(old.recordId).text);
+      return { content: JSON.stringify(reply),
         model: "retained-reply", providerRequestId: null, finishReason: "stop", elapsedMs: 0,
         usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 } };
     } };
@@ -74,7 +77,7 @@ describe("moment cast over shared section context", () => {
       if (!result.ok) throw new Error(result.message);
       expect(result.prepared.calls).toBe(styleId === "classical" ? 1 : 0);
       expect(result.packet.lookVersion).toBe(oldLook.version);
-      expect(result.packet.planVersion).toBe(oldPlan.version); // Same reply, refreshed input provenance.
+      expect(result.packet.planVersion).not.toBe(oldPlan.version); // Same scene prose, new grounding audit.
       expect(result.prepared.look.payload.clothing).toContain("Daniel in his ordinary tunic and cloak");
       expect(result.prompt).toContain(String(oldLook.payload.clothing)); // Never edit or parse away owner prose.
       const selected = result.prompt.split("SELECTED CHARACTERS: ")[1]?.split("\n")[0];
@@ -97,16 +100,17 @@ describe("moment cast over shared section context", () => {
     expect(plan?.inputs).toContainEqual({ kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION });
   });
 
-  it("retains the disputed assembly selection verbatim rather than treating instructions as a semantic validator", async () => {
+  it("still cannot disprove an incorrectly claimed in-scene interpretation of a real quote", async () => {
     const { t, requests, render } = await setup();
     const result = await render("daniel-7-9");
     if (!result.ok) throw new Error(result.message);
     expect(requests).toHaveLength(1);
     expect(result.prepared.plan.payload.present).toContain("ministering_assembly_in_daniels_vision");
     const old = retained.find((record) => record.kind === "plan" && record.recordId === SECTION)!;
-    expect(result.packet.planVersion).toBe(old.version);
+    expect(result.packet.planVersion).not.toBe(old.version);
     const saved = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: SECTION });
-    expect(saved?.payload).toEqual(old.payload);
+    expect(saved?.payload).toMatchObject(old.payload);
+    expect(saved?.payload).toHaveProperty("grounding");
     expect(result.context.moment.text).not.toContain("Thousands of thousands");
     expect(result.context.next?.text).toContain("Thousands of thousands");
     await render("daniel-7-9", "icon");

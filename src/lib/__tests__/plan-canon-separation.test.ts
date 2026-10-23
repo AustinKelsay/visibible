@@ -7,6 +7,7 @@ import { assembleRendering, type AssembleDeps } from "../engine/assemble";
 import { readWorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { responseSchema } from "../reading-pass/prompts";
+import { withGrounding } from "../../../tests/fixtures/scene-grounding";
 
 const evidence = new URL("../../../llm/releases/2026-10-22-daniel-placement-v4/", import.meta.url);
 const input = JSON.parse(readFileSync(new URL("plan-input.json", evidence), "utf8"));
@@ -18,7 +19,8 @@ const canon = JSON.parse(readFileSync(new URL("canon.json", evidence), "utf8")).
 async function plan(content = retainedContent, showing?: unknown) {
   const inputs = await readWorkInputs("bible-web");
   const records: AnalysisRecord[] = structuredClone(input.records);
-  // Adapt the historical reply with an empty missingCast report; keep every retained scene field unchanged.
+  // Synthetic model assertions deliberately overclaim this real quote's meaning. Keep every
+  // retained scene field unchanged to show grounding syntax does not validate its interpretation.
   // Isolate the plan from a look refresh. The separate look regressions
   // replay historical inputs without this marker and exercise ordinary refresh behavior.
   records.find((r) => r.kind === "look")!.inputs.push({ kind: "prompt", recordId: "section_look_formless_presence", version: FORMLESS_LOOK_PROMPT_VERSION });
@@ -46,7 +48,7 @@ async function plan(content = retainedContent, showing?: unknown) {
   const model: TextModel = { id: "scripted", complete: async (request) => {
     requests.push(request);
     const answer = request.schemaName === "section_look" ? JSON.stringify({ place: frozenLook.place, timeOfDay: frozenLook.timeOfDay,
-      weather: frozenLook.weather, light: frozenLook.light, clothing: frozenLook.clothing }) : JSON.stringify({ ...JSON.parse(content), missingCast: [] });
+      weather: frozenLook.weather, light: frozenLook.light, clothing: frozenLook.clothing }) : JSON.stringify(withGrounding({ ...JSON.parse(content), missingCast: [] }, input.context.moment.text));
     return { content: answer, model: "scripted", providerRequestId: null, finishReason: "stop",
       usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 }, elapsedMs: 0 };
   } };
@@ -64,7 +66,8 @@ describe("no-form plan and canon separation", () => {
     const { result, requests } = await plan();
     expect(requests).toHaveLength(1);
     const request = requests[0];
-    expect(request.user).toBe(input.request.user);
+    expect(request.user).toContain(input.context.moment.text);
+    expect(request.user).toContain(input.records.find((record: AnalysisRecord) => record.kind === "look").payload.clothing);
     expect(result.look.version).toBe(input.overlay.frozenLookVersion);
     expect(request.system).toContain("leave its fixed colour, brightness and texture to canon");
     expect(request.system).toContain("Name only the permitted effect needed for this moment's placement or movement");
@@ -84,7 +87,7 @@ describe("no-form plan and canon separation", () => {
     const { result, requests, write, spend } = await plan(retainedContent, showing);
     const plans = requests.filter((r) => r.schemaName === "scene_plan");
     expect(plans).toHaveLength(1);
-    expect(plans[0].schema.safeParse({ ...retainedPlan, missingCast: [] }).success).toBe(true);
+    expect(plans[0].schema.safeParse(withGrounding({ ...retainedPlan, missingCast: [] }, input.context.moment.text)).success).toBe(true);
     expect(result.plan.payload).toEqual(retainedPlan);
     expect(result.plan.payload.primarySubject).toBe("Radiance above an unoccupied fiery throne; Daniel stands below, gazing upward.");
     expect(result.plan.payload.secondaryElements).toContain("soft white cloud");

@@ -9,11 +9,13 @@ import { readWorkInputs, type WorkInputs } from "../engine/work-inputs";
 import { createWorkReader } from "../work-input";
 import { SHARED_STYLES } from "../work-preparation";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
+import { withGrounding } from "../../../tests/fixtures/scene-grounding";
 
 const snapshot = JSON.parse(readFileSync(new URL("../../../llm/releases/2026-10-22-owner-request-check/after-prepared.json", import.meta.url), "utf8"));
 const retained = snapshot.rows.find((r: { unitId: string }) => r.unitId === "luke-10-33");
 const fields = { primarySubject: "A traveler helping a wounded man", action: "stops beside him", setting: "road", secondaryElements: "stones", mood: "compassion", timeOfDay: "day", composition: "two figures" };
-const unavailable = { missingCast: ["Samaritan traveler", "wounded man"], present: [], ...Object.fromEntries(Object.keys(fields).map((key) => [key, ""])) };
+const unavailable = withGrounding({ missingCast: ["Samaritan traveler", "wounded man"], present: [], ...Object.fromEntries(Object.keys(fields).map((key) => [key, ""])) }, "");
+const grounded = (present: string[]) => withGrounding({ missingCast: [], present, ...fields }, "was moved with compassion");
 
 async function setup(reply: unknown, correctSource = false) {
   const inputs = await readWorkInputs("bible-web");
@@ -87,7 +89,7 @@ describe("required moment cast", () => {
   });
 
   it("carries corrected actor canon across styles without selecting the framing speakers or persisting missingCast", async () => {
-    const { render, calls } = await setup({ missingCast: [], present: ["the_samaritan", "wounded_traveler"], ...fields }, true);
+    const { render, calls } = await setup(grounded(["the_samaritan", "wounded_traveler"]), true);
     const versions = [];
     for (const style of ["classical", "watercolor", "icon"]) {
       const result = await render(style);
@@ -103,7 +105,7 @@ describe("required moment cast", () => {
   });
 
   it("refuses canon that changes after planning rather than selecting another stage or omitting it", async () => {
-    const { render, deps, getReference } = await setup({ missingCast: [], present: ["the_samaritan"], ...fields }, true);
+    const { render, deps, getReference } = await setup(grounded(["the_samaritan"]), true);
     const read = deps.store.getActiveRecord;
     let reads = 0;
     deps.store.getActiveRecord = async (kind, id) => {
@@ -115,7 +117,7 @@ describe("required moment cast", () => {
   });
 
   it("refuses a stage reassigned during preparation even when the entry version and both stages survive", async () => {
-    const { render, deps, records, getReference } = await setup({ missingCast: [], present: ["the_samaritan"], ...fields }, true);
+    const { render, deps, records, getReference } = await setup(grounded(["the_samaritan"]), true);
     const entry = records.find((record) => record.kind === "entry" && record.recordId === "the_samaritan")!;
     (entry.payload.stages as Array<{ id: string; text: string }>).push({ id: "later", text: "Samaritan traveler: older man in a travel cloak." });
     entry.version = contentVersion(entry.payload);
@@ -154,7 +156,7 @@ describe("required moment cast", () => {
       { kind: "moment", recordId: "sky-1", payload: { kind: "moment", firstUnit: "sky-1", lastUnit: "sky-1", sectionId: "sky-1" } },
     ]);
     const model: TextModel = { id: "scripted", complete: async (request) => {
-      const value = request.schemaName === "section_look" ? { place: "field", timeOfDay: "day", weather: "cloudy", light: "diffuse", clothing: "" } : { missingCast: [], present: [], ...fields, primarySubject: "Clouds", action: "drift" };
+      const value = request.schemaName === "section_look" ? { place: "field", timeOfDay: "day", weather: "cloudy", light: "diffuse", clothing: "" } : withGrounding({ missingCast: [], present: [], ...fields, primarySubject: "Clouds", action: "drift" }, "Clouds drift above a still field.");
       if (request.schemaName === "scene_plan") expect(request.schema.safeParse({ ...value, present: ["invented"] }).success).toBe(false);
       return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 }, elapsedMs: 0 };
     } };

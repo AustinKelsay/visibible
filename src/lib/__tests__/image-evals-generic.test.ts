@@ -17,6 +17,7 @@ import { emptyEvalState, runImageEval, type EvalProviders, type EvalRunState } f
 import { buildReport, buildScoreTemplate, renderComparisonSheet, renderContactSheet } from "../image-evals/report";
 import type { GenericEvalProvider } from "../image-evals/generic";
 import type { WorkInputs } from "../engine/work-inputs";
+import { withGrounding } from "../../../tests/fixtures/scene-grounding";
 
 const WORK = "two-books";
 const work = createWorkReader({
@@ -51,7 +52,9 @@ function scriptedModel(costUsd: number | null = 0.0004) {
   const calls: TextModelRequest[] = [];
   const model: TextModel & { calls: TextModelRequest[] } = { id: "scripted", calls, async complete(request) {
     calls.push(request);
-    const value = request.schemaName === "section_look" ? lookAnswer : planAnswer(request.user.includes("lamplighter") ? ["lamplighter"] : ["jonah"]);
+    const id = request.label.split(":")[1];
+    const reader = request.user.includes("lamplighter") ? prose : work;
+    const value = request.schemaName === "section_look" ? lookAnswer : withGrounding(planAnswer(reader === prose ? ["lamplighter"] : ["jonah"]), reader.getUnit(id).text);
     return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd }, elapsedMs: 250 };
   } };
   return model;
