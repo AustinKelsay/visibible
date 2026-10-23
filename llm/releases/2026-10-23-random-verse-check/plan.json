@@ -1,0 +1,48 @@
+{
+  "issue": 183,
+  "purpose": "Measure the shipped planning pipeline (look if needed, plan, review, at most one re-plan) on a random sample of ordinary Bible verses: acceptance, refusal, flawed-plan and latency rates. No images, no production writes.",
+  "authorization": "Owner chose option (a) on 2026-10-23, as proposed: about 100 random verses for roughly $0.20-0.30. Recorded as a $0.30 increase to the evaluation allowance ($16.50 to $16.80), all of it capped to this run.",
+  "pipeline": { "commit": "9349d7db081c71e4db588c5ca7ee43ac58ac3510", "planPromptVersion": "2026-10-23-moment-cast-v5", "reviewPromptVersion": "2026-10-23-plan-review-v2" },
+  "sampling": {
+    "frame": "All 31,102 verses of the imported WEB Bible, mapped to the active generation-1 moment that contains each (what a reader's request for that verse prepares).",
+    "method": "Draw verse positions uniformly with a mulberry32 generator seeded 20261023, skipping a verse whose moment was already drawn, until 100 distinct moments. Moments are therefore weighted by length, as readers meet them.",
+    "seed": 20261023,
+    "target": 100
+  },
+  "execution": "This repository's prepareMoment at the pipeline commit runs locally over a fresh in-memory store per sample, seeded from read-only production records for that sample (moment, section, cast entries and the section look if one is stored). No plan is seeded. A missing or stale look is prepared in memory, as a reader's cold request would. Production is read once per sample before the run; nothing is written there. Production adapter, routing and default sampling.",
+  "evaluation": {
+    "authorizedUsd": 16.8,
+    "measuredBeforeUsd": 16.4215588,
+    "uncertaintyBeforeUsd": 0.045,
+    "capUsd": 0.30,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 1000
+  },
+  "retryPolicy": "Each sample is one ordinary prepareMoment. No other rerun, response edit or replacement sample. A provider error, missing usage, uncertain outcome, unexpected request or exhausted reserve stops the run; untaken samples are reported as missing and the results describe the samples taken.",
+  "rubric": {
+    "scoredText": "Scene fields and present ids, with the verse, its same-section neighbors, the section cast (id, name, hasForm) and the brief's depiction rules. Outcome, rounds, review problems, grounding audit and which-plan-it-is are withheld.",
+    "flags": {
+      "U": "Unselected described figure: a person, group or animal with a section cast entry is described in a scene field while its id is not in present. Places and objects do not count.",
+      "X": "Outside the moment: a selected or described person, group, animal or selected place that does not belong to the depicted instant. This covers a narrator, speaker or listener shown inside the story, vision or report they only tell or watch, and a figure or place from an earlier or later event that this verse does not place there. Depicting the speaker of a teaching, prayer, letter or prophecy delivering it is not X. Scenery and effects do not count.",
+      "I": "Not one instant: a character has two incompatible poses or places, or successive actions are presented as happening together.",
+      "F": "Bodily no-form subject: a cast entry with hasForm false, or God the Father or the Holy Spirit as the depiction rules describe them, is given a human body, face, hair, clothing, silhouette or figure, or is described as seated, sitting, enthroned or occupying a seat (including its effects called seated).",
+      "R": "Another depiction rule is broken: lingering gore, sexual content, ethnic or religious caricature, comic visionary creatures, or modern objects.",
+      "M": "Mis-depicts the verse: the scene shows a different event or contradicts what the verse states. For verses without a concrete event (law, poetry, teaching, lists, genealogies), any reasonable illustration of the verse's content or setting is fine; flag only a clear contradiction or a different event.",
+      "N": "Note, not a blocker: a prohibited figure is named only to deny it."
+    },
+    "pass": "The sample stored a plan with none of U, X, I, F, R or M.",
+    "withoutReview": "Each sample's first plan reply is also scored. It approximates the same planner without the review: stored if it passed the evidence checks, otherwise refused. This paired estimate costs no extra calls.",
+    "scorers": "Two fresh, independent subagents with identical instructions, each scoring every unique reply blind. The operator does not score; disagreements are resolved by the operator with a recorded rationale before unblinding."
+  },
+  "reported": "Acceptance (stored and clean), flawed-stored, refusal and false-refusal rates with 95% Wilson intervals, for the pipeline and the without-review estimate; the same by book group (Law, History, Wisdom, Prophets, Gospels and Acts, Letters and Revelation); re-plan and look-preparation rates; per-sample preparation time (including any look) median and p90; cost per sample. No release threshold is pre-set here: acceptable rates are an owner decision.",
+  "bookGroups": {
+    "Law": ["genesis", "exodus", "leviticus", "numbers", "deuteronomy"],
+    "History": ["joshua", "judges", "ruth", "1-samuel", "2-samuel", "1-kings", "2-kings", "1-chronicles", "2-chronicles", "ezra", "nehemiah", "esther"],
+    "Wisdom": ["job", "psalms", "proverbs", "ecclesiastes", "song-of-solomon"],
+    "Prophets": ["isaiah", "jeremiah", "lamentations", "ezekiel", "daniel", "hosea", "joel", "amos", "obadiah", "jonah", "micah", "nahum", "habakkuk", "zephaniah", "haggai", "zechariah", "malachi"],
+    "Gospels and Acts": ["matthew", "mark", "luke", "john", "acts"],
+    "Letters and Revelation": ["romans", "1-corinthians", "2-corinthians", "galatians", "ephesians", "philippians", "colossians", "1-thessalonians", "2-thessalonians", "1-timothy", "2-timothy", "titus", "philemon", "hebrews", "james", "1-peter", "2-peter", "1-john", "2-john", "3-john", "jude", "revelation"]
+  },
+  "publicActivation": false,
+  "humanAccepted": false
+}
