@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-23T19:50:58.873140+00:00",
+  "rounds": [
+    {
+      "review": "coderabbit-round-1.ndjson",
+      "unreviewedFiles": 1,
+      "findings": [
+        {
+          "severity": "major",
+          "title": "Permit the pinned sample set in a paired rerun",
+          "disposition": "Declined for this run. sample.mts is a one-shot script pinned to the sources and records it measured; relaxing those checks would weaken this evidence. A paired re-run is a new operation that reuses sample-set.json's verse list, re-reads current records and pins its own sources. STATUS now says so."
+        }
+      ]
+    }
+  ]
+}
