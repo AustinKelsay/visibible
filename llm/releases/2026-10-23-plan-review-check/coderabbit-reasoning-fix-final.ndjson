@@ -1,0 +1,9 @@
+{"type":"review_context","reviewType":"committed","currentBranch":"fix/plan-review-reasoning","baseBranch":"origin/dev","workingDirectory":"REDACTED","expectedDuration":"Reviews usually take 2-6 minutes and can take up to 15. Keep this command running for at least 15 minutes or run it in the background; stopping it early discards the review."}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"heartbeat","status":"reviewing"}
+{"type":"complete","status":"review_completed","findings":0,"reviewedFiles":["llm/context/SCENE-PREPARATION.md","llm/releases/2026-10-23-plan-review-check/README.md","llm/releases/2026-10-23-plan-review-check/coderabbit-reasoning-fix-round-1.ndjson","llm/releases/2026-10-23-plan-review-check/review.mts","llm/releases/2026-10-23-plan-review-check/sha256.json","llm/releases/2026-10-23-plan-review-check/verify.mts","src/lib/__tests__/plan-review.test.ts","src/lib/__tests__/text-model.test.ts","src/lib/engine/plan-review.ts","src/lib/reading-pass/model.ts"],"outcome":"completed","message":"Review completed"}
