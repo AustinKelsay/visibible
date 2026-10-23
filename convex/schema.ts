@@ -214,6 +214,8 @@ const planPayloadValidator = v.object({
       contextQuote: v.string(),
       participation: v.union(v.literal("in_scene"), v.literal("framing"), v.literal("mentioned"), v.literal("separate_event"), v.literal("uncertain")),
     })),
+    // Stated chosen instant (moment-cast v4); stored v3 plans have none.
+    instant: v.optional(v.string()),
     singleInstant: v.boolean(),
   })),
 });
