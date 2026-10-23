@@ -1,0 +1,25 @@
+{
+  "operationCapUsd": 0.085,
+  "operationMeasuredUsd": 0.06880009999999998,
+  "operationUncertainUsd": 0,
+  "evaluation": {
+    "authorizedUsd": 16.95,
+    "measuredUsd": 16.8717356,
+    "retainedUncertaintyUsd": 0.045,
+    "remainingUsd": 0.03326439999999907
+  },
+  "preparation": {
+    "authorizedUsd": 43,
+    "measuredUsd": 3.6568032,
+    "retainedUncertaintyUsd": 0.03,
+    "remainingUsd": 39.3131968
+  },
+  "productionSmoke": {
+    "authorizedUsd": 1,
+    "measuredUsd": 0.685795,
+    "remainingUsd": 0.314205
+  },
+  "images": 0,
+  "productionMutations": 0,
+  "notes": "Separate allowances. The shared OpenRouter key also serves legacy traffic; per-call returned usage, not account balance movement, measures this operation."
+}

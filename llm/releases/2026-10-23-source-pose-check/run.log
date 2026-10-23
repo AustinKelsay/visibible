@@ -1,0 +1,53 @@
+{"id":"review-pipeline-s001-1-baseline-1","calls":1,"measuredUsd":0.0004069,"result":"0 problems"}
+{"id":"review-pipeline-s001-1-candidate-1","calls":1,"measuredUsd":0.0011124,"result":"2 problems"}
+{"id":"review-pipeline-s067-3-baseline-1","calls":1,"measuredUsd":0.0016642,"result":"0 problems"}
+{"id":"review-pipeline-s067-3-candidate-1","calls":1,"measuredUsd":0.0024671,"result":"2 problems"}
+{"id":"review-pipeline-s074-2-baseline-1","calls":1,"measuredUsd":0.0029553,"result":"1 problems"}
+{"id":"review-pipeline-s074-2-candidate-1","calls":1,"measuredUsd":0.0034591,"result":"1 problems"}
+{"id":"review-pipeline-s001-1-repaired-baseline-1","calls":1,"measuredUsd":0.0038396,"result":"0 problems"}
+{"id":"review-pipeline-s001-1-repaired-candidate-1","calls":1,"measuredUsd":0.0043232,"result":"0 problems"}
+{"id":"review-pipeline-s067-3-repaired-baseline-1","calls":1,"measuredUsd":0.0047296,"result":"0 problems"}
+{"id":"review-pipeline-s067-3-repaired-candidate-1","calls":1,"measuredUsd":0.0051666,"result":"0 problems"}
+{"id":"review-pipeline-s074-2-repaired-baseline-1","calls":1,"measuredUsd":0.0054927,"result":"0 problems"}
+{"id":"review-pipeline-s074-2-repaired-candidate-1","calls":1,"measuredUsd":0.0059129,"result":"0 problems"}
+{"id":"review-synthetic-visible-presence-baseline-1","calls":1,"measuredUsd":0.0061264,"result":"0 problems"}
+{"id":"review-synthetic-visible-presence-candidate-1","calls":1,"measuredUsd":0.0063475,"result":"0 problems"}
+{"id":"review-synthetic-compatible-contact-baseline-1","calls":1,"measuredUsd":0.0065083,"result":"0 problems"}
+{"id":"review-synthetic-compatible-contact-candidate-1","calls":1,"measuredUsd":0.0067242,"result":"0 problems"}
+{"id":"review-pipeline-s001-1-baseline-2","calls":1,"measuredUsd":0.0071066,"result":"0 problems"}
+{"id":"review-pipeline-s001-1-candidate-2","calls":1,"measuredUsd":0.0076961,"result":"1 problems"}
+{"id":"review-pipeline-s067-3-baseline-2","calls":1,"measuredUsd":0.0082834,"result":"1 problems"}
+{"id":"review-pipeline-s067-3-candidate-2","calls":1,"measuredUsd":0.0091208,"result":"2 problems"}
+{"id":"review-pipeline-s074-2-baseline-2","calls":1,"measuredUsd":0.0095835,"result":"0 problems"}
+{"id":"review-pipeline-s074-2-candidate-2","calls":1,"measuredUsd":0.0100873,"result":"1 problems"}
+{"id":"review-pipeline-s001-1-repaired-baseline-2","calls":1,"measuredUsd":0.0105573,"result":"0 problems"}
+{"id":"review-pipeline-s001-1-repaired-candidate-2","calls":1,"measuredUsd":0.0110059,"result":"0 problems"}
+{"id":"review-pipeline-s067-3-repaired-baseline-2","calls":1,"measuredUsd":0.0114273,"result":"0 problems"}
+{"id":"review-pipeline-s067-3-repaired-candidate-2","calls":1,"measuredUsd":0.0118743,"result":"0 problems"}
+{"id":"review-pipeline-s074-2-repaired-baseline-2","calls":1,"measuredUsd":0.0122374,"result":"0 problems"}
+{"id":"review-pipeline-s074-2-repaired-candidate-2","calls":1,"measuredUsd":0.0126976,"result":"0 problems"}
+{"id":"review-synthetic-visible-presence-baseline-2","calls":1,"measuredUsd":0.0129096,"result":"0 problems"}
+{"id":"review-synthetic-visible-presence-candidate-2","calls":1,"measuredUsd":0.0131307,"result":"0 problems"}
+{"id":"review-synthetic-compatible-contact-baseline-2","calls":1,"measuredUsd":0.0132915,"result":"0 problems"}
+{"id":"review-synthetic-compatible-contact-candidate-2","calls":1,"measuredUsd":0.0135074,"result":"0 problems"}
+{"id":"pipeline-s001-1","calls":4,"measuredUsd":0.0166574,"result":"refused"}
+{"id":"pipeline-s027-1","calls":3,"measuredUsd":0.0186329,"result":"stored"}
+{"id":"pipeline-s034-1","calls":3,"measuredUsd":0.0202937,"result":"stored"}
+{"id":"pipeline-s035-1","calls":7,"measuredUsd":0.0240985,"result":"stored"}
+{"id":"pipeline-s059-1","calls":5,"measuredUsd":0.0271777,"result":"stored"}
+{"id":"pipeline-s067-1","calls":4,"measuredUsd":0.0301304,"result":"refused"}
+{"id":"pipeline-s074-1","calls":3,"measuredUsd":0.031748,"result":"stored"}
+{"id":"pipeline-s001-2","calls":3,"measuredUsd":0.0342102,"result":"refused"}
+{"id":"pipeline-s027-2","calls":3,"measuredUsd":0.0367168,"result":"refused"}
+{"id":"pipeline-s034-2","calls":3,"measuredUsd":0.0387424,"result":"refused"}
+{"id":"pipeline-s035-2","calls":5,"measuredUsd":0.0423566,"result":"stored"}
+{"id":"pipeline-s059-2","calls":5,"measuredUsd":0.0456802,"result":"stored"}
+{"id":"pipeline-s067-2","calls":3,"measuredUsd":0.0474582,"result":"stored"}
+{"id":"pipeline-s074-2","calls":3,"measuredUsd":0.0489875,"result":"stored"}
+{"id":"pipeline-s001-3","calls":5,"measuredUsd":0.0525825,"result":"refused"}
+{"id":"pipeline-s027-3","calls":5,"measuredUsd":0.0563361,"result":"refused"}
+{"id":"pipeline-s034-3","calls":3,"measuredUsd":0.0583348,"result":"refused"}
+{"id":"pipeline-s035-3","calls":3,"measuredUsd":0.0600275,"result":"stored"}
+{"id":"pipeline-s059-3","calls":5,"measuredUsd":0.0633037,"result":"stored"}
+{"id":"pipeline-s067-3","calls":5,"measuredUsd":0.0670378,"result":"refused"}
+{"id":"pipeline-s074-3","calls":3,"measuredUsd":0.0688001,"result":"stored"}
