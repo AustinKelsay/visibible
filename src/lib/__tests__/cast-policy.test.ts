@@ -10,7 +10,7 @@ const randomRun = new URL("../../../llm/releases/2026-10-23-random-verse-check/"
 
 describe("moment-cast v6 cast policy", () => {
   it("lets plans describe uncast incidental figures and reserves missingCast for recurring named characters", () => {
-    expect(MOMENT_CAST_PROMPT_VERSION).toBe("2026-10-23-moment-cast-v8");
+    expect(MOMENT_CAST_PROMPT_VERSION).toBe("2026-10-23-moment-cast-v9");
     expect(PLAN_SYSTEM).not.toContain("omit unselected figures rather than describing them as background");
     expect(PLAN_SYSTEM).toContain("never describe an available cast member without selecting it");
     expect(PLAN_SYSTEM).toContain("People, crowds, roles and animals with no cast entry may be described by role and situation");

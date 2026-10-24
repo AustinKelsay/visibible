@@ -121,7 +121,7 @@ describe("lazy looks and plans", () => {
     expect(afterLookEdit.calls).toBe(2);
     expect(afterLookEdit.look.payload.weather).toBe("storm");
     expect(afterLookEdit.look.version).not.toBe(first.look.version);
-    expect(model.calls[model.calls.length - 1].user).toContain("weather: storm");
+    expect(model.calls[model.calls.length - 1].user).not.toContain("weather: storm");
     // The owner's look version is kept, never overwritten by a remake.
     const stored = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "alpha-1-1" });
     expect(stored?.source).toBe("owner");

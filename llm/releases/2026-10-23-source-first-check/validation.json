@@ -1,0 +1,67 @@
+{
+  "scope": "Source-first request isolation and frozen unfunded comparison; no live semantic improvement or image compliance claim.",
+  "regression": {
+    "before": "Both captured Lamentations look cases failed because the initial planner request contained SECTION LOOK values.",
+    "after": "Both cases pass: initial and re-plan requests exclude captured look values; rendering retains them across all three styles, with one preparation shared by later renders.",
+    "command": "npx vitest run src/lib/__tests__/source-first-planning.test.ts src/lib/__tests__/look-canon-separation.test.ts src/lib/__tests__/scene-grounding.test.ts src/lib/__tests__/cast-policy.test.ts src/lib/__tests__/formless-selection.test.ts",
+    "focusedPassed": 59
+  },
+  "routine": {
+    "lint": "passed, zero warnings",
+    "typecheck": "passed",
+    "tests": {
+      "passed": 987,
+      "existingSkipped": 1,
+      "failed": 0
+    }
+  },
+  "dryRun": {
+    "command": "npx tsx llm/releases/2026-10-23-source-first-check/dry-run.mts verify",
+    "status": "passed",
+    "operations": 66,
+    "paidCalls": 0
+  },
+  "fundingGuard": {
+    "command": "npx tsx llm/releases/2026-10-23-source-first-check/run.mts --execute",
+    "status": "refused before credentials or network",
+    "message": "Owner funding is required; no paid request permitted"
+  },
+  "rehearsal": {
+    "command": "npx tsx llm/releases/2026-10-23-source-first-check/rehearse.mts",
+    "status": "passed",
+    "evidence": "offline-rehearsal.json",
+    "scenarios": [
+      "complete",
+      "cap-stop",
+      "review-unavailable",
+      "missing-usage"
+    ],
+    "paidCalls": 0,
+    "productionMutations": 0,
+    "bugCaughtAndFixed": "Preflight price snapshot timestamp preceded the frozen-commit write; run-started now records its actual later write time so replay chronology is valid."
+  },
+  "production": {
+    "readOnlyFixtureQueries": 96,
+    "mutations": 0,
+    "deployments": 0,
+    "images": 0
+  },
+  "funding": "Proposed $0.25 increase only; no funding.json or real execution artifacts exist.",
+  "releaseHold": true,
+  "coderabbit": {
+    "command": "coderabbit review --agent -t uncommitted -c AGENTS.md",
+    "rounds": [
+      {
+        "file": "coderabbit-round-1.ndjson",
+        "issues": 1,
+        "reviewedFiles": 22
+      },
+      {
+        "file": "coderabbit-final.ndjson",
+        "issues": 0,
+        "reviewedFiles": 26
+      }
+    ],
+    "finalIssues": 0
+  }
+}

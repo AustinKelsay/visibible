@@ -296,7 +296,7 @@ describe("no-form presence selection", () => {
     expect(calls[1].system).toBe(PLAN_SYSTEM);
     expect(calls[1].schema.safeParse({ missingCast: [], present: ["unknown_entry"], ...fields }).success).toBe(false);
     expect(first.prepared.plan.payload.present).toEqual(["watcher"]);
-    expect(calls[1].user).toContain("- watcher: The watcher\n");
+    expect(calls[1].user).toContain("- watcher: The watcher");
     expect(calls[1].user).not.toContain("hasForm:");
     expect(calls[1].user).not.toContain("NO-FORM CANON CONSTRAINTS");
     calls.length = 0;

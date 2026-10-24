@@ -63,17 +63,17 @@ async function plan(content = retainedContent, showing?: unknown) {
 }
 
 describe("no-form plan and canon separation", () => {
-  it("keeps historical prose canon, the owner look and source context available without inferring effect metadata", async () => {
+  it("keeps historical prose canon and source context in planning while retaining the owner look for rendering", async () => {
     const { result, requests } = await plan();
     expect(requests).toHaveLength(1);
     const request = requests[0];
     expect(request.user).toContain(input.context.moment.text);
-    expect(request.user).toContain(input.records.find((record: AnalysisRecord) => record.kind === "look").payload.clothing);
+    expect(request.user).not.toContain(input.records.find((record: AnalysisRecord) => record.kind === "look").payload.clothing);
     expect(result.look.version).toBe(input.overlay.frozenLookVersion);
     expect(request.system).toContain("leave its fixed colour, brightness and texture to canon");
     expect(request.system).toContain("Name only the permitted effect needed for this moment's placement or movement");
     expect(request.system).toContain("radiance spreading above the arch");
-    expect(request.system).toContain("Situational illumination and formed characters' clothing still belong in the plan when the moment or look requires them");
+    expect(request.system).toContain("Situational illumination and formed characters' clothing still belong in the plan when the moment requires them");
     expect(request.system).toContain("Historical prose constraints may still include the full description");
     expect(input.request.system).not.toContain("effect names for placement");
     const serialized = responseSchema(request.schema);
