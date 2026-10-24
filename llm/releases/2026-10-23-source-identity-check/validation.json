@@ -25,5 +25,14 @@
     "paidCalls": 0
   },
   "uncommittedExecutionGuard": "Refused before credentials or any one-shot marker",
-  "liveSemanticObedience": "Not established by scripted regression tests."
+  "liveSemanticObedience": "Not established by scripted regression tests.",
+  "offlineReplay": {
+    "requests": 16,
+    "matched": true,
+    "reviewGate": false,
+    "pipelineGate": false,
+    "operationMeasuredUsd": 0.0112775,
+    "remainingEvaluationUsd": 0.0038267
+  },
+  "finalCodeRabbitIssues": 0
 }
