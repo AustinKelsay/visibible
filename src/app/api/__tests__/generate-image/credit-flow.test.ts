@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
-import { withCleanReview } from "../../../../../tests/fixtures/plan-review";
+import { reviewReply, withCleanReview } from "../../../../../tests/fixtures/plan-review";
+import type { PlanReviewProblem } from "@/lib/engine/plan-review";
 import { imageModelFixture } from "../shared/image-model-fixtures";
 /**
  * Integration tests for image generation API credit flow.
@@ -574,7 +575,8 @@ describe("Image Generation API Credit Flow", () => {
     let modelFailure: Error | null = null;
     let missingCast: string[] = [];
     let singleInstant = true;
-    const textModel: TextModel = withCleanReview({
+    let reviewProblems: PlanReviewProblem[] = [];
+    const cleanTextModel: TextModel = withCleanReview({
       id: "scripted",
       async complete(request) {
         modelCalls.push(request.label);
@@ -584,6 +586,13 @@ describe("Image Generation API Credit Flow", () => {
         return { content: JSON.stringify(request.schemaName === "section_look" ? lookAnswer : plan), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 100, completionTokens: 40, costUsd: 0.0004 }, elapsedMs: 1 };
       },
     });
+    const textModel: TextModel = { id: cleanTextModel.id, complete: async (request) => {
+      if (request.schemaName === "plan_review" && reviewProblems.length) {
+        modelCalls.push(request.label);
+        return reviewReply(reviewProblems);
+      }
+      return cleanTextModel.complete(request);
+    } };
     let blobFailures = new Set<string>();
     let loadedBlobs: string[] = [];
     const loadReferenceBytes = async (_runtime: unknown, storageId: string) => {
@@ -624,7 +633,7 @@ describe("Image Generation API Credit Flow", () => {
 
     beforeEach(async () => {
       process.env.GENERIC_ENGINE_MODE = "public";
-      modelCalls = []; modelFailure = null; missingCast = []; singleInstant = true; blobFailures = new Set(); loadedBlobs = []; tone = brief.tone;
+      modelCalls = []; modelFailure = null; missingCast = []; singleInstant = true; reviewProblems = []; blobFailures = new Set(); loadedBlobs = []; tone = brief.tone;
       fetchImageModelsMock.mockResolvedValue({ models: [genericModel] });
       // Imported here, after the module mocks above are installed.
       const { createGenericEngine } = await import("@/lib/engine/generation");
@@ -681,7 +690,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(request.renderingPacket!.canon.map((c) => c.entryId)).toEqual(["adam", "eden", "god"]);
       // The saved image is WEB text with full provenance; the reader's translation is request context only.
       const [image] = await savedImages();
-      expect(image).toMatchObject({ verseId: "genesis-1-1", translationId: "web", verseText: webText[1], engine: "generic", artStyleId: "watercolor", promptVersion: "2026-10-23-generic-v6" });
+      expect(image).toMatchObject({ verseId: "genesis-1-1", translationId: "web", verseText: webText[1], engine: "generic", artStyleId: "watercolor", promptVersion: "2026-10-24-generic-v7" });
       expect(image.provenance).toMatchObject({ workId: WORK, momentId: "genesis-1-1", sectionId: "genesis-1-1", styleId: "watercolor", lookVersion: request.renderingPacket!.lookVersion, planVersion: request.renderingPacket!.planVersion, requestTranslationId: "web" });
       expect(image.provenance!.references).toEqual([{ kind: "styleReference", id: "watercolor", version: expect.any(String) }, { kind: "sheet", id: "adam:main", version: expect.any(String) }]);
       // A second style of the same moment reuses the look and plan: no new preparation call, no style reference for Classical.
@@ -748,6 +757,24 @@ describe("Image Generation API Credit Flow", () => {
         message: expect.stringContaining("scene requires successive instants") });
       expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "plan:genesis-1-1:1"]); // The single re-plan repeats the sequence.
       expect((await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((entry) => entry.outcome)).toEqual(["ok", "unavailable", "unavailable"]);
+      expect(getCallCount("reserveCredits")).toBe(0);
+      expect(imageCalls()).toHaveLength(0);
+      expect(loadedBlobs).toEqual([]);
+      expect(await storedRequests()).toEqual([]);
+      expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
+      expect(await requestDb.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "genesis-1-1" })).toBeNull();
+    });
+
+    it("stops a reported shared-look conflict before references, image reservation or request creation", async () => {
+      await prepareWork();
+      reviewProblems = [{ kind: "look_conflict", entryId: "", planQuote: lookAnswer.light, reason: "Scripted incompatible shared illumination." }];
+      const { POST } = await import("../../generate-image/route");
+      const response = await POST(createGenerateImageRequest(body));
+      expect(response.status).toBe(503);
+      expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true,
+        message: expect.stringContaining("look unavailable: rendering review: look_conflict") });
+      expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1"]);
+      expect((await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((entry) => entry.outcome)).toEqual(["ok", "ok", "review problems"]);
       expect(getCallCount("reserveCredits")).toBe(0);
       expect(imageCalls()).toHaveLength(0);
       expect(loadedBlobs).toEqual([]);

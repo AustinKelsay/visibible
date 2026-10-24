@@ -3,7 +3,7 @@
  * engine rules, the work brief's prompt form for the moment's era, the selected canon, the
  * section look, the style-neutral scene plan, the art style's rendering and the captions of up
  * to three reference images. Precedence, strongest first: engine rules, brief content and
- * depiction rules, style rendering, section look, scene plan. The prompt is capped at 8,000
+ * depiction rules, canon identity, style rendering, moment plan, compatible section look. The prompt is capped at 8,000
  * characters; nothing required is ever trimmed, and an over-budget result is rejected before
  * any paid call. Legacy Bible wording lives only in image-prompts.ts and never reaches this path.
  */
@@ -11,7 +11,7 @@ import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
 
 /** Structure and wording of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. */
-export const GENERIC_PROMPT_VERSION = "2026-10-23-generic-v6";
+export const GENERIC_PROMPT_VERSION = "2026-10-24-generic-v7";
 export const GENERIC_PROMPT_MAX_CHARS = 8000;
 export const MAX_REFERENCE_IMAGES = 3;
 const MOMENT_TEXT_MAX_CHARS = 1200;
@@ -75,7 +75,8 @@ export const ENGINE_RULES = [
   "Depict the SELECTED CHARACTERS, including groups and no-form subjects, with their canon. Other people, crowds or animals appear only where the scene plan describes them, as unnamed incidental figures without fixed appearance. The shared look, source narrators and neighbors do not add figures; apply shared clothing only to selected characters.",
   "No-form effects representing a subject, such as divine radiance, appear only when that subject is in SELECTED CHARACTERS and the scene plan describes its presence. Omit such effects from the shared look when that subject is unselected or absent from the plan, even if the look calls them light, weather or background. Ordinary sunlight, lamplight, embers and weather remain setting details.",
 ];
-export const PRECEDENCE_LINE = "If instructions conflict, follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan.";
+export const CONTENT_OWNERSHIP = "The source establishes the scene and participants. Selected canon fixes identity and appearance. The scene plan owns this moment's place, time, action and effect placement; the section look supplies compatible shared conditions. Neither the look nor canon adds participants or events.";
+export const PRECEDENCE_LINE = `If instructions conflict, follow them in this order: these rules, then the work brief, then canon identity, then the art style's rendering, then the scene plan, then the section look. ${CONTENT_OWNERSHIP}`;
 
 function clip(text: string, max: number) {
   const flat = text.replace(/\s+/g, " ").trim();
@@ -141,7 +142,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
       ...input.canon.map((c) => `- ${c.text}`),
       ...(names.length ? [`- Only ${names.join(", ")} ${names.length > 1 ? "have" : "has"} this canon look; other selected people get clearly different faces, hair and clothing colours.`] : [])].join("\n")
     : "";
-  const planBlock = ["SCENE PLAN (supporting; never overrides the rules, the brief, the style or the look):",
+  const planBlock = ["SCENE PLAN (this moment's place, time and action; obey the rules, brief, canon and style):",
     `Primary subject: ${plan.primarySubject}`, `Action: ${plan.action}`, `Setting: ${plan.setting}`, `Secondary elements: ${plan.secondaryElements}`,
     `Mood: ${plan.mood}`, `Time of day: ${plan.timeOfDay}`, `Composition: ${plan.composition}`].join("\n");
   const referenceBlock = () => references.length
@@ -150,7 +151,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     : "";
   const styleMain = `ART STYLE: ${style.label}\nRendering: ${style.rendering}\nNegatives: ${style.negatives}`;
   const styleDetail = `Palette: ${style.palette}\nLighting: ${style.lighting}\nMaterials and texture: ${style.materials}\nComposition: ${style.composition}`;
-  const lookMain = `SECTION LOOK (shared by every image of this story section; the style's rendering outranks it):\nPlace: ${look.place}\nTime of day: ${look.timeOfDay}`;
+  const lookMain = `SECTION LOOK (shared conditions compatible with this moment's plan and selected canon):\nPlace: ${look.place}\nTime of day: ${look.timeOfDay}`;
   const lookDetail = `Weather: ${look.weather}\nLight: ${look.light}\nClothing: ${look.clothing}`;
   const prev = input.neighbors?.previous ? clip(input.neighbors.previous, NEIGHBOR_HINT_MAX_CHARS) : null;
   const next = input.neighbors?.next ? clip(input.neighbors.next, NEIGHBOR_HINT_MAX_CHARS) : null;

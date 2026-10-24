@@ -48,7 +48,7 @@ describe("rendering packet", () => {
       if (!result.ok) return;
       expect(result.prompt.startsWith("PRIORITY RULES:")).toBe(true);
       expect(result.prompt).toContain("No likeness of any real actor");
-      expect(result.prompt).toContain("follow them in this order: these rules, then the work brief, then the art style's rendering, then the section look, then the scene plan");
+      expect(result.prompt).toContain("follow them in this order: these rules, then the work brief, then canon identity, then the art style's rendering, then the scene plan, then the section look");
       expect(result.prompt).toContain("Tone: Brisk, foggy Victorian detective mood.");
       expect(result.prompt).toContain("Depiction: Violence is kept offstage");
       expect(result.prompt.includes("fog becomes a flat grey ground")).toBe(styleId === "icon");
@@ -68,7 +68,7 @@ describe("rendering packet", () => {
       expect(result.references.map((r) => r.caption)).toEqual(result.packet.references.map((r) => r.caption));
       expect(result.references[result.references.length - 1].caption).toMatch(/^Image 3: /);
       expect(result.prompt).toContain(result.references[0].caption);
-      expect(result.packet).toMatchObject({ promptVersion: "2026-10-23-generic-v6", styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
+      expect(result.packet).toMatchObject({ promptVersion: "2026-10-24-generic-v7", styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
         canon: [{ entryId: "sherlock_holmes", stageId: "main", version: "h1" }, expect.anything(), expect.anything(), expect.anything()],
         flags: { variationIncluded: true, neighborsIncluded: true, styleDetailIncluded: true, lookDetailIncluded: true } });
       expect(result.packet.budget.finalChars).toBe(result.prompt.length);
