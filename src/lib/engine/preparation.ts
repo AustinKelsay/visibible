@@ -15,6 +15,7 @@ import { canonShowingSchema, compileCanonShowing } from "../canon-showing";
 import type { WorkBrief } from "../work-preparation";
 import { planningNeighbors, sceneGroundingSchema, sceneGroundingProblem } from "./scene-grounding";
 import { PLAN_REVIEW_PROMPT_VERSION, PLAN_SCENE_FIELDS, reviewPlan, type PlanReviewProblem } from "./plan-review";
+import type { SelectedCanon } from "./prompt";
 
 export const LOOK_SYSTEM = `You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.
 Rules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments, and do not restate anyone's fixed appearance; canon does that. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.`;
@@ -248,7 +249,7 @@ export async function prepareMoment(options: {
   if (!section || section.payload.kind !== "section") throw new PreparationUnavailableError("look", `unknown section ${sectionId}`);
   const sectionPayload = section.payload as unknown as { title: string; era?: string; cast: Array<{ entryId: string; stageId: string; named?: boolean }> };
   const era = brief.eras.find((e) => e.id === sectionPayload.era) ?? brief.eras[0];
-  const cast: Array<{ entryId: string; stageId: string; name: string; version: string; constraint: string; hasForm: boolean; entryKind: string }> = [];
+  const cast: Array<{ entryId: string; stageId: string; name: string; version: string; constraint: string; text: string; hasForm: boolean; entryKind: SelectedCanon["kind"] }> = [];
   for (const member of sectionPayload.cast) {
     const entry = await store.getActiveRecord("entry", member.entryId);
     if (!entry || entry.payload.kind !== "entry") throw new PreparationUnavailableError("plan", `missing canon entry ${member.entryId}`);
@@ -257,7 +258,7 @@ export async function prepareMoment(options: {
     if (!stage || !stage.text.trim()) throw new PreparationUnavailableError("plan", `missing canon stage ${member.entryId}:${member.stageId}`);
     const name = String(entry.payload.name);
     cast.push({ entryId: member.entryId, stageId: stage.id, name, version: entry.version,
-      constraint: planningConstraint(name, stage), hasForm: entry.payload.hasForm !== false, entryKind: String(entry.payload.entryKind ?? "character") });
+      constraint: planningConstraint(name, stage), text: stage.text, hasForm: entry.payload.hasForm !== false, entryKind: (entry.payload.entryKind ?? "character") as SelectedCanon["kind"] });
   }
   const rules = brief.depictionRules.map((r) => `- ${r.text}`).join("\n") || "- none";
   const hasFormlessCast = cast.some((c) => !c.hasForm);
@@ -275,6 +276,7 @@ export async function prepareMoment(options: {
     const value = await askOnce(model, store, "look", sectionId, hasFormlessCast ? formlessLookOutputSchema : lookOutputSchema, hasFormlessCast ? FORMLESS_LOOK_SYSTEM : LOOK_SYSTEM, user);
     return { kind: "look" as const, sectionId, ...value };
   }, timing);
+  const lookPayload = lookOutputSchema.parse(Object.fromEntries(Object.keys(lookOutputSchema.shape).map((field) => [field, look.payload[field]])));
 
   // Include the section directly: a stage reassignment can leave the regenerated look's content hash unchanged.
   // The plan never depends on a style or translation.
@@ -302,7 +304,7 @@ export async function prepareMoment(options: {
     const reviewCast = cast.map((c) => ({ entryId: c.entryId, name: c.name, hasForm: c.hasForm }));
     // Each plan is reviewed against its moment before storage. The first rejected plan, by evidence
     // checks or review, gets exactly one re-plan with the problems as feedback; a second rejection
-    // stops preparation. A source gap (missingCast) or a review that cannot be read stops at once.
+    // stops preparation. Source gaps, shared-look conflicts and unreadable reviews stop at once.
     let feedback = "", rejected: { evidence?: string; problems?: PlanReviewProblem[] } | null = null;
     for (let round = 1; round <= 2; round++) {
       let evidenceProblem: string | null = null;
@@ -323,9 +325,19 @@ export async function prepareMoment(options: {
       const { present, grounding } = selectedScene(value);
       const fields = Object.fromEntries(PLAN_SCENE_FIELDS.map((field) => [field, value[field]])) as Record<(typeof PLAN_SCENE_FIELDS)[number], string>;
       const review = await reviewPlan(model, (entry) => store.recordSpend({ kind: "plan", recordId: options.momentId, ...entry }), options.momentId,
-        { rules, context: options.context, sectionTitle: sectionPayload.title, cast: reviewCast, present, fields });
+        { rules, context: options.context, sectionTitle: sectionPayload.title, cast: reviewCast, present, fields,
+          rendering: { look: lookPayload, canon: present.map((id) => {
+            const entry = cast.find((c) => c.entryId === id)!;
+            return { entryId: id, stageId: entry.stageId, kind: entry.entryKind, name: entry.name, text: entry.text, hasForm: entry.hasForm, version: entry.version };
+          }) } });
       if ("unavailable" in review) throw new PreparationUnavailableError("plan", review.unavailable);
       if (review.problems.length) {
+        // A shared look is used by other moments and may be owner-authored. Never rewrite it or
+        // change a sound plan to fit it. Stop before references/images; correction is explicit.
+        const lookProblems = review.problems.filter((p) => p.kind === "look_conflict");
+        if (lookProblems.length) throw new PreparationUnavailableError("look", `rendering review: ${lookProblems.map((p) => `${p.kind}: ${p.reason} (look said: "${p.planQuote}")`).join("; ")}`);
+        const missingCanon = review.problems.filter((p) => p.kind === "missing_canon");
+        if (missingCanon.length) throw new PreparationUnavailableError("plan", `required canon unavailable: ${missingCanon.map((p) => p.reason).join("; ")}`);
         if (round === 2) throw new PreparationUnavailableError("plan", `plan review: ${review.problems.map((p) => `${p.kind}${p.entryId ? ` ${p.entryId}` : ""}`).join(", ")}`);
         rejected = { problems: review.problems };
         feedback = replanFeedback(review.problems.map((p) => `${p.kind}: ${p.reason} (plan said: "${p.planQuote}")`));
@@ -338,7 +350,6 @@ export async function prepareMoment(options: {
   }, timing);
 
   const planPayload = plan.payload as unknown as { entries: Array<{ entryId: string; stageId: string }>; plan: z.infer<typeof planOutputSchema> };
-  const lookPayload = look.payload as unknown as z.infer<typeof lookOutputSchema>;
   return {
     sectionId, era: era.id,
     look: { version: look.version, payload: { place: lookPayload.place, timeOfDay: lookPayload.timeOfDay, weather: lookPayload.weather, light: lookPayload.light, clothing: lookPayload.clothing } },

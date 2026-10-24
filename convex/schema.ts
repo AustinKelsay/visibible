@@ -223,7 +223,7 @@ const planPayloadValidator = v.object({
     rounds: v.number(),
     evidence: v.optional(v.string()),
     problems: v.optional(v.array(v.object({
-      kind: v.union(v.literal("unselected_figure"), v.literal("outside_instant"), v.literal("not_one_instant"), v.literal("embodied_formless")),
+      kind: v.union(v.literal("unselected_figure"), v.literal("outside_instant"), v.literal("not_one_instant"), v.literal("embodied_formless"), v.literal("look_conflict"), v.literal("canon_conflict"), v.literal("missing_canon")),
       entryId: v.string(), planQuote: v.string(), reason: v.string(),
     }))),
   })),
