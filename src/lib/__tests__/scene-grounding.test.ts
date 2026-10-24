@@ -79,19 +79,13 @@ describe("scene source grounding", () => {
   });
 
   it.each([
-    ["successive poses", () => ({ ...binding, ...luke.result.plan.payload, grounding: { ...binding.grounding, singleInstant: false } }), "successive instants"],
+    ["successive poses", () => ({ ...binding, grounding: { ...binding.grounding, singleInstant: false } }), "successive instants"],
     ["next-event host", () => {
       const reply = withGrounding({ ...luke.result.plan.payload, missingCast: [] }, "bound up his wounds");
       const host = reply.grounding.cast.find((entry) => entry.entryId === "innkeeper_in_samaritan_parable")!;
       host.momentQuote = "gave them to the host"; host.contextSource = "next"; host.contextQuote = "gave them to the host";
       return reply;
     }, "innkeeper_in_samaritan_parable lacks current-moment evidence"],
-    ["framing narrator", () => {
-      const reply = withGrounding({ ...daniel.result.plan.payload, missingCast: [] }, "thrones were placed");
-      reply.grounding.cast[0].momentQuote = "I watched";
-      reply.grounding.cast[0].participation = "framing";
-      return reply;
-    }, "daniel_prophet_of_babylon is framing"],
     ["neighbor-only assembly", () => {
       const reply = withGrounding({ ...daniel.result.plan.payload, missingCast: [] }, "thrones were placed");
       const assembly = reply.grounding.cast[2];
@@ -100,7 +94,7 @@ describe("scene source grounding", () => {
       return reply;
     }, "ministering_assembly_in_daniels_vision lacks current-moment evidence"],
   ])("re-plans a reported %s once with the reason, then stops without changing the retained plan or loading references", async (label, reply, message) => {
-    const unitId = label === "framing narrator" || label === "neighbor-only assembly" ? "daniel-7-9" : "luke-10-34";
+    const unitId = label === "neighbor-only assembly" ? "daniel-7-9" : "luke-10-34";
     const { render, records, calls, write, spend, release, getReference } = await setup(unitId, reply());
     const before = structuredClone(records.find((r) => r.kind === "plan" && r.recordId === unitId));
     expect(await render()).toMatchObject({ ok: false, reason: "preparation", stage: "plan", retryable: true, message: expect.stringContaining(message) });
@@ -259,13 +253,14 @@ describe("moment-cast v4 stated instant and quote fragments", () => {
     expect(sceneGroundingProblem(grounding, reply.present, scene.context, lukeCast)).toBeNull();
   });
 
-  it("asks for the stated instant after cast evidence, before scene prose, and ties formed fields to it", async () => {
+  it("asks for the source choice and explicit selection before scene prose, and ties formed fields to the stated instant", async () => {
     const { render, calls } = await setup("luke-10-34", binding);
     const result = await render();
     if (!result.ok) throw new Error(result.message);
     const schema = responseSchema(calls[0].schema) as { required: string[]; properties: Record<string, { required?: string[]; description?: string }> };
     expect(schema.required[0]).toBe("grounding");
-    expect(schema.properties.grounding.required).toEqual(["focusQuote", "cast", "instant", "singleInstant"]);
+    expect(schema.properties.grounding.required).toEqual(["focusQuote", "instant", "singleInstant"]);
+    expect(schema.required.slice(0, 3)).toEqual(["grounding", "selectedCast", "consideredCast"]);
     for (const key of ["primarySubject", "action", "composition"]) expect(schema.properties[key].description).toMatch(/grounding\.instant|same instant/);
     expect(calls[0].system).toContain("state that instant once in `grounding.instant`");
     expect(calls[0].system).toContain("separated by an ellipsis (…)");

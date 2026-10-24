@@ -2,7 +2,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
-import { withGrounding } from "../../../tests/fixtures/scene-grounding";
+import { selectionReply, withGrounding } from "../../../tests/fixtures/scene-grounding";
 import { reviewReply } from "../../../tests/fixtures/plan-review";
 import { prepareMoment, PreparationUnavailableError, type AnalysisRecord, type PreparationStore } from "../engine/preparation";
 import { invalidReview, type ReviewInput } from "../engine/plan-review";
@@ -42,7 +42,7 @@ async function setup(planReplies: unknown[], reviewReplies: unknown[][]) {
   const model: TextModel = { id: "scripted", complete: async (request) => {
     calls.push(request);
     if (request.schemaName === "plan_review") return reviewReply(reviewReplies[reviewIndex++] ?? []);
-    return { content: JSON.stringify(planReplies[planIndex++] ?? planReplies.at(-1)), model: "scripted", providerRequestId: null, finishReason: "stop",
+    return { content: JSON.stringify(selectionReply(planReplies[planIndex++] ?? planReplies.at(-1))), model: "scripted", providerRequestId: null, finishReason: "stop",
       usage: { promptTokens: 100, completionTokens: 100, costUsd: 0.0004 }, elapsedMs: 1 };
   } };
   const moment = find("moment", "luke-10-34"), section = find("section", "luke-10-25");

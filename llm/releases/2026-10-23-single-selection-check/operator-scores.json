@@ -1,0 +1,66 @@
+{
+  "method": "Unblinded operator review of source, bounded neighbors, available cast and all seven stored fields; no independent or blind scorer. Valid quotes do not prove identity. Refusals count as failures.",
+  "sensitivity": "A stricter reading of incidental props or changing expressions could reduce the two Exodus acceptances. The priest identity judgments are material: accepting both would meet the numeric threshold, but no identity link is supplied by the moment, bounded neighbors or retained priest canon. The recorded rubric requires that source support.",
+  "scores": [
+    {
+      "id": "selection-s001-1",
+      "stored": false,
+      "acceptable": false,
+      "problems": [],
+      "note": "Error: Preparing scene: plan unavailable: plan review: not_one_instant the_levites, outside_instant god_yahweh_the_father_and_god_of_israel"
+    },
+    {
+      "id": "selection-s027-1",
+      "stored": true,
+      "acceptable": true,
+      "problems": [],
+      "note": "Pharaoh and his Egyptian servants react together to the report, without Israelites or a divine manifestation in the scene. Incidental report scroll/banner in repeat 1 are treated as static props, not proof of the later chariot-preparation event."
+    },
+    {
+      "id": "selection-s034-1",
+      "stored": true,
+      "acceptable": false,
+      "problems": [
+        {
+          "kind": "outside_instant",
+          "entryId": "the_priests_of_jerusalem",
+          "planQuotes": [
+            "The priests of Jerusalem standing still in the temple court, their linen pale among the ash."
+          ],
+          "reason": "The moment calls its subjects nobles; neither current text nor the bounded neighbors identifies them as the selected priests. The retained priest canon is sourced to Lamentations 1:4 and 2:20, not an identity link in this scene. A real quote about nobles does not establish these priests. Operator conservatively marks this unsupported selection as flawed."
+        }
+      ],
+      "note": "The same unsupported identity occurs in both repeats, including one after a re-plan. The reviewer returns clean on each final plan."
+    },
+    {
+      "id": "selection-s001-2",
+      "stored": false,
+      "acceptable": false,
+      "problems": [],
+      "note": "Error: Preparing scene: plan unavailable: plan review: outside_instant god_yahweh_the_father_and_god_of_israel"
+    },
+    {
+      "id": "selection-s027-2",
+      "stored": true,
+      "acceptable": true,
+      "problems": [],
+      "note": "Pharaoh and his Egyptian servants react together to the report, without Israelites or a divine manifestation in the scene. Incidental report scroll/banner in repeat 1 are treated as static props, not proof of the later chariot-preparation event."
+    },
+    {
+      "id": "selection-s034-2",
+      "stored": true,
+      "acceptable": false,
+      "problems": [
+        {
+          "kind": "outside_instant",
+          "entryId": "the_priests_of_jerusalem",
+          "planQuotes": [
+            "Two priests standing upright in clean white linen, their robes untouched by the ash around them."
+          ],
+          "reason": "The moment calls its subjects nobles; neither current text nor the bounded neighbors identifies them as the selected priests. The retained priest canon is sourced to Lamentations 1:4 and 2:20, not an identity link in this scene. A real quote about nobles does not establish these priests. Operator conservatively marks this unsupported selection as flawed."
+        }
+      ],
+      "note": "The same unsupported identity occurs in both repeats, including one after a re-plan. The reviewer returns clean on each final plan."
+    }
+  ]
+}

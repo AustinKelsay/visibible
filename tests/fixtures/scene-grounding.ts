@@ -13,3 +13,25 @@ export function withGrounding<T extends { present: string[] }>(plan: T, focusQuo
   };
   return { ...plan, grounding };
 }
+
+/**
+ * Serialize an internal audit fixture in the planner's single-selection format. This is only
+ * fixture plumbing: missing evidence and contradictory classifications stay malformed rather
+ * than being invented or removed. Production accepts only the new response, never this adapter.
+ */
+export function selectionReply(value: unknown): unknown {
+  const object = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null && !Array.isArray(v);
+  if (!object(value) || !Array.isArray(value.present) || !object(value.grounding)) return value;
+  const { present, grounding: audit, ...fields } = value;
+  const { cast, ...grounding } = audit;
+  const records = Array.isArray(cast) ? cast.filter(object) : [];
+  return { ...fields, grounding,
+    selectedCast: present.map((entryId) => {
+      const record = records.find((entry) => entry.entryId === entryId);
+      if (!record) return { entryId }; // Keep missing mandatory evidence invalid.
+      const { participation, ...evidence } = record;
+      return participation === "in_scene" ? evidence : { ...evidence, participation };
+    }),
+    consideredCast: records.filter((entry) => !present.includes(entry.entryId)),
+  };
+}
