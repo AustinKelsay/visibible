@@ -1,0 +1,56 @@
+{
+  "issue": 183,
+  "status": "Frozen proposal with a funding-gated one-shot runner. No paid execution is authorized by this file.",
+  "purpose": "Compare v8 planning with v9 planning that excludes shared section-look values; unchanged v5 review. Memory-only text preparations, no images or production writes.",
+  "baselineCommit": "b8b41bd6871d3679b04c05cf61c3d99507ee4dd4",
+  "pipeline": {
+    "baselineMomentCast": "2026-10-23-moment-cast-v8",
+    "baselineFormlessPlan": "2026-10-23-formless-effects-v8",
+    "candidateMomentCast": "2026-10-23-moment-cast-v9",
+    "candidateFormlessPlan": "2026-10-23-formless-effects-v9",
+    "review": "2026-10-23-plan-review-v5"
+  },
+  "sampling": {
+    "seed": 2026102401,
+    "orderSeed": 2026102402,
+    "fresh": 23,
+    "retained": [
+      1,
+      27,
+      34,
+      35,
+      59,
+      67,
+      74
+    ],
+    "exclude": "../2026-10-23-cast-policy-check/sample-set.json",
+    "method": "Uniform verse-position draws without replacement, excluding all previous 100 moment IDs. Assert each selected production moment is exactly that verse; abort rather than replace any unsupported mapping or missing record. No filtering by cast, genre, expected quality or prior look availability. Snapshot moment, section and canon read-only once. Retained cases use their unchanged historical fixtures. Seed-shuffle the 30 pairs; alternate baseline-first and candidate-first, 15 each. Six unchanged direct review controls precede pairs."
+  },
+  "method": "Each arm starts from a separate cold in-memory store with the same moment/section/canon and no look or plan. Generate a look independently in each arm using the unchanged look contract. This measures full cold-pipeline outcomes; look randomness is not held fixed. One draw per arm/case, all first outcomes retained; no tuning, substitutions or paid reruns. Production model, provider, sampling defaults, response schema contract, malformed retry and one semantic re-plan remain in force.",
+  "scoring": {
+    "packet": "After execution, seed-shuffle stored plans into opaque labels without arm, pipeline outcome, review, grounding or version. Include source, same-section neighbors, full available cast/canon, selected IDs and seven scene fields. Score and commit before unblinding. Also score look-to-plan contradictions separately from planner-field correctness. Retained familiarity and a single operator limit masking; do not claim independent adjudication.",
+    "labels": [
+      "acceptable",
+      "flawed",
+      "uncertain"
+    ],
+    "criteria": "Source-supported instant and cast identities; every depicted available character/group/location/object/no-form presence selected; no framing or separate-event cast, invented recurring identities, embodied no-form subject, pose/prop contradiction, collage, fixed-canon or art-style leakage. Generic roles, crowds, props and scenery are allowed when source-compatible. An uncertain stored scene counts against acceptance. Quote each defect and source/canon rationale; preserve sensitivity to every disputed score.",
+    "analysis": "Report stored acceptable, flawed, uncertain and refused per arm, separately for 23 fresh and seven retained cases. Include paired 2x2 acceptable tables, exact two-sided McNemar/binomial discordance p-values, 95% Wilson intervals for each acceptable rate and discordant counts; this small diagnostic cannot establish population reliability. No refusal counts as repair. Report missing pairs as incomplete, without dropping them.",
+    "gate": "All 66 operations and pairs complete. All six direct review controls pass (all required kind/ID reports on negatives, no problems on positives). Candidate has zero flawed/uncertain stores, at least 22/23 acceptable fresh cases and 7/7 retained, and strictly more acceptable outcomes than baseline overall and on retained cases, without increasing refusals overall. Look-to-plan contradictions fail the cold-pipeline gate. Failure or incomplete execution preserves the release hold; no iterative rerun is funded. A pass permits proposing broader validation, not public activation."
+  },
+  "evaluation": {
+    "authorizedBeforeUsd": 16.95,
+    "measuredBeforeUsd": 16.9011733,
+    "uncertaintyBeforeUsd": 0.045,
+    "remainingBeforeUsd": 0.0038267,
+    "proposedIncreaseUsd": 0.25,
+    "proposedAuthorizedUsd": 17.2,
+    "proposedOperationCapUsd": 0.25,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 612
+  },
+  "executionRequirements": "Owner must explicitly grant the evaluation increase first. Commit exact code/protocol/fixtures/dry-run hashes and funding record before calls; recheck immutable baseline and source hashes, refresh model prices and balance, and refuse drift. Reserve before every HTTP request; stop on missing usage, provider errors, unavailable review, request drift, reserve/call cap or interruption. Retain partial results and uncertain cost; never resume or restart automatically. The cap may stop before all cases finish. Per-call usage is cost; shared balance deltas are not. No transfers from preparation/smoke.",
+  "releaseHold": true,
+  "publicActivation": false,
+  "humanAccepted": false
+}

@@ -40,7 +40,7 @@ async function setup(repair: boolean, invalidation: "both" | "review" | "selecti
     model: { id: "scripted", complete: async (r) => r.schemaName === "plan_review" ? reviewReply([]) : completion(r.schemaName === "section_look" ? { place: "camp", timeOfDay: "day", weather: "clear", light: "daylight", clothing: "plain tunic" } : reply(false)) } });
   const old = (await memory.store.getActiveRecord("plan", "m-1"))!;
   await memory.store.putDerivedRecord({ kind: "plan", recordId: "m-1", payload: { ...old.payload, kind: "plan" },
-    inputs: old.inputs.map((input) => input.recordId === "scene_plan_moment_cast" && invalidation === "selection" ? { ...input, version: "2026-10-23-moment-cast-v7" }
+    inputs: old.inputs.map((input) => input.recordId === "scene_plan_moment_cast" && invalidation === "selection" ? { ...input, version: "2026-10-23-moment-cast-v8" }
       : input.recordId === "scene_plan_review" && invalidation !== "selection" ? { ...input, version: invalidation === "review" ? "2026-10-23-plan-review-v4" : "2026-10-23-plan-review-v2" }
       : input.recordId === "scene_plan_formless_presence" && invalidation === "both" ? { ...input, version: "2026-10-22-formless-effects-v5" } : input) });
   const calls: TextModelRequest[] = [];

@@ -73,7 +73,8 @@ describe("scene source grounding", () => {
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan"]);
     expect(write).toHaveBeenCalledOnce();
     expect(records.find((r) => r.kind === "plan" && r.recordId === "luke-10-34")?.payload).toMatchObject({ grounding: binding.grounding, plan: fields });
-    expect(calls[0].user.indexOf("MOMENT (")).toBeLessThan(calls[0].user.indexOf("SECTION LOOK ("));
+    expect(calls[0].user.indexOf("MOMENT (")).toBeLessThan(calls[0].user.indexOf("CAST ON STAGE"));
+    expect(calls[0].user).not.toContain("SECTION LOOK (");
     expect(calls[0].system).toContain("choose one representative instant");
     expect(calls[0].system).toContain("A first-person report of seeing or telling is framing evidence");
   });
