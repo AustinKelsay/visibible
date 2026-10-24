@@ -1,0 +1,8 @@
+{
+  "issues": 1,
+  "unresolved": 0,
+  "reviewedFiles": 20,
+  "resolution": "Replaced the stale present reference in FORMLESS_PLAN_SYSTEM with selectedCast. Regenerated the zero-call dry-run hashes before freezing.",
+  "postFixVerification": "37 affected tests passed; the complete suite before the wording-only fix passed 982 tests, one existing skipped.",
+  "scope": "CodeRabbit reviewed candidate implementation, fixtures, protocol and active docs. Post-run measurements, scores and final results documentation are added later and are not claimed CodeRabbit-reviewed."
+}

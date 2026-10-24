@@ -1,0 +1,18 @@
+{
+  "red": {
+    "command": "npx vitest run src/lib/__tests__/single-cast-selection.test.ts",
+    "failed": 2,
+    "passed": 9,
+    "signal": "The old production schema refuses the single-selection envelope, requiring independent grounding.cast and present; a semantically unsupported selection never reaches review."
+  },
+  "green": {
+    "fullCommand": "npm test -- --run",
+    "passed": 982,
+    "skipped": 1,
+    "postReviewCommand": "npx vitest run src/lib/__tests__/single-cast-selection.test.ts src/lib/__tests__/engine-presence.test.ts src/lib/__tests__/formless-selection.test.ts",
+    "postReviewPassed": 37
+  },
+  "lint": "passed",
+  "typecheck": "passed",
+  "liveModelCompliance": "Not established by scripted tests."
+}

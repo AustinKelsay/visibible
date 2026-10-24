@@ -104,7 +104,7 @@ describe("no-form presence selection", () => {
     expect(plan.user).not.toContain(entries[0].payload.stages[0].text);
     expect(plan.user).toContain(`MOMENT (The Court 1): ${work.getUnit("court-1").text}`);
     expect(plan.system).toContain("Presence does not require a physical body");
-    expect(plan.system).toContain("include its id in `present`");
+    expect(plan.system).toContain("include its id and source evidence in `selectedCast`");
     expect(plan.system).toContain("do not add cast who are absent or merely mentioned");
     expect(plan.system).toContain("use its assigned canon to choose the permitted visible effects");
     expect(plan.system).toContain("describe the unoccupied seat and the permitted surrounding effects rather than a seated presence");
@@ -120,16 +120,18 @@ describe("no-form presence selection", () => {
     const request = calls.find((r) => r.schemaName === "scene_plan")!;
     expect(responseSchema(request.schema)).toEqual({
       type: "object", additionalProperties: false,
-      required: ["grounding", "present", ...Object.keys(fields), "missingCast"],
+      required: ["grounding", "selectedCast", "consideredCast", ...Object.keys(fields), "missingCast"],
       properties: {
-        grounding: expect.objectContaining({ type: "object", additionalProperties: false, required: ["focusQuote", "cast", "instant", "singleInstant"] }),
-        present: { type: "array", items: { type: "string", enum: entries.map((e) => e.recordId) }, description: expect.any(String) },
+        grounding: expect.objectContaining({ type: "object", additionalProperties: false, required: ["focusQuote", "instant", "singleInstant"] }),
+        selectedCast: { type: "array", description: expect.any(String), items: expect.objectContaining({ type: "object", additionalProperties: false,
+          required: ["entryId", "momentQuote", "contextSource", "contextQuote"], properties: expect.objectContaining({ entryId: { type: "string", enum: entries.map((e) => e.recordId) } }) }) },
+        consideredCast: expect.objectContaining({ type: "array", items: expect.objectContaining({ additionalProperties: false }) }),
         missingCast: { type: "array", items: { type: "string" }, description: expect.any(String) },
         // Anthropic does not support maxLength in output schemas; local validation still rejects it.
         ...Object.fromEntries(Object.keys(fields).map((key) => [key, { type: "string", description: expect.stringContaining("At most 220 characters.") }])),
       },
     });
-    const reply = withGrounding({ missingCast: [], present: [], ...fields }, work.getUnit("court-1").text);
+    const reply = { missingCast: [], selectedCast: [], consideredCast: [], ...fields, grounding: { focusQuote: work.getUnit("court-1").text, instant: "One instant.", singleInstant: true } };
     expect(request.schema.safeParse(reply).success).toBe(true);
     for (const key of Object.keys(fields)) {
       expect(request.schema.safeParse({ ...reply, [key]: "x".repeat(220) }).success).toBe(true);

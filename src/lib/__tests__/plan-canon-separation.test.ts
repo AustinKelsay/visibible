@@ -8,7 +8,7 @@ import { assembleRendering, type AssembleDeps } from "../engine/assemble";
 import { readWorkInputs } from "../engine/work-inputs";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
 import { responseSchema } from "../reading-pass/prompts";
-import { withGrounding } from "../../../tests/fixtures/scene-grounding";
+import { selectionReply, withGrounding } from "../../../tests/fixtures/scene-grounding";
 
 const evidence = new URL("../../../llm/releases/2026-10-22-daniel-placement-v4/", import.meta.url);
 const input = JSON.parse(readFileSync(new URL("plan-input.json", evidence), "utf8"));
@@ -88,7 +88,7 @@ describe("no-form plan and canon separation", () => {
     const { result, requests, write, spend } = await plan(retainedContent, showing);
     const plans = requests.filter((r) => r.schemaName === "scene_plan");
     expect(plans).toHaveLength(1);
-    expect(plans[0].schema.safeParse(withGrounding({ ...retainedPlan, missingCast: [] }, input.context.moment.text)).success).toBe(true);
+    expect(plans[0].schema.safeParse(selectionReply(withGrounding({ ...retainedPlan, missingCast: [] }, input.context.moment.text))).success).toBe(true);
     expect(result.plan.payload).toEqual(retainedPlan);
     expect(result.plan.payload.primarySubject).toBe("Radiance above an unoccupied fiery throne; Daniel stands below, gazing upward.");
     expect(result.plan.payload.secondaryElements).toContain("soft white cloud");
