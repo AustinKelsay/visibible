@@ -1,0 +1,70 @@
+{
+  "issue": 183,
+  "status": "Frozen funding-gated proposal. No new paid execution is authorized.",
+  "purpose": "Compare actual v9/v5 preparation against combined rendering review v6 over complete cold packets and paired adverse/clean controls. No model calls before a separate explicit grant.",
+  "baselineCommit": "a35f102b2d91f97fe7904e73109fc947ff70f2a0",
+  "pipeline": {
+    "momentCast": "2026-10-23-moment-cast-v9",
+    "formlessPlan": "2026-10-23-formless-effects-v9",
+    "baselineReview": "2026-10-23-plan-review-v5",
+    "candidateReview": "2026-10-24-rendering-review-v6",
+    "rendering": "2026-10-24-generic-v7"
+  },
+  "sampling": {
+    "seed": 2026102404,
+    "orderSeed": 2026102405,
+    "fresh": 23,
+    "retained": [
+      1,
+      27,
+      34,
+      35,
+      59,
+      67,
+      74
+    ],
+    "exclude": [
+      "../2026-10-23-cast-policy-check/sample-set.json",
+      "../2026-10-23-source-first-check/sample-set.json"
+    ],
+    "method": "Uniform verse-position draws without replacement outside the union of the previous 100 and 23 fresh moments. Assert the exact production moment mapping, abort instead of replacing a missing/mismatched fixture. No cast/genre/look/quality filtering. Seven unchanged retained fixtures come from the first 100. Snapshot fresh moment/section/canon read-only once. Seed-shuffle 30 pairs and alternate arm order, 15 each. Run both arms on every direct control first, alternating order.",
+    "maskSeed": 2026102406,
+    "excludedCount": 123
+  },
+  "method": "Both arms use the same source-first v9 planner and unchanged look generator, with actual v5 or v6 review modules. Each cold memory store has identical source/section/canon and independently generated looks. This measures the whole preparation bundle, not isolated reviewer causality. One draw per arm/case, all first outcomes retained, no tuning/substitutions/rerun. Production schemas, Haiku 5.5 Anthropic routing, sampling defaults, malformed retry and one re-plan are retained. Renderer ownership wording is pinned but no image/style-prompt behavior is measured.",
+  "scoring": {
+    "packet": "After execution, seed-shuffle stored complete packets into opaque labels, omit arm/review/outcome/version/grounding. Include exact source, section bounds/title, same-section neighbors, full available assigned canon, selected IDs, five-field look and seven fields. Commit complete scores before unblinding. Single operator and familiar retained cases limit masking; no independent-adjudication claim.",
+    "labels": [
+      "acceptable",
+      "flawed",
+      "uncertain"
+    ],
+    "criteria": "Source-supported instant and cast identities; every depicted available character/group/location/object/no-form presence selected; no framing or separate-event cast, invented recurring identities, embodied no-form subject, pose/prop contradiction, collage, fixed-canon or art-style leakage. Generic roles, crowds, props and scenery are allowed when source-compatible. An uncertain stored scene counts against acceptance. Quote each defect and source/canon rationale; preserve sensitivity to every disputed score.",
+    "analysis": "Report stored acceptable, flawed, uncertain and refused per arm, separately for 23 fresh and seven retained cases. Include paired 2x2 acceptable tables, exact two-sided McNemar/binomial discordance p-values, 95% Wilson intervals for each acceptable rate and discordant counts; this small diagnostic cannot establish population reliability. No refusal counts as repair. Report missing pairs as incomplete, without dropping them.",
+    "gate": "All 92 operations complete. All 16 candidate controls pass, zero positive false alarms. Candidate has zero flawed/uncertain stores or look contradictions, at least 22/23 acceptable fresh and 7/7 retained, strictly more acceptable overall and on retained cases than baseline, without more total refusals. Refused looks count against availability. No early semantic tuning or case replacement; a complete failure preserves release hold. A pass permits proposing broader validation, not activation."
+  },
+  "evaluation": {
+    "authorizedBeforeUsd": 17.2,
+    "measuredBeforeUsd": 17.0552388,
+    "uncertaintyBeforeUsd": 0.045,
+    "remainingBeforeUsd": 0.0997612,
+    "proposedIncreaseUsd": 0.3,
+    "proposedAuthorizedUsd": 17.5,
+    "proposedOperationCapUsd": 0.3,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 664
+  },
+  "executionRequirements": "Owner must explicitly grant the evaluation increase first. Commit exact code/protocol/fixtures/dry-run hashes and funding record before calls; recheck immutable baseline and source hashes, refresh model prices and balance, and refuse drift. Reserve before every HTTP request; stop on missing usage, provider errors, unavailable review, request drift, reserve/call cap or interruption. Retain partial results and uncertain cost; never resume or restart automatically. The cap may stop before all cases finish. Per-call usage is cost; shared balance deltas are not. No transfers from preparation/smoke.",
+  "releaseHold": true,
+  "publicActivation": false,
+  "humanAccepted": false,
+  "candidateCommit": "599fcca70c1ff49536ab3dc2b4088dcf2dfbd7ee",
+  "controls": {
+    "cases": 16,
+    "operations": 32,
+    "negative": 9,
+    "positive": 7,
+    "gate": "Every candidate negative must report every predeclared kind/ID; extra negative reports need explicit source-based disposition. Every candidate positive must return no problems. Baseline controls are descriptive and cannot relax the candidate gate. Unavailable review fails and stops the run. Controls are constructed isolates of retained failure classes, not new live outcomes or a pipeline score."
+  },
+  "knownLimitation": "Shared-look generation is unchanged. A bad look stops the candidate without repair and can make the availability gate fail. This run measures containment, false alarms and whole-pipeline availability once; it does not fund an iterative look repair/tuning loop."
+}

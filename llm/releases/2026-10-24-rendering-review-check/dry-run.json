@@ -1,0 +1,1624 @@
+{
+  "at": "2026-10-24T15:08:01.846Z",
+  "baselineCommit": "a35f102b2d91f97fe7904e73109fc947ff70f2a0",
+  "baselineHashes": {
+    "preparation": "cf5366037be51c200c9e029549380764f701ba4b4048c47960f231e1bee588e3",
+    "plan-review": "420b3da788b949aa397e291ad1d84fb33b5937a013889437c2007eec095286da"
+  },
+  "sources": {
+    "src/lib/engine/preparation.ts": "33de6ebce991eabae345a2d456cd8dd51257b62e0b4174715f4fd87e9724fdae",
+    "convex/_helpers/contentVersion.ts": "c34546acd74b8f3081a3f73a2e922ba30732ed21f26f6e75688a3b8ac3ed2a32",
+    "src/lib/engine/scene-grounding.ts": "fb20e4778239fc734c0ed5b6098b11474bb6a98d20c21c05d26865596c79eed5",
+    "src/lib/engine/plan-review.ts": "25b052bd5aec2ca034ed47a8dca633747c6158e82e2764aaabee21f2c0626cb8",
+    "src/lib/engine/prompt.ts": "b73c1a2fe1d627143d9695b07b9d9f12abcc1a50fc5ad3f56d7103eb2e2d33f1",
+    "src/lib/engine/work-inputs.ts": "e449de93ef5b76c26b97bb40c725e11aeea9202cc9d14d7bd744aecbaa2c2cb3",
+    "src/lib/engine/memory-store.ts": "2d05890efcee72971a78cd50b94de0aab4653c253b3505e78ed4c222b03c76ad",
+    "src/lib/reading-pass/model.ts": "da9caabd9a8f02e4fb2d8dd0c33babc7f142ab5ab2de354fff07f6d35eb488ea",
+    "src/lib/reading-pass/prompts.ts": "766166e25eaaaef2b6741898b5b0ccc1f330f85e9036af89c7b008cf81713abf",
+    "src/lib/image-response.ts": "07b5092d1795db69bbd4cfa41c5a25691277ff9a982884118fc1658881a9bba6",
+    "src/lib/image-prompts.ts": "fb4f04b8d98a2f32ceac40f4e854a1499ed8aaeaa7031b7e2212dbad515dfc6a",
+    "src/lib/canon-showing.ts": "2bfb6fa9aa29d366ab741981627f65b0b3425ee065ea3c163caca889bfbdee0b",
+    "src/lib/work-input.ts": "e43bddfa5b9a1e2f8065c42f6f99baba98d359f3a996efaca3d30aafb1d13590",
+    "src/lib/work-preparation.ts": "34ae8097b4eb351115bb7f5a77e8d63b59da40ec0d9891e0874f323fe88262ea",
+    "styles/classical.json": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+    "styles/watercolor.json": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+    "styles/icon.json": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+    "works/bible-web/brief.json": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "llm/releases/2026-10-24-rendering-review-check/common.mts": "d5fc299e3bdf9f5cbd5848d78e24c0806d69bc37bb7bdd2f263c86e2949ae419",
+    "llm/releases/2026-10-24-rendering-review-check/baseline.mts": "777ffbda5e0f44d6e8f76078656c212f8da90ecb98599bb434d11db27d040916",
+    "llm/releases/2026-10-24-rendering-review-check/snapshot.mts": "c7574bc35e4212fbf164aa7195142157b103b09b02f5b1eb963c557b91b7ce61",
+    "llm/releases/2026-10-24-rendering-review-check/scenarios.mts": "a424ddf1be689af5be4cf984fa16942610710a08a27d1771cfe5b7090b4ca185",
+    "llm/releases/2026-10-24-rendering-review-check/dry-run.mts": "4722b7a21bf575b744a4f1c51da5a6c28ed88ee03d529d9412eaa5e5b58decba",
+    "llm/releases/2026-10-24-rendering-review-check/model.mts": "736c121b65b1ae0f16bfc3b0fbe797f25271c10ba1731787ff1a70e55e8e0e03",
+    "llm/releases/2026-10-24-rendering-review-check/run.mts": "134a4000600e9a37c7c54d356d70703205f1eb49dd9fb22fc380063069aee5ce",
+    "llm/releases/2026-10-24-rendering-review-check/audit.mts": "8df9bbfbddf512303d4807145210e7710bed470f1d6d38d894c36699f0d0cc04",
+    "llm/releases/2026-10-24-rendering-review-check/score.mts": "6afe0aa630bc75c7c8fce5912168cc086e26a8db977f5563d3e36e74711720fa",
+    "llm/releases/2026-10-24-rendering-review-check/plan.json": "1a56aa561f056d3eb886bb49a2a8cda2b2235c1ded0ba4cf320c78a27ac94fd3",
+    "llm/releases/2026-10-24-rendering-review-check/sample-set.json": "8a066d06b275c7ecea6305f3da8d6cb6356dcc62cb779d454e2e92b71af9a375",
+    "llm/releases/2026-10-24-rendering-review-check/README.md": "08a71cbc4a7b2e0ba97d2d5641e7fa831130b44bdb81bcf936a0489e7fa8ca1f",
+    "llm/releases/2026-10-24-rendering-review-check/controls.mts": "5ffc1f0e8237bb96b1c81577b4aebb9cca78e2a8865cad0a434bf2f4b3ee6885",
+    "llm/releases/2026-10-24-rendering-review-check/rehearse.mts": "e751bb690a2631fa4cbf431110d5a82bbb204d0f25442d8d3ea17d892c048217",
+    "package.json": "3fdf0f945c802fbc8de81b21b777dde45b600caec4843b581992a1883e43ffa9",
+    "package-lock.json": "d9cff4d52431f7ad6d3eb6f9c1b025bfbfc74be703fe6d55010abb0b6abd326c"
+  },
+  "operations": [
+    {
+      "id": "look-place-baseline",
+      "kind": "review",
+      "sample": "look-place",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "look-place-candidate",
+      "kind": "review",
+      "sample": "look-place",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "look-time-candidate",
+      "kind": "review",
+      "sample": "look-time",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "look-time-baseline",
+      "kind": "review",
+      "sample": "look-time",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "look-unselected-effect-baseline",
+      "kind": "review",
+      "sample": "look-unselected-effect",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "look-unselected-effect-candidate",
+      "kind": "review",
+      "sample": "look-unselected-effect",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "canon-robe-candidate",
+      "kind": "review",
+      "sample": "canon-robe",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "canon-robe-baseline",
+      "kind": "review",
+      "sample": "canon-robe",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "missing-canon-baseline",
+      "kind": "review",
+      "sample": "missing-canon",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "missing-canon-candidate",
+      "kind": "review",
+      "sample": "missing-canon",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "unsupported-aaron-candidate",
+      "kind": "review",
+      "sample": "unsupported-aaron",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "unsupported-aaron-baseline",
+      "kind": "review",
+      "sample": "unsupported-aaron",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "unsupported-moses-baseline",
+      "kind": "review",
+      "sample": "unsupported-moses",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "unsupported-moses-candidate",
+      "kind": "review",
+      "sample": "unsupported-moses",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "object-state-candidate",
+      "kind": "review",
+      "sample": "object-state",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "object-state-baseline",
+      "kind": "review",
+      "sample": "object-state",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "look-embodiment-baseline",
+      "kind": "review",
+      "sample": "look-embodiment",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "look-embodiment-candidate",
+      "kind": "review",
+      "sample": "look-embodiment",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "ordinary-light-candidate",
+      "kind": "review",
+      "sample": "ordinary-light",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "ordinary-light-baseline",
+      "kind": "review",
+      "sample": "ordinary-light",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "section-range-baseline",
+      "kind": "review",
+      "sample": "section-range",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "section-range-candidate",
+      "kind": "review",
+      "sample": "section-range",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "selected-effects-candidate",
+      "kind": "review",
+      "sample": "selected-effects",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "selected-effects-baseline",
+      "kind": "review",
+      "sample": "selected-effects",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "situational-pose-baseline",
+      "kind": "review",
+      "sample": "situational-pose",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "situational-pose-candidate",
+      "kind": "review",
+      "sample": "situational-pose",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "wardrobe-inventory-candidate",
+      "kind": "review",
+      "sample": "wardrobe-inventory",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "wardrobe-inventory-baseline",
+      "kind": "review",
+      "sample": "wardrobe-inventory",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "incidental-roles-baseline",
+      "kind": "review",
+      "sample": "incidental-roles",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "incidental-roles-candidate",
+      "kind": "review",
+      "sample": "incidental-roles",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "compatible-object-candidate",
+      "kind": "review",
+      "sample": "compatible-object",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "compatible-object-baseline",
+      "kind": "review",
+      "sample": "compatible-object",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "f009-baseline",
+      "kind": "pipeline",
+      "sample": "f009",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f009-candidate",
+      "kind": "pipeline",
+      "sample": "f009",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f003-candidate",
+      "kind": "pipeline",
+      "sample": "f003",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f003-baseline",
+      "kind": "pipeline",
+      "sample": "f003",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "r027-baseline",
+      "kind": "pipeline",
+      "sample": "r027",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "r027-candidate",
+      "kind": "pipeline",
+      "sample": "r027",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "f016-candidate",
+      "kind": "pipeline",
+      "sample": "f016",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f016-baseline",
+      "kind": "pipeline",
+      "sample": "f016",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "r034-baseline",
+      "kind": "pipeline",
+      "sample": "r034",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "r034-candidate",
+      "kind": "pipeline",
+      "sample": "r034",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "f008-candidate",
+      "kind": "pipeline",
+      "sample": "f008",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f008-baseline",
+      "kind": "pipeline",
+      "sample": "f008",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f005-baseline",
+      "kind": "pipeline",
+      "sample": "f005",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f005-candidate",
+      "kind": "pipeline",
+      "sample": "f005",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f004-candidate",
+      "kind": "pipeline",
+      "sample": "f004",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f004-baseline",
+      "kind": "pipeline",
+      "sample": "f004",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f021-baseline",
+      "kind": "pipeline",
+      "sample": "f021",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f021-candidate",
+      "kind": "pipeline",
+      "sample": "f021",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f006-candidate",
+      "kind": "pipeline",
+      "sample": "f006",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f006-baseline",
+      "kind": "pipeline",
+      "sample": "f006",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f018-baseline",
+      "kind": "pipeline",
+      "sample": "f018",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f018-candidate",
+      "kind": "pipeline",
+      "sample": "f018",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f014-candidate",
+      "kind": "pipeline",
+      "sample": "f014",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f014-baseline",
+      "kind": "pipeline",
+      "sample": "f014",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f002-baseline",
+      "kind": "pipeline",
+      "sample": "f002",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f002-candidate",
+      "kind": "pipeline",
+      "sample": "f002",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f001-candidate",
+      "kind": "pipeline",
+      "sample": "f001",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f001-baseline",
+      "kind": "pipeline",
+      "sample": "f001",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f010-baseline",
+      "kind": "pipeline",
+      "sample": "f010",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f010-candidate",
+      "kind": "pipeline",
+      "sample": "f010",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "r035-candidate",
+      "kind": "pipeline",
+      "sample": "r035",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "r035-baseline",
+      "kind": "pipeline",
+      "sample": "r035",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "r001-baseline",
+      "kind": "pipeline",
+      "sample": "r001",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "r001-candidate",
+      "kind": "pipeline",
+      "sample": "r001",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "r074-candidate",
+      "kind": "pipeline",
+      "sample": "r074",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "r074-baseline",
+      "kind": "pipeline",
+      "sample": "r074",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "f013-baseline",
+      "kind": "pipeline",
+      "sample": "f013",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f013-candidate",
+      "kind": "pipeline",
+      "sample": "f013",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f011-candidate",
+      "kind": "pipeline",
+      "sample": "f011",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f011-baseline",
+      "kind": "pipeline",
+      "sample": "f011",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "r067-baseline",
+      "kind": "pipeline",
+      "sample": "r067",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "r067-candidate",
+      "kind": "pipeline",
+      "sample": "r067",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "f012-candidate",
+      "kind": "pipeline",
+      "sample": "f012",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f012-baseline",
+      "kind": "pipeline",
+      "sample": "f012",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f020-baseline",
+      "kind": "pipeline",
+      "sample": "f020",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f020-candidate",
+      "kind": "pipeline",
+      "sample": "f020",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "r059-candidate",
+      "kind": "pipeline",
+      "sample": "r059",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "r059-baseline",
+      "kind": "pipeline",
+      "sample": "r059",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "f023-baseline",
+      "kind": "pipeline",
+      "sample": "f023",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f023-candidate",
+      "kind": "pipeline",
+      "sample": "f023",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f007-candidate",
+      "kind": "pipeline",
+      "sample": "f007",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f007-baseline",
+      "kind": "pipeline",
+      "sample": "f007",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f017-baseline",
+      "kind": "pipeline",
+      "sample": "f017",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f017-candidate",
+      "kind": "pipeline",
+      "sample": "f017",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f015-candidate",
+      "kind": "pipeline",
+      "sample": "f015",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f015-baseline",
+      "kind": "pipeline",
+      "sample": "f015",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f019-baseline",
+      "kind": "pipeline",
+      "sample": "f019",
+      "arm": "baseline",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f019-candidate",
+      "kind": "pipeline",
+      "sample": "f019",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f022-candidate",
+      "kind": "pipeline",
+      "sample": "f022",
+      "arm": "candidate",
+      "stratum": "fresh"
+    },
+    {
+      "id": "f022-baseline",
+      "kind": "pipeline",
+      "sample": "f022",
+      "arm": "baseline",
+      "stratum": "fresh"
+    }
+  ],
+  "first": {
+    "look-place-baseline": {
+      "sha256": "f9af2fffc0895990383f52fb3c1a294e87a02ba9ad0a469e340808009bd54975",
+      "schemaName": "plan_review"
+    },
+    "look-place-candidate": {
+      "sha256": "b9154983f612d6e50420486650ed90bc01a70c516e9e7b8a8f9a503374237c2a",
+      "schemaName": "plan_review"
+    },
+    "look-time-candidate": {
+      "sha256": "baad90d49f47cad8902a773896b713f0b256bb04854f664d7d324107023c85d9",
+      "schemaName": "plan_review"
+    },
+    "look-time-baseline": {
+      "sha256": "f9af2fffc0895990383f52fb3c1a294e87a02ba9ad0a469e340808009bd54975",
+      "schemaName": "plan_review"
+    },
+    "look-unselected-effect-baseline": {
+      "sha256": "30c332ba716b60b9be4912774809ebf42915216a7d41da07a7afc969791b14bb",
+      "schemaName": "plan_review"
+    },
+    "look-unselected-effect-candidate": {
+      "sha256": "57a8ffc29ca94f0bf70812f40255e254a29c86368255de93f94dd565ef4a59fd",
+      "schemaName": "plan_review"
+    },
+    "canon-robe-candidate": {
+      "sha256": "6a3862738819890c7e0bd1c5a81bc73a1871d9abb3976c39e02401bf2ae08ce9",
+      "schemaName": "plan_review"
+    },
+    "canon-robe-baseline": {
+      "sha256": "80934128b2b2ffda5d5d18f0f2ecf5e1ac05cb3434285812cf52fa9b062e6ce1",
+      "schemaName": "plan_review"
+    },
+    "missing-canon-baseline": {
+      "sha256": "35f1d58229659a66fffd9a49c8619c5fea531bb3677a9b94e3fa3d7adbc2e329",
+      "schemaName": "plan_review"
+    },
+    "missing-canon-candidate": {
+      "sha256": "ac731cc30550089e9fb43f8439d3bd4be7f324cc3736790ce2b34ea246fff74b",
+      "schemaName": "plan_review"
+    },
+    "unsupported-aaron-candidate": {
+      "sha256": "8d2c290e27d8803ae06c9c2683070da06e2095b6f61f6e27f0488525b0528fb1",
+      "schemaName": "plan_review"
+    },
+    "unsupported-aaron-baseline": {
+      "sha256": "0ce47152be46e81a5dce267d08d31bf9c5b8e172a7c7985464f3cdd83a960ab8",
+      "schemaName": "plan_review"
+    },
+    "unsupported-moses-baseline": {
+      "sha256": "fab307556ab4456f9a1115c236b42ac8174a266e19f6f81578c5a1715577527e",
+      "schemaName": "plan_review"
+    },
+    "unsupported-moses-candidate": {
+      "sha256": "1d6bbae8ea4e9a5d19e9bfa8812e473360b01b25239bca1e3d6304463971d91e",
+      "schemaName": "plan_review"
+    },
+    "object-state-candidate": {
+      "sha256": "401c46f97b31cfd9be49459cdc76d8bd57416f99137e33c118c986d4f771a358",
+      "schemaName": "plan_review"
+    },
+    "object-state-baseline": {
+      "sha256": "a8c6937e60932e0a3102a2e98e6421f5458d9a528af2baf7e2c50b20773a4d87",
+      "schemaName": "plan_review"
+    },
+    "look-embodiment-baseline": {
+      "sha256": "8594cdc0a8e8fd1a6533627b634dd5cd32e0d601691cb8374ba1f9f318ae53a1",
+      "schemaName": "plan_review"
+    },
+    "look-embodiment-candidate": {
+      "sha256": "edbe25b99a784a538a7012b71d7fb20b1ea729cc483822d2f653dcbe8e34a8b9",
+      "schemaName": "plan_review"
+    },
+    "ordinary-light-candidate": {
+      "sha256": "e6ac0da984a1f8842f50325d0776951a3e803ee01662b5a6e8aaf3283c2f9c19",
+      "schemaName": "plan_review"
+    },
+    "ordinary-light-baseline": {
+      "sha256": "30c332ba716b60b9be4912774809ebf42915216a7d41da07a7afc969791b14bb",
+      "schemaName": "plan_review"
+    },
+    "section-range-baseline": {
+      "sha256": "f9af2fffc0895990383f52fb3c1a294e87a02ba9ad0a469e340808009bd54975",
+      "schemaName": "plan_review"
+    },
+    "section-range-candidate": {
+      "sha256": "fb660a8c549f7edc0932163d3eac4c540911b249c3204cfbd2d08abc91fce110",
+      "schemaName": "plan_review"
+    },
+    "selected-effects-candidate": {
+      "sha256": "e13115e7477fb0e73741b3f3db09ba4f645b196433b1457bd1d289239f9d5631",
+      "schemaName": "plan_review"
+    },
+    "selected-effects-baseline": {
+      "sha256": "8594cdc0a8e8fd1a6533627b634dd5cd32e0d601691cb8374ba1f9f318ae53a1",
+      "schemaName": "plan_review"
+    },
+    "situational-pose-baseline": {
+      "sha256": "e1af11e43b82817216b1c456c47823889d616607c087d56d9ed8aec769173be9",
+      "schemaName": "plan_review"
+    },
+    "situational-pose-candidate": {
+      "sha256": "bf129c6be9374e30568bc45c29c73982c62b1d23b1690330beadcca8bac9b7f6",
+      "schemaName": "plan_review"
+    },
+    "wardrobe-inventory-candidate": {
+      "sha256": "2b2a91fb7d3a95694656ff6669596515693e056cac3da2faa565d0e046cddfc7",
+      "schemaName": "plan_review"
+    },
+    "wardrobe-inventory-baseline": {
+      "sha256": "d7d6aaf43557fb60dbe74150856af74a351c3eff7c366e520ff9bc8163a416c0",
+      "schemaName": "plan_review"
+    },
+    "incidental-roles-baseline": {
+      "sha256": "bde33fd6c8583390d9dea56bf31b48ef5cbd8d4b91f5a3e7c05ecd4777101072",
+      "schemaName": "plan_review"
+    },
+    "incidental-roles-candidate": {
+      "sha256": "553eb3a1609c746b28f6c0c2a68fe00ec40372a39c526bbb146ef842e71ddc3f",
+      "schemaName": "plan_review"
+    },
+    "compatible-object-candidate": {
+      "sha256": "17f1e3f69eb01e1dd55df7e1e7f3cbf68f6f28f987336cd52dbf8d966ad996b5",
+      "schemaName": "plan_review"
+    },
+    "compatible-object-baseline": {
+      "sha256": "36af16eefdddd48f0790fd01c7d3615e89b2aced232279ed0e8772f5488cc4b7",
+      "schemaName": "plan_review"
+    },
+    "f009-baseline": {
+      "sha256": "5778af778859be41042e827b0fbba8073c891f161d9b98160874fa6d9ee638d6",
+      "schemaName": "section_look"
+    },
+    "f009-candidate": {
+      "sha256": "5778af778859be41042e827b0fbba8073c891f161d9b98160874fa6d9ee638d6",
+      "schemaName": "section_look"
+    },
+    "f003-candidate": {
+      "sha256": "361947116389b9f6567a7d79281d1dd12cc2df962295dc06f1c37485621939dd",
+      "schemaName": "section_look"
+    },
+    "f003-baseline": {
+      "sha256": "361947116389b9f6567a7d79281d1dd12cc2df962295dc06f1c37485621939dd",
+      "schemaName": "section_look"
+    },
+    "r027-baseline": {
+      "sha256": "7ff3b6ea464dc205d77fbbaa933cc8cee44d6883a5422e0e62cb92df1f92c33f",
+      "schemaName": "section_look"
+    },
+    "r027-candidate": {
+      "sha256": "7ff3b6ea464dc205d77fbbaa933cc8cee44d6883a5422e0e62cb92df1f92c33f",
+      "schemaName": "section_look"
+    },
+    "f016-candidate": {
+      "sha256": "e3c4f93cf010af88665b869a27241f1d1e9d73df9a28f2cd1772bf8a11137397",
+      "schemaName": "section_look"
+    },
+    "f016-baseline": {
+      "sha256": "e3c4f93cf010af88665b869a27241f1d1e9d73df9a28f2cd1772bf8a11137397",
+      "schemaName": "section_look"
+    },
+    "r034-baseline": {
+      "sha256": "d2ad685f2491bbecc34316d1f45bda5c7be3e0b41e3955ca97fad4165b8685ca",
+      "schemaName": "section_look"
+    },
+    "r034-candidate": {
+      "sha256": "d2ad685f2491bbecc34316d1f45bda5c7be3e0b41e3955ca97fad4165b8685ca",
+      "schemaName": "section_look"
+    },
+    "f008-candidate": {
+      "sha256": "7ff93cb0b0c8740f47a0192a64e0c142cf5692d0d6868537207257132faa8acf",
+      "schemaName": "section_look"
+    },
+    "f008-baseline": {
+      "sha256": "7ff93cb0b0c8740f47a0192a64e0c142cf5692d0d6868537207257132faa8acf",
+      "schemaName": "section_look"
+    },
+    "f005-baseline": {
+      "sha256": "d87ce7bd8f4e6fa1c0c20ab09ce327d4d94985dd337a0824c5e2f94d0b5d3f7b",
+      "schemaName": "section_look"
+    },
+    "f005-candidate": {
+      "sha256": "d87ce7bd8f4e6fa1c0c20ab09ce327d4d94985dd337a0824c5e2f94d0b5d3f7b",
+      "schemaName": "section_look"
+    },
+    "f004-candidate": {
+      "sha256": "f8f7ce9dc61cf32480add7f13c910a5981fd1b13d0a1a76732fa04b8f138c712",
+      "schemaName": "section_look"
+    },
+    "f004-baseline": {
+      "sha256": "f8f7ce9dc61cf32480add7f13c910a5981fd1b13d0a1a76732fa04b8f138c712",
+      "schemaName": "section_look"
+    },
+    "f021-baseline": {
+      "sha256": "dfab1624684ae5a13fa3f2418c8d3c0b23885c387ee6339d092aa3774fd6555e",
+      "schemaName": "section_look"
+    },
+    "f021-candidate": {
+      "sha256": "dfab1624684ae5a13fa3f2418c8d3c0b23885c387ee6339d092aa3774fd6555e",
+      "schemaName": "section_look"
+    },
+    "f006-candidate": {
+      "sha256": "2201a31db61533bceb156db9fd268a410bc5804ede3b19313efd9251b8babaa6",
+      "schemaName": "section_look"
+    },
+    "f006-baseline": {
+      "sha256": "2201a31db61533bceb156db9fd268a410bc5804ede3b19313efd9251b8babaa6",
+      "schemaName": "section_look"
+    },
+    "f018-baseline": {
+      "sha256": "e8b57554f3b7b465f2673ec7ec59829d97877ae78e70871c33ce9ab904197411",
+      "schemaName": "section_look"
+    },
+    "f018-candidate": {
+      "sha256": "e8b57554f3b7b465f2673ec7ec59829d97877ae78e70871c33ce9ab904197411",
+      "schemaName": "section_look"
+    },
+    "f014-candidate": {
+      "sha256": "e6042456ff6e5b92c51a8002e619cbda5319b61c3b15fc044e98db956dfe93c4",
+      "schemaName": "section_look"
+    },
+    "f014-baseline": {
+      "sha256": "e6042456ff6e5b92c51a8002e619cbda5319b61c3b15fc044e98db956dfe93c4",
+      "schemaName": "section_look"
+    },
+    "f002-baseline": {
+      "sha256": "8e2622ab3c5769f42090e2a8967b5147303e35e942099dbecc5277d2464f8098",
+      "schemaName": "section_look"
+    },
+    "f002-candidate": {
+      "sha256": "8e2622ab3c5769f42090e2a8967b5147303e35e942099dbecc5277d2464f8098",
+      "schemaName": "section_look"
+    },
+    "f001-candidate": {
+      "sha256": "997431a1c6c73055e6b45ef635351831940924974f9d36a2af189c05a95ba6a1",
+      "schemaName": "section_look"
+    },
+    "f001-baseline": {
+      "sha256": "997431a1c6c73055e6b45ef635351831940924974f9d36a2af189c05a95ba6a1",
+      "schemaName": "section_look"
+    },
+    "f010-baseline": {
+      "sha256": "5986eaa88f6d1ca826c84806a4c22b72656d21041b8b03c0db35e54014d437ea",
+      "schemaName": "section_look"
+    },
+    "f010-candidate": {
+      "sha256": "5986eaa88f6d1ca826c84806a4c22b72656d21041b8b03c0db35e54014d437ea",
+      "schemaName": "section_look"
+    },
+    "r035-candidate": {
+      "sha256": "6200a02f5e1aa2e05b211acd1191d093d6d47e018166a82f49fda55a91161e37",
+      "schemaName": "section_look"
+    },
+    "r035-baseline": {
+      "sha256": "6200a02f5e1aa2e05b211acd1191d093d6d47e018166a82f49fda55a91161e37",
+      "schemaName": "section_look"
+    },
+    "r001-baseline": {
+      "sha256": "aadb142f1cce1857f6f611a1ddfd30f69039ff2b86be602a97d44bd93843df15",
+      "schemaName": "section_look"
+    },
+    "r001-candidate": {
+      "sha256": "aadb142f1cce1857f6f611a1ddfd30f69039ff2b86be602a97d44bd93843df15",
+      "schemaName": "section_look"
+    },
+    "r074-candidate": {
+      "sha256": "42d3a41335ceeb6f6f99ae5a702e4ca57a5a1b5072395cae46f080b1e3b7d1fa",
+      "schemaName": "section_look"
+    },
+    "r074-baseline": {
+      "sha256": "42d3a41335ceeb6f6f99ae5a702e4ca57a5a1b5072395cae46f080b1e3b7d1fa",
+      "schemaName": "section_look"
+    },
+    "f013-baseline": {
+      "sha256": "866d9a4f10e695128e5e26f24a2f4693296a55142ffe2c5658a2740dde5cc0ce",
+      "schemaName": "section_look"
+    },
+    "f013-candidate": {
+      "sha256": "866d9a4f10e695128e5e26f24a2f4693296a55142ffe2c5658a2740dde5cc0ce",
+      "schemaName": "section_look"
+    },
+    "f011-candidate": {
+      "sha256": "b65fd3c7c0ae745cbe3bbcd7194884aae4b414bed027707aa9085f4f6d53a86d",
+      "schemaName": "section_look"
+    },
+    "f011-baseline": {
+      "sha256": "b65fd3c7c0ae745cbe3bbcd7194884aae4b414bed027707aa9085f4f6d53a86d",
+      "schemaName": "section_look"
+    },
+    "r067-baseline": {
+      "sha256": "5ce60638058a7957f101081687829dc4ecd411d5b48d839c10bf847f31f558f3",
+      "schemaName": "section_look"
+    },
+    "r067-candidate": {
+      "sha256": "5ce60638058a7957f101081687829dc4ecd411d5b48d839c10bf847f31f558f3",
+      "schemaName": "section_look"
+    },
+    "f012-candidate": {
+      "sha256": "1fc9962d7e0c4ce285d77b11b8329f9979fc42a95d5c03e4e1aac47a8c567c8b",
+      "schemaName": "section_look"
+    },
+    "f012-baseline": {
+      "sha256": "1fc9962d7e0c4ce285d77b11b8329f9979fc42a95d5c03e4e1aac47a8c567c8b",
+      "schemaName": "section_look"
+    },
+    "f020-baseline": {
+      "sha256": "cc0cab2ac2887da84000a1bdd491a9d2d263e78a2d23da26d5ca88147b04bfba",
+      "schemaName": "section_look"
+    },
+    "f020-candidate": {
+      "sha256": "cc0cab2ac2887da84000a1bdd491a9d2d263e78a2d23da26d5ca88147b04bfba",
+      "schemaName": "section_look"
+    },
+    "r059-candidate": {
+      "sha256": "ea134f3be0f419d5e39355a202e5f8838b1c37b4e19255b7b0ccc9ffae677257",
+      "schemaName": "section_look"
+    },
+    "r059-baseline": {
+      "sha256": "ea134f3be0f419d5e39355a202e5f8838b1c37b4e19255b7b0ccc9ffae677257",
+      "schemaName": "section_look"
+    },
+    "f023-baseline": {
+      "sha256": "783b1ae296f5147ace9cd99833146af7ec60a4a3313f6741d508b5e5382d1da6",
+      "schemaName": "section_look"
+    },
+    "f023-candidate": {
+      "sha256": "783b1ae296f5147ace9cd99833146af7ec60a4a3313f6741d508b5e5382d1da6",
+      "schemaName": "section_look"
+    },
+    "f007-candidate": {
+      "sha256": "4f0f4b1920f6582336f6cd9457b58b988cb97bd171eaad7d20c45e8bdbbc9bb6",
+      "schemaName": "section_look"
+    },
+    "f007-baseline": {
+      "sha256": "4f0f4b1920f6582336f6cd9457b58b988cb97bd171eaad7d20c45e8bdbbc9bb6",
+      "schemaName": "section_look"
+    },
+    "f017-baseline": {
+      "sha256": "d1ba04c3a10a88eeaa67222794f55f9fa36483117d4a868e2cd77b9778fc37dc",
+      "schemaName": "section_look"
+    },
+    "f017-candidate": {
+      "sha256": "d1ba04c3a10a88eeaa67222794f55f9fa36483117d4a868e2cd77b9778fc37dc",
+      "schemaName": "section_look"
+    },
+    "f015-candidate": {
+      "sha256": "c842a1275fd427ee51a109b1fdb1f11a27af9e5c5c59f6bbe469462ae45c925c",
+      "schemaName": "section_look"
+    },
+    "f015-baseline": {
+      "sha256": "c842a1275fd427ee51a109b1fdb1f11a27af9e5c5c59f6bbe469462ae45c925c",
+      "schemaName": "section_look"
+    },
+    "f019-baseline": {
+      "sha256": "bf4b80d6f31310ca530b2232cf33e91876a23c275ad1b8931d62efe18cab44db",
+      "schemaName": "section_look"
+    },
+    "f019-candidate": {
+      "sha256": "bf4b80d6f31310ca530b2232cf33e91876a23c275ad1b8931d62efe18cab44db",
+      "schemaName": "section_look"
+    },
+    "f022-candidate": {
+      "sha256": "bb94b9d4d5e24b774742375a4061ef842b0c56db41c7884fb27b8730aacf2148",
+      "schemaName": "section_look"
+    },
+    "f022-baseline": {
+      "sha256": "bb94b9d4d5e24b774742375a4061ef842b0c56db41c7884fb27b8730aacf2148",
+      "schemaName": "section_look"
+    }
+  },
+  "estimates": [
+    {
+      "id": "look-place-baseline",
+      "firstPassUsd": 0.000510074074074074,
+      "withOneReplanUsd": 0.000510074074074074,
+      "maximumCompletionFirstPassUsd": 0.002260074074074074
+    },
+    {
+      "id": "look-place-candidate",
+      "firstPassUsd": 0.0006107777777777778,
+      "withOneReplanUsd": 0.0006107777777777778,
+      "maximumCompletionFirstPassUsd": 0.0023607777777777776
+    },
+    {
+      "id": "look-time-candidate",
+      "firstPassUsd": 0.0006085185185185184,
+      "withOneReplanUsd": 0.0006085185185185184,
+      "maximumCompletionFirstPassUsd": 0.0023585185185185185
+    },
+    {
+      "id": "look-time-baseline",
+      "firstPassUsd": 0.000510074074074074,
+      "withOneReplanUsd": 0.000510074074074074,
+      "maximumCompletionFirstPassUsd": 0.002260074074074074
+    },
+    {
+      "id": "look-unselected-effect-baseline",
+      "firstPassUsd": 0.0005107777777777777,
+      "withOneReplanUsd": 0.0005107777777777777,
+      "maximumCompletionFirstPassUsd": 0.002260777777777778
+    },
+    {
+      "id": "look-unselected-effect-candidate",
+      "firstPassUsd": 0.0006100740740740741,
+      "withOneReplanUsd": 0.0006100740740740741,
+      "maximumCompletionFirstPassUsd": 0.002360074074074074
+    },
+    {
+      "id": "canon-robe-candidate",
+      "firstPassUsd": 0.0006134074074074073,
+      "withOneReplanUsd": 0.0006134074074074073,
+      "maximumCompletionFirstPassUsd": 0.0023634074074074074
+    },
+    {
+      "id": "canon-robe-baseline",
+      "firstPassUsd": 0.0005101851851851851,
+      "withOneReplanUsd": 0.0005101851851851851,
+      "maximumCompletionFirstPassUsd": 0.0022601851851851854
+    },
+    {
+      "id": "missing-canon-baseline",
+      "firstPassUsd": 0.0005111111111111111,
+      "withOneReplanUsd": 0.0005111111111111111,
+      "maximumCompletionFirstPassUsd": 0.0022611111111111113
+    },
+    {
+      "id": "missing-canon-candidate",
+      "firstPassUsd": 0.0006095925925925926,
+      "withOneReplanUsd": 0.0006095925925925926,
+      "maximumCompletionFirstPassUsd": 0.002359592592592593
+    },
+    {
+      "id": "unsupported-aaron-candidate",
+      "firstPassUsd": 0.0006148888888888888,
+      "withOneReplanUsd": 0.0006148888888888888,
+      "maximumCompletionFirstPassUsd": 0.002364888888888889
+    },
+    {
+      "id": "unsupported-aaron-baseline",
+      "firstPassUsd": 0.0005122962962962963,
+      "withOneReplanUsd": 0.0005122962962962963,
+      "maximumCompletionFirstPassUsd": 0.002262296296296296
+    },
+    {
+      "id": "unsupported-moses-baseline",
+      "firstPassUsd": 0.0005129629629629629,
+      "withOneReplanUsd": 0.0005129629629629629,
+      "maximumCompletionFirstPassUsd": 0.002262962962962963
+    },
+    {
+      "id": "unsupported-moses-candidate",
+      "firstPassUsd": 0.0006153703703703703,
+      "withOneReplanUsd": 0.0006153703703703703,
+      "maximumCompletionFirstPassUsd": 0.0023653703703703705
+    },
+    {
+      "id": "object-state-candidate",
+      "firstPassUsd": 0.0006118518518518518,
+      "withOneReplanUsd": 0.0006118518518518518,
+      "maximumCompletionFirstPassUsd": 0.002361851851851852
+    },
+    {
+      "id": "object-state-baseline",
+      "firstPassUsd": 0.0005133703703703704,
+      "withOneReplanUsd": 0.0005133703703703704,
+      "maximumCompletionFirstPassUsd": 0.0022633703703703704
+    },
+    {
+      "id": "look-embodiment-baseline",
+      "firstPassUsd": 0.000514111111111111,
+      "withOneReplanUsd": 0.000514111111111111,
+      "maximumCompletionFirstPassUsd": 0.0022641111111111113
+    },
+    {
+      "id": "look-embodiment-candidate",
+      "firstPassUsd": 0.000620037037037037,
+      "withOneReplanUsd": 0.000620037037037037,
+      "maximumCompletionFirstPassUsd": 0.002370037037037037
+    },
+    {
+      "id": "ordinary-light-candidate",
+      "firstPassUsd": 0.0006092592592592593,
+      "withOneReplanUsd": 0.0006092592592592593,
+      "maximumCompletionFirstPassUsd": 0.0023592592592592593
+    },
+    {
+      "id": "ordinary-light-baseline",
+      "firstPassUsd": 0.0005107777777777777,
+      "withOneReplanUsd": 0.0005107777777777777,
+      "maximumCompletionFirstPassUsd": 0.002260777777777778
+    },
+    {
+      "id": "section-range-baseline",
+      "firstPassUsd": 0.000510074074074074,
+      "withOneReplanUsd": 0.000510074074074074,
+      "maximumCompletionFirstPassUsd": 0.002260074074074074
+    },
+    {
+      "id": "section-range-candidate",
+      "firstPassUsd": 0.0006103703703703703,
+      "withOneReplanUsd": 0.0006103703703703703,
+      "maximumCompletionFirstPassUsd": 0.0023603703703703703
+    },
+    {
+      "id": "selected-effects-candidate",
+      "firstPassUsd": 0.0006198148148148148,
+      "withOneReplanUsd": 0.0006198148148148148,
+      "maximumCompletionFirstPassUsd": 0.002369814814814815
+    },
+    {
+      "id": "selected-effects-baseline",
+      "firstPassUsd": 0.000514111111111111,
+      "withOneReplanUsd": 0.000514111111111111,
+      "maximumCompletionFirstPassUsd": 0.0022641111111111113
+    },
+    {
+      "id": "situational-pose-baseline",
+      "firstPassUsd": 0.0005111851851851852,
+      "withOneReplanUsd": 0.0005111851851851852,
+      "maximumCompletionFirstPassUsd": 0.002261185185185185
+    },
+    {
+      "id": "situational-pose-candidate",
+      "firstPassUsd": 0.0006144074074074074,
+      "withOneReplanUsd": 0.0006144074074074074,
+      "maximumCompletionFirstPassUsd": 0.0023644074074074075
+    },
+    {
+      "id": "wardrobe-inventory-candidate",
+      "firstPassUsd": 0.000616074074074074,
+      "withOneReplanUsd": 0.000616074074074074,
+      "maximumCompletionFirstPassUsd": 0.0023660740740740743
+    },
+    {
+      "id": "wardrobe-inventory-baseline",
+      "firstPassUsd": 0.0005115185185185186,
+      "withOneReplanUsd": 0.0005115185185185186,
+      "maximumCompletionFirstPassUsd": 0.0022615185185185186
+    },
+    {
+      "id": "incidental-roles-baseline",
+      "firstPassUsd": 0.0005118148148148148,
+      "withOneReplanUsd": 0.0005118148148148148,
+      "maximumCompletionFirstPassUsd": 0.0022618148148148146
+    },
+    {
+      "id": "incidental-roles-candidate",
+      "firstPassUsd": 0.0006102962962962963,
+      "withOneReplanUsd": 0.0006102962962962963,
+      "maximumCompletionFirstPassUsd": 0.002360296296296296
+    },
+    {
+      "id": "compatible-object-candidate",
+      "firstPassUsd": 0.0006116296296296296,
+      "withOneReplanUsd": 0.0006116296296296296,
+      "maximumCompletionFirstPassUsd": 0.0023616296296296298
+    },
+    {
+      "id": "compatible-object-baseline",
+      "firstPassUsd": 0.0005131481481481481,
+      "withOneReplanUsd": 0.0005131481481481481,
+      "maximumCompletionFirstPassUsd": 0.0022631481481481482
+    },
+    {
+      "id": "f009-baseline",
+      "firstPassUsd": 0.0018965925925925925,
+      "withOneReplanUsd": 0.003544185185185185,
+      "maximumCompletionFirstPassUsd": 0.004671592592592592
+    },
+    {
+      "id": "f009-candidate",
+      "firstPassUsd": 0.0020454074074074072,
+      "withOneReplanUsd": 0.0038418148148148144,
+      "maximumCompletionFirstPassUsd": 0.004820407407407407
+    },
+    {
+      "id": "f003-candidate",
+      "firstPassUsd": 0.002271740740740741,
+      "withOneReplanUsd": 0.004291259259259259,
+      "maximumCompletionFirstPassUsd": 0.0050467407407407405
+    },
+    {
+      "id": "f003-baseline",
+      "firstPassUsd": 0.0019354444444444443,
+      "withOneReplanUsd": 0.0036186666666666667,
+      "maximumCompletionFirstPassUsd": 0.004710444444444444
+    },
+    {
+      "id": "r027-baseline",
+      "firstPassUsd": 0.0022601111111111107,
+      "withOneReplanUsd": 0.004144629629629629,
+      "maximumCompletionFirstPassUsd": 0.00503511111111111
+    },
+    {
+      "id": "r027-candidate",
+      "firstPassUsd": 0.00282637037037037,
+      "withOneReplanUsd": 0.005277148148148147,
+      "maximumCompletionFirstPassUsd": 0.005601370370370369
+    },
+    {
+      "id": "f016-candidate",
+      "firstPassUsd": 0.0021429259259259257,
+      "withOneReplanUsd": 0.0040327777777777775,
+      "maximumCompletionFirstPassUsd": 0.004917925925925925
+    },
+    {
+      "id": "f016-baseline",
+      "firstPassUsd": 0.0019296296296296292,
+      "withOneReplanUsd": 0.0036061851851851845,
+      "maximumCompletionFirstPassUsd": 0.00470462962962963
+    },
+    {
+      "id": "r034-baseline",
+      "firstPassUsd": 0.0022893333333333333,
+      "withOneReplanUsd": 0.004197037037037037,
+      "maximumCompletionFirstPassUsd": 0.005064333333333333
+    },
+    {
+      "id": "r034-candidate",
+      "firstPassUsd": 0.0029478518518518517,
+      "withOneReplanUsd": 0.005514074074074074,
+      "maximumCompletionFirstPassUsd": 0.005722851851851851
+    },
+    {
+      "id": "f008-candidate",
+      "firstPassUsd": 0.002070407407407407,
+      "withOneReplanUsd": 0.003893333333333333,
+      "maximumCompletionFirstPassUsd": 0.004845407407407408
+    },
+    {
+      "id": "f008-baseline",
+      "firstPassUsd": 0.0018984074074074072,
+      "withOneReplanUsd": 0.003549333333333333,
+      "maximumCompletionFirstPassUsd": 0.004673407407407407
+    },
+    {
+      "id": "f005-baseline",
+      "firstPassUsd": 0.0019544814814814815,
+      "withOneReplanUsd": 0.0036557037037037035,
+      "maximumCompletionFirstPassUsd": 0.004729481481481481
+    },
+    {
+      "id": "f005-candidate",
+      "firstPassUsd": 0.0022485185185185186,
+      "withOneReplanUsd": 0.004243777777777778,
+      "maximumCompletionFirstPassUsd": 0.005023518518518518
+    },
+    {
+      "id": "f004-candidate",
+      "firstPassUsd": 0.0020413703703703705,
+      "withOneReplanUsd": 0.0038348148148148148,
+      "maximumCompletionFirstPassUsd": 0.00481637037037037
+    },
+    {
+      "id": "f004-baseline",
+      "firstPassUsd": 0.0018925555555555553,
+      "withOneReplanUsd": 0.003537185185185185,
+      "maximumCompletionFirstPassUsd": 0.004667555555555555
+    },
+    {
+      "id": "f021-baseline",
+      "firstPassUsd": 0.0019437777777777776,
+      "withOneReplanUsd": 0.0036364074074074068,
+      "maximumCompletionFirstPassUsd": 0.0047187777777777775
+    },
+    {
+      "id": "f021-candidate",
+      "firstPassUsd": 0.002287333333333333,
+      "withOneReplanUsd": 0.004323518518518518,
+      "maximumCompletionFirstPassUsd": 0.005062333333333334
+    },
+    {
+      "id": "f006-candidate",
+      "firstPassUsd": 0.0022964444444444443,
+      "withOneReplanUsd": 0.004342222222222221,
+      "maximumCompletionFirstPassUsd": 0.005071444444444444
+    },
+    {
+      "id": "f006-baseline",
+      "firstPassUsd": 0.0019309999999999998,
+      "withOneReplanUsd": 0.0036113333333333327,
+      "maximumCompletionFirstPassUsd": 0.004706
+    },
+    {
+      "id": "f018-baseline",
+      "firstPassUsd": 0.0019198518518518516,
+      "withOneReplanUsd": 0.003589222222222222,
+      "maximumCompletionFirstPassUsd": 0.004694851851851851
+    },
+    {
+      "id": "f018-candidate",
+      "firstPassUsd": 0.002190148148148148,
+      "withOneReplanUsd": 0.0041298148148148145,
+      "maximumCompletionFirstPassUsd": 0.004965148148148147
+    },
+    {
+      "id": "f014-candidate",
+      "firstPassUsd": 0.0021014074074074073,
+      "withOneReplanUsd": 0.003953999999999999,
+      "maximumCompletionFirstPassUsd": 0.004876407407407407
+    },
+    {
+      "id": "f014-baseline",
+      "firstPassUsd": 0.0019064074074074072,
+      "withOneReplanUsd": 0.0035639999999999995,
+      "maximumCompletionFirstPassUsd": 0.004681407407407407
+    },
+    {
+      "id": "f002-baseline",
+      "firstPassUsd": 0.001949148148148148,
+      "withOneReplanUsd": 0.0036438518518518517,
+      "maximumCompletionFirstPassUsd": 0.0047241481481481475
+    },
+    {
+      "id": "f002-candidate",
+      "firstPassUsd": 0.0023619259259259257,
+      "withOneReplanUsd": 0.004469407407407407,
+      "maximumCompletionFirstPassUsd": 0.005136925925925925
+    },
+    {
+      "id": "f001-candidate",
+      "firstPassUsd": 0.0027165555555555554,
+      "withOneReplanUsd": 0.005057074074074074,
+      "maximumCompletionFirstPassUsd": 0.005491555555555555
+    },
+    {
+      "id": "f001-baseline",
+      "firstPassUsd": 0.002264777777777778,
+      "withOneReplanUsd": 0.004153518518518518,
+      "maximumCompletionFirstPassUsd": 0.005039777777777778
+    },
+    {
+      "id": "f010-baseline",
+      "firstPassUsd": 0.0018969259259259256,
+      "withOneReplanUsd": 0.0035470370370370365,
+      "maximumCompletionFirstPassUsd": 0.004671925925925927
+    },
+    {
+      "id": "f010-candidate",
+      "firstPassUsd": 0.0021427777777777773,
+      "withOneReplanUsd": 0.00403874074074074,
+      "maximumCompletionFirstPassUsd": 0.004917777777777778
+    },
+    {
+      "id": "r035-candidate",
+      "firstPassUsd": 0.002595037037037037,
+      "withOneReplanUsd": 0.00482862962962963,
+      "maximumCompletionFirstPassUsd": 0.005370037037037037
+    },
+    {
+      "id": "r035-baseline",
+      "firstPassUsd": 0.0022078888888888886,
+      "withOneReplanUsd": 0.004054333333333333,
+      "maximumCompletionFirstPassUsd": 0.004982888888888888
+    },
+    {
+      "id": "r001-baseline",
+      "firstPassUsd": 0.0022415555555555552,
+      "withOneReplanUsd": 0.004113925925925925,
+      "maximumCompletionFirstPassUsd": 0.005016555555555555
+    },
+    {
+      "id": "r001-candidate",
+      "firstPassUsd": 0.0027581851851851847,
+      "withOneReplanUsd": 0.005147185185185184,
+      "maximumCompletionFirstPassUsd": 0.005533185185185184
+    },
+    {
+      "id": "r074-candidate",
+      "firstPassUsd": 0.002553074074074074,
+      "withOneReplanUsd": 0.004743037037037037,
+      "maximumCompletionFirstPassUsd": 0.005328074074074074
+    },
+    {
+      "id": "r074-baseline",
+      "firstPassUsd": 0.0022177777777777777,
+      "withOneReplanUsd": 0.0040724444444444445,
+      "maximumCompletionFirstPassUsd": 0.004992777777777778
+    },
+    {
+      "id": "f013-baseline",
+      "firstPassUsd": 0.0019643703703703702,
+      "withOneReplanUsd": 0.0036687037037037035,
+      "maximumCompletionFirstPassUsd": 0.0047393703703703695
+    },
+    {
+      "id": "f013-candidate",
+      "firstPassUsd": 0.002171222222222222,
+      "withOneReplanUsd": 0.004082407407407407,
+      "maximumCompletionFirstPassUsd": 0.004946222222222222
+    },
+    {
+      "id": "f011-candidate",
+      "firstPassUsd": 0.002476222222222222,
+      "withOneReplanUsd": 0.004692407407407407,
+      "maximumCompletionFirstPassUsd": 0.005251222222222222
+    },
+    {
+      "id": "f011-baseline",
+      "firstPassUsd": 0.0019748148148148147,
+      "withOneReplanUsd": 0.0036895925925925924,
+      "maximumCompletionFirstPassUsd": 0.004749814814814814
+    },
+    {
+      "id": "r067-baseline",
+      "firstPassUsd": 0.002236074074074074,
+      "withOneReplanUsd": 0.004104074074074074,
+      "maximumCompletionFirstPassUsd": 0.005011074074074074
+    },
+    {
+      "id": "r067-candidate",
+      "firstPassUsd": 0.0027394074074074074,
+      "withOneReplanUsd": 0.00511074074074074,
+      "maximumCompletionFirstPassUsd": 0.005514407407407407
+    },
+    {
+      "id": "f012-candidate",
+      "firstPassUsd": 0.0019908148148148146,
+      "withOneReplanUsd": 0.003734333333333333,
+      "maximumCompletionFirstPassUsd": 0.004765814814814815
+    },
+    {
+      "id": "f012-baseline",
+      "firstPassUsd": 0.001893,
+      "withOneReplanUsd": 0.0035387037037037036,
+      "maximumCompletionFirstPassUsd": 0.004668
+    },
+    {
+      "id": "f020-baseline",
+      "firstPassUsd": 0.0019003333333333333,
+      "withOneReplanUsd": 0.0035526666666666666,
+      "maximumCompletionFirstPassUsd": 0.004675333333333333
+    },
+    {
+      "id": "f020-candidate",
+      "firstPassUsd": 0.002049148148148148,
+      "withOneReplanUsd": 0.003850296296296296,
+      "maximumCompletionFirstPassUsd": 0.004824148148148149
+    },
+    {
+      "id": "r059-candidate",
+      "firstPassUsd": 0.0025564444444444445,
+      "withOneReplanUsd": 0.004748444444444444,
+      "maximumCompletionFirstPassUsd": 0.005331444444444444
+    },
+    {
+      "id": "r059-baseline",
+      "firstPassUsd": 0.0022233333333333332,
+      "withOneReplanUsd": 0.0040822222222222215,
+      "maximumCompletionFirstPassUsd": 0.004998333333333334
+    },
+    {
+      "id": "f023-baseline",
+      "firstPassUsd": 0.0019526666666666668,
+      "withOneReplanUsd": 0.0036491481481481483,
+      "maximumCompletionFirstPassUsd": 0.0047276666666666665
+    },
+    {
+      "id": "f023-candidate",
+      "firstPassUsd": 0.0022373333333333334,
+      "withOneReplanUsd": 0.004218481481481481,
+      "maximumCompletionFirstPassUsd": 0.005012333333333334
+    },
+    {
+      "id": "f007-candidate",
+      "firstPassUsd": 0.0025995185185185184,
+      "withOneReplanUsd": 0.00483474074074074,
+      "maximumCompletionFirstPassUsd": 0.005374518518518518
+    },
+    {
+      "id": "f007-baseline",
+      "firstPassUsd": 0.002213851851851852,
+      "withOneReplanUsd": 0.004063407407407408,
+      "maximumCompletionFirstPassUsd": 0.004988851851851852
+    },
+    {
+      "id": "f017-baseline",
+      "firstPassUsd": 0.0019212962962962962,
+      "withOneReplanUsd": 0.003592037037037037,
+      "maximumCompletionFirstPassUsd": 0.0046962962962962965
+    },
+    {
+      "id": "f017-candidate",
+      "firstPassUsd": 0.0021793333333333335,
+      "withOneReplanUsd": 0.004108111111111111,
+      "maximumCompletionFirstPassUsd": 0.004954333333333333
+    },
+    {
+      "id": "f015-candidate",
+      "firstPassUsd": 0.002202111111111111,
+      "withOneReplanUsd": 0.004148444444444444,
+      "maximumCompletionFirstPassUsd": 0.004977111111111111
+    },
+    {
+      "id": "f015-baseline",
+      "firstPassUsd": 0.0019317777777777775,
+      "withOneReplanUsd": 0.0036077777777777775,
+      "maximumCompletionFirstPassUsd": 0.004706777777777778
+    },
+    {
+      "id": "f019-baseline",
+      "firstPassUsd": 0.0019384444444444445,
+      "withOneReplanUsd": 0.0036227037037037035,
+      "maximumCompletionFirstPassUsd": 0.004713444444444444
+    },
+    {
+      "id": "f019-candidate",
+      "firstPassUsd": 0.0022732962962962963,
+      "withOneReplanUsd": 0.004292407407407407,
+      "maximumCompletionFirstPassUsd": 0.0050482962962962955
+    },
+    {
+      "id": "f022-candidate",
+      "firstPassUsd": 0.002062111111111111,
+      "withOneReplanUsd": 0.003876481481481481,
+      "maximumCompletionFirstPassUsd": 0.004837111111111111
+    },
+    {
+      "id": "f022-baseline",
+      "firstPassUsd": 0.0018989629629629628,
+      "withOneReplanUsd": 0.003550185185185185,
+      "maximumCompletionFirstPassUsd": 0.004673962962962963
+    }
+  ],
+  "costEstimate": {
+    "firstPassUsd": 0.148713,
+    "oneReplanEveryPipelineUsd": 0.2622141111111111,
+    "maximumCompletionFirstPassUsd": 0.3712129999999999,
+    "maximumCallEstimateUsd": 0.003194,
+    "method": "Offline scripted mechanics only; source-specific requests, current catalog prices, output-schema characters and generous generated-input padding at 2.7 characters/token. Expected production completion tokens; second scenario adds one full plan/review round to every pipeline. These are estimates, not token or total cost guarantees; malformed retries and stochastic lengths can exhaust the cap before completion."
+  },
+  "paidCalls": 0,
+  "productionMutations": 0
+}

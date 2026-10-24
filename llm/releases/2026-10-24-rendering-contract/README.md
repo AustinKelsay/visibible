@@ -33,6 +33,8 @@ The earlier frozen evaluation inputs, first responses and scores are unchanged. 
 
 No paid calls, production access/writes, images or deployments occurred here. Evaluation remaining stays **$0.09976120 / $17.20**, after retained uncertainty. The previous $0.25 grant funded one comparison, not an iterative tuning loop.
 
+The follow-up [frozen comparison](../2026-10-24-rendering-review-check/README.md) now supplies actual v5 baseline modules, 16 paired controls, seven retained and 23 fresh cold cases, cost estimates, funding guards and offline controller/replay rehearsal. It proposes a separate **$0.30 increase / $0.30 operation cap**, still unapproved. The new fixtures used read-only production queries, not model calls or writes. All thresholds below remain; no live semantic result is established.
+
 Before requesting another grant, freeze a new runner and cap against this immutable candidate and the actual merged baseline. It must include:
 
 1. Direct adverse controls for retained look place/time/effect conflicts, canon appearance, missing canon, unsupported Aaron/Moses identities and conflicting object states. Pair them with clean controls for ordinary sunlight, explicit section ranges, selected permitted effects, situational clothing/poses and unnamed incidental figures. False alarms count as failures.
