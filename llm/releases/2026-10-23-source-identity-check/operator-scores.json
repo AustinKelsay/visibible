@@ -1,0 +1,35 @@
+{
+  "method": "Unblinded operator review of all retained outcomes. Refusals are not repairs; no final scene was stored. No independent scorer or population estimate.",
+  "scores": [
+    {
+      "id": "identity-s034-1",
+      "stored": false,
+      "acceptable": false,
+      "problems": [],
+      "note": "The replacement selects priests from the source quote about nobles; the final reviewer rejects that identity. No plan stored."
+    },
+    {
+      "id": "identity-s034-2",
+      "stored": false,
+      "acceptable": false,
+      "problems": [],
+      "note": "The replacement adds literal children and an unselected veiled divine radiance; the final reviewer rejects both. No plan stored."
+    }
+  ],
+  "directReviewAssessment": {
+    "requiredIdentityReports": "Both exact retained priest substitutions caught.",
+    "requiredLocationObjectReports": "Both Eastport and compass omissions caught; paired selected control clean.",
+    "positiveControls": {
+      "supported-group-members": "clean",
+      "selected-place-object": "clean",
+      "incidental-roles": "false alarm: outside_instant with an empty ID; its reason explicitly says the source supports these roles and no outside-instant issue arises."
+    },
+    "extraNegativeReports": "Both retained priest plans also have named depicted locations omitted from selection. The quoted temple/Jerusalem/street settings match available entries; the extra unselected_figure reports are supported.",
+    "sensitivity": "Even treating the contradictory incidental-role flag as acceptable would not pass the pipeline gate: neither full preparation stores a scene."
+  },
+  "limits": [
+    "Six selected direct reviews and two selected preparations, one candidate, one shot.",
+    "No paid baseline repeat, prompt tuning, semantic rerun or images.",
+    "This does not resolve the prior broader pipeline failures or establish population reliability."
+  ]
+}

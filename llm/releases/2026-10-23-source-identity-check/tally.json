@@ -1,0 +1,109 @@
+{
+  "operations": 8,
+  "calls": 16,
+  "reviews": [
+    {
+      "id": "retained-priest-1",
+      "pass": true,
+      "missing": [],
+      "problems": [
+        {
+          "kind": "outside_instant",
+          "entryId": "the_priests_of_jerusalem",
+          "planQuote": "The priests of Jerusalem standing still",
+          "reason": "The moment names her nobles, not priests, and neither the moment nor its neighbours link the nobles to the priests, so the priest cast entry is an unsupported substitution."
+        },
+        {
+          "kind": "unselected_figure",
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "planQuote": "The smoking temple court of ruined Jerusalem",
+          "reason": "The temple court is a depicted setting with a matching section cast entry, but that entry is not in present, so its canon is not supplied."
+        },
+        {
+          "kind": "unselected_figure",
+          "entryId": "jerusalem",
+          "planQuote": "ruined Jerusalem",
+          "reason": "The city of Jerusalem is depicted as the ruined setting, which has a matching section cast entry that is not in present."
+        }
+      ]
+    },
+    {
+      "id": "retained-priest-2",
+      "pass": true,
+      "missing": [],
+      "problems": [
+        {
+          "kind": "outside_instant",
+          "entryId": "the_priests_of_jerusalem",
+          "planQuote": "Two priests standing upright in clean white linen",
+          "reason": "The moment names her nobles, and no moment or neighbouring text identifies them as priests, so the selected priests substitute an unsupported role for the people the source names."
+        },
+        {
+          "kind": "unselected_figure",
+          "entryId": "jerusalem",
+          "planQuote": "inside the ruined walls of Jerusalem",
+          "reason": "Jerusalem is depicted as the setting but its cast entry is not in present, so its canon is not supplied."
+        },
+        {
+          "kind": "unselected_figure",
+          "entryId": "the_streets_of_the_city",
+          "planQuote": "A scorched street inside the ruined walls",
+          "reason": "The scorched street is a depicted setting matching the streets of the city cast entry, which is not in present."
+        }
+      ]
+    },
+    {
+      "id": "supported-group-members",
+      "pass": true,
+      "missing": [],
+      "problems": []
+    },
+    {
+      "id": "incidental-roles",
+      "pass": false,
+      "missing": [],
+      "problems": [
+        {
+          "kind": "outside_instant",
+          "entryId": "",
+          "planQuote": "A messenger facing two travelers",
+          "reason": "The messenger and travelers are unnamed incidental roles supported by the moment, so this is not a problem; however the composition's 'three people' is consistent with messenger plus two travelers, so no outside-instant issue arises from them."
+        }
+      ]
+    },
+    {
+      "id": "unselected-place-object",
+      "pass": true,
+      "missing": [],
+      "problems": [
+        {
+          "kind": "unselected_figure",
+          "entryId": "compass",
+          "planQuote": "Mara sets the brass compass on the quay",
+          "reason": "The brass compass is depicted in the action and composition fields but its cast id is not in present."
+        },
+        {
+          "kind": "unselected_figure",
+          "entryId": "eastport",
+          "planQuote": "Eastport harbor",
+          "reason": "The setting depicts Eastport, which has a section cast entry, but eastport is not in present."
+        }
+      ]
+    },
+    {
+      "id": "selected-place-object",
+      "pass": true,
+      "missing": [],
+      "problems": []
+    }
+  ],
+  "scoring": {
+    "acceptable": 0,
+    "flawedOrUncertainStored": 0,
+    "refused": 2,
+    "pass": false
+  },
+  "measuredUsd": 0.0112775,
+  "reviewGate": false,
+  "remainingEvaluationUsd": 0.003826699999997834
+}
