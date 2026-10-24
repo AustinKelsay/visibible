@@ -1,0 +1,157 @@
+{
+  "calls": [
+    {
+      "phase": "selection-s001-1",
+      "startedAt": "2026-10-24T00:05:18.161Z",
+      "status": "200",
+      "measuredUsd": 0.0003153
+    },
+    {
+      "phase": "selection-s001-1",
+      "startedAt": "2026-10-24T00:05:20.750Z",
+      "status": "200",
+      "measuredUsd": 0.001067
+    },
+    {
+      "phase": "selection-s001-1",
+      "startedAt": "2026-10-24T00:05:27.773Z",
+      "status": "200",
+      "measuredUsd": 0.001084
+    },
+    {
+      "phase": "selection-s001-1",
+      "startedAt": "2026-10-24T00:05:33.206Z",
+      "status": "200",
+      "measuredUsd": 0.0006904
+    },
+    {
+      "phase": "selection-s001-1",
+      "startedAt": "2026-10-24T00:05:38.337Z",
+      "status": "200",
+      "measuredUsd": 0.0006509
+    },
+    {
+      "phase": "selection-s027-1",
+      "startedAt": "2026-10-24T00:05:43.766Z",
+      "status": "200",
+      "measuredUsd": 0.0003297
+    },
+    {
+      "phase": "selection-s027-1",
+      "startedAt": "2026-10-24T00:05:45.843Z",
+      "status": "200",
+      "measuredUsd": 0.0010995
+    },
+    {
+      "phase": "selection-s027-1",
+      "startedAt": "2026-10-24T00:05:53.511Z",
+      "status": "200",
+      "measuredUsd": 0.0004577
+    },
+    {
+      "phase": "selection-s034-1",
+      "startedAt": "2026-10-24T00:05:57.056Z",
+      "status": "200",
+      "measuredUsd": 0.0003379
+    },
+    {
+      "phase": "selection-s034-1",
+      "startedAt": "2026-10-24T00:05:59.841Z",
+      "status": "200",
+      "measuredUsd": 0.0010593
+    },
+    {
+      "phase": "selection-s034-1",
+      "startedAt": "2026-10-24T00:06:06.487Z",
+      "status": "200",
+      "measuredUsd": 0.0007016
+    },
+    {
+      "phase": "selection-s034-1",
+      "startedAt": "2026-10-24T00:06:14.054Z",
+      "status": "200",
+      "measuredUsd": 0.0010036
+    },
+    {
+      "phase": "selection-s034-1",
+      "startedAt": "2026-10-24T00:06:18.036Z",
+      "status": "200",
+      "measuredUsd": 0.0005704
+    },
+    {
+      "phase": "selection-s001-2",
+      "startedAt": "2026-10-24T00:06:24.427Z",
+      "status": "200",
+      "measuredUsd": 0.0003298
+    },
+    {
+      "phase": "selection-s001-2",
+      "startedAt": "2026-10-24T00:06:26.618Z",
+      "status": "200",
+      "measuredUsd": 0.0011139
+    },
+    {
+      "phase": "selection-s001-2",
+      "startedAt": "2026-10-24T00:06:31.044Z",
+      "status": "200",
+      "measuredUsd": 0.0010954
+    },
+    {
+      "phase": "selection-s001-2",
+      "startedAt": "2026-10-24T00:06:34.965Z",
+      "status": "200",
+      "measuredUsd": 0.0005702
+    },
+    {
+      "phase": "selection-s027-2",
+      "startedAt": "2026-10-24T00:06:39.422Z",
+      "status": "200",
+      "measuredUsd": 0.0003292
+    },
+    {
+      "phase": "selection-s027-2",
+      "startedAt": "2026-10-24T00:06:41.405Z",
+      "status": "200",
+      "measuredUsd": 0.001094
+    },
+    {
+      "phase": "selection-s027-2",
+      "startedAt": "2026-10-24T00:06:46.400Z",
+      "status": "200",
+      "measuredUsd": 0.0008033
+    },
+    {
+      "phase": "selection-s027-2",
+      "startedAt": "2026-10-24T00:06:53.575Z",
+      "status": "200",
+      "measuredUsd": 0.0011147
+    },
+    {
+      "phase": "selection-s027-2",
+      "startedAt": "2026-10-24T00:06:58.039Z",
+      "status": "200",
+      "measuredUsd": 0.0004788
+    },
+    {
+      "phase": "selection-s034-2",
+      "startedAt": "2026-10-24T00:07:01.864Z",
+      "status": "200",
+      "measuredUsd": 0.0003549
+    },
+    {
+      "phase": "selection-s034-2",
+      "startedAt": "2026-10-24T00:07:04.545Z",
+      "status": "200",
+      "measuredUsd": 0.0009797
+    },
+    {
+      "phase": "selection-s034-2",
+      "startedAt": "2026-10-24T00:07:09.112Z",
+      "status": "200",
+      "measuredUsd": 0.000529
+    }
+  ],
+  "measuredUsd": 0.0181602,
+  "uncertainUsd": 0,
+  "blocked": null
+}

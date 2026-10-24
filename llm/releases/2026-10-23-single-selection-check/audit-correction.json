@@ -1,0 +1,7 @@
+{
+  "original": "verify.mts remains unchanged from the pre-call commit. Its request/result replay completed, but the later git-object check incorrectly required works/bible-web/work.json to be tracked. That generated import is intentionally ignored.",
+  "correction": "audit.mts repeats the full replay and hash/cap/score checks, requires the dry-run manifest itself to exist unchanged in the pre-call commit, and checks all other frozen inputs as git objects. The generated work bytes must match the hash in that committed manifest.",
+  "paidReruns": 0,
+  "candidateChangesAfterRun": 0,
+  "scoringChangesFromCorrection": 0
+}
