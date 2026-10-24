@@ -1,0 +1,29 @@
+{
+  "baselineReplay": {
+    "command": "npx tsx llm/releases/2026-10-23-single-selection-check/audit.mts",
+    "acceptable": 2,
+    "flawedStored": 2,
+    "refused": 2,
+    "gate": false
+  },
+  "cacheRed": {
+    "command": "npx vitest run src/lib/__tests__/formless-selection.test.ts",
+    "failed": 1,
+    "passed": 3,
+    "signal": "A plan marked review v4 is reused before the v5 version bump."
+  },
+  "green": {
+    "command": "npm test -- --run",
+    "passed": 985,
+    "skipped": 1
+  },
+  "lint": "passed",
+  "typecheck": "passed",
+  "dryRun": {
+    "operations": 8,
+    "pipelines": 2,
+    "paidCalls": 0
+  },
+  "uncommittedExecutionGuard": "Refused before credentials or any one-shot marker",
+  "liveSemanticObedience": "Not established by scripted regression tests."
+}

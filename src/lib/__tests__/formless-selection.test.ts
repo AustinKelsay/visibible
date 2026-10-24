@@ -41,7 +41,7 @@ async function setup(repair: boolean, invalidation: "both" | "review" | "selecti
   const old = (await memory.store.getActiveRecord("plan", "m-1"))!;
   await memory.store.putDerivedRecord({ kind: "plan", recordId: "m-1", payload: { ...old.payload, kind: "plan" },
     inputs: old.inputs.map((input) => input.recordId === "scene_plan_moment_cast" && invalidation === "selection" ? { ...input, version: "2026-10-23-moment-cast-v7" }
-      : input.recordId === "scene_plan_review" && invalidation !== "selection" ? { ...input, version: invalidation === "review" ? "2026-10-23-plan-review-v3" : "2026-10-23-plan-review-v2" }
+      : input.recordId === "scene_plan_review" && invalidation !== "selection" ? { ...input, version: invalidation === "review" ? "2026-10-23-plan-review-v4" : "2026-10-23-plan-review-v2" }
       : input.recordId === "scene_plan_formless_presence" && invalidation === "both" ? { ...input, version: "2026-10-22-formless-effects-v5" } : input) });
   const calls: TextModelRequest[] = [];
   let plans = 0, reviews = 0;

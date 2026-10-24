@@ -1,0 +1,12 @@
+{
+  "issues": 1,
+  "fixed": [
+    {
+      "severity": "major",
+      "file": "run.mts",
+      "issue": "Untracked frozen inputs could pass a clean tracked-tree check.",
+      "resolution": "Before one-shot markers or credentials, compare the dry-run manifest with its HEAD object and verify every frozen input hash from HEAD; generated ignored work bytes are pinned in that committed manifest."
+    }
+  ],
+  "rejected": []
+}
