@@ -1,0 +1,490 @@
+{
+  "maskedScoreCommit": "7be55d9",
+  "preCallCommit": "812e8e5ce3a94bb6b0b148c016a35daba5a63b93",
+  "primary": [
+    {
+      "stratum": "fresh",
+      "arms": [
+        {
+          "arm": "baseline",
+          "n": 23,
+          "acceptable": 6,
+          "refused": 10,
+          "wilson95": [
+            0.125486160449866,
+            0.4647000483742479
+          ]
+        },
+        {
+          "arm": "candidate",
+          "n": 23,
+          "acceptable": 7,
+          "refused": 11,
+          "wilson95": [
+            0.15604024453214316,
+            0.5086575626875864
+          ]
+        }
+      ],
+      "paired": {
+        "bothAcceptable": 5,
+        "neither": 15,
+        "candidateOnly": 2,
+        "baselineOnly": 1
+      },
+      "exactDiscordanceP": 1
+    },
+    {
+      "stratum": "retained",
+      "arms": [
+        {
+          "arm": "baseline",
+          "n": 7,
+          "acceptable": 0,
+          "refused": 4,
+          "wilson95": [
+            0.0,
+            0.35433043506667483
+          ]
+        },
+        {
+          "arm": "candidate",
+          "n": 7,
+          "acceptable": 0,
+          "refused": 1,
+          "wilson95": [
+            0.0,
+            0.35433043506667483
+          ]
+        }
+      ],
+      "paired": {
+        "neither": 7
+      },
+      "exactDiscordanceP": 1
+    },
+    {
+      "stratum": "overall",
+      "arms": [
+        {
+          "arm": "baseline",
+          "n": 30,
+          "acceptable": 6,
+          "refused": 14,
+          "wilson95": [
+            0.09505107177290062,
+            0.37305696413147726
+          ]
+        },
+        {
+          "arm": "candidate",
+          "n": 30,
+          "acceptable": 7,
+          "refused": 12,
+          "wilson95": [
+            0.11792388144489716,
+            0.4092832615812164
+          ]
+        }
+      ],
+      "paired": {
+        "neither": 22,
+        "bothAcceptable": 5,
+        "candidateOnly": 2,
+        "baselineOnly": 1
+      },
+      "exactDiscordanceP": 1
+    }
+  ],
+  "plannerFieldsOnlyExploratory": [
+    {
+      "stratum": "fresh",
+      "arms": [
+        {
+          "arm": "baseline",
+          "n": 23,
+          "acceptable": 7,
+          "refused": 10,
+          "wilson95": [
+            0.15604024453214316,
+            0.5086575626875864
+          ]
+        },
+        {
+          "arm": "candidate",
+          "n": 23,
+          "acceptable": 9,
+          "refused": 11,
+          "wilson95": [
+            0.22157622792478307,
+            0.5921447760861778
+          ]
+        }
+      ],
+      "paired": {
+        "bothAcceptable": 5,
+        "neither": 12,
+        "candidateOnly": 4,
+        "baselineOnly": 2
+      },
+      "exactDiscordanceP": 0.6875
+    },
+    {
+      "stratum": "retained",
+      "arms": [
+        {
+          "arm": "baseline",
+          "n": 7,
+          "acceptable": 3,
+          "refused": 4,
+          "wilson95": [
+            0.15821985525147414,
+            0.7495416354723365
+          ]
+        },
+        {
+          "arm": "candidate",
+          "n": 7,
+          "acceptable": 4,
+          "refused": 1,
+          "wilson95": [
+            0.2504583645276634,
+            0.8417801447485258
+          ]
+        }
+      ],
+      "paired": {
+        "candidateOnly": 2,
+        "neither": 2,
+        "baselineOnly": 1,
+        "bothAcceptable": 2
+      },
+      "exactDiscordanceP": 1
+    },
+    {
+      "stratum": "overall",
+      "arms": [
+        {
+          "arm": "baseline",
+          "n": 30,
+          "acceptable": 10,
+          "refused": 14,
+          "wilson95": [
+            0.19230498083676434,
+            0.5121994835545567
+          ]
+        },
+        {
+          "arm": "candidate",
+          "n": 30,
+          "acceptable": 13,
+          "refused": 12,
+          "wilson95": [
+            0.273774855764669,
+            0.6080269299918595
+          ]
+        }
+      ],
+      "paired": {
+        "candidateOnly": 6,
+        "neither": 14,
+        "baselineOnly": 3,
+        "bothAcceptable": 7
+      },
+      "exactDiscordanceP": 0.5078125
+    }
+  ],
+  "acceptAllColdUncertaintiesSensitivity": [
+    {
+      "stratum": "fresh",
+      "arms": [
+        {
+          "arm": "baseline",
+          "n": 23,
+          "acceptable": 8,
+          "refused": 10,
+          "wilson95": [
+            0.18811275938798067,
+            0.5510966462273645
+          ]
+        },
+        {
+          "arm": "candidate",
+          "n": 23,
+          "acceptable": 8,
+          "refused": 11,
+          "wilson95": [
+            0.18811275938798067,
+            0.5510966462273645
+          ]
+        }
+      ],
+      "paired": {
+        "bothAcceptable": 6,
+        "neither": 13,
+        "candidateOnly": 2,
+        "baselineOnly": 2
+      },
+      "exactDiscordanceP": 1
+    },
+    {
+      "stratum": "retained",
+      "arms": [
+        {
+          "arm": "baseline",
+          "n": 7,
+          "acceptable": 0,
+          "refused": 4,
+          "wilson95": [
+            0.0,
+            0.35433043506667483
+          ]
+        },
+        {
+          "arm": "candidate",
+          "n": 7,
+          "acceptable": 0,
+          "refused": 1,
+          "wilson95": [
+            0.0,
+            0.35433043506667483
+          ]
+        }
+      ],
+      "paired": {
+        "neither": 7
+      },
+      "exactDiscordanceP": 1
+    },
+    {
+      "stratum": "overall",
+      "arms": [
+        {
+          "arm": "baseline",
+          "n": 30,
+          "acceptable": 8,
+          "refused": 14,
+          "wilson95": [
+            0.1418266331959657,
+            0.44447961695188376
+          ]
+        },
+        {
+          "arm": "candidate",
+          "n": 30,
+          "acceptable": 8,
+          "refused": 12,
+          "wilson95": [
+            0.1418266331959657,
+            0.44447961695188376
+          ]
+        }
+      ],
+      "paired": {
+        "neither": 20,
+        "bothAcceptable": 6,
+        "candidateOnly": 2,
+        "baselineOnly": 2
+      },
+      "exactDiscordanceP": 1
+    }
+  ],
+  "ignoreAllLookDefectsAndAcceptPlannerUncertaintiesSensitivity": [
+    {
+      "stratum": "fresh",
+      "arms": [
+        {
+          "arm": "baseline",
+          "n": 23,
+          "acceptable": 10,
+          "refused": 10,
+          "wilson95": [
+            0.25634635325674604,
+            0.6318862491498304
+          ]
+        },
+        {
+          "arm": "candidate",
+          "n": 23,
+          "acceptable": 10,
+          "refused": 11,
+          "wilson95": [
+            0.25634635325674604,
+            0.6318862491498304
+          ]
+        }
+      ],
+      "paired": {
+        "bothAcceptable": 6,
+        "neither": 9,
+        "candidateOnly": 4,
+        "baselineOnly": 4
+      },
+      "exactDiscordanceP": 1
+    },
+    {
+      "stratum": "retained",
+      "arms": [
+        {
+          "arm": "baseline",
+          "n": 7,
+          "acceptable": 3,
+          "refused": 4,
+          "wilson95": [
+            0.15821985525147414,
+            0.7495416354723365
+          ]
+        },
+        {
+          "arm": "candidate",
+          "n": 7,
+          "acceptable": 4,
+          "refused": 1,
+          "wilson95": [
+            0.2504583645276634,
+            0.8417801447485258
+          ]
+        }
+      ],
+      "paired": {
+        "candidateOnly": 2,
+        "neither": 2,
+        "baselineOnly": 1,
+        "bothAcceptable": 2
+      },
+      "exactDiscordanceP": 1
+    },
+    {
+      "stratum": "overall",
+      "arms": [
+        {
+          "arm": "baseline",
+          "n": 30,
+          "acceptable": 13,
+          "refused": 14,
+          "wilson95": [
+            0.273774855764669,
+            0.6080269299918595
+          ]
+        },
+        {
+          "arm": "candidate",
+          "n": 30,
+          "acceptable": 14,
+          "refused": 12,
+          "wilson95": [
+            0.3023238890770015,
+            0.6385770038012628
+          ]
+        }
+      ],
+      "paired": {
+        "candidateOnly": 6,
+        "neither": 11,
+        "baselineOnly": 5,
+        "bothAcceptable": 8
+      },
+      "exactDiscordanceP": 1
+    }
+  ],
+  "allStoredCandidateScenesAcceptableUpperBound": [
+    {
+      "stratum": "fresh",
+      "arms": [
+        {
+          "arm": "baseline",
+          "n": 23,
+          "acceptable": 13,
+          "refused": 10,
+          "wilson95": [
+            0.36811375085016956,
+            0.743653646743254
+          ]
+        },
+        {
+          "arm": "candidate",
+          "n": 23,
+          "acceptable": 12,
+          "refused": 11,
+          "wilson95": [
+            0.3296273733642786,
+            0.7076284258335291
+          ]
+        }
+      ],
+      "paired": {
+        "bothAcceptable": 10,
+        "neither": 8,
+        "candidateOnly": 2,
+        "baselineOnly": 3
+      },
+      "exactDiscordanceP": 1
+    },
+    {
+      "stratum": "retained",
+      "arms": [
+        {
+          "arm": "baseline",
+          "n": 7,
+          "acceptable": 3,
+          "refused": 4,
+          "wilson95": [
+            0.15821985525147414,
+            0.7495416354723365
+          ]
+        },
+        {
+          "arm": "candidate",
+          "n": 7,
+          "acceptable": 6,
+          "refused": 1,
+          "wilson95": [
+            0.486872170725691,
+            0.9743203756552553
+          ]
+        }
+      ],
+      "paired": {
+        "candidateOnly": 3,
+        "neither": 1,
+        "bothAcceptable": 3
+      },
+      "exactDiscordanceP": 0.25
+    },
+    {
+      "stratum": "overall",
+      "arms": [
+        {
+          "arm": "baseline",
+          "n": 30,
+          "acceptable": 16,
+          "refused": 14,
+          "wilson95": [
+            0.3614229961987372,
+            0.6976761109229985
+          ]
+        },
+        {
+          "arm": "candidate",
+          "n": 30,
+          "acceptable": 18,
+          "refused": 12,
+          "wilson95": [
+            0.4232036025332294,
+            0.754093718831978
+          ]
+        }
+      ],
+      "paired": {
+        "candidateOnly": 5,
+        "neither": 9,
+        "bothAcceptable": 13,
+        "baselineOnly": 3
+      },
+      "exactDiscordanceP": 0.7265625
+    }
+  ],
+  "interpretation": "The cold-packet primary analysis and thresholds were frozen. plannerVerdict was recorded before unblinding as a descriptive split, not a replacement gate. All sensitivity analyses are post-unblinding and do not rewrite scores. No refusal is credited as a repair. Independent look draws prevent isolating a pure planner causal effect.",
+  "pairedNoPopulationClaim": true,
+  "releaseHold": true
+}

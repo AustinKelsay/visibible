@@ -1,0 +1,17 @@
+{
+  "at": "2026-10-24T01:26:05.410Z",
+  "commit": "812e8e5ce3a94bb6b0b148c016a35daba5a63b93",
+  "grant": {
+    "at": "2026-10-24T01:25:51.331652+00:00",
+    "owner": "Austin Kelsay",
+    "authorization": "continue",
+    "authorizationContext": "Owner replied \"continue\" immediately after the explicit request to add $0.25 to the evaluation allowance (total $17.20), with a hard $0.25 operation cap, for the frozen 30-pair text comparison plus six review controls in PR #270. Interpreted as approval of that concrete proposal only.",
+    "threadId": "090d6fd8-eb25-4daa-b1de-815338fb5e08",
+    "increaseUsd": 0.25,
+    "authorizedUsd": 17.2,
+    "operationCapUsd": 0.25,
+    "imagesAuthorized": false,
+    "productionWritesAuthorized": false,
+    "publicActivationAuthorized": false
+  }
+}

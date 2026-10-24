@@ -1,0 +1,28 @@
+{
+  "cliVersion": "0.9.1",
+  "maskedFilesReview": {
+    "status": "review_completed",
+    "issues": 0,
+    "reviewedFiles": [
+      "blind-packet.json",
+      "operator-scores.json"
+    ],
+    "log": "masked-coderabbit.ndjson"
+  },
+  "finalBranchReview": {
+    "command": "coderabbit review --agent --base-commit 95e583f3512869afbeb4b44fe27627455deb801a -c AGENTS.md",
+    "exitCode": 1,
+    "status": "review_completed",
+    "outcome": "completed_with_warnings",
+    "issues": 0,
+    "unreviewedFileCount": 1,
+    "unreviewedFile": "Not identified by the CLI output",
+    "log": "results-coderabbit.ndjson",
+    "limitation": "This is incomplete CodeRabbit coverage, not a clean full-branch review. No automated issue was returned. Required local review was attempted; raw provider records are independently verified by exact offline replay for provenance/results/cost, not by an independent semantic adjudicator."
+  },
+  "fundingReview": {
+    "status": "review_skipped",
+    "reason": "New untracked funding file was not detected; this is not review evidence.",
+    "log": "funding-coderabbit.ndjson"
+  }
+}

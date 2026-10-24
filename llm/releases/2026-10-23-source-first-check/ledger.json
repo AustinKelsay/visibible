@@ -1,0 +1,1525 @@
+{
+  "calls": [
+    {
+      "phase": "retained-priest-1",
+      "startedAt": "2026-10-24T01:26:05.418Z",
+      "status": "200",
+      "measuredUsd": 0.0006833
+    },
+    {
+      "phase": "retained-priest-2",
+      "startedAt": "2026-10-24T01:26:12.078Z",
+      "status": "200",
+      "measuredUsd": 0.0007709
+    },
+    {
+      "phase": "supported-group-members",
+      "startedAt": "2026-10-24T01:26:17.063Z",
+      "status": "200",
+      "measuredUsd": 0.0004732
+    },
+    {
+      "phase": "incidental-roles",
+      "startedAt": "2026-10-24T01:26:21.355Z",
+      "status": "200",
+      "measuredUsd": 0.0002468
+    },
+    {
+      "phase": "unselected-place-object",
+      "startedAt": "2026-10-24T01:26:22.177Z",
+      "status": "200",
+      "measuredUsd": 0.0004424
+    },
+    {
+      "phase": "selected-place-object",
+      "startedAt": "2026-10-24T01:26:26.103Z",
+      "status": "200",
+      "measuredUsd": 0.0002511
+    },
+    {
+      "phase": "r034-baseline",
+      "startedAt": "2026-10-24T01:26:27.108Z",
+      "status": "200",
+      "measuredUsd": 0.0003464
+    },
+    {
+      "phase": "r034-baseline",
+      "startedAt": "2026-10-24T01:26:30.116Z",
+      "status": "200",
+      "measuredUsd": 0.000953
+    },
+    {
+      "phase": "r034-baseline",
+      "startedAt": "2026-10-24T01:26:33.596Z",
+      "status": "200",
+      "measuredUsd": 0.0007707
+    },
+    {
+      "phase": "r034-baseline",
+      "startedAt": "2026-10-24T01:26:38.923Z",
+      "status": "200",
+      "measuredUsd": 0.0010428
+    },
+    {
+      "phase": "r034-candidate",
+      "startedAt": "2026-10-24T01:26:42.375Z",
+      "status": "200",
+      "measuredUsd": 0.0003374
+    },
+    {
+      "phase": "r034-candidate",
+      "startedAt": "2026-10-24T01:26:44.980Z",
+      "status": "200",
+      "measuredUsd": 0.0009716
+    },
+    {
+      "phase": "r034-candidate",
+      "startedAt": "2026-10-24T01:26:48.972Z",
+      "status": "200",
+      "measuredUsd": 0.0008058
+    },
+    {
+      "phase": "r034-candidate",
+      "startedAt": "2026-10-24T01:26:54.717Z",
+      "status": "200",
+      "measuredUsd": 0.0009698
+    },
+    {
+      "phase": "r034-candidate",
+      "startedAt": "2026-10-24T01:26:58.552Z",
+      "status": "200",
+      "measuredUsd": 0.0006045
+    },
+    {
+      "phase": "r035-candidate",
+      "startedAt": "2026-10-24T01:27:03.485Z",
+      "status": "200",
+      "measuredUsd": 0.0003092
+    },
+    {
+      "phase": "r035-candidate",
+      "startedAt": "2026-10-24T01:27:06.119Z",
+      "status": "200",
+      "measuredUsd": 0.0009406
+    },
+    {
+      "phase": "r035-candidate",
+      "startedAt": "2026-10-24T01:27:12.678Z",
+      "status": "200",
+      "measuredUsd": 0.0003896
+    },
+    {
+      "phase": "r035-baseline",
+      "startedAt": "2026-10-24T01:27:15.853Z",
+      "status": "200",
+      "measuredUsd": 0.0003037
+    },
+    {
+      "phase": "r035-baseline",
+      "startedAt": "2026-10-24T01:27:18.021Z",
+      "status": "200",
+      "measuredUsd": 0.0009626
+    },
+    {
+      "phase": "r035-baseline",
+      "startedAt": "2026-10-24T01:27:22.167Z",
+      "status": "200",
+      "measuredUsd": 0.0005889
+    },
+    {
+      "phase": "r035-baseline",
+      "startedAt": "2026-10-24T01:27:26.553Z",
+      "status": "200",
+      "measuredUsd": 0.0009901
+    },
+    {
+      "phase": "r035-baseline",
+      "startedAt": "2026-10-24T01:27:30.240Z",
+      "status": "200",
+      "measuredUsd": 0.0004763
+    },
+    {
+      "phase": "f006-baseline",
+      "startedAt": "2026-10-24T01:27:34.742Z",
+      "status": "200",
+      "measuredUsd": 0.0003245
+    },
+    {
+      "phase": "f006-baseline",
+      "startedAt": "2026-10-24T01:27:37.043Z",
+      "status": "200",
+      "measuredUsd": 0.001041
+    },
+    {
+      "phase": "f006-baseline",
+      "startedAt": "2026-10-24T01:27:40.776Z",
+      "status": "200",
+      "measuredUsd": 0.0007918
+    },
+    {
+      "phase": "f006-baseline",
+      "startedAt": "2026-10-24T01:27:47.446Z",
+      "status": "200",
+      "measuredUsd": 0.0010418
+    },
+    {
+      "phase": "f006-baseline",
+      "startedAt": "2026-10-24T01:27:52.225Z",
+      "status": "200",
+      "measuredUsd": 0.0006499
+    },
+    {
+      "phase": "f006-candidate",
+      "startedAt": "2026-10-24T01:27:57.620Z",
+      "status": "200",
+      "measuredUsd": 0.000318
+    },
+    {
+      "phase": "f006-candidate",
+      "startedAt": "2026-10-24T01:27:59.722Z",
+      "status": "200",
+      "measuredUsd": 0.0009271
+    },
+    {
+      "phase": "f006-candidate",
+      "startedAt": "2026-10-24T01:28:05.313Z",
+      "status": "200",
+      "measuredUsd": 0.0009452
+    },
+    {
+      "phase": "f006-candidate",
+      "startedAt": "2026-10-24T01:28:13.331Z",
+      "status": "200",
+      "measuredUsd": 0.0010249
+    },
+    {
+      "phase": "f006-candidate",
+      "startedAt": "2026-10-24T01:28:17.717Z",
+      "status": "200",
+      "measuredUsd": 0.0008094
+    },
+    {
+      "phase": "f005-candidate",
+      "startedAt": "2026-10-24T01:28:25.143Z",
+      "status": "200",
+      "measuredUsd": 0.0001659
+    },
+    {
+      "phase": "f005-candidate",
+      "startedAt": "2026-10-24T01:28:30.071Z",
+      "status": "200",
+      "measuredUsd": 0.0007031
+    },
+    {
+      "phase": "f005-candidate",
+      "startedAt": "2026-10-24T01:28:35.477Z",
+      "status": "200",
+      "measuredUsd": 0.0006792
+    },
+    {
+      "phase": "f005-candidate",
+      "startedAt": "2026-10-24T01:28:40.584Z",
+      "status": "200",
+      "measuredUsd": 0.0007636
+    },
+    {
+      "phase": "f005-baseline",
+      "startedAt": "2026-10-24T01:28:44.303Z",
+      "status": "200",
+      "measuredUsd": 0.0001709
+    },
+    {
+      "phase": "f005-baseline",
+      "startedAt": "2026-10-24T01:28:45.692Z",
+      "status": "200",
+      "measuredUsd": 0.0007792
+    },
+    {
+      "phase": "f005-baseline",
+      "startedAt": "2026-10-24T01:28:50.167Z",
+      "status": "200",
+      "measuredUsd": 0.0004239
+    },
+    {
+      "phase": "f005-baseline",
+      "startedAt": "2026-10-24T01:28:51.924Z",
+      "status": "200",
+      "measuredUsd": 0.0008129
+    },
+    {
+      "phase": "f005-baseline",
+      "startedAt": "2026-10-24T01:28:55.806Z",
+      "status": "200",
+      "measuredUsd": 0.0005672
+    },
+    {
+      "phase": "f010-baseline",
+      "startedAt": "2026-10-24T01:29:00.369Z",
+      "status": "200",
+      "measuredUsd": 0.0001771
+    },
+    {
+      "phase": "f010-baseline",
+      "startedAt": "2026-10-24T01:29:01.811Z",
+      "status": "200",
+      "measuredUsd": 0.0007708
+    },
+    {
+      "phase": "f010-baseline",
+      "startedAt": "2026-10-24T01:29:08.023Z",
+      "status": "200",
+      "measuredUsd": 0.0005277
+    },
+    {
+      "phase": "f010-candidate",
+      "startedAt": "2026-10-24T01:29:12.889Z",
+      "status": "200",
+      "measuredUsd": 0.0001756
+    },
+    {
+      "phase": "f010-candidate",
+      "startedAt": "2026-10-24T01:29:14.414Z",
+      "status": "200",
+      "measuredUsd": 0.0007525
+    },
+    {
+      "phase": "f010-candidate",
+      "startedAt": "2026-10-24T01:29:17.871Z",
+      "status": "200",
+      "measuredUsd": 0.0006258
+    },
+    {
+      "phase": "f010-candidate",
+      "startedAt": "2026-10-24T01:29:24.084Z",
+      "status": "200",
+      "measuredUsd": 0.0007556
+    },
+    {
+      "phase": "f010-candidate",
+      "startedAt": "2026-10-24T01:29:28.281Z",
+      "status": "200",
+      "measuredUsd": 0.0005053
+    },
+    {
+      "phase": "f011-candidate",
+      "startedAt": "2026-10-24T01:29:31.629Z",
+      "status": "200",
+      "measuredUsd": 0.0003066
+    },
+    {
+      "phase": "f011-candidate",
+      "startedAt": "2026-10-24T01:29:33.497Z",
+      "status": "200",
+      "measuredUsd": 0.0008901
+    },
+    {
+      "phase": "f011-candidate",
+      "startedAt": "2026-10-24T01:29:39.552Z",
+      "status": "200",
+      "measuredUsd": 0.0006687
+    },
+    {
+      "phase": "f011-candidate",
+      "startedAt": "2026-10-24T01:29:43.682Z",
+      "status": "200",
+      "measuredUsd": 0.0009199
+    },
+    {
+      "phase": "f011-candidate",
+      "startedAt": "2026-10-24T01:29:48.644Z",
+      "status": "200",
+      "measuredUsd": 0.0005665
+    },
+    {
+      "phase": "f011-baseline",
+      "startedAt": "2026-10-24T01:29:54.311Z",
+      "status": "200",
+      "measuredUsd": 0.0002996
+    },
+    {
+      "phase": "f011-baseline",
+      "startedAt": "2026-10-24T01:29:56.235Z",
+      "status": "200",
+      "measuredUsd": 0.0009716
+    },
+    {
+      "phase": "f011-baseline",
+      "startedAt": "2026-10-24T01:30:00.433Z",
+      "status": "200",
+      "measuredUsd": 0.0007305
+    },
+    {
+      "phase": "f011-baseline",
+      "startedAt": "2026-10-24T01:30:05.243Z",
+      "status": "200",
+      "measuredUsd": 0.0009404
+    },
+    {
+      "phase": "f011-baseline",
+      "startedAt": "2026-10-24T01:30:08.728Z",
+      "status": "200",
+      "measuredUsd": 0.0005758
+    },
+    {
+      "phase": "f015-baseline",
+      "startedAt": "2026-10-24T01:30:13.764Z",
+      "status": "200",
+      "measuredUsd": 0.0001725
+    },
+    {
+      "phase": "f015-baseline",
+      "startedAt": "2026-10-24T01:30:15.546Z",
+      "status": "200",
+      "measuredUsd": 0.0008533
+    },
+    {
+      "phase": "f015-baseline",
+      "startedAt": "2026-10-24T01:30:22.034Z",
+      "status": "200",
+      "measuredUsd": 0.0005858
+    },
+    {
+      "phase": "f015-baseline",
+      "startedAt": "2026-10-24T01:30:28.185Z",
+      "status": "200",
+      "measuredUsd": 0.0008371
+    },
+    {
+      "phase": "f015-candidate",
+      "startedAt": "2026-10-24T01:30:32.633Z",
+      "status": "200",
+      "measuredUsd": 0.0001665
+    },
+    {
+      "phase": "f015-candidate",
+      "startedAt": "2026-10-24T01:30:34.430Z",
+      "status": "200",
+      "measuredUsd": 0.0008442
+    },
+    {
+      "phase": "f015-candidate",
+      "startedAt": "2026-10-24T01:30:38.444Z",
+      "status": "200",
+      "measuredUsd": 0.0004982
+    },
+    {
+      "phase": "f015-candidate",
+      "startedAt": "2026-10-24T01:30:42.095Z",
+      "status": "200",
+      "measuredUsd": 0.0008625
+    },
+    {
+      "phase": "f008-candidate",
+      "startedAt": "2026-10-24T01:30:46.335Z",
+      "status": "200",
+      "measuredUsd": 0.0001632
+    },
+    {
+      "phase": "f008-candidate",
+      "startedAt": "2026-10-24T01:30:47.616Z",
+      "status": "200",
+      "measuredUsd": 0.0008027
+    },
+    {
+      "phase": "f008-candidate",
+      "startedAt": "2026-10-24T01:30:53.809Z",
+      "status": "200",
+      "measuredUsd": 0.0008202
+    },
+    {
+      "phase": "f008-candidate",
+      "startedAt": "2026-10-24T01:30:58.292Z",
+      "status": "200",
+      "measuredUsd": 0.0004542
+    },
+    {
+      "phase": "f008-baseline",
+      "startedAt": "2026-10-24T01:31:01.826Z",
+      "status": "200",
+      "measuredUsd": 0.0001937
+    },
+    {
+      "phase": "f008-baseline",
+      "startedAt": "2026-10-24T01:31:05.056Z",
+      "status": "200",
+      "measuredUsd": 0.0008135
+    },
+    {
+      "phase": "f008-baseline",
+      "startedAt": "2026-10-24T01:31:08.811Z",
+      "status": "200",
+      "measuredUsd": 0.0005774
+    },
+    {
+      "phase": "f008-baseline",
+      "startedAt": "2026-10-24T01:31:13.698Z",
+      "status": "200",
+      "measuredUsd": 0.0008211
+    },
+    {
+      "phase": "f008-baseline",
+      "startedAt": "2026-10-24T01:31:17.573Z",
+      "status": "200",
+      "measuredUsd": 0.0005265
+    },
+    {
+      "phase": "f014-baseline",
+      "startedAt": "2026-10-24T01:31:22.145Z",
+      "status": "200",
+      "measuredUsd": 0.0001639
+    },
+    {
+      "phase": "f014-baseline",
+      "startedAt": "2026-10-24T01:31:23.697Z",
+      "status": "200",
+      "measuredUsd": 0.0005442
+    },
+    {
+      "phase": "f014-candidate",
+      "startedAt": "2026-10-24T01:31:28.156Z",
+      "status": "200",
+      "measuredUsd": 0.0001664
+    },
+    {
+      "phase": "f014-candidate",
+      "startedAt": "2026-10-24T01:31:29.736Z",
+      "status": "200",
+      "measuredUsd": 0.0005026
+    },
+    {
+      "phase": "f001-candidate",
+      "startedAt": "2026-10-24T01:31:31.642Z",
+      "status": "200",
+      "measuredUsd": 0.0001771
+    },
+    {
+      "phase": "f001-candidate",
+      "startedAt": "2026-10-24T01:31:32.974Z",
+      "status": "200",
+      "measuredUsd": 0.0007981
+    },
+    {
+      "phase": "f001-candidate",
+      "startedAt": "2026-10-24T01:31:38.514Z",
+      "status": "200",
+      "measuredUsd": 0.0005723
+    },
+    {
+      "phase": "f001-candidate",
+      "startedAt": "2026-10-24T01:31:42.472Z",
+      "status": "200",
+      "measuredUsd": 0.0007991
+    },
+    {
+      "phase": "f001-candidate",
+      "startedAt": "2026-10-24T01:31:49.525Z",
+      "status": "200",
+      "measuredUsd": 0.0004517
+    },
+    {
+      "phase": "f001-baseline",
+      "startedAt": "2026-10-24T01:31:53.300Z",
+      "status": "200",
+      "measuredUsd": 0.0001921
+    },
+    {
+      "phase": "f001-baseline",
+      "startedAt": "2026-10-24T01:31:54.951Z",
+      "status": "200",
+      "measuredUsd": 0.0008165
+    },
+    {
+      "phase": "f001-baseline",
+      "startedAt": "2026-10-24T01:31:58.199Z",
+      "status": "200",
+      "measuredUsd": 0.000578
+    },
+    {
+      "phase": "f001-baseline",
+      "startedAt": "2026-10-24T01:32:03.189Z",
+      "status": "200",
+      "measuredUsd": 0.000839
+    },
+    {
+      "phase": "f001-baseline",
+      "startedAt": "2026-10-24T01:32:07.340Z",
+      "status": "200",
+      "measuredUsd": 0.0006013
+    },
+    {
+      "phase": "r067-baseline",
+      "startedAt": "2026-10-24T01:32:12.628Z",
+      "status": "200",
+      "measuredUsd": 0.0003203
+    },
+    {
+      "phase": "r067-baseline",
+      "startedAt": "2026-10-24T01:32:14.614Z",
+      "status": "200",
+      "measuredUsd": 0.0010395
+    },
+    {
+      "phase": "r067-baseline",
+      "startedAt": "2026-10-24T01:32:20.709Z",
+      "status": "200",
+      "measuredUsd": 0.0008096
+    },
+    {
+      "phase": "r067-baseline",
+      "startedAt": "2026-10-24T01:32:28.321Z",
+      "status": "200",
+      "measuredUsd": 0.0010856
+    },
+    {
+      "phase": "r067-baseline",
+      "startedAt": "2026-10-24T01:32:32.392Z",
+      "status": "200",
+      "measuredUsd": 0.0008905
+    },
+    {
+      "phase": "r067-candidate",
+      "startedAt": "2026-10-24T01:32:39.072Z",
+      "status": "200",
+      "measuredUsd": 0.0003183
+    },
+    {
+      "phase": "r067-candidate",
+      "startedAt": "2026-10-24T01:32:41.160Z",
+      "status": "200",
+      "measuredUsd": 0.0009763
+    },
+    {
+      "phase": "r067-candidate",
+      "startedAt": "2026-10-24T01:32:45.001Z",
+      "status": "200",
+      "measuredUsd": 0.0005156
+    },
+    {
+      "phase": "f003-candidate",
+      "startedAt": "2026-10-24T01:32:50.098Z",
+      "status": "200",
+      "measuredUsd": 0.0001726
+    },
+    {
+      "phase": "f003-candidate",
+      "startedAt": "2026-10-24T01:32:51.964Z",
+      "status": "200",
+      "measuredUsd": 0.0006974
+    },
+    {
+      "phase": "f003-candidate",
+      "startedAt": "2026-10-24T01:32:57.563Z",
+      "status": "200",
+      "measuredUsd": 0.0003746
+    },
+    {
+      "phase": "f003-baseline",
+      "startedAt": "2026-10-24T01:33:02.650Z",
+      "status": "200",
+      "measuredUsd": 0.0001621
+    },
+    {
+      "phase": "f003-baseline",
+      "startedAt": "2026-10-24T01:33:04.706Z",
+      "status": "200",
+      "measuredUsd": 0.0007388
+    },
+    {
+      "phase": "f003-baseline",
+      "startedAt": "2026-10-24T01:33:07.785Z",
+      "status": "200",
+      "measuredUsd": 0.0005677
+    },
+    {
+      "phase": "f003-baseline",
+      "startedAt": "2026-10-24T01:33:12.375Z",
+      "status": "200",
+      "measuredUsd": 0.0007997
+    },
+    {
+      "phase": "f003-baseline",
+      "startedAt": "2026-10-24T01:33:15.629Z",
+      "status": "200",
+      "measuredUsd": 0.000355
+    },
+    {
+      "phase": "f004-baseline",
+      "startedAt": "2026-10-24T01:33:17.518Z",
+      "status": "200",
+      "measuredUsd": 0.0001719
+    },
+    {
+      "phase": "f004-baseline",
+      "startedAt": "2026-10-24T01:33:18.886Z",
+      "status": "200",
+      "measuredUsd": 0.0007827
+    },
+    {
+      "phase": "f004-baseline",
+      "startedAt": "2026-10-24T01:33:25.040Z",
+      "status": "200",
+      "measuredUsd": 0.0004857
+    },
+    {
+      "phase": "f004-candidate",
+      "startedAt": "2026-10-24T01:33:29.039Z",
+      "status": "200",
+      "measuredUsd": 0.0001769
+    },
+    {
+      "phase": "f004-candidate",
+      "startedAt": "2026-10-24T01:33:30.799Z",
+      "status": "200",
+      "measuredUsd": 0.0007774
+    },
+    {
+      "phase": "f004-candidate",
+      "startedAt": "2026-10-24T01:33:35.091Z",
+      "status": "200",
+      "measuredUsd": 0.0004278
+    },
+    {
+      "phase": "f022-candidate",
+      "startedAt": "2026-10-24T01:33:39.630Z",
+      "status": "200",
+      "measuredUsd": 0.0001802
+    },
+    {
+      "phase": "f022-candidate",
+      "startedAt": "2026-10-24T01:33:41.450Z",
+      "status": "200",
+      "measuredUsd": 0.0008388
+    },
+    {
+      "phase": "f022-candidate",
+      "startedAt": "2026-10-24T01:33:47.685Z",
+      "status": "200",
+      "measuredUsd": 0.0006487
+    },
+    {
+      "phase": "f022-candidate",
+      "startedAt": "2026-10-24T01:33:51.622Z",
+      "status": "200",
+      "measuredUsd": 0.0008319
+    },
+    {
+      "phase": "f022-baseline",
+      "startedAt": "2026-10-24T01:33:55.929Z",
+      "status": "200",
+      "measuredUsd": 0.0001747
+    },
+    {
+      "phase": "f022-baseline",
+      "startedAt": "2026-10-24T01:33:57.781Z",
+      "status": "200",
+      "measuredUsd": 0.000766
+    },
+    {
+      "phase": "f022-baseline",
+      "startedAt": "2026-10-24T01:34:01.920Z",
+      "status": "200",
+      "measuredUsd": 0.0007008
+    },
+    {
+      "phase": "f022-baseline",
+      "startedAt": "2026-10-24T01:34:05.798Z",
+      "status": "200",
+      "measuredUsd": 0.000887
+    },
+    {
+      "phase": "f022-baseline",
+      "startedAt": "2026-10-24T01:34:09.888Z",
+      "status": "200",
+      "measuredUsd": 0.0005149
+    },
+    {
+      "phase": "f019-baseline",
+      "startedAt": "2026-10-24T01:34:13.474Z",
+      "status": "200",
+      "measuredUsd": 0.0003215
+    },
+    {
+      "phase": "f019-baseline",
+      "startedAt": "2026-10-24T01:34:16.234Z",
+      "status": "200",
+      "measuredUsd": 0.0010458
+    },
+    {
+      "phase": "f019-baseline",
+      "startedAt": "2026-10-24T01:34:23.912Z",
+      "status": "200",
+      "measuredUsd": 0.0012308
+    },
+    {
+      "phase": "f019-baseline",
+      "startedAt": "2026-10-24T01:34:33.219Z",
+      "status": "200",
+      "measuredUsd": 0.0010361
+    },
+    {
+      "phase": "f019-baseline",
+      "startedAt": "2026-10-24T01:34:37.801Z",
+      "status": "200",
+      "measuredUsd": 0.0007915
+    },
+    {
+      "phase": "f019-candidate",
+      "startedAt": "2026-10-24T01:34:46.022Z",
+      "status": "200",
+      "measuredUsd": 0.000306
+    },
+    {
+      "phase": "f019-candidate",
+      "startedAt": "2026-10-24T01:34:47.839Z",
+      "status": "200",
+      "measuredUsd": 0.0009889
+    },
+    {
+      "phase": "f019-candidate",
+      "startedAt": "2026-10-24T01:34:51.709Z",
+      "status": "200",
+      "measuredUsd": 0.0010119
+    },
+    {
+      "phase": "f019-candidate",
+      "startedAt": "2026-10-24T01:34:56.212Z",
+      "status": "200",
+      "measuredUsd": 0.0010652
+    },
+    {
+      "phase": "f021-candidate",
+      "startedAt": "2026-10-24T01:35:04.287Z",
+      "status": "200",
+      "measuredUsd": 0.0002969
+    },
+    {
+      "phase": "f021-candidate",
+      "startedAt": "2026-10-24T01:35:06.229Z",
+      "status": "200",
+      "measuredUsd": 0.0009083
+    },
+    {
+      "phase": "f021-candidate",
+      "startedAt": "2026-10-24T01:35:12.521Z",
+      "status": "200",
+      "measuredUsd": 0.0005179
+    },
+    {
+      "phase": "f021-baseline",
+      "startedAt": "2026-10-24T01:35:17.573Z",
+      "status": "200",
+      "measuredUsd": 0.0003159
+    },
+    {
+      "phase": "f021-baseline",
+      "startedAt": "2026-10-24T01:35:19.612Z",
+      "status": "200",
+      "measuredUsd": 0.0010229
+    },
+    {
+      "phase": "f021-baseline",
+      "startedAt": "2026-10-24T01:35:23.808Z",
+      "status": "200",
+      "measuredUsd": 0.0009328
+    },
+    {
+      "phase": "f021-baseline",
+      "startedAt": "2026-10-24T01:35:31.675Z",
+      "status": "200",
+      "measuredUsd": 0.0010285
+    },
+    {
+      "phase": "f021-baseline",
+      "startedAt": "2026-10-24T01:35:35.566Z",
+      "status": "200",
+      "measuredUsd": 0.0004739
+    },
+    {
+      "phase": "r001-baseline",
+      "startedAt": "2026-10-24T01:35:38.324Z",
+      "status": "200",
+      "measuredUsd": 0.0003193
+    },
+    {
+      "phase": "r001-baseline",
+      "startedAt": "2026-10-24T01:35:40.427Z",
+      "status": "200",
+      "measuredUsd": 0.0010454
+    },
+    {
+      "phase": "r001-baseline",
+      "startedAt": "2026-10-24T01:35:44.224Z",
+      "status": "200",
+      "measuredUsd": 0.0010479
+    },
+    {
+      "phase": "r001-baseline",
+      "startedAt": "2026-10-24T01:35:47.997Z",
+      "status": "200",
+      "measuredUsd": 0.0005837
+    },
+    {
+      "phase": "r001-candidate",
+      "startedAt": "2026-10-24T01:35:52.655Z",
+      "status": "200",
+      "measuredUsd": 0.0003098
+    },
+    {
+      "phase": "r001-candidate",
+      "startedAt": "2026-10-24T01:35:55.983Z",
+      "status": "200",
+      "measuredUsd": 0.0010663
+    },
+    {
+      "phase": "r001-candidate",
+      "startedAt": "2026-10-24T01:36:00.614Z",
+      "status": "200",
+      "measuredUsd": 0.0006686
+    },
+    {
+      "phase": "r001-candidate",
+      "startedAt": "2026-10-24T01:36:05.763Z",
+      "status": "200",
+      "measuredUsd": 0.0010489
+    },
+    {
+      "phase": "r001-candidate",
+      "startedAt": "2026-10-24T01:36:10.040Z",
+      "status": "200",
+      "measuredUsd": 0.0005672
+    },
+    {
+      "phase": "r074-candidate",
+      "startedAt": "2026-10-24T01:36:14.678Z",
+      "status": "200",
+      "measuredUsd": 0.0003199
+    },
+    {
+      "phase": "r074-candidate",
+      "startedAt": "2026-10-24T01:36:17.337Z",
+      "status": "200",
+      "measuredUsd": 0.0009614
+    },
+    {
+      "phase": "r074-candidate",
+      "startedAt": "2026-10-24T01:36:24.056Z",
+      "status": "200",
+      "measuredUsd": 0.0005732
+    },
+    {
+      "phase": "r074-candidate",
+      "startedAt": "2026-10-24T01:36:28.598Z",
+      "status": "200",
+      "measuredUsd": 0.0009291
+    },
+    {
+      "phase": "r074-candidate",
+      "startedAt": "2026-10-24T01:36:32.788Z",
+      "status": "200",
+      "measuredUsd": 0.0003959
+    },
+    {
+      "phase": "r074-baseline",
+      "startedAt": "2026-10-24T01:36:36.031Z",
+      "status": "200",
+      "measuredUsd": 0.0003069
+    },
+    {
+      "phase": "r074-baseline",
+      "startedAt": "2026-10-24T01:36:38.682Z",
+      "status": "200",
+      "measuredUsd": 0.0009662
+    },
+    {
+      "phase": "r074-baseline",
+      "startedAt": "2026-10-24T01:36:42.521Z",
+      "status": "200",
+      "measuredUsd": 0.0004875
+    },
+    {
+      "phase": "f020-baseline",
+      "startedAt": "2026-10-24T01:36:46.552Z",
+      "status": "200",
+      "measuredUsd": 0.0001809
+    },
+    {
+      "phase": "f020-baseline",
+      "startedAt": "2026-10-24T01:36:48.273Z",
+      "status": "200",
+      "measuredUsd": 0.000807
+    },
+    {
+      "phase": "f020-baseline",
+      "startedAt": "2026-10-24T01:36:54.202Z",
+      "status": "200",
+      "measuredUsd": 0.0006053
+    },
+    {
+      "phase": "f020-baseline",
+      "startedAt": "2026-10-24T01:36:59.635Z",
+      "status": "200",
+      "measuredUsd": 0.0008611
+    },
+    {
+      "phase": "f020-baseline",
+      "startedAt": "2026-10-24T01:37:04.103Z",
+      "status": "200",
+      "measuredUsd": 0.0007119
+    },
+    {
+      "phase": "f020-candidate",
+      "startedAt": "2026-10-24T01:37:08.648Z",
+      "status": "200",
+      "measuredUsd": 0.0001959
+    },
+    {
+      "phase": "f020-candidate",
+      "startedAt": "2026-10-24T01:37:10.383Z",
+      "status": "200",
+      "measuredUsd": 0.0007966
+    },
+    {
+      "phase": "f020-candidate",
+      "startedAt": "2026-10-24T01:37:14.507Z",
+      "status": "200",
+      "measuredUsd": 0.000541
+    },
+    {
+      "phase": "f020-candidate",
+      "startedAt": "2026-10-24T01:37:19.700Z",
+      "status": "200",
+      "measuredUsd": 0.0008281
+    },
+    {
+      "phase": "r059-candidate",
+      "startedAt": "2026-10-24T01:37:23.930Z",
+      "status": "200",
+      "measuredUsd": 0.0002966
+    },
+    {
+      "phase": "r059-candidate",
+      "startedAt": "2026-10-24T01:37:26.117Z",
+      "status": "200",
+      "measuredUsd": 0.0009552
+    },
+    {
+      "phase": "r059-candidate",
+      "startedAt": "2026-10-24T01:37:32.857Z",
+      "status": "200",
+      "measuredUsd": 0.0007084
+    },
+    {
+      "phase": "r059-baseline",
+      "startedAt": "2026-10-24T01:37:39.894Z",
+      "status": "200",
+      "measuredUsd": 0.0002921
+    },
+    {
+      "phase": "r059-baseline",
+      "startedAt": "2026-10-24T01:37:41.583Z",
+      "status": "200",
+      "measuredUsd": 0.0009651
+    },
+    {
+      "phase": "r059-baseline",
+      "startedAt": "2026-10-24T01:37:45.661Z",
+      "status": "200",
+      "measuredUsd": 0.0006409
+    },
+    {
+      "phase": "r059-baseline",
+      "startedAt": "2026-10-24T01:37:50.564Z",
+      "status": "200",
+      "measuredUsd": 0.0009913
+    },
+    {
+      "phase": "r059-baseline",
+      "startedAt": "2026-10-24T01:37:54.008Z",
+      "status": "200",
+      "measuredUsd": 0.0005377
+    },
+    {
+      "phase": "f013-baseline",
+      "startedAt": "2026-10-24T01:37:58.733Z",
+      "status": "200",
+      "measuredUsd": 0.0001905
+    },
+    {
+      "phase": "f013-baseline",
+      "startedAt": "2026-10-24T01:38:00.639Z",
+      "status": "200",
+      "measuredUsd": 0.0007675
+    },
+    {
+      "phase": "f013-baseline",
+      "startedAt": "2026-10-24T01:38:06.079Z",
+      "status": "200",
+      "measuredUsd": 0.0005188
+    },
+    {
+      "phase": "f013-baseline",
+      "startedAt": "2026-10-24T01:38:11.485Z",
+      "status": "200",
+      "measuredUsd": 0.000787
+    },
+    {
+      "phase": "f013-baseline",
+      "startedAt": "2026-10-24T01:38:15.137Z",
+      "status": "200",
+      "measuredUsd": 0.0007021
+    },
+    {
+      "phase": "f013-candidate",
+      "startedAt": "2026-10-24T01:38:20.800Z",
+      "status": "200",
+      "measuredUsd": 0.0001685
+    },
+    {
+      "phase": "f013-candidate",
+      "startedAt": "2026-10-24T01:38:22.311Z",
+      "status": "200",
+      "measuredUsd": 0.0007439
+    },
+    {
+      "phase": "f013-candidate",
+      "startedAt": "2026-10-24T01:38:26.226Z",
+      "status": "200",
+      "measuredUsd": 0.0005242
+    },
+    {
+      "phase": "f013-candidate",
+      "startedAt": "2026-10-24T01:38:30.489Z",
+      "status": "200",
+      "measuredUsd": 0.0007973
+    },
+    {
+      "phase": "f013-candidate",
+      "startedAt": "2026-10-24T01:38:34.194Z",
+      "status": "200",
+      "measuredUsd": 0.0004561
+    },
+    {
+      "phase": "f009-candidate",
+      "startedAt": "2026-10-24T01:38:37.587Z",
+      "status": "200",
+      "measuredUsd": 0.0001706
+    },
+    {
+      "phase": "f009-candidate",
+      "startedAt": "2026-10-24T01:38:39.515Z",
+      "status": "200",
+      "measuredUsd": 0.0006846
+    },
+    {
+      "phase": "f009-candidate",
+      "startedAt": "2026-10-24T01:38:45.028Z",
+      "status": "200",
+      "measuredUsd": 0.0003587
+    },
+    {
+      "phase": "f009-baseline",
+      "startedAt": "2026-10-24T01:38:48.606Z",
+      "status": "200",
+      "measuredUsd": 0.0001676
+    },
+    {
+      "phase": "f009-baseline",
+      "startedAt": "2026-10-24T01:38:50.334Z",
+      "status": "200",
+      "measuredUsd": 0.000707
+    },
+    {
+      "phase": "f009-baseline",
+      "startedAt": "2026-10-24T01:38:53.262Z",
+      "status": "200",
+      "measuredUsd": 0.0004366
+    },
+    {
+      "phase": "f017-baseline",
+      "startedAt": "2026-10-24T01:38:56.769Z",
+      "status": "200",
+      "measuredUsd": 0.0001671
+    },
+    {
+      "phase": "f017-baseline",
+      "startedAt": "2026-10-24T01:38:58.615Z",
+      "status": "200",
+      "measuredUsd": 0.0007391
+    },
+    {
+      "phase": "f017-baseline",
+      "startedAt": "2026-10-24T01:39:04.286Z",
+      "status": "200",
+      "measuredUsd": 0.0005411
+    },
+    {
+      "phase": "f017-baseline",
+      "startedAt": "2026-10-24T01:39:09.246Z",
+      "status": "200",
+      "measuredUsd": 0.0007945
+    },
+    {
+      "phase": "f017-baseline",
+      "startedAt": "2026-10-24T01:39:13.514Z",
+      "status": "200",
+      "measuredUsd": 0.0004176
+    },
+    {
+      "phase": "f017-candidate",
+      "startedAt": "2026-10-24T01:39:16.929Z",
+      "status": "200",
+      "measuredUsd": 0.0001796
+    },
+    {
+      "phase": "f017-candidate",
+      "startedAt": "2026-10-24T01:39:18.588Z",
+      "status": "200",
+      "measuredUsd": 0.0006354
+    },
+    {
+      "phase": "f017-candidate",
+      "startedAt": "2026-10-24T01:39:21.623Z",
+      "status": "200",
+      "measuredUsd": 0.0004611
+    },
+    {
+      "phase": "r027-candidate",
+      "startedAt": "2026-10-24T01:39:25.997Z",
+      "status": "200",
+      "measuredUsd": 0.0003522
+    },
+    {
+      "phase": "r027-candidate",
+      "startedAt": "2026-10-24T01:39:28.205Z",
+      "status": "200",
+      "measuredUsd": 0.0010293
+    },
+    {
+      "phase": "r027-candidate",
+      "startedAt": "2026-10-24T01:39:32.650Z",
+      "status": "200",
+      "measuredUsd": 0.0006537
+    },
+    {
+      "phase": "r027-candidate",
+      "startedAt": "2026-10-24T01:39:37.497Z",
+      "status": "200",
+      "measuredUsd": 0.0010785
+    },
+    {
+      "phase": "r027-candidate",
+      "startedAt": "2026-10-24T01:39:41.847Z",
+      "status": "200",
+      "measuredUsd": 0.000491
+    },
+    {
+      "phase": "r027-baseline",
+      "startedAt": "2026-10-24T01:39:45.946Z",
+      "status": "200",
+      "measuredUsd": 0.0003387
+    },
+    {
+      "phase": "r027-baseline",
+      "startedAt": "2026-10-24T01:39:47.926Z",
+      "status": "200",
+      "measuredUsd": 0.0011234
+    },
+    {
+      "phase": "r027-baseline",
+      "startedAt": "2026-10-24T01:39:52.224Z",
+      "status": "200",
+      "measuredUsd": 0.0010962
+    },
+    {
+      "phase": "f007-baseline",
+      "startedAt": "2026-10-24T01:39:56.007Z",
+      "status": "200",
+      "measuredUsd": 0.0001548
+    },
+    {
+      "phase": "f007-baseline",
+      "startedAt": "2026-10-24T01:39:57.436Z",
+      "status": "200",
+      "measuredUsd": 0.0006863
+    },
+    {
+      "phase": "f007-baseline",
+      "startedAt": "2026-10-24T01:40:01.489Z",
+      "status": "200",
+      "measuredUsd": 0.000289
+    },
+    {
+      "phase": "f007-candidate",
+      "startedAt": "2026-10-24T01:40:02.116Z",
+      "status": "200",
+      "measuredUsd": 0.0001488
+    },
+    {
+      "phase": "f007-candidate",
+      "startedAt": "2026-10-24T01:40:03.335Z",
+      "status": "200",
+      "measuredUsd": 0.000629
+    },
+    {
+      "phase": "f007-candidate",
+      "startedAt": "2026-10-24T01:40:06.396Z",
+      "status": "200",
+      "measuredUsd": 0.0002813
+    },
+    {
+      "phase": "f023-candidate",
+      "startedAt": "2026-10-24T01:40:07.925Z",
+      "status": "200",
+      "measuredUsd": 0.0001629
+    },
+    {
+      "phase": "f023-candidate",
+      "startedAt": "2026-10-24T01:40:09.414Z",
+      "status": "200",
+      "measuredUsd": 0.0007058
+    },
+    {
+      "phase": "f023-candidate",
+      "startedAt": "2026-10-24T01:40:15.491Z",
+      "status": "200",
+      "measuredUsd": 0.0005242
+    },
+    {
+      "phase": "f023-candidate",
+      "startedAt": "2026-10-24T01:40:20.069Z",
+      "status": "200",
+      "measuredUsd": 0.000735
+    },
+    {
+      "phase": "f023-baseline",
+      "startedAt": "2026-10-24T01:40:23.393Z",
+      "status": "200",
+      "measuredUsd": 0.0001709
+    },
+    {
+      "phase": "f023-baseline",
+      "startedAt": "2026-10-24T01:40:24.934Z",
+      "status": "200",
+      "measuredUsd": 0.0007711
+    },
+    {
+      "phase": "f023-baseline",
+      "startedAt": "2026-10-24T01:40:29.671Z",
+      "status": "200",
+      "measuredUsd": 0.0007723
+    },
+    {
+      "phase": "f023-baseline",
+      "startedAt": "2026-10-24T01:40:33.622Z",
+      "status": "200",
+      "measuredUsd": 0.0004049
+    },
+    {
+      "phase": "f012-baseline",
+      "startedAt": "2026-10-24T01:40:37.508Z",
+      "status": "200",
+      "measuredUsd": 0.0001721
+    },
+    {
+      "phase": "f012-baseline",
+      "startedAt": "2026-10-24T01:40:39.560Z",
+      "status": "200",
+      "measuredUsd": 0.0007152
+    },
+    {
+      "phase": "f012-baseline",
+      "startedAt": "2026-10-24T01:40:42.909Z",
+      "status": "200",
+      "measuredUsd": 0.0005348
+    },
+    {
+      "phase": "f012-baseline",
+      "startedAt": "2026-10-24T01:40:47.350Z",
+      "status": "200",
+      "measuredUsd": 0.0008182
+    },
+    {
+      "phase": "f012-baseline",
+      "startedAt": "2026-10-24T01:40:51.270Z",
+      "status": "200",
+      "measuredUsd": 0.0004887
+    },
+    {
+      "phase": "f012-candidate",
+      "startedAt": "2026-10-24T01:40:55.485Z",
+      "status": "200",
+      "measuredUsd": 0.0001796
+    },
+    {
+      "phase": "f012-candidate",
+      "startedAt": "2026-10-24T01:40:57.599Z",
+      "status": "200",
+      "measuredUsd": 0.0005228
+    },
+    {
+      "phase": "f012-candidate",
+      "startedAt": "2026-10-24T01:40:58.834Z",
+      "status": "200",
+      "measuredUsd": 0.0007818
+    },
+    {
+      "phase": "f012-candidate",
+      "startedAt": "2026-10-24T01:41:02.541Z",
+      "status": "200",
+      "measuredUsd": 0.0006061
+    },
+    {
+      "phase": "f016-candidate",
+      "startedAt": "2026-10-24T01:41:07.490Z",
+      "status": "200",
+      "measuredUsd": 0.0001567
+    },
+    {
+      "phase": "f016-candidate",
+      "startedAt": "2026-10-24T01:41:08.911Z",
+      "status": "200",
+      "measuredUsd": 0.0006922
+    },
+    {
+      "phase": "f016-candidate",
+      "startedAt": "2026-10-24T01:41:14.931Z",
+      "status": "200",
+      "measuredUsd": 0.0006912
+    },
+    {
+      "phase": "f016-candidate",
+      "startedAt": "2026-10-24T01:41:20.265Z",
+      "status": "200",
+      "measuredUsd": 0.0005466
+    },
+    {
+      "phase": "f016-baseline",
+      "startedAt": "2026-10-24T01:41:22.098Z",
+      "status": "200",
+      "measuredUsd": 0.0001627
+    },
+    {
+      "phase": "f016-baseline",
+      "startedAt": "2026-10-24T01:41:23.647Z",
+      "status": "200",
+      "measuredUsd": 0.0007184
+    },
+    {
+      "phase": "f016-baseline",
+      "startedAt": "2026-10-24T01:41:26.656Z",
+      "status": "200",
+      "measuredUsd": 0.0005694
+    },
+    {
+      "phase": "f018-baseline",
+      "startedAt": "2026-10-24T01:41:30.751Z",
+      "status": "200",
+      "measuredUsd": 0.0001743
+    },
+    {
+      "phase": "f018-baseline",
+      "startedAt": "2026-10-24T01:41:32.568Z",
+      "status": "200",
+      "measuredUsd": 0.0008578
+    },
+    {
+      "phase": "f018-baseline",
+      "startedAt": "2026-10-24T01:41:38.936Z",
+      "status": "200",
+      "measuredUsd": 0.0006154
+    },
+    {
+      "phase": "f018-baseline",
+      "startedAt": "2026-10-24T01:41:44.342Z",
+      "status": "200",
+      "measuredUsd": 0.0008322
+    },
+    {
+      "phase": "f018-baseline",
+      "startedAt": "2026-10-24T01:41:48.821Z",
+      "status": "200",
+      "measuredUsd": 0.0004078
+    },
+    {
+      "phase": "f018-candidate",
+      "startedAt": "2026-10-24T01:41:51.700Z",
+      "status": "200",
+      "measuredUsd": 0.0001783
+    },
+    {
+      "phase": "f018-candidate",
+      "startedAt": "2026-10-24T01:41:53.834Z",
+      "status": "200",
+      "measuredUsd": 0.0007859
+    },
+    {
+      "phase": "f018-candidate",
+      "startedAt": "2026-10-24T01:41:57.493Z",
+      "status": "200",
+      "measuredUsd": 0.0004302
+    },
+    {
+      "phase": "f002-candidate",
+      "startedAt": "2026-10-24T01:42:00.642Z",
+      "status": "200",
+      "measuredUsd": 0.0001665
+    },
+    {
+      "phase": "f002-candidate",
+      "startedAt": "2026-10-24T01:42:02.727Z",
+      "status": "200",
+      "measuredUsd": 0.0008372
+    },
+    {
+      "phase": "f002-candidate",
+      "startedAt": "2026-10-24T01:42:09.258Z",
+      "status": "200",
+      "measuredUsd": 0.0007006
+    },
+    {
+      "phase": "f002-candidate",
+      "startedAt": "2026-10-24T01:42:14.315Z",
+      "status": "200",
+      "measuredUsd": 0.0008761
+    },
+    {
+      "phase": "f002-candidate",
+      "startedAt": "2026-10-24T01:42:18.417Z",
+      "status": "200",
+      "measuredUsd": 0.0007721
+    },
+    {
+      "phase": "f002-baseline",
+      "startedAt": "2026-10-24T01:42:25.854Z",
+      "status": "200",
+      "measuredUsd": 0.000182
+    },
+    {
+      "phase": "f002-baseline",
+      "startedAt": "2026-10-24T01:42:27.888Z",
+      "status": "200",
+      "measuredUsd": 0.0008679
+    },
+    {
+      "phase": "f002-baseline",
+      "startedAt": "2026-10-24T01:42:32.388Z",
+      "status": "200",
+      "measuredUsd": 0.0007097
+    },
+    {
+      "phase": "f002-baseline",
+      "startedAt": "2026-10-24T01:42:38.419Z",
+      "status": "200",
+      "measuredUsd": 0.000887
+    },
+    {
+      "phase": "f002-baseline",
+      "startedAt": "2026-10-24T01:42:41.869Z",
+      "status": "200",
+      "measuredUsd": 0.0007909
+    }
+  ],
+  "measuredUsd": 0.1540655000000001,
+  "uncertainUsd": 0,
+  "blocked": null
+}

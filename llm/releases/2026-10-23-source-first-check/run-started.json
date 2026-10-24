@@ -1,0 +1,168 @@
+{
+  "at": "2026-10-24T01:26:05.410Z",
+  "pricing": {
+    "id": "anthropic/claude-haiku-5.5",
+    "canonical_slug": "anthropic/claude-haiku-5.5-20261007",
+    "hugging_face_id": null,
+    "name": "Anthropic: Claude Haiku 5.5",
+    "created": 1791397883,
+    "description": "Claude Haiku 5.5 is Anthropic's small, fast model for high-volume, cost-sensitive work such as summarization, subagents, and browser use. It succeeds Claude Haiku 4.5 with stronger coding, computer use, and...",
+    "context_length": 1000000,
+    "architecture": {
+      "modality": "text+image+file->text",
+      "input_modalities": [
+        "text",
+        "image",
+        "file"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Claude",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.0000001",
+      "completion": "0.0000005",
+      "web_search": "0.01",
+      "input_cache_read": "0.00000001",
+      "input_cache_write": "0.000000125",
+      "input_cache_write_1h": "0.0000002",
+      "overrides": [
+        {
+          "min_prompt_tokens": 100000,
+          "prompt": "0.0000005",
+          "completion": "0.0000025",
+          "input_cache_read": "0.00000005",
+          "input_cache_write": "0.000000625",
+          "input_cache_write_1h": "0.000001"
+        }
+      ]
+    },
+    "top_provider": {
+      "context_length": 1000000,
+      "max_completion_tokens": 128000,
+      "is_moderated": true
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "include_reasoning",
+      "max_completion_tokens",
+      "max_tokens",
+      "reasoning",
+      "reasoning_effort",
+      "response_format",
+      "stop",
+      "structured_outputs",
+      "tool_choice",
+      "tools",
+      "verbosity"
+    ],
+    "default_parameters": {},
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/anthropic/claude-haiku-5.5-20261007/endpoints"
+    },
+    "benchmarks": {
+      "design_arena": [
+        {
+          "arena": "models",
+          "category": "3d",
+          "elo": 1341,
+          "win_rate": 57.8,
+          "rank": 10
+        },
+        {
+          "arena": "models",
+          "category": "codecategories",
+          "elo": 1277,
+          "win_rate": 50.1,
+          "rank": 23
+        },
+        {
+          "arena": "models",
+          "category": "dataviz",
+          "elo": 1294,
+          "win_rate": 54.4,
+          "rank": 15
+        },
+        {
+          "arena": "models",
+          "category": "gamedev",
+          "elo": 1315,
+          "win_rate": 53.7,
+          "rank": 15
+        },
+        {
+          "arena": "models",
+          "category": "uicomponent",
+          "elo": 1281,
+          "win_rate": 51.4,
+          "rank": 24
+        },
+        {
+          "arena": "models",
+          "category": "website",
+          "elo": 1262,
+          "win_rate": 48.5,
+          "rank": 36
+        }
+      ],
+      "artificial_analysis": {
+        "intelligence_index": 43.4,
+        "coding_index": null,
+        "agentic_index": null
+      }
+    },
+    "reasoning": {
+      "mandatory": false,
+      "supported_efforts": [
+        "max",
+        "xhigh",
+        "high",
+        "medium",
+        "low",
+        "none"
+      ],
+      "default_effort": "medium"
+    }
+  },
+  "balanceUsd": 9.169791537999998,
+  "sources": {
+    "src/lib/engine/preparation.ts": "cf5366037be51c200c9e029549380764f701ba4b4048c47960f231e1bee588e3",
+    "convex/_helpers/contentVersion.ts": "c34546acd74b8f3081a3f73a2e922ba30732ed21f26f6e75688a3b8ac3ed2a32",
+    "src/lib/engine/scene-grounding.ts": "fb20e4778239fc734c0ed5b6098b11474bb6a98d20c21c05d26865596c79eed5",
+    "src/lib/engine/plan-review.ts": "420b3da788b949aa397e291ad1d84fb33b5937a013889437c2007eec095286da",
+    "src/lib/engine/work-inputs.ts": "e449de93ef5b76c26b97bb40c725e11aeea9202cc9d14d7bd744aecbaa2c2cb3",
+    "src/lib/engine/memory-store.ts": "2d05890efcee72971a78cd50b94de0aab4653c253b3505e78ed4c222b03c76ad",
+    "src/lib/reading-pass/model.ts": "da9caabd9a8f02e4fb2d8dd0c33babc7f142ab5ab2de354fff07f6d35eb488ea",
+    "src/lib/reading-pass/prompts.ts": "766166e25eaaaef2b6741898b5b0ccc1f330f85e9036af89c7b008cf81713abf",
+    "src/lib/image-response.ts": "07b5092d1795db69bbd4cfa41c5a25691277ff9a982884118fc1658881a9bba6",
+    "src/lib/image-prompts.ts": "fb4f04b8d98a2f32ceac40f4e854a1499ed8aaeaa7031b7e2212dbad515dfc6a",
+    "src/lib/canon-showing.ts": "2bfb6fa9aa29d366ab741981627f65b0b3425ee065ea3c163caca889bfbdee0b",
+    "src/lib/work-input.ts": "e43bddfa5b9a1e2f8065c42f6f99baba98d359f3a996efaca3d30aafb1d13590",
+    "src/lib/work-preparation.ts": "34ae8097b4eb351115bb7f5a77e8d63b59da40ec0d9891e0874f323fe88262ea",
+    "styles/classical.json": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+    "styles/watercolor.json": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+    "styles/icon.json": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+    "works/bible-web/brief.json": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "llm/releases/2026-10-23-source-first-check/common.mts": "72a810015d9c423763563932f544e407eaa9924bc8d771d7c7a6473ec6349588",
+    "llm/releases/2026-10-23-source-first-check/baseline.mts": "7af1c2836a39a5062861899f5a6e960e1f02f97e9b583ce0b7cd2eb03026621c",
+    "llm/releases/2026-10-23-source-first-check/snapshot.mts": "34b65a38ac39a5e0960e1924f3fe01d0d90ec3cc431c2b5a3d083d345f247ff5",
+    "llm/releases/2026-10-23-source-first-check/scenarios.mts": "e1dec547726fe73b4c04e0f3ec3aa10781048503db1fabed971dc837dcb2ba40",
+    "llm/releases/2026-10-23-source-first-check/dry-run.mts": "ad89375209596dc3e14ee984dc498c98425aa27308b260c4c7a13a30402ad761",
+    "llm/releases/2026-10-23-source-first-check/model.mts": "736c121b65b1ae0f16bfc3b0fbe797f25271c10ba1731787ff1a70e55e8e0e03",
+    "llm/releases/2026-10-23-source-first-check/run.mts": "8085ed20052078735e5c70b663472e617998b04452a923c21036090bace4e9ae",
+    "llm/releases/2026-10-23-source-first-check/audit.mts": "153950917076d5d4f442a933f24742f7bf13460c79fe542025e7c2eb8c04501e",
+    "llm/releases/2026-10-23-source-first-check/score.mts": "d38dd73bc26729689da202d741e11d67cefa4e3242c90c9988d2b491f5aed498",
+    "llm/releases/2026-10-23-source-first-check/plan.json": "487366b9158a1bfee0ab9de21417f61e444988ecbc77f4cb6f6f37cb4304a4b5",
+    "llm/releases/2026-10-23-source-first-check/sample-set.json": "6daa2c17632faf8750eca9fd2d4996159ef5003925eea05657edd51774971cfc",
+    "llm/releases/2026-10-23-source-first-check/README.md": "53d1d5a16d8f65dd522c1bf76f1e651885c562ce3ee8003b6d1e31b84660888c",
+    "llm/releases/2026-10-23-source-identity-check/review-cases.json": "7ddb438171c8f8ac55c9e4ba19cacb7da1851f2c035bed28c80796419a2c870d",
+    "package.json": "3fdf0f945c802fbc8de81b21b777dde45b600caec4843b581992a1883e43ffa9",
+    "package-lock.json": "d9cff4d52431f7ad6d3eb6f9c1b025bfbfc74be703fe6d55010abb0b6abd326c"
+  }
+}
