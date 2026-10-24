@@ -1,0 +1,195 @@
+{
+  "operations": 66,
+  "calls": 253,
+  "measuredUsd": 0.1540655000000001,
+  "uncertainUsd": 0,
+  "stopped": null,
+  "blocked": null,
+  "reviews": [
+    {
+      "id": "retained-priest-1",
+      "missing": [],
+      "extra": [],
+      "problems": [
+        {
+          "kind": "outside_instant",
+          "entryId": "the_priests_of_jerusalem",
+          "planQuote": "The priests of Jerusalem standing still in the temple court",
+          "reason": "The moment names her nobles, who were pure and ruddy, and neither the moment nor its neighbours names priests, so the priests are a related role substituted for the source's people without an identity link."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "retained-priest-2",
+      "missing": [],
+      "extra": [
+        {
+          "kind": "unselected_figure",
+          "entryId": "jerusalem",
+          "planQuote": "A scorched street inside the ruined walls of Jerusalem",
+          "reason": "The setting depicts the ruined city of Jerusalem with its walls, but the jerusalem cast entry is not selected."
+        },
+        {
+          "kind": "unselected_figure",
+          "entryId": "the_streets_of_the_city",
+          "planQuote": "A scorched street inside the ruined walls of Jerusalem",
+          "reason": "The depicted scorched street is a city street matching the streets of the city cast entry, which is not selected."
+        }
+      ],
+      "problems": [
+        {
+          "kind": "outside_instant",
+          "entryId": "the_priests_of_jerusalem",
+          "planQuote": "Two priests standing upright in clean white linen",
+          "reason": "The moment names her nobles, not priests, and no bounded neighbor links the nobles to the priests, so the priest cast entry substitutes a different role."
+        },
+        {
+          "kind": "unselected_figure",
+          "entryId": "jerusalem",
+          "planQuote": "A scorched street inside the ruined walls of Jerusalem",
+          "reason": "The setting depicts the ruined city of Jerusalem with its walls, but the jerusalem cast entry is not selected."
+        },
+        {
+          "kind": "unselected_figure",
+          "entryId": "the_streets_of_the_city",
+          "planQuote": "A scorched street inside the ruined walls of Jerusalem",
+          "reason": "The depicted scorched street is a city street matching the streets of the city cast entry, which is not selected."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "supported-group-members",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    },
+    {
+      "id": "incidental-roles",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    },
+    {
+      "id": "unselected-place-object",
+      "missing": [],
+      "extra": [],
+      "problems": [
+        {
+          "kind": "unselected_figure",
+          "entryId": "compass",
+          "planQuote": "sets the brass compass",
+          "reason": "The brass compass is depicted in the action and composition but is not in present, so its fixed appearance would not be supplied."
+        },
+        {
+          "kind": "unselected_figure",
+          "entryId": "eastport",
+          "planQuote": "Eastport harbor",
+          "reason": "The setting depicts Eastport, which has a section cast entry, but eastport is not in present, so its canon would not be supplied."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "selected-place-object",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    }
+  ],
+  "reviewGate": true,
+  "scoring": {
+    "analysis": [
+      {
+        "stratum": "fresh",
+        "arms": [
+          {
+            "arm": "baseline",
+            "planned": 23,
+            "complete": 23,
+            "acceptable": 6,
+            "flawed": 5,
+            "uncertain": 2,
+            "refused": 10,
+            "lookContradictions": 3,
+            "acceptableRateWilson95": [
+              0.125486160449866,
+              0.4647000483742479
+            ]
+          },
+          {
+            "arm": "candidate",
+            "planned": 23,
+            "complete": 23,
+            "acceptable": 7,
+            "flawed": 4,
+            "uncertain": 1,
+            "refused": 11,
+            "lookContradictions": 4,
+            "acceptableRateWilson95": [
+              0.15604024453214316,
+              0.5086575626875864
+            ]
+          }
+        ],
+        "paired": {
+          "bothAcceptable": 5,
+          "baselineOnly": 1,
+          "candidateOnly": 2,
+          "neither": 15,
+          "incomplete": 0
+        },
+        "exactDiscordanceP": 1
+      },
+      {
+        "stratum": "retained",
+        "arms": [
+          {
+            "arm": "baseline",
+            "planned": 7,
+            "complete": 7,
+            "acceptable": 0,
+            "flawed": 3,
+            "uncertain": 0,
+            "refused": 4,
+            "lookContradictions": 3,
+            "acceptableRateWilson95": [
+              0,
+              0.35433043506667483
+            ]
+          },
+          {
+            "arm": "candidate",
+            "planned": 7,
+            "complete": 7,
+            "acceptable": 0,
+            "flawed": 6,
+            "uncertain": 0,
+            "refused": 1,
+            "lookContradictions": 6,
+            "acceptableRateWilson95": [
+              0,
+              0.35433043506667483
+            ]
+          }
+        ],
+        "paired": {
+          "bothAcceptable": 0,
+          "baselineOnly": 0,
+          "candidateOnly": 0,
+          "neither": 7,
+          "incomplete": 0
+        },
+        "exactDiscordanceP": 1
+      }
+    ],
+    "pass": false,
+    "limitation": "Descriptive small paired diagnostic; refusals and incomplete pairs retained; single operator masking is not independent adjudication."
+  },
+  "pass": false,
+  "releaseHold": true
+}

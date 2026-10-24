@@ -1,0 +1,20 @@
+{
+  "authorizedUsd": 17.2,
+  "ownerIncreaseUsd": 0.25,
+  "operationCapUsd": 0.25,
+  "measuredBeforeUsd": 16.9011733,
+  "uncertaintyBeforeUsd": 0.045,
+  "operationMeasuredUsd": 0.1540655,
+  "operationUncertainUsd": 0,
+  "measuredAfterUsd": 17.0552388,
+  "retainedUncertaintyUsd": 0.045,
+  "remainingUsd": 0.0997612,
+  "operationRemainingUsd": 0.0959345,
+  "providerCalls": 253,
+  "fundingRecord": "funding.json",
+  "basis": "Per-call provider usage reconciled by offline replay; shared account balance changes are not operation cost. No transfers from preparation or smoke. This grant funded one frozen comparison, not a paid tuning loop.",
+  "preparationRemainingUsd": 39.3131968,
+  "preparationAuthorizedUsd": 43,
+  "smokeRemainingUsd": 0.314205,
+  "smokeAuthorizedUsd": 1
+}
