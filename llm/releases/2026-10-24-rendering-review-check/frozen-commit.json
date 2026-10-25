@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-25T22:46:24.524Z",
+  "commit": "bf34049caa42d587cd92ce768c905313e58f984a",
+  "grant": {
+    "authorizedAt": "2026-10-25T22:43:26Z",
+    "authorization": "Owner replied 'continue' after the explicit request: 'Approve a $0.30 evaluation increase, raising the total allowance to $17.50, with a hard $0.30 cap for this single frozen text run?'",
+    "increaseUsd": 0.3,
+    "authorizedUsd": 17.5,
+    "operationCapUsd": 0.3,
+    "scope": "One execution of the frozen 92-operation combined rendering review comparison merged in PR #273. No iterative tuning or paid restart; preparation and smoke allowances stay separate. Public activation remains on hold.",
+    "proposalCommit": "c109bf345571236837e165139f6c280ce5c33978"
+  }
+}

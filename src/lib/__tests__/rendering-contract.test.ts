@@ -149,7 +149,7 @@ describe("combined rendering content review", () => {
     const first = await render();
     if (!first.ok) throw Error(first.message);
     const cached = await memory.store.getActiveRecord("plan", sample.momentId);
-    cached!.inputs.find((i) => i.recordId === "scene_plan_review")!.version = "2026-10-23-plan-review-v5";
+    cached!.inputs.find((i) => i.recordId === "scene_plan_review")!.version = "2026-10-24-rendering-review-v6";
     const again = await render();
     if (!again.ok) throw Error(again.message);
     expect(again.prepared.calls).toBe(2);

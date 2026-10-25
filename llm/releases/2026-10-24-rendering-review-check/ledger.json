@@ -1,0 +1,31 @@
+{
+  "calls": [
+    {
+      "phase": "look-place-baseline",
+      "startedAt": "2026-10-25T22:46:24.538Z",
+      "status": "200",
+      "measuredUsd": 0.0002467
+    },
+    {
+      "phase": "look-place-candidate",
+      "startedAt": "2026-10-25T22:46:27.930Z",
+      "status": "200",
+      "measuredUsd": 0.0005041
+    },
+    {
+      "phase": "look-time-candidate",
+      "startedAt": "2026-10-25T22:46:32.386Z",
+      "status": "200",
+      "measuredUsd": 0.0003694
+    },
+    {
+      "phase": "look-time-candidate",
+      "startedAt": "2026-10-25T22:46:34.315Z",
+      "status": "200",
+      "measuredUsd": 0.0003669
+    }
+  ],
+  "measuredUsd": 0.0014870999999999999,
+  "uncertainUsd": 0,
+  "blocked": null
+}

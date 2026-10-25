@@ -11,7 +11,7 @@ import { planningNeighbors } from "./scene-grounding";
 import { CONTENT_OWNERSHIP, type RenderingInput, type SelectedCanon } from "./prompt";
 
 /** Bump for changes to the review instructions, schema or acceptance rules; plans refresh lazily. */
-export const PLAN_REVIEW_PROMPT_VERSION = "2026-10-24-rendering-review-v6";
+export const PLAN_REVIEW_PROMPT_VERSION = "2026-10-25-rendering-review-v7";
 /** The benchmarked configuration: reasoning off flagged every clean plan. Thinking needs room above 1,024 tokens. */
 export const PLAN_REVIEW_REASONING: ReasoningEffort = "low";
 export const PLAN_REVIEW_MAX_TOKENS = 4000;
@@ -61,14 +61,26 @@ export function planReviewUser(input: ReviewInput) {
 
 const flat = (value: string) => value.replace(/\s+/g, " ").trim().toLowerCase();
 
+/** The request shows compact JSON. Accept its exact string/member forms as well as plain prose. */
+function lookQuoteMatches(field: string, value: string, quote: string) {
+  if (!quote || !flat(value)) return false;
+  if (flat(value).includes(quote)) return true;
+  const literal = flat(JSON.stringify(value));
+  const member = `${flat(JSON.stringify(field))}:${literal}`;
+  // The second retained reply omitted the member's first and last quotation marks.
+  // Require the whole value and its actual key; never join fields or strip arbitrary syntax.
+  return quote === literal || quote === member || quote === member.slice(1, -1);
+}
+
 /** Rejects reports quoting another input/field or naming an unsuitable cast id. */
 export function invalidReview(problems: PlanReviewProblem[], input: ReviewInput): string | null {
   const castIds = new Set(input.cast.map((c) => c.entryId));
   const formless = new Set(input.cast.filter((c) => !c.hasForm).map((c) => c.entryId));
   for (const p of problems) {
     const quote = flat(p.planQuote);
-    const values = p.kind === "look_conflict" ? Object.values(input.rendering?.look ?? {}) : PLAN_SCENE_FIELDS.map((f) => input.fields[f]);
-    const quoted = values.some((text) => flat(text).includes(quote)) || (p.kind !== "look_conflict" && input.present.includes(p.planQuote.trim()));
+    const quoted = p.kind === "look_conflict"
+      ? Object.entries(input.rendering?.look ?? {}).some(([field, value]) => lookQuoteMatches(field, value, quote))
+      : PLAN_SCENE_FIELDS.some((f) => flat(input.fields[f]).includes(quote)) || input.present.includes(p.planQuote.trim());
     if (!quote || !quoted) return `${p.kind} quote is not in the ${p.kind === "look_conflict" ? "look" : "plan"}`;
     if (p.entryId && !castIds.has(p.entryId)) return `${p.kind} names unknown cast ${p.entryId}`;
     if (p.kind === "unselected_figure" && (!p.entryId || input.present.includes(p.entryId))) return "unselected_figure must name an unselected cast entry";

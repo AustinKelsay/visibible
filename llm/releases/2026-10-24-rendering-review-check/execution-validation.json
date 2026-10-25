@@ -1,0 +1,23 @@
+{
+  "dryRunVerified": true,
+  "offlineReplayVerified": true,
+  "restartRefusedBeforeCredentials": true,
+  "paidArtifactHashesUnchangedByRestartCheck": true,
+  "paidArtifactHashes": {
+    "run-started.json": "a54524d424f41fba3854cf88245219e813a58a5284d378ffcdf18ebecb966dea",
+    "frozen-commit.json": "f45f9430ed39f7d002d715a3cd1021569964868e72b0dbb257162c4f871e41b6",
+    "ledger.json": "8f52d6f10e802b74edd2cb1f21e7d34916e2bf8c3dce18ed10f4887108fbe14f",
+    "inputs.ndjson": "adba78ddd5664ea9e018068b64b143254713a201f42bce54f162646b0d9ec54a",
+    "provider.ndjson": "3a369e25716ab8773d1d8099b237cba04bcbf282b485c5611107062300f66eb6",
+    "results.ndjson": "0aa6245fd9eace356263adefd9ea95e92ab4f392b0a7f60eda991037ecd975c5",
+    "run-finished.json": "34dcfbdb0dc47ef3c0fc13ea1a881160849178acbc72f9dca6c5c047e6a657b1"
+  },
+  "productionMutations": 0,
+  "images": 0,
+  "newPaidCallsByValidation": 0,
+  "scoredReplayVerified": true,
+  "maskedScoreCommit": "b330601a5cedd3c3b3e828d1890011edd5fb2456",
+  "storedScenes": 0,
+  "assessedScenes": 0,
+  "apiKeyAbsentFromRetainedFiles": true
+}
