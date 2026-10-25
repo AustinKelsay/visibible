@@ -1,0 +1,170 @@
+{
+  "at": "2026-10-25T22:46:24.525Z",
+  "pricing": {
+    "id": "anthropic/claude-haiku-5.5",
+    "canonical_slug": "anthropic/claude-haiku-5.5-20261007",
+    "hugging_face_id": null,
+    "name": "Anthropic: Claude Haiku 5.5",
+    "created": 1791397883,
+    "description": "Claude Haiku 5.5 is Anthropic's small, fast model for high-volume, cost-sensitive work such as summarization, subagents, and browser use. It succeeds Claude Haiku 4.5 with stronger coding, computer use, and...",
+    "context_length": 1000000,
+    "architecture": {
+      "modality": "text+image+file->text",
+      "input_modalities": [
+        "text",
+        "image",
+        "file"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Claude",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.0000001",
+      "completion": "0.0000005",
+      "web_search": "0.01",
+      "input_cache_read": "0.00000001",
+      "input_cache_write": "0.000000125",
+      "input_cache_write_1h": "0.0000002",
+      "overrides": [
+        {
+          "min_prompt_tokens": 100000,
+          "prompt": "0.0000005",
+          "completion": "0.0000025",
+          "input_cache_read": "0.00000005",
+          "input_cache_write": "0.000000625",
+          "input_cache_write_1h": "0.000001"
+        }
+      ]
+    },
+    "top_provider": {
+      "context_length": 1000000,
+      "max_completion_tokens": 128000,
+      "is_moderated": true
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "include_reasoning",
+      "max_completion_tokens",
+      "max_tokens",
+      "reasoning",
+      "reasoning_effort",
+      "response_format",
+      "stop",
+      "structured_outputs",
+      "tool_choice",
+      "tools",
+      "verbosity"
+    ],
+    "default_parameters": {},
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/anthropic/claude-haiku-5.5-20261007/endpoints"
+    },
+    "benchmarks": {
+      "design_arena": [
+        {
+          "arena": "models",
+          "category": "3d",
+          "elo": 1337,
+          "win_rate": 57.7,
+          "rank": 10
+        },
+        {
+          "arena": "models",
+          "category": "codecategories",
+          "elo": 1276,
+          "win_rate": 50,
+          "rank": 24
+        },
+        {
+          "arena": "models",
+          "category": "dataviz",
+          "elo": 1297,
+          "win_rate": 54.8,
+          "rank": 14
+        },
+        {
+          "arena": "models",
+          "category": "gamedev",
+          "elo": 1314,
+          "win_rate": 53.8,
+          "rank": 13
+        },
+        {
+          "arena": "models",
+          "category": "uicomponent",
+          "elo": 1276,
+          "win_rate": 50.7,
+          "rank": 26
+        },
+        {
+          "arena": "models",
+          "category": "website",
+          "elo": 1262,
+          "win_rate": 48.5,
+          "rank": 36
+        }
+      ],
+      "artificial_analysis": {
+        "intelligence_index": 43.4,
+        "coding_index": null,
+        "agentic_index": null
+      }
+    },
+    "reasoning": {
+      "mandatory": false,
+      "supported_efforts": [
+        "max",
+        "xhigh",
+        "high",
+        "medium",
+        "low",
+        "none"
+      ],
+      "default_effort": "medium"
+    }
+  },
+  "balanceUsd": 9.015726037999997,
+  "sources": {
+    "src/lib/engine/preparation.ts": "33de6ebce991eabae345a2d456cd8dd51257b62e0b4174715f4fd87e9724fdae",
+    "convex/_helpers/contentVersion.ts": "c34546acd74b8f3081a3f73a2e922ba30732ed21f26f6e75688a3b8ac3ed2a32",
+    "src/lib/engine/scene-grounding.ts": "fb20e4778239fc734c0ed5b6098b11474bb6a98d20c21c05d26865596c79eed5",
+    "src/lib/engine/plan-review.ts": "25b052bd5aec2ca034ed47a8dca633747c6158e82e2764aaabee21f2c0626cb8",
+    "src/lib/engine/prompt.ts": "b73c1a2fe1d627143d9695b07b9d9f12abcc1a50fc5ad3f56d7103eb2e2d33f1",
+    "src/lib/engine/work-inputs.ts": "e449de93ef5b76c26b97bb40c725e11aeea9202cc9d14d7bd744aecbaa2c2cb3",
+    "src/lib/engine/memory-store.ts": "2d05890efcee72971a78cd50b94de0aab4653c253b3505e78ed4c222b03c76ad",
+    "src/lib/reading-pass/model.ts": "da9caabd9a8f02e4fb2d8dd0c33babc7f142ab5ab2de354fff07f6d35eb488ea",
+    "src/lib/reading-pass/prompts.ts": "766166e25eaaaef2b6741898b5b0ccc1f330f85e9036af89c7b008cf81713abf",
+    "src/lib/image-response.ts": "07b5092d1795db69bbd4cfa41c5a25691277ff9a982884118fc1658881a9bba6",
+    "src/lib/image-prompts.ts": "fb4f04b8d98a2f32ceac40f4e854a1499ed8aaeaa7031b7e2212dbad515dfc6a",
+    "src/lib/canon-showing.ts": "2bfb6fa9aa29d366ab741981627f65b0b3425ee065ea3c163caca889bfbdee0b",
+    "src/lib/work-input.ts": "e43bddfa5b9a1e2f8065c42f6f99baba98d359f3a996efaca3d30aafb1d13590",
+    "src/lib/work-preparation.ts": "34ae8097b4eb351115bb7f5a77e8d63b59da40ec0d9891e0874f323fe88262ea",
+    "styles/classical.json": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+    "styles/watercolor.json": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+    "styles/icon.json": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+    "works/bible-web/brief.json": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "llm/releases/2026-10-24-rendering-review-check/common.mts": "d5fc299e3bdf9f5cbd5848d78e24c0806d69bc37bb7bdd2f263c86e2949ae419",
+    "llm/releases/2026-10-24-rendering-review-check/baseline.mts": "777ffbda5e0f44d6e8f76078656c212f8da90ecb98599bb434d11db27d040916",
+    "llm/releases/2026-10-24-rendering-review-check/snapshot.mts": "c7574bc35e4212fbf164aa7195142157b103b09b02f5b1eb963c557b91b7ce61",
+    "llm/releases/2026-10-24-rendering-review-check/scenarios.mts": "a424ddf1be689af5be4cf984fa16942610710a08a27d1771cfe5b7090b4ca185",
+    "llm/releases/2026-10-24-rendering-review-check/dry-run.mts": "4722b7a21bf575b744a4f1c51da5a6c28ed88ee03d529d9412eaa5e5b58decba",
+    "llm/releases/2026-10-24-rendering-review-check/model.mts": "736c121b65b1ae0f16bfc3b0fbe797f25271c10ba1731787ff1a70e55e8e0e03",
+    "llm/releases/2026-10-24-rendering-review-check/run.mts": "134a4000600e9a37c7c54d356d70703205f1eb49dd9fb22fc380063069aee5ce",
+    "llm/releases/2026-10-24-rendering-review-check/audit.mts": "8df9bbfbddf512303d4807145210e7710bed470f1d6d38d894c36699f0d0cc04",
+    "llm/releases/2026-10-24-rendering-review-check/score.mts": "6afe0aa630bc75c7c8fce5912168cc086e26a8db977f5563d3e36e74711720fa",
+    "llm/releases/2026-10-24-rendering-review-check/plan.json": "1a56aa561f056d3eb886bb49a2a8cda2b2235c1ded0ba4cf320c78a27ac94fd3",
+    "llm/releases/2026-10-24-rendering-review-check/sample-set.json": "8a066d06b275c7ecea6305f3da8d6cb6356dcc62cb779d454e2e92b71af9a375",
+    "llm/releases/2026-10-24-rendering-review-check/README.md": "08a71cbc4a7b2e0ba97d2d5641e7fa831130b44bdb81bcf936a0489e7fa8ca1f",
+    "llm/releases/2026-10-24-rendering-review-check/controls.mts": "5ffc1f0e8237bb96b1c81577b4aebb9cca78e2a8865cad0a434bf2f4b3ee6885",
+    "llm/releases/2026-10-24-rendering-review-check/rehearse.mts": "e751bb690a2631fa4cbf431110d5a82bbb204d0f25442d8d3ea17d892c048217",
+    "package.json": "3fdf0f945c802fbc8de81b21b777dde45b600caec4843b581992a1883e43ffa9",
+    "package-lock.json": "d9cff4d52431f7ad6d3eb6f9c1b025bfbfc74be703fe6d55010abb0b6abd326c"
+  }
+}

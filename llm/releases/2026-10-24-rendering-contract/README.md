@@ -33,7 +33,7 @@ The earlier frozen evaluation inputs, first responses and scores are unchanged. 
 
 No paid calls, production access/writes, images or deployments occurred here. Evaluation remaining stays **$0.09976120 / $17.20**, after retained uncertainty. The previous $0.25 grant funded one comparison, not an iterative tuning loop.
 
-The follow-up [frozen comparison](../2026-10-24-rendering-review-check/README.md) now supplies actual v5 baseline modules, 16 paired controls, seven retained and 23 fresh cold cases, cost estimates, funding guards and offline controller/replay rehearsal. It proposes a separate **$0.30 increase / $0.30 operation cap**, still unapproved. The new fixtures used read-only production queries, not model calls or writes. All thresholds below remain; no live semantic result is established.
+The follow-up [frozen comparison](../2026-10-24-rendering-review-check/README.md) now supplies actual v5 baseline modules, 16 paired controls, seven retained and 23 fresh cold cases, cost estimates, funding guards and offline controller/replay rehearsal. The owner subsequently approved its separate **$0.30 increase / $0.30 operation cap**. The [first attempt](../2026-10-24-rendering-review-check/RESULTS.md) stopped after 3/92 operations and four calls ($0.00148710): both time-conflict reports quoted JSON property syntax and failed plain-value citation validation. No cold pipeline or clean control ran, so the comparison remains incomplete. Original fixtures used read-only queries; no production writes occurred. No paid restart is authorized.
 
 Before requesting another grant, freeze a new runner and cap against this immutable candidate and the actual merged baseline. It must include:
 
