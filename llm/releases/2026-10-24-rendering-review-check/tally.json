@@ -1,0 +1,143 @@
+{
+  "operations": 3,
+  "calls": 4,
+  "measuredUsd": 0.0014870999999999999,
+  "uncertainUsd": 0,
+  "stopped": "Review unavailable",
+  "blocked": null,
+  "reviews": [
+    {
+      "id": "look-place-baseline",
+      "arm": "baseline",
+      "missing": [
+        {
+          "kind": "look_conflict",
+          "quoteFrom": "The shore of a wide sea, the camp of Israel spread along the water's edge"
+        }
+      ],
+      "extra": [],
+      "problems": [],
+      "pass": false
+    },
+    {
+      "id": "look-place-candidate",
+      "arm": "candidate",
+      "missing": [],
+      "extra": [],
+      "problems": [
+        {
+          "kind": "look_conflict",
+          "entryId": "",
+          "planQuote": "The shore of a wide sea, the camp of Israel spread along the water's edge",
+          "reason": "The section look fixes the place as the shore of a wide sea with the camp of Israel along the water's edge, which conflicts with the plan's open plain setting."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "look-time-candidate",
+      "arm": "candidate",
+      "missing": [
+        {
+          "kind": "look_conflict",
+          "quoteFrom": "night"
+        }
+      ],
+      "extra": [],
+      "problems": null,
+      "unavailable": "plan review unavailable: look_conflict quote is not in the look",
+      "pass": false
+    }
+  ],
+  "reviewGate": false,
+  "scoring": {
+    "analysis": [
+      {
+        "stratum": "fresh",
+        "arms": [
+          {
+            "arm": "baseline",
+            "planned": 23,
+            "complete": 0,
+            "acceptable": 0,
+            "flawed": 0,
+            "uncertain": 0,
+            "refused": 0,
+            "lookContradictions": 0,
+            "acceptableRateWilson95": [
+              0,
+              0.14311661845042006
+            ]
+          },
+          {
+            "arm": "candidate",
+            "planned": 23,
+            "complete": 0,
+            "acceptable": 0,
+            "flawed": 0,
+            "uncertain": 0,
+            "refused": 0,
+            "lookContradictions": 0,
+            "acceptableRateWilson95": [
+              0,
+              0.14311661845042006
+            ]
+          }
+        ],
+        "paired": {
+          "bothAcceptable": 0,
+          "baselineOnly": 0,
+          "candidateOnly": 0,
+          "neither": 0,
+          "incomplete": 23
+        },
+        "exactDiscordanceP": 1
+      },
+      {
+        "stratum": "retained",
+        "arms": [
+          {
+            "arm": "baseline",
+            "planned": 7,
+            "complete": 0,
+            "acceptable": 0,
+            "flawed": 0,
+            "uncertain": 0,
+            "refused": 0,
+            "lookContradictions": 0,
+            "acceptableRateWilson95": [
+              0,
+              0.35433043506667483
+            ]
+          },
+          {
+            "arm": "candidate",
+            "planned": 7,
+            "complete": 0,
+            "acceptable": 0,
+            "flawed": 0,
+            "uncertain": 0,
+            "refused": 0,
+            "lookContradictions": 0,
+            "acceptableRateWilson95": [
+              0,
+              0.35433043506667483
+            ]
+          }
+        ],
+        "paired": {
+          "bothAcceptable": 0,
+          "baselineOnly": 0,
+          "candidateOnly": 0,
+          "neither": 0,
+          "incomplete": 7
+        },
+        "exactDiscordanceP": 1
+      }
+    ],
+    "pass": false,
+    "limitation": "Descriptive small paired diagnostic; refusals and incomplete pairs retained; single operator masking is not independent adjudication."
+  },
+  "pass": false,
+  "releaseHold": true
+}
