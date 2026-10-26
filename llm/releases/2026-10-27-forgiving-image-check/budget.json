@@ -1,0 +1,19 @@
+{
+  "allowance": "evaluation",
+  "authorizedUsd": 21.5,
+  "measuredBeforeUsd": 18.028744,
+  "measuredBeforeNote": "After the concurrent fresh re-measurement ($0.0506315). plan.json reserved its full $0.25 cap conservatively before it settled.",
+  "operationMeasuredUsd": 1.5649671,
+  "operationTextUsd": 0.0155536,
+  "operationImageUsd": 1.5494135,
+  "operationUncertainUsd": 0,
+  "measuredAfterUsd": 19.5937111,
+  "retainedUncertaintyUsd": 0.045,
+  "remainingUsd": 1.8612889,
+  "operationCapUsd": 2,
+  "calls": 74,
+  "images": 45,
+  "preparation": { "classicalStyleReferenceUsd": 0.0339188, "remainingUsd": 39.279278, "note": "The production Classical style reference (27 October, npm run works:references -- bible-web --only classical) is preparation spend." },
+  "smokeRemainingUsd": 0.314205,
+  "transfers": 0
+}

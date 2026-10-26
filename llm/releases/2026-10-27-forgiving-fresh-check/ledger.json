@@ -1,0 +1,631 @@
+{
+  "calls": [
+    {
+      "phase": "r027",
+      "startedAt": "2026-10-26T18:10:26.126Z",
+      "status": "200",
+      "measuredUsd": 0.0003377
+    },
+    {
+      "phase": "r027",
+      "startedAt": "2026-10-26T18:10:28.453Z",
+      "status": "200",
+      "measuredUsd": 0.0007649
+    },
+    {
+      "phase": "r027",
+      "startedAt": "2026-10-26T18:10:35.522Z",
+      "status": "200",
+      "measuredUsd": 0.0007616
+    },
+    {
+      "phase": "r067",
+      "startedAt": "2026-10-26T18:10:44.289Z",
+      "status": "200",
+      "measuredUsd": 0.0003098
+    },
+    {
+      "phase": "r067",
+      "startedAt": "2026-10-26T18:10:46.171Z",
+      "status": "200",
+      "measuredUsd": 0.0006448
+    },
+    {
+      "phase": "r067",
+      "startedAt": "2026-10-26T18:10:53.419Z",
+      "status": "200",
+      "measuredUsd": 0.000553
+    },
+    {
+      "phase": "g021",
+      "startedAt": "2026-10-26T18:10:58.054Z",
+      "status": "200",
+      "measuredUsd": 0.0002003
+    },
+    {
+      "phase": "g021",
+      "startedAt": "2026-10-26T18:11:00.474Z",
+      "status": "200",
+      "measuredUsd": 0.0005361
+    },
+    {
+      "phase": "g021",
+      "startedAt": "2026-10-26T18:11:06.816Z",
+      "status": "200",
+      "measuredUsd": 0.0003712
+    },
+    {
+      "phase": "g007",
+      "startedAt": "2026-10-26T18:11:11.322Z",
+      "status": "200",
+      "measuredUsd": 0.0001726
+    },
+    {
+      "phase": "g007",
+      "startedAt": "2026-10-26T18:11:13.224Z",
+      "status": "200",
+      "measuredUsd": 0.0005256
+    },
+    {
+      "phase": "g007",
+      "startedAt": "2026-10-26T18:11:20.011Z",
+      "status": "200",
+      "measuredUsd": 0.0005249
+    },
+    {
+      "phase": "g013",
+      "startedAt": "2026-10-26T18:11:24.642Z",
+      "status": "200",
+      "measuredUsd": 0.000317
+    },
+    {
+      "phase": "g013",
+      "startedAt": "2026-10-26T18:11:26.990Z",
+      "status": "200",
+      "measuredUsd": 0.0006245
+    },
+    {
+      "phase": "g013",
+      "startedAt": "2026-10-26T18:11:33.746Z",
+      "status": "200",
+      "measuredUsd": 0.0005342
+    },
+    {
+      "phase": "g005",
+      "startedAt": "2026-10-26T18:11:38.040Z",
+      "status": "200",
+      "measuredUsd": 0.0001857
+    },
+    {
+      "phase": "g005",
+      "startedAt": "2026-10-26T18:11:39.651Z",
+      "status": "200",
+      "measuredUsd": 0.0005779
+    },
+    {
+      "phase": "g005",
+      "startedAt": "2026-10-26T18:11:47.150Z",
+      "status": "200",
+      "measuredUsd": 0.0005088
+    },
+    {
+      "phase": "g018",
+      "startedAt": "2026-10-26T18:11:52.748Z",
+      "status": "200",
+      "measuredUsd": 0.0001745
+    },
+    {
+      "phase": "g018",
+      "startedAt": "2026-10-26T18:11:54.625Z",
+      "status": "200",
+      "measuredUsd": 0.0004685
+    },
+    {
+      "phase": "g018",
+      "startedAt": "2026-10-26T18:12:01.287Z",
+      "status": "200",
+      "measuredUsd": 0.0004716
+    },
+    {
+      "phase": "g003",
+      "startedAt": "2026-10-26T18:12:06.790Z",
+      "status": "200",
+      "measuredUsd": 0.0001511
+    },
+    {
+      "phase": "g003",
+      "startedAt": "2026-10-26T18:12:08.227Z",
+      "status": "200",
+      "measuredUsd": 0.0004653
+    },
+    {
+      "phase": "g003",
+      "startedAt": "2026-10-26T18:12:13.771Z",
+      "status": "200",
+      "measuredUsd": 0.0003199
+    },
+    {
+      "phase": "g009",
+      "startedAt": "2026-10-26T18:12:19.200Z",
+      "status": "200",
+      "measuredUsd": 0.0001879
+    },
+    {
+      "phase": "g009",
+      "startedAt": "2026-10-26T18:12:21.060Z",
+      "status": "200",
+      "measuredUsd": 0.0005481
+    },
+    {
+      "phase": "g009",
+      "startedAt": "2026-10-26T18:12:27.276Z",
+      "status": "200",
+      "measuredUsd": 0.0004673
+    },
+    {
+      "phase": "g006",
+      "startedAt": "2026-10-26T18:12:31.230Z",
+      "status": "200",
+      "measuredUsd": 0.0003525
+    },
+    {
+      "phase": "g006",
+      "startedAt": "2026-10-26T18:12:33.546Z",
+      "status": "200",
+      "measuredUsd": 0.0006737
+    },
+    {
+      "phase": "g006",
+      "startedAt": "2026-10-26T18:12:40.640Z",
+      "status": "200",
+      "measuredUsd": 0.0007206
+    },
+    {
+      "phase": "g008",
+      "startedAt": "2026-10-26T18:12:46.518Z",
+      "status": "200",
+      "measuredUsd": 0.0001671
+    },
+    {
+      "phase": "g008",
+      "startedAt": "2026-10-26T18:12:48.522Z",
+      "status": "200",
+      "measuredUsd": 0.000512
+    },
+    {
+      "phase": "g008",
+      "startedAt": "2026-10-26T18:12:54.162Z",
+      "status": "200",
+      "measuredUsd": 0.0004665
+    },
+    {
+      "phase": "g004",
+      "startedAt": "2026-10-26T18:13:01.176Z",
+      "status": "200",
+      "measuredUsd": 0.0001892
+    },
+    {
+      "phase": "g004",
+      "startedAt": "2026-10-26T18:13:02.770Z",
+      "status": "200",
+      "measuredUsd": 0.0005905
+    },
+    {
+      "phase": "g004",
+      "startedAt": "2026-10-26T18:13:09.034Z",
+      "status": "200",
+      "measuredUsd": 0.0004697
+    },
+    {
+      "phase": "r074",
+      "startedAt": "2026-10-26T18:13:14.474Z",
+      "status": "200",
+      "measuredUsd": 0.0003014
+    },
+    {
+      "phase": "r074",
+      "startedAt": "2026-10-26T18:13:16.904Z",
+      "status": "200",
+      "measuredUsd": 0.0006352
+    },
+    {
+      "phase": "r074",
+      "startedAt": "2026-10-26T18:13:22.901Z",
+      "status": "200",
+      "measuredUsd": 0.0006727
+    },
+    {
+      "phase": "r074",
+      "startedAt": "2026-10-26T18:13:30.712Z",
+      "status": "200",
+      "measuredUsd": 0.0006487
+    },
+    {
+      "phase": "r074",
+      "startedAt": "2026-10-26T18:13:35.759Z",
+      "status": "200",
+      "measuredUsd": 0.0004591
+    },
+    {
+      "phase": "g010",
+      "startedAt": "2026-10-26T18:13:40.551Z",
+      "status": "200",
+      "measuredUsd": 0.0003199
+    },
+    {
+      "phase": "g010",
+      "startedAt": "2026-10-26T18:13:43.033Z",
+      "status": "200",
+      "measuredUsd": 0.0007474
+    },
+    {
+      "phase": "g010",
+      "startedAt": "2026-10-26T18:13:50.270Z",
+      "status": "200",
+      "measuredUsd": 0.0009049
+    },
+    {
+      "phase": "g010",
+      "startedAt": "2026-10-26T18:13:57.085Z",
+      "status": "200",
+      "measuredUsd": 0.0007288
+    },
+    {
+      "phase": "g010",
+      "startedAt": "2026-10-26T18:14:01.793Z",
+      "status": "200",
+      "measuredUsd": 0.0004928
+    },
+    {
+      "phase": "g012",
+      "startedAt": "2026-10-26T18:14:07.658Z",
+      "status": "200",
+      "measuredUsd": 0.000203
+    },
+    {
+      "phase": "g012",
+      "startedAt": "2026-10-26T18:14:09.920Z",
+      "status": "200",
+      "measuredUsd": 0.0006141
+    },
+    {
+      "phase": "g012",
+      "startedAt": "2026-10-26T18:14:16.400Z",
+      "status": "200",
+      "measuredUsd": 0.0006528
+    },
+    {
+      "phase": "g012",
+      "startedAt": "2026-10-26T18:14:24.865Z",
+      "status": "200",
+      "measuredUsd": 0.0006362
+    },
+    {
+      "phase": "g012",
+      "startedAt": "2026-10-26T18:14:29.668Z",
+      "status": "200",
+      "measuredUsd": 0.0006361
+    },
+    {
+      "phase": "g017",
+      "startedAt": "2026-10-26T18:14:37.667Z",
+      "status": "200",
+      "measuredUsd": 0.0001768
+    },
+    {
+      "phase": "g017",
+      "startedAt": "2026-10-26T18:14:39.308Z",
+      "status": "200",
+      "measuredUsd": 0.0005557
+    },
+    {
+      "phase": "g017",
+      "startedAt": "2026-10-26T18:14:45.681Z",
+      "status": "200",
+      "measuredUsd": 0.0006059
+    },
+    {
+      "phase": "g015",
+      "startedAt": "2026-10-26T18:14:51.093Z",
+      "status": "200",
+      "measuredUsd": 0.0001909
+    },
+    {
+      "phase": "g015",
+      "startedAt": "2026-10-26T18:14:53.514Z",
+      "status": "200",
+      "measuredUsd": 0.0005781
+    },
+    {
+      "phase": "g015",
+      "startedAt": "2026-10-26T18:15:00.203Z",
+      "status": "200",
+      "measuredUsd": 0.0006264
+    },
+    {
+      "phase": "g015",
+      "startedAt": "2026-10-26T18:15:05.326Z",
+      "status": "200",
+      "measuredUsd": 0.0005721
+    },
+    {
+      "phase": "g015",
+      "startedAt": "2026-10-26T18:15:09.448Z",
+      "status": "200",
+      "measuredUsd": 0.0006806
+    },
+    {
+      "phase": "r035",
+      "startedAt": "2026-10-26T18:15:17.368Z",
+      "status": "200",
+      "measuredUsd": 0.0003147
+    },
+    {
+      "phase": "r035",
+      "startedAt": "2026-10-26T18:15:19.788Z",
+      "status": "200",
+      "measuredUsd": 0.0006953
+    },
+    {
+      "phase": "r035",
+      "startedAt": "2026-10-26T18:15:27.402Z",
+      "status": "200",
+      "measuredUsd": 0.0006669
+    },
+    {
+      "phase": "r035",
+      "startedAt": "2026-10-26T18:15:33.880Z",
+      "status": "200",
+      "measuredUsd": 0.0006859
+    },
+    {
+      "phase": "r035",
+      "startedAt": "2026-10-26T18:15:38.673Z",
+      "status": "200",
+      "measuredUsd": 0.0005757
+    },
+    {
+      "phase": "g023",
+      "startedAt": "2026-10-26T18:15:44.358Z",
+      "status": "200",
+      "measuredUsd": 0.0001941
+    },
+    {
+      "phase": "g023",
+      "startedAt": "2026-10-26T18:15:46.453Z",
+      "status": "200",
+      "measuredUsd": 0.0006026
+    },
+    {
+      "phase": "g023",
+      "startedAt": "2026-10-26T18:15:50.415Z",
+      "status": "200",
+      "measuredUsd": 0.0006028
+    },
+    {
+      "phase": "r059",
+      "startedAt": "2026-10-26T18:15:57.449Z",
+      "status": "200",
+      "measuredUsd": 0.0003041
+    },
+    {
+      "phase": "r059",
+      "startedAt": "2026-10-26T18:16:00.645Z",
+      "status": "200",
+      "measuredUsd": 0.000648
+    },
+    {
+      "phase": "r059",
+      "startedAt": "2026-10-26T18:16:06.665Z",
+      "status": "200",
+      "measuredUsd": 0.0005785
+    },
+    {
+      "phase": "r034",
+      "startedAt": "2026-10-26T18:16:13.199Z",
+      "status": "200",
+      "measuredUsd": 0.0003614
+    },
+    {
+      "phase": "r034",
+      "startedAt": "2026-10-26T18:16:16.639Z",
+      "status": "200",
+      "measuredUsd": 0.0007063
+    },
+    {
+      "phase": "r034",
+      "startedAt": "2026-10-26T18:16:23.610Z",
+      "status": "200",
+      "measuredUsd": 0.0007778
+    },
+    {
+      "phase": "r034",
+      "startedAt": "2026-10-26T18:16:30.055Z",
+      "status": "200",
+      "measuredUsd": 0.0007899
+    },
+    {
+      "phase": "r034",
+      "startedAt": "2026-10-26T18:16:35.224Z",
+      "status": "200",
+      "measuredUsd": 0.0008618
+    },
+    {
+      "phase": "g001",
+      "startedAt": "2026-10-26T18:16:44.366Z",
+      "status": "200",
+      "measuredUsd": 0.0003325
+    },
+    {
+      "phase": "g001",
+      "startedAt": "2026-10-26T18:16:46.474Z",
+      "status": "200",
+      "measuredUsd": 0.000612
+    },
+    {
+      "phase": "g001",
+      "startedAt": "2026-10-26T18:16:53.093Z",
+      "status": "200",
+      "measuredUsd": 0.0005486
+    },
+    {
+      "phase": "g019",
+      "startedAt": "2026-10-26T18:16:58.427Z",
+      "status": "200",
+      "measuredUsd": 0.0001806
+    },
+    {
+      "phase": "g019",
+      "startedAt": "2026-10-26T18:17:02.117Z",
+      "status": "200",
+      "measuredUsd": 0.0005584
+    },
+    {
+      "phase": "g019",
+      "startedAt": "2026-10-26T18:17:08.470Z",
+      "status": "200",
+      "measuredUsd": 0.0005523
+    },
+    {
+      "phase": "g020",
+      "startedAt": "2026-10-26T18:17:14.253Z",
+      "status": "200",
+      "measuredUsd": 0.0002855
+    },
+    {
+      "phase": "g020",
+      "startedAt": "2026-10-26T18:17:16.387Z",
+      "status": "200",
+      "measuredUsd": 0.0006157
+    },
+    {
+      "phase": "g020",
+      "startedAt": "2026-10-26T18:17:22.547Z",
+      "status": "200",
+      "measuredUsd": 0.0004008
+    },
+    {
+      "phase": "g022",
+      "startedAt": "2026-10-26T18:17:27.637Z",
+      "status": "200",
+      "measuredUsd": 0.0001525
+    },
+    {
+      "phase": "g022",
+      "startedAt": "2026-10-26T18:17:29.308Z",
+      "status": "200",
+      "measuredUsd": 0.0004643
+    },
+    {
+      "phase": "g022",
+      "startedAt": "2026-10-26T18:17:34.312Z",
+      "status": "200",
+      "measuredUsd": 0.0002234
+    },
+    {
+      "phase": "g011",
+      "startedAt": "2026-10-26T18:17:35.577Z",
+      "status": "200",
+      "measuredUsd": 0.0001801
+    },
+    {
+      "phase": "g011",
+      "startedAt": "2026-10-26T18:17:37.853Z",
+      "status": "200",
+      "measuredUsd": 0.0005392
+    },
+    {
+      "phase": "g011",
+      "startedAt": "2026-10-26T18:17:45.127Z",
+      "status": "200",
+      "measuredUsd": 0.0004714
+    },
+    {
+      "phase": "g014",
+      "startedAt": "2026-10-26T18:17:50.546Z",
+      "status": "200",
+      "measuredUsd": 0.0001907
+    },
+    {
+      "phase": "g014",
+      "startedAt": "2026-10-26T18:17:52.605Z",
+      "status": "200",
+      "measuredUsd": 0.0005575
+    },
+    {
+      "phase": "g014",
+      "startedAt": "2026-10-26T18:17:59.237Z",
+      "status": "200",
+      "measuredUsd": 0.000594
+    },
+    {
+      "phase": "g014",
+      "startedAt": "2026-10-26T18:18:04.641Z",
+      "status": "200",
+      "measuredUsd": 0.0006242
+    },
+    {
+      "phase": "g014",
+      "startedAt": "2026-10-26T18:18:08.625Z",
+      "status": "200",
+      "measuredUsd": 0.000525
+    },
+    {
+      "phase": "g016",
+      "startedAt": "2026-10-26T18:18:14.639Z",
+      "status": "200",
+      "measuredUsd": 0.0001624
+    },
+    {
+      "phase": "g016",
+      "startedAt": "2026-10-26T18:18:15.976Z",
+      "status": "200",
+      "measuredUsd": 0.0005119
+    },
+    {
+      "phase": "g016",
+      "startedAt": "2026-10-26T18:18:22.156Z",
+      "status": "200",
+      "measuredUsd": 0.0004445
+    },
+    {
+      "phase": "r001",
+      "startedAt": "2026-10-26T18:18:26.965Z",
+      "status": "200",
+      "measuredUsd": 0.0003208
+    },
+    {
+      "phase": "r001",
+      "startedAt": "2026-10-26T18:18:28.960Z",
+      "status": "200",
+      "measuredUsd": 0.0006993
+    },
+    {
+      "phase": "r001",
+      "startedAt": "2026-10-26T18:18:33.276Z",
+      "status": "200",
+      "measuredUsd": 0.0008722
+    },
+    {
+      "phase": "g002",
+      "startedAt": "2026-10-26T18:18:42.181Z",
+      "status": "200",
+      "measuredUsd": 0.0001735
+    },
+    {
+      "phase": "g002",
+      "startedAt": "2026-10-26T18:18:43.900Z",
+      "status": "200",
+      "measuredUsd": 0.0005278
+    },
+    {
+      "phase": "g002",
+      "startedAt": "2026-10-26T18:18:49.639Z",
+      "status": "200",
+      "measuredUsd": 0.0004584
+    }
+  ],
+  "measuredUsd": 0.050631500000000024,
+  "uncertainUsd": 0,
+  "blocked": null
+}
