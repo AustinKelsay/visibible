@@ -1,0 +1,66 @@
+{
+  "issue": 183,
+  "status": "Unfunded separate one-shot diagnostic. Owner approved the offline policy change, not this paid comparison.",
+  "purpose": "Compare actual merged v7 review/v9 planning/v7 rendering with moment-resolved conditions v10 planning/v8 review/v8 rendering on five known difficult inputs. Memory-only preparations and text packets; no images or production access.",
+  "baselineCommit": "51100a683d722dad10c0e3b38b97c5c0886273b6",
+  "pipeline": {
+    "baselineMomentCast": "2026-10-23-moment-cast-v9",
+    "baselineFormlessPlan": "2026-10-23-formless-effects-v9",
+    "baselineReview": "2026-10-25-rendering-review-v7",
+    "baselineRendering": "2026-10-24-generic-v7",
+    "momentCast": "2026-10-26-moment-cast-v10",
+    "formlessPlan": "2026-10-26-formless-effects-v10",
+    "candidateReview": "2026-10-26-rendering-review-v8",
+    "rendering": "2026-10-26-generic-v8"
+  },
+  "sampling": {
+    "orderSeed": 2026102602,
+    "maskSeed": 2026102603,
+    "fresh": 0,
+    "retained": [
+      "r027",
+      "f019",
+      "f006",
+      "f022",
+      "f015"
+    ],
+    "fixtures": "../2026-10-24-rendering-review-check/sample-set.json",
+    "method": "Five predeclared retained diagnostic cases from the already executed 30-case fixture: Exodus 14:5 place, Exodus 23:16 time/light, Judges 5:12 Canaan/Israel conflict, Romans 4:7 framing Paul/soldiers, Revelation 3:12 formed Jesus/radiance. No fresh cases, draw, replacements, filtering after results, production query or population reliability claim. Preserve exact source/canon snapshots; all five now count as retained regardless of old f/r IDs."
+  },
+  "method": "Actual immutable preparation/review/renderer modules, same model/provider/defaults. Each arm/case has an identical source/canon snapshot and separate cold memory store. Look draws are independent. Fixed shuffled case order with alternating arms, one first outcome per arm/case. Generate all three style text packets locally after preparation; any packet overrun/refusal counts as refusal. No images, references, production access, tuning, substitution, paid restart or extra retry tier. Bounded unavailable reviews fail their operation and continue; unknown usage/provider failure/cap/request drift globally stops.",
+  "scoring": {
+    "packet": "Seed-shuffle complete stored/renderable packets into opaque labels; omit arm/review/outcome/version/grounding and the original generated guide. Include exact source, section bounds/title, same-section neighbors, full assigned available canon, selected IDs, seven scene fields and the five conditions actually passed to each renderer. Normalize those conditions under the same look key for both arms. Commit complete first scores before unblinding. Familiar retained cases and one operator limit masking; no independent-adjudication claim.",
+    "labels": [
+      "acceptable",
+      "flawed",
+      "uncertain"
+    ],
+    "criteria": "Source-supported instant and cast identities; every depicted available character/group/location/object/no-form presence selected; no framing or separate-event cast, invented recurring identities, embodied no-form subject, pose/prop contradiction, collage, fixed-canon or art-style leakage. Generic roles, crowds, props and scenery are allowed when source-compatible. An uncertain stored scene counts against acceptance. Quote each defect and source/canon rationale; preserve sensitivity to every disputed score.",
+    "analysis": "Report acceptable, flawed, uncertain and refused for all five retained pairs; incomplete outcomes stay visible. Report paired 2x2 acceptable table, exact two-sided discordance p and Wilson 95% intervals. There is no fresh stratum and no broad release verdict. No refusal counts as repair. Preserve disputed first scores and sensitivity separately.",
+    "gate": "All 42 operations complete without global stop, blocked ledger or uncertain usage. All 16 candidate controls pass strictly with zero clean false alarms. All five candidate preparations produce renderable packets in all three styles and are scored acceptable, with zero flawed/uncertain stores or condition contradictions, no fewer acceptable and no more refusals than baseline. Passing supports only a later broader fresh comparison. The unchanged broad 22/23 fresh, 7/7 retained, zero-flaw standard remains outstanding; this diagnostic cannot satisfy it."
+  },
+  "evaluation": {
+    "authorizedBeforeUsd": 17.5,
+    "measuredBeforeUsd": 17.2016111,
+    "uncertaintyBeforeUsd": 0.045,
+    "remainingBeforeUsd": 0.2533889,
+    "proposedIncreaseUsd": 0,
+    "proposedAuthorizedUsd": 17.5,
+    "proposedOperationCapUsd": 0.1,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 164
+  },
+  "executionRequirements": "Owner must explicitly authorize this distinct one-shot operation first; no allowance increase is proposed and prior funding files do not apply. Commit grant/code/protocol/fixtures/pricing/dry-run hashes before calls; refresh prices/balance and refuse drift. Reserve each HTTP request, retain per-call usage and enforce one-shot markers/call cap. Provider error, missing/uncertain usage, request/source drift, cap/headroom or interruption is a global stop. Semantic refusals and bounded unavailable reviews remain failed operations and do not stop unrelated cases. No automatic resume/restart or transfers from preparation/smoke.",
+  "releaseHold": true,
+  "publicActivation": false,
+  "humanAccepted": false,
+  "candidateCommit": "28b1d6e964ae5d816d151eefc5e4f281b382c96a",
+  "controls": {
+    "cases": 16,
+    "operations": 32,
+    "negative": 9,
+    "positive": 7,
+    "gate": "All 16 candidate controls pass with required kind/ID and intended-field citation, including exact accepted JSON citation forms; seven positives have zero problems. Unchanged strict expectations include Moses primarySubject and God entryId. Extra negative reports require source-based disposition. Original fixture bytes and expectations remain unchanged; the adapter marks all control conditions as literal constraints, exercising the new owner label. Baseline v7 ignores that marker. Unavailable is failure, never pass; baseline descriptive."
+  },
+  "knownLimitation": "Five selected known failures and independent look draws cannot establish fresh-case reliability or isolated causal benefit. The one familiar operator is not independent adjudication. Frozen Moses/God controls may still fail; do not relax requirements after results. Full-request latency, accounting in live routes, images/likeness, human acceptance and public activation remain held."
+}
