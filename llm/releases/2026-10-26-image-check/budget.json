@@ -1,0 +1,21 @@
+{
+  "allowance": "evaluation",
+  "authorizedBeforeUsd": 17.5,
+  "increaseUsd": 2,
+  "authorizedUsd": 19.5,
+  "measuredBeforeUsd": 17.3354292,
+  "measuredBeforeNote": "After step 1 ($0.0419565) and the concurrent step 2 ($0.0918616). plan.json reserved step 2's full $0.20 cap conservatively before it settled.",
+  "operationMeasuredUsd": 0.6426833,
+  "operationTextUsd": 0.0270603,
+  "operationImageUsd": 0.615623,
+  "operationUncertainUsd": 0,
+  "measuredAfterUsd": 17.9781125,
+  "retainedUncertaintyUsd": 0.045,
+  "remainingUsd": 1.4768875,
+  "operationCapUsd": 2,
+  "calls": 49,
+  "images": 18,
+  "preparationRemainingUsd": 39.3131968,
+  "smokeRemainingUsd": 0.314205,
+  "transfers": 0
+}

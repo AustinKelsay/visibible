@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-26T16:12:43.843Z",
+  "balanceUsd": 8.78908383800001,
+  "imagePricing": {
+    "prompt": "0.00000025",
+    "completion": "0.0000015",
+    "image_output": "0.00003",
+    "web_search": "0.014"
+  },
+  "sources": {
+    "src/lib/engine/preparation.ts": "2b81caf8d5816ae16b5980c89e0d481ea3e8815f832e76276e09355a6ad41a72",
+    "src/lib/engine/assemble.ts": "62ea2cb640a184f2486e6139ff1a49b73fdad5c1f95c4d217148a9f9537b38a6",
+    "src/lib/engine/situation.ts": "793c7e95ea720a62986f0253ccf3bb25c471a733de21e7a790640918517d6f67",
+    "src/lib/engine/scene-grounding.ts": "fb20e4778239fc734c0ed5b6098b11474bb6a98d20c21c05d26865596c79eed5",
+    "src/lib/engine/plan-review.ts": "94a547d19a2efce9dfe40aaacb4c6f9529873f50791096e50c31c3c64b890d9b",
+    "src/lib/engine/prompt.ts": "d8838ed708fbfe6df8deda70a5d4853ea67327a6edde649afdd0bd9fa5db5b20",
+    "src/lib/engine/work-inputs.ts": "e449de93ef5b76c26b97bb40c725e11aeea9202cc9d14d7bd744aecbaa2c2cb3",
+    "src/lib/reading-pass/model.ts": "da9caabd9a8f02e4fb2d8dd0c33babc7f142ab5ab2de354fff07f6d35eb488ea",
+    "src/lib/reading-pass/prompts.ts": "766166e25eaaaef2b6741898b5b0ccc1f330f85e9036af89c7b008cf81713abf",
+    "src/lib/image-response.ts": "07b5092d1795db69bbd4cfa41c5a25691277ff9a982884118fc1658881a9bba6",
+    "src/lib/image-evals/adapters.ts": "22c81fce1c9133a810ca445d2afe646ab574f6b52117146a5535debb67f2a379",
+    "src/lib/canon-showing.ts": "2bfb6fa9aa29d366ab741981627f65b0b3425ee065ea3c163caca889bfbdee0b",
+    "src/lib/work-preparation.ts": "34ae8097b4eb351115bb7f5a77e8d63b59da40ec0d9891e0874f323fe88262ea",
+    "convex/_helpers/contentVersion.ts": "c34546acd74b8f3081a3f73a2e922ba30732ed21f26f6e75688a3b8ac3ed2a32",
+    "styles/classical.json": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+    "styles/watercolor.json": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+    "styles/icon.json": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+    "works/bible-web/brief.json": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "llm/releases/2026-10-26-image-check/common.mts": "7657c0fae8d25dd202acfd32f11ba1cab332edb33225e5165fc5903284b8c90b",
+    "llm/releases/2026-10-26-image-check/snapshot.mts": "5f3a53b0afd48f4d8f8456461573296fd2264cb229d67b646ac461d10291ea4a",
+    "llm/releases/2026-10-26-image-check/run.mts": "bfbb1cae7d9da0c767403badfb664461596e139fb3b609262a5a2647386b4ee8",
+    "llm/releases/2026-10-26-image-check/plan.json": "f7b50c07f5d12024909dd92633668d966d9900d03b3d455ea3e8f9b4039e1c11",
+    "llm/releases/2026-10-26-image-check/snapshot.json": "19b0892e50f7b4b45ddad51428d7431241325cf3edb439aed23b770346ff2f69",
+    "package-lock.json": "d9cff4d52431f7ad6d3eb6f9c1b025bfbfc74be703fe6d55010abb0b6abd326c"
+  }
+}
