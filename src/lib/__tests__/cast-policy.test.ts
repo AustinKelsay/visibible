@@ -10,7 +10,7 @@ const randomRun = new URL("../../../llm/releases/2026-10-23-random-verse-check/"
 
 describe("moment-cast v6 cast policy", () => {
   it("lets plans describe uncast incidental figures and reserves missingCast for recurring named characters", () => {
-    expect(MOMENT_CAST_PROMPT_VERSION).toBe("2026-10-23-moment-cast-v9");
+    expect(MOMENT_CAST_PROMPT_VERSION).toBe("2026-10-26-moment-cast-v10");
     expect(PLAN_SYSTEM).not.toContain("omit unselected figures rather than describing them as background");
     expect(PLAN_SYSTEM).toContain("never describe an available cast member without selecting it");
     expect(PLAN_SYSTEM).toContain("People, crowds, roles and animals with no cast entry may be described by role and situation");
@@ -23,7 +23,7 @@ describe("moment-cast v6 cast policy", () => {
   });
 
   it("tells rendering that only selected characters have fixed canon, without banning the plan's incidental figures", () => {
-    expect(GENERIC_PROMPT_VERSION).toBe("2026-10-24-generic-v7");
+    expect(GENERIC_PROMPT_VERSION).toBe("2026-10-26-generic-v8");
     const rule = ENGINE_RULES.join("\n");
     expect(rule).toContain("Depict the SELECTED CHARACTERS, including groups and no-form subjects, with their canon.");
     expect(rule).toContain("as unnamed incidental figures without fixed appearance");

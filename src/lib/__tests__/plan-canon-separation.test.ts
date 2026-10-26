@@ -37,7 +37,7 @@ async function plan(content = retainedContent, showing?: unknown) {
   const write = vi.fn<PreparationStore["putDerivedRecord"]>(async (args) => {
     const version = contentVersion(args.payload);
     const index = records.findIndex((r) => r.kind === args.kind && r.recordId === args.recordId);
-    const record = { ...args, version };
+    const record = { ...args, version, source: "generated" as const };
     if (index === -1) records.push(record); else records[index] = record;
     return { version };
   });
@@ -68,7 +68,8 @@ describe("no-form plan and canon separation", () => {
     expect(requests).toHaveLength(1);
     const request = requests[0];
     expect(request.user).toContain(input.context.moment.text);
-    expect(request.user).not.toContain(input.records.find((record: AnalysisRecord) => record.kind === "look").payload.clothing);
+    expect(request.user).toContain(input.records.find((record: AnalysisRecord) => record.kind === "look").payload.clothing);
+    expect(request.user).toContain("OWNER LOOK CONSTRAINTS");
     expect(result.look.version).toBe(input.overlay.frozenLookVersion);
     expect(request.system).toContain("leave its fixed colour, brightness and texture to canon");
     expect(request.system).toContain("Name only the permitted effect needed for this moment's placement or movement");
@@ -102,12 +103,12 @@ describe("no-form plan and canon separation", () => {
   it("projects the exact carried structured canon into effect names while rendering still receives its complete appearance", async () => {
     const situational = { ...retainedPlan, secondaryElements: "Burning wheels at the throne; Daniel's cloak catches the firelight." };
     const { result, requests, write, render, getReference } = await plan(JSON.stringify(situational), canon.stages[0].showing);
-    expect(requests.map((r) => r.schemaName)).toEqual(["section_look", "scene_plan"]);
-    expect(write).toHaveBeenCalledTimes(2); // New canon metadata invalidates the old look through ordinary inputs.
+    expect(requests.map((r) => r.schemaName)).toEqual(["scene_plan"]);
+    expect(write).toHaveBeenCalledTimes(1); // Canon metadata refreshes the plan while the literal owner look survives.
     expect(result.look.payload).toEqual(Object.fromEntries(["place", "timeOfDay", "weather", "light", "clothing"].map((key) =>
       [key, input.records.find((r: AnalysisRecord) => r.kind === "look").payload[key]])));
     expect(requests[0].user).toContain(`- ${canon.entryId} (stage: ${canon.stages[0].id}): effect names for placement: radiance, fire, cloud, light`);
-    const request = requests[1];
+    const request = requests[0];
     expect(request.user).toContain(`- ${canon.entryId} (stage: ${canon.stages[0].id}): effect names for placement: radiance, fire, cloud, light`);
     for (const phrase of [canon.stages[0].text, "brilliant white radiance", "bright orange fire", "soft white cloud", "brilliant white light"]) {
       expect(request.user).not.toContain(phrase);
@@ -126,7 +127,7 @@ describe("no-form plan and canon separation", () => {
       expect(rendered.prompt).not.toContain("effect names for placement");
     }
     expect(new Set(versions).size).toBe(1);
-    expect(requests).toHaveLength(2);
+    expect(requests).toHaveLength(1);
     expect(getReference.mock.calls.filter(([kind]) => kind === "sheet").map(([, id]) => id)).not.toContain(`${canon.entryId}:${canon.stages[0].id}`);
   });
 
@@ -136,8 +137,8 @@ describe("no-form plan and canon separation", () => {
     ["stale after a prose edit", [{ effect: "radiance", colour: "gold", brightness: "bright" }]],
   ])("uses authoritative stage text when showing is %s", async (_label, showing) => {
     const { requests } = await plan(retainedContent, showing);
-    expect(requests[1].user).toContain(`- ${canon.entryId} (stage: ${canon.stages[0].id}): ${canon.stages[0].text}`);
-    expect(requests[1].user).not.toContain("effect names for placement");
+    expect(requests[0].user).toContain(`- ${canon.entryId} (stage: ${canon.stages[0].id}): ${canon.stages[0].text}`);
+    expect(requests[0].user).not.toContain("effect names for placement");
     expect(requests[0].user).toContain(`- ${canon.entryId} (stage: ${canon.stages[0].id}): ${canon.stages[0].text}`);
     expect(requests[0].user).not.toContain("effect names for placement");
   });

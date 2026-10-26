@@ -205,6 +205,8 @@ const planPayloadValidator = v.object({
   momentId: v.string(),
   entries: v.array(v.object({ entryId: v.string(), stageId: v.string() })),
   plan: scenePlanValidator,
+  // Optional for historical plans; new preparation requires reviewed moment conditions.
+  situation: v.optional(v.object({ place: v.string(), timeOfDay: v.string(), weather: v.string(), light: v.string(), clothing: v.string() })),
   // Audit-only source choice; historical plans remain readable and saved prompts are unchanged.
   grounding: v.optional(v.object({
     focusQuote: v.string(),

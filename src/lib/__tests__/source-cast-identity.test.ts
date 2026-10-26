@@ -1,3 +1,4 @@
+import { withSituation } from "../../../tests/fixtures/scene-grounding";
 /** Captured false-clean plans with scripted adverse reviews; live semantic obedience is evaluated separately. */
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
@@ -24,7 +25,7 @@ async function setup(repeat: number, repair: boolean) {
     getActiveRecord: async (kind, id) => structuredClone(records.find((r) => r.kind === kind && r.recordId === id) ?? null),
     claim: async () => ({ held: true }), release: async () => {}, recordSpend: async (entry) => { spend.push(entry.outcome); },
     putDerivedRecord: async (args) => {
-      const record = { ...structuredClone(args), version: contentVersion(args.payload) } as AnalysisRecord;
+      const record = { ...structuredClone(args), source: "generated", version: contentVersion(args.payload) } as AnalysisRecord;
       const index = records.findIndex((r) => r.kind === args.kind && r.recordId === args.recordId);
       if (index < 0) records.push(record); else records[index] = record;
       writes.push(record); return { version: record.version };
@@ -43,7 +44,7 @@ async function setup(repeat: number, repair: boolean) {
     const value = request.schemaName === "section_look"
       ? { place: "Jerusalem", timeOfDay: "day", weather: "clear", light: "daylight", clothing: "plain robes" }
       : ++plans === 2 && repair ? replacement : captured;
-    return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop",
+    return { content: JSON.stringify(withSituation(value)), model: "scripted", providerRequestId: null, finishReason: "stop",
       usage: { promptTokens: 1, completionTokens: 1, costUsd: 0.0001 }, elapsedMs: 0 };
   } };
   const inputs = await readWorkInputs("bible-web");

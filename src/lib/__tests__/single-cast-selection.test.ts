@@ -1,3 +1,4 @@
+import { withSituation } from "../../../tests/fixtures/scene-grounding";
 /** The model selects cast once; source validation and semantic review still decide acceptance. */
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
@@ -33,7 +34,7 @@ function setup(answer: unknown, problems: unknown[] = []) {
       calls.push(request);
       if (request.schemaName === "plan_review") return reviewReply(problems);
       const value = request.schemaName === "section_look" ? { place: "Workshop", timeOfDay: "day", weather: "clear", light: "daylight", clothing: "tunics" } : answer;
-      return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 }, elapsedMs: 0 };
+      return { content: JSON.stringify(withSituation(value)), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 }, elapsedMs: 0 };
     } } });
   return { run, calls, ...memory };
 }

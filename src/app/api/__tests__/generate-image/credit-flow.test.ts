@@ -690,7 +690,7 @@ describe("Image Generation API Credit Flow", () => {
       expect(request.renderingPacket!.canon.map((c) => c.entryId)).toEqual(["adam", "eden", "god"]);
       // The saved image is WEB text with full provenance; the reader's translation is request context only.
       const [image] = await savedImages();
-      expect(image).toMatchObject({ verseId: "genesis-1-1", translationId: "web", verseText: webText[1], engine: "generic", artStyleId: "watercolor", promptVersion: "2026-10-24-generic-v7" });
+      expect(image).toMatchObject({ verseId: "genesis-1-1", translationId: "web", verseText: webText[1], engine: "generic", artStyleId: "watercolor", promptVersion: "2026-10-26-generic-v8" });
       expect(image.provenance).toMatchObject({ workId: WORK, momentId: "genesis-1-1", sectionId: "genesis-1-1", styleId: "watercolor", lookVersion: request.renderingPacket!.lookVersion, planVersion: request.renderingPacket!.planVersion, requestTranslationId: "web" });
       expect(image.provenance!.references).toEqual([{ kind: "styleReference", id: "watercolor", version: expect.any(String) }, { kind: "sheet", id: "adam:main", version: expect.any(String) }]);
       // A second style of the same moment reuses the look and plan: no new preparation call, no style reference for Classical.
@@ -765,16 +765,16 @@ describe("Image Generation API Credit Flow", () => {
       expect(await requestDb.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "genesis-1-1" })).toBeNull();
     });
 
-    it("stops a reported shared-look conflict before references, image reservation or request creation", async () => {
+    it("refuses repeated generated-condition conflicts after one re-plan before references, image reservation or request creation", async () => {
       await prepareWork();
-      reviewProblems = [{ kind: "look_conflict", entryId: "", planQuote: lookAnswer.light, reason: "Scripted incompatible shared illumination." }];
+      reviewProblems = [{ kind: "look_conflict", entryId: "", planQuote: "ordinary daylight", reason: "Scripted incompatible shared illumination." }];
       const { POST } = await import("../../generate-image/route");
       const response = await POST(createGenerateImageRequest(body));
       expect(response.status).toBe(503);
       expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true,
-        message: expect.stringContaining("look unavailable: rendering review: look_conflict") });
-      expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1"]);
-      expect((await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((entry) => entry.outcome)).toEqual(["ok", "ok", "review problems"]);
+        message: expect.stringContaining("plan unavailable: plan review: look_conflict") });
+      expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1"]);
+      expect((await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((entry) => entry.outcome)).toEqual(["ok", "ok", "review problems", "ok", "review problems"]);
       expect(getCallCount("reserveCredits")).toBe(0);
       expect(imageCalls()).toHaveLength(0);
       expect(loadedBlobs).toEqual([]);

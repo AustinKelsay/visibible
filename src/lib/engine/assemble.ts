@@ -5,6 +5,7 @@
  * engine maps the failures to responses; the evaluation harness records them. Nothing here is
  * paid except the owner-funded look and plan.
  */
+import { lookPolicy } from "./situation";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
 import type { TextModel } from "../reading-pass/model";
 import type { ArtStyle } from "../work-preparation";
@@ -127,6 +128,12 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
     canon.push({ entryId: present.entryId, stageId: stage.id, kind: payload.entryKind, name: payload.name, text: stage.text, hasForm: payload.hasForm !== false, version: entry.version });
   }
 
+  const lookCurrent = async () => {
+    const active = await store.getActiveRecord("look", sectionId);
+    return active?.version === prepared.look.version && lookPolicy(active) === prepared.look.policy;
+  };
+  if (!await lookCurrent()) return { ok: false, reason: "preparation", message: "Preparing scene: section look changed.", retryable: true, stage: "look", error: null };
+
   // Optional references: only the ones the packet could select, only when current, only when their bytes load.
   const available: AvailableReference[] = [];
   const inline = new Map<string, Uint8Array>();
@@ -161,6 +168,8 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
     }
   }
 
+  if (!await lookCurrent()) return { ok: false, reason: "preparation", message: "Preparing scene: section look changed.", retryable: true, stage: "look", error: null };
+
   // The rendering packet, validated before any paid call.
   const rendering = buildRenderingPacket({
     work: { id: input.workId, title: inputs.work.work.title },
@@ -169,6 +178,7 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
     brief: inputs.brief, briefVersion: inputs.briefVersion, eraId: prepared.era ?? inputs.brief.eras[0].id,
     style: styleEntry.style, styleVersion: styleEntry.version,
     look: { version: prepared.look.version, ...prepared.look.payload },
+    situation: prepared.situation,
     plan: { version: prepared.plan.version, primarySubject: prepared.plan.payload.primarySubject, action: prepared.plan.payload.action, setting: prepared.plan.payload.setting, secondaryElements: prepared.plan.payload.secondaryElements, mood: prepared.plan.payload.mood, timeOfDay: prepared.plan.payload.timeOfDay, composition: prepared.plan.payload.composition },
     canon, references: available, omitStyleReference: deps.omitStyleReference, variationNumber: input.variationNumber, aspectRatio: input.aspectRatio,
   });

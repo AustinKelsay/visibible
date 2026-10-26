@@ -125,10 +125,11 @@ describe("lazy looks and plans", () => {
     // The owner's look version is kept, never overwritten by a remake.
     const stored = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "alpha-1-1" });
     expect(stored?.source).toBe("owner");
-    // A canon edit to Jonah invalidates both the look and the plan of his section.
+    // A canon edit refreshes the plan but retains the owner-authored look constraint.
     await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "entry", recordId: "jonah", payload: { kind: "entry", name: "Jonah", entryKind: "character", hasForm: true, stages: [{ id: "young", text: "Jonah: edited." }, { id: "old", text: "Jonah: edited, older." }] } });
     const afterCanonEdit = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
-    expect(afterCanonEdit.calls).toBe(3);
+    expect(afterCanonEdit.calls).toBe(2);
+    expect(afterCanonEdit.look.version).toBe(afterLookEdit.look.version);
     // Clearing the plan creates a future replan and leaves the look alone.
     await t.mutation(api.analysis.clearRecord, { serverSecret: SECRET, workId: WORK, kind: "plan", recordId: "alpha-1-1" });
     const afterClear = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv", context: context("alpha-1-1", null, null), ...fast });
@@ -136,7 +137,7 @@ describe("lazy looks and plans", () => {
     expect(afterClear.look.version).toBe(afterCanonEdit.look.version);
     // A brief version change invalidates too, and the legacy scene plan cache is untouched throughout.
     const afterBrief = await prepareMoment({ workId: WORK, momentId: "alpha-1-1", store: store(), model, brief, briefVersion: "bv2", context: context("alpha-1-1", null, null), ...fast });
-    expect(afterBrief.calls).toBe(3);
+    expect(afterBrief.calls).toBe(2);
     expect(await t.run(async (ctx) => ctx.db.query("scenePlanCache").collect())).toEqual([]);
   });
 

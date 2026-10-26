@@ -1,6 +1,6 @@
 /**
- * Lazy text preparation for one moment (#171, spec #165 §5): the section look, shared by every
- * image of a story section, and the style-neutral scene plan, shared by every art style and
+ * Lazy text preparation for one moment (#171, spec #165 §5): the original section look guide (or binding owner constraints) and the scene plan with
+ * resolved moment conditions, shared by every art style and
  * reader translation of a moment. Both are made with Claude Haiku 5.5 the first time they are
  * needed, stored in the active analysis generation with the versions they were made from, and
  * reused until an input changes. A required look or plan that cannot be made raises a retryable
@@ -16,6 +16,7 @@ import type { WorkBrief } from "../work-preparation";
 import { planningNeighbors, sceneGroundingSchema, sceneGroundingProblem } from "./scene-grounding";
 import { PLAN_REVIEW_PROMPT_VERSION, PLAN_SCENE_FIELDS, reviewPlan, type PlanReviewProblem } from "./plan-review";
 import type { SelectedCanon } from "./prompt";
+import { lookPolicy, SITUATION_FIELDS, type Situation } from "./situation";
 
 export const LOOK_SYSTEM = `You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.
 Rules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments, and do not restate anyone's fixed appearance; canon does that. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.`;
@@ -42,12 +43,12 @@ Rules: single scene, no collage. Choose which of the listed cast are present in 
 Establish presence from the scene being illustrated. A shared wardrobe, a narrator's viewpoint or a neighboring mention alone does not establish presence. Neighbors may resolve identity and continuity in the current scene; do not import cast from a separate adjacent event. The section cast covers multiple moments, not a roster to depict in every image. Every cast entry described in any scene field must be selected in \`selectedCast\`; never describe an available cast member without selecting it. People, crowds, roles and animals with no cast entry may be described by role and situation when the moment needs them; they receive no fixed appearance and are never given a recurring character's name.
 Identify the action the moment depicts before selecting cast. If it is inside a narrated story, parable, dream, vision or recollection, depict that scene's actors and setting. Do not place its framing speaker, listener or narrator inside it unless the text establishes their participation there. Reporting "I saw" supplies a viewpoint, not a visible observer.
 Choose the scene from the source before writing its fields. In \`grounding.focusQuote\`, copy a short exact clause from MOMENT for the action or state to illustrate. If the moment recounts multiple actions, choose one representative instant; do not illustrate all steps. A character cannot occupy successive poses or places at once. Using the cast evidence, state that instant once in \`grounding.instant\`: where each selected formed character is and their one pose or movement, and the state or placement of selected places, objects and no-form effects (an effect's placement, never a bodily pose, seated presence or denied figure). Then write every scene field from that sentence, repeating its poses and places and adding no earlier or later step; for example, someone still walking toward a door cannot also be seated at the table. Keep each handled object in one state too: holding an object above a surface and putting it down are different instants. Choose one and keep its support, contact and placement consistent in primarySubject, action, secondaryElements and composition. Describe the chosen state rather than an action followed by its result. Ordinary simultaneous gestures, such as looking at an object while holding it, are allowed. Set \`grounding.singleInstant\` false if the fields cannot match it.
-Select each participating entry exactly once in \`selectedCast\`, with its entryId and exact words from MOMENT anchoring its participation at that instant. This is the only selection list: there is no separate present list or grounding.cast. Put section cast you considered and left out in \`consideredCast\`, classified as framing, mentioned, separate_event or uncertain; use an empty list when there are none. Such records select no one, and an entry cannot appear in both lists. Every quote copies its source exactly; to skip words, give exact fragments in source order separated by an ellipsis (…), never paraphrased or reordered. Only selectedCast entries may be rendered; select only participants in the chosen instant. Do not select framing, merely mentioned, separate-event or uncertain entries. A first-person report of seeing or telling is framing evidence, not evidence of visible participation. Cast introduced in a later event remain absent from the chosen instant. A neighbor may resolve a current pronoun, ownership or continuing location, but cannot supply presence missing from MOMENT. Copy any needed neighbor evidence separately, with contextSource previous or next; otherwise use none and an empty contextQuote. Include locations, objects and permitted no-form presences in this evidence, not only people. A selected location or object that continues from a neighbor may leave its MOMENT quote empty and be anchored by an exact quote from that neighbor alone; characters and groups always need words from MOMENT. These evidence quotes are audit data, never scene prose. The shared section look is applied separately during rendering; it supplies no evidence for this plan's participants, scene or atmosphere.
+Select each participating entry exactly once in \`selectedCast\`, with its entryId and exact words from MOMENT anchoring its participation at that instant. This is the only selection list: there is no separate present list or grounding.cast. Put section cast you considered and left out in \`consideredCast\`, classified as framing, mentioned, separate_event or uncertain; use an empty list when there are none. Such records select no one, and an entry cannot appear in both lists. Every quote copies its source exactly; to skip words, give exact fragments in source order separated by an ellipsis (…), never paraphrased or reordered. Only selectedCast entries may be rendered; select only participants in the chosen instant. Do not select framing, merely mentioned, separate-event or uncertain entries. A first-person report of seeing or telling is framing evidence, not evidence of visible participation. Cast introduced in a later event remain absent from the chosen instant. A neighbor may resolve a current pronoun, ownership or continuing location, but cannot supply presence missing from MOMENT. Copy any needed neighbor evidence separately, with contextSource previous or next; otherwise use none and an empty contextQuote. Include locations, objects and permitted no-form presences in this evidence, not only people. A selected location or object that continues from a neighbor may leave its MOMENT quote empty and be anchored by an exact quote from that neighbor alone; characters and groups always need words from MOMENT. These evidence quotes are audit data, never scene prose. The SECTION LOOK GUIDE is advisory: reuse only conditions compatible with this moment, source, selected canon and depiction rules. It supplies no evidence of participants or manifestations. Resolve this moment's five \`situation\` fields together with its scene fields: one place, time, weather, light and situational clothing, all describing the same instant. Source-stated conditions are binding; where unspecified, make one compatible illustrative choice. Keep fixed appearance in canon. Never import another moment's place, cast or effects from the guide. OWNER LOOK CONSTRAINTS, when supplied instead, are binding verbatim: copy all five values exactly into \`situation\`; do not reinterpret, omit or soften them. A contradiction with source/canon must remain a reported failure, not a changed source scene.
 Report \`missingCast\` when the moment requires a named character or group whom the story follows beyond this moment, so its look must stay consistent across images, and it has no cast entry; this applies to secondary characters as well as the main actor. Never report a role, a generic crowd or an animal, a person named only in passing (for example in a list), or anyone in the available cast: describe those without canon instead. A recurring named group is not a generic crowd, even when it appears as one. If an available cast member's presence is uncertain, choose an instant the text establishes rather than reporting it missing. A moment without an event (a list, law, saying or greeting) still gets a scene that illustrates its content or setting. Do not replace a missing named character with a framing figure or omit that character to fit the list. When \`missingCast\` is nonempty, return empty \`selectedCast\` and \`consideredCast\`, empty \`grounding.focusQuote\` and \`grounding.instant\`, and empty scene fields; preparation will stop for a source correction. Otherwise return an empty \`missingCast\` list. This is a report of missing required canon, not a request to create it.`;
 /** All plans use the selected-cast contract; a change refreshes plans lazily, without remaking looks. */
-export const MOMENT_CAST_PROMPT_VERSION = "2026-10-23-moment-cast-v9";
+export const MOMENT_CAST_PROMPT_VERSION = "2026-10-26-moment-cast-v10";
 /** Bump for changes to this no-form planning contract or its cast format; only affected plans use it. */
-export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-23-formless-effects-v9";
+export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-26-formless-effects-v10";
 const FORMLESS_PLAN_SYSTEM = `${PLAN_SYSTEM}
 Presence does not require a physical body. A cast entry marked hasForm: false still belongs in the moment when represented through the non-figurative presence allowed by the brief and its supplied canon constraints. If you describe that entry's presence or action in any scene field, include its id and source evidence in \`selectedCast\` so its canon constraints reach the image model. An effect standing for a no-form cast member counts as that member being depicted, even when unnamed, called background light, or placed at the edge of the scene: for example divine radiance, veiled radiance, or a fire-like glow representing God. Select its id and provide participation evidence from this moment, just as for a formed character. If the moment does not establish that presence, omit the effect from grounding.instant and every scene field. Ordinary sunlight, lamplight, embers and weather that do not represent a cast member require no such selection. Select presence for this moment only; do not add cast who are absent or merely mentioned. A command attributed to a no-form subject, a curse, an oath or an invocation alone does not establish a visible manifestation in the illustrated scene. Canon and depiction rules specify how an established presence may appear; they do not establish its presence. An actual appearance or vision can use the permitted effects, including an unoccupied seat and effects for a seated metaphor. When a rejected plan contains an unsupported effect, remove that effect from every field; adding its ID to \`selectedCast\` does not repair the source error.
 For each no-form subject, use its assigned canon to choose the permitted visible effects and their placement in the setting. Bodily wording about that subject in the source is a metaphor, not permission to give it a physical form. In every scene field, describe the permitted effects rather than bodily poses, anatomy, clothing, human silhouettes or figures made of light. Do not repeat prohibited features as denials or substitutes, such as a faceless figure or radiance suggesting garments. When the source describes a no-form subject as seated, describe the unoccupied seat and the permitted surrounding effects rather than a seated presence. Keep formed characters' own poses, clothing and actions; never transfer a no-form subject's bodily metaphors to them.
@@ -94,12 +95,13 @@ function planningResponseSchema(entryIds: string[], hasFormlessCast: boolean) {
     consideredCast: z.array(evidence.extend({ participation: z.enum(["framing", "mentioned", "separate_event", "uncertain"]) }))
       .describe("Section cast considered and left out of the chosen scene, with their reason for exclusion. These records select nobody; never repeat a selectedCast ID. Use an empty list when none are needed."),
     ...base.omit({ present: true }).shape,
+    situation: lookOutputSchema.describe("Resolved place, time, weather, light and situational clothing for this exact moment, consistent with all scene fields. Copy OWNER LOOK CONSTRAINTS verbatim when supplied; otherwise adapt the guide to the source. Each value at most 200 characters unless copying an owner constraint."),
     missingCast: z.array(z.string().refine((name) => name.trim().length > 0, "A missing subject needs a name or role"))
       .describe("Named characters or groups the story follows beyond this moment, required here and absent from the available section cast. Include such actors inside embedded stories or visions. Never roles, crowds, animals, people named only in passing, or entries already in the cast. Usually empty; never invent canon or substitute framing figures."),
   }).strict();
 }
 
-export type AnalysisRecord = { kind: string; recordId: string; version: string; inputs: Array<{ kind: string; recordId: string; version: string }>; payload: Record<string, unknown> & { kind: string } };
+export type AnalysisRecord = { source?: "generated" | "owner"; kind: string; recordId: string; version: string; inputs: Array<{ kind: string; recordId: string; version: string }>; payload: Record<string, unknown> & { kind: string } };
 export type InputRef = { kind: string; recordId: string; version: string };
 
 export type MomentContext = {
@@ -127,7 +129,8 @@ export class PreparationUnavailableError extends Error {
 export type PreparedMoment = {
   sectionId: string;
   era: string | null;
-  look: { version: string; payload: z.infer<typeof lookOutputSchema> };
+  look: { version: string; payload: z.infer<typeof lookOutputSchema>; policy: ReturnType<typeof lookPolicy> };
+  situation: Situation;
   plan: { version: string; payload: z.infer<typeof planOutputSchema> };
   /** The entries present in the moment with the stage the section assigns them, and their canon versions. */
   present: Array<{ entryId: string; stageId: string; version: string }>;
@@ -184,7 +187,7 @@ async function ensureRecord(
         if (fresh && sameInputs(fresh, expectedInputs)) return fresh;
         const payload = await make();
         const { version } = await store.putDerivedRecord({ kind, recordId, payload, inputs: expectedInputs });
-        return { kind, recordId, version, inputs: expectedInputs, payload };
+        return { kind, recordId, version, inputs: expectedInputs, payload, source: "generated" as const };
       } finally {
         await store.release(kind, recordId, options.holder);
       }
@@ -202,7 +205,7 @@ async function askOnce<T>(model: TextModel, store: PreparationStore, kind: "look
     let result;
     try {
       result = await model.complete({ label: `${kind}:${recordId}:${attempt}`, system, user, schemaName: kind === "look" ? "section_look" : "scene_plan", schema,
-        maxTokens: kind === "plan" ? 2400 : 900, expectedCompletionTokens: kind === "plan" ? 900 : 350 });
+        maxTokens: kind === "plan" ? 2400 : 900, expectedCompletionTokens: kind === "plan" ? 1200 : 350 });
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
       await store.recordSpend({ kind, recordId, model: model.id, outcome: `error: ${lastError.slice(0, 120)}`, costUsd: null, promptTokens: null, completionTokens: null, elapsedMs: 0 });
@@ -268,7 +271,9 @@ export async function prepareMoment(options: {
   const lookInputs: InputRef[] = [{ kind: "section", recordId: sectionId, version: section.version }, { kind: "brief", recordId: options.workId, version: options.briefVersion },
     ...cast.map((c) => ({ kind: "entry", recordId: c.entryId, version: c.version })),
     ...(hasFormlessCast ? [{ kind: "prompt", recordId: "section_look_formless_presence", version: FORMLESS_LOOK_PROMPT_VERSION }] : [])];
-  const look = await ensureRecord(store, options.workId, "look", sectionId, lookInputs, async () => {
+  const existingLook = await store.getActiveRecord("look", sectionId);
+  // Owner/unknown looks stay literal even when other dependencies change. Review decides compatibility.
+  const look = existingLook && lookPolicy(existingLook) === "literal-constraint-v1" ? existingLook : await ensureRecord(store, options.workId, "look", sectionId, lookInputs, async () => {
     const castContext = hasFormlessCast
       ? `CAST ON STAGE IN THIS SECTION (id: name):\n${cast.map((c) => `- ${c.entryId}: ${c.name} (hasForm: ${c.hasForm})`).join("\n")}\n\nNO-FORM CANON CONSTRAINTS (setting context; fixed descriptions are not section-look fields):\n${formlessConstraints}`
       : `ON STAGE: ${cast.map((c) => c.name).join(", ") || "(no one listed)"}`;
@@ -278,10 +283,17 @@ export async function prepareMoment(options: {
   }, timing);
   const lookPayload = lookOutputSchema.parse(Object.fromEntries(Object.keys(lookOutputSchema.shape).map((field) => [field, look.payload[field]])));
 
+  const policy = lookPolicy(look);
+  const assertLookCurrent = async () => {
+    const current = await store.getActiveRecord("look", sectionId);
+    if (!current || current.version !== look.version || lookPolicy(current) !== policy) throw new PreparationUnavailableError("look", "section look changed during preparation");
+  };
+
   // Include the section directly: a stage reassignment can leave the regenerated look's content hash unchanged.
   // The plan never depends on a style or translation.
   const planInputs: InputRef[] = [{ kind: "moment", recordId: options.momentId, version: moment.version }, { kind: "section", recordId: sectionId, version: section.version },
     { kind: "look", recordId: sectionId, version: look.version },
+    { kind: "prompt", recordId: "scene_plan_look_ownership", version: policy },
     { kind: "brief", recordId: options.workId, version: options.briefVersion }, ...cast.map((c) => ({ kind: "entry", recordId: c.entryId, version: c.version })),
     { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION },
     { kind: "prompt", recordId: "scene_plan_review", version: PLAN_REVIEW_PROMPT_VERSION },
@@ -296,6 +308,7 @@ export async function prepareMoment(options: {
     // Locations and objects may continue from a neighbor; an entry without a kind is treated as a character.
     const continuingIds = cast.filter((c) => c.entryKind === "location" || c.entryKind === "object").map((c) => c.entryId);
     const schema = planningResponseSchema(castIds, hasFormlessCast);
+    const lookContext = `\n\n${policy === "generated-guide-v1" ? "SECTION LOOK GUIDE (advisory; not rendered)" : "OWNER LOOK CONSTRAINTS (binding verbatim; copy all values exactly)"}:\n${JSON.stringify(lookPayload)}`;
     // Both the stored IDs and evidence come from one explicit selection; never infer or drop cast.
     const selectedScene = (reply: z.infer<typeof schema>) => ({
       present: reply.selectedCast.map((entry) => entry.entryId),
@@ -304,14 +317,15 @@ export async function prepareMoment(options: {
     const reviewCast = cast.map((c) => ({ entryId: c.entryId, name: c.name, hasForm: c.hasForm }));
     // Each plan is reviewed against its moment before storage. The first rejected plan, by evidence
     // checks or review, gets exactly one re-plan with the problems as feedback; a second rejection
-    // stops preparation. Source gaps, shared-look conflicts and unreadable reviews stop at once.
+    // stops preparation. Source gaps, owner-constraint conflicts and unreadable reviews stop at once.
     let feedback = "", rejected: { evidence?: string; problems?: PlanReviewProblem[] } | null = null;
     for (let round = 1; round <= 2; round++) {
       let evidenceProblem: string | null = null;
       let value: z.infer<typeof schema>;
       try {
-        value = await askOnce(model, store, "plan", options.momentId, schema, hasFormlessCast ? FORMLESS_PLAN_SYSTEM : PLAN_SYSTEM, user + feedback, (reply) => {
+        value = await askOnce(model, store, "plan", options.momentId, schema, hasFormlessCast ? FORMLESS_PLAN_SYSTEM : PLAN_SYSTEM, user + lookContext + feedback, (reply) => {
           if (reply.missingCast.length) return `required canon unavailable: ${reply.missingCast.join(", ")}`;
+          if (policy === "literal-constraint-v1" && SITUATION_FIELDS.some((field) => reply.situation[field] !== lookPayload[field])) return "owner look constraints must remain verbatim";
           const { present, grounding } = selectedScene(reply);
           evidenceProblem = sceneGroundingProblem(grounding, present, options.context, castIds, continuingIds);
           return evidenceProblem;
@@ -326,33 +340,38 @@ export async function prepareMoment(options: {
       const fields = Object.fromEntries(PLAN_SCENE_FIELDS.map((field) => [field, value[field]])) as Record<(typeof PLAN_SCENE_FIELDS)[number], string>;
       const review = await reviewPlan(model, (entry) => store.recordSpend({ kind: "plan", recordId: options.momentId, ...entry }), options.momentId,
         { rules, context: options.context, sectionTitle: sectionPayload.title, cast: reviewCast, present, fields,
-          rendering: { look: lookPayload, canon: present.map((id) => {
+          rendering: { look: value.situation, lookPolicy: policy, canon: present.map((id) => {
             const entry = cast.find((c) => c.entryId === id)!;
             return { entryId: id, stageId: entry.stageId, kind: entry.entryKind, name: entry.name, text: entry.text, hasForm: entry.hasForm, version: entry.version };
           }) } });
       if ("unavailable" in review) throw new PreparationUnavailableError("plan", review.unavailable);
       if (review.problems.length) {
-        // A shared look is used by other moments and may be owner-authored. Never rewrite it or
-        // change a sound plan to fit it. Stop before references/images; correction is explicit.
+        // Owner conditions remain literal and stop for explicit correction. Generated moment
+        // conditions can be re-planned once together with the scene; the shared guide is unchanged.
         const lookProblems = review.problems.filter((p) => p.kind === "look_conflict");
-        if (lookProblems.length) throw new PreparationUnavailableError("look", `rendering review: ${lookProblems.map((p) => `${p.kind}: ${p.reason} (look said: "${p.planQuote}")`).join("; ")}`);
+        if (lookProblems.length && policy === "literal-constraint-v1") throw new PreparationUnavailableError("look", `rendering review: ${lookProblems.map((p) => `${p.kind}: ${p.reason} (look said: "${p.planQuote}")`).join("; ")}`);
         const missingCanon = review.problems.filter((p) => p.kind === "missing_canon");
         if (missingCanon.length) throw new PreparationUnavailableError("plan", `required canon unavailable: ${missingCanon.map((p) => p.reason).join("; ")}`);
         if (round === 2) throw new PreparationUnavailableError("plan", `plan review: ${review.problems.map((p) => `${p.kind}${p.entryId ? ` ${p.entryId}` : ""}`).join(", ")}`);
         rejected = { problems: review.problems };
-        feedback = replanFeedback(review.problems.map((p) => `${p.kind}: ${p.reason} (plan said: "${p.planQuote}")`));
+        feedback = replanFeedback(review.problems.map((p) => `${p.kind}: ${p.reason} (${p.kind === "look_conflict" ? "moment conditions" : "plan"} said: "${p.planQuote}")`));
         continue;
       }
-      return { kind: "plan" as const, momentId: options.momentId, entries: present.map((id) => ({ entryId: id, stageId: cast.find((c) => c.entryId === id)!.stageId })), plan: fields, grounding,
+      await assertLookCurrent();
+      return { kind: "plan" as const, situation: value.situation, momentId: options.momentId, entries: present.map((id) => ({ entryId: id, stageId: cast.find((c) => c.entryId === id)!.stageId })), plan: fields, grounding,
         review: { rounds: round, ...(rejected ?? {}) } };
     }
     throw new PreparationUnavailableError("plan", "plan review exhausted");
   }, timing);
 
+  await assertLookCurrent();
+  const situation = lookOutputSchema.safeParse(plan.payload.situation);
+  if (!situation.success) throw new PreparationUnavailableError("plan", "resolved moment conditions unavailable");
+  if (policy === "literal-constraint-v1" && SITUATION_FIELDS.some((field) => situation.data[field] !== lookPayload[field])) throw new PreparationUnavailableError("look", "owner look constraints changed");
   const planPayload = plan.payload as unknown as { entries: Array<{ entryId: string; stageId: string }>; plan: z.infer<typeof planOutputSchema> };
   return {
-    sectionId, era: era.id,
-    look: { version: look.version, payload: { place: lookPayload.place, timeOfDay: lookPayload.timeOfDay, weather: lookPayload.weather, light: lookPayload.light, clothing: lookPayload.clothing } },
+    sectionId, era: era.id, situation: situation.data,
+    look: { version: look.version, policy, payload: { place: lookPayload.place, timeOfDay: lookPayload.timeOfDay, weather: lookPayload.weather, light: lookPayload.light, clothing: lookPayload.clothing } },
     plan: { version: plan.version, payload: { ...planPayload.plan, present: planPayload.entries.map((e) => e.entryId) } },
     present: planPayload.entries.map((e) => ({ entryId: e.entryId, stageId: e.stageId, version: cast.find((c) => c.entryId === e.entryId)?.version ?? "" })),
     calls,
