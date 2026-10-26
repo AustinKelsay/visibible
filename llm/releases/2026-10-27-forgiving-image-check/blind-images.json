@@ -1,0 +1,3187 @@
+{
+  "masking": "Style and control labels omitted; style is visible in the image. Two independent model scorers, operator adjudication; not human acceptance.",
+  "packet": [
+    {
+      "id": "img01",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img01.jpg",
+      "sha256": "60b2abc2f0db8e12c9170b5765c1d0c32fac6d9299e830606fc5bd7fc45909e3",
+      "verse": "exodus-14-22",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "moses",
+        "red_sea",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_egyptians",
+          "name": "the Egyptians",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "red_sea",
+          "name": "Red Sea",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A long column of Israelite people, families and herders walking in step across the wet sand, with Moses near the front",
+        "action": "The people advance into the middle of the sea on dry ground while water stands as walls on both sides",
+        "setting": "The dry seabed between two standing walls of water, with a distant Egyptian shore and wilderness cliffs at the edges",
+        "secondaryElements": "Bundled belongings carried on shoulders, children held close, a brilliant pillar of cloud and fire glowing faintly at the heart of the divide, damp mist rising from the sand",
+        "mood": "Awe, tense hope and quiet dignity",
+        "timeOfDay": "Pre-dawn night with the sky lightening gradually",
+        "composition": "Wide view down the central path of the seabed, the water walls rising on either side and framing the column of people",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "moses",
+          "red_sea",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "The dry seabed between two standing walls of water, under a vast open sky with distant Egyptian shore and wilderness cliffs at the edges",
+        "timeOfDay": "Night turning toward dawn across the section, the sky lightening gradually",
+        "weather": "Still, cool air with a dense slowly moving cloud column above the sea, damp mist rising from the wet sand",
+        "light": "Pillar of cloud and fire glow at the heart of the divide, faint pre-dawn light on the water walls, shimmering reflections on wet sand",
+        "clothing": "Woven tunics, cloaks and Egyptian linen garments, with sand-dusted sandals and bundled belongings carried on the shoulders"
+      }
+    },
+    {
+      "id": "img02",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img02.jpg",
+      "sha256": "7215931d8f86ce25390dd8f8703142933506a549cad09b2a36831e30b6ffc638",
+      "verse": "exodus-40-34",
+      "selected": [
+        "god_yahweh_the_father_and_god_of_israel",
+        "the_israelite_people_the_children_of_israel",
+        "the_tabernacle_portable_sanctuary",
+        "the_camp_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_camp_of_israel",
+          "name": "the camp of Israel",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The portable tabernacle with its linen walls, covered by a dense cloud and filled from within by white-gold radiance",
+        "action": "The cloud descends and covers the Tent of Meeting while light pours out through the tabernacle's veil, filling it from within",
+        "setting": "A wilderness camp of tents around a portable tabernacle inside a linen court, with sand and rock beyond",
+        "secondaryElements": "Israelite families standing at a respectful distance among their tents, priestly linen at the entrance, a faint fire-like warmth glowing through the cloud",
+        "mood": "Awe, reverence and quiet hope",
+        "timeOfDay": "Dusk fading into night, the cloud glowing faintly",
+        "composition": "Wide view from the edge of the camp, the tabernacle centred and the cloud rising above it, the people small in the foreground",
+        "present": [
+          "god_yahweh_the_father_and_god_of_israel",
+          "the_israelite_people_the_children_of_israel",
+          "the_tabernacle_portable_sanctuary",
+          "the_camp_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "Wilderness camp of tents around a portable tabernacle with its linen court and a dense cloud resting over the sanctuary",
+        "timeOfDay": "Dusk into night, with the cloud glowing faintly as the light fades",
+        "weather": "Still desert air under a heavy, slowly moving cloud; dust settling on the sand",
+        "light": "Radiant white-gold glow from the tabernacle veiled by the cloud, with a fire-like warmth at its heart, lighting the tent cloths softly",
+        "clothing": "Woven tunics and cloaks on the Israelite people; priestly linen at the tabernacle entrance"
+      }
+    },
+    {
+      "id": "img03",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img03.jpg",
+      "sha256": "28b33fedafe70f3ecbdbbff16ba75cf8beb3ac7398850198435b5bdbf4cfe4b7",
+      "verse": "luke-10-34",
+      "selected": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "samaritans_mount_in_parable",
+        "jerusalem_to_jericho_road",
+        "inn_in_samaritan_parable"
+      ],
+      "availableCast": [
+        {
+          "entryId": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_samaritan",
+          "name": "the Samaritan",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan kneeling in the dust, bending over the wounded traveler to tend his wounds.",
+        "action": "Pouring oil and wine onto the traveler's wounds and binding them with cloth.",
+        "setting": "A rocky, sun-baked stretch of the Jerusalem–Jericho road in Judea, with the stone inn visible nearby.",
+        "secondaryElements": "The Samaritan's mount standing patiently beside them with a simple leather saddle and packs; scattered stones and dust on the road.",
+        "mood": "Tender, compassionate, quietly urgent.",
+        "timeOfDay": "Midday heat with strong warm sunlight casting short shadows.",
+        "composition": "Eye-level view from the roadside, the Samaritan and traveler centered in the foreground with the animal and inn receding behind them.",
+        "present": [
+          "the_samaritan",
+          "wounded_traveler_in_samaritan_parable",
+          "samaritans_mount_in_parable",
+          "jerusalem_to_jericho_road",
+          "inn_in_samaritan_parable"
+        ]
+      },
+      "conditions": {
+        "place": "Rocky, sun-baked Jerusalem–Jericho road in Judea, with a stone inn beside it",
+        "timeOfDay": "Midday heat, later turning to evening",
+        "weather": "Clear dry sky, hot still air, dust on the road",
+        "light": "Strong warm desert sunlight with long soft shadows toward evening",
+        "clothing": "The Samaritan in an undyed linen tunic in earth tones with a deep blue-grey woollen cloak; the traveler stripped to a simple linen loincloth with no cloak or sandals"
+      }
+    },
+    {
+      "id": "img04",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img04.jpg",
+      "sha256": "652d2f9d7120e8b11b894be17ea3c0ebeac8451c22b020707d8b6e91cffa6728",
+      "verse": "daniel-7-9",
+      "selected": [
+        "the_ancient_of_days",
+        "daniel_prophet_of_babylon"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Seated radiance of the Ancient of Days, shown only as light, cloud and fire around an empty throne of flame",
+        "action": "The throne is being set in place, its burning wheels and flames blazing while the seated presence is revealed through radiance",
+        "setting": "Vast visionary courtroom beneath open sky with a river of fire before the throne",
+        "secondaryElements": "Daniel in a simple prophet's cloak standing at a distance, watching; white-hued cloud banks and drifting smoke around the throne",
+        "mood": "Awe, solemnity and holy stillness",
+        "timeOfDay": "Night vision brightening toward dawn-like light",
+        "composition": "Wide view with the throne centred and raised, Daniel small at the lower edge looking up",
+        "present": [
+          "the_ancient_of_days",
+          "daniel_prophet_of_babylon"
+        ]
+      },
+      "conditions": {
+        "place": "Vast visionary courtroom beneath open sky; thrones set in a river of fire, with a stony Babylonian palace-threshold and cloud-banked horizon in the distance",
+        "timeOfDay": "Night vision transitioning into dawn-like brightness",
+        "weather": "Clouds gathering in heavy banks, with a still, charged atmosphere and drifting smoke",
+        "light": "Radiance and fire rising from the throne and wheels, with cloud-lit illumination spreading outward",
+        "clothing": "Daniel in a simple prophet's cloak; no other situational props"
+      }
+    },
+    {
+      "id": "img05",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img05.jpg",
+      "sha256": "584d99f159394355b84c21e3367ea5b5ae4d63ba7507283f562168fc397a1307",
+      "verse": "exodus-19-18",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_israelite_people_the_children_of_israel",
+        "god_yahweh_the_father_and_god_of_israel",
+        "horeb_mount_sinai"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses and Aaron standing at the lower slope, gazing upward, with the Israelite people gathered behind them",
+        "action": "Smoke and fire rise from the summit as the mountain shakes, and the people draw back in awe at the foot of the slope",
+        "setting": "Bare rocky slopes of Horeb/Mount Sinai in the desert, with the camp spread at the mountain's foot",
+        "secondaryElements": "Dense smoke column rising from the peak, fire glowing through it, a white-gold light veiled by slowly moving cloud at the summit, staffs and tent cords held by the travelers, scattered stones loosened by the quake",
+        "mood": "Awed, reverent and fearful, grave and dignified",
+        "timeOfDay": "Dusk deepening toward night",
+        "composition": "Low viewpoint looking up the slope toward the smoking summit, with Moses and Aaron in the foreground and the people spread in the middle ground",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_israelite_people_the_children_of_israel",
+          "god_yahweh_the_father_and_god_of_israel",
+          "horeb_mount_sinai"
+        ]
+      },
+      "conditions": {
+        "place": "Bare rocky slopes of Horeb/Mount Sinai in the desert, with the Israelite camp at the mountain's foot among tents and tethered animals",
+        "timeOfDay": "Dusk deepening into night",
+        "weather": "Thick smoke rising from the mountain, thunder and lightning over the peak, dust blown by a strong wind, the ground trembling",
+        "light": "Reddish firelight through smoke at the summit, lightning flashes, God's radiance veiled in dense cloud at the peak",
+        "clothing": "Israelite travelers in woven tunics and cloaks, Aaron in priestly linen, Moses in a plain traveler's cloak"
+      }
+    },
+    {
+      "id": "img06",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img06.jpg",
+      "sha256": "0ca294d20983e2bfbb8fd0b8c2dc708f91e3cc1db6fb67ea3727513f480808d0",
+      "verse": "exodus-40-34",
+      "selected": [
+        "god_yahweh_the_father_and_god_of_israel",
+        "the_israelite_people_the_children_of_israel",
+        "the_tabernacle_portable_sanctuary",
+        "the_camp_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_camp_of_israel",
+          "name": "the camp of Israel",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The portable tabernacle with its linen walls, covered by a dense cloud and filled from within by white-gold radiance",
+        "action": "The cloud descends and covers the Tent of Meeting while light pours out through the tabernacle's veil, filling it from within",
+        "setting": "A wilderness camp of tents around a portable tabernacle inside a linen court, with sand and rock beyond",
+        "secondaryElements": "Israelite families standing at a respectful distance among their tents, priestly linen at the entrance, a faint fire-like warmth glowing through the cloud",
+        "mood": "Awe, reverence and quiet hope",
+        "timeOfDay": "Dusk fading into night, the cloud glowing faintly",
+        "composition": "Wide view from the edge of the camp, the tabernacle centred and the cloud rising above it, the people small in the foreground",
+        "present": [
+          "god_yahweh_the_father_and_god_of_israel",
+          "the_israelite_people_the_children_of_israel",
+          "the_tabernacle_portable_sanctuary",
+          "the_camp_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "Wilderness camp of tents around a portable tabernacle with its linen court and a dense cloud resting over the sanctuary",
+        "timeOfDay": "Dusk into night, with the cloud glowing faintly as the light fades",
+        "weather": "Still desert air under a heavy, slowly moving cloud; dust settling on the sand",
+        "light": "Radiant white-gold glow from the tabernacle veiled by the cloud, with a fire-like warmth at its heart, lighting the tent cloths softly",
+        "clothing": "Woven tunics and cloaks on the Israelite people; priestly linen at the tabernacle entrance"
+      }
+    },
+    {
+      "id": "img07",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img07.jpg",
+      "sha256": "6532c9cd7005a7906143e28f0a53825cdd61e8689587bdc868cce86a185e2f8b",
+      "verse": "luke-10-34",
+      "selected": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "samaritans_mount_in_parable",
+        "jerusalem_to_jericho_road",
+        "inn_in_samaritan_parable"
+      ],
+      "availableCast": [
+        {
+          "entryId": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_samaritan",
+          "name": "the Samaritan",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan kneeling in the dust, bending over the wounded traveler to tend his wounds.",
+        "action": "Pouring oil and wine onto the traveler's wounds and binding them with cloth.",
+        "setting": "A rocky, sun-baked stretch of the Jerusalem–Jericho road in Judea, with the stone inn visible nearby.",
+        "secondaryElements": "The Samaritan's mount standing patiently beside them with a simple leather saddle and packs; scattered stones and dust on the road.",
+        "mood": "Tender, compassionate, quietly urgent.",
+        "timeOfDay": "Midday heat with strong warm sunlight casting short shadows.",
+        "composition": "Eye-level view from the roadside, the Samaritan and traveler centered in the foreground with the animal and inn receding behind them.",
+        "present": [
+          "the_samaritan",
+          "wounded_traveler_in_samaritan_parable",
+          "samaritans_mount_in_parable",
+          "jerusalem_to_jericho_road",
+          "inn_in_samaritan_parable"
+        ]
+      },
+      "conditions": {
+        "place": "Rocky, sun-baked Jerusalem–Jericho road in Judea, with a stone inn beside it",
+        "timeOfDay": "Midday heat, later turning to evening",
+        "weather": "Clear dry sky, hot still air, dust on the road",
+        "light": "Strong warm desert sunlight with long soft shadows toward evening",
+        "clothing": "The Samaritan in an undyed linen tunic in earth tones with a deep blue-grey woollen cloak; the traveler stripped to a simple linen loincloth with no cloak or sandals"
+      }
+    },
+    {
+      "id": "img08",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img08.jpg",
+      "sha256": "21fb5c84422073145d9acb93a65cfb4ef0edee58312f809e39f292b7c09760fd",
+      "verse": "daniel-7-9",
+      "selected": [
+        "the_ancient_of_days",
+        "daniel_prophet_of_babylon"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Seated radiance of the Ancient of Days, shown only as light, cloud and fire around an empty throne of flame",
+        "action": "The throne is being set in place, its burning wheels and flames blazing while the seated presence is revealed through radiance",
+        "setting": "Vast visionary courtroom beneath open sky with a river of fire before the throne",
+        "secondaryElements": "Daniel in a simple prophet's cloak standing at a distance, watching; white-hued cloud banks and drifting smoke around the throne",
+        "mood": "Awe, solemnity and holy stillness",
+        "timeOfDay": "Night vision brightening toward dawn-like light",
+        "composition": "Wide view with the throne centred and raised, Daniel small at the lower edge looking up",
+        "present": [
+          "the_ancient_of_days",
+          "daniel_prophet_of_babylon"
+        ]
+      },
+      "conditions": {
+        "place": "Vast visionary courtroom beneath open sky; thrones set in a river of fire, with a stony Babylonian palace-threshold and cloud-banked horizon in the distance",
+        "timeOfDay": "Night vision transitioning into dawn-like brightness",
+        "weather": "Clouds gathering in heavy banks, with a still, charged atmosphere and drifting smoke",
+        "light": "Radiance and fire rising from the throne and wheels, with cloud-lit illumination spreading outward",
+        "clothing": "Daniel in a simple prophet's cloak; no other situational props"
+      }
+    },
+    {
+      "id": "img09",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img09.jpg",
+      "sha256": "ece9edf3dae4b428407964a737c5ba28cdb25cda62ab5f67ea5c7b3d87563c56",
+      "verse": "exodus-19-18",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_israelite_people_the_children_of_israel",
+        "god_yahweh_the_father_and_god_of_israel",
+        "horeb_mount_sinai"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses and Aaron standing at the lower slope, gazing upward, with the Israelite people gathered behind them",
+        "action": "Smoke and fire rise from the summit as the mountain shakes, and the people draw back in awe at the foot of the slope",
+        "setting": "Bare rocky slopes of Horeb/Mount Sinai in the desert, with the camp spread at the mountain's foot",
+        "secondaryElements": "Dense smoke column rising from the peak, fire glowing through it, a white-gold light veiled by slowly moving cloud at the summit, staffs and tent cords held by the travelers, scattered stones loosened by the quake",
+        "mood": "Awed, reverent and fearful, grave and dignified",
+        "timeOfDay": "Dusk deepening toward night",
+        "composition": "Low viewpoint looking up the slope toward the smoking summit, with Moses and Aaron in the foreground and the people spread in the middle ground",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_israelite_people_the_children_of_israel",
+          "god_yahweh_the_father_and_god_of_israel",
+          "horeb_mount_sinai"
+        ]
+      },
+      "conditions": {
+        "place": "Bare rocky slopes of Horeb/Mount Sinai in the desert, with the Israelite camp at the mountain's foot among tents and tethered animals",
+        "timeOfDay": "Dusk deepening into night",
+        "weather": "Thick smoke rising from the mountain, thunder and lightning over the peak, dust blown by a strong wind, the ground trembling",
+        "light": "Reddish firelight through smoke at the summit, lightning flashes, God's radiance veiled in dense cloud at the peak",
+        "clothing": "Israelite travelers in woven tunics and cloaks, Aaron in priestly linen, Moses in a plain traveler's cloak"
+      }
+    },
+    {
+      "id": "img10",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img10.jpg",
+      "sha256": "c5748912c9ac36800716e31184459ec7049b37ab49c6690da362173cc315594b",
+      "verse": "exodus-14-22",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "moses",
+        "red_sea",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_egyptians",
+          "name": "the Egyptians",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "red_sea",
+          "name": "Red Sea",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A long column of Israelite people, families and herders walking in step across the wet sand, with Moses near the front",
+        "action": "The people advance into the middle of the sea on dry ground while water stands as walls on both sides",
+        "setting": "The dry seabed between two standing walls of water, with a distant Egyptian shore and wilderness cliffs at the edges",
+        "secondaryElements": "Bundled belongings carried on shoulders, children held close, a brilliant pillar of cloud and fire glowing faintly at the heart of the divide, damp mist rising from the sand",
+        "mood": "Awe, tense hope and quiet dignity",
+        "timeOfDay": "Pre-dawn night with the sky lightening gradually",
+        "composition": "Wide view down the central path of the seabed, the water walls rising on either side and framing the column of people",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "moses",
+          "red_sea",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "The dry seabed between two standing walls of water, under a vast open sky with distant Egyptian shore and wilderness cliffs at the edges",
+        "timeOfDay": "Night turning toward dawn across the section, the sky lightening gradually",
+        "weather": "Still, cool air with a dense slowly moving cloud column above the sea, damp mist rising from the wet sand",
+        "light": "Pillar of cloud and fire glow at the heart of the divide, faint pre-dawn light on the water walls, shimmering reflections on wet sand",
+        "clothing": "Woven tunics, cloaks and Egyptian linen garments, with sand-dusted sandals and bundled belongings carried on the shoulders"
+      }
+    },
+    {
+      "id": "img11",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img11.jpg",
+      "sha256": "e77d766e8d306187d0194c411c4b20048418a65520a643e538fb1457b043e061",
+      "verse": "exodus-16-15",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "moses",
+        "the_camp_of_israel",
+        "the_wilderness_exodus_route",
+        "aaron_brother_of_moses"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "the_wilderness_exodus_route",
+          "name": "The wilderness (Exodus route)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_camp_of_israel",
+          "name": "the camp of Israel",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A group of Israelite men and women crouched or standing on the dew-covered ground, one holding up a small round flake in their open palm.",
+        "action": "Those gathered look at the small round substance and turn to one another in questioning wonder while Moses raises a hand toward them in explanation.",
+        "setting": "The open wilderness edge of the camp, with tents behind and sand and rock stretching into the desert.",
+        "secondaryElements": "Gathering baskets and jars on the ground, Aaron standing near Moses, and at the edge of the scene a dense slowly moving cloud glowing with veiled white-gold radiance and a fire-like heart, without any figure.",
+        "mood": "Reverent wonder mixed with uncertainty and quiet trust.",
+        "timeOfDay": "Early dawn with soft pale light spreading over the desert.",
+        "composition": "Medium shot at ground level looking across the crowd toward Moses, with the cloud of divine presence placed high on the far horizon.",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "moses",
+          "the_camp_of_israel",
+          "the_wilderness_exodus_route",
+          "aaron_brother_of_moses"
+        ]
+      },
+      "conditions": {
+        "place": "Open wilderness camp of Israel with tents across sand and rock",
+        "timeOfDay": "Early morning at dawn",
+        "weather": "Clear dry desert air with light morning dew on the ground",
+        "light": "Soft pale dawn light with the veiled brilliant white-gold radiance and fire-like glow of God's presence at the edge of the cloud",
+        "clothing": "Woven tunics and cloaks of the Israelites, Moses and Aaron in plain linen garments"
+      }
+    },
+    {
+      "id": "img12",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img12.jpg",
+      "sha256": "ab6287ef662558763b1eb26d3ccb0ebc57493f12f1c8ecef190dfd06b3c460a9",
+      "verse": "luke-10-34",
+      "selected": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "samaritans_mount_in_parable",
+        "jerusalem_to_jericho_road",
+        "inn_in_samaritan_parable"
+      ],
+      "availableCast": [
+        {
+          "entryId": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_samaritan",
+          "name": "the Samaritan",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan kneeling in the dust, bending over the wounded traveler to tend his wounds.",
+        "action": "Pouring oil and wine onto the traveler's wounds and binding them with cloth.",
+        "setting": "A rocky, sun-baked stretch of the Jerusalem–Jericho road in Judea, with the stone inn visible nearby.",
+        "secondaryElements": "The Samaritan's mount standing patiently beside them with a simple leather saddle and packs; scattered stones and dust on the road.",
+        "mood": "Tender, compassionate, quietly urgent.",
+        "timeOfDay": "Midday heat with strong warm sunlight casting short shadows.",
+        "composition": "Eye-level view from the roadside, the Samaritan and traveler centered in the foreground with the animal and inn receding behind them.",
+        "present": [
+          "the_samaritan",
+          "wounded_traveler_in_samaritan_parable",
+          "samaritans_mount_in_parable",
+          "jerusalem_to_jericho_road",
+          "inn_in_samaritan_parable"
+        ]
+      },
+      "conditions": {
+        "place": "Rocky, sun-baked Jerusalem–Jericho road in Judea, with a stone inn beside it",
+        "timeOfDay": "Midday heat, later turning to evening",
+        "weather": "Clear dry sky, hot still air, dust on the road",
+        "light": "Strong warm desert sunlight with long soft shadows toward evening",
+        "clothing": "The Samaritan in an undyed linen tunic in earth tones with a deep blue-grey woollen cloak; the traveler stripped to a simple linen loincloth with no cloak or sandals"
+      }
+    },
+    {
+      "id": "img13",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img13.jpg",
+      "sha256": "300a59bc9b6d9c62a250962d51576f3becec99ec404f4e9daeb58015c1f61f78",
+      "verse": "isaiah-6-1",
+      "selected": [
+        "isaiah_son_of_amoz",
+        "god_yahweh_the_father_and_god_of_israel",
+        "yahweh_s_house_in_jerusalem_the_temple"
+      ],
+      "availableCast": [
+        {
+          "entryId": "isaiah_son_of_amoz",
+          "name": "Isaiah son of Amoz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "seraphim",
+          "name": "Seraphim",
+          "kind": "object",
+          "hasForm": true
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "name": "Yahweh's house in Jerusalem (the temple)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Isaiah, a lone figure in plain mourning-tone cloak, standing still with face lifted toward the upper sanctuary",
+        "action": "He gazes up as radiance without a source, veiled by a slowly moving cloud with a fire-like glow at its heart, fills the high place and spills down over the temple floor",
+        "setting": "Interior of the Jerusalem temple with stone columns, a raised throne-platform and a stone threshold and doorposts at the entrance",
+        "secondaryElements": "Swirling incense haze in the sanctuary; soft lamplight on the stone walls; the hem of the radiance's train pouring across the floor and filling the hall",
+        "mood": "Awed, reverent and grieving, with quiet stillness and a sense of profound human smallness before glory",
+        "timeOfDay": "Single unchanging interior hour with soft lamplight and radiance-lit stone",
+        "composition": "Low viewpoint from the temple floor looking up toward the high sanctuary; Isaiah small in the lower foreground, the veiled radiance dominating the upper frame",
+        "present": [
+          "isaiah_son_of_amoz",
+          "god_yahweh_the_father_and_god_of_israel",
+          "yahweh_s_house_in_jerusalem_the_temple"
+        ]
+      },
+      "conditions": {
+        "place": "Interior of the Jerusalem temple, stone columns and a raised throne-platform, incense haze in the sanctuary, a stone threshold and doorposts at the entrance",
+        "timeOfDay": "Single unchanging interior hour, no transition across the section",
+        "weather": "Still air within the temple, with swirling incense smoke and a thick, slowly moving veil of cloud filling the upper sanctuary",
+        "light": "Brilliant white-gold radiance without visible source, veiled by dense cloud with a fire-like glow at its heart; soft lamplight on the stone walls below",
+        "clothing": "Isaiah in a plain tunic and cloak in mourning-dust tones; priestly linen on temple attendants near the altar"
+      }
+    },
+    {
+      "id": "img14",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img14.jpg",
+      "sha256": "883a387902aec3629a3844a1d3cdb0339a40927a333acc8dcb9ae09001262091",
+      "verse": "exodus-16-15",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "moses",
+        "the_camp_of_israel",
+        "the_wilderness_exodus_route",
+        "aaron_brother_of_moses"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "the_wilderness_exodus_route",
+          "name": "The wilderness (Exodus route)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_camp_of_israel",
+          "name": "the camp of Israel",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A group of Israelite men and women crouched or standing on the dew-covered ground, one holding up a small round flake in their open palm.",
+        "action": "Those gathered look at the small round substance and turn to one another in questioning wonder while Moses raises a hand toward them in explanation.",
+        "setting": "The open wilderness edge of the camp, with tents behind and sand and rock stretching into the desert.",
+        "secondaryElements": "Gathering baskets and jars on the ground, Aaron standing near Moses, and at the edge of the scene a dense slowly moving cloud glowing with veiled white-gold radiance and a fire-like heart, without any figure.",
+        "mood": "Reverent wonder mixed with uncertainty and quiet trust.",
+        "timeOfDay": "Early dawn with soft pale light spreading over the desert.",
+        "composition": "Medium shot at ground level looking across the crowd toward Moses, with the cloud of divine presence placed high on the far horizon.",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "moses",
+          "the_camp_of_israel",
+          "the_wilderness_exodus_route",
+          "aaron_brother_of_moses"
+        ]
+      },
+      "conditions": {
+        "place": "Open wilderness camp of Israel with tents across sand and rock",
+        "timeOfDay": "Early morning at dawn",
+        "weather": "Clear dry desert air with light morning dew on the ground",
+        "light": "Soft pale dawn light with the veiled brilliant white-gold radiance and fire-like glow of God's presence at the edge of the cloud",
+        "clothing": "Woven tunics and cloaks of the Israelites, Moses and Aaron in plain linen garments"
+      }
+    },
+    {
+      "id": "img15",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img15.jpg",
+      "sha256": "937dffdbcb032dd3e7b5112ed5732eccc6578cbdc6fd8a5466e79f305de718ee",
+      "verse": "exodus-19-18",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_israelite_people_the_children_of_israel",
+        "god_yahweh_the_father_and_god_of_israel",
+        "horeb_mount_sinai"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses and Aaron standing at the lower slope, gazing upward, with the Israelite people gathered behind them",
+        "action": "Smoke and fire rise from the summit as the mountain shakes, and the people draw back in awe at the foot of the slope",
+        "setting": "Bare rocky slopes of Horeb/Mount Sinai in the desert, with the camp spread at the mountain's foot",
+        "secondaryElements": "Dense smoke column rising from the peak, fire glowing through it, a white-gold light veiled by slowly moving cloud at the summit, staffs and tent cords held by the travelers, scattered stones loosened by the quake",
+        "mood": "Awed, reverent and fearful, grave and dignified",
+        "timeOfDay": "Dusk deepening toward night",
+        "composition": "Low viewpoint looking up the slope toward the smoking summit, with Moses and Aaron in the foreground and the people spread in the middle ground",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_israelite_people_the_children_of_israel",
+          "god_yahweh_the_father_and_god_of_israel",
+          "horeb_mount_sinai"
+        ]
+      },
+      "conditions": {
+        "place": "Bare rocky slopes of Horeb/Mount Sinai in the desert, with the Israelite camp at the mountain's foot among tents and tethered animals",
+        "timeOfDay": "Dusk deepening into night",
+        "weather": "Thick smoke rising from the mountain, thunder and lightning over the peak, dust blown by a strong wind, the ground trembling",
+        "light": "Reddish firelight through smoke at the summit, lightning flashes, God's radiance veiled in dense cloud at the peak",
+        "clothing": "Israelite travelers in woven tunics and cloaks, Aaron in priestly linen, Moses in a plain traveler's cloak"
+      }
+    },
+    {
+      "id": "img16",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img16.jpg",
+      "sha256": "e9d9eb9dfda9ae7a968c7e5a82f6326e5388851074f29567dadb76ec93e677a2",
+      "verse": "exodus-40-34",
+      "selected": [
+        "god_yahweh_the_father_and_god_of_israel",
+        "the_israelite_people_the_children_of_israel",
+        "the_tabernacle_portable_sanctuary",
+        "the_camp_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_camp_of_israel",
+          "name": "the camp of Israel",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The portable tabernacle with its linen walls, covered by a dense cloud and filled from within by white-gold radiance",
+        "action": "The cloud descends and covers the Tent of Meeting while light pours out through the tabernacle's veil, filling it from within",
+        "setting": "A wilderness camp of tents around a portable tabernacle inside a linen court, with sand and rock beyond",
+        "secondaryElements": "Israelite families standing at a respectful distance among their tents, priestly linen at the entrance, a faint fire-like warmth glowing through the cloud",
+        "mood": "Awe, reverence and quiet hope",
+        "timeOfDay": "Dusk fading into night, the cloud glowing faintly",
+        "composition": "Wide view from the edge of the camp, the tabernacle centred and the cloud rising above it, the people small in the foreground",
+        "present": [
+          "god_yahweh_the_father_and_god_of_israel",
+          "the_israelite_people_the_children_of_israel",
+          "the_tabernacle_portable_sanctuary",
+          "the_camp_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "Wilderness camp of tents around a portable tabernacle with its linen court and a dense cloud resting over the sanctuary",
+        "timeOfDay": "Dusk into night, with the cloud glowing faintly as the light fades",
+        "weather": "Still desert air under a heavy, slowly moving cloud; dust settling on the sand",
+        "light": "Radiant white-gold glow from the tabernacle veiled by the cloud, with a fire-like warmth at its heart, lighting the tent cloths softly",
+        "clothing": "Woven tunics and cloaks on the Israelite people; priestly linen at the tabernacle entrance"
+      }
+    },
+    {
+      "id": "img17",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img17.jpg",
+      "sha256": "3f861f6581b10740bbace49b9f4a7a3e7c012aad44fa4de796791efbbbc1e300",
+      "verse": "numbers-3-39",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_levites",
+        "the_tabernacle_portable_sanctuary",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_levites",
+          "name": "The Levites",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses, in a plain undyed linen tunic and dark-brown wool cloak, and Aaron in linen priestly garments, standing side by side before the tabernacle, tallying the counted families.",
+        "action": "Moses marks the count on a wooden tablet while Aaron checks the family groups as the Levite men file into ordered ranks.",
+        "setting": "The wilderness camp at the foot of Horeb/Sinai, tents arranged around the portable tabernacle on a dry desert plain.",
+        "secondaryElements": "Levite families in woven tunics and cloaks gathered in orderly clans, tent cords and wooden counting tablets, and a distant veiled cloud and fire-glow over the mountain; God is present only as brilliant white-gold radiance veiled by a slow dense cloud with a fire-like glow at its heart.",
+        "mood": "Solemn, orderly and reverent, with quiet dignity in the careful numbering of the families.",
+        "timeOfDay": "Early morning light warming toward midday.",
+        "composition": "Eye-level view across the camp toward the tabernacle, with Moses and Aaron in the foreground and the Levite families arranged in ranks behind them, the mountain and cloud-glow beyond.",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_levites",
+          "the_tabernacle_portable_sanctuary",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "Wilderness camp of Israel with tents arranged around the portable tabernacle, dry desert plain beneath the foothills of Horeb/Sinai",
+        "timeOfDay": "Early morning light over the camp, warming toward midday",
+        "weather": "Clear, dry desert air with faint dust drifting across the plain",
+        "light": "Warm sunlight from the east, with a distant veiled cloud and fire-glow over the mountain shaping the scene",
+        "clothing": "Plain undyed linen tunic and dark-brown wool cloak for Moses, linen priestly garments for Aaron, woven tunics and cloaks of the Levites, wooden counting tablets and tent cords as props"
+      }
+    },
+    {
+      "id": "img18",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img18.jpg",
+      "sha256": "e0697e8c77053089e717dc8070b4b6a64ce0fd9f79ed25b7429cc4cebd7ff967",
+      "verse": "numbers-3-39",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_levites",
+        "the_tabernacle_portable_sanctuary",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_levites",
+          "name": "The Levites",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses, in a plain undyed linen tunic and dark-brown wool cloak, and Aaron in linen priestly garments, standing side by side before the tabernacle, tallying the counted families.",
+        "action": "Moses marks the count on a wooden tablet while Aaron checks the family groups as the Levite men file into ordered ranks.",
+        "setting": "The wilderness camp at the foot of Horeb/Sinai, tents arranged around the portable tabernacle on a dry desert plain.",
+        "secondaryElements": "Levite families in woven tunics and cloaks gathered in orderly clans, tent cords and wooden counting tablets, and a distant veiled cloud and fire-glow over the mountain; God is present only as brilliant white-gold radiance veiled by a slow dense cloud with a fire-like glow at its heart.",
+        "mood": "Solemn, orderly and reverent, with quiet dignity in the careful numbering of the families.",
+        "timeOfDay": "Early morning light warming toward midday.",
+        "composition": "Eye-level view across the camp toward the tabernacle, with Moses and Aaron in the foreground and the Levite families arranged in ranks behind them, the mountain and cloud-glow beyond.",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_levites",
+          "the_tabernacle_portable_sanctuary",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "Wilderness camp of Israel with tents arranged around the portable tabernacle, dry desert plain beneath the foothills of Horeb/Sinai",
+        "timeOfDay": "Early morning light over the camp, warming toward midday",
+        "weather": "Clear, dry desert air with faint dust drifting across the plain",
+        "light": "Warm sunlight from the east, with a distant veiled cloud and fire-glow over the mountain shaping the scene",
+        "clothing": "Plain undyed linen tunic and dark-brown wool cloak for Moses, linen priestly garments for Aaron, woven tunics and cloaks of the Levites, wooden counting tablets and tent cords as props"
+      }
+    },
+    {
+      "id": "img19",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img19.jpg",
+      "sha256": "9b267a2f584922df134c0e009b26bcc6f6198a1c49a397fc658b1b793126625a",
+      "verse": "isaiah-6-1",
+      "selected": [
+        "isaiah_son_of_amoz",
+        "god_yahweh_the_father_and_god_of_israel",
+        "yahweh_s_house_in_jerusalem_the_temple"
+      ],
+      "availableCast": [
+        {
+          "entryId": "isaiah_son_of_amoz",
+          "name": "Isaiah son of Amoz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "seraphim",
+          "name": "Seraphim",
+          "kind": "object",
+          "hasForm": true
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "name": "Yahweh's house in Jerusalem (the temple)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Isaiah, a lone figure in plain mourning-tone cloak, standing still with face lifted toward the upper sanctuary",
+        "action": "He gazes up as radiance without a source, veiled by a slowly moving cloud with a fire-like glow at its heart, fills the high place and spills down over the temple floor",
+        "setting": "Interior of the Jerusalem temple with stone columns, a raised throne-platform and a stone threshold and doorposts at the entrance",
+        "secondaryElements": "Swirling incense haze in the sanctuary; soft lamplight on the stone walls; the hem of the radiance's train pouring across the floor and filling the hall",
+        "mood": "Awed, reverent and grieving, with quiet stillness and a sense of profound human smallness before glory",
+        "timeOfDay": "Single unchanging interior hour with soft lamplight and radiance-lit stone",
+        "composition": "Low viewpoint from the temple floor looking up toward the high sanctuary; Isaiah small in the lower foreground, the veiled radiance dominating the upper frame",
+        "present": [
+          "isaiah_son_of_amoz",
+          "god_yahweh_the_father_and_god_of_israel",
+          "yahweh_s_house_in_jerusalem_the_temple"
+        ]
+      },
+      "conditions": {
+        "place": "Interior of the Jerusalem temple, stone columns and a raised throne-platform, incense haze in the sanctuary, a stone threshold and doorposts at the entrance",
+        "timeOfDay": "Single unchanging interior hour, no transition across the section",
+        "weather": "Still air within the temple, with swirling incense smoke and a thick, slowly moving veil of cloud filling the upper sanctuary",
+        "light": "Brilliant white-gold radiance without visible source, veiled by dense cloud with a fire-like glow at its heart; soft lamplight on the stone walls below",
+        "clothing": "Isaiah in a plain tunic and cloak in mourning-dust tones; priestly linen on temple attendants near the altar"
+      }
+    },
+    {
+      "id": "img20",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img20.jpg",
+      "sha256": "051558267abb5a40c7f3e0081a7e34c41440bd4f40591ae2fd16cbb4fa95a7bc",
+      "verse": "exodus-16-15",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "moses",
+        "the_camp_of_israel",
+        "the_wilderness_exodus_route",
+        "aaron_brother_of_moses"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "the_wilderness_exodus_route",
+          "name": "The wilderness (Exodus route)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_camp_of_israel",
+          "name": "the camp of Israel",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A group of Israelite men and women crouched or standing on the dew-covered ground, one holding up a small round flake in their open palm.",
+        "action": "Those gathered look at the small round substance and turn to one another in questioning wonder while Moses raises a hand toward them in explanation.",
+        "setting": "The open wilderness edge of the camp, with tents behind and sand and rock stretching into the desert.",
+        "secondaryElements": "Gathering baskets and jars on the ground, Aaron standing near Moses, and at the edge of the scene a dense slowly moving cloud glowing with veiled white-gold radiance and a fire-like heart, without any figure.",
+        "mood": "Reverent wonder mixed with uncertainty and quiet trust.",
+        "timeOfDay": "Early dawn with soft pale light spreading over the desert.",
+        "composition": "Medium shot at ground level looking across the crowd toward Moses, with the cloud of divine presence placed high on the far horizon.",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "moses",
+          "the_camp_of_israel",
+          "the_wilderness_exodus_route",
+          "aaron_brother_of_moses"
+        ]
+      },
+      "conditions": {
+        "place": "Open wilderness camp of Israel with tents across sand and rock",
+        "timeOfDay": "Early morning at dawn",
+        "weather": "Clear dry desert air with light morning dew on the ground",
+        "light": "Soft pale dawn light with the veiled brilliant white-gold radiance and fire-like glow of God's presence at the edge of the cloud",
+        "clothing": "Woven tunics and cloaks of the Israelites, Moses and Aaron in plain linen garments"
+      }
+    },
+    {
+      "id": "img21",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img21.jpg",
+      "sha256": "5948c4c71f186aa449f908da7898dd6b8b4196291f464dd1f1dc4d38e0a0a33a",
+      "verse": "exodus-16-15",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "moses",
+        "the_camp_of_israel",
+        "the_wilderness_exodus_route",
+        "aaron_brother_of_moses"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "the_wilderness_exodus_route",
+          "name": "The wilderness (Exodus route)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_camp_of_israel",
+          "name": "the camp of Israel",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A group of Israelite men and women crouched or standing on the dew-covered ground, one holding up a small round flake in their open palm.",
+        "action": "Those gathered look at the small round substance and turn to one another in questioning wonder while Moses raises a hand toward them in explanation.",
+        "setting": "The open wilderness edge of the camp, with tents behind and sand and rock stretching into the desert.",
+        "secondaryElements": "Gathering baskets and jars on the ground, Aaron standing near Moses, and at the edge of the scene a dense slowly moving cloud glowing with veiled white-gold radiance and a fire-like heart, without any figure.",
+        "mood": "Reverent wonder mixed with uncertainty and quiet trust.",
+        "timeOfDay": "Early dawn with soft pale light spreading over the desert.",
+        "composition": "Medium shot at ground level looking across the crowd toward Moses, with the cloud of divine presence placed high on the far horizon.",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "moses",
+          "the_camp_of_israel",
+          "the_wilderness_exodus_route",
+          "aaron_brother_of_moses"
+        ]
+      },
+      "conditions": {
+        "place": "Open wilderness camp of Israel with tents across sand and rock",
+        "timeOfDay": "Early morning at dawn",
+        "weather": "Clear dry desert air with light morning dew on the ground",
+        "light": "Soft pale dawn light with the veiled brilliant white-gold radiance and fire-like glow of God's presence at the edge of the cloud",
+        "clothing": "Woven tunics and cloaks of the Israelites, Moses and Aaron in plain linen garments"
+      }
+    },
+    {
+      "id": "img22",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img22.jpg",
+      "sha256": "7c1235da33f97059f479006e5380cb839b7cc4b77e604139d183b88788a035b9",
+      "verse": "numbers-3-39",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_levites",
+        "the_tabernacle_portable_sanctuary",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_levites",
+          "name": "The Levites",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses, in a plain undyed linen tunic and dark-brown wool cloak, and Aaron in linen priestly garments, standing side by side before the tabernacle, tallying the counted families.",
+        "action": "Moses marks the count on a wooden tablet while Aaron checks the family groups as the Levite men file into ordered ranks.",
+        "setting": "The wilderness camp at the foot of Horeb/Sinai, tents arranged around the portable tabernacle on a dry desert plain.",
+        "secondaryElements": "Levite families in woven tunics and cloaks gathered in orderly clans, tent cords and wooden counting tablets, and a distant veiled cloud and fire-glow over the mountain; God is present only as brilliant white-gold radiance veiled by a slow dense cloud with a fire-like glow at its heart.",
+        "mood": "Solemn, orderly and reverent, with quiet dignity in the careful numbering of the families.",
+        "timeOfDay": "Early morning light warming toward midday.",
+        "composition": "Eye-level view across the camp toward the tabernacle, with Moses and Aaron in the foreground and the Levite families arranged in ranks behind them, the mountain and cloud-glow beyond.",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_levites",
+          "the_tabernacle_portable_sanctuary",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "Wilderness camp of Israel with tents arranged around the portable tabernacle, dry desert plain beneath the foothills of Horeb/Sinai",
+        "timeOfDay": "Early morning light over the camp, warming toward midday",
+        "weather": "Clear, dry desert air with faint dust drifting across the plain",
+        "light": "Warm sunlight from the east, with a distant veiled cloud and fire-glow over the mountain shaping the scene",
+        "clothing": "Plain undyed linen tunic and dark-brown wool cloak for Moses, linen priestly garments for Aaron, woven tunics and cloaks of the Levites, wooden counting tablets and tent cords as props"
+      }
+    },
+    {
+      "id": "img23",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img23.jpg",
+      "sha256": "424b4085856fa4621689be912bd703a1a836f300b113cf3cd267ce08938d617f",
+      "verse": "exodus-40-34",
+      "selected": [
+        "god_yahweh_the_father_and_god_of_israel",
+        "the_israelite_people_the_children_of_israel",
+        "the_tabernacle_portable_sanctuary",
+        "the_camp_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_camp_of_israel",
+          "name": "the camp of Israel",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The portable tabernacle with its linen walls, covered by a dense cloud and filled from within by white-gold radiance",
+        "action": "The cloud descends and covers the Tent of Meeting while light pours out through the tabernacle's veil, filling it from within",
+        "setting": "A wilderness camp of tents around a portable tabernacle inside a linen court, with sand and rock beyond",
+        "secondaryElements": "Israelite families standing at a respectful distance among their tents, priestly linen at the entrance, a faint fire-like warmth glowing through the cloud",
+        "mood": "Awe, reverence and quiet hope",
+        "timeOfDay": "Dusk fading into night, the cloud glowing faintly",
+        "composition": "Wide view from the edge of the camp, the tabernacle centred and the cloud rising above it, the people small in the foreground",
+        "present": [
+          "god_yahweh_the_father_and_god_of_israel",
+          "the_israelite_people_the_children_of_israel",
+          "the_tabernacle_portable_sanctuary",
+          "the_camp_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "Wilderness camp of tents around a portable tabernacle with its linen court and a dense cloud resting over the sanctuary",
+        "timeOfDay": "Dusk into night, with the cloud glowing faintly as the light fades",
+        "weather": "Still desert air under a heavy, slowly moving cloud; dust settling on the sand",
+        "light": "Radiant white-gold glow from the tabernacle veiled by the cloud, with a fire-like warmth at its heart, lighting the tent cloths softly",
+        "clothing": "Woven tunics and cloaks on the Israelite people; priestly linen at the tabernacle entrance"
+      }
+    },
+    {
+      "id": "img24",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img24.jpg",
+      "sha256": "85a78414507876bf238ae9fe189a98771a8eb2bae4f5348e2913735069c3db80",
+      "verse": "exodus-19-18",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_israelite_people_the_children_of_israel",
+        "god_yahweh_the_father_and_god_of_israel",
+        "horeb_mount_sinai"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses and Aaron standing at the lower slope, gazing upward, with the Israelite people gathered behind them",
+        "action": "Smoke and fire rise from the summit as the mountain shakes, and the people draw back in awe at the foot of the slope",
+        "setting": "Bare rocky slopes of Horeb/Mount Sinai in the desert, with the camp spread at the mountain's foot",
+        "secondaryElements": "Dense smoke column rising from the peak, fire glowing through it, a white-gold light veiled by slowly moving cloud at the summit, staffs and tent cords held by the travelers, scattered stones loosened by the quake",
+        "mood": "Awed, reverent and fearful, grave and dignified",
+        "timeOfDay": "Dusk deepening toward night",
+        "composition": "Low viewpoint looking up the slope toward the smoking summit, with Moses and Aaron in the foreground and the people spread in the middle ground",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_israelite_people_the_children_of_israel",
+          "god_yahweh_the_father_and_god_of_israel",
+          "horeb_mount_sinai"
+        ]
+      },
+      "conditions": {
+        "place": "Bare rocky slopes of Horeb/Mount Sinai in the desert, with the Israelite camp at the mountain's foot among tents and tethered animals",
+        "timeOfDay": "Dusk deepening into night",
+        "weather": "Thick smoke rising from the mountain, thunder and lightning over the peak, dust blown by a strong wind, the ground trembling",
+        "light": "Reddish firelight through smoke at the summit, lightning flashes, God's radiance veiled in dense cloud at the peak",
+        "clothing": "Israelite travelers in woven tunics and cloaks, Aaron in priestly linen, Moses in a plain traveler's cloak"
+      }
+    },
+    {
+      "id": "img25",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img25.jpg",
+      "sha256": "710d26df06bf7e1241b607cb8b717f2510cb31815283d565059829e63cffc77c",
+      "verse": "exodus-14-22",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "moses",
+        "red_sea",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_egyptians",
+          "name": "the Egyptians",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "red_sea",
+          "name": "Red Sea",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A long column of Israelite people, families and herders walking in step across the wet sand, with Moses near the front",
+        "action": "The people advance into the middle of the sea on dry ground while water stands as walls on both sides",
+        "setting": "The dry seabed between two standing walls of water, with a distant Egyptian shore and wilderness cliffs at the edges",
+        "secondaryElements": "Bundled belongings carried on shoulders, children held close, a brilliant pillar of cloud and fire glowing faintly at the heart of the divide, damp mist rising from the sand",
+        "mood": "Awe, tense hope and quiet dignity",
+        "timeOfDay": "Pre-dawn night with the sky lightening gradually",
+        "composition": "Wide view down the central path of the seabed, the water walls rising on either side and framing the column of people",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "moses",
+          "red_sea",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "The dry seabed between two standing walls of water, under a vast open sky with distant Egyptian shore and wilderness cliffs at the edges",
+        "timeOfDay": "Night turning toward dawn across the section, the sky lightening gradually",
+        "weather": "Still, cool air with a dense slowly moving cloud column above the sea, damp mist rising from the wet sand",
+        "light": "Pillar of cloud and fire glow at the heart of the divide, faint pre-dawn light on the water walls, shimmering reflections on wet sand",
+        "clothing": "Woven tunics, cloaks and Egyptian linen garments, with sand-dusted sandals and bundled belongings carried on the shoulders"
+      }
+    },
+    {
+      "id": "img26",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img26.jpg",
+      "sha256": "360200eb5a86384b099e44214e9ca1bf7273856a8c8c6840efcb7a853f4a9e51",
+      "verse": "exodus-14-22",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "moses",
+        "red_sea",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_egyptians",
+          "name": "the Egyptians",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "red_sea",
+          "name": "Red Sea",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A long column of Israelite people, families and herders walking in step across the wet sand, with Moses near the front",
+        "action": "The people advance into the middle of the sea on dry ground while water stands as walls on both sides",
+        "setting": "The dry seabed between two standing walls of water, with a distant Egyptian shore and wilderness cliffs at the edges",
+        "secondaryElements": "Bundled belongings carried on shoulders, children held close, a brilliant pillar of cloud and fire glowing faintly at the heart of the divide, damp mist rising from the sand",
+        "mood": "Awe, tense hope and quiet dignity",
+        "timeOfDay": "Pre-dawn night with the sky lightening gradually",
+        "composition": "Wide view down the central path of the seabed, the water walls rising on either side and framing the column of people",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "moses",
+          "red_sea",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "The dry seabed between two standing walls of water, under a vast open sky with distant Egyptian shore and wilderness cliffs at the edges",
+        "timeOfDay": "Night turning toward dawn across the section, the sky lightening gradually",
+        "weather": "Still, cool air with a dense slowly moving cloud column above the sea, damp mist rising from the wet sand",
+        "light": "Pillar of cloud and fire glow at the heart of the divide, faint pre-dawn light on the water walls, shimmering reflections on wet sand",
+        "clothing": "Woven tunics, cloaks and Egyptian linen garments, with sand-dusted sandals and bundled belongings carried on the shoulders"
+      }
+    },
+    {
+      "id": "img27",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img27.jpg",
+      "sha256": "8a61d77c48bb391962cee79c6eeb2113a1ad3e4d008df695875e30db6e1d8ca1",
+      "verse": "daniel-7-9",
+      "selected": [
+        "the_ancient_of_days",
+        "daniel_prophet_of_babylon"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Seated radiance of the Ancient of Days, shown only as light, cloud and fire around an empty throne of flame",
+        "action": "The throne is being set in place, its burning wheels and flames blazing while the seated presence is revealed through radiance",
+        "setting": "Vast visionary courtroom beneath open sky with a river of fire before the throne",
+        "secondaryElements": "Daniel in a simple prophet's cloak standing at a distance, watching; white-hued cloud banks and drifting smoke around the throne",
+        "mood": "Awe, solemnity and holy stillness",
+        "timeOfDay": "Night vision brightening toward dawn-like light",
+        "composition": "Wide view with the throne centred and raised, Daniel small at the lower edge looking up",
+        "present": [
+          "the_ancient_of_days",
+          "daniel_prophet_of_babylon"
+        ]
+      },
+      "conditions": {
+        "place": "Vast visionary courtroom beneath open sky; thrones set in a river of fire, with a stony Babylonian palace-threshold and cloud-banked horizon in the distance",
+        "timeOfDay": "Night vision transitioning into dawn-like brightness",
+        "weather": "Clouds gathering in heavy banks, with a still, charged atmosphere and drifting smoke",
+        "light": "Radiance and fire rising from the throne and wheels, with cloud-lit illumination spreading outward",
+        "clothing": "Daniel in a simple prophet's cloak; no other situational props"
+      }
+    },
+    {
+      "id": "img28",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img28.jpg",
+      "sha256": "3591209712e01584ee443db71d871ee448abda1bcf8e11772ddaefb7c58ca586",
+      "verse": "exodus-19-18",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_israelite_people_the_children_of_israel",
+        "god_yahweh_the_father_and_god_of_israel",
+        "horeb_mount_sinai"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses and Aaron standing at the lower slope, gazing upward, with the Israelite people gathered behind them",
+        "action": "Smoke and fire rise from the summit as the mountain shakes, and the people draw back in awe at the foot of the slope",
+        "setting": "Bare rocky slopes of Horeb/Mount Sinai in the desert, with the camp spread at the mountain's foot",
+        "secondaryElements": "Dense smoke column rising from the peak, fire glowing through it, a white-gold light veiled by slowly moving cloud at the summit, staffs and tent cords held by the travelers, scattered stones loosened by the quake",
+        "mood": "Awed, reverent and fearful, grave and dignified",
+        "timeOfDay": "Dusk deepening toward night",
+        "composition": "Low viewpoint looking up the slope toward the smoking summit, with Moses and Aaron in the foreground and the people spread in the middle ground",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_israelite_people_the_children_of_israel",
+          "god_yahweh_the_father_and_god_of_israel",
+          "horeb_mount_sinai"
+        ]
+      },
+      "conditions": {
+        "place": "Bare rocky slopes of Horeb/Mount Sinai in the desert, with the Israelite camp at the mountain's foot among tents and tethered animals",
+        "timeOfDay": "Dusk deepening into night",
+        "weather": "Thick smoke rising from the mountain, thunder and lightning over the peak, dust blown by a strong wind, the ground trembling",
+        "light": "Reddish firelight through smoke at the summit, lightning flashes, God's radiance veiled in dense cloud at the peak",
+        "clothing": "Israelite travelers in woven tunics and cloaks, Aaron in priestly linen, Moses in a plain traveler's cloak"
+      }
+    },
+    {
+      "id": "img29",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img29.jpg",
+      "sha256": "7634e4578382b4625e41b39bf5093b564e52549ea402d2c5f35ae4a1f6a74edc",
+      "verse": "luke-10-34",
+      "selected": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "samaritans_mount_in_parable",
+        "jerusalem_to_jericho_road",
+        "inn_in_samaritan_parable"
+      ],
+      "availableCast": [
+        {
+          "entryId": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_samaritan",
+          "name": "the Samaritan",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan kneeling in the dust, bending over the wounded traveler to tend his wounds.",
+        "action": "Pouring oil and wine onto the traveler's wounds and binding them with cloth.",
+        "setting": "A rocky, sun-baked stretch of the Jerusalem–Jericho road in Judea, with the stone inn visible nearby.",
+        "secondaryElements": "The Samaritan's mount standing patiently beside them with a simple leather saddle and packs; scattered stones and dust on the road.",
+        "mood": "Tender, compassionate, quietly urgent.",
+        "timeOfDay": "Midday heat with strong warm sunlight casting short shadows.",
+        "composition": "Eye-level view from the roadside, the Samaritan and traveler centered in the foreground with the animal and inn receding behind them.",
+        "present": [
+          "the_samaritan",
+          "wounded_traveler_in_samaritan_parable",
+          "samaritans_mount_in_parable",
+          "jerusalem_to_jericho_road",
+          "inn_in_samaritan_parable"
+        ]
+      },
+      "conditions": {
+        "place": "Rocky, sun-baked Jerusalem–Jericho road in Judea, with a stone inn beside it",
+        "timeOfDay": "Midday heat, later turning to evening",
+        "weather": "Clear dry sky, hot still air, dust on the road",
+        "light": "Strong warm desert sunlight with long soft shadows toward evening",
+        "clothing": "The Samaritan in an undyed linen tunic in earth tones with a deep blue-grey woollen cloak; the traveler stripped to a simple linen loincloth with no cloak or sandals"
+      }
+    },
+    {
+      "id": "img30",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img30.jpg",
+      "sha256": "756d3266db43c771b7a0cdc555d61573d49ea8a6ed2147a6f9c76028df4aec31",
+      "verse": "daniel-7-9",
+      "selected": [
+        "the_ancient_of_days",
+        "daniel_prophet_of_babylon"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Seated radiance of the Ancient of Days, shown only as light, cloud and fire around an empty throne of flame",
+        "action": "The throne is being set in place, its burning wheels and flames blazing while the seated presence is revealed through radiance",
+        "setting": "Vast visionary courtroom beneath open sky with a river of fire before the throne",
+        "secondaryElements": "Daniel in a simple prophet's cloak standing at a distance, watching; white-hued cloud banks and drifting smoke around the throne",
+        "mood": "Awe, solemnity and holy stillness",
+        "timeOfDay": "Night vision brightening toward dawn-like light",
+        "composition": "Wide view with the throne centred and raised, Daniel small at the lower edge looking up",
+        "present": [
+          "the_ancient_of_days",
+          "daniel_prophet_of_babylon"
+        ]
+      },
+      "conditions": {
+        "place": "Vast visionary courtroom beneath open sky; thrones set in a river of fire, with a stony Babylonian palace-threshold and cloud-banked horizon in the distance",
+        "timeOfDay": "Night vision transitioning into dawn-like brightness",
+        "weather": "Clouds gathering in heavy banks, with a still, charged atmosphere and drifting smoke",
+        "light": "Radiance and fire rising from the throne and wheels, with cloud-lit illumination spreading outward",
+        "clothing": "Daniel in a simple prophet's cloak; no other situational props"
+      }
+    },
+    {
+      "id": "img31",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img31.jpg",
+      "sha256": "565e18f46852127996edbf8be20f2b28c8548a441634c6cbe48ed5ad27b03662",
+      "verse": "exodus-40-34",
+      "selected": [
+        "god_yahweh_the_father_and_god_of_israel",
+        "the_israelite_people_the_children_of_israel",
+        "the_tabernacle_portable_sanctuary",
+        "the_camp_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_camp_of_israel",
+          "name": "the camp of Israel",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The portable tabernacle with its linen walls, covered by a dense cloud and filled from within by white-gold radiance",
+        "action": "The cloud descends and covers the Tent of Meeting while light pours out through the tabernacle's veil, filling it from within",
+        "setting": "A wilderness camp of tents around a portable tabernacle inside a linen court, with sand and rock beyond",
+        "secondaryElements": "Israelite families standing at a respectful distance among their tents, priestly linen at the entrance, a faint fire-like warmth glowing through the cloud",
+        "mood": "Awe, reverence and quiet hope",
+        "timeOfDay": "Dusk fading into night, the cloud glowing faintly",
+        "composition": "Wide view from the edge of the camp, the tabernacle centred and the cloud rising above it, the people small in the foreground",
+        "present": [
+          "god_yahweh_the_father_and_god_of_israel",
+          "the_israelite_people_the_children_of_israel",
+          "the_tabernacle_portable_sanctuary",
+          "the_camp_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "Wilderness camp of tents around a portable tabernacle with its linen court and a dense cloud resting over the sanctuary",
+        "timeOfDay": "Dusk into night, with the cloud glowing faintly as the light fades",
+        "weather": "Still desert air under a heavy, slowly moving cloud; dust settling on the sand",
+        "light": "Radiant white-gold glow from the tabernacle veiled by the cloud, with a fire-like warmth at its heart, lighting the tent cloths softly",
+        "clothing": "Woven tunics and cloaks on the Israelite people; priestly linen at the tabernacle entrance"
+      }
+    },
+    {
+      "id": "img32",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img32.jpg",
+      "sha256": "532c3eb3b93cf26c0fd8ae859c184eb1a7acd7d4fc75e6d2f13f0afa345204b7",
+      "verse": "numbers-3-39",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_levites",
+        "the_tabernacle_portable_sanctuary",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_levites",
+          "name": "The Levites",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses, in a plain undyed linen tunic and dark-brown wool cloak, and Aaron in linen priestly garments, standing side by side before the tabernacle, tallying the counted families.",
+        "action": "Moses marks the count on a wooden tablet while Aaron checks the family groups as the Levite men file into ordered ranks.",
+        "setting": "The wilderness camp at the foot of Horeb/Sinai, tents arranged around the portable tabernacle on a dry desert plain.",
+        "secondaryElements": "Levite families in woven tunics and cloaks gathered in orderly clans, tent cords and wooden counting tablets, and a distant veiled cloud and fire-glow over the mountain; God is present only as brilliant white-gold radiance veiled by a slow dense cloud with a fire-like glow at its heart.",
+        "mood": "Solemn, orderly and reverent, with quiet dignity in the careful numbering of the families.",
+        "timeOfDay": "Early morning light warming toward midday.",
+        "composition": "Eye-level view across the camp toward the tabernacle, with Moses and Aaron in the foreground and the Levite families arranged in ranks behind them, the mountain and cloud-glow beyond.",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_levites",
+          "the_tabernacle_portable_sanctuary",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "Wilderness camp of Israel with tents arranged around the portable tabernacle, dry desert plain beneath the foothills of Horeb/Sinai",
+        "timeOfDay": "Early morning light over the camp, warming toward midday",
+        "weather": "Clear, dry desert air with faint dust drifting across the plain",
+        "light": "Warm sunlight from the east, with a distant veiled cloud and fire-glow over the mountain shaping the scene",
+        "clothing": "Plain undyed linen tunic and dark-brown wool cloak for Moses, linen priestly garments for Aaron, woven tunics and cloaks of the Levites, wooden counting tablets and tent cords as props"
+      }
+    },
+    {
+      "id": "img33",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img33.jpg",
+      "sha256": "fe7c3d8e4f31b8b4b2422dce4f05eb83825fa95e31d0c30e1c23a1054e14d945",
+      "verse": "exodus-19-18",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_israelite_people_the_children_of_israel",
+        "god_yahweh_the_father_and_god_of_israel",
+        "horeb_mount_sinai"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses and Aaron standing at the lower slope, gazing upward, with the Israelite people gathered behind them",
+        "action": "Smoke and fire rise from the summit as the mountain shakes, and the people draw back in awe at the foot of the slope",
+        "setting": "Bare rocky slopes of Horeb/Mount Sinai in the desert, with the camp spread at the mountain's foot",
+        "secondaryElements": "Dense smoke column rising from the peak, fire glowing through it, a white-gold light veiled by slowly moving cloud at the summit, staffs and tent cords held by the travelers, scattered stones loosened by the quake",
+        "mood": "Awed, reverent and fearful, grave and dignified",
+        "timeOfDay": "Dusk deepening toward night",
+        "composition": "Low viewpoint looking up the slope toward the smoking summit, with Moses and Aaron in the foreground and the people spread in the middle ground",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_israelite_people_the_children_of_israel",
+          "god_yahweh_the_father_and_god_of_israel",
+          "horeb_mount_sinai"
+        ]
+      },
+      "conditions": {
+        "place": "Bare rocky slopes of Horeb/Mount Sinai in the desert, with the Israelite camp at the mountain's foot among tents and tethered animals",
+        "timeOfDay": "Dusk deepening into night",
+        "weather": "Thick smoke rising from the mountain, thunder and lightning over the peak, dust blown by a strong wind, the ground trembling",
+        "light": "Reddish firelight through smoke at the summit, lightning flashes, God's radiance veiled in dense cloud at the peak",
+        "clothing": "Israelite travelers in woven tunics and cloaks, Aaron in priestly linen, Moses in a plain traveler's cloak"
+      }
+    },
+    {
+      "id": "img34",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img34.jpg",
+      "sha256": "3cf5dd224b940465df5134b278e28151139305b9d75a2f79622da092bfbb6b09",
+      "verse": "exodus-40-34",
+      "selected": [
+        "god_yahweh_the_father_and_god_of_israel",
+        "the_israelite_people_the_children_of_israel",
+        "the_tabernacle_portable_sanctuary",
+        "the_camp_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_camp_of_israel",
+          "name": "the camp of Israel",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The portable tabernacle with its linen walls, covered by a dense cloud and filled from within by white-gold radiance",
+        "action": "The cloud descends and covers the Tent of Meeting while light pours out through the tabernacle's veil, filling it from within",
+        "setting": "A wilderness camp of tents around a portable tabernacle inside a linen court, with sand and rock beyond",
+        "secondaryElements": "Israelite families standing at a respectful distance among their tents, priestly linen at the entrance, a faint fire-like warmth glowing through the cloud",
+        "mood": "Awe, reverence and quiet hope",
+        "timeOfDay": "Dusk fading into night, the cloud glowing faintly",
+        "composition": "Wide view from the edge of the camp, the tabernacle centred and the cloud rising above it, the people small in the foreground",
+        "present": [
+          "god_yahweh_the_father_and_god_of_israel",
+          "the_israelite_people_the_children_of_israel",
+          "the_tabernacle_portable_sanctuary",
+          "the_camp_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "Wilderness camp of tents around a portable tabernacle with its linen court and a dense cloud resting over the sanctuary",
+        "timeOfDay": "Dusk into night, with the cloud glowing faintly as the light fades",
+        "weather": "Still desert air under a heavy, slowly moving cloud; dust settling on the sand",
+        "light": "Radiant white-gold glow from the tabernacle veiled by the cloud, with a fire-like warmth at its heart, lighting the tent cloths softly",
+        "clothing": "Woven tunics and cloaks on the Israelite people; priestly linen at the tabernacle entrance"
+      }
+    },
+    {
+      "id": "img35",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img35.jpg",
+      "sha256": "f69743eca5e3c38bf330aad52bf115532de12bdbb505c65e2fc35d3b5c829de5",
+      "verse": "daniel-7-9",
+      "selected": [
+        "the_ancient_of_days",
+        "daniel_prophet_of_babylon"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Seated radiance of the Ancient of Days, shown only as light, cloud and fire around an empty throne of flame",
+        "action": "The throne is being set in place, its burning wheels and flames blazing while the seated presence is revealed through radiance",
+        "setting": "Vast visionary courtroom beneath open sky with a river of fire before the throne",
+        "secondaryElements": "Daniel in a simple prophet's cloak standing at a distance, watching; white-hued cloud banks and drifting smoke around the throne",
+        "mood": "Awe, solemnity and holy stillness",
+        "timeOfDay": "Night vision brightening toward dawn-like light",
+        "composition": "Wide view with the throne centred and raised, Daniel small at the lower edge looking up",
+        "present": [
+          "the_ancient_of_days",
+          "daniel_prophet_of_babylon"
+        ]
+      },
+      "conditions": {
+        "place": "Vast visionary courtroom beneath open sky; thrones set in a river of fire, with a stony Babylonian palace-threshold and cloud-banked horizon in the distance",
+        "timeOfDay": "Night vision transitioning into dawn-like brightness",
+        "weather": "Clouds gathering in heavy banks, with a still, charged atmosphere and drifting smoke",
+        "light": "Radiance and fire rising from the throne and wheels, with cloud-lit illumination spreading outward",
+        "clothing": "Daniel in a simple prophet's cloak; no other situational props"
+      }
+    },
+    {
+      "id": "img36",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img36.jpg",
+      "sha256": "3181df3d27b24304b44f0451450e1f4faec2ad0aee41cea06efcd54e29dd3efc",
+      "verse": "exodus-16-15",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "moses",
+        "the_camp_of_israel",
+        "the_wilderness_exodus_route",
+        "aaron_brother_of_moses"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "the_wilderness_exodus_route",
+          "name": "The wilderness (Exodus route)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_camp_of_israel",
+          "name": "the camp of Israel",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A group of Israelite men and women crouched or standing on the dew-covered ground, one holding up a small round flake in their open palm.",
+        "action": "Those gathered look at the small round substance and turn to one another in questioning wonder while Moses raises a hand toward them in explanation.",
+        "setting": "The open wilderness edge of the camp, with tents behind and sand and rock stretching into the desert.",
+        "secondaryElements": "Gathering baskets and jars on the ground, Aaron standing near Moses, and at the edge of the scene a dense slowly moving cloud glowing with veiled white-gold radiance and a fire-like heart, without any figure.",
+        "mood": "Reverent wonder mixed with uncertainty and quiet trust.",
+        "timeOfDay": "Early dawn with soft pale light spreading over the desert.",
+        "composition": "Medium shot at ground level looking across the crowd toward Moses, with the cloud of divine presence placed high on the far horizon.",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "moses",
+          "the_camp_of_israel",
+          "the_wilderness_exodus_route",
+          "aaron_brother_of_moses"
+        ]
+      },
+      "conditions": {
+        "place": "Open wilderness camp of Israel with tents across sand and rock",
+        "timeOfDay": "Early morning at dawn",
+        "weather": "Clear dry desert air with light morning dew on the ground",
+        "light": "Soft pale dawn light with the veiled brilliant white-gold radiance and fire-like glow of God's presence at the edge of the cloud",
+        "clothing": "Woven tunics and cloaks of the Israelites, Moses and Aaron in plain linen garments"
+      }
+    },
+    {
+      "id": "img37",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img37.jpg",
+      "sha256": "efb28bb086091458b2cfd4769c6eb80fbc04f7bf8b562c9b852e60a74010bfaa",
+      "verse": "luke-10-34",
+      "selected": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "samaritans_mount_in_parable",
+        "jerusalem_to_jericho_road",
+        "inn_in_samaritan_parable"
+      ],
+      "availableCast": [
+        {
+          "entryId": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_samaritan",
+          "name": "the Samaritan",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan kneeling in the dust, bending over the wounded traveler to tend his wounds.",
+        "action": "Pouring oil and wine onto the traveler's wounds and binding them with cloth.",
+        "setting": "A rocky, sun-baked stretch of the Jerusalem–Jericho road in Judea, with the stone inn visible nearby.",
+        "secondaryElements": "The Samaritan's mount standing patiently beside them with a simple leather saddle and packs; scattered stones and dust on the road.",
+        "mood": "Tender, compassionate, quietly urgent.",
+        "timeOfDay": "Midday heat with strong warm sunlight casting short shadows.",
+        "composition": "Eye-level view from the roadside, the Samaritan and traveler centered in the foreground with the animal and inn receding behind them.",
+        "present": [
+          "the_samaritan",
+          "wounded_traveler_in_samaritan_parable",
+          "samaritans_mount_in_parable",
+          "jerusalem_to_jericho_road",
+          "inn_in_samaritan_parable"
+        ]
+      },
+      "conditions": {
+        "place": "Rocky, sun-baked Jerusalem–Jericho road in Judea, with a stone inn beside it",
+        "timeOfDay": "Midday heat, later turning to evening",
+        "weather": "Clear dry sky, hot still air, dust on the road",
+        "light": "Strong warm desert sunlight with long soft shadows toward evening",
+        "clothing": "The Samaritan in an undyed linen tunic in earth tones with a deep blue-grey woollen cloak; the traveler stripped to a simple linen loincloth with no cloak or sandals"
+      }
+    },
+    {
+      "id": "img38",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img38.jpg",
+      "sha256": "5e51c4bb7475635b250cc15b6210647e4cdd1d7577c4faa71e8368ac94908a4b",
+      "verse": "daniel-7-9",
+      "selected": [
+        "the_ancient_of_days",
+        "daniel_prophet_of_babylon"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Seated radiance of the Ancient of Days, shown only as light, cloud and fire around an empty throne of flame",
+        "action": "The throne is being set in place, its burning wheels and flames blazing while the seated presence is revealed through radiance",
+        "setting": "Vast visionary courtroom beneath open sky with a river of fire before the throne",
+        "secondaryElements": "Daniel in a simple prophet's cloak standing at a distance, watching; white-hued cloud banks and drifting smoke around the throne",
+        "mood": "Awe, solemnity and holy stillness",
+        "timeOfDay": "Night vision brightening toward dawn-like light",
+        "composition": "Wide view with the throne centred and raised, Daniel small at the lower edge looking up",
+        "present": [
+          "the_ancient_of_days",
+          "daniel_prophet_of_babylon"
+        ]
+      },
+      "conditions": {
+        "place": "Vast visionary courtroom beneath open sky; thrones set in a river of fire, with a stony Babylonian palace-threshold and cloud-banked horizon in the distance",
+        "timeOfDay": "Night vision transitioning into dawn-like brightness",
+        "weather": "Clouds gathering in heavy banks, with a still, charged atmosphere and drifting smoke",
+        "light": "Radiance and fire rising from the throne and wheels, with cloud-lit illumination spreading outward",
+        "clothing": "Daniel in a simple prophet's cloak; no other situational props"
+      }
+    },
+    {
+      "id": "img39",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img39.jpg",
+      "sha256": "546b5341bbdb17b2f533feca10beac15ef8aeac03664110dff9bdb97cc8e5256",
+      "verse": "isaiah-6-1",
+      "selected": [
+        "isaiah_son_of_amoz",
+        "god_yahweh_the_father_and_god_of_israel",
+        "yahweh_s_house_in_jerusalem_the_temple"
+      ],
+      "availableCast": [
+        {
+          "entryId": "isaiah_son_of_amoz",
+          "name": "Isaiah son of Amoz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "seraphim",
+          "name": "Seraphim",
+          "kind": "object",
+          "hasForm": true
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "name": "Yahweh's house in Jerusalem (the temple)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Isaiah, a lone figure in plain mourning-tone cloak, standing still with face lifted toward the upper sanctuary",
+        "action": "He gazes up as radiance without a source, veiled by a slowly moving cloud with a fire-like glow at its heart, fills the high place and spills down over the temple floor",
+        "setting": "Interior of the Jerusalem temple with stone columns, a raised throne-platform and a stone threshold and doorposts at the entrance",
+        "secondaryElements": "Swirling incense haze in the sanctuary; soft lamplight on the stone walls; the hem of the radiance's train pouring across the floor and filling the hall",
+        "mood": "Awed, reverent and grieving, with quiet stillness and a sense of profound human smallness before glory",
+        "timeOfDay": "Single unchanging interior hour with soft lamplight and radiance-lit stone",
+        "composition": "Low viewpoint from the temple floor looking up toward the high sanctuary; Isaiah small in the lower foreground, the veiled radiance dominating the upper frame",
+        "present": [
+          "isaiah_son_of_amoz",
+          "god_yahweh_the_father_and_god_of_israel",
+          "yahweh_s_house_in_jerusalem_the_temple"
+        ]
+      },
+      "conditions": {
+        "place": "Interior of the Jerusalem temple, stone columns and a raised throne-platform, incense haze in the sanctuary, a stone threshold and doorposts at the entrance",
+        "timeOfDay": "Single unchanging interior hour, no transition across the section",
+        "weather": "Still air within the temple, with swirling incense smoke and a thick, slowly moving veil of cloud filling the upper sanctuary",
+        "light": "Brilliant white-gold radiance without visible source, veiled by dense cloud with a fire-like glow at its heart; soft lamplight on the stone walls below",
+        "clothing": "Isaiah in a plain tunic and cloak in mourning-dust tones; priestly linen on temple attendants near the altar"
+      }
+    },
+    {
+      "id": "img40",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img40.jpg",
+      "sha256": "8819dabf0f70255d9df361299d26cc7329f7c3316748fa7b87fc9046e8c0a596",
+      "verse": "numbers-3-39",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_levites",
+        "the_tabernacle_portable_sanctuary",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_levites",
+          "name": "The Levites",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses, in a plain undyed linen tunic and dark-brown wool cloak, and Aaron in linen priestly garments, standing side by side before the tabernacle, tallying the counted families.",
+        "action": "Moses marks the count on a wooden tablet while Aaron checks the family groups as the Levite men file into ordered ranks.",
+        "setting": "The wilderness camp at the foot of Horeb/Sinai, tents arranged around the portable tabernacle on a dry desert plain.",
+        "secondaryElements": "Levite families in woven tunics and cloaks gathered in orderly clans, tent cords and wooden counting tablets, and a distant veiled cloud and fire-glow over the mountain; God is present only as brilliant white-gold radiance veiled by a slow dense cloud with a fire-like glow at its heart.",
+        "mood": "Solemn, orderly and reverent, with quiet dignity in the careful numbering of the families.",
+        "timeOfDay": "Early morning light warming toward midday.",
+        "composition": "Eye-level view across the camp toward the tabernacle, with Moses and Aaron in the foreground and the Levite families arranged in ranks behind them, the mountain and cloud-glow beyond.",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_levites",
+          "the_tabernacle_portable_sanctuary",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "Wilderness camp of Israel with tents arranged around the portable tabernacle, dry desert plain beneath the foothills of Horeb/Sinai",
+        "timeOfDay": "Early morning light over the camp, warming toward midday",
+        "weather": "Clear, dry desert air with faint dust drifting across the plain",
+        "light": "Warm sunlight from the east, with a distant veiled cloud and fire-glow over the mountain shaping the scene",
+        "clothing": "Plain undyed linen tunic and dark-brown wool cloak for Moses, linen priestly garments for Aaron, woven tunics and cloaks of the Levites, wooden counting tablets and tent cords as props"
+      }
+    },
+    {
+      "id": "img41",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img41.jpg",
+      "sha256": "074257196ace4de856f3ecf3fb64f592719e84c67e5415a69c6009a074ad452f",
+      "verse": "exodus-14-22",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "moses",
+        "red_sea",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_egyptians",
+          "name": "the Egyptians",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "red_sea",
+          "name": "Red Sea",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A long column of Israelite people, families and herders walking in step across the wet sand, with Moses near the front",
+        "action": "The people advance into the middle of the sea on dry ground while water stands as walls on both sides",
+        "setting": "The dry seabed between two standing walls of water, with a distant Egyptian shore and wilderness cliffs at the edges",
+        "secondaryElements": "Bundled belongings carried on shoulders, children held close, a brilliant pillar of cloud and fire glowing faintly at the heart of the divide, damp mist rising from the sand",
+        "mood": "Awe, tense hope and quiet dignity",
+        "timeOfDay": "Pre-dawn night with the sky lightening gradually",
+        "composition": "Wide view down the central path of the seabed, the water walls rising on either side and framing the column of people",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "moses",
+          "red_sea",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": {
+        "place": "The dry seabed between two standing walls of water, under a vast open sky with distant Egyptian shore and wilderness cliffs at the edges",
+        "timeOfDay": "Night turning toward dawn across the section, the sky lightening gradually",
+        "weather": "Still, cool air with a dense slowly moving cloud column above the sea, damp mist rising from the wet sand",
+        "light": "Pillar of cloud and fire glow at the heart of the divide, faint pre-dawn light on the water walls, shimmering reflections on wet sand",
+        "clothing": "Woven tunics, cloaks and Egyptian linen garments, with sand-dusted sandals and bundled belongings carried on the shoulders"
+      }
+    },
+    {
+      "id": "img42",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img42.jpg",
+      "sha256": "279ef96df742d5b95f29d9c4856bf3337e3c4115ba179df1ca3cb635d08e2a8b",
+      "verse": "exodus-16-15",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "moses",
+        "the_camp_of_israel",
+        "the_wilderness_exodus_route",
+        "aaron_brother_of_moses"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "the_wilderness_exodus_route",
+          "name": "The wilderness (Exodus route)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_camp_of_israel",
+          "name": "the camp of Israel",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A group of Israelite men and women crouched or standing on the dew-covered ground, one holding up a small round flake in their open palm.",
+        "action": "Those gathered look at the small round substance and turn to one another in questioning wonder while Moses raises a hand toward them in explanation.",
+        "setting": "The open wilderness edge of the camp, with tents behind and sand and rock stretching into the desert.",
+        "secondaryElements": "Gathering baskets and jars on the ground, Aaron standing near Moses, and at the edge of the scene a dense slowly moving cloud glowing with veiled white-gold radiance and a fire-like heart, without any figure.",
+        "mood": "Reverent wonder mixed with uncertainty and quiet trust.",
+        "timeOfDay": "Early dawn with soft pale light spreading over the desert.",
+        "composition": "Medium shot at ground level looking across the crowd toward Moses, with the cloud of divine presence placed high on the far horizon.",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "moses",
+          "the_camp_of_israel",
+          "the_wilderness_exodus_route",
+          "aaron_brother_of_moses"
+        ]
+      },
+      "conditions": {
+        "place": "Open wilderness camp of Israel with tents across sand and rock",
+        "timeOfDay": "Early morning at dawn",
+        "weather": "Clear dry desert air with light morning dew on the ground",
+        "light": "Soft pale dawn light with the veiled brilliant white-gold radiance and fire-like glow of God's presence at the edge of the cloud",
+        "clothing": "Woven tunics and cloaks of the Israelites, Moses and Aaron in plain linen garments"
+      }
+    },
+    {
+      "id": "img43",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img43.jpg",
+      "sha256": "63b00f87cb4e21772554a343b7839bcbd80d8c76fda8bd19a9e088354dd41193",
+      "verse": "isaiah-6-1",
+      "selected": [
+        "isaiah_son_of_amoz",
+        "god_yahweh_the_father_and_god_of_israel",
+        "yahweh_s_house_in_jerusalem_the_temple"
+      ],
+      "availableCast": [
+        {
+          "entryId": "isaiah_son_of_amoz",
+          "name": "Isaiah son of Amoz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "seraphim",
+          "name": "Seraphim",
+          "kind": "object",
+          "hasForm": true
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "name": "Yahweh's house in Jerusalem (the temple)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Isaiah, a lone figure in plain mourning-tone cloak, standing still with face lifted toward the upper sanctuary",
+        "action": "He gazes up as radiance without a source, veiled by a slowly moving cloud with a fire-like glow at its heart, fills the high place and spills down over the temple floor",
+        "setting": "Interior of the Jerusalem temple with stone columns, a raised throne-platform and a stone threshold and doorposts at the entrance",
+        "secondaryElements": "Swirling incense haze in the sanctuary; soft lamplight on the stone walls; the hem of the radiance's train pouring across the floor and filling the hall",
+        "mood": "Awed, reverent and grieving, with quiet stillness and a sense of profound human smallness before glory",
+        "timeOfDay": "Single unchanging interior hour with soft lamplight and radiance-lit stone",
+        "composition": "Low viewpoint from the temple floor looking up toward the high sanctuary; Isaiah small in the lower foreground, the veiled radiance dominating the upper frame",
+        "present": [
+          "isaiah_son_of_amoz",
+          "god_yahweh_the_father_and_god_of_israel",
+          "yahweh_s_house_in_jerusalem_the_temple"
+        ]
+      },
+      "conditions": {
+        "place": "Interior of the Jerusalem temple, stone columns and a raised throne-platform, incense haze in the sanctuary, a stone threshold and doorposts at the entrance",
+        "timeOfDay": "Single unchanging interior hour, no transition across the section",
+        "weather": "Still air within the temple, with swirling incense smoke and a thick, slowly moving veil of cloud filling the upper sanctuary",
+        "light": "Brilliant white-gold radiance without visible source, veiled by dense cloud with a fire-like glow at its heart; soft lamplight on the stone walls below",
+        "clothing": "Isaiah in a plain tunic and cloak in mourning-dust tones; priestly linen on temple attendants near the altar"
+      }
+    },
+    {
+      "id": "img44",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img44.jpg",
+      "sha256": "759dfe1ecbcd331cd4f480c11a2476c63bd40219196689b6abac6c3ca46281be",
+      "verse": "isaiah-6-1",
+      "selected": [
+        "isaiah_son_of_amoz",
+        "god_yahweh_the_father_and_god_of_israel",
+        "yahweh_s_house_in_jerusalem_the_temple"
+      ],
+      "availableCast": [
+        {
+          "entryId": "isaiah_son_of_amoz",
+          "name": "Isaiah son of Amoz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "seraphim",
+          "name": "Seraphim",
+          "kind": "object",
+          "hasForm": true
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "name": "Yahweh's house in Jerusalem (the temple)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Isaiah, a lone figure in plain mourning-tone cloak, standing still with face lifted toward the upper sanctuary",
+        "action": "He gazes up as radiance without a source, veiled by a slowly moving cloud with a fire-like glow at its heart, fills the high place and spills down over the temple floor",
+        "setting": "Interior of the Jerusalem temple with stone columns, a raised throne-platform and a stone threshold and doorposts at the entrance",
+        "secondaryElements": "Swirling incense haze in the sanctuary; soft lamplight on the stone walls; the hem of the radiance's train pouring across the floor and filling the hall",
+        "mood": "Awed, reverent and grieving, with quiet stillness and a sense of profound human smallness before glory",
+        "timeOfDay": "Single unchanging interior hour with soft lamplight and radiance-lit stone",
+        "composition": "Low viewpoint from the temple floor looking up toward the high sanctuary; Isaiah small in the lower foreground, the veiled radiance dominating the upper frame",
+        "present": [
+          "isaiah_son_of_amoz",
+          "god_yahweh_the_father_and_god_of_israel",
+          "yahweh_s_house_in_jerusalem_the_temple"
+        ]
+      },
+      "conditions": {
+        "place": "Interior of the Jerusalem temple, stone columns and a raised throne-platform, incense haze in the sanctuary, a stone threshold and doorposts at the entrance",
+        "timeOfDay": "Single unchanging interior hour, no transition across the section",
+        "weather": "Still air within the temple, with swirling incense smoke and a thick, slowly moving veil of cloud filling the upper sanctuary",
+        "light": "Brilliant white-gold radiance without visible source, veiled by dense cloud with a fire-like glow at its heart; soft lamplight on the stone walls below",
+        "clothing": "Isaiah in a plain tunic and cloak in mourning-dust tones; priestly linen on temple attendants near the altar"
+      }
+    },
+    {
+      "id": "img45",
+      "file": "evals/images/runs/2026-10-27-forgiving-image-check/blind/img45.jpg",
+      "sha256": "95918c12f0c3ee179c740b44c34f619ba989db1573bddcd86770d009c9c8401f",
+      "verse": "isaiah-6-1",
+      "selected": [
+        "isaiah_son_of_amoz",
+        "god_yahweh_the_father_and_god_of_israel",
+        "yahweh_s_house_in_jerusalem_the_temple"
+      ],
+      "availableCast": [
+        {
+          "entryId": "isaiah_son_of_amoz",
+          "name": "Isaiah son of Amoz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "seraphim",
+          "name": "Seraphim",
+          "kind": "object",
+          "hasForm": true
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "name": "Yahweh's house in Jerusalem (the temple)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Isaiah, a lone figure in plain mourning-tone cloak, standing still with face lifted toward the upper sanctuary",
+        "action": "He gazes up as radiance without a source, veiled by a slowly moving cloud with a fire-like glow at its heart, fills the high place and spills down over the temple floor",
+        "setting": "Interior of the Jerusalem temple with stone columns, a raised throne-platform and a stone threshold and doorposts at the entrance",
+        "secondaryElements": "Swirling incense haze in the sanctuary; soft lamplight on the stone walls; the hem of the radiance's train pouring across the floor and filling the hall",
+        "mood": "Awed, reverent and grieving, with quiet stillness and a sense of profound human smallness before glory",
+        "timeOfDay": "Single unchanging interior hour with soft lamplight and radiance-lit stone",
+        "composition": "Low viewpoint from the temple floor looking up toward the high sanctuary; Isaiah small in the lower foreground, the veiled radiance dominating the upper frame",
+        "present": [
+          "isaiah_son_of_amoz",
+          "god_yahweh_the_father_and_god_of_israel",
+          "yahweh_s_house_in_jerusalem_the_temple"
+        ]
+      },
+      "conditions": {
+        "place": "Interior of the Jerusalem temple, stone columns and a raised throne-platform, incense haze in the sanctuary, a stone threshold and doorposts at the entrance",
+        "timeOfDay": "Single unchanging interior hour, no transition across the section",
+        "weather": "Still air within the temple, with swirling incense smoke and a thick, slowly moving veil of cloud filling the upper sanctuary",
+        "light": "Brilliant white-gold radiance without visible source, veiled by dense cloud with a fire-like glow at its heart; soft lamplight on the stone walls below",
+        "clothing": "Isaiah in a plain tunic and cloak in mourning-dust tones; priestly linen on temple attendants near the altar"
+      }
+    }
+  ]
+}
