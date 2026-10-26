@@ -13,7 +13,7 @@ import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
 
 /** Structure and wording of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. */
-export const GENERIC_PROMPT_VERSION = "2026-10-27-generic-v10";
+export const GENERIC_PROMPT_VERSION = "2026-10-27-generic-v11";
 /** Prompt text is cheap next to the image itself (12,000 characters is about $0.001); the cap only guards runaway input. */
 export const GENERIC_PROMPT_MAX_CHARS = 12000;
 export const MAX_REFERENCE_IMAGES = 3;
@@ -36,7 +36,7 @@ export type RenderingInput = {
   style: ArtStyle;
   styleVersion: string;
   look: { version: string; place: string; timeOfDay: string; weather: string; light: string; clothing: string };
-  /** Owner look constraints, rendered verbatim when supplied. Generated plans carry their own setting and time (generic-v10). */
+  /** Owner look constraints, rendered verbatim when supplied. Generated plans carry their own setting and time (since generic-v10). */
   situation?: Situation | null;
   plan: { version: string; primarySubject: string; action: string; setting: string; secondaryElements: string; mood: string; timeOfDay: string; composition: string };
   /** The entries the plan marked present, with the stage the section assigns them. */
@@ -78,7 +78,7 @@ export const ENGINE_RULES = [
   `${COMMON_CONTENT_FLOOR.prohibited.join(" and ").toLowerCase()} are never shown; ${COMMON_CONTENT_FLOOR.permitted.join(" and ").toLowerCase()} may be, treated seriously.`,
   "No likeness of any real actor, performer or public figure.",
   "Show the SELECTED CHARACTERS with their canon. Anyone else appears only as an unnamed figure the scene plan describes.",
-  "A subject without form appears only through its permitted effects, never as a figure, and only when it is selected.",
+  "A subject without form is never drawn. Only when it is selected may the light, cloud, smoke or fire in the scene plan stand for it, with nobody in them.",
 ];
 export const CONTENT_OWNERSHIP = "The text decides who is in the scene; canon decides how they look; the scene plan decides this moment's place, time, light, clothing and action. Owner look constraints, when given, are binding.";
 export const PRECEDENCE_LINE = `If instructions conflict, follow these rules, then the work brief, then canon, then the art style, then the scene plan. ${CONTENT_OWNERSHIP}`;
@@ -133,10 +133,6 @@ export function selectReferences(canon: SelectedCanon[], available: AvailableRef
   });
 }
 
-/** Drop a leading "Name:" label from canon text so a no-form subject is described, never named. */
-function unlabelled(text: string) {
-  return text.replace(/^[^:\n]{1,80}:\s*/, "");
-}
 const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 export function buildRenderingPacket(input: RenderingInput): RenderingResult {
@@ -147,8 +143,9 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   const formed = input.canon.filter((c) => c.hasForm);
   const formless = input.canon.filter((c) => !c.hasForm);
   const names = formed.map((c) => c.name);
-  // Image models draw a named deity, or a quoted bodily metaphor, as a figure. When a subject without form is present,
-  // it is never named in the prompt and the source text and neighbours are left out; the plan describes its effects.
+  // Image models draw a named deity, a quoted bodily metaphor, or a described veiled glow as a figure. When a subject
+  // without form is present it is never named or described: the source text, neighbours and its canon are left out,
+  // and only the plan's plain effects (smoke, cloud, fire, light) stand for it.
   const presence = formless.length > 0;
   const formlessNames = formless.flatMap((c) => [c.name, c.text.match(/^([^:\n]{1,80}):/)?.[1]?.trim()].filter((n): n is string => Boolean(n && n.length > 2)));
   // Whole words only, so "Spirit" never rewrites "spiritual".
@@ -157,9 +154,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   const plan = Object.fromEntries(Object.entries(input.plan).map(([key, value]) => [key, key === "version" || typeof value !== "string" ? value : nameless(value)])) as RenderingInput["plan"];
   const selectedCharacters = `SELECTED CHARACTERS: ${formed.filter((c) => c.kind === "character").map((c) => c.name).join("; ") || "(none with fixed canon; show only figures the scene plan describes, or none)"}`;
   const formlessBlock = presence
-    ? ["PRESENCE SHOWN ONLY AS EFFECTS (binding; it is not a person):",
-      ...formless.map((c) => `- ${nameless(unlabelled(c.text))}`),
-      "Show it only as light, cloud, fire or radiance where the scene plan places it. No figure, face, hands, robe, hair or seated shape, even made of light."].join("\n")
+    ? "UNSEEN PRESENCE (binding): the light, cloud, smoke and fire in the scene plan are light and weather spread through the place, not one glowing shape. Nobody stands, sits or hovers in them."
     : "";
   const canonBlock = formed.length
     ? ["CANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):",

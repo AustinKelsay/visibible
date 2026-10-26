@@ -42,17 +42,17 @@ const formlessLookOutputSchema = (() => {
 
 export const PLAN_SYSTEM = `You plan one illustration of one moment of a work's text. You get the moment with its neighbours in the same story section, the work brief, the era, the section cast and a SECTION LOOK GUIDE. Return only JSON.
 - Draw one scene at one instant: no collage and no sequence of steps. If the moment recounts several actions, pick one representative instant. If it has no event (a list, law, saying or greeting), illustrate its content or setting.
-- Show what the moment is about. For a story, parable, vision or memory being told, show its actors and setting rather than the person telling it, unless the text puts the teller there.
+- Show what the moment is about. When the moment is mostly someone's words (a prophecy, oracle, poem, prayer, argument or teaching, or a story, parable, vision or memory being told), draw what the words describe and leave the speaker and listeners out, unless the text shows them inside that scene (a visionary within the vision). Never put a speaker or listener into a scene their words only describe, and never make them a figure of their own words, such as the king ready for battle or the man standing in the gap.
 - In \`selectedCast\`, list every section cast entry that will be visible: people, groups, places, objects, and any presence without form shown through its effects. Give a few words of the text for each. Leave out cast who are elsewhere or only mentioned. Anyone without a cast entry may appear as an unnamed role or crowd when the moment needs them.
 - Describe pose, action, placement and situational detail. Leave fixed appearance to canon, name no art style, and put no text or writing in the scene. Keep every depiction rule.
 - The scene fields carry this moment's place, time, light and situational clothing. The SECTION LOOK GUIDE is a suggestion for them: keep what fits this moment and change what does not. OWNER LOOK CONSTRAINTS, when given instead, are binding: keep the setting and time of day consistent with them.
 - Each field is one or two short phrases.`;
 /** All plans use the forgiving general contract; a change refreshes plans lazily, without remaking looks. */
-export const MOMENT_CAST_PROMPT_VERSION = "2026-10-27-moment-cast-v12";
+export const MOMENT_CAST_PROMPT_VERSION = "2026-10-27-moment-cast-v13";
 /** Bump for changes to the no-form planning addendum; only sections with no-form cast use it. */
-export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-27-formless-effects-v12";
+export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-27-formless-effects-v13";
 const FORMLESS_PLAN_SYSTEM = `${PLAN_SYSTEM}
-- Cast marked hasForm: false have no body. When the moment shows one of them appearing or acting, select it and describe only where its permitted effects appear (see NO-FORM CANON CONSTRAINTS), leaving their fixed colour and brightness to canon. In the scene fields, never name it and never call it seated or standing: write the effect itself, such as "radiance above an empty throne" or "fire and smoke on the mountain". Never give it a face, hands, clothing or a silhouette. A command, oath or mention alone is not an appearance, so add no effect for it then.`;
+- Cast marked hasForm: false have no body and are never drawn. When the moment shows one of them appearing or acting, select it and show the moment through the place and the people who witness it. In the scene fields, describe in your own plain words only the physical effects the text names, such as smoke, cloud, fire, storm, wind or light filling a place, spread through the scene or coming from beyond the frame rather than gathered into one glowing shape. Never name it, and leave out its throne, seat, chariot, robe or train and any face, hands, hair or body: bodily words in the text are metaphors. Keep the people and the place as the subject of the image. A command, oath or mention alone is not an appearance, so add no effect for it then.`;
 export const planOutputSchema = z.object({
   present: z.array(z.string()),
   // Guidance only: each field restates grounding.instant; no code checks pose consistency.
@@ -77,7 +77,7 @@ function planningResponseSchema(entryIds: string[], hasFormlessCast: boolean) {
   // An empty enum is not a valid provider schema; IDs outside the cast are dropped after parsing.
   const id = entryIds.length ? z.enum(entryIds) : z.string();
   const field = (description: string) => z.string().describe(`${description} One or two short phrases.`);
-  const formless = hasFormlessCast ? " For a cast entry with hasForm false, name only its permitted effect and where it appears." : "";
+  const formless = hasFormlessCast ? " For a cast entry with hasForm false, describe only the smoke, cloud, fire, wind or light the text names, never the entry itself." : "";
   return z.object({
     focusQuote: z.string().describe("A few words copied from MOMENT naming what this image shows."),
     instant: z.string().describe("One sentence fixing the single instant to draw: who is where, doing what."),

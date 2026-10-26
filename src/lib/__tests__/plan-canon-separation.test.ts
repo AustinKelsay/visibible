@@ -71,17 +71,17 @@ describe("no-form plan and canon separation", () => {
     expect(request.user).toContain(input.records.find((record: AnalysisRecord) => record.kind === "look").payload.clothing);
     expect(request.user).toContain("OWNER LOOK CONSTRAINTS");
     expect(result.look.version).toBe(input.overlay.frozenLookVersion);
-    // Historical prose canon reaches planning verbatim; the no-form addendum asks only for effect placement.
-    expect(request.system).toContain("describe only where its permitted effects appear (see NO-FORM CANON CONSTRAINTS), leaving their fixed colour and brightness to canon");
+    // Historical prose canon reaches planning verbatim; the no-form addendum asks only for the text's effects in plain words.
+    expect(request.system).toContain("describe in your own plain words only the physical effects the text names");
     // Moment-cast v12: no separate conditions reply; the scene fields carry place and time, and owner constraints stay binding.
     expect(request.system).toContain("The scene fields carry this moment's place, time, light and situational clothing.");
     expect(request.system).toContain("OWNER LOOK CONSTRAINTS, when given instead, are binding: keep the setting and time of day consistent with them.");
-    expect(request.system).toContain("never name it and never call it seated or standing");
+    expect(request.system).toContain("Never name it, and leave out its throne, seat, chariot, robe or train");
     expect(input.request.system).not.toContain("effect names for placement");
     const serialized = responseSchema(request.schema);
     const properties = serialized.properties as Record<string, { description: string }>;
     for (const field of ["primarySubject", "action"]) {
-      expect(properties[field].description).toContain("name only its permitted effect and where it appears");
+      expect(properties[field].description).toContain("describe only the smoke, cloud, fire, wind or light the text names, never the entry itself");
     }
     expect(properties.timeOfDay.description).toContain("situational light");
   });
@@ -122,10 +122,11 @@ describe("no-form plan and canon separation", () => {
       if (!rendered.ok) throw new Error(rendered.message);
       versions.push(rendered.packet.planVersion);
       expect(rendered.canon).toContainEqual(expect.objectContaining({ entryId: canon.entryId, stageId: canon.stages[0].id, text: canon.stages[0].text, hasForm: false }));
-      // Rendering receives the complete appearance as effects, without the subject's name label (generic-v10).
+      // Rendering never describes the subject (generic-v11): neither its canon nor its name label reaches the prompt.
       const described = canon.stages[0].text.replace(/^[^:\n]{1,80}:\s*/, "");
       expect(described).not.toBe(canon.stages[0].text);
-      expect(rendered.prompt).toContain(`PRESENCE SHOWN ONLY AS EFFECTS (binding; it is not a person):\n- ${described}`);
+      expect(rendered.prompt).not.toContain(described);
+      expect(rendered.prompt).toContain("UNSEEN PRESENCE (binding)");
       expect(rendered.prompt).not.toContain(canon.stages[0].text);
       expect(rendered.prepared.plan.payload).toEqual(situational);
       expect(rendered.context).toEqual(input.context);

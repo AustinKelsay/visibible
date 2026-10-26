@@ -683,12 +683,13 @@ describe("Image Generation API Credit Flow", () => {
       const parts = calls[0].messages[0].content;
       expect(parts.map((p) => p.type)).toEqual(["text", "image_url", "image_url"]);
       expect(parts[0].text).toContain(adamText);
-      // The plan selects God, who has no form: generic-v10 sends neither the verse nor neighbours, never names the
-      // subject, and describes it by its canon effects alone. The generated section look is advisory and not rendered.
+      // The plan selects God, who has no form: generic-v11 sends neither the verse, neighbours nor its canon, and never
+      // names the subject; only the plan's effects stand for it. The generated section look is advisory and not rendered.
       expect(parts[0].text).not.toContain(webText[1]);
       expect(parts[0].text).not.toContain(webText[2]);
       expect(parts[0].text).not.toMatch(/\bGod\b/);
-      expect(parts[0].text).toContain("PRESENCE SHOWN ONLY AS EFFECTS (binding; it is not a person):\n- shown only as light.");
+      expect(parts[0].text).toContain("UNSEEN PRESENCE (binding)");
+      expect(parts[0].text).not.toContain("shown only as light.");
       expect(parts[0].text).toContain("SELECTED CHARACTERS: Adam\n");
       expect(parts[0].text).not.toContain("MOMENT CONDITIONS");
       expect(parts[0].text).not.toContain(lookAnswer.light);

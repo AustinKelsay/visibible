@@ -86,7 +86,7 @@ describe("scene source grounding", () => {
     expect(calls[0].user.indexOf("MOMENT (")).toBeLessThan(calls[0].user.indexOf("CAST ON STAGE"));
     expect(calls[0].user).not.toContain("SECTION LOOK (");
     expect(calls[0].system).toContain("pick one representative instant");
-    expect(calls[0].system).toContain("rather than the person telling it");
+    expect(calls[0].system).toContain("Never put a speaker or listener into a scene their words only describe");
   });
 
   it.each([

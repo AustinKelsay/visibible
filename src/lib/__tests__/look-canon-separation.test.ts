@@ -121,9 +121,9 @@ describe("no-form section look and canon separation", () => {
       if (!again.ok) throw new Error(again.message);
       expect(again.prepared.calls).toBe(0);
       expect(again.packet.lookVersion).toBe(result.packet.lookVersion);
-      // Rendering describes the selected no-form canon in full, without its name label (generic-v10).
-      expect(again.prompt).toContain(`- ${fullCanon.replace(/^[^:\n]{1,80}:\s*/, "")}`);
-      expect(again.prompt).toContain("PRESENCE SHOWN ONLY AS EFFECTS");
+      // Rendering never describes the selected no-form subject (generic-v11): its canon stays out of the prompt.
+      expect(again.prompt).not.toContain(fullCanon.replace(/^[^:\n]{1,80}:\s*/, ""));
+      expect(again.prompt).toContain("UNSEEN PRESENCE (binding)");
       expect(again.prompt).not.toContain("effect names for placement");
     }
     expect(requests).toHaveLength(2);
