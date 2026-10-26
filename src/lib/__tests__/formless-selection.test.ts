@@ -68,8 +68,13 @@ describe("no-form cast selection", () => {
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review"]);
     expect(result.prepared.present.map((p) => p.entryId)).toEqual(["witness", "presence"]);
     expect(result.canon.find((c) => c.entryId === "presence")).toMatchObject({ hasForm: false });
-    expect(result.prompt).toContain("Presence: represent only through the non-figurative presence");
-    expect(result.prompt).toContain("Presence: radiance above the camp, without a body or human form.");
+    // generic-v10: the no-form subject is described by its effects, never named, and its scene omits the source text.
+    expect(result.prompt).toContain("PRESENCE SHOWN ONLY AS EFFECTS (binding; it is not a person):\n- radiance above the camp, without a body or human form.");
+    expect(result.prompt).toContain("SELECTED CHARACTERS: Witness\n");
+    expect(result.prompt).not.toContain(text);
+    expect(result.prompt).not.toContain("Presence:");
+    // moment-cast v12: the planner is told never to name it or call it seated or standing.
+    expect(calls[0].system).toContain("never name it and never call it seated or standing");
     expect((await store.getActiveRecord("plan", "m-1"))!.payload).toMatchObject({ review: { rounds: 1, notes: ["selected presence: depicted but not selected"] } });
     await render();
     expect(calls).toHaveLength(2);

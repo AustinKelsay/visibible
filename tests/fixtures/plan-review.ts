@@ -3,7 +3,7 @@
  * every review reports no problems; review behavior itself is tested with explicit replies.
  */
 import type { TextModel, TextModelRequest, TextModelResult } from "../../src/lib/reading-pass/model";
-import { selectionReply, withSituation } from "./scene-grounding";
+import { selectionReply } from "./scene-grounding";
 
 export const REVIEW_USAGE = { promptTokens: 40, completionTokens: 5, costUsd: 0.0001 };
 export const reviewReply = (problems: unknown[] = []): TextModelResult =>
@@ -17,9 +17,7 @@ export function withCleanReview<T extends TextModel>(model: T, reviews: TextMode
     if (request.schemaName !== "scene_plan") return result;
     let value: unknown;
     try { value = JSON.parse(result.content); } catch { return result; }
-    const owner = request.user.match(/OWNER LOOK CONSTRAINTS[^\n]*:\n(\{[^\n]*\})/);
-    const reply = selectionReply(value);
-    const hasSituation = typeof value === "object" && value !== null && "situation" in value;
-    return { ...result, content: JSON.stringify(owner && !hasSituation ? { ...(reply as object), situation: JSON.parse(owner[1]) } : withSituation(reply)) };
+    // Since moment-cast v12 the reply has no `situation`; scene fields carry setting and time.
+    return { ...result, content: JSON.stringify(selectionReply(value)) };
   } } as T;
 }

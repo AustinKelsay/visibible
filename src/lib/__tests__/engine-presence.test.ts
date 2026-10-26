@@ -88,10 +88,14 @@ describe("no-form presence selection", () => {
       if (!result.ok) throw new Error(result.message);
       versions.push(result.packet.planVersion);
       expect(result.packet.canon.map((c) => [c.entryId, c.stageId])).toEqual([["watcher", "main"], ["voice", "revealed"]]);
-      expect(result.prompt).toContain(work.getUnit("court-1").text);
-      expect(result.prompt).toContain(voiceCanon);
-      expect(result.prompt).toContain("FORMLESS SUBJECTS");
-      expect(result.prompt).toContain("- The voice: represent only through the non-figurative presence");
+      // A selected no-form subject is described, never named or quoted: no source text, no canon label, no name in the plan.
+      expect(result.prompt).not.toContain(work.getUnit("court-1").text);
+      expect(result.prompt).not.toContain(voiceCanon);
+      expect(result.prompt).toContain("PRESENCE SHOWN ONLY AS EFFECTS");
+      expect(result.prompt).toContain("- a non-figurative presence in light, never a face or body.");
+      expect(result.prompt).toContain("SELECTED CHARACTERS: The watcher\n");
+      expect(result.prompt).toContain("Primary subject: the presence present as radiance above an empty throne");
+      expect(result.prompt).not.toContain("FORMLESS SUBJECTS");
       expect(result.references.some((r) => r.kind === "sheet" && r.entryId !== "watcher")).toBe(false);
     }
     expect(new Set(versions).size).toBe(1);
@@ -107,8 +111,8 @@ describe("no-form presence selection", () => {
     expect(plan.system).toContain("Cast marked hasForm: false have no body.");
     expect(plan.system).toContain("select it and describe only where its permitted effects appear (see NO-FORM CANON CONSTRAINTS)");
     expect(plan.system).toContain("Leave out cast who are elsewhere or only mentioned.");
-    expect(plan.system).toContain("Never give it a face, hands, clothing, a silhouette or a seated figure");
-    expect(plan.system).toContain("for a seated metaphor, show an empty seat with effects around it");
+    expect(plan.system).toContain("Never give it a face, hands, clothing or a silhouette");
+    expect(plan.system).toContain("never name it and never call it seated or standing");
     expect(plan.system).toContain("A command, oath or mention alone is not an appearance");
     expect(getReference.mock.calls.filter(([kind]) => kind === "sheet").map(([, id]) => id)).toEqual(["watcher:main", "watcher:main", "watcher:main"]);
   });
@@ -120,11 +124,10 @@ describe("no-form presence selection", () => {
     const request = calls.find((r) => r.schemaName === "scene_plan")!;
     expect(responseSchema(request.schema)).toEqual({
       type: "object", additionalProperties: false,
-      required: ["focusQuote", "instant", "selectedCast", ...Object.keys(fields), "situation"],
+      required: ["focusQuote", "instant", "selectedCast", ...Object.keys(fields)],
       properties: {
         focusQuote: { type: "string", description: expect.any(String) },
         instant: { type: "string", description: expect.any(String) },
-        situation: expect.objectContaining({ type: "object", additionalProperties: false }),
         selectedCast: { type: "array", description: expect.any(String), items: expect.objectContaining({ type: "object", additionalProperties: false,
           required: ["entryId", "evidence"], properties: expect.objectContaining({ entryId: { type: "string", enum: entries.map((e) => e.recordId) } }) }) },
         // No maxLength reaches the provider, and long values are trimmed locally rather than refused.
@@ -133,10 +136,12 @@ describe("no-form presence selection", () => {
     });
     // The no-form addendum reaches the fields that place effects.
     expect((responseSchema(request.schema).properties as Record<string, { description: string }>).primarySubject.description).toContain("For a cast entry with hasForm false, name only its permitted effect");
-    const reply = { situation: { place: "court", timeOfDay: "day", weather: "clear", light: "daylight", clothing: "robes" }, focusQuote: "The voice sat", instant: "One instant.", selectedCast: [], ...fields };
+    const reply = { focusQuote: "The voice sat", instant: "One instant.", selectedCast: [], ...fields };
     expect(request.schema.safeParse(reply).success).toBe(true);
     for (const key of Object.keys(fields)) expect(request.schema.safeParse({ ...reply, [key]: "x".repeat(1000) }).success).toBe(true);
     for (const removed of ["grounding", "consideredCast", "missingCast"]) expect(request.schema.safeParse({ ...reply, [removed]: [] }).success).toBe(false);
+    // Moment conditions are no longer a separate reply field (moment-cast v12): the scene fields carry setting and time.
+    expect(request.schema.safeParse({ ...reply, situation: { place: "court", timeOfDay: "day", weather: "clear", light: "daylight", clothing: "robes" } }).success).toBe(false);
     expect(request.schema.safeParse({ ...reply, selectedCast: [{ entryId: "unknown_entry", evidence: "" }] }).success).toBe(false);
   });
 
@@ -190,7 +195,10 @@ describe("no-form presence selection", () => {
     expect(alone.packet.lookVersion).toBe(first.packet.lookVersion);
     expect(alone.prepared.calls).toBe(2); // plan and review
     expect(alone.packet.canon.map((c) => c.entryId)).toEqual(["watcher"]);
-    expect(alone.prompt).not.toContain("FORMLESS SUBJECTS");
+    expect(alone.prompt).not.toContain("PRESENCE SHOWN ONLY AS EFFECTS");
+    // A formed-only scene keeps its source text.
+    expect(alone.prompt).toContain(work.getUnit("court-2").text);
+    expect(first.prompt).not.toContain(work.getUnit("court-1").text);
     expect(calls[2].user).toContain(voiceCanon); // Section context does not force moment presence.
     expect(alone.prompt).not.toContain(voiceCanon);
     expect(calls).toHaveLength(3);
@@ -220,9 +228,11 @@ describe("no-form presence selection", () => {
     const stored = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
     if (stored?.payload.kind !== "plan") throw new Error("No prepared plan");
     expect(stored.payload.plan).toEqual(contradictory);
-    expect(result.prompt).toContain(contradictory.primarySubject);
+    // Rendering names no no-form subject: its name in the stored plan becomes "the presence" in the prompt only.
+    expect(result.prompt).toContain(contradictory.primarySubject.replace(/The voice/g, "the presence"));
+    expect(result.prompt).not.toContain(contradictory.primarySubject);
     expect(result.prompt).toContain(contradictory.action);
-    expect(result.prompt).toContain("FORMLESS SUBJECTS");
+    expect(result.prompt).toContain("PRESENCE SHOWN ONLY AS EFFECTS");
     // Code never rewrites the reply. The scripted review reports no problems; a real review is a
     // separate model judgment measured in evaluation, and live compliance remains a gate.
     expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK })).calls).toBe(3);

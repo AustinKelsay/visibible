@@ -2,14 +2,14 @@
 
 [Lazy preparation](../../src/lib/engine/preparation.ts) makes the two pieces of text the generic engine needs before it can draw a moment. It runs the first time they are needed and stores them in the work's active analysis generation ([Analysis storage](ANALYSIS-STORAGE.md)). The legacy route's scene planner and its `scenePlanCache` are separate and untouched.
 
-Preparation is **forgiving** (moment-cast v11, formless-effects v11, plan-review v9, rendering generic-v9). The plan review advises rather than gates. A usable plan is kept with notes instead of being refused, and only a few hard faults stop a moment. [ADR 0004](../../docs/adr/0004-forgiving-scene-preparation.md) records the decision.
+Preparation is **forgiving** (moment-cast v12, formless-effects v12, plan-review v10, rendering generic-v10; [ADR 0004](../../docs/adr/0004-forgiving-scene-preparation.md), [ADR 0005](../../docs/adr/0005-one-scene-description-unnamed-presence.md)). The plan review advises rather than gates. A usable plan is kept with notes instead of being refused, and only a few hard faults stop a moment. [ADR 0004](../../docs/adr/0004-forgiving-scene-preparation.md) records the decision.
 
 ## Section look
 
 There is one look per story section, holding the situational place, time of day, weather, light and clothing. Fixed appearance is left to canon.
 
 - **Generated looks** (`source: "generated"`) are advisory guides. The planner receives one as `SECTION LOOK GUIDE (a suggestion; keep what fits this moment)` and resolves its own conditions; rendering never uses the raw look.
-- **Owner looks, and historical looks with unknown provenance**, are literal constraints. The planner receives them as `OWNER LOOK CONSTRAINTS (copy all values exactly)`, and preparation restores all five values verbatim if the reply paraphrases them (see below). A generated look is never regenerated over an owner look.
+- **Owner looks, and historical looks with unknown provenance**, are literal constraints. The planner receives them as `OWNER LOOK CONSTRAINTS (copy all values exactly)` to keep its setting and time consistent, and rendering takes all five values verbatim from the look record. A generated look is never regenerated over an owner look.
 - **Inputs:** the section version, the brief version, the canon versions of the section's cast, and, when the cast includes a no-form entry, the prompt marker `section_look_formless_presence`. A changed input remakes the look lazily; history is retained.
 - Looks use five required string fields (900-token ceiling, 350 expected). No-form sections use a stricter look prompt and a local 200-character check per field, retried once like any malformed reply.
 
@@ -24,23 +24,22 @@ There is one plan per moment, shared by every art style and reader translation. 
 - The look guide or owner constraints.
 - For no-form cast, the canon constraints. Validated structured canon (`showing`) projects to effect names only; otherwise the authoritative stage text is used.
 
-The system prompt is a short, general contract: one scene at one instant; show the actors of a told story or vision rather than its teller; select every visible cast entry, including places, objects and presences shown through effects; unnamed roles and crowds may appear without canon; describe pose, action and situational detail but not fixed appearance, art style or text; keep the depiction rules; and resolve this moment's conditions. Sections with no-form cast add one paragraph: such a subject appears only through its permitted effects, never as a body or a seated figure, and only when the moment shows it appearing or acting.
+The system prompt is a short, general contract: one scene at one instant; show the actors of a told story or vision rather than its teller; select every visible cast entry, including places, objects and presences shown through effects; unnamed roles and crowds may appear without canon; describe pose, action and situational detail but not fixed appearance, art style or text; keep the depiction rules; and let the scene fields carry this moment's place, time, light and clothing, using the section look guide as a suggestion (or keeping consistent with owner look constraints). Sections with no-form cast add one paragraph: such a subject appears only through its permitted effects and is never named or called seated or standing in the scene fields, and only when the moment shows it appearing or acting.
 
-**Reply format** (strict provider schema; all keys required):
+**Reply format** (strict provider schema; all keys required; moment-cast v12 dropped the separate `situation`, the largest source of flaws in the [re-measurement](../releases/2026-10-27-forgiving-fresh-check/RESULTS.md)):
 
 - `focusQuote`: a few words from the moment naming what the image shows.
 - `instant`: one sentence fixing the instant.
 - `selectedCast`: `[{ entryId, evidence }]`. IDs are limited to the section's cast by the provider schema (an empty cast allows any string, and code drops IDs outside the cast).
 - Seven scene fields: `primarySubject`, `action`, `setting`, `secondaryElements`, `mood`, `timeOfDay`, `composition`.
-- `situation`: place, time of day, weather, light and clothing for this moment.
 
 There is no `grounding` object, `consideredCast` or `missingCast`. Evidence quotes are audit data only and are not checked against the source. A reply that fails the schema, including an ID outside the cast or a missing key, is retried once; two malformed replies stop preparation.
 
-**Normalization in code:** repeated IDs are dropped (first kept). Scene fields and generated conditions over 400 characters are trimmed with an ellipsis rather than refused. Under owner constraints, the reply's `situation` is replaced by the five owner values verbatim, with the note `owner look constraints restored verbatim` when they differed.
+**Normalization in code:** repeated IDs are dropped (first kept). Scene fields over 400 characters are trimmed with an ellipsis rather than refused. A generated section look is advisory and never rendered; owner look constraints are rendered verbatim from the look record (`prepared.situation`), so the planner never restates them.
 
 ## Plan review (advisory)
 
-Each plan is reviewed before storage by a second Haiku 5.5 call: reasoning `low`, 4,000-token ceiling ([plan-review.ts](../../src/lib/engine/plan-review.ts)). The review sees the moment and neighbours, the depiction rules, the section cast with `hasForm`, the selected IDs, the seven fields, the exact `MOMENT CONDITIONS` (or literal `OWNER LOOK CONSTRAINTS`) that rendering will use, and the complete canon of the selected stages. It is told to report only clear problems a careful reader would agree with. Kinds:
+Each plan is reviewed before storage by a second Haiku 5.5 call: reasoning `low`, 4,000-token ceiling ([plan-review.ts](../../src/lib/engine/plan-review.ts)). The review sees the moment and neighbours, the depiction rules, the section cast with `hasForm`, the selected IDs, the seven fields, any literal `OWNER LOOK CONSTRAINTS` that rendering will use (none for a generated look, so a `look_conflict` citing it is invalid), and the complete canon of the selected stages. It is told to report only clear problems a careful reader would agree with. Kinds:
 
 - `unselected_figure`: a section cast entry is clearly depicted but not selected.
 - `outside_instant`: a selected or described person or presence does not belong in this moment, such as a narrator, another event, or an unshown no-form presence.
@@ -70,7 +69,7 @@ The only refusals are an embodied no-form subject that survives the re-plan and 
 The plan payload (validated by the Convex `planPayloadValidator`) holds:
 
 - `entries`: `{ entryId, stageId }`, the planner's selections plus any auto-selected ones.
-- The seven `plan` fields and `situation`.
+- The seven `plan` fields (no `situation` since moment-cast v12).
 - `grounding`: `focusQuote`, `instant`, `singleInstant` (false only when a `not_one_instant` problem remains) and one `in_scene` record per planner selection, with `momentQuote` set to its evidence.
 - `review`: `rounds` (1 or 2), `problems` (the round-1 problems that caused the re-plan) and `notes`.
 

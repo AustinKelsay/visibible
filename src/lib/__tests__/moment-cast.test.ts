@@ -22,6 +22,19 @@ const WORK = "bible-web";
 const SECTION = "daniel-7-9";
 type RecordInput = FunctionArgs<typeof api.analysis.putRecords>["records"][number];
 
+/** The planner reply has no `situation` since moment-cast v12; drop one a shared fixture may still add. */
+function withoutSituation<T extends TextModel>(model: T): T {
+  return { ...model, complete: async (request: TextModelRequest) => {
+    const result = await model.complete(request);
+    if (request.schemaName !== "scene_plan") return result;
+    try {
+      const { situation: _situation, ...reply } = JSON.parse(result.content) as Record<string, unknown>;
+      void _situation;
+      return { ...result, content: JSON.stringify(reply) };
+    } catch { return result; }
+  } } as T;
+}
+
 describe("moment cast over shared section context", () => {
   beforeEach(() => { process.env.CONVEX_SERVER_SECRET = SECRET; });
 
@@ -51,7 +64,7 @@ describe("moment cast over shared section context", () => {
     const client = { query: (ref: unknown, args: unknown) => t.query(ref as never, args as never), mutation: (ref: unknown, args: unknown) => t.mutation(ref as never, args as never) };
     const store = createConvexPreparationStore(client, api.analysis as unknown as Record<string, unknown>, WORK, SECRET);
     const requests: TextModelRequest[] = [];
-    const model: TextModel = withCleanReview({ id: "retained-reply", complete: async (request) => {
+    const model: TextModel = withoutSituation(withCleanReview({ id: "retained-reply", complete: async (request) => {
       requests.push(request);
       // Padded canon changes entry versions, so its look is remade; answer with the retained look text.
       if (padCanon && request.schemaName === "section_look") {
@@ -67,7 +80,7 @@ describe("moment cast over shared section context", () => {
       return { content: JSON.stringify(reply),
         model: "retained-reply", providerRequestId: null, finishReason: "stop", elapsedMs: 0,
         usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 } };
-    } });
+    } }));
     const getReference = vi.fn<AssembleDeps["getReference"]>(async (kind, id) => ({
       storageId: `${kind}:${id}`, inputs: [], fingerprint: `ref:${id}`, pinned: true,
     }));
@@ -88,15 +101,25 @@ describe("moment cast over shared section context", () => {
       expect(result.packet.lookVersion).toBe(oldLook.version);
       expect(result.packet.planVersion).not.toBe(oldPlan.version); // Same scene prose, new grounding audit.
       expect(result.prepared.look.payload.clothing).toContain("Daniel in his ordinary tunic and cloak");
-      expect(result.prompt).toContain(result.prepared.situation.clothing);
-      if (ownerLook) expect(result.prompt).toContain(String(oldLook.payload.clothing));
-      else expect(result.prompt).not.toContain(String(oldLook.payload.clothing));
+      // Only owner constraints are rendered; a generated look stays an unrendered guide.
+      if (ownerLook) {
+        expect(result.prepared.situation?.clothing).toBe(String(oldLook.payload.clothing));
+        expect(result.prompt).toContain("OWNER LOOK CONSTRAINTS (binding, verbatim)");
+        expect(result.prompt).toContain(String(oldLook.payload.clothing));
+      } else {
+        expect(result.prepared.situation).toBeNull();
+        expect(result.prompt).not.toContain(String(oldLook.payload.clothing));
+      }
+      // The selected no-form subject is never named; only formed characters are listed.
       const selected = result.prompt.split("SELECTED CHARACTERS: ")[1]?.split("\n")[0];
-      expect(selected).toBe("The Ancient of Days; Ministering assembly in Daniel's vision");
+      expect(selected).toBe("Ministering assembly in Daniel's vision");
       expect(selected).not.toContain("Daniel (prophet of Babylon)");
+      expect(result.prompt).not.toContain("Ancient of Days");
+      expect(result.prompt).toContain("PRESENCE SHOWN ONLY AS EFFECTS");
       expect(result.prompt).toContain(ENGINE_RULES.find((rule) => rule.startsWith("Show the SELECTED CHARACTERS"))!);
       expect(result.packet.canon.map((entry) => entry.entryId)).toEqual(["the_ancient_of_days", "ministering_assembly_in_daniels_vision"]);
-      for (const entry of result.canon) expect(result.prompt).toContain(entry.text);
+      for (const entry of result.canon.filter((c) => c.hasForm)) expect(result.prompt).toContain(entry.text);
+      for (const entry of result.canon.filter((c) => !c.hasForm)) expect(result.prompt).toContain(entry.text.replace(/^[^:\n]{1,80}:\s*/, ""));
       expect(result.references.filter((reference) => reference.kind === "sheet").map((reference) => reference.entryId)).toEqual(["ministering_assembly_in_daniels_vision"]);
       expect(result.packet.budget.finalChars).toBeLessThanOrEqual(GENERIC_PROMPT_MAX_CHARS);
     }
@@ -115,6 +138,10 @@ describe("moment cast over shared section context", () => {
     const result = await render("daniel-7-9");
     if (!result.ok) throw new Error(result.message);
     expect(result.packet.budget.finalChars).toBeLessThanOrEqual(GENERIC_PROMPT_MAX_CHARS);
+    // A selected no-form subject: the verse's bodily metaphors and neighbours never reach the image model.
+    expect(result.prompt).not.toContain("hair of his head");
+    expect(result.prompt).not.toContain("NARRATIVE CONTINUITY");
+    expect(result.prompt).not.toContain("Ancient of Days");
     const saved = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: SECTION });
     expect(saved?.payload).toMatchObject({ entries: expect.arrayContaining([{ entryId: "ministering_assembly_in_daniels_vision", stageId: expect.any(String) }]) });
     expect(requests).toHaveLength(1); // Scripted clean review is not semantic proof.
@@ -129,7 +156,7 @@ describe("moment cast over shared section context", () => {
     const saved = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: SECTION });
     expect(saved?.payload).toMatchObject({ entries: expect.arrayContaining([{ entryId: "ministering_assembly_in_daniels_vision", stageId: expect.any(String) }]) });
     expect(saved?.payload).toHaveProperty("grounding");
-    expect(saved?.payload).toHaveProperty("situation");
+    expect(saved?.payload).not.toHaveProperty("situation");
     expect(requests.map((request) => request.schemaName)).toEqual(["section_look", "scene_plan"]); // Scripted clean review is not semantic proof; no silent content trim repairs it.
   });
 });

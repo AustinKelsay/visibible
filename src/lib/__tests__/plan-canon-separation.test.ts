@@ -73,7 +73,10 @@ describe("no-form plan and canon separation", () => {
     expect(result.look.version).toBe(input.overlay.frozenLookVersion);
     // Historical prose canon reaches planning verbatim; the no-form addendum asks only for effect placement.
     expect(request.system).toContain("describe only where its permitted effects appear (see NO-FORM CANON CONSTRAINTS), leaving their fixed colour and brightness to canon");
-    expect(request.system).toContain("In `situation`, give this moment's place, time of day, weather, light and situational clothing");
+    // Moment-cast v12: no separate conditions reply; the scene fields carry place and time, and owner constraints stay binding.
+    expect(request.system).toContain("The scene fields carry this moment's place, time, light and situational clothing.");
+    expect(request.system).toContain("OWNER LOOK CONSTRAINTS, when given instead, are binding: keep the setting and time of day consistent with them.");
+    expect(request.system).toContain("never name it and never call it seated or standing");
     expect(input.request.system).not.toContain("effect names for placement");
     const serialized = responseSchema(request.schema);
     const properties = serialized.properties as Record<string, { description: string }>;
@@ -119,7 +122,11 @@ describe("no-form plan and canon separation", () => {
       if (!rendered.ok) throw new Error(rendered.message);
       versions.push(rendered.packet.planVersion);
       expect(rendered.canon).toContainEqual(expect.objectContaining({ entryId: canon.entryId, stageId: canon.stages[0].id, text: canon.stages[0].text, hasForm: false }));
-      expect(rendered.prompt).toContain(canon.stages[0].text);
+      // Rendering receives the complete appearance as effects, without the subject's name label (generic-v10).
+      const described = canon.stages[0].text.replace(/^[^:\n]{1,80}:\s*/, "");
+      expect(described).not.toBe(canon.stages[0].text);
+      expect(rendered.prompt).toContain(`PRESENCE SHOWN ONLY AS EFFECTS (binding; it is not a person):\n- ${described}`);
+      expect(rendered.prompt).not.toContain(canon.stages[0].text);
       expect(rendered.prepared.plan.payload).toEqual(situational);
       expect(rendered.context).toEqual(input.context);
       expect(rendered.prompt).not.toContain("effect names for placement");

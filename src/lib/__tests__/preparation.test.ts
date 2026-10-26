@@ -236,7 +236,7 @@ describe("forgiving plan review through the real payload validator", () => {
   const scene = { primarySubject: "Noa standing on the harbor quay", action: "turns toward the sound", setting: "the harbor quay at dawn", secondaryElements: "moored boats",
     mood: "awe", timeOfDay: "dawn", composition: "Noa small against the water" };
   const reply = (overrides: Record<string, unknown> = {}) => ({ focusQuote: "Noa heard the voice", instant: "Noa turns on the quay toward the voice.",
-    selectedCast: [{ entryId: "noa", evidence: "Noa heard" }], ...scene, situation: { place: "harbor quay", timeOfDay: "dawn", weather: "calm", light: "low sun", clothing: "wool tunic" }, ...overrides });
+    selectedCast: [{ entryId: "noa", evidence: "Noa heard" }], ...scene, ...overrides });
   beforeEach(async () => {
     t = convexTest(schema, modules);
     client = { query: (ref, args) => t.query(ref as never, args as never), mutation: (ref, args) => t.mutation(ref as never, args as never) };
@@ -270,11 +270,39 @@ describe("forgiving plan review through the real payload validator", () => {
     expect(result.present.map((p) => [p.entryId, p.stageId])).toEqual([["noa", "main"], ["harbor", "quay"]]);
     expect(result.plan.payload.action).toHaveLength(400);
     expect(result.plan.payload.action.endsWith("…")).toBe(true);
+    // Since moment-cast v12 the scene fields carry setting and time: a generated guide renders no separate conditions.
+    expect(result.situation).toBeNull();
+    expect(calls[2].user).not.toContain("MOMENT CONDITIONS");
+    expect(calls[2].user).not.toContain("OWNER LOOK CONSTRAINTS");
+    expect(await storedPlan()).not.toHaveProperty("situation");
     expect(await storedPlan()).toMatchObject({
       entries: [{ entryId: "noa", stageId: "main" }, { entryId: "harbor", stageId: "quay" }],
       grounding: { focusQuote: "Noa heard the voice", instant: "Noa turns on the quay toward the voice.", singleInstant: true,
         cast: [{ entryId: "noa", momentQuote: "Noa heard", contextSource: "none", contextQuote: "", participation: "in_scene" }] },
       review: { rounds: 1, notes: ["selected harbor: depicted but not selected"] } });
+  });
+
+  it("refuses an old reply that still carries situation, after the malformed-reply retry", async () => {
+    const { run, calls } = prepare([reply({ situation: { place: "harbor quay", timeOfDay: "dawn", weather: "calm", light: "low sun", clothing: "wool tunic" } })], [[]]);
+    await expect(run()).rejects.toMatchObject({ stage: "plan", message: expect.stringContaining("Unrecognized key") });
+    expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "scene_plan"]);
+    expect(await storedPlan()).toBeUndefined();
+  });
+
+  it("reviews and returns owner look constraints verbatim without asking the planner for conditions", async () => {
+    const owner = { place: "an owner harbor", timeOfDay: "owner dusk", weather: "owner fog", light: "owner lamps", clothing: "owner oilskins" };
+    const { run, calls } = prepare([reply()], [[]]);
+    expect((await run()).situation).toBeNull();
+    // The owner then corrects the section look; the plan refreshes against the literal constraints.
+    await t.mutation(api.analysis.correctRecord, { serverSecret: SECRET, workId: WORK, kind: "look", recordId: "gamma-1-1", payload: { kind: "look", sectionId: "gamma-1-1", ...owner } });
+    const before = calls.length;
+    const result = await run();
+    const after = calls.slice(before);
+    expect(after.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
+    expect(after[0].user).toContain(`OWNER LOOK CONSTRAINTS (copy all values exactly):\n${JSON.stringify(owner)}`);
+    expect(after[1].user).toContain(`OWNER LOOK CONSTRAINTS (binding verbatim rendering input):\n${JSON.stringify(owner)}`);
+    expect(result.situation).toEqual(owner);
+    expect(await storedPlan()).not.toHaveProperty("situation");
   });
 
   it("notes a reported canon gap without a re-plan", async () => {

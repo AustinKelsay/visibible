@@ -14,7 +14,7 @@ const set = JSON.parse(readFileSync(new URL("../2026-10-23-cast-policy-check/sam
 const sample = set.samples.find((s: { momentId: string }) => s.momentId === "lamentations-4-7");
 
 describe("source-first scene planning", () => {
-  it.each([1, 2])("retains look %i as advisory provenance while rendering only resolved conditions", async (repeat) => {
+  it.each([1, 2])("retains look %i as advisory provenance and renders only the plan's own setting and time", async (repeat) => {
     const look = JSON.parse(traces.find((r) => r.phase === `identity-s034-${repeat}` && r.request.response_format.json_schema.name === "section_look").response.choices[0].message.content);
     const memory = createMemoryPreparationStore(sample.keys.map((key: string) => set.records[key]).filter((r: { kind: string }) => r.kind !== "look" && r.kind !== "plan"));
     const inputs = await readWorkInputs("bible-web");
@@ -41,7 +41,12 @@ describe("source-first scene planning", () => {
       expect(result.prepared.look.payload).toEqual(look);
       expect(result.prompt).not.toContain(look.clothing);
       expect(result.prompt).not.toContain(look.light);
-      expect(result.prompt).toContain(result.prepared.situation.light);
+      expect(result.prompt).not.toContain(look.place);
+      // A generated guide renders no conditions block; the plan's own fields carry setting and time.
+      expect(result.prepared.situation).toBeNull();
+      expect(result.prompt).not.toContain("MOMENT CONDITIONS");
+      expect(result.prompt).toContain(`Setting: ${fields.setting}`);
+      expect(result.prompt).toContain(`Time of day: ${fields.timeOfDay}`);
       expect(result.prepared.plan.payload).toEqual({ present: [], ...fields });
     }
     const plans = calls.filter((c) => c.schemaName === "scene_plan");

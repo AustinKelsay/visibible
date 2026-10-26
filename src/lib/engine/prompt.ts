@@ -1,9 +1,10 @@
 /**
  * The generic rendering packet (#173, spec #165 §3, §5, §6): one prompt per image built from the
  * engine rules, the work brief's prompt form for the moment's era, the selected canon, the
- * resolved moment conditions, the style-neutral scene plan, the art style's rendering and the captions of up
- * to three reference images. Precedence, strongest first: engine rules, brief content and
- * depiction rules, canon identity, style rendering, moment plan and resolved conditions. The prompt is capped at 12,000
+ * owner look constraints when given, the style-neutral scene plan, the art style's rendering and the captions of up
+ * to three reference images. A subject without form is described by its effects, never named, and its scene omits
+ * the source text. Precedence, strongest first: engine rules, brief content and depiction rules, canon identity,
+ * style rendering, scene plan. The prompt is capped at 12,000
  * characters; nothing required is ever trimmed, and an over-budget result is rejected before
  * any paid call. Legacy Bible wording lives only in image-prompts.ts and never reaches this path.
  */
@@ -12,7 +13,7 @@ import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
 
 /** Structure and wording of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. */
-export const GENERIC_PROMPT_VERSION = "2026-10-27-generic-v9";
+export const GENERIC_PROMPT_VERSION = "2026-10-27-generic-v10";
 /** Prompt text is cheap next to the image itself (12,000 characters is about $0.001); the cap only guards runaway input. */
 export const GENERIC_PROMPT_MAX_CHARS = 12000;
 export const MAX_REFERENCE_IMAGES = 3;
@@ -35,8 +36,8 @@ export type RenderingInput = {
   style: ArtStyle;
   styleVersion: string;
   look: { version: string; place: string; timeOfDay: string; weather: string; light: string; clothing: string };
-  /** Required for v8 rendering; optional in the type so historical frozen harnesses still compile. */
-  situation?: Situation;
+  /** Owner look constraints, rendered verbatim when supplied. Generated plans carry their own setting and time (generic-v10). */
+  situation?: Situation | null;
   plan: { version: string; primarySubject: string; action: string; setting: string; secondaryElements: string; mood: string; timeOfDay: string; composition: string };
   /** The entries the plan marked present, with the stage the section assigns them. */
   canon: SelectedCanon[];
@@ -79,8 +80,8 @@ export const ENGINE_RULES = [
   "Show the SELECTED CHARACTERS with their canon. Anyone else appears only as an unnamed figure the scene plan describes.",
   "A subject without form appears only through its permitted effects, never as a figure, and only when it is selected.",
 ];
-export const CONTENT_OWNERSHIP = "The text decides who is in the scene; canon decides how they look; the scene plan and moment conditions decide this moment's place, time, light, clothing and action.";
-export const PRECEDENCE_LINE = `If instructions conflict, follow these rules, then the work brief, then canon, then the art style, then the scene plan and moment conditions. ${CONTENT_OWNERSHIP}`;
+export const CONTENT_OWNERSHIP = "The text decides who is in the scene; canon decides how they look; the scene plan decides this moment's place, time, light, clothing and action. Owner look constraints, when given, are binding.";
+export const PRECEDENCE_LINE = `If instructions conflict, follow these rules, then the work brief, then canon, then the art style, then the scene plan. ${CONTENT_OWNERSHIP}`;
 
 function clip(text: string, max: number) {
   const flat = text.replace(/\s+/g, " ").trim();
@@ -132,22 +133,36 @@ export function selectReferences(canon: SelectedCanon[], available: AvailableRef
   });
 }
 
+/** Drop a leading "Name:" label from canon text so a no-form subject is described, never named. */
+function unlabelled(text: string) {
+  return text.replace(/^[^:\n]{1,80}:\s*/, "");
+}
+const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 export function buildRenderingPacket(input: RenderingInput): RenderingResult {
-  const { brief, style, plan } = input;
-  const look = input.situation;
-  if (!look || SITUATION_FIELDS.some((field) => typeof look[field] !== "string")) return { ok: false, error: "Reviewed moment conditions are required for rendering.", finalChars: 0 };
+  const { brief, style } = input;
+  const owner = input.situation ?? null;
+  if (owner && SITUATION_FIELDS.some((field) => typeof owner[field] !== "string")) return { ok: false, error: "Owner look constraints are malformed.", finalChars: 0 };
   let references = selectReferences(input.canon, input.references ?? [], style.id);
-  const names = input.canon.filter((c) => c.hasForm).map((c) => c.name);
+  const formed = input.canon.filter((c) => c.hasForm);
   const formless = input.canon.filter((c) => !c.hasForm);
-  const selectedCharacters = `SELECTED CHARACTERS: ${input.canon.filter((c) => c.kind === "character").map((c) => c.name).join("; ") || "(none with fixed canon; show only figures the scene plan describes, or none)"}`;
-  const formlessBlock = formless.length
-    ? ["FORMLESS SUBJECTS (binding depiction constraints, including when the source uses bodily metaphors):",
-      ...formless.map((c) => `- ${c.name}: represent only through the non-figurative presence allowed by its canon and the work brief. No head, face, torso, limbs, hands, human silhouette or garment-shaped body, even faceless or made of light. Do not represent this subject as a figure occupying a seat.`),
-      "These constraints apply only to the named subjects; other characters retain their own canon forms."].join("\n")
+  const names = formed.map((c) => c.name);
+  // Image models draw a named deity, or a quoted bodily metaphor, as a figure. When a subject without form is present,
+  // it is never named in the prompt and the source text and neighbours are left out; the plan describes its effects.
+  const presence = formless.length > 0;
+  const formlessNames = formless.flatMap((c) => [c.name, c.text.match(/^([^:\n]{1,80}):/)?.[1]?.trim()].filter((n): n is string => Boolean(n && n.length > 2)));
+  // Whole words only, so "Spirit" never rewrites "spiritual".
+  const nameless = (text: string) => formlessNames.reduce((t, name) => t.replace(new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(name)}(?![\\p{L}\\p{N}])`, "giu"), "the presence"), text);
+  const plan = Object.fromEntries(Object.entries(input.plan).map(([key, value]) => [key, key === "version" ? value : nameless(value)])) as RenderingInput["plan"];
+  const selectedCharacters = `SELECTED CHARACTERS: ${formed.filter((c) => c.kind === "character").map((c) => c.name).join("; ") || "(none with fixed canon; show only figures the scene plan describes, or none)"}`;
+  const formlessBlock = presence
+    ? ["PRESENCE SHOWN ONLY AS EFFECTS (binding; it is not a person):",
+      ...formless.map((c) => `- ${nameless(unlabelled(c.text))}`),
+      "Show it only as light, cloud, fire or radiance where the scene plan places it. No figure, face, hands, robe, hair or seated shape, even made of light."].join("\n")
     : "";
-  const canonBlock = input.canon.length
+  const canonBlock = formed.length
     ? ["CANON (fixed identity of the figures, places and things present; the scene plan decides pose, expression and action):",
-      ...input.canon.map((c) => `- ${c.text}`),
+      ...formed.map((c) => `- ${c.text}`),
       ...(names.length ? [`- Only ${names.join(", ")} ${names.length > 1 ? "have" : "has"} this canon look; other selected people get clearly different faces, hair and clothing colours.`] : [])].join("\n")
     : "";
   const planBlock = ["SCENE PLAN (this moment's place, time and action; obey the rules, brief, canon and style):",
@@ -159,11 +174,12 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     : "";
   const styleMain = `ART STYLE: ${style.label}\nRendering: ${style.rendering}\nNegatives: ${style.negatives}`;
   const styleDetail = `Palette: ${style.palette}\nLighting: ${style.lighting}\nMaterials and texture: ${style.materials}\nComposition: ${style.composition}`;
-  const lookMain = `MOMENT CONDITIONS (resolved with the scene plan; binding content, shared by all styles):\nPlace: ${look.place}\nTime of day: ${look.timeOfDay}`;
-  const lookDetail = `Weather: ${look.weather}\nLight: ${look.light}\nClothing: ${look.clothing}`;
+  const ownerBlock = owner
+    ? `OWNER LOOK CONSTRAINTS (binding, verbatim):\nPlace: ${owner.place}\nTime of day: ${owner.timeOfDay}\nWeather: ${owner.weather}\nLight: ${owner.light}\nClothing: ${owner.clothing}`
+    : "";
   const prev = input.neighbors?.previous ? clip(input.neighbors.previous, NEIGHBOR_HINT_MAX_CHARS) : null;
   const next = input.neighbors?.next ? clip(input.neighbors.next, NEIGHBOR_HINT_MAX_CHARS) : null;
-  const neighborBlock = prev || next
+  const neighborBlock = !presence && (prev || next)
     ? ["NARRATIVE CONTINUITY (cues only; compose the current moment):", ...(prev ? [`- Before: ${prev}`] : []), ...(next ? [`- After: ${next}`] : [])].join("\n")
     : "";
   const variationBlock = input.variationNumber && input.variationNumber > 1
@@ -173,12 +189,13 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
 
   const assemble = (flags: RenderingPacket["flags"]) => [
     `PRIORITY RULES:\n${ENGINE_RULES.map((rule, i) => `${i + 1}) ${rule}`).join("\n")}\n${PRECEDENCE_LINE}`,
-    `SCENE: one moment of ${input.work.title}, ${input.moment.reference}: "${clip(input.moment.text, MOMENT_TEXT_MAX_CHARS)}"`,
-    briefBlock(brief, input.eraId, style.id),
+    presence ? `SCENE: one moment of ${input.work.title}, described by the scene plan below.` : `SCENE: one moment of ${input.work.title}, ${input.moment.reference}: "${clip(input.moment.text, MOMENT_TEXT_MAX_CHARS)}"`,
+    // In a scene with a presence, the brief's own rules name it too ("God the Father has no human face…").
+    presence ? nameless(briefBlock(brief, input.eraId, style.id)) : briefBlock(brief, input.eraId, style.id),
     selectedCharacters,
     formlessBlock,
     canonBlock,
-    `${lookMain}\n${lookDetail}`,
+    ownerBlock,
     planBlock,
     flags.styleDetailIncluded ? `${styleMain}\n${styleDetail}` : styleMain,
     referenceBlock(),
@@ -187,8 +204,8 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     `SCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges and corners.\nAspect ratio: ${input.aspectRatio} (${aspect} landscape).`,
   ].filter(Boolean).join("\n\n");
 
-  // Resolved conditions are reviewed content, not optional look detail. Never trim them or canon.
-  // Retain lookDetailIncluded in stored packet flags for compatibility; it is always true in v8.
+  // Canon, the plan and owner constraints are required content and are never trimmed.
+  // lookDetailIncluded stays in stored packet flags for compatibility; it is always true.
   const flags: RenderingPacket["flags"] = { variationIncluded: Boolean(variationBlock), neighborsIncluded: Boolean(neighborBlock), styleDetailIncluded: true, lookDetailIncluded: true };
   let prompt = assemble(flags);
   for (const flag of ["variationIncluded", "neighborsIncluded", "styleDetailIncluded"] as const) {
@@ -198,7 +215,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     prompt = assemble(flags);
   }
   if (prompt.length > GENERIC_PROMPT_MAX_CHARS) {
-    return { ok: false, error: `Rendering prompt is ${prompt.length} characters after every allowed trim; the cap is ${GENERIC_PROMPT_MAX_CHARS}. Shorten the brief, canon, plan or resolved conditions.`, finalChars: prompt.length };
+    return { ok: false, error: `Rendering prompt is ${prompt.length} characters after every allowed trim; the cap is ${GENERIC_PROMPT_MAX_CHARS}. Shorten the brief, canon, plan or owner constraints.`, finalChars: prompt.length };
   }
   if (input.omitStyleReference) {
     // Select and trim the control first. Do not backfill a freed slot or restore trimmed details.

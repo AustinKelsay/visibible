@@ -106,17 +106,30 @@ describe("plan review before storage", () => {
     ["outside_instant", early, withHost()],
     ["not_one_instant", { kind: "not_one_instant", entryId: samaritan, planQuote: "binds the wounds with cloth", reason: "He kneels in one field and walks up in another." }, plan()],
     ["canon_conflict", { kind: "canon_conflict", entryId: samaritan, planQuote: "The Samaritan kneeling beside the wounded traveler", reason: "Contradicts the selected stage." }, plan()],
-    ["look_conflict", { kind: "look_conflict", entryId: "", planQuote: "ordinary daylight", reason: "Daylight contradicts the night the plan describes." }, plan()],
   ])("re-plans once for %s with the review's problems as feedback and stores the second plan with the rejection audit", async (_kind, problem, first) => {
     const { run, calls, writes, spend } = await setup([first, plan()], [[problem], []]);
     await run();
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review", "scene_plan", "plan_review"]);
     expect(calls[2].user.startsWith(calls[0].user)).toBe(true);
-    expect(calls[2].user.slice(calls[0].user.length)).toBe(replanned(problem, problem.kind === "look_conflict" ? "moment conditions" : "plan"));
+    expect(calls[2].user.slice(calls[0].user.length)).toBe(replanned(problem, "plan"));
     expect(writes).toHaveLength(1);
     expect(writes[0].payload).toMatchObject({ review: { rounds: 2, problems: [problem] } });
     expect(writes[0].payload.review).not.toHaveProperty("notes");
     expect(spend.map((s) => s.outcome)).toEqual(["ok", "review problems", "ok", "review ok"]);
+  });
+
+  it("gives the review no conditions for a generated guide, so a look_conflict cannot cite one and the plan is kept", async () => {
+    // Review v10: only owner look constraints reach the review; the plan's own setting and time carry the rest.
+    const daylight = { kind: "look_conflict", entryId: "", planQuote: "ordinary daylight", reason: "Daylight contradicts the night the plan describes." };
+    const { run, calls, writes } = await setup([plan()], [[daylight], [daylight]]);
+    const result = await run();
+    expect(result.situation).toBeNull();
+    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review", "plan_review"]);
+    expect(calls[1].user).not.toContain("MOMENT CONDITIONS");
+    expect(calls[1].system).toContain("an OWNER LOOK CONSTRAINTS value (only when supplied)");
+    expect(calls[1].system).toContain("embodied_formless: a hasForm false entry is given a body, face, hands, clothing, a silhouette, or is described as seated or standing.");
+    expect(writes[0].payload).toMatchObject({ review: { rounds: 1, notes: ["plan review unavailable: look_conflict quote is not in the look"] } });
+    expect(writes[0].payload).not.toHaveProperty("situation");
   });
 
   it("keeps the second plan with a note when its problem remains after the single re-plan, recording every paid call", async () => {

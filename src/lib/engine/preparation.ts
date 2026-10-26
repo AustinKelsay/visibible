@@ -18,7 +18,7 @@ import type { WorkBrief } from "../work-preparation";
 import { planningNeighbors } from "./scene-grounding";
 import { PLAN_REVIEW_PROMPT_VERSION, PLAN_SCENE_FIELDS, reviewPlan, type PlanReviewProblem } from "./plan-review";
 import type { SelectedCanon } from "./prompt";
-import { lookPolicy, SITUATION_FIELDS, type Situation } from "./situation";
+import { lookPolicy, type Situation } from "./situation";
 
 export const LOOK_SYSTEM = `You write a SECTION LOOK for an illustrated edition: one short shared visual description reused by every image of a story section, so that independently generated images of the section agree with each other. Return only JSON.
 Rules: each value is one or two short phrases, at most 200 characters. Describe only what stays the same across the whole section: place, time of day, weather, light, and situational clothing or props. Leave out poses, actions and individual moments, and do not restate anyone's fixed appearance; canon does that. If the section spans a change (night into morning), say so once. Obey the work brief's depiction rules. Mention no text or written elements.`;
@@ -45,14 +45,14 @@ export const PLAN_SYSTEM = `You plan one illustration of one moment of a work's 
 - Show what the moment is about. For a story, parable, vision or memory being told, show its actors and setting rather than the person telling it, unless the text puts the teller there.
 - In \`selectedCast\`, list every section cast entry that will be visible: people, groups, places, objects, and any presence without form shown through its effects. Give a few words of the text for each. Leave out cast who are elsewhere or only mentioned. Anyone without a cast entry may appear as an unnamed role or crowd when the moment needs them.
 - Describe pose, action, placement and situational detail. Leave fixed appearance to canon, name no art style, and put no text or writing in the scene. Keep every depiction rule.
-- In \`situation\`, give this moment's place, time of day, weather, light and situational clothing, agreeing with the scene and the text. The SECTION LOOK GUIDE is a suggestion: keep what fits this moment and change what does not. OWNER LOOK CONSTRAINTS, when given instead, are copied exactly.
+- The scene fields carry this moment's place, time, light and situational clothing. The SECTION LOOK GUIDE is a suggestion for them: keep what fits this moment and change what does not. OWNER LOOK CONSTRAINTS, when given instead, are binding: keep the setting and time of day consistent with them.
 - Each field is one or two short phrases.`;
 /** All plans use the forgiving general contract; a change refreshes plans lazily, without remaking looks. */
-export const MOMENT_CAST_PROMPT_VERSION = "2026-10-27-moment-cast-v11";
+export const MOMENT_CAST_PROMPT_VERSION = "2026-10-27-moment-cast-v12";
 /** Bump for changes to the no-form planning addendum; only sections with no-form cast use it. */
-export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-27-formless-effects-v11";
+export const FORMLESS_PLAN_PROMPT_VERSION = "2026-10-27-formless-effects-v12";
 const FORMLESS_PLAN_SYSTEM = `${PLAN_SYSTEM}
-- Cast marked hasForm: false have no body. When the moment shows one of them appearing or acting, select it and describe only where its permitted effects appear (see NO-FORM CANON CONSTRAINTS), leaving their fixed colour and brightness to canon. Never give it a face, hands, clothing, a silhouette or a seated figure; for a seated metaphor, show an empty seat with effects around it. A command, oath or mention alone is not an appearance, so add no effect for it then.`;
+- Cast marked hasForm: false have no body. When the moment shows one of them appearing or acting, select it and describe only where its permitted effects appear (see NO-FORM CANON CONSTRAINTS), leaving their fixed colour and brightness to canon. In the scene fields, never name it and never call it seated or standing: write the effect itself, such as "radiance above an empty throne" or "fire and smoke on the mountain". Never give it a face, hands, clothing or a silhouette. A command, oath or mention alone is not an appearance, so add no effect for it then.`;
 export const planOutputSchema = z.object({
   present: z.array(z.string()),
   // Guidance only: each field restates grounding.instant; no code checks pose consistency.
@@ -88,9 +88,8 @@ function planningResponseSchema(entryIds: string[], hasFormlessCast: boolean) {
     setting: field("The physical place and surroundings, consistent with the text and era."),
     secondaryElements: field("Supporting people, props and effects with their placement."),
     mood: field("The emotional atmosphere of the moment."),
-    timeOfDay: field("This moment's time of day and situational light."),
+    timeOfDay: field("This moment's time of day, weather and situational light."),
     composition: field("Viewpoint, framing and placement of the subjects, independent of art style."),
-    situation: lookOutputSchema.describe("This moment's place, time of day, weather, light and situational clothing, consistent with the scene. Copy OWNER LOOK CONSTRAINTS exactly when supplied."),
   }).strict();
 }
 
@@ -123,7 +122,8 @@ export type PreparedMoment = {
   sectionId: string;
   era: string | null;
   look: { version: string; payload: z.infer<typeof lookOutputSchema>; policy: ReturnType<typeof lookPolicy> };
-  situation: Situation;
+  /** Owner look constraints rendered verbatim; null for a generated guide, whose plan carries its own setting and time. */
+  situation: Situation | null;
   plan: { version: string; payload: z.infer<typeof planOutputSchema> };
   /** The entries present in the moment with the stage the section assigns them, and their canon versions. */
   present: Array<{ entryId: string; stageId: string; version: string }>;
@@ -312,10 +312,8 @@ export async function prepareMoment(options: {
       const selected = reply.selectedCast.filter((entry, index, all) => castIds.includes(entry.entryId) && all.findIndex((e) => e.entryId === entry.entryId) === index);
       const present = selected.map((entry) => entry.entryId);
       const fields = Object.fromEntries(PLAN_SCENE_FIELDS.map((field) => [field, trim(reply[field])])) as Record<(typeof PLAN_SCENE_FIELDS)[number], string>;
-      // Owner constraints are binding text: restore them verbatim instead of refusing a paraphrase.
-      const situation = policy === "literal-constraint-v1" ? { ...lookPayload }
-        : Object.fromEntries(SITUATION_FIELDS.map((field) => [field, trim(reply.situation[field])])) as Situation;
-      if (policy === "literal-constraint-v1" && SITUATION_FIELDS.some((field) => reply.situation[field] !== lookPayload[field])) notes.push("owner look constraints restored verbatim");
+      // Only owner constraints are rendered as conditions; a generated guide was advisory and the plan carries its own.
+      const situation = policy === "literal-constraint-v1" ? { ...lookPayload } : undefined;
       const review = await reviewPlan(model, (entry) => store.recordSpend({ kind: "plan", recordId: options.momentId, ...entry }), options.momentId,
         { rules, context: options.context, sectionTitle: sectionPayload.title, cast: reviewCast, present, fields,
           rendering: { look: situation, lookPolicy: policy, canon: present.map((id) => {
@@ -345,7 +343,7 @@ export async function prepareMoment(options: {
       if (embodied.length) throw new PreparationUnavailableError("plan", `a subject without form is still drawn as a figure: ${embodied.map((p) => p.entryId).join(", ")}`);
       if (remaining.length) notes.push(`kept with: ${remaining.map((p) => `${p.kind}${p.entryId ? ` ${p.entryId}` : ""}`).join(", ")}`);
       await assertLookCurrent();
-      return { kind: "plan" as const, situation, momentId: options.momentId, entries: present.map((id) => ({ entryId: id, stageId: cast.find((c) => c.entryId === id)!.stageId })), plan: fields,
+      return { kind: "plan" as const, momentId: options.momentId, entries: present.map((id) => ({ entryId: id, stageId: cast.find((c) => c.entryId === id)!.stageId })), plan: fields,
         grounding: { focusQuote: reply.focusQuote, instant: reply.instant, singleInstant: !remaining.some((p) => p.kind === "not_one_instant"),
           cast: selected.map((entry) => ({ entryId: entry.entryId, momentQuote: entry.evidence, contextSource: "none" as const, contextQuote: "", participation: "in_scene" as const })) },
         review: { rounds: round, ...(firstProblems ? { problems: firstProblems } : {}), ...(notes.length ? { notes } : {}) } };
@@ -354,12 +352,9 @@ export async function prepareMoment(options: {
   }, timing);
 
   await assertLookCurrent();
-  const situation = lookOutputSchema.safeParse(plan.payload.situation);
-  if (!situation.success) throw new PreparationUnavailableError("plan", "resolved moment conditions unavailable");
-  if (policy === "literal-constraint-v1" && SITUATION_FIELDS.some((field) => situation.data[field] !== lookPayload[field])) throw new PreparationUnavailableError("look", "owner look constraints changed");
   const planPayload = plan.payload as unknown as { entries: Array<{ entryId: string; stageId: string }>; plan: z.infer<typeof planOutputSchema> };
   return {
-    sectionId, era: era.id, situation: situation.data,
+    sectionId, era: era.id, situation: policy === "literal-constraint-v1" ? { ...lookPayload } : null,
     look: { version: look.version, policy, payload: { place: lookPayload.place, timeOfDay: lookPayload.timeOfDay, weather: lookPayload.weather, light: lookPayload.light, clothing: lookPayload.clothing } },
     plan: { version: plan.version, payload: { ...planPayload.plan, present: planPayload.entries.map((e) => e.entryId) } },
     present: planPayload.entries.map((e) => ({ entryId: e.entryId, stageId: e.stageId, version: cast.find((c) => c.entryId === e.entryId)?.version ?? "" })),
