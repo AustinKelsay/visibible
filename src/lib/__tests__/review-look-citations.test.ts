@@ -54,7 +54,7 @@ describe("look review citations", () => {
     expect(invalidReview([problem('"clothing":""')], quoted)).toBe("look_conflict quote is not in the look");
   });
 
-  it("stops preparation at the conflicting look after two accounted calls for a literal owner constraint without a re-plan", async () => {
+  it("keeps the plan and notes a literal owner-constraint conflict after two accounted calls, without a re-plan", async () => {
     const memory = createMemoryPreparationStore([
       { kind: "section", recordId: "section", payload: { kind: "section", title: input.sectionTitle, era: "era", firstUnit: "constructed", lastUnit: "constructed", cast: [] } },
       { kind: "moment", recordId: "constructed", payload: { kind: "moment", sectionId: "section", firstUnit: "constructed", lastUnit: "constructed" } },
@@ -68,15 +68,17 @@ describe("look review citations", () => {
       calls.push(request);
       const content = request.schemaName === "plan_review" ? traces[0].response.choices[0].message.content
         : JSON.stringify(request.schemaName === "section_look" ? input.rendering!.look : {
-          grounding: { focusQuote: input.context.moment.text, instant: "The traveler stands still at midday.", singleInstant: true },
-          selectedCast: [], consideredCast: [], missingCast: [], ...input.fields, situation: input.rendering!.look,
+          focusQuote: input.context.moment.text, instant: "The traveler stands still at midday.",
+          selectedCast: [], ...input.fields, situation: input.rendering!.look,
         });
       return { content, model: "recorded", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 1, completionTokens: 1, costUsd: 0.0001 }, elapsedMs: 0 };
     } };
-    await expect(prepareMoment({ workId: brief.workId, momentId: "constructed", store: memory.store, model, brief, briefVersion: "brief", context: input.context }))
-      .rejects.toMatchObject({ stage: "look", retryable: true, message: expect.stringContaining("look_conflict") });
+    const prepared = await prepareMoment({ workId: brief.workId, momentId: "constructed", store: memory.store, model, brief, briefVersion: "brief", context: input.context });
+    // A re-plan cannot change owner text, so the conflict is recorded instead of re-planned or refused.
     expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
-    expect(memory.has("plan", "constructed")).toBe(false);
+    expect(prepared.situation).toEqual(input.rendering!.look);
+    const stored = await memory.store.getActiveRecord("plan", "constructed");
+    expect(stored?.payload.review).toEqual({ rounds: 1, notes: [expect.stringMatching(/^noted: look_conflict: /)] });
     expect((await memory.store.getActiveRecord("look", "section"))?.payload).toEqual({ kind: "look", sectionId: "section", ...input.rendering!.look });
     expect(memory.ledger.map((entry) => entry.outcome)).toEqual(["ok", "review problems"]);
   });

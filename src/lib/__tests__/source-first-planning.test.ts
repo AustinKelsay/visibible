@@ -1,4 +1,4 @@
-import { withSituation } from "../../../tests/fixtures/scene-grounding";
+import { selectionReply } from "../../../tests/fixtures/scene-grounding";
 /** Captured shared looks at the production request/assembly seam; scripted replies prove input isolation only. */
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
@@ -28,7 +28,8 @@ describe("source-first scene planning", () => {
       if (request.schemaName === "plan_review") return reviewReply(++reviews === 1 ? [{ kind: "outside_instant", entryId: "", planQuote: fields.primarySubject, reason: "Scripted review probe; choose another source-supported instant." }] : []);
       const value = request.schemaName === "section_look" ? look : { ...fields, missingCast: [], selectedCast: [], consideredCast: [],
         grounding: { focusQuote: "Her nobles were purer than snow.", instant: "The nobles stand together.", singleInstant: true } };
-      return { content: JSON.stringify(withSituation(value)), model: "scripted", providerRequestId: null, finishReason: "stop",
+      // The retained-era reply shape is converted to the general planner reply.
+      return { content: JSON.stringify(selectionReply(value)), model: "scripted", providerRequestId: null, finishReason: "stop",
         usage: { promptTokens: 1, completionTokens: 1, costUsd: 0.0001 }, elapsedMs: 0 };
     } };
     for (const styleId of ["classical", "watercolor", "icon"]) {
@@ -49,7 +50,7 @@ describe("source-first scene planning", () => {
       expect(request.user).toContain("Her nobles were purer than snow.");
       expect(request.user).toContain("CAST ON STAGE IN THIS SECTION");
       expect(request.user).toContain("NO-FORM CANON CONSTRAINTS");
-      expect(request.user).toContain("SECTION LOOK GUIDE (advisory; not rendered)");
+      expect(request.user).toContain("SECTION LOOK GUIDE (a suggestion; keep what fits this moment)");
       for (const value of Object.values(look)) expect(request.user).toContain(value);
     }
     expect(plans[1].user).toContain("A PREVIOUS PLAN FOR THIS MOMENT WAS REJECTED");

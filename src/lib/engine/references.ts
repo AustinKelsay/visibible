@@ -1,7 +1,7 @@
 /**
  * Reference images (#172, spec #165 §4, §5): Classical reference sheets for entries that recur
  * in two or more story sections, one per stage a cast uses, and one style reference per work and
- * non-Classical style. Both are made on Nano Banana 2 Lite from fixed templates, checked by a
+ * style, Classical included. Both are made on Nano Banana 2 Lite from fixed templates, checked by a
  * cheap vision model for hard faults only (text, border, extra figures, missing view, different
  * subjects), retried at most three times with the reasons fed back, and stored as JPEG blobs
  * with the exact input versions they were made from. Subjective canon notes become attention

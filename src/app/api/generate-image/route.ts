@@ -31,7 +31,7 @@ import {
 } from "@/lib/bible-api";
 import { resolveGenerationPassage } from "@/lib/generation-passage";
 import { getScenePlannerEstimatedCreditsCost, getScenePlannerModelId, isScenePlannerEnabled } from "@/lib/scene-planner";
-import { decideEngine, genericEngineMode } from "@/lib/engine/admission";
+import { decideEngine, genericEngineMode, LEGACY_STYLE_IDS, type EngineId } from "@/lib/engine/admission";
 import { hasOwnerEngineAccess } from "@/lib/engine/owner-check";
 import { SHARED_STYLES } from "@/lib/work-preparation";
 import { getGenericEngine } from "@/lib/engine/dispatch";
@@ -512,12 +512,15 @@ export async function POST(request: Request) {
   if (engineDecision.engine === null) {
     return jsonWithSessionRefresh({ error: engineDecision.unavailable === "style" ? "Art style unavailable" : "Preparing scene", message: engineDecision.reason, retryable: engineDecision.retryable, style: requestedStyleId ?? null }, { status: 503 });
   }
-  if (requestBody.engine && requestBody.engine !== engineDecision.engine) {
+  // A job bound to the legacy engine (its first verse fell back) stays there while legacy can render the style,
+  // so one bulk job never mixes engines.
+  const legacyBound = requestBody.engine === "legacy" && engineDecision.engine === "generic" && LEGACY_STYLE_IDS.includes(requestedStyleId ?? "classical");
+  if (requestBody.engine && requestBody.engine !== engineDecision.engine && !legacyBound) {
     // A bound job never silently continues on another engine; nothing is reserved or recorded.
     incrementMetricCounter("engine_binding_refused", { expected: requestBody.engine, decided: engineDecision.engine });
     return jsonWithSessionRefresh({ error: "Engine binding changed", message: `This request is bound to the ${requestBody.engine} engine, which is not admitting new work right now.`, expectedEngine: requestBody.engine, engine: engineDecision.engine, retryable: true }, { status: 409 });
   }
-  if (engineDecision.engine === "generic") {
+  if (engineDecision.engine === "generic" && !legacyBound) {
     // A failed lookup is temporary; only a lookup that returned nothing means the session is gone.
     if (sessionLookupFailed) return jsonWithSessionRefresh({ error: "Unable to verify session", retryable: true }, { status: 503 });
     if (!sessionForAdmission) return jsonWithSessionRefresh({ error: "Session not found" }, { status: 401 });
@@ -531,11 +534,19 @@ export async function POST(request: Request) {
       inputFingerprint, generationNumber,
       runtime: { convex, serverSecret, openRouterApiKey, requestContext },
     });
-    if (outcome.kind === "declined") return jsonWithSessionRefresh({ error: outcome.error, message: outcome.message, retryable: outcome.retryable, ...outcome.details }, { status: outcome.status });
-    if (outcome.kind === "existing") return existingIntentResponse(outcome.admission as Parameters<typeof existingIntentResponse>[0]);
-    return jsonWithSessionRefresh(outcome.body, outcome.status === 200 ? { headers: { "Cache-Control": "private, max-age=3600" } } : { status: outcome.status });
+    // A scene the generic engine cannot prepare is refused before any request record or reservation exists.
+    // An unbound Classical request is then served by the legacy engine, so readers still get an image.
+    const legacyFallback = outcome.kind === "declined" && outcome.sceneUnavailable === true && !requestBody.engine
+      && LEGACY_STYLE_IDS.includes(requestedStyleId ?? "classical");
+    if (!legacyFallback) {
+      if (outcome.kind === "declined") return jsonWithSessionRefresh({ error: outcome.error, message: outcome.message, retryable: outcome.retryable, ...outcome.details }, { status: outcome.status });
+      if (outcome.kind === "existing") return existingIntentResponse(outcome.admission as Parameters<typeof existingIntentResponse>[0]);
+      return jsonWithSessionRefresh(outcome.body, outcome.status === 200 ? { headers: { "Cache-Control": "private, max-age=3600" } } : { status: outcome.status });
+    }
+    logInfo("engine_fallback", { requestId: clientRequestId, from: "generic", to: "legacy", reason: outcome.kind === "declined" ? outcome.message : null });
+    incrementMetricCounter("engine_fallback", { from: "generic", to: "legacy" });
   }
-  const admittedEngine = engineDecision.engine;
+  const admittedEngine: EngineId = engineDecision.engine === "generic" ? "legacy" : engineDecision.engine;
 
   const requestedStyleProfile = requestedStyleId
     ? STYLE_PROFILES[requestedStyleId]

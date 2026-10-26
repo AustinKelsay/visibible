@@ -71,18 +71,16 @@ describe("no-form plan and canon separation", () => {
     expect(request.user).toContain(input.records.find((record: AnalysisRecord) => record.kind === "look").payload.clothing);
     expect(request.user).toContain("OWNER LOOK CONSTRAINTS");
     expect(result.look.version).toBe(input.overlay.frozenLookVersion);
-    expect(request.system).toContain("leave its fixed colour, brightness and texture to canon");
-    expect(request.system).toContain("Name only the permitted effect needed for this moment's placement or movement");
-    expect(request.system).toContain("radiance spreading above the arch");
-    expect(request.system).toContain("Situational illumination and formed characters' clothing still belong in the plan when the moment requires them");
-    expect(request.system).toContain("Historical prose constraints may still include the full description");
+    // Historical prose canon reaches planning verbatim; the no-form addendum asks only for effect placement.
+    expect(request.system).toContain("describe only where its permitted effects appear (see NO-FORM CANON CONSTRAINTS), leaving their fixed colour and brightness to canon");
+    expect(request.system).toContain("In `situation`, give this moment's place, time of day, weather, light and situational clothing");
     expect(input.request.system).not.toContain("effect names for placement");
     const serialized = responseSchema(request.schema);
     const properties = serialized.properties as Record<string, { description: string }>;
-    for (const field of ["primarySubject", "action", "secondaryElements"]) {
-      expect(properties[field].description).toContain("fixed colour, brightness or texture");
+    for (const field of ["primarySubject", "action"]) {
+      expect(properties[field].description).toContain("name only its permitted effect and where it appears");
     }
-    expect(properties.timeOfDay.description).toContain("situational illumination");
+    expect(properties.timeOfDay.description).toContain("situational light");
   });
 
   it.each([["historical", undefined], ["structured", canon.stages[0].showing]])("retains the exact schema-valid live restatement with %s canon without silently rewriting or retrying it", async (_label, showing) => {

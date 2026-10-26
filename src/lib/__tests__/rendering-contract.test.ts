@@ -1,4 +1,4 @@
-import { withSituation } from "../../../tests/fixtures/scene-grounding";
+import { selectionReply, withSituation } from "../../../tests/fixtures/scene-grounding";
 /** Retained cold packets at the real preparation/rendering seam. No provider calls or semantic scores. */
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
@@ -35,7 +35,8 @@ async function setup(id = "r027", arm = "candidate", reports: unknown[][] = [[]]
     calls.push(request);
     if (request.schemaName === "plan_review") return reviewReply(reports[Math.min(reviews++, reports.length - 1)]);
     const value = request.schemaName === "section_look" ? look : ++plans > 1 && replacement ? replacement : plan;
-    return { content: JSON.stringify(withSituation(value, look)), model: "scripted", providerRequestId: null, finishReason: "stop",
+    // Retained replies use the old strict format; convert them to the general planner reply.
+    return { content: JSON.stringify(selectionReply(withSituation(value, look))), model: "scripted", providerRequestId: null, finishReason: "stop",
       usage: { promptTokens: 1, completionTokens: 1, costUsd: 0.0001 }, elapsedMs: 0 };
   } };
   const getReference = vi.fn(async () => null);
@@ -75,26 +76,31 @@ describe("combined rendering content review", () => {
     expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review"]);
   });
 
-  it.each(["place", "timeOfDay", "light"])("re-plans generated conditions once then refuses a repeated retained Exodus %s conflict without rewriting the guide", async (field) => {
+  it.each(["place", "timeOfDay", "light"])("re-plans generated conditions once then keeps a repeated retained Exodus %s conflict with a note, without rewriting the guide", async (field) => {
     const { look } = captured("r027");
     const problem = lookProblem(look[field], field === "light" ? god : "");
     const { render, calls, memory, getReference, sample } = await setup("r027", "candidate", [[problem]]);
-    expect(await render()).toMatchObject({ ok: false, reason: "preparation", stage: "plan", retryable: true, message: expect.stringContaining("look_conflict") });
+    const result = await render();
+    if (!result.ok) throw Error(result.message);
     expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "scene_plan", "plan_review"]);
-    expect(getReference).not.toHaveBeenCalled();
-    expect(memory.has("plan", sample.momentId)).toBe(false);
+    expect(calls[3].user).toContain(problem.reason);
+    expect(getReference).toHaveBeenCalled();
+    const saved = await memory.store.getActiveRecord("plan", sample.momentId);
+    expect(saved?.payload).toMatchObject({ review: { rounds: 2, problems: [problem], notes: [`kept with: look_conflict${problem.entryId ? ` ${problem.entryId}` : ""}`] } });
     expect((await memory.store.getActiveRecord("look", sample.sectionId))?.payload).toEqual({ kind: "look", sectionId: sample.sectionId, ...look });
     expect(memory.ledger.map((e) => e.outcome)).toEqual(["ok", "ok", "review problems", "ok", "review problems"]);
   });
 
-  it("refuses repeated generated-condition and plan faults after one combined re-plan", async () => {
+  it("keeps repeated generated-condition and plan faults after one combined re-plan, noting both", async () => {
     const { look, plan } = captured("r067");
-    const { render, calls } = await setup("r067", "candidate", [[
+    const { render, calls, memory, sample } = await setup("r067", "candidate", [[
       { kind: "outside_instant", entryId: "aaron_brother_of_moses", planQuote: plan.primarySubject, reason: "The source says a priest, without identifying Aaron." },
       lookProblem(look.light, god),
     ]]);
-    expect(await render()).toMatchObject({ ok: false, stage: "plan" });
+    expect(await render()).toMatchObject({ ok: true });
     expect(calls.filter((c) => c.schemaName === "scene_plan")).toHaveLength(2);
+    const saved = await memory.store.getActiveRecord("plan", sample.momentId);
+    expect((saved?.payload.review as { notes: string[] }).notes).toEqual([`kept with: outside_instant aaron_brother_of_moses, look_conflict ${god}`]);
   });
 
   it("repairs a reported canon conflict once, preserving the complete fixed stage in both reviews", async () => {
@@ -115,34 +121,41 @@ describe("combined rendering content review", () => {
     expect(memory.ledger).toHaveLength(5);
   });
 
-  it("refuses a repeated canon conflict after one re-plan, storing no plan", async () => {
+  it("keeps a repeated canon conflict after one re-plan, with a note", async () => {
     const problem = { kind: "canon_conflict", entryId: "esther", planQuote: "royal blue robes", reason: "The selected stage specifies crimson." };
     const { render, calls, memory, sample } = await setup("f008", "baseline", [[problem]]);
-    expect(await render()).toMatchObject({ ok: false, stage: "plan", message: expect.stringContaining("canon_conflict esther") });
+    expect(await render()).toMatchObject({ ok: true });
     expect(calls.filter((c) => c.schemaName === "scene_plan")).toHaveLength(2);
     expect(calls.filter((c) => c.schemaName === "plan_review")).toHaveLength(2);
-    expect(memory.has("plan", sample.momentId)).toBe(false);
+    expect((await memory.store.getActiveRecord("plan", sample.momentId))?.payload).toMatchObject({ review: { rounds: 2, problems: [problem], notes: ["kept with: canon_conflict esther"] } });
     expect(memory.ledger).toHaveLength(5);
   });
 
-  it("stops the retained Psalms packet's reported required-canon gap without inventing a replacement identity", async () => {
+  it("notes the retained Psalms packet's reported required-canon gap without a re-plan or an invented identity", async () => {
     const { plan } = captured("f003");
+    const reason = "God is represented but has no available canon entry in this section.";
     const { render, calls, memory, sample, getReference } = await setup("f003", "candidate", [[
-      { kind: "missing_canon", entryId: "", planQuote: plan.primarySubject, reason: "God is represented but has no available canon entry in this section." },
+      { kind: "missing_canon", entryId: "", planQuote: plan.primarySubject, reason },
     ]]);
-    expect(await render()).toMatchObject({ ok: false, stage: "plan", message: expect.stringContaining("required canon unavailable") });
+    const result = await render();
+    if (!result.ok) throw Error(result.message);
     expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review"]);
-    expect(memory.has("plan", sample.momentId)).toBe(false);
-    expect(getReference).not.toHaveBeenCalled();
+    const saved = await memory.store.getActiveRecord("plan", sample.momentId);
+    expect(saved?.payload).toMatchObject({ review: { rounds: 1, notes: [`noted: missing_canon: ${reason}`] } });
+    expect((saved?.payload.review as { problems?: unknown }).problems).toBeUndefined();
+    expect(result.canon.map((c) => c.entryId)).toEqual((saved?.payload.entries as Array<{ entryId: string }>).map((e) => e.entryId));
+    expect(getReference).toHaveBeenCalled();
   });
 
-  it("rejects a look report quoting the plan, after only the malformed-review retry", async () => {
+  it("keeps the plan with a note when the review twice cites the plan as look evidence", async () => {
     const { plan } = captured("r027");
-    const { render, calls, memory, getReference } = await setup("r027", "candidate", [[lookProblem(plan.primarySubject)]]);
-    expect(await render()).toMatchObject({ ok: false, stage: "plan", message: expect.stringContaining("look_conflict quote is not in the look") });
+    const { render, calls, memory, getReference, sample } = await setup("r027", "candidate", [[lookProblem(plan.primarySubject)]]);
+    expect(await render()).toMatchObject({ ok: true });
     expect(calls.map((c) => c.schemaName)).toEqual(["section_look", "scene_plan", "plan_review", "plan_review"]);
-    expect(getReference).not.toHaveBeenCalled();
+    expect(getReference).toHaveBeenCalled();
     expect(memory.ledger.map((e) => e.outcome)).toEqual(["ok", "ok", "review invalid", "review invalid"]);
+    const saved = await memory.store.getActiveRecord("plan", sample.momentId);
+    expect((saved?.payload.review as { notes: string[] }).notes).toEqual(["plan review unavailable: look_conflict quote is not in the look"]);
   });
 
   it("refreshes a cached plan with an older review contract while reusing its unchanged look", async () => {
@@ -193,10 +206,13 @@ describe("combined rendering content review", () => {
       payload: saved.payload, inputs: saved.inputs })).rejects.toThrow("Section look changed during preparation");
     await expect(t.mutation(api.analysis.putDerivedRecord, { serverSecret: secret, workId: "bible-web", kind: "look", recordId: sample.sectionId,
       payload: look.payload, inputs: look.inputs })).rejects.toThrow("Owner look requires explicit correction");
+    // A conflict with owner text is noted and the owner text kept; there is no re-plan or silent rewrite.
     reports.push([lookProblem(look.payload.light)]);
-    expect(await render()).toMatchObject({ ok: false, stage: "look" });
+    expect(await render()).toMatchObject({ ok: true });
     expect(await t.query(api.analysis.getActiveRecord, { workId: "bible-web", kind: "look", recordId: sample.sectionId })).toEqual(ownerLook);
     expect(calls.slice(5).map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
+    const noted = await store.getActiveRecord("plan", sample.momentId);
+    expect((noted?.payload.review as { rounds: number; notes: string[] })).toMatchObject({ rounds: 1, notes: [expect.stringMatching(/^noted: look_conflict/)] });
   });
 });
 

@@ -63,7 +63,7 @@ export async function planReferences(options: { workId: string; brief: WorkBrief
   }
   const era = mainEra(sections, options.brief);
   const styles = [];
-  for (const styleId of options.brief.styleIds.filter((id) => id !== "classical")) {
+  for (const styleId of options.brief.styleIds) {
     const style = library.get(styleId);
     styles.push({ styleId, status: await status("styleReference", styleId, styleReferenceInputs(style, options.styleVersions[styleId] ?? contentVersion(style), era)) });
   }
@@ -129,7 +129,7 @@ export async function runReferences(options: {
     await settle("sheet", recordId, subject.name, inputs, await makeSheet({ title: options.workTitle }, subject, classical, deps));
   }
   const era = mainEra(sections, options.brief);
-  for (const styleId of options.brief.styleIds.filter((id) => id !== "classical")) {
+  for (const styleId of options.brief.styleIds) {
     const style = library.get(styleId);
     const inputs = styleReferenceInputs(style, options.styleVersions[styleId] ?? contentVersion(style), era);
     if (await skip("styleReference", styleId, inputs)) continue;

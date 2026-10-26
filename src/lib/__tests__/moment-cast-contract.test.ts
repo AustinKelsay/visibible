@@ -1,4 +1,7 @@
-/** Structural safeguards over retained failed Luke inputs; scripted replies prove no live model compliance. */
+/**
+ * Structural safeguards over retained failed Luke inputs; scripted replies prove no live model compliance. Forgiving
+ * preparation has no missingCast report: uncast people are drawn as unnamed roles, and repeated IDs are dropped.
+ */
 import { withCleanReview } from "../../../tests/fixtures/plan-review";
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
@@ -15,8 +18,7 @@ import { withGrounding } from "../../../tests/fixtures/scene-grounding";
 const snapshot = JSON.parse(readFileSync(new URL("../../../llm/releases/2026-10-22-owner-request-check/after-prepared.json", import.meta.url), "utf8"));
 const retained = snapshot.rows.find((r: { unitId: string }) => r.unitId === "luke-10-33");
 const fields = { primarySubject: "A traveler helping a wounded man", action: "stops beside him", setting: "road", secondaryElements: "stones", mood: "compassion", timeOfDay: "day", composition: "two figures" };
-const unavailable = withGrounding({ missingCast: ["Samaritan traveler", "wounded man"], present: [], ...Object.fromEntries(Object.keys(fields).map((key) => [key, ""])) }, "");
-const grounded = (present: string[]) => withGrounding({ missingCast: [], present, ...fields }, "was moved with compassion");
+const grounded = (present: string[]) => withGrounding({ present, ...fields }, "was moved with compassion");
 
 async function setup(reply: unknown, correctSource = false) {
   const inputs = await readWorkInputs("bible-web");
@@ -62,26 +64,36 @@ async function setup(reply: unknown, correctSource = false) {
 }
 
 describe("required moment cast", () => {
-  it("stops on the first missing-cast report over the actual incomplete Luke cast, keeping the failed plan", async () => {
-    const { render, calls, write, spend, getReference, records } = await setup(unavailable);
-    const old = structuredClone(records.find((r) => r.kind === "plan"));
-    expect(await render()).toMatchObject({ ok: false, reason: "preparation", stage: "plan", retryable: true,
-      message: expect.stringContaining("required canon unavailable: Samaritan traveler, wounded man") });
+  it("plans the actual incomplete Luke cast with unnamed roles instead of stopping for missing canon", async () => {
+    // Formerly refused through missingCast; the planner now describes uncast people as unnamed roles.
+    const { render, calls, write, records } = await setup(grounded([]));
+    const result = await render();
+    if (!result.ok) throw new Error(result.message);
+    expect(result.canon).toEqual([]);
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan"]);
-    expect(write).not.toHaveBeenCalled();
-    expect(getReference).not.toHaveBeenCalled();
-    expect(spend).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({ kind: "plan", outcome: "unavailable", costUsd: 0.0004 }));
-    expect(records.find((r) => r.kind === "plan")).toEqual(old);
+    expect(write).toHaveBeenCalledOnce();
+    const stored = records.find((r) => r.kind === "plan")!.payload;
+    expect(stored).toMatchObject({ entries: [], plan: fields });
+    expect(stored).not.toHaveProperty("missingCast");
     expect(calls[0].user).toContain("lawyer_who_tests_jesus_luke_10");
     expect(calls[0].user).toContain(retained.context.moment.text);
+    expect((calls[0].schema as unknown as { shape: Record<string, unknown> }).shape).not.toHaveProperty("missingCast");
+  });
+
+  it("drops a repeated cast ID and stores the plan once", async () => {
+    const lawyer = "lawyer_who_tests_jesus_luke_10";
+    const { render, calls, write } = await setup(grounded([lawyer, lawyer]));
+    const result = await render();
+    if (!result.ok) throw new Error(result.message);
+    expect(result.prepared.present.map((p) => p.entryId)).toEqual([lawyer]);
+    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan"]);
+    expect(write).toHaveBeenCalledOnce();
   });
 
   it.each([
-    ["unknown", { missingCast: [], present: ["the_samaritan"], ...fields }],
-    ["duplicate", { missingCast: [], present: ["lawyer_who_tests_jesus_luke_10", "lawyer_who_tests_jesus_luke_10"], ...fields }],
-    ["missing contract field", { present: [], ...fields }],
-    ["blank missing role", { missingCast: [" "], present: [], ...fields }],
-  ])("rejects %s replies rather than silently filtering or storing them", async (_label, reply) => {
+    ["a cast ID outside the section", { present: ["the_samaritan"], ...fields }],
+    ["a missing scene field", { present: [], ...Object.fromEntries(Object.entries(fields).filter(([key]) => key !== "action")) }],
+  ])("rejects a reply with %s after the malformed-reply retry, storing nothing", async (_label, reply) => {
     const { render, calls, write, getReference } = await setup(reply);
     expect(await render()).toMatchObject({ ok: false, reason: "preparation", stage: "plan" });
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "scene_plan"]);
@@ -137,14 +149,14 @@ describe("required moment cast", () => {
   });
 
   it("refuses a missing section entry before any preparation call or reference lookup", async () => {
-    const { render, records, calls, getReference } = await setup(unavailable);
+    const { render, records, calls, getReference } = await setup(grounded([]));
     records.splice(records.findIndex((record) => record.kind === "entry"), 1);
     expect(await render()).toMatchObject({ ok: false, reason: "preparation", stage: "plan", message: expect.stringContaining("missing canon entry") });
     expect(calls).toHaveLength(0);
     expect(getReference).not.toHaveBeenCalled();
   });
 
-  it("allows an empty cast for a landscape and rejects any invented ID in that response schema", async () => {
+  it("allows an empty cast for a landscape and drops an invented ID", async () => {
     const work = createWorkReader({ schemaVersion: 1, id: "sky", title: "Sky", author: "Fixture", language: "en",
       referenceText: { name: "Fixture", source: "https://example.com", credit: "Test", sha256: "0".repeat(64) },
       levels: ["Part", "Line"], referenceFormats: { Part: "{Part} {Line}" }, momentMode: "unit",
@@ -157,13 +169,12 @@ describe("required moment cast", () => {
       { kind: "moment", recordId: "sky-1", payload: { kind: "moment", firstUnit: "sky-1", lastUnit: "sky-1", sectionId: "sky-1" } },
     ]);
     const model: TextModel = withCleanReview({ id: "scripted", complete: async (request) => {
-      const value = request.schemaName === "section_look" ? { place: "field", timeOfDay: "day", weather: "cloudy", light: "diffuse", clothing: "" } : withGrounding({ missingCast: [], present: [], ...fields, primarySubject: "Clouds", action: "drift" }, "Clouds drift above a still field.");
-      if (request.schemaName === "scene_plan") expect(request.schema.safeParse({ ...value, present: ["invented"] }).success).toBe(false);
+      const value = request.schemaName === "section_look" ? { place: "field", timeOfDay: "day", weather: "cloudy", light: "diffuse", clothing: "" } : withGrounding({ present: ["invented"], ...fields, primarySubject: "Clouds", action: "drift" }, "Clouds drift above a still field.");
       return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 0, completionTokens: 0, costUsd: 0 }, elapsedMs: 0 };
     } });
     const result = await assembleRendering({ inputs, store: memory.store, model, listMoments: memory.listMoments, getReference: async () => null, loadReference: async () => new Uint8Array() },
       { workId: "sky", unitId: "sky-1", styleId: "classical", variationNumber: 1, aspectRatio: "16:9" });
     expect(result.ok).toBe(true);
-    if (result.ok) expect(result.canon).toEqual([]);
+    if (result.ok) { expect(result.canon).toEqual([]); expect(result.prepared.present).toEqual([]); }
   });
 });

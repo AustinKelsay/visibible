@@ -3,7 +3,7 @@
  * engine rules, the work brief's prompt form for the moment's era, the selected canon, the
  * resolved moment conditions, the style-neutral scene plan, the art style's rendering and the captions of up
  * to three reference images. Precedence, strongest first: engine rules, brief content and
- * depiction rules, canon identity, style rendering, moment plan and resolved conditions. The prompt is capped at 8,000
+ * depiction rules, canon identity, style rendering, moment plan and resolved conditions. The prompt is capped at 12,000
  * characters; nothing required is ever trimmed, and an over-budget result is rejected before
  * any paid call. Legacy Bible wording lives only in image-prompts.ts and never reaches this path.
  */
@@ -12,8 +12,9 @@ import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
 
 /** Structure and wording of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. */
-export const GENERIC_PROMPT_VERSION = "2026-10-26-generic-v8";
-export const GENERIC_PROMPT_MAX_CHARS = 8000;
+export const GENERIC_PROMPT_VERSION = "2026-10-27-generic-v9";
+/** Prompt text is cheap next to the image itself (12,000 characters is about $0.001); the cap only guards runaway input. */
+export const GENERIC_PROMPT_MAX_CHARS = 12000;
 export const MAX_REFERENCE_IMAGES = 3;
 const MOMENT_TEXT_MAX_CHARS = 1200;
 const NEIGHBOR_HINT_MAX_CHARS = 220;
@@ -67,19 +68,19 @@ export type RenderingResult =
   | { ok: true; prompt: string; references: SelectedReference[]; packet: RenderingPacket }
   | { ok: false; error: string; finalChars: number };
 
+// Short, general rules: every word here is repeated in every image prompt.
 export const ENGINE_RULES = [
-  "No text or symbols anywhere (letters, numbers, signage, labels, logos, watermarks, inscriptions).",
-  "One single scene filling the whole frame: no split panels, collage, frame, border, canvas-on-wall, poster, mockup, visible paper, matting or blank studio backdrop.",
-  "The image is the scene itself, never a photographed painting, print, mural or gallery piece.",
-  "Nothing from outside the moment's era: no later technology, clothing, materials or buildings.",
-  "No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).",
+  "No text or symbols anywhere: no letters, numbers, signage, logos, signatures or inscriptions.",
+  "One scene painted to every edge of the frame: no panels, collage, border, frame, margin, visible paper or blank backdrop, and never a photographed painting or mockup.",
+  "Nothing from outside the moment's era.",
+  "Natural anatomy: no extra or malformed limbs, hands or faces.",
   `${COMMON_CONTENT_FLOOR.prohibited.join(" and ").toLowerCase()} are never shown; ${COMMON_CONTENT_FLOOR.permitted.join(" and ").toLowerCase()} may be, treated seriously.`,
   "No likeness of any real actor, performer or public figure.",
-  "Depict the SELECTED CHARACTERS, including groups and no-form subjects, with their canon. Other people, crowds or animals appear only where the scene plan describes them, as unnamed incidental figures without fixed appearance. Moment conditions, source narrators and neighbors do not add figures; apply situational clothing only to selected characters.",
-  "No-form effects representing a subject, such as divine radiance, appear only when that subject is in SELECTED CHARACTERS and the scene plan describes its presence. Omit such effects from moment conditions when that subject is unselected or absent from the plan, even if the conditions call them light, weather or background. Ordinary sunlight, lamplight, embers and weather remain setting details.",
+  "Show the SELECTED CHARACTERS with their canon. Anyone else appears only as an unnamed figure the scene plan describes.",
+  "A subject without form appears only through its permitted effects, never as a figure, and only when it is selected.",
 ];
-export const CONTENT_OWNERSHIP = "The source establishes the scene and participants. Selected canon fixes identity and appearance. The scene plan and resolved moment conditions own this moment's place, time, weather, light, situational clothing, action and effect placement. Original generated section looks are advisory provenance, not rendering instructions. Explicit owner look constraints stay binding verbatim. Neither conditions nor canon adds participants or events.";
-export const PRECEDENCE_LINE = `If instructions conflict, follow them in this order: these rules, then the work brief, then canon identity, then the art style's rendering, then the scene plan and resolved moment conditions. ${CONTENT_OWNERSHIP}`;
+export const CONTENT_OWNERSHIP = "The text decides who is in the scene; canon decides how they look; the scene plan and moment conditions decide this moment's place, time, light, clothing and action.";
+export const PRECEDENCE_LINE = `If instructions conflict, follow these rules, then the work brief, then canon, then the art style, then the scene plan and moment conditions. ${CONTENT_OWNERSHIP}`;
 
 function clip(text: string, max: number) {
   const flat = text.replace(/\s+/g, " ").trim();
@@ -102,13 +103,15 @@ export function briefBlock(brief: WorkBrief, eraId: string, styleId: string): st
   ].join("\n");
 }
 
-/** Up to three references in the agreed order: style reference, main character, location, second character. No-form entries never contribute. */
+/**
+ * Up to three references in the agreed order: style reference, main character, location, second character. No-form entries never contribute.
+ * Every style may have a style reference, Classical included: in the 26 October image check, images sent with one showed
+ * neither white margins nor a figure for a no-form subject.
+ */
 export function selectReferences(canon: SelectedCanon[], available: AvailableReference[], styleId: string): SelectedReference[] {
   const picked: AvailableReference[] = [];
-  if (styleId !== "classical") {
-    const style = available.find((r) => r.kind === "styleReference" && r.styleId === styleId);
-    if (style) picked.push(style);
-  }
+  const style = available.find((r) => r.kind === "styleReference" && r.styleId === styleId);
+  if (style) picked.push(style);
   const sheetFor = (entry: SelectedCanon) => available.find((r) => r.kind === "sheet" && r.entryId === entry.entryId && r.stageId === entry.stageId);
   const eligible = canon.filter((c) => c.hasForm);
   const characters = eligible.filter((c) => c.kind === "character");
@@ -181,7 +184,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     referenceBlock(),
     flags.neighborsIncluded ? neighborBlock : "",
     flags.variationIncluded ? variationBlock : "",
-    `SCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: ${input.aspectRatio} (${aspect} landscape).`,
+    `SCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges and corners.\nAspect ratio: ${input.aspectRatio} (${aspect} landscape).`,
   ].filter(Boolean).join("\n\n");
 
   // Resolved conditions are reviewed content, not optional look detail. Never trim them or canon.

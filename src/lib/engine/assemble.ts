@@ -139,10 +139,8 @@ export async function assembleRendering(deps: AssembleDeps, input: AssembleInput
   const inline = new Map<string, Uint8Array>();
   type Required = Array<{ kind: string; recordId: string; version: string }>;
   const candidates: Array<{ kind: "sheet" | "styleReference"; id: string; reference: (storageId: string, version: string) => AvailableReference; required: Required }> = [];
-  if (input.styleId !== "classical") {
-    candidates.push({ kind: "styleReference", id: input.styleId, reference: (storageId, version) => ({ kind: "styleReference", styleId: input.styleId, storageId, version }),
-      required: [{ kind: "style", recordId: input.styleId, version: styleEntry.version }] });
-  }
+  candidates.push({ kind: "styleReference", id: input.styleId, reference: (storageId, version) => ({ kind: "styleReference", styleId: input.styleId, storageId, version }),
+    required: [{ kind: "style", recordId: input.styleId, version: styleEntry.version }] });
   const eligible = canon.filter((c) => c.hasForm);
   const characters = eligible.filter((c) => c.kind === "character");
   const locations = eligible.filter((c) => c.kind === "location");

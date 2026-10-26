@@ -6,8 +6,9 @@
  * → the rendering packet, rejected before any paid call when over budget → a prompt-aware quote
  * → the request record with its engine commitments and the exact packet snapshot → guest
  * reservation → one provider call → settlement from actual usage or the packet-aware fallback →
- * the saved image with WEB text and full provenance. There is no fallback to the legacy engine or
- * an unplanned prompt after admission, and a replayed request never pays twice.
+ * the saved image with WEB text and full provenance. A scene that cannot be prepared or packed is
+ * declined as `sceneUnavailable` before any request record exists, so the route may serve the legacy
+ * engine instead; after admission there is no fallback or unplanned prompt, and a replay never pays twice.
  */
 import { api } from "../../../convex/_generated/api";
 import { fetchImageModels, CREDIT_USD, DEFAULT_IMAGE_MODEL, IMAGE_RESERVATION_HEADROOM_MULTIPLIER, canAffordImageGeneration, getProviderName } from "../image-models";
@@ -118,7 +119,7 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
     async execute(input): Promise<GenericGenerationOutcome> {
       const { runtime, workId, sid } = input;
       const { convex, serverSecret, requestContext } = runtime;
-      const decline = (status: number, error: string, message: string, retryable: boolean, details?: Record<string, unknown>): GenericGenerationOutcome =>
+      const decline = (status: number, error: string, message: string, retryable: boolean, details?: Record<string, unknown>): Extract<GenericGenerationOutcome, { kind: "declined" }> =>
         ({ kind: "declined", status, error, message, retryable, ...(details ? { details } : {}) });
       const preparing = (message: string, details?: Record<string, unknown>) => decline(503, "Preparing scene", message, true, details);
       const respond = (status: number, body: Record<string, unknown>): GenericGenerationOutcome => ({ kind: "response", status, body });
@@ -179,12 +180,12 @@ export function createGenericEngine(deps: GenericEngineDeps = {}): GenericEngine
             } else {
               logApiFailure({ context: requestContext, stage: "generic_preparation", error: assembled.error, statusCode: 503, sid });
             }
-            return preparing(assembled.message, { preparation: status });
+            return { ...preparing(assembled.message, { preparation: status }), sceneUnavailable: true };
           }
           case "packet":
             await convex.mutation(api.analysis.noteAttention, { serverSecret, workId, reason: "prompt_over_budget", kind: "moment", recordId: assembled.momentId, detail: assembled.message }).catch(() => {});
             logWarn("generic.prompt_over_budget", { requestId: input.requestId, workId, momentId: assembled.momentId, finalChars: assembled.finalChars });
-            return decline(503, "Scene unavailable", assembled.message, false);
+            return { ...decline(503, "Scene unavailable", assembled.message, false), sceneUnavailable: true };
         }
       }
       const { momentId, sectionId, context, prepared, prompt, packet, sentReferences, styleEntry } = assembled;
