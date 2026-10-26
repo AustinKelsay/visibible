@@ -1,0 +1,24 @@
+{
+  "scorer": "Claude Opus 5.5 operator, scoring the opaque packet before reading blind-key.json. One familiar operator; condition wording can reveal arm, so this is procedural masking only.",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    { "id": "p001", "verdict": "uncertain", "lookContradiction": false, "defects": [],
+      "reason": "The scene depicts the speaker of the letter (Christ, 'I will make him') speaking in the temple beside the overcomer. The speaker's words are framing evidence under the criteria, but in this vision the speaker is also a seen figure, so whether his depiction is framing is disputed. The conditions and scene otherwise agree." },
+    { "id": "p002", "verdict": "flawed", "lookContradiction": true,
+      "defects": [
+        { "quote": "Roman soldiers in military dress nearby", "reason": "Rendering conditions add soldiers to a scene that states no human figure; Romans 4:7 quotes a psalm with no soldiers." },
+        { "quote": "Daytime, moving from late afternoon into dusk over the section", "reason": "The time condition spans the section instead of fixing this instant." }
+      ],
+      "reason": "The still-life scene is source-compatible, but the rendered conditions inject unrelated soldiers and a time span." },
+    { "id": "p003", "verdict": "acceptable", "lookContradiction": false, "defects": [],
+      "reason": "Pharaoh is told of the flight in his palace hall; his servants and a messenger are generic source-compatible roles. The palace, late-afternoon time and clothing conditions agree with the scene and source." },
+    { "id": "p004", "verdict": "acceptable", "lookContradiction": false, "defects": [],
+      "reason": "Symbolic depiction of the overcomer as a pillar in the heavenly temple with the descending city; no speaker depicted and no available cast left unselected. Conditions agree with the scene." },
+    { "id": "p005", "verdict": "flawed", "lookContradiction": true,
+      "defects": [
+        { "quote": "storm-darkened sky over the Kishon river", "reason": "Conditions contradict the scene's clear warm morning light and import a battle storm from elsewhere in the section." },
+        { "quote": "Canaanite hill country near Mount Tabor, the Kishon river plain, and a Canaanite tent encampment", "reason": "Several places across the section instead of one place for this instant; mentions unselected Kishon and Tabor." }
+      ],
+      "reason": "Deborah and Barak with captives fits the source, but the rendered conditions span the section and contradict the scene." }
+  ]
+}
