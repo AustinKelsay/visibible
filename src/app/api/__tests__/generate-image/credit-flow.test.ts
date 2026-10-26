@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { reviewReply, withCleanReview } from "../../../../../tests/fixtures/plan-review";
+import { reviewReply } from "../../../../../tests/fixtures/plan-review";
 import type { PlanReviewProblem } from "@/lib/engine/plan-review";
 import { GENERIC_PROMPT_VERSION } from "@/lib/engine/prompt";
 import { imageModelFixture } from "../shared/image-model-fixtures";
@@ -26,9 +26,9 @@ import { contentVersion } from "../../../../../convex/_helpers/contentVersion";
 import { normalizeImageBilling } from "@/lib/image-catalog";
 import { createWorkReader } from "@/lib/work-input";
 import { SHARED_STYLES, type WorkBrief } from "@/lib/work-preparation";
-import type { TextModel } from "@/lib/reading-pass/model";
+import type { TextModel, TextModelRequest } from "@/lib/reading-pass/model";
 import type { WorkInputs } from "@/lib/engine/work-inputs";
-import { withGrounding } from "../../../../../tests/fixtures/scene-grounding";
+import { selectionReply, withGrounding } from "../../../../../tests/fixtures/scene-grounding";
 import {
   mockFetchBibleApi,
   resetMockFetchBibleApiBypass,
@@ -412,6 +412,18 @@ function createGenerateImageRequest(body: Record<string, unknown>) {
   });
 }
 
+/** Clean reviews and the v12 planner reply format (no `situation`); the shared clean-review fixture still adds conditions. */
+function withCleanV12Review<T extends TextModel>(model: T): T {
+  return { ...model, id: model.id, complete: async (request: TextModelRequest) => {
+    if (request.schemaName === "plan_review") return reviewReply();
+    const result = await model.complete(request);
+    if (request.schemaName !== "scene_plan") return result;
+    let value: unknown;
+    try { value = JSON.parse(result.content); } catch { return result; }
+    return { ...result, content: JSON.stringify(selectionReply(value)) };
+  } } as T;
+}
+
 describe("Image Generation API Credit Flow", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -577,7 +589,7 @@ describe("Image Generation API Credit Flow", () => {
     let missingCast: string[] = [];
     let singleInstant = true;
     let reviewProblems: PlanReviewProblem[] = [];
-    const cleanTextModel: TextModel = withCleanReview({
+    const cleanTextModel: TextModel = withCleanV12Review({
       id: "scripted",
       async complete(request) {
         modelCalls.push(request.label);
@@ -671,8 +683,15 @@ describe("Image Generation API Credit Flow", () => {
       const parts = calls[0].messages[0].content;
       expect(parts.map((p) => p.type)).toEqual(["text", "image_url", "image_url"]);
       expect(parts[0].text).toContain(adamText);
-      expect(parts[0].text).toContain(webText[1]);
-      expect(parts[0].text).not.toContain("In the beginning God created the heavens");
+      // The plan selects God, who has no form: generic-v10 sends neither the verse nor neighbours, never names the
+      // subject, and describes it by its canon effects alone. The generated section look is advisory and not rendered.
+      expect(parts[0].text).not.toContain(webText[1]);
+      expect(parts[0].text).not.toContain(webText[2]);
+      expect(parts[0].text).not.toMatch(/\bGod\b/);
+      expect(parts[0].text).toContain("PRESENCE SHOWN ONLY AS EFFECTS (binding; it is not a person):\n- shown only as light.");
+      expect(parts[0].text).toContain("SELECTED CHARACTERS: Adam\n");
+      expect(parts[0].text).not.toContain("MOMENT CONDITIONS");
+      expect(parts[0].text).not.toContain(lookAnswer.light);
       expect(parts[1].image_url!.url).toBe(`data:image/jpeg;base64,${Buffer.from(`jpeg:${styleBlob}`).toString("base64")}`);
       expect(parts[2].image_url!.url).toBe(`data:image/jpeg;base64,${Buffer.from(`jpeg:${sheetBlob}`).toString("base64")}`);
       // Settled from actual usage ($0.01 → 2 credits) after a headroom reservation; the owner paid for the look and plan separately.
@@ -772,17 +791,23 @@ describe("Image Generation API Credit Flow", () => {
       expect((await storedRequests())[0]).toMatchObject({ engine: "generic", status: "succeeded" });
     });
 
-    it("re-plans repeated generated-condition conflicts once, then keeps the plan with notes and renders it", async () => {
+    it("keeps a generated look advisory: a condition report has nothing rendered to cite, so the plan is kept with a note and renders without conditions", async () => {
       await prepareWork();
-      reviewProblems = [{ kind: "look_conflict", entryId: "", planQuote: "ordinary daylight", reason: "Scripted incompatible shared illumination." }];
+      // Since review v10 a generated look is neither reviewed nor rendered, so a look_conflict citing it is invalid twice.
+      reviewProblems = [{ kind: "look_conflict", entryId: "", planQuote: lookAnswer.light, reason: "Scripted incompatible shared illumination." }];
       const { POST } = await import("../../generate-image/route");
       const response = await POST(createGenerateImageRequest(body));
       expect(response.status).toBe(200);
-      expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1"]);
-      expect(await ledgerOutcomes()).toEqual(["ok", "ok", "review problems", "ok", "review problems"]);
-      expect(await storedPlanPayload()).toMatchObject({ review: { rounds: 2, problems: reviewProblems, notes: ["kept with: look_conflict"] } });
+      expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1", "review:genesis-1-1:2"]);
+      expect(await ledgerOutcomes()).toEqual(["ok", "ok", "review invalid", "review invalid"]);
+      const payload = await storedPlanPayload();
+      expect(payload).toMatchObject({ review: { rounds: 1, notes: ["plan review unavailable: look_conflict quote is not in the look"] } });
+      expect(payload).not.toHaveProperty("situation");
       expect(getCallCount("reserveCredits")).toBe(1);
       expect(imageCalls()).toHaveLength(1);
+      const prompt = imageCalls()[0].messages[0].content[0].text!;
+      expect(prompt).not.toContain("MOMENT CONDITIONS");
+      expect(prompt).not.toContain(lookAnswer.light);
     });
 
     describe("legacy fallback for a refused scene", () => {

@@ -5,7 +5,7 @@
  * matrix, prose moments found from a unit, owner style trials, assembly failures as partial
  * results, the dry-run manifest, and the baseline-versus-candidate sheet.
  */
-import { REVIEW_USAGE, withCleanReview } from "../../../tests/fixtures/plan-review";
+import { REVIEW_USAGE, reviewReply } from "../../../tests/fixtures/plan-review";
 import { describe, it, expect } from "vitest";
 import { createWorkReader } from "../work-input";
 import { SHARED_STYLES, type WorkBrief } from "../work-preparation";
@@ -18,7 +18,19 @@ import { COLD_PREPARATION_CALLS, emptyEvalState, runImageEval, type EvalProvider
 import { buildReport, buildScoreTemplate, renderComparisonSheet, renderContactSheet } from "../image-evals/report";
 import type { GenericEvalProvider } from "../image-evals/generic";
 import type { WorkInputs } from "../engine/work-inputs";
-import { withGrounding } from "../../../tests/fixtures/scene-grounding";
+import { selectionReply, withGrounding } from "../../../tests/fixtures/scene-grounding";
+
+/** Clean reviews and the v12 planner reply format (no `situation`); the shared clean-review fixture still adds conditions. */
+function withCleanV12Review<T extends TextModel>(model: T): T {
+  return { ...model, id: model.id, complete: async (request: TextModelRequest) => {
+    if (request.schemaName === "plan_review") return reviewReply();
+    const result = await model.complete(request);
+    if (request.schemaName !== "scene_plan") return result;
+    let value: unknown;
+    try { value = JSON.parse(result.content); } catch { return result; }
+    return { ...result, content: JSON.stringify(selectionReply(value)) };
+  } } as T;
+}
 
 const WORK = "two-books";
 const work = createWorkReader({
@@ -51,7 +63,7 @@ const lookAnswer = { place: "Lakeshore", timeOfDay: "dawn", weather: "calm", lig
 const planAnswer = (present: string[]) => ({ present, missingCast: [], primarySubject: "Jonah by the boats", action: "mends nets", setting: "shore", secondaryElements: "boats", mood: "quiet", timeOfDay: "dawn", composition: "wide" });
 function scriptedModel(costUsd: number | null = 0.0004) {
   const calls: TextModelRequest[] = [];
-  const model: TextModel & { calls: TextModelRequest[] } = withCleanReview({ id: "scripted", calls, async complete(request) {
+  const model: TextModel & { calls: TextModelRequest[] } = withCleanV12Review({ id: "scripted", calls, async complete(request) {
     calls.push(request);
     const id = request.label.split(":")[1];
     const reader = request.user.includes("lamplighter") ? prose : work;

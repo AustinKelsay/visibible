@@ -43,6 +43,11 @@ export function withSituation(value: unknown, owner?: unknown): unknown {
   return { ...plan, situation: owner ?? { place: plan.setting ?? "", timeOfDay: plan.timeOfDay ?? "", weather: "clear", light: "ordinary daylight", clothing: "ordinary situational clothing" } };
 }
 
+/** The planner reply format since moment-cast v12 has no `situation`: scene fields carry setting and time. */
 export function selectionReply(value: unknown): unknown {
-  return withSituation(selectionContract(value));
+  const reply = selectionContract(value);
+  if (typeof reply !== "object" || reply === null || Array.isArray(reply)) return reply;
+  const { situation: _situation, ...rest } = reply as Record<string, unknown>;
+  void _situation;
+  return rest;
 }

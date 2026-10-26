@@ -1,4 +1,3 @@
-import { withSituation } from "../../../tests/fixtures/scene-grounding";
 /**
  * Captured false-clean plans with scripted adverse reviews; live semantic obedience is evaluated separately.
  * Forgiving preparation re-plans once and then keeps the plan with a note rather than refusing it.
@@ -47,7 +46,7 @@ async function setup(repeat: number, repair: boolean) {
     const value = request.schemaName === "section_look"
       ? { place: "Jerusalem", timeOfDay: "day", weather: "clear", light: "daylight", clothing: "plain robes" }
       : ++plans === 2 && repair ? replacement : captured;
-    return { content: JSON.stringify(withSituation(value)), model: "scripted", providerRequestId: null, finishReason: "stop",
+    return { content: JSON.stringify(value), model: "scripted", providerRequestId: null, finishReason: "stop",
       usage: { promptTokens: 1, completionTokens: 1, costUsd: 0.0001 }, elapsedMs: 0 };
   } };
   const inputs = await readWorkInputs("bible-web");
@@ -65,6 +64,7 @@ describe("source identity review over retained false-clean plans", () => {
     expect(calls.filter((c) => c.schemaName === "plan_review")).toHaveLength(2);
     expect(writes.filter((w) => w.kind === "plan")).toHaveLength(1);
     expect(writes.find((w) => w.kind === "plan")!.payload).toMatchObject({ review: { rounds: 2, problems: [problem], notes: [`kept with: outside_instant ${priest}`] } });
+    expect(writes.find((w) => w.kind === "plan")!.payload).not.toHaveProperty("situation");
     expect(spend.filter((s) => s === "review problems")).toHaveLength(2);
     // The reviewer sees the actual rendering fields and IDs, without the planner's identity rationale.
     const firstReview = calls.find((c) => c.schemaName === "plan_review")!;

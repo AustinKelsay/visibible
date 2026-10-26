@@ -18,7 +18,8 @@ describe("look review citations", () => {
     const spend = vi.fn(async () => {});
     const complete = vi.fn(async () => ({ content: trace.response.choices[0].message.content, model: "recorded", providerRequestId: null,
       finishReason: "stop", usage: { promptTokens: 1, completionTokens: 1, costUsd: trace.measuredUsageUsd }, elapsedMs: 0 }));
-    expect(PLAN_REVIEW_SYSTEM).toContain("MOMENT CONDITIONS");
+    // Since review v10 only owner look constraints are reviewed as look input; historical citations still validate.
+    expect(PLAN_REVIEW_SYSTEM).toContain("OWNER LOOK CONSTRAINTS");
     expect(trace.request.messages[0].content).toContain("verbatim section look");
     expect(planReviewUser(input)).toBe(trace.request.messages[1].content);
     const result = await reviewPlan({ id: "recorded", complete }, spend, "look-time", input);
@@ -69,13 +70,14 @@ describe("look review citations", () => {
       const content = request.schemaName === "plan_review" ? traces[0].response.choices[0].message.content
         : JSON.stringify(request.schemaName === "section_look" ? input.rendering!.look : {
           focusQuote: input.context.moment.text, instant: "The traveler stands still at midday.",
-          selectedCast: [], ...input.fields, situation: input.rendering!.look,
+          selectedCast: [], ...input.fields,
         });
       return { content, model: "recorded", providerRequestId: null, finishReason: "stop", usage: { promptTokens: 1, completionTokens: 1, costUsd: 0.0001 }, elapsedMs: 0 };
     } };
     const prepared = await prepareMoment({ workId: brief.workId, momentId: "constructed", store: memory.store, model, brief, briefVersion: "brief", context: input.context });
     // A re-plan cannot change owner text, so the conflict is recorded instead of re-planned or refused.
     expect(calls.map((c) => c.schemaName)).toEqual(["scene_plan", "plan_review"]);
+    expect(calls[1].user).toContain("OWNER LOOK CONSTRAINTS (binding verbatim rendering input)");
     expect(prepared.situation).toEqual(input.rendering!.look);
     const stored = await memory.store.getActiveRecord("plan", "constructed");
     expect(stored?.payload.review).toEqual({ rounds: 1, notes: [expect.stringMatching(/^noted: look_conflict: /)] });

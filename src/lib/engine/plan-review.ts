@@ -12,22 +12,22 @@ import { planningNeighbors } from "./scene-grounding";
 import { CONTENT_OWNERSHIP, type RenderingInput, type SelectedCanon } from "./prompt";
 
 /** Bump for changes to the review instructions, schema or acceptance rules; plans refresh lazily. */
-export const PLAN_REVIEW_PROMPT_VERSION = "2026-10-27-plan-review-v9";
+export const PLAN_REVIEW_PROMPT_VERSION = "2026-10-27-plan-review-v10";
 /** The benchmarked configuration: reasoning off flagged every clean plan. Thinking needs room above 1,024 tokens. */
 export const PLAN_REVIEW_REASONING: ReasoningEffort = "low";
 export const PLAN_REVIEW_MAX_TOKENS = 4000;
 
-export const PLAN_REVIEW_SYSTEM = `You check an illustration plan before it is drawn. You get the moment's text with its neighbours, the depiction rules, the section cast (id, name, hasForm), the plan's selected cast ids (\`present\`), its seven scene fields, the MOMENT CONDITIONS (or literal OWNER LOOK CONSTRAINTS) that rendering will use, and the canon of the selected entries. Report only clear problems that a careful reader would agree with, and return an empty list when the plan is a reasonable illustration of the moment. Do not report preferences, small omissions or other valid readings. Return only JSON.
+export const PLAN_REVIEW_SYSTEM = `You check an illustration plan before it is drawn. You get the moment's text with its neighbours, the depiction rules, the section cast (id, name, hasForm), the plan's selected cast ids (\`present\`), its seven scene fields, any OWNER LOOK CONSTRAINTS that rendering will use, and the canon of the selected entries. Report only clear problems that a careful reader would agree with, and return an empty list when the plan is a reasonable illustration of the moment. Do not report preferences, small omissions or other valid readings. Return only JSON.
 ${CONTENT_OWNERSHIP}
 Kinds:
 - unselected_figure: a section cast entry (a person, group, place, object, or a no-form presence shown as its effect) is clearly depicted in a scene field but its id is not in present. Use its id.
 - outside_instant: a selected or described person or presence does not belong in this moment, such as the narrator of a story or vision, someone from a different event, or a no-form presence the moment does not show. Use its id, or empty.
 - not_one_instant: the fields give someone incompatible poses or places, or show successive steps as one image.
-- embodied_formless: a hasForm false entry is given a body, face, hands, clothing, a silhouette or a seated figure.
-- look_conflict: a MOMENT CONDITIONS or OWNER LOOK CONSTRAINTS value contradicts the scene, the text or the depiction rules. Quote that value.
+- embodied_formless: a hasForm false entry is given a body, face, hands, clothing, a silhouette, or is described as seated or standing.
+- look_conflict: an OWNER LOOK CONSTRAINTS value (only when supplied) contradicts the scene, the text or the depiction rules. Quote that value.
 - canon_conflict: a scene field contradicts a selected entry's fixed canon. Quote the scene field.
 - missing_canon: the scene depicts a named recurring character or group with no section cast entry. Leave entryId empty.
-For each problem, copy a short exact phrase from a scene field or a selected id into planQuote (from a moment condition for look_conflict) and give a one-sentence reason.`;
+For each problem, copy a short exact phrase from a scene field or a selected id into planQuote (from an owner constraint for look_conflict) and give a one-sentence reason.`;
 
 export const PLAN_REVIEW_KINDS = ["unselected_figure", "outside_instant", "not_one_instant", "embodied_formless", "look_conflict", "canon_conflict", "missing_canon"] as const;
 export const planReviewSchema = z.object({
@@ -48,14 +48,19 @@ export type ReviewInput = {
   cast: Array<{ entryId: string; name: string; hasForm: boolean }>;
   present: string[];
   fields: Record<(typeof PLAN_SCENE_FIELDS)[number], string>;
-  /** Required by production preparation; omitted only by historical isolated plan-review controls. */
+  /** Historical shape: conditions plus selected canon. Omitted only by historical isolated plan-review controls. */
   rendering?: { look: Omit<RenderingInput["look"], "version">; lookPolicy?: "generated-guide-v1" | "literal-constraint-v1"; canon: SelectedCanon[] };
 };
+/** What the review accepts since v10: owner look constraints only when rendering will use them (none for a generated guide). */
+export type PlanReviewInput = Omit<ReviewInput, "rendering"> & {
+  rendering?: Omit<NonNullable<ReviewInput["rendering"]>, "look"> & { look?: NonNullable<ReviewInput["rendering"]>["look"] };
+};
 
-export function planReviewUser(input: ReviewInput) {
+export function planReviewUser(input: PlanReviewInput) {
   const neighbors = planningNeighbors(input.context);
   const label = input.rendering?.lookPolicy === "generated-guide-v1" ? "MOMENT CONDITIONS (exact rendering input)" : input.rendering?.lookPolicy === "literal-constraint-v1" ? "OWNER LOOK CONSTRAINTS (binding verbatim rendering input)" : "SECTION LOOK (verbatim rendering input)";
-  const rendering = input.rendering ? `\n\n${label}:\n${JSON.stringify(input.rendering.look)}\n\nSELECTED CANON (complete assigned stages; fixed identity, not source evidence):\n${input.rendering.canon.map((c) => `- ${c.entryId} (stage: ${c.stageId}, kind: ${c.kind}, hasForm: ${c.hasForm}): ${c.text}`).join("\n") || "- (none)"}` : "";
+  const look = input.rendering?.look ? `\n\n${label}:\n${JSON.stringify(input.rendering.look)}` : "";
+  const rendering = input.rendering ? `${look}\n\nSELECTED CANON (complete assigned stages; fixed identity, not source evidence):\n${input.rendering.canon.map((c) => `- ${c.entryId} (stage: ${c.stageId}, kind: ${c.kind}, hasForm: ${c.hasForm}): ${c.text}`).join("\n") || "- (none)"}` : "";
   return `DEPICTION RULES\n${input.rules}\nSTORY SECTION: ${input.sectionTitle}\n\nMOMENT (${input.context.moment.reference}): ${input.context.moment.text}\nPREVIOUS: ${neighbors.previous ?? "(section starts here)"}\nNEXT: ${neighbors.next ?? "(section ends here)"}\n\nSECTION CAST (id: name, hasForm):\n${input.cast.map((c) => `- ${c.entryId}: ${c.name} (hasForm: ${c.hasForm})`).join("\n") || "- (none)"}${rendering}\n\nPLAN\npresent: ${input.present.join(", ") || "(none)"}\n${PLAN_SCENE_FIELDS.map((f) => `${f}: ${input.fields[f]}`).join("\n")}`;
 }
 
@@ -73,7 +78,7 @@ function lookQuoteMatches(field: string, value: string, quote: string) {
 }
 
 /** Rejects reports quoting another input/field or naming an unsuitable cast id. */
-export function invalidReview(problems: PlanReviewProblem[], input: ReviewInput): string | null {
+export function invalidReview(problems: PlanReviewProblem[], input: PlanReviewInput): string | null {
   const castIds = new Set(input.cast.map((c) => c.entryId));
   const formless = new Set(input.cast.filter((c) => !c.hasForm).map((c) => c.entryId));
   for (const p of problems) {
@@ -96,7 +101,7 @@ export function invalidReview(problems: PlanReviewProblem[], input: ReviewInput)
  * makes the review unavailable rather than passing an unchecked plan.
  */
 export async function reviewPlan(model: TextModel, recordSpend: (entry: { outcome: string; model: string; costUsd: number | null; promptTokens: number | null; completionTokens: number | null; elapsedMs: number }) => Promise<void>,
-  recordId: string, input: ReviewInput, options: { maxTokens?: number; reasoningEffort?: ReasoningEffort } = {}): Promise<{ problems: PlanReviewProblem[] } | { unavailable: string }> {
+  recordId: string, input: PlanReviewInput, options: { maxTokens?: number; reasoningEffort?: ReasoningEffort } = {}): Promise<{ problems: PlanReviewProblem[] } | { unavailable: string }> {
   const user = planReviewUser(input);
   let lastError = "";
   for (let attempt = 1; attempt <= 2; attempt++) {
