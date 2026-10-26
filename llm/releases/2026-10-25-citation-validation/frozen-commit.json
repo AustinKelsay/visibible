@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-26T02:55:11.305Z",
+  "commit": "6bafeffd2b9b5d38a3bc08b2193996ba38647843",
+  "grant": {
+    "authorizedAt": "2026-10-26T02:53:19Z",
+    "authorization": "Owner replied 'continue' after the explicit request: 'Approve that single frozen text-only validation run, with no restart or tuning loop?' The preceding request specified a $0.30 hard cap within the existing $17.50 evaluation allowance, with no budget increase.",
+    "increaseUsd": 0,
+    "authorizedUsd": 17.5,
+    "operationCapUsd": 0.3,
+    "scope": "One execution of the frozen 92-operation actual-v6/v7 citation validation comparison merged in PR #275. No paid restart, automatic resume, iterative tuning, images, production queries/writes, deployment or public activation. Preparation and smoke allowances stay separate.",
+    "proposalCommit": "610be66b7fc4e881000104fb3d392f18b4d4e160"
+  }
+}

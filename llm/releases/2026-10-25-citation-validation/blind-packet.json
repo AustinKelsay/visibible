@@ -1,0 +1,2387 @@
+{
+  "masking": "Arm, review, grounding, versions and outcome labels omitted; single operator, familiar retained cases, no independent-adjudication claim.",
+  "packet": [
+    {
+      "id": "p001",
+      "source": {
+        "moment": {
+          "id": "2-kings-16-14",
+          "reference": "2 Kings 16:14",
+          "text": "The bronze altar, which was before Yahweh, he brought from the front of the house, from between his altar and Yahweh’s house, and put it on the north side of his altar."
+        },
+        "previous": {
+          "text": "He burned his burnt offering and his meal offering, poured his drink offering, and sprinkled the blood of his peace offerings on the altar."
+        },
+        "next": {
+          "text": "King Ahaz commanded Urijah the priest, saying, “On the great altar burn the morning burnt offering, the evening meal offering, the king’s burnt offering and his meal offering, with the burnt offering of all the people of the land, their meal offering, and their drink offerings; and sprinkle on it all the blood of the burnt offering, and all the blood of the sacrifice; but the bronze altar will be for me to inquire by.”"
+        }
+      },
+      "section": {
+        "title": "Ahaz's Damascus altar",
+        "firstUnit": "2-kings-16-10",
+        "lastUnit": "2-kings-16-16"
+      },
+      "cast": [
+        {
+          "entryId": "ahaz",
+          "named": true,
+          "stageId": "ahaz-main",
+          "canon": {
+            "aliases": [
+              "king of Judah son of Jotham",
+              "king Ahaz",
+              "house of David"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "2-kings:character:ahaz",
+              "2-chronicles:character:ahaz",
+              "isaiah:character:ahaz"
+            ],
+            "name": "Ahaz",
+            "note": "King of Judah son of Jotham who calls on Assyria.",
+            "stages": [
+              {
+                "id": "ahaz-main",
+                "label": "Ahaz, king of Judah",
+                "quotes": [
+                  {
+                    "quote": "Ahaz was twenty years old when he began to reign, and he reigned sixteen years in Jerusalem.",
+                    "unit": "2-kings-16-2"
+                  },
+                  {
+                    "quote": "Ahaz the son of Jotham king of Judah began to reign.",
+                    "unit": "2-kings-16-1"
+                  }
+                ],
+                "text": "Ahaz: man in his twenties to late thirties, lean and upright; olive-toned skin weathered by sun; short dark beard trimmed close, dark hair bound back under a simple gold-banded headcloth; drawn, anxious face with heavy brows and a set mouth. Signature outfit: a long purple-edged court robe over a linen tunic, in deep blue and madder red, with a leather belt. Carries alone a bronze-bound royal staff of dark wood."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "urijah_the_priest",
+          "named": true,
+          "stageId": "urijah_the_priest-main",
+          "canon": {
+            "aliases": [],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "2-kings:character:urijah"
+            ],
+            "name": "Urijah the priest",
+            "note": "Priest who builds an altar in the Damascus style at Ahaz's order.",
+            "stages": [
+              {
+                "id": "urijah_the_priest-main",
+                "label": "Urijah the priest",
+                "quotes": [
+                  {
+                    "quote": "Urijah the priest built an altar.",
+                    "unit": "2-kings-16-11"
+                  },
+                  {
+                    "quote": "King Ahaz sent to Urijah the priest a drawing of the altar",
+                    "unit": "2-kings-16-10"
+                  }
+                ],
+                "text": "Urijah the priest: a man in middle age, lean and steady in build, olive-brown skin, close-cropped dark hair and a short trimmed beard threaded with grey, lines of care about the eyes and mouth. Signature outfit: a plain white priestly linen tunic belted with a blue-violet sash, over it a short linen ephod in undyed cream. Carries no props alone."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "damascus",
+          "stageId": "damascus-main",
+          "canon": {
+            "aliases": [
+              "Syria",
+              "the city of the Damascenes"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "1-kings:location:damascus",
+              "2-kings:location:damascus",
+              "amos:location:damascus",
+              "acts:location:damascus",
+              "2-corinthians:location:damascus",
+              "galatians:location:damascus"
+            ],
+            "name": "Damascus",
+            "note": "Capital city of Syria, seat of Ben-hadad and Rezon, and home of Naaman's rivers, judged in Amos and linked with Paul's conversion and escape in Acts and 2 Corinthians; all entries here are the same city.",
+            "stages": [
+              {
+                "id": "damascus-main",
+                "label": "Damascus",
+                "quotes": [
+                  {
+                    "quote": "synagogues of Damascus",
+                    "unit": "acts-9-2"
+                  },
+                  {
+                    "quote": "the rivers of Damascus",
+                    "unit": "2-kings-5-12"
+                  },
+                  {
+                    "quote": "guarded the Damascenes’ city",
+                    "unit": "2-corinthians-11-32"
+                  },
+                  {
+                    "quote": "went up against Damascus and took it",
+                    "unit": "2-kings-16-9"
+                  }
+                ],
+                "text": "Damascus: a walled oasis city of pale limestone and mud-brick houses with flat roofs and domes, set against arid hills; date palms, orchards and irrigated gardens watered by the rivers Abanah and Pharpar; a city gate with a wall, and a straight main street lined with walls and shaded arcades."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "stageId": "yahweh_s_house_in_jerusalem_the_temple_s1",
+          "canon": {
+            "aliases": [
+              "Yahweh's house",
+              "the temple",
+              "the house of Yahweh",
+              "the house of God",
+              "Temple of Yahweh at Jerusalem",
+              "God's house",
+              "The temple",
+              "the sanctuary",
+              "the holy temple",
+              "the courts",
+              "the house",
+              "the house which is called by my name",
+              "The sanctuary",
+              "the altar",
+              "the tent of the daughter of Zion",
+              "the house of our God",
+              "Yahweh's temple",
+              "this house",
+              "the house of Yahweh of Armies",
+              "my house",
+              "the storehouse",
+              "Yahweh's altar",
+              "altar"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "1-kings:location:temple",
+              "2-kings:location:temple",
+              "2-chronicles:location:temple",
+              "ezra:location:temple_site",
+              "nehemiah:location:temple",
+              "psalms:location:temple",
+              "isaiah:location:temple_in_jerusalem",
+              "jeremiah:location:yahwehs_house",
+              "lamentations:location:temple_sanctuary",
+              "joel:location:yahweh_house",
+              "haggai:location:jerusalem_temple_site",
+              "zechariah:location:the_temple",
+              "malachi:location:temple"
+            ],
+            "name": "Yahweh's house in Jerusalem (the temple)",
+            "note": "The one Jerusalem temple (Yahweh's house, the sanctuary on Mount Moriah) across all references, from Solomon's building through repair, destruction and rebuilding; construction and ruin are later appearance stages, not separate places.",
+            "stages": [
+              {
+                "id": "yahweh_s_house_in_jerusalem_the_temple_s1",
+                "label": "Solomon's temple on Mount Moriah",
+                "quotes": [
+                  {
+                    "quote": "The house, when it was under construction, was built of stone prepared at the quarry",
+                    "unit": "1-kings-6-7"
+                  },
+                  {
+                    "quote": "Within the inner sanctuary was twenty cubits in length, and twenty cubits in width, and twenty cubits in its height.",
+                    "unit": "1-kings-6-20"
+                  },
+                  {
+                    "quote": "He overlaid the floor of the house with gold, inside and outside.",
+                    "unit": "1-kings-6-30"
+                  },
+                  {
+                    "quote": "Also he made before the house two pillars thirty-five cubits high",
+                    "unit": "2-chronicles-3-15"
+                  },
+                  {
+                    "quote": "He set the sea on the right side of the house eastward and toward the south.",
+                    "unit": "1-kings-7-39"
+                  }
+                ],
+                "text": "Yahweh's house in Jerusalem: a stone temple of finished ashlar on Mount Moriah, roofed with cedar beams, its inner sanctuary panelled in cedar and overlaid with pure gold. Carved cherubim, palm and open flowers cover the doors and walls. Before the house stand two great bronze pillars and a huge bronze molten sea on twelve oxen. Courts of stone surround it, with olive and cypress trees, and the walled city of Jerusalem rises beyond."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [
+        {
+          "entryId": "ahaz",
+          "stageId": "ahaz-main"
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "stageId": "yahweh_s_house_in_jerusalem_the_temple_s1"
+        }
+      ],
+      "fields": {
+        "primarySubject": "King Ahaz, standing in the temple court beside a massive bronze altar he is shifting by hand.",
+        "action": "Ahaz pushes the bronze altar aside from the front of the temple house, positioning it on the north side of his new altar.",
+        "setting": "An open temple court in Jerusalem, with stone walls, the front of the temple house behind, and a newly built altar of foreign design nearby.",
+        "secondaryElements": "The bronze altar, heavy and set on stone; the temple house's entrance visible behind; faint smoke rising from the earlier offerings on the new altar.",
+        "mood": "Tense and sorrowful, with a sense of quiet defiance and loss.",
+        "timeOfDay": "Daylight, with clear sun across the court.",
+        "composition": "Wide view from the side of the court, with Ahaz and the bronze altar in the foreground and the temple house in the background."
+      },
+      "look": {
+        "kind": "look",
+        "sectionId": "2-kings-16-10",
+        "place": "Interior courtyard of the Jerusalem temple beside a royal altar, with a bronze altar and temple doorway; Damascus altar pattern visible as a foreign style",
+        "timeOfDay": "Daytime, morning light",
+        "weather": "Clear, dry air with light haze",
+        "light": "Warm sunlight slanting through the courtyard, long shadows on stone",
+        "clothing": "Royal court robes and cloaks for Ahaz; priestly linen for Urijah; period tunics and sandals for attendants"
+      }
+    },
+    {
+      "id": "p002",
+      "source": {
+        "moment": {
+          "id": "1-kings-15-21",
+          "reference": "1 Kings 15:21",
+          "text": "When Baasha heard of it, he stopped building Ramah, and lived in Tirzah."
+        },
+        "previous": {
+          "text": "Ben Hadad listened to King Asa, and sent the captains of his armies against the cities of Israel, and struck Ijon, and Dan, and Abel Beth Maacah, and all Chinneroth, with all the land of Naphtali."
+        },
+        "next": {
+          "text": "Then King Asa made a proclamation to all Judah. No one was exempted. They carried away the stones of Ramah, and its timber, with which Baasha had built; and King Asa used it to build Geba of Benjamin, and Mizpah."
+        }
+      },
+      "section": {
+        "title": "Asa's treaty with Ben Hadad",
+        "firstUnit": "1-kings-15-15",
+        "lastUnit": "1-kings-15-24"
+      },
+      "cast": [
+        {
+          "entryId": "asa_king_of_judah",
+          "named": true,
+          "stageId": "asa_king_of_judah_main",
+          "canon": {
+            "aliases": [
+              "Asa",
+              "King Asa",
+              "king Asa"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "1-kings:character:asa",
+              "2-chronicles:character:asa"
+            ],
+            "name": "Asa, king of Judah",
+            "note": "Son of Abijah and king of Judah who removes idols and makes a treaty with Ben Hadad of Syria against Baasha; the same king appears in 1 Kings and 2 Chronicles, so both entries belong to one cluster.",
+            "stages": [
+              {
+                "id": "asa_king_of_judah_main",
+                "label": "Asa, king of Judah",
+                "quotes": [
+                  {
+                    "quote": "in the time of his old age he was diseased in his feet",
+                    "unit": "1-kings-15-23"
+                  },
+                  {
+                    "quote": "Asa was diseased in his feet. His disease was exceedingly great",
+                    "unit": "2-chronicles-16-12"
+                  }
+                ],
+                "text": "Asa: man of mature years, lean and upright, in his forties to sixties; olive-brown skin; short dark beard with grey at the chin; black hair bound back under a plain linen headband; lined, earnest face with steady dark eyes; wears an undyed linen tunic and a deep blue wool royal cloak fastened at the shoulder with a bronze pin. Carries a plain staff of almond wood, a sign of age and his later infirmity."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "ben_hadad_king_of_syria_son_of_tabrimmon",
+          "named": true,
+          "stageId": "ben_hadad_main",
+          "canon": {
+            "aliases": [
+              "Ben Hadad",
+              "Ben Hadad the king of Syria",
+              "Ben Hadad son of Tabrimmon",
+              "Ben Hadad king of Syria"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "1-kings:character:ben_hadad",
+              "2-chronicles:character:ben_hadad_syria"
+            ],
+            "name": "Ben Hadad, king of Syria (son of Tabrimmon)",
+            "note": "King of Syria at Damascus who makes treaties and wars with Israel and Judah in Kings and Chronicles, including the alliance with Asa; the Ben Hadad of Kings and Chronicles are the same king.",
+            "stages": [
+              {
+                "id": "ben_hadad_main",
+                "label": "Ben Hadad, king of Syria",
+                "quotes": [
+                  {
+                    "quote": "Ben Hadad the king of Syria gathered all his army together",
+                    "unit": "1-kings-20-1"
+                  },
+                  {
+                    "quote": "Ben Hadad was drinking himself drunk in the pavilions",
+                    "unit": "1-kings-20-16"
+                  },
+                  {
+                    "quote": "Ben Hadad fled and came into the city, into an inner room.",
+                    "unit": "1-kings-20-30"
+                  }
+                ],
+                "text": "Ben Hadad: a mature man in his late forties, broad-shouldered and strong, olive-bronze skin. Short dark curled beard trimmed close, hair bound back under a royal fillet. Stern, weathered face with a hooked nose and heavy brows. Signature outfit: a long embroidered tunic of deep crimson under a dark blue court robe with gold trim. Signature prop: a short gold-hilted sword at his belt."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "baasha",
+          "named": true,
+          "stageId": "baasha",
+          "canon": {
+            "aliases": [
+              "Baasha king of Israel"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "1-kings:character:baasha",
+              "2-chronicles:character:baasha"
+            ],
+            "name": "Baasha",
+            "note": "King of Israel who slew Nadab and reigned over the northern kingdom, fought Asa of Judah, and whose house Zimri destroyed; both entries are the same king, one in Kings and one in Chronicles.",
+            "stages": [
+              {
+                "id": "baasha",
+                "label": "Baasha, king of Israel",
+                "quotes": [
+                  {
+                    "quote": "Baasha the son of Ahijah, of the house of Issachar, conspired against him",
+                    "unit": "1-kings-15-27"
+                  },
+                  {
+                    "quote": "Baasha the son of Ahijah began to reign over all Israel in Tirzah for twenty-four years.",
+                    "unit": "1-kings-15-33"
+                  }
+                ],
+                "text": "Baasha: a man of about forty to fifty years; broad-shouldered and strong, of middle height; olive-brown skin; dark hair and a full, close-trimmed beard streaked with grey; a weathered, resolute face with deep-set eyes. Signature outfit: a long undertunic of undyed linen under a deep blue royal cloak fringed in gold, with a bronze-scaled military belt. Carries alone a plain iron-bladed sword in a leather scabbard."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "jerusalem",
+          "stageId": "jerusalem",
+          "canon": {
+            "aliases": [
+              "Jebus",
+              "Jebusites' city",
+              "David's city",
+              "the stronghold of Zion",
+              "Zion",
+              "the city",
+              "the holy city",
+              "the city of my fathers' tombs",
+              "Salem",
+              "the city of our God",
+              "the city of Jerusalem",
+              "daughters of Jerusalem",
+              "city",
+              "daughter of Zion",
+              "Judah",
+              "the bloody city",
+              "Oholibah",
+              "the temple in Jerusalem",
+              "Mount Zion",
+              "my holy mountain",
+              "the gate of my people",
+              "the high places of Judah",
+              "this place",
+              "the holy mountain",
+              "the city of truth",
+              "David's city Jerusalem"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "judges:location:jerusalem",
+              "2-samuel:location:jerusalem",
+              "1-kings:location:jerusalem",
+              "2-kings:location:jerusalem",
+              "1-chronicles:location:jerusalem",
+              "2-chronicles:location:jerusalem",
+              "ezra:location:jerusalem",
+              "nehemiah:location:jerusalem",
+              "psalms:location:jerusalem",
+              "ecclesiastes:location:jerusalem",
+              "song-of-solomon:location:jerusalem",
+              "isaiah:location:jerusalem",
+              "jeremiah:location:jerusalem",
+              "lamentations:location:jerusalem",
+              "ezekiel:location:jerusalem",
+              "daniel:location:jerusalem",
+              "joel:location:jerusalem",
+              "obadiah:location:jerusalem",
+              "micah:location:jerusalem",
+              "zephaniah:location:jerusalem",
+              "zechariah:location:jerusalem",
+              "malachi:location:jerusalem",
+              "matthew:location:jerusalem",
+              "mark:location:jerusalem",
+              "luke:location:jerusalem",
+              "john:location:jerusalem",
+              "acts:location:jerusalem_city",
+              "romans:location:jerusalem",
+              "1-corinthians:location:jerusalem",
+              "galatians:location:jerusalem"
+            ],
+            "name": "Jerusalem",
+            "note": "The capital city of Judah (also called Jebus, David's city, the holy city, Zion as city in some books); the city itself, distinct from the hill/mountain of Zion as a place of Yahweh's dwelling.",
+            "stages": [
+              {
+                "id": "jerusalem",
+                "label": "Jerusalem",
+                "quotes": [
+                  {
+                    "quote": "they buried him in David's city",
+                    "unit": "1-kings-15-8"
+                  },
+                  {
+                    "quote": "a breach was made in the city",
+                    "unit": "jeremiah-39-2"
+                  }
+                ],
+                "text": "Jerusalem: a walled city on a steep limestone ridge of the Judean hills, terraces of olive and fig trees falling into deep valleys. Stone and mud-brick houses with flat roofs crowd the slopes; a fortified citadel of the stronghold of Zion stands on the high ground. Massive city walls with gates, and above the city the temple mount crowned by a stone-built temple of Yahweh."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "ramah_of_baasha_s_border",
+          "stageId": "ramah_of_baasha_s_border-s1",
+          "canon": {
+            "aliases": [
+              "Ramah"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "1-kings:location:ramah"
+            ],
+            "name": "Ramah of Baasha's border",
+            "note": "Border town fortified by Baasha and dismantled by Asa in 1 Kings; a different place from Samuel's Ramah, known only from the treaty with Ben Hadad.",
+            "stages": [
+              {
+                "id": "ramah_of_baasha_s_border-s1",
+                "label": "Ramah of Baasha's border",
+                "quotes": [
+                  {
+                    "quote": "Baasha king of Israel went up against Judah, and built Ramah",
+                    "unit": "1-kings-15-17"
+                  },
+                  {
+                    "quote": "They carried away the stones of Ramah, and its timber",
+                    "unit": "1-kings-15-22"
+                  }
+                ],
+                "text": "Ramah: a fortified hill town on a limestone ridge in the border country between Israel and Judah, north of Jerusalem. Its walls are of rough-hewn stone laid in courses, with a gate tower of dressed masonry and timber beams, its roofs flat and plastered. Terraced olive groves and terebinth trees cover the slopes, with scrub oak and wild thyme on the rocky ground."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [
+        {
+          "entryId": "baasha",
+          "stageId": "baasha"
+        },
+        {
+          "entryId": "ramah_of_baasha_s_border",
+          "stageId": "ramah_of_baasha_s_border-s1"
+        }
+      ],
+      "fields": {
+        "primarySubject": "Abandoned, half-built border walls of Ramah standing unfinished on a dusty ridge, stones and cut timber left untouched.",
+        "action": "Work on the fortification has ceased; no builders are at work, and the site lies silent with tools set aside.",
+        "setting": "The northern border ridge of Judah near Ramah, with open hill country and distant roads leading toward Tirzah.",
+        "secondaryElements": "Stacked stones and timber beside the unfinished courses of wall; scattered iron and bronze tools resting on the ground; a faint trail of footprints leading away toward the distance.",
+        "mood": "Quiet, heavy and sober, with a sense of a project abandoned under pressure.",
+        "timeOfDay": "Late afternoon, low warm sunlight raking across the stone.",
+        "composition": "Wide view of the unfinished wall from a low angle on the ridge, the half-built courses in the foreground and the road receding toward the horizon."
+      },
+      "look": {
+        "kind": "look",
+        "sectionId": "1-kings-15-15",
+        "place": "Judean border country near Ramah and royal Jerusalem, stone villages, terraces and a fortified town wall",
+        "timeOfDay": "late afternoon into evening",
+        "weather": "clear dry air with a light haze over the hills",
+        "light": "low amber sun slanting across the hills, turning warm and dim toward dusk",
+        "clothing": "tunics, cloaks and period armor for soldiers; court robes for kings; no text or inscriptions visible"
+      }
+    },
+    {
+      "id": "p003",
+      "source": {
+        "moment": {
+          "id": "esther-1-17",
+          "reference": "Esther 1:17",
+          "text": "For this deed of the queen will become known to all women, causing them to show contempt for their husbands when it is reported, ‘King Ahasuerus commanded Vashti the queen to be brought in before him, but she didn’t come.’"
+        },
+        "previous": {
+          "text": "Memucan answered before the king and the princes, “Vashti the queen has not done wrong to just the king, but also to all the princes, and to all the people who are in all the provinces of the King Ahasuerus."
+        },
+        "next": {
+          "text": "Today, the princesses of Persia and Media who have heard of the queen’s deed will tell all the king’s princes. This will cause much contempt and wrath."
+        }
+      },
+      "section": {
+        "title": "Counsel and decree against Vashti",
+        "firstUnit": "esther-1-13",
+        "lastUnit": "esther-1-22"
+      },
+      "cast": [
+        {
+          "entryId": "ahasuerus",
+          "named": true,
+          "stageId": "ahasuerus-main",
+          "canon": {
+            "aliases": [
+              "King Ahasuerus",
+              "the king"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "esther:character:ahasuerus"
+            ],
+            "name": "Ahasuerus",
+            "note": "King of Persia and Media who deposes Vashti and marries Esther.",
+            "stages": [
+              {
+                "id": "ahasuerus-main",
+                "label": "Ahasuerus, King of Persia and Media",
+                "quotes": [
+                  {
+                    "quote": "wearing the royal crown, to show the people and the princes her beauty",
+                    "unit": "esther-1-11"
+                  },
+                  {
+                    "quote": "this is Ahasuerus who reigned from India even to Ethiopia",
+                    "unit": "esther-1-1"
+                  },
+                  {
+                    "quote": "The king took off his ring, which he had taken from Haman",
+                    "unit": "esther-8-2"
+                  },
+                  {
+                    "quote": "except those to whom the king might hold out the golden scepter",
+                    "unit": "esther-4-11"
+                  }
+                ],
+                "text": "Ahasuerus: man in his middle years, broad-shouldered and upright; dark, neatly curled beard and hair under a royal crown of gold; olive-brown skin; calm, heavy-lidded, dignified face. Signature outfit: long layered royal robe of deep purple and gold-embroidered blue over a white tunic. Signature props: a gold signet ring and a golden scepter."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "memucan",
+          "named": true,
+          "stageId": "memucan",
+          "canon": {
+            "aliases": [],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "esther:character:memucan"
+            ],
+            "name": "Memucan",
+            "note": "One of the seven princes of Persia and Media who advises the king to depose Vashti.",
+            "stages": [
+              {
+                "id": "memucan",
+                "label": "Memucan",
+                "quotes": [
+                  {
+                    "quote": "the seven princes of Persia and Media, who saw the king’s face, and sat first in the kingdom",
+                    "unit": "esther-1-14"
+                  }
+                ],
+                "text": "Memucan: a man in his fifties, of middling height and sturdy build; olive-brown skin; short dark hair and a neatly trimmed dark beard flecked with grey; a composed, sober face with deep-set eyes. Signature outfit: a long pleated court robe of deep blue wool edged with gold braid, with a close-fitting cap of the same blue. Carries a slender gold-tipped staff of office."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "the_seven_princes_of_persia_and_media",
+          "named": true,
+          "stageId": "esther-princes-main",
+          "canon": {
+            "aliases": [
+              "Carshena",
+              "Shethar",
+              "Admatha",
+              "Tarshish",
+              "Meres",
+              "Marsena"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "esther:character:seven_princes"
+            ],
+            "name": "the seven princes of Persia and Media",
+            "note": "Counsellors who sit first in the kingdom and are consulted about Vashti.",
+            "stages": [
+              {
+                "id": "esther-princes-main",
+                "label": "Seven princes of Persia and Media",
+                "quotes": [
+                  {
+                    "quote": "the seven princes of Persia and Media, who saw the king’s face, and sat first in the kingdom",
+                    "unit": "esther-1-14"
+                  }
+                ],
+                "text": "Seven princes of Persia and Media: mature men in their forties to fifties; sturdy, upright build; olive-brown skin; full dark beards trimmed square; grave, dignified faces with deep-set eyes. Signature outfit: long layered court robe of deep blue wool with a gold-embroidered border, a tall felt cap, and a gold torque at the neck. Carry a short ceremonial staff of dark wood tipped with gold."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "palace_at_susa",
+          "stageId": "palace_at_susa-main",
+          "canon": {
+            "aliases": [
+              "the royal palace",
+              "the king's house",
+              "the palace garden",
+              "the inner court"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "esther:location:royal_palace"
+            ],
+            "name": "Palace at Susa",
+            "note": "The royal palace in Susa of Ahasuerus, site of the feast, Vashti's refusal, and Esther's queenship; distinguish by its Persian setting in Susa.",
+            "stages": [
+              {
+                "id": "palace_at_susa-main",
+                "label": "Palace at Susa",
+                "quotes": [
+                  {
+                    "quote": "Esther put on her royal clothing and stood in the inner court of the king’s house, next to the king’s house.",
+                    "unit": "esther-5-1"
+                  },
+                  {
+                    "quote": "The king sat on his royal throne in the royal house, next to the entrance of the house.",
+                    "unit": "esther-5-1"
+                  },
+                  {
+                    "quote": "The king arose in his wrath from the banquet of wine and went into the palace garden.",
+                    "unit": "esther-7-7"
+                  },
+                  {
+                    "quote": "whoever, whether man or woman, comes to the king into the inner court without being called",
+                    "unit": "esther-4-11"
+                  }
+                ],
+                "text": "Palace at Susa: a vast Persian royal complex on a raised platform of sun-baked brick above the plain of Susa; tall columned halls of cedar and stone with painted glazed brick friezes in blue, ochre and white; a great gate with winged guardian figures; an inner court paved in pale stone; the king's house with a throne room near its entrance; a walled palace garden of date palms, plane trees, pools and channels of water."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "the_provinces",
+          "stageId": "the_provinces_main",
+          "canon": {
+            "aliases": [
+              "the kingdom from India to Ethiopia"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "esther:location:provinces"
+            ],
+            "name": "the provinces",
+            "note": "The 127 provinces of the empire where decrees are sent and the Jews live.",
+            "stages": [
+              {
+                "id": "the_provinces_main",
+                "label": "the provinces",
+                "quotes": [
+                  {
+                    "quote": "the governors and princes of the provinces which are from India to Ethiopia, one hundred twenty-seven provinces",
+                    "unit": "esther-8-9"
+                  },
+                  {
+                    "quote": "the army of Persia and Media, the nobles and princes of the provinces",
+                    "unit": "esther-1-3"
+                  }
+                ],
+                "text": "the provinces: a vast realm of 127 provinces spanning from India to Ethiopia; wide river plains, dry steppe and desert, date palms and tamarisk along irrigation canals, walled cities of sun-dried brick and stone with gates, royal roads with milestones, Persian palaces with columned halls, and village settlements of mudbrick houses."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [
+        {
+          "entryId": "ahasuerus",
+          "stageId": "ahasuerus-main"
+        },
+        {
+          "entryId": "palace_at_susa",
+          "stageId": "palace_at_susa-main"
+        }
+      ],
+      "fields": {
+        "primarySubject": "King Ahasuerus, seated on his throne in royal court robes, one arm raised in a gesture of command.",
+        "action": "He gestures toward the open doorway in a sovereign summons, while the doorway stands empty and no one enters.",
+        "setting": "The royal hall of the palace at Susa, with tall columns, rich hangings and polished stone floors under a high, quiet ceiling.",
+        "secondaryElements": "A few attendants stand motionless at the edges of the hall, their faces turned toward the king; the empty threshold of the doorway draws the eye.",
+        "mood": "Tense, heavy stillness, with the weight of a royal decision gathering in the silence.",
+        "timeOfDay": "Midday light falling through high windows into the hall.",
+        "composition": "Wide view from the low side of the hall, the king placed centrally on the throne with the empty doorway visible beyond him, balanced by the columns."
+      },
+      "look": {
+        "kind": "look",
+        "sectionId": "esther-1-13",
+        "place": "Palace at Susa, royal halls and the provinces of Persia and Media",
+        "timeOfDay": "Day, within the palace courts and chambers",
+        "weather": "Clear, still air inside the palace",
+        "light": "Warm lamplight and sunlight through high openings, gold and cream stone",
+        "clothing": "Persian court robes, embroidered tunics and cloaks, jeweled headdresses, period armor for the princes"
+      }
+    },
+    {
+      "id": "p004",
+      "source": {
+        "moment": {
+          "id": "song-of-solomon-8-2",
+          "reference": "Song of Solomon 8:2",
+          "text": "I would lead you, bringing you into the house of my mother, who would instruct me. I would have you drink spiced wine, of the juice of my pomegranate."
+        },
+        "previous": {
+          "text": "Oh that you were like my brother, who nursed from the breasts of my mother! If I found you outside, I would kiss you; yes, and no one would despise me."
+        },
+        "next": {
+          "text": "His left hand would be under my head. His right hand would embrace me."
+        }
+      },
+      "section": {
+        "title": "Wish for a brother and the adjuration",
+        "firstUnit": "song-of-solomon-8-1",
+        "lastUnit": "song-of-solomon-8-4"
+      },
+      "cast": [
+        {
+          "entryId": "the_shulammite",
+          "named": false,
+          "stageId": "the_shulammite-main",
+          "canon": {
+            "aliases": [
+              "the bride",
+              "my love",
+              "my sister",
+              "my dove",
+              "the fairest among women",
+              "prince's daughter"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "song-of-solomon:character:shulammite"
+            ],
+            "name": "The Shulammite",
+            "note": "The dark but lovely bride of the Song of Solomon who speaks most of the Song; keeper of her brothers' vineyards. Distinct from the figurative bride of Revelation.",
+            "stages": [
+              {
+                "id": "the_shulammite-main",
+                "label": "The Shulammite",
+                "quotes": [
+                  {
+                    "quote": "Your eyes are like doves behind your veil. Your hair is as a flock of goats, that descend from Mount Gilead.",
+                    "unit": "song-of-solomon-4-1"
+                  },
+                  {
+                    "quote": "with one chain of your neck.",
+                    "unit": "song-of-solomon-4-9"
+                  }
+                ],
+                "text": "The Shulammite: a young woman of about eighteen to twenty; slender, graceful build; warm dark skin tanned by sun from working the vineyards; long dark hair, thick and flowing like goats descending Gilead, often partly veiled; large dove-like dark eyes, soft gaze, full lips, a fine chain at her neck; signature outfit a plain undyed linen tunic with a deep red woven wrap-cloak; signature prop a small wooden basket or a sprig of henna blossom."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "daughters_of_jerusalem",
+          "named": true,
+          "stageId": "daughters_of_jerusalem-main",
+          "canon": {
+            "aliases": [
+              "daughters",
+              "friends",
+              "companions",
+              "you daughters of Zion"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "song-of-solomon:character:daughters_of_jerusalem"
+            ],
+            "name": "Daughters of Jerusalem",
+            "note": "The chorus of women of Jerusalem in Song of Solomon who speak and are addressed as a group, adjured by the bride; distinct from the friends who only send greetings in 3 John.",
+            "stages": [
+              {
+                "id": "daughters_of_jerusalem-main",
+                "label": "Daughters of Jerusalem",
+                "quotes": [
+                  {
+                    "quote": "I am dark, but lovely, you daughters of Jerusalem",
+                    "unit": "song-of-solomon-1-5"
+                  },
+                  {
+                    "quote": "Go out, you daughters of Zion, and see King Solomon",
+                    "unit": "song-of-solomon-3-11"
+                  }
+                ],
+                "text": "Daughters of Jerusalem: women of about eighteen to thirty years; slender to average build; warm olive-brown skin; dark hair worn long and bound or veiled in linen; modest, calm, attentive faces. Signature outfit: a long undyed linen tunic with a deep red woven wool cloak and a light veil over the hair. No personal props."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "mother_s_house_song_of_solomon",
+          "stageId": "mother_s_house_song_of_solomon_main",
+          "canon": {
+            "aliases": [
+              "Mother's house",
+              "the house of my mother"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "song-of-solomon:location:mothers_house"
+            ],
+            "name": "Mother's house (Song of Solomon)",
+            "note": "The bride's mother's house where the lover wishes to bring her.",
+            "stages": [
+              {
+                "id": "mother_s_house_song_of_solomon_main",
+                "label": "Mother's house",
+                "quotes": [
+                  {
+                    "quote": "I would lead you, bringing you into the house of my mother, who would instruct me.",
+                    "unit": "song-of-solomon-8-2"
+                  },
+                  {
+                    "quote": "I would have you drink spiced wine, of the juice of my pomegranate.",
+                    "unit": "song-of-solomon-8-2"
+                  }
+                ],
+                "text": "Mother's house: a modest village dwelling of pale limestone and mud brick under a flat roof, with a low doorway of dark timber and a courtyard wall. A pomegranate tree grows beside the house, heavy with fruit, and terraced vineyards and olive groves lie on the slopes behind it. Clay jars and a stone grinding place stand in the courtyard."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [
+        {
+          "entryId": "the_shulammite",
+          "stageId": "the_shulammite-main"
+        },
+        {
+          "entryId": "mother_s_house_song_of_solomon",
+          "stageId": "mother_s_house_song_of_solomon_main"
+        }
+      ],
+      "fields": {
+        "primarySubject": "The Shulammite, leading her beloved by the hand toward her mother's house.",
+        "action": "She turns and draws him forward toward the house threshold, pausing in the moment of invitation.",
+        "setting": "An open courtyard before a modest house in the Judean countryside, with a stone threshold and a pomegranate tree.",
+        "secondaryElements": "A pomegranate in her free hand and a small cup of spiced wine on a low ledge by the door; the house doorway stands open, with the mother's house as a presence at the threshold.",
+        "mood": "Tender, hopeful and intimate, with restrained longing.",
+        "timeOfDay": "Late afternoon, warm golden light.",
+        "composition": "Medium shot from slightly to the side, the Shulammite and her beloved in profile with the doorway ahead, leaving open space toward the house."
+      },
+      "look": {
+        "kind": "look",
+        "sectionId": "song-of-solomon-8-1",
+        "place": "Mother's house in a Judean village, courtyard and rooms with stone walls and wooden doors, open to a street of the Judean hill country",
+        "timeOfDay": "Late afternoon into early evening, the section spanning the change from day to dusk once",
+        "weather": "Warm, dry, clear sky with light breeze",
+        "light": "Soft golden sunlight slanting through the courtyard, deepening to lamplight at dusk",
+        "clothing": "Simple linen tunics and woolen cloaks, a veil for the Shulammite, pomegranates and clay cups as domestic objects"
+      }
+    },
+    {
+      "id": "p005",
+      "source": {
+        "moment": {
+          "id": "song-of-solomon-8-2",
+          "reference": "Song of Solomon 8:2",
+          "text": "I would lead you, bringing you into the house of my mother, who would instruct me. I would have you drink spiced wine, of the juice of my pomegranate."
+        },
+        "previous": {
+          "text": "Oh that you were like my brother, who nursed from the breasts of my mother! If I found you outside, I would kiss you; yes, and no one would despise me."
+        },
+        "next": {
+          "text": "His left hand would be under my head. His right hand would embrace me."
+        }
+      },
+      "section": {
+        "title": "Wish for a brother and the adjuration",
+        "firstUnit": "song-of-solomon-8-1",
+        "lastUnit": "song-of-solomon-8-4"
+      },
+      "cast": [
+        {
+          "entryId": "the_shulammite",
+          "named": false,
+          "stageId": "the_shulammite-main",
+          "canon": {
+            "aliases": [
+              "the bride",
+              "my love",
+              "my sister",
+              "my dove",
+              "the fairest among women",
+              "prince's daughter"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "song-of-solomon:character:shulammite"
+            ],
+            "name": "The Shulammite",
+            "note": "The dark but lovely bride of the Song of Solomon who speaks most of the Song; keeper of her brothers' vineyards. Distinct from the figurative bride of Revelation.",
+            "stages": [
+              {
+                "id": "the_shulammite-main",
+                "label": "The Shulammite",
+                "quotes": [
+                  {
+                    "quote": "Your eyes are like doves behind your veil. Your hair is as a flock of goats, that descend from Mount Gilead.",
+                    "unit": "song-of-solomon-4-1"
+                  },
+                  {
+                    "quote": "with one chain of your neck.",
+                    "unit": "song-of-solomon-4-9"
+                  }
+                ],
+                "text": "The Shulammite: a young woman of about eighteen to twenty; slender, graceful build; warm dark skin tanned by sun from working the vineyards; long dark hair, thick and flowing like goats descending Gilead, often partly veiled; large dove-like dark eyes, soft gaze, full lips, a fine chain at her neck; signature outfit a plain undyed linen tunic with a deep red woven wrap-cloak; signature prop a small wooden basket or a sprig of henna blossom."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "daughters_of_jerusalem",
+          "named": true,
+          "stageId": "daughters_of_jerusalem-main",
+          "canon": {
+            "aliases": [
+              "daughters",
+              "friends",
+              "companions",
+              "you daughters of Zion"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "song-of-solomon:character:daughters_of_jerusalem"
+            ],
+            "name": "Daughters of Jerusalem",
+            "note": "The chorus of women of Jerusalem in Song of Solomon who speak and are addressed as a group, adjured by the bride; distinct from the friends who only send greetings in 3 John.",
+            "stages": [
+              {
+                "id": "daughters_of_jerusalem-main",
+                "label": "Daughters of Jerusalem",
+                "quotes": [
+                  {
+                    "quote": "I am dark, but lovely, you daughters of Jerusalem",
+                    "unit": "song-of-solomon-1-5"
+                  },
+                  {
+                    "quote": "Go out, you daughters of Zion, and see King Solomon",
+                    "unit": "song-of-solomon-3-11"
+                  }
+                ],
+                "text": "Daughters of Jerusalem: women of about eighteen to thirty years; slender to average build; warm olive-brown skin; dark hair worn long and bound or veiled in linen; modest, calm, attentive faces. Signature outfit: a long undyed linen tunic with a deep red woven wool cloak and a light veil over the hair. No personal props."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "mother_s_house_song_of_solomon",
+          "stageId": "mother_s_house_song_of_solomon_main",
+          "canon": {
+            "aliases": [
+              "Mother's house",
+              "the house of my mother"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "song-of-solomon:location:mothers_house"
+            ],
+            "name": "Mother's house (Song of Solomon)",
+            "note": "The bride's mother's house where the lover wishes to bring her.",
+            "stages": [
+              {
+                "id": "mother_s_house_song_of_solomon_main",
+                "label": "Mother's house",
+                "quotes": [
+                  {
+                    "quote": "I would lead you, bringing you into the house of my mother, who would instruct me.",
+                    "unit": "song-of-solomon-8-2"
+                  },
+                  {
+                    "quote": "I would have you drink spiced wine, of the juice of my pomegranate.",
+                    "unit": "song-of-solomon-8-2"
+                  }
+                ],
+                "text": "Mother's house: a modest village dwelling of pale limestone and mud brick under a flat roof, with a low doorway of dark timber and a courtyard wall. A pomegranate tree grows beside the house, heavy with fruit, and terraced vineyards and olive groves lie on the slopes behind it. Clay jars and a stone grinding place stand in the courtyard."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [
+        {
+          "entryId": "the_shulammite",
+          "stageId": "the_shulammite-main"
+        },
+        {
+          "entryId": "mother_s_house_song_of_solomon",
+          "stageId": "mother_s_house_song_of_solomon_main"
+        }
+      ],
+      "fields": {
+        "primarySubject": "The Shulammite, leading a beloved companion by the hand",
+        "action": "She guides him forward, pausing at the threshold of her mother's house as she turns to draw him in.",
+        "setting": "The courtyard and entrance of a modest Israelite family house, with plastered walls and a wooden door frame in the late monarchic era.",
+        "secondaryElements": "A low table holds a clay cup of spiced wine and a ripe pomegranate, split open to show its seeds; the beloved is partly visible, following her hand.",
+        "mood": "Tender, expectant and intimate, with quiet joy and reverence.",
+        "timeOfDay": "Late afternoon warm light falling across the courtyard.",
+        "composition": "Medium shot from the side, the two figures centered in the doorway with the table and fruit in the foreground corner."
+      },
+      "look": {
+        "kind": "look",
+        "sectionId": "song-of-solomon-8-1",
+        "place": "Courtyard and rooms of a mother's house in an ancient Israelite village, mud-brick walls, open doorway, vines and a pomegranate tree",
+        "timeOfDay": "Late afternoon into evening, the section spanning the change from day to dusk",
+        "weather": "Warm, clear and still, with a faint dry breeze",
+        "light": "Soft golden sunlight slanting low, warming to dim lamplight and twilight blue",
+        "clothing": "Simple linen tunics, wrapped cloaks and headcloths, with a few embroidered borders and one woven shawl"
+      }
+    },
+    {
+      "id": "p006",
+      "source": {
+        "moment": {
+          "id": "2-kings-16-14",
+          "reference": "2 Kings 16:14",
+          "text": "The bronze altar, which was before Yahweh, he brought from the front of the house, from between his altar and Yahweh’s house, and put it on the north side of his altar."
+        },
+        "previous": {
+          "text": "He burned his burnt offering and his meal offering, poured his drink offering, and sprinkled the blood of his peace offerings on the altar."
+        },
+        "next": {
+          "text": "King Ahaz commanded Urijah the priest, saying, “On the great altar burn the morning burnt offering, the evening meal offering, the king’s burnt offering and his meal offering, with the burnt offering of all the people of the land, their meal offering, and their drink offerings; and sprinkle on it all the blood of the burnt offering, and all the blood of the sacrifice; but the bronze altar will be for me to inquire by.”"
+        }
+      },
+      "section": {
+        "title": "Ahaz's Damascus altar",
+        "firstUnit": "2-kings-16-10",
+        "lastUnit": "2-kings-16-16"
+      },
+      "cast": [
+        {
+          "entryId": "ahaz",
+          "named": true,
+          "stageId": "ahaz-main",
+          "canon": {
+            "aliases": [
+              "king of Judah son of Jotham",
+              "king Ahaz",
+              "house of David"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "2-kings:character:ahaz",
+              "2-chronicles:character:ahaz",
+              "isaiah:character:ahaz"
+            ],
+            "name": "Ahaz",
+            "note": "King of Judah son of Jotham who calls on Assyria.",
+            "stages": [
+              {
+                "id": "ahaz-main",
+                "label": "Ahaz, king of Judah",
+                "quotes": [
+                  {
+                    "quote": "Ahaz was twenty years old when he began to reign, and he reigned sixteen years in Jerusalem.",
+                    "unit": "2-kings-16-2"
+                  },
+                  {
+                    "quote": "Ahaz the son of Jotham king of Judah began to reign.",
+                    "unit": "2-kings-16-1"
+                  }
+                ],
+                "text": "Ahaz: man in his twenties to late thirties, lean and upright; olive-toned skin weathered by sun; short dark beard trimmed close, dark hair bound back under a simple gold-banded headcloth; drawn, anxious face with heavy brows and a set mouth. Signature outfit: a long purple-edged court robe over a linen tunic, in deep blue and madder red, with a leather belt. Carries alone a bronze-bound royal staff of dark wood."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "urijah_the_priest",
+          "named": true,
+          "stageId": "urijah_the_priest-main",
+          "canon": {
+            "aliases": [],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "2-kings:character:urijah"
+            ],
+            "name": "Urijah the priest",
+            "note": "Priest who builds an altar in the Damascus style at Ahaz's order.",
+            "stages": [
+              {
+                "id": "urijah_the_priest-main",
+                "label": "Urijah the priest",
+                "quotes": [
+                  {
+                    "quote": "Urijah the priest built an altar.",
+                    "unit": "2-kings-16-11"
+                  },
+                  {
+                    "quote": "King Ahaz sent to Urijah the priest a drawing of the altar",
+                    "unit": "2-kings-16-10"
+                  }
+                ],
+                "text": "Urijah the priest: a man in middle age, lean and steady in build, olive-brown skin, close-cropped dark hair and a short trimmed beard threaded with grey, lines of care about the eyes and mouth. Signature outfit: a plain white priestly linen tunic belted with a blue-violet sash, over it a short linen ephod in undyed cream. Carries no props alone."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "damascus",
+          "stageId": "damascus-main",
+          "canon": {
+            "aliases": [
+              "Syria",
+              "the city of the Damascenes"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "1-kings:location:damascus",
+              "2-kings:location:damascus",
+              "amos:location:damascus",
+              "acts:location:damascus",
+              "2-corinthians:location:damascus",
+              "galatians:location:damascus"
+            ],
+            "name": "Damascus",
+            "note": "Capital city of Syria, seat of Ben-hadad and Rezon, and home of Naaman's rivers, judged in Amos and linked with Paul's conversion and escape in Acts and 2 Corinthians; all entries here are the same city.",
+            "stages": [
+              {
+                "id": "damascus-main",
+                "label": "Damascus",
+                "quotes": [
+                  {
+                    "quote": "synagogues of Damascus",
+                    "unit": "acts-9-2"
+                  },
+                  {
+                    "quote": "the rivers of Damascus",
+                    "unit": "2-kings-5-12"
+                  },
+                  {
+                    "quote": "guarded the Damascenes’ city",
+                    "unit": "2-corinthians-11-32"
+                  },
+                  {
+                    "quote": "went up against Damascus and took it",
+                    "unit": "2-kings-16-9"
+                  }
+                ],
+                "text": "Damascus: a walled oasis city of pale limestone and mud-brick houses with flat roofs and domes, set against arid hills; date palms, orchards and irrigated gardens watered by the rivers Abanah and Pharpar; a city gate with a wall, and a straight main street lined with walls and shaded arcades."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "stageId": "yahweh_s_house_in_jerusalem_the_temple_s1",
+          "canon": {
+            "aliases": [
+              "Yahweh's house",
+              "the temple",
+              "the house of Yahweh",
+              "the house of God",
+              "Temple of Yahweh at Jerusalem",
+              "God's house",
+              "The temple",
+              "the sanctuary",
+              "the holy temple",
+              "the courts",
+              "the house",
+              "the house which is called by my name",
+              "The sanctuary",
+              "the altar",
+              "the tent of the daughter of Zion",
+              "the house of our God",
+              "Yahweh's temple",
+              "this house",
+              "the house of Yahweh of Armies",
+              "my house",
+              "the storehouse",
+              "Yahweh's altar",
+              "altar"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "1-kings:location:temple",
+              "2-kings:location:temple",
+              "2-chronicles:location:temple",
+              "ezra:location:temple_site",
+              "nehemiah:location:temple",
+              "psalms:location:temple",
+              "isaiah:location:temple_in_jerusalem",
+              "jeremiah:location:yahwehs_house",
+              "lamentations:location:temple_sanctuary",
+              "joel:location:yahweh_house",
+              "haggai:location:jerusalem_temple_site",
+              "zechariah:location:the_temple",
+              "malachi:location:temple"
+            ],
+            "name": "Yahweh's house in Jerusalem (the temple)",
+            "note": "The one Jerusalem temple (Yahweh's house, the sanctuary on Mount Moriah) across all references, from Solomon's building through repair, destruction and rebuilding; construction and ruin are later appearance stages, not separate places.",
+            "stages": [
+              {
+                "id": "yahweh_s_house_in_jerusalem_the_temple_s1",
+                "label": "Solomon's temple on Mount Moriah",
+                "quotes": [
+                  {
+                    "quote": "The house, when it was under construction, was built of stone prepared at the quarry",
+                    "unit": "1-kings-6-7"
+                  },
+                  {
+                    "quote": "Within the inner sanctuary was twenty cubits in length, and twenty cubits in width, and twenty cubits in its height.",
+                    "unit": "1-kings-6-20"
+                  },
+                  {
+                    "quote": "He overlaid the floor of the house with gold, inside and outside.",
+                    "unit": "1-kings-6-30"
+                  },
+                  {
+                    "quote": "Also he made before the house two pillars thirty-five cubits high",
+                    "unit": "2-chronicles-3-15"
+                  },
+                  {
+                    "quote": "He set the sea on the right side of the house eastward and toward the south.",
+                    "unit": "1-kings-7-39"
+                  }
+                ],
+                "text": "Yahweh's house in Jerusalem: a stone temple of finished ashlar on Mount Moriah, roofed with cedar beams, its inner sanctuary panelled in cedar and overlaid with pure gold. Carved cherubim, palm and open flowers cover the doors and walls. Before the house stand two great bronze pillars and a huge bronze molten sea on twelve oxen. Courts of stone surround it, with olive and cypress trees, and the walled city of Jerusalem rises beyond."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [
+        {
+          "entryId": "ahaz",
+          "stageId": "ahaz-main"
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "stageId": "yahweh_s_house_in_jerusalem_the_temple_s1"
+        }
+      ],
+      "fields": {
+        "primarySubject": "King Ahaz, bending to set a bronze altar down in a new position within the temple court.",
+        "action": "Ahaz grips the edge of the bronze altar and shifts it from its place before the temple doorway to the north side of his own altar.",
+        "setting": "The front court of Yahweh's house in Jerusalem, with stone walls, a temple doorway and the king's altar nearby.",
+        "secondaryElements": "The bronze altar of the temple is pulled aside, leaving the open court clear; smoke from the earlier offerings still rises from the king's altar.",
+        "mood": "Heavy, troubled and solemn, with an undertone of grief over a sacred place being displaced.",
+        "timeOfDay": "Daylight, with clear morning light falling across the court.",
+        "composition": "Side view from the court, the king and the bronze altar in the foreground, the temple doorway behind them and the king's altar at the edge of the frame."
+      },
+      "look": {
+        "kind": "look",
+        "sectionId": "2-kings-16-10",
+        "place": "Interior courtyard of the Jerusalem temple beside a royal palace, with a Damascene-style stone altar and carved fittings, dusty stone paving",
+        "timeOfDay": "Early morning, sun still low",
+        "weather": "Clear and dry, faint dust in the air",
+        "light": "Low golden morning light from the east, long shadows across the courtyard stones",
+        "clothing": "Royal court robes for Ahaz, priestly linen for Urijah, plain tunics and cloaks for attendants, period bronze-scale armor for guards"
+      }
+    },
+    {
+      "id": "p007",
+      "source": {
+        "moment": {
+          "id": "revelation-3-12",
+          "reference": "Revelation 3:12",
+          "text": "He who overcomes, I will make him a pillar in the temple of my God, and he will go out from there no more. I will write on him the name of my God and the name of the city of my God, the new Jerusalem, which comes down out of heaven from my God, and my own new name."
+        },
+        "previous": {
+          "text": "I am coming quickly! Hold firmly that which you have, so that no one takes your crown."
+        },
+        "next": {
+          "text": "He who has an ear, let him hear what the Spirit says to the assemblies."
+        }
+      },
+      "section": {
+        "title": "Letter to Philadelphia",
+        "firstUnit": "revelation-3-7",
+        "lastUnit": "revelation-3-13"
+      },
+      "cast": [
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "named": false,
+          "stageId": "adult",
+          "canon": {
+            "aliases": [
+              "Jesus",
+              "Jesus Christ",
+              "the Christ",
+              "Son of Man",
+              "Son of David",
+              "Son of God",
+              "Rabbi",
+              "Teacher",
+              "Lord",
+              "the Nazarene",
+              "the Son of Man",
+              "the Lord",
+              "the carpenter",
+              "Jesus of Nazareth",
+              "the Son of God",
+              "the teacher",
+              "Master",
+              "the boy Jesus",
+              "the Word",
+              "the Teacher",
+              "the Lamb of God",
+              "the Prince of life",
+              "Christ",
+              "the Lord Jesus",
+              "Christ Jesus",
+              "the last Adam",
+              "the Beloved",
+              "the Savior",
+              "the Son of his love",
+              "the Head",
+              "the firstborn of all creation",
+              "the Lord Jesus Christ",
+              "the Son",
+              "the man Christ Jesus",
+              "the Lord's servant",
+              "the Lord, the righteous judge",
+              "our Savior",
+              "the great God and Savior",
+              "the firstborn",
+              "the apostle and high priest of our confession",
+              "the great shepherd of the sheep",
+              "the author and perfecter of faith",
+              "the mediator of a new covenant",
+              "the chief Shepherd",
+              "the cornerstone",
+              "the Lamb without blemish",
+              "Lord and Savior",
+              "Son",
+              "the Word of life",
+              "the Counselor",
+              "the righteous one",
+              "the Son of the Father",
+              "his only born Son",
+              "the Lamb",
+              "the Lion of the tribe of Judah",
+              "the Root of David",
+              "the Word of God",
+              "the faithful witness",
+              "the Alpha and the Omega",
+              "the first and the last",
+              "the Living one",
+              "the Bright and Morning Star",
+              "the Amen",
+              "the rider called Faithful and True",
+              "KING OF KINGS AND LORD OF LORDS"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "matthew:character:jesus",
+              "mark:character:jesus",
+              "luke:character:jesus",
+              "john:character:jesus",
+              "acts:character:jesus",
+              "1-corinthians:character:jesus",
+              "galatians:character:jesus_christ",
+              "ephesians:character:christ_jesus",
+              "philippians:character:jesus_christ",
+              "colossians:character:christ",
+              "1-thessalonians:character:the_lord_jesus",
+              "2-thessalonians:character:the_lord_jesus",
+              "1-timothy:character:jesus_christ",
+              "2-timothy:character:the_lord",
+              "titus:character:jesus_christ",
+              "hebrews:character:jesus",
+              "1-peter:character:jesus_christ",
+              "2-peter:character:jesus",
+              "1-john:character:jesus_christ",
+              "revelation:character:jesus_christ"
+            ],
+            "name": "Jesus Christ, the Son of God and Lord",
+            "note": "The one Jesus: the teacher from Nazareth of the Gospels and Acts, and the risen, exalted Christ and Lord of the epistles and Revelation; the same individual across all divisions, with death, resurrection and changed portrayal not creating new individuals.",
+            "stages": [
+              {
+                "id": "adult",
+                "label": "Adult Jesus",
+                "quotes": [
+                  {
+                    "quote": "Jesus himself, when he began to teach, was about thirty years old, being the son (as was supposed) of Joseph, the son of Heli,",
+                    "unit": "luke-3-23"
+                  }
+                ],
+                "text": "Jesus: man of about thirty, lean and strong from carpentry and walking; olive-brown skin; dark brown shoulder-length hair parted at centre; short dark beard; calm dark eyes; wears a plain undyed tunic of natural linen with a dark blue-grey cloak and sandals; carries no props except a shepherd's staff when a scene calls for one."
+              },
+              {
+                "id": "infant",
+                "label": "Infant Jesus",
+                "quotes": [
+                  {
+                    "quote": "She gave birth to her firstborn son. She wrapped him in bands of cloth and laid him in a feeding trough, because there was no room for them in the inn.",
+                    "unit": "luke-2-7"
+                  }
+                ],
+                "text": "Jesus: newborn to about two years old; olive-brown skin, a little dark hair and dark eyes; a small infant or toddler's build, no beard. Plain undyed swaddling linen for the newborn; a small plain linen tunic as a toddler. No adult clothing or props."
+              },
+              {
+                "id": "child",
+                "label": "Boy Jesus",
+                "quotes": [
+                  {
+                    "quote": "When he was twelve years old, they went up to Jerusalem according to the custom of the feast;",
+                    "unit": "luke-2-42"
+                  }
+                ],
+                "text": "Jesus: boy of about twelve, slim and sturdy; olive-brown skin; dark brown hair cut short at the neck; dark eyes; no beard; wears a plain undyed tunic of natural linen with a dark blue-grey cloak; no props."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "the_seven_churches_of_asia",
+          "stageId": "seven_churches_of_asia",
+          "canon": {
+            "aliases": [
+              "Ephesus",
+              "Smyrna",
+              "Pergamum",
+              "Thyatira",
+              "Sardis",
+              "Philadelphia",
+              "Laodicea"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "revelation:location:seven_churches"
+            ],
+            "name": "the seven churches of Asia",
+            "note": "A collective place name for the seven assemblies in Asia addressed in Revelation 2 and 3, of which Ephesus is one; distinct from the single city of Ephesus.",
+            "stages": [
+              {
+                "id": "seven_churches_of_asia",
+                "label": "The seven churches of Asia",
+                "quotes": [
+                  {
+                    "quote": "send to the seven assemblies: to Ephesus, Smyrna, Pergamum, Thyatira, Sardis, Philadelphia, and to Laodicea.",
+                    "unit": "revelation-1-11"
+                  }
+                ],
+                "text": "The seven churches of Asia: a scatter of coastal and inland cities across western Anatolia, joined by old Roman roads. Whitewashed stone houses, marble colonnades, and tiled roofs rise on terraced hills above river valleys. Olive groves, vines and cypresses grow along the slopes, and distant mountains rise blue and rocky beyond."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [],
+      "fields": {
+        "primarySubject": "A faithful overcomer, unnamed, standing as a fixed pillar in the heavenly temple.",
+        "action": "He stands motionless as a pillar, never to leave, while a divine name is being written upon him in radiant light.",
+        "setting": "The interior of a vast heavenly temple of white stone and gold, with the descending new Jerusalem visible beyond its openings.",
+        "secondaryElements": "Luminous script of divine names glowing faintly on the pillar; a shaft of radiance from above; the city's outline descending out of the sky in the distance.",
+        "mood": "Reverent, hopeful and steadfast, with quiet assurance.",
+        "timeOfDay": "Timeless heavenly light, bright and even, with no night or dusk.",
+        "composition": "Medium-wide view from below the pillar, looking up toward the light, with the figure centered and the temple receding around him."
+      },
+      "look": {
+        "kind": "look",
+        "sectionId": "revelation-3-7",
+        "place": "Heavenly temple and the open courts of the new Jerusalem, with pillars of radiant stone and a glass-like sea",
+        "timeOfDay": "Timeless heavenly day, no night",
+        "weather": "Clear and luminous, with still air and faint drifting cloud",
+        "light": "Radiance from above, golden and white, with no visible sun, glowing gently from the jeweled city",
+        "clothing": "White robes and garments of fine linen, with crowns and jeweled adornments as described"
+      }
+    },
+    {
+      "id": "p008",
+      "source": {
+        "moment": {
+          "id": "2-kings-25-23",
+          "reference": "2 Kings 25:23",
+          "text": "Now when all the captains of the forces, they and their men, heard that the king of Babylon had made Gedaliah governor, they came to Gedaliah to Mizpah, even Ishmael the son of Nethaniah, Johanan the son of Kareah, Seraiah the son of Tanhumeth the Netophathite, and Jaazaniah the son of the Maacathite, they and their men."
+        },
+        "previous": {
+          "text": "As for the people who were left in the land of Judah whom Nebuchadnezzar king of Babylon had left, even over them he made Gedaliah the son of Ahikam, the son of Shaphan, governor."
+        },
+        "next": {
+          "text": "Gedaliah swore to them and to their men, and said to them, “Don’t be afraid because of the servants of the Chaldeans. Dwell in the land and serve the king of Babylon, and it will be well with you.”"
+        }
+      },
+      "section": {
+        "title": "Gedaliah's governorship and murder",
+        "firstUnit": "2-kings-25-22",
+        "lastUnit": "2-kings-25-26"
+      },
+      "cast": [
+        {
+          "entryId": "gedaliah_son_of_ahikam",
+          "named": true,
+          "stageId": "gedaliah_son_of_ahikam",
+          "canon": {
+            "aliases": [
+              "governor",
+              "Gedaliah",
+              "son of Ahikam"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "2-kings:character:gedaliah",
+              "jeremiah:character:gedaliah"
+            ],
+            "name": "Gedaliah son of Ahikam",
+            "note": "Babylon-appointed governor of Judah at Mizpah, son of Ahikam, assassinated by Ishmael; the same individual as in the Jeremiah account, so both entries join this cluster.",
+            "stages": [
+              {
+                "id": "gedaliah_son_of_ahikam",
+                "label": "Gedaliah son of Ahikam",
+                "quotes": [
+                  {
+                    "quote": "even over them he made Gedaliah the son of Ahikam, the son of Shaphan, governor.",
+                    "unit": "2-kings-25-22"
+                  }
+                ],
+                "text": "Gedaliah son of Ahikam: man in his forties; lean, upright build; olive-brown skin; short dark beard, neatly trimmed; hair cropped to the nape; calm, grave face. Signature outfit: a long undyed linen tunic under a dark blue court cloak with a plain woven band at the hem, showing his office. Carries no props."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "ishmael_son_of_nethaniah",
+          "named": false,
+          "stageId": "ishmael_son_of_nethaniah",
+          "canon": {
+            "aliases": [
+              "Ishmael",
+              "son of Nethaniah"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "2-kings:character:ishmael_nethaniah",
+              "jeremiah:character:ishmael"
+            ],
+            "name": "Ishmael son of Nethaniah",
+            "note": "Royal assassin who murders governor Gedaliah at Mizpah (2 Kings 25, Jeremiah 40-41); identified by his father Nethaniah and the Gedaliah murder.",
+            "stages": [
+              {
+                "id": "ishmael_son_of_nethaniah",
+                "label": "Ishmael son of Nethaniah",
+                "quotes": [
+                  {
+                    "quote": "Ishmael the son of Nethaniah, the son of Elishama, of the royal offspring and one of the chief officers of the king",
+                    "unit": "jeremiah-41-1"
+                  }
+                ],
+                "text": "Ishmael son of Nethaniah: a man of about forty, lean and upright, of royal Judahite lineage. Dark hair cropped close to the head and a short dark beard, face weathered and watchful. Wears a plain undyed linen tunic under a dark brown wool cloak with a court officer's band of deep red at the hem. Carries a bronze-bladed sword at his hip alone."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "mizpah_judean_town_of_gedaliah_s_murder",
+          "stageId": "mizpah_single",
+          "canon": {
+            "aliases": [
+              "Mizpah"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "2-kings:location:mizpah",
+              "jeremiah:location:mizpah"
+            ],
+            "name": "Mizpah (Judean town of Gedaliah's murder)",
+            "note": "The Judean town in 2 Kings and Jeremiah where Gedaliah governs and is murdered by Ishmael; the 2 Kings and Jeremiah entries describe the same place and are joined on that basis.",
+            "stages": [
+              {
+                "id": "mizpah_single",
+                "label": "Mizpah",
+                "quotes": [
+                  {
+                    "quote": "all the Jews returned out of all places where they were driven, and came to the land of Judah, to Gedaliah, to Mizpah, and gathered very much wine and summer fruits.",
+                    "unit": "jeremiah-40-12"
+                  },
+                  {
+                    "quote": "dwell in your cities that you have taken.",
+                    "unit": "jeremiah-40-10"
+                  }
+                ],
+                "text": "Mizpah: a hilltop town of Judah on a ridge above open valleys, its low stone houses of rough-hewn limestone with flat roofs and mud-plaster, a fortified city wall with a gate of heavy timber and stone, a central open space near the gate, scattered olive trees, terraced vineyards and fig trees on the slopes, and a watchtower on the highest point."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [
+        {
+          "entryId": "gedaliah_son_of_ahikam",
+          "stageId": "gedaliah_son_of_ahikam"
+        },
+        {
+          "entryId": "ishmael_son_of_nethaniah",
+          "stageId": "ishmael_son_of_nethaniah"
+        },
+        {
+          "entryId": "mizpah_judean_town_of_gedaliah_s_murder",
+          "stageId": "mizpah_single"
+        }
+      ],
+      "fields": {
+        "primarySubject": "Gedaliah son of Ahikam, a governor in plain court dress, standing to receive visitors at the gathering place of Mizpah.",
+        "action": "Captains and their men arrive at Mizpah to meet the newly appointed governor, with Ishmael son of Nethaniah among the foremost of the approaching company.",
+        "setting": "The Judean town of Mizpah, with stone walls, a gate area and open ground before a modest administrative space.",
+        "secondaryElements": "Armed captains in period armor and cloaks, their men behind them, bronze spears and shields held low, with dust on their sandals from the road.",
+        "mood": "Tense and watchful, with grief and uncertainty beneath an outward formality.",
+        "timeOfDay": "Midday, with clear daylight over the stone town.",
+        "composition": "Wide view from the town side, Gedaliah centered and standing still, the approaching captains filling the foreground-to-middle ground, Ishmael slightly ahead of the group."
+      },
+      "look": {
+        "kind": "look",
+        "sectionId": "2-kings-25-22",
+        "place": "Mizpah, a Judean hill town with stone houses, walls and a gate, and open ground beyond it",
+        "timeOfDay": "Daytime, with a shift to evening as the section progresses",
+        "weather": "Clear, dry late-summer air",
+        "light": "Warm, low sun with long shadows toward evening",
+        "clothing": "Tunics and cloaks, period armor and weapons worn by the captains and their men, plain governor's robe"
+      }
+    },
+    {
+      "id": "p009",
+      "source": {
+        "moment": {
+          "id": "judges-5-12",
+          "reference": "Judges 5:12",
+          "text": "‘Awake, awake, Deborah! Awake, awake, utter a song! Arise, Barak, and lead away your captives, you son of Abinoam.’"
+        },
+        "previous": {
+          "text": "Far from the noise of archers, in the places of drawing water, there they will rehearse Yahweh’s righteous acts, the righteous acts of his rule in Israel. “Then Yahweh’s people went down to the gates."
+        },
+        "next": {
+          "text": "“Then a remnant of the nobles and the people came down. Yahweh came down for me against the mighty."
+        }
+      },
+      "section": {
+        "title": "Song of Deborah and Barak",
+        "firstUnit": "judges-5-1",
+        "lastUnit": "judges-5-31"
+      },
+      "cast": [
+        {
+          "entryId": "deborah",
+          "named": true,
+          "stageId": "deborah",
+          "canon": {
+            "aliases": [
+              "prophetess",
+              "wife of Lappidoth",
+              "a mother in Israel"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "judges:character:deborah"
+            ],
+            "name": "Deborah",
+            "note": "Prophetess and judge of Israel under her palm tree, wife of Lappidoth, who sends for Barak and sings the song of chapter 5; distinct from the other prophetesses in this group.",
+            "stages": [
+              {
+                "id": "deborah",
+                "label": "Deborah, prophetess and judge",
+                "quotes": [
+                  {
+                    "quote": "Now Deborah, a prophetess, the wife of Lappidoth, judged Israel at that time.",
+                    "unit": "judges-4-4"
+                  },
+                  {
+                    "quote": "She lived under Deborah’s palm tree between Ramah and Bethel in the hill country of Ephraim",
+                    "unit": "judges-4-5"
+                  },
+                  {
+                    "quote": "Until I arose a mother in Israel.",
+                    "unit": "judges-5-7"
+                  }
+                ],
+                "text": "Deborah: woman of mature years, perhaps fifties, upright and steady; medium build; warm brown skin of the hill country; dark hair worn covered beneath a linen headcloth edged in blue; calm, dignified face with deep-set dark eyes and a firm mouth. Signature outfit: a long undyed linen tunic under a deep ochre woven cloak with a blue border. Signature prop: a slender palm-wood staff of judgment carried alone."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "barak",
+          "named": true,
+          "stageId": "barak-main",
+          "canon": {
+            "aliases": [
+              "son of Abinoam"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "judges:character:barak"
+            ],
+            "name": "Barak",
+            "note": "Naphtali commander who fights Sisera at Mount Tabor.",
+            "stages": [
+              {
+                "id": "barak-main",
+                "label": "Barak",
+                "quotes": [
+                  {
+                    "quote": "She sent and called Barak the son of Abinoam out of Kedesh Naphtali",
+                    "unit": "judges-4-6"
+                  },
+                  {
+                    "quote": "Barak called Zebulun and Naphtali together to Kedesh.",
+                    "unit": "judges-4-10"
+                  }
+                ],
+                "text": "Barak: man in his prime, roughly thirty to forty years old; sturdy, broad-shouldered, weathered build from war and hill country; olive-brown skin; dark hair worn to the shoulder and a short, close-trimmed dark beard; steady, resolute face with a strong brow. Signature outfit: a woven undyed wool tunic with a long dark-red wool cloak fastened at the shoulder. Carries no props alone."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "jael",
+          "named": true,
+          "stageId": "jael-main",
+          "canon": {
+            "aliases": [
+              "wife of Heber the Kenite"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "judges:character:jael"
+            ],
+            "name": "Jael",
+            "note": "Wife of Heber the Kenite who kills Sisera with a tent peg in her tent; the only Jael in these divisions.",
+            "stages": [
+              {
+                "id": "jael-main",
+                "label": "Jael",
+                "quotes": [
+                  {
+                    "quote": "the tent of Jael the wife of Heber the Kenite",
+                    "unit": "judges-4-17"
+                  },
+                  {
+                    "quote": "Jael, Heber’s wife, took a tent peg, and took a hammer in her hand",
+                    "unit": "judges-4-21"
+                  },
+                  {
+                    "quote": "Jael shall be blessed above women, the wife of Heber the Kenite",
+                    "unit": "judges-5-24"
+                  }
+                ],
+                "text": "Jael: a woman of about thirty-five to forty, sturdy and steady in build, with warm olive-brown skin weathered by desert sun. Dark hair is bound up and covered by a plain linen head cloth. Her face is calm, strong and grave. Her signature outfit, worn most often, is a long undyed woven wool tunic in deep indigo with a rust-red woven cloak. She carries a heavy iron tent peg and a hammer as her own tools."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "sisera_s_mother",
+          "named": true,
+          "stageId": "sisera_s_mother",
+          "canon": {
+            "aliases": [
+              "the mother looking through the lattice",
+              "her wise ladies"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "judges:character:sisera_mother"
+            ],
+            "name": "Sisera's mother",
+            "note": "Mother of Sisera who waits for his return in the song of chapter 5; distinct from Sisera himself.",
+            "stages": [
+              {
+                "id": "sisera_s_mother",
+                "label": "Sisera's mother",
+                "quotes": [
+                  {
+                    "quote": "Her wise ladies answered her, Yes, she returned answer to herself,",
+                    "unit": "judges-5-29"
+                  }
+                ],
+                "text": "Sisera's mother: a woman of middle to later years, slender and upright, with warm olive-brown skin and fine lines at her eyes. Her dark hair is bound under a woven linen headcloth, and a few grey strands show at the temples. Her face is grave and composed. Her signature outfit is a long undyed linen tunic under a deep indigo wool cloak with a woven band at the hem. She carries a small carved wooden lattice-frame window screen beside her, and a fine linen veil hangs from her shoulders."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "river_kishon",
+          "stageId": "river_kishon",
+          "canon": {
+            "aliases": [],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "judges:location:kishon"
+            ],
+            "name": "river Kishon",
+            "note": "Riverside battlefield where Sisera's chariots are swept away.",
+            "stages": [
+              {
+                "id": "river_kishon",
+                "label": "River Kishon",
+                "quotes": [
+                  {
+                    "quote": "to the river Kishon, Sisera, the captain of Jabin’s army, with his chariots and his multitude",
+                    "unit": "judges-4-7"
+                  },
+                  {
+                    "quote": "The river Kishon swept them away, that ancient river, the river Kishon.",
+                    "unit": "judges-5-21"
+                  }
+                ],
+                "text": "River Kishon: a broad, ancient, slow-moving river across the fertile plain of Jezreel, its banks lined with reeds, tamarisk and oleander, with low clay banks, muddy fords and soft silt that can swallow wheels. Low rounded hills rise in the distance, and the walled Canaanite towns of the plain stand on the heights beyond the water."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "mount_tabor",
+          "stageId": "mount_tabor",
+          "canon": {
+            "aliases": [],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "judges:location:mount_tabor"
+            ],
+            "name": "Mount Tabor",
+            "note": "Where Barak musters his men against Sisera in Judges.",
+            "stages": [
+              {
+                "id": "mount_tabor",
+                "label": "Mount Tabor",
+                "quotes": [
+                  {
+                    "quote": "Go and lead the way to Mount Tabor, and take with you ten thousand men",
+                    "unit": "judges-4-6"
+                  },
+                  {
+                    "quote": "So Barak went down from Mount Tabor, and ten thousand men after him.",
+                    "unit": "judges-4-14"
+                  }
+                ],
+                "text": "Mount Tabor: a solitary, dome-shaped mountain rising abruptly from the broad plain of Jezreel in northern Israel; its slopes are rounded and grassed with terebinth and oak scattered among limestone outcrops; the summit is a flat, rocky crown; no buildings are visible on its open ridges, only low stone walls and ancient terraces; earth in ochre and olive tones."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "canaan",
+          "stageId": "canaan-main",
+          "canon": {
+            "aliases": [
+              "the land of Canaan",
+              "the land I give you",
+              "the promised land",
+              "The land of promise",
+              "the good land",
+              "the land of the Canaanites",
+              "the hill country of the Amorites",
+              "the land",
+              "the land of promise",
+              "the promised rest"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "genesis:location:canaan",
+              "leviticus:location:canaan",
+              "numbers:location:canaan",
+              "deuteronomy:location:canaan_land",
+              "judges:location:canaan",
+              "hebrews:location:canaan"
+            ],
+            "name": "Canaan",
+            "note": "The promised land of Israel as a whole, the land Yahweh gives to Abram's descendants, referred to in Genesis, Leviticus, Numbers, Deuteronomy, Judges and Hebrews alike; all six entries describe this same land.",
+            "stages": [
+              {
+                "id": "canaan-main",
+                "label": "Canaan, the promised land",
+                "quotes": [
+                  {
+                    "quote": "Surely it flows with milk and honey, and this is its fruit.",
+                    "unit": "numbers-13-27"
+                  },
+                  {
+                    "quote": "Behold, Yahweh your God has set the land before you.",
+                    "unit": "deuteronomy-1-21"
+                  },
+                  {
+                    "quote": "to the Western Sea",
+                    "unit": "deuteronomy-34-2"
+                  },
+                  {
+                    "quote": "the land where you are traveling, all the land of Canaan, for an everlasting possession",
+                    "unit": "genesis-17-8"
+                  },
+                  {
+                    "quote": "seven nations greater and mightier than you",
+                    "unit": "deuteronomy-7-1"
+                  }
+                ],
+                "text": "Canaan: a fertile hill country between the Jordan river and the Western Sea, with terraced slopes, olive groves, vineyards heavy with grapes, wheat fields in the valleys, and wells beside walled mud-brick and stone towns on the hilltops. Scattered oaks and terebinths mark old sacred places, and herders' pastures roll toward the distant coast."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [
+        {
+          "entryId": "deborah",
+          "stageId": "deborah"
+        },
+        {
+          "entryId": "barak",
+          "stageId": "barak-main"
+        }
+      ],
+      "fields": {
+        "primarySubject": "Deborah, a prophetess, standing with uplifted face and raised hand, about to begin a song.",
+        "action": "Deborah rouses herself to sing while Barak stands ready to lead away the captives.",
+        "setting": "An open highland place in Israel under a broad sky, with the ground marked by the aftermath of battle.",
+        "secondaryElements": "Barak stands beside Deborah, his hand reaching toward a loose line of bound captives, their heads bowed. Bronze spears lean against a rock, and a chariot wheel rests in the dust.",
+        "mood": "Solemn, charged with grief and rising hope.",
+        "timeOfDay": "Bright daylight after the battle, clear and open.",
+        "composition": "Medium-wide view from slightly below, Deborah centered and rising, Barak at her left shoulder, the captives trailing into the middle distance."
+      },
+      "look": {
+        "kind": "look",
+        "sectionId": "judges-5-1",
+        "place": "Canaanite hill country near Mount Tabor, open plain by the river Kishon, Canaanite fortified town and tent encampment",
+        "timeOfDay": "Early morning dawn into daylight, spanning the battle at the Kishon and later the tent scene",
+        "weather": "Clear sky after rain, damp earth and swollen river, scattered cloud",
+        "light": "Low golden dawn light rising to clear bright daylight, soft and warm",
+        "clothing": "Woven tunics, cloaks and head coverings for Israelites and Canaanites; Sisera in fine dyed cloak and bronze armor; Jael in plain tent-dweller's dress"
+      }
+    },
+    {
+      "id": "p010",
+      "source": {
+        "moment": {
+          "id": "romans-4-7",
+          "reference": "Romans 4:7",
+          "text": "“Blessed are they whose iniquities are forgiven, whose sins are covered."
+        },
+        "previous": {
+          "text": "Even as David also pronounces blessing on the man to whom God counts righteousness apart from works:"
+        },
+        "next": {
+          "text": "Blessed is the man whom the Lord will by no means charge with sin.”"
+        }
+      },
+      "section": {
+        "title": "Abraham justified by faith",
+        "firstUnit": "romans-4-1",
+        "lastUnit": "romans-4-12"
+      },
+      "cast": [
+        {
+          "entryId": "paul_the_apostle",
+          "named": false,
+          "stageId": "paul-main",
+          "canon": {
+            "aliases": [
+              "Paul",
+              "the apostle",
+              "the writer",
+              "the apostle Paul",
+              "I (the writer)",
+              "Saul",
+              "I",
+              "me",
+              "the prisoner of Christ Jesus",
+              "I, Paul",
+              "apostle Paul",
+              "the prisoner",
+              "my child's father in the faith",
+              "the aged prisoner of Christ Jesus"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "romans:character:paul",
+              "1-corinthians:character:paul",
+              "2-corinthians:character:paul",
+              "galatians:character:paul",
+              "ephesians:character:paul",
+              "philippians:character:paul",
+              "colossians:character:paul",
+              "1-thessalonians:character:paul",
+              "2-thessalonians:character:paul",
+              "1-timothy:character:paul",
+              "2-timothy:character:paul",
+              "titus:character:paul",
+              "philemon:character:paul"
+            ],
+            "name": "Paul the apostle",
+            "note": "The apostle Paul, author and speaker of all thirteen letters; the same individual across Romans, Corinthians, Galatians, Ephesians, Philippians, Colossians, Thessalonians, Timothy, Titus and Philemon, identified by his apostolic authorship and first-person voice.",
+            "stages": [
+              {
+                "id": "paul-main",
+                "label": "Paul the apostle",
+                "quotes": [
+                  {
+                    "quote": "being such a one as Paul, the aged, but also a prisoner of Jesus Christ.",
+                    "unit": "philemon-1-9"
+                  },
+                  {
+                    "quote": "I, Paul, write this greeting with my own hand. Remember my chains.",
+                    "unit": "colossians-4-18"
+                  },
+                  {
+                    "quote": "I, Paul, write this with my own hand",
+                    "unit": "philemon-1-19"
+                  }
+                ],
+                "text": "Paul the apostle: man of middle to later years, perhaps fifties to sixties, wiry and weathered from travel and imprisonment; Jewish Mediterranean features, olive-brown skin, short greying-dark beard and close-cropped hair receding at the temples; lined brow, steady dark eyes. Signature outfit: plain undyed wool tunic in ochre-brown under a dark-blue cloak. Signature prop: a rolled parchment scroll and a reed pen case at the belt."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [
+        {
+          "entryId": "paul_the_apostle",
+          "stageId": "paul-main"
+        }
+      ],
+      "fields": {
+        "primarySubject": "Paul the apostle, standing and lifting one hand in blessing as he speaks.",
+        "action": "He pronounces blessing on those whose sins are forgiven and covered, speaking in the moment of declaration.",
+        "setting": "A simple stone-walled courtyard of a Mediterranean house under Roman rule, with a plain wooden table and clay vessels.",
+        "secondaryElements": "Paul the apostle is the only formed figure; a low table holds an open papyrus scroll and an oil lamp, unlit in daylight; listeners are suggested only by a few shadowed figures at the edge of the frame.",
+        "mood": "Reverent, grounded and hopeful, with quiet dignity.",
+        "timeOfDay": "Late afternoon, warm natural light falling across the courtyard.",
+        "composition": "Medium shot from slightly below eye level, Paul centered and facing the viewer, the open scroll at lower left, the courtyard wall framing the background."
+      },
+      "look": {
+        "kind": "look",
+        "sectionId": "romans-4-1",
+        "place": "Stone village courtyard and nearby open hillside in Roman Judea, with a dusty road and a distant synagogue wall",
+        "timeOfDay": "Late afternoon, transitioning into dusk over the section",
+        "weather": "Clear sky with a few high clouds, dry warm air",
+        "light": "Warm low golden sunlight slanting from the west, softening toward amber dusk",
+        "clothing": "Plain wool tunics and cloaks, a few Roman soldiers' leather and bronze in the background, no visible text or lettering"
+      }
+    },
+    {
+      "id": "p011",
+      "source": {
+        "moment": {
+          "id": "revelation-3-12",
+          "reference": "Revelation 3:12",
+          "text": "He who overcomes, I will make him a pillar in the temple of my God, and he will go out from there no more. I will write on him the name of my God and the name of the city of my God, the new Jerusalem, which comes down out of heaven from my God, and my own new name."
+        },
+        "previous": {
+          "text": "I am coming quickly! Hold firmly that which you have, so that no one takes your crown."
+        },
+        "next": {
+          "text": "He who has an ear, let him hear what the Spirit says to the assemblies."
+        }
+      },
+      "section": {
+        "title": "Letter to Philadelphia",
+        "firstUnit": "revelation-3-7",
+        "lastUnit": "revelation-3-13"
+      },
+      "cast": [
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "named": false,
+          "stageId": "adult",
+          "canon": {
+            "aliases": [
+              "Jesus",
+              "Jesus Christ",
+              "the Christ",
+              "Son of Man",
+              "Son of David",
+              "Son of God",
+              "Rabbi",
+              "Teacher",
+              "Lord",
+              "the Nazarene",
+              "the Son of Man",
+              "the Lord",
+              "the carpenter",
+              "Jesus of Nazareth",
+              "the Son of God",
+              "the teacher",
+              "Master",
+              "the boy Jesus",
+              "the Word",
+              "the Teacher",
+              "the Lamb of God",
+              "the Prince of life",
+              "Christ",
+              "the Lord Jesus",
+              "Christ Jesus",
+              "the last Adam",
+              "the Beloved",
+              "the Savior",
+              "the Son of his love",
+              "the Head",
+              "the firstborn of all creation",
+              "the Lord Jesus Christ",
+              "the Son",
+              "the man Christ Jesus",
+              "the Lord's servant",
+              "the Lord, the righteous judge",
+              "our Savior",
+              "the great God and Savior",
+              "the firstborn",
+              "the apostle and high priest of our confession",
+              "the great shepherd of the sheep",
+              "the author and perfecter of faith",
+              "the mediator of a new covenant",
+              "the chief Shepherd",
+              "the cornerstone",
+              "the Lamb without blemish",
+              "Lord and Savior",
+              "Son",
+              "the Word of life",
+              "the Counselor",
+              "the righteous one",
+              "the Son of the Father",
+              "his only born Son",
+              "the Lamb",
+              "the Lion of the tribe of Judah",
+              "the Root of David",
+              "the Word of God",
+              "the faithful witness",
+              "the Alpha and the Omega",
+              "the first and the last",
+              "the Living one",
+              "the Bright and Morning Star",
+              "the Amen",
+              "the rider called Faithful and True",
+              "KING OF KINGS AND LORD OF LORDS"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "matthew:character:jesus",
+              "mark:character:jesus",
+              "luke:character:jesus",
+              "john:character:jesus",
+              "acts:character:jesus",
+              "1-corinthians:character:jesus",
+              "galatians:character:jesus_christ",
+              "ephesians:character:christ_jesus",
+              "philippians:character:jesus_christ",
+              "colossians:character:christ",
+              "1-thessalonians:character:the_lord_jesus",
+              "2-thessalonians:character:the_lord_jesus",
+              "1-timothy:character:jesus_christ",
+              "2-timothy:character:the_lord",
+              "titus:character:jesus_christ",
+              "hebrews:character:jesus",
+              "1-peter:character:jesus_christ",
+              "2-peter:character:jesus",
+              "1-john:character:jesus_christ",
+              "revelation:character:jesus_christ"
+            ],
+            "name": "Jesus Christ, the Son of God and Lord",
+            "note": "The one Jesus: the teacher from Nazareth of the Gospels and Acts, and the risen, exalted Christ and Lord of the epistles and Revelation; the same individual across all divisions, with death, resurrection and changed portrayal not creating new individuals.",
+            "stages": [
+              {
+                "id": "adult",
+                "label": "Adult Jesus",
+                "quotes": [
+                  {
+                    "quote": "Jesus himself, when he began to teach, was about thirty years old, being the son (as was supposed) of Joseph, the son of Heli,",
+                    "unit": "luke-3-23"
+                  }
+                ],
+                "text": "Jesus: man of about thirty, lean and strong from carpentry and walking; olive-brown skin; dark brown shoulder-length hair parted at centre; short dark beard; calm dark eyes; wears a plain undyed tunic of natural linen with a dark blue-grey cloak and sandals; carries no props except a shepherd's staff when a scene calls for one."
+              },
+              {
+                "id": "infant",
+                "label": "Infant Jesus",
+                "quotes": [
+                  {
+                    "quote": "She gave birth to her firstborn son. She wrapped him in bands of cloth and laid him in a feeding trough, because there was no room for them in the inn.",
+                    "unit": "luke-2-7"
+                  }
+                ],
+                "text": "Jesus: newborn to about two years old; olive-brown skin, a little dark hair and dark eyes; a small infant or toddler's build, no beard. Plain undyed swaddling linen for the newborn; a small plain linen tunic as a toddler. No adult clothing or props."
+              },
+              {
+                "id": "child",
+                "label": "Boy Jesus",
+                "quotes": [
+                  {
+                    "quote": "When he was twelve years old, they went up to Jerusalem according to the custom of the feast;",
+                    "unit": "luke-2-42"
+                  }
+                ],
+                "text": "Jesus: boy of about twelve, slim and sturdy; olive-brown skin; dark brown hair cut short at the neck; dark eyes; no beard; wears a plain undyed tunic of natural linen with a dark blue-grey cloak; no props."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "the_seven_churches_of_asia",
+          "stageId": "seven_churches_of_asia",
+          "canon": {
+            "aliases": [
+              "Ephesus",
+              "Smyrna",
+              "Pergamum",
+              "Thyatira",
+              "Sardis",
+              "Philadelphia",
+              "Laodicea"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "revelation:location:seven_churches"
+            ],
+            "name": "the seven churches of Asia",
+            "note": "A collective place name for the seven assemblies in Asia addressed in Revelation 2 and 3, of which Ephesus is one; distinct from the single city of Ephesus.",
+            "stages": [
+              {
+                "id": "seven_churches_of_asia",
+                "label": "The seven churches of Asia",
+                "quotes": [
+                  {
+                    "quote": "send to the seven assemblies: to Ephesus, Smyrna, Pergamum, Thyatira, Sardis, Philadelphia, and to Laodicea.",
+                    "unit": "revelation-1-11"
+                  }
+                ],
+                "text": "The seven churches of Asia: a scatter of coastal and inland cities across western Anatolia, joined by old Roman roads. Whitewashed stone houses, marble colonnades, and tiled roofs rise on terraced hills above river valleys. Olive groves, vines and cypresses grow along the slopes, and distant mountains rise blue and rocky beyond."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "stageId": "adult"
+        }
+      ],
+      "fields": {
+        "primarySubject": "A single white pillar in the temple of God, representing the overcomer made permanent in God's house.",
+        "action": "The pillar stands fixed and unmoving, bearing faint radiant inscriptions of God's name and the city's name, never to be left behind.",
+        "setting": "Within the temple of God in the heavenly city, with luminous pillars and a glowing threshold, lamps burning steadily on stone.",
+        "secondaryElements": "Soft light rising from the throne region above; the new Jerusalem descending in brilliant glory beyond an open gate, its walls and gates gleaming. No human figure is depicted; the Son is present only as radiance inscribing light upon the pillar.",
+        "mood": "Reverent, enduring, quietly triumphant, filled with a sense of security and belonging.",
+        "timeOfDay": "Timeless heavenly light, steady and luminous with no shadow of night.",
+        "composition": "Low, frontal view of the pillar centered in the frame, with the temple interior receding behind it and the descending city visible through the distant gate."
+      },
+      "look": {
+        "kind": "look",
+        "sectionId": "revelation-3-7",
+        "place": "Heavenly temple courts and the descending new Jerusalem, a jeweled city with pillars of light, set against open sky",
+        "timeOfDay": "Timeless heavenly day, no sunrise or sunset",
+        "weather": "Clear radiant heaven with luminous cloud and faint wind",
+        "light": "Radiant golden light emanating from the throne and the city, warm glow with jewel-toned reflections, no visible sun",
+        "clothing": "Flowing white robes and garments in gold and jewel tones for the redeemed, pillars and temple architecture of white stone and gold"
+      }
+    }
+  ]
+}

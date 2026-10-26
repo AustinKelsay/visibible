@@ -1,0 +1,38 @@
+[
+  {
+    "id": "unsupported-moses-baseline",
+    "problemSha256": "b7d799e3c9e7995058781354e61b21ccf34c568066cb7a45702a941c13ed664c",
+    "acceptable": true,
+    "reason": "The source is 'You shall keep my Sabbaths ... I am Yahweh' and contains no Moses identity link. The action 'instructs the assembled people' describes the unsupported selected Moses, so the report is semantically justified. It still does not satisfy the frozen primarySubject/Moses citation requirement; missing remains a gate failure."
+  },
+  {
+    "id": "unsupported-moses-candidate",
+    "problemSha256": "1fe7a6671e5abd0f7f96f156e9cd9cd05e8efe8121b0b2584aee13ffe6cb88dd",
+    "acceptable": true,
+    "reason": "The source is 'You shall keep my Sabbaths ... I am Yahweh' and contains no Moses identity link. The action 'instructs the assembled people' describes the unsupported selected Moses, so the report is semantically justified. It still does not satisfy the frozen primarySubject/Moses citation requirement; missing remains a gate failure."
+  },
+  {
+    "id": "look-embodiment-baseline",
+    "problemSha256": "61495d802bb233fd09a130ad7b64db870e3c665b5eed3c634486c48a503911ec",
+    "acceptable": true,
+    "reason": "The look explicitly gives a human body, face and robes to the selected hasForm:false God; the control's source/depiction rules and supplied canon prohibit those features. The report is semantically correct but leaves entryId empty, so the frozen required god ID remains missing and the case fails."
+  },
+  {
+    "id": "look-embodiment-baseline",
+    "problemSha256": "bfb3290580c13df037f5b4e6e49e57648be6ff9f72f2aff8fffbf1eceea8770c",
+    "acceptable": false,
+    "reason": "The source-supported travelers may wear ordinary linen, and this generic wardrobe field does not attach clothing to God. The separate light field's forbidden human God does not make the ordinary clothing field independently contradictory. This extra report is unsupported and is retained as a negative-control false report."
+  },
+  {
+    "id": "look-embodiment-candidate",
+    "problemSha256": "f3db2d8abf72d896b94e2763226c5739783e65088a5d54cd3253081aa68e172e",
+    "acceptable": true,
+    "reason": "The look explicitly gives a human body, face and robes to the selected hasForm:false God; the control's source/depiction rules and supplied canon prohibit those features. The report is semantically correct but leaves entryId empty, so the frozen required god ID remains missing and the case fails."
+  },
+  {
+    "id": "look-embodiment-candidate",
+    "problemSha256": "e3c313a3a25d057981140fd39c17d6f6e278e3e9baa9416a3a001a1915eb191f",
+    "acceptable": false,
+    "reason": "The source-supported travelers may wear ordinary linen, and this generic wardrobe field does not attach clothing to God. The separate light field's forbidden human God does not make the ordinary clothing field independently contradictory. This extra report is unsupported and is retained as a negative-control false report."
+  }
+]

@@ -1,0 +1,557 @@
+{
+  "operations": 92,
+  "calls": 233,
+  "measuredUsd": 0.14488520000000008,
+  "uncertainUsd": 0,
+  "stopped": null,
+  "blocked": null,
+  "reviews": [
+    {
+      "id": "look-place-baseline",
+      "arm": "baseline",
+      "missing": [],
+      "extra": [],
+      "problems": [
+        {
+          "kind": "look_conflict",
+          "entryId": "",
+          "planQuote": "The shore of a wide sea, the camp of Israel spread along the water's edge",
+          "reason": "The section look fixes the place as a sea shore with the camp of Israel, which conflicts with the plan's open plain setting."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "look-place-candidate",
+      "arm": "candidate",
+      "missing": [],
+      "extra": [],
+      "problems": [
+        {
+          "kind": "look_conflict",
+          "entryId": "",
+          "planQuote": "The shore of a wide sea, the camp of Israel spread along the water's edge",
+          "reason": "The section look fixes the place as a sea shore with the camp of Israel, which conflicts with the moment plan's open plain setting."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "look-time-candidate",
+      "arm": "candidate",
+      "missing": [],
+      "extra": [],
+      "problems": [
+        {
+          "kind": "look_conflict",
+          "entryId": "",
+          "planQuote": "timeOfDay\":\"night",
+          "reason": "The section look sets the time to night, which conflicts with the moment plan's midday time and is not an explicit range that includes midday."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "look-time-baseline",
+      "arm": "baseline",
+      "missing": [
+        {
+          "kind": "look_conflict",
+          "quoteFrom": "night"
+        }
+      ],
+      "extra": [],
+      "problems": null,
+      "unavailable": "plan review unavailable: look_conflict quote is not in the look",
+      "pass": false
+    },
+    {
+      "id": "look-unselected-effect-baseline",
+      "arm": "baseline",
+      "missing": [],
+      "extra": [],
+      "problems": [
+        {
+          "kind": "look_conflict",
+          "entryId": "god",
+          "planQuote": "God's white-gold radiance fills the sky",
+          "reason": "The section look's light field places God's radiance across the sky, which represents the unselected, source-unsupported no-form cast member god in a moment whose source does not mention God."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "look-unselected-effect-candidate",
+      "arm": "candidate",
+      "missing": [],
+      "extra": [],
+      "problems": [
+        {
+          "kind": "look_conflict",
+          "entryId": "god",
+          "planQuote": "God's white-gold radiance fills the sky",
+          "reason": "The section look's light field adds a divine presence through radiance filling the sky, but the moment text supports only an unnamed traveler standing still on a plain and does not establish God's manifestation."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "canon-robe-candidate",
+      "arm": "candidate",
+      "missing": [],
+      "extra": [],
+      "problems": [
+        {
+          "kind": "canon_conflict",
+          "entryId": "esther",
+          "planQuote": "Esther in a royal blue robe",
+          "reason": "The primarySubject scene field gives Esther a royal blue robe, which contradicts the selected canon's fixed crimson robe."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "canon-robe-baseline",
+      "arm": "baseline",
+      "missing": [],
+      "extra": [],
+      "problems": [
+        {
+          "kind": "canon_conflict",
+          "entryId": "esther",
+          "planQuote": "royal blue robe",
+          "reason": "The plan's primarySubject gives Esther a royal blue robe, which contradicts the selected queen canon's fixed crimson robe."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "missing-canon-baseline",
+      "arm": "baseline",
+      "missing": [],
+      "extra": [],
+      "problems": [
+        {
+          "kind": "missing_canon",
+          "entryId": "",
+          "planQuote": "God represented by cloud and light",
+          "reason": "The scene depicts God through cloud and light, but the section cast has no entry for God, so the required canon is missing."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "missing-canon-candidate",
+      "arm": "candidate",
+      "missing": [],
+      "extra": [],
+      "problems": [
+        {
+          "kind": "missing_canon",
+          "entryId": "",
+          "planQuote": "God represented by cloud and light",
+          "reason": "The scene depicts God, a named recurring character, through cloud and light, but the section cast has no entry for God to supply canon."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "unsupported-aaron-candidate",
+      "arm": "candidate",
+      "missing": [],
+      "extra": [],
+      "problems": [
+        {
+          "kind": "outside_instant",
+          "entryId": "aaron",
+          "planQuote": "Aaron",
+          "reason": "The moment names only \"the priest\" and no neighbouring text links that role to Aaron, so the plan's selection of Aaron is not established by the source."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "unsupported-aaron-baseline",
+      "arm": "baseline",
+      "missing": [
+        {
+          "kind": "outside_instant",
+          "entryId": "aaron",
+          "quoteFrom": "Aaron"
+        }
+      ],
+      "extra": [],
+      "problems": [],
+      "pass": false
+    },
+    {
+      "id": "unsupported-moses-baseline",
+      "arm": "baseline",
+      "missing": [
+        {
+          "kind": "outside_instant",
+          "entryId": "moses",
+          "quoteFrom": "Moses"
+        }
+      ],
+      "extra": [
+        {
+          "kind": "outside_instant",
+          "entryId": "moses",
+          "planQuote": "instructs the assembled people",
+          "reason": "The moment is first-person divine speech (\"I am Yahweh\") and the source does not name Moses as the speaker or as present in this instant, so depicting Moses as the instructor substitutes an identity the source does not establish."
+        }
+      ],
+      "problems": [
+        {
+          "kind": "outside_instant",
+          "entryId": "moses",
+          "planQuote": "instructs the assembled people",
+          "reason": "The moment is first-person divine speech (\"I am Yahweh\") and the source does not name Moses as the speaker or as present in this instant, so depicting Moses as the instructor substitutes an identity the source does not establish."
+        }
+      ],
+      "pass": false
+    },
+    {
+      "id": "unsupported-moses-candidate",
+      "arm": "candidate",
+      "missing": [
+        {
+          "kind": "outside_instant",
+          "entryId": "moses",
+          "quoteFrom": "Moses"
+        }
+      ],
+      "extra": [
+        {
+          "kind": "outside_instant",
+          "entryId": "moses",
+          "planQuote": "instructs the assembled people",
+          "reason": "The moment is a divine speech in which Moses is not named or identified as the speaker, so the source does not establish Moses as the one instructing the people in this instant."
+        }
+      ],
+      "problems": [
+        {
+          "kind": "outside_instant",
+          "entryId": "moses",
+          "planQuote": "instructs the assembled people",
+          "reason": "The moment is a divine speech in which Moses is not named or identified as the speaker, so the source does not establish Moses as the one instructing the people in this instant."
+        }
+      ],
+      "pass": false
+    },
+    {
+      "id": "object-state-candidate",
+      "arm": "candidate",
+      "missing": [],
+      "extra": [],
+      "problems": [
+        {
+          "kind": "not_one_instant",
+          "entryId": "",
+          "planQuote": "The same idol rests flat on the bench.",
+          "reason": "The primarySubject has the idol held above the bench, while secondaryElements has the same idol resting flat on the bench, giving the one idol two incompatible support states in the same image."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "object-state-baseline",
+      "arm": "baseline",
+      "missing": [],
+      "extra": [],
+      "problems": [
+        {
+          "kind": "not_one_instant",
+          "entryId": "",
+          "planQuote": "The same idol rests flat on the bench.",
+          "reason": "The primarySubject has the idol held above the bench, while the secondaryElements say the same idol rests flat on the bench, giving the idol two incompatible support states in one image."
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "look-embodiment-baseline",
+      "arm": "baseline",
+      "missing": [
+        {
+          "kind": "look_conflict",
+          "entryId": "god",
+          "quoteFrom": "God is a luminous human figure with a face and white robes"
+        }
+      ],
+      "extra": [
+        {
+          "kind": "look_conflict",
+          "entryId": "",
+          "planQuote": "God is a luminous human figure with a face and white robes",
+          "reason": "The section look describes God as a human figure with a face and robes, which conflicts with the no-form depiction rules and canon forbidding a body, face or clothing."
+        },
+        {
+          "kind": "look_conflict",
+          "entryId": "",
+          "planQuote": "plain linen clothing",
+          "reason": "The section look gives clothing that is not supported as an active description for this moment's scene, and the look's embodied God description makes the look incompatible with the selected canon."
+        }
+      ],
+      "problems": [
+        {
+          "kind": "look_conflict",
+          "entryId": "",
+          "planQuote": "God is a luminous human figure with a face and white robes",
+          "reason": "The section look describes God as a human figure with a face and robes, which conflicts with the no-form depiction rules and canon forbidding a body, face or clothing."
+        },
+        {
+          "kind": "look_conflict",
+          "entryId": "",
+          "planQuote": "plain linen clothing",
+          "reason": "The section look gives clothing that is not supported as an active description for this moment's scene, and the look's embodied God description makes the look incompatible with the selected canon."
+        }
+      ],
+      "pass": false
+    },
+    {
+      "id": "look-embodiment-candidate",
+      "arm": "candidate",
+      "missing": [
+        {
+          "kind": "look_conflict",
+          "entryId": "god",
+          "quoteFrom": "God is a luminous human figure with a face and white robes"
+        }
+      ],
+      "extra": [
+        {
+          "kind": "look_conflict",
+          "entryId": "",
+          "planQuote": "God is a luminous human figure with a face and white robes",
+          "reason": "The section look describes God as a human figure with a face and robes, which conflicts with the hasForm false canon and the depiction rule forbidding a body, face or clothing for God."
+        },
+        {
+          "kind": "look_conflict",
+          "entryId": "",
+          "planQuote": "plain linen clothing",
+          "reason": "The section look's clothing for the scene conflicts with the depiction rule against giving God clothing, though it is listed as clothing for the scene and not explicitly for God; the look conflicts with the plan's cloud-and-light depiction of God."
+        }
+      ],
+      "problems": [
+        {
+          "kind": "look_conflict",
+          "entryId": "",
+          "planQuote": "God is a luminous human figure with a face and white robes",
+          "reason": "The section look describes God as a human figure with a face and robes, which conflicts with the hasForm false canon and the depiction rule forbidding a body, face or clothing for God."
+        },
+        {
+          "kind": "look_conflict",
+          "entryId": "",
+          "planQuote": "plain linen clothing",
+          "reason": "The section look's clothing for the scene conflicts with the depiction rule against giving God clothing, though it is listed as clothing for the scene and not explicitly for God; the look conflicts with the plan's cloud-and-light depiction of God."
+        }
+      ],
+      "pass": false
+    },
+    {
+      "id": "ordinary-light-candidate",
+      "arm": "candidate",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    },
+    {
+      "id": "ordinary-light-baseline",
+      "arm": "baseline",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    },
+    {
+      "id": "section-range-baseline",
+      "arm": "baseline",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    },
+    {
+      "id": "section-range-candidate",
+      "arm": "candidate",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    },
+    {
+      "id": "selected-effects-candidate",
+      "arm": "candidate",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    },
+    {
+      "id": "selected-effects-baseline",
+      "arm": "baseline",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    },
+    {
+      "id": "situational-pose-baseline",
+      "arm": "baseline",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    },
+    {
+      "id": "situational-pose-candidate",
+      "arm": "candidate",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    },
+    {
+      "id": "wardrobe-inventory-candidate",
+      "arm": "candidate",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    },
+    {
+      "id": "wardrobe-inventory-baseline",
+      "arm": "baseline",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    },
+    {
+      "id": "incidental-roles-baseline",
+      "arm": "baseline",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    },
+    {
+      "id": "incidental-roles-candidate",
+      "arm": "candidate",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    },
+    {
+      "id": "compatible-object-candidate",
+      "arm": "candidate",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    },
+    {
+      "id": "compatible-object-baseline",
+      "arm": "baseline",
+      "missing": [],
+      "extra": [],
+      "problems": [],
+      "pass": true
+    }
+  ],
+  "reviewGate": false,
+  "scoring": {
+    "analysis": [
+      {
+        "stratum": "fresh",
+        "arms": [
+          {
+            "arm": "baseline",
+            "planned": 23,
+            "complete": 23,
+            "acceptable": 4,
+            "flawed": 0,
+            "uncertain": 1,
+            "refused": 18,
+            "lookContradictions": 0,
+            "acceptableRateWilson95": [
+              0.06978653563062737,
+              0.3713764764022553
+            ]
+          },
+          {
+            "arm": "candidate",
+            "planned": 23,
+            "complete": 23,
+            "acceptable": 3,
+            "flawed": 2,
+            "uncertain": 1,
+            "refused": 17,
+            "lookContradictions": 1,
+            "acceptableRateWilson95": [
+              0.045376590936313604,
+              0.3212748227009534
+            ]
+          }
+        ],
+        "paired": {
+          "bothAcceptable": 2,
+          "baselineOnly": 2,
+          "candidateOnly": 1,
+          "neither": 18,
+          "incomplete": 0
+        },
+        "exactDiscordanceP": 1
+      },
+      {
+        "stratum": "retained",
+        "arms": [
+          {
+            "arm": "baseline",
+            "planned": 7,
+            "complete": 7,
+            "acceptable": 0,
+            "flawed": 0,
+            "uncertain": 0,
+            "refused": 7,
+            "lookContradictions": 0,
+            "acceptableRateWilson95": [
+              0,
+              0.35433043506667483
+            ]
+          },
+          {
+            "arm": "candidate",
+            "planned": 7,
+            "complete": 7,
+            "acceptable": 0,
+            "flawed": 0,
+            "uncertain": 0,
+            "refused": 7,
+            "lookContradictions": 0,
+            "acceptableRateWilson95": [
+              0,
+              0.35433043506667483
+            ]
+          }
+        ],
+        "paired": {
+          "bothAcceptable": 0,
+          "baselineOnly": 0,
+          "candidateOnly": 0,
+          "neither": 7,
+          "incomplete": 0
+        },
+        "exactDiscordanceP": 1
+      }
+    ],
+    "pass": false,
+    "limitation": "Descriptive small paired diagnostic; refusals and incomplete pairs retained; single operator masking is not independent adjudication."
+  },
+  "pass": false,
+  "releaseHold": true
+}
