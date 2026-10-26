@@ -153,7 +153,8 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   const formlessNames = formless.flatMap((c) => [c.name, c.text.match(/^([^:\n]{1,80}):/)?.[1]?.trim()].filter((n): n is string => Boolean(n && n.length > 2)));
   // Whole words only, so "Spirit" never rewrites "spiritual".
   const nameless = (text: string) => formlessNames.reduce((t, name) => t.replace(new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(name)}(?![\\p{L}\\p{N}])`, "giu"), "the presence"), text);
-  const plan = Object.fromEntries(Object.entries(input.plan).map(([key, value]) => [key, key === "version" ? value : nameless(value)])) as RenderingInput["plan"];
+  // Callers may pass extra plan keys (such as a stored payload's `present` list); only scene text is rewritten.
+  const plan = Object.fromEntries(Object.entries(input.plan).map(([key, value]) => [key, key === "version" || typeof value !== "string" ? value : nameless(value)])) as RenderingInput["plan"];
   const selectedCharacters = `SELECTED CHARACTERS: ${formed.filter((c) => c.kind === "character").map((c) => c.name).join("; ") || "(none with fixed canon; show only figures the scene plan describes, or none)"}`;
   const formlessBlock = presence
     ? ["PRESENCE SHOWN ONLY AS EFFECTS (binding; it is not a person):",

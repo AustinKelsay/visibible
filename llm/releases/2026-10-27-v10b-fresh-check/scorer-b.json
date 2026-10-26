@@ -1,0 +1,373 @@
+{
+  "scorer": "Independent model scorer B",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "p001",
+      "verdict": "acceptable",
+      "reason": "A registration scene with temple servants called forward by a Levite reading a scroll is a fair, coherent illustration of a register verse; the cast and setting are supported.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p002",
+      "verdict": "uncertain",
+      "reason": "The psalmist observing the wicked at ease fits the verse, but putting a wicked man lounging on cushions among coin chests inside the temple's outer court is an odd setting. In the psalm the sanctuary is where clarity comes later (v17), not where the wicked take their ease. Readers could see this as symbolic or as incoherent.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "surrounded by heaped goods and coin chests in the outer court",
+          "reason": "Sets the wicked man's leisure inside the temple court, mixing in the later sanctuary moment (v17); coin chests are also anachronistic."
+        }
+      ]
+    },
+    {
+      "id": "p003",
+      "verdict": "flawed",
+      "reason": "Pharaoh and his servants hearing the news and regretting it is faithful to the verse, but the fields restate God's canon radiance description almost word for word.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a faint radiance of white-gold light and dense slowly moving cloud over the eastern horizon, with a fire-like glow at its heart",
+          "reason": "Restates the fixed canon appearance of God's presence (white-gold radiance, slow veiling cloud, fire-like glow at its heart) instead of only placing it."
+        }
+      ]
+    },
+    {
+      "id": "p004",
+      "verdict": "flawed",
+      "reason": "Moses pleading on the mountain is a faithful staging of the verse, but the fields restate God's canon radiance description.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a veiled white-gold radiance with fire-like glow in dense slow cloud above",
+          "reason": "Restates the fixed canon appearance of God's presence (white-gold radiance, slow veiling cloud, fire-like glow at its heart) instead of only placing it."
+        }
+      ]
+    },
+    {
+      "id": "p005",
+      "verdict": "flawed",
+      "reason": "Eliphaz is the speaker describing a generic wicked man whom distress assails 'as a king ready to the battle'. The plan turns the simile into Eliphaz himself attacking Job with a weapon, and casts Job as the wicked man.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Eliphaz looms over Job like an armored king about to strike",
+          "reason": "Recasts the speaker as a participant and makes him the literal attacker; in the verse the king-like attacker is distress and anguish, not Eliphaz."
+        },
+        {
+          "quote": "Eliphaz in a traveling cloak with a drawn sword or spear",
+          "reason": "Gives the speaker a weapon and an action the source does not support."
+        },
+        {
+          "quote": "Job crouched low on the ash heap, sackcloth-clad and recoiling",
+          "reason": "Puts a named person, Job, in place of the generic wicked man Eliphaz describes."
+        }
+      ]
+    },
+    {
+      "id": "p006",
+      "verdict": "flawed",
+      "reason": "Zerubbabel at the rebuilding temple, receiving the promise that the heavens will be shaken, is a reasonable representative scene, but the fields restate God's canon radiance.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a veiled white-gold radiance with a fire-like glow pulses within it",
+          "reason": "Restates the fixed canon appearance of God's presence (white-gold radiance, slow veiling cloud, fire-like glow at its heart) instead of only placing it."
+        }
+      ]
+    },
+    {
+      "id": "p007",
+      "verdict": "acceptable",
+      "reason": "Gad's prince at the head of the tribe's standard in the camp ordered around the tabernacle, with the cloud above, faithfully illustrates the verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p008",
+      "verdict": "uncertain",
+      "reason": "The guide measuring the south gate with Ezekiel beside him is faithful. However, an unexplained 'faint radiance' appears far off although God is not selected (the glory returns only in ch. 43), and the guide is both mid-stride and holding the rod against a post while another rod lies on the ground. These could be read as harmless ambience or as defects.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "faint radiance glimpsed far off at the scene's edge",
+          "reason": "Can read as an unselected divine presence; the glory has not returned to the temple at this point in the vision."
+        },
+        {
+          "quote": "mid-stride, holding a measuring rod against a tall gatepost",
+          "reason": "Walking and holding the rod against the post at the same time is a slightly conflicting pose."
+        }
+      ]
+    },
+    {
+      "id": "p009",
+      "verdict": "acceptable",
+      "reason": "Villagers of Madmenah and Gebim fleeing along a Judean hill track toward Jerusalem is a faithful, coherent image of the verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p010",
+      "verdict": "acceptable",
+      "reason": "Joram and Ahaziah driving out in their chariots toward Jehu on Naboth's land matches the verse, and the cast and setting are correct.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p011",
+      "verdict": "acceptable",
+      "reason": "Rulers and nobles attending at the city gate, with Wisdom shown only as radiance at an empty seat, is a faithful symbolic illustration that keeps Wisdom formless.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p012",
+      "verdict": "flawed",
+      "reason": "Ezekiel, an exile receiving the oracle, is placed on Tyre's quay as a listening participant. Jerusalem's ruins are shown as visible from Tyre, and God's canon radiance is restated.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Ezekiel in a plain prophetic cloak at the shore's edge",
+          "reason": "Places the prophet who only receives and reports the oracle in Tyre as a participant in the scene."
+        },
+        {
+          "quote": "Ezekiel stands listening, turned toward them",
+          "reason": "Shows the framing prophet taking part in the reported Tyrian gloating."
+        },
+        {
+          "quote": "Jerusalem's ruins far off",
+          "reason": "The setting joins two distant places; Jerusalem's ruins cannot be seen from Tyre's harbour."
+        },
+        {
+          "quote": "a faint veiled radiance of white-gold cloud with fire at its heart",
+          "reason": "Restates the fixed canon appearance of God's presence (white-gold radiance, slow veiling cloud, fire-like glow at its heart) instead of only placing it."
+        }
+      ]
+    },
+    {
+      "id": "p013",
+      "verdict": "flawed",
+      "reason": "Isaiah confronting Jerusalem's scoffing rulers is a reasonable staging of the address, but the fields restate God's canon radiance word for word.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a brilliant white-gold radiance, veiled by slow cloud with a fire-like glow at its heart",
+          "reason": "Restates the fixed canon appearance of God's presence (white-gold radiance, slow veiling cloud, fire-like glow at its heart) instead of only placing it."
+        }
+      ]
+    },
+    {
+      "id": "p014",
+      "verdict": "flawed",
+      "reason": "God's throne-voice and John, ready to write, fit the verse, but the fields restate John's canon outfit word for word and God's canon radiance.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "John in an undyed ochre-brown linen tunic under a dark brown wool mantle",
+          "reason": "Restates John the seer's fixed canon outfit."
+        },
+        {
+          "quote": "brilliant white-gold radiance with a fire-like glow, veiled by slow cloud",
+          "reason": "Restates the fixed canon appearance of God's presence (white-gold radiance, slow veiling cloud, fire-like glow at its heart) instead of only placing it."
+        }
+      ]
+    },
+    {
+      "id": "p015",
+      "verdict": "flawed",
+      "reason": "Adam among thistles is a reasonable symbol of the curse, but it adds a mud-brick settlement that cannot exist yet and restates Adam's and God's canon appearance.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "distant mud-brick settlement",
+          "reason": "Anachronistic; no settlements or cities exist at the moment of the curse in Eden."
+        },
+        {
+          "quote": "a brilliant white-gold radiance with fire-like glow veiled by slow cloud above, no visible source",
+          "reason": "Restates the fixed canon appearance of God's presence (white-gold radiance, slow veiling cloud, fire-like glow at its heart) instead of only placing it."
+        },
+        {
+          "quote": "Adam, a weary man in a simple undyed linen wrap",
+          "reason": "Restates Adam's fixed canon outfit."
+        }
+      ]
+    },
+    {
+      "id": "p016",
+      "verdict": "flawed",
+      "reason": "The law describes a generic 'priest', but the plan puts the named Aaron in that role. The woman is also veiled, although the ritual has her hair loosened (5:18).",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Aaron in linen priestly garments holding a cup of water",
+          "reason": "Puts a named person, Aaron, in place of the generic role 'the priest'."
+        },
+        {
+          "quote": "a veiled Israelite woman",
+          "reason": "Contradicts the ritual's loosening of her hair (Num 5:18)."
+        },
+        {
+          "quote": "a fire-like glow at the sanctuary centre",
+          "reason": "Restates the fixed canon appearance of God's presence (white-gold radiance, slow veiling cloud, fire-like glow at its heart) instead of only placing it."
+        }
+      ]
+    },
+    {
+      "id": "p017",
+      "verdict": "acceptable",
+      "reason": "Laban confronting Jacob in Gilead's hill country, with Rachel in the camp, is a faithful, coherent illustration of the rebuke.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p018",
+      "verdict": "flawed",
+      "reason": "The census of the Levites at Sinai is right, but Aaron's clothing contradicts itself: plain linen robes, yet also full priestly garments with the breastplate.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Moses and Aaron in plain linen robes",
+          "reason": "Contradicts the next clause, which dresses Aaron in his priestly garments and breastplate."
+        },
+        {
+          "quote": "Aaron wearing his priestly garments with the gold-thread breastplate",
+          "reason": "Contradicts 'plain linen robes' and restates Aaron's canon outfit."
+        }
+      ]
+    },
+    {
+      "id": "p019",
+      "verdict": "acceptable",
+      "reason": "Jesus telling the eleven to sit while he goes on to pray, in an olive grove at night, is faithful; the half-turned pose reconciles the gesture and the composition.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p020",
+      "verdict": "flawed",
+      "reason": "In the verse God searches for a man to stand in the gap and finds none. The plan gives the search to Ezekiel, a prophet in exile, and puts him standing in the gap, which contradicts 'I found no one'.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Ezekiel standing in the gap of the broken wall",
+          "reason": "Shows the reporting prophet as a participant; someone standing in the gap contradicts 'I found no one'."
+        },
+        {
+          "quote": "Ezekiel scans the city and its people for a man willing to stand in the breach, finding none.",
+          "reason": "Gives God's search to the prophet."
+        },
+        {
+          "quote": "a distant radiance veiled in slowly moving cloud, its fire-like glow at the heart",
+          "reason": "Restates the fixed canon appearance of God's presence (white-gold radiance, slow veiling cloud, fire-like glow at its heart) instead of only placing it."
+        }
+      ]
+    },
+    {
+      "id": "p021",
+      "verdict": "acceptable",
+      "reason": "David taking Gath, with Joab, his army commander in this section, directing troops, is a coherent illustration of the verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p022",
+      "verdict": "acceptable",
+      "reason": "Hail and lightning striking Egyptian fields while a nearby Israelite settlement is spared is a faithful, coherent image of the plague verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p023",
+      "verdict": "acceptable",
+      "reason": "A Levite proclaiming the curse between Ebal and Gerizim while the people answer, with a widow and a foreigner among them, faithfully illustrates the verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p024",
+      "verdict": "flawed",
+      "reason": "The Preacher concluding his teaching is a fair representative scene, but the fields restate his canon outfit word for word.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "wearing a long undyed linen undertunic beneath a deep blue royal court robe with a gold border",
+          "reason": "Restates the Preacher's fixed canon outfit."
+        }
+      ]
+    },
+    {
+      "id": "p025",
+      "verdict": "acceptable",
+      "reason": "Jesus with a child among the disciples in a Capernaum house, teaching about receiving a child, is faithful; the hand on the child and the welcoming embrace are compatible.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p026",
+      "verdict": "flawed",
+      "reason": "The disappointed goldsmith fits the verse, but Jeremiah, who only speaks the oracle, appears in the scene, and the goldsmith both stares at the idol and turns away from it.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "as Jeremiah stands in the doorway",
+          "reason": "Shows the speaking prophet as a participant in the scene he describes."
+        },
+        {
+          "quote": "staring at a lifeless molten idol",
+          "reason": "Contradicts the action field, where the goldsmith turns away from the image."
+        }
+      ]
+    },
+    {
+      "id": "p027",
+      "verdict": "acceptable",
+      "reason": "Agrippa answering Paul from the raised seat, with Festus, Bernice and officers present and Paul in chains, is faithful and coherent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p028",
+      "verdict": "flawed",
+      "reason": "Assyrian counselors plotting in Nineveh under God's looming presence is a reasonable symbolic staging, but the fields restate God's canon radiance.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a fire-like glow at the heart of the radiance, with the cloud-veiled presence of God above the city",
+          "reason": "Restates the fixed canon appearance of God's presence (white-gold radiance, slow veiling cloud, fire-like glow at its heart) instead of only placing it."
+        }
+      ]
+    },
+    {
+      "id": "p029",
+      "verdict": "acceptable",
+      "reason": "Benjamites looking back to see Gibeah going up in smoke, as Israel turns on them, is a faithful single-instant image of the turning point.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p030",
+      "verdict": "flawed",
+      "reason": "The verse praises the nobles' former purity and splendour (whiter than snow, ruddy, like sapphire). The plan shows them worn in a scorched street, which is the ruin of v8. It adds starving children from 4:4 and God's presence, which the verse does not mention, and restates canon.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "worn but once-fine court robes",
+          "reason": "Shows the nobles' later ruin (v8) instead of the pure, radiant nobles this verse describes."
+        },
+        {
+          "quote": "Scorched street of Jerusalem with ruined walls and dust-strewn stone.",
+          "reason": "A ruin setting that belongs to the following verse's present state, not to the remembered splendour."
+        },
+        {
+          "quote": "Children of Zion in faded tunics standing near the nobles, thin and hunger-worn",
+          "reason": "Brings in cast from a separate verse (4:4) and restates their canon appearance."
+        },
+        {
+          "quote": "radiance without source veiled by cloud",
+          "reason": "Restates the fixed canon appearance of God's presence (white-gold radiance, slow veiling cloud, fire-like glow at its heart) instead of only placing it."
+        }
+      ]
+    }
+  ]
+}
