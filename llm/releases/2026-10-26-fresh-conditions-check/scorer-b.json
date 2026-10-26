@@ -1,0 +1,151 @@
+{
+  "scorer": "Independent model scorer B",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "p001",
+      "verdict": "flawed",
+      "lookContradiction": false,
+      "reason": "God speaking to Abraham is a fair instant, but the camp is described as an incoherent 'mud-brick tent' encampment and the radiance hangs over an empty seat-like space that Genesis 17 does not support. The light condition also copies God's fixed canon wording almost word for word.",
+      "defects": [
+        {
+          "quote": "Open wild land near a mud-brick tent encampment",
+          "reason": "Contradictory object description: tents cannot be mud-brick, and it invites permanent buildings at Abraham's tent camp."
+        },
+        {
+          "quote": "above an unoccupied seat-like space",
+          "reason": "Adds an empty throne or seat in the sky. Genesis 17 does not support it; it comes from the canon's throne-light note and would render as an odd literal prop."
+        }
+      ]
+    },
+    {
+      "id": "p002",
+      "verdict": "flawed",
+      "lookContradiction": true,
+      "reason": "Abraham at the tent door with the presence as radiance fits Genesis 18:1, but the time of day contradicts itself. 'The heat of the day' and 'Strong midday sun' clash with long late-afternoon shadows.",
+      "defects": [
+        {
+          "quote": "with long shadows softening toward late afternoon",
+          "reason": "Long late-afternoon shadows contradict the midday heat in the source and the 'Strong midday sun' light condition, and they blur two times of day."
+        }
+      ]
+    },
+    {
+      "id": "p003",
+      "verdict": "acceptable",
+      "lookContradiction": false,
+      "reason": "A lone Samson surveying the hill country is a reasonable representative image for the summary of his twenty-year judgeship under the Philistines. Timnah is only a reference point, not the town drawn, and the dusk conditions are consistent.",
+      "defects": []
+    },
+    {
+      "id": "p004",
+      "verdict": "flawed",
+      "lookContradiction": true,
+      "reason": "The verse is the Assyrian envoys' taunt quoting Hezekiah. The plan instead shows Hezekiah's own earlier speech of encouragement (vv. 6-8). The light conditions also give long shadows at midday.",
+      "defects": [
+        {
+          "quote": "Hezekiah addresses the people of Jerusalem gathered below, one arm lifted toward the city, urging them to trust in their God for deliverance.",
+          "reason": "Shows the speech being quoted, an earlier separate event, instead of this verse's instant: Sennacherib's servants taunting the besieged city."
+        },
+        {
+          "quote": "Harsh bright sunlight with long shadows at the edges",
+          "reason": "Long shadows contradict the 'Midday' time of day."
+        }
+      ]
+    },
+    {
+      "id": "p005",
+      "verdict": "acceptable",
+      "lookContradiction": false,
+      "reason": "A courtier standing silent before a king's palace gate is a coherent representative image for this wisdom saying about the king's unchallengeable word. No cast is misused, and the conditions are consistent.",
+      "defects": []
+    },
+    {
+      "id": "p006",
+      "verdict": "acceptable",
+      "lookContradiction": false,
+      "reason": "Egyptian petitioners with empty hands coming to Joseph at the granaries matches the verse. Pharaoh is correctly left out, and the dry famine conditions are coherent.",
+      "defects": []
+    },
+    {
+      "id": "p007",
+      "verdict": "flawed",
+      "lookContradiction": true,
+      "reason": "Paul preaching in the Antioch synagogue is the right frame for this sermon verse, but the clothing condition adds Roman soldiers. They appear nowhere in the fields or the source.",
+      "defects": [
+        {
+          "quote": "Roman soldiers in red-trimmed military dress at the edge of the street",
+          "reason": "The clothing condition introduces soldiers that neither the scene fields nor the synagogue sermon supports."
+        }
+      ]
+    },
+    {
+      "id": "p008",
+      "verdict": "acceptable",
+      "lookContradiction": false,
+      "reason": "Pharaoh and his servants in the palace reacting to the news that Israel fled is the verse's instant. The plan correctly avoids chariots and Israel, and the dusk lamplight is consistent.",
+      "defects": []
+    },
+    {
+      "id": "p009",
+      "verdict": "uncertain",
+      "lookContradiction": false,
+      "reason": "The scene is faithful: Moses alone at dawn on Sinai bowing in worship under the veiled presence. However, the primary subject and the light condition copy God's fixed canon wording almost word for word. The rubric lists restating canon as a defect, but this may be the expected way to describe a formless presence. He is also placed on the slopes below, not on the summit where Yahweh stood with him.",
+      "defects": [
+        {
+          "quote": "radiance veiled by a slowly moving cloud, with a fire-like glow at its heart",
+          "reason": "Copies God's fixed canon appearance almost word for word (whether this counts as a defect for a formless presence is debatable)."
+        }
+      ]
+    },
+    {
+      "id": "p010",
+      "verdict": "acceptable",
+      "lookContradiction": false,
+      "reason": "A figureless image of Zion's walls and gate being rebuilt at sunrise is a faithful symbolic image for the promise to save Zion and rebuild Judah's cities. The clothing condition explicitly says no figures appear, and David is correctly left out.",
+      "defects": []
+    },
+    {
+      "id": "p011",
+      "verdict": "acceptable",
+      "lookContradiction": false,
+      "reason": "Solomon before a vast assembly in the temple court at the start of the seven-day feast, with smoke of offerings, matches the verse and its context. The conditions are consistent.",
+      "defects": []
+    },
+    {
+      "id": "p012",
+      "verdict": "acceptable",
+      "lookContradiction": false,
+      "reason": "Young King Jotham at the Jerusalem palace threshold is a reasonable representative image for this accession formula. The conditions are consistent, and nothing unsupported is added.",
+      "defects": []
+    },
+    {
+      "id": "p013",
+      "verdict": "flawed",
+      "lookContradiction": false,
+      "reason": "The guide measuring the south gate with Ezekiel beside him fits the verse, but the plan adds a radiant cloud veil. It reads as God's presence, which is in the cast but not selected and has not returned to the temple in Ezekiel 40.",
+      "defects": [
+        {
+          "quote": "a faint radiant cloud veil at the edge of the scene",
+          "reason": "Evokes God's radiance-and-cloud presence, which is not selected and not supported by the source at this point in the vision."
+        },
+        {
+          "quote": "with a soft radiant glow from the cloud veil at the edges of the scene",
+          "reason": "The light condition carries the same unselected divine radiance into the render."
+        }
+      ]
+    },
+    {
+      "id": "p014",
+      "verdict": "uncertain",
+      "lookContradiction": false,
+      "reason": "Israel at the foot of Horeb under the veiled fire and cloud is a faithful representative image for this commandment. However, the primary subject copies God's fixed canon wording almost word for word. The rubric lists restating canon as a defect, but this may be the expected way to describe a formless presence.",
+      "defects": [
+        {
+          "quote": "Veiled brilliant white-gold radiance with a fire-like glow at its heart",
+          "reason": "Copies God's fixed canon appearance almost word for word (whether this counts as a defect for a formless presence is debatable)."
+        }
+      ]
+    }
+  ]
+}
