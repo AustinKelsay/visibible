@@ -1,0 +1,29 @@
+{
+  "identicalRecordedHttpRequests": true,
+  "method": "Model-free v7 validation of the three retained time-control replies. The actual v6 unavailable outcome stays unchanged; this counterfactual is not new paid evidence or an extra control score.",
+  "replies": [
+    {
+      "phase": "look-time-candidate",
+      "quotes": [
+        "timeOfDay\":\"night"
+      ],
+      "validUnderV7": true
+    },
+    {
+      "phase": "look-time-baseline",
+      "quotes": [
+        "\"timeOfDay\":\"night\""
+      ],
+      "validUnderV7": true
+    },
+    {
+      "phase": "look-time-baseline",
+      "quotes": [
+        "timeOfDay\":\"night"
+      ],
+      "validUnderV7": true
+    }
+  ],
+  "paidCalls": 0,
+  "productionMutations": 0
+}
