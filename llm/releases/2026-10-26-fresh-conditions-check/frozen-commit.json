@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-26T16:08:03.710Z",
+  "commit": "42bf1cc804fe2eda3e39c50451eb4818cb95614e",
+  "grant": {
+    "authorizedAt": "2026-10-26T16:07:59Z",
+    "authorization": "Owner replied 'Ok do 1-3 end to end' to a plan whose step 2 was: 'a broader text test on fresh verses. That would use most or all of the remaining budget, or need a small increase.' This grant uses a $0.20 cap within the remaining $0.2114324 evaluation allowance, with no increase.",
+    "increaseUsd": 0,
+    "authorizedUsd": 17.5,
+    "operationCapUsd": 0.2,
+    "scope": "One execution of the frozen 30-case fresh measurement in this directory. No paid restart, automatic resume, tuning, images, production writes, deployment or public activation. Preparation and smoke allowances stay separate.",
+    "proposalCommit": "b69b6103d1222d29ffd5f7f8e277cf6c54b40dc2"
+  }
+}

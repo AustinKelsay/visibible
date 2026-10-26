@@ -1,0 +1,1367 @@
+{
+  "masking": "Arm, review, grounding, versions and outcome labels omitted; single operator, familiar retained cases, no independent-adjudication claim.",
+  "packet": [
+    {
+      "id": "p001",
+      "source": {
+        "moment": {
+          "id": "revelation-3-12",
+          "reference": "Revelation 3:12",
+          "text": "He who overcomes, I will make him a pillar in the temple of my God, and he will go out from there no more. I will write on him the name of my God and the name of the city of my God, the new Jerusalem, which comes down out of heaven from my God, and my own new name."
+        },
+        "previous": {
+          "text": "I am coming quickly! Hold firmly that which you have, so that no one takes your crown."
+        },
+        "next": {
+          "text": "He who has an ear, let him hear what the Spirit says to the assemblies."
+        }
+      },
+      "section": {
+        "title": "Letter to Philadelphia",
+        "firstUnit": "revelation-3-7",
+        "lastUnit": "revelation-3-13"
+      },
+      "cast": [
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "named": false,
+          "stageId": "adult",
+          "canon": {
+            "aliases": [
+              "Jesus",
+              "Jesus Christ",
+              "the Christ",
+              "Son of Man",
+              "Son of David",
+              "Son of God",
+              "Rabbi",
+              "Teacher",
+              "Lord",
+              "the Nazarene",
+              "the Son of Man",
+              "the Lord",
+              "the carpenter",
+              "Jesus of Nazareth",
+              "the Son of God",
+              "the teacher",
+              "Master",
+              "the boy Jesus",
+              "the Word",
+              "the Teacher",
+              "the Lamb of God",
+              "the Prince of life",
+              "Christ",
+              "the Lord Jesus",
+              "Christ Jesus",
+              "the last Adam",
+              "the Beloved",
+              "the Savior",
+              "the Son of his love",
+              "the Head",
+              "the firstborn of all creation",
+              "the Lord Jesus Christ",
+              "the Son",
+              "the man Christ Jesus",
+              "the Lord's servant",
+              "the Lord, the righteous judge",
+              "our Savior",
+              "the great God and Savior",
+              "the firstborn",
+              "the apostle and high priest of our confession",
+              "the great shepherd of the sheep",
+              "the author and perfecter of faith",
+              "the mediator of a new covenant",
+              "the chief Shepherd",
+              "the cornerstone",
+              "the Lamb without blemish",
+              "Lord and Savior",
+              "Son",
+              "the Word of life",
+              "the Counselor",
+              "the righteous one",
+              "the Son of the Father",
+              "his only born Son",
+              "the Lamb",
+              "the Lion of the tribe of Judah",
+              "the Root of David",
+              "the Word of God",
+              "the faithful witness",
+              "the Alpha and the Omega",
+              "the first and the last",
+              "the Living one",
+              "the Bright and Morning Star",
+              "the Amen",
+              "the rider called Faithful and True",
+              "KING OF KINGS AND LORD OF LORDS"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "matthew:character:jesus",
+              "mark:character:jesus",
+              "luke:character:jesus",
+              "john:character:jesus",
+              "acts:character:jesus",
+              "1-corinthians:character:jesus",
+              "galatians:character:jesus_christ",
+              "ephesians:character:christ_jesus",
+              "philippians:character:jesus_christ",
+              "colossians:character:christ",
+              "1-thessalonians:character:the_lord_jesus",
+              "2-thessalonians:character:the_lord_jesus",
+              "1-timothy:character:jesus_christ",
+              "2-timothy:character:the_lord",
+              "titus:character:jesus_christ",
+              "hebrews:character:jesus",
+              "1-peter:character:jesus_christ",
+              "2-peter:character:jesus",
+              "1-john:character:jesus_christ",
+              "revelation:character:jesus_christ"
+            ],
+            "name": "Jesus Christ, the Son of God and Lord",
+            "note": "The one Jesus: the teacher from Nazareth of the Gospels and Acts, and the risen, exalted Christ and Lord of the epistles and Revelation; the same individual across all divisions, with death, resurrection and changed portrayal not creating new individuals.",
+            "stages": [
+              {
+                "id": "adult",
+                "label": "Adult Jesus",
+                "quotes": [
+                  {
+                    "quote": "Jesus himself, when he began to teach, was about thirty years old, being the son (as was supposed) of Joseph, the son of Heli,",
+                    "unit": "luke-3-23"
+                  }
+                ],
+                "text": "Jesus: man of about thirty, lean and strong from carpentry and walking; olive-brown skin; dark brown shoulder-length hair parted at centre; short dark beard; calm dark eyes; wears a plain undyed tunic of natural linen with a dark blue-grey cloak and sandals; carries no props except a shepherd's staff when a scene calls for one."
+              },
+              {
+                "id": "infant",
+                "label": "Infant Jesus",
+                "quotes": [
+                  {
+                    "quote": "She gave birth to her firstborn son. She wrapped him in bands of cloth and laid him in a feeding trough, because there was no room for them in the inn.",
+                    "unit": "luke-2-7"
+                  }
+                ],
+                "text": "Jesus: newborn to about two years old; olive-brown skin, a little dark hair and dark eyes; a small infant or toddler's build, no beard. Plain undyed swaddling linen for the newborn; a small plain linen tunic as a toddler. No adult clothing or props."
+              },
+              {
+                "id": "child",
+                "label": "Boy Jesus",
+                "quotes": [
+                  {
+                    "quote": "When he was twelve years old, they went up to Jerusalem according to the custom of the feast;",
+                    "unit": "luke-2-42"
+                  }
+                ],
+                "text": "Jesus: boy of about twelve, slim and sturdy; olive-brown skin; dark brown hair cut short at the neck; dark eyes; no beard; wears a plain undyed tunic of natural linen with a dark blue-grey cloak; no props."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "the_seven_churches_of_asia",
+          "stageId": "seven_churches_of_asia",
+          "canon": {
+            "aliases": [
+              "Ephesus",
+              "Smyrna",
+              "Pergamum",
+              "Thyatira",
+              "Sardis",
+              "Philadelphia",
+              "Laodicea"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "revelation:location:seven_churches"
+            ],
+            "name": "the seven churches of Asia",
+            "note": "A collective place name for the seven assemblies in Asia addressed in Revelation 2 and 3, of which Ephesus is one; distinct from the single city of Ephesus.",
+            "stages": [
+              {
+                "id": "seven_churches_of_asia",
+                "label": "The seven churches of Asia",
+                "quotes": [
+                  {
+                    "quote": "send to the seven assemblies: to Ephesus, Smyrna, Pergamum, Thyatira, Sardis, Philadelphia, and to Laodicea.",
+                    "unit": "revelation-1-11"
+                  }
+                ],
+                "text": "The seven churches of Asia: a scatter of coastal and inland cities across western Anatolia, joined by old Roman roads. Whitewashed stone houses, marble colonnades, and tiled roofs rise on terraced hills above river valleys. Olive groves, vines and cypresses grow along the slopes, and distant mountains rise blue and rocky beyond."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "stageId": "adult"
+        }
+      ],
+      "fields": {
+        "primarySubject": "Jesus Christ in radiant light, speaking, with the overcomer standing as a pillar within the temple of God.",
+        "action": "Christ speaks a promise while the overcomer stands fixed as a pillar, not moving, within the temple.",
+        "setting": "A vast temple of God in heaven, with pillars of pale stone rising into light, gold and cloud.",
+        "secondaryElements": "Ancient lamps burning on the temple floor; a radiant glow suggesting the descending new Jerusalem visible beyond the temple gate; the overcomer's name implied by light on his brow but no text shown.",
+        "mood": "Reverent, steadfast and hopeful, with quiet dignity.",
+        "timeOfDay": "Eternal heavenly light, no sunrise or sunset, luminous and even.",
+        "composition": "Wide view from the temple floor, Christ and the pillar-figure placed at the center, the temple receding behind them toward a radiant gateway."
+      },
+      "look": {
+        "place": "Heavenly temple and the open court of the new Jerusalem, with a glowing jeweled city descending from heaven",
+        "timeOfDay": "Timeless heavenly day, no night",
+        "weather": "Clear radiant sky with luminous cloud and no storm",
+        "light": "Warm golden radiance from the throne of God, glowing jewel-toned light on pale stone",
+        "clothing": "White robes and garments of light; pillars of polished stone and gold-trimmed raiment"
+      }
+    },
+    {
+      "id": "p002",
+      "source": {
+        "moment": {
+          "id": "romans-4-7",
+          "reference": "Romans 4:7",
+          "text": "“Blessed are they whose iniquities are forgiven, whose sins are covered."
+        },
+        "previous": {
+          "text": "Even as David also pronounces blessing on the man to whom God counts righteousness apart from works:"
+        },
+        "next": {
+          "text": "Blessed is the man whom the Lord will by no means charge with sin.”"
+        }
+      },
+      "section": {
+        "title": "Abraham justified by faith",
+        "firstUnit": "romans-4-1",
+        "lastUnit": "romans-4-12"
+      },
+      "cast": [
+        {
+          "entryId": "paul_the_apostle",
+          "named": false,
+          "stageId": "paul-main",
+          "canon": {
+            "aliases": [
+              "Paul",
+              "the apostle",
+              "the writer",
+              "the apostle Paul",
+              "I (the writer)",
+              "Saul",
+              "I",
+              "me",
+              "the prisoner of Christ Jesus",
+              "I, Paul",
+              "apostle Paul",
+              "the prisoner",
+              "my child's father in the faith",
+              "the aged prisoner of Christ Jesus"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "romans:character:paul",
+              "1-corinthians:character:paul",
+              "2-corinthians:character:paul",
+              "galatians:character:paul",
+              "ephesians:character:paul",
+              "philippians:character:paul",
+              "colossians:character:paul",
+              "1-thessalonians:character:paul",
+              "2-thessalonians:character:paul",
+              "1-timothy:character:paul",
+              "2-timothy:character:paul",
+              "titus:character:paul",
+              "philemon:character:paul"
+            ],
+            "name": "Paul the apostle",
+            "note": "The apostle Paul, author and speaker of all thirteen letters; the same individual across Romans, Corinthians, Galatians, Ephesians, Philippians, Colossians, Thessalonians, Timothy, Titus and Philemon, identified by his apostolic authorship and first-person voice.",
+            "stages": [
+              {
+                "id": "paul-main",
+                "label": "Paul the apostle",
+                "quotes": [
+                  {
+                    "quote": "being such a one as Paul, the aged, but also a prisoner of Jesus Christ.",
+                    "unit": "philemon-1-9"
+                  },
+                  {
+                    "quote": "I, Paul, write this greeting with my own hand. Remember my chains.",
+                    "unit": "colossians-4-18"
+                  },
+                  {
+                    "quote": "I, Paul, write this with my own hand",
+                    "unit": "philemon-1-19"
+                  }
+                ],
+                "text": "Paul the apostle: man of middle to later years, perhaps fifties to sixties, wiry and weathered from travel and imprisonment; Jewish Mediterranean features, olive-brown skin, short greying-dark beard and close-cropped hair receding at the temples; lined brow, steady dark eyes. Signature outfit: plain undyed wool tunic in ochre-brown under a dark-blue cloak. Signature prop: a rolled parchment scroll and a reed pen case at the belt."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [],
+      "fields": {
+        "primarySubject": "An oil lamp glowing on a stone ledge, its warm light spreading softly over the courtyard.",
+        "action": "The lamp burns steadily in stillness; no figure acts, the moment is a held pronouncement of blessing.",
+        "setting": "An open stone-paved courtyard of a Judean dwelling at dusk, with plain walls and a distant view of hills under a fading sky.",
+        "secondaryElements": "A rolled papyrus scroll resting beside the lamp, a folded cloak draped over the ledge, faint shadows of olive branches on the wall.",
+        "mood": "Reverent, quiet and hopeful, with a sense of forgiveness and peace settling over the place.",
+        "timeOfDay": "Dusk, with soft fading daylight mingling with the lamplight.",
+        "composition": "A low wide viewpoint focused on the lamp and ledge, with the courtyard opening behind in calm depth and no human figure at the center."
+      },
+      "look": {
+        "place": "Stone village courtyard and open hillside under Roman-era Judean sky, with a simple synagogue and distant Roman city walls",
+        "timeOfDay": "Daytime, moving from late afternoon into dusk over the section",
+        "weather": "Clear sky with a few high clouds, mild and still air",
+        "light": "Warm, low golden sunlight softening into cool twilight glow",
+        "clothing": "Plain linen tunics and woolen cloaks in earth tones; Roman soldiers in military dress nearby"
+      }
+    },
+    {
+      "id": "p003",
+      "source": {
+        "moment": {
+          "id": "exodus-14-5",
+          "reference": "Exodus 14:5",
+          "text": "The king of Egypt was told that the people had fled; and the heart of Pharaoh and of his servants was changed toward the people, and they said, “What is this we have done, that we have let Israel go from serving us?”"
+        },
+        "previous": {
+          "text": "I will harden Pharaoh’s heart, and he will follow after them; and I will get honor over Pharaoh, and over all his armies; and the Egyptians shall know that I am Yahweh.” They did so."
+        },
+        "next": {
+          "text": "He prepared his chariot, and took his army with him;"
+        }
+      },
+      "section": {
+        "title": "Israel encamps by the sea; Pharaoh pursues; fear",
+        "firstUnit": "exodus-14-1",
+        "lastUnit": "exodus-14-14"
+      },
+      "cast": [
+        {
+          "entryId": "moses",
+          "named": true,
+          "stageId": "moses-elder",
+          "canon": {
+            "aliases": [
+              "the man of God",
+              "Yahweh's servant",
+              "the servant of Yahweh",
+              "my servant Moses",
+              "Yahweh's servant Moses",
+              "the lawgiver",
+              "the law of Moses",
+              "the servant in God's house",
+              "the body of Moses"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "exodus:character:moses",
+              "leviticus:character:moses",
+              "numbers:character:moses",
+              "deuteronomy:character:moses",
+              "joshua:character:moses",
+              "psalms:character:moses",
+              "micah:character:moses",
+              "malachi:character:moses",
+              "matthew:character:moses",
+              "mark:character:moses",
+              "luke:character:moses",
+              "john:character:moses",
+              "acts:character:moses",
+              "romans:character:moses",
+              "1-corinthians:character:moses",
+              "2-corinthians:character:moses",
+              "hebrews:character:moses",
+              "jude:character:moses"
+            ],
+            "name": "Moses",
+            "note": "Israel's lawgiver and leader who led the people out of Egypt, received the law at Sinai and is named across the Old and New Testament divisions as the same individual, distinguished only by the sections in which he appears or is mentioned.",
+            "stages": [
+              {
+                "id": "moses-elder",
+                "label": "Moses, elder",
+                "quotes": [
+                  {
+                    "quote": "Moses was eighty years old, and Aaron eighty-three years old, when they spoke to Pharaoh.",
+                    "unit": "exodus-7-7"
+                  }
+                ],
+                "text": "Moses: an old man of about eighty; lean, weathered build; brown skin darkened by desert sun; white hair and a long white beard; deep-set, steady eyes and lined brow; a plain undyed linen tunic belted at the waist with a long dark-brown wool cloak; he carries a wooden shepherd's staff of dark acacia wood, and only he bears the rod of God."
+              },
+              {
+                "id": "moses-infant",
+                "label": "Moses, infant",
+                "quotes": [
+                  {
+                    "quote": "The woman conceived and bore a son. When she saw that he was a fine child, she hid him three months.",
+                    "unit": "exodus-2-2"
+                  }
+                ],
+                "text": "Moses: a newborn infant; soft smooth skin; a small round face; a little dark hair; wrapped in plain linen cloth and laid in a woven reed basket sealed with bitumen and pitch; no beard, no staff, no adult clothing."
+              },
+              {
+                "id": "moses-adult",
+                "label": "Moses, adult",
+                "quotes": [
+                  {
+                    "quote": "But when he was forty years old, it came into his heart to visit his brothers, the children of Israel.",
+                    "unit": "acts-7-23"
+                  }
+                ],
+                "text": "Moses: a man of about forty; lean, strong, well-proportioned build; brown skin; short dark hair and a close-trimmed dark beard; alert, sober face; a knee-length undyed linen tunic with a dark woven wool cloak of brown and grey pinned at the shoulder; he carries a plain wooden shepherd's staff."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "named": true,
+          "stageId": "the_israelite_people_the_children_of_israel_s1",
+          "canon": {
+            "aliases": [
+              "the children of Israel",
+              "the Hebrews",
+              "the people",
+              "the congregation",
+              "the assembly",
+              "Israel",
+              "Jeshurun",
+              "Jacob",
+              "the people of Israel",
+              "the nation",
+              "children of Israel",
+              "the congregation of Israel",
+              "the men of Israel",
+              "all Israel",
+              "the army of Israel",
+              "the Jews",
+              "the house of Jacob",
+              "the sheep of his pasture",
+              "Ephraim",
+              "the house of Israel",
+              "the northern kingdom",
+              "Samaria",
+              "Israelites",
+              "house of Jacob",
+              "house of Joseph",
+              "the virgin of Israel",
+              "the sons of Jacob",
+              "Judah and Jerusalem",
+              "the people of God",
+              "the fathers",
+              "those who came out of Egypt",
+              "the wilderness generation"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "exodus:character:israelites",
+              "leviticus:character:children_of_israel",
+              "numbers:character:israelites",
+              "deuteronomy:character:israel",
+              "joshua:character:israelite_people",
+              "judges:character:israelites",
+              "1-samuel:character:the_people_of_israel",
+              "nehemiah:character:people_of_israel",
+              "psalms:character:israel",
+              "hosea:character:israel",
+              "amos:character:the_israelites",
+              "malachi:character:israel",
+              "hebrews:character:the_israelites"
+            ],
+            "name": "The Israelite people (the children of Israel)",
+            "note": "The collective Israelite nation across Exodus through Malachi and Hebrews, one body whose different portrayals (marching nation, assembly, covenant people, judged northern kingdom, returned community, wilderness generation) are all the same people; distinguish only from the returned community of Nehemiah in the note by the Judah/Jerusalem setting, but these are the same people.",
+            "stages": [
+              {
+                "id": "the_israelite_people_the_children_of_israel_s1",
+                "label": "The Israelite people",
+                "quotes": [
+                  {
+                    "quote": "Now these are the names of the sons of Israel, who came into Egypt",
+                    "unit": "exodus-1-1"
+                  },
+                  {
+                    "quote": "You shall tell the children of Israel this",
+                    "unit": "exodus-3-15"
+                  },
+                  {
+                    "quote": "So they shall put my name on the children of Israel; and I will bless them.",
+                    "unit": "numbers-6-27"
+                  }
+                ],
+                "text": "The Israelite people: a typical member is an adult of mixed age, from youth to middle years, of sturdy and weathered build shaped by desert travel and field labour. Skin is warm olive-brown, hair dark and kept short or tied back, with full beards on men. Faces are calm and steady with dark eyes. Signature outfit: a plain undyed woven linen tunic in ochre or cream with a wool cloak in earth brown."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "pharaoh_of_the_exodus_oppressor_of_israel",
+          "named": true,
+          "stageId": "pharaoh_of_the_exodus_oppressor_of_israel-main",
+          "canon": {
+            "aliases": [
+              "Pharaoh (king of Egypt who did not know Joseph)",
+              "the king of Egypt",
+              "Pharaoh",
+              "Pharaoh king of Egypt"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "exodus:character:pharaoh_oppressor",
+              "deuteronomy:character:pharaoh",
+              "romans:character:pharaoh"
+            ],
+            "name": "Pharaoh of the Exodus (oppressor of Israel)",
+            "note": "The unnamed king of Egypt in Exodus who enslaves Israel, hardens his heart against Moses and suffers the plagues; the same king recalled in Deuteronomy and cited in Romans 9:17 as the one raised up to show God's power.",
+            "stages": [
+              {
+                "id": "pharaoh_of_the_exodus_oppressor_of_israel-main",
+                "label": "Pharaoh of the Exodus",
+                "quotes": [
+                  {
+                    "quote": "The king of Egypt called for the midwives, and said to them",
+                    "unit": "exodus-1-18"
+                  },
+                  {
+                    "quote": "Pharaoh’s heart was hardened, and he didn’t listen to them",
+                    "unit": "exodus-7-13"
+                  }
+                ],
+                "text": "Pharaoh of the Exodus: man in his fifties, tall and broad-shouldered, dark brown skin; close-cropped hair under a blue-and-gold nemes headcloth, and a short trimmed false beard of the royal style; calm, hard features with heavy-lidded eyes and a firm mouth. Signature outfit: white linen kilt with a pleated gold-edged apron, broad gold collar, and red-and-gold royal sash. Signature props: gold crook and flail of royal office, carried alone."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "the_egyptians",
+          "named": true,
+          "stageId": "the_egyptians-s1",
+          "canon": {
+            "aliases": [
+              "the magicians of Egypt",
+              "the captains"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "exodus:character:egyptians"
+            ],
+            "name": "the Egyptians",
+            "note": "The Egyptian people, officers and magicians in Exodus who oppress Israel and suffer the plagues; distinguished from the Egyptian magicians of Genesis and from the Chaldeans of Babylon.",
+            "stages": [
+              {
+                "id": "the_egyptians-s1",
+                "label": "the Egyptians",
+                "quotes": [
+                  {
+                    "quote": "The Egyptians ruthlessly made the children of Israel serve,",
+                    "unit": "exodus-1-13"
+                  },
+                  {
+                    "quote": "They also, the magicians of Egypt, did the same thing with their enchantments.",
+                    "unit": "exodus-7-11"
+                  }
+                ],
+                "text": "the Egyptians: adults of middle age, broad-shouldered and strong from labour and rank, with warm brown skin and close-cropped black hair, clean-shaven men with short wigs or bare heads, dignified and grave of face. Signature outfit: a pleated white linen kilt or wrap-tunic with a linen cloak in ochre and blue. Signature props: none carried alone; officers may bear a staff of office."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "named": true,
+          "stageId": "god_yahweh_the_father_stage_1",
+          "canon": {
+            "aliases": [
+              "God",
+              "Yahweh",
+              "Yahweh God",
+              "God Almighty",
+              "Lord",
+              "God Most High",
+              "the angel of God",
+              "Yahweh's angel",
+              "God's sons",
+              "God (Yahweh)",
+              "I AM",
+              "the Lord",
+              "I am Yahweh your God",
+              "my name",
+              "the Most High",
+              "the Rock",
+              "the God of Israel",
+              "the Lord Yahweh",
+              "the Almighty",
+              "the Holy One",
+              "Yah",
+              "the Holy One of Israel",
+              "the God of Jacob",
+              "the Shepherd of Israel",
+              "the LORD",
+              "his Maker",
+              "the Creator",
+              "Yahweh of Armies",
+              "God of Israel",
+              "the man in linen's master",
+              "God of Armies",
+              "my husband",
+              "my master",
+              "the God of Armies",
+              "the God of heaven",
+              "my God",
+              "my Holy One",
+              "the Lord God",
+              "the Holy Spirit",
+              "God the Father",
+              "the Father",
+              "our God and Father",
+              "the Father of glory",
+              "the God of our Lord Jesus Christ",
+              "the God of peace",
+              "God our Father",
+              "the Lord of peace",
+              "God our Savior",
+              "the living God",
+              "the King eternal",
+              "the Majesty on high",
+              "the Judge of all",
+              "the Lord Jesus Christ",
+              "the Father of lights",
+              "the Lord of Armies",
+              "the judge",
+              "the Majestic Glory",
+              "him",
+              "the true God",
+              "Jesus Christ",
+              "our Master",
+              "him who sits on the throne"
+            ],
+            "entryKind": "character",
+            "hasForm": false,
+            "kind": "entry",
+            "members": [
+              "genesis:character:god",
+              "exodus:character:god",
+              "leviticus:character:yahweh",
+              "numbers:character:yahweh",
+              "deuteronomy:character:yahweh",
+              "joshua:character:yahweh",
+              "judges:character:yahweh",
+              "job:character:yahweh",
+              "psalms:character:yahweh",
+              "proverbs:character:yahweh",
+              "ecclesiastes:character:god",
+              "isaiah:character:yahweh",
+              "jeremiah:character:yahweh",
+              "lamentations:character:yahweh",
+              "ezekiel:character:yahweh",
+              "hosea:character:yahweh",
+              "joel:character:yahweh",
+              "amos:character:yahweh",
+              "obadiah:character:yahweh",
+              "jonah:character:yahweh",
+              "micah:character:yahweh",
+              "nahum:character:yahweh",
+              "habakkuk:character:yahweh",
+              "zephaniah:character:yahweh",
+              "haggai:character:yahweh",
+              "zechariah:character:yahweh",
+              "malachi:character:yahweh",
+              "acts:character:god_father",
+              "1-corinthians:character:god",
+              "galatians:character:god_the_father",
+              "ephesians:character:god_the_father",
+              "philippians:character:god_the_father",
+              "colossians:character:god_the_father",
+              "1-thessalonians:character:god_the_father",
+              "2-thessalonians:character:god_the_father",
+              "1-timothy:character:god",
+              "2-timothy:character:god",
+              "titus:character:god",
+              "hebrews:character:god",
+              "james:character:the_lord",
+              "1-peter:character:god_the_father",
+              "2-peter:character:god_the_father",
+              "1-john:character:god_the_father",
+              "jude:character:the_lord",
+              "revelation:character:god"
+            ],
+            "name": "God / Yahweh, the Father and God of Israel",
+            "note": "The one God, creator and speaker of the Old Testament and the Father of Jesus Christ in the New Testament; distinct from Jesus in every entry.",
+            "stages": [
+              {
+                "id": "god_yahweh_the_father_stage_1",
+                "label": "God the Father (radiance and cloud)",
+                "quotes": [
+                  {
+                    "quote": "Heaven is my throne, and the earth is my footstool.",
+                    "unit": "isaiah-66-1"
+                  },
+                  {
+                    "quote": "Behold, Yahweh rides on a swift cloud, and comes to Egypt.",
+                    "unit": "isaiah-19-1"
+                  }
+                ],
+                "text": "God the Father: no human face or body; presence shown only as radiance, cloud and fire. A brilliant white-gold light without a source, veiled by a dense, slowly moving cloud, with a fire-like glow at its heart. Throne-light and footstool-earth implied at the edges, never a figure seated in it."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "red_sea",
+          "stageId": "red_sea",
+          "canon": {
+            "aliases": [
+              "the Red Sea",
+              "the sea",
+              "Yam Suph"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "exodus:location:red_sea"
+            ],
+            "name": "Red Sea",
+            "note": "The sea in Exodus that parts for Israel and closes over Pharaoh's army; distinct from the other seas by its setting in the exodus narrative.",
+            "stages": [
+              {
+                "id": "red_sea",
+                "label": "Red Sea",
+                "quotes": [
+                  {
+                    "quote": "Moses stretched out his hand over the sea, and Yahweh caused the sea to go back by a strong east wind all night",
+                    "unit": "exodus-14-21"
+                  },
+                  {
+                    "quote": "the waters were a wall to them on their right hand and on their left.",
+                    "unit": "exodus-14-22"
+                  },
+                  {
+                    "quote": "You shall encamp opposite it by the sea.",
+                    "unit": "exodus-14-2"
+                  }
+                ],
+                "text": "Red Sea: a wide, deep arm of open water between desert shores, its surface dark blue-green under wind. Sand dunes and low reddish cliffs line the coast; scattered tamarisk and palms grow at the water's edge. Bare rock outcrops and shallow wadis run down to the shore, and a distant fortified town sits on the northern ridge."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "the_wilderness_exodus_route",
+          "stageId": "the_wilderness_exodus_route-main",
+          "canon": {
+            "aliases": [
+              "the wilderness",
+              "the desert",
+              "the wilderness of Shur",
+              "the wilderness of Sin",
+              "The wilderness",
+              "Meribah",
+              "Massah",
+              "Kadesh",
+              "Wilderness"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "exodus:location:wilderness",
+              "psalms:location:wilderness",
+              "amos:location:wilderness"
+            ],
+            "name": "The wilderness (Exodus route)",
+            "note": "The desert stretches Israel travels from Egypt through Shur, Sin and Marah, with manna, quail and water miracles; the same wilderness as the Psalms and Amos references.",
+            "stages": [
+              {
+                "id": "the_wilderness_exodus_route-main",
+                "label": "The wilderness (Exodus route)",
+                "quotes": [
+                  {
+                    "quote": "they went out into the wilderness of Shur; and they went three days in the wilderness, and found no water.",
+                    "unit": "exodus-15-22"
+                  },
+                  {
+                    "quote": "on the surface of the wilderness was a small round thing, small as the frost on the ground.",
+                    "unit": "exodus-16-14"
+                  },
+                  {
+                    "quote": "in a dry and weary land, where there is no water.",
+                    "unit": "psalms-63-1"
+                  }
+                ],
+                "text": "The wilderness: a vast arid tableland of pale sand, gravel plains and dark rock outcrops rising to bare mountains, scattered with thorn scrub and sparse grasses in the wadis. Tents and camp-circles mark the encampments; a distant mountain, Sinai, rises above the plain. Dry riverbeds, stone wells and rock fissures suggest hidden water."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [
+        {
+          "entryId": "pharaoh_of_the_exodus_oppressor_of_israel",
+          "stageId": "pharaoh_of_the_exodus_oppressor_of_israel-main"
+        }
+      ],
+      "fields": {
+        "primarySubject": "Pharaoh, seated on his throne in royal Egyptian linen, leaning forward with a troubled, startled expression",
+        "action": "Pharaoh turns toward a messenger kneeling before him, while his servants lean in around the throne in shared alarm",
+        "setting": "Interior of an Egyptian royal palace hall with stone columns, painted walls and a raised dais; a doorway opens behind the messenger onto a sunlit courtyard",
+        "secondaryElements": "Several Egyptian servants in linen tunics gathered near the throne; the messenger's dusty travel cloak shows he has come from afar; no divine effects present",
+        "mood": "Sudden unease and shifting resolve within the court, tense and quiet",
+        "timeOfDay": "Late afternoon light entering through the high doorway",
+        "composition": "Pharaoh centered on the dais, messenger in the foreground kneeling, servants arranged in a semicircle around the throne"
+      },
+      "look": {
+        "place": "Interior of an Egyptian royal palace hall",
+        "timeOfDay": "Late afternoon",
+        "weather": "Still, dry desert air",
+        "light": "Warm afternoon light through the doorway and high windows",
+        "clothing": "Pharaoh in royal Egyptian linen with a headdress; servants in linen tunics; messenger in a dusty travel cloak"
+      }
+    },
+    {
+      "id": "p004",
+      "source": {
+        "moment": {
+          "id": "revelation-3-12",
+          "reference": "Revelation 3:12",
+          "text": "He who overcomes, I will make him a pillar in the temple of my God, and he will go out from there no more. I will write on him the name of my God and the name of the city of my God, the new Jerusalem, which comes down out of heaven from my God, and my own new name."
+        },
+        "previous": {
+          "text": "I am coming quickly! Hold firmly that which you have, so that no one takes your crown."
+        },
+        "next": {
+          "text": "He who has an ear, let him hear what the Spirit says to the assemblies."
+        }
+      },
+      "section": {
+        "title": "Letter to Philadelphia",
+        "firstUnit": "revelation-3-7",
+        "lastUnit": "revelation-3-13"
+      },
+      "cast": [
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "named": false,
+          "stageId": "adult",
+          "canon": {
+            "aliases": [
+              "Jesus",
+              "Jesus Christ",
+              "the Christ",
+              "Son of Man",
+              "Son of David",
+              "Son of God",
+              "Rabbi",
+              "Teacher",
+              "Lord",
+              "the Nazarene",
+              "the Son of Man",
+              "the Lord",
+              "the carpenter",
+              "Jesus of Nazareth",
+              "the Son of God",
+              "the teacher",
+              "Master",
+              "the boy Jesus",
+              "the Word",
+              "the Teacher",
+              "the Lamb of God",
+              "the Prince of life",
+              "Christ",
+              "the Lord Jesus",
+              "Christ Jesus",
+              "the last Adam",
+              "the Beloved",
+              "the Savior",
+              "the Son of his love",
+              "the Head",
+              "the firstborn of all creation",
+              "the Lord Jesus Christ",
+              "the Son",
+              "the man Christ Jesus",
+              "the Lord's servant",
+              "the Lord, the righteous judge",
+              "our Savior",
+              "the great God and Savior",
+              "the firstborn",
+              "the apostle and high priest of our confession",
+              "the great shepherd of the sheep",
+              "the author and perfecter of faith",
+              "the mediator of a new covenant",
+              "the chief Shepherd",
+              "the cornerstone",
+              "the Lamb without blemish",
+              "Lord and Savior",
+              "Son",
+              "the Word of life",
+              "the Counselor",
+              "the righteous one",
+              "the Son of the Father",
+              "his only born Son",
+              "the Lamb",
+              "the Lion of the tribe of Judah",
+              "the Root of David",
+              "the Word of God",
+              "the faithful witness",
+              "the Alpha and the Omega",
+              "the first and the last",
+              "the Living one",
+              "the Bright and Morning Star",
+              "the Amen",
+              "the rider called Faithful and True",
+              "KING OF KINGS AND LORD OF LORDS"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "matthew:character:jesus",
+              "mark:character:jesus",
+              "luke:character:jesus",
+              "john:character:jesus",
+              "acts:character:jesus",
+              "1-corinthians:character:jesus",
+              "galatians:character:jesus_christ",
+              "ephesians:character:christ_jesus",
+              "philippians:character:jesus_christ",
+              "colossians:character:christ",
+              "1-thessalonians:character:the_lord_jesus",
+              "2-thessalonians:character:the_lord_jesus",
+              "1-timothy:character:jesus_christ",
+              "2-timothy:character:the_lord",
+              "titus:character:jesus_christ",
+              "hebrews:character:jesus",
+              "1-peter:character:jesus_christ",
+              "2-peter:character:jesus",
+              "1-john:character:jesus_christ",
+              "revelation:character:jesus_christ"
+            ],
+            "name": "Jesus Christ, the Son of God and Lord",
+            "note": "The one Jesus: the teacher from Nazareth of the Gospels and Acts, and the risen, exalted Christ and Lord of the epistles and Revelation; the same individual across all divisions, with death, resurrection and changed portrayal not creating new individuals.",
+            "stages": [
+              {
+                "id": "adult",
+                "label": "Adult Jesus",
+                "quotes": [
+                  {
+                    "quote": "Jesus himself, when he began to teach, was about thirty years old, being the son (as was supposed) of Joseph, the son of Heli,",
+                    "unit": "luke-3-23"
+                  }
+                ],
+                "text": "Jesus: man of about thirty, lean and strong from carpentry and walking; olive-brown skin; dark brown shoulder-length hair parted at centre; short dark beard; calm dark eyes; wears a plain undyed tunic of natural linen with a dark blue-grey cloak and sandals; carries no props except a shepherd's staff when a scene calls for one."
+              },
+              {
+                "id": "infant",
+                "label": "Infant Jesus",
+                "quotes": [
+                  {
+                    "quote": "She gave birth to her firstborn son. She wrapped him in bands of cloth and laid him in a feeding trough, because there was no room for them in the inn.",
+                    "unit": "luke-2-7"
+                  }
+                ],
+                "text": "Jesus: newborn to about two years old; olive-brown skin, a little dark hair and dark eyes; a small infant or toddler's build, no beard. Plain undyed swaddling linen for the newborn; a small plain linen tunic as a toddler. No adult clothing or props."
+              },
+              {
+                "id": "child",
+                "label": "Boy Jesus",
+                "quotes": [
+                  {
+                    "quote": "When he was twelve years old, they went up to Jerusalem according to the custom of the feast;",
+                    "unit": "luke-2-42"
+                  }
+                ],
+                "text": "Jesus: boy of about twelve, slim and sturdy; olive-brown skin; dark brown hair cut short at the neck; dark eyes; no beard; wears a plain undyed tunic of natural linen with a dark blue-grey cloak; no props."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "the_seven_churches_of_asia",
+          "stageId": "seven_churches_of_asia",
+          "canon": {
+            "aliases": [
+              "Ephesus",
+              "Smyrna",
+              "Pergamum",
+              "Thyatira",
+              "Sardis",
+              "Philadelphia",
+              "Laodicea"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "revelation:location:seven_churches"
+            ],
+            "name": "the seven churches of Asia",
+            "note": "A collective place name for the seven assemblies in Asia addressed in Revelation 2 and 3, of which Ephesus is one; distinct from the single city of Ephesus.",
+            "stages": [
+              {
+                "id": "seven_churches_of_asia",
+                "label": "The seven churches of Asia",
+                "quotes": [
+                  {
+                    "quote": "send to the seven assemblies: to Ephesus, Smyrna, Pergamum, Thyatira, Sardis, Philadelphia, and to Laodicea.",
+                    "unit": "revelation-1-11"
+                  }
+                ],
+                "text": "The seven churches of Asia: a scatter of coastal and inland cities across western Anatolia, joined by old Roman roads. Whitewashed stone houses, marble colonnades, and tiled roofs rise on terraced hills above river valleys. Olive groves, vines and cypresses grow along the slopes, and distant mountains rise blue and rocky beyond."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [],
+      "fields": {
+        "primarySubject": "A single overcomer, rendered as a luminous pillar-like figure standing in the temple, bearing no visible writing, with radiance gathering at the brow.",
+        "action": "Standing fixed and immovable in the temple, the overcomer receives divine light and is marked with the names of God and the city, no longer going out.",
+        "setting": "A visionary heavenly temple court with tall pillars of white stone, open to the descending city of jasper and crystal walls.",
+        "secondaryElements": "Other pillars of the temple in the background, jewel-toned city walls of the new Jerusalem descending from heaven, golden radiance flowing from an unseen source.",
+        "mood": "Reverent, steady and hopeful, with a sense of permanence and belonging.",
+        "timeOfDay": "Timeless heavenly day with no night or dusk.",
+        "composition": "Medium-wide view from low before the pillar, the temple receding behind it and the city descending above the horizon, the figure centered and upright."
+      },
+      "look": {
+        "place": "Visionary heavenly temple and open court before the jeweled new Jerusalem descending out of heaven",
+        "timeOfDay": "Timeless heavenly day, no night or dusk",
+        "weather": "Clear radiant sky with luminous cloud, no storm",
+        "light": "Golden radiance from unseen divine source, jasper and crystal glow, no sun or lamp",
+        "clothing": "White robes of the redeemed, pillars and temple stone, jewel-toned city walls, garments of linen and gold trim"
+      }
+    },
+    {
+      "id": "p005",
+      "source": {
+        "moment": {
+          "id": "judges-5-12",
+          "reference": "Judges 5:12",
+          "text": "‘Awake, awake, Deborah! Awake, awake, utter a song! Arise, Barak, and lead away your captives, you son of Abinoam.’"
+        },
+        "previous": {
+          "text": "Far from the noise of archers, in the places of drawing water, there they will rehearse Yahweh’s righteous acts, the righteous acts of his rule in Israel. “Then Yahweh’s people went down to the gates."
+        },
+        "next": {
+          "text": "“Then a remnant of the nobles and the people came down. Yahweh came down for me against the mighty."
+        }
+      },
+      "section": {
+        "title": "Song of Deborah and Barak",
+        "firstUnit": "judges-5-1",
+        "lastUnit": "judges-5-31"
+      },
+      "cast": [
+        {
+          "entryId": "deborah",
+          "named": true,
+          "stageId": "deborah",
+          "canon": {
+            "aliases": [
+              "prophetess",
+              "wife of Lappidoth",
+              "a mother in Israel"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "judges:character:deborah"
+            ],
+            "name": "Deborah",
+            "note": "Prophetess and judge of Israel under her palm tree, wife of Lappidoth, who sends for Barak and sings the song of chapter 5; distinct from the other prophetesses in this group.",
+            "stages": [
+              {
+                "id": "deborah",
+                "label": "Deborah, prophetess and judge",
+                "quotes": [
+                  {
+                    "quote": "Now Deborah, a prophetess, the wife of Lappidoth, judged Israel at that time.",
+                    "unit": "judges-4-4"
+                  },
+                  {
+                    "quote": "She lived under Deborah’s palm tree between Ramah and Bethel in the hill country of Ephraim",
+                    "unit": "judges-4-5"
+                  },
+                  {
+                    "quote": "Until I arose a mother in Israel.",
+                    "unit": "judges-5-7"
+                  }
+                ],
+                "text": "Deborah: woman of mature years, perhaps fifties, upright and steady; medium build; warm brown skin of the hill country; dark hair worn covered beneath a linen headcloth edged in blue; calm, dignified face with deep-set dark eyes and a firm mouth. Signature outfit: a long undyed linen tunic under a deep ochre woven cloak with a blue border. Signature prop: a slender palm-wood staff of judgment carried alone."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "barak",
+          "named": true,
+          "stageId": "barak-main",
+          "canon": {
+            "aliases": [
+              "son of Abinoam"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "judges:character:barak"
+            ],
+            "name": "Barak",
+            "note": "Naphtali commander who fights Sisera at Mount Tabor.",
+            "stages": [
+              {
+                "id": "barak-main",
+                "label": "Barak",
+                "quotes": [
+                  {
+                    "quote": "She sent and called Barak the son of Abinoam out of Kedesh Naphtali",
+                    "unit": "judges-4-6"
+                  },
+                  {
+                    "quote": "Barak called Zebulun and Naphtali together to Kedesh.",
+                    "unit": "judges-4-10"
+                  }
+                ],
+                "text": "Barak: man in his prime, roughly thirty to forty years old; sturdy, broad-shouldered, weathered build from war and hill country; olive-brown skin; dark hair worn to the shoulder and a short, close-trimmed dark beard; steady, resolute face with a strong brow. Signature outfit: a woven undyed wool tunic with a long dark-red wool cloak fastened at the shoulder. Carries no props alone."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "jael",
+          "named": true,
+          "stageId": "jael-main",
+          "canon": {
+            "aliases": [
+              "wife of Heber the Kenite"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "judges:character:jael"
+            ],
+            "name": "Jael",
+            "note": "Wife of Heber the Kenite who kills Sisera with a tent peg in her tent; the only Jael in these divisions.",
+            "stages": [
+              {
+                "id": "jael-main",
+                "label": "Jael",
+                "quotes": [
+                  {
+                    "quote": "the tent of Jael the wife of Heber the Kenite",
+                    "unit": "judges-4-17"
+                  },
+                  {
+                    "quote": "Jael, Heber’s wife, took a tent peg, and took a hammer in her hand",
+                    "unit": "judges-4-21"
+                  },
+                  {
+                    "quote": "Jael shall be blessed above women, the wife of Heber the Kenite",
+                    "unit": "judges-5-24"
+                  }
+                ],
+                "text": "Jael: a woman of about thirty-five to forty, sturdy and steady in build, with warm olive-brown skin weathered by desert sun. Dark hair is bound up and covered by a plain linen head cloth. Her face is calm, strong and grave. Her signature outfit, worn most often, is a long undyed woven wool tunic in deep indigo with a rust-red woven cloak. She carries a heavy iron tent peg and a hammer as her own tools."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "sisera_s_mother",
+          "named": true,
+          "stageId": "sisera_s_mother",
+          "canon": {
+            "aliases": [
+              "the mother looking through the lattice",
+              "her wise ladies"
+            ],
+            "entryKind": "character",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "judges:character:sisera_mother"
+            ],
+            "name": "Sisera's mother",
+            "note": "Mother of Sisera who waits for his return in the song of chapter 5; distinct from Sisera himself.",
+            "stages": [
+              {
+                "id": "sisera_s_mother",
+                "label": "Sisera's mother",
+                "quotes": [
+                  {
+                    "quote": "Her wise ladies answered her, Yes, she returned answer to herself,",
+                    "unit": "judges-5-29"
+                  }
+                ],
+                "text": "Sisera's mother: a woman of middle to later years, slender and upright, with warm olive-brown skin and fine lines at her eyes. Her dark hair is bound under a woven linen headcloth, and a few grey strands show at the temples. Her face is grave and composed. Her signature outfit is a long undyed linen tunic under a deep indigo wool cloak with a woven band at the hem. She carries a small carved wooden lattice-frame window screen beside her, and a fine linen veil hangs from her shoulders."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "river_kishon",
+          "stageId": "river_kishon",
+          "canon": {
+            "aliases": [],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "judges:location:kishon"
+            ],
+            "name": "river Kishon",
+            "note": "Riverside battlefield where Sisera's chariots are swept away.",
+            "stages": [
+              {
+                "id": "river_kishon",
+                "label": "River Kishon",
+                "quotes": [
+                  {
+                    "quote": "to the river Kishon, Sisera, the captain of Jabin’s army, with his chariots and his multitude",
+                    "unit": "judges-4-7"
+                  },
+                  {
+                    "quote": "The river Kishon swept them away, that ancient river, the river Kishon.",
+                    "unit": "judges-5-21"
+                  }
+                ],
+                "text": "River Kishon: a broad, ancient, slow-moving river across the fertile plain of Jezreel, its banks lined with reeds, tamarisk and oleander, with low clay banks, muddy fords and soft silt that can swallow wheels. Low rounded hills rise in the distance, and the walled Canaanite towns of the plain stand on the heights beyond the water."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "mount_tabor",
+          "stageId": "mount_tabor",
+          "canon": {
+            "aliases": [],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "judges:location:mount_tabor"
+            ],
+            "name": "Mount Tabor",
+            "note": "Where Barak musters his men against Sisera in Judges.",
+            "stages": [
+              {
+                "id": "mount_tabor",
+                "label": "Mount Tabor",
+                "quotes": [
+                  {
+                    "quote": "Go and lead the way to Mount Tabor, and take with you ten thousand men",
+                    "unit": "judges-4-6"
+                  },
+                  {
+                    "quote": "So Barak went down from Mount Tabor, and ten thousand men after him.",
+                    "unit": "judges-4-14"
+                  }
+                ],
+                "text": "Mount Tabor: a solitary, dome-shaped mountain rising abruptly from the broad plain of Jezreel in northern Israel; its slopes are rounded and grassed with terebinth and oak scattered among limestone outcrops; the summit is a flat, rocky crown; no buildings are visible on its open ridges, only low stone walls and ancient terraces; earth in ochre and olive tones."
+              }
+            ]
+          }
+        },
+        {
+          "entryId": "canaan",
+          "stageId": "canaan-main",
+          "canon": {
+            "aliases": [
+              "the land of Canaan",
+              "the land I give you",
+              "the promised land",
+              "The land of promise",
+              "the good land",
+              "the land of the Canaanites",
+              "the hill country of the Amorites",
+              "the land",
+              "the land of promise",
+              "the promised rest"
+            ],
+            "entryKind": "location",
+            "hasForm": true,
+            "kind": "entry",
+            "members": [
+              "genesis:location:canaan",
+              "leviticus:location:canaan",
+              "numbers:location:canaan",
+              "deuteronomy:location:canaan_land",
+              "judges:location:canaan",
+              "hebrews:location:canaan"
+            ],
+            "name": "Canaan",
+            "note": "The promised land of Israel as a whole, the land Yahweh gives to Abram's descendants, referred to in Genesis, Leviticus, Numbers, Deuteronomy, Judges and Hebrews alike; all six entries describe this same land.",
+            "stages": [
+              {
+                "id": "canaan-main",
+                "label": "Canaan, the promised land",
+                "quotes": [
+                  {
+                    "quote": "Surely it flows with milk and honey, and this is its fruit.",
+                    "unit": "numbers-13-27"
+                  },
+                  {
+                    "quote": "Behold, Yahweh your God has set the land before you.",
+                    "unit": "deuteronomy-1-21"
+                  },
+                  {
+                    "quote": "to the Western Sea",
+                    "unit": "deuteronomy-34-2"
+                  },
+                  {
+                    "quote": "the land where you are traveling, all the land of Canaan, for an everlasting possession",
+                    "unit": "genesis-17-8"
+                  },
+                  {
+                    "quote": "seven nations greater and mightier than you",
+                    "unit": "deuteronomy-7-1"
+                  }
+                ],
+                "text": "Canaan: a fertile hill country between the Jordan river and the Western Sea, with terraced slopes, olive groves, vineyards heavy with grapes, wheat fields in the valleys, and wells beside walled mud-brick and stone towns on the hilltops. Scattered oaks and terebinths mark old sacred places, and herders' pastures roll toward the distant coast."
+              }
+            ]
+          }
+        }
+      ],
+      "selected": [
+        {
+          "entryId": "deborah",
+          "stageId": "deborah"
+        },
+        {
+          "entryId": "barak",
+          "stageId": "barak-main"
+        }
+      ],
+      "fields": {
+        "primarySubject": "Deborah, a prophetess, standing upright and calling out to begin a song.",
+        "action": "She lifts her voice and raises her arms to awaken herself to sing, as the moment of summons begins.",
+        "setting": "An open highland place with stony ground and distant hills under a wide sky, in the wilderness-and-settlement landscape of ancient Israel.",
+        "secondaryElements": "Barak stands a short distance away, turned toward Deborah, with captives in the background being held by unnamed attendants in woven tunics and cloaks, not yet moving.",
+        "mood": "Solemn, expectant and reverent, with a tone of grief turning toward hope.",
+        "timeOfDay": "Morning light, clear and warm, falling across the open ground.",
+        "composition": "Medium-wide shot from slightly below, Deborah centered and raised, Barak off to one side in profile, the captives small and softly placed in the middle distance."
+      },
+      "look": {
+        "place": "Canaanite hill country near Mount Tabor, the Kishon river plain, and a Canaanite tent encampment",
+        "timeOfDay": "Day, with dawn-to-evening span; tension rises through the afternoon",
+        "weather": "Clear skies, dry heat, a brief storm sweeping the plain during the battle",
+        "light": "Warm, low-angled sunlight over the plain; storm-darkened sky over the Kishon river",
+        "clothing": "Woven wool tunics and cloaks, leather sandals, desert head coverings, Canaanite chariot-warrior gear"
+      }
+    }
+  ]
+}

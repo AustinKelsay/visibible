@@ -1,0 +1,1341 @@
+{
+  "masking": "Style and control labels omitted; style is visible in the image. Two independent model scorers, operator adjudication; not human acceptance.",
+  "packet": [
+    {
+      "id": "img01",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img01.jpg",
+      "sha256": "be187bc50d4e0917564b9f18786c4cfb2496b47d5a5d7e6b90206232d99f9593",
+      "verse": "daniel-7-9",
+      "selected": [
+        "the_ancient_of_days"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Radiance and fire above a fiery throne with burning wheels; the throne is set in a vast cloud-hall, no formed figure seated.",
+        "action": "Thrones are placed in the cloud-hall; the throne of fiery flames burns steadily with its wheels of fire, and light radiates outward from its center.",
+        "setting": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "secondaryElements": "Unoccupied thrones arranged around the central fiery throne; flames and burning wheels at its base; cloud banks lit from within.",
+        "mood": "Awe, solemn stillness and sacred majesty, with quiet reverence rather than spectacle.",
+        "timeOfDay": "Night vision, unchanging.",
+        "composition": "Wide view of the cloud-hall with the central fiery throne at the center; radiance rising above it and framing the scene.",
+        "present": [
+          "the_ancient_of_days"
+        ]
+      },
+      "conditions": {
+        "place": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "timeOfDay": "Night vision, unchanging across the section.",
+        "weather": "Clouds gathered in great banks, lit from within, with no rain or wind visible.",
+        "light": "Fire and radiance pour from the central throne-area in a sustained glow, with cloud lit from within.",
+        "clothing": "No formed attendants are shown in this moment; the central presence is radiance and fire only."
+      }
+    },
+    {
+      "id": "img02",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img02.jpg",
+      "sha256": "574b5ee561c2faad1532ed6387b5d542e5fd34a071f3d6388bde6c940df4b526",
+      "verse": "exodus-14-22",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "god_yahweh_the_father_and_god_of_israel",
+        "red_sea"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_egyptians",
+          "name": "the Egyptians",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "red_sea",
+          "name": "Red Sea",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The Israelite people walking in a long line across the dry sea-floor, bundles on their backs, toward the far shore.",
+        "action": "Families step forward through the middle of the sea; a child is carried, an elder leans on a staff; the walls of water hold steady on either side.",
+        "setting": "Dry sea-floor of the Red Sea between two standing walls of water, under a wide desert sky with distant shorelines on each side.",
+        "secondaryElements": "Radiance veiled by a dense, slowly moving cloud above the crossing, its fire-like glow at its heart, with only a faint suggestion of its edges; water walls glistening beside the path.",
+        "mood": "Awed, hushed and hopeful, with grief and weariness carried in the bundles and the slow steps.",
+        "timeOfDay": "Night, shifting toward the first grey light of dawn.",
+        "composition": "Wide view from low on the sea-floor, the water walls rising on both sides and the people's line receding toward the horizon, with the veiled radiance high above.",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "god_yahweh_the_father_and_god_of_israel",
+          "red_sea"
+        ]
+      },
+      "conditions": {
+        "place": "Dry sea-floor between two standing walls of water, under a wide desert sky with the Red Sea's shoreline distant on each side",
+        "timeOfDay": "Night, shifting toward the first grey light of dawn across the section",
+        "weather": "Still air, dense slowly moving cloud, a fire-like glow veiled above the crossing",
+        "light": "Brilliant white-gold radiance without visible source, veiled by cloud with a fire-like glow at its heart; moonlight and faint dawn light on the water walls",
+        "clothing": "Israelites in woven tunics and cloaks carrying bundles; Egyptians in linen with chariot gear; Moses in plain cloak"
+      }
+    },
+    {
+      "id": "img03",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img03.jpg",
+      "sha256": "f44053de9f1e85a724182bfe3a8552722de5e08abcff62eae63d2e8039d2af17",
+      "verse": "luke-10-34",
+      "selected": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "samaritans_mount_in_parable",
+        "inn_in_samaritan_parable",
+        "jerusalem_to_jericho_road"
+      ],
+      "availableCast": [
+        {
+          "entryId": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_samaritan",
+          "name": "the Samaritan",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan kneeling beside the wounded traveler",
+        "action": "Pouring oil and wine onto the traveler's wounds and binding them with cloth.",
+        "setting": "A rocky, dusty stretch of the Jerusalem–Jericho road in Judea, with a roadside inn of rough stone nearby.",
+        "secondaryElements": "The Samaritan's animal stands close by, its saddle cloth loosened; a flask of oil and wine rests in the dust; strips of linen lie ready beside the traveler.",
+        "mood": "Tender, urgent and quietly compassionate.",
+        "timeOfDay": "Late afternoon, with warm low golden sunlight deepening toward evening.",
+        "composition": "Medium-wide view from the roadside at the traveler's level, the Samaritan bent over him in the foreground and the animal and inn in the background.",
+        "present": [
+          "the_samaritan",
+          "wounded_traveler_in_samaritan_parable",
+          "samaritans_mount_in_parable",
+          "inn_in_samaritan_parable",
+          "jerusalem_to_jericho_road"
+        ]
+      },
+      "conditions": {
+        "place": "Rocky, dusty Jerusalem–Jericho road in Judea, with a roadside inn of rough stone nearby",
+        "timeOfDay": "Late afternoon, with a shift toward evening as the section progresses",
+        "weather": "Clear, dry, hot desert air with pale haze over the hills",
+        "light": "Warm low golden sunlight deepening to amber dusk, long soft shadows on stone and dust",
+        "clothing": "Travel tunics and cloaks in earth tones, priestly robes for the priest, a Samaritan traveler's sun-faded cloak, a worn linen bandage"
+      }
+    },
+    {
+      "id": "img04",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img04.jpg",
+      "sha256": "1eec55347ccd37af155c47b9a602ffe8ca581e5a7fdf3f8ad5d9ac6c78e74c6b",
+      "verse": "daniel-7-9",
+      "selected": [
+        "the_ancient_of_days"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Radiance and fire above a fiery throne with burning wheels; the throne is set in a vast cloud-hall, no formed figure seated.",
+        "action": "Thrones are placed in the cloud-hall; the throne of fiery flames burns steadily with its wheels of fire, and light radiates outward from its center.",
+        "setting": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "secondaryElements": "Unoccupied thrones arranged around the central fiery throne; flames and burning wheels at its base; cloud banks lit from within.",
+        "mood": "Awe, solemn stillness and sacred majesty, with quiet reverence rather than spectacle.",
+        "timeOfDay": "Night vision, unchanging.",
+        "composition": "Wide view of the cloud-hall with the central fiery throne at the center; radiance rising above it and framing the scene.",
+        "present": [
+          "the_ancient_of_days"
+        ]
+      },
+      "conditions": {
+        "place": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "timeOfDay": "Night vision, unchanging across the section.",
+        "weather": "Clouds gathered in great banks, lit from within, with no rain or wind visible.",
+        "light": "Fire and radiance pour from the central throne-area in a sustained glow, with cloud lit from within.",
+        "clothing": "No formed attendants are shown in this moment; the central presence is radiance and fire only."
+      }
+    },
+    {
+      "id": "img05",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img05.jpg",
+      "sha256": "9ca696fa424d952a3bb4fe254bbfb777aff0417ecf0038a6a674ca35ec82f2e8",
+      "verse": "numbers-3-39",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_levites",
+        "the_tabernacle_portable_sanctuary"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_levites",
+          "name": "The Levites",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses and Aaron standing together at the tabernacle entrance, Moses holding a tally with his hand raised as he counts",
+        "action": "Moses marks the count on a tally while Aaron stands beside him, and Levite men stand in ordered family groups before them",
+        "setting": "Open court before the tabernacle in the wilderness camp, tents arranged in order around it, bare desert ground underfoot",
+        "secondaryElements": "Levite families in woven tunics and cloaks standing in rows, a few children and infants held by their mothers at the edges, tent cloths moving in the breeze",
+        "mood": "Orderly, solemn and attentive, with quiet dignity in the counting",
+        "timeOfDay": "Early morning, soft dawn light",
+        "composition": "Medium-wide view from the front of the tabernacle, Moses and Aaron in the foreground framing the rows of Levite families receding into the camp",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_levites",
+          "the_tabernacle_portable_sanctuary"
+        ]
+      },
+      "conditions": {
+        "place": "Wilderness encampment of Israel with tents arranged around the tabernacle",
+        "timeOfDay": "Early morning, dawn light slowly brightening across the section",
+        "weather": "Clear dry desert air with a gentle breeze moving the tent cloths",
+        "light": "Soft dawn light across the camp",
+        "clothing": "Woven tunics and cloaks for the Levites; Moses in a plain undyed linen tunic belted with a long dark-brown wool cloak; Aaron in priestly linen garments at the tabernacle"
+      }
+    },
+    {
+      "id": "img06",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img06.jpg",
+      "sha256": "aea881ad545e544d4abaf7a8bd71dbecee2b537ec0c2dc265908683a2b70fe4b",
+      "verse": "daniel-7-9",
+      "selected": [
+        "the_ancient_of_days"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Radiance and fire above a fiery throne with burning wheels; the throne is set in a vast cloud-hall, no formed figure seated.",
+        "action": "Thrones are placed in the cloud-hall; the throne of fiery flames burns steadily with its wheels of fire, and light radiates outward from its center.",
+        "setting": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "secondaryElements": "Unoccupied thrones arranged around the central fiery throne; flames and burning wheels at its base; cloud banks lit from within.",
+        "mood": "Awe, solemn stillness and sacred majesty, with quiet reverence rather than spectacle.",
+        "timeOfDay": "Night vision, unchanging.",
+        "composition": "Wide view of the cloud-hall with the central fiery throne at the center; radiance rising above it and framing the scene.",
+        "present": [
+          "the_ancient_of_days"
+        ]
+      },
+      "conditions": {
+        "place": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "timeOfDay": "Night vision, unchanging across the section.",
+        "weather": "Clouds gathered in great banks, lit from within, with no rain or wind visible.",
+        "light": "Fire and radiance pour from the central throne-area in a sustained glow, with cloud lit from within.",
+        "clothing": "No formed attendants are shown in this moment; the central presence is radiance and fire only."
+      }
+    },
+    {
+      "id": "img07",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img07.jpg",
+      "sha256": "e56dd4335655410e5b8f37da573498daac1b780ac935a87b4715c86ac85af76d",
+      "verse": "daniel-7-9",
+      "selected": [
+        "the_ancient_of_days"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Radiance and fire above a fiery throne with burning wheels; the throne is set in a vast cloud-hall, no formed figure seated.",
+        "action": "Thrones are placed in the cloud-hall; the throne of fiery flames burns steadily with its wheels of fire, and light radiates outward from its center.",
+        "setting": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "secondaryElements": "Unoccupied thrones arranged around the central fiery throne; flames and burning wheels at its base; cloud banks lit from within.",
+        "mood": "Awe, solemn stillness and sacred majesty, with quiet reverence rather than spectacle.",
+        "timeOfDay": "Night vision, unchanging.",
+        "composition": "Wide view of the cloud-hall with the central fiery throne at the center; radiance rising above it and framing the scene.",
+        "present": [
+          "the_ancient_of_days"
+        ]
+      },
+      "conditions": {
+        "place": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "timeOfDay": "Night vision, unchanging across the section.",
+        "weather": "Clouds gathered in great banks, lit from within, with no rain or wind visible.",
+        "light": "Fire and radiance pour from the central throne-area in a sustained glow, with cloud lit from within.",
+        "clothing": "No formed attendants are shown in this moment; the central presence is radiance and fire only."
+      }
+    },
+    {
+      "id": "img08",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img08.jpg",
+      "sha256": "482c757ffae307850d93cd8d54028f01657788ba0a214161606920f23ac15b21",
+      "verse": "daniel-7-9",
+      "selected": [
+        "the_ancient_of_days"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Radiance and fire above a fiery throne with burning wheels; the throne is set in a vast cloud-hall, no formed figure seated.",
+        "action": "Thrones are placed in the cloud-hall; the throne of fiery flames burns steadily with its wheels of fire, and light radiates outward from its center.",
+        "setting": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "secondaryElements": "Unoccupied thrones arranged around the central fiery throne; flames and burning wheels at its base; cloud banks lit from within.",
+        "mood": "Awe, solemn stillness and sacred majesty, with quiet reverence rather than spectacle.",
+        "timeOfDay": "Night vision, unchanging.",
+        "composition": "Wide view of the cloud-hall with the central fiery throne at the center; radiance rising above it and framing the scene.",
+        "present": [
+          "the_ancient_of_days"
+        ]
+      },
+      "conditions": {
+        "place": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "timeOfDay": "Night vision, unchanging across the section.",
+        "weather": "Clouds gathered in great banks, lit from within, with no rain or wind visible.",
+        "light": "Fire and radiance pour from the central throne-area in a sustained glow, with cloud lit from within.",
+        "clothing": "No formed attendants are shown in this moment; the central presence is radiance and fire only."
+      }
+    },
+    {
+      "id": "img09",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img09.jpg",
+      "sha256": "12ed5280aa7e0b827189c58735bd971ccd66ea6ebfcb889668b3706cdda7cbaf",
+      "verse": "numbers-3-39",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_levites",
+        "the_tabernacle_portable_sanctuary"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_levites",
+          "name": "The Levites",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses and Aaron standing together at the tabernacle entrance, Moses holding a tally with his hand raised as he counts",
+        "action": "Moses marks the count on a tally while Aaron stands beside him, and Levite men stand in ordered family groups before them",
+        "setting": "Open court before the tabernacle in the wilderness camp, tents arranged in order around it, bare desert ground underfoot",
+        "secondaryElements": "Levite families in woven tunics and cloaks standing in rows, a few children and infants held by their mothers at the edges, tent cloths moving in the breeze",
+        "mood": "Orderly, solemn and attentive, with quiet dignity in the counting",
+        "timeOfDay": "Early morning, soft dawn light",
+        "composition": "Medium-wide view from the front of the tabernacle, Moses and Aaron in the foreground framing the rows of Levite families receding into the camp",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_levites",
+          "the_tabernacle_portable_sanctuary"
+        ]
+      },
+      "conditions": {
+        "place": "Wilderness encampment of Israel with tents arranged around the tabernacle",
+        "timeOfDay": "Early morning, dawn light slowly brightening across the section",
+        "weather": "Clear dry desert air with a gentle breeze moving the tent cloths",
+        "light": "Soft dawn light across the camp",
+        "clothing": "Woven tunics and cloaks for the Levites; Moses in a plain undyed linen tunic belted with a long dark-brown wool cloak; Aaron in priestly linen garments at the tabernacle"
+      }
+    },
+    {
+      "id": "img10",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img10.jpg",
+      "sha256": "1824448a8ddb7303529f6ebce087abbf7c9fde56eb8fd22119c6147bf4ace9d7",
+      "verse": "exodus-14-22",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "god_yahweh_the_father_and_god_of_israel",
+        "red_sea"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_egyptians",
+          "name": "the Egyptians",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "red_sea",
+          "name": "Red Sea",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The Israelite people walking in a long line across the dry sea-floor, bundles on their backs, toward the far shore.",
+        "action": "Families step forward through the middle of the sea; a child is carried, an elder leans on a staff; the walls of water hold steady on either side.",
+        "setting": "Dry sea-floor of the Red Sea between two standing walls of water, under a wide desert sky with distant shorelines on each side.",
+        "secondaryElements": "Radiance veiled by a dense, slowly moving cloud above the crossing, its fire-like glow at its heart, with only a faint suggestion of its edges; water walls glistening beside the path.",
+        "mood": "Awed, hushed and hopeful, with grief and weariness carried in the bundles and the slow steps.",
+        "timeOfDay": "Night, shifting toward the first grey light of dawn.",
+        "composition": "Wide view from low on the sea-floor, the water walls rising on both sides and the people's line receding toward the horizon, with the veiled radiance high above.",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "god_yahweh_the_father_and_god_of_israel",
+          "red_sea"
+        ]
+      },
+      "conditions": {
+        "place": "Dry sea-floor between two standing walls of water, under a wide desert sky with the Red Sea's shoreline distant on each side",
+        "timeOfDay": "Night, shifting toward the first grey light of dawn across the section",
+        "weather": "Still air, dense slowly moving cloud, a fire-like glow veiled above the crossing",
+        "light": "Brilliant white-gold radiance without visible source, veiled by cloud with a fire-like glow at its heart; moonlight and faint dawn light on the water walls",
+        "clothing": "Israelites in woven tunics and cloaks carrying bundles; Egyptians in linen with chariot gear; Moses in plain cloak"
+      }
+    },
+    {
+      "id": "img11",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img11.jpg",
+      "sha256": "a0f3e69122be89bb06a8bdcbf50b0be78717254595dc3edce974c819b69b5a04",
+      "verse": "numbers-3-39",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_levites",
+        "the_tabernacle_portable_sanctuary"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_levites",
+          "name": "The Levites",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses and Aaron standing together at the tabernacle entrance, Moses holding a tally with his hand raised as he counts",
+        "action": "Moses marks the count on a tally while Aaron stands beside him, and Levite men stand in ordered family groups before them",
+        "setting": "Open court before the tabernacle in the wilderness camp, tents arranged in order around it, bare desert ground underfoot",
+        "secondaryElements": "Levite families in woven tunics and cloaks standing in rows, a few children and infants held by their mothers at the edges, tent cloths moving in the breeze",
+        "mood": "Orderly, solemn and attentive, with quiet dignity in the counting",
+        "timeOfDay": "Early morning, soft dawn light",
+        "composition": "Medium-wide view from the front of the tabernacle, Moses and Aaron in the foreground framing the rows of Levite families receding into the camp",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_levites",
+          "the_tabernacle_portable_sanctuary"
+        ]
+      },
+      "conditions": {
+        "place": "Wilderness encampment of Israel with tents arranged around the tabernacle",
+        "timeOfDay": "Early morning, dawn light slowly brightening across the section",
+        "weather": "Clear dry desert air with a gentle breeze moving the tent cloths",
+        "light": "Soft dawn light across the camp",
+        "clothing": "Woven tunics and cloaks for the Levites; Moses in a plain undyed linen tunic belted with a long dark-brown wool cloak; Aaron in priestly linen garments at the tabernacle"
+      }
+    },
+    {
+      "id": "img12",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img12.jpg",
+      "sha256": "cac973dd3bc6c3d5891bba8fb1ac02a3f0d68daf4529cf2143290d27a45162a6",
+      "verse": "daniel-7-9",
+      "selected": [
+        "the_ancient_of_days"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Radiance and fire above a fiery throne with burning wheels; the throne is set in a vast cloud-hall, no formed figure seated.",
+        "action": "Thrones are placed in the cloud-hall; the throne of fiery flames burns steadily with its wheels of fire, and light radiates outward from its center.",
+        "setting": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "secondaryElements": "Unoccupied thrones arranged around the central fiery throne; flames and burning wheels at its base; cloud banks lit from within.",
+        "mood": "Awe, solemn stillness and sacred majesty, with quiet reverence rather than spectacle.",
+        "timeOfDay": "Night vision, unchanging.",
+        "composition": "Wide view of the cloud-hall with the central fiery throne at the center; radiance rising above it and framing the scene.",
+        "present": [
+          "the_ancient_of_days"
+        ]
+      },
+      "conditions": {
+        "place": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "timeOfDay": "Night vision, unchanging across the section.",
+        "weather": "Clouds gathered in great banks, lit from within, with no rain or wind visible.",
+        "light": "Fire and radiance pour from the central throne-area in a sustained glow, with cloud lit from within.",
+        "clothing": "No formed attendants are shown in this moment; the central presence is radiance and fire only."
+      }
+    },
+    {
+      "id": "img13",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img13.jpg",
+      "sha256": "2a0f2cb5fcaa24232684d8a6eb79520e2d358bb4b41517a80eb684a1d6d2ad3d",
+      "verse": "numbers-3-39",
+      "selected": [
+        "moses",
+        "aaron_brother_of_moses",
+        "the_levites",
+        "the_tabernacle_portable_sanctuary"
+      ],
+      "availableCast": [
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_levites",
+          "name": "The Levites",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses and Aaron standing together at the tabernacle entrance, Moses holding a tally with his hand raised as he counts",
+        "action": "Moses marks the count on a tally while Aaron stands beside him, and Levite men stand in ordered family groups before them",
+        "setting": "Open court before the tabernacle in the wilderness camp, tents arranged in order around it, bare desert ground underfoot",
+        "secondaryElements": "Levite families in woven tunics and cloaks standing in rows, a few children and infants held by their mothers at the edges, tent cloths moving in the breeze",
+        "mood": "Orderly, solemn and attentive, with quiet dignity in the counting",
+        "timeOfDay": "Early morning, soft dawn light",
+        "composition": "Medium-wide view from the front of the tabernacle, Moses and Aaron in the foreground framing the rows of Levite families receding into the camp",
+        "present": [
+          "moses",
+          "aaron_brother_of_moses",
+          "the_levites",
+          "the_tabernacle_portable_sanctuary"
+        ]
+      },
+      "conditions": {
+        "place": "Wilderness encampment of Israel with tents arranged around the tabernacle",
+        "timeOfDay": "Early morning, dawn light slowly brightening across the section",
+        "weather": "Clear dry desert air with a gentle breeze moving the tent cloths",
+        "light": "Soft dawn light across the camp",
+        "clothing": "Woven tunics and cloaks for the Levites; Moses in a plain undyed linen tunic belted with a long dark-brown wool cloak; Aaron in priestly linen garments at the tabernacle"
+      }
+    },
+    {
+      "id": "img14",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img14.jpg",
+      "sha256": "0b5715c0d345c7779d74b1ae7e52fcfa46398549c6b7cf02b01e52d4716cc6f6",
+      "verse": "daniel-7-9",
+      "selected": [
+        "the_ancient_of_days"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Radiance and fire above a fiery throne with burning wheels; the throne is set in a vast cloud-hall, no formed figure seated.",
+        "action": "Thrones are placed in the cloud-hall; the throne of fiery flames burns steadily with its wheels of fire, and light radiates outward from its center.",
+        "setting": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "secondaryElements": "Unoccupied thrones arranged around the central fiery throne; flames and burning wheels at its base; cloud banks lit from within.",
+        "mood": "Awe, solemn stillness and sacred majesty, with quiet reverence rather than spectacle.",
+        "timeOfDay": "Night vision, unchanging.",
+        "composition": "Wide view of the cloud-hall with the central fiery throne at the center; radiance rising above it and framing the scene.",
+        "present": [
+          "the_ancient_of_days"
+        ]
+      },
+      "conditions": {
+        "place": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "timeOfDay": "Night vision, unchanging across the section.",
+        "weather": "Clouds gathered in great banks, lit from within, with no rain or wind visible.",
+        "light": "Fire and radiance pour from the central throne-area in a sustained glow, with cloud lit from within.",
+        "clothing": "No formed attendants are shown in this moment; the central presence is radiance and fire only."
+      }
+    },
+    {
+      "id": "img15",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img15.jpg",
+      "sha256": "11efc03cc3a3c6ad39554d24c400ef27b37d9419389a9afacf8ce9451162c612",
+      "verse": "daniel-7-9",
+      "selected": [
+        "the_ancient_of_days"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Radiance and fire above a fiery throne with burning wheels; the throne is set in a vast cloud-hall, no formed figure seated.",
+        "action": "Thrones are placed in the cloud-hall; the throne of fiery flames burns steadily with its wheels of fire, and light radiates outward from its center.",
+        "setting": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "secondaryElements": "Unoccupied thrones arranged around the central fiery throne; flames and burning wheels at its base; cloud banks lit from within.",
+        "mood": "Awe, solemn stillness and sacred majesty, with quiet reverence rather than spectacle.",
+        "timeOfDay": "Night vision, unchanging.",
+        "composition": "Wide view of the cloud-hall with the central fiery throne at the center; radiance rising above it and framing the scene.",
+        "present": [
+          "the_ancient_of_days"
+        ]
+      },
+      "conditions": {
+        "place": "A vast night-dark vision-chamber open to the heavens, with a fiery river-like expanse and thrones set in a wide hall of cloud.",
+        "timeOfDay": "Night vision, unchanging across the section.",
+        "weather": "Clouds gathered in great banks, lit from within, with no rain or wind visible.",
+        "light": "Fire and radiance pour from the central throne-area in a sustained glow, with cloud lit from within.",
+        "clothing": "No formed attendants are shown in this moment; the central presence is radiance and fire only."
+      }
+    },
+    {
+      "id": "img16",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img16.jpg",
+      "sha256": "5399b5ab833cbf6ccbbdca654bc0dfc42d4e90d1ed11506d13051e0f703c675b",
+      "verse": "luke-10-34",
+      "selected": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "samaritans_mount_in_parable",
+        "inn_in_samaritan_parable",
+        "jerusalem_to_jericho_road"
+      ],
+      "availableCast": [
+        {
+          "entryId": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_samaritan",
+          "name": "the Samaritan",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan kneeling beside the wounded traveler",
+        "action": "Pouring oil and wine onto the traveler's wounds and binding them with cloth.",
+        "setting": "A rocky, dusty stretch of the Jerusalem–Jericho road in Judea, with a roadside inn of rough stone nearby.",
+        "secondaryElements": "The Samaritan's animal stands close by, its saddle cloth loosened; a flask of oil and wine rests in the dust; strips of linen lie ready beside the traveler.",
+        "mood": "Tender, urgent and quietly compassionate.",
+        "timeOfDay": "Late afternoon, with warm low golden sunlight deepening toward evening.",
+        "composition": "Medium-wide view from the roadside at the traveler's level, the Samaritan bent over him in the foreground and the animal and inn in the background.",
+        "present": [
+          "the_samaritan",
+          "wounded_traveler_in_samaritan_parable",
+          "samaritans_mount_in_parable",
+          "inn_in_samaritan_parable",
+          "jerusalem_to_jericho_road"
+        ]
+      },
+      "conditions": {
+        "place": "Rocky, dusty Jerusalem–Jericho road in Judea, with a roadside inn of rough stone nearby",
+        "timeOfDay": "Late afternoon, with a shift toward evening as the section progresses",
+        "weather": "Clear, dry, hot desert air with pale haze over the hills",
+        "light": "Warm low golden sunlight deepening to amber dusk, long soft shadows on stone and dust",
+        "clothing": "Travel tunics and cloaks in earth tones, priestly robes for the priest, a Samaritan traveler's sun-faded cloak, a worn linen bandage"
+      }
+    },
+    {
+      "id": "img17",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img17.jpg",
+      "sha256": "08a06578545687f67d6dc6967ea67d583e360f3ca96cdf57b54088f8b603d36a",
+      "verse": "luke-10-34",
+      "selected": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "samaritans_mount_in_parable",
+        "inn_in_samaritan_parable",
+        "jerusalem_to_jericho_road"
+      ],
+      "availableCast": [
+        {
+          "entryId": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_samaritan",
+          "name": "the Samaritan",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan kneeling beside the wounded traveler",
+        "action": "Pouring oil and wine onto the traveler's wounds and binding them with cloth.",
+        "setting": "A rocky, dusty stretch of the Jerusalem–Jericho road in Judea, with a roadside inn of rough stone nearby.",
+        "secondaryElements": "The Samaritan's animal stands close by, its saddle cloth loosened; a flask of oil and wine rests in the dust; strips of linen lie ready beside the traveler.",
+        "mood": "Tender, urgent and quietly compassionate.",
+        "timeOfDay": "Late afternoon, with warm low golden sunlight deepening toward evening.",
+        "composition": "Medium-wide view from the roadside at the traveler's level, the Samaritan bent over him in the foreground and the animal and inn in the background.",
+        "present": [
+          "the_samaritan",
+          "wounded_traveler_in_samaritan_parable",
+          "samaritans_mount_in_parable",
+          "inn_in_samaritan_parable",
+          "jerusalem_to_jericho_road"
+        ]
+      },
+      "conditions": {
+        "place": "Rocky, dusty Jerusalem–Jericho road in Judea, with a roadside inn of rough stone nearby",
+        "timeOfDay": "Late afternoon, with a shift toward evening as the section progresses",
+        "weather": "Clear, dry, hot desert air with pale haze over the hills",
+        "light": "Warm low golden sunlight deepening to amber dusk, long soft shadows on stone and dust",
+        "clothing": "Travel tunics and cloaks in earth tones, priestly robes for the priest, a Samaritan traveler's sun-faded cloak, a worn linen bandage"
+      }
+    },
+    {
+      "id": "img18",
+      "file": "evals/images/runs/2026-10-26-image-check/blind/img18.jpg",
+      "sha256": "e04fba07bbbb09d183f9e5ebd510292898803f086e20ae36f48afeb74cde1313",
+      "verse": "luke-10-34",
+      "selected": [
+        "the_samaritan",
+        "wounded_traveler_in_samaritan_parable",
+        "samaritans_mount_in_parable",
+        "inn_in_samaritan_parable",
+        "jerusalem_to_jericho_road"
+      ],
+      "availableCast": [
+        {
+          "entryId": "lawyer_who_tests_jesus_luke_10",
+          "name": "Lawyer who tests Jesus (Luke 10)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jesus_christ_the_son_of_god_and_lord",
+          "name": "Jesus Christ, the Son of God and Lord",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "judea_gospel_region_around_jerusalem",
+          "name": "Judea (Gospel region around Jerusalem)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "wounded_traveler_in_samaritan_parable",
+          "name": "Wounded traveler in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "robbers_in_samaritan_parable",
+          "name": "Robbers in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "priest_in_samaritan_parable",
+          "name": "Priest in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "levite_in_samaritan_parable",
+          "name": "Levite in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "innkeeper_in_samaritan_parable",
+          "name": "Innkeeper in the Samaritan parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "samaritans_mount_in_parable",
+          "name": "Samaritan’s mount in the parable",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "jerusalem_to_jericho_road",
+          "name": "Jerusalem–Jericho road in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "inn_in_samaritan_parable",
+          "name": "Inn in the Samaritan parable",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_samaritan",
+          "name": "the Samaritan",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "The Samaritan kneeling beside the wounded traveler",
+        "action": "Pouring oil and wine onto the traveler's wounds and binding them with cloth.",
+        "setting": "A rocky, dusty stretch of the Jerusalem–Jericho road in Judea, with a roadside inn of rough stone nearby.",
+        "secondaryElements": "The Samaritan's animal stands close by, its saddle cloth loosened; a flask of oil and wine rests in the dust; strips of linen lie ready beside the traveler.",
+        "mood": "Tender, urgent and quietly compassionate.",
+        "timeOfDay": "Late afternoon, with warm low golden sunlight deepening toward evening.",
+        "composition": "Medium-wide view from the roadside at the traveler's level, the Samaritan bent over him in the foreground and the animal and inn in the background.",
+        "present": [
+          "the_samaritan",
+          "wounded_traveler_in_samaritan_parable",
+          "samaritans_mount_in_parable",
+          "inn_in_samaritan_parable",
+          "jerusalem_to_jericho_road"
+        ]
+      },
+      "conditions": {
+        "place": "Rocky, dusty Jerusalem–Jericho road in Judea, with a roadside inn of rough stone nearby",
+        "timeOfDay": "Late afternoon, with a shift toward evening as the section progresses",
+        "weather": "Clear, dry, hot desert air with pale haze over the hills",
+        "light": "Warm low golden sunlight deepening to amber dusk, long soft shadows on stone and dust",
+        "clothing": "Travel tunics and cloaks in earth tones, priestly robes for the priest, a Samaritan traveler's sun-faded cloak, a worn linen bandage"
+      }
+    }
+  ]
+}
