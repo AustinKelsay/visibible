@@ -166,6 +166,10 @@ describe("rendering packet", () => {
     expect(formed.prompt).not.toContain("PRESENCE SHOWN ONLY AS EFFECTS");
     expect(formed.prompt).toContain('A Scandal in Bohemia, Part 1 ¶1: "To Sherlock Holmes she is always the woman."');
     expect(formed.prompt).toContain("- After: I had seen little of Holmes lately.");
+    // A stored payload passed whole keeps its non-text keys untouched (regression: the v10 harness passed `present`).
+    const withPresent = buildRenderingPacket(base("classical", { canon, plan: { ...base("classical").plan, present: ["the_voice"] } as never }));
+    if (!withPresent.ok) throw new Error(withPresent.error);
+    expect(withPresent.prompt).not.toMatch(/the voice/i);
     // Whole words only: a name inside a longer word is left alone.
     const boundary = buildRenderingPacket(base("classical", { canon, plan: { ...base("classical").plan, mood: "The voiceless crowd waits; the Voice speaks" } }));
     if (!boundary.ok) throw new Error(boundary.error);

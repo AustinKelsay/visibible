@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-26T19:16:29.381Z",
+  "commit": "82f6203b0b42b96b49beee0dde2cc496d5d4b2e2",
+  "grant": {
+    "authorizedAt": "2026-10-26T19:16:23Z",
+    "authorization": "Owner replied 'yes continue' to: 'Should I make these three fixes and re-run both tests within the $1.86 that's left?' This grant caps this text run at $0.15 within the existing $21.50 evaluation allowance, with no increase.",
+    "increaseUsd": 0,
+    "authorizedUsd": 21.5,
+    "operationCapUsd": 0.15,
+    "scope": "One execution of the frozen 30-case v10 fresh measurement in this directory. No paid restart, tuning, images, production writes, deployment or public activation.",
+    "proposalCommit": "f013250b7b59901a018bf8883f49002d64d12318"
+  }
+}
