@@ -1,0 +1,71 @@
+{
+  "issue": 183,
+  "status": "Frozen separate proposal; the previous stopped attempt cannot resume. Another explicit one-shot authorization is required even though no allowance increase is proposed.",
+  "purpose": "Compare actual combined review v6 with exact-citation v7. Both use identical semantic prompts, schemas, source-first v9 planning and unchanged look generation. Memory-only text preparations; no images or production writer.",
+  "baselineCommit": "599fcca70c1ff49536ab3dc2b4088dcf2dfbd7ee",
+  "pipeline": {
+    "momentCast": "2026-10-23-moment-cast-v9",
+    "formlessPlan": "2026-10-23-formless-effects-v9",
+    "baselineReview": "2026-10-24-rendering-review-v6",
+    "candidateReview": "2026-10-25-rendering-review-v7",
+    "rendering": "2026-10-24-generic-v7"
+  },
+  "sampling": {
+    "seed": 2026102404,
+    "orderSeed": 2026102405,
+    "fresh": 23,
+    "retained": [
+      1,
+      27,
+      34,
+      35,
+      59,
+      67,
+      74
+    ],
+    "exclude": [
+      "../2026-10-23-cast-policy-check/sample-set.json",
+      "../2026-10-23-source-first-check/sample-set.json"
+    ],
+    "method": "Retain the exact seven hard and 23 previously drawn fresh fixtures; no cold preparation executed in the stopped attempt. No new draw, filtering, replacement or production query. The 23 remain outside the earlier 123. Reuse pair/order/masking seeds for traceability. Record source/canon bytes by hash and preserve all first outcomes in this distinct one-shot run.",
+    "maskSeed": 2026102406,
+    "excludedCount": 123,
+    "fixtures": "../2026-10-24-rendering-review-check/sample-set.json"
+  },
+  "method": "Both arms use the same semantic prompts, schemas, model/provider/defaults and v9 planning, but actual v6/v7 citation acceptance. Each complete preparation starts from an identical source/canon snapshot and separate cold memory store; look randomness is independent. Fixed alternating arm order and one draw per arm/case. No tuning, substitutions or paid restart. Unavailable review after its two bounded attempts ends that operation as unavailable/refused; subsequent fixed operations continue only while provider usage is known and the global cap/guards permit. The preparation never stores an unchecked plan.",
+  "scoring": {
+    "packet": "After execution, seed-shuffle stored complete packets into opaque labels, omit arm/review/outcome/version/grounding. Include exact source, section bounds/title, same-section neighbors, full available assigned canon, selected IDs, five-field look and seven fields. Commit complete scores before unblinding. Single operator and familiar retained cases limit masking; no independent-adjudication claim.",
+    "labels": [
+      "acceptable",
+      "flawed",
+      "uncertain"
+    ],
+    "criteria": "Source-supported instant and cast identities; every depicted available character/group/location/object/no-form presence selected; no framing or separate-event cast, invented recurring identities, embodied no-form subject, pose/prop contradiction, collage, fixed-canon or art-style leakage. Generic roles, crowds, props and scenery are allowed when source-compatible. An uncertain stored scene counts against acceptance. Quote each defect and source/canon rationale; preserve sensitivity to every disputed score.",
+    "analysis": "Report stored acceptable, flawed, uncertain and refused per arm, separately for 23 fresh and seven retained cases. Include paired 2x2 acceptable tables, exact two-sided McNemar/binomial discordance p-values, 95% Wilson intervals for each acceptable rate and discordant counts; this small diagnostic cannot establish population reliability. No refusal counts as repair. Report missing pairs as incomplete, without dropping them.",
+    "gate": "All 92 operations complete without global stop, blocked ledger or uncertain usage. All 16 candidate controls pass, zero clean false alarms. Candidate has zero flawed/uncertain stores or look contradictions, at least 22/23 acceptable fresh and 7/7 retained, no fewer acceptable overall or retained than baseline, and no more total refusals. Ties are permitted: identical semantic prompts make strict superiority inappropriate for this technical citation change. This comparative condition replaces the previous strict-more condition before this run, not after pipeline outcomes; absolute gates are unchanged. Any unavailable candidate review fails its control or counts as pipeline refusal. A pass supports further validation only; activation remains held."
+  },
+  "evaluation": {
+    "authorizedBeforeUsd": 17.5,
+    "measuredBeforeUsd": 17.0567259,
+    "uncertaintyBeforeUsd": 0.045,
+    "remainingBeforeUsd": 0.3982741,
+    "proposedIncreaseUsd": 0,
+    "proposedAuthorizedUsd": 17.5,
+    "proposedOperationCapUsd": 0.3,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 664
+  },
+  "executionRequirements": "Owner must explicitly authorize this distinct one-shot operation first; no allowance increase is proposed and prior funding files do not apply. Commit grant/code/protocol/fixtures/pricing/dry-run hashes before calls; refresh prices/balance and refuse drift. Reserve each HTTP request, retain per-call usage and enforce one-shot markers/call cap. Provider error, missing/uncertain usage, request/source drift, cap/headroom or interruption is a global stop. Semantic refusals and bounded unavailable reviews remain failed operations and do not stop unrelated cases. No automatic resume/restart or transfers from preparation/smoke.",
+  "releaseHold": true,
+  "publicActivation": false,
+  "humanAccepted": false,
+  "candidateCommit": "dbcdab6cfac8ad4ffd5aee4b789f54c7c7cdc2a7",
+  "controls": {
+    "cases": 16,
+    "operations": 32,
+    "negative": 9,
+    "positive": 7,
+    "gate": "All 16 candidate controls must pass; negatives need required kind/ID and a citation supported by their intended field, including exact v7 JSON citation forms. Positive controls require zero problems. Extra negative reports require source-based disposition. Baseline controls are descriptive. An unavailable review is a failed operation, never a pass, and does not by itself abort other fixed cases."
+  },
+  "knownLimitation": "Shared-look generation is unchanged and can dominate refusals. v7 is only an offline citation fix; no semantic/pipeline improvement is measured. Independent draws and one familiar operator prevent isolated causal or independent-adjudication claims. The preceding attempt stays 3/92 incomplete, never merged into these results."
+}
