@@ -120,8 +120,9 @@ describe("no-form presence selection", () => {
     const request = calls.find((r) => r.schemaName === "scene_plan")!;
     expect(responseSchema(request.schema)).toEqual({
       type: "object", additionalProperties: false,
-      required: ["grounding", "selectedCast", "consideredCast", ...Object.keys(fields), "missingCast"],
+      required: ["grounding", "selectedCast", "consideredCast", ...Object.keys(fields), "situation", "missingCast"],
       properties: {
+        situation: expect.objectContaining({ type: "object", additionalProperties: false }),
         grounding: expect.objectContaining({ type: "object", additionalProperties: false, required: ["focusQuote", "instant", "singleInstant"] }),
         selectedCast: { type: "array", description: expect.any(String), items: expect.objectContaining({ type: "object", additionalProperties: false,
           required: ["entryId", "momentQuote", "contextSource", "contextQuote"], properties: expect.objectContaining({ entryId: { type: "string", enum: entries.map((e) => e.recordId) } }) }) },
@@ -131,7 +132,7 @@ describe("no-form presence selection", () => {
         ...Object.fromEntries(Object.keys(fields).map((key) => [key, { type: "string", description: expect.stringContaining("At most 220 characters.") }])),
       },
     });
-    const reply = { missingCast: [], selectedCast: [], consideredCast: [], ...fields, grounding: { focusQuote: work.getUnit("court-1").text, instant: "One instant.", singleInstant: true } };
+    const reply = { situation: { place: "court", timeOfDay: "day", weather: "clear", light: "daylight", clothing: "robes" }, missingCast: [], selectedCast: [], consideredCast: [], ...fields, grounding: { focusQuote: work.getUnit("court-1").text, instant: "One instant.", singleInstant: true } };
     expect(request.schema.safeParse(reply).success).toBe(true);
     for (const key of Object.keys(fields)) {
       expect(request.schema.safeParse({ ...reply, [key]: "x".repeat(220) }).success).toBe(true);
@@ -223,7 +224,7 @@ describe("no-form presence selection", () => {
     const current = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
     if (!current) throw new Error("No prepared plan");
     const oldInputs = version === "missing" ? current.inputs.filter((i) => i.kind !== "prompt")
-      : current.inputs.map((i) => i.kind === "prompt" ? { ...i, version } : i);
+      : current.inputs.map((i) => i.kind === "prompt" && i.recordId !== "scene_plan_look_ownership" ? { ...i, version } : i);
     // Retain earlier failures, including selected presence with bodily wording or denials.
     const selected = version.endsWith("-v1") || version.endsWith("-v2") || version.endsWith("-v3") || version.endsWith("-v4");
     const oldPayload = { kind: "plan" as const, momentId: "court-1",
@@ -287,7 +288,7 @@ describe("no-form presence selection", () => {
     const first = await render();
     if (!first.ok) throw new Error(first.message);
     const plan = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
-    expect(plan?.inputs.filter((i) => i.kind === "prompt")).toEqual([{ kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION }, { kind: "prompt", recordId: "scene_plan_review", version: PLAN_REVIEW_PROMPT_VERSION }]);
+    expect(plan?.inputs.filter((i) => i.kind === "prompt")).toEqual([{ kind: "prompt", recordId: "scene_plan_look_ownership", version: "generated-guide-v1" }, { kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION }, { kind: "prompt", recordId: "scene_plan_review", version: PLAN_REVIEW_PROMPT_VERSION }]);
     const look = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: "court-1" });
     expect(look?.inputs.some((i) => i.kind === "prompt")).toBe(false);
     expect(calls[0].system).toBe(LOOK_SYSTEM);

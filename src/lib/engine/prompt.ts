@@ -1,17 +1,18 @@
 /**
  * The generic rendering packet (#173, spec #165 §3, §5, §6): one prompt per image built from the
  * engine rules, the work brief's prompt form for the moment's era, the selected canon, the
- * section look, the style-neutral scene plan, the art style's rendering and the captions of up
+ * resolved moment conditions, the style-neutral scene plan, the art style's rendering and the captions of up
  * to three reference images. Precedence, strongest first: engine rules, brief content and
- * depiction rules, canon identity, style rendering, moment plan, compatible section look. The prompt is capped at 8,000
+ * depiction rules, canon identity, style rendering, moment plan and resolved conditions. The prompt is capped at 8,000
  * characters; nothing required is ever trimmed, and an over-budget result is rejected before
  * any paid call. Legacy Bible wording lives only in image-prompts.ts and never reaches this path.
  */
+import { SITUATION_FIELDS, type Situation } from "./situation";
 import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
 
 /** Structure and wording of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. */
-export const GENERIC_PROMPT_VERSION = "2026-10-24-generic-v7";
+export const GENERIC_PROMPT_VERSION = "2026-10-26-generic-v8";
 export const GENERIC_PROMPT_MAX_CHARS = 8000;
 export const MAX_REFERENCE_IMAGES = 3;
 const MOMENT_TEXT_MAX_CHARS = 1200;
@@ -33,6 +34,8 @@ export type RenderingInput = {
   style: ArtStyle;
   styleVersion: string;
   look: { version: string; place: string; timeOfDay: string; weather: string; light: string; clothing: string };
+  /** Required for v8 rendering; optional in the type so historical frozen harnesses still compile. */
+  situation?: Situation;
   plan: { version: string; primarySubject: string; action: string; setting: string; secondaryElements: string; mood: string; timeOfDay: string; composition: string };
   /** The entries the plan marked present, with the stage the section assigns them. */
   canon: SelectedCanon[];
@@ -72,11 +75,11 @@ export const ENGINE_RULES = [
   "No distorted anatomy (extra limbs or fingers, malformed hands or feet, warped faces).",
   `${COMMON_CONTENT_FLOOR.prohibited.join(" and ").toLowerCase()} are never shown; ${COMMON_CONTENT_FLOOR.permitted.join(" and ").toLowerCase()} may be, treated seriously.`,
   "No likeness of any real actor, performer or public figure.",
-  "Depict the SELECTED CHARACTERS, including groups and no-form subjects, with their canon. Other people, crowds or animals appear only where the scene plan describes them, as unnamed incidental figures without fixed appearance. The shared look, source narrators and neighbors do not add figures; apply shared clothing only to selected characters.",
-  "No-form effects representing a subject, such as divine radiance, appear only when that subject is in SELECTED CHARACTERS and the scene plan describes its presence. Omit such effects from the shared look when that subject is unselected or absent from the plan, even if the look calls them light, weather or background. Ordinary sunlight, lamplight, embers and weather remain setting details.",
+  "Depict the SELECTED CHARACTERS, including groups and no-form subjects, with their canon. Other people, crowds or animals appear only where the scene plan describes them, as unnamed incidental figures without fixed appearance. Moment conditions, source narrators and neighbors do not add figures; apply situational clothing only to selected characters.",
+  "No-form effects representing a subject, such as divine radiance, appear only when that subject is in SELECTED CHARACTERS and the scene plan describes its presence. Omit such effects from moment conditions when that subject is unselected or absent from the plan, even if the conditions call them light, weather or background. Ordinary sunlight, lamplight, embers and weather remain setting details.",
 ];
-export const CONTENT_OWNERSHIP = "The source establishes the scene and participants. Selected canon fixes identity and appearance. The scene plan owns this moment's place, time, action and effect placement; the section look supplies compatible shared conditions. Neither the look nor canon adds participants or events.";
-export const PRECEDENCE_LINE = `If instructions conflict, follow them in this order: these rules, then the work brief, then canon identity, then the art style's rendering, then the scene plan, then the section look. ${CONTENT_OWNERSHIP}`;
+export const CONTENT_OWNERSHIP = "The source establishes the scene and participants. Selected canon fixes identity and appearance. The scene plan and resolved moment conditions own this moment's place, time, weather, light, situational clothing, action and effect placement. Original generated section looks are advisory provenance, not rendering instructions. Explicit owner look constraints stay binding verbatim. Neither conditions nor canon adds participants or events.";
+export const PRECEDENCE_LINE = `If instructions conflict, follow them in this order: these rules, then the work brief, then canon identity, then the art style's rendering, then the scene plan and resolved moment conditions. ${CONTENT_OWNERSHIP}`;
 
 function clip(text: string, max: number) {
   const flat = text.replace(/\s+/g, " ").trim();
@@ -127,7 +130,9 @@ export function selectReferences(canon: SelectedCanon[], available: AvailableRef
 }
 
 export function buildRenderingPacket(input: RenderingInput): RenderingResult {
-  const { brief, style, look, plan } = input;
+  const { brief, style, plan } = input;
+  const look = input.situation;
+  if (!look || SITUATION_FIELDS.some((field) => typeof look[field] !== "string")) return { ok: false, error: "Reviewed moment conditions are required for rendering.", finalChars: 0 };
   let references = selectReferences(input.canon, input.references ?? [], style.id);
   const names = input.canon.filter((c) => c.hasForm).map((c) => c.name);
   const formless = input.canon.filter((c) => !c.hasForm);
@@ -151,7 +156,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     : "";
   const styleMain = `ART STYLE: ${style.label}\nRendering: ${style.rendering}\nNegatives: ${style.negatives}`;
   const styleDetail = `Palette: ${style.palette}\nLighting: ${style.lighting}\nMaterials and texture: ${style.materials}\nComposition: ${style.composition}`;
-  const lookMain = `SECTION LOOK (shared conditions compatible with this moment's plan and selected canon):\nPlace: ${look.place}\nTime of day: ${look.timeOfDay}`;
+  const lookMain = `MOMENT CONDITIONS (resolved with the scene plan; binding content, shared by all styles):\nPlace: ${look.place}\nTime of day: ${look.timeOfDay}`;
   const lookDetail = `Weather: ${look.weather}\nLight: ${look.light}\nClothing: ${look.clothing}`;
   const prev = input.neighbors?.previous ? clip(input.neighbors.previous, NEIGHBOR_HINT_MAX_CHARS) : null;
   const next = input.neighbors?.next ? clip(input.neighbors.next, NEIGHBOR_HINT_MAX_CHARS) : null;
@@ -170,7 +175,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     selectedCharacters,
     formlessBlock,
     canonBlock,
-    flags.lookDetailIncluded ? `${lookMain}\n${lookDetail}` : lookMain,
+    `${lookMain}\n${lookDetail}`,
     planBlock,
     flags.styleDetailIncluded ? `${styleMain}\n${styleDetail}` : styleMain,
     referenceBlock(),
@@ -179,17 +184,18 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     `SCENE PRESENTATION:\n- Depict the moment directly, as if the viewer is present inside the scene.\n- Extend scenery, sky, darkness, architecture or atmosphere all the way to the edges.\nAspect ratio: ${input.aspectRatio} (${aspect} landscape).`,
   ].filter(Boolean).join("\n\n");
 
-  // Trim order from the spec: variation note, neighbour hints, style detail, look detail. Never anything else.
+  // Resolved conditions are reviewed content, not optional look detail. Never trim them or canon.
+  // Retain lookDetailIncluded in stored packet flags for compatibility; it is always true in v8.
   const flags: RenderingPacket["flags"] = { variationIncluded: Boolean(variationBlock), neighborsIncluded: Boolean(neighborBlock), styleDetailIncluded: true, lookDetailIncluded: true };
   let prompt = assemble(flags);
-  for (const flag of ["variationIncluded", "neighborsIncluded", "styleDetailIncluded", "lookDetailIncluded"] as const) {
+  for (const flag of ["variationIncluded", "neighborsIncluded", "styleDetailIncluded"] as const) {
     if (prompt.length <= GENERIC_PROMPT_MAX_CHARS) break;
     if (!flags[flag]) continue;
     flags[flag] = false;
     prompt = assemble(flags);
   }
   if (prompt.length > GENERIC_PROMPT_MAX_CHARS) {
-    return { ok: false, error: `Rendering prompt is ${prompt.length} characters after every allowed trim; the cap is ${GENERIC_PROMPT_MAX_CHARS}. Shorten the brief, canon or plan.`, finalChars: prompt.length };
+    return { ok: false, error: `Rendering prompt is ${prompt.length} characters after every allowed trim; the cap is ${GENERIC_PROMPT_MAX_CHARS}. Shorten the brief, canon, plan or resolved conditions.`, finalChars: prompt.length };
   }
   if (input.omitStyleReference) {
     // Select and trim the control first. Do not backfill a freed slot or restore trimmed details.
@@ -200,7 +206,7 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
     ok: true, prompt, references,
     packet: {
       promptVersion: GENERIC_PROMPT_VERSION, workId: input.work.id, momentId: input.moment.id, sectionId: input.moment.sectionId, eraId: input.eraId,
-      styleId: style.id, styleVersion: input.styleVersion, briefVersion: input.briefVersion, lookVersion: look.version, planVersion: plan.version,
+      styleId: style.id, styleVersion: input.styleVersion, briefVersion: input.briefVersion, lookVersion: input.look.version, planVersion: plan.version,
       canon: input.canon.map((c) => ({ entryId: c.entryId, stageId: c.stageId, version: c.version })),
       references: references.map((r) => ({ kind: r.kind, id: r.kind === "sheet" ? `${r.entryId}:${r.stageId}` : r.styleId, storageId: r.storageId, version: r.version, caption: r.caption })),
       flags: { ...flags, ...(input.omitStyleReference ? { omitStyleReference: true as const } : {}) }, budget: { maxChars: GENERIC_PROMPT_MAX_CHARS, finalChars: prompt.length },

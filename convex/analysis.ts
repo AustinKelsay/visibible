@@ -1,3 +1,4 @@
+import { lookPolicy } from "../src/lib/engine/situation";
 /**
  * Analysis storage and lifecycle (#168, spec #165 §7 and §9).
  *
@@ -520,6 +521,13 @@ export const putDerivedRecord = mutation({
     const own = problems.filter((p) => p.startsWith(`${args.kind} ${args.recordId}:`));
     if (own.length) throw new Error(own.join("; "));
     const existing = await findCurrentRecord(ctx, args.workId, work.activeGeneration, args.kind, args.recordId);
+    if (args.kind === "look" && existing?.source === "owner") throw new Error("Owner look requires explicit correction");
+    const policy = args.inputs.find((input) => input.kind === "prompt" && input.recordId === "scene_plan_look_ownership");
+    if (args.kind === "plan" && policy) {
+      const dependency = args.inputs.find((input) => input.kind === "look");
+      const look = dependency ? await findCurrentRecord(ctx, args.workId, work.activeGeneration, "look", dependency.recordId) : null;
+      if (!look || look.version !== dependency?.version || lookPolicy(look) !== policy.version) throw new Error("Section look changed during preparation");
+    }
     const version = contentVersion(args.payload);
     await writeVersion(ctx, existing, {
       workId: args.workId, generation: work.activeGeneration, kind: args.kind, recordId: args.recordId, version,

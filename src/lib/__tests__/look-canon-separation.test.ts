@@ -102,7 +102,8 @@ describe("no-form section look and canon separation", () => {
     expect(look.system).toContain("leave their fixed colour, brightness and texture to canon");
     expect(result.prepared.look.payload).toEqual(situationalLook);
     expect(result.packet.lookVersion).not.toBe(scene.result.look.version);
-    expect(requests[1].user).not.toContain(situationalLook.clothing);
+    expect(requests[1].user).toContain(situationalLook.clothing);
+    expect(requests[1].user).toContain("SECTION LOOK GUIDE");
     expect(requests[1].user).not.toContain("SECTION LOOK (");
     expect(requests[1].user).not.toContain(retainedLook.clothing);
     expect((await record("look"))?.inputs).toContainEqual({ kind: "prompt", recordId: "section_look_formless_presence", version: FORMLESS_LOOK_PROMPT_VERSION });
@@ -126,21 +127,21 @@ describe("no-form section look and canon separation", () => {
     expect(requests).toHaveLength(2);
   });
 
-  it("retains the exact schema-valid live failure without semantic retry and reuses an unchanged plan", async () => {
+  it("retains the exact live look failure without semantic retry and refreshes a plan without the new ownership marker", async () => {
     const { t, requests, render, record } = await setup({ lookReplies: [retainedLook], currentPlanInputs: true });
     const result = await render();
     if (!result.ok) throw new Error(result.message);
-    expect(requests.map((r) => r.schemaName)).toEqual(["section_look"]);
+    expect(requests.map((r) => r.schemaName)).toEqual(["section_look", "scene_plan"]);
     expect(requests[0].schema.safeParse(retainedLook).success).toBe(true);
     expect(result.prepared.look.payload).toEqual(retainedLook);
     expect(result.prepared.look.payload.clothing).toContain("white robes like snow and wool-white hair");
     expect(result.prepared.plan.payload).toEqual(retainedPlan);
     expect(result.packet.lookVersion).toBe(scene.result.look.version);
-    expect(result.packet.planVersion).toBe(scene.result.plan.version);
+    expect(result.packet.planVersion).not.toBe(scene.result.plan.version);
     expect((await record("look"))?.inputs).toContainEqual({ kind: "prompt", recordId: "section_look_formless_presence", version: FORMLESS_LOOK_PROMPT_VERSION });
-    expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK })).calls).toBe(1);
+    expect((await t.query(api.analysis.getPreparationSpend, { workId: WORK })).calls).toBe(3);
     await render("watercolor");
-    expect(requests).toHaveLength(1); // Same content hash, but new look-input provenance was persisted.
+    expect(requests).toHaveLength(2); // Look hash is stable; the new plan carries reviewed conditions and ownership.
   });
 
   it("describes every look field in a strict provider schema and enforces the 200-character boundary locally", async () => {

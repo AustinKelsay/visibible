@@ -1,6 +1,8 @@
 # Proposed next step: resolve situational conditions per moment
 
-**Owner decision pending; design only.** The completed [comparison](RESULTS.md) fails the text gate. No application/schema change, paid run, look rewrite or deployment implements this proposal. The current accepted [contract](../2026-10-24-rendering-contract/README.md#ownership-and-bounded-handling) supplies the original five-field section look verbatim to every moment and stops on a reported look conflict. It explicitly has no per-moment look override and calls for a separate repair design before implementation.
+**Decision recorded 26 October 2026:** the owner replied “continue” to option A. The [offline candidate](../2026-10-26-moment-conditions/README.md) and [ADR 0003](../../../docs/adr/0003-resolve-conditions-with-each-moment.md) implement and record that choice. The original proposal below is retained as its rationale; it grants no paid execution.
+
+**Original proposal; design only.** The completed [comparison](RESULTS.md) fails the text gate. No application/schema change, paid run, look rewrite or deployment implements this proposal. The current accepted [contract](../2026-10-24-rendering-contract/README.md#ownership-and-bounded-handling) supplies the original five-field section look verbatim to every moment and stops on a reported look conflict. It explicitly has no per-moment look override and calls for a separate repair design before implementation.
 
 ## A — recommended: one resolved situation per moment
 

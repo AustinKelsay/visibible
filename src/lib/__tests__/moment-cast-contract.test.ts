@@ -38,7 +38,7 @@ async function setup(reply: unknown, correctSource = false) {
     section.version = contentVersion(section.payload);
   }
   const write = vi.fn<PreparationStore["putDerivedRecord"]>(async (args) => {
-    const record = { ...args, version: contentVersion(args.payload) };
+    const record = { ...args, source: "generated" as const, version: contentVersion(args.payload) };
     const index = records.findIndex((r) => r.kind === args.kind && r.recordId === args.recordId);
     if (index < 0) records.push(record); else records[index] = record;
     return { version: record.version };

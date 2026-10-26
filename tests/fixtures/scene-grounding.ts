@@ -19,7 +19,7 @@ export function withGrounding<T extends { present: string[] }>(plan: T, focusQuo
  * fixture plumbing: missing evidence and contradictory classifications stay malformed rather
  * than being invented or removed. Production accepts only the new response, never this adapter.
  */
-export function selectionReply(value: unknown): unknown {
+function selectionContract(value: unknown): unknown {
   const object = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null && !Array.isArray(v);
   if (!object(value) || !Array.isArray(value.present) || !object(value.grounding)) return value;
   const { present, grounding: audit, ...fields } = value;
@@ -34,4 +34,16 @@ export function selectionReply(value: unknown): unknown {
     }),
     consideredCast: records.filter((entry) => !present.includes(entry.entryId)),
   };
+}
+
+/** Hand-authored conditions for unrelated mechanical fixtures; never model/semantic evidence. */
+export function withSituation(value: unknown, owner?: unknown): unknown {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) return value;
+  const plan = value as Record<string, unknown>;
+  if (plan.situation !== undefined || !("primarySubject" in plan || "selectedCast" in plan || "present" in plan)) return value;
+  return { ...plan, situation: owner ?? { place: plan.setting ?? "", timeOfDay: plan.timeOfDay ?? "", weather: "clear", light: "ordinary daylight", clothing: "ordinary situational clothing" } };
+}
+
+export function selectionReply(value: unknown): unknown {
+  return withSituation(selectionContract(value));
 }

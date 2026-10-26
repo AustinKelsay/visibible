@@ -1,0 +1,778 @@
+{
+  "at": "2026-10-26T15:15:45.227Z",
+  "baselineCommit": "51100a683d722dad10c0e3b38b97c5c0886273b6",
+  "baselineHashes": {
+    "preparation": "33de6ebce991eabae345a2d456cd8dd51257b62e0b4174715f4fd87e9724fdae",
+    "plan-review": "711787bbd47d504f3f973def556eb3ae9519acc439bbc581c6cbdb072b964e3b",
+    "prompt": "b73c1a2fe1d627143d9695b07b9d9f12abcc1a50fc5ad3f56d7103eb2e2d33f1"
+  },
+  "sources": {
+    "src/lib/engine/preparation.ts": "2b81caf8d5816ae16b5980c89e0d481ea3e8815f832e76276e09355a6ad41a72",
+    "convex/_helpers/contentVersion.ts": "c34546acd74b8f3081a3f73a2e922ba30732ed21f26f6e75688a3b8ac3ed2a32",
+    "src/lib/engine/situation.ts": "793c7e95ea720a62986f0253ccf3bb25c471a733de21e7a790640918517d6f67",
+    "src/lib/engine/scene-grounding.ts": "fb20e4778239fc734c0ed5b6098b11474bb6a98d20c21c05d26865596c79eed5",
+    "src/lib/engine/plan-review.ts": "94a547d19a2efce9dfe40aaacb4c6f9529873f50791096e50c31c3c64b890d9b",
+    "src/lib/engine/prompt.ts": "d8838ed708fbfe6df8deda70a5d4853ea67327a6edde649afdd0bd9fa5db5b20",
+    "src/lib/engine/work-inputs.ts": "e449de93ef5b76c26b97bb40c725e11aeea9202cc9d14d7bd744aecbaa2c2cb3",
+    "src/lib/engine/memory-store.ts": "3f6c20532afac6697a136b414dbb55f04ccc28af0846469ee3f81022813e35ed",
+    "src/lib/reading-pass/model.ts": "da9caabd9a8f02e4fb2d8dd0c33babc7f142ab5ab2de354fff07f6d35eb488ea",
+    "src/lib/reading-pass/prompts.ts": "766166e25eaaaef2b6741898b5b0ccc1f330f85e9036af89c7b008cf81713abf",
+    "src/lib/image-response.ts": "07b5092d1795db69bbd4cfa41c5a25691277ff9a982884118fc1658881a9bba6",
+    "src/lib/image-prompts.ts": "fb4f04b8d98a2f32ceac40f4e854a1499ed8aaeaa7031b7e2212dbad515dfc6a",
+    "src/lib/canon-showing.ts": "2bfb6fa9aa29d366ab741981627f65b0b3425ee065ea3c163caca889bfbdee0b",
+    "src/lib/work-input.ts": "e43bddfa5b9a1e2f8065c42f6f99baba98d359f3a996efaca3d30aafb1d13590",
+    "src/lib/work-preparation.ts": "34ae8097b4eb351115bb7f5a77e8d63b59da40ec0d9891e0874f323fe88262ea",
+    "styles/classical.json": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+    "styles/watercolor.json": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+    "styles/icon.json": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+    "works/bible-web/brief.json": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "llm/releases/2026-10-26-moment-conditions-check/common.mts": "2786686ee930802eb5aa0b896c82c334f5d070c406b4cfc1a46e2cfc36acc5c6",
+    "llm/releases/2026-10-26-moment-conditions-check/baseline.mts": "74069921247996d9728b3140ab4cdfe81c5efba6673f2113f2b93df53dd712c5",
+    "llm/releases/2026-10-26-moment-conditions-check/pricing.mts": "75ccfd660cf8e1f4a98f2b72a9af35b4535817ab86908d1a0e2b5c6f0503f631",
+    "llm/releases/2026-10-26-moment-conditions-check/scenarios.mts": "27df4f6dbe9eecc2b919ef614bfca9cddc062399ed39ca71326f70adeee8b742",
+    "llm/releases/2026-10-26-moment-conditions-check/dry-run.mts": "269ea17983a369f039f6ef1ed075a49352b471913571dd47c5347244727f6f78",
+    "llm/releases/2026-10-26-moment-conditions-check/model.mts": "f0bd0adb5d3e5d05de151e58aa46ec3389833d90dfac1ace6a0063683c3f336d",
+    "llm/releases/2026-10-26-moment-conditions-check/run.mts": "093be88eeaf52ca3c3f7d98f71d1da088c85635313357be5b08770c86821f562",
+    "llm/releases/2026-10-26-moment-conditions-check/audit.mts": "3e7a0871dc10707462798953daa2705acf0bf61f4984f82a84da22582e4eee03",
+    "llm/releases/2026-10-26-moment-conditions-check/score.mts": "c3eb4a1cfbd506d6cbef03336b4b1d48449760d9a9bda4974d6d6ca5ff40c815",
+    "llm/releases/2026-10-26-moment-conditions-check/plan.json": "0b247c7866c2299577ac8e57a8c90abb2191010916932240975b3a42678713ba",
+    "llm/releases/2026-10-26-moment-conditions-check/pricing.json": "3544ae1b860944365442219a6e47055f99745276810e4e37b3c1d6b2e1854126",
+    "llm/releases/2026-10-24-rendering-review-check/sample-set.json": "8a066d06b275c7ecea6305f3da8d6cb6356dcc62cb779d454e2e92b71af9a375",
+    "llm/releases/2026-10-24-rendering-review-check/controls.mts": "5ffc1f0e8237bb96b1c81577b4aebb9cca78e2a8865cad0a434bf2f4b3ee6885",
+    "llm/releases/2026-10-26-moment-conditions-check/README.md": "8efc293dad6702cfa7806b0d38b85b6e5d11505e702c948d41253b421dc54675",
+    "llm/releases/2026-10-26-moment-conditions-check/controls.mts": "f1a7938edb7859bc437a0f6d7a2dd95db777935ffa8fdc57b22891f4629ba0de",
+    "llm/releases/2026-10-26-moment-conditions-check/rehearse.mts": "c6df352397c596ccbfa2c72766171a02bbcb3677642c005ff2d12c07fd8b0ea4",
+    "package.json": "3fdf0f945c802fbc8de81b21b777dde45b600caec4843b581992a1883e43ffa9",
+    "package-lock.json": "d9cff4d52431f7ad6d3eb6f9c1b025bfbfc74be703fe6d55010abb0b6abd326c"
+  },
+  "operations": [
+    {
+      "id": "look-place-baseline",
+      "kind": "review",
+      "sample": "look-place",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "look-place-candidate",
+      "kind": "review",
+      "sample": "look-place",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "look-time-candidate",
+      "kind": "review",
+      "sample": "look-time",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "look-time-baseline",
+      "kind": "review",
+      "sample": "look-time",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "look-unselected-effect-baseline",
+      "kind": "review",
+      "sample": "look-unselected-effect",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "look-unselected-effect-candidate",
+      "kind": "review",
+      "sample": "look-unselected-effect",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "canon-robe-candidate",
+      "kind": "review",
+      "sample": "canon-robe",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "canon-robe-baseline",
+      "kind": "review",
+      "sample": "canon-robe",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "missing-canon-baseline",
+      "kind": "review",
+      "sample": "missing-canon",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "missing-canon-candidate",
+      "kind": "review",
+      "sample": "missing-canon",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "unsupported-aaron-candidate",
+      "kind": "review",
+      "sample": "unsupported-aaron",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "unsupported-aaron-baseline",
+      "kind": "review",
+      "sample": "unsupported-aaron",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "unsupported-moses-baseline",
+      "kind": "review",
+      "sample": "unsupported-moses",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "unsupported-moses-candidate",
+      "kind": "review",
+      "sample": "unsupported-moses",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "object-state-candidate",
+      "kind": "review",
+      "sample": "object-state",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "object-state-baseline",
+      "kind": "review",
+      "sample": "object-state",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "look-embodiment-baseline",
+      "kind": "review",
+      "sample": "look-embodiment",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "look-embodiment-candidate",
+      "kind": "review",
+      "sample": "look-embodiment",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "ordinary-light-candidate",
+      "kind": "review",
+      "sample": "ordinary-light",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "ordinary-light-baseline",
+      "kind": "review",
+      "sample": "ordinary-light",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "section-range-baseline",
+      "kind": "review",
+      "sample": "section-range",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "section-range-candidate",
+      "kind": "review",
+      "sample": "section-range",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "selected-effects-candidate",
+      "kind": "review",
+      "sample": "selected-effects",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "selected-effects-baseline",
+      "kind": "review",
+      "sample": "selected-effects",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "situational-pose-baseline",
+      "kind": "review",
+      "sample": "situational-pose",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "situational-pose-candidate",
+      "kind": "review",
+      "sample": "situational-pose",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "wardrobe-inventory-candidate",
+      "kind": "review",
+      "sample": "wardrobe-inventory",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "wardrobe-inventory-baseline",
+      "kind": "review",
+      "sample": "wardrobe-inventory",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "incidental-roles-baseline",
+      "kind": "review",
+      "sample": "incidental-roles",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "incidental-roles-candidate",
+      "kind": "review",
+      "sample": "incidental-roles",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "compatible-object-candidate",
+      "kind": "review",
+      "sample": "compatible-object",
+      "arm": "candidate",
+      "stratum": "control"
+    },
+    {
+      "id": "compatible-object-baseline",
+      "kind": "review",
+      "sample": "compatible-object",
+      "arm": "baseline",
+      "stratum": "control"
+    },
+    {
+      "id": "f019-baseline",
+      "kind": "pipeline",
+      "sample": "f019",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "f019-candidate",
+      "kind": "pipeline",
+      "sample": "f019",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "f022-candidate",
+      "kind": "pipeline",
+      "sample": "f022",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "f022-baseline",
+      "kind": "pipeline",
+      "sample": "f022",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "f006-baseline",
+      "kind": "pipeline",
+      "sample": "f006",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "f006-candidate",
+      "kind": "pipeline",
+      "sample": "f006",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "r027-candidate",
+      "kind": "pipeline",
+      "sample": "r027",
+      "arm": "candidate",
+      "stratum": "retained"
+    },
+    {
+      "id": "r027-baseline",
+      "kind": "pipeline",
+      "sample": "r027",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "f015-baseline",
+      "kind": "pipeline",
+      "sample": "f015",
+      "arm": "baseline",
+      "stratum": "retained"
+    },
+    {
+      "id": "f015-candidate",
+      "kind": "pipeline",
+      "sample": "f015",
+      "arm": "candidate",
+      "stratum": "retained"
+    }
+  ],
+  "first": {
+    "look-place-baseline": {
+      "sha256": "b9154983f612d6e50420486650ed90bc01a70c516e9e7b8a8f9a503374237c2a",
+      "schemaName": "plan_review"
+    },
+    "look-place-candidate": {
+      "sha256": "ba83579be1e5f3e81808e8c30e31fb1d3be1edc6f0906c659fad1d9a06dadc4b",
+      "schemaName": "plan_review"
+    },
+    "look-time-candidate": {
+      "sha256": "ffde9345f8be502aa675cfb4e5954484dfeb4badc799d7b17342efcbfa51173d",
+      "schemaName": "plan_review"
+    },
+    "look-time-baseline": {
+      "sha256": "baad90d49f47cad8902a773896b713f0b256bb04854f664d7d324107023c85d9",
+      "schemaName": "plan_review"
+    },
+    "look-unselected-effect-baseline": {
+      "sha256": "57a8ffc29ca94f0bf70812f40255e254a29c86368255de93f94dd565ef4a59fd",
+      "schemaName": "plan_review"
+    },
+    "look-unselected-effect-candidate": {
+      "sha256": "57120822eb4a34399f5910ff94a280185dac8d402ca20a7a70b7489182fa27ce",
+      "schemaName": "plan_review"
+    },
+    "canon-robe-candidate": {
+      "sha256": "f033da437297cf243427743eb524123f1b0fb41b6c63f18dc073216b109d5b44",
+      "schemaName": "plan_review"
+    },
+    "canon-robe-baseline": {
+      "sha256": "6a3862738819890c7e0bd1c5a81bc73a1871d9abb3976c39e02401bf2ae08ce9",
+      "schemaName": "plan_review"
+    },
+    "missing-canon-baseline": {
+      "sha256": "ac731cc30550089e9fb43f8439d3bd4be7f324cc3736790ce2b34ea246fff74b",
+      "schemaName": "plan_review"
+    },
+    "missing-canon-candidate": {
+      "sha256": "40b02d5199d2369ca7b1e489e1f67bef427d5e20304a944034cf6390cf22ed83",
+      "schemaName": "plan_review"
+    },
+    "unsupported-aaron-candidate": {
+      "sha256": "4d90359cf3911b8f506797c6754e2cd1c3ebd21f64028c71c0f63549663b2bdf",
+      "schemaName": "plan_review"
+    },
+    "unsupported-aaron-baseline": {
+      "sha256": "8d2c290e27d8803ae06c9c2683070da06e2095b6f61f6e27f0488525b0528fb1",
+      "schemaName": "plan_review"
+    },
+    "unsupported-moses-baseline": {
+      "sha256": "1d6bbae8ea4e9a5d19e9bfa8812e473360b01b25239bca1e3d6304463971d91e",
+      "schemaName": "plan_review"
+    },
+    "unsupported-moses-candidate": {
+      "sha256": "e6585c6512cd322b174052a5dcee9fcb810f18a16a0533e2283420854a2c7238",
+      "schemaName": "plan_review"
+    },
+    "object-state-candidate": {
+      "sha256": "fec70eda17f40b78cd7f55c653de799f55f94a8b485241589118c12b28e5d5ce",
+      "schemaName": "plan_review"
+    },
+    "object-state-baseline": {
+      "sha256": "401c46f97b31cfd9be49459cdc76d8bd57416f99137e33c118c986d4f771a358",
+      "schemaName": "plan_review"
+    },
+    "look-embodiment-baseline": {
+      "sha256": "edbe25b99a784a538a7012b71d7fb20b1ea729cc483822d2f653dcbe8e34a8b9",
+      "schemaName": "plan_review"
+    },
+    "look-embodiment-candidate": {
+      "sha256": "d887d04c0797c49d554085df349a7fb2da2698450a87c71b9441816a0a995def",
+      "schemaName": "plan_review"
+    },
+    "ordinary-light-candidate": {
+      "sha256": "1c7e7aa9d19a0c4bea737ec03f265af8d31e2f6ce989e63f8d3a3bd267ed8bd9",
+      "schemaName": "plan_review"
+    },
+    "ordinary-light-baseline": {
+      "sha256": "e6ac0da984a1f8842f50325d0776951a3e803ee01662b5a6e8aaf3283c2f9c19",
+      "schemaName": "plan_review"
+    },
+    "section-range-baseline": {
+      "sha256": "fb660a8c549f7edc0932163d3eac4c540911b249c3204cfbd2d08abc91fce110",
+      "schemaName": "plan_review"
+    },
+    "section-range-candidate": {
+      "sha256": "f78fca37a446322ef15a95f2e83e2ae2bb5ceba4fb7ba0445edcce433359a098",
+      "schemaName": "plan_review"
+    },
+    "selected-effects-candidate": {
+      "sha256": "bc2d4b76b40599c02e575c739432b22b26aa3a16e94703f136c1a2f48f1a587a",
+      "schemaName": "plan_review"
+    },
+    "selected-effects-baseline": {
+      "sha256": "e13115e7477fb0e73741b3f3db09ba4f645b196433b1457bd1d289239f9d5631",
+      "schemaName": "plan_review"
+    },
+    "situational-pose-baseline": {
+      "sha256": "bf129c6be9374e30568bc45c29c73982c62b1d23b1690330beadcca8bac9b7f6",
+      "schemaName": "plan_review"
+    },
+    "situational-pose-candidate": {
+      "sha256": "22d45b708ec147d6970fcaceabec631af861c4590dbc9d5782437681a9e2a385",
+      "schemaName": "plan_review"
+    },
+    "wardrobe-inventory-candidate": {
+      "sha256": "714e79f0fd7f17843313658511741eae82c4d2e118ffab7f6c9a6f379c1e630f",
+      "schemaName": "plan_review"
+    },
+    "wardrobe-inventory-baseline": {
+      "sha256": "2b2a91fb7d3a95694656ff6669596515693e056cac3da2faa565d0e046cddfc7",
+      "schemaName": "plan_review"
+    },
+    "incidental-roles-baseline": {
+      "sha256": "553eb3a1609c746b28f6c0c2a68fe00ec40372a39c526bbb146ef842e71ddc3f",
+      "schemaName": "plan_review"
+    },
+    "incidental-roles-candidate": {
+      "sha256": "fea787b68202703530c2fcb09181ae8329e83992129e25aeee0f5fa67d1e68d6",
+      "schemaName": "plan_review"
+    },
+    "compatible-object-candidate": {
+      "sha256": "2ef640041a8949ca582e41c10de3f8017d6f3d4eeee26d97a16acd38a02452ec",
+      "schemaName": "plan_review"
+    },
+    "compatible-object-baseline": {
+      "sha256": "17f1e3f69eb01e1dd55df7e1e7f3cbf68f6f28f987336cd52dbf8d966ad996b5",
+      "schemaName": "plan_review"
+    },
+    "f019-baseline": {
+      "sha256": "bf4b80d6f31310ca530b2232cf33e91876a23c275ad1b8931d62efe18cab44db",
+      "schemaName": "section_look"
+    },
+    "f019-candidate": {
+      "sha256": "bf4b80d6f31310ca530b2232cf33e91876a23c275ad1b8931d62efe18cab44db",
+      "schemaName": "section_look"
+    },
+    "f022-candidate": {
+      "sha256": "bb94b9d4d5e24b774742375a4061ef842b0c56db41c7884fb27b8730aacf2148",
+      "schemaName": "section_look"
+    },
+    "f022-baseline": {
+      "sha256": "bb94b9d4d5e24b774742375a4061ef842b0c56db41c7884fb27b8730aacf2148",
+      "schemaName": "section_look"
+    },
+    "f006-baseline": {
+      "sha256": "2201a31db61533bceb156db9fd268a410bc5804ede3b19313efd9251b8babaa6",
+      "schemaName": "section_look"
+    },
+    "f006-candidate": {
+      "sha256": "2201a31db61533bceb156db9fd268a410bc5804ede3b19313efd9251b8babaa6",
+      "schemaName": "section_look"
+    },
+    "r027-candidate": {
+      "sha256": "7ff3b6ea464dc205d77fbbaa933cc8cee44d6883a5422e0e62cb92df1f92c33f",
+      "schemaName": "section_look"
+    },
+    "r027-baseline": {
+      "sha256": "7ff3b6ea464dc205d77fbbaa933cc8cee44d6883a5422e0e62cb92df1f92c33f",
+      "schemaName": "section_look"
+    },
+    "f015-baseline": {
+      "sha256": "c842a1275fd427ee51a109b1fdb1f11a27af9e5c5c59f6bbe469462ae45c925c",
+      "schemaName": "section_look"
+    },
+    "f015-candidate": {
+      "sha256": "c842a1275fd427ee51a109b1fdb1f11a27af9e5c5c59f6bbe469462ae45c925c",
+      "schemaName": "section_look"
+    }
+  },
+  "estimates": [
+    {
+      "id": "look-place-baseline",
+      "firstPassUsd": 0.0006107777777777778,
+      "withOneReplanUsd": 0.0006107777777777778,
+      "maximumCompletionFirstPassUsd": 0.0023607777777777776
+    },
+    {
+      "id": "look-place-candidate",
+      "firstPassUsd": 0.0006297037037037037,
+      "withOneReplanUsd": 0.0006297037037037037,
+      "maximumCompletionFirstPassUsd": 0.0023797037037037038
+    },
+    {
+      "id": "look-time-candidate",
+      "firstPassUsd": 0.0006274444444444444,
+      "withOneReplanUsd": 0.0006274444444444444,
+      "maximumCompletionFirstPassUsd": 0.0023774444444444446
+    },
+    {
+      "id": "look-time-baseline",
+      "firstPassUsd": 0.0006085185185185184,
+      "withOneReplanUsd": 0.0006085185185185184,
+      "maximumCompletionFirstPassUsd": 0.0023585185185185185
+    },
+    {
+      "id": "look-unselected-effect-baseline",
+      "firstPassUsd": 0.0006100740740740741,
+      "withOneReplanUsd": 0.0006100740740740741,
+      "maximumCompletionFirstPassUsd": 0.002360074074074074
+    },
+    {
+      "id": "look-unselected-effect-candidate",
+      "firstPassUsd": 0.000629,
+      "withOneReplanUsd": 0.000629,
+      "maximumCompletionFirstPassUsd": 0.002379
+    },
+    {
+      "id": "canon-robe-candidate",
+      "firstPassUsd": 0.0006323333333333333,
+      "withOneReplanUsd": 0.0006323333333333333,
+      "maximumCompletionFirstPassUsd": 0.0023823333333333335
+    },
+    {
+      "id": "canon-robe-baseline",
+      "firstPassUsd": 0.0006134074074074073,
+      "withOneReplanUsd": 0.0006134074074074073,
+      "maximumCompletionFirstPassUsd": 0.0023634074074074074
+    },
+    {
+      "id": "missing-canon-baseline",
+      "firstPassUsd": 0.0006095925925925926,
+      "withOneReplanUsd": 0.0006095925925925926,
+      "maximumCompletionFirstPassUsd": 0.002359592592592593
+    },
+    {
+      "id": "missing-canon-candidate",
+      "firstPassUsd": 0.0006285185185185185,
+      "withOneReplanUsd": 0.0006285185185185185,
+      "maximumCompletionFirstPassUsd": 0.0023785185185185185
+    },
+    {
+      "id": "unsupported-aaron-candidate",
+      "firstPassUsd": 0.0006338148148148147,
+      "withOneReplanUsd": 0.0006338148148148147,
+      "maximumCompletionFirstPassUsd": 0.0023838148148148147
+    },
+    {
+      "id": "unsupported-aaron-baseline",
+      "firstPassUsd": 0.0006148888888888888,
+      "withOneReplanUsd": 0.0006148888888888888,
+      "maximumCompletionFirstPassUsd": 0.002364888888888889
+    },
+    {
+      "id": "unsupported-moses-baseline",
+      "firstPassUsd": 0.0006153703703703703,
+      "withOneReplanUsd": 0.0006153703703703703,
+      "maximumCompletionFirstPassUsd": 0.0023653703703703705
+    },
+    {
+      "id": "unsupported-moses-candidate",
+      "firstPassUsd": 0.0006342962962962962,
+      "withOneReplanUsd": 0.0006342962962962962,
+      "maximumCompletionFirstPassUsd": 0.0023842962962962963
+    },
+    {
+      "id": "object-state-candidate",
+      "firstPassUsd": 0.0006307777777777777,
+      "withOneReplanUsd": 0.0006307777777777777,
+      "maximumCompletionFirstPassUsd": 0.0023807777777777777
+    },
+    {
+      "id": "object-state-baseline",
+      "firstPassUsd": 0.0006118518518518518,
+      "withOneReplanUsd": 0.0006118518518518518,
+      "maximumCompletionFirstPassUsd": 0.002361851851851852
+    },
+    {
+      "id": "look-embodiment-baseline",
+      "firstPassUsd": 0.000620037037037037,
+      "withOneReplanUsd": 0.000620037037037037,
+      "maximumCompletionFirstPassUsd": 0.002370037037037037
+    },
+    {
+      "id": "look-embodiment-candidate",
+      "firstPassUsd": 0.0006389629629629629,
+      "withOneReplanUsd": 0.0006389629629629629,
+      "maximumCompletionFirstPassUsd": 0.002388962962962963
+    },
+    {
+      "id": "ordinary-light-candidate",
+      "firstPassUsd": 0.0006281851851851852,
+      "withOneReplanUsd": 0.0006281851851851852,
+      "maximumCompletionFirstPassUsd": 0.0023781851851851854
+    },
+    {
+      "id": "ordinary-light-baseline",
+      "firstPassUsd": 0.0006092592592592593,
+      "withOneReplanUsd": 0.0006092592592592593,
+      "maximumCompletionFirstPassUsd": 0.0023592592592592593
+    },
+    {
+      "id": "section-range-baseline",
+      "firstPassUsd": 0.0006103703703703703,
+      "withOneReplanUsd": 0.0006103703703703703,
+      "maximumCompletionFirstPassUsd": 0.0023603703703703703
+    },
+    {
+      "id": "section-range-candidate",
+      "firstPassUsd": 0.0006292962962962962,
+      "withOneReplanUsd": 0.0006292962962962962,
+      "maximumCompletionFirstPassUsd": 0.0023792962962962965
+    },
+    {
+      "id": "selected-effects-candidate",
+      "firstPassUsd": 0.0006387407407407407,
+      "withOneReplanUsd": 0.0006387407407407407,
+      "maximumCompletionFirstPassUsd": 0.0023887407407407408
+    },
+    {
+      "id": "selected-effects-baseline",
+      "firstPassUsd": 0.0006198148148148148,
+      "withOneReplanUsd": 0.0006198148148148148,
+      "maximumCompletionFirstPassUsd": 0.002369814814814815
+    },
+    {
+      "id": "situational-pose-baseline",
+      "firstPassUsd": 0.0006144074074074074,
+      "withOneReplanUsd": 0.0006144074074074074,
+      "maximumCompletionFirstPassUsd": 0.0023644074074074075
+    },
+    {
+      "id": "situational-pose-candidate",
+      "firstPassUsd": 0.0006333333333333333,
+      "withOneReplanUsd": 0.0006333333333333333,
+      "maximumCompletionFirstPassUsd": 0.0023833333333333332
+    },
+    {
+      "id": "wardrobe-inventory-candidate",
+      "firstPassUsd": 0.0006349999999999999,
+      "withOneReplanUsd": 0.0006349999999999999,
+      "maximumCompletionFirstPassUsd": 0.002385
+    },
+    {
+      "id": "wardrobe-inventory-baseline",
+      "firstPassUsd": 0.000616074074074074,
+      "withOneReplanUsd": 0.000616074074074074,
+      "maximumCompletionFirstPassUsd": 0.0023660740740740743
+    },
+    {
+      "id": "incidental-roles-baseline",
+      "firstPassUsd": 0.0006102962962962963,
+      "withOneReplanUsd": 0.0006102962962962963,
+      "maximumCompletionFirstPassUsd": 0.002360296296296296
+    },
+    {
+      "id": "incidental-roles-candidate",
+      "firstPassUsd": 0.0006292222222222222,
+      "withOneReplanUsd": 0.0006292222222222222,
+      "maximumCompletionFirstPassUsd": 0.0023792222222222222
+    },
+    {
+      "id": "compatible-object-candidate",
+      "firstPassUsd": 0.0006305555555555555,
+      "withOneReplanUsd": 0.0006305555555555555,
+      "maximumCompletionFirstPassUsd": 0.0023805555555555555
+    },
+    {
+      "id": "compatible-object-baseline",
+      "firstPassUsd": 0.0006116296296296296,
+      "withOneReplanUsd": 0.0006116296296296296,
+      "maximumCompletionFirstPassUsd": 0.0023616296296296298
+    },
+    {
+      "id": "f019-baseline",
+      "firstPassUsd": 0.0023103333333333335,
+      "withOneReplanUsd": 0.004366481481481482,
+      "maximumCompletionFirstPassUsd": 0.005085333333333333
+    },
+    {
+      "id": "f019-candidate",
+      "firstPassUsd": 0.0026049629629629626,
+      "withOneReplanUsd": 0.00495574074074074,
+      "maximumCompletionFirstPassUsd": 0.005229962962962962
+    },
+    {
+      "id": "f022-candidate",
+      "firstPassUsd": 0.0023937777777777777,
+      "withOneReplanUsd": 0.004539814814814814,
+      "maximumCompletionFirstPassUsd": 0.005018777777777777
+    },
+    {
+      "id": "f022-baseline",
+      "firstPassUsd": 0.002099148148148148,
+      "withOneReplanUsd": 0.003950555555555556,
+      "maximumCompletionFirstPassUsd": 0.004874148148148148
+    },
+    {
+      "id": "f006-baseline",
+      "firstPassUsd": 0.0023334814814814815,
+      "withOneReplanUsd": 0.004416296296296297,
+      "maximumCompletionFirstPassUsd": 0.005108481481481481
+    },
+    {
+      "id": "f006-candidate",
+      "firstPassUsd": 0.0026281111111111106,
+      "withOneReplanUsd": 0.005005555555555555,
+      "maximumCompletionFirstPassUsd": 0.005253111111111111
+    },
+    {
+      "id": "r027-candidate",
+      "firstPassUsd": 0.0031580370370370365,
+      "withOneReplanUsd": 0.005940481481481481,
+      "maximumCompletionFirstPassUsd": 0.005783037037037036
+    },
+    {
+      "id": "r027-baseline",
+      "firstPassUsd": 0.0028634074074074074,
+      "withOneReplanUsd": 0.0053512222222222225,
+      "maximumCompletionFirstPassUsd": 0.005638407407407407
+    },
+    {
+      "id": "f015-baseline",
+      "firstPassUsd": 0.002239148148148148,
+      "withOneReplanUsd": 0.004222518518518518,
+      "maximumCompletionFirstPassUsd": 0.005014148148148148
+    },
+    {
+      "id": "f015-candidate",
+      "firstPassUsd": 0.002533777777777778,
+      "withOneReplanUsd": 0.004811777777777778,
+      "maximumCompletionFirstPassUsd": 0.005158777777777778
+    }
+  ],
+  "costEstimate": {
+    "firstPassUsd": 0.045079740740740726,
+    "oneReplanEveryPipelineUsd": 0.06747599999999998,
+    "maximumCompletionFirstPassUsd": 0.12807974074074074,
+    "maximumCallEstimateUsd": 0.00314937037037037,
+    "method": "Offline scripted mechanics only; source-specific requests, current catalog prices, output-schema characters and generous generated-input padding at 2.7 characters/token. Expected production completion tokens; second scenario adds one full plan/review round to every pipeline. These are estimates, not token or total cost guarantees; malformed retries and stochastic lengths can exhaust the cap before completion."
+  },
+  "paidCalls": 0,
+  "productionMutations": 0
+}

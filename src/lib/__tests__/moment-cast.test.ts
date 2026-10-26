@@ -80,12 +80,14 @@ describe("moment cast over shared section context", () => {
       expect(result.packet.lookVersion).toBe(oldLook.version);
       expect(result.packet.planVersion).not.toBe(oldPlan.version); // Same scene prose, new grounding audit.
       expect(result.prepared.look.payload.clothing).toContain("Daniel in his ordinary tunic and cloak");
-      expect(result.prompt).toContain(String(oldLook.payload.clothing)); // Never edit or parse away owner prose.
+      expect(result.prompt).toContain(result.prepared.situation.clothing);
+      if (ownerLook) expect(result.prompt).toContain(String(oldLook.payload.clothing));
+      else expect(result.prompt).not.toContain(String(oldLook.payload.clothing));
       const selected = result.prompt.split("SELECTED CHARACTERS: ")[1]?.split("\n")[0];
       expect(selected).toBe("The Ancient of Days; Ministering assembly in Daniel's vision");
       expect(selected).not.toContain("Daniel (prophet of Babylon)");
-      expect(result.prompt).toContain("The shared look, source narrators and neighbors do not add figures");
-      expect(result.prompt).toContain("apply shared clothing only to selected characters");
+      expect(result.prompt).toContain("Moment conditions, source narrators and neighbors do not add figures");
+      expect(result.prompt).toContain("apply situational clothing only to selected characters");
       expect(result.packet.canon.map((entry) => entry.entryId)).toEqual(["the_ancient_of_days", "ministering_assembly_in_daniels_vision"]);
       for (const entry of result.canon) expect(result.prompt).toContain(entry.text);
       expect(result.references.filter((reference) => reference.kind === "sheet").map((reference) => reference.entryId)).toEqual(["ministering_assembly_in_daniels_vision"]);
@@ -101,20 +103,14 @@ describe("moment cast over shared section context", () => {
     expect(plan?.inputs).toContainEqual({ kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION });
   });
 
-  it("still cannot disprove an incorrectly claimed in-scene interpretation of a real quote", async () => {
+  it("stores the scripted false presence claim but refuses a packet that cannot retain required content", async () => {
     const { t, requests, render } = await setup();
     const result = await render("daniel-7-9");
-    if (!result.ok) throw new Error(result.message);
-    expect(requests).toHaveLength(1);
-    expect(result.prepared.plan.payload.present).toContain("ministering_assembly_in_daniels_vision");
-    const old = retained.find((record) => record.kind === "plan" && record.recordId === SECTION)!;
-    expect(result.packet.planVersion).not.toBe(old.version);
+    expect(result).toMatchObject({ ok: false, reason: "packet", message: expect.stringContaining("after every allowed trim") });
     const saved = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: SECTION });
-    expect(saved?.payload).toMatchObject(old.payload);
+    expect(saved?.payload).toMatchObject({ entries: expect.arrayContaining([{ entryId: "ministering_assembly_in_daniels_vision", stageId: expect.any(String) }]) });
     expect(saved?.payload).toHaveProperty("grounding");
-    expect(result.context.moment.text).not.toContain("Thousands of thousands");
-    expect(result.context.next?.text).toContain("Thousands of thousands");
-    await render("daniel-7-9", "icon");
-    expect(requests).toHaveLength(1); // No filtering, semantic retry or automatic acceptance decision.
+    expect(saved?.payload).toHaveProperty("situation");
+    expect(requests).toHaveLength(1); // Scripted clean review is not semantic proof; no silent content trim repairs it.
   });
 });

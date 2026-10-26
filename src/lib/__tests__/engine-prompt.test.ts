@@ -30,15 +30,18 @@ const references: AvailableReference[] = [
   { kind: "sheet", entryId: "221b_baker_street", stageId: "main", storageId: "sh-221b", version: "s3" },
   { kind: "sheet", entryId: "the_voice", stageId: "main", storageId: "sh-voice", version: "s4" },
 ];
-const base = (styleId: string, extra: Partial<RenderingInput> = {}): RenderingInput => ({
+const base = (styleId: string, extra: Partial<RenderingInput> = {}): RenderingInput => {
+  const input = {
   work: { id: "holmes-adventures", title: "The Adventures of Sherlock Holmes" },
   moment: { id: "a-scandal-in-bohemia-1-1", sectionId: "a-scandal-in-bohemia-1-1", reference: "A Scandal in Bohemia, Part 1 ¶1", text: "To Sherlock Holmes she is always the woman." },
   neighbors: { previous: null, next: "I had seen little of Holmes lately." },
   brief, briefVersion: "bv1", eraId: "victorian", style: SHARED_STYLES.get(styleId), styleVersion: `${styleId}-v1`,
   look: { version: "l1", place: "Baker Street sitting-room", timeOfDay: "night", weather: "fog outside", light: "gaslight and firelight", clothing: "dressing-gown and frock-coat" },
   plan: { version: "p1", primarySubject: "Holmes by the fire", action: "gazes at the fire, pipe in hand", setting: "the sitting-room", secondaryElements: "Watson in the doorway", mood: "pensive", timeOfDay: "night", composition: "medium shot" },
-  canon, references, variationNumber: 2, aspectRatio: "16:9", ...extra,
-});
+  canon, references, variationNumber: 2, aspectRatio: "16:9" as const, ...extra,
+  };
+  return { ...input, situation: extra.situation ?? { ...input.look } };
+};
 
 describe("rendering packet", () => {
   it("combines rules, brief, canon, look, plan, style and captions for every style with the agreed reference order", () => {
@@ -48,7 +51,7 @@ describe("rendering packet", () => {
       if (!result.ok) return;
       expect(result.prompt.startsWith("PRIORITY RULES:")).toBe(true);
       expect(result.prompt).toContain("No likeness of any real actor");
-      expect(result.prompt).toContain("follow them in this order: these rules, then the work brief, then canon identity, then the art style's rendering, then the scene plan, then the section look");
+      expect(result.prompt).toContain("follow them in this order: these rules, then the work brief, then canon identity, then the art style's rendering, then the scene plan and resolved moment conditions");
       expect(result.prompt).toContain("Tone: Brisk, foggy Victorian detective mood.");
       expect(result.prompt).toContain("Depiction: Violence is kept offstage");
       expect(result.prompt.includes("fog becomes a flat grey ground")).toBe(styleId === "icon");
@@ -68,7 +71,7 @@ describe("rendering packet", () => {
       expect(result.references.map((r) => r.caption)).toEqual(result.packet.references.map((r) => r.caption));
       expect(result.references[result.references.length - 1].caption).toMatch(/^Image 3: /);
       expect(result.prompt).toContain(result.references[0].caption);
-      expect(result.packet).toMatchObject({ promptVersion: "2026-10-24-generic-v7", styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
+      expect(result.packet).toMatchObject({ promptVersion: "2026-10-26-generic-v8", styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
         canon: [{ entryId: "sherlock_holmes", stageId: "main", version: "h1" }, expect.anything(), expect.anything(), expect.anything()],
         flags: { variationIncluded: true, neighborsIncluded: true, styleDetailIncluded: true, lookDetailIncluded: true } });
       expect(result.packet.budget.finalChars).toBe(result.prompt.length);
@@ -87,27 +90,23 @@ describe("rendering packet", () => {
     if (!result.ok) throw new Error(result.error);
     expect(result.prompt).toContain(`SELECTED CHARACTERS: ${expected}\n`);
     expect(result.prompt).toContain(input.look.clothing);
-    expect(result.prompt).toContain("The shared look, source narrators and neighbors do not add figures");
+    expect(result.prompt).toContain("Moment conditions, source narrators and neighbors do not add figures");
     expect(result.packet.canon.map((entry) => entry.entryId)).toEqual(selected.map((entry) => entry.entryId));
   });
 
-  it("keeps the no-form selection rule above shared-look effects, even when look details are trimmed", () => {
+  it("keeps no-form rules above resolved conditions and rejects oversized required conditions", () => {
     for (const styleId of ["classical", "watercolor", "icon"]) {
       const input = base(styleId, { canon: [canon[0]], references: [], neighbors: undefined, variationNumber: null });
-      input.look.light = "veiled radiance representing the voice";
+      input.situation!.light = "veiled radiance representing the voice";
       const full = buildRenderingPacket(input);
       if (!full.ok) throw new Error(full.error);
-      expect(full.prompt).toContain(input.look.light);
-      const rule = "Omit such effects from the shared look when that subject is unselected or absent from the plan";
-      expect(full.prompt).toContain(rule);
+      const rule = "Omit such effects from moment conditions when that subject is unselected or absent from the plan";
+      expect(full.prompt).toContain(input.situation!.light);
+      expect(full.prompt.indexOf(rule)).toBeLessThan(full.prompt.indexOf("MOMENT CONDITIONS"));
       expect(full.prompt).toContain("Ordinary sunlight, lamplight, embers and weather remain setting details.");
-      expect(full.prompt.indexOf(rule)).toBeLessThan(full.prompt.indexOf("SECTION LOOK"));
       expect(full.prompt).not.toContain("FORMLESS SUBJECTS");
-      input.look.light = "radiance ".repeat(1800);
-      const trimmed = buildRenderingPacket(input);
-      if (!trimmed.ok) throw new Error(trimmed.error);
-      expect(trimmed.packet.flags.lookDetailIncluded).toBe(false);
-      expect(trimmed.prompt).toContain(rule);
+      input.situation!.light = "radiance ".repeat(1800);
+      expect(buildRenderingPacket(input)).toMatchObject({ ok: false, error: expect.stringContaining("after every allowed trim") });
     }
   });
 
@@ -178,18 +177,18 @@ describe("rendering packet", () => {
     expect(noStyle.ok && noStyleTrial.ok && noStyleTrial.prompt).toBe(noStyle.ok && noStyle.prompt);
   });
 
-  it("trims only the variation note, neighbour hints, style detail and look detail, in that order, and rejects what still does not fit", () => {
+  it("trims variation, neighbors and style detail while preserving resolved conditions and rejecting remaining overrun", () => {
     const big = (n: number) => "lorem ".repeat(n);
     const oversized = base("classical", {
       neighbors: { previous: big(400), next: big(400) },
-      look: { version: "l1", place: "Baker Street", timeOfDay: "night", weather: big(300), light: big(300), clothing: big(300) },
+      look: { version: "l1", place: "Baker Street", timeOfDay: "night", weather: big(80), light: big(80), clothing: big(80) },
       style: { ...SHARED_STYLES.get("classical"), palette: big(300), lighting: big(300), materials: big(300), composition: big(300) },
     });
     const trimmed = buildRenderingPacket(oversized);
     expect(trimmed.ok).toBe(true);
     if (!trimmed.ok) return;
-    expect(trimmed.packet.flags).toEqual({ variationIncluded: false, neighborsIncluded: false, styleDetailIncluded: false, lookDetailIncluded: false });
-    expect(trimmed.prompt).not.toContain("Weather:");
+    expect(trimmed.packet.flags).toEqual({ variationIncluded: false, neighborsIncluded: false, styleDetailIncluded: false, lookDetailIncluded: true });
+    expect(trimmed.prompt).toContain(`Weather: ${oversized.situation!.weather}`);
     // An overrun smaller than the variation note stops after the first cut.
     const fitting = buildRenderingPacket(base("classical"));
     const room = fitting.ok ? GENERIC_PROMPT_MAX_CHARS - fitting.prompt.length : 0;
@@ -197,7 +196,7 @@ describe("rendering packet", () => {
     expect(slight.ok && slight.packet.flags).toEqual({ variationIncluded: false, neighborsIncluded: true, styleDetailIncluded: true, lookDetailIncluded: true });
     expect(trimmed.prompt.length).toBeLessThanOrEqual(GENERIC_PROMPT_MAX_CHARS);
     // Never-trimmed content survives every cut.
-    for (const must of ["PRIORITY RULES:", "SELECTED CHARACTERS: Sherlock Holmes; Dr. Watson; the voice", "apply shared clothing only to selected characters", "Tone: Brisk", "Depiction: Violence", "Technology: Railways", "FORMLESS SUBJECTS", "- the voice: represent only through", "even faceless or made of light", "- Sherlock Holmes: lean", "Primary subject: Holmes by the fire",
+    for (const must of ["PRIORITY RULES:", "SELECTED CHARACTERS: Sherlock Holmes; Dr. Watson; the voice", "apply situational clothing only to selected characters", "Tone: Brisk", "Depiction: Violence", "Technology: Railways", "FORMLESS SUBJECTS", "- the voice: represent only through", "even faceless or made of light", "- Sherlock Holmes: lean", "Primary subject: Holmes by the fire",
       `Rendering: ${SHARED_STYLES.get("classical").rendering}`, "Image 1: Sherlock Holmes's reference sheet", "Image 3: Dr. Watson's reference sheet", "Place: Baker Street"]) {
       expect(trimmed.prompt).toContain(must);
     }
