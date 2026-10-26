@@ -1,0 +1,537 @@
+{
+  "at": "2026-10-26T18:08:19.363Z",
+  "sources": {
+    "src/lib/engine/preparation.ts": "e7d32ab1c38941e2901db05b28910b89d30174231376b18b8002b720553f34c0",
+    "convex/_helpers/contentVersion.ts": "c34546acd74b8f3081a3f73a2e922ba30732ed21f26f6e75688a3b8ac3ed2a32",
+    "src/lib/engine/situation.ts": "793c7e95ea720a62986f0253ccf3bb25c471a733de21e7a790640918517d6f67",
+    "src/lib/engine/scene-grounding.ts": "fb20e4778239fc734c0ed5b6098b11474bb6a98d20c21c05d26865596c79eed5",
+    "src/lib/engine/plan-review.ts": "82c6c9d7f740c1f9ff8b3beaa6103b0772ace91d249505b9dca38adfd63d06aa",
+    "src/lib/engine/prompt.ts": "1974367792768b66d4d15bb3e4e041c14ca21307356959bbf3e1b81a112779a8",
+    "src/lib/engine/work-inputs.ts": "e449de93ef5b76c26b97bb40c725e11aeea9202cc9d14d7bd744aecbaa2c2cb3",
+    "src/lib/engine/memory-store.ts": "3f6c20532afac6697a136b414dbb55f04ccc28af0846469ee3f81022813e35ed",
+    "src/lib/reading-pass/model.ts": "da9caabd9a8f02e4fb2d8dd0c33babc7f142ab5ab2de354fff07f6d35eb488ea",
+    "src/lib/reading-pass/prompts.ts": "766166e25eaaaef2b6741898b5b0ccc1f330f85e9036af89c7b008cf81713abf",
+    "src/lib/image-response.ts": "07b5092d1795db69bbd4cfa41c5a25691277ff9a982884118fc1658881a9bba6",
+    "src/lib/image-prompts.ts": "fb4f04b8d98a2f32ceac40f4e854a1499ed8aaeaa7031b7e2212dbad515dfc6a",
+    "src/lib/canon-showing.ts": "2bfb6fa9aa29d366ab741981627f65b0b3425ee065ea3c163caca889bfbdee0b",
+    "src/lib/work-input.ts": "e43bddfa5b9a1e2f8065c42f6f99baba98d359f3a996efaca3d30aafb1d13590",
+    "src/lib/work-preparation.ts": "34ae8097b4eb351115bb7f5a77e8d63b59da40ec0d9891e0874f323fe88262ea",
+    "styles/classical.json": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+    "styles/watercolor.json": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+    "styles/icon.json": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+    "works/bible-web/brief.json": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "llm/releases/2026-10-27-forgiving-fresh-check/common.mts": "079926dc9bbe1333128aba578d1b9a6928b5b8786d4702f27fe11fd817085e5d",
+    "llm/releases/2026-10-27-forgiving-fresh-check/snapshot.mts": "343dbd16e095e4c899cea3096fa14867eaa34201e64b9c6c222f9b421ede2fcf",
+    "llm/releases/2026-10-27-forgiving-fresh-check/pricing.mts": "75ccfd660cf8e1f4a98f2b72a9af35b4535817ab86908d1a0e2b5c6f0503f631",
+    "llm/releases/2026-10-27-forgiving-fresh-check/scenarios.mts": "eed6e40b657f8b074c45e862ecc25d6df629f76d191ddf1dbfbafd4d072c630e",
+    "llm/releases/2026-10-27-forgiving-fresh-check/dry-run.mts": "79205fc5e08f739f9534d2b4d8485ea06d9a4da1528c520987f09015645c17fb",
+    "llm/releases/2026-10-27-forgiving-fresh-check/model.mts": "f0bd0adb5d3e5d05de151e58aa46ec3389833d90dfac1ace6a0063683c3f336d",
+    "llm/releases/2026-10-27-forgiving-fresh-check/run.mts": "002130bf602531536bba78da9fdc83f83a7065d5fbd85fdb38366636811b1939",
+    "llm/releases/2026-10-27-forgiving-fresh-check/audit.mts": "8f154574e124eb9d29f4a77c4eb340118eb786f6bf9d2a76cf53ac7d2db6fee5",
+    "llm/releases/2026-10-27-forgiving-fresh-check/score.mts": "d6bbb21c280481bd0ec0549d469391b286d0e6c2229e72e3960b6dc9476a96cc",
+    "llm/releases/2026-10-27-forgiving-fresh-check/rehearse.mts": "3dce75f53322ea329d72ef91d2e55babeba0e485c576357787495962ae09185d",
+    "llm/releases/2026-10-27-forgiving-fresh-check/plan.json": "818a3e7e46bca2a5bdaf0dedeaa064cdbee5021f45d2febb396ded603f4d2849",
+    "llm/releases/2026-10-27-forgiving-fresh-check/pricing.json": "b3d5b06075e77bc16e8fd79de29c15bf60285bb8dbc5c0d682605611a8ec145c",
+    "llm/releases/2026-10-27-forgiving-fresh-check/sample-set.json": "b4fdd11ab17ab383b4d63fe103f5e0927dac1336fb892a7f7d153e19c7891612",
+    "llm/releases/2026-10-27-forgiving-fresh-check/README.md": "60bb543c53d8d054b736967938585b04ae1a2bfb4acf4ebbd61772e967bce52e",
+    "llm/releases/2026-10-24-rendering-review-check/sample-set.json": "8a066d06b275c7ecea6305f3da8d6cb6356dcc62cb779d454e2e92b71af9a375",
+    "package.json": "3fdf0f945c802fbc8de81b21b777dde45b600caec4843b581992a1883e43ffa9",
+    "package-lock.json": "d9cff4d52431f7ad6d3eb6f9c1b025bfbfc74be703fe6d55010abb0b6abd326c"
+  },
+  "operations": [
+    {
+      "id": "r027",
+      "kind": "pipeline",
+      "sample": "r027",
+      "stratum": "retained"
+    },
+    {
+      "id": "r067",
+      "kind": "pipeline",
+      "sample": "r067",
+      "stratum": "retained"
+    },
+    {
+      "id": "g021",
+      "kind": "pipeline",
+      "sample": "g021",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g007",
+      "kind": "pipeline",
+      "sample": "g007",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g013",
+      "kind": "pipeline",
+      "sample": "g013",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g005",
+      "kind": "pipeline",
+      "sample": "g005",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g018",
+      "kind": "pipeline",
+      "sample": "g018",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g003",
+      "kind": "pipeline",
+      "sample": "g003",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g009",
+      "kind": "pipeline",
+      "sample": "g009",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g006",
+      "kind": "pipeline",
+      "sample": "g006",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g008",
+      "kind": "pipeline",
+      "sample": "g008",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g004",
+      "kind": "pipeline",
+      "sample": "g004",
+      "stratum": "fresh"
+    },
+    {
+      "id": "r074",
+      "kind": "pipeline",
+      "sample": "r074",
+      "stratum": "retained"
+    },
+    {
+      "id": "g010",
+      "kind": "pipeline",
+      "sample": "g010",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g012",
+      "kind": "pipeline",
+      "sample": "g012",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g017",
+      "kind": "pipeline",
+      "sample": "g017",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g015",
+      "kind": "pipeline",
+      "sample": "g015",
+      "stratum": "fresh"
+    },
+    {
+      "id": "r035",
+      "kind": "pipeline",
+      "sample": "r035",
+      "stratum": "retained"
+    },
+    {
+      "id": "g023",
+      "kind": "pipeline",
+      "sample": "g023",
+      "stratum": "fresh"
+    },
+    {
+      "id": "r059",
+      "kind": "pipeline",
+      "sample": "r059",
+      "stratum": "retained"
+    },
+    {
+      "id": "r034",
+      "kind": "pipeline",
+      "sample": "r034",
+      "stratum": "retained"
+    },
+    {
+      "id": "g001",
+      "kind": "pipeline",
+      "sample": "g001",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g019",
+      "kind": "pipeline",
+      "sample": "g019",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g020",
+      "kind": "pipeline",
+      "sample": "g020",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g022",
+      "kind": "pipeline",
+      "sample": "g022",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g011",
+      "kind": "pipeline",
+      "sample": "g011",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g014",
+      "kind": "pipeline",
+      "sample": "g014",
+      "stratum": "fresh"
+    },
+    {
+      "id": "g016",
+      "kind": "pipeline",
+      "sample": "g016",
+      "stratum": "fresh"
+    },
+    {
+      "id": "r001",
+      "kind": "pipeline",
+      "sample": "r001",
+      "stratum": "retained"
+    },
+    {
+      "id": "g002",
+      "kind": "pipeline",
+      "sample": "g002",
+      "stratum": "fresh"
+    }
+  ],
+  "first": {
+    "r027": {
+      "sha256": "7ff3b6ea464dc205d77fbbaa933cc8cee44d6883a5422e0e62cb92df1f92c33f",
+      "schemaName": "section_look"
+    },
+    "r067": {
+      "sha256": "5ce60638058a7957f101081687829dc4ecd411d5b48d839c10bf847f31f558f3",
+      "schemaName": "section_look"
+    },
+    "g021": {
+      "sha256": "7d863512cdba6585f2f0b41d01d9db104dd531039e47686b653aa88a006b1be4",
+      "schemaName": "section_look"
+    },
+    "g007": {
+      "sha256": "c0e87f5c36b4c4d980905ddb425b6e0e40f114e3c9152e03edca7428dddc9849",
+      "schemaName": "section_look"
+    },
+    "g013": {
+      "sha256": "5fcdcf2c22a1186f1410b65d8e5e9bc2a92228b950fb609cad67ac2b874e8f26",
+      "schemaName": "section_look"
+    },
+    "g005": {
+      "sha256": "5850524ef566104fdadb5d2f56f1b19063e1adb3e43531bacfaf069682583d63",
+      "schemaName": "section_look"
+    },
+    "g018": {
+      "sha256": "33d75848f5a9a8980b7bb98fb395ffb6a0a423ea886c5938fe7ff9b96d1c6a70",
+      "schemaName": "section_look"
+    },
+    "g003": {
+      "sha256": "e8a9fb6b62b2c73a3bcc8d6c1440f5bde09d1ddf3d4e9b46293f7724edc9cd8b",
+      "schemaName": "section_look"
+    },
+    "g009": {
+      "sha256": "dfb376185a7d9957b39a97e47207791b379572bebfdf24073d3b2ba8e0b0cc7d",
+      "schemaName": "section_look"
+    },
+    "g006": {
+      "sha256": "ee35687ee7d9cc8d770006e59f25ddd733df25c21781ae27a8733ae9f11c3b96",
+      "schemaName": "section_look"
+    },
+    "g008": {
+      "sha256": "d8a56c506fc560f2d03a26bed45e071c5b9069786f60b24791defa87bc1e5b99",
+      "schemaName": "section_look"
+    },
+    "g004": {
+      "sha256": "785ac86bfe03ad9a9c79fc741caf1f3ef56d0128cd7fd7ecfed9445f0c280442",
+      "schemaName": "section_look"
+    },
+    "r074": {
+      "sha256": "42d3a41335ceeb6f6f99ae5a702e4ca57a5a1b5072395cae46f080b1e3b7d1fa",
+      "schemaName": "section_look"
+    },
+    "g010": {
+      "sha256": "d4793fec1583491fff2b6bd1cf7ea526f3717ea629638a936aadc98277f55a12",
+      "schemaName": "section_look"
+    },
+    "g012": {
+      "sha256": "d600df22a5b11bba537a591f8e5bbf6a9bb684c7308df04faa51593cf9fe2106",
+      "schemaName": "section_look"
+    },
+    "g017": {
+      "sha256": "1be547c5c498c8e3195eb021dcdd36b47278b162c4fb931d09e17a9b6142111b",
+      "schemaName": "section_look"
+    },
+    "g015": {
+      "sha256": "66e1a13b66a9a0a7e699daf36dba7d878c1583207eec98bec36ce83692ae9d85",
+      "schemaName": "section_look"
+    },
+    "r035": {
+      "sha256": "6200a02f5e1aa2e05b211acd1191d093d6d47e018166a82f49fda55a91161e37",
+      "schemaName": "section_look"
+    },
+    "g023": {
+      "sha256": "cb65b36e6fce13aaf49585a4a80a9e6a47878d89ef5e4d9f334cbf44c129ab6a",
+      "schemaName": "section_look"
+    },
+    "r059": {
+      "sha256": "ea134f3be0f419d5e39355a202e5f8838b1c37b4e19255b7b0ccc9ffae677257",
+      "schemaName": "section_look"
+    },
+    "r034": {
+      "sha256": "d2ad685f2491bbecc34316d1f45bda5c7be3e0b41e3955ca97fad4165b8685ca",
+      "schemaName": "section_look"
+    },
+    "g001": {
+      "sha256": "21b2672258b4d5820883be06030b37f8fb65408c5862c55c4f0e22c629233d2d",
+      "schemaName": "section_look"
+    },
+    "g019": {
+      "sha256": "5bc5a797ce8fbb58978e5c7efbb59ee52b1e4a83fac3f0dee61e3d9d5320c55a",
+      "schemaName": "section_look"
+    },
+    "g020": {
+      "sha256": "a0194b6362707028bbb71f9ce9852f0e7414a012857076e759083609028dcea1",
+      "schemaName": "section_look"
+    },
+    "g022": {
+      "sha256": "3dc0d8b8eae5157cd078268a91f710c6dcdbb6dc1f06308c2611656ed179c39f",
+      "schemaName": "section_look"
+    },
+    "g011": {
+      "sha256": "91ed13e05a9684b2fcc192749e24cee925b1563f3a95d1bd825ab63db9ee7d31",
+      "schemaName": "section_look"
+    },
+    "g014": {
+      "sha256": "4db9d4eee67c62ea67c80076de2c103c4ff5f9682b7326d6db4f427d625291ed",
+      "schemaName": "section_look"
+    },
+    "g016": {
+      "sha256": "61fb5181a73782a3bab5592351a8dab5a5cf5d8c66ddb5a2858a5018ef942059",
+      "schemaName": "section_look"
+    },
+    "r001": {
+      "sha256": "aadb142f1cce1857f6f611a1ddfd30f69039ff2b86be602a97d44bd93843df15",
+      "schemaName": "section_look"
+    },
+    "g002": {
+      "sha256": "a91bd7d661edc7c84f5a8d02f9bc39992a89593d38a617c6303f340e0f256711",
+      "schemaName": "section_look"
+    }
+  },
+  "estimates": [
+    {
+      "id": "r027",
+      "firstPassUsd": 0.0024627037037037035,
+      "withOneReplanUsd": 0.004549814814814814,
+      "maximumCompletionFirstPassUsd": 0.005087703703703704
+    },
+    {
+      "id": "r067",
+      "firstPassUsd": 0.0023771851851851853,
+      "withOneReplanUsd": 0.004386296296296296,
+      "maximumCompletionFirstPassUsd": 0.005002185185185185
+    },
+    {
+      "id": "g021",
+      "firstPassUsd": 0.0021074814814814814,
+      "withOneReplanUsd": 0.0039614444444444445,
+      "maximumCompletionFirstPassUsd": 0.004732481481481482
+    },
+    {
+      "id": "g007",
+      "firstPassUsd": 0.001948259259259259,
+      "withOneReplanUsd": 0.0036490740740740737,
+      "maximumCompletionFirstPassUsd": 0.0045732592592592596
+    },
+    {
+      "id": "g013",
+      "firstPassUsd": 0.0023610370370370365,
+      "withOneReplanUsd": 0.004355148148148148,
+      "maximumCompletionFirstPassUsd": 0.004986037037037037
+    },
+    {
+      "id": "g005",
+      "firstPassUsd": 0.0020134074074074073,
+      "withOneReplanUsd": 0.003771148148148148,
+      "maximumCompletionFirstPassUsd": 0.004638407407407407
+    },
+    {
+      "id": "g018",
+      "firstPassUsd": 0.001785074074074074,
+      "withOneReplanUsd": 0.003317481481481481,
+      "maximumCompletionFirstPassUsd": 0.004410074074074073
+    },
+    {
+      "id": "g003",
+      "firstPassUsd": 0.0018679999999999999,
+      "withOneReplanUsd": 0.0034858888888888886,
+      "maximumCompletionFirstPassUsd": 0.0044930000000000005
+    },
+    {
+      "id": "g009",
+      "firstPassUsd": 0.002159259259259259,
+      "withOneReplanUsd": 0.0040645185185185185,
+      "maximumCompletionFirstPassUsd": 0.004784259259259259
+    },
+    {
+      "id": "g006",
+      "firstPassUsd": 0.002518222222222222,
+      "withOneReplanUsd": 0.004658407407407406,
+      "maximumCompletionFirstPassUsd": 0.005143222222222223
+    },
+    {
+      "id": "g008",
+      "firstPassUsd": 0.0018365925925925926,
+      "withOneReplanUsd": 0.0034247407407407403,
+      "maximumCompletionFirstPassUsd": 0.0044615925925925925
+    },
+    {
+      "id": "g004",
+      "firstPassUsd": 0.002064185185185185,
+      "withOneReplanUsd": 0.003876481481481481,
+      "maximumCompletionFirstPassUsd": 0.004689185185185185
+    },
+    {
+      "id": "r074",
+      "firstPassUsd": 0.002193703703703704,
+      "withOneReplanUsd": 0.004024296296296297,
+      "maximumCompletionFirstPassUsd": 0.0048187037037037035
+    },
+    {
+      "id": "g010",
+      "firstPassUsd": 0.0022567037037037035,
+      "withOneReplanUsd": 0.004144592592592592,
+      "maximumCompletionFirstPassUsd": 0.004881703703703704
+    },
+    {
+      "id": "g012",
+      "firstPassUsd": 0.001944185185185185,
+      "withOneReplanUsd": 0.0036314074074074074,
+      "maximumCompletionFirstPassUsd": 0.004569185185185185
+    },
+    {
+      "id": "g017",
+      "firstPassUsd": 0.0019472222222222221,
+      "withOneReplanUsd": 0.0036434074074074073,
+      "maximumCompletionFirstPassUsd": 0.004572222222222222
+    },
+    {
+      "id": "g015",
+      "firstPassUsd": 0.002069296296296296,
+      "withOneReplanUsd": 0.003882074074074074,
+      "maximumCompletionFirstPassUsd": 0.004694296296296295
+    },
+    {
+      "id": "r035",
+      "firstPassUsd": 0.002234925925925926,
+      "withOneReplanUsd": 0.004108407407407407,
+      "maximumCompletionFirstPassUsd": 0.0048599259259259255
+    },
+    {
+      "id": "g023",
+      "firstPassUsd": 0.002169037037037037,
+      "withOneReplanUsd": 0.0040841481481481475,
+      "maximumCompletionFirstPassUsd": 0.004794037037037037
+    },
+    {
+      "id": "r059",
+      "firstPassUsd": 0.002196111111111111,
+      "withOneReplanUsd": 0.004027777777777778,
+      "maximumCompletionFirstPassUsd": 0.004821111111111111
+    },
+    {
+      "id": "r034",
+      "firstPassUsd": 0.0025809259259259257,
+      "withOneReplanUsd": 0.004780222222222222,
+      "maximumCompletionFirstPassUsd": 0.005205925925925926
+    },
+    {
+      "id": "g001",
+      "firstPassUsd": 0.0024713703703703703,
+      "withOneReplanUsd": 0.004565814814814814,
+      "maximumCompletionFirstPassUsd": 0.00509637037037037
+    },
+    {
+      "id": "g019",
+      "firstPassUsd": 0.0020466666666666667,
+      "withOneReplanUsd": 0.003842814814814815,
+      "maximumCompletionFirstPassUsd": 0.004671666666666666
+    },
+    {
+      "id": "g020",
+      "firstPassUsd": 0.002085481481481481,
+      "withOneReplanUsd": 0.0038142592592592586,
+      "maximumCompletionFirstPassUsd": 0.004710481481481481
+    },
+    {
+      "id": "g022",
+      "firstPassUsd": 0.0018425925925925927,
+      "withOneReplanUsd": 0.0034364074074074076,
+      "maximumCompletionFirstPassUsd": 0.0044675925925925924
+    },
+    {
+      "id": "g011",
+      "firstPassUsd": 0.001904148148148148,
+      "withOneReplanUsd": 0.003558111111111111,
+      "maximumCompletionFirstPassUsd": 0.0045291481481481485
+    },
+    {
+      "id": "g014",
+      "firstPassUsd": 0.0020253333333333334,
+      "withOneReplanUsd": 0.0037992222222222225,
+      "maximumCompletionFirstPassUsd": 0.004650333333333333
+    },
+    {
+      "id": "g016",
+      "firstPassUsd": 0.0019637407407407407,
+      "withOneReplanUsd": 0.0036786666666666665,
+      "maximumCompletionFirstPassUsd": 0.0045887407407407405
+    },
+    {
+      "id": "r001",
+      "firstPassUsd": 0.0023964074074074074,
+      "withOneReplanUsd": 0.00442362962962963,
+      "maximumCompletionFirstPassUsd": 0.005021407407407407
+    },
+    {
+      "id": "g002",
+      "firstPassUsd": 0.0018790740740740738,
+      "withOneReplanUsd": 0.003507555555555555,
+      "maximumCompletionFirstPassUsd": 0.0045040740740740735
+    }
+  ],
+  "costEstimate": {
+    "firstPassUsd": 0.06370833333333333,
+    "oneReplanEveryCaseUsd": 0.11845325925925924,
+    "maximumCompletionFirstPassUsd": 0.14245833333333338,
+    "maximumCallEstimateUsd": 0.0030006666666666667,
+    "method": "Offline scripted mechanics; source-specific requests, captured catalog prices, output-schema characters and generous generated-input padding at 2.7 characters/token. Expected production completion tokens; the second scenario adds one full plan/review round to every case. Estimates, not guarantees; long or malformed replies can exhaust the cap before completion."
+  },
+  "paidCalls": 0,
+  "productionMutations": 0
+}

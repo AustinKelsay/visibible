@@ -1,0 +1,366 @@
+{
+  "scorer": "Independent model scorer A",
+  "scoredBeforeUnblinding": true,
+  "scores": [
+    {
+      "id": "p001",
+      "verdict": "flawed",
+      "reason": "Jesus teaching the pressing crowd by the lake is faithful, but the conditions pull in the later miraculous catch, so the instant spans the section.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Early morning, shifting into full daylight as the catch is hauled",
+          "reason": "The catch (5:4-7) comes later than this verse, where Jesus is still teaching on the shore. The time condition spans the section and invites a hauled catch into the scene."
+        }
+      ]
+    },
+    {
+      "id": "p002",
+      "verdict": "flawed",
+      "reason": "The young man's flight is depicted, but the conditions contradict the fields about the cloth and add disciples and Roman soldiers. The 'crowd following Jesus' entry is also misapplied to the arresting mob.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "one linen cloth left behind on the ground",
+          "reason": "Contradicts the fields, where the captors hold the cloth in their hands."
+        },
+        {
+          "quote": "Tunics and cloaks of disciples",
+          "reason": "The disciples have already fled (14:50), are not selected and do not appear in the fields."
+        },
+        {
+          "quote": "Roman soldiers in military dress with torches",
+          "reason": "Mark's arresting party is a crowd sent by the chief priests. No Roman soldiers are supported, and none appear in the fields."
+        }
+      ]
+    },
+    {
+      "id": "p003",
+      "verdict": "uncertain",
+      "reason": "The representative census scene is faithful, but Aaron's clothing is muddled. He is 'in simple linen' while 'priestly garments' sit 'on the tabernacle side', which could render as stray garments or as a mixed outfit.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Aaron's priestly garments on the tabernacle side",
+          "reason": "This is ambiguous and conflicts with 'Moses and Aaron in simple linen' and with Aaron's high-priest canon. The renderer cannot tell what Aaron wears."
+        }
+      ]
+    },
+    {
+      "id": "p004",
+      "verdict": "flawed",
+      "reason": "The man measuring the south gate with Ezekiel following is right. However, God's radiance is depicted although not selected (the glory returns only in ch. 43), and the scene is placed in the inner court.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a faint brilliant white-gold radiance with fire-like glow at the edge of the sky veiled by slow cloud",
+          "reason": "Depicts God's radiance, an available cast entry that is not selected and that this verse does not support."
+        },
+        {
+          "quote": "with a distant brilliant white-gold radiance and fire-like glow at the edge of the sky, veiled by slow cloud",
+          "reason": "The light condition repeats the unselected divine radiance."
+        },
+        {
+          "quote": "The inner court of a vast stone temple precinct, with a gate facing south",
+          "reason": "The south gate of 40:24 is the outer-court gate. The inner court's south gate only appears at 40:27."
+        }
+      ]
+    },
+    {
+      "id": "p005",
+      "verdict": "flawed",
+      "reason": "In this verse Job is the speaker accusing his friends. The action instead has Eliphaz accusing 'Job's friends of deceit', which inverts the roles.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Eliphaz leans forward and gestures sharply, accusing Job's friends of deceit as Job responds with anguish",
+          "reason": "Speaker and accusation are inverted. Job speaks 6:27 against his friends, while Eliphaz is a listener here."
+        }
+      ]
+    },
+    {
+      "id": "p006",
+      "verdict": "acceptable",
+      "reason": "A representative depiction of the earth swallowing Dathan and Abiram's households in the camp, with Moses present as at the original event. It is coherent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p007",
+      "verdict": "flawed",
+      "reason": "At 14:5 Pharaoh is in Egypt receiving the report and changing his mind. The plan already has him on a rise over the Israelite camp by the sea, with his chariot host equipped.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Pharaoh standing with his servants on the rise, one hand lifted in dismay, faces turned toward the distant camp",
+          "reason": "Places Pharaoh at the sea overlooking Israel's camp before he has pursued (14:6-10). The verse is a report delivered to him in Egypt."
+        },
+        {
+          "quote": "Egyptian linen and chariot gear of the Egyptian host",
+          "reason": "The chariots and army are prepared only in the next verses, so the conditions put a later instant into this one."
+        }
+      ]
+    },
+    {
+      "id": "p008",
+      "verdict": "flawed",
+      "reason": "The verse happens 'when he had come into his house', his home in Ephraim. The plan sets it in a lodging house in Gibeah, and the clothing condition restates canon outfits.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Inside a simple stone lodging house in Gibeah of Benjamin",
+          "reason": "Contradicts the source, which says the Levite did this after returning to his own house, not in Gibeah."
+        },
+        {
+          "quote": "The Levite in an ochre-brown tunic and dusty grey-blue cloak; the concubine in a tunic with a dull red border and a rust-brown cloak",
+          "reason": "Restates the fixed canon outfits."
+        }
+      ]
+    },
+    {
+      "id": "p009",
+      "verdict": "flawed",
+      "reason": "Jeremiah addressing Judah in Egypt is faithful, but the fields set a high midday sun while the conditions drift to late afternoon with long evening shadows.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Midday, shifting toward late afternoon",
+          "reason": "Contradicts the fields' 'Midday, sun high and strong' and spans more than one moment."
+        },
+        {
+          "quote": "Strong, warm sunlight with long shadows toward evening",
+          "reason": "Long evening shadows contradict the high midday sun in the fields."
+        }
+      ]
+    },
+    {
+      "id": "p010",
+      "verdict": "acceptable",
+      "reason": "Job alone on the ash heap pleading to be shown his sins is a faithful, coherent image of 13:23.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p011",
+      "verdict": "acceptable",
+      "reason": "Levite singers ministering with song before the Tent of Meeting is faithful to the verse and coherent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p012",
+      "verdict": "acceptable",
+      "reason": "Amalekite raiders leading the women and children from burned Ziklag without killing them is faithful and coherent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p013",
+      "verdict": "flawed",
+      "reason": "The mob assaulting Jason's house is faithful, but the clothing condition adds Roman soldiers that neither the source nor the fields contain.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Roman soldiers in military dress at the city edge",
+          "reason": "No soldiers appear in the source or the fields. The rioters are marketplace men and a crowd, and the city rulers enter only later."
+        }
+      ]
+    },
+    {
+      "id": "p014",
+      "verdict": "acceptable",
+      "reason": "A symbolic image of the formless divine radiance over trembling earth and smoking mountains. It is faithful to the poetic verse and shows no figure.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p015",
+      "verdict": "acceptable",
+      "reason": "Fishermen washing nets beside two beached boats while Jesus watches from a distance is faithful. Simon and his partners are supported by 5:3 and 5:10.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p016",
+      "verdict": "flawed",
+      "reason": "This legal verse says 'the priest', but the plan substitutes the named Aaron. It also gives the portable tabernacle a fortified stone court.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Aaron in priestly linen, holding a clay vessel of water",
+          "reason": "Substitutes a named person (Aaron) for the generic 'the priest' of the law."
+        },
+        {
+          "quote": "Aaron offers the bitter water to the woman to drink",
+          "reason": "Repeats the named substitution in the action."
+        },
+        {
+          "quote": "The fortified priestly court beside the tabernacle, ancient stone and sand underfoot",
+          "reason": "The wilderness tabernacle court was linen hangings on posts, not a fortified 'ancient stone' court."
+        }
+      ]
+    },
+    {
+      "id": "p017",
+      "verdict": "flawed",
+      "reason": "Moses charging Israel on the plains of Moab is faithful. However, the plan and conditions add God's white-gold radiance over the mountain, though God is not selected and the verse does not support it.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "a faint radiance and cloud veiling the mountain summit",
+          "reason": "Depicts God's presence, an available cast entry that is not selected."
+        },
+        {
+          "quote": "with a brilliant white-gold radiance gathered over the mountain summit",
+          "reason": "The light condition renders the unselected divine radiance."
+        }
+      ]
+    },
+    {
+      "id": "p018",
+      "verdict": "uncertain",
+      "reason": "The petition to Solomon is shown, but 2:19 has Bathsheba seated on a throne set at the king's right hand. Showing her standing before the throne may or may not count as a real infidelity.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Bathsheba standing before the throne",
+          "reason": "The section has her seated on a throne at Solomon's right (2:19), not standing before him as a petitioner."
+        }
+      ]
+    },
+    {
+      "id": "p019",
+      "verdict": "flawed",
+      "reason": "The symbolic goldsmith disappointed by his lifeless idol is apt, but the prophet who merely speaks the oracle is inserted as an onlooker in the scene.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Jeremiah standing a short distance away, observing quietly",
+          "reason": "Framing figure: Jeremiah speaks the oracle and is not a participant in the goldsmith scene."
+        }
+      ]
+    },
+    {
+      "id": "p020",
+      "verdict": "acceptable",
+      "reason": "A family resting securely in a peaceful Judean village is a faithful representative image of 32:18.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p021",
+      "verdict": "acceptable",
+      "reason": "The psalmist (David) collapsed in the dust beside a potsherd is a faithful image of the speaker's own suffering, with situational plain dress.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p022",
+      "verdict": "flawed",
+      "reason": "Joseph and pregnant Mary enrolling at Bethlehem is right. However, the conditions put the registration at night and collapse the journey, enrollment and birth into one night.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Night, with the census journey and birth occurring in the dark hours before dawn",
+          "reason": "Spans several moments of the section and contradicts 2:6, where the birth comes later, 'while they were there'."
+        },
+        {
+          "quote": "Night, the dark hours before dawn, with the registration lit by lamps",
+          "reason": "Nothing in the source supports a census registration held in the dark before dawn."
+        }
+      ]
+    },
+    {
+      "id": "p023",
+      "verdict": "flawed",
+      "reason": "Removing a murderer from the altar is a reasonable representative scene for the law. However, Moses, who only relays the ordinance, is inserted presiding over its application, and the clothing restates canon.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Moses stands near the tabernacle entrance with one hand raised",
+          "reason": "Framing figure: Moses receives and relays the law and is not a participant in this hypothetical case."
+        },
+        {
+          "quote": "Plain undyed woven linen tunics in ochre or cream for the Israelites, cloaks in earth tones",
+          "reason": "Restates the Israelite people's fixed canon outfit."
+        }
+      ]
+    },
+    {
+      "id": "p024",
+      "verdict": "acceptable",
+      "reason": "Moses, the one who prayed, standing before the veiled radiance as his request is refused on the plains of Moab is faithful and coherent.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p025",
+      "verdict": "acceptable",
+      "reason": "A representative roll-call image of the two Ithrite warriors among David's mighty men in Jerusalem is coherent for a list verse.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p026",
+      "verdict": "acceptable",
+      "reason": "Israelites fleeing and Philistines moving into an abandoned city at Beth Shan is a coherent single image of 31:7.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p027",
+      "verdict": "flawed",
+      "reason": "The verse praises the former purity of 'her nobles'. The plan substitutes the priests cast and shows their defiled, ruined state from 4:8, and the conditions add attackers and mourners absent from the fields.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Priests of Jerusalem in their soiled, dust-stained linen, torn and marked by the ruin",
+          "reason": "Wrong identity and instant: 4:7 speaks of her nobles (princes or Nazirites) as once purer than snow. The defiled state belongs to 4:8."
+        },
+        {
+          "quote": "period armour of the attacking forces in the background",
+          "reason": "Adds attackers that are absent from the fields and unsupported by the verse."
+        },
+        {
+          "quote": "mourning sackcloth on the people",
+          "reason": "Adds clothing for a population that does not appear in the fields."
+        }
+      ]
+    },
+    {
+      "id": "p028",
+      "verdict": "acceptable",
+      "reason": "The villagers of Madmenah and Gebim fleeing before the advancing army, with the selected divine radiance veiled in cloud, is a faithful prophetic image.",
+      "lookContradiction": false,
+      "defects": []
+    },
+    {
+      "id": "p029",
+      "verdict": "flawed",
+      "reason": "The glory rising from the cherub to the threshold, with cloud filling the house, is faithful. However, the clothing condition adds robed priestly attendants who do not appear in the fields.",
+      "lookContradiction": true,
+      "defects": [
+        {
+          "quote": "Priestly linen on the robed attendants",
+          "reason": "Introduces attendants who are absent from the fields and not selected. The only linen-clad figure in the passage is the unselected man clothed in linen."
+        }
+      ]
+    },
+    {
+      "id": "p030",
+      "verdict": "flawed",
+      "reason": "The verse is part of Paul's letter to Rome about Abraham's justification. The plan instead invents the author preaching in a Judean fishing-village street with Roman soldiers, which illustrates neither.",
+      "lookContradiction": false,
+      "defects": [
+        {
+          "quote": "Stone village street in Roman Judea with a synagogue wall and fishing boats nearby",
+          "reason": "Unsupported setting and instant. Romans is a letter, and the verse concerns Abraham, not Paul debating in Judea."
+        },
+        {
+          "quote": "Roman soldiers in military dress nearby",
+          "reason": "Soldiers are unsupported by the source."
+        }
+      ]
+    }
+  ]
+}

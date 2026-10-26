@@ -1,0 +1,125 @@
+{
+  "issue": 183,
+  "status": "Owner-approved re-measurement (27 October 2026, \"Ok do 1 and 2 now! Reloading budget\") of forgiving preparation and generic-v9 rendering merged in PR #279, with the new production Classical style reference. Measurement only: no tuning, restart or replacement.",
+  "purpose": "Re-check the two visual release blockers on the current pipeline: a no-form God drawn as a figure (now with a Classical style reference) and Watercolor margins and prompt length (now with a 12,000-character cap). Also check framing figures, poses and selected cast.",
+  "candidateCommit": "71d0e24e132cb0bc9d2a53c81c9b3f973f1d671d",
+  "pipeline": {
+    "momentCast": "2026-10-27-moment-cast-v11",
+    "formlessPlan": "2026-10-27-formless-effects-v11",
+    "review": "2026-10-27-plan-review-v9",
+    "rendering": "2026-10-27-generic-v9"
+  },
+  "image": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "cases": [
+    {
+      "id": "numbers-3-39",
+      "reference": "Numbers 3:39",
+      "why": "Census with God available in the section; no unsupported divine radiance or bodily God.",
+      "tags": [
+        "no-form-absent",
+        "cast"
+      ]
+    },
+    {
+      "id": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "why": "Ancient of Days vision: God has no face, body, hair, clothing, silhouette or figure; permitted effects only.",
+      "tags": [
+        "no-form-present",
+        "symbolic"
+      ]
+    },
+    {
+      "id": "exodus-16-15",
+      "reference": "Exodus 16:15",
+      "why": "Exact verse where both earlier images drew a robed figure in the cloud.",
+      "tags": [
+        "no-form-regression"
+      ]
+    },
+    {
+      "id": "exodus-14-22",
+      "reference": "Exodus 14:22",
+      "why": "Israel between two walls of water on dry ground; continuity and crowd.",
+      "tags": [
+        "narrative",
+        "crowd"
+      ]
+    },
+    {
+      "id": "luke-10-34",
+      "reference": "Luke 10:34",
+      "why": "One instant of care; consistent poses and object states; the mount if depicted.",
+      "tags": [
+        "one-instant",
+        "pose"
+      ]
+    },
+    {
+      "id": "exodus-40-34",
+      "reference": "Exodus 40:34",
+      "why": "Cloud covers the tent and glory fills the tabernacle; God as permitted effects only.",
+      "tags": [
+        "no-form-present"
+      ]
+    },
+    {
+      "id": "exodus-19-18",
+      "reference": "Exodus 19:18",
+      "why": "Sinai smoke and fire as Yahweh descends; no figure.",
+      "tags": [
+        "no-form-present"
+      ]
+    },
+    {
+      "id": "isaiah-6-1",
+      "reference": "Isaiah 6:1",
+      "why": "The Lord on a throne: an unoccupied seat with effects, never a seated figure.",
+      "tags": [
+        "no-form-present",
+        "symbolic"
+      ]
+    }
+  ],
+  "controlCases": [
+    "daniel-7-9",
+    "exodus-16-15",
+    "exodus-40-34",
+    "exodus-19-18",
+    "isaiah-6-1"
+  ],
+  "design": "All eight cases of the 26 October check (its five main cases and three backups) are each prepared once, cold, in a memory store seeded from a read-only production snapshot. A refused preparation stops that case before any image and is retained. Each stored case renders classical twice, watercolor twice and icon once, with the references production would send, including the new Classical style reference. For the five cases where God appears or acts, one more classical image omits only the style reference (control). That is at most 45 images. Later assemblies must reuse the stored plan with zero text calls.",
+  "scoring": {
+    "method": "Images are copied under opaque shuffled names without case, style-control or variation labels beyond what the image shows. Two independent model scorers inspect every image at full resolution; the operator adjudicates and commits before unblinding. Not human acceptance.",
+    "perImage": [
+      "noFormFigure: any face, body, hair, clothing, silhouette or human-shaped figure for God or another no-form subject (yes/no/na)",
+      "edges: all four edges painted to the border (full) or any white/unpainted margin or vignette (margin)",
+      "extraFigures: framing or unsupported named figures present (yes/no)",
+      "coherence: one instant, coherent poses and object states (yes/no)",
+      "text: any lettering or writing (yes/no)",
+      "overall: acceptable/flawed/uncertain"
+    ],
+    "gate": "Blocker 1 clears only with zero no-form figures in every production-like image of a God case. Blocker 2 clears only if every Watercolor image is full-bleed and no stored case refuses for prompt length. The classical controls show whether the style reference is what prevents the figure. No outcome authorizes activation."
+  },
+  "evaluation": {
+    "authorizedBeforeUsd": 21.5,
+    "measuredBeforeUsd": 18.2281125,
+    "measuredBeforeNote": "17.9781125 measured before 27 October, plus the full $0.25 cap of the concurrent fresh re-measurement, reserved conservatively; the final budget settles from both ledgers.",
+    "uncertaintyBeforeUsd": 0.045,
+    "proposedIncreaseUsd": 0,
+    "proposedAuthorizedUsd": 21.5,
+    "proposedOperationCapUsd": 2.0,
+    "textReserveUsd": 0.005,
+    "imageReserveUsd": 0.06,
+    "maximumImages": 45,
+    "maximumTextCalls": 60
+  },
+  "releaseHold": true,
+  "publicActivation": false,
+  "humanAccepted": false,
+  "knownLimitation": "Eight chosen cases and one or two images per style are descriptive only; this does not replace the full current-candidate visual matrix or human acceptance. Model scorers can miss subtle anatomy or edge artifacts."
+}

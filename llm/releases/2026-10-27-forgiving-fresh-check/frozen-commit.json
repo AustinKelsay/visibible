@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-26T18:10:26.114Z",
+  "commit": "9fc48c26d999e3f4b880c2e4bf2be2370514f614",
+  "grant": {
+    "authorizedAt": "2026-10-26T18:10:20Z",
+    "authorization": "Owner replied 'Ok do 1 and 2 now! Reloading budget' to: 'Should I merge PR #279 into dev and run the re-measurement with a budget increase of up to $4?' Step 1 was the re-measurement (same fresh text test and image check). This grant records a $2.00 evaluation increase to $21.50, shared with the paired image check, and caps this text run at $0.25.",
+    "increaseUsd": 2,
+    "authorizedUsd": 21.5,
+    "operationCapUsd": 0.25,
+    "scope": "One execution of the frozen 30-case forgiving-preparation fresh measurement in this directory. No paid restart, tuning, images, production writes, deployment or public activation.",
+    "proposalCommit": "71d0e24e132cb0bc9d2a53c81c9b3f973f1d671d"
+  }
+}
