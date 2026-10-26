@@ -4,7 +4,7 @@
  * precedence, and quote counts from controlled catalog data.
  */
 import { describe, it, expect } from "vitest";
-import { buildRenderingPacket, selectReferences, GENERIC_PROMPT_MAX_CHARS, type RenderingInput, type SelectedCanon, type AvailableReference } from "../engine/prompt";
+import { buildRenderingPacket, selectReferences, ENGINE_RULES, GENERIC_PROMPT_MAX_CHARS, GENERIC_PROMPT_VERSION, PRECEDENCE_LINE, type RenderingInput, type SelectedCanon, type AvailableReference } from "../engine/prompt";
 import { quoteGenericImage } from "../engine/quote";
 import { SHARED_STYLES, type WorkBrief } from "../work-preparation";
 import { normalizeImageBilling } from "../image-catalog";
@@ -30,6 +30,8 @@ const references: AvailableReference[] = [
   { kind: "sheet", entryId: "221b_baker_street", stageId: "main", storageId: "sh-221b", version: "s3" },
   { kind: "sheet", entryId: "the_voice", stageId: "main", storageId: "sh-voice", version: "s4" },
 ];
+const selectedRule = ENGINE_RULES.find((rule) => rule.startsWith("Show the SELECTED CHARACTERS"))!;
+const formlessRule = ENGINE_RULES.find((rule) => rule.startsWith("A subject without form"))!;
 const base = (styleId: string, extra: Partial<RenderingInput> = {}): RenderingInput => {
   const input = {
   work: { id: "holmes-adventures", title: "The Adventures of Sherlock Holmes" },
@@ -51,7 +53,8 @@ describe("rendering packet", () => {
       if (!result.ok) return;
       expect(result.prompt.startsWith("PRIORITY RULES:")).toBe(true);
       expect(result.prompt).toContain("No likeness of any real actor");
-      expect(result.prompt).toContain("follow them in this order: these rules, then the work brief, then canon identity, then the art style's rendering, then the scene plan and resolved moment conditions");
+      expect(result.prompt).toContain(PRECEDENCE_LINE);
+      expect(result.prompt).toContain("follow these rules, then the work brief, then canon, then the art style, then the scene plan and moment conditions");
       expect(result.prompt).toContain("Tone: Brisk, foggy Victorian detective mood.");
       expect(result.prompt).toContain("Depiction: Violence is kept offstage");
       expect(result.prompt.includes("fog becomes a flat grey ground")).toBe(styleId === "icon");
@@ -71,7 +74,7 @@ describe("rendering packet", () => {
       expect(result.references.map((r) => r.caption)).toEqual(result.packet.references.map((r) => r.caption));
       expect(result.references[result.references.length - 1].caption).toMatch(/^Image 3: /);
       expect(result.prompt).toContain(result.references[0].caption);
-      expect(result.packet).toMatchObject({ promptVersion: "2026-10-26-generic-v8", styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
+      expect(result.packet).toMatchObject({ promptVersion: GENERIC_PROMPT_VERSION, styleId, briefVersion: "bv1", lookVersion: "l1", planVersion: "p1",
         canon: [{ entryId: "sherlock_holmes", stageId: "main", version: "h1" }, expect.anything(), expect.anything(), expect.anything()],
         flags: { variationIncluded: true, neighborsIncluded: true, styleDetailIncluded: true, lookDetailIncluded: true } });
       expect(result.packet.budget.finalChars).toBe(result.prompt.length);
@@ -90,7 +93,7 @@ describe("rendering packet", () => {
     if (!result.ok) throw new Error(result.error);
     expect(result.prompt).toContain(`SELECTED CHARACTERS: ${expected}\n`);
     expect(result.prompt).toContain(input.look.clothing);
-    expect(result.prompt).toContain("Moment conditions, source narrators and neighbors do not add figures");
+    expect(result.prompt).toContain(selectedRule);
     expect(result.packet.canon.map((entry) => entry.entryId)).toEqual(selected.map((entry) => entry.entryId));
   });
 
@@ -100,10 +103,9 @@ describe("rendering packet", () => {
       input.situation!.light = "veiled radiance representing the voice";
       const full = buildRenderingPacket(input);
       if (!full.ok) throw new Error(full.error);
-      const rule = "Omit such effects from moment conditions when that subject is unselected or absent from the plan";
       expect(full.prompt).toContain(input.situation!.light);
-      expect(full.prompt.indexOf(rule)).toBeLessThan(full.prompt.indexOf("MOMENT CONDITIONS"));
-      expect(full.prompt).toContain("Ordinary sunlight, lamplight, embers and weather remain setting details.");
+      expect(formlessRule).toContain("only when it is selected");
+      expect(full.prompt.indexOf(formlessRule)).toBeLessThan(full.prompt.indexOf("MOMENT CONDITIONS"));
       expect(full.prompt).not.toContain("FORMLESS SUBJECTS");
       input.situation!.light = "radiance ".repeat(1800);
       expect(buildRenderingPacket(input)).toMatchObject({ ok: false, error: expect.stringContaining("after every allowed trim") });
@@ -133,6 +135,34 @@ describe("rendering packet", () => {
     const onlyFormless = buildRenderingPacket(base("classical", { canon: canon.filter((c) => !c.hasForm) }));
     expect(onlyFormless.ok && onlyFormless.prompt).toContain("- the voice: represent only through");
     expect(onlyFormless.ok && onlyFormless.prompt).not.toContain("this canon look");
+  });
+
+  it("selects a Classical style reference first when one is available, keeping at most three references", () => {
+    const withClassical: AvailableReference[] = [{ kind: "styleReference", styleId: "classical", storageId: "st-classical", version: "r0" }, ...references];
+    const result = buildRenderingPacket(base("classical", { references: withClassical }));
+    if (!result.ok) throw new Error(result.error);
+    // Style reference first, then Holmes and 221B; Watson drops at the three-image limit. The voice never.
+    expect(result.packet.references.map((r) => r.id)).toEqual(["classical", "sherlock_holmes:main", "221b_baker_street:main"]);
+    expect(result.references[0]).toMatchObject({ kind: "styleReference", storageId: "st-classical", index: 0 });
+    expect(result.references[0].caption).toMatch(/^Image 1: art-style reference/);
+    // Another style's reference never stands in for Classical's.
+    const otherStylesOnly = buildRenderingPacket(base("classical"));
+    expect(otherStylesOnly.ok && otherStylesOnly.packet.references.map((r) => r.id)).toEqual(["sherlock_holmes:main", "221b_baker_street:main", "dr_watson:main"]);
+    const control = buildRenderingPacket(base("classical", { references: withClassical, omitStyleReference: true }));
+    expect(control.ok && control.packet.references.map((r) => r.id)).toEqual(["sherlock_holmes:main", "221b_baker_street:main"]);
+  });
+
+  it("caps the prompt at 12,000 characters and accepts prompts above the old 8,000 cap", () => {
+    expect(GENERIC_PROMPT_MAX_CHARS).toBe(12000);
+    const fitting = buildRenderingPacket(base("watercolor"));
+    if (!fitting.ok) throw new Error(fitting.error);
+    const pad = 9500 - fitting.prompt.length;
+    const longer = buildRenderingPacket(base("watercolor", { canon: canon.map((c, i) => (i === 0 ? { ...c, text: c.text + " x".repeat(Math.ceil(pad / 2)) } : c)) }));
+    if (!longer.ok) throw new Error(longer.error);
+    expect(longer.prompt.length).toBeGreaterThan(8000);
+    expect(longer.packet.budget).toEqual({ maxChars: 12000, finalChars: longer.prompt.length });
+    // Nothing was trimmed to fit it.
+    expect(longer.packet.flags).toMatchObject({ variationIncluded: true, neighborsIncluded: true, styleDetailIncluded: true });
   });
 
   it("works with zero references and keeps full canon, and a stage-specific sheet only matches its stage", () => {
@@ -196,7 +226,7 @@ describe("rendering packet", () => {
     expect(slight.ok && slight.packet.flags).toEqual({ variationIncluded: false, neighborsIncluded: true, styleDetailIncluded: true, lookDetailIncluded: true });
     expect(trimmed.prompt.length).toBeLessThanOrEqual(GENERIC_PROMPT_MAX_CHARS);
     // Never-trimmed content survives every cut.
-    for (const must of ["PRIORITY RULES:", "SELECTED CHARACTERS: Sherlock Holmes; Dr. Watson; the voice", "apply situational clothing only to selected characters", "Tone: Brisk", "Depiction: Violence", "Technology: Railways", "FORMLESS SUBJECTS", "- the voice: represent only through", "even faceless or made of light", "- Sherlock Holmes: lean", "Primary subject: Holmes by the fire",
+    for (const must of ["PRIORITY RULES:", "SELECTED CHARACTERS: Sherlock Holmes; Dr. Watson; the voice", selectedRule, "Tone: Brisk", "Depiction: Violence", "Technology: Railways", "FORMLESS SUBJECTS", "- the voice: represent only through", "even faceless or made of light", "- Sherlock Holmes: lean", "Primary subject: Holmes by the fire",
       `Rendering: ${SHARED_STYLES.get("classical").rendering}`, "Image 1: Sherlock Holmes's reference sheet", "Image 3: Dr. Watson's reference sheet", "Place: Baker Street"]) {
       expect(trimmed.prompt).toContain(must);
     }

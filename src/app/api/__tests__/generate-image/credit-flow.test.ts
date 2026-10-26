@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { reviewReply, withCleanReview } from "../../../../../tests/fixtures/plan-review";
 import type { PlanReviewProblem } from "@/lib/engine/plan-review";
+import { GENERIC_PROMPT_VERSION } from "@/lib/engine/prompt";
 import { imageModelFixture } from "../shared/image-model-fixtures";
 /**
  * Integration tests for image generation API credit flow.
@@ -690,10 +691,17 @@ describe("Image Generation API Credit Flow", () => {
       expect(request.renderingPacket!.canon.map((c) => c.entryId)).toEqual(["adam", "eden", "god"]);
       // The saved image is WEB text with full provenance; the reader's translation is request context only.
       const [image] = await savedImages();
-      expect(image).toMatchObject({ verseId: "genesis-1-1", translationId: "web", verseText: webText[1], engine: "generic", artStyleId: "watercolor", promptVersion: "2026-10-26-generic-v8" });
+      expect(image).toMatchObject({ verseId: "genesis-1-1", translationId: "web", verseText: webText[1], engine: "generic", artStyleId: "watercolor", promptVersion: GENERIC_PROMPT_VERSION });
       expect(image.provenance).toMatchObject({ workId: WORK, momentId: "genesis-1-1", sectionId: "genesis-1-1", styleId: "watercolor", lookVersion: request.renderingPacket!.lookVersion, planVersion: request.renderingPacket!.planVersion, requestTranslationId: "web" });
       expect(image.provenance!.references).toEqual([{ kind: "styleReference", id: "watercolor", version: expect.any(String) }, { kind: "sheet", id: "adam:main", version: expect.any(String) }]);
-      // A second style of the same moment reuses the look and plan: no new preparation call, no style reference for Classical.
+      // The stored plan keeps the planner's audit choice and a clean single-round review without notes.
+      const storedPlan = await requestDb.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "genesis-1-1" });
+      expect(storedPlan!.payload).toMatchObject({ entries: [{ entryId: "adam", stageId: "main" }, { entryId: "eden", stageId: "main" }, { entryId: "god", stageId: "main" }],
+        grounding: { focusQuote: webText[1], instant: `The single chosen instant: ${webText[1]}`, singleInstant: true,
+          cast: ["adam", "eden", "god"].map((entryId) => ({ entryId, momentQuote: webText[1], contextSource: "none", contextQuote: "", participation: "in_scene" })) },
+        review: { rounds: 1 } });
+      expect((storedPlan!.payload as { review: Record<string, unknown> }).review).not.toHaveProperty("notes");
+      // A second style of the same moment reuses the look and plan: no new preparation call. This work has no Classical style reference, so only the sheet is sent.
       const classical = await POST(createGenerateImageRequest({ ...body, requestId: "generic-2", style: "classical" }));
       expect(classical.status).toBe(200);
       expect(modelCalls).toHaveLength(2);
@@ -730,57 +738,142 @@ describe("Image Generation API Credit Flow", () => {
       expect((await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((e) => e.outcome.startsWith("error"))).toEqual([true, true]);
     });
 
-    it("stops on one missing-cast reply before a guest reservation, request record or image call", async () => {
+    const ledgerOutcomes = async () => (await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((entry) => entry.outcome);
+    const storedPlanPayload = async () => (await requestDb.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "genesis-1-1" }))?.payload as
+      { review: { rounds: number; problems?: PlanReviewProblem[]; notes?: string[] }; grounding: { singleInstant: boolean } } | undefined;
+
+    it("notes a reported required-canon gap without a re-plan and still renders the scene", async () => {
       await prepareWork();
-      missingCast = ["required source actor"];
+      reviewProblems = [{ kind: "missing_canon", entryId: "", planQuote: "Adam standing by the river", reason: "Scripted named actor without canon." }];
       const { POST } = await import("../../generate-image/route");
       const response = await POST(createGenerateImageRequest(body));
-      expect(response.status).toBe(503);
-      expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true,
-        message: expect.stringContaining("required canon unavailable: required source actor") });
-      expect(modelCalls).toHaveLength(2); // One look and one plan; a source gap is never re-planned.
-      expect((await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((entry) => entry.outcome)).toEqual(["ok", "unavailable"]);
-      expect(getCallCount("reserveCredits")).toBe(0);
-      expect(imageCalls()).toHaveLength(0);
-      expect(await storedRequests()).toHaveLength(0);
-      expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
-      expect(await requestDb.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "genesis-1-1" })).toBeNull();
+      expect(response.status).toBe(200);
+      expect(await response.json()).toMatchObject({ engine: "generic", creditsCost: 2 });
+      // A re-plan cannot add canon: one look, one plan, one review.
+      expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1"]);
+      expect(await ledgerOutcomes()).toEqual(["ok", "ok", "review problems"]);
+      expect(await storedPlanPayload()).toMatchObject({ review: { rounds: 1, notes: ["noted: missing_canon: Scripted named actor without canon."] } });
+      expect(getCallCount("reserveCredits")).toBe(1);
+      expect(imageCalls()).toHaveLength(1);
     });
 
-    it("re-plans a reported sequence once, then stops before image reservation, request creation or reference loading", async () => {
+    it("re-plans a reported sequence once, then keeps the second plan with notes and renders it", async () => {
       await prepareWork();
-      singleInstant = false;
+      reviewProblems = [{ kind: "not_one_instant", entryId: "adam", planQuote: "looks up at the new light", reason: "Scripted successive poses." }];
       const { POST } = await import("../../generate-image/route");
       const response = await POST(createGenerateImageRequest(body));
-      expect(response.status).toBe(503);
-      expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true,
-        message: expect.stringContaining("scene requires successive instants") });
-      expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "plan:genesis-1-1:1"]); // The single re-plan repeats the sequence.
-      expect((await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((entry) => entry.outcome)).toEqual(["ok", "unavailable", "unavailable"]);
-      expect(getCallCount("reserveCredits")).toBe(0);
-      expect(imageCalls()).toHaveLength(0);
-      expect(loadedBlobs).toEqual([]);
-      expect(await storedRequests()).toEqual([]);
-      expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
-      expect(await requestDb.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "genesis-1-1" })).toBeNull();
+      expect(response.status).toBe(200);
+      expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1"]);
+      expect(await ledgerOutcomes()).toEqual(["ok", "ok", "review problems", "ok", "review problems"]);
+      expect(await storedPlanPayload()).toMatchObject({ grounding: { singleInstant: false },
+        review: { rounds: 2, problems: reviewProblems, notes: ["kept with: not_one_instant adam"] } });
+      expect(getCallCount("reserveCredits")).toBe(1);
+      expect(imageCalls()).toHaveLength(1);
+      expect((await storedRequests())[0]).toMatchObject({ engine: "generic", status: "succeeded" });
     });
 
-    it("refuses repeated generated-condition conflicts after one re-plan before references, image reservation or request creation", async () => {
+    it("re-plans repeated generated-condition conflicts once, then keeps the plan with notes and renders it", async () => {
       await prepareWork();
       reviewProblems = [{ kind: "look_conflict", entryId: "", planQuote: "ordinary daylight", reason: "Scripted incompatible shared illumination." }];
       const { POST } = await import("../../generate-image/route");
       const response = await POST(createGenerateImageRequest(body));
-      expect(response.status).toBe(503);
-      expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true,
-        message: expect.stringContaining("plan unavailable: plan review: look_conflict") });
+      expect(response.status).toBe(200);
       expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1"]);
-      expect((await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).map((entry) => entry.outcome)).toEqual(["ok", "ok", "review problems", "ok", "review problems"]);
-      expect(getCallCount("reserveCredits")).toBe(0);
-      expect(imageCalls()).toHaveLength(0);
-      expect(loadedBlobs).toEqual([]);
-      expect(await storedRequests()).toEqual([]);
-      expect(mockState.sessions.get("test-session")!.credits).toBe(1000);
-      expect(await requestDb.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "genesis-1-1" })).toBeNull();
+      expect(await ledgerOutcomes()).toEqual(["ok", "ok", "review problems", "ok", "review problems"]);
+      expect(await storedPlanPayload()).toMatchObject({ review: { rounds: 2, problems: reviewProblems, notes: ["kept with: look_conflict"] } });
+      expect(getCallCount("reserveCredits")).toBe(1);
+      expect(imageCalls()).toHaveLength(1);
+    });
+
+    describe("legacy fallback for a refused scene", () => {
+      const embodied: PlanReviewProblem[] = [{ kind: "embodied_formless", entryId: "god", planQuote: "looks up at the new light", reason: "Scripted figure for a subject without form." }];
+      const classicalBody = { ...body, requestId: "fallback-1", style: "classical" };
+      const isLegacyPrompt = (call: unknown) => !JSON.stringify(call).includes("SELECTED CHARACTERS");
+
+      it("serves an unbound Classical request from the legacy engine after generic preparation refuses, with no generic record or reservation", async () => {
+        await prepareWork();
+        reviewProblems = embodied;
+        const { POST } = await import("../../generate-image/route");
+        const response = await POST(createGenerateImageRequest(classicalBody));
+        expect(response.status).toBe(200);
+        expect(await response.json()).toMatchObject({ engine: "legacy" });
+        // Generic preparation ran (and was refused after its one re-plan) before anything was recorded or reserved.
+        expect(modelCalls).toEqual(["look:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1", "plan:genesis-1-1:1", "review:genesis-1-1:1"]);
+        expect(await requestDb.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "genesis-1-1" })).toBeNull();
+        const requests = await storedRequests();
+        expect(requests).toHaveLength(1);
+        expect(requests[0]).toMatchObject({ requestId: "fallback-1", engine: "legacy", artStyleId: "classical" });
+        expect(requests[0].renderingPacket).toBeUndefined();
+        expect(getCallCount("reserveCredits")).toBe(1); // the legacy request's own reservation only
+        expect(imageCalls()).toHaveLength(1);
+        expect(isLegacyPrompt(imageCalls()[0])).toBe(true);
+        expect(loadedBlobs).toEqual([]);
+      });
+
+      it("keeps the retryable decline for a non-Classical style, which the legacy engine cannot render", async () => {
+        await prepareWork();
+        reviewProblems = embodied;
+        const { POST } = await import("../../generate-image/route");
+        const response = await POST(createGenerateImageRequest({ ...classicalBody, style: "watercolor" }));
+        expect(response.status).toBe(503);
+        expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true, message: expect.stringContaining("still drawn as a figure: god") });
+        expect(imageCalls()).toHaveLength(0);
+        expect(getCallCount("reserveCredits")).toBe(0);
+        expect(await storedRequests()).toEqual([]);
+      });
+
+      it("never falls back for a request bound to the generic engine", async () => {
+        await prepareWork();
+        reviewProblems = embodied;
+        const { POST } = await import("../../generate-image/route");
+        const response = await POST(createGenerateImageRequest({ ...classicalBody, requestId: "bulk-generic-1", engine: "generic" }));
+        expect(response.status).toBe(503);
+        expect(await response.json()).toMatchObject({ error: "Preparing scene", retryable: true });
+        expect(imageCalls()).toHaveLength(0);
+        expect(getCallCount("reserveCredits")).toBe(0);
+        expect(await storedRequests()).toEqual([]);
+      });
+
+      it("keeps a bulk job bound to legacy on the legacy engine without generic preparation", async () => {
+        await prepareWork();
+        const { POST } = await import("../../generate-image/route");
+        const response = await POST(createGenerateImageRequest({ ...classicalBody, requestId: "bulk-legacy-2", engine: "legacy" }));
+        expect(response.status).toBe(200);
+        expect(await response.json()).toMatchObject({ engine: "legacy" });
+        expect(modelCalls).toEqual([]);
+        const requests = await storedRequests();
+        expect(requests).toHaveLength(1);
+        expect(requests[0]).toMatchObject({ requestId: "bulk-legacy-2", engine: "legacy", artStyleId: "classical" });
+        expect(imageCalls()).toHaveLength(1);
+        expect(isLegacyPrompt(imageCalls()[0])).toBe(true);
+      });
+
+      it("still refuses a legacy binding for a style the legacy engine cannot render", async () => {
+        await prepareWork();
+        const { POST } = await import("../../generate-image/route");
+        const response = await POST(createGenerateImageRequest({ ...classicalBody, requestId: "bulk-legacy-3", style: "watercolor", engine: "legacy" }));
+        expect(response.status).toBe(409);
+        expect(await response.json()).toMatchObject({ error: "Engine binding changed", expectedEngine: "legacy", engine: "generic" });
+        expect(modelCalls).toEqual([]);
+        expect(await storedRequests()).toEqual([]);
+        expect(imageCalls()).toHaveLength(0);
+      });
+
+      it("serves a Classical request from the legacy engine when the generic packet is over budget, leaving the attention item", async () => {
+        await prepareWork();
+        tone = "x".repeat(13000);
+        const { POST } = await import("../../generate-image/route");
+        const response = await POST(createGenerateImageRequest(classicalBody));
+        expect(response.status).toBe(200);
+        expect(await response.json()).toMatchObject({ engine: "legacy" });
+        expect(await requestDb.query(api.analysis.listAttention, { workId: WORK, status: "open" })).toMatchObject([{ reason: "prompt_over_budget", recordId: "genesis-1-1" }]);
+        const requests = await storedRequests();
+        expect(requests).toHaveLength(1);
+        expect(requests[0]).toMatchObject({ engine: "legacy", artStyleId: "classical" });
+        expect(getCallCount("reserveCredits")).toBe(1);
+        expect(imageCalls()).toHaveLength(1);
+        expect(isLegacyPrompt(imageCalls()[0])).toBe(true);
+      });
     });
 
     it("omits a reference whose blob cannot be loaded or whose inputs changed, and the packet reflects what was actually sent", async () => {
@@ -807,7 +900,7 @@ describe("Image Generation API Credit Flow", () => {
 
     it("rejects an over-budget prompt before any paid call and leaves an attention item", async () => {
       await prepareWork();
-      tone = "x".repeat(9000);
+      tone = "x".repeat(13000);
       const { POST } = await import("../../generate-image/route");
       const response = await POST(createGenerateImageRequest(body));
       expect(response.status).toBe(503);

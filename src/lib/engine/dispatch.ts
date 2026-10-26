@@ -44,7 +44,8 @@ export type ExistingAdmission = {
 };
 
 export type GenericGenerationOutcome =
-  | { kind: "declined"; status: number; error: string; message: string; retryable: boolean; details?: Record<string, unknown> }
+  /** `sceneUnavailable`: refused before any request record, reservation or paid call, so the route may serve the legacy engine instead. */
+  | { kind: "declined"; status: number; error: string; message: string; retryable: boolean; details?: Record<string, unknown>; sceneUnavailable?: true }
   | { kind: "existing"; admission: ExistingAdmission }
   | { kind: "response"; status: number; body: Record<string, unknown> };
 

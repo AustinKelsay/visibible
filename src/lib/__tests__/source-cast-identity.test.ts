@@ -1,5 +1,8 @@
 import { withSituation } from "../../../tests/fixtures/scene-grounding";
-/** Captured false-clean plans with scripted adverse reviews; live semantic obedience is evaluated separately. */
+/**
+ * Captured false-clean plans with scripted adverse reviews; live semantic obedience is evaluated separately.
+ * Forgiving preparation re-plans once and then keeps the plan with a note rather than refusing it.
+ */
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
@@ -33,10 +36,10 @@ async function setup(repeat: number, repair: boolean) {
   };
   const problem = { kind: "outside_instant", entryId: priest, planQuote: payload.plan.primarySubject,
     reason: "The source identifies nobles; neither this moment nor its neighbors identifies them as priests." };
-  const captured = selectionReply({ ...payload.plan, missingCast: [], present: payload.entries.map((e: { entryId: string }) => e.entryId), grounding: payload.grounding });
-  const replacement = { ...payload.plan, primarySubject: "Unnamed nobles standing together", action: "They stand upright with composed bearing",
-    setting: "an open space", secondaryElements: "", composition: "the nobles together in one view", missingCast: [],
-    selectedCast: [], consideredCast: [], grounding: { focusQuote: "Her nobles were purer than snow.", instant: "The nobles stand together.", singleInstant: true } };
+  const captured = selectionReply({ ...payload.plan, present: payload.entries.map((e: { entryId: string }) => e.entryId), grounding: payload.grounding });
+  const replacement = selectionReply({ ...payload.plan, primarySubject: "Unnamed nobles standing together", action: "They stand upright with composed bearing",
+    setting: "an open space", secondaryElements: "", composition: "the nobles together in one view",
+    selectedCast: [], grounding: { focusQuote: "Her nobles were purer than snow.", instant: "The nobles stand together.", singleInstant: true } });
   let plans = 0, reviews = 0;
   const model: TextModel = { id: "scripted", complete: async (request) => {
     calls.push(request);
@@ -54,12 +57,14 @@ async function setup(repeat: number, repair: boolean) {
 }
 
 describe("source identity review over retained false-clean plans", () => {
-  it.each([1, 2])("refuses retained plan %i after exactly one re-plan when the identity review repeats", async (repeat) => {
-    const { run, calls, writes, spend } = await setup(repeat, false);
-    await expect(run()).rejects.toThrow(`plan review: outside_instant ${priest}`);
+  it.each([1, 2])("keeps retained plan %i with a note after exactly one re-plan when the identity review repeats", async (repeat) => {
+    const { run, calls, writes, spend, problem } = await setup(repeat, false);
+    const result = await run();
+    expect(result.present.map((p) => p.entryId)).toEqual([priest]);
     expect(calls.filter((c) => c.schemaName === "scene_plan")).toHaveLength(2);
     expect(calls.filter((c) => c.schemaName === "plan_review")).toHaveLength(2);
-    expect(writes.filter((w) => w.kind === "plan")).toHaveLength(0);
+    expect(writes.filter((w) => w.kind === "plan")).toHaveLength(1);
+    expect(writes.find((w) => w.kind === "plan")!.payload).toMatchObject({ review: { rounds: 2, problems: [problem], notes: [`kept with: outside_instant ${priest}`] } });
     expect(spend.filter((s) => s === "review problems")).toHaveLength(2);
     // The reviewer sees the actual rendering fields and IDs, without the planner's identity rationale.
     const firstReview = calls.find((c) => c.schemaName === "plan_review")!;

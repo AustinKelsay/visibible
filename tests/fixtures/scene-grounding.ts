@@ -15,24 +15,23 @@ export function withGrounding<T extends { present: string[] }>(plan: T, focusQuo
 }
 
 /**
- * Serialize an internal audit fixture in the planner's single-selection format. This is only
- * fixture plumbing: missing evidence and contradictory classifications stay malformed rather
- * than being invented or removed. Production accepts only the new response, never this adapter.
+ * Serialize an internal audit fixture (present + grounding) or an older strict reply (selectedCast with
+ * momentQuote, consideredCast, missingCast) in the planner's general reply format. Fixture plumbing only.
  */
 function selectionContract(value: unknown): unknown {
   const object = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null && !Array.isArray(v);
-  if (!object(value) || !Array.isArray(value.present) || !object(value.grounding)) return value;
-  const { present, grounding: audit, ...fields } = value;
-  const { cast, ...grounding } = audit;
-  const records = Array.isArray(cast) ? cast.filter(object) : [];
-  return { ...fields, grounding,
-    selectedCast: present.map((entryId) => {
-      const record = records.find((entry) => entry.entryId === entryId);
-      if (!record) return { entryId }; // Keep missing mandatory evidence invalid.
-      const { participation, ...evidence } = record;
-      return participation === "in_scene" ? evidence : { ...evidence, participation };
+  if (!object(value) || !("present" in value || "selectedCast" in value || "grounding" in value)) return value;
+  const { present, grounding, selectedCast, consideredCast: _considered, missingCast: _missing, ...fields } = value;
+  void _considered; void _missing;
+  const audit = object(grounding) ? grounding : {};
+  const records = Array.isArray(audit.cast) ? audit.cast.filter(object) : [];
+  const chosen: Array<Record<string, unknown>> = Array.isArray(selectedCast) ? selectedCast.filter(object) : Array.isArray(present) ? present.map((entryId) => ({ entryId })) : [];
+  return { ...fields, focusQuote: typeof audit.focusQuote === "string" ? audit.focusQuote : "", instant: typeof audit.instant === "string" ? audit.instant : "",
+    selectedCast: chosen.map((entry) => {
+      const record = records.find((r) => r.entryId === entry.entryId);
+      const evidence = typeof entry.evidence === "string" ? entry.evidence : typeof entry.momentQuote === "string" ? entry.momentQuote : typeof record?.momentQuote === "string" ? record.momentQuote : "";
+      return { entryId: entry.entryId, evidence };
     }),
-    consideredCast: records.filter((entry) => !present.includes(entry.entryId)),
   };
 }
 

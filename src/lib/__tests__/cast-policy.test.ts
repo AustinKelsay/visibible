@@ -1,4 +1,4 @@
-/** Moment-cast v6 policy: uncast incidental figures, narrow missing-cast reports and continuing locations. */
+/** Cast policy: uncast incidental figures, no missing-cast stop (moment-cast v11) and continuing locations. */
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { PLAN_SYSTEM, MOMENT_CAST_PROMPT_VERSION } from "../engine/preparation";
@@ -8,25 +8,23 @@ import { momentContext, readWorkInputs } from "../engine/work-inputs";
 
 const randomRun = new URL("../../../llm/releases/2026-10-23-random-verse-check/", import.meta.url);
 
-describe("moment-cast v6 cast policy", () => {
-  it("lets plans describe uncast incidental figures and reserves missingCast for recurring named characters", () => {
-    expect(MOMENT_CAST_PROMPT_VERSION).toBe("2026-10-26-moment-cast-v10");
+describe("cast policy", () => {
+  it("lets plans describe uncast incidental figures and never stops for missing canon", () => {
+    expect(MOMENT_CAST_PROMPT_VERSION).toBe("2026-10-27-moment-cast-v11");
     expect(PLAN_SYSTEM).not.toContain("omit unselected figures rather than describing them as background");
-    expect(PLAN_SYSTEM).toContain("never describe an available cast member without selecting it");
-    expect(PLAN_SYSTEM).toContain("People, crowds, roles and animals with no cast entry may be described by role and situation");
-    expect(PLAN_SYSTEM).toContain("Report `missingCast` when the moment requires a named character or group whom the story follows beyond this moment");
-    expect(PLAN_SYSTEM).toContain("this applies to secondary characters as well as the main actor");
-    expect(PLAN_SYSTEM).toContain("Never report a role, a generic crowd or an animal, a person named only in passing");
-    expect(PLAN_SYSTEM).toContain("A recurring named group is not a generic crowd, even when it appears as one.");
-    expect(PLAN_SYSTEM).toContain("If an available cast member's presence is uncertain, choose an instant the text establishes rather than reporting it missing.");
-    expect(PLAN_SYSTEM).toContain("A moment without an event (a list, law, saying or greeting) still gets a scene");
+    expect(PLAN_SYSTEM).toContain("list every section cast entry that will be visible");
+    expect(PLAN_SYSTEM).toContain("Anyone without a cast entry may appear as an unnamed role or crowd when the moment needs them.");
+    expect(PLAN_SYSTEM).toContain("If it has no event (a list, law, saying or greeting), illustrate its content or setting.");
+    // The forgiving contract has no missing-cast report: a named person without canon is drawn generically.
+    expect(PLAN_SYSTEM).not.toContain("missingCast");
+    expect(PLAN_SYSTEM).not.toContain("preparation will stop");
   });
 
   it("tells rendering that only selected characters have fixed canon, without banning the plan's incidental figures", () => {
-    expect(GENERIC_PROMPT_VERSION).toBe("2026-10-26-generic-v8");
+    expect(GENERIC_PROMPT_VERSION).toBe("2026-10-27-generic-v9");
     const rule = ENGINE_RULES.join("\n");
-    expect(rule).toContain("Depict the SELECTED CHARACTERS, including groups and no-form subjects, with their canon.");
-    expect(rule).toContain("as unnamed incidental figures without fixed appearance");
+    expect(rule).toContain("Show the SELECTED CHARACTERS with their canon.");
+    expect(rule).toContain("Anyone else appears only as an unnamed figure the scene plan describes.");
     expect(rule).not.toContain("Depict only the SELECTED CHARACTERS");
   });
 

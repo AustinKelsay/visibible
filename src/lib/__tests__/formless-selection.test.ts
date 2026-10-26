@@ -1,4 +1,7 @@
-/** Scripted reviews verify cache refresh and canon delivery; live semantic checks are retained separately. */
+/**
+ * Scripted reviews verify cache refresh and canon delivery; live semantic checks are retained separately. Forgiving
+ * preparation selects a depicted no-form subject itself; a body still drawn after the single re-plan is the one refusal.
+ */
 import { describe, expect, it } from "vitest";
 import { reviewReply } from "../../../tests/fixtures/plan-review";
 import { selectionReply, withGrounding } from "../../../tests/fixtures/scene-grounding";
@@ -13,10 +16,11 @@ import { SHARED_STYLES } from "../work-preparation";
 const text = "The Presence shone above the camp as the witness stood nearby.";
 const fields = { primarySubject: "The witness stands in the camp", action: "radiance spreads above the camp",
   setting: "open ground", secondaryElements: "", mood: "reverent", timeOfDay: "day", composition: "wide view of the witness beneath the radiance" };
-const reply = (selected: boolean) => withGrounding({ missingCast: [], present: selected ? ["witness", "presence"] : ["witness"], ...fields }, text);
+const reply = (selected: boolean) => withGrounding({ present: selected ? ["witness", "presence"] : ["witness"], ...fields }, text);
 const problem = { kind: "unselected_figure", entryId: "presence", planQuote: "radiance spreads above the camp", reason: "The radiance represents the unselected no-form Presence." };
+const embodied = { kind: "embodied_formless", entryId: "presence", planQuote: "radiance spreads above the camp", reason: "The radiance is drawn as a standing robed figure." };
 
-async function setup(repair: boolean, invalidation: "both" | "review" | "selection" = "both") {
+async function setup(repair: boolean, invalidation: "both" | "review" | "selection" = "both", reported: typeof problem = problem) {
   const inputs: WorkInputs = {
     work: createWorkReader({ schemaVersion: 1, id: "presence-work", title: "Presence", author: "Fixture", language: "en",
       referenceText: { name: "Fixture", source: "https://example.com", credit: "Test", sha256: "0".repeat(64) },
@@ -47,8 +51,8 @@ async function setup(repair: boolean, invalidation: "both" | "review" | "selecti
   let plans = 0, reviews = 0;
   const model: TextModel = { id: "scripted", complete: async (request) => {
     calls.push(request);
-    if (request.schemaName === "plan_review") return reviewReply(++reviews === 1 || !repair ? [problem] : []);
-    return completion(reply(++plans === 2 && repair));
+    if (request.schemaName === "plan_review") return reviewReply(++reviews === 1 || !repair ? [reported] : []);
+    return completion(reply(reported === embodied || (++plans === 2 && repair)));
   } };
   const render = () => assembleRendering({ inputs, store: memory.store, model, listMoments: memory.listMoments,
     getReference: async () => null, loadReference: async () => new Uint8Array() },
@@ -57,25 +61,35 @@ async function setup(repair: boolean, invalidation: "both" | "review" | "selecti
 }
 
 describe("no-form cast selection", () => {
-  it.each(["both", "review", "selection"] as const)("refreshes cached presence after a %s contract change, re-plans once, and delivers canon to rendering", async (invalidation) => {
-    const { render, calls, store } = await setup(true, invalidation);
+  it.each(["both", "review", "selection"] as const)("refreshes cached presence after a %s contract change, selects the depicted no-form cast without a re-plan, and delivers canon to rendering", async (invalidation) => {
+    const { render, calls, store } = await setup(false, invalidation);
     const result = await render();
     if (!result.ok) throw new Error(result.message);
-    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review", "scene_plan", "plan_review"]);
-    expect(calls[2].user).toContain(problem.reason);
+    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review"]);
+    expect(result.prepared.present.map((p) => p.entryId)).toEqual(["witness", "presence"]);
     expect(result.canon.find((c) => c.entryId === "presence")).toMatchObject({ hasForm: false });
     expect(result.prompt).toContain("Presence: represent only through the non-figurative presence");
     expect(result.prompt).toContain("Presence: radiance above the camp, without a body or human form.");
-    expect((await store.getActiveRecord("plan", "m-1"))!.payload).toMatchObject({ review: { rounds: 2, problems: [problem] } });
+    expect((await store.getActiveRecord("plan", "m-1"))!.payload).toMatchObject({ review: { rounds: 1, notes: ["selected presence: depicted but not selected"] } });
     await render();
-    expect(calls).toHaveLength(4);
+    expect(calls).toHaveLength(2);
   });
 
-  it("stops before rendering when the replacement still omits the no-form cast", async () => {
-    const { render, calls, store } = await setup(false);
-    expect(await render()).toMatchObject({ ok: false, reason: "preparation", stage: "plan", retryable: true,
-      message: expect.stringContaining("plan review: unselected_figure presence") });
+  it("re-plans a no-form subject drawn as a body once and stores the corrected plan", async () => {
+    const { render, calls, store } = await setup(true, "both", embodied);
+    const result = await render();
+    if (!result.ok) throw new Error(result.message);
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review", "scene_plan", "plan_review"]);
+    expect(calls[2].user).toContain(embodied.reason);
+    expect((await store.getActiveRecord("plan", "m-1"))!.payload).toMatchObject({ review: { rounds: 2, problems: [embodied] } });
+  });
+
+  it("stops before rendering when the replacement still draws the no-form subject as a body", async () => {
+    const { render, calls, store } = await setup(false, "both", embodied);
+    expect(await render()).toMatchObject({ ok: false, reason: "preparation", stage: "plan", retryable: true,
+      message: expect.stringContaining("a subject without form is still drawn as a figure: presence") });
+    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review", "scene_plan", "plan_review"]);
+    // The cached plan with older dependencies is left untouched.
     expect((await store.getActiveRecord("plan", "m-1"))!.payload).toMatchObject({ review: { rounds: 1 } });
   });
 });

@@ -1,4 +1,8 @@
-/** Evidence checks over retained first failures and non-Bible prose; no provider or live writes. */
+/**
+ * Evidence checks over retained first failures and non-Bible prose; no provider or live writes.
+ * sceneGroundingProblem remains a pure audit utility: forgiving preparation (moment-cast v11) no longer
+ * refuses or re-plans for evidence, and stores the planner's own words as audit.
+ */
 import { withCleanReview } from "../../../tests/fixtures/plan-review";
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
@@ -72,54 +76,45 @@ describe("scene source grounding", () => {
     expect(new Set(versions).size).toBe(1);
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan"]);
     expect(write).toHaveBeenCalledOnce();
-    expect(records.find((r) => r.kind === "plan" && r.recordId === "luke-10-34")?.payload).toMatchObject({ grounding: binding.grounding, plan: fields });
+    // The planner's evidence is kept verbatim as audit; neighbor context is no longer a separate record.
+    expect(records.find((r) => r.kind === "plan" && r.recordId === "luke-10-34")?.payload).toMatchObject({ plan: fields, grounding: {
+      focusQuote: binding.grounding.focusQuote, instant: binding.grounding.instant, singleInstant: true,
+      cast: [
+        { entryId: samaritan, momentQuote: "came to him, and bound up his wounds", contextSource: "none", contextQuote: "", participation: "in_scene" },
+        { entryId: wounded, momentQuote: "his wounds", contextSource: "none", contextQuote: "", participation: "in_scene" },
+      ] } });
     expect(calls[0].user.indexOf("MOMENT (")).toBeLessThan(calls[0].user.indexOf("CAST ON STAGE"));
     expect(calls[0].user).not.toContain("SECTION LOOK (");
-    expect(calls[0].system).toContain("choose one representative instant");
-    expect(calls[0].system).toContain("A first-person report of seeing or telling is framing evidence");
+    expect(calls[0].system).toContain("pick one representative instant");
+    expect(calls[0].system).toContain("rather than the person telling it");
   });
 
   it.each([
-    ["successive poses", () => ({ ...binding, grounding: { ...binding.grounding, singleInstant: false } }), "successive instants"],
-    ["next-event host", () => {
-      const reply = withGrounding({ ...luke.result.plan.payload, missingCast: [] }, "bound up his wounds");
+    ["a successive-poses flag", () => ({ ...binding, grounding: { ...binding.grounding, singleInstant: false } })],
+    ["a next-event host quote", () => {
+      const reply = withGrounding({ ...luke.result.plan.payload }, "bound up his wounds");
       const host = reply.grounding.cast.find((entry) => entry.entryId === "innkeeper_in_samaritan_parable")!;
       host.momentQuote = "gave them to the host"; host.contextSource = "next"; host.contextQuote = "gave them to the host";
       return reply;
-    }, "innkeeper_in_samaritan_parable lacks current-moment evidence"],
-    ["neighbor-only assembly", () => {
-      const reply = withGrounding({ ...daniel.result.plan.payload, missingCast: [] }, "thrones were placed");
+    }],
+    ["a neighbor-only assembly quote", () => {
+      const reply = withGrounding({ ...daniel.result.plan.payload }, "thrones were placed");
       const assembly = reply.grounding.cast[2];
       assembly.momentQuote = "Thousands of thousands ministered to him";
       assembly.contextSource = "next"; assembly.contextQuote = assembly.momentQuote;
       return reply;
-    }, "ministering_assembly_in_daniels_vision lacks current-moment evidence"],
-  ])("re-plans a reported %s once with the reason, then stops without changing the retained plan or loading references", async (label, reply, message) => {
-    const unitId = label === "neighbor-only assembly" ? "daniel-7-9" : "luke-10-34";
-    const { render, records, calls, write, spend, release, getReference } = await setup(unitId, reply());
-    const before = structuredClone(records.find((r) => r.kind === "plan" && r.recordId === unitId));
-    expect(await render()).toMatchObject({ ok: false, reason: "preparation", stage: "plan", retryable: true, message: expect.stringContaining(message) });
-    // The scripted planner repeats the same reply, so the single re-plan is refused for the same reason.
-    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "scene_plan"]);
+    }],
+  ])("stores a reply with %s without an evidence re-plan, leaving judgment to the review", async (label, reply) => {
+    // Formerly refused by evidence checks; forgiving preparation keeps the plan for the review to judge.
+    const unitId = label === "a neighbor-only assembly quote" ? "daniel-7-9" : "luke-10-34";
+    const { render, records, calls, write, spend } = await setup(unitId, reply());
+    const result = await render();
+    if (!result.ok) throw new Error(result.message);
+    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan"]);
     expect(calls[0].user).not.toContain("WAS REJECTED");
-    const feedback = calls[1].user.slice(calls[0].user.length);
-    expect(calls[1].user.startsWith(calls[0].user)).toBe(true);
-    expect(feedback).toMatch(/^\n\nA PREVIOUS PLAN FOR THIS MOMENT WAS REJECTED\. Write a new plan that fixes every problem below and keeps what was correct:\n- evidence: /);
-    expect(feedback).toContain(message);
-    expect(write).not.toHaveBeenCalled();
-    expect(getReference).not.toHaveBeenCalled();
-    expect(spend.mock.calls.map(([entry]) => entry)).toEqual([expect.objectContaining({ outcome: "unavailable", costUsd: 0.0004 }), expect.objectContaining({ outcome: "unavailable", costUsd: 0.0004 })]);
-    expect(release).toHaveBeenCalledOnce();
-    expect(records.find((r) => r.kind === "plan" && r.recordId === unitId)).toEqual(before);
-  });
-
-  it("rejects the exact old reply without the new evidence contract, preserving it as historical evidence", async () => {
-    const { render, calls, records, write } = await setup("luke-10-34", { ...luke.result.plan.payload, missingCast: [] });
-    const before = structuredClone(records.find((r) => r.kind === "plan" && r.recordId === "luke-10-34"));
-    expect(await render()).toMatchObject({ ok: false, reason: "preparation", stage: "plan" });
-    expect(calls).toHaveLength(2); // Existing malformed-contract retry only, not a quality reroll.
-    expect(write).not.toHaveBeenCalled();
-    expect(records.find((r) => r.kind === "plan" && r.recordId === "luke-10-34")).toEqual(before);
+    expect(write).toHaveBeenCalledOnce();
+    expect(spend.mock.calls.map(([entry]) => entry.outcome)).toEqual(["ok", "review ok"]);
+    expect(records.find((r) => r.kind === "plan" && r.recordId === unitId)?.payload).toMatchObject({ review: { rounds: 1 } });
   });
 
   const prose: MomentContext = { moment: { id: "tale-2", reference: "The Tale ¶2–3", text: "She knelt beside the broken lantern. Then she stood and carried it outside." },
@@ -259,12 +254,10 @@ describe("moment-cast v4 stated instant and quote fragments", () => {
     const result = await render();
     if (!result.ok) throw new Error(result.message);
     const schema = responseSchema(calls[0].schema) as { required: string[]; properties: Record<string, { required?: string[]; description?: string }> };
-    expect(schema.required[0]).toBe("grounding");
-    expect(schema.properties.grounding.required).toEqual(["focusQuote", "instant", "singleInstant"]);
-    expect(schema.required.slice(0, 3)).toEqual(["grounding", "selectedCast", "consideredCast"]);
-    for (const key of ["primarySubject", "action", "composition"]) expect(schema.properties[key].description).toMatch(/grounding\.instant|same instant/);
-    expect(calls[0].system).toContain("state that instant once in `grounding.instant`");
-    expect(calls[0].system).toContain("separated by an ellipsis (…)");
+    expect(schema.required.slice(0, 3)).toEqual(["focusQuote", "instant", "selectedCast"]);
+    for (const removed of ["grounding", "consideredCast", "missingCast"]) expect(schema.properties[removed]).toBeUndefined();
+    for (const key of ["primarySubject", "action"]) expect(schema.properties[key].description).toMatch(/at that instant|that one instant/);
+    expect(calls[0].system).toContain("pick one representative instant");
     expect(result.prompt).not.toContain(binding.grounding.instant);
   });
 });

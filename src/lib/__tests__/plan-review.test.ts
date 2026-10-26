@@ -1,4 +1,7 @@
-/** Plan review and the single re-plan over retained Luke records; scripted replies, no provider or live writes. */
+/**
+ * Forgiving plan review over retained Luke records; scripted replies, no provider or live writes. The review advises:
+ * depicted cast are selected, other problems get one re-plan, and the second plan is kept with notes.
+ */
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
@@ -19,9 +22,14 @@ const lukeCast = (find("section", "luke-10-25").payload as unknown as { cast: Ar
 const samaritan = "the_samaritan", wounded = "wounded_traveler_in_samaritan_parable", mount = "samaritans_mount_in_parable";
 const fields = { primarySubject: "The Samaritan kneeling beside the wounded traveler", action: "binds the wounds with cloth",
   setting: "roadside", secondaryElements: "the Samaritan's donkey stands nearby", mood: "compassion", timeOfDay: "day", composition: "two figures close together" };
-const plan = (overrides: Record<string, unknown> = {}) => withGrounding({ present: [samaritan, wounded], missingCast: [], ...fields, ...overrides }, "bound up his wounds",
+const plan = (overrides: Record<string, unknown> = {}) => withGrounding({ present: [samaritan, wounded], ...fields, ...overrides }, "bound up his wounds",
   { [samaritan]: "came to him, and bound up his wounds", [wounded]: "his wounds" });
 const donkey = { kind: "unselected_figure", entryId: mount, planQuote: "the Samaritan's donkey", reason: "The mount is described but not selected." };
+const host = "innkeeper_in_samaritan_parable";
+const withHost = () => plan({ secondaryElements: "the innkeeper waits at the inn door" });
+const early = { kind: "outside_instant", entryId: host, planQuote: "the innkeeper waits at the inn door", reason: "The innkeeper belongs to the next verse." };
+const replanned = (problem: { kind: string; reason: string; planQuote: string }, label = "plan") =>
+  `\n\nA PREVIOUS PLAN FOR THIS MOMENT WAS REJECTED. Write a new plan that fixes every problem below and keeps what was correct:\n- ${problem.kind}: ${problem.reason} (${label} said: "${problem.planQuote}")`;
 
 async function setup(planReplies: unknown[], reviewReplies: unknown[][]) {
   const inputs = await readWorkInputs("bible-web");
@@ -72,35 +80,69 @@ describe("plan review before storage", () => {
     for (const audit of ["focusQuote", "momentQuote", "contextQuote", "singleInstant", "participation"]) expect(review).not.toContain(audit);
   });
 
-  it("re-plans once with the review's problems as feedback and stores the second plan with the rejection audit", async () => {
-    const second = plan({ present: [samaritan, wounded, mount], secondaryElements: "the Samaritan's donkey stands nearby" });
-    second.grounding.cast.find((e) => e.entryId === mount)!.momentQuote = "He set him on his own animal";
-    const { run, calls, writes, spend } = await setup([plan(), second], [[donkey], []]);
+  it("selects a depicted but unselected cast entry without a re-plan, noting the repair", async () => {
+    const { run, calls, writes, spend } = await setup([plan()], [[donkey]]);
     const result = await run();
-    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review", "scene_plan", "plan_review"]);
-    expect(calls[2].user.startsWith(calls[0].user)).toBe(true);
-    expect(calls[2].user.slice(calls[0].user.length)).toBe(`\n\nA PREVIOUS PLAN FOR THIS MOMENT WAS REJECTED. Write a new plan that fixes every problem below and keeps what was correct:\n- unselected_figure: ${donkey.reason} (plan said: "${donkey.planQuote}")`);
+    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review"]);
     expect(result.present.map((p) => p.entryId)).toEqual([samaritan, wounded, mount]);
     expect(writes).toHaveLength(1);
-    expect(writes[0].payload).toMatchObject({ review: { rounds: 2, problems: [donkey] } });
+    expect(writes[0].payload).toMatchObject({ entries: [{ entryId: samaritan }, { entryId: wounded }, { entryId: mount }],
+      review: { rounds: 1, notes: [`selected ${mount}: depicted but not selected`] } });
+    expect(writes[0].payload.review).not.toHaveProperty("problems");
+    expect(spend.map((s) => s.outcome)).toEqual(["ok", "review problems"]);
+  });
+
+  it("selects a depicted location the same way, giving it its assigned stage", async () => {
+    const road = "jerusalem_to_jericho_road";
+    const roadside = { kind: "unselected_figure", entryId: road, planQuote: "roadside", reason: "The road is the depicted setting but is not selected." };
+    const { run, writes } = await setup([plan()], [[roadside]]);
+    const result = await run();
+    const stage = (find("section", "luke-10-25").payload as unknown as { cast: Array<{ entryId: string; stageId: string }> }).cast.find((c) => c.entryId === road)!.stageId;
+    expect(result.present).toContainEqual(expect.objectContaining({ entryId: road, stageId: stage }));
+    expect(writes[0].payload).toMatchObject({ review: { rounds: 1, notes: [`selected ${road}: depicted but not selected`] } });
+  });
+
+  it.each([
+    ["outside_instant", early, withHost()],
+    ["not_one_instant", { kind: "not_one_instant", entryId: samaritan, planQuote: "binds the wounds with cloth", reason: "He kneels in one field and walks up in another." }, plan()],
+    ["canon_conflict", { kind: "canon_conflict", entryId: samaritan, planQuote: "The Samaritan kneeling beside the wounded traveler", reason: "Contradicts the selected stage." }, plan()],
+    ["look_conflict", { kind: "look_conflict", entryId: "", planQuote: "ordinary daylight", reason: "Daylight contradicts the night the plan describes." }, plan()],
+  ])("re-plans once for %s with the review's problems as feedback and stores the second plan with the rejection audit", async (_kind, problem, first) => {
+    const { run, calls, writes, spend } = await setup([first, plan()], [[problem], []]);
+    await run();
+    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review", "scene_plan", "plan_review"]);
+    expect(calls[2].user.startsWith(calls[0].user)).toBe(true);
+    expect(calls[2].user.slice(calls[0].user.length)).toBe(replanned(problem, problem.kind === "look_conflict" ? "moment conditions" : "plan"));
+    expect(writes).toHaveLength(1);
+    expect(writes[0].payload).toMatchObject({ review: { rounds: 2, problems: [problem] } });
+    expect(writes[0].payload.review).not.toHaveProperty("notes");
     expect(spend.map((s) => s.outcome)).toEqual(["ok", "review problems", "ok", "review ok"]);
   });
 
-  it("stops after a second rejected plan, storing nothing and recording every paid call", async () => {
-    const { run, calls, writes, spend } = await setup([plan()], [[donkey], [donkey]]);
-    await expect(run()).rejects.toThrow(new PreparationUnavailableError("plan", `plan review: unselected_figure ${mount}`));
+  it("keeps the second plan with a note when its problem remains after the single re-plan, recording every paid call", async () => {
+    const { run, calls, writes, spend } = await setup([withHost()], [[early], [early]]);
+    const result = await run();
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review", "scene_plan", "plan_review"]);
-    expect(writes).toHaveLength(0);
+    expect(result.plan.payload.secondaryElements).toBe("the innkeeper waits at the inn door");
+    expect(writes).toHaveLength(1);
+    expect(writes[0].payload).toMatchObject({ grounding: { singleInstant: true }, review: { rounds: 2, problems: [early], notes: [`kept with: outside_instant ${host}`] } });
     expect(spend.map((s) => s.outcome)).toEqual(["ok", "review problems", "ok", "review problems"]);
   });
 
-  it("re-plans once after an evidence refusal, then reviews the replacement", async () => {
-    const refused = plan(); refused.grounding.focusQuote = "the robbers stripped him";
-    const { run, calls, writes } = await setup([refused, plan()], [[]]);
+  it("marks a kept plan as not one instant only when that problem remains", async () => {
+    const sequence = { kind: "not_one_instant", entryId: "", planQuote: "binds the wounds with cloth", reason: "Binding and lifting are successive steps." };
+    const { run, writes } = await setup([plan()], [[sequence], [sequence]]);
     await run();
-    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "scene_plan", "plan_review"]);
-    expect(calls[1].user.slice(calls[0].user.length)).toContain("- evidence: scene focus is not quoted from the current moment");
-    expect(writes[0].payload).toMatchObject({ review: { rounds: 2, evidence: "scene focus is not quoted from the current moment" } });
+    expect(writes[0].payload).toMatchObject({ grounding: { singleInstant: false }, review: { rounds: 2, notes: ["kept with: not_one_instant"] } });
+  });
+
+  it("stores a plan whose quotes are not in the moment, without an evidence re-plan", async () => {
+    // Evidence is audit only now; the review judges the scene.
+    const unquoted = plan(); unquoted.grounding.focusQuote = "the robbers stripped him";
+    const { run, calls, writes } = await setup([unquoted], [[]]);
+    await run();
+    expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review"]);
+    expect(writes[0].payload).toMatchObject({ grounding: { focusQuote: "the robbers stripped him" }, review: { rounds: 1 } });
   });
 
   it("stores a plan whose continuing road is anchored only by the previous verse, through the real cast kinds", async () => {
@@ -115,21 +157,26 @@ describe("plan review before storage", () => {
     expect(writes[0].payload).toMatchObject({ entries: [{ entryId: samaritan }, { entryId: wounded }, { entryId: road }] });
   });
 
-  it("never re-plans a source gap or a twice-malformed plan", async () => {
-    const gap = await setup([plan({ missingCast: ["host"], present: [] })], []);
-    await expect(gap.run()).rejects.toThrow(/required canon unavailable: host/);
-    expect(gap.calls.map((r) => r.schemaName)).toEqual(["scene_plan"]);
+  it("notes a reported canon gap without a re-plan, and still refuses a twice-malformed plan", async () => {
+    const gap = { kind: "missing_canon", entryId: "", planQuote: "a host named Joram", reason: "Joram is a named recurring character without canon." };
+    const noted = await setup([plan({ secondaryElements: "a host named Joram waits by the road" })], [[gap]]);
+    await noted.run();
+    expect(noted.calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review"]);
+    expect(noted.writes[0].payload).toMatchObject({ review: { rounds: 1, notes: [`noted: missing_canon: ${gap.reason}`] } });
     const malformed = await setup(["not a plan"], []);
     await expect(malformed.run()).rejects.toThrow(PreparationUnavailableError);
     expect(malformed.calls.map((r) => r.schemaName)).toEqual(["scene_plan", "scene_plan"]);
+    expect(malformed.writes).toHaveLength(0);
   });
 
-  it("treats a review that cites text the plan does not contain as unavailable, after one retry", async () => {
+  it("keeps the plan with a note when the review cites text the plan does not contain, after one retry", async () => {
     const invented = { ...donkey, planQuote: "a camel kneels" };
     const { run, calls, writes, spend } = await setup([plan()], [[invented], [invented]]);
-    await expect(run()).rejects.toThrow(/plan review unavailable: unselected_figure quote is not in the plan/);
+    const result = await run();
+    expect(result.present.map((p) => p.entryId)).toEqual([samaritan, wounded]);
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review", "plan_review"]);
-    expect(writes).toHaveLength(0);
+    expect(writes).toHaveLength(1);
+    expect(writes[0].payload).toMatchObject({ review: { rounds: 1, notes: ["plan review unavailable: unselected_figure quote is not in the plan"] } });
     expect(spend.map((s) => s.outcome)).toEqual(["ok", "review invalid", "review invalid"]);
   });
 });

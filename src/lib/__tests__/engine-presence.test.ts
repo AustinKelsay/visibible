@@ -103,13 +103,13 @@ describe("no-form presence selection", () => {
     expect(plan.user).not.toContain(entries[1].payload.stages[0].text);
     expect(plan.user).not.toContain(entries[0].payload.stages[0].text);
     expect(plan.user).toContain(`MOMENT (The Court 1): ${work.getUnit("court-1").text}`);
-    expect(plan.system).toContain("Presence does not require a physical body");
-    expect(plan.system).toContain("include its id and source evidence in `selectedCast`");
-    expect(plan.system).toContain("do not add cast who are absent or merely mentioned");
-    expect(plan.system).toContain("use its assigned canon to choose the permitted visible effects");
-    expect(plan.system).toContain("describe the unoccupied seat and the permitted surrounding effects rather than a seated presence");
-    expect(plan.system).toContain("Do not repeat prohibited features as denials or substitutes");
-    expect(plan.system).toContain("Keep formed characters' own poses, clothing and actions");
+    expect(plan.system.startsWith(PLAN_SYSTEM)).toBe(true);
+    expect(plan.system).toContain("Cast marked hasForm: false have no body.");
+    expect(plan.system).toContain("select it and describe only where its permitted effects appear (see NO-FORM CANON CONSTRAINTS)");
+    expect(plan.system).toContain("Leave out cast who are elsewhere or only mentioned.");
+    expect(plan.system).toContain("Never give it a face, hands, clothing, a silhouette or a seated figure");
+    expect(plan.system).toContain("for a seated metaphor, show an empty seat with effects around it");
+    expect(plan.system).toContain("A command, oath or mention alone is not an appearance");
     expect(getReference.mock.calls.filter(([kind]) => kind === "sheet").map(([, id]) => id)).toEqual(["watcher:main", "watcher:main", "watcher:main"]);
   });
 
@@ -120,30 +120,41 @@ describe("no-form presence selection", () => {
     const request = calls.find((r) => r.schemaName === "scene_plan")!;
     expect(responseSchema(request.schema)).toEqual({
       type: "object", additionalProperties: false,
-      required: ["grounding", "selectedCast", "consideredCast", ...Object.keys(fields), "situation", "missingCast"],
+      required: ["focusQuote", "instant", "selectedCast", ...Object.keys(fields), "situation"],
       properties: {
+        focusQuote: { type: "string", description: expect.any(String) },
+        instant: { type: "string", description: expect.any(String) },
         situation: expect.objectContaining({ type: "object", additionalProperties: false }),
-        grounding: expect.objectContaining({ type: "object", additionalProperties: false, required: ["focusQuote", "instant", "singleInstant"] }),
         selectedCast: { type: "array", description: expect.any(String), items: expect.objectContaining({ type: "object", additionalProperties: false,
-          required: ["entryId", "momentQuote", "contextSource", "contextQuote"], properties: expect.objectContaining({ entryId: { type: "string", enum: entries.map((e) => e.recordId) } }) }) },
-        consideredCast: expect.objectContaining({ type: "array", items: expect.objectContaining({ additionalProperties: false }) }),
-        missingCast: { type: "array", items: { type: "string" }, description: expect.any(String) },
-        // Anthropic does not support maxLength in output schemas; local validation still rejects it.
-        ...Object.fromEntries(Object.keys(fields).map((key) => [key, { type: "string", description: expect.stringContaining("At most 220 characters.") }])),
+          required: ["entryId", "evidence"], properties: expect.objectContaining({ entryId: { type: "string", enum: entries.map((e) => e.recordId) } }) }) },
+        // No maxLength reaches the provider, and long values are trimmed locally rather than refused.
+        ...Object.fromEntries(Object.keys(fields).map((key) => [key, { type: "string", description: expect.stringContaining("One or two short phrases.") }])),
       },
     });
-    const reply = { situation: { place: "court", timeOfDay: "day", weather: "clear", light: "daylight", clothing: "robes" }, missingCast: [], selectedCast: [], consideredCast: [], ...fields, grounding: { focusQuote: work.getUnit("court-1").text, instant: "One instant.", singleInstant: true } };
+    // The no-form addendum reaches the fields that place effects.
+    expect((responseSchema(request.schema).properties as Record<string, { description: string }>).primarySubject.description).toContain("For a cast entry with hasForm false, name only its permitted effect");
+    const reply = { situation: { place: "court", timeOfDay: "day", weather: "clear", light: "daylight", clothing: "robes" }, focusQuote: "The voice sat", instant: "One instant.", selectedCast: [], ...fields };
     expect(request.schema.safeParse(reply).success).toBe(true);
-    for (const key of Object.keys(fields)) {
-      expect(request.schema.safeParse({ ...reply, [key]: "x".repeat(220) }).success).toBe(true);
-      expect(request.schema.safeParse({ ...reply, [key]: "x".repeat(221) }).success).toBe(false);
-    }
+    for (const key of Object.keys(fields)) expect(request.schema.safeParse({ ...reply, [key]: "x".repeat(1000) }).success).toBe(true);
+    for (const removed of ["grounding", "consideredCast", "missingCast"]) expect(request.schema.safeParse({ ...reply, [removed]: [] }).success).toBe(false);
+    expect(request.schema.safeParse({ ...reply, selectedCast: [{ entryId: "unknown_entry", evidence: "" }] }).success).toBe(false);
+  });
+
+  it("trims an oversized field to 400 characters instead of refusing or retrying the plan", async () => {
+    const { t, calls, render } = await setup(true, { planReplies: [{ present: ["watcher", "voice"], ...fields, action: "x".repeat(1000), mood: "y".repeat(300) }] });
+    const result = await render();
+    if (!result.ok) throw new Error(result.message);
+    expect(calls.map((r) => r.schemaName)).toEqual(["section_look", "scene_plan"]);
+    const stored = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "court-1" });
+    if (stored?.payload.kind !== "plan") throw new Error("No prepared plan");
+    expect(stored.payload.plan.action).toBe(`${"x".repeat(399)}…`);
+    expect(stored.payload.plan.mood).toBe("y".repeat(300));
+    expect(result.prompt).toContain(`Action: ${"x".repeat(399)}…`);
   });
 
   it.each([
     ["an unknown cast ID", { present: ["watcher", "unknown_entry"], ...fields }],
-    ["an oversized field", { present: ["watcher", "voice"], ...fields, action: "x".repeat(221) }],
-  ])("rejects %s after the existing single retry without storing or truncating a plan", async (_label, invalid) => {
+  ])("refuses %s, which the provider schema forbids, after the existing single retry without storing a plan", async (_label, invalid) => {
     const { t, calls, render, getReference } = await setup(true, { planReplies: [invalid, invalid] });
     const result = await render();
     expect(result).toMatchObject({ ok: false, reason: "preparation", stage: "plan", retryable: true });
