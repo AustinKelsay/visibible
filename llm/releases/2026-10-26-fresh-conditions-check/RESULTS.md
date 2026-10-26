@@ -26,6 +26,14 @@ The preparation refuses about half of all verses. No refusal was a condition con
 - **Unsupported symbol:** Genesis 17:20 places an empty seat in the sky over a "mud-brick tent encampment".
 - **Uncertain:** Judges 15:20 names an unselected location (Timnah) as the setting. Exodus 34:8 and Deuteronomy 5:9 restate God's fixed canon almost word for word.
 
+## Post-scoring review notes
+
+A CodeRabbit review of this branch, after unblinding, raised three points about stored plans. First scores are unchanged.
+
+- **Acts 13:21** also confuses identities. The verse concerns Saul son of Kish becoming king, but the plan depicts Saul of Tarsus (Paul) preaching, citing the king's words as evidence. Review returned no problems. The packet was already scored flawed for the Roman soldiers.
+- **Ezekiel 40:24:** the unselected temple and the unsupported cloud veil match the existing flawed score.
+- **Exodus 34:8:** God's radiance is anchored only by "and worshiped." plus previous-verse context. Under that stricter reading the uncertain score becomes flawed: fresh results would be 5 acceptable, 5 flawed and 2 uncertain, and the gate still fails.
+
 ## Scoring
 
 Two independent model scorers labeled the 14 stored packets blind. They agreed on 13 of 14 verdicts and on all five flawed packets. The operator adjudicated the one dispute (Judges 15:20) as uncertain. All files were committed at `4490896` before unblinding. [Instructions](SCORING.md), [packet](blind-packet.json), [scorer A](scorer-a.json), [scorer B](scorer-b.json), [adjudicated](operator-scores.json), [key](blind-key.json). These are model scorers, not human acceptance.

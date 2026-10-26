@@ -17,6 +17,8 @@
 
 Five cases stored plans; four produced images. Isaiah 6:1's stored plan could not render even its shortest style. The harness stopped that case after its first packet failed, before trying icon or watercolor. Their prompts run longer than classical, so they would almost certainly have failed too. Only Daniel 7:9 tests both blockers.
 
+**Harness note.** The runner counts a case toward the five once its plan stores and its first packet renders, as `plan.json` declares. It does not wait for all eight images. In this run only four cases counted, so every backup was attempted and none was skipped. `run-finished.json`'s `blocked: null` means no provider, usage or cap stop; incomplete image sets appear as `refused` rows in `results.ndjson`. A future harness should count complete image sets and report incompleteness explicitly; the frozen script is left unchanged.
+
 ## Blind scores
 
 Two independent model scorers inspected every image at full resolution. They agreed on 13 of 18 overall verdicts and on every no-form-figure and edge label. The operator viewed the disputed images and adjudicated before unblinding (commit `669dfc3`). [Instructions](SCORING.md), [scorer A](scorer-a.json), [scorer B](scorer-b.json), [adjudicated](operator-scores.json), [key](blind-key.json).
