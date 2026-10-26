@@ -1,0 +1,19 @@
+{
+  "allowance": "evaluation",
+  "authorizedUsd": 21.5,
+  "measuredBeforeUsd": 19.6408345,
+  "measuredBeforeNote": "After the stopped and re-run v10 text measurements ($0.002635 + $0.0444884).",
+  "operationMeasuredUsd": 1.2141681,
+  "operationTextUsd": 0.0134096,
+  "operationImageUsd": 1.2007585,
+  "operationUncertainUsd": 0,
+  "measuredAfterUsd": 20.8550026,
+  "retainedUncertaintyUsd": 0.045,
+  "remainingUsd": 0.5999974,
+  "operationCapUsd": 1.65,
+  "calls": 64,
+  "images": 35,
+  "preparation": { "watercolorStyleReferenceAttemptsUsd": [0.1018904, 0.1019039], "classicalStyleReferenceUsd": 0.0339188, "remainingUsd": 39.0754837, "note": "Two failed Watercolor style-reference regenerations on 27 October (three attempts each, old and revised wording) are preparation spend; the earlier Classical reference is included in this remaining figure." },
+  "smokeRemainingUsd": 0.314205,
+  "transfers": 0
+}

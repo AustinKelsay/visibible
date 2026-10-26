@@ -1,0 +1,14 @@
+{
+  "allowance": "evaluation",
+  "authorizedUsd": 21.5,
+  "measuredBeforeUsd": 19.5963461,
+  "measuredBeforeNote": "19.5937111 plus the stopped first attempt (../2026-10-27-v10-fresh-check, $0.002635).",
+  "operationMeasuredUsd": 0.0444884,
+  "operationUncertainUsd": 0,
+  "measuredAfterUsd": 19.6408345,
+  "retainedUncertaintyUsd": 0.045,
+  "operationCapUsd": 0.15,
+  "calls": 102,
+  "note": "The paired image check ran concurrently; ../2026-10-27-v10-image-check/budget.json holds the combined total.",
+  "transfers": 0
+}
