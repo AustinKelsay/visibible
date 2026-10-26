@@ -1,0 +1,173 @@
+{
+  "at": "2026-10-26T15:59:29.031Z",
+  "pricing": {
+    "id": "anthropic/claude-haiku-5.5",
+    "canonical_slug": "anthropic/claude-haiku-5.5-20261007",
+    "hugging_face_id": null,
+    "name": "Anthropic: Claude Haiku 5.5",
+    "created": 1791397883,
+    "description": "Claude Haiku 5.5 is Anthropic's small, fast model for high-volume, cost-sensitive work such as summarization, subagents, and browser use. It succeeds Claude Haiku 4.5 with stronger coding, computer use, and...",
+    "context_length": 1000000,
+    "architecture": {
+      "modality": "text+image+file->text",
+      "input_modalities": [
+        "text",
+        "image",
+        "file"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "tokenizer": "Claude",
+      "instruct_type": null
+    },
+    "pricing": {
+      "prompt": "0.0000001",
+      "completion": "0.0000005",
+      "web_search": "0.01",
+      "input_cache_read": "0.00000001",
+      "input_cache_write": "0.000000125",
+      "input_cache_write_1h": "0.0000002",
+      "overrides": [
+        {
+          "min_prompt_tokens": 100000,
+          "prompt": "0.0000005",
+          "completion": "0.0000025",
+          "input_cache_read": "0.00000005",
+          "input_cache_write": "0.000000625",
+          "input_cache_write_1h": "0.000001"
+        }
+      ]
+    },
+    "top_provider": {
+      "context_length": 1000000,
+      "max_completion_tokens": 128000,
+      "is_moderated": true
+    },
+    "per_request_limits": null,
+    "supported_parameters": [
+      "include_reasoning",
+      "max_completion_tokens",
+      "max_tokens",
+      "reasoning",
+      "reasoning_effort",
+      "response_format",
+      "stop",
+      "structured_outputs",
+      "tool_choice",
+      "tools",
+      "verbosity"
+    ],
+    "default_parameters": {},
+    "supported_voices": null,
+    "knowledge_cutoff": null,
+    "expiration_date": null,
+    "links": {
+      "details": "/api/v1/models/anthropic/claude-haiku-5.5-20261007/endpoints"
+    },
+    "benchmarks": {
+      "design_arena": [
+        {
+          "arena": "models",
+          "category": "3d",
+          "elo": 1342,
+          "win_rate": 58.2,
+          "rank": 11
+        },
+        {
+          "arena": "models",
+          "category": "codecategories",
+          "elo": 1281,
+          "win_rate": 50.6,
+          "rank": 24
+        },
+        {
+          "arena": "models",
+          "category": "dataviz",
+          "elo": 1294,
+          "win_rate": 54.5,
+          "rank": 15
+        },
+        {
+          "arena": "models",
+          "category": "gamedev",
+          "elo": 1325,
+          "win_rate": 55.1,
+          "rank": 12
+        },
+        {
+          "arena": "models",
+          "category": "uicomponent",
+          "elo": 1278,
+          "win_rate": 51,
+          "rank": 26
+        },
+        {
+          "arena": "models",
+          "category": "website",
+          "elo": 1262,
+          "win_rate": 48.5,
+          "rank": 37
+        }
+      ],
+      "artificial_analysis": {
+        "intelligence_index": 43.4,
+        "coding_index": null,
+        "agentic_index": null
+      }
+    },
+    "reasoning": {
+      "mandatory": false,
+      "supported_efforts": [
+        "max",
+        "xhigh",
+        "high",
+        "medium",
+        "low",
+        "none"
+      ],
+      "default_effort": "medium"
+    }
+  },
+  "balanceUsd": 8.869353738000001,
+  "sources": {
+    "src/lib/engine/preparation.ts": "2b81caf8d5816ae16b5980c89e0d481ea3e8815f832e76276e09355a6ad41a72",
+    "convex/_helpers/contentVersion.ts": "c34546acd74b8f3081a3f73a2e922ba30732ed21f26f6e75688a3b8ac3ed2a32",
+    "src/lib/engine/situation.ts": "793c7e95ea720a62986f0253ccf3bb25c471a733de21e7a790640918517d6f67",
+    "src/lib/engine/scene-grounding.ts": "fb20e4778239fc734c0ed5b6098b11474bb6a98d20c21c05d26865596c79eed5",
+    "src/lib/engine/plan-review.ts": "94a547d19a2efce9dfe40aaacb4c6f9529873f50791096e50c31c3c64b890d9b",
+    "src/lib/engine/prompt.ts": "d8838ed708fbfe6df8deda70a5d4853ea67327a6edde649afdd0bd9fa5db5b20",
+    "src/lib/engine/work-inputs.ts": "e449de93ef5b76c26b97bb40c725e11aeea9202cc9d14d7bd744aecbaa2c2cb3",
+    "src/lib/engine/memory-store.ts": "3f6c20532afac6697a136b414dbb55f04ccc28af0846469ee3f81022813e35ed",
+    "src/lib/reading-pass/model.ts": "da9caabd9a8f02e4fb2d8dd0c33babc7f142ab5ab2de354fff07f6d35eb488ea",
+    "src/lib/reading-pass/prompts.ts": "766166e25eaaaef2b6741898b5b0ccc1f330f85e9036af89c7b008cf81713abf",
+    "src/lib/image-response.ts": "07b5092d1795db69bbd4cfa41c5a25691277ff9a982884118fc1658881a9bba6",
+    "src/lib/image-prompts.ts": "fb4f04b8d98a2f32ceac40f4e854a1499ed8aaeaa7031b7e2212dbad515dfc6a",
+    "src/lib/canon-showing.ts": "2bfb6fa9aa29d366ab741981627f65b0b3425ee065ea3c163caca889bfbdee0b",
+    "src/lib/work-input.ts": "e43bddfa5b9a1e2f8065c42f6f99baba98d359f3a996efaca3d30aafb1d13590",
+    "src/lib/work-preparation.ts": "34ae8097b4eb351115bb7f5a77e8d63b59da40ec0d9891e0874f323fe88262ea",
+    "styles/classical.json": "ae4039a471907ca9ffd48540815760c0fc1c45587d985c2e3c7698f2c4afaf7e",
+    "styles/watercolor.json": "50321b78e7c68585437c23dc5fe56074dae05cf9b5d50534eb231329aa5ffc65",
+    "styles/icon.json": "8d4ff18648f5eb0c334b2f942de4082c8670408d078918695157f4419c181760",
+    "works/bible-web/brief.json": "1f5f38a72f9e53dafcc225a4dfd0e5a0c1e1840d505cf4164793fcd1a1d06d75",
+    "works/bible-web/work.json": "8d62b9c0471ce7e72b5b1f1eb8b6c2bf8eb50d85191ec8aa4d9fc14de83f1000",
+    "llm/releases/2026-10-26-moment-conditions-check/common.mts": "2786686ee930802eb5aa0b896c82c334f5d070c406b4cfc1a46e2cfc36acc5c6",
+    "llm/releases/2026-10-26-moment-conditions-check/baseline.mts": "74069921247996d9728b3140ab4cdfe81c5efba6673f2113f2b93df53dd712c5",
+    "llm/releases/2026-10-26-moment-conditions-check/pricing.mts": "75ccfd660cf8e1f4a98f2b72a9af35b4535817ab86908d1a0e2b5c6f0503f631",
+    "llm/releases/2026-10-26-moment-conditions-check/scenarios.mts": "27df4f6dbe9eecc2b919ef614bfca9cddc062399ed39ca71326f70adeee8b742",
+    "llm/releases/2026-10-26-moment-conditions-check/dry-run.mts": "269ea17983a369f039f6ef1ed075a49352b471913571dd47c5347244727f6f78",
+    "llm/releases/2026-10-26-moment-conditions-check/model.mts": "f0bd0adb5d3e5d05de151e58aa46ec3389833d90dfac1ace6a0063683c3f336d",
+    "llm/releases/2026-10-26-moment-conditions-check/run.mts": "093be88eeaf52ca3c3f7d98f71d1da088c85635313357be5b08770c86821f562",
+    "llm/releases/2026-10-26-moment-conditions-check/audit.mts": "3e7a0871dc10707462798953daa2705acf0bf61f4984f82a84da22582e4eee03",
+    "llm/releases/2026-10-26-moment-conditions-check/score.mts": "c3eb4a1cfbd506d6cbef03336b4b1d48449760d9a9bda4974d6d6ca5ff40c815",
+    "llm/releases/2026-10-26-moment-conditions-check/plan.json": "0b247c7866c2299577ac8e57a8c90abb2191010916932240975b3a42678713ba",
+    "llm/releases/2026-10-26-moment-conditions-check/pricing.json": "3544ae1b860944365442219a6e47055f99745276810e4e37b3c1d6b2e1854126",
+    "llm/releases/2026-10-24-rendering-review-check/sample-set.json": "8a066d06b275c7ecea6305f3da8d6cb6356dcc62cb779d454e2e92b71af9a375",
+    "llm/releases/2026-10-24-rendering-review-check/controls.mts": "5ffc1f0e8237bb96b1c81577b4aebb9cca78e2a8865cad0a434bf2f4b3ee6885",
+    "llm/releases/2026-10-26-moment-conditions-check/README.md": "8efc293dad6702cfa7806b0d38b85b6e5d11505e702c948d41253b421dc54675",
+    "llm/releases/2026-10-26-moment-conditions-check/controls.mts": "f1a7938edb7859bc437a0f6d7a2dd95db777935ffa8fdc57b22891f4629ba0de",
+    "llm/releases/2026-10-26-moment-conditions-check/rehearse.mts": "c6df352397c596ccbfa2c72766171a02bbcb3677642c005ff2d12c07fd8b0ea4",
+    "package.json": "3fdf0f945c802fbc8de81b21b777dde45b600caec4843b581992a1883e43ffa9",
+    "package-lock.json": "d9cff4d52431f7ad6d3eb6f9c1b025bfbfc74be703fe6d55010abb0b6abd326c"
+  }
+}

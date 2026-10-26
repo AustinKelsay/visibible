@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-26T15:59:29.030Z",
+  "commit": "ca7cc5061e54e7cfc484fa90fbe689f596bf730d",
+  "grant": {
+    "authorizedAt": "2026-10-26T15:59:21Z",
+    "authorization": "Owner replied 'Ok do 1-3 end to end' after the explicit question 'Should I run the $0.10 test?'. Step 1 was this single frozen diagnostic: 42 operations, $0.10 hard cap within the existing $17.50 evaluation allowance, $0 increase, no images, no production changes. Steps 2-3 (broader fresh text validation and an image check) need their own frozen packages and are not covered by this file.",
+    "increaseUsd": 0,
+    "authorizedUsd": 17.5,
+    "operationCapUsd": 0.1,
+    "scope": "One execution of the frozen 42-operation moment-conditions diagnostic merged in PR #277. No paid restart, automatic resume, iterative tuning, images, production queries/writes, deployment or public activation. Preparation and smoke allowances stay separate.",
+    "proposalCommit": "2037ff30439908a41642f66c129b7bf69fac664d"
+  }
+}
