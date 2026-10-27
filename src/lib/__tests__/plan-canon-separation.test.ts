@@ -63,7 +63,7 @@ async function plan(content = retainedContent, showing?: unknown) {
 }
 
 describe("no-form plan and canon separation", () => {
-  it("keeps historical prose canon and source context in planning while retaining the owner look for rendering", async () => {
+  it("keeps source context but no no-form canon in planning while retaining the owner look for rendering", async () => {
     const { result, requests } = await plan();
     expect(requests).toHaveLength(1);
     const request = requests[0];
@@ -71,7 +71,9 @@ describe("no-form plan and canon separation", () => {
     expect(request.user).toContain(input.records.find((record: AnalysisRecord) => record.kind === "look").payload.clothing);
     expect(request.user).toContain("OWNER LOOK CONSTRAINTS");
     expect(result.look.version).toBe(input.overlay.frozenLookVersion);
-    // Historical prose canon reaches planning verbatim; the no-form addendum asks only for the text's effects in plain words.
+    // Since formless-effects v14 no-form canon never reaches planning; the addendum asks only for the text's effects in plain words.
+    expect(request.user).not.toContain(canon.stages[0].text);
+    expect(request.user).not.toContain("NO-FORM CANON CONSTRAINTS");
     expect(request.system).toContain("describe in your own plain words only the physical effects the text names");
     // Moment-cast v12: no separate conditions reply; the scene fields carry place and time, and owner constraints stay binding.
     expect(request.system).toContain("The scene fields carry this moment's place, time, light and situational clothing.");
@@ -101,16 +103,16 @@ describe("no-form plan and canon separation", () => {
     expect(spend).toHaveBeenCalledWith(expect.objectContaining({ outcome: "ok", costUsd: 0 }));
   });
 
-  it("projects the exact carried structured canon into effect names while rendering still receives its complete appearance", async () => {
+  it("gives planning no structured canon or effect names for a no-form subject, and keeps its canon out of rendering", async () => {
     const situational = { ...retainedPlan, secondaryElements: "Burning wheels at the throne; Daniel's cloak catches the firelight." };
     const { result, requests, write, render, getReference } = await plan(JSON.stringify(situational), canon.stages[0].showing);
     expect(requests.map((r) => r.schemaName)).toEqual(["scene_plan"]);
     expect(write).toHaveBeenCalledTimes(1); // Canon metadata refreshes the plan while the literal owner look survives.
     expect(result.look.payload).toEqual(Object.fromEntries(["place", "timeOfDay", "weather", "light", "clothing"].map((key) =>
       [key, input.records.find((r: AnalysisRecord) => r.kind === "look").payload[key]])));
-    expect(requests[0].user).toContain(`- ${canon.entryId} (stage: ${canon.stages[0].id}): effect names for placement: radiance, fire, cloud, light`);
     const request = requests[0];
-    expect(request.user).toContain(`- ${canon.entryId} (stage: ${canon.stages[0].id}): effect names for placement: radiance, fire, cloud, light`);
+    expect(request.user).not.toContain("effect names for placement");
+    expect(request.user).not.toContain(`${canon.entryId} (stage:`);
     for (const phrase of [canon.stages[0].text, "brilliant white radiance", "bright orange fire", "soft white cloud", "brilliant white light"]) {
       expect(request.user).not.toContain(phrase);
       expect(requests[0].user).not.toContain(phrase);
@@ -141,12 +143,11 @@ describe("no-form plan and canon separation", () => {
     ["empty", []],
     ["malformed", [{ effect: "a figure of light" }]],
     ["stale after a prose edit", [{ effect: "radiance", colour: "gold", brightness: "bright" }]],
-  ])("uses authoritative stage text when showing is %s", async (_label, showing) => {
+  ])("gives planning no no-form canon when showing is %s", async (_label, showing) => {
     const { requests } = await plan(retainedContent, showing);
-    expect(requests[0].user).toContain(`- ${canon.entryId} (stage: ${canon.stages[0].id}): ${canon.stages[0].text}`);
+    expect(requests[0].user).not.toContain(canon.stages[0].text);
     expect(requests[0].user).not.toContain("effect names for placement");
-    expect(requests[0].user).toContain(`- ${canon.entryId} (stage: ${canon.stages[0].id}): ${canon.stages[0].text}`);
-    expect(requests[0].user).not.toContain("effect names for placement");
+    expect(requests[0].user).toContain(`- ${canon.entryId}: `);
   });
 
   it("keeps situational colors and lighting and formed characters' clothing without a word filter", async () => {

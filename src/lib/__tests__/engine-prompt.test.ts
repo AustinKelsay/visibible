@@ -149,8 +149,8 @@ describe("rendering packet", () => {
       expect(result.prompt).toContain("SCENE: one moment of The Adventures of Sherlock Holmes, described by the scene plan below.");
       expect(result.prompt).toContain("Primary subject: the presence glows above Holmes");
       expect(result.prompt).toContain("Secondary elements: Watson shields his eyes from the presence");
-      // Its canon is not sent either (generic-v11): describing a veiled glow drew a figure in theophany scenes.
-      expect(result.prompt).toContain("UNSEEN PRESENCE (binding): the light, cloud, smoke and fire in the scene plan are light and weather spread through the place, not one glowing shape. Nobody stands, sits or hovers in them.\n");
+      // Its canon is not sent either (since generic-v11): describing a veiled glow drew a figure in theophany scenes.
+      expect(result.prompt).toContain("UNSEEN PRESENCE (binding): the light, cloud, smoke, fire and wind in the scene plan are light and weather spread through the place, not one glowing shape. Nobody stands, sits or hovers in them.\n");
       expect(result.prompt).not.toContain("never a face or body; light only.");
       expect(result.prompt).not.toContain("PRESENCE SHOWN ONLY AS EFFECTS");
       expect(result.prompt).toContain("SELECTED CHARACTERS: Sherlock Holmes; Dr. Watson\n");

@@ -103,7 +103,9 @@ describe("no-form presence selection", () => {
     const plan = calls.find((r) => r.schemaName === "scene_plan")!;
     expect(plan.user).toContain("- watcher: The watcher (hasForm: true)");
     expect(plan.user).toContain("- voice: The voice (hasForm: false)");
-    expect(plan.user).toContain(`- voice (stage: revealed): ${voiceCanon}`);
+    // Since formless-effects v14 the planner gets no canon for a no-form subject, so it cannot copy it into the plan.
+    expect(plan.user).not.toContain(voiceCanon);
+    expect(plan.user).not.toContain("NO-FORM CANON CONSTRAINTS");
     expect(plan.user).not.toContain(entries[1].payload.stages[0].text);
     expect(plan.user).not.toContain(entries[0].payload.stages[0].text);
     expect(plan.user).toContain(`MOMENT (The Court 1): ${work.getUnit("court-1").text}`);
@@ -195,11 +197,12 @@ describe("no-form presence selection", () => {
     expect(alone.packet.lookVersion).toBe(first.packet.lookVersion);
     expect(alone.prepared.calls).toBe(2); // plan and review
     expect(alone.packet.canon.map((c) => c.entryId)).toEqual(["watcher"]);
-    expect(alone.prompt).not.toContain("PRESENCE SHOWN ONLY AS EFFECTS");
+    expect(alone.prompt).not.toContain("UNSEEN PRESENCE");
     // A formed-only scene keeps its source text.
     expect(alone.prompt).toContain(work.getUnit("court-2").text);
     expect(first.prompt).not.toContain(work.getUnit("court-1").text);
-    expect(calls[2].user).toContain(voiceCanon); // Section context does not force moment presence.
+    expect(calls[2].user).toContain("- voice: The voice (hasForm: false)"); // Section context does not force moment presence.
+    expect(calls[2].user).not.toContain(voiceCanon);
     expect(alone.prompt).not.toContain(voiceCanon);
     expect(calls).toHaveLength(3);
   });

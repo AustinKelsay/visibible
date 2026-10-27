@@ -22,3 +22,7 @@ The rule is general: it applies to every no-form subject in every style, not to 
 Then deployment (database schema first), the public switch and a 24-hour follow-up proceed. A refused Classical scene falls back to the legacy engine, so refusals count against availability only for other styles.
 
 Before that matrix, a small check of these changes measures text plans on a new draw and images of God-appearance scenes, three of them not used for tuning.
+
+## Amendment: no canon for a no-form subject anywhere in preparation
+
+The [v11 check](../../llm/releases/2026-10-27-v11-image-check/RESULTS.md) cleared Sinai and three God-appearance scenes never used for tuning. The remaining figures (3 of 21 images) came from plans that copied God's canon back in, such as "white-gold radiance veiled by cloud with a fire-like glow at its heart… throne-light", or that followed the section look's "central throne". In the [text check](../../llm/releases/2026-10-27-v11-fresh-check/RESULTS.md), the same copying added an unselected divine glow to five plans. So the section look and the planner no longer receive any canon for a no-form subject, only its name and `hasForm: false`. The no-form look prompt no longer permits "an unoccupied seat". The speaker rule now names writers of letters and proverbs too, and the image rules name a corner signature or initials. The plan review still reads the full canon. One 1 Kings 22:19 case showed a separate gap: its section cast has no God entry, so none of this applies there. That is an analysis correction, not a prompt rule.

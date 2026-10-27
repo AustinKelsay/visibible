@@ -12,7 +12,7 @@ import { planningNeighbors } from "./scene-grounding";
 import { CONTENT_OWNERSHIP, type RenderingInput, type SelectedCanon } from "./prompt";
 
 /** Bump for changes to the review instructions, schema or acceptance rules; plans refresh lazily. */
-export const PLAN_REVIEW_PROMPT_VERSION = "2026-10-27-plan-review-v11";
+export const PLAN_REVIEW_PROMPT_VERSION = "2026-10-27-plan-review-v12";
 /** The benchmarked configuration: reasoning off flagged every clean plan. Thinking needs room above 1,024 tokens. */
 export const PLAN_REVIEW_REASONING: ReasoningEffort = "low";
 export const PLAN_REVIEW_MAX_TOKENS = 4000;
@@ -21,7 +21,7 @@ export const PLAN_REVIEW_SYSTEM = `You check an illustration plan before it is d
 ${CONTENT_OWNERSHIP}
 Kinds:
 - unselected_figure: a section cast entry (a person, group, place, object, or a no-form presence shown as its effect) is clearly depicted in a scene field but its id is not in present. Use its id.
-- outside_instant: a selected or described person or presence does not belong in this moment, such as a speaker, prophet or listener put into a scene their words only describe or made a figure of their own words, the narrator of a story or vision, someone from a different event, or a no-form presence the moment does not show. Use its id, or empty.
+- outside_instant: a selected or described person or presence does not belong in this moment, such as a speaker, writer, prophet or listener put into a scene their words only describe or made a figure of their own words, the narrator of a story or vision, someone from a different event, or a no-form presence the moment does not show. Use its id, or empty.
 - not_one_instant: the fields give someone incompatible poses or places, or show successive steps as one image.
 - embodied_formless: a hasForm false entry is given a body, face, hands, clothing, a robe or train, a silhouette, a throne or seat of its own, or is described as seated or standing.
 - look_conflict: an OWNER LOOK CONSTRAINTS value (only when supplied) contradicts the scene, the text or the depiction rules. Quote that value.
