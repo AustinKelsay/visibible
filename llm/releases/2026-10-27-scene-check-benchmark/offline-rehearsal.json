@@ -1,23 +1,23 @@
 {
-  "at": "2026-10-27T01:44:18.573Z",
+  "at": "2026-10-27T01:56:57.085Z",
   "method": "Disposable clone, intercepted HTTP, synthetic checker replies. Mechanics, not evidence.",
-  "dev": {
-    "run": "dev",
-    "images": 80,
-    "calls": 80,
-    "measuredUsd": 0.048000000000000084,
+  "holdout": {
+    "run": "holdout",
+    "images": 48,
+    "calls": 96,
+    "measuredUsd": 0.03839999999999999,
     "blocked": null
   },
   "score": {
-    "run": "dev",
-    "figure": "4/17 caught, 12/63 false alarms",
-    "border": "2/16 caught, 9/64 false alarms",
-    "lettering": "1/4 caught, 6/76 false alarms",
-    "retryOnAcceptable": "17/40",
+    "run": "holdout",
+    "figure": "2/9 caught, 7/39 false alarms",
+    "border": "0/7 caught, 7/41 false alarms",
+    "lettering": "1/7 caught, 3/41 false alarms",
+    "retryOnAcceptable": "8/27",
     "errors": 0,
     "pass": false
   },
+  "devRefused": true,
   "rerunRefused": true,
-  "undeclaredHoldoutRefused": true,
   "paidCalls": 0
 }
