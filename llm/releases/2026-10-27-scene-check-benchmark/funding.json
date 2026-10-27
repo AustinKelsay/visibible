@@ -1,0 +1,8 @@
+{
+  "authorizedAt": "2026-10-27T01:44:25Z",
+  "authorization": "Owner replied 'continue' to: 'Should I build and test the image check?', after a report proposing to test the check first on the ~80 already-scored images for about $0.05. Runs fit in the remaining $0.3411041 of the $23.00 evaluation allowance, with no increase.",
+  "increaseUsd": 0,
+  "authorizedUsd": 23.0,
+  "operationCapsUsd": { "dev": 0.1, "dev-revised": 0.1, "holdout": 0.06 },
+  "scope": "At most one dev run, one revised dev run if dev misses a criterion, and one holdout run of the frozen scene check in this directory. No images, production writes, deployment or activation."
+}
