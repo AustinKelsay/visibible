@@ -1,13 +1,22 @@
 /** Compare one run's checks with the adjudicated labels, against the predeclared criteria. Offline. */
 import fs from "node:fs";
 import path from "node:path";
-import { sceneCheckFaults, type SceneCheck } from "../../../src/lib/engine/scene-check";
+
 import { dir, items } from "./common.mjs";
 
+type Check = { figure_in_light: boolean; unpainted_edge: boolean; painted_frame: boolean; lettering: boolean };
 const runName = process.argv[2];
 const set = runName === "holdout" ? "holdout" : "dev";
-const rows = new Map(fs.readFileSync(path.join(dir, `results-${runName}.ndjson`), "utf8").trim().split("\n").map((l) => JSON.parse(l)).map((r) => [r.key, r]));
-const data = items(set).map((item) => ({ item, check: rows.get(item.key)?.check as SceneCheck | undefined }));
+const load = (name: string) => new Map(fs.readFileSync(path.join(dir, `results-${name}.ndjson`), "utf8").trim().split("\n").map((l) => JSON.parse(l)).map((r) => [r.key, r]));
+// v3 takes edges and frames from the direct question and figures and lettering from the describe-first one.
+const combine = (edge?: Check, figure?: Check): Check | undefined => edge && figure
+  ? { figure_in_light: figure.figure_in_light, lettering: figure.lettering, painted_frame: edge.painted_frame, unpainted_edge: edge.unpainted_edge } : undefined;
+const checks: Map<string, Check | undefined> = runName === "dev-combined"
+  ? (() => { const v1 = load("dev"), v2 = load("dev-revised"); return new Map([...v1.keys()].map((k) => [k, combine(v1.get(k)?.check, v2.get(k)?.check)])); })()
+  : runName === "holdout" ? new Map([...load("holdout")].map(([k, r]) => [k, combine(r.edge, r.figure)]))
+  : new Map([...load(runName)].map(([k, r]) => [k, r.check]));
+const sceneCheckFaults = (c: Check) => [c.figure_in_light, c.lettering, c.painted_frame, c.unpainted_edge].filter(Boolean);
+const data = items(set).map((item) => ({ item, check: checks.get(item.key) }));
 const errors = data.filter((d) => !d.check).map((d) => d.item.key);
 const scored = data.filter((d) => d.check);
 const rate = (label: (d: typeof scored[number]) => boolean, found: (d: typeof scored[number]) => boolean) => {

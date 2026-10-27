@@ -24,16 +24,18 @@ try {
 globalThis.fetch = async (url, init) => {
   if (url !== "https://openrouter.ai/api/v1/chat/completions") throw Error("Offline rehearsal blocked " + url);
   n++;
-  const content = JSON.stringify({ figure_in_light: n % 5 === 0, unpainted_edge: n % 7 === 0, painted_frame: false, lettering: n % 11 === 0, reasons: [] });
+  const answers = { figure_in_light: n % 5 === 0, unpainted_edge: n % 7 === 0, painted_frame: false, lettering: n % 11 === 0, reasons: [] };
+  const describeFirst = String(init.body).includes("First describe");
+  const content = JSON.stringify(describeFirst ? { edges: "scenery", bright_areas: "none", marks: "none", ...answers } : answers);
   return new Response(JSON.stringify({ id: "c" + n, choices: [{ message: { content } }], usage: { cost: 0.0006 } }), { status: 200, headers: { "Content-Type": "application/json" } });
 };`);
   const run = (args: string[]) => execFileSync(process.execPath, ["--import", "tsx", "--import", hook, ...args], { cwd: checkout, env: { ...process.env, VISIBIBLE_EVAL_ENV_FILE: envFile }, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], maxBuffer: 10_000_000 });
-  const out = JSON.parse(run([path.join(operation, "run.mts"), "--execute", "dev"]).trim().split("\n").pop()!);
-  assert.equal(out.images, 80); assert.equal(out.calls, 80); assert.equal(out.blocked, null);
-  const score = JSON.parse(run([path.join(operation, "score.mts"), "dev"]).trim().split("\n").pop()!);
+  assert.throws(() => run([path.join(operation, "run.mts"), "--execute", "dev"]), "The single-question dev runs are complete");
+  const out = JSON.parse(run([path.join(operation, "run.mts"), "--execute", "holdout"]).trim().split("\n").pop()!);
+  assert.equal(out.images, 48); assert.equal(out.calls, 96); assert.equal(out.blocked, null);
+  const score = JSON.parse(run([path.join(operation, "score.mts"), "holdout"]).trim().split("\n").pop()!);
   assert.equal(score.errors, 0);
-  assert.throws(() => run([path.join(operation, "run.mts"), "--execute", "dev"]), "A second dev run must be refused");
-  assert.throws(() => run([path.join(operation, "run.mts"), "--execute", "holdout"]), "Holdout must declare its version first");
-  fs.writeFileSync(path.join(dir, "offline-rehearsal.json"), JSON.stringify({ at: new Date().toISOString(), method: "Disposable clone, intercepted HTTP, synthetic checker replies. Mechanics, not evidence.", dev: out, score, rerunRefused: true, undeclaredHoldoutRefused: true, paidCalls: 0 }, null, 2) + "\n");
-  console.log(JSON.stringify({ offline: true, dev: out, score }));
+  assert.throws(() => run([path.join(operation, "run.mts"), "--execute", "holdout"]), "A second holdout run must be refused");
+  fs.writeFileSync(path.join(dir, "offline-rehearsal.json"), JSON.stringify({ at: new Date().toISOString(), method: "Disposable clone, intercepted HTTP, synthetic checker replies. Mechanics, not evidence.", holdout: out, score, devRefused: true, rerunRefused: true, paidCalls: 0 }, null, 2) + "\n");
+  console.log(JSON.stringify({ offline: true, holdout: out, score }));
 } finally { fs.rmSync(temporary, { recursive: true, force: true }); }

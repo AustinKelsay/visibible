@@ -4,7 +4,7 @@ import path from "node:path";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { createOpenRouterVisionChecker } from "../../../src/lib/engine/reference-adapters";
-import { SCENE_CHECK_VERSION, sceneCheckQuestion, sceneCheckSchema } from "../../../src/lib/engine/scene-check";
+import { SCENE_CHECK_VERSION, edgeCheckQuestion, edgeCheckSchema, figureCheckQuestion, figureCheckSchema } from "../../../src/lib/engine/scene-check";
 import { extractOpenRouterUsageUsd } from "../../../src/lib/image-response";
 import { dir, hash, items, json, readEnvironment, root } from "./common.mjs";
 
@@ -12,7 +12,9 @@ const [flag, runName] = process.argv.slice(2);
 assert.equal(flag, "--execute");
 const plan = json("plan.json"), cap = plan.evaluation.operationCapsUsd[runName];
 assert.ok(cap, `Unknown run ${runName}`);
-const set = runName === "holdout" ? "holdout" : "dev";
+// dev (v1) and dev-revised (v2) ran with one question each before v3 existed; only the two-question holdout run remains.
+assert.equal(runName, "holdout", "The single-question dev runs are complete; v3 runs only on the holdout set");
+const set = "holdout";
 assert.equal(SCENE_CHECK_VERSION, plan.checker.runVersions[runName], "The checker version must be declared for this run before it executes");
 assert.ok(fs.existsSync(path.join(dir, "funding.json")), "Owner funding is required");
 const grant = json("funding.json");
@@ -47,8 +49,12 @@ for (const item of list) {
   const mimeType = item.file.endsWith(".png") ? "image/png" : "image/jpeg";
   let row: Record<string, unknown>;
   try {
-    const result = await checker.check({ label: item.key, question: sceneCheckQuestion({ people: item.people, description: item.description }), schema: sceneCheckSchema, image: { bytes, mimeType } });
-    row = { key: item.key, check: result.value, costUsd: result.costUsd, elapsedMs: result.elapsedMs };
+    const context = { people: item.people, description: item.description };
+    const [edge, figure] = await Promise.all([
+      checker.check({ label: `${item.key}:edge`, question: edgeCheckQuestion(context), schema: edgeCheckSchema, image: { bytes, mimeType } }),
+      checker.check({ label: `${item.key}:figure`, question: figureCheckQuestion(context), schema: figureCheckSchema, image: { bytes, mimeType } }),
+    ]);
+    row = { key: item.key, edge: edge.value, figure: figure.value, costUsd: (edge.costUsd ?? 0) + (figure.costUsd ?? 0), elapsedMs: Math.max(edge.elapsedMs, figure.elapsedMs) };
   } catch (error) {
     row = { key: item.key, error: String(error).slice(0, 300) };
   }

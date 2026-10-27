@@ -9,7 +9,8 @@
     "input": "The full-resolution image, the selected formed characters' names, and the scene plan's primarySubject and secondaryElements, exactly as the request path would supply them.",
     "runVersions": {
       "dev": "2026-10-27-scene-check-v1",
-      "dev-revised": "2026-10-27-scene-check-v2"
+      "dev-revised": "2026-10-27-scene-check-v2",
+      "holdout": "2026-10-27-scene-check-v3"
     }
   },
   "sets": {
@@ -41,9 +42,10 @@
       "dev-revised": 0.1,
       "holdout": 0.06
     },
-    "reservePerCallUsd": 0.004
+    "reservePerCallUsd": 0.002
   },
   "releaseHold": true,
   "publicActivation": false,
-  "revision": "v2, from dev evidence only (metrics-dev.json): v1 caught 17/17 figures but raised 8/63 false figure alarms on flames and glowing clouds, and in 2 of 4 lettering images its reasons noted a signature while its answer said false. v2 describes the edges, bright areas and marks before answering, and says a flame, heart-shaped glow or billowing cloud is not a figure unless a head, face, hands or body outline can be pointed to."
+  "revision": "v2, from dev evidence only (metrics-dev.json): v1 caught 17/17 figures but raised 8/63 false figure alarms on flames and glowing clouds, and in 2 of 4 lettering images its reasons noted a signature while its answer said false. v2 describes the edges, bright areas and marks before answering, and says a flame, heart-shaped glow or billowing cloud is not a figure unless a head, face, hands or body outline can be pointed to.",
+  "final": "v3 for holdout, chosen from dev evidence only and declared before the holdout run: two parallel calls per image with the unchanged v1 and v2 questions, taking edges and frames from v1 and figures and lettering from v2. No new wording. Scored offline on the existing dev replies (metrics-dev-combined.json), it meets every criterion: figure 16/17 caught with 0/63 false alarms, border 14/16 with 0/64, lettering 3/4 with 4/76, and 1 of 40 acceptable images retried."
 }
