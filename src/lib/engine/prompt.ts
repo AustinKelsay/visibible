@@ -13,7 +13,7 @@ import type { ArtStyle, WorkBrief } from "../work-preparation";
 import { COMMON_CONTENT_FLOOR } from "../work-preparation";
 
 /** Structure and wording of the generic prompt; data (brief, style, canon, look, plan) carry their own versions. */
-export const GENERIC_PROMPT_VERSION = "2026-10-27-generic-v12";
+export const GENERIC_PROMPT_VERSION = "2026-10-27-generic-v13";
 /** Prompt text is cheap next to the image itself (12,000 characters is about $0.001); the cap only guards runaway input. */
 export const GENERIC_PROMPT_MAX_CHARS = 12000;
 export const MAX_REFERENCE_IMAGES = 3;
@@ -147,7 +147,10 @@ export function buildRenderingPacket(input: RenderingInput): RenderingResult {
   // without form is present it is never named or described: the source text, neighbours and its canon are left out,
   // and only the plan's plain effects (smoke, cloud, fire, light) stand for it.
   const presence = formless.length > 0;
-  const formlessNames = formless.flatMap((c) => [c.name, c.text.match(/^([^:\n]{1,80}):/)?.[1]?.trim()].filter((n): n is string => Boolean(n && n.length > 2)));
+  // A name such as "God / Yahweh, the Father and God of Israel" is also matched by its parts ("God", "Yahweh"), longest first.
+  const nameParts = (name: string) => name.split(/\s*\/\s*/).flatMap((part) => [part, part.split(",")[0]]);
+  const formlessNames = [...new Set(formless.flatMap((c) => [c.name, ...nameParts(c.name), c.text.match(/^([^:\n]{1,80}):/)?.[1] ?? ""])
+    .map((n) => n.trim()).filter((n) => n.length > 2))].sort((x, y) => y.length - x.length);
   // Whole words only, so "Spirit" never rewrites "spiritual".
   const nameless = (text: string) => formlessNames.reduce((t, name) => t.replace(new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(name)}(?![\\p{L}\\p{N}])`, "giu"), "the presence"), text);
   // Callers may pass extra plan keys (such as a stored payload's `present` list); only scene text is rewritten.

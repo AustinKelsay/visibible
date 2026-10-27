@@ -21,7 +21,7 @@ describe("cast policy", () => {
   });
 
   it("tells rendering that only selected characters have fixed canon, without banning the plan's incidental figures", () => {
-    expect(GENERIC_PROMPT_VERSION).toBe("2026-10-27-generic-v12");
+    expect(GENERIC_PROMPT_VERSION).toBe("2026-10-27-generic-v13");
     const rule = ENGINE_RULES.join("\n");
     expect(rule).toContain("Show the SELECTED CHARACTERS with their canon.");
     expect(rule).toContain("Anyone else appears only as an unnamed figure the scene plan describes.");

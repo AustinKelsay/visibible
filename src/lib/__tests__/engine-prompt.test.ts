@@ -176,6 +176,12 @@ describe("rendering packet", () => {
     const boundary = buildRenderingPacket(base("classical", { canon, plan: { ...base("classical").plan, mood: "The voiceless crowd waits; the Voice speaks" } }));
     if (!boundary.ok) throw new Error(boundary.error);
     expect(boundary.prompt).toContain("Mood: The voiceless crowd waits; the presence speaks");
+    // A slash-separated name is matched by its parts too (regression: "God's presence stands" leaked with "God / Yahweh, …").
+    const slashed = { ...canon[3], name: "Echo / the Voice, Speaker of the Hills", text: "The Speaker: light only." };
+    const parts = buildRenderingPacket(base("classical", { canon: [canon[0], slashed], plan: { ...base("classical").plan, action: "Echo's light fills the room as the Voice speaks; the Speaker waits", mood: "echoing halls" } }));
+    if (!parts.ok) throw new Error(parts.error);
+    expect(parts.prompt).toContain("Action: the presence's light fills the room as the presence speaks; the presence waits");
+    expect(parts.prompt).toContain("Mood: echoing halls");
     const onlyFormless = buildRenderingPacket(base("classical", { canon: [canon[3]] }));
     if (!onlyFormless.ok) throw new Error(onlyFormless.error);
     expect(onlyFormless.prompt).toContain("UNSEEN PRESENCE (binding)");
