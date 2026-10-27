@@ -28,7 +28,7 @@ try {
     const envFile = path.join(temporary, `${scenario}.env`), hook = path.join(temporary, `${scenario}.mjs`);
     fs.writeFileSync(envFile, "GENERIC_ENGINE_MODE=disabled\nNEXT_PUBLIC_CONVEX_URL=https://api.visibible.com\nOPENROUTER_API_KEY=offline-fixture-only\n", { mode: 0o600 });
     fs.writeFileSync(hook, `const scenario = ${JSON.stringify(scenario)};
-let text = 0, images = 0, checks = 0, planReplies = 0;
+let text = 0, images = 0, checks = 0;
 globalThis.fetch = async (url, init) => {
   let payload, status = 200;
   if (url === "https://openrouter.ai/api/v1/models") payload = { data: [{ id: "google/gemini-3.1-flash-lite-image", pricing: { prompt: "0.00000025", image_output: "0.00003" } }] };
@@ -47,8 +47,8 @@ globalThis.fetch = async (url, init) => {
       text++;
       const source = r.messages[1].content.match(/MOMENT \\([^\\n]*?\\): ([^\\n]+)/)?.[1] ?? "A source sentence.";
       const situation = { place: "an open space", timeOfDay: "day", weather: "clear", light: "daylight", clothing: "plain clothing" };
-      if (kind === "scene_plan") planReplies++;
-      const refuse = scenario === "first-refuses" && planReplies <= 2 && kind === "plan_review";
+      // Cases run three at a time, so the refusal targets one case's reviews rather than a reply count.
+      const refuse = scenario === "first-refuses" && kind === "plan_review" && r.messages[1].content.includes("MOMENT (Genesis 1:3)");
       const cast = (r.messages[1].content.match(/^- ([a-z0-9_]+): .*hasForm: false/m) || [])[1];
       const review = refuse && cast ? { problems: [{ kind: "embodied_formless", entryId: cast, planQuote: "remains still", reason: "Synthetic refusal" }] } : { problems: [] };
       const content = kind === "section_look" ? situation : kind === "plan_review" ? review
