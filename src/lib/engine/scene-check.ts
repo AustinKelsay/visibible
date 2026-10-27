@@ -81,3 +81,40 @@ export function preferredAttempt(a: SceneFault[], b: SceneFault[]): 0 | 1 {
   if (worst(a) !== worst(b)) return worst(a) > worst(b) ? 0 : 1;
   return b.length < a.length ? 1 : 0;
 }
+
+/** The vision calls the check needs; the reference checker's adapter implements it. */
+export type SceneChecker = {
+  readonly id: string;
+  check<T>(request: { label: string; question: string; schema: z.ZodType<T>; image: { bytes: Uint8Array; mimeType: string } }): Promise<{ value: T; costUsd: number | null; elapsedMs: number }>;
+};
+export type SceneCheckResult = { faults: SceneFault[]; costUsd: number | null; elapsedMs: number };
+
+/** Both questions in parallel; throws when either reply is unavailable. */
+export async function checkScene(checker: SceneChecker, image: { bytes: Uint8Array; mimeType: string }, context: SceneCheckContext, label: string): Promise<SceneCheckResult> {
+  const [edge, figure] = await Promise.all([
+    checker.check({ label: `${label}:edge`, question: edgeCheckQuestion(context), schema: edgeCheckSchema, image }),
+    checker.check({ label: `${label}:figure`, question: figureCheckQuestion(context), schema: figureCheckSchema, image }),
+  ]);
+  return { faults: sceneCheckFaults(edge.value, figure.value), costUsd: edge.costUsd === null || figure.costUsd === null ? null : edge.costUsd + figure.costUsd, elapsedMs: Math.max(edge.elapsedMs, figure.elapsedMs) };
+}
+
+export type CheckedAttempt<T> = { image: T; check: SceneCheckResult | null; checkError: string | null };
+export type CheckedRender<T> = { chosen: 0 | 1; attempts: CheckedAttempt<T>[]; retryError: string | null };
+
+/**
+ * Check the first image and, when it has a fault, make one more and show the better of the two. A check that fails
+ * keeps the first image (or, after a faulty first image, the retry). A retry that fails keeps the first image.
+ */
+export async function checkAndRetry<T>(first: T, deps: { check: (image: T, attempt: 1 | 2) => Promise<SceneCheckResult>; retry: () => Promise<T> }): Promise<CheckedRender<T>> {
+  const checked = async (image: T, attempt: 1 | 2): Promise<CheckedAttempt<T>> => {
+    try { return { image, check: await deps.check(image, attempt), checkError: null }; }
+    catch (error) { return { image, check: null, checkError: error instanceof Error ? error.message : String(error) }; }
+  };
+  const one = await checked(first, 1);
+  if (!one.check || one.check.faults.length === 0) return { chosen: 0, attempts: [one], retryError: null };
+  let second: T;
+  try { second = await deps.retry(); }
+  catch (error) { return { chosen: 0, attempts: [one], retryError: error instanceof Error ? error.message : String(error) }; }
+  const two = await checked(second, 2);
+  return { chosen: preferredAttempt(one.check.faults, two.check?.faults ?? []), attempts: [one, two], retryError: null };
+}
