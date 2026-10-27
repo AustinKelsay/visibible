@@ -12,7 +12,7 @@ import { createConvexPreparationStore, MOMENT_CAST_PROMPT_VERSION, type Analysis
 import { readWorkInputs } from "../engine/work-inputs";
 import { ENGINE_RULES, GENERIC_PROMPT_MAX_CHARS } from "../engine/prompt";
 import type { TextModel, TextModelRequest } from "../reading-pass/model";
-import { withGrounding } from "../../../tests/fixtures/scene-grounding";
+import { withCurrentLookMarker, withGrounding } from "../../../tests/fixtures/scene-grounding";
 
 const evidence = new URL("../../../llm/releases/2026-10-22-formless-look-evaluation/", import.meta.url);
 const snapshot: { records: Array<{ record: AnalysisRecord | null }> } = JSON.parse(readFileSync(new URL("after-10.json", evidence), "utf8"));
@@ -54,7 +54,7 @@ describe("moment cast over shared section context", () => {
     for (const old of retained.filter((record) => ["look", "plan"].includes(record.kind))) {
       const saved = await t.mutation(api.analysis.putDerivedRecord, { serverSecret: SECRET, workId: WORK,
         kind: old.kind as "look" | "plan", recordId: old.recordId,
-        payload: old.payload as FunctionArgs<typeof api.analysis.putDerivedRecord>["payload"], inputs: old.inputs });
+        payload: old.payload as FunctionArgs<typeof api.analysis.putDerivedRecord>["payload"], inputs: withCurrentLookMarker(old).inputs });
       expect(saved.version).toBe(old.version);
     }
     if (ownerLook) {
@@ -115,20 +115,20 @@ describe("moment cast over shared section context", () => {
       expect(selected).toBe("Ministering assembly in Daniel's vision");
       expect(selected).not.toContain("Daniel (prophet of Babylon)");
       expect(result.prompt).not.toContain("Ancient of Days");
-      expect(result.prompt).toContain("PRESENCE SHOWN ONLY AS EFFECTS");
+      expect(result.prompt).toContain("UNSEEN PRESENCE (binding)");
       expect(result.prompt).toContain(ENGINE_RULES.find((rule) => rule.startsWith("Show the SELECTED CHARACTERS"))!);
       expect(result.packet.canon.map((entry) => entry.entryId)).toEqual(["the_ancient_of_days", "ministering_assembly_in_daniels_vision"]);
       for (const entry of result.canon.filter((c) => c.hasForm)) expect(result.prompt).toContain(entry.text);
-      for (const entry of result.canon.filter((c) => !c.hasForm)) expect(result.prompt).toContain(entry.text.replace(/^[^:\n]{1,80}:\s*/, ""));
+      for (const entry of result.canon.filter((c) => !c.hasForm)) expect(result.prompt).not.toContain(entry.text.replace(/^[^:\n]{1,80}:\s*/, ""));
       expect(result.references.filter((reference) => reference.kind === "sheet").map((reference) => reference.entryId)).toEqual(["ministering_assembly_in_daniels_vision"]);
       expect(result.packet.budget.finalChars).toBeLessThanOrEqual(GENERIC_PROMPT_MAX_CHARS);
     }
     expect(requests).toHaveLength(1);
     expect(requests[0].system).toContain("Leave out cast who are elsewhere or only mentioned.");
-    expect(requests[0].system).toContain("show its actors and setting rather than the person telling it");
+    expect(requests[0].system).toContain("draw what the words describe and leave the speaker, writer and listeners out");
     expect(getReference.mock.calls.some(([kind, id]) => kind === "sheet" && id.startsWith("daniel_prophet_of_babylon:"))).toBe(false);
     const look = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "look", recordId: SECTION });
-    expect(look).toMatchObject({ source: ownerLook ? "owner" : "generated", payload: oldLook.payload, inputs: oldLook.inputs });
+    expect(look).toMatchObject({ source: ownerLook ? "owner" : "generated", payload: oldLook.payload, inputs: withCurrentLookMarker(oldLook).inputs });
     const plan = await t.query(api.analysis.getActiveRecord, { workId: WORK, kind: "plan", recordId: "daniel-7-10" });
     expect(plan?.inputs).toContainEqual({ kind: "prompt", recordId: "scene_plan_moment_cast", version: MOMENT_CAST_PROMPT_VERSION });
   });

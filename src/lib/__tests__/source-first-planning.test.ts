@@ -54,7 +54,7 @@ describe("source-first scene planning", () => {
     for (const request of plans) {
       expect(request.user).toContain("Her nobles were purer than snow.");
       expect(request.user).toContain("CAST ON STAGE IN THIS SECTION");
-      expect(request.user).toContain("NO-FORM CANON CONSTRAINTS");
+      expect(request.user).not.toContain("NO-FORM CANON CONSTRAINTS");
       expect(request.user).toContain("SECTION LOOK GUIDE (a suggestion; keep what fits this moment)");
       for (const value of Object.values(look)) expect(request.user).toContain(value);
     }

@@ -87,7 +87,9 @@ describe("no-form section look and canon separation", () => {
     const look = requests[0];
     expect(look.user).toContain("- the_ancient_of_days: The Ancient of Days (hasForm: false)");
     expect(look.user).toContain("- daniel_prophet_of_babylon: Daniel (prophet of Babylon) (hasForm: true)");
-    expect(look.user).toContain("- the_ancient_of_days (stage: ancient-of-days-light): effect names for placement: radiance, fire, cloud, light");
+    // Since formless-look v2 the look gets no canon or effect names for a no-form subject.
+    expect(look.user).not.toContain("effect names for placement");
+    expect(look.user).not.toContain("NO-FORM CANON CONSTRAINTS");
     expect(look.user).toContain(scene.context.moment.text); // Keep bodily source metaphors unchanged.
     const ancient = await record("entry", "the_ancient_of_days");
     if (ancient?.payload.kind !== "entry") throw new Error("Missing canon");
@@ -96,10 +98,10 @@ describe("no-form section look and canon separation", () => {
     const daniel = await record("entry", "daniel_prophet_of_babylon");
     if (daniel?.payload.kind !== "entry") throw new Error("Missing formed canon");
     expect(look.user).not.toContain(daniel.payload.stages[0].text);
-    expect(look.system).toContain("Bodily wording about those subjects in the source is a metaphor");
-    expect(look.system).toContain("Do not repeat prohibited features as denials or substitutes");
+    expect(look.system).toContain("bodily words in the text are metaphors");
+    expect(look.system).toContain("even as an empty seat, a denial or a figure made of light");
     expect(look.system).toContain("Keep formed characters' own situational clothing and props attached to them");
-    expect(look.system).toContain("leave their fixed colour, brightness and texture to canon");
+    expect(look.system).not.toContain("unoccupied seat");
     expect(result.prepared.look.payload).toEqual(situationalLook);
     expect(result.packet.lookVersion).not.toBe(scene.result.look.version);
     expect(requests[1].user).toContain(situationalLook.clothing);
@@ -121,9 +123,9 @@ describe("no-form section look and canon separation", () => {
       if (!again.ok) throw new Error(again.message);
       expect(again.prepared.calls).toBe(0);
       expect(again.packet.lookVersion).toBe(result.packet.lookVersion);
-      // Rendering describes the selected no-form canon in full, without its name label (generic-v10).
-      expect(again.prompt).toContain(`- ${fullCanon.replace(/^[^:\n]{1,80}:\s*/, "")}`);
-      expect(again.prompt).toContain("PRESENCE SHOWN ONLY AS EFFECTS");
+      // Rendering never describes the selected no-form subject (generic-v11): its canon stays out of the prompt.
+      expect(again.prompt).not.toContain(fullCanon.replace(/^[^:\n]{1,80}:\s*/, ""));
+      expect(again.prompt).toContain("UNSEEN PRESENCE (binding)");
       expect(again.prompt).not.toContain("effect names for placement");
     }
     expect(requests).toHaveLength(2);

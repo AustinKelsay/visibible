@@ -7,7 +7,7 @@ import { withCleanReview } from "../../../tests/fixtures/plan-review";
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import { contentVersion } from "../../../convex/_helpers/contentVersion";
-import { withGrounding } from "../../../tests/fixtures/scene-grounding";
+import { withGrounding, withCurrentLookMarker } from "../../../tests/fixtures/scene-grounding";
 import { sceneGroundingProblem, sceneGroundingSchema, type SceneGrounding } from "../engine/scene-grounding";
 import { assembleRendering, type AssembleDeps } from "../engine/assemble";
 import type { AnalysisRecord, MomentContext, PreparationStore } from "../engine/preparation";
@@ -35,7 +35,7 @@ binding.grounding.cast[0].contextQuote = "a certain Samaritan";
 
 async function setup(unitId: string, reply: unknown) {
   const inputs = await readWorkInputs("bible-web");
-  const records: AnalysisRecord[] = structuredClone(snapshot.records.flatMap(({ record }: { record: AnalysisRecord | null }) => record ? [record] : []));
+  const records: AnalysisRecord[] = structuredClone(snapshot.records.flatMap(({ record }: { record: AnalysisRecord | null }) => record ? [withCurrentLookMarker(record)] : []));
   const write = vi.fn<PreparationStore["putDerivedRecord"]>(async (args) => {
     const record = { ...args, version: contentVersion(args.payload) };
     const index = records.findIndex((r) => r.kind === args.kind && r.recordId === args.recordId);
@@ -86,7 +86,7 @@ describe("scene source grounding", () => {
     expect(calls[0].user.indexOf("MOMENT (")).toBeLessThan(calls[0].user.indexOf("CAST ON STAGE"));
     expect(calls[0].user).not.toContain("SECTION LOOK (");
     expect(calls[0].system).toContain("pick one representative instant");
-    expect(calls[0].system).toContain("rather than the person telling it");
+    expect(calls[0].system).toContain("Never put a speaker, writer or listener into a scene their words only describe");
   });
 
   it.each([

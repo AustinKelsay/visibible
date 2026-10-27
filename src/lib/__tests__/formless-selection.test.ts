@@ -61,20 +61,21 @@ async function setup(repair: boolean, invalidation: "both" | "review" | "selecti
 }
 
 describe("no-form cast selection", () => {
-  it.each(["both", "review", "selection"] as const)("refreshes cached presence after a %s contract change, selects the depicted no-form cast without a re-plan, and delivers canon to rendering", async (invalidation) => {
+  it.each(["both", "review", "selection"] as const)("refreshes cached presence after a %s contract change, selects the depicted no-form cast without a re-plan, and keeps its canon out of rendering", async (invalidation) => {
     const { render, calls, store } = await setup(false, invalidation);
     const result = await render();
     if (!result.ok) throw new Error(result.message);
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review"]);
     expect(result.prepared.present.map((p) => p.entryId)).toEqual(["witness", "presence"]);
     expect(result.canon.find((c) => c.entryId === "presence")).toMatchObject({ hasForm: false });
-    // generic-v10: the no-form subject is described by its effects, never named, and its scene omits the source text.
-    expect(result.prompt).toContain("PRESENCE SHOWN ONLY AS EFFECTS (binding; it is not a person):\n- radiance above the camp, without a body or human form.");
+    // generic-v11: the no-form subject is never named or described, and its scene omits the source text and its canon.
+    expect(result.prompt).toContain("UNSEEN PRESENCE (binding)");
+    expect(result.prompt).not.toContain("radiance above the camp, without a body or human form.");
     expect(result.prompt).toContain("SELECTED CHARACTERS: Witness\n");
     expect(result.prompt).not.toContain(text);
     expect(result.prompt).not.toContain("Presence:");
-    // moment-cast v12: the planner is told never to name it or call it seated or standing.
-    expect(calls[0].system).toContain("never name it and never call it seated or standing");
+    // formless-effects v13: the planner is told never to name it or give it a throne, robe or body.
+    expect(calls[0].system).toContain("Never name it, and leave out its throne, seat, chariot, robe or train");
     expect((await store.getActiveRecord("plan", "m-1"))!.payload).toMatchObject({ review: { rounds: 1, notes: ["selected presence: depicted but not selected"] } });
     await render();
     expect(calls).toHaveLength(2);

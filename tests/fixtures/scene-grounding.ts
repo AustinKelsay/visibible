@@ -4,6 +4,7 @@
  * Grounding-specific tests use explicit per-entry evidence and retain false assertions too.
  */
 import type { SceneGrounding } from "../../src/lib/engine/scene-grounding";
+import { FORMLESS_LOOK_PROMPT_VERSION } from "../../src/lib/engine/preparation";
 
 export function withGrounding<T extends { present: string[] }>(plan: T, focusQuote: string, quotes: Record<string, string> = {}) {
   const grounding: SceneGrounding = { focusQuote, singleInstant: true,
@@ -50,4 +51,13 @@ export function selectionReply(value: unknown): unknown {
   const { situation: _situation, ...rest } = reply as Record<string, unknown>;
   void _situation;
   return rest;
+}
+
+/**
+ * Retained looks record the no-form look contract they were made with. Tests of other mechanics treat them as made
+ * under the current contract, so the look is reused rather than remade.
+ */
+export function withCurrentLookMarker<T extends { kind: string; inputs: Array<{ kind: string; recordId: string; version: string }> }>(record: T): T {
+  if (record.kind !== "look") return record;
+  return { ...record, inputs: record.inputs.map((input) => input.kind === "prompt" && input.recordId === "section_look_formless_presence" ? { ...input, version: FORMLESS_LOOK_PROMPT_VERSION } : input) };
 }

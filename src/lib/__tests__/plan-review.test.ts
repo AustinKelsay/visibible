@@ -127,7 +127,7 @@ describe("plan review before storage", () => {
     expect(calls.map((r) => r.schemaName)).toEqual(["scene_plan", "plan_review", "plan_review"]);
     expect(calls[1].user).not.toContain("MOMENT CONDITIONS");
     expect(calls[1].system).toContain("an OWNER LOOK CONSTRAINTS value (only when supplied)");
-    expect(calls[1].system).toContain("embodied_formless: a hasForm false entry is given a body, face, hands, clothing, a silhouette, or is described as seated or standing.");
+    expect(calls[1].system).toContain("embodied_formless: a hasForm false entry is given a body, face, hands, clothing, a robe or train, a silhouette, a throne or seat of its own, or is described as seated or standing.");
     expect(writes[0].payload).toMatchObject({ review: { rounds: 1, notes: ["plan review unavailable: look_conflict quote is not in the look"] } });
     expect(writes[0].payload).not.toHaveProperty("situation");
   });

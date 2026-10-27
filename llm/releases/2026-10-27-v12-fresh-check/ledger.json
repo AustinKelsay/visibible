@@ -1,0 +1,685 @@
+{
+  "calls": [
+    {
+      "phase": "r059",
+      "startedAt": "2026-10-27T00:29:16.430Z",
+      "status": "200",
+      "measuredUsd": 0.0002672
+    },
+    {
+      "phase": "r059",
+      "startedAt": "2026-10-27T00:29:18.730Z",
+      "status": "200",
+      "measuredUsd": 0.0005055
+    },
+    {
+      "phase": "r059",
+      "startedAt": "2026-10-27T00:29:22.221Z",
+      "status": "200",
+      "measuredUsd": 0.0004658
+    },
+    {
+      "phase": "v008",
+      "startedAt": "2026-10-27T00:29:27.177Z",
+      "status": "200",
+      "measuredUsd": 0.0001992
+    },
+    {
+      "phase": "v008",
+      "startedAt": "2026-10-27T00:29:29.642Z",
+      "status": "200",
+      "measuredUsd": 0.0004613
+    },
+    {
+      "phase": "v008",
+      "startedAt": "2026-10-27T00:29:35.377Z",
+      "status": "200",
+      "measuredUsd": 0.0004528
+    },
+    {
+      "phase": "v014",
+      "startedAt": "2026-10-27T00:29:39.557Z",
+      "status": "200",
+      "measuredUsd": 0.0001881
+    },
+    {
+      "phase": "v014",
+      "startedAt": "2026-10-27T00:29:41.606Z",
+      "status": "200",
+      "measuredUsd": 0.0004938
+    },
+    {
+      "phase": "v014",
+      "startedAt": "2026-10-27T00:29:46.722Z",
+      "status": "200",
+      "measuredUsd": 0.0006267
+    },
+    {
+      "phase": "v014",
+      "startedAt": "2026-10-27T00:29:52.027Z",
+      "status": "200",
+      "measuredUsd": 0.0004863
+    },
+    {
+      "phase": "v014",
+      "startedAt": "2026-10-27T00:29:55.598Z",
+      "status": "200",
+      "measuredUsd": 0.0005161
+    },
+    {
+      "phase": "r027",
+      "startedAt": "2026-10-27T00:30:01.273Z",
+      "status": "200",
+      "measuredUsd": 0.0002868
+    },
+    {
+      "phase": "r027",
+      "startedAt": "2026-10-27T00:30:03.450Z",
+      "status": "200",
+      "measuredUsd": 0.0005831
+    },
+    {
+      "phase": "r027",
+      "startedAt": "2026-10-27T00:30:07.535Z",
+      "status": "200",
+      "measuredUsd": 0.0005554
+    },
+    {
+      "phase": "r074",
+      "startedAt": "2026-10-27T00:30:12.065Z",
+      "status": "200",
+      "measuredUsd": 0.000267
+    },
+    {
+      "phase": "r074",
+      "startedAt": "2026-10-27T00:30:14.576Z",
+      "status": "200",
+      "measuredUsd": 0.0005432
+    },
+    {
+      "phase": "r074",
+      "startedAt": "2026-10-27T00:30:18.473Z",
+      "status": "200",
+      "measuredUsd": 0.000567
+    },
+    {
+      "phase": "r074",
+      "startedAt": "2026-10-27T00:30:23.214Z",
+      "status": "200",
+      "measuredUsd": 0.0005222
+    },
+    {
+      "phase": "r074",
+      "startedAt": "2026-10-27T00:30:26.494Z",
+      "status": "200",
+      "measuredUsd": 0.0003925
+    },
+    {
+      "phase": "r034",
+      "startedAt": "2026-10-27T00:30:30.134Z",
+      "status": "200",
+      "measuredUsd": 0.0002785
+    },
+    {
+      "phase": "r034",
+      "startedAt": "2026-10-27T00:30:32.247Z",
+      "status": "200",
+      "measuredUsd": 0.0005426
+    },
+    {
+      "phase": "r034",
+      "startedAt": "2026-10-27T00:30:35.742Z",
+      "status": "200",
+      "measuredUsd": 0.0007487
+    },
+    {
+      "phase": "r034",
+      "startedAt": "2026-10-27T00:30:43.437Z",
+      "status": "200",
+      "measuredUsd": 0.0005387
+    },
+    {
+      "phase": "r034",
+      "startedAt": "2026-10-27T00:30:46.761Z",
+      "status": "200",
+      "measuredUsd": 0.0005589
+    },
+    {
+      "phase": "v020",
+      "startedAt": "2026-10-27T00:30:51.844Z",
+      "status": "200",
+      "measuredUsd": 0.0001821
+    },
+    {
+      "phase": "v020",
+      "startedAt": "2026-10-27T00:30:53.491Z",
+      "status": "200",
+      "measuredUsd": 0.0004538
+    },
+    {
+      "phase": "v020",
+      "startedAt": "2026-10-27T00:30:58.048Z",
+      "status": "200",
+      "measuredUsd": 0.000395
+    },
+    {
+      "phase": "v017",
+      "startedAt": "2026-10-27T00:31:02.422Z",
+      "status": "200",
+      "measuredUsd": 0.000274
+    },
+    {
+      "phase": "v017",
+      "startedAt": "2026-10-27T00:31:04.753Z",
+      "status": "200",
+      "measuredUsd": 0.0005317
+    },
+    {
+      "phase": "v017",
+      "startedAt": "2026-10-27T00:31:12.095Z",
+      "status": "200",
+      "measuredUsd": 0.0003618
+    },
+    {
+      "phase": "v017",
+      "startedAt": "2026-10-27T00:31:13.772Z",
+      "status": "200",
+      "measuredUsd": 0.0005098
+    },
+    {
+      "phase": "v019",
+      "startedAt": "2026-10-27T00:31:20.664Z",
+      "status": "200",
+      "measuredUsd": 0.0001617
+    },
+    {
+      "phase": "v019",
+      "startedAt": "2026-10-27T00:31:21.891Z",
+      "status": "200",
+      "measuredUsd": 0.0004627
+    },
+    {
+      "phase": "v019",
+      "startedAt": "2026-10-27T00:31:27.804Z",
+      "status": "200",
+      "measuredUsd": 0.0004027
+    },
+    {
+      "phase": "v013",
+      "startedAt": "2026-10-27T00:31:31.485Z",
+      "status": "200",
+      "measuredUsd": 0.0001646
+    },
+    {
+      "phase": "v013",
+      "startedAt": "2026-10-27T00:31:33.317Z",
+      "status": "200",
+      "measuredUsd": 0.0004143
+    },
+    {
+      "phase": "v013",
+      "startedAt": "2026-10-27T00:31:38.643Z",
+      "status": "200",
+      "measuredUsd": 0.0004791
+    },
+    {
+      "phase": "v005",
+      "startedAt": "2026-10-27T00:31:42.229Z",
+      "status": "200",
+      "measuredUsd": 0.0002423
+    },
+    {
+      "phase": "v005",
+      "startedAt": "2026-10-27T00:31:44.133Z",
+      "status": "200",
+      "measuredUsd": 0.0004696
+    },
+    {
+      "phase": "v005",
+      "startedAt": "2026-10-27T00:31:49.634Z",
+      "status": "200",
+      "measuredUsd": 0.0005766
+    },
+    {
+      "phase": "v018",
+      "startedAt": "2026-10-27T00:31:55.610Z",
+      "status": "200",
+      "measuredUsd": 0.0001739
+    },
+    {
+      "phase": "v018",
+      "startedAt": "2026-10-27T00:31:57.343Z",
+      "status": "200",
+      "measuredUsd": 0.0004352
+    },
+    {
+      "phase": "v018",
+      "startedAt": "2026-10-27T00:32:02.339Z",
+      "status": "200",
+      "measuredUsd": 0.0005787
+    },
+    {
+      "phase": "v018",
+      "startedAt": "2026-10-27T00:32:08.107Z",
+      "status": "200",
+      "measuredUsd": 0.0004571
+    },
+    {
+      "phase": "v018",
+      "startedAt": "2026-10-27T00:32:12.437Z",
+      "status": "200",
+      "measuredUsd": 0.0005931
+    },
+    {
+      "phase": "v004",
+      "startedAt": "2026-10-27T00:32:17.938Z",
+      "status": "200",
+      "measuredUsd": 0.0001626
+    },
+    {
+      "phase": "v004",
+      "startedAt": "2026-10-27T00:32:19.382Z",
+      "status": "200",
+      "measuredUsd": 0.0003658
+    },
+    {
+      "phase": "v004",
+      "startedAt": "2026-10-27T00:32:25.404Z",
+      "status": "200",
+      "measuredUsd": 0.0002919
+    },
+    {
+      "phase": "v010",
+      "startedAt": "2026-10-27T00:32:28.799Z",
+      "status": "200",
+      "measuredUsd": 0.0001913
+    },
+    {
+      "phase": "v010",
+      "startedAt": "2026-10-27T00:32:30.892Z",
+      "status": "200",
+      "measuredUsd": 0.0004714
+    },
+    {
+      "phase": "v010",
+      "startedAt": "2026-10-27T00:32:35.461Z",
+      "status": "200",
+      "measuredUsd": 0.0004323
+    },
+    {
+      "phase": "v003",
+      "startedAt": "2026-10-27T00:32:39.028Z",
+      "status": "200",
+      "measuredUsd": 0.0001943
+    },
+    {
+      "phase": "v003",
+      "startedAt": "2026-10-27T00:32:41.251Z",
+      "status": "200",
+      "measuredUsd": 0.0004488
+    },
+    {
+      "phase": "v003",
+      "startedAt": "2026-10-27T00:32:45.432Z",
+      "status": "200",
+      "measuredUsd": 0.0004709
+    },
+    {
+      "phase": "v015",
+      "startedAt": "2026-10-27T00:32:50.990Z",
+      "status": "200",
+      "measuredUsd": 0.0001665
+    },
+    {
+      "phase": "v015",
+      "startedAt": "2026-10-27T00:32:52.579Z",
+      "status": "200",
+      "measuredUsd": 0.0004072
+    },
+    {
+      "phase": "v015",
+      "startedAt": "2026-10-27T00:32:58.369Z",
+      "status": "200",
+      "measuredUsd": 0.0004968
+    },
+    {
+      "phase": "r001",
+      "startedAt": "2026-10-27T00:33:02.694Z",
+      "status": "200",
+      "measuredUsd": 0.0002639
+    },
+    {
+      "phase": "r001",
+      "startedAt": "2026-10-27T00:33:04.557Z",
+      "status": "200",
+      "measuredUsd": 0.0005533
+    },
+    {
+      "phase": "r001",
+      "startedAt": "2026-10-27T00:33:08.328Z",
+      "status": "200",
+      "measuredUsd": 0.0005604
+    },
+    {
+      "phase": "v011",
+      "startedAt": "2026-10-27T00:33:12.926Z",
+      "status": "200",
+      "measuredUsd": 0.0002473
+    },
+    {
+      "phase": "v011",
+      "startedAt": "2026-10-27T00:33:15.620Z",
+      "status": "200",
+      "measuredUsd": 0.0005532
+    },
+    {
+      "phase": "v011",
+      "startedAt": "2026-10-27T00:33:19.041Z",
+      "status": "200",
+      "measuredUsd": 0.0006478
+    },
+    {
+      "phase": "v011",
+      "startedAt": "2026-10-27T00:33:24.979Z",
+      "status": "200",
+      "measuredUsd": 0.0005375
+    },
+    {
+      "phase": "v011",
+      "startedAt": "2026-10-27T00:33:28.390Z",
+      "status": "200",
+      "measuredUsd": 0.0004824
+    },
+    {
+      "phase": "v012",
+      "startedAt": "2026-10-27T00:33:32.887Z",
+      "status": "200",
+      "measuredUsd": 0.0001562
+    },
+    {
+      "phase": "v012",
+      "startedAt": "2026-10-27T00:33:34.856Z",
+      "status": "200",
+      "measuredUsd": 0.0003709
+    },
+    {
+      "phase": "v012",
+      "startedAt": "2026-10-27T00:33:38.149Z",
+      "status": "200",
+      "measuredUsd": 0.0002241
+    },
+    {
+      "phase": "v021",
+      "startedAt": "2026-10-27T00:33:39.421Z",
+      "status": "200",
+      "measuredUsd": 0.00029
+    },
+    {
+      "phase": "v021",
+      "startedAt": "2026-10-27T00:33:41.642Z",
+      "status": "200",
+      "measuredUsd": 0.0005495
+    },
+    {
+      "phase": "v021",
+      "startedAt": "2026-10-27T00:33:46.259Z",
+      "status": "200",
+      "measuredUsd": 0.0006288
+    },
+    {
+      "phase": "v021",
+      "startedAt": "2026-10-27T00:33:51.653Z",
+      "status": "200",
+      "measuredUsd": 0.0005672
+    },
+    {
+      "phase": "v021",
+      "startedAt": "2026-10-27T00:33:55.296Z",
+      "status": "200",
+      "measuredUsd": 0.0002743
+    },
+    {
+      "phase": "v006",
+      "startedAt": "2026-10-27T00:33:56.414Z",
+      "status": "200",
+      "measuredUsd": 0.0001738
+    },
+    {
+      "phase": "v006",
+      "startedAt": "2026-10-27T00:33:57.920Z",
+      "status": "200",
+      "measuredUsd": 0.0004414
+    },
+    {
+      "phase": "v006",
+      "startedAt": "2026-10-27T00:34:03.505Z",
+      "status": "200",
+      "measuredUsd": 0.0005634
+    },
+    {
+      "phase": "r067",
+      "startedAt": "2026-10-27T00:34:09.196Z",
+      "status": "200",
+      "measuredUsd": 0.0002469
+    },
+    {
+      "phase": "r067",
+      "startedAt": "2026-10-27T00:34:11.258Z",
+      "status": "200",
+      "measuredUsd": 0.0005266
+    },
+    {
+      "phase": "r067",
+      "startedAt": "2026-10-27T00:34:14.932Z",
+      "status": "200",
+      "measuredUsd": 0.0007143
+    },
+    {
+      "phase": "v007",
+      "startedAt": "2026-10-27T00:34:20.869Z",
+      "status": "200",
+      "measuredUsd": 0.000188
+    },
+    {
+      "phase": "v007",
+      "startedAt": "2026-10-27T00:34:22.777Z",
+      "status": "200",
+      "measuredUsd": 0.0003889
+    },
+    {
+      "phase": "v007",
+      "startedAt": "2026-10-27T00:34:27.955Z",
+      "status": "200",
+      "measuredUsd": 0.0004079
+    },
+    {
+      "phase": "v023",
+      "startedAt": "2026-10-27T00:34:32.871Z",
+      "status": "200",
+      "measuredUsd": 0.0002517
+    },
+    {
+      "phase": "v023",
+      "startedAt": "2026-10-27T00:34:34.931Z",
+      "status": "200",
+      "measuredUsd": 0.0004958
+    },
+    {
+      "phase": "v023",
+      "startedAt": "2026-10-27T00:34:39.946Z",
+      "status": "200",
+      "measuredUsd": 0.0005862
+    },
+    {
+      "phase": "v023",
+      "startedAt": "2026-10-27T00:34:44.739Z",
+      "status": "200",
+      "measuredUsd": 0.0005115
+    },
+    {
+      "phase": "v023",
+      "startedAt": "2026-10-27T00:34:48.027Z",
+      "status": "200",
+      "measuredUsd": 0.0004572
+    },
+    {
+      "phase": "v001",
+      "startedAt": "2026-10-27T00:34:53.359Z",
+      "status": "200",
+      "measuredUsd": 0.0002441
+    },
+    {
+      "phase": "v001",
+      "startedAt": "2026-10-27T00:34:55.786Z",
+      "status": "200",
+      "measuredUsd": 0.0005283
+    },
+    {
+      "phase": "v001",
+      "startedAt": "2026-10-27T00:35:01.177Z",
+      "status": "200",
+      "measuredUsd": 0.0004815
+    },
+    {
+      "phase": "r035",
+      "startedAt": "2026-10-27T00:35:05.472Z",
+      "status": "200",
+      "measuredUsd": 0.0002683
+    },
+    {
+      "phase": "r035",
+      "startedAt": "2026-10-27T00:35:08.277Z",
+      "status": "200",
+      "measuredUsd": 0.0004884
+    },
+    {
+      "phase": "r035",
+      "startedAt": "2026-10-27T00:35:12.084Z",
+      "status": "200",
+      "measuredUsd": 0.0006533
+    },
+    {
+      "phase": "r035",
+      "startedAt": "2026-10-27T00:35:19.392Z",
+      "status": "200",
+      "measuredUsd": 0.0004909
+    },
+    {
+      "phase": "r035",
+      "startedAt": "2026-10-27T00:35:22.513Z",
+      "status": "200",
+      "measuredUsd": 0.0004574
+    },
+    {
+      "phase": "v009",
+      "startedAt": "2026-10-27T00:35:28.253Z",
+      "status": "200",
+      "measuredUsd": 0.0001781
+    },
+    {
+      "phase": "v009",
+      "startedAt": "2026-10-27T00:35:30.390Z",
+      "status": "200",
+      "measuredUsd": 0.0004224
+    },
+    {
+      "phase": "v009",
+      "startedAt": "2026-10-27T00:35:33.804Z",
+      "status": "200",
+      "measuredUsd": 0.000513
+    },
+    {
+      "phase": "v009",
+      "startedAt": "2026-10-27T00:35:38.234Z",
+      "status": "200",
+      "measuredUsd": 0.0004171
+    },
+    {
+      "phase": "v009",
+      "startedAt": "2026-10-27T00:35:42.092Z",
+      "status": "200",
+      "measuredUsd": 0.0003694
+    },
+    {
+      "phase": "v016",
+      "startedAt": "2026-10-27T00:35:46.337Z",
+      "status": "200",
+      "measuredUsd": 0.0001616
+    },
+    {
+      "phase": "v016",
+      "startedAt": "2026-10-27T00:35:48.035Z",
+      "status": "200",
+      "measuredUsd": 0.0004229
+    },
+    {
+      "phase": "v016",
+      "startedAt": "2026-10-27T00:35:53.010Z",
+      "status": "200",
+      "measuredUsd": 0.000219
+    },
+    {
+      "phase": "v002",
+      "startedAt": "2026-10-27T00:35:54.140Z",
+      "status": "200",
+      "measuredUsd": 0.0002566
+    },
+    {
+      "phase": "v002",
+      "startedAt": "2026-10-27T00:35:55.918Z",
+      "status": "200",
+      "measuredUsd": 0.0005409
+    },
+    {
+      "phase": "v002",
+      "startedAt": "2026-10-27T00:35:59.933Z",
+      "status": "200",
+      "measuredUsd": 0.0007025
+    },
+    {
+      "phase": "v002",
+      "startedAt": "2026-10-27T00:36:07.091Z",
+      "status": "200",
+      "measuredUsd": 0.000568
+    },
+    {
+      "phase": "v002",
+      "startedAt": "2026-10-27T00:36:10.463Z",
+      "status": "200",
+      "measuredUsd": 0.0007078
+    },
+    {
+      "phase": "v022",
+      "startedAt": "2026-10-27T00:36:16.902Z",
+      "status": "200",
+      "measuredUsd": 0.0001726
+    },
+    {
+      "phase": "v022",
+      "startedAt": "2026-10-27T00:36:18.433Z",
+      "status": "200",
+      "measuredUsd": 0.0004827
+    },
+    {
+      "phase": "v022",
+      "startedAt": "2026-10-27T00:36:23.718Z",
+      "status": "200",
+      "measuredUsd": 0.0005679
+    },
+    {
+      "phase": "v022",
+      "startedAt": "2026-10-27T00:36:39.781Z",
+      "status": "200",
+      "measuredUsd": 0.0005106
+    },
+    {
+      "phase": "v022",
+      "startedAt": "2026-10-27T00:36:43.552Z",
+      "status": "200",
+      "measuredUsd": 0.0004334
+    }
+  ],
+  "measuredUsd": 0.047586100000000006,
+  "uncertainUsd": 0,
+  "blocked": null
+}

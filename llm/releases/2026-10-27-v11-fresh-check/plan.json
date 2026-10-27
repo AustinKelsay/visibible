@@ -1,0 +1,65 @@
+{
+  "issue": 183,
+  "status": "Operator-decided check (27 October 2026) under the owner's delegation \"ok continue. Your call on all of these\", of planner v13, review v11 and renderer v11 (ADR 0006). Measurement only.",
+  "purpose": "Measure planner v13 / review v11 / renderer v11 on new random verses and the seven standing retained cases: whether speakers still stand inside the scenes their words describe, and how plans fare overall. Memory-only preparations and reference-free text packets in all three styles; no images, production writes or deployment.",
+  "candidateCommit": "10565b6d62a756a21ff84e7ebd73a1414ba80c82",
+  "pipeline": {
+    "momentCast": "2026-10-27-moment-cast-v13",
+    "formlessPlan": "2026-10-27-formless-effects-v13",
+    "review": "2026-10-27-plan-review-v11",
+    "rendering": "2026-10-27-generic-v11"
+  },
+  "sampling": {
+    "seed": 2026102741,
+    "orderSeed": 2026102742,
+    "maskSeed": 2026102743,
+    "fresh": 23,
+    "retained": [
+      "r001",
+      "r027",
+      "r034",
+      "r035",
+      "r059",
+      "r067",
+      "r074"
+    ],
+    "retainedFixture": "../2026-10-24-rendering-review-check/sample-set.json",
+    "exclude": [
+      "../2026-10-23-cast-policy-check/sample-set.json",
+      "../2026-10-23-source-first-check/sample-set.json",
+      "../2026-10-24-rendering-review-check/sample-set.json",
+      "../2026-10-26-fresh-conditions-check/sample-set.json",
+      "../2026-10-27-forgiving-fresh-check/sample-set.json",
+      "../2026-10-27-v10b-fresh-check/sample-set.json"
+    ],
+    "method": "Uniform verse-position draws without replacement outside the union of every earlier sampled moment (the six prior sample sets, including all three earlier fresh draws). Assert the exact production single-verse moment mapping; abort instead of replacing a missing fixture. No cast/genre/look/quality filtering. Snapshot fresh moment/section/canon read-only once, before any paid call. The seven retained cases reuse their exact earlier snapshots. Seed-shuffle the 30 cases into one fixed order."
+  },
+  "method": "Actual merged preparation/review/renderer modules at the immutable candidate commit; the same model, provider, defaults and completion limits as production. One cold memory store per case. One first outcome per case. After a stored plan, build the three style text packets locally; any packet refusal counts as a refused case. Bounded unavailable reviews fail their case and continue; provider error, missing usage, request drift or cap exhaustion stop the whole run.",
+  "scoring": {
+    "packet": "Seed-shuffle every stored, renderable case into opaque labels. Omit stratum, review, grounding, version and outcome labels. Include exact source and neighbors, section bounds and title, the full assigned canon, selected identities, seven scene fields and the five conditions passed to rendering.",
+    "scorers": "Two independent blind model scorers read the same packet and criteria without seeing each other's labels; the operator adjudicates disagreements and records the first adjudicated score before unblinding. The independent labels are retained. This is not human acceptance.",
+    "labels": [
+      "acceptable",
+      "flawed",
+      "uncertain"
+    ],
+    "criteria": "Source-supported instant and cast identities; every depicted available character/group/location/object/no-form presence selected; no framing or separate-event cast, invented recurring identities, embodied no-form subject, pose/prop contradiction, collage, fixed-canon or art-style leakage; the five conditions agree with the source, the scene and each other. Generic roles, crowds, props and scenery are allowed when source-compatible. Uncertain counts against acceptance.",
+    "gate": "Diagnostic: ADR 0006 retired the strict text gate as a launch gate; images decide launch. Predeclared targets: at most 1 of 30 stored plans with a speaker, prophet or listener placed inside the scene their words describe (5 of 30 in v12), and all 30 cases complete without refusal, global stop or uncertain usage. The unchanged strict standard (22/23 fresh, 7/7 retained, zero flawed or uncertain) is reported alongside for comparison. Refusal is never a repair.",
+    "analysis": "Report acceptable, flawed, uncertain and refused per stratum, speaker-in-scene plans, canon-restatement-only flaws, and the stored plans carrying review notes. Compare descriptively with the 26 and 27 October measurements on their different draws."
+  },
+  "evaluation": {
+    "authorizedBeforeUsd": 21.5,
+    "measuredBeforeUsd": 20.8550026,
+    "uncertaintyBeforeUsd": 0.045,
+    "remainingBeforeUsd": 0.5999974,
+    "proposedIncreaseUsd": 0.5,
+    "proposedAuthorizedUsd": 22.0,
+    "proposedOperationCapUsd": 0.15,
+    "reservePerCallUsd": 0.005,
+    "maximumCalls": 300
+  },
+  "releaseHold": true,
+  "publicActivation": false,
+  "humanAccepted": false,
+  "knownLimitation": "Thirty cases give wide intervals. Model scorers plus one familiar operator are not independent human adjudication. Full-request latency, live-route accounting, images and likeness, human acceptance and public activation remain separate."
+}

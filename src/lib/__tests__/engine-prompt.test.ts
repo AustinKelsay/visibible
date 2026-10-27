@@ -44,7 +44,7 @@ const base = (styleId: string, extra: Partial<RenderingInput> = {}): RenderingIn
   plan: { version: "p1", primarySubject: "Holmes by the fire", action: "gazes at the fire, pipe in hand", setting: "the sitting-room", secondaryElements: "Watson in the doorway", mood: "pensive", timeOfDay: "night", composition: "medium shot" },
   canon: formedCanon, references, variationNumber: 2, aspectRatio: "16:9" as const, ...extra,
   };
-  // A generated look renders no conditions (generic-v10); tests pass `situation` for owner constraints.
+  // A generated look renders no conditions (since generic-v10); tests pass `situation` for owner constraints.
   return { ...input, situation: extra.situation ?? null };
 };
 
@@ -110,9 +110,9 @@ describe("rendering packet", () => {
       const full = buildRenderingPacket(input);
       if (!full.ok) throw new Error(full.error);
       expect(full.prompt).toContain(`Light: ${input.situation!.light}`);
-      expect(formlessRule).toContain("only when it is selected");
+      expect(formlessRule).toContain("Only when it is selected");
       expect(full.prompt.indexOf(formlessRule)).toBeLessThan(full.prompt.indexOf("OWNER LOOK CONSTRAINTS (binding, verbatim):"));
-      expect(full.prompt).not.toContain("PRESENCE SHOWN ONLY AS EFFECTS");
+      expect(full.prompt).not.toContain("UNSEEN PRESENCE");
       input.situation!.light = "radiance ".repeat(1800);
       expect(buildRenderingPacket(input)).toMatchObject({ ok: false, error: expect.stringContaining("after every allowed trim") });
     }
@@ -149,13 +149,15 @@ describe("rendering packet", () => {
       expect(result.prompt).toContain("SCENE: one moment of The Adventures of Sherlock Holmes, described by the scene plan below.");
       expect(result.prompt).toContain("Primary subject: the presence glows above Holmes");
       expect(result.prompt).toContain("Secondary elements: Watson shields his eyes from the presence");
-      expect(result.prompt).toContain("PRESENCE SHOWN ONLY AS EFFECTS (binding; it is not a person):\n- never a face or body; light only.\n");
-      expect(result.prompt).toContain("No figure, face, hands, robe, hair or seated shape, even made of light.");
+      // Its canon is not sent either (since generic-v11): describing a veiled glow drew a figure in theophany scenes.
+      expect(result.prompt).toContain("UNSEEN PRESENCE (binding): the light, cloud, smoke, fire and wind in the scene plan are light and weather spread through the place, not one glowing shape. Nobody stands, sits or hovers in them.\n");
+      expect(result.prompt).not.toContain("never a face or body; light only.");
+      expect(result.prompt).not.toContain("PRESENCE SHOWN ONLY AS EFFECTS");
       expect(result.prompt).toContain("SELECTED CHARACTERS: Sherlock Holmes; Dr. Watson\n");
       // Formed canon is still rendered in full, after the presence block.
       expect(result.prompt).toContain("- Sherlock Holmes: lean, hawk-nosed, in a grey dressing-gown.");
       expect(result.prompt).toContain("- Dr. Watson: sturdy, moustached, in tweed.");
-      expect(result.prompt.indexOf("PRESENCE SHOWN ONLY AS EFFECTS")).toBeLessThan(result.prompt.indexOf("CANON ("));
+      expect(result.prompt.indexOf("UNSEEN PRESENCE")).toBeLessThan(result.prompt.indexOf("CANON ("));
       expect(result.prompt).not.toContain("FORMLESS SUBJECTS");
       expect(result.packet.canon.map((c) => c.entryId)).toContain("the_voice");
       expect(result.packet.flags.neighborsIncluded).toBe(false);
@@ -163,7 +165,7 @@ describe("rendering packet", () => {
     }
     const formed = buildRenderingPacket(base("classical"));
     if (!formed.ok) throw new Error(formed.error);
-    expect(formed.prompt).not.toContain("PRESENCE SHOWN ONLY AS EFFECTS");
+    expect(formed.prompt).not.toContain("UNSEEN PRESENCE");
     expect(formed.prompt).toContain('A Scandal in Bohemia, Part 1 ¶1: "To Sherlock Holmes she is always the woman."');
     expect(formed.prompt).toContain("- After: I had seen little of Holmes lately.");
     // A stored payload passed whole keeps its non-text keys untouched (regression: the v10 harness passed `present`).
@@ -174,9 +176,16 @@ describe("rendering packet", () => {
     const boundary = buildRenderingPacket(base("classical", { canon, plan: { ...base("classical").plan, mood: "The voiceless crowd waits; the Voice speaks" } }));
     if (!boundary.ok) throw new Error(boundary.error);
     expect(boundary.prompt).toContain("Mood: The voiceless crowd waits; the presence speaks");
+    // A slash-separated name is matched by its parts too (regression: "God's presence stands" leaked with "God / Yahweh, …").
+    const slashed = { ...canon[3], name: "Echo / the Voice, Speaker of the Hills", text: "The Speaker: light only." };
+    const parts = buildRenderingPacket(base("classical", { canon: [canon[0], slashed], plan: { ...base("classical").plan, action: "Echo's light fills the room as the Voice speaks; the Speaker waits", mood: "echoing halls" } }));
+    if (!parts.ok) throw new Error(parts.error);
+    expect(parts.prompt).toContain("Action: the presence's light fills the room as the presence speaks; the presence waits");
+    expect(parts.prompt).toContain("Mood: echoing halls");
     const onlyFormless = buildRenderingPacket(base("classical", { canon: [canon[3]] }));
     if (!onlyFormless.ok) throw new Error(onlyFormless.error);
-    expect(onlyFormless.prompt).toContain("- never a face or body; light only.");
+    expect(onlyFormless.prompt).toContain("UNSEEN PRESENCE (binding)");
+    expect(onlyFormless.prompt).not.toContain("never a face or body; light only.");
     expect(onlyFormless.prompt).not.toContain("CANON (");
     expect(onlyFormless.prompt).not.toContain("this canon look");
     expect(onlyFormless.prompt).not.toMatch(/the voice/i);
@@ -279,7 +288,7 @@ describe("rendering packet", () => {
     expect(trimmed.prompt).not.toContain("NARRATIVE CONTINUITY");
     expect(trimmed.prompt).not.toContain("Palette:");
 
-    const impossible = buildRenderingPacket(base("classical", { canon: canon.map((c) => ({ ...c, text: `${c.name}: ${big(400)}` })) }));
+    const impossible = buildRenderingPacket(base("classical", { canon: formedCanon.map((c) => ({ ...c, text: `${c.name}: ${big(600)}` })) }));
     expect(impossible.ok).toBe(false);
     if (impossible.ok) return;
     expect(impossible.error).toMatch(/after every allowed trim/);

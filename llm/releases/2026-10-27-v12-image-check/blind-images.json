@@ -1,0 +1,1343 @@
+{
+  "masking": "Style and control labels omitted; style is visible in the image. Two independent model scorers, operator adjudication; not human acceptance.",
+  "packet": [
+    {
+      "id": "img01",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img01.jpg",
+      "sha256": "e0b3b4c83469573dc9a850e16c0f77d352ca22da76de3b737c56886d3b25a085",
+      "verse": "daniel-7-9",
+      "verseText": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "selected": [
+        "the_ancient_of_days"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Blazing throne of fire and burning wheels, with radiance and fire rising around it",
+        "action": "Thrones are being set in place as fire pours outward and flames burn along the wheels",
+        "setting": "A vast luminous expanse of cloud and fire filling the sky above the vision",
+        "secondaryElements": "Drifting white cloud, rolling flame and pale light spreading across the heavens; no other figures shown at this instant",
+        "mood": "Awe-filled, solemn and majestic, with a sense of holy judgment approaching",
+        "timeOfDay": "Night vision with deep dusk light, the pale glow of the throne-fire brightening the cloud",
+        "composition": "Wide, high viewpoint looking up into the heavens, the fiery throne centered and the cloud sweeping outward on all sides",
+        "present": [
+          "the_ancient_of_days"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img02",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img02.jpg",
+      "sha256": "47287012c48f55d548868c11b7945dc621884a5943a74d2d415fc90003397dee",
+      "verse": "exodus-33-22",
+      "verseText": "It will happen, while my glory passes by, that I will put you in a cleft of the rock, and will cover you with my hand until I have passed by;",
+      "selected": [
+        "moses",
+        "god_yahweh_the_father_and_god_of_israel",
+        "horeb_mount_sinai"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses pressed into a narrow cleft in the rock face, sheltered and crouched low.",
+        "action": "Radiant glory of cloud and fire sweeps past the mountain while Moses remains hidden in the stone.",
+        "setting": "Rocky wilderness slopes of Horeb beneath the summit, a cleft in towering stone, dry scrub and sand below.",
+        "secondaryElements": "Shepherd's staff resting on the rock beside him; wind-driven cloud and a glow of fire streaming across the sky above the summit.",
+        "mood": "Awe, reverence and quiet protection, solemn rather than spectacular.",
+        "timeOfDay": "Early dusk deepening into twilight, still air giving way to rising wind and low drifting cloud.",
+        "composition": "Low viewpoint looking up at the cleft; Moses small and framed within the stone, the glowing cloud sweeping across the upper sky.",
+        "present": [
+          "moses",
+          "god_yahweh_the_father_and_god_of_israel",
+          "horeb_mount_sinai"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img03",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img03.jpg",
+      "sha256": "ae633a4a77d4ba28a880d0073ae0377a73ea15ffb397edb8443dc78d642640a6",
+      "verse": "exodus-19-18",
+      "verseText": "All of Mount Sinai smoked, because Yahweh descended on it in fire; and its smoke ascended like the smoke of a furnace, and the whole mountain quaked greatly.",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "horeb_mount_sinai",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A barren rocky mountain, its summit and slopes enveloped in billowing smoke and glowing fire.",
+        "action": "Smoke rises from the mountain like a furnace, and the whole mountain shakes violently with thunder and fire.",
+        "setting": "A stark desert wilderness at the foot of Mount Sinai, with the Israelite camp spread across the sand below.",
+        "secondaryElements": "Israelite people gathered at the lower slopes, some shielding their eyes or bowing low as dust rises around them.",
+        "mood": "Awe, fear and reverent trembling in the face of overwhelming holy power.",
+        "timeOfDay": "Late day sliding into dusk, with thunder-dark clouds and dust in the air.",
+        "composition": "A wide view from the lower slope looking up at the smoking mountain, with the people in the foreground and the summit filling the upper frame.",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "horeb_mount_sinai",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img04",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img04.jpg",
+      "sha256": "e36839557e903e22d0647ad262ff32bf33ebf2771d7819a8336c1d4297d18f11",
+      "verse": "isaiah-6-1",
+      "verseText": "In the year that King Uzziah died, I saw the Lord sitting on a throne, high and lifted up; and his train filled the temple.",
+      "selected": [
+        "isaiah_son_of_amoz",
+        "god_yahweh_the_father_and_god_of_israel",
+        "yahweh_s_house_in_jerusalem_the_temple"
+      ],
+      "availableCast": [
+        {
+          "entryId": "isaiah_son_of_amoz",
+          "name": "Isaiah son of Amoz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "seraphim",
+          "name": "Seraphim",
+          "kind": "object",
+          "hasForm": true
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "name": "Yahweh's house in Jerusalem (the temple)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Isaiah, a man in a plain tunic and cloak, standing still with his face lifted toward the light",
+        "action": "Brilliant light and cloud pour outward through the sanctuary, its hem spreading across the hall until the whole temple seems filled with it",
+        "setting": "A lofty stone temple hall in Jerusalem with massive pillars and a raised sanctuary before the inner shrine",
+        "secondaryElements": "Incense smoke curling upward, an altar glowing with flame-light, priestly attendants in linen at the edges, and the mighty hem of radiance flowing across the stone floor",
+        "mood": "Awe, reverence and trembling wonder, grounded and solemn",
+        "timeOfDay": "Dusk inside the temple, with fading daylight through high openings mingling with lamplight and flame-light",
+        "composition": "Low viewpoint from the temple floor looking up toward the raised sanctuary, Isaiah in the lower foreground, the glowing presence filling the upper space and the pillars framing the scene",
+        "present": [
+          "isaiah_son_of_amoz",
+          "god_yahweh_the_father_and_god_of_israel",
+          "yahweh_s_house_in_jerusalem_the_temple"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img05",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img05.jpg",
+      "sha256": "fdde38e9e37e947b5877632e939482c2e403c756a999e3a1f84f93099e22d030",
+      "verse": "daniel-7-9",
+      "verseText": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "selected": [
+        "the_ancient_of_days"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Blazing throne of fire and burning wheels, with radiance and fire rising around it",
+        "action": "Thrones are being set in place as fire pours outward and flames burn along the wheels",
+        "setting": "A vast luminous expanse of cloud and fire filling the sky above the vision",
+        "secondaryElements": "Drifting white cloud, rolling flame and pale light spreading across the heavens; no other figures shown at this instant",
+        "mood": "Awe-filled, solemn and majestic, with a sense of holy judgment approaching",
+        "timeOfDay": "Night vision with deep dusk light, the pale glow of the throne-fire brightening the cloud",
+        "composition": "Wide, high viewpoint looking up into the heavens, the fiery throne centered and the cloud sweeping outward on all sides",
+        "present": [
+          "the_ancient_of_days"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img06",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img06.jpg",
+      "sha256": "e9cb96013864ad0be62daa19c48a113ed942fb74b6a77b32e161952c2da0604d",
+      "verse": "exodus-34-5",
+      "verseText": "Yahweh descended in the cloud, and stood with him there, and proclaimed Yahweh’s name.",
+      "selected": [
+        "moses",
+        "god_yahweh_the_father_and_god_of_israel",
+        "horeb_mount_sinai"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses standing upright on the summit, holding the two stone tablets against his chest",
+        "action": "A dense cloud descends and surrounds Moses, with soft radiance moving through it as God's presence stands with him.",
+        "setting": "Bare granite rocks at the summit of the wilderness mountain, dry stone falling away into a lower valley.",
+        "secondaryElements": "Plain woven tunic and cloak on Moses; cloud and pale radiance drifting over the rocks; no other people present.",
+        "mood": "Reverent, solemn and quiet, with awe and nearness.",
+        "timeOfDay": "Early morning, soft pale light, still dry desert air.",
+        "composition": "Moses seen from a low angle against the rising cloud, the summit filling the middle ground and the valley fading below.",
+        "present": [
+          "moses",
+          "god_yahweh_the_father_and_god_of_israel",
+          "horeb_mount_sinai"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img07",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img07.jpg",
+      "sha256": "fa160408f36f1daec11b2f2b4b3e2a071a68326bf7a3df6c915e269f535f0076",
+      "verse": "ezekiel-1-26",
+      "verseText": "Above the expanse that was over their heads was the likeness of a throne, as the appearance of a sapphire stone. On the likeness of the throne was a likeness as the appearance of a man on it above.",
+      "selected": [
+        "ezekiel_son_of_buzi",
+        "god_yahweh_the_father_and_god_of_israel",
+        "four_living_creatures",
+        "river_chebar"
+      ],
+      "availableCast": [
+        {
+          "entryId": "ezekiel_son_of_buzi",
+          "name": "Ezekiel son of Buzi",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "four_living_creatures",
+          "name": "Four living creatures",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "river_chebar",
+          "name": "River Chebar",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Ezekiel kneeling or standing on the riverbank, looking up in awe",
+        "action": "Radiant light and fire gather in a shining, throne-like form above the sapphire-blue expanse, with no visible figure within it",
+        "setting": "Reed-lined bank of the Chebar canal beside a mud-brick settlement in Babylonian exile",
+        "secondaryElements": "Four winged living creatures beneath the expanse, their wings lowered; amber fire and cloud rising from the north; river reeds bent by wind",
+        "mood": "Awe, reverence and tense wonder",
+        "timeOfDay": "Dawn brightening into daylight, clear air with a rising storm wind",
+        "composition": "Low viewpoint from the riverbank looking upward, Ezekiel small in the lower frame, the expanse and radiant throne-light filling the upper frame",
+        "present": [
+          "ezekiel_son_of_buzi",
+          "god_yahweh_the_father_and_god_of_israel",
+          "four_living_creatures",
+          "river_chebar"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img08",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img08.jpg",
+      "sha256": "9d2e8234209c191cd7509bd31762be3f4312030524e2abffc4b77b02a79e0428",
+      "verse": "ezekiel-1-26",
+      "verseText": "Above the expanse that was over their heads was the likeness of a throne, as the appearance of a sapphire stone. On the likeness of the throne was a likeness as the appearance of a man on it above.",
+      "selected": [
+        "ezekiel_son_of_buzi",
+        "god_yahweh_the_father_and_god_of_israel",
+        "four_living_creatures",
+        "river_chebar"
+      ],
+      "availableCast": [
+        {
+          "entryId": "ezekiel_son_of_buzi",
+          "name": "Ezekiel son of Buzi",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "four_living_creatures",
+          "name": "Four living creatures",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "river_chebar",
+          "name": "River Chebar",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Ezekiel kneeling or standing on the riverbank, looking up in awe",
+        "action": "Radiant light and fire gather in a shining, throne-like form above the sapphire-blue expanse, with no visible figure within it",
+        "setting": "Reed-lined bank of the Chebar canal beside a mud-brick settlement in Babylonian exile",
+        "secondaryElements": "Four winged living creatures beneath the expanse, their wings lowered; amber fire and cloud rising from the north; river reeds bent by wind",
+        "mood": "Awe, reverence and tense wonder",
+        "timeOfDay": "Dawn brightening into daylight, clear air with a rising storm wind",
+        "composition": "Low viewpoint from the riverbank looking upward, Ezekiel small in the lower frame, the expanse and radiant throne-light filling the upper frame",
+        "present": [
+          "ezekiel_son_of_buzi",
+          "god_yahweh_the_father_and_god_of_israel",
+          "four_living_creatures",
+          "river_chebar"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img09",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img09.jpg",
+      "sha256": "de4934ecf19e98de9f4e9f214b8fb6106344d95e040862aa64a9623c50eaef61",
+      "verse": "exodus-34-5",
+      "verseText": "Yahweh descended in the cloud, and stood with him there, and proclaimed Yahweh’s name.",
+      "selected": [
+        "moses",
+        "god_yahweh_the_father_and_god_of_israel",
+        "horeb_mount_sinai"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses standing upright on the summit, holding the two stone tablets against his chest",
+        "action": "A dense cloud descends and surrounds Moses, with soft radiance moving through it as God's presence stands with him.",
+        "setting": "Bare granite rocks at the summit of the wilderness mountain, dry stone falling away into a lower valley.",
+        "secondaryElements": "Plain woven tunic and cloak on Moses; cloud and pale radiance drifting over the rocks; no other people present.",
+        "mood": "Reverent, solemn and quiet, with awe and nearness.",
+        "timeOfDay": "Early morning, soft pale light, still dry desert air.",
+        "composition": "Moses seen from a low angle against the rising cloud, the summit filling the middle ground and the valley fading below.",
+        "present": [
+          "moses",
+          "god_yahweh_the_father_and_god_of_israel",
+          "horeb_mount_sinai"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img10",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img10.jpg",
+      "sha256": "2acc9b0200041bda3fc30cd4138b535bb8bb3b94dccd4e87b04a3accc6f74753",
+      "verse": "exodus-34-5",
+      "verseText": "Yahweh descended in the cloud, and stood with him there, and proclaimed Yahweh’s name.",
+      "selected": [
+        "moses",
+        "god_yahweh_the_father_and_god_of_israel",
+        "horeb_mount_sinai"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses standing upright on the summit, holding the two stone tablets against his chest",
+        "action": "A dense cloud descends and surrounds Moses, with soft radiance moving through it as God's presence stands with him.",
+        "setting": "Bare granite rocks at the summit of the wilderness mountain, dry stone falling away into a lower valley.",
+        "secondaryElements": "Plain woven tunic and cloak on Moses; cloud and pale radiance drifting over the rocks; no other people present.",
+        "mood": "Reverent, solemn and quiet, with awe and nearness.",
+        "timeOfDay": "Early morning, soft pale light, still dry desert air.",
+        "composition": "Moses seen from a low angle against the rising cloud, the summit filling the middle ground and the valley fading below.",
+        "present": [
+          "moses",
+          "god_yahweh_the_father_and_god_of_israel",
+          "horeb_mount_sinai"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img11",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img11.jpg",
+      "sha256": "8b36e8706e8bcc372460c49bc0f8108cdbc338c4efbc0d479ca7bfbe0fcf46bf",
+      "verse": "isaiah-6-1",
+      "verseText": "In the year that King Uzziah died, I saw the Lord sitting on a throne, high and lifted up; and his train filled the temple.",
+      "selected": [
+        "isaiah_son_of_amoz",
+        "god_yahweh_the_father_and_god_of_israel",
+        "yahweh_s_house_in_jerusalem_the_temple"
+      ],
+      "availableCast": [
+        {
+          "entryId": "isaiah_son_of_amoz",
+          "name": "Isaiah son of Amoz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "seraphim",
+          "name": "Seraphim",
+          "kind": "object",
+          "hasForm": true
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "name": "Yahweh's house in Jerusalem (the temple)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Isaiah, a man in a plain tunic and cloak, standing still with his face lifted toward the light",
+        "action": "Brilliant light and cloud pour outward through the sanctuary, its hem spreading across the hall until the whole temple seems filled with it",
+        "setting": "A lofty stone temple hall in Jerusalem with massive pillars and a raised sanctuary before the inner shrine",
+        "secondaryElements": "Incense smoke curling upward, an altar glowing with flame-light, priestly attendants in linen at the edges, and the mighty hem of radiance flowing across the stone floor",
+        "mood": "Awe, reverence and trembling wonder, grounded and solemn",
+        "timeOfDay": "Dusk inside the temple, with fading daylight through high openings mingling with lamplight and flame-light",
+        "composition": "Low viewpoint from the temple floor looking up toward the raised sanctuary, Isaiah in the lower foreground, the glowing presence filling the upper space and the pillars framing the scene",
+        "present": [
+          "isaiah_son_of_amoz",
+          "god_yahweh_the_father_and_god_of_israel",
+          "yahweh_s_house_in_jerusalem_the_temple"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img12",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img12.jpg",
+      "sha256": "10f98052c25facfdf2ee54315514c6e2445bb6c47aaaf2d883dbaf2a4e7c7fb7",
+      "verse": "numbers-12-5",
+      "verseText": "Yahweh came down in a pillar of cloud, and stood at the door of the Tent, and called Aaron and Miriam; and they both came forward.",
+      "selected": [
+        "aaron_brother_of_moses",
+        "miriam_sister_of_moses",
+        "moses",
+        "god_yahweh_the_father_and_god_of_israel",
+        "the_tabernacle_portable_sanctuary",
+        "the_israelite_people_the_children_of_israel",
+        "hazeroth"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "miriam_sister_of_moses",
+          "name": "Miriam, sister of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "hazeroth",
+          "name": "Hazeroth",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A tall pillar of cloud standing at the door of the portable tabernacle, faintly lit from within.",
+        "action": "Aaron and Miriam step forward together from the threshold area toward the cloud while Moses stands nearby.",
+        "setting": "Desert camp at Hazeroth with goat-hair tents and the tabernacle at the center, wilderness beyond.",
+        "secondaryElements": "Aaron in priestly linen garments, Miriam in a plain woven dress and head covering, Moses in a woven cloak, and onlooking Israelites in the tents' edges.",
+        "mood": "Tense, solemn and awed, with a hush over the gathered camp.",
+        "timeOfDay": "Late afternoon fading toward dusk under still dry desert air.",
+        "composition": "Wide view from the camp side, the cloud pillar and tabernacle door centered, the three figures arranged across the foreground.}",
+        "present": [
+          "aaron_brother_of_moses",
+          "miriam_sister_of_moses",
+          "moses",
+          "god_yahweh_the_father_and_god_of_israel",
+          "the_tabernacle_portable_sanctuary",
+          "the_israelite_people_the_children_of_israel",
+          "hazeroth"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img13",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img13.jpg",
+      "sha256": "cedd8b92fe7bdc884dca2d9afa625c29d3e1b542e4aa4c798e4760ffa18acf7a",
+      "verse": "numbers-12-5",
+      "verseText": "Yahweh came down in a pillar of cloud, and stood at the door of the Tent, and called Aaron and Miriam; and they both came forward.",
+      "selected": [
+        "aaron_brother_of_moses",
+        "miriam_sister_of_moses",
+        "moses",
+        "god_yahweh_the_father_and_god_of_israel",
+        "the_tabernacle_portable_sanctuary",
+        "the_israelite_people_the_children_of_israel",
+        "hazeroth"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "miriam_sister_of_moses",
+          "name": "Miriam, sister of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "hazeroth",
+          "name": "Hazeroth",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A tall pillar of cloud standing at the door of the portable tabernacle, faintly lit from within.",
+        "action": "Aaron and Miriam step forward together from the threshold area toward the cloud while Moses stands nearby.",
+        "setting": "Desert camp at Hazeroth with goat-hair tents and the tabernacle at the center, wilderness beyond.",
+        "secondaryElements": "Aaron in priestly linen garments, Miriam in a plain woven dress and head covering, Moses in a woven cloak, and onlooking Israelites in the tents' edges.",
+        "mood": "Tense, solemn and awed, with a hush over the gathered camp.",
+        "timeOfDay": "Late afternoon fading toward dusk under still dry desert air.",
+        "composition": "Wide view from the camp side, the cloud pillar and tabernacle door centered, the three figures arranged across the foreground.}",
+        "present": [
+          "aaron_brother_of_moses",
+          "miriam_sister_of_moses",
+          "moses",
+          "god_yahweh_the_father_and_god_of_israel",
+          "the_tabernacle_portable_sanctuary",
+          "the_israelite_people_the_children_of_israel",
+          "hazeroth"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img14",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img14.jpg",
+      "sha256": "94dbfb374913b29197bab9e3bacc5ab7b772756be02b80c4ab9e48734b23f456",
+      "verse": "daniel-7-9",
+      "verseText": "“I watched until thrones were placed, and one who was Ancient of Days sat. His clothing was white as snow, and the hair of his head like pure wool. His throne was fiery flames, and its wheels burning fire.",
+      "selected": [
+        "the_ancient_of_days"
+      ],
+      "availableCast": [
+        {
+          "entryId": "daniel_prophet_of_babylon",
+          "name": "Daniel (prophet of Babylon)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_ancient_of_days",
+          "name": "The Ancient of Days",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "one_like_a_son_of_man",
+          "name": "One like a son of man",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "babylon",
+          "name": "Babylon",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "ministering_assembly_in_daniels_vision",
+          "name": "Ministering assembly in Daniel's vision",
+          "kind": "character",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Blazing throne of fire and burning wheels, with radiance and fire rising around it",
+        "action": "Thrones are being set in place as fire pours outward and flames burn along the wheels",
+        "setting": "A vast luminous expanse of cloud and fire filling the sky above the vision",
+        "secondaryElements": "Drifting white cloud, rolling flame and pale light spreading across the heavens; no other figures shown at this instant",
+        "mood": "Awe-filled, solemn and majestic, with a sense of holy judgment approaching",
+        "timeOfDay": "Night vision with deep dusk light, the pale glow of the throne-fire brightening the cloud",
+        "composition": "Wide, high viewpoint looking up into the heavens, the fiery throne centered and the cloud sweeping outward on all sides",
+        "present": [
+          "the_ancient_of_days"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img15",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img15.jpg",
+      "sha256": "2c2b4467b0f201b006227d8118320f37702f1d418ab445816fd2ae04550590d9",
+      "verse": "exodus-19-18",
+      "verseText": "All of Mount Sinai smoked, because Yahweh descended on it in fire; and its smoke ascended like the smoke of a furnace, and the whole mountain quaked greatly.",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "horeb_mount_sinai",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A barren rocky mountain, its summit and slopes enveloped in billowing smoke and glowing fire.",
+        "action": "Smoke rises from the mountain like a furnace, and the whole mountain shakes violently with thunder and fire.",
+        "setting": "A stark desert wilderness at the foot of Mount Sinai, with the Israelite camp spread across the sand below.",
+        "secondaryElements": "Israelite people gathered at the lower slopes, some shielding their eyes or bowing low as dust rises around them.",
+        "mood": "Awe, fear and reverent trembling in the face of overwhelming holy power.",
+        "timeOfDay": "Late day sliding into dusk, with thunder-dark clouds and dust in the air.",
+        "composition": "A wide view from the lower slope looking up at the smoking mountain, with the people in the foreground and the summit filling the upper frame.",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "horeb_mount_sinai",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img16",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img16.jpg",
+      "sha256": "972632b312ac07aa498052b88fd40ccc67f081a60173857aafbfeddc4712bd61",
+      "verse": "revelation-4-2",
+      "verseText": "Immediately I was in the Spirit. Behold, there was a throne set in heaven, and one sitting on the throne",
+      "selected": [
+        "john_the_seer_revelation",
+        "heavenly_throne_room"
+      ],
+      "availableCast": [
+        {
+          "entryId": "john_the_seer_revelation",
+          "name": "John the seer (Revelation)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "twenty_four_elders_of_revelation",
+          "name": "Twenty-four elders of Revelation",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "heavenly_throne_room",
+          "name": "Heavenly throne room",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "John the seer, kneeling or standing in rapt awe with arms loosened at his sides",
+        "action": "He has just been caught up in the Spirit and turns his gaze toward a throne of radiance and fire in heaven",
+        "setting": "Vast heavenly throne room with a glass-like sea spread before the throne and jeweled light throughout",
+        "secondaryElements": "Radiance and fire spreading through the hall from beyond the throne, clouds of glowing smoke, a faint emerald rainbow beginning to form around the light, no figure visible at the throne",
+        "mood": "Awe, stillness and reverent wonder",
+        "timeOfDay": "Unchanging heavenly hour with steady radiant light, still clear air with distant thunder glow",
+        "composition": "John seen from behind and to one side in the foreground, the blazing throne of light centered in the distance, the sea and hall receding around it",
+        "present": [
+          "john_the_seer_revelation",
+          "heavenly_throne_room"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img17",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img17.jpg",
+      "sha256": "6e9a7a8c61b771592a92b4a718a95a4c63c1fe2d52e19b43e3028fc8b9765157",
+      "verse": "isaiah-6-1",
+      "verseText": "In the year that King Uzziah died, I saw the Lord sitting on a throne, high and lifted up; and his train filled the temple.",
+      "selected": [
+        "isaiah_son_of_amoz",
+        "god_yahweh_the_father_and_god_of_israel",
+        "yahweh_s_house_in_jerusalem_the_temple"
+      ],
+      "availableCast": [
+        {
+          "entryId": "isaiah_son_of_amoz",
+          "name": "Isaiah son of Amoz",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "seraphim",
+          "name": "Seraphim",
+          "kind": "object",
+          "hasForm": true
+        },
+        {
+          "entryId": "yahweh_s_house_in_jerusalem_the_temple",
+          "name": "Yahweh's house in Jerusalem (the temple)",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Isaiah, a man in a plain tunic and cloak, standing still with his face lifted toward the light",
+        "action": "Brilliant light and cloud pour outward through the sanctuary, its hem spreading across the hall until the whole temple seems filled with it",
+        "setting": "A lofty stone temple hall in Jerusalem with massive pillars and a raised sanctuary before the inner shrine",
+        "secondaryElements": "Incense smoke curling upward, an altar glowing with flame-light, priestly attendants in linen at the edges, and the mighty hem of radiance flowing across the stone floor",
+        "mood": "Awe, reverence and trembling wonder, grounded and solemn",
+        "timeOfDay": "Dusk inside the temple, with fading daylight through high openings mingling with lamplight and flame-light",
+        "composition": "Low viewpoint from the temple floor looking up toward the raised sanctuary, Isaiah in the lower foreground, the glowing presence filling the upper space and the pillars framing the scene",
+        "present": [
+          "isaiah_son_of_amoz",
+          "god_yahweh_the_father_and_god_of_israel",
+          "yahweh_s_house_in_jerusalem_the_temple"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img18",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img18.jpg",
+      "sha256": "79c72721d3b9a622295ca5f45663b559cce107125277f1ac4182d9333d6a3ced",
+      "verse": "exodus-33-22",
+      "verseText": "It will happen, while my glory passes by, that I will put you in a cleft of the rock, and will cover you with my hand until I have passed by;",
+      "selected": [
+        "moses",
+        "god_yahweh_the_father_and_god_of_israel",
+        "horeb_mount_sinai"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses pressed into a narrow cleft in the rock face, sheltered and crouched low.",
+        "action": "Radiant glory of cloud and fire sweeps past the mountain while Moses remains hidden in the stone.",
+        "setting": "Rocky wilderness slopes of Horeb beneath the summit, a cleft in towering stone, dry scrub and sand below.",
+        "secondaryElements": "Shepherd's staff resting on the rock beside him; wind-driven cloud and a glow of fire streaming across the sky above the summit.",
+        "mood": "Awe, reverence and quiet protection, solemn rather than spectacular.",
+        "timeOfDay": "Early dusk deepening into twilight, still air giving way to rising wind and low drifting cloud.",
+        "composition": "Low viewpoint looking up at the cleft; Moses small and framed within the stone, the glowing cloud sweeping across the upper sky.",
+        "present": [
+          "moses",
+          "god_yahweh_the_father_and_god_of_israel",
+          "horeb_mount_sinai"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img19",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img19.jpg",
+      "sha256": "991281aa926ab0ef8c76726a116a5d7dc8102a981b670e48198a26566f381015",
+      "verse": "ezekiel-1-26",
+      "verseText": "Above the expanse that was over their heads was the likeness of a throne, as the appearance of a sapphire stone. On the likeness of the throne was a likeness as the appearance of a man on it above.",
+      "selected": [
+        "ezekiel_son_of_buzi",
+        "god_yahweh_the_father_and_god_of_israel",
+        "four_living_creatures",
+        "river_chebar"
+      ],
+      "availableCast": [
+        {
+          "entryId": "ezekiel_son_of_buzi",
+          "name": "Ezekiel son of Buzi",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "four_living_creatures",
+          "name": "Four living creatures",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "river_chebar",
+          "name": "River Chebar",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Ezekiel kneeling or standing on the riverbank, looking up in awe",
+        "action": "Radiant light and fire gather in a shining, throne-like form above the sapphire-blue expanse, with no visible figure within it",
+        "setting": "Reed-lined bank of the Chebar canal beside a mud-brick settlement in Babylonian exile",
+        "secondaryElements": "Four winged living creatures beneath the expanse, their wings lowered; amber fire and cloud rising from the north; river reeds bent by wind",
+        "mood": "Awe, reverence and tense wonder",
+        "timeOfDay": "Dawn brightening into daylight, clear air with a rising storm wind",
+        "composition": "Low viewpoint from the riverbank looking upward, Ezekiel small in the lower frame, the expanse and radiant throne-light filling the upper frame",
+        "present": [
+          "ezekiel_son_of_buzi",
+          "god_yahweh_the_father_and_god_of_israel",
+          "four_living_creatures",
+          "river_chebar"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img20",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img20.jpg",
+      "sha256": "881d1870997f4d5047775917a0d59bd797b1d8f141464dae90a3063f5dd4aa8c",
+      "verse": "exodus-19-18",
+      "verseText": "All of Mount Sinai smoked, because Yahweh descended on it in fire; and its smoke ascended like the smoke of a furnace, and the whole mountain quaked greatly.",
+      "selected": [
+        "the_israelite_people_the_children_of_israel",
+        "horeb_mount_sinai",
+        "god_yahweh_the_father_and_god_of_israel"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A barren rocky mountain, its summit and slopes enveloped in billowing smoke and glowing fire.",
+        "action": "Smoke rises from the mountain like a furnace, and the whole mountain shakes violently with thunder and fire.",
+        "setting": "A stark desert wilderness at the foot of Mount Sinai, with the Israelite camp spread across the sand below.",
+        "secondaryElements": "Israelite people gathered at the lower slopes, some shielding their eyes or bowing low as dust rises around them.",
+        "mood": "Awe, fear and reverent trembling in the face of overwhelming holy power.",
+        "timeOfDay": "Late day sliding into dusk, with thunder-dark clouds and dust in the air.",
+        "composition": "A wide view from the lower slope looking up at the smoking mountain, with the people in the foreground and the summit filling the upper frame.",
+        "present": [
+          "the_israelite_people_the_children_of_israel",
+          "horeb_mount_sinai",
+          "god_yahweh_the_father_and_god_of_israel"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img21",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img21.jpg",
+      "sha256": "046aea69c2b4c5e04ded6c2a5ac300e83b91d95144c270f6ca73f7e8d527c9c1",
+      "verse": "numbers-12-5",
+      "verseText": "Yahweh came down in a pillar of cloud, and stood at the door of the Tent, and called Aaron and Miriam; and they both came forward.",
+      "selected": [
+        "aaron_brother_of_moses",
+        "miriam_sister_of_moses",
+        "moses",
+        "god_yahweh_the_father_and_god_of_israel",
+        "the_tabernacle_portable_sanctuary",
+        "the_israelite_people_the_children_of_israel",
+        "hazeroth"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "aaron_brother_of_moses",
+          "name": "Aaron, brother of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "miriam_sister_of_moses",
+          "name": "Miriam, sister of Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "the_israelite_people_the_children_of_israel",
+          "name": "The Israelite people (the children of Israel)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "the_tabernacle_portable_sanctuary",
+          "name": "the tabernacle (portable sanctuary)",
+          "kind": "location",
+          "hasForm": true
+        },
+        {
+          "entryId": "hazeroth",
+          "name": "Hazeroth",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "A tall pillar of cloud standing at the door of the portable tabernacle, faintly lit from within.",
+        "action": "Aaron and Miriam step forward together from the threshold area toward the cloud while Moses stands nearby.",
+        "setting": "Desert camp at Hazeroth with goat-hair tents and the tabernacle at the center, wilderness beyond.",
+        "secondaryElements": "Aaron in priestly linen garments, Miriam in a plain woven dress and head covering, Moses in a woven cloak, and onlooking Israelites in the tents' edges.",
+        "mood": "Tense, solemn and awed, with a hush over the gathered camp.",
+        "timeOfDay": "Late afternoon fading toward dusk under still dry desert air.",
+        "composition": "Wide view from the camp side, the cloud pillar and tabernacle door centered, the three figures arranged across the foreground.}",
+        "present": [
+          "aaron_brother_of_moses",
+          "miriam_sister_of_moses",
+          "moses",
+          "god_yahweh_the_father_and_god_of_israel",
+          "the_tabernacle_portable_sanctuary",
+          "the_israelite_people_the_children_of_israel",
+          "hazeroth"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img22",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img22.jpg",
+      "sha256": "c2c1434a999950f1723747cf898c977c397ea9037d213237e227ca66b265dfff",
+      "verse": "exodus-33-22",
+      "verseText": "It will happen, while my glory passes by, that I will put you in a cleft of the rock, and will cover you with my hand until I have passed by;",
+      "selected": [
+        "moses",
+        "god_yahweh_the_father_and_god_of_israel",
+        "horeb_mount_sinai"
+      ],
+      "availableCast": [
+        {
+          "entryId": "moses",
+          "name": "Moses",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "horeb_mount_sinai",
+          "name": "Horeb/Mount Sinai",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "Moses pressed into a narrow cleft in the rock face, sheltered and crouched low.",
+        "action": "Radiant glory of cloud and fire sweeps past the mountain while Moses remains hidden in the stone.",
+        "setting": "Rocky wilderness slopes of Horeb beneath the summit, a cleft in towering stone, dry scrub and sand below.",
+        "secondaryElements": "Shepherd's staff resting on the rock beside him; wind-driven cloud and a glow of fire streaming across the sky above the summit.",
+        "mood": "Awe, reverence and quiet protection, solemn rather than spectacular.",
+        "timeOfDay": "Early dusk deepening into twilight, still air giving way to rising wind and low drifting cloud.",
+        "composition": "Low viewpoint looking up at the cleft; Moses small and framed within the stone, the glowing cloud sweeping across the upper sky.",
+        "present": [
+          "moses",
+          "god_yahweh_the_father_and_god_of_israel",
+          "horeb_mount_sinai"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img23",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img23.jpg",
+      "sha256": "de80fb777267465556f29c4f0b4a6b78828299952208e485f90430571f02855a",
+      "verse": "revelation-4-2",
+      "verseText": "Immediately I was in the Spirit. Behold, there was a throne set in heaven, and one sitting on the throne",
+      "selected": [
+        "john_the_seer_revelation",
+        "heavenly_throne_room"
+      ],
+      "availableCast": [
+        {
+          "entryId": "john_the_seer_revelation",
+          "name": "John the seer (Revelation)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "twenty_four_elders_of_revelation",
+          "name": "Twenty-four elders of Revelation",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "heavenly_throne_room",
+          "name": "Heavenly throne room",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "John the seer, kneeling or standing in rapt awe with arms loosened at his sides",
+        "action": "He has just been caught up in the Spirit and turns his gaze toward a throne of radiance and fire in heaven",
+        "setting": "Vast heavenly throne room with a glass-like sea spread before the throne and jeweled light throughout",
+        "secondaryElements": "Radiance and fire spreading through the hall from beyond the throne, clouds of glowing smoke, a faint emerald rainbow beginning to form around the light, no figure visible at the throne",
+        "mood": "Awe, stillness and reverent wonder",
+        "timeOfDay": "Unchanging heavenly hour with steady radiant light, still clear air with distant thunder glow",
+        "composition": "John seen from behind and to one side in the foreground, the blazing throne of light centered in the distance, the sea and hall receding around it",
+        "present": [
+          "john_the_seer_revelation",
+          "heavenly_throne_room"
+        ]
+      },
+      "conditions": null
+    },
+    {
+      "id": "img24",
+      "file": "evals/images/runs/2026-10-27-v12-image-check/blind/img24.jpg",
+      "sha256": "1d372bf0780ea5538b1e019c71068b1236eacf233b22cc76c8d88523cdfc2fb8",
+      "verse": "revelation-4-2",
+      "verseText": "Immediately I was in the Spirit. Behold, there was a throne set in heaven, and one sitting on the throne",
+      "selected": [
+        "john_the_seer_revelation",
+        "heavenly_throne_room"
+      ],
+      "availableCast": [
+        {
+          "entryId": "john_the_seer_revelation",
+          "name": "John the seer (Revelation)",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "god_yahweh_the_father_and_god_of_israel",
+          "name": "God / Yahweh, the Father and God of Israel",
+          "kind": "character",
+          "hasForm": false
+        },
+        {
+          "entryId": "twenty_four_elders_of_revelation",
+          "name": "Twenty-four elders of Revelation",
+          "kind": "character",
+          "hasForm": true
+        },
+        {
+          "entryId": "heavenly_throne_room",
+          "name": "Heavenly throne room",
+          "kind": "location",
+          "hasForm": true
+        }
+      ],
+      "scene": {
+        "primarySubject": "John the seer, kneeling or standing in rapt awe with arms loosened at his sides",
+        "action": "He has just been caught up in the Spirit and turns his gaze toward a throne of radiance and fire in heaven",
+        "setting": "Vast heavenly throne room with a glass-like sea spread before the throne and jeweled light throughout",
+        "secondaryElements": "Radiance and fire spreading through the hall from beyond the throne, clouds of glowing smoke, a faint emerald rainbow beginning to form around the light, no figure visible at the throne",
+        "mood": "Awe, stillness and reverent wonder",
+        "timeOfDay": "Unchanging heavenly hour with steady radiant light, still clear air with distant thunder glow",
+        "composition": "John seen from behind and to one side in the foreground, the blazing throne of light centered in the distance, the sea and hall receding around it",
+        "present": [
+          "john_the_seer_revelation",
+          "heavenly_throne_room"
+        ]
+      },
+      "conditions": null
+    }
+  ]
+}
