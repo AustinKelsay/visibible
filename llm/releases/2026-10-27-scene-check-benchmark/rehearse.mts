@@ -27,7 +27,7 @@ globalThis.fetch = async (url, init) => {
   const answers = { figure_in_light: n % 5 === 0, unpainted_edge: n % 7 === 0, painted_frame: false, lettering: n % 11 === 0, reasons: [] };
   const describeFirst = String(init.body).includes("First describe");
   const content = JSON.stringify(describeFirst ? { edges: "scenery", bright_areas: "none", marks: "none", ...answers } : answers);
-  return new Response(JSON.stringify({ id: "c" + n, choices: [{ message: { content } }], usage: { cost: 0.0006 } }), { status: 200, headers: { "Content-Type": "application/json" } });
+  return new Response(JSON.stringify({ id: "c" + n, choices: [{ message: { content } }], usage: { cost: 0.0004 } }), { status: 200, headers: { "Content-Type": "application/json" } });
 };`);
   const run = (args: string[]) => execFileSync(process.execPath, ["--import", "tsx", "--import", hook, ...args], { cwd: checkout, env: { ...process.env, VISIBIBLE_EVAL_ENV_FILE: envFile }, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], maxBuffer: 10_000_000 });
   assert.throws(() => run([path.join(operation, "run.mts"), "--execute", "dev"]), "The single-question dev runs are complete");
