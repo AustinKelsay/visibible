@@ -1,0 +1,47 @@
+{
+  "issue": 183,
+  "status": "Owner approved building and testing an automatic image check (\"continue\", 27 October 2026, after the question \"Should I build and test the image check?\"). Measurement only.",
+  "purpose": "Measure whether one cheap vision call can find the faults that make generated scene images unacceptable: a figure for God or another no-form subject, an unpainted edge, a painted frame and lettering. The request path would retry an image once when the check finds a fault.",
+  "checker": {
+    "model": "anthropic/claude-haiku-5.5",
+    "reasoningEffort": "low",
+    "maxTokens": 1500,
+    "input": "The full-resolution image, the selected formed characters' names, and the scene plan's primarySubject and secondaryElements, exactly as the request path would supply them.",
+    "runVersions": {
+      "dev": "2026-10-27-scene-check-v1"
+    }
+  },
+  "sets": {
+    "dev": [
+      "../2026-10-27-forgiving-image-check",
+      "../2026-10-27-v10-image-check"
+    ],
+    "holdout": [
+      "../2026-10-27-v11-image-check",
+      "../2026-10-27-v12-image-check"
+    ]
+  },
+  "labels": "Each run's adjudicated operator-scores.json, committed before unblinding: noFormFigure yes = figure; edges margin = edge; edges frame = frame; text yes = lettering. Labels were made by two blind model scorers and the operator, not by humans.",
+  "protocol": "Run dev once with v1. If dev misses a criterion, one revision (v2) may be made from dev evidence only and run once on dev. Then run holdout exactly once with the final version, without changes. Holdout images and labels are not used to change the checker.",
+  "criteria": {
+    "figure": "recall at least 0.8 over figure-labelled images; false alarms on at most 10% of images without a figure label",
+    "border": "edge or frame combined: recall at least 0.7; false alarms on at most 10% of images without either label",
+    "lettering": "recall at least 0.6; false alarms on at most 10%",
+    "retryRate": "the check would retry at most 20% of images the operator scored acceptable"
+  },
+  "evaluation": {
+    "authorizedUsd": 23.0,
+    "measuredBeforeUsd": 22.6138959,
+    "uncertaintyBeforeUsd": 0.045,
+    "remainingBeforeUsd": 0.3411041,
+    "increaseUsd": 0,
+    "operationCapsUsd": {
+      "dev": 0.1,
+      "dev-revised": 0.1,
+      "holdout": 0.06
+    },
+    "reservePerCallUsd": 0.004
+  },
+  "releaseHold": true,
+  "publicActivation": false
+}
