@@ -8,7 +8,8 @@
     "maxTokens": 1500,
     "input": "The full-resolution image, the selected formed characters' names, and the scene plan's primarySubject and secondaryElements, exactly as the request path would supply them.",
     "runVersions": {
-      "dev": "2026-10-27-scene-check-v1"
+      "dev": "2026-10-27-scene-check-v1",
+      "dev-revised": "2026-10-27-scene-check-v2"
     }
   },
   "sets": {
@@ -43,5 +44,6 @@
     "reservePerCallUsd": 0.004
   },
   "releaseHold": true,
-  "publicActivation": false
+  "publicActivation": false,
+  "revision": "v2, from dev evidence only (metrics-dev.json): v1 caught 17/17 figures but raised 8/63 false figure alarms on flames and glowing clouds, and in 2 of 4 lettering images its reasons noted a signature while its answer said false. v2 describes the edges, bright areas and marks before answering, and says a flame, heart-shaped glow or billowing cloud is not a figure unless a head, face, hands or body outline can be pointed to."
 }

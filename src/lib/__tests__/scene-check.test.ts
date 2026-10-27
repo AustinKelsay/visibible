@@ -2,7 +2,7 @@
 import { describe, expect, it } from "vitest";
 import { preferredAttempt, sceneCheckFaults, sceneCheckQuestion, sceneCheckSchema } from "../engine/scene-check";
 
-const clean = { figure_in_light: false, unpainted_edge: false, painted_frame: false, lettering: false, reasons: [] };
+const clean = { edges: "scenery at every edge", bright_areas: "none", marks: "none", figure_in_light: false, unpainted_edge: false, painted_frame: false, lettering: false, reasons: [] };
 
 describe("scene check", () => {
   it("asks about all four faults with the scene's own people and description", () => {
@@ -10,7 +10,8 @@ describe("scene check", () => {
     expect(question).toContain("The scene should show: Moses; The Israelite people.");
     expect(question).toContain("Its description: Moses on the summit; cloud and pale radiance over the rocks");
     for (const field of ["figure_in_light", "unpainted_edge", "painted_frame", "lettering"]) expect(question).toContain(`- ${field}:`);
-    expect(question).toContain("a faint, translucent or partial figure counts");
+    expect(question).toContain("First describe the edges, the bright areas and any marks, then answer.");
+    expect(question).toContain("A flame, a heart-shaped glow or billowing cloud is not a figure.");
     expect(sceneCheckQuestion({ people: [], description: "Light over dark water" })).toContain("The scene should show: no named characters.");
   });
 
