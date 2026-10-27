@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { reviewReply } from "../../../../../tests/fixtures/plan-review";
 import type { PlanReviewProblem } from "@/lib/engine/plan-review";
+import type { SceneChecker } from "@/lib/engine/scene-check";
 import { GENERIC_PROMPT_VERSION } from "@/lib/engine/prompt";
 import { imageModelFixture } from "../shared/image-model-fixtures";
 /**
@@ -614,6 +615,15 @@ describe("Image Generation API Credit Flow", () => {
       return { bytes: new TextEncoder().encode(`jpeg:${storageId}`), mimeType: "image/jpeg" };
     };
     let tone = brief.tone;
+    // The finished-image check (ADR 0007) is off for billing tests; its own tests below script it per attempt.
+    let sceneChecker: SceneChecker | null = null;
+    let checkScript: Record<string, { figure?: boolean; edge?: boolean } | "fail"> = {};
+    const scriptedChecker: SceneChecker = { id: "scripted-checker", check: async (request) => {
+      const step = checkScript[request.label.split(":")[1]] ?? {};
+      if (step === "fail") throw new Error("checker unavailable");
+      const answers = { figure_in_light: Boolean(step.figure), unpainted_edge: Boolean(step.edge), painted_frame: false, lettering: false, reasons: [] };
+      return { value: request.schema.parse(request.label.endsWith(":figure") ? { edges: "scene", bright_areas: "none", marks: "none", ...answers } : answers), costUsd: 0.0003, elapsedMs: 1 };
+    } };
     const genericModel = { ...imageModelFixture(), billing: normalizeImageBilling("google/gemini-3.1-flash-lite-image", { prompt: "0.0000001", completion: "0.0000004", image_output: "0.00001", image: "0.001" }, 1) };
     const imageCalls = () => mockFetch.mock.calls.filter(([url]) => String(url).includes("chat/completions")).map(([, init]) => JSON.parse(String(init?.body)) as { model: string; messages: Array<{ content: Array<{ type: string; text?: string; image_url?: { url: string } }> }> });
     const storedRequests = () => requestDb.run((ctx) => ctx.db.query("imageGenerationRequests").collect());
@@ -647,11 +657,12 @@ describe("Image Generation API Credit Flow", () => {
     beforeEach(async () => {
       process.env.GENERIC_ENGINE_MODE = "public";
       modelCalls = []; modelFailure = null; missingCast = []; singleInstant = true; reviewProblems = []; blobFailures = new Set(); loadedBlobs = []; tone = brief.tone;
+      sceneChecker = null; checkScript = {};
       fetchImageModelsMock.mockResolvedValue({ models: [genericModel] });
       // Imported here, after the module mocks above are installed.
       const { createGenericEngine } = await import("@/lib/engine/generation");
       const { setGenericEngine } = await import("@/lib/engine/dispatch");
-      setGenericEngine(createGenericEngine({ loadInputs: async () => workInputs(tone), textModel: () => textModel, loadReferenceBytes, toJpeg: async (blob) => blob }));
+      setGenericEngine(createGenericEngine({ loadInputs: async () => workInputs(tone), textModel: () => textModel, loadReferenceBytes, toJpeg: async (blob) => blob, sceneChecker: () => sceneChecker }));
     });
     afterEach(async () => { (await import("@/lib/engine/dispatch")).setGenericEngine(null); });
 
@@ -727,6 +738,59 @@ describe("Image Generation API Credit Flow", () => {
       expect(modelCalls).toHaveLength(2);
       expect(imageCalls()[1].messages[0].content.map((p) => p.type)).toEqual(["text", "image_url"]);
       expect((await savedImages())[1].provenance!.references).toEqual([{ kind: "sheet", id: "adam:main", version: expect.any(String) }]);
+    });
+
+    describe("finished-image check", () => {
+      const image = (name: string) => `data:image/png;base64,${Buffer.from(name).toString("base64")}`;
+      beforeEach(() => {
+        sceneChecker = scriptedChecker;
+        let n = 0;
+        mockFetchImpl = async (input) => {
+          if (!String(input).includes("chat/completions")) throw new Error(`unexpected ${String(input)}`);
+          n++;
+          return { ok: true, status: 200, json: async () => ({ id: `gen-${n}`, choices: [{ message: { images: [{ image_url: { url: image(`attempt-${n}`) } }] } }], usage: { cost: 0.01 } }) };
+        };
+      });
+      const checkRows = async () => (await requestDb.run((ctx) => ctx.db.query("preparationLedger").collect())).filter((row) => row.kind === "check");
+
+      it("retries a faulty image once, shows the better one, charges the reader for it and books the rest to the owner", async () => {
+        await prepareWork();
+        checkScript = { "1": { figure: true }, "2": {} };
+        const { POST } = await import("../../generate-image/route");
+        const response = await POST(createGenerateImageRequest(body));
+        expect(response.status).toBe(200);
+        expect(await response.json()).toMatchObject({ engine: "generic", imageUrl: image("attempt-2"), providerRequestId: "gen-2", creditsCost: 2, credits: 998 });
+        expect(imageCalls()).toHaveLength(2);
+        expect(imageCalls()[1]).toEqual(imageCalls()[0]); // The retry is the same request: a fresh draw, not a new prompt.
+        expect(getCallCount("reserveCredits")).toBe(1);
+        expect(getCallCount("deductCredits")).toBe(1);
+        const [row] = await checkRows();
+        expect(row).toMatchObject({ recordId: "genesis-1-1", model: "scripted-checker", outcome: "2026-10-27-scene-check-v3: faults figure; retry clean; showed 2" });
+        expect(row.costUsd).toBeCloseTo(0.01 + 4 * 0.0003, 10); // The unshown image and four check replies.
+      });
+
+      it("shows a clean first image after one check, and keeps the first when the retry is worse", async () => {
+        await prepareWork();
+        checkScript = { "1": {} };
+        const { POST } = await import("../../generate-image/route");
+        expect(await (await POST(createGenerateImageRequest(body))).json()).toMatchObject({ imageUrl: image("attempt-1") });
+        expect(imageCalls()).toHaveLength(1);
+        expect((await checkRows())[0]).toMatchObject({ outcome: "2026-10-27-scene-check-v3: clean" });
+        checkScript = { "1": { edge: true }, "2": { figure: true } };
+        expect(await (await POST(createGenerateImageRequest({ ...body, requestId: "generic-2", style: "classical" }))).json()).toMatchObject({ imageUrl: image("attempt-2"), providerRequestId: "gen-2" });
+        expect((await checkRows())[1]).toMatchObject({ outcome: "2026-10-27-scene-check-v3: faults edge; retry figure; showed 1" });
+      });
+
+      it("shows the first image unchecked when the checker fails", async () => {
+        await prepareWork();
+        checkScript = { "1": "fail" };
+        const { POST } = await import("../../generate-image/route");
+        const response = await POST(createGenerateImageRequest(body));
+        expect(response.status).toBe(200);
+        expect(await response.json()).toMatchObject({ imageUrl: image("attempt-1"), creditsCost: 2 });
+        expect(imageCalls()).toHaveLength(1);
+        expect((await checkRows())[0]).toMatchObject({ outcome: "2026-10-27-scene-check-v3: check unavailable: checker unavailable", costUsd: 0 });
+      });
     });
 
     it("admits reference-bearing Lite requests with the live catalog shape and settles actual usage separately", async () => {

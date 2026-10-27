@@ -45,7 +45,7 @@ export function createOpenRouterImageMaker(options: { apiKey: string; model?: st
   };
 }
 
-export function createOpenRouterVisionChecker(options: { apiKey: string; model?: string; fetch?: FetchLike; timeoutMs?: number }): VisionChecker {
+export function createOpenRouterVisionChecker(options: { apiKey: string; model?: string; fetch?: FetchLike; timeoutMs?: number; reasoningEffort?: "none" | "low"; maxTokens?: number }): VisionChecker {
   const model = options.model ?? CHECK_MODEL_ID;
   const fetchImpl = options.fetch ?? ((input, init) => fetch(input, init));
   return {
@@ -57,7 +57,7 @@ export function createOpenRouterVisionChecker(options: { apiKey: string; model?:
         messages: [{ role: "user", content: [{ type: "text", text: request.question }, { type: "image_url", image_url: { url: `data:${request.image.mimeType};base64,${Buffer.from(request.image.bytes).toString("base64")}` } }] }],
         response_format: { type: "json_schema", json_schema: { name: "reference_check", strict: true, schema: responseSchema(request.schema) } },
         provider: { require_parameters: true, order: ["anthropic"], allow_fallbacks: false },
-        reasoning: { effort: "none" }, max_tokens: 800, usage: { include: true },
+        reasoning: { effort: options.reasoningEffort ?? "none" }, max_tokens: options.maxTokens ?? 800, usage: { include: true },
       }, options.timeoutMs ?? 60_000);
       if (!response.ok) throw new Error(`OpenRouter ${response.status}: ${JSON.stringify(payload.error ?? payload).slice(0, 300)}`);
       const parsed = request.schema.safeParse(JSON.parse(payload.choices?.[0]?.message?.content ?? "null"));

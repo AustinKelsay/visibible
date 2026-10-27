@@ -1,0 +1,51 @@
+{
+  "issue": 183,
+  "status": "Owner approved building and testing an automatic image check (\"continue\", 27 October 2026, after the question \"Should I build and test the image check?\"). Measurement only.",
+  "purpose": "Measure whether one cheap vision call can find the faults that make generated scene images unacceptable: a figure for God or another no-form subject, an unpainted edge, a painted frame and lettering. The request path would retry an image once when the check finds a fault.",
+  "checker": {
+    "model": "anthropic/claude-haiku-5.5",
+    "reasoningEffort": "low",
+    "maxTokens": 1500,
+    "input": "The full-resolution image, the selected formed characters' names, and the scene plan's primarySubject and secondaryElements, exactly as the request path would supply them.",
+    "runVersions": {
+      "dev": "2026-10-27-scene-check-v1",
+      "dev-revised": "2026-10-27-scene-check-v2",
+      "holdout": "2026-10-27-scene-check-v3"
+    }
+  },
+  "sets": {
+    "dev": [
+      "../2026-10-27-forgiving-image-check",
+      "../2026-10-27-v10-image-check"
+    ],
+    "holdout": [
+      "../2026-10-27-v11-image-check",
+      "../2026-10-27-v12-image-check"
+    ]
+  },
+  "labels": "Each run's adjudicated operator-scores.json, committed before unblinding: noFormFigure yes = figure; edges margin = edge; edges frame = frame; text yes = lettering. Labels were made by two blind model scorers and the operator, not by humans.",
+  "protocol": "Run dev once with v1. If dev misses a criterion, one revision (v2) may be made from dev evidence only and run once on dev. Then run holdout exactly once with the final version, without changes. Holdout images and labels are not used to change the checker.",
+  "criteria": {
+    "figure": "recall at least 0.8 over figure-labelled images; false alarms on at most 10% of images without a figure label",
+    "border": "edge or frame combined: recall at least 0.7; false alarms on at most 10% of images without either label",
+    "lettering": "recall at least 0.6; false alarms on at most 10%",
+    "retryRate": "the check would retry at most 20% of images the operator scored acceptable"
+  },
+  "evaluation": {
+    "authorizedUsd": 23.0,
+    "measuredBeforeUsd": 22.6138959,
+    "uncertaintyBeforeUsd": 0.045,
+    "remainingBeforeUsd": 0.3411041,
+    "increaseUsd": 0,
+    "operationCapsUsd": {
+      "dev": 0.1,
+      "dev-revised": 0.1,
+      "holdout": 0.06
+    },
+    "reservePerCallUsd": 0.002
+  },
+  "releaseHold": true,
+  "publicActivation": false,
+  "revision": "v2, from dev evidence only (metrics-dev.json): v1 caught 17/17 figures but raised 8/63 false figure alarms on flames and glowing clouds, and in 2 of 4 lettering images its reasons noted a signature while its answer said false. v2 describes the edges, bright areas and marks before answering, and says a flame, heart-shaped glow or billowing cloud is not a figure unless a head, face, hands or body outline can be pointed to.",
+  "final": "v3 for holdout, chosen from dev evidence only and declared before the holdout run: two parallel calls per image with the unchanged v1 and v2 questions, taking edges and frames from v1 and figures and lettering from v2. No new wording. Scored offline on the existing dev replies (metrics-dev-combined.json), it meets every criterion: figure 16/17 caught with 0/63 false alarms, border 14/16 with 0/64, lettering 3/4 with 4/76, and 1 of 40 acceptable images retried."
+}
