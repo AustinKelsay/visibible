@@ -3,7 +3,7 @@
 You are inspecting generated Bible illustrations for release blockers. `blind-images.json` lists each image with:
 
 - `id` and `file`: the image to view at full resolution.
-- `verse`: the verse it illustrates.
+- `verse` and `verseText`: the verse it illustrates.
 - `selected`: the recurring cast the plan placed in the scene.
 - `availableCast`: every recurring entry for the passage, with `hasForm`.
 - `scene` and `conditions`: what was requested.
