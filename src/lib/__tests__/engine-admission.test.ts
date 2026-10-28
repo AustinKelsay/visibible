@@ -1,4 +1,4 @@
-/** Engine admission policy (#174): switches, owner proof, readiness gate, rollback and accepted requests. */
+/** Engine admission policy (#174): switches, owner proof, readiness gate and rollback; new work is only ever generic (#184). */
 import { describe, it, expect } from "vitest";
 import { decideEngine, genericEngineMode, PUBLIC_GENERIC_STYLE_IDS } from "../engine/admission";
 
@@ -13,16 +13,18 @@ describe("engine admission", () => {
     expect(genericEngineMode({ GENERIC_ENGINE_MODE: "yes" })).toBe("disabled");
   });
 
-  it("keeps Classical on legacy when disabled and reports other styles unavailable without touching preferences", () => {
-    expect(decideEngine({ mode: "disabled", isOwner: true, styleId: null, readiness: ready })).toEqual({ engine: "legacy", reason: "disabled" });
-    expect(decideEngine({ mode: "disabled", isOwner: false, styleId: "classical", readiness: ready })).toEqual({ engine: "legacy", reason: "disabled" });
-    expect(decideEngine({ mode: "disabled", isOwner: false, styleId: "watercolor", readiness: ready })).toMatchObject({ engine: null, unavailable: "style", retryable: true });
+  it("admits nothing new in any style when disabled, Classical included, without touching preferences", () => {
+    for (const styleId of [null, "classical", "watercolor", "fresco"]) {
+      for (const isOwner of [false, true]) {
+        expect(decideEngine({ mode: "disabled", isOwner, styleId, readiness: ready })).toEqual({ engine: null, unavailable: "style", reason: `The ${styleId ?? "classical"} art style is temporarily unavailable`, retryable: true });
+      }
+    }
   });
 
   it("admits only a verified owner in owner mode, and only when the work is ready", () => {
     expect(decideEngine({ mode: "owner", isOwner: true, styleId: "icon", readiness: ready })).toEqual({ engine: "generic", reason: "owner-proof" });
     expect(decideEngine({ mode: "owner", isOwner: true, styleId: "classical", readiness: unready })).toMatchObject({ engine: null, unavailable: "preparing", reason: expect.stringContaining("no active analysis generation") });
-    expect(decideEngine({ mode: "owner", isOwner: false, styleId: "classical", readiness: ready })).toEqual({ engine: "legacy", reason: "not-owner" });
+    expect(decideEngine({ mode: "owner", isOwner: false, styleId: "classical", readiness: ready })).toMatchObject({ engine: null, unavailable: "style" });
     expect(decideEngine({ mode: "owner", isOwner: false, styleId: "icon", readiness: ready })).toMatchObject({ engine: null, unavailable: "style" });
   });
 
@@ -35,23 +37,9 @@ describe("engine admission", () => {
   it("releases Classical, Watercolor and Fresco to readers in public mode, and keeps Icon for the owner", () => {
     expect(PUBLIC_GENERIC_STYLE_IDS).toEqual(["classical", "watercolor", "fresco"]);
     expect(decideEngine({ mode: "public", isOwner: false, styleId: "fresco", readiness: ready })).toEqual({ engine: "generic", reason: "public" });
-    // Disabled: Fresco, like Watercolor, has no legacy engine.
-    expect(decideEngine({ mode: "disabled", isOwner: false, styleId: "fresco", readiness: ready })).toMatchObject({ engine: null, unavailable: "style" });
     expect(decideEngine({ mode: "public", isOwner: false, styleId: "watercolor", readiness: ready })).toEqual({ engine: "generic", reason: "public" });
     expect(decideEngine({ mode: "public", isOwner: false, styleId: "icon", readiness: ready })).toMatchObject({ engine: null, unavailable: "style", reason: "The icon art style is temporarily unavailable", retryable: true });
     expect(decideEngine({ mode: "public", isOwner: true, styleId: "icon", readiness: ready })).toEqual({ engine: "generic", reason: "owner-proof" });
     expect(decideEngine({ mode: "public", isOwner: true, styleId: "classical", readiness: ready })).toEqual({ engine: "generic", reason: "public" });
-  });
-
-  it("after the legacy retirement admits nothing new on legacy, keeps accepted requests, and leaves the generic engine unchanged", () => {
-    expect(decideEngine({ mode: "disabled", isOwner: false, styleId: "classical", readiness: ready, legacyRetired: true })).toMatchObject({ engine: null, unavailable: "style", retryable: true });
-    expect(decideEngine({ mode: "owner", isOwner: false, styleId: null, readiness: ready, legacyRetired: true })).toMatchObject({ engine: null, unavailable: "style" });
-    expect(decideEngine({ mode: "public", isOwner: false, styleId: "classical", readiness: ready, legacyRetired: true })).toEqual({ engine: "generic", reason: "public" });
-    expect(decideEngine({ mode: "public", isOwner: false, styleId: "classical", readiness: ready, legacyRetired: true, existingEngine: "legacy" })).toEqual({ engine: "legacy", reason: "accepted" });
-  });
-
-  it("never switches an accepted request, whatever the switches say now", () => {
-    expect(decideEngine({ mode: "disabled", isOwner: false, styleId: "icon", readiness: null, existingEngine: "generic" })).toEqual({ engine: "generic", reason: "accepted" });
-    expect(decideEngine({ mode: "public", isOwner: true, styleId: "classical", readiness: ready, existingEngine: "legacy" })).toEqual({ engine: "legacy", reason: "accepted" });
   });
 });

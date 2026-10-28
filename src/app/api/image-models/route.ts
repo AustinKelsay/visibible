@@ -28,7 +28,7 @@ async function styleAvailability(request: Request | undefined, convex: ReturnTyp
     } catch (error) { console.error("Failed to read style availability:", error); }
   }
   return ART_STYLES.map((style) => {
-    const decision = decideEngine({ mode, isOwner, styleId: style.id, readiness, legacyRetired: true });
+    const decision = decideEngine({ mode, isOwner, styleId: style.id, readiness });
     return { ...style, available: decision.engine !== null, reason: decision.engine === null ? decision.reason : null };
   });
 }

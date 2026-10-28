@@ -434,7 +434,7 @@ export async function POST(request: Request) {
   const bibleWorkId = "bible-web";
   const readiness = engineMode === "disabled" ? null : await convex.query(api.analysis.getWorkStatus, { workId: bibleWorkId }).catch(() => null);
   const engineDecision = decideEngine({
-    mode: engineMode, isOwner: hasOwnerEngineAccess(sessionForAdmission), styleId: requestedStyleId ?? null, legacyRetired: true,
+    mode: engineMode, isOwner: hasOwnerEngineAccess(sessionForAdmission), styleId: requestedStyleId ?? null,
     readiness: readiness ? { ready: readiness.ready, reasons: readiness.reasons, activeGeneration: readiness.activeGeneration, briefVersion: readiness.briefVersion } : null,
   });
   logInfo("engine_admission", { requestId: clientRequestId, mode: engineMode, engine: engineDecision.engine, reason: engineDecision.engine ? engineDecision.reason : engineDecision.unavailable });
@@ -447,10 +447,6 @@ export async function POST(request: Request) {
   if (requestBody.engine && requestBody.engine !== engineDecision.engine) {
     incrementMetricCounter("engine_binding_refused", { expected: requestBody.engine, decided: engineDecision.engine });
     return jsonWithSessionRefresh({ error: "Engine binding changed", message: `This request is bound to the ${requestBody.engine} engine, which is not admitting new work right now.`, expectedEngine: requestBody.engine, engine: engineDecision.engine, retryable: true }, { status: 409 });
-  }
-  // The legacy engine is removed (#184), and admission is told it is retired, so it never admits new legacy work.
-  if (engineDecision.engine !== "generic") {
-    return jsonWithSessionRefresh({ error: "Art style unavailable", message: "This art style is temporarily unavailable", retryable: true, style: requestedStyleId ?? null }, { status: 503 });
   }
   // A failed lookup is temporary; only a lookup that returned nothing means the session is gone.
   if (sessionLookupFailed) return jsonWithSessionRefresh({ error: "Unable to verify session", retryable: true }, { status: 503 });
