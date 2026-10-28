@@ -15,12 +15,12 @@ Lifecycle states are `queued`, `planning`, `generating`, `succeeded`, and `faile
 
 [HeroImage](../../src/components/hero-image.tsx) sends a request ID, subscribes to lifecycle status, and registers generation controls with [GenerationContext](../../src/context/generation-context.tsx). Header controls share that state. First-image auto-generation requires loaded empty history and strict affordability; explicit actions can use the spend-down grace. Empty history alone does not cause a paid request.
 
-`/api/image-models` supplies per-resolution catalog quotes and timing information. Its quotes still add the legacy scene planner's allowance, which is zero while the planner model is free or `ENABLE_SCENE_PLANNER=false`; the generic engine quotes its own prompt-aware price at admission. [Sessions and credits](SESSIONS_AND_CREDITS.md) explains holds, settlement and fallback charges.
+`/api/image-models` supplies per-resolution catalog quotes and timing information. The quotes are the catalog price alone: the legacy scene planner's allowance went with the legacy engine (#184). The generic engine quotes its own prompt-aware price at admission. [Sessions and credits](SESSIONS_AND_CREDITS.md) explains holds, settlement and fallback charges.
 
 ## Configuration and related behavior
 
 - `ENABLE_IMAGE_GENERATION=true` enables the route.
-- The legacy scene planner ([scene-planner.ts](../../src/lib/scene-planner.ts)) and legacy prompts ([image-prompts.ts](../../src/lib/image-prompts.ts)) no longer run in the route. They remain for the quote allowance above and the evaluation harness until the rest of #184 removes them, as does the legacy scene plan cache (`scenePlanCache`).
+- The legacy scene planner ([scene-planner.ts](../../src/lib/scene-planner.ts)) and legacy prompts ([image-prompts.ts](../../src/lib/image-prompts.ts)) no longer run in the route. They remain only for the evaluation harness until the rest of #184 removes them, as does the legacy scene plan cache (`scenePlanCache`).
 - [Prompt specification](../implementation/IMAGE_PROMPT_SPEC.md), [persistence](IMAGE-PERSISTENCE.md), and [bulk generation](BULK-GENERATION.md) cover those separate concerns.
 - [Credit-flow](../../src/app/api/__tests__/generate-image/credit-flow.test.ts) tests cover request behavior.
 
@@ -36,7 +36,7 @@ Google documents 1,290 output tokens for Gemini 2.5 Flash Image. Gemini 3.1 Flas
 
 The verified registry covers the default, Gemini 3.1 Flash Lite Image; Gemini 2.5 Flash Image; and the Gemini 3.1 Flash stable and preview identifiers. The [image model comparison](../research/2026-10-14-image-models.md) explains the default and why Gemini 3 Pro was removed. The catalog leaves out models outside the registry until their output units and request settings are verified. Explicit unsupported settings fail before reservation/provider work. Stored resolutions normalize when selecting a model; a removed saved model requires an explicit new selection.
 
-Discovery and admission use the same catalog quote. Discovery adds the planner allowance described above (zero when planner pricing is unknown). Cost samples are still recorded, but unversioned historical/model/provider/global estimates do not override current quotes. T05 introduces validated learned estimates. The model-list GET no longer starts a historical backfill.
+Discovery and admission use the same catalog quote. Cost samples are still recorded, but unversioned historical/model/provider/global estimates do not override current quotes. T05 introduces validated learned estimates. The model-list GET no longer starts a historical backfill.
 
 A catalog outage may use a labeled last-known snapshot for at most six hours. Without one, choices are unavailable; the configured default is never inserted into a successful catalog that removed it. Selectors refetch when reopened. Scripture remains available during pricing failure.
 

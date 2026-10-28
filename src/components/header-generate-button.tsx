@@ -26,7 +26,6 @@ export function HeaderGenerateButton() {
   const [models, setModels] = useState<ImageModel[]>([]);
   const [modelsLoading, setModelsLoading] = useState(false);
   const [modelsError, setModelsError] = useState<string | null>(null);
-  const [scenePlannerCreditsCost, setScenePlannerCreditsCost] = useState(0);
   const [artStyles, setArtStyles] = useState<ArtStyleAvailability[] | null>(null);
   const hasFetchedModels = useRef(false);
   const singleTabRef = useRef<HTMLButtonElement | null>(null);
@@ -43,7 +42,6 @@ export function HeaderGenerateButton() {
     resolution,
     baseCost,
     displayCostByResolution,
-    scenePlannerCreditsCost: generationScenePlannerCreditsCost,
     modelId,
   } = state;
   const displayEffectiveCost =
@@ -54,8 +52,7 @@ export function HeaderGenerateButton() {
         creditsCost: baseCost,
         reservationCreditsCost: null,
       },
-      resolution,
-      generationScenePlannerCreditsCost
+      resolution
     ) ??
     DEFAULT_IMAGE_ESTIMATED_CREDITS_COST;
 
@@ -85,11 +82,6 @@ export function HeaderGenerateButton() {
             return res.json();
           })
           .then((data) => {
-            setScenePlannerCreditsCost(
-              typeof data.scenePlannerCreditsCost === "number"
-                ? data.scenePlannerCreditsCost
-                : 0
-            );
             if (data.models) setModels(data.models);
             if (Array.isArray(data.artStyles)) setArtStyles(data.artStyles);
             if (data.error) setModelsError(data.error);
@@ -98,7 +90,6 @@ export function HeaderGenerateButton() {
             console.error("Failed to fetch image models:", err);
             setModelsError("Failed to load models");
             setModels([]);
-            setScenePlannerCreditsCost(0);
           })
           .finally(() => setModelsLoading(false));
       });
@@ -323,7 +314,6 @@ export function HeaderGenerateButton() {
                     models={models}
                     modelsLoading={modelsLoading}
                     modelsError={modelsError}
-                    scenePlannerCreditsCost={scenePlannerCreditsCost}
                     artStyles={artStyles}
                   />
                   <BulkGeneratePanel
@@ -340,7 +330,6 @@ export function HeaderGenerateButton() {
                     models={models}
                     modelsLoading={modelsLoading}
                     modelsError={modelsError}
-                    scenePlannerCreditsCost={scenePlannerCreditsCost}
                     artStyles={artStyles}
                   />
                 </div>
