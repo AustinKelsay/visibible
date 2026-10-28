@@ -1,0 +1,356 @@
+{
+  "issue": 183,
+  "status": "Classical and Watercolor went live on 28 October. The owner replied \"Just continue\" to a report naming the Icon style fix and a retest (about $1.40). The operator measures all three styles, because the no-form \"seated\" planner fix also reaches the live Classical and Watercolor images, under the owner's budget delegation (\"Your call on all of these\"). Measurement only.",
+  "purpose": "Third run of the launch matrix (same 33 cases and production snapshot): the Icon style text forbids writing, marked halos, Christian symbols and border bands; plans never call a no-form subject seated or standing. Icon is judged for release; Classical and Watercolor are re-checked with the planner change.",
+  "previousRun": "../2026-10-28-launch-matrix-v2/RESULTS.md",
+  "candidateCommit": "488318e9869dc61d074ea6cf3d8c01e22cad420a",
+  "pipeline": {
+    "momentCast": "2026-10-28-moment-cast-v15",
+    "formlessPlan": "2026-10-28-formless-effects-v16",
+    "review": "2026-10-27-plan-review-v12",
+    "rendering": "2026-10-28-generic-v14",
+    "sceneCheck": "2026-10-28-scene-check-v4"
+  },
+  "image": {
+    "model": "google/gemini-3.1-flash-lite-image",
+    "aspectRatio": "16:9",
+    "resolution": "1K"
+  },
+  "checker": {
+    "model": "anthropic/claude-haiku-5.5",
+    "reasoningEffort": "low",
+    "maxTokens": 1500
+  },
+  "design": "Each case is prepared once, cold, in a memory store seeded from one read-only production snapshot; a refused preparation stops that case before any image. Each stored case renders Classical, Watercolor and Icon once, with the references production would send. Every first image is checked; a faulty one gets one retry with the same request and the better image is shown, exactly as the request path does (checkAndRetry, checkScene). Cases run three at a time. The snapshot is the first run's file, unchanged, so only the pipeline differs; plans are prepared fresh because the planner version changed. Watercolor checks pass softEdges, as the request path does. All cases share one memory store, as production shares one database. The Icon style reference is stale under the new style version and is not sent, as in production until a new one is made.",
+  "cases": [
+    {
+      "id": "genesis-1-3",
+      "reference": "Genesis 1:3",
+      "fixedCase": "genesis-1-3-light",
+      "expected": "Light breaking over formless dark waters; no human figure for God; no text.",
+      "tags": [
+        "genesis",
+        "continuity"
+      ]
+    },
+    {
+      "id": "genesis-5-5",
+      "reference": "Genesis 5:5",
+      "fixedCase": "genesis-5-5-adam-days",
+      "expected": "An aged patriarch at the end of a long life; no numerals or inscriptions.",
+      "tags": [
+        "genealogy"
+      ]
+    },
+    {
+      "id": "genesis-19-24",
+      "reference": "Genesis 19:24",
+      "fixedCase": "genesis-19-24-sodom",
+      "expected": "Fire and sulfur falling on a city from a distance; no gratuitous gore; nothing modern.",
+      "tags": [
+        "difficult"
+      ]
+    },
+    {
+      "id": "genesis-22-10",
+      "reference": "Genesis 22:10",
+      "fixedCase": "genesis-22-10-abraham-knife",
+      "expected": "Abraham with the knife raised over the altar, Isaac bound; tension without blood.",
+      "tags": [
+        "narrative"
+      ]
+    },
+    {
+      "id": "exodus-14-21",
+      "reference": "Exodus 14:21",
+      "fixedCase": "exodus-14-21-sea-parts",
+      "expected": "Moses' hand stretched out, a strong east wind, the sea dividing with a dry seabed; night.",
+      "tags": [
+        "red-sea",
+        "continuity"
+      ]
+    },
+    {
+      "id": "exodus-14-22",
+      "reference": "Exodus 14:22",
+      "fixedCase": "exodus-14-22-sea-walls",
+      "expected": "Israel walking between two walls of water on dry ground; same sea, same night as the previous verse.",
+      "tags": [
+        "red-sea",
+        "continuity"
+      ]
+    },
+    {
+      "id": "leviticus-11-7",
+      "reference": "Leviticus 11:7",
+      "fixedCase": "leviticus-11-7-pig",
+      "expected": "A pig with cloven hooves in an ancient Near Eastern setting; no text; no modern farm.",
+      "tags": [
+        "law"
+      ]
+    },
+    {
+      "id": "joshua-6-20",
+      "reference": "Joshua 6:20",
+      "fixedCase": "joshua-6-20-jericho",
+      "expected": "Trumpets, a shout, city walls collapsing; soldiers in Bronze Age dress.",
+      "tags": [
+        "narrative"
+      ]
+    },
+    {
+      "id": "judges-19-29",
+      "reference": "Judges 19:29",
+      "fixedCase": "judges-19-29-concubine",
+      "expected": "The horror conveyed by composition and restraint, not by gore; nothing explicit.",
+      "tags": [
+        "difficult"
+      ]
+    },
+    {
+      "id": "ruth-4-22",
+      "reference": "Ruth 4:22",
+      "fixedCase": "ruth-4-22-genealogy",
+      "expected": "Three generations of a family line in Bethlehem; no name labels.",
+      "tags": [
+        "genealogy"
+      ]
+    },
+    {
+      "id": "1-samuel-17-49",
+      "reference": "1 Samuel 17:49",
+      "fixedCase": "1-samuel-17-49-sling",
+      "expected": "A young shepherd's sling stone striking a giant warrior's forehead; valley battlefield.",
+      "tags": [
+        "narrative"
+      ]
+    },
+    {
+      "id": "2-kings-2-23",
+      "reference": "2 Kings 2:23",
+      "fixedCase": "2-kings-2-23-bears",
+      "expected": "Youths mocking a bald prophet on the road up to Bethel; the bears not yet shown as a bloodbath.",
+      "tags": [
+        "difficult"
+      ]
+    },
+    {
+      "id": "job-38-4",
+      "reference": "Job 38:4",
+      "fixedCase": "job-38-4-foundations",
+      "expected": "A storm-voice over cosmic foundations being laid; Job small before it; no literal bearded deity.",
+      "tags": [
+        "poetry",
+        "symbolic"
+      ]
+    },
+    {
+      "id": "psalms-23-2",
+      "reference": "Psalms 23:2",
+      "fixedCase": "psalms-23-2-pastures",
+      "expected": "Green pastures and still waters with sheep and a shepherd; calm.",
+      "tags": [
+        "poetry"
+      ]
+    },
+    {
+      "id": "psalms-137-1",
+      "reference": "Psalms 137:1",
+      "fixedCase": "psalms-137-1-babylon",
+      "expected": "Exiles weeping by Babylon's rivers with harps hung on willows.",
+      "tags": [
+        "poetry"
+      ]
+    },
+    {
+      "id": "song-of-solomon-2-1",
+      "reference": "Song of Solomon 2:1",
+      "fixedCase": "song-of-solomon-2-1-rose",
+      "expected": "A rose of Sharon and a lily of the valleys; tasteful, no nudity.",
+      "tags": [
+        "poetry"
+      ]
+    },
+    {
+      "id": "isaiah-6-2",
+      "reference": "Isaiah 6:2",
+      "fixedCase": "isaiah-6-2-seraphim",
+      "expected": "Six-winged seraphim above a throne, faces and feet covered; temple smoke.",
+      "tags": [
+        "prophecy",
+        "symbolic"
+      ]
+    },
+    {
+      "id": "isaiah-11-6",
+      "reference": "Isaiah 11:6",
+      "fixedCase": "isaiah-11-6-wolf-lamb",
+      "expected": "Wolf and lamb, leopard and kid, calf and lion together, a little child leading them.",
+      "tags": [
+        "prophecy"
+      ]
+    },
+    {
+      "id": "ezekiel-37-4",
+      "reference": "Ezekiel 37:4",
+      "fixedCase": "ezekiel-37-4-dry-bones",
+      "expected": "A prophet speaking over a valley of dry bones; eerie but not horror.",
+      "tags": [
+        "prophecy"
+      ]
+    },
+    {
+      "id": "daniel-6-22",
+      "reference": "Daniel 6:22",
+      "fixedCase": "daniel-6-22-lions",
+      "expected": "Daniel unharmed among lions in a den, an angelic presence; dawn light from above.",
+      "tags": [
+        "narrative"
+      ]
+    },
+    {
+      "id": "daniel-7-9",
+      "reference": "Daniel 7:9",
+      "fixedCase": "daniel-7-9-ancient-of-days",
+      "expected": "A throne of flames with burning wheels, white garments, hair like wool; visionary, not a portrait.",
+      "tags": [
+        "symbolic"
+      ]
+    },
+    {
+      "id": "jonah-1-17",
+      "reference": "Jonah 1:17",
+      "fixedCase": "jonah-1-17-fish",
+      "expected": "A great fish swallowing Jonah in a stormy sea.",
+      "tags": [
+        "narrative"
+      ]
+    },
+    {
+      "id": "matthew-1-1",
+      "reference": "Matthew 1:1",
+      "fixedCase": "matthew-1-1-genealogy",
+      "expected": "A scroll or family line from Abraham through David to Jesus, shown without legible writing.",
+      "tags": [
+        "genealogy"
+      ]
+    },
+    {
+      "id": "matthew-14-29",
+      "reference": "Matthew 14:29",
+      "fixedCase": "matthew-14-29-peter-water",
+      "expected": "Peter stepping out of the boat onto the water toward Jesus at night in a storm.",
+      "tags": [
+        "peter",
+        "continuity"
+      ]
+    },
+    {
+      "id": "john-21-7",
+      "reference": "John 21:7",
+      "fixedCase": "john-21-7-peter-sea",
+      "expected": "Peter throwing himself into the sea from the boat at dawn, the same fisherman as on the Galilee storm.",
+      "tags": [
+        "peter",
+        "continuity"
+      ]
+    },
+    {
+      "id": "mark-4-39",
+      "reference": "Mark 4:39",
+      "fixedCase": "mark-4-39-storm",
+      "expected": "Jesus standing in a boat rebuking wind and waves, the sea suddenly calm.",
+      "tags": [
+        "narrative"
+      ]
+    },
+    {
+      "id": "luke-15-20",
+      "reference": "Luke 15:20",
+      "fixedCase": "luke-15-20-prodigal",
+      "expected": "A father running to embrace a ragged returning son on the road.",
+      "tags": [
+        "parable"
+      ]
+    },
+    {
+      "id": "john-11-43",
+      "reference": "John 11:43",
+      "fixedCase": "john-11-43-lazarus",
+      "expected": "Jesus calling at a tomb's mouth as a wrapped figure emerges; mourners.",
+      "tags": [
+        "narrative"
+      ]
+    },
+    {
+      "id": "acts-9-3",
+      "reference": "Acts 9:3",
+      "fixedCase": "acts-9-3-damascus",
+      "expected": "A blinding light from heaven around a traveler on the Damascus road.",
+      "tags": [
+        "narrative"
+      ]
+    },
+    {
+      "id": "romans-8-28",
+      "reference": "Romans 8:28",
+      "fixedCase": "romans-8-28-all-things",
+      "expected": "An abstract-leaning but era-true image of providence; no text of the verse.",
+      "tags": [
+        "epistle",
+        "symbolic"
+      ]
+    },
+    {
+      "id": "matthew-27-35",
+      "reference": "Matthew 27:35",
+      "fixedCase": "matthew-27-35-crucified",
+      "expected": "Soldiers casting lots for garments beneath the cross; the crucifixion treated seriously, no gratuitous gore.",
+      "tags": [
+        "difficult"
+      ]
+    },
+    {
+      "id": "revelation-4-6",
+      "reference": "Revelation 4:6",
+      "fixedCase": "revelation-4-6-living-creatures",
+      "expected": "A sea of glass before the throne and four living creatures full of eyes.",
+      "tags": [
+        "symbolic"
+      ]
+    },
+    {
+      "id": "revelation-21-1",
+      "reference": "Revelation 21:1",
+      "fixedCase": "revelation-21-1-new-heaven",
+      "expected": "A new heaven and new earth, the sea gone; luminous, vast.",
+      "tags": [
+        "symbolic"
+      ]
+    }
+  ],
+  "scoring": {
+    "method": "As in the first run, with batches of about 16 images per scorer (eight batches, two independent scorers each), saved as they go. SCORING.md adds that a soft Watercolor fade to white is part of the style and that halo, title-board and corner marks count as lettering. The operator adjudicates disagreements by viewing the images, with the first run's written rules, and commits before unblinding. Not human acceptance.",
+    "launchBar": "ADR 0006 as amended: Icon is released if it reaches at least 65% acceptable shown images and the all-style bar still holds (at least 75% overall; a no-form figure in at most 1 in 20 shown images of cases that select one). Classical and Watercolor are re-checked against the same bar.",
+    "alsoReported": "First-attempt quality without the check, the retry rate, the check's agreement with the adjudicated labels on first attempts (new evidence for the figure question), refusals, latency per sample and cost. Comparison with the first run per case and cause."
+  },
+  "evaluation": {
+    "authorizedBeforeUsd": 34,
+    "measuredBeforeUsd": 30.8162273,
+    "uncertaintyBeforeUsd": 0.045,
+    "remainingBeforeUsd": 3.1387727,
+    "proposedIncreaseUsd": 5,
+    "proposedAuthorizedUsd": 39,
+    "proposedOperationCapUsd": 6,
+    "textReserveUsd": 0.005,
+    "imageReserveUsd": 0.06,
+    "checkReserveUsd": 0.002,
+    "maximumImages": 198,
+    "maximumTextCalls": 200,
+    "maximumCheckCalls": 400
+  },
+  "releaseHold": true,
+  "publicActivation": false,
+  "humanAccepted": false,
+  "knownLimitation": "One image per case and style; model scorers can miss subtle figures or edges. Thirty-three chosen cases weight dramatic and theophany scenes more than a random draw would. The fixes were chosen after seeing the first run's images, so this rerun of the same cases favours them; a random-verse draw would be independent."
+}

@@ -114,7 +114,7 @@ describe("no-form presence selection", () => {
     expect(plan.system).toContain("select it and show the moment through the place and the people who witness it");
     expect(plan.system).toContain("Leave out cast who are elsewhere or only mentioned.");
     expect(plan.system).toContain("any face, hands, hair or body: bodily words in the text are metaphors");
-    expect(plan.system).toContain("Never name it, and leave out its throne, seat, chariot, robe, train or hem");
+    expect(plan.system).toContain("Never name it or call it seated, standing, enthroned or riding, and leave out its throne, seat, chariot, robe, train or hem");
     expect(plan.system).toContain("A command, oath or mention alone is not an appearance");
     expect(getReference.mock.calls.filter(([kind]) => kind === "sheet").map(([, id]) => id)).toEqual(["watcher:main", "watcher:main", "watcher:main"]);
   });
