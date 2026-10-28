@@ -10,7 +10,6 @@ import {
   computeActualChatCreditsCost,
   MIN_CHAT_CREDITS,
   DEFAULT_ESTIMATED_TOKENS,
-  SCENE_PLANNER_ESTIMATED_TOKENS,
   getSuggestedChatModels,
 } from "../chat-models";
 import {
@@ -96,10 +95,10 @@ describe("computeChatCreditsCost", () => {
     expect(result).toBeGreaterThanOrEqual(MIN_CHAT_CREDITS);
   });
 
-  it("should use scene planner tokens for smaller estimates", () => {
+  it("should cost less for a smaller token estimate", () => {
     const pricing = { prompt: "1", completion: "1" };
     const normalResult = computeChatCreditsCost(pricing, DEFAULT_ESTIMATED_TOKENS);
-    const smallResult = computeChatCreditsCost(pricing, SCENE_PLANNER_ESTIMATED_TOKENS);
+    const smallResult = computeChatCreditsCost(pricing, 450);
     // Smaller token estimate should result in lower cost
     expect(smallResult).toBeLessThanOrEqual(normalResult!);
   });

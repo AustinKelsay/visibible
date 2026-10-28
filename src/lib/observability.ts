@@ -261,44 +261,6 @@ export function logSettlementEvent(args: {
   });
 }
 
-export type ScenePlannerOutcome =
-  | "planned"
-  | "cache_hit"
-  | "disabled"
-  | "skipped_unpriced"
-  | "http_error"
-  | "empty_content"
-  | "invalid_plan"
-  | "timeout"
-  | "error";
-
-// The planner behaved as configured; every other outcome is a skip or failure.
-const HEALTHY_SCENE_PLANNER_OUTCOMES: ReadonlySet<ScenePlannerOutcome> = new Set(["planned", "cache_hit", "disabled"]);
-
-export function logScenePlannerOutcome(args: {
-  context: RequestObservabilityContext;
-  outcome: ScenePlannerOutcome;
-  plannerModel: string;
-  sid?: string;
-  generationId?: string;
-  statusCode?: number;
-}): void {
-  emitMetric("scene_planner_outcomes_total", {
-    route: args.context.route,
-    outcome: args.outcome,
-  });
-  const log = HEALTHY_SCENE_PLANNER_OUTCOMES.has(args.outcome) ? logInfo : logWarn;
-  log("scene_planner.outcome", {
-    route: args.context.route,
-    requestId: args.context.requestId,
-    outcome: args.outcome,
-    plannerModel: args.plannerModel,
-    statusCode: args.statusCode,
-    sid: redactSid(args.sid),
-    generationId: args.generationId,
-  });
-}
-
 export function getMetricsSnapshot(): {
   scope: "process-local";
   generatedAt: string;

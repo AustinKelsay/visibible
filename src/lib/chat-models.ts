@@ -17,8 +17,6 @@ export const CREDIT_USD = 0.01; // 1 credit = $0.01
 export const DEFAULT_ESTIMATED_TOKENS = 2000; // Conservative estimate for chat (1000 prompt + 1000 completion)
 export const MIN_CHAT_CREDITS = 1; // Minimum credits to charge per chat
 
-// Scene planner uses smaller context: ~200 prompt tokens + 220 max completion + overhead
-export const SCENE_PLANNER_ESTIMATED_TOKENS = 450;
 const MODEL_CACHE_MAX_STALE_MS = 6 * 60 * 60 * 1000; // 6 hours
 
 /**

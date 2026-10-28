@@ -77,7 +77,7 @@ Legacy execution can be retired only when `npm run engine:retirement-inventory -
 
 The removal goes in steps:
 1. **Done:** the route's legacy execution and its fallback are removed. The request fingerprint, replay and the `legacy` engine value on records and job bindings stay, because accepted legacy requests replay through them.
-2. **Done:** the planner allowance in quotes and its plumbing in the reader's price displays. Next, the legacy prompt and planner modules and their evaluation arms.
+2. **Done:** the planner allowance in quotes and the reader's price displays, then the legacy prompt and planner modules and their evaluation arms.
 3. The legacy scene plan cache: its Convex functions, then the `scenePlanCache` table once production holds none of its rows.
 4. Admission's legacy branch (`legacyRetired`, `LEGACY_STYLE_IDS`).
 

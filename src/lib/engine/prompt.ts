@@ -6,7 +6,7 @@
  * the source text. Precedence, strongest first: engine rules, brief content and depiction rules, canon identity,
  * style rendering, scene plan. The prompt is capped at 12,000
  * characters; nothing required is ever trimmed, and an over-budget result is rejected before
- * any paid call. Legacy Bible wording lives only in image-prompts.ts and never reaches this path.
+ * any paid call.
  */
 import { SITUATION_FIELDS, type Situation } from "./situation";
 import type { ArtStyle, WorkBrief } from "../work-preparation";

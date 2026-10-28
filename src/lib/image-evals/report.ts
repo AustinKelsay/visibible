@@ -6,7 +6,7 @@
  * successes.
  */
 import type { EvalArm, EvalCase } from "./cases";
-import { armsFor, EVAL_ARMS } from "./cases";
+import { armsFor } from "./cases";
 import { genericStyleOf, isGenericArm } from "./generic";
 import type { EvalRunState } from "./runner";
 
@@ -202,7 +202,7 @@ const escape = (s: string) => s.replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<"
 /** A static side-by-side sheet: every sample of every case, successes and failures alike. */
 export function renderContactSheet(report: EvalReport, options: { title?: string; outputUrl?: (ref: string) => string } = {}): string {
   const url = options.outputUrl ?? ((ref) => ref);
-  const arms = report.reproducibility.arms.length ? report.reproducibility.arms : [...EVAL_ARMS];
+  const arms = report.reproducibility.arms;
   const rows = report.cases.map((c) => {
     const cells = arms.map((arm) => {
       const samples = c.arms[arm]?.samples ?? [];

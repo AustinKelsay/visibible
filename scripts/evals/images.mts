@@ -1,15 +1,16 @@
 /**
- * Image evaluation command (#98, S10): fixed cases through the production prompt path, direct and
- * planner arms, repeated samples, a hard provider-spend budget and a resumable run.
+ * Image evaluation command (#98, S10): fixed cases through the generic engine, one arm per art style,
+ * repeated samples, a hard provider-spend budget and a resumable run. The legacy direct and planner
+ * arms went with the legacy engine (#184).
  *
  *   npm run evals:images -- --dry-run                                  (costed manifest, no calls)
  *   npm run evals:images -- --run baseline --repeats 3 --budget 2.00
- *   npm run evals:images -- --run candidate --cases genesis-1-3-light,exodus-14-21-sea-parts --arms direct
- *   npm run evals:images -- --run styles --arms generic --styles classical,watercolor,icon --analysis convex
+ *   npm run evals:images -- --run candidate --cases genesis-1-3-light,exodus-14-21-sea-parts --styles classical
+ *   npm run evals:images -- --run styles --styles classical,watercolor,icon --analysis convex
  *   npm run evals:images -- --run trial --arms generic:gouache --style-file styles/trials/gouache.json
  *   npm run evals:images -- --compare baseline,candidate                 (side-by-side sheet from two runs)
  *
- * Generic arms (#181) render through the engine's own assembly: --analysis convex reads the deployment's
+ * Arms (#181) render through the engine's own assembly: --analysis convex reads the deployment's
  * active analysis and references (NEXT_PUBLIC_CONVEX_URL, CONVEX_SERVER_SECRET); --analysis <run> builds an
  * in-memory analysis from works/<id>/.preparation/<run>/{state.json,canon.json} with no references. Looks and
  * plans are owner preparation spend, recorded apart from images and charged to the budget.
@@ -26,13 +27,11 @@ import { parseArgs } from "node:util";
 import { createHash } from "node:crypto";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "../../convex/_generated/api";
-import { loadEvalCases, describeCoverage, EVAL_ARMS, type EvalArm } from "@/lib/image-evals/cases";
+import { loadEvalCases, describeCoverage, type EvalArm } from "@/lib/image-evals/cases";
 import { bindStyleReferenceControl, emptyEvalState, runImageEval, type EvalRunState } from "@/lib/image-evals/runner";
 import { buildReport, buildScoreTemplate, renderComparisonSheet, renderContactSheet, type EvalReport, type ScoreFile } from "@/lib/image-evals/report";
-import { createOpenRouterEvalImageProvider, createOpenRouterEvalPlannerProvider } from "@/lib/image-evals/adapters";
+import { createOpenRouterEvalImageProvider } from "@/lib/image-evals/adapters";
 import { genericArm, isGenericArm, type GenericEvalContext, type GenericEvalProvider } from "@/lib/image-evals/generic";
-import { resolveGenerationPassage } from "@/lib/generation-passage";
-import { getScenePlannerModelId, isScenePlannerEnabled } from "@/lib/scene-planner";
 import { fetchImageModels } from "@/lib/image-models";
 import type { ImageBilling } from "@/lib/image-catalog";
 import { createOpenRouterTextModel } from "@/lib/reading-pass/model";
@@ -44,12 +43,11 @@ import { listAnalysisRecords } from "@/lib/engine/analysis-records";
 import { analysisRecords, type ReadingPassState } from "@/lib/reading-pass/run";
 import { canonRecords, type CanonState } from "@/lib/reading-pass/canon-run";
 import type { ReferenceRecord } from "@/lib/engine/assemble";
-import type { Translation } from "@/lib/bible-api";
 
 const { values } = parseArgs({ options: {
-  "dry-run": { type: "boolean", default: false }, run: { type: "string", default: "latest" }, cases: { type: "string" }, arms: { type: "string", default: EVAL_ARMS.join(",") },
-  repeats: { type: "string", default: "3" }, budget: { type: "string", default: "1.00" }, "estimate-image-usd": { type: "string", default: "0.035" }, "estimate-planner-usd": { type: "string", default: "0" },
-  file: { type: "string" }, "planner-model": { type: "string" },
+  "dry-run": { type: "boolean", default: false }, run: { type: "string", default: "latest" }, cases: { type: "string" }, arms: { type: "string", default: "generic" },
+  repeats: { type: "string", default: "3" }, budget: { type: "string", default: "1.00" }, "estimate-image-usd": { type: "string", default: "0.035" },
+  file: { type: "string" },
   styles: { type: "string" }, analysis: { type: "string" }, "style-file": { type: "string" }, compare: { type: "string" }, "estimate-preparation-usd": { type: "string", default: "0.0005" },
   "omit-style-reference": { type: "boolean", default: false },
 } });
@@ -101,46 +99,42 @@ if (values["style-file"]) {
 const requestedStyles = values.styles ? values.styles.split(",").map((s) => s.trim()).filter(Boolean) : [...SHARED_STYLES.styles.map((s) => s.id), ...Object.keys(styleTrials)];
 const arms = values.arms.split(",").map((s) => s.trim()).filter(Boolean).flatMap((arm) => (arm === "generic" ? requestedStyles.map(genericArm) : [arm])) as EvalArm[];
 for (const arm of arms) {
-  if (isGenericArm(arm)) { const id = arm.slice("generic:".length); if (!SHARED_STYLES.styles.some((s) => s.id === id) && !styleTrials[id]) throw new Error(`Unknown art style ${id}; add it to the library or pass --style-file`); continue; }
-  if (!(EVAL_ARMS as readonly string[]).includes(arm)) throw new Error(`Unknown arm ${arm}; use direct, planner, generic or generic:<style>`);
+  if (!isGenericArm(arm)) throw new Error(`Unknown arm ${arm}; use generic or generic:<style> (the legacy direct and planner arms were removed with the legacy engine)`);
+  const id = arm.slice("generic:".length);
+  if (!SHARED_STYLES.styles.some((s) => s.id === id) && !styleTrials[id]) throw new Error(`Unknown art style ${id}; add it to the library or pass --style-file`);
 }
 const omitStyleReference = values["omit-style-reference"];
-if (omitStyleReference && !arms.some(isGenericArm)) throw new Error("--omit-style-reference requires a generic arm");
 const repeats = Number.parseInt(values.repeats, 10);
 const budgetUsd = Number(values.budget);
-const estimateUsd = { image: Number(values["estimate-image-usd"]), planner: Number(values["estimate-planner-usd"]), preparation: Number(values["estimate-preparation-usd"]) };
+const estimateUsd = { image: Number(values["estimate-image-usd"]), preparation: Number(values["estimate-preparation-usd"]) };
 if (!Number.isInteger(repeats) || repeats < 1) throw new Error("--repeats must be a positive integer");
 if (!Number.isFinite(budgetUsd) || budgetUsd <= 0) throw new Error("--budget must be a positive USD amount");
-if (![estimateUsd.image, estimateUsd.planner, estimateUsd.preparation].every((n) => Number.isFinite(n) && n >= 0)) throw new Error("estimates must be non-negative USD amounts");
+if (![estimateUsd.image, estimateUsd.preparation].every((n) => Number.isFinite(n) && n >= 0)) throw new Error("estimates must be non-negative USD amounts");
 
 const runDir = path.join(root, "evals", "images", "runs", values.run);
 const outputsDir = path.join(runDir, "outputs");
 await mkdir(outputsDir, { recursive: true });
 const statePath = path.join(runDir, "state.json");
 const imageModel = cases[0]?.resolvedSettings.model ?? "google/gemini-3.1-flash-lite-image";
-const plannerModel = arms.includes("planner") ? (values["planner-model"] ?? (isScenePlannerEnabled() ? getScenePlannerModelId() : null)) : null;
-const state: EvalRunState = existsSync(statePath) ? JSON.parse(await readFile(statePath, "utf8")) : emptyEvalState(values.run, imageModel, plannerModel);
-if (state.imageModel !== imageModel || state.plannerModel !== plannerModel) throw new Error(`Run "${values.run}" was started with ${state.imageModel} / ${state.plannerModel ?? "no planner"}; use a new --run for ${imageModel} / ${plannerModel ?? "no planner"}`);
+const state: EvalRunState = existsSync(statePath) ? JSON.parse(await readFile(statePath, "utf8")) : emptyEvalState(values.run, imageModel);
+if (state.imageModel !== imageModel || state.plannerModel) throw new Error(`Run "${values.run}" was started with ${state.imageModel}${state.plannerModel ? ` and the legacy planner ${state.plannerModel}` : ""}; use a new --run for ${imageModel}`);
 bindStyleReferenceControl(state, omitStyleReference);
 const saveState = async (next: EvalRunState) => { await writeFile(statePath, JSON.stringify(next, null, 1)); };
 
-console.log(`${cases.length} case(s) (${coverage.total} in the file; genres ${Object.entries(coverage.byGenre).map(([g, n]) => `${g} ${n}`).join(", ")}${coverage.missing.length ? `; missing ${coverage.missing.join(", ")}` : ""}), arms ${arms.join("+")}, ${repeats} repeat(s), image ${imageModel}, planner ${plannerModel ?? "none"}`);
-if (arms.includes("planner") && !plannerModel) console.log("Planner arm requested but the scene planner is disabled (ENABLE_SCENE_PLANNER=false) and no --planner-model given: planner samples will run without a plan.");
+console.log(`${cases.length} case(s) (${coverage.total} in the file; genres ${Object.entries(coverage.byGenre).map(([g, n]) => `${g} ${n}`).join(", ")}${coverage.missing.length ? `; missing ${coverage.missing.join(", ")}` : ""}), arms ${arms.join("+")}, ${repeats} repeat(s), image ${imageModel}`);
 
 if (values["dry-run"]) {
-  const { manifest } = await runImageEval({ cases, arms, repeats, budgetUsd, estimateUsd, omitStyleReference, dryRun: true, providers: { resolvePassage: async () => null, image: { id: "none", generate: async () => { throw new Error("dry run"); } }, planner: null, generic: null, sink: { save: async () => "" } }, state, saveState });
+  const { manifest } = await runImageEval({ cases, arms, repeats, budgetUsd, estimateUsd, omitStyleReference, dryRun: true, providers: { image: { id: "none", generate: async () => { throw new Error("dry run"); } }, generic: null, sink: { save: async () => "" } }, state, saveState });
   await saveState(state);
   await writeFile(path.join(runDir, "manifest.json"), JSON.stringify(manifest, null, 1));
-  const genericArms = arms.filter(isGenericArm);
-  console.log(`Dry run: ${manifest.plannedCalls} sample(s) to make (${manifest.doneCalls} already done), about $${manifest.estimatedUsd.toFixed(2)} at $${estimateUsd.image} per image${arms.includes("planner") ? ` + $${estimateUsd.planner} per plan` : ""}${genericArms.length ? ` + up to 2 × $${estimateUsd.preparation} preparation per generic sample (${genericArms.join(", ")})` : ""}; budget $${budgetUsd.toFixed(2)} → ${manifest.withinBudget ? "fits" : "DOES NOT FIT; the run would stop at the budget"}. Manifest written to ${path.relative(root, path.join(runDir, "manifest.json"))}.`);
+  console.log(`Dry run: ${manifest.plannedCalls} sample(s) to make (${manifest.doneCalls} already done), about $${manifest.estimatedUsd.toFixed(2)} at $${estimateUsd.image} per image + up to 3 × $${estimateUsd.preparation} preparation per sample (${arms.join(", ")}); budget $${budgetUsd.toFixed(2)} → ${manifest.withinBudget ? "fits" : "DOES NOT FIT; the run would stop at the budget"}. Manifest written to ${path.relative(root, path.join(runDir, "manifest.json"))}.`);
   process.exit(0);
 }
 
 const apiKey = process.env.OPENROUTER_API_KEY;
 if (!apiKey) throw new Error("OPENROUTER_API_KEY is not set");
 // The generic engine's inputs and analysis, per work, from the deployment or from preparation state files.
-async function createGenericProvider(): Promise<GenericEvalProvider | null> {
-  if (!arms.some(isGenericArm)) return null;
+async function createGenericProvider(): Promise<GenericEvalProvider> {
   const url = process.env.NEXT_PUBLIC_CONVEX_URL;
   const secret = process.env.CONVEX_SERVER_SECRET;
   const analysis = values.analysis ?? (url && secret ? "convex" : "latest");
@@ -194,9 +188,7 @@ async function createGenericProvider(): Promise<GenericEvalProvider | null> {
 }
 
 const providers = {
-  resolvePassage: (reference: string, translation: string) => resolveGenerationPassage(reference, translation as Translation),
   image: createOpenRouterEvalImageProvider({ apiKey }),
-  planner: plannerModel ? createOpenRouterEvalPlannerProvider({ apiKey, model: plannerModel }) : null,
   generic: await createGenericProvider(),
   sink: { save: async (key: string, bytes: Uint8Array, mimeType: string) => {
     const file = path.join(outputsDir, `${key}.${mimeType === "image/jpeg" ? "jpg" : mimeType.split("/")[1] ?? "png"}`);
